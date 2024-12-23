@@ -772,7 +772,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4372"
+    "version": "4382"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -2027,7 +2027,7 @@
   "legacyPackages.x86_64-linux.one-api": {
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
-    "version": "0.6.8"
+    "version": "0.6.9"
   },
   "legacyPackages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
@@ -3487,7 +3487,7 @@
   "legacyPackages.x86_64-linux.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.4"
+    "version": "4.0.5"
   },
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -3672,7 +3672,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-12-21"
+    "version": "0-unstable-2024-12-23"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4167,7 +4167,7 @@
   "legacyPackages.x86_64-linux.uncategorized.one-api": {
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
-    "version": "0.6.8"
+    "version": "0.6.9"
   },
   "legacyPackages.x86_64-linux.uncategorized.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
@@ -4242,7 +4242,7 @@
   "legacyPackages.x86_64-linux.uncategorized.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.4"
+    "version": "4.0.5"
   },
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -4277,7 +4277,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-12-21"
+    "version": "0-unstable-2024-12-23"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -5027,7 +5027,7 @@
   "packages.x86_64-linux.one-api": {
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
-    "version": "0.6.8"
+    "version": "0.6.9"
   },
   "packages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
@@ -5142,7 +5142,7 @@
   "packages.x86_64-linux.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.4"
+    "version": "4.0.5"
   },
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -5192,7 +5192,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-12-21"
+    "version": "0-unstable-2024-12-23"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",

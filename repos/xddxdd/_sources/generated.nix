@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "9f0e80e3a68b359d8f9da95b2eb326da9cc9bead";
+    version = "5aedd766dbffb2ca600d984799916580ae6cff1e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "9f0e80e3a68b359d8f9da95b2eb326da9cc9bead";
-      hash = "sha256-F4SQeF1O3ufqDO9KtwdHRNlW3huw6tTGvXO3R6GIaG8=";
+      rev = "5aedd766dbffb2ca600d984799916580ae6cff1e";
+      hash = "sha256-Joyo9fQh/1Fxp8ZSQJJBuHmsUdtNSc2UD3N6237ZR+Q=";
     };
-    date = "2024-12-19";
+    date = "2024-12-23";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "991805bf8102c3ef4c59a269732609718088bed5";
+    version = "890bc98d89638abc98db92df15247c20ebeea61c";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "991805bf8102c3ef4c59a269732609718088bed5";
-      hash = "sha256-0ddm666irhIxJLcJSke/HVI6Rtk2i84v/KfDZHN9Nl8=";
+      rev = "890bc98d89638abc98db92df15247c20ebeea61c";
+      hash = "sha256-eGvbGB5C0fKUuZxmRiCtrBltorsRW03UMnkpKGg3q08=";
     };
-    date = "2024-12-19";
+    date = "2024-12-22";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4372";
+    version = "b4382";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4372";
-      hash = "sha256-QErDK2qFhRQ+hoOmndmvKRPiVIqP32lkxuvy9pBr9wg=";
+      tag = "b4382";
+      hash = "sha256-qH2Cn6V9TVSZ70egPk27J9PQtUl2TRkLexG7rYqG4FQ=";
     };
   };
   loralib = {
@@ -1078,18 +1078,18 @@
   };
   one-api-amd64 = {
     pname = "one-api-amd64";
-    version = "v0.6.8";
+    version = "v0.6.9";
     src = fetchurl {
-      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api";
-      hash = "sha256-vW+VnIyLGgEmHhgeEvXecR/ZeSWQ9DD1s5bZke3JwC8=";
+      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.9/one-api";
+      hash = "sha256-yQYI6irvcRtgKbdHlQkXnQZnKykoafAdwc1t3Dl14Jw=";
     };
   };
   one-api-arm64 = {
     pname = "one-api-arm64";
-    version = "v0.6.8";
+    version = "v0.6.9";
     src = fetchurl {
-      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api-arm64";
-      hash = "sha256-iaFzBcAk7XOmkfqHz/v4nx7GmKQ+XxvmJgs46/eCx1M=";
+      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.9/one-api-arm64";
+      hash = "sha256-UDHGU/Qmz/eTO1Zk2A3n3dV+0dz/xbZ8scXawtHOgyA=";
     };
   };
   openai-edge-tts = {
@@ -1301,10 +1301,10 @@
   };
   procps4 = {
     pname = "procps4";
-    version = "4.0.4";
+    version = "4.0.5";
     src = fetchurl {
-      url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz";
-      hash = "sha256-IocNb+skeK22F85PCaeHrdry0mDFqKp7F9iJqWLF5C4=";
+      url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.5.tar.xz";
+      hash = "sha256-wubRk8x4+EzW3bcqr21capFi8EcOWZIJIFf1/1GFYvo=";
     };
   };
   pterodactyl-wings = {
@@ -1438,14 +1438,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "dcf78172576dc1fac536e69b194e21892004449f";
+    version = "79474da0e7e45658d07277ec6c69f0764a18e9f7";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "dcf78172576dc1fac536e69b194e21892004449f";
-      hash = "sha256-jZjNbYXQXAX9XMUZebud60Niee0sU0jv6SmCQ47rWzs=";
+      rev = "79474da0e7e45658d07277ec6c69f0764a18e9f7";
+      hash = "sha256-7hjcctAlBE7V8gu+9ahR2GGWZ9YiPba7+Ij6PZwicPQ=";
     };
-    date = "2024-12-21";
+    date = "2024-12-23";
   };
   qsp-stable = {
     pname = "qsp-stable";
