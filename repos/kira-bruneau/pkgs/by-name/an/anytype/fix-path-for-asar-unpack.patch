@@ -1,5 +1,5 @@
 diff --git a/electron.js b/electron.js
-index d06dd0481..8c78f7f81 100644
+index 04ae6096bd..392f079439 100644
 --- a/electron.js
 +++ b/electron.js
 @@ -1,14 +1,14 @@
@@ -20,7 +20,7 @@ index d06dd0481..8c78f7f81 100644
  // Fix notifications app name
  if (is.windows) {
 diff --git a/electron/js/lib/installNativeMessagingHost.js b/electron/js/lib/installNativeMessagingHost.js
-index 22de950fc..d0ced3b6f 100644
+index e86566093c..8fadd26880 100644
 --- a/electron/js/lib/installNativeMessagingHost.js
 +++ b/electron/js/lib/installNativeMessagingHost.js
 @@ -13,7 +13,7 @@ const { userInfo, homedir } = require('os');
@@ -42,11 +42,11 @@ index 22de950fc..d0ced3b6f 100644
  
  const getHomeDir = () => {
 diff --git a/electron/js/window.js b/electron/js/window.js
-index 902ed9048..2c603a728 100644
+index 3176249431..5c04941b0b 100644
 --- a/electron/js/window.js
 +++ b/electron/js/window.js
 @@ -1,5 +1,5 @@
- const { app, BrowserWindow, nativeImage, dialog, screen } = require('electron');
+ const { app, BrowserWindow, nativeImage, dialog } = require('electron');
 -const { is, fixPathForAsarUnpack } = require('electron-util');
 +const { is } = require('electron-util');
  const path = require('path');

@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "tantivy-go";
-  version = "0.2.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "tantivy-go";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-ir6UAuPk9TubGCXOs0RoQ2FYIG1tcvcE5APW9U5oAQE=";
+    tag = "v${version}";
+    hash = "sha256-IlGtyTjOAvmrbgmvy4NelTOgOWopxNta3INq2QcMEqY=";
   };
 
   sourceRoot = "${src.name}/rust";
