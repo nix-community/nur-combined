@@ -12,9 +12,10 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   hayai = pkgs.callPackage ./pkgs/hayai {};
-  xyosc = pkgs.callPackage ./pkgs/xyosc {};
-  nezumi-p = pkgs.callPackage ./pkgs/nezumi-p {};
+  himitsu = pkgs.callPackage ./pkgs/himitsu {};
   kuiper = pkgs.callPackage ./pkgs/kuiper {};
+  nezumi-p = pkgs.callPackage ./pkgs/nezumi-p {};
+  xyosc = pkgs.callPackage ./pkgs/xyosc {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
