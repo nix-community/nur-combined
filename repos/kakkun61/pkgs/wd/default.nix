@@ -10,10 +10,12 @@ stdenv.mkDerivation rec {
   pname = "wd";
   version = "1.1.0";
   src = fetchzip {
-    url = "https://github.com/kakkun61/wd/releases/download/1.1.0/wd-${version}-${targets.${system}}.zip";
-    sha256 = "sha256-b/DmrIzoTurSOK3Z6DzlSIJfEcRxKoHEbL/IbaUR9Gs=";
+    url = "https://github.com/kakkun61/wd/tarball/${version}";
+    sha256 = "sha256-WNwsgSOcYVfXnJ7/DayvlE490Jheum9gCkoEdnGdggM=";
+    extension = "tar.gz";
   };
-  installPhase = "install -Dm755 wd $out";
+  buildPhase = "make -C linux";
+  installPhase = "make -C linux install out=$out";
   meta = with lib; {
     homepage = https://github.com/kakkun61/wd;
     changelog = "https://github.com/kakkun61/wd/releases/tag/${version}";
