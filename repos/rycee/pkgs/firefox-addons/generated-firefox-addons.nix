@@ -2682,10 +2682,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.1.1";
+      version = "1.2.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403076/elasticvue-1.1.1.xpi";
-      sha256 = "6e48da19771278482ab2c3668168557967befae7cb4f132c1996fa37809cbf1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408853/elasticvue-1.2.0.xpi";
+      sha256 = "ceb0c76dca2aafb744691097b8f73cabeb68cd4d49b54bc1eae8259e50ce1d69";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -13357,10 +13357,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.5";
+      version = "3.6.0";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4397346/youtube_redux-3.5.5.xpi";
-      sha256 = "51f84380e497c0952fbfd4d1d862e5d323f99e94ca21f21111bcf359b08dce77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409067/youtube_redux-3.6.0.xpi";
+      sha256 = "3cab5944de0f9c5b7d9d58272cd09eea5ff5291a32fe0d7b9bd42df9d3dda26d";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
