@@ -22,6 +22,7 @@
     python3Full
     libreoffice-bin
     imagemagick
+    nixfmt-rfc-style
   ];
 
   # Enable trackpad tap to click

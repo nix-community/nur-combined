@@ -20,6 +20,7 @@
           modules = [
             (import ./configs/home.nix { inherit username; })
             {
+              home.sessionVariables = { ELECTRON_OZONE_PLATFORM_HINT = "auto"; };
               targets.genericLinux.enable = true;
               home.packages = with nixpkgs.legacyPackages."aarch64-linux"; [
                 librewolf
@@ -27,6 +28,7 @@
                 qbittorrent
                 telegram-desktop
                 imagemagick
+                nixfmt-rfc-style
               ];
             }
           ];
