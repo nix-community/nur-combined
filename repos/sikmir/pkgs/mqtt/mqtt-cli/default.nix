@@ -13,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "hivemq";
     repo = "mqtt-cli";
-    name = "mqtt-cli-${finalAttrs.version}.jar";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jn+dhZa4orcZkus30nScgyih7Oa5/XWI33qR/8XAwGQ=";
-    version = "v${finalAttrs.version}";
+    name = "mqtt-cli-${finalAttrs.version}.jar";
   };
 
   nativeBuildInputs = [ makeWrapper ];

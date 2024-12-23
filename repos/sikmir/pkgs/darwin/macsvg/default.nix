@@ -13,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "dsward2";
     repo = "macSVG";
-    name = "macSVG-v${lib.versions.majorMinor finalAttrs.version}.zip";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wlEFUzFQ9fnSjmsIrCDzRvSZmfcK9V+go6pNYJOqN+w=";
-    version = "v${finalAttrs.version}";
+    name = "macSVG-v${lib.versions.majorMinor finalAttrs.version}.zip";
   };
 
   sourceRoot = ".";

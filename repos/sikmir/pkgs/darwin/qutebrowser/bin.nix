@@ -14,9 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "qutebrowser";
     repo = "qutebrowser";
-    name = "qutebrowser-${finalAttrs.version}-x86_64.dmg";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-+UkClMhU9tqQFeOOap16bDXyi2RRsykV/hZrMhUEfdM=";
-    version = "v${finalAttrs.version}";
+    name = "qutebrowser-${finalAttrs.version}-x86_64.dmg";
   };
 
   sourceRoot = ".";

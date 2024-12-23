@@ -8,14 +8,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qstudio";
-  version = "2.54";
+  version = "4.03";
 
   src = fetchfromgh {
     owner = "timeseries";
     repo = "qstudio";
+    tag = finalAttrs.version;
+    hash = "sha256-96E+exTt1Vebg2XL/c9c7gUFWYMkxjnAVumxg0U6Gpg=";
     name = "qstudio.jar";
-    hash = "sha256-NN2pkAjlwTbq25AafD06NMoAaOknW5nimya2zi+aMBQ=";
-    version = finalAttrs.version;
   };
 
   nativeBuildInputs = [ makeWrapper ];

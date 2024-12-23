@@ -12,9 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "MacPass";
     repo = "MacPass";
-    name = "MacPass-${finalAttrs.version}.zip";
+    tag = finalAttrs.version;
     hash = "sha256-LQ073JRbQsDB/nmx63Tllptfdo/8VqoobXPTSShzsXM=";
-    inherit (finalAttrs) version;
+    name = "MacPass-${finalAttrs.version}.zip";
   };
 
   sourceRoot = ".";

@@ -3,7 +3,7 @@
 {
   owner,
   repo,
-  version,
+  tag,
   name,
   ...
 }@args:
@@ -13,12 +13,12 @@ in
 (
   fetchurl (
     {
-      url = "${baseUrl}/releases/download/${version}/${name}";
+      url = "${baseUrl}/releases/download/${tag}/${name}";
     }
     // removeAttrs args [
       "owner"
       "repo"
-      "version"
+      "tag"
       "name"
     ]
   )

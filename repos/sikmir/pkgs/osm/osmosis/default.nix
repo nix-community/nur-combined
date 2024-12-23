@@ -3,21 +3,22 @@
   stdenv,
   fetchfromgh,
   jre,
+  unzip,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osmosis";
-  version = "0.48.3";
+  version = "0.49.2";
 
   src = fetchfromgh {
     owner = "openstreetmap";
     repo = "osmosis";
-    name = "osmosis-${finalAttrs.version}.tgz";
-    hash = "sha256-skxgFXjqTLDKiDAr5naP0GAr3obCVKDguQUTWB26Z/8=";
-    inherit (finalAttrs) version;
+    tag = finalAttrs.version;
+    hash = "sha256-aVDx39vkM3rRk7BQEwk1FCbEA/q3cAYcndypoorvwm0=";
+    name = "osmosis-${finalAttrs.version}.zip";
   };
 
-  sourceRoot = ".";
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out
@@ -30,6 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command line Java application for processing OSM data";
     homepage = "http://wiki.openstreetmap.org/wiki/Osmosis";
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;

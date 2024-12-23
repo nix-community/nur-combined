@@ -7,14 +7,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "Amethyst";
-  version = "0.20.0";
+  version = "0.21.2";
 
   src = fetchfromgh {
     owner = "ianyh";
     repo = "Amethyst";
-    version = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-pqUzcNUP8v3ls68BIzWXggXgUVe1wc/bN5BtXqKHXM4=";
     name = "Amethyst.zip";
-    hash = "sha256-GYorvoCDLOd/xYStIGkSBqF5QjVR3PHL30b/Hm+CnAk=";
   };
 
   sourceRoot = ".";

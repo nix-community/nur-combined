@@ -14,9 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "qt-creator";
     repo = "qt-creator";
-    name = "qtcreator-macos-universal-${finalAttrs.version}.7z";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-4Z5czgLtU9mrc1HKIkuMWv3O3x3Zul9MJNUHjN7mb0k=";
-    version = "v${finalAttrs.version}";
+    name = "qtcreator-macos-universal-${finalAttrs.version}.7z";
   };
 
   sourceRoot = ".";

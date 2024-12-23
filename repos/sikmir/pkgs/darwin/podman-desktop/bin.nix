@@ -2,38 +2,25 @@
   lib,
   stdenv,
   fetchfromgh,
-  undmg,
+  _7zz,
 }:
 
-let
-  arch =
-    {
-      "aarch64-darwin" = "arm64";
-      "x86_64-darwin" = "x64";
-    }
-    .${stdenv.hostPlatform.system};
-  hash =
-    {
-      "aarch64-darwin" = "sha256-3+Lib7gWF03UrIKRcyzHw9aX79aebkCQscAPdKAf6z0=";
-      "x86_64-darwin" = "sha256-miIw5xsL6GSHC+sX3JNxktfwhY5tkLrLCNdHHUwdtdY=";
-    }
-    .${stdenv.hostPlatform.system};
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "podman-desktop";
-  version = "1.7.0";
+  version = "1.15.0";
 
   src = fetchfromgh {
     owner = "containers";
     repo = "podman-desktop";
-    name = "podman-desktop-${finalAttrs.version}-${arch}.dmg";
-    version = "v${finalAttrs.version}";
-    inherit hash;
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-TS2232oa7lnDh4E3F3Z3y2IGX2Q/SRV/tWIlvgpBkEU=";
+    name = "podman-desktop-${finalAttrs.version}-x64.dmg";
   };
 
-  nativeBuildInputs = [ undmg ];
-
   sourceRoot = ".";
+
+  nativeBuildInputs = [ _7zz ];
+  unpackCmd = "7zz x $curSrc";
 
   installPhase = ''
     runHook preInstall
@@ -47,10 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://podman-desktop.io/";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.asl20;
-    platforms = [
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-darwin" ];
     maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };

@@ -9,14 +9,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "planetiler";
-  version = "0.7.0";
+  version = "0.8.3";
 
   src = fetchfromgh {
     owner = "onthegomap";
     repo = "planetiler";
-    version = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-eUDwcJE3Lq2KfC8fedXVq8kUW6zQNt6HurycXFeoFmw=";
     name = "planetiler.jar";
-    hash = "sha256-rq5cihkU65xtVkrTvVrT7lPoy+Q92aOawYUWxd5LObI=";
   };
 
   dontUnpack = true;

@@ -22,7 +22,7 @@ let
   src = fetchfromgh {
     owner = "GoldenCheetah";
     repo = "GoldenCheetah";
-    version = "V${version}";
+    tag = "V${version}";
     name = "GoldenCheetah_v${version}_${suffix}";
     sha256 =
       {

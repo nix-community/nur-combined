@@ -8,14 +8,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "darktable-bin";
-  version = "4.8.0";
+  version = "5.0.0";
 
   src = fetchfromgh {
     owner = "darktable-org";
     repo = "darktable";
+    tag = "release-${finalAttrs.version}";
+    hash = "sha256-P0nPtjlYJpuZBlz2tQFnjU5j8kV+4ZFbzX/6Df753P0=";
     name = "darktable-${finalAttrs.version}-x86_64.dmg";
-    hash = "sha256-ve1phvcq+JAfD6KGhtbQbmt2bYMcKavooBY7WlA6UOY=";
-    version = "release-${finalAttrs.version}";
   };
 
   sourceRoot = ".";

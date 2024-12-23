@@ -15,9 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "orbisgis";
     repo = "orbisgis";
-    name = "orbisgis-bin.zip";
-    version = "${finalAttrs.version}-SNAPSHOT";
+    tag = "${finalAttrs.version}-SNAPSHOT";
     hash = "sha256-e7SSn+P8rF5eSbl4Z/zp1mHNN2rAi4ZoMvkoy360hGM=";
+    name = "orbisgis-bin.zip";
   };
 
   nativeBuildInputs = [

@@ -13,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchfromgh {
     owner = "Serial-Studio";
     repo = "Serial-Studio";
-    name = "SerialStudio-${finalAttrs.version}-macOS.zip";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Hl3HoBfDum4APCXpKwQTkrCdTu3UyCnbzHn1omxc9Nc=";
-    version = "v${finalAttrs.version}";
+    name = "SerialStudio-${finalAttrs.version}-macOS.zip";
   };
 
   sourceRoot = ".";

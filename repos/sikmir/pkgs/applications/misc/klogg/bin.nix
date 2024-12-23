@@ -22,7 +22,7 @@ let
   src = fetchfromgh {
     owner = "variar";
     repo = "klogg";
-    version = "v${version}";
+    tag = "v${version}";
     name = "klogg-${version}.0.1289-${suffix}";
     hash =
       {
