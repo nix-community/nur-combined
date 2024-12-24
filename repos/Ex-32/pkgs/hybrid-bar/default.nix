@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "vars1ty";
     repo = "HybridBar";
-    rev = "${version}";
+    rev = version;
     hash = "sha256-e9QVDDN8AtCZYuYqef1rzLJ0mklaKXzxgj+ZqGrSYEY=";
   };
 

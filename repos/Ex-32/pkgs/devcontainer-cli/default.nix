@@ -6,13 +6,13 @@
 }:
 mkYarnPackage rec {
   pname = "devcontainers";
-  version = "0.59.1";
+  version = "0.72.0";
 
   src = fetchFromGitHub {
     owner = "devcontainers";
     repo = "cli";
     rev = "v${version}";
-    hash = "sha256-Ic62qLJNDF193tBVbWxnFy+zJ/JJ9f7AAW+fDPPbskc=";
+    hash = "sha256-3rSWD6uxwcMQdHBSmmAQ0aevqevVXINigCj06jjEcRc=";
   };
 
   yarnLock = "${src}/yarn.lock";
@@ -20,7 +20,7 @@ mkYarnPackage rec {
 
   offlineCache = fetchYarnDeps {
     inherit yarnLock;
-    hash = "sha256-tN7qAvfYmDz5ZtgZL5+ZZtkuxZxvlS9FM3+dGl+daUQ=";
+    hash = "sha256-KSVr6RlBEeDAo8D+7laTN+pSH8Ukl6WTpeAULuG2fq8=";
   };
 
   buildPhase = ''

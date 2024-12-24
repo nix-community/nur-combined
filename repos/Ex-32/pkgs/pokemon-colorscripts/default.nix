@@ -4,10 +4,10 @@
   fetchFromGitLab,
   python3,
 }: let
-  rev = "0483c85b93362637bdd0632056ff986c07f30868";
-  hash = "sha256-rj0qKYHCu9SyNsj1PZn1g7arjcHuIDGHwubZg/yJt7A=";
+  rev = "5802ff67520be2ff6117a0abc78a08501f6252ad";
+  hash = "sha256-gKVmpHKt7S2XhSxLDzbIHTjJMoiIk69Fch202FZffqU=";
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation {
     pname = "pokemon-colorscripts";
     version = builtins.substring 0 8 rev;
 
