@@ -988,10 +988,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.11.2";
+      version = "2024.12.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392295/bitwarden_password_manager-2024.11.2.xpi";
-      sha256 = "38faecbfca76086a54e62b6e2036eae45e9d9f9f3aee4c7a72b652593f51b8e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4407804/bitwarden_password_manager-2024.12.3.xpi";
+      sha256 = "a48af549da66e2987a135b0cb918b1c90f8e80b868760cbaa07c8f6df4da9b07";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1000,17 +1000,17 @@
         mozPermissions = [
           "<all_urls>"
           "*://*/*"
-          "tabs"
-          "contextMenus"
-          "storage"
-          "unlimitedStorage"
+          "alarms"
           "clipboardRead"
           "clipboardWrite"
+          "contextMenus"
           "idle"
-          "alarms"
+          "storage"
+          "tabs"
+          "unlimitedStorage"
+          "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          "webNavigation"
           "file:///*"
           "https://lastpass.com/export.php"
         ];
@@ -7485,10 +7485,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.14";
+      version = "1.0.15";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408103/mergify-1.0.14.xpi";
-      sha256 = "6c55460daf44dc89f0eea7d509b8ec0167229a97e936afd2e006ed09a8a63dba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409341/mergify-1.0.15.xpi";
+      sha256 = "3cdcdcb9cab9696db4090f5fa0b95a6fd0ceaa1b1a5f7b56ca3bbc84926cb8ad";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -9319,10 +9319,10 @@
     };
     "prometheus-formatter" = buildFirefoxXpiAddon {
       pname = "prometheus-formatter";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "prometheus-formatter@frederic-hemberger.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4166150/prometheus_formatter-3.1.0.xpi";
-      sha256 = "2796e4a48ee6f813859ea252fe50dd0ab895bb570da4cb3caa3702d2f3413b22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409277/prometheus_formatter-3.2.0.xpi";
+      sha256 = "f7a10896f573439f026b44f6911d1839fc4ea0583981eb0162bc13aa077d12e9";
       meta = with lib;
       {
         homepage = "https://github.com/fhemberger/prometheus-formatter";
@@ -9620,10 +9620,10 @@
     };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.62";
+      version = "6.6.65";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387956/raindropio-6.6.62.xpi";
-      sha256 = "6503b1aa46ce45e5e2a0fa1da568f2279f87aa55e07ee406814fe1aa33b0905a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406418/raindropio-6.6.65.xpi";
+      sha256 = "7b0a827fc089169b012d8869051047f7dbe64e36d60c1dabf8c2542ac3b5c882";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -9676,10 +9676,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.76.0";
+      version = "1.77.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396569/read_aloud-1.76.0.xpi";
-      sha256 = "dc87b4a07de9c352c2554737c93cd4429ccf7dcf67d6c5eb44fec758fea88434";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406246/read_aloud-1.77.0.xpi";
+      sha256 = "de5db284a394a72a8d76b1636dbd62185db92fb5f8d78b00632c8638cb9cbf0f";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -11294,10 +11294,10 @@
     };
     "theater-mode-for-youtube" = buildFirefoxXpiAddon {
       pname = "theater-mode-for-youtube";
-      version = "0.2.3";
+      version = "0.2.4";
       addonId = "{b8326f03-322f-4112-96bd-e7996548d99f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323643/theater_mode_for_youtube-0.2.3.xpi";
-      sha256 = "7dca9966a23dc58226c179f1d8aa8fbd2e603e273016281ff1d9ec5fe69fc186";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409152/theater_mode_for_youtube-0.2.4.xpi";
+      sha256 = "4c6f93de2fc6c4346ce0cb88253c17482a56bd5165555c197e4a8e271cea1631";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/youtube-tools.html?theater";
