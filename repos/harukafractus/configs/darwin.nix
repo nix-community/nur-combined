@@ -18,7 +18,6 @@
     unar
     whisky
     lunarfyi
-    sol
     python3Full
     libreoffice-bin
     imagemagick
@@ -67,14 +66,12 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.${username} = import (./home.nix { inherit username; });
+    users.${username} = (import ./home.nix { inherit username; });
   };
 
   # Enable flakes and optimise store during every build
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
-  };
+  nix.settings.experimental-features = "nix-command flakes";
+  nix.optimise.automatic = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 5;

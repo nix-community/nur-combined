@@ -12,7 +12,7 @@
   outputs = { self, nixpkgs, home-manager, ... }@attrs:
     let
       username = "haruka";
-      mac-hostname = "kayiu-m1mac";
+      mac-hostname = "alpha-mac";
     in {
       homeConfigurations.${username} =
         home-manager.lib.homeManagerConfiguration {
