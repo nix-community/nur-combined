@@ -33,6 +33,12 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | --- | --- | --- |
 ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name} | ${replaceStrings [ "_" ] [ "\\_" ] k} | ${v.meta.description} |") nurAttrsFiltered)}
 
+## Overlay
+
+The default overlay will add all the packages above in the `pkgs.hax` namespace, e.g. `pkgs.hax.save3ds`.
+
+There is a NixOS module to automatically add this overlay as `nixosModules.overlay`. This module can also be used with Home Manager and nix-darwin.
+
 ## Home Manager modules
 
 ### services.lnshot.enable

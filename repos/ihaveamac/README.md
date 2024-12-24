@@ -36,6 +36,12 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [themethod3-2024-04-20](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
 | [unxip-3.0](https://github.com/saagarjha/unxip) | unxip | A fast Xcode unarchiver |
 
+## Overlay
+
+The default overlay will add all the packages above in the `pkgs.hax` namespace, e.g. `pkgs.hax.save3ds`.
+
+There is a NixOS module to automatically add this overlay as `nixosModules.overlay`. This module can also be used with Home Manager and nix-darwin.
+
 ## Home Manager modules
 
 ### services.lnshot.enable

@@ -9,7 +9,8 @@ let
   nurAttrs = import ./default.nix { pkgs = super; };
 
 in
-builtins.listToAttrs
+{ hax = builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n)
-      (builtins.attrNames nurAttrs)))
+      (builtins.attrNames nurAttrs)));
+}
