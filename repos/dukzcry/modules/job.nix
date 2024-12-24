@@ -16,7 +16,7 @@ in {
   config = mkMerge [
     (mkIf cfg.client {
       environment.systemPackages = with pkgs; [
-        remmina postman
+        remmina postman zip
       ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
