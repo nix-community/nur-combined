@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "e63e414aa662c81673818795f87490e2815d57ff";
+    version = "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "e63e414aa662c81673818795f87490e2815d57ff";
+      rev = "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b";
       fetchSubmodules = false;
-      sha256 = "sha256-or3LYeHsAn9YzutFsmfInMfzTinha82/Gw9zIB14uFE=";
+      sha256 = "sha256-0awwiJjYGvwzqghzjgQiE6rRyv//I68l2ivwdstbBfU=";
     };
-    date = "2024-11-27";
+    date = "2024-12-22";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -43,10 +43,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.3.1";
+    version = "3.4.0";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.3.1/qutebrowser-3.3.1-arm64.dmg";
-      sha256 = "sha256-09E0wYS/EsjRE56sDK6iQBOGUsCdGKzT/4AY+qxkqok=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.4.0/qutebrowser-3.4.0-arm64.dmg";
+      sha256 = "sha256-H5u8q/wjwlx5pw/S14wVe2+TExioD6PgcZZhdXobXqE=";
     };
   };
   sbarlua = {
@@ -63,22 +63,22 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "2cdd414c1bfa8c363505b8dfc9f50ef2f446ea61";
+    version = "e8ec5d28902a5281c6e5954d00f17a0042480a8e";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "2cdd414c1bfa8c363505b8dfc9f50ef2f446ea61";
+      rev = "e8ec5d28902a5281c6e5954d00f17a0042480a8e";
       fetchSubmodules = false;
-      sha256 = "sha256-7oTJGGkUb3K8nzcPqlJrm316ECmgswy/+N8cTQghv3k=";
+      sha256 = "sha256-w2ywWtZVJhoR4cCHqLTbIvZVKrOqVCshjOFfE2qm7XM=";
     };
-    date = "2024-10-14";
+    date = "2024-12-20";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.0.3495.26";
+    version = "7.0.3495.27";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.26.universal.dmg";
-      sha256 = "sha256-KHtI61xC/rv4GHsgsSpvbjJlg/atA3zvrp+W0D5bxYg=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.27.universal.dmg";
+      sha256 = "sha256-jZu2yu+9GezZOAbX0YkO+5MyzCjvLJnETFKaAJK44tE=";
     };
   };
 }
