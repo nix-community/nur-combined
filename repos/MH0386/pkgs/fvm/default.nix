@@ -1,13 +1,13 @@
 {
-  buildDartApplication,
-  installShellFiles,
-  clang,
-  pkg-config,
-  gtk3,
-  cmake,
-  fetchFromGitHub,
-  nix-update-script,
-  lib,
+  buildDartApplication ? (import <nixpkgs> { }).buildDartApplication,
+  installShellFiles ? (import <nixpkgs> { }).installShellFiles,
+  clang ? (import <nixpkgs> { }).clang,
+  pkg-config ? (import <nixpkgs> { }).pkg-config,
+  gtk3 ? (import <nixpkgs> { }).gtk3,
+  cmake ? (import <nixpkgs> { }).cmake,
+  fetchFromGitHub ? (import <nixpkgs> { }).fetchFromGitHub,
+  nix-update-script ? (import <nixpkgs> { }).nix-update-script,
+  lib ? (import <nixpkgs> { }).lib,
 }:
 
 buildDartApplication rec {
