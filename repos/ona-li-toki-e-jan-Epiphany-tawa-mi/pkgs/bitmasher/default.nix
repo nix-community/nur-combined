@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "bitmasher";
-  version = "7.4274214874";
+  version = "7.5385325985";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "BitMasher";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-Ki5t1TBwbZdqEKXPWWSwkPEgy6EoIbTYUv8JH64haZ4=";
+    hash  = "sha256-2bE0QA82yQLa2A8snnhXu8DptDOsnfF/g2bg6SrNwCY=";
   };
 
   buildPhase = ''

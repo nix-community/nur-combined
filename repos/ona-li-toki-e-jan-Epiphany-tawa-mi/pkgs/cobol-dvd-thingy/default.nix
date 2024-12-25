@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "cobol-dvd-thingy";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "COBOL-DVD-Thingy";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-7KKCzULgtNagyPwnllmlT+us5ofbaY308yZoAId80zk=";
+    hash  = "sha256-HMkse/I9+wIcDiRC+96/K97TtwlRZkzma1vCdEkO3Ow=";
   };
 
   # We have to use gnu-cobol.bin because gnu-cobol doesn't properly output it's
