@@ -45,8 +45,8 @@ fn fork_and_die_with_parent() (os::exec::process | void | os::exec::error | rt::
       // for the child, likely because it was killed by SIGKILL, itself.
       rt::prctl(rt::PR_SET_PDEATHSIG, rt::SIGKILL: u64, 0, 0, 0)?;
       let parent_pid = rt::getppid();
-      if (parent_pid != outer_pid && !(parent_pid == 0 && rt::getpid() == 1)) {
-        // ppid=0 only when we fork a new PID namespace, where this child is the new PID 1
+      if (parent_pid != 0 && parent_pid != outer_pid) {
+        // ppid=0 only when we fork a new PID namespace, where this child is the new PID 1 (in effect, if not literally)
         log::printfln("[namespace/fork] expected parent pid={} after forking but got {} instead", outer_pid: int, parent_pid: int);
         // the parent exited between the `fork` and `prctl` operations
         return errors::cancelled;
@@ -55,6 +55,9 @@ fn fork_and_die_with_parent() (os::exec::process | void | os::exec::error | rt::
   };
 };
 
+// block this process until `child_pid` exits.
+// `child_pid` *must* be a direct child -- not a grandchild or other relative --
+// as only children signal their parent on death.
 fn wait_and_propagate(child_pid: os::exec::process) (void | os::exec::error) = {
   forward_signals(child_pid);
   log::println("[namespace/fork] signals configured");

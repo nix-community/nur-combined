@@ -102,6 +102,7 @@ let
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
+    (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
     (fromDb "podcast.sustainoss.org" // tech)
     (fromDb "politicalorphanage.libsyn.com" // pol)

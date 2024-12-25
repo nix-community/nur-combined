@@ -4,7 +4,6 @@
   gitUpdater,
   gpodder,
   libhandy,
-  python311Packages,
 }:
 
 let
@@ -21,7 +20,7 @@ self = gpodder.overridePythonAttrs (upstream: rec {
   patches = (upstream.patches or []) ++ [
     (fetchpatch {
       # necessary for Python 3.12 compatibility; remove when upgrading past 3.11.4.
-      # TODO: merge into nixpkgs' gpodder expression (after <https://github.com/NixOS/nixpkgs/pull/324734> dependency lands)
+      # TODO: merge into nixpkgs' gpodder expression
       name = "Replace the removed imp module with importlib";
       url = "https://github.com/gpodder/gpodder/commit/dd9b594d24a541c0f1d3b096e47b6d7f1c11ca7e.patch";
       hash = "sha256-jAe3onmuPdwBhspWHhMf2Gy1hj5GiGoZjkpLAAy/ZIE=";
@@ -51,11 +50,6 @@ self = gpodder.overridePythonAttrs (upstream: rec {
   buildInputs = upstream.buildInputs ++ [
     libhandy
   ];
-  propagatedBuildInputs = upstream.propagatedBuildInputs ++ (with python311Packages; [
-    # necessary to enable to "youtube dl" extension
-    # upstreaming progress: <https://github.com/NixOS/nixpkgs/pull/331593>
-    yt-dlp
-  ]);
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "adaptive/";

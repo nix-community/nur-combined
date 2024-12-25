@@ -1,4 +1,7 @@
 ## BUGS
+- gnome-calls eats 100% CPU and never renders UI (moby AND lappy, at least)
+- dissent has a memory leak (3G+ after 24hr)
+  - set a max memory use in the systemd service, to force it to restart as it leaks?
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
   - `rmDbusServicesInPlace` is not affected

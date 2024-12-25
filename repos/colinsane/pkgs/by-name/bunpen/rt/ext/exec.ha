@@ -2,6 +2,7 @@
 
 use errors;
 use errors::ext;
+use fmt;
 use log;
 use os;
 use os::exec;
@@ -12,6 +13,16 @@ use types::c;
 
 export fn execve(path: str, argv: []str, envp: []str = []) rt::errno = {
   let path_buf: [path::MAX]c::char = [0...];
+
+  {
+    let logv: []fmt::formattable = [];
+    defer free(logv);
+    append(logv, "[exec] execve:");
+    append(logv, path);
+    for (let arg .. argv)
+      append(logv, arg);
+    log::println(logv...);
+  };
 
   syscall(
     rt::SYS_execve,

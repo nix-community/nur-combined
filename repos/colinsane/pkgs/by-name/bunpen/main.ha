@@ -3,6 +3,7 @@ use config;
 use errors;
 use errors::ext;
 use log;
+use log::annotated;
 use log::tree;
 use restrict;
 use restrict::ns;
@@ -47,6 +48,7 @@ fn prepare_env(req: config::cli_request) config::exec_params = {
 
 export fn main() void = {
   // install my logger, but defaulted to no logging.
+  log::tree::set_forward(tree::global, log::annotated::global);
   log::tree::install(tree::global);
 
   let opts = match (config::parse_args(os::args[1..])) {

@@ -58,7 +58,26 @@
   # i explicitly set both `initialPassword` and `hashedPasswordFile`, so ignore the warning against this.
   # see: <https://github.com/NixOS/nixpkgs/pull/287506>
   sane.silencedWarnings = [
-    "The user 'colin' has multiple of the options\n`hashedPassword`, `password`, `hashedPasswordFile`, `initialPassword`\n& `initialHashedPassword` set to a non-null value.\nThe options silently discard others by the order of precedence\ngiven above which can lead to surprising results. To resolve this warning,\nset at most one of the options above to a non-`null` value.\n"
+    ''
+      The user 'colin' has multiple of the options
+      `initialHashedPassword`, `hashedPassword`, `initialPassword`, `password`
+      & `hashedPasswordFile` set to a non-null value.
+
+      If multiple of these password options are set at the same time then a
+      specific order of precedence is followed, which can lead to surprising
+      results. The order of precedence differs depending on whether the
+      {option}`users.mutableUsers` option is set.
+
+      If the option {option}`users.mutableUsers` is
+      `false`, then the order of precedence is as shown
+      below, where values on the left are overridden by values on the right:
+      {option}`initialHashedPassword` -> {option}`hashedPassword` -> {option}`initialPassword` -> {option}`password` -> {option}`hashedPasswordFile`
+
+      The values of these options are:
+      * users.users."colin".hashedPassword: ${lib.generators.toPretty {} config.users.users.colin.hashedPassword}
+      * users.users."colin".hashedPasswordFile: ${lib.generators.toPretty {} config.users.users.colin.hashedPasswordFile}
+      * users.users."colin".password: ${lib.generators.toPretty {} config.users.users.colin.password}
+    ''
   ];
 
   environment.etc."/security/capability.conf".text = ''

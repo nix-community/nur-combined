@@ -48,6 +48,10 @@ export fn set_level(me: *logger, level: uint) void = {
   me.level = level;
 };
 
+export fn set_forward(me: *logger, forward: *log::logger) void = {
+  me.forward = forward;
+};
+
 fn log_println(base: *log::logger, fields: fmt::formattable...) void = {
   let me = base: *logger;
   if (me.level > 0 && (len(fields) == 0 || get_depth(fields[0]) < me.level)) {
