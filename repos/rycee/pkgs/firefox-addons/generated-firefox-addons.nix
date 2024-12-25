@@ -104,7 +104,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
-        description = "Changes the color of Firefox tab bar to match the website theme.";
+        description = "Changes the color of Firefox theme to match the website’s appearance.";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -2519,10 +2519,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.51.2";
+      version = "2.52.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408166/dualsub-2.51.2.xpi";
-      sha256 = "318a4ffb188d8fd94be9bf89c17801758ec7762888a2823caf94574de936c134";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409691/dualsub-2.52.0.xpi";
+      sha256 = "31b647df3a5547962bea9d39169fccfa76d1d4bf331803fe01ec7f0383158506";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
