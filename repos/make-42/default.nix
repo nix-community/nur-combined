@@ -11,6 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  creality-print-cli = pkgs.callPackage ./pkgs/creality-print-cli {};
   hayai = pkgs.callPackage ./pkgs/hayai {};
   himitsu = pkgs.callPackage ./pkgs/himitsu {};
   kuiper = pkgs.callPackage ./pkgs/kuiper {};
