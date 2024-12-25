@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "canokey-manager";
-  version = "5.5.1";
+  version = "5.3.3-unstable";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "canokeys";
     repo = "yubikey-manager";
-    rev = "98f143f942ea366db7334a2956e7bc2acc1ca646";
-    hash = "sha256-aZh3WF6ZqRZdcYFJIKjwXYvtKMf+e8+5rzbOHyCw8LM=";
+    rev = "87335dde9c6d6e10c6ddc0847144565ba50ee8a7";
+    hash = "sha256-JPDm9kT+pjOi56mX8l1JMU0G8wqqBP3FyrdAy91lKBA=";
   };
 
   postPatch = ''

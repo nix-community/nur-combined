@@ -118,6 +118,7 @@ in
       match title="Firefox"
       match app-id="google-chrome-beta"
       match app-id="google-chrome"
+      match app-id="thunderbird"
       open-maximized true
   }
 
@@ -203,8 +204,9 @@ in
   // which may be more convenient to use.
   spawn-at-startup "foot"
   spawn-at-startup "fcitx5" "-dr"
-  spawn-at-startup "google-chrome-beta" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" "--enable-wayland-ime" "--wayland-text-input-version=3" "--video-capture-use-gpu-memory-buffer" "--force-color-profile=display-p3-d65" "--use-gl=angle" "--use-angle=vulkan" "--enable-zero-copy" "--enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar"
+  spawn-at-startup "google-chrome-beta" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" "--enable-wayland-ime" "--wayland-text-input-version=3" "--video-capture-use-gpu-memory-buffer" "--force-color-profile=display-p3-d65" "--enable-zero-copy" "--enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar"
   spawn-at-startup "materialgram"
+  spawn-at-startup "thunderbird"
   spawn-at-startup "${wl-paste}" "--type" "text" "--watch" "${deps.cliphist}" "store"
   spawn-at-startup "${wl-paste}" "--type" "image" "--watch" "${deps.cliphist}" "store"
   cursor {
@@ -263,8 +265,8 @@ in
       XF86AudioRaiseVolume { spawn "sh" "-c" "${pw-volume} change +2%; pkill -RTMIN+8 waybar"; }
       XF86AudioLowerVolume { spawn "sh" "-c" "${pw-volume} change -2%; pkill -RTMIN+8 waybar"; }
 
-      XF86MonBrightnessUp { spawn "brightnessctl" "set" "3%+"; }
-      XF86MonBrightnessdown { spawn "brightnessctl" "set" "3%-"; }
+      XF86MonBrightnessUp { spawn "light" "-A" "3"; }
+      XF86MonBrightnessdown { spawn "light" "-U" "3"; }
       Mod+Ctrl+P { spawn "sh" "-c" "${deps.cliphist} list | ${deps.fuzzel} -d -I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono SC NF:style=Regular:size=15' -P 10 -B 7 -w 50 | ${deps.cliphist} decode | ${wl-copy}"; }
       Mod+Shift+R { spawn "sh" "-c" "exec ${pkgs.writeShellScriptBin "screen-recorder-toggle" ''
         pid=`${pkgs.procps}/bin/pgrep ${lib.getExe pkgs.wl-screenrec}`

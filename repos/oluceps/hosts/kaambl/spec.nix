@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  user,
   ...
 }:
 {
@@ -9,6 +10,10 @@
 
   system.stateVersion = "23.05"; # Did you read the comment?
   users.mutableUsers = false;
+
+  users.users.${user}.extraGroups = [ "video" ];
+  users.groups.video = { };
+
   services = {
     userborn.enable = true;
     logind = {
@@ -147,6 +152,8 @@
   };
   programs.sway.enable = false;
   programs.gtklock.enable = true;
+  programs.light.enable = true;
+
   systemd = {
 
     oomd.enable = lib.mkForce false;

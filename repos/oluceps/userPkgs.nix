@@ -4,6 +4,7 @@ with pkgs;
   turbo
   eva
   paperback
+  thunderbird
   amberol
   nix-weather
   mako

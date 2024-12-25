@@ -48,6 +48,7 @@ reIf {
 
           ipversion(6) && !dip(geoip:CN) -> v6
 
+          domain(suffix:migadu.com) -> all
           domain(geosite:google-gemini,openai,geosite:category-ai-chat-!cn,cloudflare) -> v6
           domain(suffix: copilot.microsoft.com,
               suffix: gateway-copilot.bingviz.microsoftapp.net,

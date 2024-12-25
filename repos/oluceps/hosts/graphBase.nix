@@ -23,7 +23,8 @@
               GenericName[en_GB]=Web Browser
               GenericName[zh_CN]=网页浏览器
               Comment[zh_CN]=访问互联网
-              Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --use-gl=angle --use-angle=vulkan --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar %U
+              Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar %U
+              # Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --use-gl=angle --use-angle=vulkan --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar %U
               StartupNotify=true
               Terminal=false
               Icon=google-chrome
@@ -309,6 +310,7 @@
         addons = with pkgs; [
           fcitx5-chinese-addons
           fcitx5-mozc
+          fcitx5-rime
           fcitx5-gtk
           fcitx5-configtool
           fcitx5-pinyin-zhwiki
