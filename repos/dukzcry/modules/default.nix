@@ -32,4 +32,5 @@ rec {
   branding = ./branding.nix;
   users = ./users.nix;
   sd-cpp-webui = ./sd-cpp-webui.nix;
+  dashboard = ./dashboard.nix;
 }
