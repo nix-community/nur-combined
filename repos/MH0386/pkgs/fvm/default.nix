@@ -1,6 +1,5 @@
 {
   buildDartApplication ? (import <nixpkgs> { }).buildDartApplication,
-  installShellFiles ? (import <nixpkgs> { }).installShellFiles,
   clang ? (import <nixpkgs> { }).clang,
   pkg-config ? (import <nixpkgs> { }).pkg-config,
   gtk3 ? (import <nixpkgs> { }).gtk3,
@@ -24,12 +23,10 @@ buildDartApplication rec {
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
   nativeBuildInputs = [
-    installShellFiles
     clang
     pkg-config
     gtk3
     cmake
-    installShellFiles
   ];
 
   shellHook = ''
@@ -40,14 +37,6 @@ buildDartApplication rec {
   dontUseCmakeConfigure = true;
 
   passthru.updateScript = nix-update-script { };
-
-  postInstall = ''
-    export HOME=$TMPDIR
-    installShellCompletion --cmd fvm \
-      --bash <($out/bin/fvm --generate-shell-completion bash) \
-      --fish <($out/bin/fvm --generate-shell-completion fish) \
-      --zsh <($out/bin/fvm --generate-shell-completion zsh)
-  '';
 
   meta = {
     description = "Flutter Version Management: A simple CLI to manage Flutter SDK versions.";
