@@ -23,8 +23,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "make-42";
     repo = "creality-print-cli";
-    rev = "dcbfaaa91effa05b6344f6985cb998a817ae074f";
-    hash = "sha256-WgPKy1L8396Agd1+OCzO0eQjueToWKJ5Q3Fe8mT0e1w=";
+    rev = "5c2fdea304c8ee55cfab464935a61fcff63920d6";
+    hash = "sha256-TNrTvgJ4oGSaIC9iAOZvL7s+hEz06zLDYFcm0D/hEek=";
   };
 
   vendorHash = null;
