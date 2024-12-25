@@ -113,14 +113,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "a1d664808c4c60c348f51f9ed3726c4c27faec25";
+    version = "b0684b553b0d0fdf85b4ebd6219f3a91128edc77";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "a1d664808c4c60c348f51f9ed3726c4c27faec25";
-      hash = "sha256-mri9xH8o7puAlStYFuT75Kr1q6OWCETEJj6GJDZzNbs=";
+      rev = "b0684b553b0d0fdf85b4ebd6219f3a91128edc77";
+      hash = "sha256-Enazm7t6KUN2yrY8UR+fcBMAmuluzgKy4Dg8+huvrZE=";
     };
-    date = "2024-12-14";
+    date = "2024-12-25";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -206,21 +206,21 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "890bc98d89638abc98db92df15247c20ebeea61c";
+    version = "9e8722481271f786581557c2075677b29e0f838c";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "890bc98d89638abc98db92df15247c20ebeea61c";
-      hash = "sha256-eGvbGB5C0fKUuZxmRiCtrBltorsRW03UMnkpKGg3q08=";
+      rev = "9e8722481271f786581557c2075677b29e0f838c";
+      hash = "sha256-YEUwCRbD6DRep/mhxc52jcJ0U9YiTsCp4nWEnT7LNSM=";
     };
-    date = "2024-12-22";
+    date = "2024-12-24";
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "3.4.6";
+    version = "3.5.4";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.6/cops-3.4.6-php82.zip";
-      hash = "sha256-zhw4nZm1EJo7mGVKpmEj/hPRItvZVSBsqQDMIgwnWIo=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.5.4/cops-3.5.4-php82.zip";
+      hash = "sha256-VG6628GsRaKIFpvmW7wTWWSQB+Vuq+GalgGxHjd6IwY=";
     };
   };
   cef-binary = {
@@ -329,10 +329,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.6.25.4112601";
+    version = "7.6.25.4122001";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.25.4112601_amd64.deb";
-      hash = "sha256-HyEg7AtJHx3BSxMxYtVUDlYGSf1Qn/ZKey7w26LXjMw=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.25.4122001_amd64.deb";
+      hash = "sha256-Fjzlqj/ALgYAipEVxdk7FUk83KsgDstcHYVojbK+aD4=";
     };
   };
   dn42-pingfinder = {
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "fcb2102a602b39777fce9a7c197dbb6442eeba55";
+    version = "a3a1c55c4c674768e6cfef1dc9c10d2e1c3335c7";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "fcb2102a602b39777fce9a7c197dbb6442eeba55";
-      hash = "sha256-jwhIzcG7wKN4X7b1CFVxTreWU/P4SE/08JDgXysjPaA=";
+      rev = "a3a1c55c4c674768e6cfef1dc9c10d2e1c3335c7";
+      hash = "sha256-QGf82jVSlc9/I4kLBFrUKayeJBk54kx5WkICF+nIA78=";
     };
-    date = "2024-12-21";
+    date = "2024-12-25";
   };
   glauth = {
     pname = "glauth";
@@ -590,12 +590,12 @@
   };
   imewlconverter = {
     pname = "imewlconverter";
-    version = "v3.1.1";
+    version = "v3.2.0";
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      tag = "v3.1.1";
-      hash = "sha256-lrYqQWh+PZreJ6oJg+OCipiqUyfG/2moP/n+jR+Kcj8=";
+      tag = "v3.2.0";
+      hash = "sha256-7rKWbLbRCnMmJ9pwqMYZZZujyxbX84g4rFQ/Ms/R+uE=";
     };
   };
   inter-knot = {
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4382";
+    version = "b4391";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4382";
-      hash = "sha256-qH2Cn6V9TVSZ70egPk27J9PQtUl2TRkLexG7rYqG4FQ=";
+      tag = "b4391";
+      hash = "sha256-2R6eQ9tPZrXldwRXhaJKk9B93tpzudocwjElg6+CfVw=";
     };
   };
   loralib = {
@@ -1145,12 +1145,12 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "0.7.0";
+    version = "0.8.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      tag = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      tag = "0.8.0";
+      hash = "sha256-P3UEiWYchHVQ5s3JXHOzaDaN09K62pMYjnrW/gS5x/I=";
     };
   };
   ormsgpack = {
@@ -1241,12 +1241,12 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V1.9.5766";
+    version = "V1.9.5769";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      tag = "V1.9.5766";
-      hash = "sha256-wdDhKINEHNrayliUwOXNg0jIg4/W3TH9VjETblJGqvE=";
+      tag = "V1.9.5769";
+      hash = "sha256-jN4OQQL1tkwDpWyk43h75V+7lT1AfiaIRnAgVOQA0rs=";
     };
   };
   plasma-panel-transparency-toggle = {
@@ -1339,34 +1339,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.2.0+ds-2";
+    version = "9.2.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_amd64.deb";
-      hash = "sha256-/BbDw1m12dG43014G6r6G25dstpImerlooaR1Sh5BMI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-3_amd64.deb";
+      hash = "sha256-iHUidBidgqpskGSHmZHpZ6VKKbg0JrntBSMlWXrxI0U=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.2.0+ds-2";
+    version = "9.2.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_arm64.deb";
-      hash = "sha256-L4Td4mtrssM6R5BjrrwTYjg6z65aIIp3eeSbgF6mo0w=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-3_arm64.deb";
+      hash = "sha256-J1CJedTUFTW3inWPs57OA9NzKeFrdhLf42tnLl9l8Lk=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.2.0+ds-2";
+    version = "9.2.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_armhf.deb";
-      hash = "sha256-3NIvf47BIEYyLXbRbgJ9Ig5Qhfd5L9mD5XWgCxy5bEk=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-3_armhf.deb";
+      hash = "sha256-a0eRPgJXgQYOE/wK5tOq9J/rb0u89rC+9xan32L9D8U=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.2.0+ds-2";
+    version = "9.2.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_i386.deb";
-      hash = "sha256-bqR4K6et9TRXYYZnqCUm5+aIRvSkO4I7e01yjLRysFc=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-3_i386.deb";
+      hash = "sha256-h22bDGE2oZ6Ptm8rY5ejWTv4k7zlrN0hJ/oafXx1AyU=";
     };
   };
   qhttpengine = {
@@ -1382,18 +1382,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.15_241210_amd64_01";
+    version = "Linux/QQ_3.2.15_241224_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.15_241210_amd64_01.deb";
-      hash = "sha256-KvcJGLavX8riUsiV6R4xbEns+lu/fb2LXpcXtKW/Grs=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.15_241224_amd64_01.deb";
+      hash = "sha256-iBiyFK8sKmWUxntZREwdxWCXSSLB8jxiL4eqo2Qy0is=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.15_241210_arm64_01";
+    version = "Linux/QQ_3.2.15_241224_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.15_241210_arm64_01.deb";
-      hash = "sha256-oQ3pP/9G7Xx3OO//Yl46DNxHsJ0bDwnwQHrtTdfQY6o=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.15_241224_arm64_01.deb";
+      hash = "sha256-2+IT7XsK5ziyG9/rihfDhTADwzJ8QDMBz0NyMjZHmzE=";
     };
   };
   qqmusic = {
@@ -1438,14 +1438,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "79474da0e7e45658d07277ec6c69f0764a18e9f7";
+    version = "ea68265a02e2bde12242c4f54aa19de8968aaab7";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "79474da0e7e45658d07277ec6c69f0764a18e9f7";
-      hash = "sha256-7hjcctAlBE7V8gu+9ahR2GGWZ9YiPba7+Ij6PZwicPQ=";
+      rev = "ea68265a02e2bde12242c4f54aa19de8968aaab7";
+      hash = "sha256-kd/keVPCUXGfIlrpZB301+2SKpELFHnVp6UhsfLGAYU=";
     };
-    date = "2024-12-23";
+    date = "2024-12-24";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1520,14 +1520,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7e1faeac9ad8f37c64de0c73ab7340dfb80bf818";
+    version = "2ec667d45a4b25860bf311f0d8c548e7276f97ae";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7e1faeac9ad8f37c64de0c73ab7340dfb80bf818";
-      hash = "sha256-hYolk8XFZbswM732hlz2WnGGrT41QtDURnzb+pHl1KA=";
+      rev = "2ec667d45a4b25860bf311f0d8c548e7276f97ae";
+      hash = "sha256-vT/knyXiRGOcq+FI+Da7mGtLPXL0rK510hSJMeAyrXM=";
     };
-    date = "2024-12-21";
+    date = "2024-12-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1588,12 +1588,12 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v7.02";
+    version = "v7.03";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "Sam-Toki-Mouse-Cursors";
-      tag = "v7.02";
-      hash = "sha256-KaGaqTy52kGCpIervNu3jV1qZwYFA+I+FjtEfnN1Wk4=";
+      tag = "v7.03";
+      hash = "sha256-wJa0xaAdmZPmUZwLHLsW9Ky8vQxmreaFwiG1jX88lqY=";
     };
   };
   sgx-software-enable = {
@@ -1847,14 +1847,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a7549cf53d2d638f751f6f4fd8e837252cfda2e0";
+    version = "0d743fb477f8e3e2ff97aa5ac1ae293d704ebade";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a7549cf53d2d638f751f6f4fd8e837252cfda2e0";
-      hash = "sha256-2S7OViFu8e8WYkrzvjw5Db+wZxLTOrt6QU85IR09tFA=";
+      rev = "0d743fb477f8e3e2ff97aa5ac1ae293d704ebade";
+      hash = "sha256-sF0wfmtbUsyn2JvVQEtTQT8sHMM5IRpFMWmcYJlEoNo=";
     };
-    date = "2024-12-20";
+    date = "2024-12-23";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
