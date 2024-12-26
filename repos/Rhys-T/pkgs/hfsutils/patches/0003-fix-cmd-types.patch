@@ -1,0 +1,67 @@
+diff --git a/tclhfs.c b/tclhfs.c
+index e854cbc..36611bf 100644
+--- a/tclhfs.c
++++ b/tclhfs.c
+@@ -275,7 +275,7 @@ void file_del(ClientData clientData)
+  */
+ static
+ int file_cmd(ClientData clientData, Tcl_Interp *interp,
+-	     int argc, char *argv[])
++	     int argc, const char *argv[])
+ {
+   fileref *fref = clientData;
+   hfsfile *file = fref->file;
+@@ -541,7 +541,7 @@ int do_copynative(Tcl_Interp *interp, hfsfile *ifile, hfsfile *ofile)
+  * DESCRIPTION:	copy an HFS file to another HFS volume
+  */
+ static
+-int copynative(Tcl_Interp *interp, volref *srcvref, char *argv[])
++int copynative(Tcl_Interp *interp, volref *srcvref, const char *argv[])
+ {
+   volref *dstvref;
+   Tcl_CmdInfo info;
+@@ -649,7 +649,7 @@ int copynative(Tcl_Interp *interp, volref *srcvref, char *argv[])
+  * DESCRIPTION:	copy a UNIX file into an HFS volume
+  */
+ static
+-int copyin(Tcl_Interp *interp, hfsvol *vol, char *argv[])
++int copyin(Tcl_Interp *interp, hfsvol *vol, const char *argv[])
+ {
+   cpifunc copyfile;
+ 
+@@ -684,7 +684,7 @@ int copyin(Tcl_Interp *interp, hfsvol *vol, char *argv[])
+  * DESCRIPTION:	copy an HFS file out to a UNIX file
+  */
+ static
+-int copyout(Tcl_Interp *interp, hfsvol *vol, char *argv[])
++int copyout(Tcl_Interp *interp, hfsvol *vol, const char *argv[])
+ {
+   cpofunc copyfile;
+ 
+@@ -807,7 +807,7 @@ void vol_del(ClientData clientData)
+  */
+ static
+ int vol_cmd(ClientData clientData, Tcl_Interp *interp,
+-	    int argc, char *argv[])
++	    int argc, const char *argv[])
+ {
+   volref *vref = clientData;
+   hfsvol *vol  = vref->vol;
+@@ -1152,7 +1152,7 @@ int vol_cmd(ClientData clientData, Tcl_Interp *interp,
+  */
+ static
+ int cmd_hfs(ClientData clientData, Tcl_Interp *interp,
+-	    int argc, char *argv[])
++	    int argc, const char *argv[])
+ {
+   static int id = 0;
+ 
+@@ -1448,7 +1448,7 @@ int cmd_hfs(ClientData clientData, Tcl_Interp *interp,
+  */
+ static
+ int cmd_exit(ClientData clientData, Tcl_Interp *interp,
+-	     int argc, char *argv[])
++	     int argc, const char *argv[])
+ {
+   int status = 0;
+ 

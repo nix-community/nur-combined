@@ -31,7 +31,13 @@
                 s@$@  // MESSUI@g
             }' '';
             hash = "sha256-mOgS03wKLJEnQM91rjZvsFE5mkafdIZnmk3vp0YgNaU=";
-        } else patch) old.patches;
+        } else patch) old.patches ++ [
+            (fetchpatch {
+                name = "0001-PATCH-3rdparty-sol2-Fixed-build-with-clang-19.patch";
+                url = "https://github.com/mamedev/mame/commit/c75845b1ef01d76379bcc0a6937f1ca678484c68.patch";
+                hash = "sha256-uU+GFxEifJkmFi2SzurIRWmnTzokhCPJa7AuTlFOTjQ=";
+            })
+        ];
         makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
         installPhase = let
             installPhaseParts = builtins.match "(.*)install -Dm644 [^ ]* [^ ]*/mame\\.svg(.*)" old.installPhase;
