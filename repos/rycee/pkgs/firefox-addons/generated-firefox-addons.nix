@@ -958,6 +958,26 @@
         platforms = platforms.all;
       };
     };
+    "bilisponsorblock" = buildFirefoxXpiAddon {
+      pname = "bilisponsorblock";
+      version = "0.6.0";
+      addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4410283/bilisponsorblock-0.6.0.xpi";
+      sha256 = "c0bf40c59f315bc2ad3f3f697f4f3778b9819b60a94457d5f2a0ee3f1aec8135";
+      meta = with lib;
+      {
+        homepage = "https://www.bsbsb.top";
+        description = "恰饭？桌子都给你掀了(/= _ =)/~┴┴   带你精准空降到恰饭结束或者高能时刻，自动跳过视频中的赞助广告、订阅提醒等片段。你也可以亲自标记视频中的广告并上传，所有人都会从您的贡献中受益。";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "scripting"
+          "https://*.bilibili.com/*"
+          "http://*.bsbsb.top/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "binnen-i-be-gone" = buildFirefoxXpiAddon {
       pname = "binnen-i-be-gone";
       version = "3.1.1";
@@ -3711,6 +3731,20 @@
         platforms = platforms.all;
       };
     };
+    "gnu_terry_pratchett" = buildFirefoxXpiAddon {
+      pname = "gnu_terry_pratchett";
+      version = "0.5resigned1";
+      addonId = "jid1-HGPgB0x6133Hig@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270754/gnu_terry_pratchett-0.5resigned1.xpi";
+      sha256 = "0a3a5cfd4d958bfb69e784b50b5bf03a82ebb0f5649e28d5140c50791cc349e8";
+      meta = with lib;
+      {
+        description = "Display the X-Clacks-Overhead in Clacks Semaphore";
+        license = licenses.gpl2;
+        mozPermissions = [ "webRequest" "tabs" "alarms" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "google-cal-event-merge" = buildFirefoxXpiAddon {
       pname = "google-cal-event-merge";
       version = "2.2.1";
@@ -5233,14 +5267,14 @@
     };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
-      version = "2.1.0";
+      version = "2.4.1";
       addonId = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408635/iina_open_in_mpv-2.1.0.xpi";
-      sha256 = "2dbff779f85cd67159c9804c43eaf359e5cc8369b07ebc2ed340707400881a1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4410254/iina_open_in_mpv-2.4.1.xpi";
+      sha256 = "decaf94b718b2b5a8b36fbd28365178af2ac313e36f1cab8c0b6dfd48e41830d";
       meta = with lib;
       {
         homepage = "https://github.com/Baldomo/open-in-mpv";
-        description = "Open videos and audio files in mpv.";
+        description = "Open videos and audio files in the mpv player and other compatible players.";
         license = licenses.gpl3;
         mozPermissions = [
           "tabs"
@@ -10469,6 +10503,34 @@
           "tabs"
           "http://*/*"
           "https://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "simplifygmail" = buildFirefoxXpiAddon {
+      pname = "simplifygmail";
+      version = "3.1.29";
+      addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406215/simplifygmail-3.1.29.xpi";
+      sha256 = "feaf5ad9a401e320bce7ce50c1e420bc85b0a351335232cc8e0c8d6dfa59ec35";
+      meta = with lib;
+      {
+        homepage = "https://simpl.fyi";
+        description = "Your time and attention matter -- Simplify Gmail enhances Gmail to boost productivity, strengthen privacy, and reduce stress. From the co-founder of Google Inbox.";
+        license = {
+          shortName = "simplifygmail";
+          fullName = "Terms of Service for Simplify Gmail";
+          url = "https://simpl.fyi/terms";
+          free = false;
+        };
+        mozPermissions = [
+          "*://mail.google.com/*"
+          "*://*.googleusercontent.com/proxy/*"
+          "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "https://simpl.fyi/auth/*"
+          "https://mail.google.com/*"
         ];
         platforms = platforms.all;
       };

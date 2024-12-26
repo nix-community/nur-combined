@@ -120,6 +120,9 @@
     "slug": "bibbot"
   },
   {
+    "slug": "bilisponsorblock"
+  },
+  {
     "slug": "binnen-i-be-gone"
   },
   {
@@ -585,6 +588,9 @@
   },
   {
     "slug": "gnome-shell-integration"
+  },
+  {
+    "slug": "gnu_terry_pratchett"
   },
   {
     "slug": "google-cal-event-merge"
@@ -1385,6 +1391,16 @@
   },
   {
     "slug": "simplelogin"
+  },
+  {
+    "slug": "simplifygmail",
+    "license": {
+      "tag": "custom",
+      "shortName": "simplifygmail",
+      "fullName": "Terms of Service for Simplify Gmail",
+      "url": "https://simpl.fyi/terms",
+      "free": false
+    }
   },
   {
     "slug": "single-file",
