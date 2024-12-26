@@ -7,6 +7,11 @@
   fetchFromGitHub ? (import <nixpkgs> { }).fetchFromGitHub,
   nix-update-script ? (import <nixpkgs> { }).nix-update-script,
   lib ? (import <nixpkgs> { }).lib,
+  glib ? (import <nixpkgs> { }).glib,
+  cairo ? (import <nixpkgs> { }).cairo,
+  pango ? (import <nixpkgs> { }).pango,
+  atk ? (import <nixpkgs> { }).atk,
+  gdk-pixbuf ? (import <nixpkgs> { }).gdk-pixbuf,
 }:
 
 buildDartApplication rec {
@@ -27,11 +32,30 @@ buildDartApplication rec {
     pkg-config
     gtk3
     cmake
+    glib
+    cairo
+    pango
+    atk
+    gdk-pixbuf
   ];
 
   shellHook = ''
-    export PKG_CONFIG_PATH=${gtk3.dev}/lib/pkgconfig
-    export LD_LIBRARY_PATH=${gtk3.out}/lib:$LD_LIBRARY_PATH
+    export PKG_CONFIG_PATH="${lib.makeSearchPath "lib/pkgconfig" [
+      gtk3.dev
+      glib.dev
+      cairo.dev
+      pango.dev
+      atk.dev
+      gdk-pixbuf.dev
+    ]}"
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [
+      gtk3
+      glib
+      cairo
+      pango
+      atk
+      gdk-pixbuf
+    ]}:$LD_LIBRARY_PATH"
   '';
 
   dontUseCmakeConfigure = true;
