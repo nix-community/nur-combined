@@ -22,7 +22,10 @@
       "Music"
       "Tools"
       "Vault"
-      ".thunderbird"
+      {
+        directory = ".thunderbird";
+        mode = "0700";
+      }
       {
         directory = "Sec";
         mode = "0700";
