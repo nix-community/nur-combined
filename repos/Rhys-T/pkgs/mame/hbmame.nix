@@ -42,6 +42,11 @@
                 url = "https://github.com/Rhys-T/hbmame/commit/cc23cd19cec009b9efe52a6fea02dd1cbfaa8350.patch";
                 hash = "sha256-rU12yRQWpekyr5mLexDD6ZLW1CT065kgb8HLm3VrUDM=";
             })
+            (fetchpatch {
+                name = "0003-font_sdl-avoid-variable-length-array.patch";
+                url = "https://github.com/mamedev/mame/commit/7cf123e77007c36389ca7005d39e6a2b516bae7b.patch";
+                hash = "sha256-JABYXkcsqWlQ3OV7k6vvLumoovpkZvuw+Cc3G4WMqD8=";
+            })
         ];
         makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
         installPhase = let
