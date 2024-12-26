@@ -3,7 +3,7 @@
 , rustPlatform
 
 , pkg-config
-, alsaLib
+, alsa-lib
 , dbus
 , openssl
 
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ]
     ++ optional withGui copyDesktopItems;
 
-  buildInputs = [ alsaLib dbus openssl ]
+  buildInputs = [ alsa-lib dbus openssl ]
     ++ optional withGui gtk3;
 
   cargoBuildFlags = optionals (!withGui) [
