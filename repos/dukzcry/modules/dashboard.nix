@@ -14,6 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     services.nginx.enable = true;
+    services.nginx.recommendedProxySettings = true;
     services.nginx.virtualHosts = {
       default = {
         default = true;
