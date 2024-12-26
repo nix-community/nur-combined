@@ -23,7 +23,6 @@
   lilipod                = pkgs.callPackage ./pkgs/lilipod { };
   memtest-vulkan         = pkgs.callPackage ./pkgs/memtest-vulkan { };
   netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
-  ntfs2btrfs             = pkgs.callPackage ./pkgs/ntfs2btrfs { };
   overlayfs-tools        = pkgs.callPackage ./pkgs/overlayfs-tools { };
   plank-themes           = pkgs.callPackage ./pkgs/plank-themes { };
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
