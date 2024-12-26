@@ -27,7 +27,7 @@ buildDartApplication rec {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  nativeBuildInputs = [
+  buildInputs = [
     clang
     pkg-config
     gtk3
