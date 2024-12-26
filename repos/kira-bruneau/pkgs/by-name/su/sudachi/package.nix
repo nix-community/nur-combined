@@ -8,7 +8,7 @@
   pkg-config,
   qttools,
   wrapQtAppsHook,
-  boost,
+  boost183,
   fmt,
   lz4,
   nlohmann_json,
@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    boost
+    boost183
     fmt
     lz4
     nlohmann_json
