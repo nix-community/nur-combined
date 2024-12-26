@@ -34,6 +34,7 @@ reIf {
           tls_implementation: utls
           utls_imitate: chrome_auto
           lan_interface: podman0,podman1
+          mtcp: true
       }
       routing {
           pname(systemd-networkd, systemd-resolved, smartdns,

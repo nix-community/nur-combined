@@ -9,6 +9,7 @@
       ".npmrc"
       ".mongoshrc.js"
       ".gitconfig"
+      ".gitconfig"
       ".bash_history"
     ];
     directories = [
@@ -21,6 +22,7 @@
       "Music"
       "Tools"
       "Vault"
+      ".thunderbird"
       {
         directory = "Sec";
         mode = "0700";
