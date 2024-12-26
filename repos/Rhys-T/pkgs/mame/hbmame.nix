@@ -39,8 +39,8 @@
             })
             (fetchpatch {
                 name = "0002-Use-EQUIVALENT_ARRAY-to-avoid-issues-with-std-size.patch";
-                url = "https://github.com/mamedev/mame/commit/0ae68e4dea29dd55338bc829b72a67d2f59debf7.patch";
-                hash = "sha256-CAkmqI/gcf+W3lCUyMU2MVr1YItzsA3TmwGM4MopxUo=";
+                url = "https://github.com/Rhys-T/hbmame/commit/cc23cd19cec009b9efe52a6fea02dd1cbfaa8350.patch";
+                hash = "sha256-rU12yRQWpekyr5mLexDD6ZLW1CT065kgb8HLm3VrUDM=";
             })
         ];
         makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
