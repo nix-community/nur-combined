@@ -37,6 +37,11 @@
                 url = "https://github.com/mamedev/mame/commit/c75845b1ef01d76379bcc0a6937f1ca678484c68.patch";
                 hash = "sha256-uU+GFxEifJkmFi2SzurIRWmnTzokhCPJa7AuTlFOTjQ=";
             })
+            (fetchpatch {
+                name = "0002-Use-EQUIVALENT_ARRAY-to-avoid-issues-with-std-size.patch";
+                url = "https://github.com/mamedev/mame/commit/0ae68e4dea29dd55338bc829b72a67d2f59debf7.patch";
+                hash = "sha256-CAkmqI/gcf+W3lCUyMU2MVr1YItzsA3TmwGM4MopxUo=";
+            })
         ];
         makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
         installPhase = let
