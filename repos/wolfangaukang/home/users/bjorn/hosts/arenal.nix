@@ -42,29 +42,39 @@ in
   };
 
   services = {
-    kanshi.settings = [
-      {
-        profile = {
-          name = "docked";
-          outputs = [
-            (generateKanshiOutput hostInfo)
-          ];
-        };
-      }
-      {
-        profile = {
-          name = "connected";
-          outputs =
-            let
-              irazuInfo = getHostDefaults "irazu";
-            in [
-              (generateKanshiOutput hostInfo)
-              # Pick Irazu's monitor
-              ((generateKanshiOutput irazuInfo) // { position = "0,-1080"; })
+    kanshi.settings =
+      let
+        defaultOutput = [ (generateKanshiOutput hostInfo) ];
+      in [
+        {
+          profile = {
+            name = "basico";
+            outputs = defaultOutput;
+          };
+        }
+        {
+          profile = {
+            name = "sala";
+            outputs = defaultOutput // [
+              {
+                criteria = "XXX AAA Unknown";
+                mode = "1920x1080@60Hz";
+              }
             ];
-        };
-      }
-    ];
+          };
+        }
+        {
+          profile = {
+            name = "ofi";
+            outputs = defaultOutput // [
+              {
+                criteria = "ASUSTek COMPUTER INC ASUS VA27EHE L1LMTF068194";
+                mode = "1920x1080@60Hz";
+              }
+            ];
+          };
+        }
+      ];
     wlsunset = {
       enable = config.wayland.windowManager.sway.enable || config.wayland.windowManager.hyprland.enable;
       latitude = "12.13282";
