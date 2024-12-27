@@ -1,0 +1,9 @@
+diff --git a/src/core/common/exceptions.cpp b/src/core/common/exceptions.cpp
+index 6150d16..435edb6 100644
+--- a/src/core/common/exceptions.cpp
++++ b/src/core/common/exceptions.cpp
+@@ -1,3 +1,4 @@
++#include <cstdio>
+ #include <cstdarg>
+ #include "exceptions.hpp"
+ 

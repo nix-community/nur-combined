@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-CwF/4Am5+rw3XELjZTx9LtebAdoeMALhX42vopIgzU4=";
   };
 
-  patches = [ ./include-cstdint.patch ];
+  patches = [ ./include-cstdint.patch ./include-cstdio.patch ];
 
   buildInputs = [
     qtbase

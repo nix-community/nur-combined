@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-cVUjlNGKFbi4jw5GtpfHJNH+56329U3NGDgh32ZyQ9E=";
   };
 
+  patches = [ ./fix-integer-promotion.patch ];
+
   buildInputs = [ nettle ];
   nativeBuildInputs = [ cmake ];
 
