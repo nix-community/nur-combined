@@ -284,15 +284,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2049379dc510f4fa99c64b906538320fb9477182";
+    version = "c3d861119e4c94790931ef25ff74f989aced1375";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "2049379dc510f4fa99c64b906538320fb9477182";
+      rev = "c3d861119e4c94790931ef25ff74f989aced1375";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-K7WzsfEgLKW6I+dpauvZExeuxqVWRJPvYX1OgGagsn4=";
+      sha256 = "sha256-PxTc/MKoWcOMHegSVsjeKUzhrtD/ins90xVu4UUUUJI=";
     };
     date = "2024-12-27";
   };
