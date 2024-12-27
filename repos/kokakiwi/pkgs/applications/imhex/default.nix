@@ -4,7 +4,7 @@
 , autoPatchelfHook
 
 , cmake
-, llvm
+, llvmPackages
 , python3
 , perl
 , pkg-config
@@ -20,26 +20,11 @@
 , file
 , jansson
 , curl
-, fmt_8
+, fmt
 , nlohmann_json
 , yara
-
-, libxkbcommon
-, libdecor
-, wayland
 }:
-let
-  glfw3-patched = glfw3.overrideAttrs (prev: {
-    postPatch = lib.optionalString stdenv.isLinux ''
-      substituteInPlace src/wl_init.c \
-        --replace-fail "libxkbcommon.so.0" "${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0" \
-        --replace-fail "libdecor-0.so.0" "${lib.getLib libdecor}/lib/libdecor-0.so.0" \
-        --replace-fail "libwayland-client.so.0" "${lib.getLib wayland}/lib/libwayland-client.so.0" \
-        --replace-fail "libwayland-cursor.so.0" "${lib.getLib wayland}/lib/libwayland-cursor.so.0" \
-        --replace-fail "libwayland-egl.so.1" "${lib.getLib wayland}/lib/libwayland-egl.so.1"
-    '';
-  });
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "imhex";
   version = "1.35.4";
 
@@ -63,7 +48,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     cmake
-    llvm
+    llvmPackages.llvm
     python3
     perl
     pkg-config
@@ -75,8 +60,8 @@ in stdenv.mkDerivation rec {
     curl
     dbus
     file
-    fmt_8
-    glfw3-patched
+    fmt
+    glfw3
     gtk3
     jansson
     libGLU
@@ -86,13 +71,14 @@ in stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DIMHEX_OFFLINE_BUILD=ON"
-    "-DUSE_SYSTEM_CAPSTONE=ON"
-    "-DUSE_SYSTEM_CURL=ON"
-    "-DUSE_SYSTEM_FMT=ON"
-    "-DUSE_SYSTEM_LLVM=ON"
-    "-DUSE_SYSTEM_NLOHMANN_JSON=ON"
-    "-DUSE_SYSTEM_YARA=ON"
+    (lib.cmakeBool "IMHEX_OFFLINE_BUILD" true)
+    (lib.cmakeBool "IMHEX_COMPRESS_DEBUG_INFO" false) # avoids error: cannot compress debug sections (zstd not enabled)
+    (lib.cmakeBool "USE_SYSTEM_CAPSTONE" true)
+    (lib.cmakeBool "USE_SYSTEM_CURL" true)
+    (lib.cmakeBool "USE_SYSTEM_FMT" true)
+    (lib.cmakeBool "USE_SYSTEM_LLVM" true)
+    (lib.cmakeBool "USE_SYSTEM_NLOHMANN_JSON" true)
+    (lib.cmakeBool "USE_SYSTEM_YARA" true)
   ];
 
   autoPatchelfIgnoreMissingDeps = [
