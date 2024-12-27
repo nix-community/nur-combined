@@ -10,6 +10,9 @@ in {
     allservices = mkOption {
       type = types.listOf types.attrs;
     };
+    networking = mkOption {
+      type = types.attrs;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -22,7 +25,7 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.homepage-dashboard.listenPort}";
         };
       };
-    } // lib.mergeAttrsList (map (x: pkgs.nur.repos.dukzcry.lib.nginx (x // { inherit (config) networking; })) allservices');
+    } // lib.mergeAttrsList (map (x: pkgs.nur.repos.dukzcry.lib.nginx (x // { inherit (cfg) networking; })) allservices');
     services.homepage-dashboard.enable = true;
     services.homepage-dashboard.settings = {
       target = "_self";
@@ -37,6 +40,6 @@ in {
         };
       };
     };
-    services.homepage-dashboard.services = [{ "Сервисы" = map (x: pkgs.nur.repos.dukzcry.lib.page (x // { inherit (config) networking; })) allservices'; }];
+    services.homepage-dashboard.services = [{ "Сервисы" = map (x: pkgs.nur.repos.dukzcry.lib.page (x // { inherit (cfg) networking; })) allservices'; }];
   };
 }
