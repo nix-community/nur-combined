@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "biplanes-revival";
-  version = "1.1";
+  version = "1.2";
 
   src = fetchFromGitHub {
     owner = "regular-dev";
     repo = "biplanes-revival";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-8SWK4c2N5ZY1+l4onikVZwFrhNgM84sNr1dXXHpQhcg=";
+    hash = "sha256-VyN7eWxStz4i3QFVYHKUhPPhAWxDP41LyCAalfaqOvg=";
     fetchSubmodules = true;
   };
 

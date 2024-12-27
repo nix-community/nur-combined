@@ -650,7 +650,7 @@ vlpn emoji pack.
 - Update Script: ❌
 </details>
 
-### `biplanes-revival` `1.1` [🌐](https://github.com/regular-dev/biplanes-revival "Homepage") [📰](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.1 "Changelog") [📦](./pkgs/by-name/biplanes-revival/package.nix#L43 "Source")
+### `biplanes-revival` `1.2` [🌐](https://github.com/regular-dev/biplanes-revival "Homepage") [📰](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.2 "Changelog") [📦](./pkgs/by-name/biplanes-revival/package.nix#L43 "Source")
 
 An old cellphone arcade recreated for PC.
 
@@ -755,7 +755,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.32.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.32.1 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L256 "Source")
+### `fastfetch` `2.33.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.33.0 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L256 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -776,7 +776,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.32.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.32.1 "Changelog") [📦](./default.nix#L33 "Source")
+### `fastfetchMinimal` `2.33.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.33.0 "Changelog") [📦](./default.nix#L33 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -2519,7 +2519,7 @@ Phonon Backend using MPV Player.
 - Update Script: ✔️
 </details>
 
-### `plasma-camera` `1.0-unstable-2024-12-17` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
+### `plasma-camera` `1.0-unstable-2024-12-25` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
 
 Camera application for Plasma Mobile.
 
