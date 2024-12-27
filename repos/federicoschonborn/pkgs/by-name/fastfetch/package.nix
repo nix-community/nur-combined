@@ -247,8 +247,19 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
     ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  postPatch = ''
+    substituteInPlace completions/fastfetch.fish --replace-fail python3 '${python3.interpreter}'
+  '';
 
+  postInstall = ''
+    wrapProgram $out/bin/fastfetch \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+    wrapProgram $out/bin/flashfetch \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+  '';
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
@@ -259,7 +270,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/fastfetch-cli/fastfetch";
     changelog = "https://github.com/fastfetch-cli/fastfetch/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
