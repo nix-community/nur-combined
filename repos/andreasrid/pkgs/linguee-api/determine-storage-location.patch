@@ -1,0 +1,59 @@
+From b26e4f965f97e179da2a5c30bc42c22b1572413f Mon Sep 17 00:00:00 2001
+From: Andreas Rid <info@andreas-rid.de>
+Date: Tue, 5 Mar 2024 21:03:05 +0100
+Subject: [PATCH] determine storage location
+
+---
+ linguee_api/config.py | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/linguee_api/config.py b/linguee_api/config.py
+index 5ff7762..d5afae4 100644
+--- a/linguee_api/config.py
++++ b/linguee_api/config.py
+@@ -1,10 +1,33 @@
++import os
+ import pathlib
++from loguru import logger
+ from typing import Optional
+ 
+ from pydantic import BaseSettings
+ 
+ from linguee_api.const import PROJECT_ROOT
+ 
++def determine_storage_path():
++    storage_locations = [
++        "/var/lib/linguee-api",
++        "/run/linguee-api",
++        "/var/run/linguee-api",
++        PROJECT_ROOT,
++        "/tmp/.linguee-api",
++    ]
++
++    for loc in storage_locations:
++        p = pathlib.Path(loc)
++        try:
++            p.mkdir(parents=True, exist_ok=True)
++        except (PermissionError, OSError) as e:
++            logger.debug(e)
++            continue
++        if os.access(p, os.W_OK):
++            logger.info(f"New storage location: " + p.absolute().as_posix())
++            return p
++
++    raise Exception("Cannot find a read-write storage location")
+ 
+ class Settings(BaseSettings):
+     """Application settings."""
+@@ -14,7 +37,7 @@ class Settings(BaseSettings):
+     sentry_environment: str = "development"
+ 
+     # File and SQLite cache settings
+-    cache_directory: pathlib.Path = PROJECT_ROOT / ".cache"
++    cache_directory: pathlib.Path = determine_storage_path() / ".cache"
+ 
+     @property
+     def cache_database(self) -> pathlib.Path:
+-- 
+2.42.0
+

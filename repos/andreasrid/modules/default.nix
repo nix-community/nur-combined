@@ -1,5 +1,7 @@
+{ self
+}:
 {
   # Add your NixOS modules here
   #
-  # my-module = ./my-module;
+  linguee-api = import ./linguee-api { inherit self; };
 }
