@@ -32,10 +32,7 @@ let
     agree = { };
     aura = { };
     enquirer = { };
-    ferdium = {
-      pnpm = pkgs.pnpm_9;
-      nodejs = pkgs.nodejs_20;
-    };
+    ferdium = { };
     go-mod-upgrade = { };
     imhex = { };
     lddtree = { };
