@@ -13,8 +13,8 @@ buildGoModule rec {
     owner = "xx4h";
     repo = "hctl";
     # rev = "v${version}";
-    rev = "b638f25af04415ace367fe9a95a7e8448201c5db"; # pull/63
-    hash = "sha256-U8TLROjJQa3Ogb8oxsfyab7E60LnpWG5vJLqqoom0FY=";
+    rev = "fc9c13f60efb7e6c1af8667b0d527ba68e9ff041"; # pull/63
+    hash = "sha256-DAvmbLEyFwZ72KAzO7XM5Q/T3NUu3KCfW78L3Wo3ezo=";
   };
 
   vendorHash = "sha256-7sTf9wBEinYq722DDVuOSNr+IPyYd4C0NGRAlNUVhIU=";
