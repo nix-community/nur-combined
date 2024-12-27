@@ -1,17 +1,17 @@
 {
-  buildDartApplication ? (import <nixpkgs> { }).buildDartApplication,
-  clang ? (import <nixpkgs> { }).clang,
-  pkg-config ? (import <nixpkgs> { }).pkg-config,
-  gtk3 ? (import <nixpkgs> { }).gtk3,
-  cmake ? (import <nixpkgs> { }).cmake,
-  fetchFromGitHub ? (import <nixpkgs> { }).fetchFromGitHub,
-  nix-update-script ? (import <nixpkgs> { }).nix-update-script,
-  lib ? (import <nixpkgs> { }).lib,
-  glib ? (import <nixpkgs> { }).glib,
-  cairo ? (import <nixpkgs> { }).cairo,
-  pango ? (import <nixpkgs> { }).pango,
-  atk ? (import <nixpkgs> { }).atk,
-  gdk-pixbuf ? (import <nixpkgs> { }).gdk-pixbuf,
+  buildDartApplication,
+  clang,
+  pkg-config,
+  gtk3,
+  cmake,
+  fetchFromGitHub,
+  nix-update-script,
+  lib,
+  glib,
+  cairo,
+  pango,
+  atk,
+  gdk-pixbuf,
 }:
 
 buildDartApplication rec {
@@ -27,36 +27,28 @@ buildDartApplication rec {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  buildInputs = [
+  env = {
+    FLUTTER_ROOT = "${src}/flutter";
+    FVM_DIR = "${src}";
+    FVM_DIR_BIN = "${env.FVM_DIR}/bin";
+    PATH = "${gtk3.dev}/bin:${gtk3}/bin:$PATH";
+    XDG_DATA_DIRS = "${gtk3.dev}/share:${gtk3}/share:$XDG_DATA_DIRS";
+    GETTEXTDATADIRS = "${gtk3.dev}/share/gettext:$GETTEXTDATADIRS";
+    GSETTINGS_SCHEMAS_PATH = "${gtk3.dev}/share/glib-2.0/schemas:$GSETTINGS_SCHEMAS_PATH";
+    HOST_PATH = "${gtk3.dev}/bin:${gtk3}/bin:$HOST_PATH";
+  };
+
+  propagatedBuildInputs = [
     clang
     pkg-config
-    gtk3
+    gtk3.dev
     cmake
-    glib
-    cairo
-    pango
-    atk
-    gdk-pixbuf
+    glib.dev
+    cairo.dev
+    pango.dev
+    atk.dev
+    gdk-pixbuf.dev
   ];
-
-  shellHook = ''
-    export PKG_CONFIG_PATH="${lib.makeSearchPath "lib/pkgconfig" [
-      gtk3.dev
-      glib.dev
-      cairo.dev
-      pango.dev
-      atk.dev
-      gdk-pixbuf.dev
-    ]}"
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [
-      gtk3
-      glib
-      cairo
-      pango
-      atk
-      gdk-pixbuf
-    ]}:$LD_LIBRARY_PATH"
-  '';
 
   dontUseCmakeConfigure = true;
 
