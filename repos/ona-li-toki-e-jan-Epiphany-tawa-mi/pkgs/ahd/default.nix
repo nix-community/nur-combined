@@ -1,32 +1,36 @@
 { stdenv
 , fetchFromGitHub
 , lib
-, gnuapl
+, cbqn
 }:
 
 stdenv.mkDerivation rec {
   pname   = "ahd";
-  version = "0.1.6";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "AHD";
     rev   = version;
-    hash  = "sha256-cbbe2OVbv1N71wctSTElKFp41G15446HJGZLGQuSmY8=";
+    hash  = "sha256-wbVPoyizJ1Mf2op7jS6GQD4Rqfkq0HiF3/c2UJlYmzE=";
   };
 
-  buildInputs = [ gnuapl ];
+  nativeBuildInputs = [ cbqn ];
+  buildInputs = [ cbqn ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    bqn test.bqn
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/bin" "$out/lib"
-    cp ahd.apl "$out/bin/${pname}"
-    cp workspaces/* "$out/lib"
-
-    # Rewrite library loads to use paths from the Nix store.
-    sed -i -e "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|" \
-        $out/bin/${pname}
+    mkdir -p "$out/bin"
+    cp ahd.bqn "$out/bin/${pname}"
 
     runHook postInstall
   '';
