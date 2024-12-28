@@ -28,7 +28,8 @@ let
     #nft-fullcone = callPackage ./nft-fullcone { };
     #nftables-fullcone = callPackage ./nftables-fullcone { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
-    qcef = callPackage ./qcef { };
+    # built failure with gnome2.ORBit2
+    # qcef = callPackage ./qcef { };
     rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
     udpspeeder = callPackage ./udpspeeder { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
