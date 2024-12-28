@@ -7,17 +7,17 @@
 
 buildGoModule rec {
   pname = "finch";
-  version = "1.4.3";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     tag = "v${version}";
-    hash = "sha256-6W5FVDPkW0Ei0q+biXyfPKGedLcVovWxlDyvG5BYfg0=";
+    hash = "sha256-EVFL1qJyCNnRGqhqA3OFf92+BlpkbQbBVp9XqSancbI=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-CBeD9p9nzoGTGYnFnrz8s/wx6SSyXN5KfunD/IdcnNA=";
+  vendorHash = "sha256-bZzyArN49Cge4ChMiAPlrYOdsfzrBrQorwXlK3a9lfU=";
 
   subPackages = [ "cmd/finch" ];
 
