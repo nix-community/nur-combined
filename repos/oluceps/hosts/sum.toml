@@ -7,8 +7,8 @@ name = "kaambl" # laptop
 addr = "elen@10.0.1.3"
 
 [[host]]
-name = "abhoth" # vmiss
-addr = "elen@38.47.119.151"
+name = "abhoth" # linode
+addr = "elen@172.234.92.148"
 
 [[host]]
 name = "azasos" # tencent cloud censored

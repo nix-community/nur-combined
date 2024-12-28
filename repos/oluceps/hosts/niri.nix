@@ -16,9 +16,7 @@
     vt = 2;
     settings = rec {
       initial_session = {
-        command = "${lib.getExe pkgs.greetd.tuigreet} --remember --time --cmd ${pkgs.writeShellScript "wm-startup" ''
-          niri-session
-        ''}";
+        command = "${lib.getExe pkgs.greetd.tuigreet} --remember --time --cmd ${lib.getExe' pkgs.niri "niri-session"}";
         inherit user;
       };
       default_session = initial_session;

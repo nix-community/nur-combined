@@ -9,7 +9,7 @@
     # This headless machine uses to perform heavy task.
     # Running database and web services.
 
-    stateVersion = "22.11";
+    stateVersion = "24.11";
     etc.overlay.enable = true;
     etc.overlay.mutable = false;
   }; # Did you read the comment?
