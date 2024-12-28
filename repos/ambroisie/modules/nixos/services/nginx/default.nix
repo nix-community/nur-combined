@@ -87,10 +87,6 @@ let
   });
 in
 {
-  imports = [
-    ./sso
-  ];
-
   options.my.services.nginx = with lib; {
     enable = mkEnableOption "Nginx";
 
