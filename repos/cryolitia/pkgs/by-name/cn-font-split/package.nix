@@ -1,90 +1,35 @@
 {
-  stdenvNoCC,
   lib,
-  buildNpmPackage,
   rustPlatform,
   fetchFromGitHub,
-  nodejs,
+  cmake,
+  pkg-config,
   protobuf,
-  fetchNpmDeps,
 }:
 let
-  version = "7.0.0-beta-4";
 
-  origin-src = fetchFromGitHub {
+in
+rustPlatform.buildRustPackage rec {
+  pname = "cn-font-split";
+  version = "7.0.0-beta-9";
+
+  src = fetchFromGitHub {
     owner = "KonghaYao";
     repo = "cn-font-split";
     rev = version;
-    hash = "sha256-Nvw+JnhRnL0GCjEBu3VLtvmamsUJbX5iZaklKMFiwCI=";
+    hash = "sha256-3XOAnEmYmHTs/nNRv7YG8PGuAZ4hvcFOOWZCi02jo80=";
   };
 
-  npm-lock = ./package-lock.json;
-  cargo-lock = ./Cargo.lock;
-
-  packages-json = stdenvNoCC.mkDerivation rec {
-    name = "cn-font-split-npm-package-json";
-    src = origin-src;
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -rv ${src}/crates/lang_unicodes/package.json $out/
-      cp -rv ${npm-lock} $out/package-lock.json
-
-      runHook postInstall
-    '';
-  };
-
-  npmDeps = buildNpmPackage {
-    pname = "cn-font-split-node-modules";
-    inherit version;
-    src = packages-json;
-
-    dontBuild = true;
-
-    npmDeps = fetchNpmDeps {
-      src = packages-json;
-      hash = "sha256-+dwYY4OUahT6jSscmaUzq++PdJhF3RtOo+9A5Pyrozk=";
-    };
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -r node_modules $out/
-
-      runHook postInstall
-    '';
-  };
-
-  src = stdenvNoCC.mkDerivation rec {
-    name = "cn-font-split-src";
-    src = origin-src;
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -r ${src}/* $out/
-      cp -r ${npmDeps}/node_modules $out/
-      cp ${cargo-lock} $out/Cargo.lock
-
-      runHook postInstall
-    '';
-  };
-
-in
-rustPlatform.buildRustPackage {
-  pname = "cn-font-split";
-  inherit src version;
+  doCheck = false;
 
   nativeBuildInputs = [
-    nodejs
+    rustPlatform.bindgenHook
+    cmake
+    pkg-config
     protobuf
   ];
 
-  cargoHash = "sha256-1YEtUWdNOUSV0FjJlH6XGpoKDpkl3loJzK8aFQZn8sE=";
+  cargoHash = "sha256-n5xk9g4mFN1ujkJRtzEIem+XKfKT3E68OWMCeo+FKOs=";
 
   meta = {
     description = "A revolutionary font subetter that supports CJK and any characters!";
