@@ -24,6 +24,7 @@
                 keywords = [ "Game" "Emulator" "Arcade" ];
             })
         ];
+        outputs = lib.lists.remove "tools" (old.outputs or ["out"]);
         patches = map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
             url = "https://raw.githubusercontent.com/NixOS/nixpkgs/83d89a2fadf3ce1f67cfc5e49e62e474df04507b/pkgs/applications/emulators/mame/001-use-absolute-paths.diff";
             decode = '' sed '/OPTION_INIPATH/ {
@@ -37,18 +38,8 @@
                 url = "https://github.com/mamedev/mame/commit/c75845b1ef01d76379bcc0a6937f1ca678484c68.patch";
                 hash = "sha256-uU+GFxEifJkmFi2SzurIRWmnTzokhCPJa7AuTlFOTjQ=";
             })
-            (fetchpatch {
-                name = "0002-Use-EQUIVALENT_ARRAY-to-avoid-issues-with-std-size.patch";
-                url = "https://github.com/Rhys-T/hbmame/commit/cc23cd19cec009b9efe52a6fea02dd1cbfaa8350.patch";
-                hash = "sha256-rU12yRQWpekyr5mLexDD6ZLW1CT065kgb8HLm3VrUDM=";
-            })
-            (fetchpatch {
-                name = "0003-font_sdl-avoid-variable-length-array.patch";
-                url = "https://github.com/mamedev/mame/commit/7cf123e77007c36389ca7005d39e6a2b516bae7b.patch";
-                hash = "sha256-JABYXkcsqWlQ3OV7k6vvLumoovpkZvuw+Cc3G4WMqD8=";
-            })
         ];
-        makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
+        makeFlags = map (x: if x == "TOOLS=1" then "TOOLS=0" else x) (old.makeFlags or []) ++ ["TARGET=hbmame"];
         installPhase = let
             installPhaseParts = builtins.match "(.*)install -Dm644 [^ ]* [^ ]*/mame\\.svg(.*)" old.installPhase;
             installPhase' = ''
@@ -57,22 +48,33 @@
                 install -Dm644 hbmame_1_32x32x32.png "$out"/share/icons/hicolor/32x32/apps/hbmame.png
                 ${builtins.elemAt installPhaseParts 1}
             '';
+            installPhaseParts' = builtins.match "(.*)# mame-tools.*mv \\$tools/bin/[{],mame-[}]split(.*)" installPhase';
+            installPhase'' = lib.concatStrings installPhaseParts';
         in builtins.replaceStrings [
             "install -Dm755 mame -t $out/bin"
             "{artwork,bgfx,plugins,language,ctrlr,keymaps,hash}"
+            "installManPage docs/man/*.1 docs/man/*.6"
         ] [
             "install -Dm755 hbmame -t $out/bin"
             "{artwork,bgfx,plugins,language,ctrlr,hash}" # no keymaps included with HBMAME
-        ] installPhase';
+            "installManPage docs/man/*.6" # not installing tools
+        ] installPhase'';
         postInstall = (old.postInstall or "") + ''
             mv "$out"/share/man/man6/{,hb}mame.6
         '';
+        postFixup = let
+            postFixup = builtins.replaceStrings ["moveToOutput share/man/man1 $tools"] [""] (old.postFixup or "");
+        in if postFixup == "\n" then null else postFixup;
         env = (old.env or {}) // {
             NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + lib.optionalString stdenv.cc.isClang (
                 " -Wno-error=unused-but-set-variable -Wno-error=unused-private-field" +
+                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18") " -Wno-error=vla-cxx-extension" +
                 # https://github.com/llvm/llvm-project/issues/62254
                 lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
             );
+        };
+        passthru = removeAttrs (old.passthru or {}) ["updateScript"] // {
+            tools = throw "HBMAME's copies of the MAME tools are not supported by the HBMAME developer, and have been removed. Please use the upstream `mame.tools` instead.";
         };
         meta = (old.meta or {}) // {
             description = "Emulator of homebrew and hacked games for arcade hardware";
