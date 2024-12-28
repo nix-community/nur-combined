@@ -3,6 +3,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -12,7 +16,9 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ ./flake-modules/commands.nix ];
+      imports = [
+        ./flake-modules/commands.nix
+      ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -20,7 +26,6 @@
         "aarch64-darwin"
       ];
       flake = {
-
         nixosModules = {
           alist = import ./modules/alist.nix;
           gost = import ./modules/gost.nix;

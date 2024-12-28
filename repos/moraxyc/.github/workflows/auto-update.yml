@@ -1,0 +1,48 @@
+name: "Auto update packages"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "10 3 * * *"
+jobs:
+  build:
+    name: update
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Cache Nvfetcher Database
+        id: cache-nvfetcher
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nvfetcher
+          key: nvfetcher
+
+      - name: Build nix packages
+        run: |
+          cat > secrets.toml <<EOF
+          [keys]
+          github = "${{ secrets.GITHUB_TOKEN }}"
+          EOF
+
+          nix develop -c nvfetcher
+
+          rm -f secrets.toml
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _sources
+          git commit -m "chore: update sources" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push

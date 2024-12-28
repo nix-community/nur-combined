@@ -7,24 +7,15 @@
   sqlite,
   stdenv,
   darwin,
+  sources,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "exloli-next";
-  version = "0.4.0-unstable-2024-9-9";
 
-  src = fetchFromGitHub {
-    owner = "lolishinshi";
-    repo = "exloli-next";
-    rev = "01cc72f0869f4fb93ca0085c4d554d502bf2ee41";
-    hash = "sha256-AGrc40DLButXGxJIeRbG70jCW76BCXW53NkgCj9HIwM=";
-  };
-  postPatch = ''
-    substituteInPlace src/ehentai/client.rs \
-      --replace-fail "div.gdtl" "div#gdt"
-  '';
+  inherit (sources.exloli-next) version src;
 
-  cargoHash = "sha256-hEHHG8ULWFLEm0iP8q1sxVuxY3ad5z0qv3KxmcXwK8Y=";
+  cargoHash = "sha256-EBK7cn0HZotkxcUQ/CBaPAN3qfATGA68ZMD2d3Z2wSI=";
 
   nativeBuildInputs = [
     pkg-config

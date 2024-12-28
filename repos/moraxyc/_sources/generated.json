@@ -1,0 +1,53 @@
+{
+    "exloli-next": {
+        "cargoLocks": null,
+        "date": "2024-11-23",
+        "extract": null,
+        "name": "exloli-next",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lolishinshi",
+            "repo": "exloli-next",
+            "rev": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
+            "sha256": "sha256-S3hjuRSDtPkK9XF2USXfyOawWoD/fu9qYDJbUPI3Op0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "41d7a6e52a1625d6febb47160a4b143ca47c16d5"
+    },
+    "v2ray-rules-dat-geoip": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "v2ray-rules-dat-geoip",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-3kjemjh5REUe6UrCI+rG7uWMbCXohmhwz/Wu4wfEmDI=",
+            "type": "url",
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202412272211/geoip.dat"
+        },
+        "version": "202412272211"
+    },
+    "v2ray-rules-dat-geosite": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "v2ray-rules-dat-geosite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-SUyhgU6tqFIVoOVCW8F5e2wR+rJ0bLQL/9WTCe/gjW4=",
+            "type": "url",
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202412272211/geosite.dat"
+        },
+        "version": "202412272211"
+    }
+}

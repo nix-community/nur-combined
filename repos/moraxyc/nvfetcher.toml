@@ -1,0 +1,11 @@
+[exloli-next]
+src.git = "https://github.com/lolishinshi/exloli-next"
+fetch.github = "lolishinshi/exloli-next"
+
+[v2ray-rules-dat-geoip]
+src.github = "Loyalsoldier/v2ray-rules-dat"
+fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geoip.dat"
+
+[v2ray-rules-dat-geosite]
+src.github = "Loyalsoldier/v2ray-rules-dat"
+fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
