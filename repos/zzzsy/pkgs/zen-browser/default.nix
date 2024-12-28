@@ -2,7 +2,6 @@
   lib,
   appimageTools,
   fetchurl,
-  variant ? "specific",
 }:
 let
   pname = "zen-browser";
@@ -10,8 +9,8 @@ let
   version = metadata.version;
 
   src = fetchurl {
-    url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-${variant}.AppImage";
-    hash = lib.getAttr variant metadata;
+    url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-x86_64.AppImage";
+    hash = metadata.hash;
   };
 
   extracted = appimageTools.extract {

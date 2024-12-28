@@ -5,6 +5,8 @@
   environment.systemPackages = with pkgs; [
     virt-manager
     virtiofsd
-    # guestfs-tools
+    #qemu
+    #qemu_kvm
+    #guestfs-tools
   ];
 }

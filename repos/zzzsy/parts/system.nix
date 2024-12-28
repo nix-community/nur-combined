@@ -43,9 +43,8 @@ let
                 overlays = [
                   (final: prev: {
                     #ghostty = ghostty.packages.x86_64-linux.default;
-                    dae = daeuniverse.packages.${system}.dae-unstable;
+                    dae-unstable = daeuniverse.packages.${system}.dae-unstable;
                     my = self.packages."${system}";
-                    chaotic = chaotic.packages.${system};
                   })
                 ] ++ overlays;
               };

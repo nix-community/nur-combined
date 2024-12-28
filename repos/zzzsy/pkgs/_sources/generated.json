@@ -1,7 +1,7 @@
 {
     "firefox-gnome-theme": {
         "cargoLocks": null,
-        "date": "2024-11-30",
+        "date": "2024-12-23",
         "extract": null,
         "name": "firefox-gnome-theme",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "c1d082e47cb38b9e8d8d6899398f3bae51a72c34",
-            "sha256": "sha256-Hf2NK58bTV1hy6FxvKpyNzm59tyMPzDjc8cGcWiTLyQ=",
+            "rev": "92f4890bd150fc9d97b61b3583680c0524a8cafe",
+            "sha256": "sha256-A9PxLienMYJ/WUvqFie9qXrNC2MeRRYw7TG/q7DRjZg=",
             "type": "github"
         },
-        "version": "c1d082e47cb38b9e8d8d6899398f3bae51a72c34"
+        "version": "92f4890bd150fc9d97b61b3583680c0524a8cafe"
     },
     "iosevka-zt": {
         "cargoLocks": null,
@@ -28,15 +28,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9rL+gEuWqIYlTJ8GA6ylVEgDYj02HfQ08Jic8WWmhYA=",
+            "sha256": "sha256-Rb7Ako8oKhFeY7WQ/uqytsnON+vC4VyQK/EDGBHqSUw=",
             "type": "url",
-            "url": "https://github.com/zzzsyyy/Iosevka/releases/download/v31.2.0/Iosevka-31.2.0.txz"
+            "url": "https://github.com/zzzsyyy/Iosevka/releases/download/v32.3.0/Iosevka-32.3.0.txz"
         },
-        "version": "31.2.0"
+        "version": "32.3.0"
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-11-02",
+        "date": "2024-12-21",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b",
-            "sha256": "sha256-ETjLN40G4I0FEsQgNY8JM4AInqyb3yJwEJTGqdIHGWg=",
+            "rev": "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6",
+            "sha256": "sha256-zx0F41szn5qlc2MNjt1vizLIsIFQ67fp5cb8U8UUgtY=",
             "type": "github"
         },
-        "version": "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b"
+        "version": "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6"
     },
     "lxgw-wenkai-screen": {
         "cargoLocks": null,
@@ -83,15 +83,15 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic-Project",
-            "rev": "V1.9.5766",
-            "sha256": "sha256-wdDhKINEHNrayliUwOXNg0jIg4/W3TH9VjETblJGqvE=",
+            "rev": "V1.9.5769",
+            "sha256": "sha256-jN4OQQL1tkwDpWyk43h75V+7lT1AfiaIRnAgVOQA0rs=",
             "type": "github"
         },
-        "version": "V1.9.5766"
+        "version": "V1.9.5769"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-11-30",
+        "date": "2024-12-27",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -103,10 +103,10 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "ed191350b20a0074d177c9431fcb985ba193ef2b",
-            "sha256": "sha256-+6Xci9S/5YY7ykYpv9SxtmNWWjOzqYatlGPTIY/FEqY=",
+            "rev": "c3d861119e4c94790931ef25ff74f989aced1375",
+            "sha256": "sha256-PxTc/MKoWcOMHegSVsjeKUzhrtD/ins90xVu4UUUUJI=",
             "type": "github"
         },
-        "version": "ed191350b20a0074d177c9431fcb985ba193ef2b"
+        "version": "c3d861119e4c94790931ef25ff74f989aced1375"
     }
 }

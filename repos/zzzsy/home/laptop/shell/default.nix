@@ -76,6 +76,7 @@
       dialect = "us";
     };
   };
+  programs.man.generateCaches = false;
 
   home.file.".config/neofetch/config.conf".text = import ./neofetch.nix;
   home.shellAliases = {

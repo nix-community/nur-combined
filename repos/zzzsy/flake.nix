@@ -33,10 +33,6 @@
     #ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
     #ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
     #ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
-    #nixos-cosmic = {
-    #  url = "github:lilyinstarlight/nixos-cosmic";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";

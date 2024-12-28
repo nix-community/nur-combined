@@ -33,7 +33,7 @@
       efi.canTouchEfiVariables = false; # @TODO
     };
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.chaotic.linuxPackages_cachyos;
+    kernelPackages = pkgs.linuxPackages_cachyos;
     #@TODO
     kernelParams = [
       "amd_pstate=active"

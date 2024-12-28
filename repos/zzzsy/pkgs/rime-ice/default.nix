@@ -16,7 +16,6 @@ stdenvNoCC.mkDerivation rec {
     ''}
 
     install -Dm644 *.{schema,dict}.yaml $out/share/rime-data
-    install -Dm644 *.lua                 $out/share/rime-data
     install -Dm644 symbols*.yaml         $out/share/rime-data
     install -Dm644 default.yaml          $out/share/rime-data
 

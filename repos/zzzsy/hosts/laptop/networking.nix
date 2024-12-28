@@ -10,7 +10,7 @@
   };
   services.dae = {
     enable = true;
-    package = pkgs.dae;
+    package = pkgs.dae-unstable;
     configFile = "/home/zzzsy/.config/dae/config.dae";
   };
   networking.wg-quick.interfaces = {
