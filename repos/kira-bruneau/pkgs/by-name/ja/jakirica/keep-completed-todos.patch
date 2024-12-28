@@ -1,0 +1,25 @@
+diff --git a/website/server/middlewares/cron.js b/website/server/middlewares/cron.js
+index e9922dc762..71978e8664 100644
+--- a/website/server/middlewares/cron.js
++++ b/website/server/middlewares/cron.js
+@@ -96,20 +96,6 @@ async function cronAsync (req, res) {
+       headers: req.headers,
+     });
+ 
+-    // Clear old completed todos - 30 days for free users, 90 for subscribers
+-    // Do not delete challenges completed todos TODO unless the task is broken?
+-    // Do not delete group completed todos
+-    Tasks.Task.deleteMany({
+-      userId: user._id,
+-      type: 'todo',
+-      completed: true,
+-      dateCompleted: {
+-        $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days').toDate(),
+-      },
+-      'challenge.id': { $exists: false },
+-      'group.id': { $exists: false },
+-    }).exec();
+-
+     res.locals.wasModified = true; // TODO remove after v2 is retired
+ 
+     Group.tavernBoss(user, progress);

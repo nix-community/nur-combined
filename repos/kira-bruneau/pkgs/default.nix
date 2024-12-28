@@ -109,6 +109,8 @@ in
 
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
+  jakirica-client = jakirica.client;
+
   krane = callPackage ./applications/networking/cluster/krane { };
 
   linuxPackages = recurseIntoAttrs (

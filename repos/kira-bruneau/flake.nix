@@ -45,6 +45,8 @@
                 "clonehero"
                 "habitica"
                 "habitica-client"
+                "jakirica"
+                "jakirica-client"
                 "virtualparadise"
               ];
           };
