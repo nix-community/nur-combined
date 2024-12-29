@@ -1,6 +1,6 @@
 { lib, fetchFromGitHub, stdenvNoCC, wallpapersCategory }: stdenvNoCC.mkDerivation {
   pname = "gruvbox-wallpapers-${wallpapersCategory}";
-  version = "0-unstable-2024-12-19";
+  version = "0-unstable-2024-12-25";
   src = fetchFromGitHub {
     owner = "AngelJumbo";
     repo = "gruvbox-wallpapers";
