@@ -4,7 +4,7 @@
   src = fetchFromGitHub {
     owner = "AngelJumbo";
     repo = "gruvbox-wallpapers";
-    rev = "d42d226e83861a18b13d0f347f85808247ec1c13";
+    rev = "edb315e711791d2eca4e5873d583ba47325672e0";
     hash = "sha256-Lklzk//gVhGmsPE8uWXcaN8y5fHMoKsneerWkJ8RG70=";
   };
   dontConfigure = true;
