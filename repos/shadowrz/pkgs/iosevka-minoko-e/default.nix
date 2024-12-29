@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchzip, iosevka }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  iosevka,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "iosevka-minoko-e";
@@ -24,4 +29,3 @@ stdenvNoCC.mkDerivation rec {
     description = "A Custom Iosevka build";
   };
 }
-

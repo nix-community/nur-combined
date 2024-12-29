@@ -1,4 +1,5 @@
-name: "Build and populate cache"
+name: "[Non Garnix] Build and populate cache"
+
 on:
   workflow_dispatch:
   pull_request:
@@ -11,6 +12,7 @@ on:
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '10 1 * * *'
+
 jobs:
   tests:
     strategy:
@@ -37,7 +39,7 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.11.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -47,8 +49,14 @@ jobs:
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
-          experimental-features = nix-command flakes
+          experimental-features = nix-command flakes ca-derivations
+          extra-experimental-features = nix-command flakes ca-derivations
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          keep-going = true
+          log-lines = 25
+          substituters = https://nix-community.cachix.org https://cache.garnix.io https://cache.nixos.org/
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+          trusted-substituters = https://nix-community.cachix.org https://cache.garnix.io https://cache.nixos.org/
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix

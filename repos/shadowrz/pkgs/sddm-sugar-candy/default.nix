@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitLab }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sddm-sugar-candy";

@@ -29,9 +29,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tFqze3xN1XECY74Gj0nScis7DVNOZO4wcfeA7mNZT5M=";
   };
 
-  cmakeFlags = ["-DBUILD_TESTING=OFF" "-DBUILD_QT5=OFF"];
+  cmakeFlags = [
+    "-DBUILD_TESTING=OFF"
+    "-DBUILD_QT5=OFF"
+  ];
 
-  nativeBuildInputs = [cmake extra-cmake-modules wrapQtAppsHook];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
   patches = [
     (fetchpatch rec {
@@ -58,6 +65,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A highly customizable binary Window Decoration and Application Style plugin for recent versions of the KDE Plasma desktop";
     homepage = "https://github.com/paulmcauley/klassy";
-    license = with licenses; [gpl2Only gpl2Plus gpl3Only bsd3 mit];
+    license = with licenses; [
+      gpl2Only
+      gpl2Plus
+      gpl3Only
+      bsd3
+      mit
+    ];
   };
 }

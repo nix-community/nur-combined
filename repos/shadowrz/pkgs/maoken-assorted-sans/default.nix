@@ -1,12 +1,15 @@
-{ lib, fetchurl, stdenvNoCC }:
+{
+  lib,
+  fetchurl,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "maoken-assorted-sans";
   version = "1.60";
 
   src = fetchurl {
-    url =
-      "https://github.com/Skr-ZERO/MaokenAssortedSans/releases/download/v${finalAttrs.version}/MaokenAssortedSans.ttf";
+    url = "https://github.com/Skr-ZERO/MaokenAssortedSans/releases/download/v${finalAttrs.version}/MaokenAssortedSans.ttf";
     sha256 = "sha256-gJeIbnQfcRKxDqHdVnAUMYZc7Oo2zxgTV73NwFRRMA0=";
   };
 

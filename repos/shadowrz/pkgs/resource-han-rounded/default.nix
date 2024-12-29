@@ -1,12 +1,16 @@
-{ lib, fetchurl, p7zip, stdenvNoCC }:
+{
+  lib,
+  fetchurl,
+  p7zip,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "resource-han-rounded";
   version = "0.990";
 
   src = fetchurl {
-    url =
-      "https://github.com/CyanoHao/Resource-Han-Rounded/releases/download/v${finalAttrs.version}/RHR-TTF-${finalAttrs.version}.7z";
+    url = "https://github.com/CyanoHao/Resource-Han-Rounded/releases/download/v${finalAttrs.version}/RHR-TTF-${finalAttrs.version}.7z";
     sha256 = "sha256-e/9vZtrxUB6OynP7NH2Z3vrHcdh2qr5ds1UsAKDQ2Gw=";
   };
 

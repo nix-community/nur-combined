@@ -1,19 +1,20 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, kdecoration
-, qtx11extras
-, kcoreaddons
-, kguiaddons
-, kconfigwidgets
-, kiconthemes
-, kwindowsystem
-, kwayland
-, kirigami2
-, frameworkintegration
-, kcmutils
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  kdecoration,
+  qtx11extras,
+  kcoreaddons,
+  kguiaddons,
+  kconfigwidgets,
+  kiconthemes,
+  kwindowsystem,
+  kwayland,
+  kirigami2,
+  frameworkintegration,
+  kcmutils,
 }:
 
 mkDerivation rec {
@@ -29,7 +30,10 @@ mkDerivation rec {
 
   extraCmakeFlags = [ "-DBUILD_TESTING=OFF" ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kdecoration
@@ -48,6 +52,12 @@ mkDerivation rec {
   meta = with lib; {
     description = "A highly customizable binary Window Decoration and Application Style plugin for recent versions of the KDE Plasma desktop";
     homepage = "https://github.com/paulmcauley/klassy";
-    license = with licenses; [ gpl2Only gpl2Plus gpl3Only bsd3 mit ];
+    license = with licenses; [
+      gpl2Only
+      gpl2Plus
+      gpl3Only
+      bsd3
+      mit
+    ];
   };
 }
