@@ -776,6 +776,33 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
+### `dcmtkShared` `3.6.9` [🌐](https://dicom.offis.de/dcmtk "Homepage") [📦](https://github.com/NixOS/nixpkgs/blob/7cc0bff/pkgs/by-name/dc/dcmtk/package.nix#L37 "Source")
+
+Collection of libraries and applications implementing large parts of the DICOM standard.
+
+DCMTK is a collection of libraries and applications implementing large parts of the DICOM standard.
+It includes software for examining, constructing and converting DICOM image files, handling offline media,
+sending and receiving images over a network connection, as well as demonstrative image storage and worklist servers.
+DCMTK is is written in a mixture of ANSI C and C++.
+It comes in complete source code and is made available as "open source" software.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `dcmtk`
+- Licenses: [`BSD-3-Clause`](https://spdx.org/licenses/BSD-3-Clause.html 'BSD 3-clause "New" or "Revised" License')
+- Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`
+- Maintainers:
+  - [Markus J. Ankenbrand](https://github.com/iimog) [✉️](mailto:iimog@iimog.org)
+  - [✉️ Mail to all maintainers](mailto:iimog@iimog.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `fastfetch` `2.33.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.33.0 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L269 "Source")
 
 Like neofetch, but much faster because written in C.
@@ -881,7 +908,7 @@ A set of commands that manipulate GTAs on various levels.
 - Update Script: ✔️
 </details>
 
-### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L70 "Source")
+### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L77 "Source")
 
 A set of commands that manipulate GTAs on various levels (with all features enabled).
 
@@ -2371,7 +2398,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - Update Script: ✔️
 </details>
 
-### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L104 "Source")
+### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L110 "Source")
 
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
@@ -2645,7 +2672,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Update Script: ✔️
 </details>
 
-### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L136 "Source")
+### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L142 "Source")
 
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled).
 
@@ -2754,7 +2781,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L163 "Source")
+### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L169 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
 
@@ -2775,7 +2802,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L176 "Source")
+### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L182 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
 
@@ -2796,7 +2823,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L146 "Source")
+### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L152 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
 

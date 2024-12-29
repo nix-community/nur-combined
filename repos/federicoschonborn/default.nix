@@ -63,6 +63,13 @@ lib.makeScope pkgs.newScope (
           enablePciaccess = false;
         };
 
+    dcmtkShared = pkgs.dcmtk.overrideAttrs (
+      _: prevAttrs: {
+        nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.ninja ];
+        cmakeFlags = [ (lib.cmakeBool "BUILD_SHARED_LIBS" true) ];
+      }
+    );
+
     gtatoolFull =
       (self.gtatool.overrideAttrs (
         _: prevAttrs: {
@@ -75,8 +82,7 @@ lib.makeScope pkgs.newScope (
           # Broken
           withBashCompletion = false;
           withDcmtk = true;
-          # Needs patching
-          withExr = false;
+          withExr = true;
           # Needs patching
           withFfmpeg = false;
           withGdal = true;

@@ -18,9 +18,9 @@
   withBashCompletion ? false,
   bash-completion,
   withDcmtk ? false,
-  dcmtk,
+  dcmtkShared,
   withExr ? false,
-  openexr_3,
+  openexr_2,
   withFfmpeg ? false,
   ffmpeg,
   withGdal ? false,
@@ -75,8 +75,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs =
     [ libgta ]
     ++ lib.optional withBashCompletion bash-completion
-    ++ lib.optional withDcmtk dcmtk
-    ++ lib.optional withExr openexr_3
+    ++ lib.optional withDcmtk dcmtkShared
+    ++ lib.optional withExr openexr_2
     ++ lib.optional withFfmpeg ffmpeg
     ++ lib.optional withGdal gdal
     ++ lib.optional withJpeg libjpeg
@@ -102,9 +102,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
-  doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/gta";
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
