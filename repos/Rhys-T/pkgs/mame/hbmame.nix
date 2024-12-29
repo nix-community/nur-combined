@@ -68,7 +68,7 @@
         env = (old.env or {}) // {
             NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + lib.optionalString stdenv.cc.isClang (
                 " -Wno-error=unused-but-set-variable -Wno-error=unused-private-field" +
-                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18") " -Wno-error=vla-cxx-extension" +
+                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18.1") " -Wno-error=vla-cxx-extension" +
                 # https://github.com/llvm/llvm-project/issues/62254
                 lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
             );

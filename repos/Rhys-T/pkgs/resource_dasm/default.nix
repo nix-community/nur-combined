@@ -1,6 +1,6 @@
 {stdenv, lib, zlib, cmake, memorymappingHook, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, maintainers}: let
     needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
-in stdenv.mkDerivation (finalAttrs: rec {
+in stdenv.mkDerivation rec {
     pname = "resource_dasm";
     version = "0-unstable-2024-12-11";
     src = fetchFromGitHub {
@@ -73,7 +73,7 @@ in stdenv.mkDerivation (finalAttrs: rec {
         maintainers = [maintainers.Rhys-T];
     };
     passthru._Rhys-T.flakeApps = rdName: resource_dasm: let
-        lines = lib.splitString "\n" finalAttrs.finalPackage.meta.longDescription;
+        lines = lib.splitString "\n" resource_dasm.meta.longDescription;
         matchInfo = map (builtins.match "    \\* \\*\\*([^*]+)\\*\\*.*") lines;
         actualMatches = builtins.filter (x: x != null) matchInfo;
         appNames = lib.lists.remove "libresource_file" (map (x: builtins.elemAt x 0) actualMatches) ++ ["vrfs_dump"];
@@ -85,4 +85,4 @@ in stdenv.mkDerivation (finalAttrs: rec {
             };
         }) appNames);
     in flakeApps;
-})
+}

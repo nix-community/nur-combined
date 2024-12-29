@@ -149,13 +149,18 @@ in {
     });
     
     fpc = let
-        inherit (pkgs) fpc lib;
+        inherit (pkgs) lib;
+        fpcOrig = pkgs.fpc;
+        needsOldClang = fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18";
+        fpc = if needsOldClang then fpcOrig.override {
+            inherit (pkgs.llvmPackages_17) stdenv;
+        } else fpcOrig;
         needsFix =
             pkgs.hostPlatform.isDarwin && 
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
     in lib.addMetaAttrs ({
-        description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin)";
+        description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build)";
     }) (if needsFix then fpc.overrideAttrs (old: {
         preConfigure = ''
             NIX_LDFLAGS="-syslibroot $SDKROOT -L${lib.getLib pkgs.libiconv}/lib"
@@ -184,8 +189,20 @@ in {
         inherit (pkgs.darwin) sigtool;
     };
     
-    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
-        wine64Full = pkgs.wine64Packages.full;
+    wine64Full = let
+        inherit (pkgs) lib;
+        wine64FullOrig = pkgs.wine64Packages.full;
+        needsOldClang = wine64FullOrig.stdenv.cc.isClang && lib.versionAtLeast wine64FullOrig.stdenv.cc.version "18";
+        wine64Full = if needsOldClang then (pkgs.wine64Packages.extend (self: super: {
+            inherit (pkgs.llvmPackages_17) stdenv;
+        })).full else wine64FullOrig;
+    in wine64Full.overrideAttrs (old: {
+        meta = (old.meta or {}) // {
+            description = "${wine64Full.meta.description or "wine64Packages.full"} (with Clang version capped at 17 to fix build)";
+        };
+        passthru = (old.passthru or {}) // {
+            _Rhys-T.allowCI = pkgs.hostPlatform.isDarwin;
+        };
     });
     
     fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
