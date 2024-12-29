@@ -2,6 +2,7 @@
   curlftpfs,
   fetchFromGitea,
   fuse3,
+  libbsd,
 }:
 (curlftpfs.override {
   fuse = fuse3;
@@ -12,12 +13,13 @@
   # - support for "meta" keys found in /etc/fstab
   # my (fuse3 branch) fork includes the above plus:
   # - implements the fuse3 API. this means it also supports `-o drop_privileges`
+  version = "0.9.2-unstable-2024-12-26";
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "curlftpfs";
-    rev = "master";
-    hash = "sha256-Vjt/3WFkTooT1c/oXatqPb1hIREWTrJGdXoHRVG+ZXg=";
+    rev = "242be0205097883f07ab9c19564a1da60a811027";
+    hash = "sha256-8JSQwxd6QWdC7fiBgzjD1F92z9k6t8sKMi3i9ZnlGoM=";
   };
   # `mount` clears PATH before calling the mount helper (see util-linux/lib/env.c),
   # so the traditional /etc/fstab approach of fstype=fuse and device = curlftpfs#URI doesn't work.
@@ -27,8 +29,7 @@
     ln -s curlftpfs $out/bin/mount.curlftpfs
   '';
 
-  env = (upstream.env or {}) // {
-    # fuse3 requires _off_t to be 8 bytes, and advises to add this flag for 32bit platforms.
-    NIX_CFLAGS_COMPILE = ((upstream.env or {}).NIX_CFLAGS_COMPILE or "") + " -D_FILE_OFFSET_BITS=64";
-  };
+  buildInputs = (upstream.buildInputs or []) ++ [
+    libbsd
+  ];
 })

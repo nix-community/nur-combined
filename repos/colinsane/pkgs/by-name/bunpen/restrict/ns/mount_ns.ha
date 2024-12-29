@@ -3,10 +3,16 @@ use log;
 use fs;
 use os;
 use path;
-use restrict;
 use rt;
 use rt::ext;
 use strings;
+
+// everything inside this struct is borrowed
+type ns_ctx = struct {
+  what: *ns_resources,
+  old_fs: *fs::fs,
+  new_fs: *fs::fs,
+};
 
 // reconfigures all the mounts so that after this call the only paths accessible
 // are those reachable from the provided `paths`.
@@ -16,7 +22,7 @@ use strings;
 //   i don't know if this really matters anywhere (maybe `/` and `/proc`?),
 //   `sanebox` behavior is to gather all paths, expand their symlinks,
 //   and then only bind-mount the top-most path in the case of overlap.
-fn isolate_paths(what: *restrict::resources) void = {
+fn isolate_paths(what: *ns_resources) void = {
   // allow new mounts to propagate from the parent namespace into the child
   // namespace, but not vice versa (this is a requirement to use pivot_root)
   errors::ext::check("[namespace] reconfigure / as MS_SLAVE", rt::ext::mount("/", "/", "", rt::ext::mount_flag::SLAVE | rt::ext::mount_flag::REC, null));
@@ -68,9 +74,15 @@ fn isolate_paths(what: *restrict::resources) void = {
   //
   // this will fail if `--bunpen-keep-pid` is specified, in which case the user
   // may prefer to specify `--bunpen-path /proc` and bind-mount it instead.
-  // - bind-mounting /proc is _in theory_ safe (it's a namespace-aware fs),
-  //   but in practice there are namespacing bugs at least as recently as 2021:
-  //   <https://github.com/opencontainers/runc/issues/2826#issuecomment-915683044>
+  // - bind-mounting /proc exposes:
+  //   - visibility to all /proc/$PID directories
+  //     - can see all process's `cmdline`
+  //     - can *not* see the `environ` of processes from a different user namespace
+  //     - can *not* join the /proc/$PID/ns/* entries of processes from a different user namespace (IUUC)
+  //   - /proc/sys *should* be namespace-aware
+  //     e.g. /proc/sys/net should show entries _for the reader's_ net namespace, not the mount owner's
+  //     but in practice there are namespacing bugs at least as recently as 2021:
+  //     <https://github.com/opencontainers/runc/issues/2826#issuecomment-915683044>
   errors::ext::swallow("[namespace] mkdir new/proc", rt::mkdir("new/proc", 0o755));
   errors::ext::swallow("[namespace] mount /new/proc", rt::ext::mount(
     "proc", "new/proc", "proc", rt::ext::mount_flag::NOSUID | rt::ext::mount_flag::NOEXEC | rt::ext::mount_flag::NODEV, null
@@ -286,6 +298,7 @@ fn pivot_into(new_root: str, stash_old_root: (str|void) = void) void = {
   errors::ext::check("[namespace] cd <new_root>", os::chdir(new_root));
   match (stash_old_root) {
     case let old: str =>
+      log::printfln("[namespace] placing old root at {}", old);
       errors::ext::check("[namespace] mkdir <stash_old_root>", rt::mkdir(old, 0o755));
       errors::ext::check("[namespace] pivot_root . <stash_old_root>", rt::ext::pivot_root(".", old));
     case void =>

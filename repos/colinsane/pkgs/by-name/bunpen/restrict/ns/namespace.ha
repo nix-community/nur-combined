@@ -5,58 +5,80 @@ use fs;
 use io;
 use log;
 use os;
-use restrict;
+use path;
+use ps;
+use resources;
 use rt;
 use rt::ext;
 use strings;
 use unix;
 
-export fn namespace_restrict(what: *restrict::resources) void = {
+export type ns_resources = struct {
+  paths: []path::buffer,
+  ipc: bool,
+  net: bool,
+  pid: bool,
+  try_users: bool,
+};
+
+export fn namespace_restrict(what: *ns_resources) void = {
   // record the uid and gid of the initial namespace, so that we can re-map them
   // in the new ns.
   let uid = unix::getuid();
   let gid = unix::getgid();
 
-  // certain things we'll *always* unshare: doing that now simplifies the downstream
-  let unshare_early: rt::ext::clone_flags =
+  let want_unshared: rt::ext::clone_flags =
     rt::ext::clone_flag::NEWCGROUP |
     rt::ext::clone_flag::NEWIPC |
-    // rt::ext::clone_flag::NEWNET |
+    rt::ext::clone_flag::NEWNET |
     rt::ext::clone_flag::NEWNS |
     rt::ext::clone_flag::NEWPID |
     rt::ext::clone_flag::NEWUSER |
     rt::ext::clone_flag::NEWUTS
   ;
+  let unshared: rt::ext::clone_flags = 0;
 
   if (what.ipc) {
     log::println("[namespace] keeping ipc namespace");
-    unshare_early &= ~rt::ext::clone_flag::NEWIPC;
+    want_unshared &= ~rt::ext::clone_flag::NEWIPC;
+  };
+
+  if (what.net) {
+    log::println("[namespace] keeping net namespace");
+    want_unshared &= ~rt::ext::clone_flag::NEWNET;
   };
 
   if (what.pid) {
-    unshare_early &= ~rt::ext::clone_flag::NEWPID;
+    log::println("[namespace] keeping pid namespace");
+    want_unshared &= ~rt::ext::clone_flag::NEWPID;
   };
 
   if (what.try_users) {
     log::println("[namespace] keeping user namespace *if possible*");
-    let unshare_keep_users = unshare_early & ~rt::ext::clone_flag::NEWUSER;
-    if (try_unshare(unshare_keep_users)) {
-      unshare_early = 0;
+    want_unshared &= ~rt::ext::clone_flag::NEWUSER;
+    if (try_unshare(want_unshared)) {
+      unshared |= want_unshared;
     } else {
       log::println("[namespace] failed to unshare w/o user namespace. raising CAP_SYS_ADMIN and trying again");
 
       let raise_caps = rt::ext::CAPS_NONE;
-      restrict::caps_add(&raise_caps, rt::ext::cap::SYS_ADMIN);
-      if (try_unshare_with(unshare_keep_users, raise_caps))
-        unshare_early = 0;
+      resources::caps_add(&raise_caps, rt::ext::cap::SYS_ADMIN);
+      if (try_unshare_with(want_unshared, raise_caps))
+        unshared |= want_unshared;
+    };
+    // if we failed to unshare, then fall back to unsharing with CLONE_NEWUSER
+    if ((want_unshared & unshared) != want_unshared) {
+      log::println("[namespace] NOT keeping user namespace");
+      want_unshared |= rt::ext::clone_flag::NEWUSER;
     };
   };
 
-  if (unshare_early != 0) {
+  if ((want_unshared & unshared) != want_unshared) {
     // fallback for when `try_users == true` and we failed,
     // or if `try_users` was false from the start.
-    log::printfln("[namespace] unshare {}", unshare_early: u64);
-    errors::ext::check("namespace: unshare early", rt::ext::unshare(unshare_early));
+    log::printfln("[namespace] unshare {}", want_unshared: u64);
+    errors::ext::check("namespace: unshare", rt::ext::unshare(want_unshared));
+    unshared |= want_unshared;
   };
 
   // before mounting anything, set up the uids and gids in this namespace.
@@ -64,9 +86,10 @@ export fn namespace_restrict(what: *restrict::resources) void = {
   // and `mkdir` will return EOVERFLOW.
   // all this does is make it so that namespace operations under uid 1000 are
   // mapped to non-ns ops by the same user, and vice-versa
-  write_id_maps(uid, gid);
+  if ((unshared & rt::ext::clone_flag::NEWUSER) == rt::ext::clone_flag::NEWUSER)
+    write_id_maps(uid, gid);
 
-  if (!what.pid) {
+  if ((unshared & rt::ext::clone_flag::NEWPID) == rt::ext::clone_flag::NEWPID) {
     // fork twice, and become:
     // - original process
     //   - PID 1 in the namespace
@@ -85,8 +108,8 @@ export fn namespace_restrict(what: *restrict::resources) void = {
     //    should be handled by it v.s. relayed to the user code. the only way to
     //    determine if a signal was/will be handled seems to be to parse /proc/$CHILD/status.
     //    if signal forwarding is unimportant, this second fork can be safely removed.
-    errors::ext::check("[namespace/fork] forking new PID 1", fork_and_propagate());
-    errors::ext::check("[namespace/fork] forking second time, child will become user process", fork_and_propagate());
+    errors::ext::check("[namespace/fork] forking new PID 1", ps::fork_and_propagate());
+    errors::ext::check("[namespace/fork] forking second time, child will become user process", ps::fork_and_propagate());
   };
 
   // isolate the mounts. we have to do this *after* forking into the new PID
@@ -95,27 +118,12 @@ export fn namespace_restrict(what: *restrict::resources) void = {
   // and then mounting just /proc here, but that's complicated particularly by
   // the many circumstances in which we might want to mount *portions* of the
   // outside /proc over the new /proc.
-  {
-    let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
-    defer(free(pwd));
-    isolate_paths(what);
-    // try to change to the old working directory;
-    // this can fail if it's not within the sandbox.
-    errors::ext::swallow("namespace: restore $PWD", os::chdir(pwd));
-  };
-
-  // at this point we don't know how many processes there are;
-  // it could be just one, or it could be 3 (pid namespacing).
-  // either way, the code executing here is the child.
-  // freely drop the net namespace unless the user code specificaly needs *full* net access
-  match (what.net) {
-    case restrict::net_none =>
-      errors::ext::check("namespace: unshare net", rt::ext::unshare(rt::ext::clone_flag::NEWNET));
-    case let subset: restrict::net_subset =>
-      setup_pasta(subset);
-    case restrict::net_all =>
-      log::println("[namespace] keeping net namespace");
-  };
+  let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
+  defer(free(pwd));
+  isolate_paths(what);
+  // try to change to the old working directory;
+  // this can fail if it's not within the sandbox.
+  errors::ext::swallow("namespace: restore $PWD", os::chdir(pwd));
 };
 
 // try to `unshare(flags)`, return true on success
@@ -141,7 +149,7 @@ fn try_unshare_with(flags: rt::ext::clone_flags, caps: rt::ext::caps) bool = {
   };
 
   let new_caps = orig_caps;
-  restrict::caps_add_caps(&new_caps.effective, caps);
+  resources::caps_add_caps(&new_caps.effective, caps);
   errors::ext::swallow("[namespace] raise caps", rt::ext::capset(new_caps));
 
   let unshared = try_unshare(flags);
@@ -154,14 +162,6 @@ fn try_unshare_with(flags: rt::ext::clone_flags, caps: rt::ext::caps) bool = {
   };
 
   return unshared;
-};
-
-
-// everything inside this struct is borrowed
-type ns_ctx = struct {
-  what: *restrict::resources,
-  old_fs: *fs::fs,
-  new_fs: *fs::fs,
 };
 
 // these id maps are writable *once*.

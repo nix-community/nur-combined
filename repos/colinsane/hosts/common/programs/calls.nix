@@ -65,6 +65,7 @@ in
           rev = "b924a57e8eeb24e8b9afc5fd0fb9b51d5993fe5d";
           hash = "sha256-1VbKV+eAJ80IMlubNl7774B7QvLv4hE8SXANDSD9sRU=";
         };
+        patches = [];
       });
     }).overrideAttrs (upstream: {
       # src = lib.warnIf (lib.versionOlder "47.0" upstream.version) "gnome-calls outdated; remove src override? (keep UI patches though!)" pkgs.fetchFromGitLab {

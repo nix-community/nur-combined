@@ -65,6 +65,10 @@ export fn usage() void = {
   fmt::println("      allow access to the host <path> within the sandbox")!;
   fmt::println("      path is interpreted relative to the working directory if not absolute")!;
   fmt::println("      a limited set of env vars are expanded within each path: see PARAMETERIZATION")!;
+  fmt::println("  --bunpen-seal")!;
+  fmt::println("      halt argument parsing")!;
+  fmt::println("      any remaining arguments are to be interpreted as arguments for the user program, not bunpen")!;
+  fmt::println("      note that remaining arguments *are* still eligible for path autodetection (see --bunpen-autodetect)")!;
   fmt::println("")!;
   fmt::println("net proxy settings (typical invocation specifies either ALL or NONE of these):")!;
   fmt::println("  --bunpen-net-dev <iface>")!;
@@ -147,33 +151,39 @@ export fn parse_args(args: []str) (cli_opts | errors::invalid) = {
 };
 
 fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
+  let parsing_bunpen = true;
   for (let idx: size = 0; idx < len(args); idx += 1) {
     let arg = args[idx];
     let next: nullable *str = null;
     if (idx + 1 < len(args)) {
       next = &args[idx+1];
     };
-    switch (arg) {
-      case "--bunpen-autodetect"      =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
-      case "--bunpen-cap"             =>  idx += 1; parse_caparg(parsed, expect_arg("--bunpen-cap", next)?)?;
-      case "--bunpen-debug"           =>  parsed.debug = 2;
-      case "--bunpen-debug=0"         =>  parsed.debug = 0;
-      case "--bunpen-debug=1"         =>  parsed.debug = 1;
-      case "--bunpen-debug=2"         =>  parsed.debug = 2;
-      case "--bunpen-debug=3"         =>  parsed.debug = 3;
-      case "--bunpen-debug=4"         =>  parsed.debug = 4;
-      case "--bunpen-dns"             =>  idx += 1; parsed.dns = expect_arg("--bunpen-dns", next)?;
-      case "--bunpen-drop-shell"      =>  parsed.drop_shell = true;
-      case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
-      case "--bunpen-help"            =>  parsed.help = true;
-      case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;
-      case "--bunpen-keep-net"        =>  parsed.keep_net = true;
-      case "--bunpen-keep-pid"        =>  parsed.keep_pid = true;
-      case "--bunpen-net-dev"         =>  idx += 1; parsed.net_dev = expect_arg("--bunpen-net-dev", next)?;
-      case "--bunpen-net-gateway"     =>  idx += 1; parsed.net_gateway = expect_arg("--bunpen-net-gateway", next)?;
-      case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?);
-      case "--bunpen-try-keep-users"  =>  parsed.try_keep_users = true;
-      case                            =>  append(parsed.cmd, arg);
+    if (parsing_bunpen) {
+      switch (arg) {
+        case "--bunpen-autodetect"      =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
+        case "--bunpen-cap"             =>  idx += 1; parse_caparg(parsed, expect_arg("--bunpen-cap", next)?)?;
+        case "--bunpen-debug"           =>  parsed.debug = 2;
+        case "--bunpen-debug=0"         =>  parsed.debug = 0;
+        case "--bunpen-debug=1"         =>  parsed.debug = 1;
+        case "--bunpen-debug=2"         =>  parsed.debug = 2;
+        case "--bunpen-debug=3"         =>  parsed.debug = 3;
+        case "--bunpen-debug=4"         =>  parsed.debug = 4;
+        case "--bunpen-dns"             =>  idx += 1; parsed.dns = expect_arg("--bunpen-dns", next)?;
+        case "--bunpen-drop-shell"      =>  parsed.drop_shell = true;
+        case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
+        case "--bunpen-help"            =>  parsed.help = true;
+        case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;
+        case "--bunpen-keep-net"        =>  parsed.keep_net = true;
+        case "--bunpen-keep-pid"        =>  parsed.keep_pid = true;
+        case "--bunpen-net-dev"         =>  idx += 1; parsed.net_dev = expect_arg("--bunpen-net-dev", next)?;
+        case "--bunpen-net-gateway"     =>  idx += 1; parsed.net_gateway = expect_arg("--bunpen-net-gateway", next)?;
+        case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?);
+        case "--bunpen-seal"            =>  parsing_bunpen = false;  // remaining arguments are not to be interpreted by us
+        case "--bunpen-try-keep-users"  =>  parsed.try_keep_users = true;
+        case                            =>  append(parsed.cmd, arg);
+      };
+    } else {
+      append(parsed.cmd, arg);
     };
   };
 };

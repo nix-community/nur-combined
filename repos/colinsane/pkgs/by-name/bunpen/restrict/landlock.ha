@@ -4,6 +4,7 @@ use fs;
 use log;
 use os;
 use path;
+use resources;
 use rt;
 use rt::ext;
 
@@ -57,7 +58,7 @@ fn allow_path(ruleset_fd: u64, path_str: str) (void | fs::error | rt::errno) = {
   allow_path_fd(ruleset_fd, path_fd)?;
 };
 
-export fn landlock_restrict(what: *resources) void = {
+export fn landlock_restrict(what: *resources::resources) void = {
   let abi = errors::ext::check_u64(
     "query landlock kernel ABI version",
     rt::ext::landlock_create_ruleset(null, rt::ext::landlock_create_ruleset_flag::VERSION),
@@ -84,10 +85,10 @@ export fn landlock_restrict(what: *resources) void = {
 
   // XXX: `what.net` only affects TCP. UDP, and ICMP remain possible always
   match (what.net) {
-    case net_none => void;
-    case let subset: net_subset =>
+    case resources::net_none => void;
+    case let subset: resources::net_subset =>
       log::println("[landlock] unable to retain just a subset of net resources");
-    case net_all =>
+    case resources::net_all =>
       log::println("[landlock] permit net");
       ruleset_attr.handled_access_net = 0;
   };

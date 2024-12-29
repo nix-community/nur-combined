@@ -1,5 +1,8 @@
+# itgmania is a (slightly) better-maintained fork of stepmania
+# - <https://github.com/itgmania/itgmania>
+#
 # configuration:
-# - things like calibration data live in ~/.stepmania-5.1/Save/Preferences.ini
+# - things like calibration data live in ~/.itgmania/Save/Preferences.ini
 #   - GlobalOffsetSeconds = difference between audio and video delay.
 #     Hit F6 twice in-game to being auto calibration
 #     Usually the result will be negative (i.e. the higher the latency of the pad, the more negative the offset)
@@ -14,10 +17,22 @@
 #   - https://fitupyourstyle.com/
 #     allows search by difficulty
 # - dl packs from <https://stepmaniaonline.net>
-{ ... }:
+{ lib, pkgs, ... }:
 {
-  sane.programs.stepmania = {
+  sane.programs.itgmania = {
     buildCost = 1;
+
+    packageUnwrapped = pkgs.itgmania.overrideAttrs (upstream: {
+      # XXX(2024-12-29): itgmania (and stepmania) have to be run from their bin directory, else they silently exit
+      nativeBuildInputs = upstream.nativeBuildInputs ++ [
+        pkgs.makeWrapper
+      ];
+      postInstall = lib.replaceStrings
+        [ "ln -s $out/itgmania/itgmania $out/bin/itgmania" ]
+        [ "makeWrapper $out/itgmania/itgmania $out/bin/itgmania --run 'cd ${placeholder "out"}/itgmania'" ]
+        upstream.postInstall
+      ;
+    });
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
@@ -27,18 +42,18 @@
       "/dev/input"
       "/sys/class/input"
     ];
-    # on launch, stepmania will copy templates for any missing files out of its data directory and into ~/.stepmania-5.1
+    # on launch, itgmania will copy templates for any missing files out of its data directory and into ~/.itgmania
     sandbox.extraHomePaths = [
-      ".stepmania-5.1"
+      ".itgmania"
     ];
 
     persist.byStore.plaintext = [
-      ".stepmania-5.1/Cache"  #< otherwise gotta index all the songs every launch
-      ".stepmania-5.1/Save"
+      ".itgmania/Cache"  #< otherwise gotta index all the songs every launch
+      ".itgmania/Save"
     ];
 
-    # TODO: setup ~/.local/share/stepmania/Themes
-    fs.".stepmania-5.1/Courses".symlink.target = "/mnt/servo/media/games/stepmania/Courses";
-    fs.".stepmania-5.1/Songs".symlink.target = "/mnt/servo/media/games/stepmania/Songs";
+    # TODO: setup ~/.local/share/itgmania/Themes
+    fs.".itgmania/Courses".symlink.target = "/mnt/servo/media/games/stepmania/Courses";
+    fs.".itgmania/Songs".symlink.target = "/mnt/servo/media/games/stepmania/Songs";
   };
 }

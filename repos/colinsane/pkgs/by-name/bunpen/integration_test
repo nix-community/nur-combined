@@ -8,6 +8,7 @@ set -eu
 SELF=$(realpath $0)
 
 # we can't rely on /usr/bin/env existing in the nix build environment
+bunpen=$(which bunpen)
 env=$(which env)
 test=$(which test)
 
@@ -36,6 +37,10 @@ test_01_invoke_03_errors_on_invalid_file() {
 
 test_01_invoke_04_errors_if_not_in_sandbox() {
   bunpen true && return 1 || true
+}
+
+test_01_invoke_05_nested() {
+  bunpen --bunpen-path / --bunpen-seal bunpen --bunpen-path / true
 }
 
 test_02_env_arg_01_disable() {
@@ -77,38 +82,38 @@ test_04_logs_02_enabled() {
   test -n "$stdout"
 }
 
-test_05_path_01_minimal() {
+test_05_keep_01_path_minimal() {
   bunpen --bunpen-path "$env" --bunpen-path /nix/store "$env"
 }
 
-test_05_path_02_no_extra_in_sandbox() {
+test_05_keep_02_path_no_extra_in_sandbox() {
   touch test_file0
   bunpen --bunpen-path "$test" --bunpen-path /nix/store "$test" ! -f test_file0
 }
 
-test_05_path_03_added_to_sandbox() {
+test_05_keep_03_path_added_to_sandbox() {
   touch test_file0
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" -f test_file0
 }
 
-test_06_path_04_handles_non_existent() {
+test_06_keep_04_path_handles_non_existent() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" ! -f test_file0
 }
 
-test_06_path_05_absolute() {
+test_06_keep_05_path_absolute() {
   touch test_file0
   local p=$(realpath test_file0)
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path "$p" "$test" -f "$p"
 }
 
-test_06_path_06_home() {
+test_06_keep_06_path_home() {
   mkdir test_dir0
   touch test_dir0/test_file0
   export HOME=$PWD/test_dir0
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$HOME/test_file0' "$test" -f "$HOME/test_file0"
 }
 
-test_06_path_07_xdg_runtime_dir() {
+test_06_keep_07_path_xdg_runtime_dir() {
   mkdir test_dir0
   touch test_dir0/test_file0
   mkdir test_dir1
@@ -118,14 +123,14 @@ test_06_path_07_xdg_runtime_dir() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$XDG_RUNTIME_DIR/test_file1' "$test" -f "$XDG_RUNTIME_DIR/test_file1"
 }
 
-test_06_path_08_symlink_1_layer() {
+test_06_keep_08_path_symlink_1_layer() {
   touch test_file0
   ln -s test_file0 test_symlink0
   touch test_file1
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink0 "$test" -f test_file0 -a -f test_symlink0 -a ! -f test_file1
 }
 
-test_06_path_08_symlink_2_layers() {
+test_06_keep_09_path_symlink_2_layers() {
   touch test_file0
   ln -s test_file0 test_symlink0
   ln -s test_symlink0 test_symlink1
@@ -133,7 +138,7 @@ test_06_path_08_symlink_2_layers() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink1 "$test" -f test_file0 -a -f test_symlink1 -a -f test_symlink0 -a ! -f test_file1
 }
 
-test_06_keep_net() {
+test_06_keep_10_net() {
   # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
   # most containers (e.g. nix build environment) do up the lo.
   # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
@@ -141,6 +146,38 @@ test_06_keep_net() {
   # (better would be to try communicating between test runner and bunpen program, e.g. netcat?)
   test -n "$(bunpen --bunpen-path / --bunpen-keep-net ip link show lo up)"
   test -z "$(bunpen --bunpen-path / ip link show lo up)"
+}
+
+test_06_keep_11_pid() {
+  set -x
+  local me=$$
+  # /proc should be auto-mounted if not keeping PIDs; exterior PID is invisible
+  bunpen --bunpen-path /nix/store "$test" -e /proc/self
+  ! bunpen --bunpen-path /nix/store "$test" -e /proc/$me
+
+  # /proc should *not* be auto-mounted if keeping PIDs
+  ! bunpen --bunpen-path /nix/store --bunpen-keep-pid "$test" -e /proc/self
+
+  # if keeping PIDs and explicitly mounting, exterior PID should be visible
+  bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-keep-pid "$test" -e /proc/self
+  bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-keep-pid "$test" -e /proc/$me
+
+  # if explicitly mounting /proc, but not keeping PIDs... TODO: consider changing this so exterior PIDs are visible.
+  # this just documents the existing behavior as per 2024/12/25
+  bunpen --bunpen-path /nix/store --bunpen-path /proc "$test" -e /proc/self
+  ! bunpen --bunpen-path /nix/store --bunpen-path /proc "$test" -e /proc/$me
+}
+
+test_06_keep_12_pid_nested() {
+  set -x
+  bunpen --bunpen-path /nix/store --bunpen-path "$bunpen" --bunpen-seal \
+    "$bunpen" --bunpen-path /nix/store "$test" -e /proc/self
+  bunpen --bunpen-path /nix/store --bunpen-path "$bunpen" --bunpen-path /proc --bunpen-keep-pid --bunpen-seal \
+    "$bunpen" --bunpen-path /nix/store "$test" -e /proc/self
+
+  bunpen --bunpen-path /nix/store --bunpen-path "$bunpen" --bunpen-seal \
+    "$bunpen" --bunpen-path /nix/store --bunpen-path "$bunpen" --bunpen-seal \
+    "$bunpen" --bunpen-path /nix/store "$test" -e /proc/self
 }
 
 test_07_env_01_keep() {
@@ -208,7 +245,7 @@ test_09_reap_children() {
 
 test_10_tmpfs_root_is_introspectable() {
   echo from_parent > test_file0
-  bunpen --bunpen-path /nix/store --bunpen-path $PWD bash -c "test -f $PWD/test_file0 && echo 'from_sandbox' > /test_file1 && sleep 2" &
+  bunpen --bunpen-debug=3 --bunpen-keep-pid --bunpen-path /nix/store --bunpen-path $PWD bash -c "set -x; test -f $PWD/test_file0 && echo 'from_sandbox' > /test_file1 && sleep 2" &
   local sbox_pid=$!
   sleep 0.5
 
@@ -224,6 +261,10 @@ test_10_tmpfs_root_is_introspectable() {
   echo -n "/proc/$sbox_pid/root: " && ls /proc/$sbox_pid/root
   echo -n "/proc/$sbox_pid/root/unbacked: " && ls /proc/$sbox_pid/root/unbacked
   echo -n "/proc/$sbox_pid/root/unbacked/test_file1: " && echo "$test_file1"
+
+  # even more diagnostics, to see that `unbacked` does actually have stuff at least
+  echo -n "/proc/$sbox_pid/root/unbacked/$(dirname $(dirname $PWD)): " && ls -l /proc/$sbox_pid/root/unbacked/$(dirname $(dirname $PWD))
+  echo -n "/proc/$sbox_pid/root/unbacked/$(dirname $PWD): " && ls -l /proc/$sbox_pid/root/unbacked/$(dirname $PWD)
   echo -n "/proc/$sbox_pid/root/unbacked/$PWD: " && ls -l /proc/$sbox_pid/root/unbacked/$PWD
 
   test "$test_file1" = from_sandbox

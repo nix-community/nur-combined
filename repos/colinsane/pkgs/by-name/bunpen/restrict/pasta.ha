@@ -8,13 +8,15 @@ use io;
 use log;
 use os;
 use os::exec;
-use restrict;
+use ps;
+use resources;
+use restrict::ns;
 use rt;
 use rt::ext;
 use strings;
 use unix;
 
-fn setup_pasta(net: restrict::net_subset) void = {
+fn pasta_restrict(net: resources::net_subset) void = {
   // `pasta PID [options]`: creates a device in the netns of PID.
   // ordering:
   // 1. fork  into (P, C1)
@@ -32,12 +34,12 @@ fn setup_pasta(net: restrict::net_subset) void = {
 
   // unshare PID space here so that the fork'd child (pasta) is isolated.
   // TODO: stronger isolation (mount namespace).
-  errors::ext::check("[namespace/pasta] unshare PID", rt::ext::unshare(rt::ext::clone_flag::NEWPID));
+  // errors::ext::check("[namespace/pasta] unshare PID", rt::ext::unshare(rt::ext::clone_flag::NEWPID));
 
   let (pipe_parent_rd, pipe_child_wr) = unix::pipe()!;
   let (pipe_child_rd, pipe_parent_wr) = unix::pipe()!;
   log::printfln("[namespace/pasta]: forking: child will launch pasta while parent will exec user code");
-  match (fork_and_die_with_parent()) {
+  match (ps::fork_and_die_with_parent()) {
     case let child_pid: os::exec::process =>
       // close the pipe ends which aren't ours
       io::close(pipe_child_wr)!;
@@ -55,10 +57,7 @@ fn setup_pasta(net: restrict::net_subset) void = {
 
       // drop enough caps so that pasta has permissions to enter our new netns.
       // TODO: just set the desired caps here, and then don't try to do it again.
-      let res = restrict::resources {
-        caps = rt::ext::CAPS_NONE, net = restrict::net_all, ...
-      };
-      restrict::capability_restrict(&res);
+      capability_restrict(rt::ext::CAPS_NONE);
       // let the other thread know we're ready for pasta to attach to us
       io::write(pipe_parent_wr, [1])!;
 
@@ -92,7 +91,7 @@ fn setup_pasta(net: restrict::net_subset) void = {
 };
 
 // spawn pasta as a separate process, and have it attach to the netns of the given pid.
-fn attach_pasta(net: restrict::net_subset, notify_fd: io::file) (void | os::exec::error | rt::errno) = {
+fn attach_pasta(net: resources::net_subset, notify_fd: io::file) (void | os::exec::error | rt::errno) = {
   // move the notification pipe to be one of the special fd's which *don't*
   // get closed on exec (e.g. /dev/fd/0, stdin).
   // this *shouldn't* be necessary: the pipe was created NOCLOEXEC;
@@ -130,10 +129,7 @@ fn attach_pasta(net: restrict::net_subset, notify_fd: io::file) (void | os::exec
 
   // pasta needs permissions to create a device in the netns (it apparently
   // won't raise those caps itself). TODO: reduce these resources!
-  let res = restrict::resources {
-    caps = rt::ext::CAPS_ALL, net = restrict::net_all, ...
-  };
-  restrict::capability_restrict(&res);
+  capability_restrict(rt::ext::CAPS_ALL);
 
   log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...));
   return rt::ext::execvpe_or_default(
@@ -144,17 +140,17 @@ fn attach_pasta(net: restrict::net_subset, notify_fd: io::file) (void | os::exec
   );
 };
 
-fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt::errno) = {
+fn config_routing_in_ns(net: resources::net_subset) (void | os::exec::error | rt::errno) = {
   // raise CAP_NET_ADMIN so we can make calls like `iptables`, `ip ...`
   let caps = rt::ext::capget()?;
-  restrict::caps_add(&caps.inheritable, rt::ext::cap::NET_ADMIN);
+  resources::caps_add(&caps.inheritable, rt::ext::cap::NET_ADMIN);
   rt::ext::capset(caps)?;
   errors::ext::swallow("[namespace/pasta] raise CAP_NET_ADMIN to configure interface", rt::ext::cap_ambient_raise(rt::ext::cap::NET_ADMIN));
 
   // forward dns to the desired endpoint
   let dnsdest = fmt::asprintf("{}:53", net.dns);
   defer free(dnsdest);
-  let rc = shellvpe_or_default(
+  let rc = ps::shellvpe_or_default(
     config::IPTABLES,
     "iptables",
     [
@@ -178,7 +174,7 @@ fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt:
   // therefore, set it up *now*, and delete the addrs, and then since it's
   // already up they won't re-appear when we exec pasta.
 
-  let rc = shellvpe_or_default(
+  let rc = ps::shellvpe_or_default(
     config::IP,
     "ip",
     [
@@ -190,7 +186,7 @@ fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt:
   )?;
   log::printfln("[namespace/pasta] 'ip link set lo up' exited {}", rc.status);
 
-  let rc = shellvpe_or_default(
+  let rc = ps::shellvpe_or_default(
     config::IP,
     "ip",
     [

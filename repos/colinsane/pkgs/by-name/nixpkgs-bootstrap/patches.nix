@@ -40,10 +40,45 @@ in
   # })
 
   (fetchpatch' {
-    # merged into staging 2024/11/28
-    name = "poppler: format, add dependency for glib-mkenums to fix cross building";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/357344/commits/c972c7432f8d18c9f1e5f6b52d2724c99e6d05a9";
-    hash = "sha256-Dur6EFuc3uqMuJyXBKKIaj2Y0jA227y8U6lK06cQ718=";
+    # merged into staging 2024/12/12
+    name = "unbound: bison is required when cross-compiling";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/364656";
+    hash = "sha256-PrYomg6D+Ymlo4q00bOCXHyBITOEVAbAeQ6XqnNlurU=";
+  })
+
+  (fetchpatch' {
+    # merged into staging 2024-12-13
+    name = "python312Packages.contourpy: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
+    saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
+    hash = "sha256-+7iAefzfYzAHO+f+q5JROejGjCujnwhvt8ItkU562DA=";
+  })
+
+  (fetchpatch' {
+    # merged into staging 2024-12-28
+    name = "python3Packages.meson-python: honor mesonFlagsArray";
+    saneCommit = "38681f9dbd65e92bc4c3f49f0ce9c7b15dcbe9ea";
+    hash = "sha256-YzS6eX6sPbEx3CzAGaz8alz/s8O5JjkXtg+/Wk7ndZ0=";
+  })
+
+  (fetchpatch' {
+    name = "coturn: remove unnecessary libpromhttp dependency, fix build";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/369142";
+    hash = "sha256-arauwlYZjhV7r/k/2hAmHdx4bbwD1A+ymhurarTF1fs=";
+  })
+
+  (fetchpatch' {
+    # 2024-12-26: required to build ollama (with AMD acceleration)
+    name = "rocm-6: bump packages to 6.3.1 and add missing packages";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
+    hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
+  })
+
+  (fetchpatch' {
+    name = "mesa: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/369171";
+    saneCommit = "4c672bfc7eef1cd0e45158f1e99e71ebbb68bb85";
+    hash = "sha256-+G5/zfYlyVLebgK/IC3QL1eY19v28+cgvjgk+RrpvGQ=";
   })
 
   (fetchpatch' {
@@ -52,6 +87,12 @@ in
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
     # saneCommit = "92662a9920cf8b70ad8a061591dc37146123bde3";
     hash = "sha256-3mvNFvOgUtzWwPEHGBSv9UEANxVfD1/fXbiV/mlq0l8=";
+  })
+
+  (fetchpatch' {
+    name = "itgmania: init at 0.9.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/355725";
+    hash = "sha256-pN14eynQizhGPPiF4bj9e/HdNEmW/gJHvK59ihwM/vA=";
   })
 
   (fetchpatch' {
@@ -69,14 +110,6 @@ in
   #   saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
   #   hash = "sha256-hEcpS7r1K6yb5dcj2evbWajwIQaaSHKdLPQVg1LlCYE=";
   # })
-
-  (fetchpatch' {
-    # merged into staging 2024-12-13
-    name = "python312Packages.contourpy: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
-    saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
-    hash = "sha256-+7iAefzfYzAHO+f+q5JROejGjCujnwhvt8ItkU562DA=";
-  })
 
   # (fetchpatch' {
   #   name = "unl0kr: 2.0.0 -> 3.2.0";

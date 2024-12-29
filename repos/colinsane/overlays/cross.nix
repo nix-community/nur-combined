@@ -396,6 +396,11 @@ in with final; {
   #   buildInputs = orig.buildInputs ++ [ pcre2 ];
   # });
 
+  # 2024/12/29: blocked on psqlodbc
+  # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
+  # which it shells out to at runtime (and hence, not ever used by me).
+  hyprland-qtutils = null;
+
   # 2024/05/31: upstreaming is blocked on openjdk
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ ant gettext ] prev.i2p;

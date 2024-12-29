@@ -96,6 +96,7 @@
     ./iio-sensor-proxy.nix
     ./imagemagick.nix
     ./inkscape.nix
+    ./itgmania.nix
     ./jellyfin-media-player.nix
     ./kdenlive.nix
     ./keymapp.nix

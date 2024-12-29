@@ -15,7 +15,7 @@ use unix::signal;
 // - in the child: continue execution as normal
 // - in the parent: wait for the child, then propagate its exit status.
 //                  forward any signals, including SIGKILL, to the child.
-fn fork_and_propagate() (void | os::exec::error | rt::errno) = {
+export fn fork_and_propagate() (void | os::exec::error | rt::errno) = {
   let outer_pid = rt::getpid();
   return match (fork_and_die_with_parent()?) {
     case let child_pid: os::exec::process => yield wait_and_propagate(child_pid);
@@ -26,7 +26,7 @@ fn fork_and_propagate() (void | os::exec::error | rt::errno) = {
 
 // fork, but configured so that the child receives SIGKILL upon the parent's exit,
 // ensuring that the child may never outlive the parent.
-fn fork_and_die_with_parent() (os::exec::process | void | os::exec::error | rt::errno) = {
+export fn fork_and_die_with_parent() (os::exec::process | void | os::exec::error | rt::errno) = {
   let outer_pid = rt::getpid();
   return match (os::exec::fork()?) {
     case let child_pid: os::exec::process => yield child_pid;

@@ -18,7 +18,8 @@
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 
   sane.programs.firefox.config.formFactor = "laptop";
-  sane.programs.stepmania.enableFor.user.colin = true;
+  sane.programs.itgmania.enableFor.user.colin = true;
+  # sane.programs.stepmania.enableFor.user.colin = true;  #< TODO: fix build
   sane.programs.sway.enableFor.user.colin = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;

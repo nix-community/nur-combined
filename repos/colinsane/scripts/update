@@ -53,7 +53,7 @@ getPkgs() {
   # nix-instantiate -A nix "$NIX_FILES_TOP"
   # nix-instantiate -A nixpkgs-bootstrap.master "$NIX_FILES_TOP"
   debug "querying packages to update as part of '$attrPrefix'"
-  local attrs=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "')
+  local attrs=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "' "${nixFlags[@]}")
   debug "got: $attrs"
   attrsArr+=($attrs)
 }
@@ -61,17 +61,17 @@ getPkgs() {
 updateOnePkg() {
   local attrPath="$1"
 
-  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"')
+  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' "${nixFlags[@]}")
   if [ -z "$updateScript" ]; then
     warn "don't know how to update '$attrPath'"
     return
   fi
 
   # make sure everything needed to invoke the update script exists in-store
-  local context=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))')
+  local context=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))' "${nixFlags[@]}")
   for c in $context; do
     debug "realizing updateScript requisite: $context"
-    nix-store --realize "$c" || true
+    nix-store --realize "$c" "${nixFlags[@]}" || true
   done
 
   info "updating: '$attrPath'"
@@ -87,6 +87,7 @@ updatePkgsInParallel() {
 }
 
 scriptFlags=()
+nixFlags=()
 dryRun=
 toplevelsToUpdate=()
 verbose=
@@ -105,6 +106,9 @@ parseArgs() {
       (--verbose)
         scriptFlags+=(--verbose)
         verbose=1
+        ;;
+      (--*)
+        nixFlags+=("$arg")
         ;;
       (*)
         toplevelsToUpdate+=("$arg")

@@ -8,7 +8,7 @@ use log;
 use os;
 use path;
 use regex;
-use restrict;
+use resources;
 use rt;
 use rt::ext;
 use strings;
@@ -19,7 +19,7 @@ export type help = void;
 export type cli_request = struct {
   exec_params: exec_params,
   // what to keep in the restricted environment (paths, network, etc)
-  resources: restrict::resources,
+  resources: resources::resources,
 };
 
 export type exec_params = struct {
@@ -96,7 +96,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
 
   let env = env_new();
   let req = cli_request {
-    resources = restrict::resources { net = restrict::net_none, ... },
+    resources = resources::resources { net = resources::net_none, ... },
     ...
   };
 
@@ -120,7 +120,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   };
 
   //---- ingest `caps` ----//
-  req.resources.caps = restrict::cap_array_to_caps(opts.keep_caps);
+  req.resources.caps = resources::cap_array_to_caps(opts.keep_caps);
 
   //---- ingest `keep_all_caps` ----//
   if (opts.keep_all_caps)
@@ -130,7 +130,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   req.resources.ipc = opts.keep_ipc;
 
   //---- ingest `net_dev`, `net_gateway`, `dns` ----//
-  let net_subset = restrict::net_subset {
+  let net_subset = resources::net_subset {
     dev = opts.net_dev,
     dns = opts.dns,
     gateway = opts.net_gateway,
@@ -141,7 +141,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
 
   //---- ingest `keep_net` ----//
   if (opts.keep_net)
-    req.resources.net = restrict::net_all;
+    req.resources.net = resources::net_all;
 
   //---- ingest `keep_pid` ----//
   req.resources.pid = opts.keep_pid;

@@ -37,8 +37,7 @@ fn prepare_env(req: config::cli_request) config::exec_params = {
   // set no_new_privs early. this is a flag which prevents us from gaining privs
   // via SUID/SGID executables, which we never intend to do.
   errors::ext::check("no_new_privs", rt::ext::no_new_privs());
-  restrict::ns::namespace_restrict(&req.resources);
-  restrict::capability_restrict(&req.resources);
+  restrict::restrict(&req.resources);
   // XXX: landlock prevents other sandboxers like `bwrap` from executing,
   // because it forbids all future `mount` syscalls. so don't landlock.
   // restrict::landlock_restrict(&req.resources);

@@ -16,6 +16,11 @@
   #   };
   # };
 
+  # XXX(2024-12-26): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
+  # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
+  # electron = electron-bin;
+  electron_33 = electron_33-bin;
+
   # evolution-data-server = super.evolution-data-server.override {
   #   # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
   #   enableOAuth2 = false;
@@ -60,6 +65,50 @@
   #   # saves 20 minutes of build time and cross issues, for unused feature
   #   samba = null;
   # };
+
+  # XXX(2024-12-29): avoid temporary pysaml2 build failure; optional SSO feature which i probably don't even have enabled on my matrix
+  # see: <https://github.com/NixOS/nixpkgs/issues/367976>
+  matrix-synapse-unwrapped = super.matrix-synapse-unwrapped.overridePythonAttrs (upstream: {
+    # nativeCheckInputs = lib.remove python3.pkgs.pysaml2 upstream.nativeCheckInputs;
+    nativeCheckInputs = lib.subtractLists upstream.optional-dependencies.saml2 upstream.nativeCheckInputs;
+    # `tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery` is failing,
+    # apparently independent of pysaml2. can't find how to disable that except by disabling ALL tests.
+    doCheck = false;
+    # env.NIX_BUILD_CORES = 1;
+    # disabledTests = [
+    #   "tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
+    #   "storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
+    #   "databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
+    #   "main.test_events_worker.DatabaseOutageTestCase.test_recovery"
+    #   "test_events_worker.DatabaseOutageTestCase.test_recovery"
+    #   "DatabaseOutageTestCase.test_recovery"
+    #   "test_recovery"
+
+    #   "tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase"
+    #   "storage.databases.main.test_events_worker.DatabaseOutageTestCase"
+    #   "databases.main.test_events_worker.DatabaseOutageTestCase"
+    #   "main.test_events_worker.DatabaseOutageTestCase"
+    #   "test_events_worker.DatabaseOutageTestCase"
+    #   "DatabaseOutageTestCase"
+
+    #   "tests.storage.databases.main.test_events_worker"
+    #   "storage.databases.main.test_events_worker"
+    #   "databases.main.test_events_worker"
+    #   "main.test_events_worker"
+    #   "test_events_worker"
+
+    #   "tests.storage.databases"
+    #   "storage.databases"
+    #   "databases"
+    # ];
+    # disabledTestPaths = [
+    #   "tests/storage/databases/main/test_events_worker.py"
+    #   "storage/databases/main/test_events_worker.py"
+    #   "databases/main/test_events_worker.py"
+    #   "main/test_events_worker.py"
+    #   "test_events_worker.py"
+    # ];
+  });
 
   # phog = super.phog.override {
   #   # disable squeekboard because it takes 20 minutes to compile when emulated
