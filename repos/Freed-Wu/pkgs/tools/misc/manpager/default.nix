@@ -16,8 +16,10 @@ stdenvNoCC.mkDerivation {
     install -D bin/manpager -t $out/bin
     runHook postInstall
   '';
+  # --prefix allow user to use less from $PATH
   postFixup = ''
-    wrapProgram $out/bin/manpager --set PATH "${
+    sed -i 's=\$0='$out'/bin/manpager=' $out/bin/manpager
+    wrapProgram $out/bin/manpager --prefix PATH : "${
       lib.makeBinPath [
         bat
         ansifilter
