@@ -18,22 +18,19 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "MakeLogarchive.app";
+	sourceRoot = "mla5";
 	installPhase = let
-		container = "mla5";
 		applications = "$out/Applications";
 		docs = "$doc/share/doc/${pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p ${applications}
-		mv ${container}/${sourceRoot} ${applications}
+		mv MakeLogarchive.app ${applications}
 		mkdir -p ${docs}
-		mv ${container}/*.pdf ${docs}
+		mv *.pdf ${docs}
 		runHook postInstall
 	'';
 

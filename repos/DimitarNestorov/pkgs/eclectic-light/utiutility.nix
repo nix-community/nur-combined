@@ -20,22 +20,19 @@ in rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "UTIutility.app";
+	sourceRoot = "utiutil${removeDot finalAttrs.version}";
 	installPhase = let
-		container = "utiutil${removeDot finalAttrs.version}";
 		applications = "$out/Applications";
 		docs = "$doc/share/doc/${pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p ${applications}
-		mv ${container}/${sourceRoot} ${applications}
+		mv UTIutility.app ${applications}
 		mkdir -p ${docs}
-		mv ${container}/*.pdf ${docs}
+		mv *.pdf ${docs}
 		runHook postInstall
 	'';
 

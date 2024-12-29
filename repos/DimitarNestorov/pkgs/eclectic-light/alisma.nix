@@ -19,20 +19,18 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
+	sourceRoot = "${pname}${finalAttrs.version}";
 	installPhase = let
-		container = "${pname}${finalAttrs.version}";
 		docs = "$doc/share/doc/${pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p $out/bin
-		mv ${container}/${pname} $out/bin
+		mv ${pname} $out/bin
 		mkdir -p ${docs}
-		mv ${container}/*.txt ${docs}
+		mv *.txt ${docs}
 		runHook postInstall
 	'';
 

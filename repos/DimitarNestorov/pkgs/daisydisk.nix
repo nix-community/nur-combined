@@ -10,7 +10,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 	version = "4.30";
 
 	src = fetchurl {
-		name = "DaisyDisk.zip";
 		url = "https://daisydiskapp.com/download/DaisyDisk.zip";
 		hash = "sha256-HMjqeQ5kzrUDOqMyEoBncTETWZixoeAcmNty35Y/mNs=";
 	};
@@ -22,14 +21,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "DaisyDisk.app";
-
+	sourceRoot = ".";
 	installPhase = ''
 		runHook preInstall
 
-		unzip $src
 		mkdir -p $out/Applications
-		mv ${finalAttrs.sourceRoot} $out/Applications
+		mv DaisyDisk.app $out/Applications
 
 		runHook postInstall
 	'';

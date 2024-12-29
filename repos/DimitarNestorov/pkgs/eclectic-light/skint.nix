@@ -6,27 +6,13 @@
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: let
-	pname = "skint";
-	cleanVersion = version: builtins.replaceStrings ["."] [""] version;
-	install = app: version: let
-		container = "${pname}${version}";
-		applications = "$out/Applications";
-		docs = "$doc/share/doc/${pname}";
-	in ''
-		runHook preInstall
-		unzip $src
-		mkdir -p ${applications}
-		mv ${container}/${app} ${applications}
-		mkdir -p ${docs}
-		mv ${container}/*.{rtf,pdf,plist} ${docs}
-		runHook postInstall
-	'';
+	removeDot = version: builtins.replaceStrings ["."] [""] version;
 in rec {
-	inherit pname;
+	pname = "skint";
 	version = "1.08";
 
 	src = fetchurl {
-		url = "https://eclecticlight.co/wp-content/uploads/2024/08/${pname}${cleanVersion finalAttrs.version}.zip";
+		url = "https://eclecticlight.co/wp-content/uploads/2024/08/skint${removeDot finalAttrs.version}.zip";
 		hash = "sha256-8BmvMbols8H5PZTlzVdk1JvTD569H0ThOARlTzs5lUg=";
 	};
 
@@ -34,24 +20,27 @@ in rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "Skint.app";
-	installPhase = install sourceRoot (cleanVersion finalAttrs.version);
+	app = "Skint.app";
+	sourceRoot = "skint${removeDot finalAttrs.version}";
+	installPhase = let
+		applications = "$out/Applications";
+		docs = "$doc/share/doc/${finalAttrs.pname}";
+	in ''
+		runHook preInstall
+		mkdir -p ${applications}
+		mv ${finalAttrs.app} ${applications}
+		mkdir -p ${docs}
+		mv *.{rtf,pdf,plist} ${docs}
+		runHook postInstall
+	'';
 
 	outputs = [
 		"out"
 		"doc"
 	];
-
-	passthru.m = stdenvNoCC.mkDerivation (finalAttrs: rec {
-		inherit version src meta dontPatch dontConfigure dontBuild dontFixup dontUnpack nativeBuildInputs outputs;
-		pname = "skint-m";
-		sourceRoot = "SkintM.app";
-		installPhase = install sourceRoot (cleanVersion finalAttrs.version);
-	});
 
 	meta = {
 		description = "A watchful eye on security settings";

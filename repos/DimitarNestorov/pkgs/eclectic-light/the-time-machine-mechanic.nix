@@ -20,22 +20,19 @@ in rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "TheTimeMachineMechanic.app";
+	sourceRoot = "t2m2${removeDot finalAttrs.version}";
 	installPhase = let
-		container = "t2m2${removeDot finalAttrs.version}";
 		applications = "$out/Applications";
-		docs = "$doc/share/doc/t2m2";
+		docs = "$doc/share/doc/${finalAttrs.pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p ${applications}
-		mv ${container}/${sourceRoot} ${applications}
+		mv TheTimeMachineMechanic.app ${applications}
 		mkdir -p ${docs}
-		mv ${container}/*.pdf ${docs}
+		mv *.pdf ${docs}
 		runHook postInstall
 	'';
 

@@ -20,22 +20,19 @@ in rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "SilentKnight.app";
+	sourceRoot = "${pname}${removeDot finalAttrs.version}";
 	installPhase = let
-		container = "${pname}${removeDot finalAttrs.version}";
 		applications = "$out/Applications";
 		docs = "$doc/share/doc/${pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p ${applications}
-		mv ${container}/${sourceRoot} ${applications}
+		mv SilentKnight.app ${applications}
 		mkdir -p ${docs}
-		mv ${container}/*.{pdf,rtf} ${docs}
+		mv *.{pdf,rtf} ${docs}
 		runHook postInstall
 	'';
 

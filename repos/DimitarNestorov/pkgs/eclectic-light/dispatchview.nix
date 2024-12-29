@@ -20,22 +20,19 @@ in rec {
 	dontConfigure = true;
 	dontBuild = true;
 	dontFixup = true;
-	dontUnpack = true;
 
 	nativeBuildInputs = [ unzip ];
 
-	sourceRoot = "DispatchView.app";
+	sourceRoot = "${pname}${removeDot finalAttrs.version}a";
 	installPhase = let
-		container = "${pname}${removeDot finalAttrs.version}a";
 		applications = "$out/Applications";
 		docs = "$doc/share/doc/${pname}";
 	in ''
 		runHook preInstall
-		unzip $src
 		mkdir -p ${applications}
-		mv ${container}/${sourceRoot} ${applications}
+		mv DispatchView.app ${applications}
 		mkdir -p ${docs}
-		mv ${container}/*.pdf ${docs}
+		mv *.pdf ${docs}
 		runHook postInstall
 	'';
 
