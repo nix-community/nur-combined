@@ -74,6 +74,7 @@ rec {
   josm-imagery-used = pkgs.callPackage ./packages/josm-imagery-used.nix { inherit buildJosmPlugin; };
   little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };
   mark-applier = pkgs.callPackage ./packages/mark-applier.nix { };
+  meshtastic-url = pkgs.callPackage ./packages/meshtastic-url.nix { };
   minemap = pkgs.callPackage ./packages/minemap.nix { };
   mqtt-connect = pkgs.callPackage ./packages/mqtt-connect.nix { };
   mqtt-protobuf-to-json = pkgs.callPackage ./packages/mqtt-protobuf-to-json.nix { };

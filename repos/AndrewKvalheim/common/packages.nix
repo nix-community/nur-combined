@@ -73,6 +73,7 @@ in
       });
     };
   };
+  meshtastic-url = any;
   minemap = any;
   mozjpeg-simple = any;
   mqtt-connect = any;

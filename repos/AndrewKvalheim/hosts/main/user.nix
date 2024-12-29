@@ -54,6 +54,7 @@
     mark-applier
     mcaselector
     python3Packages.meshtastic
+    meshtastic-url
     minemap
     nbt-explorer
     obsidian

@@ -1083,6 +1083,7 @@ siloing
 Simcoe
 Skagit
 Skee-Ball
+skippable
 Skylake
 slacklining
 SMB
