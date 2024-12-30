@@ -13,6 +13,18 @@
     };
     date = "2024-11-23";
   };
+  pam-watchid = {
+    pname = "pam-watchid";
+    version = "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189";
+    src = fetchFromGitHub {
+      owner = "Logicer16";
+      repo = "pam-watchid";
+      rev = "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189";
+      fetchSubmodules = false;
+      sha256 = "sha256-6SqSACoG7VkyYfz+xyU/L2J69RxHTTvzGexjGB2gDuY=";
+    };
+    date = "2024-12-25";
+  };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
     version = "202412292210";

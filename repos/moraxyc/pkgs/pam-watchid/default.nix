@@ -1,31 +1,30 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  swiftPackages,
+  darwin,
+  apple-sdk_15,
   swift,
+  sources,
+  overrideCC,
+  llvmPackages_18,
 }:
-
 stdenv.mkDerivation {
   pname = "pam-watchid";
-  version = "unstable-2024-12-23";
-
-  src = fetchFromGitHub {
-    owner = "Logicer16";
-    repo = "pam-watchid";
-    rev = "505f008c1cb0a6fb9a30819422779bce9d37138c";
-    hash = "sha256-nQxqltci3zzETblYPijqvzsRqtn5JI7Br0ydrfmyE7A=";
-  };
+  inherit (sources.pam-watchid) version src;
 
   nativeBuildInputs = [
     swift
   ];
+
+  # buildInputs = [ apple-sdk_15 ];
 
   doBuild = false;
 
   buildPhase = ''
     runHook preBuild
 
-    swiftc watchid-pam-extension.swift -o pam_watchid.so -emit-library
+    swiftc Sources/pam-watchid/pam_watchid.swift -o pam_watchid.so -emit-library
 
     runHook postBuild
   '';

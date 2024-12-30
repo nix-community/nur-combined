@@ -15,10 +15,29 @@
             "repo": "exloli-next",
             "rev": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
             "sha256": "sha256-S3hjuRSDtPkK9XF2USXfyOawWoD/fu9qYDJbUPI3Op0=",
-            "sparseCheckout": [],
             "type": "github"
         },
         "version": "41d7a6e52a1625d6febb47160a4b143ca47c16d5"
+    },
+    "pam-watchid": {
+        "cargoLocks": null,
+        "date": "2024-12-25",
+        "extract": null,
+        "name": "pam-watchid",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Logicer16",
+            "repo": "pam-watchid",
+            "rev": "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189",
+            "sha256": "sha256-6SqSACoG7VkyYfz+xyU/L2J69RxHTTvzGexjGB2gDuY=",
+            "type": "github"
+        },
+        "version": "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189"
     },
     "v2ray-rules-dat-geoip": {
         "cargoLocks": null,
