@@ -3,7 +3,7 @@
     convertImagesToTrueColor, imagemagick,
     common
 }: let
-    hash = if convertImagesToTrueColor then common.assetsPNG32Hash else common.assetsHash;
+    hash = if convertImagesToTrueColor then common.assetsPNG32Hash or lib.fakeHash else common.assetsHash or lib.fakeHash;
     hashAlgo = builtins.head (lib.strings.splitString "-" hash);
 in stdenvNoCC.mkDerivation {
     pname = "${common.pname}-assets" + lib.optionalString convertImagesToTrueColor "-PNG32";

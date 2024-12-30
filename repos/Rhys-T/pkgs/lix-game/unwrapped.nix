@@ -11,8 +11,8 @@
     inherit (stdenv.hostPlatform) isDarwin;
     allegro5' = if disableNativeImageLoader == "CIImage" then (allegro5.override {
         stdenv = overrideSDK stdenv {
-            darwinMinVersion = "10.14";
-            darwinSdkVersion = "11.0";
+            ${if lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14" then "darwinMinVersion" else null} = "10.14";
+            ${if lib.versionOlder stdenv.hostPlatform.darwinSdkVersion "11.0" then "darwinSdkVersion" else null} = "11.0";
         };
     }).overrideAttrs (old: {
         # src = fetchFromGitHub {
