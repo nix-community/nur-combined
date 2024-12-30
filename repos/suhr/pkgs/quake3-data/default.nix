@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, requireFile }:
 
 stdenv.mkDerivation rec {
-  name = "quake3-data-${version}";
+  pname = "quake3-data";
   version = "1.11-6";  # FIXME
 
   src = requireFile rec {

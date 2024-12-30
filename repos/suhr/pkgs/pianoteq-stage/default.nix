@@ -1,7 +1,6 @@
 { requireFile, lib, stdenv, p7zip, libX11, libXext, alsa-lib, freetype, lv2, libjack2 }:
 
 let
-  version = "7.5.4";
   archdir = if stdenv.isAarch64 then
     "arm-64bit"
   else if stdenv.isx86_64 then
@@ -10,7 +9,8 @@ let
     throw "Unsupported architecture";
 
 in stdenv.mkDerivation rec {
-  name = "pianoteq-stage-${version}";
+  pname = "pianoteq-stage";
+  version = "7.5.4";
   src = requireFile rec {
     name = "pianoteq_stage_linux_v754.7z";
     message = "Please add pianoteq_stage_linux_v754.7z to the nix store manually";
