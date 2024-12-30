@@ -20,21 +20,22 @@ fn pasta_restrict(net: resources::net_subset) void = {
   // `pasta PID [options]`: creates a device in the netns of PID.
   // ordering:
   // 1. fork  into (P, C1)
-  // 2. parent P: enter netns, signal parent P.
+  // 2. parent P: enter netns, signal child C1.
   // 3. child C1: exec into `pasta --pid /proc/self/fd/$N --netns /proc/$P/ns/net`
   //    pasta will then wait until `$P` exits, i.e. "forever" from the
   //    perspective of this process.
-  // 4. parent P:: wait for `pasta` to signal readiness on fd `$N`
+  // 4. parent P: wait for `pasta` to signal readiness on fd `$N`
   //
   // after that, P can continue on & exec into the user code
-
-  // prepare a shared directory so the parent can communicate its netns with pasta.
-  errors::ext::swallow("[namespace/pasta] mkdir /unbacked/bunpen-private", rt::mkdir("/unbacked/bunpen-private", 0o700));
-  errors::ext::swallow("[namespace/pasta] touch /unbacked/bunpen-private/netns", os::mkfile("/unbacked/bunpen-private/netns", 0o600));
 
   // unshare PID space here so that the fork'd child (pasta) is isolated.
   // TODO: stronger isolation (mount namespace).
   // errors::ext::check("[namespace/pasta] unshare PID", rt::ext::unshare(rt::ext::clone_flag::NEWPID));
+
+  // grab a handle to the namespaces of the primary process.
+  // then we can fork, unshare net (in parent) and refer to that unshared netns
+  // in the child (pasta) via ${ns_fd}/net.
+  let ns_fd = errors::ext::check_int("setup_pasta: open /proc/self/ns", rt::open("/proc/self/ns", rt::O_RDONLY, 0o400));
 
   let (pipe_parent_rd, pipe_child_wr) = unix::pipe()!;
   let (pipe_child_rd, pipe_parent_wr) = unix::pipe()!;
@@ -48,18 +49,12 @@ fn pasta_restrict(net: resources::net_subset) void = {
       errors::ext::check("namespace: unshare net", rt::ext::unshare(rt::ext::clone_flag::NEWNET));
       errors::ext::check("setup_pasta: config routing", config_routing_in_ns(net));
 
-      // bind the net ns to some path we can safely share with
-      // pasta, without giving it access to *all* of the /proc fs.
-      errors::ext::check(
-        "[namespace/pasta] mount /proc/self/ns/net /unbacked/bunpen-private/netns",
-        rt::ext::mount("/proc/self/ns/net", "/unbacked/bunpen-private/netns", "", rt::ext::mount_flag::BIND, null),
-      );
-
       // drop enough caps so that pasta has permissions to enter our new netns.
       // TODO: just set the desired caps here, and then don't try to do it again.
       capability_restrict(rt::ext::CAPS_NONE);
+
       // let the other thread know we're ready for pasta to attach to us
-      io::write(pipe_parent_wr, [1])!;
+      io::write(pipe_parent_wr, [1u8])!;
 
       // wait for the other thread to attach pasta.
       // pasta signals readiness by writing its pid (followed by \n) to a file.
@@ -77,8 +72,13 @@ fn pasta_restrict(net: resources::net_subset) void = {
 
       // wait for the parent to signal that it's ready for us to attach pasta.
       io::readall(pipe_child_rd, &[0u8])!;
+
       // exec into pasta.
-      errors::ext::check("setup_pasta: attach", attach_pasta(net, pipe_child_wr));
+      let netns_fd = errors::ext::check_int(
+        "setup_pasta: open('/proc/self/ns/net')",
+        rt::openat2(ns_fd, "net", &rt::open_how { ... }, size(rt::open_how)),
+      );
+      errors::ext::check("setup_pasta: attach", attach_pasta(net, netns_fd, pipe_child_wr));
 
       // XXX: this code below never actually gets run
       // cleanup: we're done with the pipes
@@ -91,14 +91,20 @@ fn pasta_restrict(net: resources::net_subset) void = {
 };
 
 // spawn pasta as a separate process, and have it attach to the netns of the given pid.
-fn attach_pasta(net: resources::net_subset, notify_fd: io::file) (void | os::exec::error | rt::errno) = {
-  // move the notification pipe to be one of the special fd's which *don't*
+fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::file) (void | os::exec::error | rt::errno) = {
+  // move the fd's to be one of the special fd's which *don't*
   // get closed on exec (e.g. /proc/self/fd/0, stdin).
-  // this *shouldn't* be necessary: the pipe was created NOCLOEXEC;
-  // but maybe pasta is doing some security measure like clearing all open fd's on exec.
-  rt::dup2(notify_fd, 0)!;
+  // notify_fd is opened O_NOCLOEXEC (netns_fd is O_CLOEXEC), but still this seems to be required,
+  //   and it only works if we dup2 to fd 0/1/2 (not >= 3).
+  // maybe pasta is doing some security measure like clearing all open fd's EXCEPT stdio on exec.
+
+  rt::dup2(netns_fd, 0)!;
+  io::close(netns_fd)!;
+  let netns_fd_path = "/proc/self/fd/0";
+
+  rt::dup2(notify_fd, 1)!;
   io::close(notify_fd)!;
-  let notify_fd_path = "/proc/self/fd/0";
+  let notify_fd_path = "/proc/self/fd/1";
 
   let pasta_args = [
     "pasta",
@@ -120,7 +126,7 @@ fn attach_pasta(net: resources::net_subset, notify_fd: io::file) (void | os::exe
     "--netns-only",
     // pidstr,
     // "--netns", netns_path,
-    "--netns", "/unbacked/bunpen-private/netns",
+    "--netns", netns_fd_path,
     "--pid", notify_fd_path,
     // pasta daemonizes by default, *specifically* so it can unshare its PID namespace.
     // i'm managing that here though, so we can have it not fork.

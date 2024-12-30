@@ -62,23 +62,10 @@ in
   })
 
   (fetchpatch' {
-    name = "coturn: remove unnecessary libpromhttp dependency, fix build";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/369142";
-    hash = "sha256-arauwlYZjhV7r/k/2hAmHdx4bbwD1A+ymhurarTF1fs=";
-  })
-
-  (fetchpatch' {
     # 2024-12-26: required to build ollama (with AMD acceleration)
     name = "rocm-6: bump packages to 6.3.1 and add missing packages";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
     hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
-  })
-
-  (fetchpatch' {
-    name = "mesa: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/369171";
-    saneCommit = "4c672bfc7eef1cd0e45158f1e99e71ebbb68bb85";
-    hash = "sha256-+G5/zfYlyVLebgK/IC3QL1eY19v28+cgvjgk+RrpvGQ=";
   })
 
   (fetchpatch' {
@@ -95,12 +82,12 @@ in
     hash = "sha256-pN14eynQizhGPPiF4bj9e/HdNEmW/gJHvK59ihwM/vA=";
   })
 
-  (fetchpatch' {
-    # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)
-    name = "stepmania: wrap the program so it knows where to find its data files";
-    saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";
-    hash = "sha256-43zxnbUJuGXThadHoQRi6cevD7SFSZejWj324V6eBpw=";
-  })
+  # (fetchpatch' {
+  #   # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)
+  #   name = "stepmania: wrap the program so it knows where to find its data files";
+  #   saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";
+  #   hash = "sha256-43zxnbUJuGXThadHoQRi6cevD7SFSZejWj324V6eBpw=";
+  # })
 
   # (fetchpatch' {
   #   # this causes a rebuild of systemd and everything above it:

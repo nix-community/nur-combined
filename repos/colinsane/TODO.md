@@ -1,5 +1,4 @@
 ## BUGS
-- gnome-calls eats 100% CPU and never renders UI (moby AND lappy, at least)
 - dissent has a memory leak (3G+ after 24hr)
   - set a max memory use in the systemd service, to force it to restart as it leaks?
 - `rmDbusServices` may break sandboxing
@@ -8,7 +7,7 @@
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
 - dissent: if i launch it without net connectivity, it gets stuck at the login, and never tries again
-- newflash on moby can't play videos
+- newsflash on moby can't play videos
   - "open in browser" works though -- in mpv
 - gnome-maps can't use geoclue *and* openstreetmap at the same time
   - get gnome-maps to speak xdg-desktop-portal, and this will be fixed
@@ -36,26 +35,16 @@
 - upstream blueprint-compiler cross fixes -> nixpkgs
 - upstream cargo cross fixes -> nixpkgs
 - upstream `gps-share` package -> nixpkgs
-- upstream PinePhonePro device trees -> linux
 
 #### upstreaming to non-nixpkgs repos
+- gnome-calls: retry net connection when DNS is down
 - gtk: build schemas even on cross compilation: <https://github.com/NixOS/nixpkgs/pull/247844>
-- gnome-calls retry net connection when DNS is down
+- linux: upstream PinePhonePro device trees
 - nwg-panel: configurable media controls
 - nwg-panel / playerctl hang fix (i think nwg-panel is what should be patched here)
 
 
 ## IMPROVEMENTS:
-- lack of a mesa shader cache for sandboxed programs DESTROYS PERF
-  - adding ~/.cache/mesa_shader_cache_db to the sandbox massively improves launch time,
-    probably reduces memory use,
-    but has unknown data leak implications.
-  - either (1) pre-populate the shader cache somehow, e.g. <https://gitlab.freedesktop.org/mesa/shader-db>
-    or (2) use a seperate shader cache per-app
-    or (3) disable the mesa cache and see if that actually helps (MESA_SHADER_CACHE_DISABLE=true)
-- tmpfs usage inside bunpen apps is not introspectable/debuggable
-  - app sandboxes could be rooted in, say, `/run/bunpen/$PID`
-    - for a nested sandbox, its vfs could be queried from the root ns at `/run/bunpen/$PID1/run/bunpen/$PID2`
 - sane-deadlines: show day of the week for upcoming items
 - curlftpfs: replace with something better
   - safer (rust? actively maintained? sandboxable?)
@@ -160,7 +149,7 @@
   - and strip the ads out using Whisper transcription + asking a LLM where the ad breaks are
 - neovim: integrate ollama
 - neovim: better docsets (e.g. c++, glib)
-- firefox/librewolf: persist history
+- firefox: persist history
   - just not cookies or tabs
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265

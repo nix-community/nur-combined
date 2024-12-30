@@ -133,6 +133,7 @@
     ./nmcli.nix
     ./notejot.nix
     ./ntfy-sh.nix
+    ./nvimpager.nix
     ./nwg-panel
     ./objdump.nix
     ./obsidian.nix

@@ -157,11 +157,12 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "rofi-snippets";
       srcRoot = ./.;
-      pkgs = [
-        "gnused"
-        "rofi"
-        "wtype"
-      ];
+      pkgs = {
+        inherit (pkgs) gnused wtype;
+        rofi-wayland = pkgs.rofi-wayland.override {
+          inherit rofi-unwrapped;
+        };
+      };
       nativeBuildInputs = [
         pkgs.copyDesktopItems
       ];

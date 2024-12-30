@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p gnused -p rofi -p wtype
+#!nix-shell -i bash -p bash -p gnused -p rofi-wayland -p wtype
 
 # "bookmarking"/snippets inspired by Luke Smith:
 # - <https://www.youtube.com/watch?v=d_11QaTlf1I>

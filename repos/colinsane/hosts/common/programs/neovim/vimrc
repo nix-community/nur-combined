@@ -29,3 +29,10 @@ set conceallevel=2
 " source: https://www.reddit.com/r/neovim/comments/chlmfk/highlight_trailing_whitespaces_in_neovim/
 set list
 set listchars=tab:▷\·,trail:·,extends:◣,precedes:◢,nbsp:○
+
+" when using vim to view manpages
+"   (`:Man topic` or `MANPAGER='nvim +Man!' man topic` or `vim man://topic`),
+" instruct `man` to output unwrapped buffers, and let vim soft-wrap them.
+" this allows one to resize the terminal and have the manpage be re-rendered.
+" see: <https://github.com/neovim/neovim/issues/11436>
+let g:man_hardwrap=0

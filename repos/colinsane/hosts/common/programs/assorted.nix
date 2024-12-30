@@ -91,6 +91,7 @@ in
       "nmap"
       "nmcli"
       "nmon"
+      "nvimpager"
       "nvme-cli"  # nvme
       # "openssl"
       "parted"

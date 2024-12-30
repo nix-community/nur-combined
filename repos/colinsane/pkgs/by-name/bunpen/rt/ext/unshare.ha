@@ -1,9 +1,6 @@
 // vim: set shiftwidth=2 :
 use rt;
 
-// hare defines this for riscv and aarch64, but not x86
-// const __NR_pidfd_open: u64 = 434;
-
 // for use with `setns`, `unshare`, `clone` syscalls
 export type clone_flag = enum u64 {
   // new time namespace. calling process is NOT moved into the namespace.
@@ -47,9 +44,3 @@ export fn unshare(flags: clone_flags) (void | rt::errno) = {
 //   return syscall_0_on_success(rt::SYS_setns, ns_fd: u64, nstype: u64);
 // };
 //
-// // return a file descriptor that represents the PID namespace of the given process.
-// // this can be used with `setns`.
-// // the CLOSE_ON_EXEC flag is implicitly set.
-// export fn pidfd_open(pid: rt::pid_t, flags: u64 = 0) (rt::errno | u64) = {
-//   return syscall(__NR_pidfd_open, pid: u64, flags);
-// };
