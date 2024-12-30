@@ -192,13 +192,13 @@ in {
     wine64Full = let
         inherit (pkgs) lib;
         wine64FullOrig = pkgs.wine64Packages.full;
-        needsOldClang = wine64FullOrig.stdenv.cc.isClang && lib.versionAtLeast wine64FullOrig.stdenv.cc.version "18";
+        needsOldClang = wine64FullOrig.stdenv.cc.isClang && lib.versionAtLeast wine64FullOrig.stdenv.cc.version "17";
         wine64Full = if needsOldClang then (pkgs.wine64Packages.extend (self: super: {
-            inherit (pkgs.llvmPackages_17) stdenv;
+            inherit (pkgs.llvmPackages_16) stdenv;
         })).full else wine64FullOrig;
     in wine64Full.overrideAttrs (old: {
         meta = (old.meta or {}) // {
-            description = "${wine64Full.meta.description or "wine64Packages.full"} (with Clang version capped at 17 to fix build)";
+            description = "${wine64Full.meta.description or "wine64Packages.full"} (with Clang version capped at 16 to fix build)";
         };
         passthru = (old.passthru or {}) // {
             _Rhys-T.allowCI = pkgs.hostPlatform.isDarwin;
