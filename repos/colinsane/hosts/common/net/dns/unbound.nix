@@ -1,7 +1,9 @@
 # `man unbound.conf` for info on settings
 # it's REALLY EASY to combine settings in a way that produce bad effects.
 # generally, prefer to stay close to defaults unless there's a compelling reason to differ.
-{ config, lib, pkgs, ... }: {
+{ config, lib, ... }:
+lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutions, just randomly breaks connectivity daily
+{
   config = lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
     services.resolved.enable = lib.mkForce false;
 

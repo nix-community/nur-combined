@@ -3,7 +3,9 @@ let
   cfg = config.sane.netns;
   nsIpv4 = builtins.head (builtins.filter
     (ns: (builtins.match "[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+" ns) != null)
-    config.networking.nameservers
+    config.networking.nameservers ++ lib.optionals config.networking.resolvconf.useLocalResolver [
+      "127.0.0.1" "::1"
+    ]
   );
   netnsOpts = with lib; types.submodule {
     options = {

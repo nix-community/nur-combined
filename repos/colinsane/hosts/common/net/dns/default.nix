@@ -23,6 +23,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ./bind.nix
     ./hickory-dns.nix
     ./unbound.nix
   ];

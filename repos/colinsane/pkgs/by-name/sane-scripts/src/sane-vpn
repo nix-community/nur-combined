@@ -51,7 +51,8 @@ NM_RESOLVCONF = "/run/NetworkManager/resolv.conf"
 RESOLVCONF = "/etc/resolv.conf"
 
 SHELL = os.environ.get("SHELL", "/bin/sh")
-VPN_CONFIG_DIR = os.path.expanduser("~/.config/sane-vpn")
+HOME = os.environ.get("SUDO_HOME", os.environ.get("HOME", "/root"))
+VPN_CONFIG_DIR = os.path.join(HOME, ".config/sane-vpn")
 VPN_DIR = os.path.join(VPN_CONFIG_DIR, "vpns")
 VPN_DEFAULT_FILE = os.path.join(VPN_CONFIG_DIR, "default")
 
