@@ -46,15 +46,12 @@ repos:
     rev: 3.0.0
     hooks:
       - id: check-mailmap
-      - id: shellcheck
-        exclude_types:
-          - zsh
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.35.1
     hooks:
       - id: yamllint
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.19
+    rev: 0.7.21
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -73,15 +70,7 @@ repos:
       - id: markdownlint-cli2
         additional_dependencies:
           - markdown-it-texmath
-  - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.10.0-2
-    hooks:
-      - id: shfmt
   - repo: https://github.com/NixOS/nixfmt
     rev: cb92834560306868e4020dd643f09482587c6e7a
     hooks:
       - id: nixfmt
-
-ci:
-  skip:
-    - shellcheck
