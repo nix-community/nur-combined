@@ -1,17 +1,18 @@
-{ lib
-, fetchFromGitHub
-, vimUtils
+{
+  lib,
+  fetchFromGitHub,
+  vimUtils,
 }:
 
 vimUtils.buildVimPlugin rec {
   pname = "proximity.nvim";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "zimeg";
     repo = "proximity.nvim";
     rev = "v${version}";
-    sha256 = "sha256-jSfnsB1f08cLUVs2OzMtyCqptVLpeVWgp9Oyfp4GjBI=";
+    hash = "sha256-ZPH//f0cAVGGWcw80yr7KZ7vIHJ5IERd5Ez+/F4dgL8=";
   };
 
   meta = with lib; {

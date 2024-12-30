@@ -1,5 +1,6 @@
-{ lib
-, pkgs
+{
+  lib,
+  pkgs,
 }:
 
 let

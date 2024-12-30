@@ -8,6 +8,8 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- chore(pkgs/proximity-nvim): bump the patch number to the latest fix 2024-12-30
+- style: format code with the latest linter from upstream nix package 2024-12-29
 - feat(pkgs/telescope-git-conflicts-nvim)!: remove for upstream build 2024-10-20
 - feat(pkgs/llrt): hash distributed builds of the low latency runtime 2024-10-12
 - feat(pkgs/telescope-git-conflicts-nvim): preview conflict in editor 2024-10-05

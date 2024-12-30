@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -32,6 +33,9 @@ buildGoModule rec {
     changelog = "https://github.com/Bearer/gon/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ ];
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

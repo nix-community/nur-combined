@@ -1,8 +1,9 @@
 # https://github.com/awslabs/llrt/releases/tag/v0.1.10-beta
-{ fetchurl
-, lib
-, stdenvNoCC
-, unzip
+{
+  fetchurl,
+  lib,
+  stdenvNoCC,
+  unzip,
 }:
 let
   arch = if stdenvNoCC.isAarch64 then "arm64" else "x64";
