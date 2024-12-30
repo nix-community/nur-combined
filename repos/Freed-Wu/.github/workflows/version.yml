@@ -25,6 +25,5 @@ jobs:
       - name: Check update
         run: |
           nix run 'nixpkgs#nvfetcher'
-          git diff --quiet && exit; true
           git add _sources/generated.nix
       - uses: stefanzweifel/git-auto-commit-action@v5
