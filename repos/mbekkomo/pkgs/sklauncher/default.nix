@@ -6,6 +6,7 @@
   alsa-lib,
   makeWrapper,
   makeDesktopItem,
+  copyDesktopItems,
   ...
 }:
 let
@@ -22,7 +23,7 @@ stdenv.mkDerivation {
 
   src = ./.;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
   buildInputs =
     [
       temurin-jre-bin-21
@@ -34,7 +35,7 @@ stdenv.mkDerivation {
       libXcursor
     ]);
 
-  desktopItem = makeDesktopItem {
+  desktopItems = [(makeDesktopItem {
     name = "sklauncher";
     desktopName = "SKLauncher";
     exec = "sklauncher";
@@ -43,9 +44,11 @@ stdenv.mkDerivation {
     categories = [
       "Game"
     ];
-  };
+  })];
 
   installPhase = ''
+    runHook preInstall
+  
     mkdir -p $out/{share,bin}
     install -Dm655 -t $out/share sklauncher.jar
     install -Dm755 -t $out/bin sklauncher
@@ -53,6 +56,8 @@ stdenv.mkDerivation {
       --set SKLAUNCHER $out/share/sklauncher.jar \
       --set JAVA_HOME ${toString temurin-jre-bin-21} \
       --prefix LD_LIBRARY_PATH : ${requiredLibraries}
+
+    runHook postInstall
   '';
 
   meta = with lib; {
