@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-exec "${JAVA_HOME}"/java -jar "${SKLAUNCHER}" "$@"
+exec "${JAVA_HOME}"/bin/java -jar "${SKLAUNCHER}" "$@"
