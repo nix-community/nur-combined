@@ -84,10 +84,14 @@
     else if isUnstable then unstableConfig
     else stableConfig;
 
+    tagName = if src ? rev && src.rev != null then (lib.removePrefix "refs/tags/" src.rev)
+    else if src ? tag then src.tag
+    else null;
+
     config = if baseConfig != null then
       baseConfig
       // configs.${name} or { }
-      // lib.optionalAttrs (src ? rev && src.rev != null && lib.hasPrefix "v" (lib.removePrefix "refs/tags/" src.rev)) {
+      // lib.optionalAttrs (tagName != null && lib.hasPrefix "v" tagName) {
         prefix = "v";
       }
       // lib.optionalAttrs (!includePrereleases) {
