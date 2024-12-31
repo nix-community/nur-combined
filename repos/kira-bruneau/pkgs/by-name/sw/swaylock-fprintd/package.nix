@@ -1,7 +1,7 @@
 {
   swaylock,
   fetchFromGitHub,
-  substituteAll,
+  replaceVars,
   fprintd,
   dbus,
   nix-update-script,
@@ -19,8 +19,7 @@ swaylock.overrideAttrs (attrs: {
   };
 
   patches = [
-    (substituteAll {
-      src = ./fprintd.patch;
+    (replaceVars ./fprintd.patch {
       inherit fprintd;
     })
   ];
