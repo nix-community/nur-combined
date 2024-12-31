@@ -48,6 +48,25 @@
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
+                {
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
+                      headers = {
+                        request = {
+                          set = {
+                            "X-Scheme" = [
+                              "https"
+                            ];
+                          };
+                        };
+                      };
+                      upstreams = [ { dial = "10.0.4.3:8083"; } ];
+                    }
+                  ];
+                  match = [ { host = [ "calibre.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
                 (import ../caddy-matrix.nix {
                   inherit pkgs;
                   matrix-upstream = "10.0.4.2:6167";
