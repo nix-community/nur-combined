@@ -64,7 +64,7 @@
                       upstreams = [ { dial = "10.0.4.3:8083"; } ];
                     }
                   ];
-                  match = [ { host = [ "calibre.nyaw.xyz" ]; } ];
+                  match = [ { host = [ "book.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
                 (import ../caddy-matrix.nix {

@@ -212,8 +212,8 @@ in
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
-      // xcursor-theme "default"
-      // xcursor-size 24
+      xcursor-theme "graphite-light-nord"
+      xcursor-size 22
   }
 
   // Uncomment this line to ask the clients to omit their client-side decorations if possible.
