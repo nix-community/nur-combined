@@ -12,7 +12,7 @@ _: {
         set -euo pipefail
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${lib.getExe pkgs.nvfetcher} $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+        ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
     in
     {

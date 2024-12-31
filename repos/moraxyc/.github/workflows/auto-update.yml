@@ -17,6 +17,9 @@ jobs:
         uses: cachix/install-nix-action@v30
         with:
           nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+            substituters = https://cache.nixos.org/ https://cache.garnix.io
 
       - name: Cache Nvfetcher Database
         id: cache-nvfetcher
@@ -25,7 +28,7 @@ jobs:
           path: ~/.local/share/nvfetcher
           key: nvfetcher
 
-      - name: Build nix packages
+      - name: Fetch new versions
         run: |
           cat > secrets.toml <<EOF
           [keys]
