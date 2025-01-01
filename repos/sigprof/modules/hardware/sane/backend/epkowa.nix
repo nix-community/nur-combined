@@ -19,6 +19,7 @@ in {
       "iscan-data"
       "iscan-gt"
       "iscan-gt-f720-bundle"
+      "iscan-gt-s600-bundle"
       "iscan-gt-s650-bundle"
       "iscan-gt-s80-bundle"
       "iscan-gt-x750-bundle"

@@ -5,7 +5,6 @@ in
     dir = ./.;
     modules = [
       hardware/gpu/driver/nvidia
-      hardware/gpu/driver/nvidia/legacy_340.nix
       hardware/printers/driver/hplip.nix
       hardware/sane/backend/epkowa.nix
       hardware/video

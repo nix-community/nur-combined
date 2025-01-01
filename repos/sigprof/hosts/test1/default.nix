@@ -17,8 +17,6 @@ in
         fileSystems."/".device = "/dev/sda1";
         boot.loader.grub.device = "/dev/sda";
 
-        sigprof.hardware.gpu.driver.nvidia.legacy_340.enable = true;
-
         services.printing.enable = true;
         sigprof.hardware.printers.driver.hplip.enable = true;
         sigprof.hardware.printers.driver.hplip.enablePlugin = true;
