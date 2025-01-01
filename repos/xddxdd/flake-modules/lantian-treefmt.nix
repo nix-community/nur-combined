@@ -23,7 +23,8 @@
           black.enable = true;
           deadnix.enable = true;
           dos2unix.enable = true;
-          formatjson5.enable = true;
+          # # Disable for build failure
+          # formatjson5.enable = true;
           isort.enable = true;
           mypy.enable = true;
           nixfmt.enable = true;
