@@ -190,7 +190,7 @@ src.regex = "\"https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v([0-9\\.]+
 fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-breeze-v$ver.tar.gz"
 
 [fish-speech]
-src.github = "fishaudio/fish-speech"
+src.github_tag = "fishaudio/fish-speech"
 fetch.github = "fishaudio/fish-speech"
 
 [flasgger]
