@@ -6,6 +6,7 @@ rec {
     unzipSupport = true;
     unrarSupport = true;
   };
+  # todo: remove with next release
   qmmp = super.qmmp.overrideAttrs (oldAttrs: rec {
     buildInputs = oldAttrs.buildInputs ++ (with super; [ libxmp libsidplayfp ]);
   });

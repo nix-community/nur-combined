@@ -3,6 +3,30 @@
 with lib;
 let
   cfg = config.services.dashboard;
+  page = { name, protocol ? "http", port, attrs ? {}, hasWidget ? true, hasSiteMonitor ? false, path ? "", description ? "", ... }:
+    {
+      "${name}" = rec {
+        href = "http://${name}.${cfg.networking.fqdn}/${path}";
+        icon = attrs.alticon or "${name}.png";
+        siteMonitor = optionalString hasSiteMonitor "${protocol}://127.0.0.1:${toString port}";
+        inherit description;
+      } // (optionalAttrs hasWidget {
+        widget = {
+          type = name;
+          url = "${protocol}://127.0.0.1:${toString port}";
+        } // attrs;
+      });
+    };
+  nginx = { name, protocol ? "http", port, websockets ? false, ... }:
+    {
+      "${name}.${cfg.networking.hostName}" = {
+        serverAliases = [ "${name}.${cfg.networking.fqdn}" ];
+        locations."/" = {
+          proxyPass = "${protocol}://127.0.0.1:${toString port}";
+          proxyWebsockets = websockets;
+        };
+      };
+    };
   allservices' = lib.filter (x: x != {}) cfg.allservices;
 in {
   options.services.dashboard = {
@@ -25,7 +49,7 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.homepage-dashboard.listenPort}";
         };
       };
-    } // lib.mergeAttrsList (map (x: pkgs.nur.repos.dukzcry.lib.nginx (x // { inherit (cfg) networking; })) allservices');
+    } // lib.mergeAttrsList (map nginx allservices');
     services.homepage-dashboard.enable = true;
     services.homepage-dashboard.settings = {
       target = "_self";
@@ -40,6 +64,6 @@ in {
         };
       };
     };
-    services.homepage-dashboard.services = [{ "Сервисы" = map (x: pkgs.nur.repos.dukzcry.lib.page (x // { inherit (cfg) networking; })) allservices'; }];
+    services.homepage-dashboard.services = [{ "Сервисы" = map page allservices'; }];
   };
 }
