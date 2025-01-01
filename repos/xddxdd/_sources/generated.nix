@@ -830,6 +830,16 @@
       hash = "sha256-O+XB+avpx9Kkt+7RW6pT5mXMtAVhXNHe+ohgIm1ql8w=";
     };
   };
+  linux-xanmod-6_12 = {
+    pname = "linux-xanmod-6_12";
+    version = "6.12.7-xanmod1";
+    src = fetchgit {
+      url = "https://gitlab.com/xanmod/linux.git";
+      tag = "6.12.7-xanmod1";
+      fetchSubmodules = false;
+      hash = "sha256-sM9XINKBGRcO29o3kEIKM03t/XojG9nYLirQSBii8Y4=";
+    };
+  };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
     version = "6.6.68-xanmod1";

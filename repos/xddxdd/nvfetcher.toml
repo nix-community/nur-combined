@@ -345,6 +345,12 @@ src.regex = "\"name\":\"([^\"]+)\","
 src.include_regex = "^[0-9\\.]+-xanmod.*$"
 fetch.git = "https://gitlab.com/xanmod/linux.git"
 
+[linux-xanmod-6_12]
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.12."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.12\\.[0-9]+-xanmod.*$"
+fetch.git = "https://gitlab.com/xanmod/linux.git"
+
 [linux-xanmod-6_6]
 src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.6."
 src.regex = "\"name\":\"([^\"]+)\","

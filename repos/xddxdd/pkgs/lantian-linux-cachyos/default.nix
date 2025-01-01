@@ -3,6 +3,7 @@
   callPackage,
   lib,
   sources,
+  linux_6_12,
   linux_latest,
   ...
 }:
@@ -17,7 +18,7 @@ let
       configVariant,
       ...
     }:
-    lib.flatten [
+    [
       (mkCachyKernel {
         pname = "${prefix}";
         inherit version src configVariant;
@@ -30,13 +31,25 @@ let
       })
     ];
 
-  batches = batch {
-    prefix = "latest";
-    inherit (linux_latest) version src;
-    configVariant = "linux-cachyos";
-  };
+  batches = [
+    (batch {
+      prefix = "latest";
+      inherit (linux_latest) version src;
+      configVariant = "linux-cachyos";
+    })
+    (batch {
+      prefix = "lts";
+      inherit (linux_6_12) version src;
+      configVariant = "linux-cachyos";
+    })
+    (batch {
+      prefix = "v6_12";
+      inherit (linux_6_12) version src;
+      configVariant = "linux-cachyos";
+    })
+  ];
 
-  batchesAttrs = builtins.listToAttrs batches;
+  batchesAttrs = builtins.listToAttrs (lib.flatten batches);
 in
 if mode == "ci" then
   lib.filterAttrs (n: _v: lib.hasSuffix "configfile" n) batchesAttrs

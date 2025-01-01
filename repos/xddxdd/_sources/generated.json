@@ -1612,6 +1612,26 @@
         },
         "version": "6.1.77-xanmod1"
     },
+    "linux-xanmod-6_12": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "linux-xanmod-6_12",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "6.12.7-xanmod1",
+            "sha256": "sha256-sM9XINKBGRcO29o3kEIKM03t/XojG9nYLirQSBii8Y4=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitlab.com/xanmod/linux.git"
+        },
+        "version": "6.12.7-xanmod1"
+    },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
         "date": null,

@@ -819,6 +819,46 @@
     "pname": "linux-config",
     "version": "6.12.7"
   },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts": {
+    "description": "Linux CachyOS Kernel with Lan Tian Modifications",
+    "pname": "linux-cachyos-lts",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-lto": {
+    "description": "Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO",
+    "pname": "linux-cachyos-lts-lto",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-lto-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.v6_12": {
+    "description": "Linux CachyOS Kernel with Lan Tian Modifications",
+    "pname": "linux-cachyos-v6_12",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.v6_12-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.v6_12-lto": {
+    "description": "Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO",
+    "pname": "linux-cachyos-v6_12-lto",
+    "version": "6.12.7"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.v6_12-lto-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7"
+  },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-generic",
@@ -862,102 +902,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-lts-generic",
-    "version": "6.6.68-xanmod1"
+    "version": "6.12.7-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
+    "version": "6.12.7-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-lts-generic-lto",
-    "version": "6.6.68-xanmod1"
+    "version": "6.12.7-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-lts-x86_64-v1",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-lts-x86_64-v1-lto",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-lts-x86_64-v2",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-lts-x86_64-v2-lto",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-lts-x86_64-v3",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-lts-x86_64-v3-lto",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-lts-x86_64-v4",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-lts-x86_64-v4-lto",
-    "version": "6.6.68-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.6.68-xanmod1"
+    "version": "6.12.7-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1158,6 +1118,26 @@
     "description": "",
     "pname": "linux-config",
     "version": "6.1.77-xanmod1"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic": {
+    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
+    "pname": "linux-xanmod-v6_12-generic",
+    "version": "6.12.7-xanmod1"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7-xanmod1"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto": {
+    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
+    "pname": "linux-xanmod-v6_12-generic-lto",
+    "version": "6.12.7-xanmod1"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto-configfile": {
+    "description": "",
+    "pname": "linux-config",
+    "version": "6.12.7-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
