@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install a flaked Nix
-        uses: DeterminateSystems/nix-installer-action@v15
+        uses: DeterminateSystems/nix-installer-action@v16
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix caches
