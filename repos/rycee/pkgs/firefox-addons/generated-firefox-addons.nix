@@ -316,10 +316,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.18";
+      version = "1.0.19";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344807/angular_devtools-1.0.18.xpi";
-      sha256 = "4b291115b5609f625632bc18bca0976b992919f591b266a8f1d99a3c49ed15d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406625/angular_devtools-1.0.19.xpi";
+      sha256 = "a9daacf39b033fde8dd7ad3778235b0f4ad136a4b299c26c64fed85eb2b5c3ac";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -960,10 +960,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.6.0";
+      version = "0.6.2";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4410283/bilisponsorblock-0.6.0.xpi";
-      sha256 = "c0bf40c59f315bc2ad3f3f697f4f3778b9819b60a94457d5f2a0ee3f1aec8135";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411710/bilisponsorblock-0.6.2.xpi";
+      sha256 = "b6b240bd5c323836967365c89d7848134624bfd86ed0ffb50651685b31bf2965";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1346,10 +1346,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.12.1";
+      version = "0.12.2";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406641/catppuccin_gh_file_explorer-0.12.1.xpi";
-      sha256 = "0962447ef6d86877af014b1b4b9c46f7cdc1adc31a50630dd1b0d7ce3e9fdaf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411024/catppuccin_gh_file_explorer-0.12.2.xpi";
+      sha256 = "6d0c54862907fc9e27fa6c3f5a40c1f909b066f32956b8a99e1cd85ab8a7642d";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -1747,10 +1747,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.57.1";
+      version = "2.58.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389032/competitive_companion-2.57.1.xpi";
-      sha256 = "03c7982b0f7cc23e6ec8d990cdd29568226809b3d0391a9641aac15290d4a475";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412528/competitive_companion-2.58.0.xpi";
+      sha256 = "8e6872cca063ba67f43510676256ee65130823835e3c5b5ab90459e8c9f756ed";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241213.91550";
+      version = "134.0.20241230.151726";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404816/deutsch_de_language_pack-134.0.20241213.91550.xpi";
-      sha256 = "2f064bddf5b71fcfcad44dc8c43f01f5a18400c75b8b240eafda4cd2a3f8ecf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412104/deutsch_de_language_pack-134.0.20241230.151726.xpi";
+      sha256 = "c40c82ac59688dd85be9bb02a533174aeb0ea35c47c7e06e56d31210247730be";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2539,10 +2539,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.52.0";
+      version = "2.55.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409691/dualsub-2.52.0.xpi";
-      sha256 = "31b647df3a5547962bea9d39169fccfa76d1d4bf331803fe01ec7f0383158506";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411501/dualsub-2.55.0.xpi";
+      sha256 = "1ce60b3437b0ec36db2b37347d414c741d7d8644db3867dc84cfaab368c43fe0";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2614,10 +2614,10 @@
     };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.53.0";
+      version = "5.55.1";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4384029/ebates-5.53.0.xpi";
-      sha256 = "49415d6c90e9e0ee8a1dba7a35bb01a0ba84cabb117bc2690377611007a36320";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406709/ebates-5.55.1.xpi";
+      sha256 = "b40d390b7c81933d32862a9cdb8060d60d6965b0a9697c0485b732c31705a426";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2947,10 +2947,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.37";
+      version = "1.3.38";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404528/faststream-1.3.37.xpi";
-      sha256 = "4f298180cf264e754841508dff8dc5215fa77efb8a807e1bcd2b92256650ee7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412157/faststream-1.3.38.xpi";
+      sha256 = "cb50560d34afa22105930328291ff6160ee8734918f734415a591e8c0e05b6cb";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3462,10 +3462,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241213.91550";
+      version = "134.0.20241230.151726";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404831/francais_language_pack-134.0.20241213.91550.xpi";
-      sha256 = "19997f871501d20595099560bf373c7d9a27ddbb3ac8346e47dec74a7a2cc8bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412083/francais_language_pack-134.0.20241230.151726.xpi";
+      sha256 = "82d51b941f541c2940bf18733917639da910e591e1a0fbe141ac9c6f4690fe21";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3499,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241213.91550";
+      version = "134.0.20241230.151726";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404837/gaidhlig_language_pack-134.0.20241213.91550.xpi";
-      sha256 = "bd6fdeb78ec422e57df5f4c10f65cb69fe093b3955251b0bd885740551efe637";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412097/gaidhlig_language_pack-134.0.20241230.151726.xpi";
+      sha256 = "3761501aa9d78e07f0fc38c3fcba58b52204d4b6f5bcf5d2a37fe44ed2256e3d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5267,10 +5267,10 @@
     };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
-      version = "2.4.1";
+      version = "2.4.2";
       addonId = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4410254/iina_open_in_mpv-2.4.1.xpi";
-      sha256 = "decaf94b718b2b5a8b36fbd28365178af2ac313e36f1cab8c0b6dfd48e41830d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4410395/iina_open_in_mpv-2.4.2.xpi";
+      sha256 = "ad5342599a882e43593b2b3706c0107cf83dfcd8ca0f4ee9740fe173e491dc2d";
       meta = with lib;
       {
         homepage = "https://github.com/Baldomo/open-in-mpv";
@@ -7644,10 +7644,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.6";
+      version = "1.7.8";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408773/mtab-1.7.6.xpi";
-      sha256 = "34b3f450a81b5c313a35fd4a773a640bb8b0bd57769fae2b9a4cffe3081a7ece";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411972/mtab-1.7.8.xpi";
+      sha256 = "dbc7bd280b286f7c2401f0323c558a63fcddd53d9004896b96643d12d7f4e16a";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -10087,10 +10087,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241213.91550";
+      version = "134.0.20241230.151726";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404859/scots_language_pack-134.0.20241213.91550.xpi";
-      sha256 = "f367cd09eafc64efb269110dbedb1987f6a38e22cddbbfe8ff1814e5688d0631";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412019/scots_language_pack-134.0.20241230.151726.xpi";
+      sha256 = "fbd0947560499bc0a2a987d9d379df8feaf6ef3c6d99b2843c7b97b1570313bf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13523,6 +13523,7 @@
       sha256 = "fa505a34cabd8ba22625892cfb48103a4c06118b8f95d9fe2e49e57ef350a3a7";
       meta = with lib;
       {
+        homepage = "https://github.com/arkadiyt/zoom-redirector";
         description = "Zoom Redirector transparently redirects any meeting links to use Zoom's browser based web client.";
         license = licenses.mit;
         mozPermissions = [
