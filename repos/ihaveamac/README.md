@@ -17,8 +17,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [cleaninty-0.1.3](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
 | [corgi3ds-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
-| [ctrtool-1.2.0](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
-| [ctrtool-makerom-v0.18.4-unstable-2024-07-20](https://github.com/3DSGuy/Project_CTR) | ctrtool-dev | A tool to extract data from a 3ds rom (latest commits) |
+| [ctrtool-1.2.1](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [discordwikibot-2024-12-20](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
@@ -27,8 +26,8 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | [mediawiki-1.39.11](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-1.40.4](https://www.mediawiki.org/) | mediawiki\_1\_40 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-1.41.5](https://www.mediawiki.org/) | mediawiki\_1\_41 | The collaborative editing software that runs Wikipedia |
+| ~~[mediawiki-1.40.4](https://www.mediawiki.org/)~~ | mediawiki\_1\_40 | The collaborative editing software that runs Wikipedia |
+| ~~[mediawiki-1.41.5](https://www.mediawiki.org/)~~ | mediawiki\_1\_41 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-1.42.4](https://www.mediawiki.org/) | mediawiki\_1\_42 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-1.43.0](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
 | [rvthtool-dev-2024-12-15](https://github.com/GerbilSoft/rvthtool) | rvthtool | Open-source tool for managing RVT-H Reader consoles |

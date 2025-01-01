@@ -3,6 +3,6 @@
 
 nix-update --version-regex='makerom-v(.*)' makerom
 nix-update --version-regex='ctrtool-v(.*)' ctrtool
-nix-update --version=branch ctrtool-dev
+#nix-update --version=branch ctrtool-dev
 
-cat $(nix-build --no-out-link --builders '' build-readme.nix) > README.md
+nix-shell build-readme.nix
