@@ -220,7 +220,6 @@
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";
-    nixd.url = "github:nix-community/nixd";
     nix-direnv.url = "github:nix-community/nix-direnv";
     nix-ld = {
       url = "github:Mic92/nix-ld";

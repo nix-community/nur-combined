@@ -14,7 +14,7 @@
 {
   hardware = {
 
-    pulseaudio.enable = lib.mkForce false;
+    pulseaudio.enable = false;
     graphics = {
       ## amdvlk: an open-source Vulkan driver from AMD
       extraPackages = [ pkgs.amdvlk ];

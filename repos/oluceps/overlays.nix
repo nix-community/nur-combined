@@ -15,7 +15,6 @@
       "resign"
       "nix-direnv"
       "radicle"
-      "nixd"
     ] (n: inputs'.${n}.packages.default)
     # //
     # GUI applications overlay. for stability

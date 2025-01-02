@@ -65,7 +65,6 @@ withSystem "x86_64-linux" (
         ../pam.nix
         ../virt.nix
 
-        inputs.niri.nixosModules.niri
         ../../users.nix
 
         ../dev.nix

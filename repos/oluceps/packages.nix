@@ -14,7 +14,6 @@ let
         sing-box
         tor
         arti
-        tuic
       ]
 
       [
@@ -28,7 +27,6 @@ let
         dnsutils
         tcpdump
         netcat
-        dog
         wget
         socat
         miniserve
@@ -48,7 +46,7 @@ let
         gping
         knot-dns
         tcping-go
-        httping
+        # httping
         iftop
       ]
     ];
