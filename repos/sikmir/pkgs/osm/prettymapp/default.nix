@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "prettymapp";
-  version = "0.4.0";
+  version = "0.5.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chrieke";
     repo = "prettymapp";
     tag = version;
-    hash = "sha256-gTU3G/2RLDOAFFceLOsR75aPMCqI5YnSJoeMS6e6xD8=";
+    hash = "sha256-kjfxHjKLISGXNovX4CPW0cbQizGw1LebXh8yDTAkeYk=";
   };
 
   build-system = with python3Packages; [ setuptools ];
