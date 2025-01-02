@@ -59,6 +59,7 @@
       "/tmp"
       "/var"
     ];
+    sandbox.mesaCacheDir = ".cache/xdg-desktop-portal-nautilus/mesa";  # TODO: is this the correct app-id?
 
     services.xdg-desktop-portal-nautilus = {
       description = "xdg-desktop-portal-nautilus backend (provides file chooser for xdg-desktop-portal)";

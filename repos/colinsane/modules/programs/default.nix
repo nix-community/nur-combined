@@ -543,18 +543,15 @@ let
       };
       sandbox.mesaCacheDir = mkOption {
         type = types.nullOr types.str;
-        default = if config.sandbox.whitelistWayland then
-          # XXX: mesa will create its *own* directory under here (or file, based on how it's been configured).
-          # to locate empty mesa shader cache dirs (and identify apps that aren't using it):
-          # - `fd mesa ~/.cache | xargs -n 1 sh -c 'test -d $1/mesa_shader_cache_db || echo $1' -- | sort`
-          ".cache/${config.name}/mesa"
-        else
-          null
-        ;
+        default = null;
         description = ''
           place the mesa cache in a custom directory.
           generally, most GUI applications should have their mesa cache directory
           persisted to disk to (1) reduce ram consumption and (2) massively improve loading speed.
+          mesa will create its *own* directory under here.
+
+          to locate empty mesa shader cache dirs (and identify apps that aren't using it):
+          - `fd mesa ~/.cache | xargs -n 1 sh -c 'test -d $1/mesa_shader_cache_db || echo $1' -- | sort`
         '';
       };
       sandbox.tmpDir = mkOption {

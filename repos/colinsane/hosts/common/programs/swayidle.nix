@@ -87,7 +87,6 @@ in
     ];
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
-    sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
     sandbox.extraRuntimePaths = [ "sway" ];
 
     services.swayidle = {

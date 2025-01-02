@@ -1,6 +1,8 @@
 { ... }:
 {
   sane.programs.wike = {
+    buildCost = 2;
+
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
@@ -18,8 +20,7 @@
       "/sys/dev"
       "/sys/devices"
     ];
-
-    buildCost = 2;
+    sandbox.mesaCacheDir = ".cache/wike/mesa";  # TODO: is this the correct app-id?
 
     # wike probably meant to put everything here in a subdir, but didn't.
     # see: <https://github.com/hugolabe/Wike/issues/176>

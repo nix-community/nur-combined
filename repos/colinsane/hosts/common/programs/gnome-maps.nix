@@ -41,6 +41,7 @@
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 
+    sandbox.mesaCacheDir = ".cache/gnome-maps/mesa";
     persist.byStore.plaintext = [ ".cache/shumate" ];
     # ~/.local/share/gnome-maps/places.json (previously: ../maps-places.json); to persist starred locations, recent locations+routes
     # TODO: building in "developer mode" causes gnome-maps to pretty-print the .json instead of minifying it

@@ -9,6 +9,7 @@
     });
 
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = ".cache/wvkbd/mesa";  # TODO: is this the correct app-id?
 
     env.KEYBOARD = "wvkbd-mobintl";
 

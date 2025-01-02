@@ -49,6 +49,7 @@
       "/dev/snd"  #< needed only when playing embedded audio (not embedded video!)
     ];
 
+    sandbox.mesaCacheDir = ".cache/Element/mesa";
     # creds/session keys, etc
     persist.byStore.private = [ ".config/Element" ];
   };

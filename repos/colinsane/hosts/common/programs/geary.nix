@@ -49,6 +49,7 @@ in
     # fs.".local/share/folks".dir = {};
 
     buildCost = 3;  # uses webkitgtk 4.1
+    sandbox.mesaCacheDir = ".cache/geary/mesa";
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db
       ".local/share/geary"

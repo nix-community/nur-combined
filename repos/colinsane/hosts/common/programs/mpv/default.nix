@@ -208,6 +208,7 @@ in
       "Videos/local"
       "Videos/servo"
     ];
+    sandbox.mesaCacheDir = ".cache/mpv/mesa";
 
     persist.byStore.plaintext = [
       # for `watch_later`

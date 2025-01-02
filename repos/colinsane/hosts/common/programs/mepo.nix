@@ -19,6 +19,7 @@
       "system"  # system is required for non-portal location services
       "user"  #< not sure if "user" is necessary?
     ];
+    sandbox.mesaCacheDir = ".cache/mepo/mesa";
 
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private

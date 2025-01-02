@@ -12,5 +12,6 @@
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = ".cache/video-trimmer/mesa";  # TODO: is this the correct app-id?
   };
 }

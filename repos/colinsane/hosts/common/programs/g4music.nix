@@ -17,6 +17,7 @@
       "Music"
     ];
 
+    sandbox.mesaCacheDir = ".cache/com.github.neithern.g4music/mesa";
     persist.byStore.plaintext = [
       # index?
       ".cache/com.github.neithern.g4music"

@@ -19,6 +19,7 @@
       "Videos/servo"
       "tmp"
     ];
+    sandbox.mesaCacheDir = ".cache/tuba/mesa";  # TODO: is this the correct app-id?
 
     suggestedPrograms = [ "gnome-keyring" ];
   };

@@ -22,6 +22,7 @@
     sandbox.extraPaths = [
       "/tmp"  # needed particularly if run from `sane-vpn do`
     ];
+    sandbox.mesaCacheDir = ".cache/BraveSoftware/mesa";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;

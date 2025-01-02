@@ -113,7 +113,6 @@ in
     ];
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
-    sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/devices"

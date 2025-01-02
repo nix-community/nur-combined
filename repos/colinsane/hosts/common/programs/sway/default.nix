@@ -248,6 +248,7 @@ in
       ".config/sway"
       # it (may) launch xwayland, in which case xwayland needs access to its stuff too
     ] ++ config.sane.programs.xwayland.sandbox.extraHomePaths;
+    sandbox.mesaCacheDir = ".cache/sway/mesa";
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>

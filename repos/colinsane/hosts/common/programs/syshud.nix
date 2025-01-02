@@ -7,6 +7,7 @@
       "/sys/class/backlight"  #< crashes if unable to access this directory
       # "/sys/devices"  #< only if you want it to actually show when the backlight changes
     ];
+    sandbox.mesaCacheDir = ".cache/sys64/hud/mesa";
 
     fs.".config/sys64/hud/config.conf".symlink.text = ''
       [main]

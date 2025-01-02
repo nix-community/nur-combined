@@ -25,6 +25,7 @@ in
     };
 
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = ".cache/schlock/mesa";
 
     secrets.".config/schlock/schlock.pin" = ../../../secrets/common/schlock.pin.bin;
 

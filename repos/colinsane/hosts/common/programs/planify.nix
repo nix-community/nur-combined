@@ -3,8 +3,9 @@
   sane.programs.planify = {
     sandbox.whitelistWayland = true;
 
+    sandbox.mesaCacheDir = ".cache/io.github.alainm23/mesa";
     persist.byStore.private = [
-      # TODO items as a sqlite database
+      # todo items as a sqlite database
       ".local/share/io.github.alainm23.planify"
     ];
     # TODO: can probably configure gsettings statically?

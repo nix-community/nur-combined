@@ -55,6 +55,7 @@ in
       "/sys/class/leds"  #< for flash, presumably
     ];
     sandbox.whitelistAvDev = true;
+    sandbox.mesaCacheDir = ".cache/megapixels/mesa";  # TODO: is this the correct app-id?
     gsettings."me/gapixels/megapixels" = {
       # **required** for it to find its postprocess script
       postprocessor = "${cfg.package}/share/megapixels/postprocess.sh";

@@ -16,6 +16,7 @@ in
       "/sys/dev/char"
       "/sys/devices"
     ];
+    sandbox.mesaCacheDir = ".cache/xdg-desktop-portal-wlr/mesa";  # TODO: is this the correct app-id?
 
     services.xdg-desktop-portal-wlr = {
       description = "xdg-desktop-portal-wlr backend (provides screenshot functionality for xdg-desktop-portal)";

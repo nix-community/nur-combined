@@ -43,7 +43,6 @@ in
 
     sandbox.autodetectCliPaths = "existingOrParent";
     sandbox.whitelistWayland = true;  # for system clipboard integration
-    sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       ".local/share/dasht/docsets"

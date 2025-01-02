@@ -14,5 +14,6 @@
       # save data, controls map
       ".local/share/Celeste64"
     ];
+    sandbox.mesaCacheDir = ".cache/Celeste64/mesa";
   };
 }

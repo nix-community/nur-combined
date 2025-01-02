@@ -15,6 +15,8 @@
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 
+    sandbox.mesaCacheDir = ".cache/gnome-weather/mesa";  # TODO: is this the correct app-id?
+
     persist.byStore.plaintext = [
       ".cache/libgweather"  # weather data (or maybe a http cache)
     ];

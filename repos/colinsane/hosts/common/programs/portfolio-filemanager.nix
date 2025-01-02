@@ -37,6 +37,7 @@
     #   "gvfs"
     #   "gvfsd"
     # ];
+    sandbox.mesaCacheDir = ".cache/portfolio/mesa";  # TODO: is this the correct app-id?
 
     # suggestedPrograms = [ "gvfs" ];  #< TODO: fix (ftp:// share, USB drive browsing)
 

@@ -23,6 +23,8 @@
     ];
     sandbox.autodetectCliPaths = "existing";
 
+    sandbox.mesaCacheDir = ".cache/com.github.johnfactotum.Foliate/mesa";
+
     persist.byStore.plaintext = [
       ".local/share/com.github.johnfactotum.Foliate"  #< books added, reading position
       ".cache/com.github.johnfactotum.Foliate"  #< webkit cache

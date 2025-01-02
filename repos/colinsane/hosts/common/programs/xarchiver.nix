@@ -16,5 +16,6 @@
     ];
     # allow extracting an archive in the rare case it's outside the common directories
     sandbox.autodetectCliPaths = "existing";
+    sandbox.mesaCacheDir = ".cache/xarchiver/mesa";  # TODO: is this the correct app-id?
   };
 }

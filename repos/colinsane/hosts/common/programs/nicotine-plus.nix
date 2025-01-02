@@ -22,6 +22,7 @@
       # and then update the config on disk. it errors if it can't `mv` it like that.
       ".config/nicotine"
     ];
+    # sandbox.mesaCacheDir = ".cache/nicotine/mesa";  # don't persist (privacy); (might want to apply that to downloads too)
 
     # the config has loooads of options, but the only critical one is auth/creds.
     # run with ~/.config/nicotine in the sandbox and nicotine will derive the whole config

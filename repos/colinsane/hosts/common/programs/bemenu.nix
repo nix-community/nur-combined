@@ -88,9 +88,6 @@ in
 {
   sane.programs.bemenu = {
     sandbox.whitelistWayland = true;
-    sandbox.extraHomePaths = [
-      ".cache/fontconfig"  #< else it complains, and is *way* slower
-    ];
 
     packageUnwrapped = pkgs.bemenu.overrideAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [

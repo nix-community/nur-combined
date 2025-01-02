@@ -13,6 +13,7 @@ in
       "/dev/input"  #< for controllers
     ];
 
+    sandbox.mesaCacheDir = ".cache/sm64ex-coop/mesa";
     persist.byStore.plaintext = [
       ".local/share/sm64ex-coop"
     ];

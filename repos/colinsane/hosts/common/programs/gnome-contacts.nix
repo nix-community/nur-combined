@@ -33,6 +33,8 @@
     sandbox.whitelistDri = true;  #< speculative, but i'd like it to be responsive on mobile
     sandbox.whitelistWayland = true;
 
+    sandbox.mesaCacheDir = ".cache/gnome-calendar/mesa";  # TODO: is this the correct app-id?
+
     suggestedPrograms = [
       "evolution-data-server"  #< REQUIRED for saving/loading of any contacts
     ];

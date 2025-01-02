@@ -40,6 +40,7 @@
       "/sys/class/leds"  #< for flash, presumably
     ];
     sandbox.whitelistAvDev = true;
+    sandbox.mesaCacheDir = ".cache/megapixels/mesa";  # TODO: is this the correct app-id?
     gsettingsPersist = [
       "org/postmarketos/megapixels"  #< needs to set `postprocessor` else it will segfault during post-process
     ];

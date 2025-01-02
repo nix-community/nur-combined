@@ -531,10 +531,10 @@ in
 
     endless-sky.buildCost = 1;
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
+    endless-sky.sandbox.mesaCacheDir = ".cache/endless-sky/mesa";
     endless-sky.sandbox.whitelistAudio = true;
     endless-sky.sandbox.whitelistDri = true;
     endless-sky.sandbox.whitelistWayland = true;
-    # endless-sky.sandbox.whitelistX = true;
     endless-sky.packageUnwrapped = pkgs.endless-sky.overrideAttrs (base: {
       nativeBuildInputs = (base.nativeBuildInputs or []) ++ [
         pkgs.makeWrapper
@@ -596,6 +596,7 @@ in
     # ];
 
     font-manager.buildCost = 1;
+    font-manager.sandbox.mesaCacheDir = ".cache/font-manager/mesa";
     font-manager.sandbox.whitelistWayland = true;
     font-manager.packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
@@ -646,9 +647,11 @@ in
     gitea = {};
 
     gnome-calculator.buildCost = 1;
+    gnome-calculator.sandbox.mesaCacheDir = ".cache/gnome-calculator/mesa";  # TODO: is this the correct app-id?
     gnome-calculator.sandbox.whitelistWayland = true;
 
     gnome-calendar.buildCost = 2;  # depends on webkitgtk_6_0 via evolution-data-server
+    gnome-calendar.sandbox.mesaCacheDir = ".cache/gnome-calendar/mesa";  # TODO: is this the correct app-id?
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     gnome-calendar.sandbox.whitelistWayland = true;
     gnome-calendar.sandbox.whitelistDbus = [ "user" ];
@@ -697,13 +700,14 @@ in
 
     gnome-2048.buildCost = 1;
     gnome-2048.sandbox.whitelistWayland = true;
+    gnome-2048.sandbox.mesaCacheDir = ".cache/gnome-2048/mesa";
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
     gnome-frog.buildCost = 1;
     gnome-frog.sandbox.whitelistWayland = true;
     gnome-frog.sandbox.whitelistDbus = [ "user" ];
     gnome-frog.sandbox.extraPaths = [
-      # needed when processing screenshots
+      # needed when processing screenshots (TODO: can i have it use a custom TMPDIR?)
       "/tmp"
     ];
     gnome-frog.sandbox.extraHomePaths = [
@@ -719,6 +723,7 @@ in
     gnome-frog.persist.byStore.ephemeral = [
       ".local/share/tessdata"  # 15M; dunno what all it is.
     ];
+    gnome-frog.sandbox.mesaCacheDir = ".cache/gnome-frog/mesa";  # TODO: is this the correct app-id?
 
     gnugrep.sandbox.autodetectCliPaths = "existing";
     gnugrep.sandbox.whitelistPwd = true;
@@ -741,7 +746,6 @@ in
     # N.B.: if the user doesn't specify an output path, `grim` will output to ~/Pictures (which isn't included in this sandbox)
     grim.sandbox.autodetectCliPaths = "existingOrParent";
     grim.sandbox.whitelistWayland = true;
-    grim.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     hase.buildCost = 1;
     hase.sandbox.net = "clearnet";
@@ -839,6 +843,7 @@ in
     losslesscut-bin.sandbox.whitelistDri = true;
     losslesscut-bin.sandbox.whitelistWayland = true;
     # losslesscut-bin.sandbox.whitelistX = true;
+    losslesscut-bin.sandbox.mesaCacheDir = ".cache/losslesscut/mesa";  # TODO: is this the correct app-id?
     losslesscut-bin.packageUnwrapped = pkgs.losslesscut-bin.overrideAttrs (base: {
       extraMakeWrapperArgs = (base.extraMakeWrapperArgs or []) ++ [
         "--append-flags '--ozone-platform-hint=auto --ozone-platform=wayland --enable-features=WaylandWindowDecorations'"
@@ -965,6 +970,7 @@ in
     pavucontrol.sandbox.whitelistAudio = true;
     pavucontrol.sandbox.whitelistDri = true;  #< to be a little more responsive
     pavucontrol.sandbox.whitelistWayland = true;
+    pavucontrol.sandbox.mesaCacheDir = ".cache/pavucontrol/mesa";
 
     pciutils.sandbox.extraPaths = [
       "/sys/bus/pci"
@@ -1006,6 +1012,7 @@ in
     pwvucontrol.sandbox.whitelistAudio = true;
     pwvucontrol.sandbox.whitelistDri = true;  # else perf on moby is unusable
     pwvucontrol.sandbox.whitelistWayland = true;
+    pwvucontrol.sandbox.mesaCacheDir = ".cache/pwvucontrol/mesa";  # TODO: is this the correct app-id?
 
     pyright.sandbox.whitelistPwd = true;
 
@@ -1053,6 +1060,7 @@ in
       "wl-clipboard"
       # "zenity"
     ];
+    sane-color-picker.sandbox.mesaCacheDir = ".cache/sane-color-picker/mesa";  # TODO: is this the correct app-id?
 
     sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
@@ -1075,6 +1083,7 @@ in
     shattered-pixel-dungeon.sandbox.whitelistAudio = true;
     shattered-pixel-dungeon.sandbox.whitelistDri = true;
     shattered-pixel-dungeon.sandbox.whitelistWayland = true;
+    shattered-pixel-dungeon.sandbox.mesaCacheDir = ".cache/.shatteredpixel/mesa";
 
     # printer/filament settings
     slic3r.buildCost = 1;
@@ -1084,7 +1093,6 @@ in
     slic3r.sandbox.autodetectCliPaths = "existingFileOrParent";  # slic3r <my-file>.stl -o <out>.gcode
 
     slurp.sandbox.whitelistWayland = true;
-    slurp.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     # snapshot camera, based on libcamera
     # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>
@@ -1103,6 +1111,7 @@ in
 
     space-cadet-pinball.buildCost = 1;
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
+    space-cadet-pinball.sandbox.mesaCacheDir = ".cache/SpaceCadetPinball/mesa";  # TODO: is this the correct app-id?
     space-cadet-pinball.sandbox.whitelistAudio = true;
     space-cadet-pinball.sandbox.whitelistDri = true;
     space-cadet-pinball.sandbox.whitelistWayland = true;
@@ -1134,6 +1143,7 @@ in
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;
     # superTux.sandbox.whitelistX = true;
+    superTux.sandbox.mesaCacheDir = ".cache/supertux2/mesa";  # TODO: is this the correct app-id?
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
     superTux.packageUnwrapped = pkgs.superTux.overrideAttrs (base: {
       nativeBuildInputs = (base.nativeBuildInputs or []) ++ [
@@ -1175,6 +1185,7 @@ in
     tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
     tumiki-fighters.sandbox.whitelistWayland = true;
     tumiki-fighters.sandbox.whitelistX = true;
+    tumiki-fighters.sandbox.mesaCacheDir = ".cache/tumiki-fighters/mesa";  # TODO: is this the correct app-id?
     tumiki-fighters.suggestedPrograms = [
       "xwayland"  #< XXX(2024-11-10): does not start without X(wayland), not even with SDL_VIDEDRIVER=wayland
     ];
@@ -1205,7 +1216,6 @@ in
     # `vulkaninfo`, `vkcube`
     vulkan-tools.sandbox.whitelistDri = true;
     vulkan-tools.sandbox.whitelistWayland = true;
-    vulkan-tools.sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
     vulkan-tools.sandbox.whitelistX = true;
     vulkan-tools.sandbox.extraPaths = [
       "/sys/dev/char"
@@ -1216,6 +1226,7 @@ in
     vvvvvv.sandbox.whitelistAudio = true;
     vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
     vvvvvv.sandbox.whitelistWayland = true;
+    vvvvvv.sandbox.mesaCacheDir = ".cache/VVVVVV/mesa";
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
     w3m.sandbox.net = "all";
@@ -1226,6 +1237,7 @@ in
 
     watch.sandbox.enable = false;  #< it executes the command it's given
 
+    wdisplays.sandbox.mesaCacheDir = ".cache/wdisplays/mesa";  # TODO: is this the correct app-id?
     wdisplays.sandbox.whitelistWayland = true;
 
     wget.sandbox.net = "all";
@@ -1246,16 +1258,15 @@ in
 
     wl-clipboard.sandbox.whitelistWayland = true;
     wl-clipboard.sandbox.keepPids = true;  #< this is needed, but not sure why?
-    wl-clipboard.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     wtype = {};
     wtype.sandbox.whitelistWayland = true;
-    wtype.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
     xwayland.sandbox.whitelistWayland = true;  #< just assuming this is needed
     xwayland.sandbox.whitelistX = true;
     xwayland.sandbox.whitelistDri = true;  #< would assume this gives better gfx perf
+    xwayland.sandbox.mesaCacheDir = ".cache/xwayland/mesa";  # TODO: is this the correct app-id?
 
     xterm.sandbox.enable = false;  # need to be able to do everything
 

@@ -15,6 +15,8 @@ let
   wanted-feeds = feeds.filterByFormat [ "text" "image" "podcast" "video" ] all-feeds;
 in {
   sane.programs.newsflash = {
+    buildCost = 2;  # mainly for desktop: webkitgtk-6.0
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;  #< for embedded videos
     sandbox.whitelistDbus = [ "user" ];
@@ -29,7 +31,7 @@ in {
       "/sys/class/block/loop7"
     ];
 
-    buildCost = 2;  # mainly for desktop: webkitgtk-6.0
+    sandbox.mesaCacheDir = ".cache/nesh_flash/mesa";
     persist.byStore.plaintext = [
       ".local/share/news-flash" #< sqlite database, the actually important stuff
       # ".local/share/news_flash"  #< device IDs (?)

@@ -13,8 +13,9 @@
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< so `tor-browser http://...` can open using an existing instance
     sandbox.whitelistWayland = true;
+    # sandbox.mesaCacheDir = ".cache/tor-browser/mesa";  # don't persist mesa dir (privacy)
     persist.byStore.ephemeral = [
-      ".local/share/tor-browser"
+      ".local/share/tor-browser"  # persisted because of downloads, i think??
     ];
     mime.urlAssociations."^https?://.+\.onion$" = "torbrowser.desktop";
   };

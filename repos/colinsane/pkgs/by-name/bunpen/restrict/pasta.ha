@@ -8,6 +8,7 @@ use io;
 use log;
 use os;
 use os::exec;
+use path;
 use ps;
 use resources;
 use restrict::ns;
@@ -73,11 +74,41 @@ fn pasta_restrict(net: resources::net_subset) void = {
       // wait for the parent to signal that it's ready for us to attach pasta.
       io::readall(pipe_child_rd, &[0u8])!;
 
-      // exec into pasta.
+      // open the sandboxer's netns, which is at this point disconnected from the outer world.
       let netns_fd = errors::ext::check_int(
         "setup_pasta: open('/proc/self/ns/net')",
         rt::openat2(ns_fd, "net", &rt::open_how { ... }, size(rt::open_how)),
       );
+
+      // restrict which resources pasta itself is provided access:
+      let ns_resources = ns::ns_resources {
+        paths = [
+          path::init("/dev/net/tun")!,
+          path::init("/nix/store")!,
+          // TODO: pre-eval the path to `pasta` here and remove this /run directory?
+          path::init("/run/current-system/sw/bin")!,
+        ],
+        ipc = false,
+        net = true,
+        pid = false,
+        // TODO: run pasta as an isolated user.
+        // dropping user will require some coordination from the layer above:
+        // pasta joins the netns of the parent thread: linux allows that so
+        // long as the target netns was created by the same user which pasta is
+        // running as. hence, this *particular* line here must not unshare user,
+        // however the parent could fork an unprivileged user thread before
+        // unsharing net, but after unsharing everything else: this thread would
+        // then be allowed to join its netns but not any other namespace/resource.
+        try_users = true,
+        ...
+      };
+      ns::namespace_restrict(&ns_resources);
+
+      // pasta needs permissions to create a device in the netns (it apparently
+      // won't raise those caps itself). TODO: reduce these resources!
+      capability_restrict(rt::ext::CAPS_ALL);
+
+      // exec into pasta (never returns)
       errors::ext::check("setup_pasta: attach", attach_pasta(net, netns_fd, pipe_child_wr));
 
       // XXX: this code below never actually gets run
@@ -132,10 +163,6 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
     // i'm managing that here though, so we can have it not fork.
     "--foreground",
   ];
-
-  // pasta needs permissions to create a device in the netns (it apparently
-  // won't raise those caps itself). TODO: reduce these resources!
-  capability_restrict(rt::ext::CAPS_ALL);
 
   log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...));
   return rt::ext::execvpe_or_default(

@@ -6,6 +6,7 @@
       installPhase = lib.replaceStrings [ "NIXOS_OZONE_WL" ] [ "WAYLAND_DISPLAY" ] base.installPhase;
     });
 
+    sandbox.mesaCacheDir = ".cache/discord/mesa";
     # creds, but also 200 MB of node modules, etc
     persist.byStore.private = [ ".config/discord" ];
     sandbox.wrapperType = "inplace";  #< package contains broken symlinks that my wrapper can't handle

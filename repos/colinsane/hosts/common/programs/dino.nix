@@ -84,6 +84,7 @@ in
     #   ".cache/gstreamer-1.0"  # 1.3 MB  #< TODO: place the gst cache in ~/.cache/dino/gstreamer-1.0
     # ];
     persist.byStore.private = [ ".local/share/dino" ];
+    sandbox.mesaCacheDir = ".cache/dino/mesa";
 
     services.dino = {
       description = "dino XMPP client";

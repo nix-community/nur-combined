@@ -230,6 +230,7 @@ in
     ] ++ addonHomePaths;
 
     sandbox.tmpDir = ".cache/mozilla/tmp";
+    sandbox.mesaCacheDir = ".cache/mozilla/mesa";
 
     mime.associations = let
       desktop = "firefox.desktop";

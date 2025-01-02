@@ -10,6 +10,7 @@
       # history, bookmarks
       ".local/share/zathura"
     ];
+    sandbox.mesaCacheDir = ".cache/zathura/mesa";
 
     mime.priority = 150;  #< default is 100; fallback to more specialized cbz handlers, e.g.
     mime.associations."application/pdf" = "org.pwmt.zathura.desktop";

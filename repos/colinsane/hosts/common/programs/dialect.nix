@@ -16,5 +16,7 @@
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
     # gsettingsPersist = [ "app/drey/Dialect" ];
+
+    sandbox.mesaCacheDir = ".cache/dialect/mesa";  # TODO: is this the correct app-dir?
   };
 }
