@@ -1011,9 +1011,11 @@ in
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       libgpiod
+      numpy
       psutil
       pykakasi
       requests
+      scipy
       unidecode
     ]);
     python3-repl.sandbox.net = "clearnet";

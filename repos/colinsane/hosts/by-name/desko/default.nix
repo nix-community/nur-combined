@@ -52,7 +52,8 @@
   # needed to use libimobiledevice/ifuse, for iphone sync
   services.usbmuxd.enable = true;
 
-  hardware.amdgpu.opencl.enable = true;  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
+  # TODO(2025-01-01): re-enable once rocm build is fixed: <https://github.com/NixOS/nixpkgs/pull/367695>
+  # hardware.amdgpu.opencl.enable = true;  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
 
   # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
   # default config: https://man.archlinux.org/man/snapper-configs.5

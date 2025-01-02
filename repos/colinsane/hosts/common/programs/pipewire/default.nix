@@ -49,16 +49,6 @@ in
       # disabling systemd causes pipewire to be built with direct udev support instead.
       # i added this probably because i don't use system'd logind?
       enableSystemd = false;
-      # XXX(2024-11-29): patch to fix camera support on moby.
-      # see: <https://github.com/NixOS/nixpkgs/pull/353336>
-      # this is identical to the above patch, but less costly than cherry-picking it into nixpkgs-bootstrap,
-      # as that would force mass rebuilds.
-      # **remove once 353336 is merged**.
-      libcamera = pkgs.libcamera.overrideAttrs (upstream: {
-        postFixup = (upstream.postFixup or "") + ''
-          ../src/ipa/ipa-sign-install.sh src/ipa-priv-key.pem $out/lib/libcamera/ipa_*.so
-        '';
-      });
     };
 
     suggestedPrograms = [

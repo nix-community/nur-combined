@@ -31,14 +31,6 @@ in
 [
   ./2024-10-01-python-cross-resource-usage.patch
 
-  # merged into staging-next 2024-11-28; cherry picking causes mass rebuild.
-  # remove targeted patch in pipewire.nix once mainline
-  # (fetchpatch' {
-  #   name = "libcamera: re-sign IPA modules after fixup";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/353336";
-  #   hash = "sha256-RzpQQ5452QSydPGHYRSo5r2OT08rLCz0X+g121SnlR4=";
-  # })
-
   (fetchpatch' {
     # merged into staging 2024/12/12
     name = "unbound: bison is required when cross-compiling";
@@ -62,10 +54,25 @@ in
   })
 
   (fetchpatch' {
-    # 2024-12-26: required to build ollama (with AMD acceleration)
-    name = "rocm-6: bump packages to 6.3.1 and add missing packages";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
-    hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
+    # 2025-01-01: required to fix servo build
+    name = "jackett: 0.22.1109 -> 0.22.1177";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/370024";
+    hash = "sha256-V7J78ss+zKtnqj4aLAhNjG6GEkgPPyTNcu2uDKRCxRA=";
+  })
+
+  # (fetchpatch' {
+  #   # 2024-12-26: required to build ollama (with AMD acceleration)
+  #   name = "rocm-6: bump packages to 6.3.1 and add missing packages";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
+  #   # hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
+  #   hash = "sha256-Hzz+aAzdgdnTu4jvLqpHzdIE3xYMP02/EuA+KvFbUeI=";
+  # })
+
+  (fetchpatch' {
+    # 2025-01-01: testing before merge
+    name = "bonsai: 1.2.0 -> 1.2.1";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/369918";
+    hash = "sha256-FriPCssLFBEuHnagHJFP2OXT/EB1ywAYvosYPcjU/68=";
   })
 
   (fetchpatch' {

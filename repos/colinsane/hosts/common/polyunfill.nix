@@ -106,6 +106,7 @@ in
       conveniencePackages = [
         config.boot.kernelPackages.cpupower  # <repo:nixos/nixpkgs:nixos/modules/tasks/cpu-freq.nix> places it on PATH for convenience if powerManagement.cpuFreqGovernor is set
         pkgs.kbd  # <repo:nixos/nixpkgs:nixos/modules/config/console.nix>  places it on PATH as part of console/virtual TTYs, but probably not needed unless you want to set console fonts
+        pkgs.nixos-firewall-tool  # <repo:nixos/nixpkgs:nixos/modules/services/networking/firewall.nix>  for end-user management of the firewall? cool but doesn't cross-compile
       ];
     in lib.filter (p: ! builtins.elem p (requiredPackages ++ conveniencePackages));
   };

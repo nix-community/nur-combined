@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.xdg-terminal-exec = {
+    # TODO: don't `overrideAttrs`, but `symlinkJoin` with the new .desktop item
     packageUnwrapped = pkgs.xdg-terminal-exec.overrideAttrs (upstream: {
       # give the package a .desktop item.
       # this way anyone can launch a terminal via the xdg-desktop-portal.
