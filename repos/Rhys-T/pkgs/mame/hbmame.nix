@@ -32,7 +32,7 @@
                 s@$@  // MESSUI@g
             }' '';
             hash = "sha256-mOgS03wKLJEnQM91rjZvsFE5mkafdIZnmk3vp0YgNaU=";
-        } else patch) old.patches ++ [
+        } else patch) old.patches ++ lib.optionals (lib.versionOlder version "0.245.22") [
             (fetchpatch {
                 name = "0001-PATCH-3rdparty-sol2-Fixed-build-with-clang-19.patch";
                 url = "https://github.com/mamedev/mame/commit/c75845b1ef01d76379bcc0a6937f1ca678484c68.patch";
@@ -68,7 +68,7 @@
         env = (old.env or {}) // {
             NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + lib.optionalString stdenv.cc.isClang (
                 " -Wno-error=unused-but-set-variable -Wno-error=unused-private-field" +
-                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18.1") " -Wno-error=vla-cxx-extension" +
+                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18.1" && lib.versionOlder version "0.245.22") " -Wno-error=vla-cxx-extension" +
                 # https://github.com/llvm/llvm-project/issues/62254
                 lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
             );
