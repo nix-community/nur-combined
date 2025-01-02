@@ -7,6 +7,8 @@
 stdenv.mkDerivation rec {
   inherit (sources.nullfs) pname version src;
 
+  patches = [ ./6-nulnfs-fix-warnings.patch ];
+
   buildInputs = [ fuse ];
 
   installPhase = ''

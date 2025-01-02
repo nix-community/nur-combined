@@ -21,6 +21,8 @@ stdenv.mkDerivation {
 
   qmakeFlags = [ "Qqsp.pro" ];
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
+
   postPatch = ''
     sed -i "s|/usr/bin/||g" Qqsp.desktop
   '';

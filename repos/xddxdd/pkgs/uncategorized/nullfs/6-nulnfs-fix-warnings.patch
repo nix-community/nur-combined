@@ -1,0 +1,83 @@
+From 120c1361594b0d4bbdeb8e04a733265990614f1d Mon Sep 17 00:00:00 2001
+From: milahu <milahu@gmail.com>
+Date: Mon, 29 Mar 2021 13:00:49 +0200
+Subject: [PATCH] nulnfs: fix warnings
+
+---
+ nulnfs.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/nulnfs.c b/nulnfs.c
+index 2dd7c1a..84427c7 100644
+--- a/nulnfs.c
++++ b/nulnfs.c
+@@ -20,7 +20,8 @@
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <fuse/fuse_lowlevel.h>
+-#include "linux_list.h"
++#include <fuse/fuse_lowlevel_compat.h> // fuse_dirent_size in fuse-2.9.9
++#include "linux_list.h" // list_head
+ 
+ time_t start_t;
+ 
+@@ -114,7 +115,7 @@ ino_t ino, ino_t p_ino, unsigned char d_type) {
+         &free_dirents, free_dirents.next, free_dirents.prev,
+         &all_dirents->ls_ent, &all_dirents->free_ent);
+     if (dirent->de.d_off != dirent - all_dirents + 1) {
+-        fprintf(stderr, "ERROR alloc_dirent \"%s\": #%i, off %i\n",
++        fprintf(stderr, "ERROR alloc_dirent \"%s\": #%i, off %li\n",
+             name, (int)(dirent - all_dirents + 1), dirent->de.d_off);
+         return NULL;
+     };
+@@ -150,8 +151,10 @@ fuse_ino_t i, fuse_ino_t parent_ino, uid_t u, gid_t g, mode_t m) {
+     insert_dirent_into_dirnode(p_dd_ent, pinode);
+     return 1;
+ INIT_DIRNODE_ERR2:
++    fprintf(stderr, "ERROR INIT_DIRNODE_ERR2\n");
+     list_add(&p_dd_ent->free_ent, &free_dirents);
+ INIT_DIRNODE_ERR1:
++    fprintf(stderr, "ERROR INIT_DIRNODE_ERR1\n");
+     list_add(&pinode->free_ino, &free_inodes);
+     return 0;
+ }
+@@ -166,6 +169,8 @@ const char *bnamepos(const char *name) {
+ 
+ static void nullfs_ll_lookup(fuse_req_t req,
+ fuse_ino_t par_ino, const char *name) {
++    fprintf(stderr, "DEBUG nullfs_ll_lookup: par_ino#%i, name %s\n",
++        (int) par_ino, name);
+     struct fuse_entry_param e;
+     const struct nulnfs_dirent *de = NULL;
+     const struct nulnfs_dirent *c;
+@@ -219,8 +224,8 @@ struct fuse_file_info *fi) {
+     if (fi == NULL) fuse_reply_err(req, EINVAL);
+     dinode = all_inodes + ino - 1;
+     if (! S_ISDIR(dinode->st.st_mode)) fuse_reply_err(req, ENOTDIR);
+-    fi->fh = (int) &dinode->ls_ent;
+-    fprintf(stderr, "DEBUG nullfs_ll_opendir ino#%i: ls_ent=%p\n",
++    fi->fh = (uint64_t) &dinode->ls_ent;
++    fprintf(stderr, "DEBUG nullfs_ll_opendir ino#%lu: ls_ent=%p\n",
+         ino, &dinode->ls_ent);
+     fuse_reply_open(req, fi);
+ }
+@@ -280,8 +285,8 @@ size_t size, off_t off, struct fuse_file_info *fi) {
+     if (fi == NULL) fuse_reply_err(req, EINVAL);
+     dinode = all_inodes + ino - 1;
+     if (! S_ISDIR(dinode->st.st_mode)) fuse_reply_err(req, ENOTDIR);
+-    fprintf(stderr, "DEBUG readdir: ino#%i, offs %i, fh 0x%x, sz %u\n",
+-        (int) ino, (int) off, fi->fh, (unsigned) size);
++    fprintf(stderr, "DEBUG readdir: ino#%i, offs %i, fh %p, sz %u\n",
++        (int) ino, (int) off, (void *)fi->fh, (unsigned) size);
+     if (off) {
+         size_t filled_size = 0;
+         if (off < 1 || off > n_dirents) fuse_reply_err(req, ENOENT);
+@@ -328,6 +333,8 @@ size_t size, off_t off, struct fuse_file_info *fi) {
+  */
+ static void nullfs_ll_getattr(fuse_req_t req, fuse_ino_t ino,
+ struct fuse_file_info *fi) {
++    fprintf(stderr, "DEBUG nullfs_ll_getattr: ino#%i, fh %p\n",
++        (int) ino, (void *)fi->fh);
+     if (ino < 1 || ino > n_inodes) fuse_reply_err(req, ENOENT);
+ 
+     fuse_reply_attr(req, &all_inodes[ino - 1].st, 1.0);
