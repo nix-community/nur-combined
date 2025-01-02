@@ -27,7 +27,7 @@
   zzz = pkgs.callPackage ./pkgs/zzz { };
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
-  labwc-with-ws4waybar = pkgs.callPackage ./pkgs/labwc-with-ws4waybar { };
+  labwc-git = pkgs.callPackage ./pkgs/labwc-git { };
   waybar-Consolatis-fork = pkgs.callPackage ./pkgs/waybar-Consolatis-fork { };
   shotcut = pkgs.callPackage ./pkgs/shotcut { };
   ppsspp = pkgs.callPackage ./pkgs/ppsspp { };

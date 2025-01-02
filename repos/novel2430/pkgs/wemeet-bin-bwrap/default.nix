@@ -191,6 +191,12 @@ let
   startScript = writeShellScript "wemeet-start" ''
     export LD_LIBRARY_PATH=${wemeet-src}/lib/wemeet:${lib.makeLibraryPath libraries}
     export LD_PRELOAD=${ld-preload-path}
+    # In X11, not using hack
+    echo $XDG_SESSION_TYPE
+    if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
+      echo "Not in Wayland"
+      export LD_PRELOAD="${wrap}/libwemeetwrap.so"
+    fi
     export XDG_SESSION_TYPE=x11
     export EGL_PLATFORM=x11
     export QT_QPA_PLATFORM=xcb

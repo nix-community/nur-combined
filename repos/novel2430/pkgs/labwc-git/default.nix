@@ -26,31 +26,15 @@
   xcbutilwm,
   xwayland,
 }:
-let
-  labwc-ws4waybar = stdenv.mkDerivation {
-    pname = "labwc-ws4waybar";
-    version = "0.0.1";
-    src = fetchFromGitHub {
-      owner = "jenav";
-      repo = "labwc-ws4waybar";
-      rev = "a6a6bada97f6073f1f594fced3a05f32da96da3e";
-      sha256 = "sha256-4ykzclqExSmORkSA/jA1lnFlyk2kXaQAlArk9QQ1BSY=";
-    };
-    installPhase = ''
-      mkdir -p $out
-      cp 0000-expose-current-workspace.patch $out
-    '';
-  };
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "labwc";
-  version = "0.8.1";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "labwc";
     repo = "labwc";
-    rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-TXxdjMkzZQoCqkZBqus5eCBEhA/nvxNNXaNHUTGFQDQ=";
+    rev = "1043cbcca9737ea3cca5fddb4d73450b7ef35e32";
+    hash = "sha256-mUAAyB0MpIgSSSxG9xu2EORAO94aWNkY8fH1FteInvU=";
   };
 
   outputs = [
@@ -89,10 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
 
-  patches = [
-    "${labwc-ws4waybar}/0000-expose-current-workspace.patch"
-  ];
-
   mesonFlags = [ (lib.mesonEnable "xwayland" true) ];
 
   strictDeps = true;
@@ -106,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/labwc/labwc";
-    description = "Wayland stacking compositor, inspired by Openbox (Use jenav/labwc-ws4waybar Patch)";
+    description = "Wayland stacking compositor, inspired by Openbox";
     changelog = "https://github.com/labwc/labwc/blob/master/NEWS.md";
     license = with lib.licenses; [ gpl2Plus ];
     mainProgram = "labwc";
