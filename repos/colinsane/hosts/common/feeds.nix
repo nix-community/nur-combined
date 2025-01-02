@@ -1,6 +1,7 @@
 # where to find good stuff?
 # - universal search/directory: <https://podcastindex.org>
 #   - the full database is downloadable
+# - find adjacent podcasts: <https://rephonic.com/graph>
 # - list of lists: <https://en.wikipedia.org/wiki/Category:Lists_of_podcasts>
 # - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
 # - podcast recs:
@@ -75,13 +76,16 @@ let
     (fromDb "feeds.feedburner.com/80000HoursPodcast" // rat)
     (fromDb "feeds.feedburner.com/dancarlin/history" // rat)
     (fromDb "feeds.feedburner.com/radiolab" // pol)  # Radiolab -- also available here, but ONLY OVER HTTP: <http://feeds.wnyc.org/radiolab>
+    (fromDb "feeds.megaphone.fm/CHTAL4990341033" // pol)  # ChinaTalk: https://www.chinatalk.media/podcast
     (fromDb "feeds.megaphone.fm/GLT1412515089" // pol)  # JRE: Joe Rogan Experience
     (fromDb "feeds.megaphone.fm/behindthebastards" // pol)  # also Maggie Killjoy
     (fromDb "feeds.megaphone.fm/cspantheweekly" // pol)
+    (fromDb "feeds.megaphone.fm/econ102")  # Noah Smith + Erik Torenberg <https://www.podpage.com/econ102/>
+    (fromDb "feeds.megaphone.fm/history102")  # <https://www.podpage.com/history-102-with-whatifalthist/>
     (fromDb "feeds.megaphone.fm/recodedecode" // tech)  # The Verge - Decoder
+    (fromDb "feeds.megaphone.fm/thiswontlast" // tech)  # <https://www.podpage.com/thiswontlast/>
     (fromDb "feeds.megaphone.fm/unexplainable")
     (fromDb "feeds.simplecast.com/wgl4xEgL" // rat)  # Econ Talk
-    (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     (fromDb "feeds.simplecast.com/whlwDbyc" // tech)  # Tech Lounge: <https://chrischinchilla.com/podcast/techlounge/>
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "feeds.transistor.fm/complex-systems-with-patrick-mckenzie-patio11" // tech)  # Patrick Mackenzie (from Bits About Money)
@@ -89,7 +93,6 @@ let
     (fromDb "fulltimenix.com" // tech)
     (fromDb "futureofcoding.org/episodes" // tech)
     (fromDb "hackerpublicradio.org" // tech)
-    (fromDb "lastweekinai.com" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "linktr.ee/betteroffline" // pol)
     (fromDb "linuxdevtime.com" // tech)
@@ -104,23 +107,23 @@ let
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
-    (fromDb "podcast.sustainoss.org" // tech)
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
-    (fromDb "rss.acast.com/ft-tech-tonic" // tech)
+    (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
     (fromDb "rss.art19.com/60-minutes" // pol)
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
-    (fromDb "seattlenice.buzzsprout.com" // pol)
+    (fromDb "seattlenice.buzzsprout.com" // pol)  # Seattle Nice
     (fromDb "srslywrong.com" // pol)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
-    (fromDb "sharptech.fm/feed/podcast" // tech)
-    (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten
+    (fromDb "sharptech.fm/feed/podcast" // tech)  # Ben Thompson
+    (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten; Scott Alexander
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
     (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
-    (fromDb "theamphour.com" // tech)
+    (fromDb "theamphour.com" // tech)  # The Amp Hour
+    (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
-    (fromDb "werenotwrong.fireside.fm" // pol)
+    (fromDb "werenotwrong.fireside.fm" // pol)  # We're Not Wrong
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
     # (fromDb "feed.podbean.com/matrixlive/feed.xml" // tech)  # Matrix (chat) Live
@@ -129,8 +132,11 @@ let
     # (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     # (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
     # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
+    # (fromDb "lastweekinai.com" // tech)  # Last Week in AI
     # (fromDb "mintcast.org" // tech)
     # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
+    # (fromDb "podcast.sustainoss.org" // tech)  # "Sustainable tech", only... it somehow manages to avoid any tech which is actually sustainable, and most of the time doesn't even talk about Open Source Software (!). normie/surface-level/"feel good"
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     # (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
     # (fromDb "rss.acast.com/intercepted-with-jeremy-scahill")  # The Intercept - Intercepted
