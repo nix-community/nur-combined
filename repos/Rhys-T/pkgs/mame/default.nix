@@ -15,7 +15,7 @@
         mame' = mame.override (thruArgs // lib.optionalAttrs needToChangeStdenv {
             stdenv = stdenv';
         });
-        needToRemoveMetal = stdenv.hostPlatform.isDarwin && lib.versionOlder darwinMinVersion "11.0";
+        needToRemoveMetal = let inherit (mame') stdenv; in stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11.0";
         mame'' = if needToRemoveMetal then mame'.overrideAttrs (old: {
             env = (old.env or {}) // {
                 NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -DBGFX_CONFIG_RENDERER_METAL=0";

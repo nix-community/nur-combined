@@ -77,6 +77,8 @@ There is a higher-resolution version of Lix's main menu background artwork avail
 
 The `mame` derivation in nixpkgs is currently broken on macOS. By default, nixpkgs tries to target a minimum macOS version of 10.12, and MAME requires features from newer systems. I can get it to build for macOS 10.15+ by disabling the Metal renderer (`mame`), or for macOS 11 with the Metal renderer enabled (`mame-metal`). On other platforms, these _should_ both just become the normal MAME package as-is.
 
+**Note**: Recent versions of Nixpkgs have bumped the default minimum macOS to 11.3. If you're using those versions, `mame` will be the same derivation as `mame-metal`.
+
 (Meanwhile, `mame` also depends on `papirus-icon-theme`, which is marked Linux-only for reasons. So I'm cheating and extracting the one icon it actually needs as its own derivation on non-Linux systems.)
 
 ### `minivmac`
