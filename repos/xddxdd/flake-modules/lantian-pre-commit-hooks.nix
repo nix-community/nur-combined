@@ -28,7 +28,10 @@
           detect-private-keys.enable = true;
           end-of-file-fixer.enable = true;
           fix-byte-order-marker.enable = true;
-          flake-checker.enable = true;
+          flake-checker = {
+            enable = true;
+            args = [ "--check-outdated=false" ];
+          };
           flynt.enable = true;
           nil.enable = true;
           pyupgrade.enable = true;
