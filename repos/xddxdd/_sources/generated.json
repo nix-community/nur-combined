@@ -2573,11 +2573,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wubRk8x4+EzW3bcqr21capFi8EcOWZIJIFf1/1GFYvo=",
+            "sha256": "sha256-IocNb+skeK22F85PCaeHrdry0mDFqKp7F9iJqWLF5C4=",
             "type": "url",
-            "url": "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.5.tar.xz"
+            "url": "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz"
         },
-        "version": "4.0.5"
+        "version": "4.0.4"
     },
     "pterodactyl-wings": {
         "cargoLocks": null,

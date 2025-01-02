@@ -5,21 +5,17 @@
 }:
 stdenv.mkDerivation rec {
   inherit (sources.netns-exec) pname version src;
-  buildPhase = ''
-    runHook preBuild
 
-    substituteInPlace Makefile --replace "-m4755" "-m755"
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail "-m4755" "-m755"
 
-    runHook postBuild
+    # Force use sched func from libc
+    substituteInPlace iproute2/configure \
+      --replace-fail '$CC -I$INCLUDE -o $TMPDIR/setnstest $TMPDIR/setnstest.c' "true"
   '';
-  installPhase = ''
-    runHook preInstall
 
-    mkdir -p $out
-    make install PREFIX=$out
-
-    runHook postInstall
-  '';
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

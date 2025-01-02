@@ -562,7 +562,8 @@ src.github = "pocl/pocl"
 fetch.github = "pocl/pocl"
 
 [procps4]
-src.archpkg = "procps-ng"
+# src.archpkg = "procps-ng"
+src.manual = "4.0.4"
 fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
 
 [pterodactyl-wings]

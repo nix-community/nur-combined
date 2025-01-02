@@ -3467,7 +3467,7 @@
   "legacyPackages.x86_64-linux.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.5"
+    "version": "4.0.4"
   },
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -4222,7 +4222,7 @@
   "legacyPackages.x86_64-linux.uncategorized.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.5"
+    "version": "4.0.4"
   },
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -5122,7 +5122,7 @@
   "packages.x86_64-linux.procps4": {
     "description": "Utilities that give information about processes using the /proc filesystem",
     "pname": "procps4",
-    "version": "4.0.5"
+    "version": "4.0.4"
   },
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",

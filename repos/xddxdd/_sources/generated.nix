@@ -1311,10 +1311,10 @@
   };
   procps4 = {
     pname = "procps4";
-    version = "4.0.5";
+    version = "4.0.4";
     src = fetchurl {
-      url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.5.tar.xz";
-      hash = "sha256-wubRk8x4+EzW3bcqr21capFi8EcOWZIJIFf1/1GFYvo=";
+      url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz";
+      hash = "sha256-IocNb+skeK22F85PCaeHrdry0mDFqKp7F9iJqWLF5C4=";
     };
   };
   pterodactyl-wings = {
