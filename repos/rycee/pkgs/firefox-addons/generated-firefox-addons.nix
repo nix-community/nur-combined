@@ -1095,14 +1095,14 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "3.3.6";
+      version = "3.3.7";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379851/british_english_dictionary_2-3.3.6.xpi";
-      sha256 = "55ce2b7c97ad3165c9d63daea15375d86609046eb68966d80a13d25b35f64555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412585/british_english_dictionary_2-3.3.7.xpi";
+      sha256 = "638c647ac40e4a8ca2911e6f7454009045404c617289729898c47334ec5c6e8f";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \r\nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\r\n\r\nV3.3.6 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \r\nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\r\n\r\nV3.3.7 has 140 000+ new words and also fixes.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -9513,13 +9513,13 @@
     };
     "purpleadblock" = buildFirefoxXpiAddon {
       pname = "purpleadblock";
-      version = "2.6.6";
+      version = "2.6.7";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324056/purpleadblock-2.6.6.xpi";
-      sha256 = "87650ac6f4c07dec3868047d03afd11493aaca8f4d9f6d0d42747fe14ec365b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412968/purpleadblock-2.6.7.xpi";
+      sha256 = "0740e6f56f1c918fa5448595a4efc1a982ade104634952d0194c53d79c765029";
       meta = with lib;
       {
-        description = "Purple AdBlock is a adblock for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/45c441178c2a4b8efed92eca84091cb4171a2c325f054a4351164ea9d10563f8/http%3A//Twitch.tv\" rel=\"nofollow\">Twitch.tv</a>";
+        description = "Purple AdBlock is a adblock for Twitch.tv";
         license = licenses.gpl3;
         mozPermissions = [ "https://*.twitch.tv/*" "activeTab" "storage" ];
         platforms = platforms.all;
@@ -12087,10 +12087,10 @@
     };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.5.3";
+      version = "6.5.4";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363637/ukrainian_dictionary-6.5.3.xpi";
-      sha256 = "73533dff27609f66d326159980e7d731f022c23fefbb933605e2892b740d6d1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412759/ukrainian_dictionary-6.5.4.xpi";
+      sha256 = "3cb8df9c15912bfa2c9f920933248a2cfabbe9d09e640d9dbe0300b807c84450";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
