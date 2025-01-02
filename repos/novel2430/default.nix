@@ -16,6 +16,7 @@
 
   zju-connect = pkgs.callPackage ./pkgs/zju-connect {};
   wpsoffice = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { };
+  wpsoffice-cn = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { useCn=true; };
   wechat-universal-bwrap = pkgs.callPackage ./pkgs/wechat-universal-bwrap { };
   wemeet-bin-bwrap = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { };
   wemeet-bin-bwrap-wayland-screenshare = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { useWaylandScreenshare = true; };
