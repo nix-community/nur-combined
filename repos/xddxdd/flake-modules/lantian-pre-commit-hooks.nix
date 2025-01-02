@@ -30,7 +30,10 @@
           fix-byte-order-marker.enable = true;
           flake-checker = {
             enable = true;
-            args = [ "--check-outdated=false" ];
+            args = [
+              "--check-outdated"
+              "false"
+            ];
           };
           flynt.enable = true;
           nil.enable = true;
