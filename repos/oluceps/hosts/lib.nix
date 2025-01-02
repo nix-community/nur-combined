@@ -35,7 +35,7 @@ in
 {
   inherit data genModules;
 
-  genOverlays = map (i: inputs.${i}.overlays.default);
+  genOverlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i});
 
   hostOverlays =
     { inputs', inputs }:

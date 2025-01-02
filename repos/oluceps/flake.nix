@@ -142,7 +142,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
-    niri.url = "github:sodiboo/niri-flake";
+    niri = {
+      url = "github:YaLTeR/niri";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
@@ -212,7 +215,7 @@
       url = "github:tadfisher/android-nixpkgs";
     };
     # path:/home/riro/Src/flake.nix
-    dae.url = "github:daeuniverse/flake.nix/emergency-fix";
+    dae.url = "github:daeuniverse/flake.nix";
     # dae.url = "/home/elen/Src/flake.nix";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;

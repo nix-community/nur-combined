@@ -5,6 +5,7 @@
   "fenix"
   "nuenv"
   "dae"
+  "niri"
 ])
 ++ [
   (
@@ -31,13 +32,6 @@
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
       inherit (inputs'.nyx.packages) scx;
-
-      gtk4 = prev.gtk4.overrideAttrs (old: {
-        src = prev.fetchurl {
-          url = "mirror://gnome/sources/gtk/${prev.lib.versions.majorMinor "4.17.2"}/gtk-4.17.2.tar.xz";
-          hash = "";
-        };
-      });
 
       save-clipboard-to = prev.writeShellScriptBin "save-clipboard-to" ''
         wl-paste > $HOME/Pictures/Screenshots/$(date +'shot_%Y-%m-%d-%H%M%S.png')

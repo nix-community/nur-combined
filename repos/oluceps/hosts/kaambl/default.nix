@@ -51,7 +51,6 @@ withSystem "x86_64-linux" (
       ../../misc.nix
       ../../users.nix
       ../sysvars.nix
-      inputs.niri.nixosModules.niri
       ../graphBase.nix
       ../dev.nix
 
