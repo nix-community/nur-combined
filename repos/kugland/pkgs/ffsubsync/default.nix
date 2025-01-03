@@ -9,10 +9,10 @@
 }:
 buildPythonPackage rec {
   pname = "ffsubsync";
-  version = "0.4.25";
+  version = "0.4.26";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-KnzqUQUDDaR4WkmtLBOcvNZ3xctXta+OHYWQJvp0ots=";
+    sha256 = "sha256-GsA6gy7bqdqIzu7XU+Laqk5iC2Mv15SXEMsxUWthFBA=";
   };
   preBuild = ''
     rm ffsubsync/ffsubsync_gui.py
