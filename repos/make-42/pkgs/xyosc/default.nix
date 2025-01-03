@@ -37,8 +37,8 @@ rec {
   src = fetchFromGitHub {
     owner = "make-42";
     repo = "xyosc";
-    rev = "b623e69976258a7433b220ff98e4c7fd6cb7e907";
-    hash = "sha256-ktDlJuPALkxr5F2+SiuVyiwnxJF89FBrimnygjRSIcM=";
+    rev = "5ae5cc803a95bf9a19cca5e6cd662805186fb40c";
+    hash = "sha256-Fu5rCKd5ehiuFC02jPEtRM8Z2BnnMZkTsve9IubtsSY=";
   };
 
   vendorHash = null;
@@ -69,19 +69,6 @@ rec {
       pkgs.libjack2
     ]}
     install -Dm644 $src/icons/assets/icon.svg $out/share/icons/hicolor/scalable/apps/xyosc.svg
+    install -Dm644 $src/xyosc.desktop $out/share/applications/xyosc.desktop
   '';
-  desktopItems = [
-    (makeDesktopItem
-      rec {
-        type = "Application";
-        name = "xyosc";
-        desktopName = "xyosc";
-        exec = "xyosc";
-        icon = "xyosc";
-        comment = "A simple XY-oscilloscope written in Go.";
-        genericName = "Graphical Audio Visualizer";
-        categories = ["Audio" "AudioVideo"];
-        terminal = false;
-      })
-  ];
 }
