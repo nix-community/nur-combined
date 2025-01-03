@@ -8,6 +8,7 @@
   stdenv,
   util-linux,
   which,
+  xdg-dbus-proxy,
 }: stdenv.mkDerivation {
   pname = "bunpen";
   version = "0.1.0";
@@ -23,6 +24,7 @@
     "IP=${lib.getExe' iproute2 "ip"}"
     "IPTABLES=${lib.getExe' iptables "iptables"}"
     "PASTA=${lib.getExe' passt "pasta"}"
+    "XDG_DBUS_PROXY=${lib.getExe xdg-dbus-proxy}"
   ];
 
   nativeCheckInputs = [

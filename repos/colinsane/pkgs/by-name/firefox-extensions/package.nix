@@ -165,10 +165,10 @@ let
         extid = "uBlock0@raymondhill.net";
         pname = "ublock-origin";
         # N.B.: a handful of versions are released unsigned
-        # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
-        url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-        version = "1.61.3b11";
-        hash = "sha256-trzeyDSLGfXjK57FoedlKFihTCx1ZJSqzT+Al3pmyoY=";
+        url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.xpi";
+        # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
+        version = "1.62.0";
+        hash = "sha256-IEt2ImiuhxOIuanGB0h7eZoq+JJAb1Y7BmIcvJ0xaaY=";
       };
     };
 })  ).overrideScope (self: super:

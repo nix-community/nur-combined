@@ -14,6 +14,9 @@
 //    other dbus names.
 //    - own the dbus name `org.baz.Bap`.
 //
+// `man xdg-dbus-proxy` provides this example invocation:
+// `xdg-dbus-proxy --fd=26 unix:path=/run/usr/1000/bus /run/usr/1000/.dbus-proxy/session-bus-proxy --filter --own=org.gnome.ghex.* --talk=ca.desrt.dconf --call=org.freedesktop.portal.*=* --broadcast=org.freedesktop.portal.*=@/org/freedesktop/portal/*`
+//
 // proof-of-concept minimal:
 // ```sh
 // $ xdg-dbus-proxy unix:path=/run/user/colin/dbus/bus /run/user/colin/dbus/proxy-1 --filter &
@@ -37,6 +40,12 @@
 // # remove either of the `--call` options, and it fails
 // ```
 //
+// proof-of-concept OWN:
+// ```sh
+// $ xdg-dbus-proxy unix:path=/run/user/colin/dbus/bus /run/user/colin/dbus/proxy-1 --filter '--own=org.mpris.MediaPlayer2.playerctld' &
+// $ DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/colin/dbus/proxy-1 playerctld
+// ```
+//
 // EDGE-CASES / FAQ:
 // - run `xdg-dbus-proxy` with `--log` argument to dump intercepted traffiic
 // - without `--filter`, the proxy allows ALL traffic (useless!)
@@ -49,51 +58,119 @@
 //    - wildcards are supported above as expected (e.g. `'--call=org.gnome.Calls=org.gtk.Application.*@*'`
 // - best is to use exclusively `--call=...` rules (and `--own`), no --see or --talk
 
-// use config;
-// use errors;
-// use errors::ext;
-// use os;
-// use os::exec;
-// 
-// // instantiate a `xdg-dbus-proxy` process,
-// //   which talks to the bus on the sandboxed process's behalf,
-// //   selectively forwarding traffic based on the passed policy.
-// // this can be called from within an existing sandbox.
-// //   the dbus bus should be reachable from the present namespace.
-// //   xdg-dbus-proxy will run in this namespace,
-// //
-// // `man xdg-dbus-proxy` provides this example invocation:
-// // `xdg-dbus-proxy --fd=26 unix:path=/run/usr/1000/bus /run/usr/1000/.dbus-proxy/session-bus-proxy --filter --own=org.gnome.ghex.* --talk=ca.desrt.dconf --call=org.freedesktop.portal.*=* --broadcast=org.freedesktop.portal.*=@/org/freedesktop/portal/*`
-// fn setup_dbus_proxy(dbus: restrict::dbus_subset) void = {
-//   let dbus_socket = errors::ext::check("setup_dbus_proxy: get_dbus_socket", get_dbus_socket());
-//   match (os::exec::fork()) {
-//     case let child_pid: os::exec::process =>
-//       // parent process: continue execution
-//       void;
-//     case void =>
-//       // child process: TODO: spawn xdg-dbus-proxy
-//       void;
-//     case let e: os::exec::error =>
-//       errors::ext::check("setup_dbus_proxy: fork", e);
-//   };
-// };
-// 
-// fn get_dbus_socket() (str | errors::error) = {
-//   // dbus address is specified like:
-//   // DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/colin/dbus/bus
-//   return match (os::getenv("DBUS_SESSION_BUS_ADDRESS")) {
-//     case void => yield errors::invalid;
-//     case let value: str => 
-//       let expected_prefix = "unix:path=";
-//       if (!strings::hasprefix(value, expected_prefix)) {
-//         yield errors::invalid;
-//       };
-//       value = strings::sub(value, len(expected_prefix));
-//       if (!strings::hasprefix(value, "/")) {
-//         // expect the dbus bus address to be an absolute path
-//         // TODO: consider parsing this as an actual path?
-//         yield errors::invalid;
-//       };
-//       yield value;
-//   };
-// };
+use config;
+use errors;
+use errors::ext;
+use strings;
+use os;
+use os::exec;
+use ps;
+use rt::ext;
+
+export type dbus_resources = struct {
+  talk: []str,
+  own: []str,
+};
+
+// given an existing, unfiltered bus at the fs path `upstream`,
+// proxy the bus into the fs path indicated by `downstream`.
+// clients attaching to the `downstream` path are provided access only to the
+// resources indicated by `dbus`.
+fn dbus_restrict(dbus: dbus_resources, upstream: str, downstream: str) void = {
+  match (ps::fork_and_die_with_parent()) {
+    case let child_pid: os::exec::process =>
+      let proxy_args: []str = [
+        "xdg-dbus-proxy",
+        "--filter",
+      ];
+      for (let spec .. dbus.talk) {
+        append(proxy_args, "--talk");
+        append(proxy_args, spec);
+      };
+      for (let spec .. dbus.own) {
+        append(proxy_args, "--own");
+        append(proxy_args, spec);
+      };
+      errors::ext::check(
+        "dbus_restrict: invoke xdg-dbus-proxy",
+        rt::ext::execvpe_or_default(
+          config::XDG_DBUS_PROXY,
+          "xdg-dbus-proxy",
+          proxy_args,
+          os::getenvs(),
+        ),
+      );
+    case void =>
+      // xdg-dbus-proxy provides no explicit synchronization mechanism;
+      // we have to assume that once we fork, it starts listening "reasonably quickly".
+      // TODO: i could probably hack some synchronization in here:
+      // - `write` a HELLO message and block until it's read.
+      // - invoke with `--log` and parse the output.
+      // - or maybe pre-create the unix socket _before_ forking here, and
+      //   somehow pass that into xdg-dbus-proxy instead of letting it create
+      //   its own socket.
+      void;
+  };
+};
+
+
+fn parse_dbus_address(address: (str | void)) (str | errors::invalid) = {
+  // dbus address is specified like:
+  // DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/colin/dbus/bus
+  return match (address) {
+    case void => yield errors::invalid;
+    case let value: str =>
+      let expected_prefix = "unix:path=";
+      if (!strings::hasprefix(value, expected_prefix)) {
+        return errors::invalid;
+      };
+      value = strings::sub(value, len(expected_prefix));
+      if (!strings::hasprefix(value, "/")) {
+        // expect the dbus bus address to be an absolute path
+        // TODO: consider parsing this as an actual path?
+        return errors::invalid;
+      };
+      yield value;
+  };
+};
+
+fn get_dbus_session_path() (str | errors::invalid) = {
+  return parse_dbus_address(os::getenv("DBUS_SESSION_BUS_ADDRESS"));
+};
+
+fn _dbus_address_eq(value: (str | void), expect: (str | errors::invalid)) bool = {
+  return match (expect) {
+    case let s: str => yield match (parse_dbus_address(value)) {
+      case let s2: str => yield s2 == s;
+      case => yield false;
+    };
+    case let e: errors::invalid => yield match (parse_dbus_address(value)) {
+      case errors::invalid => yield true;
+      case => yield false;
+    };
+  };
+};
+
+@test fn get_dbus_session_path_good() void = {
+  assert(_dbus_address_eq("unix:path=/dbus/good", "/dbus/good"));
+};
+
+@test fn get_dbus_session_path_relative_path() void = {
+  assert(_dbus_address_eq("unix:path=dbus/bad", errors::invalid));
+};
+@test fn get_dbus_session_path_empty_path() void = {
+  assert(_dbus_address_eq("unix:path=", errors::invalid));
+};
+@test fn get_dbus_session_path_missing_path() void = {
+  assert(_dbus_address_eq("unix:path", errors::invalid));
+};
+@test fn get_dbus_session_path_missing_type() void = {
+  assert(_dbus_address_eq("", errors::invalid));
+};
+@test fn get_dbus_session_path_wrong_type() void = {
+  assert(_dbus_address_eq("msnt:path=/dbus/path", errors::invalid));
+};
+
+@test fn get_dbus_session_path_unset() void = {
+  assert(_dbus_address_eq(void, errors::invalid));
+};

@@ -4,6 +4,7 @@ all: bunpen
 IP ?= $(shell which ip)
 IPTABLES ?= $(shell which iptables)
 PASTA ?= $(shell which pasta)
+XDG_DBUS_PROXY ?= $(shell which xdg-dbus-proxy)
 
 config/runtime_deps.ha: config/runtime_deps.ha.in
 	test -x "$(IP)"
@@ -12,6 +13,7 @@ config/runtime_deps.ha: config/runtime_deps.ha.in
 	sed -e "s:@IP@:$(IP):" \
 	    -e "s:@IPTABLES@:$(IPTABLES):" \
 	    -e "s:@PASTA@:$(PASTA):" \
+	    -e "s:@XDG_DBUS_PROXY@:$(XDG_DBUS_PROXY):" \
 	    $^ > $@
 	cat $@
 

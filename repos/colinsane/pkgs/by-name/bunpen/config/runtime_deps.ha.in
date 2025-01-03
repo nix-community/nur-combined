@@ -4,3 +4,4 @@
 export const IP: str = "@IP@";
 export const IPTABLES: str = "@IPTABLES@";
 export const PASTA: str = "@PASTA@";
+export const XDG_DBUS_PROXY: str = "@XDG_DBUS_PROXY@";

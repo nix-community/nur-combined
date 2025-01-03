@@ -69,13 +69,6 @@ in
   # })
 
   (fetchpatch' {
-    # 2025-01-01: testing before merge
-    name = "bonsai: 1.2.0 -> 1.2.1";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/369918";
-    hash = "sha256-FriPCssLFBEuHnagHJFP2OXT/EB1ywAYvosYPcjU/68=";
-  })
-
-  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
