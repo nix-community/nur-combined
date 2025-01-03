@@ -110,7 +110,7 @@
                     "persist" = {
                       mountpoint = "/persist";
                       mountOptions = [
-                        "compress-force=lzo"
+                        "compress-force=zstd:1"
                         "noatime"
                         "discard=async"
                         "space_cache=v2"
@@ -119,7 +119,7 @@
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
-                        "compress-force=lzo"
+                        "compress-force=zstd:1"
                         "noatime"
                         "discard=async"
                         "space_cache=v2"
@@ -130,7 +130,7 @@
                     "var" = {
                       mountpoint = "/var";
                       mountOptions = [
-                        "compress-force=lzo"
+                        "compress-force=zstd:1"
                         "noatime"
                         "discard=async"
                         "space_cache=v2"
