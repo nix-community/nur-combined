@@ -25,8 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     mkdir -p $out/share/mpv/scripts
     cp modernx.lua $out/share/mpv/scripts/
     mkdir -p $out/share/fonts
-    cp Material-Design-Iconic-Font.ttf $out/share/fonts/
-    cp Material-Design-Iconic-Round.ttf $out/share/fonts/
+    cp fluent-system-icons.ttf $out/share/fonts/
 
     runHook postInstall
   '';
