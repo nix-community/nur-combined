@@ -4,12 +4,12 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "llm-ollama";
-  version = "0.4.2";
+  version = "0.8.1";
   pyproject = true;
   src = fetchPypi {
     pname = "llm_ollama";
     inherit version;
-    hash = "sha256-7mZeXer+Csl/seu6PbDjHk9H+kbs5WMpc47HQT/2Rtc=";
+    hash = "sha256-eNfzNNWeReN7WuVeY0oWERu2yK8dVRWMGvxdBoelz7c=";
   };
 
   nativeBuildInputs = [
