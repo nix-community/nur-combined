@@ -2,7 +2,7 @@
 , lib
 , python3Packages
 }:
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonPackage rec {
   pname = "llm-ollama";
   version = "0.8.1";
   pyproject = true;
