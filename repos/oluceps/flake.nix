@@ -196,7 +196,8 @@
     };
     nyx = {
       # url = "/home/elen/Src/nyx";
-      url = "github:oluceps/nyx/opt";
+      url = "github:chaotic-cx/nyx";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     factorio-manager = {
       url = "github:asoul-rec/factorio-manager";

@@ -107,5 +107,5 @@ y = 10
 [font]
 size = 13.5
 
-[shell]
+[terminal.shell]
 program = "/run/current-system/sw/bin/fish"

@@ -30,7 +30,7 @@
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
-      inherit (inputs'.nyx.packages) scx;
+      scx = inputs'.nyx.packages.scx-full_git;
 
       save-clipboard-to = prev.writeShellScriptBin "save-clipboard-to" ''
         wl-paste > $HOME/Pictures/Screenshots/$(date +'shot_%Y-%m-%d-%H%M%S.png')

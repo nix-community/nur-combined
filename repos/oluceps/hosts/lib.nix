@@ -50,6 +50,7 @@ in
       "lanzaboote"
       "catppuccin"
       "lix-module"
+      "nyx"
       "self"
     ])
     ++ (with inputs.dae.nixosModules; [

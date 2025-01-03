@@ -12,9 +12,9 @@
 }:
 
 {
+  services.pulseaudio.enable = false;
   hardware = {
 
-    pulseaudio.enable = false;
     graphics = {
       ## amdvlk: an open-source Vulkan driver from AMD
       extraPackages = [ pkgs.amdvlk ];
@@ -207,7 +207,7 @@
     #     (callPackage "${self}/pkgs/tcp-brutal.nix" { })
     #     # (callPackage "${self}/pkgs/pico-rng.nix" { })
     #   ];
-    kernelPackages = inputs'.nyx.packages.linuxPackages_cachyos;
+    kernelPackages = pkgs.linuxPackages_cachyos;
     # pkgs.linuxPackages_latest;
   };
 
