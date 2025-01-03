@@ -5,7 +5,7 @@ in
     pname = "powershell_es";
     version = "4.1.0";
     src = fetchurl {
-      name = "PowerShellEditorServices.${version}.zip";
+      name = "PowerShellEditorServices.v${version}.zip";
       url = "https://github.com/PowerShell/PowerShellEditorServices/releases/download/v${version}/PowerShellEditorServices.zip";
       hash = "sha256-cNzRVw6V8bmAosx+gFBQCHX8cH+IHp8CjDTR+bdNoHM=";
     };
@@ -34,7 +34,6 @@ in
       description = "LSP for PowerShell that supplies rich editor functionality like code completion, syntax highlighting, and code annotation.";
       homepage = "https://github.com/PowerShell/PowerShellEditorServices";
       sourceProvenance = with lib.sourceTypes; [binaryBytecode];
-      changelog = "https://github.com/PowerShell/PowerShellEditorServices/blob/${version}/CHANGELOG.md";
       license = lib.licenses.mit;
     };
   }
