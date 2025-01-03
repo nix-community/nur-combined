@@ -5,7 +5,7 @@
     owner = "AngelJumbo";
     repo = "gruvbox-wallpapers";
     rev = "edb315e711791d2eca4e5873d583ba47325672e0";
-    hash = "sha256-Lklzk//gVhGmsPE8uWXcaN8y5fHMoKsneerWkJ8RG70=";
+    hash = "sha256-HiaP9i3OmL4l3bRLaI7FKbx41rxJmQlx6kY4/5M/3SY=";
   };
   dontConfigure = true;
   dontBuild = true;
