@@ -4143,32 +4143,6 @@
         platforms = platforms.all;
       };
     };
-    "honey" = buildFirefoxXpiAddon {
-      pname = "honey";
-      version = "12.8.4";
-      addonId = "jid1-93CWPmRbVPjRQA@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3731265/honey-12.8.4.xpi";
-      sha256 = "1abc41b3d81879e8687696bb084ecceb40edec95ffa5b4516ad86185e13114cb";
-      meta = with lib;
-      {
-        homepage = "https://www.joinhoney.com";
-        description = "Automatically find and try coupon codes with 1-click. Works at thousands of stores in the US, Canada, Australia, India and the UK.";
-        license = {
-          shortName = "honeyl";
-          fullName = "Custom License for Honey";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/honey/license/";
-          free = false;
-        };
-        mozPermissions = [
-          "storage"
-          "webRequest"
-          "webRequestBlocking"
-          "http://*/*"
-          "https://*/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
       version = "0.37";

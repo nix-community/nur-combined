@@ -661,16 +661,6 @@
     "slug": "hoarder"
   },
   {
-    "slug": "honey",
-    "license": {
-      "tag": "custom",
-      "shortName": "honeyl",
-      "fullName": "Custom License for Honey",
-      "url": "https://addons.mozilla.org/en-US/firefox/addon/honey/license/",
-      "free": false
-    }
-  },
-  {
     "slug": "hoppscotch"
   },
   {
