@@ -50,11 +50,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3kjemjh5REUe6UrCI+rG7uWMbCXohmhwz/Wu4wfEmDI=",
+            "sha256": "sha256-wCTsAebe1uukc4n+LsxuGk4rEZFr3zqgGkS+zi0WXck=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501012211/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501022211/geoip.dat"
         },
-        "version": "202501012211"
+        "version": "202501022211"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -65,10 +65,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DjP/nkFcZsdkBxeRhZbXnehehemEkevR2E0V1vCv2DQ=",
+            "sha256": "sha256-4lgVtbZNQhlwlPfI+HtCNqPl5XTGucECh6ZgwcaOy1M=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501012211/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501022211/geosite.dat"
         },
-        "version": "202501012211"
+        "version": "202501022211"
     }
 }
