@@ -23,9 +23,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    rm *.bin
+    mkdir -p "$out"
+    mv *.cfg "$out"
     mv 'Config from Nebula pad' "$nebula_pad"
-    cp -r . "$out"
     runHook postInstall
   '';
 
