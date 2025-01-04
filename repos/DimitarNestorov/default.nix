@@ -15,7 +15,9 @@ in {
 		t2m2 = eclecticlightPkgs.the-time-machine-mechanic.overrideAttrs {
 			pname = "t2m2";
 		};
+		_32-bitcheck = eclecticlightPkgs."32-bitcheck";
 	};
 
 	daisydisk = pkgs.callPackage ./pkgs/daisydisk.nix {};
+	ghostty = pkgs.callPackage ./pkgs/ghostty.nix {};
 }
