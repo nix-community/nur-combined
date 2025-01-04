@@ -7,7 +7,7 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { config.allowInsecurePredicate = _: true; },
+  pkgs ? import <nixpkgs> { config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; },
 }:
 
 let
@@ -19,7 +19,7 @@ let
       dockerTools
       ;
   }; # nvfetcher
-  callCoqPackage = pkgs.coqPackages_8_19.callPackage;
+  callCoqPackage = pkgs.coqPackages_8_15.callPackage;
   sets = callCoqPackage ./pkgs/coqPackages/sets { };
   fixedpoints = (callCoqPackage ./pkgs/coqPackages/fixedpoints) {
     inherit sets;

@@ -40,11 +40,11 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "An assistant tool for SJTU Canvas online course platform";
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
-    license = licenses.unlicense;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ];
+    license = lib.licenses.unlicense;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ definfo ];
   };
 }

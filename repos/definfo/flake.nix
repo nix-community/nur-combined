@@ -18,7 +18,7 @@
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs { inherit system;config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; };
         }
       );
       packages = forAllSystems (

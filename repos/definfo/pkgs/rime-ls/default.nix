@@ -24,7 +24,9 @@ in
 rustPlatform.buildRustPackage {
   inherit (source) pname src version;
 
-  cargoLock = source.cargoLock."Cargo.lock";
+  useFetchCargoVendor = true;
+
+  cargoHash = "sha256-beppHZXtNni8tLgZaC6CyL2HMBK7xy5/kP1jFr6JW+M=";
 
   nativeBuildInputs = [
     pkg-config
@@ -42,10 +44,10 @@ rustPlatform.buildRustPackage {
       --set RIME_DATA_DIR ${librime'}/share/rime-data
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A language server for Rime input method engine";
     homepage = "https://github.com/wlh320/rime-ls";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ definfo ];
   };
 }

@@ -45,10 +45,10 @@ mkCoqDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://bitbucket.org/qinxiang-SJTU/sets";
     description = "SetsClass";
-    maintainers = with maintainers; [ ];
-    license = licenses.mit;
+    maintainers = with lib.maintainers; [ definfo ];
+    license = lib.licenses.mit;
   };
 }
