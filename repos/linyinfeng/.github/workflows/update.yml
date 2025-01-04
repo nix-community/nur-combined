@@ -42,7 +42,12 @@ jobs:
         [keys]
         github = "${{ secrets.GITHUB_TOKEN }}"
         EOF
+    - name: Run locale-gen
+      run: |
+        sudo locale-gen en_US.UTF-8
     - name: Run update
+      env:
+        LANG: en_US.UTF-8
       run: |
         # update and set variables
         # - CHANGELOG
