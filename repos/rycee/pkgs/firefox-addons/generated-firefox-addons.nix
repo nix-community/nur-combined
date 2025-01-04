@@ -3695,16 +3695,16 @@
     };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
-      version = "8.2.67";
+      version = "10.0.9";
       addonId = "{bc2166c4-e7a2-46d5-ad9e-342cef57f1f7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066555/gloc-8.2.67.xpi";
-      sha256 = "8be408c7afc05ea67935e854b0128cb1505106ff9fc487adf1040389b38fce11";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413556/gloc-10.0.9.xpi";
+      sha256 = "6a3268da5a56447a6cd4dc200b1121c6d9a98471ac73d5c73b942f95c53e1d0a";
       meta = with lib;
       {
         homepage = "https://github.com/kas-elvirov/gloc";
-        description = "Сounts lines of code on GitHub\nWorks for public and private repositories.\nCounts lines of code from:\n- project detail page,\n- user's repositories,\n- organization page,\n- search results page, \n- trending page.";
+        description = "Github Gloc - counts locs on GitHub pages";
         license = licenses.gpl2;
-        mozPermissions = [ "storage" "*://*.github.com/*" "*://github.com/*" ];
+        mozPermissions = [ "storage" "*://github.com/*" ];
         platforms = platforms.all;
       };
     };
@@ -7947,10 +7947,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.5.2";
+      version = "12.1.1";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379558/noscript-11.5.2.xpi";
-      sha256 = "460aaa6484bf8422415dfe08260e8536866e3731ed5b8b7913cf4b7b1333493a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411102/noscript-12.1.1.xpi";
+      sha256 = "f9639e63ffcfc352036de00e4ff6694bb0ca65a0bb8fbd103bd08f32dc1ff31a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -7961,13 +7961,14 @@
           "storage"
           "tabs"
           "unlimitedStorage"
+          "scripting"
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
+          "webRequestFilterResponse"
+          "webRequestFilterResponse.serviceWorkerScript"
           "dns"
           "<all_urls>"
-          "file://*/*"
-          "ftp://*/*"
         ];
         platforms = platforms.all;
       };
@@ -10483,10 +10484,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.1.29";
+      version = "3.1.30";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406215/simplifygmail-3.1.29.xpi";
-      sha256 = "feaf5ad9a401e320bce7ce50c1e420bc85b0a351335232cc8e0c8d6dfa59ec35";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413783/simplifygmail-3.1.30.xpi";
+      sha256 = "3081f8bfe4db4b65e56ce975bc213467d55cf63d99c88141c88cc8c32de58fc9";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
