@@ -776,7 +776,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `dcmtkShared` `3.6.9` [🌐](https://dicom.offis.de/dcmtk "Homepage") [📦](https://github.com/NixOS/nixpkgs/blob/6d97d41/pkgs/by-name/dc/dcmtk/package.nix#L37 "Source")
+### `dcmtkShared` `3.6.9` [🌐](https://dicom.offis.de/dcmtk "Homepage") [📦](https://github.com/NixOS/nixpkgs/blob/a278711/pkgs/by-name/dc/dcmtk/package.nix#L37 "Source")
 
 Collection of libraries and applications implementing large parts of the DICOM standard.
 
@@ -985,6 +985,27 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Name: `kuroko`
 - Licenses: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ✔️
+</details>
+
+### `lapce-nightly` `nightly-unstable-2024-11-24` [🌐](https://github.com/lapce/lapce "Homepage") [📰](https://github.com/lapce/lapce/blob/7100aa459e1d16f9255e148a8d9323835761822c/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/lapce-nightly/package.nix#L125 "Source")
+
+Lightning-fast and Powerful Code Editor written in Rust.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Platforms: `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv64-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `powerpc-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `i686-windows`, `x86_64-windows`, `armv7a-darwin`, `armv5tel-linux`, `armv7a-linux`, `m68k-linux`, `mips-linux`, `mips64-linux`, `mipsel-linux`, `mips64el-linux`, `riscv32-linux`, `armv6l-netbsd`, `mipsel-netbsd`, `riscv64-netbsd`, `x86_64-redox`, `wasm32-wasi`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -2588,7 +2609,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-12-31` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2025-01-03` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
