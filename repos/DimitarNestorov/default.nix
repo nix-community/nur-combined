@@ -18,6 +18,13 @@ in {
 		_32-bitcheck = eclecticlightPkgs."32-bitcheck";
 	};
 
+ 	sindresorhus = pkgs.lib.recurseIntoAttrs (
+		pkgs.lib.packagesFromDirectoryRecursive {
+			inherit (pkgs) callPackage;
+			directory = ./pkgs/sindre-sorhus;
+		}
+	);
+
 	daisydisk = pkgs.callPackage ./pkgs/daisydisk.nix {};
 	ghostty = pkgs.callPackage ./pkgs/ghostty.nix {};
 }

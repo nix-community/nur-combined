@@ -73,7 +73,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 		downloadPage = "https://ghostty.org/download";
 		license = lib.licenses.mit;
 		mainProgram = "ghostty";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+		sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 		maintainers = with lib.maintainers; [ DimitarNestorov ];
 		outputsToInstall = [
 			"out"
