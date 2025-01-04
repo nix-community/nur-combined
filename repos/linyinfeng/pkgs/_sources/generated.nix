@@ -105,13 +105,13 @@
   };
   lpac = {
     pname = "lpac";
-    version = "v2.1.0";
+    version = "v2.2.0";
     src = fetchFromGitHub {
       owner = "estkme-group";
       repo = "lpac";
-      rev = "v2.1.0";
+      rev = "v2.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-3ShK07+kEs50dwmolWRn9SKXRkMfMvRx0uX5tvWlKgc=";
+      sha256 = "sha256-F++pnTRNVz/PL4qjOQxMfUcXk6P4ykufDUiObkLJw6E=";
     };
   };
   mstickereditor = {
@@ -270,31 +270,31 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "e0519d0579722a0871efb68189272cba61a7350b";
+    version = "5fe7d1aa4be2c20c6326e4d692022ab92523656f";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "e0519d0579722a0871efb68189272cba61a7350b";
+      rev = "5fe7d1aa4be2c20c6326e4d692022ab92523656f";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-/GLyb3pVm5YzhuBWWJs75JtKZVnFXFN3s7HT+TZC4bw=";
+      sha256 = "sha256-5Z0XjOO95F8YcJwj8SCu0IpLw8FXopz6uHiHIs5bmA8=";
     };
-    date = "2023-02-04";
+    date = "2024-12-31";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c3d861119e4c94790931ef25ff74f989aced1375";
+    version = "7ed5167f0cbbc19b18c0a4eff084b49b86857c05";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "c3d861119e4c94790931ef25ff74f989aced1375";
+      rev = "7ed5167f0cbbc19b18c0a4eff084b49b86857c05";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-PxTc/MKoWcOMHegSVsjeKUzhrtD/ins90xVu4UUUUJI=";
+      sha256 = "sha256-vrNmoPWzzbVUpHYxnuZhm+/AJV5t2M2975s0+mZiP2M=";
     };
-    date = "2024-12-27";
+    date = "2024-12-29";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -326,17 +326,17 @@
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
-    version = "c0b1cc5553caed77e1338adc08d6dc048c50c813";
+    version = "0c6861ef7420ee780270ca6d993d18d4101049d0";
     src = fetchgit {
       url = "https://github.com/rime/rime-pinyin-simp.git";
-      rev = "c0b1cc5553caed77e1338adc08d6dc048c50c813";
+      rev = "0c6861ef7420ee780270ca6d993d18d4101049d0";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-HrUsgoKGDTii18zB/Mggyckech5arQuPaNeaueD6ItQ=";
+      sha256 = "sha256-eVd7dbiMH1sb/ZhZFwYxbhS4cQ2Wt2K3ZMfeTUozl9E=";
     };
-    date = "2024-07-14";
+    date = "2024-12-29";
   };
   rime-prelude = {
     pname = "rime-prelude";
@@ -435,23 +435,23 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "47ef7826bce2c758a156a4a7186b970ff2396ea4";
+    version = "9fa312b9f276250d0781595ec308b061a61a136e";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "47ef7826bce2c758a156a4a7186b970ff2396ea4";
+      rev = "9fa312b9f276250d0781595ec308b061a61a136e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Y9goF3b3XN7p7im05kNjj4VXLm5PxZ40W45N71aeEJ4=";
+      sha256 = "sha256-5knA164gmuq4DXPAchyvfDx5AjMKMR/jv1+ga5zJS/c=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-47ef7826bce2c758a156a4a7186b970ff2396ea4/Cargo.lock;
+      lockFile = ./swayosd-9fa312b9f276250d0781595ec308b061a61a136e/Cargo.lock;
       outputHashes = {
 
       };
     };
-    date = "2024-11-29";
+    date = "2025-01-02";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
