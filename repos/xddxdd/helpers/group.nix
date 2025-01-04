@@ -29,7 +29,7 @@ rec {
           _packages
           sources
           ;
-        kernel = pkgs.linux;
+        kernel = pkgs.linux_latest;
         # Integrate to nixpkgs python3Packages
         python = pkgs.python.override { packageOverrides = _final: _prev: _packages.python3Packages; };
         python3 = pkgs.python3.override { packageOverrides = _final: _prev: _packages.python3Packages; };

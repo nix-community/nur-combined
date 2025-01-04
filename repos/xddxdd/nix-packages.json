@@ -1484,6 +1484,11 @@
     "pname": "nvidia-x11",
     "version": "535.183.06-6.6.68"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.16_8": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.216.01-6.6.68"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1503,6 +1508,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.90.07-6.6.68"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.17_4": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.127.05-6.6.68"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1644,6 +1654,11 @@
     "pname": "nvidia-x11",
     "version": "535.183.06-6.6.68"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.16_8": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.216.01-6.6.68"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1663,6 +1678,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.90.07-6.6.68"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.17_4": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.127.05-6.6.68"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1804,6 +1824,11 @@
     "pname": "nvidia-x11",
     "version": "535.183.04-6.6.68"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.16_8": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.216.01-6.6.68"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1823,6 +1848,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.90.05-6.6.68"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.17_4": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.127.06-6.6.68"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -1964,6 +1994,11 @@
     "pname": "nvidia-x11",
     "version": "535.183.04-6.6.68"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_8": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.216.01-6.6.68"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1983,6 +2018,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.90.05-6.6.68"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_4": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.127.06-6.6.68"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",

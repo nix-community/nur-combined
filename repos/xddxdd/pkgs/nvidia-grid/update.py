@@ -1,3 +1,5 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p python3 -p python3Packages.requests
 import functools
 import json
 import os
@@ -20,40 +22,66 @@ def get_download_link_for_version(
 ) -> Tuple[List[str], List[str], Optional[str], Optional[str]]:
     try:
         print(f"Checking version {version}")
-        data: requests.Response = requests.get(
-            f"https://foxi.buduanwang.vip/pan/vGPU/{version}/"
+        data: requests.Response = requests.post(
+            "https://file.homelabproject.cc/api/fs/list",
+            json={
+                "path": f"/foxipan/vGPU/{version}",
+                "password": "",
+                "page": 1,
+                "per_page": 0,
+                "refresh": False,
+            },
         )
-        match = re.search(
-            r'href="(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.([^"\']+))"',
-            data.text,
-            re.MULTILINE | re.IGNORECASE,
-        )
+
+        match = None
+        for f in data.json()["data"]["content"]:
+            _match = re.match(
+                r"^(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.(.+))$",
+                f["name"],
+            )
+            if _match:
+                match = _match
+                break
+
         filename = match[1]
         host_version = match[2]
         guest_version = match[3]
         guest_version = guest_version[1:] if guest_version else host_version
         print(filename, host_version, guest_version)
-        url = f"https://foxi.buduanwang.vip/pan/vGPU/{version}/{filename}"
+        url = f"https://file.homelabproject.cc/p/foxipan/vGPU/{version}/{filename}"
 
-        patches = re.findall(
-            r'href="([^"\']+\.patch)"',
-            data.text,
-            re.MULTILINE | re.IGNORECASE,
-        )
-        patches = [
-            f"https://foxi.buduanwang.vip/pan/vGPU/{version}/{filename}"
-            for filename in patches
-        ]
+        patches = []
+        for f in data.json()["data"]["content"]:
+            filename = f["name"]
+            _match = re.match(r'([^"\']+\.patch)', filename)
+            if _match:
+                patches.append(
+                    f"https://file.homelabproject.cc/p/foxipan/vGPU/{version}/{filename}"
+                )
         print("Patches:", patches)
 
         return url, patches, host_version, guest_version
-    except Exception:
+    except Exception as e:
+        print(f"Exception occurred: {e}")
         return [], [], None, None
 
 
 def get_available_versions() -> List[str]:
-    data = requests.get("https://foxi.buduanwang.vip/pan/vGPU/")
-    return re.findall(r'href="([0-9\.]+)/"', data.text, re.MULTILINE | re.IGNORECASE)
+    data = requests.post(
+        "https://file.homelabproject.cc/api/fs/list",
+        json={
+            "path": "/foxipan/vGPU",
+            "password": "",
+            "page": 1,
+            "per_page": 0,
+            "refresh": False,
+        },
+    )
+    return [
+        v["name"]
+        for v in data.json()["data"]["content"]
+        if re.match(r"^([0-9\.]+)$", v["name"])
+    ]
 
 
 @functools.lru_cache(maxsize=None)

@@ -9,6 +9,7 @@ let
   pythonEnv = python3.withPackages (
     ps: with ps; [
       edge-tts
+      emoji
       flask
       gevent
       python-dotenv
