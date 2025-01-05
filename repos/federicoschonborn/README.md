@@ -2483,6 +2483,27 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - Update Script: ✔️
 </details>
 
+### `mapfab` `0.4` [🌐](https://github.com/pubby/mapfab "Homepage") [📰](https://github.com/pubby/mapfab/releases/tag/v0.4 "Changelog") [📦](./pkgs/by-name/mapfab/package.nix#L64 "Source")
+
+Level editor for creating (new) NES games.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `mapfab`
+- Licenses: [`GPL-3.0-only`](https://spdx.org/licenses/GPL-3.0-only.html "GNU General Public License v3.0 only")
+- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ✔️
+</details>
+
 ### `mii-emu` `1.97` [🌐](https://github.com/buserror/mii_emu "Homepage") [📰](https://github.com/buserror/mii_emu/releases/tag/v1.97 "Changelog") [📦](./pkgs/by-name/mii-emu/package.nix#L41 "Source")
 
 MII Apple //e Emulator for Linux.
@@ -2538,6 +2559,27 @@ A convenient calculator for the command line.
 
 - Name: `mucalc`
 - Licenses: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
+- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ✔️
+</details>
+
+### `nesfab` `1.5` [🌐](https://github.com/pubby/nesfab "Homepage") [📰](https://github.com/pubby/nesfab/releases/tag/v1.5 "Changelog") [📦](./pkgs/by-name/nesfab/package.nix#L50 "Source")
+
+Programming language that targets the Nintendo Entertainment System.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `nesfab`
+- Licenses: [`GPL-3.0-only`](https://spdx.org/licenses/GPL-3.0-only.html "GNU General Public License v3.0 only")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
