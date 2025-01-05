@@ -1,5 +1,6 @@
 name: "Update package metadata"
 on:
+  workflow_dispatch:
   schedule:
     # update everyday at 3:00
     # TIP: Choose a random time here so not all repositories are build at once:
