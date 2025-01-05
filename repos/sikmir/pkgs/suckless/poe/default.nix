@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "poe";
-  version = "1.8.2";
+  version = "1.8.6";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "poe";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-fQSn/nm9N8RFz/MPKtEU/aCHTGy3J9W0oSGH+siVDmg=";
+    hash = "sha256-q+S/p38NHWyDIFeBWbuE35CXmTmJyOWxxQp362F9V10=";
   };
 
   FALLBACKVER = finalAttrs.version;

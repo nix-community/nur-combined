@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation {
   pname = "sbase";
-  version = "0-unstable-2024-03-22";
+  version = "0-unstable-2024-12-09";
 
   src = fetchgit {
     url = "git://git.suckless.org/sbase";
-    rev = "b30fb56804bfed69b45ef0e944d2e029e4d26258";
-    hash = "sha256-X/uqcw0fMDt8AhhFra07eM70hk8Us7/SA5IbocQHZ5k=";
+    rev = "279cec88898c2386430d701847739209fabf6208";
+    hash = "sha256-pWR2gN34LkC4i9/AIM6mK0dB3U5XBafmFMm23PGI3Jc=";
   };
 
   makeFlags = [

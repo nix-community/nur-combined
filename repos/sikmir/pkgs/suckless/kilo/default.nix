@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kilo";
-  version = "0-unstable-2020-07-05";
+  version = "0-unstable-2025-01-04";
 
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "kilo";
-    rev = "69c3ce609d1e8df3956cba6db3d296a7cf3af3de";
-    hash = "sha256-6zPzaUzBQCIciuzBp4W6pT4bvhWbC8t6bSVec5LBRiU=";
+    rev = "323d93b29bd89a2cb446de90c4ed4fea1764176e";
+    hash = "sha256-f4DlVCX9i58YUqhyuEd6WwdHD15jQokl+mKA0tjYplM=";
   };
 
   installPhase = ''

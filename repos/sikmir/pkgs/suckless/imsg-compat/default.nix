@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imsg-compat";
-  version = "7.4.0";
+  version = "8.0.0";
 
   src = fetchFromGitHub {
     owner = "bsd-ac";
     repo = "imsg-compat";
     tag = finalAttrs.version;
-    hash = "sha256-t1nEdsqRtcXWBkkspUb/lQ0PXd2ziaTutnqgwSaxAR4=";
+    hash = "sha256-v8z2WBK8P5otWYcpOLQErTXkni9JpXvzwWVnADpIJ/I=";
   };
 
   postPatch = ''
@@ -23,6 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ validatePkgConfig ];
 
   makeFlags = [ "PREFIX=$(out)" ];
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
   meta = {
     description = "Unofficial port of OpenBSD's imsg utilities";
