@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "radiolib";
-  version = "7.0.2";
+  version = "7.1.1";
 
   src = fetchFromGitHub {
     owner = "jgromes";
     repo = "RadioLib";
     tag = finalAttrs.version;
-    hash = "sha256-m+8Lf/V2ltBoLJX6QNHysFap/EuMlozD9Y0d1eMKH6Y=";
+    hash = "sha256-UO6a/DCmJEDdKpGDjw1OFtS2ee4XagBxSjwbfbw6obs=";
   };
 
   nativeBuildInputs = [ cmake ];

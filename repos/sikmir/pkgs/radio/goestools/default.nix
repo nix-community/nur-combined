@@ -38,5 +38,6 @@ stdenv.mkDerivation {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = true;
   };
 }

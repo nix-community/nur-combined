@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdr-modem";
-  version = "1.0.127";
+  version = "1.0.129";
 
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-modem";
     tag = finalAttrs.version;
-    hash = "sha256-h0hbX3T3Criyq5jcXJLNXSwmwzWPzY80aKlRJr60rJw=";
+    hash = "sha256-27Kz7xvgb6h/TBohhrgO3D4/eCBLkqYyHDMnmITM88s=";
   };
 
   nativeBuildInputs = [
