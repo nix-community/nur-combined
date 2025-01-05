@@ -1,19 +1,20 @@
 { lib, stdenv, fetchFromGitHub, cmake }:
 stdenv.mkDerivation rec {
   pname = "libdwarf";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "davea42";
     repo = "libdwarf-code";
     rev = "v${version}";
-    hash = "sha256-Ba2CowZDIsy6tiIiSKpxvlNJesTVEMWhO/3pjEoxmUg=";
+    hash = "sha256-e+NtRzPPyahNcxWPKv4j/EIJdFwTgKCLfjldsBUatk0=";
   };
 
   nativeBuildInputs = [ cmake ];
 
   meta = {
-    homepage = "https://github.com/jeremy-rifkin/libdwarf-code";
+    description = "Library for reading DWARF2 and DWARF formats";
+    homepage = "https://github.com/davea42/libdwarf-code";
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.atry ];
