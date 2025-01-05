@@ -30,7 +30,6 @@ rec {
   catppuccin = ./catppuccin.nix;
   zsh = ./zsh.nix;
   branding = ./branding.nix;
-  users = ./users.nix;
   sd-cpp-webui = ./sd-cpp-webui.nix;
   dashboard = ./dashboard.nix;
 }
