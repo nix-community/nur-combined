@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     sh ./build.sh
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion -Wno-error=implicit-function-declaration";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types";
 
   installPhase = ''
     install -Dm755 dns-filter -t $out/bin
