@@ -25,6 +25,9 @@ export type cli_opts = struct {
   paths: []str,
   try_keep_users: bool,
 
+  dbus_own: []str,
+  dbus_talk: []str,
+
   net_dev: str,
   net_gateway: str,
   dns: str,
@@ -69,6 +72,10 @@ export fn usage() void = {
   fmt::println("      halt argument parsing")!;
   fmt::println("      any remaining arguments are to be interpreted as arguments for the user program, not bunpen")!;
   fmt::println("      note that remaining arguments *are* still eligible for path autodetection (see --bunpen-autodetect)")!;
+  fmt::println("")!;
+  fmt::println("dbus proxy settings (applies to session bus only):")!;
+  fmt::println("  --bunpen-dbus-own <name>")!;
+  fmt::println("  --bunpen-dbus-talk <name>")!;
   fmt::println("")!;
   fmt::println("net proxy settings (typical invocation specifies either ALL or NONE of these):")!;
   fmt::println("  --bunpen-net-dev <iface>")!;
@@ -162,6 +169,8 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
       switch (arg) {
         case "--bunpen-autodetect"      =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
         case "--bunpen-cap"             =>  idx += 1; parse_caparg(parsed, expect_arg("--bunpen-cap", next)?)?;
+        case "--bunpen-dbus-own"        =>  idx += 1; append(parsed.dbus_own, expect_arg("--bunpen-dbus-own", next)?);
+        case "--bunpen-dbus-talk"       =>  idx += 1; append(parsed.dbus_talk, expect_arg("--bunpen-dbus-talk", next)?);
         case "--bunpen-debug"           =>  parsed.debug = 2;
         case "--bunpen-debug=0"         =>  parsed.debug = 0;
         case "--bunpen-debug=1"         =>  parsed.debug = 1;

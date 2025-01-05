@@ -14,12 +14,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lpac";
-  version = "2.1.0";
+  version = "2.2.0";
   src = fetchFromGitHub {
     owner = "estkme-group";
     repo = "lpac";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-3ShK07+kEs50dwmolWRn9SKXRkMfMvRx0uX5tvWlKgc=";
+    hash = "sha256-F++pnTRNVz/PL4qjOQxMfUcXk6P4ykufDUiObkLJw6E=";
   };
 
   # options:

@@ -1038,6 +1038,7 @@ in
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
     rsync.sandbox.tryKeepUsers = true;  # if running as root, keep the user namespace so that `-a` can set the correct owners, etc
 
+    rust-analyzer.buildCost = 2;
     rust-analyzer.sandbox.whitelistPwd = true;
     rust-analyzer.suggestedPrograms = [
       "cargo"
@@ -1178,6 +1179,7 @@ in
     tree.sandbox.tryKeepUsers = true;
     tree.sandbox.capabilities = [ "dac_read_search" ];
 
+    typescript-language-server.buildCost = 2;
     typescript-language-server.sandbox.whitelistPwd = true;
 
     tumiki-fighters.buildCost = 1;

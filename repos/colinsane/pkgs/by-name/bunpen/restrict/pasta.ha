@@ -40,7 +40,7 @@ fn pasta_restrict(net: resources::net_subset) void = {
 
   let (pipe_parent_rd, pipe_child_wr) = unix::pipe()!;
   let (pipe_child_rd, pipe_parent_wr) = unix::pipe()!;
-  log::printfln("[namespace/pasta]: forking: child will launch pasta while parent will exec user code");
+  log::printfln("[namespace/pasta] forking: child will launch pasta while parent will exec user code");
   match (ps::fork_and_die_with_parent()) {
     case let child_pid: os::exec::process =>
       // close the pipe ends which aren't ours
@@ -61,6 +61,8 @@ fn pasta_restrict(net: resources::net_subset) void = {
       // pasta signals readiness by writing its pid (followed by \n) to a file.
       let pasta_pid: [32]u8 = [0...];
       io::read(pipe_parent_rd, &pasta_pid)!;
+
+      log::println("[namespace/pasta] child signaled readiness: continuing");
 
       // cleanup: we're done with the pipes
       io::close(pipe_parent_wr)!;

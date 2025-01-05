@@ -64,6 +64,11 @@ let
     '';
   });
   swayPackage = wrapSway (
+    # sway/wlroots release **less than once per year**.
+    # i use the `nixpkgs-wayland` version (which is akin to running tip) instead of the stable version from nixpkgs
+    # because then when things go wrong i have an actual shot at bisecting.
+    # this has been useful as recently as 2024/08 when sway/wlroots updates straight up don't render output:
+    # <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
     (pkgs.nixpkgs-wayland.sway-unwrapped.override {
       inherit wlroots;
       # about xwayland:

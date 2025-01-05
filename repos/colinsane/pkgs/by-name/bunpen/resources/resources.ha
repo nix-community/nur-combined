@@ -7,6 +7,7 @@ export type resources = struct {
   // user has naturally.
   paths: []path::buffer,
   caps: rt::ext::caps,
+  dbus: (void | dbus_subset),
   // true to allow speaking to other processes in the same IPC namespace
   ipc: bool,
   net: net_resources,
@@ -16,6 +17,13 @@ export type resources = struct {
   // try to keep access to the current user namespace, but let it go if holding
   // onto it would prevent us from sandboxing further
   try_users: bool,
+};
+
+export type dbus_subset = struct {
+  // list of bus names to allow owning
+  own: []str,
+  // list of bus names to allow talking to
+  talk: []str,
 };
 
 export type net_subset = struct {

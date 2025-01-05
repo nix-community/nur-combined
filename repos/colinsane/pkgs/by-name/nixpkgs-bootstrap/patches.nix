@@ -53,13 +53,6 @@ in
     hash = "sha256-YzS6eX6sPbEx3CzAGaz8alz/s8O5JjkXtg+/Wk7ndZ0=";
   })
 
-  (fetchpatch' {
-    # 2025-01-01: required to fix servo build
-    name = "jackett: 0.22.1109 -> 0.22.1177";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/370024";
-    hash = "sha256-V7J78ss+zKtnqj4aLAhNjG6GEkgPPyTNcu2uDKRCxRA=";
-  })
-
   # (fetchpatch' {
   #   # 2024-12-26: required to build ollama (with AMD acceleration)
   #   name = "rocm-6: bump packages to 6.3.1 and add missing packages";
@@ -67,6 +60,12 @@ in
   #   # hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
   #   hash = "sha256-Hzz+aAzdgdnTu4jvLqpHzdIE3xYMP02/EuA+KvFbUeI=";
   # })
+
+  (fetchpatch' {
+    name = "lua-language-server: fix cross compiling";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/370992";
+    hash = "sha256-0TG7u+Gcp5y3OKCEG2eDE9D9t+F1zv/I1W6CXlbCOYA=";
+  })
 
   (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status

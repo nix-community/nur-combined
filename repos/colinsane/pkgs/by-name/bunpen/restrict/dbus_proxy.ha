@@ -61,35 +61,77 @@
 use config;
 use errors;
 use errors::ext;
-use strings;
+use fmt;
+use fs;
+use io;
+use log;
 use os;
 use os::exec;
+use path;
 use ps;
+use resources;
+use restrict::ns;
+use rt;
 use rt::ext;
-
-export type dbus_resources = struct {
-  talk: []str,
-  own: []str,
-};
+use strings;
+use unix;
 
 // given an existing, unfiltered bus at the fs path `upstream`,
 // proxy the bus into the fs path indicated by `downstream`.
 // clients attaching to the `downstream` path are provided access only to the
 // resources indicated by `dbus`.
-fn dbus_restrict(dbus: dbus_resources, upstream: str, downstream: str) void = {
+fn dbus_restrict(dbus: resources::dbus_subset, upstream_parent_fd: io::file, downstream_path: *const path::buffer) void = {
+  log::printfln("[dbus] restricting...");
+  errors::ext::swallow(
+    "[dbus] os::mkdirs(path::parent($DBUS_SESSION_BUS_ADDRESS={}))",
+    dbus_ensure_bus_dir(downstream_path),
+    path::string(downstream_path),
+  );
+
+  // pipe by which child xdg-dbus-proxy can notify the parent of readiness
+  let (pipe_parent_rd, pipe_child_wr) = unix::pipe()!;
+  log::printfln("[dbus]: forking: child will launch xdg-dbus-proxy while parent will exec user code");
   match (ps::fork_and_die_with_parent()) {
-    case let child_pid: os::exec::process =>
-      let proxy_args: []str = [
-        "xdg-dbus-proxy",
-        "--filter",
-      ];
+    case void =>
+      // close the pipe ends which aren't ours
+      io::close(pipe_parent_rd)!;
+
+      let ns_paths: []path::buffer = [];
+      append(ns_paths, path::init("/nix/store")!);
+      // TODO: pre-eval the path to `xdg-dbus-proxy` here and remove this /run directory?
+      append(ns_paths, path::init("/run/current-system/sw/bin")!);
+      match (path::parent(downstream_path)) {
+        case let p: str => append(ns_paths, path::init(p)!);
+        case let e: path::error => errors::ext::swallow("[dbus] path::parent($DBUS_SESSION_BUS_ADDRESS)", e);
+      };
+      let ns_resources = ns::ns_resources {
+        paths = ns_paths,
+        ...
+      };
+      ns::namespace_restrict(&ns_resources);
+
+      // move the fd's to be one of the special fd's which *don't*
+      // get closed on exec (e.g. /proc/self/fd/0, stdin).
+      // assumed necessary based on pasta; *might not* actually be required here.
+      rt::dup2(upstream_parent_fd, 0)!;
+      io::close(upstream_parent_fd)!;
+      let upstream_fd_path = fmt::asprintf("unix:path=/proc/self/fd/0/{}", path::basename(path::string(downstream_path)));
+
+      rt::dup2(pipe_child_wr, 1)!;
+      io::close(pipe_child_wr)!;
+
+      let proxy_args: []str = [];
+      append(proxy_args, "xdg-dbus-proxy");
+      append(proxy_args, upstream_fd_path);
+      append(proxy_args, path::string(downstream_path));
+      append(proxy_args, "--filter");
+      append(proxy_args, "--fd=1");
+      // append(proxy_args, "--log");
       for (let spec .. dbus.talk) {
-        append(proxy_args, "--talk");
-        append(proxy_args, spec);
+        append(proxy_args, fmt::asprintf("--talk={}", spec));
       };
       for (let spec .. dbus.own) {
-        append(proxy_args, "--own");
-        append(proxy_args, spec);
+        append(proxy_args, fmt::asprintf("--own={}", spec));
       };
       errors::ext::check(
         "dbus_restrict: invoke xdg-dbus-proxy",
@@ -100,52 +142,73 @@ fn dbus_restrict(dbus: dbus_resources, upstream: str, downstream: str) void = {
           os::getenvs(),
         ),
       );
-    case void =>
-      // xdg-dbus-proxy provides no explicit synchronization mechanism;
-      // we have to assume that once we fork, it starts listening "reasonably quickly".
-      // TODO: i could probably hack some synchronization in here:
+    case let child_pid: os::exec::process =>
+      // close the pipe ends which aren't ours
+      io::close(pipe_child_wr)!;
+
+      // wait for the proxy to signal readiness
+      io::readall(pipe_parent_rd, &[0u8])!;
+
+      log::println("[dbus] child signaled readiness: continuing");
+
+      // XXX: DON'T close the pipe: xdg-dbus-proxy docs say it will exit when
+      // the fd is closed.
+      // TODO: make sure this implementation is compatible with non-pid
+      // namespaced invocations! if it isn't, consider alternative synchronizations:
       // - `write` a HELLO message and block until it's read.
       // - invoke with `--log` and parse the output.
-      // - or maybe pre-create the unix socket _before_ forking here, and
-      //   somehow pass that into xdg-dbus-proxy instead of letting it create
-      //   its own socket.
-      void;
+      // - pre-create the unix socket _before_ forking here, and somehow pass
+      //   that into xdg-dbus-proxy instead of letting it create its own socket.
+      //
+      // io::close(pipe_parent_rd)!;
+
+    case let e: (os::exec::error | rt::errno) =>
+      errors::ext::check("dbus_restrict: fork", e);
   };
 };
 
+fn dbus_ensure_bus_dir(downstream_path: *const path::buffer) (void | fs::error | path::error) = {
+  let downstream_dir = path::parent(downstream_path)?;
+  log::printfln("[dbus] mkdir({})", downstream_dir);
+  os::mkdirs(downstream_dir, 0o700)?;
+};
 
-fn parse_dbus_address(address: (str | void)) (str | errors::invalid) = {
+fn parse_dbus_address(address: (str | void)) (path::buffer | path::error) = {
   // dbus address is specified like:
   // DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/colin/dbus/bus
   return match (address) {
-    case void => yield errors::invalid;
+    case void => yield path::not_prefix;
     case let value: str =>
       let expected_prefix = "unix:path=";
       if (!strings::hasprefix(value, expected_prefix)) {
-        return errors::invalid;
+        return path::not_prefix;
       };
       value = strings::sub(value, len(expected_prefix));
-      if (!strings::hasprefix(value, "/")) {
+      if (!path::abs(value)) {
         // expect the dbus bus address to be an absolute path
-        // TODO: consider parsing this as an actual path?
-        return errors::invalid;
+        return path::not_prefix;
       };
-      yield value;
+      yield path::init(value);
   };
 };
 
-fn get_dbus_session_path() (str | errors::invalid) = {
+fn get_dbus_session_path() (path::buffer | path::error) = {
   return parse_dbus_address(os::getenv("DBUS_SESSION_BUS_ADDRESS"));
 };
 
-fn _dbus_address_eq(value: (str | void), expect: (str | errors::invalid)) bool = {
+
+//---- TESTS ----//
+
+fn _dbus_address_eq(value: (str | void), expect: (str | path::error)) bool = {
   return match (expect) {
     case let s: str => yield match (parse_dbus_address(value)) {
-      case let s2: str => yield s2 == s;
+      case let s2: path::buffer => yield path::string(&s2) == s;
       case => yield false;
     };
-    case let e: errors::invalid => yield match (parse_dbus_address(value)) {
-      case errors::invalid => yield true;
+    case let e: path::error => yield match (parse_dbus_address(value)) {
+      // not picky about the precise error, just that if we expect *an* error
+      // then we get *an* error.
+      case let e2: path::error => yield true;
       case => yield false;
     };
   };
@@ -156,21 +219,21 @@ fn _dbus_address_eq(value: (str | void), expect: (str | errors::invalid)) bool =
 };
 
 @test fn get_dbus_session_path_relative_path() void = {
-  assert(_dbus_address_eq("unix:path=dbus/bad", errors::invalid));
+  assert(_dbus_address_eq("unix:path=dbus/bad", path::not_prefix));
 };
 @test fn get_dbus_session_path_empty_path() void = {
-  assert(_dbus_address_eq("unix:path=", errors::invalid));
+  assert(_dbus_address_eq("unix:path=", path::not_prefix));
 };
 @test fn get_dbus_session_path_missing_path() void = {
-  assert(_dbus_address_eq("unix:path", errors::invalid));
+  assert(_dbus_address_eq("unix:path", path::not_prefix));
 };
 @test fn get_dbus_session_path_missing_type() void = {
-  assert(_dbus_address_eq("", errors::invalid));
+  assert(_dbus_address_eq("", path::not_prefix));
 };
 @test fn get_dbus_session_path_wrong_type() void = {
-  assert(_dbus_address_eq("msnt:path=/dbus/path", errors::invalid));
+  assert(_dbus_address_eq("msnt:path=/dbus/path", path::not_prefix));
 };
 
 @test fn get_dbus_session_path_unset() void = {
-  assert(_dbus_address_eq(void, errors::invalid));
+  assert(_dbus_address_eq(void, path::not_prefix));
 };

@@ -270,6 +270,53 @@ test_10_tmpfs_root_is_introspectable() {
   test "$test_file1" = from_sandbox
 }
 
+test_11_dbus_01_whitelisted_by_path() {
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
+  mkdir -p $PWD/dbus
+  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+  # busctl exits clean if it can reach the bus
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
+  # sanity check that it would exit falsey if it fails to reach the bus
+  ! env -u DBUS_SESSION_BUS_ADDRESS \
+    bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
+}
+
+test_11_dbus_02_doesnt_bridge_bus_by_default() {
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
+  mkdir -p $PWD/dbus
+  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+  ! bunpen --bunpen-path /nix/store busctl --user list
+  # but still reachable from the outside
+  busctl --user list
+}
+
+test_11_dbus_03_doesnt_spawn_bus() {
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
+  ! bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
+}
+
+test_11_dbus_04_proxy_nonexistent() {
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
+  mkdir -p $PWD/dbus
+  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+
+  # parameters *have* to be "valid" dbus names, i.e. a-z with dot separators, at least multiple components.
+  # they don't have to be actual, existing names
+  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-dbus-own 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'does.not.exist' --bunpen-dbus-own 'also.not.exist' busctl --user list
+}
+
+test_11_dbus_05_proxy_bypass() {
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
+  mkdir -p $PWD/dbus
+  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus/bus --bunpen-dbus-talk 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-talk 'does.not.exist' busctl --user list
+}
+
 runTests() {
   local testsToRun=("$@")
   rc=0
@@ -278,6 +325,7 @@ runTests() {
   basedir=$PWD
   for f in "${testsToRun[@]}"; do
     mkdir "$basedir/$f"
+    cp -r ./test "$basedir/$f/test"
     echo -n "$f: ..."
     cd "$basedir/$f"
     if $SELF "$f" > "$basedir/$f/stdall" 2>&1; then

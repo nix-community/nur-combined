@@ -1,4 +1,5 @@
 ## BUGS
+- alacritty Ctrl+N frequently fails to `cd` to the previous directory
 - dissent has a memory leak (3G+ after 24hr)
   - set a max memory use in the systemd service, to force it to restart as it leaks?
 - `rmDbusServices` may break sandboxing

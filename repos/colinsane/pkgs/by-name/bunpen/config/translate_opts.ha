@@ -96,7 +96,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
 
   let env = env_new();
   let req = cli_request {
-    resources = resources::resources { net = resources::net_none, ... },
+    resources = resources::resources { net = resources::net_none, dbus = void, ... },
     ...
   };
 
@@ -125,6 +125,23 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   //---- ingest `keep_all_caps` ----//
   if (opts.keep_all_caps)
     req.resources.caps = rt::ext::CAPS_ALL;
+
+  //---- ingest `dbus_own` ----//
+  let any_dbus = false;
+  let dbus_subset = resources::dbus_subset { ... };
+  for (let i .. opts.dbus_own) {
+    any_dbus = true;
+    append(dbus_subset.own, i);
+  };
+
+  //---- ingest `dbus_talk` ----//
+  for (let i .. opts.dbus_talk) {
+    any_dbus = true;
+    append(dbus_subset.talk, i);
+  };
+
+  if (any_dbus)
+    req.resources.dbus = dbus_subset;
 
   //---- ingest `keep_ipc` ----//
   req.resources.ipc = opts.keep_ipc;

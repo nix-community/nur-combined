@@ -1,4 +1,5 @@
 {
+  dbus,
   hareHook,
   iproute2,
   iptables,
@@ -6,6 +7,7 @@
   passt,
   procps,
   stdenv,
+  systemdMinimal,
   util-linux,
   which,
   xdg-dbus-proxy,
@@ -28,8 +30,10 @@
   ];
 
   nativeCheckInputs = [
+    dbus  # for `dbus-daemon`
     iproute2  # for `ip`
     procps  # for `ps`
+    systemdMinimal  # for `busctl`
     util-linux  # for `setsid`
     which
   ];
