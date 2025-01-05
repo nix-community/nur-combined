@@ -1,0 +1,18 @@
+diff --git a/wfslib/CMakeLists.txt b/wfslib/CMakeLists.txt
+index 3c84adf..d40470c 100644
+--- a/wfslib/CMakeLists.txt
++++ b/wfslib/CMakeLists.txt
+@@ -79,7 +79,12 @@ target_include_directories(${PROJECT_NAME}
+ )
+ 
+ find_package(Boost 1.64.0 REQUIRED)
+-find_package(cryptopp REQUIRED)
++include(FindPkgConfig)
++find_package(cryptopp)
++if (NOT cryptopp_FOUND)
++    pkg_search_module(cryptopp REQUIRED IMPORTED_TARGET cryptopp libcryptopp)
++    add_library(cryptopp::cryptopp ALIAS PkgConfig::cryptopp)
++endif()
+ 
+ target_link_libraries(${PROJECT_NAME}
+     PUBLIC

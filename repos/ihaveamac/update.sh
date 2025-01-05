@@ -3,6 +3,6 @@
 
 nix-update --version-regex='makerom-v(.*)' makerom
 nix-update --version-regex='ctrtool-v(.*)' ctrtool
-#nix-update --version=branch ctrtool-dev
+nix-update --version=branch wfs-tools
 
 nix-shell build-readme.nix
