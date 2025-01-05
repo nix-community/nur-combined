@@ -223,6 +223,11 @@ src.webpage = "https://gopherus.sourceforge.net/"
 src.regex = "\"gopherus-([0-9\\.]+).tar.xz"
 fetch.url = "https://gopherus.sourceforge.net/gopherus-$ver.tar.xz"
 
+[gost-engine]
+src.github = "gost-engine/engine"
+git.fetchSubmodules = true
+fetch.github = "gost-engine/engine"
+
 [grasscutter]
 src.github = "Grasscutters/Grasscutter"
 src.from_pattern = "v(.*)"
@@ -492,6 +497,11 @@ fetch.github = "openresty/openresty"
 [openresty-stable]
 src.github_tag = "openresty/openresty"
 fetch.url = "https://google.com/generate_204"
+
+[openssl-ech]
+src.git = "https://github.com/sftcd/openssl.git"
+src.branch = "ECH-draft-13c"
+fetch.github = "sftcd/openssl"
 
 [openssl-oqs-provider]
 src.github = "open-quantum-safe/oqs-provider"

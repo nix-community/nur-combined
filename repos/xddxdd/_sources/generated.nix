@@ -520,6 +520,17 @@
       hash = "sha256-7l/7ZK5KQ/V2Ym02Sbc0qAGov36P4P0hVWzIzbQzipo=";
     };
   };
+  gost-engine = {
+    pname = "gost-engine";
+    version = "v3.0.3";
+    src = fetchFromGitHub {
+      owner = "gost-engine";
+      repo = "engine";
+      tag = "v3.0.3";
+      fetchSubmodules = true;
+      hash = "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=";
+    };
+  };
   grasscutter = {
     pname = "grasscutter";
     version = "1.7.4";
@@ -1152,6 +1163,17 @@
       url = "https://google.com/generate_204";
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
+  };
+  openssl-ech = {
+    pname = "openssl-ech";
+    version = "2881d0f7fe3c8efc07ae30b27bbbf0d032a5fab3";
+    src = fetchFromGitHub {
+      owner = "sftcd";
+      repo = "openssl";
+      rev = "2881d0f7fe3c8efc07ae30b27bbbf0d032a5fab3";
+      hash = "sha256-/Sgilv/4EUQY7D8SuDsXorCVWGi9o5q1hpi8OKTPct8=";
+    };
+    date = "2024-11-03";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";

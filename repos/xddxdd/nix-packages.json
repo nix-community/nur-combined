@@ -609,6 +609,11 @@
     "pname": "gopherus",
     "version": "1.2.2"
   },
+  "legacyPackages.x86_64-linux.gost-engine": {
+    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "pname": "gost-engine",
+    "version": "3.0.3"
+  },
   "legacyPackages.x86_64-linux.grasscutter": {
     "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
@@ -3414,6 +3419,11 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u432-b06_adopt"
   },
+  "legacyPackages.x86_64-linux.openssl-ech": {
+    "description": "OpenSSL with Encrypted Client Hello support",
+    "pname": "openssl-ech",
+    "version": "0-unstable-2024-11-03"
+  },
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider",
@@ -4034,6 +4044,11 @@
     "pname": "gopherus",
     "version": "1.2.2"
   },
+  "legacyPackages.x86_64-linux.uncategorized.gost-engine": {
+    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "pname": "gost-engine",
+    "version": "3.0.3"
+  },
   "legacyPackages.x86_64-linux.uncategorized.grasscutter": {
     "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
@@ -4198,6 +4213,11 @@
     "description": "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend",
     "pname": "openedai-speech",
     "version": "0.18.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.openssl-ech": {
+    "description": "OpenSSL with Encrypted Client Hello support",
+    "pname": "openssl-ech",
+    "version": "0-unstable-2024-11-03"
   },
   "legacyPackages.x86_64-linux.uncategorized.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
@@ -4799,6 +4819,11 @@
     "pname": "gopherus",
     "version": "1.2.2"
   },
+  "packages.x86_64-linux.gost-engine": {
+    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "pname": "gost-engine",
+    "version": "3.0.3"
+  },
   "packages.x86_64-linux.grasscutter": {
     "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
@@ -5073,6 +5098,11 @@
     "description": "",
     "pname": "merged-packages",
     "version": ""
+  },
+  "packages.x86_64-linux.openssl-ech": {
+    "description": "OpenSSL with Encrypted Client Hello support",
+    "pname": "openssl-ech",
+    "version": "0-unstable-2024-11-03"
   },
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",

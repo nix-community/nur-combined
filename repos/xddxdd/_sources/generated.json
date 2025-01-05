@@ -1007,6 +1007,27 @@
         },
         "version": "1.2.2"
     },
+    "gost-engine": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gost-engine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gost-engine",
+            "repo": "engine",
+            "rev": "v3.0.3",
+            "sha256": "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.0.3"
+    },
     "grasscutter": {
         "cargoLocks": null,
         "date": null,
@@ -2245,6 +2266,27 @@
             "url": "https://google.com/generate_204"
         },
         "version": "v1.27.1.1"
+    },
+    "openssl-ech": {
+        "cargoLocks": null,
+        "date": "2024-11-03",
+        "extract": null,
+        "name": "openssl-ech",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sftcd",
+            "repo": "openssl",
+            "rev": "2881d0f7fe3c8efc07ae30b27bbbf0d032a5fab3",
+            "sha256": "sha256-/Sgilv/4EUQY7D8SuDsXorCVWGi9o5q1hpi8OKTPct8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2881d0f7fe3c8efc07ae30b27bbbf0d032a5fab3"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
