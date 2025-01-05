@@ -321,6 +321,13 @@ let
 
       outputs = [ "out" "dev" ];
 
+      env.NIX_CFLAGS_COMPILE = toString [
+        "-Wno-error=incompatible-pointer-types"
+        "-Wno-error=implicit-function-declaration"
+        "-Wno-error=int-conversion"
+        "-Wno-error=implicit-int"
+      ];
+
       meta = with lib; {
         description = "An HTML-embedded scripting language";
         homepage = "https://www.php.net/";
