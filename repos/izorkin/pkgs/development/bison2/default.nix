@@ -20,15 +20,15 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./patch/fix_fseterr_c.patch
-  ] ++ lib.optional stdenv.isDarwin ./patch/darwin-vasnprintf.patch;
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin ./patch/darwin-vasnprintf.patch;
 
   doCheck = true;
   # M4 = "${m4}/bin/m4";
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.gnu.org/software/bison/";
     description = "Yacc-compatible parser generator";
-    license = licenses.gpl3Plus;
+    license = lib.licenses.gpl3Plus;
 
     longDescription = ''
       Bison is a general-purpose parser generator that converts an
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       to use Bison.
     '';
 
-    platforms = platforms.unix;
+    platforms = lib.platforms.unix;
   };
 
   passthru = { glrSupport = true; };

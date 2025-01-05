@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchpatch, pam, openssl }:
+{ lib, stdenv, fetchurl, fetchpatch, pam, openssl, libkrb5 }:
 
 stdenv.mkDerivation rec {
   pname = "uw-imap";
@@ -9,30 +9,53 @@ stdenv.mkDerivation rec {
     sha256 = "0a2a00hbakh0640r2wdpnwr8789z59wnk7rfsihh3j0vbhmmmqak";
   };
 
-  makeFlags = [ (if stdenv.isDarwin
-    then "osx"
-    else "lnp") ]  # Linux with PAM modules;
-    # -fPIC is required to compile php with imap on x86_64 systems
-    ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "CC=${stdenv.hostPlatform.config}-gcc" "RANLIB=${stdenv.hostPlatform.config}-ranlib" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+    (if stdenv.hostPlatform.isDarwin then "osx" else "lnp") # Linux with PAM modules;
+  ] ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optional (!stdenv.isDarwin) pam;
+  buildInputs = [
+    openssl
+    (if stdenv.isDarwin then libkrb5 else pam)  # Matches the make target.
+  ];
 
-  patches = [ (fetchpatch {
-    url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
-    sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
-  }) ];
+  patches = [
+    (fetchpatch {
+      url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
+      sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
+    })
+    # Required to build with newer versions of clang. Fixes call to undeclared functions errors
+    # and incompatible function pointer conversions.
+    ./patch/fix-clang.patch
+    ./patch/fix-gcc-14.patch
+  ];
 
   postPatch = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
     sed -i src/osdep/unix/Makefile -e 's,^SSLCERTS=.*,SSLCERTS=/etc/ssl/certs,'
     sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${lib.getLib openssl}/lib,'
+  ''
+  # utime takes a struct utimbuf rather than an array of time_t[2]
+  # convert time_t tp[2] to a struct utimbuf where
+  # tp[0] -> tp.actime and tp[1] -> tp.modtime, where actime and modtime are
+  # type time_t.
+  + ''
+    sed -i \
+      -e 's/time_t tp\[2]/struct utimbuf tp/' \
+      -e 's/\<tp\[0]/tp.actime/g' \
+      -e 's/\<tp\[1]/tp.modtime/g' \
+      -e 's/\(utime *([-a-z>]*\),tp)/\1,\&tp)/' \
+      src/osdep/unix/{mbx.c,mh.c,mmdf.c,mtx.c,mx.c,tenex.c,unix.c}
   '';
 
-  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin
+  preConfigure = ''
+    makeFlagsArray+=("ARRC=${stdenv.cc.targetPrefix}ar rc")
+  '';
+
+  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin
     "-I${openssl.dev}/include/openssl";
 
   installPhase = ''
@@ -43,21 +66,14 @@ stdenv.mkDerivation rec {
       tools/{an,ua} $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.washington.edu/imap/";
     description = "UW IMAP toolkit - IMAP-supporting software developed by the UW";
-    license = licenses.asl20;
-    platforms = with platforms; linux;
+    license = lib.licenses.asl20;
+    platforms = lib.platforms.unix;
   };
 
   passthru = {
     withSSL = true;
   };
-} // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) {
-  # This is set here to prevent rebuilds on native compilation.
-  # Configure phase is a no-op there, because this package doesn't use ./configure scripts.
-  configurePhase = ''
-    echo "Cross-compilation, injecting make flags"
-    makeFlagsArray+=("ARRC=${stdenv.hostPlatform.config}-ar rc")
-  '';
 }

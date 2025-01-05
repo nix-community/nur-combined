@@ -1,4 +1,4 @@
-{ pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase_2_10_4, spidermonkey_1_8_5 }:
+{ lib, pkgs, fetchgit, fetchpatch, php, openssl, libevent, libcouchbase_2_10_4, spidermonkey_1_8_5 }:
 
 let
   self = with self; {
@@ -13,14 +13,14 @@ let
       pname = "php-${php.version}-${pname}";
     });
 
-    isPhp56 = pkgs.lib.versionOlder   php.version "7.0";
-    isPhp71 = pkgs.lib.versionAtLeast php.version "7.1";
-    isPhp72 = pkgs.lib.versionAtLeast php.version "7.2";
-    isPhp73 = pkgs.lib.versionAtLeast php.version "7.3";
-    isPhp74 = pkgs.lib.versionAtLeast php.version "7.4";
-    isPhp80 = pkgs.lib.versionAtLeast php.version "8.0";
-    isPhp81 = pkgs.lib.versionAtLeast php.version "8.1";
-    isPhp82 = pkgs.lib.versionAtLeast php.version "8.2";
+    isPhp56 = lib.versionOlder   php.version "7.0";
+    isPhp71 = lib.versionAtLeast php.version "7.1";
+    isPhp72 = lib.versionAtLeast php.version "7.2";
+    isPhp73 = lib.versionAtLeast php.version "7.3";
+    isPhp74 = lib.versionAtLeast php.version "7.4";
+    isPhp80 = lib.versionAtLeast php.version "8.0";
+    isPhp81 = lib.versionAtLeast php.version "8.1";
+    isPhp82 = lib.versionAtLeast php.version "8.2";
 
   apcu = if isPhp56 then apcu40 else apcu51;
 
@@ -101,11 +101,11 @@ let
         --add-flags "-d phar.readonly=0 $out/libexec/box/box.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "An application for building and managing Phars";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://box-project.github.io/box2/";
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with lib.maintainers; [ jtojnar ];
     };
   };
 
@@ -130,11 +130,11 @@ let
         --prefix PATH : ${lib.makeBinPath [ unzip ]}
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "Dependency Manager for PHP";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://getcomposer.org/";
-      maintainers = with maintainers; [ globin offline ];
+      maintainers = with lib.maintainers; [ globin offline ];
     };
   };
 
@@ -159,11 +159,11 @@ let
         --prefix PATH : ${lib.makeBinPath [ unzip ]}
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "Dependency Manager for PHP";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://getcomposer.org/";
-      maintainers = with maintainers; [ globin offline ];
+      maintainers = with lib.maintainers; [ globin offline ];
     };
   };
 
@@ -241,12 +241,12 @@ let
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ openssl libevent ];
 
-    meta = with pkgs.lib; {
+    meta = {
       description = ''
         This is an extension to efficiently schedule I/O, time and signal based
         events using the best I/O notification mechanism available for specific platform.
       '';
-      license = licenses.php301;
+      license = lib.licenses.php301;
       homepage = "https://bitbucket.org/osmanov/pecl-event/";
     };
   };
@@ -437,7 +437,7 @@ let
       snappy
       zlib
       pcre.dev
-    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
+    ] ++ lib.optional (stdenv.hostPlatform.isDarwin) darwin.apple_sdk.frameworks.Security;
 
     meta.broken = !isPhp56;
   };
@@ -456,7 +456,7 @@ let
       snappy
       zlib
       pcre.dev
-    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
+    ] ++ lib.optional (stdenv.hostPlatform.isDarwin) darwin.apple_sdk.frameworks.Security;
 
     meta.broken = (isPhp56 || isPhp72);
   };
@@ -475,7 +475,7 @@ let
       snappy
       zlib
       (if isPhp73 then pcre2.dev else pcre.dev)
-    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
+    ] ++ lib.optional (stdenv.hostPlatform.isDarwin) darwin.apple_sdk.frameworks.Security;
 
     meta.broken = (!isPhp72 || isPhp74);
   };
@@ -494,7 +494,7 @@ let
       snappy
       zlib
       (if isPhp73 then pcre2.dev else pcre.dev)
-    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
+    ] ++ lib.optional (stdenv.hostPlatform.isDarwin) darwin.apple_sdk.frameworks.Security;
 
     meta.broken = !isPhp74;
   };
@@ -573,11 +573,11 @@ let
         --add-flags "$out/libexec/php-cs-fixer/php-cs-fixer.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "A tool to automatically fix PHP coding standards issues";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://cs.symfony.com/";
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with lib.maintainers; [ jtojnar ];
     };
   };
 
@@ -607,11 +607,11 @@ let
         --add-flags "$out/libexec/php-parallel-lint/php-parallel-lint.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "This tool check syntax of PHP files faster than serial check with fancier output";
-      license = licenses.bsd2;
+      license = lib.licenses.bsd2;
       homepage = "https://github.com/JakubOnderka/PHP-Parallel-Lint";
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with lib.maintainers; [ jtojnar ];
 
       broken = isPhp81;
     };
@@ -636,11 +636,11 @@ let
         --add-flags "$out/libexec/phpcbf/phpcbf.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP coding standard beautifier and fixer";
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://github.com/squizlabs/PHP_CodeSniffer";
-      maintainers = with maintainers; [ cmcdragonkai etu ];
+      maintainers = with lib.maintainers; [ cmcdragonkai etu ];
     };
   };
 
@@ -663,11 +663,11 @@ let
         --add-flags "$out/libexec/phpcs/phpcs.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP coding standard tool";
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://github.com/squizlabs/PHP_CodeSniffer";
-      maintainers = with maintainers; [ javaguirre etu ];
+      maintainers = with lib.maintainers; [ javaguirre etu ];
     };
   };
 
@@ -690,7 +690,7 @@ let
         --add-flags "$out/libexec/phpstan/phpstan.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP Static Analysis Tool";
       longDescription = ''
         PHPStan focuses on finding errors in your code without actually running
@@ -699,9 +699,9 @@ let
         correctness of each line of the code can be checked before you run the
         actual line.
       '';
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://github.com/phpstan/phpstan";
-      maintainers = with maintainers; [ etu ];
+      maintainers = with lib.maintainers; [ etu ];
     };
   };
 
@@ -718,7 +718,7 @@ let
       sha256 = "1866c82ypijcm44sbfygfzs0d3klj7xsyc40imzac7s9x1x4fp81";
     };
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP extension for Pinba";
       longDescription = ''
         Pinba is a MySQL storage engine that acts as a realtime monitoring and
@@ -741,7 +741,7 @@ let
       sha256 = "1kdp7vav0y315695vhm3xifgsh6h6y6pny70xw3iai461n58khj5";
     };
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP extension for Pinba";
       longDescription = ''
         Pinba is a MySQL storage engine that acts as a realtime monitoring and
@@ -764,7 +764,7 @@ let
       sha256 = "0wqcqq6sb51wiawa37hbd1h9dbvmyyndzdvz87xqji7lpr9vn8jy";
     };
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PHP extension for Pinba";
       longDescription = ''
         Pinba is a MySQL storage engine that acts as a realtime monitoring and
@@ -786,11 +786,11 @@ let
 
     buildInputs = with pkgs; [ pcre.dev ];
 
-    meta = with pkgs.lib; {
+    meta = {
       description = ''
         Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
       '';
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
       broken = !isPhp56;
@@ -805,11 +805,11 @@ let
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
-    meta = with pkgs.lib; {
+    meta = {
       description = ''
         Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
       '';
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
       broken = (isPhp56 || isPhp72);
@@ -824,11 +824,11 @@ let
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
-    meta = with pkgs.lib; {
+    meta = {
       description = ''
         Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
       '';
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
       broken = (!isPhp72 || isPhp81);
@@ -843,11 +843,11 @@ let
 
     buildInputs = with pkgs; [ pcre2.dev ];
 
-    meta = with pkgs.lib; {
+    meta = {
       description = ''
         Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.
       '';
-      license = licenses.bsd3;
+      license = lib.licenses.bsd3;
       homepage = "https://developers.google.com/protocol-buffers";
 
       broken = !isPhp81;
@@ -873,9 +873,9 @@ let
         --add-flags "$out/libexec/psalm/psalm.phar"
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "A static analysis tool for finding errors in PHP applications";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://github.com/vimeo/psalm";
     };
   };
@@ -899,11 +899,11 @@ let
       wrapProgram $out/bin/psysh
     '';
 
-    meta = with pkgs.lib; {
+    meta = {
       description = "PsySH is a runtime developer console, interactive debugger and REPL for PHP.";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       homepage = "https://psysh.org/";
-      maintainers = with maintainers; [ caugner ];
+      maintainers = with lib.maintainers; [ caugner ];
     };
   };
 

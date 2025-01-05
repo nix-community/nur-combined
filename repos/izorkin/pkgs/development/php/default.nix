@@ -11,10 +11,8 @@
 , libxslt, zlib, libzip, libsodium, oniguruma
 }:
 
-with lib;
-
 let
-  php7 = versionAtLeast version "7.0";
+  php7 = lib.versionAtLeast lib.version "7.0";
   generic =
   { version
   , sha256
@@ -22,7 +20,7 @@ let
   , extraPatches ? []
 
   # Sapi flags
-  , apxs2Support ? config.php.apxs2 or (!stdenv.isDarwin)
+  , apxs2Support ? config.php.apxs2 or (!stdenv.hostPlatform.isDarwin)
   , cgiSupport ? config.php.cgi or true
   , cliSupport ? config.php.cli or true
   , embedSupport ? config.php.embed or false
@@ -30,16 +28,16 @@ let
   , phpdbgSupport ? config.php.phpdbg or true
 
   # Misc flags
-  , argon2Support ? (config.php.argon2 or true) && (versionAtLeast version "7.2")
+  , argon2Support ? (config.php.argon2 or true) && (lib.versionAtLeast version "7.2")
   , cgotoSupport ? config.php.cgoto or false
   , ipv6Support ? config.php.ipv6 or true
   , pearSupport ? (config.php.pear or true) && (libxml2Support)
-  , systemdSupport ? config.php.systemd or stdenv.isLinux
-  , valgrindSupport ? (config.php.valgrind or true) && (versionAtLeast version "7.2")
+  , systemdSupport ? config.php.systemd or stdenv.hostPlatform.isLinux
+  , valgrindSupport ? (config.php.valgrind or true) && (lib.versionAtLeast version "7.2")
   , ztsSupport ? (config.php.zts or false) || (apxs2Support)
 
   # Extension flags only in 5.6
-  , mssqlSupport ? (config.php.mssql or (!stdenv.isDarwin)) && (!php7)
+  , mssqlSupport ? (config.php.mssql or (!stdenv.hostPlatform.isDarwin)) && (!php7)
 
   # Extension flags in 5.6 and higher
   , bcmathSupport ? config.php.bcmath or true
@@ -53,12 +51,12 @@ let
   , gmpSupport ? config.php.gmp or true
   , mhashSupport ? config.php.mhash or true
   , iconvSupport ? config.php.iconv or true
-  , imapSupport ? config.php.imap or (!stdenv.isDarwin)
+  , imapSupport ? config.php.imap or (!stdenv.hostPlatform.isDarwin)
   , intlSupport ? config.php.intl or true
   , ldapSupport ? config.php.ldap or true
   , libxml2Support ? config.php.libxml2 or true
   , mbstringSupport ? config.php.mbstring or true
-  , mcryptSupport ? (config.php.mcrypt or true) && (versionOlder version "7.2")
+  , mcryptSupport ? (config.php.mcrypt or true) && (lib.versionOlder version "7.2")
   , mysqliSupport ? (config.php.mysqli or true) && (mysqlndSupport)
   , mysqlndSupport ? config.php.mysqlnd or true
   , opensslSupport ? config.php.openssl or true
@@ -76,19 +74,19 @@ let
   , xmlrpcSupport ? (config.php.xmlrpc or false) && (libxml2Support)
   , xslSupport ? config.php.xsl or false
   , zipSupport ? config.php.zip or true
-  , libzipSupport ? (config.php.libzip or true) && (versionAtLeast version "7.2")
+  , libzipSupport ? (config.php.libzip or true) && (lib.versionAtLeast version "7.2")
   , zlibSupport ? config.php.zlib or true
 
   # Extension flags in 7.2 and higher
-  , sodiumSupport ? (config.php.sodium or true) && (versionAtLeast version "7.2")
+  , sodiumSupport ? (config.php.sodium or true) && (lib.versionAtLeast version "7.2")
   }:
 
     let
-      autoconf' =  if (versionOlder version "7.0") then autoconf271 else autoconf;
+      autoconf' =  if (lib.versionOlder version "7.0") then autoconf271 else autoconf;
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
-      libxml2' = if (versionAtLeast version "8.2") then libxml2 else libxml2_2_12;
-      pcre' = if (versionAtLeast version "7.3") then pcre2 else pcre;
-      icu' = if (versionOlder version "7.0") then icu60 else (if versionAtLeast version "8.0" then icu69 else (if versionAtLeast version "7.3" then icu69 else icu67));
+      libxml2' = if (lib.versionAtLeast version "8.2") then libxml2 else libxml2_2_12;
+      pcre' = if (lib.versionAtLeast version "7.3") then pcre2 else pcre;
+      icu' = if (lib.versionOlder version "7.0") then icu60 else (if lib.versionAtLeast version "8.0" then icu69 else (if lib.versionAtLeast version "7.3" then icu69 else icu67));
 
     in stdenv.mkDerivation {
 
@@ -100,8 +98,8 @@ let
 
       nativeBuildInputs = [
         autoconf' automake file flex libtool pkg-config re2c
-      ] ++ optional (versionOlder version "7.0") bison2
-        ++ optional (versionAtLeast version "7.0") bison;
+      ] ++ lib.optional (lib.versionOlder version "7.0") bison2
+        ++ lib.optional (lib.versionAtLeast version "7.0") bison;
 
       buildInputs =
         # Extended crypt library
@@ -111,161 +109,161 @@ let
         [ pcre' ]
 
         # Sapi flags
-        ++ optional apxs2Support apacheHttpd
+        ++ lib.optional apxs2Support apacheHttpd
 
         # Misc flags
-        ++ optional argon2Support libargon2
-        ++ optional systemdSupport systemd
-        ++ optional valgrindSupport valgrind
+        ++ lib.optional argon2Support libargon2
+        ++ lib.optional systemdSupport systemd
+        ++ lib.optional valgrindSupport valgrind
 
         # Extension flags only in 5.6
-        ++ optional (mssqlSupport && !stdenv.isDarwin) freetds
+        ++ lib.optional (mssqlSupport && !stdenv.hostPlatform.isDarwin) freetds
 
         # Extension flags in 5.6 and higher
-        ++ optional bz2Support bzip2
-        ++ optionals curlSupport [ curl openssl ]
-        ++ optionals gdSupport [ gd freetype libXpm libjpeg libpng libwebp ]
-        ++ optional gettextSupport gettext
-        ++ optional gmpSupport gmp
-        ++ optional iconvSupport libiconv
-        ++ optionals imapSupport [ uwimap openssl pam ]
-        ++ optional intlSupport icu'
-        ++ optionals ldapSupport [ openldap openssl ]
-        ++ optional (ldapSupport && stdenv.isLinux) cyrus_sasl
-        ++ optional libxml2Support libxml2'
-        ++ optional mcryptSupport libmcrypt'
-        ++ optionals opensslSupport [ openssl openssl.dev ]
-        ++ optional pdo_odbcSupport unixODBC
-        ++ optional pdo_pgsqlSupport postgresql
-        ++ optional sqliteSupport sqlite
-        ++ optional pgsqlSupport postgresql
-        ++ optional readlineSupport readline
-        ++ optional tidySupport html-tidy
-        ++ optional xslSupport libxslt
-        ++ optional zlibSupport zlib
-        ++ optional libzipSupport libzip
+        ++ lib.optional bz2Support bzip2
+        ++ lib.optionals curlSupport [ curl openssl ]
+        ++ lib.optionals gdSupport [ gd freetype libXpm libjpeg libpng libwebp ]
+        ++ lib.optional gettextSupport gettext
+        ++ lib.optional gmpSupport gmp
+        ++ lib.optional iconvSupport libiconv
+        ++ lib.optionals imapSupport [ uwimap openssl pam ]
+        ++ lib.optional intlSupport icu'
+        ++ lib.optionals ldapSupport [ openldap openssl ]
+        ++ lib.optional (ldapSupport && stdenv.hostPlatform.isLinux) cyrus_sasl
+        ++ lib.optional libxml2Support libxml2'
+        ++ lib.optional mcryptSupport libmcrypt'
+        ++ lib.optionals opensslSupport [ openssl openssl.dev ]
+        ++ lib.optional pdo_odbcSupport unixODBC
+        ++ lib.optional pdo_pgsqlSupport postgresql
+        ++ lib.optional sqliteSupport sqlite
+        ++ lib.optional pgsqlSupport postgresql
+        ++ lib.optional readlineSupport readline
+        ++ lib.optional tidySupport html-tidy
+        ++ lib.optional xslSupport libxslt
+        ++ lib.optional zlibSupport zlib
+        ++ lib.optional libzipSupport libzip
 
         # Extension flags in 7.2 and higher
-        ++ optional sodiumSupport libsodium
+        ++ lib.optional sodiumSupport libsodium
 
         # Extension flags in 7.4 and higher
-        ++ optional (versionAtLeast version "7.4") oniguruma;
+        ++ lib.optional (lib.versionAtLeast version "7.4") oniguruma;
 
-      CXXFLAGS = optionalString stdenv.cc.isClang "-std=c++11";
+      CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
 
       configureFlags = [
         "--with-config-file-scan-dir=/etc/php.d"
       ]
 
       # PCRE
-      ++ optionals (versionOlder version "7.3") [ "--with-pcre-regex=${pcre'.dev}" ]
-      ++ optionals (versions.majorMinor version == "7.3") [ "--with-pcre-regex=${pcre'.dev}" ]
-      ++ optionals (versionAtLeast version "7.4") [ "--with-external-pcre=${pcre'.dev}" ]
+      ++ lib.optionals (lib.versionOlder version "7.3") [ "--with-pcre-regex=${pcre'.dev}" ]
+      ++ lib.optionals (lib.versions.majorMinor version == "7.3") [ "--with-pcre-regex=${pcre'.dev}" ]
+      ++ lib.optionals (lib.versionAtLeast version "7.4") [ "--with-external-pcre=${pcre'.dev}" ]
       ++ [ "PCRE_LIBDIR=${pcre'}" ]
 
       # Enable sapis
-      ++ optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
-      ++ optional (!cgiSupport) "--disable-cgi"
-      ++ optional (!cliSupport) "--disable-cli"
-      ++ optional embedSupport "--enable-embed"
-      ++ optional fpmSupport "--enable-fpm"
-      ++ optional phpdbgSupport "--enable-phpdbg"
-      ++ optional (!phpdbgSupport) "--disable-phpdbg"
+      ++ lib.optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
+      ++ lib.optional (!cgiSupport) "--disable-cgi"
+      ++ lib.optional (!cliSupport) "--disable-cli"
+      ++ lib.optional embedSupport "--enable-embed"
+      ++ lib.optional fpmSupport "--enable-fpm"
+      ++ lib.optional phpdbgSupport "--enable-phpdbg"
+      ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
       # Misc flags
-      ++ optional argon2Support "--with-password-argon2=${libargon2}"
-      ++ optional cgotoSupport "--enable-re2c-cgoto"
-      ++ optional (!ipv6Support) "--disable-ipv6"
-      ++ optional (pearSupport && libxml2Support) "--with-pear"
-      ++ optional systemdSupport "--with-fpm-systemd"
-      ++ optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-      ++ optional (ztsSupport && (versionOlder version "8.0")) "--enable-maintainer-zts"
-      ++ optional (ztsSupport && (versionAtLeast version "8.0")) "--enable-zts"
+      ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
+      ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
+      ++ lib.optional (!ipv6Support) "--disable-ipv6"
+      ++ lib.optional (pearSupport && libxml2Support) "--with-pear"
+      ++ lib.optional systemdSupport "--with-fpm-systemd"
+      ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
+      ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0")) "--enable-maintainer-zts"
+      ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0")) "--enable-zts"
 
       # Sendmail
       ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
 
       # Enable extensions only in 5.6
-      ++ optional (mssqlSupport && !stdenv.isDarwin) "--with-mssql=${freetds}"
+      ++ lib.optional (mssqlSupport && !stdenv.hostPlatform.isDarwin) "--with-mssql=${freetds}"
 
       # Enable Extensions in 5.6 and higher
-      ++ optional bcmathSupport "--enable-bcmath"
-      ++ optional bz2Support "--with-bz2=${bzip2.dev}"
-      ++ optional calendarSupport "--enable-calendar"
-      ++ optional curlSupport "--with-curl=${curl.dev}"
-      ++ optional exifSupport "--enable-exif"
-      ++ optional ftpSupport "--enable-ftp"
-      ++ optionals (gdSupport && versionOlder version "7.4") [
+      ++ lib.optional bcmathSupport "--enable-bcmath"
+      ++ lib.optional bz2Support "--with-bz2=${bzip2.dev}"
+      ++ lib.optional calendarSupport "--enable-calendar"
+      ++ lib.optional curlSupport "--with-curl=${curl.dev}"
+      ++ lib.optional exifSupport "--enable-exif"
+      ++ lib.optional ftpSupport "--enable-ftp"
+      ++ lib.optionals (gdSupport && lib.versionOlder version "7.4") [
         "--with-gd=${gd.dev}"
-        (if (versionAtLeast version "7.0") then "--with-webp-dir=${libwebp}" else null)
+        (if (lib.versionAtLeast version "7.0") then "--with-webp-dir=${libwebp}" else null)
         "--with-jpeg-dir=${libjpeg.dev}"
         "--with-png-dir=${libpng.dev}"
         "--with-freetype-dir=${freetype.dev}"
         "--with-xpm-dir=${libXpm.dev}"
         "--enable-gd-jis-conv"
       ]
-      ++ optionals (gdSupport && versionAtLeast version "7.4") [
+      ++ lib.optionals (gdSupport && lib.versionAtLeast version "7.4") [
         "--enable-gd"
         "--with-external-gd=${gd.dev}"
-        (if (versionAtLeast version "8.1") then "--with-avif=${libavif}" else null)
+        (if (lib.versionAtLeast version "8.1") then "--with-avif=${libavif}" else null)
         "--with-webp=${libwebp}"
         "--with-jpeg=${libjpeg.dev}"
         "--with-xpm=${libXpm.dev}"
         "--with-freetype=${freetype.dev}"
         "--enable-gd-jis-conv"
       ]
-      ++ optional gettextSupport "--with-gettext=${gettext}"
-      ++ optional gmpSupport "--with-gmp=${gmp.dev}"
-      ++ optional mhashSupport "--with-mhash"
-      ++ optional (iconvSupport && stdenv.isDarwin) "--with-iconv=${libiconv}"
-      ++ optional (!iconvSupport) "--without-iconv"
-      ++ optionals imapSupport [
+      ++ lib.optional gettextSupport "--with-gettext=${gettext}"
+      ++ lib.optional gmpSupport "--with-gmp=${gmp.dev}"
+      ++ lib.optional mhashSupport "--with-mhash"
+      ++ lib.optional (iconvSupport && stdenv.hostPlatform.isDarwin) "--with-iconv=${libiconv}"
+      ++ lib.optional (!iconvSupport) "--without-iconv"
+      ++ lib.optionals imapSupport [
         "--with-imap=${uwimap}"
         "--with-imap-ssl"
       ]
-      ++ optional intlSupport "--enable-intl"
-      ++ optionals ldapSupport [
+      ++ lib.optional intlSupport "--enable-intl"
+      ++ lib.optionals ldapSupport [
         "--with-ldap=/invalid/path"
         "LDAP_DIR=${openldap.dev}"
         "LDAP_INCDIR=${openldap.dev}/include"
         "LDAP_LIBDIR=${openldap.out}/lib"
       ]
-      ++ optional (ldapSupport && stdenv.isLinux) "--with-ldap-sasl=${cyrus_sasl.dev}"
-      ++ optional (libxml2Support && (versionOlder version "7.4")) "--with-libxml-dir=${libxml2'.dev}"
-      ++ optional (!libxml2Support) [
+      ++ lib.optional (ldapSupport && stdenv.hostPlatform.isLinux) "--with-ldap-sasl=${cyrus_sasl.dev}"
+      ++ lib.optional (libxml2Support && (lib.versionOlder version "7.4")) "--with-libxml-dir=${libxml2'.dev}"
+      ++ lib.optional (!libxml2Support) [
         "--disable-dom"
-        (if (versionOlder version "7.4") then "--disable-libxml" else "--without-libxml")
+        (if (lib.versionOlder version "7.4") then "--disable-libxml" else "--without-libxml")
         "--disable-simplexml"
         "--disable-xml"
         "--disable-xmlreader"
         "--disable-xmlwriter"
         "--without-pear"
       ]
-      ++ optional mbstringSupport "--enable-mbstring"
-      ++ optional mcryptSupport "--with-mcrypt=${libmcrypt'}"
-      ++ optional (mysqliSupport && mysqlndSupport) "--with-mysqli=mysqlnd"
-      ++ optional opensslSupport "--with-openssl"
-      ++ optional pcntlSupport "--enable-pcntl"
-      ++ optional (pdo_mysqlSupport && mysqlndSupport) "--with-pdo-mysql=mysqlnd"
-      ++ optional (pdo_mysqlSupport || mysqliSupport) "--with-mysql-sock=/run/mysqld/mysqld.sock"
-      ++ optional pdo_odbcSupport "--with-pdo-odbc=unixODBC,${unixODBC}"
-      ++ optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql.dev}"
-      ++ optional sqliteSupport "--with-pdo-sqlite=${sqlite.dev}"
-      ++ optional pgsqlSupport "--with-pgsql=${postgresql.dev}"
-      ++ optional (!pharSupport) "--disable-phar"
-      ++ optional readlineSupport "--with-readline=${readline.dev}"
-      ++ optional soapSupport "--enable-soap"
-      ++ optional socketsSupport "--enable-sockets"
-      ++ optional tidySupport "--with-tidy=${html-tidy}"
-      ++ optional xmlrpcSupport "--with-xmlrpc"
-      ++ optional xslSupport "--with-xsl=${libxslt.dev}"
-      ++ optional (zipSupport && (versionOlder version "7.4")) "--enable-zip"
-      ++ optional (zipSupport && (versionAtLeast version "7.4")) "--with-zip"
-      ++ optional (libzipSupport && (versionOlder version "7.4")) "--with-libzip=${libzip.dev}"
-      ++ optional zlibSupport "--with-zlib=${zlib.dev}"
+      ++ lib.optional mbstringSupport "--enable-mbstring"
+      ++ lib.optional mcryptSupport "--with-mcrypt=${libmcrypt'}"
+      ++ lib.optional (mysqliSupport && mysqlndSupport) "--with-mysqli=mysqlnd"
+      ++ lib.optional opensslSupport "--with-openssl"
+      ++ lib.optional pcntlSupport "--enable-pcntl"
+      ++ lib.optional (pdo_mysqlSupport && mysqlndSupport) "--with-pdo-mysql=mysqlnd"
+      ++ lib.optional (pdo_mysqlSupport || mysqliSupport) "--with-mysql-sock=/run/mysqld/mysqld.sock"
+      ++ lib.optional pdo_odbcSupport "--with-pdo-odbc=unixODBC,${unixODBC}"
+      ++ lib.optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql.dev}"
+      ++ lib.optional sqliteSupport "--with-pdo-sqlite=${sqlite.dev}"
+      ++ lib.optional pgsqlSupport "--with-pgsql=${postgresql.dev}"
+      ++ lib.optional (!pharSupport) "--disable-phar"
+      ++ lib.optional readlineSupport "--with-readline=${readline.dev}"
+      ++ lib.optional soapSupport "--enable-soap"
+      ++ lib.optional socketsSupport "--enable-sockets"
+      ++ lib.optional tidySupport "--with-tidy=${html-tidy}"
+      ++ lib.optional xmlrpcSupport "--with-xmlrpc"
+      ++ lib.optional xslSupport "--with-xsl=${libxslt.dev}"
+      ++ lib.optional (zipSupport && (lib.versionOlder version "7.4")) "--enable-zip"
+      ++ lib.optional (zipSupport && (lib.versionAtLeast version "7.4")) "--with-zip"
+      ++ lib.optional (libzipSupport && (lib.versionOlder version "7.4")) "--with-libzip=${libzip.dev}"
+      ++ lib.optional zlibSupport "--with-zlib=${zlib.dev}"
 
       # Enable extensions in 7.2 and higher
-      ++ optional sodiumSupport "--with-sodium=${libsodium.dev}";
+      ++ lib.optional sodiumSupport "--with-sodium=${libsodium.dev}";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -279,19 +277,19 @@ let
         done
 
         substituteInPlace ./build/libtool.m4 --replace "/usr/bin/file" "${file}/bin/file"
-      '' + optionalString (versionOlder version "7.4") ''
+      '' + lib.optionalString (lib.versionOlder version "7.4") ''
         # https://bugs.php.net/bug.php?id=79159
         substituteInPlace ./acinclude.m4 --replace "AC_PROG_YACC" "AC_CHECK_PROG(YACC, bison, bison)"
-      '' + optionalString stdenv.isDarwin ''
+      '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
         substituteInPlace ./configure --replace "-lstdc++" "-lc++"
       '';
 
       preConfigure = ''
         export EXTENSION_DIR=$out/lib/php/extensions
-      '' + optionalString (versionOlder version "7.4") ''
+      '' + lib.optionalString (lib.versionOlder version "7.4") ''
         ./buildconf --copy --force
         ./genfiles
-      '' + optionalString (versionAtLeast version "7.4") ''
+      '' + lib.optionalString (lib.versionAtLeast version "7.4") ''
         ./buildconf --force
         ./scripts/dev/genfiles
       '';
@@ -326,9 +324,9 @@ let
       meta = with lib; {
         description = "An HTML-embedded scripting language";
         homepage = "https://www.php.net/";
-        license = licenses.php301;
-        maintainers = with maintainers; [ globin etu ];
-        platforms = platforms.all;
+        license = lib.licenses.php301;
+        maintainers = with lib.maintainers; [ globin etu ];
+        platforms = lib.platforms.all;
         outputsToInstall = [ "out" "dev" ];
       };
     };
@@ -441,7 +439,7 @@ in {
       ./patch/php71/php7133-81720.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
-      ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
+      ++ lib.optional stdenv.hostPlatform.isDarwin ./patch/php71-darwin-isfinite.patch;
   };
 
   php72 = generic {
@@ -466,7 +464,7 @@ in {
       ./patch/php72/php7234-81720.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
-      ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
+      ++ lib.optional stdenv.hostPlatform.isDarwin ./patch/php72-darwin-isfinite.patch;
   };
 
   php73 = generic {
@@ -483,7 +481,7 @@ in {
       ./patch/php73/php7331-81720.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
-      ++ optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
+      ++ lib.optional stdenv.hostPlatform.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {

@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
   nativeBuildInputs = [ installShellFiles ];
 
   pythonPath = with python3.pkgs;
-    lib.optionals stdenv.isLinux [
+    lib.optionals stdenv.hostPlatform.isLinux [
       systemd
       pyinotify
 
@@ -69,15 +69,15 @@ python3.pkgs.buildPythonApplication rec {
       rm $out/bin/fail2ban-python
       ln -s ${python3.interpreter} $out/bin/fail2ban-python
 
-    '' + lib.optionalString stdenv.isLinux ''
+    '' + lib.optionalString stdenv.hostPlatform.isLinux ''
       # see https://github.com/NixOS/nixpkgs/issues/4968
       rm -r "${sitePackages}/usr"
     '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.fail2ban.org/";
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ eelco lovek323 ];
+    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ eelco lovek323 ];
   };
 }

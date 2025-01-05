@@ -11,7 +11,7 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs = [ nspr ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isAarch32 autoconf213;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isAarch32 autoconf213;
   buildInputs = [ perl python2 zip ];
 
   postUnpack = "sourceRoot=\${sourceRoot}/js/src";
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${nspr.dev}/include/nspr"
     export LIBXUL_DIST=$out
-    ${lib.optionalString stdenv.isAarch32 "autoreconf --verbose --force"}
+    ${lib.optionalString stdenv.hostPlatform.isAarch32 "autoreconf --verbose --force"}
   '';
 
   patches = [
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
       url = "https://sources.debian.org/data/main/m/mozjs/1.8.5-1.0.0+dfsg-6/debian/patches/fix-811665.patch";
       sha256 = "1q8477xqxiy5d8376k5902l45gd0qkd4nxmhl8vr6rr1pxfcny99";
     })
-  ] ++ lib.optionals stdenv.isAarch32 [
+  ] ++ lib.optionals stdenv.hostPlatform.isAarch32 [
     # Explained below in configureFlags for ARM
     ./patch/1.8.5-findvanilla.patch
     # Fix for hard float flags.
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
   # hack around a make problem, see https://github.com/NixOS/nixpkgs/issues/1279#issuecomment-29547393
   preBuild = ''
     touch -- {.,shell,jsapi-tests}/{-lpthread,-ldl}
-    ${if stdenv.isAarch32 then "rm -r jit-test/tests/jaeger/bug563000" else ""}
+    ${if stdenv.hostPlatform.isAarch32 then "rm -r jit-test/tests/jaeger/bug563000" else ""}
   '';
 
   enableParallelBuilding = true;
@@ -67,13 +67,13 @@ stdenv.mkDerivation {
     rm jit-test/tests/sunspider/check-date-format-tofte.js    # https://bugzil.la/600522
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Mozilla's JavaScript engine written in C/C++";
     homepage = "https://developer.mozilla.org/en/SpiderMonkey";
     # TODO: MPL/GPL/LGPL tri-license.
-    maintainers = [ maintainers.goibhniu ];
-    platforms = platforms.linux;
-    broken = stdenv.isAarch64; # 2018-08-21, broken since 2017-03-08
+    maintainers = with lib.maaintainers; [ goibhniu ];
+    platforms = lib.platforms.linux;
+    broken = stdenv.hostPlatform.isAarch64; # 2018-08-21, broken since 2017-03-08
   };
 }
 

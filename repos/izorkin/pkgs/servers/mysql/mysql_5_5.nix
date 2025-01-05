@@ -26,18 +26,18 @@ self = stdenv.mkDerivation rec {
       extraPrefix = "";
       sha256 = "09sya27z3ir3xy5mrv3x68hm274594y381n0i6r5s627x71jyszf";
     }) ++
-    lib.optionals stdenv.isCygwin [
+    lib.optionals stdenv.hostPlatform.isCygwin [
       ./patch/5.5.17-cygwin.patch
       ./patch/5.5.17-export-symbols.patch
     ];
 
-  preConfigure = lib.optional stdenv.isDarwin ''
+  preConfigure = lib.optional stdenv.hostPlatform.isDarwin ''
     ln -s /bin/ps $TMPDIR/ps
     export PATH=$PATH:$TMPDIR
   '';
 
   buildInputs = [ cmake bison ncurses openssl readline zlib ]
-     ++ lib.optionals stdenv.isDarwin [ perl cctools CoreServices ];
+     ++ lib.optionals stdenv.hostPlatform.isDarwin [ perl cctools CoreServices ];
 
   cmakeFlags = [
     "-DWITH_SSL=yes"
@@ -66,7 +66,7 @@ self = stdenv.mkDerivation rec {
     lib.optionals stdenv.cc.isGNU [ "-fpermissive" ] # since gcc-7
     ++ lib.optionals stdenv.cc.isClang [ "-Wno-c++11-narrowing" ]; # since clang 6
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lgcc_s";
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux "-lgcc_s";
 
   prePatch = ''
     sed -i -e "s|/usr/bin/libtool|libtool|" cmake/libutils.cmake
@@ -83,15 +83,15 @@ self = stdenv.mkDerivation rec {
     mysqlVersion = "5.5";
   };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.mysql.com/";
     description = "The world's most popular open source database";
-    platforms = platforms.unix;
+    platforms = lib.platforms.unix;
     # See https://downloads.mysql.com/docs/licenses/mysqld-5.5-gpl-en.pdf
-    license = with licenses; [
+    license = with lib.licenses; [
       artistic1 bsd0 bsd2 bsd3 bsdOriginal
-      gpl2 lgpl2 lgpl21 mit publicDomain  licenses.zlib
+      gpl2 lgpl2 lgpl21 mit publicDomain zlib
     ];
-    broken = stdenv.isAarch64;
+    broken = stdenv.hostPlatform.isAarch64;
   };
 }; in self

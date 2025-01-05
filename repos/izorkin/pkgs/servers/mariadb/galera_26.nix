@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/libgalera_smm.so $out/lib/galera/libgalera_smm.so
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Galera 3 wsrep provider library";
     homepage = "https://galeracluster.com/";
-    license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ izorkin ];
-    platforms = platforms.all;
+    license = lib.licenses.lgpl2Only;
+    maintainers = with lib.maintainers; [ izorkin ];
+    platforms = lib.platforms.all;
   };
 }

@@ -2,7 +2,7 @@
 # Native buildInputs components
 , bison, boost, cmake, fixDarwinDylibNames, flex, makeWrapper, pkg-config
 # Common components
-, curl, fmt_8, libiconv, ncurses, openssl, pcre2
+, curl, fmt_9, libiconv, ncurses, openssl, pcre2
 , libaio, libkrb5, systemd
 , CoreServices, cctools, perl
 , jemalloc, less
@@ -13,8 +13,6 @@
 , withStorageMroonga ? true, kytea, libsodium, msgpack, zeromq
 , withStorageRocks ? true
 }:
-
-with lib;
 
 let # in mariadb # spans the whole file
 
@@ -31,20 +29,20 @@ common = rec { # attributes common to both builds
   version = "10.7.8";
 
   src = fetchurl {
-    url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
+    url = "https://archive.mariadb.org//mariadb-${version}/source/mariadb-${version}.tar.gz";
     sha256 = "sha256-+MadkIDYXq+z46hIN7+lZqf1UnqK9vmggUKdTeDeR3g=";
     name   = "mariadb-${version}.tar.gz";
   };
 
   nativeBuildInputs = [ cmake pkg-config ]
-    ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-    ++ optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
   buildInputs = [
-    curl fmt_8 libiconv ncurses openssl pcre2 zlib
-  ] ++ optionals stdenv.hostPlatform.isLinux [ libaio libkrb5 systemd ]
-    ++ optionals stdenv.hostPlatform.isDarwin [ CoreServices cctools perl ]
-    ++ optional (!stdenv.hostPlatform.isDarwin) [ jemalloc ];
+    curl fmt_9 libiconv ncurses openssl pcre2 zlib
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libaio libkrb5 systemd ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ CoreServices cctools perl ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) [ jemalloc ];
 
   prePatch = ''
     sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
@@ -56,7 +54,7 @@ common = rec { # attributes common to both builds
   ]
   # Fixes a build issue as documented on
   # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
-  ++ lib.optional (!stdenv.isLinux) ./patch/macos-MDEV-26769-regression-fix.patch;
+  ++ lib.optional (!stdenv.hostPlatform.isLinux) ./patch/macos-MDEV-26769-regression-fix.patch;
 
   cmakeFlags = [
     "-DBUILD_CONFIG=mysql_release"
@@ -88,7 +86,7 @@ common = rec { # attributes common to both builds
     "-DWITH_SAFEMALLOC=OFF"
     "-DWITH_UNIT_TESTS=OFF"
     "-DEMBEDDED_LIBRARY=OFF"
-  ] ++ optionals stdenv.hostPlatform.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # On Darwin without sandbox, CMake will find the system java and attempt to build with java support, but
     # then it will fail during the actual build. Let's just disable the flag explicitly until someone decides
     # to pass in java explicitly.
@@ -106,18 +104,18 @@ common = rec { # attributes common to both builds
   '';
 
   # perlPackages.DBDmysql is broken on darwin
-  postFixup = optionalString (!stdenv.hostPlatform.isDarwin) ''
-    wrapProgram $out/bin/mytop --set PATH ${makeBinPath [ less ncurses ]}
+  postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    wrapProgram $out/bin/mytop --set PATH ${lib.makeBinPath [ less ncurses ]}
   '';
 
   passthru.mysqlVersion = "5.7";
 
   meta = {
     description = "An enhanced, drop-in replacement for MySQL";
-    homepage    = "https://mariadb.org/";
-    license     = licenses.gpl2;
-    maintainers = with maintainers; [ thoughtpolice ];
-    platforms   = platforms.all;
+    homepage = "https://mariadb.org/";
+    license  = lib.licenses.gpl2;
+    maintainers = with lib.maintainers; [ thoughtpolice ];
+    platforms = lib.platforms.all;
   };
 };
 
@@ -156,10 +154,10 @@ server = stdenv.mkDerivation (common // {
   buildInputs = common.buildInputs ++ [
     bzip2 lz4 lzo snappy xz zstd
     cracklib judy libevent libxml2
-  ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
-    ++ optional stdenv.hostPlatform.isLinux linux-pam
-    ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv
-    ++ optionals withStorageMroonga [ kytea libsodium msgpack zeromq ];
+  ] ++ lib.optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
+    ++ lib.optional stdenv.hostPlatform.isLinux linux-pam
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) mytopEnv
+    ++ lib.optionals withStorageMroonga [ kytea libsodium msgpack zeromq ];
 
   patches = common.patches;
 
@@ -180,23 +178,23 @@ server = stdenv.mkDerivation (common // {
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
     "-DWITHOUT_TOKUDB=1"
-  ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) [
+  ] ++ lib.optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) [
     "-DWITH_NUMA=ON"
-  ] ++ optional (!withStorageMroonga) [
+  ] ++ lib.optional (!withStorageMroonga) [
     "-DWITHOUT_MROONGA=1"
-  ] ++ optional (!withStorageRocks) [
+  ] ++ lib.optional (!withStorageRocks) [
     "-DWITHOUT_ROCKSDB=1"
-  ] ++ optional (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
+  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
     "-DWITH_ROCKSDB_JEMALLOC=ON"
-  ] ++ optional (!stdenv.hostPlatform.isDarwin) [
+  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) [
     "-DWITH_JEMALLOC=yes"
-  ] ++ optionals stdenv.hostPlatform.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "-DPLUGIN_AUTH_PAM=OFF"
     "-DWITHOUT_OQGRAPH=1"
     "-DWITHOUT_PLUGIN_S3=1"
   ];
 
-  preConfigure = optionalString (!stdenv.hostPlatform.isDarwin) ''
+  preConfigure = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     patchShebangs scripts/mytop.sh
   '';
 
@@ -204,14 +202,14 @@ server = stdenv.mkDerivation (common // {
     rm -r "$out"/share/aclocal
     chmod +x "$out"/bin/wsrep_sst_common
     rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
-  '' + optionalString withStorageMroonga ''
+  '' + lib.optionalString withStorageMroonga ''
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
-  '' + optionalString (!stdenv.hostPlatform.isDarwin) ''
+  '' + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
     mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
     rm -r "$out"/OFF
   '';
 
-  CXXFLAGS = optionalString stdenv.hostPlatform.isi686 "-fpermissive";
+  CXXFLAGS = lib.optionalString stdenv.hostPlatform.isi686 "-fpermissive";
 });
 in mariadb

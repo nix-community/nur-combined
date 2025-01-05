@@ -8,8 +8,6 @@
 , disableInitExecTls ? false
 }:
 
-with lib;
-
 stdenv.mkDerivation rec {
   pname = "jemalloc";
   version = "4.5.0";
@@ -21,12 +19,12 @@ stdenv.mkDerivation rec {
 
   # see the comment on stripPrefix
   configureFlags = []
-    ++ optional stripPrefix "--with-jemalloc-prefix="
-    ++ optional disableInitExecTls "--disable-initial-exec-tls"
+    ++ lib.optional stripPrefix "--with-jemalloc-prefix="
+    ++ lib.optional disableInitExecTls "--disable-initial-exec-tls"
     # jemalloc is unable to correctly detect transparent hugepage support on
     # ARM (https://github.com/jemalloc/jemalloc/issues/526), and the default
     # kernel ARMv6/7 kernel does not enable it, so we explicitly disable support
-    ++ optionals (stdenv.isAarch32 && versionOlder version "5") [
+    ++ lib.optionals (stdenv.hostPlatform.isAarch32 && lib.versionOlder lib.version "5") [
       "--disable-thp"
       "je_cv_thp=no"
     ]
@@ -42,14 +40,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "http://jemalloc.net";
     description = "General purpose malloc(3) implementation";
     longDescription = ''
       malloc(3)-compatible memory allocator that emphasizes fragmentation
       avoidance and scalable concurrency support.
     '';
-    license = licenses.bsd2;
-    platforms = platforms.all;
+    license = lib.licenses.bsd2;
+    platforms = lib.platforms.all;
   };
 }
