@@ -3,9 +3,7 @@
   stdenv,
   fetchFromGitHub,
   substituteAll,
-  copyDesktopItems,
   desktopToDarwinBundle,
-  makeDesktopItem,
   db,
   fig2dev,
   giflib,
@@ -25,23 +23,24 @@
   pkg-config,
   proj,
   shapelib,
+  sqlite,
   unzip,
   wrapGAppsHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.8-alt1";
+  version = "2.9-alt1";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     tag = finalAttrs.version;
-    hash = "sha256-bMF/20MXMnxTIROfHFLW3711GWqQTv72jbRpWtow4eA=";
+    hash = "sha256-zwjYT/ou8cQxSka+J93ojiLkdAPV9ryz/QPQBvvRTdg=";
     fetchSubmodules = true;
   };
 
-  patches = [ ./0002-fix-build.patch ];
+  patches = [ ./0002-fix-build.patch ] ++ lib.optional (!finalAttrs.doCheck) ./0003-notests.patch;
 
   postPatch =
     let
@@ -56,42 +55,34 @@ stdenv.mkDerivation (finalAttrs: {
         "modules/vmap2/vmap2gobj.cpp"
         "modules/vmap2/vmap2types.cpp"
         "vmap_data/scripts/vmaps.sh"
+        "vmap_data/scripts/vmaps_diff"
         "vmap_data/scripts/vmaps_get_fig"
+        "vmap_data/scripts/vmaps_img"
         "vmap_data/scripts/vmaps_in"
-        "vmap_data/scripts/vmaps_mbtiles"
+        "vmap_data/scripts/vmaps_index"
         "vmap_data/scripts/vmaps_out"
+        "vmap_data/scripts/vmaps_pack_img"
+        "vmap_data/scripts/vmaps_pack_mbtiles"
+        "vmap_data/scripts/vmaps_pack_sqlitedb"
+        "vmap_data/scripts/vmaps_png"
         "vmap_data/scripts/vmaps_preview"
-        "vmap_data/scripts/vmaps_sqlitedb"
+        "vmap_data/scripts/vmaps_rend_mbtiles"
+        "vmap_data/scripts/vmaps_tiles"
+        "vmap_data/scripts/vmaps_tlist"
         "vmap_data/scripts/vmaps_wp_update"
       ];
     in
     ''
       ${lib.concatStringsSep "\n" (map (file: ''substituteInPlace ${file} --subst-var out'') srcFiles)}
 
-      substituteInPlace modules/getopt/Makefile --replace-fail "SCRIPT_TESTS := getopt" ""
       substituteInPlace modules/opt/Makefile --replace-fail "SIMPLE_TESTS := opt" ""
       substituteInPlace modules/tmpdir/Makefile --replace-fail "SCRIPT_TESTS := tmpdir" ""
       substituteInPlace modules/get_deps --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
+      substituteInPlace modules/image_cnt/image_cnt.cpp --replace-fail "(pow," "pow("
       patchShebangs .
     '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "ms2view";
-      exec = "ms2view";
-      comment = "Viewer for geodata and raster maps";
-      desktopName = "ms2view";
-      genericName = "Mapsoft2 viewer";
-      categories = [
-        "Geography"
-        "Geoscience"
-        "Science"
-      ];
-    })
-  ];
-
   nativeBuildInputs = [
-    copyDesktopItems
     fig2dev
     imagemagick
     perlPackages.perl
@@ -115,6 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     libzip
     proj
     shapelib
+    sqlite
   ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   env = {
@@ -123,7 +115,11 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-liconv";
   };
 
+  enableParallelBuilding = true;
+
   makeFlags = [ "prefix=$(out)" ];
+
+  doCheck = true;
 
   dontWrapGApps = true;
 

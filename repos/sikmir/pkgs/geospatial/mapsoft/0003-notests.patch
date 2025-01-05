@@ -1,0 +1,13 @@
+diff --git i/programs/Makefile w/programs/Makefile
+index d8f2824..22f7430 100644
+--- i/programs/Makefile
++++ w/programs/Makefile
+@@ -17,7 +17,7 @@ bindir  ?= $(prefix)/bin
+ datadir ?= $(prefix)/share
+ 
+ all:
+-	sh -e -c 'for i in $(PROGRAMS); do make -C $$i; done'
++	sh -e -c 'for i in $(PROGRAMS); do make -C $$i notests; done'
+ 
+ install:
+ 	sh -e -c 'for i in $(PROGRAMS); do install -D -m755 $$i/$$i $(bindir)/$$i; done'

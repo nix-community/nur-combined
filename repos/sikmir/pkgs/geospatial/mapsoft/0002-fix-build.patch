@@ -1,5 +1,5 @@
 diff --git i/docs/man/ms2render.htm w/docs/man/ms2render.htm
-index 652acc2..b5750c3 100644
+index 62972dc..0195402 100644
 --- i/docs/man/ms2render.htm
 +++ w/docs/man/ms2render.htm
 @@ -493,7 +493,7 @@
@@ -21,7 +21,7 @@ index 652acc2..b5750c3 100644
  </dd>
  <dt id="obj_scale-arg"><b>--obj_scale &lt;arg&gt;</b></dt>
 diff --git i/docs/man/ms2view.htm w/docs/man/ms2view.htm
-index f178b4a..1fed011 100644
+index 243de0a..7138440 100644
 --- i/docs/man/ms2view.htm
 +++ w/docs/man/ms2view.htm
 @@ -475,7 +475,7 @@
@@ -47,7 +47,7 @@ index 5469cac..c165c1a 100644
  Some tips about viewer structure can be also find there.
  B<$HOME/.mapsoft2/mapsoft2.css> -- user-specific file.
 diff --git i/docs/man/ms2vmap.htm w/docs/man/ms2vmap.htm
-index 8bbeac9..f6ddd9a 100644
+index 901374e..6dce51b 100644
 --- i/docs/man/ms2vmap.htm
 +++ w/docs/man/ms2vmap.htm
 @@ -64,7 +64,7 @@ ms2vmap &lt;file&gt; ... -o &lt;out file&gt; [&lt;options&gt;]</code></pre>
@@ -60,7 +60,7 @@ index 8bbeac9..f6ddd9a 100644
  </dd>
  <dt id="D---define-arg"><b>-D, --define &lt;arg&gt;</b></dt>
 diff --git i/docs/man/ms2vmapdb.htm w/docs/man/ms2vmapdb.htm
-index 8bd5943..c990a0f 100644
+index 2b06fe4..2018bc6 100644
 --- i/docs/man/ms2vmapdb.htm
 +++ w/docs/man/ms2vmapdb.htm
 @@ -238,7 +238,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
@@ -90,7 +90,7 @@ index 8bd5943..c990a0f 100644
  
  </dd>
  <dt id="D---define-arg2"><b>-D, --define &lt;arg&gt;</b></dt>
-@@ -646,7 +646,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+@@ -652,7 +652,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
  <dt id="t---types-arg3"><b>-t, --types &lt;arg&gt;</b></dt>
  <dd>
  
@@ -114,7 +114,7 @@ index ab16dae..272b454 100644
      if (getenv("HOME")) {
        AddSep("Maps");
 diff --git i/modules/mapview/mapview.cpp w/modules/mapview/mapview.cpp
-index 6d461fb..5bd5367 100644
+index 997c127..43928bf 100644
 --- i/modules/mapview/mapview.cpp
 +++ w/modules/mapview/mapview.cpp
 @@ -367,7 +367,7 @@ Mapview::load_css(){
@@ -127,7 +127,7 @@ index 6d461fb..5bd5367 100644
        css_provider->load_from_path(css_glo)){
        auto screen = get_screen();
 diff --git i/modules/vmap2/vmap2gobj.cpp w/modules/vmap2/vmap2gobj.cpp
-index d6123a7..5c6198a 100644
+index 4b48cf8..724e444 100644
 --- i/modules/vmap2/vmap2gobj.cpp
 +++ w/modules/vmap2/vmap2gobj.cpp
 @@ -22,7 +22,7 @@ using namespace std;
@@ -135,11 +135,11 @@ index d6123a7..5c6198a 100644
  ms2opt_add_vmap2_render(GetOptSet & opts){
    const char *g = "VMAP2_RENDER";
 -  opts.add("config", 1,'c',g, "Configuration file for vector map rendering. Default: /usr/share/mapsoft2/render.cfg");
-+  opts.add("config", 1,'c',g, "Configuration file for vector map rendering. Default: @out/share/mapsoft2/render.cfg");
++  opts.add("config", 1,'c',g, "Configuration file for vector map rendering. Default: @out@/share/mapsoft2/render.cfg");
    opts.add("define",      1,0,g, "Definitions for vector map rendering (json object)");
    opts.add("obj_scale",   1,0,g, "Rescaling factor for all objects, default 1.0.");
    opts.add("vmap_minsc", 1,0,g, "Minimum map scale (calculated from the 'natural' "
-@@ -92,7 +92,7 @@ GObjVMap2::GObjVMap2(VMap2 & map, const Opt &o): GObjMulti(false), map(map) {
+@@ -110,7 +110,7 @@ GObjVMap2::GObjVMap2(VMap2 & map, const Opt &o): GObjMulti(false), map(map) {
    read_words_defs defs(o.get("define", Opt()));
  
    int depth = 0;
@@ -168,114 +168,221 @@ index 6688736..ec77637 100644
    read_words_defs defs(o.get("define", Opt()));
    load(file, defs);
 diff --git i/vmap_data/scripts/vmaps.sh w/vmap_data/scripts/vmaps.sh
-index 989677f..af8fbd1 100644
+index 460533a..7591f33 100644
 --- i/vmap_data/scripts/vmaps.sh
 +++ w/vmap_data/scripts/vmaps.sh
-@@ -20,12 +20,12 @@ GRID=0;              # draw grid
+@@ -16,8 +16,8 @@ MAP_ATTR="mapsoft"
+ VMAP_DIR=vmap;   # Source folder
+ VMAP_EXT=vmap;   # Extension/format of vector maps (could be vmap2, vmap, or even mp)
  
- CMAP=conf/cmap.png;        # Colormap
- CMAP_SRC=                  # nomenclatere name used for colormap source
 -REND_CFG=/usr/share/mapsoft2/render.cfg;  # Render configuration
 -TYPEINFO=/usr/share/mapsoft2/types.cfg    # Type information
--HTM_TEMPL=/usr/share/mapsoft2/map_templ.htm;    # template for htm page
 +REND_CFG=@out@/share/mapsoft2/render.cfg;  # Render configuration
 +TYPEINFO=@out@/share/mapsoft2/types.cfg    # Type information
-+HTM_TEMPL=@out@/share/mapsoft2/map_templ.htm;    # template for htm page
  
- # index files (one set per BRD2_DIR/*.gpx)
--TYPSRC=/usr/share/mapsoft2/typ.txt  # typ file source for garmin IMG
-+TYPSRC=@out@/share/mapsoft2/typ.txt  # typ file source for garmin IMG
- EXTRA_TRACKS=;    # extra tracks to be added to index image
- JPEG_SCALE=0.2;   # scale for jpeg preview images
- INDEX_SCALE=0.05; # scale for index image (in addition to jpeg_scale)
+ ############################################################
+ ## Image rendering
+@@ -46,7 +46,7 @@ TLIST="";
+ ############################################################
+ ## IMG rendering (see vmaps_img script)
+ IMG_DIR=OUT;   # img files (if empty, img files are not rendered)
+-TYPSRC=/usr/share/mapsoft2/typ.txt;  # typ file source for garmin IMG
++TYPSRC=@out@/share/mapsoft2/typ.txt;  # typ file source for garmin IMG
+ GMT=gmt;                             # gmt program
+ CGPSM=cgpsmapper-static              # cgpsmapper program
+ IMGMAP="";                           # combined img file
+diff --git i/vmap_data/scripts/vmaps_diff w/vmap_data/scripts/vmaps_diff
+index 136155e..0aa1ed0 100755
+--- i/vmap_data/scripts/vmaps_diff
++++ w/vmap_data/scripts/vmaps_diff
+@@ -4,7 +4,7 @@
+ # Render difference between two git revitions of a file
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_get_fig w/vmap_data/scripts/vmaps_get_fig
-index fca52c1..e0bce0c 100755
+index 0ba7b7f..5048bcb 100755
 --- i/vmap_data/scripts/vmaps_get_fig
 +++ w/vmap_data/scripts/vmaps_get_fig
 @@ -9,7 +9,7 @@
  ##################################################
  
  # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
  
  # read local configuration
- . ./vmaps.conf
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_img w/vmap_data/scripts/vmaps_img
+index 1e0599c..84413bb 100755
+--- i/vmap_data/scripts/vmaps_img
++++ w/vmap_data/scripts/vmaps_img
+@@ -9,7 +9,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_in w/vmap_data/scripts/vmaps_in
-index 07f8ec0..a6679f9 100755
+index 4381dd7..cf9d9d9 100755
 --- i/vmap_data/scripts/vmaps_in
 +++ w/vmap_data/scripts/vmaps_in
 @@ -9,7 +9,7 @@
  ##################################################
  
  # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
  
  # local configuration
- . ./vmaps.conf
-diff --git i/vmap_data/scripts/vmaps_mbtiles w/vmap_data/scripts/vmaps_mbtiles
-index d751d1c..2ab5945 100755
---- i/vmap_data/scripts/vmaps_mbtiles
-+++ w/vmap_data/scripts/vmaps_mbtiles
-@@ -8,7 +8,7 @@
- # see https://github.com/mapbox/mbtiles-spec/blob/master/1.3/spec.md
- 
- # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
- 
- # read local configuration
- . ./vmaps.conf
-diff --git i/vmap_data/scripts/vmaps_out w/vmap_data/scripts/vmaps_out
-index bd1d183..1a47f3a 100755
---- i/vmap_data/scripts/vmaps_out
-+++ w/vmap_data/scripts/vmaps_out
-@@ -12,7 +12,7 @@
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_index w/vmap_data/scripts/vmaps_index
+index ae225ec..e59c592 100755
+--- i/vmap_data/scripts/vmaps_index
++++ w/vmap_data/scripts/vmaps_index
+@@ -4,7 +4,7 @@
  ##################################################
  
  # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
  
  # read local configuration
- . ./vmaps.conf
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_out w/vmap_data/scripts/vmaps_out
+index d1d7903..d4d5318 100755
+--- i/vmap_data/scripts/vmaps_out
++++ w/vmap_data/scripts/vmaps_out
+@@ -18,7 +18,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_pack_img w/vmap_data/scripts/vmaps_pack_img
+index a91fc99..a692600 100755
+--- i/vmap_data/scripts/vmaps_pack_img
++++ w/vmap_data/scripts/vmaps_pack_img
+@@ -5,7 +5,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_pack_mbtiles w/vmap_data/scripts/vmaps_pack_mbtiles
+index b73121e..da52332 100755
+--- i/vmap_data/scripts/vmaps_pack_mbtiles
++++ w/vmap_data/scripts/vmaps_pack_mbtiles
+@@ -7,7 +7,7 @@
+ # see https://github.com/mapbox/mbtiles-spec/blob/master/1.3/spec.md
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_pack_sqlitedb w/vmap_data/scripts/vmaps_pack_sqlitedb
+index 3dfd676..9b4887b 100755
+--- i/vmap_data/scripts/vmaps_pack_sqlitedb
++++ w/vmap_data/scripts/vmaps_pack_sqlitedb
+@@ -7,7 +7,7 @@
+ # see: https://osmand.net/docs/technical/osmand-file-formats/osmand-sqlite/
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_png w/vmap_data/scripts/vmaps_png
+index 5fbf71c..f726bdb 100755
+--- i/vmap_data/scripts/vmaps_png
++++ w/vmap_data/scripts/vmaps_png
+@@ -9,7 +9,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_preview w/vmap_data/scripts/vmaps_preview
-index 757dacc..4a7612c 100755
+index 1ed94bc..be42a26 100755
 --- i/vmap_data/scripts/vmaps_preview
 +++ w/vmap_data/scripts/vmaps_preview
 @@ -3,7 +3,7 @@
  ##################################################
  
  # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
  
  # read local configuration
- . ./vmaps.conf
-diff --git i/vmap_data/scripts/vmaps_sqlitedb w/vmap_data/scripts/vmaps_sqlitedb
-index 70a3d6b..e683232 100755
---- i/vmap_data/scripts/vmaps_sqlitedb
-+++ w/vmap_data/scripts/vmaps_sqlitedb
-@@ -6,7 +6,7 @@
- # Tile format: x-y-z.png, z/x-y.png
- 
- # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
- 
- # read local configuration
- . ./vmaps.conf
-diff --git i/vmap_data/scripts/vmaps_wp_update w/vmap_data/scripts/vmaps_wp_update
-index 667057e..5ac21d7 100755
---- i/vmap_data/scripts/vmaps_wp_update
-+++ w/vmap_data/scripts/vmaps_wp_update
-@@ -12,7 +12,7 @@
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_rend_mbtiles w/vmap_data/scripts/vmaps_rend_mbtiles
+index a8ffee0..4809371 100755
+--- i/vmap_data/scripts/vmaps_rend_mbtiles
++++ w/vmap_data/scripts/vmaps_rend_mbtiles
+@@ -9,7 +9,7 @@
  ##################################################
  
  # read global configuration and functions
--. vmaps.sh
-+. @out@/bin/vmaps.sh
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
  
  # read local configuration
- . ./vmaps.conf
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_tiles w/vmap_data/scripts/vmaps_tiles
+index fc45eab..3a06f66 100755
+--- i/vmap_data/scripts/vmaps_tiles
++++ w/vmap_data/scripts/vmaps_tiles
+@@ -9,7 +9,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_tlist w/vmap_data/scripts/vmaps_tlist
+index 6aff657..1b7df8c 100755
+--- i/vmap_data/scripts/vmaps_tlist
++++ w/vmap_data/scripts/vmaps_tlist
+@@ -3,7 +3,7 @@
+ # Create list of tiles
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
+diff --git i/vmap_data/scripts/vmaps_wp_update w/vmap_data/scripts/vmaps_wp_update
+index 24df3c1..5252dd0 100755
+--- i/vmap_data/scripts/vmaps_wp_update
++++ w/vmap_data/scripts/vmaps_wp_update
+@@ -25,7 +25,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh ||:
++. @out@/bin/vmaps.sh ||:
+ 
+ # read local configuration
+ . ./vmaps.conf ||:
