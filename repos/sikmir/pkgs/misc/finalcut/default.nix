@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "finalcut";
-  version = "0.9.0";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "gansm";
     repo = "finalcut";
     tag = finalAttrs.version;
-    hash = "sha256-fRAzfvuqruveb229fV0XYh764cA26NlDVXxX+3Fobg4=";
+    hash = "sha256-iKLE4UMDbnsKYEjQHlF+xyZSBke1EZSVJiabbKRkzhg=";
   };
 
   nativeBuildInputs = [
