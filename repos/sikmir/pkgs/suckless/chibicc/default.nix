@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  memstreamHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -15,8 +14,6 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "90d1f7f199cc55b13c7fdb5839d1409806633fdb";
     hash = "sha256-sGSPQv9JPXTnyv+7CnmzWq1objCJRctK4wKII8GM26s=";
   };
-
-  buildInputs = lib.optional stdenv.isDarwin memstreamHook;
 
   installPhase = ''
     install -Dm755 chibicc -t $out/bin

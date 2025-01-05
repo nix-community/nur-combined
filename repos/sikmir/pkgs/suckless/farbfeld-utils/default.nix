@@ -7,7 +7,6 @@
   SDL,
   ghostscript,
   sqlite,
-  memstreamHook,
 }:
 
 stdenv.mkDerivation {
@@ -24,15 +23,12 @@ stdenv.mkDerivation {
     rm ff-vccapture.c ff-xcapture.c ff-xdraw.c ff-xwin.c
   '';
 
-  buildInputs =
-    [
-      libGL
-      SDL
-      ghostscript
-      sqlite
-    ]
-    ++ lib.optional stdenv.isLinux libX11
-    ++ lib.optional stdenv.isDarwin memstreamHook;
+  buildInputs = [
+    libGL
+    SDL
+    ghostscript
+    sqlite
+  ] ++ lib.optional stdenv.isLinux libX11;
 
   buildPhase = ''
     runHook preBuild

@@ -5,7 +5,6 @@
   pkg-config,
   curl,
   openssl,
-  memstreamHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     curl
     openssl
-  ] ++ lib.optional stdenv.isDarwin memstreamHook;
+  ];
 
   makeFlags = [ "VERSION=${finalAttrs.version}" ];
 

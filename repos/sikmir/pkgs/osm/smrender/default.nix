@@ -7,7 +7,6 @@
   cairo,
   librsvg,
   darwin,
-  memstreamHook,
   testers,
 }:
 
@@ -34,7 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.Foundation
-      memstreamHook
     ];
 
   passthru.tests.version = testers.testVersion {

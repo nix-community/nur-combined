@@ -5,7 +5,6 @@
   pkg-config,
   makeWrapper,
   lua5_3,
-  memstreamHook,
   zlib,
 }:
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
   buildInputs = [
     lua5_3
     zlib
-  ] ++ lib.optional stdenv.isDarwin memstreamHook;
+  ];
 
   installPhase = ''
     install -Dm644 *.so *.lua -t $out/share/lua
