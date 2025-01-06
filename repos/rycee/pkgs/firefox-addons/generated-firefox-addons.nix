@@ -3057,10 +3057,10 @@
     };
     "ficlab" = buildFirefoxXpiAddon {
       pname = "ficlab";
-      version = "1.0.110";
+      version = "1.0.111";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361174/ficlab-1.0.110.xpi";
-      sha256 = "d73fba49753f525fba5c3baf1ed75a524f3e05cb1f0d5c84b11c8b7651da2098";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4414535/ficlab-1.0.111.xpi";
+      sha256 = "b00599ecf7ec30d43ada122c8d17de224eab508cee8732ddfbb8e1b1d6e0c95c";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -6574,7 +6574,6 @@
       sha256 = "89400a0b7e3064b50289fe0a782820c178df98a681f20733e629f1535072e20d";
       meta = with lib;
       {
-        homepage = "https://linkwarden.app/";
         description = "The browser extension for Linkwarden.";
         license = licenses.agpl3Only;
         mozPermissions = [
