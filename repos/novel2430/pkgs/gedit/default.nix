@@ -35,8 +35,8 @@ let
   gedit-markdown-preview = fetchFromGitHub {
     owner = "novel2430";
     repo = "gedit-markdown-preview";
-    rev = "af7d61852ab26a15c811fb93dd3db2905f148302";
-    sha256 = "sha256-Y3pfWI+U0CoL2pbo1lCjTk0kmzUa1bn9VDyopEHKTA8=";
+    rev = "e62da382f0c5df6e37606cd0bae24786786d7bdb";
+    sha256 = "sha256-cKofARnYETY5gdcm3zAknVrtgXksM7Kw11rYnG+yD+w=";
   };
   libs = [
     glib
