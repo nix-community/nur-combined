@@ -2483,7 +2483,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - Update Script: ✔️
 </details>
 
-### `mapfab` `0.4` [🌐](https://github.com/pubby/mapfab "Homepage") [📰](https://github.com/pubby/mapfab/releases/tag/v0.4 "Changelog") [📦](./pkgs/by-name/mapfab/package.nix#L64 "Source")
+### `mapfab` `0.4` [🌐](https://github.com/pubby/mapfab "Homepage") [📰](https://github.com/pubby/mapfab/releases/tag/v0.4 "Changelog") [📦](./pkgs/by-name/mapfab/package.nix#L69 "Source")
 
 Level editor for creating (new) NES games.
 

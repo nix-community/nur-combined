@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
+  wrapGAppsHook3,
   wxGTK32,
   nix-update-script,
 }:
@@ -33,6 +34,10 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/FedericoSchonborn/mapfab/commit/6eeab0ae2bc4618d0091226417bc073aa5675daf.patch";
       hash = "sha256-NwLX5hCMBzakS3Abbwff+jOkYiMR+W2O7RUJoZbKbDY=";
     })
+  ];
+
+  nativeBuildInputs = [
+    wrapGAppsHook3
   ];
 
   buildInputs = [
