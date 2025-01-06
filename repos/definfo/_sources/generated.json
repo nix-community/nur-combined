@@ -13,6 +13,7 @@
             "name": null,
             "rev": "dcc05b1f1d2610572666b7ac77200ed41f558503",
             "sha256": "sha256-hnsWJATdA24kxuOmH7x8HMH9nPFXAAThofXvshuWk0s=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/fbb-git/flexcpp"
         },
@@ -34,6 +35,7 @@
             "repo": "lyricer",
             "rev": "f0f8d99b23102755ce7c70830127b23cfde96f3e",
             "sha256": "sha256-sviP/0b77uu+C9ihfHnYNwIehStBp5m2WIDW9sqVq1k=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "f0f8d99b23102755ce7c70830127b23cfde96f3e"
@@ -54,6 +56,7 @@
             "repo": "rime-ls",
             "rev": "v0.4.1",
             "sha256": "sha256-IhrfUPC+7Gsg2n6nsGiK/wRoFGKtLXsRLQBw6XIVu0U=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v0.4.1"

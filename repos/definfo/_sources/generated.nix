@@ -10,6 +10,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-hnsWJATdA24kxuOmH7x8HMH9nPFXAAThofXvshuWk0s=";
     };
     date = "2024-06-22";
