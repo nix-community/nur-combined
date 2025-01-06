@@ -1,13 +1,18 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs;
 
-let ibDerivation = stdenv.mkDerivation rec {
-  version = "10.33.1c";
+let
+  jdkWithJavaFX = (pkgs.jdk11.override {
+    enableJavaFX = true;
+    openjfx = openjfx.override { withWebKit = true; };
+  });
+  ibDerivation = stdenv.mkDerivation rec {
+  version = "10.33.1d";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "0izv14f1rgwm8n47ha6vwj3ck4x0imggw463yyx8wmwg015qr10a";
+    sha256 = "05d2d15jpnvhyns7j5nqnl9c72hdllb1296jdj5hyy4apcdpal6p";
     executable = true;
   };
 
@@ -39,7 +44,7 @@ let ibDerivation = stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.openjdk8.jre}/lib/openjdk# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${jdkWithJavaFX.home}# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
 
     chmod a+rx $out/bin/ib-tws-native
 
@@ -88,6 +93,7 @@ in buildFHSUserEnv {
     xorg.libX11
     xorg.libxshmfence
     libxkbcommon
+    systemd # for libudev.so.1
   ];
   runScript = "/usr/bin/ib-tws-native";
 }
