@@ -197,9 +197,7 @@ in
     sandbox.whitelistDri = true;
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [
-      "user"  # playerctl, swaync, ...
-    ];
+    sandbox.whitelistDbus.user = true;  # playerctl, swaync, ... (TODO: reduce)
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby

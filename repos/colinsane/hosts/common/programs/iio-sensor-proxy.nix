@@ -41,7 +41,7 @@ in
     });
     enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;  #< for dbus/polkit policies
 
-    sandbox.whitelistDbus = [ "system" ];
+    sandbox.whitelistDbus.system = true;
     sandbox.extraPaths = [
       "/run/udev/data"
       "/sys/bus"

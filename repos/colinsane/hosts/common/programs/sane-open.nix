@@ -7,7 +7,7 @@
     ];
 
     sandbox.autodetectCliPaths = "existing";  # for when opening a file
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.keepPidsAndProc = true;  #< to toggle keyboard
     sandbox.extraHomePaths = [
       ".local/share/applications"
@@ -26,6 +26,6 @@
     # so doesn't need all sandboxing.
     # that might hint that the packages should be split/restructured...
     sandbox.whitelistWayland = true;  #< to access clipboard
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
   };
 }

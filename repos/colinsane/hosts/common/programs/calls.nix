@@ -105,7 +105,7 @@ in
     sandbox.mesaCacheDir = ".cache/calls/mesa";
     sandbox.net = "vpn.wg-home";  #< XXX(2024/07/05): my cell carrier seems to block RTP, so tunnel it.
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # necessary for secrets, at the minimum
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # necessary for secrets, at the minimum
     sandbox.whitelistWayland = true;
 
     persist.byStore.private = [

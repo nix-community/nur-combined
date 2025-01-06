@@ -27,7 +27,7 @@
       ];
     }));
 
-    sandbox.whitelistDbus = [ "user" ];  # to receive requests from xdg-desktop-portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # to receive requests from xdg-desktop-portal
     sandbox.whitelistDri = true;  #< else it's laggy on moby
     sandbox.whitelistWayland = true;
 

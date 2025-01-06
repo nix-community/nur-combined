@@ -453,7 +453,7 @@ in
 
     blanket.buildCost = 1;
     blanket.sandbox.whitelistAudio = true;
-    # blanket.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
+    # blanket.sandbox.whitelistDbus.user = true;  #< TODO: reduce  # TODO: untested
     blanket.sandbox.whitelistWayland = true;
 
     blueberry.sandbox.wrapperType = "inplace";  #< it places binaries in /lib and then /etc/xdg/autostart files refer to the /lib paths, and fail to be patched
@@ -503,7 +503,7 @@ in
 
     delfin.buildCost = 1;
     delfin.sandbox.whitelistAudio = true;
-    delfin.sandbox.whitelistDbus = [ "user" ];  # else `mpris` plugin crashes the player
+    delfin.sandbox.whitelistDbus.user = true;  #< TODO: reduce  # else `mpris` plugin crashes the player
     delfin.sandbox.whitelistDri = true;
     delfin.sandbox.whitelistWayland = true;
     delfin.sandbox.net = "clearnet";
@@ -655,7 +655,7 @@ in
     gnome-calendar.sandbox.mesaCacheDir = ".cache/gnome-calendar/mesa";  # TODO: is this the correct app-id?
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     gnome-calendar.sandbox.whitelistWayland = true;
-    gnome-calendar.sandbox.whitelistDbus = [ "user" ];
+    gnome-calendar.sandbox.whitelistDbus.user = true;  #< TODO: reduce
     gnome-calendar.suggestedPrograms = [
       "evolution-data-server"  #< to access/persist calendar events
     ];
@@ -663,7 +663,7 @@ in
     # gnome-disks
     # XXX(2024-09-02): fails to show any disks even when run as `BUNPEN_DISABLE=1 sudo -E gnome-disks`.
     gnome-disk-utility.buildCost = 1;
-    gnome-disk-utility.sandbox.whitelistDbus = [ "system" ];
+    gnome-disk-utility.sandbox.whitelistDbus.system = true;
     gnome-disk-utility.sandbox.whitelistWayland = true;
     gnome-disk-utility.sandbox.extraHomePaths = [
       "tmp"
@@ -696,7 +696,7 @@ in
     # seahorse: dump gnome-keyring secrets.
     seahorse.buildCost = 1;
     # N.B. it can lso manage ~/.ssh keys, but i explicitly don't add those to the sandbox for now.
-    seahorse.sandbox.whitelistDbus = [ "user" ];
+    seahorse.sandbox.whitelistDbus.user = true;  #< TODO: reduce
     seahorse.sandbox.whitelistWayland = true;
 
     gnome-2048.buildCost = 1;
@@ -706,7 +706,7 @@ in
 
     gnome-frog.buildCost = 1;
     gnome-frog.sandbox.whitelistWayland = true;
-    gnome-frog.sandbox.whitelistDbus = [ "user" ];
+    gnome-frog.sandbox.whitelistDbus.user = true;  #< TODO: reduce
     gnome-frog.sandbox.extraPaths = [
       # needed when processing screenshots (TODO: can i have it use a custom TMPDIR?)
       "/tmp"
@@ -822,7 +822,7 @@ in
       "/sys/devices"
     ];
 
-    libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
+    libnotify.sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notify-send
 
     lightning-cli.packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.clightning "lightning-cli";
     lightning-cli.sandbox.extraHomePaths = [
@@ -908,7 +908,7 @@ in
     nettools.sandbox.capabilities = [ "net_admin" "net_raw" ];
 
     networkmanagerapplet.sandbox.whitelistWayland = true;
-    networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
+    networkmanagerapplet.sandbox.whitelistDbus.system = true;
 
     nil.sandbox.whitelistPwd = true;
     nil.sandbox.keepPids = true;
@@ -1058,7 +1058,7 @@ in
     sane-cast.sandbox.whitelistAudio = true;  #< for sblast audio casting
     sane-cast.suggestedPrograms = [ "go2tv" "sblast" ];
 
-    sane-color-picker.sandbox.whitelistDbus = [ "user" ];  #< required for eyedropper to work
+    sane-color-picker.sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< required for eyedropper to work
     sane-color-picker.sandbox.whitelistWayland = true;
     sane-color-picker.sandbox.keepPidsAndProc = true;  #< required by wl-clipboard
     sane-color-picker.suggestedPrograms = [

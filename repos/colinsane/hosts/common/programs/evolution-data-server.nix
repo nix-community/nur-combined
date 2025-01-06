@@ -96,7 +96,7 @@ in
       "radicale"
     ];
 
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.net = "localhost";  #< to reach radicale  (TODO: restrict further)
 
     persist.byStore.ephemeral = [

@@ -17,7 +17,7 @@ in
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf

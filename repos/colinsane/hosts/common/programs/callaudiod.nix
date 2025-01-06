@@ -14,7 +14,7 @@
     packageUnwrapped = pkgs.rmDbusServices pkgs.callaudiod;
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
 
     services.callaudiod = {
       description = "callaudiod: dbus service to switch audio profiles and mute microphone";

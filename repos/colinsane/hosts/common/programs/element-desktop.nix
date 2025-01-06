@@ -30,7 +30,7 @@
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

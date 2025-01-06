@@ -82,9 +82,7 @@ in
       # "sway"  #< required, but circular dep
     ];
 
-    sandbox.whitelistDbus = [
-      "user"  #< ??
-    ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce (??)
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [ "sway" ];

@@ -18,7 +18,7 @@
       "tmp"
     ];
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     # sandbox.whitelistX = true;  #< or run with `QT_QPA_PLATFORM=wayland`, without X(wayland)

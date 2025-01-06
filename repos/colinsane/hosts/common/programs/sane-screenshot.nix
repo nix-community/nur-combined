@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.sane-screenshot = {
-    sandbox.whitelistDbus = [ "user" ];  #< to send notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to send notifications
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Pictures/Screenshots"

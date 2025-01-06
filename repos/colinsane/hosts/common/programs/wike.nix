@@ -6,7 +6,7 @@
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # without this, the search button pulls up a table of contents instead
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # without this, the search button pulls up a table of contents instead
     # default sandboxing breaks rendering in weird ways. like it loads the desktop version of articles.
     # enabling DRI/DRM (as below) hopefully fixes that.
     sandbox.whitelistDri = true;

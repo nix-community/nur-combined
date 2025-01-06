@@ -67,6 +67,6 @@
       # ".config/youtube-tui"  #< it populates its own config, other than just main.yml
       "tmp/youtube-tui"
     ];
-    sandbox.whitelistDbus = [ "user" ];  #< xdg-open via portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< xdg-open via portal
   };
 }

@@ -28,7 +28,7 @@
       xorg = pkgs.buildPackages.xorg;  #< cross compilation fix (TODO: upstream)
     };
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [ "system" ];  #< to speak with NetworkManager
+    sandbox.whitelistDbus.system = true;  #< to speak with NetworkManager
     sandbox.whitelistAudio = true;  #< even with this, the sound plugin doesn't seem to work...
     sandbox.mesaCacheDir = ".cache/switchboard/mesa";  # TODO: is this the correct app-id?
   };

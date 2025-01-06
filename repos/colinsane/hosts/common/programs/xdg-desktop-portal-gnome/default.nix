@@ -13,7 +13,7 @@ in
       ];
     });
 
-    sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # speak to main xdg-desktop-portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.

@@ -34,7 +34,7 @@
       ];
     };
 
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.whitelistWayland = true;  # for `fcitx5-configtool, if nothing else`
     sandbox.extraHomePaths = [
       # ".config/fcitx"

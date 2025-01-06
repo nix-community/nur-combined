@@ -46,7 +46,7 @@ in {
   sane.programs.koreader = {
     packageUnwrapped = pkgs.koreader-from-src;
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus = [ "user" ];  # for opening the web browser via portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # for opening the web browser via portal
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

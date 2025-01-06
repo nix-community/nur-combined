@@ -11,7 +11,7 @@
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  #< silently fails to start without it.
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< silently fails to start without it.
     # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
     # enabling DRI/DRM (as below) seems to fix that.
     sandbox.whitelistDri = true;

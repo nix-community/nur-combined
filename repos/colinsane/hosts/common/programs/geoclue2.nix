@@ -47,9 +47,7 @@ in
     package = lib.mkForce null;
 
     # experimental sandboxing (2024/07/05)
-    # sandbox.whitelistDbus = [
-    #   "system"
-    # ];
+    # sandbox.whitelistDbus.system = true;
     # sandbox.net = "all";
   };
 

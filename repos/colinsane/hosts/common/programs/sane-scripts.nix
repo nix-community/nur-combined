@@ -223,9 +223,7 @@ in
 
     "sane-scripts.wipe".sandbox = {
       method = "bunpen";
-      whitelistDbus = [
-        "user"  #< for `secret-tool`
-      ];
+      whitelistDbus.user = true;  #< for `secret-tool` (TODO: reduce)
       whitelistSystemctl = true;
       keepPidsAndProc = true;  #< so that it can `kill` the programs being wiped
       extraHomePaths = [

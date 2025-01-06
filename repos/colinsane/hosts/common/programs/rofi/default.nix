@@ -94,7 +94,7 @@ in
       "rofi-run-command"
     ];
 
-    sandbox.whitelistDbus = [ "user" ];  #< to launch apps via the portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to launch apps via the portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
@@ -142,7 +142,7 @@ in
     };
     # sandboxing options cribbed from sane-open
     sandbox.autodetectCliPaths = "existing";  # for when opening a file
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.keepPidsAndProc = true;
     sandbox.extraHomePaths = [ ".local/share/applications" ];
     sandbox.extraRuntimePaths = [ "sway" ];

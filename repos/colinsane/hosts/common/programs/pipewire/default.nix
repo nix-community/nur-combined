@@ -58,16 +58,14 @@ in
     ];
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [
-      # dbus is used for rtkit integration
-      # rtkit runs on the system bus.
-      # xdg-desktop-portal then exposes this to the user bus.
-      # therefore, user bus should be all that's needed, but...
-      # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
-      # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
-      # "system"  #< not required UNLESS i want rtkit integration
-      "user"  #< required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application
-    ];
+    # dbus is used for rtkit integration
+    # rtkit runs on the system bus.
+    # xdg-desktop-portal then exposes this to the user bus.
+    # therefore, user bus should be all that's needed, but...
+    # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
+    # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
+    # "system"  #< not required UNLESS i want rtkit integration
+    sandbox.whitelistDbus.user = true;  #< required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application  (TODO: reduce)
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
     sandbox.keepPidsAndProc = true;  #< TODO: why?
     sandbox.whitelistAvDev = true;

@@ -50,9 +50,7 @@
 { ... }:
 {
   sane.programs.satellite = {
-    sandbox.whitelistDbus = [
-      "system"  #< reads NMEA data via ModemManager
-    ];
+    sandbox.whitelistDbus.system = true;  #< reads NMEA data via ModemManager
     sandbox.whitelistWayland = true;
     sandbox.mesaCacheDir = ".cache/satellite/mesa";  # TODO: is this the correct app-id?
   };

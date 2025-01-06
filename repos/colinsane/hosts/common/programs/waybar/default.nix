@@ -82,10 +82,8 @@ in
     };
 
     sandbox.net = "all";  #< to show net connection status and BW
-    sandbox.whitelistDbus = [
-      "user"  #< for playerctl/media
-      "system"  #< for modem (on phone)
-    ];
+    sandbox.whitelistDbus.user = true;  #< for playerctl/media (TODO: reduce)
+    sandbox.whitelistDbus.system = true;  #< for modem (on phone)
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
       "sway"

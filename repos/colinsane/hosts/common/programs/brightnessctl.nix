@@ -9,7 +9,7 @@ in
       "/sys/class/leds"
       "/sys/devices"
     ];
-    # sandbox.whitelistDbus = [ "system" ];  #< only necessary if not granting udev perms
+    # sandbox.whitelistDbus.system = true;  #< only necessary if not granting udev perms
   };
 
   services.udev.extraRules = let

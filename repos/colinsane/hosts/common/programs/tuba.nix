@@ -5,7 +5,7 @@
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"

@@ -7,7 +7,7 @@
     # });
 
     buildCost = 2;  #< webkitgtk
-    sandbox.whitelistDbus = [ "user" ];  #< for clicking links
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< for clicking links
     sandbox.whitelistDri = true;  #< speedier
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";

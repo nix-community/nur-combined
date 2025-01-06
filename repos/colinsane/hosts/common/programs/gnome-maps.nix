@@ -34,10 +34,8 @@
 
     sandbox.wrapperType = "inplace";  #< /share directory contains Gir info which references libgnome-maps.so by path
     sandbox.whitelistDri = true;  # for perf
-    sandbox.whitelistDbus = [
-      "system"  # system is required for non-portal location services
-      "user"  #< not sure if "user" is necessary?
-    ];
+    sandbox.whitelistDbus.system = true;  #< system is required for non-portal location services
+    sandbox.whitelistDbus.user = true;  #< TODO: not sure if "user" is necessary?
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 

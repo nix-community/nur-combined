@@ -8,7 +8,7 @@ in
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.xdg-desktop-portal-wlr;
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # speak to main xdg-desktop-portal
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [

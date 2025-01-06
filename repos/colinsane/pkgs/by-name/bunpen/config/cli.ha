@@ -25,8 +25,8 @@ export type cli_opts = struct {
   paths: []str,
   try_keep_users: bool,
 
+  dbus_call: []str,
   dbus_own: []str,
-  dbus_talk: []str,
 
   net_dev: str,
   net_gateway: str,
@@ -74,8 +74,13 @@ export fn usage() void = {
   fmt::println("      note that remaining arguments *are* still eligible for path autodetection (see --bunpen-autodetect)")!;
   fmt::println("")!;
   fmt::println("dbus proxy settings (applies to session bus only):")!;
+  fmt::println("  --bunpen-dbus-call <name>=<method-spec>")!;
+  fmt::println("    method-spec: [*|org.the.interface.[method|*]]|[@/obj/path[/*]]")!;
+  fmt::println("    e.g. org.gnome.Calls=*")!;
+  fmt::println("    e.g. org.gnome.Calls=org.gtk.Application.Activate")!;
+  fmt::println("    e.g. org.gnome.Calls=org.freedesktop.DBus.Introspectable.*")!;
+  fmt::println("    e.g. org.gnome.Calls=org.gtk.Application.Activate@/org/gnome/Calls")!;
   fmt::println("  --bunpen-dbus-own <name>")!;
-  fmt::println("  --bunpen-dbus-talk <name>")!;
   fmt::println("")!;
   fmt::println("net proxy settings (typical invocation specifies either ALL or NONE of these):")!;
   fmt::println("  --bunpen-net-dev <iface>")!;
@@ -169,8 +174,8 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
       switch (arg) {
         case "--bunpen-autodetect"      =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
         case "--bunpen-cap"             =>  idx += 1; parse_caparg(parsed, expect_arg("--bunpen-cap", next)?)?;
+        case "--bunpen-dbus-call"       =>  idx += 1; append(parsed.dbus_call, expect_arg("--bunpen-dbus-call", next)?);
         case "--bunpen-dbus-own"        =>  idx += 1; append(parsed.dbus_own, expect_arg("--bunpen-dbus-own", next)?);
-        case "--bunpen-dbus-talk"       =>  idx += 1; append(parsed.dbus_talk, expect_arg("--bunpen-dbus-talk", next)?);
         case "--bunpen-debug"           =>  parsed.debug = 2;
         case "--bunpen-debug=0"         =>  parsed.debug = 0;
         case "--bunpen-debug=1"         =>  parsed.debug = 1;

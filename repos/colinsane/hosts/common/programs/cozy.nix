@@ -16,7 +16,7 @@
     buildCost = 1;
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Books/Audiobooks"

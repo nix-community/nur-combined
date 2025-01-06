@@ -28,7 +28,7 @@ in
 
     sandbox.net = "all";
     sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
-    sandbox.whitelistDbus = [ "system" ];  #< to register with Avahi
+    sandbox.whitelistDbus.system = true;  #< to register with Avahi
 
     services.gps-share = {
       description = "gps-share: make local GPS serial readings available over Avahi";

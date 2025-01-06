@@ -126,18 +126,18 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   if (opts.keep_all_caps)
     req.resources.caps = rt::ext::CAPS_ALL;
 
-  //---- ingest `dbus_own` ----//
+  //---- ingest `dbus_call` ----//
   let any_dbus = false;
   let dbus_subset = resources::dbus_subset { ... };
+  for (let i .. opts.dbus_call) {
+    any_dbus = true;
+    append(dbus_subset.call, i);
+  };
+
+  //---- ingest `dbus_own` ----//
   for (let i .. opts.dbus_own) {
     any_dbus = true;
     append(dbus_subset.own, i);
-  };
-
-  //---- ingest `dbus_talk` ----//
-  for (let i .. opts.dbus_talk) {
-    any_dbus = true;
-    append(dbus_subset.talk, i);
   };
 
   if (any_dbus)

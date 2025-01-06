@@ -2,8 +2,6 @@
 {
   sane.programs.nmcli = {
     packageUnwrapped = pkgs.networkmanager-split.nmcli;
-    sandbox.whitelistDbus = [
-      "system"
-    ];
+    sandbox.whitelistDbus.system = true;
   };
 }

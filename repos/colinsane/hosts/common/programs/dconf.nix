@@ -30,7 +30,7 @@ in
 {
   sane.programs.dconf = {
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.dconf;
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     persist.byStore.private = [
       ".config/dconf"
     ];

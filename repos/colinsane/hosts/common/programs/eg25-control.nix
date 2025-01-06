@@ -17,9 +17,7 @@ in
       # "/var/lib/eg25-control"
     ];
     sandbox.net = "all";  #< for downloading the almanac
-    sandbox.whitelistDbus = [
-      "system"  #< used by `mmcli`
-    ];
+    sandbox.whitelistDbus.system = true;  #< used by `mmcli`
 
     services.eg25-control-powered = {
       description = "eg25-control-powered: power to the Qualcomm eg25 modem used by PinePhone";

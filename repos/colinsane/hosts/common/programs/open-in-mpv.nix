@@ -2,7 +2,7 @@
 { pkgs, ... }:
 {
   sane.programs.open-in-mpv = {
-    sandbox.whitelistDbus = [ "user" ];  # for xdg-open/portals
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # for xdg-open/portals
 
     # taken from <https://github.com/Baldomo/open-in-mpv>
     fs.".config/open-in-mpv/config.yml".symlink.text = ''

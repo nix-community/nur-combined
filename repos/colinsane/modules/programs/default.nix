@@ -76,7 +76,7 @@ let
           "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here (if using systemd-resolved)
         ] ++ lib.optionals (sandbox.net == "all" && config.services.avahi.enable) [
           "/var/run/avahi-daemon"  #< yes, it has to be "/var/run/...". required for nss (e.g. `getent hosts desko.local`)
-        ] ++ lib.optionals (builtins.elem "system" sandbox.whitelistDbus) [
+        ] ++ lib.optionals sandbox.whitelistDbus.system [
           "/var/run/dbus/system_bus_socket"  #< XXX: use /var/run/..., for the rare program which requires that (i.e. avahi users)
         ] ++ sandbox.extraPaths
         ;
@@ -105,7 +105,13 @@ let
             vpn.dns
           else
             null;
-          # the sandboxer should understand how to work with duplicated paths, but it's annoying => `lib.unique`
+          allowedDbusCall = lib.flatten (
+            lib.mapAttrsToList
+              (interface: lib.map (methodSpec: "${interface}=${methodSpec}"))
+              sandbox.whitelistDbus.user.call
+          );
+          allowedDbusOwn = sandbox.whitelistDbus.user.own;
+          # the sandboxer knows how to work with duplicated paths, but they're still annoying => `lib.unique`
           allowedPaths = lib.unique allowedPaths;
           allowedHomePaths = lib.unique allowedHomePaths;
           allowedRunPaths = lib.unique allowedRunPaths;
@@ -288,7 +294,7 @@ let
             depends = svcCfg.depends
               ++ lib.optionals (((config.persist.byStore or {}).private or []) != []) [
               "private-storage"
-            ] ++ lib.optionals (svcName != "dbus-user" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
+            ] ++ lib.optionals (svcName != "dbus-user" && config.sandbox.whitelistDbus.user != {} && cfg.dbus.enabled) [
               "dbus-user"
             ] ++ lib.optionals ((!builtins.elem "wayland" svcCfg.partOf) && config.sandbox.whitelistWayland) [
               "wayland"
@@ -450,11 +456,57 @@ let
           pipewire-aware applications shouldn't need this.
         '';
       };
-      sandbox.whitelistDbus = mkOption {
-        type = types.listOf (types.enum [ "user" "system" ]);
-        default = [ ];
+      sandbox.whitelistDbus.user = mkOption {
+        type = types.coercedTo
+          types.bool (b: { all = b; })
+          (types.submodule {
+            options = {
+              all = mkOption {
+                type = types.bool;
+                default = false;
+                description = ''
+                  allow full, unrestricted dbus access
+                '';
+              };
+              own = mkOption {
+                type = types.listOf types.str;
+                default = [];
+                description = ''
+                  allow the sandbox to own any well-known name in this list.
+                '';
+              };
+              call = mkOption {
+                type = types.attrsOf (types.coercedTo types.str (s: [ s ] ) (types.listOf types.str));
+                default = {};
+                description = ''
+                  for each attribute name, allow the sandbox to call methods on that well-known bus name
+                  so long as they satisfy the specifier encoded in the attribute value.
+
+                  e.g. { "org.freedesktop.portal" = [ "org.freedesktop.portal.FileChooser.*"; ]; };
+                '';
+              };
+            };
+          })
+        ;
+        default = {};
         description = ''
-          allow sandbox to freely interact with dbus services.
+          allow sandbox to selectively interact with user dbus services.
+          e.g. {
+            own = [ "org.gnome.Calls" ];
+            call."org.freedesktop.portal" = "org.freedesktop.portal.FileChooser.*";
+          };
+          special `*` path can be used to allow ALL user dbus traffic:
+          e.g. {
+            "*".call = true;
+            "*".own = true;
+          }
+        '';
+      };
+      sandbox.whitelistDbus.system = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow sandbox to freely interact with system dbus services.
         '';
       };
       sandbox.whitelistDri = mkOption {
@@ -466,6 +518,35 @@ let
           however, this basically amounts to letting the sandbox send GPU-specific
           commands directly to the GPU (or, its kernel module), which is a rather
           broad and unaudited attack surface.
+        '';
+      };
+      sandbox.whitelistPortal = mkOption {
+        type = types.listOf (types.enum [
+          # "Account"
+          # "Camera"
+          # "Device"
+          "DynamicLauncher"
+          # "Email"
+          "FileChooser"
+          # "GameMode"
+          "Location"
+          # "MemoryMonitor"
+          "NetworkMonitor"  # bleh!
+          "Notification"
+          "OpenURI"
+          # "PowerProfileMonitor"
+          # "Print"
+          # "ProxyResolver"
+          # "Realtime"
+          # "ScreenCast"
+          # "Screenshot"
+          # "Settings"
+          # "Trash"
+          # "Wallpaper"
+        ]);
+        default = [];
+        description = ''
+          allow calling specific interfaces under org.freedesktop.portal
         '';
       };
       sandbox.whitelistPwd = mkOption {
@@ -480,6 +561,14 @@ let
         default = false;
         description = ''
           allow the program to start/stop s6 services.
+        '';
+      };
+      sandbox.whitelistSendNotifications = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program to send notifications to the desktop manager (like `notify-send`).
+          typically works via dbus.
         '';
       };
       sandbox.whitelistSystemctl = mkOption {
@@ -610,7 +699,23 @@ let
 
       sandbox.keepPids = lib.mkIf config.sandbox.keepPidsAndProc true;
 
-      sandbox.whitelistDbus = lib.mkIf config.sandbox.whitelistSystemctl [ "system" ];
+      sandbox.whitelistDbus.system = lib.mkIf config.sandbox.whitelistSystemctl true;
+
+      sandbox.whitelistDbus.user.call = lib.mkMerge ([
+        (lib.mkIf config.sandbox.whitelistSendNotifications {
+          "org.freedesktop.Notifications" = "*";  # Notify, NotificationClosed, NotificationReplied, ActionInvoked
+          "org.erikreider.swaync.cc" = "*";  #< probably overkill
+        })
+      ] ++ lib.forEach config.sandbox.whitelistPortal (p: {
+        "org.freedesktop.portal.Desktop" = [
+          "org.freedesktop.portal.${p}.*"
+          # "org.freedesktop.DBus.Peer"  #< seems to not be needed
+          # "org.freedesktop.DBus.Properties"
+          # "org.freedesktop.DBus.Introspectable"
+        ];
+      }));
+
+      sandbox.whitelistPortal = lib.mkIf config.sandbox.whitelistSendNotifications [ "Notification" ];
 
       sandbox.extraEnv = {
         MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) "$HOME/${config.sandbox.mesaCacheDir}";
@@ -700,7 +805,7 @@ let
       ;
       sandbox.extraRuntimePaths =
         lib.optionals config.sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
-        ++ lib.optionals (builtins.elem "user" config.sandbox.whitelistDbus) [ "dbus" ]
+        ++ lib.optionals config.sandbox.whitelistDbus.user.all [ "dbus" ]
         ++ lib.optionals config.sandbox.whitelistWayland [ "wl" ]  # app can still communicate with wayland server w/o this, if it has net access
         ++ lib.optionals config.sandbox.whitelistS6 [ "s6" ]  # TODO: this allows re-writing the services themselves: don't allow that!
       ;

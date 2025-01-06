@@ -98,7 +98,7 @@ in
       "wvkbd"
     ];
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  #< to launch applications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to launch applications
     sandbox.whitelistSystemctl = true;  #< to restart bonsaid on failure
     sandbox.extraRuntimePaths = [ "sway" ];
     sandbox.keepPidsAndProc = true;  #< for toggling the keyboard

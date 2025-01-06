@@ -15,7 +15,7 @@
       "wl-clipboard"
     ];
     sandbox.keepPids = true;  #< needed by wl-clipboard
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
       "sway"

@@ -3,7 +3,7 @@
 {
   sane.programs.gnome-keyring = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.gnome-keyring;
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.extraRuntimePaths = [
       "keyring"  #< only needs keyring/control, but has to *create* that.
       # "keyring/control"

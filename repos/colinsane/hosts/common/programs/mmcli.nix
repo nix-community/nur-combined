@@ -24,9 +24,7 @@
     });
 
     sandbox.tryKeepUsers = true;
-    sandbox.whitelistDbus = [
-      "system"
-    ];
+    sandbox.whitelistDbus.system = true;
   };
 }
 

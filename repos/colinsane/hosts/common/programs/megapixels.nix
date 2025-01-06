@@ -28,7 +28,7 @@
     #   "bwrap: failed to make / slave: Operation not permitted"
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [ "user" ];  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|
     sandbox.extraHomePaths = [
       # ".config/megapixels"
       "Pictures/Photos"

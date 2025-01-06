@@ -14,7 +14,7 @@
     #   "gvfs"  # browse ftp://, etc  (TODO: fix!)
     # ];
 
-    sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # for portals launching apps
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # grant access to pretty much everything, except for secret keys.

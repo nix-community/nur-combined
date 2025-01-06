@@ -2,7 +2,7 @@
 {
   sane.programs.playerctl = {
     sandbox.wrapperType = "inplace";  #< /lib/pkgconfig/playerctl.pc refers to $out by full path
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
 
     services.playerctld = {
       description = "playerctl daemon to keep track of which MPRIS players were recently active";

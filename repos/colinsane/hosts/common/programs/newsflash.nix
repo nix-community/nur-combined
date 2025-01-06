@@ -19,7 +19,7 @@ in {
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;  #< for embedded videos
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [

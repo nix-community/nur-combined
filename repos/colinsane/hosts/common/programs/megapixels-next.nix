@@ -43,7 +43,7 @@ in
     sandbox.wrapperType = "inplace";  #< for share/megapixels/movie.sh
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [ "user" ];  #< so that it can open the image viewer using fdo portal...
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< so that it can open the image viewer using fdo portal...
     sandbox.extraHomePaths = [
       # ".config/megapixels"
       "Pictures/Photos"

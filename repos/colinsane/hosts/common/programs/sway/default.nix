@@ -228,7 +228,8 @@ in
 
     sandbox.net = "all";  # TODO: shouldn't be needed! but without this, mouse/kb hotplug doesn't work.
     sandbox.whitelistAudio = true;  # it runs playerctl directly
-    sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
+    sandbox.whitelistDbus.system = true;
+    sandbox.whitelistDbus.user = true;  # to e.g. launch apps (TODO: reduce)
     sandbox.whitelistDri = true;
     sandbox.whitelistSystemctl = true;  #< for Super+L to start the screen locker service
     sandbox.whitelistX = true;  # sway invokes xwayland itself

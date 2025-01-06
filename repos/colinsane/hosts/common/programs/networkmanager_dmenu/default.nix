@@ -3,9 +3,7 @@
 {
   sane.programs.networkmanager_dmenu = {
     # sandbox.keepPidsAndProc = true;  #< else it can't connect to NetworkManager (?)
-    sandbox.whitelistDbus = [
-      "system"
-    ];
+    sandbox.whitelistDbus.system = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".cache/rofi"

@@ -80,8 +80,6 @@
     env.FLARE_DATA_PATH = "$HOME/.local/share/flare/data";
     # sandbox.net = "clearnet";
     # sandbox.whitelistWayland = true;
-    # sandbox.whitelistDbus = [
-    #   "user"  # so i can click on links, at least
-    # ];
+    # sandbox.whitelistDbus.user = true;  # so i can click on links, at least (TODO: reduce!)
   };
 }

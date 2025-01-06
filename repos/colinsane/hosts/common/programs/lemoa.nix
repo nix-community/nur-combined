@@ -3,7 +3,7 @@
   sane.programs.lemoa = {
     buildCost = 1;
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus = [ "user" ];  # for clicking links
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # for clicking links
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     # creds

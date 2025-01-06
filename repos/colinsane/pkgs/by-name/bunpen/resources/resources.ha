@@ -20,10 +20,13 @@ export type resources = struct {
 };
 
 export type dbus_subset = struct {
+  // list of method specifiers to allow calling
+  //   <name>=<method-spec>
+  //   method-spec: [*|org.the.interface.[method|*]]|[@/obj/path[/*]]
+  //   e.g. org.gnome.Calls=org.gtk.Application.Activate@/org/gnome/Calls
+  call: []str,
   // list of bus names to allow owning
   own: []str,
-  // list of bus names to allow talking to
-  talk: []str,
 };
 
 export type net_subset = struct {

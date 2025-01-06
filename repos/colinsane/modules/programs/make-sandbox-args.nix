@@ -3,6 +3,8 @@ let
   bunpenGenerators = {
     autodetectCliPaths = style: [ "--bunpen-autodetect" style ];
     capability = cap: [ "--bunpen-cap" cap ];
+    dbusCall = spec: [ "--bunpen-dbus-call" spec ];
+    dbusOwn = interface: [ "--bunpen-dbus-own" interface ];
     dns = addr: [ "--bunpen-dns" addr ];
     env = key: value: [ "--bunpen-env" "${key}=${value}" ];
     keepIpc = [ "--bunpen-keep-ipc" ];
@@ -40,6 +42,8 @@ let
 in
 {
   method,
+  allowedDbusCall ? [],
+  allowedDbusOwn ? [],
   allowedPaths ? [],
   allowedHomePaths ? [],
   allowedRunPaths ? [],
@@ -67,6 +71,10 @@ let
 
   envArgs = lib.flatten (lib.mapAttrsToList gen.env extraEnv);
 
+  dbusItems = lib.flatten (lib.map gen.dbusOwn allowedDbusOwn)
+    ++ lib.flatten (lib.map gen.dbusCall allowedDbusCall)
+  ;
+
   netItems = lib.optionals (netDev != null) (gen.netDev netDev)
     ++ lib.optionals (netGateway != null) (gen.netGateway netGateway)
     ++ lib.optionals (dns != null) (lib.flatten (builtins.map gen.dns dns))
@@ -74,6 +82,7 @@ let
 
 in
   (gen.method method)
+  ++ dbusItems
   ++ netItems
   ++ allowPaths "unqualified" allowedPaths
   ++ allowPaths "home" allowedHomePaths

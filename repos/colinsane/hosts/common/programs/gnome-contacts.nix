@@ -29,7 +29,7 @@
       did-initial-setup = true;
     };
 
-    sandbox.whitelistDbus = [ "user" ];  #< for OpenURI, evolution-data-server
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< for OpenURI, evolution-data-server
     sandbox.whitelistDri = true;  #< speculative, but i'd like it to be responsive on mobile
     sandbox.whitelistWayland = true;
 

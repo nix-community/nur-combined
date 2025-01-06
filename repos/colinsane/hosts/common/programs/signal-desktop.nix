@@ -39,9 +39,7 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [
-      "user"  # so i can click on links
-    ];
+    sandbox.whitelistDbus.user = true;  # for clicking on links (TODO: reduce)
     sandbox.whitelistDri = true;  #< hopefully it makes use of this for perf?
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

@@ -11,7 +11,7 @@
     persist.byStore.private = [ ".config/discord" ];
     sandbox.wrapperType = "inplace";  #< package contains broken symlinks that my wrapper can't handle
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # needed for xdg-open
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # needed for xdg-open
     sandbox.whitelistDri = true;  #< required for even basic graphics (e.g. rendering a window)
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";

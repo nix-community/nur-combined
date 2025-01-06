@@ -28,7 +28,7 @@ in
         pkgs.makeBinaryWrapper
       ];
     });
-    sandbox.whitelistDbus = [ "system" ];
+    sandbox.whitelistDbus.system = true;
     sandbox.net = "all";  #< otherwise it will show 'null' in place of each interface name.
     # sandbox.extraPaths = [ ];  #< may be missing some paths; only tried service discovery, not service advertisement.
   };

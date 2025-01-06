@@ -24,7 +24,7 @@ in
       default = {};
     };
 
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
       "/dev/input/by-path/platform-vibrator-event"

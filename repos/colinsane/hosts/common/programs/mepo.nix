@@ -15,10 +15,8 @@
     sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [
-      "system"  # system is required for non-portal location services
-      "user"  #< not sure if "user" is necessary?
-    ];
+    sandbox.whitelistDbus.system = true;  # system is required for non-portal location services
+    sandbox.whitelistDbus.user = true;  #< TODO: not sure if "user" is necessary?
     sandbox.mesaCacheDir = ".cache/mepo/mesa";
 
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];

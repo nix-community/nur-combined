@@ -3,7 +3,7 @@
   sane.programs.steam = {
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  #< to open https:// links in portal
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to open https:// links in portal
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistX = true;

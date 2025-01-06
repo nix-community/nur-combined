@@ -306,9 +306,9 @@ test_11_dbus_04_proxy_nonexistent() {
 
   # parameters *have* to be "valid" dbus names, i.e. a-z with dot separators, at least multiple components.
   # they don't have to be actual, existing names
-  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'does.not.exist=*' busctl --user list
   bunpen --bunpen-path /nix/store --bunpen-dbus-own 'does.not.exist' busctl --user list
-  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'does.not.exist' --bunpen-dbus-own 'also.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'does.not.exist=*' --bunpen-dbus-own 'also.not.exist' busctl --user list
 }
 
 test_11_dbus_05_proxy_bypass() {
@@ -316,14 +316,14 @@ test_11_dbus_05_proxy_bypass() {
   dbus-test-tool echo --name=com.example.Echo &
   sleep 1 # wait for readiness
 
-  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus/bus --bunpen-dbus-talk 'does.not.exist' busctl --user list
-  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user list
-  bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-talk 'does.not.exist' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus/bus --bunpen-dbus-call 'does.not.exist=*' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user list
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-call 'does.not.exist=*' busctl --user list
 
   # try calling a method
-  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user call com.example.Echo / com.example.Echo echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user call com.example.Echo / com.example.Echo echo s "hello"
   # call a non-existent service
-  ! bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
+  ! bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
 }
 
 test_11_dbus_06_proxy_call() {
@@ -334,19 +334,36 @@ test_11_dbus_06_proxy_call() {
   sleep 1 # wait for readiness
 
   # make sure the service is visible
-  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user status com.example.Echo1
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user status com.example.Echo1
   # call a method on the service. the echo service will reply, but with an empty message
-  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo2 / com.example.Echo2 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.Echo2 / com.example.Echo2 echo s "hello"
 
-  # call a method on a service we're NOT allowed to talk to
-  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo3 / com.example.Echo3 echo s "hello"
+  # call a method we're not allowed to call
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.Echo3 / com.example.Echo3 echo s "hello"
 
   # call a non-existent service
-  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.NoExist / com.example.Echo1 echo s "hello"
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.NoExist / com.example.Echo1 echo s "hello"
 }
 
-test_11_dbus_07_proxy_own() {
+test_11_dbus_07_proxy_call_detail() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo1 &
+  sleep 1 # wait for readiness
+
+  # busctl call <name> <path> <interface> <method>
+  # --bunpen-dbus-call <name>=<interface>.<method>@/object/path
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo-not-allowed' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.*' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.WrongInterface.*' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo@/object/path' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo@/object/path/wrong' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo@/object/*' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
+}
+
+test_11_dbus_08_proxy_own() {
   dbus_daemon_setup
 
   bunpen --bunpen-path /nix/store --bunpen-dbus-own 'com.example.Echo1' --bunpen-dbus-own 'com.example.Echo2' dbus-test-tool echo --name="com.example.Echo1" &
@@ -356,28 +373,28 @@ test_11_dbus_07_proxy_own() {
   # busctl --user status com.example.Echo1  # TODO: fails for some reason... maybe because it can't figure out the PID/username to show?
   busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 
-  # not allows to own talk-only addresses
-  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' dbus-test-tool echo --name="com.example.Echo1"
+  # not allowed to own call-only addresses
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' dbus-test-tool echo --name="com.example.Echo1"
 
   # not allowed to own non-whitelisted addresses
   ! bunpen --bunpen-path /nix/store --bunpen-dbus-own 'com.example.Echo1' --bunpen-dbus-own 'com.example.Echo2' dbus-test-tool echo --name="com.example.Echo3"
   ! bunpen --bunpen-path /nix/store dbus-test-tool echo --name="com.example.Echo1"
 }
 
-test_11_dbus_08_proxy_partial_sandbox() {
+test_11_dbus_09_proxy_partial_sandbox() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo1 &
   sleep 1 # wait for readiness
 
-  bunpen --bunpen-path /nix/store --bunpen-cap all --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-keep-ipc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-keep-net --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-path /proc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-try-keep-users --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-cap all --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-ipc --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-net --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-path /proc --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-try-keep-users --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
   mkdir file-for-test ;
-    bunpen --bunpen-path /nix/store --bunpen-path file-for-test --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
-  bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+    bunpen --bunpen-path /nix/store --bunpen-path file-for-test --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 }
 
 runTests() {

@@ -54,7 +54,7 @@ in
         "util-linux"
       ];
     };
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.keepPidsAndProc = true;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
   };
 
@@ -107,10 +107,8 @@ in
     ];
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [
-      "user"  # mpris; portal
-      "system"  # backlight
-    ];
+    sandbox.whitelistDbus.user = true;  # mpris; portal (TODO: reduce)
+    sandbox.whitelistDbus.system = true;  # backlight
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [

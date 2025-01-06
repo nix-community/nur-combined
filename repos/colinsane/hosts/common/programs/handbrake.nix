@@ -5,7 +5,7 @@
 
     sandbox.mesaCacheDir = ".cache/handbrake/mesa";  # TODO: is this the correct app-id?
 
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"

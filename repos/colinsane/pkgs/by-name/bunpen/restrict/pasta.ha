@@ -29,10 +29,6 @@ fn pasta_restrict(net: resources::net_subset) void = {
   //
   // after that, P can continue on & exec into the user code
 
-  // unshare PID space here so that the fork'd child (pasta) is isolated.
-  // TODO: stronger isolation (mount namespace).
-  // errors::ext::check("[namespace/pasta] unshare PID", rt::ext::unshare(rt::ext::clone_flag::NEWPID));
-
   // grab a handle to the namespaces of the primary process.
   // then we can fork, unshare net (in parent) and refer to that unshared netns
   // in the child (pasta) via ${ns_fd}/net.

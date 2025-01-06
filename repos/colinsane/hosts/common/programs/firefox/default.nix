@@ -214,7 +214,7 @@ in
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistAvDev = true;  #< it doesn't seem to use pipewire, but direct /dev/videoN (as of 2024/09/12)
-    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "dev"  # for developing anything web-related

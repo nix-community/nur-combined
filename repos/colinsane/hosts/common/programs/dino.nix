@@ -64,7 +64,7 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
     sandbox.whitelistDri = true;  #< not strictly necessary, but we need all the perf we can get on moby
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
