@@ -73,11 +73,13 @@ test_03_propagates_04_stdout() {
 }
 
 test_04_logs_01_disabled_by_default() {
+  unset BUNPEN_DEBUG
   local stdout=$(bunpen --bunpen-path / true 2>&1)
   test -z "$stdout"
 }
 
 test_04_logs_02_enabled() {
+  unset BUNPEN_DEBUG
   local stdout=$(bunpen --bunpen-debug=4 --bunpen-path / true 2>&1)
   test -n "$stdout"
 }
@@ -270,10 +272,15 @@ test_10_tmpfs_root_is_introspectable() {
   test "$test_file1" = from_sandbox
 }
 
-test_11_dbus_01_whitelisted_by_path() {
+dbus_daemon_setup() {
   export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
   mkdir -p $PWD/dbus
   dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+}
+
+test_11_dbus_01_whitelisted_by_path() {
+  dbus_daemon_setup
+
   # busctl exits clean if it can reach the bus
   bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
   # sanity check that it would exit falsey if it fails to reach the bus
@@ -282,9 +289,8 @@ test_11_dbus_01_whitelisted_by_path() {
 }
 
 test_11_dbus_02_doesnt_bridge_bus_by_default() {
-  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
-  mkdir -p $PWD/dbus
-  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+  dbus_daemon_setup
+
   ! bunpen --bunpen-path /nix/store busctl --user list
   # but still reachable from the outside
   busctl --user list
@@ -296,9 +302,7 @@ test_11_dbus_03_doesnt_spawn_bus() {
 }
 
 test_11_dbus_04_proxy_nonexistent() {
-  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
-  mkdir -p $PWD/dbus
-  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+  dbus_daemon_setup
 
   # parameters *have* to be "valid" dbus names, i.e. a-z with dot separators, at least multiple components.
   # they don't have to be actual, existing names
@@ -308,13 +312,72 @@ test_11_dbus_04_proxy_nonexistent() {
 }
 
 test_11_dbus_05_proxy_bypass() {
-  export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
-  mkdir -p $PWD/dbus
-  dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo &
+  sleep 1 # wait for readiness
 
   bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus/bus --bunpen-dbus-talk 'does.not.exist' busctl --user list
   bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user list
   bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-talk 'does.not.exist' busctl --user list
+
+  # try calling a method
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user call com.example.Echo / com.example.Echo echo s "hello"
+  # call a non-existent service
+  ! bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-talk 'does.not.exist' busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
+}
+
+test_11_dbus_06_proxy_call() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo1 &
+  dbus-test-tool echo --name=com.example.Echo2 &
+  dbus-test-tool echo --name=com.example.Echo3 &
+  sleep 1 # wait for readiness
+
+  # make sure the service is visible
+  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user status com.example.Echo1
+  # call a method on the service. the echo service will reply, but with an empty message
+  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo2 / com.example.Echo2 echo s "hello"
+
+  # call a method on a service we're NOT allowed to talk to
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.Echo3 / com.example.Echo3 echo s "hello"
+
+  # call a non-existent service
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' --bunpen-dbus-talk 'com.example.Echo2' busctl --user call com.example.NoExist / com.example.Echo1 echo s "hello"
+}
+
+test_11_dbus_07_proxy_own() {
+  dbus_daemon_setup
+
+  bunpen --bunpen-path /nix/store --bunpen-dbus-own 'com.example.Echo1' --bunpen-dbus-own 'com.example.Echo2' dbus-test-tool echo --name="com.example.Echo1" &
+  sleep 1  # wait for readiness
+
+  busctl --user list | grep com.example.Echo1
+  # busctl --user status com.example.Echo1  # TODO: fails for some reason... maybe because it can't figure out the PID/username to show?
+  busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+
+  # not allows to own talk-only addresses
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-talk 'com.example.Echo1' dbus-test-tool echo --name="com.example.Echo1"
+
+  # not allowed to own non-whitelisted addresses
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-own 'com.example.Echo1' --bunpen-dbus-own 'com.example.Echo2' dbus-test-tool echo --name="com.example.Echo3"
+  ! bunpen --bunpen-path /nix/store dbus-test-tool echo --name="com.example.Echo1"
+}
+
+test_11_dbus_08_proxy_partial_sandbox() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo1 &
+  sleep 1 # wait for readiness
+
+  bunpen --bunpen-path /nix/store --bunpen-cap all --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-ipc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-net --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-path /proc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-keep-pid --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-try-keep-users --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  mkdir file-for-test ;
+    bunpen --bunpen-path /nix/store --bunpen-path file-for-test --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+  bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-dbus-talk 'com.example.Echo1' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 }
 
 runTests() {
@@ -393,7 +456,7 @@ done
 
 if [ $# = 1 ]; then
   # run the test inline
-  "$@"
+  ( set -x ; BUNPEN_DEBUG=4 "$@" )
 elif [ $# = 0 ]; then
   selfTest
   runTests "${allTests[@]}"

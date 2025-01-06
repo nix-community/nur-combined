@@ -93,8 +93,16 @@ fn dbus_restrict(dbus: resources::dbus_subset, upstream_parent_fd: io::file, dow
   log::printfln("[dbus]: forking: child will launch xdg-dbus-proxy while parent will exec user code");
   match (ps::fork_and_die_with_parent()) {
     case void =>
-      // close the pipe ends which aren't ours
-      io::close(pipe_parent_rd)!;
+      // ~~close the pipe ends which aren't ours~~
+      // actually DON'T: the xdg-dbus-proxy `--fd=FOO` notification option
+      // causes xdg-dbus-proxy to exit when the fd is closed.
+      // we COULD keep the fd open in the parent, but that only works so long as
+      // it stays around as a PID-0 manager, and not in the cases where it
+      // directly exec's the user code.
+      //
+      // so, keep the `--fd=pipe_parent_rd` fd open here, and intentionally let
+      // the xdg-dbus-proxy process inherit that. it'll never be closed so long as the proxy is alive
+      // io::close(pipe_parent_rd)!;
 
       let ns_paths: []path::buffer = [];
       append(ns_paths, path::init("/nix/store")!);
@@ -151,16 +159,7 @@ fn dbus_restrict(dbus: resources::dbus_subset, upstream_parent_fd: io::file, dow
 
       log::println("[dbus] child signaled readiness: continuing");
 
-      // XXX: DON'T close the pipe: xdg-dbus-proxy docs say it will exit when
-      // the fd is closed.
-      // TODO: make sure this implementation is compatible with non-pid
-      // namespaced invocations! if it isn't, consider alternative synchronizations:
-      // - `write` a HELLO message and block until it's read.
-      // - invoke with `--log` and parse the output.
-      // - pre-create the unix socket _before_ forking here, and somehow pass
-      //   that into xdg-dbus-proxy instead of letting it create its own socket.
-      //
-      // io::close(pipe_parent_rd)!;
+      io::close(pipe_parent_rd)!;
 
     case let e: (os::exec::error | rt::errno) =>
       errors::ext::check("dbus_restrict: fork", e);
