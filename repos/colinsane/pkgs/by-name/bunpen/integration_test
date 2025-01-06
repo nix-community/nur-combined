@@ -391,7 +391,7 @@ runTests() {
     cp -r ./test "$basedir/$f/test"
     echo -n "$f: ..."
     cd "$basedir/$f"
-    if $SELF "$f" > "$basedir/$f/stdall" 2>&1; then
+    if timeout 10 $SELF "$f" > "$basedir/$f/stdall" 2>&1; then
       echo " SUCCESS"
       succeeded+=("$f")
     else

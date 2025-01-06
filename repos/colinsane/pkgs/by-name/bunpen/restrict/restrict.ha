@@ -31,7 +31,7 @@ export fn restrict(what: *resources::resources) void = {
         // on i can refer to it by path relative to that parent
         let session_parent = path::parent(&session)!;
         log::printfln("[restrict] attempting to open parent(DBUS_SESSION_BUS_ADDRESS={})={}", path::string(&session), session_parent);
-        yield match (rt::open(session_parent, rt::O_RDONLY, 0o700)) { //< TODO: correct mode?
+        yield match (rt::open(session_parent, rt::O_RDONLY | rt::O_CLOEXEC, 0o700)) { //< TODO: correct mode?
           case let outer_fd: int => yield dbus_details {
             outer_parent_fd = outer_fd,
             session_path = session,
