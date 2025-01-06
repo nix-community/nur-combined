@@ -11,8 +11,8 @@ reIf {
     serviceDependencies = [ "conduit.service" ];
     settings = {
       homeserver = {
-        address = "http://127.0.0.1:${toString config.services.matrix-conduit.settings.global.port}";
-        domain = config.services.matrix-conduit.settings.global.server_name;
+        address = "http://127.0.0.1:${toString config.services.conduwuit.settings.global.port}";
+        domain = config.services.conduwuit.settings.global.server_name;
       };
       appservice = {
         address = "http://127.0.0.1:6169";

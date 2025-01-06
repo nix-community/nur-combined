@@ -1,9 +1,9 @@
-{ config, user, ... }:
+{ config, ... }:
 {
   security.pam = {
     u2f = {
       enable = true;
-      settings.authfile = config.vaultix.secrets."${user}.u2f".path;
+      settings.authfile = config.vaultix.secrets.pam.path;
       settings.cue = true;
       control = "sufficient";
     };
