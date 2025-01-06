@@ -88,6 +88,7 @@ in
       "netcat"
       "nethogs"
       "nix"
+      "nix-tree"
       "nmap"
       "nmcli"
       "nmon"
@@ -913,6 +914,10 @@ in
     nil.sandbox.keepPids = true;
 
     nixd.sandbox.whitelistPwd = true;
+
+    nix-tree.sandbox.extraPaths = [
+      "/nix/var"
+    ];
 
     nixfmt-rfc-style.sandbox.autodetectCliPaths = "existingDirOrParent";  #< it formats via rename
 

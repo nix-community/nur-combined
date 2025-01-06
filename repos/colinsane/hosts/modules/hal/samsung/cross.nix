@@ -15,6 +15,7 @@ in
     sane.programs.marksman.enableFor = { system = false; user.colin = false; };  # markdown neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.mepo.enableFor.user.colin = false;  # 2024/06/04: doesn't cross compile (nodejs)
     sane.programs.mercurial.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
+    sane.programs.nix-tree.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2025-01-05; blocked by vty)
     sane.programs.nixpkgs-review.enableFor.user.colin = false;  # 2024/06/03: OOMs when cross compiling
     sane.programs.ntfy-sh.enableFor.user.colin = false;  # 2024/06/04: doesn't cross compile (nodejs)
     sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
