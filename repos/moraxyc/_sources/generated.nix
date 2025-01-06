@@ -15,30 +15,30 @@
   };
   pam-watchid = {
     pname = "pam-watchid";
-    version = "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189";
+    version = "e2085275b004e71c1983ae79f7775922a773aa18";
     src = fetchFromGitHub {
       owner = "Logicer16";
       repo = "pam-watchid";
-      rev = "bb9c6ea62207dd9d41a08ca59c7a1f5d6fa07189";
+      rev = "e2085275b004e71c1983ae79f7775922a773aa18";
       fetchSubmodules = false;
-      sha256 = "sha256-6SqSACoG7VkyYfz+xyU/L2J69RxHTTvzGexjGB2gDuY=";
+      sha256 = "sha256-QBrB6Tyf09g7xpvPB/PZSB/yioVSpjuGJlSVPqHtgG8=";
     };
-    date = "2024-12-25";
+    date = "2025-01-05";
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202501042210";
+    version = "202501052211";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501042210/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501052211/geoip.dat";
       sha256 = "sha256-wCTsAebe1uukc4n+LsxuGk4rEZFr3zqgGkS+zi0WXck=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202501042210";
+    version = "202501052211";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501042210/geosite.dat";
-      sha256 = "sha256-WHDeQRgRF+0/1m1refVbkaGlPbMnJ+jjGiFOI2p4Ab4=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202501052211/geosite.dat";
+      sha256 = "sha256-sswLKPpd9slyJ1lQFwbXKcQ4jmGJjfR4MQb76n9uCqk=";
     };
   };
 }
