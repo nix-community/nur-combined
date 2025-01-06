@@ -34,9 +34,9 @@ jobs:
         cachixName:
           - <YOUR_CACHIX_NAME>
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          # - nixpkgs=channel:nixos-23.11
+          # - nixpkgs=channel:nixos-unstable
+          # - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-24.11
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
