@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenv, fetchFromGitHub
 , lib
 , meson
 , mesonEmulatorHook
@@ -6,7 +6,11 @@
 , python3
 , pkg-config
 , gtk3
+, gtk-mac-integration
 , glib
+, libgedit-amtk
+, libgedit-gtksourceview
+, libgedit-tepl
 , libpeas
 , libxml2
 , gsettings-desktop-schemas
@@ -21,185 +25,50 @@
 , itstool
 , desktop-file-utils
 , vala
-, fetchFromGitHub
+# For Markdown Preview plugin
 , webkitgtk_4_0
-, libsoup 
 , python312Packages
-, pandoc
-, makeWrapper
-, cmake
-, dbus
-, icu
-, gettext
-, atk
-, cairo
-, pango
-, fribidi
-, shared-mime-info
-, xvfb-run
-, texliveSmall
+, gst_all_1
+, glib-networking
 }:
 let
-  gedit-nord-theme = fetchFromGitHub {
-    owner = "nordtheme";
-    repo = "gedit";
-    rev = "8d58a7fdd31176d32d4c152b3642b27403ca02eb";
-    sha256 = "sha256-IXRnGLAWouCSn+Y17juT7FvIpWuchaXR/Z1rL6KsfgE=";
-  };
   gedit-markdown-preview = fetchFromGitHub {
-    owner = "maoschanz";
-    repo = "gedit-plugin-markdown_preview";
-    rev = "1c3da56db6331638f3935ac18fb82b1ed2c16960";
-    sha256 = "sha256-Hqi0/019pYlGpysZDMmxbwFJ28znlNXkEZA6tjvTVDQ=";
+    owner = "novel2430";
+    repo = "gedit-markdown-preview";
+    rev = "af7d61852ab26a15c811fb93dd3db2905f148302";
+    sha256 = "sha256-Y3pfWI+U0CoL2pbo1lCjTk0kmzUa1bn9VDyopEHKTA8=";
   };
-  amtk = stdenv.mkDerivation rec {
-    pname = "amtk";
-    version = "5.6.1";
-
-    outputs = [ "out" "dev" "devdoc" ];
-
-    src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-      sha256 = "1QEVuFyHKqwpaTS17nJqP6FWxvWtltJ+Dt0Kpa0XMig=";
-    };
-    nativeBuildInputs = [
-      meson
-      ninja
-      pkg-config
-      dbus
-      gobject-introspection
-      gtk-doc
-      docbook-xsl-nons
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
-    buildInputs = [
-      gtk3
-    ];
-  };
-  tepl = stdenv.mkDerivation rec {
-    pname = "tepl";
-    version = "6.4.0";
-
-    outputs = [ "out" "dev" "devdoc" ];
-
-    src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-      sha256 = "XlayBmnQzwX6HWS1jIw0LFkVgSLcUYEA0JPVnfm4cyE=";
-    };
-
-    strictDeps = true;
-    nativeBuildInputs = [
-      meson
-      ninja
-      gobject-introspection
-      pkg-config
-      gtk-doc
-      docbook-xsl-nons
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
-
-    buildInputs = [
-      icu
-    ];
-
-    propagatedBuildInputs = [
-      amtk
-      gtksourceview4
-      gtk3
-    ];
-  };
-  gtksourceview4 = stdenv.mkDerivation (finalAttrs: {
-    pname = "gtksourceview";
-    version = "4.8.4";
-
-    outputs = [ "out" "dev" ];
-
-    src = let
-      inherit (finalAttrs) pname version;
-    in fetchurl {
-      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-      sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
-    };
-
-    patches = [
-      # By default, the library loads syntaxes from XDG_DATA_DIRS and user directory
-      # but not from its own datadr (it assumes it will be in XDG_DATA_DIRS).
-      # Since this is not generally true with Nix, let’s add $out/share unconditionally.
-      ./4.x-nix_share_path.patch
-    ];
-
-    nativeBuildInputs = [
-      meson
-      ninja
-      pkg-config
-      gettext
-      perl
-      gobject-introspection
-      vala
-    ];
-
-    buildInputs = [
-      atk
-      cairo
-      glib
-      pango
-      fribidi
-      libxml2
-    ];
-
-    propagatedBuildInputs = [
-      # Required by gtksourceview-4.0.pc
-      gtk3
-      # Used by gtk_source_language_manager_guess_language
-      shared-mime-info
-    ];
-
-    nativeCheckInputs = [
-      xvfb-run
-      dbus
-    ];
-
-    postPatch = ''
-      # https://gitlab.gnome.org/GNOME/gtksourceview/-/merge_requests/295
-      # build: drop unnecessary vapigen check
-      substituteInPlace meson.build \
-        --replace "if generate_vapi" "if false"
-    '';
-
-    postInstall = ''
-      # Install Nord Theme
-      cp ${gedit-nord-theme}/src/xml/nord.xml $out/share/gtksourceview-4/styles/nord.xml
-    '';
-  });
   libs = [
     glib
     gsettings-desktop-schemas
     gspell
     gtk3
-    amtk
-    tepl
-    gtksourceview4
+    libgedit-amtk
+    libgedit-gtksourceview
+    libgedit-tepl
     libpeas
+    # plugins
     webkitgtk_4_0
-    libsoup
-    python312Packages.markdown
-    python312Packages.pygments
-    python312Packages.pymdown-extensions
-    pandoc
-    texliveSmall
+    python312Packages.pygobject3
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    glib-networking
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    gtk-mac-integration
   ];
+
 in
 stdenv.mkDerivation rec {
   pname = "gedit";
-  version = "44.2";
+  version = "48.0";
 
   outputs = [ "out" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
-    sha256 = "sha256-O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
+    sha256 = "/g/vm3sHmRINuGrok6BgA2oTRFNS3tkWm6so04rPDoA=";
   };
 
   patches = [
@@ -209,7 +78,6 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    makeWrapper
     desktop-file-utils
     itstool
     libxml2
@@ -223,7 +91,6 @@ stdenv.mkDerivation rec {
     gtk-doc
     gobject-introspection
     docbook-xsl-nons
-    cmake
   ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
     mesonEmulatorHook
   ];
@@ -237,48 +104,23 @@ stdenv.mkDerivation rec {
     patchShebangs plugins/externaltools/scripts/gedit-tool-merge.pl
   '';
 
+  postInstall = ''
+    # Install Plugins
+    install_dir="$out/lib/gedit/plugins"
+    mkdir -p ''$install_dir
+    cp ${gedit-markdown-preview}/md_preview.plugin ''$install_dir/md_preview.plugin
+    cp -r ${gedit-markdown-preview}/md_preview ''$install_dir/
+    # Wrapper
+  '';
+
   # Reliably fails to generate gedit-file-browser-enum-types.h in time
   enableParallelBuilding = false;
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gedit";
-    };
-  };
-
-  postInstall = ''
-    # Install gedit-plugin-markdown-preview plugin
-    # Make Scheme Dir
-    mkdir -p $out/share/glib-2.0/schemas
-    install_dir="$out/lib/gedit/plugins"
-    schemas_dir="$out/share/glib-2.0/schemas"
-
-    echo "Installing setting schemas in ''$schemas_dir"
-    cp ${gedit-markdown-preview}/org.gnome.gedit.plugins.markdown_preview.gschema.xml ''$schemas_dir
-    glib-compile-schemas ''$schemas_dir
-
-    echo "Installing plugin files in ''$install_dir"
-    cp ${gedit-markdown-preview}/markdown_preview.plugin ''$install_dir/markdown_preview.plugin
-    cp -r ${gedit-markdown-preview}/markdown_preview ''$install_dir/
-    substituteInPlace ''$install_dir/markdown_preview/utils.py --replace-fail "import importlib, shutil, os, gi" "import importlib.util, shutil, os, gi"
-
-    echo "Done."
-
-    # Wrapper
-    mv $out/bin/gedit $out/bin/gedit-base
-    makeWrapper $out/bin/gedit-base $out/bin/gedit \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs} \
-      --prefix PYTHONPATH : "${python312Packages.markdown}/lib/python3.12/site-packages:${python312Packages.pygments}/lib/python3.12/site-packages:${python312Packages.pymdown-extensions}/lib/python3.12/site-packages" \
-      --prefix GI_TYPELIB_PATH : "${webkitgtk_4_0}/lib/girepository-1.0:${libsoup}/lib/girepository-1.0" \
-      --prefix PATH : "${pandoc}/bin:${texliveSmall}/bin";
-
-  '';
-
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gedit/gedit";
-    description = "Former GNOME text editor (With Markdown Preview Plugin, Nord Theme)";
+    description = "Former GNOME text editor (With Markdown-Preview plugin)";
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = platforms.unix;
     mainProgram = "gedit";
   };
 }
