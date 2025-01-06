@@ -93,4 +93,6 @@ in {
   environment.systemPackages = with pkgs; [
     docker-compose
   ];
+
+  nix.gc.automatic = lib.mkForce false;
 }
