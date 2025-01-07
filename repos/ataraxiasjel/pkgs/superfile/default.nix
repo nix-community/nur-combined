@@ -9,13 +9,13 @@
 
 buildGoModule rec {
   pname = "superfile";
-  version = "1.1.7";
+  version = "1.1.7.1";
 
   src = fetchFromGitHub {
     owner = "MHNightCat";
     repo = "superfile";
     rev = "v${version}";
-    hash = "sha256-p5rTwGgiVdZoUWg6PYcmDlfED4/Z6+3lR4VBdWaaz9Q=";
+    hash = "sha256-v7EfMgOsc6FSGIjYkF+44t0wl34WFmokOtzNOAOneBc=";
   };
 
   vendorHash = "sha256-MdOdQQZhiuOJtnj5n1uVbJV6KIs0aa1HLZpFmvxxsWY=";
