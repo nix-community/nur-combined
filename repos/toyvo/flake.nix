@@ -1,14 +1,12 @@
 {
   description = "My personal NUR repository";
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    "nixos-24.11".url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
   outputs =
-    { self, nixpkgs-unstable, ... }:
+    inputs@{ self, nixpkgs, ... }:
     let
-      lib = nixpkgs-unstable.lib;
+      lib = nixpkgs.lib;
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -16,21 +14,32 @@
         "x86_64-linux"
       ];
       forAllSystems = f: lib.genAttrs systems (system: f system);
+      forAllBranches = f: lib.genAttrs (builtins.attrNames inputs) (branch: f inputs.${branch});
     in
     {
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs-unstable { inherit system; };
+          pkgs = import nixpkgs { inherit system; };
         }
       );
       packages = forAllSystems (
-        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system}
+        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system} // {
+          ci = forAllBranches (
+            nixpkgs: let
+              pkgs = import nixpkgs { inherit system; };
+            in {
+              nixpkgs-version = pkgs.writeShellScriptBin "nixpkgs-version" ''
+                echo "${pkgs.lib.version}"
+              '';
+            }
+          );
+        }
       );
       formatter = forAllSystems (
         system:
         let
-          pkgs = import nixpkgs-unstable { inherit system; };
+          pkgs = import nixpkgs { inherit system; };
         in
         pkgs.nixfmt-rfc-style
       );
