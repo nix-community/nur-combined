@@ -21,6 +21,7 @@
   # oracle-cloud-agent = pkgs.callPackage ./pkgs/oracle-cloud-agent { };
   kanata = pkgs.callPackage ./pkgs/kanata { };
   rename_music = pkgs.callPackage ./pkgs/rename_music {};
+  mkalias = pkgs.callPackage ./pkgs/mkalias {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

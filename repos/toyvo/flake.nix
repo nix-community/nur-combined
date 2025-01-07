@@ -34,6 +34,6 @@
         in
         pkgs.nixfmt-rfc-style
       );
-      nixosModules = import ./modules;
+      inherit (import ./modules) nixosModules darwinModules homeManagerModules;
     };
 }
