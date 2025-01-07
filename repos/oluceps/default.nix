@@ -11,6 +11,7 @@ let
           pname = n;
           version = "0.0.301-redirect";
           installPhase = "mkdir -p $out";
+          meta.description = "Please invoke this with flake input, not avaliable with nur.repos.me.*";
         }
       )
     ) { };
