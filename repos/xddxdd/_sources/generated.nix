@@ -550,6 +550,16 @@
     };
     date = "2024-12-22";
   };
+  gwmp-mux = {
+    pname = "gwmp-mux";
+    version = "v0.11.0";
+    src = fetchFromGitHub {
+      owner = "helium";
+      repo = "gwmp-mux";
+      tag = "v0.11.0";
+      hash = "sha256-xSdheb7Io0b+CognG1SKF2GH8RaEsSdSjI2IkjiGSes=";
+    };
+  };
   helium-gateway-rs = {
     pname = "helium-gateway-rs";
     version = "3bdab3e955468c616fbb70b70a37577c4c77cd17";

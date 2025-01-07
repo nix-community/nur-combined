@@ -1063,6 +1063,27 @@
         },
         "version": "6e83bd13ba95d07e017ebaf4037dbd76ac76fda7"
     },
+    "gwmp-mux": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gwmp-mux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "helium",
+            "repo": "gwmp-mux",
+            "rev": "v0.11.0",
+            "sha256": "sha256-xSdheb7Io0b+CognG1SKF2GH8RaEsSdSjI2IkjiGSes=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.11.0"
+    },
     "helium-gateway-rs": {
         "cargoLocks": null,
         "date": "2024-08-01",

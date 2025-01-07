@@ -619,6 +619,11 @@
     "pname": "grasscutter",
     "version": "1.7.4"
   },
+  "legacyPackages.x86_64-linux.gwmp-mux": {
+    "description": "Multiplexer for Semtech's GWMP over UDP",
+    "pname": "gwmp-mux",
+    "version": "0.11.0"
+  },
   "legacyPackages.x86_64-linux.hath": {
     "description": "Hentai@Home",
     "pname": "hath",
@@ -4054,6 +4059,11 @@
     "pname": "grasscutter",
     "version": "1.7.4"
   },
+  "legacyPackages.x86_64-linux.uncategorized.gwmp-mux": {
+    "description": "Multiplexer for Semtech's GWMP over UDP",
+    "pname": "gwmp-mux",
+    "version": "0.11.0"
+  },
   "legacyPackages.x86_64-linux.uncategorized.hath": {
     "description": "Hentai@Home",
     "pname": "hath",
@@ -4828,6 +4838,11 @@
     "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
     "version": "1.7.4"
+  },
+  "packages.x86_64-linux.gwmp-mux": {
+    "description": "Multiplexer for Semtech's GWMP over UDP",
+    "pname": "gwmp-mux",
+    "version": "0.11.0"
   },
   "packages.x86_64-linux.hath": {
     "description": "Hentai@Home",

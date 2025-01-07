@@ -238,6 +238,10 @@ fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver
 src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 
+[gwmp-mux]
+src.github = "helium/gwmp-mux"
+fetch.github = "helium/gwmp-mux"
+
 [helium-gateway-rs]
 src.git = "https://github.com/helium/gateway-rs.git"
 fetch.github = "helium/gateway-rs"
