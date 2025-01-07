@@ -103,4 +103,13 @@
       modesetting.enable = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [foot waybar wofi];
+
+  programs.hyprland.enable = true;
+  programs.hyprlock.enable = true;
+  programs.waybar.enable = true;
+  programs.foot.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.power-profiles-daemon.enable = true;
 }
