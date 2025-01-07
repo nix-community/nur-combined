@@ -15,7 +15,7 @@ with pkgs;
   celeste
   stellarium
   celluloid
-  thiefmd
+  # thiefmd
   # wpsoffice
   # fractal
   mari0
@@ -85,7 +85,7 @@ with pkgs;
   # feeluown-netease
   # feeluown-qqmusic
 
-  chntpw
+  # chntpw
   libnotify
 
   # Perf
@@ -114,7 +114,6 @@ with pkgs;
   # discord
   # materialgram
   tdesktop
-  element-desktop-wayland
   # thunderbird
   # fluffychat
   scrcpy

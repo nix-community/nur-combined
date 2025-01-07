@@ -172,5 +172,6 @@
     radicle.enable = true;
     # xmrig.enable = true;
     reuse-cert.enable = true;
+    calibre.enable = true;
   };
 }

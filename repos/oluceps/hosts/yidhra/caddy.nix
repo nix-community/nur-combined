@@ -61,7 +61,7 @@
                           };
                         };
                       };
-                      upstreams = [ { dial = "10.0.4.3:8083"; } ];
+                      upstreams = [ { dial = "10.0.4.2:8083"; } ];
                     }
                   ];
                   match = [ { host = [ "book.nyaw.xyz" ]; } ];
