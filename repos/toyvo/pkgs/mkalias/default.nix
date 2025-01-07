@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   darwin,
   rustPlatform,
   fetchFromGitHub,
@@ -24,6 +25,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/reckenrode/mkalias";
     license = licenses.gpl3Only;
     platforms = platforms.darwin;
+    broken = !stdenv.isDarwin;
     mainProgram = pname;
   };
 }
