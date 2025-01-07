@@ -14,8 +14,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "FliegendeWurst";
     repo = "pr-dashboard";
-    rev = "f27ee2e3ff3c7d9542ab872d8520b9276a3524ed";
-    hash = "sha256-KRQOYnAcmlIJi43Mg8KgG8TUUH+VP1dOP+rkxRLXZRA=";
+    rev = "18aa20b89c5da4b5a765abfbd764ef9ef5222108";
+    hash = "sha256-mbrn8KbTBpGeW77QQ8WZxv0CtcqP9JuSodfh6mwhIx8=";
   };
 
   cargoHash = "sha256-IKy/iKkom3PylIjJdLLgROzL0GMmSRLL31t+svCf1io=";
