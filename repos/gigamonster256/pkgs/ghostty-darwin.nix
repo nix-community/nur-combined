@@ -27,6 +27,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     makeWrapper $out/Applications/Ghostty.app/Contents/MacOS/ghostty $out/bin/ghostty
   '';
 
+  postFixup = ''
+    mkdir -p $out/share
+    ln -s $out/Applications/Ghostty.app/Contents/Resources/{bash-completion,bat,fish,man,nvim,terminfo,vim,zsh} $out/share
+  '';
+
   meta = {
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
 
