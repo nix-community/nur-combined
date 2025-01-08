@@ -266,6 +266,7 @@ lib.makeScope newScope (
     pyrtcm = callPackage ./gnss/pyrtcm { };
     pyspartn = callPackage ./gnss/pyspartn { };
     pyubx2 = callPackage ./gnss/pyubx2 { };
+    pyubxutils = callPackage ./gnss/pyubxutils { };
     rtklib = callPackage ./gnss/rtklib { };
     rtklib-demo5 = callPackage ./gnss/rtklib/demo5.nix { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };

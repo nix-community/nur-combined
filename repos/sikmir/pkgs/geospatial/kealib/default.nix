@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kealib";
-  version = "1.5.3";
+  version = "1.6.1";
 
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "kealib";
     tag = "kealib-${finalAttrs.version}";
-    hash = "sha256-s6sL8T1jRBmVCrFm00uCw9x6s43u9+GU3ihyMi7XSaQ=";
+    hash = "sha256-4EPOgojhtjBzygd7P1B3e1zvWhUrfc311vcHQ3j01Gc=";
   };
 
   nativeBuildInputs = [ cmake ];

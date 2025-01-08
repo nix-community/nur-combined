@@ -7,13 +7,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-color";
-  version = "1.0.4";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "rio-color";
     tag = version;
-    hash = "sha256-bkXDw8MW0Q+xhYbfN7vexNUzTIjT9c67e6adavQSP1A=";
+    hash = "sha256-iJ+whIk3ANop8i712dLE0mJyDMHGnE0tic23H6f67Xg=";
   };
 
   nativeBuildInputs = with python3Packages; [ cython ];

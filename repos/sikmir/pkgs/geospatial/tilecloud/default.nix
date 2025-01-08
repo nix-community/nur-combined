@@ -7,19 +7,20 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";
-  version = "1.12.3";
+  version = "1.12.6";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     tag = version;
-    hash = "sha256-yblAOBp9anvsVnF9q8jwnMoyNG42K+E3antBe5pkS7Y=";
+    hash = "sha256-K3qHv/SdEELLvj4V8KTJrB6EEeEerqFDS6k7YItCMtg=";
   };
 
   pythonRelaxDeps = [
     "bottle"
     "certifi"
+    "cryptography"
     "pillow"
     "pyproj"
     "webob"
@@ -45,6 +46,7 @@ python3Packages.buildPythonApplication rec {
     boto3
     bottle
     c2cwsgiutils
+    cryptography
     pillow
     prometheus_client
     pyproj

@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-stac";
-  version = "0.10.0";
+  version = "0.10.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "rio-stac";
     tag = version;
-    hash = "sha256-8VEN0f1CTI25fgbJZadJ7TLQcDNgwjxB1FMdyFhSgH4=";
+    hash = "sha256-sK03AWDwsUanxl756z/MrroF3cm7hV3dpPhVQ/1cs3E=";
   };
 
   build-system = with python3Packages; [ flit ];

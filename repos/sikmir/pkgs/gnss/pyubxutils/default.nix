@@ -2,39 +2,33 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  pyspartn,
   pyubx2,
-  pyubxutils,
 }:
 
 python3Packages.buildPythonPackage rec {
-  pname = "pygnssutils";
-  version = "1.1.9";
+  pname = "pyubxutils";
+  version = "1.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
-    repo = "pygnssutils";
+    repo = "pyubxutils";
     tag = "v${version}";
-    hash = "sha256-WYA+1Dv0eDXb4N9s2yL7aKzAOoPd+BP9WYc5IdiMZqk=";
+    hash = "sha256-/DOZdD9tXNV6t1QFS72Y+a41zhp9ReA0I1Lqi0wkRHM=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
-    certifi
-    paho-mqtt
     pyserial
-    pyspartn
     pyubx2
-    pyubxutils
   ];
 
-  pythonImportsCheck = [ "pygnssutils" ];
+  pythonImportsCheck = [ "pyubxutils" ];
 
   meta = {
-    description = "GNSS Command Line Utilities";
-    homepage = "https://github.com/semuconsulting/pygnssutils";
+    description = "Python UBX GNSS device command line utilities";
+    homepage = "https://github.com/semuconsulting/pyubxutils";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -8,18 +8,18 @@
   mkgmap-splitter,
 }:
 let
-  version = "250101";
+  version = "250107";
   bounds = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/bounds-20241227.zip";
-    hash = "sha256-1fwCKMswI0fQkkXSt563MKD2xsLWkPD55jeVeUS4GQk=";
+    url = "https://www.thkukuk.de/osm/data/bounds-20250103.zip";
+    hash = "sha256-NrEblRWr6GynP1e44gQnihkUf3/hnbpXfSv51IWrDsY=";
   };
   sea = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/sea-20250102001541.zip";
-    hash = "sha256-hhZQYlnijoyxrhz3tdUW0a1xotTn0ocmRCKadAm0CSI=";
+    url = "https://www.thkukuk.de/osm/data/sea-20250107001502.zip";
+    hash = "sha256-caSc/rkO+CZK/1JOqZgk1PJkJXaZ66+Qz4KlW9fUnLw=";
   };
   armenia = fetchurl {
     url = "https://download.geofabrik.de/asia/armenia-${version}.osm.pbf";
-    hash = "sha256-kM+cxzUP0DzF+8/vXK5rrCwI+PirFwizDY310x732Xk=";
+    hash = "sha256-78xH15BMkMqMHrzxQQWAYdxLdAN3pJLZHcPJr/5LZgA=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
