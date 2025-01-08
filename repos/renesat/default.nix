@@ -28,6 +28,9 @@
     imap-backup = pkgs.callPackage ./pkgs/imap-backup {};
     vl-convert = pkgs.callPackage ./pkgs/vl-convert {};
 
+    flatlatex = pkgs.python3Packages.callPackage ./pkgs/flatlatex {};
+    sixelcrop = pkgs.python3Packages.callPackage ./pkgs/sixelcrop {};
+    euporie = pkgs.python3Packages.callPackage ./pkgs/euporie {inherit flatlatex sixelcrop;};
     aiolinkding = pkgs.python3Packages.callPackage ./pkgs/aiolinkding {};
     arro3-core = pkgs.python3Packages.callPackage ./pkgs/arro3-core {};
     linkding-cli = pkgs.python3Packages.callPackage ./pkgs/linkding-cli {inherit aiolinkding;};
