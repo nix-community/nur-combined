@@ -46,4 +46,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "ghostty";
     platforms = lib.platforms.darwin;
   };
+
+  preferLocalBuild = true;
 })
