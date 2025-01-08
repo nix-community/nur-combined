@@ -14,12 +14,12 @@
 
 buildGoModule rec {
   pname = "easylpac";
-  version = "0.7.7.1";
+  version = "0.7.7.2";
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
     rev = version;
-    sha256 = "sha256-qovfZxp67GIMdMHmTRFSvLswnclDb2AVweNMX3kWifw=";
+    sha256 = "sha256-1oB6OkhmaVSBpXw1OJ+iyNt99Rv12eDdgVroItZ3ww0=";
   };
   proxyVendor = true;
   vendorHash = "sha256-h/vRooTwbv63WraH/kBLfnmbd68oE6OtyghfocqDuhA=";

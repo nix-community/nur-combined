@@ -105,27 +105,27 @@
   };
   lpac = {
     pname = "lpac";
-    version = "v2.2.0";
+    version = "v2.2.1";
     src = fetchFromGitHub {
       owner = "estkme-group";
       repo = "lpac";
-      rev = "v2.2.0";
+      rev = "v2.2.1";
       fetchSubmodules = false;
-      sha256 = "sha256-F++pnTRNVz/PL4qjOQxMfUcXk6P4ykufDUiObkLJw6E=";
+      sha256 = "sha256-dxoYuX3dNj4piXQBqU4w1ICeyOGid35c+6ZITQiN6wA=";
     };
   };
   mstickereditor = {
     pname = "mstickereditor";
-    version = "v0.3.6";
+    version = "v0.3.7";
     src = fetchFromGitHub {
       owner = "LuckyTurtleDev";
       repo = "mstickereditor";
-      rev = "v0.3.6";
+      rev = "v0.3.7";
       fetchSubmodules = false;
-      sha256 = "sha256-Q4NL8CSGYlwBfN9FQZCcVagDFEc1jHMlCFdCedob+x0=";
+      sha256 = "sha256-yLelr190my12Ff5JbJXV5fh7VgeqGu0VYe/Mw0mLoNo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./mstickereditor-v0.3.6/Cargo.lock;
+      lockFile = ./mstickereditor-v0.3.7/Cargo.lock;
       outputHashes = {
 
       };
@@ -284,17 +284,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "f4c62972a2ebe6145b39e98fabe4789ef2c936bb";
+    version = "80638c4a05f382dd6cf801192220f6dad972ba33";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "f4c62972a2ebe6145b39e98fabe4789ef2c936bb";
+      rev = "80638c4a05f382dd6cf801192220f6dad972ba33";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-pegWBg6sOtcQUoNI3qxmS6ZCNQHuLcTPKAAmsR6jK0I=";
+      sha256 = "sha256-hdn7peNT0CEkCeG44/ofBntgS5+j2CPvk2AuuY71gtc=";
     };
-    date = "2025-01-05";
+    date = "2025-01-08";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -424,13 +424,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.1.3";
+    version = "v1.2.0";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.1.3";
+      rev = "v1.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-FjGr3s/CODTR6K0VkA+xVQrE+zMzDKrSF0Vzx9dhi8g=";
+      sha256 = "sha256-HokJEXzLg3chBw1x8h7d1FpH+btZ80buKiJzdrbYzT0=";
     };
   };
   swayosd = {
