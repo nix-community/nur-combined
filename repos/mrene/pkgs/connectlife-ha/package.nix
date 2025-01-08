@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildHomeAssistantComponent,
-  python3,
+  home-assistant,
 }:
 
 let
@@ -19,7 +19,7 @@ let
     fetchSubmodules = true;
   };
 
-  connectlife = python3.pkgs.callPackage ./connectlife.nix {};
+  connectlife = home-assistant.python.pkgs.callPackage ./connectlife.nix {};
 in
 
 buildHomeAssistantComponent rec {
