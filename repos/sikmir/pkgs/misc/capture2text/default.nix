@@ -9,12 +9,12 @@
   wrapQtAppsHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "capture2text";
   version = "4.6.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/capture2text/SourceCode/Capture2Text_v${version}/Capture2Text_v${version}_Source_Code.zip";
+    url = "mirror://sourceforge/capture2text/SourceCode/Capture2Text_v${finalAttrs.version}/Capture2Text_v${finalAttrs.version}_Source_Code.zip";
     hash = "sha256-FeQ5E2lW+QOcg6Qi1I75W4BkQmfDiZtJ7+U2K08Ji2U=";
   };
 
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     broken = true;
   };
-}
+})

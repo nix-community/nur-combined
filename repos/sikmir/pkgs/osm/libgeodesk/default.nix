@@ -19,14 +19,14 @@ let
     hash = "sha256-Zt53Qtry99RAheeh7V24Csg/aMW25DT/3CN/h+BaeoM=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libgeodesk";
   version = "0.1";
 
   src = fetchFromGitHub {
     owner = "clarisma";
     repo = "libgeodesk";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-eX10Gkgsqa+RA+PDk+jdsQly3sUg2p3cFev5qXwhlG4=";
   };
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

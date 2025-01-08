@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed";
-  version = "0.168.0-pre";
+  version = "0.168.2-pre";
 
   src = fetchurl {
     url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed-x86_64.dmg";
-    hash = "sha256-u1XDBD2xlqzef8SmhwJ/lRjXrhmoadsFh/SQTYFozjE=";
+    hash = "sha256-oFNUrlpL8Ex+EM5ee1vZF7TxgWNdCeU4U+p+/nz9TUc=";
   };
 
   sourceRoot = ".";
