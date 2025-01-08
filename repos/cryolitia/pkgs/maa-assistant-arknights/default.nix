@@ -18,6 +18,8 @@ in
     sha256 = sources.beta.hash;
   };
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=maybe-uninitialized";
+
   passthru.updateScript = ./update.sh;
 
   meta = oldAttrs.meta // {
