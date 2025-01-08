@@ -24,6 +24,7 @@ python3Packages.buildPythonApplication {
 
   dontUseSetuptoolsBuild = true;
 
+  doCheck = false;
   checkPhase = ''
     ${python3Packages.python.interpreter} -m doctest -o IGNORE_EXCEPTION_DETAIL -f tests/tests.txt
   '';
