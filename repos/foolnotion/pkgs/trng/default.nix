@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "trng";
-  version = "4.26";
+  version = "4.27";
 
   src = fetchFromGitHub {
     owner = "rabauke";
     repo = "trng4";
-    rev = "efdb3cfdb589a1f34ce4dfde85a8a068451018e3";
-    hash = "sha256-luY7eqm/dOXTWzXdY6fl248qUUo90y48xx2+m7tq6+Q=";
+    rev = "v${version}";
+    hash = "sha256-AdefU9a9BG6dw6tDHpQ3UNzuGryz+hx3HepeNDW9ky0=";
     fetchSubmodules = true;
   };
 

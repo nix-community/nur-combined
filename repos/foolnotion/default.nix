@@ -48,8 +48,6 @@
 
   eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
 
-  eovim = pkgs.callPackage ./pkgs/eovim { };
-
   eve = pkgs.callPackage ./pkgs/eve { };
 
   expected-lite = pkgs.callPackage ./pkgs/expected-lite { };
