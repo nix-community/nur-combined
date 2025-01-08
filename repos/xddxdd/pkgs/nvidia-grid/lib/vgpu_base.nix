@@ -51,6 +51,11 @@ let
     inherit i686bundled;
     inherit patches;
 
+    postPatch = ''
+      substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
+        --replace-fail "no_llseek," "NULL,"
+    '';
+
     outputs = [
       "out"
       "bin"
