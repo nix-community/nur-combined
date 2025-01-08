@@ -17,6 +17,6 @@ in {
 
   inherit otcl tclcl;
   ns-2 = pkgs.callPackage ./pkgs/ns2 {inherit otcl tclcl;};
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+
+  ghostty-darwin = pkgs.callPackage ./pkgs/ghostty-darwin.nix {};
 }
