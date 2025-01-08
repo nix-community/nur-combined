@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-  cargoHash = "sha256-QhXJZ0F1RTkuPW+bebYr7l9V3V8v/T3kcW1VEcgKTqI=";
+  cargoHash = "sha256-qgZLuKtEDKOFabtX/d4A8sEJ05oXd4SKIv9qMx8kuWQ=";
 
   meta = with lib; {
     description = "将 mdBook 转换为 PDF。";
