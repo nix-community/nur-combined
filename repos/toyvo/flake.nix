@@ -1,10 +1,10 @@
 {
   description = "My personal NUR repository";
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  };
+
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    { self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
       systems = [
@@ -14,7 +14,6 @@
         "x86_64-linux"
       ];
       forAllSystems = f: lib.genAttrs systems (system: f system);
-      forAllBranches = f: lib.genAttrs (builtins.attrNames inputs) (branch: f inputs.${branch});
     in
     {
       legacyPackages = forAllSystems (
@@ -24,17 +23,7 @@
         }
       );
       packages = forAllSystems (
-        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system} // {
-          ci = forAllBranches (
-            nixpkgs: let
-              pkgs = import nixpkgs { inherit system; };
-            in {
-              nixpkgs-version = pkgs.writeShellScriptBin "nixpkgs-version" ''
-                echo "${pkgs.lib.version}"
-              '';
-            }
-          );
-        }
+        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system}
       );
       formatter = forAllSystems (
         system:
@@ -43,6 +32,5 @@
         in
         pkgs.nixfmt-rfc-style
       );
-      inherit (import ./modules) nixosModules darwinModules homeManagerModules;
-    };
+    } // import ./modules;
 }
