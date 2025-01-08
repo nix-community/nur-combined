@@ -984,6 +984,9 @@
         "renesat": {
             "url": "https://github.com/renesat/nur-renesat"
         },
+        "reward": {
+            "url": "https://github.com/rewardenv/nur"
+        },
         "rewine": {
             "url": "https://github.com/wineee/nur-packages"
         },
