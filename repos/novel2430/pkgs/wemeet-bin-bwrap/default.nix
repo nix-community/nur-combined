@@ -1,7 +1,9 @@
-{ stdenv, stdenvNoCC, lib, autoPatchelfHook, fetchurl , buildFHSEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, wrapQtAppsHook, fetchFromGitHub
+{ stdenv, lib, autoPatchelfHook, fetchurl , buildFHSUserEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, fetchFromGitHub
 , useWaylandScreenshare ? false
 , dpkg
 , alsa-lib
+, libgcc
+, glibc
 , libglvnd
 , libpulseaudio
 , xorg
@@ -9,20 +11,12 @@
 , libsForQt5
 , zlib
 , wayland
+, nss
 , curl
-
-, systemdLibs
-, fontconfig
-, xkeyboard_config
-
+, libxkbcommon
+# Wayland Screenshare hack
 , gcc
 , pkg-config
-
-, libyuv
-, libjpeg8
-, libxkbcommon
-
-
 , git
 , cmake
 , ninja
@@ -35,16 +29,43 @@
 , libsepol
 }:
 let
-  pkg-name = "wemeet-bin";
-  pkg-ver = "3.19.0.401";
-  # pkg-ver = "3.19.2.400";
+  ld-preload-path = 
+    if useWaylandScreenshare then
+      "${wrap}/libwemeetwrap.so:${wemeet-wayland-screenshare}/libhook.so"
+    else
+      "${wrap}/libwemeetwrap.so";
+  libraries = [
+    alsa-lib
+    libgcc
+    glibc
+    libglvnd
+    libpulseaudio
+    xorg.libX11
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.xset
+    xorg.libXfixes
+    xorg.libXinerama
+    xorg.libXrandr
+    openssl
+    libsForQt5.qt5.qtbase
+    libsForQt5.qt5.qtdeclarative
+    libsForQt5.qt5.qtsvg
+    libsForQt5.qt5.qtwebchannel
+    libsForQt5.qt5.qtwebengine
+    libsForQt5.qt5.qtx11extras
+    libsForQt5.qt5.qtwayland
+    zlib
+    wayland
+    nss
+    curl
+    libxkbcommon
+    opencv
+  ];
   wrap = stdenv.mkDerivation {
     name = "wrap-c";
     version = "1.0";
     src = ./.;
-
-
-    # unpackCmd = "";
 
     dontWrapQtApps = true;
 
@@ -108,44 +129,9 @@ let
       runHook postInstall
     '';
   };
-  libraries = [
-    stdenv.cc.cc
-    stdenv.cc.libc
-    alsa-lib
-    libglvnd
-    libpulseaudio
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.xset
-    xorg.libXfixes
-    xorg.libXinerama
-    xorg.libXrandr
-    libyuv
-    openssl
-    libsForQt5.qt5.qtbase
-    libsForQt5.qt5.qtdeclarative
-    libsForQt5.qt5.qtsvg
-    libsForQt5.qt5.qtwebchannel
-    libsForQt5.qt5.qtwebengine
-    libsForQt5.qt5.qtx11extras
-    libsForQt5.qt5.qtwayland
-    zlib
-    wayland
-    curl
-    xkeyboard_config
-    systemdLibs
-    fontconfig
-    libjpeg8
-    libxkbcommon
-    opencv
-  ];
-  ld-preload-path = 
-    if useWaylandScreenshare then
-      "${wemeet-wayland-screenshare}/libhook.so:${wrap}/libwemeetwrap.so"
-    else
-      "${wrap}/libwemeetwrap.so";
-  wemeet-src = stdenvNoCC.mkDerivation rec {
+  pkg-name = "wemeet-bin";
+  pkg-ver = "3.19.0.401";
+  wemeet-src = stdenv.mkDerivation rec {
     name = "${pkg-name}";
     version = "${pkg-ver}";
 
@@ -157,65 +143,54 @@ let
     nativeBuildInputs = [
         dpkg
         autoPatchelfHook
-        wrapQtAppsHook
     ];
     buildInputs = libraries;
 
     unpackCmd = "dpkg -x $src .";
     sourceRoot = ".";
+    
+    dontWrapQtApps = true;
 
     installPhase = ''
-      mkdir -p $out/opt/wemeet;
+      mkdir -p $out;
       rm opt/wemeet/lib/libcurl.so
-      # libbugly is not likely to be necessary
-      install -Dm755 opt/wemeet/lib/lib{desktop_common,ImSDK,nxui*,qt_*,service*,tms_*,ui*,wemeet*,xcast*,xnn*}.so \
-          -t "$out/lib/wemeet"
-      if [ -f 'opt/wemeet/lib/libcrbase.so' ]; then
-          install -Dm755 opt/wemeet/lib/libcrbase.so -t "$out/lib/wemeet"
-      else
-          echo 'lib/libcrbase.so not found'
-      fi
-      # copy Qt
-      cp -r opt/wemeet/plugins opt/wemeet/resources opt/wemeet/translations "$out/lib/wemeet"
-      cp -a opt/wemeet/lib/lib{Qt,icu}* "$out/lib/wemeet"
-      # bin
-      cp -r opt/wemeet/bin $out/opt/wemeet
-      sed -i "s|^Prefix.*|Prefix = $out/lib/wemeet|" $out/opt/wemeet/bin/qt.conf
-      ln -s raw/xcast.conf "$out/opt/wemeet/bin/xcast.conf"
-      # wrap
-      install -Dm755 "${wrap}/libwemeetwrap.so" -t "$out/lib/wemeet"
-      # Icon
-      cp -r opt/wemeet/icons $out/opt/wemeet/icons
+      cp -r . $out
     '';
   };
   startScript = writeShellScript "wemeet-start" ''
-    export LD_LIBRARY_PATH=${wemeet-src}/lib/wemeet:${lib.makeLibraryPath libraries}
-    export LD_PRELOAD=${ld-preload-path}
-    # In X11, not using hack
+    export LD_LIBRARY_PATH=/lib:/opt/wemeet/lib
+    echo $LD_LIBRARY_PATH
     echo $XDG_SESSION_TYPE
+    # Wayland Screenshare Hack
     if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
       echo "Not in Wayland"
       export LD_PRELOAD="${wrap}/libwemeetwrap.so"
+    else
+      export LD_PRELOAD=${ld-preload-path}
+    fi
+    # fcitx5
+    if [[ ''${XMODIFIERS} =~ fcitx ]]; then
+      export QT_IM_MODULE=fcitx
+      export GTK_IM_MODULE=fcitx
+    elif [[ ''${XMODIFIERS} =~ ibus ]]; then
+      export QT_IM_MODULE=ibus
     fi
     export XDG_SESSION_TYPE=x11
     export EGL_PLATFORM=x11
     export QT_QPA_PLATFORM=xcb
     unset WAYLAND_DISPLAY
-    exec ${wemeet-src}/opt/wemeet/bin/wemeetapp
+    exec /opt/wemeet/bin/wemeetapp
   '';
-  fhs = buildFHSEnvBubblewrap {
+  fhs = buildFHSUserEnvBubblewrap {
     name = "${pkg-name}";
     targetPkgs = 
       pkgs: [
         wemeet-src
-      ];
+      ] 
+      ++ 
+      libraries;
     runScript = startScript;
     extraBwrapArgs = [
-      "--new-session"
-      "--ro-bind /dev/null /proc/cpuinfo"
-      "--tmpfs /sys/devices/virtual"
-      "--tmpfs /var"
-      "--tmpfs \$HOME/.config "
       "--bind \$HOME/.local/share/wemeetapp{,}"
       "--ro-bind-try \${HOME}/.fontconfig{,}"
       "--ro-bind-try \${HOME}/.fonts{,}"
@@ -224,13 +199,6 @@ let
       "--ro-bind-try \${HOME}/.icons{,}"
       "--ro-bind-try \${HOME}/.local/share/.icons{,}"
     ];
-    unshareUser = true;
-    unshareIpc = true;
-    unsharePid = true;
-    unshareNet = false;
-    unshareUts = true;
-    unshareCgroup = true;
-    privateTmp = true;
   };
 in
 stdenv.mkDerivation rec {
@@ -277,7 +245,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = ''
       Tencent Meeting Linux Client
-      (Support Wayland Native Screenshare)
       (Adapted from https://aur.archlinux.org/packages/wemeet-bin)
     '';
     homepage = "https://source.meeting.qq.com";
