@@ -5241,10 +5241,10 @@
     };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
-      version = "2.4.2";
+      version = "2.4.3";
       addonId = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4410395/iina_open_in_mpv-2.4.2.xpi";
-      sha256 = "ad5342599a882e43593b2b3706c0107cf83dfcd8ca0f4ee9740fe173e491dc2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4415443/iina_open_in_mpv-2.4.3.xpi";
+      sha256 = "8289779568ce6a432c0d8f900d5b52e92d0f8659188531057900591356900d39";
       meta = with lib;
       {
         homepage = "https://github.com/Baldomo/open-in-mpv";
@@ -7494,10 +7494,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.15";
+      version = "1.0.16";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409341/mergify-1.0.15.xpi";
-      sha256 = "3cdcdcb9cab9696db4090f5fa0b95a6fd0ceaa1b1a5f7b56ca3bbc84926cb8ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4415388/mergify-1.0.16.xpi";
+      sha256 = "356e96b97039d19d1b999ebc0cc5ffefd7b5fc9ab1df36ff886a9d64217bb312";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -10737,10 +10737,10 @@
     };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
-      version = "1.7.14";
+      version = "1.7.15";
       addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260058/startup_bookmarks-1.7.14.xpi";
-      sha256 = "9cb45f679be853caa10401db8c95e2a1c79691775d85eadda21e48da10f86396";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4415851/startup_bookmarks-1.7.15.xpi";
+      sha256 = "0be812487cb653ad7cdac746d6f7acc014593b4dd8edc2fe354e7a31ae95414e";
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/startup-bookmarks";
