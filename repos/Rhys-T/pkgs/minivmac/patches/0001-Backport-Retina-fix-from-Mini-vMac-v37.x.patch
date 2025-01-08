@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rhys Tuttle <rhys@serenity-woods.net>
+Date: Tue, 7 Jan 2025 20:54:44 -0500
+Subject: [PATCH] Backport Retina fix from Mini vMac v37.x
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+> When compiled with a recent version XCode, like 11.4.1, Mini vMac for
+> OS X would not draw correctly on a retina display. It now calls
+> “setWantsBestResolutionOpenGLSurface:NO” when available. A comment
+> found in SDL 2.0.12 explains: “Note: as of the macOS 10.15 SDK, this
+> defaults to YES instead of NO when the NSHighResolutionCapable boolean
+> is set in Info.plist”. This problem occurred because the
+> NSHighResolutionCapable key was added in July 2018 to make the window
+> frame look better on retina screens.
+---
+ src/OSGLUCCO.m | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/src/OSGLUCCO.m b/src/OSGLUCCO.m
+index 4f592f6..acb72e7 100644
+--- a/src/OSGLUCCO.m
++++ b/src/OSGLUCCO.m
+@@ -3170,6 +3170,10 @@ LOCALPROC CloseMyOpenGLContext(void)
+ 	}
+ }
+ 
++@interface MyClassNSview : NSObject
++- (void)setWantsBestResolutionOpenGLSurface:(BOOL)aBool;
++@end
++
+ LOCALFUNC blnr GetOpnGLCntxt(void)
+ {
+ 	blnr v = falseblnr;
+@@ -3672,6 +3676,20 @@ LOCALFUNC blnr CreateMainWindow(void)
+ #endif
+ 		goto label_exit;
+ 	}
++
++	/*
++		found in SDL 2.0.12:
++		"Note: as of the macOS 10.15 SDK, this defaults to YES
++		instead of NO when the NSHighResolutionCapable boolean
++		is set in Info.plist."
++	*/
++	if ([MyNSview respondsToSelector:@selector(
++		setWantsBestResolutionOpenGLSurface:)])
++	{
++		[((MyClassNSview *)MyNSview)
++			setWantsBestResolutionOpenGLSurface:NO];
++	}
++
+ 	[MyWindow setContentView: MyNSview];
+ 
+ 	[MyWindow makeKeyAndOrderFront: nil];

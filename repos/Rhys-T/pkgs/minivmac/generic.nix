@@ -36,9 +36,11 @@ let
             '');
         in
         assert lib.assertMsg (!(applyMacDataPathPatch && !isDarwin)) "patch only valid on Mac";
+        assert lib.assertMsg (!applyMacDataPathPatch) "TODO actually port this over along with wrapper stuff";
         stdenv.mkDerivation (finalAttrs: {
             inherit pname version src;
-            patches = lib.optionals applyMacDataPathPatch [ ./mac-data-path-from-env.patch ];
+            # patches = lib.optionals applyMacDataPathPatch [ ./mac-data-path-from-env.patch ];
+            patches = lib.optionals (isDarwin && !isAtLeast37) [ ./patches/0001-Backport-Retina-fix-from-Mini-vMac-v37.x.patch ];
             postPatch = lib.optionalString (!isAtLeast37 && (maintainer != null || homepage != null)) ''
             substituteInPlace setup/CNFGDLFT.i ${
                 lib.optionalString (maintainer != null) ''--replace-fail '#define kMaintainerName "unknown"' '#define kMaintainerName "'${lib.escapeShellArg maintainer}\"''
