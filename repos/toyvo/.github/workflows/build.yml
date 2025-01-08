@@ -16,9 +16,6 @@ jobs:
       matrix:
         runner:
           - ubuntu-latest
-          - [self-hosted, linux, ARM64]
-          - [self-hosted, macOS, ARM64]
-          - [self-hosted, macOS, x64]
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
