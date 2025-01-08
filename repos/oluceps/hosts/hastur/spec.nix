@@ -166,7 +166,7 @@
     # coredns.enable = true;
     misskey.enable = true;
     dnsproxy.enable = true;
-    srs.enable = true;
+    # srs.enable = true;
     grafana.enable = true;
     meilisearch.enable = true;
     radicle.enable = true;
