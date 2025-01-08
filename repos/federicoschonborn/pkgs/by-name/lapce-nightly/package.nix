@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
   rustPlatform,
   cmake,
   pkg-config,
@@ -37,8 +37,8 @@ let
 in
 
 rustPlatform.buildRustPackage rec {
-  pname = "lapce";
-  version = "nightly-unstable-2024-11-24";
+  pname = "lapce-nightly";
+  version = "0-unstable-2024-11-24";
 
   src = fetchFromGitHub {
     owner = "lapce";
@@ -97,7 +97,7 @@ rustPlatform.buildRustPackage rec {
   postInstall =
     if stdenv.hostPlatform.isLinux then
       ''
-        install -Dm0644 $src/extra/images/logo.svg $out/share/icons/hicolor/scalable/apps/dev.lapce.lapce.svg
+        install -Dm0644 $src/extra/images/logo_color.svg $out/share/icons/hicolor/scalable/apps/dev.lapce.lapce.svg
         install -Dm0644 $src/extra/linux/dev.lapce.lapce.desktop $out/share/applications/lapce.desktop
 
         $STRIP -S $out/bin/lapce
@@ -113,11 +113,9 @@ rustPlatform.buildRustPackage rec {
 
   dontPatchELF = true;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/lapce/lapce";
+    hardcodeZeroVersion = true;
   };
 
   meta = {

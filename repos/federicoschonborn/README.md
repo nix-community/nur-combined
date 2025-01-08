@@ -992,7 +992,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ✔️
 </details>
 
-### `lapce-nightly` `nightly-unstable-2024-11-24` [🌐](https://github.com/lapce/lapce "Homepage") [📰](https://github.com/lapce/lapce/blob/7100aa459e1d16f9255e148a8d9323835761822c/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/lapce-nightly/package.nix#L125 "Source")
+### `lapce-nightly` `0-unstable-2024-11-24` [🌐](https://github.com/lapce/lapce "Homepage") [📰](https://github.com/lapce/lapce/blob/7100aa459e1d16f9255e148a8d9323835761822c/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/lapce-nightly/package.nix#L123 "Source")
 
 Lightning-fast and Powerful Code Editor written in Rust.
 
@@ -1003,7 +1003,7 @@ Lightning-fast and Powerful Code Editor written in Rust.
     Details
   </summary>
 
-- Name: `lapce`
+- Name: `lapce-nightly`
 - Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Platforms: `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv64-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `powerpc-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `i686-windows`, `x86_64-windows`, `armv7a-darwin`, `armv5tel-linux`, `armv7a-linux`, `m68k-linux`, `mips-linux`, `mips64-linux`, `mipsel-linux`, `mips64el-linux`, `riscv32-linux`, `armv6l-netbsd`, `mipsel-netbsd`, `riscv64-netbsd`, `x86_64-redox`, `wasm32-wasi`
 - Maintainers:

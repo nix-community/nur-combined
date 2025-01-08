@@ -12,7 +12,7 @@
   udev,
   wayland,
   wayland-protocols,
-  wlroots,
+  wlroots_0_18,
   xorg,
   versionCheckHook,
   nix-update-script,
@@ -43,7 +43,7 @@ stdenv.mkDerivation (_: {
     udev
     wayland
     wayland-protocols
-    wlroots
+    wlroots_0_18
     xorg.libxcb
     xorg.xcbutilwm
   ];

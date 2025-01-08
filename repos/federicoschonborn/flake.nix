@@ -312,14 +312,16 @@
 
             update.program = pkgs.writeShellApplication {
               name = "update";
-              text = lib.concatLines (
-                lib.mapAttrsToList (
-                  name: value:
-                  lib.optionalString (value ? updateScript) (
-                    lib.concatMapStringsSep " " lib.escapeShellArg (value.updateScript ++ [ name ])
-                  )
-                ) config.packages
-              );
+              text = ''
+                nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
+                  --arg include-overlays "[(import ./overlay.nix)]" \
+                  --arg skip-prompt 'true' \
+                  --arg keep-going 'true' \
+                  --arg predicate '(
+                    let prefix = builtins.toPath ./pkgs; prefixLen = builtins.stringLength prefix;
+                    in (_: p: p.meta ? position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
+                  )'
+              '';
             };
           };
 
