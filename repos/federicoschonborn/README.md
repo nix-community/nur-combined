@@ -776,7 +776,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `dcmtkShared` `3.6.9` [🌐](https://dicom.offis.de/dcmtk "Homepage") [📦](https://github.com/NixOS/nixpkgs/blob/a278711/pkgs/by-name/dc/dcmtk/package.nix#L37 "Source")
+### `dcmtkShared` `3.6.9` [🌐](https://dicom.offis.de/dcmtk "Homepage") [📦](https://github.com/NixOS/nixpkgs/blob/8c9fd3e/pkgs/by-name/dc/dcmtk/package.nix#L37 "Source")
 
 Collection of libraries and applications implementing large parts of the DICOM standard.
 
@@ -2651,7 +2651,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2025-01-03` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2025-01-07` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
