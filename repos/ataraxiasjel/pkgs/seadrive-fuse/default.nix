@@ -8,6 +8,7 @@
   fuse,
   intltool,
   jansson,
+  libargon2,
   libevent,
   libsearpc,
   libtool,
@@ -22,13 +23,13 @@
 
 stdenv.mkDerivation rec {
   pname = "seadrive-fuse";
-  version = "2.0.28";
+  version = "3.0.12";
 
   src = fetchFromGitHub {
     owner = "haiwen";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-t8gxZVge6rzp/N5s4F6cQhbnvsxtlvlWZwFETIBCEn0=";
+    hash = "sha256-XvWaj83PGDjvIU8prHw8uyifpRqmO8S1IVE2wvpD5yA=";
   };
 
   nativeBuildInputs = [
@@ -40,6 +41,7 @@ stdenv.mkDerivation rec {
     fuse
     intltool
     jansson
+    libargon2
     libevent
     libsearpc
     libtool
