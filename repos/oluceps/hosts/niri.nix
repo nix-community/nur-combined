@@ -158,15 +158,15 @@
           Restart = "on-failure";
         };
       };
-      # xwayland-satellite = {
-      #   wantedBy = [ "niri.service" ];
-      #   after = [ "graphical-session.target" ];
-      #   wants = [ "graphical-session.target" ];
-      #   serviceConfig = {
-      #     ExecStart = lib.getExe pkgs.xwayland-satellite;
-      #     Restart = "on-failure";
-      #   };
-      # };
+      xwayland-satellite = {
+        wantedBy = [ "niri.service" ];
+        after = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = lib.getExe pkgs.xwayland-satellite;
+          Restart = "on-failure";
+        };
+      };
     };
   };
 }

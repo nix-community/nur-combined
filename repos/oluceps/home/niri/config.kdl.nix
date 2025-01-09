@@ -6,25 +6,6 @@ let
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   pw-volume = "${pkgs.pw-volume}/bin/pw-volume";
-  systemd-run-app = lib.getExe (
-    pkgs.writeShellApplication {
-      name = "systemd-run-app";
-      text = ''
-        name=$(${pkgs.uutils-coreutils-noprefix}/bin/basename "$1")
-        id=$(${pkgs.openssl}/bin/openssl rand -hex 4)
-        exec systemd-run \
-          --user \
-          --scope \
-          --unit "$name-$id" \
-          --slice=app \
-          --same-dir \
-          --collect \
-          --property PartOf=graphical-session.target \
-          --property After=graphical-session.target \
-          -- "$@"
-      '';
-    }
-  );
 
   deps = genDeps [
     "fuzzel"
@@ -44,6 +25,8 @@ let
     "screen-recorder-toggle"
     "systemd-run-app"
   ];
+
+  execApp = a: ''"${deps.systemd-run-app}" ${lib.concatMapStringsSep " " (i: ''"${i}"'') a}'';
 
 in
 ''
@@ -102,7 +85,8 @@ in
   }
 
   environment {
-      // DISPLAY ":0"
+      DISPLAY ":0"
+      QT_QPA_PLATFORM "wayland"
   }
 
   window-rule {
@@ -202,13 +186,41 @@ in
   // Add lines like this to spawn processes at startup.
   // Note that running niri as a session supports xdg-desktop-autostart,
   // which may be more convenient to use.
-  spawn-at-startup "foot"
-  spawn-at-startup "fcitx5" "-dr"
-  spawn-at-startup "google-chrome-beta" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" "--enable-wayland-ime" "--wayland-text-input-version=3" "--video-capture-use-gpu-memory-buffer" "--force-color-profile=display-p3-d65" "--enable-zero-copy" "--enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar"
-  spawn-at-startup "materialgram"
-  spawn-at-startup "thunderbird"
-  spawn-at-startup "${wl-paste}" "--type" "text" "--watch" "${deps.cliphist}" "store"
-  spawn-at-startup "${wl-paste}" "--type" "image" "--watch" "${deps.cliphist}" "store"
+  spawn-at-startup ${execApp [ "foot" ]}
+  spawn-at-startup ${
+    execApp [
+      "fcitx5"
+      "-dr"
+    ]
+  } 
+  spawn-at-startup ${
+    execApp [
+      "${pkgs.gtk3}/bin/gtk-launch"
+      "google-chrome-dev.desktop"
+    ]
+  }
+  spawn-at-startup ${execApp [ "materialgram" ]}
+  spawn-at-startup ${execApp [ "thunderbird" ]}
+  spawn-at-startup ${
+    execApp [
+      "${wl-paste}"
+      "--type"
+      "text"
+      "--watch"
+      "${deps.cliphist}"
+      "store"
+    ]
+  }
+  spawn-at-startup ${
+    execApp [
+      "${wl-paste}"
+      "--type"
+      "image"
+      "--watch"
+      "${deps.cliphist}"
+      "store"
+    ]
+  }
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
@@ -232,7 +244,7 @@ in
   // Settings for the "Important Hotkeys" overlay.
   hotkey-overlay {
       // Uncomment this line if you don't want to see the hotkey help at niri startup.
-      // skip-at-startup
+      skip-at-startup
   }
 
   binds {
@@ -248,8 +260,8 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Mod+Return { spawn "${systemd-run-app}" "foot"; }
-      Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
+      Mod+Return { spawn ${execApp ["foot"]}; }
+      Mod+D { spawn "fuzzel" "--launch-prefix" "${deps.systemd-run-app}" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }

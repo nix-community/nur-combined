@@ -42,6 +42,7 @@
           obs-pipewire-audio-capture
         ];
       })
+      pkgs.systemd-run-app
     ];
   xdg = {
     mime = {
@@ -55,17 +56,18 @@
           "doc/docx" = [ "wps-office-wps.desktop" ];
           "xls/xlsx" = [ "wps-office-et.desktop" ];
         }
-        // lib.genAttrs
-          [
-            "x-scheme-handler/unknown"
-            "x-scheme-handler/about"
-            "x-scheme-handler/http"
-            "x-scheme-handler/https"
-            "x-scheme-handler/mailto"
-            "text/html"
-          ]
-          # (_: "brave-browser.desktop")
-          (_: "google-chrome-dev.desktop")
+        //
+          lib.genAttrs
+            [
+              "x-scheme-handler/unknown"
+              "x-scheme-handler/about"
+              "x-scheme-handler/http"
+              "x-scheme-handler/https"
+              "x-scheme-handler/mailto"
+              "text/html"
+            ]
+            # (_: "brave-browser.desktop")
+            (_: "google-chrome-dev.desktop")
         // lib.genAttrs [
           "image/gif"
           "image/webp"
@@ -86,7 +88,6 @@
       configPackages = [ pkgs.niri ];
     };
   };
-
 
   programs = {
     dconf.enable = true;
