@@ -12,7 +12,8 @@ in
 
 {
   # School wifi is insecure :(
-  options.abszero.networking.supplicant.enableInsecureSSLCiphers = mkEnableOption "insecure SSL ciphers";
+  options.abszero.networking.supplicant.enableInsecureSSLCiphers =
+    mkEnableOption "insecure SSL ciphers";
 
   config = mkIf cfg.enableInsecureSSLCiphers {
     # Let wpa_supplicant use a version of openssl that supports weak SSL ciphers

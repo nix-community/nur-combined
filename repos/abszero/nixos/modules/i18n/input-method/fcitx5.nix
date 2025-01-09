@@ -16,7 +16,8 @@ let
 in
 
 {
-  options.abszero.i18n.inputMethod.fcitx5.enable = mkEnableOption "next-generation input method framework";
+  options.abszero.i18n.inputMethod.fcitx5.enable =
+    mkEnableOption "next-generation input method framework";
 
   config = mkIf cfg.enable {
     i18n.inputMethod = {

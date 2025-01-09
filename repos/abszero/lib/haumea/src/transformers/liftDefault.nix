@@ -8,6 +8,4 @@ in
 
 _: mod:
 
-unionOfDisjoint
-  (removeAttrs mod [ "default" ])
-  (mod.default or { })
+unionOfDisjoint (removeAttrs mod [ "default" ]) (mod.default or { })

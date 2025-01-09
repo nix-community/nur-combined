@@ -10,7 +10,6 @@ let
 in
 
 ext: f: {
-  matches = file: hasSuffix ".${ext}" file
-    && stringLength file > (stringLength ext + 1);
+  matches = file: hasSuffix ".${ext}" file && stringLength file > (stringLength ext + 1);
   loader = f;
 }

@@ -12,7 +12,8 @@ in
     ./fonts.nix
   ];
 
-  options.abszero.themes.catppuccin.sddm.enable = mkExternalEnableOption config "catppuccin sddm theme. Complementary to catppuccin/nix";
+  options.abszero.themes.catppuccin.sddm.enable =
+    mkExternalEnableOption config "catppuccin sddm theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.sddm.enable {
     abszero.themes.catppuccin = {

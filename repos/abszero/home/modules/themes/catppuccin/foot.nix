@@ -13,7 +13,8 @@ in
     ./fonts.nix
   ];
 
-  options.abszero.themes.catppuccin.foot.enable = mkExternalEnableOption config "catppuccin foot theme. Complementary to catppuccin/nix";
+  options.abszero.themes.catppuccin.foot.enable =
+    mkExternalEnableOption config "catppuccin foot theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.foot.enable {
     abszero.themes = {
@@ -23,8 +24,8 @@ in
         fonts.enable = true;
       };
     };
+    catppuccin.foot.enable = true;
     programs.foot = {
-      catppuccin.enable = true;
       settings.main.font = "Iosevka Term Extended:size=13";
     };
   };

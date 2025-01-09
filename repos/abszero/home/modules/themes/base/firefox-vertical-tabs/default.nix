@@ -40,7 +40,8 @@ in
     ../../../programs/firefox.nix
   ];
 
-  options.abszero.themes.base.firefox.verticalTabs = mkExternalEnableOption config "firefox vertical tabs";
+  options.abszero.themes.base.firefox.verticalTabs =
+    mkExternalEnableOption config "firefox vertical tabs";
 
   config.programs.firefox.profiles.${firefoxCfg.profile}.userChrome = mkIf cfg.verticalTabs (
     mkBefore ''@import "${firefox-vertical-tabs}/userChrome.css";''

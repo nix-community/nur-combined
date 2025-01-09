@@ -31,16 +31,17 @@ let
             gtk.enable = true;
             hyprland.enable = true;
             hyprpaper.nixosLogo = true;
-            pointerCursor.enable = true;
+            cursors.enable = true;
           };
         };
       };
 
-      catppuccin.accent = "pink";
+      catppuccin = {
+        accent = "pink";
+        gtk.icon.enable = true;
+      };
 
       wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
-
-      gtk.catppuccin.icon.enable = true;
     };
 
     plasma6-latte-pink = {

@@ -26,32 +26,32 @@ in
 
 if stripped == "" then
   null
-else {
-  inherit stripped;
+else
+  {
+    inherit stripped;
 
-  name = {
-    directory = stripped;
+    name =
+      {
+        directory = stripped;
 
-    regular =
-      let
-        dots = pipe stripped [
-          stringLength
-          (genList id)
-          tail
-          (filter (i: substring i 1 stripped == "."))
-        ];
-      in
-      if hasSuffix "." stripped || dots == [ ] then
-        stripped
+        regular =
+          let
+            dots = pipe stripped [
+              stringLength
+              (genList id)
+              tail
+              (filter (i: substring i 1 stripped == "."))
+            ];
+          in
+          if hasSuffix "." stripped || dots == [ ] then stripped else substring 0 (last dots) stripped;
+      }
+      .${type};
+
+    visibility =
+      if hasPrefix "__" path then
+        "super"
+      else if hasPrefix "_" path then
+        "root"
       else
-        substring 0 (last dots) stripped;
-  }.${type};
-
-  visibility =
-    if hasPrefix "__" path then
-      "super"
-    else if hasPrefix "_" path then
-      "root"
-    else
-      "public";
-}
+        "public";
+  }

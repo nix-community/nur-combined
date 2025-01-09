@@ -14,7 +14,8 @@ in
 {
   imports = [ ../../../../lib/modules/config/abszero.nix ];
 
-  options.abszero.themes.base.plymouth.rings_2 = mkExternalEnableOption config "rings_2 plymouth theme from plymouth-themes";
+  options.abszero.themes.base.plymouth.rings_2 =
+    mkExternalEnableOption config "rings_2 plymouth theme from plymouth-themes";
 
   config.boot.plymouth = mkIf cfg.rings_2 {
     enable = true;

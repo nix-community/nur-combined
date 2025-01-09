@@ -50,6 +50,7 @@ in
       flatpak.enable = true;
       gnome.gnome-keyring.enable = true; # For storing vscode auth token
       mpd.enable = true;
+      protonmail-bridge.enable = true;
     };
 
     programs = {
@@ -79,7 +80,6 @@ in
         obsidian-ime
         osu-lazer-bin
         proton-pass
-        protonmail-bridge
         protonvpn-gui
         taisei
         tenacity

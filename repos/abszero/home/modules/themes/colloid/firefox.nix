@@ -17,7 +17,8 @@ in
 {
   imports = [ ../base/firefox-vertical-tabs ];
 
-  options.abszero.themes.colloid.firefox.enable = mkExternalEnableOption config "colloid firefox theme";
+  options.abszero.themes.colloid.firefox.enable =
+    mkExternalEnableOption config "colloid firefox theme";
 
   config = mkIf cfg.enable {
     abszero.themes.base.firefox.verticalTabs = true;

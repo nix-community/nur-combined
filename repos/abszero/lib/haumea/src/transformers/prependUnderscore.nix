@@ -14,5 +14,4 @@ let
   start = stringToCharacters "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 in
 
-_: mapAttrs' (name: nameValuePair
-  (if elem (substring 0 1 name) start then name else "_${name}"))
+_: mapAttrs' (name: nameValuePair (if elem (substring 0 1 name) start then name else "_${name}"))

@@ -26,7 +26,8 @@ in
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  options.abszero.themes.catppuccin.hyprpaper.nixosLogo = mkExternalEnableOption config "catppuccin nixos logo wallpaper from catppuccin-wallpapers";
+  options.abszero.themes.catppuccin.hyprpaper.nixosLogo =
+    mkExternalEnableOption config "catppuccin nixos logo wallpaper from catppuccin-wallpapers";
 
   config = mkIf cfg.hyprpaper.nixosLogo {
     abszero.themes.catppuccin.enable = true;

@@ -9,16 +9,16 @@ in
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  options.abszero.themes.catppuccin.pointerCursor = {
+  options.abszero.themes.catppuccin.cursors = {
     enable = mkExternalEnableOption config "catppuccin cursor theme. Complementary to catppuccin/nix";
     monochromeAccent = mkEnableOption "using polarity for accent";
   };
 
-  config = mkIf cfg.pointerCursor.enable {
+  config = mkIf cfg.cursors.enable {
     abszero.themes.catppuccin.enable = true;
-    catppuccin.pointerCursor = {
+    catppuccin.cursors = {
       enable = true;
-      accent = mkIf cfg.pointerCursor.monochromeAccent cfg.polarity;
+      accent = mkIf cfg.cursors.monochromeAccent cfg.polarity;
     };
     home.pointerCursor.size = 48;
   };

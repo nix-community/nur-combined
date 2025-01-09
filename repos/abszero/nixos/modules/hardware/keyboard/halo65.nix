@@ -64,7 +64,8 @@ in
     ../../services/hardware/kanata.nix
   ];
 
-  options.abszero.hardware.keyboard.halo65.enable = mkExternalEnableOption config "halo65 configuration";
+  options.abszero.hardware.keyboard.halo65.enable =
+    mkExternalEnableOption config "halo65 configuration";
 
   config = mkIf cfg.enable {
     abszero.services.kanata.enable = true;

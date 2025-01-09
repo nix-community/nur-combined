@@ -14,14 +14,15 @@ in
 {
   imports = [ ../../../../lib/modules/config/abszero.nix ];
 
-  options.abszero.themes.colloid.fonts.enable = mkExternalEnableOption config "fonts to use with colloid theme";
+  options.abszero.themes.colloid.fonts.enable =
+    mkExternalEnableOption config "fonts to use with colloid theme";
 
   config = mkIf cfg.enable {
     fonts.fontconfig.enable = true;
 
     home.packages = with pkgs; [
-      inconsolata-nerdfont
-      iosevka-bin
+      inconsolata
+      nerd-fonts.iosevka-term
       noto-fonts-cjk-sans
     ];
 

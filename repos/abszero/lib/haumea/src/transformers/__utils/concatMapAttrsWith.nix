@@ -27,4 +27,9 @@ let
     ;
 in
 
-merge: f: flip pipe [ (mapAttrs f) attrValues (foldl' merge { }) ]
+merge: f:
+flip pipe [
+  (mapAttrs f)
+  attrValues
+  (foldl' merge { })
+]

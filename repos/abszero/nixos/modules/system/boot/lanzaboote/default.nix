@@ -17,5 +17,5 @@ in
     mode = "uki";
     configurationLimit = 5;
     pkiBundle = ./secureboot;
-  }; 
+  };
 }

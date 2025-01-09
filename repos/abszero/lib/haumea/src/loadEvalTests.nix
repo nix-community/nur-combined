@@ -13,15 +13,17 @@ let
 
   tests = root.load args;
 
-  results = runTests (tests // {
-    tests = attrNames tests;
-  });
+  results = runTests (
+    tests
+    // {
+      tests = attrNames tests;
+    }
+  );
 in
 
-assert tests ? tests
-  -> "'tests' cannot be used as the name of a test";
+assert tests ? tests -> "'tests' cannot be used as the name of a test";
 
-assert results != [ ]
-  -> throw (generators.toPretty { } results);
+assert results != [ ] -> throw (generators.toPretty { } results);
 
-{ }
+{
+}

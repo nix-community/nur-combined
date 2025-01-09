@@ -14,7 +14,8 @@ in
 {
   imports = [ ../../../../lib/modules/config/abszero.nix ];
 
-  options.abszero.themes.base.hyprland.dynamicCursors.enable = mkExternalEnableOption config "hypr-dynamic-cursors";
+  options.abszero.themes.base.hyprland.dynamicCursors.enable =
+    mkExternalEnableOption config "hypr-dynamic-cursors";
 
   config.wayland.windowManager.hyprland = mkIf cfg.enable {
     plugins = with pkgs.hyprlandPlugins; [ hypr-dynamic-cursors ];

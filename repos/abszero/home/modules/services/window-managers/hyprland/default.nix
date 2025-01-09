@@ -7,7 +7,7 @@ let
 in
 
 {
-  imports = [ ./mosaic-tiling.nix ];
+  # imports = [ ./mosaic-tiling.nix ];
 
   options.abszero.wayland.windowManager.hyprland.enable = mkEnableOption "Wayland compositor";
 

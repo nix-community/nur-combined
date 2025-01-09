@@ -20,11 +20,19 @@ in
 
 cursor:
 
-let toplevel = cursor == [ ]; in
-concatMapAttrsWith recursiveUpdate
-  (file: value: if ! value ? ${from} then { ${file} = value; } else {
-    ${file} = removeAttrs value [ from ];
-    # top level ${from} declarations are omitted from merging
-    ${if toplevel then to else from} = { ${file} = value.${from}; };
-  })
-
+let
+  toplevel = cursor == [ ];
+in
+concatMapAttrsWith recursiveUpdate (
+  file: value:
+  if !value ? ${from} then
+    { ${file} = value; }
+  else
+    {
+      ${file} = removeAttrs value [ from ];
+      # top level ${from} declarations are omitted from merging
+      ${if toplevel then to else from} = {
+        ${file} = value.${from};
+      };
+    }
+)

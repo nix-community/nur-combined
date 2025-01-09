@@ -29,7 +29,8 @@ in
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  options.abszero.themes.catppuccin.discord.enable = mkExternalEnableOption config "catppuccin discord theme";
+  options.abszero.themes.catppuccin.discord.enable =
+    mkExternalEnableOption config "catppuccin discord theme";
 
   config = mkIf cfg.discord.enable {
     abszero.themes.catppuccin.enable = true;

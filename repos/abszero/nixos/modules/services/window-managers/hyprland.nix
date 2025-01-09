@@ -12,7 +12,10 @@ in
 
   # Most of the config is in home-manager
   config.programs = mkIf cfg.enable {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
     hyprlock.enable = mkDefault true;
   };
 }

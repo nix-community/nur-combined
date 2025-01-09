@@ -22,12 +22,15 @@ let
             gtk.enable = true;
             hyprland.enable = true;
             hyprpaper.nixosLogo = true;
-            pointerCursor.enable = true;
+            cursors.enable = true;
           };
         };
       };
 
-      catppuccin.accent = "pink";
+      catppuccin = {
+        accent = "pink";
+        gtk.icon.enable = true;
+      };
 
       nix = {
         # Ping nixpkgs to the locked version
@@ -45,8 +48,6 @@ let
       wayland.windowManager.hyprland.package = pkgs.emptyDirectory // {
         override = _: pkgs.emptyDirectory;
       };
-
-      gtk.catppuccin.icon.enable = true;
     };
 in
 

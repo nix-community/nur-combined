@@ -14,7 +14,8 @@ in
 {
   imports = [ ./base.nix ];
 
-  options.abszero.profiles.buildConfig.enable = mkExternalEnableOption config "profile that disables every package";
+  options.abszero.profiles.buildConfig.enable =
+    mkExternalEnableOption config "profile that disables every package";
 
   config = mkIf cfg.enable {
     abszero.profiles.base.enable = true;

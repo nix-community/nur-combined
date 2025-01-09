@@ -12,7 +12,7 @@ in
   options.abszero.themes.base.foot.enable = mkExternalEnableOption config "base foot theme";
 
   config.programs.foot.settings = mkIf cfg.enable {
-    main.pad = "5x5center";
+    main.pad = "7x7center";
     cursor = {
       style = "beam";
       blink = "yes";

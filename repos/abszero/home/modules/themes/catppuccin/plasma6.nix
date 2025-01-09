@@ -23,7 +23,8 @@ in
     ../../services/desktop-managers/plasma6.nix
   ];
 
-  options.abszero.themes.catppuccin.plasma6.enable = mkExternalEnableOption config "catppuccin plasma 6 theme";
+  options.abszero.themes.catppuccin.plasma6.enable =
+    mkExternalEnableOption config "catppuccin plasma 6 theme";
 
   config = mkIf cfg.plasma6.enable {
     abszero = {
@@ -32,6 +33,6 @@ in
     };
     home.packages = [ theme ];
     # Disable kvantum since we use the plasma theme
-    qt.style.catppuccin.enable = false;
+    catppuccin.kvantum.enable = false;
   };
 }

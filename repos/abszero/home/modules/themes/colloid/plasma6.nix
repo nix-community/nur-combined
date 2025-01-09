@@ -14,7 +14,8 @@ in
 {
   imports = [ ../../../../lib/modules/config/abszero.nix ];
 
-  options.abszero.themes.colloid.plasma6.enable = mkExternalEnableOption config "colloid plasma 6 theme";
+  options.abszero.themes.colloid.plasma6.enable =
+    mkExternalEnableOption config "colloid plasma 6 theme";
 
   config.home.packages =
     with pkgs;

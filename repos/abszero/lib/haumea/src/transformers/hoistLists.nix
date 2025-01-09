@@ -23,18 +23,33 @@ let
 
   # merge attributes shallowly, but concat values of a specific key into a list in that key
   # Type: ((key : String) -> { ... } -> { ... }) -> { ${key} : [ a ], ... }
-  mergeAttrsButConcatOn = key: x: y:
-    x // y // {
-      ${key} = concatLists (catAttrs key [ x y ]);
+  mergeAttrsButConcatOn =
+    key: x: y:
+    x
+    // y
+    // {
+      ${key} = concatLists (
+        catAttrs key [
+          x
+          y
+        ]
+      );
     };
 in
 
 cursor:
 
-let toplevel = cursor == [ ]; in
-concatMapAttrsWith (mergeAttrsButConcatOn (if toplevel then to else from))
-  (file: value: if ! value ? ${from} then { ${file} = value; } else {
-    ${file} = removeAttrs value [ from ];
-    # top level ${from} declarations are omitted from merging
-    ${if toplevel then to else from} = value.${from};
-  })
+let
+  toplevel = cursor == [ ];
+in
+concatMapAttrsWith (mergeAttrsButConcatOn (if toplevel then to else from)) (
+  file: value:
+  if !value ? ${from} then
+    { ${file} = value; }
+  else
+    {
+      ${file} = removeAttrs value [ from ];
+      # top level ${from} declarations are omitted from merging
+      ${if toplevel then to else from} = value.${from};
+    }
+)

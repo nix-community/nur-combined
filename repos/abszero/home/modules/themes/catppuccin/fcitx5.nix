@@ -12,14 +12,15 @@ in
     ./fonts.nix
   ];
 
-  options.abszero.themes.catppuccin.fcitx5.enable = mkExternalEnableOption config "catppuccin fcitx5 theme. Complementary to catppuccin/nix";
+  options.abszero.themes.catppuccin.fcitx5.enable =
+    mkExternalEnableOption config "catppuccin fcitx5 theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.fcitx5.enable {
     abszero.themes.catppuccin = {
       enable = true;
       fonts.enable = true;
     };
-    i18n.inputMethod.fcitx5.catppuccin.enable = true;
+    catppuccin.fcitx5.enable = true;
     xdg.configFile."fcitx5/conf/classicui.conf".text = ''
       Vertical Candidate List=True
       Font="Noto Sans 14"
