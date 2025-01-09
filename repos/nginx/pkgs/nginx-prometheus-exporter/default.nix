@@ -19,13 +19,13 @@ let
   };
 
   urlMap = {
-    i686-linux = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_386.tar.gz";
-    x86_64-linux = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_amd64.tar.gz";
-    armv6l-linux = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_armv6.tar.gz";
-    armv7l-linux = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_386.tar.gz";
+    x86_64-linux = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_amd64.tar.gz";
+    armv6l-linux = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_armv6.tar.gz";
+    armv7l-linux = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.4.0/nginx-prometheus-exporter_1.4.0_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "NGINX Prometheus Exporter for NGINX and NGINX Plus";
-    homepage = "https://github.com/nginxinc/nginx-prometheus-exporter";
+    homepage = "https://github.com/nginx/nginx-prometheus-exporter";
     license = lib.licenses.asl20;
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
