@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-NTsYGxQadAwhgxGFBY0I97g+8QnYHw0S5uqy0JHRtf0=";
   };
 

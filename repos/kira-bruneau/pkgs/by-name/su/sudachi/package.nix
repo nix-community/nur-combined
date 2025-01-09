@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "sudachi-emu";
     repo = "sudachi";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-KPGBfY80isNlJdFdopP5qqni3Ll7TIC3MC2MGDf8xZ4=";
   };

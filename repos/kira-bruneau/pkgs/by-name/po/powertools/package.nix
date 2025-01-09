@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "git.ngni.us";
     owner = "NG-SD-Plugins";
     repo = "PowerTools";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-xBqEZzV/Y9xnmWPW6KQbn7HVlbtzRKGQNGdRAGcOsLI=";
   };
 
