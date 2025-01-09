@@ -26,7 +26,7 @@ let
     "systemd-run-app"
   ];
 
-  execApp = a: ''"${deps.systemd-run-app}" ${lib.concatMapStringsSep " " (i: ''"${i}"'') a}'';
+  execApp = lib.concatMapStringsSep " " (i: ''"${i}"'');
 
 in
 ''
@@ -88,6 +88,9 @@ in
       DISPLAY ":0"
       QT_QPA_PLATFORM "wayland"
   }
+  workspace "main"
+  workspace "comm"
+  workspace "misc"
 
   window-rule {
       match app-id="Alacritty"
@@ -99,9 +102,25 @@ in
   }
 
   window-rule {
+      match at-startup=true app-id=r#"^foot$"#
+      match at-startup=true app-id=r#"^firefox$"#
+      match at-startup=true app-id=r#"^google-chrome"#
+      open-on-workspace "main"
+  }
+  
+  window-rule {
+      match at-startup=true app-id=r#"^org\.telegram\.desktop$"#
+      open-on-workspace "comm"
+  }
+  
+  window-rule {
+      match at-startup=true app-id=r#"^thunderbird$"#
+      open-on-workspace "misc"
+  }
+
+  window-rule {
       match title="Firefox"
-      match app-id="google-chrome-beta"
-      match app-id="google-chrome"
+      match app-id=r#"^google-chrome"#
       match app-id="thunderbird"
       open-maximized true
   }
@@ -260,8 +279,8 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Mod+Return { spawn ${execApp ["foot"]}; }
-      Mod+D { spawn "fuzzel" "--launch-prefix" "${deps.systemd-run-app}" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
+      Mod+Return { spawn ${execApp [ "foot" ]}; }
+      Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
