@@ -48,7 +48,7 @@ let
     if cond x then
       f x
     else if isList x then
-      map (x: map' cond f x) x
+      map (x: map' cond f x) (filter (x: x != {}) x)
     else if isAttrs x then
       mapAttrs (n: v: map' cond f v) x
     else
