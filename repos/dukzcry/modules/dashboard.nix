@@ -43,7 +43,26 @@ let
         };
       };
     };
-  allservices' = map (x: mapAttrs (n: v: filter (x: x != {}) v) x) cfg.allservices;
+  cond = x: isAttrs x && hasAttr "name" x;
+  map' = cond: f: x:
+    if cond x then
+      f x
+    else if isList x then
+      map (x: map' cond f x) x
+    else if isAttrs x then
+      mapAttrs (n: v: map' cond f v) x
+    else
+      x;
+  flatten' = cond: f: x:
+    flatten (
+    if cond x then
+      f x
+    else if isList x then
+      map (x: flatten' cond f x) x
+    else if isAttrs x then
+      map (y: flatten' cond f x."${y}") (attrNames x)
+    else
+      {});
 in {
   options.services.dashboard = {
     enable = mkEnableOption "dashboard.";
@@ -65,7 +84,7 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.homepage-dashboard.listenPort}";
         };
       };
-    } // mergeAttrsList (map nginx (flatten (concatMap attrValues allservices')));
+    } // mergeAttrsList (flatten' cond nginx cfg.allservices);
     services.homepage-dashboard.enable = true;
     services.homepage-dashboard.settings = {
       target = "_self";
@@ -73,8 +92,7 @@ in {
       statusStyle = "dot";
       language = "ru";
       useEqualHeights = true;
-      layout = mergeAttrsList (map (x: { "${x}" = { style = "row"; columns = 3; }; }) (concatMap attrNames allservices'));
     };
-    services.homepage-dashboard.services = map (x: mapAttrs (n: v: map page v) x) allservices';
+    services.homepage-dashboard.services = map' cond page cfg.allservices;
   };
 }
