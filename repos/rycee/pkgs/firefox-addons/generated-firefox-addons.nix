@@ -818,10 +818,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.9";
+      version = "7.6.10";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376981/betterttv-7.6.9.xpi";
-      sha256 = "45ab4f5082ca32cbafa9199d5736eb629e4435a6d58f9ad755192395abab3ccf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408258/betterttv-7.6.10.xpi";
+      sha256 = "0c8c184218954aca3256172e3a615d03c553021ae2a2912d349611aad54c3840";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1905,10 +1905,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.4.5";
+      version = "4.5.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405585/control_panel_for_twitter-4.4.5.xpi";
-      sha256 = "c9f92d41d8d87d749309f972ea5b5f3104c64a4195571dc33ba36b56d48ced98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413094/control_panel_for_twitter-4.5.1.xpi";
+      sha256 = "2860bc3ae594f9b98e3b34469bdf5ebbfceba24e59bd75c9d8ff7dbffc51e327";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2197,10 +2197,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2451.0";
+      version = "6.2502.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405905/dashlane-6.2451.0.xpi";
-      sha256 = "1f4325ce2949a91fb7b6699b298af5fccbe8f4269109f50fccfca68ddd9cf752";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4414738/dashlane-6.2502.0.xpi";
+      sha256 = "ddf26ad07421642f1d5991d311fc7a06a7081fe308cf59b0eb9d8eccbb8f2a1f";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "135.0.20250106.170344";
+      version = "135.0.20250108.92002";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415095/deutsch_de_language_pack-135.0.20250106.170344.xpi";
-      sha256 = "2ef246173acffdf6b88b5d6a3cfe73ae2cda988de30ee9832ad5ce5db87001dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416110/deutsch_de_language_pack-135.0.20250108.92002.xpi";
+      sha256 = "d856584552ba78cf9df71f78fd4d1a09ec8044acd66d3b234e75295e7538a67b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3462,10 +3462,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "135.0.20250106.170344";
+      version = "135.0.20250108.92002";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415104/francais_language_pack-135.0.20250106.170344.xpi";
-      sha256 = "b4e42ec3db17b3027c64bf445db27f17841c01d64536d8616755f09e32745022";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416196/francais_language_pack-135.0.20250108.92002.xpi";
+      sha256 = "5488fca51be812aa314bea78225fa5b80ce85f48ec6d4876b37979b1008b51e8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3499,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "135.0.20250106.170344";
+      version = "135.0.20250108.92002";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415041/gaidhlig_language_pack-135.0.20250106.170344.xpi";
-      sha256 = "cd48ef41767680d68b676bd842d2496017d42680cf1341d869c7fc704187cc50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416116/gaidhlig_language_pack-135.0.20250108.92002.xpi";
+      sha256 = "7b6170a539a869ac32a0099ff193191a80775f45f1b4aed1a77828cc23459b92";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3695,10 +3695,10 @@
     };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
-      version = "10.0.9";
+      version = "10.0.14";
       addonId = "{bc2166c4-e7a2-46d5-ad9e-342cef57f1f7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4413556/gloc-10.0.9.xpi";
-      sha256 = "6a3268da5a56447a6cd4dc200b1121c6d9a98471ac73d5c73b942f95c53e1d0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416169/gloc-10.0.14.xpi";
+      sha256 = "43cdc062f107a37cfbf3b847b88a4bdc27949318bae83f5e729a2b24b5814291";
       meta = with lib;
       {
         homepage = "https://github.com/kas-elvirov/gloc";
@@ -9395,10 +9395,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.26.0";
+      version = "1.27.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401514/proton_pass-1.26.0.xpi";
-      sha256 = "d7d2a996b1a907ea582a3685b62efbe92f5995a496abc84dcacf02554fc063e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408212/proton_pass-1.27.0.xpi";
+      sha256 = "ee2eee1d4fe741853b53f0e340a0e481206f70622edc24bd7e33358434198c2b";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10063,10 +10063,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "135.0.20250106.170344";
+      version = "135.0.20250108.92002";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415066/scots_language_pack-135.0.20250106.170344.xpi";
-      sha256 = "2efa600675135ae1b801e47b89f47a261fab98eea24983e5bf8ea7fd14646ea1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416100/scots_language_pack-135.0.20250108.92002.xpi";
+      sha256 = "b0579570e9bccc841fdef60810c0ae75d71e71f11389d28908d3249dfddeb60a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10802,10 +10802,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.11";
+      version = "4.12";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399194/steam_database-4.11.xpi";
-      sha256 = "e92a5452c1df8016b67c49b13c93768a71b596e1baab6fafca773a55d8eb6e6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409030/steam_database-4.12.xpi";
+      sha256 = "fa922a9ad4a4ff9bbe2b33d84897cd9cf961bfe8344b83708aa0c418535c3ecd";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -11050,10 +11050,10 @@
     };
     "tab-reloader" = buildFirefoxXpiAddon {
       pname = "tab-reloader";
-      version = "0.6.3";
+      version = "0.6.4";
       addonId = "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4265440/tab_reloader-0.6.3.xpi";
-      sha256 = "086102fb5938197f81d9b2c35c2cd1ded8624ff6e5fe94609acc3e31501d26b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408809/tab_reloader-0.6.4.xpi";
+      sha256 = "31e4c66f1a3bb3a1b9579cc8f0dfb7adab3abb3f0c4e0cc1683bd9ea92b4bcb0";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-reloader.html";
@@ -11066,6 +11066,9 @@
           "webNavigation"
           "contextMenus"
           "idle"
+          "scripting"
+          "offscreen"
+          "declarativeNetRequestWithHostAccess"
         ];
         platforms = platforms.all;
       };
