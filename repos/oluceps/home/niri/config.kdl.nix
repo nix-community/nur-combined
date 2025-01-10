@@ -88,9 +88,10 @@ in
       DISPLAY ":0"
       QT_QPA_PLATFORM "wayland"
   }
-  workspace "main"
-  workspace "comm"
-  workspace "misc"
+  workspace "terminal"
+  workspace "browser"
+  workspace "chat"
+  workspace "mail"
 
   window-rule {
       match app-id="Alacritty"
@@ -103,19 +104,23 @@ in
 
   window-rule {
       match at-startup=true app-id=r#"^foot$"#
+      open-on-workspace "terminal"
+  }
+  window-rule {
       match at-startup=true app-id=r#"^firefox$"#
       match at-startup=true app-id=r#"^google-chrome"#
-      open-on-workspace "main"
+      open-on-workspace "browser"
   }
   
   window-rule {
       match at-startup=true app-id=r#"^org\.telegram\.desktop$"#
-      open-on-workspace "comm"
+      open-maximized true
+      open-on-workspace "chat"
   }
   
   window-rule {
       match at-startup=true app-id=r#"^thunderbird$"#
-      open-on-workspace "misc"
+      open-on-workspace "mail"
   }
 
   window-rule {
@@ -218,7 +223,7 @@ in
       "google-chrome-dev.desktop"
     ]
   }
-  spawn-at-startup ${execApp [ "materialgram" ]}
+  spawn-at-startup ${execApp [ "telegram-desktop" ]}
   spawn-at-startup ${execApp [ "thunderbird" ]}
   spawn-at-startup ${
     execApp [
