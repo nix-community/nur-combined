@@ -47,6 +47,7 @@ rec {
   cli-microsoft365 = pkgs.callPackage ./pkgs/cli-microsoft365 { };
 
   m365 = cli-microsoft365; # alias for cli-microsoft365
+  docker-slim = pkgs.callPackage ./pkgs/docker-slim { };
   postman-cli = pkgs.callPackage ./pkgs/postman-cli {
     inherit mloeper;
   };
