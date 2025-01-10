@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     owner = "haiwen";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-XvWaj83PGDjvIU8prHw8uyifpRqmO8S1IVE2wvpD5yA=";
+    hash = "sha256-6gGkGQJAR15TGXjE7bfwFlkXkdRHzWITunicJOFUzqY=";
   };
 
   nativeBuildInputs = [
