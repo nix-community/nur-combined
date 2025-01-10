@@ -31,4 +31,6 @@ rec {
     inherit (pkgs.tmuxPlugins) mkTmuxPlugin;
     inherit thumbs;
   };
+  wastebin-fliegendewurst = pkgs.callPackage ./pkgs/wastebin-fliegendewurst { };
+  wastebin-fliegendewurst-aarch64-cross = pkgs.pkgsCross.aarch64-multiplatform.callPackage ./pkgs/wastebin-fliegendewurst { };
 }
