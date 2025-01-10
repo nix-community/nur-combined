@@ -35,6 +35,9 @@ rec {
   bannertool = pkgs.callPackage ./pkgs/bannertool { };
   wifiboot-host = pkgs.callPackage ./pkgs/wifiboot-host { };
   wfs-tools = pkgs.callPackage ./pkgs/wfs-tools { };
+  kame-tools = pkgs.callPackage ./pkgs/kame-tools { };
+  rstmcpp = pkgs.callPackage ./pkgs/rstmcpp { };
+  kame-editor = pkgs.qt6.callPackage ./pkgs/kame-editor { inherit kame-tools rstmcpp; };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

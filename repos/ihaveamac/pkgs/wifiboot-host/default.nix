@@ -10,10 +10,17 @@ stdenv.mkDerivation rec {
     rev = "d606c348740d40842d1282abc2fc91948bb31e41";
     hash = "sha256-jNyYpPs6MgBc19PoWIH+DnCVrOYYyJLtM7K2MsuiywM=";
   };
+  
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
+  ] ++ (lib.optional stdenv.targetPlatform.isMinGW "PLATFORM_LIBS=-lws2_32");
 
   installPhase = ''
     mkdir -p $out/bin
-    cp wifiboot $out/bin/wifiboot
+    cp wifiboot${stdenv.targetPlatform.extensions.executable} $out/bin
   '';
 
   meta = with lib; {

@@ -1,5 +1,10 @@
-{ lib, libiconv, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, libiconv }:
 
+let
+  cc = "${stdenv.cc.targetPrefix}cc";
+  cxx = "${stdenv.cc.targetPrefix}c++";
+  ar = "${stdenv.cc.targetPrefix}ar";
+in
 stdenv.mkDerivation rec {
   pname = "makerom";
   version = "0.18.4";
@@ -12,17 +17,27 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libiconv ];
-  sourceRoot = "source/makerom";
+
+  postPatch = ''
+    # because substituteInPlace is a shell function, we can't use find -exec
+    for f in $(find makerom -name "makefile"); do
+      substituteInPlace $f \
+        --replace-fail @ar ${ar} \
+        --replace-warn @gcc ${cc}
+    done
+  '';
 
   preBuild = ''
-    make -j$NIX_BUILD_CORES deps CC=${stdenv.cc.targetPrefix}cc CXX=${stdenv.cc.targetPrefix}c++
+    cd makerom
+    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode"}
   '';
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
+
+  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode");
   enableParallelBuilding = true;
 
   installPhase = ''
     mkdir $out/bin -p
-    cp bin/makerom $out/bin/
+    cp bin/makerom${stdenv.targetPlatform.extensions.executable} $out/bin/
   '';
 
   meta = with lib; {
@@ -30,6 +45,7 @@ stdenv.mkDerivation rec {
     description = "make 3ds roms";
     homepage = "https://github.com/3DSGuy/Project_CTR";
     platforms = platforms.all;
-    mainProgram = "ctrtool";
+    broken = stdenv.targetPlatform.isWindows;
+    mainProgram = "makerom";
   };
 }
