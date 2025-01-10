@@ -338,10 +338,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.44.3";
+      version = "1.44.4";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352648/animalese_typing-1.44.3.xpi";
-      sha256 = "1429f71b78be0b870d489a61ef0c59d5c8bd8b463c326a377bb91cb43e2a4cd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417115/animalese_typing-1.44.4.xpi";
+      sha256 = "b1b3d106bfac7b4d3301bdd13d44e2e6f27c794f57c02f1ca5bd7668fb420e0b";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type!";
@@ -838,10 +838,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.10.0";
+      version = "2.11.1";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389930/beyond_20-2.10.0.xpi";
-      sha256 = "26a24d51cbb320e90fedf07c1a4d006c5ecfc694252e30e8e5365573f5843ff2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416651/beyond_20-2.11.1.xpi";
+      sha256 = "9601c12c824205ea6e867d317d92053d722ff5b9ed092489028ab108bcd5554b";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -2539,10 +2539,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.55.0";
+      version = "2.55.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4411501/dualsub-2.55.0.xpi";
-      sha256 = "1ce60b3437b0ec36db2b37347d414c741d7d8644db3867dc84cfaab368c43fe0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416756/dualsub-2.55.2.xpi";
+      sha256 = "a3531df9200df3d5259c17645c144ca70c646e4f661bf605fc7ba4ceaec40226";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5340,10 +5340,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1185";
+      version = "4.1188";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404743/youtube_addon-4.1185.xpi";
-      sha256 = "ac9744660da34f96e83ed10720861bbc050ee6ed8ccfeefe3cdfe83b4fbd3bb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411470/youtube_addon-4.1188.xpi";
+      sha256 = "51ba97226fce20508231b269b79e18bc2a90db73b2563f9f6434a64a7766f79b";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5848,10 +5848,10 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.7.3.1";
+      version = "0.7.4";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389383/kagi_search_for_firefox-0.7.3.1.xpi";
-      sha256 = "0e2d167bc4797d8cc88b93c7fbf20a8709cbfd6a2f6277bfaed25c52083e32a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408391/kagi_search_for_firefox-0.7.4.xpi";
+      sha256 = "3852e490c5b7848025cbe7d415d436db97791766614bf9eac24f223877dbf753";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -6156,10 +6156,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.6";
+      version = "1.6.7";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374316/leechblock_ng-1.6.6.xpi";
-      sha256 = "7fba46d7a65e9785bc93f1d16fbe0e7a9b7e6970a18376995d4b6908dbbe1929";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409066/leechblock_ng-1.6.7.xpi";
+      sha256 = "897d1435658c2a246a3340ecdb57b32c6e57f16cef4033dc5e778ef4d99aaa54";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -7494,10 +7494,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.16";
+      version = "1.0.17";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415388/mergify-1.0.16.xpi";
-      sha256 = "356e96b97039d19d1b999ebc0cc5ffefd7b5fc9ab1df36ff886a9d64217bb312";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416800/mergify-1.0.17.xpi";
+      sha256 = "138e496bcbb64d1262069ba59ed9588469435d52587b0187e9ceca75af9ac326";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -10342,10 +10342,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.1.4";
+      version = "16.0.0";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402437/sidebartabs-15.1.4.xpi";
-      sha256 = "824f23b1655d2c1750a37492e27831fb05f763598adfc5875564d81fd830ba68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416842/sidebartabs-16.0.0.xpi";
+      sha256 = "3bc88bf3ea6742bc55ff0533fd2fa8acb02fdb306e0cb266c7aad79f8609a9ab";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -10744,7 +10744,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/startup-bookmarks";
-        description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them.";
+        description = "Open sets of bookmarks as tabs on browser startup by selecting a bookmark folder which contains them";
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
         platforms = platforms.all;
@@ -12742,10 +12742,10 @@
     };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "4.6.1";
+      version = "4.7.0";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231706/watchmarker_for_youtube-4.6.1.xpi";
-      sha256 = "a9c804bb9af200404bb809d248a50d2c6482bc322dd24914f76fad1cf29a1c80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416664/watchmarker_for_youtube-4.7.0.xpi";
+      sha256 = "d4690582de4e871d08503ec2ca49bcea54f525b474bf2d444b1b540ab9e358c1";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
@@ -12760,7 +12760,9 @@
           "webRequest"
           "webRequestBlocking"
           "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
           "*://www.youtube.com/*"
+          "*://m.youtube.com/*"
         ];
         platforms = platforms.all;
       };
