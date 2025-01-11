@@ -175,10 +175,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.23.2";
+      version = "3.24.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368589/adnauseam-3.23.2.xpi";
-      sha256 = "91e3562961030f0c65f0a9c06cd8be09da32ba754bbcc40cadeb3b1e08189e69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409252/adnauseam-3.24.0.xpi";
+      sha256 = "968378408c8f579ea8c8074e60198fad0a22169521e2b67ad045692ecf108624";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -2229,10 +2229,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.10";
+      version = "1.10.1";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405200/dearrow-1.10.xpi";
-      sha256 = "f2d587f42bf75eabac1657693547de1b99136eafa66aff928c67f5ae362bbd74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4409505/dearrow-1.10.1.xpi";
+      sha256 = "806cbbe7fc3443518a8685da9adabf82edbd3e504598640aeafb0bee6ad5108d";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "135.0.20250108.92002";
+      version = "135.0.20250110.123854";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416110/deutsch_de_language_pack-135.0.20250108.92002.xpi";
-      sha256 = "d856584552ba78cf9df71f78fd4d1a09ec8044acd66d3b234e75295e7538a67b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417618/deutsch_de_language_pack-135.0.20250110.123854.xpi";
+      sha256 = "2e89be1db11b347371e5196cc59be1284a1280767b559831537af64b4e59f562";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2539,10 +2539,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.55.2";
+      version = "2.55.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416756/dualsub-2.55.2.xpi";
-      sha256 = "a3531df9200df3d5259c17645c144ca70c646e4f661bf605fc7ba4ceaec40226";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417263/dualsub-2.55.3.xpi";
+      sha256 = "411f12e412f7cca2bc7cc9d9a1105d9a098753628f91d58cda42afd6b7afd619";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3462,10 +3462,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "135.0.20250108.92002";
+      version = "135.0.20250110.123854";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416196/francais_language_pack-135.0.20250108.92002.xpi";
-      sha256 = "5488fca51be812aa314bea78225fa5b80ce85f48ec6d4876b37979b1008b51e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417632/francais_language_pack-135.0.20250110.123854.xpi";
+      sha256 = "fbad78ccb3b08a0296f2f6606e8704774a1788b1fb3b001f7b065dbdcf39e482";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3499,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "135.0.20250108.92002";
+      version = "135.0.20250110.123854";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416116/gaidhlig_language_pack-135.0.20250108.92002.xpi";
-      sha256 = "7b6170a539a869ac32a0099ff193191a80775f45f1b4aed1a77828cc23459b92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417478/gaidhlig_language_pack-135.0.20250110.123854.xpi";
+      sha256 = "fc7d54c928477d15295bcb939094fcf65e84b5344eeb681e6eee46c2c82414dc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10063,10 +10063,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "135.0.20250108.92002";
+      version = "135.0.20250110.123854";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416100/scots_language_pack-135.0.20250108.92002.xpi";
-      sha256 = "b0579570e9bccc841fdef60810c0ae75d71e71f11389d28908d3249dfddeb60a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417575/scots_language_pack-135.0.20250110.123854.xpi";
+      sha256 = "74d196e41ec7d231cdf56d612066e77a499559ab8f81fb64775341d1eea4eeb2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10696,10 +10696,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.10.3";
+      version = "5.10.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404647/sponsorblock-5.10.3.xpi";
-      sha256 = "8d670559ae17adc808ed061188822e5112728ba70eda0a3133dcc4abc3857bdc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4410322/sponsorblock-5.10.5.xpi";
+      sha256 = "219e58141efd775fe0c549e3a225d7897616de5880cacc1b21e460f81042b1cb";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -11585,10 +11585,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.25";
+      version = "4.1.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386321/tree_style_tab-4.0.25.xpi";
-      sha256 = "c228594161f3a436b74778ac6bfef0288c00639eb1f2a1e5d6cddacfa8af2ea6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417227/tree_style_tab-4.1.1.xpi";
+      sha256 = "07433d82622184206cea577f1689635f0e74ae3eb378f887fc03ab5f0c26259a";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -13279,10 +13279,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.12.12.0";
+      version = "25.1.5.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405178/yomitan-24.12.12.0.xpi";
-      sha256 = "a5e33ac934f6e7c696bcb98362eaaae942c12ae8bbd64d1604eec6ada68695d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417079/yomitan-25.1.5.0.xpi";
+      sha256 = "7ea2a4b87a404b860bf9bb9fd2c04e5d2221cfee567f3aed18f5ccc776ff13b7";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
