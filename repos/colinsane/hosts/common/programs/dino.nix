@@ -58,14 +58,22 @@ in
       webrtc-audio-processing = null;
     };
 
-    suggestedPrograms = [
-      "gnome-keyring"
-    ];
+    # suggestedPrograms = [
+    #   "gnome-keyring"
+    # ];
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
+    # sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< apparently not needed?
+    sandbox.whitelistDbus.user.own = [ "im.dino.Dino" ];
     sandbox.whitelistDri = true;  #< not strictly necessary, but we need all the perf we can get on moby
+    sandbox.whitelistSendNotifications = true;
+    sandbox.whitelistPortal = [
+      # "FileChooser"
+      # "NetworkMonitor"  #< stderr message if omitted, but non-fatal
+      "OpenURI"
+      "ProxyResolver"  #< REQUIRED, else all peers will appear offline & messages can't be sent/received
+    ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"

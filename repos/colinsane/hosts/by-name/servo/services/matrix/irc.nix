@@ -154,6 +154,7 @@ in
           # notable channels:
           # - #sxmo
           # - #sxmo-offtopic
+          # supposedly also available at <irc://37lnq2veifl4kar7.onion:6667/> (unofficial)
         };
         "irc.rizon.net" = ircServer { name = "Rizon"; };
         # "irc.sdf.org" = ircServer {

@@ -520,28 +520,40 @@ let
           broad and unaudited attack surface.
         '';
       };
+      sandbox.whitelistMpris.controlPlayers = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow to control *all known* mpris-capable players on the machine.
+        '';
+      };
       sandbox.whitelistPortal = mkOption {
         type = types.listOf (types.enum [
+          # portal references: <https://flatpak.github.io/xdg-desktop-portal/docs/api-reference.html>
           # "Account"
-          # "Camera"
-          # "Device"
+          "Camera"
+          # "Clipboard"  # XXX(2025-01-08): inaccessible due to missing org.freedesktop.impl.portal.Clipboard
+          # "Device"  # removed in 1.19.0 (2024-10-09)
           "DynamicLauncher"
           # "Email"
           "FileChooser"
+          # "FileTransfer" # XXX(2025-01-08): inaccessible. part of org.freedesktop.portal.Documents, which i'm not using
           # "GameMode"
+          # "Inhibit" # XXX(2025-01-08): inaccessible due to missing org.freedesktop.impl.portal.Inhibit
           "Location"
           # "MemoryMonitor"
           "NetworkMonitor"  # bleh!
           "Notification"
           "OpenURI"
           # "PowerProfileMonitor"
-          # "Print"
-          # "ProxyResolver"
+          "Print"
+          "ProxyResolver"
           # "Realtime"
-          # "ScreenCast"
+          "ScreenCast"
           # "Screenshot"
           # "Settings"
           # "Trash"
+          # "Usb"  # added in 1.19.1 (2024-12-21)
           # "Wallpaper"
         ]);
         default = [];
@@ -706,12 +718,19 @@ let
           "org.freedesktop.Notifications" = "*";  # Notify, NotificationClosed, NotificationReplied, ActionInvoked
           "org.erikreider.swaync.cc" = "*";  #< probably overkill
         })
+        (lib.mkIf config.sandbox.whitelistMpris.controlPlayers {
+          # "org.mpris.MediaPlayer2.playerctld" = "*";
+          # `org.mpris.MediaPlayer2.*` acts recursively, granting access to e.g.:
+          # - org.mpris.MediaPlayer2.mpv  (which mpv claims by default)
+          # - org.mpris.MediaPlayer2.mpv.instance2  (which mpv claims when the former is already taken)
+          "org.mpris.MediaPlayer2.*" = "*";  #< TODO: limit to only being able to call actual interface members, otherise this may inadvertently grant access to other dbus controls of the player (which could be large, e.g. a IM client or web browser)
+        })
       ] ++ lib.forEach config.sandbox.whitelistPortal (p: {
         "org.freedesktop.portal.Desktop" = [
           "org.freedesktop.portal.${p}.*"
           # "org.freedesktop.DBus.Peer"  #< seems to not be needed
           # "org.freedesktop.DBus.Properties"
-          # "org.freedesktop.DBus.Introspectable"
+          "org.freedesktop.DBus.Introspectable.Introspect"  #< REQUIRED, for e.g. `sane-open`
         ];
       }));
 

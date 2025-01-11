@@ -24,8 +24,11 @@ in {
       ];
     });
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # it won't launch without it, dunno exactly why.
-    sandbox.whitelistDri = true;  #< hopefully slightly more bearable speed
+    sandbox.whitelistDbus.user.own = [ "org.gpodder" "org.gpodder.gpodder" ];
+    sandbox.whitelistDri = true;  #< makes the UI way more responsive
+    sandbox.whitelistPortal = [
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 

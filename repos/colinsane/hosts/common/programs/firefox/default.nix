@@ -214,7 +214,17 @@ in
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistAvDev = true;  #< it doesn't seem to use pipewire, but direct /dev/videoN (as of 2024/09/12)
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
+    sandbox.whitelistDbus.user.own = [ "org.mozilla.firefox.*" ];
+    sandbox.whitelistPortal = [
+      "Camera"  # not sure if used
+      # "Email"  # not sure if used
+      "FileChooser"
+      "Location"  # not sure if used
+      "OpenURI"
+      "Print"  # not sure if used
+      "ScreenCast"  # not sure if used
+    ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "dev"  # for developing anything web-related

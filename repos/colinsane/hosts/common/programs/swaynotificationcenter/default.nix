@@ -19,6 +19,7 @@
 # - brightness slider always reports correct value, but can only *change* the brightness under systemd logind.
 #   - <repo:ErikReider/SwayNotificationCenter:src/controlCenter/widgets/backlight/backlightUtil.vala>
 #   - could be made to work, by writing to /sys/class/backlight/... (the file it reads)
+# - MPRIS media controls work, but in the presence of multiple mpv players it ignores all but the first one launched
 #
 { config, lib, pkgs, ... }:
 let
@@ -55,6 +56,7 @@ in
       ];
     };
     sandbox.whitelistDbus.user = true;  #< TODO: reduce
+    # sandbox.whitelistDbus.user.call."org.sigxcpu.Feedback" = "*";
     sandbox.keepPidsAndProc = true;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
   };
 
@@ -108,6 +110,9 @@ in
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user = true;  # mpris; portal (TODO: reduce)
+    # sandbox.whitelistDbus.user.own = [ "org.erikreider.swaync.cc" "org.freedesktop.Notifications" ];
+    # sandbox.whitelistDbus.user.call."org.sigxcpu.Feedback" = "*";  # for swaync-fbcli
+    # sandbox.whitelistMpris.controlPlayers = true;
     sandbox.whitelistDbus.system = true;  # backlight
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;

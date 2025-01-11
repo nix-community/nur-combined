@@ -32,13 +32,6 @@ in
   ./2024-10-01-python-cross-resource-usage.patch
 
   (fetchpatch' {
-    # merged into staging 2024/12/12
-    name = "unbound: bison is required when cross-compiling";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/364656";
-    hash = "sha256-PrYomg6D+Ymlo4q00bOCXHyBITOEVAbAeQ6XqnNlurU=";
-  })
-
-  (fetchpatch' {
     # merged into staging 2024-12-13
     name = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";

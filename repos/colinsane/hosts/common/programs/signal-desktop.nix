@@ -39,8 +39,11 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  # for clicking on links (TODO: reduce)
     sandbox.whitelistDri = true;  #< hopefully it makes use of this for perf?
+    sandbox.whitelistPortal = [
+      # "FileChooser"  #< does not use file chooser
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"

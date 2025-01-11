@@ -94,7 +94,11 @@ in
       "rofi-run-command"
     ];
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to launch apps via the portal
+    sandbox.whitelistDbus.user = true;  #< TODO: should only need DynamicLauncher / OpenURI  (nested xdg-dbus-proxy issue?)
+    # sandbox.whitelistPortal = [
+    #   "DynamicLauncher"
+    #   "OpenURI"
+    # ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
@@ -142,7 +146,10 @@ in
     };
     # sandboxing options cribbed from sane-open
     sandbox.autodetectCliPaths = "existing";  # for when opening a file
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
+    sandbox.whitelistPortal = [
+      "DynamicLauncher"
+      "OpenURI"
+    ];
     sandbox.keepPidsAndProc = true;
     sandbox.extraHomePaths = [ ".local/share/applications" ];
     sandbox.extraRuntimePaths = [ "sway" ];

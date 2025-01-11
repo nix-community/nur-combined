@@ -397,6 +397,19 @@ test_11_dbus_09_proxy_partial_sandbox() {
   bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 }
 
+TODO_DISABLED_test_11_dbus_10_proxy_nested_call() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo1 &
+  sleep 1 # wait for readiness
+
+  # TODO: nested dbus proxies fail with `Invalid client serial: Exceeds maximum value of 4294901759`
+  # could possibly be related to <https://github.com/flatpak/xdg-dbus-proxy/issues/46>
+  # especially if they went with the solution where they MUX based on the high-bit instead of the low bit
+  bunpen --bunpen-path /nix/store --bunpen-path "$bunpen"  --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-seal \
+    "$bunpen" --bunpen-path /nix/store --bunpen-path "$env" --bunpen-dbus-call 'com.example.Echo1=*' \
+    "$env" busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
+}
+
 runTests() {
   local testsToRun=("$@")
   rc=0

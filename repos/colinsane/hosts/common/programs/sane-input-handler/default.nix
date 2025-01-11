@@ -99,6 +99,10 @@ in
     ];
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to launch applications
+    # sandbox.whitelistMpris.controlPlayers = true;
+    # sandbox.whitelistPortal = [
+    #   "DynamicLauncher"
+    # ];
     sandbox.whitelistSystemctl = true;  #< to restart bonsaid on failure
     sandbox.extraRuntimePaths = [ "sway" ];
     sandbox.keepPidsAndProc = true;  #< for toggling the keyboard

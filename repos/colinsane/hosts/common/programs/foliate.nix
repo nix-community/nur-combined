@@ -3,8 +3,12 @@
 {
   sane.programs.foliate = {
     sandbox.net = "clearnet";  #< for dictionary, wikipedia, online book libraries
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< when clicking on links
+    sandbox.whitelistDbus.user.own = [ "com.github.johnfactotum.Foliate" ];
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
+    sandbox.whitelistPortal = [
+      "FileChooser"
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Books/Books"

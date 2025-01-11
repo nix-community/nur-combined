@@ -11,7 +11,11 @@
     });
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< so `tor-browser http://...` can open using an existing instance
+    sandbox.whitelistDbus.user.own = [ "org.mozilla.firefox.*" ];  # so that `tor-browser http://...` can open using an existing instance
+    sandbox.whitelistPortal = [
+      "FileChooser"
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
     # sandbox.mesaCacheDir = ".cache/tor-browser/mesa";  # don't persist mesa dir (privacy)
     persist.byStore.ephemeral = [

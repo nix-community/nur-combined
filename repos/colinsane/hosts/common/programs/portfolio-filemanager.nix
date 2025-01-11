@@ -2,7 +2,10 @@
 {
   sane.programs.portfolio-filemanager = {
     # this is all taken pretty directly from nautilus config
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # for portals launching apps
+    sandbox.whitelistDbus.user.own = [ "dev.tchx84.Portfolio" ];
+    sandbox.whitelistPortal = [
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # grant access to pretty much everything, except for secret keys.

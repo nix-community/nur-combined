@@ -38,8 +38,14 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict secrets
+    sandbox.whitelistDbus.user.own = [ "so.libdb.dissent" ];
     sandbox.whitelistDri = true;
+    sandbox.whitelistPortal = [
+      "FileChooser"
+      "OpenURI"
+    ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"

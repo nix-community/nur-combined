@@ -7,12 +7,15 @@
     ];
 
     sandbox.autodetectCliPaths = "existing";  # for when opening a file
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
-    sandbox.keepPidsAndProc = true;  #< to toggle keyboard
     sandbox.extraHomePaths = [
       ".local/share/applications"
     ];
     sandbox.extraRuntimePaths = [ "sway" ];  #< calls `swaymsg` to query rotation and see if there's room for a keyboard
+    sandbox.keepPidsAndProc = true;  #< to toggle keyboard
+    sandbox.whitelistPortal = [
+      "DynamicLauncher"
+      "OpenURI"
+    ];
 
     mime.associations."application/x-desktop" = "sane-open-desktop.desktop";
   };

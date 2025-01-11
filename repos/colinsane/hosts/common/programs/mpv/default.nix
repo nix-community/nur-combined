@@ -190,7 +190,7 @@ in
     sandbox.autodetectCliPaths = "parent";  #< especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< mpris
+    sandbox.whitelistDbus.user.own = [ "org.mpris.MediaPlayer2.mpv" "org.mpris.MediaPlayer2.mpv.*" ];
     sandbox.whitelistDri = true;  #< mpv has excellent fallbacks to non-DRI, but DRI offers a good 30%-50% reduced CPU
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

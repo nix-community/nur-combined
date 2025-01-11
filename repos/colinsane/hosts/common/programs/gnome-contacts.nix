@@ -29,8 +29,12 @@
       did-initial-setup = true;
     };
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< for OpenURI, evolution-data-server
+    sandbox.whitelistDbus.user.call."org.gnome.evolution.dataserver.*" = "*";  #< TODO: reduce; only needs address book and maybe sources (probably not calendar, 'cept maybe for birthdays?)
+    sandbox.whitelistDbus.user.own = [ "org.gnome.Contacts" ];
     sandbox.whitelistDri = true;  #< speculative, but i'd like it to be responsive on mobile
+    sandbox.whitelistPortal = [
+      "OpenURI"
+    ];
     sandbox.whitelistWayland = true;
 
     sandbox.mesaCacheDir = ".cache/gnome-calendar/mesa";  # TODO: is this the correct app-id?

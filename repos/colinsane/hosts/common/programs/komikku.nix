@@ -11,6 +11,7 @@
     });
 
     sandbox.net = "clearnet";
+    sandbox.whitelistDbus.user.own = [ "info.febvre.Komikku" ];  #< fails to start if it can't connect to dbus
     sandbox.whitelistDri = true;  #< required
     sandbox.whitelistWayland = true;
 

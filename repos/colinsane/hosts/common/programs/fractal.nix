@@ -41,12 +41,12 @@ in
     sandbox.whitelistDbus.user.own = [ "org.gnome.Fractal" ];
     sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
     sandbox.whitelistDri = true;  # otherwise video playback buuuuurns CPU
-    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistPortal = [
       "FileChooser"
       "NetworkMonitor"  # if portals are enabled, but NetworkMonitor *isn't*, then it'll hang on launch
       "OpenURI"
     ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # still needs these paths despite it using the portal's file-chooser :?

@@ -3,16 +3,16 @@
 {
   sane.programs.gnome-keyring = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.gnome-keyring;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
-    sandbox.extraRuntimePaths = [
-      "keyring"  #< only needs keyring/control, but has to *create* that.
-      # "keyring/control"
-    ];
     sandbox.capabilities = [
       # ipc_lock: used to `mlock` the secrets so they don't get swapped out.
       # this is optional, and user namespacing (bwrap) likely doesn't propagate it anyway
       "ipc_lock"
     ];
+    sandbox.extraRuntimePaths = [
+      "keyring"  #< only needs keyring/control, but has to *create* that.
+      # "keyring/control"
+    ];
+    sandbox.whitelistDbus.user.own = [ "org.freedesktop.secrets" "org.gnome.keyring" ];
 
     persist.byStore.private = [
       # N.B.: gnome-keyring-daemon used to remove symlinks and replace them with empty directories, but as of 2024-09-05 that seems no longer the case.
