@@ -42,5 +42,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Simple script to manage bookmarks in a text file and display them using rofi.";
     license = licenses.mit;
     platforms = platforms.all;
+    maintainers = [ lib.maintainers.kugland ];
   };
 }

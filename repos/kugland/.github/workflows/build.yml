@@ -34,7 +34,7 @@ jobs:
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v15
-      if: ${{ matrix.cachixName != 'kugland' }}
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -42,6 +42,7 @@ jobs:
       run: |
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
+          --allowed-uris https://github.com \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
@@ -50,5 +51,5 @@ jobs:
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != 'kugland' }}
+      if: ${{ matrix.nurRepo != '<YOUR_CACHIX_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

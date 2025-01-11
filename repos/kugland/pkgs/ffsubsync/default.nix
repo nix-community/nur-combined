@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Automagically synchronize subtitles with video";
     homepage = "https://github.com/smacke/ffsubsync";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [ lib.maintainers.kugland ];
   };
 }

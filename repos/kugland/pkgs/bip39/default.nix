@@ -30,6 +30,6 @@ stdenv.mkDerivation (final: rec {
     homepage = "";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = [ lib.maintainers.kugland ];
   };
 })

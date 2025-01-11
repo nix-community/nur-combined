@@ -18,6 +18,6 @@ buildPythonPackage rec {
     description = "A Python library for editing subtitle files";
     homepage = "https://github.com/tkarabela/pysubs2";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [ lib.maintainers.kugland ];
   };
 }

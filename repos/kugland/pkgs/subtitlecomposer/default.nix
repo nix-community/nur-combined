@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://invent.kde.org/multimedia/subtitlecomposer/-/blob/master/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kugland ];
+    maintainers = [ lib.maintainers.kugland ];
     mainProgram = "subtitlecomposer";
     platforms = with platforms; linux ++ freebsd ++ windows;
   };

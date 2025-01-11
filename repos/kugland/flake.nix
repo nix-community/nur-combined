@@ -1,8 +1,15 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
   outputs =
     { self
+    , fenix
     , nixpkgs
     ,
     }:
@@ -24,6 +31,7 @@
       legacyPackages = forAllSystems (system:
         import ./default.nix {
           pkgs = import nixpkgs { inherit system; };
+          fenix = fenix.outputs.packages.${system};
         });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
     };

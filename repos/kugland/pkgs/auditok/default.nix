@@ -23,6 +23,6 @@ buildPythonPackage rec {
     description = "An audio/acoustic activity detection and audio segmentation tool";
     homepage = "https://github.com/amsehili/auditok";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [ lib.maintainers.kugland ];
   };
 }
