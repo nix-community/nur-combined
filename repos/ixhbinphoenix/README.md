@@ -8,5 +8,5 @@
 
 ## Current packages:
 
-- [localbooru-bin](https://github.com/resucutie/localbooru) - `1.6.0-prerelease1` - packaged .deb from latest release
+- [localbooru-bin](https://github.com/resucutie/localbooru) - `1.6.0` - packaged .deb from latest release
 - [todoit](https://git.ixhby.dev/ixhbinphoenix/todoit) - `0.1.2` - built from source

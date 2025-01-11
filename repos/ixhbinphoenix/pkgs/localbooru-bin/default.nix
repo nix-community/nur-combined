@@ -1,7 +1,7 @@
 { pkgs, lib, fetchurl, stdenv }:
 let
   pname = "localbooru-bin";
-  version = "1.6.0-prerelease1";
+  version = "1.6.0";
 
   meta = {
     description = "Cross platform local booru collection that exclusively works on local storage, without selfhosting";
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
 
   src = fetchArtifact {
     filename = "localbooru-linux.deb";
-    hash = "sha256-uuz1TW4t14OHiPyA5RfMGGJkUB35bLr5kwca/JjwCwQ=";
+    hash = "sha256-8tidSYJ0gAyWURi3NUC7p5y96oL3/e0stIVV2+A5PC8=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -47,13 +47,6 @@ stdenv.mkDerivation {
     mkdir -p $out
     cp -r * $out
     runHook postInstall
-  '';
-
-  preFixup = ''
-    patchelf $out/usr/share/localbooru/lib/libmedia_kit_native_event_loop.so \
-      --replace-needed libmpv.so.1 libmpv.so
-    patchelf $out/usr/share/localbooru/lib/libmedia_kit_video_plugin.so \
-      --replace-needed libmpv.so.1 libmpv.so
   '';
 
   postFixup = ''
