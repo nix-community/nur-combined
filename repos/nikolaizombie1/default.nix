@@ -14,5 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  gamut-cli = pkgs.callPackage ./pkgs/gamut-cli { };
   color-scheme-generator = pkgs.callPackage ./pkgs/color-scheme-generator { };
 }

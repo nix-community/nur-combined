@@ -3,16 +3,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "color-scheme-generator";
-  version = "0.9.2.1";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = "color_scheme_generator";
-    tag = "v${version}";
-    hash = "sha256-tSoM6MP58vOoKRMQjNq8nKMiVTfS9N/mckchAPcUM0g=";
+    rev = "v${version}";
+    hash = "sha256-qXo2psBRs1bN5LOGFH7xGvxiWOoeTcYALOYjN9Dkpqo=";
   };
 
-  cargoHash = "sha256-A8ld2c8ZcqaZN29Fz085FQy8UpugIDMOKT01r+SfCcc=";
+  cargoHash = "sha256-EhxJH0rTol7tRBDyiLzSXktnoQ1XlBFNAf9yf/8pVT8=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl sqlite ];
