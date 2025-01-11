@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3db975e..67124f0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -54,6 +54,9 @@ target_compile_options(bannertool PRIVATE
+ 	-Wall
+ 	-Wno-unused-function
+ )
++target_link_options(bannertool PRIVATE
++	-municode
++)
+ target_link_libraries(bannertool stb_image stb_vorbis)
+ 
+ # install

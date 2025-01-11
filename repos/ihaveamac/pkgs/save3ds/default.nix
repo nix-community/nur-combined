@@ -1,8 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform, fuse, pkg-config }:
+{ lib, fetchFromGitHub, stdenv, rustPlatform, fuse, pkg-config, withFUSE ? !stdenv.targetPlatform.isWindows }:
 
 rustPlatform.buildRustPackage rec {
   pname = "save3ds";
-  version = "dev-2023-03-28";
+  version = "unstable-2023-03-28";
 
   src = fetchFromGitHub {
     owner = "wwylele";
@@ -11,9 +11,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-fmwVcGOXq4BvszEVboyon5y3xR1yEIwnDdCzCR7f3M8=";
   };
 
-  cargoHash = "sha256-1BgEb02j6yC94sy8Io+RT6dfux8vvCu03pI2x1yUHYk=";
+  cargoHash = "sha256-knihCvFnMfHdZVlwcbKf22Nbu0L/xSVVRHN8fFmrX5Y=";
+  buildNoDefaultFeatures = !withFUSE;
 
-  buildInputs = [ fuse ];
+  buildInputs = lib.optional (withFUSE) fuse;
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

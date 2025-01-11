@@ -1,0 +1,11 @@
+diff --git a/wavfactory.h b/wavfactory.h
+index a368359..6fcbba7 100755
+--- a/wavfactory.h
++++ b/wavfactory.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ 
++#include <stdio.h>
+ #include "pcm16.h"
+ 
+ namespace rstmcpp {

@@ -1,12 +1,5 @@
-{ lib, stdenv, fetchFromGitLab, writeShellScriptBin }:
+{ lib, stdenv, fetchFromGitLab, zip }:
 
-let
-  # zip is only needed to build a release zip
-  # which we don't use with NixOS, so let's just fake it
-  fakeZip = writeShellScriptBin "zip" ''
-    echo "Not zipping"
-  '';
-in
 stdenv.mkDerivation rec {
   pname = "kame-tools";
   version = "1.3.8-unstable-2024-11-01";
@@ -20,10 +13,26 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ fakeZip ];
+  # this isn't actually required for building
+  # but cross-compiling to windows doesn't like it when I use
+  # writeShellScriptBin to create a fake "zip"
+  nativeBuildInputs = [ zip ];
+
+  # gotta patch the patch!
+  prePatch = lib.optionalString stdenv.isAarch64 ''
+    substituteInPlace aarch64.patch \
+      --replace-fail /make_base "/buildtools/make_base"
+  '';
 
   patches = lib.optional stdenv.isAarch64 [
-    "${src}/aarch64.patch"
+    "aarch64.patch"
+  ];
+
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "AS=${stdenv.cc.targetPrefix}as"
   ];
 
   # setting VERSION_PARTS wasn't working
@@ -36,14 +45,14 @@ stdenv.mkDerivation rec {
   # I wonder if this would break on cross-compilation
   installPhase = ''
     mkdir -p $out/bin
-    cp output/*/kame-tools $out/bin
+    cp output/*/kame-tools${stdenv.targetPlatform.extensions.executable} $out/bin
   '';
 
   meta = with lib; {
     description = "Fork of bannertools that includes tools for making 3DS themes.";
     homepage = "https://gitlab.com/beelzy/kame-tools";
     license = licenses.mit;
-    platforms = platforms.unix;
+    platforms = platforms.all;
     mainProgram = "kame-tools";
   };
 }

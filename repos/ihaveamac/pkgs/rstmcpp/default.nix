@@ -12,6 +12,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  # fixes clang
+  patches = [ ./include-stdio.patch ];
+
   makeFlags = [
     "CXX=${stdenv.cc.targetPrefix}c++"
   ];

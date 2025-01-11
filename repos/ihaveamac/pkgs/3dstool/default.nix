@@ -1,4 +1,4 @@
-{ lib, openssl, libiconv, curl, openldap, stdenv, cmake, clang, fetchFromGitHub }:
+{ lib, openssl, libiconv, curl, stdenv, cmake, clang, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "3dstool";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YHSuayvFpJHr42ezn1P5OR4Gtp+M6nZL1+ko6hWFvR0=";
   };
 
-  buildInputs = [ openssl libiconv curl openldap ];
+  buildInputs = [ openssl libiconv curl ];
   nativeBuildInputs = [ cmake ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
@@ -19,15 +19,19 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # fixes building on linux aarch64 (or anything non-x86_64 probably)
-  patchPhase = ''
+  postPatch = ''
     sed -i 's/-m64//g' CMakeLists.txt
     sed -i 's/-m32//g' CMakeLists.txt
+
+    # god damn case sensitivity
+    substituteInPlace src/utility.h \
+      --replace-fail Windows.h windows.h
   '';
 
   installPhase = "
     mkdir $out/bin -p
-    cp ../bin/Release/3dstool $out/bin/
-    cp ../bin/ignore_3dstool.txt $out/bin/
+    cp ../bin/Release/3dstool${stdenv.targetPlatform.extensions.executable} $out/bin
+    cp ../bin/ignore_3dstool.txt $out/bin
   ";
 
   meta = with lib; {

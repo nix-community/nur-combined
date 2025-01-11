@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace kame-editor.pro \
-      --replace-fail "/usr/local/bin/" "$out/bin/"
+      --replace-fail "/usr/local/bin/" "$out/bin/" \
+      --replace-fail "/usr/local" "/non-existant"
   '';
 
   qtWrapperArgs = [
@@ -24,6 +25,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qt6.qtbase portaudio ];
   nativeBuildInputs = [ qt6.qmake qt6.wrapQtAppsHook ];
+
+  postInstall = lib.optionalString stdenv.isDarwin ''
+    mkdir $out/Applications
+    mv $out/bin/kame-editor.app $out/Applications/kame-editor.app
+    ln -s $out/Applications/kame-editor.app/Contents/MacOS/kame-editor $out/bin/kame-editor
+  '';
 
   meta = with lib; {
     description = "GUI frontend for kame-tools; makes custom 3DS themes.";

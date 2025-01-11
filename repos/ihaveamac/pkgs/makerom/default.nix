@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode"}
   '';
 
-  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode");
+  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -45,7 +45,6 @@ stdenv.mkDerivation rec {
     description = "make 3ds roms";
     homepage = "https://github.com/3DSGuy/Project_CTR";
     platforms = platforms.all;
-    broken = stdenv.targetPlatform.isWindows;
     mainProgram = "makerom";
   };
 }
