@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "0c7l0zj2ww0gdy261nq42ddlriqk18chqzxd15nq7vdbdnm9bkxk";
-    aarch64-linux = "1daf29v1j8903g5v38p85mfmc944n5wx6gjpdqn44b4fij1hld8p";
-    x86_64-darwin = "0n9x0hz0qil6xgbnxwfxsqlb1vpzl3xswiq69k6lwzb7mahdck2d";
-    aarch64-darwin = "0brm2zlb8qnmkk1ms4sp9ayyr5hgpnsijmkswdg445snyfy2n22g";
+    x86_64-linux = "0n79y87qha9k5hi0vcjvb9jkw6w0zz56qf3ans200k44rj1blqz7";
+    aarch64-linux = "0s7j3259i85aqj364i1pbq1cz9r0h4h987x4nbyxgihbxsn9cm4q";
+    x86_64-darwin = "1dr2cspjxzl9cjamk1sba540zg222gkbsxmasn8vv7b0hs9iv2cv";
+    aarch64-darwin = "02h11lyxw288fncl1fm565rw1xxri3438zcpvc3zbyf3d38js6ax";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.2/nfpm_2.41.2_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.2/nfpm_2.41.2_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.2/nfpm_2.41.2_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.2/nfpm_2.41.2_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "nfpm";
-  version = "2.41.1";
+  version = "2.41.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -44,7 +44,7 @@ stdenvNoCC.mkDerivation {
   system = system;
 
   meta = {
-    description = "nFPM is a simple, 0-dependencies, deb, rpm and apk packager.";
+    description = "nFPM is a simple, 0-dependencies, deb, rpm, and apk packager.";
     homepage = "https://nfpm.goreleaser.com";
     license = lib.licenses.mit;
 
