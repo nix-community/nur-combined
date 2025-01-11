@@ -130,6 +130,17 @@ class TxBounds:
 
         return TxBounds(min_msat=self.min_msat, max_msat=new_max)
 
+class Node:
+    def __init__(self, fields: dict):
+        self.fields = fields
+
+    @property
+    def alias(self) -> str:
+        alias = self.fields.get("alias", None)
+        if alias is None:
+            logger.debug(f"node lacks alias field: {self.fields}")
+            alias = self.fields.get("nodeid", None)
+        return alias if alias is not None else "Unknown"
 
 class LocalChannel:
     def __init__(self, channels: list, rpc: "RpcHelper"):
@@ -201,11 +212,7 @@ class LocalChannel:
 
     @property
     def remote_alias(self) -> str:
-        alias = self.remote_node.get("alias", None)
-        if alias is None:
-            logger.debug(f"node lacks alias field: {self.remote_node}")
-            alias = self.remote_node.get("nodeid", None)
-        return alias if alias is not None else "Unknown"
+        return self.remote_node.alias
 
     @property
     def scid(self) -> str:
@@ -316,10 +323,10 @@ class RpcHelper:
         assert listchan and listchan.get("channels", []) != [], f"bad listchannels for {scid}: {listchan}"
         return LocalChannel(listchan["channels"], self)
 
-    def node(self, id: str) -> dict:
+    def node(self, id: str) -> Node:
         nodes = self.rpc.listnodes(id)["nodes"]
         assert len(nodes) == 1, f"unexpected: multiple nodes for {id}: {nodes}"
-        return nodes[0]
+        return Node(nodes[0])
 
     def peerchannel(self, scid: str, peer_id: str) -> dict:
         peerchannels = self.rpc.listpeerchannels(peer_id)["channels"]
@@ -738,7 +745,12 @@ def show_status(rpc: RpcHelper, full: bool=False):
         try:
             ch = rpc.localchannel(peerch["short_channel_id"])
         except:
-            print(f"{peerch['peer_id']} scid:{peerch.get('short_channel_id')} state:{peerch['state']} NO CHANNELS")
+            try:
+                node = rpc.node(peerch['peer_id'])
+            except:
+                print(f"node_pubkey({peerch['peer_id']}) scid:{peerch.get('short_channel_id')} state:{peerch['state']} NO CHANNELS")
+            else:
+                print(f"node({node.alias}) scid:{peerch.get('short_channel_id')} state:{peerch['state']} NO CHANNELS")
         else:
             print(ch.to_str(with_scid=True, with_bal_ratio=True, with_payments=True, with_cost=full, with_ppm_theirs=True, with_ppm_mine=True, with_peer_id=full))
 
