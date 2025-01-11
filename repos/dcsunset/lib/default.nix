@@ -63,11 +63,14 @@ rec {
     inherit addr len;
   };
 
-  # Convert ipv4 subnet/len or subnet to prefix like 10.0.0. (must end with .0)
-  ipv4Prefix = subnet: removeSuffix "0" (builtins.elemAt (splitString "/" subnet) 0);
+  # Convert ipv4 addr/len to prefix like 10.0.0. (len should be a multiple of 8)
+  ipv4Prefix = subnet: let
+    ip = parseIp subnet;
+    parts = splitString "." ip.addr;
+    num = ip.len / 8;
+  in concatMapStrings (p: p + ".") (sublist 0 num parts);
 
-  # Use the prefix as gateway (without len) as it's not a special addr in IPv6
-  # Convert ipv6 subnet/len to prefix like fdxx:: (must end with ::)
+  # Remove len part of ipv6 subnet/len like fdxx:: (must end with ::)
   ipv6Prefix = subnet: builtins.elemAt (splitString "/" subnet) 0;
 
   # Append a suffix to ipv4 subnet that ends with x.x.x.0/xx (len is kept)
