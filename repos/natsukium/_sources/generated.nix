@@ -23,15 +23,15 @@
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
-    version = "74e50226115bc90546d78b407fb5803f8fd6a35c";
+    version = "b4d0a817180b1a079d00d41c0a41308cb11407f7";
     src = fetchFromGitHub {
       owner = "natsukium";
       repo = "nixpkgs-review";
-      rev = "74e50226115bc90546d78b407fb5803f8fd6a35c";
+      rev = "b4d0a817180b1a079d00d41c0a41308cb11407f7";
       fetchSubmodules = false;
-      sha256 = "sha256-Wl7LIlODr4xZ8A3mI3jLg37FbQskhUgGrZnJULLqvxM=";
+      sha256 = "sha256-fZkXkhwsNoxcQcC4fqwnkfGherazl/YZBkuVWGmnWPY=";
     };
-    date = "2024-11-06";
+    date = "2025-01-10";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -63,22 +63,22 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "954f2f96e74a0c409f12315278fb1bbef0286b60";
+    version = "8bb1b8782227291c8cbe2aa62a9af732557690cc";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "954f2f96e74a0c409f12315278fb1bbef0286b60";
+      rev = "8bb1b8782227291c8cbe2aa62a9af732557690cc";
       fetchSubmodules = false;
-      sha256 = "sha256-ThS6i0KfHxMGTuF8rzCmK7hemVzdYZA6mlqNtOX4a+k=";
+      sha256 = "sha256-V86J+8rg1/5ZUL9t0k2S5H+z7KZ1DZwLwmb5yM0+vts=";
     };
-    date = "2024-12-31";
+    date = "2025-01-05";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.0.3495.27";
+    version = "7.0.3495.29";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.27.universal.dmg";
-      sha256 = "sha256-jZu2yu+9GezZOAbX0YkO+5MyzCjvLJnETFKaAJK44tE=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.29.universal.dmg";
+      sha256 = "sha256-R2yXl9TrgQ44Pjs00fJtHNdTL4KVI9JZwJLj4Mf123Y=";
     };
   };
 }
