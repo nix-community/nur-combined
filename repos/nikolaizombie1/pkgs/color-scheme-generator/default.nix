@@ -8,18 +8,18 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage rec {
-  pname = "color-scheme-generator";
-  version = "0.9.2.1";
+rustPlatform.buildRustPackage {
+  name = "color-scheme-generator";
+  preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = "color_scheme_generator";
-    rev = "v${version}";
-    hash = "sha256-tSoM6MP58vOoKRMQjNq8nKMiVTfS9N/mckchAPcUM0g=";
+    rev = "v1.0.0";
+    hash = "sha256-qXo2psBRs1bN5LOGFH7xGvxiWOoeTcYALOYjN9Dkpqo=";
   };
 
-  cargoHash = "sha256-A8ld2c8ZcqaZN29Fz085FQy8UpugIDMOKT01r+SfCcc=";
+  cargoHash = "sha256-i2btJLH9FVkvy2/3+2jkmiIFGOQxX5XctQVb31AVyPg=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       The intended purpose of this application is to automatically create color themes for Waybar, but it can be used for the bar in AwesomeWM or other applications to theme based on the on an image. This utility has a cache for the image analysis. This means that once an image has been analyzed once, the result will be saved in the cache and when an image is analyzed again, the results will be returned instantly
     '';
     homepage = "https://github.com/nikolaizombie1/color_scheme_generator";
-    changelog = "https://github.com/nikolaizombie1/color_scheme_generator/releases/tag/v${version}";
+    changelog = "https://github.com/nikolaizombie1/color_scheme_generator/releases/tag/v1.0.0";
     license = lib.licenses.gpl3Plus;
   };
 }
