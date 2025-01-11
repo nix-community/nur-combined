@@ -54,24 +54,25 @@ in
   #   hash = "sha256-Hzz+aAzdgdnTu4jvLqpHzdIE3xYMP02/EuA+KvFbUeI=";
   # })
 
-  (fetchpatch' {
-    name = "lua-language-server: fix cross compiling";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/370992";
-    hash = "sha256-0TG7u+Gcp5y3OKCEG2eDE9D9t+F1zv/I1W6CXlbCOYA=";
-  })
+  # (fetchpatch' {
+  #   # XXX(2025-01-06): patch does not produce valid binaries for cross
+  #   name = "lua-language-server: fix cross compiling";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/370992";
+  #   hash = "sha256-jW66W1V3upZMfbjuoruY3OGNJfEewx7DW/Z4vAhMEXw=";
+  # })
 
   (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
     # saneCommit = "92662a9920cf8b70ad8a061591dc37146123bde3";
-    hash = "sha256-3mvNFvOgUtzWwPEHGBSv9UEANxVfD1/fXbiV/mlq0l8=";
+    hash = "sha256-Bmy1xqqmHqJVpleKWOssF+6SUpKOIm6hIGQsW6+hUTg=";
   })
 
   (fetchpatch' {
     name = "itgmania: init at 0.9.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/355725";
-    hash = "sha256-pN14eynQizhGPPiF4bj9e/HdNEmW/gJHvK59ihwM/vA=";
+    hash = "sha256-PWY7mDoUNrUJMvMJ0fAF8cmvA34YrizG2MvuNIjofvU=";
   })
 
   # (fetchpatch' {

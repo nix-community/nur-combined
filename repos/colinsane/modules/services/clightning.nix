@@ -207,6 +207,21 @@ in
       '';
     };
 
+    systemd.services.clightning-autobalance = {
+      description = "shuffle funds around to improve routability (in a no-cost manner)";
+      after = [ "clightning.service" ];
+      bindsTo = [ "clightning.service" ];
+      wantedBy = [ "clightning.service" ];
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = "600";
+
+      serviceConfig.ExecStart = "${lib.getExe pkgs.clightning-sane} autobalance";
+      serviceConfig.Type = "simple";
+      serviceConfig.User = cfg.user;
+
+      # TODO: sandbox (just follow what i do for clightning-sane)
+    };
+
     users.users.${cfg.user} = {
       isSystemUser = true;
       group = cfg.group;

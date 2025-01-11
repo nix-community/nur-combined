@@ -506,6 +506,14 @@ class LoopJobDone(Enum):
     ABORTED = "ABORTED"
 
 class AbstractLoopRunner:
+    """
+    base class.
+    implementors implement `pop_job` and `finished_job`.
+    this super class coordinates how to call those in a loop:
+    - spawn N threads, each one calls `pop_job` then `finished_job`, in a loop
+    - coordinates completion:
+      - `run_to_completion` waits until a sufficient number (usually just one) of `LoopJobDone` jobs have been received before returning.
+    """
     def __init__(self, looper: LoopRouter, bounds: TxBounds, parallelism: int):
         self.looper = looper
         self.bounds = bounds
@@ -597,6 +605,12 @@ class LoopPairState:
         self.failed_tx_throttler = 0  # increase by one every time we fail, decreases more gradually, when we succeed
 
 class LoopBalancer(AbstractLoopRunner):
+    """
+    keeps context for looping from a specific `out` scid to a specific `in` scid.
+    typically just produces `LoopJob`s indicating how much more we want to loop,
+    but in the case of repeat errors, it may interleave `LoopJobIdle`,
+    and if the channel is very problematic is returns `LoopJobDone.ABORTED`
+    """
     def __init__(self, out: str, in_: str, amount: int, looper: LoopRouter, bounds: TxBounds, parallelism: int=1):
         super().__init__(looper, bounds, parallelism)
         self.state = LoopPairState(out, in_, amount)
@@ -732,6 +746,11 @@ def autobalance_once(rpc: RpcHelper, metrics: Metrics, bounds: TxBounds, paralle
 
 
 def autobalance(rpc: RpcHelper, min_msat: int, max_msat: int, parallelism: int):
+    """
+    balance all channels, repeatedly, until either
+    1. no channels want more inbound liquidity
+    2. or no channels want more outbound liquidity
+    """
     bounds = TxBounds(min_msat=min_msat, max_msat=max_msat)
     metrics = Metrics()
     while not autobalance_once(rpc, metrics, bounds, parallelism):

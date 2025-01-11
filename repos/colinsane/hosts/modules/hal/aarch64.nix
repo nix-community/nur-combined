@@ -19,6 +19,7 @@ in
     sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile (2025-01-05; blocked by marco)
     sane.programs.fcitx5.enableFor.user.colin = false;  #< does not cross compile (2025-01-05; blocked by qtsvg)
     sane.programs.firefox.config.addons.browserpass-extension.enable = false;  #< does not cross compile
+    sane.programs.lua-language-server.enableFor = { system = false; user.colin = false; };  # lua neovim LSP: doesn't cross compile (2025-01-06)
     # sane.programs.marksman.enableFor = { system = false; user.colin = false; };  # markdown neovim LSP: cross compiles, but the result is a x86 .NET exe (2025-01-05)
     sane.programs.mercurial.enableFor.user.colin = false;  #< does not cross compile (2025-01-05; unblocked)
     sane.programs.nix-tree.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2025-01-05; blocked by vty)
