@@ -74,13 +74,13 @@ rec {
   ipv6Prefix = subnet: builtins.elemAt (splitString "/" subnet) 0;
 
   # Append a suffix to ipv4 subnet that ends with x.x.x.0/xx (len is kept)
-  ipv4Append = subset: suffix: let
-    ip = parseIp subset;
-  in "${ipv4Prefix ip.addr}${suffix}/${toString ip.len}";
+  ipv4Append = subnet: suffix: let
+    ip = parseIp subnet;
+  in "${ipv4Prefix subnet}${suffix}/${toString ip.len}";
 
   # Append a suffix to ipv6 subnet that ends with ::/xx (len is kept)
-  ipv6Append = subset: suffix: let
-    ip = parseIp subset;
+  ipv6Append = subnet: suffix: let
+    ip = parseIp subnet;
   in "${ip.addr}${suffix}/${toString ip.len}";
 
   # Check if it is ipv4 with optional len or optional port
