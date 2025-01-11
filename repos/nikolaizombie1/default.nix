@@ -16,4 +16,5 @@
 
   gamut-cli = pkgs.callPackage ./pkgs/gamut-cli { };
   color-scheme-generator = pkgs.callPackage ./pkgs/color-scheme-generator { };
+  waytrogen = pkgs.callPackage ./pkgs/waytrogen { };
 }
