@@ -830,6 +830,9 @@
         "nginx": {
             "url": "https://github.com/nginxinc/nur"
         },
+        "nikolaizombie1": {
+            "url": "https://github.com/nikolaizombie1/nur-packages"
+        },
         "nikpkgs": {
             "url": "https://github.com/nikp123/nur-packages"
         },

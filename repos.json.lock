@@ -1060,8 +1060,8 @@
             "url": "https://github.com/kreisys/nur-packages"
         },
         "kugland": {
-            "rev": "d5af1b571d2e1cd563d1f52f993eef5eda021696",
-            "sha256": "1xnsmib09dxdqwxfcjp8pzpflvqkjpvcpf7r44089svhpcj1pdgg",
+            "rev": "2cb85070295b3b3492f4842729fc50b32bfccf3f",
+            "sha256": "049qb0i303gx2fwhjidwgk6khfb738m93w04wbll2x2lnram48pd",
             "submodules": true,
             "url": "https://github.com/kugland/nur-packages"
         },
@@ -1332,6 +1332,11 @@
             "rev": "c661f1b4df13c3aeca3a51c802e09c64f774a8ca",
             "sha256": "0rdr2xbinga2s86rax0gck0pxwq8fcmk2pfa6320v5r7cv7d4in5",
             "url": "https://github.com/nginxinc/nur"
+        },
+        "nikolaizombie1": {
+            "rev": "3cf101c58395dac238beedc21af33c5c22c90062",
+            "sha256": "01drkpwj69p28icm7g36b2j5kfsxb0cvlqndwxlx6wvxhl092g7r",
+            "url": "https://github.com/nikolaizombie1/nur-packages"
         },
         "nikpkgs": {
             "rev": "d1e3aec90880cc1de67310646d652d2af01870c2",
