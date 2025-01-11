@@ -8,7 +8,7 @@
   wrapGAppsHook4,
   ffmpeg,
   sqlite,
-  openssl
+  openssl,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
-    rev = version;
+    rev = "cfedddbed9a957f5b1fe99af0e3bab0557ef1008";
     hash = "sha256-uigBtmFPVPoYXNQPwFOAxwOFUApk05+zIKH9szLCG74=";
   };
 
