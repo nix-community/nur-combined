@@ -201,7 +201,11 @@ class LocalChannel:
 
     @property
     def remote_alias(self) -> str:
-        return self.remote_node["alias"]
+        alias = self.remote_node.get("alias", None)
+        if alias is None:
+            logger.debug(f"node lacks alias field: {self.remote_node}")
+            alias = self.remote_node.get("nodeid", None)
+        return alias if alias is not None else "Unknown"
 
     @property
     def scid(self) -> str:
