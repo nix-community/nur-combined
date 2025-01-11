@@ -8,13 +8,13 @@
 }:
 let
   pname = "koboldcpp-rocm";
-  version = "1.80.3.yr0-ROCm";
+  version = "1.81.1.yr0-ROCm";
 
   src = fetchFromGitHub {
     owner = "YellowRoseCx";
     repo = "koboldcpp-rocm";
     rev = "v${version}";
-    hash = "sha256-LZ1nR967hKchOHEAeFDlmMn5e7hd07UiZHKmz39eGmM=";
+    hash = "sha256-3Qwt/Og4HrZrcHSHwm0DeXlthnJ2Kb1fXQt/iTKrQlA=";
   };
 
   koboldcpp-libs = stdenv.mkDerivation {
