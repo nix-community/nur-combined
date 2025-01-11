@@ -14,6 +14,7 @@ in
       "adbusers"
       "aria2"
       "audio"
+      "dialout"
       "docker"
       "vboxusers"
       "wheel"

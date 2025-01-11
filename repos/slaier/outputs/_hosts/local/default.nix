@@ -10,6 +10,13 @@
 
   home-manager.users.nixos.imports = map (x: x.home or { }) (lib.attrValues modules) ++ [
     inputs.nix-index-database.hmModules.nix-index
+    ({ lib, ... }: {
+      xdg.configFile."pip/pip.conf".text = lib.generators.toINI { } {
+        global = {
+          index-url = "https://mirror.nju.edu.cn/pypi/web/simple";
+        };
+      };
+    })
   ];
 
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
@@ -42,6 +49,7 @@
     curl
     doggo
     gdu
+    geo
     git
     gocryptfs
     hydra-check

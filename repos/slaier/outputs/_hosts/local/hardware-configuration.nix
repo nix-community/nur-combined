@@ -49,6 +49,7 @@ _:
       directories = [
         ".android"
         ".cache"
+        ".cmake"
         ".config"
         ".local"
         ".mozilla"
