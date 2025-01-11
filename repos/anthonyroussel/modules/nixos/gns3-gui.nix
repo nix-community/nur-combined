@@ -14,7 +14,7 @@ in {
         description = lib.mdDoc ''Whether to install the GNS3 GUI client.'';
       };
 
-      package = lib.mkPackageOptionMD pkgs "gns3-gui" {};
+      package = lib.mkPackageOption pkgs "gns3-gui" {};
 
       extraPackages = lib.mkOption {
         type = with lib.types; listOf package;
