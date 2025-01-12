@@ -2,6 +2,9 @@
 
 , fetchFromGitHub
 
+, copyDesktopItems
+, makeDesktopItem
+
 , cmake
 , pkg-config
 
@@ -22,6 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     pkg-config
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -30,6 +34,24 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   hardeningDisable = [ "format" ];
+
+  postInstall = ''
+    mkdir -p $out/bin
+    cp Lampray $out/bin/lampray
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "lampray";
+
+      desktopName = "Lampray";
+      comment = "Baldur's Gate 3 and Cyberpunk mod manager for Linux";
+      exec = "lampray";
+      icon = "station";
+      terminal = false;
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = {
     description = "Linux Application Modding Platform. A native Linux mod manager";
