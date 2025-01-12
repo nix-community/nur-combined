@@ -3,3 +3,7 @@ builds:
     - packages.x86_64-linux.*
     - packages.aarch64-linux.*
     - packages.aarch64-darwin.*
+  exclude:
+    # Dotnet packages require relaxed sandbox on darwin,
+    # which is not supported in Garnix at the moment
+    - packages.aarch64-darwin.aiursoft-tracer
