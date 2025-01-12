@@ -11,8 +11,10 @@
 , predicate ? null
 , path ? null
 , max-workers ? null
+, include-overlays ? false
 , keep-going ? null
 , commit ? null
+, skip-prompt ? null
 ,
 }:
 
@@ -22,7 +24,14 @@ let
     url = "https://github.com/nixos/nixpkgs/archive/${lock.nodes.nixpkgs.locked.rev}.tar.gz";
     sha256 = lock.nodes.nixpkgs.locked.narHash;
   };
-  pkgs = import nixpkgs { };
+  pkgs = import nixpkgs (
+    if !include-overlays then
+      { overlays = [ ]; }
+    else if include-overlays then
+      { } # Let nixpkgs include overlays impurely.
+    else
+      { overlays = include-overlays; }
+  );
   inherit (pkgs) lib;
   updatePyScript = "${nixpkgs}/maintainers/scripts/update.py";
 
@@ -208,6 +217,10 @@ let
     that support it by adding
 
         --argstr commit true
+
+    to skip prompt:
+
+        --argstr skip-prompt true
   '';
 
   # Transform a matched package into an object for update.py.
@@ -230,7 +243,8 @@ let
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"
     ++ lib.optional (keep-going == "true") "--keep-going"
-    ++ lib.optional (commit == "true") "--commit";
+    ++ lib.optional (commit == "true") "--commit"
+    ++ lib.optional (skip-prompt == "true") "--skip-prompt";
 
   args = [ packagesJson ] ++ optionalArgs;
 in

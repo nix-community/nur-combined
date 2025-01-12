@@ -52,7 +52,7 @@ jobs:
       - name: Find upgradable packages
         id: get_packages
         run: |
-          packages=$(nix eval .\#lib.getPackagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
+          packages=$(nix eval .\#lib.packagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
           echo "packages=$packages" >> $GITHUB_OUTPUT
   
   package:
@@ -78,7 +78,7 @@ jobs:
           git config user.email "github-actions@github.com"
 
           # Run update script
-          if nix-shell tasks/update.nix --argstr package ${{ matrix.package }} --argstr commit true; then
+          if nix-shell tasks/update.nix --argstr package "${{ matrix.package }}" --argstr commit true --argstr skip-prompt true; then
             echo "update.nix executed successfully"
             commits_count=$(git rev-list --all --count)
             if [ "$commits_count" -ge 2 ]; then
