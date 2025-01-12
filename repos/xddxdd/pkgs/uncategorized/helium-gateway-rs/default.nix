@@ -14,13 +14,8 @@ rustPlatform.buildRustPackage {
 
   PROTOC = "${protobuf}/bin/protoc";
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "beacon-0.1.0" = "sha256-xSqLhnlRKJ2BCeyNjuj6q0Ug2V7YRvHfyeJ9u1fiijM=";
-      "exponential-backoff-1.2.0" = "sha256-bJkKb5Muja6HkwyXkD+4kfQxM/aRFH/KqvVPvMt20L0=";
-    };
-  };
+  cargoHash = "sha256-bqAzX0djA3SpDnmyLiwanFAlwZRi4nmYB7akBGMkZTM=";
+  useFetchCargoVendor = true;
 
   meta = {
     mainProgram = "helium_gateway";

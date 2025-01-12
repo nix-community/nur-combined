@@ -29,5 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/strongtz/i915-sriov-dkms";
     license = lib.licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
+    broken = true;
   };
 }

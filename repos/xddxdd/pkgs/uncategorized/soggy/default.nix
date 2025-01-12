@@ -36,5 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LDAsuku/soggy";
     license = lib.licenses.agpl3Only;
     mainProgram = "soggy";
+    broken = true;
   };
 }

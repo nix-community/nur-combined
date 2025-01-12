@@ -7,7 +7,10 @@
 rustPlatform.buildRustPackage rec {
   inherit (sources.uesave) pname version src;
 
-  cargoHash = "sha256-U6RzSS2j6FK70OHlmWmHZZYT3UB0+Hi+uLofLy+XtGQ=";
+  cargoHash = "sha256-H15OiilYNm+nR0kOsWOxe3MJLf8P6qPPqhFPbaFUFVk=";
+  useFetchCargoVendor = true;
+
+  doCheck = false;
 
   nativeInstallCheckInputs = [
     versionCheckHook

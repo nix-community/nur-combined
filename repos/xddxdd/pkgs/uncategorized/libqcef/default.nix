@@ -69,6 +69,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
+  env.CFLAGS = "-Wno-error=template-id-cdtor";
+  env.CXXFLAGS = "-Wno-error=template-id-cdtor";
+
   dontWrapQtApps = true;
 
   preConfigure = ''

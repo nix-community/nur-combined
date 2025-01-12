@@ -9,12 +9,8 @@
 rustPlatform.buildRustPackage {
   inherit (sources.lyrica) pname version src;
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "netease-cloud-music-api-1.4.0" = "sha256-Vy0iOmH8DpaF1upYiHnHqHLhdhQjbRw94pbFdmv546A=";
-    };
-  };
+  cargoHash = "sha256-lXKnkcGX0aXv4mPKO/2xyXZSMKzr5CHADT9lg1qLVwM=";
+  useFetchCargoVendor = true;
 
   nativeBuildInputs = [ pkg-config ];
 
