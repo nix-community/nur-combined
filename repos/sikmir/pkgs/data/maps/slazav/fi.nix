@@ -14,14 +14,14 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "slazav-podm";
-  version = "2024-12-09";
+  pname = "slazav-fi";
+  version = "2025-01-07";
 
   src = fetchFromGitHub {
     owner = "slazav";
-    repo = "map_podm";
-    rev = "af2c30996e71fcd8dbc4756d289ec2d7e7a198e0";
-    hash = "sha256-hG2oLMTNTZUF/BFIgbS8CYSofjryKyN2fpTqHKjhQcU=";
+    repo = "map_fi";
+    rev = "f3f13bd52cfd6a9775af35dea7343902d17dd258";
+    hash = "sha256-GYLMbsNlBBt3hdCKZwc7BxTgaVf0KmcB0kFYC5dk4kM=";
     leaveDotGit = true;
   };
 
@@ -51,8 +51,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Slazav Moscow region map";
-    homepage = "https://slazav.xyz/maps/podm.htm";
+    description = "custom render of Finnish topo maps";
+    homepage = "https://slazav.xyz/maps/";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;

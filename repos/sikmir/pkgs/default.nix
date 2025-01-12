@@ -66,7 +66,7 @@ lib.makeScope newScope (
     qmapshack-onlinemaps = callPackage ./data/maps/qmapshack-onlinemaps { };
     slazav-hr = callPackage ./data/maps/slazav/hr.nix { };
     slazav-podm = callPackage ./data/maps/slazav/podm.nix { };
-    slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
+    slazav-fi = callPackage ./data/maps/slazav/fi.nix { };
     uralla = callPackage ./data/maps/uralla { };
 
     poi = callPackage ./data/misc/poi { };
