@@ -35,6 +35,7 @@ let
     ferdium = { };
     go-mod-upgrade = { };
     imhex = { };
+    lampray = { };
     lddtree = { };
     ots-cli = {
       _common = "ots";
