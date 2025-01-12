@@ -57,36 +57,36 @@ jobs:
     needs: flake
     strategy:
       matrix: 
-        packages: ${{ fromJson(needs.flake.outputs.get_packages) }}
+        packages: ${{ fromJson(needs.flake.outputs.packages) }}
       fail-fast: false
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 1
-            persist-credentials: 'true'
-        - uses: DeterminateSystems/nix-installer-action@main
-        - uses: DeterminateSystems/magic-nix-cache-action@main
-        - name: Run update script for ${{ matrix.package }}
-          id: run_update_script
-          run: |
-            # Configure git 
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: 'true'
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Run update script for ${{ matrix.package }}
+        id: run_update_script
+        run: |
+          # Configure git 
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
-            # Run update script
-            if nix-shell tasks/update.nix --argstr package ${{ matrix.package }} --argstr commit true; then
-              echo "update.nix executed successfully"
-              commits_count=$(git rev-list --all --count)
-              if [ "$commits_count" -ge 2 ]; then
-                echo "pr_title=$(git show -s --format=%s HEAD)" >> $GITHUB_OUTPUT
-              fi
-            else
-              echo "update.nix execution failed"
-              exit 1
+          # Run update script
+          if nix-shell tasks/update.nix --argstr package ${{ matrix.package }} --argstr commit true; then
+            echo "update.nix executed successfully"
+            commits_count=$(git rev-list --all --count)
+            if [ "$commits_count" -ge 2 ]; then
+              echo "pr_title=$(git show -s --format=%s HEAD)" >> $GITHUB_OUTPUT
             fi
-        - name: Create pull request
+          else
+            echo "update.nix execution failed"
+            exit 1
+          fi
+      - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         if: steps.run_update_script.outputs.pr_title != ''
         with:
