@@ -13,6 +13,8 @@ permissions:
 jobs:
   flake:
     runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.get_packages.outputs.packages }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
