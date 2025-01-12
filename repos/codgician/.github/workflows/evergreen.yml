@@ -1,0 +1,49 @@
+name: evergreen
+
+on:
+  schedule:
+  - cron: '35 8 * * *'
+  workflow_dispatch:
+
+concurrency: evergreen
+
+permissions:
+  contents: write
+ 
+jobs:
+  evergreen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: 'true'
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Update nix flake
+        run: nix flake update >> $GITHUB_STEP_SUMMARY
+      - name: Push changes
+        id: push
+        run: |
+          if [[ `git status flake.lock --porcelain` ]]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add flake.lock
+            git commit -m "bot: nix flake update"
+            git push
+            echo "trigger_build=1" >> $GITHUB_OUTPUT
+          else
+            echo "flake.lock is not changed..."
+            echo "trigger_build=0" >> $GITHUB_OUTPUT
+          fi
+      - name: Trigger build
+        uses: actions/github-script@v7
+        if: steps.push.outputs.trigger_build == '1'
+        with:
+          script: |
+            github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event_type: 'build',
+            });
