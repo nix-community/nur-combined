@@ -59,7 +59,7 @@ jobs:
     needs: flake
     strategy:
       matrix: 
-        packages: ${{ fromJson(needs.flake.outputs.packages) }}
+        package: ${{ fromJson(needs.flake.outputs.packages) }}
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
