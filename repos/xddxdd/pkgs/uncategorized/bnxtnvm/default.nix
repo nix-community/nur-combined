@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bnxtnvm";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Broadcom BNXTNVM utility";
+    homepage = "https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf";
     license = lib.licenses.unfree;
   };
 }

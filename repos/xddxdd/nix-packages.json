@@ -615,7 +615,7 @@
     "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.gost-engine": {
-    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "description": "Reference implementation of the Russian GOST crypto algorithms for OpenSSL",
     "pname": "gost-engine",
     "version": "3.0.3"
   },
@@ -4060,7 +4060,7 @@
     "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.gost-engine": {
-    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "description": "Reference implementation of the Russian GOST crypto algorithms for OpenSSL",
     "pname": "gost-engine",
     "version": "3.0.3"
   },
@@ -4845,7 +4845,7 @@
     "version": "1.2.2"
   },
   "packages.x86_64-linux.gost-engine": {
-    "description": "reference implementation of the Russian GOST crypto algorithms for OpenSSL",
+    "description": "Reference implementation of the Russian GOST crypto algorithms for OpenSSL",
     "pname": "gost-engine",
     "version": "3.0.3"
   },

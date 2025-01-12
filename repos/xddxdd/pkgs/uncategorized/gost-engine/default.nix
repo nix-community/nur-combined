@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "reference implementation of the Russian GOST crypto algorithms for OpenSSL";
+    description = "Reference implementation of the Russian GOST crypto algorithms for OpenSSL";
     homepage = "https://github.com/gost-engine/engine";
     license = lib.licenses.asl20;
     mainProgram = "gostsum";
