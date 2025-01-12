@@ -134,6 +134,7 @@
           in
           ''
             set -euo pipefail
+            export LANG=en_US.UTF-8
             export PATH=${path}:$PATH
             nix flake update
             ${nvfetcher}
