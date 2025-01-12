@@ -1,6 +1,14 @@
 {
   description = "📦 NUR packages from codgician.";
+
+  nixConfig = {
+    allow-import-from-derivation = "true";
+    extra-substituters = [ "https://cache.garnix.io" ];
+    extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  };
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
   outputs = { self, nixpkgs }:
     let
       systems = [

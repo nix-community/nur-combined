@@ -1,4 +1,4 @@
-name: "Build and populate cache"
+name: "build"
 on:
   pull_request:
   push:
@@ -30,7 +30,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - codgician
+          - <YOUR_CACHIX_NAME>
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
@@ -44,6 +44,7 @@ jobs:
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
+          accept-flake-config = true
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
