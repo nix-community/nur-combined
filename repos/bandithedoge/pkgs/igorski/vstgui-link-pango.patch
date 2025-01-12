@@ -1,0 +1,13 @@
+diff --git a/vstgui4/vstgui/CMakeLists.txt b/vstgui4/vstgui/CMakeLists.txt
+index e640c10c..5b01a9ea 100644
+--- a/vstgui4/vstgui/CMakeLists.txt
++++ b/vstgui4/vstgui/CMakeLists.txt
+@@ -64,7 +64,7 @@ if(LINUX)
+     pkg_check_modules(LIBXKB_COMMON_X11 REQUIRED xkbcommon-x11)
+     pkg_check_modules(GLIB REQUIRED glib-2.0)
+     pkg_check_modules(CAIRO REQUIRED cairo)
+-    pkg_check_modules(PANGO REQUIRED pangocairo pangoft2)
++    pkg_check_modules(PANGO REQUIRED pango pangocairo pangoft2)
+     pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
+     set(LINUX_LIBRARIES
+         ${X11_LIBRARIES}

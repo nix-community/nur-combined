@@ -1,0 +1,4 @@
+[actuate]
+src.github = "ardura/Actuate"
+fetch.github = "ardura/Actuate"
+cargo_locks = ["Cargo.lock"]

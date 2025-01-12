@@ -1,0 +1,226 @@
+{
+  "ACE": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "ACE",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-DWmyZtyrbvNoAH2D5gZcMy+ljVjZSxk3bryzX0CkGgg=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/ACE_143_16518_Linux.tar.xz"
+    },
+    "version": "143_16518"
+  },
+  "Bazille": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Bazille",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-0CRxtka/x5bTrWYIcYmTYu+0u7ngbtz2O3Cj0LBltt4=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Bazille_113_16518_Linux.tar.xz"
+    },
+    "version": "113_16518"
+  },
+  "ColourCopy": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "ColourCopy",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-fDfClB+MoDWaUpdQkEi9sage5FToTytPIn6RNRsFTMc=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/ColourCopy_102_16742_Linux.tar.xz"
+    },
+    "version": "102_16742"
+  },
+  "Diva": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Diva",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-3CRzcz7BJCU0M3fEOzxmg8TWgZajiXghyA1hZ3jdFEY=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Diva_148_16519_Linux.tar.xz"
+    },
+    "version": "148_16519"
+  },
+  "Filterscape": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Filterscape",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-glx/yn5/xnPBfRMpOQBpPfDWsTrL4h6J1+hHaOQPYRk=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Filterscape_151_15664_Linux.tar.xz"
+    },
+    "version": "151_15664"
+  },
+  "Hive": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Hive",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-q+nlzaeASQJnfdiHAi1RSQTgZGaxNZzFJDPguj8OU+c=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Hive_212_16520_Linux.tar.xz"
+    },
+    "version": "212_16520"
+  },
+  "MFM2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "MFM2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-qhYctgN+wiOwt97atks6mLhoS1k3MQNWpz91+9w+U28=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/MFM2_251_16742_Linux.tar.xz"
+    },
+    "version": "251_16742"
+  },
+  "Podolski": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Podolski",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-jsCursOUP4sMUNcQoISlIoAg+tLC2EF9uWCb/74+m3E=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Podolski_123_12092_Linux.tar.xz"
+    },
+    "version": "123_12092"
+  },
+  "Presswerk": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Presswerk",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-A2WV0gG8Bbo2L8ByTPDAnwNm8yw2jAgHZmIvEIyD7/E=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Presswerk_115_12092_Linux.tar.xz"
+    },
+    "version": "115_12092"
+  },
+  "Protoverb": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Protoverb",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-z0+MfrMnxF5I1C6U1AFTu6DFioZGKAyc1EnrN2sPqbE=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Protoverb_101_12092_Linux.tar.xz"
+    },
+    "version": "101_12092"
+  },
+  "Repro-1": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Repro-1",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-LAWvWB+YPrm+fc1aKOcH06VTMlcbMgb0oesHmdEsmDM=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Repro_113_16797_Linux.tar.xz"
+    },
+    "version": "113_16797"
+  },
+  "Satin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Satin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-TkA5MrqwOi23wre/FxGbUlEJ+uck3me9jxq4kUxFhng=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Satin_133_15721_Linux.tar.xz"
+    },
+    "version": "133_15721"
+  },
+  "TripleCheese": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "TripleCheese",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-L+uCW6Envlrd/6CRhTwrnazBSCroqlGrm3ltZ9jPGR0=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/TripleCheese_130_12092_Linux.tar.xz"
+    },
+    "version": "130_12092"
+  },
+  "Twangstrom": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Twangstrom",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-PU5+4UROIPcQ4/bkz3AMcGNMDzNWZqH42zPzt2z7Ius=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Twangstrom_102_16742_Linux.tar.xz"
+    },
+    "version": "102_16742"
+  },
+  "Uhbik": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Uhbik",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-7bxp2xRITNXuq8rpXIZjnqaGPssJT2K8Cr9HPoVtbLU=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Uhbik_131_8256_Linux.tar.xz"
+    },
+    "version": "131_8256"
+  },
+  "Zebra2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Zebra2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "sha256": "sha256-qRNDGf/SeHI6I0sOwa95KDumzM2xDDUEslXAbBD2rDI=",
+      "type": "tarball",
+      "url": "https://uhe-dl.b-cdn.net/releases/Zebra2_293_12092_Linux.tar.xz"
+    },
+    "version": "293_12092"
+  }
+}

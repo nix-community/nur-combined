@@ -1,0 +1,17 @@
+{
+  "mxtune-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "mxtune-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-UEk8rRW4WKsDdvYlPPJyMsNqiqQaYZkeqcapLmpAH+c=",
+      "type": "url",
+      "url": "https://github.com/liuanlin-mx/MXTune/releases/download/v1.2.0/ubuntu1804_x86_64_vst_v1.2.0.zip"
+    },
+    "version": "v1.2.0"
+  }
+}

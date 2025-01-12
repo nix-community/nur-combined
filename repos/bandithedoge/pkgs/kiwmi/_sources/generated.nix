@@ -7,13 +7,13 @@
 }: {
   kiwmi = {
     pname = "kiwmi";
-    version = "17814972abe6a8811a586fa87c99a2b16a86075f";
+    version = "7faf4a3f8b307cc04a9d5047cb04f76d849ff13a";
     src = fetchFromGitHub {
       owner = "buffet";
       repo = "kiwmi";
-      rev = "17814972abe6a8811a586fa87c99a2b16a86075f";
+      rev = "7faf4a3f8b307cc04a9d5047cb04f76d849ff13a";
       fetchSubmodules = false;
-      sha256 = "sha256-n9PA6cyEjSlnDcRrqIkO83UaCE/hovbi/oZon1B+nuw=";
+      sha256 = "sha256-hDTIisuv3SbFTUGDbdiLSEQHQangCH9XI7d2vuLpMxM=";
     };
     date = "2022-07-30";
   };

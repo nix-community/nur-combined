@@ -1,0 +1,4 @@
+[roomreverb]
+src.github = "cvde/RoomReverb"
+fetch.github = "cvde/RoomReverb"
+git.fetchSubmodules = true

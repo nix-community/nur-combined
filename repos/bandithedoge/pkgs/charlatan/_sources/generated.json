@@ -1,0 +1,17 @@
+{
+  "charlatan": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "charlatan",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-DZA23vYh4rQsPVi8Xq9oc/VFa3YIIqsjZsg2rBuDqfc=",
+      "type": "url",
+      "url": "https://blaukraut.info/downloads/charlatan3_3.2.0_linux.zip"
+    },
+    "version": "3.2.0"
+  }
+}

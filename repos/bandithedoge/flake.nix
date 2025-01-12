@@ -36,8 +36,9 @@
           projectRootFile = "flake.nix";
           programs = {
             alejandra.enable = true;
-            black.enable = true;
             prettier.enable = true;
+            ruff-format.enable = true;
+            taplo.enable = true;
           };
         };
       };

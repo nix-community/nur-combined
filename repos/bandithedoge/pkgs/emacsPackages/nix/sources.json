@@ -1,26 +1,26 @@
 {
-  "clangd-inactive-regions.el": {
-    "branch": "master",
-    "description": "Emacs Eglot support for clangd inactiveRegions LSP extension. Make ifdef code semitransparent following build time flags and defines.",
-    "homepage": "",
-    "owner": "fargiolas",
-    "repo": "clangd-inactive-regions.el",
-    "rev": "5d1580f32b4e0018298d97837d9e6cc8d2201a18",
-    "sha256": "140i3qq15519s51wrwifz8gv9aaf68mn4m36dqvyn3n83ik5rkc1",
-    "type": "tarball",
-    "url": "https://github.com/fargiolas/clangd-inactive-regions.el/archive/5d1580f32b4e0018298d97837d9e6cc8d2201a18.tar.gz",
-    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-  },
   "eglot-booster": {
     "branch": "main",
     "description": "Boost eglot using lsp-booster",
     "homepage": null,
     "owner": "jdtsmith",
     "repo": "eglot-booster",
-    "rev": "3f9159a8b7fe87e2f01280a2c4c98ca6dab49d13",
-    "sha256": "1aq5fpfasgm5lz8hk476c1zqyj33m024nx8w9qv4qrg88y5mq5n9",
+    "rev": "e6daa6bcaf4aceee29c8a5a949b43eb1b89900ed",
+    "sha256": "1fz9c0glxpx9wzkwc5w3lgbr82cj7xdlg9n4cm6pwxg489fdmdrw",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/eglot-booster/archive/3f9159a8b7fe87e2f01280a2c4c98ca6dab49d13.tar.gz",
+    "url": "https://github.com/jdtsmith/eglot-booster/archive/e6daa6bcaf4aceee29c8a5a949b43eb1b89900ed.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "eglot-inactive-regions": {
+    "branch": "master",
+    "description": "Emacs Eglot support for clangd inactiveRegions LSP extension and ccls skippedRegions. Make ifdef code semitransparent following build time flags and defines.",
+    "homepage": "",
+    "owner": "fargiolas",
+    "repo": "eglot-inactive-regions",
+    "rev": "5ac127713db77c390cd9ffe7237c9c8d90d6b0af",
+    "sha256": "1j5pjmps6a8131s9yag2jsd0isdnjzlfgx0aw6lv1f1y8ckiihak",
+    "type": "tarball",
+    "url": "https://github.com/fargiolas/eglot-inactive-regions/archive/5ac127713db77c390cd9ffe7237c9c8d90d6b0af.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-ltex": {
@@ -29,10 +29,10 @@
     "homepage": "",
     "owner": "emacs-languagetool",
     "repo": "eglot-ltex",
-    "rev": "302720b3e34f5990dec2709317b0424614d4823c",
-    "sha256": "0iw105jyx4pgcb1np908b7v6lz4vsqp4220ac2sw6s31zm7i3889",
+    "rev": "261b67961f14693266334c0bfee9f748676ddbb0",
+    "sha256": "110zaj3nlv9q5dfrcx6vwrdqaiwj04829rkww41384p4079ffpr6",
     "type": "tarball",
-    "url": "https://github.com/emacs-languagetool/eglot-ltex/archive/302720b3e34f5990dec2709317b0424614d4823c.tar.gz",
+    "url": "https://github.com/emacs-languagetool/eglot-ltex/archive/261b67961f14693266334c0bfee9f748676ddbb0.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-x": {
@@ -41,10 +41,10 @@
     "homepage": null,
     "owner": "nemethf",
     "repo": "eglot-x",
-    "rev": "ee39a0edd43431eee899fc7787d936731c157689",
-    "sha256": "17ws1mq3cra157lliygpbm1n5j3mrshgdawhifxbidn3qymnmvvs",
+    "rev": "295c0309dc836966467c95867d1593f1376507b6",
+    "sha256": "1w9nbnfdcdikhn603dkcmqzkfg80vhd71fd50mlsr8sm0h8ygy0v",
     "type": "tarball",
-    "url": "https://github.com/nemethf/eglot-x/archive/ee39a0edd43431eee899fc7787d936731c157689.tar.gz",
+    "url": "https://github.com/nemethf/eglot-x/archive/295c0309dc836966467c95867d1593f1376507b6.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-yaml": {
@@ -77,10 +77,10 @@
     "homepage": "",
     "owner": "jdtsmith",
     "repo": "indent-bars",
-    "rev": "6d0943ede599b17f05896daa1963da913a837d5e",
-    "sha256": "060kcjjjd3h3zai4gcx1sj6d53fnqshja24hc9fln2f3k0l4qc8c",
+    "rev": "47ae080d9b7ad03e9097dd064c760e3259fc5d66",
+    "sha256": "11246wn9slm7hl5bn5wyqs4zlsd25v5g24pgzl63v7bbix30v5r2",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/indent-bars/archive/6d0943ede599b17f05896daa1963da913a837d5e.tar.gz",
+    "url": "https://github.com/jdtsmith/indent-bars/archive/47ae080d9b7ad03e9097dd064c760e3259fc5d66.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "on": {
@@ -125,10 +125,10 @@
     "homepage": "",
     "owner": "Fuco1",
     "repo": "smartparens",
-    "rev": "c7519a1b69f196050a13e2230b7532893b077086",
-    "sha256": "06bdr3vcywg6k89d5dmvj4sdxh95y0jgh5xlddvmv2x0i8d7g69b",
+    "rev": "b0d935c11813bcd40f8d35bae8800e0741334c29",
+    "sha256": "1j3x0bwvgymgaxi6clasr00gwsh7vwbhysfabqxynb044m1kccq6",
     "type": "tarball",
-    "url": "https://github.com/Fuco1/smartparens/archive/c7519a1b69f196050a13e2230b7532893b077086.tar.gz",
+    "url": "https://github.com/Fuco1/smartparens/archive/b0d935c11813bcd40f8d35bae8800e0741334c29.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   }
 }

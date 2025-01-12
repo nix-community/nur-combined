@@ -28,6 +28,11 @@ fetch.url = "https://tal-software.com/downloads/plugins/TAL-Filter-2_64_linux.zi
 fetch.force = true
 src.manual = "latest"
 
+[g-verb]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-G-Verb_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
 [j-8]
 fetch.url = "https://tal-software.com/downloads/plugins/TAL-J-8_64_linux.zip"
 fetch.force = true

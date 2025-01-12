@@ -29,4 +29,12 @@ pkgs.stdenv.mkDerivation {
     sed -i '1s;^;#include <utility>\n;' libs/juce6.1/source/modules/juce_gui_basics/windows/juce_ComponentPeer.h
     patchShebangs scripts/generate-lv2.sh
   '';
+
+  NIX_CFLAGS_COMPILE = ["-fpermissive"];
+
+  meta = with pkgs.lib; {
+    description = "Linux audio plugins and LV2 ports";
+    homepage = "https://github.com/DISTRHO/DISTRHO-Ports";
+    platforms = platforms.linux;
+  };
 }

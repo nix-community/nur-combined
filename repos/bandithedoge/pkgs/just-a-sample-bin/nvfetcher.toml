@@ -1,0 +1,3 @@
+[just-a-sample-bin]
+src.github = "BOBONA/Just-a-Sample"
+fetch.url = "https://github.com/BOBONA/Just-a-Sample/releases/download/$ver/Linux.VST3.zip"

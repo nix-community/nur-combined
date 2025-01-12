@@ -110,5 +110,14 @@
   },
   {
     "slug": "indie-wiki-buddy"
+  },
+  {
+    "slug": "skip-redirect"
+  },
+  {
+    "slug": "search_by_image"
+  },
+  {
+    "slug": "nexusmods-advance"
   }
 ]

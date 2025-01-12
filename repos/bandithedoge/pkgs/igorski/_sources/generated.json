@@ -1,0 +1,212 @@
+{
+  "darvaza": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "darvaza",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "darvaza",
+      "rev": "v1.0.3",
+      "sha256": "sha256-ArpMB8jwsYUEsER4YJmuJkpv7gZgiLzpI2n+Bzp7kqM=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0.3"
+  },
+  "delirion": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "delirion",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "delirion",
+      "rev": "1.1.0",
+      "sha256": "sha256-w13DfRyIAcfG+DHLRfEV/qUygLWfQkyPcUAHYmklYyo=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.1.0"
+  },
+  "fogpad": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "fogpad",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "fogpad",
+      "rev": "v1.0.3",
+      "sha256": "sha256-7eVKdsLWCmQaEVCPMLwqiySe1dnXcDvBqaq0Ip15dO0=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0.3"
+  },
+  "homecorrupter": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "homecorrupter",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "homecorrupter",
+      "rev": "v1.1.3",
+      "sha256": "sha256-eGHyCQ0u3Xxr0x2KDGYtJYqVkrzhM7AGH4V/Gf8nYQg=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.1.3"
+  },
+  "juce": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "juce",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "juce-framework",
+      "repo": "JUCE",
+      "rev": "8.0.6",
+      "sha256": "sha256-uwZVBrvb5O9LEh00y93UeEu4u4rd+tLRCdQdxsMpXNg=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "8.0.6"
+  },
+  "rechoir": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "rechoir",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "rechoir",
+      "rev": "v1.0.0",
+      "sha256": "sha256-IVmNdesF16QgviarcCftKt9/v77X+WtTWs1a48z2fe4=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0.0"
+  },
+  "regrader": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "regrader",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "regrader",
+      "rev": "v1.0.5",
+      "sha256": "sha256-Rb3J+PiAAxYivvml1ngOrxwKIIZhXxlN8/04fTvjh/c=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0.5"
+  },
+  "transformant": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "transformant",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "transformant",
+      "rev": "v1.0.4",
+      "sha256": "sha256-W8quhA+W7pdT6DLGkI92Y+R270jzXM6yr5lizWJwydI=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0.4"
+  },
+  "vst3sdk": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "vst3sdk",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "steinbergmedia",
+      "repo": "vst3sdk",
+      "rev": "v3.7.11_build_10",
+      "sha256": "sha256-DnWdMFT6i7C6jhqEpRHiNkg/WEgs0iLDVJWR2xgMxeM=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v3.7.11_build_10"
+  },
+  "vstsid": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "vstsid",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "igorski",
+      "repo": "VSTSID",
+      "rev": "v1.1.2",
+      "sha256": "sha256-pcX5CJsVJCa/E22B6GF2z3BIzfjkjbjVyZx7118qarU=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.1.2"
+  }
+}

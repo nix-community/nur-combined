@@ -1,0 +1,27 @@
+{
+  "schrammel-ojd": {
+    "cargoLocks": {
+      "Ext/Resvg4JUCE/Ext/resvg/Cargo.lock": [
+        "./schrammel-ojd-31de608759f3f03cadf8537f5330168977bae232/Ext/Resvg4JUCE/Ext/resvg/Cargo.lock",
+        {}
+      ]
+    },
+    "date": "2022-09-12",
+    "extract": null,
+    "name": "schrammel-ojd",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "31de608759f3f03cadf8537f5330168977bae232",
+      "sha256": "sha256-lhPV/BmluHdRgJu/f9+qDfgbbqewIUIaAaYUTNp/m7c=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/JanosGit/Schrammel_OJD"
+    },
+    "version": "31de608759f3f03cadf8537f5330168977bae232"
+  }
+}

@@ -34,8 +34,8 @@ in
     passthru = {inherit unwrapped;};
 
     meta = with pkgs.lib; {
-      description = "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred ";
-      homepage = "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred ";
+      description = "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred";
+      homepage = "https://github.com/onagre-launcher/onagre";
       license = licenses.mit;
       platforms = ["x86_64-linux"];
     };

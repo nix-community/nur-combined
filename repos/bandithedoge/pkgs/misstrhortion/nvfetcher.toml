@@ -1,0 +1,4 @@
+[misstrhortion]
+src.git = "https://github.com/bandithedoge/misstrhortion"
+fetch.git = "https://github.com/bandithedoge/misstrhortion"
+git.fetchSubmodules = true

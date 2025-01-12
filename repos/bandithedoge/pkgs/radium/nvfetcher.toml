@@ -1,0 +1,3 @@
+[radium]
+src.git = "https://github.com/kmatheussen/radium"
+fetch.git = "https://github.com/kmatheussen/radium"

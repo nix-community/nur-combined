@@ -1,0 +1,23 @@
+{
+  "rnnoise-plugin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "rnnoise-plugin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "werman",
+      "repo": "noise-suppression-for-voice",
+      "rev": "v1.10",
+      "sha256": "sha256-sfwHd5Fl2DIoGuPDjELrPp5KpApZJKzQikCJmCzhtY8=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.10"
+  }
+}

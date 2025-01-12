@@ -1,0 +1,23 @@
+[songbird-bin]
+src.github_tag = "jd-13/wea-releases"
+fetch.url = "https://github.com/jd-13/wea-releases/releases/download/songbird-v$ver/Songbird.v$ver.zip"
+src.prefix = "songbird-v"
+src.include_regex = "songbird-v.*"
+
+[richter-bin]
+src.github_tag = "jd-13/wea-releases"
+fetch.url = "https://github.com/jd-13/wea-releases/releases/download/richter-v$ver/Richter.v$ver.zip"
+src.prefix = "richter-v"
+src.include_regex = "richter-v.*"
+
+[monstr-bin]
+src.github_tag = "jd-13/wea-releases"
+fetch.url = "https://github.com/jd-13/wea-releases/releases/download/monstr-v$ver/MONSTR.v$ver.zip"
+src.prefix = "monstr-v"
+src.include_regex = "monstr-v.*"
+
+[carve-bin]
+src.github_tag = "jd-13/wea-releases"
+fetch.url = "https://github.com/jd-13/wea-releases/releases/download/carve-v$ver/Carve.v$ver.zip"
+src.prefix = "carve-v"
+src.include_regex = "carve-v.*"

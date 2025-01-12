@@ -1,7 +1,0 @@
-[zmusic]
-src.git = "https://github.com/ZDoom/ZMusic"
-fetch.git = "https://github.com/ZDoom/ZMusic"
-
-[raze]
-src.github = "ZDoom/Raze"
-fetch.github = "ZDoom/Raze"

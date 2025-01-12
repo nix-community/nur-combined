@@ -1,0 +1,4 @@
+[hera]
+src.git = "https://github.com/jpcima/Hera"
+fetch.git = "https://github.com/jpcima/Hera"
+git.fetchSubmodules = true

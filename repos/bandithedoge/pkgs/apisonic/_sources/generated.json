@@ -1,0 +1,62 @@
+{
+  "Speedrum": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Speedrum",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-BUZmz6Dl6J005w1hp5agv/oQNMK1/+WJ7DzFRA7Kq3U=",
+      "type": "url",
+      "url": "https://github.com/apisonic/SP-one/releases/download/v1.5.3/speedrum-v1.5.3.zip"
+    },
+    "version": "v1.5.3"
+  },
+  "Speedrum2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Speedrum2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-4vbaytC0n80WkiiCxmkEwCEEEb5jsIwAgu4KhxeRyx0=",
+      "type": "url",
+      "url": "https://github.com/apisonic/SP-two/releases/download/v2.2.2/speedrum2-v2.2.2.zip"
+    },
+    "version": "v2.2.2"
+  },
+  "SpeedrumLite": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "SpeedrumLite",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-WLJ1b80UZFzhfCGGZIhJ4WV76RT3eY4Z4PPBioUrjr8=",
+      "type": "url",
+      "url": "https://github.com/apisonic/SL-bin/releases/download/v1.0.3/speedrum-lite-v1.0.3.zip"
+    },
+    "version": "v1.0.3"
+  },
+  "Transperc": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "Transperc",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-M/bMZzuuIW332Ita0mukttwC/f0xaO8hNhHxCVtGnJs=",
+      "type": "url",
+      "url": "https://github.com/apisonic/tr-one/releases/download/v1.0.0/transperc.zip"
+    },
+    "version": "v1.0.0"
+  }
+}

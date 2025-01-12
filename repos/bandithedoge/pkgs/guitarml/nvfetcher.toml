@@ -1,0 +1,29 @@
+[proteus]
+src.github = "GuitarML/Proteus"
+fetch.github = "GuitarML/Proteus"
+git.fetchSubmodules = true
+
+[prince]
+src.github = "GuitarML/PrincePedal"
+fetch.github = "GuitarML/PrincePedal"
+git.fetchSubmodules = true
+
+[ts-m1n3]
+src.git = "https://github.com/GuitarML/TS-M1N3"
+fetch.git = "https://github.com/GuitarML/TS-M1N3"
+git.fetchSubmodules = true
+
+[chameleon]
+src.git = "https://github.com/GuitarML/Chameleon"
+fetch.git = "https://github.com/GuitarML/Chameleon"
+git.fetchSubmodules = true
+
+[smartamp]
+src.git = "https://github.com/GuitarML/SmartGuitarAmp"
+fetch.git = "https://github.com/GuitarML/SmartGuitarAmp"
+git.fetchSubmodules = true
+
+[smartpedal]
+src.git = "https://github.com/GuitarML/SmartGuitarPedal"
+fetch.git = "https://github.com/GuitarML/SmartGuitarPedal"
+git.fetchSubmodules = true

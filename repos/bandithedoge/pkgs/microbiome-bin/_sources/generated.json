@@ -1,0 +1,32 @@
+{
+  "microbiome-bin-lv2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "microbiome-bin-lv2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-98T3ji72ijS1tU6KVlCbWaLpF2wKOgfOAG0UQ03qZ5Y=",
+      "type": "url",
+      "url": "https://github.com/dsmaugy/microbiome/releases/download/v1.0.0/Microbiome_Linux_x86_LV2_v1.0.0.zip"
+    },
+    "version": "v1.0.0"
+  },
+  "microbiome-bin-vst3": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "microbiome-bin-vst3",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-a13vP2dlfYqzFnA+xjH5AXY0LM/X0P/KiSQUy4rH+/8=",
+      "type": "url",
+      "url": "https://github.com/dsmaugy/microbiome/releases/download/v1.0.0/Microbiome_Linux_x86_VST3_v1.0.0.zip"
+    },
+    "version": "v1.0.0"
+  }
+}

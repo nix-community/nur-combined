@@ -1,0 +1,23 @@
+{
+  "gnomedistort2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "gnomedistort2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "crowbait",
+      "repo": "GnomeDistort-2",
+      "rev": "1.0.0",
+      "sha256": "sha256-9G3cxPzw8b/Y4d/nFV0kSeNkjE4XwzvnuafoCkCIOzo=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.0.0"
+  }
+}

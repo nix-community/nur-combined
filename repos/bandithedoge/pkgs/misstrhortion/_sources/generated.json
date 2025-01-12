@@ -1,0 +1,22 @@
+{
+  "misstrhortion": {
+    "cargoLocks": null,
+    "date": "2024-12-14",
+    "extract": null,
+    "name": "misstrhortion",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "c3d110fc48b5a867393c435e3722ff1ee4ecd6f4",
+      "sha256": "sha256-ub9cSNj5JlIjPqcPY5StCrqypYqZly2n4663Hd8Ry2g=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/bandithedoge/misstrhortion"
+    },
+    "version": "c3d110fc48b5a867393c435e3722ff1ee4ecd6f4"
+  }
+}

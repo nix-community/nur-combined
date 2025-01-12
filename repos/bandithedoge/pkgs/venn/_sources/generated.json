@@ -1,0 +1,47 @@
+{
+  "dimmer": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "dimmer",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-SqLn1/UgzaMVkxdiRzGJkHilw70b8/Yuhv1IVxpEbhE=",
+      "type": "url",
+      "url": "https://www.vennaudio.com/downloads/Dimmer/Dimmer_Linux_1.0.2_20Sep2024_Release.zip"
+    },
+    "version": "1.0.2_20Sep2024"
+  },
+  "free-suite": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "free-suite",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": "Free_Suite_Linux_1.0.2_11Dec2023_2246.zip",
+      "sha256": "sha256-ER65y/l7vyzu3aHrirKV7OatvneLSWPVP993QigoX3c=",
+      "type": "url",
+      "url": "https://www.vennaudio.com/downloads/Free%20Suite/Free%20Suite_Linux_1.0.2_11Dec2023_2246.zip"
+    },
+    "version": "1.0.2_11Dec2023_2246"
+  },
+  "viper": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "viper",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-enFKPgn4jYci/JuqvEIMAnT/r7Aef9j1hpb1efRqIdI=",
+      "type": "url",
+      "url": "https://www.vennaudio.com/downloads/Viper/Viper_Linux_1.6.1_15Nov2024_Release.zip"
+    },
+    "version": "1.6.1_15Nov2024"
+  }
+}

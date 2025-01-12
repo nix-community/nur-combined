@@ -5,3 +5,4 @@ fetch.git = "https://github.com/falkTX/Carla"
 [zrythm]
 src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
 fetch.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
+src.branch = "v1"

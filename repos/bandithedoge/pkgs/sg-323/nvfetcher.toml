@@ -1,0 +1,4 @@
+[sg-323]
+src.github = "greyboxaudio/SG-323"
+fetch.github = "greyboxaudio/SG-323"
+git.fetchSubmodules = true

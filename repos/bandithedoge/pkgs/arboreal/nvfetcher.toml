@@ -1,0 +1,29 @@
+[str-x]
+src.github = "ArborealAudio/STR-X"
+fetch.github = "ArborealAudio/STR-X"
+git.fetchSubmodules = true
+
+[pimax]
+src.github = "ArborealAudio/PiMax"
+fetch.github = "ArborealAudio/PiMax"
+git.fetchSubmodules = true
+
+[omniamp]
+src.github = "ArborealAudio/OmniAmp"
+fetch.github = "ArborealAudio/OmniAmp"
+git.fetchSubmodules = true
+
+# for pimax
+
+[juce]
+src.manual = "730669c40166d49b3d2c9d6048cd0493cef998f8"
+fetch.git = "https://github.com/ArborealAudio/JUCE"
+
+[clap-juce-extensions]
+src.manual = "8d0754f5d6ca1e95bc207b7743c04ebd7dc17e88"
+fetch.git = "https://github.com/free-audio/clap-juce-extensions"
+git.fetchSubmodules = true
+
+[pffft]
+src.manual = "e0bf595c98ded55cc457a371c1b29c8cab552628"
+fetch.git = "https://github.com/marton78/pffft"

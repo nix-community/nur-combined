@@ -1,0 +1,23 @@
+{
+  "uhhyou": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "uhhyou",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ryukau",
+      "repo": "VSTPlugins",
+      "rev": "UhhyouPlugins0.65.0",
+      "sha256": "sha256-IoWSxefuWisqFFcKrhmwMvNnuZzyVb0Y6uZHP6mT1Qk=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "UhhyouPlugins0.65.0"
+  }
+}

@@ -1,0 +1,3 @@
+[rnnoise-plugin]
+src.github = "werman/noise-suppression-for-voice"
+fetch.github = "werman/noise-suppression-for-voice"

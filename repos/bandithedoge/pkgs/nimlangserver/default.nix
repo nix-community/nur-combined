@@ -16,9 +16,11 @@ pkgs.buildNimPackage {
     json-rpc.src
     json_serialization.src
     nimcrypto.src
+    regex.src
     results.src
     serialization.src
     stew.src
+    unicodedb.src
     websock.src
     zevv-with.src
     zlib.src

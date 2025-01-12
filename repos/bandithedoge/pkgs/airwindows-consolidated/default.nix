@@ -1,26 +1,15 @@
 {
   pkgs,
   sources,
+  utils,
   ...
 }:
-pkgs.stdenv.mkDerivation {
+utils.juce.mkJucePackage {
   inherit (sources.airwin2rack) src;
   pname = "airwindows-consolidated";
   version = sources.airwin2rack.date;
 
-  nativeBuildInputs = with pkgs; [
-    cmake
-    pkg-config
-  ];
-
   buildInputs = with pkgs; [
-    xorg.libX11
-    xorg.libXrandr
-    xorg.libXinerama
-    xorg.libXext
-    xorg.libXcursor
-    freetype
-    alsa-lib
     libjack2
   ];
 

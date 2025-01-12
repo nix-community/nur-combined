@@ -1,0 +1,26 @@
+diff --git a/configuration.sh b/configuration.sh
+index d55ba14ae..8f5e5f592 100644
+--- a/configuration.sh
++++ b/configuration.sh
+@@ -189,21 +189,6 @@ if ${QMAKE} -query QT_VERSION | grep -v '^5.1' ; then
+     handle_failure "Seems like it's the wrong qt version. We need Qt newer than 5.10. Set RADIUM_QTDIR to correct directory to fix".
+ fi
+ 
+-
+-if [ "$($PKGqt --libs-only-L Qt5Core)" != "" ] ; then
+-    echo "aiai1b. QMAKE $QMAKE"
+-    echo "AIAI2; ${PKGqt} $($QMAKE -query QT_INSTALL_PREFIX)"
+-    if [ "$($PKGqt --libs-only-L Qt5Core)" != "$($QMAKE -query QT_INSTALL_PREFIX)" ] ; then
+-	handle_failure "$PKGqt and $QMAKE doesn't seem to point to the same Qt:" \
+-		       "PKG: \"$($PKGqt --libs-only-L Qt5Core)\"." \
+-		       "${QMAKE}: '\"$($QMAKE -query QT_INSTALL_PREFIX)\""
+-    fi
+-else
+-    if [ "$($QMAKE -query QT_INSTALL_PREFIX)" != "/usr" ] ; then
+-	handle_failure "\"$PKGqt --libs-only-L Qt5Core\" gave no output. It's assumed that qt is installed in /usr, but it's not. it's installed in \"$(QMAKE -query QT_INSTALL_PREFIX)\". This is only an indication that something is wrong. If you think it is, just comment out this line and try again. (please also provide patch)"
+-    fi
+-fi
+-
+ if is_set INCLUDE_FAUSTDEV ; then
+     if ! is_set INCLUDE_FAUSTDEV_BUT_NOT_LLVM ; then
+ 	export FAUST_USES_LLVM="jadda"

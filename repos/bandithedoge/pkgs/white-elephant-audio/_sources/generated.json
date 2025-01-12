@@ -1,0 +1,62 @@
+{
+  "carve-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "carve-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-khoC2AufiGYxjuYLUuQNw2KUfltuiQtuNZGSA8AQxrk=",
+      "type": "url",
+      "url": "https://github.com/jd-13/wea-releases/releases/download/carve-v2.6.0/Carve.v2.6.0.zip"
+    },
+    "version": "2.6.0"
+  },
+  "monstr-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "monstr-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-uz/1WhYFanZUudBn/VG52aOG5IczC09YnzOl/Sxoawc=",
+      "type": "url",
+      "url": "https://github.com/jd-13/wea-releases/releases/download/monstr-v2.1.3/MONSTR.v2.1.3.zip"
+    },
+    "version": "2.1.3"
+  },
+  "richter-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "richter-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-rgahDVoDsDXcowSglow185WnnLGcvp+EamgQsqQ14AY=",
+      "type": "url",
+      "url": "https://github.com/jd-13/wea-releases/releases/download/richter-v2.3.0/Richter.v2.3.0.zip"
+    },
+    "version": "2.3.0"
+  },
+  "songbird-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "songbird-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-zlcZrd95Q7w3UDeInDskN3x/jKvd37AfH1+ZJ/FP6j4=",
+      "type": "url",
+      "url": "https://github.com/jd-13/wea-releases/releases/download/songbird-v2.3.0/Songbird.v2.3.0.zip"
+    },
+    "version": "2.3.0"
+  }
+}

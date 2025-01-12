@@ -1,0 +1,79 @@
+[ACE]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "ACE_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/ACE_$ver_Linux.tar.xz"
+
+[Bazille]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Bazille_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Bazille_$ver_Linux.tar.xz"
+
+[ColourCopy]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "ColourCopy_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/ColourCopy_$ver_Linux.tar.xz"
+
+[Diva]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Diva_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Diva_$ver_Linux.tar.xz"
+
+[Filterscape]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Filterscape_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Filterscape_$ver_Linux.tar.xz"
+
+[Hive]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Hive_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Hive_$ver_Linux.tar.xz"
+
+[MFM2]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "MFM2_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/MFM2_$ver_Linux.tar.xz"
+
+[Podolski]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Podolski_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Podolski_$ver_Linux.tar.xz"
+
+[Presswerk]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Presswerk_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Presswerk_$ver_Linux.tar.xz"
+
+[Protoverb]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Protoverb_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Protoverb_$ver_Linux.tar.xz"
+
+[Repro-1]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Repro_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Repro_$ver_Linux.tar.xz"
+
+[Satin]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Satin_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Satin_$ver_Linux.tar.xz"
+
+[TripleCheese]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "TripleCheese_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/TripleCheese_$ver_Linux.tar.xz"
+
+[Twangstrom]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Twangstrom_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Twangstrom_$ver_Linux.tar.xz"
+
+[Uhbik]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Uhbik_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Uhbik_$ver_Linux.tar.xz"
+
+[Zebra2]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Zebra2_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Zebra2_$ver_Linux.tar.xz"

@@ -1,0 +1,4 @@
+[dsp56300]
+src.github_tag = "dsp56300/gearmulator"
+fetch.github = "dsp56300/gearmulator"
+git.fetchSubmodules = true

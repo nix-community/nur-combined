@@ -31,6 +31,10 @@ fetch.git = "https://github.com/status-im/nim-json-serialization"
 src.git = "https://github.com/cheatfate/nimcrypto"
 fetch.git = "https://github.com/cheatfate/nimcrypto"
 
+[regex]
+src.github = "nitely/nim-regex"
+fetch.github = "nitely/nim-regex"
+
 [results]
 src.git = "https://github.com/arnetheduck/nim-results"
 fetch.git = "https://github.com/arnetheduck/nim-results"
@@ -42,6 +46,10 @@ fetch.git = "https://github.com/status-im/nim-serialization"
 [stew]
 src.git = "https://github.com/status-im/nim-stew"
 fetch.git = "https://github.com/status-im/nim-stew"
+
+[unicodedb]
+src.github = "nitely/nim-unicodedb"
+fetch.github = "nitely/nim-unicodedb"
 
 [websock]
 src.git = "https://github.com/status-im/nim-websock"

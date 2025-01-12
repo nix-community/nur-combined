@@ -1,7 +1,7 @@
 {
   "distrho-ports": {
     "cargoLocks": null,
-    "date": "2024-05-01",
+    "date": "2024-11-09",
     "extract": null,
     "name": "distrho-ports",
     "passthru": null,
@@ -13,11 +13,11 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "DISTRHO-Ports",
-      "rev": "b3596e6a690eb0556e69e8b6d943fee2dfbb04fb",
-      "sha256": "sha256-/fOroqWUdxW8DfeUt0c98zOFYFHic0sn8AKMOpC7bGE=",
+      "rev": "9a415a660eab2762398d2e01cab17f382e131035",
+      "sha256": "sha256-f9Zo15zq0cGjieA38CXlW4qz6PO0mbg8u/CBlgVPYgM=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "b3596e6a690eb0556e69e8b6d943fee2dfbb04fb"
+    "version": "9a415a660eab2762398d2e01cab17f382e131035"
   }
 }

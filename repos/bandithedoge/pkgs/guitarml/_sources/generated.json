@@ -1,0 +1,124 @@
+{
+  "chameleon": {
+    "cargoLocks": null,
+    "date": "2023-01-05",
+    "extract": null,
+    "name": "chameleon",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "bf0b03b4ebead33c84432e3beabe199ff0fa847e",
+      "sha256": "sha256-Y8oQ3ONHeQn0v7CXR6Jln5yb+CvVR4lXQlJeOm5jsuY=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/GuitarML/Chameleon"
+    },
+    "version": "bf0b03b4ebead33c84432e3beabe199ff0fa847e"
+  },
+  "prince": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "prince",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GuitarML",
+      "repo": "PrincePedal",
+      "rev": "v1.0",
+      "sha256": "sha256-mCDbfzSC8MnL1Lkeft5UznMo69Sty9VcJvn/yR76d3s=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.0"
+  },
+  "proteus": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "proteus",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GuitarML",
+      "repo": "Proteus",
+      "rev": "v1.2",
+      "sha256": "sha256-WhJh+Sx64JYxQQ1LXpDUwXeodFU1EZ0TmMhn+6w0hQg=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.2"
+  },
+  "smartamp": {
+    "cargoLocks": null,
+    "date": "2023-04-11",
+    "extract": null,
+    "name": "smartamp",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "883944d1b46d03e6e906602db2f15cf24ecb743b",
+      "sha256": "sha256-1pS3gSpvncEJqvB96PKbxlfV/Besdvd5pKs7VVfG1pE=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/GuitarML/SmartGuitarAmp"
+    },
+    "version": "883944d1b46d03e6e906602db2f15cf24ecb743b"
+  },
+  "smartpedal": {
+    "cargoLocks": null,
+    "date": "2022-10-12",
+    "extract": null,
+    "name": "smartpedal",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "fede0242a4d77fff609a49b9277151bfb63cd3cf",
+      "sha256": "sha256-ZqkHF07FHlTvViJCdd/t2ge9JwpTiG/PYt2gMFJzKD8=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/GuitarML/SmartGuitarPedal"
+    },
+    "version": "fede0242a4d77fff609a49b9277151bfb63cd3cf"
+  },
+  "ts-m1n3": {
+    "cargoLocks": null,
+    "date": "2023-01-05",
+    "extract": null,
+    "name": "ts-m1n3",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "f1cf48c3188c76d7ebf0ead1d7979f7e72f12661",
+      "sha256": "sha256-ItxkbMtF2xOUb/mYL/K5s9S9GTrHlsCsAl/P0EDM3xs=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/GuitarML/TS-M1N3"
+    },
+    "version": "f1cf48c3188c76d7ebf0ead1d7979f7e72f12661"
+  }
+}

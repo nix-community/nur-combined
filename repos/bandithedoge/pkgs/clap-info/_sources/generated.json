@@ -13,11 +13,11 @@
       "name": null,
       "owner": "free-audio",
       "repo": "clap-info",
-      "rev": "v1.2.1",
-      "sha256": "sha256-eVnKgh3cCtv39o/YmyZ1OMnFEiT8rXV6T5Fz01ZENxE=",
+      "rev": "v1.2.2",
+      "sha256": "sha256-H2Nxx+p8uxm82qJbwfkKlAzyJkqC7c5tIexgghv38cY=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v1.2.1"
+    "version": "v1.2.2"
   }
 }

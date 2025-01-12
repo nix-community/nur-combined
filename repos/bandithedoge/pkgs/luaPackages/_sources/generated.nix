@@ -7,17 +7,17 @@
 }: {
   bling = {
     pname = "bling";
-    version = "19ccfc0daf5edda8bbc508487616d00277a9d954";
+    version = "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395";
     src = fetchgit {
       url = "https://github.com/blingcorp/bling";
-      rev = "19ccfc0daf5edda8bbc508487616d00277a9d954";
+      rev = "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-6NZSUb7sSBUegSIPIubQUOZG3knzXfnyfEbCoEyggtc=";
+      sha256 = "sha256-rhhUsXQ3awjFiEHEG0axilSCWS6pR+w74K/pIfEUc5w=";
     };
-    date = "2024-06-02";
+    date = "2024-12-17";
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -35,16 +35,16 @@
   };
   lua-dbus_proxy = {
     pname = "lua-dbus_proxy";
-    version = "0d0f42d074beca5b1a36d676a822480a3d4c6bb2";
+    version = "986bf1a4dc481a753c812c6035d2277a149c9b2a";
     src = fetchgit {
       url = "https://github.com/stefano-m/lua-dbus_proxy";
-      rev = "0d0f42d074beca5b1a36d676a822480a3d4c6bb2";
+      rev = "986bf1a4dc481a753c812c6035d2277a149c9b2a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-H5dnVVAdfnTHX7w3YSlBbkTN1WrKbhRb9t1Q4SvwJ7I=";
+      sha256 = "sha256-AeKYKaPYADWkufB9OicPNTrcm1mQfkuMI+7WKidppNw=";
     };
-    date = "2024-06-13";
+    date = "2024-10-04";
   };
 }

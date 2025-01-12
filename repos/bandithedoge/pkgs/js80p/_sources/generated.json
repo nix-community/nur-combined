@@ -1,0 +1,23 @@
+{
+  "js80p": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "js80p",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "attilammagyar",
+      "repo": "js80p",
+      "rev": "v3.3.0",
+      "sha256": "sha256-o1dpfh4F7egJd1bDotKL4o0LBSjhp+u+RO7laThD/g4=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v3.3.0"
+  }
+}

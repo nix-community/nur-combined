@@ -1,0 +1,22 @@
+{
+  "blocks": {
+    "cargoLocks": null,
+    "date": "2024-08-07",
+    "extract": null,
+    "name": "blocks",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "fae783735daa8cb1a0b8158508ccede4292639ae",
+      "sha256": "sha256-oqBmu3xm2RadkQfoRVLvqTj6b/yd+yagAeVMDrRRW5k=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/dan-german/blocks"
+    },
+    "version": "fae783735daa8cb1a0b8158508ccede4292639ae"
+  }
+}

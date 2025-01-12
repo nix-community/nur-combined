@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  utils,
   ...
 }:
 pkgs.stdenv.mkDerivation {
@@ -13,12 +14,11 @@ pkgs.stdenv.mkDerivation {
     autoPatchelfHook
   ];
 
-  buildInputs = with pkgs; [
-    curlWithGnuTls
-    fontconfig
-    freetype
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = with pkgs;
+    [
+      stdenv.cc.cc.lib
+    ]
+    ++ utils.juce.commonBuildInputs;
 
   autoPatchelfIgnoreMissingDeps = ["libcurl-nss.so.4"];
 
@@ -33,5 +33,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/astriiddev/BitDOS-VST";
     license = licenses.agpl3Only;
     platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
   };
 }

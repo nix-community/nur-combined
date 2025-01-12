@@ -1,0 +1,4 @@
+[cloudreverb]
+src.git = "https://github.com/xunil-cloud/CloudReverb"
+fetch.git = "https://github.com/xunil-cloud/CloudReverb"
+git.fetchSubmodules = true

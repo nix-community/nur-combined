@@ -1,0 +1,23 @@
+{
+  "hise": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "hise",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "christophhart",
+      "repo": "HISE",
+      "rev": "4.1.0",
+      "sha256": "sha256-SsreYLRuxv4eXieH0u/TOSvjBAKh820lQeacodKLu8Q=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "4.1.0"
+  }
+}

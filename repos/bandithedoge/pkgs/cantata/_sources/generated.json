@@ -1,0 +1,23 @@
+{
+  "cantata": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "cantata",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "nullobsi",
+      "repo": "cantata",
+      "rev": "v3.3.0",
+      "sha256": "sha256-dx0XkMUrxg3+c3fxhXjYK36x5M8xbX+IyVAalvib2iY=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v3.3.0"
+  }
+}

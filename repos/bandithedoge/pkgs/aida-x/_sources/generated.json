@@ -1,0 +1,23 @@
+{
+  "aida-x": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "aida-x",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "AidaDSP",
+      "repo": "AIDA-X",
+      "rev": "1.1.0",
+      "sha256": "sha256-qBoUojQDp7a5MrdIvbXmhcTuYIRPNwAaQ/ascTZ7NRI=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.1.0"
+  }
+}

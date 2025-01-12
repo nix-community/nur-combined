@@ -35,6 +35,7 @@ in {
       homepage = "https://tonelib.net/tl-bassdrive.html";
       license = licenses.unfree;
       platforms = ["x86_64-linux"];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
     };
   };
 
@@ -44,6 +45,7 @@ in {
       homepage = "https://tonelib.net/plugins/tl-easycomp.html";
       license = licenses.unfree;
       platforms = ["x86_64-linux"];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
     };
   };
 
@@ -53,6 +55,7 @@ in {
       homepage = "https://tonelib.net/tl-noisereducer.html";
       license = licenses.unfree;
       platforms = ["x86_64-linux"];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
     };
   };
 
@@ -62,6 +65,7 @@ in {
       homepage = "https://tonelib.net/tl-tubewarmth.html";
       license = licenses.unfree;
       platforms = ["x86_64-linux"];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
     };
   };
 
@@ -72,6 +76,7 @@ in {
         homepage = "https://tonelib.net/tonelib-zoom.html";
         license = licenses.unfree;
         platforms = ["x86_64-linux"];
+        sourceProvenance = [sourceTypes.binaryNativeCode];
       };
     })
     .overrideAttrs (old: {

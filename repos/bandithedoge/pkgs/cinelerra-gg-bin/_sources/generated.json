@@ -8,10 +8,10 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-EBalulGeFrasOjHpVMJJDlYoGccNc5NmUmJK9OJiOoU=",
+      "sha256": "sha256-ZuuLB05+As8R7bP1fWLvRsJU8CrI7A7/Wtje9XO2QUI=",
       "type": "url",
-      "url": "https://cinelerra-gg.org/download/images/CinGG-20240731-x86_64.AppImage"
+      "url": "https://cinelerra-gg.org/download/images/CinGG-20241231-x86_64.AppImage"
     },
-    "version": "20240731"
+    "version": "20241231"
   }
 }

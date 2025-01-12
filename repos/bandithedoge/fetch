@@ -35,6 +35,13 @@ fetch_xplr() {
     cd ../..
 }
 
+fetch_yazi() {
+    cd pkgs/yaziPlugins || exit
+    niv update || exit 1
+    chmod +x update_list.py && ./update_list.py
+    cd ../..
+}
+
 if [ "$#" -eq 0 ]; then
     pkgs=$(find . -name nvfetcher.toml)
     for pkg in ${pkgs}; do
@@ -45,6 +52,7 @@ if [ "$#" -eq 0 ]; then
     fetch_node
     fetch_firefox
     fetch_xplr
+    fetch_yazi
 else
     for pkg in "$@"; do
         case "$pkg" in

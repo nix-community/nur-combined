@@ -1,0 +1,9 @@
+[squeezer-bin-vst2]
+src.github = "mzuther/Squeezer"
+src.prefix = "v"
+fetch.url = "https://github.com/mzuther/Squeezer/releases/download/v$ver/squeezer-linux64-vst2_$ver.tar.gz"
+
+[squeezer-bin-standalone]
+src.github = "mzuther/Squeezer"
+src.prefix = "v"
+fetch.url = "https://github.com/mzuther/Squeezer/releases/download/v$ver/squeezer-linux64-standalone_$ver.tar.gz"

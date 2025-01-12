@@ -1,0 +1,23 @@
+{
+  "roomreverb": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "roomreverb",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "cvde",
+      "repo": "RoomReverb",
+      "rev": "v1.2.0",
+      "sha256": "sha256-h5de6Y0tz1BFpWpHG6WMOgomr5RA7EcubV0B5hdjlVs=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.2.0"
+  }
+}

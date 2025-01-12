@@ -1,7 +1,7 @@
 {
   "bling": {
     "cargoLocks": null,
-    "date": "2024-06-02",
+    "date": "2024-12-17",
     "extract": null,
     "name": "bling",
     "passthru": null,
@@ -11,13 +11,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "19ccfc0daf5edda8bbc508487616d00277a9d954",
-      "sha256": "sha256-6NZSUb7sSBUegSIPIubQUOZG3knzXfnyfEbCoEyggtc=",
+      "rev": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395",
+      "sha256": "sha256-rhhUsXQ3awjFiEHEG0axilSCWS6pR+w74K/pIfEUc5w=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/blingcorp/bling"
     },
-    "version": "19ccfc0daf5edda8bbc508487616d00277a9d954"
+    "version": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395"
   },
   "lua-dbus": {
     "cargoLocks": null,
@@ -41,7 +41,7 @@
   },
   "lua-dbus_proxy": {
     "cargoLocks": null,
-    "date": "2024-06-13",
+    "date": "2024-10-04",
     "extract": null,
     "name": "lua-dbus_proxy",
     "passthru": null,
@@ -51,12 +51,12 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "0d0f42d074beca5b1a36d676a822480a3d4c6bb2",
-      "sha256": "sha256-H5dnVVAdfnTHX7w3YSlBbkTN1WrKbhRb9t1Q4SvwJ7I=",
+      "rev": "986bf1a4dc481a753c812c6035d2277a149c9b2a",
+      "sha256": "sha256-AeKYKaPYADWkufB9OicPNTrcm1mQfkuMI+7WKidppNw=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/stefano-m/lua-dbus_proxy"
     },
-    "version": "0d0f42d074beca5b1a36d676a822480a3d4c6bb2"
+    "version": "986bf1a4dc481a753c812c6035d2277a149c9b2a"
   }
 }

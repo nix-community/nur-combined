@@ -1,0 +1,4 @@
+[maim-bin]
+src.github = "ArdenButterfield/Maim"
+src.prefix = "v"
+fetch.url = "https://github.com/ArdenButterfield/Maim/releases/download/v$ver/Maim-$ver-Linux.zip"

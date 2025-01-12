@@ -2,21 +2,21 @@
   "onagre": {
     "cargoLocks": {
       "Cargo.lock": [
-        "./onagre-543f1fe827f4b16408cdcc07c19fb839741ca0f5/Cargo.lock",
+        "./onagre-5574d26f2ce09eb611a6c807cd28d9f58b72e4ed/Cargo.lock",
         {}
       ]
     },
-    "date": "2024-04-18",
+    "date": "2024-12-25",
     "extract": null,
     "name": "onagre",
     "passthru": null,
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-s4Mysu+w9PoCIliRB6dZ+5YhrB1wgVmpaIeJwO4oIPA=",
+      "sha256": "sha256-zvcWj0nbrnc5FDvCHq6SowOlv5QjNnRqPxiAUBDYsBk=",
       "type": "url",
-      "url": "https://github.com/onagre-launcher/onagre/archive/543f1fe827f4b16408cdcc07c19fb839741ca0f5.tar.gz"
+      "url": "https://github.com/onagre-launcher/onagre/archive/5574d26f2ce09eb611a6c807cd28d9f58b72e4ed.tar.gz"
     },
-    "version": "543f1fe827f4b16408cdcc07c19fb839741ca0f5"
+    "version": "5574d26f2ce09eb611a6c807cd28d9f58b72e4ed"
   }
 }

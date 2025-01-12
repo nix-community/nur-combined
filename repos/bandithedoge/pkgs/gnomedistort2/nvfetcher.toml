@@ -1,0 +1,4 @@
+[gnomedistort2]
+src.github = "crowbait/GnomeDistort-2"
+fetch.github = "crowbait/GnomeDistort-2"
+git.fetchSubmodules = true

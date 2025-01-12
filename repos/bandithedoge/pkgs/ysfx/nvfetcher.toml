@@ -1,0 +1,8 @@
+[ysfx]
+src.github_tag = "JoepVanlier/ysfx"
+fetch.github = "JoepVanlier/ysfx"
+git.fetchSubmodules = true
+
+[juce]
+src.manual = "8.0.1"
+fetch.git = "https://github.com/juce-framework/JUCE"

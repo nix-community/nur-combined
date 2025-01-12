@@ -1,0 +1,125 @@
+{
+  "clap-juce-extensions": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "clap-juce-extensions",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "8d0754f5d6ca1e95bc207b7743c04ebd7dc17e88",
+      "sha256": "sha256-gb0uK3pkTgINUC4IhmEC/nEKvuBxyFJZyPV59hpzXcg=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/free-audio/clap-juce-extensions"
+    },
+    "version": "8d0754f5d6ca1e95bc207b7743c04ebd7dc17e88"
+  },
+  "juce": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "juce",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "730669c40166d49b3d2c9d6048cd0493cef998f8",
+      "sha256": "sha256-oKKBptJ5jSJ5jThaBTpvFhgMzuSwWC7ZGGVJPuP+o7M=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/ArborealAudio/JUCE"
+    },
+    "version": "730669c40166d49b3d2c9d6048cd0493cef998f8"
+  },
+  "omniamp": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "omniamp",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ArborealAudio",
+      "repo": "OmniAmp",
+      "rev": "1.0.2",
+      "sha256": "sha256-tMcc2TBbv5AYejRkxFFgifjCZWXoGqRSFnBUYyeHw7g=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.0.2"
+  },
+  "pffft": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "pffft",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "e0bf595c98ded55cc457a371c1b29c8cab552628",
+      "sha256": "sha256-6NjpHkVxWFrriY55Btq//tR1YOYAdm0Bsp5ue3RWXlE=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/marton78/pffft"
+    },
+    "version": "e0bf595c98ded55cc457a371c1b29c8cab552628"
+  },
+  "pimax": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "pimax",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ArborealAudio",
+      "repo": "PiMax",
+      "rev": "1.1.3",
+      "sha256": "sha256-nr63yikQUvbYtM3ADMmSNTm6tjSQ06anV5gabP6RQrQ=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.1.3"
+  },
+  "str-x": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "str-x",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ArborealAudio",
+      "repo": "STR-X",
+      "rev": "v1.2.1",
+      "sha256": "sha256-fj/XJUUSRxLa9q9wMi7aOtHQNUFchAHepENJYRIGF1Y=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.2.1"
+  }
+}

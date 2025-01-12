@@ -1,0 +1,23 @@
+{
+  "firefly-synth": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "firefly-synth",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "sjoerdvankreel",
+      "repo": "firefly-synth",
+      "rev": "v1.9.9",
+      "sha256": "sha256-6HlezO89a9VecmbgWbYmq/ehs/iWxpFP029EQRKueb4=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.9.9"
+  }
+}

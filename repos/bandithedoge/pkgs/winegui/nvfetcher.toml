@@ -1,0 +1,3 @@
+[winegui]
+src.git = "https://gitlab.melroy.org/melroy/winegui"
+fetch.git = "https://gitlab.melroy.org/melroy/winegui"

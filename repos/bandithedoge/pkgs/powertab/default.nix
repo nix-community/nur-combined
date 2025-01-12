@@ -8,7 +8,7 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs = with pkgs; [
     cmake
-    qt5.wrapQtAppsHook
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = with pkgs; [
@@ -18,8 +18,8 @@ pkgs.stdenv.mkDerivation {
     minizip
     nlohmann_json
     pugixml
-    qt5.qtbase
-    qt5.qttools
+    qt6.qtbase
+    qt6.qttools
     rtmidi
   ];
 

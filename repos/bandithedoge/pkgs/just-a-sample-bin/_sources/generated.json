@@ -1,0 +1,17 @@
+{
+  "just-a-sample-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "just-a-sample-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-E94eKlubCsIn4TwL4HnU6NJsY7NvrDRBK3LpOGsUgsA=",
+      "type": "url",
+      "url": "https://github.com/BOBONA/Just-a-Sample/releases/download/release/Linux.VST3.zip"
+    },
+    "version": "release"
+  }
+}

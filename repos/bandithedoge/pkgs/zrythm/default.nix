@@ -4,9 +4,20 @@
   ...
 }: let
   # remove when 2.6.0 gets added to nixpkgs
-  carla = pkgs.carla.overrideAttrs (_: {
-    inherit (sources.carla-git) version src;
-  });
+  carla =
+    (pkgs.carla.overrideAttrs (_: {
+      inherit (sources.carla-git) version src;
+    }))
+    .override {
+      python3Packages = pkgs.python3Packages.override {
+        overrides = final: prev: {
+          # remove when https://nixpk.gs/pr-tracker.html?pr=370735 makes it to nixpkgs-unstable
+          pyliblo = prev.pyliblo.overrideAttrs (_: {
+            NIX_CFLAGS_COMPILE = ["-Wno-incompatible-pointer-types"];
+          });
+        };
+      };
+    };
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname src;

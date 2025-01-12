@@ -4,8 +4,7 @@
   ...
 }:
 pkgs.appimageTools.wrapType2 {
-  name = "BasiliskII";
-  inherit (sources.basiliskii-bin) src;
+  inherit (sources.basiliskii-bin) pname version src;
 
   extraPkgs = pkgs:
     with pkgs; [
@@ -17,5 +16,6 @@ pkgs.appimageTools.wrapType2 {
     homepage = "https://basilisk.cebix.net/";
     license = licenses.gpl2;
     platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
   };
 }

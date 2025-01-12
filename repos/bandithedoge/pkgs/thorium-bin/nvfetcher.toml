@@ -1,0 +1,4 @@
+[thorium-bin]
+src.github = "Alex313031/Thorium"
+src.prefix = "M"
+fetch.url = "https://github.com/Alex313031/thorium/releases/download/M$ver/Thorium_Browser_$ver_AVX2.AppImage"

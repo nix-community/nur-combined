@@ -1,0 +1,42 @@
+[juce]
+src.github = "juce-framework/JUCE"
+fetch.github = "juce-framework/JUCE"
+
+[vst3sdk]
+# src.github_tag = "steinbergmedia/vst3sdk"
+# src.include_regex = 'v\d+\.\d+\.\d+_build_\d+'
+src.manual = "v3.7.11_build_10"
+fetch.github = "steinbergmedia/vst3sdk"
+git.fetchSubmodules = true
+
+[delirion]
+src.github = "igorski/delirion"
+fetch.github = "igorski/delirion"
+
+[rechoir]
+src.github = "igorski/rechoir"
+fetch.github = "igorski/rechoir"
+
+[homecorrupter]
+src.github = "igorski/homecorrupter"
+fetch.github = "igorski/homecorrupter"
+
+[darvaza]
+src.github = "igorski/darvaza"
+fetch.github = "igorski/darvaza"
+
+[fogpad]
+src.github = "igorski/fogpad"
+fetch.github = "igorski/fogpad"
+
+[regrader]
+src.github = "igorski/regrader"
+fetch.github = "igorski/regrader"
+
+[transformant]
+src.github = "igorski/transformant"
+fetch.github = "igorski/transformant"
+
+[vstsid]
+src.github = "igorski/VSTSID"
+fetch.github = "igorski/VSTSID"

@@ -16,6 +16,7 @@ pkgs.stdenv.mkDerivation {
     flac
     fmt
     fontconfig
+    libGL
     libjack2
     libogg
     libopus

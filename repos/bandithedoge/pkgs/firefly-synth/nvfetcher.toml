@@ -1,0 +1,4 @@
+[firefly-synth]
+src.github = "sjoerdvankreel/firefly-synth"
+fetch.github = "sjoerdvankreel/firefly-synth"
+git.fetchSubmodules = true

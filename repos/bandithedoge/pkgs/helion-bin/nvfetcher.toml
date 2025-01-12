@@ -1,0 +1,3 @@
+[helion-bin]
+src.github = "Helion-Engine/Helion"
+fetch.url = "https://github.com/Helion-Engine/Helion/releases/download/$ver/Helion-$ver-linux-x64.zip"

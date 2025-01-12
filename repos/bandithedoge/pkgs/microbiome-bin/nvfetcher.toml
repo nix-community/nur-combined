@@ -1,0 +1,7 @@
+[microbiome-bin-lv2]
+src.github = "dsmaugy/microbiome"
+fetch.url = "https://github.com/dsmaugy/microbiome/releases/download/v1.0.0/Microbiome_Linux_x86_LV2_$ver.zip"
+
+[microbiome-bin-vst3]
+src.github = "dsmaugy/microbiome"
+fetch.url = "https://github.com/dsmaugy/microbiome/releases/download/v1.0.0/Microbiome_Linux_x86_VST3_$ver.zip"

@@ -1,0 +1,32 @@
+{
+  "crunchrr": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "crunchrr",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-7edt2knSELwMnPXnBJnvK6PxJ5nlW0b2LPcC6bZV9PE=",
+      "type": "url",
+      "url": "https://github.com/blepfx/dist/releases/download/release-68/crunchrr-x86_64-unknown-linux-gnu.zip"
+    },
+    "version": "release-68"
+  },
+  "destruqtor": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "destruqtor",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-rmmeYLA3SoH+Ak9JrmyQBbAjqj4OMPOoJ72vduWwLcw=",
+      "type": "url",
+      "url": "https://github.com/blepfx/dist/releases/download/release-68/destruqtor-x86_64-unknown-linux-gnu.zip"
+    },
+    "version": "release-68"
+  }
+}

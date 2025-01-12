@@ -1,0 +1,15 @@
+[free-suite]
+src.webpage = "https://www.vennaudio.com/free-suite"
+src.regex = 'Free Suite_Linux_(\d+\.\d+\.\d+_\d{1,2}.+\d{4}_\d+).zip'
+fetch.url = "https://www.vennaudio.com/downloads/Free%20Suite/Free%20Suite_Linux_$ver.zip"
+url.name = "Free_Suite_Linux_$ver.zip"
+
+[viper]
+src.webpage = "https://www.vennaudio.com/product/Viper/"
+src.regex = 'Viper_Linux_(\d+\.\d+\.\d+_\d{1,2}.+\d{4})_Release.zip'
+fetch.url = "https://www.vennaudio.com/downloads/Viper/Viper_Linux_$ver_Release.zip"
+
+[dimmer]
+src.webpage = "https://www.vennaudio.com/product/Dimmer/"
+src.regex = 'Dimmer_Linux_(\d+\.\d+\.\d+_\d{1,2}.+\d{4})_Release.zip'
+fetch.url = "https://www.vennaudio.com/downloads/Dimmer/Dimmer_Linux_$ver_Release.zip"

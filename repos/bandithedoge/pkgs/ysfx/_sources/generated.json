@@ -1,0 +1,43 @@
+{
+  "juce": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "juce",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "8.0.1",
+      "sha256": "sha256-2Bx3QHRcYRPrnw2zZzwleUQ+Q1zOKr4bl8cmsT7vUNs=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/juce-framework/JUCE"
+    },
+    "version": "8.0.1"
+  },
+  "ysfx": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "ysfx",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "JoepVanlier",
+      "repo": "ysfx",
+      "rev": "v0.0.31",
+      "sha256": "sha256-/9K10pJviPcjmCoL0ZjAK9Mqe83SW0NygfmZOvqT5XU=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v0.0.31"
+  }
+}

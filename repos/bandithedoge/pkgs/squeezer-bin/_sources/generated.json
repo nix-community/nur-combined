@@ -1,0 +1,32 @@
+{
+  "squeezer-bin-standalone": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "squeezer-bin-standalone",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-M0Q95PrL/91r9xA2T88yzV/EpmwIWdC+7JylBpPuDLs=",
+      "type": "url",
+      "url": "https://github.com/mzuther/Squeezer/releases/download/v2.5.4/squeezer-linux64-standalone_2.5.4.tar.gz"
+    },
+    "version": "2.5.4"
+  },
+  "squeezer-bin-vst2": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "squeezer-bin-vst2",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-o5b+jg27gyt6G3duatijdS/ZIObkQl/sMtZLHvt+vzs=",
+      "type": "url",
+      "url": "https://github.com/mzuther/Squeezer/releases/download/v2.5.4/squeezer-linux64-vst2_2.5.4.tar.gz"
+    },
+    "version": "2.5.4"
+  }
+}

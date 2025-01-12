@@ -26,5 +26,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "http://www.extentofthejam.com/";
     license = licenses.gpl3;
     platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
   };
 }

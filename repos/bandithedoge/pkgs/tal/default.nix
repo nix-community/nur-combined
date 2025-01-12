@@ -21,8 +21,10 @@
 
       buildInputs = with pkgs;
         [
-          freetype
           alsa-lib
+          fontconfig
+          freetype
+          libGL
           libgcc.lib
         ]
         ++ extraLibs;
@@ -38,6 +40,7 @@
         inherit description homepage;
         license = licenses.unfree;
         platforms = ["x86_64-linux"];
+        sourceProvenance = [sourceTypes.binaryNativeCode];
       };
     };
 in {
@@ -67,7 +70,6 @@ in {
     source = sources.drum;
     description = "TAL-Drum is a powerful audio plug-in that combines the nostalgic charm of vintage drum machines with modern usability. This intuitive tool lets you effortlessly create captivating beats with its meticulously sampled collection of iconic drum machine sounds.";
     homepage = "https://tal-software.com/products/tal-drum";
-    extraLibs = with pkgs; [libGL];
   };
 
   dub-x = mkTal {
@@ -84,11 +86,19 @@ in {
     homepage = "https://tal-software.com/products/tal-filter";
   };
 
+  g-verb = mkTal {
+    product = "TAL-G-Verb";
+    source = sources.g-verb;
+    description = "TAL-G-Verb is a musical effect capable to build high quality artificial reverb sounds";
+    homepage = "https://tal-software.com/products/tal-g-verb";
+  };
+
   j-8 = mkTal {
     product = "TAL-J-8";
     source = sources.j-8;
     description = "TAL-J-8 is a synthesizer plug-in that meticulously emulates the legendary Jupiter 8 and is calibrated after our hardware device, delivering the most authentic and faithful reproduction of its iconic sound";
     homepage = "https://tal-software.com/products/tal-j-8";
+    extraLibs = with pkgs; [curl];
   };
 
   mod = mkTal {
@@ -124,7 +134,6 @@ in {
     source = sources.sampler;
     description = "TAL-Sampler is not just a sample player. It's a full featured analog modeled synthesizer with a sampler engine as sound source, including a powerful modulation matrix and high quality self-oscillating filters.";
     homepage = "https://tal-software.com/products/tal-sampler";
-    extraLibs = with pkgs; [fontconfig];
   };
 
   u-no-lx = mkTal {

@@ -100,7 +100,7 @@ pkgs.stdenv.mkDerivation {
     description = "Fast and Private Web Browser";
     homepage = "https://www.waterfox.net/";
     license = licenses.mpl20;
-    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
   };
 }

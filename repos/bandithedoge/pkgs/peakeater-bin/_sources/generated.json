@@ -1,0 +1,17 @@
+{
+  "peakeater-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "peakeater-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-Dd99g5+kNuYsLp1bHxiNaVQk1aui8kKtCom7hjTymbk=",
+      "type": "url",
+      "url": "https://github.com/vvvar/PeakEater/releases/download/v0.8.2/peakeater-v0.8.2-Linux-x86_64.zip"
+    },
+    "version": "v0.8.2"
+  }
+}

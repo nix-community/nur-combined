@@ -7,13 +7,13 @@
 }: {
   powertab = {
     pname = "powertab";
-    version = "2.0.0-alpha19";
+    version = "2.0.21";
     src = fetchFromGitHub {
       owner = "powertab";
       repo = "powertabeditor";
-      rev = "2.0.0-alpha19";
+      rev = "2.0.21";
       fetchSubmodules = false;
-      sha256 = "sha256-oZX6fyJ6T27S18iwtxF7VQp1ec7NsXuIrvYUPwN3ebk=";
+      sha256 = "sha256-mYFguVcF7Xb6rXIIMXAUzRYddlvQDRj7zu6on7GGGeA=";
     };
   };
 }

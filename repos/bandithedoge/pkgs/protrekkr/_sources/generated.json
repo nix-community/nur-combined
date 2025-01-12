@@ -1,0 +1,22 @@
+{
+  "protrekkr": {
+    "cargoLocks": null,
+    "date": "2019-09-08",
+    "extract": null,
+    "name": "protrekkr",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "0b96ba56379eb179423e9dcbec31a08bf0326c9f",
+      "sha256": "sha256-4CmYp8dyDwSG2uwODTUqgVWVp53uC1lCvqfHUuJDIQw=",
+      "sparseCheckout": [],
+      "type": "git",
+      "url": "https://github.com/falkTX/protrekkr"
+    },
+    "version": "0b96ba56379eb179423e9dcbec31a08bf0326c9f"
+  }
+}

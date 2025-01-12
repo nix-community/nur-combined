@@ -1,0 +1,9 @@
+[audible-planets-lv2]
+src.github = "gregrecco67/AudiblePlanets"
+src.prefix = "v"
+fetch.url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v$ver/Audible.Planets-$ver-Linux.lv2.zip"
+
+[audible-planets-vst3]
+src.github = "gregrecco67/AudiblePlanets"
+src.prefix = "v"
+fetch.url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v$ver/Audible.Planets-$ver-Linux.vst3.zip"

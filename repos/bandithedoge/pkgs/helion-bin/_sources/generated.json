@@ -1,0 +1,17 @@
+{
+  "helion-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "helion-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-FWsVgwPT9/w34Z48yLsJ4esDbDRTJDHxcOCyI+jOxlo=",
+      "type": "url",
+      "url": "https://github.com/Helion-Engine/Helion/releases/download/0.9.5.1/Helion-0.9.5.1-linux-x64.zip"
+    },
+    "version": "0.9.5.1"
+  }
+}

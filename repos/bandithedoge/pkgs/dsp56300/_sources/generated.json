@@ -1,0 +1,23 @@
+{
+  "dsp56300": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "dsp56300",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "dsp56300",
+      "repo": "gearmulator",
+      "rev": "1.4.1",
+      "sha256": "sha256-JnXTTtxF5jHPaU+d558JwlGo/QjKHtVuCqel5iaBBCk=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.4.1"
+  }
+}

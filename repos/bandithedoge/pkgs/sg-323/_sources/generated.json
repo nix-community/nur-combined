@@ -1,0 +1,23 @@
+{
+  "sg-323": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "sg-323",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "greyboxaudio",
+      "repo": "SG-323",
+      "rev": "0.6.3",
+      "sha256": "sha256-PYZo8wPAvzWmqw14wa/wV6XpRW3saJgkPWc7Vh3sOTU=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "0.6.3"
+  }
+}

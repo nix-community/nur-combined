@@ -1,0 +1,15 @@
+[Speedrum2]
+src.github = "apisonic/SP-two"
+fetch.url = "https://github.com/apisonic/SP-two/releases/download/$ver/speedrum2-$ver.zip"
+
+[Speedrum]
+src.github = "apisonic/SP-one"
+fetch.url = "https://github.com/apisonic/SP-one/releases/download/$ver/speedrum-$ver.zip"
+
+[SpeedrumLite]
+src.github = "apisonic/SL-bin"
+fetch.url = "https://github.com/apisonic/SL-bin/releases/download/$ver/speedrum-lite-$ver.zip"
+
+[Transperc]
+src.github = "apisonic/tr-one"
+fetch.url = "https://github.com/apisonic/tr-one/releases/download/$ver/transperc.zip"

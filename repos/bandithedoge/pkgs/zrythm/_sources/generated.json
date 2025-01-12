@@ -1,7 +1,7 @@
 {
   "carla-git": {
     "cargoLocks": null,
-    "date": "2024-09-22",
+    "date": "2024-11-24",
     "extract": null,
     "name": "carla-git",
     "passthru": null,
@@ -11,17 +11,17 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "2f7c9394134ad8479a7c9f236123ff365fa68e99",
-      "sha256": "sha256-XlOWPsMzpzayim+rfxxzWhpm0jA0z669zukR03zIqPA=",
+      "rev": "17000e7fe99459b25a50094a8b00bdfa12f2bfbc",
+      "sha256": "sha256-eCXAGZX/nT51CJipajATdssY2DIvA6rA+WR/krvQNK4=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/falkTX/Carla"
     },
-    "version": "2f7c9394134ad8479a7c9f236123ff365fa68e99"
+    "version": "17000e7fe99459b25a50094a8b00bdfa12f2bfbc"
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2024-05-28",
+    "date": "2024-11-21",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -31,12 +31,12 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "1792598e05da73f70192c85b7969999735aa22c6",
-      "sha256": "sha256-4VLD29UlbrnMpk3qHBrWsoZSv4kORjbSNhGn8XF63Vw=",
+      "rev": "8b3de78812010e9ca6585848bdd1e15cee61e4c5",
+      "sha256": "sha256-Xb8pCUEa6Vf0WX49Oo5+rqGyEMqWqnhWXG7s9j5nPPg=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
     },
-    "version": "1792598e05da73f70192c85b7969999735aa22c6"
+    "version": "8b3de78812010e9ca6585848bdd1e15cee61e4c5"
   }
 }

@@ -13,12 +13,12 @@
       "name": null,
       "owner": "Wasted-Audio",
       "repo": "hvcc",
-      "rev": "v0.12.1",
-      "sha256": "sha256-Ir4jqBSnrb+GdhCEw62fGPzgluZVX8Z0VQ0tadhFnpY=",
+      "rev": "v0.13.2",
+      "sha256": "sha256-sea3pBdRJTFhrg/4OYXEtXKzIrMid2IRTOVdqBX5q74=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v0.12.1"
+    "version": "v0.13.2"
   },
   "wstd2daisy": {
     "cargoLocks": null,

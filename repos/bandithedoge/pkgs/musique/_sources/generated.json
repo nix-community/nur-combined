@@ -1,0 +1,23 @@
+{
+  "musique": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "musique",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "flaviotordini",
+      "repo": "musique",
+      "rev": "1.12",
+      "sha256": "sha256-KvvalelRWOwpOB6Hmr7WPTY4WjnAeBHXS+EhIEMqsus=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1.12"
+  }
+}

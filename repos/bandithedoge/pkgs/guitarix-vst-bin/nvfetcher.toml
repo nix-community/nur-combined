@@ -1,0 +1,3 @@
+[guitarix-vst-bin]
+src.github = "brummer10/guitarix.vst"
+fetch.url = "https://github.com/brummer10/guitarix.vst/releases/download/$ver/Guitarix.vst3.zip"

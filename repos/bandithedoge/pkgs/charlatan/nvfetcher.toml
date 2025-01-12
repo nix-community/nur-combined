@@ -1,0 +1,4 @@
+[charlatan]
+src.webpage = "https://blaukraut.info/"
+src.regex = '\d+\.\d+\.\d+'
+fetch.url = "https://blaukraut.info/downloads/charlatan3_$ver_linux.zip"

@@ -1,0 +1,17 @@
+{
+  "thorium-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "thorium-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-RBPSGgwF6A4KXgLdn/YIrdFpZG2+KwMJ8MkTjSPpkhU=",
+      "type": "url",
+      "url": "https://github.com/Alex313031/thorium/releases/download/M128.0.6613.189/Thorium_Browser_128.0.6613.189_AVX2.AppImage"
+    },
+    "version": "128.0.6613.189"
+  }
+}
