@@ -4514,6 +4514,11 @@
     "pname": "wine-wechat-x86",
     "version": "3.9.12.16"
   },
+  "legacyPackages.x86_64-linux.uncategorized.xvcd": {
+    "description": "Xilinx Virtual Cable Daemon",
+    "pname": "xvcd",
+    "version": "0-unstable-2019-11-20"
+  },
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
@@ -4613,6 +4618,11 @@
     "description": "Minimalist web front-end framework composed of HTMX and Python",
     "pname": "python3.12-xue",
     "version": "0.0.34"
+  },
+  "legacyPackages.x86_64-linux.xvcd": {
+    "description": "Xilinx Virtual Cable Daemon",
+    "pname": "xvcd",
+    "version": "0-unstable-2019-11-20"
   },
   "packages.x86_64-linux._meta": {
     "description": "",
@@ -5533,5 +5543,10 @@
     "description": "Minimalist web front-end framework composed of HTMX and Python",
     "pname": "python3.12-xue",
     "version": "0.0.34"
+  },
+  "packages.x86_64-linux.xvcd": {
+    "description": "Xilinx Virtual Cable Daemon",
+    "pname": "xvcd",
+    "version": "0-unstable-2019-11-20"
   }
 }

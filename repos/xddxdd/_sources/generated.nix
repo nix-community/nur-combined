@@ -2048,6 +2048,17 @@
       hash = "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=";
     };
   };
+  xvcd = {
+    pname = "xvcd";
+    version = "d42b07f70cffd9e53f41c33b3960e1474cfbfc04";
+    src = fetchFromGitHub {
+      owner = "RHSResearchLLC";
+      repo = "xvcd";
+      rev = "d42b07f70cffd9e53f41c33b3960e1474cfbfc04";
+      hash = "sha256-ke2Ct+ganBHh+Res0NHGfQiLhyacbXnczN6R8DIT3RA=";
+    };
+    date = "2019-11-20";
+  };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
     version = "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b";

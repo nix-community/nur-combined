@@ -4007,6 +4007,27 @@
         },
         "version": "0.0.34"
     },
+    "xvcd": {
+        "cargoLocks": null,
+        "date": "2019-11-20",
+        "extract": null,
+        "name": "xvcd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "RHSResearchLLC",
+            "repo": "xvcd",
+            "rev": "d42b07f70cffd9e53f41c33b3960e1474cfbfc04",
+            "sha256": "sha256-ke2Ct+ganBHh+Res0NHGfQiLhyacbXnczN6R8DIT3RA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d42b07f70cffd9e53f41c33b3960e1474cfbfc04"
+    },
     "zstd-nginx-module": {
         "cargoLocks": null,
         "date": "2024-04-22",

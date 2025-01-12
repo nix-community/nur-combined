@@ -916,6 +916,10 @@ fetch.pypi = "XStatic-Font-Awesome"
 src.pypi = "xue"
 fetch.url = "https://pypi.org/packages/source/x/xue/xue-$ver.tar.gz"
 
+[xvcd]
+src.git = "https://github.com/RHSResearchLLC/xvcd.git"
+fetch.github = "RHSResearchLLC/xvcd"
+
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"
 fetch.github = "tokers/zstd-nginx-module"
