@@ -54,7 +54,7 @@ in
 
     # Pulseaudio setup
     (lib.mkIf cfg.pulse.enable {
-      hardware.pulseaudio.enable = true;
+      services.pulseaudio.enable = true;
     })
   ]);
 }

@@ -20,7 +20,7 @@ in
 
     # Support for additional bluetooth codecs
     (lib.mkIf cfg.loadExtraCodecs {
-      hardware.pulseaudio = {
+      services.pulseaudio = {
         extraModules = [ pkgs.pulseaudio-modules-bt ];
         package = pkgs.pulseaudioFull;
       };

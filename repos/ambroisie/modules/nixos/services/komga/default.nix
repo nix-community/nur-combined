@@ -21,10 +21,10 @@ in
       inherit (cfg) port;
 
       group = "media";
-    };
 
-    systemd.services.komga.environment = {
-      LOGGING_LEVEL_ORG_GOTSON_KOMGA = "DEBUG"; # Needed for fail2ban
+      settings = {
+        logging.level.org.gotson.komga = "DEBUG"; # Needed for fail2ban
+      };
     };
 
     # Set-up media group
