@@ -195,4 +195,34 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         platforms = [ "x86_64-linux" ];
       };
     };
+
+  hell =
+    { lib
+    , stdenv
+    , installShellFiles
+    , unzip
+    }:
+
+    let inherit (nv.hell) pname version src; in
+
+    stdenv.mkDerivation {
+      inherit pname src;
+      version = "unstable-${version}";
+      dontUnpack = true;
+      nativeBuildInputs = [ installShellFiles unzip ];
+      installPhase = ''
+        mkdir -p $out/bin
+        BIN=$out/bin/${pname}
+        install -m755 -D $src $BIN
+        ${optparseApplicativeCompletions pname}
+      '';
+
+      meta = {
+        description = " Haskell-based shell scripting language ";
+        homepage = "https://chrisdone.github.io/hell";
+        license = lib.licenses.bsd3;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        platforms = [ "x86_64-linux" ];
+      };
+    };
 }

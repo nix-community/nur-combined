@@ -44,4 +44,10 @@ in
     slug = "tfausak/cabal-gild";
     restUrl = "$ver/cabal-gild-$ver-linux-x64.tar.gz";
   };
+  hell = github {
+    slug = "chrisdone/hell";
+    restUrl = "$ver/hell-linux-x86-64bit";
+    useTag = true;
+    src.include_regex = ''\d{4}-\d{2}-\d{2}'';
+  };
 }

@@ -41,6 +41,14 @@
       sha256 = "sha256-lO89pt/EOYdu1juRcZtXD7yY44UCnRVXxLkzQa0AI+I=";
     };
   };
+  hell = {
+    pname = "hell";
+    version = "2025-01-13";
+    src = fetchurl {
+      url = "https://github.com/chrisdone/hell/releases/download/2025-01-13/hell-linux-x86-64bit";
+      sha256 = "sha256-KquRcoYDU9TL3/QgruXUVvBvcG7ZIkJpa0GuPLpOjac=";
+    };
+  };
   hlint = {
     pname = "hlint";
     version = "3.8";

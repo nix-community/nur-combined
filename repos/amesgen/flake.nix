@@ -19,7 +19,13 @@
             nvfetcherCfg = (pkgs.formats.toml { }).generate "nvfetcher.toml"
               (import ./pkgs/nvfetcher.nix pkgs);
             nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
-              ${pkgs.nvfetcher}/bin/nvfetcher -o pkgs/_sources -c ${nvfetcherCfg} "$@"
+              _keyfile=$(mktemp --suffix=.toml)
+              ( echo "[keys]"
+                echo "github = \"$(gh auth token)\""
+              ) > "$_keyfile"
+              trap "rm -f $_keyfile" EXIT
+              ${pkgs.nvfetcher}/bin/nvfetcher \
+                -k "$_keyfile" -o pkgs/_sources -c ${nvfetcherCfg} "$@"
             '';
           in
           pkgs.mkShell {

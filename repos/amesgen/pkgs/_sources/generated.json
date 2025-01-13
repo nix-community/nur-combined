@@ -74,6 +74,21 @@
         },
         "version": "0.16.2.0"
     },
+    "hell": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hell",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-KquRcoYDU9TL3/QgruXUVvBvcG7ZIkJpa0GuPLpOjac=",
+            "type": "url",
+            "url": "https://github.com/chrisdone/hell/releases/download/2025-01-13/hell-linux-x86-64bit"
+        },
+        "version": "2025-01-13"
+    },
     "hlint": {
         "cargoLocks": null,
         "date": null,
