@@ -14,6 +14,8 @@
   webkitgtk_4_1,
   wrapGAppsHook4,
   fetchFromGitHub,
+  jq,
+  moreutils,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -42,6 +44,9 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     wrapGAppsHook4
     copyDesktopItems
+
+    jq
+    moreutils
   ];
 
   buildInputs =
@@ -65,6 +70,11 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace .cargo-checksum.json \
       --replace-warn $oldHash $(sha256sum src/lib.rs | cut -d " " -f 1)
     popd
+
+    jq \
+    '.bundle.createUpdaterArtifacts = false' \
+    src-tauri/tauri.conf.json \
+    | sponge src-tauri/tauri.conf.json
   '';
 
   meta = {
