@@ -2539,10 +2539,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.55.3";
+      version = "2.55.4";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417263/dualsub-2.55.3.xpi";
-      sha256 = "411f12e412f7cca2bc7cc9d9a1105d9a098753628f91d58cda42afd6b7afd619";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4418265/dualsub-2.55.4.xpi";
+      sha256 = "75c92f19120aa07fe88903227684df042e0752e46503f824f086452b1414182c";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6568,10 +6568,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.2.8";
+      version = "1.2.9";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415260/linkwarden-1.2.8.xpi";
-      sha256 = "10ae5e44dd9ad7be22516fe90ffd993e05a509728346d62e31489df55327b510";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4418593/linkwarden-1.2.9.xpi";
+      sha256 = "29e3c9018a00ca656de52cfbff891851bbbf8464efe624696062be44c5548183";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
