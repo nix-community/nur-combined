@@ -69,12 +69,6 @@ in
     hash = "sha256-Bmy1xqqmHqJVpleKWOssF+6SUpKOIm6hIGQsW6+hUTg=";
   })
 
-  (fetchpatch' {
-    name = "itgmania: init at 0.9.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/355725";
-    hash = "sha256-PWY7mDoUNrUJMvMJ0fAF8cmvA34YrizG2MvuNIjofvU=";
-  })
-
   # (fetchpatch' {
   #   # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)
   #   name = "stepmania: wrap the program so it knows where to find its data files";

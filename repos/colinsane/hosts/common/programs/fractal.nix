@@ -61,6 +61,7 @@ in
       "Videos/servo"
       "tmp"
     ];
+    sandbox.mesaCacheDir = ".cache/fractal/mesa";
     sandbox.tmpDir = ".cache/fractal/tmp";  # 10MB+ avatar caches (grows seemingly unbounded during runtime)
 
     persist.byStore.ephemeral = [

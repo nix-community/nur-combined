@@ -60,6 +60,8 @@ in
       "tmp"
     ];
 
+    sandbox.mesaCacheDir = ".cache/dissent/mesa";
+
     persist.byStore.private = [
       ".cache/dissent"
       ".config/dissent"  # empty?
