@@ -29,6 +29,13 @@ rec {
       };
       nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ qsuper.kwindowsystem ];
     });
+    plasma-workspace = qsuper.plasma-workspace.overrideAttrs (oldAttrs: rec {
+      postFixup = ''
+        ${oldAttrs.postFixup}
+        substituteInPlace $out/share/sddm/themes/breeze/Main.qml \
+          --replace "sddm.suspend" "sddm.hibernate"
+      '';
+    });
   });
   # https://github.com/NixOS/nixpkgs/pull/299298#issuecomment-2508714160
   emulationstation-de = super.emulationstation-de.overrideAttrs (oldAttrs: rec {
