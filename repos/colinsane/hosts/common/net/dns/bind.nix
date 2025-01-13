@@ -1,3 +1,8 @@
+# debugging:
+# - `systemctl stop bind`
+# - `sudo /nix/store/0zpdy93sd3fgbxgvf8dsxhn8fbbya8d2-bind-9.18.28/sbin/named -g -u named -4 -c /nix/store/f1mp0myzmfms71h9vinwxpn2i9362a9a-named.conf`
+#   - `-g` = don't fork
+#   - `-u named` = start as superuser (to claim port 53), then drop to user `named`
 { config, lib, ... }:
 let
   hostCfg = config.sane.hosts.by-name."${config.networking.hostName}";
