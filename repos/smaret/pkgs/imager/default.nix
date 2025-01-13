@@ -58,6 +58,7 @@ stdenv.mkDerivation rec {
     [
       ./wrapper.patch
       ./python-ldflags.patch
+      ./clean-segfault.patch
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin ([
       ./clang.patch

@@ -1,0 +1,370 @@
+diff --git a/contrib/imager/lib/sub_major.f90 b/contrib/imager/lib/sub_major.f90
+index 0ccba8d..c3127b7 100644
+--- a/contrib/imager/lib/sub_major.f90
++++ b/contrib/imager/lib/sub_major.f90
+@@ -138,7 +138,7 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+   !
+   type (clean_par), save :: method
+   real, target :: dummy_prim(1,1,1), dummy_atten(1,1)
+-  integer iplane
++  integer iplane, jplane
+   integer nx,ny,np,nl,beam_nx,beam_ny,nc, kx,ky, icct, mcct
+   integer ip, ier, ix, iy, i, jcode
+   real fhat, limit, flux
+@@ -158,9 +158,14 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+   logical, pointer :: lmask(:,:)
+   integer, pointer :: llist(:)
+   !
++  type(cct_lst), allocatable :: the_ccts(:)
++  integer, allocatable :: the_siter(:)
++  integer :: the_ccts_size
++  logical :: NEW_CCT
+   type(cct_lst) :: cct_list
+   integer :: cctsize
+   integer :: nbeam
++  integer :: sever
+   !
+   real, save :: major,minor,angle
+   ! Multi Kernel 
+@@ -201,7 +206,13 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+   method = inout_method
+   !
+   cmethod = method%method
+-  if (cmethod.eq.'GAUSS') then
++  new_cct = .false.
++  error = .false.
++  call sic_get_logi('NEW_CCT',NEW_CCT,error)
++  error = .false.
++  if (cmethod.eq.'SDI' .or. cmethod.eq.'MRC') then
++    NEW_CCT = .false.
++  else if (cmethod.eq.'GAUSS') then
+     gauss = method%gsize*acos(-1.0)/180./3600.0
+   endif
+   !
+@@ -439,6 +450,14 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+     if (error) return
+   endif
+   !
++  if (NEW_CCT) then
++    allocate(the_ccts(nplane),the_siter(nplane),stat=ier)
++    do i=1,nplane
++      call the_ccts(i)%initialize()
++    enddo
++    the_ccts_size = 0
++  endif
++  !
+   ! Loop here if needed
+   !$OMP PARALLEL IF (nplane.gt.1) DEFAULT(none) NUM_THREADS(omp_outer_thread) & 
+   !$OMP & SHARED(hdirty,hclean,hbeam,hprim,hresid,hmask) &         ! Headers
+@@ -450,7 +469,7 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+   !$OMP & SHARED(nmask,masks,lists,mask,list, mthread, dcclist, dcct, dcct_size, mplane) &
+   !$OMP & SHARED(ftbeam, do_fft, ntf, start_cct, start_cct_size) & ! Beam TF
+   !$OMP & PRIVATE(method, ier, true_dofft)                &                    ! A modified structure
+-  !$OMP & PRIVATE(iplane, ibeam, error, nl, chain, cthread, cname) &
++  !$OMP & PRIVATE(iplane, ibeam, jplane, sever, error, nl, chain, cthread, cname) &
+   !$OMP & PRIVATE(tfbeam,w_work,w_fft,w_comp,w_cct,cct_list)   &   ! Arrays
+   !$OMP & PRIVATE(flux,f_iter,m_iter,limit,ithread,jcode,icct) &
+   !$OMP & PRIVATE(ix,iy,i,j) &  ! These were NOT diagnosed by the DEFAULT(none)
+@@ -458,7 +477,8 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+   !$OMP & PRIVATE(nker,kernel)         &               ! These could be computed once only ?
+   !$OMP & PRIVATE(mymask,s_mask,s_beam,s_resi,t_beam)  &           ! Arrays
+   !$OMP & SHARED(start_cont) PRIVATE(start_iter, start_flux, cc_scale) & 
+-  !$OMP & PRIVATE(dirty,resid,clean) PRIVATE(atten,llist,lmask)    ! Pointers
++  !$OMP & PRIVATE(dirty,resid,clean) PRIVATE(atten,llist,lmask)  & ! Pointers
++  !$OMP & SHARED(the_ccts,new_cct,the_siter) REDUCTION(max:the_ccts_size)  ! Global structure of CCTs
+   !
+   !$ if (omp_debug)  Print *,'Number of threads ',omp_get_num_threads()
+   !
+@@ -704,6 +724,7 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+       case('SDI')
+         !
+         ! Find components
++        method%n_iter = start_iter-1 ! In principle
+         call major_sdi90 (cname,method,hclean,   &
+           &  clean,          &   ! Final CLEAN image
+           &  d3beam,         &   ! Dirty beams
+@@ -812,42 +833,62 @@ subroutine sub_major_omp(inout_method,mask,list,error,        &
+     ! method%n_iter = method%n_iter + start_iter - 1  ! Not for HOGBOM
+     !
+     ! Update the Clean image
+-    call map_message(seve%t,'UPDATE_CLEAN','Entering '//cthread)
++    !!call map_message(seve%t,'UPDATE_CLEAN','Entering '//cthread)
+     if (cmethod.ne.'GAUSS') call update_clean(method,hclean,cct_list%cc,np,clean,resid,atten)
+     !$ if (omp_debug) Print *,'Finishing '//cthread
+-    call map_message(seve%t,'UPDATE_CLEAN','Exiting '//cthread)
++    !!call map_message(seve%t,'UPDATE_CLEAN','Exiting '//cthread)
+     !
+-    ! Put the CC structure into its final place !SG (wrong for SDI so far)
+-    ier = 0
+-    !     Step 1) cannot be done if any other parallel thread  is running (at Step 2) 
+-    !     Step 2) can be done in parallel, unless Step 1) is running
+-    !$OMP CRITICAL (CCT_EXTEND)
+-    ! 1) Check size of DCCT, and reallocate it if needed.
+-    if (cct_list%cur_size.gt.dcct_size) then
+-      write(chain,'(A,I0)') 'Extending DCCT to ',cct_list%cur_size
+-      call map_message(seve%w,cname,chain)
+-      dcct_size = cct_list%cur_size
+-      error = .true.
+-      call reallocate_cct(cctsize,mplane,dcct_size,dcct,error)
+-    endif
+-    !$OMP END CRITICAL (CCT_EXTEND)
+-    !$OMP FLUSH   ! Ensure variables are synchronized
+-    ! 2) Copy to DCCT
++    ! Put the CC structure into its final place
+     ier = 0
+-    call map_message(seve%t,'MOVE_TO_DCCT','Entering '//cthread)
+-    call move_to_dcct(cmethod,method,start_iter,iplane,icct,mcct,  &
+-      & w_cct, cct_list%cc, hclean, dcct, chain, ier) 
+-    call map_message(seve%t,'MOVE_TO_DCCT','Exiting '//cthread)
+-    if (ier.ne.0) then
+-      call map_message(seve%w,cname,chain)
++    if (NEW_CCT) then
++      jplane = iplane-inout_method%first+1
++      call the_ccts(jplane)%reallocate(cct_list%cur_size)
++      the_siter(jplane) = start_iter
++      the_ccts(jplane) = cct_list
++      the_ccts_size = max(the_ccts_size,cct_list%cur_size)
++      !
+     else
+-      call map_message(seve%i,cname,chain)
+-    endif
++      !     Step 1) cannot be done if any other parallel thread is running (at Step 2)
++      !     Step 2) can be done in parallel, unless Step 1) is running
++      !       so must use a Critical SECTION for Both !...
++      !$OMP CRITICAL (CCT_EXTEND)
++      ! 1) Check size of DCCT, and reallocate it if needed.
++      call map_message(seve%t,'MOVE_TO_DCCT','Checking '//cthread)
++      if (cct_list%cur_size.gt.dcct_size) then
++        write(chain,'(A,I0)') 'Extending DCCT to ',cct_list%cur_size
++        call map_message(seve%w,cname,chain)
++        dcct_size = cct_list%cur_size
++        error = .true.
++        call reallocate_cct(cctsize,mplane,dcct_size,dcct,error)
++      endif
++      ! 2) Copy to DCCT
++      call map_message(seve%t,'MOVE_TO_DCCT','Entering '//cthread)
++      icct = method%n_iter
++      call move_to_dcct(cmethod,start_iter,iplane,icct,mcct,  &
++        & w_cct, cct_list%cc, hclean, dcct, chain, sever, ithread)
++      call map_message(seve%t,'MOVE_TO_DCCT','Exiting '//cthread)
++      !$OMP END CRITICAL (CCT_EXTEND)
++      call map_message(sever,cname,chain)
++    ENDIF
+     !$ if (omp_debug) Print *,'End loop '//cthread
+   enddo
+   !$OMP END DO
+   !
+   !$OMP END PARALLEL
++  if (NEW_CCT) then
++    dcct_size = the_ccts_size
++    error = .true.
++    call reallocate_cct(cctsize,mplane,dcct_size,dcct,error)
++    do iplane=method%first,method%last
++      jplane = iplane-inout_method%first+1
++      icct = the_ccts(jplane)%cur_size
++      start_iter = the_siter(jplane)
++      call move_to_dcct(cmethod,start_iter,iplane,icct,mcct,  &    ! START_ITER is plane dependent
++        & w_cct, the_ccts(jplane)%cc, hclean, dcct, chain, sever, 0)  ! W_CCT is undefined here
++      call map_message(sever,cname,chain)
++    enddo
++  ENDIF
++  !
+   if (nfits.ne.0) then
+     inout_method%major = major/nfits
+     inout_method%minor = minor/nfits
+@@ -1152,11 +1193,12 @@ subroutine get_stopping(miter,ares,iplane)
+ end subroutine get_stopping
+ !
+ !
+-subroutine move_to_dcct(cmethod,method,start_iter,iplane,icct,mcct,  &
+-  & w_cct, tcc, hclean, dcct, chain, ier) 
++subroutine move_to_dcct(cmethod,start_iter,iplane,ncct,mcct,  &
++  & w_cct, tcc, hclean, dcct, chain, sever, ithread)
+   use image_def
+   use clean_def
+-  use imager_interfaces, only : reallocate_cct
++  use gbl_message
++  use imager_interfaces, only : reallocate_cct, map_message
+   !--------------------------------------------------------------
+   ! @ private-mandatory
+   !
+@@ -1166,22 +1208,21 @@ subroutine move_to_dcct(cmethod,method,start_iter,iplane,icct,mcct,  &
+   !   location, the DCCT array that can be saved
+   !--------------------------------------------------------------
+   character(len=*), intent(in) :: cmethod   ! Method name
+-  type(clean_par), intent(inout) :: method  ! Method parameters
+-  integer, intent(in) :: start_iter         ! Starting flux
+-  integer, intent(in) :: iplane   ! Plane number
+-  integer, intent(inout) :: mcct  ! Maximum number of components
+-  integer, intent(in) :: icct     ! 
+-  real, intent(in) :: w_cct(:,:)      ! Image of Clean components
+-  real, intent(inout), allocatable :: dcct(:,:,:)  ! Clean component list
+-  type(cct_par), intent(in) :: tcc(:) ! 
+-  type(gildas), intent(in) :: hclean  ! Header characteristics
+-  character(len=*), intent(inout) :: chain
+-  integer, intent(out) :: ier 
++  integer, intent(in) :: start_iter         ! Starting iteration
++  integer, intent(in) :: iplane             ! Plane number
++  integer, intent(inout) :: mcct            ! Maximum number of components
++  integer, intent(in) :: ncct               ! Number of clean components
++  real, intent(in) :: w_cct(:,:)            ! Image of Clean components
++  real, intent(inout), allocatable :: dcct(:,:,:)  ! Clean component array
++  type(cct_par), intent(in) :: tcc(:)       ! Clean component list
++  type(gildas), intent(in) :: hclean        ! Header characteristics
++  character(len=*), intent(inout) :: chain  ! Message
++  integer, intent(out) :: sever   ! Severity of returned message
++  integer, intent(in) :: ithread  ! Thread number
+   !
+   ! Local
+   integer :: f_iter,m_iter,cctsize
+   integer :: i,nx,ny,ix,iy,nc
+-  integer, allocatable :: mymask(:,:)    ! Mask 
+   real :: flux
+   logical :: error
+   real :: start_flux
+@@ -1189,72 +1230,75 @@ subroutine move_to_dcct(cmethod,method,start_iter,iplane,icct,mcct,  &
+   nx = ubound(w_cct,1)
+   ny = ubound(w_cct,2)
+   nc = hclean%gil%dim(3)
+-  ier = 0
++  sever = seve%i  ! Default is just Information
+   !
+   ! Check size of CCT array
+   cctsize = 3
+   if (cmethod.eq.'GAUSS') cctsize = 4
+   if (allocated(dcct)) then
+     if (size(dcct,1).lt.cctsize) then
+-      call reallocate_cct(cctsize,nc,method%n_iter,dcct,error)
++      write(chain,'(A,I0,A,I0)') &
++        & 'Programming error: Incorrect Size of Clean Component. Expected ', &
++        & cctsize,' Got ',size(dcct,1)
++      call map_message(seve%e,cmethod,chain)
++      sever = seve%e
++      call reallocate_cct(cctsize,nc,ncct,dcct,error)
+     endif
+   endif
+-
+   !
+   ! Put the TCC structure into its final place
+   if (cmethod.eq.'SDI' .or. cmethod.eq.'MULTI') then
+-    if (method%n_iter.eq.0) then
++    if (ncct.eq.0) then
+       dcct(3,iplane,1) = 0
+-      write (chain,'(A,1PG10.3,A,I6,A,A,I6)')  'Cleaned ',0.0,   &
+-          &        ' Jy with ',method%n_iter,' components ' &
++      write (chain,'(A,1PG10.3,A,A,A,I6)')  'Cleaned ',0.0,   &
++          &        ' Jy with     NO components ' &
+           &       ,' Plane ',iplane
+     else
+-      allocate(mymask(nx,ny),stat=ier)
+-      if (ier.ne.0) then
+-        chain = 'Memory allocation error'
+-        return
+-      endif
+       !
+-      where (w_cct.ne.0)
+-        mymask = 1
+-      elsewhere
+-        mymask = 0
+-      end where
+-      f_iter = sum(mymask)
++      f_iter = 0
++      flux = 0.0
++      do iy=1,ny
++        do ix=1,nx
++          if (w_cct(ix,iy).ne.0) f_iter = f_iter+1
++        enddo
++      enddo
+       m_iter = size(dcct,3)
+       if (f_iter.gt.m_iter) then
++        write(chain,'(A,I0,A,I0,A,I0)') 'Thread ',ithread,' Reallocating to ',f_iter,' > ',m_iter
++        sever = seve%w
++        call map_message(sever,cmethod,chain)
+         call reallocate_cct(cctsize,nc,f_iter,dcct,error)
+         m_iter = f_iter
+       endif
+       !
+-      i = 0
++      f_iter = 0
+       flux = 0.0
+       do iy=1,ny
+         do ix=1,nx
+           if (w_cct(ix,iy).ne.0) then
+-            i = i+1
+-            dcct(1,iplane,i) = (dble(ix) -   &
++            f_iter = f_iter+1
++            dcct(1,iplane,f_iter) = (dble(ix) -   &
+              & hclean%gil%convert(1,1)) * hclean%gil%convert(3,1) + &
+              & hclean%gil%convert(2,1)
+-            dcct(2,iplane,i) = (dble(iy) -   &
++            dcct(2,iplane,f_iter) = (dble(iy) -   &
+              & hclean%gil%convert(1,2)) * hclean%gil%convert(3,2) + &
+              & hclean%gil%convert(2,2)
+-            dcct(3,iplane,i) = w_cct(ix,iy)
++            dcct(3,iplane,f_iter) = w_cct(ix,iy)
+             flux = flux+w_cct(ix,iy)
+           endif
+         enddo
+       enddo
+-      if (i.lt.m_iter) dcct(:,iplane,i+1) = 0
+-      write (chain,'(A,1PG10.3,A,I6,A,A,I6)')  'Cleaned ',flux,   &
+-          &        ' Jy with ',i,' components ' &
++      if (f_iter.lt.m_iter) dcct(:,iplane,f_iter+1) = 0
++      write (chain,'(A,1PG10.3,A,I0,A,A,I0)')  'Cleaned ',flux,   &
++          &        ' Jy with ',f_iter,' components ' &
+           &       ,' Plane ',iplane
+     endif
+   else if (cmethod.ne.'MRC') then
+     start_flux = 0.
+-    m_iter = method%n_iter
++    m_iter = ncct
+     if (m_iter.gt.size(dcct,3)) then
+-      Print *,'BUG PROBLEM ? M_ITER ',m_iter,' > Size of DCCT ',size(dcct,3),' Enter T or F '
+-      read(5,*) error
++      write(chain,'(A,I0,A,I0)') 'Programming error: M_ITER ',m_iter,' > Size of DCCT ',size(dcct,3)
++      call map_message(seve%f,cmethod,chain)
+       call reallocate_cct(cctsize,nc,m_iter,dcct,error)
+     endif
+     !
+@@ -1274,22 +1318,19 @@ subroutine move_to_dcct(cmethod,method,start_iter,iplane,icct,mcct,  &
+       endif
+       if (cctsize.eq.4) dcct(4,iplane,i) = tcc(i)%size
+     enddo
+-    if (method%n_iter.lt.size(dcct,3)) then
+-      dcct(:,iplane,method%n_iter+1) = 0
++    if (m_iter.lt.size(dcct,3)) then
++      dcct(:,iplane,m_iter+1) = 0
+     endif
+     !
+-    ! Could be for all Methods there...
+-    !!if (cmethod.eq.'HOGBOM'.or.cmethod.eq.'SIMPLE') then
+-      if (start_flux.eq.0) then
+-        write (chain,'(A,1PG10.3,A,I6,A,A,I6)')  'Cleaned ',flux,   &
+-          &        ' Jy with ',method%n_iter,' components ' &
+-          &       ,' Plane ',iplane
+-      else
+-        write (chain,'(A,1PG10.3,A,I0,A,I0,A,1PG10.3,A,I6)')  'Cleaned ',flux,   &
+-          &   ' Jy with ',method%n_iter-start_iter+1,' (+',start_iter-1, &
+-          &   ') components (total ',flux+start_flux,' Jy),  Plane ',iplane
+-      endif
+-    !!endif
++    if (start_flux.eq.0) then
++      write (chain,'(A,1PG10.3,A,I0,A,A,I0)')  'Cleaned ',flux,   &
++        &        ' Jy with ',m_iter,' components ' &
++        &       ,' Plane ',iplane
++    else
++      write (chain,'(A,1PG10.3,A,I0,A,I0,A,1PG10.3,A,I6)')  'Cleaned ',flux,   &
++        &   ' Jy with ',m_iter-start_iter+1,' (+',start_iter-1, &
++        &   ') components (total ',flux+start_flux,' Jy),  Plane ',iplane
++    endif
+     !
+   endif
+ end subroutine move_to_dcct
+@@ -1616,7 +1657,5 @@ subroutine get_abeam(method,hbeam,hresid,hprim,  &
+   !
+ 102 format(a,1pg10.3,a,i6,i6)
+ end subroutine get_abeam
+-!
+-
+ 
+ 
