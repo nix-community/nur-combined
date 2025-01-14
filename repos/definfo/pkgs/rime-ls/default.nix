@@ -1,9 +1,8 @@
 {
-  source,
+  fetchFromGitHub,
   lib,
   stdenv,
   rustPlatform,
-  pkg-config,
   makeWrapper,
   librime,
   rime-data,
@@ -15,37 +14,40 @@ let
     name = "rime_ls-rime-data";
     paths = rimeDataPkgs;
   };
-  librime' = librime.overrideAttrs (old: {
-    postInstall = ''
-      cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data
-    '';
-  });
 in
-rustPlatform.buildRustPackage {
-  inherit (source) pname src version;
+rustPlatform.buildRustPackage rec {
+  pname = "rime-ls";
+  version = "0.4.1";
+
+  src = fetchFromGitHub {
+    owner = "wlh320";
+    repo = "rime-ls";
+    rev = "v${version}";
+    sha256 = "sha256-IhrfUPC+7Gsg2n6nsGiK/wRoFGKtLXsRLQBw6XIVu0U=";
+  };
 
   useFetchCargoVendor = true;
 
   cargoHash = "sha256-beppHZXtNni8tLgZaC6CyL2HMBK7xy5/kP1jFr6JW+M=";
 
   nativeBuildInputs = [
-    pkg-config
     rustPlatform.bindgenHook
     makeWrapper
   ];
 
-  buildInputs = [ librime' ];
+  buildInputs = [ librime ];
 
   # Set RIME_DATA_DIR to work around test_get_candidates during checkPhase
-  env.RIME_DATA_DIR = lib.optionalString stdenv.isLinux "${librime'}/share/rime-data";
+  env.RIME_DATA_DIR = lib.optionalString stdenv.isLinux "${rimeDataDrv}/share/rime-data";
 
   postInstall = ''
     wrapProgram $out/bin/rime_ls \
-      --set RIME_DATA_DIR ${librime'}/share/rime-data
+      --set RIME_DATA_DIR ${rimeDataDrv}/share/rime-data
   '';
 
   meta = {
     description = "A language server for Rime input method engine";
+    mainProgram = "rime_ls";
     homepage = "https://github.com/wlh320/rime-ls";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ definfo ];

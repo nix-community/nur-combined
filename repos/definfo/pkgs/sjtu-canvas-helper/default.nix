@@ -2,11 +2,10 @@
   source,
   lib,
   stdenv,
-  dpkg,
   wrapGAppsHook3,
   autoPatchelfHook,
   openssl_1_1,
-  webkitgtk,
+  webkitgtk_4_0,
   udev,
   libayatana-appindicator,
 }:
@@ -15,14 +14,13 @@ stdenv.mkDerivation {
   inherit (source) pname src version;
 
   nativeBuildInputs = [
-    dpkg
     wrapGAppsHook3
     autoPatchelfHook
   ];
 
   buildInputs = [
     openssl_1_1 # ! insecure
-    webkitgtk
+    webkitgtk_4_0
     stdenv.cc.cc
   ];
 

@@ -25,10 +25,11 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Run nvfetcher
       run: nix run github:berberman/nvfetcher
+    - name: Run nix-update
+      run: nix run .#auto-update
     - name: Check for changes
       id: git-check
-      run: |
-        git diff --quiet || echo "changes=true" >> $GITHUB_OUTPUT
+      run: git diff --quiet || echo "changes=true" >> $GITHUB_OUTPUT
     - name: Create Pull Request
       if: steps.git-check.outputs.changes == 'true'
       uses: peter-evans/create-pull-request@v7
@@ -44,4 +45,4 @@ jobs:
         base: master
         labels: |
             automated
-            ready-to-merge  # Mergify can use this label
+            ready-to-merge

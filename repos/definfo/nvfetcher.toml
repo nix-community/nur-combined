@@ -1,15 +1,3 @@
-[flexcpp]
-src.git = "https://gitlab.com/fbb-git/flexcpp"
-fetch.git = "https://gitlab.com/fbb-git/flexcpp"
-
-[lyricer]
-src.git = "https://github.com/moelife-coder/lyricer"
-fetch.github = "moelife-coder/lyricer"
-
-[rime-ls]
-src.github = "wlh320/rime-ls"
-fetch.github = "wlh320/rime-ls"
-
 [sjtu-canvas-helper]
 src.github = "Okabe-Rintarou-0/SJTU-Canvas-Helper"
 src.prefix = "app-v"

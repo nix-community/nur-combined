@@ -28,18 +28,20 @@ let
     inherit sets fixedpoints;
   };
 in
-{
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lyricer = pkgs.callPackage ./pkgs/lyricer { source = source.lyricer; };
-  rime-ls = (pkgs.callPackage ./pkgs/rime-ls { source = source.rime-ls; }).override { rimeDataPkgs = [ (pkgs.callPackage ./pkgs/rime-ice { }) ]; };
+  lyricer = pkgs.callPackage ./pkgs/lyricer { };
+  rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
+  rime-ls = (pkgs.callPackage ./pkgs/rime-ls { }).override {
+    rimeDataPkgs = [ rime-ice ];
+  };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper {
     source = source.sjtu-canvas-helper;
   };
-  flexcpp = pkgs.callPackage ./pkgs/flexc++ { source = source.flexcpp; };
 
   coqPackages = {
     inherit sets fixedpoints monadlib;

@@ -37,7 +37,8 @@ mkCoqDerivation {
       }
     ] null;
 
-  release."b6b518aab7c5e583071b05b3e21a61fe70bb6cff".sha256 = "sha256-dU1h3lpD7JelaiRiLCaECrqpR7miXY6xl+skw2sq2FI=";
+  release."b6b518aab7c5e583071b05b3e21a61fe70bb6cff".sha256 =
+    "sha256-dU1h3lpD7JelaiRiLCaECrqpR7miXY6xl+skw2sq2FI=";
 
   propagatedBuildInputs = [
     sets
