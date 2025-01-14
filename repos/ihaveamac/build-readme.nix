@@ -7,6 +7,8 @@ let
   isAlias = n: n == "3dstool" || n == "3dslink";
   isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hmModules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
+  hasKnownVulns = p: p.meta ? knownVulnerabilities && (length p.meta.knownVulnerabilities != 0);
+  strikeIfKnownVulns = p: text: if hasKnownVulns p then "~~${text}~~" else text;
 
   nameValuePair = n: v: { name = n; value = v; };
 
@@ -30,7 +32,7 @@ let
 
     | Name | Attr | Description |
     | --- | --- | --- |
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${let name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name); in if v.meta ? knownVulnerabilities && (length v.meta.knownVulnerabilities) != 0 then "~~${name}~~" else name} | ${replaceStrings [ "_" ] [ "\\_" ] k} | ${v.meta.description} |") nurAttrsFiltered)}
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${let name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name); in strikeIfKnownVulns v name} | ${strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] k)} | ${strikeIfKnownVulns v v.meta.description} |") nurAttrsFiltered)}
 
     ## Overlay
 
