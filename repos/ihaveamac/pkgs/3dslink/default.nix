@@ -24,5 +24,6 @@ stdenv.mkDerivation rec {
     description = "Send 3DSX files to the Homebrew Launcher on 3DS";
     homepage = "https://github.com/devkitPro/3dslink";
     platforms = platforms.all;
+    mainProgram = "3dslink";
   };
 }

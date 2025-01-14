@@ -40,6 +40,8 @@ rec {
   kame-editor = pkgs.qt6.callPackage ./pkgs/kame-editor { inherit kame-tools rstmcpp; };
   otptool = pkgs.callPackage ./pkgs/otptool { };
   mrpack-install = pkgs.callPackage ./pkgs/mrpack-install { };
+  _3dstools = pkgs.callPackage ./pkgs/3dstools { };
+  cxitool = pkgs.callPackage ./pkgs/cxitool { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

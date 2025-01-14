@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd makerom
-    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode"}
+    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps ${lib.escapeShellArgs makeFlags}
   '';
 
   makeFlags = [ "CC=${cc}" "CXX=${cxx}" ];

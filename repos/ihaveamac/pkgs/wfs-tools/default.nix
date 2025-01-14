@@ -1,5 +1,5 @@
 # TODO: remove stdenv override when 24.11 goes eol
-{ lib, stdenv, clang19Stdenv, gcc14Stdenv, callPackage, fetchFromGitHub, pkg-config, cmake, boost, cryptopp, fuse }:
+{ lib, stdenv, clang19Stdenv, gcc14Stdenv, callPackage, fetchFromGitHub, pkg-config, cmake, boost, cryptopp, fuse, withFUSE ? !stdenv.hostPlatform.isWindows }:
 
 let
   realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
@@ -32,7 +32,7 @@ realStdenv.mkDerivation rec {
     chmod -R u+w ./wfslib
   '';
 
-  cmakeFlags = (if realStdenv.isDarwin then [
+  cmakeFlags = lib.optionals withFUSE (if realStdenv.isDarwin then [
     (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
     (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
   ] else [
@@ -42,12 +42,12 @@ realStdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    for f in wfs-extract wfs-file-injector wfs-fuse wfs-info wfs-reencryptor; do
+    for f in wfs-extract wfs-file-injector wfs-info wfs-reencryptor ${lib.optionalString withFUSE "wfs-fuse"}; do
       cp -v $f/$f $out/bin
     done
   '';
 
-  buildInputs = [ boost cryptopp fuse ];
+  buildInputs = [ boost cryptopp ] ++ lib.optional withFUSE fuse;
 
   nativeBuildInputs = [ cmake pkg-config ];
 
@@ -55,6 +55,8 @@ realStdenv.mkDerivation rec {
     description = "WFS (WiiU File System) Tools";
     homepage = "https://github.com/koolkdev/wfs-tools";
     license = licenses.mit;
-    platforms = platforms.unix;
+    platforms = platforms.all;
+    # it's actually xz that is broken due to _WIN32_WINNT needing to be Windows 7
+    broken = stdenv.hostPlatform.isWindows;
   };
 }
