@@ -22,9 +22,7 @@ rustPlatform.buildRustPackage rec {
     repo = pname;
     rev = "cfedddbed9a957f5b1fe99af0e3bab0557ef1008";
     hash = "sha256-sDlxufSTXRyX+Cqs4CRUSITpN0IVRwlQTba+YsTWvi0=";
-  };
-
-  
+  };  
 
   nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite ];
   buildInputs = [ glib gtk4 ffmpeg sqlite openssl gsettings-desktop-schemas ];
