@@ -41,7 +41,7 @@ reIf {
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
           pname(prometheus) -> direct
 
-          pname(conduit, arti) -> all
+          pname(conduit, conduwuit, arti) -> all
           pname(misskey) -> all
           dip(9.9.9.9) -> direct
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
