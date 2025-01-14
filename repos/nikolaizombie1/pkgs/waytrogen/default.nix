@@ -14,7 +14,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.5.4";
+  version = "0.5.5";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-a/41AINi8mQnYuCiv/XxExYJgG8zjMQuM13ylj686+U=";
+  cargoHash = "sha256-/UVK0Jv36R0sKnMM+dzC0u/N7diK+8Es72sOMuO72nY=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
