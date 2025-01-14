@@ -43,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/buserror/mii_emu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

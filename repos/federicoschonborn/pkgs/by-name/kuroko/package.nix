@@ -32,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/kuroko-lang/kuroko/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

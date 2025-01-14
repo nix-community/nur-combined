@@ -61,6 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://teem.sourceforge.net/";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

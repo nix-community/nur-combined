@@ -136,6 +136,8 @@
                         ...
                       }@attrs:
                       let
+                        headerName = builtins.replaceStrings [ "." ] [ "-" ] path;
+
                         versionPart = lib.optionalString (attrs ? version) " `${attrs.version}`";
 
                         homepagePart =
@@ -231,7 +233,11 @@
                       builtins.concatStringsSep "\n" (
                         builtins.filter (x: x != "") [
                           ''
-                            ### `${path}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
+                            <h3 id="${headerName}">
+
+                            `${path}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
+
+                            </h3>
                           ''
                           descriptionSection
                           longDescriptionSection

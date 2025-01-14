@@ -45,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/regular-dev/biplanes-revival/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

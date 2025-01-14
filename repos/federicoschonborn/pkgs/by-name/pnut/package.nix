@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "pnut";
-  version = "SLE2024-artifact-unstable-2025-01-07";
+  version = "SLE2024-artifact-unstable-2025-01-08";
 
   src = fetchFromGitHub {
     owner = "udem-dlteam";
     repo = "pnut";
-    rev = "5e20a86a6df13bf48b9fe935cf46d1212630339e";
-    hash = "sha256-k+jzRzU6ku5Q1t+Ok0iCwOnRVAf4Uvoomjw7CfOLN8w=";
+    rev = "93bbc5c7212e7f64832f0216807703f24d9a9483";
+    hash = "sha256-HcuXHlO/0eso9YXJRI7A0SmcB/GoM/W/2GzZw0ykhDo=";
   };
 
   makeFlags = [
@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/udem-dlteam/pnut";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

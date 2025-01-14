@@ -50,6 +50,6 @@ stdenv.mkDerivation {
       cc-by-sa-40
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/lapce/lapce-volts";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

@@ -105,6 +105,7 @@
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
     || stdenv.hostPlatform.isNetBSD
+    || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
   libGL,
@@ -113,6 +114,7 @@
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
     || stdenv.hostPlatform.isNetBSD
+    || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
   libglvnd,
   enableOsmesa ?
@@ -156,13 +158,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.33.0";
+  version = "2.34.1";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-GCUG9b98UmuC/6psDs4PNAoquEWOMz0kl/IBQXRGX5o=";
+    hash = "sha256-kCSRS2GD58HS9Qdrv7ju8b7IGznBsP1IIAvvzkWPaLk=";
   };
 
   outputs = [
@@ -271,6 +273,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/fastfetch-cli/fastfetch/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

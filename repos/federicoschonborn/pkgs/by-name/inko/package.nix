@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage {
     changelog = "https://github.com/inko-lang/inko/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
     broken = lib.versionOlder rustc.version "1.78.0";
   };
 }

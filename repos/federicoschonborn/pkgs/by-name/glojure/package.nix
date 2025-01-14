@@ -48,6 +48,6 @@ buildGoModule {
     changelog = "https://github.com/glojurelang/glojure/releases/tag/v${version}";
     license = lib.licenses.epl10;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

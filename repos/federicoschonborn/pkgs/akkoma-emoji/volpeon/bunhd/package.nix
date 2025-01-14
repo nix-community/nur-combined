@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://volpeon.ink/emojis/bunhd/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

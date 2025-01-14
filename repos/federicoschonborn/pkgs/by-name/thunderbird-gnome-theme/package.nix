@@ -36,6 +36,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/rafaelmardojai/thunderbird-gnome-theme";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

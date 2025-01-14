@@ -45,6 +45,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://gitlab.com/renere/spinny_blobs";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

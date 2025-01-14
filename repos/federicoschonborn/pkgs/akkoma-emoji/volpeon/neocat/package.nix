@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://volpeon.ink/emojis/neocat/";
     license = lib.licenses.cc-by-nc-sa-40;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

@@ -47,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ZDoom/Raze";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

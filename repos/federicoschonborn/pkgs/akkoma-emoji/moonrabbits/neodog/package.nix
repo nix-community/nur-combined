@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://git.gay/moonrabbits/neodog";
     license = lib.licenses.cc-by-nc-sa-40;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

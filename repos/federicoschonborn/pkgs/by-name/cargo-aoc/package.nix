@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage {
       mit
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

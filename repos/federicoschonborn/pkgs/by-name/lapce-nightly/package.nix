@@ -124,6 +124,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/lapce/lapce";
     changelog = "https://github.com/lapce/lapce/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

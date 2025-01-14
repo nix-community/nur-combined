@@ -64,6 +64,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/trzy/Supermodel";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = [ lib.maintainers.federicoschonborn ];
   };
 }

@@ -65,7 +65,7 @@ stdenvNoCC.mkDerivation (
       homepage = "https://git.gay/av70/neomouse";
       license = lib.licenses.cc-by-nc-sa-40;
       platforms = lib.platforms.all;
-      maintainers = with lib.maintainers; [ federicoschonborn ];
+      maintainers = [ lib.maintainers.federicoschonborn ];
     };
   }
 )
