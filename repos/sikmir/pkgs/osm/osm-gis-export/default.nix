@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation {
   pname = "osm-gis-export";
-  version = "0-unstable-2024-11-01";
+  version = "0-unstable-2024-12-16";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osm-gis-export";
-    rev = "4b1ccdf360650e7c2e417aa32290037f8348de51";
-    hash = "sha256-+57FHSLP9wCeEGziPrKdsvzXvjwo9HXtgj+yP94psiU=";
+    rev = "2b3796c53b255018630fa4ee4042c8b2721b24e5";
+    hash = "sha256-uQRIeBUGEiEilfNtnJIj6w8J7Q3GQvx5plgRNxLIoOY=";
   };
 
   nativeBuildInputs = [ cmake ];

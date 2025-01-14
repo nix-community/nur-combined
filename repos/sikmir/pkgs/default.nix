@@ -353,7 +353,6 @@ lib.makeScope newScope (
     docx2csv = callPackage ./misc/docx2csv { };
     exercisediary = callPackage ./misc/exercisediary { };
     ffs = callPackage ./misc/ffs { };
-    finalcut = callPackage ./misc/finalcut { };
     freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
     git-tui = callPackage ./misc/git-tui { };

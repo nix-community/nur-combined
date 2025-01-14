@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "smopy";
-  version = "0.0.6";
+  version = "0.0.7";
 
   src = fetchFromGitHub {
     owner = "rossant";
     repo = "smopy";
     tag = "v${version}";
-    hash = "sha256-QytanQQPIlQTog2tTMAwdFXWbXnU4NaA7Zqh4DXFubY=";
+    hash = "sha256-ds3BQryv9uwJYfpqbFOT7Cxm2HkHhfVqvu8eeyaAET0=";
   };
 
   dependencies = with python3Packages; [

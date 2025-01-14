@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation {
   pname = "osmium-surplus";
-  version = "0-unstable-2023-08-27";
+  version = "0-unstable-2024-12-16";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osmium-surplus";
-    rev = "0500e8583da3634a2304513dc33cba27f080c7af";
-    hash = "sha256-NFOui9wWUSHSsyKh5UxOXQMUNgfVln1hSXJo9yb4cnY=";
+    rev = "ebb21d60b4b585b4f87bfd880be54907638c70a0";
+    hash = "sha256-Yuay8w2MvZOwXFWaVzSex/o7AVCfFSfmc8v3LXoM7d8=";
   };
 
   nativeBuildInputs = [ cmake ];
