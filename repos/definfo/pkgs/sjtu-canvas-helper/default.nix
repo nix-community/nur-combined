@@ -2,6 +2,7 @@
   source,
   lib,
   stdenv,
+  dpkg,
   wrapGAppsHook3,
   autoPatchelfHook,
   openssl_1_1,
@@ -14,6 +15,7 @@ stdenv.mkDerivation {
   inherit (source) pname src version;
 
   nativeBuildInputs = [
+    dpkg
     wrapGAppsHook3
     autoPatchelfHook
   ];

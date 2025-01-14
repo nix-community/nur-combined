@@ -6,20 +6,20 @@
   pkg-config,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "lyricer";
-  version = "f0f8d99b23102755ce7c70830127b23cfde96f3e";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "moelife-coder";
     repo = "lyricer";
-    rev = version;
+    rev = "f0f8d99b23102755ce7c70830127b23cfde96f3e";
     sha256 = "sha256-sviP/0b77uu+C9ihfHnYNwIehStBp5m2WIDW9sqVq1k=";
   };
 
   useFetchCargoVendor = true;
 
-  cargoHash = "sha256-An0wTtIjqI3+hbYtb2bbwiMskVQVrWTUDMR3aNU+8IM=";
+  cargoHash = "sha256-r9ZiYNPQJRhHyeBNZI1VZSjFYgmZf2soAEWlAi0Iddk=";
 
   buildInputs = [ dbus ];
 
