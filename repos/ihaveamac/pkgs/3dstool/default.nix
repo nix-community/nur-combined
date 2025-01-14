@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   installPhase = "
     mkdir $out/bin -p
-    cp ../bin/Release/3dstool${stdenv.targetPlatform.extensions.executable} $out/bin
+    cp ../bin/Release/3dstool${stdenv.hostPlatform.extensions.executable} $out/bin
     cp ../bin/ignore_3dstool.txt $out/bin
   ";
 

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   # I wonder if this would break on cross-compilation
   installPhase = ''
     mkdir -p $out/bin
-    cp output/*/kame-tools${stdenv.hostPlatform.extensions.executable} $out/bin
+    cp output/*/kame-tools${stdenv.targetPlatform.extensions.executable} $out/bin
   '';
 
   meta = with lib; {

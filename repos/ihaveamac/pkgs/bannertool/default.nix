@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  patches = lib.optional (stdenv.targetPlatform.isWindows) ./mingw-main-fix.patch;
+  patches = lib.optional (stdenv.hostPlatform.isWindows) ./mingw-main-fix.patch;
 
   meta = with lib; {
     description = "A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system)";

@@ -33,15 +33,15 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd ctrtool
-    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode"}
+    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode"}
   '';
 
-  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode");
+  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
   enableParallelBuilding = true;
 
   installPhase = ''
     mkdir $out/bin -p
-    cp bin/ctrtool${stdenv.targetPlatform.extensions.executable} $out/bin/
+    cp bin/ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/
   '';
 
   meta = with lib; {

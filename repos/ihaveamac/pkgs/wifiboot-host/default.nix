@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     "CXX=${stdenv.cc.targetPrefix}c++"
     "AR=${stdenv.cc.targetPrefix}ar"
     "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
-  ] ++ (lib.optional stdenv.targetPlatform.isMinGW "PLATFORM_LIBS=-lws2_32");
+  ] ++ (lib.optional stdenv.hostPlatform.isMinGW "PLATFORM_LIBS=-lws2_32");
 
   installPhase = ''
     mkdir -p $out/bin
-    cp wifiboot${stdenv.targetPlatform.extensions.executable} $out/bin
+    cp wifiboot${stdenv.hostPlatform.extensions.executable} $out/bin
   '';
 
   meta = with lib; {

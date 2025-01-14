@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd makerom
-    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.targetPlatform.isWindows "ARCHFLAGS=-municode"}
+    make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps CC=${cc} CXX=${cxx} ${lib.optionalString stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode"}
   '';
 
   makeFlags = [ "CC=${cc}" "CXX=${cxx}" ];
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir $out/bin -p
-    cp bin/makerom${stdenv.targetPlatform.extensions.executable} $out/bin/
+    cp bin/makerom${stdenv.hostPlatform.extensions.executable} $out/bin/
   '';
 
   meta = with lib; {

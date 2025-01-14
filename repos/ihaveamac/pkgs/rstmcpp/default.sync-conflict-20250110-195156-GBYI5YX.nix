@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp rstmcpp${stdenv.hostPlatform.extensions.executable} $out/bin
+    cp rstmcpp${stdenv.targetPlatform.extensions.executable} $out/bin
   '';
 
   meta = with lib; {
