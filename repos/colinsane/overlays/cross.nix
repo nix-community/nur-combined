@@ -122,6 +122,7 @@ let
   };
 in with final; {
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
+  # 2025/01/13: upstreaming is unblocked
   # bamf = prev.bamf.overrideAttrs (upstream: {
   #   # "You must have gtk-doc >= 1.0 installed to build documentation"
   #   depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
@@ -217,7 +218,7 @@ in with final; {
   #   binutils = binutils-unwrapped;
   # };
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   # emacs = prev.emacs.override {
   #   nativeComp = false;  # will be renamed to `withNativeCompilation` in future
   #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
@@ -228,11 +229,11 @@ in with final; {
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   };
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib (via nautilus)
+  # 2025/01/13: upstreaming is blocked on nautilus
   # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
   # file-roller = mvToNativeInputs [ glib ] prev.file-roller;
 
-  # 2024/12/18: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
   #   # i think we *could* copy the default filters from pkgsBuildBuild, but that doesn't seem future proof
@@ -246,7 +247,7 @@ in with final; {
   #   '');
   # });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   # flare-signal = prev.flare-signal.overrideAttrs (upstream: {
   #   # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
   #   postPatch = (upstream.postPatch or "") + ''
@@ -293,25 +294,12 @@ in with final; {
     ];
   };
 
-  # 2024/11/19: upstreaming is blocked by glycin-loaders
+  # 2025/01/13: upstreaming is blocked by glycin-loaders
   fractal = prev.fractal.override {
     cargo = crossCargo;
   };
 
-  # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
-  # 2024/12/18: upstreaming is unblocked
-  # fwupd = (addBuildInputs
-  #   [ gcab ]
-  #   (mvToBuildInputs [ gnutls ] prev.fwupd)
-  # ).overrideAttrs (upstream: {
-  #   # XXX: gcab is apparently needed as both build and native input
-  #   # can't build docs w/o adding `gi-docgen` to ldpath, but that adds a new glibc to the ldpath
-  #   # which causes host binaries to be linked against the build libc & fail
-  #   mesonFlags = (lib.remove "-Ddocs=enabled" upstream.mesonFlags) ++ [ "-Ddocs=disabled" ];
-  #   outputs = lib.remove "devdoc" upstream.outputs;
-  # });
-
-  # 2024/12/18: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   glycin-loaders = (prev.glycin-loaders.override {
     cargo = crossCargo;
   }).overrideAttrs (upstream: {
@@ -330,7 +318,7 @@ in with final; {
   #   });
   # });
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib, gnome-settings-daemon, mutter
+  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon, mutter
   # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
   # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
 
@@ -347,25 +335,27 @@ in with final; {
     ];
   };
 
-  # 2024/12/18: upstreaming is blocked on gnome-shell
+  # 2025/01/13: upstreaming is blocked on gnome-shell
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
 
-  gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
-    # 2024/12/18: upstreaming is blocked on poppler-glib (should be fixed in staging?)
-    # gsd is required by xdg-desktop-portal-gtk
-    # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
-    # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
-    # but then it fails with a link-time error.
-    # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
-    # hack to just not build the power plugin (panel?), to avoid cross compilation errors
-    postPatch = orig.postPatch + ''
-      substituteInPlace plugins/meson.build \
-        --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
-    '';
-  });
+  # 2025/01/13: upstreaming is unblocked, out for review:
+  # - <https://github.com/NixOS/nixpkgs/pull/373666>
+  # gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
+  #   # 2024/12/18: upstreaming is blocked on poppler-glib (should be fixed in staging?)
+  #   # gsd is required by xdg-desktop-portal-gtk
+  #   # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
+  #   # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
+  #   # but then it fails with a link-time error.
+  #   # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
+  #   # hack to just not build the power plugin (panel?), to avoid cross compilation errors
+  #   postPatch = orig.postPatch + ''
+  #     substituteInPlace plugins/meson.build \
+  #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
+  #   '';
+  # });
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib, gnome-settings-daemon, mutter, evolution-data-server
+  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon, mutter, evolution-data-server
   # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
   #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
   #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -390,18 +380,12 @@ in with final; {
   #   ];
   # });
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib, nautilus
-  # gnome-terminal = prev.gnome-terminal.overrideAttrs (orig: {
-  #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
-  #   buildInputs = orig.buildInputs ++ [ pcre2 ];
-  # });
-
-  # 2024/12/29: blocked on psqlodbc
+  # 2025/01/13: blocked on psqlodbc
   # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
   # which it shells out to at runtime (and hence, not ever used by me).
   hyprland-qtutils = null;
 
-  # 2024/05/31: upstreaming is blocked on openjdk
+  # 2025/01/13: upstreaming is blocked on java-service-wrapper
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ ant gettext ] prev.i2p;
 
@@ -509,7 +493,7 @@ in with final; {
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib
+  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon
   # mutter = super.mutter.overrideAttrs (orig: {
   #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
   #   # N.B.: not all of this suitable to upstreaming, as-is.
@@ -525,32 +509,33 @@ in with final; {
   #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
   # });
 
-  # 2024/12/18: upstreaming is blocked on poppler-glib
-  nautilus = prev.nautilus.overrideAttrs (upstream: {
-    mesonFlags = upstream.mesonFlags ++ [
-      "-Dtests=none"  # v.s. `headless` for native compilation
-    ];
-  });
+  # 2025/01/13: upstreaming is unblocked, out for review:
+  # <https://github.com/NixOS/nixpkgs/pull/373662>
+  # nautilus = prev.nautilus.overrideAttrs (upstream: {
+  #   mesonFlags = upstream.mesonFlags ++ [
+  #     "-Dtests=none"  # v.s. `headless` for native compilation
+  #   ];
+  # });
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2024/05/31: upstreaming is unblocked by deps; but turns out to not be this simple
+  # 2025/01/13: upstreaming is unblocked by deps; but turns out to not be this simple
   # ncftp = addNativeInputs [ bintools ] prev.ncftp;
 
   # fixes "gdbus-codegen: command not found"
   # fixes "gtk4-builder-tool: command not found"
-  # 2024/05/31: upstreaming is blocked on qtsvg
+  # 2025/01/13: upstreaming is unblocked
   # networkmanager-l2tp = addNativeInputs [ gtk4 ]
   #   (mvToNativeInputs [ glib ] prev.networkmanager-l2tp);
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
-  # 2023/07/31: upstreaming is blocked on libavif cross compilation
+  # 2025/01/13: upstreaming is unblocked
   # networkmanager-openconnect = mvToNativeInputs [ glib ] prev.networkmanager-openconnect;
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
-  # 2023/07/31: upstreaming is unblocked,implemented
+  # 2025/01/13: upstreaming is unblocked,implemented
   # networkmanager-openvpn = mvToNativeInputs [ glib ] prev.networkmanager-openvpn;
-  # 2023/07/31: upstreaming is unblocked,implemented
+  # 2025/01/13: upstreaming is unblocked,implemented
   # networkmanager-sstp = (
   #   # fixes "gdbus-codegen: command not found"
   #   mvToNativeInputs [ glib ] (
@@ -558,7 +543,7 @@ in with final; {
   #     addNativeInputs [ gtk4.dev ] prev.networkmanager-sstp
   #   )
   # );
-  # 2024/12/18: upstreaming is blocked on vpnc cross compilation
+  # 2025/01/13: upstreaming is blocked on vpnc
   # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
 
   # 2024/11/19: upstreaming is unblocked
@@ -615,7 +600,7 @@ in with final; {
 
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
-  # 2024/05/31: upstreaming is blocked on qtsvg, qtimageformats, qtx11extras
+  # 2025/01/13: upstreaming is blocked on psqlodbc, qtsvg, qtimageformats
   # nheko = (prev.nheko.override {
   #   gst_all_1 = gst_all_1 // {
   #     # don't build gst-plugins-good with "qt5 support"
@@ -627,7 +612,7 @@ in with final; {
   #   # fixes "fatal error: lmdb++.h: No such file or directory
   #   buildInputs = orig.buildInputs ++ [ lmdbxx ];
   # });
-  # 2024/12/18: upstreaming blocked on emacs (and maybe ruby, libgccjit?)
+  # 2025/01/13: upstreaming blocked on emacs (and maybe ruby, libgccjit?)
   # - previous upstreaming attempt: <https://github.com/NixOS/nixpkgs/pull/225111/files>
   # notmuch = prev.notmuch.overrideAttrs (upstream: {
   #   # fixes "Error: The dependencies of notmuch could not be satisfied"  (xapian, gmime, glib, talloc)
@@ -683,7 +668,7 @@ in with final; {
   # });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
-  # 2024/08/12: upstreaming is unblocked
+  # 2025/01/13: upstreaming is blocked on mutter, gnome-settings-daemon
   # phoc = mvToNativeInputs [ wayland-scanner glib ] prev.phoc;
   # 2024/08/12: upstreaming is blocked on gnome-control-center, evolution-data-server, , ibus, libgweather, gnom-user-share, others
   # phosh = prev.phosh.overrideAttrs (upstream: {
@@ -711,7 +696,7 @@ in with final; {
   #   ];
   # } prev.phosh-mobile-settings;
 
-  # 2024/11/19: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   pwvucontrol = prev.pwvucontrol.override {
     cargo = crossCargo;
   };
@@ -817,13 +802,13 @@ in with final; {
   #   };
   # });
 
-  # 2024/11/19: upstreaming is blocked on glycin-loaders
+  # 2025/01/13: upstreaming is blocked on glycin-loaders
   snapshot = prev.snapshot.override {
     # fixes "error: linker `cc` not found"
     cargo = crossCargo;
   };
 
-  # 2024/11/19: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   spot = prev.spot.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -837,7 +822,7 @@ in with final; {
     cargo = crossCargo;
   };
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
   #   # fixes: "meson.build:1:0: ERROR: 'rust' compiler binary not defined in cross or native file"
   #   # new error: "meson.build:1:0: ERROR: Rust compiler rustc --target aarch64-unknown-linux-gnu -C linker=aarch64-unknown-linux-gnu-gcc can not compile programs."
@@ -921,7 +906,7 @@ in with final; {
   #   });
   # };
 
-  # 2024/11/19: upstreaming is unblocked
+  # 2025/01/13: upstreaming is unblocked
   video-trimmer = prev.video-trimmer.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -935,13 +920,13 @@ in with final; {
     cargo = crossCargo;
   };
 
-  # 2024/08/12: upstreaming is blocked on arrow-cpp, python-pyarrow, python-contourpy, python-matplotlib, python-hypy, etc
+  # 2025/01/13: upstreaming is blocked on arrow-cpp, python-pyarrow, python-contourpy, python-matplotlib, python-h5py, python-pandas, google-cloud-cpp
   # visidata = prev.visidata.override {
   #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
   #   # setting this to null means visidata will work as normal but not be able to load hdf files.
   #   h5py = null;
   # };
-  # 2024/08/12: upstreaming is blocked on qtsvg, qtx11extras, samba
+  # 2025/01/13: upstreaming is unblocked
   # vlc = prev.vlc.overrideAttrs (orig: {
   #   # fixes: "configure: error: could not find the LUA byte compiler"
   #   # fixes: "configure: error: protoc compiler needed for chromecast was not found"
@@ -954,7 +939,7 @@ in with final; {
   # });
 
   # fixes "perl: command not found"
-  # 2024/08/12: upstreaming is unblocked, but requires alternative fix
+  # 2025/01/13: upstreaming is unblocked, but requires alternative fix
   # - i think the build script tries to run the generated binary?
   # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 

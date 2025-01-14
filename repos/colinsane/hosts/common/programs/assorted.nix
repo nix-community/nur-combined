@@ -704,28 +704,6 @@ in
     gnome-2048.sandbox.mesaCacheDir = ".cache/gnome-2048/mesa";
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
-    gnome-frog.buildCost = 1;
-    gnome-frog.sandbox.whitelistWayland = true;
-    gnome-frog.sandbox.whitelistDbus.user = true;  #< TODO: reduce
-    gnome-frog.sandbox.extraPaths = [
-      # needed when processing screenshots (TODO: can i have it use a custom TMPDIR?)
-      "/tmp"
-    ];
-    gnome-frog.sandbox.extraHomePaths = [
-      # for OCR'ing photos from disk
-      "tmp"
-      "Pictures/albums"
-      "Pictures/cat"
-      "Pictures/from"
-      "Pictures/Photos"
-      "Pictures/Screenshots"
-      "Pictures/servo-macros"
-    ];
-    gnome-frog.persist.byStore.ephemeral = [
-      ".local/share/tessdata"  # 15M; dunno what all it is.
-    ];
-    gnome-frog.sandbox.mesaCacheDir = ".cache/gnome-frog/mesa";  # TODO: is this the correct app-id?
-
     gnugrep.sandbox.autodetectCliPaths = "existing";
     gnugrep.sandbox.whitelistPwd = true;
     gnugrep.sandbox.extraHomePaths = [

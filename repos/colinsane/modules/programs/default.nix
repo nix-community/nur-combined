@@ -550,7 +550,7 @@ let
           "ProxyResolver"
           # "Realtime"
           "ScreenCast"
-          # "Screenshot"
+          "Screenshot"
           # "Settings"
           # "Trash"
           # "Usb"  # added in 1.19.1 (2024-12-21)

@@ -62,6 +62,18 @@ in
   # })
 
   (fetchpatch' {
+    name = "nautilus: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/373662";
+    hash = "sha256-/51SnUExwsqSSwgR3dxUozDAMf5wHoMIT7+NDpIdYNI=";
+  })
+
+  (fetchpatch' {
+    name = "gnome-settings-daemon: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/373666";
+    hash = "sha256-Mdyw34MhFiscGUYYcPhOoQBrXDzAvPiWp3/OuB7kB30=";
+  })
+
+  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";

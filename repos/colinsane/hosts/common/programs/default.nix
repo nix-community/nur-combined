@@ -75,6 +75,7 @@
     ./gnome-clocks.nix
     ./gnome-contacts.nix
     ./gnome-feeds.nix
+    ./gnome-frog.nix
     ./gnome-keyring
     ./gnome-maps.nix
     ./gnome-weather.nix
