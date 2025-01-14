@@ -111,4 +111,8 @@ jobs:
           body: "This pull request is created automatically by the evergreen action which runs periodically to bump packages."
           labels: "bot"
           reviewers: "codgician"
+      - name: Check build
+        if: steps.run_update_script.outputs.pr_title != ''
+        run: |
+          nix build .#{{ matrix.package }}
 
