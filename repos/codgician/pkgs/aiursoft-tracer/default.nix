@@ -1,10 +1,11 @@
-{ lib
-, pkgs
-, buildDotnetModule
-, dotnetCorePackages
-, buildNpmPackage
-, fetchFromGitHub
-, ...
+{
+  lib,
+  pkgs,
+  buildDotnetModule,
+  dotnetCorePackages,
+  buildNpmPackage,
+  fetchFromGitHub,
+  ...
 }:
 
 let
@@ -32,7 +33,12 @@ let
   };
 in
 buildDotnetModule {
-  inherit pname src version wwwroot;
+  inherit
+    pname
+    src
+    version
+    wwwroot
+    ;
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
