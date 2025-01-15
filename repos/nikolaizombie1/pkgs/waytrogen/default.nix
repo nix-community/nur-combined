@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
-    rev = "0.5.5";
-    hash = "sha256-TOFOxJJRhzLIIymWcACQVngjxTsngbiJZPewziF0QW4=";
+    rev = "0.5.6";
+    hash = "sha256-XyRzr6m+jdGtw7Mu9FDwBt/VQvG7mzRGYPL9FxiwND0=";
   };  
 
   nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite ];
@@ -39,6 +39,7 @@ rustPlatform.buildRustPackage rec {
   mkdir -p $out/share/locale/es/LC_MESSAGES && msgfmt locales/es/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/es/LC_MESSAGES/waytrogen.mo $out/share/locale/es/LC_MESSAGES
   mkdir -p $out/share/applications && cp waytrogen.desktop $out/share/applications/
   mkdir -p $out/share/icons/hicolor/scaleable/apps && cp README-Assets/WaytrogenLogo.svg $out/share/icons/hicolor/scaleable/apps/
+  cp README-Assets/WaytrogenLogo.svg $out/share/applications/
   '';
 
   meta = {
