@@ -407,7 +407,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.2-1"
+    "version": "1.16.2-2"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -607,7 +607,7 @@
   "legacyPackages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
     "pname": "google-earth-pro",
-    "version": "7.3.6.10155"
+    "version": "7.3.6.10201"
   },
   "legacyPackages.x86_64-linux.gopherus": {
     "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
@@ -762,7 +762,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
     "description": "Asterisk with Lan Tian modifications",
     "pname": "asterisk",
-    "version": "20.11.0"
+    "version": "20.11.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
@@ -787,7 +787,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4458"
+    "version": "4485"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -807,7 +807,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
-    "version": "5.10.0"
+    "version": "5.10.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
@@ -1312,7 +1312,7 @@
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.21.1"
+    "version": "1.22.1"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3477,7 +3477,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.3.0"
+    "version": "7.3.2"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -3597,7 +3597,7 @@
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.21.1"
+    "version": "1.22.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3687,7 +3687,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.0+ds-4"
+    "version": "9.2.0+ds-5"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -3707,12 +3707,12 @@
   "legacyPackages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.2-b1-unstable-2025-01-02"
+    "version": "5.9.2-b2-unstable-2025-01-14"
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-13"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -3752,12 +3752,12 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250111"
+    "version": "20250113"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -3942,7 +3942,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.2-1"
+    "version": "1.16.2-2"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -4052,7 +4052,7 @@
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
     "pname": "google-earth-pro",
-    "version": "7.3.6.10155"
+    "version": "7.3.6.10201"
   },
   "legacyPackages.x86_64-linux.uncategorized.gopherus": {
     "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
@@ -4267,7 +4267,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.3.0"
+    "version": "7.3.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4312,7 +4312,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.0+ds-4"
+    "version": "9.2.0+ds-5"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "QQ for Linux",
@@ -4332,12 +4332,12 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.2-b1-unstable-2025-01-02"
+    "version": "5.9.2-b2-unstable-2025-01-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-13"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -4367,12 +4367,12 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250111"
+    "version": "20250113"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -4452,7 +4452,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-12"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4522,7 +4522,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-12"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4682,7 +4682,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.2-1"
+    "version": "1.16.2-2"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -4847,7 +4847,7 @@
   "packages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
     "pname": "google-earth-pro",
-    "version": "7.3.6.10155"
+    "version": "7.3.6.10201"
   },
   "packages.x86_64-linux.gopherus": {
     "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
@@ -5037,7 +5037,7 @@
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.21.1"
+    "version": "1.22.1"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -5187,7 +5187,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.3.0"
+    "version": "7.3.2"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5257,7 +5257,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.0+ds-4"
+    "version": "9.2.0+ds-5"
   },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -5277,12 +5277,12 @@
   "packages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.2-b1-unstable-2025-01-02"
+    "version": "5.9.2-b2-unstable-2025-01-14"
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-13"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -5322,12 +5322,12 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-15"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250111"
+    "version": "20250113"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -5447,7 +5447,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-12"
+    "version": "0-unstable-2025-01-15"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
