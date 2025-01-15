@@ -1008,10 +1008,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.12.3";
+      version = "2024.12.4";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4407804/bitwarden_password_manager-2024.12.3.xpi";
-      sha256 = "a48af549da66e2987a135b0cb918b1c90f8e80b868760cbaa07c8f6df4da9b07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4410896/bitwarden_password_manager-2024.12.4.xpi";
+      sha256 = "fad085bb5aadc852088b2d2da666ed182575e74e47848d40180e25b89ec70cb3";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2443,16 +2443,20 @@
     };
     "docsafterdark" = buildFirefoxXpiAddon {
       pname = "docsafterdark";
-      version = "0.6.3";
+      version = "1.1.0";
       addonId = "{e8ffc3db-2875-4c7f-af38-d03e7f7f8ab9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230160/docsafterdark-0.6.3.xpi";
-      sha256 = "8eadd0a5661e8803ef6e7a96553d6e52eb7fd927251303127d4722d6afae3ab1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413301/docsafterdark-1.1.0.xpi";
+      sha256 = "48a9c08d9e30fd15e98b64a68663cf4fc4be7125c9fd3b8dd3f1cfc593020503";
       meta = with lib;
       {
         homepage = "https://waymondrang.com/docsafterdark/";
         description = "Modern, dark mode for Google Docs";
         license = licenses.mpl20;
-        mozPermissions = [ "storage" "*://docs.google.com/document/*" ];
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "*://docs.google.com/document/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -6087,10 +6091,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.13.2";
+      version = "8.14.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396724/languagetool-8.13.2.xpi";
-      sha256 = "e8a93ca046df390aaafeb7ba86254505ed3c593371c1f9e5af6892018d12de66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411930/languagetool-8.14.3.xpi";
+      sha256 = "f8c6c6b5ae7591ff62bfcaf93f7831651643312a64e0029fc4c153f7ca75295f";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -6568,10 +6572,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.2.9";
+      version = "1.3.0";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4418593/linkwarden-1.2.9.xpi";
-      sha256 = "29e3c9018a00ca656de52cfbff891851bbbf8464efe624696062be44c5548183";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4419768/linkwarden-1.3.0.xpi";
+      sha256 = "a370332723d46d895e501e92c90e45c8d0401e0133c1cca924e9f22f81b18eb9";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -7773,10 +7777,10 @@
     };
     "new_tongwentang" = buildFirefoxXpiAddon {
       pname = "new_tongwentang";
-      version = "2.2.0";
+      version = "2.4.0";
       addonId = "tongwen@softcup";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029313/new_tongwentang-2.2.0.xpi";
-      sha256 = "b51cc33f21edfa063628d86e2f8d05279690cc23f7ca3c25263084d1bc2b3b94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411434/new_tongwentang-2.4.0.xpi";
+      sha256 = "123a357d2d6b96c87bc044208015cca2992ce1b4fd1bd5a04ba3eefd77786e05";
       meta = with lib;
       {
         homepage = "https://github.com/softcup/New-Tongwentang-for-Firefox";
@@ -7787,6 +7791,7 @@
           "downloads"
           "notifications"
           "storage"
+          "tabs"
           "unlimitedStorage"
           "<all_urls>"
         ];
@@ -9527,10 +9532,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.13.1";
+      version = "2.13.2";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383345/pwas_for_firefox-2.13.1.xpi";
-      sha256 = "aff2b25a0d4068c0e77776e624404219e3355735cc8d13a160bb77ebb9412e4d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4411558/pwas_for_firefox-2.13.2.xpi";
+      sha256 = "b0f0ccb1ef8f88236f422043d71c379f32dac238fb107a291ddb4718366c3638";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -11458,10 +11463,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.15.0";
+      version = "3.16.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336302/toolkit_for_ynab-3.15.0.xpi";
-      sha256 = "79d187a44e0ef30027f9ce149057c8bf9d308ef115965b7e4aae762ac218f511";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4419476/toolkit_for_ynab-3.16.0.xpi";
+      sha256 = "e9d1225a9bb22a30df4e401d9f67b48cfb7b98e82d553aa4053613d7aec9b006";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
