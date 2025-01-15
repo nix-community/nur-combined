@@ -5,12 +5,12 @@
   python3,
 }:
 let
-  version = "6.0";
+  version = "6.2";
   source = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pico-fido";
     rev = "v${version}";
-    hash = "sha256-mzSFRhnU43O+c/UjM0FCqx2om9aV0dtpkwFO/CyFke4=";
+    hash = "sha256-wzJyJq9kWzuDOqahd90YcbLx3w+JZSuClFkCcDponSA=";
     fetchSubmodules = true;
   };
   pico-fido =
@@ -97,7 +97,7 @@ let
 
   pico-fido-tool = python3.pkgs.buildPythonApplication {
     pname = "pico-fido-tool";
-    inherit version;
+    version = "1.8";
 
     format = "other";
 

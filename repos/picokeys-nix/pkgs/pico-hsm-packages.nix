@@ -6,12 +6,12 @@
 }:
 
 let
-  version = "5.0";
+  version = "5.2";
   source = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pico-hsm";
     rev = "v${version}";
-    hash = "sha256-dGm+3NyecgkbcLMVTbH9A0KQaSBF4crGTe/6I+GeXfM=";
+    hash = "sha256-Uc50a3dfHAcpm9D47v10/VW0PUgJWAl78pnCB/L+HdE=";
     fetchSubmodules = true;
   };
   pico-hsm =
@@ -91,7 +91,7 @@ let
     }:
     python3.pkgs.buildPythonApplication {
       pname = "pico-hsm-tool";
-      inherit version;
+      version = "2.2";
 
       format = "other";
 

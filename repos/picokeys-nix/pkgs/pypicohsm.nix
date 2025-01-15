@@ -4,16 +4,16 @@
   python3,
   pycvc,
 }:
-python3.pkgs.buildPythonPackage {
+python3.pkgs.buildPythonPackage rec {
   pname = "pypicohsm";
-  version = "unstable-2024-06-19";
+  version = "1.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pypicohsm";
-    rev = "83cb202aa73ec3c8aab45e2c5abcd42e4582bd39";
-    hash = "sha256-glx0O70B+5UcMbjuK5MOHj2hPn9kqOP2v3pXPvXIIco=";
+    rev = "v${version}";
+    hash = "sha256-qWJH5CYtNYgWzYXB1vo4VoxilqFkJ4yGrVvTgBup5k0=";
   };
 
   build-system = with python3.pkgs; [

@@ -2,10 +2,13 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
+  pico-sdk = pkgs.callPackage ./pkgs/pico-sdk.nix { };
+  picotool = pkgs.callPackage ./pkgs/picotool.nix { inherit pico-sdk; };
   callPkgWithSdk = pkgs.lib.callPackageWith (
     pkgs
     // {
-      pico-sdk-full = pkgs.pico-sdk.override {
+      inherit picotool;
+      pico-sdk-full = pico-sdk.override {
         withSubmodules = true;
       };
     }
@@ -22,9 +25,9 @@ rec {
   pico-openpgp = callPkgWithSdk ./pkgs/pico-openpgp.nix { };
 
   pico-openpgp-eddsa = pico-openpgp.override {
-    version = "3.0";
-    rev = "7f24b9f6b8e98caf91315f1a92867e0b99f02139";
-    hash = "sha256-s072dyzMoNUEQxYXRGC5l9qCShdL0LvZGqpTBjyACRo=";
+    version = "3.2";
+    rev = "7050e6b19f03d5956fd14930dcefab97dc213834";
+    hash = "sha256-Bja4cyRreQr5siTJcUMPgsqT4uNgvdzWeCEST5xQuFs=";
   };
 
   pico-hsm = callPkgWithSdk (pico-hsm-packages.pico-hsm) { };
