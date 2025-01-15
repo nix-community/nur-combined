@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "daqp";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "darnstrom";
     repo = "daqp";
     rev = "v${version}";
-    hash = "sha256-e2T5+DNMJq4eBhj8F7kKgfGIozFRTuDif3oQ08lIStA=";
+    hash = "sha256-9sPYyd8J78HKDxbwkogu8tW38rgYIctEWqrriqJKy0M=";
   };
 
   nativeBuildInputs = [cmake];
