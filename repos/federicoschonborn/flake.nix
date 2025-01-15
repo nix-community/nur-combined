@@ -44,6 +44,7 @@
 
       flake = {
         lib = import ./lib { inherit (nixpkgs) lib; };
+        nixosModules = import ./modules/nixos;
       };
 
       perSystem =

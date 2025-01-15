@@ -3612,7 +3612,7 @@ A GNOME theme for Thunderbird.
 
 <h3 id="tinyfeed">
 
-`tinyfeed` `1.0.0` [🌐](https://github.com/TheBigRoomXXL/tinyfeed "Homepage") [📰](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.0.0 "Changelog") [📦](./pkgs/by-name/tinyfeed/package.nix#L34 "Source")
+`tinyfeed` `1.0.0` [🌐](https://github.com/TheBigRoomXXL/tinyfeed "Homepage") [📰](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.0.0 "Changelog") [📦](./pkgs/by-name/tinyfeed/package.nix#L39 "Source")
 
 </h3>
 
@@ -3632,6 +3632,7 @@ Generate a static HTML page from a collection of feeds wtih a simple CLI tool.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
+- Tests: `tinyfeed`
 - Update Script: ✔️
 </details>
 

@@ -1,0 +1,3 @@
+{
+  tinyfeed = ./tinyfeed.nix;
+}
