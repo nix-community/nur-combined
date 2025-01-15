@@ -127,29 +127,44 @@
 
             generate-readme.program =
               let
-                packageList = pkgs.writeText "package-list.md" (
-                  builtins.concatStringsSep "\n" (
+                packageList = pkgs.writeText "PACKAGES.md" (
+                  ''
+                    # Packages
+                  ''
+                  + (lib.concatLines (
                     lib.mapAttrsToList (
                       path:
                       {
-                        passthru ? { },
                         meta ? { },
                         ...
                       }@attrs:
-                      let
-                        headerName = builtins.replaceStrings [ "." ] [ "-" ] path;
+                      lib.concatLines [
+                        ''
+                          <h2 id="${builtins.replaceStrings [ "." ] [ "-" ] path}">
 
-                        versionPart = lib.optionalString (attrs ? version) " `${attrs.version}`";
+                          `${path}`
 
-                        homepagePart =
-                          lib.optionalString (meta ? homepage)
-                            " [🌐](${builtins.replaceStrings [ " " ] [ "%20" ] meta.homepage} \"Homepage\")";
-
-                        changelogPart =
-                          lib.optionalString (meta ? changelog)
-                            " [📰](${builtins.replaceStrings [ " " ] [ "%20" ] meta.changelog} \"Changelog\")";
-
-                        sourcePart =
+                          </h2>
+                        ''
+                        (lib.optionalString meta.broken ''
+                          > [!WARNING]
+                          > 💥 This package is currently marked as broken.
+                        '')
+                        (lib.optionalString (meta ? description) ''
+                          ${meta.description}
+                        '')
+                        "- Name: `${attrs.pname or attrs.name}`"
+                        (lib.optionalString (attrs ? version && attrs ? pname) "- Version: `${attrs.version}`")
+                        (lib.optionalString (attrs ? outputs && attrs.outputs != [ "out" ]) (
+                          "- Outputs: "
+                          + lib.concatMapStringsSep ", " (
+                            x: if x == attrs.outputName or null then "**`${x}`**" else "`${x}`"
+                          ) attrs.outputs
+                        ))
+                        (lib.optionalString (meta ? homepage)
+                          "- [🌐 Homepage](${builtins.replaceStrings [ " " ] [ "%20" ] meta.homepage})"
+                        )
+                        (lib.optionalString (meta ? position) (
                           let
                             formatPosition =
                               x:
@@ -161,121 +176,53 @@
                               if builtins.pathExists (lib.path.append ./. path) then
                                 "./${path}#L${line}"
                               else
-                                "https://github.com/NixOS/nixpkgs/blob/${nixpkgs.shortRev}/${path}#L${line}";
+                                "https://github.com/NixOS/nixpkgs/blob/nixos-unstable/${path}#L${line}";
                           in
-                          lib.optionalString (meta ? position) " [📦](${formatPosition meta.position} \"Source\")";
-
-                        brokenSection = lib.optionalString meta.broken ''
-                          > [!WARNING]
-                          > 💥 This package has been marked as broken.
-                        '';
-
-                        unfreeSection = lib.optionalString meta.unfree ''
-                          > [!WARNING]
-                          > 🔒 This package has an unfree license.
-                        '';
-
-                        descriptionSection = lib.optionalString (meta ? description) "${meta.description}.\n";
-
-                        longDescriptionSection = lib.optionalString (meta ? longDescription) "\n\n${meta.longDescription}";
-
-                        pnameSection = "- Name: `${attrs.pname or attrs.name}`";
-
-                        outputsSection = lib.optionalString (attrs ? outputs) (
-                          "- Outputs: "
+                          "- [📦 Source](${formatPosition meta.position})"
+                        ))
+                        (lib.optionalString (meta ? license) (
+                          let
+                            licenses = lib.toList meta.license;
+                          in
+                          "- License${lib.optionalString (builtins.length licenses > 1) "s"}: "
                           + (lib.concatMapStringsSep ", " (
-                            x: if attrs ? outputName && x == attrs.outputName then "**`${x}`**" else "`${x}`"
-                          ) attrs.outputs)
-                        );
+                            x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName
+                          ) licenses)
+                        ))
+                        (lib.optionalString (meta ? changelog)
+                          "- [📰 Changelog](${builtins.replaceStrings [ " " ] [ "%20" ] meta.changelog})"
+                        )
+                        ''
 
-                        testsSection = lib.optionalString (passthru ? tests) (
-                          "- Tests: " + (lib.concatMapStringsSep ", " (x: "`${x}`") (builtins.attrNames passthru.tests))
-                        );
-
-                        updateScriptSection = "- Update Script: ${if passthru ? updateScript then "✔️" else "❌"}";
-
-                        sourceProvenanceSection = lib.optionalString (meta ? sourceProvenance) (
-                          "- Source Provenance: "
-                          + (lib.concatMapStringsSep ", " (x: "`${x.shortName}`") meta.sourceProvenance)
-                        );
-
-                        pkgConfigSection = lib.optionalString (meta ? pkgConfigModules) (
-                          "- `pkg-config` Modules: " + (lib.concatMapStringsSep ", " (x: "`${x}.pc`") meta.pkgConfigModules)
-                        );
-
-                        licenseSection = lib.optionalString (meta ? license) (
-                          "- Licenses: "
-                          + (lib.concatMapStringsSep ", " (
-                            x: if x ? url then "[`${x.spdxId}`](${x.url} '${x.fullName}')" else x.fullName
-                          ) (lib.toList meta.license))
-                        );
-
-                        maintainersSection = lib.optionalString (meta ? maintainers) (
-                          "- Maintainers: "
-                          + (
-                            "\n  - "
-                            + (lib.concatMapStringsSep "\n  - " (
-                              x:
-                              (if x ? github then "[${x.name}](https://github.com/${x.github})" else x.name)
-                              + (lib.optionalString (x ? email) " [✉️](mailto:${x.email})")
-                            ) meta.maintainers)
-                            + "\n  - [✉️ Mail to all maintainers](mailto:"
-                            + (builtins.concatStringsSep "," (
-                              builtins.map (x: x.email) (builtins.filter (x: x ? email) meta.maintainers)
-                            ))
-                            + ")"
-                          )
-                        );
-
-                        platformsSection = lib.optionalString (meta ? platforms) (
-                          "- Platforms: " + (lib.concatMapStringsSep ", " (x: "`${x}`") meta.platforms)
-                        );
-                      in
-                      builtins.concatStringsSep "\n" (
-                        builtins.filter (x: x != "") [
-                          ''
-                            <h3 id="${headerName}">
-
-                            `${path}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
-
-                            </h3>
-                          ''
-                          descriptionSection
-                          longDescriptionSection
-                          brokenSection
-                          unfreeSection
-                          ''
-
+                          <!-- markdownlint-disable-next-line no-inline-html -->
+                          <details>
                             <!-- markdownlint-disable-next-line no-inline-html -->
-                            <details>
-                              <!-- markdownlint-disable-next-line no-inline-html -->
-                              <summary>
-                                Details
-                              </summary>
-                          ''
-                          pnameSection
-                          licenseSection
-                          platformsSection
-                          maintainersSection
-                          outputsSection
-                          testsSection
-                          updateScriptSection
-                          sourceProvenanceSection
-                          pkgConfigSection
-                          ''
-                            </details>
-                          ''
-                        ]
-                      )
+                            <summary>
+                              Details
+                            </summary>
+                        ''
+                        (lib.optionalString (meta ? longDescription) "${meta.longDescription}")
+                        (lib.optionalString (meta ? maintainers) (
+                          "- Maintainers:\n"
+                          + lib.concatMapStringsSep "\n" (
+                            x: "  - ${x.name}${lib.optionalString (x ? email) " [✉️](mailto:${x.email})"}"
+                          ) meta.maintainers
+                        ))
+                        (lib.optionalString (meta ? platforms) (
+                          "- Platforms:\n" + lib.concatMapStringsSep "\n" (x: "  - `${x}`") meta.platforms
+                        ))
+                        ''
+                          </details>
+                        ''
+                      ]
                     ) config.packages
-                  )
+                  ))
                 );
               in
               pkgs.writeShellApplication {
                 name = "generate-readme";
                 text = ''
-                  cat ${meta/README.tmpl.md} ${packageList} > README.md
-                  ${lib.getExe pkgs.nodePackages.prettier} --write README.md
+                  ${lib.getExe pkgs.nodePackages.prettier} ${packageList} > PACKAGES.md
                 '';
               };
 
