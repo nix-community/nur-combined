@@ -15,6 +15,8 @@ functions.
 - Using [haumea](https://github.com/nix-community/haumea):
   - to generate lists and trees of modules for `home` and `nixos`
   - as a module system for `lib`
+- [Workaround to boot NixOS on Redmi Book](nixos/modules/hardware/redmi-book-pro-16-2024.nix)
+  as described by https://discourse.nixos.org/t/system-wont-boot-path-efi-stub/29212/12
 
 ## Repository Structure
 
@@ -59,7 +61,7 @@ They are effective on import by default, but can be disabled with
     nixfiles/flake.nix
     ├ home/flake-module.nix
     │ ├ configurations/custom.nix, ...
-    │ └ configurations/weathercold/nixos-inspiron.nix
+    │ └ configurations/weathercold/nixos-inspiron.nix, ...
     │   ├ ../_options.nix
     │   └ _base.nix
     │     └ ../../modules/profiles/full.nix
@@ -68,7 +70,7 @@ They are effective on import by default, but can be disabled with
     ├ lib/default.nix
     │ └ src/*
     ├ nixos/flake-module.nix
-    │ └ configurations/nixos-inspiron.nix
+    │ └ configurations/nixos-inspiron.nix, ...
     │   ├ _options.nix
     │   ├ ../modules/hardware/dell-inspiron-7405.nix
     │   └ ../modules/profiles/full.nix

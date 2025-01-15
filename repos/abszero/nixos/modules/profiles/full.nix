@@ -94,6 +94,7 @@ in
         wget
         win2xcur
         xorg.xeyes
+        zen-browser
         zip
       ];
     };

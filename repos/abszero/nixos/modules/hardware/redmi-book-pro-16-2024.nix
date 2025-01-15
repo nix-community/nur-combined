@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkIf singleton;
@@ -30,7 +25,7 @@ let
         @>q  _    _    _    _    _    _    _    _    _    _    _    _    _
         _    _    _    _    _    _    _    _    _    _    _    _    +    _    _
         _    w    l    y    p    k    z    x    o    u    ;    _    _    _    _
-        esc  c    r    s    t    b    f    n    e    i    a    _         _    _
+        @esc c    r    s    t    b    f    n    e    i    a    _         _    _
         @ls  j    v    d    g    q    m    h    /    ,    .         @rs  _    _
         _    _    _              _              _         _         _    _    _)
 
@@ -38,7 +33,7 @@ let
         @>c  _    _    _    _    _    _    _    _    _    _    _    _    _
         _    _    _    _    _    _    _    _    _    _    _    _    +    _    _
         _    q    w    e    r    t    y    u    i    o    p    _    _    _    _
-        esc  a    s    d    f    g    h    j    k    l    ;    _         _    _
+        @esc a    s    d    f    g    h    j    k    l    ;    _         _    _
         @ls  z    x    c    v    b    n    m    ,    .    /         @rs  _    _
         _    _    _              _              _         _         _    _    _)
 
