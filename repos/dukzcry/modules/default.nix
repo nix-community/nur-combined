@@ -32,4 +32,5 @@ rec {
   branding = ./branding.nix;
   sd-cpp-webui = ./sd-cpp-webui.nix;
   dashboard = ./dashboard.nix;
+  watchyourlan = ./watchyourlan.nix;
 }
