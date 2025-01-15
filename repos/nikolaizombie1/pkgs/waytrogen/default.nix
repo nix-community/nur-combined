@@ -14,14 +14,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.5.5";
+  version = "0.5.7";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
-    rev = "cfedddbed9a957f5b1fe99af0e3bab0557ef1008";
-    hash = "sha256-sDlxufSTXRyX+Cqs4CRUSITpN0IVRwlQTba+YsTWvi0=";
+    rev = "0.5.4";
+    hash = "sha256-JziGOVTYV/hmvMthEQBh1BS2yJD77jX5YkwuzqofGG8=";
   };  
 
   nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite ];
@@ -30,19 +30,19 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-/UVK0Jv36R0sKnMM+dzC0u/N7diK+8Es72sOMuO72nY=";
+  cargoHash = "sha256-+BUkC88jFLBfGkfbMx6fc7wFTrayxkA4Nkw4EMphvfc=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
   glib-compile-schemas $out/share/glib-2.0/schemas
   mkdir -p $out/share/locale/en/LC_MESSAGES && msgfmt locales/en/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/en/LC_MESSAGES/waytrogen.mo $out/share/locale/en/LC_MESSAGES
   mkdir -p $out/share/locale/es/LC_MESSAGES && msgfmt locales/es/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/es/LC_MESSAGES/waytrogen.mo $out/share/locale/es/LC_MESSAGES
-
+  mkdir -p $out/share/applications && cp waytrogen.desktop $out/share/applications/
   '';
 
   meta = {
     description = "A lightning fast wallpaper setter for Wayland.";
-    longDescription = "A GUI wallpaper setter for Wayland that is a spiritual successor for the minimalistic wallpaper changer for X11 nitrogen. Written purely in the Rust %G🦀%@ programming language. Supports hyprpaper, swaybg, mpvpaper and swww wallpaper changers.";
+    longDescription = "A GUI wallpaper setter for Wayland that is a spiritual successor for the minimalistic wallpaper changer for X11 nitrogen. Written purely in the Rust 🦀 programming language. Supports hyprpaper, swaybg, mpvpaper and swww wallpaper changers.";
     homepage = "https://github.com/nikolaizombie1/waytrogen";
     license = lib.licenses.unlicense;
     maintainers = [ ];
