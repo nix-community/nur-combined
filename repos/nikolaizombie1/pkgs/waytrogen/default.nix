@@ -14,14 +14,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.5.8";
+  version = "0.5.10";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
-    rev = "0.5.6";
-    hash = "sha256-XyRzr6m+jdGtw7Mu9FDwBt/VQvG7mzRGYPL9FxiwND0=";
+    rev = "c47cbed6d5ba8307018f37bbc5dbd6b2b165fc06";
+    hash = "sha256-YSpvibQ57Tdrd26HagKE/w9B8EU2UbWv9u/lH5teT18=";
   };  
 
   nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite ];
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-05YfQBezDbQ8KfNvl/4Av5vf/rxJU3Ej6RDgSnSfjtM=";
+  cargoHash = "sha256-+i32/i42y7+rbvX+MAxP2VciPCfc747zejH0w0aNUiw=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
   mkdir -p $out/share/locale/en/LC_MESSAGES && msgfmt locales/en/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/en/LC_MESSAGES/waytrogen.mo $out/share/locale/en/LC_MESSAGES
   mkdir -p $out/share/locale/es/LC_MESSAGES && msgfmt locales/es/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/es/LC_MESSAGES/waytrogen.mo $out/share/locale/es/LC_MESSAGES
   mkdir -p $out/share/applications && cp waytrogen.desktop $out/share/applications/
-  mkdir -p $out/share/icons/hicolor/scaleable/apps && cp README-Assets/WaytrogenLogo.svg $out/share/icons/hicolor/scaleable/apps/
-  cp README-Assets/WaytrogenLogo.svg $out/share/applications/
+  mkdir -p $out/share/icons/hicolor/scaleable/apps && cp README-Assets/WaytrogenLogo.svg $out/share/icons/hicolor/scaleable/apps/waytrogen.svg
   '';
 
   meta = {
