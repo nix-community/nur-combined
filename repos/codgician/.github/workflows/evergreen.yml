@@ -114,5 +114,5 @@ jobs:
       - name: Check build
         if: steps.run_update_script.outputs.pr_title != ''
         run: |
-          nix build .#{{ matrix.package }}
+          nix build .#${{ matrix.package }}
 
