@@ -35,11 +35,11 @@ rec {
   subPackages = ["."];
 
   src = fetchFromGitHub {
-  owner = "make-42";
-  repo = "xyosc";
-  rev = "37eaad3b3ad79f6b5b0032062ccbe16f3e53efb2";
-  hash = "sha256-y7+Fxspo/ghFWWZMuYcBRqnpT/tHalN9V0eh4Nnnr44=";
-};
+    owner = "make-42";
+    repo = "xyosc";
+    rev = "2ba14583cfbca753e2b9cafb985c675fdb47176d";
+    hash = "sha256-WTglubN8xcuuaWqdS1E5/EJcQGMbNAt9meB2GqwHK8U=";
+  };
 
   vendorHash = null;
 
