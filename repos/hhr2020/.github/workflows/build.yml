@@ -57,7 +57,9 @@ jobs:
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        useDaemon: true
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
