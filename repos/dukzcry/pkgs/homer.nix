@@ -16,7 +16,7 @@ in stdenv.mkDerivation rec {
 
   dontInstall = true;
   sourceRoot = ".";
-  unpackCmd = "${unzip}/bin/unzip -d $out $curSrc";
+  unpackCmd = "${lib.getExe unzip} -d $out $curSrc";
 
   buildPhase = lib.optionalString (configuration != {}) ''
     cp ${configuration'} $out/assets/config.yml

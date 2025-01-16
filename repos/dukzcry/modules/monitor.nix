@@ -44,7 +44,7 @@ in {
         partOf = [ "graphical-session.target" ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.autorandr}/bin/autorandr --change";
+          ExecStart = "${getExe pkgs.autorandr} --change";
         };
       };
       services.autorandr = {
@@ -72,7 +72,7 @@ in {
           };
           # workaround: filter isn't supported before next version of autorandr
           integer = monitor // {
-            hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${cfg.monitorConfig.name} --scale 0.5x0.5 --filter nearest";
+            hooks.postswitch.xrandr = "${getExe pkgs.xorg.xrandr} --output ${cfg.monitorConfig.name} --scale 0.5x0.5 --filter nearest";
           };
           both = optionalAttrs (cfg.laptopConfig != null) {
             fingerprint."${cfg.laptopConfig.name}" = cfg.laptopConfig.setup;
@@ -108,7 +108,7 @@ in {
                   echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
                   exit 1
               esac
-              printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+              printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${getExe pkgs.xorg.xrdb} -merge
             '';
           } // optionalAttrs (cfg.postswitch != null) {
             inherit (cfg) postswitch;

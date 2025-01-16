@@ -7,10 +7,10 @@ let
     preConfigure = ''
       # Disable PA_BLUETOOTH_UUID_A2DP_SINK
       #substituteInPlace src/modules/bluetooth/bluez5-util.h \
-      #  --replace "0000110b-0000-1000-8000-00805f9b34fb" "0000110b-0000-1000-8000-00805f9b34fc"
+      #  --replace-fail "0000110b-0000-1000-8000-00805f9b34fb" "0000110b-0000-1000-8000-00805f9b34fc"
       # Disable output for PA_BLUETOOTH_PROFILE_HFP_HF
       substituteInPlace src/modules/bluetooth/module-bluez5-device.c \
-        --replace "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT | PA_DIRECTION_OUTPUT" "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT"
+        --replace-fail "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT | PA_DIRECTION_OUTPUT" "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT"
     '';
   });
 in {

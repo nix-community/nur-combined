@@ -51,7 +51,7 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${pkgs.nur.repos.dukzcry.metube}/bin/metube";
+        ExecStart = getExe pkgs.nur.repos.dukzcry.metube;
         Restart = "on-failure";
       };
       wantedBy = [ "multi-user.target" ];

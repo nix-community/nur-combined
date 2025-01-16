@@ -41,5 +41,6 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/alexta69/metube";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ ];
+    mainProgram = "metube";
   };
 }

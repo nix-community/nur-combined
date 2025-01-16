@@ -14,7 +14,7 @@ rec {
   sway-unwrapped = super.sway-unwrapped.overrideAttrs (oldAttrs: rec {
     postUnpack = ''
       substituteInPlace source/sway/commands/bind.c \
-        --replace "if ((binding->flags & BINDING_CODE) == 0) {" "if (false) {"
+        --replace-fail "if ((binding->flags & BINDING_CODE) == 0) {" "if (false) {"
     '';
   });
   # https://github.com/NixOS/nixpkgs/issues/355277
@@ -33,7 +33,7 @@ rec {
       postFixup = ''
         ${oldAttrs.postFixup}
         substituteInPlace $out/share/sddm/themes/breeze/Main.qml \
-          --replace "sddm.suspend" "sddm.hibernate"
+          --replace-fail "sddm.suspend" "sddm.hibernate"
       '';
     });
   });

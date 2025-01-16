@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
   ];
   postPatch = ''
     substituteInPlace src/client/cockpit-client \
-      --replace "or options.lookup_value('wildly-insecure')" "or True"
+      --replace-fail "or options.lookup_value('wildly-insecure')" "or True"
     substituteInPlace src/cockpit/packages.py \
-      --replace "/usr/local/libexec" "$out/libexec"
+      --replace-fail "/usr/local/libexec" "$out/libexec"
     substituteInPlace src/cockpit/beiboot.py \
-      --replace "python3" "${python3}/bin/python3"
+      --replace-fail "python3" "${lib.getExe python3}"
   '';
   preBuild = ''
     patchShebangs tools
@@ -46,7 +46,7 @@ export LD_LIBRARY_PATH=${systemd}/lib
 EOF
     chmod +x $out/libexec/cockpit-beiboot
     substituteInPlace $out/libexec/cockpit-client \
-      --replace "/usr/bin/env python3 -m cockpit.beiboot" "$out/libexec/cockpit-beiboot"
+      --replace-fail "/usr/bin/env python3 -m cockpit.beiboot" "$out/libexec/cockpit-beiboot"
   '';
   dontWrapGApps = true;
   preFixup = ''

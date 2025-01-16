@@ -6,22 +6,22 @@ let
     url = "https://archive.org/download/cuvave-cubesuite/CubeSuite+V${version}+for+Windows+OS.zip";
     sha256 = "sha256-Lkcy0u6aApBD/KlMn6VnmvtqsyZ28X5RBQK1LZZ02vU==";
   };
-  bin = wrapWine {
+  bin = (wrapWine {
     name = "cubesuite";
     executable = "$WINEPREFIX/drive_c/CubeSuite/CubeSuite.exe";
     firstrunScript = ''
       pushd "$WINEPREFIX/drive_c"
-        ${unzip}/bin/unzip ${src}
+        ${lib.getExe unzip} ${src}
         # fix config import and export
         mkdir users/$USER/Desktop
       popd
     '';
-  };
+  }) // { meta.mainProgram = "cubesuite"; };
   item = makeDesktopItem {
     name = "cubesuite";
     desktopName = "CubeSuite";
     type = "Application";
-    exec = ''${bin}/bin/cubesuite'';
+    exec = lib.getExe bin;
   };
 in stdenvNoCC.mkDerivation rec {
   pname = "cubesuite";
@@ -30,7 +30,7 @@ in stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
 
   installPhase = ''
-    install -Dm755 -t $out/bin ${bin}/bin/cubesuite
+    install -Dm755 -t $out/bin ${lib.getExe bin}
     install -Dm444 -t $out/share/applications ${item}/share/applications/cubesuite.desktop
   '';
 

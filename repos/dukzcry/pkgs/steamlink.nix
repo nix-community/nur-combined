@@ -52,8 +52,8 @@ in stdenv.mkDerivation rec {
     install -Dm0644 ${desktopItems}/icons/256/steamlink.png $out/share/icons/hicolor/256x256/apps/steamlink.png
     install -Dm0644 ${desktopItems}/com.valvesoftware.SteamLink.desktop $out/share/applications/steamlink.desktop
     substituteInPlace $out/share/applications/steamlink.desktop \
-      --replace /app/bin/steamlink steamlink \
-      --replace com.valvesoftware.SteamLink steamlink
+      --replace-fail /app/bin/steamlink steamlink \
+      --replace-fail com.valvesoftware.SteamLink steamlink
   '';
 
   meta = with lib; {

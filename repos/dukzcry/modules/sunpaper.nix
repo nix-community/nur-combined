@@ -8,8 +8,8 @@ let
     postPatch = ''
       ${oldAttrs.postPatch}
       substituteInPlace sunpaper.sh \
-        --replace "sunpaper.sh" "sunpaper" \
-        --replace "$out/share/sunpaper/images/" "/run/current-system/sw/share/sunpaper/images/"
+        --replace-fail "sunpaper.sh" "sunpaper" \
+        --replace-fail "$out/share/sunpaper/images/" "/run/current-system/sw/share/sunpaper/images/"
     '';
     postInstall = ''
       wrapProgram $out/bin/sunpaper \
