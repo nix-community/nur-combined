@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-P7RWdsxYv/P7K+BfvzkOzCCSMppSxacKVj19MPgeV7I=";
   };
 
+  makeFlags = [ "CC:=$(CC)" ];
+
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = {

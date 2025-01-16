@@ -5,10 +5,10 @@
 }:
 
 fetchwebarchive {
-  name = "qmapshack-onlinemaps-2022-09-02";
+  name = "qmapshack-onlinemaps-2024-07-29";
   url = "http://www.mtb-touring.net/wp-content/uploads/Onlinemaps.zip";
-  timestamp = "20231026090331";
-  hash = "sha256-5xXyaWhUwOZPGb+unYh4A0Hzznk2nRPHtIxdiiQHlHY=";
+  timestamp = "20250116120355";
+  hash = "sha256-mgeskUSjnQJZAp9LXyXXGFoAUEXmhqy4wRYquVUygbc=";
   downloadToTemp = true;
   recursiveHash = true;
   postFetch = ''

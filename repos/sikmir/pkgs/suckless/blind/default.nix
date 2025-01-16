@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
+
   meta = {
     description = "Collection of command line video editing utilities";
     homepage = "https://tools.suckless.org/blind/";

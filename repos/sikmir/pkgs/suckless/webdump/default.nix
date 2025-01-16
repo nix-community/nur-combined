@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-holkUH9ImpcVVJo429jq9BqB6YRpqifQBmbUrD6TzgU=";
   };
 
+  makeFlags = [ "RANLIB:=$(RANLIB)" ];
+
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = {
