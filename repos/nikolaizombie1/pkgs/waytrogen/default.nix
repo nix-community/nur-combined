@@ -14,7 +14,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.5.10";
+  version = "0.5.11";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-+i32/i42y7+rbvX+MAxP2VciPCfc747zejH0w0aNUiw=";
+  cargoHash = "sha256-S2Oqde3Su5orwKN8gvshKjBf6tswDFSWjan/KoHVJV8=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   mkdir -p $out/share/locale/en/LC_MESSAGES && msgfmt locales/en/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/en/LC_MESSAGES/waytrogen.mo $out/share/locale/en/LC_MESSAGES
   mkdir -p $out/share/locale/es/LC_MESSAGES && msgfmt locales/es/LC_MESSAGES/waytrogen.po -o waytrogen.mo && cp locales/es/LC_MESSAGES/waytrogen.mo $out/share/locale/es/LC_MESSAGES
   mkdir -p $out/share/applications && cp waytrogen.desktop $out/share/applications/
-  mkdir -p $out/share/icons/hicolor/scaleable/apps && cp README-Assets/WaytrogenLogo.svg $out/share/icons/hicolor/scaleable/apps/waytrogen.svg
+  mkdir -p $out/share/icons/hicolor/scalable/apps && cp README-Assets/WaytrogenLogo.svg $out/share/icons/hicolor/scalable/apps/waytrogen.svg
   '';
 
   meta = {
