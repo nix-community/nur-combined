@@ -1249,10 +1249,10 @@
     };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.10.1";
+      version = "1.11";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262820/canvasblocker-1.10.1.xpi";
-      sha256 = "dae3b648f0b559b8b08cdad8adaaba2fcde3aa7baf0ffe9b2cbca5a3373c98b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413485/canvasblocker-1.11.xpi";
+      sha256 = "0479b7315ce2c195fd2fbd519c50866030083abdb6d895c1b162d52762a676ec";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -1443,10 +1443,10 @@
     };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.26.1";
+      version = "1.27.1";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064884/clearurls-1.26.1.xpi";
-      sha256 = "e20168d63cb1b8ba3ad0de4cdb42c540d99fe00aa9679b59f49bccc36f106291";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4414381/clearurls-1.27.1.xpi";
+      sha256 = "b59609400a020a012bbd86663935b9b352091f2a3fc8d4941ade1c6d6257f9e8";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20250113.121357";
+      version = "135.0.20250115.91607";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419188/deutsch_de_language_pack-134.0.20250113.121357.xpi";
-      sha256 = "4703019962f94c902a17a0f3d851846c20864b9eb715789901270fc06389d15b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420240/deutsch_de_language_pack-135.0.20250115.91607.xpi";
+      sha256 = "ad2023ac7ec9a97c436eb0b1f10f4c1f6af6b3f6146d95bc820023d927416a96";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3466,10 +3466,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20250113.121357";
+      version = "135.0.20250115.91607";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419158/francais_language_pack-134.0.20250113.121357.xpi";
-      sha256 = "b7bbdd4381da7ebc347ffd3dd6a15598cf1d35ac9081b28a15563113f64e6aa8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420206/francais_language_pack-135.0.20250115.91607.xpi";
+      sha256 = "2ffcb1b4d2d689a788b345c3eb6fdb957d8b41dcb9b17d86f20879af54720d69";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3503,10 +3503,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20250113.121357";
+      version = "135.0.20250115.91607";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419133/gaidhlig_language_pack-134.0.20250113.121357.xpi";
-      sha256 = "de2965cecea654c4483e62789a9009e455c3b92b46f00beeeeade080deb1e099";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420217/gaidhlig_language_pack-135.0.20250115.91607.xpi";
+      sha256 = "d566294f5895f27dd6346b4b52f611ff525843c747c97d971a5284fbb1ba3f13";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4164,10 +4164,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.224";
+      version = "1.0.225";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405456/hover_zoom_plus-1.0.224.xpi";
-      sha256 = "228e4b1ca89c452be8bed56988b5ea899ccb30ab30fdf9f3b2678885d2e62782";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420462/hover_zoom_plus-1.0.225.xpi";
+      sha256 = "7bbc203e05d55311fd1f2b843e0a3782960318ebd868be41fcb7bfa55c2edfdf";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -7562,10 +7562,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.16.16";
+      version = "2.16.18";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399408/momentumdash-2.16.16.xpi";
-      sha256 = "afacd5bf8600c28a9d373e3eafeda47f638c76cb743641c56e8203023db2c5bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413360/momentumdash-2.16.18.xpi";
+      sha256 = "b93820afa4d1a22c6ddce4be288571cf47fe7fcaefbd88daf69a3780d425cb83";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9427,10 +9427,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.4";
+      version = "1.2.5";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403687/proton_vpn_firefox_extension-1.2.4.xpi";
-      sha256 = "7ee651f0ea5e0f5b040f576c55993cd32ac364a7284f619388e03098b4aaf400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413146/proton_vpn_firefox_extension-1.2.5.xpi";
+      sha256 = "87f82bd4739718d11722aba1a384b5643623e35b0060dd2b5abf8bb5b6ace424";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9872,10 +9872,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.12.20";
+      version = "25.1.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4407997/refined_github-24.12.20.xpi";
-      sha256 = "1c2b1ce845ad2e118ffb9adb341d02e792f995f1bbd2f04a61e5ed15bf18d23a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420467/refined_github-25.1.15.xpi";
+      sha256 = "ed0794fec3c2d30ddb3660adab5e31591353473de3102472115498cde6ee8447";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10068,10 +10068,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20250113.121357";
+      version = "135.0.20250115.91607";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419139/scots_language_pack-134.0.20250113.121357.xpi";
-      sha256 = "c463878a86fd20ac7a267403840a9a8f721007d716518f013998b7d1118f4eed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420243/scots_language_pack-135.0.20250115.91607.xpi";
+      sha256 = "475f831220bced95f00b78810b99558240a5ffff5aabae1313a7ac74948f1c0f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12720,10 +12720,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.76";
+      version = "6.10.77";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392578/wappalyzer-6.10.76.xpi";
-      sha256 = "0faa48491754548aedfa7eea512c31f9230a8b0dbdea5f990a849d48e7dc9977";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4413349/wappalyzer-6.10.77.xpi";
+      sha256 = "2581b33318f68f254688fe7ce2eb033bd9d3f49fe038f680d38ef11a514dfb21";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
