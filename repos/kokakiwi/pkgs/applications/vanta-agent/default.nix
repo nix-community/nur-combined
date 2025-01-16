@@ -7,11 +7,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vanta-agent";
-  version = "2.11.0";
+  version = "2.12.0";
 
   src = fetchurl {
     url = "https://vanta-agent-repo.s3.amazonaws.com/targets/versions/${finalAttrs.version}/vanta-amd64.deb";
-    hash = "sha256-h2PGBCcRH8hKIGYskqo7gLNbAYJRCCILJGU+TSXjnSY=";
+    hash = "sha256-FzEqHBGVvtGSIWxiQKMiWBu1acC9OojeQrWHIDNi1AM=";
   };
 
   nativeBuildInputs = [
