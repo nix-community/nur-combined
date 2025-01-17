@@ -28,7 +28,8 @@ jobs:
             
             [
               "Lnx x64/ubuntu-latest",
-              "Lnx A64/ubuntu-latest+qemu-aarch64-linux",
+              # "Lnx A64/ubuntu-latest+qemu-aarch64-linux",
+              "Lnx A64/ubuntu-24.04-arm",
               "Mac x64/macos-13",
               "Mac A64/macos-latest",
             empty] as $runners |
@@ -109,6 +110,8 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      env:
+        XDG_CONFIG_HOME: ~/.config
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
