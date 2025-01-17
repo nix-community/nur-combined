@@ -92,6 +92,9 @@ in
   workspace "browser"
   workspace "chat"
   workspace "mail"
+  workspace "misc" {
+    open-on-output "HDMI-A-1"
+  }
 
   window-rule {
       match app-id="Alacritty"
@@ -111,13 +114,13 @@ in
       match at-startup=true app-id=r#"^google-chrome"#
       open-on-workspace "browser"
   }
-  
+
   window-rule {
       match at-startup=true app-id=r#"^org\.telegram\.desktop$"#
       open-maximized true
       open-on-workspace "chat"
   }
-  
+
   window-rule {
       match at-startup=true app-id=r#"^thunderbird$"#
       open-on-workspace "mail"
@@ -139,6 +142,12 @@ in
    mode "2160x1440@60.001"
 
    // position x=1080 y=0
+  }
+
+  output "HDMI-A-1" {
+      // off
+      mode "1920x1080@75.025"
+      scale 1.5
   }
 
   layout {

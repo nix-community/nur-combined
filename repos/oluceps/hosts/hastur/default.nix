@@ -25,6 +25,10 @@ withSystem "x86_64-linux" (
           builtins.elem (lib.getName pkg) [
             "code"
             "vscode"
+            "steam"
+            "fcitx5-pinyin-moegirl"
+            "steam-unwrapped-1.0.0.81"
+            "steam-unwrapped"
           ];
         permittedInsecurePackages = [
           "olm-3.2.16"
@@ -59,6 +63,7 @@ withSystem "x86_64-linux" (
         ../../packages.nix
         ../../misc.nix
         ../sysvars.nix
+        ../graphBase.nix
         (lib.iage "trust")
 
         ../sysctl.nix
