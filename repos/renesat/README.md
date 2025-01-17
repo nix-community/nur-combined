@@ -4,11 +4,19 @@
 
 ## Packages
 
-- *[daqp](https://github.com/cupcakearmy/autorestic)*: `daqp` и `daqp-python`
-- *[qpsolbers](https://github.com/qpsolvers/qpsolvers)*
-- *[normcap](https://github.com/dynobo/normcap)*
-- *[activitywatch-bin](https://github.com/ActivityWatch/activitywatch)*
-- *[hledger-utils](https://pypi.org/project/hledger-utils/)*
-- *[math-preview](https://gitlab.com/matsievskiysv/math-preview)*
-- *[linkding-cli](https://github.com/bachya/linkding-cli)*
-- *[aiolinkding](https://github.com/bachya/aiolinkding)*
+- [daqp](https://github.com/darnstrom/daqp)
+- [imap-backup](https://github.com/joeyates/imap-backup)
+- [vl-convert](https://github.com/vega/vl-convert)
+- [dedoc](https://github.com/toiletbril/dedoc)
+- [age-edit](https://github.com/dbohdan/age-edit)
+
+### Python Packages
+
+- [flatlatex](https://github.com/jb-leger/flatlatex)
+- [sixelcrop](https://github.com/joouha/sixelcrop)
+- [euporie](https://github.com/joouha/euporie)
+- [aiolinkding](https://github.com/bachya/aiolinkding)
+- [arro3-core](https://github.com/kylebarron/arro3)
+- [linkding-cli](https://github.com/bachya/linkding-cli)
+- [vegafusion](https://github.com/hex-inc/vegafusion)
+- [vl-convert-python](https://github.com/vega/vl-convert)

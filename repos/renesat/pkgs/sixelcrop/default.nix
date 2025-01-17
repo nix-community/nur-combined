@@ -2,12 +2,15 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  pythonOlder,
   hatchling,
 }:
 buildPythonPackage rec {
   pname = "sixelcrop";
   version = "0.1.9";
   format = "pyproject";
+
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "joouha";
