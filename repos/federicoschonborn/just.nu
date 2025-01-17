@@ -105,8 +105,15 @@ def "main path-info-stable" [package: string] {
     nix-stable path-info $".#($package)"
 }
 
-def "main update" [] {
-    nix run ".#update"
+def "main update" [package: string] {
+    let p = ^nix eval --json $".#($package)" --apply 'p: { inherit (p) name pname version updateScript; }' | from json
+    let updateScript = if "command" in $p.updateScript { $p.updateScript.command } else { $p.updateScript }
+
+    with-env { UPDATE_NIX_NAME: $p.name, UPDATE_NIX_PNAME: $p.pname, UPDATE_NIX_OLD_VERSION: $p.version, UPDATE_NIX_ATTR_PATH: $package } { run-external ($updateScript | get 0) ...(try { $updateScript | get 1.. } catch { [] }) }
+}
+
+def "main update-all" [] {
+    nix run ".#update-all"
 }
 
 def "main tree" [package: string] {

@@ -264,8 +264,8 @@
                 '';
             };
 
-            update.program = pkgs.writeShellApplication {
-              name = "update";
+            update-all.program = pkgs.writeShellApplication {
+              name = "update-all";
               text = lib.concatLines (
                 lib.mapAttrsToList (
                   name: value:
