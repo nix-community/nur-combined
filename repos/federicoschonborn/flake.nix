@@ -266,16 +266,27 @@
 
             update.program = pkgs.writeShellApplication {
               name = "update";
-              text = ''
-                nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
-                  --arg include-overlays "[(import ./overlay.nix)]" \
-                  --arg skip-prompt 'true' \
-                  --arg keep-going 'true' \
-                  --arg predicate '(
-                    let prefix = builtins.toPath ./pkgs; prefixLen = builtins.stringLength prefix;
-                    in (_: p: p.meta ? position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
-                  )'
-              '';
+              text = lib.concatLines (
+                lib.mapAttrsToList (
+                  name: value:
+                  if value ? updateScript then
+                    ''
+                      echo Updating ${name}...
+                      ${lib.escapeShellArgs (
+                        [
+                          "env"
+                          "UPDATE_NIX_NAME=${value.name}"
+                          "UPDATE_NIX_PNAME=${value.pname}"
+                          "UPDATE_NIX_OLD_VERSION=${value.version}"
+                          "UPDATE_NIX_ATTR_PATH=${name}"
+                        ]
+                        ++ (value.updateScript.command or value.updateScript)
+                      )}
+                    ''
+                  else
+                    "echo Skipping ${name}..."
+                ) config.packages
+              );
             };
           };
 

@@ -106,7 +106,6 @@ def "main path-info-stable" [package: string] {
 }
 
 def "main update" [] {
-    nix flake update
     nix run ".#update"
 }
 

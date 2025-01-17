@@ -14,7 +14,7 @@
   jemalloc,
   writeShellScript,
   callPackage,
-  nix-update-script,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -114,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     inherit (finalAttrs) pnpmDeps;
     tests.sharkey = callPackage ./nixos-test.nix { sharkey = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    updateScript = gitUpdater { };
   };
 
   meta = {
