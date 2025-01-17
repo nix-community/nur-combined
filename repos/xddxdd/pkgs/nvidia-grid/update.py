@@ -24,6 +24,9 @@ def get_download_link_for_version(
         print(f"Checking version {version}")
         data: requests.Response = requests.post(
             "https://file.homelabproject.cc/api/fs/list",
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+            },
             json={
                 "path": f"/foxipan/vGPU/{version}",
                 "password": "",
@@ -69,6 +72,9 @@ def get_download_link_for_version(
 def get_available_versions() -> List[str]:
     data = requests.post(
         "https://file.homelabproject.cc/api/fs/list",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+        },
         json={
             "path": "/foxipan/vGPU",
             "password": "",

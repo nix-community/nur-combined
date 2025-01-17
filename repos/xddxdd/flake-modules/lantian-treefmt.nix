@@ -19,7 +19,8 @@
         };
 
         programs = {
-          actionlint.enable = true;
+          # # Disabled for not recognizing ARM64 runner
+          # actionlint.enable = true;
           black.enable = true;
           deadnix.enable = true;
           dos2unix.enable = true;

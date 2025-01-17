@@ -3524,11 +3524,6 @@
     "pname": "pocl",
     "version": "6.0"
   },
-  "legacyPackages.x86_64-linux.procps4": {
-    "description": "Utilities that give information about processes using the /proc filesystem",
-    "pname": "procps4",
-    "version": "4.0.4"
-  },
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
@@ -4298,11 +4293,6 @@
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
     "pname": "pocl",
     "version": "6.0"
-  },
-  "legacyPackages.x86_64-linux.uncategorized.procps4": {
-    "description": "Utilities that give information about processes using the /proc filesystem",
-    "pname": "procps4",
-    "version": "4.0.4"
   },
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
@@ -5228,11 +5218,6 @@
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
     "pname": "pocl",
     "version": "6.0"
-  },
-  "packages.x86_64-linux.procps4": {
-    "description": "Utilities that give information about processes using the /proc filesystem",
-    "pname": "procps4",
-    "version": "4.0.4"
   },
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",

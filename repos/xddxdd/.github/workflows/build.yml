@@ -10,13 +10,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        system:
-          - x86_64-linux
-          # - aarch64-linux
+        base-image:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
         ci-command:
           - ci
           - ci-cuda
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.base-image }}
     env:
       GIT_SSL_NO_VERIFY: 'true'
     steps:
@@ -84,7 +84,7 @@ jobs:
       - name: Build nix packages
         run: |
           echo "::group::Preparing"
-          env TMPDIR=/nix/tmpdir nix run .#${{ matrix.ci-command }} -- ${{ matrix.system }}
+          env TMPDIR=/nix/tmpdir nix run .#${{ matrix.ci-command }} -- $(nix-instantiate --eval -E 'builtins.currentSystem')
 
       - name: Commit back to repository
         uses: stefanzweifel/git-auto-commit-action@v5

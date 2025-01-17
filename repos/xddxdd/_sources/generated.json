@@ -2627,21 +2627,6 @@
         },
         "version": "v6.0"
     },
-    "procps4": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "procps4",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-IocNb+skeK22F85PCaeHrdry0mDFqKp7F9iJqWLF5C4=",
-            "type": "url",
-            "url": "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz"
-        },
-        "version": "4.0.4"
-    },
     "pterodactyl-wings": {
         "cargoLocks": null,
         "date": null,
@@ -3694,6 +3679,21 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "uksmd-procps": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "uksmd-procps",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-wubRk8x4+EzW3bcqr21capFi8EcOWZIJIFf1/1GFYvo=",
+            "type": "url",
+            "url": "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.5.tar.xz"
+        },
+        "version": "4.0.5"
     },
     "uni-api": {
         "cargoLocks": null,

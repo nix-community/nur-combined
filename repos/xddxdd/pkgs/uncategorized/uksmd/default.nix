@@ -2,14 +2,17 @@
   stdenv,
   sources,
   lib,
+  callPackage,
   meson,
   cmake,
   pkg-config,
-  procps4,
   libcap_ng,
   systemd,
   ninja,
 }:
+let
+  procps = callPackage ./procps.nix { inherit sources; };
+in
 stdenv.mkDerivation rec {
   inherit (sources.uksmd) pname version src;
   nativeBuildInputs = [
@@ -19,8 +22,8 @@ stdenv.mkDerivation rec {
     ninja
   ];
   buildInputs = [
-    procps4
     libcap_ng
+    procps
     systemd
   ];
 
@@ -31,6 +34,8 @@ stdenv.mkDerivation rec {
     sed -i "s#/usr/bin#$out/bin#g" meson.build
     sed -i "s#/usr/bin#$out/bin#g" uksmd.service
   '';
+
+  passthru = { inherit procps; };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

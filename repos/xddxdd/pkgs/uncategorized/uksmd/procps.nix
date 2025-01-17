@@ -6,7 +6,7 @@
   ncurses,
 }:
 stdenv.mkDerivation rec {
-  inherit (sources.procps4) pname version src;
+  inherit (sources.uksmd-procps) pname version src;
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ];
 
