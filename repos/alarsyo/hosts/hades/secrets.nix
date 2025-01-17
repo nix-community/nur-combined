@@ -22,6 +22,10 @@
           owner = "matrix-synapse";
         };
 
+        "mealie/secret-config" = {
+          owner = "mealie";
+        };
+
         "microbin/secret-config" = {};
 
         "miniflux/admin-credentials" = {};

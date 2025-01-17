@@ -84,6 +84,7 @@ in {
     mealie = {
       enable = true;
       port = 8090;
+      credentialsFile = config.age.secrets."mealie/secret-config".path;
     };
 
     microbin = {

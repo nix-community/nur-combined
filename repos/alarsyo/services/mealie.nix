@@ -29,11 +29,23 @@ in {
       example = 8080;
       description = "Internal port for Mealie webapp";
     };
+    credentialsFile = lib.mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/run/secrets/mealie-credentials.env";
+      description = ''
+        File containing credentials used in mealie such as {env}`POSTGRES_PASSWORD`
+        or sensitive LDAP options.
+
+        Expects the format of an `EnvironmentFile=`, as described by {manpage}`systemd.exec(5)`.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
     services.mealie = {
       inherit listenAddress;
+      inherit (cfg) credentialsFile;
 
       enable = true;
       package = pkgs.unstable.mealie;

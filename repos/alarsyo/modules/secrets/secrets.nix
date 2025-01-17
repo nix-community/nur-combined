@@ -22,6 +22,8 @@ in {
 
   "matrix-synapse/secret-config.age".publicKeys = [alarsyo hades];
 
+  "mealie/secret-config.age".publicKeys = [alarsyo hades];
+
   "microbin/secret-config.age".publicKeys = [alarsyo hades];
 
   "miniflux/admin-credentials.age".publicKeys = [alarsyo hades];
