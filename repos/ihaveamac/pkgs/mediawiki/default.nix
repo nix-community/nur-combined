@@ -5,6 +5,7 @@
 stdenvNoCC.mkDerivation rec {
   pname = "mediawiki";
   inherit version;
+  preferLocalBuild = true;
 
   src = fetchurl {
     url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";

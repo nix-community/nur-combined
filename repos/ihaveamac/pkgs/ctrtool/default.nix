@@ -1,9 +1,10 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, clangStdenv, fetchFromGitHub }:
 
 let
   cc = "${stdenv.cc.targetPrefix}cc";
   cxx = "${stdenv.cc.targetPrefix}c++";
   ar = "${stdenv.cc.targetPrefix}ar";
+  stdenv = clangStdenv;
 in
 stdenv.mkDerivation rec {
   pname = "ctrtool";

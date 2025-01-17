@@ -42,6 +42,7 @@ rec {
   mrpack-install = pkgs.callPackage ./pkgs/mrpack-install { };
   _3dstools = pkgs.callPackage ./pkgs/3dstools { };
   cxitool = pkgs.callPackage ./pkgs/cxitool { };
+  launchcontrol = pkgs.callPackage ./pkgs/launchcontrol { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

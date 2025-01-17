@@ -5,18 +5,22 @@ let
   lib = pkgs.lib;
   nurAttrs = import ./default.nix { inherit pkgs; };
   isAlias = n: n == "3dstool" || n == "3dslink";
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hmModules";
+  isReserved = n: elem n [ "lib" "overlays" "modules" "hmModules" ];
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   hasKnownVulns = p: p.meta ? knownVulnerabilities && (length p.meta.knownVulnerabilities != 0);
   strikeIfKnownVulns = p: text: if hasKnownVulns p then "~~${text}~~" else text;
 
   nameValuePair = n: v: { name = n; value = v; };
 
-  nurAttrsFiltered = 
+  filterAttrs = attrs:
     listToAttrs
-      (map (n: nameValuePair n nurAttrs.${n})
+      (map (n: nameValuePair n attrs.${n})
         (filter (n: (!isReserved n) && (!isAlias n))
-          (attrNames nurAttrs)));
+          (attrNames attrs)));
+
+  makeTable = prefix: attrs: let realpfx = if prefix == "" then "" else "${prefix}."; in lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${let name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name); in strikeIfKnownVulns v name} | ${strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] "${realpfx}${k}")} | ${strikeIfKnownVulns v v.meta.description} |") attrs);
+  makeTableFilterAttrs = prefix: attrs: makeTable prefix (filterAttrs attrs);
+
   text = pkgs.writeText "README.md" ''
     # nur-packages
 
@@ -32,7 +36,7 @@ let
 
     | Name | Attr | Description |
     | --- | --- | --- |
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${let name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name); in strikeIfKnownVulns v name} | ${strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] k)} | ${strikeIfKnownVulns v v.meta.description} |") nurAttrsFiltered)}
+    ${makeTableFilterAttrs "" nurAttrs}
 
     ## Overlay
 
