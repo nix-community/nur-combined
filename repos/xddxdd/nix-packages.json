@@ -497,12 +497,12 @@
   "legacyPackages.x86_64-linux.deprecated.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "legacyPackages.x86_64-linux.deprecated.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "legacyPackages.x86_64-linux.deprecated.payload-dumper-go": {
     "description": "(DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go",
@@ -597,7 +597,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-16"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -687,12 +687,12 @@
   "legacyPackages.x86_64-linux.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "legacyPackages.x86_64-linux.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "legacyPackages.x86_64-linux.kernel-modules.acpi-ec": {
     "description": "Kernel module to access directly to the ACPI EC",
@@ -787,7 +787,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4485"
+    "version": "4501"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -802,7 +802,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.1-unstable-2025-01-10"
+    "version": "1.27.1.1-unstable-2025-01-17"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
@@ -1277,7 +1277,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-01-08"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1312,7 +1312,7 @@
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.22.1"
+    "version": "1.22.2"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3572,7 +3572,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-16"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -3592,7 +3592,7 @@
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.22.1"
+    "version": "1.22.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -4137,7 +4137,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-01-08"
+    "version": "0-unstable-2025-01-15"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4442,7 +4442,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-15"
+    "version": "0-unstable-2025-01-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4512,7 +4512,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-15"
+    "version": "0-unstable-2025-01-16"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4827,7 +4827,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-01-10"
+    "version": "0-unstable-2025-01-16"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -4917,12 +4917,12 @@
   "packages.x86_64-linux.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "packages.x86_64-linux.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.12.0"
+    "version": "3.13.0"
   },
   "packages.x86_64-linux.kernel-modules": {
     "description": "",
@@ -4992,7 +4992,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-01-08"
+    "version": "0-unstable-2025-01-15"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5027,7 +5027,7 @@
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.22.1"
+    "version": "1.22.2"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -5432,7 +5432,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-01-15"
+    "version": "0-unstable-2025-01-16"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

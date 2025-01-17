@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "8dad32c7d17831f08087e52839942c38c1e12df3";
+    version = "31da92efb0e34f6a796d1a35a1102f6ded82281d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "8dad32c7d17831f08087e52839942c38c1e12df3";
-      hash = "sha256-2B0RvSfTdKOIm0uX7Ab1gxUwx+uVGsVT7hEXBQUqOCQ=";
+      rev = "31da92efb0e34f6a796d1a35a1102f6ded82281d";
+      hash = "sha256-oxrRQMmbRzi25aPO/TsTsRArN5cZyqlEDssEQ0mJMhI=";
     };
-    date = "2025-01-13";
+    date = "2025-01-16";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "aa4fd088e62b2ba7e7571ba62193a6c335a34572";
+    version = "2144c81a6e53964ef4045edc2b1ecdba357a171d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "aa4fd088e62b2ba7e7571ba62193a6c335a34572";
-      hash = "sha256-7AeES2s3M8NjwvGPrRG4IXq6YRW5zeAHZduJ7NCik7A=";
+      rev = "2144c81a6e53964ef4045edc2b1ecdba357a171d";
+      hash = "sha256-1iuoO+XZLjvltmqQMyYVPS8iorAhRpju8ghZUQ6jvUo=";
     };
-    date = "2025-01-13";
+    date = "2025-01-15";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "d4f13c2e444f972b272273bce76b05f52f5164aa";
+    version = "23c6d672881aedabd89e37397e04177f088eccf9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "d4f13c2e444f972b272273bce76b05f52f5164aa";
-      hash = "sha256-GmYa4bPfB3pQViNs7MPC2nNKpKuBDlNLxj5M1fN9/h0=";
+      rev = "23c6d672881aedabd89e37397e04177f088eccf9";
+      hash = "sha256-4SfPLemBiD37pyiqgleVa/bPu/+hljoJKTYrQnBS28k=";
     };
-    date = "2025-01-10";
+    date = "2025-01-16";
   };
   glauth = {
     pname = "glauth";
@@ -647,20 +647,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.12.0";
+    version = "3.13.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.12.0";
-      hash = "sha256-0pJx8ASUeJjLubu/QV72avntkaU3b5PC5V1H54SrPIs=";
+      tag = "3.13.0";
+      hash = "sha256-xBEK+Tczc4MVnETx5sV9sb5/myxLeP7YDDigTroN4Lg=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.12.0";
+    version = "3.13.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.12.0/kata-static-3.12.0-amd64.tar.xz";
-      hash = "sha256-dfSiLaNV+KtjlHAMfMFFx6uB2VKG+EaJACDy6rQgyX0=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.13.0/kata-static-3.13.0-amd64.tar.xz";
+      hash = "sha256-Tq1x3mk6CWZuPaj5wxzW2RkscEimkqBBuQd/1zl3TG0=";
     };
   };
   kikoplay = {
@@ -757,14 +757,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "cc61cb046dce756e493c9406c803ba7820a30866";
+    version = "64bceb37fafa9b90cf228965079de9ebd77a83b9";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "cc61cb046dce756e493c9406c803ba7820a30866";
-      hash = "sha256-3dxApbgaBgUTcfi6c2YrbEOzlMVzUzvUh3qy1Oi02dQ=";
+      rev = "64bceb37fafa9b90cf228965079de9ebd77a83b9";
+      hash = "sha256-B9h5dSFtszxlfrUqt6n9OOpcyX6Bl4nAoLm/zBL3+2s=";
     };
-    date = "2025-01-08";
+    date = "2025-01-15";
   };
   libqcef = {
     pname = "libqcef";
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4485";
+    version = "b4501";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4485";
-      hash = "sha256-q18kCjuam6QmnR7JOwCeFAuU7ljaaMzuGSGbHNBBXOg=";
+      tag = "b4501";
+      hash = "sha256-9aAlwTJlo5cimx0Y88MC8A3R8G+bRGtvvleiP4MkNSQ=";
     };
   };
   loralib = {
@@ -922,12 +922,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.22.1";
+    version = "v1.22.2";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.22.1";
-      hash = "sha256-egge9wR4ouSCozCl8vnddPlAb3jGb7PHHCgsoc1IGtg=";
+      tag = "v1.22.2";
+      hash = "sha256-DwBdEBK4z6JuDQ71542DGHX7yP5MhcKECFDEZRUB6G8=";
     };
   };
   mtkclient = {
@@ -1157,14 +1157,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "279c5cf91a6962ea7088547bd82c2829fb7f8748";
+    version = "47dafb930e70f0103b14701395ad0d1a8a1dc4de";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "279c5cf91a6962ea7088547bd82c2829fb7f8748";
-      hash = "sha256-PgcyJuK8V7/l3bBmhGz7UgllTB5HTJIpiEN4fKsiVA4=";
+      rev = "47dafb930e70f0103b14701395ad0d1a8a1dc4de";
+      hash = "sha256-Y9Wc/mrpDfDkHy2N6OYUFycU7gdd2gFoMccdbcViuLw=";
     };
-    date = "2025-01-10";
+    date = "2025-01-17";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1889,14 +1889,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "104191e9653a3b83622d321d3687519857c92177";
+    version = "d24f6a9824c3f6747621f8dc713f543a2f176365";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "104191e9653a3b83622d321d3687519857c92177";
-      hash = "sha256-jSz+xTVkSNksGZ0ApvBIDRtR+rT7LKjaWIPl508Z5WA=";
+      rev = "d24f6a9824c3f6747621f8dc713f543a2f176365";
+      hash = "sha256-KV2rN7iDR7WyE7/Y5PPLUzDlvWPmmXklA0e9mcWUoxQ=";
     };
-    date = "2025-01-15";
+    date = "2025-01-16";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
