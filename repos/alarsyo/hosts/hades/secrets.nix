@@ -22,9 +22,7 @@
           owner = "matrix-synapse";
         };
 
-        "mealie/secret-config" = {
-          owner = "mealie";
-        };
+        "mealie/secret-config" = {};
 
         "microbin/secret-config" = {};
 
