@@ -6,6 +6,7 @@
     "_sources/**"
     "LICENSE"
     "*.toml"
+    ".envrc"
   ];
 
   # Nix
