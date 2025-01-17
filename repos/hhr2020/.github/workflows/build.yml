@@ -39,7 +39,6 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           # - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.11.tar.gz
     runs-on: ubuntu-latest
-    environment: cachix
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -60,7 +59,6 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        useDaemon: true
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
