@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildPythonPackage,
   hatchling,
-  aenum,
   prompt-toolkit,
   pygments,
   nbformat,
@@ -34,22 +33,21 @@
 }:
 buildPythonPackage rec {
   pname = "euporie";
-  version = "2.8.4";
+  version = "2.8.5";
   format = "pyproject";
 
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "joouha";
     repo = "euporie";
     rev = "v${version}";
-    hash = "sha256-49IotdE4o3UFmvoY1AWzISXk05kfclA1PtYjxr87hj4=";
+    hash = "sha256-dnaVb+8gH5Vu3P9jkkSSYBBG6duuwUgmP1OUjF14pQ0=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail "\"timg~=1.1.6\"," "" \
-      --replace-fail "aenum~=3.1,<=3.1.12" "aenum" \
       --replace-fail "platformdirs~=3.5" "platformdirs"
     #   --replace-fail "packaging = \"^23.0\"" "packaging = \"^24.0\""
       # --replace-fail "linkify-it-py~=1.0" "linkify-it-py" \
@@ -59,7 +57,6 @@ buildPythonPackage rec {
   build-system = [hatchling];
 
   dependencies = [
-    aenum
     timg
 
     prompt-toolkit
@@ -78,10 +75,13 @@ buildPythonPackage rec {
     pillow
     sixelcrop
     universal-pathlib
-    # fsspec[http]>=2022.12.0",
     fsspec
     jupytext
   ];
+
+  preCheck = ''
+    export HOME=$(mktemp -d)
+  '';
 
   nativeCheckInputs = [
     pytestCheckHook

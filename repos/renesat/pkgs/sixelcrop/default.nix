@@ -6,14 +6,15 @@
 }:
 buildPythonPackage rec {
   pname = "sixelcrop";
-  version = "0.1.8";
+  version = "0.1.9";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "joouha";
     repo = "sixelcrop";
-    rev = "v${version}";
-    hash = "sha256-Q+gQefnTXyf6qktRvxfvsf32dQXDsn8e6nSmiKTlMgw=";
+    rev = "f78ae776164f0fe186e7ada12eab1336068a1687"; # FIXME: no tag for 0.1.9
+    # rev = "v${version}";
+    hash = "sha256-oqTkMbpWIiUOKq5CwWRC4ZoeKun+FsjDGa5FkifFYCg=";
   };
 
   build-system = [hatchling];
