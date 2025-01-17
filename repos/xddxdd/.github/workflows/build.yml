@@ -40,6 +40,7 @@ jobs:
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v3
+        if: matrix.base-image == "ubuntu-24.04"
         with:
           image: tonistiigi/binfmt:latest
           platforms: all

@@ -6,7 +6,7 @@
 }:
 buildGoModule rec {
   inherit (sources.baidupcs-go) pname version src;
-  vendorHash = "sha256-msTlXtidxLTe3xjxTOWCqx/epFT0XPdwGPantDJUGpc=";
+  vendorHash = "sha256-hW+IrzS5+DublQUIIcecL08xoauTjba9qnAtpzNeDXw=";
   doCheck = false;
 
   ldflags = [
