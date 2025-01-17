@@ -960,10 +960,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.6.2";
+      version = "0.7.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4411710/bilisponsorblock-0.6.2.xpi";
-      sha256 = "b6b240bd5c323836967365c89d7848134624bfd86ed0ffb50651685b31bf2965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421115/bilisponsorblock-0.7.0.xpi";
+      sha256 = "bb50a0d651990df0f8492331ec3cc566cb31cbaf765645eda295ba9892d56447";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -2443,20 +2443,16 @@
     };
     "docsafterdark" = buildFirefoxXpiAddon {
       pname = "docsafterdark";
-      version = "1.1.0";
+      version = "0.6.3";
       addonId = "{e8ffc3db-2875-4c7f-af38-d03e7f7f8ab9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4413301/docsafterdark-1.1.0.xpi";
-      sha256 = "48a9c08d9e30fd15e98b64a68663cf4fc4be7125c9fd3b8dd3f1cfc593020503";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230160/docsafterdark-0.6.3.xpi";
+      sha256 = "8eadd0a5661e8803ef6e7a96553d6e52eb7fd927251303127d4722d6afae3ab1";
       meta = with lib;
       {
         homepage = "https://waymondrang.com/docsafterdark/";
         description = "Modern, dark mode for Google Docs";
         license = licenses.mpl20;
-        mozPermissions = [
-          "storage"
-          "activeTab"
-          "*://docs.google.com/document/*"
-        ];
+        mozPermissions = [ "storage" "*://docs.google.com/document/*" ];
         platforms = platforms.all;
       };
     };
@@ -5315,10 +5311,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.11.7";
+      version = "1.13.5";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4394599/immersive_translate-1.11.7.xpi";
-      sha256 = "53cf77c2ec7ced59167ee55a8f7f0acbd45da50d93e110423b4f698135ffbb38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4419548/immersive_translate-1.13.5.xpi";
+      sha256 = "fe9feaea1af4abcc3daa6414845bbee078de288117c969ae140d01152d29218b";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7498,10 +7494,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.17";
+      version = "1.0.18";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416800/mergify-1.0.17.xpi";
-      sha256 = "138e496bcbb64d1262069ba59ed9588469435d52587b0187e9ceca75af9ac326";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421002/mergify-1.0.18.xpi";
+      sha256 = "09a7f52773cdbaf8c0f0368d1ab1896e74e33bc8fa7508c51b7f8740be2bef58";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -12250,10 +12246,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.1.0.44";
+      version = "9.1.2.0";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347883/video_downloadhelper-9.1.0.44.xpi";
-      sha256 = "32270afc9eb92548f5d5c9a75f4a7d5c69c421cbcc993ae6c82da17bf314bfa4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4414706/video_downloadhelper-9.1.2.0.xpi";
+      sha256 = "a39978e3fc25fc97fd8c10e90a6d6660af4dd9ca30ec145f9959c188e602b7a2";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
