@@ -37,8 +37,8 @@ rec {
   src = fetchFromGitHub {
     owner = "make-42";
     repo = "xyosc";
-    rev = "71dfba131f4cda5b66e3193f39371ca2555411ba";
-    hash = "sha256-eXpy/CSyaEqRmFUdLWZzodIE3wHORCELKpJebiQLL8M=";
+    rev = "4b728c2125d1e6994579fa3c8184af8f93f84f1e";
+    hash = "sha256-v0VpuMsfZpDEN8NAdJk0p1W68zJAOMoUuvfG1IhlIsM=";
   };
 
   vendorHash = null;
