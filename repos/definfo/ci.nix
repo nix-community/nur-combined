@@ -10,7 +10,7 @@
 # which this is possible.
 
 {
-  pkgs ? import <nixpkgs> { config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; },
+  pkgs ? import <nixpkgs> { },
 }:
 
 with builtins;

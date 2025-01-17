@@ -7,7 +7,7 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; },
+  pkgs ? import <nixpkgs> { },
 }:
 
 let
@@ -39,9 +39,7 @@ rec {
   rime-ls = (pkgs.callPackage ./pkgs/rime-ls { }).override {
     rimeDataPkgs = [ rime-ice ];
   };
-  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper {
-    source = source.sjtu-canvas-helper;
-  };
+  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
 
   coqPackages = {
     inherit sets fixedpoints monadlib;

@@ -23,9 +23,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Run nvfetcher
-      run: nix run github:berberman/nvfetcher
-    - name: Run nix-update
+    - name: Run update script
       run: nix run .#auto-update
     - name: Check for changes
       id: git-check

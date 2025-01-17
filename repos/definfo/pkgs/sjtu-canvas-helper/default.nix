@@ -1,50 +1,96 @@
 {
-  source,
   lib,
   stdenv,
-  dpkg,
-  wrapGAppsHook3,
-  autoPatchelfHook,
-  openssl_1_1,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  cargo-tauri_1, # ! tauri_cli for Tauri v1
+  darwin,
+  glib-networking,
+  nodejs,
+  yarnConfigHook,
+  openssl,
+  libsoup_2_4,
+  pkg-config,
   webkitgtk_4_0,
-  udev,
-  libayatana-appindicator,
+  wrapGAppsHook3,
+  desktop-file-utils,
 }:
 
-stdenv.mkDerivation {
-  inherit (source) pname src version;
+rustPlatform.buildRustPackage rec {
+  pname = "sjtu-canvas-helper";
+  version = "1.3.24";
+
+  src = fetchFromGitHub {
+    owner = "Okabe-Rintarou-0";
+    repo = "SJTU-Canvas-Helper";
+    tag = "app-v${version}";
+    hash = "sha256-DE4qL2dbUqTIIpjiWssKnBRSRtXbl7hTQv8zMZKNw/A=";
+  };
+
+  cargoHash = "sha256-/R6O7cOjKBVj9xDdUePCmpZ6myUMRUmOiOoXoJoT3UE=";
+
+  yarnOfflineCache = fetchYarnDeps {
+    yarnLock = src + "/yarn.lock";
+    hash = "sha256-ARr9KdUamHpXQR9qmJ/upmVhSIltzim0pLUbR8Wgkik=";
+  };
 
   nativeBuildInputs = [
-    dpkg
+    # Pull in our main hook
+    cargo-tauri_1.hook
+    rustPlatform.bindgenHook
+
+    # Setup yarn
+    nodejs
+    yarnConfigHook
+    # fixup_yarn_lock
+
+    # Make sure we can find our libraries
+    pkg-config
     wrapGAppsHook3
-    autoPatchelfHook
+
+    desktop-file-utils
   ];
 
-  buildInputs = [
-    openssl_1_1 # ! insecure
-    webkitgtk_4_0
-    stdenv.cc.cc
-  ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      glib-networking # Most Tauri apps need networking
+      libsoup_2_4
+      webkitgtk_4_0
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin (
+      with darwin.apple_sdk.frameworks;
+      [
+        AppKit
+        CoreServices
+        Security
+        WebKit
+      ]
+    );
 
-  runtimeDependencies = [
-    (lib.getLib udev)
-    libayatana-appindicator
-  ];
+  env.OPENSSL_NO_VENDOR = 1;
 
-  installPhase = ''
-    runHook preInstall
+  doCheck = false;
 
-    mkdir -p $out/bin
-    mv usr/* $out
-
-    runHook postInstall
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
+    desktop-file-edit \
+      --set-key="Categories" --set-value="Utility" \
+      $out/share/applications/sjtu-canvas-helper.desktop
   '';
+
+  # Set our Tauri source directory
+  cargoRoot = "src-tauri";
+  # And make sure we build there too
+  buildAndTestSubdir = cargoRoot;
 
   meta = {
     description = "An assistant tool for SJTU Canvas online course platform";
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
     license = lib.licenses.unlicense;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ definfo ];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

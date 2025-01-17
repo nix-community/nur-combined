@@ -22,17 +22,26 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-      nvfetcherPackages = builtins.attrNames (
-        import ./_sources/generated.nix {
-          inherit (nixpkgs)
-            fetchgit
-            fetchurl
-            fetchFromGitHub
-            dockerTools
-            ;
-        }
-      );
       pinnedPackages = [ "lyricer" ];
+      updateArgsMap = {
+        sjtu-canvas-helper-git = "--version-regex 'app-v.*'";
+      };
+      autoUpdatePackages = forAllSystems (
+        system:
+        builtins.filter (n: !builtins.elem n pinnedPackages) (builtins.attrNames self.packages.${system})
+      );
+      autoUpdateAttrs = forAllSystems (
+        system:
+        (
+          builtins.listToAttrs (
+            map (n: {
+              name = n;
+              value = "";
+            }) autoUpdatePackages.${system}
+          )
+          // updateArgsMap
+        )
+      );
       # treefmt-nix assisted functions
       eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
@@ -43,19 +52,11 @@
         import ./default.nix {
           pkgs = import nixpkgs {
             inherit system;
-            config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
           };
         }
       );
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
-      );
-
-      autoUpdatePackages = forAllSystems (
-        system:
-        builtins.filter (n: !builtins.elem n (nvfetcherPackages ++ pinnedPackages)) (
-          builtins.attrNames self.packages.${system}
-        )
       );
       apps = forAllSystems (
         system:
@@ -66,13 +67,20 @@
 
             PARALLEL_JOBS=4
 
-            ${pkgs.nix}/bin/nix eval --json .#autoUpdatePackages.${system} | \
-            ${pkgs.jq}/bin/jq -r '.[]' | \
-            ${pkgs.parallel}/bin/parallel -j $PARALLEL_JOBS \
-              echo "=== Updating {} ===" \; \
-              ${pkgs.nix-update}/bin/nix-update {} \; \
-              echo "✓ Successfully updated {}" \; \
+            update_package() {
+              local package=$1
+              local args=$2
+              echo "=== Updating $package ==="
+              ${pkgs.nix-update}/bin/nix-update --build "$package" "$args"
+              echo "✓ Successfully updated $package"
               echo
+            }
+            export -f update_package
+
+            ${pkgs.jq}/bin/jq -r 'to_entries | .[] | .key + " " + .value' <<< '${
+              builtins.toJSON autoUpdateAttrs.${system}
+            }' | \
+            ${pkgs.moreutils}/bin/parallel -j $PARALLEL_JOBS update_package
 
             echo "Update process completed!"
           '';
@@ -84,7 +92,23 @@
           };
         }
       );
-
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              nvfetcher
+              nix-update
+              treefmt
+              jq
+              moreutils
+            ];
+          };
+        }
+      );
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       checks = eachSystem (pkgs: {
         formatting = treefmtEval.${pkgs.system}.config.build.check self;

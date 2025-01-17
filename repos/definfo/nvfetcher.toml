@@ -1,4 +1,0 @@
-[sjtu-canvas-helper]
-src.github = "Okabe-Rintarou-0/SJTU-Canvas-Helper"
-src.prefix = "app-v"
-fetch.url = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper/releases/download/app-v$ver/sjtu-canvas-helper_$ver_amd64.deb"
