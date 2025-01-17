@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  starship.enable = true;
-
   packages = with pkgs; [
     # nix tooling
     alejandra
