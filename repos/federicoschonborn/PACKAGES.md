@@ -3511,12 +3511,12 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox
 
 - Name: `firefox-gnome-theme`
-- Version: `133.1`
+- Version: `134`
 
 - [🌐 Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
 - [📦 Source](./pkgs/by-name/firefox-gnome-theme/package.nix#L30)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
-- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v133.1)
+- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v134)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -4045,10 +4045,10 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 Lightning-fast and Powerful Code Editor written in Rust
 
 - Name: `lapce-nightly`
-- Version: `0-unstable-2024-11-24`
+- Version: `nightly`
 
 - [🌐 Homepage](https://github.com/lapce/lapce)
-- [📦 Source](./pkgs/by-name/lapce-nightly/package.nix#L123)
+- [📦 Source](./pkgs/by-name/lapce-nightly/package.nix#L125)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - [📰 Changelog](https://github.com/lapce/lapce/blob/7100aa459e1d16f9255e148a8d9323835761822c/CHANGELOG.md)
 
@@ -8132,12 +8132,12 @@ A GNOME theme for Thunderbird
 Generate a static HTML page from a collection of feeds wtih a simple CLI tool
 
 - Name: `tinyfeed`
-- Version: `1.0.0`
+- Version: `1.0.1`
 
 - [🌐 Homepage](https://github.com/TheBigRoomXXL/tinyfeed)
 - [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L39)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.0.0)
+- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.0.1)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>

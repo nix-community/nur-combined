@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  unstableGitUpdater,
   rustPlatform,
   cmake,
   pkg-config,
@@ -20,6 +19,7 @@
   xorg,
   apple-sdk_11,
   darwin,
+  nix-update-script,
 }:
 
 let
@@ -38,7 +38,7 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "lapce-nightly";
-  version = "0-unstable-2024-11-24";
+  version = "nightly";
 
   src = fetchFromGitHub {
     owner = "lapce";
@@ -113,9 +113,11 @@ rustPlatform.buildRustPackage rec {
 
   dontPatchELF = true;
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/lapce/lapce";
-    hardcodeZeroVersion = true;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "unstable"
+    ];
   };
 
   meta = {
