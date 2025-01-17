@@ -1,4 +1,4 @@
-{ mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv, doSplitBuildHack ? stdenv.hostPlatform.system == "aarch64-linux", checkpointBuildTools }: let
+{ mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv, doSplitBuildHack ? false, checkpointBuildTools }: let
     hbmame' = (mame.override {
         papirus-icon-theme = "DUMMY";
     }).overrideAttrs (old: rec {
