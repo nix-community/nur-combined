@@ -10,7 +10,7 @@
   nodejs,
   yarnConfigHook,
   openssl,
-  libsoup_2_4,
+  libsoup,
   pkg-config,
   webkitgtk_4_0,
   wrapGAppsHook3,
@@ -43,7 +43,6 @@ rustPlatform.buildRustPackage rec {
     # Setup yarn
     nodejs
     yarnConfigHook
-    # fixup_yarn_lock
 
     # Make sure we can find our libraries
     pkg-config
@@ -58,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       glib-networking # Most Tauri apps need networking
-      libsoup_2_4
+      libsoup
       webkitgtk_4_0
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin (
