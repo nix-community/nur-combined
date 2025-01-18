@@ -7454,7 +7454,7 @@ Sharkish microblogging platform
 - Version: `2024.11.2`
 
 - [🌐 Homepage](https://activitypub.software/TransFem-org/Sharkey)
-- [📦 Source](./pkgs/by-name/sharkey/package.nix#L122)
+- [📦 Source](./pkgs/by-name/sharkey/package.nix#L130)
 - License: [`GNU Affero General Public License v3.0 only`](https://spdx.org/licenses/AGPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

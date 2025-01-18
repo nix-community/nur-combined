@@ -106,10 +106,18 @@ def "main path-info-stable" [package: string] {
 }
 
 def "main update" [package: string] {
-    let p = ^nix eval --json $".#($package)" --apply 'p: { inherit (p) name pname version updateScript; }' | from json
-    let updateScript = if "command" in $p.updateScript { $p.updateScript.command } else { $p.updateScript }
+    let p = ^nix eval --json $".#($package)" --apply 'p: { inherit (p) name pname version updateScript; buildUpdateScript = p.updateScript.type or null == "derivation"; }' | from json
+    if ($p.buildUpdateScript) {
+        nix build $".#($package).updateScript"
+    }
 
-    with-env { UPDATE_NIX_NAME: $p.name, UPDATE_NIX_PNAME: $p.pname, UPDATE_NIX_OLD_VERSION: $p.version, UPDATE_NIX_ATTR_PATH: $package } { run-external ($updateScript | get 0) ...(try { $updateScript | get 1.. } catch { [] }) }
+    let updateScript = match ($p.updateScript | describe) {
+        "string" => { cmd: $p.updateScript, args: [] },
+        "list<string>" => { cmd: ($p.updateScript | first), args: ($p.updateScript | skip 1) }
+        $other => { error make { msg: $"Don't know how to handle ($other)" } }
+    }
+
+    with-env { UPDATE_NIX_NAME: $p.name, UPDATE_NIX_PNAME: $p.pname, UPDATE_NIX_OLD_VERSION: $p.version, UPDATE_NIX_ATTR_PATH: $package } { run-external $updateScript.cmd ...$updateScript.args }
 }
 
 def "main update-all" [] {
