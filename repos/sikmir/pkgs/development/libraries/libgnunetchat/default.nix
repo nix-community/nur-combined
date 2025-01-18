@@ -14,11 +14,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgnunetchat";
-  version = "0.5.0";
+  version = "0.5.2";
 
   src = fetchurl {
     url = "mirror://gnu/gnunet/libgnunetchat-${finalAttrs.version}.tar.gz";
-    hash = "sha256-IJ2XeJ/wPDDc4dEoaiucJAsnpU7e3Xa72r1EGPH27tw=";
+    hash = "sha256-ecdFfDF1uuqvCL7j465HYIPTq+6kAJugmyq8JSPdEIo=";
   };
 
   postPatch = ''

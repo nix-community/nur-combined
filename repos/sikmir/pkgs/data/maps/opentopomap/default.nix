@@ -2,24 +2,27 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchwebarchive,
   fetchurl,
   unzip,
   mkgmap,
   mkgmap-splitter,
 }:
 let
-  version = "250107";
-  bounds = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/bounds-20250103.zip";
-    hash = "sha256-NrEblRWr6GynP1e44gQnihkUf3/hnbpXfSv51IWrDsY=";
+  version = "250115";
+  bounds = fetchwebarchive {
+    url = "https://www.thkukuk.de/osm/data/bounds-20250110.zip";
+    timestamp = "20250116113456";
+    hash = "sha256-KRsCgzFUoEi7Ou6gUsQp/4l7V9jW/q3Zy3HikW9SCOs=";
   };
-  sea = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/sea-20250107001502.zip";
-    hash = "sha256-caSc/rkO+CZK/1JOqZgk1PJkJXaZ66+Qz4KlW9fUnLw=";
+  sea = fetchwebarchive {
+    url = "https://www.thkukuk.de/osm/data/sea-20250114001521.zip";
+    timestamp = "20250116115241";
+    hash = "sha256-1why/zj+/S4F1CbRdhzMen75WA2O5guMKjj3Gk4RrFw=";
   };
   armenia = fetchurl {
     url = "https://download.geofabrik.de/asia/armenia-${version}.osm.pbf";
-    hash = "sha256-78xH15BMkMqMHrzxQQWAYdxLdAN3pJLZHcPJr/5LZgA=";
+    hash = "sha256-z/oTAL30QJ52ON3ppZCDrwWWcuKBkpu94SEui+YRcHk=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
