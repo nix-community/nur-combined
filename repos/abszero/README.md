@@ -15,6 +15,7 @@ functions.
 - Using [haumea](https://github.com/nix-community/haumea):
   - to generate lists and trees of modules for `home` and `nixos`
   - as a module system for `lib`
+- Using [disko](https://github.com/nix-community/disko) to declare partitions
 - [Workaround to boot NixOS on Redmi Book](nixos/modules/hardware/redmi-book-pro-16-2024.nix)
   as described by https://discourse.nixos.org/t/system-wont-boot-path-efi-stub/29212/12
 

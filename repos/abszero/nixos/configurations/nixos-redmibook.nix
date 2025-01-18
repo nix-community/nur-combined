@@ -40,24 +40,17 @@ let
       themes.catppuccin.enable = true;
     };
 
-    # BIOS-compatible GPT layout
-    disko.devices.disk.toshiba-mq04ubb400-22rbt03qt = {
+    disko.devices.disk.nvme0n1 = {
       type = "disk";
-      device = "/dev/disk/by-id/ata-TOSHIBA_MQ04UBB400_22RBT03QT";
+      device = "/dev/disk/by-id/nvme-BC511_NVMe_SK_hynix_512GB_NY11N03371040170Q";
       content = {
         type = "gpt";
         partitions = {
-          bios = {
-            label = "ext-bios";
-            size = "1M";
-            type = "EF02"; # BIOS boot partition
-            priority = 0;
-          };
           esp = {
-            label = "ext-esp";
+            label = "esp";
             size = "512M";
             type = "EF00"; # EFI system partition
-            priority = 1;
+            priority = 0;
             content = {
               type = "filesystem";
               format = "vfat";
@@ -74,33 +67,52 @@ let
             };
           };
           data = {
-            label = "ext-data";
-            size = "2T";
-            priority = 2;
+            label = "data";
+            size = "150G";
+            priority = 1;
             content = {
-              type = "filesystem";
-              format = "bcachefs";
-              mountpoint = "/home";
-              mountOptions = [
-                "noatime"
-                "nodev"
-                "nosuid"
-              ];
+              type = "btrfs";
+              subvolumes = {
+                home = {
+                  mountpoint = "/home";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                    "nodev"
+                    "nosuid"
+                  ];
+                };
+              };
             };
           };
           nixos = {
-            label = "ext-nixos";
-            end = "-16G";
+            label = "nixos";
+            size = "100G";
+            priority = 2;
             content = {
-              type = "filesystem";
-              format = "bcachefs";
-              mountpoint = "/";
-              mountOptions = [ "noatime" ];
+              type = "btrfs";
+              subvolumes = {
+                root = {
+                  mountpoint = "/";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                  ];
+                };
+                nix = {
+                  mountpoint = "/nix";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                  ];
+                };
+              };
             };
           };
           swap = {
-            label = "ext-swap";
-            size = "100%";
+            label = "swap";
+            size = "16G";
+            priority = 3;
             content = {
               type = "swap";
               discardPolicy = "pages";
@@ -113,6 +125,19 @@ let
 
     catppuccin.accent = "pink";
 
+    fileSystems.windows = {
+      device = "/dev/disk/by-partlabel/Basic\x20data\x20partition";
+      fsType = "ntfs3";
+      noCheck = true;
+      options = [
+        "noatime"
+        "noauto"
+        "nofail"
+        "x-systemd.automount"
+        "x-systemd.idle-timeout=10min"
+      ];
+    };
+
     users.users = rec {
       weathercold = {
         description = "Weathercold";
@@ -123,19 +148,13 @@ let
         inherit (weathercold) hashedPassword;
       };
     };
-
-    # Speed up builds
-    documentation = {
-      enable = false;
-      man.enable = false; # Disable man-db
-    };
   };
 in
 
 {
   imports = [ ./_options.nix ];
 
-  nixosConfigurations.nixos-disk = {
+  nixosConfigurations.nixos-redmibook = {
     system = "x86_64-linux";
     modules = [
       inputs.nixos-hardware.nixosModules.common-cpu-intel

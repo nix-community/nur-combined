@@ -1,10 +1,19 @@
 { inputs, lib, ... }:
 
 let
-  inherit (builtins) fromJSON readFile;
+  inherit (builtins)
+    fromJSON
+    readDir
+    readFile
+    warn
+    ;
   inherit (lib) recursiveUpdate;
 
-  proxySettings = fromJSON (readFile ./fracture-ray/proxy.json);
+  proxySettings =
+    if (readDir ./fracture-ray ? "proxy.json") then
+      fromJSON (readFile ./fracture-ray/proxy.json)
+    else
+      warn "proxy.json is hidden, configuration is incomplete" { };
 
   modules = {
     main = {

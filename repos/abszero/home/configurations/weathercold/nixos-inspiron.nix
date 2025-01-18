@@ -1,8 +1,5 @@
-{ lib, ... }:
-
 let
-  inherit (builtins) readDir;
-  inherit (lib) optionalAttrs;
+  inherit (builtins) readDir warn;
 
   modules = {
     main = {
@@ -26,12 +23,12 @@ let
             nushell.enable = true;
           };
           catppuccin = {
+            cursors.enable = true;
             fcitx5.enable = true;
             foot.enable = true;
             gtk.enable = true;
             hyprland.enable = true;
             hyprpaper.nixosLogo = true;
-            cursors.enable = true;
           };
         };
       };
@@ -69,15 +66,19 @@ let
   };
 in
 
-# No-op if _base.nix is hidden
-optionalAttrs (readDir ./. ? "_base.nix") {
+{
   imports = [ ../_options.nix ];
 
   homeConfigurations."weathercold@nixos-inspiron" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
-      (import ./_base.nix { inherit lib; })
+      (
+        if (readDir ./. ? "_base.nix") then
+          ./_base.nix
+        else
+          warn "_base.nix is hidden, home configuration is incomplete" { }
+      )
       modules.main
     ];
   };

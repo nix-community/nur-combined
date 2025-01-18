@@ -13,10 +13,19 @@
 }:
 
 let
-  inherit (builtins) fromJSON readFile;
+  inherit (builtins)
+    fromJSON
+    readDir
+    readFile
+    warn
+    ;
   inherit (lib) recursiveUpdate;
 
-  proxySettings = fromJSON (readFile ./proxy.json);
+  proxySettings =
+    if (readDir ./. ? "proxy.json") then
+      fromJSON (readFile ./proxy.json)
+    else
+      warn "proxy.json is hidden, configuration is incomplete" { };
 
   mainModule = {
     abszero = {

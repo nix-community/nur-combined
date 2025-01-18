@@ -7,7 +7,7 @@ let
       themes = {
         base = {
           fastfetch.enable = true;
-          firefox.verticalTabs = true;
+          # firefox.verticalTabs = true;
           # hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
         };
@@ -26,19 +26,13 @@ let
       accent = "pink";
       gtk.icon.enable = true;
     };
-
-    wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
-
-    programs.man.enable = false; # Speed up builds
-
-    manual.manpages.enable = false;
   };
 in
 
 {
   imports = [ ../_options.nix ];
 
-  homeConfigurations."weathercold@nixos-disk" = {
+  homeConfigurations."weathercold@nixos-redmibook" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
@@ -46,7 +40,7 @@ in
         if (readDir ./. ? "_base.nix") then
           ./_base.nix
         else
-          warn "_base.nix is hidden, home configuration is incomplete" { }
+          warn "_base.nix is hidden, configuration is incomplete" { }
       )
       mainModule
     ];
