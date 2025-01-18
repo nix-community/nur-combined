@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "31da92efb0e34f6a796d1a35a1102f6ded82281d";
+    version = "f2de7fe64a97b57f57fe3fecfdd655c9bb488bdc";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "31da92efb0e34f6a796d1a35a1102f6ded82281d";
-      hash = "sha256-oxrRQMmbRzi25aPO/TsTsRArN5cZyqlEDssEQ0mJMhI=";
+      rev = "f2de7fe64a97b57f57fe3fecfdd655c9bb488bdc";
+      hash = "sha256-hDkJIBE230u8dnIweJ+BqR5ZbFNi+8vyNv1GB/O9ZOg=";
     };
-    date = "2025-01-16";
+    date = "2025-01-18";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2144c81a6e53964ef4045edc2b1ecdba357a171d";
+    version = "f5bbf91fc68f0afb0e5a9d9ccfa15dc9d8015f75";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2144c81a6e53964ef4045edc2b1ecdba357a171d";
-      hash = "sha256-1iuoO+XZLjvltmqQMyYVPS8iorAhRpju8ghZUQ6jvUo=";
+      rev = "f5bbf91fc68f0afb0e5a9d9ccfa15dc9d8015f75";
+      hash = "sha256-OeAkL3JFJWritTnatZ5MtOnncoZVL0K781h3xpV7aBc=";
     };
-    date = "2025-01-15";
+    date = "2025-01-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -823,12 +823,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.12.9-xanmod1";
+    version = "6.12.10-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.9-xanmod1";
+      tag = "6.12.10-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-vA1/OhhwSKVIaLJ7uN2ut1b1/UX/mIAITQ3BqTZD9Uk=";
+      hash = "sha256-nuy46eooZqCn/JZeiG2VqxNm9WbKr5/WJBvu8lZT1DU=";
     };
   };
   linux-xanmod-6_0 = {
@@ -853,32 +853,32 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.9-xanmod1";
+    version = "6.12.10-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.9-xanmod1";
+      tag = "6.12.10-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-vA1/OhhwSKVIaLJ7uN2ut1b1/UX/mIAITQ3BqTZD9Uk=";
+      hash = "sha256-nuy46eooZqCn/JZeiG2VqxNm9WbKr5/WJBvu8lZT1DU=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.70-xanmod1";
+    version = "6.6.72-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.6.70-xanmod1";
+      tag = "6.6.72-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-5G3Lo+dWObVDaBRzn2Ho24R2vMjsupx5z2jRIQ0NAl0=";
+      hash = "sha256-9XDd/cgUDNVgoorkz4L/3PtuLgFewowTBF9o7LX+REk=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4501";
+    version = "b4503";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4501";
-      hash = "sha256-9aAlwTJlo5cimx0Y88MC8A3R8G+bRGtvvleiP4MkNSQ=";
+      tag = "b4503";
+      hash = "sha256-M5dJalxSP6aTM+ROYi1cXTjNOPYUkaM6Rap0ZSW+fkg=";
     };
   };
   loralib = {
@@ -922,12 +922,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.22.2";
+    version = "v1.22.3";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.22.2";
-      hash = "sha256-DwBdEBK4z6JuDQ71542DGHX7yP5MhcKECFDEZRUB6G8=";
+      tag = "v1.22.3";
+      hash = "sha256-E2jEGRJH1n8mQCMMXsaSujsQn/l1mbCMN2UO13Vruc4=";
     };
   };
   mtkclient = {
@@ -1554,14 +1554,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "298b3967b84ba49e4cd6e0f9595de60517d76f4e";
+    version = "b02183bd0937097fe5a2b69d0b48f0720cee3ec9";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "298b3967b84ba49e4cd6e0f9595de60517d76f4e";
-      hash = "sha256-EnCB/ChsZGnlFVgEKEvDOYe20fltU8qqki8I9GGlbPA=";
+      rev = "b02183bd0937097fe5a2b69d0b48f0720cee3ec9";
+      hash = "sha256-tHc1dKN1v2eiK+mO52wgIZJyAFN+bocGicNWVcf7yBc=";
     };
-    date = "2025-01-15";
+    date = "2025-01-18";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
