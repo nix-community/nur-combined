@@ -1,10 +1,9 @@
-{ lib, clangStdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub }:
 
 let
   cc = "${stdenv.cc.targetPrefix}cc";
   cxx = "${stdenv.cc.targetPrefix}c++";
   ar = "${stdenv.cc.targetPrefix}ar";
-  stdenv = clangStdenv;
 in
 stdenv.mkDerivation rec {
   pname = "ctrtool";
@@ -39,6 +38,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
   enableParallelBuilding = true;
+
+  # workaround for https://github.com/3DSGuy/Project_CTR/issues/145
+  # (this doesn't happen with clang though)
+  env.NIX_CFLAGS_COMPILE = "-O0";
 
   installPhase = ''
     mkdir $out/bin -p
