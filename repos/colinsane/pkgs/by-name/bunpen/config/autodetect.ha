@@ -3,6 +3,7 @@ use errors;
 
 export type autodetect = enum {
   EXISTING,
+  EXISTING_DIR,
   EXISTING_FILE,
   EXISTING_FILE_OR_PARENT,
   EXISTING_DIR_OR_PARENT,
@@ -13,6 +14,7 @@ export type autodetect = enum {
 fn autodetect_fromstr(v: str) (autodetect | errors::invalid) = {
   return switch (v) {
     case "existing" => yield autodetect::EXISTING;
+    case "existingDir" => yield autodetect::EXISTING_DIR;
     case "existingFile" => yield autodetect::EXISTING_FILE;
     case "existingFileOrParent" => yield autodetect::EXISTING_FILE_OR_PARENT;
     case "existingDirOrParent" => yield autodetect::EXISTING_DIR_OR_PARENT;

@@ -201,12 +201,13 @@ fn ingest_paths(into: *[]path::buffer, from: []str, env: env, method: (void | au
   let (do_env_subst, allow_nonexistent, allow_file, allow_dir, allow_parent) = match (method) {
     case void => yield (true, true, true, true, false);
     case let detect: autodetect => yield switch (detect) {
-      case autodetect::EXISTING => yield (false, false, true, true, false);
-      case autodetect::EXISTING_FILE => yield (false, false, true, false, false);
-      case autodetect::EXISTING_FILE_OR_PARENT => yield (false, false, true, false, true);
-      case autodetect::EXISTING_DIR_OR_PARENT => yield (false, false, false, true, true);
-      case autodetect::EXISTING_OR_PARENT => yield (false, false, true, true, true);
-      case autodetect::PARENT => yield (false, false, false, false, true);
+      case autodetect::EXISTING                 => yield (false, false, true, true, false);
+      case autodetect::EXISTING_DIR             => yield (false, false, false, true, false);
+      case autodetect::EXISTING_FILE            => yield (false, false, true, false, false);
+      case autodetect::EXISTING_FILE_OR_PARENT  => yield (false, false, true, false, true);
+      case autodetect::EXISTING_DIR_OR_PARENT   => yield (false, false, false, true, true);
+      case autodetect::EXISTING_OR_PARENT       => yield (false, false, true, true, true);
+      case autodetect::PARENT                   => yield (false, false, false, false, true);
     };
   };
 

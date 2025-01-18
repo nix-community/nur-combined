@@ -50,7 +50,7 @@ export fn usage() void = {
   fmt::println("  --bunpen-env FOO=VALUE")!;
   fmt::println("      set the environment variable FOO to VALUE within the launched program")!;
   fmt::println("      a limited set of env vars are expanded within each expression: see PARAMETERIZATION")!;
-  fmt::println("  --bunpen-autodetect <existing|existingFile|existingFileOrParent|existingDirOrParent|existingOrParent|parent>")!;
+  fmt::println("  --bunpen-autodetect <existing|existingDir|existingFile|existingFileOrParent|existingDirOrParent|existingOrParent|parent>")!;
   fmt::println("      add files which appear later as CLI arguments into the sandbox")!;
   fmt::println("      shell expansion (PARAMETERIZATION) is NOT performed on these paths")!;
   fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;

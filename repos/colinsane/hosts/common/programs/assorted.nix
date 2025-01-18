@@ -48,6 +48,7 @@ in
       "dtc"  # device tree [de]compiler
       "e2fsprogs"  # resize2fs
       "efibootmgr"
+      "erdtree"  # like normal `tree` but colorful & prints sizes
       "errno"
       "ethtool"
       "evtest"
@@ -550,6 +551,10 @@ in
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
     emote.persist.byStore.plaintext = [ ".local/share/Emote" ];
 
+    erdtree.sandbox.tryKeepUsers = true;  #< to keep user/group info when running as root
+    erdtree.sandbox.autodetectCliPaths = "existingDir";
+    erdtree.sandbox.whitelistPwd = true;
+
     ethtool.sandbox.capabilities = [ "net_admin" ];
     ethtool.sandbox.net = "all";
     ethtool.sandbox.tryKeepUsers = true;
@@ -565,11 +570,12 @@ in
     eza.sandbox.tryKeepUsers = true;  #< to keep user/group info when running as root
     eza.sandbox.autodetectCliPaths = "existing";
     eza.sandbox.whitelistPwd = true;
-    eza.sandbox.extraHomePaths = [
-      # so that e.g. `eza -l ~` can show which symlink exist
-      ".persist/ephemeral"
-      ".persist/plaintext"
-    ];
+    # eza.sandbox.extraHomePaths = [
+    #   # so that e.g. `eza -l ~` can show which symlink exist
+    #   # hol' up: this is almost like just un-sandboxing it
+    #   ".persist/ephemeral"
+    #   ".persist/plaintext"
+    # ];
 
     fatresize.sandbox.autodetectCliPaths = "parent";  # /dev/sda1 -> needs /dev/sda
     fatresize.sandbox.tryKeepUsers = true;
