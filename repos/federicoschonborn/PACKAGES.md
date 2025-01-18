@@ -113,7 +113,7 @@ There are mice
 A set of emojis featuring a bun
 
 - Name: `eevee-neopossum`
-- Version: `0-unstable-2024-03-04`
+- Version: `0.5`
 
 - [🌐 Homepage](https://mooi.moe/emoji.html)
 - [📦 Source](./pkgs/akkoma-emoji/eevee/neopossum/package.nix#L25)

@@ -4,12 +4,12 @@
   fetchzip,
 }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "eevee-neopossum";
-  version = "0-unstable-2024-03-04";
+  version = "0.5";
 
   src = fetchzip {
-    url = "https://skunks.gay/download/neopossum-256px_v0.5.zip";
+    url = "https://skunks.gay/download/neopossum-256px_v${finalAttrs.version}.zip";
     hash = "sha256-md1CKmw+UroixUdW+AceXdGQmzcwT+KkZt3AnYx/xFw=";
   };
 
@@ -28,4 +28,4 @@ stdenvNoCC.mkDerivation {
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.federicoschonborn ];
   };
-}
+})
