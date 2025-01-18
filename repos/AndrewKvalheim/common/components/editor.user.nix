@@ -410,10 +410,12 @@ in
         "**/.bundle" = true;
         "**/.cache" = true;
         "**/.direnv" = true;
+        "**/.jj" = true;
         "**/.parcel-cache" = true;
         "**/.ruff_cache" = true;
         "**/.Trash-*" = true;
         "**/.vagrant" = true;
+        "**/.venv" = true;
         "**/.vscode" = true;
         "**/.yarn" = true;
         "**/__pycache__" = true;

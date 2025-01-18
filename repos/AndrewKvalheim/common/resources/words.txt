@@ -50,6 +50,7 @@ Ardour
 AREDN
 ARIN
 ARPA
+Arwen
 ASN
 ASNs
 assertable
@@ -114,11 +115,13 @@ blocky
 blogosphere
 Bluesky
 BlurHash
+Bombadil
 Bonnevier
 bootable
 bootloader
 bootloaders
 borgmatic
+Boromir
 Bothell
 brainfuck
 Broadcom
@@ -313,6 +316,7 @@ Dogpile
 Dokku
 DoS
 dotfiles
+downsample
 downvote
 downvoted
 drey
@@ -330,6 +334,7 @@ EFI
 eicosapentaenoic
 Eilish
 Eleventy
+Elrond
 Elwha
 emptiable
 endianness
@@ -338,6 +343,7 @@ enquired
 entomophagy
 entrypoint
 entrypoints
+EOD
 EPUB
 ErgoDox
 ESM
@@ -368,6 +374,7 @@ FHD
 FHS
 Fi
 filesystems
+finalizer
 Fircrest
 Firefish
 FireHOL
@@ -396,6 +403,7 @@ funders
 fuzzer
 fuzzers
 fwupd
+Galadriel
 gameplay
 gamified
 Gandi
@@ -428,6 +436,7 @@ globbing
 GlusterFS
 Gmail
 GNSS
+Gondor
 gopass
 Goulding
 GPG
@@ -485,6 +494,7 @@ Hotmail
 hotspot
 HSL
 HSTS
+HSV
 HTTPie
 https
 HubSpot
@@ -530,6 +540,8 @@ Iosevka
 IoT
 IPFS
 IPs
+Isengard
+Isildur
 Issaquah
 Jabra
 jackfruit
@@ -574,6 +586,7 @@ keylogger
 keylogging
 keyrings
 keyserver
+Khazad-dûm
 KHTML
 Kitsap
 KMonad
@@ -620,6 +633,7 @@ lossily
 LosslessCut
 losslessly
 lossy
+Lothlórien
 Lowman
 LSP
 LTS
@@ -760,6 +774,7 @@ normie
 Northgate
 NovaFerrum
 ntfy
+Númenor
 numericality
 numpad
 NumPy
@@ -978,6 +993,7 @@ remapper
 renamer
 renderer
 rentable
+Renton
 reoccurrence
 ReplayGain
 repositioned
@@ -998,6 +1014,7 @@ roadmap
 roadmaps
 Roboto
 Rockbox
+Rohan
 ROI
 rollouts
 roomless
@@ -1027,6 +1044,7 @@ Sammamish
 sandboxed
 sandboxing
 sanitization
+Saruman
 SASL
 schedulable
 SciPy
@@ -1079,6 +1097,7 @@ SIGHUP
 SIGINT
 SIGKILL
 SIGTERM
+Silmarillion
 siloing
 Simcoe
 Skagit
@@ -1087,6 +1106,7 @@ skippable
 Skylake
 slacklining
 SMB
+Smeagol
 SMS
 SMTP
 Snapchat
@@ -1212,6 +1232,7 @@ transcode
 transcoded
 transcoding
 transformative
+Treebeard
 triphosphate
 trippy
 Trisquel
@@ -1296,6 +1317,7 @@ unprefixed
 unproctored
 UnRAR
 unredaction
+unrelatedly
 unrendered
 unrepairable
 unscope

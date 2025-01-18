@@ -153,6 +153,7 @@ in
     dl = "http --download get";
     ds = "git diff --staged ':!*.lock'";
     dsw = "git diff --staged --ignore-all-space ':!*.lock'";
+    dua = "dua --stay-on-filesystem interactive";
     dw = "git diff --ignore-all-space ':!*.lock'";
     eh = "email-hash";
     et = "e --tree";

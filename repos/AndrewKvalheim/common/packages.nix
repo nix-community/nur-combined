@@ -15,6 +15,7 @@ in
   apex = any;
   attachments = any;
   audacity.env.GDK_BACKEND = "x11"; # NixOS/nixpkgs#238910
+  blocky = { version = "≥0.25"; search = pr 374690 "sha256-zaREOxuSmSzWdrvmMEXc815EuNNDyF5t3p62WRV1Mkw="; }; # 0xERR0R/blocky#1618
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;

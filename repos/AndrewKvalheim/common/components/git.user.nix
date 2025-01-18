@@ -129,4 +129,13 @@ in
       };
     };
   };
+
+  programs.jujutsu = {
+    enable = true;
+
+    settings = {
+      user.name = identity.name.long;
+      user.email = identity.email;
+    };
+  };
 }

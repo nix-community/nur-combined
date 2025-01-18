@@ -32,7 +32,6 @@
   home.packages = with pkgs; [
     album-art
     attachments
-    audacious
     audacity
     awscli2
     calibre

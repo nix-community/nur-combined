@@ -27,13 +27,14 @@ in
     xdg.mimeApps = {
       enable = true;
       defaultApplications = foldlAttrs (byType: handler: types: byType // (listToAttrs (map (type: nameValuePair type handler) types))) { } {
+        "audacious.desktop" = [ "audio/x-opus+ogg" ];
         "codium.desktop" = [ "application/gpx+xml" "application/json" "application/rss+xml" "application/x-shellscript" "application/xml" "message/rfc822" "text/markdown" "text/plain" ];
         "firefox.desktop" = [ "application/xhtml+xml" "text/html" "x-scheme-handler/http" "x-scheme-handler/https" ];
         "org.gnome.Evince.desktop" = [ "application/pdf" ];
         "org.gnome.FileRoller.desktop" = [ "application/zip" ];
         "org.gnome.Loupe.desktop" = [ "image/avif" "image/bmp" "image/gif" "image/heif" "image/jpeg" "image/png" "image/svg+xml" "image/tiff" "image/webp" ];
         "org.gnome.Totem.desktop" = [ "video/mp4" "video/mp2t" "video/vnd.avi" "video/webm" "video/x-matroska" ];
-        "writer.desktop" = [ "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
+        "writer.desktop" = [ "application/vnd.oasis.opendocument.text" "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
       };
     };
     xdg.configFile."mimeapps.list".force = true; # Workaround for nix-community/home-manager#1213
@@ -49,12 +50,14 @@ in
     # Packages
     home.packages = with pkgs; [
       add-words
+      audacious
       binsider
       cavif
       darktable
       dconf-editor
       dig
       displaycal
+      dua
       duperemove
       efficient-compression-tool
       exiftool
@@ -63,7 +66,6 @@ in
       ffmpeg
       file
       fq
-      gdu
       gifsicle
       gimp-with-plugins
       gnome-decoder
@@ -75,10 +77,12 @@ in
       guvcview
       htop
       identity
+      ijq
       imagemagickBig
       img2pdf
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       ipcalc
+      jless
       just
       just-local
       killall
@@ -126,6 +130,7 @@ in
       xh
       xkcdpass
       xorg.xev
+      xsv
       yq
     ];
 
@@ -148,6 +153,7 @@ in
     home.sessionVariables = {
       ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
+      UV_PYTHON_DOWNLOADS = "never";
       VAGRANT_APT_CACHE = "http://10.0.2.3:3142";
     };
     xdg.configFile."autostart/com.tomjwatson.Emote.desktop".source = "${pkgs.emote}/share/applications/com.tomjwatson.Emote.desktop";
@@ -157,7 +163,6 @@ in
       pre-release-commit-message = "Version {{version}}";
       tag-message = "Version {{version}}";
     };
-    xdg.configFile."gdu/gdu.yaml".text = "no-cross: true";
     home.file.".npmrc".text = toKeyValue { } { fund = false; update-notifier = false; };
     xdg.configFile."rustfmt/rustfmt.toml".source = toTOML "rustfmt.toml" {
       condense_wildcard_suffixes = true;
