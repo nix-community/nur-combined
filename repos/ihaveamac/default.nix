@@ -43,6 +43,7 @@ rec {
   _3dstools = pkgs.callPackage ./pkgs/3dstools { };
   cxitool = pkgs.callPackage ./pkgs/cxitool { };
   launchcontrol = pkgs.callPackage ./pkgs/launchcontrol { };
+  xiv-on-mac = pkgs.callPackage ./pkgs/xiv-on-mac { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

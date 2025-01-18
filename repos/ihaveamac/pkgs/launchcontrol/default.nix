@@ -6,17 +6,26 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "https://www.soma-zone.com/download/files/LaunchControl-${version}.tar.xz";
-    hash = "sha256-qL9a3SaIs+v2qidw+zSMZUhI8sjVI3SOvyS3HsQqj+A=";
-    stripRoot = false;
+    hash = "sha256-O11i4BDl1izEx8hsJ/SrFM4maQ0gtItpncoKbGhhNYU=";
   };
 
   # fixup breaks the signature, causing macOS to think it's corrupt
   dontFixup = true;
 
+  # wrapper based on:
+  # https://github.com/NixOS/nixpkgs/blob/5df43628fdf08d642be8ba5b3625a6c70731c19c/pkgs/by-name/it/iterm2/package.nix#L29
   installPhase = ''
-    mkdir -p $out/Applications $out/bin
-    cp -R LaunchControl.app $out/Applications/LaunchControl.app
-    ln -s $out/Applications/LaunchControl.app/Contents/MacOS/fdautil $out/bin/fdautil
+    runHook preInstall
+    APP_DIR="$out/Applications/LaunchControl.app"
+    mkdir -p "$APP_DIR" $out/bin
+    cp -R . "$APP_DIR"
+    ln -s "$APP_DIR/Contents/MacOS/fdautil" $out/bin/fdautil
+    cat << EOF > "$out/bin/launchcontrol"
+    #!${stdenvNoCC.shell}
+    open -na "$APP_DIR" --args "$@"
+    EOF
+    chmod +x "$out/bin/launchcontrol"
+    runHook postInstall
   '';
 
   meta = with lib; {
@@ -24,6 +33,10 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.soma-zone.com/LaunchControl/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = platforms.darwin;
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+    mainProgram = "launchcontrol";
   };
 }
