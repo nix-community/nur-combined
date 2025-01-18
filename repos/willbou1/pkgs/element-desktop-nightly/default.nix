@@ -1,15 +1,15 @@
-{ stdenv, fetchurl, dpkg, lib, symlinkJoin, makeWrapper,
-alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome3, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core }:
+{ stdenv, fetchurl, dpkg, lib, makeWrapper, symlinkJoin,
+alsa-lib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome, gnome-keyring, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core }:
 
 ################################################################################
 # Based on element-desktop-nightly package from AUR:
 # https://aur.archlinux.org/packages/element-desktop-nightly-bin
 ################################################################################
 let
-    version = "2024110801";
+    version = "2025011701";
 
     rpath = lib.makeLibraryPath [
-        alsaLib
+        alsa-lib
         atk
         at-spi2-atk
         at-spi2-core
@@ -33,7 +33,7 @@ let
         gtk3
         libappindicator-gtk3
 
-        gnome3.gnome-keyring
+        gnome-keyring
 
         libnotify
         libGL
@@ -65,12 +65,12 @@ let
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_amd64.deb";
-           sha256 = "36498cf31884deed1e5754a6329792ac524d90133dd957fd4041f2073d228948"; 
+           sha256 = "1c88945c4a5e22b623bcc3b0b8799e82243d122cb4e750c00b639e79e40d7233"; 
         }
     else if stdenv.hostPlatform.system == "aarch64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_arm64.deb";
-           sha256 = "852d64fa6c523c9d5d266c1fe67ed4d6535bdf136a18e0dbe2c943c8842c141e"; 
+           sha256 = "0ce3fc2aa2e67cb6972c3226cc20817ae39a4d6942ed27dd0816b721022f7e13"; 
         }
     else
         throw "element-desktop-nightly is not supported on ${stdenv.hostPlatform.system}";
