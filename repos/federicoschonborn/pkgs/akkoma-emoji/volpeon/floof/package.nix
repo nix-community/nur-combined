@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/floof/floof.zip";
-    hash = "sha256-N8A5YqpJK2vz+aGRQ40l+V39w6SNE3JLNyVxZxNkVIo=";
+    hash = "sha256-83+wd2gPIaSV3OMY2GpvtAgG/FZha0Cx3/LZ1jwAg9s=";
     stripRoot = false;
   };
 

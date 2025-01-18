@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/vlpn/vlpn.zip";
-    hash = "sha256-NNBNGS9S2iZCj76xJ6PJdxyHCfpP+yoYVuX8ORzpYrs=";
+    hash = "sha256-DKtV6ArPgro6ujBac4dKhVxdCdQWSOMUsDxSjHWwSuE=";
     stripRoot = false;
   };
 
@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "vlpn emoji pack";
     homepage = "https://volpeon.ink/emojis/vlpn/";
-    license = lib.licenses.cc-by-nc-sa-40;
+    license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.federicoschonborn ];
   };

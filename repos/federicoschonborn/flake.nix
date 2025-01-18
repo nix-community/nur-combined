@@ -96,6 +96,7 @@
                   "volpeon-neofox"
                   "volpeon-raccoon"
                   "volpeon-vlpn"
+                  "volpeon-wvrn"
 
                   "super-mario-127"
                 ];

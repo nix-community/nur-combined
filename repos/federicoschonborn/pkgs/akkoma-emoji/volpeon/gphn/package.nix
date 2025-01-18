@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/gphn/gphn.zip";
-    hash = "sha256-p1MT/u7pzx2UBLQuVD0dMmZ/uacVN6fTOrTzqLZNkts=";
+    hash = "sha256-tJzn7TutJO6o6qCjJXXsLVTV+hYHLhO2JnCqwyZLxPg=";
     stripRoot = false;
   };
 

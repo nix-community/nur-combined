@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/raccoon/raccoon.zip";
-    hash = "sha256-GkMiYAP0LS0TL6GMDG4R4FkGwFjhIwn3pAWUmCTUfHg=";
+    hash = "sha256-0MkE2C+bG6RFhnL3eciV+1XSDD+wzG+XVqDVVMDxDY0=";
     stripRoot = false;
   };
 

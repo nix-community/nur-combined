@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/drgn/drgn.zip";
-    hash = "sha256-9SdjY51jeAIKz+CP2I1IL9d2EwN+NWAfuM+3FAMi4Oo=";
+    hash = "sha256-/2MpbxMJC92a4YhwG5rP6TsDC/q1Ng5fFq4xe2cBrrM=";
     stripRoot = false;
   };
 

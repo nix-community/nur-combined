@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/neofox/neofox.zip";
-    hash = "sha256-zHbiRiEOwGlmm9TRvL25ngCK04rJHzYsLxz2PUjf3GA=";
+    hash = "sha256-FSTVYP/Bt25JfLr/Ny1g9oI9aAvAYLYhct31j3XRXYc=";
     stripRoot = false;
   };
 
