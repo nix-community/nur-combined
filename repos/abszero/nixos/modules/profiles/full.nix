@@ -72,11 +72,14 @@ in
         gnome-solanum
         goldendict-ng
         inkscape
+        inotify-tools
         jetbrains.idea-community
         jq
         katawa-shoujo-re-engineered
         kooha
         libreoffice-qt
+        lutris
+        nudoku
         obsidian-ime
         osu-lazer-bin
         proton-pass
