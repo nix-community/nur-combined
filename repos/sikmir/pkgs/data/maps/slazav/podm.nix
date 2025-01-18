@@ -41,10 +41,7 @@ stdenv.mkDerivation {
     export HOME=$TMPDIR
   '';
 
-  buildFlags = [
-    "in"
-    "out"
-  ];
+  buildFlags = [ "out" ];
 
   installPhase = ''
     install -Dm644 OUT/* -t $out

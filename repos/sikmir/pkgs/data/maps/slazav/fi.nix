@@ -15,15 +15,20 @@
 
 stdenv.mkDerivation {
   pname = "slazav-fi";
-  version = "2025-01-07";
+  version = "2025-01-16";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_fi";
-    rev = "f3f13bd52cfd6a9775af35dea7343902d17dd258";
-    hash = "sha256-GYLMbsNlBBt3hdCKZwc7BxTgaVf0KmcB0kFYC5dk4kM=";
+    rev = "31110d93183c2f62b3ec7865442c09f2f5d1c335";
+    hash = "sha256-0qqW4YmJ8klQ4sA5NggMxDeci8Im24UxHYppitScTl8=";
     leaveDotGit = true;
   };
+
+  postPatch = ''
+    substituteInPlace vmaps.conf \
+      --replace-fail "/home/sla/mapsoft2/programs/ms2render/" ""
+  '';
 
   nativeBuildInputs = [
     bc
@@ -41,10 +46,7 @@ stdenv.mkDerivation {
     export HOME=$TMPDIR
   '';
 
-  buildFlags = [
-    "in"
-    "out"
-  ];
+  buildFlags = [ "out" ];
 
   installPhase = ''
     install -Dm644 OUT/* -t $out
