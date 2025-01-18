@@ -27,12 +27,17 @@ let
   rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
     patches = (upstream.patches or []) ++ [
       (pkgs.fetchpatch {
-        url = "https://git.uninsane.org/colin/rofi/commit/8e01fcd16f97f4c2a5bc63ade58c894a938f89d9.patch";
+        # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
+        # N.B.: since 1.7.6, rofi is able to dbus-activate applications as well
+        url = "https://git.uninsane.org/colin/rofi/commit/395eb111e5e39f819e4642b4b33bb293c3cadb9d.patch";
         name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-        hash = "sha256-DXafvvKrNyDOH11lpRdC2ljydb422ttY68oY5K3fKWo=";
+        hash = "sha256-XH6ytT1nhmQ8YUoBR/CfMhDORsaO/jNYiYF4jpshIX4=";
       })
       (pkgs.fetchpatch {
-        url = "https://git.uninsane.org/colin/rofi/commit/249450a2b58c3cf7ced911cadb8c4c60d3315dd0.patch";
+        # workaround for <https://github.com/davatorium/rofi/issues/1954>
+        # which was only ever fixed for the *recursive* file browser.
+        # maintainer doesn't want to `stat` in non-recursive file browser yet; defer patching until filebrowser is made to be async
+        url = "https://git.uninsane.org/colin/rofi/commit/3016e229e199c04e305c51bbee54892c7b4eb778.patch";
         name = "filebrowser: include entries of d_type DT_UNKNOWN";
         hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
       })
