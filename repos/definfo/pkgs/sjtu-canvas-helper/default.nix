@@ -27,8 +27,10 @@ rustPlatform.buildRustPackage rec {
     tag = "app-v${version}";
     hash = "sha256-DE4qL2dbUqTIIpjiWssKnBRSRtXbl7hTQv8zMZKNw/A=";
   };
+  
+  useFetchCargoVendor = true;
 
-  cargoHash = "sha256-/R6O7cOjKBVj9xDdUePCmpZ6myUMRUmOiOoXoJoT3UE=";
+  cargoHash = "sha256-VQlRKNqpg1MA0tCZiICJ899QsV+H6rJGedK+feRiZkA=";
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = src + "/yarn.lock";
