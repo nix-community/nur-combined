@@ -10,7 +10,7 @@
   nodejs,
   yarnConfigHook,
   openssl,
-  libsoup,
+  libsoup_2_4,
   pkg-config,
   webkitgtk_4_0,
   wrapGAppsHook3,
@@ -27,10 +27,8 @@ rustPlatform.buildRustPackage rec {
     tag = "app-v${version}";
     hash = "sha256-DE4qL2dbUqTIIpjiWssKnBRSRtXbl7hTQv8zMZKNw/A=";
   };
-  
-  useFetchCargoVendor = true;
 
-  cargoHash = "sha256-VQlRKNqpg1MA0tCZiICJ899QsV+H6rJGedK+feRiZkA=";
+  cargoHash = "sha256-/R6O7cOjKBVj9xDdUePCmpZ6myUMRUmOiOoXoJoT3UE=";
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = src + "/yarn.lock";
@@ -59,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       glib-networking # Most Tauri apps need networking
-      libsoup
+      libsoup_2_4
       webkitgtk_4_0
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin (
