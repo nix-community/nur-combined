@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         "nginx-module-stream-sts"
         "nginx-module-sts"
         "nginx-module-vts"
-        "nginx-njs"
+        # "nginx-njs"
         "ngx_brotli"
         "stream-echo-nginx-module"
         "zstd-nginx-module"
@@ -112,9 +112,9 @@ stdenv.mkDerivation rec {
       ${patch ./patches/stream-echo-nginx-module.patch}
       popd
 
-      pushd bundle/nginx-njs
-      sed -i "s#-lquickjs.lto#-lqjs#g" nginx/config
-      popd
+      # pushd bundle/nginx-njs
+      # sed -i "s#-lquickjs.lto#-lqjs#g" nginx/config
+      # popd
     '';
 
   configureFlags = [
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
     "--add-module=bundle/nginx-module-stream-sts"
     "--add-module=bundle/nginx-module-sts"
     "--add-module=bundle/nginx-module-vts"
-    "--add-module=bundle/nginx-njs/nginx"
+    # "--add-module=bundle/nginx-njs/nginx"
     "--add-module=bundle/ngx_brotli"
     "--add-module=bundle/stream-echo-nginx-module"
     "--add-module=bundle/zstd-nginx-module"

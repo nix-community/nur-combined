@@ -24,6 +24,7 @@ stdenv.mkDerivation {
     sed -i "/nginx_xml2pod/d" util/mirror-tarballs
     sed -i "/restydoc_index/d" util/mirror-tarballs
     sed -i "s/hg /true /g" util/mirror-tarballs
+    sed -i "s/git /true /g" util/mirror-tarballs
     sed -i "/cd nginx.org/d" util/mirror-tarballs
   '';
 
@@ -48,5 +49,5 @@ stdenv.mkDerivation {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = "sha256-9fo3/zrrFqCBx5/2h5Kk/S/r2VQoYSdGC3ogFF2qWkk=";
+  outputHash = "sha256-RLrS3JgF3OvMqegiucJq8+00vV6+V20pvBfd+uXoKio=";
 }
