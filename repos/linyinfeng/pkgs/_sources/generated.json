@@ -434,7 +434,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-01-18",
+        "date": "2025-01-19",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -444,13 +444,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b02183bd0937097fe5a2b69d0b48f0720cee3ec9",
-            "sha256": "sha256-tHc1dKN1v2eiK+mO52wgIZJyAFN+bocGicNWVcf7yBc=",
+            "rev": "e8d30d4b153fee281ab7f10c8c3f53c3f1a4ce23",
+            "sha256": "sha256-w5at0mROFy+d5cyDJN7n87U7iIhKk0NvlgzII+J6LD4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "b02183bd0937097fe5a2b69d0b48f0720cee3ec9"
+        "version": "e8d30d4b153fee281ab7f10c8c3f53c3f1a4ce23"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -554,7 +554,7 @@
     },
     "rime-stroke": {
         "cargoLocks": null,
-        "date": "2023-12-07",
+        "date": "2025-01-18",
         "extract": null,
         "name": "rime-stroke",
         "passthru": null,
@@ -564,13 +564,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "65fdbbf2f9485cc907cb9a6d6b9210938a50f71e",
-            "sha256": "sha256-BuZhyFZGTKzhH23sfQ0TSlLbz65wgE/IOmLQPgwJseE=",
+            "rev": "7c9874c6b2e0b94947653e9a7de6f99623ff27e4",
+            "sha256": "sha256-YtvNSby7NmjTdGwk9aNT44SUitKfEbAg3QSwX9g7QtA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-stroke.git"
         },
-        "version": "65fdbbf2f9485cc907cb9a6d6b9210938a50f71e"
+        "version": "7c9874c6b2e0b94947653e9a7de6f99623ff27e4"
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
