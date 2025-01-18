@@ -17,7 +17,6 @@ stdenv.mkDerivation {
   postUnpack = "sourceRoot=\${sourceRoot}/js/src";
 
   preConfigure = ''
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${nspr.dev}/include/nspr"
     export LIBXUL_DIST=$out
     ${lib.optionalString stdenv.hostPlatform.isAarch32 "autoreconf --verbose --force"}
   '';
@@ -66,6 +65,10 @@ stdenv.mkDerivation {
   preCheck = ''
     rm jit-test/tests/sunspider/check-date-format-tofte.js    # https://bugzil.la/600522
   '';
+
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-I${nspr.dev}/include/nspr"
+  ]);
 
   meta = {
     description = "Mozilla's JavaScript engine written in C/C++";

@@ -29,7 +29,7 @@ common = rec { # attributes common to both builds
   version = "10.7.8";
 
   src = fetchurl {
-    url = "https://archive.mariadb.org//mariadb-${version}/source/mariadb-${version}.tar.gz";
+    url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
     sha256 = "sha256-+MadkIDYXq+z46hIN7+lZqf1UnqK9vmggUKdTeDeR3g=";
     name   = "mariadb-${version}.tar.gz";
   };
@@ -109,6 +109,14 @@ common = rec { # attributes common to both builds
   '';
 
   passthru.mysqlVersion = "5.7";
+
+  env.CXXFLAGS = toString ([
+    "-include cstdio"
+  ] ++ lib.optional withStorageRocks [
+    "-include cstdint"
+  ] ++ lib.optional stdenv.hostPlatform.isi686 [
+    "-fpermissive"
+  ]);
 
   meta = {
     description = "An enhanced, drop-in replacement for MySQL";
@@ -209,7 +217,5 @@ server = stdenv.mkDerivation (common // {
     mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
     rm -r "$out"/OFF
   '';
-
-  CXXFLAGS = lib.optionalString stdenv.hostPlatform.isi686 "-fpermissive";
 });
 in mariadb

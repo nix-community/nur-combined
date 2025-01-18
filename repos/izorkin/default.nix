@@ -10,7 +10,7 @@ rec {
   libcouchbase_2_10_4 = pkgs.callPackage  ./pkgs/development/libcouchbase/2.10.4.nix { openssl = pkgs.libressl; };
   libssh2             = pkgs.callPackage  ./pkgs/development/libssh2 { openssl = pkgs.libressl; };
   libxml2_2_12        = pkgs.callPackage  ./pkgs/development/libxml2/2.12.nix { };
-  spidermonkey_1_8_5  = pkgs.callPackage  ./pkgs/development/spidermonkey/1.8.5.nix { };
+  spidermonkey_1_8_5  = pkgs.callPackage  ./pkgs/development/spidermonkey/1.8.5.nix { stdenv = pkgs.gcc13Stdenv; };
   mariadb_10_3        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_3.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; jemalloc450 = jemalloc450.override ({ disableInitExecTls = true; }); };
   mariadb_10_4        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_4.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; jemalloc450 = jemalloc450.override ({ disableInitExecTls = true; }); };
   mariadb_10_5        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_5.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
@@ -19,7 +19,7 @@ rec {
   mariadb-galera_25   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_25.nix { asio = pkgs.asio_1_10; };
   mariadb-galera_26   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_26.nix { };
   mysql_5_5           = pkgs.callPackage  ./pkgs/servers/mysql/mysql_5_5.nix { openssl = pkgs.libressl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
-  unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; php74 = php74-unit; php80 = php80-unit; php81 = php81-unit; php82 = php82-unit; withPython3 = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPHP74 = true; withPHP80 = true; withPHP81 = true; withPHP82 = true; withPerl538 = false; withRuby_3_1 = false; withIPv6 = true; };
+  unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; php74 = php74-unit; php80 = php80-unit; php81 = php81-unit; php82 = php82-unit; withPython3 = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPHP74 = true; withPHP80 = true; withPHP81 = true; withPHP82 = true; withPerl540 = false; withRuby_3_1 = false; withIPv6 = true; };
   oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-history-sync; inherit zsh-theme-rkj-mod; };
   zsh-history-sync    = pkgs.callPackage  ./pkgs/shells/zsh-history-sync { };
   zsh-theme-rkj-mod   = pkgs.callPackage  ./pkgs/shells/zsh-theme-rkj-mod { };

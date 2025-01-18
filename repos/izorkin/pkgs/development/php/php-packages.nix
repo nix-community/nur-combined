@@ -207,6 +207,10 @@ let
       '')
     ];
 
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=incompatible-pointer-types"
+    ];
+
     meta.broken = isPhp74;
   };
 
@@ -297,6 +301,11 @@ let
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
+
+    env.NIX_CFLAGS_COMPILE = toString (lib.optionals isPhp56 [
+      "-Wno-error=incompatible-pointer-types"
+      "-Wno-error=int-conversion"
+    ]);
   };
 
   mailparse = if !isPhp73 then mailparse313 else mailparse316;
@@ -515,6 +524,10 @@ let
     version = "1.3.7";
 
     sha256 = "097676akx2p6wvc58py2fjc3bv2x760z1g6mv0kh4wx5wr4n9zdx";
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=incompatible-pointer-types"
+    ];
 
     meta.broken = isPhp80;
   };
@@ -764,6 +777,10 @@ let
       sha256 = "0wqcqq6sb51wiawa37hbd1h9dbvmyyndzdvz87xqji7lpr9vn8jy";
     };
 
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=incompatible-pointer-types"
+    ];
+
     meta = {
       description = "PHP extension for Pinba";
       longDescription = ''
@@ -823,6 +840,11 @@ let
     sha256 = "sha256-XuOPJbr3ifvnHFXey9t+olDq4OX2GRDj6RgHlKo40YU=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=incompatible-pointer-types"
+      "-Wno-error=implicit-function-declaration"
+    ];
 
     meta = {
       description = ''
@@ -933,6 +955,10 @@ let
 
     buildInputs = with pkgs; [ pcre.dev ];
 
+    env.NIX_CFLAGS_COMPILE = toString (lib.optional (!isPhp72) [
+      "-Wno-error=implicit-int"
+    ]);
+
     meta.broken = (!isPhp71 || isPhp72 || isPhp73);
   };
 
@@ -984,6 +1010,11 @@ let
     version = "6.0.2";
 
     sha256 = "sha256-Aa7MsOFPiX/lbwUJvm5pkf8K1Fn5006V5FVtAmmbmgM=";
+
+    env.NIX_CFLAGS_COMPILE = toString (lib.optionals (!isPhp72) [
+      "-Wno-error=implicit-function-declaration"
+      "-Wno-error=int-conversion"
+    ]);
 
     meta.broken = isPhp56;
   };
@@ -1051,6 +1082,10 @@ let
 
     buildInputs = with pkgs; [ spidermonkey_1_8_5 ];
 
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=implicit-function-declaration"
+    ];
+
     meta.broken = !isPhp56;
   };
 
@@ -1076,6 +1111,10 @@ let
     ];
 
     buildInputs = with pkgs; [ m4 ];
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=incompatible-pointer-types"
+    ];
 
     meta.broken = !isPhp56;
   };
@@ -1151,9 +1190,9 @@ let
 
   yaml22 = buildPecl {
     pname = "yaml";
-    version = "2.2.3";
+    version = "2.2.4";
 
-    sha256 = "sha256-WTfrlyLd9tZGJnmc+gJFmP8kUuoVeZLk5nMxolP5AjY=";
+    sha256 = "sha256-jrNTuvh/FbG2Ksbrcci1iWhZWKH+iw49IqxZVg0OiRM=";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml.dev}"

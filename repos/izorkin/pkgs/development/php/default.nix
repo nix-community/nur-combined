@@ -149,8 +149,6 @@ let
         # Extension flags in 7.4 and higher
         ++ lib.optional (lib.versionAtLeast version "7.4") oniguruma;
 
-      CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
-
       configureFlags = [
         "--with-config-file-scan-dir=/etc/php.d"
       ]
@@ -321,12 +319,20 @@ let
 
       outputs = [ "out" "dev" ];
 
-      env.NIX_CFLAGS_COMPILE = toString [
-        "-Wno-error=incompatible-pointer-types"
-        "-Wno-error=implicit-function-declaration"
-        "-Wno-error=int-conversion"
-        "-Wno-error=implicit-int"
-      ];
+      env = {
+        CXXFLAGS = toString (lib.optional stdenv.cc.isClang [
+          "-std=c++11"
+        ]);
+        NIX_CFLAGS_COMPILE = toString (lib.optional (lib.versions.majorMinor version <= "8.1") [
+          "-Wno-error=incompatible-pointer-types"
+        ] ++ lib.optional (lib.versions.majorMinor version <= "7.3") [
+          "-Wno-error=implicit-function-declaration"
+        ] ++ lib.optional (lib.versions.majorMinor version <= "7.2") [
+          "-Wno-error=implicit-int"
+        ] ++ lib.optional ((lib.versions.majorMinor version == "5.6") || (lib.versions.majorMinor version == "7.3")) [
+          "-Wno-error=int-conversion"
+        ]);
+      };
 
       meta = with lib; {
         description = "An HTML-embedded scripting language";

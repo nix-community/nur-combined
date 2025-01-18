@@ -29,6 +29,10 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/libgalera_smm.so $out/lib/galera/libgalera_smm.so
   '';
 
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-std=c++11"
+  ];
+
   meta = {
     description = "Galera 3 wsrep provider library";
     homepage = "https://galeracluster.com/";
