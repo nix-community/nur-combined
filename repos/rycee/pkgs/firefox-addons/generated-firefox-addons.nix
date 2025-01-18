@@ -338,15 +338,15 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.44.4";
+      version = "1.45";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417115/animalese_typing-1.44.4.xpi";
-      sha256 = "b1b3d106bfac7b4d3301bdd13d44e2e6f27c794f57c02f1ca5bd7668fb420e0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421835/animalese_typing-1.45.xpi";
+      sha256 = "b0a6b4d9a4d26e69d4058cc1650d9488172122068308c70207edd84701b627df";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type!";
         license = licenses.mpl20;
-        mozPermissions = [ "storage" "<all_urls>" ];
+        mozPermissions = [ "scripting" "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -1905,10 +1905,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.5.1";
+      version = "4.5.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4413094/control_panel_for_twitter-4.5.1.xpi";
-      sha256 = "2860bc3ae594f9b98e3b34469bdf5ebbfceba24e59bd75c9d8ff7dbffc51e327";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416001/control_panel_for_twitter-4.5.2.xpi";
+      sha256 = "8b3d7964651df9a452c92ffa209bc547d85348692f6b7a01e6378a3ac0213a5f";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "135.0.20250115.91607";
+      version = "135.0.20250117.102618";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4420240/deutsch_de_language_pack-135.0.20250115.91607.xpi";
-      sha256 = "ad2023ac7ec9a97c436eb0b1f10f4c1f6af6b3f6146d95bc820023d927416a96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421453/deutsch_de_language_pack-135.0.20250117.102618.xpi";
+      sha256 = "8451797f58bd6592f7bfc84f7178af695452c89af74d3ba7eecccec1dc13740d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3462,10 +3462,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "135.0.20250115.91607";
+      version = "135.0.20250117.102618";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4420206/francais_language_pack-135.0.20250115.91607.xpi";
-      sha256 = "2ffcb1b4d2d689a788b345c3eb6fdb957d8b41dcb9b17d86f20879af54720d69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421474/francais_language_pack-135.0.20250117.102618.xpi";
+      sha256 = "dfd8451925b0ba510249d70b98e658e8de0d400def9a9e978385ca623fba0e62";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3499,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "135.0.20250115.91607";
+      version = "135.0.20250117.102618";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4420217/gaidhlig_language_pack-135.0.20250115.91607.xpi";
-      sha256 = "d566294f5895f27dd6346b4b52f611ff525843c747c97d971a5284fbb1ba3f13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421509/gaidhlig_language_pack-135.0.20250117.102618.xpi";
+      sha256 = "b5ba0ea205485c665c804a0889f2024e4ad17c929b7809041c25d9da9fb116ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4125,21 +4125,6 @@
           "tabs"
           "webRequest"
         ];
-        platforms = platforms.all;
-      };
-    };
-    "hoarder" = buildFirefoxXpiAddon {
-      pname = "hoarder";
-      version = "1.2.3";
-      addonId = "addon@hoarder.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357468/hoarder-1.2.3.xpi";
-      sha256 = "749f0a83b648a49637d4f7278e05f4eb6e75517ecac1f9846f72f0d2e57bfc6b";
-      meta = with lib;
-      {
-        homepage = "https://hoarder.app";
-        description = "An extension to bookmark links to hoarder.app.";
-        license = licenses.lgpl3;
-        mozPermissions = [ "storage" "tabs" "contextMenus" ];
         platforms = platforms.all;
       };
     };
@@ -6156,10 +6141,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.7";
+      version = "1.6.8";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409066/leechblock_ng-1.6.7.xpi";
-      sha256 = "897d1435658c2a246a3340ecdb57b32c6e57f16cef4033dc5e778ef4d99aaa54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417141/leechblock_ng-1.6.8.xpi";
+      sha256 = "376e4efa4f7c490d7ca6b711a2c99a666c0ef508ec0c39c1339274996f2ce396";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -10064,10 +10049,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "135.0.20250115.91607";
+      version = "135.0.20250117.102618";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4420243/scots_language_pack-135.0.20250115.91607.xpi";
-      sha256 = "475f831220bced95f00b78810b99558240a5ffff5aabae1313a7ac74948f1c0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4421434/scots_language_pack-135.0.20250117.102618.xpi";
+      sha256 = "ad88b0f719493ffd6cdfdeb100aadf38a2776045f727dd5b0295d02a1ac2d29e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10124,10 +10109,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.0.2";
+      version = "8.1.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404109/search_by_image-8.0.2.xpi";
-      sha256 = "62cbc95f3977a1ef9259cb53fc063b6202918a09475ae21158cfeffb7bade710";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416342/search_by_image-8.1.0.xpi";
+      sha256 = "2271d630bceebc92ec0a51a22195b0eed325d78b984dea678dd5640a22c5a9b4";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -10718,10 +10703,10 @@
     };
     "startpage-private-search" = buildFirefoxXpiAddon {
       pname = "startpage-private-search";
-      version = "2.0.2";
+      version = "2.0.3";
       addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362482/startpage_private_search-2.0.2.xpi";
-      sha256 = "d0e0008bd76bc7c5edd89998940e4c8a75f17c391af938ba933be7dd2a8e1414";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416483/startpage_private_search-2.0.3.xpi";
+      sha256 = "e22fdf5988a8134eef72d963891ab5c662f90a1fc061cd354f60529bd511ae40";
       meta = with lib;
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
@@ -12007,10 +11992,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.61.2";
+      version = "1.62.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4391011/ublock_origin-1.61.2.xpi";
-      sha256 = "ee3a724a46ff32c17d1723077fecc6ede7fdab742154020b51fb6253ddcbba14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4412673/ublock_origin-1.62.0.xpi";
+      sha256 = "8a9e02aa838c302fb14e2b5bc88a6036d36358aadd6f95168a145af2018ef1a3";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
