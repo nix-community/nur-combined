@@ -24,24 +24,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch:
-          - x86_64
-          - aarch64
         os:
           - ubuntu-latest
+          - ubuntu-24.04-arm
           - macos-latest
-        exclude:
-          - arch: x86_64
-            os: macos-latest
-          - arch: aarch64
-            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
       id-token: write
     steps:
     - name: Free Disk Space (Ubuntu)
-      if: ${{ matrix.os == 'ubuntu-latest' }}
+      if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm' }}
       uses: jlumbroso/free-disk-space@main
       with:
         # this might remove tools that are actually needed,
@@ -67,8 +60,8 @@ jobs:
     - name: Print flake metadata
       run: nix flake metadata --accept-flake-config
 
-    - name: Setup cachix (x86_64)
-      if: ${{ matrix.arch == 'x86_64' }}
+    - name: Setup cachix (x86_64-linux)
+      if: ${{ matrix.os == 'ubuntu-latest' }}
       uses: cachix/cachix-action@v15
       with:
         name: cryolitia
@@ -77,12 +70,16 @@ jobs:
         extraPullNames: nix-community, cuda-maintainers
 
     - name: Build x86_64 nix packages
-      if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci.nix
 
     - name: Build darwin nix packages
       if: ${{ matrix.os == 'macos-latest'}}
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_darwin.nix
+
+    - name: Build aarch64-linux nix packages
+      if: ${{ matrix.os == 'ubuntu-24.04-arm'}}
+      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_aarch64.nix
 
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
