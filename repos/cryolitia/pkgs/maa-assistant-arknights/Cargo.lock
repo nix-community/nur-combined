@@ -1175,12 +1175,13 @@ dependencies = [
 
 [[package]]
 name = "maa-dirs"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "constcat",
  "directories",
  "dunce",
  "log",
+ "tempfile",
 ]
 
 [[package]]
