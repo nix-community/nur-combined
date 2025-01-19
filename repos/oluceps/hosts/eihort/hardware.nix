@@ -31,8 +31,6 @@
       "audit=0"
       "net.ifnames=0"
       "ia32_emulation=0"
-      "console=ttyS1"
-      "earlyprintk=ttyS1"
       "zswap.enabled=1"
       "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"

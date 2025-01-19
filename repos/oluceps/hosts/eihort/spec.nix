@@ -9,10 +9,10 @@
 {
   system = {
 
-    etc.overlay.enable = true;
-    etc.overlay.mutable = false;
+    # etc.overlay.enable = true;
+    # etc.overlay.mutable = false;
 
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
   services.userborn.enable = true;
   virtualisation.podman = {
