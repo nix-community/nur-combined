@@ -1,0 +1,9 @@
+{
+  "description": "<p>The WHYcast is a podcast made by a couple of enthousiastic people from the large group of volunteers, organising the next quadrennial Dutch hackercamp called WHY2025. In this series running up to the event, we will go into what a camp like this actually is, dive into some of the history of the previous 9 editions and what is involved in organising such a large event. We and all 42 subteams hope to see you in Geestmerambacht on August 8 through 12th 2025!</p>\n<p><a href=\"https://why2025.org/\">https://why2025.org/</a></p>\n<p>Follow us on:\n<a href=\"https://chaos.social/@why2025camp\">Mastodon</a>\n<a href=\"https://bsky.app/profile/why2025.bsky.social\">Bluesky</a>\n<a href=\"https://x.com/WHY2025Camp\">Twitter</a>\n<a href=\"https://www.linkedin.com/company/why2025/\">LinkedIn</a></p>\n<p>Contact us at <a href=\"mailto:WHYcast@why2025.org\">WHYcast@why2025.org</a></p>\n<p>Tune: Synthrain by Dirk Dehler (CC-BY 4.0)</p>",
+  "is_podcast": true,
+  "site_name": "Castopod",
+  "site_url": "https://whycast.podcast.audio",
+  "title": "WHYcast",
+  "url": "https://whycast.podcast.audio/@whycast/feed.xml",
+  "velocity": 0.136
+}

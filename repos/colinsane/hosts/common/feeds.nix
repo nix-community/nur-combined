@@ -126,6 +126,7 @@ let
     (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
     (fromDb "werenotwrong.fireside.fm" // pol)  # We're Not Wrong
+    (fromDb "whycast.podcast.audio/@whycast" // tech)  # What Hackers Yearn [for]: <https://why2025.org/>
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
     # (fromDb "allinchamathjason.libsyn.com" // pol)
