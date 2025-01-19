@@ -656,11 +656,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-9fa312b9f276250d0781595ec308b061a61a136e/Cargo.lock",
+                "./swayosd-b70fd54ccfe2edc8f26838a6330a1d110bef1fd0/Cargo.lock",
                 {}
             ]
         },
-        "date": "2025-01-02",
+        "date": "2025-01-19",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -670,13 +670,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9fa312b9f276250d0781595ec308b061a61a136e",
-            "sha256": "sha256-5knA164gmuq4DXPAchyvfDx5AjMKMR/jv1+ga5zJS/c=",
+            "rev": "b70fd54ccfe2edc8f26838a6330a1d110bef1fd0",
+            "sha256": "sha256-2u+tCmZincEYRgJWUQPqJW0r8Fs710X8VRRx/E+6OQQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "9fa312b9f276250d0781595ec308b061a61a136e"
+        "version": "b70fd54ccfe2edc8f26838a6330a1d110bef1fd0"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
