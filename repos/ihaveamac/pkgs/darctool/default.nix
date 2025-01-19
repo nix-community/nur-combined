@@ -19,14 +19,18 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # fixes building on linux aarch64 (or anything non-x86_64 probably)
-  patchPhase = ''
+  postPatch = ''
     sed -i 's/-m64//g' CMakeLists.txt
     sed -i 's/-m32//g' CMakeLists.txt
+
+    # god damn case sensitivity
+    substituteInPlace dep/libsundaowen/sdw_type.h \
+      --replace-fail Windows.h windows.h
   '';
 
   installPhase = "
     mkdir $out/bin -p
-    cp ../bin/Release/darctool $out/bin/
+    cp ../bin/Release/darctool${stdenv.hostPlatform.extensions.executable} $out/bin/
     cp ../bin/ignore_darctool.txt $out/bin/
   ";
 

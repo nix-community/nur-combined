@@ -15,7 +15,7 @@ with builtins;
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isForCurrentSystem = p: if (p.meta.platforms or []) == [] then true else (elem currentSystem p.meta.platforms);
+  isForCurrentSystem = p: if (p.meta.platforms or []) == [] then true else (elem pkgs.system p.meta.platforms);
   isBuildable = p: !(p.meta.broken or false) && (p.meta.license.free or true) && (p.meta.knownVulnerabilities or []) == [] && (isForCurrentSystem p);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
