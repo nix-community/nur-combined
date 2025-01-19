@@ -27,7 +27,7 @@ in
         waylandFrontend = true; # Do not set `GTK_IM_MODULE` and `QT_IM_MODULE`
         plasma6Support = true; # Use Qt6 versions of fcitx5 packages
         addons = with pkgs; [
-          fcitx5-mozc
+          fcitx5-mozc-ut # Mozc with UT dictionaries
           kdePackages.fcitx5-chinese-addons
           fcitx5-gtk
           kdePackages.fcitx5-qt

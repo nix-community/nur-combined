@@ -24,7 +24,7 @@ let
 
       users.admins = [ "weathercold" ];
 
-      hardware.redmi-book-pro-16-2024.enable = true;
+      hardware.xiaomi-redmibook-16-pro-2024.enable = true;
 
       wayland.windowManager.hyprland.enable = true;
 
@@ -138,9 +138,7 @@ in
   nixosConfigurations.nixos-disk = {
     system = "x86_64-linux";
     modules = [
-      inputs.nixos-hardware.nixosModules.common-cpu-intel
-      inputs.nixos-hardware.nixosModules.common-pc-laptop
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
+      inputs.nixos-hardware.nixosModules.xiaomi-redmibook-16-pro-2024
       mainModule
     ];
   };

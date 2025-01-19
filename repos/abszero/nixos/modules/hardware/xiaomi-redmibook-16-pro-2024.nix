@@ -3,7 +3,7 @@
 let
   inherit (lib) mkIf singleton;
   inherit (lib.abszero.modules) mkExternalEnableOption;
-  cfg = config.abszero.hardware.redmi-book-pro-16-2024;
+  cfg = config.abszero.hardware.xiaomi-redmibook-16-pro-2024;
 
   keyboardCfg = {
     devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
@@ -70,22 +70,17 @@ in
     ../services/hardware/kanata.nix
   ];
 
-  options.abszero.hardware.redmi-book-pro-16-2024.enable = mkExternalEnableOption config ''
-    Redmi Book Pro 16 2024 configuration complementary to
-    `inputs.nixos-hardware.nixosModules.common-cpu-intel`,
-    `inputs.nixos-hardware.nixosModules.common-pc-laptop` and
-    `inputs.nixos-hardware.nixosModules.common-pc-ssd`. Due to
-    the nixos-hardware modules being effective on import, they are not imported
-    by this module; you have to import them yourself
+  options.abszero.hardware.xiaomi-redmibook-16-pro-2024.enable = mkExternalEnableOption config ''
+    Xiaomi Redmibook 16 Pro 2024 configuration complementary to
+    `inputs.nixos-hardware.nixosModules.xiaomi-redmibook-16-pro-2024`. Due to
+    the nixos-hardware module being effective on import, it's not imported by
+    this module; you have to import them yourself
   '';
 
   config = mkIf cfg.enable {
     abszero.services.kanata.enable = true;
 
-    hardware = {
-      enableRedistributableFirmware = true;
-      bluetooth.enable = true;
-    };
+    hardware.bluetooth.enable = true;
 
     boot = {
       initrd.availableKernelModules = [
@@ -95,18 +90,8 @@ in
         "usb_storage"
       ];
       kernelModules = [ "kvm-intel" ];
-      # kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-      # Without this workaround NixOS won't boot at all
-      # https://discourse.nixos.org/t/system-wont-boot-path-efi-stub/29212/12
-      kernelPatches = singleton {
-        name = "Boot workaround";
-        patch = null;
-        extraStructuredConfig = with lib.kernel; {
-          ACPI_DEBUG = yes;
-        };
-      };
     };
 
-    services.kanata.keyboards.redmi-book-pro-16-2024 = keyboardCfg;
+    services.kanata.keyboards.xiaomi-redmibook-16-pro-2024 = keyboardCfg;
   };
 }
