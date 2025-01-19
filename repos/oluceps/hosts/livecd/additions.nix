@@ -9,7 +9,10 @@
 
 {
   imports = [
-    (inputs.nixpkgs.outPath + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
+    (
+      inputs.nixpkgs.outPath
+      + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"
+    )
   ];
   networking = {
     wireless.iwd.enable = true;
@@ -131,7 +134,6 @@
       tmux
       sing-box
       netcat
-      dog
       wget
       mtr-gui
       hysteria

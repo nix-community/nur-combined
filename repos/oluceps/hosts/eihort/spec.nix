@@ -66,9 +66,9 @@
     };
 
     hysteria.instances = {
-      nodens = {
+      abhoth = {
         enable = true;
-        configFile = config.vaultix.secrets.hyst-us-cli.path;
+        configFile = config.vaultix.secrets.hyst-osa-cli.path;
       };
       yidhra = {
         enable = true;

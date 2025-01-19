@@ -8,6 +8,7 @@
 }:
 
 {
+  facter.reportPath = ./facter.json;
 
   zramSwap = {
     enable = true;
@@ -26,12 +27,15 @@
       timeout = 3;
     };
 
-    supportedFilesystems = [ "bcachefs" ];
-
     kernelParams = [
       "audit=0"
       "net.ifnames=0"
       "ia32_emulation=0"
+      "console=ttyS1"
+      "earlyprintk=ttyS1"
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.zpool=zsmalloc"
     ];
 
     initrd = {
@@ -41,21 +45,6 @@
         "-T0"
       ];
       systemd.enable = true;
-      availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "ahci"
-        "usb_storage"
-        "usbhid"
-        "sd_mod"
-        "mpt3sas"
-      ];
-      kernelModules = [
-        "tpm"
-        "tpm_tis"
-        "tpm_crb"
-        "mpt3sas" # IMPORTANT
-      ];
     };
 
     kernelPackages = pkgs.linuxPackages_latest;
@@ -64,17 +53,11 @@
   disko = {
     devices = {
       disk.main = {
-        device = "/dev/disk/by-id/ata-SanDisk_SD8SBAT032G_153873411000";
+        device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
         type = "disk";
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-              priority = 0;
-            };
-
             ESP = {
               name = "ESP";
               size = "512M";
@@ -90,26 +73,30 @@
                 ];
               };
             };
+
             root = {
               size = "100%";
               content = {
                 type = "btrfs";
                 extraArgs = [
+                  "--label nixos"
                   "-f"
                   "--csum xxhash64"
+                  "--features"
+                  "block-group-tree"
                 ];
                 subvolumes = {
 
-                  # "/persist" = {
-                  #   mountpoint = "/persist";
-                  #   mountOptions = [
-                  #     "compress-force=zstd:1"
-                  #     "noatime"
-                  #     "discard=async"
-                  #     "space_cache=v2"
-                  #   ];
-                  # };
-                  "/nix" = {
+                  "persist" = {
+                    mountpoint = "/persist";
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                    ];
+                  };
+                  "nix" = {
                     mountOptions = [
                       "compress-force=zstd:1"
                       "noatime"
@@ -120,18 +107,36 @@
                     ];
                     mountpoint = "/nix";
                   };
-                  # "/var" = {
-                  #   mountOptions = [
-                  #     "compress-force=zstd:1"
-                  #     "noatime"
-                  #     "discard=async"
-                  #     "space_cache=v2"
-                  #     "nosuid"
-                  #     "nodev"
-                  #   ];
-                  #   mountpoint = "/var";
-                  # };
+                  "var" = {
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
+                    mountpoint = "/var";
+                  };
+                  "persist/tmp" = {
+                    mountpoint = "/tmp";
+                    mountOptions = [
+                      "relatime"
+                      "nodev"
+                      "nosuid"
+                      "discard=async"
+                      "space_cache=v2"
+                    ];
+                  };
                 };
+              };
+            };
+            plainSwap = {
+              size = "32G";
+              content = {
+                type = "swap";
+                discardPolicy = "both";
+                resumeDevice = true;
               };
             };
           };
@@ -144,59 +149,26 @@
             "relatime"
             "nosuid"
             "nodev"
-            "size=4G"
+            "size=2G"
             "mode=755"
           ];
         };
       };
     };
   };
-  fileSystems = {
 
-    "/persist".neededForBoot = true;
+  fileSystems."/persist".neededForBoot = true;
 
-    "/three" = {
-      device = "/dev/disk/by-uuid/134975b6-4ccc-4201-b479-105eb2382945";
-      fsType = "btrfs";
-      options = [
-        "subvolid=5"
-        "compress-force=zstd:5"
-        "noatime"
-        "discard=async"
-        "space_cache=v2"
-      ];
-    };
-    "/var" = {
-      device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-      fsType = "btrfs";
-      options = [
-        "compress-force=zstd:3"
-        "noatime"
-        "subvol=var"
-        "nosuid"
-        "nodev"
-      ];
-    };
-    # fileSystems."/nix" = {
-    #   device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-    #   fsType = "btrfs";
-    #   options = [
-    #     "compress-force=zstd:3"
-    #     "noatime"
-    #     "subvol=nix"
-    #     "nosuid"
-    #     "nodev"
-    #   ];
-    # };
-    "/persist" = {
-      device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-      fsType = "btrfs";
-      options = [
-        "compress-force=zstd:3"
-        "noatime"
-        "subvol=persist"
-      ];
-    };
+  fileSystems."/three" = {
+    device = "/dev/disk/by-uuid/134975b6-4ccc-4201-b479-105eb2382945";
+    fsType = "btrfs";
+    options = [
+      "subvolid=5"
+      "compress-force=zstd:5"
+      "noatime"
+      "discard=async"
+      "space_cache=v2"
+    ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

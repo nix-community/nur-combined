@@ -244,5 +244,6 @@
     };
     flake-root.url = "github:srid/flake-root";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
   };
 }
