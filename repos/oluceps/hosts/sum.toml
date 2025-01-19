@@ -16,7 +16,7 @@ addr = "elen@116.196.112.43"
 
 [[host]]
 name = "eihort" # nas
-addr = "elen@10.0.1.6"
+addr = "elen@192.168.1.127"
 
 [[host]]
 name = "nodens" # digital ocean sf

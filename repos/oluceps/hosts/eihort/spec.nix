@@ -9,8 +9,8 @@
 {
   system = {
 
-    # etc.overlay.enable = true;
-    # etc.overlay.mutable = false;
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
 
     stateVersion = "25.05";
   };
@@ -43,8 +43,8 @@
     dae.enable = true;
     dnsproxy.enable = true;
     scrutiny.enable = true;
-    postgresql.enable = true;
-    photoprism.enable = true;
+    # postgresql.enable = true;
+    # photoprism.enable = true;
     mysql.enable = true;
   };
 

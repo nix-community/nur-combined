@@ -83,7 +83,7 @@
     };
 
     links."eth0" = {
-      matchConfig.MACAddress = "40:16:7e:33:cf:fd";
+      matchConfig.MACAddress = "ac:1f:6b:e5:fe:3a";
       linkConfig = {
         Name = "eth0";
         WakeOnLan = "magic";
@@ -91,7 +91,7 @@
     };
 
     links."eth1" = {
-      matchConfig.MACAddress = "40:16:7e:33:cf:fe";
+      matchConfig.MACAddress = "ac:1f:6b:e5:fe:3b";
       linkConfig = {
         Name = "eth1";
         WakeOnLan = "magic";
