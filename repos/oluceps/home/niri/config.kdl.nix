@@ -146,7 +146,7 @@ in
 
   output "HDMI-A-1" {
       // off
-      mode "1920x1080@75.025"
+      mode "1920x1080@60"
       scale 1.5
   }
 
