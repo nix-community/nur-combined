@@ -64,7 +64,6 @@ let
       _common = "ots";
       buildGoModule = pkgs.buildGo123Module;
     };
-    piped-proxy = { };
   };
 
   final = mergeAttrsList [

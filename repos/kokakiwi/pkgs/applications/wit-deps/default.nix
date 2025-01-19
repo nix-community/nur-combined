@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "wit-deps";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "bytecodealliance";
     repo = "wit-deps";
     rev = "v${version}";
-    hash = "sha256-urAGMGMH5ousEeVTZ5AaLPfowXaYQoISNXiutV00iQo=";
+    hash = "sha256-tbHAvdDN2qkJRRfy9L3apBULRVttb7Jh00bDlb1OKJ4=";
   };
 
-  cargoHash = "sha256-p8ffC9gGI68tPgNdjGRVtxlVZgVHQ3dixexi1UPiZZM=";
+  cargoHash = "sha256-LkJv/v2M5FbYbk+PqVEE+MTa4KNZ1kguR3DkDHpU3Bg=";
 
   buildInputs = lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.Security
