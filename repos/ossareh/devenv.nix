@@ -4,7 +4,7 @@
     alejandra
     nixd
 
-    (pkgs.rWrapper.override {
+    (rWrapper.override {
       packages = with pkgs.rPackages; [
         rqdatatable
         rstudioapi
