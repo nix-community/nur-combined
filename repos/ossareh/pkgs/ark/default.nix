@@ -30,16 +30,8 @@ in
       )
     ];
 
-    # Debug output for Cargo.lock
-    # cargoLock = let
-    #   lockFile = "${src}/Cargo.lock";
-    # in {
-    #   lockFile = lockFile;
-    #   outputHashes = {
-    #     "dap-0.4.1-alpha1" = "sha256-nUsTazH1riI0nglWroDKDWoHEEtNEtpwn6jCH2N7Ass=";
-    #     "tree-sitter-r-1.1.0" = "sha256-gF1sarYoI+6pjww1++eEu0sUDlH2cOddP1k/SjFozFg=";
-    #   };
-    # };
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw=";
 
     meta = {
       description = "Ark is an R kernel for Jupyter applications";
