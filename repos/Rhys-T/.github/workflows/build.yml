@@ -83,11 +83,6 @@ jobs:
     outputs:
       nurRepo: ${{ steps.build.outputs.nurRepo }}
     steps:
-    - name: Fix environment for ARM64 Linux runners (actions/partner-runner-images#25)
-      if: ${{ startsWith(matrix.runner, 'ubuntu-') && endsWith(matrix.runner, '-arm') }}
-      # From <https://github.com/actions/partner-runner-images/issues/25#issuecomment-2597256482>.
-      # Adapted to edit both variables.
-      run: for var in HOME PATH XDG_CONFIG_HOME; do echo "Old $var=${!var}" >&2; sed -Ee "s/^/${var}=/" -e 's/(runner)admin/\1/g' <<< "${!var}"; done | tee -a "$GITHUB_ENV"
     - name: Output nurRepo for final job
       run: echo 'nurRepo=${{ matrix.nurRepo }}' >> "$GITHUB_OUTPUT"
     - name: Checkout repository
