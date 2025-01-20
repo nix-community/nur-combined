@@ -38,6 +38,7 @@ rec {
   rofi-rbw = pkgs.rofi-rbw;
   sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
   vivaldi = pkgs.vivaldi;
+  zen-browser = pkgs.callPackage ./pkgs/zen-browser { source = sources.zen-browser; };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 
