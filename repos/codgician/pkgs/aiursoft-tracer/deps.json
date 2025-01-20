@@ -67,9 +67,9 @@
   },
   {
     "pname": "coverlet.collector",
-    "version": "6.0.3",
-    "hash": "sha256-gQ2u3hJggz89UVoU3P7m/riu1SkN1hu316iyrodTqt8=",
-    "url": "https://nuget.aiursoft.cn/v3/package/coverlet.collector/6.0.3/coverlet.collector.6.0.3.nupkg"
+    "version": "6.0.4",
+    "hash": "sha256-ieiUl7G5pVKQ4V6rxhEe0ehep0/u1RBD3EAI63AQTI0=",
+    "url": "https://nuget.aiursoft.cn/v3/package/coverlet.collector/6.0.4/coverlet.collector.6.0.4.nupkg"
   },
   {
     "pname": "JunitXml.TestLogger",
