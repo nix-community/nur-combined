@@ -8,7 +8,7 @@ let
         base = {
           fastfetch.enable = true;
           # firefox.verticalTabs = true;
-          # hyprland.dynamicCursors.enable = true;
+          hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
         };
         catppuccin = {
