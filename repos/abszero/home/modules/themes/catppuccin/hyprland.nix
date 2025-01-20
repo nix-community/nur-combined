@@ -17,6 +17,8 @@ in
 
     catppuccin.hyprland.enable = true;
 
+    # Catppuccin color variables:
+    # https://github.com/catppuccin/hyprland/blob/main/themes/frappe.conf
     wayland.windowManager.hyprland.settings = {
       general = {
         border_size = 4;
@@ -35,10 +37,10 @@ in
       };
 
       misc = {
+        disable_hyprland_logo = true; # Disable default wallpaper
         disable_splash_rendering = true;
-        force_default_wallpaper = 0;
+        background_color = "$accent";
         animate_manual_resizes = true;
-        animate_mouse_windowdragging = true;
       };
 
       # https://easings.net

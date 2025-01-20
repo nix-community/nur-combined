@@ -25,11 +25,15 @@ in
         repeat_rate = 50;
         repeat_delay = 200;
         follow_mouse = 2; # Detach cursor focus from keyboard focus
-        mouse_refocus = false; # Don't move cursor to focused window
         touchpad = {
           natural_scroll = true;
           drag_lock = true; # Don't interrupt drag on short breaks
         };
+      };
+
+      cursor = {
+        persistent_warps = true; # Remember cursor position for each window
+        warp_on_change_workspace = true;
       };
 
       gestures = {
@@ -39,13 +43,21 @@ in
         workspace_swipe_forever = true;
       };
 
+      render.direct_scanout = true;
+
       # Do not scale xwayland windows
       xwayland.force_zero_scaling = true;
+
+      ecosystem = {
+        no_update_news = true;
+        # no_donation_nag = true;
+      };
 
       misc = {
         vrr = 1;
         # Allow screen locker to restart after crash
         allow_session_lock_restore = true;
+        focus_on_activate = true; # Focus windows that request to be focused
         middle_click_paste = false;
       };
 
@@ -91,16 +103,28 @@ in
             "5"
           ];
 
+      bindm = "$mod,  mouse:272, movewindow";
+
       windowrulev2 = [
         "float, title:^Albert$"
         "pin, title:^Albert$"
         "noblur, title:^Albert$"
         "noborder, title:^Albert$"
+
         "pseudo, title:.* - Anki"
         "size 666 560, title:.* - Anki"
+
+        "float, title:CollectorMainWindow"
+
+        "size 600 500, class: foot"
+
         "pseudo, title:^KDE Connect$"
         "size 350 350, title:^KDE Connect$"
-        "immediate, class:osu!" # Enable tearing for osu!
+
+        "immediate, class:osu!" # Enable tearing
+
+        "float, class:it\.mijorus\.smile"
+
         "pseudo, class:org\.gnome\.Solanum"
         "size 370 370, class:org\.gnome\.Solanum"
       ];

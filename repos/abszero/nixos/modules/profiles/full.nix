@@ -66,6 +66,7 @@ in
         # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
         anki-bin-qt6-wayland
         aseprite
+        collector
         ffmpeg-full
         gh
         git-absorb
@@ -85,6 +86,7 @@ in
         osu-lazer-bin
         proton-pass
         protonvpn-gui
+        smile
         taisei
         tenacity
         unzip
