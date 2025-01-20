@@ -28,6 +28,7 @@ in
       i18n.inputMethod.fcitx5.enable = true;
       services = {
         kanata.enable = true;
+        printing.enable = true;
         rclone = {
           enable = true;
           enableFileSystems = true;
