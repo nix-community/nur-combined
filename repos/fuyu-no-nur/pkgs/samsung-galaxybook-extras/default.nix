@@ -1,6 +1,6 @@
 {pkgs ? import <nixpkgs> {}}: let
-  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages;
-  inherit (linuxPackages) kernel;
+  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages_latest;
+  inherit (linuxPackages_latest) kernel;
 in
   stdenv.mkDerivation rec {
     pname = "samsung-galaxybook-extras";
@@ -12,7 +12,7 @@ in
       owner = "joshuagrisham";
       repo = "samsung-galaxybook-extras";
       rev = "refs/heads/main";
-      sha256 = "sha256-F/0JjT7dZn4UkxAqCRp7fnhR22n/fxNUoCokuAARNQc=";
+      sha256 = "sha256-srCGcmUI5ZKjndIWhSptG3hVkAo0dvDjJ4NoUkutaIA=";
     };
 
     hardeningDisable = ["pic" "format"];
