@@ -435,18 +435,18 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "b70fd54ccfe2edc8f26838a6330a1d110bef1fd0";
+    version = "b4b76794381efb8e4b2a3112bea17e72366c2b9b";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "b70fd54ccfe2edc8f26838a6330a1d110bef1fd0";
+      rev = "b4b76794381efb8e4b2a3112bea17e72366c2b9b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-2u+tCmZincEYRgJWUQPqJW0r8Fs710X8VRRx/E+6OQQ=";
+      sha256 = "sha256-J38f7xbUPTm9PIz+LwPVa2f79Pys0L3ZVTkAaoLtjl0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-b70fd54ccfe2edc8f26838a6330a1d110bef1fd0/Cargo.lock;
+      lockFile = ./swayosd-b4b76794381efb8e4b2a3112bea17e72366c2b9b/Cargo.lock;
       outputHashes = {
 
       };
