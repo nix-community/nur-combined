@@ -13,9 +13,6 @@
         // attrs;
     in
       lib.mapAttrs toSecret {
-        "gitlab-runner/hades-nix-runner-env" = {};
-        "gitlab-runner/hades-runner-env" = {};
-
         "lohr/shared-secret" = {};
 
         "matrix-synapse/secret-config" = {
