@@ -35,7 +35,6 @@ in
   services.postgresql.package = pkgs.postgresql_16;
 
 
-
   # XXX colin: for a proper deploy, we'd want to include something for Pleroma here too.
   # services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
   #   CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD '<password goes here>';
@@ -74,6 +73,12 @@ in
     max_parallel_workers = 12;
     max_parallel_maintenance_workers = 4;
   };
+
+  # regulate the restarts, so that systemd never disables it
+  systemd.services.postgresql.serviceConfig.RestartSec = 2;
+  systemd.services.postgresql.serviceConfig.RestartMaxDelaySec = 10;
+  systemd.services.postgresql.serviceConfig.RestartSteps = 4;
+  systemd.services.postgresql.serviceConfig.StartLimitBurst = 120;
 
   # daily backups to /var/backup
   services.postgresqlBackup.enable = true;

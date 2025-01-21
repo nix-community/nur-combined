@@ -113,6 +113,11 @@
     ReadWritePaths = [
       "/var/lib/postfix/queue/maildrop"
     ];
+    # rate limit the restarts to prevent systemd from disabling it
+    RestartSec = 5;
+    RestartMaxDelaySec = 30;
+    StartLimitBurst = 120;
+    RestartSteps = 5;
   };
 
   # services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate

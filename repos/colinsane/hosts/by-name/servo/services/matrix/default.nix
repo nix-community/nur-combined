@@ -70,6 +70,12 @@ in
     config.sops.secrets."matrix_synapse_secrets.yaml".path
   ];
 
+  # tune restart settings to ensure systemd doesn't disable it, and we don't overwhelm postgres
+  systemd.services.matrix-synapse.serviceConfig.RestartSec = 5;
+  systemd.services.matrix-synapse.serviceConfig.RestartMaxDelaySec = 20;
+  systemd.services.matrix-synapse.serviceConfig.StartLimitBurst = 120;
+  systemd.services.matrix-synapse.serviceConfig.RestartSteps = 3;
+
   systemd.services.matrix-synapse.postStart = lib.optionalString ntfy ''
     ACCESS_TOKEN=$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.matrix_access_token.path})
     TOPIC=$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.ntfy-sh-topic.path})
