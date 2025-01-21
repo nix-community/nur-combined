@@ -26,7 +26,7 @@
     ./ntfy
     ./pict-rs.nix
     ./pleroma.nix
-    ./postgres.nix
+    ./postgresql
     ./prosody
     ./slskd.nix
     ./transmission
