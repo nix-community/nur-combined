@@ -4,7 +4,6 @@
     ./fs.nix
   ];
 
-  sane.services.hickory-dns.asSystemResolver = false;  # TEMPORARY: TODO: re-enable hickory-dns
   # sane.programs.devPkgs.enableFor.user.colin = true;
   # sane.guest.enable = true;
 
@@ -54,19 +53,4 @@
 
   # TODO(2025-01-01): re-enable once rocm build is fixed: <https://github.com/NixOS/nixpkgs/pull/367695>
   # hardware.amdgpu.opencl.enable = true;  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
-
-  # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
-  # default config: https://man.archlinux.org/man/snapper-configs.5
-  # defaults to something like:
-  #   - hourly snapshots
-  #   - auto cleanup; keep the last 10 hourlies, last 10 daylies, last 10 monthlys.
-  # to list snapshots: `sudo snapper --config nix list`
-  # to take a snapshot: `sudo snapper --config nix create`
-  # services.snapper.configs.nix = {
-  #   # TODO: for the impermanent setup, we'd prefer to just do /nix/persist,
-  #   # but that also requires setting up the persist dir as a subvol
-  #   SUBVOLUME = "/nix";
-  #   # TODO: ALLOW_USERS doesn't seem to work. still need `sudo snapper -c nix list`
-  #   ALLOW_USERS = [ "colin" ];
-  # };
 }

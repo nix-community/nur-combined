@@ -31,21 +31,6 @@ in
 [
   ./2024-10-01-python-cross-resource-usage.patch
 
-  (fetchpatch' {
-    # merged into staging 2024-12-13
-    name = "python312Packages.contourpy: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
-    saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
-    hash = "sha256-+7iAefzfYzAHO+f+q5JROejGjCujnwhvt8ItkU562DA=";
-  })
-
-  (fetchpatch' {
-    # merged into staging 2024-12-28
-    name = "python3Packages.meson-python: honor mesonFlagsArray";
-    saneCommit = "38681f9dbd65e92bc4c3f49f0ce9c7b15dcbe9ea";
-    hash = "sha256-YzS6eX6sPbEx3CzAGaz8alz/s8O5JjkXtg+/Wk7ndZ0=";
-  })
-
   # (fetchpatch' {
   #   # 2024-12-26: required to build ollama (with AMD acceleration)
   #   name = "rocm-6: bump packages to 6.3.1 and add missing packages";
@@ -65,12 +50,6 @@ in
     name = "nautilus: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/373662";
     hash = "sha256-/51SnUExwsqSSwgR3dxUozDAMf5wHoMIT7+NDpIdYNI=";
-  })
-
-  (fetchpatch' {
-    name = "gnome-settings-daemon: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/373666";
-    hash = "sha256-Mdyw34MhFiscGUYYcPhOoQBrXDzAvPiWp3/OuB7kB30=";
   })
 
   (fetchpatch' {

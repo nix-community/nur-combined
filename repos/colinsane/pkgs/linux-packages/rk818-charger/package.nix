@@ -30,7 +30,8 @@ stdenv.mkDerivation {
 
   makeFlags = [
     # "KERNELRELEASE=${kernel.modDirVersion}"
-    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    # "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "KERNEL_DIR=$(buildRoot)"
     "INSTALL_MOD_PATH=$(out)/lib/modules/${kernel.modDirVersion}/kernel"
     # from <repo:nixos/nixpkgs:pkgs/os-specific/linux/kernel/manual-config.nix>
     "O=$(buildRoot)"
@@ -38,9 +39,23 @@ stdenv.mkDerivation {
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
     "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
+    # other kernel flags:
+    # M
+    # KBUILD_EXTMOD
+    # KBUILD_OUTPUT
   ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
+
+  preConfigure = ''
+    # starting with linux 6.13.0 it wants to write to `KERNEL_DIR`, so we copy that here to make it writable
+    cp -R ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build .
+    export buildRoot=$(pwd)/build
+
+    chmod u+w -R build
+    # remove symbols associated with in-tree rk818 module to prevent `modpost` errors: we're intentionally overriding them
+    sed -i '/rk8xx_/d' ./build/Module.symvers
+  '';
 
   # the modules shipped in-tree are .xz, so if i want to replace those i need to also xz this module:
   postInstall = ''

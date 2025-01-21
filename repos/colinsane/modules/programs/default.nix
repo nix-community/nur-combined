@@ -819,7 +819,8 @@ let
           "/sys/firmware"  #< for moby camera, to parse its devicetree
           # "/dev"
         ] ++ lib.optionals config.sandbox.whitelistSystemctl [
-          "/run/systemd/system"
+          "/run/systemd/system"  # TODO(2025-01-20): still necessary?
+          "/run/systemd/private"
         ]
       ;
       sandbox.extraRuntimePaths =

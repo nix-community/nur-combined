@@ -4,7 +4,8 @@ let
 in
 {
   sane.programs.btrfs-progs = {
-    sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
+    # sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
+    sandbox.autodetectCliPaths = "parent";  # e.g. `btrfs subvolume create ./my_subvol`
     sandbox.extraPaths = [
       "/dev/btrfs-control"
       #vvv required for `sudo btrfs filesystem show` with no args

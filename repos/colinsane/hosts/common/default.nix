@@ -14,6 +14,7 @@
     ./programs
     ./quirks.nix
     ./secrets.nix
+    ./snapper.nix
     ./ssh.nix
     ./systemd.nix
     ./users

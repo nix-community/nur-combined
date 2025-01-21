@@ -888,6 +888,12 @@ in with final; {
     '';
   });
 
+  # 2025/01/19: upstreaming is unblocked
+  tree-sitter = prev.tree-sitter.overrideAttrs (upstream: {
+    # shell completions were enabled, but aren't cross-compatible: <https://github.com/nixos/nixpkgs/pull/368976>
+    postInstall = lib.replaceStrings [ "installShellCompletion" ] [ "true || installShellCompletion" ] upstream.postInstall;
+  });
+
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   # 2024/05/31: upstreaming is blocked on gnustep-base cross compilation

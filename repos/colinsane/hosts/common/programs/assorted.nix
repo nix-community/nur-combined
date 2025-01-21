@@ -177,7 +177,7 @@ in
       "sane-secrets-unlock"
       "sane-sysload"
       "sc-im"
-      # "snapper"
+      "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
       "speedtest-cli"
       # "ssh-to-age"
@@ -1083,6 +1083,9 @@ in
     slic3r.sandbox.autodetectCliPaths = "existingFileOrParent";  # slic3r <my-file>.stl -o <out>.gcode
 
     slurp.sandbox.whitelistWayland = true;
+
+    snapper.sandbox.tryKeepUsers = true;
+    snapper.sandbox.whitelistDbus.system = true;  #< all `snapper` does is speak to the daemon, via dbus
 
     # snapshot camera, based on libcamera
     # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>

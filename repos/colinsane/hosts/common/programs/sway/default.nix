@@ -3,6 +3,19 @@
 # docs: https://nixos.wiki/wiki/Sway
 # sway-config docs: `man 5 sway`
 let
+  pkgs' = pkgs // {
+    # sway/wlroots release **less than once per year**.
+    # i use the `nixpkgs-wayland` version (which is akin to running tip) instead of the stable version from nixpkgs
+    # because then when things go wrong i have an actual shot at bisecting.
+    # this has been useful as recently as 2024/08 when sway/wlroots updates straight up don't render output:
+    # <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
+    #
+    # TODO(2025-01-19): nixpkgs-wayland.sway-unwrapped DOES NOT BUILD; re-enable this once it does.
+    # inherit (pkgs.nixpkgs-wayland)
+    #   sway-unwrapped
+    #   wlroots
+    # ;
+  };
   cfg = config.sane.programs.sway;
   enableXWayland = config.sane.programs.xwayland.enabled;
   wrapSway = configuredSway: let
@@ -32,7 +45,7 @@ let
       passthru.sway-unwrapped = configuredSway;
     };
 
-  wlroots = (pkgs.nixpkgs-wayland.wlroots.override {
+  wlroots = (pkgs'.wlroots.override {
     # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
     # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
     xwayland = config.sane.programs.xwayland.package;
@@ -64,12 +77,7 @@ let
     '';
   });
   swayPackage = wrapSway (
-    # sway/wlroots release **less than once per year**.
-    # i use the `nixpkgs-wayland` version (which is akin to running tip) instead of the stable version from nixpkgs
-    # because then when things go wrong i have an actual shot at bisecting.
-    # this has been useful as recently as 2024/08 when sway/wlroots updates straight up don't render output:
-    # <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
-    (pkgs.nixpkgs-wayland.sway-unwrapped.override {
+    (pkgs'.sway-unwrapped.override {
       inherit wlroots;
       # about xwayland:
       # - required by many electron apps, though some electron apps support NIXOS_OZONE_WL=1 for native wayland.
