@@ -1,0 +1,37 @@
+From 2a6fd39ab88e2ad67609fb841efe56fd4ad1fd9f Mon Sep 17 00:00:00 2001
+From: oluceps <secinia@outlook.com>
+Date: Wed, 22 Jan 2025 06:25:11 +0800
+Subject: [PATCH 1/2] ~ welcome shape
+
+---
+ packages/frontend/src/pages/welcome.entrance.a.vue | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/packages/frontend/src/pages/welcome.entrance.a.vue b/packages/frontend/src/pages/welcome.entrance.a.vue
+index 68938f0bbf..7d4dea9d00 100644
+--- a/packages/frontend/src/pages/welcome.entrance.a.vue
++++ b/packages/frontend/src/pages/welcome.entrance.a.vue
+@@ -99,7 +99,7 @@ misskeyApiGet('federation/instances', {
+ 		left: 0;
+ 		width: 100vw;
+ 		height: 100vh;
+-		background: var(--MI_THEME-accent);
++		background: #c5d3d2;
+ 		clip-path: polygon(0% 0%, 45% 0%, 20% 100%, 0% 100%);
+ 	}
+ 	> .shape2 {
+@@ -108,9 +108,9 @@ misskeyApiGet('federation/instances', {
+ 		left: 0;
+ 		width: 100vw;
+ 		height: 100vh;
+-		background: var(--MI_THEME-accent);
++		background: #a2afae;
+ 		clip-path: polygon(0% 0%, 25% 0%, 35% 100%, 0% 100%);
+-		opacity: 0.5;
++		opacity: 0.7;
+ 	}
+ 
+ 	> .logo-wrapper {
+-- 
+2.47.1
+

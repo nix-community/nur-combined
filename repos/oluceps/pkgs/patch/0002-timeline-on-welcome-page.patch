@@ -1,0 +1,29 @@
+From c95e68389e648c92b99c491681e64393b6326e56 Mon Sep 17 00:00:00 2001
+From: oluceps <secinia@outlook.com>
+Date: Wed, 22 Jan 2025 06:26:52 +0800
+Subject: [PATCH 2/2] - timeline on welcome page
+
+---
+ packages/frontend/src/components/MkVisitorDashboard.vue | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/packages/frontend/src/components/MkVisitorDashboard.vue b/packages/frontend/src/components/MkVisitorDashboard.vue
+index 898ab75fc0..d198f240a4 100644
+--- a/packages/frontend/src/components/MkVisitorDashboard.vue
++++ b/packages/frontend/src/components/MkVisitorDashboard.vue
+@@ -40,12 +40,6 @@ SPDX-License-Identifier: AGPL-3.0-only
+ 			<div :class="$style.statsItemCount"><MkNumber :value="stats.originalNotesCount"/></div>
+ 		</div>
+ 	</div>
+-	<div v-if="instance.policies.ltlAvailable" :class="[$style.tl, $style.panel]">
+-		<div :class="$style.tlHeader">{{ i18n.ts.letsLookAtTimeline }}</div>
+-		<div :class="$style.tlBody">
+-			<MkTimeline src="local"/>
+-		</div>
+-	</div>
+ 	<div :class="$style.panel">
+ 		<XActiveUsersChart/>
+ 	</div>
+-- 
+2.47.1
+

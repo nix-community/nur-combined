@@ -29,6 +29,12 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
+      misskey = prev.misskey.overrideAttrs (old: {
+        patches = [
+          ./pkgs/patch/0001-welcome-shape.patch
+          ./pkgs/patch/0002-timeline-on-welcome-page.patch
+        ];
+      });
 
       scx = inputs'.nyx.packages.scx-full_git;
 
