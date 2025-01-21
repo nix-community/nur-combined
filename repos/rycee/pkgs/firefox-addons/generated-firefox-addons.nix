@@ -338,10 +338,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.45";
+      version = "1.45.1";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421835/animalese_typing-1.45.xpi";
-      sha256 = "b0a6b4d9a4d26e69d4058cc1650d9488172122068308c70207edd84701b627df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4422920/animalese_typing-1.45.1.xpi";
+      sha256 = "d41272eeafb1d3c3e2685551f7f3c550573eb554a15e278fdd34de2ce55ea707";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type!";
@@ -2277,10 +2277,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "135.0.20250117.102618";
+      version = "134.0.20250120.135430";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421453/deutsch_de_language_pack-135.0.20250117.102618.xpi";
-      sha256 = "8451797f58bd6592f7bfc84f7178af695452c89af74d3ba7eecccec1dc13740d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4423030/deutsch_de_language_pack-134.0.20250120.135430.xpi";
+      sha256 = "05ad2ac8f26add3b73fac44fc5c7dba0fbfdc9b2372bfb87b84b36c398419682";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3462,10 +3462,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "135.0.20250117.102618";
+      version = "134.0.20250120.135430";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421474/francais_language_pack-135.0.20250117.102618.xpi";
-      sha256 = "dfd8451925b0ba510249d70b98e658e8de0d400def9a9e978385ca623fba0e62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4422985/francais_language_pack-134.0.20250120.135430.xpi";
+      sha256 = "e4c7bcf1160f5de4e9cc4188cabece5e4eb256133a25337efaf7e3843eb7782e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3499,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "135.0.20250117.102618";
+      version = "134.0.20250120.135430";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421509/gaidhlig_language_pack-135.0.20250117.102618.xpi";
-      sha256 = "b5ba0ea205485c665c804a0889f2024e4ad17c929b7809041c25d9da9fb116ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4423056/gaidhlig_language_pack-134.0.20250120.135430.xpi";
+      sha256 = "c30c65b4fd73ea2eb9931c8ccc754369285dc74ab2df365543d6f26bc892d8e9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8680,10 +8680,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.56.1";
+      version = "0.58.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381510/polkadot_js_extension-0.56.1.xpi";
-      sha256 = "986a14bbc999ae0e0735c7e9bae2a00c0acb975fc2c9de71ce4fb753931f9232";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416826/polkadot_js_extension-0.58.1.xpi";
+      sha256 = "3053da9a98e4c638842832584b5f225c50d23cca9ee779300e3bf7e5c446773d";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -9381,10 +9381,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.27.0";
+      version = "1.27.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408212/proton_pass-1.27.0.xpi";
-      sha256 = "ee2eee1d4fe741853b53f0e340a0e481206f70622edc24bd7e33358434198c2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4416764/proton_pass-1.27.2.xpi";
+      sha256 = "4363049dcfcb1e4df4aeac22908c336cae773a10510a69534606bebf160e2c28";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10049,10 +10049,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "135.0.20250117.102618";
+      version = "134.0.20250120.135430";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421434/scots_language_pack-135.0.20250117.102618.xpi";
-      sha256 = "ad88b0f719493ffd6cdfdeb100aadf38a2776045f727dd5b0295d02a1ac2d29e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4423027/scots_language_pack-134.0.20250120.135430.xpi";
+      sha256 = "d23ebab5bcc55d5cd45dd337edf5cba44610f6e5231b0969fa2c5596a1cef8e2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
