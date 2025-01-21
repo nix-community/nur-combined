@@ -15,7 +15,7 @@
               upstreams = [ { dial = "localhost:9000"; } ];
             }
           ];
-          match = [ { host = [ "nas.nyaw.xyz" ]; } ];
+          match = [ { host = [ "s3.nyaw.xyz" ]; } ];
         }
       ];
 

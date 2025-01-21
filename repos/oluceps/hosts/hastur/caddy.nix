@@ -57,6 +57,15 @@
                         {
                           handle = [
                             {
+                              handler = "authentication";
+                              providers.http_basic.accounts = [
+                                {
+                                  username = "prometheus";
+                                  password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
+                                }
+                              ];
+                            }
+                            {
                               handler = "reverse_proxy";
                               upstreams = [ { dial = "localhost:9090"; } ];
                             }
@@ -73,7 +82,7 @@
                       ];
                     }
                   ];
-                  match = [ { host = [ "hastur.nyaw.xyz" ]; } ];
+                  match = [ { host = [ config.networking.fqdn ]; } ];
                 }
                 {
                   handle = [
@@ -84,33 +93,6 @@
                   ];
                   match = [ { host = [ "s3.nyaw.xyz" ]; } ];
                 }
-
-                {
-                  match = [
-                    {
-                      host = [ config.networking.fqdn ];
-                      path = [
-                        "/prom"
-                        "/prom/*"
-                      ];
-                    }
-                  ];
-                  handle = [
-                    {
-                      handler = "authentication";
-                      providers.http_basic.accounts = [
-                        {
-                          username = "prometheus";
-                          password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
-                        }
-                      ];
-                    }
-                    {
-                      handler = "reverse_proxy";
-                      upstreams = [ { dial = "127.0.0.1:9090"; } ];
-                    }
-                  ];
-                }
               ];
               tls_connection_policies = [
                 {
@@ -118,7 +100,6 @@
                     sni = [
                       "cache.nyaw.xyz"
                       "hastur.nyaw.xyz"
-                      "s3.nyaw.xyz"
                     ];
                   };
                   certificate_selection = {
@@ -131,28 +112,6 @@
           };
         };
         tls = {
-          # automation.policies = [
-          #   {
-          #     subjects = [
-          #       "*.nyaw.xyz"
-          #       "nyaw.xyz"
-          #     ];
-          #     issuers = [
-          #       {
-          #         module = "acme";
-          #         challenges = {
-          #           dns = {
-          #             provider = {
-          #               name = "porkbun";
-          #               api_key = "{env.PORKBUN_API_KEY}";
-          #               api_secret_key = "{env.PORKBUN_API_SECRET_KEY}";
-          #             };
-          #           };
-          #         };
-          #       }
-          #     ];
-          #   }
-          # ];
           certificates.load_files = [
             {
               certificate = "/run/credentials/caddy.service/nyaw.cert";

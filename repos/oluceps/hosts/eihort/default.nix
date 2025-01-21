@@ -17,7 +17,11 @@ withSystem "x86_64-linux" (
   lib.nixosSystem {
     pkgs = import inputs.nixpkgs {
       inherit system;
-      config = { };
+      config = {
+        permittedInsecurePackages = [
+          "olm-3.2.16"
+        ];
+      };
       overlays = lib.hostOverlays { inherit inputs inputs'; };
     };
     specialArgs = {

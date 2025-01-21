@@ -39,13 +39,23 @@
   repack = {
     openssh.enable = true;
     fail2ban.enable = true;
-    phantomsocks.enable = true;
+    # phantomsocks.enable = true;
     dae.enable = true;
     dnsproxy.enable = true;
     scrutiny.enable = true;
-    # postgresql.enable = true;
+    postgresql.enable = true;
+
     # photoprism.enable = true;
-    mysql.enable = true;
+    # mysql.enable = true;
+
+    atuin.enable = true;
+    misskey.enable = true;
+    meilisearch.enable = true;
+    vaultwarden.enable = true;
+    conduwuit.enable = true;
+    mautrix-telegram.enable = true;
+    calibre.enable = true;
+    immich.enable = true;
   };
 
   services = {

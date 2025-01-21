@@ -14,25 +14,31 @@ in
     ];
     "10.0.4.6" = [
       "eihort.nyaw.xyz"
-      "nas.nyaw.xyz"
+      "s3.nyaw.xyz"
     ];
     "10.0.4.2" = [
       "hastur.nyaw.xyz"
-      "s3.nyaw.xyz"
     ];
   } // common;
   hastur = {
     "127.0.0.1" = [
-      "s3.nyaw.xyz"
       "hastur.nyaw.xyz"
     ];
     "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
     "192.168.1.158" = [ "eihort.nyaw.xyz" ];
+    "10.0.4.6" = [
+      "eihort.nyaw.xyz"
+      "s3.nyaw.xyz"
+    ];
   } // common;
   eihort = {
     "127.0.0.1" = [
       "eihort.nyaw.xyz"
-      "nas.nyaw.xyz"
+      "s3.nyaw.xyz"
+    ];
+    "10.0.4.6" = [
+      "eihort.nyaw.xyz"
+      "s3.nyaw.xyz"
     ];
     "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
     "192.168.1.2" = [ "hastur.nyaw.xyz" ];

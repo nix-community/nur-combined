@@ -35,23 +35,9 @@ in
         file = ../../sec/harmonia.age;
         mode = "400";
       };
-      meilisearch = {
-        file = ../../sec/meilisearch.age;
-        mode = "444";
-      };
-      misskey = {
-        file = ../../sec/misskey.age;
-        mode = "400";
-      };
       notifychan = {
         file = ../../sec/notifychan.age;
         mode = "400";
-      };
-      vault = {
-        file = ../../sec/vault.age;
-      };
-      mautrix-tg = {
-        file = ../../sec/mautrix-tg.age;
       };
     };
   };

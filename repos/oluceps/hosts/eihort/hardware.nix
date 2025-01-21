@@ -10,12 +10,12 @@
 {
   facter.reportPath = ./facter.json;
 
-  zramSwap = {
-    enable = true;
-    swapDevices = 1;
-    memoryPercent = 80;
-    algorithm = "zstd";
-  };
+  # zramSwap = {
+  #   enable = true;
+  #   swapDevices = 1;
+  #   memoryPercent = 80;
+  #   algorithm = "zstd";
+  # };
 
   boot = {
     loader = {
