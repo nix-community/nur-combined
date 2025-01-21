@@ -77,9 +77,6 @@ in {
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.initrd.kernelModules = [ "amdgpu" ];
-      services.udev.extraRules = ''
-        ACTION=="add", ATTRS{idVendor}=="1a2c", ATTRS{idProduct}=="2c27", ATTR{power/wakeup}="disabled"
-      '';
     })
   ];
 }
