@@ -12,10 +12,18 @@ in
       "kaambl.nyaw.xyz"
       "dns.nyaw.xyz"
     ];
-    "10.0.4.6" = [
+    # "10.0.4.6" = [
+    #   "eihort.nyaw.xyz"
+    #   "photo.nyaw.xyz"
+    #   "s3.nyaw.xyz"
+    # ];
+
+    "192.168.1.127" = [
       "eihort.nyaw.xyz"
+      "photo.nyaw.xyz"
       "s3.nyaw.xyz"
     ];
+
     "10.0.4.2" = [
       "hastur.nyaw.xyz"
     ];
@@ -25,9 +33,11 @@ in
       "hastur.nyaw.xyz"
     ];
     "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
-    "192.168.1.158" = [ "eihort.nyaw.xyz" ];
-    "10.0.4.6" = [
+    "192.168.1.127" = [
       "eihort.nyaw.xyz"
+      "photo.nyaw.xyz"
+    ];
+    "10.0.4.6" = [
       "s3.nyaw.xyz"
     ];
   } // common;
@@ -37,6 +47,7 @@ in
       "s3.nyaw.xyz"
     ];
     "10.0.4.6" = [
+      "photo.nyaw.xyz"
       "eihort.nyaw.xyz"
       "s3.nyaw.xyz"
     ];

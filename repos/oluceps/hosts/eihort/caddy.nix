@@ -17,6 +17,15 @@
           ];
           match = [ { host = [ "s3.nyaw.xyz" ]; } ];
         }
+        {
+          handle = [
+            {
+              handler = "reverse_proxy";
+              upstreams = [ { dial = "localhost:2283"; } ];
+            }
+          ];
+          match = [ { host = [ "photo.nyaw.xyz" ]; } ];
+        }
       ];
 
       tls = {

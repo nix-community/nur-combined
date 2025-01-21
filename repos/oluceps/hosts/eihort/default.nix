@@ -39,6 +39,7 @@ withSystem "x86_64-linux" (
 
       ./hardware.nix
       ./network.nix
+      ./backup.nix
       ./rekey.nix
       ./spec.nix
       ./caddy.nix

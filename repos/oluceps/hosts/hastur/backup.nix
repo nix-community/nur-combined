@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  repack.postgresql-backup.enable = true;
+  # repack.postgresql-backup.enable = true;
   systemd.services.postgresqlBackup.onSuccess = [ "rustic-backups-critic.service" ];
   services.rustic = {
     backups = {
@@ -12,18 +12,18 @@
         timerConfig = null;
       };
 
-      # solid = {
-      #   profiles = map (n: config.vaultix.secrets.${n}.path) [
-      #     "general.toml"
-      #     "on-eihort.toml"
-      #   ];
-      #   timerConfig = {
-      #     OnCalendar = "*-*-1/3 03:00:00";
-      #     RandomizedDelaySec = "4h";
-      #     FixedRandomDelay = true;
-      #     Persistent = true;
-      #   };
-      # };
+      solid = {
+        profiles = map (n: config.vaultix.secrets.${n}.path) [
+          "general.toml"
+          "on-eihort.toml"
+        ];
+        timerConfig = {
+          OnCalendar = "*-*-1/3 03:00:00";
+          RandomizedDelaySec = "4h";
+          FixedRandomDelay = true;
+          Persistent = true;
+        };
+      };
     };
   };
 }

@@ -186,16 +186,6 @@
           terminal = true;
         }
 
-        # {
-        #   handle = [
-        #     {
-        #       handler = "reverse_proxy";
-        #       upstreams = [ { dial = "10.0.4.6:2283"; } ];
-        #     }
-        #   ];
-        #   match = [ { host = [ "photo.nyaw.xyz" ]; } ];
-        #   terminal = true;
-        # }
         {
           handle = [
             {
