@@ -29,6 +29,7 @@ jobs:
           - natsukium
         os:
           - ubuntu-latest
+          - ubuntu-24.04-arm
           - macos-latest # M1
           - macos-13 # Intel
     runs-on: ${{ matrix.os }}
