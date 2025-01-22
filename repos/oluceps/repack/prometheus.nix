@@ -14,7 +14,7 @@ let
   targets_notls = map (n: "${n}.nyaw.xyz") [
     # "kaambl"
     # "yidhra"
-    # "azasos"
+    "azasos"
     "hastur"
     "eihort"
   ];

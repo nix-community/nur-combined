@@ -42,13 +42,13 @@
       "audit=0"
       "net.ifnames=0"
     ];
-    kernelModules = [ "brutal" ];
+    # kernelModules = [ "brutal" ];
 
-    extraModulePackages =
-      let
-        inherit (config.boot.kernelPackages) callPackage;
-      in
-      [ (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { }) ];
+    # extraModulePackages =
+    #   let
+    #     inherit (config.boot.kernelPackages) callPackage;
+    #   in
+    #   [ (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { }) ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 

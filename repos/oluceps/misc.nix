@@ -312,15 +312,15 @@
         "${user}"
       ];
       # Avoid disk full
-      # max-free = lib.mkDefault (1000 * 1000 * 1000);
-      # min-free = lib.mkDefault (128 * 1000 * 1000);
-      # builders-use-substitutes = true;
-      # allow-import-from-derivation = true;
+      max-free = lib.mkDefault (1000 * 1000 * 1000);
+      min-free = lib.mkDefault (128 * 1000 * 1000);
+      builders-use-substitutes = true;
+      allow-import-from-derivation = true;
     };
 
-    # daemonCPUSchedPolicy = lib.mkDefault "batch";
-    # daemonIOSchedClass = lib.mkDefault "idle";
-    # daemonIOSchedPriority = lib.mkDefault 7;
+    daemonCPUSchedPolicy = lib.mkDefault "batch";
+    daemonIOSchedClass = lib.mkDefault "idle";
+    daemonIOSchedPriority = lib.mkDefault 7;
 
     extraOptions = ''
       !include ${config.vaultix.secrets.gh-token.path}

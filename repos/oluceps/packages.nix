@@ -44,7 +44,6 @@ let
         xh
         ngrep
         gping
-        knot-dns
         tcping-go
         # httping
         iftop
