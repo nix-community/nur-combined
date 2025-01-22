@@ -1,32 +1,27 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib ? pkgs.lib,
+  ...
+}:
 
 {
   mkMbsyncFetcher =
     {
       email,
-      hostextra ? "",
+      host ? lib.elemAt (lib.splitString "@" email) 1,
+      passcmd ? "pass ${host} | head -1",
       tls1dot ? 3,
       package ? pkgs.isync,
-      configHead ? null,
       configHeadExtra ? "",
     }:
     let
-      # emailuser = elemAt (splitString "@" email) 0;
-      emailhost = lib.elemAt (lib.splitString "@" email) 1;
-      name = emailhost;
-      configHeadLet =
-        if configHead == null then
-          ''
-            Host ${hostextra}${emailhost}
-            User ${email}
-            PassCmd "pass ${emailhost} | head -1"''
-        else
-          lib.removeSuffix "\n" configHead;
-      configfile = pkgs.writeText "mbsync-config-${name}" ''
+      configfile = pkgs.writeText "mbsync-config-${host}" ''
         IMAPAccount default
-        ${configHeadLet}
         SSLType IMAPS
         SSLVersions TLSv1.${toString tls1dot}
+        Host ${host}
+        User ${email}
+        PassCmd "${passcmd}"
         ${configHeadExtra}
 
         IMAPStore default-remote
@@ -47,7 +42,7 @@
         SyncState *
       '';
     in
-    pkgs.writeShellScriptBin "mbsync-fetcher-${name}" ''
+    pkgs.writeShellScriptBin "mbsync-fetcher-${host}" ''
       # a small sanity check
       [[ ! -d "INBOX" ]] && exit 1
       exec ${package}/bin/mbsync --config=${configfile} --all "$@"

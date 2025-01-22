@@ -1,11 +1,12 @@
-{ pkgs
-, expect
-, fetchurl
-, fetchFromGitHub
-, recurseIntoAttrs
-, qemu-utils
-, qemu
-, runCommand
+{
+  pkgs,
+  expect,
+  fetchurl,
+  fetchFromGitHub,
+  recurseIntoAttrs,
+  qemu-utils,
+  qemu,
+  runCommand,
 }:
 
 # more info here
@@ -25,14 +26,16 @@ recurseIntoAttrs rec {
       rev = "9fb4fcf463df4341dbb7396df127374214b90841";
       sha256 = "sha256-fgqiWLT8zNTHEQ7Ky+Gf6X0hBFQ0ira4bh7szQrEV48=";
     };
-    makeCompressedQcow2 = img:
+    makeCompressedQcow2 =
+      img:
       runCommand (pkgs.lib.replaceStrings [ ".img.xz" ] [ ".qcow2" ] img.name)
         {
           nativeBuildInputs = [ qemu-utils ];
-        } ''
-        xzcat ${img} > image
-        qemu-img convert -O qcow2 -c -o compression_type=zstd image $out
-      '';
+        }
+        ''
+          xzcat ${img} > image
+          qemu-img convert -O qcow2 -c -o compression_type=zstd image $out
+        '';
     writeExpect = pkgs.writers.makeScriptWriter {
       interpreter = "${expect}/bin/expect -f";
     };
@@ -84,21 +87,17 @@ recurseIntoAttrs rec {
     buster-lite = fetchurl {
       pname = "raspios-buster-armhf-lite";
       version = "2022-09-06";
-      url =
-        "https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2022-09-07/2022-09-06-raspios-buster-armhf-lite.img.xz";
+      url = "https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2022-09-07/2022-09-06-raspios-buster-armhf-lite.img.xz";
       # from https://www.raspberrypi.com/software/operating-systems/
       # https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2022-09-07/2022-09-06-raspios-buster-armhf-lite.img.xz.sha256
-      sha256 =
-        "9a38607cee9ca6844ee26c1e12fb9d029b567c8235e8b9f78f382a19e6078720";
+      sha256 = "9a38607cee9ca6844ee26c1e12fb9d029b567c8235e8b9f78f382a19e6078720";
     };
     buster-lite-qcow2 = lib.makeCompressedQcow2 buster-lite;
     buster-lite-script = lib.makeExpectScript buster-lite-qcow2;
-    buster-lite-newimage = runCommand "newimage.qcow2"
-      {
-        QEMU_USER = "pi";
-        QEMU_PASSWORD = "raspberry";
-        QEMU_IMAGE = placeholder "out";
-      }
-      (pkgs.lib.getExe buster-lite-script);
+    buster-lite-newimage = runCommand "newimage.qcow2" {
+      QEMU_USER = "pi";
+      QEMU_PASSWORD = "raspberry";
+      QEMU_IMAGE = placeholder "out";
+    } (pkgs.lib.getExe buster-lite-script);
   };
 }

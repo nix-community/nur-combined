@@ -4,41 +4,59 @@
   callPackage ? pkgs.callPackage,
 }:
 
-let
-  by-name-overlay = import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ./pkgs/by-name;
-  # this line allows packages to call themselves
-  pkgsWithNur = import pkgs.path {
-    inherit (pkgs) system;
-    overlays = [ by-name-overlay ];
-  };
-  applied-overlay = by-name-overlay pkgsWithNur pkgs;
-in
-applied-overlay
+# The main packages
+(lib.packagesFromDirectoryRecursive {
+  directory = ./pkgs/by-name;
+  callPackage = callPackage;
+})
+# Extras
 // {
 
-  lib = lib.extend (
-    final: prev:
-    # this extra callPackage call is needed to give
-    # the result an `override` ability.
-    (callPackage ./lib { })
-  );
+  lib =
+    let
+      filelist = lib.filesystem.listFilesRecursive ./lib;
+      newSet = lib.foldr lib.recursiveUpdate { } (map (x: import x { inherit pkgs; }) filelist);
+      final = newSet;
+    in
+    final
+  # or:
+  # lib.extend (final: prev: newSet);
+  ;
 
-  modules = lib.mapAttrs' (
-    filename: _filetype:
-    lib.nameValuePair "${lib.removeSuffix ".nix" filename}" ((import (./modules + "/${filename}")))
-  ) (builtins.readDir ./modules);
+  modules =
+    (lib.packagesFromDirectoryRecursive {
+      directory = ./modules;
+      callPackage = (x: _a: import x);
+    })
+    // {
+      all = {
+        imports = lib.filesystem.listFilesRecursive ./modules;
+      };
+    };
 
   qemuImages = pkgs.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
-  python3Packages = pkgs.recurseIntoAttrs (
-    lib.makeScope pkgs.python3Packages.newScope (
-      self:
-      import ./pkgs/python3-packages {
-        inherit (self) callPackage;
-        lib = lib;
-      }
+  python3Packages = lib.makeScope pkgs.python3Packages.newScope (
+    self:
+    pkgs.recurseIntoAttrs (
+      (lib.packagesFromDirectoryRecursive {
+        directory = ./pkgs/python3-packages;
+        callPackage = self.callPackage;
+      })
     )
   );
 
-  lispPackages = pkgs.recurseIntoAttrs { cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { }; };
+  lispPackages = pkgs.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/lisp-packages;
+      callPackage = callPackage;
+    }
+  );
+
+  emacsPackages = pkgs.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/emacs-packages;
+      callPackage = pkgs.emacs.pkgs.callPackage;
+    }
+  );
 }

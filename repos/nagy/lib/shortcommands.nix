@@ -1,8 +1,12 @@
-{ pkgs , lib, ... }:
+{
+  pkgs,
+  lib ? pkgs.lib,
+  ...
+}:
 
 rec {
-
-  mkBashCompletion = cmd: list:
+  mkBashCompletion =
+    cmd: list:
     let
       first = lib.head list;
       underscored = lib.concatStringsSep "_" list;
@@ -28,13 +32,16 @@ rec {
       complete -F _complete_shortcommand_${underscored} ${cmd}
     '';
 
-  mkShortCommandScript = cmd: list:
-    pkgs.writeShellScriptBin cmd ''exec ${lib.escapeShellArgs list} "$@"'';
+  mkShortCommandScript =
+    cmd: list: pkgs.writeShellScriptBin cmd ''exec ${lib.escapeShellArgs list} "$@"'';
 
-  mkShortCommand = cmd: list:
+  mkShortCommand =
+    cmd: list:
     pkgs.symlinkJoin {
       name = "shortcommand-${cmd}";
-      paths = [ (mkBashCompletion cmd list) (mkShortCommandScript cmd list) ];
+      paths = [
+        (mkBashCompletion cmd list)
+        (mkShortCommandScript cmd list)
+      ];
     };
-
 }

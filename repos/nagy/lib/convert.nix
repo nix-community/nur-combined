@@ -1,4 +1,4 @@
-{ pkgs, lib, callPackage }:
+{ pkgs, lib ? pkgs.lib, callPackage ? pkgs.callPackage }:
 
 let
   inherit (pkgs) jq biber;

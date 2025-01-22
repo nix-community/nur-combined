@@ -1,29 +1,43 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib ? pkgs.lib,
+  ...
+}:
 
 rec {
-
   emacsParsePackageSet =
     {
       src,
       epkgs ? pkgs.emacs.pkgs,
     }:
-    map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src));
+    lib.pipe src [
+      builtins.readFile
+      emacsParsePackagesFromPackageRequires
+      # This step reduces the closure size of the derivation, because
+      # it removes the emacs package itself.
+      (x: lib.lists.remove "emacs" x)
+      (x: map (name: epkgs.${name}) x)
+    ]
+  # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src))
+  ;
 
   emacsMakeSingleFilePackage =
     {
       src,
       pname ? lib.removeSuffix ".el" (builtins.baseNameOf src),
-      version ? "unstable",
+      version ? "0.0.1",
       epkgs ? pkgs.emacs.pkgs,
       packageRequires ? emacsParsePackageSet { inherit src epkgs; },
     }:
-    (epkgs.trivialBuild {
+    (epkgs.melpaBuild {
       inherit
         pname
         version
         src
         packageRequires
         ;
+      # turnCompilationWarningToError = true;
+      # ignoreCompilationError = false;
       preferLocalBuild = true;
       allowSubstitutes = false;
     }).overrideAttrs

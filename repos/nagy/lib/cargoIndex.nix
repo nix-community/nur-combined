@@ -1,14 +1,23 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib ? pkgs.lib,
+  ...
+}:
 
 rec {
-
-  cargoEmptyHome = pkgs.runCommandLocal "cargo-home"
-    {
-      nativeBuildInputs = [ pkgs.rustc pkgs.cargo pkgs.cacert ];
-    } ''
-    CARGO_HOME=$out
-    cargo search --limit 0
-  '';
+  cargoEmptyHome =
+    pkgs.runCommandLocal "cargo-home"
+      {
+        nativeBuildInputs = [
+          pkgs.rustc
+          pkgs.cargo
+          pkgs.cacert
+        ];
+      }
+      ''
+        CARGO_HOME=$out
+        cargo search --limit 0
+      '';
 
   cargoCratesIoRegistryGit = pkgs.fetchgit {
     url = "https://github.com/rust-lang/crates.io-index";
@@ -16,10 +25,12 @@ rec {
     hash = "sha256-mngh0XvY5UBiEKGR9sqS1dddRhQ6RS8titPtGq0cNkY=";
   };
 
-  cargoCratesIoRegistry = pkgs.linkFarm "crates.io-index" [{
-    name = "index";
-    path = cargoCratesIoRegistryGit;
-  }];
+  cargoCratesIoRegistry = pkgs.linkFarm "crates.io-index" [
+    {
+      name = "index";
+      path = cargoCratesIoRegistryGit;
+    }
+  ];
 
   cargoConfigWithLocalRegistry = pkgs.writeTextFile {
     name = "cargo_config";
@@ -33,39 +44,52 @@ rec {
     '';
   };
 
-  mkCargoLock = { file }:
+  mkCargoLock =
+    { file }:
     pkgs.runCommandLocal "Cargo.lock"
       {
         inherit file;
         nativeBuildInputs = [ pkgs.cargo ];
-      } ''
-      mkdir src .cargo
-      ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml .cargo/
-      ln -s $file Cargo.toml
-      touch src/main.rs
-      cargo generate-lockfile
-      mv Cargo.lock $out
-    '';
+      }
+      ''
+        mkdir src .cargo
+        ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml .cargo/
+        ln -s $file Cargo.toml
+        touch src/main.rs
+        cargo generate-lockfile
+        mv Cargo.lock $out
+      '';
 
-  mkRustScriptDir = { file, pname ? "main" }:
+  mkRustScriptDir =
+    {
+      file,
+      pname ? "main",
+    }:
     pkgs.runCommandLocal "rust-script"
       {
         inherit file pname;
-        nativeBuildInputs = [ pkgs.rust-script pkgs.cargo ];
+        nativeBuildInputs = [
+          pkgs.rust-script
+          pkgs.cargo
+        ];
         CARGO_HOME = "/tmp/cargo";
-      } ''
-      mkdir /tmp/cargo $out
-      ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml /tmp/cargo/
-      cp -v -- $file $pname.rs
-      rust-script --cargo-output --package --pkg-path . $pname.rs
-      sed -i Cargo.toml -e 's,^name = .*,name = "${pname}",g'
-      sed -i Cargo.toml -e 's,^path = .*,path = "${pname}.rs",g'
-      cargo generate-lockfile
-      mv Cargo.* $pname.rs $out/
-    '';
+      }
+      ''
+        mkdir /tmp/cargo $out
+        ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml /tmp/cargo/
+        cp -v -- $file $pname.rs
+        rust-script --cargo-output --package --pkg-path . $pname.rs
+        sed -i Cargo.toml -e 's,^name = .*,name = "${pname}",g'
+        sed -i Cargo.toml -e 's,^path = .*,path = "${pname}.rs",g'
+        cargo generate-lockfile
+        mv Cargo.* $pname.rs $out/
+      '';
 
   mkRustScript =
-    { file, name ? lib.removeSuffix ".rs" (builtins.baseNameOf file) }:
+    {
+      file,
+      name ? lib.removeSuffix ".rs" (builtins.baseNameOf file),
+    }:
     pkgs.rustPlatform.buildRustPackage rec {
       inherit name;
       src = mkRustScriptDir {
@@ -80,7 +104,11 @@ rec {
       doCheck = false; # dunno
     };
 
-  mkCargoWatcher = { file, pname ? "main" }:
+  mkCargoWatcher =
+    {
+      file,
+      pname ? "main",
+    }:
     pkgs.writeShellScriptBin "cargo-watcher" ''
       ln -fs ${mkRustScriptDir { inherit file pname; }}/Cargo.toml
       ln -fs ${mkRustScriptDir { inherit file pname; }}/Cargo.lock
