@@ -22,11 +22,13 @@ in
     settings.plugin.dynamic-cursors = {
       mode = "stretch";
       shake = {
-        threshold = 5; # Shake threshold
+        effects = true;
+        threshold = 4; # Shake threshold
         base = 1; # Min magnification level
-        speed = 2.5; # Magnification increase per second
+        speed = 2; # Magnification increase per second
         influence = 2; # Magnification increase by intensity
-        limit = 4; # Max magnification level
+        limit = 2; # Max magnification level
+        timeout = 1000;
       };
       hyprcursor.resolution = 96;
     };
