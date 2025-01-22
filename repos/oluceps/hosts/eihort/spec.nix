@@ -104,7 +104,7 @@
         name = "persist";
         source = "/persist";
         keep = "2day";
-        timerConfig.onCalendar = "12h";
+        timerConfig.onCalendar = "hourly";
       }
       {
         name = "var";
