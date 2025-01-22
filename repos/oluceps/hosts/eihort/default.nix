@@ -45,6 +45,7 @@ withSystem "x86_64-linux" (
       ./caddy.nix
       ./sysctl.nix
       ../persist.nix
+      ../secureboot.nix
       (lib.iage "trust")
       ../../packages.nix
       ../../misc.nix

@@ -23,7 +23,6 @@
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      systemd-boot.enable = true;
       timeout = 3;
     };
 

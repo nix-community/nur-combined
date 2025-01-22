@@ -16,6 +16,7 @@ let
     # "yidhra"
     # "azasos"
     "hastur"
+    "eihort"
   ];
   relabel_configs = [
     {
@@ -50,7 +51,7 @@ reIf {
     listenAddress = "127.0.0.1";
     webConfigFile = (pkgs.formats.yaml { }).generate "web.yaml" {
       basic_auth_users = {
-        prometheus = "$2b$05$bKuO7ehC6wKR28/pfhJZOuNyQFUtF7FwhkPFLwcbCMhfLRNUV54vm";
+        prometheus = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
       };
     };
     port = 9090;

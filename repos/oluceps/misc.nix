@@ -262,7 +262,7 @@
   # powerManagement.powertop.enable = true;
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
@@ -273,7 +273,7 @@
         "benchmark"
         "big-parallel"
         "kvm"
-      ] ++ [ "gccarch-znver3" ];
+      ];
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
       keep-outputs = true;
