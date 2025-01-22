@@ -140,7 +140,10 @@ in
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bunpen";
       extraPaths = [ "/nix/var/nix" ];
-      capabilities = [ "sys_admin" ];  # for it to remount /nix/store
+      capabilities = [
+        "dac_override"  # some packages have files which aren't `w`
+        "sys_admin"  # for it to remount /nix/store
+      ];
       tryKeepUsers = true;
     };
 

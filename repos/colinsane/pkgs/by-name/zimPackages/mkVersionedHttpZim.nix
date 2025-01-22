@@ -24,6 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
       "https://download.kiwix.org/zim/${prefix}${tail}"
       "https://dumps.wikimedia.org/other/kiwix/zim/${prefix}${tail}"
       "https://mirror.accum.se/mirror/wikimedia.org/other/kiwix/zim/${prefix}${tail}"
+      "https://mirror.download.kiwix.org/zim/.hidden/${prefix}${tail}"
     ];
     inherit hash;
   };

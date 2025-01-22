@@ -5,12 +5,12 @@
 }:
 buildNpmPackage rec {
   pname = "sidebery";
-  version = "5.2.0";
+  version = "5.3.0";
   src = fetchFromGitHub {
     owner = "mbnuqw";
     repo = "sidebery";
     rev = "v${version}";
-    hash = "sha256-83n0aX5mJYf1yYamuM+DelkpOGLRZqkXpTgQMAmMLXI=";
+    hash = "sha256-EjQCPtHZoUmSJdKePgy/mK3uj6peDCz2nxUACG/08uU=";
   };
 
   npmDepsHash = "sha256-wBYjX65Tb3+83NT5625j77qceCADkiS22PsmCdwbJA0=";
