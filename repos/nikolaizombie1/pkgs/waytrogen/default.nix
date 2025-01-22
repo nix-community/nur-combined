@@ -10,28 +10,29 @@
   sqlite,
   openssl,
   gsettings-desktop-schemas,
-  bash
+  bash,
+  killall
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.6.0";
+  version = "0.6.1";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
     rev = version;
-    hash = "sha256-yM0EwaN7KCFxBdu+Zip9FIUCs5f4xIEyeNZxOg4KJEY=";
+    hash = "sha256-jrBtE3iUPGQ6b6T27r1Oq+0mqr/4z7/SNsL/iuFy6Z4=";
   };  
 
-  nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite bash ];
-  buildInputs = [ glib gtk4 ffmpeg sqlite openssl gsettings-desktop-schemas ];
+  nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite bash killall ];
+  buildInputs = [ glib gtk4 ffmpeg sqlite openssl gsettings-desktop-schemas killall ];
   env = {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-7QxjfjTFMtP8YKmtheXM0aobltEHH23aDy9hAowj128=";
+  cargoHash = "sha256-L/gnrE3yYoXyfr+gkILQ53FkoJeGOL1SL0SYVdtPea0=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
