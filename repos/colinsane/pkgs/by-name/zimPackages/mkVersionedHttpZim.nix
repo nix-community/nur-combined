@@ -41,6 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.zimPath = "${finalAttrs.finalPackage}/share/zim/${pname}.zim";
+
   passthru.updateScript = directoryListingUpdater {
     url = "https://download.kiwix.org/zim/${prefix}";
   };

@@ -49,7 +49,7 @@ in
   (fetchpatch' {
     name = "nautilus: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/373662";
-    hash = "sha256-/51SnUExwsqSSwgR3dxUozDAMf5wHoMIT7+NDpIdYNI=";
+    hash = "sha256-lm/FNd9yaTDGW1NXHjrZc1cP3wyp9LlWH9CfkyViymk=";
   })
 
   (fetchpatch' {
