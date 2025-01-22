@@ -1,0 +1,19 @@
+diff --git a/ctrtool/deps/libtoolchain/src/io/LocalFileSystem.cpp b/ctrtool/deps/libtoolchain/src/io/LocalFileSystem.cpp
+index 093d50e..055141e 100644
+--- a/ctrtool/deps/libtoolchain/src/io/LocalFileSystem.cpp
++++ b/ctrtool/deps/libtoolchain/src/io/LocalFileSystem.cpp
+@@ -11,6 +11,7 @@
+ #pragma warning(disable : 4065) // disable warning for switch case with only default case
+ 
+ #else
++#include <limits.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <errno.h>
+@@ -416,4 +417,4 @@ void tc::io::LocalFileSystem::getDirectoryListing(const tc::io::Path& path, sDir
+ 
+ #pragma warning(default : 4065) // reenable warning for switch case with only default case
+ 
+-#endif
+\ No newline at end of file
++#endif

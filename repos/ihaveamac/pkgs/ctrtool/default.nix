@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
       --replace-warn Windows.h windows.h
   '';
 
+  patches = [ ./libtoolchain-include-limits.patch ];
+
   preBuild = ''
     cd ctrtool
     make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps ${lib.escapeShellArgs makeFlags}

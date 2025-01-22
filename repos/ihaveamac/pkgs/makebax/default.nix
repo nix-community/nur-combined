@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitLab, lz4, opencv, llvmPackages }:
+{ stdenv, callPackage, lib, fetchFromGitLab, lz4, opencv, ffmpeg, llvmPackages }:
 
+let
+  realOpencv = if stdenv.isDarwin && stdenv.hostPlatform.isStatic then opencv.override {
+    ffmpeg = ffmpeg.override {
+      withSdl2 = false;
+    };
+  } else opencv;
+in
 stdenv.mkDerivation rec {
   pname = "makebax";
   version = "2019-01-22";
@@ -14,9 +21,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-bad-alloc.patch ./fix-array.patch ];
 
-  NIX_CFLAGS_COMPILE = "-isystem ${opencv}/include/opencv4";
+  NIX_CFLAGS_COMPILE = "-isystem ${realOpencv}/include/opencv4";
 
-  buildInputs = [ lz4 opencv ] ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
+  buildInputs = [ lz4 realOpencv ] ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,6 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/Wolfvak/BAX";
     license = licenses.mit;
     platforms = platforms.all;
+    broken = stdenv.isDarwin && stdenv.hostPlatform.isStatic;
     mainProgram = "makebax";
   };
 }

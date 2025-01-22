@@ -9,6 +9,14 @@ let
     rev = "fb4fd2b1fd16276b62438661fc6992f781d8e394";
     hash = "sha256-WwBQMzPosh57urL09zFyuR5BZcnOAwD2sLh9M9WHFeQ=";
   };
+  realCryptopp = if stdenv.hostPlatform.isWindows then
+    (cryptopp.overrideAttrs (final: prev: lib.warn "overriding" {
+      postPatch = prev.postPatch + ''
+        substituteInPlace GNUmakefile \
+          --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
+      '';
+    }))
+  else cryptopp;
 in
 realStdenv.mkDerivation rec {
   pname = "wfs-tools";
@@ -37,7 +45,7 @@ realStdenv.mkDerivation rec {
     (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
   ] else [
     (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse.dev}/include")
-    (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse.so")
+    (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse${stdenv.hostPlatform.extensions.library}")
   ]);
 
   installPhase = ''
@@ -47,7 +55,7 @@ realStdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [ boost cryptopp ] ++ lib.optional withFUSE fuse;
+  buildInputs = [ boost realCryptopp ] ++ lib.optional withFUSE fuse;
 
   nativeBuildInputs = [ cmake pkg-config ];
 

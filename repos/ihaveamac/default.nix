@@ -44,6 +44,7 @@ rec {
   cxitool = pkgs.callPackage ./pkgs/cxitool { };
   launchcontrol = pkgs.callPackage ./pkgs/launchcontrol { };
   xiv-on-mac = pkgs.callPackage ./pkgs/xiv-on-mac { };
+  rofs-dumper = pkgs.callPackage ./pkgs/rofs-dumper { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

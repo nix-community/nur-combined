@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, zip }:
+{ lib, stdenv, pkgsBuildBuild, fetchFromGitLab }:
 
+let
+  # zip is only needed to build a release zip
+  # which we don't use with nix, so let's just fake it
+  fakeZip = pkgsBuildBuild.writeShellScriptBin "zip" ''
+    echo "Not zipping"
+  '';
+in
 stdenv.mkDerivation rec {
   pname = "kame-tools";
   version = "1.3.8-unstable-2024-11-01";
@@ -13,10 +20,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # this isn't actually required for building
-  # but cross-compiling to windows doesn't like it when I use
-  # writeShellScriptBin to create a fake "zip"
-  nativeBuildInputs = [ zip ];
+  nativeBuildInputs = [ fakeZip ];
 
   # gotta patch the patch!
   prePatch = lib.optionalString stdenv.isAarch64 ''
