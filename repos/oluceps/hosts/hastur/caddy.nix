@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 {
 
   systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [

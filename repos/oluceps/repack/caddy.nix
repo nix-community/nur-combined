@@ -16,7 +16,17 @@ in
     repack.caddy = {
       # moved to upper module
       # enable = lib.mkEnableOption "caddy api gateway";
-      package = lib.mkPackageOption pkgs "caddy-lim" { };
+      # mkPackageOption not work here
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.caddy.withPlugins {
+          plugins = [
+            "github.com/caddy-dns/porkbun@v0.2.1"
+            "github.com/mholt/caddy-ratelimit@v0.1.0"
+          ];
+          hash = "sha256-wG+1OQCR+a40ZpaaJFckLJirRX4Pb7OjSKqikna/oSQ=";
+        };
+      };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
         default = { };

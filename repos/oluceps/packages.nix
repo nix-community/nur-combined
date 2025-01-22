@@ -98,8 +98,6 @@ let
         qrencode
         lazygit
         b3sum
-        unzip
-        zip
         coreutils
         juicefs
         inetutils

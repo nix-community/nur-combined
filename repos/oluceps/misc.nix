@@ -254,7 +254,8 @@
   documentation.info.enable = false;
 
   systemd.services.nix-daemon.serviceConfig = {
-    LimitNOFILE = lib.mkForce 500000000;
+    # WARNING: THIS makes nix-daemon build extremely slow
+    # LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
 
@@ -262,18 +263,12 @@
   # powerManagement.powertop.enable = true;
 
   nix = {
-    package = pkgs.lix;
+    package = pkgs.nixVersions.stable;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     settings = {
-      system-features = [
-        "nixos-test"
-        "benchmark"
-        "big-parallel"
-        "kvm"
-      ];
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
       keep-outputs = true;
@@ -283,7 +278,7 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       ];
       extra-substituters =
@@ -296,8 +291,7 @@
           "nixpkgs-wayland"
         ]);
       substituters = [
-        "https://cache.nixos.org"
-        "https://cache.garnix.io"
+        # "https://cache.garnix.io"
       ];
       auto-optimise-store = true;
       experimental-features = [
@@ -307,7 +301,8 @@
         "cgroups"
         "recursive-nix"
         "ca-derivations"
-        "pipe-operator"
+        # "pipe-operator"
+        "pipe-operators"
       ];
       auto-allocate-uids = true;
       use-cgroups = true;
@@ -317,15 +312,15 @@
         "${user}"
       ];
       # Avoid disk full
-      max-free = lib.mkDefault (1000 * 1000 * 1000);
-      min-free = lib.mkDefault (128 * 1000 * 1000);
-      builders-use-substitutes = true;
-      allow-import-from-derivation = true;
+      # max-free = lib.mkDefault (1000 * 1000 * 1000);
+      # min-free = lib.mkDefault (128 * 1000 * 1000);
+      # builders-use-substitutes = true;
+      # allow-import-from-derivation = true;
     };
 
-    daemonCPUSchedPolicy = lib.mkDefault "batch";
-    daemonIOSchedClass = lib.mkDefault "idle";
-    daemonIOSchedPriority = lib.mkDefault 7;
+    # daemonCPUSchedPolicy = lib.mkDefault "batch";
+    # daemonIOSchedClass = lib.mkDefault "idle";
+    # daemonIOSchedPriority = lib.mkDefault 7;
 
     extraOptions = ''
       !include ${config.vaultix.secrets.gh-token.path}

@@ -49,7 +49,7 @@ in
       "vaultix"
       "lanzaboote"
       "catppuccin"
-      "lix-module"
+      # "lix-module"
       "nyx"
       "self"
     ])

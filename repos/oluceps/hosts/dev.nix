@@ -97,7 +97,7 @@
           dev = [
             (nixos-rebuild-ng.override {
               withNgSuffix = false;
-              nix = inputs'.lix-module.packages.default;
+              # nix = inputs'.lix-module.packages.default;
             })
             vscode.fhs
             # nodejs_latest.pkgs.pnpm
