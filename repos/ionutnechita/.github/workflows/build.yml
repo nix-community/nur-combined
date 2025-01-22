@@ -33,9 +33,7 @@ jobs:
         sudo apt-get autoremove -y >/dev/null 2>&1
         sudo apt-get autoclean -y >/dev/null 2>&1
         sudo apt-get clean -y >/dev/null 2>&1
-        sudo apt-get purge default-jre default-jdk *jre* *jdk* -y >/dev/null 2>&1
-        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
-        docker rmi $(docker image ls -aq) >/dev/null 2>&1
+        sudo apt-get purge *android* *dotnet* *ruby* *php* default-jre default-jdk *jre* *jdk* *rake* -y >/dev/null 2>&1
         df -h
     - name: Install nix
       uses: cachix/install-nix-action@v30
