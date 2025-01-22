@@ -16,14 +16,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waytrogen";
-  version = "0.6.1";
+  version = "0.6.2";
   preferLocalBuild = true;
 
   src = fetchFromGitHub {
     owner = "nikolaizombie1";
     repo = pname;
     rev = version;
-    hash = "sha256-jrBtE3iUPGQ6b6T27r1Oq+0mqr/4z7/SNsL/iuFy6Z4=";
+    hash = "sha256-3dKZYn14VJq9nwkKraKLv8dEbWq94fD7gzY7U2Oiawk=";
   };  
 
   nativeBuildInputs = [ pkg-config glib wrapGAppsHook4 sqlite bash killall ];
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
   
-  cargoHash = "sha256-L/gnrE3yYoXyfr+gkILQ53FkoJeGOL1SL0SYVdtPea0=";
+  cargoHash = "sha256-2A7HtQeyBntOKPKdp3fY8BBf4MvwvbYdG8SCY4LQfwk=";
 
   postInstall = ''
   mkdir -p $out/share/glib-2.0/schemas && cp org.Waytrogen.Waytrogen.gschema.xml $out/share/glib-2.0/schemas/
