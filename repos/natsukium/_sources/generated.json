@@ -30,6 +30,7 @@
             "repo": "homebrew-emacs-plus",
             "rev": "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b",
             "sha256": "sha256-0awwiJjYGvwzqghzjgQiE6rRyv//I68l2ivwdstbBfU=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b"
@@ -50,6 +51,7 @@
             "repo": "nixpkgs-review",
             "rev": "b4d0a817180b1a079d00d41c0a41308cb11407f7",
             "sha256": "sha256-fZkXkhwsNoxcQcC4fqwnkfGherazl/YZBkuVWGmnWPY=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "b4d0a817180b1a079d00d41c0a41308cb11407f7"
@@ -100,6 +102,7 @@
             "repo": "SbarLua",
             "rev": "29395b1928835efa1b376d438216fbf39e0d0f83",
             "sha256": "sha256-C2tg1mypz/CdUmRJ4vloPckYfZrwHxc4v8hsEow4RZs=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "29395b1928835efa1b376d438216fbf39e0d0f83"
@@ -120,6 +123,7 @@
             "repo": "skkeleton",
             "rev": "8bb1b8782227291c8cbe2aa62a9af732557690cc",
             "sha256": "sha256-V86J+8rg1/5ZUL9t0k2S5H+z7KZ1DZwLwmb5yM0+vts=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "8bb1b8782227291c8cbe2aa62a9af732557690cc"
