@@ -92,6 +92,9 @@
     "slug": "awesome-rss"
   },
   {
+    "slug": "aws-extend-switch-roles3"
+  },
+  {
     "slug": "batchcamp"
   },
   {
@@ -272,6 +275,16 @@
   },
   {
     "slug": "copy-selection-as-markdown"
+  },
+  {
+    "slug": "cultivate",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "dark-background-light-text"
@@ -594,6 +607,9 @@
   },
   {
     "slug": "google-cal-event-merge"
+  },
+  {
+    "slug": "google-container"
   },
   {
     "slug": "gopass-bridge"
@@ -1080,6 +1096,9 @@
   },
   {
     "slug": "open-in-browser"
+  },
+  {
+    "slug": "open-in-freedium"
   },
   {
     "slug": "open-url-in-container"
@@ -1625,6 +1644,9 @@
     "slug": "tubearchivist-companion"
   },
   {
+    "slug": "twitch-auto-points"
+  },
+  {
     "slug": "ublacklist"
   },
   {
@@ -1774,6 +1796,9 @@
     "slug": "webhint"
   },
   {
+    "slug": "webxr-api-emulator"
+  },
+  {
     "slug": "whowrotethat"
   },
   {
@@ -1822,6 +1847,16 @@
   },
   {
     "slug": "youtube-alternative-switch"
+  },
+  {
+    "slug": "youtube-cards",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "youtube-high-definition"

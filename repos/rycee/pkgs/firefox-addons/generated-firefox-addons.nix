@@ -743,6 +743,31 @@
         platforms = platforms.all;
       };
     };
+    "aws-extend-switch-roles3" = buildFirefoxXpiAddon {
+      pname = "aws-extend-switch-roles3";
+      version = "6.0.0";
+      addonId = "aws-extend-switch-roles@toshi.tilfin.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424241/aws_extend_switch_roles3-6.0.0.xpi";
+      sha256 = "28e1cd5ee59dbd40b294f3f1ce25dc3b325c6d1b6e93af640f4478878eaa5945";
+      meta = with lib;
+      {
+        homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
+        description = "Extend your AWS IAM switching roles. You can set the configuration by aws config format";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "https://*.console.aws.amazon.com/*"
+          "https://health.aws.amazon.com/*"
+          "https://lightsail.aws.amazon.com/*"
+          "https://*.console.amazonaws-us-gov.com/*"
+          "https://phd.amazonaws-us-gov.com/*"
+          "https://*.console.amazonaws.cn/*"
+          "https://health.amazonaws.cn/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
       version = "1.4.8";
@@ -2091,6 +2116,35 @@
         platforms = platforms.all;
       };
     };
+    "cultivate" = buildFirefoxXpiAddon {
+      pname = "cultivate";
+      version = "1.0.48169";
+      addonId = "{348c6313-cb8a-456d-bc65-f9f2ccf57c29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296421/cultivate-1.0.48169.xpi";
+      sha256 = "171bdf02f704198c35d35f1ac8433382ee85d3afa8438b8a84a45bb21d96655b";
+      meta = with lib;
+      {
+        homepage = "https://www.wecultivate.us";
+        description = "Detects product's country of origin on Amazon &amp; compares prices across 10,000+ US stores for max savings.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "alarms"
+          "cookies"
+          "storage"
+          "unlimitedStorage"
+          "webRequest"
+          "http://*/*"
+          "https://*/*"
+          "*://*.wecultivate.us/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "dark-background-light-text" = buildFirefoxXpiAddon {
       pname = "dark-background-light-text";
       version = "0.7.6";
@@ -2538,10 +2592,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.55.4";
+      version = "2.55.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4418265/dualsub-2.55.4.xpi";
-      sha256 = "75c92f19120aa07fe88903227684df042e0752e46503f824f086452b1414182c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424625/dualsub-2.55.5.xpi";
+      sha256 = "a7ecb8df7edf45b5e828f5d972ffe035a0bc5ed94102aaae484816a46fc54863";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3759,6 +3813,30 @@
           "https://calendar.google.com/*"
           "storage"
           "https://calendar.google.com/calendar/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "google-container" = buildFirefoxXpiAddon {
+      pname = "google-container";
+      version = "1.5.4";
+      addonId = "@contain-google";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736912/google_container-1.5.4.xpi";
+      sha256 = "47a7c0e85468332a0d949928d8b74376192cde4abaa14280002b3aca4ec814d0";
+      meta = with lib;
+      {
+        homepage = "https://github.com/containers-everywhere/contain-google";
+        description = "THIS IS NOT AN OFFICIAL ADDON FROM MOZILLA!\nIt is a fork of the Facebook Container addon.\n\nPrevent Google from tracking you around the web. The Google Container extension helps you take control and isolate your web activity from Google.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "contextualIdentities"
+          "cookies"
+          "management"
+          "tabs"
+          "webRequestBlocking"
+          "webRequest"
+          "storage"
         ];
         platforms = platforms.all;
       };
@@ -8265,6 +8343,21 @@
         platforms = platforms.all;
       };
     };
+    "open-in-freedium" = buildFirefoxXpiAddon {
+      pname = "open-in-freedium";
+      version = "1.1.0";
+      addonId = "freedium-browser-extension@wywywywy.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4214075/open_in_freedium-1.1.0.xpi";
+      sha256 = "b396390f5c86a4433554f56c4816ef8527b50e1808761e3f9a68d4859192f1a1";
+      meta = with lib;
+      {
+        homepage = "https://github.com/wywywywy/freedium-browser-extension";
+        description = "Easily open Medium articles in Freedium to bypass restrictions";
+        license = licenses.mit;
+        mozPermissions = [ "contextMenus" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "open-url-in-container" = buildFirefoxXpiAddon {
       pname = "open-url-in-container";
       version = "1.0.3";
@@ -11737,6 +11830,26 @@
         platforms = platforms.all;
       };
     };
+    "twitch-auto-points" = buildFirefoxXpiAddon {
+      pname = "twitch-auto-points";
+      version = "1.2.5";
+      addonId = "{076d8ebb-5df6-48e0-a619-99315c395644}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3783975/twitch_auto_points-1.2.5.xpi";
+      sha256 = "7b11fd334267f61c6f4b2a3ff0450ae227776214790e056cdaf051532eaa8459";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Spring3/twitch-auto-points";
+        description = "Automatic twitch channel points collection";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "tabs"
+          "https://www.twitch.tv/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
       version = "8.9.2";
@@ -13054,6 +13167,27 @@
         platforms = platforms.all;
       };
     };
+    "webxr-api-emulator" = buildFirefoxXpiAddon {
+      pname = "webxr-api-emulator";
+      version = "0.3.3";
+      addonId = "{c9bd631a-fdc3-488d-b083-0fed11cefb84}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3717226/webxr_api_emulator-0.3.3.xpi";
+      sha256 = "d12b3d35d6a27ddc50a65ebf26ffb83e6fde40546ed277f88e45c1be40da4cca";
+      meta = with lib;
+      {
+        homepage = "https://github.com/MozillaReality/WebXR-emulator-extension";
+        description = "Emulate WebXR devices on your browser";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "file://*/*"
+          "http://*/*"
+          "https://*/*"
+          "storage"
+          "devtools"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "whowrotethat" = buildFirefoxXpiAddon {
       pname = "whowrotethat";
       version = "0.22.2.0";
@@ -13280,6 +13414,30 @@
         description = "Quickly switch videos between YouTube, Piped, Invidious and Chat Replay.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "contextMenus" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-cards" = buildFirefoxXpiAddon {
+      pname = "youtube-cards";
+      version = "1.0.4";
+      addonId = "{fef652df-dd80-450e-b64a-567abeb3aa4b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050818/youtube_cards-1.0.4.xpi";
+      sha256 = "e6e983fe3495d9106a6d27efc56acaeff91474af407be3c45236da0df7f142d7";
+      meta = with lib;
+      {
+        homepage = "https://unhook.app";
+        description = "Remove YouTube end cards and end screen recommendation videowall.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "https://*.youtube.com/*"
+          "https://*.youtube-nocookie.com/*"
+        ];
         platforms = platforms.all;
       };
     };
