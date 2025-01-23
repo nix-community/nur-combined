@@ -11,5 +11,8 @@
   # modules = import ./modules; # NixOS modules
   # overlays = import ./overlays; # nixpkgs overlays
 
-  ark = pkgs.callPackage ./pkgs/ark {};
+  # this package seems pretty borked at the minute
+  # ark = pkgs.callPackage ./pkgs/ark {};
+
+  tackler = pkgs.callPackage ./pkgs/tackler {};
 }
