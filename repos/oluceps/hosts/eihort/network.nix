@@ -153,9 +153,11 @@
       };
       "5-eth0" = {
         matchConfig.Name = "eth0";
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
-        dhcpV6Config.RouteMetric = 2046;
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true;
+        };
+        linkConfig.RequiredForOnline = "routable";
       };
     };
   };
