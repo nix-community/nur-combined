@@ -43,10 +43,10 @@
   };
   hell = {
     pname = "hell";
-    version = "2025-01-13";
+    version = "2025-01-21";
     src = fetchurl {
-      url = "https://github.com/chrisdone/hell/releases/download/2025-01-13/hell-linux-x86-64bit";
-      sha256 = "sha256-KquRcoYDU9TL3/QgruXUVvBvcG7ZIkJpa0GuPLpOjac=";
+      url = "https://github.com/chrisdone/hell/releases/download/2025-01-21/hell-linux-x86-64bit";
+      sha256 = "sha256-D0k2zn7NdRKv/KUPUP4LYZF+yZn0Teewn4swn+MzlGA=";
     };
   };
   hlint = {
@@ -59,10 +59,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.7.7.0";
+    version = "0.8.0.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.7.7.0/ormolu-x86_64-linux.zip";
-      sha256 = "sha256-ZHoMNtVnW5pxCPS/Tm5wNFnDrjPhg5n5684qtK8pVFc=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.8.0.0/ormolu-x86_64-linux.zip";
+      sha256 = "sha256-bnz3dTf03YErRCYFN0RSMTvbuXYFdQdQlxNDpIzG7No=";
     };
   };
 }
