@@ -9,10 +9,10 @@ in
     passthru.moduleName = "samsung-galaxybook-extras";
 
     src = fetchFromGitHub {
-      owner = "joshuagrisham";
+      owner = "TahlonBrahic";
       repo = "samsung-galaxybook-extras";
-      rev = "refs/heads/main";
-      sha256 = "sha256-srCGcmUI5ZKjndIWhSptG3hVkAo0dvDjJ4NoUkutaIA=";
+      rev = "refs/heads/fix_platform_driver";
+      sha256 = "sha256-8y5lSAIM8YgVC7DhTCaYG8nTxmwryjyVt7hTHGAG85U=";
     };
 
     hardeningDisable = ["pic" "format"];
