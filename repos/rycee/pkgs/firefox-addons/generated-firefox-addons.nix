@@ -97,17 +97,16 @@
     };
     "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "2.1.4";
+      version = "2.2.3";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4159211/adaptive_tab_bar_colour-2.1.4.xpi";
-      sha256 = "401e064048826dd627f02043ee04081b7caed191161f3de7cc89c22b4a222ff8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4417939/adaptive_tab_bar_colour-2.2.3.xpi";
+      sha256 = "ef667ce0003317b59f61adb8706766715ffa16b524343ff134d359656d39425a";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
         description = "Changes the color of Firefox theme to match the website’s appearance.";
         license = licenses.mit;
         mozPermissions = [
-          "activeTab"
           "tabs"
           "theme"
           "storage"
@@ -338,10 +337,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.45.1";
+      version = "1.45.2";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4422920/animalese_typing-1.45.1.xpi";
-      sha256 = "d41272eeafb1d3c3e2685551f7f3c550573eb554a15e278fdd34de2ce55ea707";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424252/animalese_typing-1.45.2.xpi";
+      sha256 = "227930642101de655d6b131e892633c162a4ab7f760d1a7d49f26a60846232b1";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type!";
@@ -2229,10 +2228,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.10.1";
+      version = "1.10.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409505/dearrow-1.10.1.xpi";
-      sha256 = "806cbbe7fc3443518a8685da9adabf82edbd3e504598640aeafb0bee6ad5108d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4418631/dearrow-1.10.2.xpi";
+      sha256 = "3021e14ce055876b003cd1b8c559514e177eeb3cff65f402b2530e4473944fbc";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2277,10 +2276,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20250120.135430";
+      version = "135.0.20250122.91721";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423030/deutsch_de_language_pack-134.0.20250120.135430.xpi";
-      sha256 = "05ad2ac8f26add3b73fac44fc5c7dba0fbfdc9b2372bfb87b84b36c398419682";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424027/deutsch_de_language_pack-135.0.20250122.91721.xpi";
+      sha256 = "87596383165eb26a5597f335a3fac2c4cca78ee8ae143b35079d71622e4d6736";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2702,10 +2701,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.2.0";
+      version = "1.4.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408853/elasticvue-1.2.0.xpi";
-      sha256 = "ceb0c76dca2aafb744691097b8f73cabeb68cd4d49b54bc1eae8259e50ce1d69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424329/elasticvue-1.4.0.xpi";
+      sha256 = "f0d2f1ace46f0be435ab15551f8e888a4c139f8faf61a29bd9c1d08f70c88d28";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -3462,10 +3461,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20250120.135430";
+      version = "135.0.20250122.91721";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4422985/francais_language_pack-134.0.20250120.135430.xpi";
-      sha256 = "e4c7bcf1160f5de4e9cc4188cabece5e4eb256133a25337efaf7e3843eb7782e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424019/francais_language_pack-135.0.20250122.91721.xpi";
+      sha256 = "6d2592c26d52e49f99efa012b410730d60a90b675b8f26e0422f449e9ea72b18";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3499,10 +3498,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20250120.135430";
+      version = "135.0.20250122.91721";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423056/gaidhlig_language_pack-134.0.20250120.135430.xpi";
-      sha256 = "c30c65b4fd73ea2eb9931c8ccc754369285dc74ab2df365543d6f26bc892d8e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424017/gaidhlig_language_pack-135.0.20250122.91721.xpi";
+      sha256 = "3ebd9d07afbdb69f261abfd11fbdb08c0a594291f7e99dd7b2fd1847a5ef5696";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6553,10 +6552,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419768/linkwarden-1.3.0.xpi";
-      sha256 = "a370332723d46d895e501e92c90e45c8d0401e0133c1cca924e9f22f81b18eb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4423886/linkwarden-1.3.1.xpi";
+      sha256 = "ed1fd7cf16fd83531a7580be3758064ae71cc9ed3205afe5c877256922de2646";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -6576,10 +6575,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.76";
+      version = "2.6.77";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401439/localcdn_fork_of_decentraleyes-2.6.76.xpi";
-      sha256 = "00ce9251e78d82b2cea0db408a50058a26e7eb687d8dfdf2fae77c67c61d49cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4418677/localcdn_fork_of_decentraleyes-2.6.77.xpi";
+      sha256 = "22ce6d8e492a82a0f2330b86404e61c3e0214c883e3cafce774918987f181802";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -9592,10 +9591,10 @@
     };
     "re-enable-right-click" = buildFirefoxXpiAddon {
       pname = "re-enable-right-click";
-      version = "0.5.6.2";
+      version = "0.6.3";
       addonId = "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300505/re_enable_right_click-0.5.6.2.xpi";
-      sha256 = "c948a2e46d72d27d03323aa4b2a9ed88eeb00c83c84d4bf79063a854ed3baa00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4418703/re_enable_right_click-0.6.3.xpi";
+      sha256 = "4abf7e5fa49424c6e69fe12fb357f616763f852e7c00bb14ac0c5c46d201e663";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/allow-right-click.html";
@@ -9604,6 +9603,7 @@
         mozPermissions = [
           "storage"
           "activeTab"
+          "scripting"
           "contextMenus"
           "notifications"
         ];
@@ -10010,10 +10010,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20250120.135430";
+      version = "135.0.20250122.91721";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423027/scots_language_pack-134.0.20250120.135430.xpi";
-      sha256 = "d23ebab5bcc55d5cd45dd337edf5cba44610f6e5231b0969fa2c5596a1cef8e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4423984/scots_language_pack-135.0.20250122.91721.xpi";
+      sha256 = "2cad1e75e6f1811a9e3ec81d1ea43b43745263320dff35a3a02336f472cea852";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11532,10 +11532,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.1.1";
+      version = "4.1.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417227/tree_style_tab-4.1.1.xpi";
-      sha256 = "07433d82622184206cea577f1689635f0e74ae3eb378f887fc03ab5f0c26259a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420652/tree_style_tab-4.1.3.xpi";
+      sha256 = "73e3cde7399ba81c21a0cb08858a92b26e5d8dfe12d84dd4dc83493bba75f804";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
