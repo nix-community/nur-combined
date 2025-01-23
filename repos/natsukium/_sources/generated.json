@@ -137,11 +137,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-R2yXl9TrgQ44Pjs00fJtHNdTL4KVI9JZwJLj4Mf123Y=",
+            "sha256": "sha256-cj3VssOqxtCIjni8ANQTE6Q5LLS+l03vTPTfycFaajE=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.29.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.1.3570.39.universal.dmg"
         },
-        "version": "7.0.3495.29"
+        "version": "7.1.3570.39"
     },
     "zen-browser": {
         "cargoLocks": null,
