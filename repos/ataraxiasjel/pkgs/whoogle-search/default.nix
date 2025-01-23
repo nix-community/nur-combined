@@ -20,7 +20,7 @@
 }:
 buildPythonApplication rec {
   pname = "whoogle-search";
-  version = "0.9.2";
+  version = "0.9.3";
   pyproject = true;
   dontCheckRuntimeDeps = true;
 
@@ -28,7 +28,7 @@ buildPythonApplication rec {
     owner = "benbusby";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-AR9tdNWKvjZ6oT4mnk10VYrwD/ZKQCifgw0JlTpBPAo=";
+    hash = "sha256-V2UbKYekIdyXb6GNvxfKAoPwvUYwRdGv/8gpaGvFTGc=";
   };
 
   pypaBuildFlags = [ "--sdist" ];
