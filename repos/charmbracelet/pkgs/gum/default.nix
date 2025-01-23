@@ -9,37 +9,37 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "19cc7qiy540zm2lircq4mamyqk9pnv7yn2c5v797nams704rlmk4";
-    x86_64-linux = "16b7vaa4w2vx7rrgqwvxp8y5i3nlgm4vd8zn1cqsq823mg6d1slp";
-    armv6l-linux = "1qwjdk5mqndg508rq2k5hvlj4kc248rzk2nyxcxyhjc36jd59lk8";
-    armv7l-linux = "07im3ickjansrskb3v0f75a9zg1w2z22kgi00wjyw17xx9f5q7hh";
-    aarch64-linux = "01f9rmxhsh2d0ipddjh75zncymmgkjznxnvi57x6awifw67dfyrh";
-    x86_64-darwin = "0sazdhwi8w13lg19cn3whjma7f1d18anm56c7rqdnyprgry83c6g";
-    aarch64-darwin = "1snpkv0vbaj6qb67ccs0p9znqczmfn9bp4584sz6c4xswmhd9ic2";
+    i686-linux = "11iqkz98qhqak6fswn9mpzy41vkzys4dh3c8la3kfk1pvacy2j97";
+    x86_64-linux = "150wzm58j9inf72405h7sx4dklvmqzb3h70s82fmyn9pyknypcmd";
+    armv6l-linux = "09l3sa4c6a15vb2dfzlaqgf5d3rl831k05l27fp84rxbf4lc67ph";
+    armv7l-linux = "075cifarlsj79wqk2rm11aw8x3kki5rsh5yhzh7qh48z6jqc3ncc";
+    aarch64-linux = "0iskiqsmph3fyjkcrrlfjkpq2cqvnvg6m48rp9m8iz24034mnl4l";
+    x86_64-darwin = "0k7cd1f669k4hrvvah1f9vh3hfyiy1iqixkhjbr8ndsrgm2lacac";
+    aarch64-darwin = "0226d5w1ndmpyqmjghv48pbvh7ka3c7nyngbdjm8c52bmg4hll8g";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Linux_x86_64.tar.gz";
-    armv6l-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Linux_armv6.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/gum/releases/download/v0.15.0/gum_0.15.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Linux_x86_64.tar.gz";
+    armv6l-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Linux_armv6.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/gum/releases/download/v0.15.1/gum_0.15.1_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "gum_0.15.0_Linux_i386";
-    x86_64-linux = "gum_0.15.0_Linux_x86_64";
-    armv6l-linux = "gum_0.15.0_Linux_armv6";
-    armv7l-linux = "gum_0.15.0_Linux_armv7";
-    aarch64-linux = "gum_0.15.0_Linux_arm64";
-    x86_64-darwin = "gum_0.15.0_Darwin_x86_64";
-    aarch64-darwin = "gum_0.15.0_Darwin_arm64";
+    i686-linux = "gum_0.15.1_Linux_i386";
+    x86_64-linux = "gum_0.15.1_Linux_x86_64";
+    armv6l-linux = "gum_0.15.1_Linux_armv6";
+    armv7l-linux = "gum_0.15.1_Linux_armv7";
+    aarch64-linux = "gum_0.15.1_Linux_arm64";
+    x86_64-darwin = "gum_0.15.1_Darwin_x86_64";
+    aarch64-darwin = "gum_0.15.1_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "gum";
-  version = "0.15.0";
+  version = "0.15.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
