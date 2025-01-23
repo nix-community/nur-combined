@@ -144,7 +144,7 @@ in
    // position x=1080 y=0
   }
 
-  output "HDMI-A-1" {
+  output "Samsung Electric Company S24R35x H4TM706141" {
       // off
       mode "1920x1080@60"
       scale 1.5
