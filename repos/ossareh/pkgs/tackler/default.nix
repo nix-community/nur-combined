@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   fetchFromGitHub,
   rustPlatform,
@@ -20,10 +19,6 @@ in
     pname = pname;
     version = version;
     src = src;
-
-    nativeBuildInputs = [
-      pkgs.tzdata
-    ];
 
     cargoHash = "sha256-xxhnXI9zbWt1rWTUZbyj/4AXEQGSB2VStuGdwWw+eaU=";
 
