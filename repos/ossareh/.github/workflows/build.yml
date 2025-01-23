@@ -43,8 +43,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Verify tzdata installation
-        run: |
-          ls -l /usr/share/zoneinfo
+        run: ls -l /usr/share/zoneinfo/Europe/Helsinki
       - name: Install nix
         uses: cachix/install-nix-action@v30
         with:
@@ -73,8 +72,6 @@ jobs:
             -I $PWD
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-        env:
-          TZDIR: /usr/share/zoneinfo
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
