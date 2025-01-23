@@ -3,18 +3,18 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2702";
+    version = "v2747";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2702/cake-x64-64.tar.gz";
-      sha256 = "sha256-twuTR2dpH11txd5IUQK9ilkSkqNJhBihvSbWxWOkVHU=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2747/cake-x64-64.tar.gz";
+      sha256 = "sha256-+HFUZGDjRz8dRh6+EpwVkjp84to0BE6ki94ep5W3Ab0=";
     };
   };
   enso = {
     pname = "enso";
-    version = "2024.4.2";
+    version = "2024.5.2";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2024.4.2/enso-linux-x86_64-2024.4.2.AppImage";
-      sha256 = "sha256-pv74L5CYRF8KRYrggAbi0uzBiMAYkDl+10FTar229n4=";
+      url = "https://github.com/enso-org/enso/releases/download/2024.5.2/enso-linux-x86_64-2024.5.2.AppImage";
+      sha256 = "sha256-dvWr5OZU0/uUXGBvpc1kBP3ZhNpZXf6IY2w1ACt8ong=";
     };
   };
   guile-config = {
@@ -35,10 +35,10 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.19";
+    version = "2.53.20";
     src = fetchzip {
-      url = "https://archive.seamonkey-project.org/releases/2.53.19/linux-x86_64/en-US/seamonkey-2.53.19.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-MFykDCX/XirWfMGtbP84mJM9/W01ZwueMrdHJcvSAkc=";
+      url = "https://archive.seamonkey-project.org/releases/2.53.20/linux-x86_64/en-US/seamonkey-2.53.20.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-K4QHqUuWDx6ywkb3dqRV8NlmxZzkhdezWdK0bDTPvGg=";
     };
   };
   trufflesqueak = {
@@ -59,21 +59,22 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "3f79f4725e460b33986e2729e04319b991c56b5f";
+    version = "8ff3d25e4a2412dce34878325e178b2e8c110377";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "3f79f4725e460b33986e2729e04319b991c56b5f";
+      rev = "8ff3d25e4a2412dce34878325e178b2e8c110377";
       fetchSubmodules = true;
-      sha256 = "sha256-1iOgiaHTePI3g2pSJQtk+NOksf8c+/+1es1Wyq8HyNg=";
+      sha256 = "sha256-ZqIaftJOs5Hc2BGNBWTUDBsoo0Xcf3b0DyH44N3guQI=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-3f79f4725e460b33986e2729e04319b991c56b5f/./Cargo.lock;
+      lockFile = ./wasmfxtime-8ff3d25e4a2412dce34878325e178b2e8c110377/./Cargo.lock;
       outputHashes = {
         "wit-bindgen-0.35.0" = "sha256-7KwiI04ijpfeLFnOMUvCF9ZAY3ZbvlWSuFV0P1lBwLQ=";
         "wasm-encoder-0.220.0" = "sha256-gXwdY75tTx57khF52LfNTIbacP53uxr/+YSc2zFiGSk=";
+        "wasm-encoder-0.221.2" = "sha256-agntGQkwXNMJSm7AgjhYDeWyCxCh/0edNxJgvbeUyfU=";
       };
     };
-    date = "2024-11-29";
+    date = "2025-01-07";
   };
 }

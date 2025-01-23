@@ -1,5 +1,5 @@
 { nvsrcs, appimageTools }:
 appimageTools.wrapType2 {
-  name = "enso";
+  pname = "enso";
   inherit (nvsrcs.enso) src version;
 }
