@@ -83,10 +83,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.7.1b";
+    version = "1.7.2b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.7.1b/zen.macos-aarch64.dmg";
-      sha256 = "sha256-/iugUmG8qywJNHc+bROF2+aKWsHaeQ0GS2MpKiLgCYw=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.7.2b/zen.macos-aarch64.dmg";
+      sha256 = "sha256-HhwATSLp6uCAa/TGLpMrGrjiTboBG1Y0COtXPvVDlgU=";
     };
   };
 }
