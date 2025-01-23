@@ -29,13 +29,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.6.4";
+  version = "0.6.5";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tDA21+B1BF6mQt234IycPdRfYmLGkw/r+SA4AanWk4Q=";
+    hash = "sha256-HV8Azl1HXHtmL3U38Ey0q3ghE6aDHrQ+G7j7/kQrlUg=";
   };
 
   patches = [ ./0001-fix-build.patch ];
@@ -67,6 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p ./download
     ln -s ${third-party.cjson} ./download/cjson-v1.7.16.tar.gz
     ln -s ${third-party.acpica-unix} ./download/acpica-R06_28_23.tar.gz
+    ln -s ${third-party.openlibm} ./download/openlibm-0.8.3.tar.gz
   '';
 
   installPhase =

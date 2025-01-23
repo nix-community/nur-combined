@@ -250,6 +250,7 @@ lib.makeScope newScope (
     tilekiln = callPackage ./geospatial/tilekiln { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
+    tuiview = callPackage ./geospatial/tuiview { };
     vt2geojson = callPackage ./geospatial/vt2geojson { };
     titiler = callPackage ./geospatial/titiler { };
     tilecloud = callPackage ./geospatial/tilecloud { };
