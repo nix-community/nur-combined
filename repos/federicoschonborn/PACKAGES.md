@@ -2993,12 +2993,12 @@ An old cellphone arcade recreated for PC
 Bluetooth manager written in Qt
 
 - Name: `bluejay`
-- Version: `0.1.0`
+- Version: `1.0.1`
 
 - [🌐 Homepage](https://github.com/EbonJaeger/bluejay)
 - [📦 Source](./pkgs/by-name/bluejay/package.nix#L44)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- [📰 Changelog](https://github.com/EbonJaeger/bluejay/releases/tag/v0.1.0)
+- [📰 Changelog](https://github.com/EbonJaeger/bluejay/releases/tag/v1.0.1)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -7195,7 +7195,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-01-08`
+- Version: `SLE2024-artifact-unstable-2025-01-22`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
