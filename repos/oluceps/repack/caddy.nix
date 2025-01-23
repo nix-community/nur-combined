@@ -37,7 +37,6 @@ in
   config = lib.mkIf cfg.enable {
     repack.caddy.settings = {
       admin = {
-        listen = "unix//tmp/caddy.sock";
         config.persist = false;
       };
       # logging.logs.debug.level = "debug";

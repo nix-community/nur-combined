@@ -18,7 +18,7 @@ in
     #   "s3.nyaw.xyz"
     # ];
 
-    "192.168.1.127" = [
+    "192.168.1.16" = [
       "eihort.nyaw.xyz"
       "photo.nyaw.xyz"
       "s3.nyaw.xyz"
@@ -33,7 +33,7 @@ in
       "hastur.nyaw.xyz"
     ];
     "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
-    "192.168.1.127" = [
+    "192.168.1.16" = [
       "eihort.nyaw.xyz"
       "photo.nyaw.xyz"
     ];

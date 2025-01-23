@@ -56,6 +56,7 @@
     mautrix-telegram.enable = true;
     calibre.enable = true;
     immich.enable = true;
+    radicle.enable = true;
   };
 
   services = {
@@ -87,11 +88,6 @@
     };
 
     resolved.enable = lib.mkForce false;
-    tailscale = {
-      enable = true;
-      openFirewall = true;
-    };
-    mosdns.enable = false;
     minio = {
       enable = true;
       region = "ap-east-1";

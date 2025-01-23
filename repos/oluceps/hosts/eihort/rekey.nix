@@ -1,4 +1,4 @@
-{ data, ... }:
+{ user, data, ... }:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
@@ -20,6 +20,13 @@ in
       misskey = {
         file = ../../sec/misskey.age;
         mode = "400";
+      };
+
+      id = {
+        file = ../../sec/id.age;
+        mode = "400";
+        owner = "root";
+        group = "users";
       };
 
       vault.file = ../../sec/vault.age;

@@ -162,7 +162,6 @@
     dnsproxy.enable = true;
     # srs.enable = true;
     grafana.enable = true;
-    radicle.enable = true;
     # xmrig.enable = true;
     reuse-cert.enable = true;
 
