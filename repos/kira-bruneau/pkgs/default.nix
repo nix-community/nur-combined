@@ -107,6 +107,8 @@ in
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode { inherit libgamemode32; }).lib;
   };
 
+  ggt = callPackage ./by-name/gg/ggt/package.nix { pnpm = pnpm_9; };
+
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
   jakirica-client = jakirica.client;
