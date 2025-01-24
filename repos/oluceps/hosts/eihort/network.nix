@@ -155,8 +155,8 @@
         matchConfig.Name = "eth0";
         networkConfig = {
           DHCP = "no";
-          IPv4Forwarding = true;
-          IPv6Forwarding = true;
+          # IPv4Forwarding = true;
+          # IPv6Forwarding = true;
           IPv6AcceptRA = true;
         };
         linkConfig.RequiredForOnline = "routable";
