@@ -41,4 +41,5 @@ rec {
   lutris = callPackage ./pkgs/lutris.nix {};
   stable-diffusion-cpp = callPackage ./pkgs/stable-diffusion-cpp.nix {};
   sd-cpp-webui = callPackage ./pkgs/sd-cpp-webui { inherit stable-diffusion-cpp; };
+  olivetin = callPackage ./pkgs/olivetin.nix {};
 }

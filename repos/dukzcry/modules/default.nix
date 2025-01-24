@@ -33,4 +33,5 @@ rec {
   sd-cpp-webui = ./sd-cpp-webui.nix;
   dashboard = ./dashboard.nix;
   watchyourlan = ./watchyourlan.nix;
+  olivetin = ./olivetin.nix;
 }
