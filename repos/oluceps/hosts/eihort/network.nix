@@ -154,10 +154,16 @@
       "5-eth0" = {
         matchConfig.Name = "eth0";
         networkConfig = {
-          DHCP = "ipv4";
+          DHCP = "no";
+          IPv4Forwarding = true;
+          IPv6Forwarding = true;
           IPv6AcceptRA = true;
         };
         linkConfig.RequiredForOnline = "routable";
+        address = [ "192.168.1.16/24" ];
+        routes = [
+          { routeConfig.Gateway = "192.168.1.1"; }
+        ];
       };
     };
   };

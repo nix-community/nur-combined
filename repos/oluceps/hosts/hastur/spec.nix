@@ -22,7 +22,7 @@
     # ktistec.enable = true;
     # radicle.enable = true;
     metrics.enable = true;
-    fwupd.enable = true;
+    # fwupd.enable = true;
     harmonia = {
       enable = true;
       signKeyPaths = [ config.vaultix.secrets.harmonia.path ];

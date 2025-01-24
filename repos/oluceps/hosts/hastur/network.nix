@@ -82,10 +82,10 @@
       ];
     };
 
-    # links."10-eth0" = {
-    #   matchConfig.MACAddress = "3c:7c:3f:22:49:80";
-    #   linkConfig.Name = "eth0";
-    # };
+    links."10-eth0" = {
+      matchConfig.MACAddress = "3c:7c:3f:22:49:80";
+      linkConfig.Name = "eth0";
+    };
 
     links."30-rndis" = {
       matchConfig.Driver = "rndis_host";
