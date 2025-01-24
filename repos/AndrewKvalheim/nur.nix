@@ -26,6 +26,7 @@ rec {
   };
 
   apex = pkgs.callPackage ./packages/apex.nix { };
+  blocky-ui = pkgs.callPackage ./packages/blocky-ui.nix { };
   buildJosmPlugin = pkgs.callPackage ./packages/buildJosmPlugin.nix { };
   cavif = pkgs.callPackage ./packages/cavif.nix { };
   ch57x-keyboard-tool = pkgs.callPackage ./packages/ch57x-keyboard-tool.nix { };

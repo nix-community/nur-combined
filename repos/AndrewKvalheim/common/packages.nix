@@ -16,6 +16,7 @@ in
   attachments = any;
   audacity.env.GDK_BACKEND = "x11"; # NixOS/nixpkgs#238910
   blocky.version = "≥0.25"; # 0xERR0R/blocky#1618
+  blocky-ui = any;
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;
