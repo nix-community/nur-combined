@@ -18,6 +18,13 @@
         pkgs = import nixpkgs { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      nixosModules = nixpkgs.lib.mapAttrs (_: path: import path) (import ./modules { inherit self; }) // {
+        default = {
+          imports = nixpkgs.lib.attrValues self.nixosModules;
+        };
+      };
+
       checks = forAllSystems (system: self.legacyPackages.${system}.tests);
     };
 }
