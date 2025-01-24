@@ -3,8 +3,8 @@
   glib,
   gperf,
   gtk3,
+  gtk4,
   gtk-mac-integration,
-  judy,
   lib,
   pkg-config,
   stdenv,
@@ -22,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "gtkwave";
     repo = "gtkwave";
-    rev = "27f3a94aede651f232314d0fe0c86cc35308fa85";
-    sha256 = "sha256-RxEI1dTMrrFccxuYkb9GQzuFrzTiWOnnfEBR7V918c8=";
+    rev = "4435a9ef89892757eaf703085606f10040da6bfe";
+    sha256 = "sha256-JKPUUVQCl1X5z/FCisujCPCxUhrDw9hsmjnKMSqSZSU=";
   };
 
   buildInputs =
@@ -32,6 +32,7 @@ stdenv.mkDerivation {
       ninja
       pkg-config
       gtk3
+      gtk4
       glib
       gperf
       gobject-introspection
