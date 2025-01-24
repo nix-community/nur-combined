@@ -2250,10 +2250,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2502.0";
+      version = "6.2504.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4414738/dashlane-6.2502.0.xpi";
-      sha256 = "ddf26ad07421642f1d5991d311fc7a06a7081fe308cf59b0eb9d8eccbb8f2a1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4422769/dashlane-6.2504.0.xpi";
+      sha256 = "11373b4a7769547b296255c260fbfd5feb04f9d7ec1e6189b8afa646fa318d06";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3264,10 +3264,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.4.2.1";
+      version = "5.4.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4414946/floccus-5.4.2.1.xpi";
-      sha256 = "ce2dbc9a11027d27c1d6b1d77be56d7cb5f7831959638706efeb3d0bc515bd04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4424739/floccus-5.4.3.xpi";
+      sha256 = "065abb908cb9194e612c792a8dd2fc97fce2782ee1b0ebdbf890dc8e92f9059a";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -9669,10 +9669,10 @@
     };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.65";
+      version = "6.6.71";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406418/raindropio-6.6.65.xpi";
-      sha256 = "7b0a827fc089169b012d8869051047f7dbe64e36d60c1dabf8c2542ac3b5c882";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420771/raindropio-6.6.71.xpi";
+      sha256 = "52fe5217981ca70ca8e2c25f7c86352a6d3eb15c8ae2183ee43d23bf2fa10794";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
