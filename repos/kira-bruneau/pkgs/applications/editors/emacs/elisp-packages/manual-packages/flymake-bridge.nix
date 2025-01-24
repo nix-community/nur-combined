@@ -8,13 +8,13 @@
 
 melpaBuild {
   pname = "flymake-bridge";
-  version = "0-unstable-2024-10-29";
+  version = "0-unstable-2025-01-23";
 
   src = fetchFromGitHub {
     owner = "liuyinz";
     repo = "flymake-bridge";
-    rev = "76d6c5fd8fccbb527010bd19c9e1e88dc0def2bc";
-    hash = "sha256-6qIaPkyq01t8bYS4HLvQH+ts1R1kXhffhem0hlsbu/w=";
+    rev = "e387f43230da9c214be297b0e9393323a67e4b73";
+    hash = "sha256-iq+yMNAEppWYFc+fG25Hi1v6+qHKxv/UXRBI8NM5Mto=";
   };
 
   packageRequires = [ lsp-bridge ];
