@@ -160,10 +160,10 @@
           IPv6AcceptRA = true;
         };
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.1.16/24" ];
-        routes = [
-          { routeConfig.Gateway = "192.168.1.1"; }
-        ];
+        # address = [ "192.168.1.16/24" ];
+        # routes = [
+        #   { routeConfig.Gateway = "192.168.1.1"; }
+        # ];
       };
     };
   };
