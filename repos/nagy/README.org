@@ -11,6 +11,7 @@ My personal [[https://github.com/nix-community/NUR][NUR]] repository. You can se
  - https://github.com/nagy/nur-packages
  - https://gitlab.com/nagy/nur-packages
  - https://git.sr.ht/~nagy/nur-packages
+ - https://codeberg.org/nagy/nur-packages
 
 * License
 MIT License
