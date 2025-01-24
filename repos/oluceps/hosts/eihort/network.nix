@@ -155,15 +155,15 @@
         matchConfig.Name = "eth0";
         networkConfig = {
           DHCP = "no";
-          # IPv4Forwarding = true;
-          # IPv6Forwarding = true;
-          IPv6AcceptRA = true;
+          IPv4Forwarding = true;
+          IPv6Forwarding = true;
+          IPv6AcceptRA = "yes";
         };
         linkConfig.RequiredForOnline = "routable";
-        # address = [ "192.168.1.16/24" ];
-        # routes = [
-        #   { routeConfig.Gateway = "192.168.1.1"; }
-        # ];
+        address = [ "192.168.1.16/24" ];
+        routes = [
+          { Gateway = "192.168.1.1"; }
+        ];
       };
     };
   };

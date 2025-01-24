@@ -196,18 +196,16 @@
       "8-eth0" = {
         matchConfig.Name = "eth0";
         networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = true;
+          DHCP = "no";
+          IPv4Forwarding = true;
+          IPv6Forwarding = true;
+          IPv6AcceptRA = "yes";
         };
         linkConfig.RequiredForOnline = "routable";
-        # dhcpV4Config.RouteMetric = 2046;
-        # dhcpV6Config.RouteMetric = 2046;
-        # address = [ "192.168.1.2/24" ];
-        # routes = [
-        #   # create default routes for both IPv6 and IPv4
-        #   { routeConfig.Gateway = "192.168.1.1"; }
-        #   { routeConfig.Gateway = "fe80::5e02:14ff:fea5:ad05"; }
-        # ];
+        address = [ "192.168.1.2/24" ];
+        routes = [
+          { Gateway = "192.168.1.1"; }
+        ];
       };
 
       "25-ncm" = {
