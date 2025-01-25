@@ -54,6 +54,7 @@
             src = ./.;
             hooks = {
               nixpkgs-fmt.enable = true;
+              statix.enable = true;
             };
           };
         };
