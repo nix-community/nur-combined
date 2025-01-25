@@ -47,12 +47,6 @@ in
   # })
 
   (fetchpatch' {
-    name = "nautilus: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/373662";
-    hash = "sha256-lm/FNd9yaTDGW1NXHjrZc1cP3wyp9LlWH9CfkyViymk=";
-  })
-
-  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
@@ -65,15 +59,6 @@ in
   #   name = "stepmania: wrap the program so it knows where to find its data files";
   #   saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";
   #   hash = "sha256-43zxnbUJuGXThadHoQRi6cevD7SFSZejWj324V6eBpw=";
-  # })
-
-  # (fetchpatch' {
-  #   # this causes a rebuild of systemd and everything above it:
-  #   # PR against staging is live: <https://github.com/NixOS/nixpkgs/pull/332399>
-  #   name = "libcap: ship the optional 'captree' component";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/332399";
-  #   saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
-  #   hash = "sha256-hEcpS7r1K6yb5dcj2evbWajwIQaaSHKdLPQVg1LlCYE=";
   # })
 
   # (fetchpatch' {
