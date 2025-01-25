@@ -431,6 +431,11 @@
             "sha256": "01rr3xy5adg6s9qiv8w0wh9jg96jqyk1i56y9435ym8skdhw09ad",
             "url": "https://github.com/codgician/nur-packages"
         },
+        "colinsane": {
+            "rev": "429bb604d744e8885e95bb5fa26d4a9e54339e59",
+            "sha256": "0r8pbx06ybcv03hmx9sdn39wfd6bp4ysif6pq4bag3iklx6xsi0m",
+            "url": "https://git.uninsane.org/colin/nix-files"
+        },
         "congee": {
             "rev": "040526d46e3d221309d74ce45a4a1431a8cf1ecf",
             "sha256": "0wp88vmcq50hiaq01grjq6cm8m6x483pv4mxxq8898gi7frci1d2",
@@ -1966,8 +1971,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "f0f24512fd73c2a3dbd69f5ac116b08c009ea83c",
-            "sha256": "0gw4rn4m7jdbplsw4sdc40ya8cs46zmwdwag85jd8p7zg51cnzbd",
+            "rev": "a959f0057249db707c347f638577be4b2f6a82cd",
+            "sha256": "00rbzy89wby5m80sp2mcivabill6ga78s6nxygapl9q00gcvdwnk",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yellowonion": {
