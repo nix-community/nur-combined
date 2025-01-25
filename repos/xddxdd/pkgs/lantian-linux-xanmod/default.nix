@@ -55,14 +55,14 @@ let
     );
 
   batches = [
-    (batch {
-      prefix = "";
-      inherit (sources.linux-xanmod) version src;
-    })
-    (batch {
-      prefix = "latest";
-      inherit (sources.linux-xanmod) version src;
-    })
+    # (batch {
+    #   prefix = "";
+    #   inherit (sources.linux-xanmod) version src;
+    # })
+    # (batch {
+    #   prefix = "latest";
+    #   inherit (sources.linux-xanmod) version src;
+    # })
     (batch {
       prefix = "lts";
       inherit (sources.linux-xanmod-6_12) version src;

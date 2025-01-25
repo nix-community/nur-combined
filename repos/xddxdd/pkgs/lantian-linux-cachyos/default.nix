@@ -4,7 +4,6 @@
   lib,
   sources,
   linux_6_12,
-  linux_latest,
   ...
 }:
 let
@@ -32,11 +31,11 @@ let
     ];
 
   batches = [
-    (batch {
-      prefix = "latest";
-      inherit (linux_latest) version src;
-      configVariant = "linux-cachyos";
-    })
+    # (batch {
+    #   prefix = "latest";
+    #   inherit (linux_latest) version src;
+    #   configVariant = "linux-cachyos";
+    # })
     (batch {
       prefix = "lts";
       inherit (linux_6_12) version src;

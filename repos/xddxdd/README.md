@@ -102,7 +102,7 @@ Or, use variables from this repository in case I change them:
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.3.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.3.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
-|  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | 0-unstable-2024-12-20 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
+|  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | 0-unstable-2025-01-20 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.3.1016.4 | 360 Browser |
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.5.4 | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | `chmlib-utils` | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | Library for dealing with Microsoft ITSS/CHM format files |
@@ -119,11 +119,11 @@ Or, use variables from this repository in case I change them:
 |  | `edge-tts` | [edge-tts](https://pypi.org/project/edge-tts/) | 7.0.0 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2024-12-16 | Minimal Delegated License Service (DLS) |
+|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2025-01-21 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `flaresolverr-21hsmw` | [flaresolverr-21hsmw](https://github.com/21hsmw/FlareSolverr) | 0-unstable-2024-11-01 | Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver |
+|  | `flaresolverr-21hsmw` | [flaresolverr-21hsmw](https://github.com/21hsmw/FlareSolverr) | 0-unstable-2025-01-19 | Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-01-16 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-01-24 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -166,7 +166,7 @@ Or, use variables from this repository in case I change them:
 |  | `nvlax-530` | [nvlax](https://github.com/illnyang/nvlax) | unstable-2021-10-29 | Future-proof NvENC & NvFBC patcher (for NVIDIA driver >= 530) |
 |  | `oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | 0-unstable-2024-08-13 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain |
 |  | `one-api` | [one-api](https://openai.justsong.cn) | 0.6.9 | OpenAI key management & redistribution system, using a single API for all LLMs |
-|  | `openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2024-12-27 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
+|  | `openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2025-01-22 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-01-08 | OpenSSL with Encrypted Client Hello support |
@@ -177,8 +177,8 @@ Or, use variables from this repository in case I change them:
 |  | `ovpn-dco` | [ovpn-dco](https://github.com/OpenVPN/ovpn-dco) | 0.2.20241216 | OpenVPN Data Channel Offload in the linux kernel |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.10.0 | Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
-|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 7.3.2 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
-|  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | Web interface for MySQL and MariaDB |
+|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 7.3.3 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
+|  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.2 | Web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `piper-tts` | [piper](https://github.com/rhasspy/piper) | 2023.11.14-2 | Python component for piper-tts |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
@@ -193,7 +193,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.2-b2-unstable-2025-01-14 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-01-13 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-01-21 | QSP is an Interactive Fiction development platform (Game Library) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.014.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.054.00 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk |
@@ -201,7 +201,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
 |  | `rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20250101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2020-12-26 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-01-19 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-01-24 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20250113 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20241218 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
@@ -223,7 +223,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-01-16 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-01-23 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -247,7 +247,7 @@ Or, use variables from this repository in case I change them:
 | `Broken` | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
 | `Broken` | `fish-speech` | [fish-speech](https://speech.fish.audio/) | 1.5.0 | SOTA Open Source TTS |
 | `Deprecated` | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.3.2 | (DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI |
-| `Broken` `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2025-01-03 | DKMS module of Linux i915 driver with SR-IOV support |
+| `Broken` `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2025-01-22 | DKMS module of Linux i915 driver with SR-IOV support |
 | `Deprecated` `x86_64-linux` | `inter-knot` | [inter-knot](https://inot.top) | 2.16.9+36 | (DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台 |
 | `Deprecated` | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 3.13.0 | (DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
 | `Deprecated` | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.13.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
@@ -365,7 +365,7 @@ Or, use variables from this repository in case I change them:
 |  | `kernel-modules.ovpn-dco` | [ovpn-dco](https://github.com/OpenVPN/ovpn-dco) | 0.2.20241216 | OpenVPN Data Channel Offload in the linux kernel |
 |  | `kernel-modules.r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.014.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `kernel-modules.r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.054.00 | Linux device driver for Realtek Ethernet controllers |
-| `Broken` `x86_64-linux` | `kernel-modules.i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2025-01-03 | DKMS module of Linux i915 driver with SR-IOV support |
+| `Broken` `x86_64-linux` | `kernel-modules.i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2025-01-22 | DKMS module of Linux i915 driver with SR-IOV support |
 </details>
 
 <details>
@@ -377,32 +377,28 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.attic-telnyx-compatible` | [attic](https://github.com/zhaofengli/attic) | 0-unstable-2024-11-10 | Multi-tenant Nix Binary Cache |
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
-|  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.12.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4508 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
-|  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.9.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
+|  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.13.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4549 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.10.3.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.1-unstable-2025-01-17 | OpenResty with Lan Tian modifications |
-|  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 5.10.3 | Telegram Desktop messaging app (Without anti-features) |
+|  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 5.10.4 | Telegram Desktop messaging app (Without anti-features) |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](https://www.transmissionbt.com/) | 4.0.6 | Fast, easy and free BitTorrent client |
 </details>
 
 <details>
-<summary>Package set: lantianLinuxCachyOS (12 packages)</summary>
+<summary>Package set: lantianLinuxCachyOS (8 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxCachyOS.latest` | [linux-cachyos-latest](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications |
-|  | `lantianLinuxCachyOS.latest-configfile` | linux-config | 6.12.10 |  |
-|  | `lantianLinuxCachyOS.latest-lto` | [linux-cachyos-latest-lto](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.latest-lto-configfile` | linux-config | 6.12.10 |  |
-|  | `lantianLinuxCachyOS.lts` | [linux-cachyos-lts](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications |
-|  | `lantianLinuxCachyOS.lts-configfile` | linux-config | 6.12.10 |  |
-|  | `lantianLinuxCachyOS.lts-lto` | [linux-cachyos-lts-lto](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-lto-configfile` | linux-config | 6.12.10 |  |
-|  | `lantianLinuxCachyOS.v6_12` | [linux-cachyos-v6_12](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications |
-|  | `lantianLinuxCachyOS.v6_12-configfile` | linux-config | 6.12.10 |  |
-|  | `lantianLinuxCachyOS.v6_12-lto` | [linux-cachyos-v6_12-lto](https://www.kernel.org/) | 6.12.10 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.v6_12-lto-configfile` | linux-config | 6.12.10 |  |
+|  | `lantianLinuxCachyOS.lts` | [linux-cachyos-lts](https://www.kernel.org/) | 6.12.11 | Linux CachyOS Kernel with Lan Tian Modifications |
+|  | `lantianLinuxCachyOS.lts-configfile` | linux-config | 6.12.11 |  |
+|  | `lantianLinuxCachyOS.lts-lto` | [linux-cachyos-lts-lto](https://www.kernel.org/) | 6.12.11 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-lto-configfile` | linux-config | 6.12.11 |  |
+|  | `lantianLinuxCachyOS.v6_12` | [linux-cachyos-v6_12](https://www.kernel.org/) | 6.12.11 | Linux CachyOS Kernel with Lan Tian Modifications |
+|  | `lantianLinuxCachyOS.v6_12-configfile` | linux-config | 6.12.11 |  |
+|  | `lantianLinuxCachyOS.v6_12-lto` | [linux-cachyos-v6_12-lto](https://www.kernel.org/) | 6.12.11 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.v6_12-lto-configfile` | linux-config | 6.12.11 |  |
 </details>
 
 <details>
@@ -414,22 +410,14 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianLinuxXanmod (76 packages)</summary>
+<summary>Package set: lantianLinuxXanmod (68 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxXanmod.generic` | [linux-xanmod-generic](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.generic-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.generic-lto` | [linux-xanmod-generic-lto](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.generic-lto-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic` | [linux-xanmod-latest-generic](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-generic-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic-lto` | [linux-xanmod-latest-generic-lto](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-generic-lto-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic` | [linux-xanmod-lts-generic](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-generic-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic-lto` | [linux-xanmod-lts-generic-lto](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-generic-lto-configfile` | linux-config | 6.12.10-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-generic` | [linux-xanmod-lts-generic](https://www.kernel.org/) | 6.12.11-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-generic-configfile` | linux-config | 6.12.11-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-generic-lto` | [linux-xanmod-lts-generic-lto](https://www.kernel.org/) | 6.12.11-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-generic-lto-configfile` | linux-config | 6.12.11-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_0-generic` | [linux-xanmod-v6_0-generic](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | `lantianLinuxXanmod.v6_0-generic-configfile` | linux-config | 6.0.12-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_0-generic-lto` | [linux-xanmod-v6_0-generic-lto](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
@@ -470,10 +458,10 @@ Or, use variables from this repository in case I change them:
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-configfile` | linux-config | 6.1.77-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto` | [linux-xanmod-v6_1-x86_64-v4-lto](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto-configfile` | linux-config | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_12-generic` | [linux-xanmod-v6_12-generic](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_12-generic-configfile` | linux-config | 6.12.10-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_12-generic-lto` | [linux-xanmod-v6_12-generic-lto](https://www.kernel.org/) | 6.12.10-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_12-generic-lto-configfile` | linux-config | 6.12.10-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_12-generic` | [linux-xanmod-v6_12-generic](https://www.kernel.org/) | 6.12.11-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_12-generic-configfile` | linux-config | 6.12.11-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_12-generic-lto` | [linux-xanmod-v6_12-generic-lto](https://www.kernel.org/) | 6.12.11-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_12-generic-lto-configfile` | linux-config | 6.12.11-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_6-generic` | [linux-xanmod-v6_6-generic](https://www.kernel.org/) | 6.6.72-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | `lantianLinuxXanmod.v6_6-generic-configfile` | linux-config | 6.6.72-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux-xanmod-v6_6-generic-lto](https://www.kernel.org/) | 6.6.72-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
@@ -517,142 +505,142 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| `x86_64-linux` | `nvidia-grid.grid.11_8` | [nvidia-x11-450.191.01-6.6.72](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.12_4` | [nvidia-x11-460.106.00-6.6.72](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_0` | [nvidia-x11-470.63.01-6.6.72](https://www.nvidia.com/object/unix.html) | 470.63.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_12` | [nvidia-x11-470.256.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_3` | [nvidia-x11-470.129.06-6.6.72](https://www.nvidia.com/object/unix.html) | 470.129.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_4` | [nvidia-x11-470.141.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.141.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_5` | [nvidia-x11-470.161.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_6` | [nvidia-x11-470.161.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_7` | [nvidia-x11-470.182.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.182.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.13_9` | [nvidia-x11-470.223.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.14_0` | [nvidia-x11-510.47.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.14_1` | [nvidia-x11-510.73.08-6.6.72](https://www.nvidia.com/object/unix.html) | 510.73.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.14_2` | [nvidia-x11-510.85.02-6.6.72](https://www.nvidia.com/object/unix.html) | 510.85.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.14_3` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.14_4` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.15_0` | [nvidia-x11-525.60.13-6.6.72](https://www.nvidia.com/object/unix.html) | 525.60.13 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.15_1` | [nvidia-x11-525.85.05-6.6.72](https://www.nvidia.com/object/unix.html) | 525.85.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.15_2` | [nvidia-x11-525.105.17-6.6.72](https://www.nvidia.com/object/unix.html) | 525.105.17 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.15_3` | [nvidia-x11-525.125.06-6.6.72](https://www.nvidia.com/object/unix.html) | 525.125.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_0` | [nvidia-x11-535.54.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.54.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_1` | [nvidia-x11-535.104.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_2` | [nvidia-x11-535.129.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_3` | [nvidia-x11-535.154.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_4` | [nvidia-x11-535.161.07-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_5` | [nvidia-x11-535.161.08-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_6` | [nvidia-x11-535.183.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_7` | [nvidia-x11-535.183.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.16_8` | [nvidia-x11-535.216.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.17_0` | [nvidia-x11-550.54.14-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.17_1` | [nvidia-x11-550.54.15-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.17_2` | [nvidia-x11-550.90.07-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.17_3` | [nvidia-x11-550.90.07-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.17_4` | [nvidia-x11-550.127.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.127.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.grid.9_2` | [nvidia-x11-430.63-6.6.72](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.11_8` | [nvidia-x11-450.191.01-6.6.72](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.12_4` | [nvidia-x11-460.106.00-6.6.72](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_0` | [nvidia-x11-470.63.01-6.6.72](https://www.nvidia.com/object/unix.html) | 470.63.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_12` | [nvidia-x11-470.256.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_3` | [nvidia-x11-470.129.06-6.6.72](https://www.nvidia.com/object/unix.html) | 470.129.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_4` | [nvidia-x11-470.141.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.141.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_5` | [nvidia-x11-470.161.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_6` | [nvidia-x11-470.161.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_7` | [nvidia-x11-470.182.03-6.6.72](https://www.nvidia.com/object/unix.html) | 470.182.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.13_9` | [nvidia-x11-470.223.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.14_0` | [nvidia-x11-510.47.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.14_1` | [nvidia-x11-510.73.08-6.6.72](https://www.nvidia.com/object/unix.html) | 510.73.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.14_2` | [nvidia-x11-510.85.02-6.6.72](https://www.nvidia.com/object/unix.html) | 510.85.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.14_3` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.14_4` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.15_0` | [nvidia-x11-525.60.13-6.6.72](https://www.nvidia.com/object/unix.html) | 525.60.13 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.15_1` | [nvidia-x11-525.85.05-6.6.72](https://www.nvidia.com/object/unix.html) | 525.85.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.15_2` | [nvidia-x11-525.105.17-6.6.72](https://www.nvidia.com/object/unix.html) | 525.105.17 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.15_3` | [nvidia-x11-525.125.06-6.6.72](https://www.nvidia.com/object/unix.html) | 525.125.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_0` | [nvidia-x11-535.54.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.54.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_1` | [nvidia-x11-535.104.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_2` | [nvidia-x11-535.129.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_3` | [nvidia-x11-535.154.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_4` | [nvidia-x11-535.161.07-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_5` | [nvidia-x11-535.161.08-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_6` | [nvidia-x11-535.183.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_7` | [nvidia-x11-535.183.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.16_8` | [nvidia-x11-535.216.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.17_0` | [nvidia-x11-550.54.14-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.17_1` | [nvidia-x11-550.54.15-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.17_2` | [nvidia-x11-550.90.07-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.17_3` | [nvidia-x11-550.90.07-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.17_4` | [nvidia-x11-550.127.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.127.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guest.9_2` | [nvidia-x11-430.63-6.6.72](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.11_8` | [nvidia-x11-450.191-6.6.72](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.12_4` | [nvidia-x11-460.107-6.6.72](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_0` | [nvidia-x11-470.63-6.6.72](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_12` | [nvidia-x11-470.256.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_3` | [nvidia-x11-470.129.04-6.6.72](https://www.nvidia.com/object/unix.html) | 470.129.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_4` | [nvidia-x11-470.141.05-6.6.72](https://www.nvidia.com/object/unix.html) | 470.141.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_5` | [nvidia-x11-470.161.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_6` | [nvidia-x11-470.161.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_7` | [nvidia-x11-470.182.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.182.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.13_9` | [nvidia-x11-470.223.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.14_0` | [nvidia-x11-510.47.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.14_1` | [nvidia-x11-510.73.06-6.6.72](https://www.nvidia.com/object/unix.html) | 510.73.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.14_2` | [nvidia-x11-510.85.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.85.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.14_3` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.14_4` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.15_0` | [nvidia-x11-525.60.12-6.6.72](https://www.nvidia.com/object/unix.html) | 525.60.12 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.15_1` | [nvidia-x11-525.85.07-6.6.72](https://www.nvidia.com/object/unix.html) | 525.85.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.15_2` | [nvidia-x11-525.105.14-6.6.72](https://www.nvidia.com/object/unix.html) | 525.105.14 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.15_3` | [nvidia-x11-525.125.03-6.6.72](https://www.nvidia.com/object/unix.html) | 525.125.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_0` | [nvidia-x11-535.54.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.54.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_1` | [nvidia-x11-535.104.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_2` | [nvidia-x11-535.129.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_3` | [nvidia-x11-535.154.02-6.6.72](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_4` | [nvidia-x11-535.161.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_5` | [nvidia-x11-535.161.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_6` | [nvidia-x11-535.183.04-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_7` | [nvidia-x11-535.183.04-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.16_8` | [nvidia-x11-535.216.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.17_0` | [nvidia-x11-550.54.10-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.17_1` | [nvidia-x11-550.54.16-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.17_2` | [nvidia-x11-550.90.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.17_3` | [nvidia-x11-550.90.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.17_4` | [nvidia-x11-550.127.06-6.6.72](https://www.nvidia.com/object/unix.html) | 550.127.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.host.9_2` | [nvidia-x11-430.67-6.6.72](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.11_8` | [nvidia-x11-450.191-6.6.72](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.12_4` | [nvidia-x11-460.107-6.6.72](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_0` | [nvidia-x11-470.63-6.6.72](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_12` | [nvidia-x11-470.256.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_3` | [nvidia-x11-470.129.04-6.6.72](https://www.nvidia.com/object/unix.html) | 470.129.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_4` | [nvidia-x11-470.141.05-6.6.72](https://www.nvidia.com/object/unix.html) | 470.141.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_5` | [nvidia-x11-470.161.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_6` | [nvidia-x11-470.161.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_7` | [nvidia-x11-470.182.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.182.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.13_9` | [nvidia-x11-470.223.02-6.6.72](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.14_0` | [nvidia-x11-510.47.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.14_1` | [nvidia-x11-510.73.06-6.6.72](https://www.nvidia.com/object/unix.html) | 510.73.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.14_2` | [nvidia-x11-510.85.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.85.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.14_3` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.14_4` | [nvidia-x11-510.108.03-6.6.72](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.15_0` | [nvidia-x11-525.60.12-6.6.72](https://www.nvidia.com/object/unix.html) | 525.60.12 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.15_1` | [nvidia-x11-525.85.07-6.6.72](https://www.nvidia.com/object/unix.html) | 525.85.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.15_2` | [nvidia-x11-525.105.14-6.6.72](https://www.nvidia.com/object/unix.html) | 525.105.14 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.15_3` | [nvidia-x11-525.125.03-6.6.72](https://www.nvidia.com/object/unix.html) | 525.125.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_0` | [nvidia-x11-535.54.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.54.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_1` | [nvidia-x11-535.104.06-6.6.72](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_2` | [nvidia-x11-535.129.03-6.6.72](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_3` | [nvidia-x11-535.154.02-6.6.72](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_4` | [nvidia-x11-535.161.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_5` | [nvidia-x11-535.161.05-6.6.72](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_6` | [nvidia-x11-535.183.04-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_7` | [nvidia-x11-535.183.04-6.6.72](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.16_8` | [nvidia-x11-535.216.01-6.6.72](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.17_0` | [nvidia-x11-550.54.10-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.17_1` | [nvidia-x11-550.54.16-6.6.72](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.17_2` | [nvidia-x11-550.90.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.17_3` | [nvidia-x11-550.90.05-6.6.72](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.17_4` | [nvidia-x11-550.127.06-6.6.72](https://www.nvidia.com/object/unix.html) | 550.127.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpu.9_2` | [nvidia-x11-430.67-6.6.72](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.11_8` | [nvidia-x11-450.191.01-6.12.11](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.12_4` | [nvidia-x11-460.106.00-6.12.11](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_0` | [nvidia-x11-470.63.01-6.12.11](https://www.nvidia.com/object/unix.html) | 470.63.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_12` | [nvidia-x11-470.256.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_3` | [nvidia-x11-470.129.06-6.12.11](https://www.nvidia.com/object/unix.html) | 470.129.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_4` | [nvidia-x11-470.141.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.141.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_5` | [nvidia-x11-470.161.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_6` | [nvidia-x11-470.161.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_7` | [nvidia-x11-470.182.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.182.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.13_9` | [nvidia-x11-470.223.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.14_0` | [nvidia-x11-510.47.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.14_1` | [nvidia-x11-510.73.08-6.12.11](https://www.nvidia.com/object/unix.html) | 510.73.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.14_2` | [nvidia-x11-510.85.02-6.12.11](https://www.nvidia.com/object/unix.html) | 510.85.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.14_3` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.14_4` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.15_0` | [nvidia-x11-525.60.13-6.12.11](https://www.nvidia.com/object/unix.html) | 525.60.13 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.15_1` | [nvidia-x11-525.85.05-6.12.11](https://www.nvidia.com/object/unix.html) | 525.85.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.15_2` | [nvidia-x11-525.105.17-6.12.11](https://www.nvidia.com/object/unix.html) | 525.105.17 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.15_3` | [nvidia-x11-525.125.06-6.12.11](https://www.nvidia.com/object/unix.html) | 525.125.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_0` | [nvidia-x11-535.54.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.54.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_1` | [nvidia-x11-535.104.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_2` | [nvidia-x11-535.129.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_3` | [nvidia-x11-535.154.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_4` | [nvidia-x11-535.161.07-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_5` | [nvidia-x11-535.161.08-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_6` | [nvidia-x11-535.183.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_7` | [nvidia-x11-535.183.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_8` | [nvidia-x11-535.216.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.17_0` | [nvidia-x11-550.54.14-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.17_1` | [nvidia-x11-550.54.15-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.17_2` | [nvidia-x11-550.90.07-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.17_3` | [nvidia-x11-550.90.07-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.17_4` | [nvidia-x11-550.127.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.127.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.9_2` | [nvidia-x11-430.63-6.12.11](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.11_8` | [nvidia-x11-450.191.01-6.12.11](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.12_4` | [nvidia-x11-460.106.00-6.12.11](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_0` | [nvidia-x11-470.63.01-6.12.11](https://www.nvidia.com/object/unix.html) | 470.63.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_12` | [nvidia-x11-470.256.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_3` | [nvidia-x11-470.129.06-6.12.11](https://www.nvidia.com/object/unix.html) | 470.129.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_4` | [nvidia-x11-470.141.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.141.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_5` | [nvidia-x11-470.161.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_6` | [nvidia-x11-470.161.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_7` | [nvidia-x11-470.182.03-6.12.11](https://www.nvidia.com/object/unix.html) | 470.182.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.13_9` | [nvidia-x11-470.223.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.14_0` | [nvidia-x11-510.47.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.14_1` | [nvidia-x11-510.73.08-6.12.11](https://www.nvidia.com/object/unix.html) | 510.73.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.14_2` | [nvidia-x11-510.85.02-6.12.11](https://www.nvidia.com/object/unix.html) | 510.85.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.14_3` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.14_4` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.15_0` | [nvidia-x11-525.60.13-6.12.11](https://www.nvidia.com/object/unix.html) | 525.60.13 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.15_1` | [nvidia-x11-525.85.05-6.12.11](https://www.nvidia.com/object/unix.html) | 525.85.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.15_2` | [nvidia-x11-525.105.17-6.12.11](https://www.nvidia.com/object/unix.html) | 525.105.17 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.15_3` | [nvidia-x11-525.125.06-6.12.11](https://www.nvidia.com/object/unix.html) | 525.125.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_0` | [nvidia-x11-535.54.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.54.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_1` | [nvidia-x11-535.104.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_2` | [nvidia-x11-535.129.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_3` | [nvidia-x11-535.154.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_4` | [nvidia-x11-535.161.07-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_5` | [nvidia-x11-535.161.08-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_6` | [nvidia-x11-535.183.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_7` | [nvidia-x11-535.183.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_8` | [nvidia-x11-535.216.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.17_0` | [nvidia-x11-550.54.14-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.17_1` | [nvidia-x11-550.54.15-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.17_2` | [nvidia-x11-550.90.07-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.17_3` | [nvidia-x11-550.90.07-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.17_4` | [nvidia-x11-550.127.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.127.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.9_2` | [nvidia-x11-430.63-6.12.11](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.11_8` | [nvidia-x11-450.191-6.12.11](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.12_4` | [nvidia-x11-460.107-6.12.11](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_0` | [nvidia-x11-470.63-6.12.11](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_12` | [nvidia-x11-470.256.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_3` | [nvidia-x11-470.129.04-6.12.11](https://www.nvidia.com/object/unix.html) | 470.129.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_4` | [nvidia-x11-470.141.05-6.12.11](https://www.nvidia.com/object/unix.html) | 470.141.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_5` | [nvidia-x11-470.161.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_6` | [nvidia-x11-470.161.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_7` | [nvidia-x11-470.182.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.182.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.13_9` | [nvidia-x11-470.223.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.14_0` | [nvidia-x11-510.47.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.14_1` | [nvidia-x11-510.73.06-6.12.11](https://www.nvidia.com/object/unix.html) | 510.73.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.14_2` | [nvidia-x11-510.85.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.85.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.14_3` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.14_4` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.15_0` | [nvidia-x11-525.60.12-6.12.11](https://www.nvidia.com/object/unix.html) | 525.60.12 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.15_1` | [nvidia-x11-525.85.07-6.12.11](https://www.nvidia.com/object/unix.html) | 525.85.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.15_2` | [nvidia-x11-525.105.14-6.12.11](https://www.nvidia.com/object/unix.html) | 525.105.14 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.15_3` | [nvidia-x11-525.125.03-6.12.11](https://www.nvidia.com/object/unix.html) | 525.125.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_0` | [nvidia-x11-535.54.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.54.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_1` | [nvidia-x11-535.104.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_2` | [nvidia-x11-535.129.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_3` | [nvidia-x11-535.154.02-6.12.11](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_4` | [nvidia-x11-535.161.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_5` | [nvidia-x11-535.161.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_6` | [nvidia-x11-535.183.04-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_7` | [nvidia-x11-535.183.04-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_8` | [nvidia-x11-535.216.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.17_0` | [nvidia-x11-550.54.10-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.17_1` | [nvidia-x11-550.54.16-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.17_2` | [nvidia-x11-550.90.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.17_3` | [nvidia-x11-550.90.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.17_4` | [nvidia-x11-550.127.06-6.12.11](https://www.nvidia.com/object/unix.html) | 550.127.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.9_2` | [nvidia-x11-430.67-6.12.11](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.11_8` | [nvidia-x11-450.191-6.12.11](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.12_4` | [nvidia-x11-460.107-6.12.11](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_0` | [nvidia-x11-470.63-6.12.11](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_12` | [nvidia-x11-470.256.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.256.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_3` | [nvidia-x11-470.129.04-6.12.11](https://www.nvidia.com/object/unix.html) | 470.129.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_4` | [nvidia-x11-470.141.05-6.12.11](https://www.nvidia.com/object/unix.html) | 470.141.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_5` | [nvidia-x11-470.161.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_6` | [nvidia-x11-470.161.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.161.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_7` | [nvidia-x11-470.182.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.182.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.13_9` | [nvidia-x11-470.223.02-6.12.11](https://www.nvidia.com/object/unix.html) | 470.223.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.14_0` | [nvidia-x11-510.47.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.47.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.14_1` | [nvidia-x11-510.73.06-6.12.11](https://www.nvidia.com/object/unix.html) | 510.73.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.14_2` | [nvidia-x11-510.85.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.85.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.14_3` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.14_4` | [nvidia-x11-510.108.03-6.12.11](https://www.nvidia.com/object/unix.html) | 510.108.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.15_0` | [nvidia-x11-525.60.12-6.12.11](https://www.nvidia.com/object/unix.html) | 525.60.12 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.15_1` | [nvidia-x11-525.85.07-6.12.11](https://www.nvidia.com/object/unix.html) | 525.85.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.15_2` | [nvidia-x11-525.105.14-6.12.11](https://www.nvidia.com/object/unix.html) | 525.105.14 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.15_3` | [nvidia-x11-525.125.03-6.12.11](https://www.nvidia.com/object/unix.html) | 525.125.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_0` | [nvidia-x11-535.54.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.54.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_1` | [nvidia-x11-535.104.06-6.12.11](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_2` | [nvidia-x11-535.129.03-6.12.11](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_3` | [nvidia-x11-535.154.02-6.12.11](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_4` | [nvidia-x11-535.161.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_5` | [nvidia-x11-535.161.05-6.12.11](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_6` | [nvidia-x11-535.183.04-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_7` | [nvidia-x11-535.183.04-6.12.11](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_8` | [nvidia-x11-535.216.01-6.12.11](https://www.nvidia.com/object/unix.html) | 535.216.01 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.17_0` | [nvidia-x11-550.54.10-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.17_1` | [nvidia-x11-550.54.16-6.12.11](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.17_2` | [nvidia-x11-550.90.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.17_3` | [nvidia-x11-550.90.05-6.12.11](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.17_4` | [nvidia-x11-550.127.06-6.12.11](https://www.nvidia.com/object/unix.html) | 550.127.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.9_2` | [nvidia-x11-430.67-6.12.11](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 </details>
 
 <details>
@@ -821,12 +809,11 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: openjdk-adoptium (112 packages)</summary>
+<summary>Package set: openjdk-adoptium (116 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.25_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-11_0_12_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.26_4_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_13_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.13_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_14_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.14.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_14_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.14_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -843,13 +830,15 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-11_0_23_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.23_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_24_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.24_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_25_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.25_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11_0_26_4` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.26_4_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16_0_2_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.13_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.14_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_10_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_11_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_12_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_13_11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.13_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-17_0_14_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.14_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_1_12` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.1_12_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_2_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.2_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_3_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.3_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -867,7 +856,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-18_0_2_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-18_0_2_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.2_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-18_36` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18_36_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u432-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u442-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u302_b08` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u302-b08 | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u312_b07` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u312-b07 | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u322_b06` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u322-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -883,8 +872,8 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-8u412_b08` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u412-b08_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u422_b05` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u422-b05_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u432_b06` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u432-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.25_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11_0_12_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-8u442_b06` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u442-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.26_4_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_13_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.13_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_14_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.14.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_14_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.14_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -901,11 +890,13 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-11_0_23_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.23_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_24_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.24_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_25_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.25_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.13_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11_0_26_4` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.26_4_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.14_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_10_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_11_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_12_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_13_11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.13_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-17_0_14_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.14_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_1_12` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.1_12_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_2_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.2_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_3_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.3_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -921,7 +912,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-18_0_1_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.1_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-18_0_2_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-18_0_2_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.2_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u432-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u442-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-8u302_b08` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u302-b08 | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-8u312_b07` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u312-b07 | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-8u322_b06` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u322-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -937,6 +928,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-8u412_b08` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u412-b08_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-8u422_b05` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u422-b05_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-8u432_b06` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u432-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-8u442_b06` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u442-b06_adopt | OpenJDK binaries built by Eclipse Adoptium |
 </details>
 
 <details>
@@ -956,7 +948,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.1 | Universal pastebin server |
 |  | `python3Packages.click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.5.1 | Log level parameter type for Click |
 |  | `python3Packages.edge-tts` | [edge-tts](https://pypi.org/project/edge-tts/) | 7.0.0 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-01-16 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-01-24 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.0 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.kui` | [kui](https://kui.aber.sh/) | 1.8.1 | Easy-to-use web framework |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -1014,7 +1006,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.3.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.3.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
-|  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | 0-unstable-2024-12-20 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
+|  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | 0-unstable-2025-01-20 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.3.1016.4 | 360 Browser |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.5.4 | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | `uncategorized.chmlib-utils` | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | Library for dealing with Microsoft ITSS/CHM format files |
@@ -1027,9 +1019,9 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `uncategorized.electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `uncategorized.etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `uncategorized.fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2024-12-16 | Minimal Delegated License Service (DLS) |
+|  | `uncategorized.fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2025-01-21 | Minimal Delegated License Service (DLS) |
 |  | `uncategorized.fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `uncategorized.flaresolverr-21hsmw` | [flaresolverr-21hsmw](https://github.com/21hsmw/FlareSolverr) | 0-unstable-2024-11-01 | Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver |
+|  | `uncategorized.flaresolverr-21hsmw` | [flaresolverr-21hsmw](https://github.com/21hsmw/FlareSolverr) | 0-unstable-2025-01-19 | Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1066,7 +1058,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.nvlax-530` | [nvlax](https://github.com/illnyang/nvlax) | unstable-2021-10-29 | Future-proof NvENC & NvFBC patcher (for NVIDIA driver >= 530) |
 |  | `uncategorized.oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | 0-unstable-2024-08-13 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain |
 |  | `uncategorized.one-api` | [one-api](https://openai.justsong.cn) | 0.6.9 | OpenAI key management & redistribution system, using a single API for all LLMs |
-|  | `uncategorized.openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2024-12-27 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
+|  | `uncategorized.openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2025-01-22 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `uncategorized.openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `uncategorized.openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-01-08 | OpenSSL with Encrypted Client Hello support |
 |  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.8.0 | OpenSSL 3 provider containing post-quantum algorithms |
@@ -1074,8 +1066,8 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.10.0 | Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
-|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 7.3.2 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
-|  | `uncategorized.phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | Web interface for MySQL and MariaDB |
+|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 7.3.3 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
+|  | `uncategorized.phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.2 | Web interface for MySQL and MariaDB |
 |  | `uncategorized.phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `uncategorized.plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
 |  | `uncategorized.plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 1.0.0 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
@@ -1087,13 +1079,13 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `uncategorized.qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.2-b2-unstable-2025-01-14 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-01-13 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-01-21 | QSP is an Interactive Fiction development platform (Game Library) |
 | `x86_64-linux` | `uncategorized.red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk |
 |  | `uncategorized.red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
 |  | `uncategorized.rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
 |  | `uncategorized.rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20250101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `uncategorized.rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2020-12-26 | RIME 词库增强 |
-|  | `uncategorized.rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-01-19 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
+|  | `uncategorized.rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-01-24 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
 |  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20250113 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20241218 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
@@ -1109,7 +1101,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uncategorized.uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-01-16 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-01-23 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |

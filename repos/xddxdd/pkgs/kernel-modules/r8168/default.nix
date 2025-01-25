@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   INSTALL_MOD_PATH = placeholder "out";
 
-  inherit (kernel) makeFlags;
+  makeFlags =
+    if lib.hasAttr "moduleMakeFlags" kernel then kernel.moduleMakeFlags else kernel.makeFlags;
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

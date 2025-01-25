@@ -1,39 +1,55 @@
 diff --git a/nf_nat_fullcone.c b/nf_nat_fullcone.c
-index 0757ef9..91a7d2a 100644
+index 0b13cbe..523c19f 100644
 --- a/nf_nat_fullcone.c
 +++ b/nf_nat_fullcone.c
-@@ -1122,7 +1122,7 @@ static unsigned int nf_nat_handle_prerouting(u8 nfproto, struct sk_buff *skb, un
+@@ -1130,7 +1130,7 @@ static unsigned int nf_nat_handle_prerouting(u8 nfproto, struct sk_buff *skb, un
  	enum ip_conntrack_info ctinfo;
  	struct nf_conntrack_tuple *ct_tuple_origin;
-
+ 
 -	uint16_t port, original_port;
 +	uint16_t port;
  	uint8_t protonum;
-
+ 
  /* NFPROTO specific def */
-@@ -1143,7 +1143,6 @@ static unsigned int nf_nat_handle_prerouting(u8 nfproto, struct sk_buff *skb, un
+@@ -1151,7 +1151,6 @@ static unsigned int nf_nat_handle_prerouting(u8 nfproto, struct sk_buff *skb, un
  	ip_6 = NULL;
  	/* NFPROTO specific init end */
-
+ 
 -	original_port = 0;
  	ret = NFT_CONTINUE;	// BUG: use XT_CONTINUE for Xtables
-
+ 
  	ct = nf_ct_get(skb, &ctinfo);
-@@ -1369,6 +1368,8 @@ static unsigned int nf_nat_handle_postrouting(u8 nfproto, struct sk_buff *skb, u
+@@ -1377,6 +1376,8 @@ static unsigned int nf_nat_handle_postrouting(u8 nfproto, struct sk_buff *skb, u
  			is_src_mapping_active = src_mapping != NULL && check_mapping(src_mapping, net, zone);
  		} else if (nfproto == NFPROTO_IPV6) {
  			is_src_mapping_active = src_mapping_6 != NULL && check_mapping6(src_mapping_6, net, zone);
 +		} else {
 +			is_src_mapping_active = false;
  		}
-
+ 
  		if (is_src_mapping_active) {
-@@ -1420,6 +1421,8 @@ static unsigned int nf_nat_handle_postrouting(u8 nfproto, struct sk_buff *skb, u
-
+@@ -1428,6 +1429,8 @@ static unsigned int nf_nat_handle_postrouting(u8 nfproto, struct sk_buff *skb, u
+ 
  				want_port =
  				    find_appropriate_port6(net, zone, original_port, &newrange->min_addr, range);
 +			} else {
 +				want_port = 0;
  			}
-
+ 
  			newrange->flags = NF_NAT_RANGE_MAP_IPS | NF_NAT_RANGE_PROTO_SPECIFIED;
+diff --git a/nft_ext_fullcone.c b/nft_ext_fullcone.c
+index 96d1feb..d1f2611 100644
+--- a/nft_ext_fullcone.c
++++ b/nft_ext_fullcone.c
+@@ -121,7 +121,11 @@ static int exp_event_cb(unsigned int events, const struct nf_exp_event *item)
+ }
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
++static int nft_fullcone_validate(const struct nft_ctx *ctx, const struct nft_expr *expr)
++#else
+ static int nft_fullcone_validate(const struct nft_ctx *ctx, const struct nft_expr *expr, const struct nft_data **data)
++#endif
+ {
+ 	int err;
+ 
