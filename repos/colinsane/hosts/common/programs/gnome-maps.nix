@@ -46,5 +46,6 @@
     persist.byStore.private = [ ".local/share/gnome-maps" ];
 
     mime.associations."x-scheme-handler/maps" = "org.gnome.Maps.desktop";  # e.g. `maps:q=1600%20Pennsylvania%20Ave`
+    mime.associations."x-scheme-handler/geo" = "org.gnome.Maps.desktop";  # e.g. `geo:50.812375,4.38073;u=100`
   };
 }

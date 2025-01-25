@@ -19,11 +19,14 @@
 # - staging: maybe if no staging-next -> master PR has been cut yet?
 {
 #VVV these may or may not be available when called VVV
-  fetchzip ? builtins.fetchTarball,
+  fetchzip ? null,
   stdenv ? null,
   unstableGitUpdater ? null,
 }:
 let
+  inBootstrap = fetchzip == null;
+  fetchzip' = if inBootstrap then builtins.fetchTarball else fetchzip;
+  optionalAttrs = cond: attrs: if cond then attrs else {};
   mkNixpkgs = {
     rev,
     sha256,
@@ -33,13 +36,19 @@ let
     localSystem ? if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem,  #< not available in pure mode
     system ? if stdenv != null then stdenv.hostPlatform.system else localSystem,
   }@args: let
-    src' = fetchzip ({
+    src' = fetchzip' ({
       url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
       # nixpkgs' update-source-version (updateScript) finds the new hash by specifying this hardcoded bogus hash
       # and then checking the error messages.
       # but that doesn't work for builtins; instead we leave the builtin hash unspec'd,
       # and let eval progress to where pkgs.fetchzip exists and errors.
-    } // (if sha256 != "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=" then { inherit sha256; } else {}));
+    } // optionalAttrs (sha256 != "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=") {
+      inherit sha256;
+    } // optionalAttrs (!inBootstrap) {
+      pname = "nixpkgs";
+      version = rev;
+      inherit sha256;  #< if out of the bootstrap, then *always* pin with hashes!
+    });
 
     commonNixpkgsArgs = {
       inherit localSystem;
