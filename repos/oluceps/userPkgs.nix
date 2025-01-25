@@ -153,7 +153,6 @@ with pkgs;
 
   feh
   pamixer
-  sl
   ncpamixer
   # texlive.combined.scheme-full
   vlc
