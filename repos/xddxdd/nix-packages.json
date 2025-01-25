@@ -27,7 +27,7 @@
   "legacyPackages.x86_64-linux.ast": {
     "description": "Aspeed Graphics Driver",
     "pname": "ast",
-    "version": "1.14.3_3"
+    "version": "1.15.1_4"
   },
   "legacyPackages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
@@ -702,7 +702,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.ast": {
     "description": "Aspeed Graphics Driver",
     "pname": "ast",
-    "version": "1.14.3_3"
+    "version": "1.15.1_4"
   },
   "legacyPackages.x86_64-linux.kernel-modules.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
@@ -4597,7 +4597,7 @@
   "packages.x86_64-linux.ast": {
     "description": "Aspeed Graphics Driver",
     "pname": "ast",
-    "version": "1.14.3_3"
+    "version": "1.15.1_4"
   },
   "packages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
