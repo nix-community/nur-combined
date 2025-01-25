@@ -111,7 +111,6 @@ let
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
-    (fromDb "rss.art19.com/60-minutes" // pol)
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
     (fromDb "seattlenice.buzzsprout.com" // pol)  # Seattle Nice
     (fromDb "speedboatdope.com" // pol)  # Chapo Trap House (premium feed)
@@ -144,6 +143,7 @@ let
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     # (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
     # (fromDb "rss.acast.com/intercepted-with-jeremy-scahill")  # The Intercept - Intercepted
+    # (fromDb "rss.art19.com/60-minutes" // pol)
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
