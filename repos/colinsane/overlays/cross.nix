@@ -524,18 +524,18 @@ in with final; {
 
   # fixes "gdbus-codegen: command not found"
   # fixes "gtk4-builder-tool: command not found"
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
   # networkmanager-l2tp = addNativeInputs [ gtk4 ]
   #   (mvToNativeInputs [ glib ] prev.networkmanager-l2tp);
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
   # networkmanager-openconnect = mvToNativeInputs [ glib ] prev.networkmanager-openconnect;
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
-  # 2025/01/13: upstreaming is unblocked,implemented
+  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
   # networkmanager-openvpn = mvToNativeInputs [ glib ] prev.networkmanager-openvpn;
-  # 2025/01/13: upstreaming is unblocked,implemented
+  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
   # networkmanager-sstp = (
   #   # fixes "gdbus-codegen: command not found"
   #   mvToNativeInputs [ glib ] (

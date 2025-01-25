@@ -66,6 +66,7 @@
   sane.ids.plugdev.gid = 2421;
   sane.ids.ollama.uid = 2422;
   sane.ids.ollama.gid = 2422;
+  sane.ids.shelvacu.uid = 5431;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;

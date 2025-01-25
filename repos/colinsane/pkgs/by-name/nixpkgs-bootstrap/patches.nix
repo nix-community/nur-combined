@@ -129,21 +129,4 @@ in
   #   name = "librewolf-pmos-mobile: init";
   #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
   # })
-
-  # these probably work, but i don't use them
-  # (fetchpatch' {
-  #   name = "networkmanager-openvpn: support cross compilation";
-  #   saneCommit = "6f53c267fbeb2ff543f075032a7e73af2d4bcb9e";
-  #   hash = "sha256-gq9AyKH7/k2ZVSZ3jpPJPt3uAM+CllXQnaiC1tE1r/8=";
-  # })
-  # (fetchpatch' {
-  #   name = "WIP: networkmanager-sstp: support cross compilation";
-  #   saneCommit = "6de63fe320406ec9a509db721c52b3894a93bda2";
-  #   hash = "sha256-EY3bQuv/80JbpquUJhc89CcYAgN9A9KkpsSitw/684I=";
-  # })
-  # (fetchpatch' {
-  #   name = "WIP: networkmanager-l2tp: support cross compilation";
-  #   saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
-  #   hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
-  # })
 ]

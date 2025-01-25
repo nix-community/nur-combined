@@ -5,6 +5,7 @@
     ./fs.nix
     ./net
     ./services
+    ./users
   ];
 
   # for administering services
