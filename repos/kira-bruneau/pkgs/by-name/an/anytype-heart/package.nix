@@ -6,7 +6,6 @@
   protoc-gen-grpc-web,
   protoc-gen-js,
   tantivy-go,
-  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -77,13 +76,6 @@ buildGoModule rec {
 
     runHook postInstall
   '';
-
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      ''^v(\d+\.\d+\.\d+)$''
-    ];
-  };
 
   meta = with lib; {
     description = "Shared library for Anytype clients";

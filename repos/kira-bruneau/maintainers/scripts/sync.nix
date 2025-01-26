@@ -14,9 +14,10 @@
   fd,
   git,
   gnused,
-  nix,
   ncurses,
+  nix,
   nix-fast-build,
+  update,
 }:
 
 let
@@ -78,8 +79,10 @@ writeShellApplication {
     fd
     git
     gnused
+    ncurses
     nix
     nix-fast-build
+    update
   ];
 
   text = ''
@@ -147,8 +150,10 @@ writeShellApplication {
     git add flake.lock
     git commit --message 'flake.lock: update' --quiet || :
 
+    update
+
     build_flags=()
-    if ! ${ncurses}/bin/infocmp -1 | grep clear; then
+    if ! infocmp -1 | grep clear; then
       build_flags+=(--no-nom)
     fi
 

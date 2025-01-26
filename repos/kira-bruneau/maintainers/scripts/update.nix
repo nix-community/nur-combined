@@ -1,7 +1,7 @@
 {
   lib,
   writeText,
-  writeShellScript,
+  writeShellApplication,
   packages,
   coreutils,
   bash,
@@ -27,12 +27,22 @@ let
 
   packagesJson = writeText "packages.json" (builtins.toJSON (map packageData packages));
 in
-writeShellScript "update" ''
-  echo "" | ${coreutils}/bin/env -i \
-    HOME="$HOME" \
-    PATH=${bash}/bin:${coreutils}/bin:${git}/bin:${nix}/bin \
-    NIX_PATH=nixpkgs=${nixpkgs} \
-    ${python3.interpreter} ${
-      nixpkgs + "/maintainers/scripts/update.py"
-    } ${packagesJson} --keep-going --commit "$@"
-''
+writeShellApplication {
+  name = "update";
+  text = ''
+    echo "" | ${coreutils}/bin/env -i \
+      HOME="$HOME" \
+      PATH=${
+        lib.makeBinPath [
+          bash
+          coreutils
+          git
+          nix
+        ]
+      } \
+      NIX_PATH=nixpkgs=${nixpkgs} \
+      ${python3.interpreter} ${
+        nixpkgs + "/maintainers/scripts/update.py"
+      } ${packagesJson} --keep-going --commit "$@"
+  '';
+}
