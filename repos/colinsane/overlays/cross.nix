@@ -229,11 +229,7 @@ in with final; {
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   };
 
-  # 2025/01/13: upstreaming is blocked on nautilus
-  # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
-  # file-roller = mvToNativeInputs [ glib ] prev.file-roller;
-
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/01/25: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
   #   # i think we *could* copy the default filters from pkgsBuildBuild, but that doesn't seem future proof
@@ -318,7 +314,7 @@ in with final; {
   #   });
   # });
 
-  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon, mutter
+  # 2025/01/25: upstreaming is blocked on mutter
   # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
   # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
 
@@ -338,22 +334,6 @@ in with final; {
   # 2025/01/13: upstreaming is blocked on gnome-shell
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
-
-  # 2025/01/13: upstreaming is unblocked, out for review:
-  # - <https://github.com/NixOS/nixpkgs/pull/373666>
-  # gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
-  #   # 2024/12/18: upstreaming is blocked on poppler-glib (should be fixed in staging?)
-  #   # gsd is required by xdg-desktop-portal-gtk
-  #   # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
-  #   # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
-  #   # but then it fails with a link-time error.
-  #   # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
-  #   # hack to just not build the power plugin (panel?), to avoid cross compilation errors
-  #   postPatch = orig.postPatch + ''
-  #     substituteInPlace plugins/meson.build \
-  #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
-  #   '';
-  # });
 
   # 2025/01/13: upstreaming is blocked on gnome-settings-daemon, mutter, evolution-data-server
   # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
@@ -493,7 +473,7 @@ in with final; {
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
-  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon
+  # 2025/01/25: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376815>
   # mutter = super.mutter.overrideAttrs (orig: {
   #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
   #   # N.B.: not all of this suitable to upstreaming, as-is.
@@ -507,14 +487,6 @@ in with final; {
   #   mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
   #   outputs = lib.remove "devdoc" orig.outputs;
   #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
-  # });
-
-  # 2025/01/13: upstreaming is unblocked, out for review:
-  # <https://github.com/NixOS/nixpkgs/pull/373662>
-  # nautilus = prev.nautilus.overrideAttrs (upstream: {
-  #   mesonFlags = upstream.mesonFlags ++ [
-  #     "-Dtests=none"  # v.s. `headless` for native compilation
-  #   ];
   # });
 
   # fixes: "ar: command not found"
@@ -543,7 +515,7 @@ in with final; {
   #     addNativeInputs [ gtk4.dev ] prev.networkmanager-sstp
   #   )
   # );
-  # 2025/01/13: upstreaming is blocked on vpnc
+  # 2025/01/25: upstreaming is blocked on vpnc; both are out for review: <https://github.com/NixOS/nixpkgs/pull/376860>
   # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
 
   # 2024/11/19: upstreaming is unblocked
@@ -901,6 +873,9 @@ in with final; {
 
   # unixODBCDrivers = prev.unixODBCDrivers // {
   #   # TODO: should this package be deduped with toplevel psqlodbc in upstream nixpkgs?
+  #   # N.B.: psqlodbc is a WAY MORE DIFFICULT PACKAGE TO GET CROSS COMPILING
+  #   # - even after fixing configurePhase to actually find all its shit, there are actual C compilation errors like
+  #   #   > misc.h:23:17: error: conflicting types for 'strlcat';
   #   psql = prev.unixODBCDrivers.psql.overrideAttrs (_upstream: {
   #     # XXX: these are both available as configureFlags, if we prefer that (we probably do, so as to make them available only during specific parts of the build).
   #     ODBC_CONFIG = buildPackages.writeShellScript "odbc_config" ''
@@ -945,8 +920,8 @@ in with final; {
   # });
 
   # fixes "perl: command not found"
-  # 2025/01/13: upstreaming is unblocked, but requires alternative fix
-  # - i think the build script tries to run the generated binary?
+  # 2025/01/25: upstreaming is unblocked, out for review: <https://github.com/NixOS/nixpkgs/pull/376860>
+  # - proper fix (as done in PR) is more involved
   # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 
   # 2024/08/12: upstreaming is unblocked
