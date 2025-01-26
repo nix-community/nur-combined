@@ -102,8 +102,7 @@
                 {
                   match = {
                     sni = [
-                      "cache.nyaw.xyz"
-                      "hastur.nyaw.xyz"
+                      "*.nyaw.xyz"
                     ];
                   };
                   certificate_selection = {

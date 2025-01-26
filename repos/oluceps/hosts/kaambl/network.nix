@@ -179,14 +179,6 @@
         };
         dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
-        # networkConfig = {
-        #   DNSSEC = false;
-        #   MulticastDNS = false;
-        #   DNSOverTLS = false;
-        # };
-        # # REALLY IMPORTANT
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
       };
 
       "30-rndis" = {

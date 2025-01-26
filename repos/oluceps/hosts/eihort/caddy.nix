@@ -44,8 +44,7 @@
           {
             match = {
               sni = [
-                "photo.nyaw.xyz"
-                "s3.nyaw.xyz"
+                "*.nyaw.xyz"
               ];
             };
             certificate_selection = {

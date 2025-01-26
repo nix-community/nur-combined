@@ -20,7 +20,7 @@
               tls_connection_policies = [
                 {
                   match = {
-                    sni = [ "azasos.nyaw.xyz" ];
+                    sni = [ "*.nyaw.xyz" ];
                   };
                   certificate_selection = {
                     any_tag = [ "cert0" ];
