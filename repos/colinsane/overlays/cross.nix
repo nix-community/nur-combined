@@ -639,6 +639,11 @@ in with final; {
   #   # buildInputs = lib.remove gnupg upstream.buildInputs;
   # });
 
+  # 2025/01/25: upstreaming is unblocked
+  papers = prev.papers.override {
+    cargo = crossCargo;
+  };
+
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
   # 2025/01/13: upstreaming is blocked on mutter, gnome-settings-daemon
   # phoc = mvToNativeInputs [ wayland-scanner glib ] prev.phoc;

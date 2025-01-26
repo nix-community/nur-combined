@@ -47,6 +47,12 @@ in
   # })
 
   (fetchpatch' {
+    name = "blueberry: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/376884";
+    hash = "sha256-BYD9Xr9bh8xJxWEvTa2asSsaJbgTLItFsdtIH/7kq4s=";
+  })
+
+  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";

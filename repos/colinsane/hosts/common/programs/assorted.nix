@@ -457,15 +457,6 @@ in
     # blanket.sandbox.whitelistDbus.user = true;  #< TODO: reduce  # TODO: untested
     blanket.sandbox.whitelistWayland = true;
 
-    blueberry.sandbox.wrapperType = "inplace";  #< it places binaries in /lib and then /etc/xdg/autostart files refer to the /lib paths, and fail to be patched
-    blueberry.sandbox.whitelistWayland = true;
-    blueberry.sandbox.extraPaths = [
-      "/dev/rfkill"
-      "/run/dbus"
-      "/sys/class/rfkill"
-      "/sys/devices"
-    ];
-
     bridge-utils.sandbox.net = "all";
 
     "cacert.unbundled".sandbox.enable = false;  #< data only

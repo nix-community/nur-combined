@@ -158,7 +158,8 @@ in
     packageUnwrapped = swayPackage;
     suggestedPrograms = [
       "guiApps"
-      # "blueberry"  # GUI bluetooth manager
+      "blueberry"  # GUI bluetooth manager
+      # "blueman"  # GUI bluetooth manager
       "brightnessctl"
       "conky"  # for a nice background
       "fcitx5"  # input method; emoji. this has been known to break and glitch input into any textbox -- disable here if that happens
