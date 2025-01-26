@@ -32,6 +32,9 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     install -D --target-directory=$out/bin/ beidconnect
+    mkdir -p $out/lib/mozilla/native-messaging-hosts/
+    $out/bin/beidconnect -setup $out/bin \
+      $out/lib/mozilla/native-messaging-hosts/
 
     runHook postInstall
   '';
