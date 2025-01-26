@@ -3189,10 +3189,10 @@
     };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.73";
+      version = "2.74";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386003/firemonkey-2.73.xpi";
-      sha256 = "82cbcc387af99cbf5dfb65834dfa0a9a0dd01b0329a1ebff672607cd1d70da3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4425870/firemonkey-2.74.xpi";
+      sha256 = "138cbf38ec97c13ed00ad4b3753739896ba102b07ee9fdd789ca5561235273d0";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -3212,6 +3212,12 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
+          "https://greasyfork.org/*/scripts/*"
+          "https://sleazyfork.org/*/scripts/*"
+          "*://*/*.user.js"
+          "*://*/*.user.css"
+          "file:///*.user.js"
+          "file:///*.user.css"
         ];
         platforms = platforms.all;
       };
@@ -7957,10 +7963,10 @@
     };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.16.0";
+      version = "1.17.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390663/nos2x_fox-1.16.0.xpi";
-      sha256 = "8cba82a0c8ad90905dcfbc7ada468cc082bf57306740361f591df4d1c4c46fdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4425924/nos2x_fox-1.17.0.xpi";
+      sha256 = "d707acbbb8ee9c218eb56db2bade324b939da10eed61928a253db9c771f8ff94";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
