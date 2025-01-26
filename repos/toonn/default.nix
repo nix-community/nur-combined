@@ -18,5 +18,7 @@
     firefox = pkgs.callPackage ./pkgs/darwin/apps/firefox {};
   };
 
+  beIDConnect = pkgs.callPackage ./pkgs/beIDConnect {};
+
   sotp = pkgs.callPackage ./pkgs/sotp {};
 }
