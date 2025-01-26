@@ -336,7 +336,21 @@
   };
   security = {
     pki = {
-      certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
+      certificateFiles = [
+        "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+        (pkgs.writeText "intermediate-ca-crt" ''
+          -----BEGIN CERTIFICATE-----
+          MIIBUzCCAQWgAwIBAgIUP8UkTXftIGYesR8cphR8GBYFN2YwBQYDK2VwMDgxETAP
+          BgNVBAoMCE1pbGlldWltMSMwIQYDVQQDDBpNaWxpZXVpbSBJbnRlcm1lZGlhdGUg
+          Q0EgMDAeFw0yNTAxMjYwNzIzMTFaFw0zNTAxMjQwNzIzMTFaMDgxETAPBgNVBAoM
+          CE1pbGlldWltMSMwIQYDVQQDDBpNaWxpZXVpbSBJbnRlcm1lZGlhdGUgQ0EgMDAq
+          MAUGAytlcAMhABi099u17BCn9ZjQhn5/8d6/XcmgrRDUTy96fKblSw8eoyEwHzAd
+          BgNVHQ4EFgQUBYyIB2/qaj4PCyLYjidQcc9Br3swBQYDK2VwA0EA5oWysMW+W5kX
+          5ngMDydhVKWIRnGGBTcEqQ82ooMPf3l8lUfy/Mc2HTOY8a+s8ItDrTW55aQHqdou
+          geX/vaiNBg==
+          -----END CERTIFICATE-----
+        '')
+      ];
       # caCertificateBlacklist = [
       #   "CNNIC ROOT"
       #   "CNNIC SSL"
