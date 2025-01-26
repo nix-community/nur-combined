@@ -8,26 +8,53 @@
   repack.caddy = {
     enable = true;
     settings.apps = {
-      http.servers.srv0.routes = [
-        {
-          handle = [
-            {
-              handler = "reverse_proxy";
-              upstreams = [ { dial = "localhost:9000"; } ];
-            }
-          ];
-          match = [ { host = [ "s3.nyaw.xyz" ]; } ];
-        }
-        {
-          handle = [
-            {
-              handler = "reverse_proxy";
-              upstreams = [ { dial = "localhost:2283"; } ];
-            }
-          ];
-          match = [ { host = [ "photo.nyaw.xyz" ]; } ];
-        }
-      ];
+      http.servers.srv0 = {
+        routes = [
+          {
+            handle = [
+              {
+                handler = "subroute";
+                routes = [
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:9000"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:2283"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "photo.nyaw.xyz" ]; } ];
+                  }
+                ];
+              }
+            ];
+            match = [ { host = [ "*.nyaw.xyz" ]; } ];
+          }
+        ];
+
+        tls_connection_policies = [
+          {
+            match = {
+              sni = [
+                "photo.nyaw.xyz"
+                "s3.nyaw.xyz"
+              ];
+            };
+            certificate_selection = {
+              any_tag = [ "cert0" ];
+            };
+            protocol_min = "tls1.3";
+          }
+        ];
+      };
 
       tls = {
         certificates.load_files = [
