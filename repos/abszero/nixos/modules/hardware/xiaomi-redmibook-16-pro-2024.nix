@@ -1,7 +1,8 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf singleton;
+  inherit (lib) mkIf;
+  inherit (lib.generators) toINI;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.hardware.xiaomi-redmibook-16-pro-2024;
 
@@ -90,6 +91,7 @@ in
         "usb_storage"
       ];
       kernelModules = [ "kvm-intel" ];
+      plymouth.extraConfig = toINI { } { Daemon.DeviceScale = 2; };
     };
 
     services.kanata.keyboards.xiaomi-redmibook-16-pro-2024 = keyboardCfg;

@@ -21,6 +21,7 @@ in
     abszero = {
       profiles.desktop.enable = true;
       hardware.keyboard.halo65.enable = true;
+      boot.plymouth.enable = true;
       virtualisation = {
         act.enable = true;
         libvirtd.enable = true;
@@ -42,8 +43,6 @@ in
         wireshark.enable = true;
       };
     };
-
-    boot.plymouth.enable = true;
 
     virtualisation.waydroid.enable = true;
 

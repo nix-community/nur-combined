@@ -20,9 +20,8 @@ in
   config.wayland.windowManager.hyprland = mkIf cfg.enable {
     plugins = with pkgs.hyprlandPlugins; [ hypr-dynamic-cursors ];
     settings.plugin.dynamic-cursors = {
-      mode = "stretch";
+      # mode = "stretch";
       shake = {
-        effects = true;
         threshold = 4; # Shake threshold
         base = 1; # Min magnification level
         speed = 2; # Magnification increase per second

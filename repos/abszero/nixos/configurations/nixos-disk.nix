@@ -37,7 +37,10 @@ let
         };
       };
 
-      themes.catppuccin.enable = true;
+      themes.catppuccin = {
+        enable = true;
+        plymouth.enable = true;
+      };
     };
 
     # BIOS-compatible GPT layout
