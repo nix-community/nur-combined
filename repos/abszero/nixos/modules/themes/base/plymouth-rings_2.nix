@@ -19,7 +19,9 @@ in
 
   config.boot.plymouth = mkIf cfg.rings_2 {
     enable = true;
-    themePackages = with pkgs; [ (plymouth-themes.override { themes0 = [ "rings_2" ]; }) ];
+    themePackages = with pkgs; [
+      (adi1090x-plymouth-themes.override { selected_themes = [ "rings_2" ]; })
+    ];
     theme = "rings_2";
   };
 }
