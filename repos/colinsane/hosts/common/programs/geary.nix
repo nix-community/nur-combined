@@ -25,7 +25,11 @@ in
 
     sandbox.wrapperType = "inplace";  #< XXX(2024-08-20): if executed from a directory different than the configured prefix, it fails to locate its sql migration files
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce (as per below; after xdg-dbus-proxy is made nestable)
+    # sandbox.whitelisDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
+    # sandbox.whitelistDbus.user.call."org.gnome.evolution.dataserver.*" = "*";
+    # sandbox.whitelistDbus.user.own = [ "org.gnome.Geary" ];
+    # sandbox.whitelistPortal = [ "FileChooser" "OpenURI" "Print" ];  #< unsure if all these are actually used
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # it shouldn't need these, but portal integration seems incomplete?

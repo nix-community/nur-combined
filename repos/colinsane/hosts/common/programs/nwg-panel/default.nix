@@ -197,7 +197,8 @@ in
     sandbox.whitelistDri = true;
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus.user = true;  # playerctl, swaync, ... (TODO: reduce)
+    sandbox.whitelistMpris.controlPlayers = true;
+    sandbox.whitelistDbus.user.call."org.erikreider.swaync.cc" = "*";
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby
@@ -205,7 +206,7 @@ in
       "/sys/devices"
     ];
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.keepPidsAndProc = true;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances.
+    sandbox.keepPidsAndProc = true;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances (TODO: fix to just exit on display attach?)
 
     services.nwg-panel = {
       description = "nwg-panel status/topbar for wayland";
