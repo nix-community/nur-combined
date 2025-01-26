@@ -60,6 +60,7 @@
           builtins.filter (
             path:
             (builtins.all (ignore: !(lib.hasSuffix ignore path)) [
+              "gemset.nix"
               "pkgs/applications/audio/zynaddsubfx/default.nix"
               "pkgs/tools/graphics/mangohud/default.nix"
             ])
