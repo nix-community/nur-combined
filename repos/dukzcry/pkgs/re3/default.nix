@@ -18,10 +18,10 @@ in stdenv.mkDerivation rec {
   version = "0.1";
 
   src = fetchFromGitHub {
-    owner = "GTAmodding";
+    owner = "halpz";
     repo = "re3";
-    rev = "a3964dfd4a6d84aded126f0314498b0da0aaf93a";
-    sha256 = "07aam7hjpcbjicjdik8qzn97r5zvn592c31q4lvx018vk8q43w8k";
+    rev = "310dd8637147c4db643107b69d603902abc78141";
+    sha256 = "sha256-/6VRXYT0fA7PitwK4GecpHPQiuLjDpMURfGUmjz8r0k=";
     fetchSubmodules = true;
   };
 
