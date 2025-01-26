@@ -338,16 +338,29 @@
     pki = {
       certificateFiles = [
         "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-        (pkgs.writeText "intermediate-ca-crt" ''
+        (pkgs.writeText "root-ca-crt" ''
           -----BEGIN CERTIFICATE-----
-          MIIBUzCCAQWgAwIBAgIUP8UkTXftIGYesR8cphR8GBYFN2YwBQYDK2VwMDgxETAP
-          BgNVBAoMCE1pbGlldWltMSMwIQYDVQQDDBpNaWxpZXVpbSBJbnRlcm1lZGlhdGUg
-          Q0EgMDAeFw0yNTAxMjYwNzIzMTFaFw0zNTAxMjQwNzIzMTFaMDgxETAPBgNVBAoM
-          CE1pbGlldWltMSMwIQYDVQQDDBpNaWxpZXVpbSBJbnRlcm1lZGlhdGUgQ0EgMDAq
-          MAUGAytlcAMhABi099u17BCn9ZjQhn5/8d6/XcmgrRDUTy96fKblSw8eoyEwHzAd
-          BgNVHQ4EFgQUBYyIB2/qaj4PCyLYjidQcc9Br3swBQYDK2VwA0EA5oWysMW+W5kX
-          5ngMDydhVKWIRnGGBTcEqQ82ooMPf3l8lUfy/Mc2HTOY8a+s8ItDrTW55aQHqdou
-          geX/vaiNBg==
+          MIIBZTCCARegAwIBAgIUK5cIP43nYTxkSom4car51xB2fyUwBQYDK2VwMC4xETAP
+          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMCAXDTI1
+          MDEyNjA3MzMxN1oYDzIxMjUwMTAyMDczMzE3WjAuMREwDwYDVQQKDAhNaWxpZXVp
+          bTEZMBcGA1UEAwwQTWlsaWV1aW0gUm9vdCBDQTAqMAUGAytlcAMhAPeokscNudjM
+          ghOCxZMw0lnzVWN73e4XZQObR6Z+jW/Co0UwQzAdBgNVHQ4EFgQU2FgDKiVfEizN
+          YB6Uo8v+JKVo4VUwEgYDVR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYw
+          BQYDK2VwA0EAek7DrIzml/QbQ0pvtKXtIguAu1LkS7dJEH11ywG60ZcNsSaASp4t
+          JnKJ63hPDuCvx1YlB6enilL3BMAs2CX2Dg==
+          -----END CERTIFICATE-----
+        '')
+        (pkgs.writeText "intermediate-ca-root-signed-crt" ''
+          -----BEGIN CERTIFICATE-----
+          MIIBjjCCAUCgAwIBAgIUAf5RM0UXJbedoKBU9/Y0EVmqSbIwBQYDK2VwMC4xETAP
+          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMB4XDTI1
+          MDEyNjA3MzMyNVoXDTM1MDEyNDA3MzMyNVowODERMA8GA1UECgwITWlsaWV1aW0x
+          IzAhBgNVBAMMGk1pbGlldWltIEludGVybWVkaWF0ZSBDQSAwMCowBQYDK2VwAyEA
+          GLT327XsEKf1mNCGfn/x3r9dyaCtENRPL3p8puVLDx6jZjBkMB0GA1UdDgQWBBQF
+          jIgHb+pqPg8LItiOJ1Bxz0GvezASBgNVHRMBAf8ECDAGAQH/AgEAMA4GA1UdDwEB
+          /wQEAwIBBjAfBgNVHSMEGDAWgBTYWAMqJV8SLM1gHpSjy/4kpWjhVTAFBgMrZXAD
+          QQCcIPEDv+MnFYdJbieRm1G71nEqLIX2rkM7YS/x/bTGxHULU+xXrd58HxnvgsEC
+          6W6K1xxOgeRgbxm9SR8eWuYK
           -----END CERTIFICATE-----
         '')
       ];
