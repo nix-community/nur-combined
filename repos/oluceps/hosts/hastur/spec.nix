@@ -25,6 +25,7 @@
     # fwupd.enable = true;
     harmonia = {
       enable = true;
+      settings.bind = "0.0.0.0:5000";
       signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
     };
     realm = {
