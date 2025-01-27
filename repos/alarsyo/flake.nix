@@ -74,6 +74,10 @@
           home-manager.users.alarsyo = import ./home;
           home-manager.verbose = true;
         };
+        nix-registry = {
+          nix.registry.nixpkgs.flake = nixpkgs;
+          nix.registry.unstable.flake = inputs.nixpkgs-unstable-small;
+        };
       };
 
       overlays = import ./overlays;
