@@ -22,10 +22,24 @@
   json = formats.json { };
   toml = formats.toml { };
 
-  normalizedPackages = lib.filterAttrs (name: drv: let
-    hasUrl = drv ? src && drv.src ? url;
-    hasSource = sources ? ${name};
-  in hasUrl || hasSource) packages;
+  normalizedPackages = let
+    checks = [
+      {
+        check = name: drv: drv ? src && drv.src ? url;
+        message = "No URL provided";
+      }
+      {
+        check = name: drv: if lib.hasInfix "unstable" drv.name
+          then drv ? src && drv.src ? rev
+          else drv ? version;
+        message = "No revision or version";
+      }
+    ];
+  in lib.filterAttrs (name: drv: let
+    failed = map (x: x.message) (lib.filter (x: !(x.check name drv)) checks);
+    failedStr = lib.concatMapStringsSep "\n" (msg: "- ${msg}") failed;
+  in if failed == [ ] || lib.hasAttr name sources then true
+  else lib.trace "warning: ${name}\n${failedStr}" false) packages;
 
   oldVerFile = let
     data = {
@@ -114,5 +128,6 @@
   } // entries;
   configFile = toml.generate "nvchecker.toml" config;
 in writeShellScript name ''
+  echo "Config file: ${configFile}"
   ${nvchecker}/bin/nvchecker --file ${configFile} "$@"
 ''
