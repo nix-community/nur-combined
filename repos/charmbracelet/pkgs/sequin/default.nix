@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0dzln7rb9gcrx505vwbn0ki00n86z50rkvrymkvvp8jc9q5nm219";
-    x86_64-linux = "1brxn43hiwqq6v02jkc377316svrgvqzj8cim199s4b45009sphz";
-    armv7l-linux = "0rm8cml388vfz5kmh68f5nmhrb6b5rcxw94j27vqnjiybzwxiayd";
-    aarch64-linux = "1ypllklfhnr6h2q5l547j3lz16z1s9fk6snvi5k03kmb1msd1cnp";
-    x86_64-darwin = "0w943fm8djhi09rypvfhknx65567v3i8ac96xhdzrmf381pj4wyf";
-    aarch64-darwin = "1prgywzl99di0lvc3qjh2x2kkhifh1rpy0c26dxlzdw955ryfs9k";
+    i686-linux = "097zy8clnww76v2yjkvvn8k9bwgwywld4kbk89s7q1r4ba25wnjj";
+    x86_64-linux = "10kgal9c08bbw8p63pv9ficzimc5kv5jkss7szsgx811hhvz39b2";
+    armv7l-linux = "0ic8skbaxg3s04vpw4qaz4ky6x1yrz95cq8vi83gmin5ac6bdbnm";
+    aarch64-linux = "179nvybbjhimfb00gi25zb4c9i71nx07fnsd7mdwndrylxv6zx95";
+    x86_64-darwin = "11a6kz373s365xbmdwxjg319v7anjzmkp23hacwnqvv7zb09hwpn";
+    aarch64-darwin = "1w3q3rjv7x456a2vycb5cfjbns9wcql6k0vdpizw452dpcf42rhm";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/sequin/releases/download/v0.3.0/sequin_0.3.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/sequin/releases/download/v0.3.1/sequin_0.3.1_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "sequin_0.3.0_Linux_i386";
-    x86_64-linux = "sequin_0.3.0_Linux_x86_64";
-    armv7l-linux = "sequin_0.3.0_Linux_arm";
-    aarch64-linux = "sequin_0.3.0_Linux_arm64";
-    x86_64-darwin = "sequin_0.3.0_Darwin_x86_64";
-    aarch64-darwin = "sequin_0.3.0_Darwin_arm64";
+    i686-linux = "sequin_0.3.1_Linux_i386";
+    x86_64-linux = "sequin_0.3.1_Linux_x86_64";
+    armv7l-linux = "sequin_0.3.1_Linux_arm";
+    aarch64-linux = "sequin_0.3.1_Linux_arm64";
+    x86_64-darwin = "sequin_0.3.1_Darwin_x86_64";
+    aarch64-darwin = "sequin_0.3.1_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "sequin";
-  version = "0.3.0";
+  version = "0.3.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
