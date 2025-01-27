@@ -12,7 +12,7 @@ in rustPlatform.buildRustPackage rec {
         hash = "sha256-2jXBJijMUn3G/MbTkVgrf21rUtCN2/ul+6TOmYuKZxw=";
     };
 
-    cargoHash = "sha256-D0akMVaGbZ3HSzJVumvVROlMr4evHM41JBKk5HmgXv4=";
+    cargoHash = "sha256-/p+pkgts19fpmf4dGuYCj3t5Lb3YZ/GSowhEA2aIkP8=";
 
     postInstall =
         ''
