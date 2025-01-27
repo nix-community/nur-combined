@@ -12,7 +12,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ccc = pkgs.callPackage ./pkgs/ccc {};
-  devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli {};
+  # devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli {};
   hybrid-bar = pkgs.callPackage ./pkgs/hybrid-bar {};
   pokemon-colorscripts = pkgs.callPackage ./pkgs/pokemon-colorscripts {};
   vramfs = pkgs.callPackage ./pkgs/vramfs {};
