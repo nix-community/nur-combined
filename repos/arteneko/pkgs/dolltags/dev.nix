@@ -2,7 +2,7 @@
 let
   rev = "f7da45312aa118ae88010831864b4bb74043a066";
 in rustPlatform.buildRustPackage rec {
-    pname = "dolltags";
+    pname = "dolltags-dev";
     version = "dev-${rev}";
 
     src = fetchFromSourcehut {
