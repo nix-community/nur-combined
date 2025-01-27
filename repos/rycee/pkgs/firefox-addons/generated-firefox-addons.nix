@@ -984,10 +984,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.7.0";
+      version = "0.7.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4421115/bilisponsorblock-0.7.0.xpi";
-      sha256 = "bb50a0d651990df0f8492331ec3cc566cb31cbaf765645eda295ba9892d56447";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4426011/bilisponsorblock-0.7.1.xpi";
+      sha256 = "0b0176ba1908ffb944e406b201af7287d16d7d711a16fba0d79dcdd28ffe7c9b";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -3195,7 +3195,7 @@
       sha256 = "138cbf38ec97c13ed00ad4b3753739896ba102b07ee9fdd789ca5561235273d0";
       meta = with lib;
       {
-        homepage = "https://github.com/erosman/support/issues";
+        homepage = "https://github.com/erosman/firemonkey";
         description = "Super Lightweight User Script and Style Manager";
         license = licenses.mpl20;
         mozPermissions = [
