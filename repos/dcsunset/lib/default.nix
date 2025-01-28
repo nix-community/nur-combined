@@ -51,6 +51,11 @@ rec {
     padding = if padLen > 0 then strings.replicate padLen char else "";
   in padding + str;
 
+  # substitute vars in string
+  # (e.g. { a = "value"; } will substitute string @a@ to value
+  substituteVars = vars: str: let
+    zipped = lib.zipAttrs (lib.attrsToList vars);
+  in builtins.replaceStrings (map (v: "@${v}@") zipped.name) zipped.value str;
 
   ### Network
 
