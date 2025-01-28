@@ -1,11 +1,11 @@
 { fetchFromGitHub, fetchzip, lib, enet, hostPlatform, maintainers }: rec {
     pname = "lix-game";
-    version = "0.10.28";
+    version = "0.10.29";
     src = fetchFromGitHub {
         owner = "SimonN";
         repo = "LixD";
         rev = "v${version}";
-        hash = "sha256-zQ+IRbOZ+qG7anzZ+2Jx+uPp+pvjCmmM8Jxf0GZGvSs=";
+        hash = "sha256-R6iRjov21GmzvwX5/a9C7GPu1VE8g/JnGP9z/q4k6ew=";
     };
     assetsHash = "sha256-wyqIBsWuo8xc9tgvE4VKQhnOg7YAhF6+U04tXLt7e6g=";
     assetsPNG32Hash = "sha256-GICiOXd/Hmke78jKymxQOSHxAJAi9Bz5qHnFzTYDqqU=";
