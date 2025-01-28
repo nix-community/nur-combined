@@ -57,6 +57,7 @@
     calibre.enable = true;
     immich.enable = true;
     radicle.enable = true;
+    autosign.enable = true;
   };
 
   services = {

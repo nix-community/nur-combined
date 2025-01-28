@@ -17,6 +17,10 @@ in
         file = ../../sec/meilisearch.age;
         mode = "444";
       };
+      autosign = {
+        file = ../../sec/autosign.age;
+        mode = "400";
+      };
       misskey = {
         file = ../../sec/misskey.age;
         mode = "400";
