@@ -3,18 +3,18 @@
 let
   inherit (builtins) toJSON;
   inherit (config) host;
-  inherit (lib) concatLines mapAttrsToList;
+  inherit (lib) concatLines filterAttrs mapAttrsToList;
 
-  toUserJs = kv: concatLines (mapAttrsToList (k: v: "user_pref(${toJSON k}, ${toJSON v});") kv);
+  toUserJs = kv: concatLines (mapAttrsToList
+    (k: v: "user_pref(${toJSON k}, ${toJSON v});")
+    (filterAttrs (k: v: v != null) kv));
 in
 {
   home.packages = with pkgs; [
     firefox
   ];
 
-  home.file.".mozilla/firefox/${host.firefoxProfile}/chrome/userChrome.css".source = ../resources/userChrome.css;
-
-  home.file.".mozilla/firefox/${host.firefoxProfile}/user.js".text = toUserJs {
+  host.firefox.settings = {
     # Persist session
     "browser.sessionstore.warnOnQuit" = true;
     "browser.startup.page" = 3 /* restore session */;
@@ -127,4 +127,8 @@ in
     # Enable pre-release CSS
     "layout.css.has-selector.enabled" = true;
   };
+
+  home.file.".mozilla/firefox/${host.firefox.profile}/chrome/userChrome.css".source = ../resources/userChrome.css;
+
+  home.file.".mozilla/firefox/${host.firefox.profile}/user.js".text = toUserJs host.firefox.settings;
 }

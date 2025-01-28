@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ makeWrapper python3 ];
 
-  installPhase = ''
+  postInstall = ''
     mkdir --parents $out
     cp --recursive $src/lib $out/lib
 

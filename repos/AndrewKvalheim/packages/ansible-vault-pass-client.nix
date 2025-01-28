@@ -26,7 +26,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ python3 ];
 
-  installPhase = ''
+  postInstall = ''
     install -D -t $out/bin/ ansible-vault-pass-client
   '';
 

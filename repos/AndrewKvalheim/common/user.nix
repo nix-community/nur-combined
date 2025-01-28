@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkOption;
-  inherit (lib.types) int path str;
+  inherit (lib.types) attrsOf bool commas int nullOr oneOf path str submodule;
 
   identity = import ./resources/identity.nix;
 in
@@ -31,7 +31,21 @@ in
     cores = mkOption { type = int; };
     display_density = mkOption { type = int; };
     display_width = mkOption { type = int; };
-    firefoxProfile = mkOption { type = str; };
+    firefox = mkOption {
+      type = submodule {
+        options = {
+          profile = mkOption { type = str; };
+          settings = mkOption {
+            type = submodule {
+              freeformType = attrsOf (nullOr (oneOf [ bool int str ]));
+              options = {
+                "network.trr.excluded-domains" = mkOption { type = nullOr commas; default = null; };
+              };
+            };
+          };
+        };
+      };
+    };
     local = mkOption { type = path; };
   };
 

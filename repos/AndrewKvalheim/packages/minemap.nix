@@ -1,4 +1,5 @@
-{ fetchurl
+{ copyDesktopItems
+, fetchurl
 , fetchFromGitHub
 , imagemagick
 , lib
@@ -29,28 +30,29 @@ stdenv.mkDerivation rec {
     hash = "sha256-FNCVw0Dj0FXl0dgmzpH+s8PH8DIUq4qwJBnjpQIGgMs=";
   };
 
-  desktopItem = makeDesktopItem {
-    categories = [ "Utility" "Viewer" ];
-    genericName = "Minecraft seed viewer";
-    desktopName = "Minemap";
-    name = pname;
-    icon = pname;
-    exec = meta.mainProgram;
-  };
+  desktopItems = [
+    (makeDesktopItem {
+      categories = [ "Utility" "Viewer" ];
+      genericName = "Minecraft seed viewer";
+      desktopName = "Minemap";
+      name = pname;
+      icon = pname;
+      exec = meta.mainProgram;
+    })
+  ];
 
-  nativeBuildInputs = [ imagemagick makeWrapper ];
+  nativeBuildInputs = [ copyDesktopItems imagemagick makeWrapper ];
   buildPhase = ''
     magick $iconSrc/logo.png -crop '68x68+44+7' +repage \
       \( +clone -crop '4x38+0+22' -geometry '+64+26' -flop \) \
       -compose copy -composite -filter 'point' -resize '200%' ${pname}.png
   '';
-  installPhase = ''
+  postInstall = ''
     install -D $src $out/share/${pname}.jar
     makeWrapper ${jre}/bin/java $out/bin/${pname} \
       --add-flags "-jar $out/share/${pname}.jar"
 
     install -D -t $out/share/icons ${pname}.png
-    install -D -t $out/share/applications ${desktopItem}/share/applications/*
   '';
 
   passthru.updateScript = nix-update-script { };

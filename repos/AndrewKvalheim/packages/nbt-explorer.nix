@@ -1,4 +1,5 @@
-{ fetchzip
+{ copyDesktopItems
+, fetchzip
 , fetchFromGitHub
 , lib
 , makeDesktopItem
@@ -29,18 +30,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-Hq3VYZ4IztUghN2AqYB7KZIALfoinMDyEn2MjQ9eilE=";
   };
 
-  desktopItem = makeDesktopItem {
-    categories = [ "Utility" ];
-    genericName = "Minecraft data editor";
-    desktopName = "NBTExplorer";
-    name = pname;
-    icon = pname;
-    exec = meta.mainProgram;
-  };
+  desktopItems = [
+    (makeDesktopItem {
+      categories = [ "Utility" ];
+      genericName = "Minecraft data editor";
+      desktopName = "NBTExplorer";
+      name = pname;
+      icon = pname;
+      exec = meta.mainProgram;
+    })
+  ];
 
   phases = [ "installPhase" "patchPhase" ];
-  nativeBuildInputs = [ makeWrapper ];
-  installPhase = ''
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  postInstall = ''
     mkdir -p $out/lib
     cp --target-directory $out/lib \
       $src/NBTExplorer.exe \
@@ -52,7 +55,6 @@ stdenv.mkDerivation rec {
       --suffix LD_LIBRARY_PATH : ${gtk2-x11}/lib
 
     install -D $iconSrc/NBTExplorer/Resources/Dead_Bush_256.png $out/share/icons/${pname}.png
-    install -D -t $out/share/applications ${desktopItem}/share/applications/*
   '';
 
   # FIXME: “replace() argument 1 must be str, not None” at nix_update/update.py:39

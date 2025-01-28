@@ -50,7 +50,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ makeWrapper ];
 
-  installPhase = ''
+  postInstall = ''
     install -D -m755 -t $out/bin diff-image git_diff_image
     wrapProgram $out/bin/diff-image --prefix PATH : ${diffImagePath}
     wrapProgram $out/bin/git_diff_image --prefix PATH : ${gitDiffImagePath}

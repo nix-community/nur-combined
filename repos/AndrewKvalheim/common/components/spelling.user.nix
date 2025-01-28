@@ -25,7 +25,7 @@ in
   };
 
   # Firefox
-  home.file.".mozilla/firefox/${host.firefoxProfile}/persdict.dat".source = formats.plaintext;
+  home.file.".mozilla/firefox/${host.firefox.profile}/persdict.dat".source = formats.plaintext;
 
   # Obsidian
   xdg.configFile."obsidian/Custom Dictionary.txt".source = formats.chromium;

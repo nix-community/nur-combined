@@ -840,6 +840,7 @@ paperkey
 PaperWM
 paprikash
 papyrologist
+parenthesize
 Pasayten
 passthrough
 passwordless
@@ -1311,6 +1312,7 @@ unmuted
 unoptimized
 unpaginate
 unpaginating
+unparenthesize
 unpermitted
 unpinnable
 unprefixed

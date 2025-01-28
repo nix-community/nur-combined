@@ -6,10 +6,10 @@ let
   inherit (lib) foldlAttrs imap0 nameValuePair;
   inherit (lib.generators) toKeyValue;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
+  inherit (pkgs) onlyBin;
+  inherit (pkgs.writers) writeTOML;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
-
-  toTOML = (pkgs.formats.toml { }).generate;
 in
 {
   imports = [
@@ -51,6 +51,7 @@ in
     home.packages = with pkgs; [
       add-words
       audacious
+      bacon
       binsider
       cavif
       darktable
@@ -86,7 +87,7 @@ in
       just
       just-local
       killall
-      libwebp # cwebp
+      (onlyBin libwebp) # cwebp
       lsof
       magic-wormhole
       miller
@@ -157,14 +158,14 @@ in
       VAGRANT_APT_CACHE = "http://10.0.2.3:3142";
     };
     xdg.configFile."autostart/com.tomjwatson.Emote.desktop".source = "${pkgs.emote}/share/applications/com.tomjwatson.Emote.desktop";
-    xdg.configFile."cargo-release/release.toml".source = toTOML "release.toml" {
+    xdg.configFile."cargo-release/release.toml".source = writeTOML "release.toml" {
       push = false;
       publish = false;
       pre-release-commit-message = "Version {{version}}";
       tag-message = "Version {{version}}";
     };
     home.file.".npmrc".text = toKeyValue { } { fund = false; update-notifier = false; };
-    xdg.configFile."rustfmt/rustfmt.toml".source = toTOML "rustfmt.toml" {
+    xdg.configFile."rustfmt/rustfmt.toml".source = writeTOML "rustfmt.toml" {
       condense_wildcard_suffixes = true;
       # error_on_unformatted = true; # Pending rust-lang/rustfmt#3392
       use_field_init_shorthand = true;

@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   doCheck = true;
   checkPhase = "python3 spf-check.py --help > /dev/null";
 
-  installPhase = ''
+  postInstall = ''
     install -D spf-check.py $out/bin/spf-check
   '';
 

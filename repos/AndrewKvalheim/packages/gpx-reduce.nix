@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   doCheck = true;
   checkPhase = "python3 gpx_reduce.py --help > /dev/null";
 
-  installPhase = ''
+  postInstall = ''
     install -D gpx_reduce.py $out/bin/gpx_reduce
   '';
 

@@ -15,7 +15,7 @@
     cores = 16;
     display_density = 2;
     display_width = 3840;
-    firefoxProfile = "ahrdm58c.default";
+    firefox.profile = "ahrdm58c.default";
     local = ./local;
   };
 
