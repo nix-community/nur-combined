@@ -473,50 +473,10 @@ in with final; {
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
-  # 2025/01/25: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376815>
-  # mutter = super.mutter.overrideAttrs (orig: {
-  #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
-  #   # N.B.: not all of this suitable to upstreaming, as-is.
-  #   # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
-  #   nativeBuildInputs = lib.subtractLists [ mesa xorg.xorgserver ] orig.nativeBuildInputs;
-  #   buildInputs = orig.buildInputs ++ [
-  #     mesa  # fixes "meson.build:237:2: ERROR: Dependency "gbm" not found, tried pkgconfig"
-  #     libGL  # fixes "meson.build:184:11: ERROR: Dependency "gl" not found, tried pkgconfig and system"
-  #   ];
-  #   # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
-  #   mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
-  #   outputs = lib.remove "devdoc" orig.outputs;
-  #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
-  # });
-
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   # 2025/01/13: upstreaming is unblocked by deps; but turns out to not be this simple
   # ncftp = addNativeInputs [ bintools ] prev.ncftp;
-
-  # fixes "gdbus-codegen: command not found"
-  # fixes "gtk4-builder-tool: command not found"
-  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
-  # networkmanager-l2tp = addNativeInputs [ gtk4 ]
-  #   (mvToNativeInputs [ glib ] prev.networkmanager-l2tp);
-  # fixes "properties/gresource.xml: Permission denied"
-  #   - by providing glib-compile-resources
-  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
-  # networkmanager-openconnect = mvToNativeInputs [ glib ] prev.networkmanager-openconnect;
-  # fixes "properties/gresource.xml: Permission denied"
-  #   - by providing glib-compile-resources
-  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
-  # networkmanager-openvpn = mvToNativeInputs [ glib ] prev.networkmanager-openvpn;
-  # 2025/01/24: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/376687>
-  # networkmanager-sstp = (
-  #   # fixes "gdbus-codegen: command not found"
-  #   mvToNativeInputs [ glib ] (
-  #     # fixes gtk4-builder-tool wrong format
-  #     addNativeInputs [ gtk4.dev ] prev.networkmanager-sstp
-  #   )
-  # );
-  # 2025/01/25: upstreaming is blocked on vpnc; both are out for review: <https://github.com/NixOS/nixpkgs/pull/376860>
-  # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
 
   # 2024/11/19: upstreaming is unblocked
   newsflash = (prev.newsflash.override {
@@ -923,11 +883,6 @@ in with final; {
   #     BUILDCC = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
   #   };
   # });
-
-  # fixes "perl: command not found"
-  # 2025/01/25: upstreaming is unblocked, out for review: <https://github.com/NixOS/nixpkgs/pull/376860>
-  # - proper fix (as done in PR) is more involved
-  # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 
   # 2024/08/12: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)

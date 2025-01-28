@@ -63,6 +63,14 @@ let
       makeBinaryWrapper
       makeShellWrapper
     ] ++ (unwrapped.nativeBuildInputs or []);
+    # XXX(2025-01-28): i think nativeBuildInputs aren't on PATH during installCheck phase?
+    # so add the fake sandboxer here too to make version checks work
+    nativeCheckInputs = [
+      fakeSaneSandboxed
+    ];
+    nativeInstallCheckInputs = [
+      fakeSaneSandboxed
+    ];
     disallowedReferences = (unwrapped.disallowedReferences or []) ++ [
       # the fake sandbox gates itself behind BUNPEN_DISABLE, so if it did end up deployed
       # then it wouldn't permit anything not already permitted. but it would still be annoying.

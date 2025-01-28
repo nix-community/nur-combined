@@ -47,12 +47,6 @@ in
   # })
 
   (fetchpatch' {
-    name = "blueberry: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/376884";
-    hash = "sha256-BYD9Xr9bh8xJxWEvTa2asSsaJbgTLItFsdtIH/7kq4s=";
-  })
-
-  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
@@ -65,12 +59,6 @@ in
   #   name = "stepmania: wrap the program so it knows where to find its data files";
   #   saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";
   #   hash = "sha256-43zxnbUJuGXThadHoQRi6cevD7SFSZejWj324V6eBpw=";
-  # })
-
-  # (fetchpatch' {
-  #   name = "unl0kr: 2.0.0 -> 3.2.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/319126";
-  #   hash = "sha256-frSOcOQs6n+++w95DWz92H8SVwrs8ZJyJ1KHwOQ6ql8=";
   # })
 
   # (fetchpatch' {
