@@ -20,6 +20,7 @@ in
 
     "192.168.1.16" = [
       "eihort.nyaw.xyz"
+      "matrix.nyaw.xyz"
       "photo.nyaw.xyz"
       "s3.nyaw.xyz"
     ];
@@ -35,6 +36,7 @@ in
     "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
     "192.168.1.16" = [
       "eihort.nyaw.xyz"
+      "matrix.nyaw.xyz"
       "photo.nyaw.xyz"
     ];
     "10.0.4.6" = [

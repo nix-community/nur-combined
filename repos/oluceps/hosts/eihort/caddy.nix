@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   repack.reuse-cert.enable = false;
   systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
@@ -33,6 +38,10 @@
                     ];
                     match = [ { host = [ "photo.nyaw.xyz" ]; } ];
                   }
+                  (import ../caddy-matrix.nix {
+                    inherit pkgs;
+                    matrix-upstream = "localhost:6167";
+                  })
                 ];
               }
             ];

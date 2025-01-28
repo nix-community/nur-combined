@@ -146,7 +146,7 @@
         };
 
         hostname = {
-          ssh_only = true;
+          ssh_only = false;
           format = "[$hostname]($style) ";
           style = "#91b493";
         };
