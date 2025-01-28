@@ -600,14 +600,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "43e3cfff7ee119cd8b93768cd885c5413ff951b8";
+    version = "5886c0a3a05ea969c9cbb68d9e1fb7f741d00a13";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "43e3cfff7ee119cd8b93768cd885c5413ff951b8";
-      hash = "sha256-ZLxRl1Wgb2G6V+VuPLU6qLWMsEJrJEeYA4e5wr5MfqA=";
+      rev = "5886c0a3a05ea969c9cbb68d9e1fb7f741d00a13";
+      hash = "sha256-yiqQN1/qrgkiQtn4N5WCVrZi5SIK/NgGqgIPrgpHXzk=";
     };
-    date = "2025-01-22";
+    date = "2025-01-27";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -757,14 +757,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "64bceb37fafa9b90cf228965079de9ebd77a83b9";
+    version = "6a16ac68b59423b4b0068f9faf97cc5162f6d453";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "64bceb37fafa9b90cf228965079de9ebd77a83b9";
-      hash = "sha256-B9h5dSFtszxlfrUqt6n9OOpcyX6Bl4nAoLm/zBL3+2s=";
+      rev = "6a16ac68b59423b4b0068f9faf97cc5162f6d453";
+      hash = "sha256-1I3r3rBluQW9OjGinKLLKN6Gf1kp+bw/4yWzkk8AuQI=";
     };
-    date = "2025-01-15";
+    date = "2025-01-27";
   };
   libqcef = {
     pname = "libqcef";
@@ -823,12 +823,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.13.0-xanmod1";
+    version = "6.13.0-xanmod2";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.13.0-xanmod1";
+      tag = "6.13.0-xanmod2";
       fetchSubmodules = false;
-      hash = "sha256-eEKKXIbjW2Lo89AN6Ay6KzoGGgbXQsrgzaDnh7Zsees=";
+      hash = "sha256-SVMYGFMHrfn4LCqYvBkJNgm6re7+76QxaikSx0TBMqc=";
     };
   };
   linux-xanmod-6_0 = {
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4549";
+    version = "b4569";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4549";
-      hash = "sha256-QYlCfBv1e4RtMdq3jQoHY7PETWzqIjkN2BZlgNMpwvU=";
+      tag = "b4569";
+      hash = "sha256-dedaq/IaPVNW9qK67haiWv/ivkqS/X/Ts8Sfy2VofOU=";
     };
   };
   loralib = {
@@ -1671,12 +1671,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v3.6.0";
+    version = "v3.7.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v3.6.0";
-      hash = "sha256-e8RIFTSMwFdyNwacU6Be48FqjGMOmGRVRFigogTawls=";
+      tag = "v3.7.0";
+      hash = "sha256-+3iSBWEZao3p0GwxIK45xUXXSxBNKdooURZIJn+inls=";
     };
   };
   soggy = {
@@ -1889,14 +1889,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "68e757cf578fa4b9d27222f452c49f6875a09abe";
+    version = "e07de17c717949250bfe721577d2291e1b57e0de";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "68e757cf578fa4b9d27222f452c49f6875a09abe";
-      hash = "sha256-AMb4aOIL2YO8afhhwamPhAQsymiYYY6wkWd2q2LvCwc=";
+      rev = "e07de17c717949250bfe721577d2291e1b57e0de";
+      hash = "sha256-UVClC3KBLCCWGv6PRoGTFC30oaLLePlc96U+z1ua31E=";
     };
-    date = "2025-01-23";
+    date = "2025-01-26";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
