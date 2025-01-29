@@ -137,6 +137,27 @@
           }
         ];
       };
+
+      wg1 = {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg1";
+          MTUBytes = "1300";
+        };
+        wireguardConfig = {
+          PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
+        };
+        wireguardPeers = [
+          {
+            wireguardPeerConfig = {
+              PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+              Endpoint = "162.159.192.1:2408";
+              AllowedIPs = [ "::/0" ];
+              PersistentKeepalive = 15;
+            };
+          }
+        ];
+      };
     };
 
     networks = {
@@ -161,6 +182,24 @@
           }
           {
             Destination = "10.0.3.0/24";
+            Scope = "link";
+          }
+        ];
+      };
+      "15-wg1" = {
+        matchConfig.Name = "wg1";
+        address = [
+          "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
+        ];
+        networkConfig = {
+          IPMasquerade = "ipv6";
+          IPv4Forwarding = true;
+        };
+
+        routes = [
+          {
+            Destination = "::/0";
+            Gateway = "fe80::1";
             Scope = "link";
           }
         ];

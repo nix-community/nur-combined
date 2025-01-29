@@ -27,6 +27,12 @@ in
         name = "hyst-us.yaml";
       };
 
+      wgy-warp = {
+        file = ../../sec/wgy-warp.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
+      };
       # factorio-server = {
       #   file = ../../sec/factorio-server.age;
       #   mode = "640";
