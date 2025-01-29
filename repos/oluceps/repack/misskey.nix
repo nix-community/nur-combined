@@ -19,6 +19,7 @@ reIf {
     wantedBy = [ "multi-user.target" ];
     environment = {
       MISSKEY_CONFIG_YML = "/run/credentials/misskey.service/config";
+      NODE_OPTIONS = "--use-openssl-ca";
     };
     serviceConfig = {
       LoadCredential = [ "config:${config.vaultix.secrets.misskey.path}" ];
