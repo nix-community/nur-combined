@@ -54,6 +54,13 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jujutsu = {
+      type = "github";
+      owner = "jj-vcs";
+      repo = "jj";
+      ref = "v0.25.0";
+    };
   };
 
   outputs = {
@@ -97,6 +104,7 @@
             })
 
             agenix.overlays.default
+            inputs.jujutsu.overlays.default
           ]
           ++ builtins.attrValues self.overlays;
         sharedModules =
