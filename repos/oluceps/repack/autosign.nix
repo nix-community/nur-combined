@@ -1,4 +1,5 @@
 {
+  user,
   pkgs,
   config,
   lib,
@@ -21,7 +22,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    systemd.timers.autosign = {
+    systemd.user.timers.autosign = {
       description = "autosign";
       wantedBy = [ "timers.target" ];
       timerConfig = {
@@ -30,7 +31,7 @@ in
         Persistent = true;
       };
     };
-    systemd.services.autosign = {
+    systemd.user.services.autosign = {
       after = [
         "network-online.target"
         "nss-lookup.target"
@@ -43,14 +44,14 @@ in
       restartIfChanged = false;
       serviceConfig = {
         Type = "oneshot";
-        DynamicUser = true;
+        # DynamicUser = true;
         ExecStart =
           let
             scriptPath = ../script/autosign.ts;
           in
           "${lib.getExe pkgs.deno} run --allow-env --allow-net --no-check ${scriptPath}";
-        Environment = cfg.environmentFile;
-        Restart = "on-failure";
+        EnvironmentFile = cfg.environmentFile;
+        Restart = "no";
       };
     };
   };

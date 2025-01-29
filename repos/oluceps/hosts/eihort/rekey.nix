@@ -20,6 +20,7 @@ in
       autosign = {
         file = ../../sec/autosign.age;
         mode = "400";
+        owner = user;
       };
       misskey = {
         file = ../../sec/misskey.age;
