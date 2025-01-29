@@ -657,7 +657,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-01-27"
+    "version": "0-unstable-2025-01-28"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -717,7 +717,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-01-27"
+    "version": "0-unstable-2025-01-28"
   },
   "legacyPackages.x86_64-linux.kernel-modules.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
@@ -787,7 +787,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4569"
+    "version": "4581"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3657,7 +3657,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.21.2"
+    "version": "1.21.4"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -4547,7 +4547,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.21.2"
+    "version": "1.21.4"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -4887,7 +4887,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-01-27"
+    "version": "0-unstable-2025-01-28"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -5467,7 +5467,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.21.2"
+    "version": "1.21.4"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",

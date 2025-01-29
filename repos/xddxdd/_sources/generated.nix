@@ -206,14 +206,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d8cd6762c0b3329164d15bb1223df8a9abcfc40b";
+    version = "87e9ac4a0f9f5d190deab6db0bad361c4cae05b7";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d8cd6762c0b3329164d15bb1223df8a9abcfc40b";
-      hash = "sha256-lRExZulSSD/IVVrWe+4MR3VGJeQJ46CSsz/XdK989lo=";
+      rev = "87e9ac4a0f9f5d190deab6db0bad361c4cae05b7";
+      hash = "sha256-gTwAjVvjiFdjnRkaQg0z8v3gOQl/lNvF5MA6+nwu4Ws=";
     };
-    date = "2025-01-21";
+    date = "2025-01-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -600,14 +600,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "5886c0a3a05ea969c9cbb68d9e1fb7f741d00a13";
+    version = "5d81c8a02c3b59c770e5efb5815bf5c861effdfb";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "5886c0a3a05ea969c9cbb68d9e1fb7f741d00a13";
-      hash = "sha256-yiqQN1/qrgkiQtn4N5WCVrZi5SIK/NgGqgIPrgpHXzk=";
+      rev = "5d81c8a02c3b59c770e5efb5815bf5c861effdfb";
+      hash = "sha256-8cHPTP1EXnkun3t4xdP5JbBoKoyVoo7qhUwnqfN8gHw=";
     };
-    date = "2025-01-27";
+    date = "2025-01-28";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4569";
+    version = "b4581";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4569";
-      hash = "sha256-dedaq/IaPVNW9qK67haiWv/ivkqS/X/Ts8Sfy2VofOU=";
+      tag = "b4581";
+      hash = "sha256-xjKWANQQhuotG13Z85+04qSVI/B+tojoD5wIBWXUMBo=";
     };
   };
   loralib = {
@@ -1950,12 +1950,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.21.2";
+    version = "1.21.4";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.21.2";
-      hash = "sha256-2o0f9pPQ0MxDE60V7woqV3HfwU72KBmeY95mPuIji9s=";
+      tag = "1.21.4";
+      hash = "sha256-lLaqA3V+bVdoMidEYbcuEh5RROR9DJ58y+BxPtj9V6w=";
     };
   };
   vgpu-unlock-rs = {
