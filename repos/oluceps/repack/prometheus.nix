@@ -103,15 +103,21 @@ reIf {
           };
           static_configs = [
             {
-              targets = [
-                "https://nyaw.xyz"
-                "https://blog.nyaw.xyz"
-                "https://ntfy.nyaw.xyz"
-                "https://matrix.nyaw.xyz"
-                "https://pb.nyaw.xyz"
-                "https://vault.nyaw.xyz"
-                "https://status.nyaw.xyz"
-              ];
+              targets =
+                [
+                  "https://nyaw.xyz"
+                ]
+                ++ map (pre: "https://${pre}.nyaw.xyz") [
+                  "blog"
+                  "ntfy"
+                  "matrix"
+                  "pb"
+                  "vault"
+                  "status"
+                  "book"
+                  "cache"
+                  "photo"
+                ];
             }
           ];
           inherit relabel_configs;
