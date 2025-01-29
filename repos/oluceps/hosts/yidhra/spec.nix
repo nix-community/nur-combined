@@ -34,7 +34,7 @@
     sing-server.enable = true;
     dnsproxy = {
       enable = true;
-      extraFlags = [ "--ipv6-disabled" ];
+      # extraFlags = [ "--ipv6-disabled" ];
     };
     rustypaste.enable = true;
     reuse-cert.enable = true;
