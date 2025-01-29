@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  boost,
+  boost186,
 }:
 
 stdenv.mkDerivation {
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost ];
+  buildInputs = [ boost186 ];
 
   cmakeFlags = [ (lib.cmakeBool "SSL_SUPPORT_MBEDTLS" false) ];
 
