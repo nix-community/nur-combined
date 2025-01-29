@@ -11,8 +11,8 @@ stdenv.mkDerivation {
   src = fetchFromSourcehut {
     owner = "~sikmir";
     repo = "gpx2yaml";
-    rev = "ca58a14ad48f76fbf7b6ad7ff52ddda9c4448309";
-    hash = "sha256-GYSTqbRkv0oYIRgNS8VlMLj/GMA4FipfaGvxk959eMc=";
+    rev = "c0a28a96635706d8e052fe819c88e265577201b9";
+    hash = "sha256-59UVcQh+TsqP/Z55wmtfH002FhScqaflrC5Kyid67tg=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
