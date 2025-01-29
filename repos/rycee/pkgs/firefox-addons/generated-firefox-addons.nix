@@ -229,10 +229,10 @@
     };
     "alby" = buildFirefoxXpiAddon {
       pname = "alby";
-      version = "3.10.0";
+      version = "3.11.0";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399704/alby-3.10.0.xpi";
-      sha256 = "96b0c36b108b89ffdb03dc37f81278844e7f3ff594fec31992a135e8d70fd486";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427113/alby-3.11.0.xpi";
+      sha256 = "c34838fa451701a9af2ee3012dff54e5b90b5d141e09197c03de63a6f00e9cb1";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -1688,10 +1688,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.21.0";
+      version = "3.22.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374926/click_and_read-3.21.0.xpi";
-      sha256 = "b156d70ce27297b3f2064a55d53d12c0f3c0c47fd0ab3ac680b76255046e51e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427204/click_and_read-3.22.0.xpi";
+      sha256 = "df8a8c1d4f13e06d2770b52debde75937b0aa2db0ce0a4a424acafd92deec78f";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -1929,10 +1929,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.5.2";
+      version = "4.6.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416001/control_panel_for_twitter-4.5.2.xpi";
-      sha256 = "8b3d7964651df9a452c92ffa209bc547d85348692f6b7a01e6378a3ac0213a5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4426814/control_panel_for_twitter-4.6.0.xpi";
+      sha256 = "f8fab6c59f17ce7be3992d43984053021c102d4b9ece07b623c118b59c152300";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2112,35 +2112,6 @@
           "clipboardWrite"
           "contextMenus"
           "storage"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "cultivate" = buildFirefoxXpiAddon {
-      pname = "cultivate";
-      version = "1.0.48169";
-      addonId = "{348c6313-cb8a-456d-bc65-f9f2ccf57c29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296421/cultivate-1.0.48169.xpi";
-      sha256 = "171bdf02f704198c35d35f1ac8433382ee85d3afa8438b8a84a45bb21d96655b";
-      meta = with lib;
-      {
-        homepage = "https://www.wecultivate.us";
-        description = "Detects product's country of origin on Amazon &amp; compares prices across 10,000+ US stores for max savings.";
-        license = {
-          shortName = "allrightsreserved";
-          fullName = "All Rights Reserved";
-          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
-          free = false;
-        };
-        mozPermissions = [
-          "alarms"
-          "cookies"
-          "storage"
-          "unlimitedStorage"
-          "webRequest"
-          "http://*/*"
-          "https://*/*"
-          "*://*.wecultivate.us/*"
         ];
         platforms = platforms.all;
       };
@@ -7587,10 +7558,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.16.18";
+      version = "2.17.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4413360/momentumdash-2.16.18.xpi";
-      sha256 = "b93820afa4d1a22c6ddce4be288571cf47fe7fcaefbd88daf69a3780d425cb83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4425611/momentumdash-2.17.3.xpi";
+      sha256 = "0276d7e843335f74d3f5aa7f9769139350ba53b3b87555e10e26c57bf4621712";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
