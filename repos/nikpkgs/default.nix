@@ -25,6 +25,8 @@
   netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
   overlayfs-tools        = pkgs.callPackage ./pkgs/overlayfs-tools { };
   plank-themes           = pkgs.callPackage ./pkgs/plank-themes { };
+  pw_wp_bluetooth_rpi_speaker =
+    pkgs.callPackage ./pkgs/pw_wp_bluetooth_rpi_speaker { };
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
   simulide               = pkgs.callPackage ./pkgs/simulide { };
   simulide-unwrapped     = pkgs.libsForQt5.callPackage ./pkgs/simulide/unwrapped.nix { };
