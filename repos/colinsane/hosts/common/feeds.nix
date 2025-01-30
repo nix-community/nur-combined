@@ -106,13 +106,13 @@ let
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
-    (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
     (fromDb "seattlenice.buzzsprout.com" // pol)  # Seattle Nice
+    (fromDb "sites.libsyn.com/438684" // humor)  # Quorators - digging up *weird* Quota questions
     (fromDb "speedboatdope.com" // pol)  # Chapo Trap House (premium feed)
     (fromDb "srslywrong.com" // pol)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
@@ -138,6 +138,7 @@ let
     # (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     # (fromDb "lastweekinai.com" // tech)  # Last Week in AI
     # (fromDb "mintcast.org" // tech)
+    # (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
     # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.sustainoss.org" // tech)  # "Sustainable tech", only... it somehow manages to avoid any tech which is actually sustainable, and most of the time doesn't even talk about Open Source Software (!). normie/surface-level/"feel good"
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
