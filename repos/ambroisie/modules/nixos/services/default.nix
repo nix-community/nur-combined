@@ -14,6 +14,7 @@
     ./forgejo
     ./gitea
     ./grocy
+    ./homebox
     ./indexers
     ./jellyfin
     ./komga

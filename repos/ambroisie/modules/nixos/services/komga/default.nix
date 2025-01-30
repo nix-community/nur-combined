@@ -18,11 +18,11 @@ in
   config = lib.mkIf cfg.enable {
     services.komga = {
       enable = true;
-      inherit (cfg) port;
 
       group = "media";
 
       settings = {
+        server.port = cfg.port;
         logging.level.org.gotson.komga = "DEBUG"; # Needed for fail2ban
       };
     };
