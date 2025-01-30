@@ -314,10 +314,6 @@ in with final; {
   #   });
   # });
 
-  # 2025/01/25: upstreaming is blocked on mutter
-  # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
-  # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
-
   # 2024/11/19: upstreaming is blocked on qtx11extras (via zbar)
   gnome-frog = prev.gnome-frog.override {
     blueprint-compiler = wrapBlueprint [
@@ -335,7 +331,7 @@ in with final; {
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
 
-  # 2025/01/13: upstreaming is blocked on gnome-settings-daemon, mutter, evolution-data-server
+  # 2025/01/28: upstreaming is unblocked
   # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
   #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
   #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -604,10 +600,7 @@ in with final; {
     cargo = crossCargo;
   };
 
-  # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
-  # 2025/01/13: upstreaming is blocked on mutter, gnome-settings-daemon
-  # phoc = mvToNativeInputs [ wayland-scanner glib ] prev.phoc;
-  # 2024/08/12: upstreaming is blocked on gnome-control-center, evolution-data-server, , ibus, libgweather, gnom-user-share, others
+    # 2025/01/28: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
   #   buildInputs = upstream.buildInputs ++ [
   #     libadwaita  # "plugins/meson.build:41:2: ERROR: Dependency "libadwaita-1" not found, tried pkgconfig"
@@ -872,7 +865,7 @@ in with final; {
   #   # setting this to null means visidata will work as normal but not be able to load hdf files.
   #   h5py = null;
   # };
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/01/28: upstreaming is blocked on qtsvg
   # vlc = prev.vlc.overrideAttrs (orig: {
   #   # fixes: "configure: error: could not find the LUA byte compiler"
   #   # fixes: "configure: error: protoc compiler needed for chromecast was not found"

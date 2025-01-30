@@ -58,6 +58,8 @@ in
         # "Font Awesome 6 Brands"
       ];
       monospace = [
+        "Monaspace Argon"  #< thin, slightly handwriting-ish
+        # "Monaspace Neon"  #< typewriter style
         "Hack Nerd Font Propo"
         # "DejaVuSansM Nerd Font Propo"
         "NotoMono Nerd Font Propo"
@@ -88,14 +90,15 @@ in
     packages = with pkgs; [
       # TODO: reduce this font set.
       # - probably need only one of dejavu/freefont/liberation
-      dejavu_fonts  # 10 MiB; DejaVu {Sans,Serif,Sans Mono,Math TeX Gyre}; also available as a NerdFonts (Sans Mono only)
-      # font-awesome  #  2 MiB; Font Awesome 6 {Free,Brands}
-      freefont_ttf  # 11 MiB; Free{Mono,Sans,Serif}
-      gyre-fonts    #  4 MiB; Tex Gyre *; ttf substitutes for standard PostScript fonts
-      # hack-font     #  1 MiB; Hack; also available as a NerdFonts
-      liberation_ttf # 4 MiB; Liberation {Mono,Sans,Serif}; also available as a NerdFonts
+      dejavu_fonts            # 10 MiB; DejaVu {Sans,Serif,Sans Mono,Math TeX Gyre}; also available as a NerdFonts (Sans Mono only)
+      # font-awesome            #  2 MiB; Font Awesome 6 {Free,Brands}
+      freefont_ttf            # 11 MiB; Free{Mono,Sans,Serif}
+      gyre-fonts              #  4 MiB; Tex Gyre *; ttf substitutes for standard PostScript fonts
+      # hack-font               #  1 MiB; Hack; also available as a NerdFonts
+      liberation_ttf          # 4 MiB; Liberation {Mono,Sans,Serif}; also available as a NerdFonts
+      monaspace               # 20 MiB;
       noto-fonts-color-emoji  # 10 Mib; Noto Color Emoji
-      unifont       # 16 MiB; Unifont; provides LOTS of unicode coverage
+      unifont                 # 16 MiB; Unifont; provides LOTS of unicode coverage
 
       # nerdfonts takes popular open fonts and patches them to support a wider range of glyphs, notably emoji.
       # any nerdfonts font includes icons such as these:
