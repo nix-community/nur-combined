@@ -5,6 +5,31 @@ let
     "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
     "10.0.4.1" = [ "yidhra.nyaw.xyz" ];
   };
+
+  srvOnEihort = [
+    "eihort.nyaw.xyz"
+    "matrix.nyaw.xyz"
+    "photo.nyaw.xyz"
+    "s3.nyaw.xyz"
+  ];
+
+  lan = {
+    "192.168.1.16" = srvOnEihort;
+    "192.168.1.2" = [
+      "hastur.nyaw.xyz"
+    ];
+    "192.168.1.187" = [ "kaambl.nyaw.xyz" ];
+  };
+
+  remote = {
+    "10.0.4.6" = srvOnEihort;
+    "10.0.4.2" = [
+      "hastur.nyaw.xyz"
+    ];
+    "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
+  };
+
+  sum = lan // common;
 in
 {
   kaambl = {
@@ -12,49 +37,12 @@ in
       "kaambl.nyaw.xyz"
       "dns.nyaw.xyz"
     ];
-    # "10.0.4.6" = [
-    #   "eihort.nyaw.xyz"
-    #   "photo.nyaw.xyz"
-    #   "s3.nyaw.xyz"
-    # ];
-
-    "192.168.1.16" = [
-      "eihort.nyaw.xyz"
-      "matrix.nyaw.xyz"
-      "photo.nyaw.xyz"
-      "s3.nyaw.xyz"
-    ];
-
-    "192.168.1.2" = [
-      # "10.0.4.2" = [
-      "hastur.nyaw.xyz"
-    ];
-  } // common;
+  } // sum;
   hastur = {
     "127.0.0.1" = [
       "hastur.nyaw.xyz"
     ];
-    "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
-    "192.168.1.16" = [
-      "eihort.nyaw.xyz"
-      "matrix.nyaw.xyz"
-      "photo.nyaw.xyz"
-    ];
-    "10.0.4.6" = [
-      "s3.nyaw.xyz"
-    ];
-  } // common;
+  } // sum;
   eihort = {
-    "127.0.0.1" = [
-      "eihort.nyaw.xyz"
-      "s3.nyaw.xyz"
-    ];
-    "10.0.4.6" = [
-      "photo.nyaw.xyz"
-      "eihort.nyaw.xyz"
-      "s3.nyaw.xyz"
-    ];
-    "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
-    "192.168.1.2" = [ "hastur.nyaw.xyz" ];
-  } // common;
+  } // sum;
 }
