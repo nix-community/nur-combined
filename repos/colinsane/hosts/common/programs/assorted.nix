@@ -383,7 +383,7 @@ in
       "brave"  # for the integrated wallet -- as a backup
       # "cantata"  # music player (mpd frontend)
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
-      # "cups"
+      "cups"
       "discord"  # x86-only
       # "electrum"
       "element-desktop"

@@ -11,11 +11,12 @@ let
 in
 {
   sane.programs.cups = {
+    sandbox.method = null;  #< TODO: sandbox
     suggestedPrograms = [
       "system-config-printer"
     ];
   };
-  sane.programs.system-config-printer = {};
+  sane.programs.system-config-printer.sandbox.method = null;  #< TODO: sandbox
 
   services.printing = lib.mkIf cfg.enabled {
     enable = true;

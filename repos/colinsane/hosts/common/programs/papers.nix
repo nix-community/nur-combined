@@ -1,3 +1,4 @@
+# TODO: get printing to work under papers. until then, use evince if you need to print!
 { ... }:
 {
   sane.programs.papers = {
