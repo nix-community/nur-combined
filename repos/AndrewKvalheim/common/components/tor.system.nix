@@ -6,6 +6,8 @@ let
   inherit (lib) getExe mkIf mkMerge mkOption;
   inherit (lib.types) listOf str;
   inherit (pkgs) curl obfs4;
+
+  lyrebird = obfs4; # Pending rename of package
 in
 {
   options.host.tor = {
@@ -23,7 +25,7 @@ in
         }
         (mkIf (length host.tor.bridges > 0) {
           Bridge = host.tor.bridges;
-          ClientTransportPlugin = "obfs4 exec ${getExe obfs4}";
+          ClientTransportPlugin = "webtunnel exec ${getExe lyrebird}";
           UseBridges = true;
         })
       ];

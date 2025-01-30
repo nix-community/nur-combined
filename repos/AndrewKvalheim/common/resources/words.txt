@@ -588,6 +588,7 @@ keyrings
 keyserver
 Khazad-dûm
 KHTML
+Kickstarter
 Kitsap
 KMonad
 Kodi
@@ -1396,6 +1397,7 @@ WebP
 WebRTC
 WebSocket
 WebSockets
+WebTunnel
 Wedgemount
 Weebly
 weekbeginning
