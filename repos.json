@@ -983,6 +983,9 @@
         "rconan": {
             "url": "https://gitlab.com/rconan/nix-packages"
         },
+        "redpz": {
+            "url": "https://github.com/reDpz/nur-packages"
+        },
         "reedrw": {
             "url": "https://github.com/reedrw/nur-packages"
         },
