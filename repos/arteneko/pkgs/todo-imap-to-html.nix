@@ -1,16 +1,16 @@
 { pkgs, lib, fetchFromSourcehut, rustPlatform }:
 rustPlatform.buildRustPackage rec {
   pname = "todo-imap-to-html";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = fetchFromSourcehut {
     owner = "~artemis";
     repo = "todo-imap-to-html";
     rev = "v${version}";
-    hash = "sha256-q4BxFOrGCmU5aRwzbyM3ixIkGHGLWklYd79X4zJfMdI=";
+    hash = "sha256-WUi3TZnxgn1P5T2jrnX8cD/ZrT/zOw/Ffz8bQNvRN68=";
   };
 
-  cargoHash = "sha256-tCzyN7oFUnSpxrDcYEYNXCfp+tViCNz9Dn4XPioHFRM=";
+  cargoHash = "sha256-OFvTccoIv9iRHMbShx300ffhnT3RyDpFQtmRzglVApM=";
 
   nativeBuildInputs = with pkgs; [ pkg-config ];
   buildInputs = with pkgs; [ openssl ];
