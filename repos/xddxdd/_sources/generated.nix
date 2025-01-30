@@ -757,14 +757,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "6a16ac68b59423b4b0068f9faf97cc5162f6d453";
+    version = "f8778123148fd08bd478d87b3fa1460ca96d2e25";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "6a16ac68b59423b4b0068f9faf97cc5162f6d453";
-      hash = "sha256-1I3r3rBluQW9OjGinKLLKN6Gf1kp+bw/4yWzkk8AuQI=";
+      rev = "f8778123148fd08bd478d87b3fa1460ca96d2e25";
+      hash = "sha256-PnS4U0wRw7clltwedMDj9RzDn0xJF38PbVRLkL8vUig=";
     };
-    date = "2025-01-27";
+    date = "2025-01-29";
   };
   libqcef = {
     pname = "libqcef";
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4581";
+    version = "b4589";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4581";
-      hash = "sha256-xjKWANQQhuotG13Z85+04qSVI/B+tojoD5wIBWXUMBo=";
+      tag = "b4589";
+      hash = "sha256-7f3X74u23stSjqcF7pbNZLgVe11RINJdo0Tbqz5NkOc=";
     };
   };
   loralib = {
@@ -1125,14 +1125,14 @@
   };
   openai-edge-tts = {
     pname = "openai-edge-tts";
-    version = "552a9eb772eb8be1cc014df5ee29f2d410c997e3";
+    version = "ac113c2537174f4160d975e3a77b2c2c3b4524e1";
     src = fetchFromGitHub {
       owner = "travisvn";
       repo = "openai-edge-tts";
-      rev = "552a9eb772eb8be1cc014df5ee29f2d410c997e3";
-      hash = "sha256-iUQrL0QPM8hfHy2Pm0Qe4Xjk8jQBP+fuOK0xyK+p5aI=";
+      rev = "ac113c2537174f4160d975e3a77b2c2c3b4524e1";
+      hash = "sha256-keGcrlkoceFftERRMdnfVZHLBcl9D5tjKi/hI51zgl0=";
     };
-    date = "2025-01-22";
+    date = "2025-01-29";
   };
   opencc-python-reimplemented = {
     pname = "opencc-python-reimplemented";
@@ -1257,10 +1257,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.3.3";
+    version = "7.4.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.3.3/PeerBanHelper_7.3.3.zip";
-      hash = "sha256-fkQWjTGxuELcNFEdR0ZbhDHYTH4to+29Lt3Wog2BLPU=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.0/PeerBanHelper_7.4.0.zip";
+      hash = "sha256-OR/zbHpB7pHRbvuino216qp7mx7HOoVdLW1nNV/0j4s=";
     };
   };
   phpmyadmin = {

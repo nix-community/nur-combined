@@ -877,6 +877,12 @@
             "type": "jre",
             "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jre_arm_linux_hotspot_11.0.26_4.tar.gz",
             "sha256": "e4a00a3ea318a63ba97236633f34c8a5477f6cdb643cf6883788840818110f5f"
+        },
+        "s390x": {
+            "version": "11.0.26_4_adopt",
+            "type": "jre",
+            "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jre_s390x_linux_hotspot_11.0.26_4.tar.gz",
+            "sha256": "5d9552b1fb699da6052cbd600e750dd8ff48a89a384d537919a3c999257979dc"
         }
     },
     "jdk-bin-11_0_26_4": {
@@ -903,6 +909,12 @@
             "type": "jdk",
             "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jdk_arm_linux_hotspot_11.0.26_4.tar.gz",
             "sha256": "79d574328f6960d40349996ef8c5949581f9e533dc76f134857c4125c78558ff"
+        },
+        "s390x": {
+            "version": "11.0.26_4_adopt",
+            "type": "jdk",
+            "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.26_4.tar.gz",
+            "sha256": "0da13d990da34ecc666399cf0efa72a4b4e295f05c0686ea25a4a173a6f4414b"
         }
     },
     "jdk-bin-11_0_25_9": {
@@ -1953,6 +1965,12 @@
             "type": "jre",
             "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jre_arm_linux_hotspot_11.0.26_4.tar.gz",
             "sha256": "e4a00a3ea318a63ba97236633f34c8a5477f6cdb643cf6883788840818110f5f"
+        },
+        "s390x": {
+            "version": "11.0.26_4_adopt",
+            "type": "jre",
+            "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jre_s390x_linux_hotspot_11.0.26_4.tar.gz",
+            "sha256": "5d9552b1fb699da6052cbd600e750dd8ff48a89a384d537919a3c999257979dc"
         }
     },
     "jdk-bin-11": {
@@ -1979,6 +1997,12 @@
             "type": "jdk",
             "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jdk_arm_linux_hotspot_11.0.26_4.tar.gz",
             "sha256": "79d574328f6960d40349996ef8c5949581f9e533dc76f134857c4125c78558ff"
+        },
+        "s390x": {
+            "version": "11.0.26_4_adopt",
+            "type": "jdk",
+            "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.26_4.tar.gz",
+            "sha256": "0da13d990da34ecc666399cf0efa72a4b4e295f05c0686ea25a4a173a6f4414b"
         }
     },
     "jdk-bin-16_0_2_7": {
