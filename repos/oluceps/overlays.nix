@@ -29,20 +29,12 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
-      # misskey = prev.misskey.overrideAttrs (old: {
-      #   patches = [
-      #     ./pkgs/patch/0001-welcome-shape.patch
-      #     ./pkgs/patch/0002-timeline-on-welcome-page.patch
-      #   ];
-      #   src = prev.fetchFromGitLab {
-      #     domain = "activitypub.software";
-      #     owner = "TransFem-org";
-      #     repo = "Sharkey";
-      #     rev = "4b104879cd250c96cbbe2e6c0e4f8757367f2f33";
-      #     hash = "sha256-a4JGxN+kM+H5OjSS1VOV5MI5BN/a96W9kerZBVfE+PY=";
-      #     fetchSubmodules = true;
-      #   };
-      # });
+      misskey = prev.misskey.overrideAttrs (old: {
+        patches = [
+          ./pkgs/patch/0001-welcome-shape.patch
+          ./pkgs/patch/0002-timeline-on-welcome-page.patch
+        ];
+      });
 
       scx = inputs'.nyx.packages.scx-full_git;
 

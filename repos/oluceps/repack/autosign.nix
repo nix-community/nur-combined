@@ -51,6 +51,7 @@ in
           in
           "${lib.getExe pkgs.deno} run --allow-env --allow-net --no-check ${scriptPath}";
         EnvironmentFile = cfg.environmentFile;
+        Environment = [ "HOME=/home/${user}" ];
         Restart = "no";
       };
     };
