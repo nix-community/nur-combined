@@ -7,7 +7,7 @@
 
 buildGoModule rec {
   pname = "kes";
-  version = "2024-12-30T17-40-21Z";
+  version = "0.24.0";
 
   src = fetchFromGitHub {
     owner = "minio";
