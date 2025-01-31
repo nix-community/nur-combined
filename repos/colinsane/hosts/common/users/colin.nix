@@ -20,6 +20,7 @@
       "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs
       "input"  # for /dev/input/<xyz>... TODO:is this still necessary?
       "media"  # servo
+      "named"  # for `sane-vpn {up,down}`
       "networkmanager"
       "nixbuild"
       "plugdev"  # desko, for ZSA/QMK/udev

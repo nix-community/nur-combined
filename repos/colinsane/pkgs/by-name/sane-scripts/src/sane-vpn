@@ -151,11 +151,6 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
     """
     passt/pasta can't proxy to e.g. 127.0.0.53, but it can to 127.0.0.1 and anything routable by the device
     """
-    nameservers = nameservers_from_resolvconf(RESOLVCONF)
-    if nameservers == []:
-        nameservers = [ "127.0.0.1 "]  #< libc default if unspecified
-    if "127.0.0.1" in nameservers:
-        return [ "127.0.0.1" ]
 
     # output looks like IP4.DNS[1]:192.168.0.1
     nmcli_stdout = subprocess.check_output([
@@ -169,8 +164,37 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
         _fname, ns = line.split(":")
         nameservers.append(ns)
 
+    if nameservers == []:
+        nameservers = nameservers_from_resolvconf(RESOLVCONF)
+        if nameservers == []:
+            nameservers = [ "127.0.0.1 "]  #< libc default if unspecified
+
+    # old logic from when i was using systemd-resolved (127.0.0.53, which pasta couldn't reach). safe to remove?
+    # if "127.0.0.1" in nameservers:
+    #     return [ "127.0.0.1" ]
+
     return nameservers
 
+def get_addr_v4_for_dev(dev: str) -> str | None:
+    # output looks like IP4.ADDRESS[1]:192.168.1.72
+    nmcli_stdout = subprocess.check_output([
+        "nmcli", "-t", "-f", "IP4.ADDRESS", "device", "show", dev
+    ]).decode("utf-8")
+    addrs = []
+    for line in nmcli_stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        _fname, addr = line.split(":")
+        if not addr:
+            continue
+        if "/" in addr:
+            addr, _subnet = addr.split("/")
+        if not addr:
+            continue
+        addrs.append(addr)
+
+    return addrs[0] if len(addrs) else None
 
 def get_connected_networks() -> list[str]:
     # output looks like:
@@ -211,8 +235,9 @@ def get_vpn(vpn_name: str) -> VpnConfig:
         return load_vpns()[vpn_name]
     elif vpn_name == "none":
         dev = get_default_dev()
+        addr_v4 = get_addr_v4_for_dev(dev)
         dns = get_dns_resolvers_for_dev(dev)
-        return VpnConfig(dev=dev or "all", dns=dns)
+        return VpnConfig(dev=dev or "all", addr_v4=addr_v4, dns=dns)
     elif vpn_name == "unmetered":
         for dev in get_connected_networks():
             dns = get_dns_resolvers_for_dev(dev)
@@ -245,9 +270,10 @@ def vpn_do(config: VpnConfig, cmd: list[str]) -> None:
     # exec instead of subprocess so that (hopefully) the process inherits stdin/stdout.
     os.execvp("bunpen", wrapped_cmd)
 
-def vpn_toggle(config: VpnConfig, dir_: ToggleDir) -> None:
-    print("old IP address ...")
-    _ = subprocess.run(["sane-ip-check", "--no-upnp", "--retry-duration", "2"])
+def vpn_toggle(config: VpnConfig, dir_: ToggleDir, do_ip_check: bool = True) -> None:
+    if do_ip_check:
+        print("old IP address ...")
+        _ = subprocess.run(["sane-ip-check", "--no-upnp", "--retry-duration", "2"])
 
     if config.priority_main and config.priority_fwmark:
         verb = {
@@ -276,10 +302,36 @@ def vpn_toggle(config: VpnConfig, dir_: ToggleDir) -> None:
 
     dns_toggle(config.dns, dir_)
 
-    print("new IP address ...")
-    subprocess.check_call(["sane-ip-check", "--no-upnp"])
+    if do_ip_check:
+        print("new IP address ...")
+        subprocess.check_call(["sane-ip-check", "--no-upnp"])
 
-def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
+def dns_toggle_bind(dns: list[str], dir_: ToggleDir) -> None:
+    if dir_ == ToggleDir.Up:
+        formatted_nameservers = "\n".join(f"{ns};" for ns in dns)
+        text = f'''
+zone . {{
+  //v XXX(2025-01-30): BIND9 doesn't allow dnssec-validation per-zone. put this in toplevel `options` instead.
+  // dnssec-validation no;  // compatibility: many network-specific DNS servers fail DNSSEC, by design
+  type forward;
+  forward first;
+  forwarders {{
+    {formatted_nameservers}
+  }};
+}};
+'''
+    elif dir_ == ToggleDir.Down:
+        text = ""
+
+    if not os.path.isdir("/run/named/dhcp-configs"):
+        logger.info("not restarting bind because it appears to not be in use")
+        return
+
+    with open("/run/named/dhcp-configs/210-sane-vpn.conf", "w") as f:
+        f.write(text)
+    subprocess.check_call([ "systemctl", "restart", "bind" ])
+
+def dns_toggle_hickory(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
         formatted_nameservers = ",\n".join(
             '{ socket_addr = "{ns}:53", protocol = "udp", trust_nx_responses = false }'.replace("{ns}", ns)
@@ -303,6 +355,10 @@ stores = {{ type = "forward", name_servers = [
     with open("/var/lib/hickory-dns/dhcp-configs/sane-vpn.toml", "w") as f:
         f.write(text)
     subprocess.check_call([ "systemctl", "restart", "hickory-dns-localhost" ])
+
+def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
+    dns_toggle_bind(dns, dir_)
+    dns_toggle_hickory(dns, dir_)
 
 def main():
     logging.basicConfig()
@@ -336,18 +392,18 @@ def main():
 
     logger.debug(f"sane-vpn {subcommand} region={region} ...")
 
+    do_ip_check = region != "none"
     vpn_config = get_vpn(region)
 
     if args.no_proxy_dns:
         vpn_config.dns = []
 
-
     if subcommand == "do":
         vpn_do(vpn_config, args.command)
     elif subcommand == "down":
-        vpn_toggle(vpn_config, ToggleDir.Down)
+        vpn_toggle(vpn_config, ToggleDir.Down, do_ip_check=do_ip_check)
     elif subcommand == "up":
-        vpn_toggle(vpn_config, ToggleDir.Up)
+        vpn_toggle(vpn_config, ToggleDir.Up, do_ip_check=do_ip_check)
     else:
         print(parser.usage)
         sys.exit(1)
