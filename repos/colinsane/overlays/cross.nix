@@ -178,6 +178,18 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
+  blanket = prev.blanket.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  };
+
   # 2024/11/19: upstreaming is unblocked
   delfin = (prev.delfin.override {
     cargo = crossCargo;

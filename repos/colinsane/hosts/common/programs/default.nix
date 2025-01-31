@@ -13,6 +13,7 @@
     ./avahi.nix
     ./bemenu.nix
     ./bitcoin-cli.nix
+    ./blanket.nix
     ./blueberry.nix
     ./blueman.nix
     ./bonsai.nix

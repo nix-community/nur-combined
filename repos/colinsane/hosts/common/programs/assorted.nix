@@ -284,6 +284,7 @@ in
     guiBaseApps = declPackageSet [
       # "abaddon"  # discord client
       "alacritty"  # terminal emulator
+      "blanket"  # ambient noise generator
       "calls"  # gnome calls (dialer/handler)
       "dbus"
       # "dconf"  # or use `gsettings`, with its keyfile backend
@@ -379,7 +380,6 @@ in
       "pcTuiApps"
       ####
       "audacity"
-      # "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup
       # "cantata"  # music player (mpd frontend)
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
@@ -451,11 +451,6 @@ in
     bandwhich.sandbox.net = "all";
 
     bash-language-server.sandbox.whitelistPwd = true;
-
-    blanket.buildCost = 1;
-    blanket.sandbox.whitelistAudio = true;
-    # blanket.sandbox.whitelistDbus.user = true;  #< TODO: reduce  # TODO: untested
-    blanket.sandbox.whitelistWayland = true;
 
     bridge-utils.sandbox.net = "all";
 
