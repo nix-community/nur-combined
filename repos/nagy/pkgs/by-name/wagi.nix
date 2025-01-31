@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, openssl, pkg-config }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wagi";
@@ -11,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Hy9IDAuLVD1PI6pPFwKTyoACQUOAuINPWgRoXOrYC7I=";
   };
 
-  cargoSha256 = "sha256-ohDvF5/jD3ZMhL9qm1QagfSWPEZQL7CKDkXJ+fRE5As=";
+  cargoHash = "sha256-ohDvF5/jD3ZMhL9qm1QagfSWPEZQL7CKDkXJ+fRE5As=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -21,9 +27,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    inherit (src.meta) homepage;
-    description =
-      "Write HTTP handlers in WebAssembly with a minimal amount of work";
+    homepage = "https://github.com/deislabs/wagi";
+    description = "Write HTTP handlers in WebAssembly with a minimal amount of work";
     license = licenses.asl20;
   };
 }

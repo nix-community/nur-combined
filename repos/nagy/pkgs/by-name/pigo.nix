@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "pigo";
@@ -15,15 +19,17 @@ buildGoModule rec {
 
   deleteVendor = true;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     mv $out/bin/http $out/bin/pigo-http
   '';
 
   meta = with lib; {
-    description =
-      "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
+    description = "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
     homepage = "https://github.com/esimov/pigo";
     license = licenses.mit;
   };

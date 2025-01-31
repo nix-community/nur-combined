@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wonnx";
@@ -18,11 +24,11 @@ rustPlatform.buildRustPackage rec {
   # no GPU found during test
   doCheck = false;
 
-  cargoHash = "sha256-c7C10kw9i0hycLhwbAZaBeh2HpJVo0a4S2g7S+r/UeE=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-Ib8JYu4+64THsK0Wxb9gPkvBh1xiKaYZraJRKKzpNTs=";
 
   meta = with lib; {
-    description =
-      "GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
+    description = "GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
     inherit (src.meta) homepage;
     license = with licenses; [ mit ];
   };

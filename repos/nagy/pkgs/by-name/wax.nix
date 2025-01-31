@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation {
   pname = "wax";
@@ -22,8 +26,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "A tiny programming language that transpiles to C, C++, Java, TypeScript, Python, C#, Swift, Lua and WebAssembly";
+    description = "A tiny programming language that transpiles to C, C++, Java, TypeScript, Python, C#, Swift, Lua and WebAssembly";
     homepage = "https://github.com/LingDong-/wax";
     license = licenses.mit;
     maintainers = with maintainers; [ nagy ];

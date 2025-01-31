@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustfilt";
@@ -8,10 +12,10 @@ rustPlatform.buildRustPackage rec {
     owner = "luser";
     repo = pname;
     rev = version;
-    sha256 = "096219q0d2i3c2awczlv64dnyjpx2b5ml8fgd2xwly56wn8nvgfd";
+    hash = "sha256-zb1tkeWmeMq7aM8hWssS/UpvGzGbfsaVYCOKBnAKwiQ=";
   };
 
-  cargoSha256 = "04ghk7803s1dqfrs51kydgpqmkz67frqqzjb4xgbbi6krdcq9kdf";
+  cargoHash = "sha256-rs2EWcvTxLVeJ0t+jLM75s+K72t+hqKzwy3oAdCZ8BE=";
 
   meta = with lib; {
     description = "Demangle Rust symbols";

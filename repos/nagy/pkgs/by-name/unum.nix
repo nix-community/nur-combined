@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+}:
 
 stdenv.mkDerivation {
   pname = "unum";
@@ -24,8 +29,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "Utility for looking up Unicode characters and HTML entities by code, name, block, or description";
+    description = "Utility for looking up Unicode characters and HTML entities by code, name, block, or description";
     homepage = "https://github.com/Fourmilab/unum";
     license = lib.licenses.cc-by-sa-40;
     mainProgram = "unum";
