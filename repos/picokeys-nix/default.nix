@@ -2,13 +2,10 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
-  pico-sdk = pkgs.callPackage ./pkgs/pico-sdk.nix { };
-  picotool = pkgs.callPackage ./pkgs/picotool.nix { inherit pico-sdk; };
   callPkgWithSdk = pkgs.lib.callPackageWith (
     pkgs
     // {
-      inherit picotool;
-      pico-sdk-full = pico-sdk.override {
+      pico-sdk-full = pkgs.pico-sdk.override {
         withSubmodules = true;
       };
     }
