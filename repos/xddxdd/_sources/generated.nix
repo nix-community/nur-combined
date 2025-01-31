@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "8a63eb57721d23a2c062fa4e75ceac74eab001ab";
+    version = "fe164b042957e08ff5260b555c9be9352bf95d3b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "8a63eb57721d23a2c062fa4e75ceac74eab001ab";
-      hash = "sha256-HumXripfgn7gekDkasZbL9fjm/6cEpoKkqYFQzN1Ojw=";
+      rev = "fe164b042957e08ff5260b555c9be9352bf95d3b";
+      hash = "sha256-frQgcu76KxIZVXsq3XqCfZrUmXl1b8mbwkuK3vNBsdI=";
     };
-    date = "2025-01-23";
+    date = "2025-01-30";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "87e9ac4a0f9f5d190deab6db0bad361c4cae05b7";
+    version = "2a27ce34753bdf3574b73a487117b0827cd6a0e3";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "87e9ac4a0f9f5d190deab6db0bad361c4cae05b7";
-      hash = "sha256-gTwAjVvjiFdjnRkaQg0z8v3gOQl/lNvF5MA6+nwu4Ws=";
+      rev = "2a27ce34753bdf3574b73a487117b0827cd6a0e3";
+      hash = "sha256-5dPmSF5QWnEi6hEByqNrDDuiUS+C5vmLFydDCFGzRXY=";
     };
-    date = "2025-01-28";
+    date = "2025-01-30";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4589";
+    version = "b4604";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4589";
-      hash = "sha256-7f3X74u23stSjqcF7pbNZLgVe11RINJdo0Tbqz5NkOc=";
+      tag = "b4604";
+      hash = "sha256-eHLw3tO+t9fP/9+EV4VpfLv+PJo7poSpow0yMvycm+U=";
     };
   };
   loralib = {
@@ -1554,14 +1554,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2a2bb24367ba9948c840fec599710006dcb1e9ca";
+    version = "508d378c4ed54e5eef2a2c68d5019c6f03d72ab4";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2a2bb24367ba9948c840fec599710006dcb1e9ca";
-      hash = "sha256-vB1dXAiFNMAGywq42Waiyhf7ctAM3Vp+/e5y1ntm++c=";
+      rev = "508d378c4ed54e5eef2a2c68d5019c6f03d72ab4";
+      hash = "sha256-1uIHaWTTSS7K86W5JJKZHtKEWck4lIJqF7RnGc1Y4Aw=";
     };
-    date = "2025-01-24";
+    date = "2025-01-31";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
