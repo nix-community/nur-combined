@@ -22,7 +22,7 @@ let
     owner = "dhruvvyas90";
     repo = "qemu-rpi-kernel";
     rev = "9fb4fcf463df4341dbb7396df127374214b90841";
-    sha256 = "sha256-fgqiWLT8zNTHEQ7Ky+Gf6X0hBFQ0ira4bh7szQrEV48=";
+    hash = "sha256-fgqiWLT8zNTHEQ7Ky+Gf6X0hBFQ0ira4bh7szQrEV48=";
   };
   makeExpectScript =
     image:

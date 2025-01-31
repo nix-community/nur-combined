@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "nptcl";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-jDOdz5k2xWj8fkidNErNBT9oACnTwJWK5XasnMtGmQk=";
+    hash = "sha256-jDOdz5k2xWj8fkidNErNBT9oACnTwJWK5XasnMtGmQk=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];

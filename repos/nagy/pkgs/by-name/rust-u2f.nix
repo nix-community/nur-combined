@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, udev, pkg-config, openssl }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  udev,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-u2f";
@@ -11,11 +18,17 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-i0M86u3QuxwdS8KfF466GuJfoVc7I0OcNFfxHi9uZuE=";
   };
 
-  cargoSha256 = "sha256-tdv9tCoPUVMtAYnyYllY3MJPHgfYQpUdDDgesRJBAM0=";
+  cargoHash = "sha256-tdv9tCoPUVMtAYnyYllY3MJPHgfYQpUdDDgesRJBAM0=";
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
-  buildInputs = [ udev openssl ];
+  buildInputs = [
+    udev
+    openssl
+  ];
 
   meta = with lib; {
     description = "U2F security token emulator written in Rust";

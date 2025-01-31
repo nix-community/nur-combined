@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sqlite-zstd";
@@ -8,18 +12,18 @@ rustPlatform.buildRustPackage rec {
     owner = "phiresky";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-bl9CF/w6A1Ugz8t+8WimMNOGzysL4eiiu07d2+KND8k=";
+    hash = "sha256-bl9CF/w6A1Ugz8t+8WimMNOGzysL4eiiu07d2+KND8k=";
   };
 
-  cargoSha256 = "sha256-hjYYcBO3eGuPVFxrP/FMKQAyknNk0Uv5BvOaZ8+1X2M=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-pCLcCoVLnu4i0yO57T8V3D4WMKfSu3wgPKchx3jhviU=";
 
   # TODO use system provided sqlite and zstd
   # buildInputs = [ sqlite zstd ];
 
   meta = with lib; {
     inherit (src.meta) homepage;
-    description =
-      "Transparent dictionary-based row-level compression for SQLite";
+    description = "Transparent dictionary-based row-level compression for SQLite";
     license = licenses.lgpl3Plus;
   };
 }

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "nanomsg";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-BBYfJ2j2IQkbluR3HQjEh1zFWPgOVX6kfyI0jG741Y4=";
+    hash = "sha256-BBYfJ2j2IQkbluR3HQjEh1zFWPgOVX6kfyI0jG741Y4=";
   };
 
   nativeBuildInputs = [ cmake ];
