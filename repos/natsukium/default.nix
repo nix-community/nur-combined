@@ -30,6 +30,7 @@ rec {
     source = sources.emacs-plus;
     emacs = pkgs.emacs30;
   };
+  google-japanese-input = pkgs.callPackage ./pkgs/google-japanese-input { };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   nixpkgs-review = pkgs.nixpkgs-review;
   psipred = pkgs.callPackage ./pkgs/psipred { };

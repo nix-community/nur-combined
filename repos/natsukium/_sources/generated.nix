@@ -51,15 +51,15 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "29395b1928835efa1b376d438216fbf39e0d0f83";
+    version = "437bd2031da38ccda75827cb7548e7baa4aa9978";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "29395b1928835efa1b376d438216fbf39e0d0f83";
+      rev = "437bd2031da38ccda75827cb7548e7baa4aa9978";
       fetchSubmodules = false;
-      sha256 = "sha256-C2tg1mypz/CdUmRJ4vloPckYfZrwHxc4v8hsEow4RZs=";
+      sha256 = "sha256-F0UfNxHM389GhiPQ6/GFbeKQq5EvpiqQdvyf7ygzkPg=";
     };
-    date = "2024-02-28";
+    date = "2024-08-12";
   };
   skkeleton = {
     pname = "skkeleton";
@@ -83,10 +83,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.7.2b";
+    version = "1.7.4b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.7.2b/zen.macos-aarch64.dmg";
-      sha256 = "sha256-HhwATSLp6uCAa/TGLpMrGrjiTboBG1Y0COtXPvVDlgU=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.7.4b/zen.macos-universal.dmg";
+      sha256 = "sha256-SsgIz9yC+Xk2tN7KjmEzD7CKISH1xlTniMzw0Lgorwc=";
     };
   };
 }
