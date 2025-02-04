@@ -19,7 +19,6 @@
 // (userRo [
   "atuin"
   "atuin_key"
-  "ssh-cfg"
   "pam"
   "age"
   "pub"

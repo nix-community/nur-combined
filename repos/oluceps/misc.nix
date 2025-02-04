@@ -338,31 +338,30 @@
     pki = {
       certificateFiles = [
         "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-        (pkgs.writeText "root-ca-crt" ''
+        (pkgs.writeText "root.crt" ''
           -----BEGIN CERTIFICATE-----
-          MIIBozCCAUmgAwIBAgIUW8y5x4WXM2gA4UF9xzBbEJaAYrwwCgYIKoZIzj0EAwIw
-          LjERMA8GA1UECgwITWlsaWV1aW0xGTAXBgNVBAMMEE1pbGlldWltIFJvb3QgQ0Ew
-          HhcNMjUwMTI2MTI0MzQxWhcNMzUwMTI0MTI0MzQxWjAuMREwDwYDVQQKDAhNaWxp
-          ZXVpbTEZMBcGA1UEAwwQTWlsaWV1aW0gUm9vdCBDQTBZMBMGByqGSM49AgEGCCqG
-          SM49AwEHA0IABLudTOKT9YlzLvCLxMFNgPMDXxxeKJmncwFml2nQy1zLd8KD40jQ
-          bqLvppOIztisE9BwqDTBKgkhZpVr5QyBtkqjRTBDMB0GA1UdDgQWBBT75LEh10pt
-          QIISppP0hKfccP2aZzASBgNVHRMBAf8ECDAGAQH/AgEBMA4GA1UdDwEB/wQEAwIB
-          BjAKBggqhkjOPQQDAgNIADBFAiBAFpJpFcFkYNbvZzgWFtV9YXkLHCEXuQwhuLUr
-          ua1wLwIhAJ9Z2Qv8Kl6mxe623FX/+VljBKeyqFBCaIAoPojaoGPQ
+          MIIBZTCCARegAwIBAgIUK5cIP43nYTxkSom4car51xB2fyUwBQYDK2VwMC4xETAP
+          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMCAXDTI1
+          MDEyNjA3MzMxN1oYDzIxMjUwMTAyMDczMzE3WjAuMREwDwYDVQQKDAhNaWxpZXVp
+          bTEZMBcGA1UEAwwQTWlsaWV1aW0gUm9vdCBDQTAqMAUGAytlcAMhAPeokscNudjM
+          ghOCxZMw0lnzVWN73e4XZQObR6Z+jW/Co0UwQzAdBgNVHQ4EFgQU2FgDKiVfEizN
+          YB6Uo8v+JKVo4VUwEgYDVR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYw
+          BQYDK2VwA0EAek7DrIzml/QbQ0pvtKXtIguAu1LkS7dJEH11ywG60ZcNsSaASp4t
+          JnKJ63hPDuCvx1YlB6enilL3BMAs2CX2Dg==
           -----END CERTIFICATE-----
         '')
-        (pkgs.writeText "intermediate-ca-root-signed-crt" ''
+        (pkgs.writeText "intermediate.crt" ''
           -----BEGIN CERTIFICATE-----
-          MIIBzTCCAXSgAwIBAgIUAppZF/G1WC6RA2rPd2WRlrwTIYgwCgYIKoZIzj0EAwIw
-          LjERMA8GA1UECgwITWlsaWV1aW0xGTAXBgNVBAMMEE1pbGlldWltIFJvb3QgQ0Ew
-          HhcNMjUwMTI2MTI0NjM3WhcNMzUwMTI0MTI0NjM3WjA4MREwDwYDVQQKDAhNaWxp
-          ZXVpbTEjMCEGA1UEAwwaTWlsaWV1aW0gSW50ZXJtZWRpYXRlIENBIDAwWTATBgcq
-          hkjOPQIBBggqhkjOPQMBBwNCAAT/7GJ+449NhpSoT7fRlJfcS+ygiL+7QK9Zcadq
-          lWARMcOQhtmjO+eRxspDrnkl0BlTgZO9IZJY0u23BZ7kYNZLo2YwZDAdBgNVHQ4E
-          FgQUNpOKflFF+fVjMdcAW9Ii28QaViowEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNV
-          HQ8BAf8EBAMCAQYwHwYDVR0jBBgwFoAU++SxIddKbUCCEqaT9ISn3HD9mmcwCgYI
-          KoZIzj0EAwIDRwAwRAIgKF4t1nuPIwyTid4ekcDVLVjSjercgC0osBbbYwc+BFAC
-          IEugk4dGUDhfFJguvfA/ngaP7ABQuaF2VOYD9jH8DTLB
+          MIIBvTCCAW+gAwIBAgIUAf5RM0UXJbedoKBU9/Y0EVmqSbkwBQYDK2VwMC4xETAP
+          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMB4XDTI1
+          MDIwMTE0MjEwMloXDTM1MDEzMDE0MjEwMlowODERMA8GA1UECgwITWlsaWV1aW0x
+          IzAhBgNVBAMMGk1pbGlldWltIEludGVybWVkaWF0ZSBDQSAwMFkwEwYHKoZIzj0C
+          AQYIKoZIzj0DAQcDQgAEOUhNYWn7tf0AeKajjrnbPeUtxy+gPSm6243USRSQ6UNA
+          Wtoqd08YLydE7mWn3GXfQK4kCvuCijHuOSfvPI5D7KNmMGQwHQYDVR0OBBYEFFLg
+          cYw1Qz+gD42r/EC7+Mar3UcEMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/
+          BAQDAgIEMB8GA1UdIwQYMBaAFNhYAyolXxIszWAelKPL/iSlaOFVMAUGAytlcANB
+          AGdqS2Qdxc74lngRWUTm9vzRwvVlIrw90Uas6I25XRlcxfwSp5h+CAizDqtoxEIK
+          4OfM5E+YRurQ9FX7BuVLYwU=
           -----END CERTIFICATE-----
         '')
       ];

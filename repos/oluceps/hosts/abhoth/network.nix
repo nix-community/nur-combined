@@ -12,6 +12,7 @@
     firewall = {
       checkReversePath = false;
       enable = true;
+      extraForwardRules = "iifname wg0 accept";
       trustedInterfaces = [
         "virbr0"
         "wg0"
@@ -99,7 +100,9 @@
         wireguardPeers = [
           {
             PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-            AllowedIPs = [ "10.0.3.2/32" ];
+            AllowedIPs = [
+              "10.0.3.2/32"
+            ];
             PersistentKeepalive = 15;
           }
           {
@@ -112,12 +115,12 @@
             AllowedIPs = [ "10.0.3.6/32" ];
             PersistentKeepalive = 15;
           }
-          {
-            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-            AllowedIPs = [ "10.0.1.1/24" ];
-            Endpoint = "144.126.208.183:51820";
-            PersistentKeepalive = 15;
-          }
+          # {
+          #   PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+          #   AllowedIPs = [ "10.0.1.1/24" ];
+          #   Endpoint = "144.126.208.183:51820";
+          #   PersistentKeepalive = 15;
+          # }
           {
             PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
             AllowedIPs = [ "10.0.4.0/24" ];
@@ -125,7 +128,7 @@
           }
           {
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.1/24" ];
+            AllowedIPs = [ "10.0.2.0/24" ];
             PersistentKeepalive = 15;
           }
         ];
@@ -146,11 +149,9 @@
         routes = [
           {
             Destination = "10.0.2.0/24";
-            Scope = "link";
           }
           {
-            Destination = "10.0.1.0/24";
-            Scope = "link";
+            Destination = "10.0.4.0/24";
           }
         ];
       };

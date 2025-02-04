@@ -46,6 +46,16 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
+                      upstreams = [ { dial = "localhost:8004"; } ];
+                    }
+                  ];
+                  match = [ { host = [ "subs.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
+                {
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
                       headers = {
                         request = {
                           set = {

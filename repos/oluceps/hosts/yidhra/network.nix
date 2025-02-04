@@ -9,6 +9,7 @@
     firewall = {
       checkReversePath = false;
       enable = true;
+      extraForwardRules = "iifname wg0 accept";
       trustedInterfaces = [
         "virbr0"
         "wg0"
@@ -100,7 +101,9 @@
         wireguardPeers = [
           {
             PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-            AllowedIPs = [ "10.0.4.2/32" ];
+            AllowedIPs = [
+              "10.0.4.2/32"
+            ];
             PersistentKeepalive = 15;
           }
           {
@@ -119,22 +122,25 @@
             PersistentKeepalive = 15;
           }
           {
+            # equal node
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
             AllowedIPs = [ "10.0.2.0/24" ];
             PersistentKeepalive = 15;
           }
           {
+            # equal node
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
             AllowedIPs = [ "10.0.3.0/24" ];
             Endpoint = "172.234.92.148:51820";
             PersistentKeepalive = 15;
           }
-          {
-            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-            AllowedIPs = [ "10.0.1.0/24" ];
-            Endpoint = "144.126.208.183:51820";
-            PersistentKeepalive = 15;
-          }
+          # {
+          #   # equal node
+          #   PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+          #   AllowedIPs = [ "10.0.1.0/24" ];
+          #   Endpoint = "144.126.208.183:51820";
+          #   PersistentKeepalive = 15;
+          # }
         ];
       };
 
@@ -170,17 +176,15 @@
         };
 
         routes = [
-          {
-            Destination = "10.0.1.0/24";
-            Scope = "link";
-          }
+          # {
+          #   Destination = "10.0.1.0/24";
+          #   Scope = "link";
+          # }
           {
             Destination = "10.0.2.0/24";
-            Scope = "link";
           }
           {
             Destination = "10.0.3.0/24";
-            Scope = "link";
           }
         ];
       };
@@ -198,7 +202,6 @@
           {
             Destination = "::/0";
             Gateway = "fe80::1";
-            Scope = "link";
           }
         ];
       };

@@ -1,26 +1,25 @@
 [[host]]
 name = "hastur" # homeserver censored
-addr = "riro@10.0.4.2"
+addr_remote = "riro@10.0.4.2"
+addr = "riro@192.168.1.2"
 
 [[host]]
 name = "kaambl" # laptop
-addr = "elen@10.0.1.3"
+addr_remote = "elen@10.0.4.3"
+addr = "elen@192.168.1.187"
+
+[[host]]
+name = "eihort" # nas
+addr_remote = "elen@10.0.4.6"
+addr = "elen@192.168.1.16"
 
 [[host]]
 name = "abhoth" # linode
 addr = "elen@172.234.92.148"
 
 [[host]]
-name = "azasos" # tencent cloud censored
+name = "azasos" # tencent cloud | censored
 addr = "elen@116.196.112.43"
-
-[[host]]
-name = "eihort" # nas
-addr = "elen@192.168.1.16"
-
-[[host]]
-name = "nodens" # digital ocean sf
-addr = "elen@144.126.208.183"
 
 [[host]]
 name = "yidhra" # feral chicken
@@ -58,6 +57,11 @@ target = "https://cache.nyaw.xyz/"
 id = "pastebin"
 name = "Pastebin"
 target = "https://pb.nyaw.xyz/"
+
+[[api.site]]
+id = "book_shelf"
+name = "Calibre Web"
+target = "https://book.nyaw.xyz/"
 
 [[api.site]]
 id = "vaultwarden"

@@ -22,29 +22,12 @@ in
     };
   };
   config = mkIf cfg.enable {
-    systemd.user.timers.autosign = {
-      description = "autosign";
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "*-*-* 11:30:00";
-        RandomizedDelaySec = "5m";
-        Persistent = true;
-      };
-    };
     systemd.user.services.autosign = {
-      after = [
-        "network-online.target"
-        "nss-lookup.target"
-      ];
-      wants = [
-        "network-online.target"
-        "nss-lookup.target"
-      ];
       description = "autosign Daemon";
       restartIfChanged = false;
+      startAt = "*-*-* 13:10:00";
       serviceConfig = {
         Type = "oneshot";
-        # DynamicUser = true;
         ExecStart =
           let
             scriptPath = ../script/autosign.ts;
@@ -52,7 +35,10 @@ in
           "${lib.getExe pkgs.deno} run --allow-env --allow-net --no-check ${scriptPath}";
         EnvironmentFile = cfg.environmentFile;
         Environment = [ "HOME=/home/${user}" ];
-        Restart = "no";
+        Restart = "on-failure";
+        RestartSec = "5s";
+        StartLimitBurst = 3;
+        StartLimitInterval = "60s";
       };
     };
   };

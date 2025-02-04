@@ -33,7 +33,10 @@ async function performSign(mode: "in" | "out") {
       data: { sessionId: string; loginerId: number; encryptValue: string };
     }>();
 
-    if (!loginRes.success) throw new Error("登录失败");
+    if (!loginRes.success) {
+      console.error("login fail")
+      Deno.exit(1)
+    };
 
     const AUTH_HEADERS = {
       ...COMMON_HEADERS,
@@ -93,7 +96,8 @@ async function performSign(mode: "in" | "out") {
       headers: { Authorization: NTFY_CONFIG.token },
       body: `${mode}签到失败：${error.message}`
     });
-    throw error;
+    console.error(error);
+    Deno.exit(1)
   }
 }
 
@@ -102,10 +106,10 @@ async function main() {
     // 签入流程
     const inRes = await performSign("in");
     console.log("签入成功，等待3秒...");
-    
+
     // 等待3秒
     await new Promise(resolve => setTimeout(resolve, 3000));
-    
+
     // 签出流程
     const outRes = await performSign("out");
     console.log("完整签到流程完成！最终天数:", outRes.data.startTraineeDayNum);

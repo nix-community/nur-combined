@@ -135,26 +135,35 @@
         };
         wireguardPeers = [
           {
+            # azasos
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.0/24" ];
+            AllowedIPs = [
+              "10.0.2.0/24"
+            ];
             Endpoint = "116.196.112.43:51820";
             PersistentKeepalive = 15;
           }
+          # {
+          #   PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+          #   AllowedIPs = [ "10.0.1.0/24" ];
+          #   Endpoint = "127.0.0.1:41820";
+          #   PersistentKeepalive = 15;
+          # }
           {
-            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-            AllowedIPs = [ "10.0.1.0/24" ];
-            Endpoint = "127.0.0.1:41820";
-            PersistentKeepalive = 15;
-          }
-          {
+            # abhoth
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.0/24" ];
+            AllowedIPs = [
+              "10.0.3.0/24"
+            ];
             Endpoint = "127.0.0.1:41821";
             PersistentKeepalive = 15;
           }
           {
+            # yidhra
             PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
-            AllowedIPs = [ "10.0.4.0/24" ];
+            AllowedIPs = [
+              "10.0.4.0/24"
+            ];
             Endpoint = "127.0.0.1:41822";
             PersistentKeepalive = 15;
           }
@@ -167,7 +176,7 @@
         matchConfig.Name = "wg0";
         # IP addresses the client interface will have
         address = [
-          "10.0.1.2/24"
+          # "10.0.1.2/24"
           "10.0.2.2/24"
           "10.0.3.2/24"
           "10.0.4.2/24"

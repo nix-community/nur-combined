@@ -1,4 +1,4 @@
-{ data, ... }:
+{ user, data, ... }:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
@@ -67,6 +67,13 @@ in
         owner = "root";
         group = "root";
         name = "tg-env";
+      };
+      subs = {
+        file = ../../sec/subs.age;
+        mode = "740";
+        owner = user;
+        group = "root";
+        name = "subs.ts";
       };
     };
   };

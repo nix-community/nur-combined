@@ -38,6 +38,7 @@
     };
     rustypaste.enable = true;
     reuse-cert.enable = true;
+    subs.enable = true;
   };
   services = {
     metrics.enable = true;

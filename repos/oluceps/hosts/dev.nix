@@ -8,7 +8,48 @@
 }:
 {
   systemd.tmpfiles.rules = [
-    "L+ /home/${user}/.ssh/config - - - - ${config.vaultix.secrets.ssh-cfg.path}"
+    "L /home/${user}/.ssh/config - - - - ${pkgs.writeText "ssh-config" ''
+      ${builtins.concatStringsSep "\n" (
+        let
+          inherit (builtins) elemAt;
+          parse =
+            addr:
+            (
+              let
+                where = lib.splitString "@" addr;
+              in
+              "HostName ${elemAt where 1}\n    User ${elemAt where 0}"
+            );
+          hosts = (fromTOML (builtins.readFile ./sum.toml)).host;
+        in
+        map (i: ''
+          Host ${i.name}
+              ${parse i.addr}
+              AddKeysToAgent yes
+              ForwardAgent yes
+        '') hosts
+      )}
+      Host gitee.com
+          HostName gitee.com
+          User riro
+
+      Host github.com
+          HostName ssh.github.com
+          User git
+          Port 443
+
+      Host git.dn42.dev
+          HostName git.dn42.dev
+          User git
+          Port 22
+
+      Host *
+          # ControlMaster auto
+          # ControlPath ~/.ssh/%r@%h:%p.socket
+          # ControlPersist 10m
+          Port 22
+          IdentityFile ${config.vaultix.secrets.id.path}
+    ''}"
   ];
   programs = {
 
