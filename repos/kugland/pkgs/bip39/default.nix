@@ -6,8 +6,8 @@
 , libsodium
 , cunit
 , fetchFromGitHub
+,
 }:
-
 stdenv.mkDerivation (final: rec {
   pname = "bip39";
   version = "0.2.1";

@@ -6,8 +6,8 @@
 , openal
 , stdenv
 , libsForQt5
+,
 }:
-
 stdenv.mkDerivation rec {
   pname = "subtitlecomposer";
   version = "0.8.1";
@@ -21,18 +21,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules libsForQt5.wrapQtAppsHook ];
-  buildInputs = [ ffmpeg_6 openal ] ++ (with libsForQt5; [
-    kcodecs
-    kconfig
-    kconfigwidgets
-    kcoreaddons
-    ki18n
-    kio
-    ktextwidgets
-    kwidgetsaddons
-    kxmlgui
-    sonnet
-  ]);
+  buildInputs =
+    [ ffmpeg_6 openal ]
+    ++ (with libsForQt5; [
+      kcodecs
+      kconfig
+      kconfigwidgets
+      kcoreaddons
+      ki18n
+      kio
+      ktextwidgets
+      kwidgetsaddons
+      kxmlgui
+      sonnet
+    ]);
 
   meta = with lib; {
     homepage = "https://apps.kde.org/subtitlecomposer";

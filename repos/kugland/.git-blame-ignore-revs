@@ -30,3 +30,6 @@ baad058d88b277f826540f6ce6a26f10b88cbada
 
 # Reformat with nixpkgs-fmt
 5c9aeb6a3c8feda4ba534f3525078c86ce038b73
+
+# Reformat again with nixpkgs-fmt
+d366de97fdb570af5697040c034f989019029d35
