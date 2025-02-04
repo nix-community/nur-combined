@@ -4,8 +4,10 @@
   fetchFromGitHub,
   bc,
   cgpsmapper,
+  fig2dev,
   git,
   gmaptool,
+  imagemagick,
   libjpeg,
   mapsoft2,
   netpbm,
@@ -33,8 +35,10 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     bc
     cgpsmapper
+    fig2dev
     git
     gmaptool
+    imagemagick
     libjpeg
     mapsoft2
     netpbm
@@ -44,6 +48,7 @@ stdenv.mkDerivation {
 
   preBuild = ''
     export HOME=$TMPDIR
+    make -C pics
   '';
 
   buildFlags = [ "out" ];
