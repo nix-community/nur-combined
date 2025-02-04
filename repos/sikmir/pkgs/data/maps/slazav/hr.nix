@@ -25,6 +25,11 @@ stdenv.mkDerivation {
     leaveDotGit = true;
   };
 
+  postPatch = ''
+    substituteInPlace vmaps.conf \
+      --replace-fail "/home/sla/mapsoft2/programs/ms2render/" ""
+  '';
+
   nativeBuildInputs = [
     bc
     cgpsmapper
