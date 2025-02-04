@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ghostty";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchurl {
     url = "https://release.files.ghostty.org/${finalAttrs.version}/Ghostty.dmg";
-    hash = "sha256-QA9oy9EXLSFbzcRybKM8CxmBnUYhML82w48C+0gnRmM=";
+    hash = "sha256-3KKyJOpkbhGKtq01aDGDealjI2BCL6fpz5DW6rn0A/0=";
   };
 
   sourceRoot = ".";
