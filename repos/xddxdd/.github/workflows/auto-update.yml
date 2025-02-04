@@ -85,5 +85,5 @@ jobs:
           if git commit -m "auto: update packages" ; then
             git remote remove origin
             git remote add origin "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nur-packages.git"
-            git push -u origin master --force
+            git push -u origin master
           fi
