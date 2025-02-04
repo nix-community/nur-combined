@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation {
   pname = "slazav-fi";
-  version = "2025-01-16";
+  version = "2025-02-01";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_fi";
-    rev = "31110d93183c2f62b3ec7865442c09f2f5d1c335";
-    hash = "sha256-0qqW4YmJ8klQ4sA5NggMxDeci8Im24UxHYppitScTl8=";
+    rev = "1cc868653012c2a31441ccc0e8246be9666851b2";
+    hash = "sha256-6psZAaBLQ9LvrZgMXKkKHt9k4KJciF9rCZSYsFGjew4=";
     leaveDotGit = true;
   };
 
