@@ -1,6 +1,6 @@
 # Common secrets
 let
-  keys = import ../../keys;
+  keys = import ../../../keys;
 
   all = builtins.attrValues keys.users;
 in
