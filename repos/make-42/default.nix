@@ -17,6 +17,8 @@
   kuiper = pkgs.callPackage ./pkgs/kuiper {};
   nezumi-p = pkgs.callPackage ./pkgs/nezumi-p {};
   xyosc = pkgs.callPackage ./pkgs/xyosc {};
+
+  ntsc-rs = pkgs.callPackage ./pkgs/ntsc-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
