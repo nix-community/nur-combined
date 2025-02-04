@@ -4,7 +4,7 @@
 {
   # my packages
   dolltags = pkgs.callPackage ./pkgs/dolltags {};
-  dolltags-pre = pkgs.callPackage ./pkgs/dolltags/pre.nix {};
+  dolltags-dev = pkgs.callPackage ./pkgs/dolltags/dev.nix {};
 
   todo-imap-to-html = pkgs.callPackage ./pkgs/todo-imap-to-html.nix {};
 }
