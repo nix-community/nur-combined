@@ -14,6 +14,11 @@
 
 let
   version = "0.17.1";
+in
+
+rustPlatform.buildRustPackage {
+  pname = "inko";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "inko-lang";
@@ -21,15 +26,9 @@ let
     rev = "refs/tags/v${version}";
     hash = "sha256-EKSjdoGZub23WmFDryY737j0d1rK+zlNupf+biD1o5o=";
   };
-in
 
-rustPlatform.buildRustPackage {
-  pname = "inko";
-  inherit version;
-
-  inherit src;
-
-  cargoLock.lockFile = ./Cargo.lock;
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-KhGn0g/RJgIGNUbEg7KJk3o0CMJ3Ggn+KIrxPcAbuGg=";
 
   buildInputs = [
     libffi

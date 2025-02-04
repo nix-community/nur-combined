@@ -3405,12 +3405,12 @@ It comes in complete source code and is made available as "open source" software
 Like neofetch, but much faster because written in C
 
 - Name: `fastfetch`
-- Version: `2.34.1`
+- Version: `2.35.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L271)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.34.1)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.35.0)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -3510,12 +3510,12 @@ Like neofetch, but much faster because written in C
 Like neofetch, but much faster because written in C (with all features disabled)
 
 - Name: `fastfetch`
-- Version: `2.34.1`
+- Version: `2.35.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📦 Source](./default.nix#L33)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.34.1)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.35.0)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -3940,7 +3940,7 @@ A language for building concurrent software with confidence
 - Version: `0.17.1`
 
 - [🌐 Homepage](https://github.com/inko-lang/inko)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L54)
+- [📦 Source](./pkgs/by-name/inko/package.nix#L53)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.17.1)
 
@@ -4152,7 +4152,7 @@ Lightning-fast and Powerful Code Editor written in Rust
 - Version: `nightly`
 
 - [🌐 Homepage](https://github.com/lapce/lapce)
-- [📦 Source](./pkgs/by-name/lapce-nightly/package.nix#L125)
+- [📦 Source](./pkgs/by-name/lapce-nightly/package.nix#L112)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - [📰 Changelog](https://github.com/lapce/lapce/blob/7100aa459e1d16f9255e148a8d9323835761822c/CHANGELOG.md)
 
@@ -7195,7 +7195,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-01-22`
+- Version: `SLE2024-artifact-unstable-2025-02-01`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
