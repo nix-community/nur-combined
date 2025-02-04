@@ -30,6 +30,7 @@
     ./catt.nix
     ./celeste64.nix
     ./chatty.nix
+    ./confy.nix
     ./conky
     ./cozy.nix
     ./cups.nix

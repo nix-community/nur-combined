@@ -190,6 +190,34 @@ in with final; {
     ];
   };
 
+  # 2025/02/04: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
+  confy = (prev.confy.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  }).overrideAttrs (upstream: {
+    # meson's `python.find_installation` method somehow just doesn't support cross compilation.
+    # - <https://mesonbuild.com/Python-module.html#find_installation>
+    # so, build it to target build python, then patch in the host python
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      python3.pythonOnBuildForHost
+    ];
+    postFixup = ''
+      substituteInPlace $out/bin/.confy-wrapped --replace-fail ${python3.pythonOnBuildForHost} ${python3.withPackages (
+        ps: with ps; [
+          icalendar
+          pygobject3
+        ]
+      )}
+    '';
+  });
+
   # 2024/11/19: upstreaming is unblocked
   delfin = (prev.delfin.override {
     cargo = crossCargo;

@@ -59,11 +59,11 @@ def write_nm(fh: "file", con: Connection) -> None:
         fh.write("mode=infrastructure\n")
         fh.write(f"ssid={con.ssid}\n")
 
-        fh.write("\n")
-        fh.write("[wifi-security]\n")
-        fh.write("auth-alg=open\n")
-        fh.write("key-mgmt=wpa-psk\n")
         if con.passphrase is not None:
+            fh.write("\n")
+            fh.write("[wifi-security]\n")
+            fh.write("auth-alg=open\n")
+            fh.write("key-mgmt=wpa-psk\n")
             fh.write(f"psk={con.passphrase}\n")
     elif con.type_ == "gsm":
         fh.write("\n")

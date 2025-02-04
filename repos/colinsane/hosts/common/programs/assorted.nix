@@ -286,6 +286,7 @@ in
       "alacritty"  # terminal emulator
       "blanket"  # ambient noise generator
       "calls"  # gnome calls (dialer/handler)
+      "confy"  # conference planning app
       "dbus"
       # "dconf"  # or use `gsettings`, with its keyfile backend
       # "delfin"  # Jellyfin client
