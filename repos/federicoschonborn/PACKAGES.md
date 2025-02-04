@@ -6832,7 +6832,7 @@ Snazzy Minesweeper-based game built with SDL2
 A convenient calculator for the command line
 
 - Name: `mucalc`
-- Version: `2.1`
+- Version: `2.2`
 
 - [🌐 Homepage](https://marlam.de/mucalc/)
 - [📦 Source](./pkgs/by-name/mucalc/package.nix#L47)

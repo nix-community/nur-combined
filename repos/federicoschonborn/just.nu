@@ -31,32 +31,6 @@ def "main build-all-stable" [] {
     nix-stable build --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
-def "main build" [...packages: string] {
-    main build-unstable ...$packages
-    main build-stable ...$packages
-}
-
-def "main build-unstable" [...packages: string] {
-    nix-unstable build ...($packages | each { $".#($in)" })
-}
-
-def "main build-stable" [...packages: string] {
-    nix-stable build ...($packages | each { $".#($in)" })
-}
-
-def "main rebuild" [...packages: string] {
-    main rebuild-unstable ...$packages
-    main rebuild-stable ...$packages
-}
-
-def "main rebuild-unstable" [...packages: string] {
-    nix-unstable build --rebuild ...($packages | each { $".#($in)" })
-}
-
-def "main rebuild-stable" [...packages: string] {
-    nix-stable build --rebuild ...($packages | each { $".#($in)" })
-}
-
 def "main rebuild-all" [] {
     main rebuild-all-unstable
     main rebuild-all-stable
@@ -68,14 +42,6 @@ def "main rebuild-all-unstable" [] {
 
 def "main rebuild-all-stable" [] {
     nix-stable build --rebuild --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs-stable") { }; }' cacheOutputs
-}
-
-def "main run-unstable" [package: string] {
-    nix-unstable run $".#($package)"
-}
-
-def "main run-stable" [package: string] {
-    nix-stable run $".#($package)"
 }
 
 def "main test-all" [] {
@@ -118,27 +84,6 @@ def "main update" [package: string] {
     }
 
     with-env { UPDATE_NIX_NAME: $p.name, UPDATE_NIX_PNAME: $p.pname, UPDATE_NIX_OLD_VERSION: $p.version, UPDATE_NIX_ATTR_PATH: $package } { run-external $updateScript.cmd ...$updateScript.args }
-}
-
-def "main update-all" [] {
-    nix run ".#update-all"
-}
-
-def "main tree" [package: string] {
-    nix-tree $".#($package)"
-}
-
-def "main inspect" [] {
-    nix-inspect --path .
-}
-
-def "main lint" [] {
-    statix check
-    deadnix
-}
-
-def "main generate-readme" [] {
-    nix run ".#generate-readme"
 }
 
 def main [] {}

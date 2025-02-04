@@ -1,0 +1,82 @@
+default_args := "--verbose --print-build-logs --keep-going --show-trace --log-format multiline-with-logs --inputs-from ."
+
+@_default:
+    just --list --unsorted
+
+@_to-output NAME:
+    echo '".#{{ NAME }}"'
+
+@_to-outputs +NAMES:
+    sed -e 's:[^ ]* *:".#&":g' <<< {{ NAMES }}
+
+_nix +ARGS:
+    nix {{ ARGS }} {{ default_args }}
+
+_nix-unstable +ARGS:
+    just _nix {{ ARGS }} --override-input nixpkgs nixpkgs-unstable
+
+_nix-stable +ARGS:
+    just _nix {{ ARGS }} --override-input nixpkgs nixpkgs-stable
+
+[group("build")]
+build-unstable +PACKAGES:
+    just _nix-unstable build $(just _to-outputs {{ PACKAGES }})
+
+[group("build")]
+build-stable +PACKAGES:
+    just _nix-stable build $(just _to-outputs {{ PACKAGES }})
+
+[group("build")]
+build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
+
+[group("rebuild")]
+rebuild-unstable +PACKAGES:
+    just _nix-unstable build --rebuild $(just _to-outputs {{ PACKAGES }})
+
+[group("rebuild")]
+rebuild-stable +PACKAGES:
+    just _nix-stable build --rebuild $(just _to-outputs {{ PACKAGES }})
+
+[group("rebuild")]
+rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
+
+[group("run")]
+run-unstable PACKAGE:
+    just _nix-unstable run $(just _to-output {{ PACKAGE }})
+
+[group("run")]
+run-stable PACKAGE:
+    just _nix-stable run $(just _to-output {{ PACKAGE }})
+
+[group("path-info")]
+path-info-unstable PACKAGE: (build-unstable PACKAGE)
+    just _nix-unstable path-info $(just _to-output {{ PACKAGE }})
+
+[group("path-info")]
+path-info-stable PACKAGE: (build-stable PACKAGE)
+    just _nix-stable path-info $(just _to-output {{ PACKAGE }})
+
+update-all:
+    just _nix-unstable run $(just _to-output update-all)
+
+tree PACKAGE:
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p nix-tree
+    set -euxo pipefail
+    nix-tree $(just _to-output {{ PACKAGE }})
+
+inspect:
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p nix-inspect
+    set -euxo pipefail
+    nix-inspect --path .
+
+lint:
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p statix deadnix
+    set -euxo pipefail
+    statix check
+    deadnix
+
+generate-readme:
+    just _nix-unstable run $(just _to-output generate-readme)

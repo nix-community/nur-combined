@@ -2,7 +2,8 @@
   description = "My personal NUR repository";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.follows = "nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     flake-parts = {
@@ -108,14 +109,11 @@
 
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              deadnix
               jq
-              nix-inspect
-              nix-tree
-              nushell
-              statix
+              just
               nix-init
               nix-update
+              nushell
             ];
 
             shellHook = ''

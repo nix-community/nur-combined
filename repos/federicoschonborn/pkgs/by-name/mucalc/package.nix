@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mucalc";
-  version = "2.1";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "mucalc";
     rev = "refs/tags/mucalc-${finalAttrs.version}";
-    hash = "sha256-qXqe9U7y3YrzSeJKgW53vkdNpPcAmxysxzT7SIlSzMo=";
+    hash = "sha256-6nvP7aVWF66ze/bANHujWUkqpCdvocD4eKPLXrg1cYM=";
   };
 
   nativeBuildInputs = [
