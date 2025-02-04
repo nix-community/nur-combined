@@ -27,7 +27,7 @@ in
       restartIfChanged = false;
       startAt = "*-*-* 13:10:00";
       serviceConfig = {
-        Type = "oneshot";
+        Type = "simple";
         ExecStart =
           let
             scriptPath = ../script/autosign.ts;

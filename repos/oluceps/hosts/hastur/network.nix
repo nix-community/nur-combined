@@ -68,7 +68,10 @@
         }
       ];
     };
-    nftables.enable = true;
+    nftables = {
+      enable = true;
+      ruleset = '''';
+    };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
   };
@@ -132,6 +135,7 @@
         };
         wireguardConfig = {
           PrivateKeyFile = config.vaultix.secrets.wg.path;
+          RouteTable = false;
         };
         wireguardPeers = [
           {
@@ -164,6 +168,7 @@
             AllowedIPs = [
               "10.0.4.0/24"
             ];
+            # Endpoint = "8.210.47.13:51820";
             Endpoint = "127.0.0.1:41822";
             PersistentKeepalive = 15;
           }
