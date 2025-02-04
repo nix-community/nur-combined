@@ -70,7 +70,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 		longDescription = ''
 			This is a developer utility that lets you inspect the various system pasteboards. This can be useful to ensure your app is putting the correct data on NSPasteboard or UIPasteboard. The app refreshes the pasteboard contents live and can preview text, RTF, images, and anything that has a Quick Look preview.
 		'';
-		homepage = "https://sindresorhus.com/plain-text-editor";
+		homepage = "https://github.com/sindresorhus/Pasteboard-Viewer";
 		license = lib.licenses.mit;
 		sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
 		maintainers = with lib.maintainers; [ DimitarNestorov ];
