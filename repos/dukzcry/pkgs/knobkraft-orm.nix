@@ -58,5 +58,6 @@ in stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }

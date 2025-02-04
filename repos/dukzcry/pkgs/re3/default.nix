@@ -25,7 +25,7 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ glfw openal libX11 libXrandr mpg123 libsndfile ];
+  buildInputs = [ glfw openal mpg123 libsndfile ];
   nativeBuildInputs = [ premake ];
 
   preConfigure = ''

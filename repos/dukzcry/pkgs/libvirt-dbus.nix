@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner = "libvirt";
     repo = "libvirt-dbus";
     rev = "v${version}";
-    sha256 = "sha256:112jbkp2b0pk6dpb0p68zg1ba196f4i0y57s1jzjn5vl4f11fv3g";
+    sha256 = "sha256-S4QktQmcnTte4XsIcgc5dkA8LjMJaOD2lljS01WT0dk=";
   };
 
   mesonFlags = [

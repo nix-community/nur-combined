@@ -34,4 +34,5 @@ rec {
   dashboard = ./dashboard.nix;
   watchyourlan = ./watchyourlan.nix;
   olivetin = ./olivetin.nix;
+  ldap = ./ldap.nix;
 }

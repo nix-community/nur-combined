@@ -53,6 +53,7 @@ rec {
       cp -r ../resources/ $out/share/es-de/resources/
     '';
   });
+  inherit (pkgs.nur.repos.dukzcry) open-webui;
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {

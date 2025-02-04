@@ -16,7 +16,7 @@ let
          }:
     {
       "${name}" = rec {
-        href = "http://${name}.${cfg.networking.fqdn}/${path}";
+        href = "//${name}.${cfg.networking.fqdn}/${path}";
         icon = attrs.alticon or "${name}.png";
         siteMonitor = optionalString hasSiteMonitor "${protocol}://${host}:${toString port}";
         inherit description;
@@ -41,7 +41,7 @@ let
           proxyPass = "${protocol}://${host}:${toString port}";
           proxyWebsockets = websockets;
         };
-      };
+      } // cfg.attrs;
     };
   cond = x: isAttrs x && hasAttr "name" x;
   map' = cond: f: x:
@@ -71,6 +71,10 @@ in {
     };
     networking = mkOption {
       type = types.attrs;
+    };
+    attrs = mkOption {
+      type = types.attrs;
+      default = {};
     };
   };
 
