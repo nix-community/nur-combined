@@ -56,9 +56,6 @@ path-info-unstable PACKAGE: (build-unstable PACKAGE)
 path-info-stable PACKAGE: (build-stable PACKAGE)
     just _nix-stable path-info $(just _to-output {{ PACKAGE }})
 
-update-all:
-    just _nix-unstable run $(just _to-output update-all)
-
 tree PACKAGE:
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p nix-tree

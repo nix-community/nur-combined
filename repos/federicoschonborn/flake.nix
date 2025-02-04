@@ -262,31 +262,6 @@
                   }'
                 '';
             };
-
-            update-all.program = pkgs.writeShellApplication {
-              name = "update-all";
-              text = lib.concatLines (
-                lib.mapAttrsToList (
-                  name: value:
-                  if value ? updateScript then
-                    ''
-                      echo Updating ${name}...
-                      ${lib.escapeShellArgs (
-                        [
-                          "env"
-                          "UPDATE_NIX_NAME=${value.name}"
-                          "UPDATE_NIX_PNAME=${value.pname}"
-                          "UPDATE_NIX_OLD_VERSION=${value.version}"
-                          "UPDATE_NIX_ATTR_PATH=${name}"
-                        ]
-                        ++ (value.updateScript.command or (lib.toList value.updateScript))
-                      )}
-                    ''
-                  else
-                    "echo Skipping ${name}..."
-                ) config.packages
-              );
-            };
           };
 
           pre-commit = {
