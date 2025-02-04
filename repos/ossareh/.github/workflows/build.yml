@@ -42,8 +42,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Verify tzdata installation
-        run: ls -l /usr/share/zoneinfo/Europe/Helsinki
       - name: Install nix
         uses: cachix/install-nix-action@v30
         with:
