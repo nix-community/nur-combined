@@ -278,6 +278,7 @@ lib.makeScope newScope (
     fitdecode = callPackage ./gpx/fitdecode { };
     garta = callPackage ./gpx/garta { };
     geojson2dm = callPackage ./gpx/geojson2dm { };
+    gprox = callPackage ./gpx/gprox { };
     gps-whatsnew = callPackage ./gpx/gps-whatsnew { };
     gpx-animator = callPackage ./gpx/gpx-animator { };
     gpx-cmd-tools = callPackage ./gpx/gpx-cmd-tools { };
@@ -382,6 +383,7 @@ lib.makeScope newScope (
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
     ocelotgui = libsForQt5.callPackage ./misc/ocelotgui { };
+    opcua = callPackage ./misc/opcua { };
     #opcua-stack = callPackage ./misc/opcua-stack {
     #  openssl = pkgs.openssl_1_1;
     #};
@@ -426,6 +428,7 @@ lib.makeScope newScope (
 
     ### MQTT
 
+    comqtt = callPackage ./mqtt/comqtt { };
     emitter = callPackage ./mqtt/emitter { };
     go-mqtt-to-influxdb = callPackage ./mqtt/go-mqtt-to-influxdb { };
     ioxy = callPackage ./mqtt/ioxy { };

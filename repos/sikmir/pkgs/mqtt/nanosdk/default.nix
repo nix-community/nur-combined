@@ -10,4 +10,6 @@ nng.overrideAttrs (super: rec {
     hash = "sha256-LSXYK8O2Y/PoaqzanIpM1DKTHvgL0kkULY48/SkW4ZY=";
     fetchSubmodules = true;
   };
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 })
