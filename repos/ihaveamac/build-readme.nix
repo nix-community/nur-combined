@@ -1,24 +1,53 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 with builtins;
 let
   lib = pkgs.lib;
   nurAttrs = import ./default.nix { inherit pkgs; };
   isAlias = n: n == "3dstool" || n == "3dslink";
-  isReserved = n: elem n [ "lib" "overlays" "modules" "hmModules" ];
+  isReserved =
+    n:
+    elem n [
+      "lib"
+      "overlays"
+      "modules"
+      "hmModules"
+    ];
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   hasKnownVulns = p: p.meta ? knownVulnerabilities && (length p.meta.knownVulnerabilities != 0);
   strikeIfKnownVulns = p: text: if hasKnownVulns p then "~~${text}~~" else text;
 
-  nameValuePair = n: v: { name = n; value = v; };
+  nameValuePair = n: v: {
+    name = n;
+    value = v;
+  };
 
-  filterAttrs = attrs:
-    listToAttrs
-      (map (n: nameValuePair n attrs.${n})
-        (filter (n: (!isReserved n) && (!isAlias n))
-          (attrNames attrs)));
+  filterAttrs =
+    attrs:
+    listToAttrs (
+      map (n: nameValuePair n attrs.${n}) (filter (n: (!isReserved n) && (!isAlias n)) (attrNames attrs))
+    );
 
-  makeTable = prefix: attrs: let realpfx = if prefix == "" then "" else "${prefix}."; in lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "| ${let name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name); in strikeIfKnownVulns v name} | ${strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] "${realpfx}${k}")} | ${strikeIfKnownVulns v v.meta.description} |") attrs);
+  makeTable =
+    prefix: attrs:
+    let
+      realpfx = if prefix == "" then "" else "${prefix}.";
+    in
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        k: v:
+        "| ${
+          let
+            name = (if (v.meta ? homepage) then "[${v.name}](${v.meta.homepage})" else v.name);
+          in
+          strikeIfKnownVulns v name
+        } | ${
+          strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] "${realpfx}${k}")
+        } | ${strikeIfKnownVulns v v.meta.description} |"
+      ) attrs
+    );
   makeTableFilterAttrs = prefix: attrs: makeTable prefix (filterAttrs attrs);
 
   text = pkgs.writeText "README.md" ''
@@ -54,7 +83,8 @@ let
 
     Name of the directory to manage inside the Pictures folder. Defaults to "Steam Screenshots".
   '';
-in pkgs.mkShellNoCC {
+in
+pkgs.mkShellNoCC {
   name = "hax-nur-readme-builder";
   shellHook = ''
     set -x

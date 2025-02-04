@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -61,8 +63,8 @@ rec {
     knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-12-21." ];
   };
   mediawiki_1_42 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.42.4";
-    hash = "sha256-jiCXmH1Nu6fASFP2LNo338M4GeACjKSALSXzRM/o5yc=";
+    version = "1.42.5";
+    hash = "sha256-d1TVy79g+6gPSqiwU/GKxKe9dqJo5Q8WalAIUn1+l5I=";
   };
   mediawiki_1_43 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.43.0";

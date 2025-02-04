@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
   cfg = config.services.lnshot;
-  lnshot = pkgs.callPackage ../pkgs/lnshot {};
-in {
+  lnshot = pkgs.callPackage ../pkgs/lnshot { };
+in
+{
   options.services.lnshot = {
     enable = mkEnableOption "lnshot service";
 

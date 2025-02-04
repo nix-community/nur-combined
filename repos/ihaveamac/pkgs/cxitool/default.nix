@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cxitool";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-isDEatlXm/B3opafjz3uT2nXtvBXTCzvEEh0GSGPruI=";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
 
   preConfigure = ''
     substituteInPlace Makefile.am \

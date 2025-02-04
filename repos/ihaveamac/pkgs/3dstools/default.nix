@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "3dstools";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-2JVtsyFi42sEEZf13Ei+tuLSD4u58IO3xj4bMZtq3zM=";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
 
   preConfigure = ''
     bash ./autogen.sh

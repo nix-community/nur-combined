@@ -1,11 +1,24 @@
-{ stdenv, callPackage, lib, fetchFromGitLab, lz4, opencv, ffmpeg, llvmPackages }:
+{
+  stdenv,
+  callPackage,
+  lib,
+  fetchFromGitLab,
+  lz4,
+  opencv,
+  ffmpeg,
+  llvmPackages,
+}:
 
 let
-  realOpencv = if stdenv.isDarwin && stdenv.hostPlatform.isStatic then opencv.override {
-    ffmpeg = ffmpeg.override {
-      withSdl2 = false;
-    };
-  } else opencv;
+  realOpencv =
+    if stdenv.isDarwin && stdenv.hostPlatform.isStatic then
+      opencv.override {
+        ffmpeg = ffmpeg.override {
+          withSdl2 = false;
+        };
+      }
+    else
+      opencv;
 in
 stdenv.mkDerivation rec {
   pname = "makebax";
@@ -19,11 +32,17 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "${src.name}/makebax";
 
-  patches = [ ./fix-bad-alloc.patch ./fix-array.patch ];
+  patches = [
+    ./fix-bad-alloc.patch
+    ./fix-array.patch
+  ];
 
   NIX_CFLAGS_COMPILE = "-isystem ${realOpencv}/include/opencv4";
 
-  buildInputs = [ lz4 realOpencv ] ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
+  buildInputs = [
+    lz4
+    realOpencv
+  ] ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   installPhase = ''
     mkdir -p $out/bin

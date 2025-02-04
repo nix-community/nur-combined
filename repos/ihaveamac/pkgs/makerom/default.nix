@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libiconv,
+}:
 
 let
   cc = "${stdenv.cc.targetPrefix}cc";
@@ -32,7 +37,10 @@ stdenv.mkDerivation rec {
     make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps ${lib.escapeShellArgs makeFlags}
   '';
 
-  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ];
+  makeFlags = [
+    "CC=${cc}"
+    "CXX=${cxx}"
+  ];
   enableParallelBuilding = true;
 
   installPhase = ''

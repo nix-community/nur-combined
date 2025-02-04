@@ -1,4 +1,8 @@
-{ fetchFromGitHub, buildDotnetModule , lib}:
+{
+  fetchFromGitHub,
+  buildDotnetModule,
+  lib,
+}:
 
 buildDotnetModule rec {
   pname = "discordwikibot";

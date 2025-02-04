@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, util-linux, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  util-linux,
+  makeWrapper,
+}:
 
 let
   inherit (stdenv.hostPlatform) isStatic;

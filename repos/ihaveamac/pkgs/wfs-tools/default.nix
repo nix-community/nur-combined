@@ -1,5 +1,18 @@
 # TODO: remove stdenv override when 24.11 goes eol
-{ lib, stdenv, clang19Stdenv, gcc14Stdenv, callPackage, fetchFromGitHub, pkg-config, cmake, boost, cryptopp, fuse, withFUSE ? !stdenv.hostPlatform.isWindows }:
+{
+  lib,
+  stdenv,
+  clang19Stdenv,
+  gcc14Stdenv,
+  callPackage,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  boost,
+  cryptopp,
+  fuse,
+  withFUSE ? !stdenv.hostPlatform.isWindows,
+}:
 
 let
   realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
@@ -9,14 +22,21 @@ let
     rev = "fb4fd2b1fd16276b62438661fc6992f781d8e394";
     hash = "sha256-WwBQMzPosh57urL09zFyuR5BZcnOAwD2sLh9M9WHFeQ=";
   };
-  realCryptopp = if stdenv.hostPlatform.isWindows then
-    (cryptopp.overrideAttrs (final: prev: lib.warn "overriding" {
-      postPatch = prev.postPatch + ''
-        substituteInPlace GNUmakefile \
-          --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
-      '';
-    }))
-  else cryptopp;
+  realCryptopp =
+    if stdenv.hostPlatform.isWindows then
+      (cryptopp.overrideAttrs (
+        final: prev:
+        lib.warn "overriding" {
+          postPatch =
+            prev.postPatch
+            + ''
+              substituteInPlace GNUmakefile \
+                --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
+            '';
+        }
+      ))
+    else
+      cryptopp;
 in
 realStdenv.mkDerivation rec {
   pname = "wfs-tools";
@@ -32,7 +52,7 @@ realStdenv.mkDerivation rec {
   patches = [
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
-  ];
+  ] ++ lib.optional (!withFUSE) ./remove-wfs-fuse.patch;
 
   prePatch = ''
     rmdir wfslib
@@ -40,13 +60,18 @@ realStdenv.mkDerivation rec {
     chmod -R u+w ./wfslib
   '';
 
-  cmakeFlags = lib.optionals withFUSE (if realStdenv.isDarwin then [
-    (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
-    (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
-  ] else [
-    (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse.dev}/include")
-    (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse${stdenv.hostPlatform.extensions.library}")
-  ]);
+  cmakeFlags = lib.optionals withFUSE (
+    if realStdenv.isDarwin then
+      [
+        (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
+        (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
+      ]
+    else
+      [
+        (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse.dev}/include")
+        (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse${stdenv.hostPlatform.extensions.library}")
+      ]
+  );
 
   installPhase = ''
     mkdir -p $out/bin
@@ -55,16 +80,22 @@ realStdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [ boost realCryptopp ] ++ lib.optional withFUSE fuse;
+  buildInputs = [
+    boost
+    realCryptopp
+  ] ++ lib.optional withFUSE fuse;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "WFS (WiiU File System) Tools";
     homepage = "https://github.com/koolkdev/wfs-tools";
     license = licenses.mit;
     platforms = platforms.all;
-    # it's actually xz that is broken due to _WIN32_WINNT needing to be Windows 7
+    # boost fails due to "dlfcn.h" missing or something
     broken = stdenv.hostPlatform.isWindows;
   };
 }

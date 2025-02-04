@@ -1,4 +1,12 @@
-{ fetchFromGitHub, stdenv, lib, autoconf, automake, pkg-config, zlib }:
+{
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  autoconf,
+  automake,
+  pkg-config,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wifiboot-host";
@@ -10,7 +18,7 @@ stdenv.mkDerivation rec {
     rev = "d606c348740d40842d1282abc2fc91948bb31e41";
     hash = "sha256-jNyYpPs6MgBc19PoWIH+DnCVrOYYyJLtM7K2MsuiywM=";
   };
-  
+
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"

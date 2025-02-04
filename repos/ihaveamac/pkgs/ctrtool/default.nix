@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 let
   cc = "${stdenv.cc.targetPrefix}cc";
@@ -38,7 +42,10 @@ stdenv.mkDerivation rec {
     make SHELL=${stdenv.shell} -j$NIX_BUILD_CORES deps ${lib.escapeShellArgs makeFlags}
   '';
 
-  makeFlags = [ "CC=${cc}" "CXX=${cxx}" ] ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
+  makeFlags = [
+    "CC=${cc}"
+    "CXX=${cxx}"
+  ] ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
   enableParallelBuilding = true;
 
   # workaround for https://github.com/3DSGuy/Project_CTR/issues/145

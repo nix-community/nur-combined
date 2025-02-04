@@ -1,4 +1,9 @@
-{ lib, stdenv, pkgsBuildBuild, fetchFromGitLab }:
+{
+  lib,
+  stdenv,
+  pkgsBuildBuild,
+  fetchFromGitLab,
+}:
 
 let
   # zip is only needed to build a release zip

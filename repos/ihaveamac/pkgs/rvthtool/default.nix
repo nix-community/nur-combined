@@ -1,14 +1,21 @@
-{ lib, stdenv, pkgsBuildBuild, fetchFromGitHub, cmake, nettle }:
+{
+  lib,
+  stdenv,
+  pkgsBuildBuild,
+  fetchFromGitHub,
+  cmake,
+  nettle,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rvthtool";
-  version = "dev-2024-12-15";
+  version = "1.1.1-unstable-2025-02-01";
 
   src = fetchFromGitHub {
     owner = "GerbilSoft";
     repo = pname;
-    rev = "4f9761837a2de721488f5a7f10ce9dc8f4e5795e";
-    hash = "sha256-cVUjlNGKFbi4jw5GtpfHJNH+56329U3NGDgh32ZyQ9E=";
+    rev = "3c240dde95538b8906a2541b99046afdd75578ae";
+    hash = "sha256-nzX+AAEY0z3rrPyU0Y/49c2f7nc0nG4gn7B7NnEKSKo=";
   };
 
   postPatch = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
@@ -24,8 +31,6 @@ stdenv.mkDerivation rec {
     mkdir -p build/bin
     ${pkgsBuildBuild.stdenv.cc}/bin/cc -o build/bin/bin2h src/libwiicrypto/bin2h.c
   '';
-
-  patches = [ ./fix-integer-promotion.patch ];
 
   buildInputs = [ nettle ];
   nativeBuildInputs = [ cmake ];

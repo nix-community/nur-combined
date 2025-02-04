@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, stdenv, rustPlatform, fuse, pkg-config, withFUSE ? !stdenv.hostPlatform.isWindows }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  rustPlatform,
+  fuse,
+  pkg-config,
+  withFUSE ? !stdenv.hostPlatform.isWindows,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "save3ds";

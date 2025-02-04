@@ -1,4 +1,12 @@
-{ fetchFromGitHub, stdenv, lib, autoconf, automake, pkg-config, zlib }:
+{
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  autoconf,
+  automake,
+  pkg-config,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "3dslink";
@@ -16,9 +24,13 @@ stdenv.mkDerivation rec {
   '';
 
   sourceRoot = "source/host";
-  
+
   buildInputs = [ zlib ];
-  nativeBuildInputs = [ autoconf automake pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Send 3DSX files to the Homebrew Launcher on 3DS";

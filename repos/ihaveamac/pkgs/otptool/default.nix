@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libgcrypt, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libgcrypt,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "otptool";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-icFUWtR8loe9lNwHFCMOJOx/fQyt/YlAW9nEISi24gE=";
   };
 
-  buildInputs = [ libgcrypt openssl ];
+  buildInputs = [
+    libgcrypt
+    openssl
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1

@@ -1,20 +1,36 @@
-{ lib, openssl, libiconv, curl, stdenv, cmake, clang, fetchFromGitHub }:
+{
+  lib,
+  openssl,
+  libiconv,
+  curl,
+  stdenv,
+  cmake,
+  clang,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "3dstool";
   version = "1.2.6";
 
   src = fetchFromGitHub {
-    owner  = "dnasdw";
-    repo   = "3dstool";
-    rev    = "v${version}";
+    owner = "dnasdw";
+    repo = "3dstool";
+    rev = "v${version}";
     sha256 = "sha256-YHSuayvFpJHr42ezn1P5OR4Gtp+M6nZL1+ko6hWFvR0=";
   };
 
-  buildInputs = [ openssl libiconv curl ];
+  buildInputs = [
+    openssl
+    libiconv
+    curl
+  ];
   nativeBuildInputs = [ cmake ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+  ];
   cmakeFlags = [ "-DUSE_DEP=OFF" ];
   enableParallelBuilding = true;
 

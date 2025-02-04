@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, kame-tools, rstmcpp, qt6, portaudio, vgmstream }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  kame-tools,
+  rstmcpp,
+  qt6,
+  portaudio,
+  vgmstream,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kame-editor";
@@ -18,12 +27,24 @@ stdenv.mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ kame-tools vgmstream rstmcpp ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        kame-tools
+        vgmstream
+        rstmcpp
+      ]
+    }"
     # even adding qt6.qtwayland doesn't make wayland work for some reason i'm not sure of yet
   ] ++ (lib.optional (!stdenv.isDarwin) "--set WAYLAND_DISPLAY \"\"");
 
-  buildInputs = [ qt6.qtbase portaudio ];
-  nativeBuildInputs = [ qt6.qmake qt6.wrapQtAppsHook ];
+  buildInputs = [
+    qt6.qtbase
+    portaudio
+  ];
+  nativeBuildInputs = [
+    qt6.qmake
+    qt6.wrapQtAppsHook
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir $out/Applications

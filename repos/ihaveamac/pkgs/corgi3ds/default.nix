@@ -1,5 +1,13 @@
 # DOES NOT WORK
-{ stdenv, lib, pkgs, qtbase, wrapQtAppsHook, qmake, qtmultimedia }: 
+{
+  stdenv,
+  lib,
+  pkgs,
+  qtbase,
+  wrapQtAppsHook,
+  qmake,
+  qtmultimedia,
+}:
 
 stdenv.mkDerivation {
   pname = "corgi3ds";
@@ -12,7 +20,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-CwF/4Am5+rw3XELjZTx9LtebAdoeMALhX42vopIgzU4=";
   };
 
-  patches = [ ./include-cstdint.patch ./include-cstdio.patch ];
+  patches = [
+    ./include-cstdint.patch
+    ./include-cstdio.patch
+  ];
 
   buildInputs = [
     qtbase
@@ -20,7 +31,10 @@ stdenv.mkDerivation {
     pkgs.gmp
   ];
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ]; 
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

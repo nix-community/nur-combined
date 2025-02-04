@@ -1,4 +1,12 @@
-{ lib, fetchpatch, fetchFromGitHub, buildPythonApplication, cryptography, pycurl, defusedxml }:
+{
+  lib,
+  fetchpatch,
+  fetchFromGitHub,
+  buildPythonApplication,
+  cryptography,
+  pycurl,
+  defusedxml,
+}:
 
 buildPythonApplication rec {
   pname = "cleaninty";
@@ -11,7 +19,7 @@ buildPythonApplication rec {
     sha256 = "sha256-QVttOy3WPFZXvbNaJUhFSsEWwPDZgkGuDBR7zxlS+w8=";
   };
 
-  propagatedBuildInputs = [ 
+  propagatedBuildInputs = [
     cryptography
     pycurl
     defusedxml

@@ -1,20 +1,29 @@
-{ lib, stdenv, cmake, clang, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  cmake,
+  clang,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "darctool";
   version = "1.2.0";
 
   src = fetchFromGitHub {
-    owner  = "dnasdw";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "dnasdw";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "sha256-ZiIohUam7PoNzRI/m4q4KLBdEbAJcJMatyFPnObXMq0=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+  ];
   cmakeFlags = [ "-DUSE_DEP=OFF" ];
   enableParallelBuilding = true;
 

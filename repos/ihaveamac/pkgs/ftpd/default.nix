@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glfw, curl, jansson }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glfw,
+  curl,
+  jansson,
+}:
 
 let
   microsoft-gsl = fetchFromGitHub {
@@ -38,8 +47,15 @@ stdenv.mkDerivation rec {
     cp ftpd $out/bin/
   ";
 
-  buildInputs = [ glfw curl jansson ];
-  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    glfw
+    curl
+    jansson
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "FTP Server for 3DS/Switch (and Linux)";
