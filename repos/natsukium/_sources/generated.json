@@ -102,6 +102,7 @@
             "repo": "SbarLua",
             "rev": "437bd2031da38ccda75827cb7548e7baa4aa9978",
             "sha256": "sha256-F0UfNxHM389GhiPQ6/GFbeKQq5EvpiqQdvyf7ygzkPg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "437bd2031da38ccda75827cb7548e7baa4aa9978"
@@ -136,11 +137,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cj3VssOqxtCIjni8ANQTE6Q5LLS+l03vTPTfycFaajE=",
+            "sha256": "sha256-rLmI6JnDvBCOM5IvupCB3OpAoCuInTz4+tPQPeEJN1s=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.1.3570.39.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.1.3570.42.universal.dmg"
         },
-        "version": "7.1.3570.39"
+        "version": "7.1.3570.42"
     },
     "zen-browser": {
         "cargoLocks": null,
