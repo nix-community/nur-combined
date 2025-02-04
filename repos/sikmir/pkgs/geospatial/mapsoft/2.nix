@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   substituteAll,
   desktopToDarwinBundle,
   db,
@@ -28,19 +29,41 @@
   wrapGAppsHook,
 }:
 
+let
+  libs = fetchFromGitHub {
+    owner = "slazav";
+    repo = "mapsoft2-libs";
+    rev = "85241c6db623c95c36fc891e413444153739c373";
+    hash = "sha256-Lu4HwszvTnXXGZl5Gs1vNKM4Ww7IY6fpY/Ozf07t3u4=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.9-alt1";
+  version = "2.9-alt1-unstable-2025-01-29";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
-    tag = finalAttrs.version;
-    hash = "sha256-zwjYT/ou8cQxSka+J93ojiLkdAPV9ryz/QPQBvvRTdg=";
-    fetchSubmodules = true;
+    rev = "f97b0f3e41e50398ab135b6a96047ff497ae6b94";
+    hash = "sha256-STXA7/hhm3/fK6WnrYNezymVxUHaKfPdg1Z9kjBeZsQ=";
   };
 
-  patches = [ ./0002-fix-build.patch ] ++ lib.optional (!finalAttrs.doCheck) ./0003-notests.patch;
+  prePatch = ''
+    cp -r ${libs}/* modules
+    chmod -R +w modules
+  '';
+
+  patches = [
+    # https://github.com/slazav/mapsoft2-libs/commit/c0c13a537d4aa6f8d8af530f29408a0ae8c5512c#r152084247
+    (fetchpatch {
+      url = "https://github.com/slazav/mapsoft2-libs/commit/c0c13a537d4aa6f8d8af530f29408a0ae8c5512c.patch";
+      hash = "sha256-uTJnLPwPupUy3c8zr/nx87lA97YQKhQ1nQsr3ltOUE8=";
+      revert = true;
+      stripLen = 1;
+      extraPrefix = "modules/";
+    })
+    ./0002-fix-build.patch
+  ] ++ lib.optional (!finalAttrs.doCheck) ./0003-notests.patch;
 
   postPatch =
     let
@@ -78,7 +101,6 @@ stdenv.mkDerivation (finalAttrs: {
       substituteInPlace modules/opt/Makefile --replace-fail "SIMPLE_TESTS := opt" ""
       substituteInPlace modules/tmpdir/Makefile --replace-fail "SCRIPT_TESTS := tmpdir" ""
       substituteInPlace modules/get_deps --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
-      substituteInPlace modules/image_cnt/image_cnt.cpp --replace-fail "(pow," "pow("
       patchShebangs .
     '';
 
