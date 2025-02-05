@@ -2301,10 +2301,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "136.0.20250203.153029";
+      version = "136.0.20250204.100018";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4430255/deutsch_de_language_pack-136.0.20250203.153029.xpi";
-      sha256 = "bbc1c0326aae036fbefdcf8698c684a072dd6dc65fe54e02aaafd138b711da99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431022/deutsch_de_language_pack-136.0.20250204.100018.xpi";
+      sha256 = "55ccfab9bf34e1e086dc5021cde842ca82ad9461b8e9523f94d381b4f4b96360";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2563,10 +2563,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.57.4";
+      version = "2.57.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4429882/dualsub-2.57.4.xpi";
-      sha256 = "d93876a022d3244ec5fdca153a619fcc62cda763dc214074fa1c18be9b03b605";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4430786/dualsub-2.57.5.xpi";
+      sha256 = "f07a729ef961881c9646fd55e2e7886cd5894d9b47f98b8824a1746de462ae79";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3492,10 +3492,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "136.0.20250203.153029";
+      version = "136.0.20250204.100018";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4430276/francais_language_pack-136.0.20250203.153029.xpi";
-      sha256 = "f147f084b111533576b16ac5210e3816d0cb7931a4e2570b23f6b33244d370ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431079/francais_language_pack-136.0.20250204.100018.xpi";
+      sha256 = "a38c64a8cb6d99d0d0001d141b8ad03a37a95e371b707a379bc9f939cf3c011f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3529,10 +3529,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "136.0.20250203.153029";
+      version = "136.0.20250204.100018";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4430324/gaidhlig_language_pack-136.0.20250203.153029.xpi";
-      sha256 = "62239cabe8e1e22cce768299b94f497e90d89f8986ded9a95ec2240019c029ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431085/gaidhlig_language_pack-136.0.20250204.100018.xpi";
+      sha256 = "b0fcc18fd91cb2371dd27a20cc80de918e3ed8f7d315a9e798c8a6635ef7aa77";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5350,10 +5350,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.13.5";
+      version = "1.13.8";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419548/immersive_translate-1.13.5.xpi";
-      sha256 = "fe9feaea1af4abcc3daa6414845bbee078de288117c969ae140d01152d29218b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4425120/immersive_translate-1.13.8.xpi";
+      sha256 = "51ed498ee2421ce43850a0f9bb7a8f7490a14472f0420809d6f402b40d649b4f";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -10080,10 +10080,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "136.0.20250204.12944";
+      version = "136.0.20250204.100018";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4430577/scots_language_pack-136.0.20250204.12944.xpi";
-      sha256 = "d525153bffbd9b6e99a647b579d6bdcaae5c35b678c70333549ec276fac4a4cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431114/scots_language_pack-136.0.20250204.100018.xpi";
+      sha256 = "d9478030ac14dc1b2ca95f13a2955a5955204f6d785f5876672df451bbae8a79";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13264,10 +13264,10 @@
     };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.11.1";
+      version = "3.4.13.2";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191851/windscribe-3.4.11.1.xpi";
-      sha256 = "4e64ef6589f02d27798eb5dbc3584e99806023e69d277769f13ef1f4a24efbe4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4419399/windscribe-3.4.13.2.xpi";
+      sha256 = "fdedaf8ab891ea46530a83287d601d1dcfa9644ae909daf3931b508eaa2391cb";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
