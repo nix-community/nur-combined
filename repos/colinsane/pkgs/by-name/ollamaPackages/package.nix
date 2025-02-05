@@ -35,6 +35,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   deepseek-r1-32b = callPackage ./deepseek-r1-32b.nix { };
   deepseek-r1-abliterated-14b = callPackage ./deepseek-r1-abliterated-14b.nix { };
   deepseek-r1-abliterated-32b = callPackage ./deepseek-r1-abliterated-32b.nix { };
+  deepseek-r1-abliterated-70b = callPackage ./deepseek-r1-abliterated-70b.nix { };
   dolphin-mistral-7b = callPackage ./dolphin-mistral-7b.nix { };
   dolphin-mixtral-8x7b = callPackage ./dolphin-mixtral-8x7b.nix { };
   falcon2-11b = callPackage ./falcon2-11b.nix { };
@@ -47,6 +48,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   llama3_2-3b = callPackage ./llama3_2-3b.nix { };
   llama3_2-uncensored-3b = callPackage ./llama3_2-uncensored-3b.nix { };
   llama3_3-70b = callPackage ./llama3_3-70b.nix { };
+  llama3_3-abliterated-70b = callPackage ./llama3_3-abliterated-70b.nix { };
   magicoder-7b = callPackage ./magicoder-7b.nix { };
   marco-o1-7b = callPackage ./marco-o1-7b.nix { };
   mistral-7b = callPackage ./mistral-7b.nix { };
@@ -64,6 +66,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   qwen2_5-abliterate-32b = callPackage ./qwen2_5-abliterate-32b.nix { };
   qwen2_5-coder-7b = callPackage ./qwen2_5-coder-7b.nix { };
   qwq-32b = callPackage ./qwq-32b.nix { };
+  qwq-abliterated-32b = callPackage ./qwq-abliterated-32b.nix { };
   solar-pro-22b = callPackage ./solar-pro-22b.nix { };
   starcoder2-15b-instruct = callPackage ./starcoder2-15b-instruct.nix { };
   wizardlm2-7b = callPackage ./wizardlm2-7b.nix { };
