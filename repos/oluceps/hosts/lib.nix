@@ -17,6 +17,7 @@ let
       skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
     };
     hosts = import ./hosts.nix;
+    meta = (fromTOML (builtins.readFile ./sum.toml)).node;
   };
 
   genModules = map (
@@ -38,7 +39,11 @@ in
 
   hostOverlays =
     { inputs', inputs }:
-    (import ../overlays.nix { inherit inputs' inputs; }) ++ [ inputs.self.overlays.default ];
+    (import ../overlays.nix { inherit inputs' inputs; })
+    ++ [
+      inputs.self.overlays.default
+      inputs.nix-topology.overlays.default
+    ];
 
   iage = type: import ../age { inherit type; };
 
@@ -51,6 +56,7 @@ in
       "lanzaboote"
       "catppuccin"
       # "lix-module"
+      "nix-topology"
       "nyx"
       "self"
     ])

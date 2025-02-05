@@ -18,6 +18,28 @@
       redistribute local deny
     '';
   };
+  # topology.self.interfaces = lib.listToAttrs (
+  #   map (
+  #     n:
+  #     let
+  #       name = "wg-${n}";
+  #     in
+  #     {
+  #       inherit name;
+  #       value =
+  #         let
+  #           thisNode = lib.data.meta.${config.networking.hostName};
+  #         in
+  #         {
+  #           addresses = [ thisNode.unique_addr ];
+  #           network = name;
+  #           type = "wireguard";
+  #         };
+  #     }
+  #   ) (builtins.attrNames (lib.conn { }))
+  # )
+
+  # ;
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";

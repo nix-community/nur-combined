@@ -23,6 +23,7 @@
           ++ [
             ./hosts
             vaultix.flakeModules.default
+            inputs.nix-topology.flakeModule
             flake-parts.flakeModules.easyOverlay
           ];
         debug = true;
@@ -90,6 +91,11 @@
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
+            topology.modules = [
+              {
+
+              }
+            ];
           };
 
         flake = {
@@ -142,6 +148,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
+    nix-topology.url = "github:oddlama/nix-topology";
     niri = {
       url = "github:YaLTeR/niri";
       # inputs.nixpkgs.follows = "nixpkgs";
