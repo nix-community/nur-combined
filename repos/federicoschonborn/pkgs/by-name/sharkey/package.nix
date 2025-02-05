@@ -6,7 +6,7 @@
   fetchFromGitLab,
   makeWrapper,
   nodejs,
-  pnpm,
+  pnpm_9,
   python3,
   xcbuild,
   bash,
@@ -31,13 +31,13 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    makeWrapper
     nodejs
-    pnpm.configHook
+    pnpm_9.configHook
+    makeWrapper
     python3
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild.xcrun ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = pnpm_9.fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "sha256-7/N4ktYGOU+KQtOG32oJm/FEpR7shm0wlDWOThPVsgM=";
   };
@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       # Otherwise, maybe somehow bindmount a writable directory into <package>/data/files.
       ln -s /var/lib/misskey $out/data/files
 
-      makeWrapper ${pnpm}/bin/pnpm $out/bin/misskey \
+      makeWrapper ${pnpm_9}/bin/pnpm $out/bin/misskey \
         --run "${checkEnvVarScript} || exit" \
         --chdir $out/data \
         --add-flags run \
@@ -97,13 +97,13 @@ stdenv.mkDerivation (finalAttrs: {
           lib.makeBinPath [
             bash
             nodejs
-            pnpm
+            pnpm_9
           ]
         } \
         --prefix LD_LIBRARY_PATH : ${
           lib.makeLibraryPath [
-            ffmpeg-headless
             jemalloc
+            ffmpeg-headless
             stdenv.cc.cc
           ]
         }
