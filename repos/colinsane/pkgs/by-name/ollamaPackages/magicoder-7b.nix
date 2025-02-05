@@ -2,7 +2,7 @@
 { mkOllamaModel }: mkOllamaModel {
   modelName = "magicoder";
   variant = "7b";
-  manifestHash = "sha256-xImVZS0m8meZXB81pBF+qv+GydqgsaaVtDVwrsx8vS4=";
+  manifestHash = "sha256-gAfeBvXZ9I3APxZ/rCxO8gtlFdIHUPzGoeFaZBpISlA=";
   modelBlob = "4a501ed4ce55e5611922b3ee422501ff7cc773b472d196c3c416859b6d375273";
   modelBlobHash = "sha256-SlAe1M5V5WEZIrPuQiUB/3zHc7Ry0ZbDxBaFm203UnM=";
   paramsBlob = "58e1b82a691f46c155e57be607f1031930ea0cccc22daf4447f91d360f74b2d2";

@@ -7,6 +7,13 @@
 # - <https://huggingface.co/spaces/mike-ravkine/can-ai-code-results>
 # - <https://eqbench.com/>
 # - <https://evalplus.github.io/leaderboard.html>
+#
+# choosing a model, for sensitive/illicit things ("Uncensored General Intelligence"):
+# - <https://huggingface.co/spaces/DontPlanToEnd/UGI-Leaderboard>
+# - <https://www.reddit.com/r/LocalLLaMA/comments/1hk0ldo/december_2024_uncensored_llm_test_results/>
+# - search "abliterated" or "abliterate"
+# - search "uncensored"
+# - search "Eric Hartford" <https://erichartford.com/uncensored-models>
 {
   lib,
   newScope,
@@ -22,6 +29,14 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   deepseek-coder-7b = callPackage ./deepseek-coder-7b.nix { };
   deepseek-coder-v2-16b = callPackage ./deepseek-coder-v2-16b.nix { };
   deepseek-coder-v2-16b-lite-instruct-q5_1 = callPackage ./deepseek-coder-v2-16b-lite-instruct-q5_1.nix { };
+  deepseek-r1-1_5b = callPackage ./deepseek-r1-1_5b.nix { };
+  deepseek-r1-7b = callPackage ./deepseek-r1-7b.nix { };
+  deepseek-r1-14b = callPackage ./deepseek-r1-14b.nix { };
+  deepseek-r1-32b = callPackage ./deepseek-r1-32b.nix { };
+  deepseek-r1-abliterated-14b = callPackage ./deepseek-r1-abliterated-14b.nix { };
+  deepseek-r1-abliterated-32b = callPackage ./deepseek-r1-abliterated-32b.nix { };
+  dolphin-mistral-7b = callPackage ./dolphin-mistral-7b.nix { };
+  dolphin-mixtral-8x7b = callPackage ./dolphin-mixtral-8x7b.nix { };
   falcon2-11b = callPackage ./falcon2-11b.nix { };
   gemma2-9b = callPackage ./gemma2-9b.nix { };
   gemma2-27b = callPackage ./gemma2-27b.nix { };
@@ -30,6 +45,8 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   llama3-chatqa-8b = callPackage ./llama3-chatqa-8b.nix { };
   llama3_1-70b = callPackage ./llama3_1-70b.nix { };
   llama3_2-3b = callPackage ./llama3_2-3b.nix { };
+  llama3_2-uncensored-3b = callPackage ./llama3_2-uncensored-3b.nix { };
+  llama3_3-70b = callPackage ./llama3_3-70b.nix { };
   magicoder-7b = callPackage ./magicoder-7b.nix { };
   marco-o1-7b = callPackage ./marco-o1-7b.nix { };
   mistral-7b = callPackage ./mistral-7b.nix { };
@@ -42,6 +59,9 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   qwen2_5-14b = callPackage ./qwen2_5-14b.nix { };
   qwen2_5-32b = callPackage ./qwen2_5-32b.nix { };
   qwen2_5-32b-instruct-q2_K = callPackage ./qwen2_5-32b-instruct-q2_K.nix { };
+  qwen2_5-abliterate-7b = callPackage ./qwen2_5-abliterate-7b.nix { };
+  qwen2_5-abliterate-14b = callPackage ./qwen2_5-abliterate-14b.nix { };
+  qwen2_5-abliterate-32b = callPackage ./qwen2_5-abliterate-32b.nix { };
   qwen2_5-coder-7b = callPackage ./qwen2_5-coder-7b.nix { };
   qwq-32b = callPackage ./qwq-32b.nix { };
   solar-pro-22b = callPackage ./solar-pro-22b.nix { };
