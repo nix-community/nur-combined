@@ -3,12 +3,12 @@
         papirus-icon-theme = "DUMMY";
     }).overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.245.21";
+        version = "0.245.22";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             rev = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            sha256 = "sha256-q0m0h5nOuDdVm+VPzJXTU0XZjNKwNE7ugHzvHxZsBo0=";
+            sha256 = "sha256-NPdOJ/o5bUlVDYECvpg/8uSwDw+0sHBE5ixYYYhnehc=";
         };
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
         desktopItems = [
@@ -68,7 +68,6 @@
         env = (old.env or {}) // {
             NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + lib.optionalString stdenv.cc.isClang (
                 " -Wno-error=unused-but-set-variable -Wno-error=unused-private-field" +
-                lib.optionalString (lib.versionAtLeast stdenv.cc.version "18.1" && lib.versionOlder version "0.245.22") " -Wno-error=vla-cxx-extension" +
                 # https://github.com/llvm/llvm-project/issues/62254
                 lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
             );
