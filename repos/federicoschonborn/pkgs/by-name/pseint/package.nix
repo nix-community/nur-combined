@@ -29,6 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libX11
   ];
 
+  postPatch = ''
+    substituteInPlace dtl/dtl/Diff.hpp --replace-fail "enableTrivial () const" "enableTrivial ()"
+  '';
+
   makeFlags = [ "ARCH=lnx" ];
 
   desktopItems = [

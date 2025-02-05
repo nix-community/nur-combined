@@ -219,7 +219,7 @@ A set of emojis featuring a bun
 - Name: `eppa-neobun`
 - Version: `0-unstable-2024-05-02`
 
-- [🌐 Homepage](https://mooi.moe/emoji.html)
+- [🌐 Homepage](https://web.archive.org/web/20240525151202/https://mooi.moe/emoji.html)
 - [📦 Source](./pkgs/akkoma-emoji/eppa/neobun/package.nix#L25)
 - License: Unfree
 
@@ -323,7 +323,7 @@ A set of emojis featuring a familiar cube
 - Name: `eppa-neocube`
 - Version: `0-unstable-2024-05-25`
 
-- [🌐 Homepage](https://mooi.moe/emoji.html)
+- [🌐 Homepage](https://web.archive.org/web/20240525151202/https://mooi.moe/emoji.html)
 - [📦 Source](./pkgs/akkoma-emoji/eppa/neocube/package.nix#L25)
 - License: Unfree
 
@@ -3141,7 +3141,7 @@ Alternative to GNU coreutils using software from FreeBSD
 - Version: `13.2`
 
 - [🌐 Homepage](https://github.com/dcantrell/bsdutils)
-- [📦 Source](./pkgs/by-name/bsdutils/package.nix#L50)
+- [📦 Source](./pkgs/by-name/bsdutils/package.nix#L52)
 - License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
 - [📰 Changelog](https://github.com/dcantrell/bsdutils/releases/tag/v13.2)
 
@@ -4328,7 +4328,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L109)
+- [📦 Source](./default.nix#L110)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5229,7 +5229,7 @@ A tool for learning programming basis with a simple Spanish pseudocode
 - Version: `20240122`
 
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L61)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L65)
 - License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5373,7 +5373,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 
 - [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./pkgs/by-name/raze/package.nix#L46)
+- [📦 Source](./pkgs/by-name/raze/package.nix#L55)
 - License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5445,7 +5445,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 
 - [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./default.nix#L141)
+- [📦 Source](./default.nix#L142)
 - License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5878,7 +5878,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L168)
+- [📦 Source](./default.nix#L169)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5950,7 +5950,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L181)
+- [📦 Source](./default.nix#L182)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -6022,7 +6022,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L151)
+- [📦 Source](./default.nix#L152)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
