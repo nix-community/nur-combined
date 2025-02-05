@@ -26,5 +26,6 @@ in
       description = "A Linux ram cache dropper in C without *alloc()";
       license = lib.licenses.mit;
       platforms = lib.platforms.linux;
+      mainProgram = "ccc";
     };
   }
