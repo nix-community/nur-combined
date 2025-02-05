@@ -7,7 +7,9 @@
       local-path /var/run/babeld/ro.sock
       router-id 38:d5:7a:e2:19:7d
       ${lib.concatStringsSep "\n" (
-        map (n: "interface wg-${n} type tunnel rtt-max 512") (builtins.attrNames (lib.conn { }))
+        map (n: "interface wg-${n} type tunnel rtt-max 512") (
+          builtins.attrNames (lib.conn { }).${config.networking.hostName}
+        )
       )}
       redistribute ip fdcc::/64 ge 64 le 128 local allow
       redistribute proto 42
