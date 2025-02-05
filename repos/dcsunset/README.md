@@ -4,8 +4,6 @@
 
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/DCsunset/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-[![Cachix Cache](https://img.shields.io/badge/cachix-dcsunset-blue.svg)](https://dcsunset.cachix.org)
-
 
 ## Usage
 
@@ -33,12 +31,6 @@ add the following to your `flake.nix` config:
         {
           nixpkgs.overlays = [ inputs.nur-dcsunset.overlays.pkg ];
         }
-
-        # Binary cache (optional)
-        ({ ... }: {
-          nix.settings.substituters = [ "https://dcsunset.cachix.org" ];
-          nix.settings.trusted-public-keys = [ "dcsunset.cachix.org-1:EGXkNb1C+03/dYGG5QOFt9cXIiZcuwMLDcdZw1wlkU0=" ];
-        })
       ];
     };
   };
