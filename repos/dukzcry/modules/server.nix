@@ -84,7 +84,10 @@ KPoAasAwIFKBYRKQu+wiRu55Zosm
       ];
       services.yggdrasil = {
         enable = true;
-        configFile = "/etc/yggdrasil.conf";
+        persistentKeys = true;
+        settings = {
+          IfName = "ygg0";
+        };
       };
       systemd.services.yggdrasil.wantedBy = mkForce [];
     })
