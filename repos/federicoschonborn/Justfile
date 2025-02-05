@@ -43,7 +43,7 @@ build-all-unstable:
 build-all-stable:
     just _nix-stable build --no-link $(just _build-outputs)
 
-[group("build")]
+[group("build-all")]
 build-all: build-all-unstable build-all-stable
 
 [group("rebuild")]
