@@ -1,9 +1,8 @@
 let
   common = {
-    "10.0.1.1" = [ "nodens.nyaw.xyz" ];
-    "10.0.2.1" = [ "azasos.nyaw.xyz" ];
-    "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
-    "10.0.4.1" = [ "yidhra.nyaw.xyz" ];
+    "fdcc::6" = [ "azasos.nyaw.xyz" ];
+    "fdcc::5" = [ "abhoth.nyaw.xyz" ];
+    "fdcc::4" = [ "yidhra.nyaw.xyz" ];
   };
 
   srvOnEihort = [
@@ -22,11 +21,11 @@ let
   };
 
   remote = {
-    "10.0.4.6" = srvOnEihort;
-    "10.0.4.2" = [
+    "fdcc::3" = srvOnEihort;
+    "fdcc::1" = [
       "hastur.nyaw.xyz"
     ];
-    "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
+    "fdcc::2" = [ "kaambl.nyaw.xyz" ];
   };
 
   sum = lan // common;

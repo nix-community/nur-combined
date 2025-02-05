@@ -7,8 +7,8 @@ in
     settings.hostPubkey = data.keys.eihortHostPubKey;
 
     secrets = {
-      wge = {
-        file = ../../sec/wge.age;
+      wg-eihort = {
+        file = ../../sec/wg-eihort.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

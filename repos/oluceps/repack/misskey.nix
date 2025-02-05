@@ -10,6 +10,15 @@ reIf {
     port = 6379;
   };
 
+  users = {
+    users.misskey = {
+      group = "misskey";
+      isSystemUser = true;
+    };
+    groups.misskey = {
+    };
+  };
+
   systemd.services.misskey = {
     after = [
       "network-online.target"
@@ -25,12 +34,13 @@ reIf {
       LoadCredential = [ "config:${config.vaultix.secrets.misskey.path}" ];
       ExecStart = "${pkgs.misskey}/bin/misskey migrateandstart";
       RuntimeDirectory = "misskey";
-      RuntimeDirectoryMode = "700";
+      RuntimeDirectoryMode = "770";
       StateDirectory = "misskey";
       StateDirectoryMode = "700";
       TimeoutSec = 60;
-      DynamicUser = true;
+      DynamicUser = false;
       User = "misskey";
+      Group = "misskey";
       LockPersonality = true;
       PrivateDevices = true;
       PrivateUsers = true;

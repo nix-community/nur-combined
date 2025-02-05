@@ -32,18 +32,6 @@
   "dae"
 ])
 // {
-  hyst-osa-cli = {
-    file = ../sec/hyst-osa-cli.age;
-    mode = "640";
-    owner = "root";
-    group = "users";
-    name = "hyst-osa-cli.yaml";
-  };
-  hyst-hk-cli = {
-    file = ../sec/hyst-hk-cli.age;
-    mode = "640";
-    owner = "root";
-    group = "users";
-    name = "hyst-hk-cli.yaml";
-  };
+  hyst-osa-cli.file = ../sec/hyst-osa-cli.age;
+  hyst-hk-cli.file = ../sec/hyst-hk-cli.age;
 }

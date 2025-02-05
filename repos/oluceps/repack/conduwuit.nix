@@ -14,7 +14,9 @@ reIf {
       server_name = "nyaw.xyz";
       database_backend = "rocksdb";
       port = [ 6167 ];
-      address = [ "0.0.0.0" ];
+      address = [
+        "::"
+      ];
       # allow_registration = true;
       turn_uris = [
         "turn:nodens.nyaw.xyz?transport=udp"

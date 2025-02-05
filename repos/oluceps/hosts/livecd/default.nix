@@ -28,7 +28,6 @@ withSystem "x86_64-linux" (
         };
       }
       ./additions.nix
-      inputs.lix-module.nixosModules.default
       "${self}/modules/sing-box.nix"
     ];
   }

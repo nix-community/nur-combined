@@ -1,5 +1,19 @@
 { config, lib, ... }:
 {
+  services.babeld = {
+    enable = true;
+    config = ''
+      skip-kernel-setup true
+      local-path /var/run/babeld/ro.sock
+      router-id f2:3c:95:50:a1:73
+      ${lib.concatStringsSep "\n" (
+        map (n: "interface wg-${n} type tunnel rtt-max 512") (builtins.attrNames (lib.conn { }))
+      )}
+      redistribute ip fdcc::/64 ge 64 le 128 local allow
+      redistribute proto 42
+      redistribute local deny
+    '';
+  };
   services = {
     resolved.enable = lib.mkForce false;
   };
@@ -10,12 +24,17 @@
     domain = "nyaw.xyz";
     # resolvconf.useLocalResolver = true;
     firewall = {
-      checkReversePath = false;
       enable = true;
-      extraForwardRules = "iifname wg0 accept";
+      checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
-        "wg0"
+        "wg*"
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 51820;
+          to = 51830;
+        }
       ];
       allowedUDPPorts = [
         80
@@ -24,7 +43,6 @@
         5173
         23180
         4444
-        51820
         3330
         8880
         34197 # factorio realm
@@ -86,79 +104,10 @@
       linkConfig.Name = "eth0";
     };
 
-    netdevs = {
-      wg0 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.vaultix.secrets.wgab.path;
-          ListenPort = 51820;
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-            AllowedIPs = [
-              "10.0.3.2/32"
-            ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-            AllowedIPs = [ "10.0.3.3/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
-            AllowedIPs = [ "10.0.3.6/32" ];
-            PersistentKeepalive = 15;
-          }
-          # {
-          #   PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-          #   AllowedIPs = [ "10.0.1.1/24" ];
-          #   Endpoint = "144.126.208.183:51820";
-          #   PersistentKeepalive = 15;
-          # }
-          {
-            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
-            AllowedIPs = [ "10.0.4.0/24" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.0/24" ];
-            PersistentKeepalive = 15;
-          }
-        ];
-      };
+    networks."20-eth0" = {
+      matchConfig.Name = "eth0";
+      DHCP = "yes";
     };
 
-    networks = {
-      "10-wg0" = {
-        matchConfig.Name = "wg0";
-        address = [
-          "10.0.3.1/24"
-        ];
-        networkConfig = {
-          IPMasquerade = "ipv4";
-          IPv4Forwarding = true;
-        };
-
-        routes = [
-          {
-            Destination = "10.0.2.0/24";
-          }
-          {
-            Destination = "10.0.4.0/24";
-          }
-        ];
-      };
-      "20-eth0" = {
-        matchConfig.Name = "eth0";
-        DHCP = "yes";
-      };
-    };
   };
 }

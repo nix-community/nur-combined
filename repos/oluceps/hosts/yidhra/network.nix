@@ -1,5 +1,19 @@
 { config, lib, ... }:
 {
+  services.babeld = {
+    enable = true;
+    config = ''
+      skip-kernel-setup true
+      local-path /var/run/babeld/ro.sock
+      router-id 00:16:3e:0c:cd:5d
+      ${lib.concatStringsSep "\n" (
+        map (n: "interface wg-${n} type tunnel rtt-max 512") (builtins.attrNames (lib.conn { }))
+      )}
+      redistribute ip fdcc::/64 ge 64 le 128 local allow
+      redistribute proto 42
+      redistribute local deny
+    '';
+  };
 
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
@@ -12,8 +26,6 @@
       extraForwardRules = "iifname wg0 accept";
       trustedInterfaces = [
         "virbr0"
-        "wg0"
-        "wg1"
       ];
       allowedUDPPorts = [
         80
@@ -76,8 +88,6 @@
       enable = true;
       anyInterface = true;
       ignoredInterfaces = [
-        "wg0"
-        "wg1"
       ];
     };
 
@@ -86,110 +96,32 @@
       linkConfig.Name = "eth0";
     };
 
-    netdevs = {
-
-      wg0 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.vaultix.secrets.wgy.path;
-          ListenPort = 51820;
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-            AllowedIPs = [
-              "10.0.4.2/32"
-            ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-            AllowedIPs = [ "10.0.4.3/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
-            AllowedIPs = [ "10.0.4.6/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "0wLrznvd32gloUHwgFqv+vlybBtEYQaUOwgqyfa3Fl4=";
-            AllowedIPs = [ "10.0.4.4/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            # equal node
-            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.0/24" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            # equal node
-            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.0/24" ];
-            Endpoint = "172.234.92.148:51820";
-            PersistentKeepalive = 15;
-          }
-          # {
-          #   # equal node
-          #   PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-          #   AllowedIPs = [ "10.0.1.0/24" ];
-          #   Endpoint = "144.126.208.183:51820";
-          #   PersistentKeepalive = 15;
-          # }
-        ];
+    netdevs.wg-warp = {
+      netdevConfig = {
+        Kind = "wireguard";
+        Name = "wg-warp";
+        MTUBytes = "1300";
       };
-
-      wg1 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg1";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-            Endpoint = "162.159.192.1:2408";
-            AllowedIPs = [ "::/0" ];
-            PersistentKeepalive = 15;
-          }
-        ];
+      wireguardConfig = {
+        PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
       };
+      wireguardPeers = [
+        {
+          PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+          Endpoint = "162.159.192.1:2408";
+          AllowedIPs = [ "::/0" ];
+          PersistentKeepalive = 15;
+        }
+      ];
     };
-
     networks = {
-      "10-wg0" = {
-        matchConfig.Name = "wg0";
-        address = [
-          "10.0.4.1/24"
-        ];
-        networkConfig = {
-          IPMasquerade = "ipv4";
-          IPv4Forwarding = true;
-        };
 
-        routes = [
-          # {
-          #   Destination = "10.0.1.0/24";
-          #   Scope = "link";
-          # }
-          {
-            Destination = "10.0.2.0/24";
-          }
-          {
-            Destination = "10.0.3.0/24";
-          }
-        ];
+      "20-eth0" = {
+        matchConfig.Name = "eth0";
+        DHCP = "yes";
       };
-      "15-wg1" = {
-        matchConfig.Name = "wg1";
+      "15-wg-warp" = {
+        matchConfig.Name = "wg-warp";
         address = [
           "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
         ];
@@ -204,11 +136,6 @@
             Gateway = "fe80::1";
           }
         ];
-      };
-
-      "20-eth0" = {
-        matchConfig.Name = "eth0";
-        DHCP = "yes";
       };
     };
   };

@@ -10,6 +10,7 @@
     "nyaw.cert"
     "nyaw.key"
   ];
+  systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "misskey" ];
   repack.caddy = {
     enable = true;
     settings.apps = {
@@ -47,6 +48,15 @@
             ];
             match = [ { host = [ "*.nyaw.xyz" ]; } ];
           }
+          {
+            handle = [
+              {
+                handler = "reverse_proxy";
+                upstreams = [ { dial = "unix//run/misskey/rw.sock"; } ];
+              }
+            ];
+            match = [ { host = [ "nyaw.xyz" ]; } ];
+          }
         ];
 
         tls_connection_policies = [
@@ -54,6 +64,7 @@
             match = {
               sni = [
                 "*.nyaw.xyz"
+                "nyaw.xyz"
               ];
             };
             certificate_selection = {

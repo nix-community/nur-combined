@@ -24,6 +24,7 @@
       };
 
       ${user} = {
+        linger = true;
         initialHashedPassword = lib.mkDefault data.keys.hashedPasswd;
         # home = "/home/${user}";
         # group = user;

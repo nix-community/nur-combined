@@ -13,7 +13,7 @@ reIf {
       emergencyAccessAllowed = false;
       orgCreationUsers = "none";
       domain = "https://vault.nyaw.xyz";
-      rocketAddress = "0.0.0.0";
+      rocketAddress = "::";
       rocketPort = 8003;
     };
     # backupDir = "/var/lib/bitwarden_rs/backup";

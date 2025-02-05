@@ -24,8 +24,8 @@ in
       garage = {
         file = ../../sec/garage.age;
       };
-      wgk = {
-        file = ../../sec/wgk.age;
+      wg-kaambl = {
+        file = ../../sec/wg-kaambl.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

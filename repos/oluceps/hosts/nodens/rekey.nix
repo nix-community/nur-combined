@@ -58,8 +58,8 @@ in
         name = "tg-env";
       };
 
-      wgn = {
-        file = ../../sec/wgn.age;
+      wg-nodens = {
+        file = ../../sec/wg-nodens.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

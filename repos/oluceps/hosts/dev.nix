@@ -11,20 +11,12 @@
     "L /home/${user}/.ssh/config - - - - ${pkgs.writeText "ssh-config" ''
       ${builtins.concatStringsSep "\n" (
         let
-          inherit (builtins) elemAt;
-          parse =
-            addr:
-            (
-              let
-                where = lib.splitString "@" addr;
-              in
-              "HostName ${elemAt where 1}\n    User ${elemAt where 0}"
-            );
-          hosts = (fromTOML (builtins.readFile ./sum.toml)).host;
+          hosts = (fromTOML (builtins.readFile ./sum.toml)).node;
         in
-        map (i: ''
-          Host ${i.name}
-              ${parse i.addr}
+        lib.mapAttrsToList (n: v: ''
+          Host ${n}
+              HostName ${v.addr}
+              User ${v.user}
               AddKeysToAgent yes
               ForwardAgent yes
         '') hosts

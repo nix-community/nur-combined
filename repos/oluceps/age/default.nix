@@ -49,7 +49,7 @@
         "nyaw.key"
         "gh-token"
       ])
-      // (sdnetRo [ "wg" ])
+      // (sdnetRo [ "wg-hastur" ])
       // (rrr [ "ntfy-token" ])
       // (if type != "default" then (import ./${type}.nix gener) else { });
   };

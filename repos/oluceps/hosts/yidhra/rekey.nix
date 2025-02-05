@@ -12,8 +12,8 @@ in
   vaultix = {
     settings.hostPubkey = data.keys.yidhraHostPubKey;
     secrets = {
-      wgy = {
-        file = ../../sec/wgy.age;
+      wg-yidhra = {
+        file = ../../sec/wg-yidhra.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

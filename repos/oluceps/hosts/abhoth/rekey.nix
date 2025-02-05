@@ -22,8 +22,8 @@ in
         group = "users";
         name = "hyst-us.yaml";
       };
-      wgab = {
-        file = ../../sec/wgab.age;
+      wg-abhoth = {
+        file = ../../sec/wg-abhoth.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

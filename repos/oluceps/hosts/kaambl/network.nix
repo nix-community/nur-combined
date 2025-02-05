@@ -1,5 +1,20 @@
 { config, lib, ... }:
 {
+  services.babeld = {
+    enable = true;
+    config = ''
+      skip-kernel-setup true
+      local-path /var/run/babeld/ro.sock
+      router-id 38:d5:7a:e2:19:7d
+      ${lib.concatStringsSep "\n" (
+        map (n: "interface wg-${n} type tunnel rtt-max 512") (builtins.attrNames (lib.conn { }))
+      )}
+      redistribute ip fdcc::/64 ge 64 le 128 local allow
+      redistribute proto 42
+      redistribute local deny
+    '';
+  };
+
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";
@@ -30,9 +45,8 @@
       enable = true;
       trustedInterfaces = [
         "virbr0"
-        "wg0"
         "podman*"
-      ];
+      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
       allowedUDPPorts = [
         8080
         5173
@@ -100,74 +114,7 @@
       };
     };
 
-    netdevs = {
-
-      wg0 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.vaultix.secrets.wgk.path;
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-            AllowedIPs = [ "10.0.1.0/24" ];
-            Endpoint = "127.0.0.1:41820";
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.0/24" ];
-            Endpoint = "116.196.112.43:51820";
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.0/24" ];
-            Endpoint = "127.0.0.1:41821";
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
-            AllowedIPs = [ "10.0.4.0/24" ];
-            Endpoint = "127.0.0.1:41822";
-            PersistentKeepalive = 15;
-          }
-          # {
-          #   wireguardPeerConfig = {
-          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-          #     AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
-          #     Endpoint = "127.0.0.1:41821";
-          #     PersistentKeepalive = 15;
-          #   };
-          # }
-        ];
-      };
-    };
-
     networks = {
-      "10-wg0" = {
-        matchConfig.Name = "wg0";
-        address = [
-          "10.0.1.3/24"
-          "10.0.2.3/24"
-          "10.0.3.3/24"
-          "10.0.4.3/24"
-        ];
-        DHCP = "no";
-        # routes = [
-        #   {
-        #     routeConfig = {
-        #       Destination = "192.168.1.0/24";
-        #       Gateway = "10.0.2.3";
-        #       Scope = "link";
-        #     };
-        #   }
-        # ];
-      };
 
       "20-wireless" = {
         matchConfig.Name = "wlan0";

@@ -22,7 +22,7 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.4.6:9000"; } ];
+                              upstreams = [ { dial = "[fdcc::3]:9000"; } ];
                             }
                           ];
                         }
@@ -36,7 +36,7 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "10.0.4.6:8003"; } ];
+                      upstreams = [ { dial = "[fdcc::3]:8003"; } ];
                     }
                   ];
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
@@ -83,7 +83,7 @@
                           };
                         };
                       };
-                      upstreams = [ { dial = "10.0.4.6:8083"; } ];
+                      upstreams = [ { dial = "[fdcc::3]:8083"; } ];
                     }
                   ];
                   match = [ { host = [ "book.nyaw.xyz" ]; } ];
@@ -91,7 +91,7 @@
                 }
                 (import ../caddy-matrix.nix {
                   inherit pkgs;
-                  matrix-upstream = "10.0.4.6:6167";
+                  matrix-upstream = "[fdcc::3]:6167";
                 })
                 {
                   handle = [
@@ -102,7 +102,7 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.4.2:5000"; } ];
+                              upstreams = [ { dial = "[fdcc::1]:5000"; } ];
                             }
                           ];
                         }
@@ -185,7 +185,7 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "10.0.4.6:8084"; } ];
+                      upstreams = [ { dial = "[fdcc::3]:8084"; } ];
                     }
                   ];
                   match = [ { host = [ "seed.nyaw.xyz" ]; } ];
@@ -201,7 +201,7 @@
           handle = [
             {
               handler = "reverse_proxy";
-              upstreams = [ { dial = "10.0.4.6:8888"; } ];
+              upstreams = [ { dial = "[fdcc::3]:8888"; } ];
             }
           ];
           match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
@@ -217,7 +217,7 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "10.0.4.6:3001"; } ];
+                      upstreams = [ { dial = "[fdcc::3]:3001"; } ];
                     }
                   ];
                   match = [
@@ -242,7 +242,7 @@
                     }
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "10.0.4.6:2283"; } ];
+                      upstreams = [ { dial = "[fdcc::3]:2283"; } ];
                     }
                   ];
                 }
@@ -307,7 +307,13 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "10.0.4.6:3000"; } ];
+                      transport = {
+                        protocol = "http";
+                        tls = {
+                          server_name = "nyaw.xyz";
+                        };
+                      };
+                      upstreams = [ { dial = "[fdcc::3]:443"; } ];
                     }
                   ];
                 }

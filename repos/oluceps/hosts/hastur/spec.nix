@@ -5,6 +5,50 @@
   ...
 }:
 {
+  vaultix.templates = {
+    hyst-osa = {
+      content =
+        config.vaultix.placeholder.hyst-osa-cli
+        + (
+          let
+            port = toString (lib.conn { }).${config.networking.hostName}.abhoth;
+          in
+          ''
+            socks5:
+              listen: 127.0.0.1:1091
+            udpForwarding:
+            - listen: 127.0.0.1:${port}
+              remote: 127.0.0.1:${port}
+              timeout: 120s
+          ''
+        );
+      owner = "root";
+      group = "users";
+      name = "osa.yaml";
+      trim = false;
+    };
+    hyst-hk = {
+      content =
+        config.vaultix.placeholder.hyst-hk-cli
+        + (
+          let
+            port = toString (lib.conn { }).${config.networking.hostName}.yidhra;
+          in
+          ''
+            socks5:
+              listen: 127.0.0.1:1092
+            udpForwarding:
+            - listen: 127.0.0.1:${port}
+              remote: 127.0.0.1:${port}
+              timeout: 120s
+          ''
+        );
+      owner = "root";
+      group = "users";
+      name = "hk.yaml";
+      trim = false;
+    };
+  };
   system = {
     # This headless machine uses to perform heavy task.
     # Running database and web services.
@@ -25,7 +69,7 @@
     # fwupd.enable = true;
     harmonia = {
       enable = true;
-      settings.bind = "0.0.0.0:5000";
+      settings.bind = "[::]:5000";
       signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
     };
     realm = {
@@ -82,11 +126,11 @@
       # };
       abhoth = {
         enable = true;
-        configFile = config.vaultix.secrets.hyst-osa-cli.path;
+        configFile = config.vaultix.templates.hyst-osa.path;
       };
       yidhra = {
         enable = true;
-        configFile = config.vaultix.secrets.hyst-hk-cli.path;
+        configFile = config.vaultix.templates.hyst-hk.path;
       };
     };
     # shadowsocks.instances = [
@@ -150,6 +194,7 @@
     '';
   };
   repack = {
+    plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
     dae.enable = true;
@@ -165,7 +210,6 @@
     grafana.enable = true;
     # xmrig.enable = true;
     reuse-cert.enable = true;
-
 
     # postgresql.enable = true;
     # misskey.enable = true;

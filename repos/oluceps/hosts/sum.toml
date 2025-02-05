@@ -1,29 +1,73 @@
-[[host]]
-name = "hastur" # homeserver censored
-addr_remote = "riro@10.0.4.2"
-addr = "riro@192.168.1.2"
+[node.hastur]
+# homeserver censored
+id = 0 # ro, for Cantor Pair Function
+addr = "192.168.1.2"
+censor = true
+nat = true
+user = "riro"
 
-[[host]]
-name = "kaambl" # laptop
-addr_remote = "elen@10.0.4.3"
-addr = "elen@192.168.1.187"
+unique_addr = "fdcc::1/128"
+link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
+pub_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 
-[[host]]
-name = "eihort" # nas
-addr_remote = "elen@10.0.4.6"
-addr = "elen@192.168.1.16"
+[node.kaambl]
+# laptop
+id = 1
+addr = "192.168.1.187"
+censor = true
+nat = true
+user = "elen"
 
-[[host]]
-name = "abhoth" # linode
-addr = "elen@172.234.92.148"
+unique_addr = "fdcc::2/128"
+link_local_addr = "fe80::216:3eff:fe66:f780/64"
+pub_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
 
-[[host]]
-name = "azasos" # tencent cloud | censored
-addr = "elen@116.196.112.43"
+[node.eihort]
+# nas
+id = 2
+addr = "192.168.1.16"
+censor = true
+nat = true
+user = "elen"
 
-[[host]]
-name = "yidhra" # feral chicken
-addr = "elen@8.210.47.13"
+unique_addr = "fdcc::3/128"
+link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
+pub_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
+
+[node.yidhra]
+id = 3
+addr = "8.210.47.13"
+censor = false
+nat = false
+user = "elen"
+
+unique_addr = "fdcc::4/128"
+link_local_addr = "fe80::216:3eff:fe41:49c6/64"
+pub_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
+
+[node.abhoth]
+# linode
+id = 4
+addr = "172.234.92.148"
+censor = false
+nat = false
+user = "elen"
+
+unique_addr = "fdcc::5/128"
+link_local_addr = "fe80::216:3eff:fe15:ec52/64"
+pub_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
+
+[node.azasos]
+# tencent cloud | censored
+id = 5
+addr = "116.196.112.43"
+censor = true
+nat = false
+user = "elen"
+
+unique_addr = "fdcc::6/128"
+link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
+pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
 
 [api._links.self]
 href = "https://api.nyaw.xyz"

@@ -5,7 +5,7 @@
 reIf {
   services.atuin = {
     enable = true;
-    host = "0.0.0.0";
+    host = "::";
     port = 8888;
     openFirewall = true;
     openRegistration = false;

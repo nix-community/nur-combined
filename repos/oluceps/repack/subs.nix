@@ -22,21 +22,21 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    systemd.user.services.subs = {
+    systemd.services.subs = {
       unitConfig = {
         StartLimitIntervalSec = 0;
       };
       serviceConfig = {
         Type = "simple";
+        User = user;
         ExecStart = "${lib.getExe pkgs.deno} run --allow-env --allow-net --no-check ${cfg.scriptPath}";
-        Environment = [ "HOME=/home/${user}" ];
+        # WorkingDirectory = "/home/${user}";
         Restart = "always";
         RestartSec = 1;
       };
-      wantedBy = [ "default.target" ];
-      after = [
-        "network.target"
-      ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
     };
   };
 }

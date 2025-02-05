@@ -32,7 +32,7 @@ in
           "119.29.29.29"
           "tcp://223.6.6.6:53"
         ];
-        listen-addrs = [ "0.0.0.0" ];
+        listen-addrs = [ "::" ];
         listen-ports = [ 53 ];
         upstream-mode = "parallel";
         upstream = [

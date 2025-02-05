@@ -6,9 +6,13 @@
   ...
 }:
 {
+  environment.systemPackages = with pkgs; [
+    lsof
+    wireguard-tools
+    tcpdump
+  ];
   system = {
     # server.
-
     stateVersion = "24.11";
     etc.overlay.enable = true;
     etc.overlay.mutable = false;
@@ -29,6 +33,7 @@
   };
 
   repack = {
+    plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
     sing-server.enable = true;
@@ -60,7 +65,7 @@
         endpoints = [
           {
             listen = "[::]:8776";
-            remote = "10.0.4.6:8776";
+            remote = "[fdcc::3]:8776";
           }
         ];
       };
@@ -92,7 +97,7 @@
         "1.1.1.1"
         "8.8.8.8"
       ];
-      listen-addrs = [ "0.0.0.0" ];
+      listen-addrs = [ "::" ];
       listen-ports = [ 53 ];
       upstream-mode = "parallel";
       upstream = [

@@ -2,7 +2,7 @@
 
 export-env {
   $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
-  $env.map = open ./hosts/sum.toml | $in.host
+  $env.map = open ./hosts/sum.toml | $in.node | columns
 }
 
 export def br [

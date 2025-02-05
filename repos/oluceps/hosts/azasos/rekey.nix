@@ -18,8 +18,8 @@ in
     settings.hostPubkey = data.keys.azasosHostPubKey;
     secrets =
       {
-        wga = {
-          file = self + "/sec/wga.age";
+        wg-azasos = {
+          file = self + "/sec/wg-azasos.age";
           owner = "systemd-network";
           group = "root";
           mode = "400";

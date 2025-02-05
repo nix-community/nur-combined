@@ -12,7 +12,7 @@ reIf {
     httpd = {
       enable = true;
       listenPort = 8084;
-      listenAddress = "0.0.0.0";
+      listenAddress = "[::]";
     };
     node.openFirewall = true;
     privateKeyFile = config.vaultix.secrets.id.path;

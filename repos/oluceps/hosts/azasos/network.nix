@@ -1,6 +1,21 @@
 { lib, config, ... }:
 {
 
+  services.babeld = {
+    enable = true;
+    config = ''
+      skip-kernel-setup true
+      local-path /var/run/babeld/ro.sock
+      router-id fa:16:3e:d3:09:f8
+      ${lib.concatStringsSep "\n" (
+        map (n: "interface wg-${n} type tunnel rtt-max 512") (builtins.attrNames (lib.conn { }))
+      )}
+      redistribute ip fdcc::/64 ge 64 le 128 local allow
+      redistribute proto 42
+      redistribute local deny
+    '';
+  };
+
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";
@@ -25,11 +40,17 @@
     ];
     resolvconf.useLocalResolver = true;
     firewall = {
-      checkReversePath = false;
       enable = true;
+      checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
         "wg0"
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 51820;
+          to = 51830;
+        }
       ];
       allowedUDPPorts = [
         80
@@ -38,7 +59,6 @@
         5173
         23180
         4444
-        51820
         8448
         34197
         8083 # streaming
@@ -111,100 +131,22 @@
       linkConfig.Name = "eth0";
     };
 
-    netdevs = {
 
-      wg0 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.vaultix.secrets.wga.path;
-          ListenPort = 51820;
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-            AllowedIPs = [ "10.0.2.2/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
-            AllowedIPs = [ "10.0.2.6/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-            AllowedIPs = [ "10.0.2.3/32" ];
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-            AllowedIPs = [ "10.0.1.1/24" ];
-            Endpoint = "127.0.0.1:41820";
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.1/24" ];
-            Endpoint = "127.0.0.1:41821";
-            PersistentKeepalive = 15;
-          }
-          {
-            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
-            AllowedIPs = [ "10.0.4.0/24" ];
-            Endpoint = "127.0.0.1:41822";
-            PersistentKeepalive = 15;
-          }
-        ];
+    networks."20-wired" = {
+      matchConfig.Name = "eth0";
+      DHCP = "yes";
+      dhcpV4Config.RouteMetric = 2046;
+      dhcpV6Config.RouteMetric = 2046;
+      networkConfig = {
+        # Bond = "bond1";
+        # PrimarySlave = true;
+        DNSSEC = true;
+        MulticastDNS = true;
+        DNSOverTLS = true;
       };
-    };
-
-    networks = {
-      "10-wg0" = {
-        matchConfig.Name = "wg0";
-        address = [
-          "10.0.2.1/24"
-        ];
-        networkConfig = {
-          IPMasquerade = "ipv4";
-          IPv4Forwarding = true;
-        };
-
-        routes = [
-          {
-            Destination = "10.0.3.0/24";
-            Scope = "link";
-          }
-          {
-            Destination = "10.0.1.0/24";
-            Scope = "link";
-          }
-          {
-            Destination = "10.0.4.0/24";
-            Scope = "link";
-          }
-        ];
-
-      };
-
-      "20-wired" = {
-        matchConfig.Name = "eth0";
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
-        dhcpV6Config.RouteMetric = 2046;
-        networkConfig = {
-          # Bond = "bond1";
-          # PrimarySlave = true;
-          DNSSEC = true;
-          MulticastDNS = true;
-          DNSOverTLS = true;
-        };
-        # # REALLY IMPORTANT
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
-      };
+      # # REALLY IMPORTANT
+      dhcpV4Config.UseDNS = false;
+      dhcpV6Config.UseDNS = false;
     };
   };
 }
