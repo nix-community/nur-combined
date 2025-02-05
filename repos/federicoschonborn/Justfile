@@ -7,10 +7,16 @@ default_args := "--verbose --print-build-logs --log-format multiline-with-logs -
     echo {{ NAMES }} | sed -e 's:[^ ]*:".#&":g'
 
 @_build-outputs:
-    nix eval -f ./ci.nix buildOutputs --apply 'map (x: x.drvPath + "^*")' --json | jq -r 'join(" ")'
+    nix eval -f ./ci.nix buildOutputs --apply 'xs: builtins.concatStringsSep " " (map (x: x.drvPath + "^*") xs)' --raw
+
+@_build-outputs-tests:
+    nix eval -f ./ci.nix buildOutputs --apply 'xs: builtins.concatStringsSep " " (builtins.concatMap (x: map (t: t.drvPath + "^*") (builtins.attrValues (x.tests or {}))) xs)' --raw
 
 @_cache-outputs:
-    nix eval -f ./ci.nix cacheOutputs --apply 'map (x: x.drvPath + "^*")' --json | jq -r 'join(" ")'
+    nix eval -f ./ci.nix cacheOutputs --apply 'xs: builtins.concatStringsSep " " (map (x: x.drvPath + "^*") xs)' --raw
+
+@_cache-outputs-tests:
+    nix eval -f ./ci.nix cacheOutputs --apply 'xs: builtins.concatStringsSep " " (builtins.concatMap (x: map (t: t.drvPath + "^*") (builtins.attrValues (x.tests or {}))) xs)' --raw
 
 _nix-unstable +ARGS:
     nix {{ ARGS }} {{ default_args }}
@@ -31,11 +37,11 @@ build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
 
 [group("build-all")]
 build-all-unstable:
-    just _nix-unstable build $(just _build-outputs)
+    just _nix-unstable build --no-link $(just _build-outputs)
 
 [group("build-all")]
 build-all-stable:
-    just _nix-stable build $(just _build-outputs)
+    just _nix-stable build --no-link $(just _build-outputs)
 
 [group("build")]
 build-all: build-all-unstable build-all-stable
@@ -53,14 +59,25 @@ rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
 
 [group("rebuild-all")]
 rebuild-all-unstable:
-    just _nix-unstable build --rebuild $(just _build-outputs)
+    just _nix-unstable build --no-link --rebuild $(just _build-outputs)
 
 [group("rebuild-all")]
 rebuild-all-stable:
-    just _nix-stable build --rebuild $(just _build-outputs)
+    just _nix-stable build --no-link --rebuild $(just _build-outputs)
 
 [group("rebuild-all")]
 rebuild-all: rebuild-all-unstable rebuild-all-stable
+
+[group("test-all")]
+test-all-unstable:
+    just _nix-unstable build --no-link $(just _build-outputs-tests)
+
+[group("test-all")]
+test-all-stable:
+    just _nix-stable build --no-link $(just _build-outputs-tests)
+
+[group("test-all")]
+test-all: test-all-unstable test-all-stable
 
 [group("run")]
 run-unstable PACKAGE: (build-unstable PACKAGE)
