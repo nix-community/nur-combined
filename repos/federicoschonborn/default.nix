@@ -92,7 +92,8 @@ lib.makeScope pkgs.newScope (
           withMuparser = true;
           withNetcdf = true;
           withNetpbm = true;
-          withPcl = true;
+          # Broken
+          withPcl = false;
           # Requires ImageMagick 6
           withPfs = false;
           withPng = true;
