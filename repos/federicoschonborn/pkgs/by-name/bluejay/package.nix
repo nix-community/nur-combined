@@ -47,5 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.federicoschonborn ];
+    broken = lib.versionOlder kdePackages.kirigami-addons.version "1.7.0";
   };
 })

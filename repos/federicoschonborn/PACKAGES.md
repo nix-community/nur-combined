@@ -3338,64 +3338,6 @@ Tool to generate flags for your CPU
   - `x86_64-redox`
   </details>
 
-<h2 id="dcmtkShared">
-
-`dcmtkShared`
-
-</h2>
-
-Collection of libraries and applications implementing large parts of the DICOM standard
-
-- Name: `dcmtk`
-- Version: `3.6.9`
-
-- [🌐 Homepage](https://dicom.offis.de/dcmtk)
-- [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/dc/dcmtk/package.nix#L37)
-- License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-DCMTK is a collection of libraries and applications implementing large parts of the DICOM standard.
-It includes software for examining, constructing and converting DICOM image files, handling offline media,
-sending and receiving images over a network connection, as well as demonstrative image storage and worklist servers.
-DCMTK is is written in a mixture of ANSI C and C++.
-It comes in complete source code and is made available as "open source" software.
-
-- Maintainers:
-  - Markus J. Ankenbrand [✉️](mailto:iimog@iimog.org)
-- Platforms:
-  - `aarch64-linux`
-  - `armv5tel-linux`
-  - `armv6l-linux`
-  - `armv7a-linux`
-  - `armv7l-linux`
-  - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
-  - `x86_64-linux`
-  - `x86_64-darwin`
-  - `i686-darwin`
-  - `aarch64-darwin`
-  - `armv7a-darwin`
-  </details>
-
 <h2 id="fastfetch">
 
 `fastfetch`
@@ -3796,7 +3738,7 @@ A set of commands that manipulate GTAs on various levels
 - Version: `2.4.0`
 
 - [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./pkgs/by-name/gtatool/package.nix#L118)
+- [📦 Source](./pkgs/by-name/gtatool/package.nix#L126)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -3868,7 +3810,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 
 - [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./default.nix#L76)
+- [📦 Source](./default.nix#L69)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4328,7 +4270,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L110)
+- [📦 Source](./default.nix#L103)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5433,78 +5375,6 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
   - `x86_64-redox`
   </details>
 
-<h2 id="razeFull">
-
-`razeFull`
-
-</h2>
-
-Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled)
-
-- Name: `raze`
-- Version: `1.10.2`
-
-- [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./default.nix#L142)
-- License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Maintainers:
-  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
-- Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
-  - `x86_64-darwin`
-  - `i686-darwin`
-  - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
-  - `aarch64-linux`
-  - `armv5tel-linux`
-  - `armv6l-linux`
-  - `armv7a-linux`
-  - `armv7l-linux`
-  - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
-  - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  </details>
-
 <h2 id="sharkey">
 
 `sharkey`
@@ -5878,7 +5748,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L169)
+- [📦 Source](./default.nix#L152)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5950,7 +5820,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L182)
+- [📦 Source](./default.nix#L165)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -6022,7 +5892,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L152)
+- [📦 Source](./default.nix#L135)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

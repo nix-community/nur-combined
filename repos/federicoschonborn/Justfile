@@ -6,17 +6,17 @@ default_args := "--verbose --print-build-logs --log-format multiline-with-logs -
 @_to-outputs +NAMES:
     echo {{ NAMES }} | sed -e 's:[^ ]*:".#&":g'
 
-@_all-packages:
-    nix flake show --json 2>/dev/null | jq -r '.packages."x86_64-linux" | keys | join(" ")'
+@_build-outputs:
+    nix eval -f ./ci.nix buildOutputs --apply 'map (x: x.drvPath + "^*")' --json | jq -r 'join(" ")'
 
-_nix +ARGS:
-    nix {{ ARGS }} {{ default_args }}
+@_cache-outputs:
+    nix eval -f ./ci.nix cacheOutputs --apply 'map (x: x.drvPath + "^*")' --json | jq -r 'join(" ")'
 
 _nix-unstable +ARGS:
-    just _nix {{ ARGS }} --inputs-from . --override-input nixpkgs nixpkgs
+    nix {{ ARGS }} {{ default_args }}
 
 _nix-stable +ARGS:
-    just _nix {{ ARGS }} --inputs-from . --override-input nixpkgs nixpkgs-stable
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-stable
 
 [group("build")]
 build-unstable +PACKAGES:
@@ -31,11 +31,11 @@ build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
 
 [group("build-all")]
 build-all-unstable:
-    just build-unstable $(just _all-packages)
+    just _nix-unstable build $(just _build-outputs)
 
 [group("build-all")]
 build-all-stable:
-    just build-stable $(just _all-packages)
+    just _nix-stable build $(just _build-outputs)
 
 [group("build")]
 build-all: build-all-unstable build-all-stable
@@ -50,6 +50,17 @@ rebuild-stable +PACKAGES: (build-stable PACKAGES)
 
 [group("rebuild")]
 rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
+
+[group("rebuild-all")]
+rebuild-all-unstable:
+    just _nix-unstable build --rebuild $(just _build-outputs)
+
+[group("rebuild-all")]
+rebuild-all-stable:
+    just _nix-stable build --rebuild $(just _build-outputs)
+
+[group("rebuild-all")]
+rebuild-all: rebuild-all-unstable rebuild-all-stable
 
 [group("run")]
 run-unstable PACKAGE: (build-unstable PACKAGE)

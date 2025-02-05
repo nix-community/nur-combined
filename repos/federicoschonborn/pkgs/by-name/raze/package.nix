@@ -11,7 +11,7 @@
   zmusic,
   nix-update-script,
 
-  withGtk3 ? false,
+  withGtk3 ? true,
   gtk3,
 }:
 
