@@ -50,6 +50,13 @@
     }
   );
 
+  pleroma = lib.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      inherit callPackage;
+      directory = ./pleroma;
+    }
+  );
+
   renere = lib.recurseIntoAttrs (
     lib.packagesFromDirectoryRecursive {
       inherit callPackage;

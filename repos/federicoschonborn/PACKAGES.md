@@ -1663,6 +1663,137 @@ Various emoji packs from Liv Asch
   - `i686-windows`
   </details>
 
+<h2 id="akkoma-emoji-pleroma-buns">
+
+`akkoma-emoji.pleroma.buns`
+
+</h2>
+
+A pack of buns
+
+- Name: `pleroma-buns`
+- Version: `0-unstable-2019-11-05`
+
+- [📦 Source](./pkgs/akkoma-emoji/pleroma/buns/package.nix#L31)
+- License: Unfree
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+
+</details>
+
+<h2 id="akkoma-emoji-pleroma-celestemojis">
+
+`akkoma-emoji.pleroma.celestemojis`
+
+</h2>
+
+A pack of edited and unedited pictures from the indie video game Celeste
+
+- Name: `pleroma-celestemojis`
+- Version: `0-unstable-2019-10-12`
+
+- [📦 Source](./pkgs/akkoma-emoji/pleroma/celestemojis/package.nix#L31)
+- License: Unfree
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+
+</details>
+
+<h2 id="akkoma-emoji-pleroma-finmoji">
+
+`akkoma-emoji.pleroma.finmoji`
+
+</h2>
+
+The Finland emoji collection contains 56 tongue-in-cheek emotions, which were created to explain some hard-to-describe Finnish emotions, Finnish words and customs
+
+- Name: `pleroma-buns`
+- Version: `0-unstable-2017-06-01`
+
+- [🌐 Homepage](https://finland.fi/emoji/)
+- [📦 Source](./pkgs/akkoma-emoji/pleroma/finmoji/package.nix#L31)
+- License: [`Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International`](https://spdx.org/licenses/CC-BY-NC-ND-4.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+
+</details>
+
+<h2 id="akkoma-emoji-pleroma-longfox">
+
+`akkoma-emoji.pleroma.longfox`
+
+</h2>
+
+Fox with infinite length
+
+- Name: `pleroma-longfox`
+- Version: `0-unstable-2019-08-03`
+
+- [📦 Source](./pkgs/akkoma-emoji/pleroma/longfox/package.nix#L31)
+- License: Unfree
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+
+</details>
+
+<h2 id="akkoma-emoji-pleroma-rooms">
+
+`akkoma-emoji.pleroma.rooms`
+
+</h2>
+
+Floor plan symbols for your room
+
+- Name: `pleroma-rooms`
+- Version: `0-unstable-2019-08-21`
+
+- [📦 Source](./pkgs/akkoma-emoji/pleroma/rooms/package.nix#L31)
+- License: [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+
+</details>
+
 <h2 id="akkoma-emoji-renere-spinny-blobs">
 
 `akkoma-emoji.renere.spinny-blobs`
