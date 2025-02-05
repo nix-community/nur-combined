@@ -7,16 +7,16 @@
 }:
 
 let
-  version = "0.8.0";
+  version = "0.9.1";
 
-  super-mario-127 = stdenvNoCC.mkDerivation (finalAttrs: {
+  super-mario-127 = stdenvNoCC.mkDerivation (_: {
     pname = "super-mario-127";
     inherit version;
 
     src = requireFile {
-      name = "SuperMario127v${finalAttrs.version}Linux.zip";
+      name = "sm127_linux.zip";
       url = "https://charpurrr.itch.io/super-mario-127";
-      hash = "sha256-l713xdEvwnOV8OMyDQ4/qU7VMj/uDViAJR5gl+R/vCU=";
+      hash = "sha256-Hj8L8c3YP4qeLLNNPEekZEm5RqPkAyfUg4qizxeoAYg=";
     };
 
     nativeBuildInputs = [ unzip ];
@@ -26,8 +26,8 @@ let
     installPhase = ''
       mkdir -p $out/{bin,opt/super-mario-127}
       unzip $src -d $out/opt/super-mario-127
-      chmod +x $out/opt/super-mario-127/Super_Mario_127v${finalAttrs.version}.x86_64
-      ln -s $out/opt/super-mario-127/Super_Mario_127v${finalAttrs.version}.x86_64 $out/bin/super-mario-127
+      chmod +x $out/opt/super-mario-127/Super_Mario_127.x86_64
+      ln -s $out/opt/super-mario-127/Super_Mario_127.x86_64 $out/bin/super-mario-127
     '';
   });
 in

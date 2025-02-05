@@ -1,22 +1,22 @@
-default_args := "--verbose --print-build-logs --keep-going --show-trace --log-format multiline-with-logs --inputs-from ."
+default_args := "--verbose --print-build-logs --log-format multiline-with-logs --show-trace"
 
 @_default:
     just --list --unsorted
 
-@_to-output NAME:
-    echo '".#{{ NAME }}"'
-
 @_to-outputs +NAMES:
-    sed -e 's:[^ ]* *:".#&":g' <<< {{ NAMES }}
+    echo {{ NAMES }} | sed -e 's:[^ ]*:".#&":g'
+
+@_all-packages:
+    nix flake show --json 2>/dev/null | jq -r '.packages."x86_64-linux" | keys | join(" ")'
 
 _nix +ARGS:
     nix {{ ARGS }} {{ default_args }}
 
 _nix-unstable +ARGS:
-    just _nix {{ ARGS }} --override-input nixpkgs nixpkgs-unstable
+    just _nix {{ ARGS }} --inputs-from . --override-input nixpkgs nixpkgs
 
 _nix-stable +ARGS:
-    just _nix {{ ARGS }} --override-input nixpkgs nixpkgs-stable
+    just _nix {{ ARGS }} --inputs-from . --override-input nixpkgs nixpkgs-stable
 
 [group("build")]
 build-unstable +PACKAGES:
@@ -29,38 +29,49 @@ build-stable +PACKAGES:
 [group("build")]
 build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
 
+[group("build-all")]
+build-all-unstable:
+    just build-unstable $(just _all-packages)
+
+[group("build-all")]
+build-all-stable:
+    just build-stable $(just _all-packages)
+
+[group("build")]
+build-all: build-all-unstable build-all-stable
+
 [group("rebuild")]
-rebuild-unstable +PACKAGES:
+rebuild-unstable +PACKAGES: (build-unstable PACKAGES)
     just _nix-unstable build --rebuild $(just _to-outputs {{ PACKAGES }})
 
 [group("rebuild")]
-rebuild-stable +PACKAGES:
+rebuild-stable +PACKAGES: (build-stable PACKAGES)
     just _nix-stable build --rebuild $(just _to-outputs {{ PACKAGES }})
 
 [group("rebuild")]
 rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
 
 [group("run")]
-run-unstable PACKAGE:
-    just _nix-unstable run $(just _to-output {{ PACKAGE }})
+run-unstable PACKAGE: (build-unstable PACKAGE)
+    just _nix-unstable run ".#{{ PACKAGE }}"
 
 [group("run")]
-run-stable PACKAGE:
-    just _nix-stable run $(just _to-output {{ PACKAGE }})
+run-stable PACKAGE: (build-stable PACKAGE)
+    just _nix-stable run ".#{{ PACKAGE }}"
 
 [group("path-info")]
 path-info-unstable PACKAGE: (build-unstable PACKAGE)
-    just _nix-unstable path-info $(just _to-output {{ PACKAGE }})
+    just _nix-unstable path-info ".#{{ PACKAGE }}"
 
 [group("path-info")]
 path-info-stable PACKAGE: (build-stable PACKAGE)
-    just _nix-stable path-info $(just _to-output {{ PACKAGE }})
+    just _nix-stable path-info ".#{{ PACKAGE }}"
 
-tree PACKAGE:
+tree PACKAGE: (build-unstable PACKAGE)
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p nix-tree
     set -euxo pipefail
-    nix-tree $(just _to-output {{ PACKAGE }})
+    nix-tree ".#{{ PACKAGE }}"
 
 inspect:
     #!/usr/bin/env nix-shell
@@ -76,4 +87,4 @@ lint:
     deadnix
 
 generate-readme:
-    just _nix-unstable run $(just _to-output generate-readme)
+    just _nix-unstable run ".#generate-readme"

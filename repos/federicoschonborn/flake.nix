@@ -2,8 +2,7 @@
   description = "My personal NUR repository";
 
   inputs = {
-    nixpkgs.follows = "nixpkgs-unstable";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     flake-parts = {
@@ -122,8 +121,6 @@
           };
 
           apps = {
-            default.program = pkgs.writers.writeNuBin "just" (builtins.readFile ./just.nu);
-
             generate-readme.program =
               let
                 packageList = pkgs.writeText "PACKAGES.md" (

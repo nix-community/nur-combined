@@ -44,6 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUseCmakeConfigure = true;
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

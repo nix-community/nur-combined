@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
   version = "0-unstable-2024-05-02";
 
   src = fetchzip {
-    url = "https://hofnarretje.eu/assets/emoji/neobun.zip";
+    url = "https://dokokashira.nl/assets/emoji/neobun.zip";
     hash = "sha256-TCzMVu04zWtLyaOmN28Pp3v5V6k1/5QqGm5Gw/tTntg=";
   };
 
@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "A set of emojis featuring a bun";
-    homepage = "https://mooi.moe/emoji.html";
+    homepage = "https://web.archive.org/web/20240525151202/https://mooi.moe/emoji.html";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.federicoschonborn ];

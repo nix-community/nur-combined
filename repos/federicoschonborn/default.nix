@@ -23,7 +23,6 @@ lib.makeScope pkgs.newScope (
 
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
-    lapcePlugins = lib.recurseIntoAttrs (self.callPackage ./pkgs/lapce-plugins { });
 
     # Variants
     fastfetchMinimal =
