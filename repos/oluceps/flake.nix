@@ -22,6 +22,7 @@
           ])
           ++ [
             ./hosts
+            (import ./topo.nix extraLibs)
             vaultix.flakeModules.default
             inputs.nix-topology.flakeModule
             flake-parts.flakeModules.easyOverlay
@@ -41,7 +42,6 @@
             ...
           }:
           {
-
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = defaultOverlays [
@@ -91,11 +91,6 @@
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
-            topology.modules = [
-              {
-
-              }
-            ];
           };
 
         flake = {
