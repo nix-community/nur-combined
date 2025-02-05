@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     description = "TAT agent is an agent written in Rust, which run in CVM, Lighthouse or CPM 2.0 instances.";
     homepage = "https://cloud.tencent.com/product/tat";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ codgician ];
     platforms = lib.platforms.linux;
   };
 }
