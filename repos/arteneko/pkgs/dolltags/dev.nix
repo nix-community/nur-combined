@@ -1,6 +1,6 @@
 { lib, fetchFromSourcehut, rustPlatform }:
 let
-  rev = "9eda90824367f3e851e968ba282561e85c81b73e";
+  rev = "8e68d8bb24f1514d678dedc5a05e0d98d311769d";
 in rustPlatform.buildRustPackage rec {
     pname = "dolltags-dev";
     version = "dev-${rev}";
@@ -12,7 +12,7 @@ in rustPlatform.buildRustPackage rec {
         hash = "sha256-W2Rqk6kGOukT3h0Epv7oT6IdhQOjcR9vYUWE0V0jj/g=";
     };
 
-    cargoHash = "sha256-NfW/4I4FIeg78uF1jZp/s8GdqO7RkAV1YKOqdivSJLw=";
+    cargoHash = "sha256-OVp9s64TCBuCwWQSilgwHEuFo5tKWRp1BsmSmPJXjAY=";
 
     postInstall =
         ''
