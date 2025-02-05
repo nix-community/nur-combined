@@ -16,6 +16,8 @@ class Connection:
     uuid: str | None
     gsm_apn: str | None
     gsm_number: str | None
+    gsm_username: str | None
+    gsm_password: str | None
 
     @property
     def type_(self) -> str:
@@ -31,6 +33,8 @@ def parse_manifest(manifest_path: str) -> list[Connection]:
         uuid = entry.get("uuid")
         gsm_apn = entry.get("gsm_apn")
         gsm_number = entry.get("gsm_number")
+        gsm_username = entry.get("gsm_username")
+        gsm_password = entry.get("gsm_password")
         if ssid != "<EOF>":
             yield Connection(
                 comment=comment,
@@ -39,6 +43,8 @@ def parse_manifest(manifest_path: str) -> list[Connection]:
                 uuid=uuid,
                 gsm_apn=gsm_apn,
                 gsm_number=gsm_number,
+                gsm_username=gsm_username,
+                gsm_password=gsm_password,
             )
 
 def write_iwd(fh: "file", con: Connection) -> None:
@@ -72,6 +78,10 @@ def write_nm(fh: "file", con: Connection) -> None:
             fh.write(f"apn={con.gsm_apn}\n")
         if con.gsm_number is not None:
             fh.write(f"number={con.gsm_number}\n")
+        if con.gsm_username is not None:
+            fh.write(f"username={con.gsm_username}\n")
+        if con.gsm_password is not None:
+            fh.write(f"password={con.gsm_password}\n")
         fh.write("\n")
         fh.write("[ppp]\n")
 

@@ -328,7 +328,7 @@ in
       "mepo"  # maps viewer
       # "mesa-demos"  # for eglinfo, glxinfo & other testing tools
       "mpv"
-      # "networkmanagerapplet"  # for nm-connection-editor GUI. XXX(2024-09-03): broken, probably by NetworkManager sandboxing
+      "networkmanagerapplet"
       # "ntfy-sh"  # notification service
       "newsflash"  # RSS viewer
       "papers"  # PDF viewer
