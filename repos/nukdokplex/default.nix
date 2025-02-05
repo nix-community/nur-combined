@@ -15,6 +15,7 @@
   afterglow-cursors-recolored-custom = pkgs.callPackage ./pkgs/afterglow-cursors-recolored-custom { };
   SonixFlasherC = pkgs.callPackage ./pkgs/SonixFlasherC { };
   gruvbox-wallpapers = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/gruvbox-wallpapers { });
+  FAE_Linux = pkgs.callPackage ./pkgs/FAE_Linux { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

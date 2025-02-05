@@ -1,11 +1,11 @@
 { lib, stdenv, fetchFromGitHub, hidapi, pkg-config, ... }:
 stdenv.mkDerivation rec {
-  name = "SonixFlasherC";
+  pname = "SonixFlasherC";
   version = "2.0.7";
 
   src = fetchFromGitHub {
     owner = "SonixQMK";
-    repo = name;
+    repo = pname;
     rev = version;
     hash = "sha256-ADcTzSe8aQJRCvDhKfaf/C8V2MugQG89swhRPVCvcIQ=";
   };
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    cp sonixflasher $out/bin/${name}
+    cp sonixflasher $out/bin/${pname}
     runHook postInstall
   '';
 
