@@ -1,0 +1,45 @@
+name: Topology Graph
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: ["main", "trival"]
+    paths:
+      - 'topo.nix'
+
+jobs:
+  generate:
+    name: Fmt Check
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Generate GitHub auth token
+        id: generate_token
+        uses: tibdex/github-app-token@v2.1.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+    
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Build Graph
+        run: |
+          nix build .#topology.x86_64-linux.config.output
+          echo "GRAPH=$(realpath ./result)/main.svg" >> $GITHUB_ENV
+      - name: Checkout Graph Branch
+        run: |
+          git checkout --orphan topo-graph
+          find . -mindepth 1 -name '.git' -prune -o -exec rm -rf {} +
+          cp ${{ env.GRAPH }} ./
+          git config --global user.email "gh@nyaw.xyz"
+          git config --global user.name "Secirian"
+          git add .
+          git commit -m "+ topology graph"
+
+      - name: Force Replace Former
+        run: |
+          git push origin topo-graph -f
+
+

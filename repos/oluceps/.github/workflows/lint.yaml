@@ -12,22 +12,10 @@ jobs:
     steps: 
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v30
+      - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Flake Check
         uses: DeterminateSystems/flake-checker-action@main
       - name: Fmt check
         run: |
           nix run nixpkgs#nixfmt-rfc-style -- check
-  # statix:
-  #   name: Statix Check
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: DeterminateSystems/nix-installer-action@main
-  #     - uses: DeterminateSystems/magic-nix-cache-action@main
-  #     - uses: cachix/cachix-action@v12
-  #       with:
-  #         name: statix
-  #     - uses: jocelynthode/statix-action@master
