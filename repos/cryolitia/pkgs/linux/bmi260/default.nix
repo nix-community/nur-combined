@@ -16,6 +16,10 @@ stdenv.mkDerivation (finalAttr: {
     hash = "sha256-EFous0pPpCuVoCsFz6/4NryQRSH9Jw9Qng+RY1hiX1c=";
   };
 
+  patches = [
+    ./0001-iio-bmi260-Adapt-namespace-API-change.patch
+  ];
+
   hardeningDisable = [ "pic" ];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
