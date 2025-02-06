@@ -19,10 +19,10 @@
   };
   cabal-gild = {
     pname = "cabal-gild";
-    version = "1.5.0.1";
+    version = "1.5.0.2";
     src = fetchurl {
-      url = "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.1/cabal-gild-1.5.0.1-linux-x64.tar.gz";
-      sha256 = "sha256-mE/My/7kY7RqMcmF3vlhRF46yNa6gGhUboX0vG5+Qms=";
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.2/cabal-gild-1.5.0.2-linux-x64.tar.gz";
+      sha256 = "sha256-ujsZGFZPFWWhQqa56JhVvksFv0QpzJnNVzo6TNB+yvY=";
     };
   };
   cabal-plan = {
@@ -35,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.17.0.0";
+    version = "0.18.0.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.17.0.0/fourmolu-0.17.0.0-linux-x86_64";
-      sha256 = "sha256-tBRjCXDDZXrs/FtLA4FqgHlND5AP/G+DXL+LJl9YQlU=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.18.0.0/fourmolu-0.18.0.0-linux-x86_64";
+      sha256 = "sha256-Dh9nzAzC8/WZ/Pdi7spv4vvQLps28Otgm4/sixhVoKI=";
     };
   };
   hell = {
@@ -51,10 +51,10 @@
   };
   hlint = {
     pname = "hlint";
-    version = "3.8";
+    version = "3.10";
     src = fetchurl {
-      url = "https://github.com/ndmitchell/hlint/releases/download/v3.8/hlint-3.8-x86_64-linux.tar.gz";
-      sha256 = "sha256-iCNjhyBkxwgBhYtOn6F0aFMfwwuR7VuNJg60j8kLPmE=";
+      url = "https://github.com/ndmitchell/hlint/releases/download/v3.10/hlint-3.10-x86_64-linux.tar.gz";
+      sha256 = "sha256-zKvIgCpYFUaZo1g7jd3F6i5tZXU6YsRcDoAIjrsWtCs=";
     };
   };
   ormolu = {
