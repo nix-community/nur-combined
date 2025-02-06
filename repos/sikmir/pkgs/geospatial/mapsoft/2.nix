@@ -33,8 +33,8 @@ let
   libs = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2-libs";
-    rev = "85241c6db623c95c36fc891e413444153739c373";
-    hash = "sha256-Lu4HwszvTnXXGZl5Gs1vNKM4Ww7IY6fpY/Ozf07t3u4=";
+    rev = "19d30eb0b48aa2b3754ceb75ee92f03a3993c4b3";
+    hash = "sha256-abxQs+p1kdQGG1kza+RumhosAnp+zUoZV3UsofC1cEc=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
