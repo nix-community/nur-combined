@@ -53,17 +53,9 @@
       ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
       allowedUDPPorts = [
         8080
-        5173
-        3330
-        8880
       ];
       allowedTCPPorts = [
         8080
-        9900
-        2222
-        5173
-        3330
-        8880
       ];
     };
 

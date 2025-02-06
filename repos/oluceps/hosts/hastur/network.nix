@@ -18,28 +18,6 @@
       redistribute local deny
     '';
   };
-  # topology.self.interfaces = lib.listToAttrs (
-  #   map (
-  #     n:
-  #     let
-  #       name = "wg-${n}";
-  #     in
-  #     {
-  #       inherit name;
-  #       value =
-  #         let
-  #           thisNode = lib.data.meta.${config.networking.hostName};
-  #         in
-  #         {
-  #           addresses = [ thisNode.unique_addr ];
-  #           network = name;
-  #           type = "wireguard";
-  #         };
-  #     }
-  #   ) (builtins.attrNames (lib.conn { }))
-  # )
-
-  # ;
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";
@@ -85,26 +63,9 @@
       ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
       allowedUDPPorts = [
         8080
-        5173
-        51820
-        9918
-        8013
-        443
       ];
       allowedTCPPorts = [
-        443
-        22
         8080
-        9900
-        2222
-        5173
-        1900
-      ];
-      allowedTCPPortRanges = [
-        {
-          from = 10000;
-          to = 10010;
-        }
       ];
     };
     nftables = {

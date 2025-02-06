@@ -27,29 +27,18 @@
     firewall = {
       checkReversePath = false;
       enable = true;
-      extraForwardRules = "iifname wg0 accept";
       trustedInterfaces = [
         "virbr0"
-      ];
+      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
       allowedUDPPorts = [
         80
         443
-        8080
-        5173
-        23180
-        4444
-        51820
       ];
       allowedTCPPorts = [
         80
         443
-        8080
-        9900
-        2222
         40119 # stls
-        5173
-        8448
-        8776
+        8776 # forward radicle
       ];
     };
 

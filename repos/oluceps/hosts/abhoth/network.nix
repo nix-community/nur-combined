@@ -32,35 +32,14 @@
       checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
-        "wg*"
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 51820;
-          to = 51830;
-        }
-      ];
+      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
       allowedUDPPorts = [
         80
         443
-        8080
-        5173
-        23180
-        4444
-        3330
-        8880
-        34197 # factorio realm
       ];
       allowedTCPPorts = [
         80
         443
-        8080
-        9900
-        2222
-        5173
-        8448
-        3330
-        8880
         40119 # stls
       ];
     };

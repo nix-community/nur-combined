@@ -16,6 +16,7 @@ extraLibs:
             inherit (config.lib.topology)
               mkInternet
               mkConnection
+              mkRouter
               ;
           in
           {
@@ -26,7 +27,7 @@ extraLibs:
                   value = mkInternet {
                     connections = mkConnection n "eth0";
                   };
-                }) (lib.filter (n: n != "kaambl") (builtins.attrNames extraLibs.data.meta))
+                }) ((builtins.attrNames (lib.filterAttrs (_: v: !v.nat) extraLibs.data.meta)) ++ [ "router" ])
               ))
               // (lib.listToAttrs (
                 map (n: {
@@ -42,19 +43,33 @@ extraLibs:
                         ];
                       };
                     }) (extraLibs.conn { }).${n};
-                    # renderer.hidePhysicalConnections = false;
 
                   };
                 }) (builtins.attrNames extraLibs.data.meta)
               ))
               // {
-                internet-kaambl = mkInternet {
-                  connections = mkConnection "kaambl" "wlan0";
+                router = mkRouter "MartinRouterKing" {
+                  info = "home router";
+                  interfaceGroups = [
+                    [
+                      "eth1"
+                      "eth2"
+                      "eth3"
+                    ]
+                    [ "eth0" ]
+                  ];
+                  connections.eth1 = mkConnection "hastur" "eth0";
+                  connections.eth2 = mkConnection "eihort" "eth0";
+                  connections.eth3 = mkConnection "kaambl" "wlan0";
                 };
               };
-            networks.inner = {
+            networks.wg-overlay = {
               name = "wireguard overlay (babel)";
               cidrv6 = "fdcc::0/64";
+            };
+            networks.nat = {
+              name = "NAT";
+              cidrv4 = "192.168.1.0/24";
             };
           }
         )
