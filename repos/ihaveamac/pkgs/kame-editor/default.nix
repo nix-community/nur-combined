@@ -1,15 +1,21 @@
 {
   lib,
   stdenv,
+  gcc14Stdenv,
+  clang19Stdenv,
   fetchFromGitLab,
   kame-tools,
   rstmcpp,
   qt6,
   portaudio,
   vgmstream,
+  apple-sdk_11,
 }:
 
-stdenv.mkDerivation rec {
+let
+  realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
+in
+realStdenv.mkDerivation rec {
   pname = "kame-editor";
   version = "1.4.1-unstable-2024-11-01";
 
@@ -35,18 +41,18 @@ stdenv.mkDerivation rec {
       ]
     }"
     # even adding qt6.qtwayland doesn't make wayland work for some reason i'm not sure of yet
-  ] ++ (lib.optional (!stdenv.isDarwin) "--set WAYLAND_DISPLAY \"\"");
+  ] ++ (lib.optional (!realStdenv.isDarwin) "--set WAYLAND_DISPLAY \"\"");
 
   buildInputs = [
     qt6.qtbase
     portaudio
-  ];
+  ] ++ lib.optional realStdenv.isDarwin apple-sdk_11;
   nativeBuildInputs = [
     qt6.qmake
     qt6.wrapQtAppsHook
   ];
 
-  postInstall = lib.optionalString stdenv.isDarwin ''
+  postInstall = lib.optionalString realStdenv.isDarwin ''
     mkdir $out/Applications
     mv $out/bin/kame-editor.app $out/Applications/kame-editor.app
     ln -s $out/Applications/kame-editor.app/Contents/MacOS/kame-editor $out/bin/kame-editor
