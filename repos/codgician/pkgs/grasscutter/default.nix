@@ -14,7 +14,7 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "grasscutter";
-  version = "1.7.4-unstable-2024-11-24";
+  version = "1.7.4-unstable-2024-11-23";
 
   src = fetchFromGitHub {
     owner = "Grasscutters";
@@ -72,7 +72,7 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"
-      "branch=main"
+      "branch=development"
     ];
   };
 
