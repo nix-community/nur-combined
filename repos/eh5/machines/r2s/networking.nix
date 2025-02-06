@@ -51,8 +51,8 @@
     "net.ipv4.conf.all.rp_filter" = false;
     "net.ipv4.conf.default.rp_filter" = false;
 
-    "net.netfilter.nf_conntrack_buckets" = 65536;
-    "net.netfilter.nf_conntrack_max" = 65536;
+    "net.netfilter.nf_conntrack_buckets" = 393216;
+    "net.netfilter.nf_conntrack_max" = 393216;
     "net.netfilter.nf_conntrack_generic_timeout" = 60;
     "net.netfilter.nf_conntrack_tcp_timeout_fin_wait" = 10;
     "net.netfilter.nf_conntrack_tcp_timeout_established" = 600;

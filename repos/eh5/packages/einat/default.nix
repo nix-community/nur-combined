@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-  rustfmt,
   llvmPackages,
   bpftools,
   libbpf,
@@ -26,7 +25,6 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
-    rustfmt
     llvmPackages.clang-unwrapped
     bpftools
     rustPlatform.bindgenHook
