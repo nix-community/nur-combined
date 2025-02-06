@@ -81,6 +81,7 @@ in {
           aliases = [
             "alarsyo@alarsyo.net"
             "antoine@amartin.email"
+            "mail@antoinemartin.fr"
           ];
           flavor = "plain"; # default setting
           passwordCommand = "${pkgs.rbw}/bin/rbw get webmail.migadu.com ${email_perso}";
