@@ -16,13 +16,6 @@ with
 
 ---
 
-### Binary Cache
+### Topology Graph
 
-```nix
-nix.settings = {
-  substituters = ["https://cache.garnix.io"];
-  trusted-public-keys = [
-    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-  ];
-};
-```
+![topo-graph](https://raw.githubusercontent.com/oluceps/nixos-config/refs/heads/topo-graph/main.svg)

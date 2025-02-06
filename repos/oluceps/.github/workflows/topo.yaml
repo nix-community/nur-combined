@@ -10,7 +10,7 @@ on:
 
 jobs:
   generate:
-    name: Fmt Check
+    name: Gen
     runs-on: ubuntu-latest
     steps: 
       - name: Generate GitHub auth token
@@ -23,6 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            experimental-features = nix-command flakes auto-allocate-uids cgroups recursive-nix ca-derivations pipe-operators
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Build Graph
         run: |
