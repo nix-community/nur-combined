@@ -47,6 +47,7 @@ rec {
   launchcontrol = pkgs.callPackage ./pkgs/launchcontrol { };
   xiv-on-mac = pkgs.callPackage ./pkgs/xiv-on-mac { };
   rofs-dumper = pkgs.callPackage ./pkgs/rofs-dumper { };
+  _3beans = pkgs.callPackage ./pkgs/3beans { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.11";

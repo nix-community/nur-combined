@@ -49,5 +49,32 @@
       checks = forAllSystems (system: {
         formatting = treefmtEval.${system}.config.build.check self;
       });
+
+      apps = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          prepare = {
+            type = "app";
+            program =
+              (pkgs.writeShellScript "prepare" ''
+                nix fmt
+                nix-shell build-readme.nix
+              '').outPath;
+          };
+          merge-master = {
+            type = "app";
+            program =
+              (pkgs.writeShellScript "merge-master" ''
+                git checkout master
+                git merge staging
+                git checkout staging
+                git push origin master
+              '').outPath;
+          };
+        }
+      );
     };
 }
