@@ -39,6 +39,19 @@
                     ];
                     match = [ { host = [ "photo.nyaw.xyz" ]; } ];
                   }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:9001"; } ];
+                      }
+                    ];
+                    match = [
+                      {
+                        host = [ "eihort.nyaw.xyz" ];
+                      }
+                    ];
+                  }
                   (import ../caddy-matrix.nix {
                     inherit pkgs;
                     matrix-upstream = "localhost:6167";
