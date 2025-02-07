@@ -50,7 +50,7 @@
       trustedInterfaces = [
         "virbr0"
         "podman*"
-      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
+      ];
       allowedUDPPorts = [
         8080
       ];

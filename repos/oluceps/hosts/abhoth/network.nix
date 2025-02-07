@@ -32,7 +32,7 @@
       checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
-      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
+      ];
       allowedUDPPorts = [
         80
         443

@@ -60,7 +60,7 @@
         "virbr0"
         "podman*"
         "dae0"
-      ] ++ map (n: "wg-${n}") (builtins.attrNames (lib.conn { }));
+      ];
       allowedUDPPorts = [
         8080
       ];
