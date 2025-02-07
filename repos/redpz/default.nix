@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   frame0 = pkgs.callPackage ./pkgs/frame0 { };
+  sf-mono = pkgs.callPackage ./pkgs/sf-mono { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
