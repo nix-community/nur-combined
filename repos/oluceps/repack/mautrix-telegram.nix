@@ -8,7 +8,7 @@ reIf {
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.vaultix.secrets.mautrix-tg.path;
-    serviceDependencies = [ "conduit.service" ];
+    serviceDependencies = [ "conduwuit.service" ];
     settings = {
       homeserver = {
         address = "http://127.0.0.1:${toString config.services.conduwuit.settings.global.port}";
@@ -41,6 +41,7 @@ reIf {
         permissions = {
           "*" = "relaybot";
           "@sec:nyaw.xyz" = "admin";
+          "@lyo:nyaw.xyz" = "admin";
         };
         relaybot = {
           authless_portals = false;
