@@ -2083,15 +2083,16 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1738246091,
-        "narHash": "sha256-2+KkZsRO+XlOFbXbRgMZbRtlqn5MBNYj4HNmZ/2Tojg=",
-        "owner": "oddlama",
+        "lastModified": 1738964222,
+        "narHash": "sha256-GmjmEeBkWQ90seuav4sZmYhI19fDDacwc+DUi86Gj94=",
+        "owner": "oluceps",
         "repo": "nix-topology",
-        "rev": "5526269fa3eedf4f4bc00c0bf7a03db31d24b029",
+        "rev": "50c2535b730b38b8ea48b28693512ea656dd35e9",
         "type": "github"
       },
       "original": {
-        "owner": "oddlama",
+        "owner": "oluceps",
+        "ref": "dev",
         "repo": "nix-topology",
         "type": "github"
       }

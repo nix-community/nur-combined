@@ -20,6 +20,11 @@ extraLibs:
               ;
           in
           {
+            renderers.elk.overviews = {
+              networks.enable = true;
+              services.enable = false;
+            };
+
             nodes =
               (lib.listToAttrs (
                 map (n: {
@@ -35,6 +40,7 @@ extraLibs:
                   value = {
                     interfaces = lib.concatMapAttrs (target: _: {
                       "wg-${target}" = {
+                        virtual = true;
                         physicalConnections = [
                           {
                             node = target;
