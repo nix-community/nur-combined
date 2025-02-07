@@ -195,14 +195,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "60dcda7bf8d0043c7f5ef1a35e33a74efd9d3eb4";
+    version = "9d5adaf6f97abebc6d43995ccca43321dc1fda3f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "60dcda7bf8d0043c7f5ef1a35e33a74efd9d3eb4";
-      hash = "sha256-H60me9WIJkqGZHN03NRkrranT1zB+/RRk9JC+GxWT4A=";
+      rev = "9d5adaf6f97abebc6d43995ccca43321dc1fda3f";
+      hash = "sha256-JGbXA7Ch5XzOPdIY9REQYwZTibrN9PW0E9yKLrYjqG4=";
     };
-    date = "2025-02-03";
+    date = "2025-02-05";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4644";
+    version = "b4661";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4644";
-      hash = "sha256-Ac3Jo1Sa93yY/nS/zHEZ4tb1OsBYGF5YkjwLKL6SjHw=";
+      tag = "b4661";
+      hash = "sha256-9lE7lBHRVYUbtniVk/p/yB/sLPYLtplDPVK57GU1vMQ=";
     };
   };
   loralib = {
@@ -1157,14 +1157,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "47dafb930e70f0103b14701395ad0d1a8a1dc4de";
+    version = "4ad3978ec863590fab8bb488f39d73fa5908497c";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "47dafb930e70f0103b14701395ad0d1a8a1dc4de";
-      hash = "sha256-Y9Wc/mrpDfDkHy2N6OYUFycU7gdd2gFoMccdbcViuLw=";
+      rev = "4ad3978ec863590fab8bb488f39d73fa5908497c";
+      hash = "sha256-r6KE0/hqk3+9Ve5NZiZ0YNZQSWEzcjSzAChvnZpG7M0=";
     };
-    date = "2025-01-17";
+    date = "2025-02-07";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1554,14 +1554,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a5c74267421ed257b1b72d005e20d8092b44dbce";
+    version = "a07cdd0f60ba56ec7fc0329fff7bf4637d02a08f";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a5c74267421ed257b1b72d005e20d8092b44dbce";
-      hash = "sha256-uytEIajNcY+dzapR5FhRFistf+slZtQn67OQ42LGjOQ=";
+      rev = "a07cdd0f60ba56ec7fc0329fff7bf4637d02a08f";
+      hash = "sha256-mB5hmn+2p58TdilDz9ozGyibBqLAIjwGuu558Ye30JY=";
     };
-    date = "2025-02-04";
+    date = "2025-02-05";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1889,14 +1889,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "8dbb944bf15f769a76de4a2b9dcf5e8e63d8bf84";
+    version = "56f45be6f1b0ad2456b95b37f2093c8f0583f5a1";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "8dbb944bf15f769a76de4a2b9dcf5e8e63d8bf84";
-      hash = "sha256-+AM+P5JbGoIA6OBkkqApbtqOFkKHw40tO/kMSNf+H/Q=";
+      rev = "56f45be6f1b0ad2456b95b37f2093c8f0583f5a1";
+      hash = "sha256-kHk7ZI9MBtdaWQmEhKZJ7nIRS48PfLWgzi2bIx7CO00=";
     };
-    date = "2025-02-04";
+    date = "2025-02-07";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
