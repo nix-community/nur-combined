@@ -97,10 +97,10 @@
     };
     "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "2.2.3";
+      version = "2.3";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417939/adaptive_tab_bar_colour-2.2.3.xpi";
-      sha256 = "ef667ce0003317b59f61adb8706766715ffa16b524343ff134d359656d39425a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427118/adaptive_tab_bar_colour-2.3.xpi";
+      sha256 = "e959de1da7ed66af7476ef8f696fadc070b3ebecc89e57ef5ac53f1d2e4fc4d7";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -842,10 +842,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.10";
+      version = "7.6.11";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408258/betterttv-7.6.10.xpi";
-      sha256 = "0c8c184218954aca3256172e3a615d03c553021ae2a2912d349611aad54c3840";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427350/betterttv-7.6.11.xpi";
+      sha256 = "63db1d185c3e02afa7f9897dbab4000de66d3f511fa2b4ec9b26e132a8e649b7";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -902,10 +902,10 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.39.2";
+      version = "0.39.4";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395253/bibbot-0.39.2.xpi";
-      sha256 = "b8c62c175de2b6a52575f9b786af9bdc2fcd7b1a70d9a12a093a514ca9f9183a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4432693/bibbot-0.39.4.xpi";
+      sha256 = "19163f04f28cfe6cfd8006c2fa0ff6e89bd4093d8c74475cbc36a227e54b116e";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -1929,10 +1929,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.6.0";
+      version = "4.6.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4426814/control_panel_for_twitter-4.6.0.xpi";
-      sha256 = "f8fab6c59f17ce7be3992d43984053021c102d4b9ece07b623c118b59c152300";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427261/control_panel_for_twitter-4.6.1.xpi";
+      sha256 = "172c0a88986ce19f6474bea4e79af8565a5a96317b56c3b296a8dd3c4577794a";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2199,10 +2199,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.99";
+      version = "4.9.100";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405074/darkreader-4.9.99.xpi";
-      sha256 = "02c67ce2b3cd96719b5e369b9207ef11ed6c3a79eccb454d1e6ec3e005004e72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427854/darkreader-4.9.100.xpi";
+      sha256 = "9ad477dffe36d7337617fbf1c8ee8b6abb7bb681caed1b8bfe87bbed5a424302";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -6607,10 +6607,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423886/linkwarden-1.3.1.xpi";
-      sha256 = "ed1fd7cf16fd83531a7580be3758064ae71cc9ed3205afe5c877256922de2646";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4432836/linkwarden-1.3.2.xpi";
+      sha256 = "99cb54fae45bdae23ef5620ea3ba89e017caad4bca95b09521ac04382d0c2fbf";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -8395,10 +8395,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.12.2";
+      version = "2025.2.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4408449/pakkujs-2024.12.2.xpi";
-      sha256 = "a15c4e16f5605b4defe38011bc13a8ddeacc657ef06ab671ebf7efcfec79244a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4432413/pakkujs-2025.2.1.xpi";
+      sha256 = "152a8a15e5ef11e3951891087a21f7449799fd2de865c7bf1372fe7bb95bc3b1";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -10820,10 +10820,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.12";
+      version = "4.13";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409030/steam_database-4.12.xpi";
-      sha256 = "fa922a9ad4a4ff9bbe2b33d84897cd9cf961bfe8344b83708aa0c418535c3ecd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427679/steam_database-4.13.xpi";
+      sha256 = "b57368ba644d93f485ad53c3982e3999b6e2cb3bf9470f03ff50678842b2d0bb";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -10916,26 +10916,25 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.51";
+      version = "2.3.10";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4338993/styl_us-1.5.51.xpi";
-      sha256 = "4d7c184af2d81f40c35f33c77c4040dc4205908dbcf65e7c99fafd7d26e4814f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4427271/styl_us-2.3.10.xpi";
+      sha256 = "62528ccaf2eaf6db09645b255eb484d27947b35f69ab25739000769b34a0b107";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
         description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
         license = licenses.gpl3;
         mozPermissions = [
+          "alarms"
+          "contextMenus"
+          "storage"
           "tabs"
+          "unlimitedStorage"
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          "contextMenus"
-          "storage"
-          "unlimitedStorage"
-          "alarms"
           "<all_urls>"
-          "http://userstyles.org/*"
           "https://userstyles.org/*"
         ];
         platforms = platforms.all;
@@ -12754,10 +12753,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.77";
+      version = "6.10.79";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4413349/wappalyzer-6.10.77.xpi";
-      sha256 = "2581b33318f68f254688fe7ce2eb033bd9d3f49fe038f680d38ef11a514dfb21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431384/wappalyzer-6.10.79.xpi";
+      sha256 = "88310876799998909fe05f1b0c904e893560b258a8ae1a80f118559d7914e8bd";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -12781,10 +12780,10 @@
     };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "4.7.0";
+      version = "4.7.1";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416664/watchmarker_for_youtube-4.7.0.xpi";
-      sha256 = "d4690582de4e871d08503ec2ca49bcea54f525b474bf2d444b1b540ab9e358c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4432290/watchmarker_for_youtube-4.7.1.xpi";
+      sha256 = "08e89ca94f2f172e4d28632657b178468c4005ba7725a812e821a19a0e8ef4e7";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
@@ -13339,10 +13338,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.1.5.0";
+      version = "25.1.29.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417079/yomitan-25.1.5.0.xpi";
-      sha256 = "7ea2a4b87a404b860bf9bb9fd2c04e5d2221cfee567f3aed18f5ccc776ff13b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4431376/yomitan-25.1.29.0.xpi";
+      sha256 = "1665ae37e687e74eedc71c7b0711ff3b78508e0366918f80350a572039a36925";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
