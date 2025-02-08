@@ -41,6 +41,18 @@
     };
     date = "2025-01-10";
   };
+  paperwm-spoon = {
+    pname = "paperwm-spoon";
+    version = "41389206e739e6f48ea59ddcfc07254226f4c93f";
+    src = fetchFromGitHub {
+      owner = "mogenson";
+      repo = "PaperWM.spoon";
+      rev = "41389206e739e6f48ea59ddcfc07254226f4c93f";
+      fetchSubmodules = false;
+      sha256 = "sha256-O1Pis5udvh3PUYJmO+R2Aw11/udxk3v5hf2U9SzbeqI=";
+    };
+    date = "2025-02-01";
+  };
   qmk-toolbox = {
     pname = "qmk-toolbox";
     version = "0.3.3";

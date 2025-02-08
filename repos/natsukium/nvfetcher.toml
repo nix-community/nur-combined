@@ -17,6 +17,11 @@ src.git = "https://github.com/natsukium/nixpkgs-review"
 src.branch = "develop"
 fetch.github = "natsukium/nixpkgs-review"
 
+[paperwm-spoon]
+src.git = "https://github.com/mogenson/PaperWM.spoon"
+src.branch = "main"
+fetch.github = "mogenson/PaperWM.spoon"
+
 [qmk-toolbox]
 src.github = "qmk/qmk_toolbox"
 fetch.url = "https://github.com/qmk/qmk_toolbox/releases/download/$ver/QMK.Toolbox.app.zip"
