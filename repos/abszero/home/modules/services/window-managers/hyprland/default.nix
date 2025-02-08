@@ -61,6 +61,12 @@ in
         middle_click_paste = false;
       };
 
+      experimental = {
+        # wide_color_gamut = true;
+        # hdr = true;
+        xx_color_management_v4 = true;
+      };
+
       bind =
         [
           "$mod,       q,                     exit"
@@ -106,10 +112,10 @@ in
       bindm = "$mod,  mouse:272, movewindow";
 
       windowrulev2 = [
-        "float, title:^Albert$"
-        "pin, title:^Albert$"
-        "noblur, title:^Albert$"
-        "noborder, title:^Albert$"
+        "float, title:Albert"
+        "pin, title:Albert"
+        "noblur, title:Albert"
+        "noborder, title:Albert"
 
         "pseudo, title:.* - Anki"
         "size 666 560, title:.* - Anki"
@@ -118,8 +124,8 @@ in
 
         "size 600 500, class: foot"
 
-        "pseudo, title:^KDE Connect$"
-        "size 350 350, title:^KDE Connect$"
+        "pseudo, title:KDE Connect"
+        "size 350 350, title:KDE Connect"
 
         "immediate, class:osu!" # Enable tearing
 
@@ -127,6 +133,10 @@ in
 
         "pseudo, class:org\.gnome\.Solanum"
         "size 370 370, class:org\.gnome\.Solanum"
+
+        "float, class:zen, title:^$" # Notification popups
+
+        "float, class:Zotero, title: Error"
       ];
 
       exec-once = [

@@ -38,7 +38,7 @@ let
 
   flavorTweak = optionalString (
     cfg.gtk.flavor == "frappe" || cfg.gtk.flavor == "macchiato"
-  ) cfg.flavor;
+  ) cfg.gtk.flavor;
 in
 
 {

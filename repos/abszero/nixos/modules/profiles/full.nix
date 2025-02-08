@@ -101,6 +101,7 @@ in
         xorg.xeyes
         zen-browser
         zip
+        zotero
       ];
     };
   };
