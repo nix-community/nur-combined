@@ -21,6 +21,14 @@
     };
     date = "2024-12-22";
   };
+  hammerspoon = {
+    pname = "hammerspoon";
+    version = "1.0.0";
+    src = fetchurl {
+      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.0.0/Hammerspoon-1.0.0.zip";
+      sha256 = "sha256-XbcCtV2kfcMG6PWUjZHvhb69MV3fopQoMioK9+1+an4=";
+    };
+  };
   nixpkgs-review = {
     pname = "nixpkgs-review";
     version = "b4d0a817180b1a079d00d41c0a41308cb11407f7";

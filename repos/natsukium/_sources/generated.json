@@ -30,10 +30,24 @@
             "repo": "homebrew-emacs-plus",
             "rev": "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b",
             "sha256": "sha256-0awwiJjYGvwzqghzjgQiE6rRyv//I68l2ivwdstbBfU=",
-            "sparseCheckout": [],
             "type": "github"
         },
         "version": "5f1f625f43d498dcb9a931e0f351bfdaeb41cd1b"
+    },
+    "hammerspoon": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hammerspoon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XbcCtV2kfcMG6PWUjZHvhb69MV3fopQoMioK9+1+an4=",
+            "type": "url",
+            "url": "https://github.com/Hammerspoon/hammerspoon/releases/download/1.0.0/Hammerspoon-1.0.0.zip"
+        },
+        "version": "1.0.0"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
@@ -51,7 +65,6 @@
             "repo": "nixpkgs-review",
             "rev": "b4d0a817180b1a079d00d41c0a41308cb11407f7",
             "sha256": "sha256-fZkXkhwsNoxcQcC4fqwnkfGherazl/YZBkuVWGmnWPY=",
-            "sparseCheckout": [],
             "type": "github"
         },
         "version": "b4d0a817180b1a079d00d41c0a41308cb11407f7"
@@ -102,7 +115,6 @@
             "repo": "SbarLua",
             "rev": "437bd2031da38ccda75827cb7548e7baa4aa9978",
             "sha256": "sha256-F0UfNxHM389GhiPQ6/GFbeKQq5EvpiqQdvyf7ygzkPg=",
-            "sparseCheckout": [],
             "type": "github"
         },
         "version": "437bd2031da38ccda75827cb7548e7baa4aa9978"
@@ -123,7 +135,6 @@
             "repo": "skkeleton",
             "rev": "8bb1b8782227291c8cbe2aa62a9af732557690cc",
             "sha256": "sha256-V86J+8rg1/5ZUL9t0k2S5H+z7KZ1DZwLwmb5yM0+vts=",
-            "sparseCheckout": [],
             "type": "github"
         },
         "version": "8bb1b8782227291c8cbe2aa62a9af732557690cc"

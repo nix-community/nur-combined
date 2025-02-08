@@ -8,6 +8,10 @@ src.git = "https://github.com/d12frosted/homebrew-emacs-plus"
 src.branch = "master"
 fetch.github = "d12frosted/homebrew-emacs-plus"
 
+[hammerspoon]
+src.github = "Hammerspoon/hammerspoon"
+fetch.url = "https://github.com/Hammerspoon/hammerspoon/releases/download/$ver/Hammerspoon-$ver.zip"
+
 [nixpkgs-review]
 src.git = "https://github.com/natsukium/nixpkgs-review"
 src.branch = "develop"
