@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-fmwVcGOXq4BvszEVboyon5y3xR1yEIwnDdCzCR7f3M8=";
   };
 
-  cargoHash = "sha256-knihCvFnMfHdZVlwcbKf22Nbu0L/xSVVRHN8fFmrX5Y=";
+  useFetchCargoVendor = true;
+
+  cargoHash = "sha256-YmfSF/kBrA7EQqFd/QSbx6ldvGfJaGs/yofH+CVOp5c=";
   buildNoDefaultFeatures = !withFUSE;
 
   buildInputs = lib.optional (withFUSE) fuse;
