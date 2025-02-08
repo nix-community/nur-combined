@@ -219,19 +219,50 @@
                     ) config.packages
                   ))
                 );
+
+                packageListFormatted =
+                  pkgs.runCommand "PACKAGES.md" { nativeBuildInputs = [ pkgs.nodePackages.prettier ]; }
+                    ''
+                      prettier ${packageList} > $out
+                    '';
               in
               pkgs.writeShellApplication {
                 name = "generate-readme";
                 text = ''
-                  ${lib.getExe pkgs.nodePackages.prettier} ${packageList} > PACKAGES.md
+                  cat ${packageListFormatted} > PACKAGES.md
                 '';
               };
 
-            no-updateScript.program = pkgs.writeShellApplication {
-              name = "no-updateScript";
+            update-all.program = pkgs.writeShellApplication {
+              name = "update-all";
               text = lib.concatLines (
                 lib.mapAttrsToList (
-                  name: value: lib.optionalString (!value ? updateScript) "echo '${name}'"
+                  name: value:
+                  if value ? updateScript then
+                    ''
+                      echo Updating ${name}...
+                      ${lib.escapeShellArgs (
+                        [
+                          "env"
+                          "UPDATE_NIX_NAME=${value.name}"
+                          "UPDATE_NIX_PNAME=${value.pname}"
+                          "UPDATE_NIX_OLD_VERSION=${value.version}"
+                          "UPDATE_NIX_ATTR_PATH=${name}"
+                        ]
+                        ++ (value.updateScript.command or (lib.toList value.updateScript))
+                      )}
+                    ''
+                  else
+                    "echo Skipping ${name}..."
+                ) config.packages
+              );
+            };
+
+            no-update-script.program = pkgs.writeShellApplication {
+              name = "no-update-script";
+              text = lib.concatLines (
+                lib.mapAttrsToList (
+                  name: value: lib.optionalString (!value ? updateScript) "echo ${name}"
                 ) config.packages
               );
             };

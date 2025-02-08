@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluejay";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "EbonJaeger";
     repo = "bluejay";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-cX1QLJCb+GwgcmgOJEOq4wgSaL+29MSQiKbU2MXWhO8=";
+    hash = "sha256-mt64v+TccmB/0qV4+EeXbyjPmOM8cDXPV1nIH4FvXSA=";
   };
 
   nativeBuildInputs = [
