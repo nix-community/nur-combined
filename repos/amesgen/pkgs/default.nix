@@ -170,32 +170,6 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
       };
     };
 
-  cabal-install =
-    { lib
-    , stdenv
-    , fetchurl
-    }:
-    stdenv.mkDerivation rec {
-      pname = "cabal-install";
-      version = "3.12.1.0";
-      src = fetchurl {
-        url = "https://downloads.haskell.org/cabal/cabal-install-${version}/cabal-install-${version}-x86_64-linux-alpine3_18.tar.xz";
-        hash = "sha256-jCdvVczzUNIwWxrMqAzufifUT2BbSYQBl9qoA9klDIE=";
-      };
-      sourceRoot = ".";
-
-      installPhase = ''
-        mkdir -p $out/bin
-        install -m755 -D cabal $out/bin/
-      '';
-
-      meta = {
-        inherit (pkgs.cabal-install.meta) description homepage license;
-        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   hell =
     { lib
     , stdenv
