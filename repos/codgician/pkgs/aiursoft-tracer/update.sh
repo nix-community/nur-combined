@@ -21,8 +21,8 @@ sed -i -e "s,rev = \"$old_rev\",rev = \"$new_rev\"," \
 
 # Fetch npm deps
 tmpdir=$(mktemp -d)
-curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/wwwroot/package-lock.json"
-curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/wwwroot/package.json"
+curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package-lock.json"
+curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package.json"
 pushd $tmpdir
 npm_hash=$(prefetch-npm-deps package-lock.json)
 sed -i 's#npmDepsHash = "[^"]*"#npmDepsHash = "'"$npm_hash"'"#' $path

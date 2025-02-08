@@ -13,15 +13,15 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "70e186960eee9193fc4a2818318ecd49fb7598e7";
-    hash = "sha256-pSYcu5POwrhs5KoE/VL2AYAih/2MloSSjlfJrheo9pg=";
+    rev = "76bd029f25cc7822a20615169294a23e17351a18";
+    hash = "sha256-MZKRy9RpfYVARywie3olUOoUP0TtsEAzSHmlvAld444=";
   };
 
   version = "1.0.0-${builtins.substring 0 7 src.rev}";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
-    src = "${src}/src/wwwroot";
+    src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
     npmDepsHash = "sha256-6gfwlUqi0coQ4qoQyw3M1cPWTCjtbWyhl7wtVdhvGKc=";
     dontNpmBuild = true;
