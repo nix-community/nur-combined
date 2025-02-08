@@ -1,6 +1,6 @@
 {
   lib,
-  gccStdenv,
+  stdenv,
   fetchFromGitHub,
   pkg-config,
   wxGTK32,
@@ -8,9 +8,6 @@
   libGL,
 }:
 
-let
-  stdenv = gccStdenv;
-in
 stdenv.mkDerivation rec {
   pname = "3beans";
   version = "0-unstable-2025-02-06";
@@ -31,12 +28,23 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail g++ "\$(CXX)"
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin $out/share/applications
+    cp 3beans $out/bin
+  '' + (lib.optionalString (!stdenv.isDarwin) ''
+    cp com.hydra.threebeans.desktop $out/share/applications
+  '');
+
   meta = with lib; {
     license = licenses.gpl3;
     description = "A low-level 3DS emulator (maybe)";
     homepage = "https://github.com/Hydr8gon/3Beans";
     platforms = platforms.all;
-    broken = stdenv.isDarwin;
     mainProgram = "3beans";
   };
 }
