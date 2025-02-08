@@ -19,6 +19,7 @@
   xyosc = pkgs.callPackage ./pkgs/xyosc {};
 
   ntsc-rs = pkgs.callPackage ./pkgs/ntsc-rs {};
+  assetripper = pkgs.callPackage ./pkgs/assetripper {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

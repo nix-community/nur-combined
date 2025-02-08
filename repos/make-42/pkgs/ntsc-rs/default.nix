@@ -104,6 +104,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
     install -m755 -D $src/ntsc-rs-standalone $out/bin/ntsc-rs
     runHook postInstall
+    runHook preFixup
   '';
 
   meta = with lib; {
