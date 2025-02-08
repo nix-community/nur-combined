@@ -50,9 +50,10 @@ in
     };
   };
 
-  # plug into the (proposed) nixpkgs bonsaid service.
+  # plug into the nixpkgs bonsaid service.
   # it's a user service, and since i don't use the service manager it doesn't actually activate:
   # i just steal the config file generation from it :)
+  services.bonsaid.package = config.sane.programs.bonsai.package;
   services.bonsaid.settings = lib.mkIf cfg.enabled (lib.mkMerge [
     cfg.config.transitions
     [{

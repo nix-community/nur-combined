@@ -92,7 +92,7 @@
   buildNpmPackage,
   buildPackages,
   cups,
-  electron-bin,
+  electron_33-bin,
   fetchFromGitHub,
   fetchurl,
   flac,
@@ -169,7 +169,7 @@ let
   # prefer to use the same electron version as everywhere else, and a `-bin` version to avoid 4hr rebuilds.
   # the non-bin varieties *seem* to ship the wrong `electron.headers` property.
   # - maybe they can work if i manually DL and ship the corresponding headers
-  electron' = electron-bin;
+  electron' = electron_33-bin;
 
   buildNpmArch = if stdenv.buildPlatform.isAarch64 then "arm64" else "x64";
   hostNpmArch = if stdenv.hostPlatform.isAarch64 then "arm64" else "x64";

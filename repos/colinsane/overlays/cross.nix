@@ -330,6 +330,21 @@ in with final; {
     ];
   };
 
+  # 2025/02/08: upstreaming is unblocked
+  flatpak = prev.flatpak.overrideAttrs (upstream: {
+    outputs = lib.remove "devdoc" upstream.outputs;
+    depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
+      pkgsBuildBuild.pkg-config
+    ];
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      gtk-doc
+      pkgsBuildHost.wayland-scanner
+    ];
+    mesonFlags = upstream.mesonFlags ++ [
+      "-Dgtkdoc=disabled"
+    ];
+  });
+
   # 2025/01/13: upstreaming is blocked by glycin-loaders
   fractal = prev.fractal.override {
     cargo = crossCargo;

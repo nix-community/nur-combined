@@ -31,6 +31,7 @@ let
       deepseek-r1-7b
       deepseek-r1-14b
       # deepseek-r1-32b  # redundant with abliterated deepseek-r1
+      # deepseek-r1-671b  # requires 443 GB of RAM
       deepseek-r1-abliterated-14b
       deepseek-r1-abliterated-32b
       deepseek-r1-abliterated-70b

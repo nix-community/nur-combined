@@ -47,6 +47,13 @@ in
   # })
 
   (fetchpatch' {
+    # XXX(2025-02-08): required for coturn (servo) to build
+    name = "coturn: ignore broken symlinks";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/379889";
+    hash = "sha256-Sm3uZ3ooRBCh7eYW7BHuzS0XD6tZTUllgLROZflUiZs=";
+  })
+
+  (fetchpatch' {
     # patch should be safe to remove; keeping it here to track the upstreaming status
     name = "nixos/gitea: don't configure the database if `createDatabase == false`";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";

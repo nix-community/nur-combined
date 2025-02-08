@@ -422,7 +422,8 @@ let
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
       checkSandboxed = runCommand "${pkgName}-check-sandboxed" {
         preferLocalBuild = true;
-        nativeBuildInputs = [ bunpen file gnugrep ];
+        depsBuildBuild = [ bunpen ];
+        nativeBuildInputs = [ file gnugrep ];
         buildInputs = builtins.map (out: finalAttrs.finalPackage."${out}") (finalAttrs.outputs or [ "out" ]);
       } ''
         # invoke each binary in a way only the sandbox wrapper will recognize,

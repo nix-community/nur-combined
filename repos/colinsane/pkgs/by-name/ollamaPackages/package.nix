@@ -33,6 +33,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   deepseek-r1-7b = callPackage ./deepseek-r1-7b.nix { };
   deepseek-r1-14b = callPackage ./deepseek-r1-14b.nix { };
   deepseek-r1-32b = callPackage ./deepseek-r1-32b.nix { };
+  deepseek-r1-671b = callPackage ./deepseek-r1-671b.nix { };
   deepseek-r1-abliterated-14b = callPackage ./deepseek-r1-abliterated-14b.nix { };
   deepseek-r1-abliterated-32b = callPackage ./deepseek-r1-abliterated-32b.nix { };
   deepseek-r1-abliterated-70b = callPackage ./deepseek-r1-abliterated-70b.nix { };

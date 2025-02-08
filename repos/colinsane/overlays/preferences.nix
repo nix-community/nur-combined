@@ -1,7 +1,25 @@
 # personal preferences
 # prefer to encode these in `sane.programs`
 # resort to this method for e.g. system dependencies, or things which are referenced from too many places.
-(self: super: with self; {
+(self: super:
+with self;
+let
+  # XXX(2025-02-08): `nix-build -A hosts.desko.pkgs.bunpen` FAILS (`nix-build -A pkgs.bunpen`, meanwhile, PASSES!)
+  # this is some weird cross thing, where `pkgs.gnu64.stdenv` != `hosts.desko.pkgs.gnu64.stdenv`,
+  # and this impacts hare because hare forces cross compilation always.
+  #
+  # the patch here ASSUMES THE BUILD MACHINE IS x86, and it works by forcing cc/bintools to be built as native packages, not gnu64 cross packages.
+  # TODO: this is a hack and can hopefully be someday removed!
+
+  x86_64PkgsCrossToolchain = pkgs.pkgsBuildBuild;
+  hare = pkgs.pkgsBuildTarget.hare.override {
+    inherit x86_64PkgsCrossToolchain;
+  };
+  crossHareHook = pkgs.hareHook.override {
+    inherit hare;
+  };
+in
+{
   # DISABLE HDCP BLOB in pinephone pro.
   # this is used by u-boot; requires redeploying the bootloader (the SPL, specifically).
   # i can see that nixpkgs does process this option, but the hash of bl31.elf doesn't actually change
@@ -16,10 +34,17 @@
   #   };
   # };
 
+  bonsai = super.bonsai.override {
+    hareHook = crossHareHook;
+  };
+  bunpen = super.bunpen.override {
+    hareHook = crossHareHook;
+  };
+
   # XXX(2024-12-26): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
   # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
   # electron = electron-bin;
-  electron_33 = electron_33-bin;
+  # electron_33 = electron_33-bin;
 
   # evolution-data-server = super.evolution-data-server.override {
   #   # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
@@ -66,59 +91,37 @@
   #   samba = null;
   # };
 
-  # XXX(2024-12-29): avoid temporary pysaml2 build failure; optional SSO feature which i probably don't even have enabled on my matrix
-  # see: <https://github.com/NixOS/nixpkgs/issues/367976>
-  matrix-synapse-unwrapped = super.matrix-synapse-unwrapped.overridePythonAttrs (upstream: {
-    # nativeCheckInputs = lib.remove python3.pkgs.pysaml2 upstream.nativeCheckInputs;
-    nativeCheckInputs = lib.subtractLists upstream.optional-dependencies.saml2 upstream.nativeCheckInputs;
-    # `tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery` is failing,
-    # apparently independent of pysaml2. can't find how to disable that except by disabling ALL tests.
-    doCheck = false;
-    # env.NIX_BUILD_CORES = 1;
-    # disabledTests = [
-    #   "tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
-    #   "storage.databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
-    #   "databases.main.test_events_worker.DatabaseOutageTestCase.test_recovery"
-    #   "main.test_events_worker.DatabaseOutageTestCase.test_recovery"
-    #   "test_events_worker.DatabaseOutageTestCase.test_recovery"
-    #   "DatabaseOutageTestCase.test_recovery"
-    #   "test_recovery"
-
-    #   "tests.storage.databases.main.test_events_worker.DatabaseOutageTestCase"
-    #   "storage.databases.main.test_events_worker.DatabaseOutageTestCase"
-    #   "databases.main.test_events_worker.DatabaseOutageTestCase"
-    #   "main.test_events_worker.DatabaseOutageTestCase"
-    #   "test_events_worker.DatabaseOutageTestCase"
-    #   "DatabaseOutageTestCase"
-
-    #   "tests.storage.databases.main.test_events_worker"
-    #   "storage.databases.main.test_events_worker"
-    #   "databases.main.test_events_worker"
-    #   "main.test_events_worker"
-    #   "test_events_worker"
-
-    #   "tests.storage.databases"
-    #   "storage.databases"
-    #   "databases"
-    # ];
-    # disabledTestPaths = [
-    #   "tests/storage/databases/main/test_events_worker.py"
-    #   "storage/databases/main/test_events_worker.py"
-    #   "databases/main/test_events_worker.py"
-    #   "main/test_events_worker.py"
-    #   "test_events_worker.py"
-    # ];
+  haredoc = super.haredoc.override {
+    hareHook = crossHareHook;
+  };
+  hareThirdParty = super.hareThirdParty.overrideScope (sself: ssuper: {
+    hare-ev = (ssuper.hare-ev.override {
+      hareHook = crossHareHook;
+    }).overrideAttrs { doCheck = false; };
+    hare-json = (ssuper.hare-json.override {
+      hareHook = crossHareHook;
+    }).overrideAttrs { doCheck = false; };
   });
+
+  # hare = pkgsBuildTarget.hare.override {
+  #   x86_64PkgsCrossToolchain = super.pkgsBuildBuild;
+  # };
+
+  # hareHook = super.hareHook.override {
+  #   hare = pkgsBuildTarget.hare.override {
+  #     x86_64PkgsCrossToolchain = pkgsBuildBuild;
+  #   };
+  # };
 
   # phog = super.phog.override {
   #   # disable squeekboard because it takes 20 minutes to compile when emulated
   #   squeekboard = null;
   # };
 
-  rsyslog = super.rsyslog.override {
-    # XXX(2024-07-28): required for cross compilation
-    withGcrypt = false;
-  };
+  # rsyslog = super.rsyslog.override {
+  #   # XXX(2024-07-28): required for cross compilation
+  #   withGcrypt = false;
+  # };
 
   # swaynotificationcenter = super.swaynotificationcenter.override {
   #   gvfs = gvfs.override {

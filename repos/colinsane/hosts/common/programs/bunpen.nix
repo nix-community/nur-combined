@@ -7,7 +7,7 @@ in
     packageUnwrapped = pkgs.bunpen.overrideAttrs (base: {
       # create a directory which holds just the `bunpen` so that we
       # can add bunpen as a dependency to binaries via `PATH=/run/current-system/libexec/bunpen` without forcing rebuild every time bunpen changes
-      postInstall = ''
+      postInstall = (base.postInstall or "") + ''
         mkdir -p $out/libexec/bunpen
         ln -s $out/bin/bunpen $out/libexec/bunpen/bunpen
       '';

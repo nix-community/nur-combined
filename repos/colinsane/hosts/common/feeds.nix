@@ -72,6 +72,7 @@ let
     (fromDb "darknetdiaries.com" // tech)
     (fromDb "dwarkeshpatel.com" // tech)
     (fromDb "feeds.99percentinvisible.org/99percentinvisible" // pol)  # 99% Invisible -- also available here: <https://feeds.simplecast.com/BqbsxVfO>
+    (fromDb "feeds.acast.com/public/shows/lawfare" // pol)  # <https://www.lawfaremedia.org/podcasts-multimedia/podcast/the-lawfare-podcast>
     (fromDb "feeds.buzzsprout.com/2412334.rss")  # Matt Stoller's _Organized Money_ <https://www.organizedmoney.fm/>
     (fromDb "feeds.eff.org/howtofixtheinternet" // pol)
     (fromDb "feeds.feedburner.com/80000HoursPodcast" // rat)
@@ -97,6 +98,7 @@ let
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "linktr.ee/betteroffline" // pol)
     (fromDb "linuxdevtime.com" // tech)
+    (fromDb "malicious.life" // tech)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "microarch.club" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English

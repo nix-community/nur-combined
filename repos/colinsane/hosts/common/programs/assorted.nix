@@ -253,7 +253,7 @@ in
       "endless-sky"     # space merchantilism/exploration
       # "factorio"
       # "frozen-bubble"   # WAN + LAN + 1P/2P bubble bobble
-      "hase"            # WAN worms game
+      # "hase"            # WAN worms game
       # "hedgewars"     # WAN + LAN worms game (5~10 people online at any moment; <https://hedgewars.org>)
       # "libremines"    # meh: trivial minesweeper; qt6
       # "mario0"        # SMB + portal

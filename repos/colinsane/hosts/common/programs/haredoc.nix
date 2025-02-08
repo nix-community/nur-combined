@@ -3,6 +3,6 @@
 {
   sane.programs.haredoc = {
     sandbox.whitelistPwd = true;  #< search for function documentation below the current directory
-    env.HAREPATH = "${pkgs.hare}/src/hare/stdlib";
+    env.HAREPATH = builtins.toString pkgs.hare.src;
   };
 }
