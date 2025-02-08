@@ -23,5 +23,6 @@ vscode.overrideAttrs (oldAttrs: {
 
   meta = oldAttrs.meta // {
     description = "VSCode with github.com/Aikoyori/ProgrammingVTuberLogos LOGO";
+    maintainers = with stdenv.lib.maintainers; [ Cryolitia ];
   };
 })

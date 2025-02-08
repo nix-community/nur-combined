@@ -1,0 +1,187 @@
+From 62c594cc0ce875b783001ea576f93638fe7581a6 Mon Sep 17 00:00:00 2001
+From: Justin Weiss <justin@justinweiss.com>
+Date: Sun, 1 Dec 2024 15:31:27 -0800
+Subject: [PATCH] bmi260: Add BMI260 IMU initial configuration data file
+
+Add initial configuration binary for the Bosch BMI260 IMU. This file
+is used by the bmi270 driver in the IIO subsystem.
+
+Signed-off-by: Justin Weiss <justin@justinweiss.com>
+---
+ WHENCE              |  42 ++++++++++++++++++++++++++++++++++++++++++
+ bmi260-init-data.fw | Bin 0 -> 8192 bytes
+ 2 files changed, 42 insertions(+)
+ create mode 100644 bmi260-init-data.fw
+
+diff --git a/WHENCE b/WHENCE
+index 53c6685b..ed5c19c7 100644
+--- a/WHENCE
++++ b/WHENCE
+@@ -8113,3 +8113,45 @@ Driver: qdu100 - Qualcomm DU firmware image files
+ File: qcom/qdu100/xbl_s.melf
+ 
+ License: Redistributable. See LICENSE.qcom and qcom/NOTICE.txt for details
++
++--------------------------------------------------------------------------
++
++Driver: bmi260 - Bosch BMI260 IMU configuration data
++File: bmi260-init-data.fw
++
++License:
++ Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.
++
++ BSD-3-Clause
++
++ Redistribution and use in source and binary forms, with or without
++ modification, are permitted provided that the following conditions are met:
++
++ 1. Redistributions of source code must retain the above copyright
++ notice, this list of conditions and the following disclaimer.
++
++ 2. Redistributions in binary form must reproduce the above copyright
++ notice, this list of conditions and the following disclaimer in the
++ documentation and/or other materials provided with the distribution.
++
++ 3. Neither the name of the copyright holder nor the names of its
++ contributors may be used to endorse or promote products derived from
++ this software without specific prior written permission.
++
++ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
++ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
++ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
++ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
++ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ POSSIBILITY OF SUCH DAMAGE.
++
++Converted to hex form from the ChromiumOS header file found here:
++https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/third_party/bmi260/accelgyro_bmi260_config_tbin.h
++
++
+diff --git a/bmi260-init-data.fw b/bmi260-init-data.fw
+new file mode 100644
+index 0000000000000000000000000000000000000000..b09241b79b23a707fc492b3283e1c83c342e05a2
+GIT binary patch
+literal 8192
+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
+
+literal 0
+HcmV?d00001
+
+
+base-commit: 2166884332990f45dcdff597ee9477ec31c06428
+-- 
+2.48.1
+
