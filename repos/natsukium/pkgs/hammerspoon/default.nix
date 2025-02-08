@@ -15,8 +15,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/Applicatoins/Hammerspoon
-    cp -r . $out/Applicatoins/Hammerspoon
+    mkdir -p $out/Applications/Hammerspoon
+    cp -r . $out/Applications/Hammerspoon
 
     runHook postInstall
   '';
