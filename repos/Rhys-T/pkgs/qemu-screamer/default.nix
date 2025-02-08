@@ -263,8 +263,11 @@ stdenv.mkDerivation rec {
   '';
 
   # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
+  # SCREAMER: don't add qemu-kvm unless it exists (to avoid noBrokenSymlinks error).
   postInstall = ''
-    ln -s $out/bin/qemu-system-${stdenv.hostPlatform.qemuArch} $out/bin/qemu-kvm
+    if [[ -e $out/bin/qemu-system-${stdenv.hostPlatform.qemuArch} ]]; then
+      ln -s $out/bin/qemu-system-${stdenv.hostPlatform.qemuArch} $out/bin/qemu-kvm
+    fi
   '' + lib.optionalString stdenv.isLinux ''
     ln -s $out/libexec/virtiofsd $out/bin
   '';
