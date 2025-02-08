@@ -1,9 +1,13 @@
 {rev, version, hash, stdenv, lib, fetchFromGitHub, fetchpatch, SDL_compat, SDL_mixer, yaml-cpp, maintainers}: let
     # Eliminate any trace of the real SDL1:
-    SDL_compat_mixer = SDL_mixer.override (old: {
-        SDL = SDL_compat;
+    SDL_compat_mixer = let
+        SDL_compat' = SDL_compat // {
+            dev = lib.getDev SDL_compat;
+        };
+    in SDL_mixer.override (old: {
+        SDL = SDL_compat';
         smpeg = old.smpeg.override {
-            SDL = SDL_compat;
+            SDL = SDL_compat';
         };
     });
 in stdenv.mkDerivation rec {

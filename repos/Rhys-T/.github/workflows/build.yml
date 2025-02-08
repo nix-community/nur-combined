@@ -39,6 +39,7 @@ jobs:
               "nixos-unstable",
               "nixos-24.05",
               "nixos-24.11",
+              "a04d33c0c3f1a59a2c1cb0c6e34cd24500e5a1dc",
             empty] as $nixpkgss |
             
             [
@@ -54,6 +55,7 @@ jobs:
               (if $nixpkgs | test("^[0-9a-f]{40}$") then $nixpkgs else "refs/heads/\($nixpkgs)" end) as $nixpkgsPath |
               ($runner | split("/")) as [$displayRunner, $runner] |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixos") | not)) |
+              select(($runner == "macos-13") or ($nixpkgs != "a04d33c0c3f1a59a2c1cb0c6e34cd24500e5a1dc")) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               (if $qemuSystem then {
                 "aarch64-linux": "arm64",
