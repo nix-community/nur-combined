@@ -205,6 +205,14 @@ in {
         };
     });
     
+    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
+        wine64Full = pkgs.wine64Packages.full;
+    });
+    
+    tuxemon = callPackage ./pkgs/tuxemon {};
+    tuxemon-git = callPackage ./pkgs/tuxemon/git.nix {};
+    libShake = callPackage ./pkgs/libShake {};
+    
     fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
     }));

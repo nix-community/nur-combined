@@ -1,0 +1,131 @@
+{
+    python3Packages,
+    fetchFromGitHub, fetchPypi,
+    lib, hostPlatform,
+    version, rev ? "v${version}", hash?null,
+    libShake ? null, withLibShake ? true,
+    desktopToDarwinBundle,
+    maintainers
+}: let
+    python3PackagesOrig = python3Packages;
+in let
+    python3Packages = (python3PackagesOrig.python.override {
+        packageOverrides = pself: psuper: {
+            pyglet = pself.callPackage ./fix-pyglet.nix { pyglet' = psuper.pyglet; };
+        };
+    }).pkgs;
+    neteria = python3Packages.buildPythonPackage rec {
+        pname = "neteria";
+        version = "1.0.2";
+        src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-Z/uCYGquDLEU1NsKKJ/QqE8xJl5tgT+i0HYbBVCP9Ks=";
+        };
+        postPatch = ''
+            substituteInPlace neteria/core.py --replace-fail 'is not 0' '!= 0'
+        '';
+    };
+    pyscroll = python3Packages.buildPythonPackage rec {
+        pname = "pyscroll";
+        version = "2.31";
+        src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-GQIFGyCEN5/I22mfCgDSbV0g5o+Nw8RT316vOSsqbHA=";
+        };
+    };
+    pygame-menu-ce = python3Packages.buildPythonPackage rec {
+        pname = "pygame-menu-ce";
+        version = "4.4.3";
+        src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-p14PBkst5eKPVShIKX51WjU39IABdOXEZShAKhitYrg=";
+        };
+    };
+    tuxemon = python3Packages.buildPythonApplication {
+        pname = "tuxemon";
+        inherit version;
+        src = fetchFromGitHub {
+            owner = "Tuxemon";
+            repo = "Tuxemon";
+            inherit rev;
+            ${if hash != null then "hash" else null} = hash;
+        };
+        pyproject = true;
+        pythonRelaxDeps = true;
+        pythonRemoveDeps = lib.optional (lib.versionOlder version "0.4.34-unstable-2023-04-01") "pygame-menu";
+        nativeBuildInputs = lib.optional hostPlatform.isDarwin desktopToDarwinBundle;
+        build-system = with python3Packages; [
+            setuptools
+            setuptools-scm
+        ];
+        dependencies = with python3Packages; [
+            babel
+            cbor
+            neteria
+            pillow
+            pygame-ce
+            pyscroll
+            pytmx
+            requests
+            natsort
+            pyyaml
+            prompt-toolkit
+            pygame-menu-ce
+            pydantic
+        ];
+        postPatch = ''
+            substituteInPlace tuxemon/platform/__init__.py \
+                --replace-fail '"/usr/share/tuxemon/"' 'os.path.join(os.getenv("NIX_TUXEMON_DIR"), "")'
+            sed -Ei '
+                s@import logging@&, sys@
+                /mods_folder =/ {
+                    s@os.path.join\(LIBDIR, "\.\.", "mods"\)@os.path.join(os.getenv("NIX_TUXEMON_DIR"), "mods")@
+                }
+            ' tuxemon/constants/paths.py
+        '' + lib.optionalString withLibShake ''
+            sed -Ei 's@locations = \[.*\]@locations = ["${lib.getLib libShake}/lib/libShake${hostPlatform.extensions.sharedLibrary}"]@' tuxemon/rumble/__init__.py
+        '';
+        makeWrapperArgs = ["--set-default NIX_TUXEMON_DIR $out/share/tuxemon"];
+        postInstall = ''
+            mkdir -p "$out"/share/tuxemon
+            cp -r mods "$out"/share/tuxemon/mods
+            install -Dm755 run_tuxemon.py "$out"/bin/tuxemon # replaces default tuxemon command - has more CLI options
+            install -Dm755 buildconfig/flatpak/org.tuxemon.Tuxemon.desktop "$out"/share/applications/org.tuxemon.Tuxemon.desktop
+            substituteInPlace "$out"/share/applications/org.tuxemon.Tuxemon.desktop --replace-fail 'Exec=org.tuxemon.Tuxemon' 'Exec=tuxemon'
+            install -Dm755 buildconfig/flatpak/org.tuxemon.Tuxemon.appdata.xml "$out"/share/metainfo/org.tuxemon.Tuxemon.appdata.xml
+            install -Dm644 mods/tuxemon/gfx/icon.png "$out"/share/icons/hicolor/64x64/apps/org.tuxemon.Tuxemon.png
+            install -Dm644 mods/tuxemon/gfx/icon_128.png "$out"/share/icons/hicolor/128x128/apps/org.tuxemon.Tuxemon.png
+            install -Dm644 mods/tuxemon/gfx/icon_32.png "$out"/share/icons/hicolor/32x32/apps/org.tuxemon.Tuxemon.png
+        '';
+        meta = {
+            description = "Open source monster-fighting RPG";
+            longDescription = ''
+                Tuxemon is a free, open source monster-fighting RPG. It's in constant development and improving all the time! Contributors of all skill levels are welcome to join.
+                
+                Features:
+                * Game data is all json, easy to modify and extend
+                * Game maps are created using the Tiled Map Editor
+                * Simple game script to write the story
+                * Dialogs, interactions on map, npc scripting
+                * Localized in several languages
+                * Seamless keyboard, mouse, and gamepad input
+                * Animated maps
+                * Lots of documentation
+                * Python code can be modified without a compiler
+                * CLI interface for live game debugging
+                * Runs on Windows, Linux, OS X, and some support on Android
+                * 183 monsters with sprites
+                * 98 techniques to use in battle
+                * 221 NPC sprites
+                * 18 items
+            '';
+            homepage = "https://tuxemon.org/";
+            mainProgram = "tuxemon";
+            license = with lib.licenses; [
+                gpl3Plus
+                mit # for tuxemon/lib/bresenham.py
+            ];
+            maintainers = [maintainers.Rhys-T];
+        };
+    };
+in tuxemon

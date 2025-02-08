@@ -37,11 +37,9 @@
                     # SCREAMER: only build PowerPC version by default
                     else ["ppc-softmmu"])
 , nixosTestRunner ? false
-, doCheck ? false
+# SCREAMER: backported https://github.com/NixOS/nixpkgs/commit/6e980e645823095c83c12eea43691e7a407bd6b4
 # SCREAMER:
 , fetchFromGitHub, callPackage, maintainers
-# SCREAMER: renamed
-, qemu-screamer  # for passthru.tests
 }:
 # SCREAMER: load patches from GitHub
 let
@@ -49,7 +47,8 @@ let
   nixpkgsPatch = name: "${nixpkgs-qemu7}/pkgs/applications/virtualization/qemu/${name}";
 in
 
-stdenv.mkDerivation rec {
+# SCREAMER: backported 6e980e6
+stdenv.mkDerivation (finalAttrs: {
   # SCREAMER: renamed
   pname = "qemu-screamer"
     + lib.optionalString xenSupport "-xen"
@@ -225,11 +224,17 @@ stdenv.mkDerivation rec {
     for f in $out/bin/qemu-system-*; do
       wrapGApp $f
     done
+  ''
+  # SCREAMER: avoid tripping noBrokenSymlinks check (backported and tweaked from NixOS/nixpkgs bc002a4 and a0478f4)
+  + lib.optionalString finalAttrs.separateDebugInfo ''
+    # HACK: remove broken symlink created by hook
+    rm -f $debug/lib/debug/s390-{netboot,ccw}.img
   '';
   preBuild = "cd build";
 
   # tests can still timeout on slower systems
-  inherit doCheck;
+  # SCREAMER: backported 6e980e6
+  doCheck = false;
   nativeCheckInputs = [ socat ];
   preCheck = ''
     # time limits are a little meagre for a build machine that's
@@ -275,7 +280,8 @@ stdenv.mkDerivation rec {
   passthru = {
     qemu-system-i386 = "bin/qemu-system-i386";
     tests = {
-      qemu-tests = qemu-screamer.override { doCheck = true; }; # SCREAMER: renamed
+      # SCREAMER: backported 6e980e6
+      qemu-tests = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
     };
   };
 
@@ -299,4 +305,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     priority = 10; # Prefer virtiofsd from the virtiofsd package.
   };
-}
+# SCREAMER: backported 6e980e6
+})
