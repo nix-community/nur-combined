@@ -9,13 +9,10 @@
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
 
   epson_201310w = pkgs.callPackage ./pkgs/epson_201310w { };
   afterglow-cursors-recolored-custom = pkgs.callPackage ./pkgs/afterglow-cursors-recolored-custom { };
   SonixFlasherC = pkgs.callPackage ./pkgs/SonixFlasherC { };
   gruvbox-wallpapers = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/gruvbox-wallpapers { });
   FAE_Linux = pkgs.callPackage ./pkgs/FAE_Linux { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
