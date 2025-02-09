@@ -5,17 +5,17 @@
 
 buildGoModule {
   pname = "htmlformat";
-  version = "unstable-2023-11-08";
+  version = "unstable-2025-02-09";
 
   src = fetchFromGitHub {
     owner = "a-h";
     repo = "htmlformat";
-    rev = "5bd994fe268e4d505a9793143fa85414c7d50887";
-    sha256 = "1i880gdl3vwcxwjajsxbdvjmxnjj4c62z6d1l3v44wz1qld7sab1";
-    # date = "2023-11-08T12:46:58+00:00";
+    rev = "c2a3d62ad1fc4d576b0534b17156ac02e0fc3139";
+    sha256 = "0y9jq3d8s3g12lrjianm4crb2ny3ankgl72gd8vx7kfr3cs30rhq";
+    # date = "2025-02-09T13:26:43Z";
   };
 
-  vendorHash = "sha256-uVfh1pPhfj6AyQDqFd1EDWshuyDRvbMDZj3SN5tCS2w=";
+  vendorHash = "sha256-mJ6O8y/qg6GkiKZioOov8w4KcpIxG8KdA9PPeRvA/I0=";
 
   ldflags = [ "-s" "-w" ];
 
