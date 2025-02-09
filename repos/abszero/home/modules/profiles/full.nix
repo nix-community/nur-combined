@@ -23,6 +23,7 @@ in
         dotdrop.enable = true;
         # firefox.enable = true;
         git.enable = true;
+        jujutsu.enable = true;
         nushell.enable = true;
         starship.enable = true;
         thunderbird.enable = true;

@@ -20,9 +20,11 @@ in
       key = null;
     };
     extraConfig = {
-      core.editor = "nvim";
       pull.ff = "only";
     };
-    delta.enable = true;
+    delta = {
+      enable = true;
+      options.hyperlinks = true;
+    };
   };
 }
