@@ -23,7 +23,7 @@ in
       fira-code
       inconsolata
       (iosevka-bin.override { variant = "Etoile"; })
-      (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
+      iosevka-inconsolata
       nerd-fonts.symbols-only
       noto-fonts-cjk-sans
       open-sans

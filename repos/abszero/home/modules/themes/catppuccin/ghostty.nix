@@ -30,7 +30,7 @@ in
         theme = mkIf cfg.useSystemPolarity (
           mkForce "light:catppuccin-${cfg.lightFlavor}, dark:catppuccin-${cfg.darkFlavor}"
         );
-        font-family = "Iosevka Term Extended";
+        font-family = "Iosevka Inconsolata";
         font-size = 13;
       };
     };

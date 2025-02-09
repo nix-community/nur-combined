@@ -22,7 +22,8 @@ in
 
     home.packages = with pkgs; [
       inconsolata
-      nerd-fonts.iosevka-term
+      iosevka-inconsolata
+      nerd-fonts.symbols-only
       noto-fonts-cjk-sans
     ];
 
