@@ -1,4 +1,5 @@
-theme = "catppuccin_latte"
+# theme = "catppuccin_latte"
+theme = "ayu_dark"
 [editor]
 auto-pairs = true
 color-modes = true
