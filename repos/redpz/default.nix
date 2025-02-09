@@ -16,6 +16,7 @@
 
   frame0 = pkgs.callPackage ./pkgs/frame0 { };
   sf-mono = pkgs.callPackage ./pkgs/sf-mono { };
+  printargs = pkgs.callPackage ./pkgs/printargs { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
