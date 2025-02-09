@@ -6362,10 +6362,10 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.12.1";
+      version = "1.13.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368731/linkding_extension-1.12.1.xpi";
-      sha256 = "2d42e395a7ea07a5c7a6594f244b24414d1caf667252bf82237c2736f9627cb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4433597/linkding_extension-1.13.0.xpi";
+      sha256 = "33e492af7bc36a6c5aa78b2c9ceae9508199b1ec0116d2a31c052ec0354ef9f8";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
@@ -7619,10 +7619,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.9";
+      version = "1.8.0";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415305/mtab-1.7.9.xpi";
-      sha256 = "79dd5944a8284baaf4377612100d210d2f24abdfdebf9641f0d0501e3544631b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4433850/mtab-1.8.0.xpi";
+      sha256 = "baad5408e67efdc90181eb5dcd2e906b994320d8f3a976e72763bdf6e4cdd8d3";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9973,10 +9973,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.21";
+      version = "2.1.0";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369623/rsshub_radar-2.0.21.xpi";
-      sha256 = "ffa6bd7d98080feea5e551f4873b02ec923af061f1db79c22accad2e14458e1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4433666/rsshub_radar-2.1.0.xpi";
+      sha256 = "2a373e95677e5252f9819e636d955b1ad81e593ac638dbd7db317c4f2889b5b7";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
