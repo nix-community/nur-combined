@@ -32,12 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoRoot = "backend";
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     patches = [ ./fix-time.patch ];
     sourceRoot = "source/${finalAttrs.cargoRoot}";
     patchFlags = [ "-p2" ];
-    hash = "sha256-3jXRIi9l1GOQInklxvjdVXf6GDbbDgdkGZpVUN3FaoA=";
+    hash = "sha256-YTppt5/kKgkheG0TtlX3Y3is+49vY+97lkEqQy6fEtE=";
   };
 
   pnpmDeps = pnpm.fetchDeps {
