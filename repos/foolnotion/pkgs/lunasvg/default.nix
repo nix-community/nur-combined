@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake, plutovg }:
 stdenv.mkDerivation rec {
   pname = "lunasvg";
-  version = "3.0.0";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     rev = "v${version}";
-    hash = "sha256-8LynQ0dG7gFydbFI6ET5VeKqh4/NT8jXKBBgNwXCRQo=";
+    hash = "sha256-9cw3flnQN366C9xbP2JTRsTQsFVJUVr5M25kDy6njcU=";
   };
 
   nativeBuildInputs = [ cmake ];
