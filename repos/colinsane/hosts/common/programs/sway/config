@@ -48,7 +48,7 @@ default_border pixel 1
 titlebar_border_thickness 1
 # XX YY distance from edge of window title to edge of text
 # the YY distance here determines the heigh of the overall title
-titlebar_padding 12 1
+titlebar_padding 12 3
 title_align center
 
 ### focus_wrapping: behavior when trying to focus past the edge of a container
