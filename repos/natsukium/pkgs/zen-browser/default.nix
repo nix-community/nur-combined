@@ -15,8 +15,8 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir $out
-    cp -r . $out
+    mkdir -p $out/Applications/Zen.app
+    cp -r . $out/Applications/Zen.app
 
     runHook postInstall
   '';
@@ -26,5 +26,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/zen-browser/desktop";
     license = lib.licenses.mpl20;
     platforms = [ "aarch64-darwin" ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }
