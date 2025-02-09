@@ -69,32 +69,25 @@ in
 
       bind =
         [
-          "$mod,       q,                     exit"
-          "$mod,       w,                     killactive"
-          "$mod,       Page_Up,               fullscreen,     0"
-          "$mod,       Page_Down,             fullscreen,     1"
-          "$mod,       Space,                 togglefloating"
+          "$mod,       q,                    exit"
+          "$mod,       w,                    killactive"
+          "$mod,       Page_Up,              fullscreen,     0"
+          "$mod,       Page_Down,            fullscreen,     1"
+          "$mod,       Space,                togglefloating"
 
-          "$mod,       Left,                  movefocus,      l"
-          "$mod,       Right,                 movefocus,      r"
-          "$mod,       Up,                    movefocus,      u"
-          "$mod,       Down,                  movefocus,      d"
-          "$mod+SHIFT, Left,                  movewindow,     l"
-          "$mod+SHIFT, Right,                 movewindow,     r"
-          "$mod+SHIFT, Up,                    movewindow,     u"
-          "$mod+SHIFT, Down,                  movewindow,     d"
+          "$mod,       Left,                 movefocus,      l"
+          "$mod,       Right,                movefocus,      r"
+          "$mod,       Up,                   movefocus,      u"
+          "$mod,       Down,                 movefocus,      d"
+          "$mod+SHIFT, Left,                 movewindow,     l"
+          "$mod+SHIFT, Right,                movewindow,     r"
+          "$mod+SHIFT, Up,                   movewindow,     u"
+          "$mod+SHIFT, Down,                 movewindow,     d"
 
-          ",           XF86AudioMute,         exec,           wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ",           XF86AudioLowerVolume,  exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ",           XF86AudioRaiseVolume,  exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ",           XF86AudioMicMute,      exec,           wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ",           XF86MonBrightnessDown, exec,           brillo -qu 200000 -U 5"
-          ",           XF86MonBrightnessUp,   exec,           brillo -qu 200000 -A 5"
-
-          "$mod,       Slash,                 exec,           albert show"
-          "$mod,       t,                     exec,           foot"
-          ",           Print,                 exec,           grimblast copysave area"
-          "SHIFT,      Print,                 exec,           grimblast copysave output"
+          ",           XF86AudioMute,        exec,           wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ",           XF86AudioLowerVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",           XF86AudioRaiseVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ",           XF86AudioMicMute,     exec,           wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ]
         ++ concatMap
           (i: [
@@ -109,40 +102,39 @@ in
             "5"
           ];
 
-      bindm = "$mod,  mouse:272, movewindow";
+      bindm = "$mod, mouse:272, movewindow";
 
       windowrulev2 = [
-        "float, title:Albert"
-        "pin, title:Albert"
-        "noblur, title:Albert"
-        "noborder, title:Albert"
+        "float,        title:Albert"
+        "pin,          title:Albert"
+        "noblur,       title:Albert"
+        "noborder,     title:Albert"
 
-        "pseudo, title:.* - Anki"
+        "pseudo,       title:.* - Anki"
         "size 666 560, title:.* - Anki"
 
-        "float, title:CollectorMainWindow"
+        "float,        title:CollectorMainWindow"
 
-        "size 600 500, class: foot"
+        "size 600 500, class:foot"
 
-        "pseudo, title:KDE Connect"
+        "size 600 500, class:com\.mitchellh\.ghostty"
+
+        "pseudo,       title:KDE Connect"
         "size 350 350, title:KDE Connect"
 
-        "immediate, class:osu!" # Enable tearing
+        "immediate,    class:osu!" # Enable tearing
 
-        "float, class:it\.mijorus\.smile"
+        "float,        class:it\.mijorus\.smile"
 
-        "pseudo, class:org\.gnome\.Solanum"
+        "pseudo,       class:org\.gnome\.Solanum"
         "size 370 370, class:org\.gnome\.Solanum"
 
-        "float, class:zen, title:^$" # Notification popups
+        "float,        class:zen, title:^$" # Notification popups
 
-        "float, class:Zotero, title: Error"
+        "float,        class:Zotero, title: Error"
       ];
 
-      exec-once = [
-        "albert"
-        "fcitx5 -d"
-      ];
+      exec-once = [ "fcitx5 -d" ];
     };
   };
 }

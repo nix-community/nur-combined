@@ -40,6 +40,7 @@ in
       };
 
       foot.settings.main.shell = mkIf (!cfg.enableNushellIntegration) "fish";
+      ghostty.settings.command = mkIf (!cfg.enableNushellIntegration) "fish";
 
       # https://www.nushell.sh/cookbook/external_completers.html
       nushell.extraConfig =

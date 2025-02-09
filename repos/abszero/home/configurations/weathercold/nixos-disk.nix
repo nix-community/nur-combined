@@ -14,7 +14,7 @@ let
         catppuccin = {
           cursors.enable = true;
           fcitx5.enable = true;
-          foot.enable = true;
+          ghostty.enable = true;
           gtk.enable = true;
           hyprland.enable = true;
           hyprpaper.nixosLogo = true;

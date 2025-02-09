@@ -23,8 +23,10 @@ in
         profiles.buildConfig.enable = true;
         programs.firefox.profile = mkIf (firefoxProfile != null) firefoxProfile;
         themes.base = {
+          fastfetch.enable = true;
           firefox.verticalTabs = true;
           foot.enable = true;
+          ghostty.enable = true;
           hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
         };
@@ -41,14 +43,16 @@ in
 
         catppuccin.configuration.abszero.themes.catppuccin = {
           enable = true;
+          cursors.enable = true;
           discord.enable = true;
           fcitx5.enable = true;
           fonts.enable = true;
           foot.enable = true;
+          ghostty.enable = true;
+          gtk.enable = true;
           hyprland.enable = true;
           hyprpaper.nixosLogo = true;
           plasma6.enable = true;
-          pointerCursor.enable = true;
         };
       };
     };

@@ -10,6 +10,7 @@ in
 
   config.programs = mkIf cfg.enable {
     foot.settings.main.shell = "nu";
+    ghostty.settings.command = "nu";
 
     nushell = {
       enable = true;
