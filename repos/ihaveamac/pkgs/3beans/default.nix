@@ -10,17 +10,17 @@
 
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "0-unstable-2025-02-06";
+  version = "0-unstable-2025-02-08";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "0f01c3ac4d0c4a1ba1d029c043d28d9280db46b2";
-    hash = "sha256-xK2KUz6r1effwnjWFphkxh8A/jULTkpLD4rSS41X0Eo=";
+    rev = "e04db050740060d00f40635fcb8ab0f415457278";
+    hash = "sha256-khjEeQ3eyDlbMBzCJF0uW1zYup7MWLxDFo/TH+fhOyQ=";
   };
 
   buildInputs = [
-    wxGTK32
+    (wxGTK32.override { withWebKit = false; })
     portaudio
     libGL
   ];
@@ -33,12 +33,14 @@ stdenv.mkDerivation rec {
       --replace-fail g++ "\$(CXX)"
   '';
 
-  installPhase = ''
-    mkdir -p $out/bin $out/share/applications
-    cp 3beans $out/bin
-  '' + (lib.optionalString (!stdenv.isDarwin) ''
-    cp com.hydra.threebeans.desktop $out/share/applications
-  '');
+  installPhase =
+    ''
+      mkdir -p $out/bin $out/share/applications
+      cp 3beans $out/bin
+    ''
+    + (lib.optionalString (!stdenv.isDarwin) ''
+      cp com.hydra.threebeans.desktop $out/share/applications
+    '');
 
   meta = with lib; {
     license = licenses.gpl3;
