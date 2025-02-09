@@ -33,6 +33,7 @@ in let
         postPatch = ''
             substituteInPlace neteria/core.py --replace-fail 'is not 0' '!= 0'
         '';
+        nativeBuildInputs = with python3Packages; [pip];
     };
     pyscroll = python3Packages.buildPythonPackage rec {
         pname = "pyscroll";
