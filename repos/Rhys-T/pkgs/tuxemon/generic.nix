@@ -14,6 +14,15 @@ in let
             pyglet = pself.callPackage ./fix-pyglet.nix { pyglet' = psuper.pyglet; };
         };
     }).pkgs;
+    pygame-ce' = python3Packages.pygame-ce.overridePythonAttrs (old: {
+        postPatch = (old.postPatch or "") + lib.optionalString (
+            (lib.versionAtLeast python3Packages.meson-python.version "0.17") &&
+            !(lib.hasInfix "\"meson-python<=" (old.postPatch or ""))
+        ) ''
+            substituteInPlace pyproject.toml \
+                --replace-fail '"meson-python<=0.16.0",' '"meson-python",'
+        '';
+    });
     neteria = python3Packages.buildPythonPackage rec {
         pname = "neteria";
         version = "1.0.2";
@@ -32,6 +41,8 @@ in let
             inherit pname version;
             hash = "sha256-GQIFGyCEN5/I22mfCgDSbV0g5o+Nw8RT316vOSsqbHA=";
         };
+        nativeBuildInputs = with python3Packages; [pip];
+        dependencies = [pygame-ce'];
     };
     pygame-menu-ce = python3Packages.buildPythonPackage rec {
         pname = "pygame-menu-ce";
@@ -40,6 +51,8 @@ in let
             inherit pname version;
             hash = "sha256-p14PBkst5eKPVShIKX51WjU39IABdOXEZShAKhitYrg=";
         };
+        nativeBuildInputs = with python3Packages; [pip];
+        dependencies = [pygame-ce'];
     };
     tuxemon = python3Packages.buildPythonApplication {
         pname = "tuxemon";
@@ -63,7 +76,7 @@ in let
             cbor
             neteria
             pillow
-            pygame-ce
+            pygame-ce'
             pyscroll
             pytmx
             requests
