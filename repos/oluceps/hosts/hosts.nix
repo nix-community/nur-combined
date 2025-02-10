@@ -13,7 +13,7 @@ let
 
   nodes = (builtins.fromTOML (builtins.readFile ../hosts/sum.toml)).node;
 
-  sum =
+  sum = lib.mkMerge [
     (lib.foldlAttrs (
       acc: name: value:
       acc
@@ -21,10 +21,11 @@ let
         "${builtins.elemAt (lib.splitString "/" value.unique_addr) 0}" = lib.singleton "${name}.nyaw.xyz";
       }
     ) { } nodes)
-    // {
+    {
       "fdcc::3" = srvOnEihort;
       "fdcc::1" = srvOnHastur;
-    };
+    }
+  ];
 in
 {
   kaambl = {
