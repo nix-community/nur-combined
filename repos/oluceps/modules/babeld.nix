@@ -37,12 +37,21 @@ in
 
     networking.firewall.allowedUDPPorts = [ 6696 ];
 
+    boot.kernel.sysctl = lib.foldr (
+      i: acc:
+      acc
+      // {
+        "net.ipv4.conf.wg-${i}.rp_filter" = 0;
+        "net.ipv6.conf.wg-${i}.rp_filter" = 0;
+      }
+    ) { } (builtins.attrNames (lib.conn { }).${config.networking.hostName});
+
     systemd.services.babeld = {
       description = "Babel routing daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
+        ExecStart = "${pkgs.babeld}/bin/babeld -d 2 -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
         ProcSubset = "pid";
         RuntimeDirectory = "babeld";
         StateDirectory = "babeld";

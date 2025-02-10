@@ -14,10 +14,26 @@
       interface wg-eihort type tunnel rtt-min 5 rtt-max 256 rtt-decay 90
 
       redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute proto 42
       redistribute local deny
     '';
   };
+  # services.bird2 = {
+  #   enable = true;
+  #   config = ''
+  #     protocol babel {
+  #          randomize router id yes;
+  #          interface "wg-*" {
+  #            port 6695;
+  #            hello interval 3s;
+  #            update interval 10s;
+  #            check link yes;
+  #            type tunnel;
+  #            extended next hop yes;
+  #          };
+  #          export where (source = RTS_DEVICE) || (source = RTS_BABEL);
+  #     };
+  #   '';
+  # };
 
   services.resolved = {
     enable = lib.mkForce false;

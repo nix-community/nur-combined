@@ -1,5 +1,4 @@
-_:
-{
+_: {
   boot = {
     kernel.sysctl = {
       "kernel.panic" = 10;
@@ -14,6 +13,11 @@ _:
       # max processor input queue
       #"net.core.netdev_max_backlog" = 4096;
       # max backlog
+      #
+      "net.ipv6.conf.all.forwarding" = 1;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      "net.ipv4.conf.all.forwarding" = 1;
+      "net.ipv4.conf.all.rp_filter" = 0;
 
       # Ignore ICMP broadcasts to avoid participating in Smurf attacks
       "net.ipv4.icmp_echo_ignore_broadcasts" = 0;

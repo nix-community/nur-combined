@@ -14,7 +14,6 @@
       interface wg-eihort type tunnel rtt-min 0.5 rtt-max 256 rtt-decay 32
 
       redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute proto 42
       redistribute local deny
     '';
   };
