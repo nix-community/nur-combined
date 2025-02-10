@@ -787,7 +787,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4676"
+    "version": "4678"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3752,7 +3752,7 @@
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250113"
+    "version": "20250209"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -4362,7 +4362,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250113"
+    "version": "20250209"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -5312,7 +5312,7 @@
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250113"
+    "version": "20250209"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",

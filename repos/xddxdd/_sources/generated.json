@@ -1708,12 +1708,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4676",
-            "sha256": "sha256-Pa1Xxyr1zSGGKf9jw64VhqRXjhoC5WVCGWpbwY4lGEc=",
+            "rev": "b4678",
+            "sha256": "sha256-btKgTTNfcANAV1ZyCHm+QKAs+MCQJhQ49ZvBm/1z/Y8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4676"
+        "version": "b4678"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3071,11 +3071,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XtoGuS9LP1fqSxPMjfgFfyayKpcaAooamLnMwS2fam8=",
+            "sha256": "sha256-9NlOL61KKcQ9Tno9aNvzTPhhqQJ/XjnbZKSLeXw1D9A=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250113/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250209/moegirl.dict.yaml"
         },
-        "version": "20250113"
+        "version": "20250209"
     },
     "rime-zhwiki": {
         "cargoLocks": null,

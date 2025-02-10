@@ -873,12 +873,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4676";
+    version = "b4678";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4676";
-      hash = "sha256-Pa1Xxyr1zSGGKf9jw64VhqRXjhoC5WVCGWpbwY4lGEc=";
+      tag = "b4678";
+      hash = "sha256-btKgTTNfcANAV1ZyCHm+QKAs+MCQJhQ49ZvBm/1z/Y8=";
     };
   };
   loralib = {
@@ -1565,10 +1565,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250113";
+    version = "20250209";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250113/moegirl.dict.yaml";
-      hash = "sha256-XtoGuS9LP1fqSxPMjfgFfyayKpcaAooamLnMwS2fam8=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250209/moegirl.dict.yaml";
+      hash = "sha256-9NlOL61KKcQ9Tno9aNvzTPhhqQJ/XjnbZKSLeXw1D9A=";
     };
   };
   rime-zhwiki = {
