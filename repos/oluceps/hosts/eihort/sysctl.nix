@@ -1,5 +1,4 @@
-_:
-{
+_: {
   boot = {
     kernel.sysctl = {
       "kernel.panic" = 10;
@@ -14,7 +13,6 @@ _:
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       # Reverse-path filter for spoof protection
       "net.ipv4.conf.default.rp_filter" = 0;
-      "net.ipv4.conf.all.rp_filter" = 0;
       "net.ipv4.conf.wan.rp_filter" = 0;
       # SYN flood protection
       "net.ipv4.tcp_syncookies" = 0;
@@ -23,7 +21,12 @@ _:
       "net.ipv4.conf.default.accept_redirects" = 1;
       "net.ipv4.conf.all.secure_redirects" = 1;
       "net.ipv4.conf.default.secure_redirects" = 1;
-      "net.ipv6.conf.all.accept_redirects" = 1;
+
+      "net.ipv6.conf.all.forwarding" = 1;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      "net.ipv4.conf.all.forwarding" = 1;
+      "net.ipv4.conf.all.rp_filter" = 0;
+
       # Protect against tcp time-wait assassination hazards
       "net.ipv4.tcp_rfc1337" = 1;
       # TCP Fast Open (TFO)
@@ -38,8 +41,6 @@ _:
       "net.ipv4.tcp_wmem" = "4096 65536 2500000";
       "net.core.rmem_max" = 16777216;
       "net.core.wmem_max" = 16777216;
-      "net.ipv6.conf.all.forwarding" = 1;
-      "net.ipv4.conf.all.forwarding" = 1;
       "net.ipv4.conf.all.send_redirects" = 0;
 
       "net.ipv4.tcp_tw_recycle" = 0;
