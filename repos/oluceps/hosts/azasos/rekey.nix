@@ -16,62 +16,34 @@ in
   ];
   vaultix = {
     settings.hostPubkey = data.keys.azasosHostPubKey;
-    secrets =
-      {
-        wg-azasos = {
-          file = self + "/sec/wg-azasos.age";
-          owner = "systemd-network";
-          group = "root";
-          mode = "400";
+    secrets = {
+      wg-azasos = {
+        file = self + "/sec/wg-azasos.age";
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
+      };
+      shadow-tls-relay = {
+        file = self + "/sec/shadow-tls-relay.age";
+      };
+      hyst-osa-cli = {
+        file = self + "/sec/hyst-cli.age";
+        insert = {
+          "f3c4e59bfb78c6a26564724aaadda3ac3250d73ee903b17e3803785335bd082c" = {
+            content = "172.234.92.148";
+            order = 0;
+          };
         };
-
-        hyst-us-cli = {
-          file = self + "/sec/hyst-us-cli.age";
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-us-cli.yaml";
+      };
+      hyst-hk-cli = {
+        file = self + "/sec/hyst-cli.age";
+        insert = {
+          "f3c4e59bfb78c6a26564724aaadda3ac3250d73ee903b17e3803785335bd082c" = {
+            content = "8.210.47.13";
+            order = 0;
+          };
         };
-        shadow-tls-relay = {
-          file = self + "/sec/shadow-tls-relay.age";
-        };
-        hyst-osa-cli = {
-          file = self + "/sec/hyst-osa-cli.age";
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-osa-cli.yaml";
-        };
-        hyst-hk-cli = {
-          file = self + "/sec/hyst-hk-cli.age";
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-hk-cli.yaml";
-        };
-      }
-      // (
-        let
-          inherit (lib) listToAttrs nameValuePair;
-        in
-        listToAttrs (
-          map
-            (
-              n:
-              nameValuePair "hyst-${n}-cli" {
-                file = self + "/sec/hyst-${n}-cli.age";
-                mode = "640";
-                owner = "root";
-                group = "users";
-                name = "hyst-${n}-cli.yaml";
-              }
-            )
-            [
-              "osa"
-              "us"
-              "hk"
-            ]
-        )
-      );
+      };
+    };
   };
 }
