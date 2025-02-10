@@ -137,13 +137,13 @@ in
 
     # map: power (tap), power (tap) x2
     power_pressed.power_released.trigger = "power_tap_1";
-    power_pressed.power_released.timeout.ms = 750;  # max time within which a second power press will be recognized
+    power_pressed.power_released.timeout.ms = 825;  # max time within which a second power press will be recognized
     power_pressed.power_released.power_pressed.power_released.trigger = "power_tap_2";
     # map power (hold), power tap -> hold:
     power_pressed.timeout.trigger = "power_hold";
     power_pressed.timeout.ms = 500;
     power_pressed.power_released.power_pressed.timeout.trigger = "power_tap_1_hold";
-    power_pressed.power_released.power_pressed.timeout.ms = 750;  # this is a long timeout because it's tied to the "kill window" action.
+    power_pressed.power_released.power_pressed.timeout.ms = 875;  # this is a long timeout because it's tied to the "kill window" action.
 
     # map: power (tap) -> volup/voldown
     power_pressed.power_released.volup_pressed.trigger = "power_then_volup";

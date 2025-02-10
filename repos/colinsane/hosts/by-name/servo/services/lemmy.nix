@@ -74,6 +74,10 @@ in {
     serviceConfig.User = "lemmy";
     serviceConfig.Group = "lemmy";
 
+    # switch postgres from Requires -> Wants, so that postgres may restart without taking lemmy down with it.
+    requires = lib.mkForce [];
+    wants = [ "postgresql.service" ];
+
     # hardening (systemd-analyze security lemmy)
     # a handful of these are specified in upstream nixpkgs, but mostly not
     serviceConfig.LockPersonality = true;

@@ -104,7 +104,7 @@
     };
   };
 
-  systemd.services.gitea.requires = [ "postgresql.service" ];
+  systemd.services.gitea.wants = [ "postgresql.service" ];
   systemd.services.gitea.serviceConfig = {
     # nix default is AF_UNIX AF_INET AF_INET6.
     # we need more protos for sendmail to work. i thought it only needed +AF_LOCAL, but that didn't work.

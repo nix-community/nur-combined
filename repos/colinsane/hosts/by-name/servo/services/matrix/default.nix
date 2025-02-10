@@ -75,6 +75,9 @@ in
   systemd.services.matrix-synapse.serviceConfig.RestartMaxDelaySec = 20;
   systemd.services.matrix-synapse.serviceConfig.StartLimitBurst = 120;
   systemd.services.matrix-synapse.serviceConfig.RestartSteps = 3;
+  # switch postgres from Requires -> Wants, so that postgres may restart without taking matrix down with it.
+  systemd.services.matrix-synapse.requires = lib.mkForce [];
+  systemd.services.matrix-synapse.wants = [ "postgresql.service" ];
 
   systemd.services.matrix-synapse.postStart = lib.optionalString ntfy ''
     ACCESS_TOKEN=$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.matrix_access_token.path})

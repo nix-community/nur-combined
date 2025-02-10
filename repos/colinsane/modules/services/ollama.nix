@@ -79,7 +79,7 @@ in
     enable = mkEnableOption "ollama Large Language Model";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.sane.maxBuildCost >= 3) {
     services.ollama.enable = true;
     services.ollama.user = "ollama";
     services.ollama.group = "ollama";

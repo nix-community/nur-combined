@@ -122,7 +122,6 @@ let
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten; Scott Alexander
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
-    (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
     (fromDb "theamphour.com" // tech)  # The Amp Hour
     (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
@@ -150,6 +149,7 @@ let
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
+    # (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow, but way too info-sparse
     # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
     # (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris, but he just repeats himself now
     # (mkPod "https://anchor.fm/s/21bc734/podcast/rss" // pol // infrequent)  # Emerge: making sense of what's next -- <https://www.whatisemerging.com/emergepodcast>
