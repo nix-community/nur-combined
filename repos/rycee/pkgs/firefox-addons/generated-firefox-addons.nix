@@ -2563,10 +2563,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.57.6";
+      version = "2.57.7";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4431584/dualsub-2.57.6.xpi";
-      sha256 = "6d9c0f9cfe8fc3160e7612861ae55df8e553a479e9d03ad07da17691543778dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4434025/dualsub-2.57.7.xpi";
+      sha256 = "61e180ae26659acc6207a89f40e923080e704f646dc2c5d76e953443ea3062af";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5246,10 +5246,10 @@
     };
     "i2p-in-private-browsing" = buildFirefoxXpiAddon {
       pname = "i2p-in-private-browsing";
-      version = "2.7.0";
+      version = "2.8.0";
       addonId = "i2ppb@eyedeekay.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364373/i2p_in_private_browsing-2.7.0.xpi";
-      sha256 = "7f5a09ed83b11e74f2b7308b42b80687187e83cf414d2dddfe0780c1d575c2fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4434165/i2p_in_private_browsing-2.8.0.xpi";
+      sha256 = "e61a877a5b141b29c04ddbacae5dd716b5b4d253221115efcca97129d750596c";
       meta = with lib;
       {
         homepage = "https://github.com/eyedeekay/i2psetproxy.js";
@@ -7619,10 +7619,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.8.0";
+      version = "1.8.1";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4433850/mtab-1.8.0.xpi";
-      sha256 = "baad5408e67efdc90181eb5dcd2e906b994320d8f3a976e72763bdf6e4cdd8d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4434030/mtab-1.8.1.xpi";
+      sha256 = "16aa06fad3922db209f28482490035767ed5f15b1c76984ac5cbb6b1d1ff9bc0";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
