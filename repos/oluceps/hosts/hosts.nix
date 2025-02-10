@@ -7,6 +7,9 @@ let
     "photo.nyaw.xyz"
     "s3.nyaw.xyz"
   ];
+  srvOnHastur = [
+    "cache.nyaw.xyz"
+  ];
 
   nodes = (builtins.fromTOML (builtins.readFile ../hosts/sum.toml)).node;
 
@@ -20,6 +23,7 @@ let
     ) { } nodes)
     // {
       "fdcc::3" = srvOnEihort;
+      "fdcc::1" = srvOnHastur;
     };
 in
 {
