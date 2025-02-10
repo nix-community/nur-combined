@@ -1232,6 +1232,9 @@
         "yes": {
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
+        "ymstnt": {
+            "url": "https://github.com/ymstnt/nur-packages"
+        },
         "ysndr": {
             "url": "https://github.com/ysndr/nur-packages"
         },
