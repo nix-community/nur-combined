@@ -881,6 +881,9 @@
         "nprindle": {
             "url": "https://github.com/nprindle/nur-packages"
         },
+        "nuclear06": {
+            "url": "https://github.com/nuclear06/NUR"
+        },
         "nukdokplex": {
             "url": "https://github.com/nukdokplex/nix-packages"
         },
