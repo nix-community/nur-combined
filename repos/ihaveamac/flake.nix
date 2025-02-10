@@ -60,7 +60,7 @@
             type = "app";
             program =
               (pkgs.writeShellScript "prepare" ''
-                nix fmt
+                ${pkgs.lib.getExe self.formatter.${system}}
                 nix-shell build-readme.nix
               '').outPath;
           };

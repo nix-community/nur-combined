@@ -20,11 +20,6 @@
     "hash": "sha256-Wx9PwlEJPNMq1kp59nJJnLHQ+yNhqCTudcokmlP+tSk="
   },
   {
-    "pname": "PKHeX.Core",
-    "version": "24.11.12",
-    "hash": "sha256-lKtb4Zx57NJCy1vDTkSTi1EKRnDpKpQEmpyPUFAoFhQ="
-  },
-  {
     "pname": "SQLitePCLRaw.bundle_e_sqlite3",
     "version": "2.1.10",
     "hash": "sha256-kZIWjH/TVTXRIsHPZSl7zoC4KAMBMWmgFYGLrQ15Occ="

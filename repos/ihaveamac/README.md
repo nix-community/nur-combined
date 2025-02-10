@@ -29,7 +29,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [kwin-move-window-1.1.1](https://github.com/Merrit/kwin-move-window) | kwin-move-window | KWin script that adds shortcuts to move the active window with the keyboard |
 | [launchcontrol-2.7](https://www.soma-zone.com/LaunchControl/) | launchcontrol | Create, manage and debug launchd(8) services |
 | [lnshot-0.1.3](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
-| [local-gpss-0-unstable-2025-02-09](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
+| [local-gpss-1.0.0](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | [mediawiki-1.39.11](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
