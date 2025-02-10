@@ -51,7 +51,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.babeld}/bin/babeld -d 2 -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
+        ExecStart = "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
         ProcSubset = "pid";
         RuntimeDirectory = "babeld";
         StateDirectory = "babeld";

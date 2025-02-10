@@ -1,8 +1,9 @@
 #!/usr/bin/env nu
 
 export-env {
-  $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
-  $env.map = open ./hosts/sum.toml | $in.node | columns
+  $env.get_addr = { |map, per| $map | get $per | $in.addr }
+  $env.get_user = { |map, per| $map | get $per | $in.user }
+  $env.map = open ./hosts/sum.toml | $in.node
 }
 
 export def br [
@@ -49,6 +50,7 @@ export def d [
 ] {
 
   let get_addr = {|x| do $env.get_addr ($env.map) ($x)}
+  let get_user = {|x| do $env.get_user ($env.map) ($x)}
 
   let machine_spec = "i686-linux,x86_64-linux - - - big-parallel"
   let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders $'(do $get_addr $builder) ($machine_spec)'] } else {[]}
@@ -59,24 +61,13 @@ export def d [
   } else {
     use std log;
 
-    $nodes | par-each {|per|
+    $nodes | each {|per|
       let per_node_addr = do $get_addr $per;
-      let out_path = (nom build $'.#nixosConfigurations.($per).config.system.build.toplevel' ...($extra_builder_args)
-         --no-link --json |
-         from json |
-         $in.0.outputs.out)
+      let user = do $get_user $per;
 
-      let sub = if ($sod) { [--substitute-on-destination] } else {[]}
-      nix copy ...($sub) --to $'ssh://($per_node_addr)' $out_path
-
-      log info "copy closure complete";
-      return [$per, $per_node_addr, $out_path];
+      nixos-rebuild switch --flake . --target-host $'($user)@($per_node_addr)' --sudo
+    
     }
-    | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}}
-    | each {|i|
-        log info $'deploying ($i.path)(char newline)-> ($i.name) | ($i.addr)'
-        ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/apply ($mode)' | complete
-      }
   }
 }
 
