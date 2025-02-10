@@ -25,6 +25,7 @@ in
           key = mkDefault primaryEmail.address;
         };
         ui = {
+          default-command = "log";
           pager = "delta";
           diff.format = "git";
         };

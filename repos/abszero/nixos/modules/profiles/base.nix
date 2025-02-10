@@ -80,8 +80,13 @@ in
     };
 
     boot = {
-      # Whether the installation process can modify EFI boot variables.
-      loader.efi.canTouchEfiVariables = true;
+      loader = {
+        timeout = 0;
+        # Whether the installation process can modify EFI boot variables.
+        efi.canTouchEfiVariables = true;
+        # Disable kernel command line editor for security
+        systemd-boot.editor = false;
+      };
 
       kernelPackages = pkgs.linuxKernel.packages.linux_zen;
       kernel.sysctl."vm.swappiness" = mkDefault 20;

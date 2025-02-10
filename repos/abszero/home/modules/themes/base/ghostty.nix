@@ -16,5 +16,7 @@ in
     window-padding-y = 8;
     window-padding-balance = true;
     window-padding-color = "extend";
+    cursor-style = "bar";
+    adjust-cursor-thickness = 4;
   };
 }
