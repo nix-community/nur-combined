@@ -1,4 +1,4 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common, timidity, tests }: let
     libExt = stdenv.hostPlatform.extensions.sharedLibrary;
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
@@ -129,5 +129,7 @@ in stdenv.mkDerivation rec {
     '';
     meta = drl-common.meta // {
         description = "${drl-common.meta.description} (game engine and core data)";
+        # See <https://github.com/NixOS/nixpkgs/issues/380436>
+        broken = stdenv.hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or ""));
     };
 }

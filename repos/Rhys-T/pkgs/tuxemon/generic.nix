@@ -5,6 +5,7 @@
     version, rev ? "v${version}", hash?null,
     libShake ? null, withLibShake ? true,
     desktopToDarwinBundle,
+    timidity, tests,
     maintainers
 }: let
     python3PackagesOrig = python3Packages;
@@ -138,6 +139,8 @@ in let
                 mit # for tuxemon/lib/bresenham.py
             ];
             maintainers = [maintainers.Rhys-T];
+            # See <https://github.com/NixOS/nixpkgs/issues/380436>
+            broken = hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or ""));
         };
     };
 in tuxemon

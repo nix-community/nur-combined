@@ -47,5 +47,6 @@ in stdenvNoCC.mkDerivation {
     meta = drl-common.meta // {
         description = "${drl-common.meta.description} (with ${if drl-audio.audioQuality == "hq" then "high" else "low"}-quality audio)";
         mainProgram = "drl";
+        inherit (drl-unwrapped.meta) broken;
     };
 }
