@@ -8,6 +8,25 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
+# Backported fixes from https://github.com/NixOS/nixpkgs/pull/380440
+# See <https://github.com/NixOS/nixpkgs/issues/380436>
+let pkgs' = pkgs; in
+let pkgs = if with pkgs'; hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or "")) then
+    pkgs'.extend (self: super: {
+        timidity = super.timidity.overrideAttrs (old: {
+            instruments = old.instruments.overrideAttrs (old: {
+                urls = ["https://courses.cs.umbc.edu/pub/midia/instruments.tar.gz"];
+            });
+            postInstall = (old.postInstall or "") + ''
+                # All but one of the symlinks in the instruments tarball have their permissions set to 0000.
+                # This causes problems on systems like Darwin that actually use symlink permissions.
+                chmod -Rh u+rwX $out/share/timidity/
+            '';
+            dontRewriteSymlinks = null;
+        });
+    })
+else pkgs'; in
+
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
     inherit (self) callPackage;
 in {
@@ -113,6 +132,46 @@ in {
         hbmame = self.pacifi3d-hbmame.romsFromXML;
     };
     
+    # Backported fixes from https://github.com/NixOS/nixpkgs/pull/385459
+    picolisp = let
+        inherit (pkgs) lib picolisp hostPlatform darwin;
+        needsLibutil = hostPlatform.isDarwin && !(lib.lists.any (p: (p.pname or null) == "libutil") (pkgs.apple-sdk.propagatedBuildInputs or []));
+        picolisp' = if lib.hasInfix "cd src" (picolisp.preBuild or "") then picolisp else picolisp.overrideAttrs (old: {
+            preBuild = (old.preBuild or "") + ''
+                cd src
+            '' + lib.optionalString hostPlatform.isDarwin ''
+                # Flags taken from instructions at: https://picolisp.com/wiki/?alternativeMacOSRepository
+                makeFlagsArray+=(
+                    SHARED='-dynamiclib -undefined dynamic_lookup'
+                )
+            '';
+            buildPhase = null;
+            installPhase = builtins.replaceStrings ["--replace "] ["--replace-fail "] old.installPhase;
+        } // lib.optionalAttrs needsLibutil {
+            buildInputs = (old.buildInputs or []) ++ [darwin.libutil];
+        });
+    in lib.addMetaAttrs ({
+        description = (picolisp.meta.description or "PicoLisp") + " (fixed for macOS/Darwin)";
+    }) picolisp';
+    
+    picolisp-rolling = let
+        inherit (pkgs) lib fetchFromGitea;
+        inherit (self) picolisp;
+        picolisp' = picolisp.overrideAttrs (old: {
+            version = "25.2.27";
+            src = fetchFromGitea {
+                domain = "git.envs.net";
+                owner = "mpech";
+                repo = "pil21";
+                rev = "48ed9af5bec4b6d62b13d81a4f4ae1fafe79263a";
+                hash = "sha256-ujqTJjlzcwNyP6IqMVdIgX5eP0xAcA8RGG6r0Hphk9s=";
+            };
+            sourceRoot = null;
+        });
+    in lib.addMetaAttrs ({
+        description = lib.replaceStrings [") ("] ["; "] ((picolisp.meta.description or "PicoLisp") + " (rolling release)");
+    }) picolisp';
+    
     konify = callPackage ./pkgs/konify {};
     
     asciiportal = callPackage ./pkgs/asciiportal {};
@@ -213,6 +272,15 @@ in {
     tuxemon-git = callPackage ./pkgs/tuxemon/git.nix {};
     libShake = callPackage ./pkgs/libShake {};
     
+    xpenguins = callPackage ./pkgs/xpenguins { themes = []; };
+    xpenguins-ratrabbit = callPackage ./pkgs/xpenguins/ratrabbit { themes = []; };
+    xpenguins-themes-unfree = callPackage ./pkgs/xpenguins/themes-unfree.nix {};
+    
+    fetchFromGitHub = if (pkgs.lib.functionArgs pkgs.fetchFromGitHub)?tag then pkgs.fetchFromGitHub else let
+        fetchFunc = {tag?null, ...}@args: pkgs.fetchFromGitHub (removeAttrs args ["tag"] // pkgs.lib.optionalAttrs (tag != null) {rev = "refs/tags/${tag}";});
+        fetchArgs = pkgs.lib.functionArgs pkgs.fetchFromGitHub // pkgs.functionArgs fetchFunc;
+        final = pkgs.lib.setFunctionArgs fetchFunc fetchArgs;
+    in final;
     fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
     }));

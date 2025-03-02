@@ -1,19 +1,19 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common, timidity, tests }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common }: let
     libExt = stdenv.hostPlatform.extensions.sharedLibrary;
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
-    rev = builtins.replaceStrings ["."] ["_"] version;
+    tag = builtins.replaceStrings ["."] ["_"] version;
     shortVersion = lib.concatStrings (builtins.filter (x: builtins.match "[0-9]+" x != null) (builtins.splitVersion version));
     src = fetchFromGitHub {
         owner = "chaosforgeorg";
         repo = "doomrl";
-        inherit rev;
+        inherit tag;
         hash = "sha256-5FwaBuMFrz5dOxhHsJZLmL/PkwhXgW5XpVKDWoiVuWk=";
     };
     fpcvalkyrie = fetchFromGitHub {
         owner = "chaosforgeorg";
         repo = "fpcvalkyrie";
-        rev = "0_9_0a";
+        tag = "0_9_0a";
         hash = "sha256-R/FgbmT7pvw9Qn0a7uR/Hw4pEQ2mArZY6sqXShQWU1Q=";
     };
     fpc-wrapper = symlinkJoin {
@@ -92,9 +92,7 @@ in stdenv.mkDerivation rec {
     '';
     configurePhase = ''
         runHook preConfigure
-        cp ${writeText "config.lua" ''
-            OS = "${if stdenv.hostPlatform.isDarwin then "MACOSX" else "LINUX"}"
-        ''} config.lua
+        echo "OS = \"${if stdenv.hostPlatform.isDarwin then "MACOSX" else "LINUX"}\"" > config.lua
         runHook postConfigure
     '';
     buildPhase = ''
@@ -129,7 +127,5 @@ in stdenv.mkDerivation rec {
     '';
     meta = drl-common.meta // {
         description = "${drl-common.meta.description} (game engine and core data)";
-        # See <https://github.com/NixOS/nixpkgs/issues/380436>
-        broken = stdenv.hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or ""));
     };
 }

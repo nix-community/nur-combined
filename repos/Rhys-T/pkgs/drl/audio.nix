@@ -1,13 +1,13 @@
 { audioQuality, drl-unwrapped, drl-common, fetchzip, lib }: let
     pname = "drl-${audioQuality}-audio";
     inherit (drl-unwrapped) version;
-    rev = builtins.replaceStrings ["."] ["_"] version;
+    tag = builtins.replaceStrings ["."] ["_"] version;
     shortVersion = lib.concatStrings (builtins.filter (x: builtins.match "[0-9]+" x != null) (builtins.splitVersion version));
     passthru = { inherit audioQuality; };
     fetchtgz = fetchzip.override { withUnzip = false; };
 in if audioQuality == "hq" then fetchtgz {
     inherit pname version passthru;
-    url = "https://github.com/chaosforgeorg/doomrl/releases/download/${rev}/drl-linux-${shortVersion}.tar.gz";
+    url = "https://github.com/chaosforgeorg/doomrl/releases/download/${tag}/drl-linux-${shortVersion}.tar.gz";
     postFetch = ''
         shopt -s extglob
         rm -r "$out"/!(mp3|wavhq)
@@ -19,7 +19,7 @@ in if audioQuality == "hq" then fetchtgz {
     };
 } else fetchtgz {
     inherit pname version passthru;
-    url = "https://github.com/chaosforgeorg/doomrl/releases/download/${rev}/drl-linux-${shortVersion}-lq.tar.gz";
+    url = "https://github.com/chaosforgeorg/doomrl/releases/download/${tag}/drl-linux-${shortVersion}-lq.tar.gz";
     postFetch = ''
         shopt -s extglob
         rm -r "$out"/!(music|wav)

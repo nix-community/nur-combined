@@ -2,7 +2,7 @@
     stdenv, lib, fetchurl,
     gtk2, gtk2-x11,
     perl, # needed for doc/make_text_data.pl
-    util-linux, # for `col -b` to clean up readme
+    unixtools, # for `col -b` to clean up readme
     pkg-config,
     maintainers
 }: stdenv.mkDerivation rec {
@@ -16,7 +16,7 @@
         ];
         hash = "sha256-oxX3ABoCDGuPZE2xwdxWzPu54+/L8SxBrJ605edctfc=";
     };
-    nativeBuildInputs = [perl pkg-config util-linux];
+    nativeBuildInputs = [perl pkg-config unixtools.col];
     buildInputs = [
         # The Quartz version of gtk2 doesn't implement text rendering.
         (if stdenv.hostPlatform.isDarwin then gtk2-x11 else gtk2)

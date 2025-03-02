@@ -3,12 +3,12 @@
         papirus-icon-theme = "DUMMY";
     }).overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.245.22";
+        version = "0.245.23";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
-            rev = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            sha256 = "sha256-NPdOJ/o5bUlVDYECvpg/8uSwDw+0sHBE5ixYYYhnehc=";
+            tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
+            hash = "sha256-NSpj19M282kntmxjBgii5X+Dh8JGVy/AYLGFGJBvaio=";
         };
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
         desktopItems = [

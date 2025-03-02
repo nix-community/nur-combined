@@ -1,4 +1,4 @@
-{rev, version, hash, stdenv, lib, fetchFromGitHub, fetchpatch, SDL_compat, SDL_mixer, yaml-cpp, maintainers}: let
+{rev ? null, tag ? null, version, hash, stdenv, lib, fetchFromGitHub, fetchpatch, SDL_compat, SDL_mixer, yaml-cpp, maintainers}: let
     # Eliminate any trace of the real SDL1:
     SDL_compat_mixer = let
         SDL_compat' = SDL_compat // {
@@ -18,12 +18,12 @@ in stdenv.mkDerivation rec {
     src = fetchFromGitHub {
         owner = "cymonsgames";
         repo = "ASCIIpOrtal";
-        inherit rev hash;
+        inherit rev tag hash;
     };
     PDCursesSrc = fetchFromGitHub {
         owner = "wmcbrine";
         repo = "PDCurses";
-        rev = PDCursesVersion;
+        tag = PDCursesVersion;
         hash = "sha256-DNxIwNK6hsiZC+bjbmdUGEOkJM3/fEOEFJYZOUh/f0w=";
     };
     postUnpack = ''

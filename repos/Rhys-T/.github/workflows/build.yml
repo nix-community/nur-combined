@@ -37,7 +37,6 @@ jobs:
             [
               "nixpkgs-unstable",
               "nixos-unstable",
-              "nixos-24.05",
               "nixos-24.11",
               "a04d33c0c3f1a59a2c1cb0c6e34cd24500e5a1dc",
             empty] as $nixpkgss |
@@ -83,9 +82,10 @@ jobs:
     name: ${{ matrix.displayRunner }} ${{ matrix.displayNixpkgs }} ${{ matrix.subset }}
     runs-on: ${{ matrix.runner }}
     outputs:
-      nurRepo: ${{ steps.build.outputs.nurRepo }}
+      nurRepo: ${{ steps.nurRepo.outputs.nurRepo }}
     steps:
     - name: Output nurRepo for final job
+      id: nurRepo
       run: echo 'nurRepo=${{ matrix.nurRepo }}' >> "$GITHUB_OUTPUT"
     - name: Checkout repository
       uses: actions/checkout@v4
