@@ -15,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   };
   buildInputs = with pkgs; [openssl];
   nativeBuildInputs = with pkgs; [pkg-config];
-  cargoHash = "sha256-H71TjKWVZgqF/KRrXm/7lgUYlxcLMfa59amH17UhSr8=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-6GYEz6wAedIfqD2fL4d4dfhXWTSJ8uhx7v4jID6FhK0=";
   meta = {
     description = "CLI tool for interacting directly with the e-z.host API.";
     homepage = "https://github.com/themackabu/ez-uploader";
