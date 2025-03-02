@@ -3,14 +3,17 @@
   stdenv,
   fetchFromGitHub,
   python3,
+
+  version ? "6.4",
+  rev ? "v6.4",
+  hash ? "sha256-k5oermMHzLt7IYnnuM3uqDyMToP5hc/lZv6tJ48mEPw=",
 }:
 let
-  version = "6.2";
+  inherit version;
   source = fetchFromGitHub {
+    inherit rev hash;
     owner = "polhenarejos";
     repo = "pico-fido";
-    rev = "v${version}";
-    hash = "sha256-wzJyJq9kWzuDOqahd90YcbLx3w+JZSuClFkCcDponSA=";
     fetchSubmodules = true;
   };
   pico-fido =

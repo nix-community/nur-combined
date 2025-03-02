@@ -3,15 +3,18 @@
   stdenv,
   fetchFromGitHub,
   python3,
+
+  version ? "5.4",
+  rev ? "v5.4",
+  hash ? "sha256-ys98F+Brw3UxCxNo2i7Gfh4rkYYCN36cS3N8q1atdTM=",
 }:
 
 let
-  version = "5.2";
+  inherit version;
   source = fetchFromGitHub {
+    inherit rev hash;
     owner = "polhenarejos";
     repo = "pico-hsm";
-    rev = "v${version}";
-    hash = "sha256-Uc50a3dfHAcpm9D47v10/VW0PUgJWAl78pnCB/L+HdE=";
     fetchSubmodules = true;
   };
   pico-hsm =

@@ -7,7 +7,7 @@
 [https://github.com/polhenarejos/pico-hsm](https://github.com/polhenarejos/pico-hsm)  
 [https://github.com/polhenarejos/pico-fido](https://github.com/polhenarejos/pico-fido)  
 
-Currently only pico rp2040 is supported.
+Currently only pico rp2040/2350 is supported.
 
 ### TODO:
 1. make build env for esp32
