@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0azr08564hkx2fiws8zgkpq1zvjp3hkagmnw1m604lnk0cnkdwd9";
-    x86_64-linux = "1rca0pr2x68alg7qjb2bxwx8iyw216q33s9rlbci2lj52vy6fq61";
-    armv7l-linux = "09rnv86jwzssgxb4kk39xgpnn0h0cpy3pbx7z1harbc8lx3rrb8l";
-    aarch64-linux = "0k002a5hxbayjvl8jyz6ycdqxnfmag81i5xl5r7cdrp87qwplcb9";
-    x86_64-darwin = "0x72md8kjdbwi71dpkikww1nli264zwq7ji20wk2yxb6g3595n34";
-    aarch64-darwin = "1dmwqh638wcscw35za4yqkklmh2pw0dv3js0lfhdb7wlgq75w5q4";
+    i686-linux = "1ppd2k2njmwc63inkay7j3ninw5cnq5d81y8jg9zy2zsi58ji547";
+    x86_64-linux = "0mjafsfpzfn348a2a2gigyz89d0ax6m7zli887sa1y6qgqf9lklg";
+    armv7l-linux = "0zn10n5spgjl9zikzffajk7daqnzhc7jq1g3swj1fjp9qjb4cplw";
+    aarch64-linux = "11vss9nmbzbsgjg9wm6x45q3vxjry9krwzb50j89l6ps3dc53l0q";
+    x86_64-darwin = "0c4z37x3caq4qfd0vgraw24jhx71i5k2s0ccry62088q26vg5m26";
+    aarch64-darwin = "0dx9k2j3cx4ppqx2a99nd7242ksp6v1jw5hs4qs022f25yrzri8c";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/glow/releases/download/v2.0.0/glow_2.0.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/glow/releases/download/v2.1.0/glow_2.1.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "glow_2.0.0_Linux_i386";
-    x86_64-linux = "glow_2.0.0_Linux_x86_64";
-    armv7l-linux = "glow_2.0.0_Linux_arm";
-    aarch64-linux = "glow_2.0.0_Linux_arm64";
-    x86_64-darwin = "glow_2.0.0_Darwin_x86_64";
-    aarch64-darwin = "glow_2.0.0_Darwin_arm64";
+    i686-linux = "glow_2.1.0_Linux_i386";
+    x86_64-linux = "glow_2.1.0_Linux_x86_64";
+    armv7l-linux = "glow_2.1.0_Linux_arm";
+    aarch64-linux = "glow_2.1.0_Linux_arm64";
+    x86_64-darwin = "glow_2.1.0_Darwin_x86_64";
+    aarch64-darwin = "glow_2.1.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "glow";
-  version = "2.0.0";
+  version = "2.1.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
