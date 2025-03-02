@@ -48,6 +48,7 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        pushFilter: "-source$"
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

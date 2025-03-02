@@ -1,40 +1,50 @@
-{ lib, stdenv, fetchgit, blast, tcsh, dbPath ? "uniref90"}:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  blast,
+  tcsh,
+  dbPath ? "uniref90",
+}:
 
 stdenv.mkDerivation rec {
   pname = "psipred";
-  version = "v4.0";
+  version = "4.0";
 
   src = fetchgit {
     url = "https://github.com/psipred/psipred";
-    rev = version;
-    sha256 = "1frxpnrxkhj968k0w6r4npsn5g0jjd0bx6wmb68yqbqkns1qfrgf";
+    tag = "v${version}";
+    hash = "sha256-7mWHg7YTL+yRWZWbvkCTErxi9bUkGw4mMknC2bO9Pbs=";
   };
 
-  buildInputs = [ blast tcsh ];
+  buildInputs = [
+    blast
+    tcsh
+  ];
 
-  prePatch = ''
+  postPatch = ''
     substituteInPlace ./BLAST+/runpsipredplus \
-      --replace "uniref90filt" "${dbPath}" \
-      --replace "/usr/local/bin" "${blast}/bin" \
-      --replace "../bin" "$out/bin" \
-      --replace "../data" "$out/data"
+      --replace-fail "uniref90filt" "${dbPath}" \
+      --replace-fail "/usr/local/bin" "${blast}/bin" \
+      --replace-fail "../bin" "$out/bin" \
+      --replace-fail "../data" "$out/data"
   '';
 
-  # patches = [ ./runpsipredplus.patch ];
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-int";
 
   preBuild = ''
     cd ./src
   '';
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin $out/data
     cp psipred psipass2 chkparse seq2mtx ../BLAST+/runpsipredplus $out/bin
     cp -r ../data $out/
+    runHook postInstall
   '';
 
-
-  meta = with lib;
-  {
+  meta = with lib; {
     description = "Protein Secondary Structure Predictor";
     homepage = "http://bioinf.cs.ucl.ac.uk/psipred";
     license = licenses.boost;
