@@ -1,0 +1,25 @@
+From 27970bbc8e93b1743a32703cdd59ef6a8ca2f17a Mon Sep 17 00:00:00 2001
+From: Sophie Winter <git@phie.me>
+Date: Mon, 25 Nov 2024 18:41:07 -0800
+Subject: [PATCH] Show conn_id in wl_closure_print()
+
+---
+ src/connection.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/connection.c b/src/connection.c
+index f7187f4..cac51f4 100644
+--- a/src/connection.c
++++ b/src/connection.c
+@@ -1510,6 +1510,8 @@ wl_closure_print(struct wl_connection *connection, struct wl_closure *closure, s
+ 	if (queue_name)
+ 		fprintf(f, "{%s} ", queue_name);
+ 
++	fprintf(f, "<%d> ", connection->conn_id);
++
+ 	fprintf(f, "%s%s%s#%u.%s(",
+ 		discarded ? "discarded " : "",
+ 		send ? " -> " : "",
+-- 
+2.47.0
+

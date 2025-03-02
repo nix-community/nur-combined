@@ -1,0 +1,27 @@
+From 3f5112ca55188060d860276e65f5917d8a12c5ea Mon Sep 17 00:00:00 2001
+From: Sophie Winter <git@phie.me>
+Date: Thu, 25 Aug 2022 11:19:48 -0700
+Subject: [PATCH] Lock stderr while printing to it
+
+---
+ src/connection.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/connection.c b/src/connection.c
+index 3d30edc..971d639 100644
+--- a/src/connection.c
++++ b/src/connection.c
+@@ -1357,7 +1357,10 @@ wl_closure_print(struct wl_connection *connection, struct wl_closure *closure, s
+ 	fprintf(f, ")\n");
+ 
+ 	if (fclose(f) == 0) {
++		flockfile(stderr);
+ 		fprintf(stderr, "%s", buffer);
++		fflush(stderr);
++		funlockfile(stderr);
+ 		free(buffer);
+ 	}
+ }
+-- 
+2.34.1
+

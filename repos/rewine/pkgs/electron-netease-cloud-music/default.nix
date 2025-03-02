@@ -8,15 +8,15 @@
 }:
 let
   pname = "electron-netease-cloud-music";
-  version = "0.9.38";
+  version = "0.9.39";
   srcs = {
     asar = fetchurl {
       url = "https://github.com/Rocket1184/${pname}/releases/download/v${version}/${pname}_v${version}.asar";
-      sha256 = "sha256-kXGxhY6NW0+u98C+HPeGw7gk3sX/4qQBSxyCOeY8q8w=";
+      hash = "sha256-SZkB7DpBWmySA8/b0vRe165zzmtsHM2iESacn3+thYI=";
     };
     icon = fetchurl {
       url = "https://raw.githubusercontents.com/Rocket1184/electron-netease-cloud-music/master/assets/icons/icon.svg";
-      sha256 = "sha256-o4YeDsiNsqbGYO1VcvGzYKuZIMpvPSKvG5JkeSzFxUw=";
+      hash = "sha256-o4YeDsiNsqbGYO1VcvGzYKuZIMpvPSKvG5JkeSzFxUw=";
     };
   };
 in
@@ -59,12 +59,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "UNOFFICIAL client for music.163.com. Powered by Electron and Vue
 ";
     homepage = "https://ncm-releases.herokuapp.com";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
+    maintainers = with lib.maintainers; [ rewine ];
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
   };
 }
 

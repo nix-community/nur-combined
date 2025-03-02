@@ -1,0 +1,76 @@
+From b939821ff7c8b5a57ea60c60b238fb3657c067dc Mon Sep 17 00:00:00 2001
+From: Sophie Winter <git@phie.me>
+Date: Mon, 25 Nov 2024 18:37:48 -0800
+Subject: [PATCH] Pass connection into wl_closure_print
+
+---
+ src/connection.c      | 2 +-
+ src/wayland-client.c  | 4 ++--
+ src/wayland-private.h | 2 +-
+ src/wayland-server.c  | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/connection.c b/src/connection.c
+index 63e964c..f7187f4 100644
+--- a/src/connection.c
++++ b/src/connection.c
+@@ -1484,7 +1484,7 @@ wl_closure_queue(struct wl_closure *closure, struct wl_connection *connection)
+ }
+ 
+ void
+-wl_closure_print(struct wl_closure *closure, struct wl_object *target,
++wl_closure_print(struct wl_connection *connection, struct wl_closure *closure, struct wl_object *target,
+ 		 int send, int discarded, uint32_t (*n_parse)(union wl_argument *arg),
+ 		 const char *queue_name)
+ {
+diff --git a/src/wayland-client.c b/src/wayland-client.c
+index ef305c3..281f8ff 100644
+--- a/src/wayland-client.c
++++ b/src/wayland-client.c
+@@ -927,7 +927,7 @@ wl_proxy_marshal_array_flags(struct wl_proxy *proxy, uint32_t opcode,
+ 		if (queue)
+ 			queue_name = wl_event_queue_get_name(queue);
+ 
+-		wl_closure_print(closure, &proxy->object, true, false, NULL,
++		wl_closure_print(proxy->display->connection, closure, &proxy->object, true, false, NULL,
+ 				 queue_name);
+ 	}
+ 
+@@ -1656,7 +1656,7 @@ dispatch_event(struct wl_display *display, struct wl_event_queue *queue)
+ 		bool discarded = proxy_destroyed ||
+ 				 !(proxy->dispatcher || proxy->object.implementation);
+ 
+-		wl_closure_print(closure, &proxy->object, false, discarded,
++		wl_closure_print(display->connection, closure, &proxy->object, false, discarded,
+ 				 id_from_object, queue->name);
+ 	}
+ 
+diff --git a/src/wayland-private.h b/src/wayland-private.h
+index fe9120a..4459820 100644
+--- a/src/wayland-private.h
++++ b/src/wayland-private.h
+@@ -227,7 +227,7 @@ int
+ wl_closure_queue(struct wl_closure *closure, struct wl_connection *connection);
+ 
+ void
+-wl_closure_print(struct wl_closure *closure,
++wl_closure_print(struct wl_connection *connection, struct wl_closure *closure,
+ 		 struct wl_object *target, int send, int discarded,
+ 		 uint32_t (*n_parse)(union wl_argument *arg),
+ 		 const char *queue_name);
+diff --git a/src/wayland-server.c b/src/wayland-server.c
+index 0ba1bcc..c026809 100644
+--- a/src/wayland-server.c
++++ b/src/wayland-server.c
+@@ -161,7 +161,7 @@ log_closure(struct wl_resource *resource,
+ 	struct wl_protocol_logger_message message;
+ 
+ 	if (debug_server)
+-		wl_closure_print(closure, object, send, false, NULL, NULL);
++		wl_closure_print(resource->client->connection, closure, object, send, false, NULL, NULL);
+ 
+ 	if (!wl_list_empty(&display->protocol_loggers)) {
+ 		message.resource = resource;
+-- 
+2.47.0
+

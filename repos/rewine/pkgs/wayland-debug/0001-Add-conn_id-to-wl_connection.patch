@@ -1,0 +1,35 @@
+From 3a26abbe878ffc5872b9a9dbb27ad68fcd4fcc95 Mon Sep 17 00:00:00 2001
+From: Sophie Winter <git@phie.me>
+Date: Mon, 25 Nov 2024 18:35:40 -0800
+Subject: [PATCH] Add conn_id to wl_connection
+
+---
+ src/connection.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/connection.c b/src/connection.c
+index 8870fd2..63e964c 100644
+--- a/src/connection.c
++++ b/src/connection.c
+@@ -70,6 +70,7 @@ struct wl_connection {
+ 	struct wl_ring_buffer fds_in, fds_out;
+ 	int fd;
+ 	int want_flush;
++	int conn_id;
+ };
+ 
+ static inline size_t
+@@ -327,6 +328,10 @@ wl_connection_create(int fd, size_t max_buffer_size)
+ 
+ 	connection->fd = fd;
+ 
++	static int monotonic_connection_count = 0;
++	connection->conn_id = monotonic_connection_count << 8 | fd;
++	monotonic_connection_count += 1;
++
+ 	return connection;
+ }
+ 
+-- 
+2.47.0
+

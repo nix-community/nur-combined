@@ -1,8 +1,6 @@
 { lib
 , stdenv
 , fetchurl
-, runtimeShell
-, writeText
 , appimage-run
 , writeShellScriptBin
 }:
