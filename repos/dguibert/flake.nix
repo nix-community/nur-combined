@@ -10,7 +10,7 @@
 
   inputs.nixpkgs.url = "github:dguibert/nixpkgs/pu";
 
-  inputs.nix.url = "github:dguibert/nix?ref=3f7af30386adaf36d044c550776e3b05bb583960";
+  inputs.nix.url = "github:dguibert/nix/pu";
   inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
 
