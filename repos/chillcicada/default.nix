@@ -7,4 +7,5 @@
 
   degit-rs = pkgs.callPackage ./pkgs/degit-rs { };
   tunet-rust = pkgs.callPackage ./pkgs/tunet-rust { };
+  typship = pkgs.callPackage ./pkgs/typship { };
 }
