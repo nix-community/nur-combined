@@ -66,7 +66,7 @@
     <PackageReference Include="UTF.Unknown" Version="2.5.0">
       <HintPath>..\..\packages\UTF.Unknown.2.5.0\lib\net40\UtfUnknown.dll</HintPath>
     </PackageReference>
-    <PackageReference Include="zlib.net-mutliplatform" Version="1.0.5" />
+    <PackageReference Include="zlib.net-mutliplatform" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
