@@ -52,9 +52,6 @@ let
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
-    tt-rss-plugin-freshapi = callPackage ./tt-rss-plugin-freshapi {
-      source = sources.tt-rss-plugin-freshapi;
-    };
     wechat-uos-bwrapped = callPackage ./wechat-uos-bwrapped {
       inherit (prev) wechat-uos;
     };

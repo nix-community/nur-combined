@@ -137,10 +137,6 @@ fetch.pypi = "keymap_drawer"
 src.github = "joelspadin/tree-sitter-devicetree"
 fetch.github = "joelspadin/tree-sitter-devicetree"
 
-[tt-rss-plugin-freshapi]
-src.git = "https://github.com/eric-pierce/freshapi"
-fetch.github = "eric-pierce/freshapi"
-
 [cuda-samples]
 # src.github = "NVIDIA/cuda-samples"
 src.manual = "v12.4"

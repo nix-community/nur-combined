@@ -603,27 +603,6 @@
         },
         "version": "v0.11.1"
     },
-    "tt-rss-plugin-freshapi": {
-        "cargoLocks": null,
-        "date": "2024-11-13",
-        "extract": null,
-        "name": "tt-rss-plugin-freshapi",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "eric-pierce",
-            "repo": "freshapi",
-            "rev": "44c98f12e8a4423501fc6d8cb7903cca11094dc6",
-            "sha256": "sha256-1cQ4QMrXOdtelAbmMEuhWJPFi5XrAoR3IGlFzb8122k=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "44c98f12e8a4423501fc6d8cb7903cca11094dc6"
-    },
     "utfcpp": {
         "cargoLocks": null,
         "date": null,
