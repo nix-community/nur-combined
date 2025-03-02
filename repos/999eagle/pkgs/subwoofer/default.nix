@@ -13,15 +13,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "subwoofer";
-  version = "unstable-2024-08-23";
+  version = "unstable-2024-11-26";
 
   src = fetchFromGitHub {
-    owner = "999eagle";
+    owner = "abstract-creations";
     repo = pname;
-    rev = "c927f61f6457ef9e29928e45e5af992d5f84d00d";
-    hash = "sha256-OgbnblC0308JGeHL8GbL0CdUEqn3qPbenzGEA5FZaAg=";
+    rev = "5368c8d6896f1a86327517df1cbff814d2235c77";
+    hash = "sha256-NLYDPKlqitWiPFqfLt8PPK25GJ5irKZk65qK26Nv9Ys=";
   };
-  cargoHash = "sha256-I0sxR7B/ovdCf7hiAXmL+hCZ6ZNxI1gTvE/Z+x+CYRw=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-90KLBv+RWlFwIF1Bm1QMr59CsVd10fBSnni9n2symwA=";
 
   nativeBuildInputs = [
     pkg-config
@@ -45,4 +46,12 @@ rustPlatform.buildRustPackage rec {
 
     runHook postFixup
   '';
+
+  meta = with lib; {
+    mainProgram = "subwoofer";
+    description = "feel your content ";
+    homepage = "https://github.com/abstract-creations/subwoofer";
+    license = licenses.mit;
+    maintainers = with maintainers; [_999eagle];
+  };
 }

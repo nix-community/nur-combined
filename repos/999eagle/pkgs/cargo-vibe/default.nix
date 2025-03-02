@@ -9,15 +9,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "cargo-vibe";
-  version = "unstable-2022-12-29";
+  version = "unstable-2025-01-02";
 
   src = fetchFromGitHub {
     owner = "Shadlock0133";
     repo = pname;
-    rev = "a54d87b080ff7d8b3207f83f8f434b226572f0fe";
-    hash = "sha256-0IwxbMcRH+6WgrzpcU5zfRuKs80XY0mDBjDE9DBnOFk=";
+    rev = "c645106c7d764d5f638fc1fda9424c007f19335d";
+    hash = "sha256-Ld/k8detXJrzrq9HWJKCMDlQMMGbL1W/T0FN1d31z7s=";
   };
-  cargoHash = "sha256-mvFp1yPHl+2K2K44G3KAmvPYsalN25kkE3V/2eq2iqs=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-qQLBq3jV3Ii/8KDTNRPi0r2KnJDtFIJURNx9zTsGDMQ=";
 
   nativeBuildInputs = [
     pkg-config

@@ -1,4 +1,5 @@
 {
+  lib,
   fetchFromGitHub,
   rustPlatform,
 }:
@@ -12,8 +13,14 @@ rustPlatform.buildRustPackage rec {
     rev = "e873f9a721e9a3a297ddf4299396cbf11d972b4d";
     hash = "sha256-o12mo5oyNFEuZuClH9ovKjo3C42n5wsj7hdb4R4pQUY=";
   };
-  cargoSha256 = "sha256-q9mkDITPT275g67+iJoFnDXoPfzz2Qm1Pz9MAnb4i2o=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-zEbbON2UYOESksMRK+blhNLwdciYl5fPr8cP1UBf39w=";
 
-  # nativeBuildInputs = [pkg-config];
-  # buildInputs = [openssl];
+  meta = {
+    mainProgram = "rust-synapse-find-unreferenced-state-groups";
+    description = "Finds unreferenced state groups persisted by synapse";
+    homepage = "https://github.com/erikjohnston/synapse-find-unreferenced-state-groups";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [_999eagle];
+  };
 }
