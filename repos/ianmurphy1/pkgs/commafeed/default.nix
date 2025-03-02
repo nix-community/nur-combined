@@ -8,6 +8,8 @@
   writeText,
   graalvmCEPackages,
   removeReferencesTo,
+  stdenvNoCC,
+  writeShellScript,
 }:
 let
   version = "5.6.1";
@@ -46,8 +48,7 @@ let
     git.commit.id = none
     git.commit.id.abbrev = none
   '';
-in
-maven.buildMavenPackage {
+  _pkg = maven.buildMavenPackage {
   inherit version src db;
 
   pname = "commafeed";
@@ -84,14 +85,13 @@ maven.buildMavenPackage {
     cp commafeed-server/target/quarkus-generated-doc/application.properties \
       $out/share/application.properties
 
-    install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
+    cp commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
       $out/bin/commafeed
       
     runHook postInstall
   '';
 
   postInstall = ''
-    ${lib.getExe removeReferencesTo} -t ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed 
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
@@ -99,10 +99,26 @@ maven.buildMavenPackage {
 
   passthru.tests = nixosTests.commafeed;
 
-  meta = {
-    description = "Google Reader inspired self-hosted RSS reader";
-    homepage = "https://github.com/Athou/commafeed";
-    license = lib.licenses.asl20;
-    mainProgram = "commafeed";
-  };
-}
+};
+in
+  stdenvNoCC.mkDerivation {
+    inherit version;
+    name = "commafeed";
+    src = _pkg;
+    disallowdRefences = [ _pkg frontend graalvmCEPackages.graalvm-ce ];
+    builder = writeShellScript "build" ''
+      unpackPhase
+      mv commafeed-${version} $out
+      ${lib.getExe removeReferencesTo} -t ${_pkg} ${frontend} ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed
+      ${lib.getExe removeReferencesTo} -t ${_pkg} ${frontend} ${graalvmCEPackages.graalvm-ce} $out/share/application.properties
+
+    '';
+    meta = {
+      description = "Google Reader inspired self-hosted RSS reader";
+      homepage = "https://github.com/Athou/commafeed";
+      license = lib.licenses.asl20;
+      mainProgram = "commafeed";
+    };
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+  }
