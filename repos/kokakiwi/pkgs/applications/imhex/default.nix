@@ -26,14 +26,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "imhex";
-  version = "1.36.2";
+  version = "1.37.4";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "WerWolv";
     repo = "ImHex";
     rev = "refs/tags/v${version}";
-    hash = "sha256-e7ppx2MdtTPki/Q+1kWswHkFLNRcO0Y8+q9VzpgUoVE=";
+    hash = "sha256-uenwAaIjtBzrtiLdy6fh5TxtbWtUJbtybNOLP3+8blA=";
   };
 
   patterns = fetchFromGitHub {

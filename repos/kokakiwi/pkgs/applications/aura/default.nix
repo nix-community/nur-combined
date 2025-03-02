@@ -29,7 +29,8 @@ in rustPlatform.buildRustPackage rec {
 
   sourceRoot = "${src.name}/rust";
 
-  cargoHash = "sha256-pfQsLbmDR1CxzTxlpunG+8yr7Q2ONHmO94x3SROCi9k=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-ONixxASWqF0SxtYwd5Gegh8Xzk/wE0sDB3hzn66EeJg=";
 
   nativeBuildInputs = [
     installShellFiles

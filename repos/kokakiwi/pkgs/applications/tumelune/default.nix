@@ -1,11 +1,8 @@
-{ lib
-
-, fetchzip
-
-, rustPlatform
-
-, pkg-config
-, zstd
+{
+  fetchzip,
+  rustPlatform,
+  pkg-config,
+  zstd,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "tumelune";
@@ -16,7 +13,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-7Z6K6NHpgQ303Kyss8lwq0aiGq7rOSvJEBA/fIFjOlg=";
   };
 
-  cargoHash = "sha256-u15Ykx9McFVvVECqKB9O5aWnrFPEabn7x106ogW/twk=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-E06uMkJxqePJA9DH1ySl4HJ8oCNadOFkTRo/lC3HHaA=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -24,10 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   env.ZSTD_SYS_USE_PKG_CONFIG = true;
 
-  meta = with lib; {
+  meta = {
     description = "A simple program to browse and search in twitter and mastodon archives";
     homepage = "https://fedi.doom.solutions/tumelune/";
     mainProgram = "tumelune";
-    broken = versionOlder rustPlatform.rust.rustc.version "1.74";
   };
 }

@@ -4,13 +4,13 @@
 }:
 buildGoModule rec {
   pname = "go-mod-upgrade";
-  version = "0.10.0";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "oligot";
     repo = "go-mod-upgrade";
     rev = "v${version}";
-    hash = "sha256-BuHyqv0rK1giNiPO+eCx13rJ9L6y2oCDdKW1sJXyFg4=";
+    hash = "sha256-RjP9Yt3jzLcgkPKFboMnOZw0qRJQzSRstQtadj8bzlI=";
   };
 
   vendorHash = "sha256-Qx+8DfeZyNSTf5k4juX7+0IXT4zY2LJMuMw3e1HrxBs=";

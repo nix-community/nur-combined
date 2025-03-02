@@ -6,6 +6,7 @@ let
       shadowsocks-rust = ./networking/shadowsocks-rust.nix;
     };
     services = {
+      edgee = ./services/edgee.nix;
       pueue = ./services/pueue.nix;
       qbittorrent = ./services/qbittorrent.nix;
       sccache = ./services/sccache.nix;
