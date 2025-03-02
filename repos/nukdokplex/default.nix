@@ -5,14 +5,19 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{ pkgs ? import <nixpkgs> { } }: {
+{ pkgs ? import <nixpkgs> { } }: rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
 
-  epson_201310w = pkgs.callPackage ./pkgs/epson_201310w { };
-  afterglow-cursors-recolored-custom = pkgs.callPackage ./pkgs/afterglow-cursors-recolored-custom { };
-  SonixFlasherC = pkgs.callPackage ./pkgs/SonixFlasherC { };
-  gruvbox-wallpapers = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/gruvbox-wallpapers { });
   FAE_Linux = pkgs.callPackage ./pkgs/FAE_Linux { };
+  SonixFlasherC = pkgs.callPackage ./pkgs/SonixFlasherC { };
+  afterglow-cursors-recolored-custom = pkgs.callPackage ./pkgs/afterglow-cursors-recolored-custom { };
+  epson_201310w = pkgs.callPackage ./pkgs/epson_201310w { };
+  gruvbox-wallpapers = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/gruvbox-wallpapers { });
+  python312Packages = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/python312Packages { });
+  tssp-resources = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/turing-smart-screen-python/resources { });
+  turing-smart-screen-python = pkgs.python312Packages.callPackage ./pkgs/turing-smart-screen-python {
+    inherit (python312Packages) pyamdgpuinfo gputil-mathoudebine;
+  };
 }

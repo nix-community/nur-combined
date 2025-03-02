@@ -9,7 +9,7 @@
 ,
 }:
 stdenv.mkDerivation rec {
-  name = "epson_201310w";
+  pname = "epson_201310w";
   version = "1.0.1";
 
   src = fetchurl {

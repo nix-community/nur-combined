@@ -1,11 +1,11 @@
 { lib, fetchFromGitHub, stdenvNoCC, wallpapersCategory }: stdenvNoCC.mkDerivation {
   pname = "gruvbox-wallpapers-${wallpapersCategory}";
-  version = "0-unstable-2024-12-25";
+  version = "0-unstable-2025-02-14";
   src = fetchFromGitHub {
     owner = "AngelJumbo";
     repo = "gruvbox-wallpapers";
-    rev = "edb315e711791d2eca4e5873d583ba47325672e0";
-    hash = "sha256-HiaP9i3OmL4l3bRLaI7FKbx41rxJmQlx6kY4/5M/3SY=";
+    rev = "83fb97458e6f4113e52b175d7e2ca706650d19bb";
+    hash = "sha256-LPSULO3y5rnijW3O8zhpwwOrVBo86yFJdoBXnlJiSw8=";
   };
   dontConfigure = true;
   dontBuild = true;

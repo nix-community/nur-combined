@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, hidapi, pkg-config, ... }:
 stdenv.mkDerivation rec {
   pname = "SonixFlasherC";
-  version = "2.0.7";
+  version = "2.0.8";
 
   src = fetchFromGitHub {
     owner = "SonixQMK";
     repo = pname;
     rev = version;
-    hash = "sha256-ADcTzSe8aQJRCvDhKfaf/C8V2MugQG89swhRPVCvcIQ=";
+    hash = "sha256-dk6YFRlAz/+oZFuqJyqBmkpUvtNS+mi92cdZuK/Ke6U=";
   };
 
   buildInputs = [ pkg-config hidapi ];
