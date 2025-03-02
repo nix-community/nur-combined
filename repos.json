@@ -534,6 +534,9 @@
             "file": "nur.nix",
             "url": "https://github.com/iagocq/nix"
         },
+        "ianmurphy1": {
+            "url": "https://github.com/ianmurphy1/nurpkgs"
+        },
         "ifd3f": {
             "url": "https://github.com/ifd3f/nur-packages"
         },
