@@ -1,16 +1,12 @@
 name: evergreen
-
 on:
   schedule:
-  - cron: '35 8 * * *'
+    - cron: '35 8 * * *'
   workflow_dispatch:
-
 concurrency: evergreen
-
 permissions:
   contents: write
   pull-requests: write
- 
 jobs:
   flake:
     runs-on: ubuntu-latest
@@ -60,11 +56,10 @@ jobs:
         run: |
           packages=$(nix eval .\#lib.packagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
           echo "packages=$packages" >> $GITHUB_OUTPUT
-  
   package:
     needs: flake
     strategy:
-      matrix: 
+      matrix:
         package: ${{ fromJson(needs.flake.outputs.packages) }}
       fail-fast: false
     runs-on: ubuntu-latest
@@ -84,7 +79,6 @@ jobs:
       - name: Run update script for ${{ matrix.package }}
         id: run_update_script
         run: |
-          # Configure git 
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
@@ -113,6 +107,5 @@ jobs:
           reviewers: "codgician"
       - name: Check build
         if: steps.run_update_script.outputs.pr_title != ''
-        run: |
+        run: |-
           nix build .#${{ matrix.package }}
-

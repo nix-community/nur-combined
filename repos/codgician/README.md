@@ -10,6 +10,3 @@ Packages are built with Garnix CI for `x86_64-linux`, `aarch64-linux` and `aarch
 
 - **Cache URL**: `https://cache.garnix.io`
 - **Public Key**: `cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=`
-
-
-

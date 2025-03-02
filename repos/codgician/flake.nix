@@ -43,6 +43,8 @@
           runtimeInputs = [
             treefmt
             nixfmt-rfc-style
+            mdformat
+            yamlfmt
           ];
           text = lib.getExe treefmt;
         }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake ];
   nativeBuildInputs = [ pciutils ];
 
-  passthru.updateScript = nix-update-script { 
+  passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"
       "branch=master"

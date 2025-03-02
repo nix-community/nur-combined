@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-hocnLCzWN8srQcO3BMNkd2lt0m54Qe7sqAhUxVZlz1k=";
 
-  passthru.updateScript = nix-update-script { 
+  passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"
       "branch=master"
