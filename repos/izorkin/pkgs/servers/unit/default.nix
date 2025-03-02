@@ -22,13 +22,13 @@
 
 stdenv.mkDerivation rec {
   pname = "unit";
-  version = "1.33.0";
+  version = "1.34.1";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = pname;
     rev = "${version}";
-    hash = "sha256-Q3RXhWI9+G7oUnHYtVK6WZ9s7eIkQ+yPmdqbjWyatTE=";
+    hash = "sha256-p3n0j/sZr+aLwfZuXTbb5+J4T48FWdsZBbSH3Yiex9g=";
   };
 
   nativeBuildInputs = [ which ];
