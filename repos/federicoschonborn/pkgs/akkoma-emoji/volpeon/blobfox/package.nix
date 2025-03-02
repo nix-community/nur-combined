@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://volpeon.ink/emojis/blobfox/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -26,6 +26,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://web.archive.org/web/20240525151202/https://mooi.moe/emoji.html";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "0.17.1";
+  version = "0.18.1";
 in
 
 rustPlatform.buildRustPackage {
@@ -24,11 +24,11 @@ rustPlatform.buildRustPackage {
     owner = "inko-lang";
     repo = "inko";
     rev = "refs/tags/v${version}";
-    hash = "sha256-EKSjdoGZub23WmFDryY737j0d1rK+zlNupf+biD1o5o=";
+    hash = "sha256-jVfAfR02R2RaTtzFSBoLuq/wdPaaI/eochrZaRVdmHY=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-KhGn0g/RJgIGNUbEg7KJk3o0CMJ3Ggn+KIrxPcAbuGg=";
+  cargoHash = "sha256-IOMhwcZHB5jVYDM65zifxCjVHWl1EBbxNA3WVmarWcs=";
 
   buildInputs = [
     libffi
@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage {
     changelog = "https://github.com/inko-lang/inko/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = lib.versionOlder rustc.version "1.78.0";
   };
 }

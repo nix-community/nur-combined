@@ -46,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.draketo.de/software/wisp";
     license = lib.licenses.gpl3Plus;
     inherit (guile.meta) platforms;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

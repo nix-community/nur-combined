@@ -55,6 +55,6 @@ buildGoModule {
     changelog = "https://github.com/get-woke/woke/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

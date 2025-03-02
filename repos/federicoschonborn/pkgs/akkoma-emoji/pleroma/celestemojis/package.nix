@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation (_: {
     description = "A pack of edited and unedited pictures from the indie video game Celeste";
     # https://git.pleroma.social/pleroma/emoji-index/-/blob/46a20517c33efbb8bb34e335c3534d08bd049c48/index.json#L38
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

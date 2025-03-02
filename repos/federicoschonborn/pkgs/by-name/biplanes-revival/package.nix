@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "biplanes-revival";
-  version = "1.2";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "regular-dev";
     repo = "biplanes-revival";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-VyN7eWxStz4i3QFVYHKUhPPhAWxDP41LyCAalfaqOvg=";
+    hash = "sha256-rdPcI4j84fVKNwv2OQ9gwC0X2CHlObYfSYkCMlcm4sM=";
     fetchSubmodules = true;
   };
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/regular-dev/biplanes-revival/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

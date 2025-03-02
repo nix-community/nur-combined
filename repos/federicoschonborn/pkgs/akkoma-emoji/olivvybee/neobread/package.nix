@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-neobread";
-  version = "2024.10.14.1";
+  version = "2025.02.11.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/neobread.tar.gz";
-    hash = "sha256-kJMTiQfB9S86y3lFk68bGhejUSxtX1rlQf+Aau4rAIE=";
+    hash = "sha256-BPdYxTx4dMrhMYuYHDQ4zFZ82RjV51kRy5Pmz0tFWhs=";
     stripRoot = false;
   };
 
@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/olivvybee/emojis";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

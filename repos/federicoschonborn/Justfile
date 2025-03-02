@@ -22,7 +22,7 @@ _nix-unstable +ARGS:
     nix {{ ARGS }} {{ default_args }}
 
 _nix-stable +ARGS:
-    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-stable
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-24_11
 
 [group("build")]
 build-unstable +PACKAGES:
@@ -94,6 +94,14 @@ path-info-unstable PACKAGE: (build-unstable PACKAGE)
 [group("path-info")]
 path-info-stable PACKAGE: (build-stable PACKAGE)
     just _nix-stable path-info ".#{{ PACKAGE }}"
+
+[group("update")]
+update +PACKAGES:
+    just _nix-unstable run ".#update" {{ PACKAGES }}
+
+[group("update-all")]
+update-all:
+    just _nix-unstable run ".#update-all"
 
 tree PACKAGE: (build-unstable PACKAGE)
     #!/usr/bin/env nix-shell

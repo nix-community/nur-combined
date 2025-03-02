@@ -45,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://invent.kde.org/danagost/Kiview";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

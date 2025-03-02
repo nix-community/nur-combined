@@ -7,14 +7,14 @@
 
 stdenvNoCC.mkDerivation {
   pname = "fotoente-neotrain";
-  version = "0-unstable-2024-05-20";
+  version = "0-unstable-2025-02-20";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "fotoente";
     repo = "neotrain";
-    rev = "48fe8f1a98963998c4829935aef73c67a61e035e";
-    hash = "sha256-5yZa9o1kCpzIcW7IRgpKjNRamhpA0aV/YPx8e1u+YNc=";
+    rev = "ae45331d583f2bb68317c835386ce7c8412b99b0";
+    hash = "sha256-TH2uoKG4WTcLARlEVo7vYfZyHgZdHalr6VysAX0jOas=";
   };
 
   installPhase = ''
@@ -37,6 +37,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://codeberg.org/fotoente/neotrain";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

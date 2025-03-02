@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-neossb";
-  version = "2024.10.14.1";
+  version = "2025.02.11.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/neossb.tar.gz";
@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/olivvybee/emojis";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -52,6 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/pubby/nesfab/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

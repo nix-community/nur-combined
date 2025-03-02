@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     pkgConfigModules = [ "gta" ];
   };
 })

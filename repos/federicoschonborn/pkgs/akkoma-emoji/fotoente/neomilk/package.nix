@@ -7,14 +7,14 @@
 
 stdenvNoCC.mkDerivation {
   pname = "fotoente-neomilk";
-  version = "0-unstable-2024-05-26";
+  version = "0-unstable-2025-02-20";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "fotoente";
     repo = "neomilk";
-    rev = "2470553da8dccd2ebd5d08fb859b60d59ab4692d";
-    hash = "sha256-UlsiWGuWgJpyldKTnuCxPShTNOFah3z8x1B06iX7mtI=";
+    rev = "760e8049100498bfabfea2a031dbab545eb55402";
+    hash = "sha256-duapijE8UUGPMFH/kF5R6Q5eTTE8MeYi3Yoos2/6+qQ=";
   };
 
   installPhase = ''
@@ -37,6 +37,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://codeberg.org/fotoente/neomilk";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

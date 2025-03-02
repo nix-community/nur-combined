@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "raze";
-  version = "1.10.2";
+  version = "1.12pre";
 
   src = fetchFromGitHub {
     owner = "ZDoom";
     repo = "Raze";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-8kr+BLwfTQ0kx6TMqu1AUxiCgvwJd2urZqJ09FH48lo=";
+    hash = "sha256-uzi1ArsKnymf1GjLwwTBwJiwbwTlCfQoHb7gAJKBtbo=";
   };
 
   patches = lib.optional (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "14") (
@@ -56,6 +56,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ZDoom/Raze";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

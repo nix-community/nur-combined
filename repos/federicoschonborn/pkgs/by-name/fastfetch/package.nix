@@ -108,6 +108,7 @@
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
+  # || stdenv.hostPlatform.isHaiku
   libGL,
   enableGlx ?
     stdenv.hostPlatform.isLinux
@@ -116,6 +117,7 @@
     || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
+  # || stdenv.hostPlatform.isHaiku
   libglvnd,
   enableOsmesa ?
     stdenv.hostPlatform.isLinux
@@ -136,11 +138,7 @@
   opencl-headers,
   enableFreetype ? stdenv.hostPlatform.isAndroid,
   freetype,
-  enablePulse ?
-    stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isOpenBSD
-    || stdenv.hostPlatform.isNetBSD
-    || stdenv.hostPlatform.isSunOS,
+  enablePulse ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isSunOS,
   pulseaudio,
   enableDdcutil ? stdenv.hostPlatform.isLinux,
   ddcutil,
@@ -158,13 +156,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.35.0";
+  version = "2.37.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-ChuK5DHRj1qJIjRo3oB5gdCxox2mDffCVM0wRGc5t1o=";
+    hash = "sha256-wcDMr0I4Y2iSR5gsJ4ATe2T4CHV+hHXEKScUpB9ncMs=";
   };
 
   outputs = [
@@ -245,6 +243,8 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeBool "BUILD_FLASHFETCH" buildFlashfetch)
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # (lib.cmakeBool "ENABLE_EMBEDDED_PCIIDS" true)
+      (lib.cmakeBool "ENABLE_EMBEDDED_AMDGPUIDS" true)
       (lib.cmakeOptionType "filepath" "CUSTOM_PCI_IDS_PATH" "${hwdata}/share/hwdata/pci.ids")
       (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
     ];
@@ -273,6 +273,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/fastfetch-cli/fastfetch/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

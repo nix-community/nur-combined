@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-24_11.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -233,29 +233,48 @@
                 '';
               };
 
+            update.program = pkgs.writeShellApplication {
+              name = "update";
+              text = ''
+                for attr in "$@"; do
+                  case "$attr" in
+                  ${lib.concatLines (
+                    lib.mapAttrsToList (
+                      name: value:
+                      if value ? updateScript then
+                        ''
+                          ${name})
+                            echo Updating ${name}...
+                            ${lib.escapeShellArgs (
+                              [
+                                "env"
+                                "UPDATE_NIX_NAME=${value.name}"
+                                "UPDATE_NIX_PNAME=${value.pname}"
+                                "UPDATE_NIX_OLD_VERSION=${value.version}"
+                                "UPDATE_NIX_ATTR_PATH=${name}"
+                              ]
+                              ++ (value.updateScript.command or (lib.toList value.updateScript))
+                            )}
+                            ;;
+                        ''
+                      else
+                        ''
+                          ${name})
+                            echo Skipping ${name}...
+                            ;;
+                        ''
+                    ) config.packages
+                  )}
+                  esac
+                done
+              '';
+            };
+
             update-all.program = pkgs.writeShellApplication {
               name = "update-all";
-              text = lib.concatLines (
-                lib.mapAttrsToList (
-                  name: value:
-                  if value ? updateScript then
-                    ''
-                      echo Updating ${name}...
-                      ${lib.escapeShellArgs (
-                        [
-                          "env"
-                          "UPDATE_NIX_NAME=${value.name}"
-                          "UPDATE_NIX_PNAME=${value.pname}"
-                          "UPDATE_NIX_OLD_VERSION=${value.version}"
-                          "UPDATE_NIX_ATTR_PATH=${name}"
-                        ]
-                        ++ (value.updateScript.command or (lib.toList value.updateScript))
-                      )}
-                    ''
-                  else
-                    "echo Skipping ${name}..."
-                ) config.packages
-              );
+              text = ''
+                ${config.apps.update.program} ${lib.concatStringsSep " " (builtins.attrNames config.packages)}
+              '';
             };
 
             no-update-script.program = pkgs.writeShellApplication {

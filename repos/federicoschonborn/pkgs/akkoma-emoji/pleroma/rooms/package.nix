@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation (_: {
     description = "Floor plan symbols for your room";
     # https://git.pleroma.social/pleroma/emoji-index/-/blob/46a20517c33efbb8bb34e335c3534d08bd049c48/index.json#L30
     license = lib.licenses.cc0;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

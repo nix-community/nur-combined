@@ -12,7 +12,7 @@ nixosTest (
   {
     name = "sharkey";
 
-    meta.maintainers = [ lib.maintainers.federicoschonborn ];
+    meta.maintainers = with lib.maintainers; [ federicoschonborn ];
 
     nodes.machine = {
       services.misskey = {

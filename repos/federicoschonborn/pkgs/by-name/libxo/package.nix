@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Juniper/libxo";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     pkgConfigModules = [ "libxo" ];
   };
 })

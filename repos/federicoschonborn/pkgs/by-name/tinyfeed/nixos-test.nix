@@ -7,7 +7,7 @@
 nixosTest (_: {
   name = "tinyfeed";
 
-  meta.maintainers = [ lib.maintainers.federicoschonborn ];
+  meta.maintainers = with lib.maintainers; [ federicoschonborn ];
 
   nodes.machine = {
     imports = [

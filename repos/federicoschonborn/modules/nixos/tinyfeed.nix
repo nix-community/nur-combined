@@ -160,5 +160,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.federicoschonborn ];
+  meta.maintainers = with lib.maintainers; [ federicoschonborn ];
 }

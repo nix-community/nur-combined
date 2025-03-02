@@ -71,6 +71,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/pubby/mapfab/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

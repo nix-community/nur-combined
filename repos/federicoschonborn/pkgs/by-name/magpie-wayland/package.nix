@@ -67,6 +67,6 @@ stdenv.mkDerivation (_: {
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

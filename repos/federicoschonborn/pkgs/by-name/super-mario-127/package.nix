@@ -60,6 +60,6 @@ buildFHSEnv {
     homepage = "https://charpurrr.itch.io/super-mario-127";
     license = lib.licenses.unfree;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

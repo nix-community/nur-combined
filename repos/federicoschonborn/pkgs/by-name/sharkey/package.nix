@@ -131,6 +131,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://activitypub.software/TransFem-org/Sharkey";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

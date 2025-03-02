@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation (_: {
     description = "The Finland emoji collection contains 56 tongue-in-cheek emotions, which were created to explain some hard-to-describe Finnish emotions, Finnish words and customs";
     homepage = "https://finland.fi/emoji/";
     license = lib.licenses.cc-by-nc-nd-40;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

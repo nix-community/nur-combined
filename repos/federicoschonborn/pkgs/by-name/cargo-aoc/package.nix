@@ -23,7 +23,8 @@ rustPlatform.buildRustPackage {
     hash = "sha256-k9Lm91+Bk6EC8+KfEXhSs4ki385prZ6Vbs6W+18aZSI=";
   };
 
-  cargoHash = "sha256-DKP9YMbVojK7w5pkX/gok4PG6WUjhqUdvTwSir05d0s=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-1wWqIA0MtnG5nrHLpmheV1a3qDIiBPTa9HCxSPh9ftQ=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -45,6 +46,6 @@ rustPlatform.buildRustPackage {
       mit
     ];
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
