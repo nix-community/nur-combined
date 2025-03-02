@@ -26,6 +26,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "smartrent" ];
 
+  # Upstream dependency restriction is too strict
+  dontCheckRuntimeDeps = true;
+
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Api for SmartRent locks, thermostats, moisture sensors and switches";

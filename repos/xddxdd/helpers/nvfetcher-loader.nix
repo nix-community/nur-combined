@@ -10,7 +10,7 @@ lib.mapAttrs (
   else
     let
       removeVersionPrefix = {
-        version = lib.removePrefix "v" v.version;
+        version = lib.removePrefix "V" (lib.removePrefix "v" v.version);
       };
       unstableDateVersion =
         if

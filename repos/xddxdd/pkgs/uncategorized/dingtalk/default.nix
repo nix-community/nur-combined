@@ -141,7 +141,8 @@ let
   ];
 in
 stdenv.mkDerivation rec {
-  inherit (sources.dingtalk) pname version src;
+  inherit (sources.dingtalk) pname src;
+  version = builtins.elemAt (lib.splitString "_" sources.dingtalk.version) 1;
 
   nativeBuildInputs = [
     autoPatchelfHook

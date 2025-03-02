@@ -6,7 +6,7 @@
 rustPlatform.buildRustPackage {
   inherit (sources.gwmp-mux) pname version src;
 
-  cargoHash = "sha256-MvnYUD0eF3CJXVqLGeSxjjEbCv9B6/KoDtZpvE7hY8E=";
+  cargoHash = "sha256-aASPebmMG8nHmgbZjPy86SnqR5GpZl1tBCRpBvdXYEc=";
 
   meta = {
     mainProgram = "gwmp-mux";

@@ -115,7 +115,9 @@ buildPythonPackage rec {
     description = "SOTA Open Source TTS";
     homepage = "https://speech.fish.audio/";
     license = with lib.licenses; [ cc-by-nc-sa-40 ];
-    # Fish-speech requires CUDA
-    broken = !torch.cudaSupport;
+    # # Fish-speech requires CUDA
+    # broken = !torch.cudaSupport;
+    # FIXME: dependency package kui is broken
+    broken = true;
   };
 }

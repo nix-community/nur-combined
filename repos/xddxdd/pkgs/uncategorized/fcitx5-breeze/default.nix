@@ -4,6 +4,7 @@
   lib,
   python3,
   inkscape,
+  writableTmpDirAsHomeHook,
 }:
 stdenvNoCC.mkDerivation {
   inherit (sources.fcitx5-breeze) pname version src;
@@ -11,12 +12,12 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [
     python3
     inkscape
+    writableTmpDirAsHomeHook
   ];
 
   buildPhase = ''
     runHook preBuild
 
-    export HOME=$(pwd)
     python build.py
 
     runHook postBuild

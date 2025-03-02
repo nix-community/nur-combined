@@ -26,5 +26,7 @@ buildPythonPackage rec {
     description = "Easy-to-use web framework";
     homepage = "https://kui.aber.sh/";
     license = with lib.licenses; [ asl20 ];
+    # FIXME: dependency package baize is broken
+    broken = true;
   };
 }

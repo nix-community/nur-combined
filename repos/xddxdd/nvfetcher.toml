@@ -139,8 +139,9 @@ src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
 
 [dingtalk]
-src.aur = "dingtalk-bin"
-fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
+src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
+src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/$ver_amd64.deb"
 
 [dn42-pingfinder]
 src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
@@ -261,6 +262,10 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/$ver/H
 [i915-sriov-dkms]
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
+
+[igsc]
+src.github = "intel/igsc"
+fetch.github = "intel/igsc"
 
 [imewlconverter]
 src.github = "studyzy/imewlconverter"
@@ -397,6 +402,10 @@ fetch.url = "https://github.com/topjohnwu/Magisk/releases/download/$ver/Magisk-$
 [mautrix-gmessages]
 src.github = "mautrix/gmessages"
 fetch.github = "mautrix/gmessages"
+
+[metee]
+src.github = "intel/metee"
+fetch.github = "intel/metee"
 
 [modelscope]
 src.github = "modelscope/modelscope"
