@@ -1,0 +1,77 @@
+# One CLI to format the code tree - https://github.com/numtide/treefmt
+
+# Do not exit with error if a configured formatter is missing
+# Env $TREEFMT_ALLOW_MISSING_FORMATTER
+# allow-missing-formatter = true
+
+# The file into which a cpu profile will be written
+# Env $TREEFMT_CPU_PROFILE
+# cpu-profile = ./cpu.pprof
+
+# Exclude files or directories matching the specified globs
+# Env $TREEFMT_EXCLUDES
+# excludes = ["*.md", "*.gif"]
+
+# Exit with error if any changes were made during execution
+# Useful for CI
+# Env $TREEFMT_FAIL_ON_CHANGE
+# fail-on-change = true
+
+# A list of formatters to apply
+# Defaults to all configured formatters
+# Env $TREEFMT_FORMATTERS
+# formatters = ["gofmt", "prettier"]
+
+# Log paths that did not match any formatters at the specified log level
+# Possible values are <debug|info|warn|error|fatal>
+# Env $TREEFMT_ON_UNMATCHED
+on-unmatched = "debug"
+
+# The root directory from which treefmt will start walking the filesystem
+# Defaults to the directory containing the config file
+# Env $TREEFMT_TREE_ROOT
+# tree-root = "/tmp/foo"
+
+# File to search for to find the tree root (if tree-root is not set)
+# Env $TREEFMT_TREE_ROOT_FILE
+# tree-root-file = ".git/config"
+
+# Set the verbosity of logs
+# 0 = warn, 1 = info, 2 = debug
+# Env $TREEFMT_VERBOSE
+# verbose = 2
+
+# The method used to traverse the files within the tree root
+# Currently, we support 'auto', 'git' or 'filesystem'
+# Env $TREEFMT_WALK
+# walk = "filesystem"
+
+[formatter.nix]
+# Command to execute
+command = "nix"
+# Command-line arguments for the command
+options = ["fmt"]
+# Glob pattern of files to include
+includes = ["*.nix"]
+# Glob patterns of files to exclude
+# Avoids formatting generated files
+excludes = ["pkgs/_sources/generated.nix", "pkgs/rime-packages/rime-ice/*"]
+# Controls the order of application when multiple formatters match the same file
+# Lower the number, the higher the precedence
+# Default is 0
+priority = 0
+
+[formatter.toml]
+# Command to execute
+command = "taplo"
+# Command-line arguments for the command
+options = ["format"]
+# Glob pattern of files to include
+includes = ["*.toml"]
+# Glob patterns of files to exclude
+# Avoids formatting generated files
+excludes = []
+# Controls the order of application when multiple formatters match the same file
+# Lower the number, the higher the precedence
+# Default is 0
+priority = 0

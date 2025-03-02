@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 920f055..39378eb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -60,3 +60,6 @@ endif()
+ 
+ # Install the cmake config files that permit users to use find_package(autodiff)
+ include(autodiffInstallCMakeConfigFiles)
++
++configure_file(cmake/autodiff.pc.in autodiff.pc @ONLY)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/autodiff.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pkgconfig")
+diff --git a/cmake/autodiff.pc.in b/cmake/autodiff.pc.in
+new file mode 100644
+index 0000000..95aada6
+--- /dev/null
++++ b/cmake/autodiff.pc.in
+@@ -0,0 +1,9 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=${prefix}
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++
++Name: autodiff
++Description: automatic differentiation made easier for C++
++Version: @CMAKE_PROJECT_VERSION@
++Cflags: -I${includedir}

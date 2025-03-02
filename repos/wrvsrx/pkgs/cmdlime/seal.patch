@@ -1,0 +1,30 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 60caeab..d8bca9b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ cmake_minimum_required(VERSION 3.18)
+ project(cmdlime VERSION 2.7.0 DESCRIPTION "C++17 command line parsing library")
+-include(external/seal_lake)
++find_package(seal_lake)
+ 
+ option(CMDLIME_USE_NAMEOF "Enable automatic registration of struct field names using the nameof library" OFF)
+ option(CMDLIME_NO_WINDOWS_UNICODE "Disable storing std::wstring and std::filesystem::path with UTF16 encoding on Windows" OFF)
+@@ -14,17 +14,6 @@ if (CMDLIME_USE_NAMEOF)
+     )
+ endif()
+ 
+-SealLake_Bundle(
+-        NAME cmdlime_sfun
+-        GIT_REPOSITORY https://github.com/kamchatka-volcano/sfun.git
+-        GIT_TAG v5.1.0
+-        DESTINATION include/cmdlime/detail/external
+-        DIRECTORIES include/sfun
+-        TEXT_REPLACEMENTS
+-            "namespace sfun" "namespace cmdlime::sfun"
+-            "SFUN_" "CMDLIME_SFUN_"
+-)
+-
+ if (CMDLIME_USE_NAMEOF AND CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+     set(CPP_STANDARD_FEATURE cxx_std_20)
+ else()

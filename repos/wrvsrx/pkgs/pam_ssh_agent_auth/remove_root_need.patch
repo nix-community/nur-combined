@@ -1,0 +1,29 @@
+diff --git a/authfd.c b/authfd.c
+index 01d1d89..3835655 100644
+--- a/authfd.c
++++ b/authfd.c
+@@ -105,6 +105,7 @@ int
+ ssh_get_authentication_socket(uid_t uid)
+ {
+ 	const char *authsocket;
++	uid_t prev_uid;
+ 	int sock;
+ 	struct sockaddr_un sunaddr;
+     struct stat sock_st;
+@@ -144,6 +145,7 @@ ssh_get_authentication_socket(uid_t uid)
+ 	}
+ 
+     errno = 0; 
++	  prev_uid = geteuid();
+     /* To ensure a race condition is not used to circumvent the stat
+        above, we will temporarily drop UID to the caller */
+     if (seteuid(uid) < 0)
+@@ -157,7 +159,7 @@ ssh_get_authentication_socket(uid_t uid)
+ 	}
+ 
+     /* we now continue the regularly scheduled programming */
+-    if (seteuid(0) < 0)
++    if (seteuid(prev_uid) < 0)
+         return -1;
+ 
+ 	agent_present = 1;

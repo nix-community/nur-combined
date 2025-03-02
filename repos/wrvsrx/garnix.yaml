@@ -1,0 +1,3 @@
+builds:
+  exclude:
+    - packages.x86_64-linux.python3Packages/jax-md

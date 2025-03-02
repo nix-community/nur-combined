@@ -1,0 +1,39 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 322a800..3d0f109 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,3 +14,6 @@ add_subdirectory( hougeo )
+ 
+ # test and demo applications ---
+ add_subdirectory( tests )
++
++configure_file(hougeo.pc.in hougeo.pc @ONLY)
++install(FILES ${CMAKE_BINARY_DIR}/hougeo.pc DESTINATION lib/pkgconfig)
+diff --git a/hougeo.pc.in b/hougeo.pc.in
+new file mode 100644
+index 0000000..da66a22
+--- /dev/null
++++ b/hougeo.pc.in
+@@ -0,0 +1,8 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: hougeo
++Description: lightweight c++ library for reading and writing of houdini geometry file format (json/bson)
++Version: undefined
++Libs: -L${libdir} -lhougeo
++Cflags: -I${includedir}
+diff --git a/hougeo/ttl/meta/typelist.hpp b/hougeo/ttl/meta/typelist.hpp
+index e587945..d80a3a8 100644
+--- a/hougeo/ttl/meta/typelist.hpp
++++ b/hougeo/ttl/meta/typelist.hpp
+@@ -132,7 +132,7 @@ namespace impl
+ #ifdef __clang__
+                             f.template operator()<typename impl::get<L,N>::type>();
+ #else  // __clang__
+-                            f.operator()<typename impl::get<L,N>::type>();
++                            f.template operator()<typename impl::get<L,N>::type>();
+ #endif // __clang__
+ 			}
+ 			else

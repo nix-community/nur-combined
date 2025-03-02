@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9eb550f..add1969 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,3 +28,6 @@ install(FILES "mat2npz" "npy2mat" "npz2mat" DESTINATION bin PERMISSIONS OWNER_RE
+ 
+ add_executable(example1 example1.cpp)
+ target_link_libraries(example1 cnpy)
++
++configure_file(cnpy.pc.in cnpy.pc @ONLY)
++install(FILES ${CMAKE_BINARY_DIR}/cnpy.pc DESTINATION lib/pkgconfig)
+diff --git a/cnpy.pc.in b/cnpy.pc.in
+new file mode 100644
+index 0000000..0b4a408
+--- /dev/null
++++ b/cnpy.pc.in
+@@ -0,0 +1,8 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: cnpy
++Description: library to read/write .npy and .npz files in C/C++
++Version: undefined
++Libs: -L${libdir} -lcnpy
++Cflags: -I${includedir}

@@ -1,0 +1,78 @@
+{
+  "name": "coc-markdown",
+  "version": "0.0.0-development",
+  "description": "",
+  "author": "wrvsrx <wrvsrx@outlook.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "keywords": [
+    "coc.nvim"
+  ],
+  "engines": {
+    "coc": "^0.0.80"
+  },
+  "scripts": {
+    "lint": "eslint src --ext ts",
+    "clean": "rimraf lib",
+    "watch": "node esbuild.mjs --watch",
+    "build": "node esbuild.mjs",
+    "prepare": "node esbuild.mjs"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "semi": true
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "esbuild": "^0.17.18",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.4"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-markdown configuration",
+      "properties": {
+        "vscode-markdown-languageserver.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Trace requests to vscode-markdown-languageserver"
+        },
+        "markdown.suggest.paths.enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "commands": []
+  },
+  "files": [
+    "lib/index.js"
+  ],
+  "dependencies": {
+    "@types/markdown-it": "^14.1.1",
+    "@types/node": "^20.1.3",
+    "@types/yargs": "^17.0.32",
+    "coc.nvim": "^0.0.83-next.18",
+    "markdown-it": "^14.1.0",
+    "markdown-it-attrs": "^4.1.6",
+    "markdown-it-front-matter": "^0.2.4",
+    "vscode-languageserver-textdocument": "^1.0.11",
+    "vscode-markdown-languageservice": "^0.5.0-alpha.6",
+    "yargs": "^17.7.2"
+  }
+}

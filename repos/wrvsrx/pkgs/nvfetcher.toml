@@ -1,0 +1,147 @@
+# nvfetcher.toml
+[osc52]
+src.git = "https://github.com/wrvsrx/osc52"
+fetch.github = "wrvsrx/osc52"
+
+[giraffe-wallpaper]
+src.git = "https://github.com/wrvsrx/giraffe-wallpaper"
+fetch.github = "wrvsrx/giraffe-wallpaper"
+
+[autodiff]
+src.github_tag = "autodiff/autodiff"
+fetch.github = "autodiff/autodiff"
+
+[task-utils]
+src.git = "https://github.com/wrvsrx/task-utils"
+fetch.github = "wrvsrx/task-utils"
+
+[xclip]
+src.git = "https://github.com/astrand/xclip"
+fetch.github = "astrand/xclip"
+
+[autobean-format]
+src.github_tag = "SEIAROTg/autobean-format"
+fetch.github = "SEIAROTg/autobean-format"
+
+[autobean-refactor]
+src.github_tag = "SEIAROTg/autobean-refactor"
+fetch.github = "SEIAROTg/autobean-refactor"
+
+[coc-zk]
+src.git = "https://github.com/wrvsrx/coc-zk"
+fetch.github = "wrvsrx/coc-zk"
+
+[OpenEXR]
+src.pypi = "OpenEXR"
+fetch.pypi = "OpenEXR"
+
+[cyCodeBase]
+src.git = "https://github.com/cemyuksel/cyCodeBase"
+fetch.github = "cemyuksel/cyCodeBase"
+
+[lyra]
+src.git = "https://github.com/bfgroup/Lyra"
+fetch.github = "bfgroup/Lyra"
+
+[hougeo]
+src.git = "https://github.com/nyue/hougeo"
+fetch.github = "nyue/hougeo"
+
+[happly]
+src.git = "https://github.com/nmwsharp/happly"
+fetch.github = "nmwsharp/happly"
+
+[cnpy]
+src.git = "https://github.com/rogersce/cnpy"
+fetch.github = "rogersce/cnpy"
+
+[amgcl]
+src.github_tag = "ddemidov/amgcl"
+fetch.github = "ddemidov/amgcl"
+
+[yalantinglibs]
+src.github_tag = "alibaba/yalantinglibs"
+fetch.github = "alibaba/yalantinglibs"
+
+[structopt]
+src.github_tag = "p-ranav/structopt"
+fetch.github = "p-ranav/structopt"
+
+[utfcpp]
+src.github_tag = "nemtrif/utfcpp"
+fetch.github = "nemtrif/utfcpp"
+
+[seal_lake]
+src.github = "kamchatka-volcano/seal_lake"
+fetch.github = "kamchatka-volcano/seal_lake"
+
+[sfun]
+src.github_tag = "kamchatka-volcano/sfun"
+fetch.github = "kamchatka-volcano/sfun"
+
+[cmdlime]
+src.github = "kamchatka-volcano/cmdlime"
+fetch.github = "kamchatka-volcano/cmdlime"
+
+[spdlog]
+src.git = "https://github.com/gabime/spdlog"
+fetch.github = "gabime/spdlog"
+
+[noto-fonts-cjk-sans-fix-weight]
+src.manual = "Sans2.004"
+fetch.github = "notofonts/noto-cjk"
+git.sparseCheckout = ["Sans/OTC"]
+
+[noto-fonts-cjk-serif-fix-weight]
+src.manual = "Serif2.003"
+fetch.github = "notofonts/noto-cjk"
+git.sparseCheckout = ["Serif/OTC"]
+
+[coc-markdown]
+src.git = "https://github.com/wrvsrx/coc-markdown"
+fetch.github = "wrvsrx/coc-markdown"
+
+[v2ray-rules-dat-geoip]
+src.github_tag = "Loyalsoldier/v2ray-rules-dat"
+fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geoip.dat"
+
+[v2ray-rules-dat-geosite]
+src.github_tag = "Loyalsoldier/v2ray-rules-dat"
+fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
+
+[rime-ice]
+src.git = "https://github.com/iDvel/rime-ice"
+fetch.github = "iDvel/rime-ice"
+
+[rime-prelude]
+src.git = "https://github.com/rime/rime-prelude"
+fetch.github = "rime/rime-prelude"
+
+[jraph]
+src.manual = "0.0.6.dev0"
+fetch.pypi = "jraph"
+
+[jax-md]
+src.pypi = "jax-md"
+fetch.pypi = "jax-md"
+
+[e3nn-jax]
+src.pypi = "e3nn-jax"
+fetch.pypi = "e3nn_jax"
+
+[keymap-drawer]
+src.pypi = "keymap_drawer"
+fetch.pypi = "keymap_drawer"
+
+[tree-sitter-devicetree]
+src.github = "joelspadin/tree-sitter-devicetree"
+fetch.github = "joelspadin/tree-sitter-devicetree"
+
+[tt-rss-plugin-freshapi]
+src.git = "https://github.com/eric-pierce/freshapi"
+fetch.github = "eric-pierce/freshapi"
+
+[cuda-samples]
+# src.github = "NVIDIA/cuda-samples"
+src.manual = "v12.4"
+fetch.github = "NVIDIA/cuda-samples"

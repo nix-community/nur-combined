@@ -1,0 +1,21 @@
+diff --git a/meson.build b/meson.build
+new file mode 100644
+index 0000000..a828a07
+--- /dev/null
++++ b/meson.build
+@@ -0,0 +1,15 @@
++project(
++  'happly',
++  'cpp',
++  license: 'MIT'
++)
++
++install_headers('happly.h', subdir : 'happly')
++
++pkg = import('pkgconfig')
++pkg.generate(
++  subdirs: 'happly',
++  filebase: 'happly',
++  name : meson.project_name(),
++  description : 'A simple to use, composable, command line parser for C++ 11 and beyond'
++)

@@ -1,0 +1,17 @@
+diff --git a/Common/helper_math.h b/Common/helper_math.h
+index 6d2f63ae..fd356a97 100644
+--- a/Common/helper_math.h
++++ b/Common/helper_math.h
+@@ -1143,10 +1143,12 @@ inline __host__ __device__ uint4 max(uint4 a, uint4 b)
+ // - linear interpolation between a and b, based on value t in [0, 1] range
+ ////////////////////////////////////////////////////////////////////////////////
+ 
++#if __cplusplus < 202002L
+ inline __device__ __host__ float lerp(float a, float b, float t)
+ {
+     return a + t*(b-a);
+ }
++#endif
+ inline __device__ __host__ float2 lerp(float2 a, float2 b, float t)
+ {
+     return a + t*(b-a);

@@ -1,0 +1,2029 @@
+diff '--color=auto' -ruN old/CMakeLists.txt new/CMakeLists.txt
+--- old/CMakeLists.txt	2025-01-28 02:16:40.000000000 +0800
++++ new/CMakeLists.txt	2025-02-09 17:37:31.599198274 +0800
+@@ -27,8 +27,11 @@
+ 
+ ADD_DEFINITIONS(-DQT_DISABLE_DEPRECATED_BEFORE=0x050C00 -DUSE_WIDGETS)
+ 
+-find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS Widgets Concurrent LinguistTools REQUIRED)
++find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS Widgets Concurrent LinguistTools QuickControls2 REQUIRED)
+ find_package(Qt5Gui ${QT_MINIMUM_VERSION} CONFIG REQUIRED Private)
++find_package(KF5Config REQUIRED)
++find_package(KF5ConfigWidgets REQUIRED)
++find_package(KF5IconThemes REQUIRED)
+ 
+ if(NOT DISABLE_DBUS)
+     find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS DBus ThemeSupport REQUIRED)
+@@ -54,7 +57,9 @@
+     message(FATAL_ERROR "Could NOT find qtpaths executable")
+ endif()
+ 
+-execute_process(COMMAND ${QT_QTPATHS_EXECUTABLE} --plugin-dir OUTPUT_VARIABLE PLUGINDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
++if(NOT PLUGINDIR)
++    execute_process(COMMAND ${QT_QTPATHS_EXECUTABLE} --plugin-dir OUTPUT_VARIABLE PLUGINDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
++endif()
+ message(STATUS "Plugin path: " ${PLUGINDIR})
+ 
+ message(STATUS "Generating translations ...")
+diff '--color=auto' -ruN old/pp.patch new/pp.patch
+--- old/pp.patch	1970-01-01 08:00:00.000000000 +0800
++++ new/pp.patch	2025-02-09 17:37:26.367329242 +0800
+@@ -0,0 +1,308 @@
++Index: qt5ct/CMakeLists.txt
++===================================================================
++--- qt5ct/CMakeLists.txt	(revision 690)
+++++ qt5ct/CMakeLists.txt	(working copy)
++@@ -27,8 +27,11 @@
++ 
++ ADD_DEFINITIONS(-DQT_DISABLE_DEPRECATED_BEFORE=0x050C00 -DUSE_WIDGETS)
++ 
++-find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS Widgets Concurrent LinguistTools REQUIRED)
+++find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS Widgets Concurrent LinguistTools QuickControls2 REQUIRED)
++ find_package(Qt5Gui ${QT_MINIMUM_VERSION} CONFIG REQUIRED Private)
+++find_package(KF5Config REQUIRED)
+++find_package(KF5ConfigWidgets REQUIRED)
+++find_package(KF5IconThemes REQUIRED)
++ 
++ if(NOT DISABLE_DBUS)
++     find_package(Qt5 ${QT_MINIMUM_VERSION} COMPONENTS DBus ThemeSupport REQUIRED)
++@@ -54,7 +57,9 @@
++     message(FATAL_ERROR "Could NOT find qtpaths executable")
++ endif()
++ 
++-execute_process(COMMAND ${QT_QTPATHS_EXECUTABLE} --plugin-dir OUTPUT_VARIABLE PLUGINDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+++if(NOT PLUGINDIR)
+++    execute_process(COMMAND ${QT_QTPATHS_EXECUTABLE} --plugin-dir OUTPUT_VARIABLE PLUGINDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+++endif()
++ message(STATUS "Plugin path: " ${PLUGINDIR})
++ 
++ message(STATUS "Generating translations ...")
++Index: qt5ct/src/qt5ct/CMakeLists.txt
++===================================================================
++--- qt5ct/src/qt5ct/CMakeLists.txt	(revision 690)
+++++ qt5ct/src/qt5ct/CMakeLists.txt	(working copy)
++@@ -28,6 +28,6 @@
++ )
++ 
++ add_executable(qt5ct ${app_SRCS})
++-target_link_libraries(qt5ct PRIVATE Qt5::Widgets Qt5::Concurrent Qt5::WidgetsPrivate qt5ct-common)
+++target_link_libraries(qt5ct PRIVATE Qt5::Widgets Qt5::Concurrent Qt5::WidgetsPrivate KF5::ConfigCore qt5ct-common)
++ install(TARGETS qt5ct DESTINATION ${CMAKE_INSTALL_BINDIR})
++ install(FILES qt5ct.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
++Index: qt5ct/src/qt5ct/appearancepage.cpp
++===================================================================
++--- qt5ct/src/qt5ct/appearancepage.cpp	(revision 690)
+++++ qt5ct/src/qt5ct/appearancepage.cpp	(working copy)
++@@ -35,6 +35,8 @@
++ #include <QMenu>
++ #include <QIcon>
++ #include <QStringList>
+++#include <KSharedConfig>
+++#include <KConfigGroup>
++ #include <qpa/qplatformthemefactory_p.h>
++ #include "qt5ct.h"
++ #include "appearancepage.h"
++@@ -68,7 +70,7 @@
++     QMenu *menu = new QMenu(this);
++     menu->addAction(QIcon::fromTheme("document-new"), tr("Create"), this, SLOT(createColorScheme()));
++     m_changeColorSchemeAction = menu->addAction(QIcon::fromTheme("accessories-text-editor"), tr("Edit"), this, SLOT(changeColorScheme()));
++-    menu->addAction(QIcon::fromTheme("edit-copy"), tr("Create a Copy"), this, SLOT(copyColorScheme()));
+++    m_copyColorSchemeAction = menu->addAction(QIcon::fromTheme("edit-copy"), tr("Create a Copy"), this, SLOT(copyColorScheme()));
++     m_renameColorSchemeAction = menu->addAction(tr("Rename"), this, SLOT(renameColorScheme()));
++     menu->addSeparator();
++     m_removeColorSchemeAction = menu->addAction(QIcon::fromTheme("edit-delete"), tr("Remove"), this, SLOT(removeColorScheme()));
++@@ -301,6 +303,7 @@
++ 
++ void AppearancePage::updateActions()
++ {
+++    m_copyColorSchemeAction->setVisible(!Qt5CT::isKColorScheme(m_ui->colorSchemeComboBox->currentData().toString()));
++     if(m_ui->colorSchemeComboBox->count() == 0 ||
++             !QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
++     {
++@@ -378,11 +381,19 @@
++ {
++     QDir dir(path);
++     dir.setFilter(QDir::Files);
++-    dir.setNameFilters(QStringList() << "*.conf");
+++    dir.setNameFilters(QStringList() << "*.conf" << "*.colors");
++ 
++     for(const QFileInfo &info : dir.entryInfoList())
++     {
++-        m_ui->colorSchemeComboBox->addItem(info.baseName(), info.filePath());
+++        QString name = info.baseName();
+++        QString path = info.filePath();
+++        if(Qt5CT::isKColorScheme(path))
+++        {
+++            KSharedConfigPtr config = KSharedConfig::openConfig(path, KConfig::SimpleConfig);
+++            KConfigGroup group(config, "General");
+++            name = group.readEntry("Name", name) + " (KColorScheme)";
+++        }
+++        m_ui->colorSchemeComboBox->addItem(name, path);
++     }
++ }
++ 
++Index: qt5ct/src/qt5ct/appearancepage.h
++===================================================================
++--- qt5ct/src/qt5ct/appearancepage.h	(revision 690)
+++++ qt5ct/src/qt5ct/appearancepage.h	(working copy)
++@@ -72,7 +72,7 @@
++     QStyle *m_selectedStyle = nullptr;
++     QPalette m_customPalette;
++     QWidget *m_previewWidget;
++-    QAction *m_changeColorSchemeAction, *m_renameColorSchemeAction, *m_removeColorSchemeAction;
+++    QAction *m_changeColorSchemeAction, *m_copyColorSchemeAction, *m_renameColorSchemeAction, *m_removeColorSchemeAction;
++     Ui::PreviewForm *m_previewUi;
++ };
++ 
++Index: qt5ct/src/qt5ct-common/CMakeLists.txt
++===================================================================
++--- qt5ct/src/qt5ct-common/CMakeLists.txt	(revision 690)
+++++ qt5ct/src/qt5ct-common/CMakeLists.txt	(working copy)
++@@ -26,5 +26,5 @@
++ 
++ add_library(qt5ct-common SHARED ${app_SRCS})
++ set_target_properties(qt5ct-common PROPERTIES VERSION ${QT5CT_VERSION})
++-target_link_libraries(qt5ct-common PRIVATE Qt5::Core Qt5::Gui)
+++target_link_libraries(qt5ct-common PRIVATE Qt5::Core Qt5::Gui KF5::ConfigCore KF5::ConfigWidgets)
++ install(TARGETS qt5ct-common DESTINATION ${CMAKE_INSTALL_LIBDIR})
++Index: qt5ct/src/qt5ct-common/qt5ct.cpp
++===================================================================
++--- qt5ct/src/qt5ct-common/qt5ct.cpp	(revision 690)
+++++ qt5ct/src/qt5ct-common/qt5ct.cpp	(working copy)
++@@ -34,6 +34,8 @@
++ #include <QFile>
++ #include <QSettings>
++ #include <QtDebug>
+++#include <KSharedConfig>
+++#include <KColorScheme>
++ #include "qt5ct.h"
++ 
++ #ifndef QT5CT_DATADIR
++@@ -113,6 +115,7 @@
++     for(const QString &p : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation))
++     {
++         paths << (p + QLatin1String("/qt5ct/colors"));
+++        paths << (p + QLatin1String("/color-schemes"));
++     }
++     paths << QLatin1String(QT5CT_DATADIR"/qt5ct/colors");
++     paths.removeDuplicates();
++@@ -140,8 +143,16 @@
++     return tmp;
++ }
++ 
+++bool Qt5CT::isKColorScheme(const QString &filePath)
+++{
+++    return filePath.toLower().endsWith(".colors");
+++}
+++
++ QPalette Qt5CT::loadColorScheme(const QString &filePath, const QPalette &fallback)
++ {
+++    if(isKColorScheme(filePath))
+++        return KColorScheme::createApplicationPalette(KSharedConfig::openConfig(filePath));
+++
++     QPalette customPalette;
++     QSettings settings(filePath, QSettings::IniFormat);
++     settings.beginGroup("ColorScheme");
++Index: qt5ct/src/qt5ct-common/qt5ct.h
++===================================================================
++--- qt5ct/src/qt5ct-common/qt5ct.h	(revision 690)
+++++ qt5ct/src/qt5ct-common/qt5ct.h	(working copy)
++@@ -68,6 +68,7 @@
++     static QString userColorSchemePath();
++     static QStringList sharedColorSchemePaths();
++     static QString resolvePath(const QString &path);
+++    static bool isKColorScheme(const QString &filePath);
++     static QPalette loadColorScheme(const QString &filePath, const QPalette &fallback);
++ 
++     static void registerStyleInstance(StyleInstance *instance);
++Index: qt5ct/src/qt5ct-qtplugin/CMakeLists.txt
++===================================================================
++--- qt5ct/src/qt5ct-qtplugin/CMakeLists.txt	(revision 690)
+++++ qt5ct/src/qt5ct-qtplugin/CMakeLists.txt	(working copy)
++@@ -9,7 +9,7 @@
++ 
++ add_library(qt5ct-qtplugin MODULE ${app_SRCS})
++ set_target_properties(qt5ct-qtplugin PROPERTIES OUTPUT_NAME qt5ct)
++-target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::Widgets Qt5::GuiPrivate qt5ct-common)
+++target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::Widgets Qt5::GuiPrivate Qt5::QuickControls2 KF5::IconThemes qt5ct-common)
++ if(NOT DISABLE_DBUS)
++     target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::DBus Qt5::ThemeSupportPrivate)
++ endif()
++Index: qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp
++===================================================================
++--- qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	(revision 690)
+++++ qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	(working copy)
++@@ -45,6 +45,7 @@
++ #endif
++ #include <QFile>
++ #include <QFileSystemWatcher>
+++#include <QQuickStyle>
++ 
++ #include "qt5ct.h"
++ #include "qt5ctplatformtheme.h"
++@@ -58,6 +59,9 @@
++ #include <QStringList>
++ #include <qpa/qplatformthemefactory_p.h>
++ 
+++#include <KIconEngine>
+++#include <KIconLoader>
+++
++ Q_LOGGING_CATEGORY(lqt5ct, "qt5ct", QtWarningMsg)
++ 
++ //QT_QPA_PLATFORMTHEME=qt5ct
++@@ -73,6 +77,12 @@
++         QMetaObject::invokeMethod(this, "createFSWatcher", Qt::QueuedConnection);
++ #endif
++         QGuiApplication::setFont(m_generalFont);
+++#ifdef QT_WIDGETS_LIB
+++        if(hasWidgets())
+++            //don't override the value explicitly set by the user
+++            if(QQuickStyle::name().isEmpty() || QQuickStyle::name() == QLatin1String("Fusion"))
+++                QQuickStyle::setStyle(QLatin1String("org.kde.desktop"));
+++#endif
++     }
++     qCDebug(lqt5ct) << "using qt5ct plugin";
++ #ifdef QT_WIDGETS_LIB
++@@ -79,6 +89,7 @@
++     if(!QStyleFactory::keys().contains("qt5ct-style"))
++         qCCritical(lqt5ct) << "unable to find qt5ct proxy style";
++ #endif
+++    QCoreApplication::instance()->installEventFilter(this);
++ }
++ 
++ Qt5CTPlatformTheme::~Qt5CTPlatformTheme()
++@@ -185,6 +196,11 @@
++ }
++ #endif
++ 
+++QIconEngine *Qt5CTPlatformTheme::createIconEngine(const QString &iconName) const
+++{
+++    return new KIconEngine(iconName, KIconLoader::global());
+++}
+++
++ void Qt5CTPlatformTheme::applySettings()
++ {
++     if(!QGuiApplication::desktopSettingsAware() || m_isIgnored)
++@@ -204,6 +220,11 @@
++         }
++     }
++ 
+++    if(Qt5CT::isKColorScheme(m_schemePath))
+++        qApp->setProperty("KDE_COLOR_SCHEME_PATH", m_schemePath);
+++    else if(m_update)
+++        qApp->setProperty("KDE_COLOR_SCHEME_PATH", QVariant());
+++
++ #ifdef QT_WIDGETS_LIB
++     if(hasWidgets())
++     {
++@@ -285,6 +306,7 @@
++ 
++ void Qt5CTPlatformTheme::readSettings()
++ {
+++    m_schemePath.clear();
++     if(m_palette)
++     {
++         delete m_palette;
++@@ -299,6 +321,7 @@
++     if(!schemePath.isEmpty() && settings.value("custom_palette", false).toBool())
++     {
++         schemePath = Qt5CT::resolvePath(schemePath); //replace environment variables
+++        m_schemePath = schemePath;
++         m_palette = new QPalette(Qt5CT::loadColorScheme(schemePath, *QPlatformTheme::palette(SystemPalette)));
++     }
++     m_iconTheme = settings.value("icon_theme").toString();
++@@ -414,3 +437,17 @@
++     content.replace(regExp, "\n");
++     return content;
++ }
+++
+++//There's such a thing as KColorSchemeManager that lets the user to change the color scheme
+++//application-wide and we should re-apply the color scheme if KCSM resets it to the default
+++//which leads KColorScheme to get the color scheme from kdeglobals which won't help us.
+++bool Qt5CTPlatformTheme::eventFilter(QObject *obj, QEvent *e)
+++{
+++    if(obj == qApp &&
+++            e->type() == QEvent::DynamicPropertyChange &&
+++            static_cast<QDynamicPropertyChangeEvent*>(e)->propertyName() == "KDE_COLOR_SCHEME_PATH" &&
+++            qApp->property("KDE_COLOR_SCHEME_PATH").toString().isEmpty() &&
+++            Qt5CT::isKColorScheme(m_schemePath))
+++        applySettings();
+++    return QObject::eventFilter(obj, e);
+++}
++Index: qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.h
++===================================================================
++--- qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.h	(revision 690)
+++++ qt5ct/src/qt5ct-qtplugin/qt5ctplatformtheme.h	(working copy)
++@@ -87,10 +87,13 @@
++     //virtual QPixmap fileIconPixmap(const QFileInfo &fileInfo, const QSizeF &size,
++     //                               QPlatformTheme::IconOptions iconOptions = 0) const;
++ 
++-    //virtual QIconEngine *createIconEngine(const QString &iconName) const;
+++    virtual QIconEngine *createIconEngine(const QString &iconName) const override;
++     //virtual QList<QKeySequence> keyBindings(QKeySequence::StandardKey key) const;
++     //virtual QString standardButtonText(int button) const;
++ 
+++protected:
+++    bool eventFilter(QObject *obj, QEvent *e) override;
+++
++ private slots:
++     void applySettings();
++ #ifdef QT_WIDGETS_LIB
++@@ -104,7 +107,7 @@
++     bool hasWidgets();
++ #endif
++     QString loadStyleSheets(const QStringList &paths);
++-    QString m_style, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
+++    QString m_style, m_schemePath, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
++     QPalette *m_palette = nullptr;
++     QFont m_generalFont, m_fixedFont;
++     int m_doubleClickInterval;
+diff '--color=auto' -ruN old/src/qt5ct/CMakeLists.txt new/src/qt5ct/CMakeLists.txt
+--- old/src/qt5ct/CMakeLists.txt	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct/CMakeLists.txt	2025-02-09 17:37:31.599198274 +0800
+@@ -28,6 +28,6 @@
+ )
+ 
+ add_executable(qt5ct ${app_SRCS})
+-target_link_libraries(qt5ct PRIVATE Qt5::Widgets Qt5::Concurrent Qt5::WidgetsPrivate qt5ct-common)
++target_link_libraries(qt5ct PRIVATE Qt5::Widgets Qt5::Concurrent Qt5::WidgetsPrivate KF5::ConfigCore qt5ct-common)
+ install(TARGETS qt5ct DESTINATION ${CMAKE_INSTALL_BINDIR})
+ install(FILES qt5ct.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+diff '--color=auto' -ruN old/src/qt5ct/appearancepage.cpp new/src/qt5ct/appearancepage.cpp
+--- old/src/qt5ct/appearancepage.cpp	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct/appearancepage.cpp	2025-02-09 17:37:31.599198274 +0800
+@@ -35,6 +35,8 @@
+ #include <QMenu>
+ #include <QIcon>
+ #include <QStringList>
++#include <KSharedConfig>
++#include <KConfigGroup>
+ #include <qpa/qplatformthemefactory_p.h>
+ #include <qpa/qplatformtheme.h>
+ #include "qt5ct.h"
+@@ -67,7 +69,7 @@
+     QMenu *menu = new QMenu(this);
+     menu->addAction(QIcon::fromTheme("document-new"), tr("Create"), this, SLOT(createColorScheme()));
+     m_changeColorSchemeAction = menu->addAction(QIcon::fromTheme("accessories-text-editor"), tr("Edit"), this, SLOT(changeColorScheme()));
+-    menu->addAction(QIcon::fromTheme("edit-copy"), tr("Create a Copy"), this, SLOT(copyColorScheme()));
++    m_copyColorSchemeAction = menu->addAction(QIcon::fromTheme("edit-copy"), tr("Create a Copy"), this, SLOT(copyColorScheme()));
+     m_renameColorSchemeAction = menu->addAction(tr("Rename"), this, SLOT(renameColorScheme()));
+     menu->addSeparator();
+     m_removeColorSchemeAction = menu->addAction(QIcon::fromTheme("edit-delete"), tr("Remove"), this, SLOT(removeColorScheme()));
+@@ -332,6 +334,7 @@
+ 
+ void AppearancePage::updateActions()
+ {
++    m_copyColorSchemeAction->setVisible(!Qt5CT::isKColorScheme(m_ui->colorSchemeComboBox->currentData().toString()));
+     if(m_ui->colorSchemeComboBox->count() == 0 ||
+             !QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
+     {
+@@ -427,11 +430,19 @@
+ {
+     QDir dir(path);
+     dir.setFilter(QDir::Files);
+-    dir.setNameFilters(QStringList() << "*.conf");
++    dir.setNameFilters(QStringList() << "*.conf" << "*.colors");
+ 
+     for(const QFileInfo &info : dir.entryInfoList())
+     {
+-        m_ui->colorSchemeComboBox->addItem(info.baseName(), info.filePath());
++        QString name = info.baseName();
++        QString path = info.filePath();
++        if(Qt5CT::isKColorScheme(path))
++        {
++            KSharedConfigPtr config = KSharedConfig::openConfig(path, KConfig::SimpleConfig);
++            KConfigGroup group(config, "General");
++            name = group.readEntry("Name", name) + " (KColorScheme)";
++        }
++        m_ui->colorSchemeComboBox->addItem(name, path);
+     }
+ }
+ 
+diff '--color=auto' -ruN old/src/qt5ct/appearancepage.cpp.orig new/src/qt5ct/appearancepage.cpp.orig
+--- old/src/qt5ct/appearancepage.cpp.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct/appearancepage.cpp.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,464 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <QStyleFactory>
++#include <QMdiSubWindow>
++#include <QSettings>
++#include <QDir>
++#include <QInputDialog>
++#include <QMessageBox>
++#include <QMenu>
++#include <QIcon>
++#include <QStringList>
++#include <qpa/qplatformthemefactory_p.h>
++#include <qpa/qplatformtheme.h>
++#include "qt5ct.h"
++#include "appearancepage.h"
++#include "paletteeditdialog.h"
++#include "ui_appearancepage.h"
++#include "ui_previewform.h"
++
++AppearancePage::AppearancePage(QWidget *parent) :
++    TabPage(parent),
++    m_ui(new Ui::AppearancePage)
++{
++    m_ui->setupUi(this);
++    QStringList keys = QStyleFactory::keys();
++    keys.removeAll("qt5ct-style"); //hide qt5ct proxy style
++    m_ui->styleComboBox->addItems(keys);
++
++    connect(m_ui->paletteComboBox, SIGNAL(activated(int)), SLOT(updatePalette()));
++
++    m_previewWidget = new QWidget(this);
++    m_previewUi = new Ui::PreviewForm();
++    m_previewUi->setupUi(m_previewWidget);
++    QMdiSubWindow *w = m_ui->mdiArea->addSubWindow(m_previewWidget, Qt::SubWindow | Qt::CustomizeWindowHint
++                                                   | Qt::WindowMinMaxButtonsHint
++                                                   | Qt::WindowTitleHint
++                                                   | Qt::WindowDoesNotAcceptFocus);
++    w->setFocusPolicy(Qt::NoFocus);
++    w->move(10, 10);
++
++    QMenu *menu = new QMenu(this);
++    menu->addAction(QIcon::fromTheme("document-new"), tr("Create"), this, SLOT(createColorScheme()));
++    m_changeColorSchemeAction = menu->addAction(QIcon::fromTheme("accessories-text-editor"), tr("Edit"), this, SLOT(changeColorScheme()));
++    menu->addAction(QIcon::fromTheme("edit-copy"), tr("Create a Copy"), this, SLOT(copyColorScheme()));
++    m_renameColorSchemeAction = menu->addAction(tr("Rename"), this, SLOT(renameColorScheme()));
++    menu->addSeparator();
++    m_removeColorSchemeAction = menu->addAction(QIcon::fromTheme("edit-delete"), tr("Remove"), this, SLOT(removeColorScheme()));
++    m_ui->colorSchemeButton->setMenu(menu);
++
++    m_changeColorSchemeAction->setIcon(QIcon::fromTheme("accessories-text-editor"));
++    m_removeColorSchemeAction->setIcon(QIcon::fromTheme("list-remove"));
++    connect(menu, SIGNAL(aboutToShow()), SLOT(updateActions()));
++
++    keys = QPlatformThemeFactory::keys();
++    m_ui->dialogComboBox->addItem(tr("Default"), "default");
++    if(keys.contains("gtk2") || keys.contains("qt5gtk2"))
++        m_ui->dialogComboBox->addItem("GTK2", "gtk2");
++    else if(keys.contains("gtk3") || keys.contains("qt5gtk3"))
++        m_ui->dialogComboBox->addItem("GTK3", "gtk3");
++    if(keys.contains("kde"))
++        m_ui->dialogComboBox->addItem("KDE", "kde");
++    if (keys.contains("xdgdesktopportal"))
++        m_ui->dialogComboBox->addItem("XDG Desktop Portal", "xdgdesktopportal");
++
++    readSettings();
++}
++
++AppearancePage::~AppearancePage()
++{
++    delete m_selectedStyle;
++    delete m_ui;
++    delete m_previewUi;
++}
++
++void AppearancePage::writeSettings()
++{
++    QSettings settings(Qt5CT::configFile(), QSettings::IniFormat);
++    settings.beginGroup("Appearance");
++    settings.setValue("style", m_ui->styleComboBox->currentText());
++
++    if(m_ui->colorSchemeComboBox->currentData().toString() == QStringLiteral("system"))
++    {
++        settings.setValue("custom_palette", false);
++    }
++    else if(m_ui->colorSchemeComboBox->currentData().toString() == QStringLiteral("style"))
++    {
++        settings.setValue("custom_palette", true);
++        settings.setValue("color_scheme_path", Qt5CT::styleColorSchemeFile());
++        createColorScheme(Qt5CT::styleColorSchemeFile(), m_previewWidget->palette());
++    }
++    else
++    {
++        settings.setValue("custom_palette", true);
++        settings.setValue("color_scheme_path", m_ui->colorSchemeComboBox->currentData().toString());
++    }
++
++    settings.setValue("standard_dialogs", m_ui->dialogComboBox->currentData().toString());
++    settings.endGroup();
++}
++
++void AppearancePage::on_styleComboBox_activated(const QString &text)
++{
++    QStyle *style = QStyleFactory::create(text);
++    if(!style)
++        return;
++    setStyle(m_previewWidget, style);
++
++    delete m_selectedStyle;
++    m_selectedStyle = style;
++
++    if(m_ui->colorSchemeComboBox->currentData().toString() == QLatin1String("style"))
++        m_customPalette = m_selectedStyle->standardPalette();
++
++    updatePalette();
++}
++
++void AppearancePage::on_colorSchemeComboBox_activated(int)
++{
++    QString data = m_ui->colorSchemeComboBox->currentData().toString();
++
++    if(data == QLatin1String("system"))
++    {
++        QPlatformTheme t;
++        m_customPalette = *t.palette();
++    }
++    else if(data == QLatin1String("style"))
++    {
++        m_customPalette = m_selectedStyle->standardPalette();
++    }
++    else
++    {
++        m_customPalette = Qt5CT::loadColorScheme(data, palette());
++    }
++
++    updatePalette();
++}
++
++void AppearancePage::createColorScheme()
++{
++    QString name = QInputDialog::getText(this, tr("Enter Color Scheme Name"), tr("File name:"));
++    if(name.isEmpty())
++        return;
++
++    if(!name.endsWith(".conf", Qt::CaseInsensitive))
++        name.append(".conf");
++
++    if(m_ui->colorSchemeComboBox->findText(name.section('.',0,0)) != -1)
++    {
++        QMessageBox::warning(this, tr("Error"), tr("The color scheme \"%1\" already exists")
++                             .arg(name.section('.',0,0)));
++        return;
++    }
++
++    QString schemePath = Qt5CT::userColorSchemePath() + QLatin1String("/") + name;
++
++    createColorScheme(schemePath, palette());
++    m_ui->colorSchemeComboBox->addItem(name.section('.',0,0), schemePath);
++}
++
++void AppearancePage::changeColorScheme()
++{
++    if(m_ui->colorSchemeComboBox->currentIndex() < 0)
++        return;
++
++    if(!QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
++    {
++        QMessageBox::information(this, tr("Warning"), tr("The color scheme \"%1\" is read only")
++                                 .arg(m_ui->colorSchemeComboBox->currentText()));
++        return;
++    }
++
++    PaletteEditDialog d(m_customPalette, m_selectedStyle, this);
++    connect(&d, SIGNAL(paletteChanged(QPalette)), SLOT(setPreviewPalette(QPalette)));
++    if(d.exec() == QDialog::Accepted)
++    {
++        m_customPalette = d.selectedPalette();
++        createColorScheme(m_ui->colorSchemeComboBox->currentData().toString(), m_customPalette);
++    }
++    updatePalette();
++}
++
++void AppearancePage::removeColorScheme()
++{
++    int index = m_ui->colorSchemeComboBox->currentIndex();
++    if(index < 0 || m_ui->colorSchemeComboBox->count() <= 1)
++        return;
++
++    if(!QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
++    {
++        QMessageBox::information(this, tr("Warning"), tr("The color scheme \"%1\" is read only")
++                                 .arg(m_ui->colorSchemeComboBox->currentText()));
++        return;
++    }
++
++    int button = QMessageBox::question(this, tr("Confirm Remove"),
++                                       tr("Are you sure you want to remove color scheme \"%1\"?")
++                                       .arg(m_ui->colorSchemeComboBox->currentText()),
++                                       QMessageBox::Yes | QMessageBox::No);
++    if(button != QMessageBox::Yes)
++        return;
++
++    if(QFile::remove(m_ui->colorSchemeComboBox->currentData().toString()))
++    {
++        m_ui->colorSchemeComboBox->removeItem(index);
++        on_colorSchemeComboBox_activated(0);
++    }
++}
++
++void AppearancePage::copyColorScheme()
++{
++    if(m_ui->colorSchemeComboBox->currentIndex() < 0)
++        return;
++
++    QString name = QInputDialog::getText(this, tr("Enter Color Scheme Name"), tr("File name:"),
++                                         QLineEdit::Normal,
++                                         tr("%1 (copy)").arg(m_ui->colorSchemeComboBox->currentText()));
++    if(name.isEmpty() || name == m_ui->colorSchemeComboBox->currentText())
++        return;
++
++    if(!name.endsWith(".conf", Qt::CaseInsensitive))
++        name.append(".conf");
++
++    if(m_ui->colorSchemeComboBox->findText(name.section('.',0,0)) != -1)
++    {
++        QMessageBox::warning(this, tr("Error"), tr("The color scheme \"%1\" already exists")
++                             .arg(name.section('.',0,0)));
++        return;
++    }
++
++    QString newPath = Qt5CT::userColorSchemePath() + QLatin1String("/") + name;
++    if(!QFile::copy(m_ui->colorSchemeComboBox->currentData().toString(), newPath))
++    {
++        QMessageBox::warning(this, tr("Error"), tr("Unable to copy file"));
++        return;
++    }
++    m_ui->colorSchemeComboBox->addItem(name.section('.',0,0), newPath);
++}
++
++void AppearancePage::renameColorScheme()
++{
++    int index = m_ui->colorSchemeComboBox->currentIndex();
++
++    if(index < 0)
++        return;
++
++    if(!QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
++    {
++        QMessageBox::information(this, tr("Warning"), tr("The color scheme \"%1\" is read only")
++                                 .arg(m_ui->colorSchemeComboBox->currentText()));
++        return;
++    }
++
++    QString name = QInputDialog::getText(this, tr("Enter Color Scheme Name"), tr("File name:"),
++                                         QLineEdit::Normal, m_ui->colorSchemeComboBox->currentText());
++    if(name.isEmpty() || name == m_ui->colorSchemeComboBox->currentText())
++        return;
++
++    if(!name.endsWith(".conf", Qt::CaseInsensitive))
++        name.append(".conf");
++
++    if(m_ui->colorSchemeComboBox->findText(name.section('.',0,0)) != -1)
++    {
++        QMessageBox::warning(this, tr("Error"), tr("The color scheme \"%1\" already exists")
++                             .arg(name.section('.',0,0)));
++        return;
++    }
++
++    QString newPath = Qt5CT::userColorSchemePath() + QLatin1String("/") + name;
++    QFile::rename(m_ui->colorSchemeComboBox->currentData().toString(), newPath);
++    m_ui->colorSchemeComboBox->setItemText(index, name.section('.',0,0));
++    m_ui->colorSchemeComboBox->setItemData(index, newPath);
++}
++
++void AppearancePage::updatePalette()
++{
++    if(!m_selectedStyle)
++        return;
++
++    setPreviewPalette(m_customPalette);
++}
++
++void AppearancePage::setPreviewPalette(const QPalette &p)
++{
++    QPalette previewPalette = palette();
++
++    QPalette::ColorGroup colorGroup = QPalette::Disabled;
++
++    if(m_ui->paletteComboBox->currentIndex() == 0)
++    {
++        colorGroup = QPalette::Active;
++    }
++    else if(m_ui->paletteComboBox->currentIndex() == 1)
++    {
++        colorGroup = QPalette::Inactive;
++    }
++
++    for (int i = 0; i < QPalette::NColorRoles; i++)
++    {
++        QPalette::ColorRole role = QPalette::ColorRole(i);
++        previewPalette.setColor(QPalette::Active, role, p.color(colorGroup, role));
++        previewPalette.setColor(QPalette::Inactive, role, p.color(colorGroup, role));
++    }
++
++    setPalette(m_ui->mdiArea, previewPalette);
++}
++
++void AppearancePage::updateActions()
++{
++    if(m_ui->colorSchemeComboBox->count() == 0 ||
++            !QFileInfo(m_ui->colorSchemeComboBox->currentData().toString()).isWritable())
++    {
++        m_changeColorSchemeAction->setVisible(false);
++        m_renameColorSchemeAction->setVisible(false);
++        m_removeColorSchemeAction->setVisible(false);
++    }
++    else
++    {
++        m_changeColorSchemeAction->setVisible(true);
++        m_renameColorSchemeAction->setVisible(true);
++        m_removeColorSchemeAction->setVisible(m_ui->colorSchemeComboBox->count() > 1);
++    }
++}
++
++void AppearancePage::changeEvent(QEvent *event)
++{
++    //restore preview palette after stylesheet change
++    if(event->type() == QEvent::ThemeChange)
++        updatePalette();
++
++    TabPage::changeEvent(event);
++}
++
++void AppearancePage::readSettings()
++{
++    QSettings settings(Qt5CT::configFile(), QSettings::IniFormat);
++    settings.beginGroup("Appearance");
++    QString style = settings.value("style", "Fusion").toString();
++    m_ui->styleComboBox->setCurrentText(style);
++
++    //color schemes
++    QString colorSchemePath = settings.value("color_scheme_path").toString();
++    colorSchemePath = Qt5CT::resolvePath(colorSchemePath); //replace environment variables
++
++    m_ui->colorSchemeComboBox->addItem(tr("Default"), "system");
++    m_ui->colorSchemeComboBox->addItem(tr("Style's colors"), "style");
++    m_ui->colorSchemeComboBox->insertSeparator(2);
++
++    QDir("/").mkpath(Qt5CT::userColorSchemePath());
++    findColorSchemes(Qt5CT::userColorSchemePath());
++    findColorSchemes(Qt5CT::sharedColorSchemePaths());
++
++    if(settings.value("custom_palette", false).toBool())
++    {
++        int index = m_ui->colorSchemeComboBox->findData(colorSchemePath);
++        if(index < 0 && colorSchemePath == Qt5CT::styleColorSchemeFile())
++            index = m_ui->colorSchemeComboBox->findData("style");
++
++        m_ui->colorSchemeComboBox->setCurrentIndex(index);
++        m_customPalette = Qt5CT::loadColorScheme(colorSchemePath, palette());
++    }
++    else
++    {
++        int index = m_ui->colorSchemeComboBox->findData("system");
++        m_ui->colorSchemeComboBox->setCurrentIndex(index);
++        QPlatformTheme t;
++        m_customPalette = *t.palette();
++    }
++
++    on_styleComboBox_activated(m_ui->styleComboBox->currentText());
++
++    int index = m_ui->dialogComboBox->findData(settings.value("standard_dialogs").toString());
++    m_ui->dialogComboBox->setCurrentIndex(qMax(index, 0));
++    settings.endGroup();
++}
++
++void AppearancePage::setStyle(QWidget *w, QStyle *s)
++{
++    for(QObject *o : w->children())
++    {
++        if(o->isWidgetType())
++        {
++            setStyle(qobject_cast<QWidget *>(o), s);
++        }
++    }
++    w->setStyle(s);
++}
++
++void AppearancePage::setPalette(QWidget *w, QPalette p)
++{
++    for(QObject *o : w->children())
++    {
++        if(o->isWidgetType())
++        {
++            setPalette(qobject_cast<QWidget *>(o), p);
++        }
++    }
++    w->setPalette(p);
++}
++
++void AppearancePage::findColorSchemes(const QString &path)
++{
++    QDir dir(path);
++    dir.setFilter(QDir::Files);
++    dir.setNameFilters(QStringList() << "*.conf");
++
++    for(const QFileInfo &info : dir.entryInfoList())
++    {
++        m_ui->colorSchemeComboBox->addItem(info.baseName(), info.filePath());
++    }
++}
++
++void AppearancePage::findColorSchemes(const QStringList &paths)
++{
++    for(const QString &p : paths)
++        findColorSchemes(p);
++}
++
++void AppearancePage::createColorScheme(const QString &name, const QPalette &palette)
++{
++    QSettings settings(name, QSettings::IniFormat);
++    settings.beginGroup("ColorScheme");
++
++    QStringList activeColors, inactiveColors, disabledColors;
++    for (int i = 0; i < QPalette::NColorRoles; i++)
++    {
++        QPalette::ColorRole role = QPalette::ColorRole(i);
++        activeColors << palette.color(QPalette::Active, role).name(QColor::HexArgb);
++        inactiveColors << palette.color(QPalette::Inactive, role).name(QColor::HexArgb);
++        disabledColors << palette.color(QPalette::Disabled, role).name(QColor::HexArgb);
++    }
++
++    settings.setValue("active_colors",activeColors);
++    settings.setValue("inactive_colors",inactiveColors);
++    settings.setValue("disabled_colors",disabledColors);
++
++    settings.endGroup();
++
++}
+diff '--color=auto' -ruN old/src/qt5ct/appearancepage.h new/src/qt5ct/appearancepage.h
+--- old/src/qt5ct/appearancepage.h	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct/appearancepage.h	2025-02-09 17:37:31.600198250 +0800
+@@ -73,7 +73,7 @@
+     QStyle *m_selectedStyle = nullptr;
+     QPalette m_customPalette;
+     QWidget *m_previewWidget;
+-    QAction *m_changeColorSchemeAction, *m_renameColorSchemeAction, *m_removeColorSchemeAction;
++    QAction *m_changeColorSchemeAction, *m_copyColorSchemeAction, *m_renameColorSchemeAction, *m_removeColorSchemeAction;
+     Ui::PreviewForm *m_previewUi;
+ };
+ 
+diff '--color=auto' -ruN old/src/qt5ct/appearancepage.h.orig new/src/qt5ct/appearancepage.h.orig
+--- old/src/qt5ct/appearancepage.h.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct/appearancepage.h.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,80 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef APPEARANCEPAGE_H
++#define APPEARANCEPAGE_H
++
++#include "tabpage.h"
++
++namespace Ui {
++class AppearancePage;
++class PreviewForm;
++}
++
++class QStyle;
++class QAction;
++
++class AppearancePage : public TabPage
++{
++    Q_OBJECT
++
++public:
++    explicit AppearancePage(QWidget *parent = nullptr);
++    ~AppearancePage();
++
++    void writeSettings() override;
++
++private slots:
++    void on_styleComboBox_activated(const QString &text);
++    void on_colorSchemeComboBox_activated(int);
++    void createColorScheme();
++    void changeColorScheme();
++    void removeColorScheme();
++    void copyColorScheme();
++    void renameColorScheme();
++    void updatePalette();
++    void setPreviewPalette(const QPalette &p);
++    void updateActions();
++
++private:
++    void changeEvent(QEvent *event) override;
++    void readSettings();
++    void setStyle(QWidget *w, QStyle *s);
++    void setPalette(QWidget *w, QPalette p);
++    void findColorSchemes(const QString &path);
++    void findColorSchemes(const QStringList &paths);
++    void createColorScheme(const QString &name, const QPalette &palette);
++    Ui::AppearancePage *m_ui;
++    QStyle *m_selectedStyle = nullptr;
++    QPalette m_customPalette;
++    QWidget *m_previewWidget;
++    QAction *m_changeColorSchemeAction, *m_renameColorSchemeAction, *m_removeColorSchemeAction;
++    Ui::PreviewForm *m_previewUi;
++};
++
++#endif // APPEARANCEPAGE_H
+diff '--color=auto' -ruN old/src/qt5ct-common/CMakeLists.txt new/src/qt5ct-common/CMakeLists.txt
+--- old/src/qt5ct-common/CMakeLists.txt	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-common/CMakeLists.txt	2025-02-09 17:37:31.600198250 +0800
+@@ -26,5 +26,5 @@
+ 
+ add_library(qt5ct-common SHARED ${app_SRCS})
+ set_target_properties(qt5ct-common PROPERTIES VERSION ${QT5CT_VERSION})
+-target_link_libraries(qt5ct-common PRIVATE Qt5::Core Qt5::Gui)
++target_link_libraries(qt5ct-common PRIVATE Qt5::Core Qt5::Gui KF5::ConfigCore KF5::ConfigWidgets)
+ install(TARGETS qt5ct-common DESTINATION ${CMAKE_INSTALL_LIBDIR})
+diff '--color=auto' -ruN old/src/qt5ct-common/qt5ct.cpp new/src/qt5ct-common/qt5ct.cpp
+--- old/src/qt5ct-common/qt5ct.cpp	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-common/qt5ct.cpp	2025-02-09 17:37:31.600198250 +0800
+@@ -34,6 +34,8 @@
+ #include <QFile>
+ #include <QSettings>
+ #include <QtDebug>
++#include <KSharedConfig>
++#include <KColorScheme>
+ #include "qt5ct.h"
+ 
+ #ifndef QT5CT_DATADIR
+@@ -118,6 +120,7 @@
+     for(const QString &p : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation))
+     {
+         paths << (p + QLatin1String("/qt5ct/colors"));
++        paths << (p + QLatin1String("/color-schemes"));
+     }
+     paths << QLatin1String(QT5CT_DATADIR"/qt5ct/colors");
+     paths.removeDuplicates();
+@@ -145,8 +148,16 @@
+     return tmp;
+ }
+ 
++bool Qt5CT::isKColorScheme(const QString &filePath)
++{
++    return filePath.toLower().endsWith(".colors");
++}
++
+ QPalette Qt5CT::loadColorScheme(const QString &filePath, const QPalette &fallback)
+ {
++    if(isKColorScheme(filePath))
++        return KColorScheme::createApplicationPalette(KSharedConfig::openConfig(filePath));
++
+     QPalette customPalette;
+     QSettings settings(filePath, QSettings::IniFormat);
+     settings.beginGroup("ColorScheme");
+diff '--color=auto' -ruN old/src/qt5ct-common/qt5ct.cpp.orig new/src/qt5ct-common/qt5ct.cpp.orig
+--- old/src/qt5ct-common/qt5ct.cpp.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-common/qt5ct.cpp.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,212 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <QDir>
++#include <QLocale>
++#include <QLatin1String>
++#include <QStandardPaths>
++#include <QRegularExpression>
++#include <QFile>
++#include <QSettings>
++#include <QtDebug>
++#include "qt5ct.h"
++
++#ifndef QT5CT_DATADIR
++#define QT5CT_DATADIR "/usr/share"
++#endif
++
++QSet<Qt5CT::StyleInstance*> Qt5CT::styleInstances;
++
++void Qt5CT::initConfig()
++{
++    if(QFile::exists(configFile()))
++        return;
++
++    QString globalConfig = QStandardPaths::locate(QStandardPaths::GenericConfigLocation, "qt5ct/qt5ct.conf");
++    if(globalConfig.isEmpty())
++        return;
++
++    QDir("/").mkpath(configPath());
++    QFile::copy(globalConfig, configFile());
++}
++
++QString Qt5CT::configPath()
++{
++    return QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1String("/qt5ct");
++}
++
++QString Qt5CT::configFile()
++{
++    return configPath() + QLatin1String("/qt5ct.conf");
++}
++
++QStringList Qt5CT::iconPaths()
++{
++    QStringList paths, out;
++    paths << QDir::homePath() + QLatin1String("/.icons");
++
++    for(const QString &p : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation))
++    {
++        paths << (p + QLatin1String("/icons"));
++    }
++    paths.removeDuplicates();
++
++    //remove invalid
++    for(const QString &p : qAsConst(paths))
++    {
++        if(QDir(p).exists())
++            out << p;
++    }
++    return out;
++}
++
++QString Qt5CT::userStyleSheetPath()
++{
++    return configPath() + QLatin1String("/qss");
++}
++
++QStringList Qt5CT::sharedStyleSheetPaths()
++{
++    QStringList paths;
++    for(const QString &p : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation))
++    {
++        paths << (p + QLatin1String("/qt5ct/qss"));
++    }
++    paths << QLatin1String(QT5CT_DATADIR"/qt5ct/qss");
++    paths.removeDuplicates();
++    return paths;
++}
++
++QString Qt5CT::userColorSchemePath()
++{
++    return configPath() + QLatin1String("/colors");
++}
++
++QString Qt5CT::styleColorSchemeFile()
++{
++    return configPath() + QLatin1String("/style-colors.conf");
++}
++
++QStringList Qt5CT::sharedColorSchemePaths()
++{
++    QStringList paths;
++    for(const QString &p : QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation))
++    {
++        paths << (p + QLatin1String("/qt5ct/colors"));
++    }
++    paths << QLatin1String(QT5CT_DATADIR"/qt5ct/colors");
++    paths.removeDuplicates();
++    return paths;
++}
++
++QString Qt5CT::resolvePath(const QString &path)
++{
++    QString tmp = path;
++    tmp.replace("~", QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
++    if(!tmp.contains("$"))
++        return tmp;
++
++    //find environment variables
++    static const QRegularExpression regexp("\\$([A-Z_]+)\\/");
++    QRegularExpressionMatchIterator it = regexp.globalMatch(tmp);
++
++    while (it.hasNext())
++    {
++        QRegularExpressionMatch match = it.next();
++        QString captured = match.captured(1);
++        tmp.replace(QLatin1String("$") + captured, qgetenv(captured.toLatin1().constData()) );
++    }
++
++    return tmp;
++}
++
++QPalette Qt5CT::loadColorScheme(const QString &filePath, const QPalette &fallback)
++{
++    QPalette customPalette;
++    QSettings settings(filePath, QSettings::IniFormat);
++    settings.beginGroup("ColorScheme");
++    QStringList activeColors = settings.value("active_colors").toStringList();
++    QStringList inactiveColors = settings.value("inactive_colors").toStringList();
++    QStringList disabledColors = settings.value("disabled_colors").toStringList();
++    settings.endGroup();
++
++    if(activeColors.count() >= QPalette::NColorRoles &&
++            inactiveColors.count() >= QPalette::NColorRoles &&
++            disabledColors.count() >= QPalette::NColorRoles)
++    {
++        for (int i = 0; i < QPalette::NColorRoles; i++)
++        {
++            QPalette::ColorRole role = QPalette::ColorRole(i);
++            customPalette.setColor(QPalette::Active, role, QColor(activeColors.at(i)));
++            customPalette.setColor(QPalette::Inactive, role, QColor(inactiveColors.at(i)));
++            customPalette.setColor(QPalette::Disabled, role, QColor(disabledColors.at(i)));
++        }
++    }
++#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
++    else if(activeColors.count() == QPalette::NColorRoles - 1 &&
++            inactiveColors.count() == QPalette::NColorRoles - 1 &&
++            disabledColors.count() == QPalette::NColorRoles - 1)
++    {
++        //old format compatibility
++        for (int i = 0; i < QPalette::NColorRoles - 1; i++)
++        {
++            QPalette::ColorRole role = QPalette::ColorRole(i);
++            customPalette.setColor(QPalette::Active, role, QColor(activeColors.at(i)));
++            customPalette.setColor(QPalette::Inactive, role, QColor(inactiveColors.at(i)));
++            customPalette.setColor(QPalette::Disabled, role, QColor(disabledColors.at(i)));
++        }
++        QColor textColor = customPalette.text().color();
++        textColor.setAlpha(128);
++        customPalette.setColor(QPalette::Active, QPalette::PlaceholderText, textColor);
++        customPalette.setColor(QPalette::Inactive, QPalette::PlaceholderText, textColor);
++        customPalette.setColor(QPalette::Disabled, QPalette::PlaceholderText, textColor);
++    }
++#endif
++    else
++    {
++        customPalette = fallback; //load fallback palette
++    }
++
++    return customPalette;
++}
++
++void Qt5CT::registerStyleInstance(Qt5CT::StyleInstance *instance)
++{
++    styleInstances.insert(instance);
++}
++
++void Qt5CT::unregisterStyleInstance(Qt5CT::StyleInstance *instance)
++{
++    styleInstances.remove(instance);
++}
++
++void Qt5CT::reloadStyleInstanceSettings()
++{
++    for(auto instance : qAsConst(styleInstances))
++        instance->reloadSettings();
++}
+diff '--color=auto' -ruN old/src/qt5ct-common/qt5ct.h new/src/qt5ct-common/qt5ct.h
+--- old/src/qt5ct-common/qt5ct.h	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-common/qt5ct.h	2025-02-09 17:37:31.601198226 +0800
+@@ -69,6 +69,7 @@
+     static QString styleColorSchemeFile();
+     static QStringList sharedColorSchemePaths();
+     static QString resolvePath(const QString &path);
++    static bool isKColorScheme(const QString &filePath);
+     static QPalette loadColorScheme(const QString &filePath, const QPalette &fallback);
+ 
+     static void registerStyleInstance(StyleInstance *instance);
+diff '--color=auto' -ruN old/src/qt5ct-common/qt5ct.h.orig new/src/qt5ct-common/qt5ct.h.orig
+--- old/src/qt5ct-common/qt5ct.h.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-common/qt5ct.h.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,82 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef QT5CT_H
++#define QT5CT_H
++
++#define QT5CT_VERSION_MAJOR 1
++#define QT5CT_VERSION_MINOR 9
++
++#define QT5CT_TOSTRING(s) #s
++#define QT5CT_STRINGIFY(s)         QT5CT_TOSTRING(s)
++
++#define QT5CT_VERSION_INT (QT5CT_VERSION_MAJOR<<8 | QT5CT_VERSION_MINOR)
++#define QT5CT_VERSION_STR QT5CT_STRINGIFY(QT5CT_VERSION_MAJOR.QT5CT_VERSION_MINOR)
++
++#include <QSet>
++#include <QString>
++#include <QStringList>
++#include <QPalette>
++
++#ifdef QT5CT_LIBRARY
++#define QT5CT_EXPORT Q_DECL_EXPORT
++#else
++#define QT5CT_EXPORT Q_DECL_IMPORT
++#endif
++
++
++class QT5CT_EXPORT Qt5CT
++{
++public:
++    class StyleInstance
++    {
++    public:
++        virtual void reloadSettings() = 0;
++    };
++
++    static void initConfig();
++    static QString configPath();
++    static QString configFile();
++    static QStringList iconPaths();
++    static QString userStyleSheetPath();
++    static QStringList sharedStyleSheetPaths();
++    static QString userColorSchemePath();
++    static QString styleColorSchemeFile();
++    static QStringList sharedColorSchemePaths();
++    static QString resolvePath(const QString &path);
++    static QPalette loadColorScheme(const QString &filePath, const QPalette &fallback);
++
++    static void registerStyleInstance(StyleInstance *instance);
++    static void unregisterStyleInstance(StyleInstance *instance);
++    static void reloadStyleInstanceSettings();
++
++private:
++    static QSet<StyleInstance*> styleInstances;
++};
++
++#endif // QT5CT_H
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/CMakeLists.txt new/src/qt5ct-qtplugin/CMakeLists.txt
+--- old/src/qt5ct-qtplugin/CMakeLists.txt	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-qtplugin/CMakeLists.txt	2025-02-09 17:37:31.601198226 +0800
+@@ -9,7 +9,7 @@
+ 
+ add_library(qt5ct-qtplugin MODULE ${app_SRCS})
+ set_target_properties(qt5ct-qtplugin PROPERTIES OUTPUT_NAME qt5ct)
+-target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::Widgets Qt5::GuiPrivate qt5ct-common)
++target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::Widgets Qt5::GuiPrivate Qt5::QuickControls2 KF5::IconThemes qt5ct-common)
+ if(NOT DISABLE_DBUS)
+     target_link_libraries(qt5ct-qtplugin PRIVATE Qt5::DBus Qt5::ThemeSupportPrivate)
+ endif()
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	2025-02-09 17:46:14.185969001 +0800
+@@ -45,6 +45,7 @@
+ #endif
+ #include <QFile>
+ #include <QFileSystemWatcher>
++#include <QQuickStyle>
+ 
+ #include "qt5ct.h"
+ #include "qt5ctplatformtheme.h"
+@@ -58,6 +59,9 @@
+ #include <QStringList>
+ #include <qpa/qplatformthemefactory_p.h>
+ 
++#include <KIconEngine>
++#include <KIconLoader>
++
+ Q_LOGGING_CATEGORY(lqt5ct, "qt5ct", QtWarningMsg)
+ 
+ //QT_QPA_PLATFORMTHEME=qt5ct
+@@ -73,12 +77,19 @@
+         QMetaObject::invokeMethod(this, "createFSWatcher", Qt::QueuedConnection);
+ #endif
+         QGuiApplication::setFont(m_generalFont);
++#ifdef QT_WIDGETS_LIB
++        if(hasWidgets())
++            //don't override the value explicitly set by the user
++            if(QQuickStyle::name().isEmpty() || QQuickStyle::name() == QLatin1String("Fusion"))
++                QQuickStyle::setStyle(QLatin1String("org.kde.desktop"));
++#endif
+     }
+     qCDebug(lqt5ct) << "using qt5ct plugin";
+ #ifdef QT_WIDGETS_LIB
+     if(!QStyleFactory::keys().contains("qt5ct-style"))
+         qCCritical(lqt5ct) << "unable to find qt5ct proxy style";
+ #endif
++    QCoreApplication::instance()->installEventFilter(this);
+ }
+ 
+ #ifdef GLOBAL_MENU
+@@ -182,6 +193,11 @@
+ }
+ #endif
+ 
++QIconEngine *Qt5CTPlatformTheme::createIconEngine(const QString &iconName) const
++{
++    return new KIconEngine(iconName, KIconLoader::global());
++}
++
+ void Qt5CTPlatformTheme::applySettings()
+ {
+     if(!QGuiApplication::desktopSettingsAware() || m_isIgnored)
+@@ -190,6 +206,11 @@
+         return;
+     }
+ 
++    if(Qt5CT::isKColorScheme(m_schemePath))
++        qApp->setProperty("KDE_COLOR_SCHEME_PATH", m_schemePath);
++    else if(m_update)
++        qApp->setProperty("KDE_COLOR_SCHEME_PATH", QVariant());
++
+ #ifdef QT_WIDGETS_LIB
+     if(hasWidgets())
+     {
+@@ -266,6 +287,7 @@
+ 
+ void Qt5CTPlatformTheme::readSettings()
+ {
++    m_schemePath.clear();
+     QSettings settings(Qt5CT::configFile(), QSettings::IniFormat);
+ 
+     settings.beginGroup("Appearance");
+@@ -275,6 +297,7 @@
+     if(!schemePath.isEmpty() && settings.value("custom_palette", false).toBool())
+     {
+         schemePath = Qt5CT::resolvePath(schemePath); //replace environment variables
++        m_schemePath = schemePath;
+         m_palette = Qt5CT::loadColorScheme(schemePath, m_palette);
+     }
+     m_iconTheme = settings.value("icon_theme").toString();
+@@ -388,3 +411,17 @@
+     content.replace(regExp, "\n");
+     return content;
+ }
++
++//There's such a thing as KColorSchemeManager that lets the user to change the color scheme
++//application-wide and we should re-apply the color scheme if KCSM resets it to the default
++//which leads KColorScheme to get the color scheme from kdeglobals which won't help us.
++bool Qt5CTPlatformTheme::eventFilter(QObject *obj, QEvent *e)
++{
++    if(obj == qApp &&
++            e->type() == QEvent::DynamicPropertyChange &&
++            static_cast<QDynamicPropertyChangeEvent*>(e)->propertyName() == "KDE_COLOR_SCHEME_PATH" &&
++            qApp->property("KDE_COLOR_SCHEME_PATH").toString().isEmpty() &&
++            Qt5CT::isKColorScheme(m_schemePath))
++        applySettings();
++    return QObject::eventFilter(obj, e);
++}
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.orig new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.orig
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,390 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <QVariant>
++#include <QSettings>
++#include <QGuiApplication>
++#include <QScreen>
++#include <QFont>
++#include <QPalette>
++#include <QTimer>
++#include <QIcon>
++#include <QRegularExpression>
++#include <QMimeDatabase>
++#include <private/qiconloader_p.h>
++#ifdef QT_WIDGETS_LIB
++#include <QStyle>
++#include <QStyleFactory>
++#include <QApplication>
++#include <QWidget>
++#endif
++#include <QFile>
++#include <QFileSystemWatcher>
++
++#include "qt5ct.h"
++#include "qt5ctplatformtheme.h"
++#ifdef GLOBAL_MENU
++#include <private/qdbusmenubar_p.h>
++#endif
++#ifdef DBUS_TRAY
++#include <private/qdbustrayicon_p.h>
++#endif
++
++#include <QStringList>
++#include <qpa/qplatformthemefactory_p.h>
++
++Q_LOGGING_CATEGORY(lqt5ct, "qt5ct", QtWarningMsg)
++
++//QT_QPA_PLATFORMTHEME=qt5ct
++
++Qt5CTPlatformTheme::Qt5CTPlatformTheme()
++{
++    Qt5CT::initConfig();
++    if(QGuiApplication::desktopSettingsAware())
++    {
++        readSettings();
++        QMetaObject::invokeMethod(this, "applySettings", Qt::QueuedConnection);
++#ifdef QT_WIDGETS_LIB
++        QMetaObject::invokeMethod(this, "createFSWatcher", Qt::QueuedConnection);
++#endif
++        QGuiApplication::setFont(m_generalFont);
++    }
++    qCDebug(lqt5ct) << "using qt5ct plugin";
++#ifdef QT_WIDGETS_LIB
++    if(!QStyleFactory::keys().contains("qt5ct-style"))
++        qCCritical(lqt5ct) << "unable to find qt5ct proxy style";
++#endif
++}
++
++#ifdef GLOBAL_MENU
++QPlatformMenuBar *Qt5CTPlatformTheme::createPlatformMenuBar() const
++{
++    if(m_checkDBusGlobalMenu)
++    {
++        QDBusConnection conn = QDBusConnection::sessionBus();
++        m_dbusGlobalMenuAvailable = conn.interface()->isServiceRegistered("com.canonical.AppMenu.Registrar");
++        m_checkDBusGlobalMenu = false;
++        qCDebug(lqt5ct) << "D-Bus global menu:" << (m_dbusGlobalMenuAvailable ? "yes" : "no");
++    }
++    return (m_dbusGlobalMenuAvailable ? new QDBusMenuBar() : nullptr);
++}
++#endif
++
++bool Qt5CTPlatformTheme::usePlatformNativeDialog(DialogType type) const
++{
++    return m_theme ? m_theme->usePlatformNativeDialog(type) :
++                     QPlatformTheme::usePlatformNativeDialog(type);
++}
++
++QPlatformDialogHelper *Qt5CTPlatformTheme::createPlatformDialogHelper(DialogType type) const
++{
++    return m_theme ? m_theme->createPlatformDialogHelper(type) :
++                     QPlatformTheme::createPlatformDialogHelper(type);
++}
++
++#ifdef DBUS_TRAY
++QPlatformSystemTrayIcon *Qt5CTPlatformTheme::createPlatformSystemTrayIcon() const
++{
++    if(m_checkDBusTray)
++    {
++        QDBusMenuConnection conn;
++        m_dbusTrayAvailable = conn.isStatusNotifierHostRegistered();
++        m_checkDBusTray = false;
++        qCDebug(lqt5ct) << "D-Bus system tray:" << (m_dbusTrayAvailable ? "yes" : "no");
++    }
++    return (m_dbusTrayAvailable ? new QDBusTrayIcon() : nullptr);
++}
++#endif
++
++const QPalette *Qt5CTPlatformTheme::palette(QPlatformTheme::Palette type) const
++{
++    if (type == QPlatformTheme::SystemPalette && !m_isIgnored)
++        return &m_palette;
++    return QPlatformTheme::palette(type);
++}
++
++const QFont *Qt5CTPlatformTheme::font(QPlatformTheme::Font type) const
++{
++    if(type == QPlatformTheme::FixedFont)
++        return &m_fixedFont;
++    return &m_generalFont;
++}
++
++QVariant Qt5CTPlatformTheme::themeHint(QPlatformTheme::ThemeHint hint) const
++{
++    if(m_isIgnored)
++        return QPlatformTheme::themeHint(hint);
++
++    switch (hint)
++    {
++    case QPlatformTheme::CursorFlashTime:
++        return m_cursorFlashTime;
++    case MouseDoubleClickInterval:
++        return m_doubleClickInterval;
++    case QPlatformTheme::ToolButtonStyle:
++        return m_toolButtonStyle;
++    case QPlatformTheme::SystemIconThemeName:
++        return m_iconTheme;
++    case QPlatformTheme::StyleNames:
++        return QStringList() << "qt5ct-style";
++    case QPlatformTheme::IconThemeSearchPaths:
++        return Qt5CT::iconPaths();
++    case QPlatformTheme::DialogButtonBoxLayout:
++        return m_buttonBoxLayout;
++    case QPlatformTheme::KeyboardScheme:
++        return m_keyboardScheme;
++    case QPlatformTheme::UiEffects:
++        return m_uiEffects;
++    case QPlatformTheme::WheelScrollLines:
++        return m_wheelScrollLines;
++#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
++    case QPlatformTheme::ShowShortcutsInContextMenus:
++        return m_showShortcutsInContextMenus;
++#endif
++    default:
++        return QPlatformTheme::themeHint(hint);
++    }
++}
++#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
++QIcon Qt5CTPlatformTheme::fileIcon(const QFileInfo &fileInfo, QPlatformTheme::IconOptions iconOptions) const
++{
++    if((iconOptions & DontUseCustomDirectoryIcons) && fileInfo.isDir())
++        return QIcon::fromTheme(QLatin1String("inode-directory"));
++
++    QMimeDatabase db;
++    QMimeType type = db.mimeTypeForFile(fileInfo);
++    return QIcon::fromTheme(type.iconName());
++}
++#endif
++
++void Qt5CTPlatformTheme::applySettings()
++{
++    if(!QGuiApplication::desktopSettingsAware() || m_isIgnored)
++    {
++        m_update = true;
++        return;
++    }
++
++#ifdef QT_WIDGETS_LIB
++    if(hasWidgets())
++    {
++        qApp->setFont(m_generalFont);
++
++        if(m_update)
++        {
++            //Qt 5.6 or higher should be use themeHint function on application startup.
++            //So, there is no need to call this function first time.
++            qApp->setWheelScrollLines(m_wheelScrollLines);
++            Qt5CT::reloadStyleInstanceSettings();
++        }
++
++        if (m_userStyleSheet != m_prevStyleSheet) {
++            // prepend our stylesheet to that of the application
++            // (first removing any previous stylesheet we have set)
++            QString appStyleSheet = qApp->styleSheet();
++            int prevIndex = appStyleSheet.indexOf(m_prevStyleSheet);
++            if (prevIndex >= 0) {
++                appStyleSheet.remove(prevIndex, m_prevStyleSheet.size());
++                qApp->setStyleSheet(m_userStyleSheet + appStyleSheet);
++            } else {
++                qCDebug(lqt5ct) << "custom style sheet is disabled";
++            }
++            m_prevStyleSheet = m_userStyleSheet;
++        }
++    }
++#endif
++    QGuiApplication::setFont(m_generalFont); //apply font
++    if(m_update)
++    {
++        QIconLoader::instance()->updateSystemTheme(); //apply icons
++        QGuiApplication::setPalette(QGuiApplication::palette()); //apply palette
++    }
++
++#ifdef QT_WIDGETS_LIB
++    if(hasWidgets())
++    {
++#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
++        if(m_update)
++            qApp->setPalette(*palette());
++#endif
++        for(QWidget *w : qApp->allWidgets())
++        {
++            QEvent e(QEvent::ThemeChange);
++            QApplication::sendEvent(w, &e);
++        }
++    }
++#endif
++
++    m_update = true;
++}
++
++#ifdef QT_WIDGETS_LIB
++void Qt5CTPlatformTheme::createFSWatcher()
++{
++    QFileSystemWatcher *watcher = new QFileSystemWatcher(this);
++    watcher->addPath(Qt5CT::configPath());
++
++    QTimer *timer = new QTimer(this);
++    timer->setSingleShot(true);
++    timer->setInterval(3000);
++    connect(watcher, SIGNAL(directoryChanged(QString)), timer, SLOT(start()));
++    connect(timer, SIGNAL(timeout()), SLOT(updateSettings()));
++}
++
++void Qt5CTPlatformTheme::updateSettings()
++{
++    qCDebug(lqt5ct) << "updating settings..";
++    readSettings();
++    applySettings();
++}
++#endif
++
++void Qt5CTPlatformTheme::readSettings()
++{
++    QSettings settings(Qt5CT::configFile(), QSettings::IniFormat);
++
++    settings.beginGroup("Appearance");
++    m_style = settings.value("style", "Fusion").toString();
++    m_palette = *QPlatformTheme::palette(SystemPalette);
++    QString schemePath = settings.value("color_scheme_path").toString();
++    if(!schemePath.isEmpty() && settings.value("custom_palette", false).toBool())
++    {
++        schemePath = Qt5CT::resolvePath(schemePath); //replace environment variables
++        m_palette = Qt5CT::loadColorScheme(schemePath, m_palette);
++    }
++    m_iconTheme = settings.value("icon_theme").toString();
++    //load dialogs
++    if(!m_update)
++    {
++        //do not mix gtk2 style and gtk3 dialogs
++        QStringList keys = QPlatformThemeFactory::keys();
++        QString name = settings.value("standard_dialogs", "default").toString();
++        if((m_style == QLatin1String("gtk2") || m_style == QLatin1String("qt5gtk2")) &&
++                (name == QLatin1String("gtk3") || name == QLatin1String("qt5gtk3")))
++        {
++            name = QLatin1String("gtk2");
++        }
++        if(keys.contains(name))
++            m_theme.reset(QPlatformThemeFactory::create(name));
++        else if(name == QLatin1String("gtk2") && keys.contains("qt5gtk2"))
++            m_theme.reset(QPlatformThemeFactory::create("qt5gtk2"));
++        else if(name == QLatin1String("gtk3") && keys.contains("qt5gtk3"))
++            m_theme.reset(QPlatformThemeFactory::create("qt5gtk3"));
++    }
++
++    settings.endGroup();
++
++    settings.beginGroup("Fonts");
++    m_generalFont = QGuiApplication::font();
++    m_generalFont.fromString(settings.value("general", QGuiApplication::font()).toString());
++    m_fixedFont = QGuiApplication::font();
++    m_fixedFont.fromString(settings.value("fixed", QGuiApplication::font()).toString());
++    settings.endGroup();
++
++    settings.beginGroup("Interface");
++    m_doubleClickInterval = QPlatformTheme::themeHint(QPlatformTheme::MouseDoubleClickInterval).toInt();
++    m_doubleClickInterval = settings.value("double_click_interval", m_doubleClickInterval).toInt();
++    m_cursorFlashTime = QPlatformTheme::themeHint(QPlatformTheme::CursorFlashTime).toInt();
++    m_cursorFlashTime = settings.value("cursor_flash_time", m_cursorFlashTime).toInt();
++    m_showShortcutsInContextMenus = settings.value("show_shortcuts_in_context_menus", true).toBool();
++    m_buttonBoxLayout = QPlatformTheme::themeHint(QPlatformTheme::DialogButtonBoxLayout).toInt();
++    m_buttonBoxLayout = settings.value("buttonbox_layout", m_buttonBoxLayout).toInt();
++    m_keyboardScheme = QPlatformTheme::themeHint(QPlatformTheme::KeyboardScheme).toInt();
++    m_keyboardScheme = settings.value("keyboard_scheme", m_keyboardScheme).toInt();
++    QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, !settings.value("menus_have_icons", true).toBool());
++    m_toolButtonStyle = settings.value("toolbutton_style", Qt::ToolButtonFollowStyle).toInt();
++    m_wheelScrollLines = settings.value("wheel_scroll_lines", 3).toInt();
++
++    //load effects
++    m_uiEffects = QPlatformTheme::themeHint(QPlatformTheme::UiEffects).toInt();
++    if(settings.childKeys().contains("gui_effects"))
++    {
++        QStringList effectList = settings.value("gui_effects").toStringList();
++        m_uiEffects = 0;
++        if(effectList.contains("General"))
++            m_uiEffects |= QPlatformTheme::GeneralUiEffect;
++        if(effectList.contains("AnimateMenu"))
++            m_uiEffects |= QPlatformTheme::AnimateMenuUiEffect;
++        if(effectList.contains("FadeMenu"))
++            m_uiEffects |= QPlatformTheme::FadeMenuUiEffect;
++        if(effectList.contains("AnimateCombo"))
++            m_uiEffects |= QPlatformTheme::AnimateComboUiEffect;
++        if(effectList.contains("AnimateTooltip"))
++            m_uiEffects |= QPlatformTheme::AnimateTooltipUiEffect;
++        if(effectList.contains("FadeTooltip"))
++            m_uiEffects |= QPlatformTheme::FadeTooltipUiEffect;
++        if(effectList.contains("AnimateToolBox"))
++            m_uiEffects |= QPlatformTheme::AnimateToolBoxUiEffect;
++    }
++
++    //load style sheets
++#ifdef QT_WIDGETS_LIB
++    QStringList qssPaths = settings.value("stylesheets").toStringList();
++    m_userStyleSheet = loadStyleSheets(qssPaths);
++#endif
++    settings.endGroup();
++
++    //load troubleshooting
++    if(!m_update)
++    {
++        settings.beginGroup("Troubleshooting");
++        m_isIgnored = settings.value("ignored_applications").toStringList().contains(QCoreApplication::applicationFilePath());
++        int forceRasterWidgets = settings.value("force_raster_widgets", Qt::PartiallyChecked).toInt();
++        if(!m_isIgnored && forceRasterWidgets == Qt::Checked)
++            QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets, true);
++        else if(!m_isIgnored && forceRasterWidgets == Qt::Unchecked)
++            QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets, false);
++        settings.endGroup();
++    }
++}
++
++#ifdef QT_WIDGETS_LIB
++bool Qt5CTPlatformTheme::hasWidgets()
++{
++    return qobject_cast<QApplication *> (qApp) != nullptr;
++}
++#endif
++
++QString Qt5CTPlatformTheme::loadStyleSheets(const QStringList &paths)
++{
++    QString content;
++    for(const QString &path : paths)
++    {
++        if(!QFile::exists(path))
++            continue;
++
++        QFile file(path);
++        file.open(QIODevice::ReadOnly);
++        content.append(QString::fromUtf8(file.readAll()));
++        if(!content.endsWith(QChar::LineFeed))
++            content.append(QChar::LineFeed);
++    }
++    static const QRegularExpression regExp("//.*\n");
++    content.replace(regExp, "\n");
++    return content;
++}
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.rej new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.rej
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.rej	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.cpp.rej	2025-02-09 17:37:31.601198226 +0800
+@@ -0,0 +1,18 @@
++--- src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	(revision 690)
+++++ src/qt5ct-qtplugin/qt5ctplatformtheme.cpp	(working copy)
++@@ -306,6 +327,7 @@
++ 
++ void Qt5CTPlatformTheme::readSettings()
++ {
+++    m_schemePath.clear();
++     if(m_palette)
++     {
++         delete m_palette;
++@@ -320,6 +342,7 @@
++     if(!schemePath.isEmpty() && settings.value("custom_palette", false).toBool())
++     {
++         schemePath = Qt5CT::resolvePath(schemePath); //replace environment variables
+++        m_schemePath = schemePath;
++         m_palette = new QPalette(Qt5CT::loadColorScheme(schemePath, *QPlatformTheme::palette(SystemPalette)));
++     }
++     m_iconTheme = settings.value("icon_theme").toString();
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.h new/src/qt5ct-qtplugin/qt5ctplatformtheme.h
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.h	2025-01-28 02:16:40.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.h	2025-02-09 17:47:23.837081068 +0800
+@@ -84,10 +84,13 @@
+     //virtual QPixmap fileIconPixmap(const QFileInfo &fileInfo, const QSizeF &size,
+     //                               QPlatformTheme::IconOptions iconOptions = 0) const;
+ 
+-    //virtual QIconEngine *createIconEngine(const QString &iconName) const;
++    virtual QIconEngine *createIconEngine(const QString &iconName) const override;
+     //virtual QList<QKeySequence> keyBindings(QKeySequence::StandardKey key) const;
+     //virtual QString standardButtonText(int button) const;
+ 
++protected:
++    bool eventFilter(QObject *obj, QEvent *e) override;
++
+ private slots:
+     void applySettings();
+ #ifdef QT_WIDGETS_LIB
+@@ -101,7 +104,7 @@
+     bool hasWidgets();
+ #endif
+     QString loadStyleSheets(const QStringList &paths);
+-    QString m_style, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
++    QString m_style, m_schemePath, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
+     QPalette m_palette;
+     QFont m_generalFont, m_fixedFont;
+     int m_doubleClickInterval;
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.h.orig new/src/qt5ct-qtplugin/qt5ctplatformtheme.h.orig
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.h.orig	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.h.orig	2025-01-28 02:16:40.000000000 +0800
+@@ -0,0 +1,131 @@
++/*
++ * Copyright (c) 2014-2025, Ilya Kotov <forkotov02@ya.ru>
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef QT5CTPLATFORMTHEME_H
++#define QT5CTPLATFORMTHEME_H
++
++#include <qpa/qplatformtheme.h>
++#include <QObject>
++#include <QFont>
++#include <QPalette>
++#include <QLoggingCategory>
++#include <QScopedPointer>
++#include <QIcon>
++#include <QFileInfo>
++
++#if !defined(QT_NO_DBUS) && defined(QT_DBUS_LIB)
++
++#if !defined(QT_NO_SYSTEMTRAYICON)
++#define DBUS_TRAY
++#endif
++
++#define GLOBAL_MENU
++
++#endif
++
++class QPalette;
++#ifdef DBUS_TRAY
++class QPlatformSystemTrayIcon;
++#endif
++
++#ifdef GLOBAL_MENU
++class QPlatformMenuBar;
++#endif
++
++class Qt5CTPlatformTheme : public QObject, public QPlatformTheme
++{
++    Q_OBJECT
++public:
++    Qt5CTPlatformTheme();
++
++    //virtual QPlatformMenuItem* createPlatformMenuItem() const;
++    //virtual QPlatformMenu* createPlatformMenu() const;
++#ifdef GLOBAL_MENU
++    virtual QPlatformMenuBar* createPlatformMenuBar() const override;
++#endif
++    //virtual void showPlatformMenuBar() {}
++    virtual bool usePlatformNativeDialog(DialogType type) const override;
++    virtual QPlatformDialogHelper *createPlatformDialogHelper(DialogType type) const override;
++#ifdef DBUS_TRAY
++    virtual QPlatformSystemTrayIcon *createPlatformSystemTrayIcon() const override;
++#endif
++    virtual const QPalette *palette(Palette type = SystemPalette) const override;
++    virtual const QFont *font(Font type = SystemFont) const override;
++    virtual QVariant themeHint(ThemeHint hint) const override;
++#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
++    virtual QIcon fileIcon(const QFileInfo &fileInfo, QPlatformTheme::IconOptions iconOptions = {}) const override;
++#endif
++    //virtual QPixmap standardPixmap(StandardPixmap sp, const QSizeF &size) const;
++    //virtual QPixmap fileIconPixmap(const QFileInfo &fileInfo, const QSizeF &size,
++    //                               QPlatformTheme::IconOptions iconOptions = 0) const;
++
++    //virtual QIconEngine *createIconEngine(const QString &iconName) const;
++    //virtual QList<QKeySequence> keyBindings(QKeySequence::StandardKey key) const;
++    //virtual QString standardButtonText(int button) const;
++
++private slots:
++    void applySettings();
++#ifdef QT_WIDGETS_LIB
++    void createFSWatcher();
++    void updateSettings();
++#endif
++
++private:
++    void readSettings();
++#ifdef QT_WIDGETS_LIB
++    bool hasWidgets();
++#endif
++    QString loadStyleSheets(const QStringList &paths);
++    QString m_style, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
++    QPalette m_palette;
++    QFont m_generalFont, m_fixedFont;
++    int m_doubleClickInterval;
++    int m_cursorFlashTime;
++    int m_uiEffects;
++    int m_buttonBoxLayout;
++    int m_keyboardScheme;
++    bool m_update = false;
++    int m_toolButtonStyle = Qt::ToolButtonFollowStyle;
++    int m_wheelScrollLines = 3;
++    bool m_showShortcutsInContextMenus = false;
++    bool m_isIgnored = false;
++#ifdef GLOBAL_MENU
++    mutable bool m_dbusGlobalMenuAvailable = false;
++    mutable bool m_checkDBusGlobalMenu = true;
++#endif
++#ifdef DBUS_TRAY
++    mutable bool m_dbusTrayAvailable = false;
++    mutable bool m_checkDBusTray = true;
++#endif
++
++    QScopedPointer<QPlatformTheme> m_theme;
++};
++
++Q_DECLARE_LOGGING_CATEGORY(lqt5ct)
++
++#endif // QT5CTPLATFORMTHEME_H
+diff '--color=auto' -ruN old/src/qt5ct-qtplugin/qt5ctplatformtheme.h.rej new/src/qt5ct-qtplugin/qt5ctplatformtheme.h.rej
+--- old/src/qt5ct-qtplugin/qt5ctplatformtheme.h.rej	1970-01-01 08:00:00.000000000 +0800
++++ new/src/qt5ct-qtplugin/qt5ctplatformtheme.h.rej	2025-02-09 17:37:31.601198226 +0800
+@@ -0,0 +1,11 @@
++--- src/qt5ct-qtplugin/qt5ctplatformtheme.h	(revision 690)
+++++ src/qt5ct-qtplugin/qt5ctplatformtheme.h	(working copy)
++@@ -107,7 +110,7 @@
++     bool hasWidgets();
++ #endif
++     QString loadStyleSheets(const QStringList &paths);
++-    QString m_style, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
+++    QString m_style, m_schemePath, m_iconTheme, m_userStyleSheet, m_prevStyleSheet;
++     QPalette *m_palette = nullptr;
++     QFont m_generalFont, m_fixedFont;
++     int m_doubleClickInterval;
