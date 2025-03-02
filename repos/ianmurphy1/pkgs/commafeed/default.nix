@@ -4,7 +4,6 @@
   buildNpmPackage,
   fetchFromGitHub,
   maven,
-  makeWrapper,
   nixosTests,
   writeText,
   graalvmCEPackages,
@@ -65,7 +64,7 @@ maven.buildMavenPackage {
     "-Dmaven.gitcommitid.skip"
   ];
 
-  nativeBuildInputs = [ graalvmCEPackages.graalvm-ce makeWrapper ];
+  nativeBuildInputs = [ graalvmCEPackages.graalvm-ce ];
 
   configurePhase = ''
     runHook preConfigure
@@ -83,11 +82,13 @@ maven.buildMavenPackage {
     runHook preInstall
     mkdir -p $out/bin $out/share
 
-    install -Dm644 commafeed-server/target/quarkus-generated-doc/application.properties \
+    cp commafeed-server/target/quarkus-generated-doc/application.properties \
       $out/share/application.properties
 
-    install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
-      $out/bin/commafeed
+    cp commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
+      $out/share/commafeed
+    
+    ln -s $out/share/commafeed $out/bin/commafeed
       
     runHook postInstall
   '';
