@@ -1,10 +1,10 @@
-{ dockerTools, elevation_server }:
+{ dockerTools, elevation-server }:
 
 dockerTools.buildImage {
-  name = "elevation_server";
-  tag = elevation_server.version;
+  name = "elevation-server";
+  tag = elevation-server.version;
 
-  contents = [ elevation_server ];
+  contents = [ elevation-server ];
   runAsRoot = "mkdir -p /dem";
 
   config = {

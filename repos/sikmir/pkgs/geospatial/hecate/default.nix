@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-X+49Mnls5xK6ag1QcvEm0GvLPmvcRBwNn/1vnC9GJO8=";
   };
 
-  cargoHash = "sha256-ROx90hWk9q5E/Yfy9luHbB1XyyLqw2KEl92niBNapBI=";
+  cargoPatches = [ ./cargo-lock.patch ];
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-DIsvqtccOJD54LHjQdq+jQq3d25/EqjS/Jx4Bz/Pmd0=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -32,6 +34,5 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Hecate/Hecate";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true;
   };
 }

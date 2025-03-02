@@ -24,10 +24,6 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
   disabledTestPaths = [
     "tests/test_egsam.py"
     "tests/test_full.py"

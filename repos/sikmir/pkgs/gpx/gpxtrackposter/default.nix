@@ -1,28 +1,23 @@
 {
   lib,
   fetchFromGitHub,
-  fetchpatch,
   python3Packages,
   s2sphere,
+  unstableGitUpdater,
 }:
 
 python3Packages.buildPythonApplication {
   pname = "gpxtrackposter";
-  version = "0-unstable-2023-02-19";
+  version = "0-unstable-2024-06-02";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "GpxTrackPoster";
-    rev = "0b86e7223eaeea3e168f5b68ee7b8fe4ca8532b5";
-    hash = "sha256-pSMfHNpGt68Elgi4NGrBlnZxpsuS7WhqM6kBDcihLu8=";
+    rev = "1ca04e9f2fb4a5ee33e2fb0863e6169ecb2c99a0";
+    hash = "sha256-0Bdls3Pe1K/3QSK9vsfcIxr3arB4/PZ+IsQO5Pk180E=";
   };
 
   patches = [
-    # Fix TimezoneAdjuster
-    (fetchpatch {
-      url = "https://github.com/flopp/GpxTrackPoster/commit/4ccfbe89ae49cbac18b773d2cada2c75aead67b1.patch";
-      hash = "sha256-1nnZZO4KipT/mDwBLZgrbpE1HbwGOGbYM9D5cnmp8zY=";
-    })
     ./fix-localedir.patch
   ];
 
@@ -65,6 +60,8 @@ python3Packages.buildPythonApplication {
   doCheck = false;
 
   postInstall = "rm -fr $out/requirements*.txt";
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Create a visually appealing poster from your GPX tracks";

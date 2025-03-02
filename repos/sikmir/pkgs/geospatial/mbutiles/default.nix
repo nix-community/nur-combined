@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-w+fAfRHi/+TaQ4n9AjfBIbXeemCOnkFxR08ev1f+oTc=";
   };
 
-  cargoHash = "sha256-Qf0qWolEGSnptiqGmgZZiXmY+XCvvmk0lJjnosy+8nI=";
+  cargoPatches = [ ./cargo-lock.patch ];
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-5lHKJ0kb/Zn3hSY6ZFARz60GPWKQ56fsbqL9Lq9VOqE=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -28,6 +30,5 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/amarant/mbutiles";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # error on crate `time` caused by an API change in Rust 1.80.0
   };
 }

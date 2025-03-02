@@ -7,7 +7,7 @@
   pango,
   thinplatespline,
   maprec,
-  ozi_map,
+  ozi-map,
   pyimagequant,
   wrapGAppsHook,
 }:
@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication {
     pycairo
     thinplatespline
     maprec
-    ozi_map
+    ozi-map
     pyimagequant
     pygobject3
   ];

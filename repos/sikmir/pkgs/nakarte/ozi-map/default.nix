@@ -7,7 +7,7 @@
 }:
 
 python3Packages.buildPythonPackage {
-  pname = "ozi_map";
+  pname = "ozi-map";
   version = "0-unstable-2022-08-05";
 
   src = fetchFromGitHub {

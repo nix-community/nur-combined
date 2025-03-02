@@ -3,29 +3,28 @@
   stdenv,
   buildGoModule,
   fetchFromGitHub,
+  writableTmpDirAsHomeHook,
 }:
 
 buildGoModule rec {
   pname = "finch";
-  version = "1.6.0";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     tag = "v${version}";
-    hash = "sha256-t9JyGixJdKTd/dWzaZCIn4dqZO9QCamyrjsnmVA3LIo=";
+    hash = "sha256-Ud7mOURQ0imMDfS4fLVagFlhrj0MEaQAKcKDOD1CQhQ=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-X4cUMgLM1gbppaOU31mEoXSg1gxd5Rp1NYH85HJLhTg=";
+  vendorHash = "sha256-Ct6V1fTuf8dYHagDElYuxr0PW07JQp5sdzRVCrX9BbM=";
 
   subPackages = [ "cmd/finch" ];
 
   ldflags = [ "-X github.com/runfinch/finch/pkg/version.Version=${version}" ];
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
   checkFlags = [ "-skip=TestVersionAction_run" ];
 

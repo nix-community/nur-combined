@@ -22,10 +22,6 @@ python3Packages.buildPythonApplication rec {
     urwid
   ];
 
-  preBuild = ''
-    export HOME=$TMPDIR
-  '';
-
   doCheck = false; # MySQL server required
 
   meta = {

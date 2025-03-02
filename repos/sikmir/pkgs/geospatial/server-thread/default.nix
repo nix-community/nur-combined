@@ -6,14 +6,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "server-thread";
-  version = "0.2.0";
+  version = "0.3.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "server-thread";
     tag = version;
-    hash = "sha256-/ddMaXIIl9GC9RCZ3JuPL5pX8YQuPCCfjHg3i5ecWDY=";
+    hash = "sha256-1a2XFPyf3FacMx3WU1hPeiqGP4dAUGlQxsXAUz81muo=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     fastapi

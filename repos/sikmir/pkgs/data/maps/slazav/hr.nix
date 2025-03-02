@@ -12,6 +12,8 @@
   mapsoft2,
   netpbm,
   sqlite,
+  unstableGitUpdater,
+  writableTmpDirAsHomeHook,
   zip,
 }:
 
@@ -43,11 +45,11 @@ stdenv.mkDerivation {
     mapsoft2
     netpbm
     sqlite
+    writableTmpDirAsHomeHook
     zip
   ];
 
   preBuild = ''
-    export HOME=$TMPDIR
     make -C pics
   '';
 
@@ -56,6 +58,8 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm644 OUT/* -t $out
   '';
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Slazav mountains";

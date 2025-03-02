@@ -8,12 +8,12 @@
 with lib;
 
 let
-  cfg = config.services.tracks_storage_server;
+  cfg = config.services.tracks-storage-server;
 in
 {
-  options.services.tracks_storage_server = {
-    enable = mkEnableOption "tracks_storage_server";
-    package = mkPackageOption pkgs "tracks_storage_server" { };
+  options.services.tracks-storage-server = {
+    enable = mkEnableOption "tracks-storage-server";
+    package = mkPackageOption pkgs "tracks-storage-server" { };
     nginx = mkOption {
       default = { };
       description = ''

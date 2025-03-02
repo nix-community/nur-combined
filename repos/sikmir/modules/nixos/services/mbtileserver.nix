@@ -19,6 +19,16 @@ in
       defaultText = literalMD "pkgs.mbtileserver";
       description = "Which mbtileserver package to use.";
     };
+    address = mkOption {
+      type = types.str;
+      default = "127.0.0.1";
+      description = "IP address to listen on.";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 8000;
+      description = "Server port.";
+    };
     tileDir = mkOption {
       type = types.path;
       default = "/srv/tilesets";
@@ -59,7 +69,7 @@ in
         serviceConfig = {
           DynamicUser = true;
           LogsDirectory = "mbtileserver";
-          ExecStart = "${lib.getBin cfg.package}/bin/mbtileserver --enable-reload-signal --tiles-only";
+          ExecStart = "${getBin cfg.package}/bin/mbtileserver --enable-fs-watch --tiles-only --host ${cfg.address} --port ${toString cfg.port}";
           Restart = "always";
         };
       };
@@ -76,7 +86,7 @@ in
             '';
           };
           locations."/services" = {
-            proxyPass = "http://localhost:8000";
+            proxyPass = "http://${cfg.address}:${toString cfg.port}";
             extraConfig = ''
               #proxy_set_header Host ''$host;
               #proxy_set_header X-Forwarded-Host ''$server_name;

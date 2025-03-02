@@ -16,7 +16,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-H8nUwK72opUohBN2exZURRAPr1RXLa87exYaGigly0Q=";
   };
 
-  cargoHash = "sha256-axvgAXstJU9J7fzez3qfEuxzPs6eCvlyjV8OsxBSg7A=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-HZ7VLpgdSjpalJt3XmflJdO88LZxNkmL7vT/eFACe6k=";
 
   meta = {
     description = "Convert CSV files to HTML tables";

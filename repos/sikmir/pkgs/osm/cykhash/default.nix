@@ -24,10 +24,6 @@ python3Packages.buildPythonPackage {
 
   doCheck = false;
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
   pytestFlagsArray = [ "tests/unit_tests" ];
 
   meta = {

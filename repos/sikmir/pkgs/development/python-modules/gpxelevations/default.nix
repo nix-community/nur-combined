@@ -3,6 +3,7 @@
   python3Packages,
   fetchFromGitHub,
   fetchurl,
+  writableTmpDirAsHomeHook,
 }:
 let
   testdata = import ./testdata.nix { inherit fetchurl; };
@@ -29,15 +30,17 @@ python3Packages.buildPythonApplication rec {
     gpxpy
   ];
 
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+
   dontUseSetuptoolsCheck = true;
 
   checkPhase = ''
-    mkdir -p tmp_home/.cache/srtm
+    mkdir -p $HOME/.cache/srtm
     ${lib.concatMapStringsSep "\n" (hgt: ''
-      cp ${hgt} tmp_home/.cache/srtm/${hgt.name}
+      cp ${hgt} $HOME/.cache/srtm/${hgt.name}
     '') testdata}
 
-    HOME=tmp_home ${python3Packages.python.interpreter} -m unittest test
+    ${python3Packages.python.interpreter} -m unittest test
   '';
 
   meta = {

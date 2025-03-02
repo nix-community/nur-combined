@@ -1,38 +1,28 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
-  fetchpatch,
+  fetchfromgh,
   cmake,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "how-to-use-pvs-studio-free";
-  version = "2.1";
+  version = "7.34";
 
-  src = fetchFromGitHub {
+  src = fetchfromgh {
     owner = "viva64";
     repo = "how-to-use-pvs-studio-free";
     tag = finalAttrs.version;
-    hash = "sha256-aFqk0WsMylRQqvlb+M5IfDHVwMBuKNQpCiiGPrj+jEw=";
+    hash = "sha256-yK2Z7mUaBfKvRl9pm57nH6BIhgFx48rBlwWmLHwiWtY=";
+    name = "how-to-use-pvs-studio-free_Source_code.tar.gz";
   };
 
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/viva64/how-to-use-pvs-studio-free/commit/5685a069d9538242a79d099fed3057de37a8d766.patch";
-      hash = "sha256-xffOthjpBVP1aijdO6LTnHNQ3pvrO0/W3YJWIWLMuuQ=";
-    })
-  ];
-
   postPatch = ''
-    sed -i '10i #include <cstdint>' comments.h
     substituteInPlace CMakeLists.txt \
       --replace-fail "set(CMAKE_INSTALL_PREFIX \"/usr\")" ""
   '';
 
   nativeBuildInputs = [ cmake ];
-
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=unqualified-std-cast-call";
 
   meta = {
     description = "How to use PVS-Studio for Free?";

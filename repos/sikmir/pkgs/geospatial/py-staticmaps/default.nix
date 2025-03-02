@@ -7,13 +7,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "py-staticmaps";
-  version = "0.3.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "py-staticmaps";
     tag = "v${version}";
-    hash = "sha256-vW457HbdDDhfz8hsvEN3/HJmIHKdrRDVNuhSpZXoZ78=";
+    hash = "sha256-TWLPCM1tsWiRCLDhowC/uQrDUujNO3FuDgnUQXMcTm0=";
   };
 
   dependencies = with python3Packages; [

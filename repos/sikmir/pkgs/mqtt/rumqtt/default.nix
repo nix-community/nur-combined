@@ -18,7 +18,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-3rDnJ1VsyGBDhjOq0Rd55WI1EbIo+17tcFZCoeJB3Kc=";
   };
 
-  cargoHash = "sha256-a6HVcaL6OKIK0h3yuUFDlPASNRciOdW09uXoewld4F8=";
+  cargoPatches = [ ./cargo-lock.patch ];
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-/OUSTfpjqTily2b2RNZEfmHdKHSQo7lQsGwqW08vPnc=";
 
   nativeBuildInputs = [ cmake ];
 
@@ -29,6 +31,5 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/bytebeamio/rumqtt";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # error on crate `time` caused by an API change in Rust 1.80.0
   };
 }

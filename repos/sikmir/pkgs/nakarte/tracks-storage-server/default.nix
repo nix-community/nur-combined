@@ -22,8 +22,8 @@ let
   '';
 in
 buildPythonPackage {
-  pname = "tracks_storage_server";
-  version = "2024-04-27";
+  pname = "tracks-storage-server";
+  version = "0-unstable-2024-04-27";
 
   src = fetchFromGitHub {
     owner = "wladich";

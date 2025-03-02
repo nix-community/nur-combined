@@ -3,6 +3,7 @@
   python3Packages,
   fetchFromGitHub,
   modbus_tk,
+  writableTmpDirAsHomeHook,
 }:
 
 python3Packages.buildPythonApplication {
@@ -22,6 +23,8 @@ python3Packages.buildPythonApplication {
       --replace-fail "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
   '';
 
+  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+
   dependencies = with python3Packages; [
     coloredlogs
     modbus_tk
@@ -30,10 +33,6 @@ python3Packages.buildPythonApplication {
 
   preConfigure = ''
     find modbus_sim -name "*.py" | xargs 2to3 -w
-  '';
-
-  preBuild = ''
-    export HOME=$TMPDIR
   '';
 
   meta = {

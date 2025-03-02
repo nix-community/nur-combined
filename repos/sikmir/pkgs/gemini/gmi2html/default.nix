@@ -19,14 +19,12 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    zig_0_11
+    zig_0_11.hook
     scdoc
     installShellFiles
   ];
 
-  buildPhase = ''
-    export HOME=$TMPDIR
-    zig build -Doptimize=ReleaseSmall -Dcpu=baseline
+  postBuild = ''
     scdoc < doc/gmi2html.scdoc > doc/gmi2html.1
   '';
 
@@ -36,8 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     sh tests/test.sh
   '';
 
-  installPhase = ''
-    zig build --prefix $out install
+  postInstall = ''
     installManPage doc/gmi2html.1
   '';
 

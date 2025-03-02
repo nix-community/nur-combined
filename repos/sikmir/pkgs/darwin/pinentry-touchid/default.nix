@@ -4,6 +4,7 @@
   buildGoModule,
   fetchFromGitHub,
   darwin,
+  writableTmpDirAsHomeHook,
 }:
 
 buildGoModule rec {
@@ -21,11 +22,9 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  buildInputs = [ darwin.apple_sdk.frameworks.LocalAuthentication ];
+  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-  preBuild = ''
-    export HOME=$TMPDIR
-  '';
+  buildInputs = [ darwin.apple_sdk.frameworks.LocalAuthentication ];
 
   doCheck = false;
 

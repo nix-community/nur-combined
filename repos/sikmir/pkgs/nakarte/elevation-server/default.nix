@@ -6,14 +6,14 @@
   lz4,
 }:
 
-buildGoModule rec {
-  pname = "elevation_server";
-  version = "1.2.0";
+buildGoModule {
+  pname = "elevation-server";
+  version = "1.2.0-unstable-2024-09-11";
 
   src = fetchFromGitHub {
-    owner = "sikmir";
+    owner = "wladich";
     repo = "elevation_server";
-    rev = "d8964ed01e81dea4bcd20cf6f7e092da4b2d5547";
+    rev = "649297b32615f35e2c14d3c43216100ab4d83ea4";
     hash = "sha256-nckgsaXtLd1D3gYqdAMF5VRRM4zkw4G6R0P//G9lqDM=";
   };
 

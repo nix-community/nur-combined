@@ -16,7 +16,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-+WUG/CQ/j3muYow2FMFNUgWWhOCPZc0k+okoF1p1L5Y=";
   };
 
-  cargoHash = "sha256-uiv8XdI/PkeeqlTX3pMCvSAgxTpnZlYExY1MPcNS0S8=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-E9WV4W2ycr4/EJDlvnLyyYOCOAgK26Kzmt48NUf9qJY=";
 
   meta = {
     description = "Rust ADS-B decoder + tui radar application";

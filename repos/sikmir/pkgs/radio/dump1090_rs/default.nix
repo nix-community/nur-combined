@@ -17,7 +17,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-YMi+DaLORiy36rl02sKoCanI1hQSh4eRKJdrruxvMWg=";
   };
 
-  cargoHash = "sha256-eLFRbEJPEurSzxcaMpMmV1y2S47B34+LALkpD+vILoo=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-d/v2BTPOYW6nJdDlrKektrXTwQUgaapKkwwaG+W3oFY=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -29,6 +30,5 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = true; # Unable to find libclang
   };
 }

@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
   gdal,
-  elevation_server,
+  elevation-server,
 }:
 let
   version = "2014-05-25";
@@ -55,7 +55,7 @@ in
 
     nativeBuildInputs = [
       unzip
-      elevation_server
+      elevation-server
     ];
 
     dontFixup = true;

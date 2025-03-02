@@ -10,6 +10,7 @@
   mapsoft2,
   netpbm,
   sqlite,
+  writableTmpDirAsHomeHook,
   zip,
 }:
 
@@ -39,12 +40,9 @@ stdenv.mkDerivation {
     mapsoft2
     netpbm
     sqlite
+    writableTmpDirAsHomeHook
     zip
   ];
-
-  preBuild = ''
-    export HOME=$TMPDIR
-  '';
 
   buildFlags = [ "out" ];
 

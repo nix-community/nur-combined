@@ -7,18 +7,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmdbx";
-  version = "0.13.1";
+  version = "0.13.3";
 
   src = fetchurl {
     url = "https://libmdbx.dqdkfa.ru/release/libmdbx-amalgamated-${finalAttrs.version}.tar.xz";
-    hash = "sha256-qrtr80uGmbBt5xeo+s+IIKL90bvkrg6QyaK72ziAGB0=";
+    hash = "sha256-LkJQXxzrV5RVads8Gl25tSFtj3LafHXCQP+BGW+Omgs=";
   };
 
   sourceRoot = ".";
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DMDBX_BUILD_TIMESTAMP=unknown" ];
+  cmakeFlags = [ (lib.cmakeFeature "MDBX_BUILD_TIMESTAMP" "unknown") ];
 
   meta = {
     description = "Extremely fast, compact, powerful, embedded, transactional key-value database";

@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geowebcache";
-  version = "1.26.0";
+  version = "1.26.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/geowebcache/geowebcache/${finalAttrs.version}/geowebcache-${finalAttrs.version}-war.zip";
-    hash = "sha256-HcMc7wS21SCNoecA7xZXStevC+OCxeSXTBLWHK89C5M=";
+    hash = "sha256-qs57WwOMkZMhgwkmPMIfO/aZ673B4as8kj5XEuoBPUs=";
   };
 
   nativeBuildInputs = [ unzip ];

@@ -10,20 +10,20 @@ let
   suffix =
     {
       x86_64-linux = "x86_64";
-      x86_64-darwin = "macos";
+      x86_64-darwin = "macos-x86_64";
     }
     .${system} or throwSystem;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pvs-studio";
-  version = "7.30.81094.390";
+  version = "7.35.89253.317";
 
   src = fetchurl {
     url = "https://cdn.pvs-studio.com/pvs-studio-${finalAttrs.version}-${suffix}.tgz";
     hash =
       {
-        x86_64-linux = "sha256-lUmNWB3dckCKV7EFZDPGZJseqfXksYtRwCXuIE3Jt64=";
-        x86_64-darwin = "sha256-4ws+3ya+vvRWJwZw7sfygIe7d/h80ynoe2EMeCBdtks=";
+        x86_64-linux = "sha256-pnrRriufaRPwZzAFKHRDFbyg1LEi9rUs31LwKdJj96M=";
+        x86_64-darwin = "sha256-HRJMF+ETqjDTXZx7qzX9mmdRiH9jHSL1RXBQA4CNkYE=";
       }
       .${system} or throwSystem;
   };

@@ -1,8 +1,8 @@
-diff --git i/tile_provider.go w/tile_provider.go
-index be2c487..7adac9c 100644
---- i/tile_provider.go
-+++ w/tile_provider.go
-@@ -143,6 +143,28 @@ func NewTileProviderArcgisWorldImagery() *TileProvider {
+diff --git c/tile_provider.go i/tile_provider.go
+index 727363e..da297b4 100644
+--- c/tile_provider.go
++++ i/tile_provider.go
+@@ -163,6 +163,28 @@ func NewTileProviderNone() *TileProvider {
  	return t
  }
  
@@ -29,12 +29,12 @@ index be2c487..7adac9c 100644
 +}
 +
  // GetTileProviders returns a map of all available TileProviders
- func GetTileProviders() map[string]*TileProvider {
+ func GetTileProviders(thunderforestApiKey string) map[string]*TileProvider {
  	m := make(map[string]*TileProvider)
-@@ -162,6 +184,8 @@ func GetTileProviders() map[string]*TileProvider {
- 		NewTileProviderCartoDark(),
+@@ -181,6 +203,8 @@ func GetTileProviders(thunderforestApiKey string) map[string]*TileProvider {
  		NewTileProviderArcgisWorldImagery(),
  		NewTileProviderWikimedia(),
+ 		NewTileProviderNone(),
 +		NewTileProviderOpenTopoMapRu(),
 +		NewTileProviderInkatlas(),
  	}

@@ -156,6 +156,7 @@ lib.makeScope newScope (
         TreeR
         ;
     };
+    py-patcher = callPackage ./garmin/py-patcher { };
     sendmap20 = callPackage ./garmin/sendmap20 { };
 
     ### GEMINI
@@ -213,8 +214,6 @@ lib.makeScope newScope (
     mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
-    mobroute = callPackage ./geospatial/mobroute { };
-    mobsql = callPackage ./geospatial/mobsql { };
     orbisgis = callPackage ./geospatial/orbisgis { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
     pipfile = callPackage ./geospatial/pipfile { };
@@ -299,7 +298,7 @@ lib.makeScope newScope (
 
     dockerImages = {
       agate = callPackage ./images/agate { };
-      elevation_server = callPackage ./images/elevation_server { };
+      elevation-server = callPackage ./images/elevation-server { };
       git = callPackage ./images/git {
         git = pkgs.gitMinimal.override {
           perlSupport = false;
@@ -420,6 +419,7 @@ lib.makeScope newScope (
     turbo = callPackage ./misc/turbo { };
     tvision = callPackage ./misc/tvision { };
     wik = callPackage ./misc/wik { };
+    wirefire = callPackage ./misc/wirefire { };
     #worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
@@ -429,9 +429,12 @@ lib.makeScope newScope (
 
     ### MQTT
 
+    akasa = callPackage ./mqtt/akasa { };
+    amqtt = callPackage ./mqtt/amqtt { };
     comqtt = callPackage ./mqtt/comqtt { };
     emitter = callPackage ./mqtt/emitter { };
     go-mqtt-to-influxdb = callPackage ./mqtt/go-mqtt-to-influxdb { };
+    hmq = callPackage ./mqtt/hmq { };
     ioxy = callPackage ./mqtt/ioxy { };
     janus-mqtt-proxy = callPackage ./mqtt/janus-mqtt-proxy { };
     libumqtt = callPackage ./mqtt/libumqtt { };
@@ -447,25 +450,30 @@ lib.makeScope newScope (
     mqtt-proxy = callPackage ./mqtt/mqtt-proxy { };
     mqtt-shell = callPackage ./mqtt/mqtt-shell { };
     mqtt-stats = callPackage ./mqtt/mqtt-stats { };
+    mqtt-stresser = callPackage ./mqtt/mqtt-stresser { };
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
+    mqttwarn = callPackage ./mqtt/mqttwarn { };
     nanosdk = callPackage ./mqtt/nanosdk { };
     pytest-mqtt = callPackage ./mqtt/pytest-mqtt { };
     rmqtt = callPackage ./mqtt/rmqtt { };
     rumqtt = callPackage ./mqtt/rumqtt { };
+    volantmq = callPackage ./mqtt/volantmq { };
 
     ### NAKARTE
 
-    elevation_server = callPackage ./nakarte/elevation_server { };
+    elevation-server = callPackage ./nakarte/elevation-server { };
     map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python310Packages; };
+    mapillary-render = callPackage ./nakarte/mapillary-render { };
     maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python310Packages; };
     #nakarte = callPackage ./nakarte/nakarte { };
-    ozi_map = callPackage ./nakarte/ozi_map { python3Packages = pkgs.python310Packages; };
+    ozi-map = callPackage ./nakarte/ozi-map { python3Packages = pkgs.python310Packages; };
     pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python310Packages; };
     thinplatespline = callPackage ./nakarte/thinplatespline {
       python3Packages = pkgs.python310Packages;
     };
-    tracks_storage_server = pkgs.python3Packages.callPackage ./nakarte/tracks_storage_server { };
+    tracks-storage-server = pkgs.python3Packages.callPackage ./nakarte/tracks-storage-server { };
+    westra-passes = callPackage ./nakarte/westra-passes { };
 
     ### OSM
 

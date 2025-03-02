@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  writableTmpDirAsHomeHook,
 }:
 
 buildGoModule rec {
@@ -17,18 +18,27 @@ buildGoModule rec {
 
   vendorHash = "sha256-6K9KAvb+05nn2pFuVDiQ9IHZWpm+q01su6pl7CxXxBY=";
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
-  doCheck = false;
+  ldflags = [
+    "-X github.com/emitter-io/emitter/internal/command/version.version=${version}"
+    "-X github.com/emitter-io/emitter/internal/command/version.commit=${src.rev}"
+  ];
 
-  checkFlags = [ "-skip=TestStatsd_Configure" ];
+  doCheck = true;
+
+  checkFlags = [
+    # Tests require network access
+    "-skip=^Test(NewClient|Statsd_BadSnapshot|Statsd_Configure|Join|Random)$"
+  ];
+
+  __darwinAllowLocalNetworking = true;
 
   meta = {
     description = "High performance, distributed and low latency publish-subscribe platform";
     homepage = "https://emitter.io/";
     license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "emitter";
   };
 }

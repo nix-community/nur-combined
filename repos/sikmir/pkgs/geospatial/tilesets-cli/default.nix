@@ -10,13 +10,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilesets-cli";
-  version = "1.10.0";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "tilesets-cli";
     tag = "v${version}";
-    hash = "sha256-ZAPoHtrUA+D1mjWGJ/YvErYmWiXMS+tsPG+CokB9Iy8=";
+    hash = "sha256-9IGJ3jhw2U5vZl9dG0ourxFgKV+QRf6JXT6nmvuTx7A=";
   };
 
   dependencies = with python3Packages; [

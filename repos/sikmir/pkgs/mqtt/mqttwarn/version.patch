@@ -1,0 +1,16 @@
+diff --git i/pyproject.toml w/pyproject.toml
+index 29498ae..51c9406 100644
+--- i/pyproject.toml
++++ w/pyproject.toml
+@@ -11,10 +11,7 @@ build-backend = "setuptools.build_meta"
+ 
+ 
+ [tool.versioningit]
+-
+-[tool.versioningit.vcs]
+-method = "git"
+-default-tag = "0.0.0"
++default-version = "@version@"
+ 
+ 
+ # =========================
