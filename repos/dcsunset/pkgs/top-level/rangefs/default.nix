@@ -11,10 +11,12 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-g1koNgO1OMk8Y2mcz8GKAvP1FUMxVE5FeW/pGevmD0U=";
   };
 
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-0oEBOrsXYXJpElYQQcqxpSazMq3QBL0G/KpIuLGkl90=";
+
   nativeBuildInputs = [
     makeWrapper
   ];
-  cargoHash = "sha256-MRC9SebX1QDR9cuCMGSPRHPJRsO0GOfCRoVSS7Ulvqw=";
 
   # reference: https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/filesystems/gocryptfs/default.nix
   postInstall = ''
