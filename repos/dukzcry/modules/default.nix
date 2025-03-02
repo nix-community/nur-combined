@@ -9,13 +9,10 @@ rec {
   pipewire = ./pipewire.nix;
   bambootracker = ./bambootracker.nix;
   nvidia = ./nvidia.nix;
-  job = ./job.nix;
   monitor = ./monitor.nix;
-  server = ./server.nix;
   headless = ./headless.nix;
   regdomain = ./regdomain.nix;
   blacklist = ./blacklist.nix;
-  hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   gamescope = ./gamescope.nix;
@@ -34,5 +31,4 @@ rec {
   dashboard = ./dashboard.nix;
   watchyourlan = ./watchyourlan.nix;
   olivetin = ./olivetin.nix;
-  ldap = ./ldap.nix;
 }
