@@ -79,7 +79,7 @@ in
         _: v: if lib.isBool v then lib.boolToString v else toString v
       ) cfg.environment;
       serviceConfig = {
-        PreExecStart = preExec;
+        ExecStartPre = preExec;
         ExecStart = "${lib.getExe cfg.package}";
         User = cfg.user;
         Group = cfg.group;
