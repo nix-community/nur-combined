@@ -7,10 +7,14 @@
 let
   cfg = config.services.commafeed;
   preExec = pkgs.writeShellScript "pre" ''
-      if [ ! -f "${cfg.stateDir}/application.properties" ]; then
-        cp "${cfg.package.outPath}/share/application.properties" \
-          "${cfg.stateDir}"
-      fi 
+     if [ ! -d "${cfg.stateDir}/config" ]; then
+       mkdir -p "${cfg.stateDir}/config"
+       chown -R "${cfg.user}:${cfg.group}" "${cfg.stateDir}/config"
+     fi
+     if [ ! -f "${cfg.stateDir}/config/application.properties" ]; then
+       cp "${cfg.package.outPath}/share/application.properties" \
+         "${cfg.stateDir}/config"
+     fi
   '';
 in
 {

@@ -7,7 +7,6 @@
   nixosTests,
   writeText,
   graalvmCEPackages,
-  removeReferencesTo,
 }:
 let
   version = "5.6.1";
@@ -65,8 +64,6 @@ maven.buildMavenPackage {
     "-Dmaven.gitcommitid.skip"
   ];
 
-  nativeBuildInputs = [ graalvmCEPackages.graalvm-ce removeReferencesTo ];
-
   configurePhase = ''
     runHook preConfigure
 
@@ -93,7 +90,6 @@ maven.buildMavenPackage {
   '';
 
   postInstall = ''
-    remove-references-to -t ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
