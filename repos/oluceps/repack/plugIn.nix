@@ -109,7 +109,7 @@ in
 
     # it dont recursiveUpdate :\
     systemd.network.netdevs = (concatMapAttrs genPeerNetdev thisConn) // {
-      "anchor" = {
+      "anchor-0" = {
         enable = true;
         netdevConfig = {
           Kind = "dummy";

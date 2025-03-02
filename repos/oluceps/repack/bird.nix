@@ -35,14 +35,14 @@ in
             return net ~ HORTUS_FIELD;
           };
 
-          filter hortus_export {
+          filter to_hortus {
             if in_hortus() then {
               if source = RTS_BABEL || source = RTS_DEVICE then accept;
             }
             reject;
           };
 
-          filter kernel_export {
+          filter to_kernel {
             if source = RTS_BABEL then {
               krt_prefsrc = ${lib.getIntraAddr config};
               krt_metric = 128;
@@ -62,7 +62,7 @@ in
             ipv6 {
               preference 100;
               import none;
-              export filter kernel_export;
+              export filter to_kernel;
             };
           };
         '';

@@ -35,7 +35,7 @@
         };
         ipv6 {
           import where in_hortus();
-          export filter hortus_export;
+          export filter to_hortus;
         };
       };
     '';
