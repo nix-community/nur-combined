@@ -47,4 +47,5 @@ rec {
   mpvScripts = callPackage ./pkgs/mpv/scripts { };
   anime4k = callPackage ./pkgs/anime4k { };
   yaziPlugins = callPackage ./pkgs/yazi/plugins { };
+  telemikiya = callPackage ./pkgs/telemikiya { };
 }
