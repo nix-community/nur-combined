@@ -4,7 +4,7 @@
 ![works](https://img.shields.io/badge/works-on%20my%20machines-FEDFE1?style=for-the-badge)
 [![lint status](https://img.shields.io/github/actions/workflow/status/oluceps/nixos-config/lint.yaml?branch=trival&style=for-the-badge&label=lint&color=00AA90)](https://github.com/oluceps/nixos-config/actions?query=branch%3Atrival)
 
-NixOS configurations. ~100% config Nixfied.
+NixOS configurations.
 
 with
 
@@ -13,6 +13,7 @@ with
 + [lanzaboote](https://github.com/nix-community/lanzaboote)
 + [preservation](https://github.com/WilliButz/preservation)
 + [disko](https://github.com/nix-community/disko)
++ [nix-topology](https://oddlama.github.io/nix-topology/)
 
 ---
 

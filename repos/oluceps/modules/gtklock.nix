@@ -18,7 +18,7 @@ in
     wallpaper = mkOption {
       type = types.path;
       default = pkgs.fetchurl {
-        url = "https://s3.nyaw.xyz/misc/109066252_p0.jpg";
+        url = "https://s3.nyaw.xyz/misskey//9cf87424-affa-46d6-acec-0cd35ff90663.jpg";
         sha256 = "0vrxr9imkp04skpbk6zmxjkcdlz029c9zc6xvsmab1hh2kzwkm33";
       };
     };

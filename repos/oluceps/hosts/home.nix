@@ -10,6 +10,6 @@ in
 {
   systemd.tmpfiles.rules = lib.foldlAttrs (
     acc: n: v:
-    acc ++ lib.singleton "L+ ${n} - - - - ${v}"
+    acc ++ lib.singleton "L+ ${n} - ${user} ${user} - ${v}"
   ) [ ] homeCfgAttr;
 }

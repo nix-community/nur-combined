@@ -88,13 +88,10 @@ in
       DISPLAY ":0"
       QT_QPA_PLATFORM "wayland"
   }
-  workspace "terminal"
-  workspace "browser"
+  workspace "term"
+  workspace "surf"
   workspace "chat"
   workspace "mail"
-  workspace "misc" {
-    open-on-output "HDMI-A-1"
-  }
 
   window-rule {
       match app-id="Alacritty"
@@ -107,12 +104,12 @@ in
 
   window-rule {
       match at-startup=true app-id=r#"^foot$"#
-      open-on-workspace "terminal"
+      open-on-workspace "term"
   }
   window-rule {
       match at-startup=true app-id=r#"^firefox$"#
       match at-startup=true app-id=r#"^google-chrome"#
-      open-on-workspace "browser"
+      open-on-workspace "surf"
   }
 
   window-rule {
@@ -214,6 +211,19 @@ in
       //   together with the previously focused column.
       // - "always", the focused column will always be centered.
       center-focused-column "never"
+
+      tab-indicator {
+          // off
+          hide-when-single-tab
+          place-within-column
+          gap 5
+          width 4
+          length total-proportion=1.0
+          gaps-between-tabs 2
+          corner-radius 8
+          // active-gradient from="#80c8ff" to="#bbddff" angle=45
+          // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+      }
   }
 
   // Add lines like this to spawn processes at startup.
@@ -296,6 +306,8 @@ in
       Mod+Return { spawn ${execApp [ "foot" ]}; }
       Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
+      Mod+W { toggle-column-tabbed-display; }
+
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
       Mod+WheelScrollUp   cooldown-ms=150 { focus-column-left; }

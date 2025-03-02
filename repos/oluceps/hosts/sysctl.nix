@@ -10,6 +10,7 @@ _: {
       "net.core.rmem_default" = 65536;
       # default write buffer
       "net.core.wmem_default" = 65536;
+      "net.core.netdev_budget" = 600;
       # max processor input queue
       #"net.core.netdev_max_backlog" = 4096;
       # max backlog

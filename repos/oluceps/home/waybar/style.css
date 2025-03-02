@@ -71,3 +71,24 @@ window#waybar {
     border-radius: 0px;
     color: rgba(254, 223, 225, 1);
 }
+#workspaces {
+    color: transparent;
+    background-color: transparent;
+    border-radius: 0;
+}
+#workspaces button {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    box-shadow: none; /* Remove predefined box-shadow */
+    text-shadow: none; /* Remove predefined text-shadow */
+    background: none; /* Remove predefined background color (white) */
+    transition: none; /* Disable predefined animations */
+}
+
+#custom-niri-controller {
+    background-color: transparent;
+    min-height:  220px;
+}

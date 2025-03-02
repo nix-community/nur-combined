@@ -207,7 +207,7 @@
     #     (callPackage "${self}/pkgs/tcp-brutal.nix" { })
     #     # (callPackage "${self}/pkgs/pico-rng.nix" { })
     #   ];
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    kernelPackages = pkgs.linuxPackages_latest;
     # pkgs.linuxPackages_latest;
   };
 

@@ -1,22 +1,23 @@
 { lib, config, ... }:
 {
-  services.babeld = {
-    enable = true;
-    config = ''
-      skip-kernel-setup true
-      local-path /var/run/babeld/ro.sock
-      router-id ac:1f:6b:e5:fe:3a
+  imports = [ ./bird.nix ];
+  # services.babeld = {
+  #   enable = true;
+  #   config = ''
+  #     skip-kernel-setup true
+  #     local-path /var/run/babeld/ro.sock
+  #     router-id ac:1f:6b:e5:fe:3a
 
-      interface wg-yidhra type tunnel rtt-min 50 rtt-max 256
-      interface wg-abhoth type tunnel rtt-min 160 rtt-max 256
-      interface wg-azasos type tunnel rtt-min 40 rtt-max 256
-      interface wg-kaambl type tunnel rtt-min 20 rtt-max 256 rtt-decay 32
-      interface wg-hastur type tunnel rtt-min 0.5 rtt-max 256 rtt-decay 32
+  #     interface wg-yidhra type tunnel rtt-min 50 rtt-max 256
+  #     interface wg-abhoth type tunnel rtt-min 160 rtt-max 256
+  #     interface wg-azasos type tunnel rtt-min 40 rtt-max 256
+  #     interface wg-kaambl type tunnel rtt-min 20 rtt-max 256 rtt-decay 32
+  #     interface wg-hastur type tunnel rtt-min 0.5 rtt-max 256 rtt-decay 32
 
-      redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute local deny
-    '';
-  };
+  #     redistribute ip fdcc::/64 ge 64 le 128 local allow
+  #     redistribute local deny
+  #   '';
+  # };
   networking = {
     resolvconf.useLocalResolver = true;
     hosts = lib.data.hosts.${config.networking.hostName};
@@ -86,6 +87,11 @@
           IPv6Forwarding = true;
           IPv6AcceptRA = "yes";
         };
+        ipv6AcceptRAConfig = {
+          UseDNS = false;
+        };
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
         linkConfig.RequiredForOnline = "routable";
         address = [ "192.168.1.16/24" ];
         routes = [

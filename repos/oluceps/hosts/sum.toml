@@ -4,6 +4,7 @@ id = 0 # ro, for Cantor Pair Function
 addr = "192.168.1.2"
 censor = true
 nat = true
+loc = 0
 user = "riro"
 
 unique_addr = "fdcc::1/128"
@@ -16,6 +17,7 @@ id = 1
 addr = "192.168.1.187"
 censor = true
 nat = true
+loc = 1
 user = "elen"
 
 unique_addr = "fdcc::2/128"
@@ -28,6 +30,7 @@ id = 2
 addr = "192.168.1.16"
 censor = true
 nat = true
+loc = 0
 user = "elen"
 
 unique_addr = "fdcc::3/128"

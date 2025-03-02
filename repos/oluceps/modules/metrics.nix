@@ -31,6 +31,11 @@ in
       };
     };
 
+    # services.prometheus.exporters.bird = {
+    #   enable = true;
+    #   listenAddress = "[::]";
+    # };
+
     repack.caddy.enable = true;
     repack.caddy.settings.apps.http.servers.srv0.routes = [
       {
@@ -58,6 +63,42 @@ in
           }
         ];
       }
+      # {
+      #   match = [
+      #     {
+      #       host = [ config.networking.fqdn ];
+      #       path = [ "/bird-metrics" ];
+      #     }
+      #   ];
+      #   handle = [
+      #     {
+      #       handler = "authentication";
+      #       providers.http_basic.accounts = [
+      #         {
+      #           username = "prometheus";
+      #           password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+      #         }
+      #       ];
+      #     }
+      #     {
+      #       handler = "reverse_proxy";
+      #       upstreams = with config.services.prometheus.exporters.bird; [
+      #         {
+      #           dial = "${listenAddress}:${toString port}";
+      #         }
+      #       ];
+      #       rewrite = {
+      #         uri_substring = [
+      #           {
+      #             find = "bird-metrics";
+      #             replace = "metrics";
+      #             limit = 1;
+      #           }
+      #         ];
+      #       };
+      #     }
+      #   ];
+      # }
       {
         match = [
           {

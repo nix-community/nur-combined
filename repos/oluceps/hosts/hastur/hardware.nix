@@ -12,11 +12,11 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  # services.btrfs.autoScrub = {
-  #   enable = false;
-  #   interval = "weekly";
-  #   fileSystems = [ "/persist" ];
-  # };
+  services.btrfs.autoScrub = {
+    enable = false;
+    interval = "weekly";
+    fileSystems = [ "/persist" ];
+  };
   # hardware.tuxedo-rs = {
   #   enable = true;
   #   tailor-gui.enable = true;
@@ -44,9 +44,8 @@
     };
     kernelModules = [ "kvm-amd" ];
     # extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    kernelPackages =
-      # pkgs.linuxPackages_latest;
-      pkgs.linuxPackages_cachyos-server;
+    kernelPackages = pkgs.linuxPackages_latest;
+    # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [
     #   "riscv64-linux"
     #   "aarch64-linux"

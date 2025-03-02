@@ -24,7 +24,7 @@ in
             "github.com/caddy-dns/porkbun@v0.2.1"
             "github.com/mholt/caddy-ratelimit@v0.1.0"
           ];
-          hash = "sha256-wG+1OQCR+a40ZpaaJFckLJirRX4Pb7OjSKqikna/oSQ=";
+          hash = "sha256-ufwEJPGx1r0eE7txd72aohtgbymlVbdUgJl12fM6sY4=";
         };
       };
       settings = lib.mkOption {

@@ -1,22 +1,23 @@
 { config, lib, ... }:
 {
-  services.babeld = {
-    enable = true;
-    config = ''
-      skip-kernel-setup true
-      local-path /var/run/babeld/ro.sock
-      router-id f2:3c:95:50:a1:73
+  imports = [ ./bird.nix ];
+  # services.babeld = {
+  #   enable = true;
+  #   config = ''
+  #     skip-kernel-setup true
+  #     local-path /var/run/babeld/ro.sock
+  #     router-id f2:3c:95:50:a1:73
 
-      interface wg-yidhra type tunnel rtt-min 64 rtt-max 256
-      interface wg-hastur type tunnel rtt-min 165 rtt-max 256
-      interface wg-azasos type tunnel rtt-min 50 rtt-max 256 rtt-decay 64
-      interface wg-kaambl type tunnel rtt-min 210 rtt-max 512 rtt-decay 120
-      interface wg-eihort type tunnel rtt-min 170 rtt-max 384 rtt-decay 60
+  #     interface wg-yidhra type tunnel rtt-min 64 rtt-max 256
+  #     interface wg-hastur type tunnel rtt-min 165 rtt-max 256
+  #     interface wg-azasos type tunnel rtt-min 50 rtt-max 256 rtt-decay 64
+  #     interface wg-kaambl type tunnel rtt-min 210 rtt-max 512 rtt-decay 120
+  #     interface wg-eihort type tunnel rtt-min 170 rtt-max 384 rtt-decay 60
 
-      redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute local deny
-    '';
-  };
+  #     redistribute ip fdcc::/64 ge 64 le 128 local allow
+  #     redistribute local deny
+  #   '';
+  # };
   services = {
     resolved.enable = lib.mkForce false;
   };
@@ -47,23 +48,21 @@
     useDHCP = false;
 
     hostName = "abhoth";
-    enableIPv6 = false;
+    enableIPv6 = true;
 
     nftables = {
       enable = true;
       # for hysteria port hopping
       ruleset = ''
-        table ip nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-        table ip6 nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
+        define INGRESS_INTERFACE="eth0"
+        define PORT_RANGE=20000-50000
+        define HYSTERIA_SERVER_PORT=4432
+
+        table inet hysteria_porthopping {
+          chain prerouting {
+            type nat hook prerouting priority dstnat; policy accept;
+            iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
+          }
         }
       '';
     };
@@ -88,7 +87,13 @@
 
     networks."20-eth0" = {
       matchConfig.Name = "eth0";
-      DHCP = "yes";
+
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv4Forwarding = true;
+        IPv6Forwarding = true;
+        IPv6AcceptRA = "yes";
+      };
     };
 
   };

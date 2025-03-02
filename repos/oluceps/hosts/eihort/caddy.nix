@@ -43,6 +43,15 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:7700"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "ms.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "localhost:9001"; } ];
                         rewrite.strip_path_prefix = "/minio";
                       }

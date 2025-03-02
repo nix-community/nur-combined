@@ -44,6 +44,7 @@ withSystem "x86_64-linux" (
       ./spec.nix
       ./caddy.nix
       ./sysctl.nix
+      ./bees.nix
       ../persist.nix
       ../secureboot.nix
       (lib.iage "trust")

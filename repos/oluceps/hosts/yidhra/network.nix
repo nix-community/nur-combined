@@ -1,23 +1,6 @@
 { config, lib, ... }:
 {
-  services.babeld = {
-    enable = true;
-    config = ''
-      skip-kernel-setup true
-      local-path /var/run/babeld/ro.sock
-      router-id 00:16:3e:0c:cd:5d
-
-      interface wg-abhoth type tunnel rtt-min 64 rtt-max 256
-      interface wg-hastur type tunnel rtt-min 55 rtt-max 256
-      interface wg-azasos type tunnel rtt-min 42 rtt-max 256
-      interface wg-kaambl type tunnel rtt-min 70 rtt-max 256 rtt-decay 120
-      interface wg-eihort type tunnel rtt-min 48 rtt-max 256 rtt-decay 60
-
-      redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute local deny
-    '';
-  };
-
+  imports = [ ./bird.nix ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
@@ -51,17 +34,15 @@
       enable = true;
       # for hysteria port hopping
       ruleset = ''
-        table ip nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-        table ip6 nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
+        define INGRESS_INTERFACE="eth0"
+        define PORT_RANGE=20000-50000
+        define HYSTERIA_SERVER_PORT=4432
+
+        table inet hysteria_porthopping {
+          chain prerouting {
+            type nat hook prerouting priority dstnat; policy accept;
+            iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
+          }
         }
       '';
     };
@@ -88,10 +69,10 @@
       linkConfig.Name = "eth0";
     };
 
-    netdevs.wg-warp = {
+    netdevs.warp = {
       netdevConfig = {
         Kind = "wireguard";
-        Name = "wg-warp";
+        Name = "warp";
         MTUBytes = "1300";
       };
       wireguardConfig = {
@@ -112,8 +93,8 @@
         matchConfig.Name = "eth0";
         DHCP = "yes";
       };
-      "15-wg-warp" = {
-        matchConfig.Name = "wg-warp";
+      "15-warp" = {
+        matchConfig.Name = "warp";
         address = [
           "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
         ];

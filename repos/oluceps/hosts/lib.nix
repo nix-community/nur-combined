@@ -1,5 +1,21 @@
 inputs:
 let
+
+  genModules = map (
+    let
+      m = i: inputs.${i}.nixosModules;
+    in
+    i: (m i).default or (m i).${i}
+  );
+
+  pkgs = import inputs.nixpkgs {
+    system = "x86_64-linux";
+    overlays = [ inputs.nuenv.overlays.default ];
+  };
+in
+rec {
+  inherit genModules;
+
   data = {
     keys = {
       hashedPasswd = "$y$j9T$dQkjYyrZxZn1GnoZLRRLE1$nvNuCnEvJr9235CX.VXabEUve/Bx00YB5E8Kz/ewZW0";
@@ -16,24 +32,13 @@ let
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
       skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
     };
-    hosts = import ./hosts.nix { inherit (inputs.nixpkgs) lib; };
-    meta = (fromTOML (builtins.readFile ./sum.toml)).node;
+    hosts = import ./hosts.nix {
+      lib = (inputs.nixpkgs).lib // {
+        inherit getAddrFromCIDR;
+      };
+    };
+    inherit (fromTOML (builtins.readFile ./sum.toml)) node;
   };
-
-  genModules = map (
-    let
-      m = i: inputs.${i}.nixosModules;
-    in
-    i: (m i).default or (m i).${i}
-  );
-
-  pkgs = import inputs.nixpkgs {
-    system = "x86_64-linux";
-    overlays = [ inputs.nuenv.overlays.default ];
-  };
-in
-{
-  inherit data genModules;
 
   genOverlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i});
 
@@ -48,6 +53,10 @@ in
   iage = type: import ../age { inherit type; };
 
   conn = import ../lib/conn.nix;
+
+  getAddrFromCIDR = i: builtins.elemAt (pkgs.lib.splitString "/" i) 0;
+
+  getIntraAddr = config: getAddrFromCIDR data.node.${config.networking.hostName}.unique_addr;
 
   sharedModules =
     [ inputs.self.nixosModules.repack ]

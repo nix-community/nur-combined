@@ -22,10 +22,19 @@ in
     };
   };
   config = mkIf cfg.enable {
+    systemd.user.timers = {
+      autosign = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "*-*-* 13:13:00";
+          RandomizedDelaySec = "1h";
+          Persistent = true;
+        };
+      };
+    };
     systemd.user.services.autosign = {
       description = "autosign Daemon";
       restartIfChanged = false;
-      startAt = "*-*-* 13:10:00";
       serviceConfig = {
         Type = "oneshot";
         ExecStart =
@@ -36,9 +45,11 @@ in
         EnvironmentFile = cfg.environmentFile;
         Environment = [ "HOME=/home/${user}" ];
         Restart = "on-failure";
-        RestartSec = "5s";
-        StartLimitBurst = 3;
-        StartLimitInterval = "60s";
+        RestartSec = "20s";
+        RestartSteps = "5";
+        RestartMaxDelaySec = "2h";
+        StartLimitBurst = 5;
+        StartLimitIntervalSec = "60s";
       };
     };
   };

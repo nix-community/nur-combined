@@ -2,10 +2,10 @@
 let
 
   srvOnEihort = [
-    "eihort.nyaw.xyz"
     "matrix.nyaw.xyz"
     "photo.nyaw.xyz"
     "s3.nyaw.xyz"
+    "ms.nyaw.xyz"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"
@@ -18,7 +18,7 @@ let
       acc: name: value:
       acc
       // {
-        "${builtins.elemAt (lib.splitString "/" value.unique_addr) 0}" = lib.singleton "${name}.nyaw.xyz";
+        "${lib.getAddrFromCIDR value.unique_addr}" = lib.singleton "${name}.nyaw.xyz";
       }
     ) { } nodes)
     {

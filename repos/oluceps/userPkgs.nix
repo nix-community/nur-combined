@@ -11,8 +11,8 @@ with pkgs;
   xwayland-satellite
   # qq
   # chromium
-  apotris
-  celeste
+  # apotris
+  # celeste
   stellarium
   celluloid
   # thiefmd
@@ -159,7 +159,7 @@ with pkgs;
   bluedevil
   prismlauncher
 ]
-++ (with pkgs; [ fluent-icon-theme ])
+# ++ (with pkgs; [ fluent-icon-theme ])
 ++ [
   (writeTextFile {
     name = "index.theme";

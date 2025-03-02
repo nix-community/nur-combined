@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   inputs',
@@ -37,7 +38,7 @@ reIf {
           mptcp: true
       }
       routing {
-          pname(systemd-networkd, systemd-resolved, smartdns,
+          pname(bird, systemd-networkd, systemd-resolved, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
           pname(prometheus) -> direct
 
@@ -45,7 +46,7 @@ reIf {
           pname(misskey) -> all
           dip(9.9.9.9) -> direct
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
-          dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8) -> direct
+          dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8') -> direct
 
           ipversion(6) && !dip(geoip:CN) -> v6
 
@@ -69,6 +70,16 @@ reIf {
               suffix: cp4.cloudflare.com,
               suffix: apple-relay.apple.com) -> v6
 
+          domain(${
+            lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)
+          }) -> direct
+
+          dip(${
+            lib.concatStringsSep "," (
+              map (i: i.addr) (builtins.attrValues (lib.filterAttrs (k: v: v.censor) lib.data.node))
+            )
+          }) -> direct
+
           domain(geosite:cn) -> direct
           dip(geoip:private,geoip:cn) -> direct
           domain(suffix:'api.atuin.nyaw.xyz') -> all
@@ -82,6 +93,7 @@ reIf {
       }
     '';
     package = inputs'.dae.packages.dae-unstable;
+    # package = inputs'.dae.packages.dae-pr-748-fix;
     assetsPath = toString (
       pkgs.symlinkJoin {
         name = "dae-assets-nixy";

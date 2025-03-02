@@ -94,6 +94,26 @@ reIf {
           };
           static_configs = [ { targets = targets_notls; } ];
         }
+        # {
+        #   job_name = "bird-metrics";
+        #   scheme = "https";
+        #   basic_auth = {
+        #     username = "prometheus";
+        #     password_file = secPath;
+        #   };
+        #   metrics_path = "/bird-metrics";
+        #   static_configs = [ { inherit targets; } ];
+        # }
+        # {
+        #   job_name = "bird-metrics-notls";
+        #   scheme = "http";
+        #   basic_auth = {
+        #     username = "prometheus";
+        #     password_file = secPath;
+        #   };
+        #   metrics_path = "/bird-metrics";
+        #   static_configs = [ { targets = targets_notls; } ];
+        # }
         {
           job_name = "http";
           scheme = "http";

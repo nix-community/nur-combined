@@ -112,6 +112,25 @@
                   match = [ { host = [ "cache.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "[fdcc::3]:7700"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "ms.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
 
                 {
                   handle = [

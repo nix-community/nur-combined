@@ -35,8 +35,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    networking.firewall.allowedUDPPorts = [ 6696 ];
-
     boot.kernel.sysctl = lib.foldr (
       i: acc:
       acc

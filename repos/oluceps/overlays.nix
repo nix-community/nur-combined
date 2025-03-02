@@ -29,12 +29,29 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
-      misskey = prev.misskey.overrideAttrs (old: {
-        patches = [
-          ./pkgs/patch/0001-welcome-shape.patch
-          ./pkgs/patch/0002-timeline-on-welcome-page.patch
-        ];
-      });
+      # misskey = prev.misskey.overrideAttrs (old: {
+      #   patches = [
+      #     ./pkgs/patch/0001-welcome-shape.patch
+      #     ./pkgs/patch/0002-timeline-on-welcome-page.patch
+      #   ];
+      # });
+      bees = prev.bees.overrideAttrs (
+        old:
+        (
+          let
+            version = "0.11-rc4";
+          in
+          {
+            inherit version;
+            src = prev.fetchFromGitHub {
+              owner = "Zygo";
+              repo = "bees";
+              rev = "v${version}";
+              hash = "sha256-xhtsZxxaJGggeekcSzscqOWceFedL6WIpLr7t2Ea5F0=";
+            };
+          }
+        )
+      );
 
       scx = inputs'.nyx.packages.scx-full_git;
 

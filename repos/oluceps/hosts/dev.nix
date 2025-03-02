@@ -8,14 +8,16 @@
 }:
 {
   systemd.tmpfiles.rules = [
-    "L /home/${user}/.ssh/config - - - - ${pkgs.writeText "ssh-config" ''
+    "L+ /home/${user}/.ssh/config - - - - ${pkgs.writeText "ssh-config" ''
       ${builtins.concatStringsSep "\n" (
         let
           hosts = (fromTOML (builtins.readFile ./sum.toml)).node;
         in
         lib.mapAttrsToList (n: v: ''
           Host ${n}
-              HostName ${v.addr}
+              HostName ${
+                if config.networking.hostName == "kaambl" then lib.getAddrFromCIDR v.unique_addr else v.addr
+              }
               User ${v.user}
               AddKeysToAgent yes
               ForwardAgent yes
@@ -185,7 +187,7 @@
             # languages related
             [
               zig
-              lldb
+              # lldb
               # haskell-language-server
               gopls
               cmake-language-server
@@ -211,7 +213,7 @@
               # haskell-language-server
               cmake-language-server
               arduino-language-server
-              typst-lsp
+
               vhdl-ls
               delve
               python311Packages.python-lsp-server

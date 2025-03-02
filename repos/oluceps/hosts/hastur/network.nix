@@ -1,22 +1,6 @@
 { lib, config, ... }:
 {
-  services.babeld = {
-    enable = true;
-    config = ''
-      skip-kernel-setup true
-      local-path /var/run/babeld/ro.sock
-      router-id 3c:7c:3f:22:49:80
-
-      interface wg-yidhra type tunnel rtt-min 55 rtt-max 256
-      interface wg-abhoth type tunnel rtt-min 160 rtt-max 256
-      interface wg-azasos type tunnel rtt-min 50 rtt-max 256
-      interface wg-kaambl type tunnel rtt-min 5 rtt-max 256 rtt-decay 120
-      interface wg-eihort type tunnel rtt-min 0.5 rtt-max 256 rtt-decay 32
-
-      redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute local deny
-    '';
-  };
+  imports = [ ./bird.nix ];
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";
@@ -106,95 +90,6 @@
         MACAddressPolicy = "persistent";
       };
     };
-
-    # # abhoth
-    # netdevs.wg0 = {
-    #   netdevConfig = {
-    #     Kind = "wireguard";
-    #     Name = "wg0";
-    #     MTUBytes = "1300";
-    #   };
-    #   wireguardConfig = {
-    #     PrivateKeyFile = config.vaultix.secrets.wg.path;
-    #     RouteTable = false;
-    #   };
-    #   wireguardPeers = [
-    #     {
-    #       # abhoth
-    #       PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-    #       AllowedIPs = [
-    #         "::/0"
-    #         "0.0.0.0/0"
-    #       ];
-    #       Endpoint = "127.0.0.1:41821";
-    #       PersistentKeepalive = 15;
-    #       RouteTable = false;
-    #     }
-    #   ];
-    # };
-
-    # networks."10-wg0" = {
-    #   matchConfig.Name = "wg0";
-    #   addresses = [
-    #     {
-    #       Address = "fdcc::1/128";
-    #       Peer = "fdcc::2/128";
-    #     }
-    #     {
-    #       Address = "fe80::216:3eff:fe0f:37d8/64";
-    #       Peer = "fe80::216:3eff:fe15:ec52/64";
-    #       Scope = "link";
-    #     }
-    #   ];
-    #   networkConfig = {
-    #     DHCP = false;
-    #   };
-    # };
-
-    # # azasos
-    # netdevs.wg2 = {
-    #   netdevConfig = {
-    #     Kind = "wireguard";
-    #     Name = "wg2";
-    #     MTUBytes = "1300";
-    #   };
-    #   wireguardConfig = {
-    #     PrivateKeyFile = config.vaultix.secrets.wg.path;
-    #     RouteTable = false;
-    #   };
-    #   wireguardPeers = [
-    #     {
-    #       # abhoth
-    #       PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-    #       AllowedIPs = [
-    #         "::/0"
-    #         "0.0.0.0/0"
-    #       ];
-    #       Endpoint = "116.196.112.43:51820";
-    #       PersistentKeepalive = 15;
-    #       RouteTable = false;
-    #     }
-    #   ];
-    # };
-
-    # networks."10-wg2" = {
-    #   matchConfig.Name = "wg2";
-    #   addresses = [
-    #     {
-    #       Address = "fdcc::1/128";
-    #       Peer = "fdcc::3/128";
-    #     }
-    #     {
-    #       Address = "fe80::216:3eff:fe0f:37d8/64";
-    #       Peer = "fe80::216:3eff:fe7b:d228/64";
-    #       Scope = "link";
-    #     }
-    #   ];
-    #   networkConfig = {
-    #     DHCP = false;
-    #   };
-    # };
-
     networks."8-eth0" = {
       matchConfig.Name = "eth0";
       networkConfig = {
@@ -203,6 +98,13 @@
         IPv6Forwarding = true;
         IPv6AcceptRA = "yes";
       };
+      ipv6AcceptRAConfig = {
+        UseDNS = false;
+      };
+
+      dhcpV4Config.UseDNS = false;
+      dhcpV6Config.UseDNS = false;
+
       linkConfig.RequiredForOnline = "routable";
       address = [ "192.168.1.2/24" ];
       routes = [

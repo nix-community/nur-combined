@@ -1,40 +1,6 @@
 { config, lib, ... }:
 {
-  services.babeld = {
-    enable = true;
-    config = ''
-      skip-kernel-setup true
-      local-path /var/run/babeld/ro.sock
-      router-id 38:d5:7a:e2:19:7d
-
-      interface wg-yidhra type tunnel rtt-min 60 rtt-max 256
-      interface wg-abhoth type tunnel rtt-min 210 rtt-max 256 rtt-decay 90
-      interface wg-azasos type tunnel rtt-min 55 rtt-max 256
-      interface wg-hastur type tunnel rtt-min 10 rtt-max 256 rtt-decay 90
-      interface wg-eihort type tunnel rtt-min 5 rtt-max 256 rtt-decay 90
-
-      redistribute ip fdcc::/64 ge 64 le 128 local allow
-      redistribute local deny
-    '';
-  };
-  # services.bird2 = {
-  #   enable = true;
-  #   config = ''
-  #     protocol babel {
-  #          randomize router id yes;
-  #          interface "wg-*" {
-  #            port 6695;
-  #            hello interval 3s;
-  #            update interval 10s;
-  #            check link yes;
-  #            type tunnel;
-  #            extended next hop yes;
-  #          };
-  #          export where (source = RTS_DEVICE) || (source = RTS_BABEL);
-  #     };
-  #   '';
-  # };
-
+  imports = [ ./bird.nix ];
   services.resolved = {
     enable = lib.mkForce false;
     llmnr = "false";
@@ -77,7 +43,6 @@
 
     wireless.iwd.enable = true;
     useNetworkd = true;
-    useDHCP = false;
 
     hostName = "kaambl"; # Define your hostname.
     domain = "nyaw.xyz";
@@ -136,6 +101,11 @@
           IPv6Forwarding = true;
           IPv6AcceptRA = true;
         };
+        ipv6AcceptRAConfig = {
+          UseDNS = false;
+        };
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
         dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
       };

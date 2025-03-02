@@ -39,6 +39,12 @@ in
         file = ../../sec/notifychan.age;
         mode = "400";
       };
+      wg-hastur = {
+        file = ../../sec/wg-hastur.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [

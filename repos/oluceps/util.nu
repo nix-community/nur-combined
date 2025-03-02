@@ -52,8 +52,8 @@ export def d [
   let get_addr = {|x| do $env.get_addr ($env.map) ($x)}
   let get_user = {|x| do $env.get_user ($env.map) ($x)}
 
-  let machine_spec = "i686-linux,x86_64-linux - - - big-parallel"
-  let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders $'(do $get_addr $builder) ($machine_spec)'] } else {[]}
+  let machine_spec = "x86_64-linux - - - -"
+  let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders $'($builder) ($machine_spec)'] } else {[]}
   print $extra_builder_args
 
   if ($nodes == null or $nodes == []) {
@@ -65,7 +65,7 @@ export def d [
       let per_node_addr = do $get_addr $per;
       let user = do $get_user $per;
 
-      nixos-rebuild switch --flake . --target-host $'($user)@($per_node_addr)' --sudo
+      nixos-rebuild switch --flake . --target-host $'($user)@($per_node_addr)' --sudo ...($extra_builder_args)
     
     }
   }

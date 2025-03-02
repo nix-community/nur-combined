@@ -2,7 +2,7 @@ import ky from "https://esm.sh/ky@0.33.3";
 import { createHash } from "https://deno.land/std@0.80.0/hash/mod.ts";
 
 const COMMON_HEADERS = {
-  'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+  'user-agent': Deno.env.get("UA"),
   'content-type': 'application/json',
   'dnt': '1',
   'sec-ch-ua': '"Not/A=Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"',
@@ -11,12 +11,11 @@ const COMMON_HEADERS = {
 
 const NTFY_CONFIG = {
   url: 'https://ntfy.nyaw.xyz/info',
-  token: 'Bearer tk_i6zp5x3z4hd5mg1eq5m7w3ohfz3u0'
+  token: `Bearer ${Deno.env.get("NTFY_TOKEN")}`
 };
 
 async function performSign(mode: "in" | "out") {
   try {
-    // 完整流程开始
     const codeRes = await ky.get("https://xyb.1zpass.cloud/api/code", {
       headers: COMMON_HEADERS,
     }).json<{ id: number }>();
@@ -45,7 +44,6 @@ async function performSign(mode: "in" | "out") {
       'encryptvalue': loginRes.data.encryptValue,
     };
 
-    // 获取训练ID流程
     const projectRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/projects", {
       headers: AUTH_HEADERS,
       json: { force: false },
@@ -53,7 +51,7 @@ async function performSign(mode: "in" | "out") {
 
     const taskRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/tasks", {
       headers: AUTH_HEADERS,
-      json: projectRes.data[0],
+      json: projectRes.data[1],
     }).json<{ data: { planId: number } }>();
 
     const trainRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/clock/trainid", {
@@ -61,7 +59,6 @@ async function performSign(mode: "in" | "out") {
       json: { planId: taskRes.data.planId },
     }).json<{ data: { traineeId: number } }>();
 
-    // 执行签到
     const clockRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/clock", {
       headers: AUTH_HEADERS,
       json: {

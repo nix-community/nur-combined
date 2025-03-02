@@ -9,11 +9,11 @@ _: {
 
       # Ignore ICMP broadcasts to avoid participating in Smurf attacks
       "net.ipv4.icmp_echo_ignore_broadcasts" = 0;
+      "net.core.netdev_budget" = 600;
       # Ignore bad ICMP errors
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       # Reverse-path filter for spoof protection
       "net.ipv4.conf.default.rp_filter" = 0;
-      "net.ipv4.conf.wan.rp_filter" = 0;
       # SYN flood protection
       "net.ipv4.tcp_syncookies" = 0;
       "net.ipv4.tcp_syn_retries" = 2;

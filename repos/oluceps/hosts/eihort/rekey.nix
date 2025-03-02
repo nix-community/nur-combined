@@ -13,6 +13,12 @@ in
         group = "root";
         mode = "400";
       };
+      id = {
+        file = ../../sec/id.age;
+        mode = "400";
+        owner = user;
+        group = "users";
+      };
       meilisearch = {
         file = ../../sec/meilisearch.age;
         mode = "444";
@@ -25,13 +31,6 @@ in
       misskey = {
         file = ../../sec/misskey.age;
         mode = "400";
-      };
-
-      id = {
-        file = ../../sec/id.age;
-        mode = "400";
-        owner = "root";
-        group = "users";
       };
 
       vault.file = ../../sec/vault.age;
