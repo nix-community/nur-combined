@@ -1125,7 +1125,7 @@
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.7 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV4 has 140 000+ new words and also fixes.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -2597,10 +2597,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.58.0";
+      version = "2.58.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4441433/dualsub-2.58.0.xpi";
-      sha256 = "f42979eeff7dab63ecae58544ab1c1483e756373534432332ff3ce2151306cf8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4446122/dualsub-2.58.1.xpi";
+      sha256 = "be30bfdda8cfefec71caaf3addb5a36ee2d4c53b8d7dacd16aa9a0b652bb036f";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6321,10 +6321,10 @@
     };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
-      version = "11.0.3";
+      version = "11.0.4";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445058/lesspass-11.0.3.xpi";
-      sha256 = "41f248adc9263f8d55a05979b5b83ff248dc57f1a8c92634c397b978583bda69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4446105/lesspass-11.0.4.xpi";
+      sha256 = "066f2b1a604bf9ff2c17ad814455de5bd06a760f5ff04dcd2d546b9459ee8ea9";
       meta = with lib;
       {
         homepage = "https://github.com/lesspass/lesspass";
@@ -13618,10 +13618,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.0.70";
+      version = "2.0.71";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4442759/youtube_no_translation-2.0.70.xpi";
-      sha256 = "405ffa6f0941fba461abae674fbec4be8a4fb061c9a40275586e947ad8033eb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4446152/youtube_no_translation-2.0.71.xpi";
+      sha256 = "53858a05bb31f0f95945b485cd566002542f9918bb1550a6b63cbcd79a2b5e79";
       meta = with lib;
       {
         homepage = "https://github.com/YouG-o/YNT_Browser-Extension";
