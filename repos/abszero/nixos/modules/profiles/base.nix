@@ -11,7 +11,6 @@ let
     mkIf
     const
     genAttrs
-    getExe
     ;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.profiles.base;
@@ -29,12 +28,6 @@ in
       package = pkgs.nixVersions.latest;
 
       channel.enable = false;
-
-      gc = {
-        automatic = true;
-        dates = "daily";
-        options = "--delete-older-than 7d";
-      };
 
       settings = {
         trusted-users = [
@@ -65,19 +58,7 @@ in
 
     nixpkgs.config.allowUnfree = true;
 
-    system = {
-      stateVersion = "24.11";
-      # Print store diff using nvd
-      activationScripts.diff = {
-        supportsDryActivation = true;
-        text = ''
-          if [ -d /run/current-system ]; then
-            ${getExe pkgs.nvd} --nix-bin-dir=${config.nix.package}/bin diff \
-              /run/current-system "$systemConfig"
-          fi
-        '';
-      };
-    };
+    system.stateVersion = "25.05";
 
     boot = {
       loader = {

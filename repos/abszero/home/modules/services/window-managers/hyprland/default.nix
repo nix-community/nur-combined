@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -69,7 +74,8 @@ in
 
       bind =
         [
-          "$mod,       q,                    exit"
+          # https://wiki.hyprland.org/Configuring/Dispatchers
+          "$mod,       q,                    exec,           uwsm stop"
           "$mod,       w,                    killactive"
           "$mod,       Page_Up,              fullscreen,     0"
           "$mod,       Page_Down,            fullscreen,     1"
@@ -134,7 +140,11 @@ in
         "float,        class:Zotero, title: Error"
       ];
 
-      exec-once = [ "fcitx5 -d" ];
+      exec-once = [
+        "fcitx5 -d"
+        # Polkit authentication agent
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"
+      ];
     };
   };
 }

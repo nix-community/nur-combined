@@ -91,11 +91,12 @@ in
     xdg = {
       portal = {
         enable = true;
-        # https://github.com/NixOS/nixpkgs/issues/160923
-        xdgOpenUsePortal = true;
         extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       };
-      terminal-exec.enable = true;
+      terminal-exec = {
+        enable = true;
+        settings.default = [ "ghostty.desktop" ];
+      };
     };
 
     programs.xwayland.enable = true;

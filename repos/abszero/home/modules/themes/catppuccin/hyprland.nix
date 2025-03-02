@@ -49,9 +49,6 @@ in
     };
 
     # Remove minimize, maximize, close buttons
-    gtk = {
-      gtk3.extraConfig.gtk-decoration-layout = "menu:";
-      gtk4.extraConfig.gtk-decoration-layout = "menu:";
-    };
+    dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "menu:";
   };
 }

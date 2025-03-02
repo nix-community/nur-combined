@@ -27,26 +27,22 @@ in
         waylandFrontend = true; # Do not set `GTK_IM_MODULE` and `QT_IM_MODULE`
         plasma6Support = true; # Use Qt6 versions of fcitx5 packages
         addons = with pkgs; [
-          fcitx5-mozc-ut # Mozc with UT dictionaries
-          kdePackages.fcitx5-chinese-addons
           fcitx5-gtk
+          fcitx5-mozc-ut # Mozc with UT dictionaries
+          fcitx5-pinyin-moegirl
+          fcitx5-pinyin-zhwiki
+          kdePackages.fcitx5-chinese-addons
           kdePackages.fcitx5-qt
         ];
       };
     };
 
-    environment = {
-      # `XMODIFIERS` is automatically set
-      sessionVariables = {
-        # https://github.com/NixOS/nixpkgs/issues/129442#issuecomment-875972207
-        NIX_PROFILES = "${concatStringsSep " " (reverseList config.environment.profiles)}";
-        QT_IM_MODULES = "wayland;fcitx"; # For Qt6.7+
-        SDL_IM_MODULE = "fcitx";
-      };
-      systemPackages = with pkgs; [
-        fcitx5-pinyin-zhwiki
-        fcitx5-pinyin-moegirl
-      ];
+    # `XMODIFIERS` is automatically set
+    environment.sessionVariables = {
+      # https://github.com/NixOS/nixpkgs/issues/129442#issuecomment-875972207
+      NIX_PROFILES = "${concatStringsSep " " (reverseList config.environment.profiles)}";
+      QT_IM_MODULES = "wayland;fcitx"; # For Qt6.7+
+      SDL_IM_MODULE = "fcitx";
     };
   };
 }

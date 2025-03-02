@@ -1,15 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   inherit (lib)
     mkIf
     mkDefault
-    getExe
     removePrefix
     ;
   inherit (lib.abszero.modules) mkExternalEnableOption;
@@ -25,7 +19,7 @@ in
     nixpkgs.config.allowUnfree = true;
 
     home = {
-      stateVersion = "24.11";
+      stateVersion = "25.05";
       preferXdgDirectories = true;
       # NOTE: this doesn't enable pointerCursor by default.
       pointerCursor = {
@@ -40,18 +34,25 @@ in
       file.".profile".text = ''
         . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
       '';
-      # Print store diff using nvd
-      activation.diff = config.lib.dag.entryBefore [ "writeBoundary" ] ''
-        if [[ -v oldGenPath ]]; then
-          ${getExe pkgs.nvd} diff "$oldGenPath" "$newGenPath"
-        fi
-      '';
     };
 
     xdg.enable = true;
 
     programs = {
+      # NOTE: most of gpg config is in user's configuration
+      gpg = {
+        mutableKeys = mkDefault false;
+        mutableTrust = mkDefault false;
+      };
       home-manager.enable = true;
+      nh = {
+        enable = true;
+        flake = "path:/home/weathercold/src/nixfiles";
+        clean = {
+          enable = true;
+          extraArgs = "--keep 3 --keep-since 1w";
+        };
+      };
       zsh = {
         enable = true;
         # Hack since `dotDir` is relative to home

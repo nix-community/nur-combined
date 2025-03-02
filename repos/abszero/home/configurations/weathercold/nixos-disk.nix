@@ -10,6 +10,7 @@ let
           firefox.verticalTabs = true;
           hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
+          starship.enable = true;
         };
         catppuccin = {
           cursors.enable = true;

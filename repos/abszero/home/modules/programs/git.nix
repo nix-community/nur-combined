@@ -17,6 +17,7 @@ in
     userEmail = mkDefault primaryEmail.address;
     signing = {
       signByDefault = true;
+      format = "openpgp";
       key = null;
     };
     extraConfig = {

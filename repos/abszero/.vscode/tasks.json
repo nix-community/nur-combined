@@ -6,7 +6,7 @@
     {
       "label": "system-rebuild",
       "type": "shell",
-      "command": "sudo nixos-rebuild switch --flake path:/home/weathercold/src/nixfiles",
+      "command": "sudo nh os switch",
       "group": {
         "kind": "build"
       }
@@ -14,7 +14,7 @@
     {
       "label": "home-rebuild",
       "type": "shell",
-      "command": "home-manager switch -b backup --flake path:/home/weathercold/src/nixfiles",
+      "command": "nh home switch -b bak",
       "group": {
         "kind": "build",
         "isDefault": true

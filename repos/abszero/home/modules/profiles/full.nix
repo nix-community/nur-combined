@@ -21,11 +21,9 @@ in
         carapace.enable = true;
         direnv.enable = true;
         dotdrop.enable = true;
-        # firefox.enable = true;
         git.enable = true;
         jujutsu.enable = true;
         nushell.enable = true;
-        starship.enable = true;
         thunderbird.enable = true;
         zoxide.enable = true;
       };
@@ -66,6 +64,7 @@ in
       };
       helix.enable = true;
       nix-index-database.comma.enable = true;
+      starship.enable = true;
       yazi.enable = true;
       zsh = {
         syntaxHighlighting.enable = true;

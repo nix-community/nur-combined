@@ -21,6 +21,7 @@ let
             firefox.verticalTabs = true;
             hyprland.dynamicCursors.enable = true;
             nushell.enable = true;
+            starship.enable = true;
           };
           catppuccin = {
             cursors.enable = true;
@@ -49,6 +50,7 @@ let
             fastfetch.enable = true;
             firefox.verticalTabs = true;
             nushell.enable = true;
+            starship.enable = true;
           };
           catppuccin = {
             ghostty.enable = true;
@@ -60,6 +62,8 @@ let
       };
 
       catppuccin.accent = "pink";
+
+      xdg.dataFile."home-manager/specialisation".text = "plasma6-latte-pink";
 
       gtk.catppuccin.icon.enable = true;
     };
