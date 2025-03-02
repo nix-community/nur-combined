@@ -1,10 +1,6 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  nixConfig = {
-    extra-substituters = [ "https://vizqq.cachix.org" ];
-    extra-trusted-public-keys = [ "vizqq.cachix.org-1:5BPw8jRDFrVEuN3mTiG7mdC6Cezeid4n5KTj5xiLX/s=" ];
-  };
   outputs =
     { self, nixpkgs }:
     let

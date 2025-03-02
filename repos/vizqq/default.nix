@@ -17,4 +17,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card { };
+  thinkpad-uefi-sign = pkgs.callPackage ./pkgs/thinkpad-uefi-sign { };
 }

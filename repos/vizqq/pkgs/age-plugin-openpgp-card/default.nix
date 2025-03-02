@@ -16,7 +16,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-uJmYtc+GxJZtCjLQla/h9vpTzPcsL+zbM2uvAQsfwIY=";
   };
 
-  cargoHash = "sha256-mf06DLuTeyhTW796SRZh130QXDLfVSnDQyGQgKbOZH0=";
+  useFetchCargoVendor = true;
+
+  cargoHash = "sha256-YZGrEO6SOS0Kir+1d8shf54420cYjvcfKYS+T2NlEug=";
 
   buildInputs = [ pcsclite.dev ];
 
