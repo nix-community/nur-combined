@@ -1,0 +1,37 @@
+#! /usr/bin/env bash
+
+update_repo(){
+  echo -e "\nUpdate local repository\n"
+  git pull
+}
+
+update_flake(){ 
+  echo -e "\nUpdate repo flake\n"
+  nix flake update --flake .
+}
+
+check_rev_change(){
+  if [[ -n $(git status --porcelain) ]]; then
+
+    ### Get version and hash commit
+    echo -e "New revision\n"
+    git add flake.lock
+    git commit -m "flake.lock: update to the new rev"
+
+    ### Push changes
+    git push origin
+
+    echo -e "\nChange commited to the repo"
+  else
+    echo "No changes detected"
+  fi
+}
+
+main(){
+  update_repo
+  update_flake
+  check_rev_change
+}
+
+### Execute the main function
+main
