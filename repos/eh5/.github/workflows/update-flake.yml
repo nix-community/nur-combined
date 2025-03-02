@@ -47,7 +47,7 @@ jobs:
 
       - name: Build develop profile (aarch64-linux)
         if: ${{ !env.ACT }}
-        run: timeout 180m nix develop .#devShells.aarch64-linux.default --profile dev-aarch64 -c true
+        run: nix develop .#devShells.aarch64-linux.default --profile dev-aarch64 -c true
 
       - name: Build home configuration
         run: nix build .#homeConfigurations.eh5.activationPackage --no-link

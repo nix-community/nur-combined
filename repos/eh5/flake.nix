@@ -48,13 +48,13 @@
           (
             if system == systems.x86_64-linux then
               {
-                home-manager = home-manager.defaultPackage.${system};
+                home-manager = home-manager.packages.${system}.default;
               }
             else
               { }
           )
           // {
-            deploy = deploy-rs.defaultPackage.${system};
+            deploy = deploy-rs.packages.${system}.default;
           };
         platformPackages = myPkgs.packages {
           inherit pkgs inputs;

@@ -5,13 +5,13 @@
 }:
 buildGoModule {
   pname = "kcptun";
-  version = "unstable-2024-05-16";
+  version = "unstable-2025-02-25";
   src = fetchFromGitHub {
     owner = "xtaci";
     repo = "kcptun";
-    rev = "f8cae52c52d14dd3d8ca1fe424c50ac13caee6b8";
+    rev = "bc937c57b8a3a3ffa15d5718f16282c3e0c1968b";
     fetchSubmodules = false;
-    sha256 = "sha256-v9xwDE8xFDH64XyRaKbLs2TXDldNyvOMRXkfRp0JX5s=";
+    sha256 = "sha256-GyPBsllRprASS+VmVKusBwIv+QaCt4sQFXFQGdWs/jo=";
   };
   vendorHash = null;
   doCheck = false;
