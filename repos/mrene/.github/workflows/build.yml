@@ -27,13 +27,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: cachix/install-nix-action@v30
       with:
-        extra-conf: |
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          nix-path = "${{ matrix.nixPath }}"
-    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: DeterminateSystems/flakehub-cache-action@main
+      
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     # - name: Connect to home tailnet

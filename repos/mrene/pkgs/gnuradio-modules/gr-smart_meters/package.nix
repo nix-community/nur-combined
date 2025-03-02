@@ -3,11 +3,11 @@
 , fetchFromGitHub
 , cmake
 , pkg-config
-, gnuradio
+, gnuradio-boost181
 , spdlog
 , gmp
 , mpir
-, boost
+, boost181
 , volk
 , gr-pdu_utils
 , gr-sandia_utils
@@ -17,7 +17,9 @@
 , gr-fosphor
 }:
 
-
+let 
+  gnuradio = gnuradio-boost181;
+in
 stdenv.mkDerivation rec {
   pname = "gr-smart-meters";
   version = "unstable-2023-09-25";
@@ -39,7 +41,7 @@ stdenv.mkDerivation rec {
     spdlog
     gmp
     mpir
-    boost
+    boost181
     volk
     gnuradio.python.pkgs.pybind11
     gnuradio.python.pkgs.numpy

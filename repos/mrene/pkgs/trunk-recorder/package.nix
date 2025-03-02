@@ -7,9 +7,8 @@
 , hackrf
 , sox
 , fdk_aac
-, boost
-, gnuradio
-, gnuradioPackages
+, boost181
+, gnuradio-boost181
 , git
 , spdlog
 , gmp
@@ -35,18 +34,22 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [
+  buildInputs = let 
+    # # Recent updates upgraded boost to an incompatible version because trunk-recorder uses deprecated functions.
+    # # Since boost versions have to match, override it to the last known working version
+    # gnuradio' = (gnuradio.override { unwrapped = gnuradio.unwrapped.override { boost = boost181; }; });
+  in [
     uhd
     rtl-sdr
     hackrf
     sox
     fdk_aac
-    gnuradio
-    gnuradioPackages.osmosdr
+    gnuradio-boost181
+    gnuradio-boost181.passthru.pkgs.osmosdr
     git
     spdlog
     gmp
-    boost
+    boost181
     volk
     openssl
     curl
@@ -58,8 +61,13 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "CMAKE_SKIP_BUILD_RPATH" true)
   ];
 
+  postInstall = ''
+    # include/trunk-recorder/git.h points to a missing target: /nix/store....
+    find $out -name git.h -delete
+  '';
+
   meta = with lib; {
-    description = "Records calls from a Trunked Radio System (P25 & SmartNet";
+    description = "Records calls from a Trunked Radio System (P25 & SmartNet)";
     homepage = "https://github.com/robotastic/trunk-recorder";
     changelog = "https://github.com/robotastic/trunk-recorder/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;

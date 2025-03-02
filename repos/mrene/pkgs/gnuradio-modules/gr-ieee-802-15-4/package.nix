@@ -3,11 +3,11 @@
 , fetchFromGitHub
 , cmake
 , pkg-config
-, gnuradio
+, gnuradio-boost181
 , spdlog
 , gmp
 , mpir
-, boost
+, boost181
 , volk
 }:
 
@@ -27,12 +27,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    gnuradio
+  buildInputs = let 
+    gnuradio = gnuradio-boost181; 
+  in [
+    gnuradio.unwrapped
     spdlog
     gmp
     mpir
-    boost
+    boost181
     volk
     gnuradio.python.pkgs.pybind11
     gnuradio.python.pkgs.numpy

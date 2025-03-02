@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , cmake
 , pkg-config
-, gnuradio
+, gnuradio-boost181
 , spdlog
 , gmp
 , mpir
@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
+  buildInputs = let 
+    gnuradio = gnuradio-boost181; 
+  in [
     gnuradio
     spdlog
     gmp

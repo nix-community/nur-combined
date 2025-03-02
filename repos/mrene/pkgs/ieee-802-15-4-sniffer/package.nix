@@ -1,6 +1,7 @@
-{ lib, stdenvNoCC, gnuradio, gnuradio-modules }:
+{ lib, stdenvNoCC, gnuradio-boost181, gnuradio-modules }:
 
 let 
+  gnuradio = gnuradio-boost181;
   gnuradioPackages = {
     inherit (gnuradio-modules) gr-foo gr-ieee-802-15-4;
   };
@@ -16,7 +17,7 @@ stdenvNoCC.mkDerivation {
   version = "1.0";
   src = ./.;
 
-  nativeBuildInputs = [ gr gr.python.pkgs.wrapPython ];
+  nativeBuildInputs = [ gr.unwrapped gr.python.pkgs.wrapPython ];
   buildInputs = [ gr.pythonEnv ];
 
   buildPhase = ''
