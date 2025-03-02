@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkOption;
-  inherit (lib.types) attrsOf bool commas int nullOr oneOf path str submodule;
+  inherit (lib.types) attrsOf bool commas float int nullOr oneOf path str submodule;
 
   identity = import ./resources/identity.nix;
 in
@@ -29,7 +29,7 @@ in
   options.host = {
     background = mkOption { type = str; };
     cores = mkOption { type = int; };
-    display_density = mkOption { type = int; };
+    display_density = mkOption { type = float; };
     display_width = mkOption { type = int; };
     firefox = mkOption {
       type = submodule {

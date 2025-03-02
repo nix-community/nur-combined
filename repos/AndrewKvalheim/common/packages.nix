@@ -40,7 +40,7 @@ in
   gopass-ydotool = any;
   gpx-reduce = any;
   graalvm-ce.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "font" g.preFixup) "graalvm-ce no longer requires an overlay" { preFixup = g.preFixup + "\nfind \"$out\" -name libfontmanager.so -exec patchelf --add-needed libfontconfig.so {} \\;"; }; # Workaround for https://github.com/NixOS/nixpkgs/pull/215583#issuecomment-1615369844
-  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
+  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = ({ "24.0.1" = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; "24.1.1" = "sha256-ctFw/8HL9vAHeDhQHallUYHAqkJGHPAdzP08MptGOD8="; }).${g.version}; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
   gtk4-icon-browser = any;
   htop.patch = ../packages/resources/htop_colors.patch; # htop-dev/htop#1416
   httpie.env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # NixOS/nixpkgs#94666
@@ -48,6 +48,7 @@ in
   ios-webkit-debug-proxy = any;
   iosevka-custom = any;
   iptables_exporter = any;
+  isd = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-hidpi = any;
   josm-imagery-used = any;
@@ -83,6 +84,7 @@ in
   nbt-explorer = any;
   nix-preview = any;
   off = any;
+  ollama-rocm.version = "≥0.5.7";
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
@@ -91,6 +93,7 @@ in
   tile-stitch = any;
   unln = any;
   vscode-extensions = namespaced {
+    andrewkvalheim.monokai-achromatic-gray = any;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;
@@ -101,12 +104,13 @@ in
     fabiospampinato.vscode-highlight.search = open-vsx;
     flowtype.flow-for-vscode = { version = "≥2.2.1"; search = [ open-vsx vscode-marketplace ]; };
     jnbt.vscode-rufo.search = open-vsx;
+    jnoortheen.nix-ide.version = "≥0.3.4"; # nix-community/vscode-nix-ide#387
     joaompinto.vscode-graphviz.search = open-vsx;
     kokakiwi.vscode-just.search = open-vsx;
     leighlondon.eml.search = [ open-vsx vscode-marketplace ];
-    loriscro.super.search = [ open-vsx ];
+    loriscro.super.search = open-vsx;
     mitchdenny.ecdc.search = open-vsx;
-    ms-vscode.wasm-wasi-core.search = [ open-vsx ];
+    ms-vscode.wasm-wasi-core.search = open-vsx;
     ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
     silvenon.mdx.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;

@@ -12,7 +12,6 @@ rustPlatform.buildRustPackage rec {
     inherit pname version;
     hash = "sha256-hGXBGKVV5Iak0SCon3QlffKDgo2djLLWbfHI06QN+Dc=";
   };
-  cargoHash = "sha256-6MdOzHLPt6KJe3KuwKvsO4FuONjYFxQYu6VDQuC44DA=";
 
   patches = [ ./resources/iptables_exporter_no-git.patch ];
 
@@ -20,6 +19,9 @@ rustPlatform.buildRustPackage rec {
     git_hash=$(${jq}/bin/jq --raw-output '.git.sha1' '.cargo_vcs_info.json')
     substituteInPlace build.rs --replace-fail '@git_hash@' "$git_hash"
   '';
+
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-emqF0cGyIld6r6G1rL6gou4p8ERYs61kqnxopV2LxL8=";
 
   meta = {
     description = "Prometheus exporter for iptables";

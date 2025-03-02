@@ -15,8 +15,8 @@ stdenv.mkDerivation {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "affine";
-    rev = "7244376bfad1de2409d8081054f58fe97e611953";
-    hash = "sha256-KwNO+DKs2JTZSs8dwFFZFDsb30TtWTTTySh+BiERd1g=";
+    rev = "ffc686a95586213079e4bd0ffb45f2e171aeb613";
+    hash = "sha256-eE6CTcMwctSm8quGSbFsLDiwSw7h+sOFm7HaCMtHML0=";
   };
 
   nativeBuildInputs = [ fontforge ];

@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-lEXBQ6toomT8Q8QDGz5l+ywcCGcuO3gKBymMDMlk+ak=";
   };
 
-  cargoHash = "sha256-pyQevvMX7895pqlERs6N+kT1OxkTWwKW3fhNYzYve+8=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-OhRd7ZVqkWM+PdDjuw2CA5rxLN7z83wQtK8cxCCyBG4=";
 
   nativeBuildInputs = [ cmake curl git pkg-config ];
   buildInputs = [ libXcursor libXfixes libXinerama mesa pango ];

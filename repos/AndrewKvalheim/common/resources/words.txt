@@ -239,6 +239,7 @@ croquembouche
 crowdmatching
 crowdsource
 crowdsourced
+crudini
 cryptosystem
 cryptosystems
 CSpell
@@ -282,6 +283,8 @@ Dependabot
 deprovisioned
 dereference
 dereferencing
+desaturate
+desaturated
 deseeded
 desolder
 desoldering
@@ -500,6 +503,7 @@ https
 HubSpot
 Hugin
 Huginn
+hypervigilant
 IAM
 iCalendar
 iCloud
@@ -627,6 +631,7 @@ linkify
 linolenic
 linter
 LinuxFest
+LLM
 lockdown
 lockdowns
 loopable
@@ -791,6 +796,8 @@ OIDC
 OKLab
 OKLCH
 Olallie
+OLED
+Ollama
 onboarding
 ONVIF
 OOM
@@ -820,6 +827,7 @@ outcompeting
 outcompetition
 outpriced
 outro
+overaggressively
 overcommit
 overcommitted
 overcomplicate
@@ -952,6 +960,7 @@ queueing
 QUIC
 quincunx
 RackNerd
+Radeon
 Rakefile
 RapidRide
 Raveena
@@ -991,6 +1000,7 @@ reimplementing
 reinstalls
 reinterpretable
 ReiserFS
+remanufactured
 remapper
 renamer
 renderer
@@ -999,6 +1009,9 @@ Renton
 reoccurrence
 ReplayGain
 repositioned
+reresolution
+reresolve
+reresolved
 reschedulable
 resending
 resholve
@@ -1016,6 +1029,7 @@ roadmap
 roadmaps
 Roboto
 Rockbox
+ROCm
 Rohan
 ROI
 rollouts
@@ -1039,6 +1053,7 @@ Rustaceans
 rustc
 Rustfmt
 rustup
+Ryzen
 S3
 SaaS
 saddeningly
@@ -1129,6 +1144,7 @@ Spanaway
 sparkline
 sparklines
 SPDY
+specced
 SPF
 SPL
 Spotify
@@ -1424,6 +1440,7 @@ worktree
 worktrees
 WQHD
 WQSXGA
+WQUXGA
 writability
 WSeaLUG
 WTF

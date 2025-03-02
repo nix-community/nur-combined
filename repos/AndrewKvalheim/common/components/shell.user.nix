@@ -2,12 +2,12 @@
 
 let
   inherit (builtins) readFile replaceStrings;
-  inherit (lib) concatLines concatStringsSep genAttrs mapAttrsToList toShellVar;
+  inherit (lib) concatLines concatStringsSep escapeShellArg genAttrs mapAttrsToList;
   inherit ((import ../../nur.nix { inherit pkgs; }).lib) sgr;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
-  toAbbrs = kv: concatLines (mapAttrsToList (k: v: "abbr ${toShellVar k v}") kv);
+  toAbbrs = kv: concatLines (mapAttrsToList (k: v: "abbr ${k}=${escapeShellArg v}") kv);
 in
 {
   programs.bash = {
@@ -163,6 +163,7 @@ in
     gh = "git-remote github.com";
     gist = "git-remote gist.github.com";
     gl = "git-remote gitlab.com";
+    gnome-console = "kgx";
     h = "tig --all";
     hs = "home-manager switch";
     np = "nix-shell --packages";

@@ -33,6 +33,7 @@ in
     mutableExtensionsDir = false;
     enableExtensionUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
+      andrewkvalheim.monokai-achromatic-gray
       bierner.markdown-checkbox
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
@@ -98,6 +99,7 @@ in
       { key = "shift+alt+up"; command = "-editor.action.insertCursorAbove"; }
       { key = "shift+alt+up"; command = "editor.action.copyLinesUpAction"; }
       { key = "ctrl+k i"; command = "editor.action.formatChanges"; }
+      { key = "ctrl+shift+enter"; command = "-continue.acceptDiff"; } # Workaround for continuedev/continue#2913
       { when = "isInDiffEditor"; key = "ctrl+t"; command = "git.stageSelectedRanges"; }
     ];
 
@@ -153,7 +155,7 @@ in
       "window.titleBarStyle" = "custom";
       "window.titleSeparator" = " · ";
       "workbench.activityBar.location" = "hidden";
-      "workbench.colorTheme" = "Monokai";
+      "workbench.colorTheme" = "Monokai Achromatic Gray";
       "workbench.editor.closeEmptyGroups" = false;
       "workbench.editor.tabActionCloseVisibility" = false;
       "workbench.editor.tabSizing" = "shrink";
@@ -177,20 +179,12 @@ in
       "git.showActionButton" = { commit = false; publish = false; sync = false; };
       "git.suggestSmartCommit" = false;
 
+      # Completion
+      "continue.showInlineTip" = false;
+      "continue.telemetryEnabled" = false;
+
       # Colors
       "workbench.colorCustomizations" = {
-        # "activitybarbadge.background" = "#ff7042";
-        # "editor.selectionhighlightbackground" = "#54320a";
-        # "editorsuggestwidget.highlightforeground" = "#ff7042";
-        # "list.activeselectionforeground" = "#ff7042";
-        # "list.highlightforeground" = "#ff7042";
-        # "list.inactiveselectionforeground" = "#ff7042";
-        # "pickergroup.foreground" = "#ff7042";
-        # "progressbar.background" = "#ff7042";
-        # "scrollbarslider.activebackground" = "#ff704250";
-        # "tab.activeborder" = "#ff7042";
-        # "tab.inactivebackground" = "#1e1f1c";
-        # "textlink.foreground" = "#ff7042";
         "terminal.foreground" = white;
         "terminal.background" = black;
         "terminal.ansiblack" = white-dark;
@@ -209,8 +203,7 @@ in
         "terminal.ansibrightmagenta" = orange;
         "terminal.ansibrightcyan" = purple;
         "terminal.ansibrightwhite" = white;
-        "tab.inactiveBackground" = black;
-        "editorGroupHeader.tabsBackground" = black;
+        "tab.inactiveBackground" = "#00000000";
         "editorGutter.addedBackground" = blue;
         "editorGutter.deletedBackground" = blue;
         "editorGutter.modifiedBackground" = blue;
@@ -228,16 +221,6 @@ in
         "diffEditor.removedTextBackground" = "${vermilion}33";
         "diffEditor.insertedTextBackground" = "${teal}33";
         "diffEditor.insertedLineBackground" = "${teal}11";
-        "commandCenter.background" = "#1b1b1b";
-        "commandCenter.border" = "#00000000";
-        "commandCenter.inactiveBorder" = "#00000000";
-        "sideBar.border" = "#00000000";
-        "statusBar.border" = "#00000000";
-        "statusBarItem.remoteBackground" = "#00000000";
-        "titleBar.border" = "#00000000";
-        "editor.findMatchHighlightBackground" = "#00000000";
-        "editor.findMatchHighlightBorder" = "#aaaaaa";
-        "editor.selectionHighlightBackground" = "#464646cc";
         "editorError.foreground" = red;
         "editorMarkerNavigationError.background" = red-dark;
         "editorOverviewRuler.errorForeground" = red;
@@ -252,6 +235,7 @@ in
         "editorBracketHighlight.foreground4" = purple;
         "editorBracketHighlight.foreground5" = teal;
         "editorBracketHighlight.foreground6" = purple;
+        "editorGhostText.foreground" = blue-dim;
       };
       "editor.tokenColorCustomizations" = {
         textMateRules = [
@@ -293,6 +277,7 @@ in
         };
       "markdown-mermaid.darkModeTheme" = "default";
       "nix.enableLanguageServer" = true;
+      "nix.hiddenLanguageServerErrors" = [ "textDocument/documentSymbol" ]; # Workaround for nix-community/vscode-nix-ide#387
       "python.formatting.provider" = "black";
       "rubyLsp.rubyVersionManager" = "custom";
       "rust-analyzer.checkOnSave.command" = "clippy";

@@ -16,7 +16,6 @@
   };
 
   # Hardware
-  services.fstrim.enable = true;
   services.kmonad.keyboards.default.device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
 
   # Nix

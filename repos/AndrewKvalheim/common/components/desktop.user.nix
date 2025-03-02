@@ -1,8 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) toJSON;
-  inherit (config) host;
+  inherit (builtins) floor head sort toJSON;
+  inherit (config) dconf host;
+  inherit (config.programs) kitty;
   inherit (lib.generators) toINI;
   inherit (lib.hm.gvariant) mkTuple;
 
@@ -35,6 +36,12 @@ in
   dconf.settings."org/gtk/settings/color-chooser".custom-colors = with palette.rgb;
     map ({ r, g, b }: mkTuple [ r g b 1.0 ])
       [ red green yellow blue orange purple ];
+  xdg.configFile."paperwm/user.css".text = with palette.cssRgba; ''
+    .paperwm-selection {
+        background-color: transparent;
+        border: ${toString dconf.settings."org/gnome/shell/extensions/paperwm".selection-border-size}px ${black kitty.settings.background_opacity};
+    }
+  '';
 
   # Shell
   dconf.settings."org/gnome/desktop/interface".clock-format = "24h";
@@ -83,27 +90,43 @@ in
   };
   dconf.settings."org/gnome/shell/extensions/paperwm" =
     let
+      # Common
+      external_display_width = 3840;
+      external_display_density = 1.0;
+
       # Parameters
       characters_per_line = 100 /* Rust */;
       character_width = 7.5;
       border = 4;
       margin = 12;
+      browser_width = 992 /* Bootstrap large */;
 
       # Derived
       gap = border + margin;
 
       # Reference widths
       full = (host.display_width / host.display_density) - margin * 2;
-      externalFull = 3840 - margin * 2;
+      externalFull = (external_display_width / external_display_density) - margin * 2;
 
       # Window widths
       term = characters_per_line * character_width;
       half = (full - gap) / 2;
       complementTerm = full - (term + gap);
-      externalComplement2ComplementTerm = externalFull - (complementTerm + gap) * 2;
+      externalComplement2Browser =
+        let
+          candidates = [ term half complementTerm ];
+          browser = head (sort
+            (a: b:
+              if a >= browser_width && b >= browser_width then a < b
+              else if a < browser_width && b < browser_width then a > b
+              else a >= browser_width
+            )
+            candidates);
+        in
+        externalFull - (browser + gap) * 2;
     in
     {
-      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm externalComplement2ComplementTerm ];
+      cycle-width-steps = map (n: 1.0 * (floor n)) [ term half complementTerm externalComplement2Browser ];
       horizontal-margin = margin;
       selection-border-radius-top = border;
       selection-border-size = border;
@@ -116,6 +139,7 @@ in
       winprops = (map toJSON [
         { wm_class = "*"; preferredWidth = "${toString half}px"; }
         { wm_class = "Display"; scratch_layer = true; }
+        { wm_class = "displaycal"; scratch_layer = true; }
         { wm_class = "emote"; scratch_layer = true; }
         { wm_class = "qalculate-gtk"; preferredWidth = "480px"; }
         { wm_class = "Tor Browser"; scratch_layer = true; }

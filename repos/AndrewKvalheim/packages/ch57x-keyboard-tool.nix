@@ -18,7 +18,9 @@ rustPlatform.buildRustPackage rec {
     inherit pname version;
     sha256 = "sha256-Ln/JqaV5hey2I6w2fEPgAMCWoOh7sqbWfDnjpOWa4fQ=";
   };
-  cargoHash = "sha256-9mk02Oq2rkcDzZJ+RlZSBONJd1gnVF9ewM7emjxEzKk=";
+
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-x3knD4dyYYV3/ue6Dv2bh1nFUm56oaht2E1xu1KFgxg=";
 
   postInstall = ''
     install -D ${rules} $out/etc/udev/rules.d/70-ch57x.rules

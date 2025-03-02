@@ -13,7 +13,8 @@ rustPlatform.buildRustPackage rec {
     ref = "v${version}";
   };
 
-  cargoHash = "sha256-yQflzab3O16mGQduGfhJZ/I3oLgJKE9zRzlffS8uLVw=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-QYS6TzICnNB0/ESLMVf4F9Bi+SN8oRKkTm+FwOHKtVw=";
 
   buildInputs = [ sqlite ];
 }

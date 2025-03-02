@@ -6,7 +6,7 @@ in
 {
   imports = [
     ../../common/system.nix
-    <nixos-hardware/lenovo/thinkpad/t14/amd/gen2>
+    <nixos-hardware/lenovo/thinkpad/p16s/amd/gen2>
     /etc/nixos/hardware-configuration.nix
     ./local/system.nix
   ];
@@ -19,7 +19,6 @@ in
   };
 
   # Hardware
-  services.fstrim.enable = true;
   services.kmonad.keyboards.default.device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
   systemd.services.configure-sound-leds = rec {
     wantedBy = [ "sound.target" ];
@@ -88,4 +87,9 @@ in
 
   # Devices
   services.udev.packages = with pkgs; [ espressif-serial ];
+
+  # LLM
+  nixpkgs.config.rocmSupport = true;
+  services.ollama = { enable = true; rocmOverrideGfx = "11.0.2"; /* Pending support for gfx1103 */ };
+  systemd.services.ollama.serviceConfig = { CPUQuota = "80%"; Nice = 5; };
 }

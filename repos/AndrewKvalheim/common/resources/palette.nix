@@ -3,7 +3,7 @@
 let
   inherit (builtins) listToAttrs mapAttrs;
   inherit (lib) concatLines imap0 mapAttrsRecursiveCond mapAttrsToList nameValuePair;
-  inherit (import ./lib.nix { inherit lib; }) findLowest rgbToAnsi;
+  inherit (import ./lib.nix { inherit lib; }) findLowest rgbToAnsi rgbToCssRgba;
   inherit ((import ../../nur.nix { inherit pkgs; }).lib) contrastRatio linearRgbToRgb oklchToCss oklchToLinearRgb rgbToHex sgr;
 
   dark = c: c // { l = 0.35; c = if c.c == 0 then 0 else 0.060; };
@@ -62,6 +62,7 @@ let
 
     ansi = rgbToAnsi rgb;
     css = oklchToCss oklch;
+    cssRgba = rgbToCssRgba rgb;
     hex = rgbToHex rgb;
     linearRgb = oklchToLinearRgb oklch;
     rgb = linearRgbToRgb linearRgb;
@@ -82,6 +83,8 @@ rec {
     };
 
   ansiFormat = mapAttrsRecursiveCond (a: ! a ? off) (_: { off, on }: sgr off on) ansi;
+
+  cssRgba = mapAttrs (_: c: c.cssRgba) colors;
 
   hex = mapAttrs (_: c: c.hex) colors;
 

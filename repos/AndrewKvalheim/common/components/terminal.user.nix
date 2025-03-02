@@ -106,6 +106,7 @@ in
       wayland_titlebar_color = black;
       foreground = white;
       background = black;
+      background_opacity = 0.8;
       cursor = orange;
       url_color = white;
       active_border_color = white-dark;

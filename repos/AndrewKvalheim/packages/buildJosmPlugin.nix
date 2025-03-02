@@ -28,7 +28,11 @@ stdenv.mkDerivation
       url = "https://josm.openstreetmap.de/svn/trunk/tools/";
       rev = josm.version;
       ignoreExternals = true;
-      hash = "sha256-d1wHGlEmyNW+8Zmhu4Gvynhy56kAWPz/jBK5mIymP8g=";
+      hash = {
+        "19253" = "sha256-d1wHGlEmyNW+8Zmhu4Gvynhy56kAWPz/jBK5mIymP8g=";
+        "19277" = "sha256-d1wHGlEmyNW+8Zmhu4Gvynhy56kAWPz/jBK5mIymP8g=";
+        "19307" = "sha256-tFGq0YD/vmkRb26tXIlkKzAWaMf6GrwEGm7l81uGkHw=";
+      }."${josm.version}";
     };
 
     unpackPhase = ''

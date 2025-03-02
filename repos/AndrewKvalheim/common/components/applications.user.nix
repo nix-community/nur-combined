@@ -54,6 +54,7 @@ in
       bacon
       binsider
       cavif
+      cargo-msrv
       darktable
       dconf-editor
       dig
@@ -77,12 +78,14 @@ in
       guetzli
       guvcview
       htop
+      hydra-check
       identity
       ijq
       imagemagickBig
       img2pdf
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       ipcalc
+      isd
       jless
       just
       just-local

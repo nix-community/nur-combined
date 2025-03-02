@@ -104,6 +104,8 @@ rec {
     let f = x: fixedWidthNumber 2 (toHexString (round (x * 255)));
     in "#${f r}${f g}${f b}";
 
+  rgbToCssRgba = rgb: a: with mapAttrs (_: v: toString (round (v * 255))) rgb; "rgba(${r}, ${g}, ${b}, ${toString a})";
+
   round = x: floor (x + 0.5);
 
   sgr = off: on: text: "[${on}m${text}[${off}m";

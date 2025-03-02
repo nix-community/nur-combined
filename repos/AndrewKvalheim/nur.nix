@@ -32,7 +32,7 @@ rec {
   ch57x-keyboard-tool = pkgs.callPackage ./packages/ch57x-keyboard-tool.nix { };
   co2monitor = pkgs.callPackage ./packages/co2monitor.nix { };
   decompiler-mc = pkgs.callPackage ./packages/decompiler-mc.nix { };
-  dmarc-report-notifier = pkgs.callPackage ./packages/dmarc-report-notifier.nix {
+  dmarc-report-notifier = (pkgs.callPackage ./packages/dmarc-report-notifier.nix {
     python3Packages = (pkgs.python3.override {
       packageOverrides = resolved: pythonPackages: {
         # Pending NixOS/nixpkgs#337081
@@ -65,7 +65,9 @@ rec {
           };
       };
     }).pkgs;
-  };
+  }).overrideAttrs (_: {
+    meta.broken = pkgs.lib.versionAtLeast pkgs.python3Packages.httpx.version "0.28"; # Dependency of msgraph-core
+  });
   fastnbt-tools = pkgs.callPackage ./packages/fastnbt-tools.nix { };
   fediblockhole = pkgs.callPackage ./packages/fediblockhole.nix { };
   git-diff-image = pkgs.callPackage ./packages/git-diff-image.nix { };

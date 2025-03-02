@@ -13,7 +13,7 @@
   host = {
     background = "file://${./resources/background.jpg}";
     cores = 16;
-    display_density = 2;
+    display_density = 1.75;
     display_width = 3840;
     firefox.profile = "ahrdm58c.default";
     local = ./local;
@@ -26,7 +26,7 @@
   ];
 
   # Display
-  xdg.dataFile."icc/ThinkPad-T14.icc".source = ./resources/ThinkPad-T14.icc;
+  xdg.dataFile."icc/ThinkPad-P16s-OLED.icc".source = ./resources/ThinkPad-P16s-OLED.icc;
 
   # Applications
   home.packages = with pkgs; [
@@ -90,4 +90,9 @@
     ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";
     EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash.db";
   };
+
+  # Editor
+  programs.vscode.extensions = with pkgs.vscode-extensions; [
+    continue.continue
+  ];
 }
