@@ -1729,12 +1729,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4793",
-            "sha256": "sha256-72ilpcKFd8rsbL9eFyNCAUBaZ+Q865gmMTRd3Uy+cEg=",
+            "rev": "b4798",
+            "sha256": "sha256-dlRYZaW/Apft9I0hnb/8kB6jh2LLhP2z4wcOa58UJ+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4793"
+        "version": "b4798"
     },
     "loralib": {
         "cargoLocks": null,

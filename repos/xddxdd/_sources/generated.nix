@@ -883,12 +883,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4793";
+    version = "b4798";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4793";
-      hash = "sha256-72ilpcKFd8rsbL9eFyNCAUBaZ+Q865gmMTRd3Uy+cEg=";
+      tag = "b4798";
+      hash = "sha256-dlRYZaW/Apft9I0hnb/8kB6jh2LLhP2z4wcOa58UJ+w=";
     };
   };
   loralib = {
