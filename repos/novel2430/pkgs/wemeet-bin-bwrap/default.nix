@@ -1,4 +1,4 @@
-{ stdenv, lib, autoPatchelfHook, fetchurl , buildFHSUserEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, fetchFromGitHub
+{ stdenv, lib, autoPatchelfHook, fetchurl , buildFHSEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, fetchFromGitHub
 , useWaylandScreenshare ? false
 , dpkg
 , alsa-lib
@@ -181,7 +181,7 @@ let
     unset WAYLAND_DISPLAY
     exec /opt/wemeet/bin/wemeetapp
   '';
-  fhs = buildFHSUserEnvBubblewrap {
+  fhs = buildFHSEnvBubblewrap {
     name = "${pkg-name}";
     targetPkgs = 
       pkgs: [
