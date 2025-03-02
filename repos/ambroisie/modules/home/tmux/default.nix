@@ -20,6 +20,8 @@ in
 
     enablePassthrough = mkEnableOption "tmux DCS passthrough sequence";
 
+    enableResurrect = mkEnableOption "tmux-resurrect plugin";
+
     terminalFeatures = mkOption {
       type = with types; attrsOf (submodule {
         options = {
@@ -50,8 +52,9 @@ in
     mouse = false; # I dislike mouse support
     focusEvents = true; # Report focus events
     terminal = "tmux-256color"; # I want accurate termcap info
+    aggressiveResize = true; # Automatic resize when switching client size
 
-    plugins = with pkgs.tmuxPlugins; [
+    plugins = with pkgs.tmuxPlugins; builtins.filter (attr: attr != { }) [
       # Open high-lighted files in copy mode
       open
       # Better pane management
@@ -79,6 +82,13 @@ in
           set -g status-right '#{prefix_highlight} %a %Y-%m-%d %H:%M'
         '';
       }
+      # Resurrect sessions
+      (lib.optionalAttrs cfg.enableResurrect {
+        plugin = resurrect;
+        extraConfig = ''
+          set -g @resurrect-dir '${config.xdg.stateHome}/tmux/resurrect'
+        '';
+      })
     ];
 
     extraConfig = ''

@@ -123,11 +123,6 @@ in
         defaultBranch = "main";
       };
 
-      # Local configuration, not-versioned
-      include = {
-        path = "config.local";
-      };
-
       merge = {
         conflictStyle = "zdiff3";
       };
@@ -167,8 +162,8 @@ in
       };
     };
 
-    # Multiple identities
-    includes = [
+    includes = lib.mkAfter [
+      # Multiple identities
       {
         condition = "gitdir:~/git/EPITA/";
         contents = {
@@ -186,6 +181,10 @@ in
             email = mkMailAddress "ambroisie" "google.com";
           };
         };
+      }
+      # Local configuration, not-versioned
+      {
+        path = "config.local";
       }
     ];
 

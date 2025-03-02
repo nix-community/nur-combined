@@ -16,7 +16,11 @@ in
       LESS = "-R -+X -c";
       # Better XDG compliance
       LESSHISTFILE = "${config.xdg.stateHome}/less/history";
-      LESSKEY = "${config.xdg.configHome}/less/lesskey";
     };
+
+    xdg.configFile."lesskey".text = ''
+      # Quit without clearing the screen on `Q`
+      Q toggle-option -!^Predraw-on-quit\nq
+    '';
   };
 }

@@ -26,20 +26,7 @@ let
   };
 
   migaduConfig = {
-    imap = {
-      host = "imap.migadu.com";
-      port = 993;
-      tls = {
-        enable = true;
-      };
-    };
-    smtp = {
-      host = "smtp.migadu.com";
-      port = 465;
-      tls = {
-        enable = true;
-      };
-    };
+    flavor = "migadu.com";
   };
 
   gmailConfig = {

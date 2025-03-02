@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, osConfig, ... }:
 let
   cfg = config.my.home.packages;
+  useGlobalPkgs = osConfig.home-manager.useGlobalPkgs or false;
 in
 {
   options.my.home.packages = with lib; {
@@ -29,7 +30,7 @@ in
       tree
     ] ++ cfg.additionalPackages);
 
-    nixpkgs.config = {
+    nixpkgs.config = lib.mkIf (!useGlobalPkgs) {
       inherit (cfg) allowAliases allowUnfree;
     };
   };

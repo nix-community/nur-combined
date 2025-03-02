@@ -6,6 +6,13 @@ in
 {
   options.my.services.homebox = with lib; {
     enable = mkEnableOption "Homebox home inventory";
+
+    port = mkOption {
+      type = types.port;
+      default = 7745;
+      example = 8080;
+      description = "Internal port for webui";
+    };
   };
 
   config = lib.mkIf cfg.enable {

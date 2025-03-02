@@ -10,7 +10,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-dunQgtap+XCK5LoSyOqIY/6p6HizBeiyPWNuCffwjDU=";
   };
 
-  cargoHash = "sha256-EUhyrhPe+mUgMmm4o+bxRIiSNReJRfw+/O1fPr8r7lo=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-R3/N/43+bGx6acE/rhBcrk6kS5zQu8NJ1sVvKJJkK9w=";
 
   meta = with lib; {
     description = "Git mirroring daemon";

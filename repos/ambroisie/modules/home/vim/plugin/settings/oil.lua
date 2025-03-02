@@ -4,6 +4,8 @@ local wk = require("which-key")
 local detail = false
 
 oil.setup({
+    -- Don't show icons
+    columns = {},
     view_options = {
         -- Show files and directories that start with "." by default
         show_hidden = true,
