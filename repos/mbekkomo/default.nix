@@ -6,10 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }@attrs:
-let
-  inherit (attrs) emmylua-analyzer;
-in
+{
+  pkgs ? import <nixpkgs> { },
+}:
 {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -19,7 +18,5 @@ in
   jotdown = pkgs.callPackage ./pkgs/jotdown { };
   godjot = pkgs.callPackage ./pkgs/godjot { };
   sklauncher = pkgs.callPackage ./pkgs/sklauncher { };
-  emmylua_ls = pkgs.callPackage emmylua-analyzer.emmylua_ls;
-  emmylua_doc_cli = pkgs.callPackage emmylua-analyzer.emmylua_doc_cli;
-  emmylua_check = pkgs.callPackage emmylua-analyzer.emmylua_check;
 }
+// builtins.mapAttrs (name: deriv: pkgs.callPackage deriv { }) (import ./pkgs/emmylua-analyzer)
