@@ -1,0 +1,112 @@
+diff --git a/src/RNGs/chacha.cpp b/src/RNGs/chacha.cpp
+index 156e8ca..2c85037 100644
+--- a/src/RNGs/chacha.cpp
++++ b/src/RNGs/chacha.cpp
+@@ -49,7 +49,7 @@ void PractRand::RNGs::Polymorphic::chacha::set_rounds(int rounds_) {implementati
+ int PractRand::RNGs::Polymorphic::chacha::get_rounds() const {return implementation.get_rounds();}
+ 
+ //raw:
+-PractRand::RNGs::Raw::chacha::~chacha() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::chacha::~chacha() {std::memset(this, 0, sizeof(*this));}
+ #ifdef PRACTRAND_ALIGN_128
+ static const Uint32 PRACTRAND_ALIGN_128 chacha_long_seed_constants[4] = {
+ #else
+diff --git a/src/RNGs/efiix.cpp b/src/RNGs/efiix.cpp
+index ff304d6..d1efa72 100644
+--- a/src/RNGs/efiix.cpp
++++ b/src/RNGs/efiix.cpp
+@@ -338,10 +338,10 @@ public:
+ */
+ 
+ 
+-PractRand::RNGs::Raw::efiix8x384::~efiix8x384() {std::memset(this, 0, sizeof(this));}
+-PractRand::RNGs::Raw::efiix16x384::~efiix16x384() {std::memset(this, 0, sizeof(this));}
+-PractRand::RNGs::Raw::efiix32x384::~efiix32x384() {std::memset(this, 0, sizeof(this));}
+-PractRand::RNGs::Raw::efiix64x384::~efiix64x384() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::efiix8x384::~efiix8x384() {std::memset(this, 0, sizeof(*this));}
++PractRand::RNGs::Raw::efiix16x384::~efiix16x384() {std::memset(this, 0, sizeof(*this));}
++PractRand::RNGs::Raw::efiix32x384::~efiix32x384() {std::memset(this, 0, sizeof(*this));}
++PractRand::RNGs::Raw::efiix64x384::~efiix64x384() {std::memset(this, 0, sizeof(*this));}
+ 
+ 
+ Uint8 PractRand::RNGs::Raw::efiix8x384::raw8() {
+diff --git a/src/RNGs/hc256.cpp b/src/RNGs/hc256.cpp
+index 916b0bd..a09917b 100644
+--- a/src/RNGs/hc256.cpp
++++ b/src/RNGs/hc256.cpp
+@@ -18,7 +18,7 @@ void PractRand::RNGs::Polymorphic::hc256::seed(Uint32 key_and_iv[16]) { implemen
+ void PractRand::RNGs::Polymorphic::hc256::seed(vRNG *seeder_rng) { implementation.seed(seeder_rng); }
+ 
+ //raw:
+-PractRand::RNGs::Raw::hc256::~hc256() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::hc256::~hc256() {std::memset(this, 0, sizeof(*this));}
+ #ifndef _MSC_VER
+ #define rotr(x,n) (((x)>>(n))|((x)<<(32-(n))))
+ #else
+diff --git a/src/RNGs/isaac.cpp b/src/RNGs/isaac.cpp
+index 312d4ba..c47a678 100644
+--- a/src/RNGs/isaac.cpp
++++ b/src/RNGs/isaac.cpp
+@@ -24,8 +24,8 @@ void PractRand::RNGs::Polymorphic::isaac64x256::flush_buffers() { implementation
+ std::string PractRand::RNGs::Polymorphic::isaac64x256::get_name() const {return "isaac64x256";}
+ 
+ //raw:
+-PractRand::RNGs::Raw::isaac32x256::~isaac32x256() {std::memset(this, 0, sizeof(this));}
+-PractRand::RNGs::Raw::isaac64x256::~isaac64x256() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::isaac32x256::~isaac32x256() {std::memset(this, 0, sizeof(*this));}
++PractRand::RNGs::Raw::isaac64x256::~isaac64x256() {std::memset(this, 0, sizeof(*this));}
+ 
+ #define ind32(mm,x)  (*(Uint32 *)((Uint8 *)(mm) + ((x) & ((SIZE-1)<<2))))
+ #define rngstep32(mix,a,b,mm,m,m2,r,x) \
+diff --git a/src/RNGs/salsa.cpp b/src/RNGs/salsa.cpp
+index 45aab68..aeda651 100644
+--- a/src/RNGs/salsa.cpp
++++ b/src/RNGs/salsa.cpp
+@@ -46,7 +46,7 @@ int PractRand::RNGs::Polymorphic::salsa::get_rounds() const {return implementati
+ 
+ 
+ //raw:
+-PractRand::RNGs::Raw::salsa::~salsa() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::salsa::~salsa() {std::memset(this, 0, sizeof(*this));}
+ static void salsa_mix_core(Uint32 &a, Uint32 &b, Uint32 &c, Uint32 &d) {
+ 	b ^= rotate32(a + d, 7);
+ 	c ^= rotate32(b + a, 9);
+diff --git a/src/RNGs/trivium.cpp b/src/RNGs/trivium.cpp
+index 4eae280..09c6f95 100644
+--- a/src/RNGs/trivium.cpp
++++ b/src/RNGs/trivium.cpp
+@@ -25,7 +25,7 @@ static Uint64 shift_array64( Uint64 vec[2], unsigned long bits ) {
+ 	return (vec[bits / 64] << (bits & 63)) | (vec[1 + bits / 64] >> (64-(bits & 63)));
+ }
+ //raw:
+-PractRand::RNGs::Raw::trivium::~trivium() {std::memset(this, 0, sizeof(this));}
++PractRand::RNGs::Raw::trivium::~trivium() {std::memset(this, 0, sizeof(*this));}
+ Uint64 PractRand::RNGs::Raw::trivium::raw64() {//LOCKED, do not change
+ 	Uint64 tmp_a = shift_array64(c, 66) ^ shift_array64(c,111);
+ 	Uint64 tmp_b = shift_array64(a, 66) ^ shift_array64(a, 93);
+diff --git a/src/math.cpp b/src/math.cpp
+index 22e4de6..f557182 100644
+--- a/src/math.cpp
++++ b/src/math.cpp
+@@ -271,7 +271,7 @@ namespace PractRand {
+ 			{
+ 				long double expected = sum * prob_table[i];
+ 				long double diff = ((long double)counts[i]) - expected;
+-				diff = fabs(diff) - 0.5;
++				diff = std::abs(diff) - 0.5;
+ 				v += (diff*diff)/expected;
+ 			}
+ 		//	double normal = (V-(categories-1))/sqrt((double)(categories-1));
+diff --git a/tools/RNG_test.cpp b/tools/RNG_test.cpp
+index 9fadb0a..e7ae46f 100644
+--- a/tools/RNG_test.cpp
++++ b/tools/RNG_test.cpp
+@@ -441,7 +441,7 @@ public:
+ };
+ 
+ 
+-double show_checkpoint(TestManager *tman, int mode, Uint64 seed, double time, bool smart_thresholds, double threshold, bool end_on_failure) {
++void show_checkpoint(TestManager *tman, int mode, Uint64 seed, double time, bool smart_thresholds, double threshold, bool end_on_failure) {
+ 	std::printf("rng=%s", tman->get_rng()->get_name().c_str());
+ 
+ 	std::printf(", seed=");

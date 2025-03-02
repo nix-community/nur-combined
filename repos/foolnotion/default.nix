@@ -94,6 +94,8 @@
 
   pareto = pkgs.python3Packages.callPackage ./pkgs/pareto { };
 
+  practrand-rng-test = pkgs.callPackage ./pkgs/practrand-rng-test { };
+
   pegtl = pkgs.callPackage ./pkgs/pegtl { };
 
   perf-cpp = pkgs.callPackage ./pkgs/perf-cpp { };
