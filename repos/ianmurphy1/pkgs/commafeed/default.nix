@@ -7,6 +7,7 @@
   nixosTests,
   writeText,
   graalvmCEPackages,
+  removeReferencesTo,
 }:
 let
   version = "5.6.1";
@@ -64,7 +65,7 @@ maven.buildMavenPackage {
     "-Dmaven.gitcommitid.skip"
   ];
 
-  nativeBuildInputs = [ graalvmCEPackages.graalvm-ce ];
+  nativeBuildInputs = [ graalvmCEPackages.graalvm-ce removeReferencesTo ];
 
   configurePhase = ''
     runHook preConfigure
@@ -85,15 +86,14 @@ maven.buildMavenPackage {
     cp commafeed-server/target/quarkus-generated-doc/application.properties \
       $out/share/application.properties
 
-    cp commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
-      $out/share/commafeed
-    
-    ln -s $out/share/commafeed $out/bin/commafeed
+    install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
+      $out/bin/commafeed
       
     runHook postInstall
   '';
 
   postInstall = ''
+    remove-references-to -t ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
