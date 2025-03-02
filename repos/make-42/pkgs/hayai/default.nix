@@ -13,9 +13,19 @@ buildGoModule rec {
   buildInputs = with pkgs; [
     alsa-lib
     gtk3
+    glfw
     gcc
     go
     pkg-config
+    xorg_sys_opengl.out
+    xorg.libX11.dev
+    xorg.libXrandr.dev
+    xorg.libXcursor.dev
+    xorg.libXinerama.dev
+    xorg.libXi.dev
+    xorg.libXxf86vm.dev
+    libglvnd
+    libxkbcommon
   ];
 
   nativeBuildInputs = with pkgs; [pkg-config makeWrapper];
@@ -23,10 +33,10 @@ buildGoModule rec {
   subPackages = ["."];
 
   src = fetchFromGitHub {
-    owner = "make-42";
-    repo = "hayai";
-    rev = "5dbea7f1964b4cad2f1cadf0539cbc15f1fe9409";
-    hash = "sha256-wFo/pFQ3B5cwSkCsl7g2HZRApV77XdQ2QNwKgPqvkJE=";
+  owner = "make-42";
+  repo = "hayai";
+  rev = "d389e0fd3fae374eb3774a3dc2af004a28a439a9";
+  hash = "sha256-JVevSowEOIyVFY65ZF144aJlbtOLTu6O8+PT1h4DxT0=";
   };
 
   vendorHash = null;
@@ -39,12 +49,22 @@ buildGoModule rec {
     platforms = platforms.linux;
   };
 
-  postInstall = ''
+  postInstall = with pkgs; ''
     wrapProgram "$out/bin/hayai" \
     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-      pkgs.pkg-config
-      pkgs.alsa-lib
-      pkgs.gtk3
+      pkg-config
+      alsa-lib
+      gtk3
+      glfw
+      xorg_sys_opengl.out
+      xorg.libX11.dev
+      xorg.libXrandr.dev
+      xorg.libXcursor.dev
+      xorg.libXinerama.dev
+      xorg.libXi.dev
+      xorg.libXxf86vm.dev
+      libglvnd
+      libxkbcommon
     ]}
   '';
 }

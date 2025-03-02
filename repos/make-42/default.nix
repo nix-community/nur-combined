@@ -20,6 +20,12 @@
 
   ntsc-rs = pkgs.callPackage ./pkgs/ntsc-rs {};
   assetripper = pkgs.callPackage ./pkgs/assetripper {};
+
+  meshroom = pkgs.callPackage ./pkgs/meshroom {};
+
+  denise = pkgs.callPackage ./pkgs/denise {};
+
+  ladybird = pkgs.callPackage ./pkgs/ladybird {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
