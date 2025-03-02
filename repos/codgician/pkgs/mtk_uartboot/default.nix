@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "A third-party tool to load and execute binaries over UART for Mediatek SoCs";
+    description = "A third-party tool to load and execute binaries over UART for Mediatek SoCs.";
     homepage = "https://github.com/981213/mtk_uartboot";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ codgician ];
