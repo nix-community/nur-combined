@@ -13,12 +13,38 @@
             "name": null,
             "owner": "awslabs",
             "repo": "aws-sigv4-proxy",
-            "rev": "v1.9",
-            "sha256": "sha256-0yr3vT9s25fBasi1/sdQeBwIxWGndHfQfPkZcI0aHko=",
+            "rev": "v1.10",
+            "sha256": "sha256-DC9JJeMdwxKeALQYA53BmMdAxQlUfPowAEul7+dTh4s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9"
+        "version": "v1.10"
+    },
+    "baibot": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./baibot-v1.4.1/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "baibot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "etkecc",
+            "repo": "baibot",
+            "rev": "v1.4.1",
+            "sha256": "sha256-LeLdKedwyjSubZ5vEqI+YmqTsd5+Ai+2Pof/I9HpgNQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.1"
     },
     "cowrie": {
         "cargoLocks": null,
@@ -136,12 +162,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.6.65-linux-241218T004222Z",
-            "sha256": "sha256-DOAchtzP2q1u5s5zsBTocuOe4mklDbZ9Iknt9rTWy30=",
+            "rev": "lts-v6.12.15-linux-250219T061943Z",
+            "sha256": "sha256-ULPO3ZqSpkA4bb5FmeDZctOeJgUfIDbFcbyPuVWY1JE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.6.65-linux-241218T004222Z"
+        "version": "lts-v6.12.15-linux-250219T061943Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -354,7 +380,7 @@
     },
     "rime-cantonese": {
         "cargoLocks": null,
-        "date": "2024-12-28",
+        "date": "2025-02-12",
         "extract": null,
         "name": "rime-cantonese",
         "passthru": null,
@@ -364,13 +390,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cb1ea1600b720743e0519dcbec3c2fc314ab4f50",
-            "sha256": "sha256-P+PSFTYUlWt3XPicKNOd7GEP8ZMdbcriVh7IoiQc/ak=",
+            "rev": "1c2da9400b4d5a1e976508ec27e9d287a34e2ee2",
+            "sha256": "sha256-G3/2pxfUHTvNtvkcFFJgxcXt59rYjHoCoL13Fm/by/o=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "cb1ea1600b720743e0519dcbec3c2fc314ab4f50"
+        "version": "1c2da9400b4d5a1e976508ec27e9d287a34e2ee2"
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
@@ -414,7 +440,7 @@
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-02-03",
+        "date": "2025-02-26",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -424,17 +450,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "eaa02871c473f258d604b3f713a4a9da7572b74c",
-            "sha256": "sha256-yphk5RZRA6HMyxE/skRz4fsUeQC216JMfKJdCunYhBg=",
+            "rev": "8950960f49a700af0bbcac3ce0cdadb190e719c6",
+            "sha256": "sha256-sCoh6iOqBfywaBx4RR47mqjsU+qTtJ3CYFH2ach5mTA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "eaa02871c473f258d604b3f713a4a9da7572b74c"
+        "version": "8950960f49a700af0bbcac3ce0cdadb190e719c6"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-02-09",
+        "date": "2025-02-24",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -444,13 +470,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0a1653d02e9e594e128737f7ea40627abda2c16a",
-            "sha256": "sha256-MVXIqdzGSvQTHXm2NDJNt1tsoIJEb+HOHq8YFuKCJx4=",
+            "rev": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86",
+            "sha256": "sha256-eAOkda8IdDKBgfXNVezlgA7BmyUortonlinHdCb/Tr4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "0a1653d02e9e594e128737f7ea40627abda2c16a"
+        "version": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -474,7 +500,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2025-01-31",
+        "date": "2025-02-24",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -484,13 +510,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1b3a2e58cd45e556efafb39c672fe8cb7ada3461",
-            "sha256": "sha256-C0fB0S/m5GTvR0JygosQGAX+NAeP0xDypsjyggEV3mo=",
+            "rev": "308b8efc39917b99765e8a3792ad274aaabe5de1",
+            "sha256": "sha256-SZs4u09XqGfD8j4gz1N5fLTts79m0jIJ/asS2riplWA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "1b3a2e58cd45e556efafb39c672fe8cb7ada3461"
+        "version": "308b8efc39917b99765e8a3792ad274aaabe5de1"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
@@ -646,12 +672,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.3.0",
-            "sha256": "sha256-SKcAAQ7Wmc0np2McGCbmqZ1dMhilZeqZA8ocH9XcaaM=",
+            "rev": "v1.4.0-signed",
+            "sha256": "sha256-AnP4izg3EdZTxykKFtrQB6JL86YLinikt2Mf77YuaZA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.3.0"
+        "version": "v1.4.0-signed"
     },
     "swayosd": {
         "cargoLocks": {

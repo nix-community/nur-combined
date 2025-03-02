@@ -15,7 +15,7 @@ buildGoModule rec {
     description = "Signs and proxies HTTP requests with Sigv4";
     homepage = "https://github.com/awslabs/aws-sigv4-proxy";
     license = licenses.asl20;
-    broken = !(lib.versionAtLeast go.version "1.22");
+    broken = !(lib.versionAtLeast go.version "1.23.6");
     maintainers = with maintainers; [ yinfeng ];
   };
 }

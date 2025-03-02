@@ -8,13 +8,30 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.9";
+    version = "v1.10";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.9";
+      rev = "v1.10";
       fetchSubmodules = false;
-      sha256 = "sha256-0yr3vT9s25fBasi1/sdQeBwIxWGndHfQfPkZcI0aHko=";
+      sha256 = "sha256-DC9JJeMdwxKeALQYA53BmMdAxQlUfPowAEul7+dTh4s=";
+    };
+  };
+  baibot = {
+    pname = "baibot";
+    version = "v1.4.1";
+    src = fetchFromGitHub {
+      owner = "etkecc";
+      repo = "baibot";
+      rev = "v1.4.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-LeLdKedwyjSubZ5vEqI+YmqTsd5+Ai+2Pof/I9HpgNQ=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./baibot-v1.4.1/Cargo.lock;
+      outputHashes = {
+
+      };
     };
   };
   cowrie = {
@@ -83,13 +100,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.6.65-linux-241218T004222Z";
+    version = "lts-v6.12.15-linux-250219T061943Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.6.65-linux-241218T004222Z";
+      rev = "lts-v6.12.15-linux-250219T061943Z";
       fetchSubmodules = false;
-      sha256 = "sha256-DOAchtzP2q1u5s5zsBTocuOe4mklDbZ9Iknt9rTWy30=";
+      sha256 = "sha256-ULPO3ZqSpkA4bb5FmeDZctOeJgUfIDbFcbyPuVWY1JE=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -228,17 +245,17 @@
   };
   rime-cantonese = {
     pname = "rime-cantonese";
-    version = "cb1ea1600b720743e0519dcbec3c2fc314ab4f50";
+    version = "1c2da9400b4d5a1e976508ec27e9d287a34e2ee2";
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
-      rev = "cb1ea1600b720743e0519dcbec3c2fc314ab4f50";
+      rev = "1c2da9400b4d5a1e976508ec27e9d287a34e2ee2";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-P+PSFTYUlWt3XPicKNOd7GEP8ZMdbcriVh7IoiQc/ak=";
+      sha256 = "sha256-G3/2pxfUHTvNtvkcFFJgxcXt59rYjHoCoL13Fm/by/o=";
     };
-    date = "2024-12-28";
+    date = "2025-02-12";
   };
   rime-double-pinyin = {
     pname = "rime-double-pinyin";
@@ -270,31 +287,31 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "eaa02871c473f258d604b3f713a4a9da7572b74c";
+    version = "8950960f49a700af0bbcac3ce0cdadb190e719c6";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "eaa02871c473f258d604b3f713a4a9da7572b74c";
+      rev = "8950960f49a700af0bbcac3ce0cdadb190e719c6";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yphk5RZRA6HMyxE/skRz4fsUeQC216JMfKJdCunYhBg=";
+      sha256 = "sha256-sCoh6iOqBfywaBx4RR47mqjsU+qTtJ3CYFH2ach5mTA=";
     };
-    date = "2025-02-03";
+    date = "2025-02-26";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0a1653d02e9e594e128737f7ea40627abda2c16a";
+    version = "e3fd65b4f806e7e7e48402ea75d8e6def6281a86";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "0a1653d02e9e594e128737f7ea40627abda2c16a";
+      rev = "e3fd65b4f806e7e7e48402ea75d8e6def6281a86";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-MVXIqdzGSvQTHXm2NDJNt1tsoIJEb+HOHq8YFuKCJx4=";
+      sha256 = "sha256-eAOkda8IdDKBgfXNVezlgA7BmyUortonlinHdCb/Tr4=";
     };
-    date = "2025-02-09";
+    date = "2025-02-24";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -312,17 +329,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "1b3a2e58cd45e556efafb39c672fe8cb7ada3461";
+    version = "308b8efc39917b99765e8a3792ad274aaabe5de1";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "1b3a2e58cd45e556efafb39c672fe8cb7ada3461";
+      rev = "308b8efc39917b99765e8a3792ad274aaabe5de1";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-C0fB0S/m5GTvR0JygosQGAX+NAeP0xDypsjyggEV3mo=";
+      sha256 = "sha256-SZs4u09XqGfD8j4gz1N5fLTts79m0jIJ/asS2riplWA=";
     };
-    date = "2025-01-31";
+    date = "2025-02-24";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
@@ -424,13 +441,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.3.0";
+    version = "v1.4.0-signed";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.3.0";
+      rev = "v1.4.0-signed";
       fetchSubmodules = false;
-      sha256 = "sha256-SKcAAQ7Wmc0np2McGCbmqZ1dMhilZeqZA8ocH9XcaaM=";
+      sha256 = "sha256-AnP4izg3EdZTxykKFtrQB6JL86YLinikt2Mf77YuaZA=";
     };
   };
   swayosd = {

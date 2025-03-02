@@ -11,14 +11,15 @@ main = runNvFetcher packageSet
 
 packageSet :: PackageSet ()
 packageSet = do
+  -- keep-sorted start
+  ghPkg "Wind4" "vlmcsd"
+  ghPkg "awslabs" "aws-sigv4-proxy"
   ghPkg "cowrie" "cowrie"
   ghPkg "estkme-group" "lpac"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "matrix-org" "synapse-s3-storage-provider"
-  ghPkg "trojan-gfw" "trojan"
-  ghPkg "Wind4" "vlmcsd"
   ghPkg "microsoft" "secureboot_objects"
-  ghPkg "awslabs" "aws-sigv4-proxy"
+  ghPkg "trojan-gfw" "trojan"
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
   gitPkg "rime-cangjie" "https://github.com/rime/rime-cangjie.git"
@@ -39,16 +40,22 @@ packageSet = do
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
-  fishPlugins
-  linuxIntelTts
-  linuxIntelMainlineTracking
-  tgSend
+  -- keep-sorted end
+
+  -- keep-sorted start
+  baibot
   dotTar
+  fishPlugins
   icalinguaPlusPlus
+  linuxIntelMainlineTracking
+  linuxIntelTts
   mstickereditor
   swayOsd
+  tgSend
   yacd
   zeronsd
+  -- keep-sorted end
+  return ()
 
 fishPlugins :: PackageSet ()
 fishPlugins = do
@@ -140,4 +147,11 @@ zeronsd =
   define $
     package "zeronsd"
       `fromGitHub` ("zerotier", "zeronsd")
+      `hasCargoLocks` ["Cargo.lock"]
+
+baibot :: PackageSet ()
+baibot =
+  define $
+    package "baibot"
+      `fromGitHubTag` ("etkecc", "baibot", id)
       `hasCargoLocks` ["Cargo.lock"]
