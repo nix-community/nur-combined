@@ -19,6 +19,7 @@ in {
   config = mkIf cfg.enable {
     programs.tmux = {
       enable = true;
+      escapeTime = 0;
       baseIndex = 1;
       terminal = "screen-256color";
       clock24 = true;
@@ -33,9 +34,10 @@ in {
           '';
         }
         {
-          plugin = tmuxPlugins.tmux-colors-solarized;
+          plugin = pkgs.tmuxPlugins.catppuccin;
           extraConfig = ''
-            set -g @colors-solarized 'light'
+            set -g @catppuccin_flavor 'latte'
+            set -g @catppuccin_window_status_style "rounded"
           '';
         }
       ];

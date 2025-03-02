@@ -1,0 +1,72 @@
+[user]
+name = "Antoine Martin"
+email = "antoine@alarsyo.net"
+
+[ui]
+diff-editor = ":builtin"
+paginate = "auto"
+editor = "vim"
+pager = "less -FRX"
+default-command = "logstatus"
+
+[ui.movement]
+edit = false
+
+[git]
+subprocess = true
+
+[snapshot]
+auto-track = "none()"
+
+[aliases]
+pdiff = ["diff", "-r", "@-"]
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+ll = ["log", "-T", "builtin_log_detailed"]
+l = ["log", "-T", "builtin_log_compact"]
+logstatus = ["util", "exec", "--", "sh", "-c", "jj status && jj log"]
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+
+[templates]
+log = "builtin_log_comfortable"
+
+log_node = '''
+coalesce(
+  if(!self, label("elided", "~")),
+  label(
+    separate(" ",
+      if(current_working_copy, "working_copy"),
+      if(immutable, "immutable"),
+      if(conflict, "conflict"),
+      if(description.starts_with("wip:"), "wip"),
+      if(description.starts_with("private:"), "private"),
+    ),
+    coalesce(
+      if(current_working_copy, "@"),
+      if(immutable, "◆"),
+      if(conflict, "×"),
+      if(description.starts_with("wip:"), "🔒"),
+      if(description.starts_with("private:"), "🔒"),
+      "○",
+    )
+  )
+)
+'''
+
+[template-aliases]
+
+[[--scope]]
+--when.repositories = ["~/work/lrde/"]
+[--scope.user]
+email = "amartin@lrde.epita.fr"
+
+[[--scope]]
+--when.repositories = ["~/work/prologin/"]
+[--scope.user]
+email = "antoine.martin@prologin.org"
+
+[[--scope]]
+--when.repositories = ["~/work/epita/"]
+[--scope.user]
+email = "antoine4.martin@epita.fr"

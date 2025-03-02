@@ -47,7 +47,7 @@ in {
         };
       };
 
-      logind.lidSwitch = "ignore";
+      logind.lidSwitch = "suspend";
 
       printing = {
         enable = true;

@@ -27,7 +27,11 @@ in {
 
         # fonts used by my config
         emacs-all-the-icons-fonts
-        iosevka-bin
+        ;
+
+      inherit
+        (pkgs.unstable.nerd-fonts)
+        iosevka
         ;
     };
     # make sure above fonts are discoverable

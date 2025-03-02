@@ -30,7 +30,6 @@
       pciutils
       usbutils
       # development
-      jujutsu
       git
       git-crypt
       git-lfs

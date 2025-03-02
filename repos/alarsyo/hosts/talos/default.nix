@@ -158,12 +158,22 @@
 
   environment.systemPackages = [
     pkgs.foot
+    # FIXME: is this needed?
+    pkgs.darkman
   ];
 
   #programs.hyprland.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+  };
+
+  # TODO: These are overriden by files from
+  # ~/.config/xdg-desktop-portal/sway-portals.conf so they should be moved to
+  # home
+  xdg.portal.config.sway = {
+    "org.freedesktop.impl.portal.Settings" = "darkman";
+    "org.freedesktop.impl.portal.Inhibit" = "none";
   };
 
   # Copy the NixOS configuration file and link it from the resulting system

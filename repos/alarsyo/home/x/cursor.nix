@@ -16,12 +16,16 @@ in {
 
   config = mkIf cfg.enable {
     home.pointerCursor = {
-      package = pkgs.capitaine-cursors;
-      name = "capitaine-cursors";
-      # available sizes for capitaine-cursors are:
-      # 24, 30, 36, 48, 60, 72
-      size = 30;
+      #package = pkgs.capitaine-cursors;
+      #name = "capitaine-cursors";
+      #package = pkgs.catppuccin-cursors.frappeDark;
+      #name = "catppuccin-frappe-dark-cursors";
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      # https://unix.stackexchange.com/a/743543
+      size = 24;
       x11.enable = true;
+      gtk.enable = true;
     };
   };
 }

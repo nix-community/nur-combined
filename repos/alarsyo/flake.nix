@@ -60,6 +60,7 @@
       owner = "jj-vcs";
       repo = "jj";
       ref = "v0.26.0";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

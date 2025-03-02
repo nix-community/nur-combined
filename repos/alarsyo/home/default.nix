@@ -10,6 +10,7 @@
     ./flameshot.nix
     ./git.nix
     ./gtk.nix
+    ./jj.nix
     ./laptop.nix
     ./mail.nix
     ./rbw.nix

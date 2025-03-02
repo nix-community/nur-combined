@@ -23,14 +23,35 @@ in {
 
     my.theme = config.home-manager.users.alarsyo.my.themes.solarizedLight;
 
-    # TODO: place in global home conf
-    services.dunst.enable = true;
+    services = {
+      # TODO: place in global home conf
+      dunst.enable = true;
+      wlsunset = {
+        enable = true;
+        latitude = 48.9;
+        longitude = 2.3;
+        temperature = {
+          day = 6500;
+          night = 3500;
+        };
+      };
+      darkman = {
+        enable = true;
+        settings = {
+          lat = 48.9;
+          lng = 2.3;
+        };
+      };
+    };
 
     home.packages = builtins.attrValues {
       inherit
         (pkgs)
         ansel
         chromium # some websites only work there :(
+        nwg-displays
+        shikane # output autoconfig
+        swaybg
         zotero
         ;
 
@@ -40,7 +61,10 @@ in {
         ;
     };
 
-    wayland.windowManager.sway = {
+    wayland.windowManager.sway = let
+      logoutMode = "[L]ogout, [S]uspend, [P]oweroff, [R]eboot";
+      lock = "swaylock --daemonize --image ~/.wallpaper --scaling fill";
+    in {
       enable = true;
       swaynag.enable = true;
       wrapperFeatures.gtk = true;
@@ -67,57 +91,93 @@ in {
           names = ["Iosevka Fixed" "FontAwesome6Free"];
           size = 9.0;
         };
-        bars = [
-          {
-            mode = "dock";
-            hiddenState = "hide";
-            position = "top";
-            workspaceButtons = true;
-            workspaceNumbers = true;
-            statusCommand = "${pkgs.i3status}/bin/i3status";
-            fonts = {
-              names = ["Iosevka Fixed" "FontAwesome6Free"];
-              size = 9.0;
-            };
-            trayOutput = "primary";
-            colors = {
-              background = "#000000";
-              statusline = "#ffffff";
-              separator = "#666666";
-              focusedWorkspace = {
-                border = "#4c7899";
-                background = "#285577";
-                text = "#ffffff";
-              };
-              activeWorkspace = {
-                border = "#333333";
-                background = "#5f676a";
-                text = "#ffffff";
-              };
-              inactiveWorkspace = {
-                border = "#333333";
-                background = "#222222";
-                text = "#888888";
-              };
-              urgentWorkspace = {
-                border = "#2f343a";
-                background = "#900000";
-                text = "#ffffff";
-              };
-              bindingMode = {
-                border = "#2f343a";
-                background = "#900000";
-                text = "#ffffff";
-              };
-            };
-          }
-        ];
+        bars = [];
 
         keybindings = mkOptionDefault {
+          "Mod4+Shift+a" = "exec shikanectl reload";
+          "Mod4+Shift+e" = ''mode "${logoutMode}"'';
           "Mod4+i" = "exec emacsclient --create-frame";
+          "Mod4+Control+l" = "exec ${lock}";
+          "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2";
+          "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2";
+          "XF86MonBrightnessUp" = "exec light -A 5";
+          "XF86MonBrightnessDown" = "exec light -U 5";
         };
+
+        modes = mkOptionDefault {
+          "${logoutMode}" = {
+            "l" = "exec --no-startup-id swaymsg exit, mode default";
+            "s" = "exec --no-startup-id systemctl suspend, mode default";
+            "p" = "exec --no-startup-id systemctl poweroff, mode default";
+            "r" = "exec --no-startup-id systemctl reboot, mode default";
+            "Escape" = "mode default";
+            "Return" = "mode default";
+          };
+        };
+
+        menu = "fuzzel --list-executables-in-path";
+
+        startup = [
+          {command = "shikane";}
+          {command = "waybar";}
+          {
+            command = "swaybg --image ~/.wallpaper --mode fill";
+            always = true;
+          }
+          {command = "swayidle -w idlehint 1 before-sleep \"${lock}\"";}
+        ];
       };
+
+      extraConfig = ''
+        bindswitch --reload --locked lid:off output eDP-1 enable;
+        bindswitch --reload --locked lid:on output eDP-1 disable;
+
+        bindgesture swipe:right workspace prev
+        bindgesture swipe:left workspace next
+
+        set $rosewater #dc8a78
+        set $flamingo #dd7878
+        set $pink #ea76cb
+        set $mauve #8839ef
+        set $red #d20f39
+        set $maroon #e64553
+        set $peach #fe640b
+        set $yellow #df8e1d
+        set $green #40a02b
+        set $teal #179299
+        set $sky #04a5e5
+        set $sapphire #209fb5
+        set $blue #1e66f5
+        set $lavender #7287fd
+        set $text #4c4f69
+        set $subtext1 #5c5f77
+        set $subtext0 #6c6f85
+        set $overlay2 #7c7f93
+        set $overlay1 #8c8fa1
+        set $overlay0 #9ca0b0
+        set $surface2 #acb0be
+        set $surface1 #bcc0cc
+        set $surface0 #ccd0da
+        set $base #eff1f5
+        set $mantle #e6e9ef
+        set $crust #dce0e8
+
+        # target                 title     bg        text   indicator  border
+        client.focused           $lavender $lavender $base  $rosewater $lavender
+        client.focused_inactive  $overlay0 $base     $text  $rosewater $overlay0
+        client.unfocused         $overlay0 $base     $text  $rosewater $overlay0
+        client.urgent            $peach    $base     $peach $overlay0  $peach
+        client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
+        client.background        $base
+
+        smart_borders on
+        default_border pixel 3
+        gaps inner 5
+        gaps outer 3
+      '';
     };
+
     programs = {
       fuzzel.enable = true;
       swaylock.enable = true;
@@ -125,5 +185,22 @@ in {
         enable = true;
       };
     };
+
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+  };
+
+  # FIXME: belongs elsewhere
+  services = {
+    logind = {
+      lidSwitch = "suspend";
+      lidSwitchExternalPower = "ignore";
+      extraConfig = ''
+        IdleAction=suspend
+        IdleActionSec=10min
+      '';
+    };
+    upower.enable = true;
   };
 }
