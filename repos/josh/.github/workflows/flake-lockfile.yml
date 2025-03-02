@@ -1,0 +1,77 @@
+name: Flake
+
+on: pull_request
+
+permissions:
+  id-token: "write"
+  contents: "read"
+
+jobs:
+  lockfile-drv-changed:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - name: Check changed files
+        id: changed
+        run: |
+          paths=$(git diff --name-only "$BASE_SHA...$HEAD_SHA")
+          if [ "$paths" = "flake.lock" ]; then
+            echo "only_lock_changed=true" | tee -a "$GITHUB_OUTPUT"
+          else
+            echo "only_lock_changed=false" | tee -a "$GITHUB_OUTPUT"
+          fi
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+      - name: Write all packages expression
+        run: |
+          echo "$NIX_EXPR" >all-packages.nix
+        env:
+          NIX_EXPR: |
+            let
+              ref = builtins.getEnv "REF";
+              flake = builtins.getFlake "git+file://${{ github.workspace }}?ref=${ref}";
+            in
+            derivation {
+              __structuredAttrs = true;
+              name = "all-packages";
+              system = "x86_64-linux";
+              builder = "/bin/sh";
+              inherit (flake.outputs) packages;
+            }
+
+      - name: Get base SHA derivation path
+        id: base-drv
+        if: steps.changed.outputs.only_lock_changed == 'true'
+        run: |
+          set -o pipefail
+          echo -n "path=" >>"$GITHUB_OUTPUT"
+          nix eval --read-only --raw --file ./all-packages.nix | tee -a "$GITHUB_OUTPUT"
+        env:
+          REF: ${{ github.event.pull_request.base.sha }}
+
+      - name: Get head SHA derivation path
+        id: head-drv
+        if: steps.changed.outputs.only_lock_changed == 'true'
+        run: |
+          set -o pipefail
+          echo -n "path=" >>"$GITHUB_OUTPUT"
+          nix eval --read-only --raw --file ./all-packages.nix | tee -a "$GITHUB_OUTPUT"
+        env:
+          REF: ${{ github.event.pull_request.head.sha }}
+
+      - name: Compare head and base derivation paths
+        if: steps.changed.outputs.only_lock_changed == 'true' && steps.base-drv.outputs.path == steps.head-drv.outputs.path
+        run: |
+          echo "::warning file=flake.lock::flake.lock changes produced the same derivation output"
+          exit 1

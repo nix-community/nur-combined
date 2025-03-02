@@ -1,0 +1,118 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "0 19 * * *" # 11am PST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  matrix:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - id: set-matrix
+        name: Generate package matrix
+        run: |
+          nix eval --raw --file ./internal/update-script-matrix.nix | tee "$GITHUB_OUTPUT"
+        env:
+          FLAKE_URI: ${{ github.workspace }}
+
+  update:
+    name: update-${{ matrix.attr }}
+    needs: matrix
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: git-push-update-${{ matrix.attr }}
+      cancel-in-progress: false
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.matrix.outputs.matrix)}}
+
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" | tee -a "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Checkout new branch
+        run: |
+          git checkout -B "update-${{ matrix.attr }}"
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: josh
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Configure git commit author
+        run: |
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+
+      - name: Build update-script
+        run: |
+          nix build --file ./internal/update-script.nix
+        env:
+          FLAKE_URI: ${{ github.workspace }}
+          UPDATE_NIX_ATTR_PATH: ${{ matrix.attr }}
+
+      - name: Run update-script
+        run: |
+          ./result/bin/update-${{ matrix.attr }}
+
+      - name: Git status
+        id: git-status
+        run: |
+          count=$(git rev-list "origin/$GITHUB_REF_NAME..HEAD" --count)
+          echo "count=$count" >>"$GITHUB_OUTPUT"
+
+      - name: Push changes
+        if: steps.git-status.outputs.count != 0
+        run: git push -f origin "update-${{ matrix.attr }}"
+
+      - name: Create PR
+        if: steps.git-status.outputs.count != 0
+        id: create-pr
+        continue-on-error: true
+        run: |
+          echo -n "url=" >"$GITHUB_OUTPUT"
+          gh pr create \
+            --base "${{ github.ref_name }}" \
+            --head "update-${{ matrix.attr }}" \
+            --title "Update ${{ matrix.attr }}" \
+            --fill-verbose | tee -a "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Enable auto-merge
+        if: steps.git-status.outputs.count != 0 && steps.create-pr.outcome == 'success'
+        run: |
+          gh pr merge --merge --auto "${{ steps.create-pr.outputs.url }}"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}

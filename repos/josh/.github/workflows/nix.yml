@@ -1,0 +1,68 @@
+name: Nix
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  id-token: "write"
+  contents: "read"
+
+env:
+  NIX_ABORT_ON_WARN: "1"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-24.04"
+          - "ubuntu-24.04-arm"
+          - "macos-15"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          determinate: true
+          extra-conf: |
+            accept-flake-config = true
+            allow-import-from-derivation = false
+
+      - uses: DeterminateSystems/flakehub-cache-action@main
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: josh
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          installCommand: nix profile install nixpkgs#cachix
+
+      - uses: DeterminateSystems/flake-checker-action@v9
+
+      - name: Check flake
+        run: |
+          nix flake check --keep-going --print-build-logs
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          determinate: true
+
+      - uses: DeterminateSystems/flakehub-cache-action@main
+
+      - uses: DeterminateSystems/flakehub-push@main
+        with:
+          visibility: public
+          include-output-paths: true
+          rolling: true
