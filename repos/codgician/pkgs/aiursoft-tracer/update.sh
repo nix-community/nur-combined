@@ -5,8 +5,10 @@ nur="$(git rev-parse --show-toplevel)"
 path="$nur/pkgs/aiursoft-tracer/default.nix"
 prefetch=$(nix-prefetch-git --url https://github.com/AiursoftWeb/Tracer --no-deepClone)
 
-new_rev=$(echo $prefetch | jq -r '.rev')
+new_rev=$(echo "$prefetch" | jq -r '.rev')
+new_version="0-unstable-"$(echo "$prefetch" | jq -r '.date' | sed 's/T.*//')
 old_rev="$(sed -nE 's/\s*rev = "(.*)".*/\1/p' $path)"
+old_version="$(sed -nE 's/\s*version = "(.*)".*/\1/p' $path)"
 
 if [[ "$new_rev" == "$old_rev" ]]; then
     echo "Current revision $old_rev is up-to-date."
@@ -14,9 +16,9 @@ if [[ "$new_rev" == "$old_rev" ]]; then
 fi
 
 # Update the revision
-# update-source-version aiursoft-tracer "$new_rev"
 hash=$(echo $prefetch | jq -r '.hash')
 sed -i -e "s,rev = \"$old_rev\",rev = \"$new_rev\"," \
+    -e "s,version = \"$old_version\",version = \"$new_version\"," \
     -e "s,hash = \"sha256-.*\",hash = \"$hash\"," "$path" 
 
 # Fetch npm deps

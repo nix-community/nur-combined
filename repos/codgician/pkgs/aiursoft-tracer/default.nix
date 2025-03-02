@@ -17,7 +17,7 @@ let
     hash = "sha256-e3qsAp9jeF+kV+YmS1kgEnzDnb0vMNPKleqqtZwOP7k=";
   };
 
-  version = "1.0.0-${builtins.substring 0 7 src.rev}";
+  version = "0-unstable-2025-02-28";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
