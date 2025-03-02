@@ -72,8 +72,6 @@ let
     #steamguard-cli
     rclone
 
-    # my.zen-browser
-
     #zsh
     jq
   ];
@@ -100,6 +98,7 @@ let
     # microsoft-edge-dev
     tor-browser-bundle-bin
     google-chrome
+    zen-browser
     localsend
     # handbrake
     netease-cloud-music-gtk
@@ -108,13 +107,15 @@ let
     # gaphor
     # gimp
     # minder
-    tsukimi
+    #tsukimi
     materialgram
-    nur.repos.xddxdd.wechat-uos-sandboxed
+    # nur.repos.xddxdd.wechat-uos-sandboxed
 
     #ghostty
 
     deluge-gtk
+
+    ciscoPacketTracer8
 
     # vmware-workstation
     adw-gtk3

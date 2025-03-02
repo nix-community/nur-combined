@@ -16,14 +16,9 @@
     git = true;
   };
 
-  programs.foot = {
+  programs.fzf = {
     enable = true;
-    settings = {
-      main = {
-        font = "Iosevka ZT:size=12";
-        dpi-aware = "yes";
-      };
-    };
+    enableFishIntegration = true;
   };
 
   programs.jujutsu = {
@@ -47,7 +42,7 @@
   };
 
   programs.zellij = {
-    enable = true;
+    enable = false;
     settings = {
       theme = "everforest-dark";
       simplified-ui = true;

@@ -2,6 +2,7 @@
   lib,
   config,
   modulesPath,
+  pkgs,
   ...
 }:
 
@@ -36,13 +37,11 @@ in
   boot.initrd.systemd.enable = true; # for perservation
   boot.kernelModules = [
     "kvm-amd"
-    "acpi_call"
   ];
 
   # for obs virtual camera
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
-    acpi_call
   ];
   boot.extraModprobeConfig = ''
     options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
@@ -82,10 +81,17 @@ in
   #boot.kernelParams = [ "mem_sleep_default=deep" "resume_offset=24927051" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  services.xserver = {
+    videoDrivers = [ "amdgpu" ];
+  };
+  services.pulseaudio.enable = false;
   hardware = {
-    pulseaudio.enable = false;
     graphics.enable = true;
-    bluetooth.enable = true;
+    graphics.extraPackages = [ pkgs.amf ];
+    bluetooth = {
+      enable = true;
+    };
+    enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
   };
 }

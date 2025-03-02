@@ -23,7 +23,7 @@
     scx.scheduler = "scx_lavd";
   };
 
-  workarounds.thinkbook14p-fix.enable = true;
+  mods.thinkbook14p-fix.enable = true;
 
   boot = {
     plymouth.enable = true;
@@ -68,10 +68,15 @@
     enableSSHSupport = true;
   };
   programs.fish.enable = true;
+  programs.wireshark.enable = true;
+  environment.systemPackages = [
+    pkgs.wireshark
+  ];
   #programs.thefuck.enable = true;
   programs.adb.enable = true;
   programs.fuse.userAllowOther = true;
   services.flatpak.enable = true;
+  security.rtkit.enable = true;
 
   systemd.services.nix-daemon = {
     environment = {

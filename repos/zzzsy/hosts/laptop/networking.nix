@@ -2,6 +2,7 @@
 {
   sops.secrets = {
     "wg" = { };
+    "wg1" = { };
   };
   networking = {
     useDHCP = false;
@@ -41,6 +42,25 @@
       #  ip rule del fwmark 0x800/0x800 table 1145
       #  ip -6 rule del fwmark 0x800/0x800 table 1145
       #'';
+    };
+    wg-zx = {
+      autostart = false;
+      address = [
+        "172.12.0.1/32"
+      ];
+      mtu = 1420;
+      peers = [
+      {
+        allowedIPs = [
+          "0.0.0.0/0"
+          "::/0"
+        ];
+        endpoint = "10.134.48.153:20278";
+        persistentKeepalive = 25;
+        publicKey = "i9aFPFalqrYrJcdMAl6eVQ1gYdP0A2+X4rVZ2w+ci2c=";
+      }
+      ];
+      privateKeyFile = config.sops.secrets."wg1".path;
     };
   };
   services.zerotierone = {

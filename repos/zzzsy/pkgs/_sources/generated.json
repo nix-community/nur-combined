@@ -1,7 +1,7 @@
 {
     "firefox-gnome-theme": {
         "cargoLocks": null,
-        "date": "2024-12-23",
+        "date": "2025-02-10",
         "extract": null,
         "name": "firefox-gnome-theme",
         "passthru": null,
@@ -13,11 +13,12 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "92f4890bd150fc9d97b61b3583680c0524a8cafe",
-            "sha256": "sha256-A9PxLienMYJ/WUvqFie9qXrNC2MeRRYw7TG/q7DRjZg=",
+            "rev": "a89108e6272426f4eddd93ba17d0ea101c34fb21",
+            "sha256": "sha256-vAxN2f3rvl5q62gQQjZGVSvF93nAsOxntuFz+e/655w=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "92f4890bd150fc9d97b61b3583680c0524a8cafe"
+        "version": "a89108e6272426f4eddd93ba17d0ea101c34fb21"
     },
     "iosevka-zt": {
         "cargoLocks": null,
@@ -50,6 +51,7 @@
             "repo": "librime-lua",
             "rev": "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6",
             "sha256": "sha256-zx0F41szn5qlc2MNjt1vizLIsIFQ67fp5cb8U8UUgtY=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6"
@@ -63,11 +65,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-em3uh53neN8v1ueiw1rWVtC0bteD7IG3X1g9tkjBRJA=",
+            "sha256": "sha256-JAU87Jb3gqS1mXYprWKYt5xnzMVlZR992PNmsqnTF3U=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/v1.501/LXGWWenKaiScreen.ttf"
+            "url": "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/v1.510/LXGWWenKaiScreen.ttf"
         },
-        "version": "v1.501"
+        "version": "v1.510"
     },
     "plangothic": {
         "cargoLocks": null,
@@ -85,13 +87,14 @@
             "repo": "Plangothic-Project",
             "rev": "V1.9.5769",
             "sha256": "sha256-jN4OQQL1tkwDpWyk43h75V+7lT1AfiaIRnAgVOQA0rs=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "V1.9.5769"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-12-27",
+        "date": "2025-02-24",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -103,10 +106,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "c3d861119e4c94790931ef25ff74f989aced1375",
-            "sha256": "sha256-PxTc/MKoWcOMHegSVsjeKUzhrtD/ins90xVu4UUUUJI=",
+            "rev": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86",
+            "sha256": "sha256-eAOkda8IdDKBgfXNVezlgA7BmyUortonlinHdCb/Tr4=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c3d861119e4c94790931ef25ff74f989aced1375"
+        "version": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86"
     }
 }

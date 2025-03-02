@@ -3,7 +3,8 @@
   imports = [
     ./gnome/dconf.nix
     # ./hyprland
-    # ./cosmic.nix
+    #@TODO
+    # ./niri/default.nix
   ];
 
   xdg = {

@@ -14,7 +14,6 @@
       my.plangothic
       my.my-fonts
       my.iosevka-zt
-      my.these-fonts
     ];
     fontconfig = {
       localConf = builtins.readFile (./fontconfig.conf);

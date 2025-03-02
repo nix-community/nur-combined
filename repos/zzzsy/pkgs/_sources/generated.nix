@@ -3,15 +3,15 @@
 {
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "92f4890bd150fc9d97b61b3583680c0524a8cafe";
+    version = "a89108e6272426f4eddd93ba17d0ea101c34fb21";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "92f4890bd150fc9d97b61b3583680c0524a8cafe";
+      rev = "a89108e6272426f4eddd93ba17d0ea101c34fb21";
       fetchSubmodules = false;
-      sha256 = "sha256-A9PxLienMYJ/WUvqFie9qXrNC2MeRRYw7TG/q7DRjZg=";
+      sha256 = "sha256-vAxN2f3rvl5q62gQQjZGVSvF93nAsOxntuFz+e/655w=";
     };
-    date = "2024-12-23";
+    date = "2025-02-10";
   };
   iosevka-zt = {
     pname = "iosevka-zt";
@@ -35,10 +35,10 @@
   };
   lxgw-wenkai-screen = {
     pname = "lxgw-wenkai-screen";
-    version = "v1.501";
+    version = "v1.510";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/v1.501/LXGWWenKaiScreen.ttf";
-      sha256 = "sha256-em3uh53neN8v1ueiw1rWVtC0bteD7IG3X1g9tkjBRJA=";
+      url = "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/v1.510/LXGWWenKaiScreen.ttf";
+      sha256 = "sha256-JAU87Jb3gqS1mXYprWKYt5xnzMVlZR992PNmsqnTF3U=";
     };
   };
   plangothic = {
@@ -54,14 +54,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c3d861119e4c94790931ef25ff74f989aced1375";
+    version = "e3fd65b4f806e7e7e48402ea75d8e6def6281a86";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c3d861119e4c94790931ef25ff74f989aced1375";
+      rev = "e3fd65b4f806e7e7e48402ea75d8e6def6281a86";
       fetchSubmodules = false;
-      sha256 = "sha256-PxTc/MKoWcOMHegSVsjeKUzhrtD/ins90xVu4UUUUJI=";
+      sha256 = "sha256-eAOkda8IdDKBgfXNVezlgA7BmyUortonlinHdCb/Tr4=";
     };
-    date = "2024-12-27";
+    date = "2025-02-24";
   };
 }

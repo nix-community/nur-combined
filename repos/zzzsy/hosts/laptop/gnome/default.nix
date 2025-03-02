@@ -24,9 +24,16 @@
         orca
       ]
     );
+    programs.xwayland = {
+      enable = true;
+      package = pkgs.xwayland-satellite;
+    };
+    programs.niri.package = pkgs.niri-unstable;
+    programs.niri.enable = true;
+
     programs.dconf.enable = true;
     # fix nautilus extensions deu to `core-utilities.enable = false`
-    workarounds.gnome-fix.enable = true;
+    mods.gnome-fix.enable = true;
     environment.systemPackages = (
       with pkgs;
       [

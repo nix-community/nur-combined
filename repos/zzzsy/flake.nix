@@ -3,7 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-2411.url = "github:NixOS/nixpkgs/nixos-24.11";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,17 +24,14 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    #nix-matlab = {
-    #  inputs.nixpkgs.follows = "nixpkgs-2405";
-    #  url = "github:ykttt/nix-matlab";
-    #};
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     nur.url = "github:nix-community/NUR";
     #stylix.url = "github:danth/stylix";
     zig.url = "github:mitchellh/zig-overlay";
-    #ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
-    #ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
-    #ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";

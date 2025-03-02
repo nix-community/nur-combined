@@ -4,10 +4,10 @@
     "position": "top",
     "height": 24,
     "spacing": 4,
-    "modules-left": [ "hyprland/window" ],
+    "modules-left": [ "niri/window" ],
     "modules-center": [
       "clock",
-      "hyprland/workspaces"
+      "niri/workspaces"
     ],
     "modules-right": [
       "network",
@@ -16,7 +16,7 @@
       "backlight",
       "cpu",
       "memory",
-      "hyprland/language",
+      "niri/language",
       "battery",
       "tray"
     ],
@@ -28,7 +28,7 @@
       "reverse-scrolling": true
     },
     "battery": {
-      "bat": "BAT0",
+      "bat": "BAT1",
       "format": "{icon}",
       "format-alt": "{capacity}",
       "full-at": 96,
@@ -63,14 +63,14 @@
       "timezone": "Asia/Shanghai",
       "tooltip-format": "<tt><small>{calendar}</small></tt>"
     },
-    "hyprland/workspaces": {
+    "niri/workspaces": {
       "format": "{icon}",
       "format-icons": {
         "active": "",
         "default": ""
       }
     },
-    "hyprland/window": {
+    "niri/window": {
       "format": {},
       "rewrite": {
         "": "<big></big> Desktop",
@@ -84,7 +84,7 @@
       },
       "max-length": 50
     },
-    "hyprland/language": {
+    "niri/language": {
       "format-en": "A",
       "format-fr": "Æ"
     },

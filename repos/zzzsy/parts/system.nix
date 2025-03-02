@@ -8,10 +8,12 @@ let
     preservation
     sops-nix
     chaotic
-    # nixos-cosmic
+    nixos-hardware
     nvfetcher
     daeuniverse
     #ghostty
+    zen-browser
+    niri
     lanzaboote
     neovim-nightly-overlay
     nur
@@ -42,8 +44,8 @@ let
               nixpkgs = {
                 overlays = [
                   (final: prev: {
-                    #ghostty = ghostty.packages.x86_64-linux.default;
                     dae-unstable = daeuniverse.packages.${system}.dae-unstable;
+                    zen-browser = zen-browser.packages."${system}".twilight;
                     my = self.packages."${system}";
                   })
                 ] ++ overlays;
@@ -79,12 +81,12 @@ in
         lanzaboote.nixosModules.lanzaboote
         nur.modules.nixos.default
         # stylix.nixosModules.stylix
-        # nixos-hardware.nixosModules.common-cpu-amd-pstate
-        # nixos-hardware.nixosModules.common-gpu-amd
-        # nixos-hardware.nixosModules.common-pc-ssd
+        nixos-hardware.nixosModules.common-cpu-amd-pstate
+        nixos-hardware.nixosModules.common-gpu-amd
       ];
       overlays = [
         self.overlays.mutter
+        niri.overlays.niri
         nur.overlays.default
         zig.overlays.default
         neovim-nightly-overlay.overlays.default

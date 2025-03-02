@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
       sed -e '9s/^ *# /  /' -i rime_ice.dict.yaml
     ''}
 
-    install -Dm644 *.{schema,dict}.yaml $out/share/rime-data
+    install -Dm644 *.{schema,dict}.yaml  $out/share/rime-data
     install -Dm644 symbols*.yaml         $out/share/rime-data
     install -Dm644 default.yaml          $out/share/rime-data
 

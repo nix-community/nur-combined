@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.workarounds.gnome-fix;
+  cfg = config.mods.gnome-fix;
 in
 {
-  options.workarounds.gnome-fix = {
+  options.mods.gnome-fix = {
     enable = mkOption {
       type = types.bool;
       default = false;

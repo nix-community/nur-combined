@@ -14,7 +14,7 @@ metadata:
   @nix flake metadata
 
 update:
-  @nix flake update --commit-lock-file
+  @nix flake update
 
 fmt:
   nixpkgs-fmt ./

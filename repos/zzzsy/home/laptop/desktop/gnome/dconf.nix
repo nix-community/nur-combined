@@ -26,7 +26,8 @@ in
       enabled-extensions = map (p: p.extensionUuid or p.uuid) extensions;
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "librewolf.desktop"
+        # "librewolf.desktop"
+        "zen_twilight.desktop"
         "code.desktop"
         "io.github.kukuruzka165.materialgram.desktop"
         "kitty.desktop"

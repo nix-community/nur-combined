@@ -6,11 +6,11 @@
 }:
 with lib;
 let
-  cfg = config.workarounds.thinkbook14p-fix;
+  cfg = config.mods.thinkbook14p-fix;
   ideapad-laptop-tb = config.boot.kernelPackages.callPackage ./ideapad-laptop-tb.nix { };
 in
 {
-  options.workarounds.thinkbook14p-fix = {
+  options.mods.thinkbook14p-fix = {
     enable = mkOption {
       type = types.bool;
       default = false;

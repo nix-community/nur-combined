@@ -24,22 +24,13 @@
       gc1 = "git clone --depth=1 ";
     };
     plugins = [
-      # {
-      #   name = "pure";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "pure-fish";
-      #     repo = "pure";
-      #     rev = "f1b2c7049de3f5cb45e29c57a6efef005e3d03ff";
-      #     hash = "sha256-MnlqKRmMNVp6g9tet8sr5Vd8LmJAbZqLIGoDE5rlu8E=";
-      #   };
-      # }
       {
         name = "auto-venv";
         src = pkgs.fetchFromGitHub {
           owner = "nakulj";
           repo = "auto-venv";
-          rev = "ec9ff89d9887e87fbf4ce22812163770b102295a";
-          hash = "sha256-x9HzTBhpmoH/UeAOMj0f8LYTrQuhNElWa2gBEjol/h8=";
+          rev = "3bf8fff2b688ee1ccd4a6ed1bc1250ced2ab30f1";
+          hash = "sha256-7+Wdyg8Icp+6S7+PiW5DVRNnLBtzJ/OI3uIElkU3Yf0=";
         };
       }
     ];
