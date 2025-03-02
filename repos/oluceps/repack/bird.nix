@@ -18,7 +18,7 @@ in
           # debug protocols all;
           timeformat protocol iso long;
 
-          router id 10.0.0.${toString (lib.data.node.${config.networking.hostName}.id + 1)};
+          router id 10.0.0.${toString ((lib.getThisNodeFrom config).id + 1)};
 
           protocol device {
             scan time 20;
@@ -44,7 +44,7 @@ in
 
           filter to_kernel {
             if source = RTS_BABEL then {
-              krt_prefsrc = ${lib.getIntraAddr config};
+              krt_prefsrc = ${lib.getIntraAddrFrom config};
               krt_metric = 128;
               accept;
             }
