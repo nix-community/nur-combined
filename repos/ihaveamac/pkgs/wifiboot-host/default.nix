@@ -2,8 +2,6 @@
   fetchFromGitHub,
   stdenv,
   lib,
-  autoconf,
-  automake,
   pkg-config,
   zlib,
 }:
