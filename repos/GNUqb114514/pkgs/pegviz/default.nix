@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage rec {
     rev = version;
     hash = "sha256-sa2KVwme31J/ExzHa3IApVXFH0kctEsSN8dG4rSwzIk=";
   };
-  cargoHash = "sha256-wuwvCDUJIYwHbCocaFdXQsDfuNjO5d/3Mmhybdwqp3s=";
+  cargoHash = "sha256-S+faDFqxtuQX7ZH1Hg3NWHSGFtWvUp0QoU8tjrSInBw=";
   meta = {
     description = "PEG trace visualizer";
     homepage = "https://github.com/fasterthanlime/pegviz";
