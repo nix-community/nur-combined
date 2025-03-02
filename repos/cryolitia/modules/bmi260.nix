@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  bmi260 = config.boot.kernelPackages.callPackage ../pkgs/linux/bmi260 { };
+  bmi260 = config.boot.kernelPackages.callPackage ../pkgs/linux/bmi260/package.nix { };
 
 in
 {

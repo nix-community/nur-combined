@@ -29,6 +29,50 @@ let
       package = pkgs.linuxPackages_latest;
     }
   ];
+
+  packagesFromDirectoryRecursive =
+    {
+      directory,
+      ...
+    }:
+    let
+      inherit (lib) concatMapAttrs removeSuffix;
+      inherit (lib.path) append;
+      defaultPath = append directory "package.nix";
+      inherit (builtins) pathExists;
+      inherit (lib.strings) hasSuffix;
+    in
+    if pathExists defaultPath then
+      # if `${directory}/package.nix` exists, call it directly
+      defaultPath
+    else
+      concatMapAttrs (
+        name: type:
+        # otherwise, for each directory entry
+        let
+          path = append directory name;
+        in
+        if type == "directory" then
+          {
+            # recurse into directories
+            "${name}" = packagesFromDirectoryRecursive {
+              directory = path;
+            };
+          }
+        else if type == "regular" && hasSuffix ".nix" name then
+          {
+            # call .nix files
+            "${removeSuffix ".nix" name}" = path;
+          }
+        else if type == "regular" then
+          {
+            # ignore non-nix files
+          }
+        else
+          throw ''
+            lib.filesystem.packagesFromDirectoryRecursive: Unsupported file type ${type} at path ${toString path}
+          ''
+      ) (builtins.readDir directory);
 in
 lib.attrsets.mergeAttrsList (
   lib.lists.forEach linux-packages (
@@ -40,9 +84,13 @@ lib.attrsets.mergeAttrsList (
           linux-package.package.callPackage package { }
         )
       )
-      {
-        bmi260 = ../pkgs/linux/bmi260;
-        gpd-fan-driver = gpd-fan-driver.modulePackage;
-      }
+      (
+        {
+          gpd-fan-driver = gpd-fan-driver.modulePackage;
+        }
+        // packagesFromDirectoryRecursive {
+          directory = ../pkgs/linux;
+        }
+      )
   )
 )

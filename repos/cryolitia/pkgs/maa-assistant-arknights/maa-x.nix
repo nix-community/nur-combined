@@ -13,7 +13,7 @@ let
 in
 stdenv.mkDerivation rec {
 
-  pname = "maax";
+  pname = "maa-x";
   version = "2.0.0-beta.14";
 
   src = fetchzip {
@@ -36,6 +36,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/${pname}
     cp -r -v resources/app/* $out/share/${pname}/
+    rm -rf $out/share/${pname}/node_modules/.bin
     makeWrapper ${electron}/bin/electron $out/bin/MaaX \
       --argv0 "MaaX" \
       --add-flags "$out/share/${pname}/dist/main/index.cjs" \
