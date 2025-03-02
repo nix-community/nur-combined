@@ -52,7 +52,9 @@ in
   # chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   # logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
   # fabric = pkgs.callPackage ./pkgs/fabric { };
-  # aider = pkgs.callPackage ./pkgs/aider { };
+  aider-chat = pkgs.callPackage ./pkgs/aider { };
+  prr = pkgs.callPackage ./pkgs/prr { };
+  html-to-markdown = pkgs.callPackage ./pkgs/html-to-markdown { };
 
   # Run nvfetcher in the haskellPackages directory to update sources
   # haskellPackages = callPackages ./pkgs/haskellPackages;

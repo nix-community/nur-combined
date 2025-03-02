@@ -1,10 +1,10 @@
-{ lib
-, stdenv
-, python311
-, fetchFromGitHub
-, gitMinimal
-, portaudio
-,
+{
+  lib,
+  stdenv,
+  python311,
+  fetchFromGitHub,
+  gitMinimal,
+  portaudio,
 }:
 
 let
@@ -12,119 +12,158 @@ let
     self = python3;
     packageOverrides = _: super: { tree-sitter = super.tree-sitter_0_21; };
   };
-  version = "0.58.0";
-  overlays = [
-    (self: super: {
-      # Disable doCheck for all dependencies
-      lib = super.lib // {
-        disableTests = f: f.overrideAttrs (oldAttrs: {
-          doCheck = false;
-        });
-      };
-    })
-  ];
-in
-python3.pkgs.buildPythonApplication {
-  pname = "aider-chat";
-  inherit version;
-  pyproject = true;
+  version = "0.74.3.dev";
+  aider-chat = python3.pkgs.buildPythonApplication {
+    pname = "aider-chat";
+    inherit version;
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "paul-gauthier";
-    repo = "aider";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-rdN2a/Tr7r8hC9HnQaavby8BLThBYbg9jLu9ppMT1HI=";
-  };
+    src = fetchFromGitHub {
+      owner = "Aider-AI";
+      repo = "aider";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-DzHbvpKYXQdjC84gRkfci2ehR1hGkoLOGOvNYVnMJpE=";
+    };
 
-  build-system = with python3.pkgs; [ setuptools-scm ];
+    pythonRelaxDeps = true;
 
-  dependencies =
-    with python3.pkgs;
-    [
+    build-system = with python3.pkgs; [ setuptools-scm pip ];
+
+    dependencies = with python3.pkgs; [
       aiohappyeyeballs
+      aiohttp
+      aiosignal
+      annotated-types
+      anyio
+      attrs
       backoff
       beautifulsoup4
+      certifi
+      cffi
+      charset-normalizer
+      click
       configargparse
       diff-match-patch
       diskcache
+      distro
+      filelock
       flake8
+      frozenlist
+      fsspec
+      gitdb
       gitpython
       grep-ast
+      h11
+      httpcore
+      httpx
+      huggingface-hub
+      idna
       importlib-resources
+      jinja2
+      jiter
       json5
       jsonschema
-      jiter
+      jsonschema-specifications
       litellm
+      markdown-it-py
+      markupsafe
+      mccabe
+      mdurl
+      multidict
       networkx
       numpy
+      openai
       packaging
       pathspec
       pexpect
       pillow
-      playwright
       prompt-toolkit
+      psutil
       ptyprocess
-      pypager
+      pycodestyle
+      pycparser
+      pydantic
+      pydantic-core
+      pydub
+      pyflakes
+      pygments
       pypandoc
       pyperclip
+      python-dotenv
       pyyaml
-      psutil
+      referencing
+      regex
+      requests
       rich
+      rpds-py
       scipy
+      smmap
+      sniffio
       sounddevice
       soundfile
-      streamlit
+      soupsieve
+      tiktoken
       tokenizers
-      watchdog
-    ]
-    ++ lib.optionals (!tensorflow.meta.broken) [
-      llama-index-core
-      llama-index-embeddings-huggingface
+      tqdm
+      tree-sitter
+      tree-sitter-languages
+      typing-extensions
+      urllib3
+      watchfiles
+      wcwidth
+      yarl
+      zipp
+
+      # Not listed in requirements
+      mixpanel
+      monotonic
+      posthog
+      propcache
+      python-dateutil
     ];
 
-  buildInputs = [ portaudio ];
+    buildInputs = [ portaudio ];
 
-  pythonRelaxDeps = true;
+    nativeCheckInputs = (with python3.pkgs; [ pytestCheckHook ]) ++ [ gitMinimal ];
 
-  nativeCheckInputs = (with python3.pkgs; [ pytestCheckHook ]) ++ [ gitMinimal ];
+    doCheck = false; # I don't need no damn tests
 
-  disabledTestPaths = [
-    # requires network
-    "tests/scrape/test_scrape.py"
-
-    # Expected 'mock' to have been called once
-    "tests/help/test_help.py"
-  ];
-
-  disabledTests =
-    [
-      # requires network
-      "test_urls"
-      "test_get_commit_message_with_custom_prompt"
-
-      # FileNotFoundError
-      "test_get_commit_message"
-
-      # Expected 'launch_gui' to have been called once
-      "test_browser_flag_imports_streamlit"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      # fails on darwin
-      "test_dark_mode_sets_code_theme"
-      "test_default_env_file_sets_automatic_variable"
+    makeWrapperArgs = [
+      "--set AIDER_CHECK_UPDATE false"
+      "--set AIDER_ANALYTICS false"
     ];
 
-  doCheck = false;
+    preCheck = ''
+      export HOME=$(mktemp -d)
+      export AIDER_ANALYTICS="false"
+    '';
 
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
+    optional-dependencies = with python3.pkgs; {
+      playwright = [
+        greenlet
+        playwright
+        pyee
+        typing-extensions
+      ];
+    };
 
-  meta = {
-    description = "AI pair programming in your terminal";
-    homepage = "https://github.com/paul-gauthier/aider";
-    license = lib.licenses.asl20;
-    mainProgram = "aider";
-    maintainers = with lib.maintainers; [ meain ];
+    passthru = {
+      withPlaywright = aider-chat.overridePythonAttrs (
+        { dependencies, ... }:
+        {
+          dependencies = dependencies ++ aider-chat.optional-dependencies.playwright;
+        }
+      );
+    };
+
+    meta = {
+      description = "AI pair programming in your terminal";
+      homepage = "https://github.com/paul-gauthier/aider";
+      changelog = "https://github.com/paul-gauthier/aider/blob/v${version}/HISTORY.md";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [ taha-yassine ];
+      mainProgram = "aider";
+    };
   };
-}
+in
+aider-chat
