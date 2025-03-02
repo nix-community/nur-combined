@@ -16,5 +16,5 @@
 
   pscripts = pkgs.callPackage ./pkgs/pscripts { };
   lxp-bridge = pkgs.callPackage ./pkgs/lxp-bridge { };
-  thumbsup = pkgs.callPackage ./pkgs/thumbsup { };
+  # thumbsup = pkgs.callPackage ./pkgs/thumbsup { };
 }
