@@ -5,14 +5,14 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mozlz4";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "jusw85";
     repo = "mozlz4";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-faoFvDvqCr0EPsqlQvHZpd74b5pzYhtkJ6gXebwEm/w=";
   };
 
@@ -27,4 +27,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ kira-bruneau ];
     mainProgram = "mozlz4";
   };
-}
+})

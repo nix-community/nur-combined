@@ -44,6 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontStrip = true;
 
+  dontCheckForBrokenSymlinks = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {

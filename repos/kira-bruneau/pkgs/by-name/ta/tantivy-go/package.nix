@@ -4,18 +4,18 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tantivy-go";
   version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "tantivy-go";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-IlGtyTjOAvmrbgmvy4NelTOgOWopxNta3INq2QcMEqY=";
   };
 
-  sourceRoot = "${src.name}/rust";
+  sourceRoot = "${finalAttrs.src.name}/rust";
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -32,4 +32,4 @@ rustPlatform.buildRustPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
   };
-}
+})
