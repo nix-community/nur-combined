@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "id3edit";
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "rstemmer";
     repo = "id3edit";
     rev = "v${version}";
-    hash = "sha256-Tu8N8zzk4FvHT3g8a9wNzUfxRIWyygux1Zqodur0w/s=";
+    hash = "sha256-4WvOQsrosy5AKxK+UB47YUgmmmGzL7/zJmWzDkHIxuQ=";
   };
 
   nativeBuildInputs = [

@@ -32,11 +32,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "gearmulator";
-  version = "1.4.1";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
-    hash = "sha256-JnXTTtxF5jHPaU+d558JwlGo/QjKHtVuCqel5iaBBCk=";
+    hash = "sha256-QKT1x/PuiX87XuH0hydkmRKPTkARpKKgFOruVwwRFvM=";
     owner = "dsp56300";
     repo = "gearmulator";
     rev = "${version}";

@@ -11,6 +11,7 @@ in
 
   # packages
   id3edit = callPackage ./pkgs/id3edit { };
+  libmts = callPackage ./pkgs/libmts { };
   libprinthex = callPackage ./pkgs/libprinthex { };
   gearmulator = callPackage ./pkgs/gearmulator { };
   loomer-architect = callPackage ./pkgs/loomer/architect.nix { };

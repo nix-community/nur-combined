@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libprinthex";
-  version = "1.0.2";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "rstemmer";
     repo = "libprinthex";
     rev = "v${version}";
-    hash = "sha256-rZMrBsq/GpSOCVeBOsBs4xiO0tzhBx4ItHWuGMqw2cQ=";
+    hash = "sha256-CGHRkCxxHX4P0nimVoy4WS6mFIIh/kNncIGkAGJ7n6w=";
   };
 
   outputs = [
