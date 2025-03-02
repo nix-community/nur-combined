@@ -11,14 +11,16 @@
 }:
 
 let
-  source = (import ./_sources/generated.nix) {
-    inherit (pkgs)
-      fetchgit
-      fetchurl
-      fetchFromGitHub
-      dockerTools
-      ;
-  }; # nvfetcher
+  /*
+    source = (import ./_sources/generated.nix) {
+      inherit (pkgs)
+        fetchgit
+        fetchurl
+        fetchFromGitHub
+        dockerTools
+        ;
+    }; # nvfetcher
+  */
   callCoqPackage = pkgs.coqPackages_8_15.callPackage;
   sets = callCoqPackage ./pkgs/coqPackages/sets { };
   fixedpoints = (callCoqPackage ./pkgs/coqPackages/fixedpoints) {
@@ -40,6 +42,7 @@ rec {
     rimeDataPkgs = [ rime-ice ];
   };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
+  smartdns-rs = pkgs.callPackage ./pkgs/smartdns-rs { };
 
   coqPackages = {
     inherit sets fixedpoints monadlib;

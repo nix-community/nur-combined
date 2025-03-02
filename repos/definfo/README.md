@@ -6,6 +6,8 @@
 
 ![Build and populate cache](https://github.com/definfo/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
+![Automated update](https://github.com/definfo/nur-packages/workflows/Update%20package%20metadata/badge.svg)
+
 <!--
 Uncomment this if you use travis:
 
