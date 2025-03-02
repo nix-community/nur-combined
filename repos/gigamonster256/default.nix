@@ -19,4 +19,5 @@ in {
   ns-2 = pkgs.callPackage ./pkgs/ns2 {inherit otcl tclcl;};
 
   ghostty-darwin = pkgs.callPackage ./pkgs/ghostty-darwin.nix {};
+  nixfmt-wrapped = pkgs.callPackage ./pkgs/nixfmt-wrapped.nix {};
 }
