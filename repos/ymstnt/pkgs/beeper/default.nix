@@ -1,6 +1,5 @@
 {
   lib,
-  stdenvNoCC,
   fetchurl,
   appimageTools,
   makeWrapper,
@@ -11,44 +10,41 @@
 }:
 let
   pname = "beeper";
-  version = "4.0.437";
+  version = "4.0.478";
   src = fetchurl {
     url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}.AppImage";
-    hash = "sha256-7YXqckfij6tv8sjgMvv07RqZNtyVZgprmH2d/APMoi8=";
+    hash = "sha256-SaYOYrSvzhYC8uPPEbBMTTZjOBSDxg4iU3qAf5ZaQTs=";
   };
-  appimage = appimageTools.wrapType2 {
-    inherit version pname src;
-    extraPkgs = pkgs: [ pkgs.libsecret ];
-  };
-  appimageContents = appimageTools.extractType2 {
-    inherit version pname src;
+
+  appimageContents = appimageTools.extract {
+    inherit pname version src;
+
+    postExtract = ''
+      # disable creating a desktop file and icon in the home folder during runtime
+      linuxConfigFilename=$out/resources/app/build/main/linux-*.mjs
+      echo "export function registerLinuxConfig() {}" > $linuxConfigFilename
+    '';
   };
 in
-stdenvNoCC.mkDerivation {
+
+appimageTools.wrapAppImage {
   inherit pname version;
 
-  src = appimage;
+  src = appimageContents;
 
-  nativeBuildInputs = [ makeWrapper ];
+  extraPkgs = pkgs: [ pkgs.libsecret ];
 
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    cp bin/beeper $out/bin/beeper
-
-    mkdir -p $out/share/beeper
-    cp -a ${appimageContents}/locales $out/share/beeper
-    cp -a ${appimageContents}/resources $out/share/beeper
-    cp -a ${appimageContents}/usr/share/icons $out/share/
+  extraInstallCommands = ''
+    mkdir -p $out/share/icons/hicolor
+    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0 $out/share/icons/hicolor/512x512
     install -Dm 644 ${appimageContents}/beepertexts.desktop -t $out/share/applications/
 
-    substituteInPlace $out/share/applications/beepertexts.desktop --replace "AppRun" "beeper"
+    substituteInPlace $out/share/applications/beepertexts.desktop --replace-fail "AppRun" "beeper"
 
+    . ${makeWrapper}/nix-support/setup-hook
     wrapProgram $out/bin/beeper \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}} --no-update"
-
-    runHook postInstall
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}} --no-update" \
+      --set APPIMAGE beeper
   '';
 
   passthru = {
@@ -68,7 +64,7 @@ stdenvNoCC.mkDerivation {
     });
   };
 
-  meta = with lib; {
+  meta ={
     description = "Universal chat app";
     longDescription = ''
       Beeper is a universal chat app. With Beeper, you can send
@@ -76,7 +72,7 @@ stdenvNoCC.mkDerivation {
       many different chat networks.
     '';
     homepage = "https://beeper.com";
-    license = licenses.unfree;
+    license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "beeper";
     platforms = [ "x86_64-linux" ];
