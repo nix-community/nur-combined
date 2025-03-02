@@ -33,7 +33,7 @@
 }:
 buildPythonPackage rec {
   pname = "euporie";
-  version = "2.8.5";
+  version = "2.8.6";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -42,23 +42,12 @@ buildPythonPackage rec {
     owner = "joouha";
     repo = "euporie";
     rev = "v${version}";
-    hash = "sha256-dnaVb+8gH5Vu3P9jkkSSYBBG6duuwUgmP1OUjF14pQ0=";
+    hash = "sha256-7wsx6pTpKeLyt/JDrQRL9QjlqiHPq8GtJuMhnQ2Rd0g=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace-fail "\"timg~=1.1.6\"," "" \
-      --replace-fail "platformdirs~=3.5" "platformdirs"
-    #   --replace-fail "packaging = \"^23.0\"" "packaging = \"^24.0\""
-      # --replace-fail "linkify-it-py~=1.0" "linkify-it-py" \
-      # --replace-fail "markdown-it-py~=2.1.0" "markdown-it-py" \
-  '';
 
   build-system = [hatchling];
 
   dependencies = [
-    timg
-
     prompt-toolkit
     pygments
     nbformat
@@ -72,11 +61,17 @@ buildPythonPackage rec {
     linkify-it-py
     mdit-py-plugins
     flatlatex
+    timg
     pillow
     sixelcrop
     universal-pathlib
     fsspec
     jupytext
+  ];
+
+  pythonRelaxDeps = [
+    "platformdirs"
+    "timg"
   ];
 
   preCheck = ''
@@ -101,6 +96,6 @@ buildPythonPackage rec {
     description = "Euporie is a suite of terminal applications for interacting with Jupyter kernels";
     homepage = "https://github.com/joouha/euporie";
     license = licenses.mit;
-    maintainers = with maintainers; [renesat];
+    maintainers = with maintainers; [euxane renesat];
   };
 }

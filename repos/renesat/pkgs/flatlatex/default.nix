@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  pytestCheckHook,
   regex,
 }:
 buildPythonPackage rec {
@@ -20,14 +21,18 @@ buildPythonPackage rec {
     regex
   ];
 
+  nativeCheckInputs = [
+    pytestCheckHook
+  ];
+
   pythonImportsCheck = [
     "flatlatex"
   ];
 
   meta = with lib; {
-    description = "A LaTeX math converter to unicode text ";
+    description = "A LaTeX math converter to unicode text";
     homepage = "https://github.com/jb-leger/flatlatex";
     license = licenses.bsd2;
-    maintainers = with maintainers; [renesat];
+    maintainers = with maintainers; [euxane renesat];
   };
 }

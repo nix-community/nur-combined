@@ -32,7 +32,8 @@
 
     flatlatex = pkgs.python3Packages.callPackage ./pkgs/flatlatex {};
     sixelcrop = pkgs.python3Packages.callPackage ./pkgs/sixelcrop {};
-    euporie = pkgs.python3Packages.callPackage ./pkgs/euporie {inherit flatlatex sixelcrop;};
+    timg = pkgs.python3Packages.callPackage ./pkgs/timg {};
+    euporie = pkgs.python3Packages.callPackage ./pkgs/euporie {inherit flatlatex sixelcrop timg;};
     aiolinkding = pkgs.python3Packages.callPackage ./pkgs/aiolinkding {};
     arro3-core = pkgs.python3Packages.callPackage ./pkgs/arro3-core {};
     linkding-cli = pkgs.python3Packages.callPackage ./pkgs/linkding-cli {inherit aiolinkding;};
