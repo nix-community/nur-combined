@@ -287,6 +287,21 @@
     }
   },
   {
+    "slug": "dansk-da-language-pack",
+    "pname": "danish-language-pack"
+  },
+  {
+    "slug": "dansk-ordbog",
+    "pname": "danish-dictionary",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "dark-background-light-text"
   },
   {
@@ -440,6 +455,9 @@
     "slug": "export-tabs-urls-and-titles"
   },
   {
+    "slug": "external-application"
+  },
+  {
     "slug": "facebook-container"
   },
   {
@@ -547,6 +565,16 @@
   },
   {
     "slug": "frame-extension"
+  },
+  {
+    "slug": "frankerfacez",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "français-language-pack",
@@ -779,6 +807,9 @@
       "tag": "predefined",
       "shortName": "agpl3Plus"
     }
+  },
+  {
+    "slug": "kagi-privacy-pass"
   },
   {
     "slug": "kagi-search-for-firefox",
@@ -1271,6 +1302,14 @@
     "slug": "quality-of-rwth"
   },
   {
+    "slug": "qwant-the-search-engine",
+    "pname": "qwant-search"
+  },
+  {
+    "slug": "qwantcom-for-firefox",
+    "pname": "qwant-tracker-blocker"
+  },
+  {
     "slug": "rabattcorner"
   },
   {
@@ -1455,6 +1494,9 @@
     "slug": "sponsorblock"
   },
   {
+    "slug": "spoof-timezone"
+  },
+  {
     "slug": "startpage-private-search"
   },
   {
@@ -1520,6 +1562,9 @@
   },
   {
     "slug": "tabliss"
+  },
+  {
+    "slug": "tabwrangler"
   },
   {
     "slug": "tampermonkey",
@@ -1860,6 +1905,9 @@
   },
   {
     "slug": "youtube-high-definition"
+  },
+  {
+    "slug": "youtube-no-translation"
   },
   {
     "slug": "youtube-nonstop"
