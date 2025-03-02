@@ -63,7 +63,7 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     -->
-    <PackageReference Include="UTF.Unknown" Version="2.5.0">
+    <PackageReference Include="UTF.Unknown" Version="2.5.1">
       <HintPath>..\..\packages\UTF.Unknown.2.5.0\lib\net40\UtfUnknown.dll</HintPath>
     </PackageReference>
     <PackageReference Include="zlib.net-mutliplatform" Version="1.0.5" />
