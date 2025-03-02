@@ -15,8 +15,6 @@ let
   nurOverlay = final: prev: {
     a2ln = final.python3Packages.callPackage ./a2ln { };
     arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
-    authentik = final.callPackage ./authentik/package.nix { };
-    authentik-outposts = final.recurseIntoAttrs (final.callPackages ./authentik/outposts.nix { });
     bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
     ceserver = final.callPackage ./ceserver { };
     gamma-launcher = final.python3Packages.callPackage ./gamma-launcher { };
