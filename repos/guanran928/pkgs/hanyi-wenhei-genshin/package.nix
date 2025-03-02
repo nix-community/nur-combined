@@ -9,12 +9,12 @@ let
     type: hash:
     fetchurl {
       inherit hash;
-      url = "https://autopatchcn.yuanshen.com/client_app/download/pc_zip/20241219110613_vK9mgN3GmQ2Uhp3H/ScatteredFiles/YuanShen_Data/StreamingAssets/MiHoYoSDKRes/HttpServerResources/font/${type}.ttf";
+      url = "https://autopatchcn.yuanshen.com/client_app/download/pc_zip/20250125201057_0ifxFarbiqTpJ7WD/ScatteredFiles/YuanShen_Data/StreamingAssets/MiHoYoSDKRes/HttpServerResources/font/${type}.ttf";
     };
 in
 stdenvNoCC.mkDerivation {
   pname = "hanyi-wenhei-genshin";
-  version = "5.3.0";
+  version = "5.4.0";
 
   srcs = [
     (fetchFont "ja-jp" "sha256-E1om8ECypwuAjFaZouE1ivaG0UhpYlcNzMRwCPQ5Z6k=")

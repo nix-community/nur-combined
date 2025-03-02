@@ -5,6 +5,7 @@ import aiohttp
 import asyncio
 import pathlib
 import re
+import subprocess
 import sys
 
 PACKAGE_FILE_PATH = pathlib.Path.joinpath(
@@ -59,6 +60,18 @@ async def update_file_content(
             await file.write(line)
 
 
+async def fetch_file_nix_hash(url: str) -> str:
+    sha256 = subprocess.run(
+        ["nix-prefetch-url", url], capture_output=True, text=True
+    ).stdout.strip()
+
+    hash = subprocess.run(
+        ["nix", "hash", "convert", f"sha256:{sha256}"], capture_output=True, text=True
+    ).stdout.strip()
+
+    return hash
+
+
 async def main() -> None:
     """Updates the package file with the latest version and decompressed URL asynchronously."""
     if not pathlib.Path(PACKAGE_FILE_PATH).exists():
@@ -75,8 +88,8 @@ async def main() -> None:
     latest_version = latest_package_data["version"]
     await update_file_content(
         file_path=PACKAGE_FILE_PATH,
-        search_pattern=r"version = \".*\";",
-        replacement_text=f'version = "{latest_version}";',
+        search_pattern=r"version = \".*\"",
+        replacement_text=f'version = "{latest_version}"',
     )
 
     # Update decompressed URL
@@ -86,6 +99,18 @@ async def main() -> None:
         search_pattern=URL_PATTERN,
         replacement_text=latest_decompressed_url,
     )
+
+    for lang in ["ja-jp", "zh-cn"]:
+        print(f"Fetching {lang}.ttf...")
+        hash = await fetch_file_nix_hash(
+            url=f"{latest_decompressed_url}/YuanShen_Data/StreamingAssets/MiHoYoSDKRes/HttpServerResources/font/{lang}.ttf"
+        )
+        print(f"Fetched {lang}.ttf!")
+        await update_file_content(
+            file_path=PACKAGE_FILE_PATH,
+            search_pattern=rf'fetchFont "{lang}" ".+"',
+            replacement_text=rf'fetchFont "{lang}" "{hash}"',
+        )
 
 
 if __name__ == "__main__":
