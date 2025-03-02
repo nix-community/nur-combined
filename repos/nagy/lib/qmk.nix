@@ -10,7 +10,6 @@
     }@args:
     pkgs.stdenv.mkDerivation (
       {
-        inherit keyboard keymap;
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
@@ -19,7 +18,12 @@
           fetchSubmodules = true;
         };
 
-        nativeBuildInputs = [ pkgs.qmk ];
+        nativeBuildInputs = [
+          pkgs.qmk
+          pkgs.writableTmpDirAsHomeHook
+          (pkgs.python3.withPackages (ps: [ ps.appdirs ]))
+          # pkgs.git
+        ];
 
         # this allows us to not need the .git folder
         env.SKIP_VERSION = "1";
@@ -29,13 +33,21 @@
           "hex"
         ];
 
-        makeFlags = [ "$(keyboard):default" ];
+        buildPhase = ''
+          runHook preBuild
+
+          qmk setup --home . --yes
+          qmk compile -kb "${keyboard}" -km "${keymap}"
+
+          runHook postBuild
+        '';
 
         installPhase = ''
           runHook preInstall
+
           mkdir -p $out/share/qmk $out/bin
-          install -Dm444 *.hex $out/share/qmk/${name}.hex
-          install -Dm444 *.hex $hex
+          install -Dm644 *.hex $out/share/qmk/${name}.hex
+          install -Dm644 *.hex $hex
           cat > $out/bin/${name} <<EOF
           #!/usr/bin/env bash
           exec ${pkgs.avrdude}/bin/avrdude \\
@@ -46,6 +58,7 @@
           EOF
           patchShebangs $out/bin/*
           chmod +x $out/bin/*
+
           runHook postInstall
         '';
 

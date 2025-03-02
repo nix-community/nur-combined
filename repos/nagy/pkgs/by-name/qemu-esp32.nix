@@ -34,19 +34,18 @@
     {
       configureFlags ? [ ],
       buildInputs ? [ ],
-      postPatch ? "",
       postInstall ? "",
       meta ? { },
       ...
     }:
     {
-      version = "9.0.0";
+      version = "9.2.2";
 
       src = fetchFromGitHub {
         owner = "espressif";
         repo = "qemu";
-        rev = "esp-develop-9.0.0-20240606";
-        hash = "sha256-+mwNM2aA6aIhOScYu0bb6Nozf6/mtRVajFZOVucCOSk=";
+        rev = "esp-develop-9.2.2-20250228";
+        hash = "sha256-cxYg2ssVIkoYhwpLD1b2GW1nPIoPyHnW/gIrPJV0vTI=";
         nativeBuildInputs = [
           cacert
           git
@@ -63,15 +62,20 @@
         '';
       };
 
-      configureFlags = configureFlags ++ [ "--enable-gcrypt" ];
-      buildInputs = buildInputs ++ [ libgcrypt ];
+      configureFlags = configureFlags ++ [
+        "--enable-gcrypt"
+        "--enable-slirp"
+      ];
 
-      # for libgcrypt
-      postPatch =
-        postPatch
+      buildInputs = buildInputs ++ [
+        libgcrypt
+      ];
+
+      # remove broken symlink
+      postInstall =
+        postInstall
         + ''
-          substituteInPlace meson.build \
-            --replace-fail config-tool pkg-config
+          rm $out/bin/qemu-kvm
         '';
 
       meta = meta // {

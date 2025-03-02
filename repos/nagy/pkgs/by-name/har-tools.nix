@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "har-tools";
@@ -6,14 +10,17 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "outersky";
-    repo = pname;
+    repo = "har-tools";
     rev = "v${version}";
     hash = "sha256-DRVO4zUdvb34T3st4+dhxxoORGncJsMD8XLWmzGdOs0=";
   };
 
   vendorHash = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "tools for HAR file";

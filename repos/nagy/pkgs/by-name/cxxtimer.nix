@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cxxtimer";
@@ -8,18 +12,20 @@ stdenv.mkDerivation rec {
     owner = "andremaravilha";
     repo = "cxxtimer";
     rev = "v${version}";
-    sha256 = "1sxjkpvbkpydcmnkqh7k1wg26vf9ncih90qfrr7hibsnwqavar4j";
+    hash = "sha256-kmS1FeZWrwhPzg6DBCOzyW0jHg/zQDxtZc3fufadsus=";
   };
 
   installPhase = ''
     runHook preInstall
-    install -Dm444 -t $out/include/ $src/cxxtimer.hpp
+
+    install -Dm644 -t $out/include/ $src/cxxtimer.hpp
+
     runHook postInstall
   '';
 
   meta = with lib; {
     description = "A timer for modern C++";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/andremaravilha/cxxtimer";
     license = licenses.mit;
     platforms = platforms.all;
   };

@@ -12,16 +12,11 @@
 # Extras
 // {
 
-  lib =
-    let
-      filelist = lib.filesystem.listFilesRecursive ./lib;
-      newSet = lib.foldr lib.recursiveUpdate { } (map (x: import x { inherit pkgs; }) filelist);
-      final = newSet;
-    in
-    final
-  # or:
-  # lib.extend (final: prev: newSet);
-  ;
+  lib = lib.foldr lib.mergeAttrs { } (
+    map (x: import x { inherit pkgs; })
+      # fileset
+      (lib.filesystem.listFilesRecursive ./lib)
+  );
 
   modules =
     (lib.packagesFromDirectoryRecursive {

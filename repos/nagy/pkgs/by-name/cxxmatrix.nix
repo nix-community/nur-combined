@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     owner = "akinomyoga";
     repo = "cxxmatrix";
     rev = "c8d4ecfb8b6c22bb93f3e10a9d203209ba193591";
-    sha256 = "sha256-5f0frZc5okqBhSU5wuv33DflvK9enBjmTSaUviaAFGo=";
+    hash = "sha256-5f0frZc5okqBhSU5wuv33DflvK9enBjmTSaUviaAFGo=";
   };
 
   outputs = [
