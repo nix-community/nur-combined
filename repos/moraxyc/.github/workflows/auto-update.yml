@@ -1,8 +1,8 @@
 name: "Auto update packages"
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "10 3 * * *"
+  # schedule:
+  #   - cron: "10 3 * * *"
 jobs:
   build:
     name: update
