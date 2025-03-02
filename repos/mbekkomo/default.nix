@@ -6,10 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
-
+{ pkgs ? import <nixpkgs> { } }@attrs:
+let
+  inherit (attrs) emmylua-analyzer;
+in
 {
-  # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
@@ -18,6 +19,7 @@
   jotdown = pkgs.callPackage ./pkgs/jotdown { };
   godjot = pkgs.callPackage ./pkgs/godjot { };
   sklauncher = pkgs.callPackage ./pkgs/sklauncher { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  emmylua_ls = pkgs.callPackage emmylua-analyzer.emmylua_ls;
+  emmylua_doc_cli = pkgs.callPackage emmylua-analyzer.emmylua_doc_cli;
+  emmylua_check = pkgs.callPackage emmylua-analyzer.emmylua_check;
 }
