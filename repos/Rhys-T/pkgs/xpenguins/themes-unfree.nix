@@ -10,7 +10,7 @@
     hash = "sha256-m7HrTK9K13B7nIfFUPEcSU5ZDcs8tFr3pYNC8biYIdY=";
     meta = {
         description = "Extra themes for xpenguins";
-        inherit (xpenguins) homepage;
+        inherit (xpenguins.meta) homepage;
         license = lib.licenses.unfree;
         maintainers = [maintainers.Rhys-T];
     };
