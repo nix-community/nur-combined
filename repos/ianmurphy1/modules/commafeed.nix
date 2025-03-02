@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.services.commafeed;
-  preExec = lib.writeShellScript "pre" ''
+  preExec = pkgs.writeShellScript "pre" ''
       if [ ! -f "${cfg.stateDir}/application.properties" ]; then
         cp "${cfg.package.outPath}/share/application.properties" \
           "${cfg.stateDir}"
