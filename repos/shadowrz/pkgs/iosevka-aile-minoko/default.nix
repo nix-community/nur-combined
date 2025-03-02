@@ -7,12 +7,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "iosevka-aile-minoko";
-  version = "0.1.5";
+  version = "0.1.7";
 
   src = fetchzip {
     url = "https://github.com/ShadowRZ/iosevka-minoko/releases/download/v${version}/PkgTTF-IosevkaAileMinoko.zip";
     stripRoot = false;
-    hash = "sha256-KKd5MKNzsJL399RYO3cOdK8DNx8rbYO2my72NZHTb+Q=";
+    hash = "sha256-jA3WB1hhodh9ZGnC991l3Ju9CN3JzlSLotjTS3bisLU=";
   };
 
   installPhase = ''

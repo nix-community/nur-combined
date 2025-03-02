@@ -40,13 +40,21 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  patches = [
-    (fetchpatch rec {
-      name = "project-version.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=klassy";
-      hash = "sha256-y/wtvJw0sObvQtBRD92kOn/25rqiJ/TKG3fhQAdKJBo=";
-    })
-  ];
+  patches =
+    [
+      (fetchpatch rec {
+        name = "project-version.patch";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=klassy";
+        hash = "sha256-y/wtvJw0sObvQtBRD92kOn/25rqiJ/TKG3fhQAdKJBo=";
+      })
+    ]
+    ++ lib.optionals (lib.strings.versionAtLeast kdecoration.version "6.3.0") [
+      (fetchpatch {
+        name = "kdecorations-6.3.patch";
+        url = "https://github.com/paulmcauley/klassy/pull/178.patch";
+        hash = "sha256-b6IIyx2ViuLzKAVfoqEN0B5dek8AIJzpNTayxf8Mwqk=";
+      })
+    ];
 
   buildInputs = [
     kdecoration
