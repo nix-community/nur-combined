@@ -4001,6 +4001,37 @@ A set of commands that manipulate GTAs on various levels (with all features enab
   - `x86_64-redox`
   </details>
 
+<h2 id="hedgemodmanager">
+
+`hedgemodmanager`
+
+</h2>
+
+Multiplatform rewrite of Hedge Mod Manager
+
+- Name: `hedgemodmanager`
+- Version: `8.0.0.1`
+
+- [🌐 Homepage](https://github.com/hedge-dev/HedgeModManager)
+- [📦 Source](./pkgs/by-name/hedgemodmanager/package.nix#L35)
+- License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+- Platforms:
+  - `x86_64-linux`
+  - `aarch64-linux`
+  - `x86_64-darwin`
+  - `aarch64-darwin`
+  </details>
+
 <h2 id="inko">
 
 `inko`
@@ -5320,7 +5351,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-02-24`
+- Version: `SLE2024-artifact-unstable-2025-03-01`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L44)

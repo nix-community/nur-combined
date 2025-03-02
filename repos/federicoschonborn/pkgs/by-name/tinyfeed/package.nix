@@ -4,7 +4,7 @@
   fetchFromGitHub,
   callPackage,
   tinyfeed,
-  nix-update-script,
+# nix-update-script,
 }:
 
 let
@@ -31,7 +31,7 @@ buildGoModule {
 
   passthru = {
     tests.tinyfeed = callPackage ./nixos-test.nix { inherit tinyfeed; };
-    updateScript = nix-update-script { };
+    # updateScript = nix-update-script { };
   };
 
   meta = {
