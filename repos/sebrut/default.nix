@@ -17,4 +17,5 @@
   autotheme = pkgs.callPackage ./pkgs/autotheme { };
   flathunter = pkgs.callPackage ./pkgs/flathunter { };
   go-hass-agent = pkgs.callPackage ./pkgs/go-hass-agent { };
+  kiot = pkgs.callPackage ./pkgs/kiot { };
 }
