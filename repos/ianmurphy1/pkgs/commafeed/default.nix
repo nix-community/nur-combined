@@ -91,7 +91,7 @@ maven.buildMavenPackage {
   '';
 
   postInstall = ''
-    ${lib.getExe removeReferencesTo} -t ${maven} ${graalvmCEPackages.graalvm-ce} ${biome} $out/bin/commafeed 
+    ${lib.getExe removeReferencesTo} -t ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed 
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
     echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
