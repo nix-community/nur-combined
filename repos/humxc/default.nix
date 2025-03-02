@@ -5,19 +5,16 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-
-{ pkgs ? import <nixpkgs> { } }:
-
-{
+{pkgs ? import <nixpkgs> {}}: {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  misans = pkgs.callPackage ./pkgs/misans { };
-  hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { };
-  qq = pkgs.callPackage ./pkgs/qq { };
-  fluent-cursors-theme = pkgs.callPackage ./pkgs/fluent-cursors-theme { };
-  orchis-gtk = pkgs.callPackage ./pkgs/orchis-gtk { };
-  fcitx5-mellow-themes = pkgs.callPackage ./pkgs/fcitx5-mellow-themes { };
+  # misans = pkgs.callPackage ./pkgs/misans { };
+  # hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { };
+  # qq = pkgs.callPackage ./pkgs/qq { };
+  # fluent-cursors-theme = pkgs.callPackage ./pkgs/fluent-cursors-theme { };
+  # orchis-gtk = pkgs.callPackage ./pkgs/orchis-gtk { };
+  # fcitx5-mellow-themes = pkgs.callPackage ./pkgs/fcitx5-mellow-themes { };
 }
