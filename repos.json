@@ -11,7 +11,7 @@
         },
         "999eagle": {
             "type": "gitlab",
-            "url": "https://gitlab.com/999eagle/nur-packages"
+            "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "9glenda": {
             "url": "https://github.com/9glenda/nur-packages"
@@ -222,6 +222,9 @@
         "blakat360": {
             "submodules": true,
             "url": "https://github.com/blakat360/nur-packages"
+        },
+        "bot-wxt1221": {
+            "url": "https://github.com/Bot-wxt1221/Bot-wxt1221-nur"
         },
         "breakingtv": {
             "url": "https://github.com/BreakingTV/nur-packages"
@@ -620,6 +623,9 @@
         "jorsn": {
             "url": "https://github.com/jorsn/nur-packages"
         },
+        "josh": {
+            "url": "https://github.com/josh/nurpkgs"
+        },
         "jpts": {
             "url": "https://github.com/jpts/nur"
         },
@@ -656,6 +662,9 @@
         },
         "kolloch": {
             "url": "https://github.com/kolloch/nur-packages"
+        },
+        "kongjian520": {
+            "url": "https://github.com/KongJian520/NUR"
         },
         "krebs": {
             "submodules": true,
@@ -757,6 +766,9 @@
         "milahu": {
             "submodules": true,
             "url": "https://github.com/milahu/nur-packages"
+        },
+        "minegameYTB": {
+            "url": "https://github.com/minegameYTB/nurpkgs-repo"
         },
         "minion3665": {
             "url": "https://github.com/minion3665/nurpkgs"
@@ -1204,6 +1216,9 @@
         },
         "wolfangaukang": {
             "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
+        },
+        "wrvsrx": {
+            "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
             "url": "https://github.com/wwmoraes/nurpkgs"
