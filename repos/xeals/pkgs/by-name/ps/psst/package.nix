@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-ZKhHN0ruLb6ZVKkrKv/YawRsVop6SP1QF/nrtkmA8P8=";
     fetchSubmodules = true;
   };
-  cargoSha256 = "sha256-zH6+EV78FDVOYEFXk0f54pH2Su0QpK1I0bHqzIiMdBo=";
+  cargoHash = "sha256-zH6+EV78FDVOYEFXk0f54pH2Su0QpK1I0bHqzIiMdBo=";
 
   nativeBuildInputs = [ pkg-config ]
     ++ optional withGui copyDesktopItems;

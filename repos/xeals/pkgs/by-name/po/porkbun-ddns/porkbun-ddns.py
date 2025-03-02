@@ -9,7 +9,7 @@ from dataclasses import dataclass, fields as datafields
 from enum import Enum, unique
 from typing import List, Optional
 
-APIBASE = "https://porkbun.com/api/json/v3/dns"
+APIBASE = "https://api.porkbun.com/api/json/v3/dns"
 
 
 def dataclass_from_dict(klass: object, d: dict):
