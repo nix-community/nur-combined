@@ -27,6 +27,5 @@ in {
     services.radarr.group = config.services.transmission.group;
     services.jackett.enable = true;
     services.flaresolverr.enable = true;
-    services.flaresolverr.package = pkgs.nur.repos.xddxdd.flaresolverr-21hsmw;
   };
 }
