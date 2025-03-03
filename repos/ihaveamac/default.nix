@@ -57,6 +57,7 @@ rec {
   _3beans = callPackage ./pkgs/3beans { };
   local-gpss = callPackage ./pkgs/local-gpss { };
   qcma = libsForQt5.callPackage ./pkgs/qcma { };
+  xenonrecomp = callPackage ./pkgs/xenonrecomp { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
     version = "1.39.11";

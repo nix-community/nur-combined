@@ -19,8 +19,8 @@ let
   wfslib = fetchFromGitHub {
     owner = "koolkdev";
     repo = "wfslib";
-    rev = "fb4fd2b1fd16276b62438661fc6992f781d8e394";
-    hash = "sha256-WwBQMzPosh57urL09zFyuR5BZcnOAwD2sLh9M9WHFeQ=";
+    rev = "4f95c825cc1b406d2df848ab5cb971f80fa0c3d5";
+    hash = "sha256-WhwtgnMQ8Ba6XN38kW0R7pQ93yI6Pxm5A73CIryQ0BM=";
   };
   realCryptopp =
     if stdenv.hostPlatform.isWindows then
@@ -40,13 +40,13 @@ let
 in
 realStdenv.mkDerivation rec {
   pname = "wfs-tools";
-  version = "1.2.3-unstable-2024-12-06";
+  version = "1.2.3-unstable-2025-03-01";
 
   src = fetchFromGitHub {
     owner = "koolkdev";
     repo = pname;
-    rev = "366ad010447c8598435ee3fc56ab0c891aed33cb";
-    hash = "sha256-0z8flmWgVjFMSfqyXNVeNYvuGm8wuR6iwVp5D3pM44Y=";
+    rev = "3ec70a97b32ce37e59f1c477e9db98f4b0c2ddc6";
+    hash = "sha256-cB4xQEGRmDzWdEKwhyK5NRLZsYPtq50kFHLfXHxFSqE=";
   };
 
   patches = [
