@@ -42,7 +42,6 @@ rec {
   stable-diffusion-cpp = callPackage ./pkgs/stable-diffusion-cpp.nix {};
   sd-cpp-webui = callPackage ./pkgs/sd-cpp-webui { inherit stable-diffusion-cpp; };
   olivetin = callPackage ./pkgs/olivetin.nix {};
-  open-webui = callPackage ./pkgs/open-webui.nix {};
   sftpgo-plugin-auth = callPackage ./pkgs/sftpgo-plugin-auth.nix {};
   rvc-cli = callPackage ./pkgs/rvc-cli/default.nix {};
 }
