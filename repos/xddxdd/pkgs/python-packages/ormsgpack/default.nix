@@ -8,9 +8,9 @@ buildPythonPackage rec {
   inherit (sources.ormsgpack) pname version src;
   pyproject = true;
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
-    hash = "sha256-8KSneEQ/yu/UocBs5ZiY17NMh/TGayrdQTKYqF1mmtY=";
+    hash = "sha256-tReppq5Gzp5k9wdLbEd/IGHjpbhmWWw3EqN8vCPNTRw=";
   };
 
   # Enable nightly features for Rust compiler

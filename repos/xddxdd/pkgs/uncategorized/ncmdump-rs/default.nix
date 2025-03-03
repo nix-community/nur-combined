@@ -6,7 +6,8 @@
 rustPlatform.buildRustPackage {
   inherit (sources.ncmdump-rs) pname version src;
 
-  cargoHash = "sha256-fT4hYvfenykMUc4+Y7J6LQbTKEopSGutBKD+wZy2Uzg=";
+  cargoHash = "sha256-7Mqa0aa3Uv8JnviowmLJ6HgAQw+TmnW72CmDa1HyFZM=";
+  useFetchCargoVendor = true;
 
   meta = {
     mainProgram = "ncmdump";
