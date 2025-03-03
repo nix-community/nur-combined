@@ -34,7 +34,7 @@ in
     cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw=";
 
     meta = {
-      broken = true;
+      #broken = true;
       description = "Ark is an R kernel for Jupyter applications";
       homepage = "https://github.com/posit-dev/ark";
       license = lib.licenses.mit;
