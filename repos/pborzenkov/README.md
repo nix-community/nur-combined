@@ -9,5 +9,5 @@ It provides a pre-compiled binary cache for NixOS unstable.
 To use it add the following line to your nix.conf
 
 ```
-trusted-public-keys = pborzenkov.cachix.org-1:ffVB/S9v4T+PecDRk83gPmbWnVQpjRc76k6bGtnk6YM=
+trusted-public-keys = pborzenkov.cachix.org-1:LJO9qkWok2rWI7WHctjdnRYuuAYwzc6pHXKTi6WHR2E=
 ```
