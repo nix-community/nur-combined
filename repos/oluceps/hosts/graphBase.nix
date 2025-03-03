@@ -208,6 +208,7 @@
         via
         # opensk-udev-rules
         nrf-udev-rules
+        disallow-generic-driver-for-switch-rules
       ];
     };
     # gnome.gnome-keyring.enable = true;

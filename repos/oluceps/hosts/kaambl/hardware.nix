@@ -208,6 +208,7 @@
     #     # (callPackage "${self}/pkgs/pico-rng.nix" { })
     #   ];
     kernelPackages = pkgs.linuxPackages_latest;
+    blacklistedKernelModules = [ "hid-nintendo" ];
     # pkgs.linuxPackages_latest;
   };
 
