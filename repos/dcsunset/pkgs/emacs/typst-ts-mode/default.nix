@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "modaled";
-  version = "unstable-2024-09-12";
+  version = "0-unstable-2025-02-21";
 
   src = fetchgit {
     url = "https://codeberg.org/meow_king/typst-ts-mode.git";
-    rev = "30f54090584a77057463d4bd7972e4cc3cbba4e7";
-    hash = "sha256-8fkyK9KxE90oej2WxxKavFIHwPiL/VyPQ/WZx9B/Hr8=";
+    rev = "34d522c0a0d8eec9a8b3a6855cf394e7d5c8fb84";
+    hash = "sha256-hx6soqaqyk678vn3LZgkagMwsYOZaMh9TMV3hsJWukI=";
   };
 
   buildInputs = [
