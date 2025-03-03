@@ -13618,10 +13618,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.0.71";
+      version = "2.1.10";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4446152/youtube_no_translation-2.0.71.xpi";
-      sha256 = "53858a05bb31f0f95945b485cd566002542f9918bb1550a6b63cbcd79a2b5e79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4446662/youtube_no_translation-2.1.10.xpi";
+      sha256 = "41b40c239df67de90d4e0e96e6f4f145011fc8c66c171e26d32337e7a6d4a15b";
       meta = with lib;
       {
         homepage = "https://github.com/YouG-o/YNT_Browser-Extension";
