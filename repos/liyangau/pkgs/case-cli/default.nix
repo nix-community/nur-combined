@@ -18,6 +18,7 @@ buildNpmPackage rec {
   npmDepsHash = "sha256-z7CevJI9D+azGZD/Gih/5urUu1qZ+0MZnov4TjHHEu4=";
 
   dontNpmBuild = true;
+  dontCheckForBrokenSymlinks = true;
 
   meta = with lib; {
     description = "Convert string case on your terminal as you want ";
