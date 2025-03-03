@@ -8,12 +8,13 @@
   writeText,
   graalvmCEPackages,
   removeReferencesTo,
-  stdenvNoCC,
-  writeShellScript,
+  makeWrapper,
 }:
 let
   version = "5.6.1";
   db = "h2";
+
+  graalVM = graalvmCEPackages.graalvm-ce;
 
   src = fetchFromGitHub {
     owner = "Athou";
@@ -48,12 +49,13 @@ let
     git.commit.id = none
     git.commit.id.abbrev = none
   '';
-  _pkg = maven.buildMavenPackage {
+in
+maven.buildMavenPackage {
   inherit version src db;
 
   pname = "commafeed";
 
-  mvnJdk = graalvmCEPackages.graalvm-ce;
+  mvnJdk = graalVM;
   mvnHash = "sha256-+9nyg2zrXkrDJuqVxUx2QRXiUDl8/Jna0FKhHpuJwqU=";
 
   mvnParameters = lib.escapeShellArgs [
@@ -85,40 +87,30 @@ let
     cp commafeed-server/target/quarkus-generated-doc/application.properties \
       $out/share/application.properties
 
-    cp commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
+    install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
       $out/bin/commafeed
       
     runHook postInstall
   '';
 
+  disallowedReferences = [
+    graalVM
+    maven
+  ];
+
   postInstall = ''
+    find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${maven} -t ${graalVM} '{}' +
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
-    echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
+    echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties}
   '';
 
   passthru.tests = nixosTests.commafeed;
 
-};
-in
-  stdenvNoCC.mkDerivation {
-    inherit version;
-    name = "commafeed";
-    src = _pkg;
-    disallowdRefences = [ _pkg frontend graalvmCEPackages.graalvm-ce ];
-    builder = writeShellScript "build" ''
-      unpackPhase
-      mv commafeed-${version} $out
-      ${lib.getExe removeReferencesTo} -t ${_pkg} ${frontend} ${graalvmCEPackages.graalvm-ce} $out/bin/commafeed
-      ${lib.getExe removeReferencesTo} -t ${_pkg} ${frontend} ${graalvmCEPackages.graalvm-ce} $out/share/application.properties
-
-    '';
-    meta = {
-      description = "Google Reader inspired self-hosted RSS reader";
-      homepage = "https://github.com/Athou/commafeed";
-      license = lib.licenses.asl20;
-      mainProgram = "commafeed";
-    };
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-  }
+  meta = {
+    description = "Google Reader inspired self-hosted RSS reader";
+    homepage = "https://github.com/Athou/commafeed";
+    license = lib.licenses.asl20;
+    mainProgram = "commafeed";
+  };
+}
