@@ -26,6 +26,7 @@ python3Packages.buildPythonPackage rec {
   nativeCheckInputs = [ llm ];
 
   meta = with lib; {
+    broken = versionOlder lib.version "24.11"; # llm-ollama depends on ollama>=0.4 and llm>=0.19 which were not in 24.05
     description = "LLM plugin providing access to models running on local Ollama server.";
     homepage = "https://github.com/taketwo/llm-ollama";
     changelog = "https://github.com/pycontribs/jira/releases/tag/${version}";
