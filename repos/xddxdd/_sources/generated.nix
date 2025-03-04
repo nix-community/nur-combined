@@ -778,14 +778,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "38725ba063363836a4f31d71cd47b6de52895c3e";
+    version = "5450d7c2eeb3aa71db357cb1b6e7071db23fdf3a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "38725ba063363836a4f31d71cd47b6de52895c3e";
-      hash = "sha256-Yx7sKcPWK64NDXbRdOdEV1SVoInUmXPaGj6CfRKtyKo=";
+      rev = "5450d7c2eeb3aa71db357cb1b6e7071db23fdf3a";
+      hash = "sha256-ji71wVzA5nAokiu9OYt/k5y2npH0E1f6k/qBQD95F1c=";
     };
-    date = "2025-02-26";
+    date = "2025-03-03";
   };
   libqcef = {
     pname = "libqcef";
@@ -894,12 +894,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4800";
+    version = "b4820";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4800";
-      hash = "sha256-769jXbaI+3yNBJqkceiCTR6wtCI0inPXFaqTo0TxrcQ=";
+      tag = "b4820";
+      hash = "sha256-qdNVAwJUBg32KlPJy7cjfrewsP1kGLzjN5WqY9Nlz38=";
     };
   };
   loralib = {
@@ -1188,14 +1188,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "4ad3978ec863590fab8bb488f39d73fa5908497c";
+    version = "177ba250ccc748a8b644fe300a14d4ece477010e";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "4ad3978ec863590fab8bb488f39d73fa5908497c";
-      hash = "sha256-r6KE0/hqk3+9Ve5NZiZ0YNZQSWEzcjSzAChvnZpG7M0=";
+      rev = "177ba250ccc748a8b644fe300a14d4ece477010e";
+      hash = "sha256-LbCDfYSBAQvGco7ke2oL1tD+IjDEuviv6rDw5b21Um8=";
     };
-    date = "2025-02-07";
+    date = "2025-03-04";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1920,14 +1920,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "77f4d93be73277eeca24d2e8ef38c2553a278446";
+    version = "dccad41f9c8e1be5d22c4ca2cbda74011b1ea8d6";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "77f4d93be73277eeca24d2e8ef38c2553a278446";
-      hash = "sha256-byhQD4yl9/JKTXY9ghLE5jq8D7+DJxC2+/rZ0IHuKBM=";
+      rev = "dccad41f9c8e1be5d22c4ca2cbda74011b1ea8d6";
+      hash = "sha256-w8zewkpAMMlW90UTPwFdc3ibL/LtObsCTaoBGeD6PoU=";
     };
-    date = "2025-03-03";
+    date = "2025-03-04";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

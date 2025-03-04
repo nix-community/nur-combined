@@ -797,7 +797,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4800"
+    "version": "4820"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -812,7 +812,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.1-unstable-2025-02-07"
+    "version": "1.27.1.1-unstable-2025-03-04"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
@@ -1227,7 +1227,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-02-26"
+    "version": "0-unstable-2025-03-03"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -2077,7 +2077,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-11": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "11.0.26.0"
+    "version": "11.0.25.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-11_0_12_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2169,11 +2169,6 @@
     "pname": "openj9-ibm-semeru-jdk-bin",
     "version": "11.0.25.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-11_0_26_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "11.0.26.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-16": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
@@ -2187,7 +2182,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-17": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "17.0.14.0"
+    "version": "17.0.13.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-17_0_10_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2213,11 +2208,6 @@
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
     "version": "17.0.13.0"
-  },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-17_0_14_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "17.0.14.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-17_0_1_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2327,7 +2317,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-21": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "21.0.6.0"
+    "version": "21.0.5.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-21_0_1_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2359,11 +2349,6 @@
     "pname": "openj9-ibm-semeru-jdk-bin",
     "version": "21.0.5.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-21_0_6_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "21.0.6.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-22": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
@@ -2387,7 +2372,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-23": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "23.0.2.0"
+    "version": "23.0.1.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-23_0_0_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2399,15 +2384,10 @@
     "pname": "openj9-ibm-semeru-jdk-bin",
     "version": "23.0.1.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-23_0_2_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "23.0.2.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-8": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "8.0.442.0"
+    "version": "8.0.432.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-8_0_302_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2489,15 +2469,10 @@
     "pname": "openj9-ibm-semeru-jdk-bin",
     "version": "8.0.432.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-8_0_442_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jdk-bin",
-    "version": "8.0.442.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-11": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "11.0.26.0"
+    "version": "11.0.25.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-11_0_12_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2589,11 +2564,6 @@
     "pname": "openj9-ibm-semeru-jre-bin",
     "version": "11.0.25.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-11_0_26_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "11.0.26.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-16": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
@@ -2607,7 +2577,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-17": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "17.0.14.0"
+    "version": "17.0.13.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-17_0_10_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2633,11 +2603,6 @@
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
     "version": "17.0.13.0"
-  },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-17_0_14_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "17.0.14.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-17_0_1_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2747,7 +2712,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-21": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "21.0.6.0"
+    "version": "21.0.5.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-21_0_1_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2779,11 +2744,6 @@
     "pname": "openj9-ibm-semeru-jre-bin",
     "version": "21.0.5.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-21_0_6_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "21.0.6.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-22": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
@@ -2807,7 +2767,7 @@
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-23": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "23.0.2.0"
+    "version": "23.0.1.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-23_0_0_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2819,15 +2779,10 @@
     "pname": "openj9-ibm-semeru-jre-bin",
     "version": "23.0.1.0"
   },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-23_0_2_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "23.0.2.0"
-  },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-8": {
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "8.0.442.0"
+    "version": "8.0.432.0"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-8_0_302_0": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -2908,11 +2863,6 @@
     "description": "OpenJ9 binaries built by IBM Semeru",
     "pname": "openj9-ibm-semeru-jre-bin",
     "version": "8.0.432.0"
-  },
-  "legacyPackages.x86_64-linux.openj9-ibm-semeru.jre-bin-8_0_442_0": {
-    "description": "OpenJ9 binaries built by IBM Semeru",
-    "pname": "openj9-ibm-semeru-jre-bin",
-    "version": "8.0.442.0"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -4212,7 +4162,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-02-26"
+    "version": "0-unstable-2025-03-03"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4522,7 +4472,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-03"
+    "version": "0-unstable-2025-03-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4572,7 +4522,7 @@
   "legacyPackages.x86_64-linux.uncategorized.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.7"
+    "version": "4.0.1.12"
   },
   "legacyPackages.x86_64-linux.uncategorized.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -4592,7 +4542,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-03"
+    "version": "0-unstable-2025-03-04"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4657,7 +4607,7 @@
   "legacyPackages.x86_64-linux.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.7"
+    "version": "4.0.1.12"
   },
   "legacyPackages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
@@ -5082,7 +5032,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-02-26"
+    "version": "0-unstable-2025-03-03"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5527,7 +5477,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-03"
+    "version": "0-unstable-2025-03-04"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5592,7 +5542,7 @@
   "packages.x86_64-linux.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.7"
+    "version": "4.0.1.12"
   },
   "packages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
