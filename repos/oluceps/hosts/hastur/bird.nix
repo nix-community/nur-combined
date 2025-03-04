@@ -29,6 +29,7 @@
           rtt min 150ms;
           rtt max 256ms;
           rtt decay 180;
+          limit 10;
         };
         interface "wg-azasos" {
           rtt min 50ms;
