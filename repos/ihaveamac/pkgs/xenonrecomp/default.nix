@@ -33,7 +33,6 @@ clangStdenv.mkDerivation rec {
     description = "A tool for recompiling Xbox 360 games to native executables.";
     homepage = "https://github.com/hedge-dev/XenonRecomp";
     license = licenses.mit;
-    platforms = platforms.all;
-    broken = with clangStdenv; !(isx86_64 || isx86_32);
+    platforms = platforms.x86;
   };
 }
