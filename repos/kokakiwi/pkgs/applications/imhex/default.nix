@@ -24,7 +24,7 @@
 , nlohmann_json
 , yara
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "imhex";
   version = "1.37.4";
 
@@ -32,15 +32,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     owner = "WerWolv";
     repo = "ImHex";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-uenwAaIjtBzrtiLdy6fh5TxtbWtUJbtybNOLP3+8blA=";
   };
 
   patterns = fetchFromGitHub {
     owner = "WerWolv";
     repo = "ImHex-Patterns";
-    rev = "ImHex-v${version}";
-    hash = "sha256-7ch2KXkbkdRAvo3HyErWcth3kG4bzYvp9I5GZSsb/BQ=";
+    tag = "ImHex-v${finalAttrs.version}";
+    hash = "sha256-2NgMYaG6+XKp0fIHAn3vAcoXXa3EF4HV01nI+t1IL1U=";
   };
 
   outputs = [ "out" "sdk" ];
@@ -103,4 +103,4 @@ stdenv.mkDerivation rec {
     license = with licenses; [ gpl2Only ];
     platforms = platforms.linux;
   };
-}
+})
