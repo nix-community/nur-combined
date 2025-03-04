@@ -153,6 +153,8 @@
   ned14-outcome = pkgs.callPackage ./pkgs/ned14-outcome {
     quickcpplib = ned14-quickcpplib;
     status-code = ned14-status-code;
+    byte-lite = byte-lite; 
+    span-lite = span-lite;
   };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };

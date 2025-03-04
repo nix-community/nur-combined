@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ned14";
     repo = "quickcpplib";
-    rev = "bb20eef1312ce49f5140da7bb709fd8d9bea1755";
-    sha256 = "sha256-WGJIhwL+cw0W9lULXxob+vpeprKAdQUmb3Xq0g7lRzg=";
+    rev = "8d5ddc873686aeb036612a4200c3bd924150c23c";
+    sha256 = "sha256-MFhx55o6KEchP2zSzZnQnkSIzsfn6shlJLa69172cro=";
     fetchSubmodules = true;
   };
 

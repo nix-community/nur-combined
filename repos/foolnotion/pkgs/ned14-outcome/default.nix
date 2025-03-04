@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, quickcpplib, status-code }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, quickcpplib, status-code, byte-lite, span-lite }:
 
 stdenv.mkDerivation rec {
   pname = "ned14-outcome";
-  version = "2.2.8";
+  version = "2.2.11";
 
   src = fetchFromGitHub {
     owner = "ned14";
     repo = "outcome";
-    rev = "5151d2428c8e47b863ea2ae6cc143e1e1d41bc4e";
-    hash = "sha256-o/Tm3MQixsDsULQN3cCz2vyyKkS7+3+hmbiUBf++XsY=";
+    rev = "0a91b4ef5c0ee391172998586761f306ce82ae52";
+    hash = "sha256-Shjw+2AJYbC25kOJEaeTmqZzd5nQhz0Fe+lxCmR9mcg=";
   };
 
-  nativeBuildInputs = [ cmake git quickcpplib status-code ];
+  nativeBuildInputs = [ cmake git byte-lite quickcpplib status-code span-lite ];
 
   cmakeFlags = [
     "-DPROJECT_IS_DEPENDENCY=ON"
@@ -22,6 +22,8 @@ stdenv.mkDerivation rec {
     "-DOUTCOME_ENABLE_DEPENDENCY_SMOKE_TEST=OFF"  # Leave this always on to test everything compiles
     "-DCMAKE_DISABLE_FIND_PACKAGE_Git=ON"
   ];
+
+  patches = [ ./fix-status-code-include.patch ];
 
   preConfigure = ''
     substituteInPlace CMakeLists.txt --replace-fail find_dependency find_package
