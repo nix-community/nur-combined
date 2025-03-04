@@ -176,6 +176,10 @@ fetch.github = "rany2/edge-tts"
 src.github = "KusakabeShi/EtherGuard-VPN"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 
+[fake-ollama]
+src.git = "https://github.com/spoonnotfound/fake-ollama.git"
+fetch.github = "spoonnotfound/fake-ollama"
+
 [fastapi-dls]
 src.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
 fetch.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"

@@ -569,6 +569,11 @@
     "pname": "etherguard",
     "version": "0.3.5-f5"
   },
+  "legacyPackages.x86_64-linux.fake-ollama": {
+    "description": "Simulated server implementation of Ollama API",
+    "pname": "fake-ollama",
+    "version": "0-unstable-2025-02-14"
+  },
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
@@ -4084,6 +4089,11 @@
     "pname": "etherguard",
     "version": "0.3.5-f5"
   },
+  "legacyPackages.x86_64-linux.uncategorized.fake-ollama": {
+    "description": "Simulated server implementation of Ollama API",
+    "pname": "fake-ollama",
+    "version": "0-unstable-2025-02-14"
+  },
   "legacyPackages.x86_64-linux.uncategorized.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
@@ -4868,6 +4878,11 @@
     "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
     "pname": "etherguard",
     "version": "0.3.5-f5"
+  },
+  "packages.x86_64-linux.fake-ollama": {
+    "description": "Simulated server implementation of Ollama API",
+    "pname": "fake-ollama",
+    "version": "0-unstable-2025-02-14"
   },
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",

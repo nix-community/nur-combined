@@ -417,6 +417,17 @@
       hash = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
     };
   };
+  fake-ollama = {
+    pname = "fake-ollama";
+    version = "4a788616cee7d0f3b39f7623d9f627b79acae405";
+    src = fetchFromGitHub {
+      owner = "spoonnotfound";
+      repo = "fake-ollama";
+      rev = "4a788616cee7d0f3b39f7623d9f627b79acae405";
+      hash = "sha256-ChktqmEoZ2PN13XqynExyjYbX2uhbeAfubNKhTZ4cUY=";
+    };
+    date = "2025-02-14";
+  };
   fastapi-dls = {
     pname = "fastapi-dls";
     version = "aec6535391f1ef19538e072dfbc4c3dc1c145fec";
