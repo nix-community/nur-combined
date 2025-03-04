@@ -3478,12 +3478,12 @@ Tool to generate flags for your CPU
 Like neofetch, but much faster because written in C
 
 - Name: `fastfetch`
-- Version: `2.37.0`
+- Version: `2.38.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L271)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.37.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.38.0)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -3583,12 +3583,12 @@ Like neofetch, but much faster because written in C
 Like neofetch, but much faster because written in C (with all features disabled)
 
 - Name: `fastfetch`
-- Version: `2.37.0`
+- Version: `2.38.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📦 Source](./default.nix#L32)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.37.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.38.0)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -4106,10 +4106,10 @@ A language for building concurrent software with confidence
 KDE Virtual Machine Manager
 
 - Name: `karton`
-- Version: `0.1-prealpha-unstable-2024-08-07`
+- Version: `0.1-prealpha-unstable-2025-03-02`
 
 - [🌐 Homepage](https://invent.kde.org/arraybolt/karton)
-- [📦 Source](./pkgs/by-name/karton/package.nix#L53)
+- [📦 Source](./pkgs/by-name/karton/package.nix#L54)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4651,7 +4651,7 @@ Library for emitting text, XML, JSON, or HTML output
 A hardware profiling application for Linux
 
 - Name: `magothy`
-- Version: `0-unstable-2025-02-24`
+- Version: `0-unstable-2025-03-03`
 
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
@@ -5349,7 +5349,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-03-01`
+- Version: `SLE2024-artifact-unstable-2025-03-03`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
@@ -5637,11 +5637,12 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sharkish microblogging platform
 
 - Name: `sharkey`
-- Version: `2024.11.2`
+- Version: `2025.2.2`
 
 - [🌐 Homepage](https://activitypub.software/TransFem-org/Sharkey)
 - [📦 Source](./pkgs/by-name/sharkey/package.nix#L130)
 - License: [`GNU Affero General Public License v3.0 only`](https://spdx.org/licenses/AGPL-3.0-only.html)
+- [📰 Changelog](https://activitypub.software/TransFem-org/Sharkey/-/releases/2025.2.2)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -6715,7 +6716,7 @@ Original Xbox DVD Filesystem library and management tool
 - Version: `0.8.3`
 
 - [🌐 Homepage](https://github.com/antangelo/xdvdfs)
-- [📦 Source](./pkgs/by-name/xdvdfs/package.nix#L35)
+- [📦 Source](./pkgs/by-name/xdvdfs/package.nix#L32)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

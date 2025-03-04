@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sharkey";
-  version = "2024.11.2";
+  version = "2025.2.2";
 
   src = fetchFromGitLab {
     domain = "activitypub.software";
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     repo = "Sharkey";
     rev = "refs/tags/${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-ejrp6PBbpA5DIa8O1Ib7jZ3xsDrMkVEN4BMduJnjzBk=";
+    hash = "sha256-KVr4KLtJ22LEk94GuxeTk8/GcFs7oU/gkoVTvrgbYBg=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm_9.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-7/N4ktYGOU+KQtOG32oJm/FEpR7shm0wlDWOThPVsgM=";
+    hash = "sha256-XWcDchvrYSJr0s/DMb8FIEK7MdE6aC2bAbrW88Ig4ug=";
   };
 
   buildPhase = ''
@@ -129,6 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "sharkey";
     description = "Sharkish microblogging platform";
     homepage = "https://activitypub.software/TransFem-org/Sharkey";
+    changelog = "https://activitypub.software/TransFem-org/Sharkey/-/releases/${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

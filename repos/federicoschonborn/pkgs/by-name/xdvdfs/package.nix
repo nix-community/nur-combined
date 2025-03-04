@@ -23,10 +23,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vNCqfXsPjb3mph28YuYKpWTs9VHbIcXs6GVn4XgQKtQ=";
 
-  cargoBuildFlags = [
-    "-p"
-    "xdvdfs-cli"
-  ];
+  cargoBuildFlags = [ "--package xdvdfs-cli" ];
 
   passthru.updateScript = nix-update-script { };
 

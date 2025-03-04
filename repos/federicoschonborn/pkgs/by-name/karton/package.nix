@@ -11,14 +11,14 @@
 
 stdenv.mkDerivation {
   pname = "karton";
-  version = "0.1-prealpha-unstable-2024-08-07";
+  version = "0.1-prealpha-unstable-2025-03-02";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "arraybolt";
     repo = "karton";
-    rev = "a4dd9a5003be3df112f7e7a3bcda92e48c93abf7";
-    hash = "sha256-pxkkmfTgH8jenbtI/ksHraonfS2z/MQ6KsD9N6wUgns=";
+    rev = "2645686e145e24d2ddd2f5607aba6e955b51bca3";
+    hash = "sha256-rqflixikk4ASW5V2Ga1xCXoW2YoIpsXeiL7r7k8dHU8=";
   };
 
   nativeBuildInputs = [
@@ -33,6 +33,7 @@ stdenv.mkDerivation {
     kdePackages.qtbase
     kdePackages.qtdeclarative
     kdePackages.kconfig
+    kdePackages.kcoreaddons
     kdePackages.kirigami
   ];
 
