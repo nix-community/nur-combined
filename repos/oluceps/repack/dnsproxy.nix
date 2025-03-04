@@ -33,7 +33,8 @@ in
         bootstrap = [
           "8.8.8.8"
           "119.29.29.29"
-          "tcp://223.6.6.6:53"
+          "114.114.114.114"
+          "223.6.6.6"
           "tls://1.1.1.1"
           "tls://1.0.0.1"
         ];
@@ -46,8 +47,8 @@ in
               "quic://dns.alidns.com"
               "h3://dns.alidns.com/dns-query"
               "tls://dot.pub"
-              "tls://1.1.1.1"
-              "https://dns.google/dns-query"
+              # "tls://1.1.1.1"
+              # "https://dns.google/dns-query" # banned since 5 Mar
             ]
           else
             [

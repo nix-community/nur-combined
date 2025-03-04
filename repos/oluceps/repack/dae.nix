@@ -22,9 +22,9 @@ reIf {
           tproxy_port: 12345
           log_level: info
           tcp_check_url: 'https://www.apple.com/library/test/success.html'
-          udp_check_dns: 'dns.google.com:53,114.114.114.114:53,2001:4860:4860::8888,1.1.1.1:53'
-          check_interval: 20s
-          check_tolerance: 100ms
+          udp_check_dns: 'dns.google:53,114.114.114.114:53,2001:4860:4860::8888,1.1.1.1:53'
+          check_interval: 10s
+          check_tolerance: 150ms
           wan_interface: auto
           allow_insecure: false
           dial_mode: domain
