@@ -47,6 +47,7 @@ in
               "quic://dns.alidns.com"
               "h3://dns.alidns.com/dns-query"
               "tls://dot.pub"
+              "https://doh.pub/dns-query"
               # "tls://1.1.1.1"
               # "https://dns.google/dns-query" # banned since 5 Mar
             ]
