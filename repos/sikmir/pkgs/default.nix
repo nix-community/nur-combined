@@ -400,7 +400,6 @@ lib.makeScope newScope (
     riffraff = callPackage ./misc/riffraff { };
     rst2txt = callPackage ./misc/rst2txt { };
     sdorfehs = callPackage ./misc/sdorfehs { };
-    serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
     shellprof = callPackage ./misc/shellprof { };
     shifu = callPackage ./misc/shifu { };
