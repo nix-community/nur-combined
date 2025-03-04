@@ -7,10 +7,10 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
-    kernelModules = [ "brutal" ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
-    ];
+    # kernelModules = [ "brutal" ];
+    # extraModulePackages = with config.boot.kernelPackages; [
+    #   (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
+    # ];
 
     kernelParams = [
       "audit=0"
