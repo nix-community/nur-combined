@@ -9,14 +9,14 @@ rustPlatform.buildRustPackage {
   pname = "git-commit-generator";
   version = "v0.1.0";
 
-  cargoHash = "sha256-XYQM6+NSp56oL3Y8WKnAUZOo+S2Uvt1FbIs9TvilEyU=";
+  cargoHash = "sha256-/AyoFffn9n0nCdvJc8BMrvpENixZLgnWUoQC0/LU++8=";
   useFetchCargoVendor = true;
 
   src = fetchFromGitHub {
     owner = "Emin017";
     repo = "git-commit-generator";
-    rev = "e4d9146f463444017aa0872a3b29671a95194ad7";
-    hash = "sha256-K9CEVYvnnYJnOIt3NtxwYmzbpG+QvrSVdAPuOjtpmyM=";
+    rev = "f6428000d74ce3076a5c9c10533407dcacd98685";
+    hash = "sha256-u+mPdZy981ZbQenI5JY6OK2qBw1zq+V/iTTkPUTei9o=";
   };
 
   PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
