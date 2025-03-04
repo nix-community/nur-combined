@@ -60,6 +60,8 @@ rec {
 
   getIntraAddrFrom = config: getAddrFromCIDR (getThisNodeFrom config).unique_addr;
 
+  getPeerHostListFrom = config: (builtins.attrNames (conn { }).${config.networking.hostName});
+
   sharedModules =
     [ inputs.self.nixosModules.repack ]
     ++ (genModules [

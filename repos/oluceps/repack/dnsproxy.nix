@@ -40,14 +40,22 @@ in
         listen-addrs = [ "::" ];
         listen-ports = [ 53 ];
         upstream-mode = "parallel";
-        upstream = [
-          # "quic://unfiltered.adguard-dns.com"
-          "quic://dns.alidns.com"
-          "h3://dns.alidns.com/dns-query"
-          "https://dns.google/dns-query"
-          "tls://dot.pub"
-          "tls://1.1.1.1"
-        ];
+        upstream =
+          if (lib.getThisNodeFrom config).censor then
+            [
+              "quic://dns.alidns.com"
+              "h3://dns.alidns.com/dns-query"
+              "tls://dot.pub"
+              "tls://1.1.1.1"
+              "https://dns.google/dns-query"
+            ]
+          else
+            [
+              "quic://unfiltered.adguard-dns.com"
+              "tls://1.1.1.1"
+              "tls://1.0.0.1"
+              "https://dns.google/dns-query"
+            ];
       };
     };
 

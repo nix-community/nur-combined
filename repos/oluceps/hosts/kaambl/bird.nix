@@ -1,44 +1,50 @@
+{ config, lib, ... }:
 {
   repack.bird = {
     enable = true;
-    config = ''
-      protocol babel {
-        interface "wg-*" {
-          type tunnel;
-          hello interval 1s;
-          update interval 2s;
-          rtt decay 90;
-          check link no;
-          extended next hop yes;
+    config =
+      let
+        linkSpec = {
+          # eihort = ''
+          #   rtt min 4ms;
+          # '';
+          azasos = ''
+            rtt min 33ms;
+          '';
+          abhoth = ''
+            rtt min 77ms;
+          '';
+          # hastur = ''
+          #   rtt min 5ms;
+          # '';
+          yidhra = ''
+            rtt min 38ms;
+          '';
         };
-        # interface "wg-hastur" {
-        #   rtt min 10ms;
-        #   rtt max 256ms;
-        #   rtt decay 90;
-        # };
-        # interface "wg-eihort" {
-        #   rtt min 5ms;
-        #   rtt max 256ms;
-        #   rtt decay 90;
-        # };
-        interface "wg-yidhra" {
-          rtt min 38ms;
-          rtt max 256ms;
+
+        genLink = host: ''
+          interface "wg-${host}" {
+            type tunnel;
+            hello interval 1s;
+            update interval 2s;
+            rtt cost 96;
+            rtt max 180ms;
+            rtt decay 64;
+            check link no;
+            extended next hop yes;
+            ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}
+          };
+        '';
+      in
+      ''
+        protocol babel {
+        ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
+          ipv6 {
+            import where in_hortus();
+            export filter to_hortus;
+          };
         };
-        interface "wg-abhoth" {
-          rtt min 77ms;
-          rtt max 256ms;
-        };
-        interface "wg-azasos" {
-          rtt min 33ms;
-          rtt max 256ms;
-        };
-        ipv6 {
-          import where in_hortus();
-          export filter to_hortus;
-        };
-      };
-    '';
+      '';
   };
 
 }

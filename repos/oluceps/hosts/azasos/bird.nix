@@ -1,42 +1,50 @@
+{ config, lib, ... }:
 {
   repack.bird = {
     enable = true;
-    config = ''
-      protocol babel {
-        interface "wg-*" {
-          type tunnel;
-          hello interval 1s;
-          update interval 2s;
-          rtt decay 90;
-          check link no;
-          extended next hop yes;
+    config =
+      let
+        linkSpec = {
+          eihort = ''
+            rtt min 45ms;
+          '';
+          yidhra = ''
+            rtt min 45ms;
+          '';
+          abhoth = ''
+            rtt min 100ms;
+          '';
+          kaambl = ''
+            rtt min 94ms;
+          '';
+          hastur = ''
+            rtt min 50ms;
+          '';
         };
-        interface "wg-kaambl" {
-          rtt min 94ms;
-          rtt max 256ms;
+
+        genLink = host: ''
+          interface "wg-${host}" {
+            type tunnel;
+            hello interval 1s;
+            update interval 2s;
+            rtt cost 96;
+            rtt max 180ms;
+            rtt decay 64;
+            check link no;
+            extended next hop yes;
+            ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}
+          };
+        '';
+      in
+      ''
+        protocol babel {
+        ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
+          ipv6 {
+            import where in_hortus();
+            export filter to_hortus;
+          };
         };
-        interface "wg-eihort" {
-          rtt min 40ms;
-          rtt max 380ms;
-        };
-        interface "wg-hastur" {
-          rtt min 45ms;
-          rtt max 256ms;
-        };
-        interface "wg-yidhra" {
-          rtt min 40ms;
-          rtt max 256ms;
-        };
-        interface "wg-abhoth" {
-          rtt min 95ms;
-          rtt max 256ms;
-        };
-        ipv6 {
-          import where in_hortus();
-          export filter to_hortus;
-        };
-      };
-    '';
+      '';
   };
 
 }
