@@ -174,10 +174,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.24.4";
+      version = "3.24.6";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423711/adnauseam-3.24.4.xpi";
-      sha256 = "31d393007796807244c55e2af02147fc27f5e33939d77d38f9525152dcbc64a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440960/adnauseam-3.24.6.xpi";
+      sha256 = "3d2a44073d80ebc478509c432a20d84d93cc73cc9f6500e038a6ee98799aeaa6";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -1929,10 +1929,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.8.0";
+      version = "4.9.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4437801/control_panel_for_twitter-4.8.0.xpi";
-      sha256 = "cd8b1a94c7cb2bf446ef4a7af9c7666c8b4325baf5db2d3fabb0030ed166239d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440582/control_panel_for_twitter-4.9.0.xpi";
+      sha256 = "8c9fc546ba6b903e947a2b81b0df3c6b29ab3a410bf14a403a91e54d7000d420";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2138,10 +2138,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "136.0.20250227.124745";
+      version = "137.0.20250303.103151";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445267/dansk_da_language_pack-136.0.20250227.124745.xpi";
-      sha256 = "9748fb6b198ab391c352c26f5875c6b922e8f5c3cbe3f5605073571b8752609c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447113/dansk_da_language_pack-137.0.20250303.103151.xpi";
+      sha256 = "58ba5f1c740f4826e6136854d981a8ddc9e202a7f27ae26d6791b0dc37709d0d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2335,10 +2335,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "136.0.20250227.124745";
+      version = "137.0.20250303.103151";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445289/deutsch_de_language_pack-136.0.20250227.124745.xpi";
-      sha256 = "8e1922c17f72857162996dea525f27b0c45f0508c659a6545767026a90822357";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447131/deutsch_de_language_pack-137.0.20250303.103151.xpi";
+      sha256 = "697b01e4922fdcdc111ccffe7d431e10babde3690ffd725c9fd82f810581dfed";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3570,10 +3570,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "136.0.20250227.124745";
+      version = "137.0.20250303.103151";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445338/francais_language_pack-136.0.20250227.124745.xpi";
-      sha256 = "bc50aae0c3e44cdd5c1a50ed9c1cb7528eaf37ded2022d688eaee757bc4972c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447162/francais_language_pack-137.0.20250303.103151.xpi";
+      sha256 = "01df385149bbe2706fb0e4886104d3a6686ee3ee0d47f02403a4fe5c7f567e09";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3607,10 +3607,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "136.0.20250227.124745";
+      version = "137.0.20250303.103151";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445371/gaidhlig_language_pack-136.0.20250227.124745.xpi";
-      sha256 = "4cf2a0fabe3e52e734c52716154a3c23c1fbe0ea69e7fc351feb3260f6ffea62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447107/gaidhlig_language_pack-137.0.20250303.103151.xpi";
+      sha256 = "1c9fc560a6893f38e373b23329d153509ea568b09fa37f09a11b44d4b336b705";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5430,10 +5430,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.14.11";
+      version = "1.14.16";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4439318/immersive_translate-1.14.11.xpi";
-      sha256 = "9674b572ef3ff72b0b3914d1d20b06d137af91a1c5d42336e4c3655b9cf04147";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4443608/immersive_translate-1.14.16.xpi";
+      sha256 = "329fdf8a63c2b153a5c2d5cb77525b819b80e5a3d5786f58e15aba8653579175";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5798,10 +5798,10 @@
     };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172699/ipfs_companion-3.1.0.xpi";
-      sha256 = "784f6d1e0497d86f1e42cfe7de8548b5cc28fabe80e50771d90f59ddf1b9d3c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447471/ipfs_companion-3.2.0.xpi";
+      sha256 = "95b032a90f7e4349cb3778cdb9564b5c89d16c58d9aa12e2f223584ac143fb93";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs/ipfs-companion";
@@ -6321,10 +6321,10 @@
     };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
-      version = "11.0.4";
+      version = "11.0.5";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4446105/lesspass-11.0.4.xpi";
-      sha256 = "066f2b1a604bf9ff2c17ad814455de5bd06a760f5ff04dcd2d546b9459ee8ea9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4446907/lesspass-11.0.5.xpi";
+      sha256 = "a7c4fbcf69a0d2da165e3ff79f1324e214c02616207d8450b40f2245236c5217";
       meta = with lib;
       {
         homepage = "https://github.com/lesspass/lesspass";
@@ -6791,10 +6791,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.11.0";
+      version = "0.11.1";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4417383/mal_sync-0.11.0.xpi";
-      sha256 = "68d49bf99ec0f0a80a2bbc1e0ce096cf0498db475bf7492bb300c6e9b4d337c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440959/mal_sync-0.11.1.xpi";
+      sha256 = "8713da2188a2204ef9e48f1729b9090691e8a6df796e64d5965e936886e87820";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -6892,6 +6892,7 @@
           "*://*.kickassanime.am/*"
           "*://*.kickassanimes.io/*"
           "*://*.kickassanime.mx/*"
+          "*://*.kaa.mx/*"
           "*://shinden.pl/episode/*"
           "*://shinden.pl/series/*"
           "*://shinden.pl/titles/*"
@@ -7029,6 +7030,7 @@
           "*://www.tranimeizle.net/*"
           "*://tranimeizle.co/*"
           "*://www.tranimeizle.co/*"
+          "*://*.tranimeizle.top/*"
           "*://*.animestreamingfr.fr/*"
           "*://furyosociety.com/*"
           "*://www.animeid.tv/*"
@@ -7138,6 +7140,7 @@
           "*://fmteam.fr/*"
           "*://www.animelon.com/*"
           "*://animelon.com/*"
+          "*://animenosub.to/*"
           "*://anime-sama.fr/*"
           "*://mangafire.to/*"
           "*://projectsuki.com/*"
@@ -7176,7 +7179,12 @@
           "*://mangalib.me/*"
           "*://*.slashlib.me/*"
           "*://*.yaoilib.net/*"
+          "*://ranobelib.me/*"
+          "*://rawkuma.com/*"
           "*://aninexus.to/*"
+          "*://animekai.to/*"
+          "*://watch.hikaritv.xyz/*"
+          "*://hikari.gg/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -7448,6 +7456,7 @@
           "*://bethshouldercan.com/e/*"
           "*://sandratableother.com/e/*"
           "*://robertordercharacter.com/e/*"
+          "*://maxfinishseveral.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -7458,6 +7467,7 @@
           "*://vidnethub.net/*"
           "*://vidco.pro/*"
           "*://omegadthree.com/*"
+          "*://krussdomi.com/*"
           "*://*.animeshouse.net/gcloud/*"
           "*://*.animeshouse.net/playerBlue/*"
           "*://*.animeshouse.net/mp4/*"
@@ -7492,18 +7502,31 @@
           "*://www.animeworld.tv/api/episode/serverPlayerAnimeWorld?id=*"
           "*://www.animeworld.so/api/episode/serverPlayerAnimeWorld?id=*"
           "*://filemoon.sx/e/*"
+          "*://filemoon.sx/lol/*"
           "*://kerapoxy.cc/e/*"
+          "*://kerapoxy.cc/lol/*"
           "*://vpcxz19p.xyz/e/*"
+          "*://vpcxz19p.xyz/lol/*"
           "*://filemoon.top/e/*"
+          "*://filemoon.top/lol/*"
           "*://fmoonembed.pro/e/*"
+          "*://fmoonembed.pro/lol/*"
           "*://rgeyyddl.skin/e/*"
+          "*://rgeyyddl.skin/lol/*"
           "*://designparty.sx/e/*"
+          "*://designparty.sx/lol/*"
           "*://c4qhk0je.xyz/e/*"
+          "*://c4qhk0je.xyz/lol/*"
           "*://1azayf9w.xyz/e/*"
+          "*://1azayf9w.xyz/lol/*"
           "*://81u6xl9d.xyz/e/*"
+          "*://81u6xl9d.xyz/lol/*"
+          "*://gorro-chfzoaas.fun/e/*"
+          "*://gorro-chfzoaas.fun/lol/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
+          "*://animenosub.upn.one/#*"
           "*://*.streamhide.to/e/*"
           "*://megacloud.tv/*"
           "*://vixcloud.cc/*"
@@ -7524,6 +7547,8 @@
           "*://player.vimeo.com/*"
           "*://fle-rvd0i9o8-moo.com/*"
           "*://dhtpre.com/*"
+          "*://*.bunniescdn.online/*"
+          "*://megaup.cc/e/*"
         ];
         platforms = platforms.all;
       };
@@ -8330,10 +8355,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.60.27";
+      version = "8.10.62.27";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4431277/1password_x_password_manager-8.10.60.27.xpi";
-      sha256 = "d28033a0d66b35f032e359621163f4a0d4c78d715fc656eb79a760eabdaf6403";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4439694/1password_x_password_manager-8.10.62.27.xpi";
+      sha256 = "5561a53d4af2bcbc8ba8f80ea4f6f712ed9f0f1e7cb839738774c346de22ff90";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9512,10 +9537,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.29.2";
+      version = "1.29.3";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4433286/proton_pass-1.29.2.xpi";
-      sha256 = "6f0ba9fa263b65a393816b5fc47dc0df35a5ba9a9c08989c12df06ab4ae9f564";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440138/proton_pass-1.29.3.xpi";
+      sha256 = "615d48326e5dee89e2ff0ab53c39ed22bc55795eac97482287a0a862c5bee7c7";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10215,10 +10240,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "136.0.20250227.124745";
+      version = "137.0.20250303.103151";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445333/scots_language_pack-136.0.20250227.124745.xpi";
-      sha256 = "45e7011fce1eb6e52baf7a3e93725d6b7c8484a4dc57fc606c7e42213e1a93a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447165/scots_language_pack-137.0.20250303.103151.xpi";
+      sha256 = "d19d820235ff55de5e0fa83b4dbd46e53cdf945cddb8bea01c390bff4303d173";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10275,10 +10300,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.1.0";
+      version = "8.1.1";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416342/search_by_image-8.1.0.xpi";
-      sha256 = "2271d630bceebc92ec0a51a22195b0eed325d78b984dea678dd5640a22c5a9b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440660/search_by_image-8.1.1.xpi";
+      sha256 = "b90348e1f4bcced27e47719a142aba48cc58e252d621fa755cf3d706d960d648";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -10666,10 +10691,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.77";
+      version = "1.22.79";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406357/single_file-1.22.77.xpi";
-      sha256 = "b19740e6703d213be7fcb481f6f4fe4fb41decdd0cf2a1068e857d9e28c20cbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4440643/single_file-1.22.79.xpi";
+      sha256 = "142f254c2013d92738d1e30ececf412ce854f2a73ab3ce55b2eed64d5fdcb71b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10927,10 +10952,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "2.0.6";
+      version = "2.0.7";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361101/statshunters-2.0.6.xpi";
-      sha256 = "3342ea9c1386a39796072eb2cb0571eac6b3647af3d414fd22a64da022405d78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447453/statshunters-2.0.7.xpi";
+      sha256 = "b96e8f88c0aa9603d7e41385356c28550eb87434b1792528c69625c98040ebc5";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -10971,6 +10996,7 @@
           "https://openrunner.com/*"
           "https://www.openrunner.com/*"
           "https://gpx.studio/*"
+          "https://veloplanner.com/*"
         ];
         platforms = platforms.all;
       };
@@ -13618,10 +13644,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.1.10";
+      version = "2.1.11";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4446662/youtube_no_translation-2.1.10.xpi";
-      sha256 = "41b40c239df67de90d4e0e96e6f4f145011fc8c66c171e26d32337e7a6d4a15b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447004/youtube_no_translation-2.1.11.xpi";
+      sha256 = "9ab641c81351cac849896341133727fc3ccbca5184f6b54b30a0006ec964a927";
       meta = with lib;
       {
         homepage = "https://github.com/YouG-o/YNT_Browser-Extension";
