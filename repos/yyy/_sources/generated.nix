@@ -41,15 +41,15 @@
   };
   beets-summarize = {
     pname = "beets-summarize";
-    version = "eb804abacf6b58a7b2dec01c109e96605fd64d15";
+    version = "72d74824c065a080e66da36fd8210fde8a541728";
     src = fetchFromGitHub {
       owner = "steven-murray";
       repo = "beet-summarize";
-      rev = "eb804abacf6b58a7b2dec01c109e96605fd64d15";
+      rev = "72d74824c065a080e66da36fd8210fde8a541728";
       fetchSubmodules = false;
-      sha256 = "sha256-HnvZuQBKXKxxk9bME+nTXUkdkX7ovDi50N7xRgvtIA8=";
+      sha256 = "sha256-j9GVqCX229961rjDXb/NUSv9XfcAh5CoSRRj5fBaVDk=";
     };
-    date = "2024-03-01";
+    date = "2025-03-01";
   };
   beets-yearfixer = {
     pname = "beets-yearfixer";
@@ -86,22 +86,22 @@
   };
   fava-dashboards = {
     pname = "fava-dashboards";
-    version = "50a0b7c8b20e50b15bf491329e1ecab6598d8b96";
+    version = "6994c45bae2eaefedce3167edd8a57b7b3fd36b9";
     src = fetchFromGitHub {
       owner = "andreasgerstmayr";
       repo = "fava-dashboards";
-      rev = "50a0b7c8b20e50b15bf491329e1ecab6598d8b96";
+      rev = "6994c45bae2eaefedce3167edd8a57b7b3fd36b9";
       fetchSubmodules = false;
-      sha256 = "sha256-Lzp4P1eF/oq7iRnGRxvEKlgZALHiLOpNKRsGDJPN4Zg=";
+      sha256 = "sha256-4/CraeZGAEAQ7fFzQHay5GbrGlBaKUfAA89CH+bh4Lg=";
     };
-    date = "2024-08-14";
+    date = "2025-02-12";
   };
   stash = {
     pname = "stash";
-    version = "v0.26.2";
+    version = "v0.27.2";
     src = fetchurl {
-      url = "https://github.com/stashapp/stash/releases/download/v0.26.2/stash-linux";
-      sha256 = "sha256-w13NzlXQFMH5/iNXW56Saw3Wrlm9HWb3eidRcPxJxvo=";
+      url = "https://github.com/stashapp/stash/releases/download/v0.27.2/stash-linux";
+      sha256 = "sha256-R9uCyJF1eEU0ms4Op08bJI/eY6RKrBaxMl0x6yK8A9o=";
     };
   };
 }

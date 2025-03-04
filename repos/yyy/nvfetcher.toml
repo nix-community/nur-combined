@@ -34,6 +34,6 @@ fetch.pypi = "autobean"
 src.pypi = "autobean-refactor"
 fetch.pypi = "autobean-refactor"
 
-# [fava-dashboards]
-# src.git = "https://github.com/andreasgerstmayr/fava-dashboards"
-# fetch.github = "andreasgerstmayr/fava-dashboards"
+[fava-dashboards]
+src.git = "https://github.com/andreasgerstmayr/fava-dashboards"
+fetch.github = "andreasgerstmayr/fava-dashboards"

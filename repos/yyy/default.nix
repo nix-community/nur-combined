@@ -24,7 +24,7 @@ rec {
 
   autobean = lib.callPackage "autobean" { };
   autobean-refactor = lib.callPackage "autobean-refactor" { };
-  # fava-dashboards = lib.callPackage "fava-dashboards" { };
+  fava-dashboards = lib.callPackage "fava-dashboards" { };
 
   stash = lib.callPackage "stash" { };
 }
