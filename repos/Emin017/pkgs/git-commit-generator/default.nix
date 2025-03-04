@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage {
   pname = "git-commit-generator";
   version = "v0.1.0";
 
-  cargoHash = "sha256-hQBmgVBpARPChzhzeCOGnjvM+IeB2ynR6EDt+Yer7Fw=";
+  cargoHash = "sha256-XYQM6+NSp56oL3Y8WKnAUZOo+S2Uvt1FbIs9TvilEyU=";
   useFetchCargoVendor = true;
 
   src = fetchFromGitHub {
