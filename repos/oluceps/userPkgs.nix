@@ -103,7 +103,6 @@ with pkgs;
   filezilla
   file
   lapce
-  kate
   # cinnamon.nemo
   nautilus
   gnome-boxes
@@ -156,7 +155,7 @@ with pkgs;
   ncpamixer
   # texlive.combined.scheme-full
   vlc
-  bluedevil
+  # bluedevil
   prismlauncher
 ]
 # ++ (with pkgs; [ fluent-icon-theme ])
