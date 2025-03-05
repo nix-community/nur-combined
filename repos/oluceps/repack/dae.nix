@@ -28,7 +28,7 @@ reIf {
           check_tolerance: 50ms
           wan_interface: auto
           allow_insecure: false
-          dial_mode: domain+
+          dial_mode: domain++
           disable_waiting_network: false
           auto_config_kernel_parameter: true
           enable_local_tcp_fast_redirect: true
