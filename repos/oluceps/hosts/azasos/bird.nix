@@ -27,7 +27,7 @@
             type tunnel;
             hello interval 1s;
             update interval 2s;
-            rtt cost 96;
+            rtt cost 192;
             rtt max 180ms;
             rtt decay 64;
             check link no;
