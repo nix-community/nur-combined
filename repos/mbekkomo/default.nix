@@ -18,5 +18,6 @@
   jotdown = pkgs.callPackage ./pkgs/jotdown { };
   godjot = pkgs.callPackage ./pkgs/godjot { };
   sklauncher = pkgs.callPackage ./pkgs/sklauncher { };
+  emmylua-codestyle = pkgs.callPackage ./pkgs/emmylua-codestyle { };
 }
 // builtins.mapAttrs (name: deriv: pkgs.callPackage deriv { }) (import ./pkgs/emmylua-analyzer)
