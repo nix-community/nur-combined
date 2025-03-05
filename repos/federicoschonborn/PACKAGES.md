@@ -8,11 +8,11 @@
 
 There are mice
 
-- Name: `av70-neomouse`
+- Name: `wep-neomouse`
 - Version: `1.2`
 - Outputs: **`out`**, `additional`, `spinnyMouse`
-- [🌐 Homepage](https://git.gay/av70/neomouse)
-- [📦 Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L64)
+- [🌐 Homepage](https://git.gay/wep/neomouse)
+- [📦 Source](./pkgs/akkoma-emoji/wep/neomouse/package.nix#L64)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -3042,6 +3042,110 @@ wvrn emoji pack
   - `i686-windows`
   </details>
 
+<h2 id="akkoma-emoji-wep-neomouse">
+
+`akkoma-emoji.wep.neomouse`
+
+</h2>
+
+There are mice
+
+- Name: `wep-neomouse`
+- Version: `1.2`
+- Outputs: **`out`**, `additional`, `spinnyMouse`
+- [🌐 Homepage](https://git.gay/wep/neomouse)
+- [📦 Source](./pkgs/akkoma-emoji/wep/neomouse/package.nix#L64)
+- License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Maintainers:
+  - Federico Damián Schonborn [✉️](mailto:federicoschonborn@disroot.org)
+- Platforms:
+  - `i686-cygwin`
+  - `x86_64-cygwin`
+  - `x86_64-darwin`
+  - `i686-darwin`
+  - `aarch64-darwin`
+  - `armv7a-darwin`
+  - `i686-freebsd`
+  - `x86_64-freebsd`
+  - `aarch64-freebsd`
+  - `aarch64-genode`
+  - `i686-genode`
+  - `x86_64-genode`
+  - `x86_64-solaris`
+  - `javascript-ghcjs`
+  - `aarch64-linux`
+  - `armv5tel-linux`
+  - `armv6l-linux`
+  - `armv7a-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `loongarch64-linux`
+  - `m68k-linux`
+  - `microblaze-linux`
+  - `microblazeel-linux`
+  - `mips-linux`
+  - `mips64-linux`
+  - `mips64el-linux`
+  - `mipsel-linux`
+  - `powerpc64-linux`
+  - `powerpc64le-linux`
+  - `riscv32-linux`
+  - `riscv64-linux`
+  - `s390-linux`
+  - `s390x-linux`
+  - `x86_64-linux`
+  - `mmix-mmixware`
+  - `aarch64-netbsd`
+  - `armv6l-netbsd`
+  - `armv7a-netbsd`
+  - `armv7l-netbsd`
+  - `i686-netbsd`
+  - `m68k-netbsd`
+  - `mipsel-netbsd`
+  - `powerpc-netbsd`
+  - `riscv32-netbsd`
+  - `riscv64-netbsd`
+  - `x86_64-netbsd`
+  - `aarch64_be-none`
+  - `aarch64-none`
+  - `arm-none`
+  - `armv6l-none`
+  - `avr-none`
+  - `i686-none`
+  - `microblaze-none`
+  - `microblazeel-none`
+  - `mips-none`
+  - `mips64-none`
+  - `msp430-none`
+  - `or1k-none`
+  - `m68k-none`
+  - `powerpc-none`
+  - `powerpcle-none`
+  - `riscv32-none`
+  - `riscv64-none`
+  - `rx-none`
+  - `s390-none`
+  - `s390x-none`
+  - `vc4-none`
+  - `x86_64-none`
+  - `i686-openbsd`
+  - `x86_64-openbsd`
+  - `x86_64-redox`
+  - `wasm64-wasi`
+  - `wasm32-wasi`
+  - `aarch64-windows`
+  - `x86_64-windows`
+  - `i686-windows`
+  </details>
+
 <h2 id="biplanes-revival">
 
 `biplanes-revival`
@@ -5277,7 +5381,7 @@ Phonon Backend using MPV Player
 Camera application for Plasma Mobile
 
 - Name: `plasma-camera`
-- Version: `1.0-unstable-2025-03-01`
+- Version: `1.0-unstable-2025-03-05`
 
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L52)

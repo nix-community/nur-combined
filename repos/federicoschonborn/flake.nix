@@ -65,7 +65,6 @@
                 p:
                 builtins.elem (lib.getName p) [
                   # akkoma-emoji
-                  "av70-neomouse"
                   "eevee-neopossum"
                   "eppa-neobun"
                   "eppa-neocube"
@@ -89,10 +88,10 @@
                   "renere-spinny-blobcats"
                   "renere-spinny-blobfoxes"
                   "renere-spinny-blobs"
-                  "volpeon-blobfox"
                   "volpeon-blobfox_flip"
-                  "volpeon-bunhd"
+                  "volpeon-blobfox"
                   "volpeon-bunhd_flip"
+                  "volpeon-bunhd"
                   "volpeon-drgn"
                   "volpeon-floof"
                   "volpeon-fox"
@@ -102,6 +101,7 @@
                   "volpeon-raccoon"
                   "volpeon-vlpn"
                   "volpeon-wvrn"
+                  "wep-neomouse"
 
                   "super-mario-127"
                 ];

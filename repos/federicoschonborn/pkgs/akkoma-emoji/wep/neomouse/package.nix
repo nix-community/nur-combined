@@ -11,28 +11,28 @@ stdenvNoCC.mkDerivation (
     srcs = {
       neomouse = fetchzip {
         name = "neomouse";
-        url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/neomouse.zip";
+        url = "https://git.gay/wep/neomouse/releases/download/${finalAttrs.version}/neomouse.zip";
         stripRoot = false;
         hash = "sha256-4C2zu+tkBWikbxpM4VDahezmg+EqBnOytt7cIQAfSQI=";
       };
 
       additional = fetchzip {
         name = "additionalSrc";
-        url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/neomouse-additional.zip";
+        url = "https://git.gay/wep/neomouse/releases/download/${finalAttrs.version}/neomouse-additional.zip";
         stripRoot = false;
         hash = "sha256-Pe62g/13m4X93eLllhOZ8bunMMqKtNp0shJzmhg6tpU=";
       };
 
       spinny-mouse = fetchzip {
         name = "spinnyMouseSrc";
-        url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/spinny-mouse.zip";
+        url = "https://git.gay/wep/neomouse/releases/download/${finalAttrs.version}/spinny-mouse.zip";
         stripRoot = false;
         hash = "sha256-Fl4qxJL+o++3NfW+2mSjsEAEYO4/CkwE9ZS5T0RY7LU=";
       };
     };
   in
   {
-    pname = "av70-neomouse";
+    pname = "wep-neomouse";
     version = "1.2";
 
     outputs = [
@@ -56,13 +56,13 @@ stdenvNoCC.mkDerivation (
     passthru.updateScript = nix-update-script {
       extraArgs = [
         "--url"
-        "https://git.gay/av70/neomouse"
+        "https://git.gay/wep/neomouse"
       ];
     };
 
     meta = {
       description = "There are mice";
-      homepage = "https://git.gay/av70/neomouse";
+      homepage = "https://git.gay/wep/neomouse";
       license = lib.licenses.cc-by-nc-sa-40;
       platforms = lib.platforms.all;
       maintainers = with lib.maintainers; [ federicoschonborn ];
