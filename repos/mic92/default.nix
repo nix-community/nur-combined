@@ -3,20 +3,10 @@
 rec {
   vaultwarden_ldap = pkgs.callPackage ./pkgs/vaultwarden_ldap { };
 
-  cntr = pkgs.callPackage ./pkgs/cntr { };
-
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols { };
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
-  bing-image-creator = pkgs.callPackage ./pkgs/bing-image-creator { };
-  edge-gpt = pkgs.callPackage ./pkgs/edge-gpt {
-    inherit bing-image-creator;
-  };
-
-  fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
-    fonts = [ "FiraCode" ];
-  };
 
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
@@ -34,12 +24,6 @@ rec {
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
-  patool = pkgs.python3.pkgs.callPackage ./pkgs/patool {
-    inherit (pkgs) libarchive;
-  };
-
-  peep = pkgs.callPackage ./pkgs/peep { };
-
   perlPackages = {
     Pry = pkgs.callPackage ./pkgs/pry { };
   };
@@ -51,10 +35,6 @@ rec {
   rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
   inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
-
-  source-code-pro-nerdfonts = pkgs.nerdfonts.override {
-    fonts = [ "SourceCodePro" ];
-  };
 
   #peerix = pkgs.python3.pkgs.callPackage ./pkgs/peerix { };
 
