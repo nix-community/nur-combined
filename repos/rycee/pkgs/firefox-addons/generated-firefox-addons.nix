@@ -1125,7 +1125,7 @@
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV4 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -5893,10 +5893,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.19.1";
+      version = "0.20";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352350/javascript_restrictor-0.19.1.xpi";
-      sha256 = "b8f6257aed11b74a580a1f8d427954ba9f0bf09017177bd82a9c663719d8f441";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4448018/javascript_restrictor-0.20.xpi";
+      sha256 = "dac83049385535931537b64488210066561a390078b890f6ec67c80632647306";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -6066,10 +6066,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.6";
+      version = "1.9.7";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4410175/keepassxc_browser-1.9.6.xpi";
-      sha256 = "41cab3f7a1bdcc394d538ffd4106b85fe5916cc44735a61f1791bb6fe8ce790e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4441759/keepassxc_browser-1.9.7.xpi";
+      sha256 = "f4ecad9cabe70511fbff42fe4fe831c560cc3a0b6da10a740ce670f4f6597f42";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6321,10 +6321,10 @@
     };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
-      version = "11.0.5";
+      version = "11.0.6";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4446907/lesspass-11.0.5.xpi";
-      sha256 = "a7c4fbcf69a0d2da165e3ff79f1324e214c02616207d8450b40f2245236c5217";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447830/lesspass-11.0.6.xpi";
+      sha256 = "a7841799a37eca18adc58ebfb5463b83dd0fb7bfe204d5dbec627a0f93a82f97";
       meta = with lib;
       {
         homepage = "https://github.com/lesspass/lesspass";
@@ -10519,10 +10519,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "16.0.1";
+      version = "16.0.2";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4432015/sidebartabs-16.0.1.xpi";
-      sha256 = "4452b9ac6f64141e84ac532843dbe264a8d3b7b70c56208d41a26fb6c407ede9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4448042/sidebartabs-16.0.2.xpi";
+      sha256 = "cdb4d3ef126b99e1e2f8e21db609d1203f5ad0c7e1fd61955d1dc19cb64d72e9";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -11585,10 +11585,10 @@
     };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.9.2";
+      version = "0.9.3";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363104/to_deepl-0.9.2.xpi";
-      sha256 = "73e90921f98370ffc1593e5972dec54074ca0f38879b0c2c9525272c3c27faa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4441395/to_deepl-0.9.3.xpi";
+      sha256 = "1596674c306b15daec916e25c19682d367d6729715347b8e1791e8ecbce8d4aa";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
@@ -13650,7 +13650,7 @@
       sha256 = "9ab641c81351cac849896341133727fc3ccbca5184f6b54b30a0006ec964a927";
       meta = with lib;
       {
-        homepage = "https://github.com/YouG-o/YNT_Browser-Extension";
+        homepage = "https://github.com/YouG-o/YouTube_No_Translation";
         description = "Stop YouTube's automatic translations! This Add-On keeps titles, descriptions and audio dubbing in their original language.";
         mozPermissions = [ "storage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
