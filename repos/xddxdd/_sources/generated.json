@@ -611,6 +611,21 @@
         },
         "version": "1.14"
     },
+    "data-recorder": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "data-recorder",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/D/DataRecorder/DataRecorder-3.6.2.tar.gz"
+        },
+        "version": "3.6.2"
+    },
     "decluttarr": {
         "cargoLocks": null,
         "date": null,
@@ -703,6 +718,21 @@
         },
         "version": "c7e2a0f59ba5cfb2d10a31013547686a4afab99d"
     },
+    "download-kit": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "download-kit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-YB5CPR1NC9PpM1JNBskT50RXfUVZkOwgr8P7H3muqac=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/D/DownloadKit/DownloadKit-2.0.7.tar.gz"
+        },
+        "version": "2.0.7"
+    },
     "dpdk-kmod": {
         "cargoLocks": null,
         "date": "2024-11-20",
@@ -722,6 +752,21 @@
             "url": "git://dpdk.org/dpdk-kmods"
         },
         "version": "9b182be2ee4bf003c892e1312440e1e5d93eff2c"
+    },
+    "drission-page": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "drission-page",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-feQ9+ZA2jGjKulYqswOjv9mEVUiyZ6zjPhph39g6F1w=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.0.17.tar.gz"
+        },
+        "version": "4.1.0.17"
     },
     "drone-file-secret": {
         "cargoLocks": null,
@@ -919,6 +964,27 @@
             "type": "github"
         },
         "version": "008ff71315baa40761d9d6283a248e50c43db491"
+    },
+    "flaresolverr-alexfozor": {
+        "cargoLocks": null,
+        "date": "2024-08-04",
+        "extract": null,
+        "name": "flaresolverr-alexfozor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AlexFozor",
+            "repo": "FlareSolverr",
+            "rev": "aa768039d92b37b34467ddca9ab72d7e19ef67b9",
+            "sha256": "sha256-OQgt1SUl3prc2FBVBerElRpKbYwJTPNa7ToSEgWhZyg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "aa768039d92b37b34467ddca9ab72d7e19ef67b9"
     },
     "flasgger": {
         "cargoLocks": null,

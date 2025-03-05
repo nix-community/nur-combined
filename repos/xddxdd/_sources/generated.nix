@@ -317,6 +317,14 @@
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  data-recorder = {
+    pname = "data-recorder";
+    version = "3.6.2";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/D/DataRecorder/DataRecorder-3.6.2.tar.gz";
+      hash = "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=";
+    };
+  };
   decluttarr = {
     pname = "decluttarr";
     version = "v1.50.2";
@@ -365,6 +373,14 @@
     };
     date = "2022-12-17";
   };
+  download-kit = {
+    pname = "download-kit";
+    version = "2.0.7";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/D/DownloadKit/DownloadKit-2.0.7.tar.gz";
+      hash = "sha256-YB5CPR1NC9PpM1JNBskT50RXfUVZkOwgr8P7H3muqac=";
+    };
+  };
   dpdk-kmod = {
     pname = "dpdk-kmod";
     version = "9b182be2ee4bf003c892e1312440e1e5d93eff2c";
@@ -375,6 +391,14 @@
       hash = "sha256-8XXLJT18ivnTJcHaCefRpbsuG9K/yERaHbNMHH4l62A=";
     };
     date = "2024-11-20";
+  };
+  drission-page = {
+    pname = "drission-page";
+    version = "4.1.0.17";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.0.17.tar.gz";
+      hash = "sha256-feQ9+ZA2jGjKulYqswOjv9mEVUiyZ6zjPhph39g6F1w=";
+    };
   };
   drone-file-secret = {
     pname = "drone-file-secret";
@@ -475,6 +499,17 @@
       hash = "sha256-Xf8eXXUV38Yl9fG+ToP0uNqBl+M6JdiRn3rUMltQ3a0=";
     };
     date = "2025-03-04";
+  };
+  flaresolverr-alexfozor = {
+    pname = "flaresolverr-alexfozor";
+    version = "aa768039d92b37b34467ddca9ab72d7e19ef67b9";
+    src = fetchFromGitHub {
+      owner = "AlexFozor";
+      repo = "FlareSolverr";
+      rev = "aa768039d92b37b34467ddca9ab72d7e19ef67b9";
+      hash = "sha256-OQgt1SUl3prc2FBVBerElRpKbYwJTPNa7ToSEgWhZyg=";
+    };
+    date = "2024-08-04";
   };
   flasgger = {
     pname = "flasgger";

@@ -469,6 +469,11 @@
     "pname": "cryptodev-linux",
     "version": "1.14-unstable-2024-10-10"
   },
+  "legacyPackages.x86_64-linux.data-recorder": {
+    "description": "Python-based toolkit to record data into files",
+    "pname": "python3.12-data-recorder",
+    "version": "3.6.2"
+  },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
@@ -539,10 +544,20 @@
     "pname": "douban-openapi-server",
     "version": "0-unstable-2022-12-17"
   },
+  "legacyPackages.x86_64-linux.download-kit": {
+    "description": "Simple to use multi-threaded download toolkit",
+    "pname": "python3.12-download-kit",
+    "version": "2.0.7"
+  },
   "legacyPackages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
     "pname": "dpdk-kmod",
     "version": "0-unstable-2024-11-20"
+  },
+  "legacyPackages.x86_64-linux.drission-page": {
+    "description": "Python based web automation tool. Powerful and elegant",
+    "pname": "python3.12-drission-page",
+    "version": "4.1.0.17"
   },
   "legacyPackages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
@@ -593,6 +608,11 @@
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
     "version": "21hsmw-0-unstable-2025-03-04"
+  },
+  "legacyPackages.x86_64-linux.flaresolverr-alexfozor": {
+    "description": "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page",
+    "pname": "flaresolverr-alexfozor",
+    "version": "0-unstable-2024-08-04"
   },
   "legacyPackages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -3564,6 +3584,11 @@
     "pname": "python3.12-coqui-tts",
     "version": "0.22.0"
   },
+  "legacyPackages.x86_64-linux.python3Packages.data-recorder": {
+    "description": "Python-based toolkit to record data into files",
+    "pname": "python3.12-data-recorder",
+    "version": "3.6.2"
+  },
   "legacyPackages.x86_64-linux.python3Packages.deepspeech-gpu": {
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "python3.9-deepspeech-gpu",
@@ -3573,6 +3598,16 @@
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "deepspeech",
     "version": "0.9.3"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.download-kit": {
+    "description": "Simple to use multi-threaded download toolkit",
+    "pname": "python3.12-download-kit",
+    "version": "2.0.7"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.drission-page": {
+    "description": "Python based web automation tool. Powerful and elegant",
+    "pname": "python3.12-drission-page",
+    "version": "4.1.0.17"
   },
   "legacyPackages.x86_64-linux.python3Packages.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
@@ -4058,6 +4093,11 @@
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
     "version": "21hsmw-0-unstable-2025-03-04"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.flaresolverr-alexfozor": {
+    "description": "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page",
+    "pname": "flaresolverr-alexfozor",
+    "version": "0-unstable-2024-08-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -4764,6 +4804,11 @@
     "pname": "cryptodev-linux",
     "version": "1.14-unstable-2024-10-10"
   },
+  "packages.x86_64-linux.data-recorder": {
+    "description": "Python-based toolkit to record data into files",
+    "pname": "python3.12-data-recorder",
+    "version": "3.6.2"
+  },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
@@ -4799,10 +4844,20 @@
     "pname": "douban-openapi-server",
     "version": "0-unstable-2022-12-17"
   },
+  "packages.x86_64-linux.download-kit": {
+    "description": "Simple to use multi-threaded download toolkit",
+    "pname": "python3.12-download-kit",
+    "version": "2.0.7"
+  },
   "packages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
     "pname": "dpdk-kmod",
     "version": "0-unstable-2024-11-20"
+  },
+  "packages.x86_64-linux.drission-page": {
+    "description": "Python based web automation tool. Powerful and elegant",
+    "pname": "python3.12-drission-page",
+    "version": "4.1.0.17"
   },
   "packages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
@@ -4853,6 +4908,11 @@
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
     "version": "21hsmw-0-unstable-2025-03-04"
+  },
+  "packages.x86_64-linux.flaresolverr-alexfozor": {
+    "description": "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page",
+    "pname": "flaresolverr-alexfozor",
+    "version": "0-unstable-2024-08-04"
   },
   "packages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",

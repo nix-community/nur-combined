@@ -26,6 +26,8 @@ let
       deprecated
       mss
       xvfbwrapper
+      distutils
+      drission-page
     ]
   );
 
@@ -44,14 +46,9 @@ let
   ];
 in
 stdenv.mkDerivation {
-  inherit (sources.flaresolverr-21hsmw) pname version src;
+  inherit (sources.flaresolverr-alexfozor) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
-
-  postPatch = ''
-    substituteInPlace src/utils.py \
-      --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver}/bin/undetected-chromedriver"'
-  '';
 
   installPhase = ''
     runHook preInstall
@@ -69,11 +66,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     mainProgram = "flaresolverr";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver";
-    homepage = "https://github.com/21hsmw/FlareSolverr";
+    description = "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page";
+    homepage = "https://github.com/AlexFozor/FlareSolverr";
     license = licenses.mit;
-    # broken = true;
-    # Platform depends on chromedriver
-    inherit (undetected-chromedriver.meta) platforms;
   };
 }

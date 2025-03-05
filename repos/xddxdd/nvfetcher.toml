@@ -134,6 +134,10 @@ src.include_regex = "^cryptodev-linux-([0-9\\.]+)"
 src.prefix = "cryptodev-linux-"
 fetch.url = "https://google.com/generate_204"
 
+[data-recorder]
+src.pypi = "DataRecorder"
+fetch.pypi = "DataRecorder"
+
 [decluttarr]
 src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
@@ -142,6 +146,14 @@ fetch.github = "ManiMatter/decluttarr"
 src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
 src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"
 fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/$ver_amd64.deb"
+
+[download-kit]
+src.pypi = "DownloadKit"
+fetch.pypi = "DownloadKit"
+
+[drission-page]
+src.pypi = "DrissionPage"
+fetch.url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-$ver.tar.gz"
 
 [dn42-pingfinder]
 src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
@@ -205,6 +217,11 @@ fetch.github = "flasgger/flasgger"
 [flaresolverr-21hsmw]
 src.git = "https://github.com/21hsmw/FlareSolverr.git"
 fetch.github = "21hsmw/FlareSolverr"
+
+[flaresolverr-alexfozor]
+src.git = "https://github.com/AlexFozor/FlareSolverr.git"
+src.branch = "drission-page-experimental"
+fetch.github = "AlexFozor/FlareSolverr"
 
 [ftp-proxy]
 src.webpage = "http://www.ftpproxy.org/download/"
