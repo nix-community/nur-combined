@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/willfore/vscode_operator_mono_lig";
     description = "Operator Mono with ligatures";
-    license = licenses.unfree;
+    # license = licenses.unfree;
     platforms = platforms.all;
   };
 }
