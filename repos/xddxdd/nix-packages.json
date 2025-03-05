@@ -592,7 +592,7 @@
   "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
-    "version": "21hsmw-0-unstable-2025-01-19"
+    "version": "21hsmw-0-unstable-2025-03-04"
   },
   "legacyPackages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -4057,7 +4057,7 @@
   "legacyPackages.x86_64-linux.uncategorized.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
-    "version": "21hsmw-0-unstable-2025-01-19"
+    "version": "21hsmw-0-unstable-2025-03-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -4852,7 +4852,7 @@
   "packages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
-    "version": "21hsmw-0-unstable-2025-01-19"
+    "version": "21hsmw-0-unstable-2025-03-04"
   },
   "packages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",

@@ -467,14 +467,14 @@
   };
   flaresolverr-21hsmw = {
     pname = "flaresolverr-21hsmw";
-    version = "23273a62a0d1f5cf3afb89a3ca016053ad82f88b";
+    version = "008ff71315baa40761d9d6283a248e50c43db491";
     src = fetchFromGitHub {
       owner = "21hsmw";
       repo = "FlareSolverr";
-      rev = "23273a62a0d1f5cf3afb89a3ca016053ad82f88b";
-      hash = "sha256-yb43jzBIxHAhsReZUuGWNduyM2Qm/P+FaSTQf1O06ew=";
+      rev = "008ff71315baa40761d9d6283a248e50c43db491";
+      hash = "sha256-Xf8eXXUV38Yl9fG+ToP0uNqBl+M6JdiRn3rUMltQ3a0=";
     };
-    date = "2025-01-19";
+    date = "2025-03-04";
   };
   flasgger = {
     pname = "flasgger";

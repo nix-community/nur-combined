@@ -10,18 +10,11 @@
   ...
 }:
 let
-  selenium' = python3.pkgs.callPackage ./selenium { };
-  python3-undetected-chromedriver' = python3.pkgs.undetected-chromedriver.override {
-    selenium = selenium';
-  };
-  undetected-chromedriver' = undetected-chromedriver.overrideAttrs (_old: {
-    nativeBuildInputs = [ (python3.withPackages (_ps: [ python3-undetected-chromedriver' ])) ];
-  });
   python = python3.withPackages (
     p: with p; [
       bottle
       waitress
-      selenium'
+      selenium
       func-timeout
       psutil
       prometheus-client
@@ -37,7 +30,7 @@ let
 
   path = lib.makeBinPath [
     chromium
-    undetected-chromedriver'
+    undetected-chromedriver
     xorg.xorgserver
   ];
 in
@@ -48,7 +41,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace src/utils.py \
-      --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver'}/bin/undetected-chromedriver"'
+      --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver}/bin/undetected-chromedriver"'
   '';
 
   installPhase = ''
@@ -72,6 +65,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     # broken = true;
     # Platform depends on chromedriver
-    inherit (undetected-chromedriver'.meta) platforms;
+    inherit (undetected-chromedriver.meta) platforms;
   };
 }
