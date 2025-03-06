@@ -6,6 +6,7 @@
   ...
 }:
 let
+  inherit (lib) mkIf;
   cfg = config.repack.caddy;
   format = pkgs.formats.json { };
   configfile = format.generate "config.json" cfg.settings;
@@ -17,16 +18,18 @@ in
       # moved to upper module
       # enable = lib.mkEnableOption "caddy api gateway";
       # mkPackageOption not work here
+      public = lib.mkEnableOption "shared certificate storage, and API env";
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.caddy.withPlugins {
-          plugins = [
-            "github.com/caddy-dns/porkbun@v0.2.1"
-            "github.com/mholt/caddy-ratelimit@v0.1.0"
-            "github.com/ss098/certmagic-s3@f227064b674462e1ab4336441b2b6fd35e073885"
-          ];
-          hash = "";
-        };
+        default = pkgs.caddy;
+        # withPlugins {
+        #   plugins = [
+        #     "github.com/caddy-dns/porkbun@v0.2.1"
+        #     "github.com/mholt/caddy-ratelimit@v0.1.0"
+        #     "github.com/ss098/certmagic-s3@f227064b674462e1ab4336441b2b6fd35e073885"
+        #   ];
+        #   hash = "";
+        # };
       };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
@@ -35,12 +38,19 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     repack.caddy.settings = {
       admin = {
         config.persist = false;
       };
-      logging.logs.debug.level = "debug";
+      # logging.logs.debug.level = "debug";
+      storage = mkIf cfg.public {
+        module = "s3";
+        host = "ad73318a13b24f38bd07b54222ad9e01.r2.cloudflarestorage.com";
+        bucket = "cert";
+        prefix = "ssl";
+        insecure = false;
+      };
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {
@@ -70,28 +80,6 @@ in
           ];
           metrics = { };
         };
-        tls = {
-          automation = {
-            policies = [
-              {
-                key_type = "p256";
-                issuers = [
-                  {
-                    email = "mn1.674927211@gmail.com";
-                    module = "acme";
-                  }
-                ];
-              }
-            ];
-          };
-          # certificates = {
-          #   load_files = [{
-          #     certificate = "/run/credentials/caddy.service/nyaw.cert";
-          #     key = "/run/credentials/caddy.service/nyaw.key";
-          #     tags = [ "cert0" ];
-          #   }];
-          # };
-        };
       };
     };
 
@@ -117,6 +105,7 @@ in
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           Environment = [ "XDG_DATA_HOME=%S" ];
           Restart = "always";
+          EnvironmentFile = lib.mkIf cfg.public config.vaultix.secrets.caddy.path;
           RestartSec = 1;
         };
       wantedBy = [ "multi-user.target" ];

@@ -42,7 +42,6 @@
       # extraFlags = [ "--ipv6-disabled" ];
     };
     rustypaste.enable = true;
-    reuse-cert.enable = true;
     subs.enable = true;
   };
   services = {
@@ -111,10 +110,10 @@
         enable = true;
         serve = true;
         openFirewall = 4432;
-        # credentials = [
-        #   "key:${config.vaultix.secrets."nyaw.key".path}"
-        #   "crt:${config.vaultix.secrets."nyaw.cert".path}"
-        # ];
+        credentials = [
+          "key:${config.vaultix.secrets."nyaw.key".path}"
+          "crt:${config.vaultix.secrets."nyaw.cert".path}"
+        ];
         configFile = config.vaultix.secrets.hyst-us.path;
       };
     };

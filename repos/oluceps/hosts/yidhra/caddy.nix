@@ -6,6 +6,7 @@
 
   repack.caddy = {
     enable = true;
+    public = true;
     settings.apps = {
       http.servers.srv0.routes = [
         {
@@ -59,7 +60,6 @@
                           max_events = 5;
                         };
                       };
-                      distributed = { };
                       log_key = true;
                     }
                     {
@@ -149,7 +149,6 @@
                           max_events = 5;
                         };
                       };
-                      distributed = { };
                       log_key = true;
                     }
                     {
@@ -343,29 +342,36 @@
           terminal = true;
         }
       ];
-
-      tls.automation.policies = [
-        {
-          subjects = [
-            "*.nyaw.xyz"
-            "nyaw.xyz"
-          ];
-          issuers = [
-            {
-              module = "acme";
-              challenges = {
-                dns = {
-                  provider = {
-                    name = "porkbun";
-                    api_key = "{env.PORKBUN_API_KEY}";
-                    api_secret_key = "{env.PORKBUN_API_SECRET_KEY}";
-                  };
+      tls = {
+        automation.policies = [
+          {
+            subjects = [
+              "*.nyaw.xyz"
+              "nyaw.xyz"
+            ];
+            issuers = [
+              {
+                module = "acme";
+                challenges.dns.provider = {
+                  name = "cloudflare";
+                  api_token = "{env.CF_API_TOKEN}";
+                  zone_token = "{env.CF_ZONE_TOKEN}";
                 };
-              };
-            }
-          ];
-        }
-      ];
+              }
+            ];
+          }
+        ];
+        dns = {
+          name = "cloudflare";
+          api_token = "{env.CF_API_TOKEN}";
+          zone_token = "{env.CF_ZONE_TOKEN}";
+        };
+        # encrypted_client_hello.configs = [
+        #   {
+        #     outer_sni = "ech.nyaw.xyz";
+        #   }
+        # ];
+      };
     };
   };
 }

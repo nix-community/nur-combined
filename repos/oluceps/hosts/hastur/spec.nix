@@ -164,6 +164,7 @@
   # system.forbiddenDependenciesRegexes = [ "perl" ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
+    search nyaw.xyz
   '';
 
   zramSwap = {
@@ -205,11 +206,15 @@
     # mysql.enable = true;
     prometheus.enable = true;
     # coredns.enable = true;
-    dnsproxy.enable = true;
+    dnsproxy = {
+      enable = true;
+      extraFlags = [
+        "--edns-addr=211.139.163.1"
+      ];
+    };
     # srs.enable = true;
     grafana.enable = true;
     # xmrig.enable = true;
-    reuse-cert.enable = true;
 
     # postgresql.enable = true;
     # misskey.enable = true;

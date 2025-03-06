@@ -260,7 +260,7 @@
       enable = true;
       # loadCert = true;
       extraFlags = [
-        "--edns-addr=211.140.13.188"
+        "--edns-addr=211.136.150.1"
         "-l"
         "127.0.0.1"
         # "--ipv6-disabled"

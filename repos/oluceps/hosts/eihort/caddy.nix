@@ -5,7 +5,6 @@
   ...
 }:
 {
-  repack.reuse-cert.enable = false;
   systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
     "nyaw.key"

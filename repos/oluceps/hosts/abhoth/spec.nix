@@ -62,6 +62,7 @@
         serve = true;
         openFirewall = 4432;
         credentials = [
+          # signed by my ca
           "key:${config.vaultix.secrets."nyaw.key".path}"
           "crt:${config.vaultix.secrets."nyaw.cert".path}"
         ];

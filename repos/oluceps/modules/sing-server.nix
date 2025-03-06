@@ -44,12 +44,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
-        LoadCredential =
-          [ ("config.json:" + cfg.configFile) ]
-          ++ (optionals (!(config ? repack && config.repack.reuse-cert.enable)) [
-            "crt:${config.vaultix.secrets."nyaw.cert".path}"
-            "key:${config.vaultix.secrets."nyaw.key".path}"
-          ]);
+        LoadCredential = [ ("config.json:" + cfg.configFile) ];
         StateDirectory = "sing-server";
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
