@@ -38,11 +38,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ujsZGFZPFWWhQqa56JhVvksFv0QpzJnNVzo6TNB+yvY=",
+            "sha256": "sha256-NloOemZ1cmv28jJTgxRekJWyMJQ9ND0lR07ZyzSaEA8=",
             "type": "url",
-            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.2/cabal-gild-1.5.0.2-linux-x64.tar.gz"
+            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.3/cabal-gild-1.5.0.3-linux-x64.tar.gz"
         },
-        "version": "1.5.0.2"
+        "version": "1.5.0.3"
     },
     "cabal-plan": {
         "cargoLocks": null,
@@ -83,11 +83,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-D0k2zn7NdRKv/KUPUP4LYZF+yZn0Teewn4swn+MzlGA=",
+            "sha256": "sha256-263jaRYdcqsIKMBS6BSsgkPksYIoGlsnhDLV6uIl454=",
             "type": "url",
-            "url": "https://github.com/chrisdone/hell/releases/download/2025-01-21/hell-linux-x86-64bit"
+            "url": "https://github.com/chrisdone/hell/releases/download/2025-03-04/hell-linux-x86-64bit"
         },
-        "version": "2025-01-21"
+        "version": "2025-03-04"
     },
     "hlint": {
         "cargoLocks": null,

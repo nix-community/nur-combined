@@ -19,10 +19,10 @@
   };
   cabal-gild = {
     pname = "cabal-gild";
-    version = "1.5.0.2";
+    version = "1.5.0.3";
     src = fetchurl {
-      url = "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.2/cabal-gild-1.5.0.2-linux-x64.tar.gz";
-      sha256 = "sha256-ujsZGFZPFWWhQqa56JhVvksFv0QpzJnNVzo6TNB+yvY=";
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.3/cabal-gild-1.5.0.3-linux-x64.tar.gz";
+      sha256 = "sha256-NloOemZ1cmv28jJTgxRekJWyMJQ9ND0lR07ZyzSaEA8=";
     };
   };
   cabal-plan = {
@@ -43,10 +43,10 @@
   };
   hell = {
     pname = "hell";
-    version = "2025-01-21";
+    version = "2025-03-04";
     src = fetchurl {
-      url = "https://github.com/chrisdone/hell/releases/download/2025-01-21/hell-linux-x86-64bit";
-      sha256 = "sha256-D0k2zn7NdRKv/KUPUP4LYZF+yZn0Teewn4swn+MzlGA=";
+      url = "https://github.com/chrisdone/hell/releases/download/2025-03-04/hell-linux-x86-64bit";
+      sha256 = "sha256-263jaRYdcqsIKMBS6BSsgkPksYIoGlsnhDLV6uIl454=";
     };
   };
   hlint = {
