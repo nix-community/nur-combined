@@ -32,13 +32,13 @@ let
 in
 melpaBuild {
   pname = "lsp-bridge";
-  version = "0-unstable-2025-02-22";
+  version = "0-unstable-2025-03-06";
 
   src = fetchFromGitHub {
     owner = "manateelazycat";
     repo = "lsp-bridge";
-    rev = "cecb939f40ebde5c82d888a532c0494969997b4a";
-    hash = "sha256-FQU/NS+dxcS4umYDQU+RWYMFzaNTeTYSXTOh+zXebcE=";
+    rev = "16cf1522b1f981e503aac6e322060fdee1b05e20";
+    hash = "sha256-vTrLA3syIr/+xDK7H3HIUW0hvkRV5yEP5k8KSPo4BRc=";
   };
 
   patches = [
