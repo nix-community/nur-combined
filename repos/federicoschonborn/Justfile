@@ -22,7 +22,7 @@ _nix-unstable +ARGS:
     nix {{ ARGS }} {{ default_args }}
 
 _nix-stable +ARGS:
-    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-24_11
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-stable
 
 [group("build")]
 build-unstable +PACKAGES:
