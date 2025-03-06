@@ -1,20 +1,23 @@
 {
   lib,
   stdenv,
-  fetchurl,
-  fetchgit,
+  fetchfromgh,
+  fetchFromGitea,
   fetchgdrive,
   unzip,
   wine,
   makeWrapper,
-  withMaps ? true,
+  withMaps ? false,
   withExtremum ? false,
 }:
 let
-  maps = fetchgit {
-    url = "http://parasite.kicks-ass.org:3000/sasgis/maps.git";
-    rev = "10221f2959ece3d430326adbc2daaf11c302f858";
-    hash = "sha256-6j4KZlAKbBYoFr2ZBcfW0j8kmUTRbnzsaT1UNGXyKIo=";
+  maps = fetchFromGitea {
+    domain = "parasite.kicks-ass.org:3000";
+    owner = "sasgis";
+    repo = "maps";
+    rev = "578a182e0d8613107f67df0280b79419b43822f6";
+    hash = "sha256-6j4KZlAKbBYoFr2ZBcfW0j2kmUTRbnzsaT1UNGXyKIo=";
+    forceFetchGit = true;
   };
   extremum = fetchgdrive {
     id = "12PM_mEE8Xck036vXd5TAzPsUZeCnztJ5";
@@ -24,11 +27,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet";
-  version = "230909";
+  version = "241111";
 
-  src = fetchurl {
-    url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${finalAttrs.version}.zip";
-    hash = "sha256-tW82sjpiJqkbKpAI+5uvBfgI7Uqtii3Rn8ulnY3MxQM=";
+  src = fetchfromgh {
+    owner = "sasgis";
+    repo = "sas.planet.src";
+    tag = "v.${finalAttrs.version}";
+    hash = "sha256-vhBQEKansoPWiWk82eVY0ja7HNRyWphwulRg5lBIFIA=";
+    name = "SAS.Planet.Release.${finalAttrs.version}.zip";
   };
 
   sourceRoot = ".";

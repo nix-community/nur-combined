@@ -86,8 +86,11 @@ lib.makeScope newScope (
     jsontoolkit = callPackage ./development/libraries/jsontoolkit { };
     libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
-    microjson = callPackage ./development/libraries/microjson { };
     libsockcanpp = callPackage ./development/libraries/libsockcanpp { };
+    lunasvg = callPackage ./development/libraries/lunasvg { };
+    microjson = callPackage ./development/libraries/microjson { };
+    plutosvg = callPackage ./development/libraries/plutosvg { };
+    plutovg = callPackage ./development/libraries/plutovg { };
 
     ### DEVELOPMENT / PERL MODULES
 
