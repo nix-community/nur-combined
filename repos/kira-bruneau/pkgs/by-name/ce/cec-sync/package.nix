@@ -9,7 +9,7 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cec-sync";
   version = "0-unstable-2025-01-25";
 
@@ -20,9 +20,8 @@ rustPlatform.buildRustPackage {
     hash = "sha256-/S3X9rWfzmve2HbqEelY+XcQwNtuBTBOedNuL0oOW/A=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-pq0tD6qAEYMXboaA9kwCJm3s42IAnKZcBbF0bfaoyw4=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -47,4 +46,4 @@ rustPlatform.buildRustPackage {
     platforms = platforms.linux;
     mainProgram = "cec-sync";
   };
-}
+})

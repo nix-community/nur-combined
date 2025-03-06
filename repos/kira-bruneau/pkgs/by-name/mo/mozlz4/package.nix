@@ -16,6 +16,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-faoFvDvqCr0EPsqlQvHZpd74b5pzYhtkJ6gXebwEm/w=";
   };
 
+  useFetchCargoVendor = false; # Uses old Cargo.lock format that doesn't work with fetchCargoVendor
   cargoHash = "sha256-/R4UQky0gAwh465HjlePoxUTcYWbgS5n+sJ+kkWzDw0=";
 
   passthru.updateScript = nix-update-script { };

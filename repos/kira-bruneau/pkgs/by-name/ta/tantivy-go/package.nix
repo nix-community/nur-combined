@@ -17,12 +17,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/rust";
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  useFetchCargoVendor = true;
+  cargoPatches = [ ./Cargo.lock.patch ];
+  cargoHash = "sha256-nwSk9csAz5tCxrgFEOf2EBXei3nSL+06xLCAOhFpwxs=";
 
   postPatch = ''
-    ln -s ${./Cargo.lock} Cargo.lock
     chmod +w ../bindings.h
   '';
 

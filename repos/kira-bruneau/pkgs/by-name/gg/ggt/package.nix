@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Command-line interface for Gadget";
     homepage = "https://docs.gadget.dev/guides/development-tools/cli";
-    changelog = "https://github.com/gadget-inc/ggt/releases/tag/v${version}";
+    changelog = "https://github.com/gadget-inc/ggt/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
     mainProgram = "ggt";
