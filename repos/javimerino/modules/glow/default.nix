@@ -11,6 +11,8 @@ in
   options.programs.glow = {
     enable = lib.mkEnableOption "Glow, a terminal based markdown reader";
 
+    package = mkPackageOption pkgs "glow" { };
+
     settings = lib.mkOption {
       type = yamlFormat.type;
       default = { };
@@ -40,7 +42,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.glow ];
+    home.packages = [ cfg.package ];
 
     home.file."Library/Preferences/glow/glow.yml" =
       mkIf (cfg.settings != { } && isDarwin) {
