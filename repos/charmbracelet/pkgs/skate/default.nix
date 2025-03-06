@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "01hjx2ga41sa0i0bq53rvrbinkaanmmfimzyn32z665wxagx7l5m";
-    x86_64-linux = "05qxb96zwg8n2vv1wprqd1zyn8g6jcp3qhn4accjh2p7i52h3d0z";
-    armv7l-linux = "07d8knab7haqsz4q9llcqb2i1qvdz6n939mip6sv9vi41cg3whbp";
-    aarch64-linux = "0b2sa05i486liz9l52jx9l2khzjx3pas1clc6ijvjfwq6vvl8sji";
-    x86_64-darwin = "1flwliwqpmqrl1dlsyymy9s5n068fg7d974mxcwmhmfrkskmkayx";
-    aarch64-darwin = "1ryyzaff6kh9wqp0z8n5f0qmjlf4gvhc5vwdpgmv61c300pkyc11";
+    i686-linux = "13qabrkvxh1db5wvvsbrdzv89ya1np84dc018r5yaykxswmz9n3g";
+    x86_64-linux = "1s2yck505si496mcnmvhsx3pp3ql6f95amwaspk8ak9rqqwiz8sx";
+    armv7l-linux = "0ymzpk08inaji26b3nm76yazffszgsx5drhkif1amzn7z38mn1k3";
+    aarch64-linux = "0994cxq30m4h35275mx34gnaj2wss3viqg17vv0vs86gia6yphs9";
+    x86_64-darwin = "1x1niis4r9s799qlpbqvb77ja7lf22s65xqf24x397a4xd1n3fjr";
+    aarch64-darwin = "15gj52iv4xmla07h93q97180r09y0v58w5fa0z6ah6klaxsx8h73";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/skate/releases/download/v1.0.0/skate_1.0.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/skate/releases/download/v1.0.1/skate_1.0.1_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "skate_1.0.0_Linux_i386";
-    x86_64-linux = "skate_1.0.0_Linux_x86_64";
-    armv7l-linux = "skate_1.0.0_Linux_arm";
-    aarch64-linux = "skate_1.0.0_Linux_arm64";
-    x86_64-darwin = "skate_1.0.0_Darwin_x86_64";
-    aarch64-darwin = "skate_1.0.0_Darwin_arm64";
+    i686-linux = "skate_1.0.1_Linux_i386";
+    x86_64-linux = "skate_1.0.1_Linux_x86_64";
+    armv7l-linux = "skate_1.0.1_Linux_arm";
+    aarch64-linux = "skate_1.0.1_Linux_arm64";
+    x86_64-darwin = "skate_1.0.1_Darwin_x86_64";
+    aarch64-darwin = "skate_1.0.1_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "skate";
-  version = "1.0.0";
+  version = "1.0.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
