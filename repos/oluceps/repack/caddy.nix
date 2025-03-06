@@ -23,8 +23,9 @@ in
           plugins = [
             "github.com/caddy-dns/porkbun@v0.2.1"
             "github.com/mholt/caddy-ratelimit@v0.1.0"
+            "github.com/ss098/certmagic-s3@f227064b674462e1ab4336441b2b6fd35e073885"
           ];
-          hash = "sha256-ufwEJPGx1r0eE7txd72aohtgbymlVbdUgJl12fM6sY4=";
+          hash = "";
         };
       };
       settings = lib.mkOption {
