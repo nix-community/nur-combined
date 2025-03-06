@@ -6,6 +6,7 @@ let
     "photo.nyaw.xyz"
     "s3.nyaw.xyz"
     "ms.nyaw.xyz"
+    "book.nyaw.xyz"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"
