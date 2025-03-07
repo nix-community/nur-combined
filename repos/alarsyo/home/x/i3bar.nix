@@ -13,7 +13,7 @@
     types
     ;
 
-  isEnabled = config.my.home.x.enable;
+  isEnabled = config.my.home.x.i3.enable;
   i3BarTheme = config.my.theme.i3BarTheme;
   cfg = config.my.home.x.i3bar;
 in {
