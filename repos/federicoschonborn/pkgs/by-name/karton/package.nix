@@ -42,6 +42,8 @@ stdenv.mkDerivation {
       --replace-fail "/usr/share" "$out/share"
   '';
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"

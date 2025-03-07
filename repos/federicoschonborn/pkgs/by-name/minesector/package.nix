@@ -34,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_mixer
   ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

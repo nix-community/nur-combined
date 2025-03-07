@@ -30,9 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     boost
   ];
 
-  makeFlags = [
-    "release"
-  ];
+  makeFlags = [ "release" ];
 
   installPhase = ''
     runHook preInstall
@@ -42,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

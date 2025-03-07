@@ -40,6 +40,8 @@ stdenv.mkDerivation {
     qt6.qtsvg
   ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"

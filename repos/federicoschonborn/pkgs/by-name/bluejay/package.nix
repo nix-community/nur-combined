@@ -37,6 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
     kdePackages.qtbase
   ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

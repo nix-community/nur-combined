@@ -46,6 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

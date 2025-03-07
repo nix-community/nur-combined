@@ -38,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     wrapGAppsHook3
+    wxGTK32 # wx-config
   ];
 
   buildInputs = [
@@ -61,6 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

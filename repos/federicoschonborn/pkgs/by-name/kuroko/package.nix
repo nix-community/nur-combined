@@ -20,8 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

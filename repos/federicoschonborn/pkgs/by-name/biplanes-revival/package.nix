@@ -36,6 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
   # Escape the clutches of the CMake build directory.
   env.CXXFLAGS = "-I ../deps/TimeUtils/include";
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

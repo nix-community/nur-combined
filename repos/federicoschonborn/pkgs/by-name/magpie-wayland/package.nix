@@ -33,7 +33,6 @@ stdenv.mkDerivation (_: {
     meson
     ninja
     pkg-config
-    wayland-scanner
   ];
 
   buildInputs = [
@@ -43,16 +42,18 @@ stdenv.mkDerivation (_: {
     udev
     wayland
     wayland-protocols
+    wayland-scanner
     wlroots_0_18
     xorg.libxcb
     xorg.xcbutilwm
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/magpie-wm";
   dontVersionCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/magpie-wm";
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

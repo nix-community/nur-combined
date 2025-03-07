@@ -111,6 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postInstall
     '';
 
+  strictDeps = true;
+
   passthru = {
     inherit (finalAttrs) pnpmDeps;
     tests.sharkey = callPackage ./nixos-test.nix { sharkey = finalAttrs.finalPackage; };

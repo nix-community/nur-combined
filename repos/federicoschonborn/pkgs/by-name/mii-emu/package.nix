@@ -34,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

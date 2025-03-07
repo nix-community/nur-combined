@@ -110,9 +110,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/gta";
   versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

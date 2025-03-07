@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
   ninja,
   pkg-config,
@@ -26,14 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uzi1ArsKnymf1GjLwwTBwJiwbwTlCfQoHb7gAJKBtbo=";
   };
 
-  patches = lib.optional (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "14") (
-    # make gcc14 happy
-    fetchpatch {
-      url = "https://github.com/ZDoom/Raze/commit/f3cad8426cd808be5ded036ed12a497d27d3742e.patch";
-      hash = "sha256-TMx5gFmcuSQbVPjpBnKgK7EluqPSWhLF+TU8ZRaL7LE=";
-    }
-  );
-
   nativeBuildInputs = [
     cmake
     ninja
@@ -47,6 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional withGtk3 gtk3;
 
   cmakeFlags = [ (lib.cmakeBool "DYN_GTK" false) ];
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

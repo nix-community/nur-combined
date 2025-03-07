@@ -35,10 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
   # Immediately exits with no output, otherwise works fine, maybe something Qt related?
   dontVersionCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

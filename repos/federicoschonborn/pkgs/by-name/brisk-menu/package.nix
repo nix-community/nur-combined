@@ -2,10 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  desktop-file-utils,
+  glib,
+  gtk3,
   meson,
   ninja,
   pkg-config,
-  gtk3,
   libnotify,
   mate,
   nix-update-script,
@@ -28,6 +30,9 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [
+    desktop-file-utils # update-desktop-database
+    glib # glib-compile-schemas
+    gtk3 # gtk-update-icon-cache
     meson
     ninja
     pkg-config
@@ -39,6 +44,8 @@ stdenv.mkDerivation {
     mate.mate-menus
     mate.mate-panel
   ];
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

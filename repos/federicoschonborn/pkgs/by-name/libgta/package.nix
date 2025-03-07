@@ -32,8 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ validatePkgConfig ];
-
   doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

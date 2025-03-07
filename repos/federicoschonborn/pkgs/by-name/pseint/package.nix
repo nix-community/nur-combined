@@ -20,7 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OvmkSvMT7hhQWuBxaslJIZ0ZWFQGm0zjO9Qcrb/mVLA=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    wxGTK32 # wx-config
+  ];
 
   buildInputs = [
     libGLU
@@ -56,12 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
   # Uses the wrong version for some godforsaken reason.
   dontVersionCheck = true;
 
+  strictDeps = true;
+
   meta = {
+    mainProgram = "pseint";
     description = "A tool for learning programming basis with a simple Spanish pseudocode";
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;

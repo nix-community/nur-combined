@@ -21,8 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ autoreconfHook ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

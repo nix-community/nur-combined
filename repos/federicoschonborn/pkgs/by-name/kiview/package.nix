@@ -37,6 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwebengine
   ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

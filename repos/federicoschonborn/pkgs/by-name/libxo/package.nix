@@ -24,8 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [ "LIBTOOL=${libtool}/bin/libtool" ];
 
   nativeInstallCheckInputs = [ validatePkgConfig ];
-
   doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

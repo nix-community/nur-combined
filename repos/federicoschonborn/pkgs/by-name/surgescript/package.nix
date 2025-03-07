@@ -29,8 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
     validatePkgConfig
     versionCheckHook
   ];
-
   doInstallCheck = true;
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

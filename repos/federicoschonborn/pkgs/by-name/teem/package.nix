@@ -52,9 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/ilk";
   versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+
+  strictDeps = true;
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";

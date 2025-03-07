@@ -20,6 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     pkg-config
     makeWrapper
+    guile
   ];
 
   buildInputs = [ guile ];
@@ -36,9 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
   dontVersionCheck = true;
+
+  strictDeps = true;
 
   meta = {
     mainProgram = "wisp";

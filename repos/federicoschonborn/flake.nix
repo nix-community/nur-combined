@@ -286,6 +286,15 @@
               );
             };
 
+            no-strict-deps.program = pkgs.writeShellApplication {
+              name = "no-strict-deps";
+              text = lib.concatLines (
+                lib.mapAttrsToList (
+                  name: value: lib.optionalString (!value.strictDeps or false) "echo ${name}"
+                ) config.packages
+              );
+            };
+
             tests.program = pkgs.writeShellApplication {
               name = "tests";
               text =

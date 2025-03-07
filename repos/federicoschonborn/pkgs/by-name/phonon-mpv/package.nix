@@ -40,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "PHONON_BUILD_QT6" true)
   ];
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"

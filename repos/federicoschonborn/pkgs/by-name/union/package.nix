@@ -46,6 +46,8 @@ stdenv.mkDerivation (_: {
 
   dontWrapQtApps = true;
 
+  strictDeps = true;
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version"

@@ -25,6 +25,10 @@ stdenv.mkDerivation {
     hash = "sha256-OCW82yDgpL+7KUSf0A0JFp1vBAD27cCF5lLMpHnZWRA=";
   };
 
+  nativeBuildInputs = [
+    SDL2 # sdl2-config
+  ];
+
   buildInputs = [
     libGLU
     SDL2
@@ -50,6 +54,8 @@ stdenv.mkDerivation {
   '';
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
