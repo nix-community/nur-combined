@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
         name = "sketch-backend";
         owner = "asolarlez";
         repo = "sketch-backend";
-        rev = "727c3de3ae49c87a6df877122e322e9b0aa76bc7";
-        sha256 = "79k3RJPoyqxGX3oyYJgbyd8teCTnoDyt91Sd/6aPPGU=";
+        rev = "4e6085def4d33ef1455b64eada4b8fcddb259048";
+        sha256 = "i2yTljbPVYfn61VWsdOS0KWuIDuwmK7xJKihrnHzqgY=";
       })
   ];
   sourceRoot = "sketch-backend";
