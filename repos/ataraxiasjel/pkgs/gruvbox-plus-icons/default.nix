@@ -1,42 +1,62 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchFromGitHub,
-  jdupes,
+  gtk3,
+  plasma5Packages,
+  gnome-icon-theme,
+  hicolor-icon-theme,
   nix-update-script,
+  folder-color ? "plasma", # Supported colors: black blue caramel citron firebrick gold green grey highland jade lavender lime olive orange pistachio plasma pumpkin purple red rust sapphire tomato violet white yellow
 }:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gruvbox-plus-icons";
-  version = "6.1.1";
+  version = "6.2.0";
 
   src = fetchFromGitHub {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
-    rev = "v${version}";
-    hash = "sha256-bDbOC9czQl95xoaAc2Wr1T6DZsnDEJtj2QbnUJfQ0i4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-MCof2CFQfh/ChFNlsxw9BmrFf1A804HzWoHJdNsrW74=";
   };
 
-  dontBuild = true;
+  patches = [ ./folder-color.patch ];
 
-  nativeBuildInputs = [ jdupes ];
+  nativeBuildInputs = [ gtk3 ];
+
+  propagatedBuildInputs = [
+    plasma5Packages.breeze-icons
+    gnome-icon-theme
+    hicolor-icon-theme
+  ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/share/icons
-    cp -r Gruvbox* $out/share/icons
+    cp -r Gruvbox-Plus-Dark $out/share/icons/
+    patchShebangs scripts/folders-color-chooser
+    ./scripts/folders-color-chooser -c ${folder-color}
+    gtk-update-icon-cache $out/share/icons/Gruvbox-Plus-Dark
 
     runHook postInstall
   '';
 
+  dontDropIconThemeCache = true;
+  dontBuild = true;
+  dontConfigure = true;
+
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
-    description = "Gruvbox Plus icon pack for Linux desktops based on Gruvbox color theme";
+  meta = {
+    description = "Icon pack for Linux desktops based on the Gruvbox color scheme";
     homepage = "https://github.com/SylEleuth/gruvbox-plus-icon-pack";
-    license = licenses.gpl3Only;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ ataraxiasjel ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [
+      eureka-cpu
+      Gliczy
+    ];
   };
-}
+})
