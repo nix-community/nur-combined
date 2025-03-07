@@ -60,7 +60,7 @@
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
-        description = "a11y.css provides warnings about possible risks and mistakes that exist in HTML code through a style sheet. This extension also provides several accessibility-related utilities.\n\nsee <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4c643171ccddfcfa3712d45a2b7b615f54195eb4507868ab6ef3fbf6694dc4c2/https%3A//github.com/ffoodd/a11y.css/tree/webextension\" rel=\"nofollow\">https://github.com/ffoodd/a11y.css/tree/webextension</a> for  details";
+        description = "a11y.css provides warnings about possible risks and mistakes that exist in HTML code through a style sheet. This extension also provides several accessibility-related utilities.\n\nsee https://github.com/ffoodd/a11y.css/tree/webextension for  details";
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" "scripting" "tabs" "*://*/*" ];
         platforms = platforms.all;
@@ -166,7 +166,7 @@
       meta = with lib;
       {
         homepage = "https://addy.io";
-        description = "Open-source Anonymous Email Forwarding. \n\nQuickly and easily view, search, manage and create new aliases in just a few clicks using the <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/25034f1cb8a69fd234852ad09c1c4bebfe6f518442f19fc7c4e4b25c62f0014e/http%3A//addy.io\" rel=\"nofollow\">addy.io</a> browser extension.";
+        description = "Open-source Anonymous Email Forwarding. \n\nQuickly and easily view, search, manage and create new aliases in just a few clicks using the addy.io browser extension.";
         license = licenses.mit;
         mozPermissions = [ "storage" "activeTab" ];
         platforms = platforms.all;
@@ -1155,7 +1155,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
-        description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
+        description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (passwordstore.org) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
         license = licenses.isc;
         mozPermissions = [
           "activeTab"
@@ -1369,10 +1369,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.13.2";
+      version = "0.14.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4442113/catppuccin_gh_file_explorer-0.13.2.xpi";
-      sha256 = "a8b9e0edb62bafbe6e03fec586a075552def40c872edd5eb585674ea2ed8bebc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449563/catppuccin_gh_file_explorer-0.14.0.xpi";
+      sha256 = "e318f7b3a54e43651db5b9de9bc74be5544328c768319cdb39a8968242faafc4";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -1382,6 +1382,7 @@
           "storage"
           "contextMenus"
           "activeTab"
+          "*://bitbucket.org/*"
           "*://codeberg.org/*"
           "*://gitea.com/*"
           "*://github.com/*"
@@ -2210,7 +2211,7 @@
       sha256 = "e0f4e625eda09e9c8300ef650373d5a582a8c77c18eba572aa39d0bd8e3eb596";
       meta = with lib;
       {
-        description = "Makes the scrollbars on TweetDeck and other sites dark in Firefox. This should be done by the site itself, not by an addon :(\n\nImage based on Scroll by Juan Pablo Bravo, CL <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f9c83bffbd0bf3bfa6ea46deecfa4fa4e9d5a69f49f323c020877e0bf283efac/https%3A//thenounproject.com/term/scroll/18607/\" rel=\"nofollow\">https://thenounproject.com/term/scroll/18607/</a>";
+        description = "Makes the scrollbars on TweetDeck and other sites dark in Firefox. This should be done by the site itself, not by an addon :(\n\nImage based on Scroll by Juan Pablo Bravo, CL https://thenounproject.com/term/scroll/18607/";
         license = licenses.lgpl3;
         mozPermissions = [ "activeTab" "<all_urls>" ];
         platforms = platforms.all;
@@ -2225,7 +2226,7 @@
       meta = with lib;
       {
         homepage = "http://acroma.rf.gd/darkcloud";
-        description = "Changes <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f541ff9b58fe8ef09cbadbdd7a6c017f9c859ce781a6840fb9818a092dc29d6f/http%3A//soundcloud.com\">soundcloud.com</a> to a dark theme.";
+        description = "Changes soundcloud.com to a dark theme.";
         license = licenses.mpl20;
         mozPermissions = [ "*://*.soundcloud.com/*" ];
         platforms = platforms.all;
@@ -2597,10 +2598,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.58.1";
+      version = "2.58.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4446122/dualsub-2.58.1.xpi";
-      sha256 = "be30bfdda8cfefec71caaf3addb5a36ee2d4c53b8d7dacd16aa9a0b652bb036f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449536/dualsub-2.58.2.xpi";
+      sha256 = "c35f31e7b45442e104f2b3b79d295e9aedd6b43c5fc17ce3295f5b0ee795e39e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2727,7 +2728,7 @@
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
-        description = "This extension adds <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c7a1fe7e1838aaf8fcdb3e88c6700a42c275a31c5fdea179157c9751846df4bf/http%3A//Ecosia.org\" rel=\"nofollow\">Ecosia.org</a> as the default search engine to your browser — it’s completely free!";
+        description = "This extension adds Ecosia.org as the default search engine to your browser — it’s completely free!";
         license = licenses.mpl20;
         mozPermissions = [ "*://*.ecosia.org/*" "storage" "contextMenus" ];
         platforms = platforms.all;
@@ -3074,7 +3075,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/Lartsch/FediAct";
-        description = "Simplifies interactions on other Mastodon instances than your own. Visit <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/789a581b17c520493af8e5da2391e5958c7c2b17da669e418888a11bbb423d5a/https%3A//github.com/lartsch/FediAct\" rel=\"nofollow\">https://github.com/lartsch/FediAct</a> for more.";
+        description = "Simplifies interactions on other Mastodon instances than your own. Visit https://github.com/lartsch/FediAct for more.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -3125,7 +3126,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
-        description = "Tries to play links in mpv.\n\nPress the toolbar button to play the current URL in mpv. Otherwise, right click on a URL and use the context  item to play an arbitrary URL.\n\nYou'll need the native client here: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/aadcd34348f892e0805a94f141a1124d9c4aa75199eb4cb7c4ff530417617f77/http%3A//github.com/woodruffw/ff2mpv\">github.com/woodruffw/ff2mpv</a>";
+        description = "Tries to play links in mpv.\n\nPress the toolbar button to play the current URL in mpv. Otherwise, right click on a URL and use the context  item to play an arbitrary URL.\n\nYou'll need the native client here: github.com/woodruffw/ff2mpv";
         license = licenses.mit;
         mozPermissions = [
           "nativeMessaging"
@@ -3715,7 +3716,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
-        description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
+        description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: https://youtu.be/r4Ein-s2pN0\nHomepage: https://github.com/EnixCoda/Gitako";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -3826,7 +3827,7 @@
       meta = with lib;
       {
         homepage = "https://gnome.pages.gitlab.gnome.org/gnome-browser-integration/pages/gnome-browser-integration.html";
-        description = "This extension provides integration with GNOME Shell and the corresponding extensions repository <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b16ff805576d83628b80265636b483e6f56c58d6e812e04045626ff602eff739/https%3A//extensions.gnome.org\" rel=\"nofollow\">https://extensions.gnome.org</a>";
+        description = "This extension provides integration with GNOME Shell and the corresponding extensions repository https://extensions.gnome.org";
         license = licenses.gpl3;
         mozPermissions = [
           "alarms"
@@ -3862,7 +3863,7 @@
       sha256 = "ab8096ae6e5e822dcabacf74bf9e566e49cc9baf94b37b33e574dfec8086ecd8";
       meta = with lib;
       {
-        description = "Chrome extension that visually merges the same event on multiple Google Calendars into one event.\n\nSource: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/342b7a3d66f39d16cdbc5cd1d4cc26f85aeb1f94cae54867035888d93d484554/https%3A//github.com/imightbeamy/gcal-multical-event-merge\">https://github.com/imightbeamy/gcal-multical-event-merge</a>";
+        description = "Chrome extension that visually merges the same event on multiple Google Calendars into one event.\n\nSource: https://github.com/imightbeamy/gcal-multical-event-merge";
         license = licenses.gpl3;
         mozPermissions = [
           "https://www.google.com/calendar/*"
@@ -4093,7 +4094,7 @@
       meta = with lib;
       {
         homepage = "https://codeberg.org/calvinchd/GruvboxDarkFirefoxTheme";
-        description = "Gruvbox dark theme for Firefox. Using <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/51b32595b55bba030aad1f22730eb7a787bb37c8a04d43f4a473d4b094b65ccb/https%3A//github.com/morhetz/gruvbox\" rel=\"nofollow\">https://github.com/morhetz/gruvbox</a> color palette";
+        description = "Gruvbox dark theme for Firefox. Using https://github.com/morhetz/gruvbox color palette";
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
@@ -4270,7 +4271,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
-        description = "Provides better experience for using the Hoppscotch web app.\n\nHaven't used Hoppscotch ? It's an amazing quick API Request Builder.\nTry it at <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b9072bc5e1ee582514460d66641043506a2be371c097d77e1eb00a6b5b9dfa97/https%3A//hoppscotch.io/\" rel=\"nofollow\">https://hoppscotch.io/</a> !!!";
+        description = "Provides better experience for using the Hoppscotch web app.\n\nHaven't used Hoppscotch ? It's an amazing quick API Request Builder.\nTry it at https://hoppscotch.io/ !!!";
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "cookies" "scripting" ];
         platforms = platforms.all;
@@ -5852,7 +5853,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
-        description = "Community version of the popular extension \"I don't care about cookies\"  \n\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d899243c3222e303a4ac90833f850da61cdf8f7779e2685f60f657254302216d/https%3A//github.com/OhMyGuus/I-Dont-Care-About-Cookies\" rel=\"nofollow\">https://github.com/OhMyGuus/I-Dont-Care-About-Cookies</a>";
+        description = "Community version of the popular extension \"I don't care about cookies\"  \n\nhttps://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
         license = licenses.gpl3;
         mozPermissions = [
           "tabs"
@@ -5924,7 +5925,7 @@
       meta = with lib;
       {
         homepage = "https://joplinapp.org";
-        description = "Capture and save web pages and screenshots from your browser to Joplin. The Joplin application is required to get this extension working - <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/e114587689ca9fbf9d43f2f1fe9ea7468a336e7649e1b8c2e49e0035bb30b3a9/https%3A//joplinapp.org\" rel=\"nofollow\">https://joplinapp.org</a>";
+        description = "Capture and save web pages and screenshots from your browser to Joplin. The Joplin application is required to get this extension working - https://joplinapp.org";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -6073,7 +6074,7 @@
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
-        description = "Official browser plugin for the KeePassXC password manager (<a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/aebde84f385b73661158862b419dd43b46ac4c22bea71d8f812030e93d0e52d5/https%3A//keepassxc.org\">https://keepassxc.org</a>).";
+        description = "Official browser plugin for the KeePassXC password manager (https://keepassxc.org).";
         license = licenses.gpl3;
         mozPermissions = [
           "activeTab"
@@ -6193,7 +6194,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/kristofferhagen/firefox-nord-theme";
-        description = "Firefox theme inspired by <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
+        description = "Firefox theme inspired by https://www.nordtheme.com/";
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
@@ -6463,10 +6464,10 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.13.0";
+      version = "1.14.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4433597/linkding_extension-1.13.0.xpi";
-      sha256 = "33e492af7bc36a6c5aa78b2c9ceae9508199b1ec0116d2a31c052ec0354ef9f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449452/linkding_extension-1.14.0.xpi";
+      sha256 = "b8e45453d366a65b25be4f50e7db33692f7193549257685f4fc2bceb37a7079c";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
@@ -7820,7 +7821,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/Xmader/musescore-downloader#readme";
-        description = "download sheet music from <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> for free, no login or Musescore Pro required | 免登录、免 Musescore Pro，免费下载 <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> 上的曲谱";
+        description = "download sheet music from musescore.com for free, no login or Musescore Pro required | 免登录、免 Musescore Pro，免费下载 musescore.com 上的曲谱";
         license = licenses.mit;
         mozPermissions = [ "*://*.musescore.com/*/*" ];
         platforms = platforms.all;
@@ -8484,7 +8485,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/sprig/org-capture-extension";
-        description = "A helper for capturing things via org-protocol in emacs: First, set up: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/04ad17418f8d35ee0f3edf4599aed951b2a5ef88d4bc7e0e3237f6d86135e4fb/http%3A//orgmode.org/worg/org-contrib/org-protocol.html\">http://orgmode.org/worg/org-contrib/org-protocol.html</a> or <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fb401af8127ccf82bc948b0a7af0543eec48d58100c0c46404f81aabeda442e6/https%3A//github.com/sprig/org-capture-extension\">https://github.com/sprig/org-capture-extension</a>\n\nSee <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/6aad51cc4e2f9476f9fff344e6554eade08347181aed05f8b61cda05073daecb/https%3A//youtu.be/zKDHto-4wsU\">https://youtu.be/zKDHto-4wsU</a> for example usage";
+        description = "A helper for capturing things via org-protocol in emacs: First, set up: http://orgmode.org/worg/org-contrib/org-protocol.html or https://github.com/sprig/org-capture-extension\n\nSee https://youtu.be/zKDHto-4wsU for example usage";
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" ];
         platforms = platforms.all;
@@ -8528,7 +8529,7 @@
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
-        description = "瞬间过滤B站(<a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>)刷屏的相似弹幕，还你清爽的弹幕视频体验。\t\n*a tweak for a Chinese website. Please ignore this add-on if you are not a user of <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>.*";
+        description = "瞬间过滤B站(bilibili.com)刷屏的相似弹幕，还你清爽的弹幕视频体验。\t\n*a tweak for a Chinese website. Please ignore this add-on if you are not a user of bilibili.com.*";
         license = licenses.gpl3;
         mozPermissions = [
           "notifications"
@@ -8603,7 +8604,7 @@
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
-        description = "Add-on that allows users of the unix password manager 'pass' (see <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/24f646fb865abe6edf9e3f626db62565bfdc2e7819ab33a5b4c30a9573787988/https%3A//www.passwordstore.org/\" rel=\"nofollow\">https://www.passwordstore.org/</a>) to access their password store from Firefox";
+        description = "Add-on that allows users of the unix password manager 'pass' (see https://www.passwordstore.org/) to access their password store from Firefox";
         license = licenses.gpl2;
         mozPermissions = [
           "<all_urls>"
@@ -8719,7 +8720,7 @@
       meta = with lib;
       {
         homepage = "https://browsernative.com/mozilla-firefox-extensions/";
-        description = "Unofficial Firefox add-on for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
+        description = "Unofficial Firefox add-on for Pinboard.in. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
         license = licenses.mpl20;
         mozPermissions = [ "activeTab" "menus" ];
         platforms = platforms.all;
@@ -9598,7 +9599,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
-        description = "Shows ratings from <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f8db0358d96c1a46b9a77aa02190de811e40819051b1d42dd013c17276046ffd/http%3A//protondb.com\" rel=\"nofollow\">protondb.com</a> on Steam";
+        description = "Shows ratings from protondb.com on Steam";
         license = licenses.lgpl3;
         mozPermissions = [
           "https://www.protondb.com/*"
@@ -9930,7 +9931,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/reddit-comment-collapser";
-        description = "A more elegant solution for collapsing reddit comment trees.\n\nReddit Comment Collapser is free and open source. Contributions welcome - <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/782747fdec02dc86f6a710b2169056074fd7d1c2e56583eddf9168d2be14e7a0/https%3A//github.com/tom-james-watson/reddit-comment-collapser\" rel=\"nofollow\">https://github.com/tom-james-watson/reddit-comment-collapser</a>";
+        description = "A more elegant solution for collapsing reddit comment trees.\n\nReddit Comment Collapser is free and open source. Contributions welcome - https://github.com/tom-james-watson/reddit-comment-collapser";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -9974,7 +9975,7 @@
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
-        description = "This is bundled extension of the /r/toolbox moderator tools for <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/42268797a19a16a2ebeeda77cca1eda5a48db14e0cff56de4fab35eaef484216/http%3A//reddit.com\">reddit.com</a>\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
+        description = "This is bundled extension of the /r/toolbox moderator tools for reddit.com\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
         license = licenses.asl20;
         mozPermissions = [
           "https://*.reddit.com/"
@@ -10175,7 +10176,7 @@
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
-        description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4af48e3229ba03b454fb9b352a7e5a4c038e1bcc6721bf744b781a5e96b9e798/https%3A//rust.extension.sh\" rel=\"nofollow\">https://rust.extension.sh</a>";
+        description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\nhttps://rust.extension.sh";
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
@@ -10827,7 +10828,7 @@
       sha256 = "3462da8a4a39ae1c93b9a0a5172f8690d2dd66baa856f240862d5943cad49c67";
       meta = with lib;
       {
-        description = "Uh-oh!   Looks like somebody left Firefox out in the sun.\n\nCredit to Ethan Schoonover for the color scheme.\n\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/84fc2a9889cf35b10644adef8f36c2af5f4beaf19955759761bceb2d20cfd051/http%3A//ethanschoonover.com/solarized\" rel=\"nofollow\">http://ethanschoonover.com/solarized</a>";
+        description = "Uh-oh!   Looks like somebody left Firefox out in the sun.\n\nCredit to Ethan Schoonover for the color scheme.\n\nhttp://ethanschoonover.com/solarized";
         license = {
           shortName = "all-rights-reserved";
           fullName = "All Rights Reserved";
@@ -10959,7 +10960,7 @@
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
-        description = "Show tiles on Strava, Komoot, Brouter, RWGPS, Garmin and <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/a56490334fb034ba5435e2c86dcc1b7178abea1af61a6939f8af580c0b188354/http%3A//Mapy.cz\" rel=\"nofollow\">Mapy.cz</a> route builder";
+        description = "Show tiles on Strava, Komoot, Brouter, RWGPS, Garmin and Mapy.cz route builder";
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
@@ -11147,7 +11148,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
-        description = "Rich shortcuts for you to click links / switch tabs / scroll pages or DIVs / capture full page or DIV etc, let you use the browser like vim, plus an embed vim editor.\n\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/353ad9268cb5cdeb3fa107ea4d154273229fe2ffe8a28e3fda510de7f6ddd75f/https%3A//github.com/brookhong/Surfingkeys\" rel=\"nofollow\">https://github.com/brookhong/Surfingkeys</a>";
+        description = "Rich shortcuts for you to click links / switch tabs / scroll pages or DIVs / capture full page or DIV etc, let you use the browser like vim, plus an embed vim editor.\n\nhttps://github.com/brookhong/Surfingkeys";
         license = licenses.mit;
         mozPermissions = [
           "nativeMessaging"
@@ -11493,7 +11494,7 @@
       meta = with lib;
       {
         homepage = "http://tosdr.org";
-        description = "“I have read and agree to the Terms” is the biggest lie on the web. We aim to fix that. Get informed instantly about websites' terms &amp; privacy policies, with ratings and summaries from the <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/782d4bf373fdb0bc94e6bd037af1bf988ce2274e2210205e7e5b8bbd291b0997/http%3A//www.tosdr.org\" rel=\"nofollow\">www.tosdr.org</a> initiative.";
+        description = "“I have read and agree to the Terms” is the biggest lie on the web. We aim to fix that. Get informed instantly about websites' terms &amp; privacy policies, with ratings and summaries from the www.tosdr.org initiative.";
         license = licenses.agpl3Plus;
         mozPermissions = [ "tabs" "storage" ];
         platforms = platforms.all;
@@ -11507,7 +11508,7 @@
       sha256 = "bb408739643fa3dc8af173f0b713a51ce2720fe28ddd28a96823eb98af69b130";
       meta = with lib;
       {
-        description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
+        description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for TETR.IO.";
         license = licenses.mit;
         mozPermissions = [
           "webRequest"
@@ -11578,7 +11579,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/ChristosBouronikos/Nord-Polar-Night-Theme";
-        description = "<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
+        description = "https://paypal.me/christosbouronikos";
         mozPermissions = [];
         platforms = platforms.all;
       };
@@ -12413,7 +12414,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/kwaschny/unwanted-twitch";
-        description = "Hide unwanted streams, games, categories, channels and tags on: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/467fe07ac13c13856de8dd6315fd58ddc3356ad980bae2d20314f29ad039768e/http%3A//twitch.tv\" rel=\"nofollow\">twitch.tv</a>";
+        description = "Hide unwanted streams, games, categories, channels and tags on: twitch.tv";
         license = licenses.mit;
         mozPermissions = [ "storage" "https://www.twitch.tv/*" ];
         platforms = platforms.all;
@@ -13644,13 +13645,13 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.1.12";
+      version = "2.1.20";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4448850/youtube_no_translation-2.1.12.xpi";
-      sha256 = "11935e730407148399593b2bd0e2bc9472181fd742f63d41ecc1eebf864d0bf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449424/youtube_no_translation-2.1.20.xpi";
+      sha256 = "77fdc239546a1f5b481c92f7c0d8e268e985a44677df35ecf0fb11ee0dcad0ad";
       meta = with lib;
       {
-        homepage = "https://github.com/YouG-o/YouTube_No_Translation";
+        homepage = "https://youtube-no-translation.vercel.app/";
         description = "Stop YouTube's automatic translations! This Add-On keeps titles, descriptions and audio dubbing in their original language.";
         mozPermissions = [ "storage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
