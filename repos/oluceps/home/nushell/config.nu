@@ -52,8 +52,8 @@ let scheme = {
 }
 
 $env.config.cursor_shape = {
-    vi_normal: line
-    vi_insert: underscore
+    vi_normal: block
+    vi_insert: blink_line
 }
 $env.config.color_config = {
   separator: { fg: $theme.surface2 attr: b }
