@@ -1,19 +1,18 @@
-name: "Build and populate cache"
+name: "Build"
 on:
   pull_request:
   push:
     branches:
       - main
+  workflow_dispatch: # allows manual triggering
 jobs:
-  tests:
+  build:
     strategy:
       matrix:
-        nurRepo:
-          - dsuetin
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.11.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -38,5 +37,9 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix
+  update-nur:
+    if: github.ref == 'refs/heads/main' # only run on main branch
+    runs-on: ubuntu-latest
+    steps:
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=dsuetin"

@@ -1,0 +1,22 @@
+name: "Update packages"
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 every day
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Update flake packages
+        uses: selfuryon/nix-update-action@v1
+        with:
+          pr-reviewers: dani0854
