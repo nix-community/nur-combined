@@ -21,15 +21,38 @@ in
       public = lib.mkEnableOption "shared certificate storage, and API env";
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.caddy;
-        # withPlugins {
-        #   plugins = [
-        #     "github.com/caddy-dns/porkbun@v0.2.1"
-        #     "github.com/mholt/caddy-ratelimit@v0.1.0"
-        #     "github.com/ss098/certmagic-s3@f227064b674462e1ab4336441b2b6fd35e073885"
-        #   ];
-        #   hash = "";
-        # };
+        default =
+          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
+            caddy = (
+              (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
+                buildGoModule = pkgs.buildGo124Module;
+              }).overrideAttrs
+                (
+                  final: prev:
+                  let
+                    version = "2.10.0-beta.1";
+                  in
+                  {
+                    inherit version;
+                    src = pkgs.fetchFromGitHub {
+                      owner = "caddyserver";
+                      repo = "caddy";
+                      rev = "v${version}";
+                      hash = "sha256-3YDpcCgHuOnn7BhjS5KWNr44ADb4+J4l+8QRDL7WGFg=";
+                    };
+                    vendorHash = "sha256-YQLd+Xn1MfBUoY/LA0PwT/LlPaxNOg/HEN5B0jcs5VA=";
+                  }
+                )
+            );
+          })
+            {
+              plugins = [
+                "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
+                "github.com/mholt/caddy-ratelimit@v0.1.0"
+                "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
+              ];
+              hash = "sha256-Z8Mrl2jKfHK/hVPRCG5bQ/sHbDj0n15Vbj2kb5iwMO4=";
+            };
       };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
