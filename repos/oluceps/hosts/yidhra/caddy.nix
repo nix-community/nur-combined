@@ -343,24 +343,6 @@
         }
       ];
       tls = {
-        # automation.policies = [
-        #   {
-        #     subjects = [
-        #       "*.nyaw.xyz"
-        #       "nyaw.xyz"
-        #     ];
-        #     issuers = [
-        #       {
-        #         module = "acme";
-        #         challenges.dns.provider = {
-        #           name = "cloudflare";
-        #           api_token = "{env.CF_API_TOKEN}";
-        #           zone_token = "{env.CF_ZONE_TOKEN}";
-        #         };
-        #       }
-        #     ];
-        #   }
-        # ];
         dns = {
           name = "cloudflare";
           api_token = "{env.CF_API_TOKEN}";
