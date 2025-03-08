@@ -37,8 +37,9 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix
-  update-nur:
+  update_nur:
     if: github.ref == 'refs/heads/main' # only run on main branch
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Trigger NUR update

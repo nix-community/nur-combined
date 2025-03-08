@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "0 0 * * *" # At 00:00 every day
 jobs:
-  updateFlakePackages:
+  update_packages:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,6 +17,6 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update flake packages
-        uses: selfuryon/nix-update-action@v1
+        uses: selfuryon/nix-update-action@v1.1.0
         with:
           pr-reviewers: dani0854

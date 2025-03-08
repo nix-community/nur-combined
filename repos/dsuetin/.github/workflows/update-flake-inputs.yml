@@ -1,11 +1,11 @@
-name: "Update flake inputs"
+name: "Update flake lock"
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
     - cron: '0 0 1 * *' # At 00:00 on day-of-month 1 every month
 
 jobs:
-  lockfile:
+  update_flake_lock:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
