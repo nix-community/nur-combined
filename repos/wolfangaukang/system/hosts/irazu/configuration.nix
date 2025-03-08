@@ -3,27 +3,24 @@
 , inputs
 , overlays
 , hostname
+, localLib
 , ...
 }:
 
 let
-  inherit (inputs) self;
-  inherit (pkgs) virt-manager;
+  profiles = localLib.getNixFiles "${inputs.self}/system/profiles/" [ "workstation" "sway" ];
 
 in
 {
-  imports =
-    [
-      inputs.nixos-hardware.nixosModules.system76
+  imports = profiles ++ [
+    inputs.nixos-hardware.nixosModules.system76
 
-      ./disk-setup.nix
-      ./hardware-configuration.nix
-      "${self}/system/profiles/workstation.nix"
-      "${self}/system/profiles/sway.nix"
-    ];
+    ./disk-setup.nix
+    ./hardware-configuration.nix
+  ];
 
   boot = {
-    zfs.package = pkgs.zfs_2_1;
+    zfs.package = pkgs.zfs_2_3;
     kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
   };
   networking.hostName = hostname;
@@ -35,19 +32,6 @@ in
     moonlander = {
       enable = true;
       ignoreLayoutSettings = true;
-    };
-    nix = {
-      enableAutoOptimise = true;
-      enableFlakes = true;
-      enableUseSandbox = true;
-    };
-    virtualization = {
-      podman.enable = true;
-      qemu = {
-        enable = true;
-        extraPkgs = [ virt-manager ];
-        libvirtdGroupMembers = [ "bjorn" ];
-      };
     };
     specialisations.gaming = {
       enable = true;

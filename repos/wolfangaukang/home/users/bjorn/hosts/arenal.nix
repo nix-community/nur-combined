@@ -9,62 +9,68 @@
 
 let
   inherit (inputs) self;
-  inherit (localLib) generateHyprlandMonitorConfig generateKanshiOutput getHostDefaults;
-  hostInfo = getHostDefaults hostname;
-  commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit config lib pkgs; };
+  profiles = localLib.getNixFiles "${self}/home/users/bjorn/profiles/" [ "sway" "workstation" ];
+  hostInfo = localLib.getHostDefaults hostname;
+  commands = import "${self}/home/users/bjorn/settings/wm-commands.nix" { inherit config lib pkgs; };
 
 in
 {
-  imports = [
-    "${self}/home/users/bjorn"
-    "${self}/home/users/bjorn/profiles/workstation.nix"
-    "${self}/home/users/bjorn/profiles/sway.nix"
-  ];
-
-  defaultajAgordoj.gui.terminal.font.size = 11;
+  imports = profiles ++ [ "${self}/home/users/bjorn" ];
 
   home.packages = with pkgs; [
     aegisub
-    burpsuite
     stremio
   ];
 
-  programs.waybar.settings.mainBar = {
-    modules-right = [ "backlight" "battery" ];
-    backlight."format" = "  {percent}%";
-    battery = {
-      "format" = "  {capacity}%";
-      "states" = {
-        "warning" = "20";
-        "critical" = "7";
+  programs = {
+    kitty.font.size = lib.mkForce 11;
+    waybar.settings.mainBar = {
+      modules-right = [ "backlight" "battery" ];
+      backlight."format" = "  {percent}%";
+      battery = {
+        "format" = "  {capacity}%";
+        "states" = {
+          "warning" = "20";
+          "critical" = "7";
+        };
       };
     };
   };
 
   services = {
-    kanshi.settings = [
-      {
-        profile = {
-          name = "docked";
-          outputs = [
-            (generateKanshiOutput hostInfo)
-          ];
-        };
-      }
-      {
-        profile = {
-          name = "connected";
-          outputs =
-            let
-              irazuInfo = getHostDefaults "irazu";
-            in [
-              (generateKanshiOutput hostInfo)
-              # Pick Irazu's monitor
-              ((generateKanshiOutput irazuInfo) // { position = "0,-1080"; })
+    kanshi.settings =
+      let
+        defaultOutput = [ (localLib.generateKanshiOutput hostInfo) ];
+      in [
+        {
+          profile = {
+            name = "basico";
+            outputs = defaultOutput;
+          };
+        }
+        {
+          profile = {
+            name = "sala";
+            outputs = defaultOutput ++ [
+              {
+                criteria = "XXX AAA Unknown";
+                mode = "1920x1080@60Hz";
+              }
             ];
-        };
-      }
-    ];
+          };
+        }
+        {
+          profile = {
+            name = "ofi";
+            outputs = defaultOutput ++ [
+              {
+                criteria = "ASUSTek COMPUTER INC ASUS VA27EHE L1LMTF068194";
+                mode = "1920x1080@60Hz";
+              }
+            ];
+          };
+        }
+      ];
     wlsunset = {
       enable = config.wayland.windowManager.sway.enable || config.wayland.windowManager.hyprland.enable;
       latitude = "12.13282";
@@ -102,7 +108,7 @@ in
       '';
     };
     hyprland.settings = {
-      monitor = generateHyprlandMonitorConfig hostInfo;
+      monitor = localLib.generateHyprlandMonitorConfig hostInfo;
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;

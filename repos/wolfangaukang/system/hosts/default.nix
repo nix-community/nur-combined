@@ -1,50 +1,18 @@
 { inputs, overlays, localLib }:
 
 let
-  inherit (localLib) mkNixos;
-  inherit (inputs.nixpkgs.lib) nixosSystem;
-  baseUsers = {
-    system = [ "root" "bjorn" ];
-    hm = [ "bjorn" ];
-  };
+  inherit (inputs) self;
+  inherit (inputs.nixpkgs.lib) attrsets nixosSystem;
+  hosts = attrsets.genAttrs [ "arenal" "irazu" ] (hostname: nixosSystem {
+    modules = [ "${self}/system/hosts/${hostname}" ];
+    specialArgs = { inherit inputs localLib overlays hostname; };
+  });
 
-in
-{
-  arenal = nixosSystem {
-    modules = [ ./arenal ];
-    specialArgs = { inherit inputs localLib overlays; hostname = "arenal"; };
+in hosts // {
+  vm = let
+    hostname = "pocosol";
+  in nixosSystem {
+    modules = [ "${self}/system/hosts/${hostname}" ];
+    specialArgs = { inherit inputs localLib overlays hostname; };
   };
-
-  irazu = nixosSystem {
-    modules = [ ./irazu ];
-    specialArgs = { inherit inputs localLib overlays; hostname = "irazu"; };
-  };
-
-  vm = nixosSystem {
-    modules = [ ./pocosol ];
-    specialArgs = { inherit inputs localLib overlays; hostname = "pocosol"; };
-  };
-
-  # TODO: Migrate to nixosSystem
-  barva = mkNixos {
-    inherit inputs overlays;
-    users = baseUsers.system;
-    hostname = "barva";
-    enable-impermanence = true;
-    enable-sops = true;
-    enable-hm = true;
-    hm-users = baseUsers.hm;
-    enable-sops-hm = true;
-  };
-
-  chopo =
-    let
-      users = [ "nixos" ];
-    in
-    mkNixos {
-      inherit inputs overlays users;
-      hostname = "chopo";
-      hm-users = users;
-      extra-special-args = { inherit users; };
-    };
 }

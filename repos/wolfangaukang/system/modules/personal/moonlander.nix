@@ -1,28 +1,19 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, pkgs
+, inputs
+, lib
+, ...
+}:
 
-with lib;
 let
+  inherit (lib) types mkEnableOption mkIf mkMerge;
   cfg = config.profile.moonlander;
 
-in
-{
-
+in {
   options.profile.moonlander = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Enables Moonlander Mark I support on NixOS
-      '';
-    };
-    ignoreLayoutSettings = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Ignores any system layout settings (uses US Basic)
-      '';
-    };
-    extraPkgs = mkOption {
+    enable = mkEnableOption "Moonlander Mark I support on NixOS";
+    ignoreLayoutSettings = mkEnableOption "Ignore any system layout settings (uses US Basic)";
+    extraPkgs = lib.mkOption {
       default = with pkgs; [ wally-cli ];
       type = types.listOf types.package;
       description = ''

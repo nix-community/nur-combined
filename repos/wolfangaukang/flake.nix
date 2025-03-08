@@ -28,7 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -72,7 +72,7 @@
         apep.overlays.default
         gorin.overlays.default
         multifirefox.overlays.default
-        nur.overlay
+        nur.overlays.default
         sab.overlays.default
         sarchi.overlays.default
       ] ++ (local.overlays);
@@ -84,7 +84,7 @@
     {
       packages = forEachSystem (system: (import ./pkgs { pkgs = pkgsFor.${system}; }) // {
         multifirefox = pkgsFor.${system}.multifirefox;
-        stream-alert-bot = pkgsFor.${system}.stream-alert-bot;
+        #stream-alert-bot = pkgsFor.${system}.stream-alert-bot; # FIXME: https://codeberg.org/wolfangaukang/stream-alert-bot/src/branch/uv
       });
       devShells = forEachSystem (system: import ./shells { pkgs = pkgsFor.${system}; });
       formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);

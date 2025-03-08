@@ -4,7 +4,6 @@
 
 {
   allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
-    "burpsuite-2023.10.1.1"
     "Oracle_VM_VirtualBox_Extension_Pack-7.0.14.vbox-extpack"
     "video-downloadhelper"
     "vmware-workstation"

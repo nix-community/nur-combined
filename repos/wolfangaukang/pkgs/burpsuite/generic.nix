@@ -1,7 +1,7 @@
 { lib, fetchurl, jdk, buildFHSEnv, unzip, makeDesktopItem, url_key, bin, type, hash, ... }:
 
 let
-  version = "2023.10.1.1";
+  version = "2025.1.4";
 
   src = fetchurl {
     name = "burpsuite.jar";

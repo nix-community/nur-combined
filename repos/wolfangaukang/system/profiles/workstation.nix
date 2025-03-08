@@ -2,6 +2,7 @@
 { inputs
 , lib
 , hostname
+, pkgs
 , ...
 }:
 
@@ -9,19 +10,28 @@ let
   inherit (inputs) self;
   localLib = import "${self}/lib" { inherit inputs lib; };
   inherit (localLib) obtainIPV4Address;
-  hostList = [ "grimsnes" "surtsey" "irazu" "arenal" "barva" ];
+  hostList = [ "grimsnes" "surtsey" "irazu" "arenal" ];
   zerotierIps = builtins.listToAttrs (map (host: { name = host; value = obtainIPV4Address "${host}" "activos"; }) hostList);
 
 in
 {
+  environment.systemPackages = with pkgs; [
+    # Android
+    jmtpfs
+
+    # iOS
+    ifuse
+    libimobiledevice
+  ];
+
   hardware = {
     bluetooth = {
       enable = true;
       powerOnBoot = false;
     };
-    pulseaudio.enable = lib.mkForce false;
     graphics.enable = true;
   };
+
   networking = {
     hosts = builtins.listToAttrs (map (host: { name = "${zerotierIps.${host}}"; value = [ "${host}" ]; }) hostList );
     firewall = {
@@ -34,6 +44,18 @@ in
     networkmanager.enable = true;
   };
 
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      sandbox = true;
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
+
   profile = {
     specialisations.work.simplerisk.enable = true;
     predicates.unfreePackages = [
@@ -41,6 +63,8 @@ in
       "zerotierone"
     ];
   };
+
+  programs.adb.enable = true;
 
   # Remember to add users to the rfkillers group
   security = {
@@ -63,6 +87,7 @@ in
       jack.enable = true;
       pulse.enable = true;
     };
+    pulseaudio.enable = lib.mkForce false;
     openssh = {
       enable = true;
       openFirewall = true;
@@ -92,6 +117,7 @@ in
         }
       ];
     };
+    udev.packages = [ pkgs.android-udev-rules ];
     zerotierone = {
       enable = true;
       joinNetworks = [ "a09acf02337dcfe5" ];

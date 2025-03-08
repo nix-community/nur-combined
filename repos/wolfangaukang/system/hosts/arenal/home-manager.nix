@@ -4,10 +4,6 @@
 , localLib
 }:
 
-let
-  inherit (localLib) importHMUsers;
-
-in
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -18,6 +14,6 @@ in
       inputs.impermanence.nixosModules.home-manager.impermanence
       inputs.sops.homeManagerModules.sops
     ];
-    users = importHMUsers [ "bjorn" ] hostname;
+    users = localLib.importHMUsers [ "bjorn" ] hostname;
   };
 }

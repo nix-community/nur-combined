@@ -12,40 +12,84 @@ let
 
 in
 {
-  services.syncthing.enable = true;
+  imports = [
+    ./chromium.nix    
+    ./firefox.nix
+    ./kitty.nix
+  ];
 
-  defaultajAgordoj.work.simplerisk.enable = osConfig.profile.specialisations.work.simplerisk.indicator;
+  home.packages = with pkgs; [
+    libreoffice
+    mpv
+    mupdf
+    multifirefox
+    telegram-desktop
+    thunderbird
+    vdhcoapp
+  ];
 
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      surtsey = {
-        user = "marx";
-        hostname = obtainIPV4Address "surtsey" "brume";
-        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/surtsey" ];
+  personaj.work.simplerisk.enable = osConfig.profile.specialisations.work.simplerisk.indicator;
+
+  programs = {
+    feh.enable = true;
+    joplin-desktop = {
+      enable = true;
+      general.editor = "hx";
+      sync = {
+        target = "file-system";
+        interval = "5m";
       };
-      grimsnes = {
-        user = "marx";
-        hostname = obtainIPV4Address "grimsnes" "brume";
-        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/servers" ];
+      extraConfig = {
+        "sync.target" = 2;
+        "sync.2.path" = "${config.home.homeDirectory}/Dokumentujo/Privata/Joplin";
+        "editor.spellcheckBeta" = true;
+        "spellChecker.languages" = [
+          "pt-BR"
+          "en-US"
+          "es-ES"
+        ];
       };
-      arenal = {
-        user = "bjorn";
-        hostname = obtainIPV4Address "arenal" "activos";
-        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+    };
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        surtsey = {
+          user = "marx";
+          hostname = obtainIPV4Address "surtsey" "brume";
+          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/surtsey" ];
+        };
+        grimsnes = {
+          user = "marx";
+          hostname = obtainIPV4Address "grimsnes" "brume";
+          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/servers" ];
+        };
+        arenal = {
+          user = "bjorn";
+          hostname = obtainIPV4Address "arenal" "activos";
+          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+        };
+        irazu = {
+          user = "bjorn";
+          hostname = obtainIPV4Address "irazu" "activos";
+          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+        };
       };
-      irazu = {
-        user = "bjorn";
-        hostname = obtainIPV4Address "irazu" "activos";
-        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+    };
+    zed-editor = {
+      enable = true;
+      userSettings = {
+        features = {
+          copilot = false;
+        };
+        telemetry = {
+          metrics = false;
+        };
+        vi-mode = true;
       };
     };
   };
 
-  home.packages = with pkgs; [
-    telegram-desktop
-    tutanota-desktop
-  ];
+  services.syncthing.enable = true;
 
   sops = {
     defaultSopsFile = ../secrets.yaml;

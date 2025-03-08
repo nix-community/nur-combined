@@ -4,5 +4,5 @@ callPackage ./generic.nix (args // {
   url_key = "community";
   bin = "burpsuite";
   type = "Burp Suite Community Edition";
-  hash = "sha256-lV1V92sxCiZ7AGjUNJHO9fkh3aUgt0+oISh7efBaOUA=";
+  hash = "sha256-jLwI9r1l/bf2R7BOImEnbW3iLgsF+/1n0/N55Jx8Lzw=";
 })

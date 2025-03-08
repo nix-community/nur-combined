@@ -5,9 +5,8 @@
 , ...
 }:
 
-with lib;
-
 let
+  inherit (lib) types mdDoc mkEnableOption mkOption;
   cfg = config.profile.batteryNotifier;
 
 in
@@ -69,7 +68,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     systemd.user.timers."lowbatt" = {
       description = "check battery level";
       timerConfig.OnBootSec = "1m";
@@ -83,7 +82,7 @@ in
       script =
         let
           inherit (pkgs) coreutils libnotify;
-          notifySendBin = getExe libnotify;
+          notifySendBin = lib.getExe libnotify;
         in
         ''
           export battery_capacity=$(${coreutils}/bin/cat /sys/class/power_supply/${cfg.device}/capacity)

@@ -3,18 +3,18 @@
 , fetchFromGitHub
 }:
 
-buildGoModule {
+buildGoModule rec {
   pname = "clair-scanner";
-  version = "unstable-2021-11-10";
+  version = "14.0.0";
 
   src = fetchFromGitHub {
     owner = "arminc";
     repo = "clair-scanner";
-    rev = "31e23875fdd032ff79440d7ca3cb39211aa2b4f9";
-    hash = "sha256-nkGFct1mccXeDPO3sV1Tz33AJhaKkpXuFkAXK6r01kw=";
+    rev = version;
+    hash = "sha256-EV1DgACUGJ/mySGqPBkh5ANRN0niq98mKDpEIeuoopo=";
   };
 
-  vendorHash = "sha256-p5QlUdkjf6Ky9ZWbKLUO3/GH9bvwghNS3HQHSZAfuOk=";
+  vendorHash = "sha256-+DRssg9PIetPU7i61RsRxvicNcCB12aQ1DMFS7DUoqI=";
 
   meta = with lib; {
     description = " Docker containers vulnerability scan";

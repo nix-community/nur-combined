@@ -1,4 +1,3 @@
 {
-  alacritty-tmux = ./alacritty-tmux.nix;
-  neofetch = ./neofetch.nix;
+  imports = [ ./peaclock.nix ];
 }

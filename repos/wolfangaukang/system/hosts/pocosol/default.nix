@@ -4,14 +4,10 @@
 , ...
 }:
 
-let
-  inherit (localLib) importSystemUsers;
-
-in
 {
   imports = [
     ./configuration.nix
 
     "${inputs.self}/system/profiles/base.nix"
-  ] ++ importSystemUsers [ "root" ] hostname;
+  ] ++ localLib.importSystemUsers [ "root" ] hostname;
 }

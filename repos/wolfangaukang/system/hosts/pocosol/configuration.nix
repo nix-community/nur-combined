@@ -5,18 +5,9 @@
 , ...
 }:
 
-let
-  inherit (inputs) self;
-
-in
 {
-  imports = [
-    "${self}/system/profiles/hyprland.nix"
-    "${self}/system/profiles/graphics.nix"
-    "${self}/system/profiles/vm.nix"
-    "${self}/system/profiles/pci-passthrough.nix"
-  ];
-
+  imports = map (x: "${inputs.self}/system/profiles/" + x + ".nix") [ "hyprland" "pci-passthrough" "vm" ];
+  
   environment.systemPackages = with pkgs; [
     vim
     kitty

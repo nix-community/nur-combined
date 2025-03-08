@@ -1,10 +1,10 @@
 { appimageTools, lib, fetchurl }:
 let
   pname = "iptvnator";
-  version = "0.14.0";
+  version = "0.16.0";
   src = fetchurl {
     url = "https://github.com/4gray/iptvnator/releases/download/v${version}/${pname}-${version}.AppImage";
-    hash = "sha256-59n16fZm7aS+dMmG7GX4ecitL/3ggQLMeSYu9OaJfAs=";
+    hash = "sha256-KQRbr5vxhuiRANZ2LRx2YR8LkrQP94LCUWz3vnKunHo=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
@@ -13,9 +13,7 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
-
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+    install -Dm444 ${appimageContents}/${pname}.desktop -t $out/share/applications
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share

@@ -5,12 +5,11 @@
 , ...
 }:
 
-with lib;
 let
   cfg = config.profile.specialisations;
   g_cfg = config.profile.specialisations.gaming;
 
-  inherit (pkgs.pkgsi686Linux) libva;
+  inherit (lib) types mdDoc mkEnableOption mkForce mkIf mkMerge mkOption;
   notify-send = lib.getExe pkgs.libnotify;
 
 in
@@ -77,7 +76,8 @@ in
           imports = [ "${inputs.self}/system/profiles/pantheon.nix" ];
           profile = {
             predicates.unfreePackages = [
-              "Oracle_VM_VirtualBox_Extension_Pack"
+              "Oracle_VirtualBox_Extension_Pack"
+              "slack"
               "vmware-workstation"
             ];
             specialisations.work.simplerisk.indicator = true;
@@ -121,13 +121,14 @@ in
               gamescopeSession.enable = cfg.gaming.steam.enableGamescope;
             };
           };
-          hardware.graphics.extraPackages32 = [ libva ];
+          hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.libva ];
           profile = {
             specialisations.gaming.indicator = true;
             predicates.unfreePackages = [
-              "steam-run"
               "steam"
+              "steam-run"
               "steam-original"
+              "steam-unwrapped"
             ];
           };
         };

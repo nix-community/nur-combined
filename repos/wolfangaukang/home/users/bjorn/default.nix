@@ -1,26 +1,67 @@
-{ config, pkgs, ... }:
+{ inputs
+, config
+, pkgs
+, lib
+, ...
+}:
 
-{
+let
+  inherit (inputs) dotfiles;
+
+in {
   imports = [
+    "${inputs.self}/home/modules"
     ./modules
 
     ./profiles/dev.nix
-    ./profiles/fonts.nix
+    ./profiles/fish.nix
+    ./profiles/helix.nix
   ];
+
+  fonts.fontconfig.enable = true;
 
   home = {
     username = "bjorn";
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "23.05";
 
+    file = {
+      ".xkb/symbols/colemak-bs_cl".source = "${dotfiles}/config/xkbmap/colemak-bs_cl";
+      ".xkb/symbols/dvorak-bs_cl".source = "${dotfiles}/config/xkbmap/dvorak-bs_cl";
+    };
+
     packages = with pkgs; [
+      # CLI
       bc
       htop
       p7zip
-      peaclock
       tree
       shellcheck
+
+      # GUI but with CLI tools
+      calibre
+      keepassxc
+
+      # Fonts
+      arkpandora_ttf
     ];
+  };
+
+  programs = {
+    nix-index = {
+      enable = true;
+      enableFishIntegration = config.programs.fish.enable;
+      enableZshIntegration = config.programs.zsh.enable;
+    };
+    peaclock =
+      let
+        originalConfig = builtins.readFile "${inputs.dotfiles}/config/peaclock/binary-clock";
+        config = builtins.replaceStrings ["notify-send"] ["${lib.getExe pkgs.libnotify}"] originalConfig;
+      in {
+        enable = true;
+        settings = config;
+        enableAlias = true;
+      };
   };
 
   services.gnome-keyring = {
@@ -45,47 +86,6 @@
         XDG_DEVICE_DIR = "\$HOME/Aparatoj";
         XDG_MISC_DIR = "\$HOME/Utilecoj";
       };
-    };
-  };
-
-  # Personal modules
-  defaultajAgordoj = {
-    cli = {
-      enable = true;
-      editors = {
-        helix = {
-          enable = true;
-          default = true;
-        };
-        neovim.enable = true;
-      };
-    };
-    gui = {
-      enable = true;
-      terminal = {
-        font = {
-          family = "MesloLGS NF";
-          package = pkgs.meslo-lgs-nf;
-        };
-        kitty = {
-          enable = true;
-          theme = "Black Metal";
-        };
-      };
-      extraPkgs = with pkgs; [
-        calibre
-        keepassxc
-        libreoffice
-        mpv
-        mupdf
-        multifirefox
-        ranger
-        raven-reader
-        sigil
-        thunderbird
-      ];
-      vscode.enable = true;
-      browsers.chromium.enable = true;
     };
   };
 }

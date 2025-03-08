@@ -10,7 +10,6 @@ keys:
   - &hosts:
     - &irazu age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
     - &arenal age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
-    - &barva age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
 
 creation_rules:
   - path_regex: system/hosts/common/secrets.ya?ml$
@@ -20,7 +19,6 @@ creation_rules:
       age:
       - *irazu
       - *arenal
-      - *barva
   - path_regex: system/hosts/arenal/secrets.ya?ml$
     key_groups:
     - pgp:
@@ -33,12 +31,6 @@ creation_rules:
       - *bjorn
       age:
       - *irazu
-  - path_regex: system/hosts/barva/secrets.ya?ml$
-    key_groups:
-    - pgp:
-      - *bjorn
-      age:
-      - *barva
   - path_regex: home/users/bjorn/secrets.ya?ml$
     key_groups:
     - pgp:

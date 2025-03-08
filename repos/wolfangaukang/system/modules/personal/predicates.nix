@@ -3,13 +3,11 @@
 , ...
 }:
 
-with lib;
 let
+  inherit (lib) types mkMerge mkOption;
   cfg = config.profile.predicates;
 
-in
-{
-
+in {
   options.profile.predicates = {
     unfreePackages = mkOption {
       default = [ ];

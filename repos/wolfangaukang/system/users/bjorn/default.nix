@@ -6,6 +6,7 @@
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [ "wheel" "nixers" ]
-      ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ];
+      ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ]
+      ++ lib.optionals config.programs.adb.enable [ "adbusers" ];
   };
 }

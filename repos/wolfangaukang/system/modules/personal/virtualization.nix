@@ -1,21 +1,13 @@
 { config, lib, ... }:
 
-with lib;
 let
+  inherit (lib) types mkEnableOption mkIf mkMerge mkOption;
   cfg = config.profile.virtualization;
 
-in
-{
-
+in {
   options.profile.virtualization = {
     docker = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs Docker
-        '';
-      };
+      enable = mkEnableOption "Docker";
       extraPkgs = mkOption {
         default = [ ];
         type = types.listOf types.package;
@@ -32,13 +24,7 @@ in
       };
     };
     podman = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs Podman
-        '';
-      };
+      enable = mkEnableOption "Podman";
       extraPkgs = mkOption {
         default = [ ];
         type = types.listOf types.package;
@@ -48,13 +34,7 @@ in
       };
     };
     qemu = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs Qemu
-        '';
-      };
+      enable = mkEnableOption "QEMU";
       extraPkgs = mkOption {
         default = [ ];
         type = types.listOf types.package;
@@ -71,20 +51,8 @@ in
       };
     };
     virtualbox = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs VirtualBox
-        '';
-      };
-      enableExtensionPack = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs VirtualBox Extension Pack
-        '';
-      };
+      enable = mkEnableOption "VirtualBox";
+      enableExtensionPack = mkEnableOption "VirtualBox Extension Pack";
       extraPkgs = mkOption {
         default = [ ];
         type = types.listOf types.package;
@@ -101,13 +69,7 @@ in
       };
     };
     vmware = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Installs VMWare Workstation (vmware.host)
-        '';
-      };
+      enable = mkEnableOption "VMWare Workstation (vmware.host)";
       extraPkgs = mkOption {
         default = [ ];
         type = types.listOf types.package;

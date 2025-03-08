@@ -7,11 +7,7 @@ let
   ips = lib.importJSON "${self}/misc/ips.json";
   host_defaults = lib.importJSON "${self}/system/hosts/common/host_defaults.json";
 
-in
-rec {
-  mkNixos = import ./mkNixos.nix { inherit inputs mkNixosHome; };
-  mkNixosHome = import ./mkNixosHome.nix { inherit inputs; };
-  mkHome = import ./mkHome.nix { inherit inputs; };
+in {
   generateHyprlandMonitorConfig = info:
     let
       name = info.display.id;
@@ -23,6 +19,7 @@ rec {
     mode = "${info.display.mode}Hz";
   };
   getHostDefaults = host: host_defaults.${host};
+  getNixFiles = path: profiles: map (profile: path + profile + ".nix") profiles;
   importSystemUsers = users: hostname: builtins.map (user: "${self}/system/users/${user}/hosts/${hostname}.nix") users;
   importHMUsers = users: hostname: builtins.listToAttrs (map (user: { name = user; value = import "${self}/home/users/${user}/hosts/${hostname}.nix"; }) users);
   obtainIPV4Address = hostname: network: "${ips.networking.networks.${network}}.${ips.networking.suffixes.${hostname}}";

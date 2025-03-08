@@ -6,20 +6,17 @@
 }:
 
 let
-  inherit (inputs) self;
-  inherit (localLib) importSystemUsers;
+  profiles = localLib.getNixFiles "${inputs.self}/system/profiles/" [ "base" "sops" ];
+  users = localLib.importSystemUsers [ "bjorn" "root" ] hostname;
   hmConfig = import ./home-manager.nix { inherit inputs hostname localLib pkgs; };
 
 in
 {
-  imports =
-    [
-      ./configuration.nix
-      ./impermanence.nix
-      inputs.home-manager.nixosModules.home-manager
-      (hmConfig)
+  imports = profiles ++ users ++ [
+    ./configuration.nix
+    ./impermanence.nix
 
-      "${self}/system/profiles/base.nix"
-      "${self}/system/profiles/sops.nix"
-    ] ++ importSystemUsers [ "bjorn" "root" ] hostname;
+    inputs.home-manager.nixosModules.home-manager
+    hmConfig
+  ];
 }
