@@ -73,7 +73,6 @@ lib.makeScope pkgs.newScope (
         {
           # Broken
           withBashCompletion = false;
-          withDcmtk = true;
           withExr = true;
           # Needs patching
           withFfmpeg = false;
@@ -108,7 +107,6 @@ lib.makeScope pkgs.newScope (
           withTool = true;
           withDocs = true;
           withCfitsio = true;
-          withDmctk = true;
           # Broken
           withExiv2 = false;
           withFfmpeg = true;

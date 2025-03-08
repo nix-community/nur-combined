@@ -17,8 +17,6 @@
   withRaw ? true,
   withBashCompletion ? false,
   bash-completion,
-  withDcmtk ? false,
-  dcmtk,
   withExr ? false,
   openexr_2,
   withFfmpeg ? false,
@@ -75,15 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs =
     [ libgta ]
     ++ lib.optional withBashCompletion bash-completion
-    ++ lib.optional withDcmtk (
-      dcmtk.overrideAttrs (
-        _: prevAttrs: {
-          cmakeFlags = (prevAttrs.cmakeFlags or [ ]) ++ [
-            (lib.cmakeBool "BUILD_SHARED_LIBS" true)
-          ];
-        }
-      )
-    )
     ++ lib.optional withExr openexr_2
     ++ lib.optional withFfmpeg ffmpeg
     ++ lib.optional withGdal gdal

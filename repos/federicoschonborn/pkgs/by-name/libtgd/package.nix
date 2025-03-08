@@ -14,8 +14,6 @@
   withStatic ? false,
   withCfitsio ? false,
   cfitsio,
-  withDmctk ? false,
-  dcmtk,
   withExiv2 ? withJpeg || withPng,
   exiv2,
   withFfmpeg ? false,
@@ -67,7 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs =
     lib.optional withCfitsio cfitsio
-    ++ lib.optional withDmctk dcmtk
     ++ lib.optional withExiv2 exiv2
     ++ lib.optional withFfmpeg ffmpeg
     ++ lib.optional withGdal gdal
