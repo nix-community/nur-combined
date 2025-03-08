@@ -47,6 +47,7 @@ in
         git
         nix
         config.programs.ssh.package
+        config.services.laminar.package
       ];
       defaultText = literalExpression "[ pkgs.stdenv pkgs.git pkgs.nix config.programs.ssh.package ]";
       description = "Packages added to service PATH environment variable.";
