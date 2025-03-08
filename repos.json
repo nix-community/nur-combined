@@ -280,6 +280,9 @@
             "type": "gitea",
             "url": "https://git.uninsane.org/colin/nix-files"
         },
+        "colorman": {
+            "url": "https://github.com/TheColorman/nurpkgs"
+        },
         "congee": {
             "url": "https://github.com/congee/nur"
         },
