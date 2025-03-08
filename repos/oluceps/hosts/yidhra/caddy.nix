@@ -14,6 +14,56 @@
             {
               handler = "subroute";
               routes = [
+
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "[fdcc::3]:3001"; } ];
+                            }
+                          ];
+                          match = [
+                            {
+                              path = [
+                                "/share/*"
+                                "/share"
+                              ];
+                            }
+                          ];
+                        }
+                        {
+                          handle = [
+                            {
+                              handler = "authentication";
+                              providers.http_basic.accounts = [
+                                {
+                                  username = "immich";
+                                  password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+                                }
+                              ];
+                            }
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "[fdcc::3]:2283"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+
+                  ];
+                  match = [
+                    {
+                      host = [ "photo.nyaw.xyz" ];
+                    }
+                  ];
+                  terminal = true;
+                }
                 {
                   handle = [
                     {
@@ -214,7 +264,6 @@
           ];
           match = [ { host = [ "*.nyaw.xyz" ]; } ];
         }
-
         {
           handle = [
             {
@@ -223,56 +272,6 @@
             }
           ];
           match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
-          terminal = true;
-        }
-
-        {
-          handle = [
-            {
-              handler = "subroute";
-              routes = [
-                {
-                  handle = [
-                    {
-                      handler = "reverse_proxy";
-                      upstreams = [ { dial = "[fdcc::3]:3001"; } ];
-                    }
-                  ];
-                  match = [
-                    {
-                      path = [
-                        "/share/*"
-                        "/share"
-                      ];
-                    }
-                  ];
-                }
-                {
-                  handle = [
-                    {
-                      handler = "authentication";
-                      providers.http_basic.accounts = [
-                        {
-                          username = "immich";
-                          password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-                        }
-                      ];
-                    }
-                    {
-                      handler = "reverse_proxy";
-                      upstreams = [ { dial = "[fdcc::3]:2283"; } ];
-                    }
-                  ];
-                }
-              ];
-            }
-
-          ];
-          match = [
-            {
-              host = [ "photo.nyaw.xyz" ];
-            }
-          ];
           terminal = true;
         }
         {
@@ -342,18 +341,40 @@
           terminal = true;
         }
       ];
-      tls = {
-        dns = {
-          name = "cloudflare";
-          api_token = "{env.CF_API_TOKEN}";
-          zone_token = "{env.CF_ZONE_TOKEN}";
+      tls =
+        let
+          dns = {
+            name = "cloudflare";
+            api_token = "{env.CF_API_TOKEN}";
+            zone_token = "{env.CF_ZONE_TOKEN}";
+          };
+        in
+        {
+          inherit dns;
+          automation.policies = [
+            {
+              subjects = [
+                "*.nyaw.xyz"
+                "nyaw.xyz"
+              ];
+              issuers = [
+                {
+                  module = "acme";
+                  challenges = {
+                    dns = {
+                      provider = dns;
+                    };
+                  };
+                }
+              ];
+            }
+          ];
+          encrypted_client_hello.configs = [
+            {
+              public_name = "nyaw.xyz";
+            }
+          ];
         };
-        encrypted_client_hello.configs = [
-          {
-            public_name = "nyaw.xyz";
-          }
-        ];
-      };
     };
   };
 }

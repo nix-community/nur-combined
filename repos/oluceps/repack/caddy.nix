@@ -79,6 +79,11 @@ in
         http.servers.srv0 = {
           listen = [ ":443" ];
           strict_sni_host = false;
+          automatic_https = {
+            skip_certificates = [
+            ];
+            prefer_wildcard = true;
+          };
           routes = [
             {
               match = [
