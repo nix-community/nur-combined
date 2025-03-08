@@ -3158,7 +3158,7 @@ An old cellphone arcade recreated for PC
 - Version: `1.2.1`
 
 - [🌐 Homepage](https://github.com/regular-dev/biplanes-revival)
-- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L43)
+- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L45)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - [📰 Changelog](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.2.1)
 
@@ -3231,7 +3231,7 @@ Bluetooth manager written in Qt
 - Version: `1.0.2`
 
 - [🌐 Homepage](https://github.com/EbonJaeger/bluejay)
-- [📦 Source](./pkgs/by-name/bluejay/package.nix#L44)
+- [📦 Source](./pkgs/by-name/bluejay/package.nix#L46)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - [📰 Changelog](https://github.com/EbonJaeger/bluejay/releases/tag/v1.0.2)
 
@@ -3304,7 +3304,7 @@ An efficient menu for the MATE Desktop
 - Version: `0.6.2`
 
 - [🌐 Homepage](https://github.com/getsolus/brisk-menu)
-- [📦 Source](./pkgs/by-name/brisk-menu/package.nix#L46)
+- [📦 Source](./pkgs/by-name/brisk-menu/package.nix#L53)
 - Licenses: [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`Creative Commons Attribution Share Alike 4.0`](https://spdx.org/licenses/CC-BY-SA-4.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -3376,7 +3376,7 @@ Alternative to GNU coreutils using software from FreeBSD
 - Version: `13.2`
 
 - [🌐 Homepage](https://github.com/dcantrell/bsdutils)
-- [📦 Source](./pkgs/by-name/bsdutils/package.nix#L52)
+- [📦 Source](./pkgs/by-name/bsdutils/package.nix#L54)
 - License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
 - [📰 Changelog](https://github.com/dcantrell/bsdutils/releases/tag/v13.2)
 
@@ -3512,7 +3512,7 @@ Tool to generate flags for your CPU
 - Version: `15`
 
 - [🌐 Homepage](https://github.com/projg2/cpuid2cpuflags)
-- [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L31)
+- [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L32)
 - License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v15)
 
@@ -3585,7 +3585,7 @@ Like neofetch, but much faster because written in C
 - Version: `2.38.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L271)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L273)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.38.0)
 
@@ -3973,7 +3973,7 @@ A set of commands that manipulate GTAs on various levels
 - Version: `2.4.0`
 
 - [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./pkgs/by-name/gtatool/package.nix#L126)
+- [📦 Source](./pkgs/by-name/gtatool/package.nix#L128)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4146,7 +4146,7 @@ A language for building concurrent software with confidence
 - Version: `0.18.1`
 
 - [🌐 Homepage](https://github.com/inko-lang/inko)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L53)
+- [📦 Source](./pkgs/by-name/inko/package.nix#L52)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
 
@@ -4213,7 +4213,7 @@ KDE Virtual Machine Manager
 - Version: `0.1-prealpha-unstable-2025-03-02`
 
 - [🌐 Homepage](https://invent.kde.org/arraybolt/karton)
-- [📦 Source](./pkgs/by-name/karton/package.nix#L54)
+- [📦 Source](./pkgs/by-name/karton/package.nix#L56)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4261,7 +4261,7 @@ Quick file preview for Dolphin
 - Version: `1.1`
 
 - [🌐 Homepage](https://invent.kde.org/danagost/Kiview)
-- [📦 Source](./pkgs/by-name/kiview/package.nix#L44)
+- [📦 Source](./pkgs/by-name/kiview/package.nix#L46)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4333,7 +4333,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Version: `1.4.0`
 
 - [🌐 Homepage](https://github.com/kuroko-lang/kuroko)
-- [📦 Source](./pkgs/by-name/kuroko/package.nix#L30)
+- [📦 Source](./pkgs/by-name/kuroko/package.nix#L31)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - [📰 Changelog](https://github.com/kuroko-lang/kuroko/releases/tag/v1.4.0)
 
@@ -4406,7 +4406,7 @@ A library that reads and writes GTA files, with interfaces in C and C++
 - Version: `1.2.1`
 
 - [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./pkgs/by-name/libgta/package.nix#L46)
+- [📦 Source](./pkgs/by-name/libgta/package.nix#L47)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4510,7 +4510,7 @@ A library to make working with multidimensional arrays in C++ easy
 - Version: `4.3`
 
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./pkgs/by-name/libtgd/package.nix#L106)
+- [📦 Source](./pkgs/by-name/libtgd/package.nix#L108)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4654,7 +4654,7 @@ Library for emitting text, XML, JSON, or HTML output
 - Version: `1.7.5`
 
 - [🌐 Homepage](https://github.com/Juniper/libxo)
-- [📦 Source](./pkgs/by-name/libxo/package.nix#L34)
+- [📦 Source](./pkgs/by-name/libxo/package.nix#L35)
 - License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4755,7 +4755,7 @@ Library for emitting text, XML, JSON, or HTML output
 A hardware profiling application for Linux
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-03`
+- Version: `0-unstable-2025-03-07`
 
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
@@ -4803,7 +4803,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop
 - Version: `0.9.4-unstable-2024-12-18`
 
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/magpie)
-- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L66)
+- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L67)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -4875,7 +4875,7 @@ Level editor for creating (new) NES games
 - Version: `0.4`
 
 - [🌐 Homepage](https://github.com/pubby/mapfab)
-- [📦 Source](./pkgs/by-name/mapfab/package.nix#L69)
+- [📦 Source](./pkgs/by-name/mapfab/package.nix#L72)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - [📰 Changelog](https://github.com/pubby/mapfab/releases/tag/v0.4)
 
@@ -4948,7 +4948,7 @@ MII Apple //e Emulator for Linux
 - Version: `1.97`
 
 - [🌐 Homepage](https://github.com/buserror/mii_emu)
-- [📦 Source](./pkgs/by-name/mii-emu/package.nix#L41)
+- [📦 Source](./pkgs/by-name/mii-emu/package.nix#L43)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - [📰 Changelog](https://github.com/buserror/mii_emu/releases/tag/v1.97)
 
@@ -5021,7 +5021,7 @@ Snazzy Minesweeper-based game built with SDL2
 - Version: `1.1.5`
 
 - [🌐 Homepage](https://github.com/grassdne/minesector)
-- [📦 Source](./pkgs/by-name/minesector/package.nix#L41)
+- [📦 Source](./pkgs/by-name/minesector/package.nix#L43)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5093,7 +5093,7 @@ A convenient calculator for the command line
 - Version: `2.2`
 
 - [🌐 Homepage](https://marlam.de/mucalc/)
-- [📦 Source](./pkgs/by-name/mucalc/package.nix#L47)
+- [📦 Source](./pkgs/by-name/mucalc/package.nix#L48)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5238,7 +5238,7 @@ A fun 2D retro platformer inspired by Sonic games and a game creation system
 - Version: `0.6.1.2`
 
 - [🌐 Homepage](https://github.com/alemart/opensurge)
-- [📦 Source](./pkgs/by-name/opensurge/package.nix#L55)
+- [📦 Source](./pkgs/by-name/opensurge/package.nix#L56)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - [📰 Changelog](https://github.com/alemart/opensurge/releases/tag/v0.6.1.2)
 
@@ -5311,7 +5311,7 @@ Phonon Backend using MPV Player
 - Version: `0.1.0`
 
 - [🌐 Homepage](https://github.com/OpenProgger/phonon-mpv)
-- [📦 Source](./pkgs/by-name/phonon-mpv/package.nix#L51)
+- [📦 Source](./pkgs/by-name/phonon-mpv/package.nix#L53)
 - License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
 - [📰 Changelog](https://github.com/OpenProgger/phonon-mpv/releases/tag/v0.1.0)
 
@@ -5384,7 +5384,7 @@ Camera application for Plasma Mobile
 - Version: `1.0-unstable-2025-03-05`
 
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
-- [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L52)
+- [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L54)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5528,7 +5528,7 @@ A tool for learning programming basis with a simple Spanish pseudocode
 - Version: `20240122`
 
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L65)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L70)
 - License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5600,7 +5600,7 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
 - Version: `5.2`
 
 - [🌐 Homepage](https://marlam.de/qv/)
-- [📦 Source](./pkgs/by-name/qv/package.nix#L52)
+- [📦 Source](./pkgs/by-name/qv/package.nix#L53)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5672,7 +5672,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.12pre`
 
 - [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./pkgs/by-name/raze/package.nix#L55)
+- [📦 Source](./pkgs/by-name/raze/package.nix#L48)
 - License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5744,7 +5744,7 @@ Sharkish microblogging platform
 - Version: `2025.2.2`
 
 - [🌐 Homepage](https://activitypub.software/TransFem-org/Sharkey)
-- [📦 Source](./pkgs/by-name/sharkey/package.nix#L130)
+- [📦 Source](./pkgs/by-name/sharkey/package.nix#L132)
 - License: [`GNU Affero General Public License v3.0 only`](https://spdx.org/licenses/AGPL-3.0-only.html)
 - [📰 Changelog](https://activitypub.software/TransFem-org/Sharkey/-/releases/2025.2.2)
 
@@ -5889,7 +5889,7 @@ Sega Model 3 arcade machine emulator
 - Version: `0-unstable-2025-02-27`
 
 - [🌐 Homepage](https://github.com/trzy/Supermodel)
-- [📦 Source](./pkgs/by-name/supermodel/package.nix#L63)
+- [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -5961,7 +5961,7 @@ A scripting language for games
 - Version: `0.6.1`
 
 - [🌐 Homepage](https://github.com/alemart/surgescript)
-- [📦 Source](./pkgs/by-name/surgescript/package.nix#L39)
+- [📦 Source](./pkgs/by-name/surgescript/package.nix#L40)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - [📰 Changelog](https://github.com/alemart/surgescript/releases/tag/v0.6.1)
 
@@ -6034,7 +6034,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/teem/package.nix#L60)
+- [📦 Source](./pkgs/by-name/teem/package.nix#L62)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -6499,7 +6499,7 @@ A Qt style supporting both QtQuick and QtWidgets
 - Version: `0-unstable-2025-02-12`
 
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
-- [📦 Source](./pkgs/by-name/union/package.nix#L57)
+- [📦 Source](./pkgs/by-name/union/package.nix#L59)
 - Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -6571,7 +6571,7 @@ Display an animated neko cat on the bottom of an output
 - Version: `0-unstable-2024-03-29`
 
 - [🌐 Homepage](https://sr.ht/~leon_plickat/wayneko/)
-- [📦 Source](./pkgs/by-name/wayneko/package.nix#L41)
+- [📦 Source](./pkgs/by-name/wayneko/package.nix#L43)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -6643,7 +6643,7 @@ Wisp turns indentation based syntax into Lisp
 - Version: `1.0.12`
 
 - [🌐 Homepage](https://www.draketo.de/software/wisp)
-- [📦 Source](./pkgs/by-name/wisp/package.nix#L45)
+- [📦 Source](./pkgs/by-name/wisp/package.nix#L47)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
