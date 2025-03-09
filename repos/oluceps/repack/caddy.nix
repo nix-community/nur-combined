@@ -30,7 +30,7 @@ in
                 (
                   final: prev:
                   let
-                    version = "2.10.0-beta.1";
+                    version = "2.10.0-beta.2";
                   in
                   {
                     inherit version;
@@ -38,7 +38,7 @@ in
                       owner = "caddyserver";
                       repo = "caddy";
                       rev = "v${version}";
-                      hash = "sha256-3YDpcCgHuOnn7BhjS5KWNr44ADb4+J4l+8QRDL7WGFg=";
+                      hash = "sha256-sbY16qILrXtLlQxtGzvtM7NaJzmQLn4dR/8dhHZABiw=";
                     };
                     vendorHash = "sha256-YQLd+Xn1MfBUoY/LA0PwT/LlPaxNOg/HEN5B0jcs5VA=";
                   }
@@ -51,7 +51,7 @@ in
                 "github.com/mholt/caddy-ratelimit@v0.1.0"
                 "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
               ];
-              hash = "sha256-Z8Mrl2jKfHK/hVPRCG5bQ/sHbDj0n15Vbj2kb5iwMO4=";
+              hash = "sha256-fcTZ7xk/tuBlvJZ3iaURPci0sh4HPjv9d9KUolNqNQo=";
             };
       };
       settings = lib.mkOption {
@@ -69,8 +69,6 @@ in
       logging.logs.debug.level = "debug";
       storage = mkIf cfg.public {
         module = "s3";
-        host = "ad73318a13b24f38bd07b54222ad9e01.r2.cloudflarestorage.com";
-        bucket = "cert";
         prefix = "ssl";
         insecure = false;
       };
