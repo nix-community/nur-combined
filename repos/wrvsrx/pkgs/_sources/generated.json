@@ -182,27 +182,6 @@
         },
         "version": "0e6b90d1809514e853a8e80245b9e7eec71117c6"
     },
-    "cuda-samples": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "cuda-samples",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "NVIDIA",
-            "repo": "cuda-samples",
-            "rev": "v12.4",
-            "sha256": "sha256-D+kP1OEJ4zR/9wKL+jjAv3TRv1IdX39mhZ1MvobX6F0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v12.4"
-    },
     "cyCodeBase": {
         "cargoLocks": null,
         "date": "2023-07-26",

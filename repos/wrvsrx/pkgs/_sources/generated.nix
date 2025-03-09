@@ -100,17 +100,6 @@
     };
     date = "2024-07-15";
   };
-  cuda-samples = {
-    pname = "cuda-samples";
-    version = "v12.4";
-    src = fetchFromGitHub {
-      owner = "NVIDIA";
-      repo = "cuda-samples";
-      rev = "v12.4";
-      fetchSubmodules = false;
-      sha256 = "sha256-D+kP1OEJ4zR/9wKL+jjAv3TRv1IdX39mhZ1MvobX6F0=";
-    };
-  };
   cyCodeBase = {
     pname = "cyCodeBase";
     version = "ede026f5c1976faa90709690a4290161ed05c19b";

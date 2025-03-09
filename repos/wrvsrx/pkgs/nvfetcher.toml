@@ -136,8 +136,3 @@ fetch.pypi = "keymap_drawer"
 [tree-sitter-devicetree]
 src.github = "joelspadin/tree-sitter-devicetree"
 fetch.github = "joelspadin/tree-sitter-devicetree"
-
-[cuda-samples]
-# src.github = "NVIDIA/cuda-samples"
-src.manual = "v12.4"
-fetch.github = "NVIDIA/cuda-samples"

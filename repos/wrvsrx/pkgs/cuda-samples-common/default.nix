@@ -1,5 +1,4 @@
 {
-  lib,
   meson,
   cmake,
   ninja,
@@ -7,19 +6,21 @@
   haskellPackages,
   cudaPackages,
   substituteAll,
-  source,
+  fetchFromGitHub,
 }:
-let
-  version = lib.removePrefix "v" source.version;
-in
-cudaPackages.backendStdenv.mkDerivation {
+cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
   pname = "cuda-samples-common";
-  inherit (source) src;
-  inherit version;
+  inherit (cudaPackages.cudatoolkit) version;
+  src = fetchFromGitHub {
+    owner = "NVIDIA";
+    repo = "cuda-samples";
+    tag = "v${finalAttrs.version}";
+    sha256 = "sha256-D+kP1OEJ4zR/9wKL+jjAv3TRv1IdX39mhZ1MvobX6F0=";
+  };
   patches = [
     (substituteAll {
       src = ./meson.patch;
-      inherit version;
+      inherit (finalAttrs) version;
     })
     ./cpp20.patch
   ];
@@ -39,4 +40,4 @@ cudaPackages.backendStdenv.mkDerivation {
       ]
     ))
   ];
-}
+})

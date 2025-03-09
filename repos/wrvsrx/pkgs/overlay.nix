@@ -32,9 +32,7 @@ let
     happly = callPackage ./happly { source = sources.happly; };
     cnpy = callPackage ./cnpy { source = sources.cnpy; };
     amgcl = callPackage ./amgcl { source = sources.amgcl; };
-    cuda-samples-common = callPackage ./cuda-samples-common {
-      source = sources.cuda-samples;
-    };
+    cuda-samples-common = callPackage ./cuda-samples-common { };
     structopt = callPackage ./structopt { source = sources.structopt; };
     utfcpp = callPackage ./utfcpp { source = sources.utfcpp; };
     seal_lake = callPackage ./seal_lake { source = sources.seal_lake; };
