@@ -30,7 +30,7 @@ reIf {
         '';
       };
       paste = {
-        default_expiry = "128h";
+        default_expiry = "1708h";
         default_extension = "txt";
         delete_expired_files = {
           enabled = true;
