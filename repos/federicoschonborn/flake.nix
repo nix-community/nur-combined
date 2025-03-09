@@ -64,52 +64,16 @@
               allowUnfreePredicate =
                 p:
                 builtins.elem (lib.getName p) [
-                  # akkoma-emoji
-                  "eevee-neopossum"
-                  "eppa-neobun"
-                  "eppa-neocube"
-                  "fotoente-neodino"
-                  "fotoente-neohaj"
-                  "fotoente-neomilk"
-                  "fotoente-neotrain"
-                  "mahiwa-neorat"
-                  "moonrabbits-neodog"
-                  "olivvybee-blobbee"
-                  "olivvybee-fox"
-                  "olivvybee-neobread"
-                  "olivvybee-neodlr"
-                  "olivvybee-neofriends"
-                  "olivvybee-neossb"
-                  "pleroma-buns"
-                  "pleroma-celestemojis"
-                  "pleroma-finmoji"
-                  "pleroma-longfox"
-                  "pleroma-rooms"
-                  "renere-spinny-blobcats"
-                  "renere-spinny-blobfoxes"
-                  "renere-spinny-blobs"
-                  "volpeon-blobfox_flip"
-                  "volpeon-blobfox"
-                  "volpeon-bunhd_flip"
-                  "volpeon-bunhd"
-                  "volpeon-drgn"
-                  "volpeon-floof"
-                  "volpeon-fox"
-                  "volpeon-gphn"
-                  "volpeon-neocat"
-                  "volpeon-neofox"
-                  "volpeon-raccoon"
-                  "volpeon-vlpn"
-                  "volpeon-wvrn"
-                  "wep-neomouse"
-
                   "super-mario-127"
                 ];
+              permittedInsecurePackages = [
+                "olm-3.2.16"
+              ];
             };
           };
 
           legacyPackages = import ./. { inherit lib pkgs system; };
-          packages = import ./flattenTree.nix config.legacyPackages;
+          packages = lib.filterAttrs (_: lib.isDerivation) config.legacyPackages;
 
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
@@ -203,12 +167,6 @@
                             </summary>
                         ''
                         (lib.optionalString (meta ? longDescription) "${meta.longDescription}")
-                        (lib.optionalString (meta ? maintainers) (
-                          "- Maintainers:\n"
-                          + lib.concatMapStringsSep "\n" (
-                            x: "  - ${x.name}${lib.optionalString (x ? email) " [✉️](mailto:${x.email})"}"
-                          ) meta.maintainers
-                        ))
                         (lib.optionalString (meta ? platforms) (
                           "- Platforms:\n" + lib.concatMapStringsSep "\n" (x: "  - `${x}`") meta.platforms
                         ))

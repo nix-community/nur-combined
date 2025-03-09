@@ -21,9 +21,6 @@ lib.makeScope pkgs.newScope (
   // {
     lib = import ./lib { inherit lib; };
 
-    # Sets
-    akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
-
     # Variants
     fastfetchMinimal =
       (self.fastfetch.overrideAttrs (
