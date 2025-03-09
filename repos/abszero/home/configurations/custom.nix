@@ -56,7 +56,10 @@ in
             ghostty.enable = true;
             gtk.enable = true;
             hyprland.enable = true;
-            hyprpaper.nixosLogo = true;
+            hyprpaper = {
+              enable = true;
+              wallpaper = "nixos-logo";
+            };
             plasma6.enable = true;
           };
           xdg.dataFile."home-manager/specialisation".text = "catppuccin";

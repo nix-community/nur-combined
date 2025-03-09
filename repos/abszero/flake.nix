@@ -42,6 +42,7 @@
       url = "github:linyinfeng/lanzaboote/uki";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
       };
     };

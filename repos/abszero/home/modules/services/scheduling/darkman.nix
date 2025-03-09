@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib)
@@ -9,10 +14,31 @@ let
     ;
   cfg = config.abszero.services.darkman;
 
-  switch-hm-specialisation = spec: ''
-    hm_gens=$(nix-store -q --referrers ~/.local/state/nix/profiles/home-manager)
-    $(find $hm_gens -maxdepth 1 -type d -name specialisation)/${spec}/activate
-  '';
+  switch-hm-specialisation =
+    spec:
+    pkgs.writeShellApplication {
+      name = "switch-hm-specialisation-${spec}";
+
+      runtimeInputs = with pkgs; [
+        nixVersions.latest
+        toybox
+      ];
+
+      inheritPath = false;
+      excludeShellChecks = [ "SC2086" ];
+      bashOptions = [
+        "errexit"
+        "nounset"
+        "pipefail"
+        "xtrace"
+      ];
+
+      text = ''
+        hm_gens=$(nix-store -q --referrers ~/.local/state/nix/profiles/home-manager)
+        "$(find $hm_gens -maxdepth 1 -type d -name specialisation)/${spec}/activate"
+      '';
+    }
+    + "/bin/switch-hm-specialisation-${spec}";
 in
 
 {

@@ -24,7 +24,10 @@ let
           ghostty.enable = true;
           gtk.enable = true;
           hyprland.enable = true;
-          hyprpaper.nixosLogo = true;
+          hyprpaper = {
+            enable = true;
+            wallpaper = "xppen-chan";
+          };
         };
       };
     };

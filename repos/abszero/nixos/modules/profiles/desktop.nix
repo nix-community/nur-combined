@@ -32,10 +32,10 @@ in
 
     networking = {
       nameservers = [
-        "1.1.1.1"
-        "1.0.0.1"
-        "9.9.9.9"
-        "149.112.112.112"
+        "1.1.1.1" # Cloudflare
+        "1.0.0.1" # Cloudflare
+        "9.9.9.9" # Quad9
+        "149.112.112.112" # Quad9
       ];
       search = [ "~." ]; # Always use global name servers (shouldn't affect VPNs)
       dhcpcd.enable = false;
@@ -86,6 +86,13 @@ in
         llmnr = "false";
       };
       system76-scheduler.enable = true;
+      upower = {
+        enable = true;
+        percentageLow = 30;
+        percentageCritical = 10;
+        # Disable polling for hardware that pushes events
+        noPollBatteries = true;
+      };
     };
 
     xdg = {
