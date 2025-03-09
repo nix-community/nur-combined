@@ -69,6 +69,13 @@ in
             description = "Name of the timer.";
           };
 
+          reason = mkOption {
+            type = with types; nullOr str;
+            example = "Nightly build";
+            default = null;
+            description = "optional human-readable string that will be displayed in the web UI as the cause of the build.";
+          };
+
           startAt = mkOption {
             type = with types; either str (listOf str);
             default = "daily";
@@ -179,6 +186,9 @@ in
             "/run/wrappers"
           ]
           ++ cfg.path;
+          environment = {
+            LAMINAR_REASON = job.reason;
+          };
           serviceConfig = {
             User = cfg.user;
             Group = cfg.group;
