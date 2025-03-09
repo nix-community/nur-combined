@@ -40,7 +40,15 @@ let
         whois
         dig
         wireguard-tools
-        curlHTTP3
+        # curlFull
+        (curlECH.override {
+          ldapSupport = true;
+          gsaslSupport = true;
+          rtmpSupport = true;
+          pslSupport = true;
+          websocketSupport = true;
+          echSupport = true;
+        })
         xh
         ngrep
         gping
@@ -105,7 +113,7 @@ let
         rsync
       ]
     ];
-    # # ripgrep-all 
+    # # ripgrep-all
 
   };
 in
