@@ -14,6 +14,31 @@ let
   inherit (lib) removeSuffix;
   inherit (pkgs) writeText;
 
+  collectDirs =
+    path: prefix:
+    let
+      entries = builtins.readDir path;
+      dirs = lib.filterAttrs (_: type: type == "directory") entries;
+      currentPaths = lib.attrNames (
+        lib.mapAttrs' (name: _: {
+          name = if prefix == "" then name else "${prefix}/${name}";
+          value = null;
+        }) dirs
+      );
+      childrenPaths = lib.concatMap (
+        name:
+        collectDirs (path + "/${name}") (
+          lib.concatStringsSep "/" (
+            lib.filter (s: s != "") [
+              prefix
+              name
+            ]
+          )
+        )
+      ) (lib.attrNames dirs);
+    in
+    currentPaths ++ childrenPaths;
+
   listRecursive = pathStr: listRecursive' { } pathStr;
   listRecursive' =
     acc: pathStr:
@@ -41,4 +66,7 @@ let
     in
     recursiveUpdate dirs' files';
 in
-listRecursive ""
+{
+  files = listRecursive "";
+  dirs = collectDirs ./. "";
+}
