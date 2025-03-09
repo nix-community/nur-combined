@@ -1877,11 +1877,11 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1741501726,
-        "narHash": "sha256-RZNm0nOBCWEDNI6Cybg1/ixXfrU7xQtv3mxL6MeUs28=",
+        "lastModified": 1738964222,
+        "narHash": "sha256-GmjmEeBkWQ90seuav4sZmYhI19fDDacwc+DUi86Gj94=",
         "owner": "oluceps",
         "repo": "nix-topology",
-        "rev": "a7096e90f7167b90215f184e961ffc938c73ce6c",
+        "rev": "50c2535b730b38b8ea48b28693512ea656dd35e9",
         "type": "github"
       },
       "original": {
