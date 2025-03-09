@@ -1,18 +1,6 @@
 { lib, callPackage }:
 
-let
-  wep = lib.recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      inherit callPackage;
-      directory = ./wep;
-    }
-  );
-in
-
 {
-  av70 = wep;
-  inherit wep;
-
   eevee = lib.recurseIntoAttrs (
     lib.packagesFromDirectoryRecursive {
       inherit callPackage;
@@ -73,6 +61,13 @@ in
     lib.packagesFromDirectoryRecursive {
       inherit callPackage;
       directory = ./volpeon;
+    }
+  );
+
+  wep = lib.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      inherit callPackage;
+      directory = ./wep;
     }
   );
 }
