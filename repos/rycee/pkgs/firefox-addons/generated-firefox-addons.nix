@@ -11503,10 +11503,10 @@
     };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.27.4";
+      version = "0.27.7";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362132/tetrio_plus-0.27.4.xpi";
-      sha256 = "bb408739643fa3dc8af173f0b713a51ce2720fe28ddd28a96823eb98af69b130";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4450796/tetrio_plus-0.27.7.xpi";
+      sha256 = "acb2d9f3bd7f063e7a7df3fba936a9ffe003c7c4d9a7fc88ba130eddadd787f6";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for TETR.IO.";
@@ -13646,10 +13646,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.1.20";
+      version = "2.1.31";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449424/youtube_no_translation-2.1.20.xpi";
-      sha256 = "77fdc239546a1f5b481c92f7c0d8e268e985a44677df35ecf0fb11ee0dcad0ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4450687/youtube_no_translation-2.1.31.xpi";
+      sha256 = "1bf3db7783121c8142dfe8b7293524c6b33b3bc5710d3234ccdc8b86d0b87807";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
