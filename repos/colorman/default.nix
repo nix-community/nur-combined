@@ -12,4 +12,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   problemtools = pkgs.callPackage ./pkgs/problemtools {};
+  bapctools = pkgs.callPackage ./pkgs/bapctools {};
 }
