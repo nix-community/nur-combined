@@ -2350,7 +2350,7 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 - Version: `SLE2024-artifact-unstable-2025-03-03`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
-- [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
+- [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
 - License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

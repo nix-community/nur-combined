@@ -16,21 +16,20 @@ stdenv.mkDerivation {
     hash = "sha256-dfzOlsGj+MODnc7aGzp5H65WbWs2cVUFqrMYCkcI+5E=";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail "sudo cp" "cp" \
+      --replace-fail "/usr/local" "$out"
+  '';
+
+  preInstall = ''
+    mkdir -p $out/bin
+  '';
+
   makeFlags = [
     "pnut-sh"
     "pnut-sh.sh"
   ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    ls build
-    cp build/pnut-sh $out/bin/pnut
-    cp build/pnut-sh.sh $out/bin/pnut.sh
-
-    runHook postInstall
-  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
