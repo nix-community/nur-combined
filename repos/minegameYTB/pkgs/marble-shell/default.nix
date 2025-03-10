@@ -1,6 +1,6 @@
 { stdenvNoCC, lib, fetchurl, variant ? "" }:
 let
-  # Définition des métadonnées par variante
+  ### Definition of metadata by variant
   themeType = if variant == "filled" then {
     suffix = "-filled";
     hash = "sha256-+2WYApmfXxRa1ezp2vzHHr1P+uhe1XbgML7xVytU5bo=";
@@ -13,7 +13,7 @@ let
   version = "47.0";
 in
 stdenvNoCC.mkDerivation rec {
-  pname = baseName;
+  pname = themeName;
   inherit version;
   src = fetchurl {
     url = "https://github.com/imarkoff/${baseName}-theme/releases/download/${version}/${themeName}.tar.xz";
@@ -22,10 +22,9 @@ stdenvNoCC.mkDerivation rec {
   sourceRoot = ".";
   installPhase = ''
     mkdir -p $out/share/themes
-    
-    # Gestion conditionnelle des noms de dossiers selon la variante
+    ### Conditional handling of folder names based on variant
     if [ "${variant}" = "filled" ]; then
-      # Variante filled: ajouter le suffixe -filled aux dossiers qui ne l'ont pas déjà
+      ### Filled variant: add -filled suffix to directories that don't already have it
       for dir in Marble-*; do
         if [[ "$dir" != *-filled ]]; then
           cp -r "$dir" "$out/share/themes/''${dir}-filled"
@@ -34,14 +33,14 @@ stdenvNoCC.mkDerivation rec {
         fi
       done
     else
-      # Variante standard: s'assurer qu'aucun dossier n'a le suffixe -filled
+      ### Standard variant: ensure no directory has the -filled suffix
       for dir in Marble-*; do
         if [[ "$dir" == *-filled ]]; then
-          # Si par hasard un dossier a le suffixe -filled, on le retire
+          ### If by chance a directory has the -filled suffix, remove it
           newName=$(echo "$dir" | sed 's/-filled$//')
           cp -r "$dir" "$out/share/themes/$newName"
         else
-          # Sinon, on copie normalement
+          ### Otherwise, copy normally
           cp -r "$dir" "$out/share/themes/"
         fi
       done
