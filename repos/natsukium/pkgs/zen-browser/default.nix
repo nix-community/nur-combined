@@ -8,7 +8,7 @@
 stdenvNoCC.mkDerivation {
   inherit (source) pname version src;
 
-  sourceRoot = "Zen Browser.app";
+  sourceRoot = "Zen.app";
 
   nativeBuildInputs = [ undmg ];
 
