@@ -2,7 +2,7 @@
   fetchFromGitLab,
   rustPlatform,
   perl,
-  unstableGitUpdater,
+  nix-update-script,
   lib,
 }:
 
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Language bindings for vodozemac";

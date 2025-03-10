@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -20,7 +20,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Check for outdated go module";
