@@ -2598,10 +2598,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.58.2";
+      version = "2.58.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449536/dualsub-2.58.2.xpi";
-      sha256 = "c35f31e7b45442e104f2b3b79d295e9aedd6b43c5fc17ce3295f5b0ee795e39e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451238/dualsub-2.58.3.xpi";
+      sha256 = "8d51471583f0bd25d37c5de86792994407ce1cfd1585295d6a72c40f70d40a27";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -11996,10 +11996,10 @@
     };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.3.2";
+      version = "0.4.0";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312331/tubearchivist_companion-0.3.2.xpi";
-      sha256 = "fae10b563e9e71dd9961a2b2b4aacc6b266716f6c4b27e5caf4739e6bc32f3fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451031/tubearchivist_companion-0.4.0.xpi";
+      sha256 = "c14e929f5afa2b118a909bad07cac11448c04cec3fe03b8daeb821ca56011847";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
@@ -13646,10 +13646,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.1.31";
+      version = "2.1.32";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4450687/youtube_no_translation-2.1.31.xpi";
-      sha256 = "1bf3db7783121c8142dfe8b7293524c6b33b3bc5710d3234ccdc8b86d0b87807";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451123/youtube_no_translation-2.1.32.xpi";
+      sha256 = "1bcf60714ba0ae049650fd1e78aff7c7c3d46c2ccab59625d69b55d37a917986";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
