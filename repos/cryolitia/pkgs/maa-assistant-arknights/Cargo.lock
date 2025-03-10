@@ -1176,7 +1176,7 @@ dependencies = [
 
 [[package]]
 name = "maa-sys"
-version = "0.5.0"
+version = "0.6.0"
 dependencies = [
  "libloading",
  "maa-types",

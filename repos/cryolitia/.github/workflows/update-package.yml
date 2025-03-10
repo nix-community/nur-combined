@@ -7,7 +7,6 @@ on:
     paths:
       - ".github/workflows/update-package.yml"
       - "pkgs/maa-assistant-arknights/update.sh"
-      - "pkgs/mdbook-typst-pdf/update.sh"
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -39,7 +38,6 @@ jobs:
 
       - name: Update packages
         run: |
-          #! /usr/bin/env -S nix shell nixpkgs#nix-update nixpkgs#nixfmt-rfc-style --command bash
           nix run nixpkgs#nix-update -- --commit --format --flake bmi260
           nix run nixpkgs#nix-update -- --commit --format --flake get-lrc
           nix run nixpkgs#nix-update -- --commit --format --flake mdbook-typst-pdf
