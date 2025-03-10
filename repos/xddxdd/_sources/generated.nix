@@ -454,14 +454,14 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "aec6535391f1ef19538e072dfbc4c3dc1c145fec";
+    version = "83616c858b1f04d0b599eabedac664a71bf7eb27";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "aec6535391f1ef19538e072dfbc4c3dc1c145fec";
+      rev = "83616c858b1f04d0b599eabedac664a71bf7eb27";
       fetchSubmodules = false;
-      hash = "sha256-u7aRotIe3ai6OAYP/DxHGXqUTB7GpzvJVp9A7MJIxb0=";
+      hash = "sha256-0j4VQT+aVq3vzJM8atuCW9pSAhGqcjjehTM/EAX5egM=";
     };
-    date = "2025-01-21";
+    date = "2025-03-09";
   };
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4856";
+    version = "b4859";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4856";
-      hash = "sha256-NS8ygVNXfOXxKGjPXFiy4MmJIs7DpeX15qg3aH5xZec=";
+      tag = "b4859";
+      hash = "sha256-qQoIjlkpeGN7gOSIiCZnAgzZtU2xc5AZ5LTsRdepgsg=";
     };
   };
   loralib = {
@@ -1631,18 +1631,18 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250209";
+    version = "20250309";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250209/moegirl.dict.yaml";
-      hash = "sha256-9NlOL61KKcQ9Tno9aNvzTPhhqQJ/XjnbZKSLeXw1D9A=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250309/moegirl.dict.yaml";
+      hash = "sha256-LUKh0UMU0WVIWAGWogzWjqEVKCY7TTvWRueMeFxVslk=";
     };
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20241218";
+    version = "20250310";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20241218.dict.yaml";
-      hash = "sha256-nA/Imd+WVZTF0vF59D9W8JRuOQRHRpni2UTGHUByiQI=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20250310.dict.yaml";
+      hash = "sha256-z0BIl3eaCHx1BB46EbGkq8tLQYq5PCf4SyQAIAVA2A4=";
     };
   };
   rootutils = {
