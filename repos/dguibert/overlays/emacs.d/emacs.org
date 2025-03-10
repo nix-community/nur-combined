@@ -38,6 +38,7 @@
   - [[#minibuffer-histories][Minibuffer histories]]
   - [[#split-an-org-subtree-into-its-own-note][Split an Org subtree into its own note]]
   - [[#consult-notes][Consult-notes]]
+  - [[#denote-bibliography-bibtex-in-notes][Denote bibliography (bibtex in notes)]]
 - [[#terminal][Terminal]]
   - [[#eat-emulate-a-terminal][Eat (emulate a terminal)]]
 - [[#syntax-modes][syntax modes]]
@@ -56,7 +57,7 @@ inspired from https://www.srid.ca/vanilla-emacs-nixos.html
 (require 'use-package)
 #+end_src
 
-Setup use package that must use system packages
+Setup use package that must use system packages (inside the use-package distribution)
 #+begin_src emacs-lisp
 (use-package use-package-ensure-system-package :ensure t)
 #+end_src
@@ -67,6 +68,8 @@ Load custom module files from user directory (like: notmuch-switch-identity, not
 #+end_src
 * Evil mode
 #+begin_src emacs-lisp
+  (use-package treepy)
+  (use-package ghub)
   (use-package evil
     :ensure t
     :init ;; tweak evil's configuration before loading it
@@ -81,6 +84,7 @@ Load custom module files from user directory (like: notmuch-switch-identity, not
     (evil-set-initial-state 'message-buffer-mode 'normal)
     (evil-set-initial-state 'dashboard-mode 'normal)
   )
+(use-package goto-chg)
 (use-package evil-collection
     :after evil
     :config
@@ -168,6 +172,7 @@ Treat underscore as part of words
         '((t . ivy--regex-ignore-order)))
   (ivy-mode))
 
+(use-package swiper)
 (use-package all-the-icons-ivy-rich
   :init (all-the-icons-ivy-rich-mode 1))
 
@@ -387,6 +392,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
   ;(require 'tramp)
 
+(use-package tablist)
   (use-package pdf-tools :ensure t) ;; required for org-noter
   (use-package org-noter
     :ensure t
@@ -425,6 +431,10 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   ;;                       :prepend t
   ;;                       :kill-buffer t))
 
+(use-package htmlize)
+(use-package hydra)
+(use-package lv)
+(use-package ox-pandoc)
   (use-package org-ref
     :ensure t
     :config
@@ -497,6 +507,10 @@ Org-tempo is not a separate package but a module within org that can be enabled.
     :config
     (require 'shrface))
 
+  (use-package kv)
+  (use-package esxml)
+  (use-package plz)
+  (use-package request)
   (use-package org-web-tools :ensure t)
 
   ;; https://www.reddit.com/r/emacs/comments/l42x1p/shrface_263_now_can_be_used_as_archiving_web_pages/
@@ -825,6 +839,9 @@ nil)
     (setq org-babel-hide-result-overlays nil))
   (advice-add 'ob-async-org-babel-execute-src-block :before #'no-hide-overlays))
 
+(use-package s)
+(use-package ht)
+(use-package ts)
 (use-package org-super-agenda
   :ensure t
   :after org-agenda
@@ -998,6 +1015,8 @@ nil)
   (doom-themes-org-config))
 
 
+(use-package nerd-icons)
+(use-package shrink-path)
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
@@ -1168,24 +1187,29 @@ Open dired buffer with `C-x 4 d`
 :ID:       99e7efb4-7af3-4d2f-a97e-4ebaca3501b1
 :END:
 #+begin_src emacs-lisp
-  (use-package magit
-    :ensure t
-    :custom
-    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-    ;; Don't use magit for interactive rebase
-    ;; (has own entire key-map, doesn't allow text-file editing).
-    (setq auto-mode-alist (rassq-delete-all #'git-rebase-mode auto-mode-alist))
-    )
+(use-package llama)
+(use-package magit
+  :ensure t
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  ;; Don't use magit for interactive rebase
+  ;; (has own entire key-map, doesn't allow text-file editing).
+  (setq auto-mode-alist (rassq-delete-all #'git-rebase-mode auto-mode-alist))
+  )
 
-  (use-package forge
-    :ensure t
-    :after magit)
+(use-package with-editor)
+(use-package markdown-mode)
+(use-package yaml)
+(use-package forge
+  :ensure t
+  :after magit)
 #+end_src
 
 * Org-roam (note)
 #+begin_src emacs-lisp
   ; https://rgoswami.me/posts/org-note-workflow/
   ; https://lucidmanager.org/productivity/taking-notes-with-emacs-org-mode-and-org-roam/
+  (use-package emacsql)
   (use-package org-roam
     :ensure t
     :demand t  ;; Ensure org-roam is loaded by default
@@ -1369,6 +1393,7 @@ https://protesilaos.com/emacs/denote
     )
   )
 
+(use-package parsebib)
 (use-package citar
   :custom
   (citar-bibliography '("~/Documents/bib.bib"
@@ -1376,6 +1401,10 @@ https://protesilaos.com/emacs/denote
                         "~/Documents/cv/dguibert.bib"
                         )))
 
+(use-package f)
+(use-package citeproc)
+(use-package string-inflection)
+(use-package queue)
 (use-package citar-denote)
 (citar-denote-mode)
 #+end_src
@@ -1489,6 +1518,10 @@ Delete the original subtree."
   (setq consult-notes-denote-files-function (function denote-directory-text-only-files)))
 #+end_src
 
+** Denote bibliography (bibtex in notes)
+#+begin_src emacs-lisp
+  (require 'denote-bibliography nil nil) ;; t=no signaling an error
+#+end_src
 * Terminal
 ** Eat (emulate a terminal)
 #+begin_src emacs-lisp
@@ -1516,6 +1549,7 @@ See [[https://lucidmanager.org/productivity/emacs-bibtex-mode/][Manage your lite
 
 BibTeX is old but stable software that was last updated in 1988 and has as such some minor limitations. The BibLaTeX dialect is a newer version. To change bibtex-mode to BibLaTeX, change the bibtex-dialect variable in the configuration to biblatex.
 #+begin_src emacs-lisp
+(use-package f)
 (use-package bibtex
     :custom
     (bibtex-dialect 'BibTeX)

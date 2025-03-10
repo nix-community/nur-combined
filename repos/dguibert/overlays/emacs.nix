@@ -40,7 +40,7 @@ with prev; let
     # config = ./emacs.d/init.el;
 
     # Package is optional, defaults to pkgs.emacs
-    package = pkgs.emacs-pgtk;
+    package = pkgs.emacs-git-pgtk;
 
     alwaysEnsure = true;
 
@@ -107,11 +107,11 @@ in {
   #    prev.gtk3-x11
   #  ];
   #});
-  emacs-pgtk =
-    (prev.emacs-pgtk.override {
+  emacs-git-pgtk =
+    (prev.emacs-git-pgtk.override {
       })
     .overrideAttrs (old: {
-      name = "emacs-pgtk";
+      name = "emacs-git-pgtk";
       version = inputs.emacs-src.shortRev;
       src = inputs.emacs-src;
     });
