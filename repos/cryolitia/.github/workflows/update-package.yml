@@ -39,6 +39,7 @@ jobs:
 
       - name: Update packages
         run: |
+          #! /usr/bin/env -S nix shell nixpkgs#nix-update nixpkgs#nixfmt-rfc-style --command bash
           nix run nixpkgs#nix-update -- --commit --format --flake bmi260
           nix run nixpkgs#nix-update -- --commit --format --flake get-lrc
           nix run nixpkgs#nix-update -- --commit --format --flake mdbook-typst-pdf
