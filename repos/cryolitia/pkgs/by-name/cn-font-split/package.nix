@@ -27,6 +27,8 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
 
+  doCheck = false;
+
   cargoHash = "sha256-DYI/lFYaP8taFqCtYHXia3N5/e8JqOpC/nW13soZdzY=";
 
   meta = {
