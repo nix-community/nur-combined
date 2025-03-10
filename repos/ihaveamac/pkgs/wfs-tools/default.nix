@@ -16,12 +16,6 @@
 
 let
   realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
-  wfslib = fetchFromGitHub {
-    owner = "koolkdev";
-    repo = "wfslib";
-    rev = "4f95c825cc1b406d2df848ab5cb971f80fa0c3d5";
-    hash = "sha256-WhwtgnMQ8Ba6XN38kW0R7pQ93yI6Pxm5A73CIryQ0BM=";
-  };
   realCryptopp =
     if stdenv.hostPlatform.isWindows then
       (cryptopp.overrideAttrs (
@@ -49,6 +43,13 @@ realStdenv.mkDerivation rec {
     hash = "sha256-cB4xQEGRmDzWdEKwhyK5NRLZsYPtq50kFHLfXHxFSqE=";
   };
 
+  passthru.wfslib = fetchFromGitHub {
+    owner = "koolkdev";
+    repo = "wfslib";
+    rev = "4f95c825cc1b406d2df848ab5cb971f80fa0c3d5";
+    hash = "sha256-WhwtgnMQ8Ba6XN38kW0R7pQ93yI6Pxm5A73CIryQ0BM=";
+  };
+
   patches = [
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
@@ -56,7 +57,7 @@ realStdenv.mkDerivation rec {
 
   prePatch = ''
     rmdir wfslib
-    cp -r ${wfslib} wfslib
+    cp -r ${passthru.wfslib} wfslib
     chmod -R u+w ./wfslib
   '';
 
