@@ -1,4 +1,4 @@
-{ callPackage, pkgs }:
+{ lib, callPackage, pkgs }:
 
 {
  ### Utilities
@@ -9,8 +9,15 @@
 
  ### Theme sets
  theme = {
-   marble-shell = callPackage ./marble-shell {};
-   marble-shell-filled = callPackage ./marble-shell { variant = "filled"; };
+   marble-shell-filled = callPackage ./marble-shell-filled {};
+   
+   ### marble-shell to marble-shell-filled with warning when this attribute is called
+   marble-shell = let
+      buildPackage = callPackage ./marble-shell-filled {};
+    in 
+      builtins.trace
+        "marble-shell has been renamed to marble-shell-filled, consider migrating to this new name before deleting this attribute in 1 month. (nur.repos.minegameYTB.theme.marble-shell -> minegameYTB.theme.marble-shell-filled)"
+      buildPackage;
  };
 
  # some-qt5-package = libsForQt5.callPackage ./some-qt5-package { };
