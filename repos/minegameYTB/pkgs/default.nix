@@ -15,8 +15,8 @@
    marble-shell = let
       buildPackage = callPackage ./marble-shell-filled {};
     in 
-      builtins.trace
-        "marble-shell has been renamed to marble-shell-filled, consider migrating to this new name before deleting this attribute in 1 month. (nur.repos.minegameYTB.theme.marble-shell -> nur.repos.minegameYTB.theme.marble-shell-filled)"
+      builtins.warn
+      "marble-shell has been renamed to marble-shell-filled, consider migrating to this new name before deleting this attribute in 1 month. (nur.repos.minegameYTB.theme.marble-shell -> nur.repos.minegameYTB.theme.marble-shell-filled)"
       buildPackage;
  };
 
