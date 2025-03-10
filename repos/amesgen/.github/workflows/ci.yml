@@ -11,7 +11,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
-      uses: cachix/install-nix-action@v30
+      uses: cachix/install-nix-action@v31
     - run: nix flake check
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=amesgen"
