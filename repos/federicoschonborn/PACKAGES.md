@@ -1567,7 +1567,7 @@ Library for emitting text, XML, JSON, or HTML output
 A hardware profiling application for Linux
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-07`
+- Version: `0-unstable-2025-03-10`
 
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
