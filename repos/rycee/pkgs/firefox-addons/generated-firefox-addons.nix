@@ -315,10 +315,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.23";
+      version = "1.0.25";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4436205/angular_devtools-1.0.23.xpi";
-      sha256 = "c48f748895e220d2c9b60f7d179ce34ea58b31f039576f7f366eaab56e841eda";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449013/angular_devtools-1.0.25.xpi";
+      sha256 = "51c33024eab1945f8e0e5d4edf266c1bccb6c36df9defc2bf18b8766ee82b332";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -2139,10 +2139,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "137.0.20250307.103915";
+      version = "136.0.20250310.180126";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449966/dansk_da_language_pack-137.0.20250307.103915.xpi";
-      sha256 = "a1bd9e8d376b6b422ffe3e783af0b4fdf22e968f48314901e521497442b39778";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452010/dansk_da_language_pack-136.0.20250310.180126.xpi";
+      sha256 = "cb527adff49e5d2120983a4124020f36f456eb22e80c0308e5068b5296f49562";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2288,10 +2288,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.0.1";
+      version = "2.0.5";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4439707/dearrow-2.0.1.xpi";
-      sha256 = "ec17c230a585df725e6efce33e12f81d8660bf173e97a8e30be26bf82379a19d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451121/dearrow-2.0.5.xpi";
+      sha256 = "b64f32ecebce8bf138ff7888d3461b4af662481e68fb23d8a4390cc33c2a2857";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2336,10 +2336,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "137.0.20250307.103915";
+      version = "136.0.20250310.180126";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449964/deutsch_de_language_pack-137.0.20250307.103915.xpi";
-      sha256 = "ea7c84e9de673453fb1ccbc1594902983ea5fb797477b347afd0f59bd8a9603b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452007/deutsch_de_language_pack-136.0.20250310.180126.xpi";
+      sha256 = "e6b5c4e0c7cbec5e8f936ebeb8c303015269472f01e5f09df26a0e3ba56d034c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2372,10 +2372,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.3.1";
+      version = "5.4.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4440589/dictionaries-5.3.1.xpi";
-      sha256 = "4af258ffef60e0eff6faf0f23de538e992ddf31358236dc194e55e8b0c3c2362";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451887/dictionaries-5.4.0.xpi";
+      sha256 = "2a4c914488746a4aa42dd9b00feb2d78b3f998a167b8d4b65989cab465b7df3d";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3268,10 +3268,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.83";
+      version = "6.1.84";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4428652/flagfox-6.1.83.xpi";
-      sha256 = "ebbeb931b0c5d32fd5fab1c801c08fc7504f0013ab9336af47e0e981fb319be2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4445208/flagfox-6.1.84.xpi";
+      sha256 = "828c5075be64c5357975b5cfe10132e39c34e2685ae2743a41cd933b70483ae3";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3571,10 +3571,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "137.0.20250307.103915";
+      version = "136.0.20250310.180126";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449908/francais_language_pack-137.0.20250307.103915.xpi";
-      sha256 = "3a54ce1ddd17c9d980cd432f83c554bc5c6bd1306181a8b94c620ed331e914d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452030/francais_language_pack-136.0.20250310.180126.xpi";
+      sha256 = "5574968b4ea09f74b9f71c70c307198abf53fa343e56c65a057e9c7e34e3d03a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3608,10 +3608,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "137.0.20250307.103915";
+      version = "136.0.20250310.180126";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449900/gaidhlig_language_pack-137.0.20250307.103915.xpi";
-      sha256 = "13ba5172bdb1f7e09a4e901cc928b15e0811b88f6a679c0dc31c4390f8fb6cbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452027/gaidhlig_language_pack-136.0.20250310.180126.xpi";
+      sha256 = "598858c5ec38b5c0de3ec083f10223ff7a2b73f89667394af371e3715197d5d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3657,10 +3657,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.25";
+      version = "10.4.27";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4436536/ghostery-10.4.25.xpi";
-      sha256 = "9fde97192da97765fe13942ee4b0e855d399c4348efa6615bc2c29e3e13625ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4449732/ghostery-10.4.27.xpi";
+      sha256 = "317984e9671ccd4c41ca6ff4c2ac0254a3f5d551983a7d1cd86240c140e9e043";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -10242,10 +10242,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "137.0.20250307.103915";
+      version = "136.0.20250310.180126";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4449974/scots_language_pack-137.0.20250307.103915.xpi";
-      sha256 = "f97d2afdbb37944f921db37b79392d4d90ba5dfb9a0b3006aa8ee8c7393f8ec2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452018/scots_language_pack-136.0.20250310.180126.xpi";
+      sha256 = "c4dfa6d8e82d7a5f869d8667f86da604529d691ae4a6058c9b2107387f078a3c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11780,7 +11780,7 @@
       sha256 = "26ca52178f68e33d7da4ac3fc8ae1479ba6f98a0ec827ecb7faf097413235bb6";
       meta = with lib;
       {
-        description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
+        description = "Translate your page in real time using Google, Bing or Yandex.\nIt is not necessary to open new tabs.";
         license = licenses.mpl20;
         mozPermissions = [
           "<all_urls>"
