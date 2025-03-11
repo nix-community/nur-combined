@@ -35,12 +35,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Manage wifi and ethernet with rofi.";
     homepage = "https://github.com/meowrch/rofi-network-manager";
-    license = licenses.mit;
-    maintainers = with maintainers; [ wenjinnn ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ wenjinnn ];
     mainProgram = "rofi-network-manager";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }

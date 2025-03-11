@@ -24,16 +24,16 @@ appimageTools.wrapType2 {
       --replace 'LD_LIBRARY_PATH=usr/lib ' ''''''
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Multi-platform auto-proxy client (appimage version)";
     longDescription = ''
       Multi-platform auto-proxy client, supporting Sing-box, X-ray, TUIC, Hysteria, Reality, Trojan, SSH etc.
     '';
     homepage = "https://github.com/hiddify/hiddify-next";
-    license = licenses.cc-by-nc-sa-40;
+    license = lib.licenses.cc-by-nc-sa-40;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ wenjinnn ];
+    maintainers = with lib.maintainers; [ wenjinnn ];
     mainProgram = "hiddify";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }
