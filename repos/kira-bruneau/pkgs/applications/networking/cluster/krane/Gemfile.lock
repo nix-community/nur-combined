@@ -63,7 +63,7 @@ GEM
       multi_json
     jwt (2.10.1)
       base64
-    krane (3.7.0)
+    krane (3.7.1)
       activesupport (>= 5.0)
       colorize (~> 0.8)
       concurrent-ruby (~> 1.1)

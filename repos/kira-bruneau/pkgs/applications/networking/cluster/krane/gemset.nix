@@ -322,10 +322,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "032b8fk23jpmmslnhn351as9irykpa40sjz6yxibjpglj4w7wnqz";
+      sha256 = "1gkbrk08l8zdcnp62yc0r89kq9sv79v6v0ni1d6ghm4mil8apbm9";
       type = "gem";
     };
-    version = "3.7.0";
+    version = "3.7.1";
   };
   kubeclient = {
     dependencies = [
