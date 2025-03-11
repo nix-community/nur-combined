@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-O99KmZX2MaQwPIZB3+vUfC8RmU/UJwzR+UAistkBfU0=";
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall
@@ -33,28 +33,28 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/rofi-screenshot \
       --prefix PATH ":" ${
-      lib.makeBinPath [
-        rofi-wayland
-        slurp
-        grim
-        ffmpeg
-        wl-screenrec
-        coreutils
-        libnotify
-        hyprland
-        jq
-      ]
-    }
+        lib.makeBinPath [
+          rofi-wayland
+          slurp
+          grim
+          ffmpeg
+          wl-screenrec
+          coreutils
+          libnotify
+          hyprland
+          jq
+        ]
+      }
 
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Use rofi and ffcast to perform various types of screenshots and screen captures";
     homepage = "https://github.com/wenjinnn/rofi-screenshot-wayland";
-    license = licenses.mit;
-    maintainers = with maintainers; [wenjinnn];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ wenjinnn ];
     mainProgram = "rofi-screenshot";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }
