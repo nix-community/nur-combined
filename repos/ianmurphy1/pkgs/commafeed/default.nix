@@ -9,6 +9,7 @@
   graalvmCEPackages,
   removeReferencesTo,
   makeWrapper,
+  glibc,
 }:
 let
   version = "5.6.1";
@@ -78,6 +79,8 @@ maven.buildMavenPackage {
     runHook postConfigure
   '';
 
+  nativeBuildInputs = [ makeWrapper ];
+
   doCheck = false;
 
   installPhase = ''
@@ -89,6 +92,8 @@ maven.buildMavenPackage {
 
     install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
       $out/bin/commafeed
+
+    wrapProgram $out/bin/commafeed --prefix PATH : ${lib.makeBinPath [ glibc ]}
       
     runHook postInstall
   '';
@@ -102,7 +107,7 @@ maven.buildMavenPackage {
     find "$out" -type f -exec ${lib.getExe removeReferencesTo} -t ${maven} -t ${graalVM} '{}' +
     echo >> $out/share/application.properties
     echo "# Create database in current working directory" >> $out/share/application.properties
-    echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties}
+    echo "quarkus.datasource.jdbc.url=jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE" >> $out/share/application.properties
   '';
 
   passthru.tests = nixosTests.commafeed;
