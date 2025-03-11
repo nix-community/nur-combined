@@ -5,7 +5,7 @@ let
   cfg = config.hardware.aulaf87-rgb;
 in {
   options.hardware.aulaf87-rgb = {
-    enable = mkEnableOption "control Aula F87 keyboard LEDs";
+    enable = mkEnableOption "Control of Aula F87 keyboard leds";
   };
 
   config = mkIf cfg.enable {

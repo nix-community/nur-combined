@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "Control Aula F87 Pro LEDs";
-    homepage = "https://gitlab.com/dukzcry/crap";
+    description = "Control of Aula F87 keyboard leds";
+    homepage = "https://gitlab.com/dukzcry/crap/tree/master/aulaf87-rgb";
     license = lib.licenses.free;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "aulaf87-rgb";
