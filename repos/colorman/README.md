@@ -2,8 +2,8 @@
 
 > **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-This repository contains Nix packages for the. It's for packages that I decided
-didn't belong in mainline nixpkgs for whatever reason.
+This repository contains Nix packages that I decided
+didn't belong in mainline nixpkgs because they were too niche, unmaintained etc.
 
 <!-- Remove this if you don't use github actions -->
 
