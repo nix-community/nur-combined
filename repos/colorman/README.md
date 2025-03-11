@@ -7,7 +7,7 @@ didn't belong in mainline nixpkgs for whatever reason.
 
 <!-- Remove this if you don't use github actions -->
 
-![Build and populate cache](https://github.com/TheColorman/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+![Build and populate cache](https://github.com/TheColorman/nurpkgs/workflows/Build%20and%20populate%20cache/badge.svg)
 
 <!--
 Uncomment this if you use travis:
