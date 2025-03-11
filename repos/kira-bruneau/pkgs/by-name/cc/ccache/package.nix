@@ -84,7 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
     bashInteractive
   ] ++ lib.optional stdenv.hostPlatform.isDarwin xcodebuild;
 
-  checkInputs = [ doctest ];
+  checkInputs = [
+    doctest
+  ];
 
   checkPhase =
     let
