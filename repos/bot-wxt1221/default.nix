@@ -10,13 +10,13 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   ddz_py = pkgs.callPackage ./pkgs/ddz-py { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  ddz-py = ddz_py;
   # ...
 }

@@ -29,6 +29,11 @@ python3Packages.buildPythonApplication rec {
     python -m ddz_py.client_vanilla "$@"
   '';
 
+  server = writeText "a.sh" ''
+    #! ${lib.getExe bash}
+    python -m ddz_py.server "$@"
+  '';
+
   dependencies = with python3Packages; [
     colorama
     prompt-toolkit
@@ -43,13 +48,19 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/${python3Packages.python.sitePackages}/ddz_py
     cp -r ${src}/ddz_py/* $out/${python3Packages.python.sitePackages}/ddz_py
 
-    install -Dm755 ${client_deluxe} $out/bin/client_deluxe
-    install -Dm755 ${client_vanilla} $out/bin/client_vanilla
-    wrapProgram "$out/bin/client_vanilla" \
+    install -Dm755 ${client_deluxe} $out/bin/ddz_client_deluxe
+    install -Dm755 ${client_vanilla} $out/bin/ddz_client_vanilla
+    install -Dm755 ${server} $out/bin/ddz_server
+
+    wrapProgram "$out/bin/ddz_client_vanilla" \
       --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3Packages.python.sitePackages}" \
       --prefix PATH : "${python3Packages.python}/bin"
 
-    wrapProgram "$out/bin/client_deluxe" \
+    wrapProgram "$out/bin/ddz_client_deluxe" \
+      --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3Packages.python.sitePackages}" \
+      --prefix PATH : "${python3Packages.python}/bin"
+
+    wrapProgram "$out/bin/ddz_server" \
       --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3Packages.python.sitePackages}" \
       --prefix PATH : "${python3Packages.python}/bin"
 
@@ -60,12 +71,13 @@ python3Packages.buildPythonApplication rec {
     "ddz_py"
     "ddz_py.client_deluxe"
     "ddz_py.client_vanilla"
+    "ddz_py.server"
   ];
 
   meta = {
     license = lib.licenses.free;
     homepage = "https://github.com/EarthMessenger/ddz_py";
-    mainProgram = "client_deluxe";
-    description = "CLI game";
+    mainProgram = "ddz_client_deluxe";
+    description = "ddz CLI game";
   };
 }
