@@ -62,6 +62,25 @@
                       }
                     ];
                   }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        headers = {
+                          request = {
+                            set = {
+                              "X-Scheme" = [
+                                "https"
+                              ];
+                            };
+                          };
+                        };
+                        upstreams = [ { dial = "[::1]:8083"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "book.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
                   (import ../caddy-matrix.nix {
                     inherit pkgs;
                     matrix-upstream = "localhost:6167";
