@@ -708,10 +708,10 @@
     };
     "aw-watcher-web" = buildFirefoxXpiAddon {
       pname = "aw-watcher-web";
-      version = "0.5.0";
+      version = "0.5.2";
       addonId = "{ef87d84c-2127-493f-b952-5b4e744245bc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4443769/aw_watcher_web-0.5.0.xpi";
-      sha256 = "5b543c0df6f39845713c9bddd479fb577b28b4a1ccebe772857fd3e2c46c80ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452349/aw_watcher_web-0.5.2.xpi";
+      sha256 = "d5ef6cfd0764296a9ab2342499fbaac368bfffc13dd3d0c6ac5f2dbfdb942470";
       meta = with lib;
       {
         homepage = "https://github.com/ActivityWatch/aw-watcher-web";
@@ -6099,10 +6099,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.0.0";
+      version = "17.0.1";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4434856/keeper_password_manager-17.0.0.xpi";
-      sha256 = "60b154ccba463f5dba23bd9b13b339a4a797c46358f0f2dd806188768e16aa66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4445854/keeper_password_manager-17.0.1.xpi";
+      sha256 = "ba5f47e09983c2068c03966973991081095f1056d360c113b4518b72bdcc3df4";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -6323,10 +6323,10 @@
     };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
-      version = "11.0.6";
+      version = "11.0.7";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4447830/lesspass-11.0.6.xpi";
-      sha256 = "a7841799a37eca18adc58ebfb5463b83dd0fb7bfe204d5dbec627a0f93a82f97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452326/lesspass-11.0.7.xpi";
+      sha256 = "58a8f02986266c765aeded3fe967e6a2453c3790bd930e0cf4244b3b2151e605";
       meta = with lib;
       {
         homepage = "https://github.com/lesspass/lesspass";
@@ -10591,10 +10591,10 @@
     };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "5.3";
+      version = "5.3.1";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4436739/simple_tab_groups-5.3.xpi";
-      sha256 = "3daeb57236a01215d7753f4001879eab0280f0b5436d709c3abc1b9b5c8018d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4445799/simple_tab_groups-5.3.1.xpi";
+      sha256 = "119713d6f7ddce4fee3d309b67c3644b595300d7523a72efe0ffd585c6d17dc6";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -10876,10 +10876,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.11.5";
+      version = "5.11.8";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4424639/sponsorblock-5.11.5.xpi";
-      sha256 = "4cb3a7061dbeb9869477fb2f991d39ccaf650941f83abe1e0c65511e971cb555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451103/sponsorblock-5.11.8.xpi";
+      sha256 = "0706b77d29ce0517c046f55427510b3718f2efef36bb7c7953387089629f7ac0";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -11774,13 +11774,13 @@
     };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "10.0.1.1";
+      version = "10.1.0.3";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245500/traduzir_paginas_web-10.0.1.1.xpi";
-      sha256 = "26ca52178f68e33d7da4ac3fc8ae1479ba6f98a0ec827ecb7faf097413235bb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451867/traduzir_paginas_web-10.1.0.3.xpi";
+      sha256 = "c2497d962b6aa2bcfc8a77836f5c607e142463286cfeb4b4badf7a80125384f2";
       meta = with lib;
       {
-        description = "Translate your page in real time using Google, Bing or Yandex.\nIt is not necessary to open new tabs.";
+        description = "If after updating the extension the translation is not working, please try restarting your browser.";
         license = licenses.mpl20;
         mozPermissions = [
           "<all_urls>"
@@ -11788,7 +11788,7 @@
           "activeTab"
           "contextMenus"
           "webRequest"
-          "https://www.deepl.com/translator*"
+          "https://www.deepl.com/*/translator*"
         ];
         platforms = platforms.all;
       };
