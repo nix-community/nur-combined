@@ -26,7 +26,7 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix caches
         if: github.event_name != 'pull_request'
-        uses: cachix/cachix-action@v15
+        uses: cachix/cachix-action@v16
         with:
           name: zimeg
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
