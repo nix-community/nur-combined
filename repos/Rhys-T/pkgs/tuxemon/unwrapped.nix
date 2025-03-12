@@ -1,13 +1,14 @@
 {
     python3Packages,
     fetchFromGitHub, fetchPypi,
-    lib, hostPlatform,
+    lib, stdenv,
     version, rev ? "v${version}", hash?null,
     libShake ? null, withLibShake ? true,
     desktopToDarwinBundle,
     data, attachPkgs, pkgs,
     maintainers
 }: let
+    inherit (stdenv) hostPlatform;
     python3PackagesOrig = python3Packages;
 in let
     python3Packages = (python3PackagesOrig.python.override {

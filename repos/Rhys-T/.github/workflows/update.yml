@@ -1,4 +1,4 @@
-name: update-packages
+name: "Auto-update packages"
 on:
   workflow_dispatch:
 

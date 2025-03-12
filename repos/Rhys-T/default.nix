@@ -11,7 +11,7 @@
 # Backported fixes from https://github.com/NixOS/nixpkgs/pull/380440
 # See <https://github.com/NixOS/nixpkgs/issues/380436>
 let pkgs' = pkgs; in
-let pkgs = if with pkgs'; hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or "")) then
+let pkgs = if with pkgs'; stdenv.hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or "")) then
     pkgs'.extend (self: super: {
         timidity = super.timidity.overrideAttrs (old: {
             instruments = old.instruments.overrideAttrs (old: {
@@ -62,8 +62,8 @@ in {
     
     allegro5 = let
         needsMacPatch =
-            pkgs.hostPlatform.isDarwin &&
-            pkgs.lib.versionOlder pkgs.hostPlatform.darwinMinVersion "11.0" &&
+            pkgs.stdenv.hostPlatform.isDarwin &&
+            pkgs.lib.versionOlder pkgs.stdenv.hostPlatform.darwinMinVersion "11.0" &&
             pkgs.lib.versionAtLeast pkgs.allegro5.version "5.2.10.0" &&
             pkgs.lib.versionOlder pkgs.allegro5.version "5.2.10.1"
         ;
@@ -83,14 +83,14 @@ in {
     lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;
-    lix-game-libpng = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+    lix-game-libpng = if pkgs.stdenv.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
         convertImagesToTrueColor = false;
     })).game else self.lix-game;
-    lix-game-issue-431 = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+    lix-game-issue-431 = if pkgs.stdenv.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
         convertImagesToTrueColor = false;
         disableNativeImageLoader = false;
     })).game else self.lix-game;
-    lix-game-CIImage = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+    lix-game-CIImage = if pkgs.stdenv.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
         convertImagesToTrueColor = false;
         disableNativeImageLoader = "CIImage";
     })).game else self.lix-game;
@@ -141,7 +141,8 @@ in {
     
     # Backported fixes from https://github.com/NixOS/nixpkgs/pull/385459
     picolisp = let
-        inherit (pkgs) lib picolisp hostPlatform darwin;
+        inherit (pkgs) lib picolisp darwin;
+        inherit (pkgs.stdenv) hostPlatform;
         needsLibutil = hostPlatform.isDarwin && !(lib.lists.any (p: (p.pname or null) == "libutil") (pkgs.apple-sdk.propagatedBuildInputs or []));
         picolisp' = if lib.hasInfix "cd src" (picolisp.preBuild or "") then picolisp else picolisp.overrideAttrs (old: {
             preBuild = (old.preBuild or "") + ''
@@ -246,7 +247,7 @@ in {
             inherit (pkgs.llvmPackages_17) stdenv;
         } else fpcOrig;
         needsFix =
-            pkgs.hostPlatform.isDarwin && 
+            pkgs.stdenv.hostPlatform.isDarwin && 
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
     in dontUpdate (lib.addMetaAttrs ({
@@ -266,7 +267,7 @@ in {
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
     qemu-screamer = let
         darwinSdkVersion = "11.0";
-        stdenv = if pkgs.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
+        stdenv = if pkgs.stdenv.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
             pkgs.overrideSDK pkgs.stdenv {
                 inherit darwinSdkVersion;
             }
@@ -293,11 +294,11 @@ in {
             position = myPos "wine64Full";
         };
         passthru = (old.passthru or {}) // {
-            _Rhys-T.allowCI = pkgs.hostPlatform.isDarwin;
+            _Rhys-T.allowCI = pkgs.stdenv.hostPlatform.isDarwin;
         };
     }));
     
-    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
+    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
     });
     
@@ -322,7 +323,7 @@ in {
     phosg = callPackage ./pkgs/resource_dasm/phosg.nix {};
     resource_dasm = callPackage ./pkgs/resource_dasm {};
     
-    # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
+    # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
     #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
     #         inherit (self)
     #             # hbmame

@@ -1,4 +1,4 @@
-{ fetchFromGitHub, fetchzip, lib, enet, imagemagick, hostPlatform, maintainers }: rec {
+{ fetchFromGitHub, fetchzip, lib, enet, imagemagick, stdenv, maintainers }: rec {
     pname = "lix-game";
     version = "0.10.30";
     src = fetchFromGitHub {
@@ -29,7 +29,7 @@
         maintainers = [maintainers.Rhys-T];
     };
     patchEnetBindings = let
-        libExtension = hostPlatform.extensions.sharedLibrary;
+        libExtension = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
         for file in "$DUB_HOME"/packages/derelict-enet/*/derelict-enet/source/derelict/enet/enet.d; do
             substituteInPlace "$file" --replace-fail '"libenet${libExtension}"' '"${lib.getLib enet}/lib/libenet${libExtension}"'

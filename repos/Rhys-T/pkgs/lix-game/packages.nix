@@ -1,5 +1,5 @@
-{ lib, newScope, hostPlatform }: let
-    inherit (hostPlatform) isDarwin;
+{ lib, newScope, stdenv }: let
+    inherit (stdenv.hostPlatform) isDarwin;
 in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     lix-game-packages = self;
     
