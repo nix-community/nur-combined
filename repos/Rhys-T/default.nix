@@ -29,6 +29,12 @@ else pkgs'; in
 
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
     inherit (self) callPackage;
+    dontUpdate = p: let
+        p' = if p?overrideAttrs then p.overrideAttrs (old: pkgs.lib.optionalAttrs (old?passthru) {
+            passthru = removeAttrs old.passthru ["updateScript"];
+        }) else p;
+    in removeAttrs p' ["updateScript"];
+    myPos = name: with builtins.unsafeGetAttrPos "description" self.${name}.meta; "${file}:${toString line}";
 in {
     # The `lib`, `modules`, and `overlays` names are special
     # Renamed here to avoid shadowing their builtin nixpkgs counterparts in callPackage
@@ -61,7 +67,7 @@ in {
             pkgs.lib.versionAtLeast pkgs.allegro5.version "5.2.10.0" &&
             pkgs.lib.versionOlder pkgs.allegro5.version "5.2.10.1"
         ;
-    in pkgs.allegro5.overrideAttrs (old: {
+    in dontUpdate (pkgs.allegro5.overrideAttrs (old: {
         patches = (old.patches or []) ++ pkgs.lib.optionals needsMacPatch [
             (pkgs.fetchpatch {
                 url = "https://github.com/Rhys-T/allegro5/commit/7c928e34042fd7b83d55649f240a38e937ed169b.patch";
@@ -70,8 +76,9 @@ in {
         ];
         meta = old.meta // {
             description = (old.meta.description or "allegro5") + " (fixed for macOS/Darwin x86_64 < 11.0)";
+            position = myPos "allegro5";
         };
-    });
+    }));
     
     lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
     lix-game = self.lix-game-packages.game;
@@ -119,8 +126,8 @@ in {
     minivmac-ii = self.minivmac.override { macModel = "II"; };
     minivmac-ii-unstable = self.minivmac-unstable.override { macModel = "II"; };
     
-    mame = callPackage (pkgs.callPackage ./pkgs/mame {}) {};
-    mame-metal = self.mame.override { darwinMinVersion = "11.0"; };
+    mame = dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {});
+    mame-metal = dontUpdate (self.mame.override { darwinMinVersion = "11.0"; });
     hbmame = callPackage ./pkgs/mame/hbmame.nix {};
     hbmame-metal = self.hbmame.override { mame = self.mame-metal; };
     
@@ -150,9 +157,10 @@ in {
         } // lib.optionalAttrs needsLibutil {
             buildInputs = (old.buildInputs or []) ++ [darwin.libutil];
         });
-    in lib.addMetaAttrs ({
+    in dontUpdate (lib.addMetaAttrs ({
         description = (picolisp.meta.description or "PicoLisp") + " (fixed for macOS/Darwin)";
-    }) picolisp';
+        position = myPos "picolisp";
+    }) picolisp');
     
     picolisp-rolling = let
         inherit (pkgs) lib fetchFromGitea;
@@ -167,9 +175,30 @@ in {
                 hash = "sha256-+4mekNWJOfPXeX47CZWA+JoGgm1K6S+81nTyZaR2sTM=";
             };
             sourceRoot = null;
+            passthru = (old.passthru or {}) // {
+                updateScript = pkgs.writeShellScript "update-picolisp-rolling" ''
+                    PATH=${lib.makeBinPath (with pkgs; [
+                        common-updater-scripts
+                        coreutils
+                        curl
+                        gnused
+                        jq
+                        nix-prefetch-git
+                    ])}
+                    set -euo pipefail
+                    latestRev="$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jq -r .commit.id)"
+                    echo "latestRev=$latestRev"
+                    latestVer="$(curl "https://git.envs.net/mpech/pil21/raw/commit/$latestRev/src/vers.l" | sed -En '
+                        /^\(pico~de \*Version ([0-9]+) ([0-9]+) ([0-9]+)\)$/ { s//\1.\2.\3/; p; }
+                    ')"
+                    echo "latestVer=$latestVer"
+                    update-source-version picolisp-rolling "$latestVer" --rev="$latestRev"
+                '';
+            };
         });
     in lib.addMetaAttrs ({
         description = lib.replaceStrings [") ("] ["; "] ((picolisp.meta.description or "PicoLisp") + " (rolling release)");
+        position = myPos "picolisp-rolling";
     }) picolisp';
     
     konify = callPackage ./pkgs/konify {};
@@ -184,7 +213,7 @@ in {
     
     xinvaders3d = callPackage ./pkgs/xinvaders3d {};
     
-    icbm3d = pkgs.icbm3d.overrideAttrs (old: {
+    icbm3d = dontUpdate (pkgs.icbm3d.overrideAttrs (old: {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace makefile --replace-fail 'CC=' '#CC='
             substituteInPlace randnum.c --replace-fail 'stdio.h' 'stdlib.h'
@@ -194,18 +223,20 @@ in {
         meta = old.meta // {
             description = "${old.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
             platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
+            position = myPos "icbm3d";
         };
-    });
+    }));
     
-    xgalagapp = pkgs.xgalagapp.overrideAttrs (old: {
+    xgalagapp = dontUpdate (pkgs.xgalagapp.overrideAttrs (old: {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace Makefile --replace-fail 'CXX =' '#CXX ='
         '';
         meta = old.meta // {
             description = "${old.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
             platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
+            position = myPos "xgalagapp";
         };
-    });
+    }));
     
     fpc = let
         inherit (pkgs) lib;
@@ -218,13 +249,14 @@ in {
             pkgs.hostPlatform.isDarwin && 
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
-    in lib.addMetaAttrs ({
+    in dontUpdate (lib.addMetaAttrs ({
         description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build)";
+        position = myPos "fpc";
     }) (if needsFix then fpc.overrideAttrs (old: {
         preConfigure = ''
             NIX_LDFLAGS="-syslibroot $SDKROOT -L${lib.getLib pkgs.libiconv}/lib"
         '' + (old.preConfigure or "");
-    }) else fpc);
+    }) else fpc));
     
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
@@ -255,14 +287,15 @@ in {
         wine64Full = if needsOldClang then (pkgs.wine64Packages.extend (self: super: {
             inherit (pkgs.llvmPackages_16) stdenv;
         })).full else wine64FullOrig;
-    in wine64Full.overrideAttrs (old: {
+    in dontUpdate (wine64Full.overrideAttrs (old: {
         meta = (old.meta or {}) // {
             description = "${wine64Full.meta.description or "wine64Packages.full"} (with Clang version capped at 16 to fix build)";
+            position = myPos "wine64Full";
         };
         passthru = (old.passthru or {}) // {
             _Rhys-T.allowCI = pkgs.hostPlatform.isDarwin;
         };
-    });
+    }));
     
     _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
@@ -300,4 +333,6 @@ in {
     lib = result.myLib;
     modules = result.myModules;
     overlays = result.myOverlays;
+    # HACK to make <nixpkgs/maintainers/scripts/update.nix> work:
+    ZZZZZZ___update-Rhys-T = result;
 }

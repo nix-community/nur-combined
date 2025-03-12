@@ -1,0 +1,45 @@
+name: update-packages
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Update packages
+        id: update
+        run: |
+          nix-shell update.nix \
+            --argstr skip-prompt true \
+            --argstr keep-going true \
+            --argstr commit true \
+            --show-trace
+          if git diff -q origin/${{ github.ref_name}}..; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload error logs
+        if: '!cancelled()'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rhys-T-update-error-logs
+          path: |
+            ./*.log
+          if-no-files-found: ignore
+      - name: Create pull request
+        if: steps.update.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: 'Nix package auto-updates'
+          branch: 'nix-package-auto-updates'
+          labels: |
+            package-updates
+            automated
+          delete-branch: true

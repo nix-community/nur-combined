@@ -5,4 +5,6 @@ with pkgs.lib; {
   #
   # hexint = x: hexvals.${toLower x};
   mirrors = import ./mirrors.nix;
+  # HACK to make <nixpkgs/maintainers/scripts/update.nix> work:
+  inherit getVersion;
 }
