@@ -12,5 +12,6 @@
         before = builtins.elemAt parts 0;
         packagesJson = builtins.elemAt parts 1;
         after = builtins.elemAt parts 2;
-    in ''${before}<(${pkgs.lib.getExe pkgs.jq} '.[].attrPath |= sub("^Rhys-T\\."; "")' ${packagesJson})${after}'';
+        newHook = ''${before}<(${pkgs.lib.getExe pkgs.jq} '.[].attrPath |= sub("^Rhys-T\\."; "")' ${packagesJson})${after}'';
+    in pkgs.lib.addContextFrom old.shellHook newHook;
 })
