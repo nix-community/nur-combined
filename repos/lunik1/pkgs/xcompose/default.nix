@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "xcompose";
-  version = "2022-09-15";
+  version = "unstable-2024-03-11";
 
   src = fetchFromGitHub {
     owner = "kragen";
     repo = "xcompose";
-    rev = "cd8d3e622f547ec9f83d7f64f51d4a27ee812681";
-    sha256 = "sha256-fkl2lDv/DdrqPjVsEUKSRD3BNGwTjTsA0ovI8akFI6U=";
+    rev = "8b5a6a0c788fd0a4b921d9d3737174defb863873";
+    sha256 = "sha256-6EjQErdBOd5hqcrdaf88E1UZVYIc3FOfv34hvUwOWdA=";
   };
 
   nativeBuildInputs = [ gnumake perl ];
