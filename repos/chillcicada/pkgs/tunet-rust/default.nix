@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, freetype
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, freetype }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tunet-rust";

@@ -20,7 +20,7 @@ alias p := push
 
 # format nix files
 fmt:
-  nixpkgs-fmt .
+  nixfmt .
 
 # list packages under `pkgs/`
 ls:

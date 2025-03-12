@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "degit-rs";

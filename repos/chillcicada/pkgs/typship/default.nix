@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, perl
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, perl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "typship";
