@@ -11,10 +11,10 @@ in
   add-words = any;
   affine-font = any;
   album-art = any;
+  alpaca.version = "≥4";
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
-  audacity.env.GDK_BACKEND = "x11"; # NixOS/nixpkgs#238910
   blocky.version = "≥0.25"; # 0xERR0R/blocky#1618
   blocky-ui = any;
   buildJosmPlugin = any;
@@ -50,7 +50,6 @@ in
   iptables_exporter = any;
   isd = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
-  josm-hidpi = any;
   josm-imagery-used = any;
   just-local = any;
   little-a-map = any;
@@ -84,7 +83,7 @@ in
   nbt-explorer = any;
   nix-preview = any;
   off = any;
-  ollama-rocm.version = "≥0.5.7";
+  ollama = { version = "≥0.5.7"; patch = stable.fetchpatch2 { url = "https://github.com/ollama/ollama/pull/6282.patch"; hash = "sha256-4rshZbU/+kOO7DYQckSAkE7yGMJRtBVUdZPrS++K+S0="; }; }; # ollama/ollama#6282
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
@@ -104,7 +103,6 @@ in
     fabiospampinato.vscode-highlight.search = open-vsx;
     flowtype.flow-for-vscode = { version = "≥2.2.1"; search = [ open-vsx vscode-marketplace ]; };
     jnbt.vscode-rufo.search = open-vsx;
-    jnoortheen.nix-ide.version = "≥0.3.4"; # nix-community/vscode-nix-ide#387
     joaompinto.vscode-graphviz.search = open-vsx;
     kokakiwi.vscode-just.search = open-vsx;
     leighlondon.eml.search = [ open-vsx vscode-marketplace ];

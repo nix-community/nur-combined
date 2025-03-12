@@ -5,25 +5,25 @@
 )
 
 (defsrc
-  prnt f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  bspc
-   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-    caps a    s    d    f    g    h    j    k    l    ;    '    ret
-     lsft z    x    c    v    b    n    m    ,    .    /    rsft
-     lctl lmet lalt                     spc  ralt ssrq rctl
+  zeh  1    2    3    4    5    6    7    8    9    0    -    =    yen  bks
+   tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+     lsft z    x    c    v    b    n    m    ,    .    /    ro   rsft
+     lctl lmet lalt muh       spc  hen  kah  ralt ssrq rctl
 )
 
 (deflayer main
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-   g    _    _    _    _    _    _    _    _    _    _    _    _    _
-    bspc _    _    _    _    ret  _    _    _    _    _    _    _
-     m    _    _    _    _    _    _    spc  _    _    _    ]
-    lalt  lctl @tfn                     rsft @coa lalt lmet
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+   g    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    ret  _    _    _    _    _    _    _    _
+     m    _    _    _    _    _    _    spc  _    _    _    _    _
+     lmet lalt lctl @tfn      lsft rsft @coa lalt lmet _
 )
 
 (deflayer fn
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-   _    esc  pgup up   pgdn _    _    _    _    _    _    _    _    _
-    _    home left down rght end  _    _    _    _    rctl _    _
-     C-m  _    _    C-c  C-b  _    _    _    _    _    _    _
-     _    _    _                        _    @s-a _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+   _    esc  pgup up   pgdn _    _    _    _    _    _    _    _
+    _    home left down rght end  _    _    _    _    rctl _    _    _
+     C-m  _    _    C-c  C-b  _    _    _    _    _    _    _    _
+     _    _    _    _         _    _    _    @s-a _    _
 )

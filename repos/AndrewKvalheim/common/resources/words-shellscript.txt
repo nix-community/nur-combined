@@ -20,4 +20,5 @@ realpath
 setaf
 setfacl
 sgr0
+ssh-keygen
 usr

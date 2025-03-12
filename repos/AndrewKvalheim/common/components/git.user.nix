@@ -86,13 +86,26 @@ in
     iniContent.core.pager = mkForce "${pkgs.delta}/bin/delta --color-only --features full"; # Set feature
 
     extraConfig = {
+      branch.sort = "-committerdate";
+      commit.verbose = true;
       core.autocrlf = "input";
       diff.algorithm = "histogram";
+      diff.mnemonicPrefix = true;
+      diff.renames = true;
+      fetch.all = true;
+      fetch.prune = true;
+      fetch.pruneTags = true;
       init.defaultBranch = "main";
       merge.commit = false;
       merge.conflictStyle = "zdiff3";
       merge.tool = "code";
       push.followTags = true;
+      rebase.autoSquash = true;
+      rebase.autoStash = true;
+      rebase.updateRefs = true;
+      rerere.autoupdate = true;
+      rerere.enabled = true;
+      tag.sort = "version:refname";
 
       diff.anvil.textconv = "${pkgs.git-diff-minecraft}/bin/git-diff-anvil";
       diff.image.command = "${pkgs.git-diff-image}/bin/git_diff_image";

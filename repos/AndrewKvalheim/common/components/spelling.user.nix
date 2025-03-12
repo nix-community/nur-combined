@@ -27,8 +27,8 @@ in
   # Firefox
   home.file.".mozilla/firefox/${host.firefox.profile}/persdict.dat".source = formats.plaintext;
 
-  # Obsidian
-  xdg.configFile."obsidian/Custom Dictionary.txt".source = formats.chromium;
+  # Joplin
+  xdg.configFile."Joplin/Custom Dictionary.txt".source = formats.chromium;
 
   # QOwnNotes
   home.file.".hunspell_en_US".source = formats.plaintext;

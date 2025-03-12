@@ -33,7 +33,7 @@ in
     mutableExtensionsDir = false;
     enableExtensionUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
-      andrewkvalheim.monokai-achromatic-gray
+      (andrewkvalheim.monokai-achromatic-gray.override { black = palette.rgb.black.g; })
       bierner.markdown-checkbox
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
@@ -99,7 +99,6 @@ in
       { key = "shift+alt+up"; command = "-editor.action.insertCursorAbove"; }
       { key = "shift+alt+up"; command = "editor.action.copyLinesUpAction"; }
       { key = "ctrl+k i"; command = "editor.action.formatChanges"; }
-      { key = "ctrl+shift+enter"; command = "-continue.acceptDiff"; } # Workaround for continuedev/continue#2913
       { when = "isInDiffEditor"; key = "ctrl+t"; command = "git.stageSelectedRanges"; }
     ];
 
@@ -120,6 +119,9 @@ in
       "rufo.exe" = "${pkgs.rufo}/bin/rufo";
       "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
       "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";
+
+      # Advertisements
+      "chat.commandCenter.enabled" = false; # Microsoft GitHub Copilot
 
       # Application
       "breadcrumbs.enabled" = false;
@@ -178,10 +180,6 @@ in
       "git.enableStatusBarSync" = false;
       "git.showActionButton" = { commit = false; publish = false; sync = false; };
       "git.suggestSmartCommit" = false;
-
-      # Completion
-      "continue.showInlineTip" = false;
-      "continue.telemetryEnabled" = false;
 
       # Colors
       "workbench.colorCustomizations" = {

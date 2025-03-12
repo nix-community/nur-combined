@@ -18,10 +18,12 @@ AirPod
 AirPods
 Airtable
 Akkoma
+Alava
 Alki
 allowlist
 allowlisting
 allyship
+Alpental
 Amarok
 Ambaum
 AMI
@@ -73,6 +75,7 @@ Avahi
 availabilities
 AVIF
 AWK
+backcountry
 backfill
 backlink
 backport
@@ -123,6 +126,7 @@ bootloaders
 borgmatic
 Boromir
 Bothell
+Bowron
 brainfuck
 Broadcom
 Brotli
@@ -131,6 +135,7 @@ Browserslist
 BTC
 Btrfs
 btw
+bubblewrap
 buildable
 Buildah
 buildpack
@@ -145,6 +150,7 @@ cadastral
 cadastre
 Caddyfile
 CalDAV
+camporee
 CanCanCan
 cancellable
 canonicalize
@@ -346,6 +352,7 @@ enquired
 entomophagy
 entrypoint
 entrypoints
+Enumclaw
 EOD
 EPUB
 ErgoDox
@@ -381,6 +388,7 @@ finalizer
 Fircrest
 Firefish
 FireHOL
+Firejail
 firewalling
 fixie
 FLAC
@@ -454,6 +462,7 @@ graphemes
 GraphicsMagick
 Graphviz
 Gravatar
+Grayland
 grayscale
 GSConnect
 GSettings
@@ -518,6 +527,7 @@ illiberalism
 IMAP
 iMessage
 IMGZ
+Immich
 impactfully
 imperfectionist
 inclusivity
@@ -1397,6 +1407,7 @@ VR
 VSCodium
 VSX
 waivable
+walkable
 walkthrough
 walkthroughs
 Wallingford

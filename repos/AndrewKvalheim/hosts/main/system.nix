@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
+  inherit (lib) mkIf versionOlder;
+
   identity = import ../../common/resources/identity.nix;
 in
 {
@@ -17,6 +19,9 @@ in
     local = ./local;
     resources = ./resources;
   };
+
+  # Kernel
+  boot.kernelPackages = mkIf (versionOlder pkgs.linux.version "6.12") pkgs.linuxPackages_6_12;
 
   # Hardware
   services.kmonad.keyboards.default.device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
@@ -91,5 +96,5 @@ in
   # LLM
   nixpkgs.config.rocmSupport = true;
   services.ollama = { enable = true; rocmOverrideGfx = "11.0.2"; /* Pending support for gfx1103 */ };
-  systemd.services.ollama.serviceConfig = { CPUQuota = "80%"; Nice = 5; };
+  systemd.services.ollama.serviceConfig.Nice = 5;
 }

@@ -129,9 +129,12 @@ in
         p = "gopass";
         path = "nix-build --pure '<nixpkgs>' --attr";
         pt = "gopass-ydotool";
+        remove-known-host = "ssh-keygen -R";
         rm = "rm --one-file-system --verbose";
         rsync = "rsync --compress --compress-choice=zstd --human-readable";
         set-clipboard = "wl-copy --type 'TEXT'";
+        ssh-copy-id = "ssh-copy-id -o 'PreferredAuthentications=password'";
+        ssh-ephemeral = "ssh -o StrictHostKeyChecking='no' -o UserKnownHostsFile='/dev/null'";
         watch = "watch --color";
         wd = "git diff --no-index --word-diff --word-diff-regex '.'";
         xev = "echo 'Use ${sgr "22" "1" "wev"} instead.' >&2; return 1";

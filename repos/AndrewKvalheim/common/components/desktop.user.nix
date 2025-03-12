@@ -150,10 +150,10 @@ in
     barf-out-active = [ "" ];
     center-horizontally = [ "" ];
     close-window = [ "" ];
-    cycle-height = [ "<Shift><Super>F12" ];
-    cycle-height-backwards = [ "<Shift><Super>F11" ];
-    cycle-width = [ "<Shift><Alt>F12" "<Super>F12" ];
-    cycle-width-backwards = [ "<Shift><Alt>F11" "<Super>F11" ];
+    cycle-height = [ "<Shift>F15" ];
+    cycle-height-backwards = [ "<Shift>F14" ];
+    cycle-width = [ "F15" ];
+    cycle-width-backwards = [ "F14" ];
     live-alt-tab = [ "" ];
     live-alt-tab-backward = [ "" ];
     live-alt-tab-scratch = [ "" ];
@@ -196,9 +196,9 @@ in
     switch-previous = [ "" ];
     switch-right = [ "<Shift><Alt>Page_Down" ];
     take-window = [ "<Shift><Alt>space" ];
-    toggle-maximize-width = [ "<Shift><Alt>F10" "<Super>F10" ];
-    toggle-scratch = [ "<Super>backslash" ];
-    toggle-scratch-layer = [ "<Shift><Super>bar" ];
+    toggle-maximize-width = [ "F13" ];
+    toggle-scratch = [ "<Control>F14" ];
+    toggle-scratch-layer = [ "<Control>F15" ];
     toggle-scratch-window = [ "" ];
     toggle-top-and-position-bar = [ "" ];
   };
@@ -209,7 +209,7 @@ in
     XF86NotificationCenter,qalculate-gtk,qalculate-gtk,
     <Super>c,codium,VSCodium,
     <Super>f,firefox,firefox,
-    <Super>n,obsidian,obsidian,
+    <Super>n,joplin-desktop,@joplin/app-desktop,
     <Super>t,kitty,kitty,
   '';
 

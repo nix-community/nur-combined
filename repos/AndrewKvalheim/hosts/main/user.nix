@@ -22,7 +22,6 @@
   # Unfree packages
   allowedUnfree = [
     "attachments"
-    "obsidian"
   ];
 
   # Display
@@ -31,6 +30,7 @@
   # Applications
   home.packages = with pkgs; [
     album-art
+    alpaca
     attachments
     audacity
     awscli2
@@ -46,17 +46,16 @@
     hugin
     jitsi-meet-electron
     josm
-    josm-hidpi
     kdenlive
     libreoffice
     losslesscut-bin
     mark-applier
     mcaselector
+    nvtopPackages.amd
     python3Packages.meshtastic
     meshtastic-url
     minemap
     nbt-explorer
-    obsidian
     picard
     prismlauncher
     qgis
@@ -90,9 +89,4 @@
     ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";
     EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash.db";
   };
-
-  # Editor
-  programs.vscode.extensions = with pkgs.vscode-extensions; [
-    continue.continue
-  ];
 }

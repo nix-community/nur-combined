@@ -40,6 +40,19 @@ in
     xdg.configFile."mimeapps.list".force = true; # Workaround for nix-community/home-manager#1213
 
     # Modules
+    programs.joplin-desktop = {
+      enable = true;
+      extraConfig = {
+        "locale" = "en_US";
+        "dateFormat" = "YYYY-MM-DD";
+        "timeFormat" = "HH:mm";
+        "export.pdfPageSize" = "Letter";
+        "showTrayIcon" = true;
+        "style.editor.fontFamily" = "Iosevka Custom Proportional";
+        "style.editor.monospaceFontFamily" = "Iosevka Custom Mono";
+        "editor.spellcheckBeta" = true; # laurent22/joplin#6453
+      };
+    };
     programs.jq.enable = true;
     programs.ssh = {
       enable = true;
@@ -53,6 +66,7 @@ in
       audacious
       bacon
       binsider
+      bubblewrap # Required by nixpkgs-review --sandbox
       cavif
       cargo-msrv
       darktable
@@ -85,6 +99,7 @@ in
       img2pdf
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       ipcalc
+      iperf
       isd
       jless
       just
@@ -158,7 +173,6 @@ in
       ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
       UV_PYTHON_DOWNLOADS = "never";
-      VAGRANT_APT_CACHE = "http://10.0.2.3:3142";
     };
     xdg.configFile."autostart/com.tomjwatson.Emote.desktop".source = "${pkgs.emote}/share/applications/com.tomjwatson.Emote.desktop";
     xdg.configFile."cargo-release/release.toml".source = writeTOML "release.toml" {
@@ -190,20 +204,19 @@ in
       net-in-color = blue;
       net-out-color = red;
     };
-    home.file.".vagrant.d/Vagrantfile".text = ''
-      Vagrant.configure('2') do |config|
-        if ENV.include?('VAGRANT_APT_CACHE')
+    home.file.".vagrant.d/Vagrantfile".text =
+      let ip = "192.168.56.1" /* networking.interfaces.vboxnet0 */; in ''
+        Vagrant.configure('2') do |config|
           config.vm.provision :shell, name: 'APT cache', inline: <<~BASH
-            tee '/etc/apt/apt.conf.d/02cache' <<APT
-            Acquire::http::Proxy "#{ENV['VAGRANT_APT_CACHE']}";
+            if [[ -d '/etc/apt' ]]; then
+              tee '/etc/apt/apt.conf.d/02cache' <<APT
+            Acquire::http::Proxy "http://${ip}:3142";
             Acquire::https::Proxy "false";
             APT
+            fi
           BASH
-        else
-          config.trigger.before :up, warn: 'Set VAGRANT_APT_CACHE to use an APT caching proxy'
         end
-      end
-    '';
+      '';
     home.file.".visidatarc".text = with pkgs; toKeyValue { } {
       "options.clipboard_copy_cmd" = "${wl-clipboard}/bin/wl-copy";
       "options.clipboard_paste_cmd" = "${wl-clipboard}/bin/wl-paste --no-newline";

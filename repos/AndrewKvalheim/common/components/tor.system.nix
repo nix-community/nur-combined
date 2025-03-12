@@ -124,6 +124,10 @@ in
         Type = "oneshot";
         CPUSchedulingPolicy = "batch";
         IOSchedulingClass = "idle";
+        Restart = "on-failure";
+        RestartSec = 60;
+        RestartMaxDelaySec = 600;
+        RestartSteps = 2; # 60, 190, 600
       };
     };
 

@@ -2,7 +2,7 @@ partial alphanumeric_keys modifier_keys
 xkb_symbols "basic" {
   name[Group1]= "Halmakish (Basic)";
 
-  key <TLDE> { [ Print, Print, Print ] };
+  key <TLDE> { [ Print, Print, Print ] }; // ja 半角/全角/漢字 (hankaku/zenkaku/kanji: halfwidth/fullwidth/kanji) a.k.a <HZTG>
   key <AE01> { [ F1, F1, F1 ] };
   key <AE02> { [ F2, F2, F2 ] };
   key <AE03> { [ F3, F3, F3 ] };
@@ -15,6 +15,7 @@ xkb_symbols "basic" {
   key <AE10> { [ F10, F10, F10 ] };
   key <AE11> { [ F11, F11, F11 ] };
   key <AE12> { [ F12, F12, F12 ] };
+  key <AE13> { [ F13, F13, F13 ] }; // only ja ¥ (yen)
   key <BKSP> { [ BackSpace, BackSpace, Delete ] };
 
   key <TAB> { [ Tab, Tab, Tab ] };
@@ -29,10 +30,10 @@ xkb_symbols "basic" {
   key <AD09> { [ d, D, 9 ] };
   key <AD10> { [ j, J, asterisk ] };
   key <AD11> { [ leftdoublequotemark, rightdoublequotemark, quotedbl ] };
-  key <AD12> { [ parenleft, parenright ] };
-  // key <BKSL> { [ backslash, bar ] };
+  key <AD12> { [ F14, F14, F13 ] }; // ja [ (left bracket)
+  key <BKSL> { [ F15, F15, F15 ] }; // ja ] (right bracket) a.k.a. <AC12>
 
-  key <CAPS> { [ BackSpace, BackSpace, Delete ] };
+  key <CAPS> { [ BackSpace, BackSpace, Delete ] }; // ja 英数 (eisū: alphanumeric)
   key <AC01> { [ s, S, numbersign ] };
   key <AC02> { [ h, H, braceleft ] };
   key <AC03> { [ n, N, braceright ] };
@@ -55,8 +56,12 @@ xkb_symbols "basic" {
   key <AB08> { [ comma, colon, 2 ] };
   key <AB09> { [ k, K, 3 ] };
   key <AB10> { [ y, Y, plus ] };
+  key <AB11> { [ parenleft, parenright ] }; // only ja ろ (ro)
 
+  // key <NFER> { [ Muhenkan ] }; // only ja 無変換 (muhenkan: non-conversion to kanji)
   key <SPCE> { [ space, space, 1 ] };
+  // key <XFER> { [ Henkan, Mode_switch ], type[group1]="PC_ALT_LEVEL2" }; // only ja 変換 (henkan: convert to kanji)
+  // key <HKTG> { [ Hiragana_Katakana, Romaji ], type[group1]="PC_ALT_LEVEL2" }; // only ja カタカナ/ひらがな/ローマ字 (katakana/hiragana/rōmaji)
 
   include "level3(ralt_switch_multikey)"
 };

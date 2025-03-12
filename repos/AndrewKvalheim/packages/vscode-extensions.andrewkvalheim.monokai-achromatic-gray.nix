@@ -6,6 +6,9 @@
 , jaq
 , moreutils
 , vscodium
+
+  # Parameters
+, black ? null
 }:
 
 let
@@ -27,30 +30,55 @@ let
     from colorsys import hsv_to_rgb, rgb_to_hsv
     import json
     from sys import stderr, stdin
+    from os import environ
+
+    v1 = 255 * float(environ.get("BLACK", "0"))
 
 
-    def process(dict, keys=None, prefix=""):
-        for key, css in dict.items():
-            if keys and key not in keys:
-                continue
-
-            if not css[0] == "#":
-                raise NotImplementedError(f"Not implemented for {css}")
-            r, g, b = int(css[1:3], 16), int(css[3:5], 16), int(css[5:7], 16)
-            h, s, v = rgb_to_hsv(r, g, b)
+    def adjust(v0):
+        def adjust_(_, dict, key, css):
+            h, s, v, a = css_to_hsva(css)
 
             if s != 0 and s < 0.2:
-                desaturated = "#%02x%02x%02x%s" % (*hsv_to_rgb(h, 0, v), css[7:9])
-                stderr.write(f"Desaturate {css} → {desaturated} ({prefix}{key})\n")
-                dict[key] = desaturated
+                v_ = v1 + (v - v0) * (127 - v0) / (127 - v1) if v < 127 else v
+                a_hex = "" if a == 255 else "%02x" % (a)
+                css_ = "#%02x%02x%02x%s" % (*hsv_to_rgb(h, 0, round(v_)), a_hex)
+
+                stderr.write(f"Adjust {css} → {css_} ({key})\n")
+                dict[key] = css_
+
+        return adjust_
+
+
+    def css_to_hsva(css):
+        if not css[0] == "#":
+            raise NotImplementedError(f"Not implemented for {css}")
+
+        r, g, b = int(css[1:3], 16), int(css[3:5], 16), int(css[5:7], 16)
+        a = int(css[7:9], 16) if css[7:9] else 255
+
+        return *rgb_to_hsv(r, g, b), a
+
+
+    def darkest(v_min, dict, key, css):
+        h, s, v, a = css_to_hsva(css)
+        return v if v_min is None or a == 255 and v < v_min else v_min
+
+
+    def fold_colors(theme, f, result=None):
+        for k, v in theme["colors"].items():
+            result = f(result, theme["colors"], k, v)
+
+        for rule in theme["tokenColors"]:
+            for k, v in rule["settings"].items():
+                if k in ["foreground"]:
+                    result = f(result, rule["settings"], k, v)
+
+        return result
 
 
     theme = json.load(stdin)
-
-    process(theme["colors"])
-    for rule in theme["tokenColors"]:
-        process(rule["settings"], keys=["foreground"], prefix="token.")
-
+    fold_colors(theme, adjust(fold_colors(theme, darkest)))
     print(json.dumps(theme))
   '';
 in
@@ -67,6 +95,8 @@ vscode-utils.buildVscodeExtension rec {
   preUnpack = "sourceRoot='theme-monokai'"; # Override hard coding of buildVscodeExtension
 
   nativeBuildInputs = [ jaq moreutils ];
+
+  BLACK = black;
 
   postPatch = ''
     jaq --in-place ${escapeShellArg patchPackage} 'package.json'
