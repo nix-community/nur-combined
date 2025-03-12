@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.free;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "aulaf87-rgb";
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.linux;
   };
 }
