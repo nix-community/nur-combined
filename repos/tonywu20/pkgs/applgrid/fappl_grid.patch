@@ -1,0 +1,97 @@
+--- a/src/fappl_grid.cxx	2018-12-04 16:04:43.000000000 +0100
++++ b/src/fappl_grid.cxx	2018-12-04 16:05:05.000000000 +0100
+@@ -22,6 +22,27 @@
+ extern "C" double fnalphas_(const double& Q); 
+ extern "C" void   fnpdf_(const double& x, const double& Q, double* f);
+ 
++extern "C" void   fnpdfpbar_(const double& x, const double& Q, double* f);
++
++
++// PM
++extern "C" double fnalphas_ag_(const double& Q);
++
++// Added by PM 27/08/2014
++extern "C" void convolute_ag2_(int& id, int& nloops, double* data);
++extern "C" void convoluteorder2_(int& id, int& nloops, double* data,
++			       void (*pdf)(const double& , const double&, double* ),
++			       double (*alphas)(const double& ) );
++//-----------------------
++
++
++////Added by LHL 06/05/2016
++extern "C" void convolute_ag2_pbar_(int& id, int& nloops, double* data);
++extern "C" void convoluteorder2_pbar_(int& id, int& nloops, double* data,
++			       void (*pdf1)(const double& , const double&, double* ),void (*pdf2)(const double& , const double&, double* ),
++			       double (*alphas)(const double& ) );
++///-----------------------
++
+ 
+ 
+ static int idcounter = 0;
+@@ -187,6 +208,19 @@
+   convolutewrap_(id, data, fnpdf_, fnalphas_); 
+ }
+ 
++// Added by PM 27/08/2014
++void convolute_ag2_(int& id, int& nloops, double* data) { 
++  convoluteorder2_(id, nloops, data, fnpdf_, fnalphas_ag_); 
++}
++//-----------------------
++
++
++// Added by LHL 05/06/2016
++void convolute_ag2_pbar_(int& id, int& nloops, double* data) { 
++  convoluteorder2_pbar_(id, nloops, data, fnpdf_,fnpdfpbar_, fnalphas_ag_); 
++}
++//-----------------------
++
+ 
+ void convolutewrap_(const int& id, double* data, 
+ 		    void (*pdf)(const double& , const double&, double* ),  
+@@ -214,8 +248,34 @@
+   else throw appl::grid::exception( std::cerr << "No grid with id " << id << std::endl );
+ }
+ 
++// Added by PM 27/08/2014
++void convoluteorder2_(int& id, int& nloops, double* data, 
++		      void (*pdf)(const double& , const double&, double* ),
++		      double (*alphas)(const double& )) { 
++  std::map<int,appl::grid*>::iterator gitr = _grid.find(id);
++  if ( gitr!=_grid.end() ) { 
++    appl::grid*    g = gitr->second;
++    std::vector<double> v = g->vconvolute(pdf, alphas, nloops);
++    for ( unsigned i=0 ; i<v.size() ; i++ ) data[i] = v[i];      
++  }
++  else throw appl::grid::exception( std::cerr << "No grid with id " << id << std::endl );
++}
++//-----------------------
+ 
+-
++// Added by LHL 06/05/2016
++void convoluteorder2_pbar_(int& id, int& nloops, double* data, 
++		      void (*pdf1)(const double& , const double&, double* ),
++		      void (*pdf2)(const double& , const double&, double* ),
++		      double (*alphas)(const double& )) { 
++  std::map<int,appl::grid*>::iterator gitr = _grid.find(id);
++  if ( gitr!=_grid.end() ) { 
++    appl::grid*    g = gitr->second;
++    std::vector<double> v = g->vconvolute(pdf1,pdf2, alphas, nloops);
++    for ( unsigned i=0 ; i<v.size() ; i++ ) data[i] = v[i];      
++  }
++  else throw appl::grid::exception( std::cerr << "No grid with id " << id << std::endl );
++}
++//-----------------------
+ 
+ void fullconvolutewrap_(const int& id, double* data, 
+ 			void (*pdf)(const double& , const double&, double* ),  
+@@ -343,8 +403,9 @@
+ 
+ }
+ 
++/// lhl
+ 
+-void getrun_( const int& id, double& run ) { 
++extern "C" void getrun_( const int& id, double& run ) { 
+   std::map<int,appl::grid*>::iterator gitr = _grid.find(id);
+   if ( gitr!=_grid.end() ) { 
+     appl::grid*    g = gitr->second;

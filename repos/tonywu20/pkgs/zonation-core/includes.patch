@@ -1,0 +1,46 @@
+diff -r -u source.orig/zig4/core/bat_run.cpp source/zig4/core/bat_run.cpp
+--- source.orig/zig4/core/bat_run.cpp	1970-01-01 01:00:01.000000000 +0100
++++ source/zig4/core/bat_run.cpp	2019-04-19 16:40:18.742309222 +0200
+@@ -22,6 +22,7 @@
+ #include <queue>
+ #include <boost/thread.hpp>
+ #include <limits>
++#include <iostream>
+ 
+ // more memory, faster search when removing cells from the edge list (warp blocks)
+ #define USE_MAT_EDGE_LIST_POS 1
+diff -r -u source.orig/zig4/main.cpp source/zig4/main.cpp
+--- source.orig/zig4/main.cpp	1970-01-01 01:00:01.000000000 +0100
++++ source/zig4/main.cpp	2019-04-19 16:29:44.526128097 +0200
+@@ -24,7 +24,7 @@
+ #include <QCoreApplication>
+ #include <iostream>
+ #include <QDebug>
+-#include <gdal/gdal_priv.h>
++#include <gdal_priv.h>
+ #if defined(_MSC_VER) && defined(_CRTDBG_MAP_ALLOC)
+ #define _CRTDBG_MAP_ALLOC
+ #include <stdlib.h>
+diff -r -u source.orig/zig4lib/io_raster_load.cpp source/zig4lib/io_raster_load.cpp
+--- source.orig/zig4lib/io_raster_load.cpp	1970-01-01 01:00:01.000000000 +0100
++++ source/zig4lib/io_raster_load.cpp	2019-04-19 16:30:18.102137686 +0200
+@@ -1,6 +1,6 @@
+ #include "io.h"
+ #include "pod.h"
+-#include <gdal/gdal_priv.h>
++#include <gdal_priv.h>
+ #include <QFile>
+ #include <boost/shared_ptr.hpp>
+ 
+diff -r -u source.orig/zig4lib/raster.h source/zig4lib/raster.h
+--- source.orig/zig4lib/raster.h	1970-01-01 01:00:01.000000000 +0100
++++ source/zig4lib/raster.h	2019-04-19 16:29:57.717131861 +0200
+@@ -5,7 +5,7 @@
+ 
+ #include <iostream>
+ 
+-#include <gdal/gdal_priv.h>
++#include <gdal_priv.h>
+ 
+ template <typename T>
+ struct GDALTypeTraits {
