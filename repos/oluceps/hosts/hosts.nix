@@ -30,7 +30,8 @@ let
 in
 {
   kaambl = {
-  } // sum;
+  };
+  # // sum;
   hastur = {
   } // sum;
   eihort = {

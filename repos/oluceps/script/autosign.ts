@@ -16,11 +16,11 @@ const NTFY_CONFIG = {
 
 async function performSign(mode: "in" | "out") {
   try {
-    const codeRes = await ky.get("https://xyb.1zpass.cloud/api/code", {
+    const codeRes = await ky.get("https://www.xybsign.xyz/api/code", {
       headers: COMMON_HEADERS,
     }).json<{ id: number }>();
 
-    const loginRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/login", {
+    const loginRes = await ky.post("https://www.xybsign.xyz/api/xyb/login", {
       headers: COMMON_HEADERS,
       json: {
         username: Deno.env.get("PHONE"),
@@ -44,14 +44,14 @@ async function performSign(mode: "in" | "out") {
       'encryptvalue': loginRes.data.encryptValue,
     };
 
-    const projectRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/projects", {
+    const projectRes = await ky.post("https://www.xybsign.xyz/api/xyb/projects", {
       headers: AUTH_HEADERS,
       json: { force: false },
     }).json<{ data: Array<{ planId: number }> }>();
 
     console.log("projRes:", projectRes)
 
-    const taskRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/tasks", {
+    const taskRes = await ky.post("https://www.xybsign.xyz/api/xyb/tasks", {
       headers: AUTH_HEADERS,
       json: {
         moduleId: projectRes.data[0].moduleIds[0],
@@ -62,12 +62,12 @@ async function performSign(mode: "in" | "out") {
 
     console.log("taskRes:", taskRes)
 
-    const trainRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/clock/trainid", {
+    const trainRes = await ky.post("https://www.xybsign.xyz/api/xyb/clock/trainid", {
       headers: AUTH_HEADERS,
       json: { planId: taskRes.data.planId },
     }).json<{ data: { traineeId: number } }>();
 
-    const clockRes = await ky.post("https://xyb.1zpass.cloud/api/xyb/clock", {
+    const clockRes = await ky.post("https://www.xybsign.xyz/api/xyb/clock", {
       headers: AUTH_HEADERS,
       json: {
         postInfo: {
