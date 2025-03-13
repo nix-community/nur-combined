@@ -24,51 +24,13 @@ An old cellphone arcade recreated for PC
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="bluejay">
@@ -95,51 +57,13 @@ Bluetooth manager written in Qt
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="brisk-menu">
@@ -165,51 +89,13 @@ An efficient menu for the MATE Desktop
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="bsdutils">
@@ -236,51 +122,13 @@ Alternative to GNU coreutils using software from FreeBSD
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="cargo-aoc">
@@ -307,41 +155,12 @@ Cargo Advent of Code Helper
 
 - Platforms:
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
   - `armv6l-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv64-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `powerpc-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `armv7a-darwin`
-  - `armv5tel-linux`
-  - `armv7a-linux`
-  - `m68k-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mipsel-linux`
-  - `mips64el-linux`
-  - `riscv32-linux`
-  - `armv6l-netbsd`
-  - `mipsel-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="cpuid2cpuflags">
@@ -368,51 +187,13 @@ Tool to generate flags for your CPU
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="fastfetch">
@@ -439,83 +220,13 @@ Like neofetch, but much faster because written in C
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="fastfetchMinimal">
@@ -542,83 +253,13 @@ Like neofetch, but much faster because written in C (with all features disabled)
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="firefox-gnome-theme">
@@ -630,12 +271,12 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox
 
 - Name: `firefox-gnome-theme`
-- Version: `135`
+- Version: `136`
 
 - [🌐 Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
 - [📦 Source](./pkgs/by-name/firefox-gnome-theme/package.nix#L30)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
-- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v135)
+- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v136)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -645,83 +286,13 @@ A GNOME theme for Firefox
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="glojure">
@@ -748,51 +319,13 @@ Clojure interpreter hosted on Go, with extensible interop support
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="gtatool">
@@ -818,51 +351,13 @@ A set of commands that manipulate GTAs on various levels
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="gtatoolFull">
@@ -888,51 +383,13 @@ A set of commands that manipulate GTAs on various levels (with all features enab
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="hedge-mod-manager">
@@ -987,44 +444,12 @@ A language for building concurrent software with confidence
 
 - Platforms:
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
   - `armv6l-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv64-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `powerpc-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `i686-windows`
-  - `x86_64-windows`
-  - `armv7a-darwin`
-  - `armv5tel-linux`
-  - `armv7a-linux`
-  - `m68k-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mipsel-linux`
-  - `mips64el-linux`
-  - `riscv32-linux`
-  - `armv6l-netbsd`
-  - `mipsel-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-redox`
-  - `wasm32-wasi`
   </details>
 
 <h2 id="karton">
@@ -1051,25 +476,9 @@ KDE Virtual Machine Manager
 
 - Platforms:
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
   </details>
 
@@ -1096,51 +505,13 @@ Quick file preview for Dolphin
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="kuroko">
@@ -1167,51 +538,13 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="libgta">
@@ -1237,83 +570,13 @@ A library that reads and writes GTA files, with interfaces in C and C++
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="libtgd">
@@ -1339,51 +602,13 @@ A library to make working with multidimensional arrays in C++ easy
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="libtgdFull">
@@ -1409,51 +634,13 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="libxo">
@@ -1479,83 +666,13 @@ Library for emitting text, XML, JSON, or HTML output
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="magothy">
@@ -1585,20 +702,7 @@ A hardware profiling application for Linux
   - `armv6l-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv64-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `armv5tel-linux`
-  - `armv7a-linux`
-  - `m68k-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mipsel-linux`
-  - `mips64el-linux`
-  - `riscv32-linux`
   </details>
 
 <h2 id="magpie-wayland">
@@ -1624,51 +728,13 @@ wlroots-based Wayland compositor designed for the Budgie Desktop
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="mapfab">
@@ -1695,51 +761,13 @@ Level editor for creating (new) NES games
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="mii-emu">
@@ -1766,51 +794,13 @@ MII Apple //e Emulator for Linux
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="minesector">
@@ -1836,51 +826,13 @@ Snazzy Minesweeper-based game built with SDL2
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="mucalc">
@@ -1906,51 +858,13 @@ A convenient calculator for the command line
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="nesfab">
@@ -1977,51 +891,13 @@ Programming language that targets the Nintendo Entertainment System
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="nheko-nightly">
@@ -2047,83 +923,13 @@ Desktop client for the Matrix protocol
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="opensurge">
@@ -2150,51 +956,13 @@ A fun 2D retro platformer inspired by Sonic games and a game creation system
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="phonon-mpv">
@@ -2221,51 +989,13 @@ Phonon Backend using MPV Player
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="plasma-camera">
@@ -2291,51 +1021,13 @@ Camera application for Plasma Mobile
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="pnut">
@@ -2347,7 +1039,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-03-11`
+- Version: `SLE2024-artifact-unstable-2025-03-12`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
@@ -2361,51 +1053,13 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="pseint">
@@ -2431,51 +1085,13 @@ A tool for learning programming basis with a simple Spanish pseudocode
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="qv">
@@ -2501,51 +1117,13 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="raze">
@@ -2571,51 +1149,13 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="sharkey">
@@ -2642,51 +1182,13 @@ Sharkish microblogging platform
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="super-mario-127">
@@ -2712,51 +1214,13 @@ Fan sequel to Super Mario 63
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="supermodel">
@@ -2768,7 +1232,7 @@ Fan sequel to Super Mario 63
 Sega Model 3 arcade machine emulator
 
 - Name: `supermodel`
-- Version: `0-unstable-2025-02-27`
+- Version: `0-unstable-2025-03-12`
 
 - [🌐 Homepage](https://github.com/trzy/Supermodel)
 - [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
@@ -2782,51 +1246,13 @@ Sega Model 3 arcade machine emulator
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="surgescript">
@@ -2853,51 +1279,13 @@ A scripting language for games
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="teem">
@@ -2923,51 +1311,13 @@ A coordinated group of libraries for representing, processing, and visualizing s
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="teemExperimental">
@@ -2993,51 +1343,13 @@ A coordinated group of libraries for representing, processing, and visualizing s
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="teemExperimentalFull">
@@ -3063,51 +1375,13 @@ A coordinated group of libraries for representing, processing, and visualizing s
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="teemFull">
@@ -3133,51 +1407,13 @@ A coordinated group of libraries for representing, processing, and visualizing s
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="thunderbird-gnome-theme">
@@ -3203,83 +1439,13 @@ A GNOME theme for Thunderbird
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="tinyfeed">
@@ -3306,51 +1472,13 @@ Generate a static HTML page from a collection of feeds wtih a simple CLI tool
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="union">
@@ -3376,51 +1504,13 @@ A Qt style supporting both QtQuick and QtWidgets
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="wayneko">
@@ -3446,51 +1536,13 @@ Display an animated neko cat on the bottom of an output
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="wisp">
@@ -3516,83 +1568,13 @@ Wisp turns indentation based syntax into Lisp
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `aarch64-genode`
-  - `i686-genode`
-  - `x86_64-genode`
-  - `x86_64-solaris`
-  - `javascript-ghcjs`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `mmix-mmixware`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `aarch64_be-none`
-  - `aarch64-none`
-  - `arm-none`
-  - `armv6l-none`
-  - `avr-none`
-  - `i686-none`
-  - `microblaze-none`
-  - `microblazeel-none`
-  - `mips-none`
-  - `mips64-none`
-  - `msp430-none`
-  - `or1k-none`
-  - `m68k-none`
-  - `powerpc-none`
-  - `powerpcle-none`
-  - `riscv32-none`
-  - `riscv64-none`
-  - `rx-none`
-  - `s390-none`
-  - `s390x-none`
-  - `vc4-none`
-  - `x86_64-none`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
-  - `wasm64-wasi`
-  - `wasm32-wasi`
-  - `aarch64-windows`
-  - `x86_64-windows`
-  - `i686-windows`
   </details>
 
 <h2 id="woke">
@@ -3619,51 +1601,13 @@ Detect non-inclusive language in your source code
   </summary>
 
 - Platforms:
-  - `i686-cygwin`
-  - `x86_64-cygwin`
   - `x86_64-darwin`
-  - `i686-darwin`
   - `aarch64-darwin`
-  - `armv7a-darwin`
-  - `i686-freebsd`
-  - `x86_64-freebsd`
-  - `aarch64-freebsd`
-  - `x86_64-solaris`
   - `aarch64-linux`
-  - `armv5tel-linux`
   - `armv6l-linux`
-  - `armv7a-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `m68k-linux`
-  - `microblaze-linux`
-  - `microblazeel-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mips64el-linux`
-  - `mipsel-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv32-linux`
-  - `riscv64-linux`
-  - `s390-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `aarch64-netbsd`
-  - `armv6l-netbsd`
-  - `armv7a-netbsd`
-  - `armv7l-netbsd`
-  - `i686-netbsd`
-  - `m68k-netbsd`
-  - `mipsel-netbsd`
-  - `powerpc-netbsd`
-  - `riscv32-netbsd`
-  - `riscv64-netbsd`
-  - `x86_64-netbsd`
-  - `i686-openbsd`
-  - `x86_64-openbsd`
-  - `x86_64-redox`
   </details>
 
 <h2 id="xdvdfs">
@@ -3693,18 +1637,5 @@ Original Xbox DVD Filesystem library and management tool
   - `armv6l-linux`
   - `armv7l-linux`
   - `i686-linux`
-  - `loongarch64-linux`
-  - `powerpc64-linux`
-  - `powerpc64le-linux`
-  - `riscv64-linux`
-  - `s390x-linux`
   - `x86_64-linux`
-  - `armv5tel-linux`
-  - `armv7a-linux`
-  - `m68k-linux`
-  - `mips-linux`
-  - `mips64-linux`
-  - `mipsel-linux`
-  - `mips64el-linux`
-  - `riscv32-linux`
   </details>

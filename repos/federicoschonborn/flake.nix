@@ -26,7 +26,7 @@
       git-hooks,
       ...
     }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    flake-parts.lib.mkFlake { inherit inputs; } (toplevel: {
       imports = [ git-hooks.flakeModule ];
 
       systems = [
@@ -168,7 +168,11 @@
                         ''
                         (lib.optionalString (meta ? longDescription) "${meta.longDescription}")
                         (lib.optionalString (meta ? platforms) (
-                          "- Platforms:\n" + lib.concatMapStringsSep "\n" (x: "  - `${x}`") meta.platforms
+                          "- Platforms:\n"
+                          + lib.pipe meta.platforms [
+                            (lib.filter (x: builtins.elem x toplevel.config.systems))
+                            (lib.concatMapStringsSep "\n" (x: "  - `${x}`"))
+                          ]
                         ))
                         ''
                           </details>
@@ -298,5 +302,5 @@
 
           formatter = pkgs.nixfmt-rfc-style;
         };
-    };
+    });
 }
