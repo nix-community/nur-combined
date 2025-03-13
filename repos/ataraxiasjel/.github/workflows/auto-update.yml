@@ -23,11 +23,6 @@ jobs:
       uses: DeterminateSystems/flakehub-cache-action@main
     - name: Show nixpkgs version
       run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
-    - name: Enter devenv shell
-      run: |
-        DEVENV_ROOT_FILE=$(mktemp); \
-          printf %s "$PWD" > "$DEVENV_ROOT_FILE"; \
-          nix develop . --override-input devenv-root "file+file://$DEVENV_ROOT_FILE"
     - name: Update packages
       env:
         XDG_RUNTIME_DIR: ${{ github.workspace }}
@@ -40,12 +35,16 @@ jobs:
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       timeout-minutes: 30
       continue-on-error: true
-      run: nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' | xargs -L1 nix-update --use-update-script --commit --flake
+      run: |
+        ./enter-dev-shell.sh \
+          "nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' \
+          | jq '.[]' \
+          | xargs -L1 nix-update --use-update-script --commit --flake"
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./ci.sh --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
+      run: ./enter-dev-shell.sh "./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
     - name: Submit auto-update PR
       uses: peter-evans/create-pull-request@v7
       with:
