@@ -19,4 +19,5 @@
   age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card { };
   thinkpad-uefi-sign = pkgs.callPackage ./pkgs/thinkpad-uefi-sign { };
   huawei-password-tool = pkgs.callPackage ./pkgs/huawei-password-tool { };
+  oct-git = pkgs.callPackage ./pkgs/oct-git { };
 }
