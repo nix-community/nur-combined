@@ -76,6 +76,8 @@ let
     };
     p7zip = prev.p7zip.override { enableUnfree = true; };
     remmina = prev.remmina.override { withKf5Wallet = false; };
+    qt5ct = prev.libsForQt5.callPackage ./qt5ct { };
+    qt6ct = prev.kdePackages.callPackage ./qt6ct { };
     systemd' = callPackage ./systemd-patched { };
     meson' = callPackage ./meson-patched { };
   };
