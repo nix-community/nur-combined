@@ -1,4 +1,12 @@
-{ mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv, doSplitBuildHack ? false, checkpointBuildTools }: let
+{
+    mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv,
+    writeShellScript,
+    common-updater-scripts,
+    coreutils,
+    curl,
+    jq,
+    nix-prefetch-git,
+}: let
     hbmame' = (mame.override {
         papirus-icon-theme = "DUMMY";
     }).overrideAttrs (old: rec {
@@ -66,8 +74,30 @@
                 lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
             );
         };
-        passthru = removeAttrs (old.passthru or {}) ["updateScript"] // {
+        passthru = (old.passthru or {}) // {
             tools = throw "HBMAME's copies of the MAME tools are not supported by the HBMAME developer, and have been removed. Please use the upstream `mame.tools` instead.";
+            updateScript = writeShellScript "update-hbmame" ''
+                PATH=${lib.makeBinPath [
+                    common-updater-scripts
+                    curl
+                    jq
+                ]}
+                set -euo pipefail
+                latestVersion="$(
+                    curl ''${GITHUB_TOKEN:+-H "Authorization: bearer $GITHUB_TOKEN"} https://api.github.com/repos/${src.owner}/${src.repo}/tags | \
+                    jq -r '
+                        [
+                            .[].name |
+                            match("tag(?<minor>[0-9]{3})(?<patch>[0-9]*)") |
+                            .captures |
+                            .[] |= {key: .name, value: .string} |
+                            from_entries |
+                            "0." + .minor + (if .patch == "" then "" else "."+.patch) end
+                        ][0]
+                    '
+                )"
+                update-source-version hbmame "$latestVersion"
+            '';
         };
         meta = (old.meta or {}) // {
             description = "Emulator of homebrew and hacked games for arcade hardware";
@@ -90,11 +120,4 @@
             mainProgram = "hbmame";
         };
     });
-in if doSplitBuildHack then let
-    phase1 = hbmame'.overrideAttrs (old: {
-        pname = old.pname + "-phase1";
-        buildFlags = (old.buildFlags or []) ++ ["generate"];
-    });
-    artifacts = checkpointBuildTools.prepareCheckpointBuild phase1;
-    hbmame'' = checkpointBuildTools.mkCheckpointBuild hbmame' artifacts;
-in hbmame'' else hbmame'
+in hbmame'
