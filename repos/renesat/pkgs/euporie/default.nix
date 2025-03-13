@@ -33,7 +33,7 @@
 }:
 buildPythonPackage rec {
   pname = "euporie";
-  version = "2.8.6";
+  version = "2.8.7";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -41,8 +41,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "joouha";
     repo = "euporie";
-    rev = "v${version}";
-    hash = "sha256-7wsx6pTpKeLyt/JDrQRL9QjlqiHPq8GtJuMhnQ2Rd0g=";
+    tag = "v${version}";
+    hash = "sha256-4JvVMOTGXHdlbYH2yJ5Capc4uIvAdOpCO9rzNugPUHA=";
   };
 
   build-system = [hatchling];

@@ -24,6 +24,7 @@
     questdb = throw "Use `pkgs.questdb` instead";
   };
   packages = rec {
+    toutui = pkgs.callPackage ./pkgs/toutui {};
     daqp = pkgs.callPackage ./pkgs/daqp {};
     imap-backup = pkgs.callPackage ./pkgs/imap-backup {};
     vl-convert = pkgs.callPackage ./pkgs/vl-convert {};

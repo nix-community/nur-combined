@@ -15,8 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "joouha";
     repo = "sixelcrop";
-    rev = "f78ae776164f0fe186e7ada12eab1336068a1687"; # FIXME: no tag for 0.1.9
-    # rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-oqTkMbpWIiUOKq5CwWRC4ZoeKun+FsjDGa5FkifFYCg=";
   };
 
