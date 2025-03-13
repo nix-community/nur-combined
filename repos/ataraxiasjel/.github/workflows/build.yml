@@ -19,9 +19,9 @@ jobs:
           - ataraxiasjel
         cachixName:
           - ataraxiadev-foss
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixos-24.11
+        nixpkgs:
+          - nixos-unstable # Unstable from flake.lock, updated weekly
+          - nixos-24.11 # Latest stable
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -41,10 +41,7 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup magic nix cache
       uses: DeterminateSystems/flakehub-cache-action@main
     - name: Setup Cachix
@@ -53,15 +50,21 @@ jobs:
         name: '${{ matrix.cachixName }}'
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Override nixpkgs in flake to latest stable
+      if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
+      run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Install essential packages
-      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#nix-fast-build nixpkgs#jq
+      run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
+    - name: Enter devenv shell
+      run: |
+        DEVENV_ROOT_FILE=$(mktemp); \
+          printf %s "$PWD" > "$DEVENV_ROOT_FILE"; \
+          nix develop . --override-input devenv-root "file+file://$DEVENV_ROOT_FILE"
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./ci.sh --impure -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" pkgs/default.nix
+      run: ./ci.sh --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"
     - name: Build nix packages
       env:
         NIXPKGS_ALLOW_UNFREE: 1

@@ -106,19 +106,17 @@ in
       script = ''
         ${lib.optionalString (cfg.settings != { }) "${linkConfigs environment.OCIS_CONFIG_DIR}"}
         if [ ! -f "$OCIS_CONFIG_DIR/ocis.yaml" ]; then
-          ${
-            lib.optionalString (cfg.adminpassFile != null) ''
-              if [ ! -r "${cfg.adminpassFile}" ]; then
-                echo "adminpassFile ${cfg.adminpassFile} is not readable by ocis:ocis! Aborting..."
-                exit 1
-              fi
-              if [ -z "$(<${cfg.adminpassFile})" ]; then
-                echo "adminpassFile ${cfg.adminpassFile} is empty!"
-                exit 1
-              fi
-              ${mkExport adminpass}
-            ''
-          }
+          ${lib.optionalString (cfg.adminpassFile != null) ''
+            if [ ! -r "${cfg.adminpassFile}" ]; then
+              echo "adminpassFile ${cfg.adminpassFile} is not readable by ocis:ocis! Aborting..."
+              exit 1
+            fi
+            if [ -z "$(<${cfg.adminpassFile})" ]; then
+              echo "adminpassFile ${cfg.adminpassFile} is empty!"
+              exit 1
+            fi
+            ${mkExport adminpass}
+          ''}
           ocis init
         fi
       '';

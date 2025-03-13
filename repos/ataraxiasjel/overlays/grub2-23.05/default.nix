@@ -64,13 +64,16 @@ final: prev: {
           hash = "sha256-xhxN8Tw15ENAMSE/cTkigl5yHR3T2d7B1RMFqiMvmxU=";
         };
       in
-      builtins.replaceStrings [ "patchShebangs ." ] [
-        ''
-          patchShebangs .
+      builtins.replaceStrings
+        [ "patchShebangs ." ]
+        [
+          ''
+            patchShebangs .
 
-          ./bootstrap --no-git --gnulib-srcdir=${gnulib}
-        ''
-      ] attrs.preConfigure;
+            ./bootstrap --no-git --gnulib-srcdir=${gnulib}
+          ''
+        ]
+        attrs.preConfigure;
 
     configureFlags = attrs.configureFlags ++ [
       "--disable-nls"

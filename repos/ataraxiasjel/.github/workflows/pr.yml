@@ -14,16 +14,16 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
-        nix_path: "nixpkgs=channel:nixos-unstable"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup magic nix cache
       uses: DeterminateSystems/flakehub-cache-action@main
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Install essential packages
-      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#jq
+      run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
+    - name: Enter devenv shell
+      run: |
+        DEVENV_ROOT_FILE=$(mktemp); \
+          printf %s "$PWD" > "$DEVENV_ROOT_FILE"; \
+          nix develop . --override-input devenv-root "file+file://$DEVENV_ROOT_FILE"
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1

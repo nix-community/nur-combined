@@ -2,8 +2,12 @@
   description = "AtaraxiaSjel's NUR repository";
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devenv.url = "github:cachix/devenv";
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
   };
   outputs =
     inputs@{ flake-parts, nixpkgs, ... }:
@@ -38,6 +42,12 @@
           packages = (import ./ci.nix { inherit pkgs; }).buildPkgs;
           checks = (import ./ci.nix { inherit pkgs; }).cachePkgs;
           devenv.shells.default = {
+            devenv.root =
+              let
+                devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
+              in
+              lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
+
             packages = with pkgs; [
               nix-update
               nix-eval-jobs
