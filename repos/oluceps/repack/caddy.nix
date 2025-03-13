@@ -22,37 +22,37 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default =
-          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
-            caddy = (
-              (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
-                buildGoModule = pkgs.buildGo124Module;
-              }).overrideAttrs
-                (
-                  final: prev:
-                  let
-                    version = "2.10.0-beta.2";
-                  in
-                  {
-                    inherit version;
-                    src = pkgs.fetchFromGitHub {
-                      owner = "caddyserver";
-                      repo = "caddy";
-                      rev = "v${version}";
-                      hash = "sha256-sbY16qILrXtLlQxtGzvtM7NaJzmQLn4dR/8dhHZABiw=";
-                    };
-                    vendorHash = "sha256-YQLd+Xn1MfBUoY/LA0PwT/LlPaxNOg/HEN5B0jcs5VA=";
-                  }
-                )
+          # (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
+          # caddy = (
+          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
+            buildGoModule = pkgs.buildGo124Module;
+          }).overrideAttrs
+            (
+              final: prev:
+              let
+                version = "2.10.1-beta.2.1";
+              in
+              {
+                inherit version;
+                src = pkgs.fetchFromGitHub {
+                  owner = "oluceps";
+                  repo = "caddy";
+                  rev = "v${version}";
+                  hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
+                };
+                vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
+              }
             );
-          })
-            {
-              plugins = [
-                "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
-                "github.com/mholt/caddy-ratelimit@v0.1.0"
-                "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
-              ];
-              hash = "sha256-fcTZ7xk/tuBlvJZ3iaURPci0sh4HPjv9d9KUolNqNQo=";
-            };
+        # );
+        # })
+        #   {
+        #     plugins = [
+        #       "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
+        #       "github.com/mholt/caddy-ratelimit@v0.1.0"
+        #       "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
+        #     ];
+        #     hash = "sha256-fcTZ7xk/tuBlvJZ3iaURPci0sh4HPjv9d9KUolNqNQo=";
+        #   };
       };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
@@ -67,11 +67,11 @@ in
         config.persist = false;
       };
       logging.logs.debug.level = "debug";
-      storage = mkIf cfg.public {
-        module = "s3";
-        prefix = "ssl";
-        insecure = false;
-      };
+      # storage = mkIf cfg.public {
+      #   module = "s3";
+      #   prefix = "ssl";
+      #   insecure = false;
+      # };
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {

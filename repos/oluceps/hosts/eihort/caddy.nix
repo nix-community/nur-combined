@@ -95,6 +95,9 @@
               {
                 handler = "reverse_proxy";
                 upstreams = [ { dial = "unix//run/misskey/rw.sock"; } ];
+                trusted_proxies = [
+                  "fdcc::4"
+                ];
               }
             ];
             match = [ { host = [ "nyaw.xyz" ]; } ];

@@ -343,6 +343,19 @@
           }
         ];
 
+        tls_connection_policies = [
+          {
+            match = {
+              sni = [
+                "*.*.nyaw.xyz"
+                "*.nyaw.xyz"
+                "nyaw.xyz"
+              ];
+            };
+            protocol_min = "tls1.3";
+          }
+        ];
+
       };
       tls =
         let
