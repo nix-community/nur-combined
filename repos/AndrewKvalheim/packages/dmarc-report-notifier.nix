@@ -6,20 +6,20 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "dmarc-report-notifier";
-  version = "1.1.8";
+  version = "1.1.9";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${version}";
-    hash = "sha256-xoZDwAxzVkqmuR9JwyguL+HSahbbockikoDXZUle4Oo=";
+    hash = "sha256-0aT9ticYrMI2EKijWRvi9VgzhPErChacNK6ydCpSM0Q=";
   };
 
   format = "pyproject";
 
   nativeBuildInputs = with python3Packages; [
-    poetry-core
+    hatchling
   ];
 
   propagatedBuildInputs = with python3Packages; [

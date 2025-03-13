@@ -76,6 +76,7 @@ in
     };
   };
   meshtastic-url = any;
+  migrate-to-uv = any;
   minemap = any;
   mozjpeg-simple = any;
   mqtt-connect = any;

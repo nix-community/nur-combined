@@ -135,6 +135,7 @@ in
         set-clipboard = "wl-copy --type 'TEXT'";
         ssh-copy-id = "ssh-copy-id -o 'PreferredAuthentications=password'";
         ssh-ephemeral = "ssh -o StrictHostKeyChecking='no' -o UserKnownHostsFile='/dev/null'";
+        uv-outdated = "uv tree --depth '1' --outdated";
         watch = "watch --color";
         wd = "git diff --no-index --word-diff --word-diff-regex '.'";
         xev = "echo 'Use ${sgr "22" "1" "wev"} instead.' >&2; return 1";

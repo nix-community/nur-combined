@@ -38,8 +38,8 @@ in
       [ red green yellow blue orange purple ];
   xdg.configFile."paperwm/user.css".text = with palette.cssRgba; ''
     .paperwm-selection {
-        background-color: transparent;
-        border: ${toString dconf.settings."org/gnome/shell/extensions/paperwm".selection-border-size}px ${black kitty.settings.background_opacity};
+      background-color: transparent;
+      border: ${toString dconf.settings."org/gnome/shell/extensions/paperwm".selection-border-size}px ${black kitty.settings.background_opacity};
     }
   '';
 
