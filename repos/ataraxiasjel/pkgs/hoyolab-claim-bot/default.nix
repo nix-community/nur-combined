@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     owner = "AtaraxiaSjel";
     repo = "hoyolab-claim-bot";
     rev = "v${version}";
-    hash = "sha256-BIU3TiNkSAwwlALZcekva+RpwM2GuQ/vP98WveiniHs=";
+    hash = "sha256-h39TSk2TRrAr8XhwvYHx0fiBAdBIa7pid83B39YEs3A=";
   };
 
   useFetchCargoVendor = true;
