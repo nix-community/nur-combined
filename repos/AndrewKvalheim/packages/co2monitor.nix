@@ -6,7 +6,7 @@
 
 let
   rules = writeText "co2monitor.rules" ''
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="a052", MODE="0660", TAG+="uaccess", GROUP="co2monitor", SYMLINK+="co2monitor"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="a052", MODE="0660", TAG+="uaccess", GROUP="co2monitor", SYMLINK+="co2monitor", TAG+="systemd", ENV{SYSTEMD_ALIAS}+="/dev/co2monitor"
   '';
 in
 buildGoModule {
