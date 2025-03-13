@@ -92,7 +92,7 @@
                             .captures |
                             .[] |= {key: .name, value: .string} |
                             from_entries |
-                            "0." + .minor + (if .patch == "" then "" else "."+.patch) end
+                            "0." + .minor + (if .patch == "" then "" else "."+.patch end)
                         ][0]
                     '
                 )"
