@@ -1,6 +1,11 @@
 name: "Auto-update packages"
 on:
   workflow_dispatch:
+  schedule:
+    # update everyday at 6:25
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '25 6 * * *'
 
 permissions:
   contents: write
