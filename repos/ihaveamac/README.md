@@ -22,7 +22,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [ctrtool-1.2.1](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
-| [discordwikibot-2024-12-20](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [discordwikibot-0-unstable-2025-03-12](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [kame-editor-1.4.1-unstable-2024-11-01](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |

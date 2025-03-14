@@ -6,17 +6,17 @@
 
 buildDotnetModule rec {
   pname = "discordwikibot";
-  version = "2024-12-20";
+  version = "0-unstable-2025-03-12";
 
   src = fetchFromGitHub {
     owner = "stjohann";
     repo = "DiscordWikiBot";
-    rev = "eab36a8f51114bcca7ff2f12ca6b8cfa6246fdfc";
-    hash = "sha256-itSXViIisCksCfKNHaRih9+A9NbgaXKzg64g+5h1VNA=";
+    rev = "cd1da3c974a36579b6658f0174ac5af6caec750d";
+    hash = "sha256-GGuKySuEFplypoSR6gKUgy5M7FuT8B+GKUmYX487Uxg=";
   };
 
   projectFile = "DiscordWikiBot/DiscordWikiBot.csproj";
-  nugetDeps = ./deps.nix;
+  nugetDeps = ./deps.json;
 
   meta = with lib; {
     description = "Discord bot for Wikimedia projects and MediaWiki wiki sites";
