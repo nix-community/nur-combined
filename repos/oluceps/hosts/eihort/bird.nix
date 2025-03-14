@@ -6,23 +6,16 @@
       let
         linkSpec = {
           eihort = ''
-            rtt min 50ms;
           '';
           azasos = ''
-            rtt min 45ms;
           '';
           abhoth = ''
-            rtt min 150ms;
           '';
           kaambl = ''
-            rtt min 45ms;
-            rtt decay 120;
           '';
           yidhra = ''
-            rtt min 50ms;
           '';
           hastur = ''
-            rtt min 1ms;
           '';
         };
 
@@ -32,8 +25,8 @@
             hello interval 1s;
             update interval 2s;
             rtt cost 192;
-            rtt max 180ms;
-            rtt decay 64;
+            rtt max 300ms;
+            rtt decay 125;
             check link no;
             extended next hop yes;
             ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}

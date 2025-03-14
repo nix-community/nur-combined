@@ -9,16 +9,12 @@
           #   rtt min 4ms;
           # '';
           azasos = ''
-            rtt min 33ms;
           '';
           abhoth = ''
-            rtt min 77ms;
           '';
           # hastur = ''
-          #   rtt min 5ms;
           # '';
           yidhra = ''
-            rtt min 38ms;
           '';
         };
 
@@ -28,8 +24,8 @@
             hello interval 1s;
             update interval 2s;
             rtt cost 192;
-            rtt max 180ms;
-            rtt decay 64;
+            rtt max 300ms;
+            rtt decay 125;
             check link no;
             extended next hop yes;
             ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}
