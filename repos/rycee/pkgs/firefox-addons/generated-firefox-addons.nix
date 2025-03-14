@@ -5432,10 +5432,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.14.16";
+      version = "1.15.2";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4443608/immersive_translate-1.14.16.xpi";
-      sha256 = "329fdf8a63c2b153a5c2d5cb77525b819b80e5a3d5786f58e15aba8653579175";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4447825/immersive_translate-1.15.2.xpi";
+      sha256 = "1f258a002ddb8c8d5b46cdfb350383b5f57da5ae40769c3e186e7044e7d1f636";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7645,7 +7645,7 @@
       sha256 = "ca7b385559d7469ccca0454323f92f63d3aef5d68c504a46f818eb59bd735c74";
       meta = with lib;
       {
-        description = "Ethereum Browser Extension";
+        description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
         mozPermissions = [
           "storage"
           "unlimitedStorage"
@@ -7791,10 +7791,10 @@
     };
     "multiple-tab-handler" = buildFirefoxXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.1.13";
+      version = "3.2.0";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255656/multiple_tab_handler-3.1.13.xpi";
-      sha256 = "19f3629b3c5de97e28d1ef696f04a89a26c10a040b0048bfd3f2a757008bee37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4453660/multiple_tab_handler-3.2.0.xpi";
+      sha256 = "bab1546f6c4ef1ae299255eba6c3691d1920736919e51937832b2921e8df8008";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -9886,10 +9886,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.2.3";
+      version = "2.3.0";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405650/readeck-2.2.3.xpi";
-      sha256 = "5b9bfc420ef3cb6ae11a0aa796573f6fb2b7957d71c868ccc084241de065464e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4454026/readeck-2.3.0.xpi";
+      sha256 = "13cb5b1c72b8961eec80cf829a662ac5c66c8fddece2b0127ce23263363f62a0";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -11774,13 +11774,13 @@
     };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "10.1.0.3";
+      version = "10.1.0.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4451867/traduzir_paginas_web-10.1.0.3.xpi";
-      sha256 = "c2497d962b6aa2bcfc8a77836f5c607e142463286cfeb4b4badf7a80125384f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452626/traduzir_paginas_web-10.1.0.4.xpi";
+      sha256 = "294885c7f2c29189bb50d79e4be3fe4a5f0797bf609b731c94de30611f922f28";
       meta = with lib;
       {
-        description = "If after updating the extension the translation is not working, please try restarting your browser.";
+        description = "Translate your page in real time using Google, Bing or Yandex.\nIt is not necessary to open new tabs.";
         license = licenses.mpl20;
         mozPermissions = [
           "<all_urls>"
