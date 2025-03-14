@@ -18,7 +18,7 @@
         };
 
         genLink = host: ''
-          interface "wg-${host}" {
+          interface "hts-${host}" {
             type tunnel;
             hello interval 1s;
             update interval 2s;

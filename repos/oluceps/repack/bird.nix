@@ -30,6 +30,8 @@ in
           };
 
           define HORTUS_FIELD = [ fdcc::/64+ ];
+          define DN42_ASN = 4242420291;
+          define DN42_FIELD = [ fdda:1965:1d5f::/48+ ];
 
           function in_hortus() {
             return net ~ HORTUS_FIELD;

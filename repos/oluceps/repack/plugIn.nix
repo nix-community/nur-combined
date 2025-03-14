@@ -11,12 +11,18 @@ let
     attrNames
     attrValues
     ;
-  inherit (lib) concatMapAttrs optionalAttrs singleton;
+  inherit (lib)
+    recursiveUpdate
+    optionalAttrs
+    singleton
+    mapAttrsToList
+    foldr
+    ;
   inherit (lib.data) node;
   inherit (config.networking) hostName;
   thisConn = (lib.conn { }).${hostName};
   allowedUDPPorts = attrValues thisConn;
-  trustedInterfaces = map (n: "wg-" + n) (attrNames thisConn);
+  trustedInterfaces = map (n: "hts-" + n) (attrNames thisConn);
   thisNode = node.${hostName};
 
   ifNeed =
@@ -31,8 +37,8 @@ let
       peerNode = node.${peerName};
     in
     ifNeed peerNode {
-      "10-wg-${peerName}" = {
-        matchConfig.Name = "wg-${peerName}";
+      "10-wireguard-hts-${peerName}" = {
+        matchConfig.Name = "hts-${peerName}";
         addresses = [
           {
             Address = thisNode.unique_addr;
@@ -55,10 +61,10 @@ let
       directConnect = ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
     in
     ifNeed peerNode {
-      "wg-${peerName}" = {
+      "10-hts-${peerName}" = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "wg-${peerName}";
+          Name = "hts-${peerName}";
           MTUBytes = if directConnect then 1420 else 1380;
         };
         wireguardConfig =
@@ -100,35 +106,28 @@ in
 
     networking.firewall = { inherit allowedUDPPorts trustedInterfaces; };
 
-    boot.kernel.sysctl = lib.foldr (
-      i: acc:
-      acc
-      // {
-        "net.ipv4.conf.wg-${i}.rp_filter" = 0;
-        "net.ipv6.conf.wg-${i}.rp_filter" = 0;
-      }
-    ) { } (builtins.attrNames thisConn);
-
-    # it dont recursiveUpdate :\
-    systemd.network.netdevs = (concatMapAttrs genPeerNetdev thisConn) // {
-      "anchor-0" = {
-        enable = true;
-        netdevConfig = {
-          Kind = "dummy";
-          Name = "anchor-0";
+    systemd.network =
+      recursiveUpdate
+        (foldr recursiveUpdate { } (
+          mapAttrsToList (name: port: {
+            netdevs = genPeerNetdev name port;
+            networks = genPeerNetwork name port;
+          }) thisConn
+        ))
+        {
+          netdevs."10-anchor-0" = {
+            enable = true;
+            netdevConfig = {
+              Kind = "dummy";
+              Name = "anchor-0";
+            };
+          };
+          networks."10-dummy-anchor-0" = {
+            enable = true;
+            DHCP = "no";
+            matchConfig.Name = "anchor-0";
+            address = singleton thisNode.unique_addr;
+          };
         };
-      };
-    };
-    systemd.network.networks = (concatMapAttrs genPeerNetwork thisConn) // {
-      anchor-0 = {
-        enable = true;
-        DHCP = "no";
-        name = "anchor-0";
-        matchConfig = {
-          Name = "anchor-0";
-        };
-        address = singleton thisNode.unique_addr;
-      };
-    };
   };
 }
