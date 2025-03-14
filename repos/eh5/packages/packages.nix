@@ -15,7 +15,6 @@ let
   self = self_base // (lib.optionalAttrs (inputs != null) self_extra);
 
   self_base = {
-    dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };

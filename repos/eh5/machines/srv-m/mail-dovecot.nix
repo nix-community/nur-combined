@@ -43,10 +43,6 @@ in
     mailLocation = "maildir:~/Maildir";
     sslServerCert = cfg.certFile;
     sslServerKey = cfg.keyFile;
-    modules = with pkgs; [
-      dovecot_pigeonhole
-      dovecot-fts-flatcurve
-    ];
     mailPlugins.globally.enable = [
       "acl"
       "zlib"
@@ -247,6 +243,11 @@ in
     requires = [ "openldap.service" ];
     after = [ "openldap.service" ];
   };
+
+  environment.systemPackages = with pkgs; [
+    dovecot_pigeonhole
+    dovecot-fts-flatcurve
+  ];
 
   # nixpkgs.overlays = [
   #   (
