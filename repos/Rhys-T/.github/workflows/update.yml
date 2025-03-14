@@ -44,9 +44,11 @@ jobs:
             --argstr keep-going true \
             --argstr commit true \
             --show-trace
+          exitStatus="$?"
           if ! git diff --exit-code --quiet origin/${{ github.ref_name}}..; then
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
+          exit "$exitStatus"
       - name: Upload error logs
         if: '!cancelled()'
         uses: actions/upload-artifact@v4
