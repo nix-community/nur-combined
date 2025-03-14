@@ -36,9 +36,11 @@ let
         addresses = [
           {
             Address = thisNode.unique_addr;
+            Peer = peerNode.unique_addr;
           }
           {
             Address = thisNode.link_local_addr;
+            Peer = peerNode.link_local_addr;
             Scope = "link";
           }
         ];
