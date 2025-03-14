@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "plutovg";
-  version = "0.0.13";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "plutovg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zmF64qpOwL3QHfp1GznN4TDydjGyhw8IgXYlpCEGXHg=";
+    hash = "sha256-xNWwACKGU5UIJviVZ3wU4GMuRxKn/rR8jBsZQpZiFZ8=";
   };
 
   nativeBuildInputs = [ cmake ];

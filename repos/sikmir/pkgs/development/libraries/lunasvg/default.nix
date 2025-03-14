@@ -8,14 +8,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lunasvg";
-  version = "3.2.0";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/DEyiHlZJYctkNqjQECKRbMGwUYTJHtlQrO0aBXf+Oc=";
+    hash = "sha256-CBhz117Y8e7AdD1JJtNkR/EthsfyiQ05HW41beaY95I=";
   };
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace-fail "plutovg 0.0.4" "plutovg"
+  '';
 
   nativeBuildInputs = [ cmake ];
 
