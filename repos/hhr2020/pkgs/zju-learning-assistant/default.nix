@@ -20,12 +20,12 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "zju-learning-assistant";
-  version = "0.3.9";
+  version = "0.3.10";
   src = fetchFromGitHub {
     owner = "PeiPei233";
     repo = "zju-learning-assistant";
     rev = "v${version}";
-    hash = "sha256-O6ai3+9hkaqrPwH6SZHXRKVDXn7QO+VY3rb/yKJSvI8=";
+    hash = "sha256-CmWh2s9G84Le8EK2PM4vZXGtxR/hcchSTkkpoTn0wWs=";
   };
 
   useFetchCargoVendor = true;
