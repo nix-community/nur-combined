@@ -18,6 +18,7 @@
   xfel = pkgs.callPackage ./pkgs/xfel {};
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {};
   git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator {};
+  ieda = pkgs.callPackage ./pkgs/ieda {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
