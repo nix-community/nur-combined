@@ -1,0 +1,53 @@
+{
+  "chmod": {
+    "description": "Execute  on the selected files to change their modeThis plugin is only available on Unix platforms since it relies on"
+  },
+  "diff": {
+    "description": "Diff the selected file with the hovered file, create a living patch, and copy it to the clipboard"
+  },
+  "full-border": {
+    "description": "Add a full border to Yazi to make it look fancier"
+  },
+  "git": {
+    "description": "Show the status of Git file changes as linemode in the file list"
+  },
+  "hide-preview": {
+    "description": "Switch the preview pane between hidden and shown"
+  },
+  "jump-to-char": {
+    "description": "Vim-like , jump to the next file whose name starts with"
+  },
+  "lsar": {
+    "description": "Previewing archive contents with , which is something you might not want to use anyway"
+  },
+  "mactag": {
+    "description": "Bring macOS's awesome tagging feature to YaziThe plugin it's only available for macOS just like the name says"
+  },
+  "max-preview": {
+    "description": "Maximize or restore the preview pane"
+  },
+  "mime-ext": {
+    "description": "A mime-type provider based on a file extension database, replacing the  to speed up mime-type retrieval at the expense of accuracy"
+  },
+  "mount": {
+    "description": "A mount manager for Yazi, providing disk mount, unmount, and eject functionality"
+  },
+  "no-status": {
+    "description": "Remove the status bar"
+  },
+  "smart-enter": {
+    "description": "files or  directories all in one key"
+  },
+  "smart-filter": {
+    "description": "A Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting"
+  },
+  "sudo-demo": {
+    "description": "Just an example showing how to use  in a Yazi plugin, and the plugin itself doesn't offer any features beyond logging a message"
+  },
+  "toggle-pane": {
+    "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and previewIt respects the user's"
+  },
+  "vcs-files": {
+    "description": "Show Git file changes in Yazi"
+  }
+}
