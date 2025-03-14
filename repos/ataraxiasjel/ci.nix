@@ -14,15 +14,8 @@
 }:
 
 let
-  inherit (pkgs.lib) filterAttrs nameValuePair;
-  inherit (builtins)
-    attrNames
-    attrValues
-    concatMap
-    filter
-    isAttrs
-    listToAttrs
-    ;
+  inherit (pkgs.lib) filterAttrs;
+  inherit (builtins) attrNames isAttrs;
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
@@ -56,28 +49,16 @@ let
     in
     pkgs.lib.foldl' op { } (pkgs.lib.attrNames attrs);
 
-  outputsOf = p: map (o: p.${o}) p.outputs;
   nurAttrs = import ./pkgs/default.nix { inherit pkgs; };
   nurPkgs = flattenAttrs isDerivation nurAttrs;
-  nurDrvs = attrValues nurPkgs;
 in
 rec {
   notReserved = filterAttrs (n: _: !(isReserved n)) nurAttrs;
   updatablePkgs = flattenAttrs isUpdatable nurAttrs;
   updatablePkgsNames = attrNames updatablePkgs;
 
-  allDrvs = nurDrvs;
-  buildDrvs = filter isNotBroken nurDrvs;
-  cacheDrvs = filter isCacheable buildDrvs;
-  freeDrvs = filter isFree buildDrvs;
-
-  allOutputs = concatMap outputsOf allDrvs;
-  buildOutputs = concatMap outputsOf buildDrvs;
-  cacheOutputs = concatMap outputsOf cacheDrvs;
-  freeOutputs = concatMap outputsOf freeDrvs;
-
-  allPkgs = listToAttrs (map (p: nameValuePair p.pname p) allOutputs);
-  buildPkgs = listToAttrs (map (p: nameValuePair p.pname p) buildOutputs);
-  cachePkgs = listToAttrs (map (p: nameValuePair p.pname p) cacheOutputs);
-  freePkgs = listToAttrs (map (p: nameValuePair p.pname p) freeOutputs);
+  allPkgs = nurPkgs;
+  buildPkgs = filterAttrs (_: v: isNotBroken v) allPkgs;
+  cachePkgs = filterAttrs (_: v: isCacheable v) buildPkgs;
+  freePkgs = filterAttrs (_: v: isFree v) buildPkgs;
 }

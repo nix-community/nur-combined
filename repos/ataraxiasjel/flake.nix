@@ -35,7 +35,7 @@
             inherit system;
             config.allowUnfree = true;
           };
-          legacyPackages = import ./pkgs/default.nix { inherit pkgs; };
+          # legacyPackages = import ./pkgs/default.nix { inherit pkgs; };
           # Currently does not populate derivations from recurseIntoAttrs
           # packages = lib.filterAttrs (_: v: lib.isDerivation v) legacyPackages;
           # Get all packages from ci.nix

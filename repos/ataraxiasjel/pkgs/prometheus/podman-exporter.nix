@@ -50,7 +50,5 @@ buildGoModule rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ataraxiasjel ];
     mainProgram = "prometheus-podman-exporter";
-    # Temporarily disabled the build on CI. For some reason, nixpkgs on the CI is pulling an outdated version of the Go package.
-    preferLocalBuild = true;
   };
 }
