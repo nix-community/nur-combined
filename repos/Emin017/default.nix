@@ -7,7 +7,9 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
-
+let
+  ieda-unstable = pkgs.callPackage ./pkgs/ieda {};
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -18,7 +20,8 @@
   xfel = pkgs.callPackage ./pkgs/xfel {};
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {};
   git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator {};
-  ieda = pkgs.callPackage ./pkgs/ieda {};
+  ieda = ieda-unstable;
+  rtl2gds = pkgs.python3Packages.callPackage ./pkgs/rtl2gds { inherit ieda-unstable; };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
