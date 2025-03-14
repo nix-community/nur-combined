@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "harehare";
     repo = "mq";
-    rev = "24812c41df243efa525da7c69cc1e8a7b994a71f";
-    hash = "sha256-3BJzImZOFL2g/Mz2LMI4p1mE8NRwnJSHI2tzuzShz/s=";
+    rev = "6c67eef33e99eb27b6843188eb573a608d8a1b66";
+    hash = "sha256-6nYkbVUP0XxUc4yM5q3Fy830UVjYmB5SDKixAGue9xQ=";
   };
 
   useFetchCargoVendor = true;

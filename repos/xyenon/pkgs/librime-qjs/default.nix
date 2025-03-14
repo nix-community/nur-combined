@@ -8,16 +8,14 @@
 
 stdenvNoCC.mkDerivation {
   pname = "librime-qjs";
-  version = "0-unstable-2025-03-12";
+  version = "0-unstable-2025-03-14";
 
   src = fetchFromGitHub {
     owner = "HuangJian";
     repo = "librime-qjs";
-    rev = "5e6c4ed2a78aa61fecde96cc3354574e9f3b8fca";
-    hash = "sha256-wZ1sGlP7nmoEH0wleoP7ZBUTLcdULxkWuD9HHNc3cro=";
+    rev = "9b541af24dc487faefc020c962e18fb250065b46";
+    hash = "sha256-+ZVsmJBRhhxHMzDr3AvbXnvvR5HVvBMwOtvmXdSfja8=";
   };
-
-  patches = [ ./CMakeLists.txt.diff ];
 
   propagatedBuildInputs = [ quickjs-ng ];
 
