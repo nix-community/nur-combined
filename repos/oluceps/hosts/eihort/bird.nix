@@ -26,7 +26,7 @@
             update interval 2s;
             rtt cost 192;
             rtt max 300ms;
-            rtt decay 125;
+            rtt decay 60;
             check link no;
             extended next hop yes;
             ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}

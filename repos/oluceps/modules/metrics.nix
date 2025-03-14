@@ -39,90 +39,66 @@ in
     repack.caddy.enable = true;
     repack.caddy.settings.apps.http.servers.srv0.routes = [
       {
-        match = [
-          {
-            host = [ config.networking.fqdn ];
-            path = [ "/metrics" ];
-          }
-        ];
+
         handle = [
           {
-            handler = "authentication";
-            providers.http_basic.accounts = [
+            handler = "subroute";
+            routes = [
+
               {
-                username = "prometheus";
-                password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+                match = [
+                  {
+                    host = [ config.networking.fqdn ];
+                    path = [ "/metrics" ];
+                  }
+                ];
+                handle = [
+                  {
+                    handler = "authentication";
+                    providers.http_basic.accounts = [
+                      {
+                        username = "prometheus";
+                        password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+                      }
+                    ];
+                  }
+                  {
+                    handler = "reverse_proxy";
+                    upstreams = with config.services.prometheus.exporters.node; [
+                      { dial = "${listenAddress}:${toString port}"; }
+                    ];
+                  }
+                ];
+              }
+              {
+                match = [
+                  {
+                    host = [ config.networking.fqdn ];
+                    path = [ "/probe" ];
+                  }
+                ];
+                handle = [
+                  {
+                    handler = "authentication";
+                    providers.http_basic.accounts = [
+                      {
+                        username = "prometheus";
+                        password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+                      }
+                    ];
+                  }
+                  {
+                    handler = "reverse_proxy";
+                    upstreams = with config.services.prometheus.exporters.blackbox; [
+                      { dial = "${listenAddress}:${toString port}"; }
+                    ];
+                  }
+                ];
               }
             ];
           }
-          {
-            handler = "reverse_proxy";
-            upstreams = with config.services.prometheus.exporters.node; [
-              { dial = "${listenAddress}:${toString port}"; }
-            ];
-          }
         ];
-      }
-      # {
-      #   match = [
-      #     {
-      #       host = [ config.networking.fqdn ];
-      #       path = [ "/bird-metrics" ];
-      #     }
-      #   ];
-      #   handle = [
-      #     {
-      #       handler = "authentication";
-      #       providers.http_basic.accounts = [
-      #         {
-      #           username = "prometheus";
-      #           password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-      #         }
-      #       ];
-      #     }
-      #     {
-      #       handler = "reverse_proxy";
-      #       upstreams = with config.services.prometheus.exporters.bird; [
-      #         {
-      #           dial = "${listenAddress}:${toString port}";
-      #         }
-      #       ];
-      #       rewrite = {
-      #         uri_substring = [
-      #           {
-      #             find = "bird-metrics";
-      #             replace = "metrics";
-      #             limit = 1;
-      #           }
-      #         ];
-      #       };
-      #     }
-      #   ];
-      # }
-      {
-        match = [
-          {
-            host = [ config.networking.fqdn ];
-            path = [ "/probe" ];
-          }
-        ];
-        handle = [
-          {
-            handler = "authentication";
-            providers.http_basic.accounts = [
-              {
-                username = "prometheus";
-                password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-              }
-            ];
-          }
-          {
-            handler = "reverse_proxy";
-            upstreams = with config.services.prometheus.exporters.blackbox; [
-              { dial = "${listenAddress}:${toString port}"; }
-            ];
-          }
-        ];
+        match = [ { host = [ "*.nyaw.xyz" ]; } ];
       }
     ];
   };

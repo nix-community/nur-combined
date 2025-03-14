@@ -369,20 +369,13 @@
           inherit dns;
           automation.policies = [
             {
-              subjects = [
-                "*.nyaw.xyz"
-                "nyaw.xyz"
-              ];
               issuers = [
                 {
                   module = "acme";
-                  challenges = {
-                    dns = {
-                      provider = dns;
-                    };
-                  };
+                  preferred_chains.smallest = true;
                 }
               ];
+              key_type = "p256";
             }
           ];
           encrypted_client_hello.configs = [

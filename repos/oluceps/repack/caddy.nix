@@ -30,7 +30,7 @@ in
             (
               final: prev:
               let
-                version = "2.10.1-beta.2.1";
+                version = "2.10.1-beta.2.2";
               in
               {
                 inherit version;
@@ -38,9 +38,12 @@ in
                   owner = "oluceps";
                   repo = "caddy";
                   rev = "v${version}";
-                  hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
+                  # hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
+                  hash = "sha256-TWxdLcHE9EHCZnUAYfLDjJXozIajA6OowiQJuMUo+fs=";
                 };
+                # vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
                 vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
+                #
               }
             );
         # );
@@ -67,11 +70,11 @@ in
         config.persist = false;
       };
       logging.logs.debug.level = "debug";
-      # storage = mkIf cfg.public {
-      #   module = "s3";
-      #   prefix = "ssl";
-      #   insecure = false;
-      # };
+      storage = mkIf cfg.public {
+        module = "s3";
+        prefix = "ssl";
+        insecure = false;
+      };
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {

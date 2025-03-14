@@ -10,7 +10,6 @@
           yidhra = ''
           '';
           abhoth = ''
-            limit 10;
           '';
           azasos = ''
           '';
@@ -23,7 +22,7 @@
             update interval 2s;
             rtt cost 192;
             rtt max 300ms;
-            rtt decay 125;
+            rtt decay 60;
             check link no;
             extended next hop yes;
             ${lib.optionalString (linkSpec ? ${host}) linkSpec.${host}}
@@ -32,10 +31,6 @@
       in
       ''
         protocol babel {
-          # interface "wg-kaambl" {
-          #   rtt min 10ms;
-          #   rtt decay 120;
-          # };
         ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
           ipv6 {
             import where in_hortus();
