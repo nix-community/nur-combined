@@ -11,13 +11,13 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "dukzcry";
     repo = "crap";
-    rev = "b7ccad60363a81369667920c5fd54aabf766502c";
-    hash = "sha256-Szlv5DqutAZalpdGg4Jfe+qKwuwvM7eiOR4/1O9ufMI=";
+    rev = "77948292754a19ef35c34579a6272e202347aa42";
+    hash = "sha256-1bv/7wkiEh1Jgxt2Rf8HOCJyKV0WkbC8+fHS50U8iP0=";
   };
 
   setSourceRoot = ''export sourceRoot="$(echo */aulaf87-rgb)"'';
   makeFlags = [
-    "PREFIX=${placeholder "out"}" "UDEVDIR=${placeholder "out"}/etc/udev/rules.d" "SYSTEMDDIR=${placeholder "out"}/lib/systemd/system"
+    "PREFIX=${placeholder "out"}" "UDEVDIR=${placeholder "out"}/etc/udev/rules.d" "SYSTEMDDIR=${placeholder "out"}/lib/systemd/system" "MANDIR=${placeholder "out"}/share/man/man8"
   ];
 
   meta = {

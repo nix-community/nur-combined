@@ -11,5 +11,6 @@ in {
   config = mkIf cfg.enable {
     services.udev.packages = [ pkgs.nur.repos.dukzcry.aulaf87-rgb ];
     systemd.packages = [ pkgs.nur.repos.dukzcry.aulaf87-rgb ];
+    environment.systemPackages = [ pkgs.nur.repos.dukzcry.aulaf87-rgb ];
   };
 }
