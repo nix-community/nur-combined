@@ -4,6 +4,7 @@
   flutter324,
   mpv,
   alsa-lib,
+  autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
 }:
@@ -11,7 +12,10 @@
 flutter324.buildFlutterApplication rec {
   inherit (sources.piliplus) pname version src;
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+  ];
 
   buildInputs = [
     mpv
@@ -43,6 +47,10 @@ flutter324.buildFlutterApplication rec {
     install -Dm644 assets/images/logo/logo.png $out/share/pixmaps/piliplus.png
   '';
 
+  extraWrapProgramArgs = ''
+    --prefix LD_LIBRARY_PATH : $out/app/piliplus/lib:${mpv}/lib
+  '';
+
   desktopItems = [
     (makeDesktopItem {
       name = "piliplus";
@@ -65,5 +73,7 @@ flutter324.buildFlutterApplication rec {
     license = lib.licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
     mainProgram = "piliplus";
+    # Can only start once, black screen on subsequent starts
+    broken = true;
   };
 }
