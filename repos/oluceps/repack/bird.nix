@@ -72,7 +72,9 @@ in
 
           protocol kernel {
             scan time 20;
+            metric 0;
             ipv6 {
+              preference 100;
               import none;
               export filter to_kernel;
             };
