@@ -31,13 +31,14 @@ let
       !(thisNode.nat && peerNode.nat && thisNode ? loc && peerNode ? loc && thisNode.loc != peerNode.loc)
     ) prod;
 
-  genPeerNetwork =
+  genPeer =
     peerName: port:
     let
       peerNode = node.${peerName};
+      directConnect = ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
     in
     ifNeed peerNode {
-      "10-wireguard-hts-${peerName}" = {
+      networks."10-wireguard-hts-${peerName}" = {
         matchConfig.Name = "hts-${peerName}";
         addresses = [
           {
@@ -53,15 +54,7 @@ let
         networkConfig.DHCP = false;
         linkConfig.RequiredForOnline = false;
       };
-    };
-  genPeerNetdev =
-    peerName: port:
-    let
-      peerNode = node.${peerName};
-      directConnect = ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
-    in
-    ifNeed peerNode {
-      "10-hts-${peerName}" = {
+      netdevs."10-hts-${peerName}" = {
         netdevConfig = {
           Kind = "wireguard";
           Name = "hts-${peerName}";
@@ -99,35 +92,26 @@ let
         );
       };
     };
-
 in
 {
   config = lib.mkIf cfg.enable {
 
     networking.firewall = { inherit allowedUDPPorts trustedInterfaces; };
 
-    systemd.network =
-      recursiveUpdate
-        (foldr recursiveUpdate { } (
-          mapAttrsToList (name: port: {
-            netdevs = genPeerNetdev name port;
-            networks = genPeerNetwork name port;
-          }) thisConn
-        ))
-        {
-          netdevs."10-anchor-0" = {
-            enable = true;
-            netdevConfig = {
-              Kind = "dummy";
-              Name = "anchor-0";
-            };
-          };
-          networks."10-dummy-anchor-0" = {
-            enable = true;
-            DHCP = "no";
-            matchConfig.Name = "anchor-0";
-            address = singleton thisNode.unique_addr;
-          };
+    systemd.network = recursiveUpdate (foldr recursiveUpdate { } (mapAttrsToList genPeer thisConn)) {
+      netdevs."10-anchor-0" = {
+        enable = true;
+        netdevConfig = {
+          Kind = "dummy";
+          Name = "anchor-0";
         };
+      };
+      networks."10-dummy-anchor-0" = {
+        enable = true;
+        DHCP = "no";
+        matchConfig.Name = "anchor-0";
+        address = singleton thisNode.unique_addr;
+      };
+    };
   };
 }
