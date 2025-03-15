@@ -73,9 +73,9 @@
   },
   {
     "pname": "JunitXml.TestLogger",
-    "version": "6.0.0",
-    "hash": "sha256-RibevjFZ2y1pICQ3+32d9GTr5loqsMUmcogiTSqls00=",
-    "url": "https://nuget.aiursoft.cn/v3/package/junitxml.testlogger/6.0.0/junitxml.testlogger.6.0.0.nupkg"
+    "version": "6.1.0",
+    "hash": "sha256-nG+4VAki4PTsfFKdIRO8nAqxmnVbjBkuwlbPrqFBEjU=",
+    "url": "https://nuget.aiursoft.cn/v3/package/junitxml.testlogger/6.1.0/junitxml.testlogger.6.1.0.nupkg"
   },
   {
     "pname": "Microsoft.ApplicationInsights",
