@@ -1,5 +1,5 @@
 let
-  version = "0.5.2";
+  version = "0.5.4";
 in
 {
   emmylua_ls = import ./crates/emmylua_ls.nix version;
