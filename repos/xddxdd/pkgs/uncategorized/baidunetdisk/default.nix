@@ -96,14 +96,14 @@ stdenv.mkDerivation {
       terminal = false;
       icon = "baidunetdisk";
       startupWMClass = "baidunetdisk";
-      comment = "百度网盘";
+      comment = "Baidu Netdisk";
       mimeTypes = [ "x-scheme-handler/baiduyunguanjia" ];
       categories = [ "Network" ];
       extraConfig = {
         "Name[zh_CN]" = "百度网盘";
-        "Name[zh_TW]" = "百度网盘";
+        "Name[zh_TW]" = "百度網盤";
         "Comment[zh_CN]" = "百度网盘";
-        "Comment[zh_TW]" = "百度网盘";
+        "Comment[zh_TW]" = "百度網盤";
       };
     })
   ];

@@ -1347,6 +1347,16 @@
       hash = "sha256-cp3O520KFO3FEpcBqDfv4B48pz0hEGeFgVAAdyICTHg=";
     };
   };
+  piliplus = {
+    pname = "piliplus";
+    version = "1.1.3.22";
+    src = fetchFromGitHub {
+      owner = "bggRGjQaUbCoE";
+      repo = "PiliPlus";
+      tag = "1.1.3.22";
+      hash = "sha256-ebltQoC4YrTUzJMYG71r3lE6pHbrL7ha9uW+Hexiw68=";
+    };
+  };
   plangothic-fonts = {
     pname = "plangothic-fonts";
     version = "V1.9.5769";
@@ -1439,10 +1449,10 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.2.2+ds-1";
+    version = "9.2.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.2+ds-1_amd64.deb";
-      hash = "sha256-IcX4z2BsPifwIbnmXENpJ4bthAr+xElE9b0Ygo1lw3Y=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.1+ds-1_amd64.deb";
+      hash = "sha256-wvpjcVxA+9L1mdwICB94K8lNBv+vlgsGI9eJIJU4ZCI=";
     };
   };
   qemu-user-static-arm64 = {

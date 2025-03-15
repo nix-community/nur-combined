@@ -116,9 +116,9 @@ stdenv.mkDerivation (finalAttrs: {
       categories = [ "AudioVideo" ];
       extraConfig = {
         "Name[zh_CN]" = "QQ音乐";
-        "Name[zh_TW]" = "QQ音乐";
+        "Name[zh_TW]" = "QQ音樂";
         "Comment[zh_CN]" = "腾讯QQ音乐";
-        "Comment[zh_TW]" = "腾讯QQ音乐";
+        "Comment[zh_TW]" = "騰訊QQ音樂";
       };
     })
   ];

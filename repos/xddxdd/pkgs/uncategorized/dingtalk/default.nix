@@ -215,7 +215,7 @@ stdenv.mkDerivation rec {
       mimeTypes = [ "x-scheme-handler/dingtalk" ];
       extraConfig = {
         "Name[zh_CN]" = "钉钉";
-        "Name[zh_TW]" = "钉钉";
+        "Name[zh_TW]" = "釘釘";
       };
     })
   ];

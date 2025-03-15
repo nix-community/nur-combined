@@ -68,9 +68,9 @@ stdenv.mkDerivation {
       categories = [ "Network" ];
       extraConfig = {
         "Name[zh_CN]" = "绳网";
-        "Name[zh_TW]" = "绳网";
+        "Name[zh_TW]" = "繩網";
         "Comment[zh_CN]" = "绳网是一个游戏、技术交流平台";
-        "Comment[zh_TW]" = "绳网是一个游戏、技术交流平台";
+        "Comment[zh_TW]" = "繩網是一個遊戲、技術交流平台";
       };
     })
   ];

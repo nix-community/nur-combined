@@ -3594,6 +3594,11 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
+  "legacyPackages.x86_64-linux.piliplus": {
+    "description": "Third party Bilibili client built with Flutter",
+    "pname": "piliplus",
+    "version": "1.1.3.22"
+  },
   "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
     "pname": "python3.12-piper",
@@ -3802,7 +3807,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1"
+    "version": "9.2.1+ds-1"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -4414,6 +4419,11 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
+  "legacyPackages.x86_64-linux.uncategorized.piliplus": {
+    "description": "Third party Bilibili client built with Flutter",
+    "pname": "piliplus",
+    "version": "1.1.3.22"
+  },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
     "pname": "plasma-panel-transparency-toggle",
@@ -4442,7 +4452,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1"
+    "version": "9.2.1+ds-1"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "QQ for Linux",
@@ -5364,6 +5374,11 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
+  "packages.x86_64-linux.piliplus": {
+    "description": "Third party Bilibili client built with Flutter",
+    "pname": "piliplus",
+    "version": "1.1.3.22"
+  },
   "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
     "pname": "python3.12-piper",
@@ -5417,7 +5432,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1"
+    "version": "9.2.1+ds-1"
   },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",

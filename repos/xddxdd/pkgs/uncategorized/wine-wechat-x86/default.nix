@@ -112,8 +112,8 @@ stdenv.mkDerivation {
       extraConfig = {
         "Name[zh_CN]" = "Wine 微信（x86）";
         "Name[zh_TW]" = "Wine 微信（x86）";
-        "Comment[zh_CN]" = "使用 Wine 运行微信（x86）";
-        "Comment[zh_TW]" = "使用 Wine 运行微信（x86）";
+        "Comment[zh_CN]" = "使用 Wine 運行微信（x86）";
+        "Comment[zh_TW]" = "使用 Wine 運行微信（x86）";
       };
     })
     (makeDesktopItem {
@@ -133,7 +133,7 @@ stdenv.mkDerivation {
         "Name[zh_CN]" = "Wine 微信（x86）配置";
         "Name[zh_TW]" = "Wine 微信（x86）配置";
         "Comment[zh_CN]" = "为 Wine 微信（x86）运行 winecfg";
-        "Comment[zh_TW]" = "为 Wine 微信（x86）运行 winecfg";
+        "Comment[zh_TW]" = "為 Wine 微信（x86）運行 winecfg";
       };
     })
   ];
