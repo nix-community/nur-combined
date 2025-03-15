@@ -20,6 +20,14 @@ in
 
           router id 10.0.0.${toString ((lib.getThisNodeFrom config).id + 1)};
 
+          define HORTUS_OWNIP = ${lib.getIntraAddrFrom config};
+          define HORTUS_PREFIX = fdcc::/16;
+          define HORTUS_FIELD = [ fdcc::/16+ ];
+
+          define DN42_ASN = 4242420291;
+          define DN42_PREFIX = fdda:1965:1d5f::/48;
+          define DN42_FIELD = [ fdda:1965:1d5f::/48+ ];
+
           protocol device {
             scan time 20;
           };
@@ -29,40 +37,42 @@ in
             interface "anchor-*";
           };
 
-          define HORTUS_FIELD = [ fdcc::/64+ ];
-          define DN42_ASN = 4242420291;
-          define DN42_FIELD = [ fdda:1965:1d5f::/48+ ];
+          protocol static {
+            route HORTUS_PREFIX reject;
+            ipv6 {
+              import all;
+              export none;
+            };
+          }
 
           function in_hortus() {
             return net ~ HORTUS_FIELD;
           };
 
           filter to_hortus {
-            if in_hortus() then {
-              if source = RTS_BABEL || source = RTS_DEVICE then accept;
-            }
+            if in_hortus() && (source = RTS_BABEL || source = RTS_DEVICE) then accept;
             reject;
           };
 
           filter to_kernel {
-            if source = RTS_BABEL then {
-              krt_prefsrc = ${lib.getIntraAddrFrom config};
-              krt_metric = 128;
-              accept;
+            case source {
+              RTS_STATIC: reject;
+              RTS_BABEL: {
+                krt_prefsrc = HORTUS_OWNIP;
+                krt_metric = 128;
+                accept;
+              }
+              RTS_DEVICE: {
+                krt_metric = 64;
+                accept;
+              }
+              else: reject;
             }
-            if source = RTS_DEVICE then {
-              krt_metric = 64;
-              accept;
-            }
-            reject;
           };
 
           protocol kernel {
             scan time 20;
-            learn;
-            metric 0;
             ipv6 {
-              preference 100;
               import none;
               export filter to_kernel;
             };
