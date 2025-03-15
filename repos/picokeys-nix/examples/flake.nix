@@ -36,15 +36,15 @@
             usbPid = "0xFCFD";
           };
           # if you need eddsa support
-          pico-openpgp-edssa = picopkgs.pico-openpgp-eddsa.override {
+          pico-openpgp-eddsa = picopkgs.pico-openpgp-eddsa.override {
             picoBoard = "waveshare_rp2350_one";
             vidPid = "Yubikey5";
           };
-          pico-fido-edssa = picopkgs.pico-fido-eddsa.override {
+          pico-fido-eddsa = picopkgs.pico-fido-eddsa.override {
             picoBoard = "waveshare_rp2350_one";
             vidPid = "Yubikey5";
           };
-          pico-hsm-edssa = picopkgs.pico-hsm-eddsa.override {
+          pico-hsm-eddsa = picopkgs.pico-hsm-eddsa.override {
             picoBoard = "waveshare_rp2350_one";
             vidPid = "Yubikey5";
           };
