@@ -1,6 +1,6 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p yq
-# shellcheck disable=SC1008
+#!nix-shell -i bash -p bash -p curl -p yq
+# shellcheck shell=bash
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 VERSION=$(nix eval --raw .#piliplus.version)
 

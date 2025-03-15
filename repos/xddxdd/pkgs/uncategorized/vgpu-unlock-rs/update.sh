@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p cargo -p gitMinimal
+# shellcheck shell=bash
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 VERSION=$(nix eval --raw .#vgpu-unlock-rs.rawVersion)
 TMPDIR=$(mktemp -d)

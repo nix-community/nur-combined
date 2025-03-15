@@ -3,7 +3,6 @@
   perSystem =
     {
       pkgs,
-      lib,
       inputs',
       ...
     }:
@@ -122,32 +121,18 @@
           strace -ff --trace=%file -o trace.txt "$@"
         '';
 
-        update =
-          let
-            py = pkgs.python3.withPackages (p: with p; [ requests ]);
-            path = lib.makeBinPath [
-              pkgs.cargo
-              pkgs.gitMinimal
-              pkgs.nix-prefetch-git
-              py
-            ];
-          in
-          ''
-            set -euo pipefail
-            export LANG=en_US.UTF-8
-            export PATH=${path}:$PATH
-            nix flake update
-            ${nvfetcher}
-            for S in $(find pkgs/ -name update.sh); do
-              echo "Executing $S"
-              bash "$S"
-            done
-            for S in $(find pkgs/ -name update.py); do
-              echo "Executing $S"
-              ${py}/bin/python3 "$S"
-            done
-            ${readme}
-          '';
+        update = ''
+          set -euo pipefail
+          export LANG=en_US.UTF-8
+          nix flake update
+          ${nvfetcher}
+          for S in $(find pkgs/ -name update.\*); do
+            echo "Executing $S"
+            chmod +x "$S"
+            "$S"
+          done
+          ${readme}
+        '';
       };
     };
 }

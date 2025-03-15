@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3Packages.requests
+#!nix-shell -i python3 -p python3 -p python3Packages.requests -p nix-prefetch-git
 import functools
 import json
 import os
