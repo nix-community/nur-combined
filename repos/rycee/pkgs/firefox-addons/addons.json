@@ -71,6 +71,9 @@
     "slug": "aria2-integration"
   },
   {
+    "slug": "ask-historians-comment-helper"
+  },
+  {
     "slug": "augmented-steam"
   },
   {
@@ -93,6 +96,13 @@
   },
   {
     "slug": "aws-extend-switch-roles3"
+  },
+  {
+    "slug": "bandcamp-player-volume-control",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "batchcamp"
@@ -137,6 +147,9 @@
   },
   {
     "slug": "blocktube"
+  },
+  {
+    "slug": "bookmark-search-plus-2"
   },
   {
     "slug": "boring-rss"
@@ -287,6 +300,13 @@
     }
   },
   {
+    "slug": "custom-new-tab-page",
+    "license": {
+      "tag": "predefined",
+      "shortName": "isc"
+    }
+  },
+  {
     "slug": "dansk-da-language-pack",
     "pname": "danish-language-pack"
   },
@@ -433,6 +453,9 @@
   },
   {
     "slug": "enhanced-h264ify"
+  },
+  {
+    "slug": "enhancer-for-nebula"
   },
   {
     "slug": "enhancer-for-youtube",
@@ -769,6 +792,16 @@
       "shortName": "inkah",
       "fullName": "Inkah Terms of Service",
       "url": "https://www.inkah.com/terms-of",
+      "free": false
+    }
+  },
+  {
+    "slug": "instapaper-official",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
       "free": false
     }
   },
@@ -1130,6 +1163,9 @@
   },
   {
     "slug": "open-in-freedium"
+  },
+  {
+    "slug": "open-in-vlc"
   },
   {
     "slug": "open-url-in-container"
@@ -1689,6 +1725,16 @@
     "slug": "tubearchivist-companion"
   },
   {
+    "slug": "tweaks-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "twitch-auto-points"
   },
   {
@@ -1740,6 +1786,9 @@
   },
   {
     "slug": "userchrome-toggle-extended"
+  },
+  {
+    "slug": "varia-integrator"
   },
   {
     "slug": "video-downloadhelper",
@@ -1821,6 +1870,16 @@
     "slug": "watchmarker-for-youtube"
   },
   {
+    "slug": "wave-accessibility-tool",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "wayback-machine_new",
     "pname": "wayback-machine"
   },
@@ -1871,6 +1930,9 @@
   },
   {
     "slug": "xdebug-helper-for-firefox"
+  },
+  {
+    "slug": "xkit-rewritten"
   },
   {
     "slug": "yomitan"

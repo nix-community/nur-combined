@@ -414,6 +414,35 @@
         platforms = platforms.all;
       };
     };
+    "ask-historians-comment-helper" = buildFirefoxXpiAddon {
+      pname = "ask-historians-comment-helper";
+      version = "1.0.6";
+      addonId = "ask_historians_comment_helper@reddit";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451056/ask_historians_comment_helper-1.0.6.xpi";
+      sha256 = "2319bb56e08b758251cc8772b8bb94453d0bcdf32cfd9aa50d4f80dddfaf99bb";
+      meta = with lib;
+      {
+        description = "Ask Historians Comment Helper will show an improved comment count for the sub-reddit r/AskHistorians.\nIt also allows you to monitor topics to see when they will get an answer.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "storage"
+          "*://*.reddit.com/"
+          "*://*.reddit.com/hot/"
+          "*://*.reddit.com/new/"
+          "*://*.reddit.com/rising/"
+          "*://*.reddit.com/controversial/"
+          "*://*.reddit.com/top/"
+          "*://*.reddit.com/gilded/"
+          "*://*.reddit.com/r/askhistorians/*"
+          "*://*.reddit.com/r/AskHistorians/*"
+          "*://*.reddit.com/r/popular/"
+          "*://*.reddit.com/r/Popular/"
+          "*://*.reddit.com/r/all/"
+          "*://*.reddit.com/r/All/"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
       version = "4.2.1";
@@ -768,6 +797,28 @@
         platforms = platforms.all;
       };
     };
+    "bandcamp-player-volume-control" = buildFirefoxXpiAddon {
+      pname = "bandcamp-player-volume-control";
+      version = "1.0.3";
+      addonId = "{308ec088-284a-40fe-ae14-7c917526f694}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084124/bandcamp_player_volume_control-1.0.3.xpi";
+      sha256 = "16c2e385faf56728d6467d3352ce410388daf377b5994d559e8cf88b524c143c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/butterknight/bandcamp-volume-control";
+        description = "It's a volume control for Bandcamp audio player. The extension adds another slider (somewhere around the one that controls the track progress) to control the volume.";
+        mozPermissions = [
+          "storage"
+          "https://*.bandcamp.com/*"
+          "https://music.monstercat.com/*"
+          "https://shop.attackthemusic.com/*"
+          "https://listen.20buckspin.com/*"
+          "https://halleylabs.com/*"
+          "https://music.dynatronsynth.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
       version = "1.4.8";
@@ -1076,6 +1127,33 @@
           "unlimitedStorage"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "bookmark-search-plus-2" = buildFirefoxXpiAddon {
+      pname = "bookmark-search-plus-2";
+      version = "2.0.133";
+      addonId = "bookmarksearchplus2@aafn.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4422330/bookmark_search_plus_2-2.0.133.xpi";
+      sha256 = "0a6b8e1019e32791aeb30411ba9539033981f1a793d4fb2cfbbe0247e7d45d8a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
+        description = "Search for both bookmarks and folders. Find exact location in bookmark tree (show parent folder, go parent folder). Advanced filters and searches, use regex.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "storage"
+          "unlimitedStorage"
+          "tabs"
+          "bookmarks"
+          "history"
+          "browserSettings"
+          "topSites"
+          "menus"
+          "menus.overrideContext"
+          "theme"
         ];
         platforms = platforms.all;
       };
@@ -2117,6 +2195,20 @@
         platforms = platforms.all;
       };
     };
+    "custom-new-tab-page" = buildFirefoxXpiAddon {
+      pname = "custom-new-tab-page";
+      version = "1.0.0";
+      addonId = "custom-new-tab-page@mint.as";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669474/custom_new_tab_page-1.0.0.xpi";
+      sha256 = "0b9181b0af51628f1c8e4f0c28bf1f342b1e0d1e5de05c1e7aaab3bb474f4814";
+      meta = with lib;
+      {
+        homepage = "https://github.com/methodgrab/firefox-custom-new-tab-page";
+        description = "Specify a custom URL to be shown when opening a new tab, **without changing the address bar content**.";
+        mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "danish-dictionary" = buildFirefoxXpiAddon {
       pname = "danish-dictionary";
       version = "2.4.2resigned1";
@@ -2810,6 +2902,27 @@
           "*://*.youtube.com/*"
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "enhancer-for-nebula" = buildFirefoxXpiAddon {
+      pname = "enhancer-for-nebula";
+      version = "1.5.10";
+      addonId = "nebula-enhancer@piber.at";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4450508/enhancer_for_nebula-1.5.10.xpi";
+      sha256 = "43c6a857d0beb0b7096075d96b10f1ef27d197bc2f307faecc85e2cb14396616";
+      meta = with lib;
+      {
+        homepage = "https://github.com/cpiber/NebulaEnhance#readme";
+        description = "Enhancer for Nebula. Adds quality of life features to the nebula player.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "*://content.api.nebula.app/*"
+          "*://*.nebula.tv/*"
+          "*://*.nebula.app/*"
+          "*://*.youtube.com/*"
         ];
         platforms = platforms.all;
       };
@@ -5798,6 +5911,37 @@
         platforms = platforms.all;
       };
     };
+    "instapaper-official" = buildFirefoxXpiAddon {
+      pname = "instapaper-official";
+      version = "3.1.3";
+      addonId = "{d0210f13-a970-4f1e-8322-0f76ec80adde}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381949/instapaper_official-3.1.3.xpi";
+      sha256 = "ce344ecddaf1e894b628345b909224b4120528d94844d6ef10abdbdd88b43ba1";
+      meta = with lib;
+      {
+        description = "Instapaper is a simple tool for saving web pages to read later on your iPhone, iPad, Android, computer, or Kindle. The Instapaper browser extension may be used to save the current page directly into your Instapaper account.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "contextMenus"
+          "http://*/*"
+          "https://*/*"
+          "http://twitter.com/*"
+          "https://twitter.com/*"
+          "http://x.com/*"
+          "https://x.com/*"
+          "https://news.ycombinator.com/*"
+          "https://lobste.rs/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
       version = "3.2.0";
@@ -8460,6 +8604,27 @@
         description = "Easily open Medium articles in Freedium to bypass restrictions";
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "open-in-vlc" = buildFirefoxXpiAddon {
+      pname = "open-in-vlc";
+      version = "0.4.3";
+      addonId = "{6b954d17-d17c-4a19-8fe6-ee8052a562d6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4420025/open_in_vlc-0.4.3.xpi";
+      sha256 = "e7126d930346b195f45e5f4f7025f3b6cf9f03593ce068f87a5ee714c101409a";
+      meta = with lib;
+      {
+        homepage = "https://webextension.org/listing/open-in-vlc.html";
+        description = "Adds a context menu item to send audio/video streams directly to VLC media player";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "contextMenus"
+          "nativeMessaging"
+          "webRequest"
+          "scripting"
+        ];
         platforms = platforms.all;
       };
     };
@@ -12014,6 +12179,32 @@
         platforms = platforms.all;
       };
     };
+    "tweaks-for-youtube" = buildFirefoxXpiAddon {
+      pname = "tweaks-for-youtube";
+      version = "3.76.0";
+      addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4453576/tweaks_for_youtube-3.76.0.xpi";
+      sha256 = "44824e09271879ea04bb0b229aa5953997794759dc662e45819f2c339b3a38b0";
+      meta = with lib;
+      {
+        description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "contextMenus"
+          "storage"
+          "*://www.youtube.com/*"
+          "*://www.youtube-nocookie.com/*"
+          "*://youtube.googleapis.com/*"
+          "*://music.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "twitch-auto-points" = buildFirefoxXpiAddon {
       pname = "twitch-auto-points";
       version = "1.2.5";
@@ -12484,6 +12675,21 @@
         description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys. You'll be able to switch up to six styles";
         license = licenses.mpl20;
         mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "varia-integrator" = buildFirefoxXpiAddon {
+      pname = "varia-integrator";
+      version = "1.2";
+      addonId = "giantpinkrobots@protonmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357790/varia_integrator-1.2.xpi";
+      sha256 = "2522e155ec72fdd199c4c6955a92ba19871ea771864d5990e588072b449a054b";
+      meta = with lib;
+      {
+        homepage = "https://giantpinkrobots.github.io/varia/";
+        description = "Route all downloads to Varia if it's running.";
+        license = licenses.mpl20;
+        mozPermissions = [ "downloads" "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -13007,6 +13213,26 @@
           "https://m.youtube.com/*"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "wave-accessibility-tool" = buildFirefoxXpiAddon {
+      pname = "wave-accessibility-tool";
+      version = "3.2.7.1";
+      addonId = "{9bbf6724-d709-492e-a313-bfed0415a224}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347627/wave_accessibility_tool-3.2.7.1.xpi";
+      sha256 = "26dbf601d4cce121040116ede4edbd983428a8fdece49dc5663db40bdbe9c11e";
+      meta = with lib;
+      {
+        description = "Evaluate web accessibility within the Firefox browser. When activated, the WAVE extension injects icons and indicators into your page to give feedback about accessibility and to facilitate manual evaluation.";
+        mozPermissions = [
+          "http://*/*"
+          "https://*/*"
+          "file:///*"
+          "<all_urls>"
+          "tabs"
+          "contextMenus"
         ];
         platforms = platforms.all;
       };
@@ -13539,6 +13765,21 @@
         description = "This extension is very useful for PHP developers that are using PHP tools with Xdebug support like PHPStorm, Eclipse with PDT, Netbeans and MacGDBp or any other Xdebug compatible profiling tool like KCacheGrind, WinCacheGrind or Webgrind.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "*://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "xkit-rewritten" = buildFirefoxXpiAddon {
+      pname = "xkit-rewritten";
+      version = "1.0.7";
+      addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4438268/xkit_rewritten-1.0.7.xpi";
+      sha256 = "bdea9d4230bd00497fa9bec0c9ac513555f13544cecf6f7160448b115fde624f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
+        description = "The enhancement suite for Tumblr's new web interface";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" "*://www.tumblr.com/*" ];
         platforms = platforms.all;
       };
     };
