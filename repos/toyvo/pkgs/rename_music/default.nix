@@ -27,7 +27,7 @@ def scandir(path):
                             os.rename(entry.path,os.path.join(path,new_file_name))
                             print(f"rename {new_file_name} success!")
                     except tinytag.tinytag.TinyTagException:
-                        print("Please add metadata to the file before using this script.")
+                        print(f"Please add metadata to the file before using this script. {entry.name}")
                         pass
                     except:
                         print(f"Error processing file {entry.name}")
