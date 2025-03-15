@@ -33,6 +33,8 @@ set editorcmd emacsclient -c
 set yankto both
 
 blacklistadd calendar.google.com
+blacklistadd keybr.com
+blacklistadd ergol.org
 blacklistadd jellyfin.alarsyo.net
 blacklistadd localhost
 blacklistadd netflix.com

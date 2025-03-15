@@ -20,7 +20,11 @@ in {
 
     gtk2 = {
       # No garbage polluting my $HOME
-      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      #
+      # I had this enabled but some program somehow couldn't find my
+      # configuration there. I think it was nm-applet.
+      #
+      #configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
 
     iconTheme = {

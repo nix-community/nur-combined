@@ -46,15 +46,31 @@ coalesce(
       if(current_working_copy, "@"),
       if(immutable, "◆"),
       if(conflict, "×"),
-      if(description.starts_with("wip:"), "🔒"),
-      if(description.starts_with("private:"), "🔒"),
+      if(description.starts_with("wip:"), "!"),
+      if(description.starts_with("private:"), "!"),
       "○",
     )
   )
 )
 '''
 
+draft_commit_description = "commit_description_verbose(self)"
+
 [template-aliases]
+"commit_description_verbose(commit)" = '''
+concat(
+  commit_description(commit),
+  "JJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+"commit_description(commit)" = '''
+concat(
+  commit.description(), "\n",
+  "JJ: This commit contains the following changes:\n",
+  indent("JJ:    ", diff.stat(72)),
+)
+'''
 
 [[--scope]]
 --when.repositories = ["~/work/lrde/"]

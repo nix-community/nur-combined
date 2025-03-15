@@ -78,7 +78,7 @@ in {
         zathura
         ;
 
-      inherit (pkgs.libsForQt5) okular;
+      inherit (pkgs.kdePackages) okular;
     };
 
     networking.networkmanager.enable = true;

@@ -36,6 +36,7 @@
       gnumake
       gnupg
       python3
+      shellcheck
       vim
       # terminal utilities
       htop

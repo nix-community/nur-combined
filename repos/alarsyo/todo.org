@@ -3,3 +3,6 @@
 https://github.com/quexten/goldwarden
 
 * TODO Setup sway correctly
+** TODO This includes moving it to a proper module
+
+* TODO Create an adwaita package with symlinks for nm-applet icons
