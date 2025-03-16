@@ -23,6 +23,7 @@ stdenv.mkDerivation {
   patches = [
     ./include-cstdint.patch
     ./include-cstdio.patch
+    ./stub-missing-register-or-something.patch
   ];
 
   buildInputs = [

@@ -1,0 +1,13 @@
+diff --git a/src/core/emulator.cpp b/src/core/emulator.cpp
+index a69029b..c850c84 100644
+--- a/src/core/emulator.cpp
++++ b/src/core/emulator.cpp
+@@ -1197,6 +1197,8 @@ void Emulator::arm11_write16(int core, uint32_t addr, uint16_t value)
+         wifi.write16(addr, value);
+         return;
+     }
++    if (addr == 0x10140140)
++        return;
+     if (addr >= 0x10144000 && addr < 0x10145000)
+     {
+         printf("[I2C] Unrecognized write16 $%08X: $%04X\n", addr, value);
