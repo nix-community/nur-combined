@@ -807,6 +807,7 @@
       {
         homepage = "https://github.com/butterknight/bandcamp-volume-control";
         description = "It's a volume control for Bandcamp audio player. The extension adds another slider (somewhere around the one that controls the track progress) to control the volume.";
+        license = licenses.asl20;
         mozPermissions = [
           "storage"
           "https://*.bandcamp.com/*"
@@ -2205,6 +2206,7 @@
       {
         homepage = "https://github.com/methodgrab/firefox-custom-new-tab-page";
         description = "Specify a custom URL to be shown when opening a new tab, **without changing the address bar content**.";
+        license = licenses.isc;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
       };
@@ -13226,6 +13228,12 @@
       meta = with lib;
       {
         description = "Evaluate web accessibility within the Firefox browser. When activated, the WAVE extension injects icons and indicators into your page to give feedback about accessibility and to facilitate manual evaluation.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
         mozPermissions = [
           "http://*/*"
           "https://*/*"
@@ -13887,10 +13895,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.1.40";
+      version = "2.1.41";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4453582/youtube_no_translation-2.1.40.xpi";
-      sha256 = "52bb3be823f9621ec1c24777c090b8b90ce294090d57ac860654a031f956a5b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4454921/youtube_no_translation-2.1.41.xpi";
+      sha256 = "197651680c49e243205b266c4c675b2c0d51429d50af399c317c5d5ad7436da7";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
