@@ -124,8 +124,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/tmp
     if [ "$srcs" = "" ]
     then
-      base_kit="./l_BaseKit_p_${version}_offline.sh"
-      hpc_kit="./l_HPCKit_p_${hpc_version}_offline.sh"
+      base_kit="./intel-oneapi-base-toolkit-${version}_offline.sh"
+      hpc_kit="./intel-oneapi-hpc-toolkit-${hpc_version}_offline.sh"
     else
       base_kit=`echo $srcs|cut -d" " -f1`
       hpc_kit=`echo $srcs|cut -d" " -f2`
@@ -139,15 +139,15 @@ stdenv.mkDerivation rec {
     done
     export HOME=$out
     # Patch the bootstraper binaries and libs
-    for files in `find $out/tmp/l_BaseKit_p_${version}_offline/lib`
+    for files in `find $out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib`
     do
-      patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $file 2>/dev/null || true
+      patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib" $file 2>/dev/null || true
     done
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $out/tmp/l_BaseKit_p_${version}_offline/bootstrapper
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib" $out/tmp/intel-oneapi-base-toolkit-${version}_offline/bootstrapper
     # launch install
     export LD_LIBRARY_PATH=${zlib}/lib
-    $out/tmp/l_BaseKit_p_${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
-    $out/tmp/l_HPCKit_p_${hpc_version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
+    $out/tmp/intel-oneapi-base-toolkit-${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
+    $out/tmp/intel-oneapi-hpc-toolkit-${hpc_version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
     rm -rf $out/tmp
   '';
 

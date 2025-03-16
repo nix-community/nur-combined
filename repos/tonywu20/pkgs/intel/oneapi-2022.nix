@@ -1,7 +1,36 @@
-{ lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, 
-  at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg, atk, nspr, dbus,
-  pango, cairo, gdk_pixbuf, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk,
-  freetype, fontconfig }:
+{ lib
+, stdenv
+, fetchurl
+, glibc
+, libX11
+, glib
+, libnotify
+, xdg-utils
+, ncurses
+, nss
+, at-spi2-core
+, libxcb
+, libdrm
+, gtk3
+, mesa
+, qt515
+, zlib
+, xorg
+, atk
+, nspr
+, dbus
+, pango
+, cairo
+, gdk_pixbuf
+, cups
+, expat
+, libxkbcommon
+, alsa-lib
+, file
+, at-spi2-atk
+, freetype
+, fontconfig
+}:
 
 stdenv.mkDerivation rec {
   version = "2022.2.0.262";
@@ -10,7 +39,7 @@ stdenv.mkDerivation rec {
 
   # For localy downloaded offline installers
   # sourceRoot = "/data/scratch/intel/oneapi_installer";
- 
+
   # For installer fetching (no warranty of the links)
   sourceRoot = ".";
   srcs = [
@@ -25,52 +54,98 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ file ];
- 
-  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss 
-                           at-spi2-core libxcb libdrm gtk3 mesa qt515.full 
-                           zlib freetype fontconfig xorg.xorgproto xorg.libX11 xorg.libXt
-                           xorg.libXft xorg.libXext xorg.libSM xorg.libICE ];
 
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils 
-                                  ncurses nss at-spi2-core libxcb libdrm gtk3 
-                                  mesa qt515.full zlib atk nspr dbus pango cairo 
-                                  gdk_pixbuf cups expat libxkbcommon alsaLib
-                                  at-spi2-atk xorg.libXcomposite xorg.libxshmfence 
-                                  xorg.libXdamage xorg.libXext xorg.libXfixes
-                                  xorg.libXrandr ];
+  propagatedBuildInputs = [
+    glibc
+    glib
+    libnotify
+    xdg-utils
+    ncurses
+    nss
+    at-spi2-core
+    libxcb
+    libdrm
+    gtk3
+    mesa
+    qt515.full
+    zlib
+    freetype
+    fontconfig
+    xorg.xorgproto
+    xorg.libX11
+    xorg.libXt
+    xorg.libXft
+    xorg.libXext
+    xorg.libSM
+    xorg.libICE
+  ];
+
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    libX11
+    glib
+    libnotify
+    xdg-utils
+    ncurses
+    nss
+    at-spi2-core
+    libxcb
+    libdrm
+    gtk3
+    mesa
+    qt515.full
+    zlib
+    atk
+    nspr
+    dbus
+    pango
+    cairo
+    gdk_pixbuf
+    cups
+    expat
+    libxkbcommon
+    alsa-lib
+    at-spi2-atk
+    xorg.libXcomposite
+    xorg.libxshmfence
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXrandr
+  ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 
   installPhase = ''
-     cd $sourceRoot
-     mkdir -p $out/tmp
-     if [ "$srcs" = "" ]
-     then
-       base_kit="./l_BaseKit_p_${version}_offline.sh"
-       hpc_kit="./l_HPCKit_p_${hpc_version}_offline.sh"
-     else
-       base_kit=`echo $srcs|cut -d" " -f1`
-       hpc_kit=`echo $srcs|cut -d" " -f2`
-     fi
-     # Extract files
-     bash $base_kit --log $out/basekit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
-     bash $hpc_kit --log $out/hpckit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
-     for file in `grep -l -r "/bin/sh" $out/tmp`
-     do
-       sed -e "s,/bin/sh,${stdenv.shell},g" -i $file
-     done
-     export HOME=$out
-     # Patch the bootstraper binaries and libs
-     for files in `find $out/tmp/l_BaseKit_p_${version}_offline/lib`
-     do
-       patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $file 2>/dev/null || true
-     done
-     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $out/tmp/l_BaseKit_p_${version}_offline/bootstrapper
-     # launch install
-     export LD_LIBRARY_PATH=${zlib}/lib
-     $out/tmp/l_BaseKit_p_${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
-     $out/tmp/l_HPCKit_p_${hpc_version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
-     rm -rf $out/tmp
+    cd $sourceRoot
+    mkdir -p $out/tmp
+    if [ "$srcs" = "" ]
+    then
+      base_kit="./l_BaseKit_p_${version}_offline.sh"
+      hpc_kit="./l_HPCKit_p_${hpc_version}_offline.sh"
+    else
+      base_kit=`echo $srcs|cut -d" " -f1`
+      hpc_kit=`echo $srcs|cut -d" " -f2`
+    fi
+    # Extract files
+    bash $base_kit --log $out/basekit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
+    bash $hpc_kit --log $out/hpckit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
+    for file in `grep -l -r "/bin/sh" $out/tmp`
+    do
+      sed -e "s,/bin/sh,${stdenv.shell},g" -i $file
+    done
+    export HOME=$out
+    # Patch the bootstraper binaries and libs
+    for files in `find $out/tmp/l_BaseKit_p_${version}_offline/lib`
+    do
+      patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $file 2>/dev/null || true
+    done
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $out/tmp/l_BaseKit_p_${version}_offline/bootstrapper
+    # launch install
+    export LD_LIBRARY_PATH=${zlib}/lib
+    $out/tmp/l_BaseKit_p_${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
+    $out/tmp/l_HPCKit_p_${hpc_version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
+    rm -rf $out/tmp
   '';
 
   postFixup = ''
