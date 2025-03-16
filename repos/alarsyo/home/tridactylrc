@@ -5,6 +5,11 @@
 " as an enforced single point of truth for Tridactyl's configuration.
 sanitize tridactyllocal tridactylsync
 
+" Ergo-L chars, alternating between right and left hand. I also omitted
+" punctuation like `-` and `,`. Tridactyl supports it but the visual hints won't
+" look as good.
+set hintchars rnteisualfhvdockzgxyq
+
 " Ctrl-F should use the browser's native 'find' functionality.
 unbind <C-f>
 
