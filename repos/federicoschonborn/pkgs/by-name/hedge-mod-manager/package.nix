@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "8.0.0.1";
+  version = "8.0.0-beta4";
 in
 
 buildDotnetModule {
@@ -18,7 +18,7 @@ buildDotnetModule {
     owner = "hedge-dev";
     repo = "HedgeModManager";
     rev = version;
-    hash = "sha256-Aj5hepS6mFcUVhGf9Prjfqd7o6U2lHzwXK33Y3qelgs=";
+    hash = "sha256-1uwcpeyOxwKI0fyAmchYEMqStF52wXkCZej+ZQ+aFeY=";
   };
 
   projectFile = "Source/HedgeModManager.UI/HedgeModManager.UI.csproj";
@@ -38,7 +38,12 @@ buildDotnetModule {
     install -Dm644 flatpak/hedgemodmanager.desktop $out/share/applications/io.github.hedge_dev.hedgemodmanager.desktop
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "unstable"
+    ];
+  };
 
   meta = {
     mainProgram = "HedgeModManager.UI";

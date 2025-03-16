@@ -131,6 +131,66 @@ Alternative to GNU coreutils using software from FreeBSD
   - `x86_64-linux`
   </details>
 
+<h2 id="budgie-daemon-v2">
+
+`budgie-daemon-v2`
+
+</h2>
+
+V2 daemon for Budgie Desktop
+
+- Name: `budgie-daemon-v2`
+- Version: `0-unstable-2025-03-04`
+
+- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-daemon-v2)
+- [📦 Source](./pkgs/by-name/budgie-daemon-v2/package.nix#L56)
+- License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Platforms:
+  - `aarch64-linux`
+  - `armv6l-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `x86_64-linux`
+  </details>
+
+<h2 id="budgie-wayland-session">
+
+`budgie-wayland-session`
+
+</h2>
+
+Wayland session for the Budgie Desktop using a variety of window managers
+
+- Name: `budgie-wayland-session`
+- Version: `0-unstable-2025-03-15`
+
+- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-wayland-session)
+- [📦 Source](./pkgs/by-name/budgie-wayland-session/package.nix#L42)
+- License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Platforms:
+  - `aarch64-linux`
+  - `armv6l-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `x86_64-linux`
+  </details>
+
 <h2 id="cargo-aoc">
 
 `cargo-aoc`
@@ -401,10 +461,10 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 Multiplatform rewrite of Hedge Mod Manager
 
 - Name: `hedge-mod-manager`
-- Version: `8.0.0.1`
+- Version: `8.0.0-beta4`
 
 - [🌐 Homepage](https://github.com/hedge-dev/HedgeModManager)
-- [📦 Source](./pkgs/by-name/hedge-mod-manager/package.nix#L45)
+- [📦 Source](./pkgs/by-name/hedge-mod-manager/package.nix#L50)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -909,7 +969,7 @@ Programming language that targets the Nintendo Entertainment System
 Desktop client for the Matrix protocol
 
 - Name: `nheko`
-- Version: `0.12.0-unstable-2025-03-07`
+- Version: `0.12.0-unstable-2025-03-14`
 
 - [🌐 Homepage](https://github.com/Nheko-Reborn/nheko)
 - [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/nh/nheko/package.nix#L87)
