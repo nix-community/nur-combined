@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     owner = "petermost";
     repo = "Sourcetrail";
     rev = version;
-    hash = "";
+    hash = "sha256-JP+m6p1LT9N9aCZHYVhPY2G16uKQRqLybl2qbfMtyzw=";
   };
 
   cmakeFlags = [
