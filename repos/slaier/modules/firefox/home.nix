@@ -31,6 +31,7 @@ in
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         adnauseam
         aria2-integration
+        bitwarden
         buster-captcha-solver
         clearurls
         copy-link-text
@@ -39,7 +40,6 @@ in
         localcdn
         new_tongwentang
         offline-qr-code-generator
-        passff
         rsshub-radar
         ublacklist
         violentmonkey

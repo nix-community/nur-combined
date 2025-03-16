@@ -83,18 +83,25 @@ _:
     enable32Bit = true;
     extraPackages = with pkgs; [
       amdvlk
-      rocmPackages.clr.icd
+      rocmPackages_5.clr.icd
+      rocmPackages_5.clr
+      rocmPackages_5.rocminfo
+      rocmPackages_5.rocm-runtime
     ];
     extraPackages32 = with pkgs; [
       driversi686Linux.amdvlk
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    clinfo
+  ];
+
   systemd.tmpfiles.rules =
     let
       rocmEnv = pkgs.symlinkJoin {
         name = "rocm-combined";
-        paths = with pkgs.rocmPackages; [
+        paths = with pkgs.rocmPackages_5; [
           rocblas
           hipblas
           clr

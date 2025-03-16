@@ -1,77 +1,15 @@
 {
   "experimental": {
-    "cache_file": {
-      "enabled": true
-    },
     "clash_api": {
-      "external_controller": "0.0.0.0:9090",
       "external_ui": "@yacd@"
     }
   },
-  "log": {
-    "disabled": false,
-    "level": "warn",
-    "timestamp": false
-  },
-  "dns": {
-    "servers": [
-      {
-        "tag": "system",
-        "address": "local",
-        "strategy": "ipv4_only",
-        "detour": "direct_out"
-      }
-    ],
-    "rules": [],
-    "final": "system",
-    "disable_cache": false
-  },
-  "inbounds": [
-    {
-      "type": "mixed",
-      "tag": "mixed-in",
-      "listen": "::",
-      "listen_port": 7890,
-      "sniff": true,
-      "sniff_override_destination": true
-    }
-  ],
   "route": {
     "geoip": {
       "path": "@geoip@"
     },
     "geosite": {
       "path": "@geosite@"
-    },
-    "rules": [
-      {
-        "domain_suffix": [
-          "pkgs.org"
-        ],
-        "geosite": [
-          "cn",
-          "private"
-        ],
-        "geoip": [
-          "cn",
-          "private"
-        ],
-        "outbound": "direct_out"
-      },
-      {
-        "geosite": [
-          "spotify",
-          "google"
-        ],
-        "outbound": "Chinese_out"
-      }
-    ],
-    "final": "select_out"
-  },
-  "outbounds": [
-    {
-      "type": "direct",
-      "tag": "direct_out"
     }
-  ]
+  }
 }
