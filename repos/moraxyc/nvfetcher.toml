@@ -9,3 +9,7 @@ fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$
 [v2ray-rules-dat-geosite]
 src.github = "Loyalsoldier/v2ray-rules-dat"
 fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
+
+[libinput-three-finger-drag]
+src.git = "https://github.com/marsqing/libinput-three-finger-drag"
+fetch.github = "marsqing/libinput-three-finger-drag"

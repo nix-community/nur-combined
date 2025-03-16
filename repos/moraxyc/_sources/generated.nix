@@ -13,6 +13,18 @@
     };
     date = "2024-11-23";
   };
+  libinput-three-finger-drag = {
+    pname = "libinput-three-finger-drag";
+    version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";
+    src = fetchFromGitHub {
+      owner = "marsqing";
+      repo = "libinput-three-finger-drag";
+      rev = "6acd3f84b551b855b5f21b08db55e95dae3305c5";
+      fetchSubmodules = false;
+      sha256 = "sha256-xmcTb+23d6mMzIfMVjzN6bwV0fWH4p6YhXXqrFmt4TM=";
+    };
+    date = "2024-06-17";
+  };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
     version = "202503152212";

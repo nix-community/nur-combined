@@ -20,6 +20,27 @@
         },
         "version": "41d7a6e52a1625d6febb47160a4b143ca47c16d5"
     },
+    "libinput-three-finger-drag": {
+        "cargoLocks": null,
+        "date": "2024-06-17",
+        "extract": null,
+        "name": "libinput-three-finger-drag",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "marsqing",
+            "repo": "libinput-three-finger-drag",
+            "rev": "6acd3f84b551b855b5f21b08db55e95dae3305c5",
+            "sha256": "sha256-xmcTb+23d6mMzIfMVjzN6bwV0fWH4p6YhXXqrFmt4TM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6acd3f84b551b855b5f21b08db55e95dae3305c5"
+    },
     "v2ray-rules-dat-geoip": {
         "cargoLocks": null,
         "date": null,
