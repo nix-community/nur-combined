@@ -6,8 +6,8 @@ template = open(".default_template.nix", "r").read()
 let_tag = "<<TEMPLATE_LET>>"
 package_tag = "<<TEMPLATE_PACKAGES>>"
 
-python_versions = ["310", "311"]
-python_app_version = "311"
+python_versions = ["310", "311", "312"]
+python_app_version = "312"
 
 
 def main():

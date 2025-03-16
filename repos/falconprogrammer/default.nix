@@ -10,6 +10,7 @@
 let
 	p_310 = pkgs.python310Packages;
 	p_311 = pkgs.python311Packages;
+	p_312 = pkgs.python312Packages;
 
 
 in
@@ -24,10 +25,11 @@ in
 	# ...
 	alvr = pkgs.callPackage pkgs/alvr {};
 	g13d = pkgs.callPackage pkgs/g13d {};
-	gitignore-template = p_311.callPackage pkgs/gitignore-template {};
+	gitignore-template = p_312.callPackage pkgs/gitignore-template {};
 	python-jwt_310 = p_310.callPackage pkgs/python-jwt {python-ver = 310;};
 	python-jwt_311 = p_311.callPackage pkgs/python-jwt {python-ver = 311;};
-	timew-sync-client = p_311.callPackage pkgs/timew-sync-client {};
+	python-jwt_312 = p_312.callPackage pkgs/python-jwt {python-ver = 312;};
+	timew-sync-client = p_312.callPackage pkgs/timew-sync-client {};
 	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
 	xgen = pkgs.callPackage pkgs/xgen {};
 
