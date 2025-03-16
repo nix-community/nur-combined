@@ -21,10 +21,6 @@ let
       package = pkgs.linuxPackages;
     }
     {
-      name = "_zen";
-      package = pkgs.linuxPackages_zen;
-    }
-    {
       name = "_latest";
       package = pkgs.linuxPackages_latest;
     }
