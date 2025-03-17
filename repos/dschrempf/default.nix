@@ -13,7 +13,6 @@
   figtree = pkgs.callPackage ./pkgs/evolution/figtree { };
   paml = pkgs.callPackage ./pkgs/evolution/paml { };
   phylobayes = pkgs.callPackage ./pkgs/evolution/phylobayes { };
-  revbayes = pkgs.callPackage ./pkgs/evolution/revbayes { };
   tracer = pkgs.callPackage ./pkgs/evolution/tracer { };
 
   # Finance.
