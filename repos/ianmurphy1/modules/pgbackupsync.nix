@@ -21,7 +21,7 @@ let
       User = "postgres";
       ExecStart = "${lib.getExe cfg.package}";
       WorkingDirectory = "${cfg.location}";
-      Umask = "0077";
+      UMask = "0077";
     };
     environment = {
       RCLONE_CONFIG = cfg.rcloneConfig;
@@ -53,7 +53,7 @@ in
         location = lib.mkOption {
           type = lib.types.path;
           description = "Location of the backups to sync";
-          default = "${config.services.postgresql.location}";
+          default = "${config.services.postgresqlBackup.location}";
         };
 
         rcloneConfig = lib.mkOption {
