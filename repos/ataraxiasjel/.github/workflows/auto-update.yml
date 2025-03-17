@@ -16,7 +16,7 @@ jobs:
         ref: master
         ssh-key: ${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}
     - name: Install nix
-      uses: cachix/install-nix-action@v30
+      uses: cachix/install-nix-action@v31
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup magic nix cache
