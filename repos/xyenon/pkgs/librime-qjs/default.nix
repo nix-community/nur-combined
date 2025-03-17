@@ -8,13 +8,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "librime-qjs";
-  version = "0-unstable-2025-03-14";
+  version = "0-unstable-2025-03-15";
 
   src = fetchFromGitHub {
     owner = "HuangJian";
     repo = "librime-qjs";
-    rev = "9b541af24dc487faefc020c962e18fb250065b46";
-    hash = "sha256-+ZVsmJBRhhxHMzDr3AvbXnvvR5HVvBMwOtvmXdSfja8=";
+    rev = "948bd1c7b104c2c4f21eab23393cb35644f392bb";
+    hash = "sha256-FQ0zQKtO4eUYS2W7Oo+54UAHKHCYR78QE5NAO+/FcqA=";
   };
 
   propagatedBuildInputs = [ quickjs-ng ];

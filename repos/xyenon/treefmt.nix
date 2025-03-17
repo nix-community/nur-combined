@@ -2,7 +2,7 @@ _:
 
 {
   projectRootFile = "flake.nix";
-  settings.excludes = [ "**/_sources/**" ];
+  settings.excludes = [ "_sources/**" ];
   programs = {
     deadnix.enable = true;
     jsonfmt.enable = true;
@@ -15,6 +15,8 @@ _:
     };
     statix.enable = true;
     stylua.enable = true;
+    taplo.enable = true;
+    toml-sort.enable = true;
     yamlfmt.enable = true;
   };
 }

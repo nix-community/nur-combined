@@ -1,9 +1,6 @@
 {
+  source,
   lib,
-  fetchgit,
-  fetchurl,
-  fetchFromGitHub,
-  dockerTools,
   newScope,
   runCommand,
   coreutils,
@@ -12,16 +9,7 @@
 }:
 
 let
-  generated =
-    (import ./_sources/generated.nix {
-      inherit
-        fetchgit
-        fetchurl
-        fetchFromGitHub
-        dockerTools
-        ;
-    }).yazi-rs-plugins;
-  inherit (generated) src date;
+  inherit (source) src date;
   plugins = lib.importJSON ./plugins.json;
 in
 (lib.makeScope newScope (
@@ -63,14 +51,11 @@ in
 // {
   passthru.generate = import ./generate.nix {
     inherit
+      source
       lib
       runCommand
       coreutils
       mq
-      fetchgit
-      fetchurl
-      fetchFromGitHub
-      dockerTools
       writeText
       ;
   };

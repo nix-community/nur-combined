@@ -11,6 +11,16 @@
 }:
 
 with pkgs;
+let
+  sources = import ./_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
+  };
+in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -46,7 +56,7 @@ rec {
   nginx = nginxStable;
   mpvScripts = callPackage ./pkgs/mpv/scripts { };
   anime4k = callPackage ./pkgs/anime4k { };
-  yaziPlugins = callPackage ./pkgs/yazi/plugins { inherit mq; };
+  yaziPlugins = callPackage ./pkgs/yazi/plugins { inherit sources mq; };
   telemikiya = callPackage ./pkgs/telemikiya { };
   quickjs-ng = callPackage ./pkgs/quickjs-ng { };
   librime-qjs = callPackage ./pkgs/librime-qjs { inherit quickjs-ng; };
@@ -58,4 +68,10 @@ rec {
     ];
   };
   mq = callPackage ./pkgs/mq { };
+  rime-moegirl = callPackage ./pkgs/rime-moegirl { source = sources.rime-moegirl; };
+  rime-ice = callPackage ./pkgs/rime-ice { inherit sources; };
+  rime-ice-unstable = callPackage ./pkgs/rime-ice {
+    inherit sources;
+    isUnstable = true;
+  };
 }

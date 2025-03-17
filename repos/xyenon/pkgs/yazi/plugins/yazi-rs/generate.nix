@@ -1,24 +1,14 @@
 {
+  source,
   lib,
   runCommand,
   coreutils,
   mq,
-  fetchgit,
-  fetchurl,
-  fetchFromGitHub,
-  dockerTools,
   writeText,
 }:
 
 let
-  inherit ((import ./_sources/generated.nix {
-      inherit
-        fetchgit
-        fetchurl
-        fetchFromGitHub
-        dockerTools
-        ;
-    }).yazi-rs-plugins) src;
+  inherit (source) src;
   plugins =
     with lib;
     mapAttrs' (

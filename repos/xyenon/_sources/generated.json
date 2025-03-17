@@ -1,0 +1,80 @@
+{
+    "rime-ice": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-ice",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iDvel",
+            "repo": "rime-ice",
+            "rev": "2024.12.12",
+            "sha256": "sha256-2QZdlLGZwWIesbjYTE/2yhM1hHGVVp7jR02bR0oqxV0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2024.12.12"
+    },
+    "rime-ice-unstable": {
+        "cargoLocks": null,
+        "date": "2025-03-11",
+        "extract": null,
+        "name": "rime-ice-unstable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iDvel",
+            "repo": "rime-ice",
+            "rev": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7",
+            "sha256": "sha256-/sKoufIf4m5h1Zds6AqIyeCjDaZsFU9ot5ln3ykuNyU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7"
+    },
+    "rime-moegirl": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-moegirl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-LUKh0UMU0WVIWAGWogzWjqEVKCY7TTvWRueMeFxVslk=",
+            "type": "url",
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250309/moegirl.dict.yaml"
+        },
+        "version": "20250309"
+    },
+    "yazi-rs-plugins": {
+        "cargoLocks": null,
+        "date": "2025-03-12",
+        "extract": null,
+        "name": "yazi-rs-plugins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yazi-rs",
+            "repo": "plugins",
+            "rev": "cb6165b25515b653a70f72a67889579d190facfe",
+            "sha256": "sha256-XDz67eHmVM5NrnQ/uPXN/jRgmrShs80anWnHpVmbPO8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cb6165b25515b653a70f72a67889579d190facfe"
+    }
+}

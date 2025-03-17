@@ -1,0 +1,16 @@
+[rime-ice]
+fetch.github = "iDvel/rime-ice"
+src.github_tag = "iDvel/rime-ice"
+src.exclude_regex = "nightly"
+
+[rime-ice-unstable]
+fetch.github = "iDvel/rime-ice"
+src.git = "https://github.com/iDvel/rime-ice.git"
+
+[rime-moegirl]
+fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
+src.github = "outloudvi/mw2fcitx"
+
+[yazi-rs-plugins]
+fetch.github = "yazi-rs/plugins"
+src.git = "https://github.com/yazi-rs/plugins.git"
