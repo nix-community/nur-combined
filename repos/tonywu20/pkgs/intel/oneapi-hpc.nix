@@ -45,10 +45,10 @@ stdenv.mkDerivation rec {
   # For installer fetching (no warranty of the links)
   sourceRoot = ".";
   srcs = [
-    (fetchurl {
-      url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/dfc4a434-838c-4450-a6fe-2fa903b75aa7/intel-oneapi-base-toolkit-2025.0.1.46_offline.sh";
-      sha256 = "094a7872bbdb1c1e1d0e65da553497de819132b298b0ddf624b45003cda82844";
-    })
+    # (fetchurl {
+    #   url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/dfc4a434-838c-4450-a6fe-2fa903b75aa7/intel-oneapi-base-toolkit-2025.0.1.46_offline.sh";
+    #   sha256 = "094a7872bbdb1c1e1d0e65da553497de819132b298b0ddf624b45003cda82844";
+    # })
     (fetchurl {
       url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/b7f71cf2-8157-4393-abae-8cea815509f7/intel-oneapi-hpc-toolkit-2025.0.1.47_offline.sh";
       sha256 = "941a4d4ccc05cfb60f5edbe7c2c5e34197cce561c12d565cd8c6fefe6b752fb6";
@@ -124,10 +124,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/tmp
     if [ "$srcs" = "" ]
     then
-      base_kit="./intel-oneapi-base-toolkit-${version}_offline.sh"
+      # base_kit="./intel-oneapi-base-toolkit-${version}_offline.sh"
       hpc_kit="./intel-oneapi-hpc-toolkit-${hpc_version}_offline.sh"
     else
-      base_kit=`echo $srcs|cut -d" " -f1`
+      # base_kit=`echo $srcs|cut -d" " -f1`
       hpc_kit=`echo $srcs|cut -d" " -f2`
     fi
     # Extract files
