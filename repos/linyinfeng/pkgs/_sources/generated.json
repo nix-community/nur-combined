@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./baibot-v1.4.1/Cargo.lock",
+                "./baibot-v1.5.0/Cargo.lock",
                 {}
             ]
         },
@@ -39,12 +39,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.4.1",
-            "sha256": "sha256-LeLdKedwyjSubZ5vEqI+YmqTsd5+Ai+2Pof/I9HpgNQ=",
+            "rev": "v1.5.0",
+            "sha256": "sha256-DwhKeitbue6gz7cWcA8VJNa0AlKmS3OVHTBaXCy0WGE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.1"
+        "version": "v1.5.0"
     },
     "cowrie": {
         "cargoLocks": null,
@@ -162,12 +162,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.15-linux-250219T061943Z",
-            "sha256": "sha256-ULPO3ZqSpkA4bb5FmeDZctOeJgUfIDbFcbyPuVWY1JE=",
+            "rev": "lts-v6.12.17-linux-250228T052357Z",
+            "sha256": "sha256-MN/aV+7M60u8Y8LjQryKOm8LkVUIE7cugBR1oTgoDNc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.15-linux-250219T061943Z"
+        "version": "lts-v6.12.17-linux-250228T052357Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -420,7 +420,7 @@
     },
     "rime-emoji": {
         "cargoLocks": null,
-        "date": "2024-11-02",
+        "date": "2025-03-09",
         "extract": null,
         "name": "rime-emoji",
         "passthru": null,
@@ -430,17 +430,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ca7df5f5498ccd99cc312413ceae7d13717456b8",
-            "sha256": "sha256-3tNljbYQ8ElqXDNnrQRfyeVgPrvzwh+eKaC6F3BOnHs=",
+            "rev": "3752ecd665c9ce8f0b3ed55976c6c65a4fd6b43f",
+            "sha256": "sha256-UVUWULRNQrvkgjT7cZHE/ZEa+ICk1k5LE9Z+GxKZytQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-emoji.git"
         },
-        "version": "ca7df5f5498ccd99cc312413ceae7d13717456b8"
+        "version": "3752ecd665c9ce8f0b3ed55976c6c65a4fd6b43f"
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-02-26",
+        "date": "2025-03-14",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -450,17 +450,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8950960f49a700af0bbcac3ce0cdadb190e719c6",
-            "sha256": "sha256-sCoh6iOqBfywaBx4RR47mqjsU+qTtJ3CYFH2ach5mTA=",
+            "rev": "13674aadebc482e418067c1980c7f69bf4a30f90",
+            "sha256": "sha256-DXcMvCVX1ZHyYlsELpvVky00pwoVGgPtRilVQqucqQc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "8950960f49a700af0bbcac3ce0cdadb190e719c6"
+        "version": "13674aadebc482e418067c1980c7f69bf4a30f90"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-02-24",
+        "date": "2025-03-11",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -470,13 +470,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86",
-            "sha256": "sha256-eAOkda8IdDKBgfXNVezlgA7BmyUortonlinHdCb/Tr4=",
+            "rev": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7",
+            "sha256": "sha256-/sKoufIf4m5h1Zds6AqIyeCjDaZsFU9ot5ln3ykuNyU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "e3fd65b4f806e7e7e48402ea75d8e6def6281a86"
+        "version": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -500,7 +500,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2025-02-24",
+        "date": "2025-03-17",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -510,13 +510,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "308b8efc39917b99765e8a3792ad274aaabe5de1",
-            "sha256": "sha256-SZs4u09XqGfD8j4gz1N5fLTts79m0jIJ/asS2riplWA=",
+            "rev": "436baf31a4de3cb7ff6cc0bf3e765787cd93a7d3",
+            "sha256": "sha256-Jg49BQMph86vclst+T9R0IScXaaImIIUwR63IQrvmyQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "308b8efc39917b99765e8a3792ad274aaabe5de1"
+        "version": "436baf31a4de3cb7ff6cc0bf3e765787cd93a7d3"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
@@ -682,11 +682,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-993180b5e7db1dfc453a556bf208f05b04283c8f/Cargo.lock",
+                "./swayosd-b3c78fce3d90be2ce6a6ffee0e22a50379952e2b/Cargo.lock",
                 {}
             ]
         },
-        "date": "2025-01-27",
+        "date": "2025-03-03",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -696,13 +696,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "993180b5e7db1dfc453a556bf208f05b04283c8f",
-            "sha256": "sha256-qwtGkRJlCYu+dO3xCmnRexX+E4QvXRAHXUslLO7mrAI=",
+            "rev": "b3c78fce3d90be2ce6a6ffee0e22a50379952e2b",
+            "sha256": "sha256-V3V18BoBRJU8mtvwWXvdYPbKBDIHdu5LzVSkDkGJjFU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "993180b5e7db1dfc453a556bf208f05b04283c8f"
+        "version": "b3c78fce3d90be2ce6a6ffee0e22a50379952e2b"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,

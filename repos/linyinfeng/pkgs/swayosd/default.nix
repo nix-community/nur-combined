@@ -16,6 +16,7 @@
   gtk4-layer-shell,
   pulseaudio,
   libinput,
+  dbus,
 }:
 stdenv.mkDerivation {
   inherit (sources.swayosd) pname version src;
@@ -38,6 +39,7 @@ stdenv.mkDerivation {
     gtk4-layer-shell
     pulseaudio
     libinput
+    dbus
   ];
 
   cargoDeps = rustPlatform.importCargoLock sources.swayosd.cargoLock."Cargo.lock";
