@@ -1,0 +1,49 @@
+From ade596ec1d8a801ac473be729ce149910b81794a Mon Sep 17 00:00:00 2001
+From: Daniele Forsi <iu5hkx@gmail.com>
+Date: Sat, 1 Apr 2023 11:11:58 +0200
+Subject: [PATCH] Fix make package
+
+Fixes:
+CPack: Create package using ZIP
+CPack: Install projects
+CPack: - Run preinstall target for: direwolf
+CPack: - Install project: direwolf []
+CMake Error at .../build/conf/cmake_install.cmake:54 (file):
+  file INSTALL cannot copy file
+  ".../conf/99-direwolf-cmedia.rules"
+  to "/etc/udev/rules.d/99-direwolf-cmedia.rules": Permission denied.
+Call Stack (most recent call first):
+  .../build/cmake_install.cmake:74 (include)
+
+CPack Error: Error when generating package: direwolf
+make: *** [Makefile:71: package] Errore 1
+---
+ CMakeLists.txt      | 1 +
+ conf/CMakeLists.txt | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e44f99b4..98036333 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -260,6 +260,7 @@ else()
+     set(INSTALL_MAN_DIR "share/man/man1")
+   endif()
+   set(INSTALL_DATA_DIR "share/${PROJECT_NAME}")
++  set(INSTALL_UDEV_DIR "etc/udev/rules.d/")
+ endif(WIN32 OR CYGWIN)
+ 
+ # requirements
+diff --git a/conf/CMakeLists.txt b/conf/CMakeLists.txt
+index d4a229d7..02a82477 100644
+--- a/conf/CMakeLists.txt
++++ b/conf/CMakeLists.txt
+@@ -26,7 +26,7 @@ file(WRITE "${CMAKE_BINARY_DIR}/direwolf.conf" "${file_content}")
+ 
+ # install udev rules for CM108
+ if(LINUX)
+-  install(FILES "${CUSTOM_CONF_DIR}/99-direwolf-cmedia.rules" DESTINATION /etc/udev/rules.d/)
++  install(FILES "${CUSTOM_CONF_DIR}/99-direwolf-cmedia.rules" DESTINATION ${INSTALL_UDEV_DIR})
+ endif()
+ 
+ install(FILES "${CMAKE_BINARY_DIR}/direwolf.conf" DESTINATION ${INSTALL_CONF_DIR})
