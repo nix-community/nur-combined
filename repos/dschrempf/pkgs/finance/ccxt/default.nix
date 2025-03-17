@@ -6,7 +6,7 @@
 
 let
   pname = "ccxt";
-  version = "2.4.5";
+  version = "4.4.68";
   owner = pname;
 in
 python3.pkgs.buildPythonPackage rec {
@@ -16,8 +16,8 @@ python3.pkgs.buildPythonPackage rec {
   src = fetchFromGitHub {
     inherit owner;
     repo = pname;
-    rev = "${version}";
-    hash = "sha256-gB2D9OTH0fW/SqcVoRYGmCgpiqVEdrx5XNiTqJ27UTU=";
+    rev = "v${version}";
+    hash = "sha256-y/uECYct1t3WjFVnOjsURPIB6dW6p0sPmuEz/JLCwMw=";
   };
 
   prePatch = "cd python";
@@ -27,7 +27,6 @@ python3.pkgs.buildPythonPackage rec {
     certifi
     yarl
   ];
-  # buildInputs = [ ];
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
     cryptography

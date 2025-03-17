@@ -22,9 +22,6 @@ rec {
   finplot = pkgs.libsForQt5.callPackage ./pkgs/finance/finplot { };
   tiingo = pkgs.callPackage ./pkgs/finance/tiingo { };
 
-  # Hacking.
-  iaito = pkgs.libsForQt5.callPackage ./pkgs/hacking/iaito { };
-
   # Media.
   mtplayer = pkgs.callPackage ./pkgs/media/mtplayer {
     jre = (pkgs.jre.override { enableJavaFX = true; });
