@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, qttools
-, radare2
-, wrapQtAppsHook
-, zip
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  qttools,
+  radare2,
+  wrapQtAppsHook,
+  zip,
 }:
 
 # NOTE: The QT translation files are not found by the executable.
@@ -32,7 +33,12 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ dschrempf ];
   };
 
-  nativeBuildInputs = [ pkg-config qttools wrapQtAppsHook zip ];
+  nativeBuildInputs = [
+    pkg-config
+    qttools
+    wrapQtAppsHook
+    zip
+  ];
   buildInputs = [ radare2 ];
   # propagatedBuildInputs = [ ];
 

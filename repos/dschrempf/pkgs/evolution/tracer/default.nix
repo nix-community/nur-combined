@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, ant
-, jdk
-, jre
-, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ant,
+  jdk,
+  jre,
+  makeWrapper,
 }:
 
 let
@@ -21,7 +22,11 @@ stdenv.mkDerivation {
     hash = "sha256-ZuXG2ZgwiLS+fpaH/UlF8oYgfeX8YjGyR6+uj/wfLbw=";
   };
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   propagatedBuildInputs = [ jre ];
 

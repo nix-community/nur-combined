@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, gzip
-, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  gzip,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +24,11 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook gzip zlib ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    gzip
+    zlib
+  ];
 
   sourceRoot = ".";
 

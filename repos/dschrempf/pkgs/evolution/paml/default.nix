@@ -1,15 +1,18 @@
-{ lib
-, stdenv
-, fetchzip
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
 
 stdenv.mkDerivation rec {
   pname = "paml";
-  version = "4.9j";
+  version = "4.10.6";
 
-  src = fetchzip {
-    url = "http://abacus.gene.ucl.ac.uk/software/paml4.9j.tgz";
-    hash = "sha256-pCnZxvG3V15HDCZKQwRZmoV1fCLptQnywit4b2YQ4iM=";
+  src = fetchFromGitHub {
+    owner = "abacus-gene";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-ivmLgR/o+xnXA4Ac1GwSlR1MM5lDFlkQKXyl46clvQY=";
   };
 
   sourceRoot = "source/src";

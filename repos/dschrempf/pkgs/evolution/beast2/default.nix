@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, ant
-, jdk8
-, jre8
-, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ant,
+  jdk8,
+  jre8,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-2xIrqCaQD5h/QhUDkRUpf82BRlgaPLdAr23o0lMgBTU=";
   };
 
-  nativeBuildInputs = [ ant jdk8 makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk8
+    makeWrapper
+  ];
 
   propagatedBuildInputs = [ jre8 ];
 

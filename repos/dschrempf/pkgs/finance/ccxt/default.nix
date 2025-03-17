@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
@@ -21,9 +22,17 @@ python3.pkgs.buildPythonPackage rec {
 
   prePatch = "cd python";
 
-  nativeBuildInputs = with python3.pkgs; [ aiodns certifi yarl ];
+  nativeBuildInputs = with python3.pkgs; [
+    aiodns
+    certifi
+    yarl
+  ];
   # buildInputs = [ ];
-  propagatedBuildInputs = with python3.pkgs; [ aiohttp cryptography requests ];
+  propagatedBuildInputs = with python3.pkgs; [
+    aiohttp
+    cryptography
+    requests
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ pname ];

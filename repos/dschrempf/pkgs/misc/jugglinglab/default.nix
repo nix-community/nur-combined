@@ -1,11 +1,12 @@
-{ ant
-, fetchFromGitHub
-, fetchurl
-, jdk
-, jre
-, lib
-, makeWrapper
-, stdenv
+{
+  ant,
+  fetchFromGitHub,
+  fetchurl,
+  jdk,
+  jre,
+  lib,
+  makeWrapper,
+  stdenv,
 }:
 
 let
@@ -25,7 +26,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-GQm/TMQ1WSEn/6xOSqO0X3D8e/KpkQVz9Imtn6NDbOI=";
   };
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
   buildInputs = [ jre ];
 
   configurePhase = ''

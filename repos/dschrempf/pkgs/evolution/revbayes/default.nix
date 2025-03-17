@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
   # Packages.
-, boost
-, meson
-, ninja
-, perl
-, pkg-config
-, ...
+  boost,
+  meson,
+  ninja,
+  perl,
+  pkg-config,
+  ...
 }:
 
 stdenv.mkDerivation rec {
@@ -28,7 +29,12 @@ stdenv.mkDerivation rec {
   BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
   BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
 
-  nativeBuildInputs = [ meson ninja perl pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    perl
+    pkg-config
+  ];
   buildInputs = [ boost ];
 
   preConfigure = ''

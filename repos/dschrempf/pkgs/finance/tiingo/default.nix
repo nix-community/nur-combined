@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
   pname = "tiingo";
-  version = "0.14.0";
+  version = "0.15.6";
   owner = "hydrosquall";
 in
 python3.pkgs.buildPythonPackage rec {
@@ -16,18 +17,13 @@ python3.pkgs.buildPythonPackage rec {
     inherit owner;
     repo = "${pname}-python";
     rev = "v${version}";
-    hash = "sha256-PoRVq9ePancsZjaRIZPpseuYdKmewZwPqQ73o58BcrI=";
+    hash = "sha256-EVWhOjacFp6sAv0RTEXi6q5GM8R+35SSNUrbYFtultE=";
   };
 
-  # src = python3.pkgs.fetchPypi {
-  #   inherit pname;
-  #   inherit version;
-  #   hash = "sha256-zxVwbG84j1LIXUbvrg+hCSAKVx+VsMyTYQk5AsYvrAA=";
-  # };
-
-  nativeBuildInputs = with python3.pkgs; [ pytest-runner ];
-  # buildInputs = [ ];
-  propagatedBuildInputs = with python3.pkgs; [ requests ];
+  propagatedBuildInputs = with python3.pkgs; [
+    requests
+    websocket_client
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ pname ];

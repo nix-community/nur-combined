@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, boost
-, eigen
-, zlib
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,11 +22,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DIQTREE_FLAGS=omp"
-  ];
+  cmakeFlags = [ "-DIQTREE_FLAGS=omp" ];
 
-  buildInputs = [ boost eigen zlib ];
+  buildInputs = [
+    boost
+    eigen
+    zlib
+  ];
 
   meta = with lib; {
     description = "Efficient and versatile phylogenomic software by maximum likelihood";

@@ -1,5 +1,5 @@
-{ system ? builtins.currentSystem
-, pkgs ? import <nixpkgs> { inherit system; }
+{
+  pkgs ? import <nixpkgs> { },
 }:
 
 rec {
@@ -23,18 +23,14 @@ rec {
   tiingo = pkgs.callPackage ./pkgs/finance/tiingo { };
 
   # Hacking.
-  frida-python = pkgs.callPackage ./pkgs/hacking/frida-python {
-    python3 = pkgs.python38;
-  };
-  frida-tools = pkgs.callPackage ./pkgs/hacking/frida-tools {
-    python3 = pkgs.python38;
-    inherit frida-python;
-  };
   iaito = pkgs.libsForQt5.callPackage ./pkgs/hacking/iaito { };
+
+  # Media.
+  mtplayer = pkgs.callPackage ./pkgs/media/mtplayer {
+    jre = (pkgs.jre.override { enableJavaFX = true; });
+  };
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib { };
   jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab { };
-  signal-back = pkgs.callPackage ./pkgs/misc/signal-back { };
-  unflac = pkgs.callPackage ./pkgs/misc/unflac { };
 }

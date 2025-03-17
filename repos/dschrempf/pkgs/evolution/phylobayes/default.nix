@@ -1,6 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +28,6 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/sources";
   patches = [ ./progsdir.patch ];
   patchFlags = [ "-p0" ];
-
 
   executables = [
     "ancestral"
