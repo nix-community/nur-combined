@@ -21,11 +21,11 @@ BACKUP_FILE=${BACKUP_FILE:-"all.sql.gz"}
 
 BACKUP_PATH="${BACKUPS_DIR}/${BACKUP_FILE}"
 
-echo "CURRENT WORKING DIR: ${pwd}"
+echo "CURRENT WORKING DIR: $(pwd)"
 
 rclone copyto \
   "${BACKUP_PATH}" \
-  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/${DATE}-${BACKUP_FILE}" -vv
+  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/${DATE}-${BACKUP_FILE}" -vvv
 
 
 rclone copyto \

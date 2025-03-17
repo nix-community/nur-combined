@@ -20,7 +20,7 @@ let
       Type = "oneshot";
       User = "postgres";
       ExecStart = "${lib.getExe cfg.package}";
-      WorkingDirectory = "${cfg.location}";
+      #WorkingDirectory = "${cfg.location}";
     };
     environment = {
       RCLONE_CONFIG = cfg.rcloneConfig;
