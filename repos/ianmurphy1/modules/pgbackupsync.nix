@@ -87,7 +87,16 @@ in
       };
     };
 
-    config = lib.mkIf cfg.enable {
-      systemd.services.postgresBackupSync = postgresBackupSync;
-    };
+    config = lib.mkMerge [
+      (lib.mkIf cfg.enable {
+        systemd.services.postgresBackupSync = postgresBackupSync;
+      })
+
+      (lib.mkIf cfg.enable {
+        systemd.tmpfiles.rules = [
+          "d '${cfg.location}' 0700 postgres - - -"
+        ];
+      })
+    ];
+
   }
