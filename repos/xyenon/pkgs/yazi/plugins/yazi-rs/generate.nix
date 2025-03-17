@@ -2,8 +2,6 @@
   source,
   lib,
   runCommand,
-  coreutils,
-  mq,
   writeText,
 }:
 
@@ -16,12 +14,11 @@ let
       nameValuePair (removeSuffix ".yazi" name) {
         description = trim (
           builtins.readFile (
-            runCommand "${name}-description" {
-              nativeBuildInputs = [
-                coreutils
-                mq
-              ];
-            } ''mq -q '.text | gsub("([\\.!])(\\s+|$)", "")' ${src}/${name}/README.md | head -qn 1 > "$out"''
+            runCommand "${name}-description" { } ''
+              grep -m 1 '^[a-zA-Z\[]' ${src}/${name}/README.md \
+                | sed -E 's/^A ([a-zA-Z])/\U\1/' \
+                | sed -E 's/[\.!](\s.*)?$//' > "$out"
+            ''
           )
         );
       }

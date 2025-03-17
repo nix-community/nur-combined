@@ -56,7 +56,7 @@ rec {
   nginx = nginxStable;
   mpvScripts = callPackage ./pkgs/mpv/scripts { };
   anime4k = callPackage ./pkgs/anime4k { };
-  yaziPlugins = callPackage ./pkgs/yazi/plugins { inherit sources mq; };
+  yaziPlugins = callPackage ./pkgs/yazi/plugins { inherit sources; };
   telemikiya = callPackage ./pkgs/telemikiya { };
   quickjs-ng = callPackage ./pkgs/quickjs-ng { };
   librime-qjs = callPackage ./pkgs/librime-qjs { inherit quickjs-ng; };

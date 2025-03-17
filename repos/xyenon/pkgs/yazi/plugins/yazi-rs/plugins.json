@@ -1,6 +1,6 @@
 {
   "chmod": {
-    "description": "Execute  on the selected files to change their modeThis plugin is only available on Unix platforms since it relies on"
+    "description": "Execute `chmod` on the selected files to change their mode"
   },
   "diff": {
     "description": "Diff the selected file with the hovered file, create a living patch, and copy it to the clipboard"
@@ -15,37 +15,37 @@
     "description": "Switch the preview pane between hidden and shown"
   },
   "jump-to-char": {
-    "description": "Vim-like , jump to the next file whose name starts with"
+    "description": "Vim-like `f<char>`, jump to the next file whose name starts with `<char>`"
   },
   "lsar": {
-    "description": "Previewing archive contents with , which is something you might not want to use anyway"
+    "description": "Previewing archive contents with `lsar`, which is something you might not want to use anyway"
   },
   "mactag": {
-    "description": "Bring macOS's awesome tagging feature to YaziThe plugin it's only available for macOS just like the name says"
+    "description": "Bring macOS's awesome tagging feature to Yazi"
   },
   "max-preview": {
     "description": "Maximize or restore the preview pane"
   },
   "mime-ext": {
-    "description": "A mime-type provider based on a file extension database, replacing the  to speed up mime-type retrieval at the expense of accuracy"
+    "description": "Mime-type provider based on a file extension database, replacing the [builtin `file(1)`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/mime.lua) to speed up mime-type retrieval at the expense of accuracy"
   },
   "mount": {
-    "description": "A mount manager for Yazi, providing disk mount, unmount, and eject functionality"
+    "description": "Mount manager for Yazi, providing disk mount, unmount, and eject functionality"
   },
   "no-status": {
     "description": "Remove the status bar"
   },
   "smart-enter": {
-    "description": "files or  directories all in one key"
+    "description": "[`Open`][open] files or [`enter`][enter] directories all in one key"
   },
   "smart-filter": {
-    "description": "A Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting"
+    "description": "Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting"
   },
   "sudo-demo": {
-    "description": "Just an example showing how to use  in a Yazi plugin, and the plugin itself doesn't offer any features beyond logging a message"
+    "description": "Just an example showing how to use `sudo` in a Yazi plugin, and the plugin itself doesn't offer any features beyond logging a message"
   },
   "toggle-pane": {
-    "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and previewIt respects the user's"
+    "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and preview"
   },
   "vcs-files": {
     "description": "Show Git file changes in Yazi"

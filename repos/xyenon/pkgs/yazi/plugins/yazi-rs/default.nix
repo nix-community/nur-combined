@@ -3,15 +3,14 @@
   lib,
   newScope,
   runCommand,
-  coreutils,
-  mq,
   writeText,
 }:
 
 let
   inherit (source) src date;
   plugins = lib.importJSON ./plugins.json;
-  scope = self:
+  scope =
+    self:
     lib.mapAttrs (
       name: value:
       (self.callPackage (
@@ -58,8 +57,6 @@ with lib;
       source
       lib
       runCommand
-      coreutils
-      mq
       writeText
       ;
   };
