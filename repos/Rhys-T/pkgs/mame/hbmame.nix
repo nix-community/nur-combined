@@ -96,7 +96,7 @@
                         ][0]
                     '
                 )"
-                update-source-version hbmame "$latestVersion"
+                update-source-version ''${UPDATE_NIX_ATTR_PATH:-hbmame} "$latestVersion"
             '';
         };
         meta = (old.meta or {}) // {

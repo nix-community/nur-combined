@@ -193,7 +193,7 @@ in {
                         /^\(pico~de \*Version ([0-9]+) ([0-9]+) ([0-9]+)\)$/ { s//\1.\2.\3/; p; }
                     ')"
                     echo "latestVer=$latestVer"
-                    update-source-version picolisp-rolling "$latestVer" --rev="$latestRev"
+                    update-source-version ''${UPDATE_NIX_ATTR_PATH:-picolisp-rolling} "$latestVer" --rev="$latestRev"
                 '';
             };
         });

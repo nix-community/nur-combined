@@ -45,8 +45,11 @@ jobs:
             --argstr commit true \
             --show-trace
           exitStatus="$?"
-          if ! git diff --exit-code --quiet origin/${{ github.ref_name}}..; then
+          if ! git diff --exit-code --quiet origin/${{ github.ref_name }}..; then
             echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+          if [[ "$exitStatus" -eq 0 ]] && compgen -G '*.log' > /dev/null; then
+            echo 'error_logs_generated=true' >> "$GITHUB_OUTPUT"
           fi
           exit "$exitStatus"
       - name: Upload error logs
@@ -67,3 +70,6 @@ jobs:
             package-updates
             automated
           delete-branch: true
+      - name: Fail if error logs were generated
+        if: steps.update.outputs.error_logs_generated == 'true'
+        run: exit 1
