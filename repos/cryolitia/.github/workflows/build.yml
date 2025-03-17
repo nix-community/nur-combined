@@ -57,7 +57,7 @@ jobs:
     - uses: DeterminateSystems/flake-checker-action@main
 
     - name: Setup cachix
-      uses: cachix/cachix-action@v15
+      uses: cachix/cachix-action@v16
       with:
         name: cryolitia
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
