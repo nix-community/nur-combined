@@ -70,8 +70,5 @@ rec {
   mq = callPackage ./pkgs/mq { };
   rime-moegirl = callPackage ./pkgs/rime-moegirl { source = sources.rime-moegirl; };
   rime-ice = callPackage ./pkgs/rime-ice { inherit sources; };
-  rime-ice-unstable = callPackage ./pkgs/rime-ice {
-    inherit sources;
-    isUnstable = true;
-  };
+  rime-ice-unstable = rime-ice.override { isUnstable = true; };
 }
