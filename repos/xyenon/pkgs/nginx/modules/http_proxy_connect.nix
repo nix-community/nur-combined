@@ -7,7 +7,7 @@ let
     findFirst
       (p: versionAtLeast nginxVersion p.versionAtLeast && versionOlder nginxVersion p.versionOlder)
       (warn "No patch found for nginx version ${nginxVersion}, try the latest patch." {
-        versionAtLeast = "1.26.0";
+        versionAtLeast = "1.21.1";
         versionOlder = "99.99.99";
         patchName = "proxy_connect_rewrite_102101";
       })
@@ -39,7 +39,7 @@ let
         }
         {
           versionAtLeast = "1.21.1";
-          versionOlder = "1.26.0";
+          versionOlder = "1.27.1";
           patchName = "proxy_connect_rewrite_102101";
         }
       ];
@@ -50,8 +50,8 @@ rec {
     inherit name;
     owner = "chobits";
     repo = "ngx_http_proxy_connect_module";
-    rev = "v0.0.6";
-    hash = "sha256-UQkJJAztj7DKmZ9woSPrGLblJn6/VxHuMlzXXfle+DU=";
+    rev = "v0.0.7";
+    hash = "sha256-Yob2Z+a3ex3Ji6Zz8J0peOYnKpYn5PlC9KsQNcHCL9o=";
   };
 
   patches = [ "${src}/patch/${patch.patchName}.patch" ];
