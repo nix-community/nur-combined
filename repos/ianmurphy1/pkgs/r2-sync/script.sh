@@ -25,7 +25,7 @@ echo "CURRENT WORKING DIR: $(pwd)"
 
 rclone copyto \
   "${BACKUP_PATH}" \
-  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/${DATE}-${BACKUP_FILE}" -vvv
+  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/${DATE}-${BACKUP_FILE}" -x --inplace -vvv
 
 
 rclone copyto \
