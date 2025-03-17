@@ -8,7 +8,7 @@
 # This is initally being created to store backups created
 # by the services.postgresqlBackup nixos module in r2
 
-set -eo pipefail
+set -x -eo pipefail
 
 RCLONE_CONFIG=${RCLONE_CONFIG:-"/root/.config/rclone/rclone.conf"}
 R2_RCLONE_PROFILE=${R2_RCLONE_PROFILE:?required}
