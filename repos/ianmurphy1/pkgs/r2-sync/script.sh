@@ -10,7 +10,7 @@
 
 set -eo pipefail
 
-RCLONE_CLONE_CONFIG=${RCLONE_CLONE_CONFIG:-"/root/.config/rclone/rclone.conf"}
+RCLONE_CONFIG=${RCLONE_CONFIG:-"/root/.config/rclone/rclone.conf"}
 R2_RCLONE_PROFILE=${R2_RCLONE_PROFILE:?required}
 R2_BUCKET=${R2_BUCKET:?required}
 

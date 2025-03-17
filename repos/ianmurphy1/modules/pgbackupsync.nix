@@ -23,7 +23,7 @@ let
       WorkingDirectory = "${cfg.location}";
     };
     environment = {
-      RCLONE_CLONE_CONFIG = cfg.rcloneConfig;
+      RCLONE_CONFIG = cfg.rcloneConfig;
       R2_RCLONE_PROFILE = cfg.r2RcloneProfile;
       R2_BUCKET = cfg.r2Bucket;
       BACKUP_FILE = cfg.backupFile;
