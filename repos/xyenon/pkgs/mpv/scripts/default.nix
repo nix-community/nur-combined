@@ -1,7 +1,18 @@
 { lib, newScope }:
 
-lib.makeScope newScope (
-  self: with self; {
-    modernx = callPackage ./modernx.nix { };
-  }
-)
+let
+  scope =
+    self:
+    let
+      inherit (self) callPackage;
+    in
+    {
+      modernx = callPackage ./modernx.nix { };
+    };
+in
+
+with lib;
+pipe scope [
+  (makeScope newScope)
+  recurseIntoAttrs
+]

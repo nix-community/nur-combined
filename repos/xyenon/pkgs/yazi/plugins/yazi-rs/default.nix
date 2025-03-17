@@ -11,8 +11,7 @@
 let
   inherit (source) src date;
   plugins = lib.importJSON ./plugins.json;
-  scope = (
-    self:
+  scope = self:
     lib.mapAttrs (
       name: value:
       (self.callPackage (
@@ -45,8 +44,7 @@ let
           };
         }
       ) { inherit src; })
-    ) plugins
-  );
+    ) plugins;
 in
 
 with lib;
