@@ -27,6 +27,7 @@ let
       R2_RCLONE_PROFILE = cfg.r2RcloneProfile;
       R2_BUCKET = cfg.r2Bucket;
       BACKUP_FILE = cfg.backupFile;
+      BACKUPS_DIR = cfg.location;
     };
 
     startAt = cfg.startAt;

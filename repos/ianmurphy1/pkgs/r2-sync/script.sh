@@ -15,13 +15,17 @@ R2_RCLONE_PROFILE=${R2_RCLONE_PROFILE:?required}
 R2_BUCKET=${R2_BUCKET:?required}
 
 DATE=$(date -d "today" +"%Y%m%d%H%M")
-BACKUP_FILE=${BACKUP_FILE:-"./all.sql.gz"}
+
+BACKUPS_DIR=${BACKUPS_DIR:-"/var/backup/postgresql"}
+BACKUP_FILE=${BACKUP_FILE:-"all.sql.gz"}
+
+BACKUP_PATH="${BACKUPS_DIR}/${BACKUP_FILE}"
 
 rclone copyto \
-  "${BACKUP_FILE}" \
+  "${BACKUP_PATH}" \
   "${R2_RCLONE_PROFILE}:${R2_BUCKET}/${DATE}-${BACKUP_FILE}"
 
 
 rclone copyto \
-  "${BACKUP_FILE}" \
+  "${BACKUP_PATH}" \
   "${R2_RCLONE_PROFILE}:${R2_BUCKET}/latest.sql.gz"
