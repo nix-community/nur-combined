@@ -6,6 +6,7 @@
 }:
 let 
   cfg = config.services.postgresBackupSync;
+  backupsEnabled = config.services.postgresqlBackup.enable;
 
   postgresBackupSync = {
     enable = true;
@@ -13,7 +14,7 @@ let
     description = "Enables syncing backups to R2";
 
     requires = [
-      "postgresqlBackup.service"
+      "postgresql.service"
     ];
 
     serviceConfig = {
@@ -23,13 +24,20 @@ let
       WorkingDirectory = "${cfg.location}";
       UMask = "0077";
     };
-    environment = {
-      RCLONE_CONFIG = cfg.rcloneConfig;
-      R2_RCLONE_PROFILE = cfg.r2RcloneProfile;
-      R2_BUCKET = cfg.r2Bucket;
-      BACKUP_FILE = cfg.backupFile;
-      BACKUPS_DIR = cfg.location;
-    };
+
+    environment = lib.mkMerge [
+      {
+        RCLONE_CONFIG = cfg.rcloneConfig;
+        R2_RCLONE_PROFILE = cfg.r2RcloneProfile;
+        R2_BUCKET = cfg.r2Bucket;
+        BACKUP_FILE = cfg.backupFile;
+        BACKUPS_DIR = cfg.location;
+     }
+
+     (lib.mkIf cfg.enableDebug {
+       DEBUG = "true";
+     })
+   ];
 
     startAt = cfg.startAt;
   };
@@ -74,6 +82,12 @@ in
           default = "backups";
         };
 
+        enableDebug = lib.mkOption {
+          type = lib.types.bool;
+          description = "Whether to enable debug logging within the service";
+          default = false;
+        };
+
         startAt = lib.mkOption {
           default = "*-*-* 01:20:00";
           type = with lib.types; either (listOf str) str;
@@ -88,16 +102,7 @@ in
       };
     };
 
-    config = lib.mkMerge [
-      (lib.mkIf cfg.enable {
-        systemd.services.postgresBackupSync = postgresBackupSync;
-      })
-
-      (lib.mkIf cfg.enable {
-        systemd.tmpfiles.rules = [
-          "d '${cfg.location}' 0700 postgres - - -"
-        ];
-      })
-    ];
-
+    config = lib.mkIf ( cfg.enable && backupsEnabled ) {
+      systemd.services.postgresBackupSync = postgresBackupSync;
+    };
   }
