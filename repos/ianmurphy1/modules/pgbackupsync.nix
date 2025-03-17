@@ -44,7 +44,7 @@ in
         };
 
         backupFile = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.str;
           description = "Path to the file to backup";
           default = "all.sql.gz";
         };
@@ -72,6 +72,7 @@ in
           description = "The rclone profile where r2 creds are created";
           default = "backups";
         };
+
         startAt = lib.mkOption {
           default = "*-*-* 01:20:00";
           type = with lib.types; either (listOf str) str;
