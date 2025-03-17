@@ -1,12 +1,14 @@
 {
   stdenv,
   rclone,
+  coreutils,
   makeWrapper,
   lib,
 }:
 let
   runtimeDeps = [
     rclone
+    coreutils
   ];
 in
 stdenv.mkDerivation {
