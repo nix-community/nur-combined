@@ -2,7 +2,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-rec {
+{
   # Coding.
   codeium = pkgs.callPackage ./pkgs/coding/codeium { };
 
@@ -11,7 +11,6 @@ rec {
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 { };
   fasttree = pkgs.callPackage ./pkgs/evolution/fasttree { };
   figtree = pkgs.callPackage ./pkgs/evolution/figtree { };
-  iqtree2 = pkgs.callPackage ./pkgs/evolution/iqtree2 { };
   paml = pkgs.callPackage ./pkgs/evolution/paml { };
   phylobayes = pkgs.callPackage ./pkgs/evolution/phylobayes { };
   revbayes = pkgs.callPackage ./pkgs/evolution/revbayes { };
