@@ -3235,11 +3235,11 @@
         "nixpkgs": "nixpkgs_24"
       },
       "locked": {
-        "lastModified": 1742243635,
-        "narHash": "sha256-r/+bWQ4Mgibq0UUzkMI9Q4ru4bv2sqBF75yRNdNoxjQ=",
+        "lastModified": 1742244364,
+        "narHash": "sha256-a7ItWkYpbLTVHWIQqm1BEJ8q9LIe2fW58neQn08Qlbw=",
         "owner": "oluceps",
         "repo": "TelegramOnlineKeeper",
-        "rev": "3199d49e6da4d2ebdc1ba94629071062a50b0267",
+        "rev": "cb27dca073eaf6d3e35198ac101b02864923f52a",
         "type": "github"
       },
       "original": {
