@@ -54,20 +54,6 @@ in
       #   group = "users";
       #   name = "factorio-manager-bot";
       # };
-      tg-session = {
-        file = ../../sec/tg-session.age;
-        mode = "640";
-        owner = "root";
-        group = "root";
-        name = "tg-session";
-      };
-      tg-env = {
-        file = ../../sec/tg-env.age;
-        mode = "640";
-        owner = "root";
-        group = "root";
-        name = "tg-env";
-      };
       subs = {
         file = ../../sec/subs.age;
         mode = "740";

@@ -116,6 +116,12 @@
     bpftune.enable = true;
     sing-box.enable = true;
     metrics.enable = true;
+
+    online-keeper.instances.sec = {
+      sessionFile = config.vaultix.secrets.tg-session.path;
+      environmentFile = config.vaultix.secrets.tg-env.path;
+    };
+
     btrfs.autoScrub = {
       enable = true;
       interval = "weekly";

@@ -19,6 +19,20 @@ in
         owner = user;
         group = "users";
       };
+      tg-session = {
+        file = ../../sec/tg-session.age;
+        mode = "640";
+        owner = "root";
+        group = "root";
+        name = "tg-session";
+      };
+      tg-env = {
+        file = ../../sec/tg-env.age;
+        mode = "640";
+        owner = "root";
+        group = "root";
+        name = "tg-env";
+      };
       meilisearch = {
         file = ../../sec/meilisearch.age;
         mode = "444";

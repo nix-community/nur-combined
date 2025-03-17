@@ -99,13 +99,6 @@
       };
     };
 
-    # online-keeper.instances = [
-    #   {
-    #     name = "sec";
-    #     sessionFile = config.vaultix.secrets.tg-session.path;
-    #     environmentFile = config.vaultix.secrets.tg-env.path;
-    #   }
-    # ];
 
     # juicity.instances = {
     #   only = {
