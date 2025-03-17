@@ -64,6 +64,24 @@ concat(
   diff.git(),
 )
 '''
+"commit_description_verbose_changelog(commit)" = '''
+concat(
+  commit_description_changelog(commit),
+  "JJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+"commit_description_changelog(commit)" = '''
+concat(
+  commit.description(), "\n",
+  surround("", "\n", diff.files().map(|f| if(!commit.description().contains(f.path()),
+                                             "* " ++ f.path() ++ ":\n"
+                                              )
+                                       ).join("")),
+  "JJ: This commit contains the following changes:\n",
+  indent("JJ:    ", diff.stat(72)),
+)
+'''
 "commit_description(commit)" = '''
 concat(
   commit.description(), "\n",
