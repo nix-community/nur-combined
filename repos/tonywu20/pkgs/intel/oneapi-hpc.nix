@@ -173,7 +173,7 @@ stdenv.mkDerivation rec {
     clang_binary=`find $out -type f -name "clang"`
     xfortcom_binary=`find $out -type f -name "xfortcom"`
     patchelf --add-needed libstdc++.so.6 $clang_binary
-    patchelf --add-needed libstdc++.so.6 $xfortcom
+    patchelf --add-needed libstdc++.so.6 $xfortcom_binary
   '';
 
   meta = {
