@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   fetchurl,
   runCommand,
@@ -83,4 +84,5 @@ stdenv.mkDerivation {
     autoPatchelf $out/bin
   '';
   meta.mainProgram = "ngfx-ui";
+  meta.license = lib.licenses.unfree;
 }
