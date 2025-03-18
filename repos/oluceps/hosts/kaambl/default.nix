@@ -60,7 +60,6 @@ withSystem "x86_64-linux" (
 
       # inputs.aagl.nixosModules.default
       inputs.disko.nixosModules.default
-      inputs.tg-online-keeper.nixosModules.default
     ];
   }
 )

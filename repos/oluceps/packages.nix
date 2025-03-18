@@ -107,7 +107,8 @@ let
         b3sum
         coreutils
         juicefs
-        inetutils
+        # inetutils
+        traceroute
         pciutils
         usbutils
         rsync

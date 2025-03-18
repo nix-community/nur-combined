@@ -196,7 +196,7 @@
       coreutils
 
       bpftools
-      inetutils
+      # inetutils
       pciutils
       usbutils
       wezterm

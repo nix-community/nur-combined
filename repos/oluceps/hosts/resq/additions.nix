@@ -199,7 +199,7 @@
       coreutils
 
       bpftools
-      inetutils
+      traceroute
       pciutils
       usbutils
       wezterm
