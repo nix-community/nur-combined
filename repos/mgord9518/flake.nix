@@ -1,5 +1,5 @@
 {
-  description = "My personal NUR repository";
+  description = "mgord9518's NUR repo";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
     let
@@ -17,7 +17,6 @@
       legacyPackages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
         };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});

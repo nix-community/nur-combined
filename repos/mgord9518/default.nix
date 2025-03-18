@@ -14,7 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  windows-fonts   = pkgs.callPackage ./pkgs/windows-fonts { };
+  mist = pkgs.callPackage ./pkgs/mist {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
