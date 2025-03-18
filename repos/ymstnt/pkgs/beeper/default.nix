@@ -10,10 +10,10 @@
 }:
 let
   pname = "beeper";
-  version = "4.0.522";
+  version = "4.0.551";
   src = fetchurl {
     url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}.AppImage";
-    hash = "sha256-qXVZEIk95p5sWdg6stQWUQn/w4+JQmDR6HySlGC5yAk=";
+    hash = "sha256-OLwLjgWFOiBS5RkEpvhH7hreri8EF+JRvKy+Kdre8gM=";
   };
 
   appimageContents = appimageTools.extract {
@@ -36,7 +36,7 @@ appimageTools.wrapAppImage {
 
   extraInstallCommands = ''
     mkdir -p $out/share/icons/hicolor
-    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0 $out/share/icons/hicolor/512x512
+    cp -a ${appimageContents}/usr/share/icons/hicolor/512x512 $out/share/icons/hicolor/512x512
     install -Dm 644 ${appimageContents}/beepertexts.desktop -t $out/share/applications/
 
     substituteInPlace $out/share/applications/beepertexts.desktop --replace-fail "AppRun" "beeper"
