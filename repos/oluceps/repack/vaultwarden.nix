@@ -9,7 +9,7 @@ reIf {
     dbBackend = "postgresql";
     config = {
       signupsAllowed = false;
-      sendsAllowed = false;
+      sendsAllowed = true;
       emergencyAccessAllowed = false;
       orgCreationUsers = "none";
       domain = "https://vault.nyaw.xyz";
