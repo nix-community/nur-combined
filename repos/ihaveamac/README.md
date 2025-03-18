@@ -18,11 +18,11 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
 | [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [cleaninty-0.1.3](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
-| [corgi3ds-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
+| [Corgi3DS-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
 | [ctrtool-1.2.1](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
-| [discordwikibot-0-unstable-2025-03-12](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [DiscordWikiBot-0-unstable-2025-03-12](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [kame-editor-1.4.1-unstable-2024-11-01](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |
@@ -43,7 +43,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [rstmcpp-unstable-2023-04-02](https://gitlab.com/beelzy/rstmcpp) | rstmcpp | An experimental port of BrawlLib's RSTM encoder, and the WAV file handling from LoopingAudioConverter, to C++. |
 | [rvthtool-1.1.1-unstable-2025-02-01](https://github.com/GerbilSoft/rvthtool) | rvthtool | Open-source tool for managing RVT-H Reader consoles |
 | [save3ds-unstable-2023-03-28](https://github.com/wwylele/save3ds) | save3ds | Extract/Import/FUSE for 3DS save/extdata/database. |
-| [sd-format-linux-0.2.0](https://github.com/profi200/sdFormatLinux) | sd-format-linux | Properly format SD cards under Linux. |
+| [sdFormatLinux-0.2.0](https://github.com/profi200/sdFormatLinux) | sd-format-linux | Properly format SD cards under Linux. |
 | [themethod3-2024-04-20](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
 | [unxip-3.0](https://github.com/saagarjha/unxip) | unxip | A fast Xcode unarchiver |
 | [wfs-tools-1.2.3-unstable-2025-03-01](https://github.com/koolkdev/wfs-tools) | wfs-tools | WFS (WiiU File System) Tools |

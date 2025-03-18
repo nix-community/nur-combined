@@ -1,4 +1,3 @@
-# DOES NOT WORK
 {
   stdenv,
   lib,
@@ -9,13 +8,13 @@
   qtmultimedia,
 }:
 
-stdenv.mkDerivation {
-  pname = "corgi3ds";
+stdenv.mkDerivation rec {
+  pname = "Corgi3DS";
   version = "2020-07-15";
 
   src = pkgs.fetchFromGitHub {
     owner = "PSI-Rockin";
-    repo = "Corgi3DS";
+    repo = pname;
     rev = "master";
     sha256 = "sha256-CwF/4Am5+rw3XELjZTx9LtebAdoeMALhX42vopIgzU4=";
   };

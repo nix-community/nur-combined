@@ -5,12 +5,12 @@
 }:
 
 buildDotnetModule rec {
-  pname = "discordwikibot";
+  pname = "DiscordWikiBot";
   version = "0-unstable-2025-03-12";
 
   src = fetchFromGitHub {
     owner = "stjohann";
-    repo = "DiscordWikiBot";
+    repo = pname;
     rev = "cd1da3c974a36579b6658f0174ac5af6caec750d";
     hash = "sha256-GGuKySuEFplypoSR6gKUgy5M7FuT8B+GKUmYX487Uxg=";
   };

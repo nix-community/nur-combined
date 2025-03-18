@@ -10,12 +10,12 @@ let
   inherit (stdenv.hostPlatform) isStatic;
 in
 stdenv.mkDerivation rec {
-  pname = "sd-format-linux";
+  pname = "sdFormatLinux";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "profi200";
-    repo = "sdFormatLinux";
+    repo = pname;
     rev = "v${version}";
     hash = "sha256-AoAhP1dr+hQSnOpZC0oHt0j3fUVNVhD+3jWm6iMfskk=";
   };
