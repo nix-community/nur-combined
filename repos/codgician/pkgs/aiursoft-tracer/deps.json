@@ -115,33 +115,33 @@
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
-    "version": "1.6.2",
-    "hash": "sha256-GZYUH+0vWAif5p4S81Oo9Tsez68ylsLjEQWhI2rgcik=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.telemetry/1.6.2/microsoft.testing.extensions.telemetry.1.6.2.nupkg"
+    "version": "1.6.3",
+    "hash": "sha256-DVwTXRoWHt8Ybfz1gv/TzmX6VfxaUp9lGghDEoby0dg=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.telemetry/1.6.3/microsoft.testing.extensions.telemetry.1.6.3.nupkg"
   },
   {
     "pname": "Microsoft.Testing.Extensions.TrxReport.Abstractions",
-    "version": "1.6.2",
-    "hash": "sha256-UOpDBbW3xgahofRjqdw3wUj63zXVdkIAfUE7dA4uI4Y=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.trxreport.abstractions/1.6.2/microsoft.testing.extensions.trxreport.abstractions.1.6.2.nupkg"
+    "version": "1.6.3",
+    "hash": "sha256-gv7aCP029oku6xwYKclY5hI+ewShrk4tVFbDEND4FJI=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.trxreport.abstractions/1.6.3/microsoft.testing.extensions.trxreport.abstractions.1.6.3.nupkg"
   },
   {
     "pname": "Microsoft.Testing.Extensions.VSTestBridge",
-    "version": "1.6.2",
-    "hash": "sha256-SWaSPgc2PQNqsz7ea/SQsmqOX6le6dmrDbwCHfbppZo=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.vstestbridge/1.6.2/microsoft.testing.extensions.vstestbridge.1.6.2.nupkg"
+    "version": "1.6.3",
+    "hash": "sha256-4FTZCHdI9WZwd3ejeFCVbx5O0UWLJwKJc6NduUQu0XE=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.extensions.vstestbridge/1.6.3/microsoft.testing.extensions.vstestbridge.1.6.3.nupkg"
   },
   {
     "pname": "Microsoft.Testing.Platform",
-    "version": "1.6.2",
-    "hash": "sha256-RfdgATa3aTYLpGfv8ORI5uEP8dH87L5/gBDkxAG6ho4=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.platform/1.6.2/microsoft.testing.platform.1.6.2.nupkg"
+    "version": "1.6.3",
+    "hash": "sha256-WJD2zC0b1jU5DRAFG3XmHiQJKdKnjDQB3xbdRmv8V9Q=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.platform/1.6.3/microsoft.testing.platform.1.6.3.nupkg"
   },
   {
     "pname": "Microsoft.Testing.Platform.MSBuild",
-    "version": "1.6.2",
-    "hash": "sha256-bzlz10QeFrCAR+1og0gXbxSbpO64wCFrwAhBUwAp0nI=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.platform.msbuild/1.6.2/microsoft.testing.platform.msbuild.1.6.2.nupkg"
+    "version": "1.6.3",
+    "hash": "sha256-JK8l4K4uSO6mgsZ6Lo/Sv4VjaLGZjD5g/oZYy0iAYDs=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.testing.platform.msbuild/1.6.3/microsoft.testing.platform.msbuild.1.6.3.nupkg"
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
@@ -157,21 +157,21 @@
   },
   {
     "pname": "MSTest.Analyzers",
-    "version": "3.8.2",
-    "hash": "sha256-r+JAxw77n/PQpQviXn8j1M+ccb9GVHTNuPWwffacVkg=",
-    "url": "https://nuget.aiursoft.cn/v3/package/mstest.analyzers/3.8.2/mstest.analyzers.3.8.2.nupkg"
+    "version": "3.8.3",
+    "hash": "sha256-/Nf6E5zQib741BKu4IwRBz36lW9+krWLy2904MT3O1M=",
+    "url": "https://nuget.aiursoft.cn/v3/package/mstest.analyzers/3.8.3/mstest.analyzers.3.8.3.nupkg"
   },
   {
     "pname": "MSTest.TestAdapter",
-    "version": "3.8.2",
-    "hash": "sha256-z5fZWSvyxvohB8Vl6gtb8nsAGt/9saXLZRckuzfVg/Y=",
-    "url": "https://nuget.aiursoft.cn/v3/package/mstest.testadapter/3.8.2/mstest.testadapter.3.8.2.nupkg"
+    "version": "3.8.3",
+    "hash": "sha256-pBfg41vnc9z1W2uMuXRUnulGycyXJpBATsBHEiOi9mg=",
+    "url": "https://nuget.aiursoft.cn/v3/package/mstest.testadapter/3.8.3/mstest.testadapter.3.8.3.nupkg"
   },
   {
     "pname": "MSTest.TestFramework",
-    "version": "3.8.2",
-    "hash": "sha256-NjQ1XU3vMRdFZSE6Ju2ASopCPZFpFZaPAQdRudqAf5c=",
-    "url": "https://nuget.aiursoft.cn/v3/package/mstest.testframework/3.8.2/mstest.testframework.3.8.2.nupkg"
+    "version": "3.8.3",
+    "hash": "sha256-3dhd6vk2KdMwe+JNSoUZZ4+P04jPKBl3HTuc9ZXBTlw=",
+    "url": "https://nuget.aiursoft.cn/v3/package/mstest.testframework/3.8.3/mstest.testframework.3.8.3.nupkg"
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
