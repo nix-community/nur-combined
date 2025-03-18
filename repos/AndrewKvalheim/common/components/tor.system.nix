@@ -70,9 +70,6 @@ in
           # The Guardian
           'https://www.guardian2zotagl6tmjucg3lrhxdk4dw3lhbqnkvvkywawy3oqfoprid.onion/world/rss'
 
-          # The New York Times
-          # 'https://rss.nytimesn7cgmftshazwhfgzm37qxb44r64ytbb2dj3x62d2lljsciiyd.onion/services/xml/rss/nyt/HomePage.xml' # Pending updated TLS certificate
-
           # Tor Project
           'http://pzhdfe7jraknpj2qgu5cz2u3i4deuyfwmonvzu5i3nyw4t4bmg7o5pad.onion/feed.xml'
         )

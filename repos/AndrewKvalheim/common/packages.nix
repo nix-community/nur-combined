@@ -52,6 +52,7 @@ in
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
   just-local = any;
+  kitty.patch = ../packages/resources/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;

@@ -44,6 +44,12 @@ in
         )}"
       }
 
+      layout_uv() {
+        layout python
+        export UV_PROJECT_ENVIRONMENT="$VIRTUAL_ENV"
+        unset 'VIRTUAL_ENV'
+      }
+
       use_gopass() {
         eval "$(${gopass-await}/bin/gopass-await "$@")"
       }
