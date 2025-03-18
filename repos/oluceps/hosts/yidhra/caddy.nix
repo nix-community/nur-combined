@@ -124,6 +124,17 @@
                   {
                     handle = [
                       {
+                        handler = "rate_limit";
+                        rate_limits = {
+                          dynamic = {
+                            key = "{http.request.remote.host}";
+                            window = "5s";
+                            max_events = 50;
+                          };
+                        };
+                        log_key = true;
+                      }
+                      {
                         handler = "reverse_proxy";
                         headers = {
                           request = {
