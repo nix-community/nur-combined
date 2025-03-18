@@ -78,6 +78,7 @@ selfPkgs: superPkgs: let
     });
 
     luachild = super.luaLib.overrideLuarocks super.luachild (oa: {
+      NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
       postPatch = ''
         sed -i '5i #include <stdlib.h>' luachild_luajit_2_1.c
       '';
