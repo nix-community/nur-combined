@@ -17,6 +17,8 @@ reIf {
       address = [
         "::"
       ];
+      dns_tcp_fallback = false;
+      ip_lookup_strategy = 5;
       # allow_registration = true;
       turn_uris = [
         "turn:yidhra.nyaw.xyz?transport=udp"

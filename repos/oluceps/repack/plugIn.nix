@@ -51,6 +51,10 @@ let
             Scope = "link";
           }
         ];
+        networkConfig = {
+          IPMasquerade = "ipv6";
+          IPv6Forwarding = true;
+        };
         networkConfig.DHCP = false;
         linkConfig.RequiredForOnline = false;
       };

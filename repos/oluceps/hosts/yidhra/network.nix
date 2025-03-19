@@ -69,47 +69,47 @@
       linkConfig.Name = "eth0";
     };
 
-    netdevs."20-warp" = {
-      netdevConfig = {
-        Kind = "wireguard";
-        Name = "warp";
-        MTUBytes = "1280";
-      };
-      wireguardConfig = {
-        PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
-      };
-      wireguardPeers = [
-        {
-          PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-          Endpoint = "162.159.192.1:2408";
-          AllowedIPs = [ "::/0" ];
-        }
-      ];
-    };
+    # netdevs."20-warp" = {
+    #   netdevConfig = {
+    #     Kind = "wireguard";
+    #     Name = "warp";
+    #     MTUBytes = "1280";
+    #   };
+    #   wireguardConfig = {
+    #     PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
+    #   };
+    #   wireguardPeers = [
+    #     {
+    #       PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+    #       Endpoint = "162.159.192.1:2408";
+    #       AllowedIPs = [ "::/0" ];
+    #     }
+    #   ];
+    # };
     networks = {
 
       "20-eth0" = {
         matchConfig.Name = "eth0";
         DHCP = "yes";
       };
-      "15-wireguard-warp" = {
-        matchConfig.Name = "warp";
-        address = [
-          # "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
-          "2606:4700:110:88f7:7b28:e45:e5d1:9f7b/128"
-        ];
-        networkConfig = {
-          IPMasquerade = "ipv6";
-          IPv4Forwarding = true;
-        };
+      # "15-wireguard-warp" = {
+      #   matchConfig.Name = "warp";
+      #   address = [
+      #     # "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
+      #     "2606:4700:110:88f7:7b28:e45:e5d1:9f7b/128"
+      #   ];
+      #   networkConfig = {
+      #     IPMasquerade = "ipv6";
+      #     IPv4Forwarding = true;
+      #   };
 
-        routes = [
-          {
-            Destination = "::/0";
-            Gateway = "fe80::1";
-          }
-        ];
-      };
+      #   routes = [
+      #     {
+      #       Destination = "::/0";
+      #       Gateway = "fe80::1";
+      #     }
+      #   ];
+      # };
     };
   };
 }

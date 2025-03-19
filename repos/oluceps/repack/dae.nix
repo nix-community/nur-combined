@@ -43,8 +43,7 @@ reIf {
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
           pname(prometheus) -> direct
 
-          pname(conduit, conduwuit, mautrix-telegram, arti) -> all
-          pname(misskey) -> all
+          pname(Misskey, conduit, conduwuit, .mautrix-telegr, arti) -> all
           dip(9.9.9.9) -> direct
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
           dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8') -> direct
