@@ -42,7 +42,7 @@ in
             route HORTUS_PREFIX reject;
           }
 
-          function in_hortus() {
+          function in_hortus() -> bool {
             return net ~ HORTUS_FIELD;
           };
 
@@ -55,7 +55,7 @@ in
             case source {
               RTS_STATIC: {
                 krt_prefsrc = HORTUS_OWNIP;
-                krt_metric = 100;
+                krt_metric = 512;
                 accept;
               }
               RTS_BABEL: {
