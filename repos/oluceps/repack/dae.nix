@@ -48,7 +48,10 @@ reIf {
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
           dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8') -> direct
 
-          ipversion(6) && !dip(geoip:CN) -> v6
+          # k is the machine, use dae, and use v6 static route forward
+          ipversion(6) && !dip(geoip:CN) -> ${
+            if config.networking.hostName == "kaambl" then "direct" else "v6"
+          }
 
           domain(suffix:migadu.com) -> all
           dport(465) -> all
