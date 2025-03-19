@@ -6,8 +6,19 @@
   wrapQtAppsHook,
   qmake,
   qtmultimedia,
+  makeDesktopItem,
 }:
 
+let
+  # putting this in desktopItems doesn't seem to actually work?
+  desktopItem = makeDesktopItem {
+    name = "corgi3ds";
+    exec = "Corgi3DS";
+    desktopName = "Corgi3DS";
+    comment = "Low level 3DS emulator";
+    startupWMClass = ".Corgi3DS-wrapped";
+  };
+in
 stdenv.mkDerivation rec {
   pname = "Corgi3DS";
   version = "2020-07-15";
@@ -36,9 +47,15 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
+  # TODO: check if this can be packaged into a mac application bundle?
   installPhase = ''
-    mkdir -p $out/bin
+    runHook preInstall
+    mkdir -p $out/bin $out/share/applications
     cp Corgi3DS $out/bin
+    ${lib.optionalString (
+      !stdenv.isDarwin
+    ) "cp ${desktopItem}/share/applications/*.desktop $out/share/applications/"}
+    runHook postInstall
   '';
 
   meta = with lib; {
