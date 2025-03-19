@@ -198,6 +198,7 @@ lib.makeScope newScope (
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     bbox = callPackage ./geospatial/bbox { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
+    cmocean = callPackage ./geospatial/cmocean { };
     cogdumper = callPackage ./geospatial/cogdumper { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     datamaps = callPackage ./geospatial/datamaps { };
@@ -239,6 +240,7 @@ lib.makeScope newScope (
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-stac = callPackage ./geospatial/rio-stac { };
+    riverrem = callPackage ./geospatial/riverrem { };
     rsgislib = callPackage ./geospatial/rsgislib { };
     sasplanet = callPackage ./geospatial/sasplanet { };
     server-thread = callPackage ./geospatial/server-thread { };
