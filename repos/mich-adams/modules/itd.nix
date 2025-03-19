@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.itd;
   tomlFormat = pkgs.formats.toml { };
-in {
+in
+{
   #meta.maintainers = [ ];
 
   options.services.itd = {
@@ -48,11 +54,14 @@ in {
           setTime = true;
         };
         notifs = {
-          translit.use = [ "eASCII" "Emoji" ];
+          translit.use = [
+            "eASCII"
+            "Emoji"
+          ];
           ignore = {
-            sender = [];
-            summary = ["InfiniTime"];
-            body = [];
+            sender = [ ];
+            summary = [ "InfiniTime" ];
+            body = [ ];
           };
         };
         music.vol.interval = 5;
@@ -63,7 +72,7 @@ in {
         logging.level = "info";
       };
       description = ''
-          Configuration written to {file}`/etc/itd.toml`.
+        Configuration written to {file}`/etc/itd.toml`.
       '';
     };
   };
@@ -89,4 +98,3 @@ in {
 
   };
 }
-

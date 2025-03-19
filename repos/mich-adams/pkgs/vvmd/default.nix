@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, mobile-broadband-provider-info
-, gettext
-, curl
-, glib
-, dbus
-, glibmm
-, modemmanager
-, c-ares
-, libphonenumber
-, protobuf
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  mobile-broadband-provider-info,
+  gettext,
+  curl,
+  glib,
+  dbus,
+  glibmm,
+  modemmanager,
+  c-ares,
+  libphonenumber,
+  protobuf,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,7 +29,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-mSY3O6qs33ymhIq5UUs5XEUta1F87n8QJLMbq6m0qWI=";
   };
 
-  nativeBuildInputs = [ meson pkg-config cmake ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    cmake
+  ];
 
   buildInputs = [
     ninja

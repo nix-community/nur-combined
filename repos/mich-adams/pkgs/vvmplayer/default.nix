@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, gettext
-, glib
-, gtk4
-, libadwaita
-, evolution-data-server
-, gst_all_1
-, callaudiod
-, desktop-file-utils
-, gsettings-desktop-schemas
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  glib,
+  gtk4,
+  libadwaita,
+  evolution-data-server,
+  gst_all_1,
+  callaudiod,
+  desktop-file-utils,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {

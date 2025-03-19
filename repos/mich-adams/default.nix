@@ -6,21 +6,17 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  hmModules = import ./modules/home-manager; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
   # Packages
-  dosage = pkgs.callPackage ./pkgs/dosage {};
-  exercise-timer = pkgs.callPackage ./pkgs/exercise-timer {};
-  jogger = pkgs.callPackage ./pkgs/jogger {};
-  my-gnu-health = pkgs.callPackage ./pkgs/my-gnu-health {};
-  upscaler = pkgs.callPackage ./pkgs/upscaler {};
-  vvmd = pkgs.callPackage ./pkgs/vvmd {};
-  vvmplayer = pkgs.callPackage ./pkgs/vvmplayer {};
+  vvmd = pkgs.callPackage ./pkgs/vvmd { };
+  vvmplayer = pkgs.callPackage ./pkgs/vvmplayer { };
 }
