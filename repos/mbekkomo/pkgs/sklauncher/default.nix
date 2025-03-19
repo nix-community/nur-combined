@@ -19,7 +19,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "sklauncher";
-  version = "3.2.10";
+  version = "3.2.12";
 
   src = ./.;
 
@@ -56,6 +56,8 @@ stdenv.mkDerivation {
       --set SKLAUNCHER $out/share/sklauncher.jar \
       --set JAVA_HOME ${toString temurin-jre-bin-21} \
       --prefix LD_LIBRARY_PATH : ${requiredLibraries}
+
+    install -Dm655 -t $out/share/icons/hicolor/scalable/apps ./sklauncher.svg
 
     runHook postInstall
   '';
