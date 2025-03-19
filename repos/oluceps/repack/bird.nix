@@ -38,12 +38,8 @@ in
           };
 
           protocol static {
-            route ::/0 via fdcc::5;
+            ipv6;
             route HORTUS_PREFIX reject;
-            ipv6 {
-              import all;
-              export all;
-            };
           }
 
           function in_hortus() {

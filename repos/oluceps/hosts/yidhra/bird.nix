@@ -32,6 +32,12 @@
         '';
       in
       ''
+        protocol static {
+          route ::/0 via fdcc::5;
+          ipv6 {
+            export all;
+          };
+        }
         protocol babel {
         ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
          ipv6 {
