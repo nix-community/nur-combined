@@ -102,6 +102,15 @@ in
 
     networking.firewall = { inherit allowedUDPPorts trustedInterfaces; };
 
+    boot.kernel.sysctl = lib.foldr (
+      i: acc:
+      acc
+      // {
+        "net.ipv4.conf.hts-${i}.rp_filter" = 0;
+        "net.ipv6.conf.hts-${i}.rp_filter" = 0;
+      }
+    ) { } (builtins.attrNames thisConn);
+
     systemd.network = recursiveUpdate (foldr recursiveUpdate { } (mapAttrsToList genPeer thisConn)) {
       netdevs."10-anchor-0" = {
         enable = true;

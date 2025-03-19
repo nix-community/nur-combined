@@ -64,6 +64,12 @@
             iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
           }
         }
+        table ip6 nat {
+          chain postrouting {
+            type nat hook postrouting priority srcnat; policy accept;
+            iifname { hts-yidhra, hts-kaambl } oifname eth0 ip6 saddr fdcc::/16 snat to 2400:8905::f03c:95ff:fe50:a173
+          }
+        }
       '';
     };
     networkmanager.enable = lib.mkForce false;
