@@ -512,6 +512,7 @@ lib.makeScope newScope (
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
     smrender = callPackage ./osm/smrender { };
+    srtm2osm = callPackage ./osm/srtm2osm { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilelog = callPackage ./osm/tilelog { };
     vectiler = callPackage ./osm/vectiler { };
