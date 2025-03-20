@@ -1449,10 +1449,10 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.2.1+ds-1";
+    version = "9.2.2+ds-1+b2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.1+ds-1_amd64.deb";
-      hash = "sha256-wvpjcVxA+9L1mdwICB94K8lNBv+vlgsGI9eJIJU4ZCI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.2+ds-1+b2_amd64.deb";
+      hash = "sha256-+W/QgNa5xh6EZmCgqG6VRKV/aYEQm7q6NRpymE3Tico=";
     };
   };
   qemu-user-static-arm64 = {

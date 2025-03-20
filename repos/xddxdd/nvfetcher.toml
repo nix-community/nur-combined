@@ -627,22 +627,22 @@ fetch.github = "ttk1/py-rcon"
 
 [qemu-user-static-amd64]
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
-src.regex = "href=\"qemu-user_([^\"]+)_amd64.deb\""
+src.regex = "href=\"qemu-user_([^\"~]+)_amd64.deb\""
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_amd64.deb"
 
 [qemu-user-static-arm64]
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
-src.regex = "href=\"qemu-user_([^\"]+)_arm64.deb\""
+src.regex = "href=\"qemu-user_([^\"~]+)_arm64.deb\""
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_arm64.deb"
 
 [qemu-user-static-armhf]
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
-src.regex = "href=\"qemu-user_([^\"]+)_armhf.deb\""
+src.regex = "href=\"qemu-user_([^\"~]+)_armhf.deb\""
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_armhf.deb"
 
 [qemu-user-static-i386]
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
-src.regex = "href=\"qemu-user_([^\"]+)_i386.deb\""
+src.regex = "href=\"qemu-user_([^\"~]+)_i386.deb\""
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_i386.deb"
 
 [qhttpengine]
