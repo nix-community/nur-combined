@@ -32,6 +32,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     ncurses
+  ];
+
+  nativeCheckInputs = [
     nodejs
     pnpm
     yarn
