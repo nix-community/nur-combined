@@ -49,7 +49,7 @@ jobs:
           platforms: all
 
       - name: Install nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -110,7 +110,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -135,7 +135,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
