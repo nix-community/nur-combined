@@ -373,7 +373,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-03-19",
+        "date": "2025-03-20",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -385,12 +385,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "d97e9e190ca87a722faa03a572da646b6e5d3f3d",
-            "sha256": "sha256-fDdbGZom2mnGXxRewcgzlquT8SD2FFHJrLhbG/sEftk=",
+            "rev": "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3",
+            "sha256": "sha256-XGaA+kEFJDt3ZGCtPNxWXd53wgLtOQFRixIdEV5Aj04=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d97e9e190ca87a722faa03a572da646b6e5d3f3d"
+        "version": "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1371,12 +1371,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.14.0",
-            "sha256": "sha256-OcKsD9y1kb4IgYyCsqW3aHMB4pDFlIWfAUzoUJVe8pQ=",
+            "rev": "3.15.0",
+            "sha256": "sha256-u9Q8lSw3KcSdEJpy8DHUnB9BriwrNaOn0S7tj0jpiPg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.14.0"
+        "version": "3.15.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1387,11 +1387,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PsOmLykEKsDXL58oYl4FPm3J8f5Z4x/22UN8V5gh/Rk=",
+            "sha256": "sha256-SVOGnyqElQrM8+BWddl/MgAfq3ny9UtnzVgJ8Q/+kBQ=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.14.0/kata-static-3.14.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.15.0/kata-static-3.15.0-amd64.tar.xz"
         },
-        "version": "3.14.0"
+        "version": "3.15.0"
     },
     "kikoplay": {
         "cargoLocks": null,
@@ -1915,12 +1915,12 @@
             "name": null,
             "owner": "intel",
             "repo": "metee",
-            "rev": "4.3.1",
-            "sha256": "sha256-MYGHoRiNUcuCviu2mpFkErfYxm2JLB1qov6NPNtnRZs=",
+            "rev": "5.0.0",
+            "sha256": "sha256-LcAfsJsDSoHpzI5j0SJ9AyR5nFn0d2RrML02K0SOAEc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4.3.1"
+        "version": "5.0.0"
     },
     "modelscope": {
         "cargoLocks": null,

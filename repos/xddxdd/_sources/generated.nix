@@ -195,14 +195,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "d97e9e190ca87a722faa03a572da646b6e5d3f3d";
+    version = "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "d97e9e190ca87a722faa03a572da646b6e5d3f3d";
-      hash = "sha256-fDdbGZom2mnGXxRewcgzlquT8SD2FFHJrLhbG/sEftk=";
+      rev = "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3";
+      hash = "sha256-XGaA+kEFJDt3ZGCtPNxWXd53wgLtOQFRixIdEV5Aj04=";
     };
-    date = "2025-03-19";
+    date = "2025-03-20";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -703,20 +703,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.14.0";
+    version = "3.15.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.14.0";
-      hash = "sha256-OcKsD9y1kb4IgYyCsqW3aHMB4pDFlIWfAUzoUJVe8pQ=";
+      tag = "3.15.0";
+      hash = "sha256-u9Q8lSw3KcSdEJpy8DHUnB9BriwrNaOn0S7tj0jpiPg=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.14.0";
+    version = "3.15.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.14.0/kata-static-3.14.0-amd64.tar.xz";
-      hash = "sha256-PsOmLykEKsDXL58oYl4FPm3J8f5Z4x/22UN8V5gh/Rk=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.15.0/kata-static-3.15.0-amd64.tar.xz";
+      hash = "sha256-SVOGnyqElQrM8+BWddl/MgAfq3ny9UtnzVgJ8Q/+kBQ=";
     };
   };
   kikoplay = {
@@ -978,12 +978,12 @@
   };
   metee = {
     pname = "metee";
-    version = "4.3.1";
+    version = "5.0.0";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "metee";
-      tag = "4.3.1";
-      hash = "sha256-MYGHoRiNUcuCviu2mpFkErfYxm2JLB1qov6NPNtnRZs=";
+      tag = "5.0.0";
+      hash = "sha256-LcAfsJsDSoHpzI5j0SJ9AyR5nFn0d2RrML02K0SOAEc=";
     };
   };
   modelscope = {
