@@ -14,6 +14,7 @@
   modules = import ./modules/nixos; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  dirstat-rs = pkgs.callPackage ./pkgs/dirstat-rs { };
   go-instrument = pkgs.callPackage ./pkgs/go-instrument { };
   htmlformat = pkgs.callPackage ./pkgs/htmlformat { };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
