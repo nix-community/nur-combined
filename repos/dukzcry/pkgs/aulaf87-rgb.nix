@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "dukzcry";
     repo = "crap";
-    rev = "bf31252cad91c48f2f1e667d0a58019bb3297129";
-    hash = "sha256-p+7qsAD9HhPekYTQd+0TKGsBN8Hpgis53aV+bXnqZ8I=";
+    rev = "8406f1611431f23b761d12d26839636fefe80149";
+    hash = "sha256-2vfj+Y3Qvu3p8SjetMKXA89edny0OHLYKKEjKFyY2Zk=";
   };
 
   setSourceRoot = ''export sourceRoot="$(echo */aulaf87-rgb)"'';
