@@ -95,18 +95,18 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.1.3570.60";
+    version = "7.2.3621.67";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.1.3570.60.universal.dmg";
-      sha256 = "sha256-7vuBka7tFpf/A4KQrOoqHOM2N8Rx4K02yHmY9tv4F1I=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.2.3621.67.universal.dmg";
+      sha256 = "sha256-GJR+MxTsgIgEB3GDGfyeW/QgTpU3QWoDkdGAC6o6PgQ=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.9b";
+    version = "1.10b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.9b/zen.macos-universal.dmg";
-      sha256 = "sha256-Iwsz0/HNDMI/noNB7FT4tTHkH8pXWgH6A0ksR/B0kuM=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.10b/zen.macos-universal.dmg";
+      sha256 = "sha256-hchJe7RMDI24hapb+zi5A4KkKWFdqR02M6yfmD9qtpk=";
     };
   };
 }

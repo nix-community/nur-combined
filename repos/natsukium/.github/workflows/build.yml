@@ -41,7 +41,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup cachix
-      uses: cachix/cachix-action@v15
+      uses: cachix/cachix-action@v16
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
