@@ -9,26 +9,24 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nesfab";
-  version = "1.5";
+  version = "1.6_mac";
 
   src = fetchFromGitHub {
     owner = "pubby";
     repo = "nesfab";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-j0Xt06dzuSQYune/Yf8YqFL7g4yFlPHngBgcsQUjK08=";
+    hash = "sha256-Mypn4N9+h/Wnxu47sI8jYVSDPiyQ7+aZoE3by2M9XQo=";
   };
 
   patches = [
     # Unset GIT_COMMIT
     (fetchpatch {
-      url = "https://github.com/FedericoSchonborn/nesfab/commit/cfe10d4f23303f0533800076cb32aa76e4bc3941.patch";
-      hash = "sha256-o+IKti3G8YypT+DGveKJ2B/QZM8rt7Kx9Z20ltu4+9Q=";
+      url = "https://github.com/FedericoSchonborn/nesfab/commit/d755b1a646f7842e953cb6f34360992a7d7337b2.patch";
+      hash = "sha256-KhLK1KXBkA1REu9qXDfHTzlAE9a9ILfzWhZGxAwEVak=";
     })
   ];
 
-  buildInputs = [
-    boost
-  ];
+  buildInputs = [ boost ];
 
   makeFlags = [ "release" ];
 

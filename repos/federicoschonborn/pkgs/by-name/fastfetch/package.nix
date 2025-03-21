@@ -119,13 +119,6 @@
     || stdenv.hostPlatform.isSunOS,
   # || stdenv.hostPlatform.isHaiku
   libglvnd,
-  enableOsmesa ?
-    stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isFreeBSD
-    || stdenv.hostPlatform.isOpenBSD
-    || stdenv.hostPlatform.isNetBSD
-    || stdenv.hostPlatform.isSunOS,
-  mesa,
   enableOpencl ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
@@ -156,13 +149,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.38.0";
+  version = "2.39.1";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-9ph6Zp1x/MP0apB39L+HFUCl7qQ9UfIU89/78+qy6Vc=";
+    hash = "sha256-7ukbYmfhfdjzooHA9J/AixfkZrzJZvnoHGg4z2jCZPI=";
   };
 
   outputs = [
@@ -196,7 +189,6 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableZlib zlib
     ++ lib.optional enableEgl libGL
     ++ lib.optional enableGlx libglvnd
-    ++ lib.optional enableOsmesa mesa
     ++ lib.optionals enableOpencl [
       ocl-icd
       opencl-headers
@@ -231,7 +223,6 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
       (lib.cmakeBool "ENABLE_EGL" enableEgl)
       (lib.cmakeBool "ENABLE_GLX" enableGlx)
-      (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
       (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
       (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
       (lib.cmakeBool "ENABLE_PULSE" enablePulse)

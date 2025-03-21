@@ -7,13 +7,13 @@
 }:
 
 nheko.overrideAttrs (prevAttrs: {
-  version = "0.12.0-unstable-2025-03-14";
+  version = "0.12.0-unstable-2025-03-20";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "74f5386b29e5332efaf04c0a89bd6585acfe3de8";
-    hash = "sha256-GVA5+RD+AVmO5U3EhxUUKUvJZ6XRqCnK8Moeml60UGo=";
+    rev = "f462eb84dcd57764d0f639e3da6890b0ce67b373";
+    hash = "sha256-vkmii74GApaqsxz8Yfr9iefBOY3cxuKLC57wvCh8R1o=";
   };
 
   # Remove lmdbxx

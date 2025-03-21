@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (_: {
   pname = "budgie-daemon-v2";
-  version = "0-unstable-2025-03-04";
+  version = "0-unstable-2025-03-19";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "budgie-daemon-v2";
-    rev = "f6c2c7f4a028a4677419e807667ce75d2d13033b";
-    hash = "sha256-U2UBQSm7ZfcdhvSrPn9SDy0QpSPIUTu1S5tplLPRdPY=";
+    rev = "0e5283f28184cbd33175571e44e34723879aebd3";
+    hash = "sha256-IZ+hbv7bZC4fqrD6hPBiJKfi59+PmxPxphh6MquMgls=";
   };
 
   nativeBuildInputs = [
@@ -29,6 +29,7 @@ stdenv.mkDerivation (_: {
     kdePackages.extra-cmake-modules
     kdePackages.qtbase
     kdePackages.qtwayland
+    kdePackages.kwayland
     wayland
   ];
 

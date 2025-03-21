@@ -48,7 +48,6 @@ lib.makeScope pkgs.newScope (
           enableZlib = false;
           enableEgl = false;
           enableGlx = false;
-          enableOsmesa = false;
           enableOpencl = false;
           enableFreetype = false;
           enablePulse = false;
