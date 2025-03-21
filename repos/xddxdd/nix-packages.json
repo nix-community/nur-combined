@@ -622,7 +622,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -817,7 +817,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4927"
+    "version": "4933"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1247,7 +1247,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -2102,7 +2102,7 @@
   "legacyPackages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-17"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -3697,7 +3697,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4277,7 +4277,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4367,7 +4367,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-17"
+    "version": "0-unstable-2025-03-20"
   },
   "legacyPackages.x86_64-linux.uncategorized.openedai-speech": {
     "description": "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend",
@@ -4592,7 +4592,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-21"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4662,7 +4662,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-21"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5002,7 +5002,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5172,7 +5172,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-20"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5292,7 +5292,7 @@
   "packages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-17"
+    "version": "0-unstable-2025-03-20"
   },
   "packages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -5622,7 +5622,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-19"
+    "version": "0-unstable-2025-03-21"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

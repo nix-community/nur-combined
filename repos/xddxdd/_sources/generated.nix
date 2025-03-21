@@ -195,14 +195,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3";
+    version = "cdfaaed7a633bc4cffba79319e92fd2e08fcad1e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "f9f1b1abd52bcca854e439df0d8dc3e14997f4c3";
-      hash = "sha256-XGaA+kEFJDt3ZGCtPNxWXd53wgLtOQFRixIdEV5Aj04=";
+      rev = "cdfaaed7a633bc4cffba79319e92fd2e08fcad1e";
+      hash = "sha256-3HYQ3x0CPHEGXhGLG53kS6IUfWenYece/1hZ+/PcUaI=";
     };
-    date = "2025-03-20";
+    date = "2025-03-21";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -531,14 +531,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "6e69d784e4814c3dbe35e8f70c6cf4b920c8b20b";
+    version = "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "6e69d784e4814c3dbe35e8f70c6cf4b920c8b20b";
-      hash = "sha256-a6lXXtdRfxIsxyItEjhePcP3y5sGp41wrsZ7zFcFyGE=";
+      rev = "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc";
+      hash = "sha256-vHOYiXcyiWyWeQm5TwVeHCuuqbC0naD/YPUqngMAY1E=";
     };
-    date = "2025-03-19";
+    date = "2025-03-20";
   };
   glauth = {
     pname = "glauth";
@@ -813,14 +813,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "fe11b6a9fde5edeaa39b0371ef7dd17ec6225b38";
+    version = "a20597ce83b318b9119031232f9cee33555c7a7b";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "fe11b6a9fde5edeaa39b0371ef7dd17ec6225b38";
-      hash = "sha256-xnyw+xXsA/DVf0q7LnSX4j9O0u/t2AfcYMrU/PmhL/g=";
+      rev = "a20597ce83b318b9119031232f9cee33555c7a7b";
+      hash = "sha256-2HuKZtco3YCiePctflqan6P43XBcnscECHeyLSHNuXk=";
     };
-    date = "2025-03-19";
+    date = "2025-03-20";
   };
   libqcef = {
     pname = "libqcef";
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4927";
+    version = "b4933";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4927";
-      hash = "sha256-CLrAbosJgI1dCsX5ReGJ/mgD64wAU5+Z0WLJpMZKp20=";
+      tag = "b4933";
+      hash = "sha256-rsk6WycEzvEvrf09kWz0HDnXL3Zs/dOKdvoc3x07+1Y=";
     };
   };
   loralib = {
@@ -1191,14 +1191,14 @@
   };
   openai-edge-tts = {
     pname = "openai-edge-tts";
-    version = "9d3fd8f6b0daf0a02242a86abb588fabc86e72d0";
+    version = "602d1ea2c90c27a716c6dd9db4d112ce67518586";
     src = fetchFromGitHub {
       owner = "travisvn";
       repo = "openai-edge-tts";
-      rev = "9d3fd8f6b0daf0a02242a86abb588fabc86e72d0";
-      hash = "sha256-x7M9zEFcWcw34Pc+ADk8nShwhAzQTVU6UTfAhFzFq8c=";
+      rev = "602d1ea2c90c27a716c6dd9db4d112ce67518586";
+      hash = "sha256-V7k1XOSYy6tIR95lw+HRAwEDHBCBUbyHV/XvL3WsJhI=";
     };
-    date = "2025-03-17";
+    date = "2025-03-20";
   };
   opencc-python-reimplemented = {
     pname = "opencc-python-reimplemented";
@@ -1965,14 +1965,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "090ad44c0b7745d7b9074273e1e0cd7750ca9568";
+    version = "0381e617ac4cb84ebae8d56751c46427c2e33d87";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "090ad44c0b7745d7b9074273e1e0cd7750ca9568";
-      hash = "sha256-Sro3qJhTNZzrSojtZhkAQj8LM3PC5Zjcw8ZlOYRDMUE=";
+      rev = "0381e617ac4cb84ebae8d56751c46427c2e33d87";
+      hash = "sha256-//ahUVsgVV2b/wxrxuP+4Qhi3bkW+WrGJgVcrsVmHsI=";
     };
-    date = "2025-03-19";
+    date = "2025-03-21";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
