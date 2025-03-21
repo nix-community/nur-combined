@@ -4,8 +4,8 @@ on:
     types: [created, edited]
 jobs:
   fast-forward:
-    # Only run if the comment contains the /fast-forward command.
-    if: ${{ contains(github.event.comment.body, '/fast-forward')
+    # Only run if the comment starts with the /fast-forward command.
+    if: ${{ startsWith(github.event.comment.body, '/fast-forward')
             && github.event.issue.pull_request }}
     runs-on: ubuntu-latest
 

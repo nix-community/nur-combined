@@ -33,7 +33,7 @@ jobs:
             dependencies
             automated
           token: ${{ steps.app-token.outputs.token }}
-          git-author-name: &authorName '${{ steps.app-token.outputs.app-slug }}[bot]'
-          git-author-email: &authorEmail '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
-          git-committer-name: *authorName
-          git-committer-email: *authorEmail
+          git-author-name: '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git-author-email: '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git-committer-name: '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git-committer-email: '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
