@@ -2,6 +2,13 @@ name: "Build and populate cache"
 on:
   workflow_dispatch: # allows manual triggering
   pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/**'
+      - '!.github/workflows/build.yml'
+      - 'flake.nix'
+      - 'flake.lock'
   push:
     branches:
       - main
