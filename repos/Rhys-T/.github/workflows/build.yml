@@ -6,6 +6,13 @@ on:
     branches:
       - main
       - master
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/**'
+      - '!.github/workflows/build.yml'
+      - 'flake.nix'
+      - 'flake.lock'
   schedule:
     # rebuild everyday at 3:30
     # TIP: Choose a random time here so not all repositories are build at once:
