@@ -100,13 +100,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.17-linux-250228T052357Z";
+    version = "lts-v6.12.19-linux-250313T194706Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.17-linux-250228T052357Z";
+      rev = "lts-v6.12.19-linux-250313T194706Z";
       fetchSubmodules = false;
-      sha256 = "sha256-MN/aV+7M60u8Y8LjQryKOm8LkVUIE7cugBR1oTgoDNc=";
+      sha256 = "sha256-juSyFZwO9WAYhnPGAu/FB+1i+W1miP18x2bUTVT2XRQ=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -287,17 +287,17 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "13674aadebc482e418067c1980c7f69bf4a30f90";
+    version = "3180128766dfbe4c079db1166cf62de11339bc2b";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "13674aadebc482e418067c1980c7f69bf4a30f90";
+      rev = "3180128766dfbe4c079db1166cf62de11339bc2b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-DXcMvCVX1ZHyYlsELpvVky00pwoVGgPtRilVQqucqQc=";
+      sha256 = "sha256-fSeLRSYTiSHZn9qserF+DwjgIVf92jAcywq9dZMCNjM=";
     };
-    date = "2025-03-14";
+    date = "2025-03-21";
   };
   rime-ice = {
     pname = "rime-ice";
@@ -329,17 +329,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "c9cce9dbdf35508aecf4cc539e7e012eef9f2cab";
+    version = "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "c9cce9dbdf35508aecf4cc539e7e012eef9f2cab";
+      rev = "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Yo5ppFrexyGY5/HIXVKhBd9OnYRShF6dpsiR0IqMYyo=";
+      sha256 = "sha256-5Wt/+y9gz7xg2vneqc5BEFh7MpwCqmFdHOekyBUIQCU=";
     };
-    date = "2025-03-20";
+    date = "2025-03-21";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
