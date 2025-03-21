@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - master
+      - nix-package-auto-updates
   schedule:
     # rebuild everyday at 3:30
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -140,5 +141,5 @@ jobs:
     steps:
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ needs.tests.outputs.nurRepo != '<YOUR_REPO_NAME>' }}
+      if: ${{ needs.tests.outputs.nurRepo != '<YOUR_REPO_NAME>' && (github.ref_name == 'main' || github.ref_name == 'master') }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ needs.tests.outputs.nurRepo }}"
