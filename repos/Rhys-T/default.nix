@@ -28,7 +28,7 @@ let pkgs = if with pkgs'; stdenv.hostPlatform.isDarwin && (tests.stdenv.hooks or
 else pkgs'; in
 
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
-    inherit (self) callPackage;
+    inherit (self) callPackage myLib;
     dontUpdate = p: let
         p' = if p?overrideAttrs then p.overrideAttrs (old: pkgs.lib.optionalAttrs (old?passthru) {
             passthru = removeAttrs old.passthru ["updateScript"];
@@ -158,7 +158,7 @@ in {
         } // lib.optionalAttrs needsLibutil {
             buildInputs = (old.buildInputs or []) ++ [darwin.libutil];
         });
-    in dontUpdate (lib.addMetaAttrs ({
+    in dontUpdate (myLib.addMetaAttrsDeep ({
         description = (picolisp.meta.description or "PicoLisp") + " (fixed for macOS/Darwin)";
         position = myPos "picolisp";
     }) picolisp');
@@ -197,7 +197,7 @@ in {
                 '';
             };
         });
-    in lib.addMetaAttrs ({
+    in myLib.addMetaAttrsDeep ({
         description = lib.replaceStrings [") ("] ["; "] ((picolisp.meta.description or "PicoLisp") + " (rolling release)");
         position = myPos "picolisp-rolling";
     }) picolisp';
@@ -250,7 +250,7 @@ in {
             pkgs.stdenv.hostPlatform.isDarwin && 
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
-    in dontUpdate (lib.addMetaAttrs ({
+    in dontUpdate (myLib.addMetaAttrsDeep ({
         description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build)";
         position = myPos "fpc";
     }) (if needsFix then fpc.overrideAttrs (old: {
