@@ -24,6 +24,9 @@ buildDotnetModule rec {
     mv $out/bin/TheAirBlow.Thor.Shell $out/bin/thor
   '';
 
+  # dotnet7 is unsupported but it still runs fine; just don't build it in CI.
+  # https://github.com/Samsung-Loki/Thor/issues/23
+  preferLocalBuild = true;
   meta = {
     homepage = "https://github.com/Samsung-Loki/Thor";
     description = "An alternative to Heimdall";

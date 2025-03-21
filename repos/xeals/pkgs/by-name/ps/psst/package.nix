@@ -23,6 +23,7 @@ assert withGui -> gtk3.meta.available;
 rustPlatform.buildRustPackage rec {
   pname = "psst";
   version = "20221012.d70ed81";
+
   src = fetchFromGitHub {
     owner = "jpochyla";
     repo = "psst";
@@ -30,7 +31,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-ZKhHN0ruLb6ZVKkrKv/YawRsVop6SP1QF/nrtkmA8P8=";
     fetchSubmodules = true;
   };
-  cargoHash = "sha256-zH6+EV78FDVOYEFXk0f54pH2Su0QpK1I0bHqzIiMdBo=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-my15AXG9LLmdqZLqXdeZ81VLv+GbSMgNtuFAlYTEUvQ=";
 
   nativeBuildInputs = [ pkg-config ]
     ++ optional withGui copyDesktopItems;
