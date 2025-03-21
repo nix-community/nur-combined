@@ -187,17 +187,11 @@ in {
                         nix-prefetch-git
                     ])}
                     set -euo pipefail
-                    eval "$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jq -r '
-                        (.commit.timestamp | gsub(
-                            "^20(?<y>[0-9]{2})-(?<m>[0-9]{2})-(?<d>[0-9]{2})T.*$";
-                            "\(.y | tonumber).\(.m | tonumber).\(.d | tonumber)"
-                        )) as $version |
-                        @sh "
-                            latestRev=\(.commit.id)
-                            latestVer=\($version)
-                        "
-                    ')"
+                    latestRev="$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jq -r .commit.id)"
                     echo "latestRev=$latestRev"
+                    latestVer="$(curl "https://git.envs.net/mpech/pil21/raw/commit/$latestRev/src/vers.l" | sed -En '
+                        /^\(pico~de \*Version ([0-9]+) ([0-9]+) ([0-9]+)\)$/ { s//\1.\2.\3/; p; }
+                    ')"
                     echo "latestVer=$latestVer"
                     update-source-version ''${UPDATE_NIX_ATTR_PATH:-picolisp-rolling} "$latestVer" --rev="$latestRev"
                 '';
