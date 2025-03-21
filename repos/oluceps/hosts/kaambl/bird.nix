@@ -33,10 +33,6 @@
         '';
       in
       ''
-        protocol static { # FIXME: only while in networks without ipv6
-          ipv6;
-          route ::/0 via fdcc::5;
-        }
         protocol babel {
         ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
           ipv6 {
