@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) floor head sort toJSON;
+  inherit (builtins) floor head mapAttrs sort toJSON;
   inherit (config) dconf host;
   inherit (config.programs) kitty;
   inherit (lib.generators) toINI;
@@ -109,24 +109,27 @@ in
       externalFull = (external_display_width / external_display_density) - margin * 2;
 
       # Window widths
-      term = characters_per_line * character_width;
-      half = (full - gap) / 2;
-      complementTerm = full - (term + gap);
-      externalComplement2Browser =
-        let
-          candidates = [ term half complementTerm ];
-          browser = head (sort
-            (a: b:
-              if a >= browser_width && b >= browser_width then a < b
-              else if a < browser_width && b < browser_width then a > b
-              else a >= browser_width
-            )
-            candidates);
-        in
-        externalFull - (browser + gap) * 2;
+      widths = rec {
+        term = characters_per_line * character_width;
+        half = (full - gap) / 2;
+        complementTerm = full - (term + gap);
+        externalComplement2Browser =
+          let
+            candidates = [ term half complementTerm ];
+            browser = head (sort
+              (a: b:
+                if a >= browser_width && b >= browser_width then a < b
+                else if a < browser_width && b < browser_width then a > b
+                else a >= browser_width
+              )
+              candidates);
+          in
+          externalFull - (browser + gap) * 2;
+      };
     in
+    with mapAttrs (_: floor) widths;
     {
-      cycle-width-steps = map (n: 1.0 * (floor n)) [ term half complementTerm externalComplement2Browser ];
+      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm externalComplement2Browser ];
       horizontal-margin = margin;
       selection-border-radius-top = border;
       selection-border-size = border;
@@ -141,6 +144,7 @@ in
         { wm_class = "Display"; scratch_layer = true; }
         { wm_class = "displaycal"; scratch_layer = true; }
         { wm_class = "emote"; scratch_layer = true; }
+        { wm_class = "@joplin/app-desktop"; preferredWidth = "${toString term}px"; }
         { wm_class = "qalculate-gtk"; preferredWidth = "480px"; }
         { wm_class = "Tor Browser"; scratch_layer = true; }
       ]);

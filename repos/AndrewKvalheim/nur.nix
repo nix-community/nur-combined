@@ -65,8 +65,10 @@ rec {
           };
       };
     }).pkgs;
-  }).overrideAttrs (_: {
-    meta.broken = pkgs.lib.versionAtLeast pkgs.python3Packages.httpx.version "0.28"; # Dependency of msgraph-core
+  }).overrideAttrs (d: {
+    meta = d.meta // {
+      broken = pkgs.lib.versionAtLeast pkgs.python3Packages.httpx.version "0.28"; # Dependency of msgraph-core
+    };
   });
   fastnbt-tools = pkgs.callPackage ./packages/fastnbt-tools.nix { };
   fediblockhole = pkgs.callPackage ./packages/fediblockhole.nix { };
