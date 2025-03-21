@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '15 4 * * 0' # runs weekly on Sunday at 00:00
 
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   lockfile:
@@ -16,6 +13,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          # required
+          # TODO use a separate app?
+          app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
+          private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
@@ -23,3 +32,8 @@ jobs:
           pr-labels: |                  # Labels to be set on the PR
             dependencies
             automated
+          token: ${{ steps.app-token.outputs.token }}
+          git-author-name: &authorName '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git-author-email: &authorEmail '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git-committer-name: *authorName
+          git-committer-email: *authorEmail
