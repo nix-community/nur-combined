@@ -12,6 +12,17 @@
 }:
 
 let
+  dedupe =
+    packages:
+    builtins.attrValues (
+      builtins.listToAttrs (
+        builtins.map (data: {
+          name = data.package.meta.position;
+          value = data;
+        }) packages
+      )
+    );
+
   packageData =
     { package, attrPath }:
     {
@@ -25,7 +36,7 @@ let
       attrPath = package.updateScript.attrPath or attrPath;
     };
 
-  packagesJson = writeText "packages.json" (builtins.toJSON (map packageData packages));
+  packagesJson = writeText "packages.json" (builtins.toJSON (map packageData (dedupe packages)));
 in
 writeShellApplication {
   name = "update";
