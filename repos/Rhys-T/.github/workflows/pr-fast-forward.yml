@@ -23,7 +23,7 @@ jobs:
           app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
           private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
       - name: Fast forwarding
-        uses: sequoia-pgp/fast-forward@v1
+        uses: Rhys-T/fast-forward-action@curl-globoff
         with:
           github_token: ${{ steps.app-token.outputs.token }}
           merge: true
