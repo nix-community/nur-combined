@@ -7,6 +7,7 @@
         Rhys-T = import ./. { pkgs = self; };
     })];
 })).overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or []) ++ with pkgs; lib.optional stdenv.hostPlatform.isDarwin [git];
     shellHook = let
         parts = builtins.match "^(.* )([^ ]+-packages\\.json)(.*)$" old.shellHook;
         before = builtins.elemAt parts 0;

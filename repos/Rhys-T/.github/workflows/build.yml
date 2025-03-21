@@ -9,6 +9,7 @@ on:
       - '!.github/workflows/build.yml'
       - 'flake.nix'
       - 'flake.lock'
+      - 'update.nix'
   push:
     branches:
       - main
@@ -20,6 +21,7 @@ on:
       - '!.github/workflows/build.yml'
       - 'flake.nix'
       - 'flake.lock'
+      - 'update.nix'
   schedule:
     # rebuild everyday at 3:30
     # TIP: Choose a random time here so not all repositories are build at once:
