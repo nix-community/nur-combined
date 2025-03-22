@@ -6,6 +6,8 @@ on:
     branches: [master]
   schedule:
     - cron:  '40 7 * * *'
+  workflow_dispatch:
+
 jobs:
   tests:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository

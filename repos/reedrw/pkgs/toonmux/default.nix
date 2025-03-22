@@ -1,12 +1,12 @@
 { fetchFromGitHub, lib, openssl, pkg-config, rustPlatform, glib, cairo, pango, atk, gdk-pixbuf, gtk3-x11, xdotool }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   name = "toonmux";
 
   src = fetchFromGitHub (lib.importJSON ./source.json);
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoSha256 = "sha256-Y/iwWzUrRBEB6p9n4zmsF5E6FsFCrrmQ3RBZzsklSyY=";
+  cargoHash = "sha256-Y/iwWzUrRBEB6p9n4zmsF5E6FsFCrrmQ3RBZzsklSyY=";
 
   nativeBuildInputs = [
     pkg-config
