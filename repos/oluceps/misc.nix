@@ -288,7 +288,6 @@
         ]
         ++ (map (n: "https://${n}.cachix.org") [
           "nix-community"
-          "helix"
           "nixpkgs-wayland"
         ]);
       substituters = [
