@@ -15,8 +15,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "AlistGo";
     repo = "alist";
-    tag = "v${version}";
-    hash = "sha256-0+gt5S/eklSp8K4z1bXUVHaG7L3zKhi6TdVaxX/Y83w=";
+    rev = "fef483af94284e0c150d95514bfe4b3cf3883553";
+    hash = "sha256-3qDfeOZo/ruxHU4Vrycq2ejOSMKJfumQ3CCHjhfQAro=";
     # populate values that require us to use git. By doing this in postFetch we
     # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
@@ -34,7 +34,7 @@ buildGoModule rec {
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-40YuarjrOvwHyXmHZoiqGMueN7dzu8zQ6hgInmsWVJg=";
+  vendorHash = "sha256-MiIOKBwh4xD+sjMye4H+QDcWGMnUVsi7uuZwjxhNVaU=";
 
   buildInputs = [ fuse ];
 
