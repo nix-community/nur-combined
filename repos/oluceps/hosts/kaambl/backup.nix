@@ -24,6 +24,10 @@
     "on-kaambl.toml" = {
       file = ../../sec/on-kaambl.toml.age;
     };
+    "on-yidong.toml" = {
+      file = ../../sec/on-yidong.toml.age;
+      cleanPlaceholder = true;
+    };
   };
   services.rustic = {
     profiles = map (n: config.vaultix.secrets.${n}.path) [
@@ -31,6 +35,7 @@
       "on-kaambl.toml"
       "on-eihort.toml"
       "on-hastur.toml"
+      "on-yidong.toml"
     ];
     backups = {
       critic = {

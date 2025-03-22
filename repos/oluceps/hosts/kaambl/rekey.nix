@@ -12,6 +12,9 @@ in
         owner = user;
         group = "users";
       };
+      "on-yidong.toml" = {
+        file = ../../sec/on-yidong.toml.age;
+      };
       id_sk = {
         file = ../../sec/id_sk.age;
         mode = "400";

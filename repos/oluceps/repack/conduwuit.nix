@@ -19,6 +19,7 @@ reIf {
       ];
       dns_tcp_fallback = false;
       ip_lookup_strategy = 5;
+      database_backup_path = "/var/lib/backup/conduwuit";
       # allow_registration = true;
       turn_uris = [
         "turn:yidhra.nyaw.xyz?transport=udp"
