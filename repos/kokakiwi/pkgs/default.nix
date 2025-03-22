@@ -49,7 +49,6 @@ let
     streampager = { };
     tumelune = { };
     vanta-agent = { };
-    wild = { };
     wit-deps = { };
   };
 

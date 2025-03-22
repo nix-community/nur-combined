@@ -30,7 +30,9 @@ rustPlatform.buildRustPackage rec {
     description = "WIT dependency manager";
     homepage = "https://github.com/bytecodealliance/wit-deps";
     changelog = "https://github.com/bytecodealliance/wit-deps/blob/${src.rev}/CHANGELOG.md";
-    license = licenses.asl20-llvm;
+    licenses = if licenses ? asl20-llvm
+      then [ licenses.asl20-llvm ]
+      else [ licenses.asl20 licenses.llvm-exception ];
     mainProgram = "wit-deps";
   };
 }
