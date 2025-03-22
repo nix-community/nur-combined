@@ -25,7 +25,6 @@ in {
     services.sonarr.group = config.services.transmission.group;
     services.radarr.enable = true;
     services.radarr.group = config.services.transmission.group;
-    services.jackett.enable = true;
-    services.flaresolverr.enable = true;
+    services.prowlarr.enable = true;
   };
 }
