@@ -493,6 +493,7 @@ lib.makeScope newScope (
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-gis-export = callPackage ./osm/osm-gis-export { };
+    osm-lump-ways = callPackage ./osm/osm-lump-ways { };
     osm-tags-transform = callPackage ./osm/osm-tags-transform { };
     osm2geojson = callPackage ./osm/osm2geojson { };
     osmcoastline = callPackage ./osm/osmcoastline { };
