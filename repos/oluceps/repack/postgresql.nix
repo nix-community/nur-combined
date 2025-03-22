@@ -7,7 +7,7 @@
 reIf {
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_17_jit;
+    package = pkgs.postgresql_16_jit;
     enableTCPIP = true;
     settings = {
       port = 5432;

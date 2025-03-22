@@ -4,12 +4,12 @@ reIf {
     enable = true;
     collector = {
       enable = true;
-      settings.api.endpoint = "http://localhost:8080";
+      settings.api.endpoint = "https://scrutiny.nyaw.xyz";
     };
 
     settings = {
       web.listen = {
-        port = 8080;
+        port = 8090;
         host = "0.0.0.0";
       };
 

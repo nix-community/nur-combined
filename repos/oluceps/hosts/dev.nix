@@ -135,7 +135,7 @@
               # nix = inputs'.lix-module.packages.default;
             })
             nodejs
-            vscode.fhs
+            # vscode.fhs
             # nodejs_latest.pkgs.pnpm
             # nodejs_latest
             qemu-utils

@@ -9,14 +9,14 @@ let
     mkIf
     ;
 
-  cfg = config.repack.aira2;
+  cfg = config.repack.aria2;
 in
 {
-  options.repack.aira2 = {
-  };
+  # options.repack.aria2 = {
+  # };
   config = mkIf cfg.enable {
-    systemd.user.services.aira2 = {
-      description = "aira2 Daemon";
+    systemd.user.services.aria2 = {
+      description = "aria2 Daemon";
       restartIfChanged = true;
       serviceConfig = {
         Type = "simple";

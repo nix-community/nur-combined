@@ -28,8 +28,29 @@ in
         Type = "simple";
         DynamicUser = true;
         StateDirectory = "alist";
-        ExecStart = "${lib.getExe cfg.package} server --data $\{STATE_DIRECTORY}";
+        RuntimeDirectory = "alist";
+        Environment = [ "TMP_DIR=\${RUNTIME_DIRECTORY}" ];
+        ExecStart = "${lib.getExe cfg.package} server --data $\{STATE_DIRECTORY} --log-std";
         Restart = "on-failure";
+        WorkingDirectory = "/var/lib/alist";
+        PrivateTmp = true;
+        PrivateUsers = true;
+        NoNewPrivileges = true;
+        RestrictSUIDSGID = true;
+        RemoveIPC = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectHostname = true;
+        ProtectProc = "invisible";
+        MemoryDenyWriteExecute = true;
+        UMask = "0077";
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
   };

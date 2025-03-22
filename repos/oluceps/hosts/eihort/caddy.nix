@@ -51,6 +51,24 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:8090"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "scrutiny.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:5246"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "alist.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "localhost:9001"; } ];
                         rewrite.strip_path_prefix = "/minio";
                       }
