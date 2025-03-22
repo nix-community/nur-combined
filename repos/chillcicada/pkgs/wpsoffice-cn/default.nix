@@ -78,11 +78,11 @@ stdenv.mkDerivation rec {
     libtiff
     udev
     gtk3
+    qtbase
     libusb1
     xorg.libXdamage
     xorg.libXtst
     xorg.libXv
-    qtbase
   ];
 
   dontWrapQtApps = true;
@@ -99,6 +99,7 @@ stdenv.mkDerivation rec {
     "libQtCore.so.4"
     "libQtNetwork.so.4"
     "libQtXml.so.4"
+
     "libuof.so"
   ];
 
