@@ -60,7 +60,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:5246"; } ];
+                        upstreams = [ { dial = "localhost:5244"; } ];
                       }
                     ];
                     match = [ { host = [ "alist.nyaw.xyz" ]; } ];
