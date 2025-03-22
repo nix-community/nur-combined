@@ -49,7 +49,6 @@ in
         RestartSteps = "5";
         RestartMaxDelaySec = "2h";
         StartLimitBurst = 5;
-        StartLimitIntervalSec = "60s";
       };
     };
   };

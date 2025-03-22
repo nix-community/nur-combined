@@ -5,6 +5,7 @@
   ...
 }:
 reIf {
+  systemd.services.conduwuit.serviceConfig.ReadWritePaths = [ "/var/lib/backup/conduwuit" ];
   services.conduwuit = {
     enable = true;
 
@@ -12,7 +13,6 @@ reIf {
 
     settings.global = {
       server_name = "nyaw.xyz";
-      database_backend = "rocksdb";
       port = [ 6167 ];
       address = [
         "::"
