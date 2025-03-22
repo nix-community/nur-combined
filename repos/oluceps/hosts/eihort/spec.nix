@@ -103,6 +103,7 @@
     immich.enable = true;
     radicle.enable = true;
     autosign.enable = true;
+    aria2.enable = true;
   };
 
   systemd.services.minio.serviceConfig.Environment = [
@@ -175,6 +176,7 @@
         };
       }
     ];
+    alist.enable = true;
   };
 
   programs = {
