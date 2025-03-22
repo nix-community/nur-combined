@@ -15,13 +15,11 @@
   };
   services.rustic = {
     profiles = map (n: config.vaultix.secrets.${n}.path) [
-      "general.toml"
       "on-yidong.toml"
     ];
     backups = {
       critic = {
         profiles = map (n: config.vaultix.secrets.${n}.path) [
-          "general.toml"
           "on-yidong.toml"
         ];
         timerConfig = {
