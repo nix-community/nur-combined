@@ -26,6 +26,6 @@ in
       pkgs.restic
       # pkgs.rustic
     ] ++ packages;
-    nagy.shortcommands = lib.mergeAttrsList (map (x: x.shortcommands) packages);
+    nagy.shortcommands.commands = lib.mergeAttrsList (map (x: x.shortcommands) packages);
   };
 }

@@ -7,17 +7,20 @@
 
 let
   inherit (lib.types) attrsOf listOf str;
-  mkShortCommand = (pkgs.callPackage ../lib/shortcommands.nix { }).mkShortCommand;
+  inherit (import ../lib/shortcommands.nix { inherit pkgs; }) mkShortCommand;
   cfg = config.nagy.shortcommands;
 in
 {
-  options.nagy.shortcommands = lib.mkOption {
-    type = attrsOf (listOf str);
-    default = { };
-    description = "shortcommands";
+  options.nagy.shortcommands = {
+    enable = lib.mkEnableOption "shortcommand config";
+    commands = lib.mkOption {
+      type = attrsOf (listOf str);
+      default = { };
+      description = "shortcommands";
+    };
   };
 
-  config = {
-    environment.systemPackages = lib.mapAttrsToList mkShortCommand cfg;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = lib.mapAttrsToList mkShortCommand cfg.commands;
   };
 }

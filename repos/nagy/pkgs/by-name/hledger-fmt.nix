@@ -15,7 +15,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-qzjdTEsFfZyYMqWDy6QgLI3TiAMI1PQfBoEweIj6nkU=";
   };
 
-  cargoHash = "sha256-Lv3eev7D1ixmtnApt3F+W18ZGPDeM8Uj9e9kQ//Zsr8=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-62nPszolS9YtD7k3EcFokkm3d4GBrwbQE5LEvRs8lms=";
 
   meta = {
     description = "An opinionated hledger's journal files formatter";

@@ -95,7 +95,7 @@
               search path:${pkgs.path} --json "" | jq --sort-keys > $out
           '';
     };
-    nagy.shortcommands = {
+    nagy.shortcommands.commands = {
       # nix
       b = [ "nix-build" ];
       i = [ "nix-instantiate" ];
@@ -144,23 +144,19 @@
       B = [
         "nix"
         "build"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
+        "--print-build-logs"
       ];
       E = [
         "nix"
         "eval"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
+        "--print-build-logs"
       ];
       S = [
         "nix"
         "shell"
-      ];
-      BL = [
-        "nix"
-        "build"
-        "--print-build-logs"
-      ];
-      RL = [
-        "nix"
-        "run"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
         "--print-build-logs"
       ];
       Ej = [
@@ -268,6 +264,8 @@
         "build"
         "--file"
         "<nixpkgs>"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
+        "--print-build-logs"
       ];
       "B:j" = [
         "nix"
@@ -282,6 +280,8 @@
         "run"
         "--file"
         "<nixpkgs>"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
+        "--print-build-logs"
       ];
       "D:" = [
         "nix"
@@ -294,6 +294,8 @@
         "shell"
         "--file"
         "<nixpkgs>"
+        # until https://github.com/NixOS/nix/pull/8323 is merged
+        "--print-build-logs"
       ];
       "E:" = [
         "nix"

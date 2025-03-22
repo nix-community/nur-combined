@@ -200,7 +200,7 @@ in
     '';
   };
 
-  nagy.shortcommands = lib.mkIf cfg.enable {
+  nagy.shortcommands.commands = lib.mkIf cfg.enable {
     g = [ "git" ];
     gcl = [
       "git"

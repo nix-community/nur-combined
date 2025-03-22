@@ -22,7 +22,7 @@ in
       pkgs.zls
     ];
 
-    nagy.shortcommands = {
+    nagy.shortcommands.commands = {
       zb = [
         "zig"
         "build"
