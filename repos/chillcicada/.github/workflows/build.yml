@@ -6,7 +6,7 @@ on:
       - main
       - master
   schedule:
-    - cron:  '15 2 * * *'
+    - cron: "15 2 * * *"
   workflow_dispatch:
 jobs:
   tests:
@@ -19,40 +19,39 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.11.tar.gz
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Install nix
-      uses: cachix/install-nix-action@v30
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v15
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        # https://app.cachix.org/personal-auth-tokens
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Setup cachix
+        uses: cachix/cachix-action@v15
+        # Don't replace <YOUR_CACHIX_NAME> here!
+        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+        with:
+          name: ${{ matrix.cachixName }}
+          # https://app.cachix.org/personal-auth-tokens
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Trigger NUR update
+        # Don't replace <YOUR_REPO_NAME> here!
+        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
