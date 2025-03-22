@@ -35,12 +35,6 @@
       "archive.vn"
     ];
 
-    # Yggdrasil project
-    "222:3bd:cc26:9545:caaa:9fd6:ec56:cc1" = [ "y.www.nncpgo.org" ];
-
-    "188.225.9.167" = [ "yggno.de" ];
-    "302:a2a5:dead:ded::a2a5" = [ "ntp.yggnode.ygg" ];
-
     # openNIC project
     # https://servers.opennic.org/
     # tier 2
