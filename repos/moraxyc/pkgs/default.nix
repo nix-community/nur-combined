@@ -15,4 +15,5 @@ in
   exloli-next = call ./exloli-next;
   v2ray-rules-dat = call ./v2ray-rules-dat;
   libinput-three-finger-drag = call ./libinput-three-finger-drag;
+  adguard-cli = call ./adguard-cli;
 }
