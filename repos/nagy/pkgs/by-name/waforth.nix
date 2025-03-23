@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, wabt, nodejs, wasmtime }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  wabt,
+  nodejs,
+  wasmtime,
+}:
 
 let
   # The compiler, waforthc, requires an older version of wabt.
@@ -12,22 +20,32 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "waforth";
-  version = "0.19.1";
+  version = "0.20.1";
 
   src = fetchFromGitHub {
-    owner = "nagy";
+    owner = "remko";
     repo = "waforth";
-    rev = "7a3327b093bc69cfda9704f86f7e7d4e11b7ff18";
-    hash = "sha256-AxdVIV7nWRtHdqI0cBPvAhiOqKqn3uYdlh6dLK9Uaj8=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-xcYnS7eVSME50b8obj7tIg0Nwx7sN2ndleucwAm/YXA=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/nagy/waforth/commit/7a3327b093bc69cfda9704f86f7e7d4e11b7ff18.patch";
+      hash = "sha256-0aT2ZQkaRLJVgk8C2iQENgJaVQ0tLStbrC74CfATpAc=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs src/standalone/../../scripts/bin2h
   '';
 
-  nativeBuildInputs = [ wabt1031 nodejs ];
+  nativeBuildInputs = [
+    wabt1031
+    nodejs
+  ];
 
   makeFlags = [
     "WASMTIME_DIR=${lib.getDev wasmtime}"
@@ -38,15 +56,14 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 -t $out/bin src/standalone/waforth src/waforthc/waforthc
-    install -Dm444 src/standalone/waforth_core.wasm $out/share/waforth/waforth.wasm
+    install -Dm755 -t $out/bin src/standalone/waforth src/waforthc/waforthc
+    install -Dm644 src/standalone/waforth_core.wasm $out/share/waforth/waforth.wasm
     runHook postInstall
   '';
 
-  meta = with lib; {
-    description =
-      "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
-    inherit (src.meta) homepage;
-    license = with licenses; [ mit ];
+  meta = {
+    description = "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
+    homepage = "https://github.com/remko/waforth";
+    license = with lib.licenses; [ mit ];
   };
-}
+})
