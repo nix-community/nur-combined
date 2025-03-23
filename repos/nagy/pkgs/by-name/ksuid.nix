@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "ksuid";
   version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "segmentio";
     repo = "ksuid";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-50molk1vt8/n4Y+ruayW/EAn9NeeQ8ApmLJQVePhieE=";
   };
 
@@ -22,10 +22,10 @@ buildGoModule rec {
     "-w"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "K-Sortable Globally Unique IDs";
     homepage = "https://github.com/segmentio/ksuid";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mainProgram = "ksuid";
   };
-}
+})
