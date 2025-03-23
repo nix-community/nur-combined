@@ -62,9 +62,9 @@ in
       acc
       // {
         "snapy-${s.name}" = {
-          wantedBy = [ "multi-user.target" ];
           description = "${s.name} snapy daemon";
           serviceConfig = {
+            Type = "oneshot";
             User = "root";
             ExecStart =
               let

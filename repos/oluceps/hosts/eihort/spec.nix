@@ -161,7 +161,7 @@
       {
         name = "var";
         source = "/var";
-        keep = "7day";
+        keep = "3day";
         timerConfig.onCalendar = "daily";
       }
     ];
