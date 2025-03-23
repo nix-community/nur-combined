@@ -1,23 +1,30 @@
-{ stdenvNoCC, lib, fetchFromSourcehut }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromSourcehut,
+}:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bollux";
   version = "0.4.3";
 
   src = fetchFromSourcehut {
     owner = "~acdw";
-    repo = pname;
-    rev = version;
+    repo = "bollux";
+    rev = finalAttrs.version;
     hash = "sha256-BpbxgqIC1s6ur5UTE2TBKMLV62FFDYBMHGY3FuDB/A8=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
+  meta = {
     description = "gemini browser in like, bash?";
-    license = licenses.mit;
+    homepage = "https://git.sr.ht/~acdw/bollux";
+    license = lib.licenses.mit;
   };
-}
+})

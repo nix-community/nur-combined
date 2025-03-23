@@ -5,18 +5,18 @@
   zlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "pngattach";
-  version = "unstable-2022-10-12";
+  version = "0-unstable-2025-03-12";
 
   src = fetchFromGitHub {
     owner = "skeeto";
     repo = "scratch";
-    rev = "4cf540007314240928b79441febf9a6d9dae2ca7";
-    hash = "sha256-AZuUdq/qLeui/GmZxbuTpUH/f+BfP1dXLU3TtTTTJQA=";
+    rev = "cfd49e7f10d6e7771fe5654d639551f9f6e28885";
+    hash = "sha256-cEfHobkg37kA/gXDGYL5jDbo/V3P3BX+27b5Iwk+u2E=";
   };
 
-  sourceRoot = "source/${pname}";
+  sourceRoot = "source/pngattach";
 
   buildInputs = [ zlib ];
 
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     "CC:=$(CC)"
   ];
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
+  meta = {
+    homepage = "https://github.com/skeeto/scratch/tree/master/pngattach";
     description = "Attach files to a PNG image as metadata";
-    license = licenses.unlicense;
+    license = lib.licenses.unlicense;
   };
 }

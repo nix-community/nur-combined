@@ -1,13 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zstd,
+}:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libzstd-seek";
   version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "martinellimarco";
-    repo = pname;
-    rev = "v${version}";
+    repo = "libzstd-seek";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-u8TEpvs+xMW2UhNNsEQRJGc+tChZ+ibTdkcafqq45EE=";
   };
 
@@ -24,11 +30,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zstd ];
 
-  meta = with lib; {
-    description =
-      "Library that mimic fread, fseek and ftell for reading zstd compressed files";
-    inherit (src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.all;
+  meta = {
+    description = "Library that mimic fread, fseek and ftell for reading zstd compressed files";
+    homepage = "https://github.com/martinellimarco/libzstd-seek";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
   };
-}
+})

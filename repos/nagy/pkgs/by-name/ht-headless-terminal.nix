@@ -4,18 +4,19 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ht";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "andyk";
     repo = "ht";
-    rev = "v${version}";
-    hash = "sha256-z3rDnTcEKPkJi1C4Z5SWJp+3AtKZUh6oO79a96ysJQA=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-UJAKtdzuzPHc5t67ui8sptzl5Gz+kkrgILkmfstNcJ0=";
   };
 
-  cargoHash = "sha256-B8bBBgdH4sjzV3iJnGaeYGb3LqRkzDMZCXjijK0JiOg=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-IygZS5BthWbzoHQcgi1MVxQ71Yv1WIxqHn3nGm4G/rw=";
 
   meta = {
     description = "Headless terminal - wrap any binary with a terminal interface for easy programmatic access";
@@ -24,4 +25,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "ht";
   };
-}
+})

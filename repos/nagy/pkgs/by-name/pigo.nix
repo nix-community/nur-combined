@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "pigo";
   version = "1.4.6";
 
   src = fetchFromGitHub {
     owner = "esimov";
-    repo = pname;
-    rev = "v${version}";
+    repo = "pigo";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
   };
 
@@ -28,9 +28,10 @@ buildGoModule rec {
     mv $out/bin/http $out/bin/pigo-http
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
     homepage = "https://github.com/esimov/pigo";
-    license = licenses.mit;
+    license = lib.licenses.mit;
+    mainProgram = "pigo";
   };
-}
+})

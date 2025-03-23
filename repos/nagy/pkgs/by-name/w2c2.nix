@@ -5,15 +5,15 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "w2c2";
-  version = "unstable-2024-04-13";
+  version = "0-unstable-2025-03-17";
 
   src = fetchFromGitHub {
     owner = "turbolent";
     repo = "w2c2";
-    rev = "13095d82c8331232c8e72de174f548f6551ec668";
-    hash = "sha256-dIfYKfu0LeCzEDNvY90IDHw2bIrI3AZU7T7HXewl228=";
+    rev = "2e0986ec0cd73af0e1ad9d053830ed4442eaf1fd";
+    hash = "sha256-w1Ucwh0tsga9IxAbbXmoP4SEg+CIfbzTUxIBN2c1tdc=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -31,12 +31,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Translates WebAssembly modules to portable C";
     homepage = "https://github.com/turbolent/w2c2";
-    license = licenses.mit;
-    maintainers = with maintainers; [ nagy ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "w2c2";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 }

@@ -6,14 +6,14 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wonnx";
   version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "webonnx";
     repo = "wonnx";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-1h9Sif7eDTouwFssEN8bPxFLGMakXLm0nM75tN2nnJ4=";
   };
 
@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Ib8JYu4+64THsK0Wxb9gPkvBh1xiKaYZraJRKKzpNTs=";
 
-  meta = with lib; {
+  meta = {
     description = "GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
-    inherit (src.meta) homepage;
-    license = with licenses; [ mit ];
+    homepage = "https://github.com/webonnx/wonnx";
+    license = with lib.licenses; [ mit ];
   };
-}
+})

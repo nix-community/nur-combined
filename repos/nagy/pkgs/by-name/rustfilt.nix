@@ -10,16 +10,16 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitHub {
     owner = "luser";
-    repo = pname;
+    repo = "rustfilt";
     rev = version;
     hash = "sha256-zb1tkeWmeMq7aM8hWssS/UpvGzGbfsaVYCOKBnAKwiQ=";
   };
 
   cargoHash = "sha256-rs2EWcvTxLVeJ0t+jLM75s+K72t+hqKzwy3oAdCZ8BE=";
 
-  meta = with lib; {
+  meta = {
     description = "Demangle Rust symbols";
     homepage = "https://github.com/luser/rustfilt";
-    license = with licenses; [ asl20 ];
+    license = with lib.licenses; [ asl20 ];
   };
 }
