@@ -21,7 +21,7 @@ in
           email = mkDefault primaryEmail.address;
         };
         signing = {
-          sign-all = true;
+          behavior = "own";
           backend = mkIf config.programs.gpg.enable "gpg";
           key = mkDefault primaryEmail.address;
         };

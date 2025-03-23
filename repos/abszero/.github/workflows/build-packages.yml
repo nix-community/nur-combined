@@ -21,10 +21,6 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: experimental-features = nix-command flakes
 
-    - uses: DeterminateSystems/magic-nix-cache-action@v9
-      with:
-        use-flakehub: false
-
     - uses: cachix/cachix-action@v15
       with:
         name: abszero
