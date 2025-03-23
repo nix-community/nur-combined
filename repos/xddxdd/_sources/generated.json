@@ -272,11 +272,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UIHqqDcDtKjabWDUYLI08r4uck4LRWIIZgVbirk7OCQ=",
+            "sha256": "sha256-kApldaVL7JMRqKDDb12m6ygCTbIKmgwzn+dvndJjJi8=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.3-1/bilibili-asar-v1.16.3-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.3-2/bilibili-asar-v1.16.3-2.tar.gz"
         },
-        "version": "v1.16.3-1"
+        "version": "v1.16.3-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -292,12 +292,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.3-1",
-            "sha256": "sha256-iD+2I9APVve02NKk0PcmJQbOv0t8uOE+S1zXwvt6KUQ=",
+            "rev": "v1.16.3-2",
+            "sha256": "sha256-2QDNj/Hkr4Ioggd/nSogPAS4/HXfBFvSLW+SlGEfNNk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.3-1"
+        "version": "v1.16.3-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1714,13 +1714,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.13.7-xanmod1",
-            "sha256": "sha256-gcoDH11U8lz8h1wXsdDiWF3NbTyRiEuf3+YV6Mlkov0=",
+            "rev": "6.13.8-xanmod1",
+            "sha256": "sha256-2Q3Yl/dKmkRRU4PruFA5bZrHAiySApvaqpxlZ/qECg0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.13.7-xanmod1"
+        "version": "6.13.8-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1774,13 +1774,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.19-xanmod1",
-            "sha256": "sha256-8JPriW+OyjgCLcrMqzmN3gx4gfOu+RmHNpU512wXk0o=",
+            "rev": "6.12.20-xanmod1",
+            "sha256": "sha256-Fvm17GIaGnNfWShh9fX4XK2ovAS6XMx7cHb1u9bET8E=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.19-xanmod1"
+        "version": "6.12.20-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4940",
-            "sha256": "sha256-Ore6EG65AYQ6xtBqTxlg4IuNF4JXtp86LuQJI6rBWlU=",
+            "rev": "b4942",
+            "sha256": "sha256-v2EFzCbAK/YpDbxNvuB1Xryf/w4GrsK5dhsmCQVb1Eo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4940"
+        "version": "b4942"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2473,12 +2473,12 @@
             "name": null,
             "owner": "aviramha",
             "repo": "ormsgpack",
-            "rev": "1.8.0",
-            "sha256": "sha256-nKAdLiZYeFwIt+jfbNngc3E+tpjuuSV4/RvMuYujOhI=",
+            "rev": "1.9.0",
+            "sha256": "sha256-Tlodu4Rlw5xzJwRsOI184TpuZflaTGn26SJiaSf1tE0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.8.0"
+        "version": "1.9.0"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -2650,12 +2650,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.22",
-            "sha256": "sha256-ebltQoC4YrTUzJMYG71r3lE6pHbrL7ha9uW+Hexiw68=",
+            "rev": "1.1.3.23",
+            "sha256": "sha256-2l4FlCqB5l+0JZIvj1AdobzSpLIEE2xA8gcAc6X2Auw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.22"
+        "version": "1.1.3.23"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3193,7 +3193,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-03-11",
+        "date": "2025-03-22",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3205,12 +3205,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7",
-            "sha256": "sha256-/sKoufIf4m5h1Zds6AqIyeCjDaZsFU9ot5ln3ykuNyU=",
+            "rev": "1dcc6f1119836af276dd35c6f0fe93f6bdabc65a",
+            "sha256": "sha256-9Xpx3s7iHLiwdzehPQZl44Q1aWhqViekrAHFBXE2PCc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7"
+        "version": "1dcc6f1119836af276dd35c6f0fe93f6bdabc65a"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3847,7 +3847,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-03-22",
+        "date": "2025-03-23",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3859,12 +3859,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "8c17278ac99d612a027b4fc966f26fd7fa41f043",
+            "rev": "7977dd82f08d7485b5b1d37d294b5fd41262bc78",
             "sha256": "sha256-rQtRvVOdYFrg6Shh5nddt4hAO1DWPnbvr/+Sjwc874s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c17278ac99d612a027b4fc966f26fd7fa41f043"
+        "version": "7977dd82f08d7485b5b1d37d294b5fd41262bc78"
     },
     "unigine-heaven": {
         "cargoLocks": null,

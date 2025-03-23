@@ -529,16 +529,6 @@
       "source": "hosted",
       "version": "5.7.0"
     },
-    "dio_cookie_manager": {
-      "dependency": "direct main",
-      "description": {
-        "name": "dio_cookie_manager",
-        "sha256": "e79498b0f632897ff0c28d6e8178b4bc6e9087412401f618c31fa0904ace050d",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "3.1.1"
-    },
     "dio_http2_adapter": {
       "dependency": "direct main",
       "description": {
@@ -554,6 +544,16 @@
       "description": {
         "name": "dio_web_adapter",
         "sha256": "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "2.0.0"
+    },
+    "document_file_save_plus": {
+      "dependency": "direct main",
+      "description": {
+        "name": "document_file_save_plus",
+        "sha256": "ff05c6a3b072377566e8e92666db38eb277786f90c0ac267ea47dc22725c1df3",
         "url": "https://pub.dev"
       },
       "source": "hosted",
@@ -1508,11 +1508,12 @@
     "media_kit_video": {
       "dependency": "direct main",
       "description": {
-        "name": "media_kit_video",
-        "sha256": "2cc3b966679963ba25a4ce5b771e532a521ebde7c6aa20e9802bec95d9916c8f",
-        "url": "https://pub.dev"
+        "path": "media_kit_video",
+        "ref": "version_1.2.5",
+        "resolved-ref": "cb6fd7e49c30433140001cd19e4e9a8e03c14249",
+        "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
-      "source": "hosted",
+      "source": "git",
       "version": "1.2.5"
     },
     "meta": {
