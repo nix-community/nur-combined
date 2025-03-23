@@ -1,13 +1,12 @@
 {
   lib,
   stdenv,
-  libinput,
   autoPatchelfHook,
   fetchzip,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "libinput-three-finger-drag";
+  pname = "adguard-cli";
   version = "0.99.30-nightly";
 
   src = fetchzip {
