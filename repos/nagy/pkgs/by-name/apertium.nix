@@ -1,32 +1,37 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoconf
-, automake
-, libtool
-, libxml2
-, libxslt
-, pkg-config
-, flex
-, pcre
-, pcre-cpp
-, icu
-, lttoolbox
-, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  libxml2,
+  libxslt,
+  pkg-config,
+  flex,
+  pcre,
+  pcre-cpp,
+  icu,
+  utf8cpp,
+  lttoolbox,
+  autoreconfHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "apertium";
-  version = "3.7.1";
+  version = "3.9.4";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
-    rev = "v${version}";
-    sha256 = "02cvf9dhg13ml1031apkfaygbm1qvcgh9v1k7j9yr3c7iww3hywf";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-/47A1dYHsFUsIUVPek0pN+bZbANDvwK0elShpIvij78=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     autoconf
@@ -38,14 +43,22 @@ stdenv.mkDerivation rec {
     pcre
     pcre-cpp
     icu
+    utf8cpp
     lttoolbox
   ];
 
-  meta = with lib; {
-    description = "A free/open-source machine translation platform";
-    homepage = "https://www.apertium.org/";
+  enableParallelBuilding = true;
 
-    license = licenses.gpl2;
-    platforms = platforms.linux;
+  postPatch = ''
+    substituteInPlace configure.ac \
+      --replace-fail /usr/include/utf8cpp ${lib.getDev utf8cpp}/include/utf8cpp
+    sed -i '/stdc++fs/d' configure.ac
+  '';
+
+  meta = {
+    description = "Free/open-source machine translation platform";
+    homepage = "https://www.apertium.org/";
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.linux;
   };
-}
+})
