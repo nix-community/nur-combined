@@ -74,6 +74,9 @@
     "slug": "ask-historians-comment-helper"
   },
   {
+    "slug": "audiocontext-suspender"
+  },
+  {
     "slug": "augmented-steam"
   },
   {
@@ -168,9 +171,6 @@
     "pname": "browserpass"
   },
   {
-    "slug": "bukubrow"
-  },
-  {
     "slug": "bulgarian-dictionary"
   },
   {
@@ -247,6 +247,9 @@
       "tag": "predefined",
       "shortName": "mit"
     }
+  },
+  {
+    "slug": "container-colors"
   },
   {
     "slug": "container-proxy"
@@ -996,6 +999,9 @@
     }
   },
   {
+    "slug": "metager-suche"
+  },
+  {
     "slug": "modheader-firefox",
     "pname": "modheader",
     "license": {
@@ -1034,6 +1040,9 @@
   },
   {
     "slug": "multiple-tab-handler"
+  },
+  {
+    "slug": "multiselect-for-youtube"
   },
   {
     "slug": "musescore-downloader"
@@ -1725,6 +1734,16 @@
     "slug": "tubearchivist-companion"
   },
   {
+    "slug": "tunnelbear-vpn-firefox",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "tweaks-for-youtube",
     "license": {
       "tag": "custom",
@@ -1933,6 +1952,10 @@
   },
   {
     "slug": "xkit-rewritten"
+  },
+  {
+    "slug": "yang-addon",
+    "pname": "yang"
   },
   {
     "slug": "yomitan"
