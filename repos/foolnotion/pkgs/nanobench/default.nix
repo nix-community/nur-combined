@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  cmakeFlags = [ "-DNB_sanitizer=OFF" ];
+
   meta = with lib; {
     description = "Platform independent microbenchmarking library for C++11/14/17/20";
     homepage = "https://nanobench.ankerl.com";

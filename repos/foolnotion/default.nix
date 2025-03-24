@@ -128,6 +128,8 @@
 
   tessil-robin-map = pkgs.callPackage ./pkgs/tessil-robin-map { };
 
+  testu01 = pkgs.callPackage ./pkgs/testu01 { };
+
   trng = pkgs.callPackage ./pkgs/trng { };
 
   tlx = pkgs.callPackage ./pkgs/tlx { };
