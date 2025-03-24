@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "16r4hlv2p9j90yr7w6qzsa68k2ag5y8yql6rmb90z9dqf1ykybch";
-    x86_64-linux = "0zs2p380ap2csx1l5cg7i9z9zp3shq81kwlifa7pkv8xi2qghihi";
-    armv7l-linux = "1cfc1kgph0fcccnhbv2xzy3nl32aab99wxklhqayp6jg7igjjqkh";
-    aarch64-linux = "1mrif18mbd060p0jqrkdar5hnd9h9kpx0bzxnz6sqlgv7i2mh27f";
-    x86_64-darwin = "190ql1jdw3z594am5lhyxy5zkm40pk1w0b8bfvzyxwm1n70ylcyp";
-    aarch64-darwin = "1gbn9i4qz4msial6bv9sfkln7p1b22mgp44ngd7h1ikj129kafbi";
+    i686-linux = "02kq1nq5iprs26lzxc75zlyq6n7rzssmlaysnwsgcgn5addh1jj2";
+    x86_64-linux = "1l8h7i9zajw4ywvb9rkcr6fbhc7nzd09z90s7yfq9qrh1k0gpb60";
+    armv7l-linux = "0dbyp0cg6ls6b0pw4kb80kvsprxqprxc7jsbr36brfcjgf4sikw2";
+    aarch64-linux = "1w18nm74i6vv9hl1ka9i2msqabiq1m15xbf3g6xsvwcc3hq5400z";
+    x86_64-darwin = "00pqz4v1xf1nl103ay713cq2r4dfhazdn9zvg7930r0r8b0mmrd0";
+    aarch64-darwin = "1wgb2npx7bmsamzgzi7qgdg06spiw60xh7zv8dv31jivnr5fkq7n";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/freeze/releases/download/v0.1.6/freeze_0.1.6_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/freeze/releases/download/v0.2.0/freeze_0.2.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "freeze_0.1.6_Linux_i386";
-    x86_64-linux = "freeze_0.1.6_Linux_x86_64";
-    armv7l-linux = "freeze_0.1.6_Linux_arm";
-    aarch64-linux = "freeze_0.1.6_Linux_arm64";
-    x86_64-darwin = "freeze_0.1.6_Darwin_x86_64";
-    aarch64-darwin = "freeze_0.1.6_Darwin_arm64";
+    i686-linux = "freeze_0.2.0_Linux_i386";
+    x86_64-linux = "freeze_0.2.0_Linux_x86_64";
+    armv7l-linux = "freeze_0.2.0_Linux_arm";
+    aarch64-linux = "freeze_0.2.0_Linux_arm64";
+    x86_64-darwin = "freeze_0.2.0_Darwin_x86_64";
+    aarch64-darwin = "freeze_0.2.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "freeze";
-  version = "0.1.6";
+  version = "0.2.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
