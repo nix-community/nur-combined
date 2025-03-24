@@ -8,7 +8,7 @@ default:
 
 # build a target package
 build TARGET:
-  nix-build -A {{TARGET}}
+  nix-build -A {{TARGET}} |& nom
 
 alias b := build
 

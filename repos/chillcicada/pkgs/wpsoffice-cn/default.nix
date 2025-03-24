@@ -93,13 +93,7 @@ stdenv.mkDerivation rec {
   ];
 
   autoPatchelfIgnoreMissingDeps = [
-    # distribution is missing libkappessframework.so
-    "libkappessframework.so"
-    # qt4 support is deprecated
-    "libQtCore.so.4"
-    "libQtNetwork.so.4"
-    "libQtXml.so.4"
-
+    # distribution is missing libuof.so
     "libuof.so"
   ];
 
