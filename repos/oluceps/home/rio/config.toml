@@ -1,0 +1,40 @@
+theme = "catppuccin-latte" # it works, be without heading
+line-height = 1.2
+use-fork = true
+confirm-before-quit = false
+padding-x = 8
+padding-y = [10, 14]
+
+[shell]
+program = "/run/current-system/sw/bin/fish"
+args = []
+
+[editor]
+program = "hx"
+args = []
+
+[cursor]
+shape = 'beam'
+blinking = true
+blinking-interval = 500
+
+[fonts]
+size = 18
+features = []
+symbol-map = []
+family = "Maple Mono"
+hinting = false
+
+[renderer]
+performance = "High"
+backend = "Vulkan"
+disable-unfocused-render = true
+
+[scroll]
+multiplier = 3.0
+divider = 1.0
+
+[window]
+opacity = 0.6
+decorations = "enabled"
+blur = true

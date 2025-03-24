@@ -103,7 +103,7 @@
       enable = true;
       package = pkgs.steam.override {
         extraPkgs = pkgs: [
-          pkgs.maple-mono-SC-NF
+          pkgs.maple-mono.NF-CN
           pkgs.gamescope
           pkgs.mangohud
         ];
@@ -251,9 +251,9 @@
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
         twemoji-color-font
-        maple-mono-SC-NF
-        maple-mono-otf
-        maple-mono-autohint
+        maple-mono.NF-CN
+        # maple-mono.otf
+        # maple-mono.autohint
         cascadia-code
         intel-one-mono
         monaspace

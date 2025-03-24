@@ -15,12 +15,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-p2MTXuKZE/mPPjm/HQn14lsWuPnFQgluuG6qOyTeBWA=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "unsigned-varint-0.7.1" = "sha256-vAInaseEmzXS3sPChBBIZ24O8mvceLECMlk8sLwA3Zo=";
-    };
-  };
+  useFetchCargoVendor = true;
+
+  cargoHash = "sha256-lFLQ3vVrTqABeHVdvEbrKLYCNpWgVkSKOg93xuu2CjU=";
 
   meta = with lib; {
     description = "Paper backup generator suitable for long-term storage";

@@ -217,7 +217,7 @@
 
               vhdl-ls
               delve
-              python311Packages.python-lsp-server
+              # python311Packages.python-lsp-server
               tinymist
             ]
           ];
