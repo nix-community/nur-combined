@@ -140,11 +140,42 @@ Alternative to GNU coreutils using software from FreeBSD
 V2 daemon for Budgie Desktop
 
 - Name: `budgie-daemon-v2`
-- Version: `0-unstable-2025-03-04`
+- Version: `0-unstable-2025-03-19`
 
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-daemon-v2)
-- [📦 Source](./pkgs/by-name/budgie-daemon-v2/package.nix#L56)
+- [📦 Source](./pkgs/by-name/budgie-daemon-v2/package.nix#L57)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Platforms:
+  - `aarch64-linux`
+  - `armv6l-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `x86_64-linux`
+  </details>
+
+<h2 id="budgie-desktop-unstable">
+
+`budgie-desktop-unstable`
+
+</h2>
+
+Feature-rich, modern desktop designed to keep out the way of the user
+
+- Name: `budgie-desktop`
+- Version: `10.9.2-unstable-2025-03-17`
+- Outputs: **`out`**, `dev`, `man`
+- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
+- [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/bu/budgie-desktop/package.nix#L140)
+- Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-17)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -265,12 +296,12 @@ Tool to generate flags for your CPU
 Like neofetch, but much faster because written in C
 
 - Name: `fastfetch`
-- Version: `2.38.0`
+- Version: `2.39.1`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L273)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.38.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -298,12 +329,12 @@ Like neofetch, but much faster because written in C
 Like neofetch, but much faster because written in C (with all features disabled)
 
 - Name: `fastfetch`
-- Version: `2.38.0`
+- Version: `2.39.1`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📦 Source](./default.nix#L29)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.38.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -432,7 +463,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 
 - [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./default.nix#L66)
+- [📦 Source](./default.nix#L65)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -683,7 +714,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L99)
+- [📦 Source](./default.nix#L98)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -744,7 +775,7 @@ Library for emitting text, XML, JSON, or HTML output
 A hardware profiling application for Linux
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-10`
+- Version: `0-unstable-2025-03-17`
 
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
@@ -936,12 +967,12 @@ A convenient calculator for the command line
 Programming language that targets the Nintendo Entertainment System
 
 - Name: `nesfab`
-- Version: `1.5`
+- Version: `1.6_mac`
 
 - [🌐 Homepage](https://github.com/pubby/nesfab)
-- [📦 Source](./pkgs/by-name/nesfab/package.nix#L50)
+- [📦 Source](./pkgs/by-name/nesfab/package.nix#L48)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- [📰 Changelog](https://github.com/pubby/nesfab/releases/tag/v1.5)
+- [📰 Changelog](https://github.com/pubby/nesfab/releases/tag/v1.6_mac)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -969,7 +1000,7 @@ Programming language that targets the Nintendo Entertainment System
 Desktop client for the Matrix protocol
 
 - Name: `nheko`
-- Version: `0.12.0-unstable-2025-03-14`
+- Version: `0.12.0-unstable-2025-03-22`
 
 - [🌐 Homepage](https://github.com/Nheko-Reborn/nheko)
 - [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/nh/nheko/package.nix#L87)
@@ -1099,7 +1130,7 @@ Camera application for Plasma Mobile
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-03-13`
+- Version: `SLE2024-artifact-unstable-2025-03-21`
 
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
@@ -1292,7 +1323,7 @@ Fan sequel to Super Mario 63
 Sega Model 3 arcade machine emulator
 
 - Name: `supermodel`
-- Version: `0-unstable-2025-03-12`
+- Version: `0-unstable-2025-03-22`
 
 - [🌐 Homepage](https://github.com/trzy/Supermodel)
 - [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
@@ -1392,7 +1423,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L147)
+- [📦 Source](./default.nix#L146)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1424,7 +1455,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L160)
+- [📦 Source](./default.nix#L159)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1456,7 +1487,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L130)
+- [📦 Source](./default.nix#L129)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
