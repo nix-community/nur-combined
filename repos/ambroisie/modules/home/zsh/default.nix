@@ -87,28 +87,26 @@ in
         # Modal editing is life, but CLI benefits from emacs gymnastics
         defaultKeymap = "emacs";
 
-        # Make those happen early to avoid doing double the work
-        initExtraFirst = lib.mkBefore ''
-          ${
-            lib.optionalString cfg.launchTmux ''
-              # Launch tmux unless already inside one
-              if [ -z "$TMUX" ]; then
-                exec tmux new-session
-              fi
-            ''
-          }
-        '';
+        initContent = lib.mkMerge [
+          # Make those happen early to avoid doing double the work
+          (lib.mkBefore (lib.optionalString cfg.launchTmux ''
+            # Launch tmux unless already inside one
+            if [ -z "$TMUX" ]; then
+              exec tmux new-session
+            fi
+          ''))
 
-        initExtra = lib.mkAfter ''
-          source ${./completion-styles.zsh}
-          source ${./extra-mappings.zsh}
-          source ${./options.zsh}
+          (lib.mkAfter ''
+            source ${./completion-styles.zsh}
+            source ${./extra-mappings.zsh}
+            source ${./options.zsh}
 
-          # Source local configuration
-          if [ -f "$ZDOTDIR/zshrc.local" ]; then
-            source "$ZDOTDIR/zshrc.local"
-          fi
-        '';
+            # Source local configuration
+            if [ -f "$ZDOTDIR/zshrc.local" ]; then
+              source "$ZDOTDIR/zshrc.local"
+            fi
+          '')
+        ];
 
         localVariables = {
           # I like having the full path
@@ -151,7 +149,7 @@ in
         };
 
         # Use OSC-777 to send the notification through SSH
-        initExtra = lib.mkIf cfg.notify.ssh.useOsc777 ''
+        initContent = lib.mkIf cfg.notify.ssh.useOsc777 ''
           done_send_notification() {
             local exit_status="$1"
             local title="$2"
