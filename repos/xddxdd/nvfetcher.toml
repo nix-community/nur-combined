@@ -869,6 +869,7 @@ fetch.github = "CachyOS/uksmd"
 [uni-api]
 src.git = "https://github.com/yym68686/uni-api.git"
 fetch.github = "yym68686/uni-api"
+git.fetchSubmodules = true
 
 [unigine-heaven]
 src.webpage = "https://benchmark.unigine.com/heaven"

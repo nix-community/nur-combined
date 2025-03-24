@@ -1965,12 +1965,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "7977dd82f08d7485b5b1d37d294b5fd41262bc78";
+    version = "370914d740a5726b3813244ef74ae7dbbd150627";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "7977dd82f08d7485b5b1d37d294b5fd41262bc78";
-      hash = "sha256-rQtRvVOdYFrg6Shh5nddt4hAO1DWPnbvr/+Sjwc874s=";
+      rev = "370914d740a5726b3813244ef74ae7dbbd150627";
+      fetchSubmodules = true;
+      hash = "sha256-2V9L2yAW/2RIytXQur558hmVqOjh/mpVTqSLPFL/Tc8=";
     };
     date = "2025-03-23";
   };
