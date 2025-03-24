@@ -112,7 +112,8 @@
           [
             agenix.nixosModules.default
             home-manager.nixosModules.default
-            lix-module.nixosModules.default
+            # FIXME: this is temporarily broken, will need a bump of the Lix module
+            # lix-module.nixosModules.default
             {
               nixpkgs = {
                 overlays = shared_overlays;
