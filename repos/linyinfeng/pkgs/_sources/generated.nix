@@ -287,17 +287,17 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "3180128766dfbe4c079db1166cf62de11339bc2b";
+    version = "cf7935531b06a8a9d3f0d3f4b3934798ad472f52";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "3180128766dfbe4c079db1166cf62de11339bc2b";
+      rev = "cf7935531b06a8a9d3f0d3f4b3934798ad472f52";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-fSeLRSYTiSHZn9qserF+DwjgIVf92jAcywq9dZMCNjM=";
+      sha256 = "sha256-5H36Ez+KDWl6ZZRa9C3eJzeP5iwFUrOJpv4o/CbeBsc=";
     };
-    date = "2025-03-21";
+    date = "2025-03-24";
   };
   rime-ice = {
     pname = "rime-ice";
@@ -329,17 +329,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb";
+    version = "f8a984e860ddcc333f4f9c32e237766a196b126c";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb";
+      rev = "f8a984e860ddcc333f4f9c32e237766a196b126c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-5Wt/+y9gz7xg2vneqc5BEFh7MpwCqmFdHOekyBUIQCU=";
+      sha256 = "sha256-D1iQjblbJjSAzkWT1UbHRcZ5fuM7PsT8w7CIClA5q8E=";
     };
-    date = "2025-03-21";
+    date = "2025-03-24";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";

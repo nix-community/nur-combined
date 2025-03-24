@@ -440,7 +440,7 @@
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-03-21",
+        "date": "2025-03-24",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -450,13 +450,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3180128766dfbe4c079db1166cf62de11339bc2b",
-            "sha256": "sha256-fSeLRSYTiSHZn9qserF+DwjgIVf92jAcywq9dZMCNjM=",
+            "rev": "cf7935531b06a8a9d3f0d3f4b3934798ad472f52",
+            "sha256": "sha256-5H36Ez+KDWl6ZZRa9C3eJzeP5iwFUrOJpv4o/CbeBsc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "3180128766dfbe4c079db1166cf62de11339bc2b"
+        "version": "cf7935531b06a8a9d3f0d3f4b3934798ad472f52"
     },
     "rime-ice": {
         "cargoLocks": null,
@@ -500,7 +500,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2025-03-21",
+        "date": "2025-03-24",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -510,13 +510,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb",
-            "sha256": "sha256-5Wt/+y9gz7xg2vneqc5BEFh7MpwCqmFdHOekyBUIQCU=",
+            "rev": "f8a984e860ddcc333f4f9c32e237766a196b126c",
+            "sha256": "sha256-D1iQjblbJjSAzkWT1UbHRcZ5fuM7PsT8w7CIClA5q8E=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "cf9ad023b4971b46e79aebe9fa53da6a5ccb80bb"
+        "version": "f8a984e860ddcc333f4f9c32e237766a196b126c"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
