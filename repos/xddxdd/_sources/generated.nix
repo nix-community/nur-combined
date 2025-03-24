@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4942";
+    version = "b4945";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4942";
-      hash = "sha256-v2EFzCbAK/YpDbxNvuB1Xryf/w4GrsK5dhsmCQVb1Eo=";
+      tag = "b4945";
+      hash = "sha256-E7PMuArgG40X7vcuawebSKyHzA81KLTniKJn372tpQE=";
     };
   };
   loralib = {
@@ -1349,12 +1349,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.23";
+    version = "1.1.3.24";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.23";
-      hash = "sha256-2l4FlCqB5l+0JZIvj1AdobzSpLIEE2xA8gcAc6X2Auw=";
+      tag = "1.1.3.24";
+      hash = "sha256-2SR9Sg4inre6SGnNcFTSbXKFQYL3XzJnny76/Xpdy6c=";
     };
   };
   plangothic-fonts = {
@@ -1965,15 +1965,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "370914d740a5726b3813244ef74ae7dbbd150627";
+    version = "67a9a1823c3b6bc02f31f31ae1c121a3f6a9d565";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "370914d740a5726b3813244ef74ae7dbbd150627";
+      rev = "67a9a1823c3b6bc02f31f31ae1c121a3f6a9d565";
       fetchSubmodules = true;
-      hash = "sha256-2V9L2yAW/2RIytXQur558hmVqOjh/mpVTqSLPFL/Tc8=";
+      hash = "sha256-R5OjR5+EIuqJTb1EhsG+/lj6PPOie5HS4olRTMTPAZE=";
     };
-    date = "2025-03-23";
+    date = "2025-03-24";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2027,12 +2027,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.22.2";
+    version = "1.22.3";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.22.2";
-      hash = "sha256-I8StibPEy+Iizxg4mVAHoMY7rTvEfDG01rvZwvQP7AQ=";
+      tag = "1.22.3";
+      hash = "sha256-2qaZ+e0S1twon2N4al1Ohs3yp2KIurwQdMPIE0V4Bkc=";
     };
   };
   vgpu-unlock-rs = {

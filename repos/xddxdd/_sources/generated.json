@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4942",
-            "sha256": "sha256-v2EFzCbAK/YpDbxNvuB1Xryf/w4GrsK5dhsmCQVb1Eo=",
+            "rev": "b4945",
+            "sha256": "sha256-E7PMuArgG40X7vcuawebSKyHzA81KLTniKJn372tpQE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4942"
+        "version": "b4945"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2650,12 +2650,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.23",
-            "sha256": "sha256-2l4FlCqB5l+0JZIvj1AdobzSpLIEE2xA8gcAc6X2Auw=",
+            "rev": "1.1.3.24",
+            "sha256": "sha256-2SR9Sg4inre6SGnNcFTSbXKFQYL3XzJnny76/Xpdy6c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.23"
+        "version": "1.1.3.24"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3847,7 +3847,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-03-23",
+        "date": "2025-03-24",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3859,12 +3859,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "370914d740a5726b3813244ef74ae7dbbd150627",
-            "sha256": "sha256-2V9L2yAW/2RIytXQur558hmVqOjh/mpVTqSLPFL/Tc8=",
+            "rev": "67a9a1823c3b6bc02f31f31ae1c121a3f6a9d565",
+            "sha256": "sha256-R5OjR5+EIuqJTb1EhsG+/lj6PPOie5HS4olRTMTPAZE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "370914d740a5726b3813244ef74ae7dbbd150627"
+        "version": "67a9a1823c3b6bc02f31f31ae1c121a3f6a9d565"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -3976,12 +3976,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.22.2",
-            "sha256": "sha256-I8StibPEy+Iizxg4mVAHoMY7rTvEfDG01rvZwvQP7AQ=",
+            "rev": "1.22.3",
+            "sha256": "sha256-2qaZ+e0S1twon2N4al1Ohs3yp2KIurwQdMPIE0V4Bkc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.22.2"
+        "version": "1.22.3"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,

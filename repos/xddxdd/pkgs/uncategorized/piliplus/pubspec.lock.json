@@ -312,7 +312,7 @@
       "description": {
         "path": ".",
         "ref": "main",
-        "resolved-ref": "77c76f6595c6862cc623b036718173619c02af75",
+        "resolved-ref": "4fb1d2d15fa84d28aae45aa2324beb7f230c045c",
         "url": "https://github.com/bggRGjQaUbCoE/canvas_danmaku.git"
       },
       "source": "git",
@@ -1510,7 +1510,7 @@
       "description": {
         "path": "media_kit_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "cb6fd7e49c30433140001cd19e4e9a8e03c14249",
+        "resolved-ref": "d7caa6189645ed5e4b9b4992679c290ddf117afd",
         "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
