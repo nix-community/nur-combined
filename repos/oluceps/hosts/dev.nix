@@ -171,6 +171,7 @@
             wasmtime
             comma
             nix-update
+            osgint
           ];
 
           lang = [

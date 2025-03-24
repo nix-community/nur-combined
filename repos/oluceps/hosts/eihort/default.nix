@@ -47,6 +47,7 @@ withSystem "x86_64-linux" (
       ./bees.nix
       ../persist.nix
       ../secureboot.nix
+      ../sysvars.nix
       ../dev.nix
       (lib.iage "trust")
       ../../packages.nix
