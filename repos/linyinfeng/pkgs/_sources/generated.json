@@ -450,13 +450,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cf7935531b06a8a9d3f0d3f4b3934798ad472f52",
-            "sha256": "sha256-5H36Ez+KDWl6ZZRa9C3eJzeP5iwFUrOJpv4o/CbeBsc=",
+            "rev": "46f14a56244ddeeba173dbe5415f868cdff8ea56",
+            "sha256": "sha256-w2gAp2VPULMeWx34fAOXaDvrKTodZlNg6Aji5BfTmnQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "cf7935531b06a8a9d3f0d3f4b3934798ad472f52"
+        "version": "46f14a56244ddeeba173dbe5415f868cdff8ea56"
     },
     "rime-ice": {
         "cargoLocks": null,
