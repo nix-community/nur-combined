@@ -106,7 +106,7 @@ in
   bindsym Mod4+Ctrl+j move down
   bindsym Mod4+Ctrl+k move up
   bindsym Mod4+Ctrl+l move right
-  bindsym Mod4+Ctrl+p exec ${deps.cliphist} list | ${deps.fuzzel} -d -I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono SC NF:style=Regular:size=15' -P 10 -B 7 -w 50 | ${deps.cliphist} decode | ${wl-copy}
+  bindsym Mod4+Ctrl+p exec ${deps.cliphist} list | ${deps.fuzzel} -d -I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono NF CN:style=Regular:size=15' -P 10 -B 7 -w 50 | ${deps.cliphist} decode | ${wl-copy}
   bindsym Mod4+Ctrl+s exec ${pkgs.writeShellScriptBin "save-clipboard-to" ''
     wl-paste > $HOME/Pictures/Screenshots/$(date +'shot_%Y-%m-%d-%H%M%S.png')
   ''}

@@ -74,19 +74,19 @@ text = "#1E1E2E"
 shape = "Block"
 
 [font.bold]
-family = "Maple Mono"
+family = "Maple Mono NF CN"
 style = "Bold"
 
 [font.bold_italic]
-family = "Maple Mono"
+family = "Maple Mono NF CN"
 style = "Bold Italic"
 
 [font.italic]
-family = "Maple Mono"
+family = "Maple Mono NF CN"
 style = "Italic"
 
 [font.normal]
-family = "Maple Mono"
+family = "Maple Mono NF CN"
 style = "Regular"
 
 [[keyboard.bindings]]

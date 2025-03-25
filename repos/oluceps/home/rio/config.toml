@@ -1,5 +1,4 @@
 theme = "catppuccin-latte" # it works, be without heading
-line-height = 1.2
 use-fork = true
 confirm-before-quit = false
 padding-x = 8
@@ -22,7 +21,7 @@ blinking-interval = 500
 size = 18
 features = []
 symbol-map = []
-family = "Maple Mono"
+family = "Maple Mono NF CN"
 hinting = false
 
 [renderer]
@@ -31,10 +30,10 @@ backend = "Vulkan"
 disable-unfocused-render = true
 
 [scroll]
-multiplier = 3.0
+multiplier = 5.0
 divider = 1.0
 
 [window]
-opacity = 0.6
+opacity = 0.3
 decorations = "enabled"
 blur = true

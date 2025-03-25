@@ -22,40 +22,40 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default =
-          # (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
-          # caddy = (
-          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
-            buildGoModule = pkgs.buildGo124Module;
-          }).overrideAttrs
-            (
-              final: prev:
-              let
-                version = "2.10.1-beta.2.2";
-              in
-              {
-                inherit version;
-                src = pkgs.fetchFromGitHub {
-                  owner = "oluceps";
-                  repo = "caddy";
-                  rev = "v${version}";
-                  # hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
-                  hash = "sha256-TWxdLcHE9EHCZnUAYfLDjJXozIajA6OowiQJuMUo+fs=";
-                };
-                # vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
-                vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
-                #
-              }
+          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
+            caddy = (
+              (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
+                buildGoModule = pkgs.buildGo124Module;
+              }).overrideAttrs
+                (
+                  final: prev:
+                  let
+                    version = "2.10.0-beta.3";
+                  in
+                  {
+                    inherit version;
+                    src = pkgs.fetchFromGitHub {
+                      owner = "caddyserver";
+                      repo = "caddy";
+                      rev = "v${version}";
+                      # hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
+                      hash = "";
+                    };
+                    # vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
+                    vendorHash = "";
+                    #
+                  }
+                )
             );
-        # );
-        # })
-        #   {
-        #     plugins = [
-        #       "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
-        #       "github.com/mholt/caddy-ratelimit@v0.1.0"
-        #       "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
-        #     ];
-        #     hash = "sha256-fcTZ7xk/tuBlvJZ3iaURPci0sh4HPjv9d9KUolNqNQo=";
-        #   };
+          })
+            {
+              plugins = [
+                "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
+                "github.com/mholt/caddy-ratelimit@v0.1.0"
+                "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
+              ];
+              hash = "sha256-4obAkgISSo1HEMfaLpJtPAc1JujwspaHpwlGxQSWitI=";
+            };
       };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
