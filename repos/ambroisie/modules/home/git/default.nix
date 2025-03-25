@@ -75,7 +75,6 @@ in
       # Makes it a bit more readable
       blame = {
         coloring = "repeatedLines";
-        ignoreRevsFile = ".git-blame-ignore-revs";
         markIgnoredLines = true;
         markUnblamables = true;
       };
