@@ -34,6 +34,6 @@ multiplier = 5.0
 divider = 1.0
 
 [window]
-opacity = 0.3
+opacity = 0.6
 decorations = "enabled"
 blur = true

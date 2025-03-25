@@ -231,7 +231,7 @@ in
   // Add lines like this to spawn processes at startup.
   // Note that running niri as a session supports xdg-desktop-autostart,
   // which may be more convenient to use.
-  spawn-at-startup ${execApp [ "foot" ]}
+  spawn-at-startup ${execApp [ "rio" ]}
   spawn-at-startup ${
     execApp [
       "fcitx5"
@@ -305,7 +305,7 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Mod+Return { spawn ${execApp [ "foot" ]}; }
+      Mod+Return { spawn ${execApp [ "rio" ]}; }
       Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono NF CN:style=Regular:size=15" "-P" "10" "-B" "7"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }
