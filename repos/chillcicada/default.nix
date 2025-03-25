@@ -13,4 +13,5 @@ with pkgs;
   tunet-rust = callPackage ./pkgs/tunet-rust { };
   typship = callPackage ./pkgs/typship { };
   wpsoffice-cn = libsForQt5.callPackage ./pkgs/wpsoffice-cn { };
+  ttf-ms-win10-sc-sup = callPackage ./pkgs/ttf-ms-win10-sc-sup { };
 }
