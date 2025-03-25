@@ -103,10 +103,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.10b";
+    version = "1.10.1b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.10b/zen.macos-universal.dmg";
-      sha256 = "sha256-hchJe7RMDI24hapb+zi5A4KkKWFdqR02M6yfmD9qtpk=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.10.1b/zen.macos-universal.dmg";
+      sha256 = "sha256-R0f+btndYHi5SZMCV6Kxxo8lUXWhm28PN+sCQAk0DH4=";
     };
   };
 }
