@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   version = "48.0.1";
   src = fetchurl {
     url = "https://github.com/imarkoff/${baseName}-theme/releases/download/${version}/${pname}.tar.xz";
-    hash = "sha256-+2WYApmfXxRa1ezp2vzHHr1P+uhe1XbgML7xVytU5bo=";
+    hash = "sha256-fvu3+Rx5n3VY7AtMDSX6dnG4i//daA22UFIZZwotCT8=";
   };
   
   sourceRoot = ".";
