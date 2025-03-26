@@ -93,7 +93,6 @@ stdenv.mkDerivation rec {
   ];
 
   autoPatchelfIgnoreMissingDeps = [
-    # distribution is missing libuof.so
     "libuof.so"
   ];
 
@@ -112,16 +111,6 @@ stdenv.mkDerivation rec {
         --replace /usr/bin $out/bin
     done
     runHook postInstall
-  '';
-
-  preFixup = ''
-    # The following libraries need libtiff.so.5, but nixpkgs provides libtiff.so.6
-    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/kingsoft/wps-office/office6/{libpdfmain.so,libqpdfpaint.so,qt/plugins/imageformats/libqtiff.so,addons/pdfbatchcompression/libpdfbatchcompressionapp.so}
-    patchelf --add-needed libtiff.so $out/opt/kingsoft/wps-office/office6/libwpsmain.so
-    # Fix: Wrong JPEG library version: library is 62, caller expects 80
-    patchelf --add-needed libjpeg.so $out/opt/kingsoft/wps-office/office6/libwpsmain.so
-    # dlopen dependency
-    patchelf --add-needed libudev.so.1 $out/opt/kingsoft/wps-office/office6/addons/cef/libcef.so
   '';
 
   meta = with lib; {
