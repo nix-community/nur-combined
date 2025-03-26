@@ -90,7 +90,13 @@
 
       "20-eth0" = {
         matchConfig.Name = "eth0";
-        DHCP = "yes";
+
+        networkConfig = {
+          DHCP = "yes";
+          IPv4Forwarding = true;
+          IPv6Forwarding = true;
+          IPv6AcceptRA = "yes";
+        };
       };
       # "15-wireguard-warp" = {
       #   matchConfig.Name = "warp";

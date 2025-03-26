@@ -26,6 +26,7 @@
       enable = true;
       trustedInterfaces = [
         "virbr0"
+        "podman0"
       ];
       allowedUDPPorts = [
         80
