@@ -7,18 +7,19 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "rust-u2f";
   version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "danstiner";
-    repo = pname;
-    rev = "a19b0084d6367d5cf9dd050598dfda35327e4c6c";
-    hash = "sha256-i0M86u3QuxwdS8KfF466GuJfoVc7I0OcNFfxHi9uZuE=";
+    repo = "rust-u2f";
+    rev = "da1c12db6167f51c46091d45a274a56ab67e45e7";
+    hash = "sha256-413T3bUC6enqhwr6YiBEK9RRV5cHHPO1M682YiiSUMk=";
   };
 
-  cargoHash = "sha256-tdv9tCoPUVMtAYnyYllY3MJPHgfYQpUdDDgesRJBAM0=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-yKjjpZf2qMMiTPF/k0Fm7vPFdifZUzZ8rzR+epfncdk=";
 
   nativeBuildInputs = [
     pkg-config
