@@ -86,33 +86,37 @@ let
       };
     };
 
-  pico-fido-tool-words = python3.pkgs.buildPythonPackage {
-    pname = "words";
-    inherit version;
-
-    format = "other";
-
-    src = source;
-
-    installPhase = "install -Dm755 $src/tools/words.py $out/words.py";
-    pythonImportsCheck = [ "words" ];
-  };
-
-  pico-fido-tool = python3.pkgs.buildPythonApplication {
+  pico-fido-tool = python3.pkgs.buildPythonApplication rec {
     pname = "pico-fido-tool";
     version = "1.8";
+    pyproject = true;
 
-    format = "other";
+    doCheck = false;
 
     src = source;
 
+    sourceRoot = "source/tools";
+
+    patchPhase = ''
+      mv pico-fido-tool.py pico-fido-tool
+      cat > setup.py <<EOF
+      from setuptools import setup, find_packages
+      setup(
+        name = "${pname}",
+        version = "${version}",
+        scripts = ["pico-fido-tool"],
+        package_dir = {"": "."}
+      )
+      EOF
+    '';
+
+    build-system = [ python3.pkgs.setuptools ];
+
     dependencies = with python3.pkgs; [
-      pico-fido-tool-words
+      keyring
       cryptography
       fido2
     ];
-
-    installPhase = "install -Dm755 $src/tools/pico-fido-tool.py $out/bin/pico-fido-tool";
 
     meta = {
       description = "Tool for interacting with the Pico Fido";
