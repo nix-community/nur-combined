@@ -51,7 +51,7 @@
     };
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-1.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -112,8 +112,7 @@
           [
             agenix.nixosModules.default
             home-manager.nixosModules.default
-            # FIXME: this is temporarily broken, will need a bump of the Lix module
-            # lix-module.nixosModules.default
+            lix-module.nixosModules.default
             {
               nixpkgs = {
                 overlays = shared_overlays;
