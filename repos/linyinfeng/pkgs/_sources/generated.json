@@ -162,12 +162,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.19-linux-250313T194706Z",
-            "sha256": "sha256-juSyFZwO9WAYhnPGAu/FB+1i+W1miP18x2bUTVT2XRQ=",
+            "rev": "lts-v6.12.20-linux-250324T010247Z",
+            "sha256": "sha256-fYWJ5S3xn/dNJ6rOpA+QgivG5HPAvcDQ0xUoatFk/mg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.19-linux-250313T194706Z"
+        "version": "lts-v6.12.20-linux-250324T010247Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -500,7 +500,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2025-03-24",
+        "date": "2025-03-26",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -510,13 +510,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f8a984e860ddcc333f4f9c32e237766a196b126c",
-            "sha256": "sha256-D1iQjblbJjSAzkWT1UbHRcZ5fuM7PsT8w7CIClA5q8E=",
+            "rev": "e943f51e4f7bdee57e81f469cc2ae714b103cd53",
+            "sha256": "sha256-/9VV5uXN2INKMWAiCX6WDHgq0mGAfPlWTwPqY84KZzo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "f8a984e860ddcc333f4f9c32e237766a196b126c"
+        "version": "e943f51e4f7bdee57e81f469cc2ae714b103cd53"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
