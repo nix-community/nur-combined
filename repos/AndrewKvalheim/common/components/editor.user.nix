@@ -58,6 +58,7 @@ in
       jock.svg
       jnbt.vscode-rufo
       jnoortheen.nix-ide
+      kahole.magit
       karunamurti.haml
       kokakiwi.vscode-just
       leighlondon.eml

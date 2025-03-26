@@ -55,6 +55,7 @@ in
   kitty.patch = ../packages/resources/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
+  lychee.version = "≥0.18"; # Resolves lycheeverse/lychee#452
   mark-applier = any;
   meshtastic-matrix-relay.python3Packages = stable.python3Packages.override {
     overrides = resolvedPythonPackages: pythonPackages: {
@@ -106,6 +107,7 @@ in
     flowtype.flow-for-vscode = { version = "≥2.2.1"; search = [ open-vsx vscode-marketplace ]; };
     jnbt.vscode-rufo.search = open-vsx;
     joaompinto.vscode-graphviz.search = open-vsx;
+    kahole.magit.version = "≥0.6.47"; # Resolves kahole/edamagit#279
     kokakiwi.vscode-just.search = open-vsx;
     leighlondon.eml.search = [ open-vsx vscode-marketplace ];
     loriscro.super.search = open-vsx;
