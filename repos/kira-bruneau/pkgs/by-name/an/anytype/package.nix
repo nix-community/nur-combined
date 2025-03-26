@@ -12,7 +12,7 @@
   electron,
   libGL,
   makeDesktopItem,
-  nix-update-script,
+  gitUpdater,
 }:
 
 let
@@ -118,11 +118,12 @@ buildNpmPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      ''^v(\d+\.\d+\.\d+)$''
-    ];
+  # Prefer gitUpdater over nix-update-script, since nix-update can
+  # only query the latest 10 releases and often doesn't include a
+  # single stable release.
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+    allowedVersions = "^([0-9]+\\.[0-9]+\\.[0-9]+)$";
   };
 
   meta = with lib; {
