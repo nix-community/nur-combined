@@ -991,38 +991,6 @@ Programming language that targets the Nintendo Entertainment System
   - `x86_64-linux`
   </details>
 
-<h2 id="nheko-nightly">
-
-`nheko-nightly`
-
-</h2>
-
-Desktop client for the Matrix protocol
-
-- Name: `nheko`
-- Version: `0.12.0-unstable-2025-03-22`
-
-- [🌐 Homepage](https://github.com/Nheko-Reborn/nheko)
-- [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/nh/nheko/package.nix#L87)
-- License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Platforms:
-  - `x86_64-darwin`
-  - `aarch64-darwin`
-  - `aarch64-linux`
-  - `armv6l-linux`
-  - `armv7l-linux`
-  - `i686-linux`
-  - `x86_64-linux`
-  </details>
-
 <h2 id="opensurge">
 
 `opensurge`

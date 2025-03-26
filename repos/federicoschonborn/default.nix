@@ -7,9 +7,9 @@
 #     nix-build -A mypackage
 
 {
-  lib ? import <nixpkgs/lib>,
-  pkgs ? import <nixpkgs> { inherit system; },
   system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
+  lib ? pkgs.lib,
 }:
 
 lib.makeScope pkgs.newScope (
@@ -19,7 +19,7 @@ lib.makeScope pkgs.newScope (
     directory = ./pkgs/by-name;
   }
   // {
-    lib = import ./lib { inherit lib; };
+    lib = import ./lib { inherit system pkgs lib; };
 
     # Variants
     fastfetchMinimal =

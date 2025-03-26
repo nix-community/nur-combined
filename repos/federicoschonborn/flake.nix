@@ -66,13 +66,10 @@
                 builtins.elem (lib.getName p) [
                   "super-mario-127"
                 ];
-              permittedInsecurePackages = [
-                "olm-3.2.16"
-              ];
             };
           };
 
-          legacyPackages = import ./. { inherit lib pkgs system; };
+          legacyPackages = import ./. { inherit system pkgs lib; };
           packages = lib.filterAttrs (_: lib.isDerivation) config.legacyPackages;
 
           devShells.default = pkgs.mkShellNoCC {

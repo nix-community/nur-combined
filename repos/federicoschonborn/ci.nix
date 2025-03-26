@@ -10,9 +10,9 @@
 # which this is possible.
 
 {
-  lib ? import <nixpkgs/lib>,
-  pkgs ? import <nixpkgs> { inherit system; },
   system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
+  lib ? pkgs.lib,
 }:
 
 let
