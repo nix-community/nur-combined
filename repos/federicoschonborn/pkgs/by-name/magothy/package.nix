@@ -2,23 +2,30 @@
   lib,
   rustPlatform,
   fetchFromGitea,
+  versionCheckHook,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage {
   pname = "magothy";
-  version = "0-unstable-2025-03-17";
+  version = "0-unstable-2025-03-23";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "serebit";
     repo = "magothy";
-    rev = "f45b4a27b35723bd352126a57d8d75a0dc51ffa8";
-    hash = "sha256-h+Ecf9G6JV8rFiwW7R7tD8/NbwS8H8VN5P1Sr3JnoRk=";
+    rev = "ae7100264b1e5cd427c24ad9a07563efa2e23cfa";
+    hash = "sha256-u7owKktKnxAsVwMyf8+NrI6SHALTW9DE2EmpX6ih2r0=";
   };
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-OtqTaiLGvlurNXBaTXz0XrggPvWEkxUINuS3I3S/isc=";
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
+
+  # Does not have a proper version yet ("0.0.0").
+  dontVersionCheck = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

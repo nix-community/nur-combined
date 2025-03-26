@@ -53,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
   versionCheckProgram = "${placeholder "out"}/bin/ilk";
-  versionCheckProgramArg = "--version";
 
   strictDeps = true;
 

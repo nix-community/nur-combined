@@ -5,6 +5,7 @@
   pkg-config,
   makeWrapper,
   guile,
+  python3,
   versionCheckHook,
 }:
 
@@ -21,12 +22,13 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     makeWrapper
     guile
+    python3
   ];
 
   buildInputs = [ guile ];
 
   postPatch = ''
-    patchShebangs bootstrap-reader.sh
+    patchShebangs *.py *.sh *.w wisp.in
   '';
 
   postFixup = ''
@@ -38,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
+  # Prints the version of Guile, not Wisp.
   dontVersionCheck = true;
 
   strictDeps = true;

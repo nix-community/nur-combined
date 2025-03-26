@@ -31,8 +31,9 @@ rustPlatform.buildRustPackage {
   buildInputs = [ openssl ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-
   doInstallCheck = true;
+
+  # Outputs "0.3.0" for some reason...
   dontVersionCheck = true;
 
   passthru.updateScript = nix-update-script { };

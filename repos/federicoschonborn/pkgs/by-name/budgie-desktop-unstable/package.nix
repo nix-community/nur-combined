@@ -8,11 +8,11 @@
 }:
 
 budgie-desktop.overrideAttrs (prevAttrs: {
-  version = "10.9.2-unstable-2025-03-17";
+  version = "10.9.2-unstable-2025-03-25";
 
   src = prevAttrs.src.override {
-    rev = "369554d292e4d2f9141759e6f993604eb4e35ef4";
-    hash = "sha256-GWxvnZNiK5kTX1GZrCpb8Pb4h0csahxVB8SeK9gRHGU=";
+    rev = "d511aacf5eeca1cf4957eebe4c3302c32e66e6c4";
+    hash = "sha256-Z2hz1KAleGz0ouZ05LfQG87lU9jZeemdF3+yG2cZQqw=";
   };
 
   patches = [ ];
@@ -22,6 +22,7 @@ budgie-desktop.overrideAttrs (prevAttrs: {
   ];
 
   mesonFlags = (prevAttrs.mesonFlags or [ ]) ++ [
+    # Don't check for runtime dependencies to avoid bloating up the derivation.
     (lib.mesonBool "with-runtime-dependencies" false)
   ];
 

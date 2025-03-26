@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation (_: {
   pname = "magpie-wayland";
-  version = "0.9.4-unstable-2024-12-18";
+  version = "0.9.4-unstable-2025-03-25";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "9eb256ed94a8e816c7f7edbd5b440660e8fe4ce4";
-    hash = "sha256-G3nlcTKjdgzMW6u9Zw1nTrr7thGBjhrNKrcuIXR/yHs=";
+    rev = "a9cfac5a381968741dd27a5e3f971af8fe3126c7";
+    hash = "sha256-TDg163p/bCY+9DvYu000JofckBfUSuoblvmodeIu93w=";
   };
 
   nativeBuildInputs = [
@@ -50,8 +50,10 @@ stdenv.mkDerivation (_: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-  dontVersionCheck = true;
+
   versionCheckProgram = "${placeholder "out"}/bin/magpie-wm";
+  # Does not have a proper version yet.
+  dontVersionCheck = true;
 
   strictDeps = true;
 

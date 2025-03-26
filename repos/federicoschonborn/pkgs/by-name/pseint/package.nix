@@ -60,6 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
   # Uses the wrong version for some godforsaken reason.
   dontVersionCheck = true;
 

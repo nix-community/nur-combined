@@ -100,8 +100,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
   versionCheckProgram = "${placeholder "out"}/bin/gta";
-  versionCheckProgramArg = "--version";
 
   strictDeps = true;
 

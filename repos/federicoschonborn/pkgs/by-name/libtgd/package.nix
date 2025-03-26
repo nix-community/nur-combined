@@ -88,8 +88,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
   versionCheckProgram = "${placeholder "out"}/bin/tgd";
-  versionCheckProgramArg = "--version";
 
   strictDeps = true;
 

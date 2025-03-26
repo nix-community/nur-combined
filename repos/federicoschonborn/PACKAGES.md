@@ -170,12 +170,12 @@ V2 daemon for Budgie Desktop
 Feature-rich, modern desktop designed to keep out the way of the user
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-03-17`
+- Version: `10.9.2-unstable-2025-03-25`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
 - [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/bu/budgie-desktop/package.nix#L140)
 - Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-17)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-25)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -234,7 +234,7 @@ Cargo Advent of Code Helper
 - Version: `0.3.7`
 
 - [🌐 Homepage](https://github.com/gobanos/cargo-aoc)
-- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L42)
+- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L43)
 - Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -299,7 +299,7 @@ Like neofetch, but much faster because written in C
 - Version: `2.39.1`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L263)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
 
@@ -775,10 +775,10 @@ Library for emitting text, XML, JSON, or HTML output
 A hardware profiling application for Linux
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-17`
+- Version: `0-unstable-2025-03-23`
 
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
-- [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
+- [📦 Source](./pkgs/by-name/magothy/package.nix#L39)
 - Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -805,10 +805,10 @@ A hardware profiling application for Linux
 wlroots-based Wayland compositor designed for the Budgie Desktop
 
 - Name: `magpie-wayland`
-- Version: `0.9.4-unstable-2024-12-18`
+- Version: `0.9.4-unstable-2025-03-25`
 
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/magpie)
-- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L67)
+- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L69)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1165,7 +1165,7 @@ A tool for learning programming basis with a simple Spanish pseudocode
 - Version: `20240122`
 
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L70)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L71)
 - License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1197,7 +1197,7 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
 - Version: `5.2`
 
 - [🌐 Homepage](https://marlam.de/qv/)
-- [📦 Source](./pkgs/by-name/qv/package.nix#L53)
+- [📦 Source](./pkgs/by-name/qv/package.nix#L54)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1648,7 +1648,7 @@ Wisp turns indentation based syntax into Lisp
 - Version: `1.0.12`
 
 - [🌐 Homepage](https://www.draketo.de/software/wisp)
-- [📦 Source](./pkgs/by-name/wisp/package.nix#L47)
+- [📦 Source](./pkgs/by-name/wisp/package.nix#L51)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

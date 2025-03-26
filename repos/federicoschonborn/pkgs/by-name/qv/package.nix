@@ -36,7 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-  # Immediately exits with no output, otherwise works fine, maybe something Qt related?
+
+  # Requires a graphical session.
   dontVersionCheck = true;
 
   strictDeps = true;
