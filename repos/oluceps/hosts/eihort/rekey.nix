@@ -48,6 +48,7 @@ in
       };
 
       vault.file = ../../sec/vault.age;
+      linkwarden.file = ../../sec/linkwarden.age;
 
       mautrix-tg.file = ../../sec/mautrix-tg.age;
 
