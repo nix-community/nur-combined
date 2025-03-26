@@ -113,6 +113,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
+  preFixup = ''
+    # dlopen dependency
+    patchelf --add-needed libudev.so.1 $out/opt/kingsoft/wps-office/office6/addons/cef/libcef.so
+  '';
+
   meta = with lib; {
     description = "Office suite, formerly Kingsoft Office";
     homepage = "https://www.wps.com";
