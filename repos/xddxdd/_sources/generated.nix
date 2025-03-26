@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "5b73f1330e0140d76f94f0457c7ba910d0df0d45";
+    version = "49f51dcb174f1a7f3e7d56a08d5fd15e8785e31b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "5b73f1330e0140d76f94f0457c7ba910d0df0d45";
-      hash = "sha256-kkaFbDNrFGUMD/gJSGmKqxJKVba9bo2PxcCUbb1cBuM=";
+      rev = "49f51dcb174f1a7f3e7d56a08d5fd15e8785e31b";
+      hash = "sha256-eokaxX2mV9mx9C2QO+Kbv5Y+8MdFte1zZz7X5gWJ0I8=";
     };
-    date = "2025-03-25";
+    date = "2025-03-26";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ecdddc5d427f92113ca07dd3f9ed0a2b8da7b613";
+    version = "306a13fa1740ddec35c68455e99eaf714ae81ad4";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ecdddc5d427f92113ca07dd3f9ed0a2b8da7b613";
-      hash = "sha256-0MRHcTnD3QabZ4ig70AXMggMJ0mlpKwcUEY5p3Js04M=";
+      rev = "306a13fa1740ddec35c68455e99eaf714ae81ad4";
+      hash = "sha256-J4jNnN1Ou4xqC6JUwj7zACYV+kvI+76c0ZBNlo8lqQM=";
     };
-    date = "2025-03-24";
+    date = "2025-03-26";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -531,14 +531,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc";
+    version = "e24dbdc496debec225414d4d2c760f5775e64f2a";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc";
-      hash = "sha256-vHOYiXcyiWyWeQm5TwVeHCuuqbC0naD/YPUqngMAY1E=";
+      rev = "e24dbdc496debec225414d4d2c760f5775e64f2a";
+      hash = "sha256-JawtwuVYmZ46js+mLPAVye19IQ5+Wjz5VbEfxflwBB4=";
     };
-    date = "2025-03-20";
+    date = "2025-03-26";
   };
   glauth = {
     pname = "glauth";
@@ -879,12 +879,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.13.8-xanmod1";
+    version = "6.14.0-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.13.8-xanmod1";
+      tag = "6.14.0-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-2Q3Yl/dKmkRRU4PruFA5bZrHAiySApvaqpxlZ/qECg0=";
+      hash = "sha256-Kw6jD88Q598FOZhZTJx6r9hpWSFaSy3y+aPbwk2O/Eo=";
     };
   };
   linux-xanmod-6_0 = {
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4953";
+    version = "b4958";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4953";
-      hash = "sha256-mhUBcgs2a8ylFXiQGanTNO3hZDPaVGYrefY+vYNvUiE=";
+      tag = "b4958";
+      hash = "sha256-dAx0AWfAKZwHYC1jc/pzMHy5XTPHzHPCYw9MgCsljgY=";
     };
   };
   loralib = {
@@ -1323,10 +1323,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.4.4";
+    version = "7.4.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.4/PeerBanHelper_7.4.4.zip";
-      hash = "sha256-MCDgdJHa0Sq05IK3AbNr9kvN7ywVI23IVAsow07N2gc=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.5/PeerBanHelper_7.4.5.zip";
+      hash = "sha256-pHzABXgzfvJjQ42eF0eJUC4FRIoQSUZG+6j20sF+XLQ=";
     };
   };
   phpmyadmin = {
@@ -1965,15 +1965,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "502d96bd87b8c263e4cfc1aba75adfd0e2f25597";
+    version = "d44cc7b60e01282d1b191779d2ad1bef1b7db613";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "502d96bd87b8c263e4cfc1aba75adfd0e2f25597";
+      rev = "d44cc7b60e01282d1b191779d2ad1bef1b7db613";
       fetchSubmodules = true;
-      hash = "sha256-QghL9vlPSZr28/HuWqAs1Krp4kdd3vkxayPXvJd7IDc=";
+      hash = "sha256-L/mzFV1fKGwRNwTMSTa90vmDbPKYJm1NB7yL2cYzhZw=";
     };
-    date = "2025-03-25";
+    date = "2025-03-26";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

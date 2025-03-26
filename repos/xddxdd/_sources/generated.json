@@ -373,7 +373,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-03-25",
+        "date": "2025-03-26",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -385,16 +385,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "5b73f1330e0140d76f94f0457c7ba910d0df0d45",
-            "sha256": "sha256-kkaFbDNrFGUMD/gJSGmKqxJKVba9bo2PxcCUbb1cBuM=",
+            "rev": "49f51dcb174f1a7f3e7d56a08d5fd15e8785e31b",
+            "sha256": "sha256-eokaxX2mV9mx9C2QO+Kbv5Y+8MdFte1zZz7X5gWJ0I8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5b73f1330e0140d76f94f0457c7ba910d0df0d45"
+        "version": "49f51dcb174f1a7f3e7d56a08d5fd15e8785e31b"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-03-24",
+        "date": "2025-03-26",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "ecdddc5d427f92113ca07dd3f9ed0a2b8da7b613",
-            "sha256": "sha256-0MRHcTnD3QabZ4ig70AXMggMJ0mlpKwcUEY5p3Js04M=",
+            "rev": "306a13fa1740ddec35c68455e99eaf714ae81ad4",
+            "sha256": "sha256-J4jNnN1Ou4xqC6JUwj7zACYV+kvI+76c0ZBNlo8lqQM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ecdddc5d427f92113ca07dd3f9ed0a2b8da7b613"
+        "version": "306a13fa1740ddec35c68455e99eaf714ae81ad4"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1024,7 +1024,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-03-20",
+        "date": "2025-03-26",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1036,12 +1036,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc",
-            "sha256": "sha256-vHOYiXcyiWyWeQm5TwVeHCuuqbC0naD/YPUqngMAY1E=",
+            "rev": "e24dbdc496debec225414d4d2c760f5775e64f2a",
+            "sha256": "sha256-JawtwuVYmZ46js+mLPAVye19IQ5+Wjz5VbEfxflwBB4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5ee2f382b32c5c0beaa1c133b466a100c6fb7ebc"
+        "version": "e24dbdc496debec225414d4d2c760f5775e64f2a"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1714,13 +1714,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.13.8-xanmod1",
-            "sha256": "sha256-2Q3Yl/dKmkRRU4PruFA5bZrHAiySApvaqpxlZ/qECg0=",
+            "rev": "6.14.0-xanmod1",
+            "sha256": "sha256-Kw6jD88Q598FOZhZTJx6r9hpWSFaSy3y+aPbwk2O/Eo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.13.8-xanmod1"
+        "version": "6.14.0-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4953",
-            "sha256": "sha256-mhUBcgs2a8ylFXiQGanTNO3hZDPaVGYrefY+vYNvUiE=",
+            "rev": "b4958",
+            "sha256": "sha256-dAx0AWfAKZwHYC1jc/pzMHy5XTPHzHPCYw9MgCsljgY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4953"
+        "version": "b4958"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2594,11 +2594,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MCDgdJHa0Sq05IK3AbNr9kvN7ywVI23IVAsow07N2gc=",
+            "sha256": "sha256-pHzABXgzfvJjQ42eF0eJUC4FRIoQSUZG+6j20sF+XLQ=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.4/PeerBanHelper_7.4.4.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.5/PeerBanHelper_7.4.5.zip"
         },
-        "version": "7.4.4"
+        "version": "7.4.5"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -3847,7 +3847,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-03-25",
+        "date": "2025-03-26",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3859,12 +3859,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "502d96bd87b8c263e4cfc1aba75adfd0e2f25597",
-            "sha256": "sha256-QghL9vlPSZr28/HuWqAs1Krp4kdd3vkxayPXvJd7IDc=",
+            "rev": "d44cc7b60e01282d1b191779d2ad1bef1b7db613",
+            "sha256": "sha256-L/mzFV1fKGwRNwTMSTa90vmDbPKYJm1NB7yL2cYzhZw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "502d96bd87b8c263e4cfc1aba75adfd0e2f25597"
+        "version": "d44cc7b60e01282d1b191779d2ad1bef1b7db613"
     },
     "unigine-heaven": {
         "cargoLocks": null,

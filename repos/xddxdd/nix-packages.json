@@ -622,7 +622,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-03-26"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -817,7 +817,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4953"
+    "version": "4958"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3582,7 +3582,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.4"
+    "version": "7.4.5"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -3697,7 +3697,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-03-26"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4407,7 +4407,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.4"
+    "version": "7.4.5"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4592,7 +4592,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-25"
+    "version": "0-unstable-2025-03-26"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4662,7 +4662,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-25"
+    "version": "0-unstable-2025-03-26"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5002,7 +5002,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-03-26"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5362,7 +5362,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.4"
+    "version": "7.4.5"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5622,7 +5622,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-25"
+    "version": "0-unstable-2025-03-26"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
