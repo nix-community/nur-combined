@@ -11,12 +11,12 @@
         papirus-icon-theme = "DUMMY";
     }).overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.245.23";
+        version = "0.245.24";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-CsYWcrdpaO1TV1TWjDYXXtNlE919X+7NZV8E/wBSDXY=";
+            hash = "sha256-HlwSvHedRycUQDipC7bZefKyHaFUM8WQ6IwLYxNSymU=";
         };
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
         desktopItems = [
