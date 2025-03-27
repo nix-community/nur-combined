@@ -646,14 +646,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "b19e58ecc855b50cbba4be4bb1031bb316160aa0";
+    version = "9b0172b816573539fc3ff253dfa335be7f9dec84";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "b19e58ecc855b50cbba4be4bb1031bb316160aa0";
-      hash = "sha256-ZtuAVoynfXmDMPDV35l1iVBJALROKQigiR7TU+GTbh4=";
+      rev = "9b0172b816573539fc3ff253dfa335be7f9dec84";
+      hash = "sha256-KDEFKa7bgDsm/GCvYDFObNDoZn2c71oaQlgYMAN2B0I=";
     };
-    date = "2025-03-22";
+    date = "2025-03-27";
   };
   igsc = {
     pname = "igsc";
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4958";
+    version = "b4974";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4958";
-      hash = "sha256-dAx0AWfAKZwHYC1jc/pzMHy5XTPHzHPCYw9MgCsljgY=";
+      tag = "b4974";
+      hash = "sha256-O+pkL3bpT780M0Ah7z/GZoHNPD1NT/qlQ1Rg1Ia/nug=";
     };
   };
   loralib = {
@@ -1349,12 +1349,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.24";
+    version = "1.1.3.25";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.24";
-      hash = "sha256-2SR9Sg4inre6SGnNcFTSbXKFQYL3XzJnny76/Xpdy6c=";
+      tag = "1.1.3.25";
+      hash = "sha256-GNZrEiZA/QVTZL+YUHIOcyIzbKnAmamqpbKKxgksuJA=";
     };
   };
   plangothic-fonts = {
@@ -1580,12 +1580,12 @@
   };
   r8125 = {
     pname = "r8125";
-    version = "9.014.01-1";
+    version = "9.015.00-1";
     src = fetchFromGitHub {
       owner = "awesometic";
       repo = "realtek-r8125-dkms";
-      tag = "9.014.01-1";
-      hash = "sha256-f+O6LbLcCmRxLgcsYSqO14Y8IS3gUxHaBzZdY4VZS5k=";
+      tag = "9.015.00-1";
+      hash = "sha256-fMnxnJ8AvsGixsXvJlCGGtgr84Iu0rbdd4Iy9pJH1KY=";
     };
   };
   r8168 = {
@@ -1965,13 +1965,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d44cc7b60e01282d1b191779d2ad1bef1b7db613";
+    version = "52434681e60c3c313b8ccffddee7db55c1fb4a76";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d44cc7b60e01282d1b191779d2ad1bef1b7db613";
+      rev = "52434681e60c3c313b8ccffddee7db55c1fb4a76";
       fetchSubmodules = true;
-      hash = "sha256-L/mzFV1fKGwRNwTMSTa90vmDbPKYJm1NB7yL2cYzhZw=";
+      hash = "sha256-vLZeI8w51dyJZLECFyFvExYpk1412DXKvNXBLZDfeNI=";
     };
     date = "2025-03-26";
   };
