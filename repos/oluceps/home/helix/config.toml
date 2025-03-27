@@ -6,6 +6,10 @@ color-modes = true
 cursorline = true
 line-number = "relative"
 true-color = true
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line	= "warning"
 
 [editor.cursor-shape]
 insert = "bar"

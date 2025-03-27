@@ -65,7 +65,8 @@
       eval "$(${lib.getExe pkgs.atuin} init bash)"
     '';
     fish.interactiveShellInit = ''
-      ${pkgs.atuin}/bin/atuin init fish | source
+      ${lib.getExe pkgs.atuin} init fish | source
+      ${lib.getExe pkgs.zoxide} init fish | source
     '';
     direnv = {
       enable = true;
@@ -134,6 +135,7 @@
               withNgSuffix = false;
               # nix = inputs'.lix-module.packages.default;
             })
+            zoxide
             nodejs
             # vscode.fhs
             # nodejs_latest.pkgs.pnpm
