@@ -19,6 +19,10 @@
   '';
 
   nativeBuildInputs = [
+    # python3.pkgs.eggUnpackHook
+    # python3.pkgs.eggBuildHook
+    # python3.pkgs.eggInstallHook
+
     # python3.pkgs.hatch-fancy-pypi-readme
     # python3.pkgs.hatch-vcs
     # python3.pkgs.hatchling
@@ -26,7 +30,8 @@
     # python3.pkgs.poetry-core
 
     # python3.pkgs.pypaBuildHook
-    # python3.pkgs.pypaInstallHook
+    # python3.pkgs.pypaInstallHook  # pretty much always want this (even if using setuptoolsBuildHook)
+    # python3.pkgs.setuptoolsBuildHook  # if project has `setup.py`
     python3.pkgs.wrapPython
   ];
 

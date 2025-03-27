@@ -88,18 +88,6 @@ in
 {
   sane.programs.bemenu = {
     sandbox.whitelistWayland = true;
-
-    packageUnwrapped = pkgs.bemenu.overrideAttrs (upstream: {
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-        pkgs.makeBinaryWrapper
-      ];
-      # can alternatively be specified as CLI flags
-      postInstall = (upstream.postInstall or "") + ''
-        wrapProgram $out/bin/bemenu \
-          --set BEMENU_OPTS "${bemenuOpts}"
-        wrapProgram $out/bin/bemenu-run \
-          --set BEMENU_OPTS "${bemenuOpts}"
-      '';
-    });
+    env.BEMENU_OPTS = bemenuOpts;
   };
 }

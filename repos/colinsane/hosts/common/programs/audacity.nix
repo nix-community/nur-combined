@@ -3,7 +3,7 @@
 #   - default recording input will be silent, on lappy.
 #   - Audio Setup -> Rescan Audio Devices ...
 #   - Audio Setup -> Recording device -> sysdefault
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.audacity = {
     packageUnwrapped = (pkgs.audacity.override {
@@ -18,6 +18,10 @@
         substituteInPlace $out/share/applications/audacity.desktop \
           --replace-fail 'GDK_BACKEND=x11 ' ""
       '';
+
+      # XXX(2025-03-03): upstream nixpkgs incorrectly defaults `GDK_BACKEND=x11`,
+      # even though audacity runs fine on wayland
+      postFixup = lib.replaceStrings [ "--set-default GDK_BACKEND x11" ] [ "" ] base.postFixup;
     });
 
     buildCost = 1;

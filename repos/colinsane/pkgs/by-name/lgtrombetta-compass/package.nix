@@ -11,6 +11,7 @@
   ninja,
   python3,
   stdenv,
+  versionCheckHook,
   wrapGAppsHook3,
 }: stdenv.mkDerivation (finalAttrs: {
   pname = "lgtrombetta-compass";
@@ -22,28 +23,6 @@
     rev = "v${finalAttrs.version}";
     hash = "sha256-NXy9JihGwpDaZmNUNUAOYfqQTWQM4dXtTQ/4Ukgi11U=";
   };
-
-  postPatch = ''
-    substituteInPlace data/meson.build \
-      --replace-fail "install_dir: '/lib/udev/rules.d'" "install_dir: join_paths(get_option('datadir'), 'lib/udev/rules.d')"
-  '';
-
-  preConfigure = ''
-    patchShebangs --build build-aux/meson/postinstall.py
-  '';
-
-  postFixup = ''
-    wrapPythonPrograms
-  '';
-
-  installCheckPhase = ''
-    runHook preInstallCheck
-
-    $out/bin/compass --help | grep -q compass
-
-    runHook postInstallCheck
-  '';
-
 
   nativeBuildInputs = [
     desktop-file-utils # for update-desktop-database
@@ -73,10 +52,35 @@
     python3.pkgs.pyxdg
   ];
 
+  nativeCheckInputs = [
+    # python3.pkgs.pythonImportsCheckHook
+    versionCheckHook
+  ];
+
   pythonImportsCheck = [
     "compass"
   ];
 
+  postPatch = ''
+    substituteInPlace data/meson.build \
+      --replace-fail "install_dir: '/lib/udev/rules.d'" "install_dir: join_paths(get_option('datadir'), 'lib/udev/rules.d')"
+  '';
+
+  preConfigure = ''
+    patchShebangs --build build-aux/meson/postinstall.py
+  '';
+
+  postFixup = ''
+    wrapPythonPrograms
+  '';
+
+  preInstallCheck = ''
+    version=v$version
+  '';
+
+  versionCheckProgram = "${placeholder "out"}/bin/compass";
+
+  doCheck = true;
   doInstallCheck = true;
   strictDeps = true;
 

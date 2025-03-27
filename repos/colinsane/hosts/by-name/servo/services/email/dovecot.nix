@@ -124,7 +124,9 @@
       # ];
     };
   };
-  services.dovecot2.modules = [
+  environment.systemPackages = [
+    # XXX(2025-03-16): dovecot loads modules from /run/current-system/sw/lib/dovecot/modules
+    # see: <https://github.com/NixOS/nixpkgs/pull/387642>
     pkgs.dovecot_pigeonhole  # enables sieve execution (?)
   ];
   services.dovecot2.sieve = {

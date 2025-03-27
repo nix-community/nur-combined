@@ -19,8 +19,10 @@ in {
       # - GPODDER_DISABLE_EXTENSIONS ("yes" or "no")
       extraMakeWrapperArgs = (base.extraMakeWrapperArgs or []) ++ [
         "--set" "GPODDER_HOME" "~/.local/share/gPodder"
+        # "--run" "export GPODDER_HOME=~/.local/share/gPodder"  #< unquote `~/.local/share/gPodder` to force run-time home expansion
         # place downloads in a shared media directory to ensure sandboxed apps can read them
         "--set" "GPODDER_DOWNLOAD_DIR" "~/Videos/gPodder"
+        # "--run" "export GPODDER_DOWNLOAD_DIR=~/Videos/gPodder"
       ];
     });
 
@@ -33,6 +35,12 @@ in {
     sandbox.net = "clearnet";
 
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
+
+    services.gpodder-ensure-feeds = {
+      description = "synchronize static OPML feeds into gPodder's subscription database";
+      partOf = [ "default" ];
+      startCommand = ''gpodder-ensure-feeds ''${HOME}/.config/gpodderFeeds.opml'';
+    };
 
     persist.byStore.plaintext = [
       "Videos/gPodder"

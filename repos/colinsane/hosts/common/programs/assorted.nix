@@ -106,6 +106,7 @@ in
       "rsync"
       # "s6-rc"  # service manager
       # "screen"
+      "see-cat"  # pretty-print equivalent to 'cat'
       "smartmontools"  # smartctl
       # "socat"
       "strace"
@@ -176,7 +177,7 @@ in
       "sane-scripts.cli"
       "sane-secrets-unlock"
       "sane-sysload"
-      "sc-im"
+      "sc-im"  # CLI spreadsheet editor
       "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
       "speedtest-cli"
@@ -202,7 +203,7 @@ in
       "nixpkgs-review"
       "qmk-udev-rules"
       "sane-scripts.dev"
-      "sequoia"
+      "sequoia"  # gpg tool
       # "via"
       "wally-cli"
       # "zsa-udev-rules"
@@ -221,9 +222,11 @@ in
 
     pcTuiApps = declPackageSet [
       "aerc"  # email client
+      "cassini"  # Elegoo printer control. need here especially, for opening firewalls.
       # "msmtp"  # sendmail
       # "offlineimap"  # email mailbox sync
       # "sfeed"  # RSS fetcher
+      "uvtools"  # TODO: upstream (then i can move this to the phone-case-cq repo; i don't need it more broadly than that).
       "visidata"  # TUI spreadsheet viewer/editor
       "w3m"  # web browser
     ];
@@ -250,7 +253,7 @@ in
       "celeste64"
       # "cutemaze"      # meh: trivial maze game; qt6 and keyboard-only
       # "cuyo"          # trivial puyo-puyo clone
-      "endless-sky"     # space merchantilism/exploration
+      # "endless-sky"     # space merchantilism/exploration
       # "factorio"
       # "frozen-bubble"   # WAN + LAN + 1P/2P bubble bobble
       # "hase"            # WAN worms game
@@ -263,16 +266,17 @@ in
       # "osu-lazer"
       # "pinball"       # 3d pinball; kb/mouse. old sourceforge project
       # "powermanga"    # STYLISH space invaders derivative (keyboard-only)
-      "shattered-pixel-dungeon"  # doesn't cross compile
+      # "shattered-pixel-dungeon"  # doesn't cross compile
       # "sm64ex-coop"
       "sm64coopdx"
       "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
       "steam"
       "superTux"  # keyboard-only controls
       "superTuxKart"  # poor FPS on pinephone
-      "tumiki-fighters" # keyboard-only
+      # "tumiki-fighters" # keyboard-only
       "vvvvvv"  # keyboard-only controls
       # "wine"
+      "zelda64recomp"
     ];
 
     guiApps = declPackageSet [
@@ -294,11 +298,11 @@ in
       "dino"  # XMPP client
       "dissent"  # Discord client (formerly known as: gtkcord4)
       # "emote"
-      "envelope"  # GTK4 email client (alpha)
+      # "envelope"  # GTK4 email client (alpha)
       # "evince"  # PDF viewer
       # "flare-signal"  # gtk4 signal client
       "fractal"  # matrix client
-      "g4music"  # local music player
+      # "g4music"  # local music player
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
@@ -313,6 +317,7 @@ in
       "gnome-frog"  # OCR/QR decoder
       "gnome-maps"
       "gnome-screenshot"  # libcamera-based screenshotter, for debugging; should be compatible with gc2145 camera on Pinephone
+      "gnome-sound-recorder"  # a simple microphone recorder/tester
       "gnome-weather"
       "gpodder"
       "gsettings"
@@ -407,7 +412,7 @@ in
       # "kid3"  # audio tagging
       "krita"
       "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
-      "losslesscut-bin"  # x86-only
+      "losslesscut-bin"  # x86-only  (TODO: replace with from-source build: <https://github.com/NixOS/nixpkgs/pull/385535>)
       # "makemkv"  # x86-only
       # "monero-gui"  # x86-only
       "mumble"
@@ -456,12 +461,6 @@ in
     bridge-utils.sandbox.net = "all";
 
     "cacert.unbundled".sandbox.enable = false;  #< data only
-
-    cargo.persist.byStore.plaintext = [ ".cargo" ];
-    # probably this sandboxing is too restrictive; i'm sandboxing it for rust-analyzer / neovim LSP
-    cargo.sandbox.whitelistPwd = true;
-    cargo.sandbox.net = "all";
-    cargo.sandbox.extraHomePaths = [ "dev" "ref" ];
 
     clang = {};
 
@@ -1047,10 +1046,10 @@ in
 
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
-    sequoia.packageUnwrapped = pkgs.sequoia.overrideAttrs (_: {
-      # XXX(2024-07-30): sq_autocrypt_import test failure: "Warning: 9B7DD433F254904A is expired."
-      doCheck = false;
-    });
+    # sequoia.packageUnwrapped = pkgs.sequoia.overrideAttrs (_: {
+    #   # XXX(2024-07-30): sq_autocrypt_import test failure: "Warning: 9B7DD433F254904A is expired."
+    #   doCheck = false;
+    # });
     sequoia.buildCost = 1;
     sequoia.sandbox.whitelistPwd = true;
     sequoia.sandbox.autodetectCliPaths = "existingFileOrParent";  # supports `-o <file-to-create>`
@@ -1184,6 +1183,8 @@ in
       "/sys/devices"
       "/sys/bus/usb"
     ];
+
+    uvtools.sandbox.method = null;  #< TODO: sandbox
 
     vala-language-server.sandbox.whitelistPwd = true;
     vala-language-server.suggestedPrograms = [

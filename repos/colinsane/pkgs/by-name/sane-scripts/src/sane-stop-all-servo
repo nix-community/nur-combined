@@ -6,6 +6,8 @@ systemctl stop \
   dovecot2 \
   duplicity \
   duplicity.timer \
+  dyn-dns \
+  dyn-dns.timer \
   ejabberd \
   gitea \
   goaccess \
@@ -25,6 +27,7 @@ systemctl stop \
   matrix-synapse \
   mautrix-signal \
   monero \
+  murmur \
   mx-puppet-discord \
   navidrome \
   nginx \
@@ -40,6 +43,7 @@ systemctl stop \
   sftpgo \
   signald \
   slskd \
+  smartd \
   systemctl \
   tor \
   transmission \

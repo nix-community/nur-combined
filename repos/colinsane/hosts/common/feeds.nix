@@ -277,7 +277,6 @@ let
     (fromDb "youtube.com/@NativLang")
     (fromDb "youtube.com/@PolyMatter")
     (fromDb "youtube.com/@TechnologyConnections" // tech)
-    (fromDb "youtube.com/@tested" // tech)  # Adam Savage
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@TVW_Washington" // pol)  # interviews with WA public officials
     (fromDb "youtube.com/@Vihart")
@@ -286,6 +285,7 @@ let
     # (fromDb "youtube.com/@ColdFusion")
     # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     # (fromDb "youtube.com/@TheB1M")
+    # (fromDb "youtube.com/@tested" // tech)  # Adam Savage  (uploads too frequently)
     # (fromDb "youtube.com/@Vox")
     # (fromDb "youtube.com/@Vsauce")  # they're all like 1-minute long videos now? what happened @Vsauce?
   ];

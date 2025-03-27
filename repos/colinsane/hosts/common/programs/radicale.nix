@@ -29,7 +29,8 @@ in
     settings.storage.use_cache_subfolder_for_synctoken = true;
     # settings.storage.filesystem_cache_folder = "/var/lib/radicale/cache";
     # settings.storage.filesystem_folder = "/path/to/storage"
-    # settings.auth.type = "none";  # default: none
+    # auth options: none, remote_user, http_x_remote_user, denyall, htpasswd, ldap, imap, dovecot
+    settings.auth.type = "none";  # "none" = allow unrestricted access to any client who can connect
   };
 
   # TODO: service is considered 'up' too early: we should wait, and notify once the http port is bound/listening

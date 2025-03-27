@@ -2,18 +2,27 @@
   callPackage,
   concatTextFile,
   fetchurl,
+  genericUpdater,
   jq,
   lib,
   newScope,
   nix-update-script,
   runCommand,
+  static-nix-shell,
   stdenv,
   strip-nondeterminism,
   unzip,
   writers,
+  writeShellScript,
   zip,
 }:
 let
+  addon-version-lister = static-nix-shell.mkYsh {
+    pname = "addon-version-lister";
+    pkgs = [ "common-updater-scripts" "coreutils" "curl" ];
+    srcRoot = ./.;
+  };
+
   wrapAddon = addon: args:
   let
     extid = addon.passthru.extid;
@@ -107,14 +116,18 @@ let
       cp $src $out
     '';
 
-    passthru.updateScript = nix-update-script {
-      # ignore beta versions
-      extraArgs = [ "--version-regex" "([0-9.]+)" ];
+    passthru.updateScript = genericUpdater {
+      versionLister = writeShellScript "${pname}-version-lister" ''
+        ${lib.getExe addon-version-lister} --verbose --old-version "$UPDATE_NIX_OLD_VERSION" ${url}
+      '';
+      ignoredVersions = "(b|rc)[0-9]*$";
     };
     passthru.extid = extid;
   };
 
   firefox-extensions = (lib.makeScope newScope (self: with self; {
+    inherit addon-version-lister;
+
     unwrapped = lib.recurseIntoAttrs {
       # get names from:
       # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
@@ -154,8 +167,8 @@ let
         extid = "sponsorBlocker@ajay.app";
         pname = "sponsorblock";
         url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-        version = "5.11.5";
-        hash = "sha256-UAGSk4XaxR/JAsM32YQCJqJmowrxk7m73mt92ZQt/Lc=";
+        version = "5.11.9";
+        hash = "sha256-hnhH3vo2v1+w436Jap9duNenoNG2hIdAZpD0jVY2wyM=";
       };
       ublacklist = fetchVersionedAddon rec {
         extid = "@ublacklist";
@@ -167,11 +180,14 @@ let
       ublock-origin = fetchVersionedAddon rec {
         extid = "uBlock0@raymondhill.net";
         pname = "ublock-origin";
-        # N.B.: a handful of versions are released unsigned
-        url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.xpi";
-        # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-        version = "1.62.0";
-        hash = "sha256-IEt2ImiuhxOIuanGB0h7eZoq+JJAb1Y7BmIcvJ0xaaY=";
+        # N.B.: the release process seems to be to first release an unsigned .xpi,
+        #       then sign it a few days later,
+        #       and then REMOVE THE UNSIGNED RELEASE.
+        #       therefore, only grab signed releases, to avoid having the artifact disappear out from under us :(
+        # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.xpi";
+        url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
+        version = "1.63.2";
+        hash = "sha256-2TF2zvTcBC5BulAKoqkOXVe1vndEnL1SIRFYXjoM0Vg=";
       };
     };
 })  ).overrideScope (self: super:

@@ -1,8 +1,12 @@
-#!/bin/sh
-NIX_FILES_TOP=/home/colin/nixos
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p git
+
+SELF_PATH=$PWD/$0
+REPO_ROOT=$(git -C "$(dirname SELF_PATH)" rev-parse --show-toplevel)
+
 nixpkgs=$(nix-store --realize $(nix-instantiate -A nixpkgs-bootstrap.master.src))
 
-cd $NIX_FILES_TOP/integrations/nur
+cd $REPO_ROOT/integrations/nur
 
 NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
   --allowed-uris https://static.rust-lang.org \

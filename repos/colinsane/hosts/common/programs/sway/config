@@ -218,6 +218,8 @@ input type:touchpad {
 input "type:keyboard" xkb_options caps:escape
 
 ## SHARED
+# USB DAC: don't emulate media keys, as they tend to false trigger on plug events or noisy lines
+input "3034:19984:Generic_USB_Audio_Consumer_Control" events disabled
 # TV
 output $out_tv {
   pos 1920,0

@@ -2,6 +2,7 @@
 #!nix-shell -i python3 -p gpodder -p listparser -p python3
 
 from dataclasses import dataclass, field
+from typing import Optional
 import argparse
 import listparser
 import subprocess
@@ -10,10 +11,10 @@ import sys
 @dataclass(repr=True)
 class Feed:
     url: str
-    title: str  # Optional
-    def __init__(self, url: str, title: str):
+    title: Optional[str]
+    def __init__(self, url: str, title: Optional[str]):
         self.url = url
-        self.title = title if title else None
+        self.title = title if title else None  # coerce title="" -> None
 
     def __eq__(self, other: "Feed") -> bool:
         return self.url == other.url and \
@@ -61,7 +62,7 @@ def partition_feeds(wanted: list[Feed], has: list[Feed]) -> Partitioned:
 def remove_feed(feed: Feed):
     subprocess.check_output(["gpo", "unsubscribe", feed.url])
 
-def remove_feeds(feeds: list[str]):
+def remove_feeds(feeds: list[Feed]):
     if not feeds:
         print("removing extra feeds: (none)")
         return
@@ -71,7 +72,7 @@ def remove_feeds(feeds: list[str]):
     for f in feeds:
         remove_feed(f)
 
-def add_feeds(opml_path: str, feeds: list[str]):
+def add_feeds(opml_path: str, feeds: list[Feed]):
     if not feeds:
         print("adding missing feeds: (none)")
         return

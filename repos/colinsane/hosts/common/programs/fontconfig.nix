@@ -9,27 +9,11 @@
 let
   # see: <repo:nixos/nixpkgs:nixos/modules/config/fonts/fontconfig.nix>
   # and: <repo:nixos/nixpkgs:pkgs/development/libraries/fontconfig/make-fonts-cache.nix>
-  # nixpkgs creates a fontconfig cache, but only when *not* cross compiling.
-  # but the alternative is that fonts are cached purely at runtime, in ~/.cache/fontconfig,
+  # nixpkgs creates a fontconfig cache, which covers 99% of apps.
+  # if build-time caching fails for some reason, then fonts are cached at runtime, in ~/.cache/fontconfig,
   # and that needs to either be added to the sandbox of *every* app,
   # or font-heavy apps are several *seconds* slower to launch.
-  #
-  # TODO: upstream this into `make-fonts-cache.nix`?
-  cache = (pkgs.makeFontsCache { fontDirectories = config.fonts.packages; }).overrideAttrs (upstream: {
-    buildCommand = lib.replaceStrings
-      [ "fc-cache" ]
-      [ "${pkgs.stdenv.hostPlatform.emulator pkgs.buildPackages} ${lib.getExe' pkgs.fontconfig.bin "fc-cache"}" ]
-      upstream.buildCommand
-    ;
-  });
-  cacheConf = pkgs.writeTextDir "etc/fonts/conf.d/01-nixos-cache-cross.conf" ''
-    <?xml version='1.0'?>
-    <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
-    <fontconfig>
-      <!-- Pre-generated font caches -->
-      <cachedir>${cache}</cachedir>
-    </fontconfig>
-  '';
+
   noUserCacheConf = pkgs.runCommandNoCC "etc-fonts-fonts.conf-no-user" {} ''
     cp ${pkgs.fontconfig.out}/etc/fonts/fonts.conf .
     substituteInPlace fonts.conf \
@@ -74,16 +58,13 @@ in
       ];
     };
 
-    fontconfig.confPackages = lib.mkBefore ([
+    fontconfig.confPackages = lib.mkBefore [
       # XXX(2024-12-18): electron apps (signal-desktop, discord) duplicate the entire font cache (1-2MB) to ~/.cache/fontconfig
       # just to update a tiny section (4KB).
       # patch instead to not have a user font cache. they will work, but complain "Fontconfig error: No writable cache directories".
       # proper fix: see if electron apps need some specific font i'm missing, or are just being dumb?
       noUserCacheConf
-    ] ++ lib.optionals (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform) [
-      # nixpkgs builds a cache file, but only for non-cross. i want it always, so add my own cache -- but ONLY for cross.
-      cacheConf
-    ]);
+    ];
 
     #vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
     enableDefaultPackages = false;

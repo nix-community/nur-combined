@@ -3,6 +3,7 @@
   bash,
   lib,
   makeBinaryWrapper,
+  oils-for-unix,
   python3,
   stdenv,
   zsh,
@@ -146,6 +147,18 @@ in rec {
       inherit pkgsEnv pkgExprs;
       interpreter = lib.getExe bash;
     } // (removeAttrs attrs [ "bash" "pkgs" ])
+  );
+
+  # `mkShell` specialization for `nix-shell -i ysh` (oil) scripts.
+  mkYsh = { pkgs ? {}, ...}@attrs:
+    let
+      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
+      pkgsEnv = [ oils-for-unix ] ++ (builtins.attrValues pkgsAsAttrs);
+      pkgExprs = insertTopo "oils-for-unix" (builtins.attrNames pkgsAsAttrs);
+    in mkShell ({
+      inherit pkgsEnv pkgExprs;
+      interpreter = lib.getExe' oils-for-unix "ysh";
+    } // (removeAttrs attrs [ "oils-for-unix" "pkgs" ])
   );
 
   # `mkShell` specialization for `nix-shell -i zsh` scripts.

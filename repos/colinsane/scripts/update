@@ -1,7 +1,9 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p findutils -p nix-update
+#!nix-shell -i bash -p findutils -p git -p nix-update
 
-NIX_FILES_TOP=/home/colin/nixos
+# each update job has to do an entire nix eval, which can be memory intensive; be careful when tuning this
+PARALLELISM=8
+SELF_PATH=$PWD/$0
 
 usage() {
   echo "update: update rev/hash for one or more packages"
@@ -10,6 +12,7 @@ usage() {
   echo "options:"
   echo "- --dry-run"
   echo "- --verbose"
+  echo "- -j <n>  (default: $PARALLELISM)"
   echo ""
   echo "examples:"
   echo "- update nixpkgs: update only the nixpkgs input"
@@ -38,6 +41,14 @@ hasEffect() {
   fi
 }
 
+REPO_ROOT=
+repo_root() {
+  if [ -z "$REPO_ROOT" ]; then
+    REPO_ROOT=$(git -C "$(dirname SELF_PATH)" rev-parse --show-toplevel)
+  fi
+  echo "$REPO_ROOT"
+}
+
 # usage: getPkgs outVar prefix
 getPkgs() {
   local -n attrsArr="$1"
@@ -50,10 +61,10 @@ getPkgs() {
   # # but since i use Import From Derivation along paths which i also want to query,
   # # then i need to ensure those derivations are available for import.
   # debug "creating requisite .drv store paths"
-  # nix-instantiate -A nix "$NIX_FILES_TOP"
-  # nix-instantiate -A nixpkgs-bootstrap.master "$NIX_FILES_TOP"
+  # nix-instantiate -A nix "$(repo_root)"
+  # nix-instantiate -A nixpkgs-bootstrap.master "$(repo_root)"
   debug "querying packages to update as part of '$attrPrefix'"
-  local attrs=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "' "${nixFlags[@]}")
+  local attrs=$(nix eval --raw -f "$(repo_root)" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "' "${nixFlags[@]}")
   debug "got: $attrs"
   attrsArr+=($attrs)
 }
@@ -61,14 +72,14 @@ getPkgs() {
 updateOnePkg() {
   local attrPath="$1"
 
-  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' "${nixFlags[@]}")
+  local updateScript=$(nix eval --raw -f "$(repo_root)" 'updateScripts."'"$attrPath"'"' "${nixFlags[@]}")
   if [ -z "$updateScript" ]; then
     warn "don't know how to update '$attrPath'"
     return
   fi
 
   # make sure everything needed to invoke the update script exists in-store
-  local context=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))' "${nixFlags[@]}")
+  local context=$(nix eval --raw -f "$(repo_root)" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))' "${nixFlags[@]}")
   for c in $context; do
     debug "realizing updateScript requisite: $context"
     nix-store --realize "$c" "${nixFlags[@]}" || true
@@ -82,8 +93,8 @@ updateOnePkg() {
 updatePkgsInParallel() {
   debug "updating packages in parallel using xargs"
   debug "- $@"
-  debug "- xargs -n 1 -P 4 $0 ${scriptFlags[*]}"
-  echo "$@" | xargs -n 1 -P 4 "$0" "${scriptFlags[@]}"
+  debug "- xargs -n 1 -P $PARALLELISM $0 ${scriptFlags[*]}"
+  echo "$@" | xargs -n 1 -P "$PARALLELISM" "$0" "${scriptFlags[@]}"
 }
 
 scriptFlags=()
@@ -106,6 +117,10 @@ parseArgs() {
       (--verbose)
         scriptFlags+=(--verbose)
         verbose=1
+        ;;
+      (-j)
+        PARALLELISM=$1
+        shift
         ;;
       (--*)
         nixFlags+=("$arg")

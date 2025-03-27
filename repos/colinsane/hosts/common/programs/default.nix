@@ -27,6 +27,8 @@
     ./cantata.nix
     ./capsh.nix
     ./captree.nix
+    ./cargo.nix
+    ./cassini.nix
     ./catt.nix
     ./celeste64.nix
     ./chatty.nix
@@ -82,6 +84,7 @@
     ./gnome-frog.nix
     ./gnome-keyring
     ./gnome-maps.nix
+    ./gnome-sound-recorder.nix
     ./gnome-weather.nix
     ./go2tv.nix
     ./gocryptfs.nix
@@ -175,6 +178,7 @@
     ./sblast
     ./schlock.nix
     ./seatd.nix
+    ./see-cat.nix
     ./sfeed.nix
     ./shadow.nix
     ./signal-desktop.nix
@@ -229,6 +233,7 @@
     ./zathura.nix
     ./zeal.nix
     ./zecwallet-lite.nix
+    ./zelda64recomp.nix
     ./zulip.nix
     ./zsa-udev-rules.nix
     ./zfs-tools.nix

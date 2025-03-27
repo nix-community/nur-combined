@@ -73,11 +73,13 @@ let
     (lib.mkIf (command != null && readiness.waitCommand == null) {
       serviceConfig.Type = "simple";
       serviceConfig.Restart = restartCondition;
+      startLimitIntervalSec = 0;  #< disable restart limit
       serviceConfig.ExecStart = command;
     })
     (lib.mkIf (command != null && readiness.waitCommand != null) {
       serviceConfig.Type = "notify";
       serviceConfig.Restart = restartCondition;
+      startLimitIntervalSec = 0;  #< disable restart limit
       # serviceConfig.NotifyAccess = "exec";  #< allow anything in Exec* to invoke systemd-notify
       serviceConfig.NotifyAccess = "all";  #< allow anything in Exec* to invoke systemd-notify
       script = ''

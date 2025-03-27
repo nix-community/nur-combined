@@ -95,6 +95,10 @@ in
       # bindkey "^''${key[Left]}"  backward-word
       # bindkey "^''${key[Right]}" forward-word
 
+      # disable "flow control" (Ctrl+S to suspend terminal, Ctrl+Q to resume).
+      # see: <https://forum.endeavouros.com/t/alacritty-flow-control-turn-off/6199/12>
+      stty -ixon
+
       # run any additional, sh-generic commands (useful for e.g. launching a login manager on login)
       test -e ~/.profile && source ~/.profile
     '';

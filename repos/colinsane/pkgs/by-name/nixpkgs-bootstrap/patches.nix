@@ -20,7 +20,7 @@ let
       else if saneGhCommit != null then
         "https://github.com/uninsane/nixpkgs/commit/${saneGhCommit}.patch?full_index=1"
       else
-        "https://git.uninsane.org/colin/nixpkgs/commit/${saneCommit}.diff"
+        "https://git.uninsane.org/colin/nixpkgs/commit/${saneCommit}.patch?full_index=1"
       ;
     in fetchpatch2 (
       { inherit revert url; }
@@ -31,13 +31,28 @@ in
 [
   ./2024-10-01-python-cross-resource-usage.patch
 
-  # (fetchpatch' {
-  #   # 2024-12-26: required to build ollama (with AMD acceleration)
-  #   name = "rocm-6: bump packages to 6.3.1 and add missing packages";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
-  #   # hash = "sha256-6XXgSCXhC5DneSICguPtdnjX00SVJeiHxmJ55MoB+Xs=";
-  #   hash = "sha256-Hzz+aAzdgdnTu4jvLqpHzdIE3xYMP02/EuA+KvFbUeI=";
-  # })
+  (fetchpatch' {
+    # 2025-03-07: i'm testing this patch before merge.
+    # TODO: check if CapabilityBoundingSet takes effect or is union'd with upstream's
+    # TODO: test basic functionality
+    name = "nixos/bluetooth: add systemd hardening";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/377927";
+    hash = "sha256-D8Royett8CSZD7xHYEj6qvJCMFaFKz8SNOIBABapgDc=";
+  })
+
+  (fetchpatch' {
+    # 2024-12-26: required to build ollama (with AMD acceleration)
+    # 2025-03-14: merged into staging
+    name = "rocm-6: bump packages to 6.3.1 and add missing packages";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
+    hash = "sha256-RG4+b9Oaxfg9jFxc796dxBZLmXQIyYuTc0TjkhxMqTA=";
+  })
+
+  (fetchpatch' {
+    name = "zelda64recomp: init at 1.1.1-unstable-2025-02-14";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/313013";
+    hash = "sha256-9GjvmZoDmU2vIR4g5ADAGRixe13/js44dzVfh2IIDBw=";
+  })
 
   # (fetchpatch' {
   #   # XXX(2025-01-06): patch does not produce valid binaries for cross
@@ -46,20 +61,13 @@ in
   #   hash = "sha256-jW66W1V3upZMfbjuoruY3OGNJfEewx7DW/Z4vAhMEXw=";
   # })
 
-  (fetchpatch' {
-    # XXX(2025-02-08): required for coturn (servo) to build
-    name = "coturn: ignore broken symlinks";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/379889";
-    hash = "sha256-Sm3uZ3ooRBCh7eYW7BHuzS0XD6tZTUllgLROZflUiZs=";
-  })
-
-  (fetchpatch' {
-    # patch should be safe to remove; keeping it here to track the upstreaming status
-    name = "nixos/gitea: don't configure the database if `createDatabase == false`";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
-    # saneCommit = "92662a9920cf8b70ad8a061591dc37146123bde3";
-    hash = "sha256-Bmy1xqqmHqJVpleKWOssF+6SUpKOIm6hIGQsW6+hUTg=";
-  })
+  # (fetchpatch' {
+  #   # patch should be safe to remove; keeping it here to track the upstreaming status
+  #   name = "nixos/gitea: don't configure the database if `createDatabase == false`";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
+  #   # saneCommit = "92662a9920cf8b70ad8a061591dc37146123bde3";
+  #   hash = "sha256-Bmy1xqqmHqJVpleKWOssF+6SUpKOIm6hIGQsW6+hUTg=";
+  # })
 
   # (fetchpatch' {
   #   # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)

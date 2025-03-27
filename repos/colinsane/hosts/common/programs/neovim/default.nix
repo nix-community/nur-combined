@@ -4,7 +4,9 @@ moduleArgs@{ lib, pkgs, ... }:
 
 let
   plugins = import ./plugins.nix moduleArgs;
-  plugin-packages = builtins.map (p: p.plugin) plugins;
+  plugin-packages = builtins.filter (x: x != null) (
+    builtins.map (p: p.plugin or null) plugins
+  );
   plugin-configs = lib.concatMapStrings (p:
     lib.optionalString
       (p ? config) (

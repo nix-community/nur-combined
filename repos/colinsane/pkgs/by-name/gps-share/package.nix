@@ -1,22 +1,26 @@
-{ lib
-, fetchFromGitHub
-, pkg-config
-, rustPlatform
-, udev
+{
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  rustPlatform,
+  udev,
+  unstableGitUpdater,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "gps-share";
-  version = "0.3.1";
+  # require 0.3.1-unstable because 0.3.1 doesn't pass `doCheck`; tip has test fixes
+  version = "0.3.1-unstable-2024-03-19";
 
   src = fetchFromGitHub {
     owner = "zeenix";
     repo = "gps-share";
-    rev = version;
-    hash = "sha256-Rh7Pt9JN30TyuxwHOn8dwZrUfmkknUhOGonbhROpGxA=";
+    rev = "2b3955549643ae99ebe0681079d6fa1deaee20ea";
+    hash = "sha256-GBO5b8yqQkEcmAEsvcLTZoQF8MOdutvNIbqk7OTVdFk=";
   };
 
-  cargoHash = "sha256-8txHiK+aBh4hO66VQWTH/7li62O74xMqCg+sBFZ6KKU=";
+  cargoHash = "sha256-WhYHFaSZfnlEmlXFLj7BIt0agMFuz07LcAXJ9ZOOrvY=";
+  useFetchCargoVendor = true;
 
   nativeBuildInputs = [
     pkg-config
@@ -26,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     udev
   ];
 
-  doCheck = false;  #< 'Failed to start gps-share: Os { code: 2, kind: NotFound, message: "No such file or directory" }'
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "utility to share your GPS device on local network";

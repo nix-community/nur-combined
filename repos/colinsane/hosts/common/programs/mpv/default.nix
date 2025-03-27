@@ -233,6 +233,7 @@ in
 
     # mime.priority = 200;  # default = 100; 200 means to yield to other apps
     mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
+    mime.associations."audio/amr" = "mpv.desktop";  #< GSM, e.g. voicemail files
     mime.associations."audio/flac" = "mpv.desktop";
     mime.associations."audio/mpeg" = "mpv.desktop";
     mime.associations."audio/x-opus+ogg" = "mpv.desktop";

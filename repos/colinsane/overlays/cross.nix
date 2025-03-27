@@ -269,6 +269,8 @@ in with final; {
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   };
 
+  # extra-cmake-modules = buildPackages.extra-cmake-modules;
+
   # 2025/01/25: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
@@ -330,21 +332,6 @@ in with final; {
     ];
   };
 
-  # 2025/02/08: upstreaming is unblocked
-  flatpak = prev.flatpak.overrideAttrs (upstream: {
-    outputs = lib.remove "devdoc" upstream.outputs;
-    depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
-      pkgsBuildBuild.pkg-config
-    ];
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      gtk-doc
-      pkgsBuildHost.wayland-scanner
-    ];
-    mesonFlags = upstream.mesonFlags ++ [
-      "-Dgtkdoc=disabled"
-    ];
-  });
-
   # 2025/01/13: upstreaming is blocked by glycin-loaders
   fractal = prev.fractal.override {
     cargo = crossCargo;
@@ -353,11 +340,6 @@ in with final; {
   # 2025/01/13: upstreaming is unblocked
   glycin-loaders = (prev.glycin-loaders.override {
     cargo = crossCargo;
-  }).overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
-      buildPackages.gettext
-    ];
   });
 
   # gnustep = prev.gnustep.overrideScope (self: super: {
@@ -490,9 +472,9 @@ in with final; {
 
   # 2024/11/19: upstreaming is unblocked
   mepo = (prev.mepo.override {
-    # nixpkgs mepo correctly puts `zig_0_12.hook` in nativeBuildInputs,
+    # nixpkgs mepo correctly puts `zig_0_13.hook` in nativeBuildInputs,
     # but for some reason that tries to use the host zig instead of the build zig.
-    zig_0_12 = buildPackages.zig_0_12;
+    zig_0_13 = buildPackages.zig_0_13;
   }).overrideAttrs (upstream: {
     dontUseZigCheck = true;
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
@@ -655,7 +637,7 @@ in with final; {
     cargo = crossCargo;
   };
 
-    # 2025/01/28: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
+  # 2025/01/28: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
   #   buildInputs = upstream.buildInputs ++ [
   #     libadwaita  # "plugins/meson.build:41:2: ERROR: Dependency "libadwaita-1" not found, tried pkgconfig"
@@ -776,6 +758,16 @@ in with final; {
   #   });
   # });
 
+
+  # 2025/03/24: xcb-imdkit is only needed on x11.
+  # it breaks because of a dependency on extra-cmake-modules, which pulls in conflicting `qtsvg`.
+  # path to upstreaming is to remove extra-cmake-modules' dependency on qtsvg.
+  # it's only there because of `wrapQtAppsHook`, which is a noop when building extra-cmake-modules,
+  # but the qt5 nixpkgs stuff is a dumpster fire so have fun with that...
+  rofi-unwrapped = prev.rofi-unwrapped.override {
+    xcb-imdkit = null;
+  };
+
   # 2024/05/31: upstreaming is unblocked; requires some changes, as configure tries to invoke our `python`
   # implemented (broken) on servo cross-staging-2023-07-30 branch
   # rpm = prev.rpm.overrideAttrs (upstream: {
@@ -873,12 +865,6 @@ in with final; {
     '';
   });
 
-  # 2025/01/19: upstreaming is unblocked
-  tree-sitter = prev.tree-sitter.overrideAttrs (upstream: {
-    # shell completions were enabled, but aren't cross-compatible: <https://github.com/nixos/nixpkgs/pull/368976>
-    postInstall = lib.replaceStrings [ "installShellCompletion" ] [ "true || installShellCompletion" ] upstream.postInstall;
-  });
-
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   # 2024/05/31: upstreaming is blocked on gnustep-base cross compilation
@@ -946,4 +932,15 @@ in with final; {
 
   # 2024/11/19: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ libxslt ] prev.xarchiver;
+
+  # 2025/03/15: upstreaming (to staging) is unblocked, but proper fix is more involved:
+  # can't disable the `installedTests` output by reading `finalAttrs.doCheck` because infinite recursion;
+  # working fix is either to fix test building (not running) to work under cross, or give the package an ugly
+  # `installCheck` call arg & gate things there.
+  xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      buildPackages.glib # for gdbus-codegen
+    ];
+    outputs = [ "out" ];  #< no installedTests
+  });
 }

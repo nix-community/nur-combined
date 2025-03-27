@@ -1,0 +1,89 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i ysh -p common-updater-scripts -p coreutils -p curl -p oils-for-unix
+
+set -e
+
+source $LIB_YSH/args.ysh
+
+parser (&spec) {
+  flag "" --max-versions (Int, default=10, help='''
+    only show up to this many of the most recent valid versions.
+    the lower this value, the faster this script will complete.
+    many use cases can set this to `1`.
+  ''')
+  flag -v --verbose (Bool, default=false, help="more logging")
+  flag -vv --really-verbose (Bool, default=false, help="more logging")
+  flag "" --old-version (Str, help='''
+    version which yielded the provided url, used to recognize how the URL needs to be updated per version
+  ''')
+  arg url (help='''
+    URL at which to expect a .xpi file.
+    combined with `--old-version`, this is treated as a template for discovering newer versions.
+  ''')
+}
+
+func numeric_version (tag) {
+  # TODO: consider `b<n>` or `rc<n>` suffixes?
+  return ($(echo "$tag" | egrep --only-matching "[0-9.]+" | head -n1))
+}
+
+func sort_versions (versions) {
+  var numerics = []
+  for v in (versions) {
+    var row = [numeric_version(v), v] => join(" ")
+    call numerics->append (row)
+  }
+  var lines = numerics => join($'\n')
+  var sorted = $(echo "$lines" | sort --version-sort --reverse | cut -d" " -f 2)
+  return (sorted => split ($'\n'))
+}
+
+proc debug (;...stmt) {
+  if (VERBOSE) {
+    # TODO: pretty-print instead of assuming every stmt is a Str
+    var joined = stmt => join(" ")
+    echo "[DEBUG] $joined" >&2
+  }
+}
+
+var CURL_FLAGS = []
+
+var args = parseArgs(spec, ARGV)
+
+var MAX_VERSIONS = args['max-versions']
+var OLD_VERSION = args['old-version']
+var URL = args.url
+var VERBOSE = args.verbose or args['really-verbose']
+
+if (args['really-verbose']) {
+  call CURL_FLAGS->append("--verbose")
+}
+
+# we need the bare git URL.
+# strip `https://github.com/OWNER/NAME/releases/download/...` -> `https://github.com/OWNER/NAME`
+var repo_url = URL.replace(/ '/releases/' .* $ /, "")
+debug ("extracted", repo_url)
+
+var all_tags = $(list-git-tags --url="$repo_url") => split($'\n')
+debug ("extracted tags", ...all_tags)
+setvar all_tags = sort_versions (all_tags)
+debug ("sorted tags", ...all_tags)
+
+# # filter to the versions for which we can actually download an artifact.
+# # some packages (uBlock) publish releases even before all artifacts are available.
+var online_versions = []
+
+for v in (all_tags) {
+  var url_to_test = URL => replace (OLD_VERSION, v);
+  debug ("testing url:", url_to_test)
+  if curl @CURL_FLAGS --fail "$url_to_test" {
+    echo "found online tag: $v"
+    call online_versions -> append (v)
+    if (len(online_versions) >= MAX_VERSIONS) {
+      break
+    }
+  }
+}
+
+var pretty_versions = online_versions => join(" ")
+echo "$pretty_versions"

@@ -88,9 +88,6 @@
   at-spi2-core,
   atk,
   autoPatchelfHook,
-  bash,
-  buildNpmPackage,
-  buildPackages,
   cups,
   electron_33-bin,
   fetchFromGitHub,
@@ -103,15 +100,18 @@
   gtk3,
   icu,
   lib,
+  libgbm,
   libpulseaudio,
   libwebp,
   libxslt,
   makeShellWrapper,
-  mesa,
   nix-update-script,
+  nodejs,
   nspr,
   nss,
   pango,
+  pkgsBuildHost,
+  pnpm_10,
   python3,
   rsync,
   signal-desktop,
@@ -122,9 +122,9 @@
   xdg-utils,
 }:
 let
-  ringrtcPrebuild = "${signal-desktop}/lib/Signal/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
+  ringrtcPrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
 
-  betterSqlitePrebuild = "${signal-desktop}/lib/Signal/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
+  betterSqlitePrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
 
   # ringrtcPrebuild = stdenv.mkDerivation {
   #   name = "ringrtc-bin";
@@ -140,18 +140,21 @@ let
   #   '';
   # };
 
-  # sqlcipherTarball = fetchurl {
-  #   # this is a dependency of better-sqlite3.
-  #   # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
-  #   # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
-  #   url = let
-  #     BETTER_SQLITE3_VERSION = "9.0.8";  #< from Signal-Desktop/package.json
-  #     HASH = "b0dbebe5b2d81879984bfa2318ba364fb4d436669ddc1668d2406eaaaee40b7e";
-  #     SQLCIPHER_VERSION = "4.6.1-signal-patch2";
-  #     EXTENSION_VERSION = "0.2.0";
-  #   in "https://build-artifacts.signal.org/desktop/sqlcipher-v2-${SQLCIPHER_VERSION}--${EXTENSION_VERSION}-${HASH}.tar.gz";
-  #   hash = "sha256-sNvr5bLYGHmYS/ojGLo2T7TUNmad3BZo0kBuqq7kC34=";
-  # };
+  # better-sqlite3 can be built from source, or use the prebuilt version from nixpkgs' signal-desktop.
+  # just do whatever's easiest (and works) at the time of upgrade; set `null` to use the prebuild
+  # sqlcipherTarball = null;
+  sqlcipherTarball = fetchurl {
+    # this is a dependency of better-sqlite3.
+    # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
+    # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
+    url = let
+      BETTER_SQLITE3_VERSION = "9.0.11";  #< from Signal-Desktop/package.json
+      HASH = "6253f886c40e49bf892d5cdc92b2eb200b12cd8d80c48ce5b05967cfd01ee8c7";
+      SQLCIPHER_VERSION = "4.6.1-signal-patch2";
+      EXTENSION_VERSION = "0.2.1-asm2";
+    in "https://build-artifacts.signal.org/desktop/sqlcipher-v2-${SQLCIPHER_VERSION}--${EXTENSION_VERSION}-${HASH}.tar.gz";
+    hash = "sha256-YlP4hsQOSb+JLVzckrLrIAsSzY2AxIzlsFlnz9Ae6Mc=";
+  };
 
   # signal-fts5-extension = callPackage ./fts5-extension { };
   # bettersqlitePatch = substituteAll {
@@ -175,19 +178,22 @@ let
   hostNpmArch = if stdenv.hostPlatform.isAarch64 then "arm64" else "x64";
   crossNpmArchExt = if buildNpmArch == hostNpmArch then "" else "-${hostNpmArch}";
 in
-buildNpmPackage rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "signal-desktop-from-src";
-  version = "7.37.0";
+  version = "7.48.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
-    rev = "v${version}";
-    hash = "sha256-Uh2VzPmNTjlE5dsFiAhXR6lxV53IJG7IexZNArGTBhU=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-IF+jx5u10kygp3AiHdxthUSH6RIvffQIs3o8nxe34wU=";
   };
 
-  npmDepsHash = "sha256-U1dWB1E36A+M7XLosxMd2oRifJ6czFxzuz3pOTiJ+oM=";
+  pnpmDeps = pnpm_10.fetchDeps {
+    inherit (finalAttrs) pname version src patches;
+    hash = "sha256-xba5MfIjwnLHDKVM9+2KSpC3gcw6cM4cX3dn3/jqT3o=";
+  };
 
   patches = [
     # ./debug.patch
@@ -228,9 +234,12 @@ buildNpmPackage rec {
     git  # to calculate build date
     gnused
     makeShellWrapper
+    nodejs
+    # nodejs.python
     python3
     rsync
     wrapGAppsHook
+    pkgsBuildHost.pnpm_10.configHook  #< XXX: buildPackages because it doesn't splice right (fixes cross compilation)
   ];
 
   buildInputs = [
@@ -246,7 +255,8 @@ buildNpmPackage rec {
     libpulseaudio
     libwebp
     libxslt
-    mesa # for libgbm
+    libgbm
+    nodejs
     nspr
     nss
     pango
@@ -266,16 +276,21 @@ buildNpmPackage rec {
 
   dontWrapGApps = true;
   # dontStrip = false;
-  # makeCacheWritable = true;
+  # makeCacheWritable = true;  # "Your cache folder contains root-owned files, due to a bug in previous versions of npm which has since been addressed."
 
-  npmRebuildFlags = [
-    # "--offline"
-    "--ignore-scripts"
-  ];
+  # npmRebuildFlags = [
+  #   # "--offline"
+  #   "--ignore-scripts"
+  # ];
+  # pnpmRebuildFlags = [
+  #   # "--offline"
+  #   "--ignore-scripts"
+  # ];
 
   # NIX_DEBUG = 6;
 
-  postConfigure = ''
+  # should really be `postConfigure`, but `pnpmConfigHook` runs _after_ postConfigure
+  preBuild = ''
     # XXX: Signal does not let clients connect if they're running a version that's > 90d old.
     # to calculate the build date, it uses SOURCE_DATE_EPOCH (if set), else `git log`.
     # nixpkgs sets SOURCE_DATE_EPOCH to 1980/01/01 by default, so unset it so Signal falls back to git date.
@@ -294,25 +309,29 @@ buildNpmPackage rec {
     # patch these out to remove a runtime reference back to the build bash
     # (better, perhaps, would be for these build scripts to not be included in the asar...)
     substituteInPlace node_modules/dashdash/etc/dashdash.bash_completion.in --replace-fail '#!/bin/bash' '#!/bin/sh'
+    # substituteInPlace node_modules/pino/inc-version.sh --replace-fail '#!/bin/bash' '#!/bin/sh'
+    substituteInPlace node_modules/pino/inc-version.sh --replace-fail '#!${stdenv.shell}' '#!/bin/sh'
 
     # provide necessities which were skipped as part of --ignore-scripts
     rsync -arv ${ringrtcPrebuild}/ node_modules/@signalapp/ringrtc/
 
-    # option 1: replace the entire better-sqlite3 library with the prebuilt version from nixpkgs' signal-desktop
-    rsync -arv ${betterSqlitePrebuild}/ node_modules/@signalapp/better-sqlite3/
-    # patch so signal doesn't try to *rebuild* better-sqlite3
-    substituteInPlace node_modules/@signalapp/better-sqlite3/package.json \
-      --replace-fail '"download": "node ./deps/download.js"'  '"download": "true"' \
-      --replace-fail '"build-release": "node-gyp rebuild --release"'  '"build-release": "true"' \
-      --replace-fail '"install": "npm run download && npm run build-release"'  '"install": "true"'
-
-    # option 2: replace only the sqlcipher plugin with Signal's prebuilt version,
-    # and build the rest of better-sqlite3 from source
-    # cp $${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
+    ${if sqlcipherTarball == null then ''
+      # option 1: replace the entire better-sqlite3 library with the prebuilt version from nixpkgs' signal-desktop
+      rsync -arv ${betterSqlitePrebuild}/ node_modules/@signalapp/better-sqlite3/
+      # patch so signal doesn't try to *rebuild* better-sqlite3
+      substituteInPlace node_modules/@signalapp/better-sqlite3/package.json \
+        --replace-fail '"download": "node ./deps/download.js"'  '"download": "true"' \
+        --replace-fail '"build-release": "node-gyp rebuild --release"'  '"build-release": "true"' \
+        --replace-fail '"install": "pnpm run download && pnpm run build-release"'  '"install": "true"'
+    '' else ''
+      # option 2: replace only the sqlcipher plugin with Signal's prebuilt version,
+      # and build the rest of better-sqlite3 from source
+      cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
+    ''}
 
     # pushd node_modules/@signalapp/better-sqlite3
     #   # node-gyp isn't consistently linked into better-sqlite's `node_modules` (maybe due to version mismatch with signal-desktop's node-gyp?)
-    #   PATH="$PATH:$(pwd)/../../.bin" npm --offline run build-release
+    #   PATH="$PATH:$(pwd)/../../.bin" pnpm --offline run build-release
     # popd
 
     # pushd node_modules/@signalapp/libsignal-client
@@ -323,7 +342,7 @@ buildNpmPackage rec {
     # - npm run build:acknowledgments
     # - npm exec patch-package
     # - npm run electron:install-app-deps
-    npm run postinstall
+    pnpm run postinstall
   '';
 
   # excerpts from package.json:
@@ -349,11 +368,14 @@ buildNpmPackage rec {
   buildPhase = ''
     runHook preBuild
 
-    npm run generate
+    pnpm run generate
 
-    npm run build:esbuild:prod --offline --frozen-lockfile
+    pnpm run build:esbuild:prod --offline --frozen-lockfile
 
-    npm run build:release -- \
+    SIGNAL_ENV=production \
+    pnpm exec electron-builder \
+      --config.extraMetadata.environment=production \
+      --config.directories.output=release \
       --${hostNpmArch} \
       --config.electronDist=${electron'}/libexec/electron \
       --config.electronVersion=${electron'.version} \
@@ -365,11 +387,11 @@ buildNpmPackage rec {
   installPhase = ''
     runHook preInstall
 
-    # directory structure follows the original `signal-desktop` nix package
+    # directory structure follows the upstream `signal-desktop` nix package
     mkdir -p $out/lib
-    cp -R release/linux${crossNpmArchExt}-unpacked $out/lib/Signal
-    # cp -R release/linux-unpacked/resources $out/lib/Signal/resources
-    # cp -R release/linux-unpacked/locales $out/lib/Signal/locales
+    cp -R release/linux${crossNpmArchExt}-unpacked $out/lib/signal-desktop
+    # cp -R release/linux-unpacked/resources $out/lib/signal-desktop/resources
+    # cp -R release/linux-unpacked/locales $out/lib/signal-desktop/locales
 
     mkdir $out/bin
 
@@ -380,24 +402,37 @@ buildNpmPackage rec {
     # fixup the app.asar to:
     # - use host nodejs
     # - use host libpulse.so
-    asar extract $out/lib/Signal/resources/app.asar unpacked
-    rm $out/lib/Signal/resources/app.asar
+    asar extract $out/lib/signal-desktop/resources/app.asar unpacked
+    rm $out/lib/signal-desktop/resources/app.asar
     patchShebangs --host --update unpacked
     patchelf --add-needed ${libpulseaudio}/lib/libpulse.so unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-*.node
-    asar pack unpacked $out/lib/Signal/resources/app.asar
+    cp -R unpacked "$asar"
+    asar pack unpacked $out/lib/signal-desktop/resources/app.asar
 
-    # XXX: add --ozone-platform-hint=auto to make it so that NIXOS_OZONE_WL isn't *needed*.
-    # electron should auto-detect x11 v.s. wayland: launching with `NIXOS_OZONE_WL=1` is an optional way to force it when debugging.
-    # xdg-utils: needed for ozone-platform-hint=auto to work
-    # else `LaunchProcess: failed to execvp: xdg-settings`
-    makeShellWrapper ${lib.getExe electron'} $out/bin/signal-desktop \
+    # patchShebangs --host --update $out/lib/signal-desktop/resources
+    # patchelf --add-needed ${libpulseaudio}/lib/libpulse.so $out/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-*.node
+
+    # # XXX: add --ozone-platform-hint=auto to make it so that NIXOS_OZONE_WL isn't *needed*.
+    # # electron should auto-detect x11 v.s. wayland: launching with `NIXOS_OZONE_WL=1` is an optional way to force it when debugging.
+    # # xdg-utils: needed for ozone-platform-hint=auto to work
+    # # else `LaunchProcess: failed to execvp: xdg-settings`
+    # makeShellWrapper ${lib.getExe electron'} $out/bin/signal-desktop \
+    #   "''${gappsWrapperArgs[@]}" \
+    #   --add-flags $out/lib/signal-desktop/resources/app.asar \
+    #   --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+    #   --add-flags --ozone-platform-hint=auto \
+    #   --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}" \
+    #   --inherit-argv0
+
+    makeShellWrapper $out/lib/signal-desktop/signal-desktop $out/bin/signal-desktop \
       "''${gappsWrapperArgs[@]}" \
-      --add-flags $out/lib/Signal/resources/app.asar \
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
       --add-flags --ozone-platform-hint=auto \
       --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}" \
       --inherit-argv0
   '';
+
+  outputs = [ "out" "asar" ];
 
   passthru = {
     inherit ringrtcPrebuild betterSqlitePrebuild;
@@ -420,7 +455,7 @@ buildNpmPackage rec {
       "Signal Android" or "Signal iOS" app.
     '';
     homepage = "https://signal.org/";
-    changelog = "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
+    changelog = "https://github.com/signalapp/Signal-Desktop/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
   };
-}
+})

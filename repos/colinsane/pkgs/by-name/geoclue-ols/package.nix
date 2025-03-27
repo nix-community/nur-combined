@@ -35,6 +35,7 @@
     mercantile
     numpy
     scipy
+    typing-extensions
   ];
 
   nativeBuildInputs = [
@@ -51,11 +52,16 @@
     wrapPythonPrograms
   '';
 
+  postInstallCheck = ''
+    $out/bin/ols --help
+  '';
+
   pythonImportsCheck = [
     "ols"
   ];
 
   doCheck = true;
+  doInstallCheck = true;
   strictDeps = true;
 
   meta = with lib; {

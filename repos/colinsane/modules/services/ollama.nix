@@ -87,7 +87,7 @@ in
 
     # these acceleration settings are relevant to `desko`.
     services.ollama.acceleration = lib.mkIf config.hardware.amdgpu.opencl.enable "rocm";  # AMD GPU acceleration (achieves the same as `nixpkgs.config.rocmSupport = true` but just for ollama)
-    services.ollama.rocmOverrideGfx = "10.1.0";  #< `nix-shell -p "rocmPackages.rocminfo" --run "rocminfo" | grep "gfx"`
+    services.ollama.rocmOverrideGfx = "10.1.0";  #< `nix-shell -p "rocmPackages.rocminfo" --run "rocminfo" | grep "gfx"`  (e.g. gfx1010)
     # services.ollama.environmentVariables.HCC_AMDGPU_TARGET = "gfx1010";  # seems to be unnecessary
 
     users.groups.ollama = {};

@@ -115,11 +115,19 @@
   # - fee-per-satoshi=<ppm>
   # - feature configs (i.e. experimental-xyz options)
   sane.services.clightning.extraConfig = ''
-    # log levels: "io", "debug", "info", "unusual", "broken"
-    log-level=info
+    # log levels: "io", "trace", "debug", "info", "unusual", "broken"
+    # log-level=info
     # log-level=info:lightningd
     # log-level=debug:lightningd
-    # log-level=debug
+    log-level=debug
+    # log-level=io
+
+    disable-plugin=cln-xpay
+
+    # let me use `lightning-cli dev-*` subcommands, fucktards.
+    developer
+    # `developer` enables `dev-*` but *disables* the older commands. asshats.
+    allow-deprecated-apis=true
 
     # peerswap:
     # - config example: <https://github.com/fort-nix/nix-bitcoin/pull/462/files#diff-b357d832705b8ce8df1f41934d613f79adb77c4cd5cd9e9eb12a163fca3e16c6>

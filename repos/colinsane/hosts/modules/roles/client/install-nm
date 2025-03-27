@@ -9,15 +9,16 @@ from dataclasses import dataclass
 
 @dataclass
 class Connection:
+    autoconnect: bool
     comment: str | None
-    ssid: str  # also used as "id", more generally
     passphrase: str | None
+    ssid: str  # also used as "id", more generally
     # LTE connections:
     uuid: str | None
     gsm_apn: str | None
     gsm_number: str | None
-    gsm_username: str | None
     gsm_password: str | None
+    gsm_username: str | None
 
     @property
     def type_(self) -> str:
@@ -27,9 +28,11 @@ class Connection:
 
 def parse_manifest(manifest_path: str) -> list[Connection]:
     for entry in json.load(open(manifest_path)):
+        autoconnect = entry.get("autoconnect", True)
         comment = entry.get("comment")
-        ssid = entry["ssid"]
         passphrase = entry.get("passphrase")
+        ssid = entry["ssid"]
+        # LTE connections:
         uuid = entry.get("uuid")
         gsm_apn = entry.get("gsm_apn")
         gsm_number = entry.get("gsm_number")
@@ -37,6 +40,7 @@ def parse_manifest(manifest_path: str) -> list[Connection]:
         gsm_password = entry.get("gsm_password")
         if ssid != "<EOF>":
             yield Connection(
+                autoconnect=autoconnect,
                 comment=comment,
                 ssid=ssid,
                 passphrase=passphrase,
@@ -53,11 +57,19 @@ def write_iwd(fh: "file", con: Connection) -> None:
         fh.write(f"Passphrase={con.passphrase}\n")
 
 def write_nm(fh: "file", con: Connection) -> None:
+    def strbool(b: bool) -> str:
+        # serialize a boolean into the format desired by NetworkManager
+        if b:
+            return "true"
+        else:
+            return "false"
+
     fh.write("[connection]\n")
     fh.write(f"id={con.ssid}\n")
     if con.uuid is not None:
         fh.write(f"uuid={con.uuid}\n")
     fh.write(f"type={con.type_}\n")
+    fh.write(f"autoconnect={strbool(con.autoconnect)}")
 
     if con.type_ == "wifi":
         fh.write("\n")

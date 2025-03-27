@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -15,6 +16,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-Dc+SuLwbLFcNSr9RiNSc7dgisBOvOUEIDR8dFAkC/O0=";
+  useFetchCargoVendor = true;
 
   meta = with lib; {
     description = "TODO: FILLME";

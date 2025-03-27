@@ -135,6 +135,10 @@ in
     "sane-scripts.reboot".sandbox = {
       method = "bunpen";
       whitelistSystemctl = true;
+      capabilities = [
+        "sys_admin"
+      ];
+      tryKeepUsers = true;  #< allow `sudo sane-reboot`, for the case where the service manager is unreachable
     };
 
     "sane-scripts.reclaim-disk-space".sandbox = {

@@ -32,10 +32,9 @@ let
       doCheck = true;
       strictDeps = true;
     };
-    ssdp = python3.pkgs.buildPythonPackage {
+    ssdp = stdenv.mkDerivation {
       pname = "sane-lib-ssdp";
       version = "0.1.0";
-      format = "setuptools";
       src = ./src/lib/ssdp;
 
       nativeBuildInputs = [

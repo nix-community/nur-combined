@@ -9,8 +9,9 @@ if [ "$host" = "$target" ]
 then
   # N.B.: anything other than just `reboot` with no args requires `sudo` privileges (to write to /run/systemd/).
   # `systemctl reboot -i` tells systemd to ignore inhibitors (i.e. other users logged in).
-  reboot "$@" || \
-    systemctl reboot -i "$@"
+  timeout 5 reboot "$@" || \
+    timeout 5 systemctl reboot -i "$@" || \
+    (sync && reboot --force --force "$@")  #< XXX: requires root
 else
   echo "WRONG MACHINE. you're on $host."
   exit 1

@@ -1,9 +1,15 @@
+# gpodder keeps all its feeds in a sqlite3 database.
+# the binary provided here, `gpodder-ensure-feeds`, may be run to import
+# my nix-synchronized feeds into gpodder, and remove any extras i've since deleted.
+# repeat imports are deduplicated by url, even when offline.
+# suggested usage: `gpodder-ensure-feeds ~/.config/gpodderFeeds.opml` as part of activation or some default .service
+
 {
   gpodder,
+  lib,
   listparser,
-  makeWrapper,
+  makeShellWrapper,
   static-nix-shell,
-  symlinkJoin,
 }:
 
 let
@@ -16,32 +22,24 @@ let
     };
   };
 in
-# we use a symlinkJoin so that we can inherit the .desktop and icon files from the original gPodder
-(symlinkJoin {
-  name = "${gpodder.pname}-configured";
-  paths = [ gpodder remove-extra ];
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  gpodder.overrideAttrs (upstream: {
+    # use `makeShellWrapper` here so that we can get expansion of env vars like `$HOME`, at runtime
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      makeShellWrapper
+    ];
 
-  # gpodder keeps all its feeds in a sqlite3 database.
-  # we can configure the feeds externally by wrapping gpodder and just instructing it to import
-  # a feedlist every time we run it.
-  # repeat imports are deduplicated by url, even when offline.
-  postBuild = ''
-    wrapProgram $out/bin/gpodder \
-      $extraMakeWrapperArgs \
-      --run "$out/bin/gpodder-ensure-feeds"' ~/.config/gpodderFeeds.opml "$@" || true' \
-      --run 'while [[ -n "$1" && "$1" != -- && "$1" != --help ]]; do shift; done ; if [[ "$1" == --help ]]; then exit; elif [[ "$1" == -- ]]; then shift; fi'
+    dontWrapGApps = true;
+    postFixup = (upstream.postFixup or "") + ''
+      # XXX(2025-03-21): splat the makeWrapperArgs here because upstream gpodder specifies
+      # `--suffix PATH ...` all as _one_ argument, but makeShellWrapper requires it to be multiple :(
+      # splat `extraMakeWrapperArgs` because nix passes that through as a single string instead of as a bash array.
+      # be careful when changing this: we rely on `~` being expanded at the right time (i.e. by the python interpreter),
+      # and never before that (e.g. the makePythonApplication c wrapper)
+      makeWrapperArgs=(''${makeWrapperArgs[*]} "''${gappsWrapperArgs[@]}" ''${extraMakeWrapperArgs[@]})
 
-    # fix up the .desktop file to invoke our wrapped application
-    # (rather, invoke `gpodder` by PATH, which could be this, or an outer layer of wrapping)
-    orig_desktop=$(readlink $out/share/applications/gpodder.desktop)
-    unlink $out/share/applications/gpodder.desktop
-    sed "s:Exec=.*/gpodder:Exec=gpodder:" $orig_desktop > $out/share/applications/gpodder.desktop
-  '';
-
-  passthru = {
-    inherit gpodder remove-extra;
-  };
-})
+      for f in $out/bin/*; do
+        wrapProgramShell "$f" "''${makeWrapperArgs[@]}"
+      done
+      makeShellWrapper ${lib.getExe remove-extra} "$out/bin/${remove-extra.meta.mainProgram}" "''${makeWrapperArgs[@]}"
+    '';
+  })

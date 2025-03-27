@@ -1,6 +1,19 @@
 { pkgs, ... }: {
   sane.programs.gnome-contacts = {
-    packageUnwrapped = pkgs.gnome-contacts.overrideAttrs (upstream: {
+    packageUnwrapped = (pkgs.gnome-contacts.override {
+      evolution-data-server-gtk4 = pkgs.evolution-data-server-gtk4.override {
+        # drop webkitgtk_6_0 dependency.
+        # it's normally cached, but if modifying low-level deps (e.g. pipewire) it's nice to not have to rebuild it,
+        # especially since `gnome-contacts` is part of `moby-min`.
+        withGtk4 = false;
+      };
+      folks = pkgs.folks.override {
+        evolution-data-server-gtk4 = pkgs.evolution-data-server-gtk4.override {
+          # drop webkitgtk_6_0 dependency.
+          withGtk4 = false;
+        };
+      };
+    }).overrideAttrs (upstream: {
       # patches = (upstream.patches or []) ++ [
       #   # optional danctnix patch to allow clicking on the telephone to open the calls app,
       #   # however it's frequently in need of rebasing

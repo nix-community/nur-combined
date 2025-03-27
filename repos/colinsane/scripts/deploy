@@ -8,6 +8,7 @@ usage() {
   echo ""
   echo "usage: deploy [options] [host] [host2 ...]"
   echo "options:"
+  echo "- --build: only build; don't copy or deploy"
   echo "- --copy: only build + copy files, nothing more"
   echo "- --switch  (default)"
   echo "- --test: switch to the new configuration, but do not make it bootable"
@@ -18,7 +19,7 @@ usage() {
   echo "- --variant light|min|''|all  (default: '')"
   echo "- --wireguard always|never|opportunistic: deploy over wireguard"
   echo "- --ip <address>: deploy to the specific IP address"
-  echo "- --deriv /nix/store/...: prebuilt store path to deploy instead of (re-)building the default target"
+  echo "- --deriv /nix/store/...: prebuilt store path (or .drv to realize) to deploy instead of (re-)building the default target"
   echo ""
   echo "common idioms:"
   echo "- deploy all: deploy all hosts, sequentially"
@@ -48,14 +49,14 @@ storePath=
 addHost() {
   if [ "$1" = all ]; then
     # order matters:
-    hosts+=(moby lappy desko servo crappy)
+    hosts+=(moby lappy desko servo)
   else
     hosts+=("$1")
   fi
 }
 addVariant() {
   if [ "$1" = all ]; then
-    variants+=("-min" "-light" "" "-min-next" "-light-next" "-next")
+    variants+=("-min" "-light" "" "-next-min" "-next-light" "-next")
   elif [ -n "$1" ]; then
     variants+=("-$1")
   else
@@ -68,7 +69,7 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (--copy|--switch|--test)
+      (--build|--copy|--switch|--test)
         action=${arg/--/}
         ;;
       (--deriv)
@@ -165,7 +166,7 @@ timeoutFor() {
     (-min|-light|-next)
       echo 3600
       ;;
-    (-min-next|-light-next)
+    (-next-min|-next-light)
       echo 1800
       ;;
     (*)
@@ -196,14 +197,19 @@ deployOneHost() {
 
   local timeout=$(timeoutFor "$variant")
 
+  # storePath is allowed to be either a realized derivation,
+  # or the path to a .drv file itself
   local myStorePath="$storePath"
   if [ -z "$myStorePath" ]; then
     # `nix-build -A foo` evals and then realizes foo, but it never unloads the memory used to eval foo.
     # my exprs are heavyweight, we need that memory for building, so do the evals separately from the realizations:
     info "evaluating $host$variant..."
-    local drvPath=$(nix eval --raw -f . "hosts.$host$variant.toplevel.drvPath")
+    myStorePath=$(nix eval --raw -f . "hosts.$host$variant.toplevel.drvPath")
+  fi
+
+  if [[ "$myStorePath" == *.drv ]]; then
     info "building $host$variant ($drvPath)"
-    myStorePath=$(destructive nix-store --realize "$drvPath" "${nixArgs[@]}")
+    myStorePath=$(destructive nix-store --realize "$myStorePath" "${nixArgs[@]}")
     if [ -z "$myStorePath" ]; then
       return 1
     fi
@@ -221,30 +227,36 @@ deployOneHost() {
 
   local netHost=$(resolveHost "$host")
 
-  if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
-    if [ -e /run/secrets/nix_signing_key ]; then
-      info "signing store paths ..."
-      destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath"
-    else
-      info "not signing store paths: /run/secrets/nix_signing_key does not exist"
-    fi
-    # add more `-v` for more verbosity (up to 5).
-    # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
-    #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-    ECHO_CMD=1 destructive timeout "$timeout" nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" || return 1
-  fi
+  case "$action" in
+    (copy|switch|test)
+      if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
+        if [ -e /run/secrets/nix_signing_key ]; then
+          info "signing store paths ..."
+          destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath"
+        else
+          info "not signing store paths: /run/secrets/nix_signing_key does not exist"
+        fi
+        # add more `-v` for more verbosity (up to 5).
+        # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
+        #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
+        ECHO_CMD=1 destructive timeout "$timeout" nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" || return 1
+      fi
+      ;;
+  esac
 
-  if [ -n "$action" ] && [ "$action" != "copy" ]; then
-    info "activating profile... "
-    destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath" || return 1
-    destructive runOnTarget "$netHost" sudo "$myStorePath/bin/switch-to-configuration" "$action"
-    local rc=$?
-    if [[ -n "$doReboot" && ("$rc" -eq 0 || -n "$doRebootForce") ]]; then
-      info "rebooting $host"
-      destructive runOnTarget "$netHost" sane-reboot "$host" || return 1
-    fi
-    return $rc
-  fi
+  case "$action" in
+    (switch|test)
+      info "activating profile... "
+      destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath" || return 1
+      destructive runOnTarget "$netHost" sudo "$myStorePath/bin/switch-to-configuration" "$action"
+      local rc=$?
+      if [[ -n "$doReboot" && ("$rc" -eq 0 || -n "$doRebootForce") ]]; then
+        info "rebooting $host"
+        destructive runOnTarget "$netHost" sane-reboot "$host" || return 1
+      fi
+      return $rc
+      ;;
+  esac
 }
 
 failedDeploys=()

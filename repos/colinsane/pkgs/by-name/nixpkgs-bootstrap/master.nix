@@ -5,11 +5,11 @@
 # - nix hash to-sri sha256:xyz
 #   - paste the output as the new `sha256`
 {
-  mkNixpkgs ? import ./mkNixpkgs.nix {}
+  mkNixpkgs ? import ./mkNixpkgs.nix {},
 }:
 mkNixpkgs {
-  rev = "fa648b2835f6cc0e77bd3b246cf8c80f126f0139";
-  sha256 = "sha256-1Vg8DUmf9Re46lbjWq02IV0syQJLUO1y5CoUcWP5C/s=";
-  version = "0-unstable-2025-02-08";
+  rev = "badeba75aa01faa7c323beecd4557c840480add6";
+  sha256 = "sha256-MGRa2w0ejQCcF4IMR6Mpvgu1lh8XjHF+Po0DO1kLtWo=";
+  version = "0-unstable-2025-03-24";
   branch = "master";
 }

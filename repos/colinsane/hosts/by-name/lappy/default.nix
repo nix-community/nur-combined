@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./fs.nix
@@ -30,18 +30,10 @@
   # 1024 solves *most* crackles, but still noticable under heavier loads.
   sane.programs.pipewire.config.min-quantum = 2048;
 
-  # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
-  # default config: https://man.archlinux.org/man/snapper-configs.5
-  # defaults to something like:
-  #   - hourly snapshots
-  #   - auto cleanup; keep the last 10 hourlies, last 10 daylies, last 10 monthlys.
-  # to list snapshots: `sudo snapper --config nix list`
-  # to take a snapshot: `sudo snapper --config nix create`
-  # services.snapper.configs.nix = {
-  #   # TODO: for the impermanent setup, we'd prefer to just do /nix/persist,
-  #   # but that also requires setting up the persist dir as a subvol
-  #   SUBVOLUME = "/nix";
-  #   # TODO: ALLOW_USERS doesn't seem to work. still need `sudo snapper -c nix list`
-  #   ALLOW_USERS = [ "colin" ];
-  # };
+  # limit how many snapshots we keep, due to extremely limited disk space (TODO: remove this override after upgrading lappy hard drive)
+  services.snapper.configs.root.TIMELINE_LIMIT_HOURLY = lib.mkForce 2;
+  services.snapper.configs.root.TIMELINE_LIMIT_DAILY = lib.mkForce 2;
+  services.snapper.configs.root.TIMELINE_LIMIT_WEEKLY = lib.mkForce 0;
+  services.snapper.configs.root.TIMELINE_LIMIT_MONTHLY = lib.mkForce 0;
+  services.snapper.configs.root.TIMELINE_LIMIT_YEARLY = lib.mkForce 0;
 }

@@ -17,22 +17,10 @@
 #   - https://fitupyourstyle.com/
 #     allows search by difficulty
 # - dl packs from <https://stepmaniaonline.net>
-{ lib, pkgs, ... }:
+{ ... }:
 {
   sane.programs.itgmania = {
     buildCost = 1;
-
-    packageUnwrapped = pkgs.itgmania.overrideAttrs (upstream: {
-      # XXX(2024-12-29): itgmania (and stepmania) have to be run from their bin directory, else they silently exit
-      nativeBuildInputs = upstream.nativeBuildInputs ++ [
-        pkgs.makeWrapper
-      ];
-      postInstall = lib.replaceStrings
-        [ "ln -s $out/itgmania/itgmania $out/bin/itgmania" ]
-        [ "makeWrapper $out/itgmania/itgmania $out/bin/itgmania --run 'cd ${placeholder "out"}/itgmania'" ]
-        upstream.postInstall
-      ;
-    });
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;

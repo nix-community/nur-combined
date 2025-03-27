@@ -1,49 +1,66 @@
 {
-  common-updater-scripts,
-  coreutils,
-  fetchurl,
+  _experimental-update-script-combinators,
+  curl,
+  fetchFromGitea,
+  git,
+  gzip,
   lib,
+  nix-update-script,
   stdenv,
   writeShellApplication,
-# database downloads are limited per API key, so please consider supplying your own API key if using this package
-  apiKey ? "pk.758ba60a9bf5fc060451153c3e2542dc",
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "opencellid";
-  version = "0-unstable-2025-01-02";
+  version = "0-unstable-2025-03-24";
 
-  src = fetchurl {
-    # this is a live url. updated... weekly? the server seems to silently ignore unrecognized query parameters,
-    # so i append a version tag such that bumping it forces nix to re-fetch the data.
-    # the API key should allow for at least 2 downloads per day (maybe more?)
-    # TODO: repackage this such that hashes can be stable (mirror the data in a versioned repo, and point to that here?)
-    url = "https://opencellid.org/ocid/downloads?token=${apiKey}&type=full&file=cell_towers.csv.gz&_stamp=${version}";
-    hash = "sha256-Zh3AjmXzYs1E7fvpR53ULkuVg42tvYSxB+SIhKmabPE=";
+  src = fetchFromGitea {
+    domain = "git.uninsane.org";
+    owner = "colin";
+    repo = "opencellid-mirror";
+    rev = "bf55e74aa576bd0900f4f03b22360f52a4eeea0f";
+    hash = "sha256-4SYGrT5yIFJLF6ZYgq5GBacYjVL/Q0rW/5CqvG7RvHQ=";
   };
 
-  unpackPhase = ''
-    gunzip "$src" --stdout > cell_towers.csv
-  '';
+  dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
+    mkdir $out
     cp cell_towers.csv $out
 
     runHook postInstall
   '';
 
-  passthru.updateScript = writeShellApplication {
-    name = "opencellid-update-script";
-    runtimeInputs = [ common-updater-scripts coreutils ];
-    text = ''
-      # UPDATE_NIX_ATTR_PATH is supplied by the caller
-      version=0-unstable-$(date +%Y-%m-%d)
-      update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" \
-        --ignore-same-version \
-        --print-changes
-    '';
+  passthru = rec {
+    updateFromMirror = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+    opencellid-update-script = writeShellApplication {
+      name = "opencellid-update-script";
+      runtimeInputs = [ curl git gzip ];
+      text = ''
+        set -x
+        pushd "$(mktemp -d opencellid.XXXXXXXX)"
+
+        git clone git@git.uninsane.org:colin/opencellid-mirror.git
+        cd opencellid-mirror
+        ./update
+
+        # with `git gc` a daily commit is compressed from ~160MB -> 4-8MB (as measured by the reported size of .git dir).
+        # not sure if this affects the size when pushed to the remote though.
+        git gc
+        git push origin master
+
+        popd
+      '';
+    };
+    updateFromOpenCellId = lib.getExe opencellid-update-script;
+    updateScript = _experimental-update-script-combinators.sequence [
+      updateFromOpenCellId
+      updateFromMirror
+    ];
   };
 
   meta = with lib; {

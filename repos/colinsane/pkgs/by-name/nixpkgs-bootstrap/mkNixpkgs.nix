@@ -28,10 +28,10 @@ let
   fetchzip' = if inBootstrap then builtins.fetchTarball else fetchzip;
   optionalAttrs = cond: attrs: if cond then attrs else {};
   mkNixpkgs = {
-    rev,
-    sha256,
     branch,
-    version,
+    rev ? null,
+    sha256 ? null,
+    version ? null,
   #VVV config
     localSystem ? if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem,  #< not available in pure mode
     system ? if stdenv != null then stdenv.hostPlatform.system else localSystem,
@@ -84,41 +84,48 @@ let
     } else {});
     nixpkgs = import "${patchedSrc}" nixpkgsArgs;
   in
-    # N.B.: this is crafted to allow `nixpkgs.FOO` from other nix code
-    # AND `nix-build -A nixpkgs`
-    patchedSrc.overrideAttrs (base: {
-      # attributes needed for update scripts
-      inherit version;
-      pname = "nixpkgs";
-      passthru = (base.passthru or {}) // nixpkgs // {
-        # override is used to configure hostPlatform higher up.
-        override = overrideArgs: mkNixpkgs (args // overrideArgs);
+    if rev == null && sha256 == null && version == null then
+      import ./${branch}.nix {
+        mkNixpkgs = args': mkNixpkgs ({
+          inherit localSystem system;
+        } // args');
+      }
+    else
+      # N.B.: this is crafted to allow `nixpkgs.FOO` from other nix code
+      # AND `nix-build -A nixpkgs`
+      patchedSrc.overrideAttrs (base: {
+        # attributes needed for update scripts
+        inherit version;
+        pname = "nixpkgs";
+        passthru = (base.passthru or {}) // nixpkgs // {
+          # override is used to configure hostPlatform higher up.
+          override = overrideArgs: mkNixpkgs (args // overrideArgs);
 
-        # N.B.: src has to be specified in passthru, not the outer scope, so as to take precedence over the nixpkgs `src` package
-        src = {
-          # required by unstableGitUpdater
-          gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";
-          inherit rev;
-        } // src';
+          # N.B.: src has to be specified in passthru, not the outer scope, so as to take precedence over the nixpkgs `src` package
+          src = {
+            # required by unstableGitUpdater
+            gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";
+            inherit rev;
+          } // src';
 
-        # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in.
-        meta.position = let
-          position = builtins.unsafeGetAttrPos "rev" args;
-        in
-          "${position.file}:${toString position.line}";
+          # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in.
+          meta.position = let
+            position = builtins.unsafeGetAttrPos "rev" args;
+          in
+            "${position.file}:${toString position.line}";
 
-        # while we could *technically* use `nixpkgs.<...>` updateScript
-        # that can force maaany rebuilds on staging/staging-next.
-        # updateScript = nix-update-script {
-        #   extraArgs = [ "--version=branch=${branch}" ];
-        # };
-        updateScript = unstableGitUpdater {
-          # else the update script tries to walk 10000's of commits to find a tag
-          hardcodeZeroVersion = true;
-          inherit branch;
+          # while we could *technically* use `nixpkgs.<...>` updateScript
+          # that can force maaany rebuilds on staging/staging-next.
+          # updateScript = nix-update-script {
+          #   extraArgs = [ "--version=branch=${branch}" ];
+          # };
+          updateScript = unstableGitUpdater {
+            # else the update script tries to walk 10000's of commits to find a tag
+            hardcodeZeroVersion = true;
+            inherit branch;
+          };
         };
-      };
-    })
+      })
   ;
 in
   mkNixpkgs

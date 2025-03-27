@@ -3,8 +3,20 @@
 
 # transmission invokes this with no args, and the following env vars:
 # - TR_TORRENT_DIR: full path to the folder i told transmission to download it to.
-#     e.g. /var/media/torrents/Videos/Film/Jason.Bourne-2016
-# optionally:
+#     e.g. "/var/media/torrents/Videos/Film/Jason.Bourne-2016"
+# - TR_APP_VERSION
+# - TR_TIME_LOCALTIME
+# - TR_TORRENT_BYTES_DOWNLOADED
+# - TR_TORRENT_HASH
+# - TR_TORRENT_ID: local number to uniquely identify this torrent, used by e.g. transmission-remote.
+#     e.g. "67"
+# - TR_TORRENT_LABELS
+# - TR_TORRENT_NAME: file/folder name of the toplevel torrent item
+#     e.g. "Jason Bourne (2016) [2160p] [4K] [BluRay] [5.1] [YTS.MX]"
+# - TR_TORRENT_PRIORITY
+# - TR_TORRENT_TRACKERS
+
+# optionally, set these variables for debugging (these are specific to my script and not used upstream):
 # - TR_DRY_RUN=1
 # - TR_DEBUG=1
 
@@ -24,7 +36,7 @@ debug() {
   fi
 }
 
-echo "TR_TORRENT_DIR=$TR_TORRENT_DIR torrent-done $*"
+echo "TR_TORRENT_DIR=$TR_TORRENT_DIR TR_TORRENT_NAME=$TR_TORRENT_NAME torrent-done $*"
 
 if [[ "$TR_TORRENT_DIR" =~ ^.*freeleech.*$ ]]; then
   # freeleech torrents have no place in my permanent library
@@ -33,20 +45,35 @@ if [[ "$TR_TORRENT_DIR" =~ ^.*freeleech.*$ ]]; then
 fi
 if ! [[ "$TR_TORRENT_DIR" =~ ^$DOWNLOAD_DIR/.*$ ]]; then
   echo "unexpected torrent dir, aborting: $TR_TORRENT_DIR"
-  exit 0
+  exit 1
+fi
+
+TORRENT_PATH="$TR_TORRENT_DIR/$TR_TORRENT_NAME"
+if [[ ! -e "$TORRENT_PATH" ]]; then
+  echo "torrent unexpectedly doesn't exist at $TORRENT_PATH. will try fallback"
+  TORRENT_PATH="$TR_TORRENT_DIR"
+fi
+
+if [[ -d "$TORRENT_PATH" ]]; then
+  # trailing slash so that rsync copies the directory contents, without creating an extra toplevel dir.
+  TORRENT_PATH="$TORRENT_PATH/"
+elif [[ ! -e "$TORRENT_PATH" ]]; then
+  echo "torrent unexpectedly doesn't exist at TR_TORRENT_DIR=$TORRENT_PATH: bailing"
+  exit 1
 fi
 
 REL_DIR="${TR_TORRENT_DIR#$DOWNLOAD_DIR/}"
 MEDIA_DIR="/var/media/$REL_DIR"
 
 destructive mkdir -p "$(dirname "$MEDIA_DIR")"
-destructive rsync -rlv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
+destructive rsync -rlv "$TORRENT_PATH" "$MEDIA_DIR/"
 # make the media rwx by anyone in the group
 destructive find "$MEDIA_DIR" -type d -exec setfacl --recursive --modify d:g::rwx,o::rx {} \;
 destructive find "$MEDIA_DIR" -type d -exec chmod g+rw,a+rx {} \;
 destructive find "$MEDIA_DIR" -type f -exec chmod g+rw,a+r {} \;
 
-# if there's a single directory inside the media dir, then inline that
+# if there's a single directory inside the media dir, then inline that.
+# TODO: this is probably obsolete now that i process TR_TORRENT_NAME
 subdirs=("$MEDIA_DIR"/*)
 debug "top-level items in torrent dir:" "${subdirs[@]}"
 if [ ${#subdirs[@]} -eq 1 ]; then
@@ -61,10 +88,24 @@ fi
 # -iname means "insensitive", but the syntax is NOT regex -- more similar to shell matching
 destructive find "$MEDIA_DIR/" -type f \(\
      -iname '*downloaded?from*' \
-  -o -iname 'source.txt' \
+  -o -iname '(xxxpav69).txt' \
   -o -iname '*upcoming?releases*' \
-  -o -iname 'www.YTS*.jpg' \
+  -o -iname 'ETRG.mp4' \
+  -o -iname 'Encoded by*.txt' \
+  -o -iname 'PSArips.com.txt' \
+  -o -iname 'RARBG.com*' \
+  -o -iname 'RARBG.txt' \
+  -o -iname 'RARBG_DO_NOT_MIRROR.exe' \
+  -o -iname 'Tellytorrent.net.txt' \
+  -o -iname 'WWW.VPPV.LA.txt' \
   -o -iname 'WWW.YIFY*.COM.jpg' \
   -o -iname 'YIFY*.com.txt' \
   -o -iname 'YTS*.com.txt' \
+  -o -iname 'YTSYify*.txt' \
+  -o -iname 'www.YTS*.jpg' \
   \) -exec rm {} \;
+
+# might want to keep, might want to remove:
+# -o -iname 'info.txt'
+# -o -iname 'source.txt'
+# -o -iname 'sample.mkv'
