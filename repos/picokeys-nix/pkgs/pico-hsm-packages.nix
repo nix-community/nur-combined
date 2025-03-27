@@ -92,21 +92,38 @@ let
       pycvc,
       pypicohsm,
     }:
-    python3.pkgs.buildPythonApplication {
+    python3.pkgs.buildPythonApplication rec {
       pname = "pico-hsm-tool";
       version = "2.2";
+      pyproject = true;
 
-      format = "other";
+      doCheck = false;
 
       src = source;
 
+      sourceRoot = "source/tools";
+
+      patchPhase = ''
+        mv pico-hsm-tool.py pico-hsm-tool
+        cat > setup.py <<EOF
+        from setuptools import setup, find_packages
+        setup(
+          name = "${pname}",
+          version = "${version}",
+          scripts = ["pico-hsm-tool"],
+          package_dir = {"": "."}
+        )
+        EOF
+      '';
+
+      build-system = [ python3.pkgs.setuptools ];
+
       dependencies = with python3.pkgs; [
+        keyring
         cryptography
         pycvc
         pypicohsm
       ];
-
-      installPhase = "install -Dm755 $src/tools/pico-hsm-tool.py $out/bin/pico-hsm-tool";
 
       meta = {
         description = "Tool for interacting with the Pico HSM";
