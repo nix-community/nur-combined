@@ -106,7 +106,7 @@ let
       patchPhase = ''
         mv pico-hsm-tool.py pico-hsm-tool
         cat > setup.py <<EOF
-        from setuptools import setup, find_packages
+        from setuptools import setup
         setup(
           name = "${pname}",
           version = "${version}",

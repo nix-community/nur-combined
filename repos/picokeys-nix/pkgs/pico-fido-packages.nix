@@ -100,7 +100,7 @@ let
     patchPhase = ''
       mv pico-fido-tool.py pico-fido-tool
       cat > setup.py <<EOF
-      from setuptools import setup, find_packages
+      from setuptools import setup
       setup(
         name = "${pname}",
         version = "${version}",
