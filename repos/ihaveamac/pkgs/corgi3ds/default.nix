@@ -34,6 +34,7 @@ stdenv.mkDerivation rec {
     ./include-cstdint.patch
     ./include-cstdio.patch
     ./stub-missing-register-or-something.patch
+    ./remove-usr-local-stuff.patch
   ];
 
   buildInputs = [
@@ -47,14 +48,24 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  # TODO: check if this can be packaged into a mac application bundle?
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/bin $out/share/applications
+    mkdir -p $out/bin
     cp Corgi3DS $out/bin
-    ${lib.optionalString (
-      !stdenv.isDarwin
-    ) "cp ${desktopItem}/share/applications/*.desktop $out/share/applications/"}
+    ${
+      if stdenv.isDarwin then
+        ''
+          APPDIR=$out/Applications/Corgi3DS.app/Contents
+          mkdir -p $APPDIR/MacOS
+          ln -s $out/bin/Corgi3DS $APPDIR/MacOS/Corgi3DS
+          cp ${./Info.plist} $APPDIR/Info.plist
+        ''
+      else
+        ''
+          mkdir -p $out/share/applications
+          cp ${desktopItem}/share/applications/*.desktop $out/share/applications/
+        ''
+    }
     runHook postInstall
   '';
 

@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "xiv-on-mac";
-  version = "5.0.2";
+  version = "5.1";
 
   src = fetchzip {
     url = "https://softwareupdate.xivmac.com/sites/default/files/update_data/XIV%20on%20Mac${version}.tar.xz";
-    hash = "sha256-lDzsdy8QWUG71HIzfvyZYQGXDhoH7sn09C1wcwg3Sc0=";
+    hash = "sha256-sNhKME56W+vnZc97JCsD0rWtL27ex8wtIySl7go4xtM=";
     stripRoot = false;
   };
 
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     cp -R "XIV on Mac.app" $out/Applications
     cat << EOF > "$out/bin/xiv-on-mac"
     #!${stdenvNoCC.shell}
-    open -na "$APP_DIR" --args "$@"
+    open -na "$APP_DIR" --args "\$@"
     EOF
     chmod +x "$out/bin/xiv-on-mac"
     runHook postInstall

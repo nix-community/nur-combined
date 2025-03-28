@@ -1,0 +1,23 @@
+diff --git a/Corgi3DS.pro b/Corgi3DS.pro
+index c2b6d91..8aad619 100644
+--- a/Corgi3DS.pro
++++ b/Corgi3DS.pro
+@@ -102,6 +102,4 @@ HEADERS += \
+     src/qt/settings.hpp \
+     src/qt/emuthread.hpp
+ 
+-INCLUDEPATH += /usr/local/include
+-
+-LIBS += -L/usr/local/lib -lgmpxx -lgmp
++LIBS += -lgmpxx -lgmp
+diff --git a/src/tests/tests.pro b/src/tests/tests.pro
+index 4a03fd0..31fd462 100644
+--- a/src/tests/tests.pro
++++ b/src/tests/tests.pro
+@@ -66,6 +66,4 @@ HEADERS += \
+     ../core/scheduler.hpp \
+     ../core/cpu/vfp.hpp
+ 
+-INCLUDEPATH += /usr/local/include
+-
+ LIBS += -L/usr/local/lib -lgmpxx -lgmp

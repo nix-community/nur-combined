@@ -34,13 +34,13 @@ let
 in
 realStdenv.mkDerivation rec {
   pname = "wfs-tools";
-  version = "1.2.3-unstable-2025-03-01";
+  version = "1.2.3-unstable-2025-03-19";
 
   src = fetchFromGitHub {
     owner = "koolkdev";
     repo = pname;
-    rev = "3ec70a97b32ce37e59f1c477e9db98f4b0c2ddc6";
-    hash = "sha256-cB4xQEGRmDzWdEKwhyK5NRLZsYPtq50kFHLfXHxFSqE=";
+    rev = "98b5979d9652e6b51cd240e5a7dfa5289cbc9303";
+    hash = "sha256-BevnUleWh4YnR7u83ISynulS6+zWsuOAe2D8fPTDPbs=";
   };
 
   passthru.wfslib = fetchFromGitHub {
