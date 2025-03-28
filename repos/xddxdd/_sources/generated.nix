@@ -531,14 +531,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "e24dbdc496debec225414d4d2c760f5775e64f2a";
+    version = "d629b1084b6e3c02b1d92731e84014a6dc5a6b78";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "e24dbdc496debec225414d4d2c760f5775e64f2a";
-      hash = "sha256-JawtwuVYmZ46js+mLPAVye19IQ5+Wjz5VbEfxflwBB4=";
+      rev = "d629b1084b6e3c02b1d92731e84014a6dc5a6b78";
+      hash = "sha256-mVkcOaVnc09wf3ELsWwOLzaPoll4I9dvPkzZZ9O7kyM=";
     };
-    date = "2025-03-26";
+    date = "2025-03-28";
   };
   glauth = {
     pname = "glauth";
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4974";
+    version = "b4984";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4974";
-      hash = "sha256-O+pkL3bpT780M0Ah7z/GZoHNPD1NT/qlQ1Rg1Ia/nug=";
+      tag = "b4984";
+      hash = "sha256-5CNJ+U/uhnDxNa27CX+BTiKDkdFfp0dBQNQknbQxmZ8=";
     };
   };
   loralib = {
@@ -1263,12 +1263,12 @@
   };
   ormsgpack = {
     pname = "ormsgpack";
-    version = "1.9.0";
+    version = "1.9.1";
     src = fetchFromGitHub {
       owner = "aviramha";
       repo = "ormsgpack";
-      tag = "1.9.0";
-      hash = "sha256-Tlodu4Rlw5xzJwRsOI184TpuZflaTGn26SJiaSf1tE0=";
+      tag = "1.9.1";
+      hash = "sha256-lFKHXTYtYEjtu+nXemQnB0yjkFD69gr0n7XfJ1Hy3J0=";
     };
   };
   osdlyrics = {
@@ -1537,45 +1537,45 @@
   };
   qsp = {
     pname = "qsp";
-    version = "cf787a0c2bf00555e969ebd0f40fc15a6808f923";
+    version = "3ba547a14e6d2cbb7391d975e03383fd30b1c8b7";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "cf787a0c2bf00555e969ebd0f40fc15a6808f923";
-      hash = "sha256-awfZvFdPv+4Y5Tm1MdN/sj1tnUsJvRnQqZH00GBN8XY=";
+      rev = "3ba547a14e6d2cbb7391d975e03383fd30b1c8b7";
+      hash = "sha256-O88JJ26w3DfCyMZmK4xz1AcyzZ1Ej5EOYz3zMYqs8TU=";
     };
-    date = "2025-01-14";
+    date = "2025-03-27";
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "088d5d980fb32490954c4890f04892d7f0722e12";
+    version = "5f292fe2079cd6d2c8e534399202bf95051ad621";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "088d5d980fb32490954c4890f04892d7f0722e12";
-      hash = "sha256-eWPggD2gcZUMYxZl5wKywB6FBoiDe8z3BoiYK3RvsCQ=";
+      rev = "5f292fe2079cd6d2c8e534399202bf95051ad621";
+      hash = "sha256-l4zHiMSxDSoqW6PIwvg+6yFYTnzV7kvwlGiVFRAcMZ0=";
     };
-    date = "2025-02-03";
+    date = "2025-03-28";
   };
   qsp-stable = {
     pname = "qsp-stable";
-    version = "v5.9.2-b2";
+    version = "v5.9.2-b3";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      tag = "v5.9.2-b2";
-      hash = "sha256-awfZvFdPv+4Y5Tm1MdN/sj1tnUsJvRnQqZH00GBN8XY=";
+      tag = "v5.9.2-b3";
+      hash = "sha256-O88JJ26w3DfCyMZmK4xz1AcyzZ1Ej5EOYz3zMYqs8TU=";
     };
   };
   qsp-wx = {
     pname = "qsp-wx";
-    version = "01e7c6bc919369601533c84d10d6664aaa4220c3";
+    version = "5d8d577d74632e71075575de4b1ca38f9200783a";
     src = fetchFromGitHub {
       owner = "wxWidgets";
       repo = "wxWidgets";
-      rev = "01e7c6bc919369601533c84d10d6664aaa4220c3";
+      rev = "5d8d577d74632e71075575de4b1ca38f9200783a";
       fetchSubmodules = true;
-      hash = "sha256-BE6pn1o6B6sCpdU7+/fd1VRrJzo8gJGzNbdGR7uShvg=";
+      hash = "sha256-rnRKXRFU24JDP9Jewzqlcr1RIMpsNAWMBvYeuIzeTb8=";
     };
   };
   r8125 = {
@@ -1630,14 +1630,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "1dcc6f1119836af276dd35c6f0fe93f6bdabc65a";
+    version = "3a4a7f1ee69e047c8297197feda4c4da42689009";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "1dcc6f1119836af276dd35c6f0fe93f6bdabc65a";
-      hash = "sha256-9Xpx3s7iHLiwdzehPQZl44Q1aWhqViekrAHFBXE2PCc=";
+      rev = "3a4a7f1ee69e047c8297197feda4c4da42689009";
+      hash = "sha256-UQ91toVlEimLZXN2pv08ZKfXp0o4Ir7O02j9jFrFfGM=";
     };
-    date = "2025-03-22";
+    date = "2025-03-27";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1965,15 +1965,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "52434681e60c3c313b8ccffddee7db55c1fb4a76";
+    version = "849b93fa34cda672861bf268c0149b49e1ad8fe2";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "52434681e60c3c313b8ccffddee7db55c1fb4a76";
+      rev = "849b93fa34cda672861bf268c0149b49e1ad8fe2";
       fetchSubmodules = true;
-      hash = "sha256-vLZeI8w51dyJZLECFyFvExYpk1412DXKvNXBLZDfeNI=";
+      hash = "sha256-6ftTvbibLU8BKMrzgye12KmWsy2VXtLP8rjx8dXHszU=";
     };
-    date = "2025-03-26";
+    date = "2025-03-28";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
