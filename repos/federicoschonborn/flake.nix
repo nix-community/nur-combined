@@ -104,7 +104,7 @@
                         cleanPath = builtins.replaceStrings [ "." ] [ "-" ] path;
                         cleanURL = x: builtins.replaceStrings [ " " ] [ "%20" ] x;
                       in
-                      [ "## ${path} {#${cleanPath}}" ]
+                      [ "## `${path}` {#${cleanPath}}" ]
                       ++ lib.optional (meta ? broken && meta.broken) ''
                         > [!WARNING]
                         > 💥 This package is currently marked as broken.
