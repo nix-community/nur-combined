@@ -234,8 +234,6 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeBool "BUILD_FLASHFETCH" buildFlashfetch)
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
-      # (lib.cmakeBool "ENABLE_EMBEDDED_PCIIDS" true)
-      (lib.cmakeBool "ENABLE_EMBEDDED_AMDGPUIDS" true)
       (lib.cmakeOptionType "filepath" "CUSTOM_PCI_IDS_PATH" "${hwdata}/share/hwdata/pci.ids")
       (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
     ];
@@ -244,12 +242,15 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace completions/fastfetch.fish --replace-fail python3 '${python3.interpreter}'
   '';
 
-  postInstall = ''
-    wrapProgram $out/bin/fastfetch \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
-    wrapProgram $out/bin/flashfetch \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
-  '';
+  postInstall =
+    ''
+      wrapProgram $out/bin/fastfetch \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+    ''
+    + lib.optionalString buildFlashfetch ''
+      wrapProgram $out/bin/flashfetch \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+    '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

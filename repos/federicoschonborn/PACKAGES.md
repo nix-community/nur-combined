@@ -299,7 +299,7 @@ Like neofetch, but much faster because written in C
 - Version: `2.39.1`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L263)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
 
