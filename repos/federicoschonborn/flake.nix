@@ -96,64 +96,60 @@
 
                     # Packages
                   ''
-                  + (lib.concatLines (
-                    lib.mapAttrsToList (
-                      path: attrs:
+                  + lib.concatMapAttrsStringSep "\n\n" (
+                    path: value:
+                    lib.concatStringsSep "\n" (
                       let
-                        inherit (attrs) meta;
-                        cleanPath = x: builtins.replaceStrings [ "." ] [ "-" ] x;
+                        inherit (value) meta;
+                        cleanPath = builtins.replaceStrings [ "." ] [ "-" ] path;
                         cleanURL = x: builtins.replaceStrings [ " " ] [ "%20" ] x;
                       in
-                      lib.concatLines (
-                        lib.filter (x: x != "") [
-                          "<h2 id=\"${cleanPath path}\"><code>${path}</code></h2>\n"
-                          (lib.optionalString (meta ? broken && meta.broken) ''
-                            > [!WARNING]
-                            > 💥 This package is currently marked as broken.
-                          '')
-                          (lib.optionalString (meta ? description) "${meta.description}.")
-                          (lib.optionalString (meta ? longDescription) meta.longDescription)
-                          "- Name: `${lib.getName attrs}`"
-                          "- Version: `${lib.getVersion attrs}`"
-                          (lib.optionalString (attrs ? outputs && attrs.outputs != [ "out" ])
-                            "- Outputs: ${
-                              lib.concatMapStringsSep ", " (
-                                x: if x == attrs.outputName or null then "**`${x}`**" else "`${x}`"
-                              ) attrs.outputs
-                            }"
-                          )
-                          (lib.optionalString (meta ? homepage) "- [🌐 Homepage](${cleanURL meta.homepage})")
-                          (lib.optionalString (meta ? changelog) "- [📰 Changelog](${cleanURL meta.changelog})")
-                          (lib.optionalString (meta ? position) (
-                            let
-                              parts = builtins.match "/nix/store/.{32}-source/(.+):([[:digit:]]+)" meta.position;
-                              path = builtins.elemAt parts 0;
-                              line = builtins.elemAt parts 1;
-                            in
-                            "- [📦 Source](./${path}#L${line})"
-                          ))
-                          (lib.optionalString (meta ? license) (
-                            let
-                              licenses = lib.toList meta.license;
-                              label = if builtins.length licenses > 1 then "Licenses" else "License";
-                            in
-                            "- 📄 ${label}: ${
-                              lib.concatMapStringsSep ", " (
-                                x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName
-                              ) licenses
-                            }"
-                          ))
-                          (lib.optionalString (meta ? platforms)
-                            "- 🖥️ Platforms: ${
-                              lib.concatMapStringsSep ", " (system: "`${system}`") (
-                                lib.filter (x: builtins.elem x toplevel.config.systems) meta.platforms
-                              )
-                            }"
-                          )
-                        ]
+                      [ "## ${path} {#${cleanPath}}" ]
+                      ++ lib.optional (meta ? broken && meta.broken) ''
+                        > [!WARNING]
+                        > 💥 This package is currently marked as broken.
+                      ''
+                      ++ lib.optional (meta ? description) "${meta.description}."
+                      ++ lib.optional (meta ? longDescription) meta.longDescription
+                      ++ [ "- Name: `${lib.getName value}`" ]
+                      ++ [ "- Version: `${lib.getVersion value}`" ]
+                      ++
+                        lib.optional (value ? outputs && value.outputs != [ "out" ])
+                          "- Outputs: ${
+                            lib.concatMapStringsSep ", " (
+                              x: if x == value.outputName or null then "**`${x}`**" else "`${x}`"
+                            ) value.outputs
+                          }"
+                      ++ lib.optional (meta ? homepage) "- [🌐 Homepage](${cleanURL meta.homepage})"
+                      ++ lib.optional (meta ? changelog) "- [📰 Changelog](${cleanURL meta.changelog})"
+                      ++ lib.optional (meta ? position) (
+                        let
+                          parts = builtins.match "/nix/store/.{32}-source/(.+):([[:digit:]]+)" meta.position;
+                          path = builtins.elemAt parts 0;
+                          line = builtins.elemAt parts 1;
+                        in
+                        "- [📦 Source](./${path}#L${line})"
                       )
-                    ) config.packages
-                  ))
+                      ++ lib.optional (meta ? license) (
+                        let
+                          licenses = lib.toList meta.license;
+                          label = if builtins.length licenses > 1 then "Licenses" else "License";
+                        in
+                        "- 📄 ${label}: ${
+                          lib.concatMapStringsSep ", " (
+                            x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName
+                          ) licenses
+                        }"
+                      )
+                      ++
+                        lib.optional (meta ? platforms)
+                          "- 🖥️ Platforms: ${
+                            lib.concatMapStringsSep ", " (system: "`${system}`") (
+                              lib.filter (x: builtins.elem x toplevel.config.systems) meta.platforms
+                            )
+                          }"
+                    )
+                  ) config.packages
                 );
 
                 packageListFormatted =
