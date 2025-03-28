@@ -64,6 +64,7 @@
               allowUnfreePredicate =
                 p:
                 builtins.elem (lib.getName p) [
+                  "plasma-login"
                   "super-mario-127"
                 ];
             };

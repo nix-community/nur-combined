@@ -170,12 +170,12 @@ V2 daemon for Budgie Desktop
 Feature-rich, modern desktop designed to keep out the way of the user
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-03-25`
+- Version: `10.9.2-unstable-2025-03-26`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
 - [📦 Source](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/bu/budgie-desktop/package.nix#L140)
 - Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-25)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-26)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -1082,6 +1082,68 @@ Camera application for Plasma Mobile
 - Platforms:
   - `x86_64-darwin`
   - `aarch64-darwin`
+  - `aarch64-linux`
+  - `armv6l-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `x86_64-linux`
+  </details>
+
+<h2 id="plasma-login">
+
+`plasma-login`
+
+</h2>
+
+Plasma Login provides the frontend for Plasma's login experience
+
+- Name: `plasma-login`
+- Version: `0-unstable-2025-03-26`
+
+- [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login)
+- [📦 Source](./pkgs/by-name/plasma-login/package.nix#L52)
+- License: Unfree
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Platforms:
+  - `x86_64-darwin`
+  - `aarch64-darwin`
+  - `aarch64-linux`
+  - `armv6l-linux`
+  - `armv7l-linux`
+  - `i686-linux`
+  - `x86_64-linux`
+  </details>
+
+<h2 id="plasma-login-manager">
+
+`plasma-login-manager`
+
+</h2>
+
+Plasma Login Manager provides the backend for Plasma's login experience
+
+- Name: `plasma-login-manager`
+- Version: `0-unstable-2025-03-25`
+
+- [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
+- [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L62)
+- Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Platforms:
   - `aarch64-linux`
   - `armv6l-linux`
   - `armv7l-linux`
