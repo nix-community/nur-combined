@@ -2,7 +2,7 @@ theme = "catppuccin-latte" # it works, be without heading
 use-fork = true
 confirm-before-quit = false
 padding-x = 8
-padding-y = [10, 14]
+padding-y = [8, 14]
 
 [shell]
 program = "/run/current-system/sw/bin/fish"
@@ -18,11 +18,28 @@ blinking = true
 blinking-interval = 500
 
 [fonts]
+
 size = 18
-features = []
+features = ["calt","ss01","ss02","ss03","ss04","ss05","ss06","ss07","ss08","zero","cv01","cv02","cv03","cv04","cv31","cv32","cv33","cv34","cv35","cv36","cv37","cv96","cv97","cv98","cv99"]
 symbol-map = []
+
+[fonts.bold]
 family = "Maple Mono NF CN"
-hinting = false
+style = "Normal"
+weight = 600
+
+[fonts.bold-italic]
+family = "Maple Mono NF CN"
+style = "Italic"
+weight = 600
+
+[fonts.italic]
+family = "Maple Mono NF CN"
+style = "Italic"
+
+[fonts.normal]
+family = "Maple Mono NF CN"
+style = "Normal"
 
 [renderer]
 performance = "High"
@@ -34,6 +51,6 @@ multiplier = 5.0
 divider = 1.0
 
 [window]
-opacity = 0.6
-decorations = "enabled"
+opacity = 0.9
+decorations = "Disabled"
 blur = true

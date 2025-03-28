@@ -103,7 +103,7 @@
       enable = true;
       package = pkgs.steam.override {
         extraPkgs = pkgs: [
-          pkgs.maple-mono.NF-CN
+          pkgs.maple-mono.NF-CN-unhinted
           pkgs.gamescope
           pkgs.mangohud
         ];
@@ -244,14 +244,14 @@
     packages =
       with pkgs;
       [
-        nerd-fonts.fira-code
-        nerd-fonts.jetbrains-mono
+        # nerd-fonts.fira-code
+        # nerd-fonts.jetbrains-mono
         source-han-sans
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
         twemoji-color-font
-        maple-mono.NF-CN
+        maple-mono.NF-CN-unhinted
         # maple-mono.otf
         # maple-mono.autohint
         cascadia-code
@@ -285,8 +285,8 @@
           "LXGW Neo XiHei"
         ];
         monospace = [
-          "Monaspace Neon"
-          "Maple Mono"
+          # "Monaspace Neon"
+          "Maple Mono NF CN"
         ];
         sansSerif = [
           "Hanken Grotesk"
