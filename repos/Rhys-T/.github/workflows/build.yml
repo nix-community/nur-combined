@@ -44,7 +44,6 @@ jobs:
             
             [
               "Lnx x64/ubuntu-latest",
-              # "Lnx A64/ubuntu-latest+qemu-aarch64-linux",
               "Lnx A64/ubuntu-24.04-arm",
               "Mac x64/macos-13",
               "Mac A64/macos-latest",
@@ -54,7 +53,7 @@ jobs:
               "nixpkgs-unstable",
               "nixos-unstable",
               "nixos-24.11",
-              "a04d33c0c3f1a59a2c1cb0c6e34cd24500e5a1dc",
+              "nixpkgs-24.11-darwin",
             empty] as $nixpkgss |
             
             [
@@ -70,7 +69,7 @@ jobs:
               (if $nixpkgs | test("^[0-9a-f]{40}$") then $nixpkgs else "refs/heads/\($nixpkgs)" end) as $nixpkgsPath |
               ($runner | split("/")) as [$displayRunner, $runner] |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixos") | not)) |
-              select(($runner == "macos-13") or ($nixpkgs != "a04d33c0c3f1a59a2c1cb0c6e34cd24500e5a1dc")) |
+              select(($runner == "macos-13") or ($nixpkgs != "nixpkgs-24.11-darwin")) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               (if $qemuSystem then {
                 "aarch64-linux": "arm64",
@@ -82,6 +81,7 @@ jobs:
                 gsub("^nixpkgs-"; "NP-") |
                 gsub("^nixos-"; "NO-") |
                 gsub("-unstable$"; "-U") |
+                gsub("-darwin$"; "-D") |
                 gsub("^(?<short>[0-9a-f]{8})[0-9a-f]{32}$"; "\(.short)") |
               .) as $displayNixpkgs |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName}
