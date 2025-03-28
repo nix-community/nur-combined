@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     domain = "framagit.org";
     owner = "bortzmeyer";
     repo = "agunua";
-    rev = "release-${version}";
+    tag = "release-${version}";
     hash = "sha256-sVZ4HrFH3bL6FHn8B43rsya3vggIuCXdx6rPh+LG7MA=";
   };
 

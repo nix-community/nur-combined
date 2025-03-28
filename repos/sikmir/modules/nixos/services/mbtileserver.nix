@@ -9,16 +9,12 @@ with lib;
 
 let
   cfg = config.services.mbtileserver;
+  description = "MBTiles server";
 in
 {
   options.services.mbtileserver = {
-    enable = mkEnableOption "mbtileserver";
-    package = mkOption {
-      type = types.package;
-      default = pkgs.mbtileserver;
-      defaultText = literalMD "pkgs.mbtileserver";
-      description = "Which mbtileserver package to use.";
-    };
+    enable = mkEnableOption description;
+    package = mkPackageOption pkgs "mbtileserver" { };
     address = mkOption {
       type = types.str;
       default = "127.0.0.1";
@@ -62,14 +58,14 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       systemd.services.mbtileserver = {
-        description = "MBTiles server";
+        inherit description;
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         environment.TILE_DIR = cfg.tileDir;
         serviceConfig = {
           DynamicUser = true;
           LogsDirectory = "mbtileserver";
-          ExecStart = "${getBin cfg.package}/bin/mbtileserver --enable-fs-watch --tiles-only --host ${cfg.address} --port ${toString cfg.port}";
+          ExecStart = "${getExe cfg.package} --enable-fs-watch --tiles-only --host ${cfg.address} --port ${toString cfg.port}";
           Restart = "always";
         };
       };

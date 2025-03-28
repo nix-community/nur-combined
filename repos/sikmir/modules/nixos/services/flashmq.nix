@@ -9,22 +9,24 @@ with lib;
 
 let
   cfg = config.services.flashmq;
+  description = "FlashMQ MQTT server";
 in
 {
   options.services.flashmq = {
-    enable = mkEnableOption "flashmq";
+    enable = mkEnableOption description;
+    package = mkPackageOption pkgs "flashmq" { };
   };
 
   config = mkIf cfg.enable {
     systemd.services.flashmq = {
-      description = "FlashMQ MQTT server";
+      inherit description;
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         DynamicUser = true;
         LogsDirectory = "flashmq";
         LimitNOFILE = "infinity";
-        ExecStart = "${cfg.flashmq}/bin/flashmq -c ${configFile}";
+        ExecStart = "${lib.getExe cfg.package} -c ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";
         RestartSec = "5s";
