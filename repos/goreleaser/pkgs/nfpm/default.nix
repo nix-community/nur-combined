@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "13h7nbxmasmvrvyfvin3w0j2nzx46sqbr46isdi9s8zcq8xnvai2";
-    aarch64-linux = "098j87m39r21cfkldgrkvsxx7865qmpx4l4in5yagj09j7vm427j";
-    x86_64-darwin = "0pjk9ajxmnm4dcwj5xqayg3gzcz4d6p85wbckavq1adlipjhq85d";
-    aarch64-darwin = "1rasxrj80hca2gaghla70hsx308a9z9p7gwxj8ms7yhzw2wkq1cg";
+    x86_64-linux = "11xgbxywgnkf2ca2bph8k2izc00gjgwzhl564j6jlmnvza3b3mxl";
+    aarch64-linux = "0r9jivffwvaykya1gii1r78gaiby9qahnlbh4hzdvlpa99szis9y";
+    x86_64-darwin = "17wpbpv6hq0pnkhzdwa17xyr0pp6mf011pk0a43fr5z565awrnnk";
+    aarch64-darwin = "052jg0lpxh4n7lxwq0f0mc1vcl5zmcvq3j9dmsbxih2cqsw1ahx4";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.3/nfpm_2.41.3_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.41.3/nfpm_2.41.3_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.3/nfpm_2.41.3_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.41.3/nfpm_2.41.3_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.42.0/nfpm_2.42.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.42.0/nfpm_2.42.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.42.0/nfpm_2.42.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.42.0/nfpm_2.42.0_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "nfpm";
-  version = "2.41.3";
+  version = "2.42.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
