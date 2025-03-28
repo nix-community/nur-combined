@@ -6,7 +6,6 @@
         name = "NixOS-config";
 
         nativeBuildInputs = with pkgs; [
-          gitAndTools.pre-commit
           nixpkgs-fmt
         ];
 
