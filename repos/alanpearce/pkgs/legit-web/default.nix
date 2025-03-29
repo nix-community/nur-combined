@@ -11,8 +11,8 @@ buildGoModule {
 
   src = fetchgit {
     url = "https://git.alanpearce.eu/legit.git";
-    rev = "823f7aea9ece5805367520be94f68b06e36e53d5";
-    hash = "sha256-UnxD3nJUu89o3tr1kLPllPRTT3WV67SbtAqUkmRm7dE=";
+    rev = "ba5bcefcd3249fbaf77a487a7480a395016e3318";
+    hash = "sha256-x1/g/u0i9RCQjy8Iz0CG1oJTktOHhgg9jymPDQUVeIw=";
   };
 
   vendorHash = "sha256-QxkMxO8uzBCC3oMSWjdVsbR2cluYMx5OOKTgaNOLHxc=";
