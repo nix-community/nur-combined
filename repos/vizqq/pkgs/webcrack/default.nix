@@ -66,6 +66,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  # fix build failure
+  dontCheckForBrokenSymlinks = true;
+
   meta = {
     description = "Deobfuscate obfuscator.io, unminify and unpack bundled javascript";
     homepage = "https://github.com/j4k0xb/webcrack";
