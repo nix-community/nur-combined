@@ -66,8 +66,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # fix build failure
-  dontCheckForBrokenSymlinks = true;
+  # fix ERROR: noBrokenSymlinks
+  postFixup = ''
+    unlink $out/lib/webcrack/node_modules/.pnpm/node_modules/playground
+    unlink $out/lib/webcrack/node_modules/.pnpm/node_modules/web
+    unlink $out/lib/webcrack/node_modules/.pnpm/node_modules/docs
+  '';
 
   meta = {
     description = "Deobfuscate obfuscator.io, unminify and unpack bundled javascript";
