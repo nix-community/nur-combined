@@ -20,6 +20,7 @@
   sf-mono = pkgs.callPackage ./pkgs/sf-mono { };
   printargs = pkgs.callPackage ./pkgs/printargs { };
   operator-mono-lig = pkgs.callPackage ./pkgs/operator-mono-lig { };
+  symbols-nerd-font = pkgs.callPackage ./pkgs/symbols-nerd-font { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
