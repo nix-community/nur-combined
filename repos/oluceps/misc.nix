@@ -269,7 +269,6 @@
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
 
-  boot.tmp.useTmpfs = true;
   # powerManagement.powertop.enable = true;
 
   nix = {

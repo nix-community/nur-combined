@@ -27,6 +27,7 @@
     scheduler = "scx_bpfland";
   };
   boot = {
+    tmp.useTmpfs = false;
     loader.efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/efi";
