@@ -409,13 +409,13 @@ let
         sha512 = "Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==";
       };
     };
-    "semver-7.6.3" = {
+    "semver-7.7.1" = {
       name = "semver";
       packageName = "semver";
-      version = "7.6.3";
+      version = "7.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.6.3.tgz";
-        sha512 = "oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.7.1.tgz";
+        sha512 = "hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -575,8 +575,8 @@ let
   args = {
     name = "create-react-app";
     packageName = "create-react-app";
-    version = "5.0.1";
-    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-5.0.1.tgz"; sha1 = "b0d30d89aaa4f09bbd8bc2f2bcb3fb5637e01af6"; };
+    version = "5.1.0";
+    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-5.1.0.tgz"; sha1 = "0fc40cc1a9d3aafac3580d8f976729ab8c4df51a"; };
     dependencies = [
       sources."ansi-styles-4.3.0"
       sources."balanced-match-1.0.2"
@@ -620,7 +620,7 @@ let
       sources."readable-stream-1.1.14"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.1.2"
-      sources."semver-7.6.3"
+      sources."semver-7.7.1"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."sisteransi-1.0.5"

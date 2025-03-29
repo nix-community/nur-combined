@@ -43,38 +43,37 @@
   };
   trufflesqueak = {
     pname = "trufflesqueak";
-    version = "24.0.2";
+    version = "24.1.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.0.2/trufflesqueak-24.0.2-linux-amd64.tar.gz";
-      sha256 = "sha256-J7kKnf8+3q9xrWaTEYVfRExLL0RmCKylzzDum24R2lg=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.1.2/trufflesqueak-24.1.2-linux-amd64.tar.gz";
+      sha256 = "sha256-JvCOoBYrPUsVbkJJ3XwEtHAC8G//UV0F6sGf+iK7lV4=";
     };
   };
   trufflesqueak-image = {
     pname = "trufflesqueak-image";
-    version = "24.0.2";
+    version = "24.1.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.0.2/TruffleSqueakImage-24.0.0.zip";
-      sha256 = "sha256-K2uomtQY5TfUPq/7r7ax4Srs0Q6hYVdy0U68no7O1qs=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.1.2/TruffleSqueakImage-24.1.2.zip";
+      sha256 = "sha256-2pBktK/dHyNoNFmnH7468vLg9HbdjrQIQqKN4inutf0=";
     };
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "8ff3d25e4a2412dce34878325e178b2e8c110377";
+    version = "21540296f1c262188636fe0fb373cd2a9600d764";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "8ff3d25e4a2412dce34878325e178b2e8c110377";
+      rev = "21540296f1c262188636fe0fb373cd2a9600d764";
       fetchSubmodules = true;
-      sha256 = "sha256-ZqIaftJOs5Hc2BGNBWTUDBsoo0Xcf3b0DyH44N3guQI=";
+      sha256 = "sha256-z31h3YOuTJ+t0d6nnTvQvJU4/JO7w4I6p4h63I2vZ1k=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-8ff3d25e4a2412dce34878325e178b2e8c110377/./Cargo.lock;
+      lockFile = ./wasmfxtime-21540296f1c262188636fe0fb373cd2a9600d764/./Cargo.lock;
       outputHashes = {
-        "wit-bindgen-0.35.0" = "sha256-7KwiI04ijpfeLFnOMUvCF9ZAY3ZbvlWSuFV0P1lBwLQ=";
-        "wasm-encoder-0.220.0" = "sha256-gXwdY75tTx57khF52LfNTIbacP53uxr/+YSc2zFiGSk=";
-        "wasm-encoder-0.221.2" = "sha256-agntGQkwXNMJSm7AgjhYDeWyCxCh/0edNxJgvbeUyfU=";
+        "wasm-encoder-0.223.0" = "sha256-Wy/a8U2VEpfNgKMA1lwKOlC5fezX5voW+U5HkL0cH4k=";
+        "wit-bindgen-0.37.0" = "sha256-HDYhoNqwcUuPga3O6ndGhiYHitQKRvNXxvnjAhgfdtc=";
       };
     };
-    date = "2025-01-07";
+    date = "2025-01-20";
   };
 }
