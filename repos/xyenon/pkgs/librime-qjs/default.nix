@@ -2,28 +2,26 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  quickjs-ng,
   nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "librime-qjs";
-  version = "0-unstable-2025-03-15";
+  version = "1.0.0-unstable-2025-03-29";
 
   src = fetchFromGitHub {
     owner = "HuangJian";
     repo = "librime-qjs";
-    rev = "948bd1c7b104c2c4f21eab23393cb35644f392bb";
-    hash = "sha256-FQ0zQKtO4eUYS2W7Oo+54UAHKHCYR78QE5NAO+/FcqA=";
+    rev = "bde86b379a6df1fecb859e97076ea0dff127f51f";
+    fetchSubmodules = true;
+    hash = "sha256-PstnR1pvEqZvfWaGikrXBy0ckXSrnQ5lOblvKe8tW9o=";
   };
-
-  propagatedBuildInputs = [ quickjs-ng ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp --archive --verbose src/ tests/ $out
+    cp --archive --verbose src/ tests/ thirdparty/ $out
     install --mode=644 --verbose --target-directory=$out CMakeLists.txt LICENSE readme.md
 
     runHook postInstall
