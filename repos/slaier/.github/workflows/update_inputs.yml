@@ -1,8 +1,8 @@
 name: Update inputs
 on:
   schedule:
-    # rebuild at 04:05 on day-of-month 24.
-    - cron: "5 4 24 * *"
+    # Run every Thursday during the first week of each month at 04:05 UTC
+    - cron: "5 4 1-7 * 4"
   workflow_dispatch:
 jobs:
   update_inputs:

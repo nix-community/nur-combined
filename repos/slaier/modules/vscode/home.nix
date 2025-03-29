@@ -18,16 +18,26 @@ in
   ];
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
+    package = pkgs.vscode.overrideAttrs (prev: {
+      preFixup = prev.preFixup + ''
+        gappsWrapperArgs+=(
+          --unset NIXOS_OZONE_WL
+          --set DISPLAY :0
+        )
+      '';
+    });
     extensions = (
       with pkgs.vscode-extensions; [
         eamodio.gitlens
         file-icons.file-icons
+        github.copilot
+        github.copilot-chat
         grafana.vscode-jsonnet
         jnoortheen.nix-ide
         llvm-vs-code-extensions.vscode-clangd
         mesonbuild.mesonbuild
         mkhl.direnv
+        ms-python.black-formatter
         ms-python.python
         ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
@@ -127,5 +137,10 @@ in
       };
       "redhat.telemetry.enabled" = false;
     };
+  };
+  home.file.".vscode/argv.json".text = builtins.toJSON {
+    password-store = "gnome-libsecret";
+    enable-crash-reporter = false;
+    crash-reporter-id = "ed2b3d47-3938-47db-a79b-19c13fe3bc1f";
   };
 }

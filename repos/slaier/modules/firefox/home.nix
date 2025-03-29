@@ -110,6 +110,7 @@ in
                       "bookmarks-menu-button",
                       "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action",
                       "_e2488817-3d73-4013-850d-b66c5e42d505_-browser-action",
+                      "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action",
                       "offline-qr-code_rugk_github_io-browser-action",
                       "fxa-toolbar-menu-button",
                       "unified-extensions-button"
