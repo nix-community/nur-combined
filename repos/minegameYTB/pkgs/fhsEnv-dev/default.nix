@@ -1,17 +1,30 @@
-{ stdenvNoCC, callPackage, buildFHSEnv, lib, gcc, xorg, kernel-tools ? false }:
+{
+ stdenvNoCC,
+ stdenv,
+ buildFHSEnv,
+ lib,
+ libsForQt5,
+ pkgs,
+ gcc,
+ ncurses,
+ writeScript,
+ kernel-tools ? false,
+ useClang ? false
+}:
 
 let
-  ### import libpci-dev from debian sid repo
-  libpci-dev = callPackage ./libpci-dev.nix {};
+  # Sélection du stdenv en fonction du choix du compilateur
+  stdenv = if useClang then pkgs.clangStdenv else pkgs.stdenv;
+
+  # Configuration système automatique
+  system = lib.systems.elaborate stdenv.hostPlatform;
+
   fhsEnv = buildFHSEnv {
-    name = "fhsEnv";
-    targetPkgs = pkgs: with pkgs; [    
-      ### Base packages
+    name = "fhsEnv-shell";
+    targetPkgs = pkgs: with pkgs; [
       nettools
       ncurses5
-
-      ### Build Dependency
-      gcc
+      (if useClang then clang else gcc)
       gnumake
       patch
       git
@@ -42,43 +55,47 @@ let
       gperf
       mpfr
       gmp
-      
-      ### Library and headers
       libxcrypt
       libtool
       libmpc
       libelf
       ncurses5.dev
-    ] ++ lib.optionals kernel-tools [
-      ### Additional tools if kernel-tools is true
+      libsForQt5.qt5.qtbase
+    ] ++ lib.optionals kernel-tools ([
       kmod
       elfutils
-      elfutils.dev
       libcap
-      libcap.dev
       libcap_ng
-      libcap_ng.dev
       xorg.libpciaccess
       pciutils
       usbutils
       udev
-      udev.dev
       zlib
-      zlib.dev
       dpkg
       openssl.dev
-      libpci-dev
-
       zstd
       rustc
       rust-bindgen
       pahole
-    ];
+    ] ++ pkgs.linux.nativeBuildInputs);
 
-    runScript = "bash";
+    runScript = pkgs.writeScript "init.sh" ''
+      echo "Entering fhsEnv-shell environment"
+      export ARCH=${lib.head (lib.splitString "-" system.config)}
+      export hardeningDisable=all
+      export CC="${if useClang then "clang" else "gcc"}"
+      export CXX="${if useClang then "clang++" else "g++"}"
+      export PKG_CONFIG_PATH="${ncurses.dev}/lib/pkgconfig:${libsForQt5.qt5.qtbase.dev}/lib/pkgconfig"
+      export QT_QPA_PLATFORM_PLUGIN_PATH="${libsForQt5.qt5.qtbase.bin}/lib/qt-${libsForQt5.qt5.qtbase.version}/plugins"
+
+      ### Custom PS1
+      export PROMPT_COMMAND='PS1="\[\e[1;32m\][fhsEnv-shell:\w]:\$\[\e[0m\] "'
+
+      exec bash
+    '';
   };
 in
-stdenvNoCC.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "fhsEnv-shell";
   version = gcc.version;
 
@@ -89,9 +106,8 @@ stdenvNoCC.mkDerivation rec {
   dontPatchElf = true;
 
   installPhase = ''
-    ### Make fhsEnv-shell available
-    mkdir -p $out/bin
-    ln -s ${fhsEnv}/bin/fhsEnv $out/bin/fhsEnv-shell
+    mkdir $out
+    ln -s ${fhsEnv}/bin $out/bin
   '';
 
   meta = with lib; {
@@ -100,3 +116,4 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "fhsEnv-shell";
   };
 }
+
