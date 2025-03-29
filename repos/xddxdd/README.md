@@ -155,7 +155,7 @@ Or, use variables from this repository in case I change them:
 |  | `magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 28.1 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.6.1 | Matrix-Google Messages puppeting bridge |
 |  | `metee` | [metee](https://github.com/intel/metee) | 5.0.0 | C library to access CSE/CSME/GSC firmware via a MEI interface |
-|  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.24.0 | Bring the notion of Model-as-a-Service to life |
+|  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.24.1 | Bring the notion of Model-as-a-Service to life |
 |  | `mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 2.0.1.freeze | MTK reverse engineering and flash tool |
 |  | `ncmdump-rs` | [ncmdump-rs](https://github.com/iqiziqi/ncmdump.rs) | 0.8.0 | NetEase Cloud Music copyright protection file dump by rust |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.86 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE |
@@ -220,14 +220,14 @@ Or, use variables from this repository in case I change them:
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
 |  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 1.1.1-r1535 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.6.263 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
-|  | `svp-mpv` | [mpv-with-scripts-0.39.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
+|  | `svp-mpv` | [mpv-with-scripts-0.40.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
 |  | `sx1302-hal` | [sx1302-hal](https://github.com/NebraLtd/sx1302_hal) | 2.1.0-unstable-2023-02-06 | SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...) |
 |  | `torch-complex` | [torch-complex](https://pypi.org/project/torch-complex) | 0.4.4 | Temporal python class for PyTorch-ComplexTensor |
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2024-10-10 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-03-28 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-03-29 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -259,7 +259,7 @@ Or, use variables from this repository in case I change them:
 | `Deprecated` | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.15.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
 | `Broken` | `kui` | [kui](https://kui.aber.sh/) | 1.8.1 | Easy-to-use web framework |
 | `Deprecated` | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.3.0 | (DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go |
-| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.25 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.26 | Third party Bilibili client built with Flutter |
 | `Broken` | `soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 | `Deprecated` `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `Deprecated` `x86_64-linux` | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
@@ -386,7 +386,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.13.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 4984 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 4988 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.12.5.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-03-19 | OpenResty with Lan Tian modifications |
@@ -984,7 +984,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-03-28 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
-|  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.24.0 | Bring the notion of Model-as-a-Service to life |
+|  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.24.1 | Bring the notion of Model-as-a-Service to life |
 |  | `python3Packages.mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 2.0.1.freeze | MTK reverse engineering and flash tool |
 |  | `python3Packages.opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `python3Packages.ormsgpack` | [ormsgpack](https://github.com/aviramha/ormsgpack) | 1.9.1 | Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack |
@@ -1132,12 +1132,12 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
 |  | `uncategorized.suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 1.1.1-r1535 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `uncategorized.svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.6.263 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
-|  | `uncategorized.svp-mpv` | [mpv-with-scripts-0.39.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
+|  | `uncategorized.svp-mpv` | [mpv-with-scripts-0.40.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
 |  | `uncategorized.sx1302-hal` | [sx1302-hal](https://github.com/NebraLtd/sx1302_hal) | 2.1.0-unstable-2023-02-06 | SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...) |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uncategorized.uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-03-28 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-03-29 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -1153,7 +1153,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
 | `Broken` | `uncategorized.amule-dlp` | [amule-dlp](https://github.com/persmule/amule-dlp) | 2.3.2-unstable-2023-03-02 | Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection) |
 | `Broken` | `uncategorized.douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
-| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.25 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.26 | Third party Bilibili client built with Flutter |
 | `Broken` | `uncategorized.soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 </details>
 

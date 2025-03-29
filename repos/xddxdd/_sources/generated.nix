@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4984";
+    version = "b4988";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4984";
-      hash = "sha256-5CNJ+U/uhnDxNa27CX+BTiKDkdFfp0dBQNQknbQxmZ8=";
+      tag = "b4988";
+      hash = "sha256-YdxsoBNaBDTpYN2uI6Nn+JkPZkjEUORqZDsRKemd0lo=";
     };
   };
   loralib = {
@@ -988,12 +988,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.24.0";
+    version = "v1.24.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.24.0";
-      hash = "sha256-AttDXcT9SCALWl0UbU2F7NV5z9l3ju3q2CJDu4gYwJk=";
+      tag = "v1.24.1";
+      hash = "sha256-POl1BCvdTaCb9R+7Q1iAGSaXnb4JWaNAdAjy8BwQF9I=";
     };
   };
   mtkclient = {
@@ -1349,12 +1349,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.25";
+    version = "1.1.3.26";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.25";
-      hash = "sha256-GNZrEiZA/QVTZL+YUHIOcyIzbKnAmamqpbKKxgksuJA=";
+      tag = "1.1.3.26";
+      hash = "sha256-oAO5jx+VPM/Knq+ssEFGbqwKvVUaygzY/f/NenGCJbo=";
     };
   };
   plangothic-fonts = {
@@ -1965,15 +1965,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "849b93fa34cda672861bf268c0149b49e1ad8fe2";
+    version = "d4e883d7bea8fca161d2566c9be1b289c0f2cd30";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "849b93fa34cda672861bf268c0149b49e1ad8fe2";
+      rev = "d4e883d7bea8fca161d2566c9be1b289c0f2cd30";
       fetchSubmodules = true;
-      hash = "sha256-6ftTvbibLU8BKMrzgye12KmWsy2VXtLP8rjx8dXHszU=";
+      hash = "sha256-rPwE8wHZ+aepda0ZC9vk0uOfRh+xg6HLSKnlKzghgAI=";
     };
-    date = "2025-03-28";
+    date = "2025-03-29";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

@@ -817,7 +817,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4984"
+    "version": "4988"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1287,7 +1287,7 @@
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.24.0"
+    "version": "1.24.1"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3597,7 +3597,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.25"
+    "version": "1.1.3.26"
   },
   "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -3717,7 +3717,7 @@
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.24.0"
+    "version": "1.24.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3952,7 +3952,7 @@
   "legacyPackages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
     "pname": "mpv-with-scripts",
-    "version": "0.39.0"
+    "version": "0.40.0"
   },
   "legacyPackages.x86_64-linux.sx1302-hal": {
     "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
@@ -4422,7 +4422,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.25"
+    "version": "1.1.3.26"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -4567,7 +4567,7 @@
   "legacyPackages.x86_64-linux.uncategorized.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
     "pname": "mpv-with-scripts",
-    "version": "0.39.0"
+    "version": "0.40.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.sx1302-hal": {
     "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
@@ -4592,7 +4592,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-28"
+    "version": "0-unstable-2025-03-29"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4662,7 +4662,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-28"
+    "version": "0-unstable-2025-03-29"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5212,7 +5212,7 @@
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.12-modelscope",
-    "version": "1.24.0"
+    "version": "1.24.1"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -5377,7 +5377,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.25"
+    "version": "1.1.3.26"
   },
   "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -5577,7 +5577,7 @@
   "packages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
     "pname": "mpv-with-scripts",
-    "version": "0.39.0"
+    "version": "0.40.0"
   },
   "packages.x86_64-linux.sx1302-hal": {
     "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
@@ -5622,7 +5622,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-28"
+    "version": "0-unstable-2025-03-29"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
