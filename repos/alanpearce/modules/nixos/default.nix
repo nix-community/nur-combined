@@ -3,4 +3,5 @@
   #
   # my-module = ./my-module;
   laminar = ./laminar.nix;
+  legit = ./legit.nix;
 }
