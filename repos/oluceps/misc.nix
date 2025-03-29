@@ -33,7 +33,7 @@
         command_done() {
             printf '\e]133;D\e\\'
         }
-        PROMPT_COMMAND=$\{PROMPT_COMMAND:+$PROMPT_COMMAND; }command_done
+        PROMPT_COMMAND=''${PROMPT_COMMAND:+$PROMPT_COMMAND; }command_done
       '';
     };
     fish = {

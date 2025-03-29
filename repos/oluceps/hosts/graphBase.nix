@@ -245,7 +245,7 @@
       with pkgs;
       [
         # nerd-fonts.fira-code
-        # nerd-fonts.jetbrains-mono
+        nerd-fonts.jetbrains-mono
         source-han-sans
         noto-fonts
         noto-fonts-cjk-sans
