@@ -175,11 +175,6 @@
             "sha256": "0f6z5n2f2gwx606z3lfyxx3mrm0sxinl9k8y3mdsnrrziipykw9i",
             "url": "https://github.com/adam-gaia/nur-packages"
         },
-        "alanpearce": {
-            "rev": "8511f109d61698ac6cc0008ceec854acddc449e9",
-            "sha256": "0z0m16afcp88vq5n8qlfcwn90diia0vvp2j3b31qg7p1hlgnn5g5",
-            "url": "https://git.alanpearce.eu/nix-packages"
-        },
         "alarsyo": {
             "rev": "6e7706cb25ff6faaaa7bb1389cad646eec4c3c15",
             "sha256": "00mxdqpla2iri7jc390kmqclha2s21i09hrv1f6xmdqswzx6pcn1",
