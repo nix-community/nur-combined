@@ -3,6 +3,7 @@
   fetchFromGitHub,
   buildGoModule,
   nix-update-script,
+  go,
 }:
 
 buildGoModule {
@@ -32,5 +33,6 @@ buildGoModule {
     homepage = "https://github.com/XYenon/TeleMikiya";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ xyenon ];
+    broken = versionOlder go.version "1.24.0";
   };
 }
