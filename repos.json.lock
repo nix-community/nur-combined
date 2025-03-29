@@ -161,8 +161,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "dcce5372ad248124cb0dbd102f033cde0fbe482a",
-            "sha256": "0rs54gssl1997i9p7vg5ycy583hm7ax6vgh8nbnhrd9nijv5025i",
+            "rev": "a58d47c18ebc0c5a8b46bd9d536e98fdfa904b40",
+            "sha256": "1yq496078v8lfvadlf37y0hqbq88x7ni26zbmwx9kpnabrnn0xc5",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "afreakk": {
@@ -174,6 +174,11 @@
             "rev": "c5fc1a64b5e90b58b1567d06fc55dd8c33efb591",
             "sha256": "0f6z5n2f2gwx606z3lfyxx3mrm0sxinl9k8y3mdsnrrziipykw9i",
             "url": "https://github.com/adam-gaia/nur-packages"
+        },
+        "alanpearce": {
+            "rev": "bd1221c12909771e22c703fe445c5fa74dcee539",
+            "sha256": "18sjqfmh2lgrqbrijgrn82rx58hwmr0a7xw8cnik1b1lijxsdzls",
+            "url": "https://git.alanpearce.eu/nix-packages"
         },
         "alarsyo": {
             "rev": "6e7706cb25ff6faaaa7bb1389cad646eec4c3c15",

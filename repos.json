@@ -109,6 +109,9 @@
         "agaia": {
             "url": "https://github.com/adam-gaia/nur-packages"
         },
+        "alanpearce": {
+            "url": "https://git.alanpearce.eu/nix-packages"
+        },
         "alarsyo": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
