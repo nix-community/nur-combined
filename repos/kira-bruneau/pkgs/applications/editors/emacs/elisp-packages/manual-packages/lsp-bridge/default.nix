@@ -9,6 +9,7 @@
   basedpyright,
   git,
   go,
+  nodejs,
   gopls,
   tempel,
   unstableGitUpdater,
@@ -32,13 +33,13 @@ let
 in
 melpaBuild {
   pname = "lsp-bridge";
-  version = "0-unstable-2025-03-27";
+  version = "0-unstable-2025-03-29";
 
   src = fetchFromGitHub {
     owner = "manateelazycat";
     repo = "lsp-bridge";
-    rev = "011c2abbb1ea4ad4de26b8c5e6a16aed7778ff37";
-    hash = "sha256-29ZhCk7+jCLi+VKvYSeBdB8LWmZnw8pJXmIcKbQ5g2k=";
+    rev = "efcfb500b3c6db4421c60f86c10728387a369c1f";
+    hash = "sha256-nJ5Nx3O5aeYUAdT59mZoJA9tDa+e10wi7U2icHXGPwQ=";
   };
 
   patches = [
@@ -65,6 +66,7 @@ melpaBuild {
     git
     go
     gopls
+    nodejs
     python
     writableTmpDirAsHomeHook
   ];
