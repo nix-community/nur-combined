@@ -25,6 +25,7 @@ stdenv.mkDerivation {
     owner = "lakinduakash";
     repo = "linux-wifi-hotspot";
     rev = "c0f153bff954542c5f0e551bfcad791f44ac345e";
+    hash = "sha256-20yhcBhVlObl/aZKH4P2tdAeutTpZo+R0//i0/uAPFw=";
   };
 
   nativeBuildInputs = [
