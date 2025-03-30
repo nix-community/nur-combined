@@ -65,21 +65,17 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,lib}
-    cp -r {packages,node_modules} $out/lib
-
-    rm -r $out/lib/packages/config-*
-    rm -r $out/lib/packages/webcrack/{src,test}
-    rm $out/lib/packages/webcrack/{tsconfig.*,esbuild.config.js,eslint.config.js,.gitignore}
-    find $out/lib/packages/webcrack -name '*.ts' -delete
+    mkdir -p $out/{bin,lib/packages/webcrack}
+    cp -r packages/webcrack/{dist,package.json,node_modules} $out/lib/packages/webcrack
+    cp -r node_modules $out/lib
 
     makeWrapper ${lib.getExe nodejs} $out/bin/webcrack \
-      --inherit-argv0 \
-      --add-flags $out/lib/packages/webcrack/dist/cli.js
+     --add-flags $out/lib/packages/webcrack/dist/cli.js
 
     runHook postInstall
   '';
 
+  # fix ERROR: noBrokenSymlinks
   dontCheckForBrokenSymlinks = true;
 
   meta = {
