@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  inherit (lib) getExe' mkIf versionOlder;
+  inherit (lib) getExe';
 in
 {
   imports = [
@@ -19,7 +19,7 @@ in
   };
 
   # Kernel
-  boot.kernelPackages = mkIf (versionOlder pkgs.linux.version "6.12") pkgs.linuxPackages_6_12; # 🤞
+  boot.kernelPackages = pkgs.linuxPackages_p8;
 
   # Display
   boot.kernelParams = [ "fbcon=rotate:1" "video=DSI-1:panel_orientation=right_side_up" ];

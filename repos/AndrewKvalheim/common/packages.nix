@@ -136,4 +136,13 @@ in
   zsh-click = any;
 }) // {
   fetchsvn = a: (stable.fetchsvn a).overrideAttrs (f: stable.lib.throwIf (builtins.any (p: p.pname == "nss-cacert") f.nativeBuildInputs) "fetchsvn no longer requires an override" { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; }); # Pending NixOS/nixpkgs#356829
+  linuxPackages_p8 = (
+    resolved.linuxPackages_6_14 # https://github.com/torvalds/linux/commit/25fb5f4
+  ).extend (_: linuxPackages: {
+    kernel = linuxPackages.kernel.override (args: {
+      kernelPatches = (args.kernelPatches or [ ]) ++ [
+        { name = "ignore-invalid-ecc-error-log"; patch = stable.fetchpatch2 { url = "https://github.com/torvalds/linux/commit/267e5b1d267539d9a927dc04aab6f15aca57da92.patch"; hash = "sha256-+kdcl4+XJx3vYHDENafwUUsOImEC7cqD8x9y51Cfmv4="; }; } # https://github.com/torvalds/linux/commit/267e5b1
+      ];
+    });
+  });
 }
