@@ -37,7 +37,7 @@ let
 in
 
 callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
-  version = "1.98.0.25067-insider";
+  version = "1.99.0.25089-insider";
   pname = "vscodium-insiders";
   updateScript = ./update.sh;
 
