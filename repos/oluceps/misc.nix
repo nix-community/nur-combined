@@ -392,8 +392,12 @@
   services = {
 
     # bpftune.enable = true;
-    chrony.enable = true;
-
+    chrony = {
+      enable = true;
+      extraConfig = ''
+        makestep 1.0 3
+      '';
+    };
     journald.extraConfig = ''
       SystemMaxUse=1G
     '';
