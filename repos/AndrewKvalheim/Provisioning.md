@@ -43,10 +43,10 @@ Channels:
 # System
 sudo nix-channel --add "https://nixos.org/channels/nixos-$RELEASE" 'nixos'
 sudo nix-channel --add 'https://github.com/NixOS/nixos-hardware/archive/master.tar.gz' 'nixos-hardware'
+sudo nix-channel --add 'https://github.com/xddxdd/nix-math/archive/master.tar.gz' 'nix-math'
 
 # User
 nix-channel --add "https://github.com/nix-community/home-manager/archive/release-$RELEASE.tar.gz" 'home-manager'
-nix-channel --add 'https://github.com/xddxdd/nix-math/archive/master.tar.gz' 'nix-math'
 nix-channel --add 'https://nixos.org/channels/nixos-unstable' 'unstable'
 nix-channel --add 'https://github.com/nix-community/nix-vscode-extensions/archive/master.tar.gz' 'community-vscode-extensions'
 ```
@@ -58,6 +58,13 @@ git clone 'git@gitlab.com:Andrew/configuration.git' "$HOME/src/configuration"
 ln -rs "$HOME/src/configuration/hosts/$HOST/system.nix" '/etc/nixos/configuration.nix'
 ln -rs "$HOME/src/configuration/hosts/$HOST/user.nix" "$HOME/.config/home-manager/home.nix"
 ln -rs "$HOME/src/configuration/common/packages.nix" "$HOME/.config/nixpkgs/overlays/packages.nix"
+```
+
+GnuPG initialization:
+
+```bash
+gpg --import 'common/resources/andrew.asc'
+gpg --card-status
 ```
 
 Host-specific secrets:

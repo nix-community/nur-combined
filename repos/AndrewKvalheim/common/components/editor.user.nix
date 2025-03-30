@@ -33,7 +33,7 @@ in
     mutableExtensionsDir = false;
     enableExtensionUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
-      (andrewkvalheim.monokai-achromatic-gray.override { black = palette.rgb.black.g; })
+      (andrewkvalheim.monokai-achromatic-gray.override { blackLevel = palette.rgb.black.g; })
       bierner.markdown-checkbox
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
@@ -438,9 +438,11 @@ in
   programs.git.extraConfig."mergetool \"code\"".cmd = "${pkgs.vscodium}/bin/codium --wait --merge $REMOTE $LOCAL $BASE $MERGED";
 
   home.activation.biome = hm.dag.entryAfter [ "writeBoundary" ] ''
-    find ${escapeShellArg userDir}'/globalStorage/biomejs.biome/tmp-bin' \
-      -mindepth '1' \
-      -printf 'Purge %p\n' \
-      -delete
+    if [[ -d ${escapeShellArg userDir}'/globalStorage/biomejs.biome/tmp-bin' ]]; then
+      find ${escapeShellArg userDir}'/globalStorage/biomejs.biome/tmp-bin' \
+        -mindepth '1' \
+        -printf 'Purge %p\n' \
+        -delete
+    fi
   '';
 }

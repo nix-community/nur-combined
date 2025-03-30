@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf versionOlder;
+  inherit (lib) getExe' mkIf versionOlder;
 
   identity = import ../../common/resources/identity.nix;
 in
@@ -40,37 +40,15 @@ in
 
   # Filesystems
   # TODO: Set `chattr +i` on intermittent mount points
-  fileSystems = {
-    "/home/ak/annex" = {
-      device = "closet.home.arpa:/mnt/hdd/home-ak-annex";
-      fsType = "nfs";
-      options = [ "noauto" "user" ];
-    };
-
-    "/home/ak/services-hdd" = {
-      device = "closet.home.arpa:/mnt/hdd/services";
-      fsType = "nfs";
-      options = [ "noauto" "user" ];
-    };
-
-    "/home/ak/services-ssd" = {
-      device = "closet.home.arpa:/mnt/ssd/services";
-      fsType = "nfs";
-      options = [ "noauto" "user" ];
-    };
+  fileSystems = let base = { fsType = "nfs"; options = [ "noauto" "user" ]; }; in {
+    "/home/ak/annex" = base // { device = "closet.home.arpa:/mnt/hdd/home-ak-annex"; };
+    "/home/ak/services-hdd" = base // { device = "closet.home.arpa:/mnt/hdd/services"; };
+    "/home/ak/services-ssd" = base // { device = "closet.home.arpa:/mnt/ssd/services"; };
   };
-  # Workaround for:
-  #   - https://github.com/NixOS/nixpkgs/issues/24913
-  #   - https://github.com/NixOS/nixpkgs/issues/9848
-  security.wrappers = {
-    "mount.nfs" = {
-      source = "${pkgs.nfs-utils}/bin/mount.nfs";
-      owner = "root"; group = "root"; setuid = true;
-    };
-    "umount.nfs" = {
-      source = "${pkgs.nfs-utils}/bin/umount.nfs";
-      owner = "root"; group = "root"; setuid = true;
-    };
+  security.wrappers = with pkgs; {
+    # Workaround for NixOS/nixpkgs#24913, NixOS/nixpkgs#9848
+    "mount.nfs" = { source = getExe' nfs-utils "mount.nfs"; owner = "root"; group = "root"; setuid = true; };
+    "umount.nfs" = { source = getExe' nfs-utils "umount.nfs"; owner = "root"; group = "root"; setuid = true; };
   };
 
   # Mouse

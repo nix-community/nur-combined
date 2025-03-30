@@ -8,7 +8,7 @@
 , vscodium
 
   # Parameters
-, black ? null
+, blackLevel ? null
 }:
 
 let
@@ -96,7 +96,7 @@ vscode-utils.buildVscodeExtension rec {
 
   nativeBuildInputs = [ jaq moreutils ];
 
-  BLACK = black;
+  BLACK = blackLevel;
 
   postPatch = ''
     jaq --in-place ${escapeShellArg patchPackage} 'package.json'

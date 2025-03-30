@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  inherit (builtins) readFile;
+  inherit (builtins) readFile replaceStrings;
 
   identity = import ../resources/identity.nix;
 in
@@ -17,7 +17,7 @@ in
   services.kmonad = {
     enable = true;
     keyboards.default = {
-      config = readFile (config.host.resources + "/halmakish.kbd");
+      config = replaceStrings [ "░" ] [ "_" ] (readFile (config.host.resources + "/halmakish.kbd"));
       defcfg = {
         enable = true;
         allowCommands = false;

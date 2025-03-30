@@ -13,17 +13,17 @@
 )
 
 (deflayer main
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-   g    _    _    _    _    _    _    _    _    _    _    _    _    _
-    _    _    _    _    _    ret  _    _    _    _    _    _    _
-     m    _    _    _    _    _    _    spc  _    _    _    ro
+  ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░
+   g    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░
+    ░    ░    ░    ░    ░    ret  ░    ░    ░    ░    ░    ░    ░
+     m    ░    ░    ░    ░    ░    ░    spc  ░    ░    ░    ro
      lalt lctl @tfn                     rsft @coa lalt lmet
 )
 
 (deflayer fn
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-   _    esc  pgup up   pgdn _    _    _    _    _    _    _    _    _
-    _    home left down rght end  _    _    _    _    rctl _    _
-     C-m  _    _    C-c  C-b  _    _    _    _    _    _    _
-     _    _    _                        _    @s-a _    _
+  ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░
+   ░    esc  pgup up   pgdn ░    ░    ░    ░    ░    ░    ░    ░    ░
+    ░    home left down rght end  ░    ░    ░    ░    rctl ░    ░
+     C-m  ░    ░    C-c  C-b  ░    ░    ░    ░    ░    ░    ░
+     ░    ░    ░                        ░    @s-a ░    ░
 )

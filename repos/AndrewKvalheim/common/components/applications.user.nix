@@ -67,6 +67,7 @@ in
       bacon
       binsider
       bubblewrap # Required by nixpkgs-review --sandbox
+      bustle
       cavif
       cargo-msrv
       darktable
@@ -193,6 +194,7 @@ in
     dconf.settings."org/gnome/gnome-system-monitor" = with palette.hex; {
       cpu-colors = imap0 (i: c: mkTuple [ (mkUint32 i) c ]) (
         {
+          "4" = [ red orange blue green ];
           "6" = [ red orange yellow green blue purple ];
           "8" = [ red vermilion orange yellow green teal blue purple ];
           "12" = [ red red-dim orange orange-dim yellow yellow-dim green green-dim blue blue-dim purple purple-dim ];
