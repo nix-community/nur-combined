@@ -2,12 +2,12 @@
     needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2025-03-09";
+    version = "0-unstable-2025-03-30";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = pname;
-        rev = "5809c378015ae67645c25450fabf30757c40cc34";
-        hash = "sha256-Uy+L0ShqBlIedrSIwRsvPJnfP4vsv8E3b7IwiqleYV4=";
+        rev = "3994d83ec333c2e97ac6bf89ef38775e9f2b6c4f";
+        hash = "sha256-FjYoZeJ5kdHwZS4py2e4um7W4rE32HKlEoYVoWP7oas=";
     };
     nativeBuildInputs = [cmake] ++ lib.optionals useNetpbm [makeBinaryWrapper];
     buildInputs = [phosg zlib] ++ lib.optionals needsMemorymapping [memorymappingHook];
