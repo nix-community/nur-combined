@@ -1,0 +1,82 @@
+{
+    "age-plugin-openpgp-card": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "age-plugin-openpgp-card",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wiktor-k",
+            "repo": "age-plugin-openpgp-card",
+            "rev": "v0.1.1",
+            "sha256": "sha256-uJmYtc+GxJZtCjLQla/h9vpTzPcsL+zbM2uvAQsfwIY=",
+            "type": "github"
+        },
+        "version": "v0.1.1"
+    },
+    "huawei-password-tool": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "huawei-password-tool",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "0xuserpag3",
+            "repo": "HuaweiPasswordTool",
+            "rev": "v1.0.0",
+            "sha256": "sha256-uvLY+/XAE62Ft+bEm2t5SNhXb5nrWPQouJEdAkrguYg=",
+            "type": "github"
+        },
+        "version": "v1.0.0"
+    },
+    "thinkpad-uefi-sign": {
+        "cargoLocks": null,
+        "date": "2020-06-26",
+        "extract": null,
+        "name": "thinkpad-uefi-sign",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "thrimbor",
+            "repo": "thinkpad-uefi-sign",
+            "rev": "b502420583b8a38d4b3e706b20a51a435740f749",
+            "sha256": "sha256-FqyrTZQWSKcDLLrG6jfrrW+vtAOUgE65C5jP3v3To8U=",
+            "type": "github"
+        },
+        "version": "b502420583b8a38d4b3e706b20a51a435740f749"
+    },
+    "webcrack": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "webcrack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "j4k0xb",
+            "repo": "webcrack",
+            "rev": "v2.15.1",
+            "sha256": "sha256-9xCndYtGXnVGV6gXdqjLM4ruSIHi7JRXPHRBom7K7Ds=",
+            "type": "github"
+        },
+        "version": "v2.15.1"
+    }
+}

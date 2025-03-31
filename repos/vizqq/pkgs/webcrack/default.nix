@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  source,
   pnpm_9,
   makeBinaryWrapper,
   versionCheckHook,
@@ -14,15 +14,10 @@ let
   pnpm = pnpm_9;
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "webcrack";
-  version = "2.15.1";
 
-  src = fetchFromGitHub {
-    owner = "j4k0xb";
-    repo = "webcrack";
-    rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-9xCndYtGXnVGV6gXdqjLM4ruSIHi7JRXPHRBom7K7Ds=";
-  };
+  inherit (source) pname src;
+
+  version = lib.replaceStrings [ "v" ] [ "" ] source.version;
 
   pnpmWorkspaces = [ workspace ];
 

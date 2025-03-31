@@ -1,21 +1,17 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  source,
   cmake,
   openssl,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "huawei-password-tool";
-  version = "1.0.0";
+stdenv.mkDerivation {
+  inherit (source) src;
 
-  src = fetchFromGitHub {
-    owner = "0xuserpag3";
-    repo = "HuaweiPasswordTool";
-    rev = "v${version}";
-    hash = "sha256-uvLY+/XAE62Ft+bEm2t5SNhXb5nrWPQouJEdAkrguYg=";
-  };
+  version = lib.replaceStrings [ "v" ] [ "" ] source.version;
+
+  pname = "huawei-password-tool";
 
   buildInputs = [ openssl ];
 

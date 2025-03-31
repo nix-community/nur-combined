@@ -11,14 +11,28 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      legacyPackages = forAllSystems (
+
+      packages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = builtins.attrValues (import ./overlays);
+          };
         }
       );
-      packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
-      );
+      overlays.default = import ./overlay.nix;
+
+      devShells = forAllSystems (system: {
+        default =
+          let
+            pkgs = import nixpkgs { inherit system; };
+          in
+          pkgs.mkShellNoCC {
+            packages = [
+              pkgs.nvfetcher
+            ];
+          };
+      });
     };
 }

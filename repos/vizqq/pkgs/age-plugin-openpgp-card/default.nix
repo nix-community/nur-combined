@@ -1,20 +1,14 @@
 {
   lib,
+  source,
   rustPlatform,
-  fetchFromGitHub,
   pkg-config,
   pcsclite,
 }:
 rustPlatform.buildRustPackage {
-  pname = "age-plugin-openpgp-card";
-  version = "0.1.1";
+  inherit (source) pname src;
 
-  src = fetchFromGitHub {
-    owner = "wiktor-k";
-    repo = "age-plugin-openpgp-card";
-    rev = "a8d782551825e5062d53011b5f827d39637bda3b";
-    hash = "sha256-uJmYtc+GxJZtCjLQla/h9vpTzPcsL+zbM2uvAQsfwIY=";
-  };
+  version = lib.replaceStrings [ "v" ] [ "" ] source.version;
 
   useFetchCargoVendor = true;
 

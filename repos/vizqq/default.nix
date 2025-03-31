@@ -7,17 +7,27 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> { overlays = builtins.attrValues (import ./overlays); },
 }:
+let
+  sources = pkgs.callPackage ./_sources/generated.nix { };
 
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card { };
-  thinkpad-uefi-sign = pkgs.callPackage ./pkgs/thinkpad-uefi-sign { };
-  huawei-password-tool = pkgs.callPackage ./pkgs/huawei-password-tool { };
-  webcrack = pkgs.callPackage ./pkgs/webcrack { };
+  thinkpad-uefi-sign = pkgs.callPackage ./pkgs/thinkpad-uefi-sign {
+    source = sources.thinkpad-uefi-sign;
+  };
+  huawei-password-tool = pkgs.callPackage ./pkgs/huawei-password-tool {
+    source = sources.huawei-password-tool;
+  };
+
+  webcrack = pkgs.callPackage ./pkgs/webcrack { source = sources.webcrack; };
+  age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card {
+    source = sources.age-plugin-openpgp-card;
+  };
 }
