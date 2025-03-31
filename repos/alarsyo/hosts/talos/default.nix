@@ -137,6 +137,7 @@
     settings.General.Experimental = true;
   };
 
+  hardware.keyboard.qmk.enable = true;
   # Configure console keymap
   console.keyMap = "us";
 
