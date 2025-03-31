@@ -1,8 +1,10 @@
-{lib, newScope, callPackage, version, rev ? "v${version}", hash ? null, dataHash ? null, mods ? []}:
+{lib, newScope, callPackage, version, rev ? "v${version}", hash ? null, dataHash ? null, mods ? []}@args:
 let
     scope = lib.makeScope newScope (self: let inherit (self) callPackage; in {
         inherit version rev hash dataHash;
-        unwrapped = callPackage ./unwrapped.nix {};
+        unwrapped = callPackage ./unwrapped.nix {
+            _pos = builtins.unsafeGetAttrPos "version" args;
+        };
         data = callPackage ./data.nix {};
         wrapTuxemon = callPackage ./wrapper.nix {};
         pkgs = scope;

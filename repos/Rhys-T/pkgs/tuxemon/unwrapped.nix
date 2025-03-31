@@ -6,6 +6,7 @@
     libShake ? null, withLibShake ? true,
     desktopToDarwinBundle,
     data, attachPkgs, pkgs,
+    _pos, gitUpdater, unstableGitUpdater,
     maintainers
 }: let
     inherit (stdenv) hostPlatform;
@@ -141,6 +142,13 @@ in let
                 mit # for tuxemon/lib/bresenham.py
             ];
             maintainers = [maintainers.Rhys-T];
+        };
+        pos = _pos;
+        passthru.updateScript = if lib.hasPrefix "v" rev then gitUpdater {
+            rev-prefix = "v";
+        } else unstableGitUpdater {
+            tagFormat = "v.*";
+            tagPrefix = "v";
         };
     };
 in attachPkgs pkgs tuxemon
