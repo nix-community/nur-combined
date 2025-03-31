@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation {
   pname = "hurl-mode";
-  version = "unstable-2024-11-13";
+  version = "0-unstable-2025-02-16";
 
   src = fetchFromGitHub {
     owner = "JasZhe";
     repo = "hurl-mode";
-    rev = "3b00699827140f300a0abbd90a5d88d32076b0a5";
-    hash = "sha256-bpUMevKGRVeyJGFQHbz/iuG/ow91Z1uesBk2N27+jtM=";
+    rev = "df03471e48fb1ca39050d23d61c79ae901e8d68f";
+    hash = "sha256-EauCBuqIFhvY5e0lPn9sFFo4K918Rc6Xx9myZTaAXxc=";
   };
   buildInputs = [
     (emacs.pkgs.withPackages (epkgs: with epkgs; [
