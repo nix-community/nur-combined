@@ -62,6 +62,17 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
+  preInstall = ''
+    rm node_modules/.modules.yaml
+    rm -r node_modules/.bin
+    rm -r packages/webcrack/node_modules/.bin
+    rm -rf node_modules/.pnpm/{typescript*,prettier*}
+
+    pnpm --ignore-scripts prune --prod
+
+    find node_modules packages/webcrack/node_modules -xtype l -delete
+  '';
+
   installPhase = ''
     runHook preInstall
 
