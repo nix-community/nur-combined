@@ -95,12 +95,12 @@
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
-    version = "v0.7.2";
+    version = "v0.8.0";
     src = fetchFromGitHub {
       owner = "axiomhq";
       repo = "axiom-syslog-proxy";
-      tag = "v0.7.2";
-      hash = "sha256-+qaAIIQLlXXoH8uTWF2WxBpYdZVFMH1dMWCSAxkUay8=";
+      tag = "v0.8.0";
+      hash = "sha256-Dh0G3mFdUmbmPZc2qKPE8MnHOPN+k24CpSDeFb6cx7k=";
     };
   };
   baidunetdisk = {
@@ -531,14 +531,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "d629b1084b6e3c02b1d92731e84014a6dc5a6b78";
+    version = "3df109adfccedeb134dea4ba2ea9a2da89872048";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "d629b1084b6e3c02b1d92731e84014a6dc5a6b78";
-      hash = "sha256-mVkcOaVnc09wf3ELsWwOLzaPoll4I9dvPkzZZ9O7kyM=";
+      rev = "3df109adfccedeb134dea4ba2ea9a2da89872048";
+      hash = "sha256-aSzk3iLi1cMlZ1drxNKxy8+JRfqq5N/hnshqp4YVUe4=";
     };
-    date = "2025-03-28";
+    date = "2025-03-31";
   };
   glauth = {
     pname = "glauth";
@@ -909,12 +909,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.20-xanmod1";
+    version = "6.12.21-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.20-xanmod1";
+      tag = "6.12.21-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-Fvm17GIaGnNfWShh9fX4XK2ovAS6XMx7cHb1u9bET8E=";
+      hash = "sha256-Zb/n+hLho94+6u5BHAmRYfit/kv1xlh/Tp39kI3kfjA=";
     };
   };
   linux-xanmod-6_6 = {
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4997";
+    version = "b5002";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4997";
-      hash = "sha256-fYkU1uOWVqlKqC1a9Ip7Gjjfj7AwfgVwouZwhauzE/8=";
+      tag = "b5002";
+      hash = "sha256-Jrvjz9A8oGVo4KCP2miGX2VxIm5mRNPVIEcEaVBDRsE=";
     };
   };
   loralib = {
@@ -2027,12 +2027,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.22.3";
+    version = "1.22.4";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.22.3";
-      hash = "sha256-2qaZ+e0S1twon2N4al1Ohs3yp2KIurwQdMPIE0V4Bkc=";
+      tag = "1.22.4";
+      hash = "sha256-HNafpgua016dLDSZOJiczwklfl/M/3BGbTkRuK7iLaA=";
     };
   };
   vgpu-unlock-rs = {

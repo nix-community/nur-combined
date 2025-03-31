@@ -190,12 +190,12 @@
             "name": null,
             "owner": "axiomhq",
             "repo": "axiom-syslog-proxy",
-            "rev": "v0.7.2",
-            "sha256": "sha256-+qaAIIQLlXXoH8uTWF2WxBpYdZVFMH1dMWCSAxkUay8=",
+            "rev": "v0.8.0",
+            "sha256": "sha256-Dh0G3mFdUmbmPZc2qKPE8MnHOPN+k24CpSDeFb6cx7k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.7.2"
+        "version": "v0.8.0"
     },
     "baidunetdisk": {
         "cargoLocks": null,
@@ -1024,7 +1024,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-03-28",
+        "date": "2025-03-31",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1036,12 +1036,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "d629b1084b6e3c02b1d92731e84014a6dc5a6b78",
-            "sha256": "sha256-mVkcOaVnc09wf3ELsWwOLzaPoll4I9dvPkzZZ9O7kyM=",
+            "rev": "3df109adfccedeb134dea4ba2ea9a2da89872048",
+            "sha256": "sha256-aSzk3iLi1cMlZ1drxNKxy8+JRfqq5N/hnshqp4YVUe4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d629b1084b6e3c02b1d92731e84014a6dc5a6b78"
+        "version": "3df109adfccedeb134dea4ba2ea9a2da89872048"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1774,13 +1774,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.20-xanmod1",
-            "sha256": "sha256-Fvm17GIaGnNfWShh9fX4XK2ovAS6XMx7cHb1u9bET8E=",
+            "rev": "6.12.21-xanmod1",
+            "sha256": "sha256-Zb/n+hLho94+6u5BHAmRYfit/kv1xlh/Tp39kI3kfjA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.20-xanmod1"
+        "version": "6.12.21-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4997",
-            "sha256": "sha256-fYkU1uOWVqlKqC1a9Ip7Gjjfj7AwfgVwouZwhauzE/8=",
+            "rev": "b5002",
+            "sha256": "sha256-Jrvjz9A8oGVo4KCP2miGX2VxIm5mRNPVIEcEaVBDRsE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4997"
+        "version": "b5002"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3976,12 +3976,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.22.3",
-            "sha256": "sha256-2qaZ+e0S1twon2N4al1Ohs3yp2KIurwQdMPIE0V4Bkc=",
+            "rev": "1.22.4",
+            "sha256": "sha256-HNafpgua016dLDSZOJiczwklfl/M/3BGbTkRuK7iLaA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.22.3"
+        "version": "1.22.4"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
