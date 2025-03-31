@@ -7,6 +7,7 @@ let
     };
     services = {
       edgee = ./services/edgee.nix;
+      iocaine = ./services/iocaine.nix;
       pueue = ./services/pueue.nix;
       qbittorrent = ./services/qbittorrent.nix;
       sccache = ./services/sccache.nix;

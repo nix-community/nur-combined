@@ -61,6 +61,7 @@ let
     freenginx = {
       modules = with pkgs.nginxModules; [ moreheaders ];
     };
+    iocaine = { };
     ots = {
       _common = "ots";
       buildGoModule = pkgs.buildGo123Module;
