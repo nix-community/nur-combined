@@ -14,7 +14,6 @@
   modules = import ./modules/nixos; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  legit-web = pkgs.callPackage ./pkgs/legit-web { };
   dirstat-rs = pkgs.callPackage ./pkgs/dirstat-rs { };
   go-instrument = pkgs.callPackage ./pkgs/go-instrument { };
   htmlformat = pkgs.callPackage ./pkgs/htmlformat { };
