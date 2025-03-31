@@ -6,7 +6,7 @@
     libShake ? null, withLibShake ? true,
     desktopToDarwinBundle,
     data, attachPkgs, pkgs,
-    _pos, gitUpdater, unstableGitUpdater,
+    _pos, gitUpdater, unstableGitUpdater, symlinkJoin, writeShellApplication,
     maintainers
 }: let
     inherit (stdenv) hostPlatform;
@@ -144,9 +144,35 @@ in let
             maintainers = [maintainers.Rhys-T];
         };
         pos = _pos;
-        passthru.updateScript = if lib.hasPrefix "v" rev then gitUpdater {
+        passthru.updateScript = let
+            fixUpdater = u: u.override (old: {
+                common-updater-scripts = symlinkJoin {
+                    name = "tuxemon-updater-scripts-wrapper";
+                    paths = [
+                        (writeShellApplication {
+                            name = "update-source-version";
+                            runtimeInputs = [old.common-updater-scripts];
+                            text = ''
+                                update-source-version "$@"
+                                args=()
+                                for arg in "$@"; do
+                                    case "$arg" in
+                                        --rev=*)
+                                            continue
+                                            ;;
+                                    esac
+                                    args+=("$arg")
+                                done
+                                update-source-version "''${args[@]}" --ignore-same-version --source-key=data
+                            '';
+                        })
+                        old.common-updater-scripts
+                    ];
+                };
+            });
+        in if lib.hasPrefix "v" rev then fixUpdater gitUpdater {
             rev-prefix = "v";
-        } else unstableGitUpdater {
+        } else fixUpdater unstableGitUpdater {
             tagFormat = "v.*";
             tagPrefix = "v";
         };

@@ -5,7 +5,9 @@ let
         unwrapped = callPackage ./unwrapped.nix {
             _pos = builtins.unsafeGetAttrPos "version" args;
         };
-        data = callPackage ./data.nix {};
+        data = callPackage ./data.nix {
+            _pos = builtins.unsafeGetAttrPos "version" args;
+        };
         wrapTuxemon = callPackage ./wrapper.nix {};
         pkgs = scope;
         # 'Borrowed' from nixpkgs cataclysm-dda derivations

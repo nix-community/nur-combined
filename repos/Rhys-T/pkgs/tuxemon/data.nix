@@ -1,4 +1,4 @@
-{lib, stdenvNoCC, unwrapped, dataHash}: let
+{lib, stdenvNoCC, unwrapped, dataHash, _pos}: let
     hash = if dataHash == null then lib.fakeHash else dataHash;
     hashAlgo = builtins.head (lib.strings.splitString "-" hash);
 in stdenvNoCC.mkDerivation {
@@ -12,4 +12,5 @@ in stdenvNoCC.mkDerivation {
     outputHash = hash;
     outputHashAlgo = hashAlgo;
     outputHashMode = "recursive";
+    pos = _pos;
 }
