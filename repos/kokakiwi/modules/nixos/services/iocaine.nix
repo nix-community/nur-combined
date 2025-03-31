@@ -1,3 +1,4 @@
+# Inspired from https://git.madhouse-project.org/iocaine/nixocaine
 { config, pkgs, lib, ... }:
 let
   cfg = config.services.iocaine;
