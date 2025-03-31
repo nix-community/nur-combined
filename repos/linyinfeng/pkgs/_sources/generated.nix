@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.5.0";
+    version = "v1.5.1";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.5.0";
+      rev = "v1.5.1";
       fetchSubmodules = false;
-      sha256 = "sha256-DwhKeitbue6gz7cWcA8VJNa0AlKmS3OVHTBaXCy0WGE=";
+      sha256 = "sha256-Rviurl+Baythcl92EjhqWBEAlaOg9L+HOjwEzEcG5DE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./baibot-v1.5.0/Cargo.lock;
+      lockFile = ./baibot-v1.5.1/Cargo.lock;
       outputHashes = {
 
       };
