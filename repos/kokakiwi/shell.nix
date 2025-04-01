@@ -19,6 +19,13 @@ let
         mercurial = "http://freenginx.org/hg/nginx";
         prefix = "release-";
       };
+      iocaine = {
+        source = "gitea";
+        host = "git.madhouse-project.org";
+        gitea = "iocaine/iocaine";
+        use_max_tag = true;
+        prefix = "iocaine-";
+      };
       tumelune = {
         source = "gitlab";
         host = "git.argent.systems";
