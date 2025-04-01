@@ -60,17 +60,17 @@ unique_addr = "fdcc::5/128"
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"
 pub_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 
-[node.azasos]
-# tencent cloud | censored
-id = 5
-addr = "116.196.112.43"
-censor = true
-nat = false
-user = "elen"
+# [node.azasos]
+# # tencent cloud | censored
+# id = 5
+# addr = "116.196.112.43"
+# censor = true
+# nat = false
+# user = "elen"
 
-unique_addr = "fdcc::6/128"
-link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
-pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
+# unique_addr = "fdcc::6/128"
+# link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
+# pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
 
 [api._links.self]
 href = "https://api.nyaw.xyz"
