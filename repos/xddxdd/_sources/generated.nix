@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5002";
+    version = "b5016";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5002";
-      hash = "sha256-Jrvjz9A8oGVo4KCP2miGX2VxIm5mRNPVIEcEaVBDRsE=";
+      tag = "b5016";
+      hash = "sha256-91IQPpk6sK3UO9n3ANMdKdVPkeSXbA1O4brdJYylU5M=";
     };
   };
   loralib = {
@@ -1492,18 +1492,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.16_250318_amd64_01";
+    version = "Linux/QQ_3.2.16_250401_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250318_amd64_01.deb";
-      hash = "sha256-JaTsTL8j0KyACSm1mp9O+l526165+qheJUtTxMH4Tgg=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_amd64_01.deb";
+      hash = "sha256-f+7bo4zVSywnAE1WJPUjVLyFJQYlz56QVEah2uDSzP8=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.16_250318_arm64_01";
+    version = "Linux/QQ_3.2.16_250401_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250318_arm64_01.deb";
-      hash = "sha256-j3aMjxfKyV/IpwxxchMrakJ9ZauA43WwZ9ysoZMEPyE=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_arm64_01.deb";
+      hash = "sha256-av1Pu5ZXASc0Jmm0c7xxtmECIHAYWOo1NQOdI3fDmZA=";
     };
   };
   qqmusic = {
