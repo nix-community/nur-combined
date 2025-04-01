@@ -8,12 +8,7 @@
         hash = "sha256-Mn4jG4io9srJeOWED7tFDv9mCa9klLEyaVIJk4xnUN4=";
     };
     assetsHash = "sha256-sbFJA/v6kMcnU7Kj0Uu70QxDQ/qFnGnsCjm//EOB5ic=";
-    # ImageMagick 7.1.1-44 is adding an extra tEXt chunk to its output PNGs.
-    # Until I can handle this properly, just update the hash in that case.
-    assetsPNG32Hash = if lib.versionAtLeast imagemagick.version "7.1.1-44" then
-        "sha256-+6SoKD/WXpPJxIbDvqosvHcFImV8z59EFitSEI+mkXE="
-    else
-        "sha256-f8tlBQWo/dPzaNk0q5x0tGLd0cctY0AH+3lh9ocMmc8="
+    assetsPNG32Hash = "sha256-f8tlBQWo/dPzaNk0q5x0tGLd0cctY0AH+3lh9ocMmc8="
     ;
     meta = {
         description = "Lemmings-like game with puzzles, editor, multiplayer";

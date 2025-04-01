@@ -187,7 +187,17 @@ in {
                         nix-prefetch-git
                     ])}
                     set -euo pipefail
-                    latestRev="$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jq -r .commit.id)"
+                    latestRev="$(
+                        branchInfo="$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master")"
+                        set +e
+                        jq -r .commit.id <<< "$branchInfo"
+                        exitStatus="$?"
+                        if [[ "$exitStatus" -ne 0 ]]; then
+                            echo 'Output from server:' >&2
+                            echo -E "$branchInfo" >&2
+                        fi
+                        exit "$exitStatus"
+                    )"
                     echo "latestRev=$latestRev"
                     latestVer="$(curl "https://git.envs.net/mpech/pil21/raw/commit/$latestRev/src/vers.l" | sed -En '
                         /^\(pico~de \*Version ([0-9]+) ([0-9]+) ([0-9]+)\)$/ { s//\1.\2.\3/; p; }
