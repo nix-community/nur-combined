@@ -101,6 +101,7 @@ let
     (fromDb "malicious.life" // tech)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "microarch.club" // tech)
+    (fromDb "nocturnepodcast.org")
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine

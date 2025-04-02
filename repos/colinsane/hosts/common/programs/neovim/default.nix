@@ -79,8 +79,9 @@ in
         # - neovim vendors lua `mpack` library,
         #   which it tries to build for the wrong platform
         #   and its vendored version has diverged in symbol names anyway
+        # TODO: lift this into `overlays/cross.nix`, where i can monitor its upstreaming!
         postPatch = (upstream.postPatch or "") + ''
-          substituteInPlace src/nvim/generators/preload.lua --replace-fail \
+          substituteInPlace src/gen/preload_nlua.lua --replace-fail \
             "require 'nlua0'" "
               vim.mpack = require 'mpack'
               vim.mpack.encode = vim.mpack.pack

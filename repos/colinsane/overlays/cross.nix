@@ -632,6 +632,32 @@ in with final; {
   #   # buildInputs = lib.remove gnupg upstream.buildInputs;
   # });
 
+  # 2025-03-29: upstreaming is unblocked, but most of this belongs in _oils_ repo
+  oils-for-unix = prev.oils-for-unix.overrideAttrs (upstream: {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace configure \
+        --replace-fail 'if ! cc ' 'if ! $FLAG_cxx_for_configure '
+      substituteInPlace _build/oils.sh \
+        --replace-fail ' strip ' ' ${stdenv.cc.targetPrefix}strip '
+    '';
+
+    buildPhase = lib.replaceStrings
+      [ "_build/oils.sh" ]
+      [ "_build/oils.sh --cxx ${stdenv.cc.targetPrefix}c++" ]
+      upstream.buildPhase
+    ;
+
+    installPhase = lib.replaceStrings
+      [ "./install" ]
+      [ "./install _bin/${stdenv.cc.targetPrefix}c++-opt-sh/oils-for-unix.stripped" ]
+      upstream.installPhase
+    ;
+
+    configureFlags = upstream.configureFlags ++ [
+      "--cxx-for-configure=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+    ];
+  });
+
   # 2025/01/25: upstreaming is unblocked
   papers = prev.papers.override {
     cargo = crossCargo;

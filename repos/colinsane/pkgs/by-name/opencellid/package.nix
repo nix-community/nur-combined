@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation {
   pname = "opencellid";
-  version = "0-unstable-2025-03-24";
+  version = "0-unstable-2025-04-01";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "bf55e74aa576bd0900f4f03b22360f52a4eeea0f";
-    hash = "sha256-4SYGrT5yIFJLF6ZYgq5GBacYjVL/Q0rW/5CqvG7RvHQ=";
+    rev = "b87c0238188f500af2d1a7103e859d17d7855778";
+    hash = "sha256-OHlDRGRtmNw0K8mW+H7j2Fqk1p5xFuilR+ykpONAnLA=";
   };
 
   dontBuild = true;
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       runtimeInputs = [ curl git gzip ];
       text = ''
         set -x
-        pushd "$(mktemp -d opencellid.XXXXXXXX)"
+        pushd "$(mktemp -d opencellid.XXXXXXXX --tmpdir)"
 
         git clone git@git.uninsane.org:colin/opencellid-mirror.git
         cd opencellid-mirror

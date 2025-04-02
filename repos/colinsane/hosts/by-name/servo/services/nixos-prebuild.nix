@@ -6,7 +6,7 @@ lib.optionalAttrs false  # disabled until i can be sure it's not gonna OOM my se
     description = "build a nixos image with all updated deps";
     path = with pkgs; [ coreutils git nix ];
     script = ''
-      working=$(mktemp -d /tmp/nixos-prebuild.XXXXXX)
+      working=$(mktemp -d nixos-prebuild.XXXXXX --tmpdir)
       pushd "$working"
       git clone https://git.uninsane.org/colin/nix-files.git \
         && cd nix-files \

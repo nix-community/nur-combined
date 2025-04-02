@@ -1,25 +1,35 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i ysh -p common-updater-scripts -p coreutils -p curl -p oils-for-unix
 
-set -e
-
 source $LIB_YSH/args.ysh
 
+proc usage {
+  echo "USAGE: addon-version-lister [--max-versions N] [-v] [-vv] --old-version SEMVER URL"
+  echo ""
+  echo "--max-versions N  (default: 10)"
+  echo "  only show up to this many of the most recent valid versions."
+  echo "  the lower this value, the faster this script will complete."
+  echo "  many use cases can set this to '1'."
+  echo ""
+  echo "-v --verbose: more logging"
+  echo ""
+  echo "-vv --really-verbose: even more logging"
+  echo ""
+  echo "--old-version SEMVER"
+  echo "  version which yielded the provided url, used to recognize how the URL needs to be updated per version."
+  echo ""
+  echo "URL"
+  echo "  URL at which to expect a .xpi file."
+  echo "  combined with '--old-version', this is treated as a template for discovering newer versions."
+}
+
 parser (&spec) {
-  flag "" --max-versions (Int, default=10, help='''
-    only show up to this many of the most recent valid versions.
-    the lower this value, the faster this script will complete.
-    many use cases can set this to `1`.
-  ''')
-  flag -v --verbose (Bool, default=false, help="more logging")
-  flag -vv --really-verbose (Bool, default=false, help="more logging")
-  flag "" --old-version (Str, help='''
-    version which yielded the provided url, used to recognize how the URL needs to be updated per version
-  ''')
-  arg url (help='''
-    URL at which to expect a .xpi file.
-    combined with `--old-version`, this is treated as a template for discovering newer versions.
-  ''')
+  flag "" --max-versions (Int, default=10)
+  flag -v --verbose (Bool, default=false)
+  flag -vv --really-verbose (Bool, default=false)
+  flag "" --old-version (Str)
+  flag -h --help (Bool, default=false)
+  arg url
 }
 
 func numeric_version (tag) {
@@ -38,17 +48,33 @@ func sort_versions (versions) {
   return (sorted => split ($'\n'))
 }
 
-proc debug (;...stmt) {
+proc log (; ...stmts; level, context) {
+  for s in (stmts) {
+    var prefix = " $context:" if context else ""
+    var formatted = "$(pp value (s))"
+    echo "[$level]$prefix $formatted" >&2
+  }
+}
+
+proc info (context=""; ...stmts) {
+  log (level="INFO", context=context, ...stmts)
+}
+
+proc debug (context=""; ...stmts) {
   if (VERBOSE) {
-    # TODO: pretty-print instead of assuming every stmt is a Str
-    var joined = stmt => join(" ")
-    echo "[DEBUG] $joined" >&2
+    log (level="DEBUG", context=context, ...stmts)
   }
 }
 
 var CURL_FLAGS = []
 
-var args = parseArgs(spec, ARGV)
+try {
+  var args = parseArgs(spec, ARGV)
+}
+if failed {
+  usage
+  exit 1
+}
 
 var MAX_VERSIONS = args['max-versions']
 var OLD_VERSION = args['old-version']
@@ -59,15 +85,22 @@ if (args['really-verbose']) {
   call CURL_FLAGS->append("--verbose")
 }
 
+debug "invoked" (ARGV)
+
+if (args.help) {
+  usage
+  exit 0
+}
+
 # we need the bare git URL.
 # strip `https://github.com/OWNER/NAME/releases/download/...` -> `https://github.com/OWNER/NAME`
 var repo_url = URL.replace(/ '/releases/' .* $ /, "")
-debug ("extracted", repo_url)
+debug "extracted" (repo_url)
 
 var all_tags = $(list-git-tags --url="$repo_url") => split($'\n')
-debug ("extracted tags", ...all_tags)
+debug "extracted tags" (all_tags)
 setvar all_tags = sort_versions (all_tags)
-debug ("sorted tags", ...all_tags)
+debug "sorted tags" (all_tags)
 
 # # filter to the versions for which we can actually download an artifact.
 # # some packages (uBlock) publish releases even before all artifacts are available.
@@ -75,9 +108,9 @@ var online_versions = []
 
 for v in (all_tags) {
   var url_to_test = URL => replace (OLD_VERSION, v);
-  debug ("testing url:", url_to_test)
+  debug "testing url" (url_to_test)
   if curl @CURL_FLAGS --fail "$url_to_test" {
-    echo "found online tag: $v"
+    info "found online tag" (v)
     call online_versions -> append (v)
     if (len(online_versions) >= MAX_VERSIONS) {
       break

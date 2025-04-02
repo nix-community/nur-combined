@@ -34,7 +34,6 @@ in
     # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux-megous.override {
     #   withMegiPinephoneConfig = true;  #< N.B.: does not boot as of 2024/05/22!
     # });
-    # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-manjaro;
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_latest;
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_testing;
     boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-armbian;

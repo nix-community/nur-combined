@@ -166,6 +166,7 @@ in
       # "node2nix"
       # "oathToolkit"  # for oathtool
       "objdump"
+      "oils-for-unix"
       # "ponymix"
       "pulsemixer"
       "python3-repl"
@@ -930,6 +931,8 @@ in
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
+
+    oils-for-unix.sandbox.enable = false;  #< it's a shell; doesn't make sense to sandbox
 
     openscad-lsp.sandbox.whitelistPwd = true;
 

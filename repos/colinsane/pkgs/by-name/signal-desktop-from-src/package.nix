@@ -124,7 +124,8 @@
 let
   ringrtcPrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
 
-  betterSqlitePrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
+  betterSqlitePrebuild = null;
+  # betterSqlitePrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
 
   # ringrtcPrebuild = stdenv.mkDerivation {
   #   name = "ringrtc-bin";
@@ -142,19 +143,19 @@ let
 
   # better-sqlite3 can be built from source, or use the prebuilt version from nixpkgs' signal-desktop.
   # just do whatever's easiest (and works) at the time of upgrade; set `null` to use the prebuild
-  # sqlcipherTarball = null;
-  sqlcipherTarball = fetchurl {
-    # this is a dependency of better-sqlite3.
-    # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
-    # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
-    url = let
-      BETTER_SQLITE3_VERSION = "9.0.11";  #< from Signal-Desktop/package.json
-      HASH = "6253f886c40e49bf892d5cdc92b2eb200b12cd8d80c48ce5b05967cfd01ee8c7";
-      SQLCIPHER_VERSION = "4.6.1-signal-patch2";
-      EXTENSION_VERSION = "0.2.1-asm2";
-    in "https://build-artifacts.signal.org/desktop/sqlcipher-v2-${SQLCIPHER_VERSION}--${EXTENSION_VERSION}-${HASH}.tar.gz";
-    hash = "sha256-YlP4hsQOSb+JLVzckrLrIAsSzY2AxIzlsFlnz9Ae6Mc=";
-  };
+  sqlcipherTarball = null;
+  # sqlcipherTarball = fetchurl {
+  #   # this is a dependency of better-sqlite3.
+  #   # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
+  #   # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
+  #   url = let
+  #     BETTER_SQLITE3_VERSION = "9.0.11";  #< from Signal-Desktop/package.json
+  #     HASH = "6253f886c40e49bf892d5cdc92b2eb200b12cd8d80c48ce5b05967cfd01ee8c7";
+  #     SQLCIPHER_VERSION = "4.6.1-signal-patch2";
+  #     EXTENSION_VERSION = "0.2.1-asm2";
+  #   in "https://build-artifacts.signal.org/desktop/sqlcipher-v2-${SQLCIPHER_VERSION}--${EXTENSION_VERSION}-${HASH}.tar.gz";
+  #   hash = "sha256-YlP4hsQOSb+JLVzckrLrIAsSzY2AxIzlsFlnz9Ae6Mc=";
+  # };
 
   # signal-fts5-extension = callPackage ./fts5-extension { };
   # bettersqlitePatch = substituteAll {
@@ -180,19 +181,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "signal-desktop-from-src";
-  version = "7.48.0";
+  version = "7.49.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${finalAttrs.version}";
-    hash = "sha256-IF+jx5u10kygp3AiHdxthUSH6RIvffQIs3o8nxe34wU=";
+    hash = "sha256-yUvgOOyL7lCxAIVXDqDEvgTwIC2h3B2kqugOwtgW6FM=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src patches;
-    hash = "sha256-xba5MfIjwnLHDKVM9+2KSpC3gcw6cM4cX3dn3/jqT3o=";
+    hash = "sha256-JNk1CvPViDjW2kAFQHIHGxReK9YTn1CypERerpz9BBk=";
   };
 
   patches = [
@@ -315,19 +316,22 @@ stdenv.mkDerivation (finalAttrs: {
     # provide necessities which were skipped as part of --ignore-scripts
     rsync -arv ${ringrtcPrebuild}/ node_modules/@signalapp/ringrtc/
 
-    ${if sqlcipherTarball == null then ''
-      # option 1: replace the entire better-sqlite3 library with the prebuilt version from nixpkgs' signal-desktop
+    ${if sqlcipherTarball != null then ''
+      # option 1: replace only the sqlcipher plugin with Signal's prebuilt version,
+      # and build the rest of better-sqlite3 from source
+      cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
+    '' else if betterSqlitePrebuild != null then ''
+      # option 2: replace the entire better-sqlite3 library with the prebuilt version from nixpkgs' signal-desktop
       rsync -arv ${betterSqlitePrebuild}/ node_modules/@signalapp/better-sqlite3/
       # patch so signal doesn't try to *rebuild* better-sqlite3
       substituteInPlace node_modules/@signalapp/better-sqlite3/package.json \
         --replace-fail '"download": "node ./deps/download.js"'  '"download": "true"' \
         --replace-fail '"build-release": "node-gyp rebuild --release"'  '"build-release": "true"' \
         --replace-fail '"install": "pnpm run download && pnpm run build-release"'  '"install": "true"'
-    '' else ''
-      # option 2: replace only the sqlcipher plugin with Signal's prebuilt version,
-      # and build the rest of better-sqlite3 from source
-      cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
-    ''}
+    '' else
+      # XXX(2025-03-27): seems that signal can build *and run* without any patching of sqlcipher/better-sqlite now
+      ""
+    }
 
     # pushd node_modules/@signalapp/better-sqlite3
     #   # node-gyp isn't consistently linked into better-sqlite's `node_modules` (maybe due to version mismatch with signal-desktop's node-gyp?)

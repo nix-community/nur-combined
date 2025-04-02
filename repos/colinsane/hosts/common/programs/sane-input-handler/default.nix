@@ -73,18 +73,17 @@ in
         };
       };
     };
-    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+    packageUnwrapped = pkgs.static-nix-shell.mkYsh {
       pname = "sane-input-handler";
       srcRoot = ./.;
       pkgs = {
-        inherit (pkgs) coreutils jq killall playerctl procps sane-open util-linux wireplumber;
+        inherit (pkgs) coreutils killall playerctl procps sane-open util-linux wireplumber;
         sway = config.sane.programs.sway.package;
       };
     };
     suggestedPrograms = [
       "bonsai"
       # dependencies which get pulled in unconditionally:
-      "jq"
       "killall"
       "playerctl"
       "procps"  #< TODO: reduce to just those parts of procps which are really needed

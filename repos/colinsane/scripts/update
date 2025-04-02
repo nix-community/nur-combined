@@ -85,9 +85,20 @@ updateOnePkg() {
     nix-store --realize "$c" "${nixFlags[@]}" || true
   done
 
+  local workingDir="$(repo_root)/.working/update/$attrPath"
+  rm -rf "$workingDir"
+  mkdir -p "$workingDir"
+
   info "updating: '$attrPath'"
+  info "working out of $workingDir"
   debug "$updateScript"
-  "$updateScript"
+
+  # update scripts often write artifacts (e.g. `git-commits.txt`) to the working directory,
+  # so change to a unique directory before running the update script to avoid interfering with any other
+  # update scripts that might be running simultaneously.
+  pushd "$workingDir"
+    "$updateScript" > >(tee update.log)  2> >(tee update.stderr >&2)
+  popd
 }
 
 updatePkgsInParallel() {

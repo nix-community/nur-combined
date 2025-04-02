@@ -10,7 +10,7 @@
 let
   mkNixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/mkNixpkgs.nix {};
   mkPkgs = branch: args: (
-    mkNixpkgs (args // { inherit branch; })
+    (mkNixpkgs (args // { inherit branch; })).pkgs
   ).extend (import ./overlays/all.nix);
   pkgs = mkPkgs "master" { inherit localSystem; };
   inherit (pkgs) lib;

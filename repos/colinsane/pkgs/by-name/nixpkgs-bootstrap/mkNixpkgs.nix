@@ -91,17 +91,16 @@ let
         } // args');
       }
     else
-      # N.B.: this is crafted to allow `nixpkgs.FOO` from other nix code
-      # AND `nix-build -A nixpkgs`
       patchedSrc.overrideAttrs (base: {
         # attributes needed for update scripts
         inherit version;
         pname = "nixpkgs";
-        passthru = (base.passthru or {}) // nixpkgs // {
+        passthru = (base.passthru or {}) // {
           # override is used to configure hostPlatform higher up.
           override = overrideArgs: mkNixpkgs (args // overrideArgs);
 
-          # N.B.: src has to be specified in passthru, not the outer scope, so as to take precedence over the nixpkgs `src` package
+          pkgs = nixpkgs;
+
           src = {
             # required by unstableGitUpdater
             gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";

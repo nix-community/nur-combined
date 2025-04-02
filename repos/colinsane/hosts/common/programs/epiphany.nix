@@ -14,17 +14,19 @@
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user.own = [ "org.gnome.Epiphany" ];
-    sandbox.whitelistPortal = [
-      # these are all speculative
-      "Camera"
-      "FileChooser"
-      "Location"
-      "OpenURI"
-      "Print"
-      "ProxyResolver"  #< required else it doesn't load websites
-      "ScreenCast"
-    ];
+    sandbox.whitelistDbus.user = true;  #< TODO: reduce. requires to support nested dbus proxy though.
+    # sandbox.whitelistDbus.user.own = [ "org.gnome.Epiphany" ];
+    # sandbox.whitelistPortal = [
+    #   # these are all speculative
+    #   "Camera"
+    #   "FileChooser"
+    #   "Location"
+    #   "OpenURI"
+    #   "Print"
+    #   "ProxyResolver"  #< required else it doesn't load websites
+    #   "ScreenCast"
+    # ];
+
     # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
     # enabling DRI/DRM (as below) seems to fix that.
     sandbox.whitelistDri = true;
@@ -32,6 +34,13 @@
     sandbox.extraHomePaths = [
       ".config/epiphany"  #< else it gets angry at launch
       "tmp"
+    ];
+    sandbox.extraPaths = [
+      # epiphany sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
+      # TODO: these could maybe be mounted empty.
+      "/sys/block"
+      "/sys/bus"
+      "/sys/class"
     ];
 
     buildCost = 2;

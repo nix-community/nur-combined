@@ -54,9 +54,6 @@ let
     });
 
     ### aliases
-    # nixpkgs = nixpkgs-bootstrap.master;
-    # nixpkgs-staging = nixpkgs-bootstrap.staging;
-    # nixpkgs-next = nixpkgs-bootstrap.staging-next;
     inherit (trivial-builders)
       copyIntoOwnPackage
       deepLinkIntoOwnPackage
