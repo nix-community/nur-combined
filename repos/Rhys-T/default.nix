@@ -167,7 +167,7 @@ in {
         inherit (pkgs) lib fetchFromGitea;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "25.3.20";
+            version = "25.3.20-unstable-2025-03-21";
             src = fetchFromGitea {
                 domain = "git.envs.net";
                 owner = "mpech";
@@ -187,22 +187,44 @@ in {
                         nix-prefetch-git
                     ])}
                     set -euo pipefail
-                    latestRev="$(
-                        branchInfo="$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master")"
+                    jqOrDump() {
+                        local data
+                        IFS= read -d ''' data
                         set +e
-                        jq -r .commit.id <<< "$branchInfo"
-                        exitStatus="$?"
+                        printf '%s' "$data" | jq "$@"
+                        local exitStatus="$?"
                         if [[ "$exitStatus" -ne 0 ]]; then
                             echo 'Output from server:' >&2
                             echo -E "$branchInfo" >&2
                         fi
-                        exit "$exitStatus"
-                    )"
-                    echo "latestRev=$latestRev"
-                    latestVer="$(curl "https://git.envs.net/mpech/pil21/raw/commit/$latestRev/src/vers.l" | sed -En '
-                        /^\(pico~de \*Version ([0-9]+) ([0-9]+) ([0-9]+)\)$/ { s//\1.\2.\3/; p; }
+                        set -e
+                        return "$exitStatus"
+                    }
+                    eval "$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jqOrDump -r '
+                        (.commit.id) as $latestRev |
+                        (.commit.timestamp | scan("^[^T]+")) as $latestDate |
+                        @sh "
+                            latestRev=\($latestRev)
+                            latestDate=\($latestDate)
+                        "
                     ')"
-                    echo "latestVer=$latestVer"
+                    echo "latestRev=$latestRev" >&2
+                    echo "latestDate=$latestDate" >&2
+                    eval "$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/contents/src/vers.l?ref=$latestRev" | jqOrDump -r '
+                        (.last_commit_sha) as $versRev |
+                        (.content | @base64d | scan("\\(pico~de \\*Version (\\d+) (\\d+) (\\d+)\\)") | join(".")) as $versVer |
+                        @sh "
+                            versRev=\($versRev)
+                            versVer=\($versVer)
+                        "
+                    ')"
+                    echo "versRev=$versRev" >&2
+                    echo "versVer=$versVer" >&2
+                    latestVer="$versVer"
+                    if [[ "$latestRev" != "$versRev" ]]; then
+                        latestVer+="-unstable-$latestDate"
+                    fi
+                    echo "latestVer=$latestVer" >&2
                     update-source-version ''${UPDATE_NIX_ATTR_PATH:-picolisp-rolling} "$latestVer" --rev="$latestRev"
                 '';
             };
