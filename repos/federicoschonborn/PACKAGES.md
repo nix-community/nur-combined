@@ -207,9 +207,9 @@ A language for building concurrent software with confidence.
 KDE Virtual Machine Manager.
 
 - Name: `karton`
-- Version: `0.1-prealpha-unstable-2025-03-02`
-- [🌐 Homepage](https://invent.kde.org/arraybolt/karton)
-- [📦 Source](./pkgs/by-name/karton/package.nix#L56)
+- Version: `0.1-prealpha-unstable-2025-03-31`
+- [🌐 Homepage](https://invent.kde.org/sitter/karton)
+- [📦 Source](./pkgs/by-name/karton/package.nix#L61)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -285,7 +285,7 @@ Library for emitting text, XML, JSON, or HTML output.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-23`
+- Version: `0-unstable-2025-03-30`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L39)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -400,7 +400,7 @@ Camera application for Plasma Mobile.
 Plasma Login provides the frontend for Plasma's login experience.
 
 - Name: `plasma-login`
-- Version: `0-unstable-2025-03-26`
+- Version: `0-unstable-2025-04-01`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login)
 - [📦 Source](./pkgs/by-name/plasma-login/package.nix#L52)
 - 📄 License: Unfree
@@ -411,7 +411,7 @@ Plasma Login provides the frontend for Plasma's login experience.
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-03-25`
+- Version: `0-unstable-2025-04-01`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L62)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
@@ -489,7 +489,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2025-03-22`
+- Version: `0-unstable-2025-03-31`
 - [🌐 Homepage](https://github.com/trzy/Supermodel)
 - [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)

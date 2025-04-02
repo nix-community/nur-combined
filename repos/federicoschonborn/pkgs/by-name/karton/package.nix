@@ -2,34 +2,38 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  kdePackages,
   cmake,
   ninja,
+  pkg-config,
   python3,
-  kdePackages,
+  libvirt,
   nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "karton";
-  version = "0.1-prealpha-unstable-2025-03-02";
+  version = "0.1-prealpha-unstable-2025-03-31";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
-    owner = "arraybolt";
+    owner = "sitter";
     repo = "karton";
-    rev = "2645686e145e24d2ddd2f5607aba6e955b51bca3";
-    hash = "sha256-rqflixikk4ASW5V2Ga1xCXoW2YoIpsXeiL7r7k8dHU8=";
+    rev = "8a983c95391009fe681704ebaf29142cef795733";
+    hash = "sha256-qNv1Z69NTJJbwzDIqLgLXJoOSjgSPVyjtBRr8OFPtZ0=";
   };
 
   nativeBuildInputs = [
     cmake
     ninja
+    pkg-config
     python3
     kdePackages.extra-cmake-modules
     kdePackages.wrapQtAppsHook
   ];
 
   buildInputs = [
+    libvirt
     kdePackages.qtbase
     kdePackages.qtdeclarative
     kdePackages.kconfig
@@ -39,7 +43,8 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace-fail "/usr/share" "$out/share"
+      --replace-fail "/usr/share" "$out/share" \
+      --replace-fail "ecm_find_qmlmodule(org.kde.kirigami REQUIRED)" "ecm_find_qmlmodule(org.kde.kirigami)"
   '';
 
   strictDeps = true;
@@ -54,7 +59,7 @@ stdenv.mkDerivation {
   meta = {
     mainProgram = "karton";
     description = "KDE Virtual Machine Manager";
-    homepage = "https://invent.kde.org/arraybolt/karton";
+    homepage = "https://invent.kde.org/sitter/karton";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
