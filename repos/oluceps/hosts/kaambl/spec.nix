@@ -274,5 +274,7 @@
     earlyoom.enable = true;
     arti.enable = false;
     # calibre.enable = true;
+
+    userborn-subid.enable = true;
   };
 }
