@@ -173,7 +173,7 @@ in let
         in if lib.hasPrefix "v" rev then fixUpdater gitUpdater {
             rev-prefix = "v";
         } else fixUpdater unstableGitUpdater {
-            tagFormat = "v.*";
+            tagFormat = "v*";
             tagPrefix = "v";
         };
     };
