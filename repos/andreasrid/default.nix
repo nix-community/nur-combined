@@ -18,6 +18,6 @@ pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
   python-xextract = pkgs.callPackage ./pkgs/python-xextract { };
   linguee-api = pkgs.callPackage ./pkgs/linguee-api { inherit python-xextract; };
-  linguee-api-server = pkgs.python3Packages.callPackage ./pkgs/linguee-api/server.nix { inherit linguee-api; };
+  linguee-api-server = pkgs.callPackage ./pkgs/linguee-api/server.nix { inherit linguee-api; };
   stm32cubeide = pkgs.callPackage ./pkgs/stm32cubeide { };
 })
