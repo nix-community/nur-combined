@@ -35,29 +35,24 @@ The following xontribs are available in this NUR repo:
 ## Usage
 
 - Follow the [NUR Installation Instructions](https://nur.nix-community.org/documentation/)
-- Activate like this
+- If you've added NUR as an overlay, you can add xontribs like this:
 
 ```nix
-{ config, lib, ...  }: let
-  inherit (config.nur.repos) xonsh-xontribs;
-in {
-  config = lib.mkIf (cfg.enable) {
-    programs.xonsh = with xonsh-xontribs; {
-      enable = true;
-      package = xonsh-wrapper.override {
-        xonsh = xonsh;
-        extraPackages = ps: [
-          xontrib-direnv
-          xontrib-zoxide
-          # ...
+{ pkgs, ... }:
+{
+    programs.xonsh =  {
+        enable = true;
+        extraPackages = ps: with ps; [
+            numpy
+            xonsh.xontribs.xonsh-direnv
+            pkgs.nur.repos.xonsh-xontribs.xontrib-zoxide
         ];
-      };
     };
-  };
 }
+
 ```
 
-Probably the easiest way to use this is as an overlay for nixpkgs. In your flake, add both
+Probably the easiest way to use this is as a standalone overlay for nixpkgs. In your flake, add both
 this repository and nixpkgs. Then apply this overlay when you import the nixpkgs overlay.
 
 ```
