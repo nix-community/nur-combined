@@ -19,6 +19,5 @@
   htmlformat = pkgs.callPackage ./pkgs/htmlformat { };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
   porto = pkgs.callPackage ./pkgs/porto { };
-  vanity-imports = pkgs.callPackage ./pkgs/vanity-imports { };
   projectdo = pkgs.callPackage ./pkgs/projectdo { };
 }
