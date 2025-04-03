@@ -115,3 +115,5 @@ resign-all:
 
 search-history *args:
     git log -S {{ args }}
+build-topo:
+    nix build .#topology.x86_64-linux.config.output
