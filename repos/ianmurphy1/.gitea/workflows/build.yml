@@ -1,0 +1,49 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '10 3 * * *'
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nurRepo:
+          - ianmurphy1
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      run: |
+        nix shell -f '<nixpkgs>' \
+          nix-build-uncached \
+          -c nix-build \
+          ci.nix -A buildOutputs | nix copy --to "ssh://root@cache.home" --stdin
