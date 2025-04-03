@@ -15,6 +15,7 @@
       null;
   jurigged = pkgs.callPackage ./pkgs/jurigged { };
   llrt = pkgs.callPackage ./pkgs/llrt { };
+  newsflash-nvim = pkgs.callPackage ./pkgs/newsflash-nvim { };
   proximity-nvim = pkgs.callPackage ./pkgs/proximity-nvim { };
   zsh-wd = pkgs.callPackage ./pkgs/zsh-wd { };
 }
