@@ -7,8 +7,13 @@
   yosys,
   klayout,
   buildPythonPackage,
-  python3,
-  python3Packages,
+  python,
+  setuptools,
+  pyyaml,
+  orjson,
+  hatchling,
+  requests,
+  wheel,
 }:
 buildPythonPackage {
   pname = "rtl2gds";
@@ -27,25 +32,23 @@ buildPythonPackage {
     # that is not specifying the entry points and package directories.
     # We should remove this patch once the upstream project fixes the issue.
     (fetchpatch {
-        url = "https://github.com/Emin017/RTL2GDS/commit/dd62444742e3334011f58cd97c22a75453cd497f.patch";
-        hash = "sha256-PtllEJINeZWhSoKR7CXiMJn2dmkvaGwN+CyIxbD4o7Y=";
+      url = "https://github.com/Emin017/RTL2GDS/commit/dd62444742e3334011f58cd97c22a75453cd497f.patch";
+      hash = "sha256-PtllEJINeZWhSoKR7CXiMJn2dmkvaGwN+CyIxbD4o7Y=";
     })
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
-    [
-      python3
-      setuptools
+  propagatedBuildInputs = [
+    python
+    setuptools
 
-      pyyaml
-      orjson
-      klayout
-      hatchling
-      requests
-    ];
+    pyyaml
+    orjson
+    klayout
+    hatchling
+    requests
+  ];
 
-  nativeBuildInputs = with python3Packages; [
+  nativeBuildInputs = [
     setuptools
     wheel
     ieda-unstable
@@ -62,19 +65,19 @@ buildPythonPackage {
     }"
     "--set LD_LIBRARY_PATH ${
       lib.makeLibraryPath [
-        python3Packages.pyyaml
-        python3Packages.orjson
+        pyyaml
+        orjson
         klayout
       ]
     }"
   ];
 
   postInstall = ''
-    mkdir -p $out/lib/${python3.libPrefix}/tools/
-    mkdir -p $out/lib/${python3.libPrefix}/foundry/
+    mkdir -p $out/lib/${python.libPrefix}/tools/
+    mkdir -p $out/lib/${python.libPrefix}/foundry/
 
-    cp -r $src/tools/* $out/lib/${python3.libPrefix}/tools/
-    cp -r $src/foundry/* $out/lib/${python3.libPrefix}/foundry/
+    cp -r $src/tools/* $out/lib/${python.libPrefix}/tools/
+    cp -r $src/foundry/* $out/lib/${python.libPrefix}/foundry/
   '';
 
   doCheck = true;
