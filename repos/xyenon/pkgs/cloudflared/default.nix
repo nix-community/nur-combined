@@ -19,7 +19,7 @@ let
         owner = "cloudflare";
         repo = "go";
         rev = "af19da5605ca11f85776ef7af3384a02a315a52b";
-        sha256 = "sha256-6VT9CxlHkja+mdO1DeFoOTq7gjb3T5jcf2uf9TB/CkU=";
+        hash = "sha256-6VT9CxlHkja+mdO1DeFoOTq7gjb3T5jcf2uf9TB/CkU=";
       };
     };
   };
@@ -105,6 +105,7 @@ buildGoModule' rec {
     mainProgram = "cloudflared";
     # cloudflared requires a fork of go 1.22 to build (see override above),
     # but go 1.22 is EOL and the toolchain has been removed from nixpkgs.
-    broken = !lib.hasAttr "go_1_22" buildPackages;
+    broken =
+      (!lib.hasAttr "go_1_22" buildPackages) || !(builtins.tryEval buildPackages.go_1_22).success;
   };
 }
