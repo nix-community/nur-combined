@@ -122,7 +122,9 @@
 
   singleton = pkgs.callPackage ./pkgs/singleton { };
 
-  sleef = pkgs.callPackage ./pkgs/sleef { };
+  tlfloat = pkgs.callPackage ./pkgs/tlfloat { };
+
+  sleef = pkgs.callPackage ./pkgs/sleef { tlfloat = tlfloat; };
 
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
@@ -131,8 +133,6 @@
   tessil-robin-map = pkgs.callPackage ./pkgs/tessil-robin-map { };
 
   testu01 = pkgs.callPackage ./pkgs/testu01 { };
-
-  tlfloat = pkgs.callPackage ./pkgs/tlfloat { };
 
   trng = pkgs.callPackage ./pkgs/trng { };
 
