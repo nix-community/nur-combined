@@ -372,6 +372,7 @@ EXIF
 exiftool
 explorable
 extensionless
+Fairhaven
 Fastmail
 favicon
 favicons
@@ -574,6 +575,7 @@ JIT
 Jitsi
 JOSM
 journalctl
+journaled
 Jpegli
 jq
 jQuery
@@ -618,6 +620,7 @@ Kvalheim
 Kvalheim's
 KVM
 Lanczos
+Larrabee
 launchable
 Lauryn
 LDAP
@@ -836,6 +839,7 @@ OSEM
 OSM
 OSMCha
 Osmose
+OSTree
 OSU
 outcompeting
 outcompetition
@@ -1213,6 +1217,7 @@ sumatriptan
 sunsetting
 sunshiney
 SVG
+SVGs
 swapon
 swappable
 swappiness

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) getExe mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib) escapeShellArg getExe getExe' mkEnableOption mkIf mkMerge mkOption;
   inherit (lib.types) int;
   inherit (pkgs) apt-cacher-ng writeShellScript;
 
@@ -60,35 +60,19 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = writeShellScript "capture-logs" ''
-          touch $RUNTIME_DIRECTORY/apt-cacher.dbg
-          systemd-cat --identifier 'apt-cacher-ng' --priority 'debug' \
-            tail --follow --lines 0 --quiet \
-              $RUNTIME_DIRECTORY/apt-cacher.dbg \
-          &
+        ExecStart = writeShellScript "apt-cacher-ng-journaled" ''
+          journal() { touch "$3"; exec systemd-cat --identifier "$1" --priority "$2" tail --follow --quiet "$3"; }
 
-          touch $RUNTIME_DIRECTORY/apt-cacher.err
-          systemd-cat --identifier 'apt-cacher-ng' --priority 'debug' \
-            tail --follow --lines 0 --quiet \
-              $RUNTIME_DIRECTORY/apt-cacher.err \
-          &
+          journal 'apt-cacher-ng' 'debug' "$RUNTIME_DIRECTORY/apt-cacher.err" &
+          journal 'apt-cacher-ng' 'info' "$RUNTIME_DIRECTORY/apt-cacher.log" &
 
-          touch $RUNTIME_DIRECTORY/apt-cacher.log
-          systemd-cat --identifier 'apt-cacher-ng' --priority 'info' \
-            tail --follow --lines 0 --quiet \
-              $RUNTIME_DIRECTORY/apt-cacher.log \
-          &
-
-          ${getExe apt-cacher-ng} -v \
-            CacheDir=$CACHE_DIRECTORY \
-            LogDir=$RUNTIME_DIRECTORY \
-            UnbufferLogs=1 \
-            Port=${toString cfg.port} \
-            ForeGround=1 \
-            ReportPage=acng-report.html \
-          &
-
-          wait
+          exec ${getExe apt-cacher-ng} -v \
+            CacheDir="$CACHE_DIRECTORY" \
+            LogDir="$RUNTIME_DIRECTORY" \
+            UnbufferLogs='1' \
+            Port=${escapeShellArg cfg.port} \
+            ForeGround='1' \
+            ReportPage='acng-report.html'
         '';
       };
     };
@@ -106,8 +90,8 @@ in
           esac
         '';
         ExecStart = ''
-          ${apt-cacher-ng}/lib/apt-cacher-ng/acngtool maint \
-            Port=${toString cfg.port}
+          ${getExe' apt-cacher-ng "acngtool"} maint \
+            Port=${escapeShellArg cfg.port}
         '';
       };
     };
