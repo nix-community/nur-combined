@@ -7,6 +7,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  atlauncher = pkgs.callPackage ./pkgs/gaming/atlauncher-bin { };
   binaryninja = pkgs.callPackage ./pkgs/re/binaryninja { };
   codemerxdecompile = pkgs.callPackage ./pkgs/re/codemerxdecompile { };
   detectiteasy = pkgs.libsForQt5.callPackage ./pkgs/re/detectiteasy { };
