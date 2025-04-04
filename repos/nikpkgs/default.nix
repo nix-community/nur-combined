@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Alphabetical sorting
-  amdgpud                = pkgs.callPackage ./pkgs/amdgpud { };
   amdgpu-clocks          = pkgs.callPackage ./pkgs/amdgpu-clocks { };
   avahi2dns              = pkgs.callPackage ./pkgs/avahi2dns { };
   inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers { };
