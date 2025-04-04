@@ -17,7 +17,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-yYvJJFXEOxUz+R50ioyHQp3GqF4V8J+vYBPxh4AuA3E=";
   };
 
-  cargoHash = "sha256-ErJif5ZOgMPYaUdsaTcLqJVIgl0pYRHdI2+XiNjdee4=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-Tv//xNq85Cc11lfdt5SF2Vlo9/O/PHINc+eRGV+8irI=";
 
   checkInputs = [ bash ];
   preCheck = ''
