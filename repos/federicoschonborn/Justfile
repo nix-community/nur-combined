@@ -37,11 +37,11 @@ build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
 
 [group("build-all")]
 build-all-unstable:
-    just _nix-unstable build --no-link $(just _build-outputs)
+    just _nix-unstable build --no-link $(just _cache-outputs)
 
 [group("build-all")]
 build-all-stable:
-    just _nix-stable build --no-link $(just _build-outputs)
+    just _nix-stable build --no-link $(just _cache-outputs)
 
 [group("build-all")]
 build-all: build-all-unstable build-all-stable
@@ -59,22 +59,22 @@ rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
 
 [group("rebuild-all")]
 rebuild-all-unstable:
-    just _nix-unstable build --no-link --rebuild $(just _build-outputs)
+    just _nix-unstable build --no-link --rebuild $(just _cache-outputs)
 
 [group("rebuild-all")]
 rebuild-all-stable:
-    just _nix-stable build --no-link --rebuild $(just _build-outputs)
+    just _nix-stable build --no-link --rebuild $(just _cache-outputs)
 
 [group("rebuild-all")]
 rebuild-all: rebuild-all-unstable rebuild-all-stable
 
 [group("test-all")]
 test-all-unstable:
-    just _nix-unstable build --no-link $(just _build-outputs-tests)
+    just _nix-unstable build --no-link $(just _cache-outputs-tests)
 
 [group("test-all")]
 test-all-stable:
-    just _nix-stable build --no-link $(just _build-outputs-tests)
+    just _nix-stable build --no-link $(just _cache-outputs-tests)
 
 [group("test-all")]
 test-all: test-all-unstable test-all-stable

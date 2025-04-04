@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation {
   pname = "plasma-login-manager";
-  version = "0-unstable-2025-04-01";
+  version = "0-unstable-2025-04-03";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "davidedmundson";
     repo = "plasma-login-manager";
-    rev = "5555daf5bfbf7de0ef91f449f4009f16dfd1f6fd";
-    hash = "sha256-ogLyvXjqVa+Hbab2BRpX7m+9R9ntvEffNBV0UEMUxBA=";
+    rev = "54822b34d31982641fde44e6075007e9dfe068b7";
+    hash = "sha256-pnOVML62G5Nri5Z45YrDZvpB29hrWN2zUlQpQw+2j40=";
   };
 
   nativeBuildInputs = [
@@ -35,7 +35,17 @@ stdenv.mkDerivation {
     linux-pam
     kdePackages.qtbase
     kdePackages.qtdeclarative
+    kdePackages.kauth
+    kdePackages.kcmutils
     kdePackages.kconfig
+    kdePackages.kdbusaddons
+    kdePackages.ki18n
+    kdePackages.kio
+    kdePackages.kpackage
+    kdePackages.kwindowsystem
+    kdePackages.layer-shell-qt
+    kdePackages.libplasma
+    kdePackages.plasma-workspace
   ];
 
   # Mostly copied from https://github.com/NixOS/nixpkgs/blob/698214a32beb4f4c8e3942372c694f40848b360d/pkgs/applications/display-managers/sddm/unwrapped.nix#L62-L85

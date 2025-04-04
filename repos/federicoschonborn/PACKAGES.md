@@ -65,10 +65,10 @@ V2 daemon for Budgie Desktop.
 Feature-rich, modern desktop designed to keep out the way of the user.
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-03-29`
+- Version: `10.9.2-unstable-2025-04-02`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-03-29)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-04-02)
 - [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L140)
 - 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -112,10 +112,10 @@ Tool to generate flags for your CPU.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.39.1`
+- Version: `2.40.2`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.40.2)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -125,10 +125,10 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.39.1`
+- Version: `2.40.2`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.39.1)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.40.2)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -138,9 +138,9 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox.
 
 - Name: `firefox-gnome-theme`
-- Version: `136`
+- Version: `137`
 - [🌐 Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
-- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v136)
+- [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v137)
 - [📦 Source](./pkgs/by-name/firefox-gnome-theme/package.nix#L30)
 - 📄 License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -395,25 +395,14 @@ Camera application for Plasma Mobile.
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
-## `plasma-login` {#plasma-login}
-
-Plasma Login provides the frontend for Plasma's login experience.
-
-- Name: `plasma-login`
-- Version: `0-unstable-2025-04-01`
-- [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login)
-- [📦 Source](./pkgs/by-name/plasma-login/package.nix#L52)
-- 📄 License: Unfree
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
-
 ## `plasma-login-manager` {#plasma-login-manager}
 
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-04-01`
+- Version: `0-unstable-2025-04-03`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
-- [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L62)
+- [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -422,7 +411,7 @@ Plasma Login Manager provides the backend for Plasma's login experience.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-03-21`
+- Version: `SLE2024-artifact-unstable-2025-04-02`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
@@ -489,7 +478,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2025-03-31`
+- Version: `0-unstable-2025-04-04`
 - [🌐 Homepage](https://github.com/trzy/Supermodel)
 - [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
@@ -567,9 +556,9 @@ A GNOME theme for Thunderbird.
 Generate a static HTML page from a collection of feeds wtih a simple CLI tool.
 
 - Name: `tinyfeed`
-- Version: `1.0.1`
+- Version: `1.1.0`
 - [🌐 Homepage](https://github.com/TheBigRoomXXL/tinyfeed)
-- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.0.1)
+- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.1.0)
 - [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
