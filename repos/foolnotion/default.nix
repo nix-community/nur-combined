@@ -132,6 +132,8 @@
 
   testu01 = pkgs.callPackage ./pkgs/testu01 { };
 
+  tlfloat = pkgs.callPackage ./pkgs/tlfloat { };
+
   trng = pkgs.callPackage ./pkgs/trng { };
 
   tlx = pkgs.callPackage ./pkgs/tlx { };
