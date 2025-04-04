@@ -31,7 +31,13 @@ in rustPlatform.buildRustPackage rec {
 
   LD_LIBRARY_PATH = lib.makeLibraryPath buildInputs;
 
-  cargoHash = "sha256-0OI/AQe0mtpxcp6Ok6iepCIdJpdSgFKz8nO3uFEVRDY=";
+  cargoHash = let
+    version = builtins.substring 0 5 lib.version;
+  in {
+    "24.05" = "sha256-0OI/AQe0mtpxcp6Ok6iepCIdJpdSgFKz8nO3uFEVRDY=";
+    "24.11" = "sha256-0OI/AQe0mtpxcp6Ok6iepCIdJpdSgFKz8nO3uFEVRDY=";
+    "25.05" = "sha256-XgdbFMcyoYRaimN4rEmqU8qkZg78vsCmPMlKeO5zPcg=";
+  }.${version}; # DISGOSTAN
 
   meta = with lib; {
     description = "AMD GPU management tools";
