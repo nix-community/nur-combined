@@ -4,8 +4,10 @@
   fetchFromGitHub,
   bc,
   cgpsmapper,
+  fig2dev,
   git,
   gmaptool,
+  imagemagick,
   libjpeg,
   mapsoft2,
   netpbm,
@@ -16,13 +18,13 @@
 
 stdenv.mkDerivation {
   pname = "slazav-fi";
-  version = "2025-02-01";
+  version = "2025-03-20";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_fi";
-    rev = "1cc868653012c2a31441ccc0e8246be9666851b2";
-    hash = "sha256-6psZAaBLQ9LvrZgMXKkKHt9k4KJciF9rCZSYsFGjew4=";
+    rev = "6517526cd0b92c4a272139065dbbc0779bce67b0";
+    hash = "sha256-EVGjkw4ouvlGl8ugwbyvVFO/SscbCprplqUbVi8uNio=";
     leaveDotGit = true;
   };
 
@@ -34,8 +36,10 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     bc
     cgpsmapper
+    fig2dev
     git
     gmaptool
+    imagemagick
     libjpeg
     mapsoft2
     netpbm
@@ -43,6 +47,10 @@ stdenv.mkDerivation {
     writableTmpDirAsHomeHook
     zip
   ];
+
+  preBuild = ''
+    make -C pics
+  '';
 
   buildFlags = [ "out" ];
 

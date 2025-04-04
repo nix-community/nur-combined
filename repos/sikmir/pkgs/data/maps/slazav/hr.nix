@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation {
   pname = "slazav-hr";
-  version = "2025-01-27";
+  version = "2025-03-03";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_hr";
-    rev = "947b237a977453db2e5cbb961d5b3842ce770697";
-    hash = "sha256-nXd1y1TVIhwS3XP2DzeFKsDsdYWk2Q6xOtlh9kmve8o=";
+    rev = "b61f2a83c12b860a833a3f09f78de203edb88569";
+    hash = "sha256-/o0SlycXWvsHawz0bJcW9+UrBpS21ho/lHNkqhWCIpo=";
     leaveDotGit = true;
   };
 

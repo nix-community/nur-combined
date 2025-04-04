@@ -1,10 +1,10 @@
 {
   lib,
-  buildGo122Module,
+  buildGoModule,
   fetchFromGitHub,
 }:
 
-buildGo122Module {
+buildGoModule {
   pname = "nanodns";
   version = "0-unstable-2021-10-29";
 
