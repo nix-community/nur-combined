@@ -6,9 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
-  ieda-unstable = pkgs.callPackage ./pkgs/ieda {};
+  ieda-unstable = pkgs.callPackage ./pkgs/ieda { };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -16,10 +18,10 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  gtkwave4 = pkgs.callPackage ./pkgs/gtkwave4 {};
-  xfel = pkgs.callPackage ./pkgs/xfel {};
-  lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {};
-  git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator {};
+  gtkwave4 = pkgs.callPackage ./pkgs/gtkwave4 { };
+  xfel = pkgs.callPackage ./pkgs/xfel { };
+  lceda-pro = pkgs.callPackage ./pkgs/lceda-pro { };
+  git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator { };
   ieda = ieda-unstable;
   rtl2gds = pkgs.python3Packages.callPackage ./pkgs/rtl2gds { inherit ieda-unstable; };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

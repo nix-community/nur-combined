@@ -26,20 +26,18 @@ stdenv.mkDerivation {
     sha256 = "sha256-JKPUUVQCl1X5z/FCisujCPCxUhrDw9hsmjnKMSqSZSU=";
   };
 
-  buildInputs =
-    [
-      flex
-      ninja
-      pkg-config
-      gtk3
-      gtk4
-      glib
-      gperf
-      gobject-introspection
-      desktop-file-utils
-      shared-mime-info
-    ]
-    ++ lib.optional stdenv.isDarwin gtk-mac-integration;
+  buildInputs = [
+    flex
+    ninja
+    pkg-config
+    gtk3
+    gtk4
+    glib
+    gperf
+    gobject-introspection
+    desktop-file-utils
+    shared-mime-info
+  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
   configurePhase = ''
     meson setup build --prefix=$out
@@ -65,4 +63,3 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }
-
