@@ -167,8 +167,8 @@ let
         extid = "sponsorBlocker@ajay.app";
         pname = "sponsorblock";
         url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-        version = "5.11.10";
-        hash = "sha256-rBFxsu8HCggU7cb1MtkQAs5FgnjpFzL0Ts2wr3H9gQA=";
+        version = "5.11.11";
+        hash = "sha256-i64HPxWrsguGEHnvRaSphXI+lKRLfOQKDfAFxSeMdPM=";
       };
       ublacklist = fetchVersionedAddon rec {
         extid = "@ublacklist";

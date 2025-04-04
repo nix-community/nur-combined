@@ -31,7 +31,7 @@ let
       passthru = (base.passthru or {}) // {
         inherit (host) config;
         inherit (host.config.sane) fs;
-        inherit (host.config.system.build) imgs pkgs;
+        inherit (host.config.system.build) img pkgs;
         programs = builtins.mapAttrs (_: p: p.package) host.config.sane.programs;
         toplevel = host.config.system.build.toplevel;  #< self
         extendModules = arg: addPassthru (host.extendModules arg);
