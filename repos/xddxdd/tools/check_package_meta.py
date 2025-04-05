@@ -16,8 +16,6 @@ SKIP_CHECK = [
 ]
 
 SKIP_BUILD = [
-    "deepspeech-gpu",
-    "deepspeech-wrappers",
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",

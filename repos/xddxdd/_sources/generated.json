@@ -3941,6 +3941,27 @@
         },
         "version": "1.0"
     },
+    "usque": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "usque",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Diniboy1123",
+            "repo": "usque",
+            "rev": "v1.0.2",
+            "sha256": "sha256-0nIKBLjuh0chycpCuqG31/TGe8oTzdENS8sTFYHA3I8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.2"
+    },
     "vbmeta-disable-verification": {
         "cargoLocks": null,
         "date": null,

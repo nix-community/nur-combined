@@ -2015,6 +2015,16 @@
       hash = "sha256-XwyL0kMRGFURgrq79fHCD7FOekB4lpckDcr1RkQ2YPQ=";
     };
   };
+  usque = {
+    pname = "usque";
+    version = "v1.0.2";
+    src = fetchFromGitHub {
+      owner = "Diniboy1123";
+      repo = "usque";
+      tag = "v1.0.2";
+      hash = "sha256-0nIKBLjuh0chycpCuqG31/TGe8oTzdENS8sTFYHA3I8=";
+    };
+  };
   vbmeta-disable-verification = {
     pname = "vbmeta-disable-verification";
     version = "v1.0";

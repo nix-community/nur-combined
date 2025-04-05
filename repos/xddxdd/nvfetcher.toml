@@ -896,6 +896,10 @@ src.webpage = "https://benchmark.unigine.com/valley"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Valley-([0-9\\.]+).run\""
 fetch.url = "https://assets.unigine.com/d/Unigine_Valley-$ver.run"
 
+[usque]
+src.github = "Diniboy1123/usque"
+fetch.github = "Diniboy1123/usque"
+
 [vbmeta-disable-verification]
 src.github = "libxzr/vbmeta-disable-verification"
 fetch.github = "libxzr/vbmeta-disable-verification"

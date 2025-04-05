@@ -450,7 +450,7 @@
     "version": "0.6.0"
   },
   "legacyPackages.x86_64-linux.cloudpan189-go": {
-    "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
+    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
     "pname": "cloudpan189-go",
     "version": "0.1.3"
   },
@@ -479,15 +479,10 @@
     "pname": "decluttarr",
     "version": "1.50.2"
   },
-  "legacyPackages.x86_64-linux.deepspeech-gpu": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "python3.9-deepspeech-gpu",
-    "version": "0.9.3"
-  },
-  "legacyPackages.x86_64-linux.deepspeech-wrappers": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "deepspeech",
-    "version": "0.9.3"
+  "legacyPackages.x86_64-linux.deprecated.cloudpan189-go": {
+    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
+    "pname": "cloudpan189-go",
+    "version": "0.1.3"
   },
   "legacyPackages.x86_64-linux.deprecated.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -3664,16 +3659,6 @@
     "pname": "python3.12-data-recorder",
     "version": "3.6.2"
   },
-  "legacyPackages.x86_64-linux.python3Packages.deepspeech-gpu": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "python3.9-deepspeech-gpu",
-    "version": "0.9.3"
-  },
-  "legacyPackages.x86_64-linux.python3Packages.deepspeech-wrappers": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "deepspeech",
-    "version": "0.9.3"
-  },
   "legacyPackages.x86_64-linux.python3Packages.download-kit": {
     "description": "Simple to use multi-threaded download toolkit",
     "pname": "python3.12-download-kit",
@@ -4098,11 +4083,6 @@
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
     "pname": "chmlib",
     "version": "0.40a"
-  },
-  "legacyPackages.x86_64-linux.uncategorized.cloudpan189-go": {
-    "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
-    "pname": "cloudpan189-go",
-    "version": "0.1.3"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4619,6 +4599,11 @@
     "pname": "unigine-valley",
     "version": "1.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.usque": {
+    "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
+    "pname": "usque",
+    "version": "1.0.2"
+  },
   "legacyPackages.x86_64-linux.uncategorized.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
     "pname": "vbmeta-disable-verification",
@@ -4688,6 +4673,11 @@
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-valley",
     "version": "1.0"
+  },
+  "legacyPackages.x86_64-linux.usque": {
+    "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
+    "pname": "usque",
+    "version": "1.0.2"
   },
   "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -4865,7 +4855,7 @@
     "version": "0.6.0"
   },
   "packages.x86_64-linux.cloudpan189-go": {
-    "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
+    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
     "pname": "cloudpan189-go",
     "version": "0.1.3"
   },
@@ -4893,16 +4883,6 @@
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
     "version": "1.50.2"
-  },
-  "packages.x86_64-linux.deepspeech-gpu": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "python3.9-deepspeech-gpu",
-    "version": "0.9.3"
-  },
-  "packages.x86_64-linux.deepspeech-wrappers": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
-    "pname": "deepspeech",
-    "version": "0.9.3"
   },
   "packages.x86_64-linux.deprecated": {
     "description": "",
@@ -5648,6 +5628,11 @@
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-valley",
     "version": "1.0"
+  },
+  "packages.x86_64-linux.usque": {
+    "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
+    "pname": "usque",
+    "version": "1.0.2"
   },
   "packages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",

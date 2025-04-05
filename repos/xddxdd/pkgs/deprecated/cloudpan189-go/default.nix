@@ -39,5 +39,8 @@ buildGo122Module rec {
     description = "CLI for China Telecom 189 Cloud Drive service, implemented in Go";
     homepage = "https://github.com/tickstep/cloudpan189-go";
     license = lib.licenses.asl20;
+    knownVulnerabilities = [
+      "${pname} is abandoned upstream and no longer works"
+    ];
   };
 }
