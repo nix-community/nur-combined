@@ -5,7 +5,7 @@
 }:
 buildGoModule {
   inherit (sources.axiom-syslog-proxy) pname version src;
-  vendorHash = "sha256-2tv2j8XZj5ngrQuD+XjGtfbsf4k0rr4ZiUyFZs6RHfo=";
+  vendorHash = "sha256-tueoQF9+G8ovAe1tIjZllks6zTAVp7La+A7vpdu5hzU=";
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
