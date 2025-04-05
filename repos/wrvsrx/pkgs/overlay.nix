@@ -43,7 +43,6 @@ let
       source = sources.cmdlime;
     };
     yalantinglibs = callPackage ./yalantinglibs { source = sources.yalantinglibs; };
-    baikal = callPackage ./baikal { };
     sillytavern = callPackage ./sillytavern { };
     vscode-markdown-languageserver = callPackage ./vscode-markdown-languageserver {
     };
