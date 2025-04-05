@@ -3,23 +3,23 @@
 {
   copyq-darwin = {
     pname = "copyq-darwin";
-    version = "9.1.0";
+    version = "10.0.0";
     src = fetchurl {
-      url = "https://github.com/hluk/CopyQ/releases/download/v9.1.0/CopyQ-macos-12-m1.dmg.zip";
-      sha256 = "sha256-Vncfe+W+wEqOO4wBzrsBI/J/4N3bqmJKNfX0eT6JOvg=";
+      url = "https://github.com/hluk/CopyQ/releases/download/v10.0.0/CopyQ-macos-12-m1.dmg.zip";
+      sha256 = "sha256-9TXMRaHfd3ZD/kcgDCBrOp1GG3tYhpsXg6t94clezNw=";
     };
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "245b6edf56fe48f3a431b7f01b3bbcc121a50f34";
+    version = "3e95d573d5f13aba7808193b66312b38a7c66851";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "245b6edf56fe48f3a431b7f01b3bbcc121a50f34";
+      rev = "3e95d573d5f13aba7808193b66312b38a7c66851";
       fetchSubmodules = false;
-      sha256 = "sha256-CUdpejciqG0xqvHt6tRDjIQkVlLUImkOfw1enyFGYfQ=";
+      sha256 = "sha256-Eepinxv05Yl79AoPVJveGDZPKHhlAes7XtUvrssflrU=";
     };
-    date = "2025-03-01";
+    date = "2025-03-31";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -43,15 +43,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "41389206e739e6f48ea59ddcfc07254226f4c93f";
+    version = "7aceaaee07301b425fc36e96c141cff146d41a7e";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "41389206e739e6f48ea59ddcfc07254226f4c93f";
+      rev = "7aceaaee07301b425fc36e96c141cff146d41a7e";
       fetchSubmodules = false;
-      sha256 = "sha256-O1Pis5udvh3PUYJmO+R2Aw11/udxk3v5hf2U9SzbeqI=";
+      sha256 = "sha256-mCT86odOivUXUqOSwDaTMCv+SNBqHr37kDtCkMDUweE=";
     };
-    date = "2025-02-01";
+    date = "2025-04-03";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -83,30 +83,30 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "f1f0586c69d84c6ee5f3e5a4ca76cc188161b944";
+    version = "cf385775279c0c7eed3fbebfac1022f1f05ea292";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "f1f0586c69d84c6ee5f3e5a4ca76cc188161b944";
+      rev = "cf385775279c0c7eed3fbebfac1022f1f05ea292";
       fetchSubmodules = false;
-      sha256 = "sha256-egAD1VDmoks9WwsEMOgyJmiMRV+p4f6S4sWOMKAew48=";
+      sha256 = "sha256-DA/k2KxGqxYtyJcnV1g2lLbMtNKBXpPGje5WeYYnbtQ=";
     };
-    date = "2025-02-09";
+    date = "2025-03-30";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.3.3635.2";
+    version = "7.3.3635.7";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.2.universal.dmg";
-      sha256 = "sha256-IOU7Oq6D5XayDdU+KGXub/iI5zR/DVizWTmcDXM8vN0=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.7.universal.dmg";
+      sha256 = "sha256-NFmUotplizO/7L92m+NqrkmsSmkgubAiJelGMD9J6ro=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.10.2b";
+    version = "1.11b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.10.2b/zen.macos-universal.dmg";
-      sha256 = "sha256-Ry/mK5WzRv0M8gpj/FdU89jgc5ixL2Cy1Zhby8h4V9s=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.11b/zen.macos-universal.dmg";
+      sha256 = "sha256-inwPNNLleoY0UbUHfaNg12b+l/4X04qT/CjPU+vwoV8=";
     };
   };
 }

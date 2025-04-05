@@ -8,15 +8,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Vncfe+W+wEqOO4wBzrsBI/J/4N3bqmJKNfX0eT6JOvg=",
+            "sha256": "sha256-9TXMRaHfd3ZD/kcgDCBrOp1GG3tYhpsXg6t94clezNw=",
             "type": "url",
-            "url": "https://github.com/hluk/CopyQ/releases/download/v9.1.0/CopyQ-macos-12-m1.dmg.zip"
+            "url": "https://github.com/hluk/CopyQ/releases/download/v10.0.0/CopyQ-macos-12-m1.dmg.zip"
         },
-        "version": "9.1.0"
+        "version": "10.0.0"
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2025-03-01",
+        "date": "2025-03-31",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -28,12 +28,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "245b6edf56fe48f3a431b7f01b3bbcc121a50f34",
-            "sha256": "sha256-CUdpejciqG0xqvHt6tRDjIQkVlLUImkOfw1enyFGYfQ=",
+            "rev": "3e95d573d5f13aba7808193b66312b38a7c66851",
+            "sha256": "sha256-Eepinxv05Yl79AoPVJveGDZPKHhlAes7XtUvrssflrU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "245b6edf56fe48f3a431b7f01b3bbcc121a50f34"
+        "version": "3e95d573d5f13aba7808193b66312b38a7c66851"
     },
     "hammerspoon": {
         "cargoLocks": null,
@@ -73,7 +73,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-02-01",
+        "date": "2025-04-03",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -85,12 +85,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "41389206e739e6f48ea59ddcfc07254226f4c93f",
-            "sha256": "sha256-O1Pis5udvh3PUYJmO+R2Aw11/udxk3v5hf2U9SzbeqI=",
+            "rev": "7aceaaee07301b425fc36e96c141cff146d41a7e",
+            "sha256": "sha256-mCT86odOivUXUqOSwDaTMCv+SNBqHr37kDtCkMDUweE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "41389206e739e6f48ea59ddcfc07254226f4c93f"
+        "version": "7aceaaee07301b425fc36e96c141cff146d41a7e"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -145,7 +145,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2025-02-09",
+        "date": "2025-03-30",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -157,12 +157,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "f1f0586c69d84c6ee5f3e5a4ca76cc188161b944",
-            "sha256": "sha256-egAD1VDmoks9WwsEMOgyJmiMRV+p4f6S4sWOMKAew48=",
+            "rev": "cf385775279c0c7eed3fbebfac1022f1f05ea292",
+            "sha256": "sha256-DA/k2KxGqxYtyJcnV1g2lLbMtNKBXpPGje5WeYYnbtQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f1f0586c69d84c6ee5f3e5a4ca76cc188161b944"
+        "version": "cf385775279c0c7eed3fbebfac1022f1f05ea292"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
@@ -173,11 +173,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IOU7Oq6D5XayDdU+KGXub/iI5zR/DVizWTmcDXM8vN0=",
+            "sha256": "sha256-NFmUotplizO/7L92m+NqrkmsSmkgubAiJelGMD9J6ro=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.2.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.7.universal.dmg"
         },
-        "version": "7.3.3635.2"
+        "version": "7.3.3635.7"
     },
     "zen-browser": {
         "cargoLocks": null,
@@ -188,10 +188,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ry/mK5WzRv0M8gpj/FdU89jgc5ixL2Cy1Zhby8h4V9s=",
+            "sha256": "sha256-inwPNNLleoY0UbUHfaNg12b+l/4X04qT/CjPU+vwoV8=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.10.2b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.11b/zen.macos-universal.dmg"
         },
-        "version": "1.10.2b"
+        "version": "1.11b"
     }
 }
