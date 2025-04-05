@@ -828,10 +828,21 @@ in
          GITEA_CUSTOM = cfg.customDir;
        };
 
+       script = ''
+         ${optionalString (cfg.dump.file != null) ''
+           [[ -f "${cfg.dump.file}" ]] && mv ${cfg.dump.file} "tmp-${cfg.dump.file}"
+         ''}
+
+         ${exe} dump --type ${cfg.dump.type} ${optionalString (cfg.dump.file != null) "--file ${cfg.dump.file}"}
+
+         ${optionalString (cfg.dump.file != null) ''
+           [[ -f "tmp-${cfg.dump.file}" ]] && rm "tmp-${cfg.dump.file}"
+         ''}
+       '';
+
        serviceConfig = {
          Type = "oneshot";
          User = cfg.user;
-         ExecStart = "${exe} dump --type ${cfg.dump.type}" + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
          WorkingDirectory = cfg.dump.backupDir;
        };
     };

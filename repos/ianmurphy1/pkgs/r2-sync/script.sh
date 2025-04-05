@@ -36,4 +36,4 @@ rclone copyto \
 
 rclone copyto \
   "${BACKUP_PATH}" \
-  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/latest.sql.gz" "${EXTRA_ARGS[@]}"
+  "${R2_RCLONE_PROFILE}:${R2_BUCKET}/latest."${BACKUP_FILE#*.}"" "${EXTRA_ARGS[@]}"

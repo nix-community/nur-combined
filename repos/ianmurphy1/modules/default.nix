@@ -5,4 +5,5 @@
   commafeed = ./commafeed.nix;
   pgbackupsync = ./pgbackupsync.nix;
   gitea = ./gitea.nix;
+  gitea-dump-sync = ./gitea-dump-sync.nix;
 }
