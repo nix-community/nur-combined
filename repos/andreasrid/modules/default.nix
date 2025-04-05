@@ -1,4 +1,5 @@
-{ self
+{
+  self,
 }:
 {
   # Add your NixOS modules here

@@ -1,11 +1,17 @@
 { self }:
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.linguee-api;
-in {
+in
+{
   options.services.linguee-api = {
     enable = mkEnableOption "Linguee API proxy service to convert HTML responses from linguee.com to JSON format";
 
@@ -35,5 +41,5 @@ in {
     };
   };
 
-  meta.maintainers = with lib.maintainers; [  ];
+  meta.maintainers = with lib.maintainers; [ ];
 }

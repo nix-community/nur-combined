@@ -7,17 +7,21 @@
 #     nix-build -A mypackage
 #     nix-build -A tests
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
-pkgs.lib.makeScope pkgs.newScope (self: with self; {
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules { inherit self; }; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-  tests = import ./tests { inherit self pkgs; };
+pkgs.lib.makeScope pkgs.newScope (
+  self: with self; {
+    # The `lib`, `modules`, and `overlays` names are special
+    lib = import ./lib { inherit pkgs; }; # functions
+    modules = import ./modules { inherit self; }; # NixOS modules
+    overlays = import ./overlays; # nixpkgs overlays
+    tests = import ./tests { inherit self pkgs; };
 
-  python-xextract = pkgs.callPackage ./pkgs/python-xextract { };
-  linguee-api = pkgs.callPackage ./pkgs/linguee-api { inherit python-xextract; };
-  linguee-api-server = pkgs.callPackage ./pkgs/linguee-api/server.nix { inherit linguee-api; };
-  stm32cubeide = pkgs.callPackage ./pkgs/stm32cubeide { };
-})
+    python-xextract = pkgs.callPackage ./pkgs/python-xextract { };
+    linguee-api = pkgs.callPackage ./pkgs/linguee-api { inherit python-xextract; };
+    linguee-api-server = pkgs.callPackage ./pkgs/linguee-api/server.nix { inherit linguee-api; };
+    stm32cubeide = pkgs.callPackage ./pkgs/stm32cubeide { };
+  }
+)

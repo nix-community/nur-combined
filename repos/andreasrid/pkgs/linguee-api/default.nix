@@ -46,7 +46,7 @@ buildPythonPackage {
   ];
 
   patches = [
-      ./determine-storage-location.patch
+    ./determine-storage-location.patch
   ];
 
   meta = with lib; {

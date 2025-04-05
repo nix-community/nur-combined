@@ -1,17 +1,18 @@
-{ lib
-, buildFHSEnv
-, fetchzip
-, requireFile
-, stdenvNoCC
-, unzip
-, ncurses5
-, glib
-, gtk3
-, xorg
-, zlib
-, krb5
-, libusb1
-, extraPkgs ? [ ]
+{
+  lib,
+  buildFHSEnv,
+  fetchzip,
+  requireFile,
+  stdenvNoCC,
+  unzip,
+  ncurses5,
+  glib,
+  gtk3,
+  xorg,
+  zlib,
+  krb5,
+  libusb1,
+  extraPkgs ? [ ],
 }:
 
 let
@@ -72,12 +73,15 @@ in
 buildFHSEnv {
   inherit (package) pname version meta;
   runScript = "stm32cubeide";
-  targetPkgs = let
-    ncurses' = ncurses5.overrideAttrs (old: {
-      configureFlags = old.configureFlags ++ [ "--with-termlib" ];
-      postFixup = "";
-    });
-    in _: [
+  targetPkgs =
+    let
+      ncurses' = ncurses5.overrideAttrs (old: {
+        configureFlags = old.configureFlags ++ [ "--with-termlib" ];
+        postFixup = "";
+      });
+    in
+    _:
+    [
       package
       glib
       gtk3
@@ -91,5 +95,6 @@ buildFHSEnv {
       ncurses'
       (ncurses'.override { unicodeSupport = false; })
       libusb1
-    ] ++ extraPkgs;
+    ]
+    ++ extraPkgs;
 }
