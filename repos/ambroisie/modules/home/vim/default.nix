@@ -59,7 +59,6 @@ in
       # LSP and linting
       nvim-lspconfig # Easy LSP configuration
       lsp-format-nvim # Simplified formatting configuration
-      lsp_lines-nvim # Show diagnostics *over* regions
       none-ls-nvim # LSP integration for linters and formatters
       nvim-treesitter.withAllGrammars # Better highlighting
       nvim-treesitter-textobjects # More textobjects
@@ -67,7 +66,6 @@ in
 
       # Completion
       luasnip # Snippet manager compatible with LSP
-      friendly-snippets # LSP snippets collection
       nvim-cmp # Completion engine
       cmp-async-path # More responsive path completion
       cmp-buffer # Words from open buffers

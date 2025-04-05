@@ -61,10 +61,10 @@
       };
     };
 
-    pre-commit-hooks = {
+    git-hooks = {
       type = "github";
       owner = "cachix";
-      repo = "pre-commit-hooks.nix";
+      repo = "git-hooks.nix";
       ref = "master";
       inputs = {
         nixpkgs.follows = "nixpkgs";

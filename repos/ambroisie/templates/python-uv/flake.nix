@@ -1,5 +1,5 @@
 {
-  description = "A C++ project";
+  description = "A Python project";
 
   inputs = {
     futils = {
@@ -31,30 +31,22 @@
     {
       overlays = {
         default = final: _prev: {
-          project = with final; stdenv.mkDerivation {
+          project = with final; python3.pkgs.buildPythonApplication {
             pname = "project";
-            version = "0.0.0";
+            version = (final.lib.importTOML ./pyproject.toml).project.version;
+            pyproject = true;
 
             src = self;
 
-            nativeBuildInputs = with pkgs; [
-              cmake
-              ninja
-              pkg-config
-            ];
+            build-system = with python3.pkgs; [ setuptools ];
 
-            checkInputs = with pkgs; [
-              gtest
-            ];
-
-            doCheck = true;
+            pythonImportsCheck = [ "project" ];
 
             meta = with lib; {
-              description = "A C++ project";
+              description = "A Python project";
               homepage = "https://git.belanyi.fr/ambroisie/project";
               license = licenses.mit;
               maintainers = with maintainers; [ ambroisie ];
-              platforms = platforms.unix;
             };
           };
         };
@@ -72,11 +64,19 @@
           src = self;
 
           hooks = {
+            mypy = {
+              enable = true;
+            };
+
             nixpkgs-fmt = {
               enable = true;
             };
 
-            clang-format = {
+            ruff = {
+              enable = true;
+            };
+
+            ruff-format = {
               enable = true;
             };
           };
@@ -96,6 +96,7 @@
             ];
 
             packages = with pkgs; [
+              uv
               self.checks.${system}.pre-commit.enabledPackages
             ];
 

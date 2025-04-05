@@ -15,7 +15,6 @@
     ./gitea
     ./grocy
     ./homebox
-    ./indexers
     ./jellyfin
     ./komga
     ./lohr

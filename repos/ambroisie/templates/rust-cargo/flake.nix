@@ -16,19 +16,18 @@
       ref = "nixos-unstable";
     };
 
-    pre-commit-hooks = {
+    git-hooks = {
       type = "github";
       owner = "cachix";
-      repo = "pre-commit-hooks.nix";
+      repo = "git-hooks.nix";
       ref = "master";
       inputs = {
-        flake-utils.follows = "futils";
         nixpkgs.follows = "nixpkgs";
       };
     };
   };
 
-  outputs = { self, futils, nixpkgs, pre-commit-hooks }:
+  outputs = { self, futils, nixpkgs, git-hooks }:
     {
       overlays = {
         default = final: _prev: {
@@ -60,7 +59,7 @@
           ];
         };
 
-        pre-commit = pre-commit-hooks.lib.${system}.run {
+        pre-commit = git-hooks.lib.${system}.run {
           src = self;
 
           hooks = {
@@ -88,14 +87,13 @@
 
         devShells = {
           default = pkgs.mkShell {
-            inputsFrom = with self.packages.${system}; [
-              project
+            inputsFrom = [
+              self.packages.${system}.project
             ];
 
             packages = with pkgs; [
-              clippy
               rust-analyzer
-              rustfmt
+              self.checks.${system}.pre-commit.enabledPackages
             ];
 
             RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";

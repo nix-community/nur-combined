@@ -80,6 +80,8 @@ in
 
   "pyload/credentials.age".publicKeys = all;
 
+  "servarr/autobrr/session-secret.age".publicKeys = all;
+
   "sso/auth-key.age" = {
     owner = "nginx-sso";
     publicKeys = all;

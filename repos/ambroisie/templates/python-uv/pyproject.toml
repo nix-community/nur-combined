@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "project"
+version = "0.0.0"
+description = "project description"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+project = "project:main"
+
+[dependency-groups]
+dev = []

@@ -16,6 +16,10 @@ vim.diagnostic.config({
     update_in_insert = false,
     -- Show highest severity first
     severity_sort = true,
+    jump = {
+        -- Show float on diagnostic jumps
+        float = true,
+    },
 })
 
 -- Inform servers we are able to do completion, snippets, etc...

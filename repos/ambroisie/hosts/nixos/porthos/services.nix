@@ -51,10 +51,6 @@ in
         passwordFile = secrets."forgejo/mail-password".path;
       };
     };
-    # Meta-indexers
-    indexers = {
-      prowlarr.enable = true;
-    };
     # Jellyfin media server
     jellyfin.enable = true;
     # Gitea mirrorig service
@@ -144,9 +140,19 @@ in
     sabnzbd.enable = true;
     # The whole *arr software suite
     servarr = {
-      enable = true;
+      enableAll = true;
+      autobrr = {
+        sessionSecretFile = secrets."servarr/autobrr/session-secret".path;
+      };
       # ... But not Lidarr because I don't care for music that much
       lidarr = {
+        enable = false;
+      };
+      # I only use Prowlarr nowadays
+      jackett = {
+        enable = false;
+      };
+      nzbhydra = {
         enable = false;
       };
     };

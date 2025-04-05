@@ -68,8 +68,6 @@ set listchars=tab:>─,trail:·,nbsp:¤
 
 " Use patience diff
 set diffopt+=algorithm:patience
-" Align similar lines in each hunk
-set diffopt+=linematch:50
 
 " Don't redraw when executing macros
 set lazyredraw

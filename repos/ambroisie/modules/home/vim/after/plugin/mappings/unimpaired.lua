@@ -31,8 +31,6 @@ local keys = {
     { "[u", desc = "URL encode" },
     { "[x", desc = "XML encode" },
     { "[y", desc = "C string encode" },
-    -- Custom
-    { "[d", lsp.goto_prev_diagnostic, desc = "Previous diagnostic" },
 
     -- Next
     { "]", group = "Next" },
@@ -62,8 +60,6 @@ local keys = {
     { "]u", desc = "URL decode" },
     { "]x", desc = "XML decode" },
     { "]y", desc = "C string decode" },
-    -- Custom
-    { "]d", lsp.goto_next_diagnostic, desc = "Next diagnostic" },
 
     -- Enable option
     { "[o", group = "Enable option" },

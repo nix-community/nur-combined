@@ -1,4 +1,5 @@
 local lualine = require("lualine")
+local oil = require("oil")
 local utils = require("ambroisie.utils")
 
 local function list_spell_languages()
@@ -30,7 +31,7 @@ lualine.setup({
             { "mode" },
         },
         lualine_b = {
-            { "FugitiveHead" },
+            { "branch" },
             { "filename", symbols = { readonly = "🔒" } },
         },
         lualine_c = {
@@ -57,5 +58,21 @@ lualine.setup({
     extensions = {
         "fugitive",
         "quickfix",
+        {
+            sections = {
+                lualine_a = {
+                    { "mode" },
+                },
+                lualine_b = {
+                    { "branch" },
+                },
+                lualine_c = {
+                    function()
+                        return vim.fn.fnamemodify(oil.get_current_dir(), ":~")
+                    end,
+                },
+            },
+            filetypes = { "oil" },
+        },
     },
 })

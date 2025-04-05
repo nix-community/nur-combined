@@ -1,0 +1,6 @@
+# Virtual environments
+.venv
+
+# Nix generated files
+/.pre-commit-config.yaml
+/result
