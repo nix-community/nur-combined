@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   sourceRoot = src.name;
 
-  cargoHash = "sha256-n0jfm/Cf35KZm+LPtunsDRKPi77izz7z2p9H0Cqd+l0=";
+  cargoHash = "sha256-lRB+GL5dgl22B+qBZV273V9tavGu5HqK2Z9JFyqVoK8=";
 
   doCheck = false;
 
