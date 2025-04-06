@@ -122,15 +122,15 @@
   };
   giraffe-wallpaper = {
     pname = "giraffe-wallpaper";
-    version = "6fc686fe7b43cb6be8eaf3a9dc42177eb355eadd";
+    version = "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "giraffe-wallpaper";
-      rev = "6fc686fe7b43cb6be8eaf3a9dc42177eb355eadd";
+      rev = "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40";
       fetchSubmodules = false;
-      sha256 = "sha256-vbpK1+ipg3KzBaX9g8zZiYU8abvKBMkOZKmP8r89wFg=";
+      sha256 = "sha256-etkKf1xljpuICl+znz9QXbJHxtk7XTVD1UAEEkhEx5w=";
     };
-    date = "2023-05-20";
+    date = "2025-04-06";
   };
   happly = {
     pname = "happly";
