@@ -7956,10 +7956,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.8.8";
+      version = "1.8.9";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4467445/mtab-1.8.8.xpi";
-      sha256 = "650edb2ea56494702ee7ad5674511770f702302cfd930a5c845c11fa74a4002d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4468523/mtab-1.8.9.xpi";
+      sha256 = "88d27febfe4325d628fe2c9e034c62eb500d45ebb904361722b731a65b9a9507";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -8188,6 +8188,26 @@
         description = "Inspect the angular scope in the developper tools inspector";
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "nicothin-space" = buildFirefoxXpiAddon {
+      pname = "nicothin-space";
+      version = "1.1.2";
+      addonId = "{22b0eca1-8c02-4c0d-a5d7-6604ddd9836e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4226329/nicothin_space-1.1.2.xpi";
+      sha256 = "47b285c9e2612d5b3b2ac3620f7e01fd8afcf29a7bac296f8d97077830cdd972";
+      meta = with lib;
+      {
+        homepage = "https://github.com/nicoth-in/Dark-Space-Theme";
+        description = "Animated stars in dark theme.\nSeamless video background with particles moving around. Enjoy.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
@@ -8483,18 +8503,26 @@
     };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "2.0.3";
+      version = "1.8.2";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464217/old_reddit_redirect-2.0.3.xpi";
-      sha256 = "292a503ab80d7a2930de0cacd7e601fa4770cef98ee085b389585d1b1eb129c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342347/old_reddit_redirect-1.8.2.xpi";
+      sha256 = "0b89437d21132be520fbdf8f55a81cc41dd5f6b50c2905b4c43b870718baddf1";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
         license = licenses.mit;
         mozPermissions = [
-          "declarativeNetRequestWithHostAccess"
-          "https://old.reddit.com/*"
+          "webRequest"
+          "webRequestBlocking"
+          "*://reddit.com/*"
+          "*://www.reddit.com/*"
+          "*://np.reddit.com/*"
+          "*://amp.reddit.com/*"
+          "*://i.reddit.com/*"
+          "*://i.redd.it/*"
+          "*://preview.redd.it/*"
+          "*://old.reddit.com/*"
         ];
         platforms = platforms.all;
       };
@@ -14117,6 +14145,28 @@
           "storage"
           "*://*.youtube.com/*"
           "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "zeroomega" = buildFirefoxXpiAddon {
+      pname = "zeroomega";
+      version = "3.3.23";
+      addonId = "suziwen1@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4442919/zeroomega-3.3.23.xpi";
+      sha256 = "0e9614a09995560544513fa59b7a696007cc765eea082799df940504662e34fb";
+      meta = with lib;
+      {
+        description = "Manage and switch between multiple proxies quickly &amp; easily.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "proxy"
+          "tabs"
+          "alarms"
+          "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "contextMenus"
         ];
         platforms = platforms.all;
       };
