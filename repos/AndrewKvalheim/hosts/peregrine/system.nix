@@ -20,6 +20,7 @@ in
 
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_p8;
+  boot.consoleLogLevel = 3 /* error */; # Hide https://bbs.archlinux.org/viewtopic.php?id=300997
 
   # Display
   boot.kernelParams = [ "fbcon=rotate:1" "video=DSI-1:panel_orientation=right_side_up" ];

@@ -504,6 +504,7 @@ homeserver
 homeservers
 hostname
 hostnames
+hotfixes
 hotfixing
 hotlinked
 hotlinking

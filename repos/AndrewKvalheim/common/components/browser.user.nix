@@ -126,6 +126,9 @@ in
 
     # Enable pre-release CSS
     "layout.css.has-selector.enabled" = true;
+
+    # Enable user chrome
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   };
 
   home.file.".mozilla/firefox/${host.firefox.profile}/chrome/userChrome.css".source = ../resources/userChrome.css;
