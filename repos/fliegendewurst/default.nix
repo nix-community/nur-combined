@@ -21,7 +21,7 @@ rec {
     kernel = pkgs.linuxPackages.kernel;
   };
   openscad-snapshot = pkgs.callPackage ./pkgs/openscad-snapshot { };
-  pr-dashboard = pkgs.callPackage ./pkgs/pr-dashboard { };
+  pr-dashboard = throw "use the flake";
   # TODO: fix dependency specification
   #raspi-oled = pkgs.callPackage ./pkgs/raspi-oled { };
   #raspi-oled-cross = pkgs.pkgsCross.muslpi.callPackage ./pkgs/raspi-oled { };
@@ -31,6 +31,4 @@ rec {
     inherit (pkgs.tmuxPlugins) mkTmuxPlugin;
     inherit thumbs;
   };
-  wastebin-fliegendewurst = pkgs.callPackage ./pkgs/wastebin-fliegendewurst { };
-  wastebin-fliegendewurst-aarch64-cross = pkgs.pkgsCross.aarch64-multiplatform.callPackage ./pkgs/wastebin-fliegendewurst { };
 }
