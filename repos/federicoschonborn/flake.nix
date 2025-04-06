@@ -5,6 +5,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
+    systems = {
+      url = "path:./flake.systems.nix";
+      flake = false;
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -15,13 +20,29 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        gitignore.follows = "";
       };
+    };
+
+    nix-check-deps = {
+      url = "github:lordgrimmauld/nix-check-deps";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
+    # Indirect
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
   };
 
   outputs =
     {
       nixpkgs,
+      systems,
       flake-parts,
       git-hooks,
       ...
@@ -29,16 +50,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } (toplevel: {
       imports = [ git-hooks.flakeModule ];
 
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "i686-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      systems = import systems;
 
       debug = true;
 
@@ -53,6 +65,7 @@
           config,
           pkgs,
           system,
+          inputs',
           ...
         }:
         {
@@ -80,6 +93,7 @@
               nix-init
               nix-update
               nushell
+              inputs'.nix-check-deps.packages.nix-check-deps
             ];
 
             shellHook = ''
@@ -224,6 +238,16 @@
                 lib.mapAttrsToList (
                   name: value: lib.optionalString (!value.strictDeps or false) "echo ${name}"
                 ) config.packages
+              );
+            };
+
+            check-deps.program = pkgs.writeShellApplication {
+              name = "check-deps";
+              text = lib.concatLines (
+                lib.mapAttrsToList (name: _: ''
+                  echo "Checking ${name}..."
+                  ${lib.getExe inputs'.nix-check-deps.packages.nix-check-deps} ".#${name}"
+                '') config.packages
               );
             };
 

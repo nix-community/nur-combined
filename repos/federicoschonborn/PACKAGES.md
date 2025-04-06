@@ -209,7 +209,7 @@ KDE Virtual Machine Manager.
 - Name: `karton`
 - Version: `0.1-prealpha-unstable-2025-03-31`
 - [🌐 Homepage](https://invent.kde.org/sitter/karton)
-- [📦 Source](./pkgs/by-name/karton/package.nix#L61)
+- [📦 Source](./pkgs/by-name/karton/package.nix#L67)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 

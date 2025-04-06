@@ -20,10 +20,30 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": [],
-        "gitignore": "gitignore",
+        "gitignore": [],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -42,24 +62,26 @@
         "type": "github"
       }
     },
-    "gitignore": {
+    "nix-check-deps": {
       "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
-          "git-hooks",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1709087332,
-        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
+        "lastModified": 1743933390,
+        "narHash": "sha256-lswlQzktKAXKkhwjqmdbg0dVKuEj36/sXP+f+fG+jbE=",
+        "owner": "lordgrimmauld",
+        "repo": "nix-check-deps",
+        "rev": "99c4875b81197666f2f254302aa31b2b50484580",
         "type": "github"
       },
       "original": {
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
+        "owner": "lordgrimmauld",
+        "repo": "nix-check-deps",
         "type": "github"
       }
     },
@@ -98,9 +120,25 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
+        "nix-check-deps": "nix-check-deps",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "systems": "systems"
+      }
+    },
+    "systems": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-9B3KJq2i4AuUpyXdPgiL71ubTnD6OSqKcIUpqS6z3kA=",
+        "path": "./flake.systems.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flake.systems.nix",
+        "type": "path"
       }
     }
   },

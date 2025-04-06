@@ -8,6 +8,8 @@
   pkg-config,
   python3,
   libvirt,
+  virt-manager,
+  virt-viewer,
   nix-update-script,
 }:
 
@@ -45,6 +47,10 @@ stdenv.mkDerivation {
     substituteInPlace CMakeLists.txt \
       --replace-fail "/usr/share" "$out/share" \
       --replace-fail "ecm_find_qmlmodule(org.kde.kirigami REQUIRED)" "ecm_find_qmlmodule(org.kde.kirigami)"
+
+    substituteInPlace src/karton.cpp \
+      --replace-fail "virt-install" "${lib.getExe' virt-manager "virt-install"}" \
+      --replace-fail "virt-viewer" "${lib.getExe virt-viewer}"
   '';
 
   strictDeps = true;
