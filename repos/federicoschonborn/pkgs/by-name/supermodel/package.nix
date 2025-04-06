@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "trzy";
     repo = "Supermodel";
-    rev = "5318f13354929b8191c90a531bbdc60da0e77971";
-    hash = "sha256-q4WdxsqUSz1ekWMmYhwF7jlvwHeEq2hIyQMJGUp7Tk4=";
+    rev = "49e36719dc5f167c1a6ca5f1355f308d25b929f2";
+    hash = "sha256-WlcwFCNVMUWjuShk8hwRrPmuB6GFHyldqAWZrsXlxLI=";
   };
 
   nativeBuildInputs = [
