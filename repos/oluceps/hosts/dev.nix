@@ -135,6 +135,7 @@
               withNgSuffix = false;
               # nix = inputs'.lix-module.packages.default;
             })
+            devenv
             zoxide
             nodejs
             # vscode.fhs

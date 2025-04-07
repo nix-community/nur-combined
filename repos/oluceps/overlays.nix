@@ -6,6 +6,7 @@
   "nuenv"
   "dae"
   "niri"
+  "devenv"
 ])
 ++ [
   (
