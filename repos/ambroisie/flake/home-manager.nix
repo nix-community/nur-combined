@@ -4,6 +4,11 @@ let
     # Include generic settings
     "${self}/modules/home"
     {
+      nixpkgs.overlays = (lib.attrValues self.overlays) ++ [
+        inputs.nur.overlays.default
+      ];
+    }
+    {
       # Basic user information defaults
       home.username = lib.mkDefault "ambroisie";
       home.homeDirectory = lib.mkDefault "/home/ambroisie";
@@ -21,17 +26,14 @@ let
     # * not letting me set `lib` as an extraSpecialArgs
     # * not respecting `nixpkgs.overlays` [1]
     # [1]: https://github.com/nix-community/home-manager/issues/2954
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-
-      overlays = (lib.attrValues self.overlays) ++ [
-        inputs.nur.overlays.default
-      ];
-    };
+    pkgs = inputs.nixpkgs.legacyPackages.${system};
 
     modules = defaultModules ++ [
       "${self}/hosts/homes/${name}"
     ];
+
+    # Use my extended lib in NixOS configuration
+    inherit (self) lib;
 
     extraSpecialArgs = {
       # Inject inputs to use them in global registry
