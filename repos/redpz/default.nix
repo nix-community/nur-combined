@@ -18,6 +18,7 @@
 
   frame0 = pkgs.callPackage ./pkgs/frame0 { };
   sf-mono = pkgs.callPackage ./pkgs/sf-mono { };
+  sf-pro = pkgs.callPackage ./pkgs/sf-pro { };
   printargs = pkgs.callPackage ./pkgs/printargs { };
   operator-mono-lig = pkgs.callPackage ./pkgs/operator-mono-lig { };
   symbols-nerd-font = pkgs.callPackage ./pkgs/symbols-nerd-font { };

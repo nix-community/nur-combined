@@ -7,11 +7,11 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "sf-mono";
-  version = "14.0.0";
+  name = "sf-pro";
+  version = "1.0.0";
   src = fetchurl {
-    url = "https://developer.apple.com/design/downloads/SF-Mono.dmg";
-    hash = "sha256-bUoLeOOqzQb5E/ZCzq0cfbSvNO1IhW1xcaLgtV2aeUU=";
+    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
+    hash = "sha256-IccB0uWWfPCidHYX6sAusuEZX906dVYo8IaqeX7/O88=";
   };
 
   nativeBuildInputs = [
@@ -20,22 +20,22 @@ stdenv.mkDerivation rec {
   ];
 
   unpackPhase = ''
-    mkdir -p $TMPDIR/SF-Mono-${version}
-    cd $TMPDIR/SF-Mono-${version}
+    mkdir -p $TMPDIR/SF-Pro-${version}
+    cd $TMPDIR/SF-Pro-${version}
     7z x $src
-    bsdtar xvPf "SFMonoFonts/SF Mono Fonts.pkg"
-    bsdtar xvPf "SFMonoFonts.pkg/Payload"
+    bsdtar xvPf "SFProFonts/SF Pro Fonts.pkg"
+    bsdtar xvPf "SFProFonts.pkg/Payload"
   '';
   installPhase = ''
     runHook preInstall
-    cd $TMPDIR/SF-Mono-${version}
+    cd $TMPDIR/SF-Pro-${version}
     find ./Library/Fonts -name '*.otf' -exec install -Dt $out/share/fonts/opentype {} \;
     runHook postInstall
   '';
 
   meta = with lib; {
     homepage = "https://developer.apple.com/fonts/";
-    description = "Apple's SF Mono Font";
+    description = "Apple's SF Pro Font";
     license = licenses.unfree;
     platforms = platforms.all;
   };
