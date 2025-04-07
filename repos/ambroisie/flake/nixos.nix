@@ -3,7 +3,7 @@ let
   defaultModules = [
     {
       # Let 'nixos-version --json' know about the Git revision
-      system.configurationRevision = self.rev or "dirty";
+      system.configurationRevision = self.rev or self.dirtyRev or "dirty";
     }
     {
       nixpkgs.overlays = (lib.attrValues self.overlays) ++ [
