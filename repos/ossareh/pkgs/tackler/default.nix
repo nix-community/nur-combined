@@ -7,13 +7,13 @@
 }: let
   pname = "tackler-ng";
   owner = "e257-fi";
-  version = "v25.01.1";
+  version = "v25.04.1";
   src = fetchFromGitHub {
     owner = owner;
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    hash = "sha256-b3gG96rxdZP+2ny8eKGzTIB/FjQHYzx02RXXcKIKHw4=";
+    hash = "sha256-1VlOEezEZdTigCM8kDRGmNHIwpfzWkBHeE6rZ4NzI8I=";
   };
 in
   rustPlatform.buildRustPackage {
@@ -21,7 +21,7 @@ in
     version = version;
     src = src;
 
-    cargoHash = "sha256-xxhnXI9zbWt1rWTUZbyj/4AXEQGSB2VStuGdwWw+eaU=";
+    cargoHash = "sha256-8sojWNg365kvJVX0MjWGKYFE+LkbxyFuZdXIsALQ0Xg=";
 
     nativeBuildInputs = [tzdata];
     env = {
