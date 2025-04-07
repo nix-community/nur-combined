@@ -24,6 +24,7 @@ in
     ./components/openpgp.system.nix
     ./components/printer.system.nix
     ./components/scanner.system.nix
+    ./components/syncthing.system.nix
     ./components/tor.system.nix
     ./components/users.system.nix
     ./components/virtualization.system.nix
