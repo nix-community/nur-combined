@@ -42,6 +42,7 @@ withSystem "x86_64-linux" (
       ./spec.nix
       ../persist.nix
       ../secureboot.nix
+      ../distributed-build.nix
       ./backup.nix
       # inputs.home-manager.nixosModules.default
       # ../../home

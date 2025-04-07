@@ -276,7 +276,6 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
     settings = {
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];

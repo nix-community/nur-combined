@@ -36,6 +36,24 @@
       #     ./pkgs/patch/0002-timeline-on-welcome-page.patch
       #   ];
       # });
+      gtk4 = prev.gtk4.overrideAttrs (
+        old:
+        let
+          version = "4.19.0";
+        in
+        {
+          inherit version;
+          src = prev.fetchurl {
+            url =
+              let
+                inherit (prev) lib;
+              in
+              "mirror://gnome/sources/gtk/${lib.versions.majorMinor version}/gtk-${version}.tar.xz";
+            hash = "";
+          };
+          patches = [ ];
+        }
+      );
       bees = prev.bees.overrideAttrs (
         old:
         (
