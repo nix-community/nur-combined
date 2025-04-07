@@ -124,8 +124,8 @@ in {
         mkVirtualHost = serverName: {
           locations."/.well-known/@iocaine".proxyPass = "http://${cfg.servers.${serverName}.config.server.bind}";
           extraConfig = ''
-            if ($iocaine_badagent) { rewrite ^/(.*)$ /.well-known/@iocaine/$1; }
-            if ($iocaine_badrange) { rewrite ^/(.$)$ /.well-known/@iocaine/$1; }
+            if ($iocaine_badagent) { rewrite ^ /.well-known/@iocaine$request_uri; }
+            if ($iocaine_badrange) { rewrite ^ /.well-known/@iocaine$request_uri; }
           '';
         };
       };
