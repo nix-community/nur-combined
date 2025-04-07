@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-3ToIL4MmpMBbN8wTaV3UxMbOAcZY8odqJyWpQ7jkXOc="; # Update this after the first build
 
-  meta = with lib; {
+  meta = {
     description = "An alternative super-charged CLI for Fabric ";
     longDescription = ''
       Fabric CLI is a tool to interface with running fabric instances. This enables e.g. invoking actions or executing python code within a running instance.
@@ -33,6 +33,5 @@ buildGoModule {
         name = "Kyu";
       }
     ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 }
