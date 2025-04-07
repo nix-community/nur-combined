@@ -36,23 +36,37 @@
       #     ./pkgs/patch/0002-timeline-on-welcome-page.patch
       #   ];
       # });
-      gtk4 = prev.gtk4.overrideAttrs (
-        old:
-        let
-          version = "4.19.0";
-        in
-        {
-          inherit version;
-          src = prev.fetchurl {
-            url =
-              let
-                inherit (prev) lib;
-              in
-              "mirror://gnome/sources/gtk/${lib.versions.majorMinor version}/gtk-${version}.tar.xz";
-            hash = "";
-          };
-          patches = [ ];
-        }
+      gtk4 = (
+        prev.gtk4.overrideAttrs (
+          old:
+          let
+            version = "4.18.4";
+          in
+          {
+            inherit version;
+            src = prev.fetchurl {
+              url =
+                let
+                  inherit (prev) lib;
+                in
+                "mirror://gnome/sources/gtk/${lib.versions.majorMinor version}/gtk-${version}.tar.xz";
+              hash = "sha256-1Hg6wVA3wsQnWo8azJT1/t4opRYkP8y5L/VKEcFXdf8=";
+            };
+            outputs = [
+              "out"
+              "dev"
+            ];
+            patches = [ ];
+            postFixup = ''
+              demos=(gtk4-demo gtk4-demo-application gtk4-widget-factory)
+
+              for program in ''${demos[@]}; do
+                wrapProgram $dev/bin/$program \
+                  --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share/gsettings-schemas/gtk4-${version}"
+              done
+            '';
+          }
+        )
       );
       bees = prev.bees.overrideAttrs (
         old:
