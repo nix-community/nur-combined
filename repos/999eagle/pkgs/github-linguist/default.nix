@@ -5,8 +5,11 @@
   cmake,
   pkg-config,
   bundlerUpdateScript,
+  icu,
+  openssl,
+  zlib,
 }:
-bundlerApp rec {
+bundlerApp {
   pname = "github-linguist";
   exes = ["github-linguist"];
 
@@ -14,6 +17,7 @@ bundlerApp rec {
   gemdir = ./.;
 
   nativeBuildInputs = [cmake pkg-config];
+  buildInputs = [icu openssl zlib];
 
   passthru.updateScript = bundlerUpdateScript "github-linguist";
 
