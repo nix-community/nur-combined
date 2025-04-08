@@ -13,7 +13,7 @@ stages:
       experimental-features = nix-command flakes
       EOF
     - nix-channel --update
-    - nix-env --install --attr nixpkgs.cachix --attr nixpkgs.nix-build-uncached
+    - nix-env --install --attr nixpkgs.cachix --attr nixpkgs.nix-fast-build
     - test -n "$CACHIX_CACHE_NAME" && cachix use "$CACHIX_CACHE_NAME"
     - nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
@@ -21,7 +21,6 @@ check:
   stage: check
   extends: .common
   script:
-    - nix flake check
     - |
       nix-env -f . -qa \* --meta \
         --allowed-uris https://static.rust-lang.org \
@@ -43,13 +42,13 @@ build:
     CACHIX_CACHE_NAME: "999eagle-nur-packages"
   script:
     - |
+      args=()
       if [ -z "$CACHIX_AUTH_TOKEN" ]; then
         echo "no cachix auth token set!"
-        command=""
       else
-        command="cachix watch-exec $CACHIX_CACHE_NAME --"
+        args+=('--cachix-cache' "$CACHIX_CACHE_NAME")
       fi
-    - ${command} nix-build-uncached ci.nix -A cacheOutputs
+    - nix-fast-build --skip-cached --no-nom --flake ".#checks.$(nix eval --raw --impure --expr 'builtins.currentSystem')" "${args[@]}"
 
 deploy:
   stage: deploy

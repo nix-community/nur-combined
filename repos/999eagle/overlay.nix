@@ -10,6 +10,6 @@ final: prev: let
   nurAttrs = import ./default.nix {pkgs = prev;};
 in
   builtins.listToAttrs
-  (map (n: nameValuePair n nurAttrs.${n})
+  (builtins.map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n)
       (builtins.attrNames nurAttrs)))
