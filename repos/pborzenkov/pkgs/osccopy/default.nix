@@ -11,10 +11,11 @@ rustPlatform.buildRustPackage rec {
     owner = "pborzenkov";
     repo = "osccopy";
     rev = "v${version}";
-    sha256 = "1ad4yiqaq57njdxhzylsbck4fpr882l68i9mwv8ih1m02qh0045w";
+    sha256 = "sha256-vBAAIBagBhjR5jVFZKhAKF9HJlua+g97k/YUrHD0pKk=";
   };
 
-  cargoHash = "sha256-VnY0hPJhWanQIk17byOhyYC1BwG07iX0zFbghxIy3vM=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-fHI3DTHUPtIG9Wj3d6aTaAnb5sDA7QyF5/fGUpalvus=";
 
   meta = with lib; {
     description = "Copy text from remote machine into local clipboard";
