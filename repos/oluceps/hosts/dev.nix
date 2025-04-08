@@ -44,6 +44,7 @@
           Port 22
           IdentityFile ${config.vaultix.secrets.id.path}
     ''}"
+    "L+ /root/.ssh/config - - - - /home/${user}/.ssh/config"
   ];
   programs = {
 
@@ -305,7 +306,7 @@
 
           display = [ cage ];
 
-          cursor = [ graphite-cursors ];
+          cursor = [ bibata-cursors ];
         }
       )
     )

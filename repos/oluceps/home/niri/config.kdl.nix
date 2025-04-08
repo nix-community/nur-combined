@@ -269,7 +269,7 @@ in
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
-      xcursor-theme "graphite-light-nord"
+      xcursor-theme "Bibata-Modern-Ice"
       xcursor-size 22
   }
 

@@ -24,8 +24,6 @@
     # LD_LIBRARY_PATH = [ "${lib.getLib pkgs.pcsclite}/lib" ];
     DIRENV_CONFIG = "/etc/direnv";
 
-    XCURSOR_SIZE = "22";
-    XCURSOR_THEME = lib.mkDefault "graphite-light-nord";
     CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
     CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
     NEOVIDE_MULTIGRID = "1";
