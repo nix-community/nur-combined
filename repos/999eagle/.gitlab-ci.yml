@@ -48,7 +48,7 @@ build:
       else
         args+=('--cachix-cache' "$CACHIX_CACHE_NAME")
       fi
-    - nix-fast-build --skip-cached --no-nom --flake ".#checks.$(nix eval --raw --impure --expr 'builtins.currentSystem')" "${args[@]}"
+    - nix-fast-build --skip-cached --no-nom --eval-workers 2 --eval-max-memory-size 3072 --flake ".#checks.$(nix eval --raw --impure --expr 'builtins.currentSystem')" "${args[@]}"
 
 deploy:
   stage: deploy

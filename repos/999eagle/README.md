@@ -1,6 +1,6 @@
 # nur-packages
 
-[![Pipeline Status](https://gitlab.com/999eagle/nur-packages/badges/main/pipeline.svg)](https://gitlab.com/999eagle/nur-packages)
+[![Pipeline Status](https://git.catgirl.cloud/999eagle/nur-packages/badges/main/pipeline.svg)](https://git.catgirl.cloud/999eagle/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-999eagle--nur--packages-blue.svg)](https://999eagle-nur-packages.cachix.org)
 
 My personal [NUR](https://github.com/nix-community/NUR) repository.
