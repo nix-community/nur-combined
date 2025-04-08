@@ -24,7 +24,7 @@
   onnxruntime,
 }:
 let
-  glog-lock = glog.overrideAttrs (oldAttrs: rec {
+  glog' = glog.overrideAttrs (oldAttrs: rec {
     version = "0.6.0";
     src = fetchFromGitHub {
       owner = "google";
@@ -35,20 +35,18 @@ let
   });
   rootSrc = stdenv.mkDerivation {
     pname = "iEDA-src";
-    version = "2025-03-12";
+    version = "2025-03-30";
     src = fetchgit {
       url = "https://gitee.com/oscc-project/iEDA";
-      rev = "3a066726aa9521991a46d603f041831361d3ba51";
-      sha256 = "sha256-iPdp1xEje8bBumI/eqhvw0llg3NAzRb8pzc3fmWMwtU=";
+      rev = "79bd64dec74a08cb295c9a84283bf0e47dfc5e92";
+      sha256 = "sha256-uZmXVc0b37BAfZXN+mhl//SXNg3nubl+eNxZdtdae7Q=";
     };
 
     patches = [
-      # This patch is to fix the build error caused by the missing of the header file,
-      # and remove some libs or path that they hard-coded in the source code.
-      # Should be removed after we upstream these changes.
       (fetchpatch {
-        url = "https://github.com/Emin017/iEDA/commit/0eb86754063df6e21b35fd1396363ebc75b760c5.patch";
-        hash = "sha256-hdH6+g3eZUxDudWqTwbaWNKS0fwfUWJPp//dqGNJQfM=";
+        name = "fix-subproject-and-headers-paths.patch";
+        url = "https://github.com/Emin017/iEDA/commit/a13079933763a7afdcdda7f188d630e089ae85e7.patch";
+        hash = "sha256-RT+zj5YwgTiQ1pS5jxn7cjB+jZM7vjyVKZkVEVAODhs=";
       })
     ];
 
@@ -64,7 +62,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "iEDA";
-  version = "0-unstable-2025-03-12";
+  version = "0-unstable-2025-03-30";
 
   src = rootSrc;
 
@@ -95,7 +93,7 @@ stdenv.mkDerivation {
     rustpkgs.verilog-parser
     rustpkgs.liberty-parser
     gtest
-    glog-lock
+    glog'
     gflags
     boost
     onnxruntime
