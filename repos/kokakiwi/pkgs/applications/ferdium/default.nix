@@ -35,13 +35,13 @@ let
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "ferdium";
-  version = "7.0.0";
+  version = "7.0.1";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-c2zXlsZOBduaOQ5eW61cpFQTcIHIroUrkpGiH/e9Ztc=";
+    hash = "sha256-KvGudkQG11ku7ZL9ntDkv1UL3T3Ucr+GN/CXunYZ2Sk=";
   };
 
   inherit (fixupPackageJson) pnpmPatch;
@@ -52,9 +52,7 @@ in stdenv.mkDerivation (finalAttrs: {
     inherit (fixupPackageJson) pnpmPatch;
     postPatch = fixupPackageJson.patch;
 
-    hash = {
-      "24.05" = "sha256-dudncSOHjg35z1E9zQnv6F3BidnylEbkolVSbB7DoRo=";
-    }.${nixpkgsVersion} or "sha256-64W3j5TvbVVOyujXE0hmKWtUrHab/uQ1PF+M9UM1v64=";
+    hash = "sha256-4dzphNNOgMph6CLq/4jviBT73aqlWHGjfdAfbeQ/k+A=";
   };
 
   recipes = stdenv.mkDerivation (recipesFinalAttrs: {
@@ -74,9 +72,7 @@ in stdenv.mkDerivation (finalAttrs: {
       inherit (fixupPackageJson) pnpmPatch;
       postPatch = fixupPackageJson.patch;
 
-      hash = {
-        "24.05" = "sha256-PvN+T/dhm1P/bOkwme7Xyixz/VZQSQRlfj9otEjtJHw=";
-      }.${nixpkgsVersion} or "sha256-pk5z5t75TuRQ7GWA/SvgTM5C0RvHDxJ7w/A6Js76vJ8=";
+      hash = "sha256-pk5z5t75TuRQ7GWA/SvgTM5C0RvHDxJ7w/A6Js76vJ8=";
     };
 
     inherit (fixupPackageJson) pnpmPatch;
