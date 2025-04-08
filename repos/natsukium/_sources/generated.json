@@ -73,7 +73,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-04-03",
+        "date": "2025-04-07",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -85,12 +85,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "7aceaaee07301b425fc36e96c141cff146d41a7e",
-            "sha256": "sha256-mCT86odOivUXUqOSwDaTMCv+SNBqHr37kDtCkMDUweE=",
+            "rev": "88aa02ad9002d1b5697aeaf9fb27cdb5cedc4964",
+            "sha256": "sha256-c6ltYZKLjZXXin8UaURY0xIrdFvA06aKxC5oty2FCdY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7aceaaee07301b425fc36e96c141cff146d41a7e"
+        "version": "88aa02ad9002d1b5697aeaf9fb27cdb5cedc4964"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
