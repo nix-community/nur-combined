@@ -148,6 +148,8 @@
 
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
+  qobuz-linux = pkgs.callPackage ./pkgs/qobuz-linux { };
+
   qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
