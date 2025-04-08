@@ -12,18 +12,6 @@ stages:
       cat >> /etc/nix/nix.conf << EOF
       experimental-features = nix-command flakes
       EOF
-    - |
-      if [[ -n "$NIXREMOTE_SSH" && -n "$NIXREMOTE_HOST_KEY" ]]; then
-        mkdir -p /etc/ssh
-        cp "$NIXREMOTE_SSH" /etc/nix/id_nixremote
-        echo "" >> /etc/nix/id_nixremote # add trailing newline because GitLab doesn't and it's required
-        chmod 400 /etc/nix/id_nixremote
-        cat <"$NIXREMOTE_HOST_KEY" >> /etc/ssh/ssh_known_hosts
-        cat >> /etc/nix/nix.conf << EOF
-      builders = ssh://nixremote@aarch64-linux-1.build.999eagle.moe aarch64-linux /etc/nix/id_nixremote 8 1 nixos-test,kvm,big-parallel
-      EOF
-        export AARCH64=true
-      fi
     - nix-channel --update
     - nix-env --install --attr nixpkgs.cachix --attr nixpkgs.nix-build-uncached
     - test -n "$CACHIX_CACHE_NAME" && cachix use "$CACHIX_CACHE_NAME"
@@ -46,6 +34,11 @@ check:
 build:
   stage: build
   extends: .common
+  parallel:
+    matrix:
+      - ARCH: ["x86_64", "aarch64"]
+  tags:
+    - ${ARCH}
   variables:
     CACHIX_CACHE_NAME: "999eagle-nur-packages"
   script:
@@ -57,7 +50,6 @@ build:
         command="cachix watch-exec $CACHIX_CACHE_NAME --"
       fi
     - ${command} nix-build-uncached ci.nix -A cacheOutputs
-    - test -z "$AARCH64" || ${command} nix-build-uncached ci.nix --arg pkgs 'import <nixpkgs> {system="aarch64-linux";}' -A cacheOutputs
 
 deploy:
   stage: deploy
