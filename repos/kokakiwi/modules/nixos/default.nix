@@ -10,6 +10,7 @@ let
       iocaine = ./services/iocaine.nix;
       pueue = ./services/pueue.nix;
       qbittorrent = ./services/qbittorrent.nix;
+      safetwitch = ./services/safetwitch.nix;
       sccache = ./services/sccache.nix;
       vanta-agent = ./services/vanta-agent.nix;
     };

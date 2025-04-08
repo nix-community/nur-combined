@@ -14,7 +14,7 @@ let
       _subPath ? if _file != null
         then "${name}/${_file}"
         else name,
-        _path ? lib.path.append prefix _subPath,
+      _path ? lib.path.append prefix _subPath,
       _attr ? null,
       _common ? null,
       ...
@@ -45,6 +45,9 @@ let
       _common = "ots";
       buildGoModule = pkgs.buildGo123Module;
     };
+    safetwitch-frontend = {
+      _path = ./servers/safetwitch/frontend.nix;
+    };
     sccache = { };
     streampager = { };
     tumelune = { };
@@ -66,6 +69,7 @@ let
       _common = "ots";
       buildGoModule = pkgs.buildGo123Module;
     };
+    safetwitch = { };
   };
 
   final = mergeAttrsList [
