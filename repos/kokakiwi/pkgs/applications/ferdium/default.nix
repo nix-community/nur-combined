@@ -13,8 +13,6 @@
 , pnpm
 }:
 let
-  nixpkgsVersion = lib.versions.majorMinor lib.version;
-
   fixupPackageJson = {
     pnpmPatch = builtins.toJSON {
       pnpm.supportedArchitectures = {

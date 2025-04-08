@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  rustc,
   fetchFromGitHub,
   pkg-config,
   openssl,
@@ -42,5 +43,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/edgee-cloud/edgee/releases/tag/v${version}";
     license = lib.licenses.asl20;
     mainProgram = "edgee";
+    broken = lib.versionOlder rustc.version "1.83.0";
   };
 }
