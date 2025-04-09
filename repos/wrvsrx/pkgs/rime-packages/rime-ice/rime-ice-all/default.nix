@@ -12,8 +12,7 @@
 let
   src_ =
     stdenvNoCC.mkDerivation {
-      inherit (source) src;
-      version = "0-unstable-" + source.date;
+      inherit (source) src version;
       pname = "rime-ice-all";
       propagatedBuildInputs = [ rime-prelude rime-ice-flypy ];
       nativeBuildInputs = [

@@ -234,15 +234,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7";
+    version = "2025.04.06";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "75b225e84f5e95ddf0b5a50fa6e2cff9800ee7b7";
+      rev = "2025.04.06";
       fetchSubmodules = false;
-      sha256 = "sha256-/sKoufIf4m5h1Zds6AqIyeCjDaZsFU9ot5ln3ykuNyU=";
+      sha256 = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
     };
-    date = "2025-03-11";
   };
   rime-prelude = {
     pname = "rime-prelude";
