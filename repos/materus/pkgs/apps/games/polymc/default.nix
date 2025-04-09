@@ -62,13 +62,13 @@ let
     in
     stdenv.mkDerivation rec {
       pname = "polymc" + (lib.optionalString ((lib.versions.major qtbase.version) == "5") "-qt5");
-      version = "6.1";
+      version = "7.0";
 
       src = fetchFromGitHub {
         owner = "PolyMC";
         repo = "PolyMC";
         rev = version;
-        sha256 = "sha256-AOy13zAWQ0CtsX9z1M+fxH7Sh/QSFy7EdQ/fD9yUYc8=";
+        sha256 = "sha256-tJA/xSfqRXZK/OXbxhLNqUJU5nQGVzxgownXUMTy284=";
         fetchSubmodules = true;
       };
       dontWrapQtApps = true;
