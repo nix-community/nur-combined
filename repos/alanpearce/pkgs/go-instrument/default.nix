@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "go-instrument";
-  version = "1.7.0";
+  version = "1.8.2";
 
   src = fetchFromGitHub {
     owner = "nikolaydubina";
     repo = "go-instrument";
     rev = "v${version}";
-    hash = "sha256-0WoID8hYtAu4EJbEgvHtJtE5keq33aGDMjFU9B+MLh8=";
+    hash = "sha256-d0dUvXouYqbb0Pm8j1tcKHJlURZot+bBBEtKqTRzODI=";
   };
 
-  vendorHash = "sha256-dofJA3Xxf68r4nKv6ocAYgnvOZD8eeezkaXLOqlRI6k=";
+  vendorHash = "sha256-BIzeNT9UGHR1318NC83ptT92JUet/5Pjz/zBHL7PR9Y=";
 
   ldflags = [ "-s" "-w" ];
 
