@@ -5,6 +5,6 @@
         ":disableDependencyDashboard"
     ],
     "ignorePaths": [
-        "repos/**"
+        "**/repos/**"
     ]
 }
