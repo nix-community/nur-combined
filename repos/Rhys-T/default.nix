@@ -78,6 +78,11 @@ in {
             description = (old.meta.description or "allegro5") + " (fixed for macOS/Darwin x86_64 < 11.0)";
             position = myPos "allegro5";
         };
+    } // pkgs.lib.optionalAttrs (
+        pkgs.stdenv.hostPlatform.isDarwin &&
+        !(old?outputs)
+    ) {
+        outputs = ["out" "dev"];
     }));
     
     lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
