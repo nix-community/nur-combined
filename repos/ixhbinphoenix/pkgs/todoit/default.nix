@@ -11,7 +11,7 @@ pkgs.rustPlatform.buildRustPackage rec {
     hash = "sha256-0hWKespkIeyLopGjgxhPh8SlGc0hWddNUFHS/PyYcrs=";
   };
 
-  cargoHash = "sha256-4jWt8kd57/SSaT3QiobjHBuyQB+Md9HUu0b8woI7XB8=";
+  cargoHash = "sha256-hhDVhR3F18nDFQE6Ntj1eMi4pvGjhePjp3Vc2dtyd60=";
 
   meta = with lib; {
     description = "CLI Tool for showing all TODO's in a project";
