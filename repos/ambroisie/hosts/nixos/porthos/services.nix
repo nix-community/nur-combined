@@ -51,6 +51,10 @@ in
         passwordFile = secrets."forgejo/mail-password".path;
       };
     };
+    # Home inventory
+    homebox = {
+      enable = true;
+    };
     # Jellyfin media server
     jellyfin.enable = true;
     # Gitea mirrorig service
