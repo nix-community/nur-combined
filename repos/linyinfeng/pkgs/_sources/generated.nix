@@ -357,17 +357,17 @@
   };
   rime-prelude = {
     pname = "rime-prelude";
-    version = "3803f09458072e03b9ed396692ce7e1d35c88c95";
+    version = "23d4ade2371862ecb51df4699dc51f7389b1ae08";
     src = fetchgit {
       url = "https://github.com/rime/rime-prelude.git";
-      rev = "3803f09458072e03b9ed396692ce7e1d35c88c95";
+      rev = "23d4ade2371862ecb51df4699dc51f7389b1ae08";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-qLxkijfB/btd2yhUMbxmoNx6fKxpKYHBZoE7YEUKIu4=";
+      sha256 = "sha256-oz+i1Sy33ItPmhoSVaNz/tZQBHD2ZRaqm4Mz4mA1l6k=";
     };
-    date = "2024-05-19";
+    date = "2025-04-09";
   };
   rime-quick = {
     pname = "rime-quick";
