@@ -21,6 +21,7 @@
   emmylua-codestyle = pkgs.callPackage ./pkgs/emmylua-codestyle { };
   luakit_2_4 = pkgs.callPackage ./pkgs/luakit_2_4 { };
   wihotspot = pkgs.callPackage ./pkgs/wihotspot { };
+  lux-cli = pkgs.callPackage ./pkgs/lux-cli { };
   # sourcetrail = pkgs.callPackage ./pkgs/sourcetrail { };
 }
 // builtins.mapAttrs (name: deriv: pkgs.callPackage deriv { }) (import ./pkgs/emmylua-analyzer)

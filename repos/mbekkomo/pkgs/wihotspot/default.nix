@@ -16,6 +16,9 @@
   iw,
   wirelesstools,
   haveged,
+  bash,
+  dnsmasq,
+  iptables,
 }:
 stdenv.mkDerivation {
   pname = "wihotspot";
@@ -46,10 +49,14 @@ stdenv.mkDerivation {
     iw
     wirelesstools
     haveged
+    bash
+    dnsmasq
+    iptables
   ];
 
   patches = [
     ./build.patch
+    ./wihotspot.patch
   ];
 
   makeFlags = [
@@ -57,17 +64,24 @@ stdenv.mkDerivation {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/create_ap \
-      --set PATH ${
-        lib.makeBinPath [
-          util-linux
-          procps
-          hostapd
-          iproute2
-          iw
-          wirelesstools
-          haveged
-        ]
-      } 
+    for x in create_ap wihotspot-gui; do
+      wrapProgram $out/bin/$x \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            bash
+            util-linux
+            procps
+            hostapd
+            iproute2
+            iw
+            wirelesstools
+            haveged
+            dnsmasq
+            iptables
+          ]
+        }
+    done
+    rm -f $out/bin/wihotspot
+    ln -s $out/bin/wihotspot{-gui,}
   '';
 }

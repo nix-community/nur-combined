@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-1s0J6TF/iDSqKUF4/sgq2irSPENjinftPFZnMgE8Dn8=";
   };
 
-  cargoHash = "sha256-gsrwC7X1pnr9ZQDqq0SnNxYHFdRI9VRuIQtA1s7Yz7A=";
+  cargoHash = "sha256-SGmlNpauPk2qSIIdP0hfGUplCV9ZvyHhZss8XXuxfHg";
 
   meta = {
     description = "A parser for the Djot markup language";
