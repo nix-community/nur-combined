@@ -21,8 +21,10 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
+    substituteInPlace gtlTargets.cmake --replace "/build/source/" "$out/"
     mkdir -p $out/lib/cmake/gtl
     install -m 644 gtlTargets.cmake $out/lib/cmake/gtl/
+    echo "include(\"''\\$''\{CMAKE_CURRENT_LIST_DIR}/gtlTargets.cmake\"''\)" > $out/lib/cmake/gtl/gtlConfig.cmake
   '';
 
   meta = with lib; {
