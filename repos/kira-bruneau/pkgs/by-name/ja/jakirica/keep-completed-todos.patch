@@ -1,15 +1,15 @@
-diff --git a/website/server/middlewares/cron.js b/website/server/middlewares/cron.js
-index e9922dc762..71978e8664 100644
---- a/website/server/middlewares/cron.js
-+++ b/website/server/middlewares/cron.js
-@@ -96,20 +96,6 @@ async function cronAsync (req, res) {
-       headers: req.headers,
-     });
+diff --git a/website/server/libs/cron.js b/website/server/libs/cron.js
+index 6ac166a2ec..86c2c06157 100644
+--- a/website/server/libs/cron.js
++++ b/website/server/libs/cron.js
+@@ -470,20 +470,6 @@ export async function cronWrapper (req, res) {
+       return null;
+     }
  
 -    // Clear old completed todos - 30 days for free users, 90 for subscribers
 -    // Do not delete challenges completed todos TODO unless the task is broken?
 -    // Do not delete group completed todos
--    Tasks.Task.deleteMany({
+-    await Tasks.Task.deleteMany({
 -      userId: user._id,
 -      type: 'todo',
 -      completed: true,
@@ -20,6 +20,6 @@ index e9922dc762..71978e8664 100644
 -      'group.id': { $exists: false },
 -    }).exec();
 -
-     res.locals.wasModified = true; // TODO remove after v2 is retired
- 
-     Group.tavernBoss(user, progress);
+     const tasks = await Tasks.Task.find({
+       userId: user._id,
+       $or: [ // Exclude completed todos
