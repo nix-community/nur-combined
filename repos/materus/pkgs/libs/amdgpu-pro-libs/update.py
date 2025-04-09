@@ -1,15 +1,10 @@
-#!/bin/env python
+#!/usr/bin/env python
 from urllib.request import urlopen
 import subprocess
 import codecs
 import sys
 
 amd_repo = "https://repo.radeon.com/amdgpu/"
-
-
-
-
-
 
 def readPackages(packageString, packages,version):
     for line in packageString.splitlines():
@@ -22,7 +17,7 @@ def readPackages(packageString, packages,version):
         elif x[0] == "SHA256":
             packages[len(packages) - 1]["sha256"] = x[1].strip()
 
-def generateFetchurl(version = "6.2.3", ubuntu_code = "jammy"):
+def generateFetchurl(version = "6.3.4", ubuntu_code = "jammy"):
 
     packages = []
     packages32 = []
@@ -41,8 +36,6 @@ def generateFetchurl(version = "6.2.3", ubuntu_code = "jammy"):
     _all = "["
     final = "{ fetchurl }:\n{\nversion=\""+version+"\";\nbit64 = rec { "
     for p in packages: 
-        #x = subprocess.run(["nix-prefetch-url" ,"--type" , "sha256", p["url"]],capture_output=True)
-        #sha_hash = codecs.decode(x.stdout, "UTF-8").strip()
         _all += " " + p["name"].replace(".","_") + " "
         final += """\n{name} = ( fetchurl {{
             url = "{url}";
@@ -54,8 +47,6 @@ def generateFetchurl(version = "6.2.3", ubuntu_code = "jammy"):
     final+= "\nall = "+ _all+"\n};\nbit32 = rec { "
     _all = "["
     for p in packages32: 
-        #x = subprocess.run(["nix-prefetch-url" ,"--type" , "sha256", p["url"]],capture_output=True)
-        #sha_hash = codecs.decode(x.stdout, "UTF-8").strip()
         _all += " " + p["name"].replace(".","_") + " "
         final += """\n{name} = ( fetchurl {{
             url = "{url}";
@@ -78,5 +69,3 @@ elif len(sys.argv) == 2:
     generateFetchurl(sys.argv[1],sys.argv[2])
 else:
     print("Too much args: arg1 = version, arg2 = ubuntu codename")
-
-
