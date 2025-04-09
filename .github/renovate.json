@@ -5,6 +5,11 @@
         ":disableDependencyDashboard"
     ],
     "ignorePaths": [
-        "**/repos/**"
-    ]
+        "repos/**"
+    ],
+    "nuget": {
+        "ignorePaths": [
+            "repos/**"
+        ]
+    }
 }
