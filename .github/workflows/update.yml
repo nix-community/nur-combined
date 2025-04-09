@@ -12,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: get_workflow_token
-      uses: peter-murray/workflow-application-token-action@v4.0.1
+      uses: peter-murray/workflow-application-token-action@d17e3a9a36850ea89f35db16c1067dd2b68ee343 # v4.0.1
       with:
         application_id: '${{ secrets.GH_APPLICATION_ID }}'
         application_private_key: '${{ secrets.GH_APPLICATION_PRIVATE_KEY }}'
         permissions: "contents:write"
         revoke_token: true
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       with:
         repository: nix-community/NUR
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       with:
         repository: nix-community/nur-combined
         path: nur-combined
-    - uses: cachix/install-nix-action@v31
+    - uses: cachix/install-nix-action@d1ca217b388ee87b2507a9a93bf01368bde7cec2 # v31
       with:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
@@ -41,7 +41,7 @@ jobs:
         git -C $GITHUB_WORKSPACE/nur-combined pull --rebase origin ${{ github.event.repository.default_branch }}
       env:
         GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
-    - uses: CasperWA/push-protected@v2
+    - uses: CasperWA/push-protected@74d25b8aa10e0c29024138735d32f3c0b75f9279 # v2
       with:
         token: ${{ steps.get_workflow_token.outputs.token }}
         branch: ${{ github.event.repository.default_branch }}
