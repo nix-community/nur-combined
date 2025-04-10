@@ -1,4 +1,96 @@
 {
+    "WeidiDeng/caddy-cloudflare-ip": {
+        "cargoLocks": null,
+        "date": "20231130082422+0800",
+        "extract": null,
+        "name": "WeidiDeng/caddy-cloudflare-ip",
+        "passthru": {
+            "moduleName": "github.com/WeidiDeng/caddy-cloudflare-ip"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "WeidiDeng",
+            "repo": "caddy-cloudflare-ip",
+            "rev": "f53b62aa13cb7ad79c8b47aacc3f2f03989b67e5",
+            "sha256": "sha256-b2JPVdXBgbI91zRzXGut7QKYT/pe15Gcr3JvIKxvTH4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f53b62aa13cb7ad79c8b47aacc3f2f03989b67e5"
+    },
+    "caddy-dns/cloudflare": {
+        "cargoLocks": null,
+        "date": "20250228105314-0700",
+        "extract": null,
+        "name": "caddy-dns/cloudflare",
+        "passthru": {
+            "moduleName": "github.com/caddy-dns/cloudflare"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "caddy-dns",
+            "repo": "cloudflare",
+            "rev": "1fb64108d4debf196b19d7398e763cb78c8a0f41",
+            "sha256": "sha256-nLpiXMHTKTfmc5TBkPErkvXf/d2tWBlv2h4A+ELrraU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1fb64108d4debf196b19d7398e763cb78c8a0f41"
+    },
+    "mholt/caddy-l4": {
+        "cargoLocks": null,
+        "date": "20250124164235-0700",
+        "extract": null,
+        "name": "mholt/caddy-l4",
+        "passthru": {
+            "moduleName": "github.com/mholt/caddy-l4"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mholt",
+            "repo": "caddy-l4",
+            "rev": "87e3e5e2c7f986b34c0df373a5799670d7b8ca03",
+            "sha256": "sha256-aLAGmbWXhwtuP8JKbceXU9ZtHDgncQC2p3hOZuGRMds=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "87e3e5e2c7f986b34c0df373a5799670d7b8ca03"
+    },
+    "mholt/caddy-webdav": {
+        "cargoLocks": null,
+        "date": "20241008102340-0600",
+        "extract": null,
+        "name": "mholt/caddy-webdav",
+        "passthru": {
+            "moduleName": "github.com/mholt/caddy-webdav"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mholt",
+            "repo": "caddy-webdav",
+            "rev": "42168ba04c9dc2cd228ab8c453dbab27654e52e6",
+            "sha256": "sha256-LX4R3DQiNPCFirM2M0ddDl0JRaA/EzQJU11Y2Mv9Y7A=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "42168ba04c9dc2cd228ab8c453dbab27654e52e6"
+    },
     "rime-ice": {
         "cargoLocks": null,
         "date": null,
