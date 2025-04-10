@@ -90,7 +90,7 @@ let
   };
   lib-overlay = import ./lib-overlay final prev;
   rimePackages = callPackage ./rime-packages {
-    sources = sources;
+    inherit sources;
     inherit (final) librime;
   };
 in

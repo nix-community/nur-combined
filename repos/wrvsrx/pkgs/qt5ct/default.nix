@@ -15,12 +15,12 @@ qt5ct.overrideAttrs (old: {
     wrapQtAppsHook
     qttools
   ];
-  buildInputs = old.buildInputs ++ ([
+  buildInputs = old.buildInputs ++ [
     qtquickcontrols2
     kconfig
     kconfigwidgets
     kiconthemes
-  ]);
+  ];
   patches = [ ./qt5ct-shenanigans.patch ];
   cmakeFlags = [
     "-DPLUGINDIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"

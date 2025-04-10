@@ -18,12 +18,12 @@ qt6ct.overrideAttrs (oldAttrs: {
     sha256 = "sha256-ePY+BEpEcAq11+pUMjQ4XG358x3bXFQWwI1UAi+KmLo=";
   };
 
-  buildInputs = oldAttrs.buildInputs ++ ([
+  buildInputs = oldAttrs.buildInputs ++ [
     qtdeclarative
     kconfig
     kcolorscheme
     kiconthemes
-  ]);
+  ];
 
   nativeBuildInputs = [
     cmake
