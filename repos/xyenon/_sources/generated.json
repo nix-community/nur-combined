@@ -13,16 +13,16 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "2024.12.12",
-            "sha256": "sha256-2QZdlLGZwWIesbjYTE/2yhM1hHGVVp7jR02bR0oqxV0=",
+            "rev": "2025.04.06",
+            "sha256": "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2024.12.12"
+        "version": "2025.04.06"
     },
     "rime-ice-unstable": {
         "cargoLocks": null,
-        "date": "2025-04-01",
+        "date": "2025-04-06",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -34,12 +34,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "a5f5404e369100fcfc5562f86f1205827453e31c",
-            "sha256": "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=",
+            "rev": "51777daedbe4783c3b79f0246d775e4b6d978cbc",
+            "sha256": "sha256-cFaFgChhpgEiJw+dHl3Hr3T2UQF+Vy6u36JWY+cYBNo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a5f5404e369100fcfc5562f86f1205827453e31c"
+        "version": "51777daedbe4783c3b79f0246d775e4b6d978cbc"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -50,15 +50,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LUKh0UMU0WVIWAGWogzWjqEVKCY7TTvWRueMeFxVslk=",
+            "sha256": "sha256-/MBYX1Zb66RK6Nowky4LdMB6Vt/4n4UAxRTN0KODdwk=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250309/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250409/moegirl.dict.yaml"
         },
-        "version": "20250309"
+        "version": "20250409"
     },
     "yazi-rs-plugins": {
         "cargoLocks": null,
-        "date": "2025-04-04",
+        "date": "2025-04-08",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -70,11 +70,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "9a095057d698aaaedc4dd23d638285bd3fd647e9",
-            "sha256": "sha256-Lx+TliqMuaXpjaUtjdUac7ODg2yc3yrd1mSWJo9Mz2Q=",
+            "rev": "a1738e8088366ba73b33da5f45010796fb33221e",
+            "sha256": "sha256-eiLkIWviGzG9R0XP1Cik3Bg0s6lgk3nibN6bZvo8e9o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9a095057d698aaaedc4dd23d638285bd3fd647e9"
+        "version": "a1738e8088366ba73b33da5f45010796fb33221e"
     }
 }

@@ -3,45 +3,45 @@
 {
   rime-ice = {
     pname = "rime-ice";
-    version = "2024.12.12";
+    version = "2025.04.06";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2024.12.12";
+      rev = "2025.04.06";
       fetchSubmodules = false;
-      sha256 = "sha256-2QZdlLGZwWIesbjYTE/2yhM1hHGVVp7jR02bR0oqxV0=";
+      sha256 = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
     };
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "a5f5404e369100fcfc5562f86f1205827453e31c";
+    version = "51777daedbe4783c3b79f0246d775e4b6d978cbc";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a5f5404e369100fcfc5562f86f1205827453e31c";
+      rev = "51777daedbe4783c3b79f0246d775e4b6d978cbc";
       fetchSubmodules = false;
-      sha256 = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
+      sha256 = "sha256-cFaFgChhpgEiJw+dHl3Hr3T2UQF+Vy6u36JWY+cYBNo=";
     };
-    date = "2025-04-01";
+    date = "2025-04-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250309";
+    version = "20250409";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250309/moegirl.dict.yaml";
-      sha256 = "sha256-LUKh0UMU0WVIWAGWogzWjqEVKCY7TTvWRueMeFxVslk=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250409/moegirl.dict.yaml";
+      sha256 = "sha256-/MBYX1Zb66RK6Nowky4LdMB6Vt/4n4UAxRTN0KODdwk=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "9a095057d698aaaedc4dd23d638285bd3fd647e9";
+    version = "a1738e8088366ba73b33da5f45010796fb33221e";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "9a095057d698aaaedc4dd23d638285bd3fd647e9";
+      rev = "a1738e8088366ba73b33da5f45010796fb33221e";
       fetchSubmodules = false;
-      sha256 = "sha256-Lx+TliqMuaXpjaUtjdUac7ODg2yc3yrd1mSWJo9Mz2Q=";
+      sha256 = "sha256-eiLkIWviGzG9R0XP1Cik3Bg0s6lgk3nibN6bZvo8e9o=";
     };
-    date = "2025-04-04";
+    date = "2025-04-08";
   };
 }
