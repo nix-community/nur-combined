@@ -139,6 +139,7 @@
             devenv
             zoxide
             nodejs
+            zed-editor
             # vscode.fhs
             # nodejs_latest.pkgs.pnpm
             # nodejs_latest
