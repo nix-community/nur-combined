@@ -16,14 +16,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pvs-studio";
-  version = "7.35.89253.317";
+  version = "7.36.91321.455";
 
   src = fetchurl {
     url = "https://cdn.pvs-studio.com/pvs-studio-${finalAttrs.version}-${suffix}.tgz";
     hash =
       {
-        x86_64-linux = "sha256-pnrRriufaRPwZzAFKHRDFbyg1LEi9rUs31LwKdJj96M=";
-        x86_64-darwin = "sha256-HRJMF+ETqjDTXZx7qzX9mmdRiH9jHSL1RXBQA4CNkYE=";
+        x86_64-linux = "sha256-xrAUlott87qCiajVecKw9TvYx+rMDd5GeG1UI3udHqQ=";
+        x86_64-darwin = "sha256-iv1okllOV3ht57BH9IHykwAYla/tEpkDhpvQeR4tm1c=";
       }
       .${system} or throwSystem;
   };
