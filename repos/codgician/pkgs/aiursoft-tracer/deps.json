@@ -37,9 +37,9 @@
   },
   {
     "pname": "Aiursoft.Scanner",
-    "version": "9.0.4",
-    "hash": "sha256-aphgOeQlqbMQ47Eh88wQkC9MWchf1zxDPxw3mP8+mXQ=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.scanner/9.0.4/aiursoft.scanner.9.0.4.nupkg"
+    "version": "9.0.5",
+    "hash": "sha256-YQ/Hfws5jXE0UkVYKW8TvSy1c2LJpYNmiAUoSWB/qiI=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.scanner/9.0.5/aiursoft.scanner.9.0.5.nupkg"
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
@@ -97,9 +97,9 @@
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
-    "version": "9.0.3",
-    "hash": "sha256-90HSc8MgyemdtRTBN7Indq62DRaqI2mjai9iV/pi/o4=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.dependencyinjection.abstractions/9.0.3/microsoft.extensions.dependencyinjection.abstractions.9.0.3.nupkg"
+    "version": "9.0.4",
+    "hash": "sha256-6WcGpsAYRhrpHloEom0oVP7Ff4Gh/O1XWJETJJ3LvEQ=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.dependencyinjection.abstractions/9.0.4/microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Features",
