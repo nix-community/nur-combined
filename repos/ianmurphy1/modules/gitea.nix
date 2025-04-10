@@ -95,6 +95,11 @@ in
         default = if enaleRootUser then "${cfg.rootUserName}@${cfg.settings.server.DOMAIN}" else null;
       };
 
+      registrationTokenFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+      };
+
       group = mkOption {
         type = types.str;
         default = "gitea";
@@ -776,12 +781,19 @@ in
         SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" "setrlimit" ];
       };
 
-      environment = {
-        USER = cfg.user;
-        HOME = cfg.stateDir;
-        GITEA_WORK_DIR = cfg.stateDir;
-        GITEA_CUSTOM = cfg.customDir;
-      };
+      environment = lib.mkMerge [
+        {
+          USER = cfg.user;
+          HOME = cfg.stateDir;
+          GITEA_WORK_DIR = cfg.stateDir;
+          GITEA_CUSTOM = cfg.customDir;
+        }
+        (
+          lib.mkIf (cfg.registrationTokenFile != null) {
+            GITEA_REGISTRATION_TOKEN_FILE = cfg.registrationTokenFile;
+          }
+        )
+      ];
     };
 
     users.users = mkIf (cfg.user == "gitea") {
