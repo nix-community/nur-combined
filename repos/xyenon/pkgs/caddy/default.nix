@@ -40,7 +40,7 @@ let
     ) pluginSources;
 in
 if lib.hasAttr "withPlugins" caddy then
-  caddy.withPlugins {
+  caddy.withPlugins.override { inherit caddy; } {
     inherit plugins;
     hash = "sha256-MN26bdQI66LJ173Jzkx5P0EP5/0RDNnyPAtjOP7VWOE=";
   }
