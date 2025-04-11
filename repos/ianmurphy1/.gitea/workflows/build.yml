@@ -23,7 +23,6 @@ jobs:
     steps:
       - name: Setup known hosts
         run: |
-          set -ex
           mkdir -p ~/.ssh/
           ssh-keyscan cache.home > ~/.ssh/known_hosts
     
@@ -38,6 +37,11 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             trusted-public-keys = ncps.home:6qNYS6mjcO2Ef2VcmIEC7rX4ZMP91PL74oP2cO9JJcU=
             substituters = https://ncps.home
+            # Allow binary caches for user
+            trusted-users = root $USER
+            sandbox = false
+            require-sigs = false
+
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Check evaluation
@@ -51,8 +55,7 @@ jobs:
             -I $PWD
       - name: Build nix packages
         run: |
-          set -ex
-          ls -la ~/.ssh
+          export HOME=$(pwd)
           nix shell -f '<nixpkgs>' \
             nix-build-uncached \
             -c nix-build \
