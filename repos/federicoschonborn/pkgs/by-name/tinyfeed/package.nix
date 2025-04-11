@@ -31,7 +31,7 @@ buildGoModule {
 
   passthru = {
     tests.tinyfeed = callPackage ./nixos-test.nix { inherit tinyfeed; };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script { extraArgs = [ "--version-regex=v(.*)" ]; };
   };
 
   meta = {
