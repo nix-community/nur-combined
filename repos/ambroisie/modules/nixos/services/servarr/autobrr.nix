@@ -1,4 +1,4 @@
-# IRC-based
+# IRC-based indexer
 { config, lib, ... }:
 let
   cfg = config.my.services.servarr.autobrr;
