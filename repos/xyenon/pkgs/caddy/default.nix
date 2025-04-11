@@ -39,7 +39,7 @@ let
       "${v.moduleName}@v0.0.0-${goDate}-${substring 0 12 v.version}"
     ) pluginSources;
 in
-if lib.hasAttr "withPlugins" caddy then
+if lib.hasAttr "withPlugins" caddy.passthru then
   caddy.withPlugins.override { inherit caddy; } {
     inherit plugins;
     hash = "sha256-MN26bdQI66LJ173Jzkx5P0EP5/0RDNnyPAtjOP7VWOE=";
