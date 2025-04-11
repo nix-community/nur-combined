@@ -1,6 +1,7 @@
 {
   lib,
   sources,
+  caddyOrig ? caddy,
   caddy,
 }:
 
@@ -39,13 +40,13 @@ let
       "${v.moduleName}@v0.0.0-${goDate}-${substring 0 12 v.version}"
     ) pluginSources;
 in
-if lib.hasAttr "withPlugins" caddy.passthru then
-  caddy.withPlugins.override { inherit caddy; } {
+if lib.hasAttr "withPlugins" caddyOrig then
+  caddyOrig.withPlugins.override { caddy = caddyOrig; } {
     inherit plugins;
     hash = "sha256-MN26bdQI66LJ173Jzkx5P0EP5/0RDNnyPAtjOP7VWOE=";
   }
 else
-  caddy.overrideAttrs (
+  caddyOrig.overrideAttrs (
     _finalAttrs: prevAttrs: {
       meta = prevAttrs.meta // {
         broken = true;
