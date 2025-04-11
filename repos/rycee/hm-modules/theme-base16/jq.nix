@@ -23,6 +23,7 @@ in {
       strings = mkDefault "0;32";
       arrays = mkDefault "0;37";
       objects = mkDefault "0;32";
+      objectKeys = mkDefault "1;34";
     };
   };
 }

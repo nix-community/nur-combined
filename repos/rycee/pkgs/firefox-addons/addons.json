@@ -120,6 +120,9 @@
     "slug": "belgium-eid"
   },
   {
+    "slug": "better-canvas"
+  },
+  {
     "slug": "betterttv",
     "license": {
       "tag": "custom",
@@ -977,6 +980,9 @@
       "tag": "predefined",
       "shortName": "asl20"
     }
+  },
+  {
+    "slug": "material-icons-for-github"
   },
   {
     "slug": "matte-black-red",
