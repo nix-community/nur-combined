@@ -24,6 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
+  setupHook = ./setup-hook.sh;
+
   meta = {
     description = "How to use PVS-Studio for Free?";
     homepage = "https://pvs-studio.com/en/blog/posts/0457/";
