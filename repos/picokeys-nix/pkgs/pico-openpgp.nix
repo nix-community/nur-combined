@@ -4,9 +4,9 @@
   usbPid ? null,
   vidPid ? null,
 
-  version ? "3.4",
-  rev ? "v3.4",
-  hash ? "sha256-IW/ejyPEtUn6FayhmtNOfiiupYrVRMtHoBe33EdvPw4=",
+  version ? "3.6",
+  rev ? "v3.6",
+  hash ? "sha256-w0rt7oFzv1H4KZIVABjJ2CNLlfMGOrBL6nIoq6IfGao=",
 
   lib,
   stdenv,

@@ -4,9 +4,9 @@
   fetchFromGitHub,
   python3,
 
-  version ? "6.4",
-  rev ? "v6.4",
-  hash ? "sha256-k5oermMHzLt7IYnnuM3uqDyMToP5hc/lZv6tJ48mEPw=",
+  version ? "6.6",
+  rev ? "v6.6",
+  hash ? "sha256-Fp3JMzN8Y5O25ldtAC9AvTaoLOX9RoUYXD+5Fk1Hp5I=",
 }:
 let
   inherit version;

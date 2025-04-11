@@ -15,16 +15,18 @@ let
   );
   pico-hsm-packages = pkgs.callPackage ./pkgs/pico-hsm-packages.nix { };
   pico-hsm-eddsa-packages = pkgs.callPackage ./pkgs/pico-hsm-packages.nix {
-    rev = "v5.4-eddsa1";
-    hash = "sha256-38rg5NhQnJSVrHFywQxKTK3kxy6EktPNxJAZNIWe5Mw=";
+    rev = "v5.6-eddsa1";
+    hash = "sha256-hKKcBZvab++ghBsMndUxRl/fAjgv+vO2ZgwIdLTeDfg=";
   };
   pico-fido-packages = pkgs.callPackage ./pkgs/pico-fido-packages.nix { };
   pico-fido-eddsa-packages = pkgs.callPackage ./pkgs/pico-fido-packages.nix {
-    rev = "v6.4-eddsa1";
-    hash = "sha256-Fqbn5349IzpKYIRzsYAJhmqDQCCd9ERcjlBXQeemt9c=";
+    rev = "v6.6-eddsa1";
+    hash = "sha256-+6wzSrFXBVn1aQRc+YnJIAJIxBhQsdfATUpNst9voig=";
   };
 in
 rec {
+  inherit picotool;
+
   overlays = import ./overlays;
 
   pycvc = pkgs.callPackage ./pkgs/pycvc.nix { };
@@ -33,8 +35,8 @@ rec {
   pico-openpgp = callPkgWithSdk ./pkgs/pico-openpgp.nix { };
 
   pico-openpgp-eddsa = pico-openpgp.override {
-    rev = "v3.4-eddsa1";
-    hash = "sha256-6ObCH1EFRyGzCmemO+J8mMr637RNyxCwEArWS//IECc=";
+    rev = "v3.6-eddsa1";
+    hash = "sha256-w0rt7oFzv1H4KZIVABjJ2CNLlfMGOrBL6nIoq6IfGao=";
   };
 
   pico-hsm = callPkgWithSdk (pico-hsm-packages.pico-hsm) { };
