@@ -162,9 +162,9 @@ in
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
   };
 
-  yabridge = callPackage ./tools/audio/yabridge { wine = wineWowPackages.staging; };
+  yabridge = callPackage ./tools/audio/yabridge { wine = wineWowPackages.yabridge; };
 
-  yabridgectl = callPackage ./tools/audio/yabridgectl { wine = wineWowPackages.staging; };
+  yabridgectl = callPackage ./tools/audio/yabridgectl { wine = wineWowPackages.yabridge; };
 
   zynaddsubfx = callPackage ./applications/audio/zynaddsubfx {
     guiModule = "zest";
