@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "LibVNC";
     repo = "vncterm";
     rev = finalAttrs.version;
-    sha256 = "sha256-6Lk9b4qi3jpJOxX578Jkq/zZ9N4Xmu2XL1Vsbs2goig=";
+    hash = "sha256-6Lk9b4qi3jpJOxX578Jkq/zZ9N4Xmu2XL1Vsbs2goig=";
   };
 
   nativeBuildInputs = [

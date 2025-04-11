@@ -5,15 +5,15 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lunasvg";
   version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
-    rev = "v${version}";
-    sha256 = "sha256-358zyWbrbrc7riJvNf6/XYb93FTDDX/73DVxjN23Gmo=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-358zyWbrbrc7riJvNf6/XYb93FTDDX/73DVxjN23Gmo=";
     fetchSubmodules = true;
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };
-}
+})

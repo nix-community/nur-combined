@@ -11,16 +11,16 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0w31mv9f5anxgjvjv62w7yyavpp8x11kjyy9yw88ib5q9lknw36f";
+    hash = "sha256-zgxuJ024rIgQ98l7OUPo6N6tvD9cmC23fN2q4tKuYXA=";
   };
 
   propagatedBuildInputs = [ setuptools ];
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/internetarchive/warctools";
     description = "Command line tools and libraries for handling and manipulating WARC files (and HTTP contents)";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

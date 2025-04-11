@@ -31,10 +31,10 @@ rustPlatform.buildRustPackage {
     openssl
   ];
 
-  meta = with lib; {
+  meta = {
     description = "U2F security token emulator written in Rust";
     homepage = "https://github.com/danstiner/rust-u2f";
-    license = with licenses; [ asl20 ];
+    license = with lib.licenses; [ asl20 ];
   };
 
 }

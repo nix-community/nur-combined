@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   fetchPypi,
   buildPythonApplication,
   setuptools,
@@ -29,19 +30,19 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "colorpedia" ];
 
-  postInstall = ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd color \
-           --bash <($out/bin/color -- --completion) \
-           --zsh <($out/bin/color -- --completion | sed "s/:/: /g")
+      --bash <($out/bin/color -- --completion) \
+      --zsh <($out/bin/color -- --completion | sed "s/:/: /g")
     installShellCompletion --cmd colorpedia \
-           --bash <($out/bin/colorpedia -- --completion) \
-           --zsh <($out/bin/colorpedia -- --completion | sed "s/:/: /g")
+      --bash <($out/bin/colorpedia -- --completion) \
+      --zsh <($out/bin/colorpedia -- --completion | sed "s/:/: /g")
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Command-line tool for looking up colors and palettes";
     homepage = "https://joowani.github.io/colorpedia/";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
   };
 }

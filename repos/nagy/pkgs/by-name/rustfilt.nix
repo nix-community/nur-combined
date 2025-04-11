@@ -4,14 +4,14 @@
   rustPlatform,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustfilt";
   version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "luser";
     repo = "rustfilt";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-zb1tkeWmeMq7aM8hWssS/UpvGzGbfsaVYCOKBnAKwiQ=";
   };
 
@@ -22,4 +22,4 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/luser/rustfilt";
     license = with lib.licenses; [ asl20 ];
   };
-}
+})

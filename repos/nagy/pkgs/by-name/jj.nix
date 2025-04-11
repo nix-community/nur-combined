@@ -5,14 +5,14 @@
   gawk,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jj";
   version = "0.9";
 
   src = fetchFromGitHub {
     owner = "aaronNGi";
     repo = "jj";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-6MQY2amBa9NZKLwl5XdwWK3/mw5gkpv8hdykA9UQrgg=";
   };
 
@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gawk ]; # to patch shebangs
 
-  meta = with lib; {
+  meta = {
     description = "An evolution of the suckless ii(1) file-based IRC client";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     homepage = "https://github.com/aaronNGi/jj";
     mainProgram = "jjd";
   };
-}
+})

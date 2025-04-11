@@ -1,14 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+}:
 
 stdenv.mkDerivation {
   pname = "zforth";
-  version = "0-unstable-2025-02-14";
+  version = "0-unstable-2025-03-30";
 
   src = fetchFromGitHub {
     owner = "zevv";
     repo = "zForth";
-    rev = "957f08668362cdf78fac939bcfcd6d09af441bed";
-    hash = "sha256-lr3+YdQ9C6ZI4q1QZbCKmq2q7/+UTCjrR6CF/+yPTuM=";
+    rev = "4f447527f732dc46f389a47b873077f287e0073e";
+    hash = "sha256-PMC0szoJV57w3IVUKoAth9g9F1g7aAAs33ppuVzRQ2o=";
   };
 
   buildInputs = [ readline ];
@@ -23,8 +28,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "tiny, embeddable, flexible, compact Forth scripting language for embedded systems";
+    description = "tiny, embeddable, flexible, compact Forth scripting language for embedded systems";
     homepage = "https://github.com/zevv/zForth";
     license = with lib.licenses; [ mit ];
     mainProgram = "zforth";

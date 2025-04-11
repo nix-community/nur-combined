@@ -9,7 +9,6 @@
   stdenv,
   darwin,
   testers,
-  koji,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {

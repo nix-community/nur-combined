@@ -2,7 +2,6 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-  setuptools,
   anyio,
   poetry-core,
   typing-extensions,
@@ -16,7 +15,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-pYnZgPV+IO+wftkdDb5n8dL9ND5xQsZtOgmfBcYgc5w=";
+    hash = "sha256-pYnZgPV+IO+wftkdDb5n8dL9ND5xQsZtOgmfBcYgc5w=";
   };
 
   propagatedBuildInputs = [
@@ -28,10 +27,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "asyncer" ];
 
-  meta = with lib; {
+  meta = {
     description = "Asyncer, async and await, focused on developer experience";
     homepage = "https://github.com/tiangolo/asyncer";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
   };
 }

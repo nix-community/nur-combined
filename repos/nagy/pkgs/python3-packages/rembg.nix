@@ -50,19 +50,22 @@ let
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
     paths = map (
-      x: runCommandLocal "u2net_home" { } "mkdir $out && ln -s ${x} $out/${x.name}.onnx "
+      x:
+      runCommandLocal "u2net_home" { } ''
+        mkdir $out && ln -s ${x} $out/${x.name}.onnx
+      ''
     ) models;
   };
 in
 buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.59";
+  version = "2.0.65";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-ESsKsTj0SlzyeLaxyof6lEDJQ5ZiPprEGqDClKfVZWw=";
+    sha256 = "sha256-o6M3DSW1GL3xvEx4lsE325J3XcmRrhhPszS5MkaynsE=";
   };
 
   nativeBuildInputs = [
@@ -114,10 +117,10 @@ buildPythonPackage rec {
     NUMBA_CACHE_DIR = "/tmp";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Tool to remove images background";
-    inherit (src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.unix;
+    homepage = "https://github.com/danielgatis/rembg";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
   };
 }

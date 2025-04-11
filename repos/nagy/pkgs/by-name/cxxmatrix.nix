@@ -22,11 +22,11 @@ stdenv.mkDerivation {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "The Matrix Reloaded in Terminals";
     homepage = "https://github.com/akinomyoga/cxxmatrix";
-    license = licenses.mit;
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
     mainProgram = "cxxmatrix";
   };
 }

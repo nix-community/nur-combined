@@ -13,7 +13,7 @@ buildPythonApplication rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-feDLCOuys6Blgimo7dQgTGlEy9nj4EckqeojWmHBFaU=";
+    hash = "sha256-feDLCOuys6Blgimo7dQgTGlEy9nj4EckqeojWmHBFaU=";
   };
 
   propagatedBuildInputs = [
@@ -23,10 +23,10 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "jtbl" ];
 
-  meta = with lib; {
+  meta = {
     description = "Simple CLI tool to print JSON and JSON Lines data as a table in the terminal";
     homepage = "https://github.com/kellyjonbrazil/jtbl";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
   };
 }

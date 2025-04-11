@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, writeTextFile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeTextFile,
+}:
 
 let
   program = writeTextFile {
@@ -19,7 +24,7 @@ let
     '';
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "libfastcdc";
   version = "unstable-2023-01-14";
 
@@ -38,8 +43,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "";
-    inherit (src.meta) homepage;
+    description = "Tools for synching and streaming files from Windows to Linux";
+    homepage = "https://github.com/google/cdc-file-transfer";
     license = with licenses; [ asl20 ];
     mainProgram = "fastcdc";
   };

@@ -14,7 +14,7 @@ buildPythonApplication rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "09sggji31ps2mm7klqvm9f7mwm8xgmkxwpbsq0vblmc5z5bi9s0l";
+    hash = "sha256-FOgUV/mFVbo2wHpd3md9HVVej0t1YzpPrULfMKJ8Tyc=";
   };
 
   pythonImportsCheck = [ "extcolors" ];
@@ -29,10 +29,10 @@ buildPythonApplication rec {
     convcolors
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Extract colors from an image. Colors are grouped based on visual similarities using the CIE76 formula";
     homepage = "https://github.com/CairX/extract-colors-py";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
   };
 }

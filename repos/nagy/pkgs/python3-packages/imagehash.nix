@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "ImageHash";
     inherit version;
-    sha256 = "sha256-cDjRt/ngWFvrPdjAqVbwK5WjRsC18kqejMA+utrwqnA=";
+    hash = "sha256-cDjRt/ngWFvrPdjAqVbwK5WjRsC18kqejMA+utrwqnA=";
   };
 
   propagatedBuildInputs = [
@@ -28,9 +28,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "imagehash" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python Perceptual Image Hashing Module";
     homepage = "https://github.com/JohannesBuchner/imagehash";
-    license = licenses.bsd2;
+    license = lib.licenses.bsd2;
   };
 }
