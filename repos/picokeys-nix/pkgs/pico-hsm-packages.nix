@@ -4,9 +4,9 @@
   fetchFromGitHub,
   python3,
 
-  version ? "5.6",
-  rev ? "v5.6",
-  hash ? "sha256-hKKcBZvab++ghBsMndUxRl/fAjgv+vO2ZgwIdLTeDfg=",
+  version ? "5.4",
+  rev ? "v5.4",
+  hash ? "sha256-ys98F+Brw3UxCxNo2i7Gfh4rkYYCN36cS3N8q1atdTM=",
 }:
 
 let
