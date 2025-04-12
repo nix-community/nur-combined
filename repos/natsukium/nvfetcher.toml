@@ -1,3 +1,7 @@
+[age-plugin-se]
+src.github = "remko/age-plugin-se"
+fetch.github = "remko/age-plugin-se"
+
 [copyq-darwin]
 src.github = "hluk/CopyQ"
 src.prefix = "v"

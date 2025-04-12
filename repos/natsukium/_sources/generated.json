@@ -1,4 +1,25 @@
 {
+    "age-plugin-se": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "age-plugin-se",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "remko",
+            "repo": "age-plugin-se",
+            "rev": "v0.1.4",
+            "sha256": "sha256-sg73DzlW4aXNbIIePZox4JkF10OfsMtPw0q/0DWwgDk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.4"
+    },
     "copyq-darwin": {
         "cargoLocks": null,
         "date": null,
