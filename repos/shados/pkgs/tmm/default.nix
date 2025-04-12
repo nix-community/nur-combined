@@ -6,11 +6,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tinymediamanager";
-  version = "4.3.11.1";
+  version = "5.1.5";
 
   src = fetchurl {
-    url = "https://archive.tinymediamanager.org/v${version}/tmm_${version}_linux-amd64.tar.gz";
-    sha256 = "1xw9dsjj5kjywxbfkda6k4z7lq23d1kl3i23ysshd1670ymg8f7n";
+    url = "https://archive.tinymediamanager.org/v${version}/tinyMediaManager-${version}-linux-amd64.tar.xz";
+    sha256 = "sha256-ABbfBxJe+DhmghD6Pm82N7UKNdi6ldEIcZ+J7quLp0Y=";
   };
 
   nativeBuildInputs = [
