@@ -54,7 +54,7 @@ in
     environment.etc = {
       "fail2ban/filter.d/autobrr.conf".text = ''
         [Definition]
-        failregex = ^.*Auth: invalid login \[.*\] from: <HOST>$
+        failregex = "message":"Auth: Failed login attempt username: \[.*\] ip: <HOST>"
         journalmatch = _SYSTEMD_UNIT=autobrr.service
       '';
     };
