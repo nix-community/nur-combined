@@ -9,7 +9,7 @@
   mkgmap-splitter,
 }:
 let
-  version = "250328";
+  version = "250411";
   bounds = fetchwebarchive {
     url = "https://www.thkukuk.de/osm/data/bounds-20250110.zip";
     timestamp = "20250116113456";
@@ -22,7 +22,7 @@ let
   };
   armenia = fetchurl {
     url = "https://download.geofabrik.de/asia/armenia-${version}.osm.pbf";
-    hash = "sha256-AoM9zeJWtRVRto41uKal6HWKBSnXor3UgLE2J78+d9I=";
+    hash = "sha256-HBTzjmfUPat8O4YwQD1qULEgwnAvksCCWl0h4Babs60=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
