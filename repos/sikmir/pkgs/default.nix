@@ -365,7 +365,7 @@ lib.makeScope newScope (
     git-tui = callPackage ./misc/git-tui { };
     graphene = callPackage ./misc/graphene { };
     heapusage = callPackage ./misc/heapusage { };
-    how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
+    how-to-use-pvs-studio-free = callPackage ./misc/how-to-use-pvs-studio-free { };
     huami-token = callPackage ./misc/huami-token { };
     ionscale = callPackage ./misc/ionscale { };
     ish = callPackage ./misc/ish { };
@@ -396,7 +396,6 @@ lib.makeScope newScope (
     plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
-    pvs-studio = callPackage ./misc/pvs-studio { };
     qasync = callPackage ./misc/qasync { };
     qoiview = callPackage ./misc/qoiview { };
     qstudio = callPackage ./misc/qstudio { };
