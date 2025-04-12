@@ -224,10 +224,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "naersk",
-        "rev": "275010712ce41dff66634f9910bc1f085239b370",
-        "sha256": "0bhph43pn50brcn2dcm2g7m9wl8q886cacbf4rfbivnvnmiz05mw",
+        "rev": "ed0232117731a4c19d3ee93aa0c382a8fe754b01",
+        "sha256": "0b3082qcamqxl3zcx9358cijavwpi377052vwl7wi924zkwralk0",
         "type": "tarball",
-        "url": "https://github.com/nix-community/naersk/archive/275010712ce41dff66634f9910bc1f085239b370.tar.gz",
+        "url": "https://github.com/nix-community/naersk/archive/ed0232117731a4c19d3ee93aa0c382a8fe754b01.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "py-lua-parser": {
