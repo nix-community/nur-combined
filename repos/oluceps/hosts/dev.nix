@@ -287,6 +287,7 @@
             distrobox
             dmidecode
             nix-output-monitor
+            numbat
             rustic
 
           ];

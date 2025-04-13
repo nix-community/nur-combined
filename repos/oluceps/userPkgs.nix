@@ -150,7 +150,6 @@ with pkgs;
   nmap
   lm_sensors
 
-  feh
   pamixer
   ncpamixer
   # texlive.combined.scheme-full

@@ -31,6 +31,18 @@
         isNormalUser = true;
         # isSystemUser = true;
         uid = 1000;
+        subUidRanges = [
+          {
+            count = 65536;
+            startUid = 2147483646;
+          }
+        ];
+        subGidRanges = [
+          {
+            count = 65536;
+            startGid = 2147483647;
+          }
+        ];
         extraGroups = [
           "wheel"
           "kvm"
