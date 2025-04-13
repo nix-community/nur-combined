@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "w2c2";
-  version = "0-unstable-2025-03-17";
+  version = "0-unstable-2025-04-02";
 
   src = fetchFromGitHub {
     owner = "turbolent";
     repo = "w2c2";
-    rev = "2e0986ec0cd73af0e1ad9d053830ed4442eaf1fd";
-    hash = "sha256-w1Ucwh0tsga9IxAbbXmoP4SEg+CIfbzTUxIBN2c1tdc=";
+    rev = "06022f2ff69bdc7d0514a49a18004440a03c3a61";
+    hash = "sha256-YXIoyJEu+BMSwOU9Iit9WKobvVI45/3a8rpM7lBpBwI=";
   };
 
   nativeBuildInputs = [ cmake ];
