@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.5.1";
+    version = "v1.6.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.5.1";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Rviurl+Baythcl92EjhqWBEAlaOg9L+HOjwEzEcG5DE=";
+      sha256 = "sha256-r+vAVytf9baHgwXaZ41XEoxEfzd+XVmPRPayhgmN63w=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./baibot-v1.5.1/Cargo.lock;
+      lockFile = ./baibot-v1.6.0/Cargo.lock;
       outputHashes = {
 
       };
@@ -329,17 +329,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "d5d0ba3ed60e78ee757ea0cc2c2e62016c7eab0d";
+    version = "781ba525b1e2819170a85f98b0047f5b7450868f";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "d5d0ba3ed60e78ee757ea0cc2c2e62016c7eab0d";
+      rev = "781ba525b1e2819170a85f98b0047f5b7450868f";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-E7JZV7JsURGIBHewgbmzkmcUIfB20U8aJYr3kxJ3qcg=";
+      sha256 = "sha256-8Zho6o3C7CTeMjVBY79M8qVvC+qsWaLCN2uYVqe5UZg=";
     };
-    date = "2025-04-01";
+    date = "2025-04-12";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
