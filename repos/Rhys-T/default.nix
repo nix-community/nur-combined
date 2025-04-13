@@ -126,6 +126,7 @@ in {
             pos = myPos "ldc";
         };
     }));
+    buildDubPackage = pkgs.buildDubPackage.override { inherit (self) ldc; };
     
     xscorch = callPackage ./pkgs/xscorch {};
     
@@ -338,24 +339,18 @@ in {
     
     wine64Full = let
         inherit (pkgs) lib;
-        wine64FullOrig = pkgs.wine64Packages.full;
-        needsOldClang = wine64FullOrig.stdenv.cc.isClang && lib.versionAtLeast wine64FullOrig.stdenv.cc.version "17";
-        wine64Full = if needsOldClang then (pkgs.wine64Packages.extend (self: super: {
-            inherit (pkgs.llvmPackages_16) stdenv;
-        })).full else wine64FullOrig;
-    in dontUpdate (wine64Full.overrideAttrs (old: {
-        meta = (old.meta or {}) // {
-            description = "${wine64Full.meta.description or "wine64Packages.full"} (with Clang version capped at 16 to fix build)";
-            position = myPos "wine64Full";
-        };
-        passthru = (old.passthru or {}) // {
-            _Rhys-T.allowCI = pkgs.stdenv.hostPlatform.isDarwin;
-        };
-    }));
-    
-    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
-    });
+    in
+    lib.warnOnInstantiate "Rhys-T.wine64Full is no longer needed - use wine64Packages.full from Nixpkgs directly" (
+        dontUpdate (wine64Full.overrideAttrs (old: {
+            meta = (old.meta or {}) // {
+                position = myPos "wine64Full";
+            };
+            passthru = (old.passthru or {}) // {
+                _Rhys-T.allowCI = false;
+            };
+        }))
+    );
     
     tuxemon = callPackage ./pkgs/tuxemon {};
     tuxemon-git = callPackage ./pkgs/tuxemon/git.nix {};
