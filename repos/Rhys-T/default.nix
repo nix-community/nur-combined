@@ -109,13 +109,29 @@ in {
         inherit (self.lix-game-packages) highResTitleScreen;
     };
     
-    # Temporarily work around ldc-developers/ldc#4899 by backporting ldc-developers/ldc#4877.
-    # Note that this still won't build on 15.4 itself, because the bootstrap compiler still
-    # has the bug. But if you pull it from the cache, this version should run and produce
-    # working executables. Hopefully.
+    # Temporarily work around ldc-developers/ldc#4899 by backporting ldc-developers/ldc#4877
+    # and downgrading the bootstrap compiler.
     ldc = let
-        needsMacPatch = pkgs.stdenv.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.ldc.version "1.40.2";
-    in dontUpdate (pkgs.ldc.overrideAttrs (old: pkgs.lib.optionalAttrs needsMacPatch {
+        inherit (pkgs.stdenv) hostPlatform;
+        needsMacPatch = hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.ldc.version "1.40.2";
+        ldcBootstrap = pkgs.callPackage (pkgs.path + "/pkgs/by-name/ld/ldc/bootstrap.nix") {};
+        OS = if hostPlatform.isDarwin then "osx" else hostPlatform.parsed.kernel.name;
+        ARCH = if hostPlatform.isDarwin && hostPlatform.isAarch64 then "arm64" else hostPlatform.parsed.cpu.name;
+        oldBootstrapHashes = {
+            osx-x86_64 = "sha256-mqQ+hNlDePOGX2mwgEEzHGiOAx3SxfNA6x8+ML3qYmw=";
+            osx-arm64 = "sha256-m93rGywncBnPEWslcrXuGBnZ+Z/mNgLIaevkL/uBOu0=";
+        };
+        oldBootstrap = ldcBootstrap.overrideAttrs (old: rec {
+            version = "1.28.1";
+            src = pkgs.fetchurl rec {
+                name = "ldc2-${version}-${OS}-${ARCH}.tar.xz";
+                url = "https://github.com/ldc-developers/ldc/releases/download/v${version}/${name}";
+                hash = oldBootstrapHashes."${OS}-${ARCH}" or (throw "missing bootstrap hash for ${OS}-${ARCH}");
+            };
+        });
+    in dontUpdate ((pkgs.ldc.override (pkgs.lib.optionalAttrs needsMacPatch {
+        ldcBootstrap = oldBootstrap;
+    })).overrideAttrs (old: pkgs.lib.optionalAttrs needsMacPatch {
         patches = (old.patches or []) ++ [(pkgs.fetchpatch {
             url = "https://github.com/ldc-developers/ldc/commit/60079c3b596053b1a70f9f2e0cf38a287089df56.patch";
             hash = "sha256-Y/5+zt5ou9rzU7rLJq2OqUxMDvC7aSFS6AsPeDxNATQ=";
@@ -124,6 +140,7 @@ in {
         meta = old.meta // {
             description = (old.meta.description or "ldc") + " (fixed for macOS 15.4)";
             pos = myPos "ldc";
+            ldcBootstrap = oldBootstrap;
         };
     }));
     buildDubPackage = pkgs.buildDubPackage.override { inherit (self) ldc; };
