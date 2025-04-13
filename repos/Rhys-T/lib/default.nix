@@ -11,4 +11,17 @@ with pkgs.lib; {
   addMetaAttrsDeep = m: p: let
     inherit (pkgs.lib) addMetaAttrs;
   in if p?overrideAttrs then p.overrideAttrs (old: addMetaAttrs m old) else addMetaAttrs m p;
+  
+  # Variation of `pkgs.lib.warnOnInstantiate` that also leaves my custom attributes alone.
+  warnOnInstantiate =
+    msg: drv:
+    let
+      drvToWrap = removeAttrs drv [
+        "meta"
+        "name"
+        "type"
+        "_Rhys-T"
+      ];
+    in
+    drv // mapAttrs (_: warn msg) drvToWrap;
 }
