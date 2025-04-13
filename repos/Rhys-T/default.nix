@@ -109,6 +109,24 @@ in {
         inherit (self.lix-game-packages) highResTitleScreen;
     };
     
+    # Temporarily work around ldc-developers/ldc#4899 by backporting ldc-developers/ldc#4877.
+    # Note that this still won't build on 15.4 itself, because the bootstrap compiler still
+    # has the bug. But if you pull it from the cache, this version should run and produce
+    # working executables. Hopefully.
+    ldc = let
+        needsMacPatch = pkgs.stdenv.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.ldc.version "1.40.2";
+    in dontUpdate (pkgs.ldc.overrideAttrs (old: pkgs.lib.optionalAttrs needsMacPatch {
+        patches = (old.patches or []) ++ [(pkgs.fetchpatch {
+            url = "https://github.com/ldc-developers/ldc/commit/60079c3b596053b1a70f9f2e0cf38a287089df56.patch";
+            hash = "sha256-Y/5+zt5ou9rzU7rLJq2OqUxMDvC7aSFS6AsPeDxNATQ=";
+        })];
+    } // {
+        meta = old.meta // {
+            description = (old.meta.description or "ldc") + " (fixed for macOS 15.4)";
+            pos = myPos "ldc";
+        };
+    }));
+    
     xscorch = callPackage ./pkgs/xscorch {};
     
     pce = callPackage ./pkgs/pce {};

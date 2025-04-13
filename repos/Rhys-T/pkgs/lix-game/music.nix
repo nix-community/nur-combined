@@ -2,6 +2,8 @@
     pname = "${common.pname}-music";
     # Upstream Last-Modified: 2023-04-15 ("Sat, 15 Apr 2023 20:58:14 GMT")
     # Snapshot taken on:      2024-09-02
+    # Last-Modified changed later, but file content was the same
+    # New Last-Modified:      2025-01-06 ("Mon, 06 Jan 2025 19:02:34 GMT")
     version = "0-unstable-2023-04-15";
     # Upstream archive isn't versioned - make sure the hash doesn't change on us
     # See also: https://github.com/SimonN/LixD/issues/457

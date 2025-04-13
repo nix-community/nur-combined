@@ -21,8 +21,8 @@
       "sha256": "01pg310ngb7zb1n9a1wgkm1gsprrkpyh9lhz9qigxvz9706p9vwq"
     },
     "optional": {
-      "version": "1.3.0",
-      "sha256": "18c061sm1sxyscmdj0zpy6sd4mcrmj4pmqb6xsxvy63k0y68j4lc"
+      "version": "1.3.1",
+      "sha256": "1ab3x96ax5jsb4zayfw3akppqp3mg42p2d847p3ahrj1zmn3hid9"
     },
     "sdlang-d": {
       "version": "0.10.6",
