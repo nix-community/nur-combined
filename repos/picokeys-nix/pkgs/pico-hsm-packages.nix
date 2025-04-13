@@ -4,18 +4,21 @@
   fetchFromGitHub,
   python3,
 
-  version ? "5.4",
-  rev ? "v5.4",
-  hash ? "sha256-ys98F+Brw3UxCxNo2i7Gfh4rkYYCN36cS3N8q1atdTM=",
+  cmake,
+  pico-sdk-full,
+  picotool,
+  gcc-arm-embedded,
+
+  pico-keys-sdk,
 }:
 
 let
-  inherit version;
-  source = fetchFromGitHub {
-    inherit rev hash;
+  version = "5.6";
+  src = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pico-hsm";
-    fetchSubmodules = true;
+    rev = "v${version}";
+    hash = "sha256-mCpNzFlj4mJNJ01dlBDIrSXI5fCPSF+YgPXnesq3XlY=";
   };
   pico-hsm =
     {
@@ -23,18 +26,11 @@ let
       usbVid ? null,
       usbPid ? null,
       vidPid ? null,
-
-      cmake,
-      pico-sdk-full,
-      picotool,
-      gcc-arm-embedded,
+      eddsaSupport ? false,
     }:
     stdenv.mkDerivation {
-      pname = "pico-hsm";
-
-      inherit version;
-
-      src = source;
+      pname = "pico-hsm${lib.optionalString eddsaSupport "-eddsa"}";
+      inherit version src;
 
       nativeBuildInputs = [
         cmake
@@ -45,6 +41,7 @@ let
 
       phases = [
         "unpackPhase"
+        "patchPhase"
         "configurePhase"
         "buildPhase"
         "installPhase"
@@ -65,17 +62,25 @@ let
         ++ lib.optional (usbPid != null) [
           "-DUSB_PID=${usbPid}"
         ]
-        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ];
+        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ]
+        ++ lib.optional eddsaSupport [
+          "-DENABLE_EDDSA=1"
+        ];
+
+      prePatch = ''
+        cp -r ${pico-keys-sdk { inherit eddsaSupport; }}/share/pico-keys-sdk .
+        chmod -R +w pico-keys-sdk
+      '';
 
       installPhase = ''
         ${lib.optionalString (picoBoard != null)
-          "mv pico_hsm.uf2 pico_hsm_${
+          "mv pico_hsm.uf2 pico_hsm${lib.optionalString eddsaSupport "_eddsa"}_${
             lib.optionalString (vidPid != null) "${vidPid}-"
           }${picoBoard}-${version}.uf2"
         }
         ${lib.optionalString (
           vidPid != null && picoBoard == null
-        ) "mv pico_hsm.uf2 pico_hsm_${vidPid}-${version}.uf2"}
+        ) "mv pico_hsm.uf2 pico_hsm${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"}
         mkdir -p $out
         cp -r *.uf2 $out
       '';
@@ -93,13 +98,12 @@ let
       pypicohsm,
     }:
     python3.pkgs.buildPythonApplication rec {
+      inherit src;
       pname = "pico-hsm-tool";
       version = "2.2";
       pyproject = true;
 
       doCheck = false;
-
-      src = source;
 
       sourceRoot = "source/tools";
 

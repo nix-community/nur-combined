@@ -2,19 +2,22 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  python3,
 
-  version ? "6.4",
-  rev ? "v6.4",
-  hash ? "sha256-k5oermMHzLt7IYnnuM3uqDyMToP5hc/lZv6tJ48mEPw=",
+  python3,
+  cmake,
+  pico-sdk-full,
+  picotool,
+  gcc-arm-embedded,
+
+  pico-keys-sdk,
 }:
 let
-  inherit version;
-  source = fetchFromGitHub {
-    inherit rev hash;
+  version = "6.6";
+  src = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pico-fido";
-    fetchSubmodules = true;
+    rev = "v${version}";
+    hash = "sha256-Em8QULTe+NlTeSYZe/pmfCPBABpLHrIyviOD8N4KX14=";
   };
   pico-fido =
     {
@@ -22,17 +25,11 @@ let
       usbVid ? null,
       usbPid ? null,
       vidPid ? null,
-
-      cmake,
-      pico-sdk-full,
-      picotool,
-      gcc-arm-embedded,
+      eddsaSupport ? false,
     }:
     stdenv.mkDerivation {
-      pname = "pico-fido";
-      inherit version;
-
-      src = source;
+      pname = "pico-fido${lib.optionalString eddsaSupport "-eddsa"}";
+      inherit version src;
 
       nativeBuildInputs = [
         cmake
@@ -43,6 +40,7 @@ let
 
       phases = [
         "unpackPhase"
+        "patchPhase"
         "configurePhase"
         "buildPhase"
         "installPhase"
@@ -63,17 +61,25 @@ let
         ++ lib.optional (usbPid != null) [
           "-DUSB_PID=${usbPid}"
         ]
-        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ];
+        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ]
+        ++ lib.optional eddsaSupport [
+          "-DENABLE_EDDSA=1"
+        ];
+
+      prePatch = ''
+        cp -r ${pico-keys-sdk { inherit eddsaSupport; }}/share/pico-keys-sdk .
+        chmod -R +w pico-keys-sdk
+      '';
 
       installPhase = ''
         ${lib.optionalString (picoBoard != null)
-          "mv pico_fido.uf2 pico_fido_${
+          "mv pico_fido.uf2 pico_fido${lib.optionalString eddsaSupport "_eddsa"}_${
             lib.optionalString (vidPid != null) "${vidPid}-"
           }${picoBoard}-${version}.uf2"
         }
         ${lib.optionalString (
           vidPid != null && picoBoard == null
-        ) "mv pico_fido.uf2 pico_fido_${vidPid}-${version}.uf2"}
+        ) "mv pico_fido.uf2 pico_fido${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"}
         mkdir -p $out
         cp -r *.uf2 $out
       '';
@@ -87,13 +93,12 @@ let
     };
 
   pico-fido-tool = python3.pkgs.buildPythonApplication rec {
+    inherit src;
     pname = "pico-fido-tool";
     version = "1.8";
     pyproject = true;
 
     doCheck = false;
-
-    src = source;
 
     sourceRoot = "source/tools";
 
@@ -127,5 +132,5 @@ let
   };
 in
 {
-  inherit pico-fido pico-fido-tool;
+  inherit pico-fido-tool pico-fido;
 }

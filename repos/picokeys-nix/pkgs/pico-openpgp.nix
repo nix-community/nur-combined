@@ -1,12 +1,10 @@
 {
+
   picoBoard ? "waveshare_rp2040_one",
   usbVid ? null,
   usbPid ? null,
   vidPid ? null,
-
-  version ? "3.4",
-  rev ? "v3.4",
-  hash ? "sha256-IW/ejyPEtUn6FayhmtNOfiiupYrVRMtHoBe33EdvPw4=",
+  eddsaSupport ? false,
 
   lib,
   stdenv,
@@ -16,17 +14,18 @@
   picotool,
   gcc-arm-embedded,
   python3,
-}:
 
+  pico-keys-sdk,
+}:
 stdenv.mkDerivation rec {
-  pname = "pico-openpgp";
-  inherit version;
+  pname = "pico-openpgp${lib.optionalString eddsaSupport "-eddsa"}";
+  version = "3.6";
 
   src = fetchFromGitHub {
-    inherit rev hash;
     owner = "polhenarejos";
     repo = "pico-openpgp";
-    fetchSubmodules = true;
+    rev = "v${version}";
+    hash = "sha256-za3hymEurUQarSvaD9DrYnhsFUhe8G2p+LONN/ag260=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +37,7 @@ stdenv.mkDerivation rec {
 
   phases = [
     "unpackPhase"
+    "patchPhase"
     "configurePhase"
     "buildPhase"
     "installPhase"
@@ -58,17 +58,25 @@ stdenv.mkDerivation rec {
     ++ lib.optional (usbPid != null) [
       "-DUSB_PID=${usbPid}"
     ]
-    ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ];
+    ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ]
+    ++ lib.optional eddsaSupport [
+      "-DENABLE_EDDSA=1"
+    ];
+
+  prePatch = ''
+    cp -r ${pico-keys-sdk { inherit eddsaSupport; }}/share/pico-keys-sdk .
+    chmod -R +w pico-keys-sdk
+  '';
 
   installPhase = ''
     ${lib.optionalString (picoBoard != null)
-      "mv pico_openpgp.uf2 pico_openpgp_${
+      "mv pico_openpgp.uf2 pico_openpgp${lib.optionalString eddsaSupport "_eddsa"}_${
         lib.optionalString (vidPid != null) "${vidPid}-"
       }${picoBoard}-${version}.uf2"
     }
-    ${lib.optionalString (
-      vidPid != null && picoBoard == null
-    ) "mv pico_openpgp.uf2 pico_openpgp_${vidPid}-${version}.uf2"}
+    ${lib.optionalString (vidPid != null && picoBoard == null)
+      "mv pico_openpgp.uf2 pico_openpgp${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"
+    }
 
     mkdir -p $out
     cp -r *.uf2 $out
