@@ -73,7 +73,7 @@ rec {
   cloudflared = callPackage ./pkgs/cloudflared { };
   caddyWithPlugins = callPackage ./pkgs/caddy { inherit sources; };
   pleroma = callPackage ./pkgs/pleroma {
-    beamPackages = beam_minimal.packages.erlang.extend (
+    beamPackages = beamPackages.extend (
       self: _super: { rebar3 = self.rebar3WithPlugins { plugins = with self; [ pc ]; }; }
     );
   };
