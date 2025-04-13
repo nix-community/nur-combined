@@ -87,5 +87,6 @@ beamPackages.mixRelease rec {
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ xyenon ];
     platforms = platforms.unix;
+    broken = versionOlder beamPackages.erlang.version "26.0.0";
   };
 }
