@@ -35,6 +35,9 @@
   "no-status": {
     "description": "Remove the status bar"
   },
+  "piper": {
+    "description": "Pipe any shell command as a previewer"
+  },
   "smart-enter": {
     "description": "[`Open`][open] files or [`enter`][enter] directories all in one key"
   },

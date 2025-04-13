@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "fg";
-  version = "0-unstable-2025-02-28";
+  version = "0-unstable-2025-04-12";
 
   src = fetchFromGitHub {
     owner = "DreamMaoMao";
     repo = "fg.yazi";
-    rev = "652d02a1413d2440d264667608102eb158ed0e68";
-    hash = "sha256-/GApLVDpGcH2drwSNluEvoQdnjgE8AsPHdci/9eg7Lg=";
+    rev = "850671d3a61ce4f8bdaae35e9026554c3c8967cc";
+    hash = "sha256-sMYuA8pbgoZUjjQFCBiltccRxhkkBM+VO46r2ze6f9Y=";
   };
 
   dontBuild = true;
