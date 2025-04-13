@@ -22,7 +22,7 @@ in
       hash = "sha256-vkLGfSDRYqvoqyVM/CWGJjpvXXPisEZxUSjLZGjNzno=";
     };
 
-    cargoHash = "sha256-eJI1pr0zjBRmMW1+XYjAYJHM/TEMbQJGPHsgcrcc3RA=";
+    cargoHash = "sha256-Oe64l16uYdU6NvTl7XrEm6dAtRFngI9yHC4fe4hpTNA=";
 
     meta.mainProgram = "realm";
   }

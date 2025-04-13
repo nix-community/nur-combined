@@ -20,6 +20,7 @@
     tools.nixos-rebuild.enable = false;
   };
   systemd.services.systemd-networkd.serviceConfig.TimeoutStopSec = "10s";
+  virtualisation.oci-containers.backend = "podman";
   programs = {
     less.lessopen = null;
     command-not-found.enable = false;

@@ -40,6 +40,7 @@ reIf {
       host all       all     ::1/128        trust
 
       host all       all     10.88.0.0/16    scram-sha-256
+      host all       all     192.168.0.0/16    scram-sha-256
     '';
 
   };

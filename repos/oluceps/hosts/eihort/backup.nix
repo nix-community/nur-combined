@@ -18,17 +18,17 @@
       "on-yidong.toml"
     ];
     backups = {
-      critic = {
-        profiles = map (n: config.vaultix.secrets.${n}.path) [
-          "on-yidong.toml"
-        ];
-        timerConfig = {
-          OnCalendar = "*-*-1/3 03:00:00";
-          RandomizedDelaySec = "4h";
-          FixedRandomDelay = true;
-          Persistent = true;
-        };
-      };
+      # critic = {
+      #   profiles = map (n: config.vaultix.secrets.${n}.path) [
+      #     "on-yidong.toml"
+      #   ];
+      #   timerConfig = {
+      #     OnCalendar = "*-*-1/3 03:00:00";
+      #     RandomizedDelaySec = "4h";
+      #     FixedRandomDelay = true;
+      #     Persistent = true;
+      #   };
+      # };
     };
   };
 }

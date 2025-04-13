@@ -121,7 +121,8 @@
             handle = [
               {
                 handler = "reverse_proxy";
-                upstreams = [ { dial = "unix//run/misskey/rw.sock"; } ];
+                upstreams = [ { dial = "127.1:3012"; } ];
+                # upstreams = [ { dial = "unix//run/misskey/rw.sock"; } ];
                 trusted_proxies = [
                   "fdcc::4"
                 ];
