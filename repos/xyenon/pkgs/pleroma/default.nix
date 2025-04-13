@@ -8,6 +8,8 @@
   vips,
   glib,
   exiftool,
+  imagemagick,
+  ffmpeg-headless,
   nixosTests,
   nix-update-script,
 }:
@@ -71,7 +73,16 @@ beamPackages.mixRelease rec {
   '';
 
   postInstall = ''
-    wrapProgram  "$out/bin/pleroma" --prefix PATH : ${lib.makeBinPath [ exiftool ]}
+    for f in $(find $out/bin/ -type f -executable); do
+      wrapProgram "$f" \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            exiftool
+            imagemagick
+            ffmpeg-headless
+          ]
+        }
+    done
   '';
 
   passthru = {
