@@ -7,6 +7,7 @@
   file,
   vips,
   glib,
+  exiftool,
   nixosTests,
   nix-update-script,
 }:
@@ -67,6 +68,10 @@ beamPackages.mixRelease rec {
 
   preBuild = ''
     export HOME=$TMPDIR
+  '';
+
+  postInstall = ''
+    wrapProgram  "$out/bin/pleroma" --prefix PATH : ${lib.makeBinPath [ exiftool ]}
   '';
 
   passthru = {
