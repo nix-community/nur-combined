@@ -17,6 +17,12 @@
 
   programs.git = {
     enable = true;
+    ignores = [
+      "*.DS_Store"
+      "*__pycache__/"
+      "node_modules"
+    ];
+
     extraConfig = {
       init = { defaultBranch = "main"; };
       user = {

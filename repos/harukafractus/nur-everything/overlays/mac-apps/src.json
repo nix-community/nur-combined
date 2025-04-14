@@ -1,48 +1,48 @@
 {
-		"standardnotes-x64": {
-			"version": "desktop@3.195.14",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.14/standard-notes-3.195.14-mac-x64.dmg",
-			"sha256": "ea00934b13fc8a3d512491d5444ba8c1b2d234cfaaec9166ba17e208327444e2"
-		},
-		"standardnotes-arm64": {
-			"version": "desktop@3.195.14",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.14/standard-notes-3.195.14-mac-arm64.dmg",
-			"sha256": "a3bca1e618673428a8663724d371929566bc39d68d9e67df09e724cc8ab052e4"
-		},
-		"whisky": {
-			"version": "v2.3.4",
-			"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.4/Whisky.zip",
-			"sha256": "0012b3dd685da12705b026d70baf6719050bc0414125b5b08aa3bc0958678ed6"
-		},
-		"librewolf-x64": {
-			"version": "133.0.3-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/133.0.3-1/librewolf-133.0.3-1-macos-x86_64-package.dmg",
-			"sha256": "2a0e9325e366146a79cf579c90ec4ea68d057648564c796f2945282ed08fb212"
-		},
-		"librewolf-arm64": {
-			"version": "133.0.3-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/133.0.3-1/librewolf-133.0.3-1-macos-arm64-package.dmg",
-			"sha256": "e0ba3376b5620ddd7cba223aeb2909e12b144e1e16bd93b992893aa5c453d487"
-		},
-		"floorp": {
-			"version": "v11.21.0",
-			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.21.0/floorp-macOS-universal.dmg",
-			"sha256": "9bf3c5b162fb0f4f07a67b8729a9ea7e4171ff8bb9b57e580986da2d7f31b819"
-		},
-		"lunarfyi": {
-			"version": "v6.8.5",
-			"url": "https://github.com/alin23/Lunar/releases/download/v6.8.5/Lunar-6.8.5.dmg",
-			"sha256": "359e7c0a95e54f3cf85c5e7c405018d015ea22f9dd6e986e3fd0646ec6463923"
-		},
-		"sol": {
-			"version": "2.1.132",
-			"url": "https://github.com/ospfranco/sol/releases/download/2.1.132/2.1.132.zip",
-			"sha256": "1090b399bf1b5f9bc6b7f30ac555600b8c855d424a64806088a9eaa007e21613"
-		},
-		"telegram-desktop": {
-			"version": "v5.9.0",
-			"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v5.9.0/tsetup.5.9.0.dmg",
-			"sha256": "714ca2567e4a6726f7e6743e606a138ed5728d692ca9d7b2e59e38609229f855"
-		}
-		
+	"standardnotes-x64": {
+		"version": "desktop@3.195.25",
+		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.25/standard-notes-3.195.25-mac-x64.dmg",
+		"sha256": "ab56a205fc59a41aa532bd4d057d389b3b534095eb0c6a0c4cc13928290d427b"
+	},
+	"standardnotes-arm64": {
+		"version": "desktop@3.195.25",
+		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.25/standard-notes-3.195.25-mac-arm64.dmg",
+		"sha256": "7cdb506fab4f40aed491bb287f25c3984ca1570ee86723018752364bc86334a7"
+	},
+	"whisky": {
+		"version": "v2.3.5",
+		"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.5/Whisky.zip",
+		"sha256": "62fce6aa7034cc84e4809a35cb46af37e7932368102450dd2b3d4a18cbc7b94e"
+	},
+	"librewolf-x64": {
+		"version": "137.0.1-1",
+		"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/137.0.1-1/librewolf-137.0.1-1-macos-x86_64-package.dmg",
+		"sha256": "d449fb394156ea07e81244667f8f943b0818e9ca9a075f78cb8b20d6e729129d"
+	},
+	"librewolf-arm64": {
+		"version": "137.0.1-1",
+		"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/137.0.1-1/librewolf-137.0.1-1-macos-arm64-package.dmg",
+		"sha256": "da02366abf24bd5d2886bf7b0c9523ae83d1dfd62b6be503b34c0a1ce380d1ac"
+	},
+	"floorp": {
+		"version": "v11.25.0",
+		"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.25.0/floorp-macOS-universal.dmg",
+		"sha256": "76225e9b2e13e72f7ad82b420eb6a7d0e0553b2341d32a68c89e4fadf7f273ab"
+	},
+	"lunarfyi": {
+		"version": "v6.8.7",
+		"url": "https://github.com/alin23/Lunar/releases/download/v6.8.7/Lunar-6.8.7.dmg",
+		"sha256": "fc9d0d5c8139edbd04c17f6d7aeb3b347dd35162e9dea87ee1d864f4b2705f26"
+	},
+	"sol": {
+		"version": "2.1.173",
+		"url": "https://github.com/ospfranco/sol/releases/download/2.1.173/2.1.173.zip",
+		"sha256": "d96174e742ce11e43b76cd160834455c1f8da047583ca4d689cac29b7e9cecb4"
+	},
+	"telegram-desktop": {
+		"version": "v5.13.1",
+		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v5.13.1/tsetup.5.13.1.dmg",
+		"sha256": "b026d5382b3ea55d5d8d03617a7107cc61b4e1e66580263a70cdab2b6863a370"
 	}
+	
+}

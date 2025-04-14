@@ -12,33 +12,26 @@
   outputs = { self, nixpkgs, home-manager, ... }@attrs:
     let
       username = "haruka";
-      mac-hostname = "alpha-mac";
+      darwin-workstation = "apple-seeds";
+      nixos-workstation = "kool-pc";
     in {
-      homeConfigurations.${username} =
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."aarch64-linux";
-          modules = [
-            (import ./configs/home.nix { inherit username; })
-            {
-              home.sessionVariables = { ELECTRON_OZONE_PLATFORM_HINT = "auto"; };
-              targets.genericLinux.enable = true;
-              home.packages = with nixpkgs.legacyPackages."aarch64-linux"; [
-                librewolf
-                vscodium
-                qbittorrent
-                telegram-desktop
-                imagemagick
-                nixfmt-rfc-style
-              ];
-            }
-          ];
-        };
-
-      darwinConfigurations.${mac-hostname} = attrs.nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${darwin-workstation} = attrs.nix-darwin.lib.darwinSystem {
         modules = [
           home-manager.darwinModules.home-manager
+          { nixpkgs.overlays = [ (import ./nur-everything/overlays/mac-apps) ]; }
           (import ./configs/darwin.nix {
-            inherit mac-hostname;
+            inherit darwin-workstation;
+            inherit username;
+          }
+          )
+        ];
+      };
+
+      nixosConfigurations.${nixos-workstation} = nixpkgs.lib.nixosSystem {
+        modules = [
+          home-manager.nixosModules.home-manager
+          (import ./configs/workstation.nix {
+            inherit nixos-workstation;
             inherit username;
           })
         ];

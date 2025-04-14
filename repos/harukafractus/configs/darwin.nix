@@ -1,8 +1,10 @@
-{ mac-hostname, username }:
+{ darwin-workstation, username }:
 { pkgs, home-manager, ... }: {
-  networking.hostName = mac-hostname;
-
-  nixpkgs.overlays = [ (import ../nur-everything/overlays/mac-apps) ];
+  networking = {
+    hostName = darwin-workstation;
+    localHostName = darwin-workstation;
+    computerName = darwin-workstation;
+  };  
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -22,6 +24,7 @@
     libreoffice-bin
     imagemagick
     nixfmt-rfc-style
+    sqlitebrowser
   ];
 
   # Enable trackpad tap to click
@@ -48,10 +51,13 @@
     "com.apple.finder" = {
       _FXSortFoldersFirst = true;
       FXPreferredViewStyle = "Nlsv";
+      AppleShowAllFiles = true;
+      QuitMenuItem = true;
       FXEnableExtensionChangeWarning = false; # Changing file extension warning
     };
     # Show battery percentage
     "com.apple.controlcenter.plist" = { BatteryShowPercentage = true; };
+    "com.apple.dock" = { show-recents = false; };
   };
 
   # Define user 
@@ -77,6 +83,8 @@
   system.stateVersion = 5;
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
+  nix = {
+    enable = true;
+    package = pkgs.nix;
+  };
 }
