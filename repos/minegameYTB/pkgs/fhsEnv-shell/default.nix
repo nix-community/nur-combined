@@ -81,6 +81,7 @@ let
       gawk
       gettext
       texinfo
+      gnum4
 
       ### Additional package
       autoconf
