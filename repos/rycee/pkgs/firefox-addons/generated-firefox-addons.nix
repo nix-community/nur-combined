@@ -926,10 +926,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.12";
+      version = "7.6.13";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464065/betterttv-7.6.12.xpi";
-      sha256 = "e668071ac7c97bf5e9c82f44c6a52f0c9693d3f312e7125afee3e6cef2e64d7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4469511/betterttv-7.6.13.xpi";
+      sha256 = "a18bc1e328eccc24ca034f3d2b9e717aaa7f25383d2e45484f8d54b0d368c99a";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1453,6 +1453,31 @@
           "contextMenus"
           "notifications"
           "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "catppuccin-web-file-icons" = buildFirefoxXpiAddon {
+      pname = "catppuccin-web-file-icons";
+      version = "1.0.1";
+      addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4470306/catppuccin_web_file_icons-1.0.1.xpi";
+      sha256 = "7a4b84739675110e9ce2e9cda597521e255a9fc205cfbfdae808549dd04c256c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/catppuccin/web-file-explorer-icons";
+        description = "Soothing pastel icons for file explorers on the web!";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "contextMenus"
+          "activeTab"
+          "*://bitbucket.org/*"
+          "*://codeberg.org/*"
+          "*://gitea.com/*"
+          "*://github.com/*"
+          "*://gitlab.com/*"
+          "*://tangled.sh/*"
         ];
         platforms = platforms.all;
       };
@@ -2242,10 +2267,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "138.0.20250409.92011";
+      version = "138.0.20250411.92217";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470758/dansk_da_language_pack-138.0.20250409.92011.xpi";
-      sha256 = "c4b3c691138b9740794f2e47d70f1c1060827fda8b27b160a6f7e8d4163816ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472197/dansk_da_language_pack-138.0.20250411.92217.xpi";
+      sha256 = "1e811694c9f9924e2ba6031ced6abfa3e1ed9f3b7b4f648fe291f45d546e2876";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2439,10 +2464,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "138.0.20250409.92011";
+      version = "138.0.20250411.92217";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470751/deutsch_de_language_pack-138.0.20250409.92011.xpi";
-      sha256 = "410447ccc3888aa78518115b508066d1a1bb0700e74ff244f777536edfcaa1a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472199/deutsch_de_language_pack-138.0.20250411.92217.xpi";
+      sha256 = "a30fa24cf28c0fb172afca4edd0b01ddb3d7fad85a6cab2cee756d8b35f9ee51";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3523,10 +3548,10 @@
     };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.0";
+      version = "9.1";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4469750/foxyproxy_standard-9.0.xpi";
-      sha256 = "53b75e90fee623dcdc5e26c396d2a68f2caeeb91d7030db42ec1251ffb5afdac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4470442/foxyproxy_standard-9.1.xpi";
+      sha256 = "247daac06a5de06af6d3724fe0a3bd4273649cb348058817ba13aedf690ea373";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
@@ -3695,10 +3720,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "138.0.20250409.92011";
+      version = "138.0.20250411.92217";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470772/francais_language_pack-138.0.20250409.92011.xpi";
-      sha256 = "3b7ed4c1aa3ab5324fb84494519357887b1084b45d04950a608bdb9dd8aeeb4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472211/francais_language_pack-138.0.20250411.92217.xpi";
+      sha256 = "06f0c5ca31f554e60a8ab91612024b1cac1dfb7fdc6981076f6539d581ff2190";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3732,10 +3757,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "138.0.20250409.92011";
+      version = "138.0.20250411.92217";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470792/gaidhlig_language_pack-138.0.20250409.92011.xpi";
-      sha256 = "428ecbca3fe357cdd85db70292374dafb145629c65e77d6d2c5dfacc6f503c88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472286/gaidhlig_language_pack-138.0.20250411.92217.xpi";
+      sha256 = "5af6fc4f2a2486a8984e56094a7af9c740a5724b0332e3fd9589559e9b8a6aea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10510,10 +10535,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "138.0.20250409.92011";
+      version = "138.0.20250411.92217";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470754/scots_language_pack-138.0.20250409.92011.xpi";
-      sha256 = "984db0b1a34a9824ea8d5b0e4feeadcd23c46acdedb726c0c3895a3144b84e16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472196/scots_language_pack-138.0.20250411.92217.xpi";
+      sha256 = "53a00482ebd76d1c2e3d23119470c36ca7b0937d09e16a7bec0dcd2ce9196458";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11950,10 +11975,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.16.0";
+      version = "3.17.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419476/toolkit_for_ynab-3.16.0.xpi";
-      sha256 = "e9d1225a9bb22a30df4e401d9f67b48cfb7b98e82d553aa4053613d7aec9b006";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473492/toolkit_for_ynab-3.17.0.xpi";
+      sha256 = "c6b6dcceb4ffd8410e6ae3cbc6f73345c39c9ca64f2e6df40d0851a70f65333a";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
