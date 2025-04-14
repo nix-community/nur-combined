@@ -2,12 +2,12 @@
     needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
 in stdenv.mkDerivation rec {
     pname = "phosg";
-    version = "0-unstable-2025-03-31";
+    version = "0-unstable-2025-04-13";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = pname;
-        rev = "3009f5f50d5b8743bb99d93292aee63f3f3d3f4e";
-        hash = "sha256-8vJSvO+fsP4gyL0qMJ2cwgzcKIV09IVIeA4uZM9x+Rs=";
+        rev = "50edb33ebbfc15cf9d3a8e7d34af6e4c933f7ece";
+        hash = "sha256-hhs9+9KQpXgpK3via4oj5t2IZDCUK1Xbgp/d3zikTco=";
     };
     postPatch = ''
         sed -Ei '/set\(CMAKE_OSX_ARCHITECTURES/ s@^@#@' CMakeLists.txt
