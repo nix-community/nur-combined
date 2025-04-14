@@ -43,7 +43,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://cdn.binary.ninja/installers/binaryninja_free_linux.zip";
-    hash = "sha256-OCMOJKC0X0mGV3snfeumzHCXrnjobQb78dWQFv73uU4=";
+    hash = "sha256-NOVuLmko8iYcJ/0fr0DNw7xPEC8EhT/SzcFWtNmjlYI=";
   };
 
   #buildPhase = ":";
