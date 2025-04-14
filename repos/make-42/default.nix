@@ -21,6 +21,8 @@
   ntsc-rs = pkgs.callPackage ./pkgs/ntsc-rs {};
   assetripper = pkgs.callPackage ./pkgs/assetripper {};
 
+  akai-ito = pkgs.callPackage ./pkgs/akai-ito {};
+
   meshroom = pkgs.callPackage ./pkgs/meshroom {};
 
   denise = pkgs.callPackage ./pkgs/denise {};
