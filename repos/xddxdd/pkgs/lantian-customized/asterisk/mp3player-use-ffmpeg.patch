@@ -43,7 +43,7 @@ index ef342b30cc..4a63c07318 100644
 -		/* As a last-ditch effort, try to use PATH */
 -	    execlp("mpg123", "mpg123", "-e", "s16", "-q", "-s", "-f", "8192", "--mono", "-r", sampling_rate_str, filename, (char *)NULL);
 -	}
-+	execlp("ffmpeg", "ffmpeg", "-i", filename, "-f", "s16le", "-acodec", "pcm_s16le", "-ac", "1", "-ar", sampling_rate_str, "-af", "silenceremove=start_periods=1:start_duration=1:start_threshold=-40dB", "-", (char*)NULL);
++	execlp("ffmpeg", "ffmpeg", "-i", filename, "-f", "s16le", "-acodec", "pcm_s16le", "-ac", "1", "-ar", sampling_rate_str, "-", (char*)NULL);
 +
  	/* Can't use ast_log since FD's are closed */
  	fprintf(stderr, "Execute of mpg123 failed\n");
