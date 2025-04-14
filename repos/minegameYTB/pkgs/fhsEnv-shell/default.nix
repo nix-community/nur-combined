@@ -6,7 +6,7 @@
  zlib,
  elfutils,
  pkgs,
- gcc,
+ clang,
  ncurses,
  bashInteractive,
  writeScript,
@@ -168,7 +168,8 @@ let
   };
 in stdenvNoCC.mkDerivation {
   pname = "fhsEnv-shell";
-  version = gcc.version;
+  ### Use clang version for fhsEnv-shell version
+  version = clang.version;
 
   ### stdenv options
   dontUnpack = true;
