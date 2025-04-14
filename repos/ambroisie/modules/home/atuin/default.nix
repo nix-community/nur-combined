@@ -21,6 +21,8 @@ in
       ];
 
       settings = {
+        # Reasonable date format
+        dialect = "uk";
         # The package is managed by Nix
         update_check = false;
         # I don't care for the fancy display
