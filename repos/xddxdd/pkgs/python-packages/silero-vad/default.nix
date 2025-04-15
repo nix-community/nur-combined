@@ -1,4 +1,5 @@
 {
+  stdenv,
   lib,
   sources,
   buildPythonPackage,
@@ -21,8 +22,8 @@ buildPythonPackage rec {
     torchaudio
   ];
 
-  # onnxruntime may fail to start in sandbox, disable check if onnxruntime does too
-  pythonImportsCheck = lib.optionals onnxruntime.doCheck [ "silero_vad" ];
+  # onnxruntime may fail to start on ARM64
+  pythonImportsCheck = lib.optionals stdenv.isx86_64 [ "piper" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
