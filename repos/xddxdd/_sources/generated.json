@@ -1795,12 +1795,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5135",
-            "sha256": "sha256-luE9VlqH8mfB5lk6K9fNo5+mf8gA6VXF1qCSdlCUmco=",
+            "rev": "b5138",
+            "sha256": "sha256-0DXjOpfnmGI5RKFGhBw3L0E8jJr+rrcA8FfJXWgVIpQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5135"
+        "version": "b5138"
     },
     "loralib": {
         "cargoLocks": null,
