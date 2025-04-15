@@ -119,10 +119,10 @@
     };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.33";
+      version = "3.8.34";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4462298/adblocker_ultimate-3.8.33.xpi";
-      sha256 = "da46b58001685351659906c1f62adcd0e62f10305b49fa2f9e20919ec81c3b51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473812/adblocker_ultimate-3.8.34.xpi";
+      sha256 = "bc9ca384bf3f235015119c03654b6baf67a1b8853a9a65e26bacdd7fdb05ea9c";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -178,10 +178,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.24.6";
+      version = "3.25.2";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4440960/adnauseam-3.24.6.xpi";
-      sha256 = "3d2a44073d80ebc478509c432a20d84d93cc73cc9f6500e038a6ee98799aeaa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4469838/adnauseam-3.25.2.xpi";
+      sha256 = "d50541bfa838404e328b353827b0d4f4178d794393da31e4f9c4ca28cc0dd053";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -1830,10 +1830,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.5.4";
+      version = "0.5.5";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4437405/codecov-0.5.4.xpi";
-      sha256 = "534f5c6446ba85a01477e9b8c66529790bfc0e9ecd4e09a27171bfa7c0ca04bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473851/codecov-0.5.5.xpi";
+      sha256 = "5bea76d24e2039de6309881fd6a5c7788f819e1d8bff4be997d1311b9055dc73";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -2267,10 +2267,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "138.0.20250411.92217";
+      version = "138.0.20250414.92054";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472197/dansk_da_language_pack-138.0.20250411.92217.xpi";
-      sha256 = "1e811694c9f9924e2ba6031ced6abfa3e1ed9f3b7b4f648fe291f45d546e2876";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474039/dansk_da_language_pack-138.0.20250414.92054.xpi";
+      sha256 = "850ed45f568117f99408b0e9c1d540a97014902a72ec5dbf82e0ef0d08dcf0a8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2464,10 +2464,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "138.0.20250411.92217";
+      version = "138.0.20250414.92054";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472199/deutsch_de_language_pack-138.0.20250411.92217.xpi";
-      sha256 = "a30fa24cf28c0fb172afca4edd0b01ddb3d7fad85a6cab2cee756d8b35f9ee51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474038/deutsch_de_language_pack-138.0.20250414.92054.xpi";
+      sha256 = "a35d9de823deba298f5c178eb52409e26bb74c21596e561ccf4e54dd12e7f6c0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3720,10 +3720,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "138.0.20250411.92217";
+      version = "138.0.20250414.92054";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472211/francais_language_pack-138.0.20250411.92217.xpi";
-      sha256 = "06f0c5ca31f554e60a8ab91612024b1cac1dfb7fdc6981076f6539d581ff2190";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474017/francais_language_pack-138.0.20250414.92054.xpi";
+      sha256 = "f852e6c0103dedbbc1ab09a3be413258e3e5f077c1347ebae1b9a8233e945a18";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3757,10 +3757,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "138.0.20250411.92217";
+      version = "138.0.20250414.92054";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472286/gaidhlig_language_pack-138.0.20250411.92217.xpi";
-      sha256 = "5af6fc4f2a2486a8984e56094a7af9c740a5724b0332e3fd9589559e9b8a6aea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474082/gaidhlig_language_pack-138.0.20250414.92054.xpi";
+      sha256 = "43d758be1b3d71a1ec39acc2db890ef88a73c5e8d033c4a7cb3065a4c9d35d6c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6009,10 +6009,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.22";
+      version = "2.23";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4434865/ipvfoo-2.22.xpi";
-      sha256 = "718814f732c43a794f792a48aefa19648caf2a1b2797e0f62883fa75babe76d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474333/ipvfoo-2.23.xpi";
+      sha256 = "bbe18e844e8bd3c12a15ad487a6db64b2f74abd718d5b0d6400fe2a2abd0a912";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -10535,10 +10535,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "138.0.20250411.92217";
+      version = "138.0.20250414.92054";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472196/scots_language_pack-138.0.20250411.92217.xpi";
-      sha256 = "53a00482ebd76d1c2e3d23119470c36ca7b0937d09e16a7bec0dcd2ce9196458";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474037/scots_language_pack-138.0.20250414.92054.xpi";
+      sha256 = "07be8539e8645337ccdd68d83748490a44a89e8feacf26b19768b31f8eec7059";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10595,10 +10595,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.1.2";
+      version = "8.2.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4456583/search_by_image-8.1.2.xpi";
-      sha256 = "eb9a77fbe69eb9483dff8e43a377d75733e11c60c6279e9b4012e355054e2daa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473439/search_by_image-8.2.0.xpi";
+      sha256 = "3119e33fb154659e4386e8be77bc66cfa76e54abb4a3ea58c6a975eaf4fabda0";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -10884,10 +10884,10 @@
     };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "5.3.1";
+      version = "5.3.2";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445799/simple_tab_groups-5.3.1.xpi";
-      sha256 = "119713d6f7ddce4fee3d309b67c3644b595300d7523a72efe0ffd585c6d17dc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4469818/simple_tab_groups-5.3.2.xpi";
+      sha256 = "efebf6a9f73a1747044624ddbad7a78fd90ffccdb34a426cf6bb555eda307c49";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -13188,21 +13188,21 @@
     };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
-      version = "1.99.997";
+      version = "2.12.3";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4210117/vimium_c-1.99.997.xpi";
-      sha256 = "20e9217ba3d9a7bd0ec3faa88ed7f872acc3f039d1bdeb997398341631617184";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474326/vimium_c-2.12.3.xpi";
+      sha256 = "e1a4f8cc13791dfb985c2a78d33df1e8a40f23bd6eca9217165cb748009df540";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
         description = "A keyboard shortcut tool for keyboard-based page navigation and browser tab operations with an advanced omnibar and global shortcuts";
         license = licenses.mit;
         mozPermissions = [
-          "bookmarks"
           "clipboardRead"
           "clipboardWrite"
           "history"
           "notifications"
+          "search"
           "sessions"
           "storage"
           "tabs"
@@ -14066,10 +14066,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.2.25";
+      version = "2.2.26";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4462544/youtube_no_translation-2.2.25.xpi";
-      sha256 = "cfe7f3e0b26ef02bbc485ee2dfc67ca74a0d4ba2112075164ee17314780a093a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474400/youtube_no_translation-2.2.26.xpi";
+      sha256 = "d2bbe538526c080f45510c0ef72a49b45b39eb9b17fe446edc2627de72c0a641";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
