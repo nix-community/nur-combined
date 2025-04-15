@@ -31,7 +31,7 @@ let
     done
   '';
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   inherit (sources.pocl) pname version src;
 
   cmakeFlags = [
@@ -68,6 +68,9 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [
       jansol
       xddxdd
+    ];
+    knownVulnerabilities = [
+      "${pname} is available in nixpkgs"
     ];
     platforms = [ "x86_64-linux" ];
   };

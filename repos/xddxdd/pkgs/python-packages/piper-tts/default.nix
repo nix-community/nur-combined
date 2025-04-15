@@ -24,5 +24,6 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python component for piper-tts";
     inherit (piper-tts-native.meta) homepage license;
+    broken = stdenv.isAarch64;
   };
 }

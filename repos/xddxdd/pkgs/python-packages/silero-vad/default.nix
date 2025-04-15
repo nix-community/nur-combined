@@ -23,7 +23,7 @@ buildPythonPackage rec {
   ];
 
   # onnxruntime may fail to start on ARM64
-  pythonImportsCheck = lib.optionals stdenv.isx86_64 [ "piper" ];
+  pythonImportsCheck = lib.optionals stdenv.isx86_64 [ "silero_vad" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
