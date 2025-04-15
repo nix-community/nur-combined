@@ -32,5 +32,6 @@
         in
         pkgs.nixfmt-rfc-style
       );
-    } // import ./modules;
+    }
+    // import ./modules;
 }
