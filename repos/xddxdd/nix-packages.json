@@ -449,11 +449,6 @@
     "pname": "python3.12-click-loglevel",
     "version": "0.6.0"
   },
-  "legacyPackages.x86_64-linux.cloudpan189-go": {
-    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
-    "pname": "cloudpan189-go",
-    "version": "0.1.3"
-  },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
     "pname": "cockpy",
@@ -478,11 +473,6 @@
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
     "version": "1.50.2"
-  },
-  "legacyPackages.x86_64-linux.deprecated.cloudpan189-go": {
-    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
-    "pname": "cloudpan189-go",
-    "version": "0.1.3"
   },
   "legacyPackages.x86_64-linux.deprecated.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -4853,11 +4843,6 @@
     "description": "Log level parameter type for Click",
     "pname": "python3.12-click-loglevel",
     "version": "0.6.0"
-  },
-  "packages.x86_64-linux.cloudpan189-go": {
-    "description": "(DEPRECATED: cloudpan189-go is abandoned upstream and no longer works) CLI for China Telecom 189 Cloud Drive service, implemented in Go",
-    "pname": "cloudpan189-go",
-    "version": "0.1.3"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",

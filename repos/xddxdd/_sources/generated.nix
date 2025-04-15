@@ -244,16 +244,6 @@
       hash = "sha256-ACAKKrJHaxjlYjg2v+0Z9DYp2l7CW21O4kTk22T995Q=";
     };
   };
-  cloudpan189-go = {
-    pname = "cloudpan189-go";
-    version = "v0.1.3";
-    src = fetchFromGitHub {
-      owner = "tickstep";
-      repo = "cloudpan189-go";
-      tag = "v0.1.3";
-      hash = "sha256-CJCTfzcLw5e41RZXhgbJhZVOP4FDDYM74Oo9my/liZk=";
-    };
-  };
   cockpy = {
     pname = "cockpy";
     version = "4813219045224b39463cb619a852c298603b2a30";

@@ -103,10 +103,6 @@ fetch.github = "martyr-deepin/cef-binary"
 src.github = "jwodder/click-loglevel"
 fetch.github = "jwodder/click-loglevel"
 
-[cloudpan189-go]
-src.github = "tickstep/cloudpan189-go"
-fetch.github = "tickstep/cloudpan189-go"
-
 [cockpy]
 src.git = "https://github.com/Hiro420/CockPY.git"
 fetch.github = "Hiro420/CockPY"
