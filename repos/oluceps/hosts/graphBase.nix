@@ -257,6 +257,7 @@
         cascadia-code
         intel-one-mono
         monaspace
+        stix-two
       ]
       ++ (with pkgs; [
         glowsans-j
