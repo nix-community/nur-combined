@@ -60,8 +60,8 @@ rec {
   xenonrecomp = callPackage ./pkgs/xenonrecomp { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
-    version = "1.39.11";
-    hash = "sha256-pEYH2AmLFTWcqZzgLrWBR9SOWHR0ruC0PNBROVV3nIo=";
+    version = "1.39.12";
+    hash = "sha256-DjurJTvLLjVOOJt7ovGqcyxgxL6fEAdAiiIdSd9YkIM=";
   };
   mediawiki_1_40 = callPackage ./pkgs/mediawiki {
     version = "1.40.4";
@@ -74,12 +74,12 @@ rec {
     knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-12-21." ];
   };
   mediawiki_1_42 = callPackage ./pkgs/mediawiki {
-    version = "1.42.5";
-    hash = "sha256-d1TVy79g+6gPSqiwU/GKxKe9dqJo5Q8WalAIUn1+l5I=";
+    version = "1.42.6";
+    hash = "sha256-NqoZRCoGhfqqXqOKeoVZ+MjpkovPH3XQioY9kGYRW2A=";
   };
   mediawiki_1_43 = callPackage ./pkgs/mediawiki {
-    version = "1.43.0";
-    hash = "sha256-VuCn/i/3jlC5yHs9WJ8tjfW8qwAY5FSypKI5yFhr2O4=";
+    version = "1.43.1";
+    hash = "sha256-PIWqnEzWw1PGeASjpY57eWFdQUHD1msQHl8660BlPWw=";
   };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
