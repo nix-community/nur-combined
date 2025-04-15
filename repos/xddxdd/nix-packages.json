@@ -17,7 +17,7 @@
   "legacyPackages.x86_64-linux.adspower": {
     "description": "Antidetect Browser for Multi-Accounts",
     "pname": "adspower",
-    "version": "6.12.6"
+    "version": "7.3.26"
   },
   "legacyPackages.x86_64-linux.amule-dlp": {
     "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
@@ -407,7 +407,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-2"
+    "version": "1.16.3-3"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -427,7 +427,7 @@
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-01-20"
+    "version": "0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -437,7 +437,7 @@
   "legacyPackages.x86_64-linux.calibre-cops": {
     "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
     "pname": "calibre-cops",
-    "version": "3.5.7"
+    "version": "3.6.1"
   },
   "legacyPackages.x86_64-linux.chmlib-utils": {
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
@@ -517,7 +517,7 @@
   "legacyPackages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
-    "version": "7.6.25.4122001"
+    "version": "7.6.45.5032501"
   },
   "legacyPackages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -577,7 +577,7 @@
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2025-03-12"
+    "version": "1.5.3-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -607,7 +607,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-31"
+    "version": "0-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.helium-gateway-rs": {
     "description": "Helium Gateway",
     "pname": "helium-gateway-rs",
-    "version": "1.3.0-unstable-2024-08-01"
+    "version": "1.3.0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.hesuvi-hrir": {
     "description": "Headphone Surround Virtualizations for Equalizer APO",
@@ -742,7 +742,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.17"
+    "version": "0.18"
   },
   "legacyPackages.x86_64-linux.kernel-modules.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
@@ -802,7 +802,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5016"
+    "version": "5135"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -817,7 +817,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-03-19"
+    "version": "1.27.1.2-unstable-2025-04-13"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
@@ -872,22 +872,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-lts-generic",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-lts-generic-lto",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1092,22 +1092,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-v6_12-generic",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-v6_12-generic-lto",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.21-xanmod1"
+    "version": "6.12.23-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1232,7 +1232,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-24"
+    "version": "0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1322,7 +1322,7 @@
   "legacyPackages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.17"
+    "version": "0.18"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -2087,7 +2087,7 @@
   "legacyPackages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-04-01"
   },
   "legacyPackages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -3557,7 +3557,7 @@
   "legacyPackages.x86_64-linux.palworld-worldoptions": {
     "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
     "pname": "palworld-worldoptions",
-    "version": "1.10.0"
+    "version": "1.11.0"
   },
   "legacyPackages.x86_64-linux.payload-dumper-go": {
     "description": "(DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go",
@@ -3567,7 +3567,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.5"
+    "version": "7.4.12"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -3582,7 +3582,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.26"
+    "version": "1.1.3.30"
   },
   "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -3622,7 +3622,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13"
+    "version": "1.11.13-unstable-2025-04-07"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -3672,7 +3672,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-31"
+    "version": "0-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -3732,7 +3732,7 @@
   "legacyPackages.x86_64-linux.python3Packages.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.7"
+    "version": "1.7.9"
   },
   "legacyPackages.x86_64-linux.python3Packages.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
@@ -3757,7 +3757,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.4"
+    "version": "1.22.15"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -3782,7 +3782,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1+b2"
+    "version": "7.2+dfsg-7+deb12u12"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -3847,17 +3847,17 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-06"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250309"
+    "version": "20250409"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
-    "version": "20250310"
+    "version": "20250415"
   },
   "legacyPackages.x86_64-linux.rootutils": {
     "description": "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables",
@@ -3872,7 +3872,7 @@
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.7"
+    "version": "1.7.9"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -4007,7 +4007,7 @@
   "legacyPackages.x86_64-linux.uncategorized.adspower": {
     "description": "Antidetect Browser for Multi-Accounts",
     "pname": "adspower",
-    "version": "6.12.6"
+    "version": "7.3.26"
   },
   "legacyPackages.x86_64-linux.uncategorized.amule-dlp": {
     "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
@@ -4037,7 +4037,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-2"
+    "version": "1.16.3-3"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -4057,7 +4057,7 @@
   "legacyPackages.x86_64-linux.uncategorized.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-01-20"
+    "version": "0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.uncategorized.browser360": {
     "description": "360 Browser",
@@ -4067,7 +4067,7 @@
   "legacyPackages.x86_64-linux.uncategorized.calibre-cops": {
     "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
     "pname": "calibre-cops",
-    "version": "3.5.7"
+    "version": "3.6.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.chmlib-utils": {
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
@@ -4087,7 +4087,7 @@
   "legacyPackages.x86_64-linux.uncategorized.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
-    "version": "7.6.25.4122001"
+    "version": "7.6.45.5032501"
   },
   "legacyPackages.x86_64-linux.uncategorized.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -4127,7 +4127,7 @@
   "legacyPackages.x86_64-linux.uncategorized.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2025-03-12"
+    "version": "1.5.3-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -4182,7 +4182,7 @@
   "legacyPackages.x86_64-linux.uncategorized.helium-gateway-rs": {
     "description": "Helium Gateway",
     "pname": "helium-gateway-rs",
-    "version": "1.3.0-unstable-2024-08-01"
+    "version": "1.3.0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.uncategorized.hesuvi-hrir": {
     "description": "Headphone Surround Virtualizations for Equalizer APO",
@@ -4247,7 +4247,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-24"
+    "version": "0-unstable-2025-04-11"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4337,7 +4337,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-04-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.openedai-speech": {
     "description": "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend",
@@ -4372,12 +4372,12 @@
   "legacyPackages.x86_64-linux.uncategorized.palworld-worldoptions": {
     "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
     "pname": "palworld-worldoptions",
-    "version": "1.10.0"
+    "version": "1.11.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.5"
+    "version": "7.4.12"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4392,7 +4392,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.26"
+    "version": "1.1.3.30"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -4417,12 +4417,12 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13"
+    "version": "1.11.13-unstable-2025-04-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1+b2"
+    "version": "7.2+dfsg-7+deb12u12"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "QQ for Linux",
@@ -4477,17 +4477,17 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250309"
+    "version": "20250409"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
-    "version": "20250310"
+    "version": "20250415"
   },
   "legacyPackages.x86_64-linux.uncategorized.route-chain": {
     "description": "Small app to generate a long path in traceroute",
@@ -4562,7 +4562,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4637,7 +4637,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-14"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4677,7 +4677,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.4"
+    "version": "1.22.15"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -4757,7 +4757,7 @@
   "packages.x86_64-linux.adspower": {
     "description": "Antidetect Browser for Multi-Accounts",
     "pname": "adspower",
-    "version": "6.12.6"
+    "version": "7.3.26"
   },
   "packages.x86_64-linux.amule-dlp": {
     "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
@@ -4802,7 +4802,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-2"
+    "version": "1.16.3-3"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -4822,7 +4822,7 @@
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-01-20"
+    "version": "0-unstable-2025-04-11"
   },
   "packages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -4832,7 +4832,7 @@
   "packages.x86_64-linux.calibre-cops": {
     "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
     "pname": "calibre-cops",
-    "version": "3.5.7"
+    "version": "3.6.1"
   },
   "packages.x86_64-linux.chmlib-utils": {
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
@@ -4877,7 +4877,7 @@
   "packages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
-    "version": "7.6.25.4122001"
+    "version": "7.6.45.5032501"
   },
   "packages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -4937,7 +4937,7 @@
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2025-03-12"
+    "version": "1.5.3-unstable-2025-04-14"
   },
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -4967,7 +4967,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-03-31"
+    "version": "0-unstable-2025-04-14"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5007,7 +5007,7 @@
   "packages.x86_64-linux.helium-gateway-rs": {
     "description": "Helium Gateway",
     "pname": "helium-gateway-rs",
-    "version": "1.3.0-unstable-2024-08-01"
+    "version": "1.3.0-unstable-2025-04-11"
   },
   "packages.x86_64-linux.hesuvi-hrir": {
     "description": "Headphone Surround Virtualizations for Equalizer APO",
@@ -5137,7 +5137,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-03-24"
+    "version": "0-unstable-2025-04-11"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5227,7 +5227,7 @@
   "packages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.17"
+    "version": "0.18"
   },
   "packages.x86_64-linux.nvidia-grid": {
     "description": "",
@@ -5257,7 +5257,7 @@
   "packages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-03-20"
+    "version": "0-unstable-2025-04-01"
   },
   "packages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -5317,7 +5317,7 @@
   "packages.x86_64-linux.palworld-worldoptions": {
     "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
     "pname": "palworld-worldoptions",
-    "version": "1.10.0"
+    "version": "1.11.0"
   },
   "packages.x86_64-linux.payload-dumper-go": {
     "description": "(DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go",
@@ -5327,7 +5327,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "7.4.5"
+    "version": "7.4.12"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5342,7 +5342,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.26"
+    "version": "1.1.3.30"
   },
   "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -5377,7 +5377,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13"
+    "version": "1.11.13-unstable-2025-04-07"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -5397,7 +5397,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.2.2+ds-1+b2"
+    "version": "7.2+dfsg-7+deb12u12"
   },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -5462,17 +5462,17 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-06"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20250309"
+    "version": "20250409"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
-    "version": "20250310"
+    "version": "20250415"
   },
   "packages.x86_64-linux.rootutils": {
     "description": "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables",
@@ -5487,7 +5487,7 @@
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.7"
+    "version": "1.7.9"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -5587,7 +5587,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-03-30"
+    "version": "0-unstable-2025-04-14"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5627,7 +5627,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.4"
+    "version": "1.22.15"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",

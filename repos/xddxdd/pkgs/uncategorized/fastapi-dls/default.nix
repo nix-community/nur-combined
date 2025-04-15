@@ -9,6 +9,7 @@
 let
   python = python3.withPackages (
     p: with p; [
+      cryptography
       dateutils
       (lib.hiPrio fastapi)
       httpx

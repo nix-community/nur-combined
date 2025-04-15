@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage {
 
   PROTOC = "${protobuf}/bin/protoc";
 
-  cargoHash = "sha256-bqAzX0djA3SpDnmyLiwanFAlwZRi4nmYB7akBGMkZTM=";
+  cargoHash = "sha256-CvjbgGfphDk61BnKkKWOUXL8pbofz/EDsABaW+QUWec=";
   useFetchCargoVendor = true;
 
   meta = {

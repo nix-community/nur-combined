@@ -610,6 +610,10 @@ src.archpkg = "procps-ng"
 fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
 
 [pterodactyl-wings]
+src.git = "https://github.com/pterodactyl/wings.git"
+fetch.github = "pterodactyl/wings"
+
+[pterodactyl-wings-stable]
 src.github = "pterodactyl/wings"
 fetch.github = "pterodactyl/wings"
 

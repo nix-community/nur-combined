@@ -26,7 +26,7 @@
   pciutils,
   libqcef,
   qt5,
-  taglib,
+  taglib_1,
   udev,
   xorg,
 }:
@@ -59,7 +59,7 @@ let
     qt5.qtbase
     qt5.qtwebengine
     qt5.qtx11extras
-    taglib
+    taglib_1
     udev
     xorg.libX11
     xorg.libXcomposite

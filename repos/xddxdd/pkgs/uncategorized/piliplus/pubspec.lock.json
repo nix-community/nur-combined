@@ -312,7 +312,7 @@
       "description": {
         "path": ".",
         "ref": "main",
-        "resolved-ref": "23269eb39f4374b7cbf7154e47918213e174373d",
+        "resolved-ref": "e818cb5d25aee86dd3b888753152c97c073e82ae",
         "url": "https://github.com/bggRGjQaUbCoE/canvas_danmaku.git"
       },
       "source": "git",
@@ -1510,7 +1510,7 @@
       "description": {
         "path": "media_kit_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "134abc2548eea0f8d31a99964aed51ff03a91a5d",
+        "resolved-ref": "a74d1af2bcc6b5c88b2216c594e7e3eba0c7cee5",
         "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
@@ -1796,6 +1796,16 @@
       "source": "hosted",
       "version": "6.0.1"
     },
+    "pretty_qr_code": {
+      "dependency": "direct main",
+      "description": {
+        "name": "pretty_qr_code",
+        "sha256": "cbdb4af29da1c1fa21dd76f809646c591320ab9e435d3b0eab867492d43607d5",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "3.3.0"
+    },
     "protobuf": {
       "dependency": "direct main",
       "description": {
@@ -1835,16 +1845,6 @@
       },
       "source": "hosted",
       "version": "3.0.2"
-    },
-    "qr_flutter": {
-      "dependency": "direct main",
-      "description": {
-        "name": "qr_flutter",
-        "sha256": "5095f0fc6e3f71d08adef8feccc8cea4f12eec18a2e31c2e8d82cb6019f4b097",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "4.1.0"
     },
     "rxdart": {
       "dependency": "direct overridden",
@@ -2522,6 +2522,16 @@
       },
       "source": "hosted",
       "version": "3.0.2"
+    },
+    "webdav_client": {
+      "dependency": "direct main",
+      "description": {
+        "name": "webdav_client",
+        "sha256": "682fffc50b61dc0e8f46717171db03bf9caaa17347be41c0c91e297553bf86b2",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "1.2.2"
     },
     "webview_cookie_manager": {
       "dependency": "direct main",
