@@ -70,7 +70,7 @@
             "$out"/share/doc \
             "$out"/share/licenses/lix
         cp bin/lix "$out"/bin
-        '' + lib.optionalString isDarwin (
+        '' + lib.optionalString (isDarwin && !(lib.any (p: (p.name or null) == "fix-darwin-dylib-names-hook") allegro5.nativeBuildInputs)) (
             let
                 libsToWrapWith = [
                     allegro5'   # The allegro5 derivation doesn't currently run fixDarwinDylibNames.

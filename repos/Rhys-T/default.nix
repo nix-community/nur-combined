@@ -140,10 +140,19 @@ in {
         meta = old.meta // {
             description = (old.meta.description or "ldc") + " (fixed for macOS 15.4)";
             pos = myPos "ldc";
-            ldcBootstrap = oldBootstrap;
         };
     }));
-    buildDubPackage = pkgs.buildDubPackage.override { inherit (self) ldc; };
+    dub = dontUpdate ((pkgs.dub.override {
+        inherit (self) ldc;
+    }).overrideAttrs (old: {
+        meta = old.meta // {
+            description = (old.meta.description or "dub") + " (fixed for macOS 15.4)";
+            pos = myPos "dub";
+        };
+    }));
+    buildDubPackage = pkgs.buildDubPackage.override {
+        inherit (self) ldc dub;
+    };
     
     xscorch = callPackage ./pkgs/xscorch {};
     
