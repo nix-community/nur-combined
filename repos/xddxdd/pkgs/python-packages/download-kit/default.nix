@@ -2,15 +2,15 @@
   lib,
   sources,
   buildPythonPackage,
-  python3Packages,
   # Dependencies
   requests,
   data-recorder,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.download-kit) pname version src;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = [ setuptools ];
   dependencies = [
     requests
     data-recorder

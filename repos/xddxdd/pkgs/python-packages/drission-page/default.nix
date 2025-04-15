@@ -2,7 +2,6 @@
   lib,
   sources,
   buildPythonPackage,
-  python3Packages,
   # Dependencies
   requests,
   lxml,
@@ -12,11 +11,12 @@
   click,
   tldextract,
   psutil,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.drission-page) pname version src;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = [ setuptools ];
   dependencies = [
     requests
     lxml

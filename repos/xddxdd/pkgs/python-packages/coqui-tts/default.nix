@@ -1,13 +1,52 @@
 {
   sources,
   lib,
-  python3Packages,
+  buildPythonPackage,
+  numpy,
+  cython,
+  scipy,
+  torch,
+  torchaudio,
+  soundfile,
+  librosa,
+  scikit-learn,
+  numba,
+  inflect,
+  tqdm,
+  anyascii,
+  pyyaml,
+  fsspec,
+  aiohttp,
+  packaging,
+  mutagen,
+  flask,
+  pysbd,
+  umap-learn,
+  pandas,
+  matplotlib,
+  trainer,
+  coqpit,
+  jieba,
+  pypinyin,
+  gruut,
+  jamo,
+  nltk,
+  g2pkk,
+  bangla,
+  bnnumerizer,
+  bnunicodenormalizer,
+  einops,
+  transformers,
+  encodec,
+  unidecode,
+  num2words,
+  spacy,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.coqui-tts) pname version src;
 
   # From requirements.txt
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     numpy
     cython
     scipy

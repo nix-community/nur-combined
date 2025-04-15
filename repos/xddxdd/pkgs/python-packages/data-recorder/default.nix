@@ -2,14 +2,14 @@
   lib,
   sources,
   buildPythonPackage,
-  python3Packages,
   # Dependencies
   openpyxl,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.data-recorder) pname version src;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = [ setuptools ];
   dependencies = [
     openpyxl
   ];

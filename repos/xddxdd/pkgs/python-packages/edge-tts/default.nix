@@ -2,18 +2,18 @@
   lib,
   sources,
   buildPythonPackage,
-  python3Packages,
   # Dependencies
   aiohttp,
   certifi,
   srt,
   tabulate,
   typing-extensions,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.edge-tts) pname version src;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = [ setuptools ];
   dependencies = [
     aiohttp
     certifi
