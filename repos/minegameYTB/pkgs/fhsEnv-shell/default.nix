@@ -54,7 +54,8 @@ let
       ### Version manager
       git
       subversion
-      
+      cvs
+
       ### Archive
       gnutar
       gzip
@@ -63,6 +64,7 @@ let
       cpio
       unzip
       lz4
+      zstd
 
       ### Network and cryptography
       rsync
