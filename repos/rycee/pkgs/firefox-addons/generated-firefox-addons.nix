@@ -2760,10 +2760,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2025.2.20";
+      version = "2025.4.7";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4443764/duckduckgo_for_firefox-2025.2.20.xpi";
-      sha256 = "d6120d83a2303754d1e04ba6a694830f47542ddd8821c03686803704d10bfe8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4470003/duckduckgo_for_firefox-2025.4.7.xpi";
+      sha256 = "8380d403a5412a0fe93716c297c220242b5918939773667e50984c4d60506e63";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -6411,10 +6411,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.18.4";
+      version = "8.19.4";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4452300/languagetool-8.18.4.xpi";
-      sha256 = "b2ada2cf33bd17653bf3608a59f3d71914a288c1440cc1a902d4988f70ed1306";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4470413/languagetool-8.19.4.xpi";
+      sha256 = "d204409d361eca1f53def970de08b1d1ce747d5e44a79c416d267549f41a2d43";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -7934,10 +7934,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.22.0";
+      version = "2.22.1";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464277/momentumdash-2.22.0.xpi";
-      sha256 = "d49b38133c2856ba5c9da25aaa3c09cf22c510fe3329488481a0e8cbe7d05533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4469886/momentumdash-2.22.1.xpi";
+      sha256 = "ced3238d5f462557c46f3b0558146c3c6e76a6c619176f4217a25ad990fb7fc8";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -11190,10 +11190,10 @@
     };
     "spoof-timezone" = buildFirefoxXpiAddon {
       pname = "spoof-timezone";
-      version = "0.4.2";
+      version = "0.4.3";
       addonId = "{55f61747-c3d3-4425-97f9-dfc19a0be23c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4439334/spoof_timezone-0.4.2.xpi";
-      sha256 = "68cd3a1bc61596996af699e1d75e0d193c0fea2728b55e2bbdad1c643b8d1870";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474678/spoof_timezone-0.4.3.xpi";
+      sha256 = "0de2a469d1ddcded98d698c49c8e62e82cf190c28c441b1fc2a124670ac89535";
       meta = with lib;
       {
         homepage = "https://add0n.com/spoof-timezone.html";
@@ -11205,7 +11205,6 @@
           "webNavigation"
           "contextMenus"
           "notifications"
-          "*://*/*"
         ];
         platforms = platforms.all;
       };
