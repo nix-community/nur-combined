@@ -26,5 +26,6 @@ stdenv.mkDerivation rec {
     description = "Intel graphics system controller firmware update library";
     homepage = "https://github.com/intel/igsc";
     license = lib.licenses.asl20;
+    changelog = "https://github.com/intel/igsc/releases/tag/V${version}";
   };
 }

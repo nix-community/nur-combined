@@ -235,9 +235,21 @@ if __name__ == "__main__":
         default="/home/lantian/Projects/nixpkgs-xddxdd",
     )
     parser.add_argument(
-        "--no-git",
+        "--no-branch",
         "-g",
-        help="Do not perform Git operations automatically. Default to on if dest is set",
+        help="Do not create Git branch automatically",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--no-commit",
+        "-g",
+        help="Do not create Git commit automatically. Default to on if dest is set",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--no-push",
+        "-g",
+        help="Do not push changes automatically. Default to on if dest is set",
         action="store_true",
     )
     args = parser.parse_args()
@@ -250,7 +262,7 @@ if __name__ == "__main__":
     if not pkg_name:
         raise ValueError("Invalid path")
 
-    if not args.no_git:
+    if not args.no_branch:
         existing_pkg_version = nixpkgs_get_existing_version(args.nixpkgs_path, pkg_name)
         print(f"Existing version is {existing_pkg_version}")
 
@@ -305,9 +317,10 @@ if __name__ == "__main__":
     else:
         version_to = "[UNKNOWN VERSION]"
 
-    if not args.no_git and not custom_target_path:
+    if not args.no_commit and not custom_target_path:
         nixpkgs_create_commit(
             args.nixpkgs_path, f"{pkg_name}: {version_from} {version_to}"
         )
         nixpkgs_test_build(args.nixpkgs_path, pkg_name)
-        nixpkgs_push(args.nixpkgs_path, pkg_name)
+        if not args.no_push:
+            nixpkgs_push(args.nixpkgs_path, pkg_name)

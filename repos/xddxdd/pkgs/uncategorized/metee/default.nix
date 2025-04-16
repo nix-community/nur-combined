@@ -14,5 +14,6 @@ stdenv.mkDerivation rec {
     description = "C library to access CSE/CSME/GSC firmware via a MEI interface";
     homepage = "https://github.com/intel/metee";
     license = lib.licenses.asl20;
+    changelog = "https://github.com/intel/metee/releases/tag/${version}";
   };
 }

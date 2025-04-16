@@ -2,6 +2,8 @@
   buildGoModule,
   lib,
   sources,
+  installShellFiles,
+  versionCheckHook,
 }:
 buildGoModule rec {
   inherit (sources.usque) pname version src;
@@ -10,7 +12,25 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
+    "-X github.com/Diniboy1123/usque/cmd.version=${version}"
   ];
+
+  nativeBuildInputs = [
+    installShellFiles
+  ];
+  postInstall = ''
+    installShellCompletion --cmd usque \
+      --bash <($out/bin/usque completion bash) \
+      --fish <($out/bin/usque completion fish) \
+      --zsh <($out/bin/usque completion zsh)
+  '';
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
+  versionCheckProgramArg = "version";
 
   meta = {
     mainProgram = "usque";
@@ -18,5 +38,6 @@ buildGoModule rec {
     description = "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol";
     homepage = "https://github.com/Diniboy1123/usque";
     license = lib.licenses.mit;
+    changelog = "https://github.com/Diniboy1123/usque/releases/tag/v${version}";
   };
 }
