@@ -49,6 +49,8 @@ class NvfetcherDefinition:
 
         if version.startswith('"v'):
             version = '"' + version[2:]
+        if version.startswith('"V'):
+            version = '"' + version[2:]
 
         date_match = re.search(r"^\s+date\s+=\s+\"(.+)\";$", result, re.MULTILINE)
         if date_match:
