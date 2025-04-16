@@ -8,12 +8,20 @@ in
 
     # I want the full experience by default
     package = mkPackageOption pkgs "atuin" { };
+
+    daemon = {
+      enable = my.mkDisableOption "atuin daemon";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.atuin = {
       enable = true;
       inherit (cfg) package;
+
+      daemon = lib.mkIf cfg.daemon.enable {
+        enable = true;
+      };
 
       flags = [
         # I *despise* this hijacking of the up key, even though I use Ctrl-p
