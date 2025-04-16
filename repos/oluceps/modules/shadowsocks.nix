@@ -59,8 +59,8 @@ in
     );
 
     networking.firewall = lib.foldr (
-        s: acc: acc // { allowedUDPPorts = mkIf s.serve.enable [ s.serve.port ]; }
-      ) { } cfg.instances;
+      s: acc: acc // { allowedUDPPorts = mkIf s.serve.enable [ s.serve.port ]; }
+    ) { } cfg.instances;
     systemd.services = lib.foldr (
       s: acc:
       acc

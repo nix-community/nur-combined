@@ -33,7 +33,7 @@ test-bootstrap:
 
 build-all-host:
     #!/usr/bin/env nu
-    open hosts/sum.toml | $in.node | columns
+    open registry.toml | $in.node | columns
     | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; }
 renc:
     nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
@@ -41,7 +41,7 @@ renc:
 build:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    open hosts/sum.toml | $in.node | columns
+    open registry.toml | $in.node | columns
     | reduce {|it, acc| $it + (char newline) + $acc }
     | fzf
     | util b $in

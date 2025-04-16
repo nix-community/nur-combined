@@ -16,7 +16,7 @@ in
 rec {
   inherit genModules;
 
-  data = {
+  data = rec {
     keys = {
       hashedPasswd = "$y$j9T$dQkjYyrZxZn1GnoZLRRLE1$nvNuCnEvJr9235CX.VXabEUve/Bx00YB5E8Kz/ewZW0";
       hasturHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g568jdv6aRbhDZ";
@@ -32,12 +32,13 @@ rec {
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
       skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
     };
+    inherit (fromTOML (builtins.readFile ../registry.toml)) node;
     hosts = import ./hosts.nix {
       lib = (inputs.nixpkgs).lib // {
         inherit getAddrFromCIDR;
+        data = { inherit node; };
       };
     };
-    inherit (fromTOML (builtins.readFile ./sum.toml)) node;
   };
 
   genOverlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i});
@@ -52,7 +53,7 @@ rec {
 
   iage = type: import ../age { inherit type; };
 
-  conn = import ../lib/conn.nix;
+  conn = import ../lib/conn.nix data.node;
 
   getAddrFromCIDR = i: builtins.elemAt (pkgs.lib.splitString "/" i) 0;
 

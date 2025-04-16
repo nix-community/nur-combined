@@ -8,14 +8,11 @@
           # eihort = ''
           #   rtt min 4ms;
           # '';
-          azasos = ''
-          '';
-          abhoth = ''
-          '';
+          azasos = '''';
+          abhoth = '''';
           # hastur = ''
           # '';
-          yidhra = ''
-          '';
+          yidhra = '''';
         };
 
         genLink = host: ''

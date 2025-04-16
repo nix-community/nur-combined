@@ -14,8 +14,6 @@ let
     "cache.nyaw.xyz"
   ];
 
-  nodes = (builtins.fromTOML (builtins.readFile ../hosts/sum.toml)).node;
-
   sum = lib.mkMerge [
     (lib.foldlAttrs (
       acc: name: value:
@@ -23,7 +21,7 @@ let
       // {
         "${lib.getAddrFromCIDR value.unique_addr}" = lib.singleton "${name}.nyaw.xyz";
       }
-    ) { } nodes)
+    ) { } lib.data.node)
     {
       "fdcc::3" = srvOnEihort;
       "fdcc::1" = srvOnHastur;

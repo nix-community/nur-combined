@@ -3,7 +3,7 @@
 export-env {
   $env.get_addr = { |map, per| $map | get $per | $in.addr }
   $env.get_user = { |map, per| $map | get $per | $in.user }
-  $env.map = open ./hosts/sum.toml | $in.node
+  $env.map = open ./registry.toml | $in.node
 }
 
 export def br [

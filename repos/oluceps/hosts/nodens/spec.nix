@@ -99,7 +99,6 @@
       };
     };
 
-
     # juicity.instances = {
     #   only = {
     #     enable = true;

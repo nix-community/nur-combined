@@ -1,5 +1,4 @@
-_:
-{
+_: {
   boot = {
     kernelParams = [
       "audit=0"

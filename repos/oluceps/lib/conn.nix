@@ -1,9 +1,8 @@
-{
+node:{
   basePort ? 51800,
 }:
 let
-  inherit (builtins) readFile fromTOML;
-  nodes = (fromTOML (readFile ../hosts/sum.toml)).node;
+  nodes = node;
   validateNode =
     name: node:
     if !(node ? id) then

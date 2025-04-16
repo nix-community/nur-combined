@@ -41,7 +41,6 @@ python3Packages.buildPythonPackage rec {
     "keyring"
   ];
 
-
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     makefun

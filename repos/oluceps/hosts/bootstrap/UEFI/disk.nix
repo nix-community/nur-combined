@@ -1,5 +1,4 @@
-_:
-{
+_: {
 
   disko = {
     enableConfig = true;

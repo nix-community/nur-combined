@@ -5,14 +5,10 @@
     config =
       let
         linkSpec = {
-          eihort = ''
-          '';
-          yidhra = ''
-          '';
-          abhoth = ''
-          '';
-          azasos = ''
-          '';
+          eihort = '''';
+          yidhra = '''';
+          abhoth = '''';
+          azasos = '''';
         };
 
         genLink = host: ''
