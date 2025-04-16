@@ -1,9 +1,9 @@
 {
   lib,
-  buildGo122Module,
+  buildGoModule,
   fetchFromGitHub,
 }:
-buildGo122Module {
+buildGoModule {
   pname = "mosproxy";
   version = "0-unstable-2024-06-11";
   src = fetchFromGitHub {
