@@ -47,6 +47,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "modelscope" ];
 
   meta = {
+    changelog = "https://github.com/modelscope/modelscope/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Bring the notion of Model-as-a-Service to life";
     homepage = "https://www.modelscope.cn/";

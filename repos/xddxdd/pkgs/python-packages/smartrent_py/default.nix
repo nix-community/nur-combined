@@ -30,6 +30,7 @@ buildPythonPackage rec {
   dontCheckRuntimeDeps = true;
 
   meta = {
+    changelog = "https://github.com/zacherythomas/smartrent-py/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Api for SmartRent locks, thermostats, moisture sensors and switches";
     homepage = "https://github.com/ZacheryThomas/smartrent.py";

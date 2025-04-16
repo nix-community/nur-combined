@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   meta = {
+    changelog = "https://github.com/musikid/acpi_ec/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Kernel module to access directly to the ACPI EC";
     homepage = "https://github.com/musikid/acpi_ec";

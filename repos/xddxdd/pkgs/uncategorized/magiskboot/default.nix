@@ -17,7 +17,7 @@ let
     else
       throw "Unsupported architecture";
 in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.magiskboot) pname version src;
   dontUnpack = true;
 
@@ -40,6 +40,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
+    changelog = "https://github.com/topjohnwu/Magisk/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms";
     homepage = "https://topjohnwu.github.io/Magisk/tools.html";

@@ -79,7 +79,7 @@ let
     ${wechatWine}/bin/wineserver -k
   '';
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "wine-wechat-x86";
   inherit (sources.wine-wechat-x86) version;
   dontUnpack = true;
@@ -139,6 +139,7 @@ stdenv.mkDerivation {
   ];
 
   meta = {
+    changelog = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";
     homepage = "https://weixin.qq.com/";

@@ -11,6 +11,7 @@ buildGoModule rec {
   buildInputs = [ xz ];
 
   meta = {
+    changelog = "https://github.com/ssut/payload-dumper-go/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Android OTA payload dumper written in Go";
     homepage = "https://github.com/ssut/payload-dumper-go";

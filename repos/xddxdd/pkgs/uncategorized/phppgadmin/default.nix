@@ -23,6 +23,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/ReimuHakurei/phppgadmin/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Premier web-based administration tool for PostgreSQL";
     homepage = "https://github.com/phppgadmin/phppgadmin";

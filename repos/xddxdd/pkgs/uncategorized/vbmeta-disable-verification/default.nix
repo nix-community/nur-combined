@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/libxzr/vbmeta-disable-verification/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Patch Android vbmeta image and disable verification flags inside";
     homepage = "https://github.com/libxzr/vbmeta-disable-verification";

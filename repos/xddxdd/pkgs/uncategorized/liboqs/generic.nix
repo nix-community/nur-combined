@@ -36,6 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/open-quantum-safe/liboqs/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage = "https://openquantumsafe.org";

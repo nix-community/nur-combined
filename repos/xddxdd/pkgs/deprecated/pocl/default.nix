@@ -61,6 +61,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
+    changelog = "https://github.com/pocl/pocl/releases/tag/v${version}";
     mainProgram = "poclcc";
     description = "Portable open source (MIT-licensed) implementation of the OpenCL standard";
     homepage = "http://portablecl.org";

@@ -52,6 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/open-quantum-safe/oqs-provider/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL 3 provider containing post-quantum algorithms";
     homepage = "https://openquantumsafe.org";

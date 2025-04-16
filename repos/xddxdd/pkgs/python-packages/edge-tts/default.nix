@@ -28,6 +28,7 @@ buildPythonPackage rec {
   ];
 
   meta = {
+    changelog = "https://github.com/rany2/edge-tts/releases/tag/${version}";
     mainProgram = "edge-tts";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key";

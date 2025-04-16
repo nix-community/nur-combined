@@ -57,6 +57,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mtkclient" ];
 
   meta = {
+    changelog = "https://github.com/bkerler/mtkclient/releases/tag/${version}";
     mainProgram = "mtk";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MTK reverse engineering and flash tool";

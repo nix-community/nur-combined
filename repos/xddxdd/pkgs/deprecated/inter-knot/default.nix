@@ -17,7 +17,7 @@
   harfbuzz,
   pango,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   inherit (sources.inter-knot) pname version src;
 
   nativeBuildInputs = [
@@ -76,6 +76,7 @@ stdenv.mkDerivation {
   ];
 
   meta = {
+    changelog = "https://github.com/share121/inter-knot/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "绳网是一个游戏、技术交流平台";
     homepage = "https://inot.top";

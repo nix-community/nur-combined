@@ -15,6 +15,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "rootutils" ];
 
   meta = {
+    changelog = "https://github.com/ashleve/rootutils/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables";
     homepage = "https://pypi.org/project/rootutils/";

@@ -8,6 +8,8 @@ import re
 import subprocess
 from typing import List, Optional
 
+import toml
+
 SKIP_CHECK = [
     "kernel",
     "lantianLinuxCachyOS",
@@ -69,7 +71,82 @@ def verify_package_info(package_path: str, package_info: dict) -> bool:
     return valid
 
 
-def verify_package_meta(package_path: str, meta: dict) -> bool:
+def format_with_nixfmt(nix_file: str) -> str:
+    p = subprocess.Popen(
+        ["nixfmt"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True
+    )
+    return p.communicate(nix_file)[0]
+
+
+def apply_package_meta_change(meta: dict, statement: str):
+    if not meta.get("position"):
+        return
+
+    match = re.search(r"/(pkgs/.+\.nix):", meta["position"], re.IGNORECASE)
+    nix_file = match[1]
+
+    try:
+        with open(nix_file) as f:
+            nix_str = f.read()
+    except FileNotFoundError:
+        print(f"Cannot open file {nix_file}")
+        return
+
+    if statement in nix_str:
+        print(f"Meta change already present in {nix_file}, race condition?")
+        return
+
+    new_nix_str = re.sub(
+        r"^[ ]*meta =(.+)\{$", r"meta =\1{\n" + statement, nix_str, flags=re.MULTILINE
+    )
+    if new_nix_str == nix_str:
+        raise RuntimeError("Nix derivation before/after replacement are the same")
+
+    new_nix_str = format_with_nixfmt(new_nix_str)
+    with open(nix_file, "w") as f:
+        f.write(new_nix_str)
+
+    print(f"Applied meta change to {nix_file}")
+
+
+def autocorrect_package_meta(
+    package_path: str,
+    meta: dict,
+    nvfetcher_config: Optional[dict] = None,
+    nvfetcher_generated: Optional[dict] = None,
+):
+    # Skip special packages
+    package_name = package_path.split(".")[2]
+    if package_name in SKIP_CHECK:
+        return
+
+    if not nvfetcher_config or not nvfetcher_generated:
+        return
+
+    github_release_src = nvfetcher_config.get("src", {}).get("github")
+    github_fetch_src = nvfetcher_config.get("fetch", {}).get("github")
+
+    nvfetcher_version = nvfetcher_generated.get("src", {}).get("rev", "")
+    if nvfetcher_version.startswith("v"):
+        version_prefix = "v"
+    elif nvfetcher_version.startswith("V"):
+        version_prefix = "V"
+    else:
+        version_prefix = ""
+
+    if github_release_src and not meta.get("changelog"):
+        statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{version}}";'
+        apply_package_meta_change(meta, statement)
+
+    if github_fetch_src and not meta.get("homepage"):
+        statement = f'homepage = "https://github.com/{github_fetch_src}";'
+        apply_package_meta_change(meta, statement)
+
+
+def verify_package_meta(
+    package_path: str,
+    meta: dict,
+) -> bool:
     # Skip special packages
     package_name = package_path.split(".")[2]
     if package_name in SKIP_CHECK:
@@ -199,6 +276,18 @@ def get_package_meta(package_path: str) -> dict:
     return json.loads(nix_output.stdout)
 
 
+def get_package_nvfetcher_config(package_path: str) -> Optional[dict]:
+    with open("nvfetcher.toml") as f:
+        data = toml.load(f)
+    return data.get(package_path.split(".")[-1])
+
+
+def get_package_nvfetcher_generated(package_path: str) -> Optional[dict]:
+    with open("_sources/generated.json") as f:
+        data = json.load(f)
+    return data.get(package_path.split(".")[-1])
+
+
 def check_package(args) -> bool:
     package_path: str
     build: bool
@@ -213,9 +302,16 @@ def check_package(args) -> bool:
 
     package_meta = get_package_meta(package_path)
 
+    nvfetcher_config = get_package_nvfetcher_config(package_path)
+    nvfetcher_generated = get_package_nvfetcher_generated(package_path)
+
     # Do not check merged packages solely for CI purposes
     if package_info["name"] == "merged-packages":
         return True
+
+    autocorrect_package_meta(
+        package_path, package_meta, nvfetcher_config, nvfetcher_generated
+    )
 
     if not verify_package_info(package_path, package_info["env"]):
         valid = False

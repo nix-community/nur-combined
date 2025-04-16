@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/petersulyok/smfc/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Super Micro Fan Control";
     homepage = "https://github.com/petersulyok/smfc";

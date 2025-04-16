@@ -62,6 +62,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
+    changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Noise suppression plugin based on Xiph's RNNoise";
     homepage = "https://github.com/werman/noise-suppression-for-voice";

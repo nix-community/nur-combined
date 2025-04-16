@@ -12,6 +12,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen";
     homepage = "https://store.kde.org/p/2139746";

@@ -19,6 +19,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytorch_wpe" ];
 
   meta = {
+    changelog = "https://github.com/nttcslab-sp/dnn_wpe/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "WPE implementation using PyTorch";
     homepage = "https://github.com/nttcslab-sp/dnn_wpe";

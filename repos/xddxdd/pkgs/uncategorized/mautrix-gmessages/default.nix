@@ -20,6 +20,7 @@ buildGoModule rec {
   tags = lib.optional withGoolm "goolm";
 
   meta = {
+    changelog = "https://github.com/mautrix/gmessages/releases/tag/v${version}";
     homepage = "https://github.com/mautrix/gmessages";
     description = "Matrix-Google Messages puppeting bridge";
     license = lib.licenses.agpl3Plus;

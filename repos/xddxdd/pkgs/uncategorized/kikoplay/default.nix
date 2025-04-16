@@ -65,6 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/KikoPlayProject/KikoPlay/releases/tag/${version}";
     mainProgram = "KikoPlay";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "More than a Full-Featured Danmu Player";

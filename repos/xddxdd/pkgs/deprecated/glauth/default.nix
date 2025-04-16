@@ -16,6 +16,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = {
+    changelog = "https://github.com/glauth/glauth/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Lightweight LDAP server for development, home use, or CI";
     homepage = "https://github.com/glauth/glauth";

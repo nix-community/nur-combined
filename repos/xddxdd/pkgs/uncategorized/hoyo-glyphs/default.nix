@@ -21,6 +21,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Constructed scripts by Hoyoverse 米哈游的架空文字";
     homepage = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs";

@@ -26,7 +26,7 @@
   watchdog,
 }:
 
-buildPythonPackage {
+buildPythonPackage rec {
   inherit (sources.runpod-python) pname version src;
   pyproject = true;
 
@@ -62,6 +62,7 @@ buildPythonPackage {
   pythonImportsCheck = [ "runpod" ];
 
   meta = {
+    changelog = "https://github.com/runpod/runpod-python/releases/tag/${version}";
     description = "Python library for RunPod API and serverless worker SDK";
     homepage = "https://github.com/runpod/runpod-python";
     license = lib.licenses.mit;

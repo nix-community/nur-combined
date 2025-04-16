@@ -20,6 +20,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "kaldiio" ];
 
   meta = {
+    changelog = "https://github.com/nttcslab-sp/kaldiio/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Pure python module for reading and writing kaldi ark files";
     homepage = "https://github.com/nttcslab-sp/kaldiio";

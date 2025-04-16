@@ -53,6 +53,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/Grasscutters/Grasscutter/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Server software reimplementation for a certain anime game";
     homepage = "https://github.com/Grasscutters/Grasscutter";

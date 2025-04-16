@@ -22,6 +22,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "vector_quantize_pytorch" ];
 
   meta = {
+    changelog = "https://github.com/lucidrains/vector-quantize-pytorch/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Vector (and Scalar) Quantization, in Pytorch";
     homepage = "https://github.com/lucidrains/vector-quantize-pytorch";

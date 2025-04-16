@@ -10,5 +10,6 @@
 
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];
+    changelog = "https://github.com/ggml-org/llama.cpp/releases/tag/b${version}";
   };
 })

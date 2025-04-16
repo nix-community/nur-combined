@@ -63,6 +63,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    changelog = "https://github.com/matatonic/openedai-speech/releases/tag/${version}";
     mainProgram = pname;
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend";

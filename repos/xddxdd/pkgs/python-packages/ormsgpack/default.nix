@@ -24,6 +24,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ormsgpack" ];
 
   meta = {
+    changelog = "https://github.com/aviramha/ormsgpack/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack";
     homepage = "https://github.com/aviramha/ormsgpack";

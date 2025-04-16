@@ -6,7 +6,7 @@
   dbus,
   openssl,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   inherit (sources.lyrica) pname version src;
 
   cargoHash = "sha256-lXKnkcGX0aXv4mPKO/2xyXZSMKzr5CHADT9lg1qLVwM=";
@@ -20,6 +20,7 @@ rustPlatform.buildRustPackage {
   ];
 
   meta = {
+    changelog = "https://github.com/chiyuki0325/lyrica/releases/tag/v${version}";
     mainProgram = "lyrica";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration";

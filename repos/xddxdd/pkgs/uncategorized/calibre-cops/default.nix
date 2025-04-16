@@ -7,7 +7,7 @@
 let
   configFile = ./config_local.php;
 in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.calibre-cops) pname version src;
 
   unpackPhase = ''
@@ -33,6 +33,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
+    changelog = "https://github.com/mikespub-org/seblucas-cops/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)";
     homepage = "http://blog.slucas.fr/en/oss/calibre-opds-php-server";

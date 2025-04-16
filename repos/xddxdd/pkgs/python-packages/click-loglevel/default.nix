@@ -20,6 +20,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "click_loglevel" ];
 
   meta = {
+    changelog = "https://github.com/jwodder/click-loglevel/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Log level parameter type for Click";
     homepage = "https://github.com/jwodder/click-loglevel";

@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-moegirl) pname version src;
 
   dontUnpack = true;
@@ -17,6 +17,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
+    changelog = "https://github.com/outloudvi/mw2fcitx/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "RIME dictionary file for entries from zh.moegirl.org.cn";
     homepage = "https://github.com/outloudvi/mw2fcitx/releases";

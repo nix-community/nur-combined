@@ -5,7 +5,7 @@
   dotnetCorePackages,
 }:
 
-buildDotnetModule {
+buildDotnetModule rec {
   inherit (sources.imewlconverter) pname version src;
 
   projectFile = "src/ImeWlConverterCmd/ImeWlConverterCmd.csproj";
@@ -15,6 +15,7 @@ buildDotnetModule {
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
   meta = {
+    changelog = "https://github.com/studyzy/imewlconverter/releases/tag/v${version}";
     mainProgram = "ImeWlConverterCmd";
     description = "FOSS program for converting IME dictionaries";
     homepage = "https://github.com/studyzy/imewlconverter";
