@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5138";
+    version = "b5143";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5138";
-      hash = "sha256-0DXjOpfnmGI5RKFGhBw3L0E8jJr+rrcA8FfJXWgVIpQ=";
+      tag = "b5143";
+      hash = "sha256-PeX0XesV1AsM4e+Rv5jIFC67boZl3MQpyC0RvXZZdF8=";
     };
   };
   loralib = {
@@ -988,12 +988,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.24.1";
+    version = "v1.25.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.24.1";
-      hash = "sha256-POl1BCvdTaCb9R+7Q1iAGSaXnb4JWaNAdAjy8BwQF9I=";
+      tag = "v1.25.0";
+      hash = "sha256-E+fW/SEGP2Ly14LUK3SUIMqKBUt8T9/3+16Zh/Efm8o=";
     };
   };
   mtkclient = {
@@ -1349,12 +1349,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.30";
+    version = "1.1.3.31";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.30";
-      hash = "sha256-vhCC4dmirCsqYxl6sNPu5DTTOzSmmdbGRGjK261oOGI=";
+      tag = "1.1.3.31";
+      hash = "sha256-L9Mcc+COcdW5gVjM38FeMvf9r/zf7y5ONTLUiYVNfrg=";
     };
   };
   plangothic-fonts = {
@@ -1641,14 +1641,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "51777daedbe4783c3b79f0246d775e4b6d978cbc";
+    version = "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "51777daedbe4783c3b79f0246d775e4b6d978cbc";
-      hash = "sha256-cFaFgChhpgEiJw+dHl3Hr3T2UQF+Vy6u36JWY+cYBNo=";
+      rev = "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683";
+      hash = "sha256-7DodE2/bcYSVoXCyJ9YAeYH80lARIG7XJ9AImh75Kcc=";
     };
-    date = "2025-04-06";
+    date = "2025-04-16";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1976,15 +1976,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "8d4f022f1d312ef7b89b19f51686f75a58e0b9ea";
+    version = "71785bf53360025fe09df9c5c4d8dfc9f9daec71";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "8d4f022f1d312ef7b89b19f51686f75a58e0b9ea";
+      rev = "71785bf53360025fe09df9c5c4d8dfc9f9daec71";
       fetchSubmodules = true;
-      hash = "sha256-U2nxFnPg240tk25mh4pDNpvki+TGiEte8lLCHnC+nxo=";
+      hash = "sha256-UcgtbU3dWsDG8yZZmbETPHZRNl224SKcYU+NtkecWqk=";
     };
-    date = "2025-04-14";
+    date = "2025-04-16";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2068,14 +2068,14 @@
   };
   vk-hdr-layer = {
     pname = "vk-hdr-layer";
-    version = "7c0553d88b38e62eb7fd83f3d25f50733309c866";
+    version = "f2bb9e1d3f293504861ce9f3ad16c330ea262411";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "7c0553d88b38e62eb7fd83f3d25f50733309c866";
-      hash = "sha256-aUmGd42+fzLrkrmCyGtEJRHJ87U/0RuXfDDcMb+6zzs=";
+      rev = "f2bb9e1d3f293504861ce9f3ad16c330ea262411";
+      hash = "sha256-DNSnbuSMBzx+ScuHQiwIdHf2BzQX4LoO/hnt/UrqCKo=";
     };
-    date = "2025-03-07";
+    date = "2025-04-15";
   };
   vkroots = {
     pname = "vkroots";

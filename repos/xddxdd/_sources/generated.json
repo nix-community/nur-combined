@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5138",
-            "sha256": "sha256-0DXjOpfnmGI5RKFGhBw3L0E8jJr+rrcA8FfJXWgVIpQ=",
+            "rev": "b5143",
+            "sha256": "sha256-PeX0XesV1AsM4e+Rv5jIFC67boZl3MQpyC0RvXZZdF8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5138"
+        "version": "b5143"
     },
     "loralib": {
         "cargoLocks": null,
@@ -1936,12 +1936,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "modelscope",
-            "rev": "v1.24.1",
-            "sha256": "sha256-POl1BCvdTaCb9R+7Q1iAGSaXnb4JWaNAdAjy8BwQF9I=",
+            "rev": "v1.25.0",
+            "sha256": "sha256-E+fW/SEGP2Ly14LUK3SUIMqKBUt8T9/3+16Zh/Efm8o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.24.1"
+        "version": "v1.25.0"
     },
     "mtkclient": {
         "cargoLocks": null,
@@ -2650,12 +2650,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.30",
-            "sha256": "sha256-vhCC4dmirCsqYxl6sNPu5DTTOzSmmdbGRGjK261oOGI=",
+            "rev": "1.1.3.31",
+            "sha256": "sha256-L9Mcc+COcdW5gVjM38FeMvf9r/zf7y5ONTLUiYVNfrg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.30"
+        "version": "1.1.3.31"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3214,7 +3214,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-04-06",
+        "date": "2025-04-16",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3226,12 +3226,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "51777daedbe4783c3b79f0246d775e4b6d978cbc",
-            "sha256": "sha256-cFaFgChhpgEiJw+dHl3Hr3T2UQF+Vy6u36JWY+cYBNo=",
+            "rev": "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683",
+            "sha256": "sha256-7DodE2/bcYSVoXCyJ9YAeYH80lARIG7XJ9AImh75Kcc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "51777daedbe4783c3b79f0246d775e4b6d978cbc"
+        "version": "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3868,7 +3868,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-14",
+        "date": "2025-04-16",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3880,12 +3880,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "8d4f022f1d312ef7b89b19f51686f75a58e0b9ea",
-            "sha256": "sha256-U2nxFnPg240tk25mh4pDNpvki+TGiEte8lLCHnC+nxo=",
+            "rev": "71785bf53360025fe09df9c5c4d8dfc9f9daec71",
+            "sha256": "sha256-UcgtbU3dWsDG8yZZmbETPHZRNl224SKcYU+NtkecWqk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8d4f022f1d312ef7b89b19f51686f75a58e0b9ea"
+        "version": "71785bf53360025fe09df9c5c4d8dfc9f9daec71"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4048,7 +4048,7 @@
     },
     "vk-hdr-layer": {
         "cargoLocks": null,
-        "date": "2025-03-07",
+        "date": "2025-04-15",
         "extract": null,
         "name": "vk-hdr-layer",
         "passthru": null,
@@ -4060,12 +4060,12 @@
             "name": null,
             "owner": "Zamundaaa",
             "repo": "VK_hdr_layer",
-            "rev": "7c0553d88b38e62eb7fd83f3d25f50733309c866",
-            "sha256": "sha256-aUmGd42+fzLrkrmCyGtEJRHJ87U/0RuXfDDcMb+6zzs=",
+            "rev": "f2bb9e1d3f293504861ce9f3ad16c330ea262411",
+            "sha256": "sha256-DNSnbuSMBzx+ScuHQiwIdHf2BzQX4LoO/hnt/UrqCKo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7c0553d88b38e62eb7fd83f3d25f50733309c866"
+        "version": "f2bb9e1d3f293504861ce9f3ad16c330ea262411"
     },
     "vkroots": {
         "cargoLocks": null,
