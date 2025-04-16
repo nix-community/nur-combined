@@ -325,6 +325,16 @@
       hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
     };
   };
+  deeplx = {
+    pname = "deeplx";
+    version = "v1.0.7";
+    src = fetchFromGitHub {
+      owner = "OwO-Network";
+      repo = "DeepLX";
+      tag = "v1.0.7";
+      hash = "sha256-ZGcSh7Iry1j+dpPLxHDKdFFUzp+zp1Lt0FoHefhdCHA=";
+    };
+  };
   dingtalk = {
     pname = "dingtalk";
     version = "com.alibabainc.dingtalk_7.6.45.5032501";

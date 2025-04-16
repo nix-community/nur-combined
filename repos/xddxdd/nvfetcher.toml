@@ -138,6 +138,10 @@ fetch.pypi = "DataRecorder"
 src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
 
+[deeplx]
+src.github = "OwO-Network/DeepLX"
+fetch.github = "OwO-Network/DeepLX"
+
 [dingtalk]
 src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
 src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"

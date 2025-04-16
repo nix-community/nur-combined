@@ -474,6 +474,11 @@
     "pname": "decluttarr",
     "version": "1.50.2"
   },
+  "legacyPackages.x86_64-linux.deeplx": {
+    "description": "Powerful Free DeepL API, No Token Required",
+    "pname": "deeplx",
+    "version": "1.0.7"
+  },
   "legacyPackages.x86_64-linux.deprecated.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
@@ -4089,6 +4094,11 @@
     "pname": "decluttarr",
     "version": "1.50.2"
   },
+  "legacyPackages.x86_64-linux.uncategorized.deeplx": {
+    "description": "Powerful Free DeepL API, No Token Required",
+    "pname": "deeplx",
+    "version": "1.0.7"
+  },
   "legacyPackages.x86_64-linux.uncategorized.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
@@ -4868,6 +4878,11 @@
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
     "version": "1.50.2"
+  },
+  "packages.x86_64-linux.deeplx": {
+    "description": "Powerful Free DeepL API, No Token Required",
+    "pname": "deeplx",
+    "version": "1.0.7"
   },
   "packages.x86_64-linux.deprecated": {
     "description": "",
