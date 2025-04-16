@@ -7,6 +7,7 @@
   imports = [
     ./autobrr.nix
     ./bazarr.nix
+    ./cross-seed.nix
     ./jackett.nix
     ./nzbhydra.nix
     ./prowlarr.nix

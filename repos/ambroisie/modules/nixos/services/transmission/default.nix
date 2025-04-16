@@ -65,6 +65,8 @@ in
         # Proxied behind Nginx.
         rpc-whitelist-enabled = true;
         rpc-whitelist = "127.0.0.1";
+
+        umask = "002"; # To go with `downloadDirPermissions`
       };
     };
 

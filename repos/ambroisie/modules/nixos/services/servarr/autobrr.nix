@@ -40,6 +40,7 @@ in
     my.services.nginx.virtualHosts = {
       autobrr = {
         inherit (cfg) port;
+        websocketsLocations = [ "/api" ];
       };
     };
 
