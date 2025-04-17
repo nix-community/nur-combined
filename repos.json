@@ -697,6 +697,9 @@
         "lcx12901": {
             "url": "https://github.com/lcx12901/nur-nixpkgs"
         },
+        "lennis-dev": {
+            "url": "https://github.com/lennis-dev/nur-packages"
+        },
         "lheckemann": {
             "url": "https://github.com/lheckemann/nixwip"
         },
