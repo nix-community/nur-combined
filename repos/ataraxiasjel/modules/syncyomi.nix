@@ -49,7 +49,6 @@ in
 
         LockPersonality = true;
         NoNewPrivileges = true;
-        PrivateIPC = true;
         PrivateMounts = true;
         PrivateTmp = true;
         PrivateUsers = true;
@@ -60,11 +59,15 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = "yes";
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        SocketBindDeny = "any";
         UMask = "0007";
       };
     };
