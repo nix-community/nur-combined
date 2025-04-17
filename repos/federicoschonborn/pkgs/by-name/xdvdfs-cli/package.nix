@@ -2,6 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -26,6 +27,11 @@ rustPlatform.buildRustPackage {
   cargoBuildFlags = [ "--package xdvdfs-cli" ];
   cargoTestFlags = [ "--package xdvdfs-cli" ];
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgram = "${placeholder "out"}/bin/xdvdfs";
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {
@@ -34,7 +40,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/antangelo/xdvdfs";
     changelog = "https://github.com/antangelo/xdvdfs/releases/tag/v${version}";
     license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

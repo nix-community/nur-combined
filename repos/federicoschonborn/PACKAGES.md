@@ -616,6 +616,6 @@ Original Xbox DVD Filesystem library and management tool.
 - Version: `0.8.3`
 - [🌐 Homepage](https://github.com/antangelo/xdvdfs)
 - [📰 Changelog](https://github.com/antangelo/xdvdfs/releases/tag/v0.8.3)
-- [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L33)
+- [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
