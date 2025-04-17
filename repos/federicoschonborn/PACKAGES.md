@@ -112,10 +112,10 @@ Tool to generate flags for your CPU.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.40.4`
+- Version: `2.41.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.40.4)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.41.0)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -125,10 +125,10 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.40.4`
+- Version: `2.41.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.40.4)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.41.0)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -608,13 +608,14 @@ Detect non-inclusive language in your source code.
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
-## `xdvdfs` {#xdvdfs}
+## `xdvdfs-cli` {#xdvdfs-cli}
 
 Original Xbox DVD Filesystem library and management tool.
 
-- Name: `xdvdfs`
+- Name: `xdvdfs-cli`
 - Version: `0.8.3`
 - [🌐 Homepage](https://github.com/antangelo/xdvdfs)
-- [📦 Source](./pkgs/by-name/xdvdfs/package.nix#L32)
+- [📰 Changelog](https://github.com/antangelo/xdvdfs/releases/tag/v0.8.3)
+- [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L33)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
