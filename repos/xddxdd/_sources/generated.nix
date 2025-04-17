@@ -206,14 +206,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7c94444a00b6e448404d93e00a4ad17bde309e06";
+    version = "8567d85a921f7f05c7ac6f479d856774d8530ded";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7c94444a00b6e448404d93e00a4ad17bde309e06";
-      hash = "sha256-cDrKWYc3n99s7edEcpzfXKuh4jsVKPI1s1AnansiA4A=";
+      rev = "8567d85a921f7f05c7ac6f479d856774d8530ded";
+      hash = "sha256-lU3hzyVBL4mmGMJdH9Wjjehv+kZD4hhLpRVaHzxrBhM=";
     };
-    date = "2025-04-14";
+    date = "2025-04-16";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -454,18 +454,18 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "e2c4e45764e6f2ae4dd5e178dbfdf054a2232cf4";
+    version = "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "e2c4e45764e6f2ae4dd5e178dbfdf054a2232cf4";
+      rev = "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd";
       fetchSubmodules = false;
-      hash = "sha256-nZZC7NPG7j8nkUKLzhqjXoMNaYs5Ve8TK9MwiyDt+RE=";
+      hash = "sha256-plObU8SxWcHTuEOfijqCtzXWlUwcwgMFrJhnpB5I88I=";
     };
-    date = "2025-04-14";
+    date = "2025-04-16";
   };
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
-    version = "1.5.3";
+    version = "1.5.4";
     src = fetchurl {
       url = "https://google.com/generate_204";
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -929,12 +929,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5143";
+    version = "b5146";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5143";
-      hash = "sha256-PeX0XesV1AsM4e+Rv5jIFC67boZl3MQpyC0RvXZZdF8=";
+      tag = "b5146";
+      hash = "sha256-i2VbHY4ef5Ii4K/SoGXkjuPKQtP7TJSm4c5fbopCYLY=";
     };
   };
   loralib = {
@@ -1380,12 +1380,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.1.0";
+    version = "v2.2.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.1.0";
-      hash = "sha256-tDJVL+xB52cUO1j2zAqhDyOcBdsVR8Z5U1fA3UqqcAs=";
+      tag = "v2.2.0";
+      hash = "sha256-Wg630oTPnNPIb2ktRxfOE3PQSKTw20XsBRSxlV7QBio=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1419,14 +1419,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "3855eecb602eebe7361dfe7223547a99db3720ba";
+    version = "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "3855eecb602eebe7361dfe7223547a99db3720ba";
-      hash = "sha256-KZDqXDW2Gvf9LEdwYQNyttUx+dc3fSSMjzsyQibrDko=";
+      rev = "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192";
+      hash = "sha256-surZkE5wT1Ds02Z4YBli0uevuRWnEiS0Wk6MaKLbego=";
     };
-    date = "2025-04-07";
+    date = "2025-04-16";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -1976,15 +1976,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "71785bf53360025fe09df9c5c4d8dfc9f9daec71";
+    version = "2ce485789cf9ebded7f93510a8c09c49f4f7fea5";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "71785bf53360025fe09df9c5c4d8dfc9f9daec71";
+      rev = "2ce485789cf9ebded7f93510a8c09c49f4f7fea5";
       fetchSubmodules = true;
-      hash = "sha256-UcgtbU3dWsDG8yZZmbETPHZRNl224SKcYU+NtkecWqk=";
+      hash = "sha256-P9AocyFbOrPIN15HsQolUPHe4nbGReO4qD58HDhxYdo=";
     };
-    date = "2025-04-16";
+    date = "2025-04-17";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2068,14 +2068,14 @@
   };
   vk-hdr-layer = {
     pname = "vk-hdr-layer";
-    version = "f2bb9e1d3f293504861ce9f3ad16c330ea262411";
+    version = "3b276e68136eb10825aa7cabd06abb324897f0e8";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "f2bb9e1d3f293504861ce9f3ad16c330ea262411";
-      hash = "sha256-DNSnbuSMBzx+ScuHQiwIdHf2BzQX4LoO/hnt/UrqCKo=";
+      rev = "3b276e68136eb10825aa7cabd06abb324897f0e8";
+      hash = "sha256-Egd7GXbtavuJJaGYxMevh72j+B85OibQirR18ZIk6+8=";
     };
-    date = "2025-04-15";
+    date = "2025-04-16";
   };
   vkroots = {
     pname = "vkroots";

@@ -587,7 +587,7 @@
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.5.3-unstable-2025-04-14"
+    "version": "1.5.4-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -812,7 +812,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5143"
+    "version": "5146"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -2952,7 +2952,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "11.0.26_4_adopt"
+    "version": "11.0.27_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11_0_13_8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3039,6 +3039,11 @@
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "11.0.26_4_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11_0_27_6": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "11.0.27_6_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-16": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
@@ -3052,7 +3057,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "17.0.14_7_adopt"
+    "version": "17.0.15_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3078,6 +3083,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "17.0.14_7_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_15_6": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "17.0.15_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3252,7 +3262,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "11.0.26_4_adopt"
+    "version": "11.0.27_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11_0_13_8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3339,10 +3349,15 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "11.0.26_4_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11_0_27_6": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "11.0.27_6_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "17.0.14_7_adopt"
+    "version": "17.0.15_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3368,6 +3383,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "17.0.14_7_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_15_6": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "17.0.15_6_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3617,7 +3637,7 @@
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -3632,7 +3652,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-04-07"
+    "version": "1.11.13-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4142,7 +4162,7 @@
   "legacyPackages.x86_64-linux.uncategorized.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.5.3-unstable-2025-04-14"
+    "version": "1.5.4-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -4417,7 +4437,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -4427,7 +4447,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-04-07"
+    "version": "1.11.13-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
@@ -4572,7 +4592,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-16"
+    "version": "0-unstable-2025-04-17"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4617,7 +4637,7 @@
   "legacyPackages.x86_64-linux.uncategorized.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-04-15"
+    "version": "0-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.vpp": {
     "description": "Vector Packet Processing",
@@ -4647,7 +4667,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-16"
+    "version": "0-unstable-2025-04-17"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4697,7 +4717,7 @@
   "legacyPackages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-04-15"
+    "version": "0-unstable-2025-04-16"
   },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -4952,7 +4972,7 @@
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.5.3-unstable-2025-04-14"
+    "version": "1.5.4-unstable-2025-04-16"
   },
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -5377,7 +5397,7 @@
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -5392,7 +5412,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-04-07"
+    "version": "1.11.13-unstable-2025-04-16"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -5602,7 +5622,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-16"
+    "version": "0-unstable-2025-04-17"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5652,7 +5672,7 @@
   "packages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-04-15"
+    "version": "0-unstable-2025-04-16"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",

@@ -394,7 +394,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-04-14",
+        "date": "2025-04-16",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "7c94444a00b6e448404d93e00a4ad17bde309e06",
-            "sha256": "sha256-cDrKWYc3n99s7edEcpzfXKuh4jsVKPI1s1AnansiA4A=",
+            "rev": "8567d85a921f7f05c7ac6f479d856774d8530ded",
+            "sha256": "sha256-lU3hzyVBL4mmGMJdH9Wjjehv+kZD4hhLpRVaHzxrBhM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7c94444a00b6e448404d93e00a4ad17bde309e06"
+        "version": "8567d85a921f7f05c7ac6f479d856774d8530ded"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -875,7 +875,7 @@
     },
     "fastapi-dls": {
         "cargoLocks": null,
-        "date": "2025-04-14",
+        "date": "2025-04-16",
         "extract": null,
         "name": "fastapi-dls",
         "passthru": null,
@@ -885,13 +885,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e2c4e45764e6f2ae4dd5e178dbfdf054a2232cf4",
-            "sha256": "sha256-nZZC7NPG7j8nkUKLzhqjXoMNaYs5Ve8TK9MwiyDt+RE=",
+            "rev": "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd",
+            "sha256": "sha256-plObU8SxWcHTuEOfijqCtzXWlUwcwgMFrJhnpB5I88I=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
         },
-        "version": "e2c4e45764e6f2ae4dd5e178dbfdf054a2232cf4"
+        "version": "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd"
     },
     "fastapi-dls-stable": {
         "cargoLocks": null,
@@ -906,7 +906,7 @@
             "type": "url",
             "url": "https://google.com/generate_204"
         },
-        "version": "1.5.3"
+        "version": "1.5.4"
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
@@ -1816,12 +1816,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5143",
-            "sha256": "sha256-PeX0XesV1AsM4e+Rv5jIFC67boZl3MQpyC0RvXZZdF8=",
+            "rev": "b5146",
+            "sha256": "sha256-i2VbHY4ef5Ii4K/SoGXkjuPKQtP7TJSm4c5fbopCYLY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5143"
+        "version": "b5146"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2713,12 +2713,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.1.0",
-            "sha256": "sha256-tDJVL+xB52cUO1j2zAqhDyOcBdsVR8Z5U1fA3UqqcAs=",
+            "rev": "v2.2.0",
+            "sha256": "sha256-Wg630oTPnNPIb2ktRxfOE3PQSKTw20XsBRSxlV7QBio=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.1.0"
+        "version": "v2.2.0"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,
@@ -2779,7 +2779,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-04-07",
+        "date": "2025-04-16",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -2791,12 +2791,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "3855eecb602eebe7361dfe7223547a99db3720ba",
-            "sha256": "sha256-KZDqXDW2Gvf9LEdwYQNyttUx+dc3fSSMjzsyQibrDko=",
+            "rev": "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192",
+            "sha256": "sha256-surZkE5wT1Ds02Z4YBli0uevuRWnEiS0Wk6MaKLbego=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3855eecb602eebe7361dfe7223547a99db3720ba"
+        "version": "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -3868,7 +3868,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-17",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3880,12 +3880,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "71785bf53360025fe09df9c5c4d8dfc9f9daec71",
-            "sha256": "sha256-UcgtbU3dWsDG8yZZmbETPHZRNl224SKcYU+NtkecWqk=",
+            "rev": "2ce485789cf9ebded7f93510a8c09c49f4f7fea5",
+            "sha256": "sha256-P9AocyFbOrPIN15HsQolUPHe4nbGReO4qD58HDhxYdo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "71785bf53360025fe09df9c5c4d8dfc9f9daec71"
+        "version": "2ce485789cf9ebded7f93510a8c09c49f4f7fea5"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4048,7 +4048,7 @@
     },
     "vk-hdr-layer": {
         "cargoLocks": null,
-        "date": "2025-04-15",
+        "date": "2025-04-16",
         "extract": null,
         "name": "vk-hdr-layer",
         "passthru": null,
@@ -4060,12 +4060,12 @@
             "name": null,
             "owner": "Zamundaaa",
             "repo": "VK_hdr_layer",
-            "rev": "f2bb9e1d3f293504861ce9f3ad16c330ea262411",
-            "sha256": "sha256-DNSnbuSMBzx+ScuHQiwIdHf2BzQX4LoO/hnt/UrqCKo=",
+            "rev": "3b276e68136eb10825aa7cabd06abb324897f0e8",
+            "sha256": "sha256-Egd7GXbtavuJJaGYxMevh72j+B85OibQirR18ZIk6+8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f2bb9e1d3f293504861ce9f3ad16c330ea262411"
+        "version": "3b276e68136eb10825aa7cabd06abb324897f0e8"
     },
     "vkroots": {
         "cargoLocks": null,
