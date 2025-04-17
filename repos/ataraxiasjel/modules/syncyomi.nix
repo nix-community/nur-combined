@@ -39,10 +39,10 @@ in
       after = [ "network-online.target" ];
       serviceConfig = {
         Restart = "always";
+        ExecStartPre = pkgs.writeShellScript "syncyomi-cp-config" "cp ${cfg.configFile} ${cfg.dataDir}/config.toml";
         ExecStart = "${lib.getExe cfg.package} --config ${cfg.dataDir}";
         User = cfg.user;
 
-        BindReadOnlyPaths = "${cfg.configFile}:${cfg.dataDir}/config.toml";
         ReadWritePaths = [ cfg.dataDir ];
         StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/syncyomi") "syncyomi";
         WorkingDirectory = cfg.dataDir;
