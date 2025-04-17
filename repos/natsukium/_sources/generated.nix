@@ -74,10 +74,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.4.0";
+    version = "3.5.0";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.4.0/qutebrowser-3.4.0-arm64.dmg";
-      sha256 = "sha256-H5u8q/wjwlx5pw/S14wVe2+TExioD6PgcZZhdXobXqE=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.5.0/qutebrowser-3.5.0-arm64.dmg";
+      sha256 = "sha256-ib7eF7smzQ5yzU8tilW0IQkTPIrTWKNY6L0YFkifBc0=";
     };
   };
   sbarlua = {
@@ -106,18 +106,18 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.3.3635.9";
+    version = "7.3.3635.11";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.9.universal.dmg";
-      sha256 = "sha256-+XDLbEZWOCjTLhXz9pTY79eHCqwBYsruDWVLUtojbMk=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.11.universal.dmg";
+      sha256 = "sha256-Y0/JCnYBd5mbF6dMwJ20H3/C1epQyjb/NfybbsH9br0=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.11.1b";
+    version = "1.11.2b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.11.1b/zen.macos-universal.dmg";
-      sha256 = "sha256-nNdz1HdyrkfH8AkEtyJIvOV+A63FClJ/J7hJTIBs0og=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.11.2b/zen.macos-universal.dmg";
+      sha256 = "sha256-e74KxgmQursXb56qQ1TJNFufJegKWDcy9/P21TOhMaY=";
     };
   };
 }
