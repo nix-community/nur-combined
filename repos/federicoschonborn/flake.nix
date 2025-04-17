@@ -241,6 +241,15 @@
               );
             };
 
+            no-install-check.program = pkgs.writeShellApplication {
+              name = "no-install-check";
+              text = lib.concatLines (
+                lib.mapAttrsToList (
+                  name: value: lib.optionalString (!value.doInstallCheck or false) "echo ${name}"
+                ) config.packages
+              );
+            };
+
             check-deps.program = pkgs.writeShellApplication {
               name = "check-deps";
               text = lib.concatLines (
