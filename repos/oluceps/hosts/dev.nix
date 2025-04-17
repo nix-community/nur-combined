@@ -310,6 +310,10 @@
           display = [ cage ];
 
           cursor = [ bibata-cursors ];
+          vcs = [
+            jujutsu
+            lazyjj
+          ];
         }
       )
     )
