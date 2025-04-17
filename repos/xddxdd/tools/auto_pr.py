@@ -116,10 +116,19 @@ def substitute_nvfetcher_references(
     result = re.sub(regex, replace_direct_reference, result, flags=re.MULTILINE)
 
     # Step 3: inject function used to obtain src
-    regex = ref_value.src_func + r","
-    if re.search(regex, result):
-        pass
+    if re.search(r"^\s*#\s*" + ref_value.src_func + r",", result, re.MULTILINE):
+        print("Uncomment existing placeholder...")
+        result = re.sub(
+            r"^\s*#\s*" + ref_value.src_func + r",",
+            ref_value.src_func + ",",
+            result,
+            1,
+            re.MULTILINE,
+        )
+    elif re.search(ref_value.src_func + r",", result):
+        print(f"{ref_value.src_func} already in args")
     else:
+        print(f"Inserting arg of {ref_value.src_func}")
         result = result.replace("{", "{" + ref_value.src_func + ",", 1)
 
     # Step 4: remove sources import
@@ -236,19 +245,16 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--no-branch",
-        "-g",
         help="Do not create Git branch automatically",
         action="store_true",
     )
     parser.add_argument(
         "--no-commit",
-        "-g",
         help="Do not create Git commit automatically. Default to on if dest is set",
         action="store_true",
     )
     parser.add_argument(
         "--no-push",
-        "-g",
         help="Do not push changes automatically. Default to on if dest is set",
         action="store_true",
     )

@@ -1,36 +1,46 @@
 {
-  buildGoModule,
   lib,
+  buildGoModule,
+  # fetchFromGitHub,
+  stdenv,
+  nix-update-script,
+  buildPackages,
   sources,
   installShellFiles,
   versionCheckHook,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit (sources.usque) pname version src;
   vendorHash = "sha256-njkwrzw/8m4Y1l8aGxaK+JrYbKo/7pCT/ck0bbdaNbU=";
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/Diniboy1123/usque/cmd.version=${version}"
+    "-X github.com/Diniboy1123/usque/cmd.version=${finalAttrs.version}"
   ];
 
   nativeBuildInputs = [
     installShellFiles
   ];
-  postInstall = ''
-    installShellCompletion --cmd usque \
-      --bash <($out/bin/usque completion bash) \
-      --fish <($out/bin/usque completion fish) \
-      --zsh <($out/bin/usque completion zsh)
-  '';
-
+  postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in
+    ''
+      installShellCompletion --cmd usque \
+        --bash <(${emulator} $out/bin/usque completion bash) \
+        --fish <(${emulator} $out/bin/usque completion fish) \
+        --zsh <(${emulator} $out/bin/usque completion zsh)
+    ''
+  );
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
+  versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
   versionCheckProgramArg = "version";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "usque";
@@ -38,6 +48,6 @@ buildGoModule rec {
     description = "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol";
     homepage = "https://github.com/Diniboy1123/usque";
     license = lib.licenses.mit;
-    changelog = "https://github.com/Diniboy1123/usque/releases/tag/v${version}";
+    changelog = "https://github.com/Diniboy1123/usque/releases/tag/v${finalAttrs.version}";
   };
-}
+})
