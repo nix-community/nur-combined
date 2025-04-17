@@ -10,18 +10,18 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.39.11";
+  version = "0.40.15";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${version}";
-    hash = "sha256-+H63bc4aJPERfclzKh4E3uYEEwNycLfe0BCPSlilqCc=";
+    hash = "sha256-B3L6L8gdbiDrDfopBwlAY/Q3RfeMq/Nd1xNXHgv+lHc=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-fbZ1DiRcD9dnS8e7BMrKPYApqZmQbaH6DsSSO1knDmo=";
+  vendorHash = "sha256-+RdtA2f2rLiSNGXGpBqNEq3+l61EVtR1N354NTQFUa8=";
 
   subPackages = [ "cmd/grpcserver" ];
 
@@ -33,7 +33,7 @@ buildGoModule rec {
 
   buildInputs = [ tantivy-go ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.39.11/.github/workflows/build.yml#L117
+  # https://github.com/anyproto/anytype-heart/blob/v0.40.15/.github/workflows/build.yml#L117
   tags = [
     "envproduction"
     "nographviz"
