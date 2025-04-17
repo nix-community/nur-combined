@@ -37,7 +37,8 @@ jobs:
       continue-on-error: true
       run: |
         ./enter-dev-shell.sh \
-          "nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' \
+          "export NIX_PATH='nixpkgs=$(nix flake metadata --json --inputs-from . nixpkgs | jq .path)' \
+          && nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' \
           | jq '.[]' \
           | xargs -L1 nix-update --use-update-script --commit --flake"
     - name: Check evaluation

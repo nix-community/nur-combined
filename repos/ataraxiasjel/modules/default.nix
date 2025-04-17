@@ -7,6 +7,7 @@
   prometheus-exporters = import ./prometheus-exporters;
   rinetd = ./rinetd.nix;
   rustic = ./rustic.nix;
+  syncyomi = ./syncyomi.nix;
   whoogle = ./whoogle.nix;
   wopiserver = ./wopiserver.nix;
 }
