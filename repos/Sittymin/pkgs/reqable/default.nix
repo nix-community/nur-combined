@@ -28,10 +28,10 @@
 
 stdenv.mkDerivation rec {
   pname = "reqable";
-  version = "2.22.0";
+  version = "2.30.3";
   src = fetchurl {
     url = "https://pkgs.reqable.com/download/reqable-app-linux-x86_64.deb?platform=linux&arch=x86_64&version=${version}&ext=deb";
-    hash = "sha256-sdE+jz0ub6RihB3bdNQ05pxM7u2Kalj3bMPYq5tBprQ=";
+    hash = "sha256-j7yER4kYRedHeJ7DiWXjQdoP2s/Wq7TaQ6qwequxFgs=";
   };
 
   libraries = [
