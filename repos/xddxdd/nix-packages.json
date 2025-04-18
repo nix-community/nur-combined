@@ -812,7 +812,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5146"
+    "version": "5151"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1237,12 +1237,12 @@
   "legacyPackages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0.12.0"
+    "version": "0.13.0"
   },
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-04-11"
+    "version": "0-unstable-2025-04-17"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3177,7 +3177,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "8u442-b06_adopt"
+    "version": "8u452-b09_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u302_b08": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3258,6 +3258,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "8u442-b06_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u452_b09": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u452-b09_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3467,7 +3472,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "8u442-b06_adopt"
+    "version": "8u452-b09_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u302_b08": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3548,6 +3553,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u442-b06_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u452_b09": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u452-b09_adopt"
   },
   "legacyPackages.x86_64-linux.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
@@ -4277,12 +4287,12 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0.12.0"
+    "version": "0.13.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-04-11"
+    "version": "0-unstable-2025-04-17"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5167,12 +5177,12 @@
   "packages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0.12.0"
+    "version": "0.13.0"
   },
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-04-11"
+    "version": "0-unstable-2025-04-17"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
