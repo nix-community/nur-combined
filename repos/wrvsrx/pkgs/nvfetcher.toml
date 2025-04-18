@@ -138,5 +138,5 @@ src.github = "joelspadin/tree-sitter-devicetree"
 fetch.github = "joelspadin/tree-sitter-devicetree"
 
 [auto-patchelf]
-src.git = "https://github.com/wrvsrx/auto-patchelf"
+src.github_tag = "wrvsrx/auto-patchelf"
 fetch.github = "wrvsrx/auto-patchelf"

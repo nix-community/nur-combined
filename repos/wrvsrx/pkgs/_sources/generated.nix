@@ -22,15 +22,14 @@
   };
   auto-patchelf = {
     pname = "auto-patchelf";
-    version = "03734eda4be15a46d54f3d77f5bcc746ab62b61a";
+    version = "0.1.0";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "auto-patchelf";
-      rev = "03734eda4be15a46d54f3d77f5bcc746ab62b61a";
+      rev = "0.1.0";
       fetchSubmodules = false;
       sha256 = "sha256-BSAzGXWy13jdi5w5il0treXPsGcUDlTautCrH05H2o4=";
     };
-    date = "2025-04-18";
   };
   autobean-format = {
     pname = "autobean-format";

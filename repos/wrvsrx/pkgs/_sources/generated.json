@@ -37,7 +37,7 @@
     },
     "auto-patchelf": {
         "cargoLocks": null,
-        "date": "2025-04-18",
+        "date": null,
         "extract": null,
         "name": "auto-patchelf",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "auto-patchelf",
-            "rev": "03734eda4be15a46d54f3d77f5bcc746ab62b61a",
+            "rev": "0.1.0",
             "sha256": "sha256-BSAzGXWy13jdi5w5il0treXPsGcUDlTautCrH05H2o4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "03734eda4be15a46d54f3d77f5bcc746ab62b61a"
+        "version": "0.1.0"
     },
     "autobean-format": {
         "cargoLocks": null,

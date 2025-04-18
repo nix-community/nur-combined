@@ -7,8 +7,7 @@
 }:
 
 buildPythonPackage {
-  inherit (source) pname src;
-  version = "0-unstable-" + source.date;
+  inherit (source) pname src version;
   pyproject = true;
 
   disabled = pythonOlder "3.12";
