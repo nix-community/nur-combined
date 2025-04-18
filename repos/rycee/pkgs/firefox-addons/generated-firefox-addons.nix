@@ -2726,10 +2726,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.58.6";
+      version = "2.58.7";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4469967/dualsub-2.58.6.xpi";
-      sha256 = "9197a279211628da6199a2ec26d0089a145552b26a0a2873e9bf446e76c7fbfc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476149/dualsub-2.58.7.xpi";
+      sha256 = "50960d00064894dc36541fc459a69006aa182ba88a844fabcfb79c16a8455d47";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -12019,10 +12019,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.8.0";
+      version = "3.8.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464348/tournesol_extension-3.8.0.xpi";
-      sha256 = "2974a05d54e6d6cda2179aab13763def6c804f4ace83f66ea9eaa5d430bb64f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476273/tournesol_extension-3.8.2.xpi";
+      sha256 = "eed727827c17154ab7cbacdb5c65fe94a49ac22666393bc71e170120cf8c7372";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
