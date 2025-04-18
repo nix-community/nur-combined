@@ -6150,6 +6150,20 @@
         platforms = platforms.all;
       };
     };
+    "justdeleteme" = buildFirefoxXpiAddon {
+      pname = "justdeleteme";
+      version = "1.4.0";
+      addonId = "{6f54ad3f-042f-408f-8f06-ab631fe1a64f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4461201/justdeleteme-1.4.0.xpi";
+      sha256 = "0ada4964bd0ac1b2260633d4effc878ff9723d49e3a3372eb3ba439a6dd0b1b1";
+      meta = with lib;
+      {
+        description = "JustDeleteMe.xyz extension for Firefox-based browsers.";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "kagi-privacy-pass" = buildFirefoxXpiAddon {
       pname = "kagi-privacy-pass";
       version = "1.0.5";
@@ -11145,6 +11159,28 @@
         description = "Solarized Dark theme, using blue backgrounds with yellow highlights";
         license = licenses.cc-by-30;
         mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "sonarr-radarr-lidarr-search" = buildFirefoxXpiAddon {
+      pname = "sonarr-radarr-lidarr-search";
+      version = "2.11.0.0";
+      addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4452289/sonarr_radarr_lidarr_search-2.11.0.0.xpi";
+      sha256 = "02530101d65e2cd781f933841578f4e8a919c99b765fabfe8efe2d0b3dfa1bce";
+      meta = with lib;
+      {
+        homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
+        description = "Exposes a context menu that enables direct searching for tv shows, movies or artists in Sonarr, Radarr &amp; Lidarr.\n\nSee description for a list of integrated sites.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "storage"
+          "activeTab"
+          "contextMenus"
+          "*://*/*"
+          "file://*/*"
+        ];
         platforms = platforms.all;
       };
     };

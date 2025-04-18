@@ -848,6 +848,13 @@
     }
   },
   {
+    "slug": "justdeleteme",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mit"
+    }
+  },
+  {
     "slug": "kagi-privacy-pass"
   },
   {
@@ -1546,6 +1553,9 @@
   },
   {
     "slug": "solarized_fox"
+  },
+  {
+    "slug": "sonarr-radarr-lidarr-search"
   },
   {
     "slug": "sourcegraph-for-firefox",
