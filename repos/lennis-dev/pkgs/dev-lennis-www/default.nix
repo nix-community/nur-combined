@@ -1,7 +1,7 @@
 { stdenv, fetchgit, lib }:
 
 stdenv.mkDerivation rec {
-  name = "dev-lennis-www-${version}";
+  name = "dev-lennis-www";
   version = "df2b3c0";
   src = fetchgit {
     url = "https://github.com/lennis-dev/lennis.dev.git";
