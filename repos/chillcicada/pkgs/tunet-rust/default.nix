@@ -41,6 +41,7 @@ rustPlatform.buildRustPackage rec {
     description = "清华大学校园网 Rust 库与客户端";
     homepage = "https://github.com/Berrysoft/tunet-rust";
     license = licenses.mit;
+    platforms = platforms.linux;
     mainProgram = "degit-rs";
   };
 }

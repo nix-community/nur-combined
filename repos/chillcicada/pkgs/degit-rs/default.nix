@@ -37,6 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Rust rewrite of degit";
     homepage = "https://github.com/psnszsn/degit-rs";
     license = licenses.mit;
+    platforms = platforms.linux;
     mainProgram = "degit-rs";
   };
 }

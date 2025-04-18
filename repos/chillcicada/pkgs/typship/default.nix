@@ -35,6 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = " A Typst package CLI tool";
     homepage = "https://github.com/sjfhsjfh/typship";
     license = licenses.mit;
+    platforms = platforms.linux;
     mainProgram = "typship";
   };
 }
