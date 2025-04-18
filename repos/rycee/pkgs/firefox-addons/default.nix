@@ -35,25 +35,6 @@ let
 
     "7tv" = packages.seventv;
 
-    # Upstream deletes old versions from the repository, causing builds to fail.
-    # The download link should be updated pending
-    # https://github.com/bpc-clone/bypass-paywalls-firefox-clean/issues/232
-    bypass-paywalls-clean = let version = "3.8.7.0";
-    in buildFirefoxXpiAddon {
-      pname = "bypass-paywalls-clean";
-      inherit version;
-      addonId = "magnolia@12.34";
-      url =
-        "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-${version}.xpi";
-      sha256 = "sha256-A+V4BFjBn+TcKifWrVOnzuSaW5ROTNLqWI5MUIzBx9Y=";
-      meta = with lib; {
-        homepage = "https://twitter.com/Magnolia1234B";
-        description = "Bypass Paywalls of (custom) news sites";
-        license = licenses.mit;
-        platforms = platforms.all;
-      };
-    };
-
     fx_cast = let version = "0.3.1";
     in buildFirefoxXpiAddon {
       pname = "fx_cast";
@@ -110,10 +91,10 @@ let
 
     proxydocile = buildFirefoxXpiAddon {
       pname = "proxydocile";
-      version = "2.4";
+      version = "2.5";
       addonId = "proxydocile@unipd.it";
       url = "https://softwarecab.cab.unipd.it/proxydocile/proxydocile.xpi";
-      sha256 = "sha256-XiN4iJYs+nR227Yx9kCd1xPc3UQeaOrke6TEegcbgg0=";
+      sha256 = "sha256-w07JQmaq0eu+KnC26F6fS5iFg7bgsYMSZaTHgklu2aw=";
       meta = with lib; {
         homepage =
           "https://bibliotecadigitale.cab.unipd.it/bd/proxy/proxy-docile";
