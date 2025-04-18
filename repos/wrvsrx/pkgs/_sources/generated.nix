@@ -20,6 +20,18 @@
       sha256 = "sha256-PSIWbOyBtJTVslp3tP5YX81YzTQC5DCfs4WhwwmwFew=";
     };
   };
+  auto-patchelf = {
+    pname = "auto-patchelf";
+    version = "f605e2dd88be1a0a94e9b3a7153bcfa67610224e";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "auto-patchelf";
+      rev = "f605e2dd88be1a0a94e9b3a7153bcfa67610224e";
+      fetchSubmodules = false;
+      sha256 = "sha256-kgSTR1PVF3p8cKR2iT5B64WpQq9yZfx4f2hi5qrXrt8=";
+    };
+    date = "2025-04-18";
+  };
   autobean-format = {
     pname = "autobean-format";
     version = "v0.1.6";

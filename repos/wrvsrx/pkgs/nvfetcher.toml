@@ -136,3 +136,7 @@ fetch.pypi = "keymap_drawer"
 [tree-sitter-devicetree]
 src.github = "joelspadin/tree-sitter-devicetree"
 fetch.github = "joelspadin/tree-sitter-devicetree"
+
+[auto-patchelf]
+src.git = "https://github.com/wrvsrx/auto-patchelf"
+fetch.github = "wrvsrx/auto-patchelf"

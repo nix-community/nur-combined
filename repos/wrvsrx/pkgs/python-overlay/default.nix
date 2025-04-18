@@ -22,4 +22,8 @@ final: prev: rec {
   tree-sitter-devicetree = final.callPackage ./tree-sitter-devicetree {
     source = sources.tree-sitter-devicetree;
   };
+
+  auto-patchelf = final.callPackage ./auto-patchelf {
+    source = sources.auto-patchelf;
+  };
 }

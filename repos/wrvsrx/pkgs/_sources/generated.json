@@ -35,6 +35,27 @@
         },
         "version": "1.4.4"
     },
+    "auto-patchelf": {
+        "cargoLocks": null,
+        "date": "2025-04-18",
+        "extract": null,
+        "name": "auto-patchelf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "auto-patchelf",
+            "rev": "f605e2dd88be1a0a94e9b3a7153bcfa67610224e",
+            "sha256": "sha256-kgSTR1PVF3p8cKR2iT5B64WpQq9yZfx4f2hi5qrXrt8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f605e2dd88be1a0a94e9b3a7153bcfa67610224e"
+    },
     "autobean-format": {
         "cargoLocks": null,
         "date": null,
