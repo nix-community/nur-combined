@@ -22,13 +22,13 @@
   };
   auto-patchelf = {
     pname = "auto-patchelf";
-    version = "f605e2dd88be1a0a94e9b3a7153bcfa67610224e";
+    version = "03734eda4be15a46d54f3d77f5bcc746ab62b61a";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "auto-patchelf";
-      rev = "f605e2dd88be1a0a94e9b3a7153bcfa67610224e";
+      rev = "03734eda4be15a46d54f3d77f5bcc746ab62b61a";
       fetchSubmodules = false;
-      sha256 = "sha256-kgSTR1PVF3p8cKR2iT5B64WpQq9yZfx4f2hi5qrXrt8=";
+      sha256 = "sha256-BSAzGXWy13jdi5w5il0treXPsGcUDlTautCrH05H2o4=";
     };
     date = "2025-04-18";
   };
