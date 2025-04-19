@@ -11,13 +11,14 @@ nixosSystem {
     sops-nix.nixosModules.sops
     host.default
     host.hardware-configuration
-    {
+    ({ config, ... }: {
       _module.args = {
         inherit inputs;
       };
 
       nixpkgs.overlays = [
         super.overlay
+        inputs.bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
       ];
 
       home-manager = {
@@ -29,6 +30,6 @@ nixosSystem {
       };
 
       networking.hostName = hostName;
-    }
+    })
   ];
 })

@@ -47,7 +47,6 @@ _:
     ];
     users.nixos = {
       directories = [
-        ".android"
         ".cache"
         ".cmake"
         ".config"

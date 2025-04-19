@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "bluetooth-player": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745050686,
+        "narHash": "sha256-gIXZYZ0tPt/eyVSpv4V2rDxjyZsu5rYMeglTBzGyHyw=",
+        "owner": "slaier",
+        "repo": "bluetooth-player",
+        "rev": "a5098c1923ea2eb145c5c482cb311df5f77c5631",
+        "type": "github"
+      },
+      "original": {
+        "owner": "slaier",
+        "repo": "bluetooth-player",
+        "type": "github"
+      }
+    },
     "darkmatter-grub-theme": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -75,6 +96,24 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -348,6 +387,7 @@
     },
     "root": {
       "inputs": {
+        "bluetooth-player": "bluetooth-player",
         "darkmatter-grub-theme": "darkmatter-grub-theme",
         "disko": "disko",
         "haumea": "haumea",
@@ -379,6 +419,21 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     },

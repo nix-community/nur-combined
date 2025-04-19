@@ -41,10 +41,9 @@
   };
   services.earlyoom.enable = true;
 
-  programs.adb.enable = true;
-
   environment.systemPackages = with pkgs; [
     alacritty
+    audiorelay
     bottom
     curl
     doggo

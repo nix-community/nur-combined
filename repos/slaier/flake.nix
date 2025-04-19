@@ -35,6 +35,11 @@
     niri = {
       url = "github:sodiboo/niri-flake";
     };
+
+    bluetooth-player = {
+      url = "github:slaier/bluetooth-player";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, haumea, ... } @inputs:

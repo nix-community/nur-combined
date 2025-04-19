@@ -4,6 +4,7 @@
 
 #workspaces button,
 #custom-spotify,
+#custom-bluetooth-player,
 #tray,
 #pulseaudio,
 #network,
@@ -29,7 +30,9 @@ tooltip {
     background-color: darkturquoise;
 }
 
-#custom-spotify {
+#custom-spotify,
+#custom-bluetooth-player
+{
     background-color: springgreen;
 }
 

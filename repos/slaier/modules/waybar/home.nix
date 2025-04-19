@@ -8,6 +8,7 @@
         "wlr/taskbar"
       ];
       modules-center = [
+        "custom/bluetooth-player"
         "custom/spotify"
       ];
       modules-right = [
@@ -22,6 +23,27 @@
       "wlr/taskbar" = {
         on-click = "activate";
         on-click-middle = "close";
+      };
+      "custom/bluetooth-player" = {
+        format = "{}";
+        return-type = "json";
+        max-length = 40;
+        escape = true;
+        on-click = ''
+          if bluetoothctl player.show | grep paused; then
+            bluetoothctl player.play;
+          else
+            bluetoothctl player.pause;
+          fi
+        '';
+        on-click-right = "bluetoothctl player.stop";
+        smooth-scrolling-threshold = 10;
+        on-scroll-up = "bluetoothctl player.next";
+        on-scroll-down = "bluetoothctl player.previous";
+        exec = "${lib.getExe pkgs.bluetooth-player}";
+        exec-if = "bluetoothctl player.list | grep Player";
+        restart-interval = 2;
+        exec-on-event = false;
       };
       "custom/spotify" = {
         format = "{icon} {}";

@@ -72,6 +72,15 @@ in
         "command" = "workbench.action.closeWindow";
         "when" = "resourceScheme != 'vscode-remote' && workbenchState == 'empty'";
       }
+      {
+        key = "ctrl+enter";
+        command = "-github.copilot.generate";
+      }
+      {
+        key = "alt+\\";
+        command = "github.copilot.generate";
+        when = "editorTextFocus && github.copilot.activated && !commentEditorFocused && !inInteractiveInput && !interactiveEditorFocused";
+      }
     ];
     userSettings = {
       "diffEditor.ignoreTrimWhitespace" = false;
@@ -118,6 +127,7 @@ in
       "dev.containers.dockerComposePath" = getName pkgs.podman-compose;
       "dev.containers.dockerPath" = getName pkgs.podman;
       "direnv.restart.automatic" = true;
+      "github.copilot.editor.enableAutoCompletions" = false;
       "jsonnet.languageServer.enableAutoUpdate" = false;
       mesonbuild = {
         buildFolder = "build";
