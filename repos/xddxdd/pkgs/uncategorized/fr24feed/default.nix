@@ -2,7 +2,7 @@
   sources,
   lib,
   stdenv,
-  autoPatchelfHook,
+  buildFHSEnv,
   dpkg,
 }:
 let
@@ -17,41 +17,74 @@ let
       sources.fr24feed-arm64
     else
       throw "Unsupported architecture";
+
+  distPkg = stdenv.mkDerivation rec {
+    pname = "fr24feed-dist";
+    inherit (source) version src;
+
+    nativeBuildInputs = [ dpkg ];
+
+    unpackPhase = ''
+      runHook preUnpack
+
+      dpkg -x $src .
+
+      runHook postUnpack
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      install -Dm755 usr/bin/fr24feed $out/bin/fr24feed
+      install -Dm755 usr/bin/fr24feed-signup-adsb $out/bin/fr24feed-signup-adsb
+      install -Dm755 usr/bin/fr24feed-signup-uat $out/bin/fr24feed-signup-uat
+      install -Dm644 etc/fr24feed.ini $out/etc/fr24feed.ini
+
+      runHook postInstall
+    '';
+  };
+
+  fhs = buildFHSEnv {
+    name = "fr24feed-fhs";
+    targetPkgs = _pkgs: [
+      _pkgs.procps
+      _pkgs.bash
+    ];
+    runScript = "${distPkg}/bin/fr24feed";
+
+    unshareUser = false;
+    unshareIpc = false;
+    unsharePid = false;
+    unshareNet = false;
+    unshareUts = false;
+    unshareCgroup = false;
+  };
 in
 stdenv.mkDerivation rec {
-  inherit (source) pname version src;
-
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-  ];
-
-  unpackPhase = ''
-    runHook preUnpack
-
-    dpkg -x $src .
-
-    runHook postUnpack
-  '';
-
-  postPatch = ''
-    substituteInPlace usr/bin/fr24feed-signup-adsb \
-      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
-    substituteInPlace usr/bin/fr24feed-signup-uat \
-      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
-  '';
+  pname = "fr24feed";
+  inherit (source) version;
+  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out
-    install -Dm755 usr/bin/fr24feed $out/bin/fr24feed
-    install -Dm755 usr/bin/fr24feed-signup-adsb $out/bin/fr24feed-signup-adsb
-    install -Dm755 usr/bin/fr24feed-signup-uat $out/bin/fr24feed-signup-uat
-    install -Dm644 etc/fr24feed.ini $out/etc/fr24feed.ini
+    install -Dm755 ${fhs}/bin/fr24feed-fhs $out/bin/fr24feed
+    install -Dm755 ${distPkg}/bin/fr24feed-signup-adsb $out/bin/fr24feed-signup-adsb
+    install -Dm755 ${distPkg}/bin/fr24feed-signup-uat $out/bin/fr24feed-signup-uat
+    install -Dm644 ${distPkg}/etc/fr24feed.ini $out/etc/fr24feed.ini
 
     runHook postInstall
   '';
+
+  postFixup = ''
+    # Signup scripts need FHS for a few utils in /usr/bin
+    substituteInPlace $out/bin/fr24feed-signup-adsb \
+      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
+    substituteInPlace $out/bin/fr24feed-signup-uat \
+      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
+  '';
+
+  passthru = { inherit distPkg; };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
