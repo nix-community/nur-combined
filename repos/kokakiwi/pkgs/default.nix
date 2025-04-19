@@ -59,7 +59,6 @@ let
   };
 
   servers = importSub ./servers {
-    cryptpad = { };
     edgee = { };
     freenginx = {
       modules = with pkgs.nginxModules; [ moreheaders ];
