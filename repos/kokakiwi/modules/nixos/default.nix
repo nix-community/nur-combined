@@ -10,6 +10,7 @@ let
       edgee = ./services/edgee.nix;
       iocaine = ./services/iocaine.nix;
       linx-server = ./services/linx-server.nix;
+      ots = ./services/ots.nix;
       pueue = ./services/pueue.nix;
       qbittorrent = ./services/qbittorrent.nix;
       safetwitch = ./services/safetwitch.nix;
