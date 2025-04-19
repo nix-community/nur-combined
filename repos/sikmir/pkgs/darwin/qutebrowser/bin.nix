@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qutebrowser-bin";
-  version = "3.4.0";
+  version = "3.5.0";
 
   src = fetchfromgh {
     owner = "qutebrowser";
     repo = "qutebrowser";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+UkClMhU9tqQFeOOap16bDXyi2RRsykV/hZrMhUEfdM=";
+    hash = "sha256-8kBdHGcrAt/b38dU2um90cFLwel2AuejOdNTeOtj2BY=";
     name = "qutebrowser-${finalAttrs.version}-x86_64.dmg";
   };
 
