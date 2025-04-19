@@ -421,6 +421,16 @@
       hash = "sha256-g4D+pnOo41UqPDFF3lvh/yNFVzP8rqglG+4xPx+aEzM=";
     };
   };
+  dump978 = {
+    pname = "dump978";
+    version = "v10.0.1";
+    src = fetchFromGitHub {
+      owner = "flightaware";
+      repo = "dump978";
+      tag = "v10.0.1";
+      hash = "sha256-EixxXJVm6pp2PQ4wrgKu6nb9t8imy2hIeWS40kMm9RY=";
+    };
+  };
   edge-tts = {
     pname = "edge-tts";
     version = "7.0.0";

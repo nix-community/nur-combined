@@ -180,6 +180,10 @@ fetch.github = "xddxdd/drone-file-secret"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
+[dump978]
+src.github_tag = "flightaware/dump978"
+fetch.github = "flightaware/dump978"
+
 [edge-tts]
 src.github = "rany2/edge-tts"
 fetch.github = "rany2/edge-tts"
