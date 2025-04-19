@@ -1028,6 +1028,66 @@
         },
         "version": "0.9.5"
     },
+    "fr24feed-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fr24feed-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vJZb4wMUxHJhnfLdGWEXEELepbDIhzlsp/tHyGx+ya0=",
+            "type": "url",
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_amd64.deb"
+        },
+        "version": "1.0.48-0"
+    },
+    "fr24feed-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fr24feed-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-GkQNx8T51PZ12ZkPSFglmh2T1lMCQCyrLcZ0eK9W0Pk=",
+            "type": "url",
+            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_arm64.deb"
+        },
+        "version": "1.0.48-0"
+    },
+    "fr24feed-armhf": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fr24feed-armhf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1pr6yFbcIvGMg3ilG9wnJgRZ8sJpYNyI7QX/yUToHvc=",
+            "type": "url",
+            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_armhf.deb"
+        },
+        "version": "1.0.48-0"
+    },
+    "fr24feed-i386": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fr24feed-i386",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ejuIq3u2fxrB7sg1JJDSRUmI5q7XdBbFe1k3PE5GnVk=",
+            "type": "url",
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_i386.deb"
+        },
+        "version": "1.0.48-0"
+    },
     "ftp-proxy": {
         "cargoLocks": null,
         "date": null,

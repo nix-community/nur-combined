@@ -531,6 +531,38 @@
       hash = "sha256-cYFMKZxpi69gVWqyZUltCL0ZwcfIABNsJKqAhN2TTSg=";
     };
   };
+  fr24feed-amd64 = {
+    pname = "fr24feed-amd64";
+    version = "1.0.48-0";
+    src = fetchurl {
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_amd64.deb";
+      hash = "sha256-vJZb4wMUxHJhnfLdGWEXEELepbDIhzlsp/tHyGx+ya0=";
+    };
+  };
+  fr24feed-arm64 = {
+    pname = "fr24feed-arm64";
+    version = "1.0.48-0";
+    src = fetchurl {
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_arm64.deb";
+      hash = "sha256-GkQNx8T51PZ12ZkPSFglmh2T1lMCQCyrLcZ0eK9W0Pk=";
+    };
+  };
+  fr24feed-armhf = {
+    pname = "fr24feed-armhf";
+    version = "1.0.48-0";
+    src = fetchurl {
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_armhf.deb";
+      hash = "sha256-1pr6yFbcIvGMg3ilG9wnJgRZ8sJpYNyI7QX/yUToHvc=";
+    };
+  };
+  fr24feed-i386 = {
+    pname = "fr24feed-i386";
+    version = "1.0.48-0";
+    src = fetchurl {
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_i386.deb";
+      hash = "sha256-ejuIq3u2fxrB7sg1JJDSRUmI5q7XdBbFe1k3PE5GnVk=";
+    };
+  };
   ftp-proxy = {
     pname = "ftp-proxy";
     version = "1.2.3";

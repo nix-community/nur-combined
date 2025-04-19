@@ -614,6 +614,11 @@
     "pname": "flaresolverr-alexfozor",
     "version": "0-unstable-2024-08-04"
   },
+  "legacyPackages.x86_64-linux.fr24feed": {
+    "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
+    "pname": "fr24feed-amd64",
+    "version": "1.0.48-0"
+  },
   "legacyPackages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
@@ -4199,6 +4204,11 @@
     "pname": "flaresolverr-alexfozor",
     "version": "0-unstable-2024-08-04"
   },
+  "legacyPackages.x86_64-linux.uncategorized.fr24feed": {
+    "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
+    "pname": "fr24feed-amd64",
+    "version": "1.0.48-0"
+  },
   "legacyPackages.x86_64-linux.uncategorized.ftp-proxy": {
     "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
@@ -5018,6 +5028,11 @@
     "description": "Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page",
     "pname": "flaresolverr-alexfozor",
     "version": "0-unstable-2024-08-04"
+  },
+  "packages.x86_64-linux.fr24feed": {
+    "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
+    "pname": "fr24feed-amd64",
+    "version": "1.0.48-0"
   },
   "packages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",

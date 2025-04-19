@@ -227,6 +227,26 @@ src.git = "https://github.com/AlexFozor/FlareSolverr.git"
 src.branch = "drission-page-experimental"
 fetch.github = "AlexFozor/FlareSolverr"
 
+[fr24feed-i386]
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/linux-stable/binary-i386/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
+fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_i386.deb"
+
+[fr24feed-amd64]
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/linux-stable/binary-amd64/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
+fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_amd64.deb"
+
+[fr24feed-armhf]
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/raspberrypi-stable/binary-armhf/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
+fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_armhf.deb"
+
+[fr24feed-arm64]
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/raspberrypi-stable/binary-arm64/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
+fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_arm64.deb"
+
 [ftp-proxy]
 src.webpage = "http://www.ftpproxy.org/download/"
 src.regex = "\"ftpproxy-([0-9\\.]+).tgz\""
