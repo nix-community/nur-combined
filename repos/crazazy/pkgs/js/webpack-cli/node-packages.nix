@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001713" = {
+    "caniuse-lite-1.0.30001714" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001713";
+      version = "1.0.30001714";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001713.tgz";
-        sha512 = "wCIWIg+A4Xr7NfhTuHdX+/FKh3+Op3LBbSp2N5Pfx6T/LhdQy3GTyoTg48BReaW/MyMNZAkTadsBtai3ldWK0Q==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001714.tgz";
+        sha512 = "mtgapdwDLSSBnCI3JokHM7oEQBLxiJKVRtg10AxM1AyeiKcM96f0Mkbqeq+1AbiCtvMcHRulAAEMu693JrSWqg==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.136" = {
+    "electron-to-chromium-1.5.139" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.136";
+      version = "1.5.139";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.136.tgz";
-        sha512 = "kL4+wUTD7RSA5FHx5YwWtjDnEEkIIikFgWHR4P6fqjw1PPLlqYkxeOb++wAauAssat0YClCy8Y3C5SxgSkjibQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.139.tgz";
+        sha512 = "GGnRYOTdN5LYpwbIr0rwP/ZHOQSvAF6TG0LSzp28uCBb9JiXHJGmaaKw29qjNJc5bGnnp6kXJqRnGMQoELwi5w==";
       };
     };
     "enhanced-resolve-5.18.1" = {
@@ -1012,13 +1012,13 @@ let
         sha512 = "TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==";
       };
     };
-    "webpack-5.99.5" = {
+    "webpack-5.99.6" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.99.5";
+      version = "5.99.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.5.tgz";
-        sha512 = "q+vHBa6H9qwBLUlHL4Y7L0L1/LlyBKZtS9FHNCQmtayxjI5RKC9yD8gpvLeqGv5lCQp1Re04yi0MF40pf30Pvg==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.6.tgz";
+        sha512 = "TJOLrJ6oeccsGWPl7ujCYuc0pIq2cNsuD6GZDma8i5o5Npvcco/z+NKvZSFsP0/x6SShVb0+X2JK/JHUjKY9dQ==";
       };
     };
     "webpack-cli-6.0.1" = {
@@ -1111,13 +1111,13 @@ let
       sources."ajv-keywords-5.1.0"
       sources."browserslist-4.24.4"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001713"
+      sources."caniuse-lite-1.0.30001714"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.136"
+      sources."electron-to-chromium-1.5.139"
       sources."enhanced-resolve-5.18.1"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.6.0"
@@ -1191,7 +1191,7 @@ let
       sources."undici-types-6.21.0"
       sources."update-browserslist-db-1.1.3"
       sources."watchpack-2.4.2"
-      sources."webpack-5.99.5"
+      sources."webpack-5.99.6"
       sources."webpack-cli-6.0.1"
       sources."webpack-merge-6.0.1"
       sources."webpack-sources-3.2.3"
