@@ -433,12 +433,12 @@
   };
   edge-tts = {
     pname = "edge-tts";
-    version = "7.0.0";
+    version = "7.0.1";
     src = fetchFromGitHub {
       owner = "rany2";
       repo = "edge-tts";
-      tag = "7.0.0";
-      hash = "sha256-TwBSEePVFYTvdueunTrFtZd96tp2P/he7+1cmIk2dy8=";
+      tag = "7.0.1";
+      hash = "sha256-dVoFD6vWn/Yg6u4EJYRzdJfX3Xk5cc8IdCprPzPJYEY=";
     };
   };
   etherguard = {
@@ -971,12 +971,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5151";
+    version = "b5156";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5151";
-      hash = "sha256-7qA1KmfJYZgXmdRc7CTrPLHjwKE6Hmc9dLqmjYFuA5w=";
+      tag = "b5156";
+      hash = "sha256-tbyZggs5HhsOFnuqT34Hx7A4qfPQxZCHgAng1oFj2Fc=";
     };
   };
   loralib = {
@@ -2018,15 +2018,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "9ac773f9353e8cf90f0de4f74ca758dabd2c6886";
+    version = "d9343e7d7ca5ccd9ad8de36441526dad0f3b751b";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "9ac773f9353e8cf90f0de4f74ca758dabd2c6886";
+      rev = "d9343e7d7ca5ccd9ad8de36441526dad0f3b751b";
       fetchSubmodules = true;
-      hash = "sha256-JXmt4e55Ow3fdTm2T1YrodFhTJRGfWMjCTreBnjVwLg=";
+      hash = "sha256-KCNmH3Nme6ihj9zmkqhUkNIPWQP0+B/uPi7cJgORSak=";
     };
-    date = "2025-04-17";
+    date = "2025-04-18";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

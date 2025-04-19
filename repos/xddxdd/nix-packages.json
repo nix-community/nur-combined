@@ -572,7 +572,7 @@
   "legacyPackages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.12-edge-tts",
-    "version": "7.0.0"
+    "version": "7.0.1"
   },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -822,7 +822,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5151"
+    "version": "5156"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1449,6 +1449,11 @@
     "pname": "nvidia-x11",
     "version": "535.104.05-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.16_10": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.247.01-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1519,10 +1524,20 @@
     "pname": "nvidia-x11",
     "version": "550.144.03-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.17_6": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.163.01-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "570.124.06-6.12.23"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.18_1": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.133.20-6.12.23"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1634,6 +1649,11 @@
     "pname": "nvidia-x11",
     "version": "535.104.05-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.16_10": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.247.01-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1704,10 +1724,20 @@
     "pname": "nvidia-x11",
     "version": "550.144.03-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.17_6": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.163.01-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "570.124.06-6.12.23"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.18_1": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.133.20-6.12.23"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1819,6 +1849,11 @@
     "pname": "nvidia-x11",
     "version": "535.104.06-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.16_10": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.247.02-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1889,10 +1924,20 @@
     "pname": "nvidia-x11",
     "version": "550.144.02-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.17_6": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.163.02-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "570.124.03-6.12.23"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.18_1": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.133.10-6.12.23"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -2004,6 +2049,11 @@
     "pname": "nvidia-x11",
     "version": "535.104.06-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_10": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.247.02-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -2074,10 +2124,20 @@
     "pname": "nvidia-x11",
     "version": "550.144.02-6.12.23"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_6": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.163.02-6.12.23"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "570.124.03-6.12.23"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_1": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.133.10-6.12.23"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -3712,7 +3772,7 @@
   "legacyPackages.x86_64-linux.python3Packages.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.12-edge-tts",
-    "version": "7.0.0"
+    "version": "7.0.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.fish-speech": {
     "description": "SOTA Open Source TTS",
@@ -4622,7 +4682,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-17"
+    "version": "0-unstable-2025-04-18"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4697,7 +4757,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-17"
+    "version": "0-unstable-2025-04-18"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4987,7 +5047,7 @@
   "packages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.12-edge-tts",
-    "version": "7.0.0"
+    "version": "7.0.1"
   },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -5662,7 +5722,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-17"
+    "version": "0-unstable-2025-04-18"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
