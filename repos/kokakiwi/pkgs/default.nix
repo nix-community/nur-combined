@@ -37,9 +37,6 @@ let
     };
     go-mod-upgrade = { };
     imhex = { };
-    lampray = {
-      stdenv = pkgs.overrideCC pkgs.stdenv pkgs.gcc13;
-    };
     lddtree = { };
     ots-cli = {
       _common = "ots";
