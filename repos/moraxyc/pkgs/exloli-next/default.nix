@@ -1,12 +1,9 @@
 {
   lib,
   rustPlatform,
-  fetchFromGitHub,
   pkg-config,
   openssl,
   sqlite,
-  stdenv,
-  darwin,
   sources,
 }:
 
@@ -15,22 +12,17 @@ rustPlatform.buildRustPackage {
 
   inherit (sources.exloli-next) version src;
 
-  cargoHash = "sha256-EBK7cn0HZotkxcUQ/CBaPAN3qfATGA68ZMD2d3Z2wSI=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-weV2D9253qrqeF7lN8ucJdMz3kgh/IjCAZWI6EI4ytw=";
 
   nativeBuildInputs = [
     pkg-config
   ];
 
-  buildInputs =
-    [
-      openssl
-      sqlite
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreFoundation
-      darwin.apple_sdk.frameworks.Security
-      darwin.apple_sdk.frameworks.SystemConfiguration
-    ];
+  buildInputs = [
+    openssl
+    sqlite
+  ];
 
   # need db.text.json
   doCheck = false;

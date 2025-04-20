@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage {
 
   inherit (sources.libinput-three-finger-drag) version src;
 
-  cargoHash = "sha256-6inwT2ume6n+jBEJyiNcscC0U0QkbVgX7EMH3SXvkqc=";
+  cargoHash = "sha256-0a4egvNTGup/HhsF88G7PLTm7BfUKEDLTh3IPsnZ1zY=";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ xdotool ];
