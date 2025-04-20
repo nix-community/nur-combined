@@ -42,7 +42,7 @@ in
 if lib.hasAttr "withPlugins" caddy then
   caddy.withPlugins {
     inherit plugins;
-    hash = "sha256-MN26bdQI66LJ173Jzkx5P0EP5/0RDNnyPAtjOP7VWOE=";
+    hash = "sha256-Ys6efpXd7fRm4g62Lus55+SJz6hIa52kbeldPeExOgE=";
   }
 else
   caddy.overrideAttrs (
