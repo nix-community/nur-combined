@@ -22,6 +22,7 @@ in
       pkgs.kubernetes-helm
       pkgs.argocd
       pkgs.k9s
+      pkgs.crane
     ];
 
     nagy.shortcommands.commands = {
