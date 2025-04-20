@@ -16,7 +16,7 @@
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-HlwSvHedRycUQDipC7bZefKyHaFUM8WQ6IwLYxNSymU=";
+            hash = "sha256-pAdIeY43ROYYtHjPYiDMTMkYzgMqsEeP01oUBVO7SZM=";
         };
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
         desktopItems = [
