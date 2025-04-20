@@ -329,17 +329,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "781ba525b1e2819170a85f98b0047f5b7450868f";
+    version = "d4ce49631896c70c897d8caa411a50ccc5d91759";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "781ba525b1e2819170a85f98b0047f5b7450868f";
+      rev = "d4ce49631896c70c897d8caa411a50ccc5d91759";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-8Zho6o3C7CTeMjVBY79M8qVvC+qsWaLCN2uYVqe5UZg=";
+      sha256 = "sha256-2qZc18UyqjBwAFS1FF6mTn2J/vqwBEVnFVK0rtpBxTQ=";
     };
-    date = "2025-04-12";
+    date = "2025-04-18";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
@@ -452,23 +452,23 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "b3c78fce3d90be2ce6a6ffee0e22a50379952e2b";
+    version = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "b3c78fce3d90be2ce6a6ffee0e22a50379952e2b";
+      rev = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-V3V18BoBRJU8mtvwWXvdYPbKBDIHdu5LzVSkDkGJjFU=";
+      sha256 = "sha256-Z9c/5jKxs5ctUuVu7g+BXA1Wy4lyZLpGATtj2jd84jI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-b3c78fce3d90be2ce6a6ffee0e22a50379952e2b/Cargo.lock;
+      lockFile = ./swayosd-ce1f34d80a7f8b4393a5551ea0535bd8beabb28c/Cargo.lock;
       outputHashes = {
 
       };
     };
-    date = "2025-03-03";
+    date = "2025-04-20";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
