@@ -407,7 +407,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-3"
+    "version": "1.16.4-1"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -616,7 +616,7 @@
   },
   "legacyPackages.x86_64-linux.fr24feed": {
     "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
-    "pname": "fr24feed-amd64",
+    "pname": "fr24feed",
     "version": "1.0.48-0"
   },
   "legacyPackages.x86_64-linux.ftp-proxy": {
@@ -822,7 +822,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5156"
+    "version": "5160"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3702,12 +3702,12 @@
   "legacyPackages.x86_64-linux.plangothic-fonts.allideo": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts-allideo",
-    "version": "2.9.5771"
+    "version": "2.9.5777"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts.fallback": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts-fallback",
-    "version": "2.9.5771"
+    "version": "2.9.5777"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -4147,7 +4147,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-3"
+    "version": "1.16.4-1"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -4266,7 +4266,7 @@
   },
   "legacyPackages.x86_64-linux.uncategorized.fr24feed": {
     "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
-    "pname": "fr24feed-amd64",
+    "pname": "fr24feed",
     "version": "1.0.48-0"
   },
   "legacyPackages.x86_64-linux.uncategorized.ftp-proxy": {
@@ -4682,7 +4682,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-18"
+    "version": "0-unstable-2025-04-19"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4757,7 +4757,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-18"
+    "version": "0-unstable-2025-04-19"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4922,7 +4922,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.16.3-3"
+    "version": "1.16.4-1"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -5091,7 +5091,7 @@
   },
   "packages.x86_64-linux.fr24feed": {
     "description": "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24",
-    "pname": "fr24feed-amd64",
+    "pname": "fr24feed",
     "version": "1.0.48-0"
   },
   "packages.x86_64-linux.ftp-proxy": {
@@ -5722,7 +5722,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-04-18"
+    "version": "0-unstable-2025-04-19"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

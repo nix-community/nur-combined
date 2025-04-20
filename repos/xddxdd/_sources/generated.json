@@ -272,11 +272,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aE9bnZ5FIuCn/ZYzErbqwiBX/uPiI6BfNi9Dl9MQe8U=",
+            "sha256": "sha256-1pkhdJV7Xdiaj8FIPs/1fyJFmrHctx8pbdHqNrfEJLA=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.3-3/bilibili-asar-v1.16.3-3.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.4-1/bilibili-asar-v1.16.4-1.tar.gz"
         },
-        "version": "v1.16.3-3"
+        "version": "v1.16.4-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -292,12 +292,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.3-3",
-            "sha256": "sha256-Yl11WkXZjXZtrGp4ugEzq3zIlao070R2hBEoemQXQfU=",
+            "rev": "v1.16.4-1",
+            "sha256": "sha256-xQliCbQTlK/Z6rrLKDgQFaQ3VA0T5BnIhxldyhqd510=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.3-3"
+        "version": "v1.16.4-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1897,12 +1897,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5156",
-            "sha256": "sha256-tbyZggs5HhsOFnuqT34Hx7A4qfPQxZCHgAng1oFj2Fc=",
+            "rev": "b5160",
+            "sha256": "sha256-CwlFucyYUhn5IJosIon7e4Y7urxXTyQGGGVLYT0XpWM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5156"
+        "version": "b5160"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2752,12 +2752,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V2.9.5771",
-            "sha256": "sha256-v2yRjZ7RggARdK6Zbh+ymw4m/Q969GgVc2RhPQCQkMU=",
+            "rev": "V2.9.5777",
+            "sha256": "sha256-gYRKlYdbRLquPvCMaprWWA7NdKwSTlGNTMCwaVc+KXk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5771"
+        "version": "V2.9.5777"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
@@ -3949,7 +3949,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-18",
+        "date": "2025-04-19",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3961,12 +3961,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "d9343e7d7ca5ccd9ad8de36441526dad0f3b751b",
-            "sha256": "sha256-KCNmH3Nme6ihj9zmkqhUkNIPWQP0+B/uPi7cJgORSak=",
+            "rev": "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423",
+            "sha256": "sha256-irlYx27P6IugL0AchAt3msu3fh1QTeYBkjFq8rHznMg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d9343e7d7ca5ccd9ad8de36441526dad0f3b751b"
+        "version": "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423"
     },
     "unigine-heaven": {
         "cargoLocks": null,
