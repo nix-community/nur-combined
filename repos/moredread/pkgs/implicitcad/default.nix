@@ -34,11 +34,11 @@
 }:
 mkDerivation rec {
   pname = "implicitcad";
-  version = "0.4.0.0";
+  version = "8827fb0a";
   src = fetchgit {
     url = "https://github.com/colah/ImplicitCAD";
-    sha256 = "sha256-6y0I11SnKLLpgQHUt3w1gjvrN0Vgxej0J5VEFdLjijs=";
-    rev = "v${version}";
+    sha256 = "sha256-a0SaXCGipWr7sZY0R5xSfudNhVB1kFSOxqpgS68Mf+o=";
+    rev = "8827fb0a2553db0e70a8bf7495f9413007d6d8cb";
     fetchSubmodules = true;
   };
   isLibrary = true;
@@ -108,6 +108,5 @@ mkDerivation rec {
   benchmarkHaskellDepends = [ base criterion parsec random ];
   homepage = "http://kalli1.faikvm.com/ImplicitCAD/Stable";
   description = "Warning: experimental package, might change at any time. Math-inspired programmatic 2&3D CAD, also known as extopenscad";
-  license = lib.licenses.agpl3Plus;
-  broken = true;
+  license = lib.licenses.agpl3Only;
 }

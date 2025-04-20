@@ -1,8 +1,6 @@
 { appimageTools, fetchurl, lib, gsettings-desktop-schemas, gtk3, makeDesktopItem }:
 
 let
-  pname = "joplin-desktop";
-  version = "3.1.3";
   desktopItem = makeDesktopItem {
      name = "Joplin";
      exec = "joplin-desktop";
@@ -10,11 +8,12 @@ let
      desktopName = "Joplin";
   };
 in appimageTools.wrapType2 rec {
-  name = "${pname}-${version}";
+  pname = "joplin-desktop";
+  version = "3.3.5";
 
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
-    sha256 = "0ai1nlfvmj2064fc4ivmkrihbj191msydakzv7hscbi00c0234bp";
+    sha256 = "1pn61fpqgq7mxzdsaf8djg8rhddyabkg0m2cr29rz75gk493s4hb";
   };
 
   profile = ''
@@ -22,11 +21,11 @@ in appimageTools.wrapType2 rec {
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
   '';
 
+  #multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     ln -s ${desktopItem}/share/applications/* $out/share/applications
-    mv $out/bin/{${name},${pname}}
   '';
 
 
