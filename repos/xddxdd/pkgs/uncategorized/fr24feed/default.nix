@@ -38,13 +38,12 @@ let
       install -Dm755 usr/bin/fr24feed $out/bin/fr24feed
       install -Dm755 usr/bin/fr24feed-signup-adsb $out/bin/fr24feed-signup-adsb
       install -Dm755 usr/bin/fr24feed-signup-uat $out/bin/fr24feed-signup-uat
-      install -Dm644 etc/fr24feed.ini $out/etc/fr24feed.ini
 
       runHook postInstall
     '';
   };
 
-  fhs = buildFHSEnv {
+  fhsArgs = {
     name = "fr24feed-fhs";
     targetPkgs = _pkgs: [
       _pkgs.procps
@@ -59,6 +58,20 @@ let
     unshareUts = false;
     unshareCgroup = false;
   };
+
+  # FHS for starting main program
+  fhs = buildFHSEnv fhsArgs;
+
+  # FHS for starting signup programs, link fr24feed.ini to current directory
+  fhs-signup = buildFHSEnv (
+    fhsArgs
+    // {
+      extraBwrapArgs = [
+        "--symlink $(pwd)/fr24feed.ini /etc/fr24feed.ini"
+        "--symlink $(pwd)/fr24uat-feed.ini /etc/fr24uat-feed.ini"
+      ];
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "fr24feed";
@@ -69,9 +82,9 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     install -Dm755 ${fhs}/bin/fr24feed-fhs $out/bin/fr24feed
+    install -Dm755 ${fhs-signup}/bin/fr24feed-fhs $out/bin/.fr24feed-signup
     install -Dm755 ${distPkg}/bin/fr24feed-signup-adsb $out/bin/fr24feed-signup-adsb
     install -Dm755 ${distPkg}/bin/fr24feed-signup-uat $out/bin/fr24feed-signup-uat
-    install -Dm644 ${distPkg}/etc/fr24feed.ini $out/etc/fr24feed.ini
 
     runHook postInstall
   '';
@@ -79,9 +92,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     # Signup scripts need FHS for a few utils in /usr/bin
     substituteInPlace $out/bin/fr24feed-signup-adsb \
-      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
+      --replace-fail "/usr/bin/fr24feed" "$out/bin/.fr24feed-signup"
+    printf "\necho \"NixOS note: fr24feed.ini is generated in current directory\"\n" >> $out/bin/fr24feed-signup-adsb
+
     substituteInPlace $out/bin/fr24feed-signup-uat \
-      --replace-fail "/usr/bin/fr24feed" "$out/bin/fr24feed"
+      --replace-fail "/usr/bin/fr24feed" "$out/bin/.fr24feed-signup"
+    printf "\necho \"NixOS note: fr24uat-feed.ini is generated in current directory\"\n" >> $out/bin/fr24feed-signup-uat
   '';
 
   passthru = { inherit distPkg; };
