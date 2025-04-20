@@ -5,13 +5,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "dev-lennis-www-${version}";
-  version = "1125fc5";
+  name = "dev-lennis-email-obfuscater-${version}";
+  version = "3ac40a4";
   src = fetchFromGitHub {
     owner = "lennis-dev";
-    repo = "lennis.dev";
-    rev = "1125fc59b79ed663ad805838520b4a4384c08096";
-    hash = "sha256-PNMJZIrBcWPlfKxhBl93FqIgqQJIGVa2CC2DhPFuKVo=";
+    repo = "email-obfuscater";
+    rev = "3ac40a4d90f453342a9f2d6b89b2ddc22591fa4a";
+    hash = "sha256-pJ6HkvUzC4SxUgxlCl3AFqmOkqmaUVeEtvikzHKQ4Lg=";
   };
 
   installPhase = ''
