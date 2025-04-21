@@ -80,7 +80,7 @@ in let
             pillow
             pygame-ce'
             pyscroll
-            pytmx
+            (pytmx.override { pygame = pygame-ce'; })
             requests
             natsort
             pyyaml
