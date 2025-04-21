@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import textwrap
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Optional
@@ -106,7 +107,7 @@ def substitute_nvfetcher_references(
         elif match[2] == "version":
             result = ref_value.version
         elif match[2] == "src":
-            result = f"({ref_value.src_with_version_replacement(use_final_attrs)})"
+            result = f"{ref_value.src_with_version_replacement(use_final_attrs)}"
         else:
             result = match[2]
 
@@ -115,7 +116,25 @@ def substitute_nvfetcher_references(
     regex = r"^([^#]+)sources\." + ref_name + r"\.([a-zA-Z0-9]+)([^a-zA-Z0-9]+)"
     result = re.sub(regex, replace_direct_reference, result, flags=re.MULTILINE)
 
-    # Step 3: inject function used to obtain src
+    # Step 3: replace direct references to sources.xxx
+    # Do not include pname since only case this will happen is multi source for multiarch packages
+    def replace_direct_reference_entire_obj(match: re.Match[str]) -> str:
+        result = textwrap.dedent(
+            f"""
+                rec {{
+                    version = {ref_value.version};
+                    src = {ref_value.src_with_version_replacement(use_final_attrs)};
+                }}
+            """
+        ).strip()
+        return match[1] + result + match[2]
+
+    regex = r"^([^#]+)sources\." + ref_name + r"(\s+)"
+    result = re.sub(
+        regex, replace_direct_reference_entire_obj, result, flags=re.MULTILINE
+    )
+
+    # Step 4: inject function used to obtain src
     if re.search(r"^\s*#\s*" + ref_value.src_func + r",", result, re.MULTILINE):
         print("Uncomment existing placeholder...")
         result = re.sub(
@@ -131,10 +150,10 @@ def substitute_nvfetcher_references(
         print(f"Inserting arg of {ref_value.src_func}")
         result = result.replace("{", "{" + ref_value.src_func + ",", 1)
 
-    # Step 4: remove sources import
+    # Step 5: remove sources import
     result = re.sub(r"\s+sources,\s+", "", result, count=1)
 
-    # Step 5: remove inherit sources
+    # Step 6: remove inherit sources
     result = re.sub(r"inherit\s+sources\s*;", "", result)
 
     return result

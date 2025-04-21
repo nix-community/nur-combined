@@ -27,7 +27,8 @@
           # # Disable for build failure
           # formatjson5.enable = true;
           isort.enable = true;
-          mypy.enable = true;
+          # # Disable for unable to handle multiple scripts with same name
+          # mypy.enable = true;
           nixfmt.enable = true;
           shfmt.enable = true;
           statix.enable = true;
