@@ -179,41 +179,41 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.3.1016.4";
+    version = "13.4.1000.42";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_amd64.deb";
-      hash = "sha256-W4LVhqfPDerpQ2IL+MspakF9uBXPbbkmIvnXGYFVcLg=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_amd64.deb";
+      hash = "sha256-bjOQmRz86AI4xFWDaBEZvsAUVpmotZV30Cc0e43FMYY=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.3.1016.4";
+    version = "13.4.1000.42";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_arm64.deb";
-      hash = "sha256-K7G7JteDavc6hX+II9dLUgwTC3P015KCdsGvGx3geWg=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_arm64.deb";
+      hash = "sha256-Lrgb0H1DE3Cr/dY6cpkGI/hz2g+MCCpjwj5Z/2hyAdo=";
     };
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "746c7d17232e083e96910998a0b0da7ecb7ce0ab";
+    version = "4ffae8ab9947f35495dfa7b62b7a22f023488dfb";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "746c7d17232e083e96910998a0b0da7ecb7ce0ab";
-      hash = "sha256-dH8fo3f4q4ARFHonxcfBGZrMMugBDLaXhCoHc2NnMHs=";
+      rev = "4ffae8ab9947f35495dfa7b62b7a22f023488dfb";
+      hash = "sha256-JSLvtd4TRXmHOhs8ZA+GYlhHovMTeR0iMJvfbR74szg=";
     };
-    date = "2025-04-14";
+    date = "2025-04-20";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "8567d85a921f7f05c7ac6f479d856774d8530ded";
+    version = "016338b23769f57b2ee51ee7c605410b61d55061";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "8567d85a921f7f05c7ac6f479d856774d8530ded";
-      hash = "sha256-lU3hzyVBL4mmGMJdH9Wjjehv+kZD4hhLpRVaHzxrBhM=";
+      rev = "016338b23769f57b2ee51ee7c605410b61d55061";
+      hash = "sha256-9Jhgr29c1yy/XR6w743CpH8A//Gq1X+OKD2+W8j1KPo=";
     };
-    date = "2025-04-16";
+    date = "2025-04-20";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -921,12 +921,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.14.2-xanmod1";
+    version = "6.14.3-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.14.2-xanmod1";
+      tag = "6.14.3-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-1XWBEOr2MH3s5ovN3cO0ID6m1qfeqJclNpmF736qsaY=";
+      hash = "sha256-UjsiOKU6y/ofm9WJK+5yZ8GgVCvMU2O0ndw2NYbbUow=";
     };
   };
   linux-xanmod-6_0 = {
@@ -951,12 +951,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.23-xanmod1";
+    version = "6.12.24-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.23-xanmod1";
+      tag = "6.12.24-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-OBsKzXcFLwqidotHDmPwKFtBX9zRC7DoDR4hhWZUv/E=";
+      hash = "sha256-W4c/MqkwWzLhun700MfT4RzmrHaXyQfKqJ2MKahTMP4=";
     };
   };
   linux-xanmod-6_6 = {
@@ -971,12 +971,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5160";
+    version = "b5162";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5160";
-      hash = "sha256-CwlFucyYUhn5IJosIon7e4Y7urxXTyQGGGVLYT0XpWM=";
+      tag = "b5162";
+      hash = "sha256-39ER6TsZSWMJnQ9Fd2GUc/gMJyWW5y/Nc7wH26CNJLs=";
     };
   };
   loralib = {
@@ -2030,15 +2030,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423";
+    version = "9f81aaeb7985545b198cc21cfd8caf094b23a1fe";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423";
+      rev = "9f81aaeb7985545b198cc21cfd8caf094b23a1fe";
       fetchSubmodules = true;
-      hash = "sha256-irlYx27P6IugL0AchAt3msu3fh1QTeYBkjFq8rHznMg=";
+      hash = "sha256-U/X5QYMVEY9RCBqGMerFlfCOYkI1us1BHZkundBfgUQ=";
     };
-    date = "2025-04-19";
+    date = "2025-04-20";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

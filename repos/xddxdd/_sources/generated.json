@@ -350,11 +350,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-W4LVhqfPDerpQ2IL+MspakF9uBXPbbkmIvnXGYFVcLg=",
+            "sha256": "sha256-bjOQmRz86AI4xFWDaBEZvsAUVpmotZV30Cc0e43FMYY=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_amd64.deb"
         },
-        "version": "13.3.1016.4"
+        "version": "13.4.1000.42"
     },
     "browser360-arm64": {
         "cargoLocks": null,
@@ -365,15 +365,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-K7G7JteDavc6hX+II9dLUgwTC3P015KCdsGvGx3geWg=",
+            "sha256": "sha256-Lrgb0H1DE3Cr/dY6cpkGI/hz2g+MCCpjwj5Z/2hyAdo=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_arm64.deb"
         },
-        "version": "13.3.1016.4"
+        "version": "13.4.1000.42"
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-04-14",
+        "date": "2025-04-20",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -385,16 +385,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "746c7d17232e083e96910998a0b0da7ecb7ce0ab",
-            "sha256": "sha256-dH8fo3f4q4ARFHonxcfBGZrMMugBDLaXhCoHc2NnMHs=",
+            "rev": "4ffae8ab9947f35495dfa7b62b7a22f023488dfb",
+            "sha256": "sha256-JSLvtd4TRXmHOhs8ZA+GYlhHovMTeR0iMJvfbR74szg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "746c7d17232e083e96910998a0b0da7ecb7ce0ab"
+        "version": "4ffae8ab9947f35495dfa7b62b7a22f023488dfb"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-20",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "8567d85a921f7f05c7ac6f479d856774d8530ded",
-            "sha256": "sha256-lU3hzyVBL4mmGMJdH9Wjjehv+kZD4hhLpRVaHzxrBhM=",
+            "rev": "016338b23769f57b2ee51ee7c605410b61d55061",
+            "sha256": "sha256-9Jhgr29c1yy/XR6w743CpH8A//Gq1X+OKD2+W8j1KPo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8567d85a921f7f05c7ac6f479d856774d8530ded"
+        "version": "016338b23769f57b2ee51ee7c605410b61d55061"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1795,13 +1795,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.14.2-xanmod1",
-            "sha256": "sha256-1XWBEOr2MH3s5ovN3cO0ID6m1qfeqJclNpmF736qsaY=",
+            "rev": "6.14.3-xanmod1",
+            "sha256": "sha256-UjsiOKU6y/ofm9WJK+5yZ8GgVCvMU2O0ndw2NYbbUow=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.14.2-xanmod1"
+        "version": "6.14.3-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1855,13 +1855,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.23-xanmod1",
-            "sha256": "sha256-OBsKzXcFLwqidotHDmPwKFtBX9zRC7DoDR4hhWZUv/E=",
+            "rev": "6.12.24-xanmod1",
+            "sha256": "sha256-W4c/MqkwWzLhun700MfT4RzmrHaXyQfKqJ2MKahTMP4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.23-xanmod1"
+        "version": "6.12.24-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1897,12 +1897,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5160",
-            "sha256": "sha256-CwlFucyYUhn5IJosIon7e4Y7urxXTyQGGGVLYT0XpWM=",
+            "rev": "b5162",
+            "sha256": "sha256-39ER6TsZSWMJnQ9Fd2GUc/gMJyWW5y/Nc7wH26CNJLs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5160"
+        "version": "b5162"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3970,7 +3970,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-19",
+        "date": "2025-04-20",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3982,12 +3982,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423",
-            "sha256": "sha256-irlYx27P6IugL0AchAt3msu3fh1QTeYBkjFq8rHznMg=",
+            "rev": "9f81aaeb7985545b198cc21cfd8caf094b23a1fe",
+            "sha256": "sha256-U/X5QYMVEY9RCBqGMerFlfCOYkI1us1BHZkundBfgUQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8cf0edf8b8146f2adce17fefcf3e7b4f9e899423"
+        "version": "9f81aaeb7985545b198cc21cfd8caf094b23a1fe"
     },
     "unigine-heaven": {
         "cargoLocks": null,
