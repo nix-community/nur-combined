@@ -15,7 +15,7 @@ cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
     owner = "NVIDIA";
     repo = "cuda-samples";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-D+kP1OEJ4zR/9wKL+jjAv3TRv1IdX39mhZ1MvobX6F0=";
+    sha256 = "sha256-Ba0Fi0v/sQ+1iJ4mslgyIAE+oK5KO0lMoTQCC91vpiA=";
   };
   patches = [
     (substituteAll {
