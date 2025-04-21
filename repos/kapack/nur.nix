@@ -60,6 +60,8 @@ rec {
 
   #dcdb = pkgs.callPackage ./pkgs/dcdb { inherit scylladb-cpp-driver bacnet-stack mosquitto-dcdb; };
 
+  dispath = pkgs.callPackage ./pkgs/dispath { };
+
   distem = pkgs.callPackage ./pkgs/distem { };
 
   ear =  pkgs.callPackage ./pkgs/ear { };
