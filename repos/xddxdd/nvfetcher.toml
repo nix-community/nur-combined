@@ -460,6 +460,11 @@ fetch.github = "modelscope/modelscope"
 src.github = "bkerler/mtkclient"
 fetch.github = "bkerler/mtkclient"
 
+[mtranservercore-rs]
+src.git = "https://github.com/LinguaSpark/server.git"
+fetch.github = "LinguaSpark/server"
+git.fetchSubmodules = true
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"

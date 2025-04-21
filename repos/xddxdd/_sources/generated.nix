@@ -1048,6 +1048,18 @@
       hash = "sha256-y2VCfjds1fN2G9MHYZveT3NQqYF7RO26gBykHY1O6o8=";
     };
   };
+  mtranservercore-rs = {
+    pname = "mtranservercore-rs";
+    version = "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd";
+    src = fetchFromGitHub {
+      owner = "LinguaSpark";
+      repo = "server";
+      rev = "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd";
+      fetchSubmodules = true;
+      hash = "sha256-bGup9ex9RFFIKSN/iY0ivOULWYjBb9ewwhbS6AKd8+A=";
+    };
+    date = "2025-04-16";
+  };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
     version = "32a49117ca3ff17d7681713a8dc8812323142dcb";

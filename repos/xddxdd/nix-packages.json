@@ -1299,6 +1299,11 @@
     "pname": "python3.12-mtkclient",
     "version": "2.0.1.freeze"
   },
+  "legacyPackages.x86_64-linux.mtranservercore-rs": {
+    "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
+    "pname": "mtranservercore-rs",
+    "version": "0-unstable-2025-04-16"
+  },
   "legacyPackages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
     "pname": "ncmdump-rs",
@@ -4404,6 +4409,11 @@
     "pname": "metee",
     "version": "5.0.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
+    "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
+    "pname": "mtranservercore-rs",
+    "version": "0-unstable-2025-04-16"
+  },
   "legacyPackages.x86_64-linux.uncategorized.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
     "pname": "ncmdump-rs",
@@ -5318,6 +5328,11 @@
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.12-mtkclient",
     "version": "2.0.1.freeze"
+  },
+  "packages.x86_64-linux.mtranservercore-rs": {
+    "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
+    "pname": "mtranservercore-rs",
+    "version": "0-unstable-2025-04-16"
   },
   "packages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",

@@ -2045,6 +2045,27 @@
         },
         "version": "2.0.1.freeze"
     },
+    "mtranservercore-rs": {
+        "cargoLocks": null,
+        "date": "2025-04-16",
+        "extract": null,
+        "name": "mtranservercore-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LinguaSpark",
+            "repo": "server",
+            "rev": "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd",
+            "sha256": "sha256-bGup9ex9RFFIKSN/iY0ivOULWYjBb9ewwhbS6AKd8+A=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "date": "2022-06-13",
