@@ -1459,10 +1459,10 @@
     };
     "catppuccin-web-file-icons" = buildFirefoxXpiAddon {
       pname = "catppuccin-web-file-icons";
-      version = "1.0.1";
+      version = "1.1.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470306/catppuccin_web_file_icons-1.0.1.xpi";
-      sha256 = "7a4b84739675110e9ce2e9cda597521e255a9fc205cfbfdae808549dd04c256c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477739/catppuccin_web_file_icons-1.1.0.xpi";
+      sha256 = "178a2471b57203e751563035475ef8975087e1f0361d617e0a30ebb22ff7c9f0";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/web-file-explorer-icons";
@@ -2267,10 +2267,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "138.0.20250416.92013";
+      version = "138.0.20250418.91947";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475606/dansk_da_language_pack-138.0.20250416.92013.xpi";
-      sha256 = "a859715c3193c27e014c591a2b2e770c15845aac29fd958c1bbb7d44bd604169";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476934/dansk_da_language_pack-138.0.20250418.91947.xpi";
+      sha256 = "d3dd3d3678895a7854b989825125aa9b757f93a5d6bcd17757e27d020a561a81";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2464,10 +2464,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "138.0.20250416.92013";
+      version = "138.0.20250418.91947";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475610/deutsch_de_language_pack-138.0.20250416.92013.xpi";
-      sha256 = "90fb83cdfc6513894675855b8da8d3e5ff82042aa7c5551ac7507d32ab458d00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476936/deutsch_de_language_pack-138.0.20250418.91947.xpi";
+      sha256 = "ec2578de885847ddbec22ced57211c20e8c241d9d48bc118e78b9431bae25c2b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2726,10 +2726,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.58.7";
+      version = "2.58.8";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4476149/dualsub-2.58.7.xpi";
-      sha256 = "50960d00064894dc36541fc459a69006aa182ba88a844fabcfb79c16a8455d47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477420/dualsub-2.58.8.xpi";
+      sha256 = "ece53232c35874af307495449e1bffaea8bd460af20846c60765f9e00cdb07ac";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3720,10 +3720,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "138.0.20250416.92013";
+      version = "138.0.20250418.91947";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475591/francais_language_pack-138.0.20250416.92013.xpi";
-      sha256 = "66d2f8977b9913d2365b08cf95a1072696792e930f4075a7e3d755dd45287a90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476926/francais_language_pack-138.0.20250418.91947.xpi";
+      sha256 = "46cae4eaa7d75c02b6b5c538a125a979d06a5db33b873f1a76728571c1beabf7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3757,10 +3757,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "138.0.20250416.92013";
+      version = "138.0.20250418.91947";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475600/gaidhlig_language_pack-138.0.20250416.92013.xpi";
-      sha256 = "efccb9f3df84ab44c6269beca1ad8d01c80e1e2e2330afe502fae4ecf21c3dda";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476918/gaidhlig_language_pack-138.0.20250418.91947.xpi";
+      sha256 = "cd427c01460e3daf217e6b939dcb61d9272a39a6161b4ea43db3bfab85720910";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6152,10 +6152,10 @@
     };
     "justdeleteme" = buildFirefoxXpiAddon {
       pname = "justdeleteme";
-      version = "1.4.0";
+      version = "1.5.0";
       addonId = "{6f54ad3f-042f-408f-8f06-ab631fe1a64f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4461201/justdeleteme-1.4.0.xpi";
-      sha256 = "0ada4964bd0ac1b2260633d4effc878ff9723d49e3a3372eb3ba439a6dd0b1b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477664/justdeleteme-1.5.0.xpi";
+      sha256 = "dc429ae8dd4d077b1fcaea0221058f0a6bbeb30eb5589e4d4a38726eecbb3ec7";
       meta = with lib;
       {
         description = "JustDeleteMe.xyz extension for Firefox-based browsers.";
@@ -7846,10 +7846,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.24";
+      version = "1.0.25";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470610/mergify-1.0.24.xpi";
-      sha256 = "2c18e8f6a6654438a5107bfd655e3627d588c443b4d48257b12b6f1f915ca6af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477145/mergify-1.0.25.xpi";
+      sha256 = "78e7d64d1f3f994630a4ecb0b137516fa1be38583a975c2cad3e9500837f4701";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -8527,10 +8527,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.39.0";
+      version = "6.38.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4463689/okta_browser_plugin-6.39.0.xpi";
-      sha256 = "3465f537979c7cf7879338bac206b47a6a7e4c108c48d682d284e62e6bdd7d19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4441853/okta_browser_plugin-6.38.0.xpi";
+      sha256 = "a26b30c29db3ff139cf313b1e19dbff5ea2836f29d59c2c28411c54e5d02c1fa";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -8909,10 +8909,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.21";
+      version = "1.22.1";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383383/passff-1.21.xpi";
-      sha256 = "1119234918568333fb1c6119a023c4fbebb867fd3b05ec93af2c6df7001ae4b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477908/passff-1.22.1.xpi";
+      sha256 = "6e3d6d18a9d36a4a7948ceb947c3211f37079e0c552373d411fc9c3826554769";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -10550,10 +10550,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "138.0.20250416.92013";
+      version = "138.0.20250418.91947";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475548/scots_language_pack-138.0.20250416.92013.xpi";
-      sha256 = "88728595c86545d271f29b340f0b4f32453ca394ba8e37630ab4dc1284db371b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4476894/scots_language_pack-138.0.20250418.91947.xpi";
+      sha256 = "938bc0c68bc8325f5a1351af806b079b7a7990a5066848d4880db9f5e30fe384";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11227,10 +11227,10 @@
     };
     "spoof-timezone" = buildFirefoxXpiAddon {
       pname = "spoof-timezone";
-      version = "0.4.3";
+      version = "0.4.4";
       addonId = "{55f61747-c3d3-4425-97f9-dfc19a0be23c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4474678/spoof_timezone-0.4.3.xpi";
-      sha256 = "0de2a469d1ddcded98d698c49c8e62e82cf190c28c441b1fc2a124670ac89535";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477797/spoof_timezone-0.4.4.xpi";
+      sha256 = "a92641f4f7f4b0353bb88c042ec385467704ab320cd57758043faa0d20bcd26a";
       meta = with lib;
       {
         homepage = "https://add0n.com/spoof-timezone.html";
@@ -11275,7 +11275,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/startup-bookmarks";
-        description = "Open sets of bookmarks as tabs on browser startup by selecting a bookmark folder which contains them";
+        description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them";
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
         platforms = platforms.all;
