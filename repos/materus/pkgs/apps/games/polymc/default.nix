@@ -1,4 +1,5 @@
 { stdenv
+, fetchurl
 , lib
 , fetchFromGitHub
 , cmake
@@ -64,6 +65,14 @@ let
       pname = "polymc" + (lib.optionalString ((lib.versions.major qtbase.version) == "5") "-qt5");
       version = "7.0";
 
+
+      patches = [
+        # Fix for Qt >= 6.9.0
+        (fetchurl { 
+          url = "https://github.com/PolyMC/PolyMC/commit/0dc124d636d76692b1e2c01050743dd87dc78a05.patch";
+          hash = "sha256-ACrS7JAcLq46f8puQlfvPlRb6vk/+wuv+y1yqGQjp/I=";
+        })
+      ];
       src = fetchFromGitHub {
         owner = "PolyMC";
         repo = "PolyMC";
