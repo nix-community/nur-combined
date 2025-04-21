@@ -6,6 +6,9 @@
   mkl,
   pcre2,
 }:
+let
+  mklStatic = mkl.override { enableStatic = true; };
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.mtranservercore-rs) pname version src;
 
@@ -14,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
-    mkl
+    mklStatic
     pcre2
   ];
 
@@ -26,9 +29,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postPatch = ''
     echo '#define GIT_REVISION "${sources.mtranservercore-rs.rawVersion} ${finalAttrs.version}"' > \
       bergamot/bergamot-translator/3rd_party/marian-dev/src/common/git_revision.h
-
-    substituteInPlace bergamot/build.rs \
-      --replace-fail "mkl-static-ilp64-iomp" "mkl-dynamic-ilp64-iomp"
   '';
 
   postFixup = ''
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-lMHaSkOF7v7Sbe8CaSxfcD61BcKSuk9e0LGQeiYPe7U=";
   useFetchCargoVendor = true;
 
-  env.MKLROOT = "${mkl}";
+  env.MKLROOT = "${mklStatic}";
 
   meta = {
     mainProgram = finalAttrs.pname;

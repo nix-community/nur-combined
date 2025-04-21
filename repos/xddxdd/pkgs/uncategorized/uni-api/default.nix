@@ -16,6 +16,7 @@ let
       greenlet
       h2
       httpx
+      httpx-socks
       pillow
       pytest
       python-multipart
