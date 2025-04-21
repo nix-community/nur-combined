@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24";
     homepage = "https://www.flightradar24.com/share-your-data";
-    license = lib.licenses.unfreeRedistributable;
+    license = lib.licenses.unfree;
     mainProgram = "fr24feed";
   };
 }
