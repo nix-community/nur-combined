@@ -1,42 +1,34 @@
 { lib
-, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , fetchurl
 , pythonOlder
+, setuptools
+, setuptools-scm
+, wheel
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "git-filter-repo";
-  version = "2.38.0";
-  format = "setuptools";
+  version = "2.45.0";
+  pyproject = true;
 
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "newren";
     repo = "git-filter-repo";
+    # this version has no manpage
+    # so we fetch the manpage separately
     rev = "v${version}";
-    hash = "sha256-keRDaMg0BbrqxlSUOS2X1y+FTuCd8AJi8q7VwO8fhKo=";
+    hash = "sha256-fbY2S7RPkuv53TIH751os7OczjQR0834bnTeI5nuUg8=";
+    # this version has no pyproject.toml
+    #rev = "71d71d4be238628bf9cb9b27be79b8bb824ed1a9";
+    #hash = "sha256-m9NI7bLR5F+G7f3Dyi4sP6n4qz2i8cdBRuIn0OcpHAw=";
   };
 
-  postPatch = ''
-    # build in /release/
-    cd release
-
-    # fix: ERROR: Could not find a version that satisfies the requirement setuptools_scm
-    substituteInPlace setup.py \
-      --replace \
-        'use_scm_version=dict(root="..", relative_to=__file__),' \
-        'version="${version}",'
-    substituteInPlace setup.cfg \
-      --replace 'setup_requires = setuptools_scm' ""
-
-    # fix: FileExistsError: File already exists: /bin/git-filter-repo
-    substituteInPlace setup.cfg \
-      --replace "scripts = git-filter-repo" ""
-  '';
-
   # TODO build manpage from source with asciidoc
+  # this also requires git sources
   # https://github.com/newren/git-filter-repo/issues/495
   /*
     a2x \
@@ -50,8 +42,8 @@ buildPythonPackage rec {
 
   # https://github.com/newren/git-filter-repo/blob/docs/man1/git-filter-repo.1
   src-manpage = fetchurl {
-    url = "https://github.com/newren/git-filter-repo/raw/01ead411966a83dfcfb35f9d2e8a9f7f215eaa65/man1/git-filter-repo.1";
-    sha256 = "sha256-O+Vjul7YtSGF0IXGbANnC5bhWMtvF3hQXyv26Ewx2HU=";
+    url = "https://github.com/newren/git-filter-repo/raw/71d71d4be238628bf9cb9b27be79b8bb824ed1a9/man1/git-filter-repo.1";
+    sha256 = "sha256-biz3IffXN0ilnFyWKV4JQGMfNwJKYemnSIkmuYinVNM=";
   };
 
   postInstall = ''
@@ -64,14 +56,19 @@ buildPythonPackage rec {
   # (tests are in the t folder of src)
   doCheck = false;
 
-  pythonImportsCheck = [
-    "git_filter_repo"
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    wheel
   ];
 
+  pythonImportsCheck = [ "git_filter_repo" ];
+
   meta = with lib; {
-    description = "Quickly rewrite git repository history";
+    description = "Quickly rewrite git repository history (filter-branch replacement";
     homepage = "https://github.com/newren/git-filter-repo";
-    license = with licenses; [ mit /* or */ gpl2Plus ];
+    license = with licenses; [ gpl2Only mit ];
     maintainers = with maintainers; [ fab ];
+    mainProgram = "git-filter-repo";
   };
 }

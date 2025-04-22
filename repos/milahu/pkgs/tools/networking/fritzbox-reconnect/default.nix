@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fritzbox-reconnect";
-  version = "0.0.2";
+  version = "0.0.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "fritzbox-reconnect";
     rev = version;
-    hash = "sha256-CapqNde/3bZ8vKcPop06aPc/BAWbQjzUEA2SZMBJ3xw=";
+    hash = "sha256-A7Qj3SvgNXxqTnwVKdLcaf5YxNbuGS5Eb2SeXupTBKk=";
   };
 
   nativeBuildInputs = with python3.pkgs; [

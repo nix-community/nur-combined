@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    maven {
+        url = uri(System.getProperty("org.nixos.gradle2nix.m2"))
+        allowInsecureProtocol true
+    }
+}
+
+dependencies {
+    implementation 'org.test.included:included-child'
+    implementation 'org.apache:test:1.0.0'
+}

@@ -8,14 +8,16 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "aiohttp-chromium";
-  version = "0.0.1";
+  version = "0.0.2";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  #if true then /home/user/src/milahu/aiohttp_chromium else
+  fetchFromGitHub {
     owner = "milahu";
     repo = "aiohttp_chromium";
-    rev = "61fe3150ed032ef8aa99b23dddbedaa1929c229c";
-    hash = "sha256-+PvegLvsS+m+f7y26pWOQnHoBopAU+fIaVOCvNN98KA=";
+    rev = version;
+    hash = "sha256-fUtgFvJpxKF+d+NlJ/fb34aZoIeB/PIwk7RE37Rpykw=";
   };
 
   nativeBuildInputs = [

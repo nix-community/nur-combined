@@ -71,8 +71,8 @@ stdenvNoCC.mkDerivation rec {
       # to avoid DNS lookups to increase download speed
       owner = "ngosang";
       repo = "trackerslist";
-      rev = "9f5cb6e0de8da115729facc77204f6dd128df85c"; # 2024-05-04
-      sha256 = "";
+      rev = "92ad8832eb62888764ceac85c787f269d7593d39"; # 2024-10-05
+      hash = "sha256-67RcNLzckWKnNGPv7HBcX2773XjKzjAEwRV6eL+jikY=";
     }) + "/trackers_best_ip.txt"; # 16 trackers
     #}) + "/trackers_all_ip.txt"; # 97 trackers
 

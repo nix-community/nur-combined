@@ -7,3 +7,9 @@
 [submodule "lib/src/nix-yaml"]
 	path = lib/src/nix-yaml
 	url = https://github.com/milahu/nix-yaml
+[submodule "pkgs/development/tools/mvn2nix/src/mvn2nix"]
+	path = pkgs/development/tools/mvn2nix/src/mvn2nix
+	url = https://github.com/fzakaria/mvn2nix
+[submodule "pkgs/development/tools/gradle2nix/src/gradle2nix"]
+	path = pkgs/development/tools/gradle2nix/src/gradle2nix
+	url = https://github.com/tadfisher/gradle2nix

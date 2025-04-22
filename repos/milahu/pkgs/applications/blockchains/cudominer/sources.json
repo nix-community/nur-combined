@@ -1,0 +1,12 @@
+{
+  "tenant": "135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1",
+  "platform": "linux/x64",
+  "version": "1.7.7",
+  "hashes": {
+    "cudo-miner-cli.deb": "sha256-YdzdlwpxP/Twn8bh7VMeRxCwYW1ykw80EQ/K8OHfC5c=",
+    "cudo-miner-core.deb": "sha256-oorhMMFe4Y5jr1q0vxaIuE3k4LUkLZ2mUuuD/4cZR+0=",
+    "cudo-miner-desktop.deb": "sha256-KmFZUfMjobQRgnxqF2oozaABPCAbxxGpO6K8BmyEwGs=",
+    "cudo-miner-headless.deb": "sha256-8pL6VE2R+OuhAzMgpv06gZFr0ufWj6fAqHYjGPYamCs=",
+    "cudo-miner-service.deb": "sha256-qYbnwlsRKYUOlauhbULKhldGJuNyvQ9kKg3bfY6XA94="
+  }
+}

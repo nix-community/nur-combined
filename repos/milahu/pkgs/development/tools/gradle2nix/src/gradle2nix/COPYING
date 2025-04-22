@@ -1,0 +1,7 @@
+Copyright © Tad Fisher and the gradle2nix contributors, and licensed
+under the Apache License 2.0.
+
+Based on substantial portions of the GitHub Dependency Graph Gradle Plugin,
+Copyright © Gradle, Inc and licensed under the Apache License 2.0.
+
+See LICENSE for the full text of the Apache License 2.0.

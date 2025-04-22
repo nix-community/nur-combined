@@ -1,0 +1,24 @@
+{
+  "com.badlogicgames.gdx:gdx-parent:1.9.9": {
+    "gdx-parent-1.9.9.pom": {
+      "url": "https://repo.maven.apache.org/maven2/com/badlogicgames/gdx/gdx-parent/1.9.9/gdx-parent-1.9.9.pom",
+      "hash": "sha256-JSpktycxGU+lvD37inPSXOa3NXxQLQ+y9W5rTiqaeJM="
+    }
+  },
+  "com.badlogicgames.gdx:gdx-platform:1.9.9": {
+    "gdx-platform-1.9.9-natives-desktop.jar": {
+      "url": "https://repo.maven.apache.org/maven2/com/badlogicgames/gdx/gdx-platform/1.9.9/gdx-platform-1.9.9-natives-desktop.jar",
+      "hash": "sha256-e8c9VPpFH+LeJU6PgmCkOb/jutOxFnO6LPMaTxL2hU8="
+    },
+    "gdx-platform-1.9.9.pom": {
+      "url": "https://repo.maven.apache.org/maven2/com/badlogicgames/gdx/gdx-platform/1.9.9/gdx-platform-1.9.9.pom",
+      "hash": "sha256-SWnDZyJaErav4Z4sA+D1WA3U1aQOSR64sd8+cQzofSY="
+    }
+  },
+  "org.sonatype.oss:oss-parent:5": {
+    "oss-parent-5.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom",
+      "hash": "sha256-FnjUEgpYXYpjATGu7ExSTZKDmFg7fqthbufVqH9SDT0="
+    }
+  }
+}

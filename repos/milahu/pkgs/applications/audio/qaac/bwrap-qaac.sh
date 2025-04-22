@@ -35,6 +35,8 @@ unset __help
 
 export WINEPREFIX="$HOME"/.cache/qaac/wine
 
+mkdir -p "$WINEPREFIX"
+
 bwrap_args=(
   --tmpfs /tmp
   --ro-bind /nix/store /nix/store
@@ -99,7 +101,7 @@ while [ ${#s[@]} != 0 ]; do a="${s[0]}"; s=("${s[@]:1}"); case "$a" in
     esac; done;
     s=("${p[@]}" "${s[@]}"); p=; continue;;
   --) for v in "${s[@]}"; do __+=("$v"); A+=("$v"); done; s=; break;;
-  *) v="$a"; a='--'; __+=("$v"); A+=("$v");;
+  *) v="$a"; [ "$v" != "-" ] && v="$(realpath -s "$v")"; a='--'; __+=("$v"); A+=("$v");;
 esac; done
 
 if [ $# == 0 ]; then __help=1; fi

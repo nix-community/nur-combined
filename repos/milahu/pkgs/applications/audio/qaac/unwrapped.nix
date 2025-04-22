@@ -1,5 +1,8 @@
 # based on https://aur.archlinux.org/packages/qaac-wine
 
+# TODO reduce size of ~/.cache/qaac/wine to near zero via symlinks
+# currently has 500 MB
+
 { lib
 , stdenvNoCC
 , fetchurl
@@ -129,6 +132,10 @@ stdenvNoCC.mkDerivation rec {
     popd >/dev/null
   '';
 
+  # TODO also cache output of
+  #   qaac --formats
+  #   qaac --check
+
   installPhase = ''
     mkdir -p $out/opt
     cp -r x64 $out/opt/qaac
@@ -183,9 +190,21 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $TMP/.cache/qaac/wine # fix: wine: chdir: No such file or directory
     for bin in qaac refalac; do
       echo writing $out/share/doc/qaac/$bin.txt
-      HOME=$TMP \
-      QAAC_SHOW_REAL_HELP=1 \
-      $out/bin/$bin --help >$out/share/doc/qaac/$bin.txt || true
+      for (( i = 0; i < 5; i++ )); do # retry loop
+        HOME=$TMP \
+        QAAC_SHOW_REAL_HELP=1 \
+        $out/bin/$bin --help >$out/share/doc/qaac/$bin.txt || true
+        # check size. expected size is 9000 bytes
+        if (( $(stat -c%s $out/share/doc/qaac/$bin.txt) < 1000 )); then
+          if (( i > 3 )); then
+            echo error: failed to write $out/share/doc/qaac/$bin.txt
+            exit 1
+          fi
+          echo info: failed to write $out/share/doc/qaac/$bin.txt - retrying
+          continue # retry
+        fi
+        break # stop retry loop
+      done
     done
     rm -rf $TMP/.cache/qaac
   '';
@@ -195,7 +214,12 @@ stdenvNoCC.mkDerivation rec {
     longDescription = ''
       example use:
 
-      ffmpeg -i in.ac3 -f wav -ar 48K - | qaac -s -V100 - -o out.m4a
+      ffmpeg -i in.ac3 -f wav -ar 48K - | qaac -s -V100 --no-delay - -o out.m4a
+
+      text output is slow, so better use "qaac -s" to make it silent
+
+      TODO preserve metadata from input file. use caf format?
+      or what other input formats does qaac have?
     '';
     homepage = "https://github.com/nu774/qaac";
     # https://github.com/nu774/qaac/raw/master/COPYING

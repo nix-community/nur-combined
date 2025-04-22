@@ -5,54 +5,19 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ffsubsync";
-  stableVersion = "0.4.22";
-  version = "${stableVersion}-unstable-2023-05-04";
+  version = "0.4.26";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "smacke";
     repo = "ffsubsync";
-    #rev = version;
-    #hash = "sha256-Tlnw098ndO32GsRq3SQ0GpNdZl9WEPBsDOHZYl1BI8E=";
-
-    # FIXME how can the hash change with the same rev
-    /*
-      is the github archive endpoint non-deterministic?
-      did a hardware-defect cause some data-corruption?
-      this silent error would be no surprise
-      because the github archive endpoint is lossy
-      because it does not provide the raw commit object
-      so we cannot verify data by commit hash
-      see also
-      Nix sha256 is bug not feature. solution: a global /cas filesystem
-      https://discourse.nixos.org/t/nix-sha256-is-bug-not-feature-solution-a-global-cas-filesystem/15791
-    */
-    /*
-      error: hash mismatch in fixed-output derivation '/nix/store/p1ibf131ay7v673hjzlffarf50d6cjsk-source.drv':
-               specified: sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=
-                  got:    sha256-3phxNKp3EpXzU8Fw9lCO8sWL949P41WtzYu9+Ty7ISc=
-    */
-    rev = "7fd1885b00ff68eceef2f557c334bebdd30f7ae5";
-    #hash = "sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=";
-    hash = "sha256-3phxNKp3EpXzU8Fw9lCO8sWL949P41WtzYu9+Ty7ISc=";
+    rev = version;
+    hash = "sha256-vON/nVZ0W2kYLsRyAGugCFM4EA3bVxXCXDn26zMlIoA=";
   };
 
   buildInputs = with python3.pkgs; [
     setuptools
   ];
-
-  # this did not work. instead, patch "__version__ = ..."
-  /*
-    # ffsubsync/constants.py
-    #SUBSYNC_RESOURCES_ENV_MAGIC=ffsubsync_resources_xj48gjdkl340
-    #mkdir -p $SUBSYNC_RESOURCES_ENV_MAGIC
-    #echo $stableVersion >$SUBSYNC_RESOURCES_ENV_MAGIC/__version__
-    #mkdir -p ffsubsync/$SUBSYNC_RESOURCES_ENV_MAGIC
-    #echo $stableVersion >ffsubsync/$SUBSYNC_RESOURCES_ENV_MAGIC/__version__
-    # debug
-    #substituteInPlace ffsubsync/version.py \
-    #  --replace 'def get_version():' $'def get_version():\n    print("__version__", repr(__version__))'
-  */
 
   postPatch = ''
     sed -i 's/==/>=/g' requirements.txt
@@ -107,5 +72,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/smacke/ffsubsync";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
+    mainProgram = "ffsubsync";
   };
 }

@@ -1,0 +1,35 @@
+[versions]
+gradle = "8.13"
+junit = "5.8.2"
+# Intentionally using the version embedded in Gradle to reduce dependency count
+# See https://docs.gradle.org/current/userguide/compatibility.html#kotlin
+kotlin = { strictly = "2.0.21" }
+ktor = "3.0.2"
+kotest = "6.0.0.M1"
+shadow = "8.1.8"
+
+[libraries]
+clikt = "com.github.ajalt.clikt:clikt:5.0.2"
+gradle-api-69 = "dev.gradleplugins:gradle-api:6.9"
+gradle-api-75 = "dev.gradleplugins:gradle-api:7.5"
+gradle-api-80 = "dev.gradleplugins:gradle-api:8.0"
+gradle-api-81 = "dev.gradleplugins:gradle-api:8.1"
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-shadow = { module = "io.github.goooler.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+gradle-toolingApi = { module = "org.gradle:gradle-tooling-api", version.ref = "gradle" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1"
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+okio = "com.squareup.okio:okio:3.9.1"
+serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0"
+slf4j-simple = "org.slf4j:slf4j-simple:1.7.36"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }
+
+[bundles]

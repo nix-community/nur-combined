@@ -1,14 +1,22 @@
 { lib
 , python3
 , fetchFromGitHub
+, fetchurl
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "stream-zip";
-  version = "0.0.71";
+  version = "0.0.83";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/uktrade/stream-zip/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-LAlABuI/9lWtBr8uiH2Vkc8VYD6h0CwUXMGTwZgOvtI=";
+  }
+  else
+  fetchFromGitHub {
     owner = "uktrade";
     repo = "stream-zip";
     rev = "v${version}";

@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mpv-downmix-gui";
-  version = "0.0.2";
+  version = "0.0.3";
   #pyproject = true;
 
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "mpv-downmix-gui";
     rev = version;
-    hash = "sha256-hSmDIUtazScOopYH+7wzdMUHhzWRXnf8q7cJIUOM4ao=";
+    hash = "sha256-0wBoZspBmbw1BaPWgosrV28dmeoyadXM4bce5S8VvH0=";
   };
 
   nativeBuildInputs = [

@@ -1,3 +1,12 @@
+/*
+fixme
+Running phase: unpackPhase
+unpacking source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgcrz94-selenium-4.17.0.tar.gz
+tar: selenium-selenium-4.17.0/py/README.rst: Cannot change mode to rwxr-xr-x: No such file or directory
+tar: Exiting with failure status due to previous errors
+do not know how to unpack source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgcrz94-selenium-4.17.0.tar.gz
+*/
+
 { lib
 , fetchFromGitHub
 , fetchPypi
@@ -26,7 +35,18 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
+  # preUnpack = "set -x";
+  # unpackPhase = "set -x; file -b $src; exit 1";
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/SeleniumHQ/selenium/archive/refs/tags/selenium-${version}.tar.gz";
+    hash = "sha256-aSofjQp3OBm1/VIhF2pd9l+d7mEJezuLaGpc0opQG0M=";
+  }
+  else
+  # error
+  # github.com/SeleniumHQ/selenium
+  fetchFromGitHub {
     owner = "SeleniumHQ";
     repo = "selenium";
     # check if there is a newer tag with or without -python suffix
@@ -78,6 +98,12 @@ buildPythonPackage rec {
       --replace \
         "from setuptools import setup" \
         "from setuptools import setup, find_namespace_packages"
+    # fix: ValueError: ZIP does not support timestamps before 1980
+    # https://github.com/SeleniumHQ/selenium/issues/14143
+    substituteInPlace selenium/webdriver/firefox/firefox_profile.py \
+      --replace-warn \
+        'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED) as zipped:' \
+        'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zipped:'
     cd ..
   '';
 

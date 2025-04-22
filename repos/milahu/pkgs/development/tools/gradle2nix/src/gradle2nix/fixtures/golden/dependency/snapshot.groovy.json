@@ -1,0 +1,12 @@
+{
+  "org.apache:test-SNAPSHOT2:2.0.2-SNAPSHOT": {
+    "test-SNAPSHOT2-2.0.2-SNAPSHOT.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/test-SNAPSHOT2/2.0.2-SNAPSHOT/test-SNAPSHOT2-2.0.2-SNAPSHOT.jar",
+      "hash": "sha256-a99mtb8qROZYvqLuhmlasVCgbmAL9nzVzOJFrVSWLGE="
+    },
+    "test-SNAPSHOT2-2.0.2-SNAPSHOT.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/test-SNAPSHOT2/2.0.2-SNAPSHOT/test-SNAPSHOT2-2.0.2-SNAPSHOT.pom",
+      "hash": "sha256-XCACfgVM2OthMcb9rU/nVQvjiJawqxOd5CSRmvql1O8="
+    }
+  }
+}

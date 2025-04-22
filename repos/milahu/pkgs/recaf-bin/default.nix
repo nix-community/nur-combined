@@ -16,10 +16,10 @@ javafx-base-16-linux.jar
 }:
 stdenv.mkDerivation rec {
   pname = "recaf-bin";
-  version = "2.21.0";
+  version = "2.21.14";
   src = fetchurl {
-    url = "https://github.com/Col-E/Recaf/releases/download/2.21.0/recaf-2.21.0-J8-jar-with-dependencies.jar";
-    sha256 = "1cr5akf8j9zyqlv66s5kxqiax0n6sdbp03ab1hc2pq0g8xcz13sr";
+    url = "https://github.com/Col-E/Recaf/releases/download/${version}/recaf-${version}-J8-jar-with-dependencies.jar";
+    hash = "sha256-jRT8AH4qkKDSMx5RcM/OD4ma2WYxqnVlYj3qmXxry4Q=";
   };
   dontUnpack = true;
   buildInputs = [

@@ -1,0 +1,32 @@
+{
+  "org.apache:foo:2.0.0": {
+    "foo-2.0.0.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/foo/2.0.0/foo-2.0.0.jar",
+      "hash": "sha256-M95zEuAwVCam7c2rKIET5qs4Q60sA84RyTA3a9jdQd8="
+    },
+    "foo-2.0.0.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/foo/2.0.0/foo-2.0.0.pom",
+      "hash": "sha256-gcL/k4xoI5SK4qDNcyH1uHkgiGQv3WohPb45Gsb9gi8="
+    }
+  },
+  "org.apache:foo:1.0.0": {
+    "foo-1.0.0.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/foo/1.0.0/foo-1.0.0.jar",
+      "hash": "sha256-M95zEuAwVCam7c2rKIET5qs4Q60sA84RyTA3a9jdQd8="
+    },
+    "foo-1.0.0.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/foo/1.0.0/foo-1.0.0.pom",
+      "hash": "sha256-roNL3MgAJuUPxIdJJiSpjU3yEFlJFDQ99QvnaWlkVcE="
+    }
+  },
+  "org.apache:test:1.0.0": {
+    "test-1.0.0.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/test/1.0.0/test-1.0.0.jar",
+      "hash": "sha256-M95zEuAwVCam7c2rKIET5qs4Q60sA84RyTA3a9jdQd8="
+    },
+    "test-1.0.0.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/apache/test/1.0.0/test-1.0.0.pom",
+      "hash": "sha256-sYk8m4+T+hRJ+43tpPkthrE/JftrsMnmuzORCLCK1To="
+    }
+  }
+}
