@@ -6,7 +6,7 @@ let
     (config.my.home.wm.windowManager != null)
   ];
 
-  mkTerminalFlags = opt: flag:
+  mkTerminalFeature = opt: flag:
     let
       mkFlag = term: ''set -as terminal-features ",${term}:${flag}"'';
       enabledTerminals = lib.filterAttrs (_: v: v.${opt}) cfg.terminalFeatures;
@@ -123,9 +123,9 @@ in
       }
 
       # Force OSC8 hyperlinks for each relevant $TERM
-      ${mkTerminalFlags "hyperlinks" "hyperlinks"}
+      ${mkTerminalFeature "hyperlinks" "hyperlinks"}
       # Force 24-bit color for each relevant $TERM
-      ${mkTerminalFlags "trueColor" "RGB"}
+      ${mkTerminalFeature "trueColor" "RGB"}
     '';
   };
 }
