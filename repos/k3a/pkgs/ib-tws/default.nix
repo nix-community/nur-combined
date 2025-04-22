@@ -14,6 +14,7 @@
 , alsa-lib
 , atk
 , gdk-pixbuf
+, zlib
 }:
 
 let
@@ -21,6 +22,7 @@ let
     "lib/amd64/jli"
     "lib/amd64/server"
     "lib/amd64"
+    "lib"
   ];
 
 in
@@ -68,9 +70,16 @@ stdenv.mkDerivation rec {
     mkdir -p "$jrePath"
     tar -xf "$PWD/"*.dir/jre.tar.gz -C "$jrePath/"
 
+
     echo "Patching JRE executables..."
+    rpath+="''${rpath:+:}${lib.concatStringsSep ":" (map (a: "$jrePath/${a}") rSubPaths)}"
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      "$jrePath/bin/java" "$jrePath/bin/unpack200"
+      --set-rpath "$rpath" "$jrePath/bin/java" 
+
+    if [ -f "$jrePath/bin/unpack200" ]; then
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          "$jrePath/bin/unpack200"
+    fi
 
     echo "Unpacking JRE pack files..."
     for f in "$jrePath/lib/"*.jar.pack "$jrePath/lib/ext/"*.jar.pack; do
@@ -140,7 +149,7 @@ stdenv.mkDerivation rec {
   libraries =
     [stdenv.cc stdenv.cc.libc glib libxml2 ffmpeg libGL libXxf86vm alsa-lib fontconfig
       freetype pango gtk3 cairo gdk-pixbuf atk libX11 libXext libXtst
-      libXi libXrender];
+      libXi libXrender zlib];
       # possibly missing libgdk-x11-2.0.so.0, from gtk2? never caused any trouble though
 
   passthru.updateScript = ./update.sh;
