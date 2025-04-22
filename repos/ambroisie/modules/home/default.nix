@@ -8,6 +8,7 @@
     ./bluetooth
     ./calibre
     ./comma
+    ./delta
     ./dircolors
     ./direnv
     ./discord
