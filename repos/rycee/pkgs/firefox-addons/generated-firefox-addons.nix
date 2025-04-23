@@ -6296,10 +6296,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.0.1";
+      version = "17.1.1";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4445854/keeper_password_manager-17.0.1.xpi";
-      sha256 = "ba5f47e09983c2068c03966973991081095f1056d360c113b4518b72bdcc3df4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477554/keeper_password_manager-17.1.1.xpi";
+      sha256 = "ff6fa9d4d8d633df4263b600eabd9e3ef5028c0cf9b075fca673d10cca1ae917";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -8886,10 +8886,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.12.0";
+      version = "5.0.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4453832/passbolt-4.12.0.xpi";
-      sha256 = "f0214426ea978e25f0613eff6a896fd7f27a7a66dcbbc4028c48cb93a37ac008";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4471580/passbolt-5.0.0.xpi";
+      sha256 = "266f82e820a812a50fe22d7362cb789e96b772711466daa298d7e25944e709ce";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
