@@ -40,7 +40,7 @@ in
   gopass-ydotool = any;
   gpx-reduce = any;
   graalvm-ce.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "font" g.preFixup) "graalvm-ce no longer requires an overlay" { preFixup = g.preFixup + "\nfind \"$out\" -name libfontmanager.so -exec patchelf --add-needed libfontconfig.so {} \\;"; }; # Workaround for https://github.com/NixOS/nixpkgs/pull/215583#issuecomment-1615369844
-  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = ({ "24.0.1" = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; "24.1.1" = "sha256-ctFw/8HL9vAHeDhQHallUYHAqkJGHPAdzP08MptGOD8="; }).${g.version}; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
+  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = ({ "24.0.1" = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; "24.1.1" = "sha256-ctFw/8HL9vAHeDhQHallUYHAqkJGHPAdzP08MptGOD8="; "24.2.0" = "sha256-XAJsvmQW5ZYNJgCSlGf7PSW4H1hz0MacRt7xv/AwLhY="; }).${g.version}; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
   gtk4-icon-browser = any;
   htop.patch = ../packages/resources/htop_colors.patch; # htop-dev/htop#1416
   httpie.env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # NixOS/nixpkgs#94666
@@ -51,6 +51,7 @@ in
   isd = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
+  jujutsu.version = "≥0.28.1"; # https://github.com/advisories/GHSA-794x-2rpg-rfgr
   just-local = any;
   kitty.patch = ../packages/resources/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
   little-a-map = any;
@@ -135,7 +136,7 @@ in
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
 }) // {
-  fetchsvn = a: (stable.fetchsvn a).overrideAttrs (f: stable.lib.throwIf (builtins.any (p: p.pname == "nss-cacert") f.nativeBuildInputs) "fetchsvn no longer requires an override" { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; }); # Pending NixOS/nixpkgs#356829
+  fetchsvn = if stable.lib.versionAtLeast stable.lib.trivial.release "25.05" then stable.fetchsvn else (a: (stable.fetchsvn a).overrideAttrs (f: stable.lib.throwIf (builtins.any (p: p.pname == "nss-cacert") f.nativeBuildInputs) "fetchsvn no longer requires an override" { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; })); # Pending NixOS/nixpkgs#356829
   linuxPackages_p8 = (
     resolved.linuxPackages_6_14 # https://github.com/torvalds/linux/commit/25fb5f4
   ).extend (_: linuxPackages: {

@@ -498,8 +498,10 @@ HEIFs
 Herokuish
 Hetzner
 hexdump
+hihi
 hillshading
 hireability
+Hobbiton
 homeserver
 homeservers
 hostname
@@ -591,6 +593,7 @@ JVM
 JWT
 Kagi
 Kailh
+kākāriki
 Kalamata
 Kamloops
 kanban
@@ -613,6 +616,7 @@ Kickstarter
 Kitsap
 KMonad
 Kodi
+kōkako
 Krita
 Kubernetes
 Kubuntu
@@ -685,6 +689,7 @@ manpages
 Mapbox
 MapCSS
 markdownify
+Matangi
 Matomo
 Matplotlib
 maubot
@@ -775,6 +780,7 @@ NetworkManager
 newtype
 Nextcloud
 NFS
+Ngauruhoe
 NGOs
 nheko
 Nicomen
@@ -959,6 +965,7 @@ pseudopolitical
 PSTN
 Publii
 pu-erh
+pūkeko
 PulseAudio
 puppeting
 Puyallup
@@ -981,6 +988,7 @@ quincunx
 RackNerd
 Radeon
 Rakefile
+Rangitoto
 RapidRide
 Raveena
 Ravenna
@@ -1054,6 +1062,7 @@ Rohan
 ROI
 rollouts
 roomless
+Rotopounamu
 Roundcube
 routable
 RPC
@@ -1227,8 +1236,12 @@ sysfs
 Sysprof
 systemd
 Tahoma
+takahē
 Takoradi
 Talapus
+Tama
+Tauhara
+Taupō
 TBD
 TCP
 TeaGL
@@ -1251,11 +1264,13 @@ Tig
 Tilikum
 Tillicum
 timestamping
+Tiritiri
 Tkinter
 TLS
 TLSA
 tmpfs
 TODOs
+Tongariro
 toolchain
 toolset
 touchpad
@@ -1278,6 +1293,7 @@ Trisquel
 TrueNAS
 TTL
 TTY
+tūī
 Tukwila
 Tumwater
 tunables
