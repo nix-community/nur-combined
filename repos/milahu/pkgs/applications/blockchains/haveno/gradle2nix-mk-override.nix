@@ -115,7 +115,7 @@ let
           while read -r p; do
             #echo "debug: rpath p = $p"
             prel="$(realpath --relative-base="$fdir" "$p")"
-            echo "debug: rpath prel = $prel"
+            #echo "debug: rpath prel = $prel"
             # '$ORIGIN' is the binary's dirname
             if [ "$p" = "$prel" ]; then
               rp2+="$p:"
