@@ -3,6 +3,7 @@
   buildGo124Module,
   lib,
   sources,
+  go_1_24,
 }:
 
 let
@@ -44,7 +45,7 @@ let
       "${v.moduleName}@v0.0.0-${goDate}-${substring 0 12 v.version}"
     ) pluginSources;
 in
-caddy.withPlugins {
+(caddy.withPlugins.override { go = go_1_24; }) {
   inherit plugins;
   hash = "sha256-4r24IW/Lr5nStx61RpH2ePxlu6tJ7449AAE25+r+iI4=";
 }
