@@ -11,9 +11,6 @@
   "git": {
     "description": "Show the status of Git file changes as linemode in the file list"
   },
-  "hide-preview": {
-    "description": "Switch the preview pane between hidden and shown"
-  },
   "jump-to-char": {
     "description": "Vim-like `f<char>`, jump to the next file whose name starts with `<char>`"
   },
@@ -22,9 +19,6 @@
   },
   "mactag": {
     "description": "Bring macOS's awesome tagging feature to Yazi"
-  },
-  "max-preview": {
-    "description": "Maximize or restore the preview pane"
   },
   "mime-ext": {
     "description": "Mime-type provider based on a file extension database, replacing the [builtin `file(1)`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/mime.lua) to speed up mime-type retrieval at the expense of accuracy"

@@ -71,7 +71,7 @@ rec {
   rime-ice = callPackage ./pkgs/rime-ice { inherit sources; };
   rime-ice-unstable = rime-ice.override { isUnstable = true; };
   cloudflared = callPackage ./pkgs/cloudflared { };
-  caddyWithPlugins = callPackage ./pkgs/caddy { inherit sources; };
+  caddy = callPackage ./pkgs/caddy { inherit sources; };
   pleroma = callPackage ./pkgs/pleroma {
     beamPackages = beamPackages.extend (
       self: _super: { rebar3 = self.rebar3WithPlugins { plugins = with self; [ pc ]; }; }

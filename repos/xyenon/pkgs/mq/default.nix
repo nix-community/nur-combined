@@ -10,13 +10,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "mq";
-  version = "0.1.1-unstable-2025-04-20";
+  version = "0.1.1-unstable-2025-04-22";
 
   src = fetchFromGitHub {
     owner = "harehare";
     repo = "mq";
-    rev = "0c88cc2124542a4a590071395ff4f23d28cc189b";
-    hash = "sha256-B6G1VGXNpfldPFVHOuxYtz9tqHclEubchudsqMrUTf8=";
+    rev = "f2c3bd6d9d44173a0d37da3c502dfd28c7b2b50f";
+    hash = "sha256-clGAQ6OplDnIewmcmTvd1LsLddlVuC3Ku2Hs07RalXI=";
   };
 
   useFetchCargoVendor = true;
