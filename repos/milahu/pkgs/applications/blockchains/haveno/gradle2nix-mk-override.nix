@@ -98,7 +98,42 @@ let
           done
           "''${args[@]}" "$lib"
         done
+        # "autoPatchelf ." also adds rpaths under /build/source (bundled libraries)
+        # but /build/source is not available on runtime
+        # "autoPatchelf $f" uses only rpaths from /nix/store
         autoPatchelf .
+        # use relative rpaths for bundled libraries
+        while read -r f; do
+          #echo "debug: rpath f = $f"
+          #ldd "$f"
+          #autoPatchelf "$f"
+          rp="$(patchelf --print-rpath "$f")"
+          [ -z "$rp" ] && continue
+          fdir="$(realpath "$(dirname "$f")")"
+          #echo "debug: rpath fdir = $fdir"
+          rp2=""
+          while read -r p; do
+            #echo "debug: rpath p = $p"
+            prel="$(realpath --relative-base="$fdir" "$p")"
+            echo "debug: rpath prel = $prel"
+            # '$ORIGIN' is the binary's dirname
+            if [ "$p" = "$prel" ]; then
+              rp2+="$p:"
+            elif [ "$prel" = "." ]; then
+              rp2+="\$ORIGIN:"
+            else
+              rp2+="\$ORIGIN/$prel:"
+            fi
+          done < <(echo "$rp" | tr : $'\n')
+          rp2="''${rp2:0: -1}" # remove trailing :
+          if [ "$rp" != "$rp2" ]; then
+            echo "$f: setting relative rpath $rp2"
+            #echo "  rpath 1 = $rp"
+            #echo "  rpath 2 = $rp2"
+            patchelf --set-rpath "$rp2" "$f"
+          fi
+          #ldd "$f"
+        done < <(find . -type f -executable)
       elif [ "$ext" = exe ]; then
         chmod +x $name
         autoPatchelf $name
