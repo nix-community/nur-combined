@@ -3,10 +3,11 @@
   fetchFromGitHub,
   python3,
   stdenv,
+  unstableGitUpdater,
 }:
 stdenv.mkDerivation {
   pname = "feedsearch-crawler";
-  version = "2022-05-28";
+  version = "0.2.7-unstable-2022-05-28";
   format = "pyproject";
 
   src = fetchFromGitHub {
@@ -59,10 +60,12 @@ stdenv.mkDerivation {
   doCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  passthru.updateScript = unstableGitUpdater { };
+
+  meta = {
     homepage = "https://feedsearch.dev";
     description = "Crawl sites for RSS, Atom, and JSON feeds";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

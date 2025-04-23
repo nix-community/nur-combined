@@ -49,18 +49,35 @@ let
   addDepsBuildBuild = depsBuildBuild: addInputs { inherit depsBuildBuild; };
   mvToNativeInputs = nativeBuildInputs: mvInputs { inherit nativeBuildInputs; };
   mvToBuildInputs = buildInputs: mvInputs { inherit buildInputs; };
-  rmInputs = { buildInputs ? [], nativeBuildInputs ? [] }: pkg: pkg.overrideAttrs (upstream: {
-    buildInputs = lib.subtractLists buildInputs (upstream.buildInputs or []);
-    nativeBuildInputs = lib.subtractLists nativeBuildInputs (upstream.nativeBuildInputs or []);
+  mvToDepsBuildBuild = depsBuildBuild: mvInputs { inherit depsBuildBuild; };
+  rmInputs = { buildInputs ? [], depsBuildBuild ? [], nativeBuildInputs ? [] }: pkg: pkg.overrideAttrs (upstream: {
+    buildInputs = lib.filter
+      (p: !lib.any (rm: p == rm || (p ? name && rm ? name && p.name == rm.name)) buildInputs)
+      (upstream.buildInputs or [])
+    ;
+    depsBuildBuild = lib.filter
+      (p: !lib.any (rm: p == rm || (p ? name && rm ? name && p.name == rm.name)) depsBuildBuild)
+      (upstream.depsBuildBuild or [])
+    ;
+    nativeBuildInputs = lib.filter
+      (p: !lib.any (rm: p == rm || (p ? name && rm ? name && p.name == rm.name)) nativeBuildInputs)
+      (upstream.nativeBuildInputs or [])
+    ;
   });
+  rmBuildInputs = buildInputs: rmInputs { inherit buildInputs; };
   rmNativeInputs = nativeBuildInputs: rmInputs { inherit nativeBuildInputs; };
   # move items from buildInputs into nativeBuildInputs, or vice-versa.
   # arguments represent the final location of specific inputs.
-  mvInputs = { buildInputs ? [], nativeBuildInputs ? [] }: pkg:
-    addInputs { buildInputs = buildInputs; nativeBuildInputs = nativeBuildInputs; }
+  mvInputs = { buildInputs ? [], depsBuildBuild ? [], nativeBuildInputs ? [] }: pkg:
+    addInputs { inherit buildInputs depsBuildBuild nativeBuildInputs; }
     (
-      rmInputs { buildInputs = nativeBuildInputs; nativeBuildInputs = buildInputs; }
-      pkg
+      rmInputs
+        {
+          buildInputs = depsBuildBuild ++ nativeBuildInputs;
+          depsBuildBuild = buildInputs ++ nativeBuildInputs;
+          nativeBuildInputs = buildInputs ++ depsBuildBuild;
+        }
+        pkg
     );
 
   # build a GI_TYPELIB_PATH out of some packages, useful for build-time tools which otherwise
@@ -77,10 +94,41 @@ let
   #     wrapProgram $out/bin/blueprint-compiler --set GI_TYPELIB_PATH ${typelibPath typelibs}
   #   '';
   # });
-  wrapBlueprint = typelibs: final.buildPackages.writeShellScriptBin "blueprint-compiler" ''
-    export GI_TYPELIB_PATH=${typelibPath typelibs}
-    exec ${lib.getExe final.buildPackages.blueprint-compiler} "$@"
-  '';
+  # wrapBlueprint = typelibs: final.buildPackages.writeShellScriptBin "blueprint-compiler" ''
+  #   export GI_TYPELIB_PATH=${typelibPath typelibs}
+  #   exec ${lib.getExe final.buildPackages.blueprint-compiler} "$@"
+  # '';
+
+  #  use like: `p.override { blueprint-compiler = crossBlueprint; }`
+  crossBlueprint = final.buildPackages.blueprint-compiler.overrideAttrs (upstream: {
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      final.buildPackages.buildPackages.wrapGAppsNoGuiHook
+    ];
+  });
+  # crossBlueprint = final.pkgsBuildBuild.blueprint-compiler.overrideAttrs (upstream: {
+  #   # blueprint-compiler isn't invokable in a standalone environment.
+  #   # i.e. `blueprint-compiler --help` fails.
+  #   # fix by adding glib typelib.
+  #   # TODO: upstream!  (see `wip-blueprint-compiler` nixpkgs branch)
+  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     final.pkgsBuildBuild.makeWrapper
+  #   ];
+  #   postFixup = (upstream.postFixup or "") + ''
+  #     wrapProgram $out/bin/blueprint-compiler \
+  #       --prefix GI_TYPELIB_PATH : "${lib.getLib final.pkgsBuildBuild.glib}/lib/girepository-1.0:${lib.getLib final.pkgsBuildBuild.gobject-introspection}/lib/girepository-1.0"
+  #   '';
+
+  #   # propagate gobject-introspection such that it appears in the same host offset as us,
+  #   # and populates GI_TYPELIB_PATH with the correct offset.
+  #   propagatedBuildInputs = [];
+  #   depsTargetTargetPropagated = [ final.gobject-introspection ];
+  # });
+
+  # build a blueprint-based package in a way that is cross-compatible
+  # fixBlueprint = p: mvToDepsBuildBuild [ crossBlueprint ] p;
+  fixBlueprint = p: p.override {
+    blueprint-compiler = crossBlueprint;
+  };
 
   # `cargo` which adds the correct env vars and `--target` flag when invoked from meson build scripts
   crossCargo = let
@@ -178,30 +226,33 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
-  blanket = prev.blanket.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  };
+  # blanket = fixBlueprint prev.blanket;
+  # blanket = prev.blanket.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # };
 
   # 2025/02/04: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
-  confy = (prev.confy.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  }).overrideAttrs (upstream: {
+  # confy = (prev.confy.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # }).overrideAttrs (upstream: {
+  # confy = (fixBlueprint prev.confy).overrideAttrs (upstream: {
+  confy = prev.confy.overrideAttrs (upstream: {
     # meson's `python.find_installation` method somehow just doesn't support cross compilation.
     # - <https://mesonbuild.com/Python-module.html#find_installation>
     # so, build it to target build python, then patch in the host python
@@ -229,17 +280,19 @@ in with final; {
   });
 
   # 2024/11/19: upstreaming is unblocked
-  dialect = (prev.dialect.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  }).overrideAttrs (upstream: {
+  # dialect = (prev.dialect.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # }).overrideAttrs (upstream: {
+  # dialect = (fixBlueprint prev.dialect).overrideAttrs (upstream: {
+  dialect = prev.dialect.overrideAttrs (upstream: {
     # error: "<dialect> is not allowed to refer to the following paths: <build python>"
     # dialect's meson build script sets host binaries to use build PYTHON
     # disallowedReferences = [];
@@ -270,6 +323,17 @@ in with final; {
   };
 
   # extra-cmake-modules = buildPackages.extra-cmake-modules;
+
+  # out for PR: <https://github.com/NixOS/nixpkgs/pull/399981>
+  # fcitx5 = prev.fcitx5.overrideAttrs (upstream: {
+  #   # TODO: CMake probably has some emulator, or cross compiler infra to use here?
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace src/modules/spell/CMakeLists.txt \
+  #       --replace-fail 'COMMAND Fcitx5::comp-spell-dict' 'COMMAND ${stdenv.hostPlatform.emulator buildPackages} comp-spell-dict'
+  #   '';
+
+  #   buildInputs = lib.filter (p: p.name != extra-cmake-modules.name) upstream.buildInputs;
+  # });
 
   # 2025/01/25: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
@@ -320,17 +384,18 @@ in with final; {
   #    };
   # });
 
-  flare-signal-nixified = prev.flare-signal-nixified.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  };
+  # flare-signal-nixified = fixBlueprint prev.flare-signal-nixified;
+  # flare-signal-nixified = prev.flare-signal-nixified.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # };
 
   # 2025/01/13: upstreaming is blocked by glycin-loaders
   fractal = prev.fractal.override {
@@ -352,23 +417,24 @@ in with final; {
   # });
 
   # 2024/11/19: upstreaming is blocked on qtx11extras (via zbar)
-  gnome-frog = prev.gnome-frog.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  };
+  # gnome-frog = prev.gnome-frog.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # };
+  # gnome-frog = fixBlueprint prev.gnome-frog;
 
   # 2025/01/13: upstreaming is blocked on gnome-shell
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
 
-  # 2025/01/28: upstreaming is unblocked
+  # 2025/04/19: upstreaming is unblocked
   # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
   #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
   #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -393,7 +459,7 @@ in with final; {
   #   ];
   # });
 
-  # 2025/01/13: blocked on psqlodbc
+  # 2025/04/19: blocked on psqlodbc
   # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
   # which it shells out to at runtime (and hence, not ever used by me).
   hyprland-qtutils = null;
@@ -431,17 +497,18 @@ in with final; {
   # });
 
   # 2024/11/19: upstreaming is unblocked
-  komikku = prev.komikku.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  };
+  # komikku = fixBlueprint prev.komikku;
+  # komikku = prev.komikku.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # };
 
   # 2024/08/12: upstreaming is unblocked -- but is this necessary?
   # koreader = prev.koreader.overrideAttrs (upstream: {
@@ -465,7 +532,7 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
-  # 2024/11/19: upstreaming blocked on glycin-loaders
+  # 2025/04/04: upstreaming blocked on glycin-loaders
   loupe = prev.loupe.override {
     cargo = crossCargo;
   };
@@ -508,24 +575,28 @@ in with final; {
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2025/01/13: upstreaming is unblocked by deps; but turns out to not be this simple
+  # 2025/04/04: upstreaming is unblocked by deps; but turns out to not be this simple
   # ncftp = addNativeInputs [ bintools ] prev.ncftp;
 
-  # 2024/11/19: upstreaming is unblocked
+  # 2025/04/04: upstreaming is unblocked
+  # newsflash = (prev.newsflash.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.clapper
+  #     buildPackages.glib
+  #     buildPackages.gtk4
+  #     buildPackages.gst_all_1.gstreamer
+  #     buildPackages.gst_all_1.gst-plugins-base
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.pango
+  #     buildPackages.graphene
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #   ];
+  #   cargo = crossCargo;  #< fixes openssl not being able to find its library
+  # }).overrideAttrs (upstream: {
   newsflash = (prev.newsflash.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.clapper
-      buildPackages.glib
-      buildPackages.gtk4
-      buildPackages.gst_all_1.gstreamer
-      buildPackages.gst_all_1.gst-plugins-base
-      buildPackages.gdk-pixbuf
-      buildPackages.pango
-      buildPackages.graphene
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-    ];
-    cargo = crossCargo;  #< fixes openssl not being able to find its library
+    # blueprint-compiler = crossBlueprint;
+    cargo = crossCargo;
   }).overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
       rm build.rs
@@ -658,7 +729,7 @@ in with final; {
     ];
   });
 
-  # 2025/01/25: upstreaming is unblocked
+  # 2025/04/04: upstreaming is unblocked
   papers = prev.papers.override {
     cargo = crossCargo;
   };
@@ -689,7 +760,7 @@ in with final; {
   #   ];
   # } prev.phosh-mobile-settings;
 
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/04/04: upstreaming is unblocked
   pwvucontrol = prev.pwvucontrol.override {
     cargo = crossCargo;
   };
@@ -784,48 +855,31 @@ in with final; {
   #   });
   # });
 
-
-  # 2025/03/24: xcb-imdkit is only needed on x11.
-  # it breaks because of a dependency on extra-cmake-modules, which pulls in conflicting `qtsvg`.
-  # path to upstreaming is to remove extra-cmake-modules' dependency on qtsvg.
-  # it's only there because of `wrapQtAppsHook`, which is a noop when building extra-cmake-modules,
-  # but the qt5 nixpkgs stuff is a dumpster fire so have fun with that...
-  rofi-unwrapped = prev.rofi-unwrapped.override {
-    xcb-imdkit = null;
-  };
-
-  # 2024/05/31: upstreaming is unblocked; requires some changes, as configure tries to invoke our `python`
-  # implemented (broken) on servo cross-staging-2023-07-30 branch
-  # rpm = prev.rpm.overrideAttrs (upstream: {
-  #   # fixes "python too old". might also be specifiable as a configure flag?
-  #   env = upstream.env // lib.optionalAttrs (upstream.version == "4.18.1") {
-  #     # 4.19.0 upgrade should fix cross compilation.
-  #     # see: <https://github.com/NixOS/nixpkgs/pull/260558>
-  #     PYTHON = python3.interpreter;
-  #   };
-  # });
-
-  # 2025/01/13: upstreaming is blocked on glycin-loaders
+  # 2025/04/04: upstreaming is blocked on glycin-loaders
   snapshot = prev.snapshot.override {
     # fixes "error: linker `cc` not found"
     cargo = crossCargo;
   };
 
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/04/04: upstreaming is unblocked
+  # spot = prev.spot.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  #   cargo = crossCargo;
+  # };
   spot = prev.spot.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
+    # blueprint-compiler = crossBlueprint;
     cargo = crossCargo;
   };
 
-  # 2025/01/13: upstreaming is unblocked
+  # 2025/04/04: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
   #   # fixes: "meson.build:1:0: ERROR: 'rust' compiler binary not defined in cross or native file"
   #   # new error: "meson.build:1:0: ERROR: Rust compiler rustc --target aarch64-unknown-linux-gnu -C linker=aarch64-unknown-linux-gnu-gcc can not compile programs."
@@ -870,30 +924,42 @@ in with final; {
   # });
 
   # 2024/11/19: upstreaming is unblocked
-  tangram = (prev.tangram.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
-  }).overrideAttrs (upstream: {
+  # tangram = (prev.tangram.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  # }).overrideAttrs (upstream: {
+  # tangram = (fixBlueprint prev.tangram).overrideAttrs (upstream: {
+  tangram = prev.tangram.overrideAttrs (upstream: {
     # gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
-    postPatch = (upstream.postPatch or "") + ''
+    postPatch = let
+      gjspack' = buildPackages.writeShellScriptBin "gjspack" ''
+        export GI_TYPELIB_PATH=${typelibPath [ buildPackages.glib ]}:$GI_TYPELIB_PATH
+        exec ${buildPackages.gjs}/bin/gjs $@
+      '';
+    in (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
         --replace-fail "find_program('gjs').full_path()" "'${gjs}/bin/gjs'" \
-        --replace-fail "gjspack," "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.glib
-        ]}', '${buildPackages.gjs}/bin/gjs', '-m', gjspack,"
+        --replace-fail "gjspack,"  "'${gjspack'}/bin/gjspack', '-m', gjspack,"
     '';
+    # postPatch = (upstream.postPatch or "") + ''
+    #   substituteInPlace src/meson.build \
+    #     --replace-fail "find_program('gjs').full_path()" "'${gjs}/bin/gjs'" \
+    #     --replace-fail "gjspack," "'env', 'GI_TYPELIB_PATH=${typelibPath [
+    #       buildPackages.glib
+    #     ]}', '${buildPackages.gjs}/bin/gjs', '-m', gjspack,"
+    # '';
   });
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2024/05/31: upstreaming is blocked on gnustep-base cross compilation
+  # 2025/04/04: upstreaming is blocked on gnustep-base cross compilation
   # unar = addNativeInputs [ bintools ] prev.unar;
 
   # unixODBCDrivers = prev.unixODBCDrivers // {
@@ -913,16 +979,20 @@ in with final; {
   # };
 
   # 2025/01/13: upstreaming is unblocked
+  # video-trimmer = prev.video-trimmer.override {
+  #   blueprint-compiler = wrapBlueprint [
+  #     buildPackages.gdk-pixbuf
+  #     buildPackages.glib
+  #     buildPackages.graphene
+  #     buildPackages.gtk4
+  #     buildPackages.harfbuzz
+  #     buildPackages.libadwaita
+  #     buildPackages.pango
+  #   ];
+  #   cargo = crossCargo;
+  # };
   video-trimmer = prev.video-trimmer.override {
-    blueprint-compiler = wrapBlueprint [
-      buildPackages.gdk-pixbuf
-      buildPackages.glib
-      buildPackages.graphene
-      buildPackages.gtk4
-      buildPackages.harfbuzz
-      buildPackages.libadwaita
-      buildPackages.pango
-    ];
+    # blueprint-compiler = crossBlueprint;
     cargo = crossCargo;
   };
 
@@ -956,17 +1026,15 @@ in with final; {
   #     upstream.postBuild;
   # });
 
-  # 2024/11/19: upstreaming is blocked on unar (gnustep), unless i also make that optional
+  # 2025/04/04: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ libxslt ] prev.xarchiver;
 
-  # 2025/03/15: upstreaming (to staging) is unblocked, but proper fix is more involved:
-  # can't disable the `installedTests` output by reading `finalAttrs.doCheck` because infinite recursion;
-  # working fix is either to fix test building (not running) to work under cross, or give the package an ugly
-  # `installCheck` call arg & gate things there.
-  xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      buildPackages.glib # for gdbus-codegen
-    ];
-    outputs = [ "out" ];  #< no installedTests
-  });
+  # 2025/04/17: upstreaming is unblocked
+  # out for PR: <https://github.com/NixOS/nixpkgs/pull/399981>
+  # xcb-imdkit = prev.xcb-imdkit.overrideAttrs (upstream: {
+  #   buildInputs = lib.filter (p: p.name != extra-cmake-modules.name) upstream.buildInputs;
+  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     buildPackages.extra-cmake-modules
+  #   ];
+  # });
 }

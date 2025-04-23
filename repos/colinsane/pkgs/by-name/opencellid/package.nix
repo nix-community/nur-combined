@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation {
   pname = "opencellid";
-  version = "0-unstable-2025-04-03";
+  version = "0-unstable-2025-04-23";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "26dd1190e191791fd949468fe8180795be2220e9";
-    hash = "sha256-O0mMdzbbJvWvukiQI58haR6TyjFtw0U3fwSC2VlA8xE=";
+    rev = "c7046b0e6db04d9db0c1f8386c2a84eb3b9f83ac";
+    hash = "sha256-R2Q+F6EMJleXN5jqv4xCUk0UGgLUH1c23A2NQDc78So=";
   };
 
   dontBuild = true;

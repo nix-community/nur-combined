@@ -29,23 +29,24 @@ let
     );
 in
 [
-  ./2024-10-01-python-cross-resource-usage.patch
-
   (fetchpatch' {
-    # 2025-03-07: i'm testing this patch before merge.
-    # TODO: check if CapabilityBoundingSet takes effect or is union'd with upstream's
-    # TODO: test basic functionality
-    name = "nixos/bluetooth: add systemd hardening";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/377927";
-    hash = "sha256-D8Royett8CSZD7xHYEj6qvJCMFaFKz8SNOIBABapgDc=";
+    name = "blueprint-compiler: wrap with required dependencies";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/400415";
+    # saneCommit = "8f5822c7c949aea432b5b361998e781ff273e058";
+    hash = "sha256-m6o4nWGWtsYerJAJtOL5+TVNoyyUcptDfZr47RMkHb0=";
   })
 
   (fetchpatch' {
-    # 2024-12-26: required to build ollama (with AMD acceleration)
-    # 2025-03-14: merged into staging
-    name = "rocm-6: bump packages to 6.3.1 and add missing packages";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/367695";
-    hash = "sha256-RG4+b9Oaxfg9jFxc796dxBZLmXQIyYuTc0TjkhxMqTA=";
+    name = "fcitx5: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/399981";
+    hash = "sha256-BSnp80+8cpb+1yFaB0g7ZnPgQQqC7qo+ReMJUtlKgr4=";
+  })
+
+  (fetchpatch' {
+    # 2025-04-20: merged into staging
+    name = "git: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/399955";
+    hash = "sha256-UsVH6NhHIEoipi9fzl89mZolo/Lo1l0dos7trOGdU9A=";
   })
 
   (fetchpatch' {

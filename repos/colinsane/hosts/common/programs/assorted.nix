@@ -107,6 +107,7 @@ in
       # "s6-rc"  # service manager
       # "screen"
       "see-cat"  # pretty-print equivalent to 'cat'
+      "ssh"
       "smartmontools"  # smartctl
       # "socat"
       "strace"
@@ -187,7 +188,7 @@ in
       "sudo"
       # "tageditor"  # music tagging
       # "unar"
-      # "unzip"
+      "unzip"
       "wireguard-tools"  # for `wg`
       "xdg-utils"  # for xdg-open
       # "yarn"
@@ -223,11 +224,12 @@ in
 
     pcTuiApps = declPackageSet [
       "aerc"  # email client
-      "cassini"  # Elegoo printer control. need here especially, for opening firewalls.
+      # "cassini"  # Elegoo printer control. need here especially, for opening firewalls.
+      "mslicer"  # TODO: upstream, and then move this to the phone-case-cq repo
       # "msmtp"  # sendmail
       # "offlineimap"  # email mailbox sync
       # "sfeed"  # RSS fetcher
-      "uvtools"  # TODO: upstream (then i can move this to the phone-case-cq repo; i don't need it more broadly than that).
+      # "uvtools"
       "visidata"  # TUI spreadsheet viewer/editor
       "w3m"  # web browser
     ];
@@ -866,6 +868,8 @@ in
       "records/finance/cryptocurrencies/monero"
     ];
 
+    mslicer.sandbox.method = null;  #< TODO: sandbox
+
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     netcat.sandbox.net = "all";
@@ -1004,6 +1008,7 @@ in
       unidecode
     ]);
     python3-repl.sandbox.net = "clearnet";
+    python3-repl.sandbox.autodetectCliPaths = "existing";  #< for invoking scripts like `python3 ./my-script.py`
     python3-repl.sandbox.extraHomePaths = [
       "/"  #< this is 'safe' because with don't expose .persist/private, so no .ssh/id_ed25519
       ".persist/plaintext"

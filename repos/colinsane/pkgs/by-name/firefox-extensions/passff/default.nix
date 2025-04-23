@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "passff";
-  version = "1.21";
+  version = "1.22.1";
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "PassFF";
     repo = "passff";
     rev = version;
-    hash = "sha256-6lxtF1YI2ssYXjOscgkJj8aAtnJOJfk87SxmCVRIkRY=";
+    hash = "sha256-XtKrVrXpvsz/7XaGiYW0dxRZr7wLGNK+C6c9BHqY7Gw=";
   };
 
   nativeBuildInputs = [ zip ];

@@ -4,11 +4,16 @@
 # unlock a remote private store by dropping the password in a discoverable place.
 # this only works if our own private store has been unlocked and this machine has access to the relevant secret.
 
-set -xeu
+set -eu
 
 host=$1
 passwd=$(sane-secrets-dump --field password "$host")
 
-test -n "$passwd"
+if [ -z "$passwd" ]; then
+  echo "failed to decode password" | tee /dev/stderr
+  exit 1
+fi
 
+echo "attempting to mount private store on $host"
 echo "$passwd" | ssh "$host" 'if ! test -f /mnt/persist/private/init; then cat /dev/stdin > /run/gocryptfs/private.key; fi'
+echo "mount succeeded"

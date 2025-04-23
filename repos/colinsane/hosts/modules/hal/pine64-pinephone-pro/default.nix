@@ -32,6 +32,16 @@ in
     # boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
     # boot.initrd.extraFiles."/lib".source = "${config.system.modulesTree}/lib";
 
+    # docs (pinephone specific; tow-boot instead of u-boot but close enough): <https://github.com/Tow-Boot/Tow-Boot/tree/development/boards/pine64-pinephoneA64>
+    # we need space in the GPT header to place u-boot.
+    # only actually need 1 MB, but better to over-allocate than under-allocate
+    sane.image.extraGPTPadding = 16 * 1024 * 1024;
+    sane.image.firstPartGap = 0;
+    sane.image.installBootloader = ''
+      dd if=${pkgs.u-boot-pinephone-pro}/idbloader.img of=$out bs=512 seek=64 oflag=direct conv=sync
+      dd if=${pkgs.u-boot-pinephone-pro}/u-boot.itb of=$out bs=512 seek=16384 oflag=direct conv=sync
+    '';
+
     sane.programs.alsa-ucm-conf.suggestedPrograms = [
       "pine64-alsa-ucm"  # upstreaming: https://github.com/alsa-project/alsa-ucm-conf/pull/375
     ];

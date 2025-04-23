@@ -1,58 +1,33 @@
 {
-  # cairo,
   fetchFromGitHub,
-  # gtk3,
   lib,
   libglvnd,
-  # libgbm,
   libxkbcommon,
-  # fontconfig,
-  # freetype,
-  # pango,
-  pkg-config,
+  nix-update-script,
   rustPlatform,
-  # vulkan-headers,
   vulkan-loader,
   wayland,
-  wayland-scanner,
-  wayland-protocols,
-  # wrapGAppsHook3,
-  # xorg,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "mslicer";
-  version = "0.2.0";
+  version = "0.2.1-unstable-2025-04-13";
 
   src = fetchFromGitHub {
     owner = "connorslade";
-    repo = pname;
-    rev = version;
-    hash = "sha256-x46k1O7EqXMEwNATG4b7zHIYaMDVveRiq/Z5KPih0Fo=";
+    repo = "mslicer";
+    rev = "ce1f43e61ca83b727561ff0aa193512c8b164331";
+    hash = "sha256-VgbHFUQpxlQcYh3TNyw1IX7vyaWrHRxl4Oe5jake9Qg=";
   };
 
-  cargoHash = "sha256-mRbEwxR6bMkybxe7H1dX4Qa1elGiw/lSSz9sSTtp1zw=";
+  cargoHash = "sha256-Bs/mQTMEQxRvKK9ibIAf4KLv9jzGv3hnduXFYEdjljc=";
   useFetchCargoVendor = true;
 
   buildInputs = [
-    # cairo
-    # gtk3
     libglvnd
-    # libgbm
     libxkbcommon
-    # xorg.libX11
-    # xorg.libXcursor
-    # xorg.libXi
-    # xorg.libxcb
-    # xorg.libXrender
-    # fontconfig
-    # freetype
-    # openssl
-    # pango
-    # vulkan-headers
     vulkan-loader
     wayland
-    # wayland-protocols
   ];
 
   # from pkgs/by-name/al/alvr/package.nix, to get it to actually link against wayland
@@ -93,6 +68,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   strictDeps = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description = "An experimental open source slicer for masked stereolithography (resin) printers.";

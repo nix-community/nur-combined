@@ -66,6 +66,7 @@ let
     (fromDb "api.oyez.org/podcasts/oral-arguments/2015" // pol)  # Supreme Court Oral Arguments ("2015" in URL means nothing -- it's still updated)
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
+    (fromDb "bluecityblues.org.podcastpage.io" // pol)  # hosts overlap with Seattle Nice
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
@@ -88,7 +89,6 @@ let
     (fromDb "feeds.megaphone.fm/thiswontlast" // tech)  # <https://www.podpage.com/thiswontlast/>
     (fromDb "feeds.megaphone.fm/unexplainable")
     (fromDb "feeds.simplecast.com/wgl4xEgL" // rat)  # Econ Talk
-    (fromDb "feeds.simplecast.com/whlwDbyc" // tech)  # Tech Lounge: <https://chrischinchilla.com/podcast/techlounge/>
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "feeds.transistor.fm/complex-systems-with-patrick-mckenzie-patio11" // tech)  # Patrick Mackenzie (from Bits About Money)
     (fromDb "feeds.twit.tv/floss.xml" // tech)
@@ -110,6 +110,7 @@ let
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
+    (fromDb "pods.media/api/rss/feed/channel/unchained" // tech)  # cryptocurrency happenings; rec via patio11
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
@@ -137,6 +138,7 @@ let
     # (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     # (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
     # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "feeds.simplecast.com/whlwDbyc" // tech)  # Tech Lounge: <https://chrischinchilla.com/podcast/techlounge/>
     # (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     # (fromDb "lastweekinai.com" // tech)  # Last Week in AI
     # (fromDb "mintcast.org" // tech)

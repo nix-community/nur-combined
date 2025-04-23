@@ -128,6 +128,9 @@
     forceSSL = true;  # gitea complains if served over a different protocol than its config file says
     enableACME = true;
     # inherit kTLS;
+    extraConfig = ''
+      client_max_body_size 100m;
+    '';
 
     locations."/" = {
       proxyPass = "http://127.0.0.1:3000";

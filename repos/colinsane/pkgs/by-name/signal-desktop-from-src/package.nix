@@ -89,7 +89,7 @@
   atk,
   autoPatchelfHook,
   cups,
-  electron_33-bin,
+  electron_35-bin,
   fetchFromGitHub,
   fetchurl,
   flac,
@@ -114,7 +114,7 @@
   pnpm_10,
   python3,
   rsync,
-  signal-desktop,
+  signal-desktop-bin,
 #  sqlite,
 #  sqlcipher,
   stdenv,
@@ -122,10 +122,10 @@
   xdg-utils,
 }:
 let
-  ringrtcPrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
+  ringrtcPrebuild = "${signal-desktop-bin}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
 
   betterSqlitePrebuild = null;
-  # betterSqlitePrebuild = "${signal-desktop}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
+  # betterSqlitePrebuild = "${signal-desktop-bin}/lib/signal-desktop/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
 
   # ringrtcPrebuild = stdenv.mkDerivation {
   #   name = "ringrtc-bin";
@@ -173,7 +173,7 @@ let
   # prefer to use the same electron version as everywhere else, and a `-bin` version to avoid 4hr rebuilds.
   # the non-bin varieties *seem* to ship the wrong `electron.headers` property.
   # - maybe they can work if i manually DL and ship the corresponding headers
-  electron' = electron_33-bin;
+  electron' = electron_35-bin;
 
   buildNpmArch = if stdenv.buildPlatform.isAarch64 then "arm64" else "x64";
   hostNpmArch = if stdenv.hostPlatform.isAarch64 then "arm64" else "x64";
@@ -181,19 +181,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "signal-desktop-from-src";
-  version = "7.50.0";
+  version = "7.52.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${finalAttrs.version}";
-    hash = "sha256-d5sajhapLEjW+3NexI8JZRP1ueb8OqSALuAIbWYOQC8=";
+    hash = "sha256-MbccRQ652kDGJP/vRL2x+fLmeTNhgLSNvSpRSGm3fX8=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src patches;
-    hash = "sha256-xl+ASQrNnRP5cGVAQz7JRETT8tORZfS91HFNtCphaGA=";
+    hash = "sha256-fCA1tBpj0l3Ur9z1o1IAz+HtfDlC5DzPa3m1/8NsFkY=";
   };
 
   patches = [
@@ -303,8 +303,7 @@ stdenv.mkDerivation (finalAttrs: {
     # need to build against electron's versions of the node headers, or something.
     # without patching this, Signal can build, but will fail with `undefined symbol: ...` errors at runtime.
     # see: <https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules>
-    tar xzf ${electron'.headers}
-    export npm_config_nodedir=$(pwd)/node_headers
+    export npm_config_nodedir=${electron'.headers}
 
     # patchShebangs --build --update node_modules/{bufferutil/node_modules/node-gyp-build/,node-gyp-build,utf-8-validate/node_modules/node-gyp-build}
     # patch these out to remove a runtime reference back to the build bash

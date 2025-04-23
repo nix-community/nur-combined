@@ -20,14 +20,9 @@
     "hash": "sha256-j7I+xgLo8gB+5rKqW5FVtP6o3xqx3acrcMjKGr8ZlJ8="
   },
   {
-    "pname": "Emgu.CV",
-    "version": "4.9.0.5494",
-    "hash": "sha256-mU7daSkOHtA/obp0Cq67+K9yHJhLNM+XYh0B4jfWI8c="
-  },
-  {
     "pname": "Emgu.CV.runtime.mini.macos",
-    "version": "4.9.0.5494",
-    "hash": "sha256-/Q560p1jViBIn2cKLymGMArtYEmd17HjZArHFTror/Y="
+    "version": "4.10.0.5683",
+    "hash": "sha256-tIBd9EJ74MVWuEzESZHx75g3rXDPkObrcfep10zC+28="
   },
   {
     "pname": "Emgu.CV.runtime.mini.ubuntu-x64",
@@ -461,8 +456,8 @@
   },
   {
     "pname": "System.Memory",
-    "version": "4.6.0",
-    "hash": "sha256-OhAEKzUM6eEaH99DcGaMz2pFLG/q/N4KVWqqiBYUOFo="
+    "version": "4.6.3",
+    "hash": "sha256-JgeK63WMmumF6L+FH5cwJgYdpqXrSDcgTQwtIgTHKVU="
   },
   {
     "pname": "System.Net.Http",
@@ -656,8 +651,8 @@
   },
   {
     "pname": "System.Text.Json",
-    "version": "9.0.2",
-    "hash": "sha256-kftKUuGgZtF4APmp77U79ws76mEIi+R9+DSVGikA5y8="
+    "version": "9.0.4",
+    "hash": "sha256-oIOqfOIIUXXVkfFiTCI9wwIJBETQqF7ZcOJv2iYuq1s="
   },
   {
     "pname": "System.Text.RegularExpressions",

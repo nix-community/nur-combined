@@ -13,8 +13,13 @@ in
       "/sys/block"
       "/sys/dev/block"
       "/sys/devices"
+      #vvv required for `sudo btrfs scrub start`
+      "/sys/fs"
+      #vvv required for `sudo btrfs scrub status` to show stats
+      "/var/lib/btrfs"
     ];
     sandbox.tryKeepUsers = true;
+    sandbox.keepPids = true;  # required for `sudo btrfs scrub start`
     sandbox.capabilities = [ "sys_admin" ];  # for `btrfs scrub`
   };
 

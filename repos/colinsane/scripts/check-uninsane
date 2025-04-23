@@ -137,6 +137,8 @@ _bitcoindSynchronized() {
 check "Bitcoind synchronized" _bitcoindSynchronized
 check "Bitcoin Lightning" runOnHost servo clightning-sane status
 
+check "/mnt/persist/private" runOnHost servo systemctl status gocryptfs-private.service
+
 echo ""
 echo "systemctl --failed:"
 runOnHost servo systemctl -q --failed

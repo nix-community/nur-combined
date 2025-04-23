@@ -1,0 +1,9 @@
+{
+  "description": "Unchained is your no-hype resource for all things crypto. In this podcast, host Laura Shin, founder and CEO of crypto media news outlet Unchained and author of The Cryptopians, talks with industry pioneers about how crypto assets and blockchains will change our digital lives.",
+  "is_podcast": true,
+  "site_name": "pods.media",
+  "site_url": "https://pods.media",
+  "title": "Unchained",
+  "url": "https://pods.media/api/rss/feed/channel/unchained",
+  "velocity": 0.307
+}

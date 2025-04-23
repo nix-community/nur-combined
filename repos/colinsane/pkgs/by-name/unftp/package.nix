@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -9,7 +10,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitHub {
     owner = "bolcom";
-    repo = pname;
+    repo = "unftp";
     rev = "v${version}";
     hash = "sha256-+UL8xflnumOiWL5b9/azH9OW+X+6hRcxjiyWhCSWQRg=";
   };

@@ -78,10 +78,34 @@ in
 
       # fixup bindings not handled by bash, see: <https://wiki.archlinux.org/title/Zsh#Key_bindings>
       # `bindkey -e` seems to define most of the `key` array. everything in the Arch defaults except for these:
-      key[Backspace]="''${terminfo[kbs]}"
-      key[Control-Left]="''${terminfo[kLFT5]}"
-      key[Control-Right]="''${terminfo[kRIT5]}"
-      key[Shift-Tab]="''${terminfo[kcbt]}"
+      if [[ -z "''${key[Backspace]}" ]]; then
+        key[Backspace]="''${terminfo[kbs]}"
+      fi
+      if [[ -z "''${key[Control-Left]}" ]]; then
+        key[Control-Left]="''${terminfo[kLFT5]}"
+      fi
+      if [[ -z "''${key[Control-Right]}" ]]; then
+        key[Control-Right]="''${terminfo[kRIT5]}"
+      fi
+      if [[ -z "''${key[Shift-Tab]}" ]]; then
+        key[Shift-Tab]="''${terminfo[kcbt]}"
+      fi
+
+      # XXX(2025-04-12): Control-Left and Control-Right sometimes _still_ don't exist (e.g. raw TTYs, ssh).
+      # build them from `^` + `Left` instead:
+      if [[ -z "''${key[Left]}" ]]; then
+        key[Left]="''${terminfo[kcub1]}"
+      fi
+      if [[ -z "''${key[Right]}" ]]; then
+        key[Right]="''${terminfo[kcuf1]}"
+      fi
+      if [[ -z "''${key[Control-Left]}" ]] && [[ -n "''${key[Left]}" ]]; then
+        key[Control-Left]="^''${key[Left]}"
+      fi
+      if [[ -z "''${key[Control-Right]}" ]] && [[ -n "''${key[Right]}" ]]; then
+        key[Control-Right]="^''${key[Right]}"
+      fi
+
       bindkey -- "''${key[Delete]}"     delete-char
       bindkey -- "''${key[Control-Left]}"  backward-word
       bindkey -- "''${key[Control-Right]}"  forward-word
@@ -100,7 +124,9 @@ in
       stty -ixon
 
       # run any additional, sh-generic commands (useful for e.g. launching a login manager on login)
-      test -e ~/.profile && source ~/.profile
+      if [[ -e ~/.profile ]]; then
+        source ~/.profile
+      fi
     '';
   };
 

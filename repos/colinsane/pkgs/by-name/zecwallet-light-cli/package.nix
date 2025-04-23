@@ -1,8 +1,9 @@
-{ lib
-, buildPackages
-, fetchFromGitHub
-, rustfmt
-, rustPlatform
+{
+  buildPackages,
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  rustfmt,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -11,7 +12,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitHub {
     owner = "adityapk00";
-    repo = pname;
+    repo = "zecwallet-light-cli";
     rev = "v${version}";
     hash = "sha256-8qr6GIldJcybQwXbdZxFVGvFPJErLpqCEIuGJw1z0qQ=";
   };

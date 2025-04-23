@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
-    repo = pname;
+    repo = "lemoa";
     rev = "v${version}";
     hash = "sha256-XyVl0vreium83d6NqiMkdER3U0Ra0GeAgTq4pyrZyZE=";
   };

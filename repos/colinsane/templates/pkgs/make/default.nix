@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "TODO";
-    repo = pname;
+    repo = "TODO";
     rev = "v${version}";
     hash = "sha256-TODO";
   };

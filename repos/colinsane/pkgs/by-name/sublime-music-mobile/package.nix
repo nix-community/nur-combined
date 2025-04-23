@@ -2,7 +2,7 @@
 # , lib
 # , libhandy
 # , ... }:
-# 
+#
 # (pkgs.sublime-music.overrideAttrs (upstream: {
 #   pname = "sublime-music-mobile";
 #   version = "0.11.10";
@@ -13,7 +13,7 @@
 #     rev = "4ce2f222f13020574d54110d90839f48d8689b9d";
 #     sha256 = "sha256-V6YyBbPKAfZb5FVOesNcC6TfJbO73WZ4DvlOSWSSZzU=";
 #   };
-# 
+#
 #   buildInputs = upstream.buildInputs ++ [
 #     # requires this PR that adds the drawtab:
 #     # - <https://gitlab.gnome.org/GNOME/libhandy/-/merge_requests/707>
@@ -33,33 +33,34 @@
 #       ];
 #     }))
 #   ];
-# 
+#
 #   # i think Benjamin didn't update the tests?
 #   doCheck = false;
 #   doInstallCheck = false;
-# 
+#
 #   meta.description = "A mobile-friendly sublime music fork";
 # }))
 
-{ fetchFromGitLab
-, fetchFromGitea
-, docbook_xml_dtd_43
-, docbook-xsl-nons
-, gtk-doc
-, lib
-, libhandy
-, fetchFromGitHub
-, python3
-, gobject-introspection
-, gtk3
-, pango
-, wrapGAppsHook
-, xvfb-run
-, chromecastSupport ? false
-, serverSupport ? false
-, keyringSupport ? true
-, notifySupport ? true, libnotify
-, networkSupport ? true, networkmanager
+{
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchFromGitea,
+  gobject-introspection,
+  gtk-doc,
+  gtk3,
+  lib,
+  libhandy,
+  pango,
+  python3,
+  wrapGAppsHook,
+  xvfb-run,
+  chromecastSupport ? false,
+  keyringSupport ? true,
+  networkSupport ? true, networkmanager,
+  notifySupport ? true, libnotify,
+  serverSupport ? false,
 }:
 
 let
@@ -84,7 +85,7 @@ python.pkgs.buildPythonApplication rec {
 
   # src = fetchFromGitLab {
   #   owner = "sublime-music";
-  #   repo = pname;
+  #   repo = "sublime-music-mobile;
   #   rev = "v${version}";
   #   sha256 = "sha256-n77mTgElwwFaX3WQL8tZzbkPwnsyQ08OW9imSOjpBlg=";
   # };
@@ -102,13 +103,15 @@ python.pkgs.buildPythonApplication rec {
     sha256 = "sha256-jyC3Fh+b+MBLjHlFr3nOOM7eT/3PPF7dynHsPJaIzLU=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ] ++ (with python.pkgs; [
-   poetry-core
-   pythonRelaxDepsHook
- ]);
+  nativeBuildInputs =
+    [
+      gobject-introspection
+      wrapGAppsHook
+    ]
+    ++ (with python.pkgs; [
+      poetry-core
+      pythonRelaxDepsHook
+    ]);
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
@@ -116,46 +119,47 @@ python.pkgs.buildPythonApplication rec {
     "python-mpv"
   ];
 
-  buildInputs = [
-    gtk3
-    pango
-    (libhandy.overrideAttrs (superhandy: {
-      version = "1.5.0";
-      src = fetchFromGitLab {
-        domain = "gitlab.gnome.org";
-        owner = "BenjaminSchaaf";
-        repo = "libhandy";
-        rev = "0557503278a099c1b9999ceebb7c21fa9c15a3a5";
-        sha256 = "sha256-MwOnQ2h1ypSvxOSaXDdSFoMKOMr9DonTCMNT796kaQs=";
-      };
-      nativeBuildInputs = superhandy.nativeBuildInputs ++ [
-        docbook_xml_dtd_43
-        docbook-xsl-nons
-        gtk-doc
-      ];
-    }))
-  ]
-   ++ lib.optional notifySupport libnotify
-   ++ lib.optional networkSupport networkmanager
-  ;
+  buildInputs =
+    [
+      gtk3
+      pango
+      (libhandy.overrideAttrs (superhandy: {
+        version = "1.5.0";
+        src = fetchFromGitLab {
+          domain = "gitlab.gnome.org";
+          owner = "BenjaminSchaaf";
+          repo = "libhandy";
+          rev = "0557503278a099c1b9999ceebb7c21fa9c15a3a5";
+          sha256 = "sha256-MwOnQ2h1ypSvxOSaXDdSFoMKOMr9DonTCMNT796kaQs=";
+        };
+        nativeBuildInputs = superhandy.nativeBuildInputs ++ [
+          docbook_xml_dtd_43
+          docbook-xsl-nons
+          gtk-doc
+        ];
+      }))
+    ]
+    ++ lib.optional notifySupport libnotify
+    ++ lib.optional networkSupport networkmanager;
 
-  propagatedBuildInputs = with python.pkgs; [
-    bleach
-    dataclasses-json
-    deepdiff
-    fuzzywuzzy
-    levenshtein
-    mpv
-    peewee
-    pygobject3
-    python-dateutil
-    requests
-    semver
-  ]
-   ++ lib.optional chromecastSupport pychromecast
-   ++ lib.optional keyringSupport keyring
-   ++ lib.optional serverSupport bottle
-  ;
+  propagatedBuildInputs =
+    with python.pkgs;
+    [
+      bleach
+      dataclasses-json
+      deepdiff
+      fuzzywuzzy
+      levenshtein
+      mpv
+      peewee
+      pygobject3
+      python-dateutil
+      requests
+      semver
+    ]
+    ++ lib.optional chromecastSupport pychromecast
+    ++ lib.optional keyringSupport keyring
+    ++ lib.optional serverSupport bottle;
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
@@ -199,6 +203,9 @@ python.pkgs.buildPythonApplication rec {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ albakham sumnerevans ];
+    maintainers = with maintainers; [
+      albakham
+      sumnerevans
+    ];
   };
 }

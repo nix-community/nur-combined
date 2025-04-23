@@ -10,13 +10,13 @@
 }:
 stdenv.mkDerivation {
   pname = "libmegapixels";
-  version = "0.2.0-unstable-2025-03-24";
+  version = "0.2.1-unstable-2025-04-04";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "libmegapixels";
-    rev = "127ac9da0789e7ea3b5aa9c178887f5f55f34caa";
-    hash = "sha256-r+Ki6aDXh1+3JXhZuwCMSXcY9WF8+JfIjuIzRLtmN4g=";
+    rev = "7af18a935bebfedded7cebb08bf6c547f47dcfd9";
+    hash = "sha256-UyZcVjOsGBcSl6yJtcUSGDhYnMkbRirLadbU4vyLBhs=";
   };
 
   # patches = [

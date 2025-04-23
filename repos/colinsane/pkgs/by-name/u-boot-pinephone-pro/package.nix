@@ -5,8 +5,6 @@
 {
   armTrustedFirmwareRK3399,
   buildUBoot,
-  fetchurl,
-  lib,
 }:
 
 (buildUBoot {
@@ -27,18 +25,6 @@
     "u-boot.sym"
   ];
 }).overrideAttrs (upstream: {
-  # upgrade to a release which includes this patch stack: <https://patchwork.ozlabs.org/project/uboot/cover/20240618210609.1744727-1-tharvey@gateworks.com/>
-  # i.e. 2024.10 or later.
-  # this gets us a security hardening feature: Kernel Address Space Layout Randomization (KASLR),
-  # identified by early linux print statements
-  # - "KASLR enabled" (good)
-  # - "KASLR disabled due to lack of seed" (bad)
-  version = lib.warnIf (lib.versionOlder "2024.10-rc6" upstream.version) "u-boot-pinephone-pro outdated: remove src override" "2024.10-rc6";
-  src = fetchurl {
-    url = "https://ftp.denx.de/pub/u-boot/u-boot-2024.10-rc6.tar.bz2";
-    hash = "sha256-13ma6wYgkJx2MO0/xfy8BGgq/wNMAYYkolhM8EuRQ9s=";
-  };
-
   # default baud rate is 1500000, which is too fast for some USB <-> serial adapters to do
   # CONFIG_DM_RNG is needed to seed the kernel, and avoid "KASLR disabled due to lack of seed"
   extraConfig = ''

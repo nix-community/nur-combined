@@ -190,6 +190,7 @@
     ./spot.nix
     ./spotify.nix
     ./steam.nix
+    ./ssh.nix
     ./stepmania.nix
     ./strings.nix
     ./sublime-music.nix
