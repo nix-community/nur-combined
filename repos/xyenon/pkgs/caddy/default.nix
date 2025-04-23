@@ -1,11 +1,15 @@
 {
+  callPackage,
+  buildGo124Module,
   lib,
   sources,
-  callPackage,
 }:
 
 let
-  caddy = callPackage ./package.nix { inherit caddy; };
+  caddy = callPackage ./package.nix {
+    inherit caddy;
+    buildGoModule = buildGo124Module;
+  };
   pluginRepos = [
     "WeidiDeng/caddy-cloudflare-ip"
     "caddy-dns/cloudflare"
