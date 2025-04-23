@@ -46,5 +46,5 @@ let
 in
 caddy.withPlugins {
   inherit plugins;
-  hash = "sha256-AjqcSbP1Y99dWYi5DlnRJnscYIZw/6mvSM3qG9RD0KU=";
+  hash = "sha256-4r24IW/Lr5nStx61RpH2ePxlu6tJ7449AAE25+r+iI4=";
 }
