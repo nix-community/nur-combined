@@ -53,6 +53,7 @@
 
 # tor
 , libz
+, libevent
 
 , havenoFork ? "reto"
 }:
@@ -86,7 +87,7 @@ gradle2nix.buildGradlePackage rec {
     fetchFromGitHub {
       owner = "haveno-dex";
       repo = "haveno";
-      rev = version;
+      rev = "v${version}"; # haveno
       hash = "";
     }
     else
@@ -94,8 +95,10 @@ gradle2nix.buildGradlePackage rec {
     fetchFromGitHub {
       owner = "retoaccess1";
       repo = "haveno-reto";
-      rev = "v${version}";
-      hash = "sha256-T97ucq+GFDXsfVJeItvXuB4yV5iC3N/mUp1TYseWZeo=";
+      # TODO update: use the right git tag https://github.com/retoaccess1/haveno-reto/issues/74
+      #rev = "v${version}"; # haveno
+      rev = version; # haveno-reto
+      hash = "sha256-gwUNE8PE6XNFT9Px4zdvnqwwFpU8PyjtiARAEEnuw5w=";
     }
     else
     throw "unknown version ${havenoFork}"
@@ -174,6 +177,8 @@ gradle2nix.buildGradlePackage rec {
         buildInputs = [
           libgcc.lib # libgcc_s.so.1 libgcc_s.so
           libz # libz.so.1 libz.so
+          libevent # libevent-2.1.so.7
+          openssl # libssl.so.3 libcrypto.so.3
         ];
       };
     };
