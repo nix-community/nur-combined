@@ -70,7 +70,7 @@ caddy.overrideAttrs (
           export GOCACHE=$TMPDIR/go-cache
           export GOPATH="$TMPDIR/go"
           XCADDY_SKIP_BUILD=1 TMPDIR="$PWD" xcaddy build v${finalAttrs.version} ${withArgs}
-          (cd buildenv* && go mod vendor)
+          (cd buildenv* && go mod edit -go='${lib.versions.majorMinor go.version}' && go mod vendor)
         '';
       installPhase = ''
         mv buildenv* $out
