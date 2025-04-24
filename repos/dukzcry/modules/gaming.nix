@@ -10,7 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      pkgs.nur.repos.dukzcry.lutris
+      lutris
     ];
     programs.gamescope.enable = true;
     # https://github.com/NixOS/nixpkgs/issues/292620
