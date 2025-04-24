@@ -24,5 +24,10 @@ in
 
     # Permissions
     users.users.${identity.username}.extraGroups = [ "networkmanager" ];
+
+    # Work around NixOS/nixpkgs#180175
+    # TODO: Is this related to WireGuard? Or maybe virtualization?
+    systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
+    systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
   };
 }

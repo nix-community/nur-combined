@@ -129,7 +129,12 @@ in
     in
     with mapAttrs (_: floor) widths;
     {
-      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm externalComplement2Browser ];
+      cycle-width-steps = map (n: 1.0 * n) (sort (a: b: a < b) ([
+        term
+        half
+        (if complementTerm > term then complementTerm else browser_width)
+        externalComplement2Browser
+      ]));
       horizontal-margin = margin;
       selection-border-radius-top = border;
       selection-border-size = border;
@@ -213,7 +218,7 @@ in
     XF86NotificationCenter,qalculate-gtk,qalculate-gtk,
     <Super>c,codium,VSCodium,
     <Super>f,firefox,firefox,
-    <Super>n,joplin-desktop,@joplin/app-desktop,
+    <Super>j,joplin-desktop,@joplin/app-desktop,
     <Super>t,kitty,kitty,
   '';
 

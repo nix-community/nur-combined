@@ -1136,6 +1136,7 @@ ShellCheck
 Shilshole
 shitposting
 Shokz
+Shopify
 shortcode
 Shotwell
 Sidekiq
@@ -1236,6 +1237,7 @@ Syncthing
 sysfs
 Sysprof
 systemd
+systemd-networkd
 Tahoma
 takahē
 Takoradi
