@@ -38,12 +38,14 @@ in
     "cSpell.minWordLength" = 2;
     "cSpell.customDictionaries" = {
       custom = { path = formats.plaintext; };
+      custom-coffeescript = { path = ../resources/words-coffeescript.txt; };
       custom-css = { path = ../resources/words-css.txt; };
       custom-nix = { path = ../resources/words-nix.txt; };
       custom-rust = { path = ../resources/words-rust.txt; };
       custom-shellscript = { path = ../resources/words-shellscript.txt; };
     };
     "cSpell.languageSettings" = [
+      { languageId = "coffeescript"; dictionaries = [ "custom-coffeescript" ]; }
       { languageId = "css"; dictionaries = [ "custom-css" ]; }
       { languageId = "nix"; dictionaries = [ "custom-nix" ]; }
       { languageId = "rust"; dictionaries = [ "custom-rust" ]; }

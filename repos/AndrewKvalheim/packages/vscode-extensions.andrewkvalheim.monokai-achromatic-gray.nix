@@ -84,6 +84,7 @@ let
 in
 vscode-utils.buildVscodeExtension rec {
   name = "monokai-achromatic-gray";
+  pname = name; # TODO: Why is it necessary to set both name and pname?
   version = vscodium.version;
 
   vscodeExtPublisher = "andrewkvalheim";

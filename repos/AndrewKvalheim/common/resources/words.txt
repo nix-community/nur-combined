@@ -488,6 +488,7 @@ Halmak
 Haml
 HarfBuzz
 hasher
+hashless
 Heartbleed
 heartedly
 heatmaps
