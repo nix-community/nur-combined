@@ -12,9 +12,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    xdg.configFile."tridactyl/tridactylrc".source = pkgs.substituteAll {
-      src = ./tridactylrc;
-
+    xdg.configFile."tridactyl/tridactylrc".source = pkgs.replaceVars ./tridactylrc {
       editorcmd = lib.concatStringsSep " " [
         # Use my configured terminal
         term
