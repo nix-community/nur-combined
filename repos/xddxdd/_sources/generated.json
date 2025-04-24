@@ -2971,12 +2971,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": null,
-            "sha256": "sha256-EvXTFHG3U9KWNTDYcx+Fov2/bociqw0CTOol44hyS8Y=",
+            "name": "qemu.deb",
+            "sha256": "sha256-RWWCll6SXV6vDnq/PMDYmbydDXFQWPJ1mlqOWU/FFHM=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_amd64.deb"
         },
-        "version": "7.2+dfsg-7+deb12u12"
+        "version": "10.0.0~rc3+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -2986,12 +2986,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": null,
-            "sha256": "sha256-2Y7iV/eCA0Sf6BWlC4mJl4RNUG2BvEemoK6m4KX9KPs=",
+            "name": "qemu.deb",
+            "sha256": "sha256-xTk4K5JQDuSBKsCz2rKjhO1mpS6FjFT+0aGNczoCo3Q=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_arm64.deb"
         },
-        "version": "7.2+dfsg-7+deb12u12"
+        "version": "10.0.0~rc3+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3001,12 +3001,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": null,
-            "sha256": "sha256-CbSsx7t3HDbKsXLCkYp1SE2ICewOhTI2nUmMSBMTrnA=",
+            "name": "qemu.deb",
+            "sha256": "sha256-1hyPwy6ETDNUSpcOZ+A8Enrhd5sp8NJ4PyNw/csvEGI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_armhf.deb"
         },
-        "version": "7.2+dfsg-7+deb12u12"
+        "version": "10.0.0~rc3+ds-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3016,12 +3016,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": null,
-            "sha256": "sha256-0u5I8sT5YuxZ/5EY0BTxj1mtzpIuCtdT72vNirnWPpI=",
+            "name": "qemu.deb",
+            "sha256": "sha256-BnjyeIYaPRWqsEDi2I5wtyGhAMr6DmuVfxcwBseDiv8=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_i386.deb"
         },
-        "version": "7.2+dfsg-7+deb12u12"
+        "version": "10.0.0~rc3+ds-2"
     },
     "qhttpengine": {
         "cargoLocks": null,

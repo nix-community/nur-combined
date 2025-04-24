@@ -1514,34 +1514,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-7+deb12u12";
+    version = "10.0.0~rc3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_amd64.deb";
-      hash = "sha256-EvXTFHG3U9KWNTDYcx+Fov2/bociqw0CTOol44hyS8Y=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_amd64.deb";
+      name = "qemu.deb";
+      hash = "sha256-RWWCll6SXV6vDnq/PMDYmbydDXFQWPJ1mlqOWU/FFHM=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-7+deb12u12";
+    version = "10.0.0~rc3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_arm64.deb";
-      hash = "sha256-2Y7iV/eCA0Sf6BWlC4mJl4RNUG2BvEemoK6m4KX9KPs=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_arm64.deb";
+      name = "qemu.deb";
+      hash = "sha256-xTk4K5JQDuSBKsCz2rKjhO1mpS6FjFT+0aGNczoCo3Q=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "7.2+dfsg-7+deb12u12";
+    version = "10.0.0~rc3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_armhf.deb";
-      hash = "sha256-CbSsx7t3HDbKsXLCkYp1SE2ICewOhTI2nUmMSBMTrnA=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_armhf.deb";
+      name = "qemu.deb";
+      hash = "sha256-1hyPwy6ETDNUSpcOZ+A8Enrhd5sp8NJ4PyNw/csvEGI=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-7+deb12u12";
+    version = "10.0.0~rc3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_7.2+dfsg-7+deb12u12_i386.deb";
-      hash = "sha256-0u5I8sT5YuxZ/5EY0BTxj1mtzpIuCtdT72vNirnWPpI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_i386.deb";
+      name = "qemu.deb";
+      hash = "sha256-BnjyeIYaPRWqsEDi2I5wtyGhAMr6DmuVfxcwBseDiv8=";
     };
   };
   qhttpengine = {

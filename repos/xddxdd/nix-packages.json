@@ -3892,7 +3892,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "7.2+dfsg-7+deb12u12"
+    "version": "10.0.0-rc3+ds-2"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -4552,7 +4552,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "7.2+dfsg-7+deb12u12"
+    "version": "10.0.0-rc3+ds-2"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "QQ for Linux",
@@ -5547,7 +5547,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "7.2+dfsg-7+deb12u12"
+    "version": "10.0.0-rc3+ds-2"
   },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
