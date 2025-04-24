@@ -1,1 +1,1 @@
-{ }
+{ imports = [ ./goauthing.nix ]; }

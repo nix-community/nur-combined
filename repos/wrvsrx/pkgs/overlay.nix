@@ -19,7 +19,7 @@ let
     };
   toplevelPackages = {
     # toplevel packages
-    auth-thu = callPackage ./auth-thu { };
+    goauthing = callPackage ./goauthing { };
     autodiff = callPackage ./autodiff { source = sources.autodiff; };
     noto-fonts-cjk-sans-fix-weight = mkNotoCJK {
       source = sources.noto-fonts-cjk-sans-fix-weight;
