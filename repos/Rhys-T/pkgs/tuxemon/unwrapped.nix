@@ -67,7 +67,7 @@ in let
         };
         pyproject = true;
         pythonRelaxDeps = true;
-        pythonRemoveDeps = ["pygame_menu" "pygame-menu"];
+        pythonRemoveDeps = ["pygame_menu" "pygame-menu"] ++ lib.optional (lib.versionOlder version "0.4.34-unstable-2023-03-03") ["pygame"];
         nativeBuildInputs = [python3Packages.pythonRelaxDepsHook] ++ lib.optional hostPlatform.isDarwin desktopToDarwinBundle;
         build-system = with python3Packages; [
             setuptools

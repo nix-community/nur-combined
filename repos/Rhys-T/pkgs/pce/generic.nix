@@ -8,8 +8,9 @@
     libX11 ? null, SDL ? null, SDL2 ? null,
     buildExtensionROMs ? false, nasm ? null, pkgs ? null,
     appNames ? [],
+    callPackage,
     maintainers
-}:
+}@args:
 assert builtins.elem withSDL [false 1 2];
 let
     withSDL1 = withSDL == 1;
@@ -62,7 +63,7 @@ let
     };
     macplus-cc = pkgsm68kElf.stdenv.cc;
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
     pname = "pce" + lib.optionalString enableUnfreeROMs "-with-unfree-roms";
     inherit version;
     src = src'';
@@ -118,8 +119,18 @@ stdenv.mkDerivation {
         ];
     };
     
-    passthru._Rhys-T.flakeApps = pceName: pce: builtins.listToAttrs (map (appName: lib.nameValuePair (builtins.replaceStrings ["pce"] [appName] pceName) {
-        type = "app";
-        program = lib.getExe' pce appName;
-    }) appNames);
-}
+    passthru = {
+        _Rhys-T.flakeApps = pceName: pce: builtins.listToAttrs (map (appName: lib.nameValuePair (builtins.replaceStrings ["pce"] [appName] pceName) {
+            type = "app";
+            program = lib.getExe' pce appName;
+        }) appNames);
+    } // lib.optionalAttrs (gitRev != null) {
+        updateScript = import ./update-snapshot;
+        _pkgForUpdater = finalAttrs.overrideAttrs (old: {
+            pos = builtins.unsafeGetAttrPos "version" args;
+            src = old.src // {
+                rev = gitRev;
+            };
+        });
+    };
+})

@@ -42,6 +42,9 @@ jobs:
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             
+            "24.11" as $stable |
+            null as $oldStable |
+            
             [
               "Lnx x64/ubuntu-latest",
               "Lnx A64/ubuntu-24.04-arm",
@@ -52,8 +55,7 @@ jobs:
             [
               "nixpkgs-unstable",
               "nixos-unstable",
-              "nixos-24.11",
-              "nixpkgs-24.11-darwin",
+              "nixos-\(($stable, $oldStable) | select(. != null))",
             empty] as $nixpkgss |
             
             [
@@ -68,8 +70,10 @@ jobs:
               $nixpkgss[] as $nixpkgs |
               (if $nixpkgs | test("^[0-9a-f]{40}$") then $nixpkgs else "refs/heads/\($nixpkgs)" end) as $nixpkgsPath |
               ($runner | split("/")) as [$displayRunner, $runner] |
+              (if ($runner | startswith("macos")) then
+                $nixpkgs | gsub("^nixos-(?<version>[0-9]+\\.[0-9]+)$"; "nixpkgs-\(.version)-darwin")
+              else $nixpkgs end) as $nixpkgs |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixos") | not)) |
-              select(($runner == "macos-13") or ($nixpkgs != "nixpkgs-24.11-darwin")) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               (if $qemuSystem then {
                 "aarch64-linux": "arm64",
