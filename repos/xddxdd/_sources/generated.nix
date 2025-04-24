@@ -1416,7 +1416,7 @@
     version = "V2.9.5777";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
-      repo = "Plangothic";
+      repo = "Plangothic_Project";
       tag = "V2.9.5777";
       hash = "sha256-gYRKlYdbRLquPvCMaprWWA7NdKwSTlGNTMCwaVc+KXk=";
     };

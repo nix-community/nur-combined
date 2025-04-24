@@ -615,8 +615,8 @@ src.github = "bggRGjQaUbCoE/PiliPlus"
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
 
 [plangothic-fonts]
-src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
-fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
+src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
+fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
 
 [plasma-panel-transparency-toggle]
 src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"

@@ -3704,14 +3704,9 @@
     "pname": "python3.12-piper",
     "version": "2023.11.14-2"
   },
-  "legacyPackages.x86_64-linux.plangothic-fonts.allideo": {
+  "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
-    "pname": "plangothic-fonts-allideo",
-    "version": "2.9.5777"
-  },
-  "legacyPackages.x86_64-linux.plangothic-fonts.fallback": {
-    "description": "Plangothic Project",
-    "pname": "plangothic-fonts-fallback",
+    "pname": "plangothic-fonts",
     "version": "2.9.5777"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
@@ -4528,6 +4523,11 @@
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
     "version": "1.1.3.31"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
+    "description": "Plangothic Project",
+    "pname": "plangothic-fonts",
+    "version": "2.9.5777"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -5500,9 +5500,9 @@
     "version": "2023.11.14-2"
   },
   "packages.x86_64-linux.plangothic-fonts": {
-    "description": "",
-    "pname": "merged-packages",
-    "version": ""
+    "description": "Plangothic Project",
+    "pname": "plangothic-fonts",
+    "version": "2.9.5777"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",

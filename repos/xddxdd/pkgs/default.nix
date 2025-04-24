@@ -47,7 +47,6 @@ let
     nvidia-grid = ifNotCI ./nvidia-grid;
     openj9-ibm-semeru = ifNotCI ./openj9-ibm-semeru;
     openjdk-adoptium = ifNotCI ./openjdk-adoptium;
-    plangothic-fonts = ./plangothic-fonts;
     th-fonts = ./th-fonts;
   };
 
