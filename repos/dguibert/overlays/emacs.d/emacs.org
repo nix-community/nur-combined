@@ -644,9 +644,6 @@ nil)
   (setq org-agenda-start-on-weekday 1)
   ;; Enable indentation view, does not effect file
   (setq org-startup-indented t)
-  ;; Attachments
-  (setq org-id-method (quote uuidgen))
-  (setq org-attach-directory "attach/")
   (efs/org-font-setup)
 
   :bind
@@ -882,6 +879,27 @@ nil)
   (setq org-attach-screenshot-command-line "screenshot %f")
   )
 #+end_src
+
+from https://lists.sr.ht/~protesilaos/denote/%3C87ilfj3ns6.fsf%40marcfargas.com%3E
+#+begin_src emacs-lisp :tangle no
+((org-mode . ((org-attach-id-dir . "./")
+	      (org-attach-dir-relative . t)
+	      (org-attach-auto-tag . nil)
+	      (org-attach-use-inheritance . t)
+	      (org-attach-preferred-new-method . nil)
+	      (eval . (setq-local
+		       org-global-properties
+		       `((DIR . ,(denote-retrieve-filename-identifier (buffer-file-name))))))
+	      )))
+#+end_src
+
+#+begin_src emacs-lisp
+(setq org-attach-method "ln"
+      org-attach-id-dir "files/")
+(require 'org-attach)
+#+end_src
+
+
 ** Org-Id
 #+begin_src emacs-lisp
 (use-package org-id-cleanup)
