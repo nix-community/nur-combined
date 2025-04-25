@@ -31,10 +31,6 @@ fetch.github = "SEIAROTg/autobean-refactor"
 src.git = "https://github.com/wrvsrx/coc-zk"
 fetch.github = "wrvsrx/coc-zk"
 
-[OpenEXR]
-src.pypi = "OpenEXR"
-fetch.pypi = "OpenEXR"
-
 [cyCodeBase]
 src.git = "https://github.com/cemyuksel/cyCodeBase"
 fetch.github = "cemyuksel/cyCodeBase"

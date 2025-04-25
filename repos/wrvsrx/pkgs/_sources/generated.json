@@ -1,19 +1,4 @@
 {
-    "OpenEXR": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "OpenEXR",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-z/zROQYpHvGoGzacHA6Qdkjs0kNjZohzaR9EhmcEqyE=",
-            "type": "url",
-            "url": "https://pypi.org/packages/source/O/OpenEXR/OpenEXR-1.3.9.tar.gz"
-        },
-        "version": "1.3.9"
-    },
     "amgcl": {
         "cargoLocks": null,
         "date": null,
