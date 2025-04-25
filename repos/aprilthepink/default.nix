@@ -20,7 +20,6 @@
   };
 
   #example-package = pkgs.callPackage ./pkgs/example-package { };
-  godot4_2 = pkgs.callPackage ./pkgs/godot_4_2 { };
   stellwerksim-launcher = pkgs.callPackage ./pkgs/stellwerksim-launcher { };
   tennable-client-own = pkgs.callPackage ./pkgs/tennable-client-own { };
   

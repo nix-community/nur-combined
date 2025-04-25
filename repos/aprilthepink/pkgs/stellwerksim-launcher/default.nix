@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  cargoHash = "sha256-+JIHv5ZoSKFzWE7WOBEZwuX8t1x567tRonHw2ZaQN2I=";
+  cargoHash = "sha256-5WnmLMvajSQT37ha8WEwg+NM3zdHMNZKAsCCao/TFdQ=";
 
   postFixup = ''
     wrapProgram $out/bin/stellwerksim-launcher --set PATH ${lib.makeBinPath [

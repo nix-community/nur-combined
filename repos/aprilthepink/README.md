@@ -1,6 +1,6 @@
 # nur-packages-template
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+**A template for [NUR](https://github.com/nix-community/NUR) repositories** awa
 
 ## Setup
 
