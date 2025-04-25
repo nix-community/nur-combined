@@ -84,6 +84,15 @@
     "x-scheme-handler/mailto" = "firefox.desktop";
   };
 
+  # Password store
+  programs.gopass.settings.mounts.path = "${config.home.homeDirectory}/akorg/resource/password-store";
+
+  # Notes
+  programs.joplin-desktop.extraConfig = let filesystem = 2 /* enum */; in {
+    "sync.target" = filesystem;
+    "sync.${toString filesystem}.path" = "${config.home.homeDirectory}/akorg/resource/joplin-sync";
+  };
+
   # Environment
   home.sessionVariables = {
     ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";

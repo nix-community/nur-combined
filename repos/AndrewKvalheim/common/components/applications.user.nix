@@ -3,10 +3,10 @@
 let
   inherit (builtins) listToAttrs;
   inherit (config) host;
-  inherit (lib) foldlAttrs imap0 nameValuePair;
-  inherit (lib.generators) toKeyValue;
+  inherit (lib) foldlAttrs imap0 mkOption nameValuePair;
+  inherit (lib.generators) toINI toKeyValue;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
-  inherit (pkgs) onlyBin;
+  inherit (pkgs) formats onlyBin;
   inherit (pkgs.writers) writeTOML;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
@@ -16,6 +16,10 @@ in
     ../../packages/nautilus-scripts.nix
     ../../packages/organize-downloads.nix
   ];
+
+  options = {
+    programs.gopass.settings = mkOption { type = (formats.ini { }).type; default = { }; };
+  };
 
   config = {
     # Unfree packages
@@ -40,6 +44,10 @@ in
     xdg.configFile."mimeapps.list".force = true; # Workaround for nix-community/home-manager#1213
 
     # Modules
+    programs.gopass.settings = {
+      core.autosync = false;
+      edit.auto-create = true;
+    };
     programs.joplin-desktop = {
       enable = true;
       extraConfig = {
@@ -223,6 +231,7 @@ in
       "options.clipboard_copy_cmd" = "${wl-clipboard}/bin/wl-copy";
       "options.clipboard_paste_cmd" = "${wl-clipboard}/bin/wl-paste --no-newline";
     };
+    xdg.configFile."gopass/config".text = toINI { } config.programs.gopass.settings;
     xdg.configFile."watchlog/config.scfg".text = ''
       delay: 1m
       permanent-delay: never

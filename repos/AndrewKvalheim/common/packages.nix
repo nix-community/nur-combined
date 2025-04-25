@@ -30,7 +30,7 @@ in
   espressif-serial = any;
   fastnbt-tools = any;
   fediblockhole = any;
-  firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
+  firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895. makeWrapperArgs pending NixOS/nixpkgs#374270 via NixOS 25.05
   git-diff-image = any;
   git-diff-minecraft = any;
   git-remote = any;
