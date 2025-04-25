@@ -1,4 +1,25 @@
 {
+    "english_words": {
+        "cargoLocks": null,
+        "date": "2025-01-06",
+        "extract": null,
+        "name": "english_words",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dwyl",
+            "repo": "english-words",
+            "rev": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c",
+            "sha256": "sha256-PfBQ9iavOLx7M8+j0TXASUxVamPiQn2YXsiuUmz4XCg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c"
+    },
     "exloli-next": {
         "cargoLocks": null,
         "date": "2024-11-23",
@@ -50,11 +71,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OhK+qjPIG2dRtFgzoKlCuUYkINkRguf6HXaLQY5gQEk=",
+            "sha256": "sha256-OvPcmHo60P42ROd62FO5mNHP3hxiRW3I7OGvVCZN3eU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504192212/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geoip.dat"
         },
-        "version": "202504192212"
+        "version": "202504242213"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -65,10 +86,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YGinPt+gi2MIC402K9TFsGlomjVI9BP0PPpYInogFXE=",
+            "sha256": "sha256-WwTjlofZnRzUDZz3Y9E4+bwnqzjKrl1T1gMiE+9RLFU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504192212/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geosite.dat"
         },
-        "version": "202504192212"
+        "version": "202504242213"
     }
 }

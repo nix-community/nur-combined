@@ -13,3 +13,7 @@ fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$
 [libinput-three-finger-drag]
 src.git = "https://github.com/marsqing/libinput-three-finger-drag"
 fetch.github = "marsqing/libinput-three-finger-drag"
+
+[english_words]
+src.git = "https://github.com/dwyl/english-words.git"
+fetch.github = "dwyl/english-words"
