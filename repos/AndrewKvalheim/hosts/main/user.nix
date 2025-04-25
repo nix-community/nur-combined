@@ -96,6 +96,6 @@
   # Environment
   home.sessionVariables = {
     ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";
-    EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash.db";
+    EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash/email-hash.db";
   };
 }

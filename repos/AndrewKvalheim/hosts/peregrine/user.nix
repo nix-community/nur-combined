@@ -23,6 +23,7 @@
   home.packages = with pkgs; [
     awscli2
     chromium
+    email-hash
     josm
     libreoffice
     mark-applier
@@ -44,5 +45,10 @@
   programs.joplin-desktop.extraConfig = let filesystem = 2 /* enum */; in {
     "sync.target" = filesystem;
     "sync.${toString filesystem}.path" = "${config.home.homeDirectory}/akorg/resource/joplin-sync";
+  };
+
+  # Environment
+  home.sessionVariables = {
+    EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash/email-hash.db";
   };
 }
