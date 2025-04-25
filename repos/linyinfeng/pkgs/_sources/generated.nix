@@ -100,13 +100,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.23-linux-250411T191656Z";
+    version = "lts-v6.12.23-linux-250419T011850Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.23-linux-250411T191656Z";
+      rev = "lts-v6.12.23-linux-250419T011850Z";
       fetchSubmodules = false;
-      sha256 = "sha256-M/qH7BPROwYenjzfWzXmkhbwORsfGQJAv2UQp18kVW4=";
+      sha256 = "sha256-w3WoAbz/rZ/3RK0dx0L7ycxGbo4l5a9gObyb50Di/AQ=";
     };
   };
   linux-intel-mainline-tracking = {

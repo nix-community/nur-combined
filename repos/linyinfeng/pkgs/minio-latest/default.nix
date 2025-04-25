@@ -27,16 +27,16 @@ let
 in
 buildGoModule rec {
   pname = "minio-latest";
-  version = "2025-04-08T15-41-24Z";
+  version = "2025-04-22T22-12-26Z";
 
   src = fetchFromGitHub {
     owner = "minio";
     repo = "minio";
     rev = "RELEASE.${version}";
-    sha256 = "sha256-bEgwQDg4r0aRjfJ4R4C9LlPT3UD2q7uauUhcsoCQhlo=";
+    sha256 = "sha256-BC633G27Zuhzk4DCLxtMGyWkQyo/3ObaIod7mDLPAqs=";
   };
 
-  vendorHash = "sha256-foMIxJcaoxe5/tBmy7KhDv2Vf+ATiOJYF5Z07PNA0Mg=";
+  vendorHash = "sha256-F7texxlSLNVjhlAZPtYYnAd91FIF/BNpq7t1dLaDUpk=";
 
   doCheck = false;
 
@@ -72,7 +72,7 @@ buildGoModule rec {
     changelog = "https://github.com/minio/minio/releases/tag/RELEASE.${version}";
     platforms = platforms.unix;
     license = licenses.agpl3Plus;
-    broken = !(lib.versionAtLeast go.version "1.23");
+    broken = !(lib.versionAtLeast go.version "1.24");
     maintainers = with maintainers; [ yinfeng ];
   };
 }
