@@ -90,7 +90,6 @@ lib.makeScope newScope (
     lunasvg = callPackage ./development/libraries/lunasvg { };
     microjson = callPackage ./development/libraries/microjson { };
     plutosvg = callPackage ./development/libraries/plutosvg { };
-    plutovg = callPackage ./development/libraries/plutovg { };
 
     ### DEVELOPMENT / PERL MODULES
 
