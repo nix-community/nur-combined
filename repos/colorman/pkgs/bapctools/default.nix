@@ -36,6 +36,9 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/bin/* $out/bin/
+    cp -r $src/config $out/config
+    cp -r $src/latex $out/latex
+
     install -Dm755 $src/bin/tools.py $out/bin/bt
   '';
 
