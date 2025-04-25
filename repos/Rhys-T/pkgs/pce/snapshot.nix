@@ -1,14 +1,14 @@
 {callPackage, fetchurl, lib, ...}@args: let
     thruArgs = removeAttrs args ["callPackage" "fetchurl"];
-    version = "0.2.2-unstable-2024-10-18";
-    gitRev = "86b4a1a05e6614f8d4b6ff8ed033114985e3c5a5";
+    version = "0.2.2-unstable-2025-04-20";
+    gitRev = "cc0c583cfdd3e77f1d9a698838ec658ba11f5cfd";
     version' = "${builtins.concatStringsSep "" (lib.drop 2 (lib.strings.splitString "-" version))}-${builtins.substring 0 8 gitRev}";
 in callPackage ./generic.nix (thruArgs // {
     inherit version gitRev;
     includesUnfreeROMs = false;
     src = fetchurl {
         url = "http://www.hampa.ch/pub/pce/pre/pce-${version'}/pce-${version'}.tar.gz";
-        hash = "sha256-6YmA4xoh+LycLPQ1AZS7yjz5RgPBR4tfc01z7gMkcRY=";
+        hash = "sha256-MqN/Abucq6qcxbXg9yJodV8yEUMMV/g4cdpnxa7dcRc=";
     };
     supportsSDL2 = true;
     appNames = [
