@@ -14,8 +14,8 @@ python312Packages.buildPythonPackage {
   src = fetchFromGitHub {
     owner = "Fabric-Development";
     repo = "fabric";
-    rev = "41eb2289184479026eb7138cdd539fdffcca03c1";
-    hash = "sha256-+Hg9ZA0otWlg4P40UeI+slcK732BmYtnM8amxsCh6EY=";
+    rev = "1831ced4d9bb9f4be3893be55a8d502b47bff29e";
+    hash = "sha256-1dZTqsWPaHyWjZkX4MaJdwUAQoMXwr8hhHymxQIwFrY=";
   };
 
   buildInputs = with pkgs; [
