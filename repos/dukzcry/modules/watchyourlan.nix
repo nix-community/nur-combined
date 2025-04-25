@@ -45,6 +45,8 @@ in {
         Group = cfg.group;
         ExecStart = "${getExe pkgs.watchyourlan} -d ${cfg.dataDir}";
         Restart = "on-failure";
+        TimeoutSec = 300;
+        StartLimitBurst = 10;
         AmbientCapabilities = [ "CAP_NET_RAW" ];
       };
       wantedBy = [ "multi-user.target" ];

@@ -53,6 +53,8 @@ in {
         Group = cfg.group;
         ExecStart = getExe pkgs.nur.repos.dukzcry.metube;
         Restart = "on-failure";
+        TimeoutSec = 300;
+        StartLimitBurst = 10;
       };
       wantedBy = [ "multi-user.target" ];
     };

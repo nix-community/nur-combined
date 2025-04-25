@@ -7,18 +7,20 @@
 
 stdenv.mkDerivation rec {
   pname = "sd-cpp-webui";
-  version = "unstable-2024-12-04";
+  version = "unstable-2025-02-22";
 
   src = fetchFromGitHub {
     owner = "daniandtheweb";
     repo = "sd.cpp-webui";
-    rev = "5ea4fd22d5be9023ba49c1467eee1a3b03638a9e";
-    hash = "sha256-4hoVGucC6+ObZuJWnMwNWLv2ytKG2cmqSWn8cGC8hnw=";
+    rev = "9ded8d67e90fa80f1b55334001069623d1ec2e13";
+    hash = "sha256-3eHiYi6RLxXGZFbIJxulJBRRHIBm+BfWRjKHD9MvqQU=";
   };
 
   nativeBuildInputs = with python3Packages; [ wrapPython ];
 
-  patches = [ ./fix-broken-sorting.patch ];
+  patches = [
+    ./fix-gallery.patch
+  ];
 
   installPhase = ''
     mkdir -p $out/${python3Packages.python.sitePackages}

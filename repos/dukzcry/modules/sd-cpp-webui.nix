@@ -3,7 +3,6 @@
 with lib;
 let
   cfg = config.services.sd-cpp-webui;
-  pkg = pkgs.nur.repos.dukzcry.sd-cpp-webui.override { stable-diffusion-cpp = cfg.package; };
 in {
   options.services.sd-cpp-webui = {
     enable = mkEnableOption "sd-cpp-webui service.";
@@ -21,7 +20,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = pkgs.nur.repos.dukzcry.stable-diffusion-cpp;
+      default = pkgs.nur.repos.dukzcry.sd-cpp-webui;
     };
   };
 
@@ -41,8 +40,10 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${getExe pkg} --listen";
+        ExecStart = "${getExe cfg.package} --listen";
         Restart = "on-failure";
+        TimeoutSec = 300;
+        StartLimitBurst = 10;
         WorkingDirectory = cfg.dataDir;
       };
       wantedBy = [ "multi-user.target" ];
