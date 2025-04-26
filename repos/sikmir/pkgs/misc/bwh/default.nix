@@ -8,6 +8,7 @@
   SDL2,
   the-foundation,
   AppKit,
+  libX11,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -31,7 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     SDL2
     the-foundation
-  ] ++ lib.optional stdenv.isDarwin AppKit;
+  ] ++ lib.optional stdenv.isLinux libX11
+    ++ lib.optional stdenv.isDarwin AppKit;
 
   installPhase = lib.optionalString stdenv.isDarwin ''
     runHook preInstall

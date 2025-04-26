@@ -30,5 +30,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = true; # Unable to find libclang
   };
 }
