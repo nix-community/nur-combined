@@ -30,4 +30,5 @@ jobs:
           # to only post a comment when an error occurs, or 'never' to
           # never post a comment.  (In all cases the information is
           # still available in the step's summary.)
-          comment: always
+          # comment: always
+          comment: on-error
