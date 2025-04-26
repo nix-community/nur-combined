@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyubx2";
-  version = "1.2.49";
+  version = "1.2.51";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyubx2";
     tag = "v${version}";
-    hash = "sha256-faA4IPRE2+tLIxXssYsc7EczA0P5OWqMJqrALym1tXg=";
+    hash = "sha256-3nsWAZ6WwGK0yMwfR8e21qGXjc0ENQfBsNDRqkq8uhc=";
   };
 
   build-system = with python3Packages; [ setuptools ];

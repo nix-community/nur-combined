@@ -8,13 +8,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "localtileserver";
-  version = "0.10.5";
+  version = "0.10.6";
 
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "localtileserver";
     tag = "v${version}";
-    hash = "sha256-Vj7wUQU1xUsHPR545SpJcA8HgKV++bmNUxvqP/w3L2Q=";
+    hash = "sha256-09POlT+3gWGoP/tKRur9OaFsfQvC4OwSHE+ssqSQi1Q=";
   };
 
   dependencies = with python3Packages; [

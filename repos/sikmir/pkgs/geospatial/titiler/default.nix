@@ -10,13 +10,13 @@
 }:
 let
   pname = "titiler";
-  version = "0.20.1";
+  version = "0.21.1";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     tag = version;
-    hash = "sha256-plArEGrT/yJ0lhLMyR5ekbImBtJfwPdByRP2XwD6quc=";
+    hash = "sha256-AjXE/nAZUZIbmJl227gGNRdzosCCVU1jU8muzaO+6P4=";
   };
 
   meta = {

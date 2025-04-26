@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";
-  version = "1.12.6";
+  version = "1.13.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     tag = version;
-    hash = "sha256-K3qHv/SdEELLvj4V8KTJrB6EEeEerqFDS6k7YItCMtg=";
+    hash = "sha256-P0elkxBuyGaQXLvaH0Nq8CFs9SDtCkLtqlt5uMPHbbE=";
   };
 
   pythonRelaxDeps = [

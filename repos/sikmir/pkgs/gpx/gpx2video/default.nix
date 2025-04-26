@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation {
   pname = "gpx2video";
-  version = "0-unstable-2015-02-07";
+  version = "0-unstable-2025-04-25";
 
   src = fetchFromGitHub {
     owner = "progweb";
     repo = "gpx2video";
-    rev = "399e25b75538d33ca355c0d60d8cb240e7dbda9f";
-    hash = "sha256-rF3BbFe9nuUTBTGkHtQBqwkjYHrMycvCpt3D3K8bCAQ=";
+    rev = "732a5cf994eb650341088e01246d3856244454ab";
+    hash = "sha256-ooUaCrHgIxi43p7Tq2CsxWEfqZcPSl4Gvi8HUqZEDyk=";
   };
 
   nativeBuildInputs = [

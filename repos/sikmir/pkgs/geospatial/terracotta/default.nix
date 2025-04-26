@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "terracotta";
-  version = "0.8.5";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "DHI-GRAS";
     repo = "terracotta";
     tag = "v${version}";
-    hash = "sha256-fa3MplMSNhwuWnb4lrMi+cwlW6bhYkkqAbCcJKV08Ts=";
+    hash = "sha256-DcxaUmp3MCZ5OUuGMOohuhalqVogsD55tGsdQlqm07E=";
   };
 
   postPatch = ''

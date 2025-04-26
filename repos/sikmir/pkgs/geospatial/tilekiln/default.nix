@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilekiln";
-  version = "0.6.5";
+  version = "0.7.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pnorman";
     repo = "tilekiln";
     tag = "v${version}";
-    hash = "sha256-vj0vp/1/3cPiN+uben623qg0UaX7fxfKCmk1wkxyXHk=";
+    hash = "sha256-BVIDCqeOsuPkJwZ8Sw8ok5GqhPgtn3DSBvpFLhQZeEo=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''
