@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-22.14.1" = {
+    "@types/node-22.15.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "22.14.1";
+      version = "22.15.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-22.14.1.tgz";
-        sha512 = "u0HuPQwe/dHrItgHHpmw3N2fYCR6x4ivMNbPHRkBVP4CvN+kiRrKHWk3i8tXiO/joPwXLMYvF9TTF0eqgHIuOw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-22.15.2.tgz";
+        sha512 = "uKXqKN9beGoMdBfcaTY1ecwz6ctxuJAcUlwE55938g0ZJ8lRxwAZqRz2AJ4pzpt5dHdTPMB863UZ0ESiFUcP7A==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001714" = {
+    "caniuse-lite-1.0.30001715" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001714";
+      version = "1.0.30001715";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001714.tgz";
-        sha512 = "mtgapdwDLSSBnCI3JokHM7oEQBLxiJKVRtg10AxM1AyeiKcM96f0Mkbqeq+1AbiCtvMcHRulAAEMu693JrSWqg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz";
+        sha512 = "7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.139" = {
+    "electron-to-chromium-1.5.142" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.139";
+      version = "1.5.142";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.139.tgz";
-        sha512 = "GGnRYOTdN5LYpwbIr0rwP/ZHOQSvAF6TG0LSzp28uCBb9JiXHJGmaaKw29qjNJc5bGnnp6kXJqRnGMQoELwi5w==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.142.tgz";
+        sha512 = "Ah2HgkTu/9RhTDNThBtzu2Wirdy4DC9b0sMT1pUhbkZQ5U/iwmE+PHZX1MpjD5IkJCc2wSghgGG/B04szAx07w==";
       };
     };
     "enhanced-resolve-5.18.1" = {
@@ -436,13 +436,13 @@ let
         sha512 = "CO40UI41xDQzhLB1hWyqUKgFhs250pNcGbyGKe1l/e4FSaI/+YE4IMG76GDt0In67WLPACIITC+sOi08x4wIvg==";
       };
     };
-    "es-module-lexer-1.6.0" = {
+    "es-module-lexer-1.7.0" = {
       name = "es-module-lexer";
       packageName = "es-module-lexer";
-      version = "1.6.0";
+      version = "1.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.6.0.tgz";
-        sha512 = "qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==";
+        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.7.0.tgz";
+        sha512 = "jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==";
       };
     };
     "escalade-3.2.0" = {
@@ -877,13 +877,13 @@ let
         sha512 = "rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==";
       };
     };
-    "schema-utils-4.3.0" = {
+    "schema-utils-4.3.2" = {
       name = "schema-utils";
       packageName = "schema-utils";
-      version = "4.3.0";
+      version = "4.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/schema-utils/-/schema-utils-4.3.0.tgz";
-        sha512 = "Gf9qqc58SpCA/xdziiHz35F4GNIWYWZrEshUc/G/r5BnLph6xpKuLeoJoQuj5WfBIx/eQLf+hmVPYHaxJu7V2g==";
+        url = "https://registry.npmjs.org/schema-utils/-/schema-utils-4.3.2.tgz";
+        sha512 = "Gn/JaSk/Mt9gYubxTtSn/QCV4em9mpAPiR1rqy/Ocu19u/G9J5WWdNoUT4SiV6mFC3y6cxyFcFwdzPM3FgxGAQ==";
       };
     };
     "serialize-javascript-6.0.2" = {
@@ -1012,13 +1012,13 @@ let
         sha512 = "TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==";
       };
     };
-    "webpack-5.99.6" = {
+    "webpack-5.99.7" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.99.6";
+      version = "5.99.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.6.tgz";
-        sha512 = "TJOLrJ6oeccsGWPl7ujCYuc0pIq2cNsuD6GZDma8i5o5Npvcco/z+NKvZSFsP0/x6SShVb0+X2JK/JHUjKY9dQ==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.7.tgz";
+        sha512 = "CNqKBRMQjwcmKR0idID5va1qlhrqVUKpovi+Ec79ksW8ux7iS1+A6VqzfZXgVYCFRKl7XL5ap3ZoMpwBJxcg0w==";
       };
     };
     "webpack-cli-6.0.1" = {
@@ -1084,7 +1084,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.7"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-22.14.1"
+      sources."@types/node-22.15.2"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1111,16 +1111,16 @@ let
       sources."ajv-keywords-5.1.0"
       sources."browserslist-4.24.4"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001714"
+      sources."caniuse-lite-1.0.30001715"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.139"
+      sources."electron-to-chromium-1.5.142"
       sources."enhanced-resolve-5.18.1"
       sources."envinfo-7.14.0"
-      sources."es-module-lexer-1.6.0"
+      sources."es-module-lexer-1.7.0"
       sources."escalade-3.2.0"
       sources."eslint-scope-5.1.1"
       (sources."esrecurse-4.3.0" // {
@@ -1172,7 +1172,7 @@ let
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"
       sources."safe-buffer-5.2.1"
-      sources."schema-utils-4.3.0"
+      sources."schema-utils-4.3.2"
       sources."serialize-javascript-6.0.2"
       sources."shallow-clone-3.0.1"
       sources."shebang-command-2.0.0"
@@ -1191,7 +1191,7 @@ let
       sources."undici-types-6.21.0"
       sources."update-browserslist-db-1.1.3"
       sources."watchpack-2.4.2"
-      sources."webpack-5.99.6"
+      sources."webpack-5.99.7"
       sources."webpack-cli-6.0.1"
       sources."webpack-merge-6.0.1"
       sources."webpack-sources-3.2.3"

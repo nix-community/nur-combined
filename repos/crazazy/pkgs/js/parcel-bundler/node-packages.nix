@@ -1408,22 +1408,22 @@ let
         sha512 = "p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==";
       };
     };
-    "bn.js-4.12.1" = {
+    "bn.js-4.12.2" = {
       name = "bn.js";
       packageName = "bn.js";
-      version = "4.12.1";
+      version = "4.12.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bn.js/-/bn.js-4.12.1.tgz";
-        sha512 = "k8TVBiPkPJT9uHLdOKfFpqcfprwBFOAAXXozRubr7R7PfIuKvQlzcI4M0pALeqXN09vdaMbUdUj+pass+uULAg==";
+        url = "https://registry.npmjs.org/bn.js/-/bn.js-4.12.2.tgz";
+        sha512 = "n4DSx829VRTRByMRGdjQ9iqsN0Bh4OolPsFnaZBLcbi8iXcB+kJ9s7EnRt4wILZNV3kPLHkRVfOc/HvhC3ovDw==";
       };
     };
-    "bn.js-5.2.1" = {
+    "bn.js-5.2.2" = {
       name = "bn.js";
       packageName = "bn.js";
-      version = "5.2.1";
+      version = "5.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bn.js/-/bn.js-5.2.1.tgz";
-        sha512 = "eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==";
+        url = "https://registry.npmjs.org/bn.js/-/bn.js-5.2.2.tgz";
+        sha512 = "v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==";
       };
     };
     "boolbase-1.0.0" = {
@@ -1669,13 +1669,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001714" = {
+    "caniuse-lite-1.0.30001715" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001714";
+      version = "1.0.30001715";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001714.tgz";
-        sha512 = "mtgapdwDLSSBnCI3JokHM7oEQBLxiJKVRtg10AxM1AyeiKcM96f0Mkbqeq+1AbiCtvMcHRulAAEMu693JrSWqg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz";
+        sha512 = "7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==";
       };
     };
     "caseless-0.12.0" = {
@@ -2533,13 +2533,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.5.139" = {
+    "electron-to-chromium-1.5.142" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.139";
+      version = "1.5.142";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.139.tgz";
-        sha512 = "GGnRYOTdN5LYpwbIr0rwP/ZHOQSvAF6TG0LSzp28uCBb9JiXHJGmaaKw29qjNJc5bGnnp6kXJqRnGMQoELwi5w==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.142.tgz";
+        sha512 = "Ah2HgkTu/9RhTDNThBtzu2Wirdy4DC9b0sMT1pUhbkZQ5U/iwmE+PHZX1MpjD5IkJCc2wSghgGG/B04szAx07w==";
       };
     };
     "elliptic-6.6.1" = {
@@ -7073,7 +7073,7 @@ let
       sources."asn1-0.2.6"
       (sources."asn1.js-4.10.1" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       (sources."assert-1.5.1" // {
@@ -7116,7 +7116,7 @@ let
       sources."bcrypt-pbkdf-1.0.2"
       sources."binary-extensions-1.13.1"
       sources."bindings-1.5.0"
-      sources."bn.js-5.2.1"
+      sources."bn.js-5.2.2"
       sources."boolbase-1.0.0"
       sources."brace-expansion-1.1.11"
       sources."braces-2.3.2"
@@ -7160,7 +7160,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001714"
+      sources."caniuse-lite-1.0.30001715"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -7200,7 +7200,7 @@ let
       sources."cosmiconfig-5.2.1"
       (sources."create-ecdh-4.0.4" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       sources."create-hash-1.2.0"
@@ -7271,7 +7271,7 @@ let
       sources."destroy-1.2.0"
       (sources."diffie-hellman-5.0.3" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       (sources."dom-serializer-0.2.2" // {
@@ -7295,10 +7295,10 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.5.139"
+      sources."electron-to-chromium-1.5.142"
       (sources."elliptic-6.6.1" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       sources."encodeurl-2.0.0"
@@ -7542,7 +7542,7 @@ let
       })
       (sources."miller-rabin-4.0.1" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       sources."mime-1.6.0"
@@ -7702,7 +7702,7 @@ let
       sources."psl-1.15.0"
       (sources."public-encrypt-4.0.3" // {
         dependencies = [
-          sources."bn.js-4.12.1"
+          sources."bn.js-4.12.2"
         ];
       })
       sources."punycode-2.3.1"

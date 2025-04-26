@@ -67,13 +67,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-1.8.4" = {
+    "axios-1.9.0" = {
       name = "axios";
       packageName = "axios";
-      version = "1.8.4";
+      version = "1.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-1.8.4.tgz";
-        sha512 = "eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==";
+        url = "https://registry.npmjs.org/axios/-/axios-1.9.0.tgz";
+        sha512 = "re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==";
       };
     };
     "balanced-match-1.0.2" = {
@@ -499,13 +499,13 @@ let
         sha512 = "xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==";
       };
     };
-    "json-stable-stringify-1.2.1" = {
+    "json-stable-stringify-1.3.0" = {
       name = "json-stable-stringify";
       packageName = "json-stable-stringify";
-      version = "1.2.1";
+      version = "1.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.2.1.tgz";
-        sha512 = "Lp6HbbBgosLmJbjx0pBLbgvx68FaFU1sdkmBuckmhhJ88kL13OA51CDtR2yJB50eCNMH9wRqtQNNiAqQH4YXnA==";
+        url = "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.3.0.tgz";
+        sha512 = "qtYiSSFlwot9XHtF9bD9c7rwKjr+RecWT//ZnPvSmEjpV5mmPOCN4j8UjY5hbjNkOwZ/jQv3J6R1/pL7RwgMsg==";
       };
     };
     "jsonfile-6.1.0" = {
@@ -819,7 +819,7 @@ let
       sources."apparatus-0.0.10"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      sources."axios-1.8.4"
+      sources."axios-1.9.0"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."bl-4.1.0"
@@ -867,7 +867,7 @@ let
       sources."is-interactive-1.0.0"
       sources."is-unicode-supported-0.1.0"
       sources."isarray-2.0.5"
-      sources."json-stable-stringify-1.2.1"
+      sources."json-stable-stringify-1.3.0"
       sources."jsonfile-6.1.0"
       sources."jsonify-0.0.1"
       sources."lodash-4.17.21"

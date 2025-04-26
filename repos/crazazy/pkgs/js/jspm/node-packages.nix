@@ -472,13 +472,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001714" = {
+    "caniuse-lite-1.0.30001715" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001714";
+      version = "1.0.30001715";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001714.tgz";
-        sha512 = "mtgapdwDLSSBnCI3JokHM7oEQBLxiJKVRtg10AxM1AyeiKcM96f0Mkbqeq+1AbiCtvMcHRulAAEMu693JrSWqg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz";
+        sha512 = "7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==";
       };
     };
     "chalk-5.4.1" = {
@@ -571,13 +571,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.5.139" = {
+    "electron-to-chromium-1.5.142" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.139";
+      version = "1.5.142";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.139.tgz";
-        sha512 = "GGnRYOTdN5LYpwbIr0rwP/ZHOQSvAF6TG0LSzp28uCBb9JiXHJGmaaKw29qjNJc5bGnnp6kXJqRnGMQoELwi5w==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.142.tgz";
+        sha512 = "Ah2HgkTu/9RhTDNThBtzu2Wirdy4DC9b0sMT1pUhbkZQ5U/iwmE+PHZX1MpjD5IkJCc2wSghgGG/B04szAx07w==";
       };
     };
     "encoding-0.1.13" = {
@@ -598,13 +598,13 @@ let
         sha512 = "2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==";
       };
     };
-    "es-module-lexer-1.6.0" = {
+    "es-module-lexer-1.7.0" = {
       name = "es-module-lexer";
       packageName = "es-module-lexer";
-      version = "1.6.0";
+      version = "1.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.6.0.tgz";
-        sha512 = "qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==";
+        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.7.0.tgz";
+        sha512 = "jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==";
       };
     };
     "escalade-3.2.0" = {
@@ -1377,7 +1377,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001714"
+      sources."caniuse-lite-1.0.30001715"
       sources."chalk-5.4.1"
       sources."chownr-2.0.0"
       sources."clean-stack-2.2.0"
@@ -1388,10 +1388,10 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.0"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.5.139"
+      sources."electron-to-chromium-1.5.142"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
-      sources."es-module-lexer-1.6.0"
+      sources."es-module-lexer-1.7.0"
       sources."escalade-3.2.0"
       sources."fs-minipass-2.1.0"
       sources."fs.realpath-1.0.0"

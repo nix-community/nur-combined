@@ -3,18 +3,18 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2747";
+    version = "v2807";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2747/cake-x64-64.tar.gz";
-      sha256 = "sha256-+HFUZGDjRz8dRh6+EpwVkjp84to0BE6ki94ep5W3Ab0=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2807/cake-x64-64.tar.gz";
+      sha256 = "sha256-24Ll9qTBJUXOvgl3SC/RvZ42uYhR7zDyehd37tztFpI=";
     };
   };
   enso = {
     pname = "enso";
-    version = "2024.5.2";
+    version = "2025.1.1";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2024.5.2/enso-linux-x86_64-2024.5.2.AppImage";
-      sha256 = "sha256-dvWr5OZU0/uUXGBvpc1kBP3ZhNpZXf6IY2w1ACt8ong=";
+      url = "https://github.com/enso-org/enso/releases/download/2025.1.1/enso-linux-x86_64-2025.1.1.AppImage";
+      sha256 = "sha256-Yhpi7d/t2+mwbXkZdN5K764Au7zj7xhaRaTAhLUxJ24=";
     };
   };
   guile-config = {
