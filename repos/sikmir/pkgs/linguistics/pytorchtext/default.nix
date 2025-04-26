@@ -51,6 +51,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/pytorch/text";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isDarwin;
+    broken = true; # spacy is broken
   };
 }

@@ -2,7 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  zig_0_11,
+  fetchpatch,
+  zig,
   scdoc,
   installShellFiles,
 }:
@@ -18,8 +19,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-J71QThRwV8lpGJndqVT+tsekO+CVU8piSpjAn9jwfDI=";
   };
 
+  patches = [
+    # Patch for compatability with zig 0.14.0
+    (fetchpatch {
+      url = "https://github.com/shtanton/gmi2html/pull/25/commits/29750dd364167db1b463cd5d29fc90519f293f0c.patch";
+      hash = "sha256-Z6Go9uUINadvegrVoCLXNeLtwXLzJZs7CeiyfpdAJ1k=";
+    })
+  ];
+
   nativeBuildInputs = [
-    zig_0_11.hook
+    zig.hook
     scdoc
     installShellFiles
   ];
