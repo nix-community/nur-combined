@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "json-tui";
-  version = "1.3.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "json-tui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Rgan+Pki4kOFf4BiNmJV4mf/rgyIGgUVP1BcFCKG25w=";
+    hash = "sha256-qS2EbCxH8sUUJMu5hwm1+Nu6SsJRfLReX56YSd1RZU4=";
   };
 
   patches = [ ./no-deps.patch ];
@@ -35,5 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = lib.versionOlder nlohmann_json.version "3.12.0";
   };
 })
