@@ -1,0 +1,10 @@
+diff --git a/src/scripts/wihotspot b/src/scripts/wihotspot
+index 689b2ea..61220d0 100755
+--- a/src/scripts/wihotspot
++++ b/src/scripts/wihotspot
+@@ -1,4 +1,4 @@
+ #!/bin/sh
+ 
+ # Start wihotspot-gui
+-/usr/bin/wihotspot-gui
++exec wihotspot-gui
