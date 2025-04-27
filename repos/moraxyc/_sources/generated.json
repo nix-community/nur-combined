@@ -41,6 +41,27 @@
         },
         "version": "41d7a6e52a1625d6febb47160a4b143ca47c16d5"
     },
+    "fcitx5-themes-candlelight": {
+        "cargoLocks": null,
+        "date": "2024-08-03",
+        "extract": null,
+        "name": "fcitx5-themes-candlelight",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "thep0y",
+            "repo": "fcitx5-themes-candlelight",
+            "rev": "d4146d3d3f7a276a8daa2847c3e5c08de20485da",
+            "sha256": "sha256-/IdN69izB30rl1gswsXivYtpAeCUdahP7oy06XJXo0I=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d4146d3d3f7a276a8daa2847c3e5c08de20485da"
+    },
     "libinput-three-finger-drag": {
         "cargoLocks": null,
         "date": "2024-06-17",
@@ -73,9 +94,9 @@
             "name": null,
             "sha256": "sha256-OvPcmHo60P42ROd62FO5mNHP3hxiRW3I7OGvVCZN3eU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504262212/geoip.dat"
         },
-        "version": "202504242213"
+        "version": "202504262212"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -86,10 +107,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WwTjlofZnRzUDZz3Y9E4+bwnqzjKrl1T1gMiE+9RLFU=",
+            "sha256": "sha256-AH8JGVeibGS6aSV4BKoI5CDcrENBwVGKe/8RFW9S+PE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504262212/geosite.dat"
         },
-        "version": "202504242213"
+        "version": "202504262212"
     }
 }

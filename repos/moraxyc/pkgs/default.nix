@@ -17,4 +17,5 @@ in
   libinput-three-finger-drag = call ./libinput-three-finger-drag;
   adguard-cli = call ./adguard-cli;
   english-words = call ./english-words;
+  fcitx5-themes-candlelight = call ./fcitx5-themes-candlelight;
 }

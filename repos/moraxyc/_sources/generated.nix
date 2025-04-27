@@ -25,6 +25,18 @@
     };
     date = "2024-11-23";
   };
+  fcitx5-themes-candlelight = {
+    pname = "fcitx5-themes-candlelight";
+    version = "d4146d3d3f7a276a8daa2847c3e5c08de20485da";
+    src = fetchFromGitHub {
+      owner = "thep0y";
+      repo = "fcitx5-themes-candlelight";
+      rev = "d4146d3d3f7a276a8daa2847c3e5c08de20485da";
+      fetchSubmodules = false;
+      sha256 = "sha256-/IdN69izB30rl1gswsXivYtpAeCUdahP7oy06XJXo0I=";
+    };
+    date = "2024-08-03";
+  };
   libinput-three-finger-drag = {
     pname = "libinput-three-finger-drag";
     version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";
@@ -39,18 +51,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202504242213";
+    version = "202504262212";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504262212/geoip.dat";
       sha256 = "sha256-OvPcmHo60P42ROd62FO5mNHP3hxiRW3I7OGvVCZN3eU=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202504242213";
+    version = "202504262212";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504242213/geosite.dat";
-      sha256 = "sha256-WwTjlofZnRzUDZz3Y9E4+bwnqzjKrl1T1gMiE+9RLFU=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202504262212/geosite.dat";
+      sha256 = "sha256-AH8JGVeibGS6aSV4BKoI5CDcrENBwVGKe/8RFW9S+PE=";
     };
   };
 }

@@ -17,3 +17,7 @@ fetch.github = "marsqing/libinput-three-finger-drag"
 [english_words]
 src.git = "https://github.com/dwyl/english-words.git"
 fetch.github = "dwyl/english-words"
+
+[fcitx5-themes-candlelight]
+src.git = "https://github.com/thep0y/fcitx5-themes-candlelight.git"
+fetch.github = "thep0y/fcitx5-themes-candlelight"
