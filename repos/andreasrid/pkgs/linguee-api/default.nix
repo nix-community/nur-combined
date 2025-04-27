@@ -9,7 +9,14 @@ with python3Packages;
 let
   # fastapi and linguee-api depend on different version of pydantic
   # replace dependency pydantic with pydantic_1
-  fastapi-customized = python3Packages.fastapi.override { pydantic = pydantic_1; };
+  fastapi-customized =
+    (python3Packages.fastapi.override { pydantic = pydantic_1; }).overridePythonAttrs
+      (old: {
+        disabledTestPaths = old.disabledTestPaths ++ [
+          "tests/test_tutorial/test_query_param_models"
+        ];
+      });
+
 in
 buildPythonPackage {
   pname = "linguee-api";

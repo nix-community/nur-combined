@@ -23,5 +23,6 @@ pkgs.lib.makeScope pkgs.newScope (
     linguee-api = pkgs.callPackage ./pkgs/linguee-api { inherit python-xextract; };
     linguee-api-server = pkgs.callPackage ./pkgs/linguee-api/server.nix { inherit linguee-api; };
     stm32cubeide = pkgs.callPackage ./pkgs/stm32cubeide { };
+    jlink-systemview = pkgs.callPackage ./pkgs/jlink-systemview { };
   }
 )
