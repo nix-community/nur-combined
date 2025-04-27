@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage rec {
     owner = "trumank";
     repo = "mint";
     rev = "276bf5fdbf6dd7b14e989f9849ea465fe9c88465";
-    hash = "sha256-6ttw+2opoGtw3pMIhk2X4rTt7enRaRUVH4tJcpT1DQc=";
+    hash = "sha256-4/NcubWmkRDR44Ud50SNvTxNZxCkAE6ZLeK6yHtAuZU=";
     deepClone = true;
     postFetch = ''
-      git -C $out describe > $out/mint_lib/src/GIT_VERSION
+      echo -n $(git -C $out describe) > $out/mint_lib/src/GIT_VERSION
       rm -rf $out/.git
     '';
   };
