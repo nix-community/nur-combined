@@ -1,27 +1,180 @@
-{ lib, appimageTools, fetchurl }:
+{ stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper, copyDesktopItems, makeDesktopItem, writeText
+, dbus-glib
+, gtk3
+, xorg
+, nss
+, systemd
+, ffmpeg-headless
+, libnotify
+, zlib
+, mesa
+, libglvnd
+, pciutils
+, xdg-utils
+, alsa-lib
+, pipewire
+, libpulseaudio
+, udev
+, libkrb5
+, libva
+, adwaita-icon-theme
+, cups
+, vulkan-loader
+, sndio
+, libjack2
+, libcanberra-gtk3
+# Option
+, hunspell #spell
+, hunspellDicts
+, networkmanager
+, speechd-minimal
+}:
 let
-  pname = "zen";
+  pname = "zen-browser-bin";
   version = "1.11.5b";
 
+  _pname = "zen-browser";
+
   src = fetchurl {
-    url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-x86_64.AppImage";
-    hash = "sha256-RFVkUhXmRS/cbZPBaUwV+I5NtLJZYcltxFpygqdp9Vg=";
+    url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz";
+    hash = "sha256-mEAIL97YfJ1H2OZJe6VmVZTrZJKgb3/kWmjF5ZHU5kc=";
   };
 
-  appimageContents = appimageTools.extract {
-    inherit pname version src;
+  libs = [
+    dbus-glib
+    gtk3 
+    nss
+    systemd
+    ffmpeg-headless
+    libnotify
+    libglvnd
+    pciutils
+    xdg-utils
+    alsa-lib
+    pipewire
+    libpulseaudio
+    udev
+    libkrb5
+    libva
+    adwaita-icon-theme
+    cups
+    vulkan-loader
+    sndio
+    libjack2
+    libcanberra-gtk3
+    mesa
+    zlib
+    # Option
+    hunspell
+    hunspellDicts.en_US
+    networkmanager
+    speechd-minimal
+    # X stuff
+    xorg.libXt
+    xorg.libX11
+    xorg.libXext
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXrandr
+    xorg.libXxf86dga
+    xorg.libXxf86vm
+  ];
+
+  enterprisePolicies = {
+    policies = {
+      DisableAppUpdate = true;
+      HomePage = {
+        URL = "https://zen-browser.app/";
+        Locked = false;
+      };
+      DNSOverHTTPS = {
+        Enabled = true;
+        Locked = false;
+      };
+    };
   };
+  policiesJson = writeText "policies.json" (builtins.toJSON enterprisePolicies);
 in
-appimageTools.wrapType2 {
+stdenv.mkDerivation{
   inherit pname version src;
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/zen.desktop $out/share/applications/zen.desktop
-    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/128x128/apps/zen.png \
-      $out/share/icons/hicolor/128x128/apps/zen.png
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    copyDesktopItems
+  ];
+
+  buildInputs = libs;
+
+  installPhase =''
+    runHook preInstall
+
+    mkdir -p $out/opt/zen
+    cp -r ./* $out/opt/zen;
+
+    # Icons
+    for i in 16x16 32x32 48x48 64x64 128x128; do
+      install -m 444 -D $out/opt/zen/browser/chrome/icons/default/default''${i/x*}.png $out/share/icons/hicolor/''$i/apps/${_pname}.png
+      install -m 444 -D $out/opt/zen/browser/chrome/icons/default/default''${i/x*}.png $out/share/icons/hicolor/''$i/apps/zen.png
+    done
+
+    # policies.json
+    mkdir -p $out/opt/zen/distribution
+    cat ${policiesJson} >> $out/opt/zen/distribution/policies.json
+
+    # wrapper
+    makeWrapper $out/opt/zen/zen-bin $out/bin/${_pname} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs};
+
+    runHook postInstall
   '';
 
-  extraPkgs = pkgs:[ pkgs.ffmpeg-headless ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "${pname}";
+      desktopName = "Zen Browser";
+      type = "Application";
+      exec = "${_pname} %u";
+      terminal = false;
+      icon = "${_pname}";
+      comment = "Experience tranquillity while browsing the web without people tracking you!";
+      mimeTypes = [
+        "text/html"
+        "text/xml"
+        "application/xhtml+xml"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+        "application/x-xpinstall"
+        "application/pdf"
+        "application/json"
+      ];
+      startupWMClass = "zen";
+      categories = [ "Network" "WebBrowser" ];
+      startupNotify = true;
+      keywords = [
+        "Internet"
+        "WWW"
+        "Browser"
+        "Web"
+        "Explorer"
+      ];
+      actions = {
+        new-window = {
+          name = "Open a New Window";
+          exec = "${_pname} %u";
+        };
+        new-private-window = {
+          name = "Open a New Private Window";
+          exec = "${_pname} --private-window %u";
+        };
+        profilemanager = {
+          name = "Open the Profile Manager";
+          exec = "${_pname} --ProfileManager %u";
+        };
+      };
+    })
+  ];
 
   meta = with lib; {
     description = "User-friendly, useful, mods that increase usability can be added from the zen-mods mod store, a customizable browser, features that can be searched for in a browser for the end user, easy to use thanks to the shortcut key assignment feature, theme-store, frequently used progressive web apps, add-on apps, websites can be easily accessed thanks to the sidebar feature, can be viewed as a mobile page. container, work spaces, zen-mods, window management by creating multiple tab sections in a window, sidebar feature.";

@@ -33,7 +33,7 @@
   ppsspp = pkgs.callPackage ./pkgs/ppsspp { };
   vita3k = pkgs.callPackage ./pkgs/vita3k { };
   gedit = pkgs.callPackage ./pkgs/gedit { };
-  zen-browser = pkgs.callPackage ./pkgs/zen-browser { };
+  zen-browser-bin = pkgs.callPackage ./pkgs/zen-browser { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
