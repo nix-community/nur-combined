@@ -1,0 +1,40 @@
+From dcd218620f98c6a110f92f7888cc2c6679c86b58 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
+Date: Sun, 27 Apr 2025 12:15:38 +0200
+Subject: [PATCH 3/4] Use built_info::version rather than
+ built_info::GIT_VERSION
+
+---
+ src/gui/mod.rs | 2 +-
+ src/main.rs    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/gui/mod.rs b/src/gui/mod.rs
+index 42b16c4..905410e 100644
+--- a/src/gui/mod.rs
++++ b/src/gui/mod.rs
+@@ -62,7 +62,7 @@ pub fn gui(dirs: Dirs, args: Option<Vec<String>>) -> Result<(), MintError> {
+         ..Default::default()
+     };
+     eframe::run_native(
+-        &format!("mint {}", mint_lib::built_info::GIT_VERSION.unwrap()),
++        &format!("mint {}", mint_lib::built_info::version()),
+         options,
+         Box::new(|cc| Ok(Box::new(App::new(cc, dirs, args)?))),
+     )
+diff --git a/src/main.rs b/src/main.rs
+index 108e8fb..9e7a7de 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -84,7 +84,7 @@ enum Action {
+ }
+ 
+ #[derive(Parser, Debug)]
+-#[command(author, version=mint_lib::built_info::GIT_VERSION.unwrap())]
++#[command(author, version=mint_lib::built_info::version())]
+ struct Args {
+     #[command(subcommand)]
+     action: Option<Action>,
+-- 
+2.49.0
+

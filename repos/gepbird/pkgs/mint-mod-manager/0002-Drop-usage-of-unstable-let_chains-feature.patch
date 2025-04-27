@@ -1,7 +1,7 @@
-From 7a1dcbce0558f789ea0e153bb65d39ddcaf2c2df Mon Sep 17 00:00:00 2001
+From 32d3476f70d560f2f4e7b16b9f15333988aac665 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
 Date: Sun, 23 Mar 2025 13:14:07 +0100
-Subject: [PATCH 2/2] Drop usage of unstable let_chains feature
+Subject: [PATCH 2/4] Drop usage of unstable let_chains feature
 
 ---
  src/gui/mod.rs         | 39 +++++++++++++++++++--------------------
@@ -10,7 +10,7 @@ Subject: [PATCH 2/2] Drop usage of unstable let_chains feature
  3 files changed, 44 insertions(+), 36 deletions(-)
 
 diff --git a/src/gui/mod.rs b/src/gui/mod.rs
-index 89e250e..ca09c92 100644
+index 4e415f4..42b16c4 100644
 --- a/src/gui/mod.rs
 +++ b/src/gui/mod.rs
 @@ -447,13 +447,14 @@ impl App {
@@ -130,5 +130,5 @@ index d7e1079..5dd81f5 100644
              } else {
                  // HACK: workaround a serde issue relating to flattening with tags involving
 -- 
-2.48.1
+2.49.0
 

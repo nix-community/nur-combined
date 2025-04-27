@@ -1,0 +1,29 @@
+From a3608aab77773932fcee5c2a8c00c58a4730b684 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
+Date: Sun, 27 Apr 2025 12:19:32 +0200
+Subject: [PATCH 4/4] Use GIT_VERSION file instead builts.rs's GIT_VERSION that
+ relies on .git
+
+---
+ mint_lib/src/lib.rs | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/mint_lib/src/lib.rs b/mint_lib/src/lib.rs
+index 1e30b97..ddf0051 100644
+--- a/mint_lib/src/lib.rs
++++ b/mint_lib/src/lib.rs
+@@ -16,7 +16,10 @@ pub mod built_info {
+     include!(concat!(env!("OUT_DIR"), "/built.rs"));
+ 
+     pub fn version() -> &'static str {
+-        GIT_VERSION.unwrap()
++        // make sure we still need this patch
++        assert_eq!(GIT_VERSION, None);
++
++        include_str!("GIT_VERSION")
+     }
+ }
+ 
+-- 
+2.49.0
+

@@ -10,27 +10,37 @@
   atk,
   libxkbcommon,
   wayland,
-  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mint-mod-manager";
-  version = "0.2.10-unstable-2024-12-13";
+  version = "0.2.10-unstable-2025-04-23";
 
   src = fetchFromGitHub {
     owner = "trumank";
     repo = "mint";
-    rev = "f4b7bcd3fd216a78cfb87bd88b961bc899521f78";
-    hash = "sha256-q0nIpuh24hsMbMkPttjFiO7XpvtbKLZO/kPxOCo0G+8=";
+    rev = "276bf5fdbf6dd7b14e989f9849ea465fe9c88465";
+    hash = "sha256-6ttw+2opoGtw3pMIhk2X4rTt7enRaRUVH4tJcpT1DQc=";
+    deepClone = true;
+    postFetch = ''
+      git -C $out describe > $out/mint_lib/src/GIT_VERSION
+      rm -rf $out/.git
+    '';
   };
 
   patches = [
+    # https://github.com/rust-lang/rust/issues/51114
     ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
+    # TODO: remove in rust 1.88.0: https://github.com/rust-lang/rust/pull/132833
     ./0002-Drop-usage-of-unstable-let_chains-feature.patch
+    # this can be upstreamed
+    ./0003-Use-built_info-version-rather-than-built_info-GIT_VE.patch
+    # https://github.com/lukaslueg/built/issues/77
+    ./0004-Use-GIT_VERSION-file-instead-builts.rs-s-GIT_VERSION.patch
   ];
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-bUFiDr+ogOTYmTU89xzFSXD2ZHPTk7N7V2erHsFB3lE=";
+  cargoHash = "sha256-cYjaRbbwK6Amd47PlCWIkv12oXauRcWXHU1/dWYTiI0=";
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ "oodle_platform_dependent" ]; # remove "hook" which is used for windows
@@ -55,7 +65,7 @@ rustPlatform.buildRustPackage rec {
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "Deep Rock Galactic mod loader and integration";
