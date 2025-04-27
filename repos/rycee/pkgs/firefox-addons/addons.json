@@ -1,4 +1,5 @@
 [
+  {"slug":"better-darker-docs"},
   {
     "slug": "10ten-ja-reader"
   },
@@ -848,11 +849,7 @@
     }
   },
   {
-    "slug": "justdeleteme",
-    "license": {
-      "tag": "predefined",
-      "shortName": "mit"
-    }
+    "slug": "justdeleteme"
   },
   {
     "slug": "kagi-privacy-pass"

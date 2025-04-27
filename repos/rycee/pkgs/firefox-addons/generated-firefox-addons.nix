@@ -924,6 +924,26 @@
         platforms = platforms.all;
       };
     };
+    "better-darker-docs" = buildFirefoxXpiAddon {
+      pname = "better-darker-docs";
+      version = "1.1.1";
+      addonId = "batterdarkerdocs@threethan.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190471/better_darker_docs-1.1.1.xpi";
+      sha256 = "427269938272afd2eaed49f676238b86750ee0196b89229e2c8c1ac603aaf9d0";
+      meta = with lib;
+      {
+        description = "Gives Google Docs, Sheets, Slides, and Drawings a proper dark mode based on system theme, plus clearer text";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "*://docs.google.com/*"
+          "*://docs.google.com/document*"
+          "*://docs.google.com/spreadsheet*"
+          "*://docs.google.com/presentation*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.6.13";
@@ -2384,10 +2404,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2515.0";
+      version = "6.2516.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470145/dashlane-6.2515.0.xpi";
-      sha256 = "6d20f05f9a4d4b5cf2f210ef59b82e044d1adaee6da966114df47ff611ccc875";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474322/dashlane-6.2516.0.xpi";
+      sha256 = "17741cba0a1ad9a8642b7b575cd5fc6d4be1eb934e2e647b27d6be0529ec4f46";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3501,10 +3521,10 @@
     };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
-      version = "2.5.10.0";
+      version = "2.5.11.0";
       addonId = "formhistory@yahoo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4478997/form_history_control-2.5.10.0.xpi";
-      sha256 = "b9d1a356ac2d47ed51b96265c1706b2ab3078b3ddd382d003d97e18d11fa270b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480664/form_history_control-2.5.11.0.xpi";
+      sha256 = "50699d6d9d637f4a5048247b204c12dae85a444b82ba302c0d4d24e561920b91";
       meta = with lib;
       {
         homepage = "https://stephanmahieu.github.io/fhc-home/";
@@ -3548,10 +3568,10 @@
     };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.1";
+      version = "9.2";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470442/foxyproxy_standard-9.1.xpi";
-      sha256 = "247daac06a5de06af6d3724fe0a3bd4273649cb348058817ba13aedf690ea373";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472757/foxyproxy_standard-9.2.xpi";
+      sha256 = "8db1c64799a60f7121d51a6e9f6b041871598344927c95afe830c27880f0885d";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
@@ -6605,10 +6625,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.19";
+      version = "2.2.20";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403221/lingq_importer2-2.2.19.xpi";
-      sha256 = "03cd44b120d4584bf74db23ba967f6025a5c6e3f09084f9387fef86f14d448a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480133/lingq_importer2-2.2.20.xpi";
+      sha256 = "902d47625ac9f688514338759120b1127915b6e4b327b3c4d4f0fe427173328d";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -7846,10 +7866,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.25";
+      version = "1.0.26";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477145/mergify-1.0.25.xpi";
-      sha256 = "78e7d64d1f3f994630a4ecb0b137516fa1be38583a975c2cad3e9500837f4701";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480995/mergify-1.0.26.xpi";
+      sha256 = "0942705060daeb00cf7e22eeda70616073d54ab5dbf4f140551dc70cca7f3a3a";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -8557,10 +8577,10 @@
     };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "2.0.4";
+      version = "2.0.5";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4468297/old_reddit_redirect-2.0.4.xpi";
-      sha256 = "c60dd401c89348d5e2d95d39464716a22932681f2e07d2609011974e89b9fff9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4472856/old_reddit_redirect-2.0.5.xpi";
+      sha256 = "8b67dfe22d2a7dedddc362a0fb14f90176d7afdc7386e17131a17c831eecf3ed";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -8755,10 +8775,10 @@
     };
     "open-in-vlc" = buildFirefoxXpiAddon {
       pname = "open-in-vlc";
-      version = "0.4.3";
+      version = "0.4.4";
       addonId = "{6b954d17-d17c-4a19-8fe6-ee8052a562d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4420025/open_in_vlc-0.4.3.xpi";
-      sha256 = "e7126d930346b195f45e5f4f7025f3b6cf9f03593ce068f87a5ee714c101409a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473229/open_in_vlc-0.4.4.xpi";
+      sha256 = "f315912714ad8b926aa3188f4f0267c7b1815d6e945b6f299641518b3a70d174";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/open-in-vlc.html";
@@ -11516,10 +11536,10 @@
     };
     "swift-selection-search" = buildFirefoxXpiAddon {
       pname = "swift-selection-search";
-      version = "3.48.0";
+      version = "3.49.0";
       addonId = "jid1-KdTtiCj6wxVAFA@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3995012/swift_selection_search-3.48.0.xpi";
-      sha256 = "258bc59d93f376fc5bda1d025c22b057f98f7cc9a07b1ca5d16404fbf263be83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4473415/swift_selection_search-3.49.0.xpi";
+      sha256 = "39c2073636f7d8c3e49002a930e0b569efc751e7beb46f7ed7f17c44b3c1680f";
       meta = with lib;
       {
         homepage = "https://github.com/CanisLupus/swift-selection-search";
@@ -12694,10 +12714,10 @@
     };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.5.4";
+      version = "6.6.1";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4412759/ukrainian_dictionary-6.5.4.xpi";
-      sha256 = "3cb8df9c15912bfa2c9f920933248a2cfabbe9d09e640d9dbe0300b807c84450";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4481074/ukrainian_dictionary-6.6.1.xpi";
+      sha256 = "02ef19a864f6c915908aad5f0a4ff8e8a989bbe3476fc91addda0754be2d7cdf";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
@@ -12888,10 +12908,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.3.0.1";
+      version = "9.3.7.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423892/video_downloadhelper-9.3.0.1.xpi";
-      sha256 = "148e3ce0088ade2e9f28224ce33dbe70c645510cc83d0b8e039034db09d9e41a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480208/video_downloadhelper-9.3.7.2.xpi";
+      sha256 = "9307c1726268a840b02d4a8af8991db80eb6e4c2e621dab71c92e8e2b3f9f022";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -13359,10 +13379,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.81";
+      version = "5.7.3";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4466223/wappalyzer-6.10.81.xpi";
-      sha256 = "c0b4775b41d0a26fdc7f7b00f0d5a43641e63745e0fd6cc159c28c0692d62010";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1677417/wappalyzer-5.7.3.xpi";
+      sha256 = "1ad26496927efd9691e312d4386e2d95900dfd5431c5184f609004ad03818483";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -13378,6 +13398,7 @@
           "storage"
           "tabs"
           "webRequest"
+          "webNavigation"
           "http://*/*"
           "https://*/*"
         ];
@@ -14000,10 +14021,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.3.31.0";
+      version = "25.4.14.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4469868/yomitan-25.3.31.0.xpi";
-      sha256 = "c17544c3157fdaaf01e1590cb378f4796a89c923a22fdd1b984481436cc5e5db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4478683/yomitan-25.4.14.0.xpi";
+      sha256 = "b7f8fb50390920e062bba9b1ca87e6588f7aa369cc6ee3470d6df0eeed5f6a5f";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -14102,10 +14123,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.2.26";
+      version = "2.2.28";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4474400/youtube_no_translation-2.2.26.xpi";
-      sha256 = "d2bbe538526c080f45510c0ef72a49b45b39eb9b17fe446edc2627de72c0a641";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4481434/youtube_no_translation-2.2.28.xpi";
+      sha256 = "f3c5f5a5f487ca5f162c28d2c6749c92cfd5cb7bec54a2dcc5177cd36b4fa167";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
@@ -14163,10 +14184,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.7.0";
+      version = "3.8.1";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4422412/youtube_redux-3.7.0.xpi";
-      sha256 = "9f2c481d26673a0f8f01fe0d49073188b62d769a2b05d73015f59c86de2aa02c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4481722/youtube_redux-3.8.1.xpi";
+      sha256 = "df85c6721aa33820698dfdce637b71fd41edf2c9cb4aecabbcc127b1dd10fb7d";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
