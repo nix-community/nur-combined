@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   installPhase = ''
-    installPath="$out/share/fcitx5-themes-candlelight/"
+    installPath="$out/share/fcitx5/themes/"
     mkdir -p "$installPath"
     mv * "$installPath"
   '';
