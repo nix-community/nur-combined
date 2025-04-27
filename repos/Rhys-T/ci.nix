@@ -18,7 +18,8 @@
     packageOverrides = pkgs: {
       inherit (import <nixpkgs> {}) fetchurl fetchgit fetchzip; # Don't emulate curl and such
     };
-  } else {})
+  } else {}),
+  cachedBuildFailures ? null,
 }:
 
 with builtins;
@@ -79,7 +80,18 @@ in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs' = filter isCacheable buildPkgs;
-  cachePkgs = filter subset buildPkgs;
+  cachePkgs'' = filter subset cachePkgs';
+  cachePkgs = if cachedBuildFailures != null then
+    let
+      notCachedBuildFailure = p: !(p?drvPath && pathExists (lib.traceValSeq (cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}")));
+      results = lib.partition notCachedBuildFailure cachePkgs'';
+    in results.right ++ lib.optional (builtins.length results.wrong > 0) (pkgs.runCommandLocal "_Rhys-T-reused-cached-errors" {
+      drvPaths = map (p: builtins.unsafeDiscardStringContext p.drvPath) (filter (p: p?drvPath) results.wrong);
+    } ''
+      echo "error: derivation(s) matched build failure cache: $drvPaths" >&2
+      exit 1
+    '')
+  else cachePkgs'';
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;

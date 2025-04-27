@@ -121,7 +121,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem)}}
+          ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
@@ -141,18 +141,42 @@ jobs:
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
+    - name: Restore cached build failures
+      id: restoreFailCache
+      uses: actions/cache/restore@v4
+      with:
+        path: /tmp/buildFailures
+        key: buildFailures-${{ hashFiles('**.nix,pkgs/**') }}
+        restore-keys:
+          buildFailures-
     - name: Build nix packages
       id: build
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -build-flags '-L --keep-going' ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
+      run: |
+        nix shell -f '<nixpkgs>' nix-build-uncached -c \
+          nix-build-uncached ci.nix \
+            -build-flags '-L --keep-going' \
+            ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) || '' }} \
+            ${{ steps.restoreFailCache.outputs.cache-hit == 'true' && '--arg cachedBuildFailures /tmp/buildFailures' || '' }} \
+            --argstr subsetName ${{ matrix.subset }} -A cacheOutputs \
+          2>&1 | tee /tmp/build-uncached.log
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
       with:
-        name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
+        name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
           /nix/var/log
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
+    - name: Upload build failures for subset
+      if: '!cancelled()'
+      run: |
+        rm -rf /tmp/buildFailures
+        mkdir /tmp/buildFailures
+        grep -E '^error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | sort | uniq | while IFS= read -r drvPath; do
+          touch /tmp/buildFailures/${drvPath##*/}
+        done
+  
   trigger-update:
     name: Trigger NUR update
     runs-on: ubuntu-latest
@@ -170,3 +194,23 @@ jobs:
       - uses: re-actors/alls-green@v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}
+  merge-fail-cache:
+    if: always()
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Merge build failure cache
+        uses: actions/download-artifact@v4
+        with:
+          pattern: buildFailures-*
+          merge-multiple: true
+      - name: Save merged build failure cache
+        uses: actions/cache/save@v4
+        with:
+          path: /tmp/buildFailures
+          key: buildFailures-${{ hashFiles('**.nix,pkgs/**') }}
+      # - name: Cleanup partial build failure caches
+      #   uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
+      #   with:
+      #     name: buildFailures-*
+      #     failOnError: false
