@@ -63,7 +63,7 @@
     pypi = builtins.match "mirror://pypi/./([^/]+)/.*" src.url;
     cratesio = builtins.match "https://crates.io/api/v1/crates/([^/]+)/.*" src.url;
 
-    unknownUrl = lib.warnIf doWarn "Unrecognized URL: ${src.url}" null;
+    unknownUrl = lib.warnIf doWarn "${name}: Unrecognized URL: ${src.url}" null;
 
     baseConfig = let
       githubOwner = builtins.elemAt github 0;
