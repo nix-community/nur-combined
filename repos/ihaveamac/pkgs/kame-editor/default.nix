@@ -1,5 +1,6 @@
 {
   lib,
+  callPackage,
   stdenv,
   gcc14Stdenv,
   clang19Stdenv,
@@ -8,12 +9,13 @@
   rstmcpp,
   qt6,
   portaudio,
-  vgmstream,
+  #vgmstream,
   apple-sdk_11,
 }:
 
 let
   realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
+  vgmstream = callPackage ./vgmstream.nix {};
 in
 realStdenv.mkDerivation rec {
   pname = "kame-editor";
