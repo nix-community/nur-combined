@@ -58,11 +58,10 @@ in
       };
       fastfetch.enable = true;
       fzf.enable = true;
-      ghostty = {
+      helix = {
         enable = true;
-        enableZshIntegration = true;
+        defaultEditor = true;
       };
-      helix.enable = true;
       nix-index-database.comma.enable = true;
       starship.enable = true;
       yazi.enable = true;

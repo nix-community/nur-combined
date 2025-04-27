@@ -24,7 +24,7 @@ in
       inconsolata
       (iosevka-bin.override { variant = "Etoile"; })
       iosevka-inconsolata
-      nerd-fonts.symbols-only
+      nerd-fonts.departure-mono
       noto-fonts-cjk-sans
       open-sans
     ];

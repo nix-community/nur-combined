@@ -11,6 +11,7 @@ in
   config.programs = mkIf cfg.enable {
     foot.settings.main.shell = "nu";
     ghostty.settings.command = "nu";
+    nix-your-shell.enable = true;
 
     nushell = {
       enable = true;
@@ -35,7 +36,8 @@ in
       '';
 
       # Order of overrides of completer:
-      # Fish <-- Carapace <-- Zoxide & Fish <-- Expand Alias
+      # Carapace <-- Zoxide <-- Expand alias
+      # Expand alias
       extraConfig = mkOrder 2000 ''
         let prev_completer = $env.config?.completions?.external?.completer? | default echo
         let next_completer = {|spans: list<string>|

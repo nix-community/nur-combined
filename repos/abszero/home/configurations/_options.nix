@@ -55,14 +55,14 @@ in
   config.flake.homeConfigurations = mapAttrs (
     _: c:
     withSystem c.system (
-      { inputs', pkgs, ... }:
+      { pkgs, ... }:
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs lib;
         extraSpecialArgs = {
           inherit inputs;
         };
         modules = flatten [
-          inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.catppuccin.homeModules.catppuccin
           inputs.nix-index-database.hmModules.nix-index
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)

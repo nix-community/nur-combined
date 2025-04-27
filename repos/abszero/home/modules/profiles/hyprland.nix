@@ -21,7 +21,10 @@ in
       profiles.full.enable = true;
       wayland.windowManager.hyprland.enable = true;
       services.hypridle.enable = true;
-      programs.hyprlock.enable = true;
+      programs = {
+        foot.enable = true;
+        hyprlock.enable = true;
+      };
     };
 
     home.packages = with pkgs; [
@@ -32,11 +35,11 @@ in
 
     wayland.windowManager.hyprland.settings = {
       bind = [
-        ",      XF86MonBrightnessDown, exec, brillo -qu 200000 -U 5"
-        ",      XF86MonBrightnessUp,   exec, brillo -qu 200000 -A 5"
+        ",      XF86MonBrightnessDown, exec, sudo brillo -qu 200000 -U 5"
+        ",      XF86MonBrightnessUp,   exec, sudo brillo -qu 200000 -A 5"
 
         "$mod,  Slash,                 exec, albert show"
-        "$mod,  t,                     exec, ghostty"
+        "$mod,  t,                     exec, foot"
         ",      Print,                 exec, grimblast copysave area"
         "SHIFT, Print,                 exec, grimblast copysave output"
       ];

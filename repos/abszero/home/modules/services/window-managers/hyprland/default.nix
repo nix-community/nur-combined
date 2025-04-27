@@ -66,11 +66,7 @@ in
         middle_click_paste = false;
       };
 
-      experimental = {
-        # wide_color_gamut = true;
-        # hdr = true;
-        xx_color_management_v4 = true;
-      };
+      experimental.xx_color_management_v4 = true;
 
       bind =
         [
@@ -110,7 +106,7 @@ in
 
       bindm = "$mod, mouse:272, movewindow";
 
-      windowrulev2 = [
+      windowrule = [
         "float,        title:Albert"
         "pin,          title:Albert"
         "noblur,       title:Albert"

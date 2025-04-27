@@ -26,7 +26,7 @@ in
     };
     catppuccin.foot.enable = true;
     programs.foot = {
-      settings.main.font = "Iosevka Inconsolata:size=13";
+      settings.main.font = "Iosevka Inconsolata:size=13, DepartureMono Nerd Font:size=12";
     };
   };
 }

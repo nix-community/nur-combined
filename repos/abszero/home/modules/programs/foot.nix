@@ -15,7 +15,18 @@ in
       mouse.hide-when-typing = true;
       touch.long-press-delay = 300;
       key-bindings = {
-        # show-urls-launch = "Control+Shift+U";
+        scrollback-up-page = "Alt+Page_Up";
+        scrollback-down-page = "Alt+Page_Down";
+        scrollback-home = "Alt+Home";
+        scrollback-end = "Alt+End";
+        prompt-prev = "Alt+Up";
+        prompt-next = "Alt+Down";
+        search-start = "Control+Alt+f";
+        show-urls-launch = "Control+Alt+o";
+      };
+      search-bindings = {
+        find-prev = "Alt+comma";
+        find-next = "Alt+period";
       };
     };
   };

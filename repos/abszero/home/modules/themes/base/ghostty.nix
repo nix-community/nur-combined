@@ -18,5 +18,6 @@ in
     window-padding-color = "extend";
     cursor-style = "bar";
     adjust-cursor-thickness = 4;
+    selection-invert-fg-bg = true;
   };
 }

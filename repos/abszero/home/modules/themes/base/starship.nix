@@ -11,10 +11,9 @@ in
 
   config.programs.starship.settings = mkIf cfg.enable {
     format = ''
-      ($directory )($git_branch )($jobs )($cmd_duration )$fill( $git_state)( $nodejs)( $rust)( $nix_shell)
+      ($directory )($git_branch )($jobs )($cmd_duration)$fill($git_state)( $nodejs)( $rust)( $nix_shell)
       ($username$hostname )$character
     '';
-    add_newline = false;
 
     # region Head Left
 
@@ -78,11 +77,13 @@ in
       symbol = "󱘗";
     };
     nix_shell = {
-      format = "[[$symbol( $state)]($style inverted)]($style)";
+      # NOTE: state doesn't display if wrapped in parentheses
+      format = "[[$symbol $state]($style inverted)]($style)";
       symbol = "";
+      unknown_msg = "env";
     };
+    # FIXME: invalid allow status - possibly due to nix-direnv?
     # direnv = {
-    #   # FIXME: invalid allow status - possibly due to nix-direnv?
     #   # disabled = false;
     #   format = "$allowed$loaded";
     #   allowed_msg = "";
