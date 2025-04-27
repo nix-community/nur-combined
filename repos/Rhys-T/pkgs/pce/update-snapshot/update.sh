@@ -13,7 +13,9 @@ MM="${BASH_REMATCH[2]}"
 DD="${BASH_REMATCH[3]}"
 shortRev="${BASH_REMATCH[4]}"
 versionForNix="0.2.2-unstable-$YYYY-$MM-$DD" # TODO don't hardcode 0.2.2 - fix this if PCE ever gets another release
-update-source-version "$UPDATE_NIX_ATTR_PATH._pkgForUpdater" "$versionForNix" --rev="$shortRev"
+if [[ "$(update-source-version "$UPDATE_NIX_ATTR_PATH._pkgForUpdater" "$versionForNix" --rev="$shortRev" --print-changes)" == '[]' ]]; then
+	exit 0
+fi
 srcArchive="$(nix-build -E "(import ./. {}).$UPDATE_NIX_ATTR_PATH.src")"
 fullRev="$(tar xOf "$srcArchive" --wildcards '*/ChangeLog' | egrep "^commit $shortRev" | head -n1 | cut -d' ' -f2)"
 update-source-version "$UPDATE_NIX_ATTR_PATH._pkgForUpdater" "$versionForNix" --rev="$fullRev" --ignore-same-version
