@@ -7,14 +7,7 @@
   makeWrapper,
 }:
 stdenvNoCC.mkDerivation rec {
-  inherit (sources.suwayomi-server) pname src;
-  version =
-    let
-      arr = lib.splitString "-" sources.suwayomi-server.version;
-      v = lib.removePrefix "v" (builtins.elemAt arr ((builtins.length arr) - 2));
-      r = builtins.elemAt arr ((builtins.length arr) - 1);
-    in
-    "${v}-${r}";
+  inherit (sources.suwayomi-server) pname version src;
 
   dontUnpack = true;
 

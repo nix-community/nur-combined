@@ -1848,10 +1848,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v1.1.1/Suwayomi-Server-v1.1.1-r1535";
+    version = "v2.0.1727";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.1/Suwayomi-Server-v1.1.1-r1535.jar";
-      hash = "sha256-mPzREuH89RGhZLK+5aIPuq1gmNGc9MGG0wh4ZV5dLTg=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.0.1727/Suwayomi-Server-v2.0.1727.jar";
+      hash = "sha256-+nq9/uQ/3Xjyj8oKiXrTF34y7Ig/I95spRWjwPP7+Uw=";
     };
   };
   svp = {
