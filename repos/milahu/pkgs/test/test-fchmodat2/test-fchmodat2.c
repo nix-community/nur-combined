@@ -21,6 +21,12 @@
 #define SYS_fchmodat2 452
 #endif
 
+// FIXME use private linux headers
+// https://github.com/torvalds/linux/blob/master/include/linux/namei.h
+// https://github.com/torvalds/linux/blob/master/fs/namei.c
+// #include <linux/namei.h> // user_path_at
+// #define USE_PRIVATE_LINUX_HEADERS 1
+
 int sys_fchmodat2(int dfd, const char *filename, mode_t mode, int flags)
 {
 	//int ret = syscall(__NR_fchmodat2, dfd, filename, mode, flags);
@@ -37,12 +43,23 @@ main(int argc, char *argv[])
 	int dfd, ret;
 	DIR *dirp;
 
+	#ifdef USE_PRIVATE_LINUX_HEADERS
+	int error;
+	struct path path;
+	#endif
+
 	// file is in workdir
 	//dfd = AT_FDCWD;
 
 	// TODO create testfile1
 	//nc::AT_FDCWD, filename, 0o600, nc::AT_SYMLINK_NOFOLLOW as u32
 	//ret = syscall(SYS_fchmodat2, fd, file, mode, flag);
+
+	#ifdef USE_PRIVATE_LINUX_HEADERS
+	error = user_path_at(AT_FDCWD, "testfile1", 0, &path);
+	printf("test 1: path = 'testfile1', user_path_at error = %d\n", error);
+	#endif
+
 	ret = sys_fchmodat2(AT_FDCWD, "testfile1", 0600, AT_SYMLINK_NOFOLLOW);
 	printf("test 1: path = 'testfile1', fchmodat2 res = %d\n", ret);
 
@@ -61,6 +78,12 @@ main(int argc, char *argv[])
 	dfd = dirfd(dirp);
 
 	// TODO create subdir/testfile3
+
+	#ifdef USE_PRIVATE_LINUX_HEADERS
+	error = user_path_at(dfd, "testfile3", 0, &path);
+	printf("test 3: path = 'subdir/testfile3', user_path_at error = %d\n", error);
+	#endif
+
 	ret = sys_fchmodat2(dfd, "testfile3", 0600, AT_SYMLINK_NOFOLLOW);
 	printf("test 3: path = 'subdir/testfile3', fchmodat2 res = %d\n", ret);
 
