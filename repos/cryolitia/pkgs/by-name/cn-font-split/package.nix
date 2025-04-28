@@ -11,13 +11,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "cn-font-split";
-  version = "7.5.5";
+  version = "7.6.2";
 
   src = fetchFromGitHub {
     owner = "KonghaYao";
     repo = "cn-font-split";
     rev = version;
-    hash = "sha256-1IdmWJSAt2UJHCJA8BecXuBsYIiDcqy16N8tEcj7iTU=";
+    hash = "sha256-igNKAZJjGxHBdYq+kXI3kIkqeB79pxlstmTju8CK0Yk=";
   };
 
   nativeBuildInputs = [
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  cargoHash = "sha256-1YaryUJFwXx5XY5JYD7ixwHfAUUKnTQ7dzqcLbvRsBI=";
+  cargoHash = "sha256-pyiizLGF3Jfg0yUvnWLjGBI3x2YEMqvQA6bUhlMF9cY=";
 
   meta = {
     description = "A revolutionary font subetter that supports CJK and any characters!";
