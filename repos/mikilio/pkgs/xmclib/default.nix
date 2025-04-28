@@ -2,7 +2,6 @@
   lib,
   stdenv,
   dpkg,
-  autoPatchelfHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmclib";
@@ -10,18 +9,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = ./xmclib-2.1.16-2.deb;
 
-  # unpackCmd = "dpkg -x $curSrc sourgccce";
-
   nativeBuildInputs = [
     dpkg
-    # autoPatchelfHook
   ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/opt
-    mv ./* $out/opt
+    mv ./* $out
 
     runHook postInstall
   '';
