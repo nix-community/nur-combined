@@ -119,13 +119,13 @@ jobs:
       with:
         platforms: ${{ matrix.qemuSystemForAction }}
     - name: Install nix
-      uses: cachix/install-nix-action@v31
+      uses: nixbuild/nix-quick-install-action@v30
       with:
-        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+        nix_conf: |
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
+    - name: Set NIX_PATH
+      run: |
+        echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix

@@ -83,7 +83,7 @@ rec {
   cachePkgs'' = filter subset cachePkgs';
   cachePkgs = if cachedBuildFailures != null then
     let
-      notCachedBuildFailure = p: !(p?drvPath && pathExists (lib.traceValSeq (cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}")));
+      notCachedBuildFailure = p: !(p?drvPath && pathExists (cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}"));
       results = lib.partition notCachedBuildFailure cachePkgs'';
     in results.right ++ lib.optional (builtins.length results.wrong > 0) (pkgs.runCommandLocal "_Rhys-T-reused-cached-errors" {
       drvPaths = map (p: builtins.unsafeDiscardStringContext p.drvPath) (filter (p: p?drvPath) results.wrong);
