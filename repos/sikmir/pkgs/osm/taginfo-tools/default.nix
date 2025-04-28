@@ -6,7 +6,7 @@
   bzip2,
   expat,
   gd,
-  icu,
+  icu74,
   libosmium,
   protozero,
   sqlite,
@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation {
   pname = "taginfo-tools";
-  version = "0-unstable-2022-05-24";
+  version = "0-unstable-2024-11-24";
 
   src = fetchFromGitHub {
     owner = "taginfo";
     repo = "taginfo-tools";
-    rev = "28264e63a2b3027cec69ae4906ef689029df627b";
-    hash = "sha256-AAfrwH+9ON68V8ey5FZge2NVGanQlcxs6qUDnKgt5WU=";
+    rev = "a92fa2e9cdbc60c1edda57e652b1b9faad44faa5";
+    hash = "sha256-uYUYF5FGsxqReJdFBGStvJnx/uaQG8k2pgr5Gjh2IH0=";
     fetchSubmodules = true;
   };
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     bzip2
     expat
     gd
-    icu
+    icu74
     libosmium
     protozero
     sqlite
@@ -47,6 +47,5 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = stdenv.isLinux;
   };
 }
