@@ -33,11 +33,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
+      cacheKey: ${{ steps.matrix.outputs.cacheKey }}
+      cachePrefix: ${{ steps.matrix.outputs.cachePrefix }}
     steps:
       - name: Define matrix
         id: matrix
         run: |
-          jq -nrf /dev/stdin << 'EOF' > "$GITHUB_OUTPUT"
+          jq -ncf /dev/stdin << 'EOF' > matrix.json
             
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
@@ -90,11 +92,28 @@ jobs:
               .) as $displayNixpkgs |
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName}
-            ]} |
-            
-            @json "matrix=\(.)"
+            ]}
             
           EOF
+          cacheKey="$(date +'%Y-%m-%d')"
+          cachePrefix="${cacheKey%-*}-"
+          echo -E "matrix=$(<matrix.json)" >> "$GITHUB_OUTPUT"
+          echo -E "cacheKey=$cacheKey" >> "$GITHUB_OUTPUT"
+          echo -E "cachePrefix=$cachePrefix" >> "$GITHUB_OUTPUT"
+      - name: GHA cache of Nix cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/nix
+          key: nixCache-${{ steps.matrix.outputs.cacheKey }}
+          restore-keys: nixCache-${{ steps.matrix.outputs.cachePrefix }}
+      - name: Pre-cache Nixpkgs tarballs
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          jq -nr '[.include[].nixpkgsPath] | unique[]' matrix.json | while IFS= read -r nixpkgsPath; do
+            echo "$nixpkgsPath:"
+            NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs/archive/$nixpkgsPath.tar.gz" nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+          done
   tests:
     needs: define-matrix
     strategy:
@@ -126,6 +145,12 @@ jobs:
     - name: Set NIX_PATH
       run: |
         echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz' >> "$GITHUB_ENV"
+    - name: Restore Nixpkgs cache
+      uses: actions/cache/restore@v4
+      with:
+        path: '~/.cache/nix'
+        key: nixCache-${{ needs.define-matrix.outputs.cacheKey }}
+        restore-keys: nixCache-${{ needs.define-matrix.outputs.cachePrefix }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
@@ -229,8 +254,8 @@ jobs:
         with:
           path: /tmp/buildFailures
           key: buildFailures-${{ needs.tests.outputs.cacheHash }}
-      # - name: Cleanup partial build failure caches
-      #   uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
-      #   with:
-      #     name: buildFailures-*
-      #     failOnError: false
+      - name: Cleanup partial build failure caches
+        uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
+        with:
+          name: buildFailures-*
+          failOnError: false

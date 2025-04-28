@@ -23,7 +23,7 @@ jobs:
         uses: nixbuild/nix-quick-install-action@v30
       - name: Set NIX_PATH
         run: |
-          echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz' >> "$GITHUB_ENV"
+          echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz' >> "$GITHUB_ENV"
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix
