@@ -15,7 +15,11 @@ python3Packages.buildPythonApplication rec {
     owner = "mqtt-tools";
     repo = "mqttwarn";
     tag = version;
-    hash = "sha256-jdQNCmfGs1k52VKzcF132mmUSWkcdcsjx+AHxM+MRdw=";
+    hash =
+      if stdenv.hostPlatform.isDarwin then
+        "sha256-jdQNCmfGs1k52VKzcF132mmUSWkcdcsjx+AHxM+MRdw="
+      else
+        "sha256-lr1cJvfQtkSc/DQc0fagAn5LQBgfVIwlUfxdbogcofM=";
   };
 
   patches = [

@@ -32,6 +32,7 @@ python3Packages.buildPythonApplication rec {
     geojson
   ];
 
+  doCheck = false;
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     supermercado

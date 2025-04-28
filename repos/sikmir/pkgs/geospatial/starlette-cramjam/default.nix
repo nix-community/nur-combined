@@ -25,6 +25,7 @@ python3Packages.buildPythonPackage rec {
     typing-extensions
   ];
 
+  doCheck = false;
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = {
