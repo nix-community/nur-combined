@@ -28,4 +28,5 @@ in {
   xwaylandvideobridge-hypr = libsForQt5.callPackage ./pkgs/xwaylandvideobridge { isHyprland = true; };
   xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
   ttf-ms-fonts = callPackage ./pkgs/ttf-ms-fonts {};
+  xmclib = callPackage ./pkgs/xmclib {};
 })
