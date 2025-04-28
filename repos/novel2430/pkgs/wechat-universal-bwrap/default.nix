@@ -118,7 +118,8 @@ let
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
   xdg-dir = "${xdg-user-dirs}/bin";
-  ver = "4.0.0.23";
+  # ver = "4.0.0.23";
+  ver = "4.0.1.11";
   
   # zerocallusedregs hardening breaks WeChat
   glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
@@ -156,8 +157,10 @@ let
     version = "${ver}";
 
     src = fetchurl {
-      url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
-      hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
+      # url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
+      # hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
+      url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
+      hash = "sha256-FkEODKeJXlqjdSgt5eSLLV/LlYsGPeay3P0CvtGQzAE=";
     };
     
     nativeBuildInputs = [
@@ -172,9 +175,13 @@ let
 
     installPhase = ''
       mkdir -p $out
-      mv opt/apps/com.tencent.wechat/files opt/${_pkgname}
-      rm opt/${_pkgname}/${_lib_uos}.so
+      # mv opt/apps/com.tencent.wechat/files opt/${_pkgname}
+      mv opt/wechat opt/${_pkgname}
+      # rm opt/${_pkgname}/${_lib_uos}.so
       cp -r opt $out
+
+      mkdir -p $out/opt/apps/com.tencent.wechat/entries/icons/hicolor
+      cp -r usr/share/icons/hicolor/* $out/opt/apps/com.tencent.wechat/entries/icons/hicolor/
     '';
   };
 
@@ -284,7 +291,7 @@ stdenv.mkDerivation rec {
     for res in 16 32 48 64 128 256; do
       for name in {${_pkgname},wechat,weixin,com.tencent.WeChat,com.tencent.wechat}; do
         install -Dm644 \
-            ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
+            ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/wechat.png \
             $out/share/icons/hicolor/''${res}x''${res}/apps/''${name}.png
       done
     done
