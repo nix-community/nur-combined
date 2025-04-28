@@ -156,15 +156,19 @@ jobs:
     - name: Build nix packages
       id: build
       run: |
-        set -o pipefail
+        cacheFlags=()
+        if [[ -d /tmp/buildFailures ]]; then
+          cacheFlags+=(--arg cachedBuildFailures /tmp/buildFailures)
+        fi
+        set -xo pipefail
         nix shell -f '<nixpkgs>' nix-build-uncached -c \
           nix-build-uncached ci.nix \
             -build-flags '-L --keep-going' \
             ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) || '' }} \
-            ${{ steps.restoreFailCache.outputs.cache-hit == 'true' && '--arg cachedBuildFailures /tmp/buildFailures' || '' }} \
+            "${cacheFlags[@]}" \
             --argstr subsetName ${{ matrix.subset }} -A cacheOutputs \
           2>&1 | tee /tmp/build-uncached.log
-        set +o pipefail
+        set +xo pipefail
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
