@@ -103,13 +103,16 @@ jobs:
     name: ${{ matrix.displayRunner }} ${{ matrix.displayNixpkgs }} ${{ matrix.subset }}
     runs-on: ${{ matrix.runner }}
     outputs:
-      nurRepo: ${{ steps.nurRepo.outputs.nurRepo }}
+      nurRepo: ${{ steps.outputs.outputs.nurRepo }}
+      cacheHash: ${{ steps.outputs.outputs.cacheHash }}
     steps:
-    - name: Output nurRepo for final job
-      id: nurRepo
-      run: echo 'nurRepo=${{ matrix.nurRepo }}' >> "$GITHUB_OUTPUT"
     - name: Checkout repository
       uses: actions/checkout@v4
+    - name: Setup outputs
+      id: outputs
+      run: |
+        echo 'nurRepo=${{ matrix.nurRepo }}' >> "$GITHUB_OUTPUT"
+        echo 'cacheHash=${{ hashFiles('**/*.nix', 'pkgs/**/*') }}' >> "$GITHUB_OUTPUT"
     - name: Install qemu-user-static
       if: ${{ matrix.qemuSystem != null }}
       uses: docker/setup-qemu-action@v3
@@ -147,7 +150,7 @@ jobs:
       uses: actions/cache/restore@v4
       with:
         path: /tmp/buildFailures
-        key: buildFailures-${{ hashFiles('**/*.nix', 'pkgs/**/*') }}
+        key: buildFailures-${{ steps.outputs.outputs.cacheHash }}
         restore-keys:
           buildFailures-
     - name: Build nix packages
@@ -221,7 +224,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: /tmp/buildFailures
-          key: buildFailures-${{ hashFiles('**/*.nix', 'pkgs/**/*') }}
+          key: buildFailures-${{ needs.tests.outputs.cacheHash }}
       # - name: Cleanup partial build failure caches
       #   uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
       #   with:
