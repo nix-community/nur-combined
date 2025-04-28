@@ -88,7 +88,8 @@ jobs:
                 gsub("-darwin$"; "-D") |
                 gsub("^(?<short>[0-9a-f]{8})[0-9a-f]{32}$"; "\(.short)") |
               .) as $displayNixpkgs |
-              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName}
+              ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName}
             ]} |
             
             @json "matrix=\(.)"
@@ -146,12 +147,13 @@ jobs:
       uses: actions/cache/restore@v4
       with:
         path: /tmp/buildFailures
-        key: buildFailures-${{ hashFiles('**.nix,pkgs/**') }}
+        key: buildFailures-${{ hashFiles('**/*.nix,pkgs/**/*') }}
         restore-keys:
           buildFailures-
     - name: Build nix packages
       id: build
       run: |
+        set -o pipefail
         nix shell -f '<nixpkgs>' nix-build-uncached -c \
           nix-build-uncached ci.nix \
             -build-flags '-L --keep-going' \
@@ -159,6 +161,7 @@ jobs:
             ${{ steps.restoreFailCache.outputs.cache-hit == 'true' && '--arg cachedBuildFailures /tmp/buildFailures' || '' }} \
             --argstr subsetName ${{ matrix.subset }} -A cacheOutputs \
           2>&1 | tee /tmp/build-uncached.log
+        set +o pipefail
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
@@ -168,15 +171,24 @@ jobs:
           /nix/var/log
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
-    - name: Upload build failures for subset
+    - name: Find build failures for subset
       if: '!cancelled()'
       run: |
         rm -rf /tmp/buildFailures
         mkdir /tmp/buildFailures
-        grep -E '^error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | sort | uniq | while IFS= read -r drvPath; do
-          touch /tmp/buildFailures/${drvPath##*/}
-        done
-  
+        grep -E '^error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | \
+          sort | uniq | \
+          tee /dev/stderr | \
+          while IFS= read -r drvPath; do
+            touch /tmp/buildFailures/${drvPath##*/}
+          done
+    - name: Upload build failures for subset
+      if: '!cancelled()'
+      uses: actions/upload-artifact@v4
+      with:
+        name: buildFailures-${{ matrix.cacheName }}
+        path: /tmp/buildFailures/*.drv
+        if-no-files-found: ignore
   trigger-update:
     name: Trigger NUR update
     runs-on: ubuntu-latest
