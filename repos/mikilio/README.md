@@ -18,9 +18,11 @@ To use cached binaries with Cachix refer to [NixOS Wiki](https://nixos.wiki/wiki
 | `xwaylandvideobridge-hypr` | `xwaylandvideobridge` with patches for Hyprland |
 | `ttf-ms-fonts`             | Microsoft Core Webfonts |
 | `xdg-terminal-exec`        | Experimental XDG specification for applications running on a terminal emulator |
+| `xmclib`                 | The XMC Peripheral Library (XMCLib) consists of low-level drivers for the XMC product family peripherals. |
 
 ## Overlays
 
 | Name                       | Description                                                  |
 |----------------------------|--------------------------------------------------------------|
 | vimPlugins                 | Adds additional plugins not available in nixpkgs |
+DEPRECATED!!!
