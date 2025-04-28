@@ -9,9 +9,10 @@ with pkgs;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  tokei = callPackage ./pkgs/tokei { inherit (darwin.apple_sdk.frameworks) Security; };
+  typship = callPackage ./pkgs/typship { };
   degit-rs = callPackage ./pkgs/degit-rs { };
   tunet-rust = callPackage ./pkgs/tunet-rust { };
-  typship = callPackage ./pkgs/typship { };
   wpsoffice-cn = libsForQt5.callPackage ./pkgs/wpsoffice-cn { };
   ttf-ms-win10-sc-sup = callPackage ./pkgs/ttf-ms-win10-sc-sup { };
 }
