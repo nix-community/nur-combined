@@ -22,6 +22,14 @@
             };
         }) else mame';
         mame''' = mame''.overrideAttrs (old: {
+            # Backported fix from NixOS/nixpkgs#401630:
+            postPatch = (old.postPatch or "") + lib.optionalString (stdenv.hostPlatform.isDarwin && !(lib.hasInfix "sw_vers" (old.postPatch or ""))) ''
+                for file in scripts/src/osd/{mac,sdl}.lua; do
+                  substituteInPlace "$file" --replace-fail \
+                    'backtick("sw_vers -productVersion")' \
+                    "os.getenv('MACOSX_DEPLOYMENT_TARGET') or '$darwinMinVersion'"
+                  done
+            '';
             meta = (old.meta or {}) // {
                 description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
                 broken = false;
