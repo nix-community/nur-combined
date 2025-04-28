@@ -1060,6 +1060,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent { };
 
+  test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
