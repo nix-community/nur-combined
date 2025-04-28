@@ -38,6 +38,9 @@
   "smart-filter": {
     "description": "Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting"
   },
+  "smart-paste": {
+    "description": "Paste files into the hovered directory or to the CWD if hovering over a file"
+  },
   "sudo-demo": {
     "description": "Just an example showing how to use `sudo` in a Yazi plugin, and the plugin itself doesn't offer any features beyond logging a message"
   },
