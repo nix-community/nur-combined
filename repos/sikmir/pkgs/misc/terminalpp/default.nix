@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminalpp";
-  version = "3.1.0";
+  version = "4.0.0";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "terminalpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aD80uiZKyYRD2C7Oi+ESode6YZ0/KQUSor3u6nb5OD8=";
+    hash = "sha256-clb4RX36miENwL6SRqfT+SKwI1UwJQmjnKp5Lkkgvg0=";
   };
 
   nativeBuildInputs = [
@@ -39,5 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = stdenv.isDarwin;
   };
 })
