@@ -147,7 +147,7 @@ jobs:
       uses: actions/cache/restore@v4
       with:
         path: /tmp/buildFailures
-        key: buildFailures-${{ hashFiles('**/*.nix,pkgs/**/*') }}
+        key: buildFailures-${{ hashFiles('**/*.nix', 'pkgs/**/*') }}
         restore-keys:
           buildFailures-
     - name: Build nix packages
@@ -215,12 +215,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: buildFailures-*
+          path: /tmp/buildFailures
           merge-multiple: true
       - name: Save merged build failure cache
         uses: actions/cache/save@v4
         with:
           path: /tmp/buildFailures
-          key: buildFailures-${{ hashFiles('**.nix,pkgs/**') }}
+          key: buildFailures-${{ hashFiles('**/*.nix', 'pkgs/**/*') }}
       # - name: Cleanup partial build failure caches
       #   uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
       #   with:
