@@ -313,12 +313,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "v1.3.8",
-            "sha256": "sha256-j81cfHqXNsTM93ofxXz+smkjN8OdJXxtm9z5LdzC+r8=",
+            "rev": "v1.3.9",
+            "sha256": "sha256-Fz+Q9FUVnwZ+CaP+SnHYWuIMO1BdkIMI7Tbn6Fkq9nc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.3.8"
+        "version": "v1.3.9"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -373,7 +373,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-04-20",
+        "date": "2025-04-25",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -385,16 +385,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "4ffae8ab9947f35495dfa7b62b7a22f023488dfb",
-            "sha256": "sha256-JSLvtd4TRXmHOhs8ZA+GYlhHovMTeR0iMJvfbR74szg=",
+            "rev": "7337274fcb2b8bfd6238660d3b3fb3fc375159ee",
+            "sha256": "sha256-ieR4YVmcZczPqH5S8KYKqiXe1jnN236HJ9F4oncxrIA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4ffae8ab9947f35495dfa7b62b7a22f023488dfb"
+        "version": "7337274fcb2b8bfd6238660d3b3fb3fc375159ee"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-04-20",
+        "date": "2025-04-25",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "016338b23769f57b2ee51ee7c605410b61d55061",
-            "sha256": "sha256-9Jhgr29c1yy/XR6w743CpH8A//Gq1X+OKD2+W8j1KPo=",
+            "rev": "b2f31795ab58ef9d3b9e26e7687d77d249eb740b",
+            "sha256": "sha256-HBPJcgJHuNLGYtSu5iwA0stpEjprNrO5iyFQSjBzIFU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "016338b23769f57b2ee51ee7c605410b61d55061"
+        "version": "b2f31795ab58ef9d3b9e26e7687d77d249eb740b"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -896,7 +896,7 @@
     },
     "fastapi-dls": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-23",
         "extract": null,
         "name": "fastapi-dls",
         "passthru": null,
@@ -906,13 +906,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd",
-            "sha256": "sha256-plObU8SxWcHTuEOfijqCtzXWlUwcwgMFrJhnpB5I88I=",
+            "rev": "b577edcf67318ba3caf3842fc173208eba99c5d1",
+            "sha256": "sha256-5IgmIIFNhE0p2tqh0KvsUNcIKpOvOw/oaIiplxxuIKI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
         },
-        "version": "6b54d4794bd78e4e8d9a0d109a76b1c5a367aadd"
+        "version": "b577edcf67318ba3caf3842fc173208eba99c5d1"
     },
     "fastapi-dls-stable": {
         "cargoLocks": null,
@@ -927,7 +927,7 @@
             "type": "url",
             "url": "https://google.com/generate_204"
         },
-        "version": "1.5.4"
+        "version": "2.0.0"
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
@@ -1105,7 +1105,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-04-14",
+        "date": "2025-04-22",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1117,12 +1117,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "e7237d8cb4f2430190817c260ea747e594d6ac35",
-            "sha256": "sha256-vO/z18RcB8UdBr4QisGr23Qj6Ic6aCerSpRDDZhumqo=",
+            "rev": "2c2fb5e1eb1185a081e3507c2aa5c3aafaa2bb6d",
+            "sha256": "sha256-Z5c/lwmnaHZSCJqDoig8vvngP8J6Uj6QYLfMr7b06Xs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e7237d8cb4f2430190817c260ea747e594d6ac35"
+        "version": "2c2fb5e1eb1185a081e3507c2aa5c3aafaa2bb6d"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1138,12 +1138,12 @@
             "name": null,
             "owner": "glauth",
             "repo": "glauth",
-            "rev": "v2.3.2",
-            "sha256": "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=",
+            "rev": "v2.4.0",
+            "sha256": "sha256-UUTL+ZnHRSYuD/TUYpsuo+Nu90kpA8ZL4XaGz6in3ME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.2"
+        "version": "v2.4.0"
     },
     "google-earth-pro": {
         "cargoLocks": null,
@@ -1452,12 +1452,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.15.0",
-            "sha256": "sha256-u9Q8lSw3KcSdEJpy8DHUnB9BriwrNaOn0S7tj0jpiPg=",
+            "rev": "3.16.0",
+            "sha256": "sha256-+SppAF77NbXlSrBGvIm40AmNC12GrexbX7fAPBoDAcs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.15.0"
+        "version": "3.16.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1468,11 +1468,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SVOGnyqElQrM8+BWddl/MgAfq3ny9UtnzVgJ8Q/+kBQ=",
+            "sha256": "sha256-Vstpp7ttM2TpIVXgYoOXLnFlSojHCBalX4kfIJqPdNs=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.15.0/kata-static-3.15.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.16.0/kata-static-3.16.0-amd64.tar.xz"
         },
-        "version": "3.15.0"
+        "version": "3.16.0"
     },
     "kikoplay": {
         "cargoLocks": null,
@@ -1572,12 +1572,12 @@
             "name": null,
             "owner": "abersheeran",
             "repo": "kui",
-            "rev": "v1.8.1",
-            "sha256": "sha256-NgjOBIBfXTnsCq8eaD+EgaHkI7i+1NR1Te0e8au6NpU=",
+            "rev": "v1.9.0",
+            "sha256": "sha256-61WNs4MEMbh2QX/rbQJq4L2cLXgBVsoANftCozNVGwU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.1"
+        "version": "v1.9.0"
     },
     "ldap-auth-proxy": {
         "cargoLocks": null,
@@ -1659,7 +1659,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-04-17",
+        "date": "2025-04-25",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1671,12 +1671,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "23360d41bed64081a2edb6037e3baceb4a2dc0c9",
-            "sha256": "sha256-RbL4aPJix6AJxgNCHh1m7BNMB5qYk9P2tJMk9wwU5W0=",
+            "rev": "9c68f3d7e4c883cdab772684bc855e3a4e488cf7",
+            "sha256": "sha256-E4/IXf4lhHF20wgqhQMjvZ3DeoLCMxiagHqThYNO0jo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "23360d41bed64081a2edb6037e3baceb4a2dc0c9"
+        "version": "9c68f3d7e4c883cdab772684bc855e3a4e488cf7"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1795,13 +1795,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.14.3-xanmod1",
-            "sha256": "sha256-UjsiOKU6y/ofm9WJK+5yZ8GgVCvMU2O0ndw2NYbbUow=",
+            "rev": "6.14.4-xanmod1",
+            "sha256": "sha256-CO/xkRwV20X9AGCLkVa3Ki0lLuZDcUc+OHlzUXcPxAQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.14.3-xanmod1"
+        "version": "6.14.4-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1855,13 +1855,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.24-xanmod1",
-            "sha256": "sha256-W4c/MqkwWzLhun700MfT4RzmrHaXyQfKqJ2MKahTMP4=",
+            "rev": "6.12.25-xanmod1",
+            "sha256": "sha256-6W6vnr5n5zJ4HNe1HLyoApIScyTvBJVlwtbS9CmZNWc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.24-xanmod1"
+        "version": "6.12.25-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1897,12 +1897,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5162",
-            "sha256": "sha256-39ER6TsZSWMJnQ9Fd2GUc/gMJyWW5y/Nc7wH26CNJLs=",
+            "rev": "b5201",
+            "sha256": "sha256-eMjWLe294SSO9itAi6plFrVQ037PQ2WDr3X+Ss2K1TY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5162"
+        "version": "b5201"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2047,7 +2047,7 @@
     },
     "mtranservercore-rs": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-22",
         "extract": null,
         "name": "mtranservercore-rs",
         "passthru": null,
@@ -2059,12 +2059,12 @@
             "name": null,
             "owner": "LinguaSpark",
             "repo": "server",
-            "rev": "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd",
-            "sha256": "sha256-bGup9ex9RFFIKSN/iY0ivOULWYjBb9ewwhbS6AKd8+A=",
+            "rev": "f94b45925e130c08fa976a0ed370079a588578ae",
+            "sha256": "sha256-W6fwr/psngL4luyC3oD/VwopVEweCwaRN92RBLg/TBY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "629bf525ec12a0bf369a9fa46b36ecb6840cb8fd"
+        "version": "f94b45925e130c08fa976a0ed370079a588578ae"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2696,11 +2696,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8LnUYakTe2XGymjkb0Mg9VyouDuJnqIZj56yJA6J+Gw=",
+            "sha256": "sha256-mgA6Rur2hvjQXyF4RWZX4QM2x05JLiJMS3qfSKlwWjs=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.12/PeerBanHelper_7.4.12.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.14/PeerBanHelper_7.4.14.zip"
         },
-        "version": "7.4.12"
+        "version": "7.4.14"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2752,12 +2752,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.31",
-            "sha256": "sha256-L9Mcc+COcdW5gVjM38FeMvf9r/zf7y5ONTLUiYVNfrg=",
+            "rev": "1.1.3.32",
+            "sha256": "sha256-ws9zukGU9MqlEhbbBd06HesY1RGwGqAn+y6ZcO+MrR0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.31"
+        "version": "1.1.3.32"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -2972,11 +2972,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-RWWCll6SXV6vDnq/PMDYmbydDXFQWPJ1mlqOWU/FFHM=",
+            "sha256": "sha256-6uj6idNXhSaACF/L6kGLxbaLsF68fUhuzWa/q8tJAq0=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_amd64.deb"
         },
-        "version": "10.0.0~rc3+ds-2"
+        "version": "10.0.0+ds-1"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -2987,11 +2987,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-xTk4K5JQDuSBKsCz2rKjhO1mpS6FjFT+0aGNczoCo3Q=",
+            "sha256": "sha256-GRJejVV4UzBE9DSFPMXc6FAprD69g6snuDoJnJbKyiI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_arm64.deb"
         },
-        "version": "10.0.0~rc3+ds-2"
+        "version": "10.0.0+ds-1"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3002,11 +3002,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-1hyPwy6ETDNUSpcOZ+A8Enrhd5sp8NJ4PyNw/csvEGI=",
+            "sha256": "sha256-pi0gKeB0Su5wEmnfK4/8GqsQYn9gc3H0RRnHk0TAlAo=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_armhf.deb"
         },
-        "version": "10.0.0~rc3+ds-2"
+        "version": "10.0.0+ds-1"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3017,11 +3017,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-BnjyeIYaPRWqsEDi2I5wtyGhAMr6DmuVfxcwBseDiv8=",
+            "sha256": "sha256-bpcorm59q40T/U6kXWxCO39vdGtX59fVZmucbHJa554=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0~rc3+ds-2_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_i386.deb"
         },
-        "version": "10.0.0~rc3+ds-2"
+        "version": "10.0.0+ds-1"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -3053,11 +3053,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-f+7bo4zVSywnAE1WJPUjVLyFJQYlz56QVEah2uDSzP8=",
+            "sha256": "sha256-l65Gci0wRcGuL7xqwnCng8hWdlbNC6pEaE8NaZpftM0=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.16_250401_amd64_01"
+        "version": "Linux/QQ_3.2.17_250423_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -3068,11 +3068,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-av1Pu5ZXASc0Jmm0c7xxtmECIHAYWOo1NQOdI3fDmZA=",
+            "sha256": "sha256-BJ6WNswd9foQRD+SrJm854OiSVxREHJIv+VFe1NGnKE=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.16_250401_arm64_01"
+        "version": "Linux/QQ_3.2.17_250423_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -3316,7 +3316,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-27",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3328,12 +3328,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683",
-            "sha256": "sha256-7DodE2/bcYSVoXCyJ9YAeYH80lARIG7XJ9AImh75Kcc=",
+            "rev": "7e2fb97667cc7cb1d82ac7a928abbb788b0fbafc",
+            "sha256": "sha256-9mKKtU+H7i8SY7KTYxAiSa7EJJk5rdSUglXWAJvZyv0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5b1999c3c3bc1bfd84bffacd7ff5c5e0879ea683"
+        "version": "7e2fb97667cc7cb1d82ac7a928abbb788b0fbafc"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3970,7 +3970,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-20",
+        "date": "2025-04-28",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3982,12 +3982,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "9f81aaeb7985545b198cc21cfd8caf094b23a1fe",
-            "sha256": "sha256-U/X5QYMVEY9RCBqGMerFlfCOYkI1us1BHZkundBfgUQ=",
+            "rev": "a325eba8f8e74c6742869f65f6f040f4c30d5b92",
+            "sha256": "sha256-0YP3Hmxkr1+x7KAf5dQIh6f7wwAArDmJdXlkcldR6dA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9f81aaeb7985545b198cc21cfd8caf094b23a1fe"
+        "version": "a325eba8f8e74c6742869f65f6f040f4c30d5b92"
     },
     "unigine-heaven": {
         "cargoLocks": null,
