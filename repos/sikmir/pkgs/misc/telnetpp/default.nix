@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "telnetpp";
-  version = "3.0.0";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "telnetpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BfRu0dv2d7qwz2jTdaQczOQQBO3qmO1E754hWqxT66g=";
+    hash = "sha256-BHN1zEnS7v0LScIbKSVETlO3gA5/7HLYVBkaFlu6k50=";
   };
 
   nativeBuildInputs = [
@@ -41,5 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = stdenv.isDarwin;
   };
 })
