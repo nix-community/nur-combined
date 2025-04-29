@@ -12,6 +12,7 @@ cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
   pname = "cuda-samples-common";
   inherit (cudaPackages.cudatoolkit) version;
   src = fetchFromGitHub {
+    name = "${finalAttrs.pname}-${finalAttrs.version}";
     owner = "NVIDIA";
     repo = "cuda-samples";
     tag = "v${finalAttrs.version}";
