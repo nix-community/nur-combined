@@ -3,6 +3,7 @@
   lib,
   stdenvNoCC,
   undmg,
+  ...
 }:
 
 stdenvNoCC.mkDerivation {
