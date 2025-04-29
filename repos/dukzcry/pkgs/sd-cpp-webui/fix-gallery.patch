@@ -53,25 +53,4 @@ index c275051..d2a7b36 100644
          except FileNotFoundError as e:
              print(f"Error deleting image: {e}")
              return "An error occurred while deleting."
-diff --git a/sdcpp_webui.py b/sdcpp_webui.py
-index 9816174..bc92957 100644
---- a/sdcpp_webui.py
-+++ b/sdcpp_webui.py
-@@ -44,7 +44,7 @@ def cpy_2_txt2img(pprompt_info, nprompt_info, width_info, height_info, steps_inf
- 
- 
- def cpy_2_img2img(pprompt_info, nprompt_info, width_info, height_info, steps_info, sampler_info, seed_info, path_info):
--    return gr.Tabs(selected="img2img"), pprompt_info, nprompt_info, width_info, height_info, steps_info, sampler_info, seed_info, path_info
-+    return gr.Tabs(selected="img2img"), path_info
- 
- 
- def sdcpp_launch(
-@@ -93,7 +93,7 @@ def sdcpp_launch(
-         cpy_2_img2img_btn.click(
-             cpy_2_img2img,
-             inputs=[pprompt_info, nprompt_info, width_info, height_info, steps_info, sampler_info, seed_info, path_info],
--            outputs=[tabs, pprompt_img2img, nprompt_img2img, width_img2img, height_img2img, steps_img2img, sampling_img2img, seed_img2img, img_inp]
-+            outputs=[tabs, img_inp]
-         )
- 
-     # Pass the arguments to sdcpp.launch with argument unpacking
+
