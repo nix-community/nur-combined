@@ -394,7 +394,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-04-25",
+        "date": "2025-04-29",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "b2f31795ab58ef9d3b9e26e7687d77d249eb740b",
-            "sha256": "sha256-HBPJcgJHuNLGYtSu5iwA0stpEjprNrO5iyFQSjBzIFU=",
+            "rev": "41c1c5db522013fa7608bbaba61ae2065a0ed0b4",
+            "sha256": "sha256-gY1+WOVoPy6SwkmEc2yfmM+cQU9LQqevFd7c12dEG+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b2f31795ab58ef9d3b9e26e7687d77d249eb740b"
+        "version": "41c1c5db522013fa7608bbaba61ae2065a0ed0b4"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1897,12 +1897,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5201",
-            "sha256": "sha256-eMjWLe294SSO9itAi6plFrVQ037PQ2WDr3X+Ss2K1TY=",
+            "rev": "b5216",
+            "sha256": "sha256-TDGa+/P14TAS1DC9MsTilNQ3sw/mL08s4KYIlTwW850=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5201"
+        "version": "b5216"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2881,7 +2881,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-04-28",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -2893,12 +2893,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192",
-            "sha256": "sha256-surZkE5wT1Ds02Z4YBli0uevuRWnEiS0Wk6MaKLbego=",
+            "rev": "2a94eb0af53da7294d8b1ab3aebacb072e0121fc",
+            "sha256": "sha256-t533cJflhTXBzQsSgg5IPrui4n1w+LKI0aIGjaDwjME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192"
+        "version": "2a94eb0af53da7294d8b1ab3aebacb072e0121fc"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -3053,11 +3053,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-l65Gci0wRcGuL7xqwnCng8hWdlbNC6pEaE8NaZpftM0=",
+            "sha256": "sha256-DDqLHl8Ig7miZTheRltBq+riLXyGGnW8NtcOI0PgKtc=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250429_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.17_250423_amd64_01"
+        "version": "Linux/QQ_3.2.17_250429_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -3068,11 +3068,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BJ6WNswd9foQRD+SrJm854OiSVxREHJIv+VFe1NGnKE=",
+            "sha256": "sha256-BxyJ9NNdMck3qk8wzCd07x/W9QlTMemHi3l0TIQ04ZY=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250429_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.17_250423_arm64_01"
+        "version": "Linux/QQ_3.2.17_250429_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -3970,7 +3970,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-04-28",
+        "date": "2025-04-29",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3982,12 +3982,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "a325eba8f8e74c6742869f65f6f040f4c30d5b92",
-            "sha256": "sha256-0YP3Hmxkr1+x7KAf5dQIh6f7wwAArDmJdXlkcldR6dA=",
+            "rev": "03de5463ed58579c50c2e2b777f91ae74628c639",
+            "sha256": "sha256-42IXnTgEwQGZUOhbeD75F6ffdipQ8G3gdjxvBLF8X3E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a325eba8f8e74c6742869f65f6f040f4c30d5b92"
+        "version": "03de5463ed58579c50c2e2b777f91ae74628c639"
     },
     "unigine-heaven": {
         "cargoLocks": null,

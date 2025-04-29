@@ -206,14 +206,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "b2f31795ab58ef9d3b9e26e7687d77d249eb740b";
+    version = "41c1c5db522013fa7608bbaba61ae2065a0ed0b4";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "b2f31795ab58ef9d3b9e26e7687d77d249eb740b";
-      hash = "sha256-HBPJcgJHuNLGYtSu5iwA0stpEjprNrO5iyFQSjBzIFU=";
+      rev = "41c1c5db522013fa7608bbaba61ae2065a0ed0b4";
+      hash = "sha256-gY1+WOVoPy6SwkmEc2yfmM+cQU9LQqevFd7c12dEG+w=";
     };
-    date = "2025-04-25";
+    date = "2025-04-29";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -971,12 +971,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5201";
+    version = "b5216";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5201";
-      hash = "sha256-eMjWLe294SSO9itAi6plFrVQ037PQ2WDr3X+Ss2K1TY=";
+      tag = "b5216";
+      hash = "sha256-TDGa+/P14TAS1DC9MsTilNQ3sw/mL08s4KYIlTwW850=";
     };
   };
   loralib = {
@@ -1473,14 +1473,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192";
+    version = "2a94eb0af53da7294d8b1ab3aebacb072e0121fc";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "ae1192f760c1d8077e4b38e731b5a3ae5a5e2192";
-      hash = "sha256-surZkE5wT1Ds02Z4YBli0uevuRWnEiS0Wk6MaKLbego=";
+      rev = "2a94eb0af53da7294d8b1ab3aebacb072e0121fc";
+      hash = "sha256-t533cJflhTXBzQsSgg5IPrui4n1w+LKI0aIGjaDwjME=";
     };
-    date = "2025-04-16";
+    date = "2025-04-28";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -1561,18 +1561,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.17_250423_amd64_01";
+    version = "Linux/QQ_3.2.17_250429_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_amd64_01.deb";
-      hash = "sha256-l65Gci0wRcGuL7xqwnCng8hWdlbNC6pEaE8NaZpftM0=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250429_amd64_01.deb";
+      hash = "sha256-DDqLHl8Ig7miZTheRltBq+riLXyGGnW8NtcOI0PgKtc=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.17_250423_arm64_01";
+    version = "Linux/QQ_3.2.17_250429_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250423_arm64_01.deb";
-      hash = "sha256-BJ6WNswd9foQRD+SrJm854OiSVxREHJIv+VFe1NGnKE=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250429_arm64_01.deb";
+      hash = "sha256-BxyJ9NNdMck3qk8wzCd07x/W9QlTMemHi3l0TIQ04ZY=";
     };
   };
   qqmusic = {
@@ -2034,15 +2034,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a325eba8f8e74c6742869f65f6f040f4c30d5b92";
+    version = "03de5463ed58579c50c2e2b777f91ae74628c639";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a325eba8f8e74c6742869f65f6f040f4c30d5b92";
+      rev = "03de5463ed58579c50c2e2b777f91ae74628c639";
       fetchSubmodules = true;
-      hash = "sha256-0YP3Hmxkr1+x7KAf5dQIh6f7wwAArDmJdXlkcldR6dA=";
+      hash = "sha256-42IXnTgEwQGZUOhbeD75F6ffdipQ8G3gdjxvBLF8X3E=";
     };
-    date = "2025-04-28";
+    date = "2025-04-29";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
