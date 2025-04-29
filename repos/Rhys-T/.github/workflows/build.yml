@@ -104,7 +104,9 @@ jobs:
         id: cache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/nix
+          path: |
+            ~/.cache/nix/*
+            !~/.cache/nix/binary-cache-*
           key: nixCache-${{ steps.matrix.outputs.cacheKey }}
           restore-keys: nixCache-${{ steps.matrix.outputs.cachePrefix }}
       - name: Install nix
@@ -135,7 +137,6 @@ jobs:
     runs-on: ${{ matrix.runner }}
     outputs:
       nurRepo: ${{ steps.outputs.outputs.nurRepo }}
-      cacheHash: ${{ steps.outputs.outputs.cacheHash }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -143,7 +144,6 @@ jobs:
       id: outputs
       run: |
         echo 'nurRepo=${{ matrix.nurRepo }}' >> "$GITHUB_OUTPUT"
-        echo 'cacheHash=${{ hashFiles('**/*.nix', 'pkgs/**/*') }}' >> "$GITHUB_OUTPUT"
     - name: Install qemu-user-static
       if: ${{ matrix.qemuSystem != null }}
       uses: docker/setup-qemu-action@v3
@@ -160,7 +160,9 @@ jobs:
     - name: Restore Nixpkgs cache
       uses: actions/cache/restore@v4
       with:
-        path: '~/.cache/nix'
+        path: |
+            ~/.cache/nix/*
+            !~/.cache/nix/binary-cache-*
         key: nixCache-${{ needs.define-matrix.outputs.cacheKey }}
         restore-keys: nixCache-${{ needs.define-matrix.outputs.cachePrefix }}
     - name: Show nixpkgs version
@@ -187,7 +189,7 @@ jobs:
       uses: actions/cache/restore@v4
       with:
         path: /tmp/buildFailures
-        key: buildFailures-${{ steps.outputs.outputs.cacheHash }}
+        key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
         restore-keys:
           buildFailures-
     - name: Build nix packages
@@ -251,7 +253,7 @@ jobs:
         with:
           jobs: ${{ toJSON(needs) }}
   merge-fail-cache:
-    if: always()
+    if: '!cancelled()'
     runs-on: ubuntu-latest
     needs: tests
     steps:
@@ -265,7 +267,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: /tmp/buildFailures
-          key: buildFailures-${{ needs.tests.outputs.cacheHash }}
+          key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Cleanup partial build failure caches
         uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
         with:
