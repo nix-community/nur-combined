@@ -45,4 +45,5 @@ rec {
   rvc-cli = callPackage ./pkgs/rvc-cli/default.nix {};
   daggerfall-unity-russian = callPackage ./pkgs/daggerfall-unity-russian.nix {};
   aulaf87-rgb = callPackage ./pkgs/aulaf87-rgb.nix {};
+  sd-cpp-gui-wx = callPackage ./pkgs/sd-cpp-gui-wx {};
 }

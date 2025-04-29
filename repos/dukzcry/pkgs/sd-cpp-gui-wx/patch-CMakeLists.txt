@@ -1,0 +1,114 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 647a9f8..03f22e6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -125,7 +125,8 @@ endif()
+ 
+ if (NOT WIN32)
+ 
+-set(APPDEPENDS wx::base wx::core wx::xrc wx::richtext wx::stc)
++find_package(wxWidgets REQUIRED COMPONENTS base core xrc richtext stc html)
++include(${wxWidgets_USE_FILE})
+ 
+ else()
+     set(APPDEPENDS wxWidgets::wxWidgets)
+@@ -223,8 +224,9 @@ if(UNIX AND NOT APPLE)
+     )
+     find_package(PkgConfig REQUIRED)
+     pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
++    pkg_check_modules(PNG REQUIRED libpng)
+     target_include_directories(${PROJECT_BINARY_NAME} PRIVATE ${GTK3_INCLUDE_DIRS})
+-    target_link_libraries(${PROJECT_BINARY_NAME} PRIVATE ${GTK3_LIBRARIES})
++    target_link_libraries(${PROJECT_BINARY_NAME} PRIVATE ${GTK3_LIBRARIES} ${PNG_LIBRARIES} ${wxWidgets_LIBRARIES})
+ endif()
+ 
+ include(cmake/stable_diffusion.cmake)
+diff --git a/cmake/CpuFeatures.cmake b/cmake/CpuFeatures.cmake
+index 0b9bae2..153650a 100644
+--- a/cmake/CpuFeatures.cmake
++++ b/cmake/CpuFeatures.cmake
+@@ -1,6 +1,6 @@
+ find_package(CpuFeatures QUIET)
+ 
+-if (NOT TARGET CpuFeatures::CpuFeatures)
++if (NOT TARGET CpuFeatures::cpu_features)
+ # CPU Features dependency
+ FetchContent_Declare(
+     CpuFeatures
+@@ -12,4 +12,4 @@ set(BUILD_TESTING OFF)
+ 
+ FetchContent_MakeAvailable(CpuFeatures)
+ 
+-endif()
+\ No newline at end of file
++endif()
+diff --git a/cmake/sockets-cpp.cmake b/cmake/sockets-cpp.cmake
+index f7d6292..1440787 100644
+--- a/cmake/sockets-cpp.cmake
++++ b/cmake/sockets-cpp.cmake
+@@ -1,8 +1,7 @@
+ ExternalProject_Add(
+   sockets_cpp
+   PREFIX ${CMAKE_BINARY_DIR}/external/sockets_cpp
+-  GIT_REPOSITORY https://github.com/CJLove/sockets-cpp.git
+-  GIT_TAG master
++  SOURCE_DIR "./socketscpp"
+   CMAKE_ARGS -DBUILD_TESTS=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DFMT_SUPPORT=OFF
+   INSTALL_COMMAND ""
+   UPDATE_COMMAND ""
+@@ -10,4 +9,4 @@ ExternalProject_Add(
+ )
+ ExternalProject_Get_property(sockets_cpp SOURCE_DIR)
+ set(sockets_cpp_SOURCE ${SOURCE_DIR}/include)
+-message(STATUS "sockets_cpp_SOURCE: ${sockets_cpp_SOURCE}")
+\ No newline at end of file
++message(STATUS "sockets_cpp_SOURCE: ${sockets_cpp_SOURCE}")
+diff --git a/cmake/stable_diffusion.cmake b/cmake/stable_diffusion.cmake
+index 5eeca37..0aa7eb7 100644
+--- a/cmake/stable_diffusion.cmake
++++ b/cmake/stable_diffusion.cmake
+@@ -139,8 +139,7 @@ if(NOT SD_HIPBLAS)
+     set(STATUS "SD_GIT_TAG: ${SD_GIT_TAG}")
+         ExternalProject_Add(
+             stable_diffusion_cpp_${variant_name}
+-            GIT_REPOSITORY https://github.com/leejet/stable-diffusion.cpp.git
+-            GIT_TAG ${SD_GIT_TAG}
++            SOURCE_DIR "./sdcpp"
+             #WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/sdcpp_${variant_name}
+             BINARY_DIR ${CMAKE_BINARY_DIR}/sdcpp_${variant_name}
+             LIST_SEPARATOR "|"
+diff --git a/extprocess/CMakeLists.txt b/extprocess/CMakeLists.txt
+index c4aec73..1edb38e 100644
+--- a/extprocess/CMakeLists.txt
++++ b/extprocess/CMakeLists.txt
+@@ -32,6 +32,8 @@ else()
+     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,stack-size=${STACK_SIZE}")
+ endif()
+ 
++find_package(wxWidgets REQUIRED COMPONENTS base core)
++include(${wxWidgets_USE_FILE})
+ target_include_directories(${EPROCESS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src ${wxWidgets_SOURCE_DIR}/include ${exiv2_INCLUDE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+ 
+ 
+@@ -48,5 +50,5 @@ install(TARGETS ${EPROCESS_BINARY_NAME} RUNTIME DESTINATION ${bin_INSTALL_PATH_N
+ if(WIN32)
+     target_link_libraries(${EPROCESS_BINARY_NAME} PRIVATE  wxWidgets::wxWidgets OpenSSL::Crypto)
+ else(WIN32)
+-    target_link_libraries(${EPROCESS_BINARY_NAME} PRIVATE wx::base wx::core OpenSSL::Crypto)
+-endif(WIN32)
+\ No newline at end of file
++    target_link_libraries(${EPROCESS_BINARY_NAME} PRIVATE ${wxWidgets_LIBRARIES} OpenSSL::Crypto)
++endif(WIN32)
+diff --git a/src/ui/MainWindowUI.cpp b/src/ui/MainWindowUI.cpp
+index ed85ac7..c3738e9 100644
+--- a/src/ui/MainWindowUI.cpp
++++ b/src/ui/MainWindowUI.cpp
+@@ -209,7 +209,7 @@ MainWindowUI::MainWindowUI(wxWindow* parent, const std::string dllName, const st
+             return;
+         }
+ #else
+-        dllfullname.Append(dllName);
++        dllfullname.Append("@nixpath@" + dllName);
+         dllfullname.Append(".so");
+ #endif
+         this->extProcessParams.Add(dllfullname);
