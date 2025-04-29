@@ -1,26 +1,36 @@
-{ 
+{
   lib,
-  stdenvNoCC, 
-  substituteAll, 
-  writeScriptBin, 
-  fetchFromGitHub, 
-  makeWrapper, 
-  fastfetch, 
-  coreutils, 
+  stdenvNoCC,
+  substituteAll,
+  writeScriptBin,
+  fetchurl,
+  makeWrapper,
+  fastfetch,
+  coreutils,
   gawk,
-  bash, 
-  glfIcon ? "GLF"  # ### Use GLF icon or GLFos icon (to change icon) (How to create an overlay with this expression ?)
+  bash,
+  glfIcon ? "GLF" ### Use GLF icon or GLFos icon (to change icon) (How to create an overlay with this expression ?)
 }:
 
-stdenvNoCC.mkDerivation rec {
-  pname = "GLFfetch-nixos";
-  version = "git-${builtins.substring 0 7 src.rev}"; ### To update version number
+let
+  ### Use this variable to set version
+  srcUrl = "https://codeberg.org/Gaming-Linux-FR/GLFfetch/archive/3e1827f73f193302675a662c606daa4041bd3f9e.tar.gz";
+  rev = builtins.match ".*/([a-f0-9]{40})\\.tar\\.gz" srcUrl;
+  shortRev = if rev != null then builtins.substring 0 8 (builtins.elemAt rev 0) else "unknown";
+in
 
-  src = fetchFromGitHub {
-    owner = "minegameYTB";
-    repo = pname;
-    rev = "a0935f03d32acdeb108798f3fe9cfb18ce5413a1";
-    sha256 = "sha256-fO+vko4Ef41jXReIhZv2BVPTkETpAslZUrdBhyvVO2w=";
+### sets the option to two choices (otherwise, throw error)
+assert lib.elem glfIcon [ "GLF" "GLFos" ]
+  || throw "glfIcon must be either \"GLF\" or \"GLFos\" (got: ${glfIcon})";
+
+stdenvNoCC.mkDerivation rec {
+  pname = "GLFfetch";
+  version = "git-${shortRev}"; ### To update version number
+
+  src = fetchurl {
+    ### Use srcUrl as a url
+    url = srcUrl;
+    sha256 = "sha256-ZSRSDq2iIYxGKgmBQyz9BEa6izTJEHKx21odNejEcWk=";
   };
 
   outputs = [ "out" "assets" ];
@@ -29,45 +39,68 @@ stdenvNoCC.mkDerivation rec {
   buildInputs = [ fastfetch bash coreutils gawk ];
   nativeBuildInputs = [ makeWrapper ];
 
+  postPatch = ''
+    ### Patch path in upstream archive
+    ### *this command uses relative path in this context*
+
+    ### Patch challenge.jsonc
+    substituteInPlace challenge.jsonc \
+      --replace-warn "~/.config/fastfetch/GLFfetch/GLF.png" "$assets/share/${pname}/${glfIcon}.png" \
+      --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}" \
+      --replace-warn "󰣇" "" \
+      --replace-warn "/bin/bash" "${bash}/bin/bash"
+
+    substituteInPlace scripts/challenge.sh \
+      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
+
+    substituteInPlace scripts/completion.sh \
+      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
+
+    substituteInPlace scripts/icon.sh \
+      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn '"$HOME"/.config/fastfetch/GLFfetch' "$assets/share/${pname}"
+
+    substituteInPlace scripts/install_date.sh \
+      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
+
+    ### Add path to vars.sh
+    sed -i '1a PATH="${coreutils}/bin:${gawk}/bin:"' scripts/vars.sh
+
+    substituteInPlace scripts/vars.sh \
+      --replace-warn "/bin/bash" "${bash}/bin/bash"
+  '';
+
   installPhase = ''
-    ### Variable
-    iconPath=$assets/share/${pname}/${glfIcon}.png
-    
-    ### Create directory and copy file from source
-    mkdir -p $out/bin $assets/share/${pname}/scripts
-    cp $src/challenge.jsonc $assets/share/${pname}/challenge.jsonc
-    cp $src/GLF.png $assets/share/${pname}/GLF.png
-    cp $src/GLFos.png $assets/share/${pname}/GLFos.png
-    
-    if [ -d "$src/scripts" ]; then
-      cp -r $src/scripts/* $assets/share/${pname}/scripts/
-    fi
+    mkdir -p $out/bin $assets/share/${pname}
+    mkdir -p $out/share/doc/${pname}
 
-    ### Replace substitution by real path (from nixpkgs hash)
-    substituteInPlace $assets/share/${pname}/challenge.jsonc \
-      --replace-warn @GLF-path@ "$assets/share/${pname}" \
-      --replace-warn @GLFos-icon@ "$iconPath" \
-      --replace-warn @shell@ "${bash}/bin/bash"
+    ### Copy all files
+    cp -r . $assets/share/${pname}/
 
-    for script in $assets/share/${pname}/scripts/*.sh; do
-      substituteInPlace "$script" \
-        --replace-warn @GLF-path@ "$assets/share/${pname}" \
-        --replace-warn @coreutils@ "${coreutils}" \
-        --replace-warn @gawk@ "${gawk}"
-      chmod +x "$script"
-    done
+    ### Move some files to doc
+    mv $assets/share/${pname}/LICENSE $out/share/doc/${pname}/
+    mv $assets/share/${pname}/README.md $out/share/doc/${pname}/
 
-    ### Make wrapper script that pass right args to fastfetch
+    ${lib.optionalString (glfIcon == "GLFos") ''
+      ### Link logo from nix store
+      ln -s ${./logo.png} $assets/share/${pname}/${glfIcon}.png
+      rm $assets/share/${pname}/GLF.png
+    ''}
+
+    chmod +x $assets/share/${pname}/scripts/*.sh
+
     makeWrapper ${fastfetch}/bin/fastfetch $out/bin/GLFfetch \
       --add-flags "--config $assets/share/${pname}/challenge.jsonc" \
       --set PATH ${lib.makeBinPath [ coreutils gawk ]}
   '';
-  
+
   meta = {
     description = "A customized neofetch config file built for the GLF Linux challenges (github.com/minegameYTB/GLFfetch-nixos is it's fork)";
-    homepage = "https://github.com/Gaming-Linux-FR/GLFfetch";
+    homepage = "https://codeberg.org/Gaming-Linux-FR/GLFfetch";
     license = lib.licenses.mit;
     mainProgram = "GLFfetch";
   };
-
 }
