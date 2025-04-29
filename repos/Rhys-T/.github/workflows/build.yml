@@ -114,6 +114,7 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           set -x
+          shopt -s lastpipe
           unpackPIDs=()
           jq -r '[.include[].nixpkgsPath] | unique[]' matrix.json | while IFS= read -r nixpkgsPath; do
             NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs/archive/$nixpkgsPath.tar.gz" nix-instantiate --eval -E '{nixpkgsPath}: nixpkgsPath + ": " + (import <nixpkgs> {}).lib.version' --argstr nixpkgsPath "$nixpkgsPath" &
