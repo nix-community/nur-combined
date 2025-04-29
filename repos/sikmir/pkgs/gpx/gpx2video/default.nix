@@ -49,5 +49,6 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     mainProgram = "gpx2video";
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }
