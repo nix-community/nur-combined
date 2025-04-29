@@ -8,22 +8,25 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-# Backported fixes from https://github.com/NixOS/nixpkgs/pull/380440
-# See <https://github.com/NixOS/nixpkgs/issues/380436>
+# Backported fix for https://github.com/libsdl-org/sdl2-compat/issues/473
+# See <https://github.com/NixOS/nixpkgs/issues/402811>
 let pkgs' = pkgs; in
-let pkgs = if with pkgs'; stdenv.hostPlatform.isDarwin && (tests.stdenv.hooks or {})?no-broken-symlinks && !(lib.hasInfix "chmod" (timidity.postInstall or "")) then
+let
+pkgs = if with pkgs'; (
+    stdenv.hostPlatform.isDarwin &&
+    lib.getName SDL2 == "sdl2-compat" &&
+    lib.versionOlder (lib.getVersion SDL2) "2.32.54-unstable-2025-04-29"
+) then
     pkgs'.extend (self: super: {
-        timidity = super.timidity.overrideAttrs (old: {
-            instruments = old.instruments.overrideAttrs (old: {
-                urls = ["https://courses.cs.umbc.edu/pub/midia/instruments.tar.gz"];
+        pythonPackagesExtensions = super.pythonPackagesExtensions ++ [(pself: psuper: {
+            pysdl2 = psuper.pysdl2.overridePythonAttrs (old: {
+                postPatch = (old.postPatch or "") + ''
+                    substituteInPlace sdl2/test/platform_test.py --replace \
+                        'retval == b"Mac OS X"' \
+                        'retval in (b"Mac OS X", b"macOS")'
+                '';
             });
-            postInstall = (old.postInstall or "") + ''
-                # All but one of the symlinks in the instruments tarball have their permissions set to 0000.
-                # This causes problems on systems like Darwin that actually use symlink permissions.
-                chmod -Rh u+rwX $out/share/timidity/
-            '';
-            dontRewriteSymlinks = null;
-        });
+        })];
     })
 else pkgs'; in
 

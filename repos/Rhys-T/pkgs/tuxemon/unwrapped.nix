@@ -1,6 +1,6 @@
 {
     python3Packages,
-    fetchFromGitHub, fetchPypi,
+    fetchFromGitHub, fetchPypi, fetchurl,
     lib, stdenv,
     version, rev ? "v${version}", hash?null,
     libShake ? null, withLibShake ? true,
@@ -47,12 +47,12 @@ in let
         };
         dependencies = [pygame-ce'];
     };
-    pygame-menu-ce = python3Packages.buildPythonPackage rec {
-        pname = "pygame-menu-ce";
-        version = "4.4.3";
+    pygame_menu_ce = python3Packages.buildPythonPackage rec {
+        pname = "pygame_menu_ce";
+        version = "4.5.4";
         src = fetchPypi {
             inherit pname version;
-            hash = "sha256-p14PBkst5eKPVShIKX51WjU39IABdOXEZShAKhitYrg=";
+            hash = "sha256-9Y85GHJjBLoE1mt6k+PbRt2J0jr0aPOfWmjL3QjJPhI=";
         };
         dependencies = with python3Packages; [pygame-ce' pyperclip typing-extensions];
     };
@@ -85,7 +85,7 @@ in let
             natsort
             pyyaml
             prompt-toolkit
-            pygame-menu-ce
+            pygame_menu_ce
             pydantic
         ];
         inherit data;
@@ -100,6 +100,12 @@ in let
             ' tuxemon/constants/paths.py
         '' + lib.optionalString withLibShake ''
             sed -Ei 's@locations = \[.*\]@locations = ["${lib.getLib libShake}/lib/libShake${hostPlatform.extensions.sharedLibrary}"]@' tuxemon/rumble/__init__.py
+        '' + lib.optionalString (lib.versionAtLeast version "0.4.34-unstable-2025-03-14") ''
+                    substituteInPlace tuxemon/db.py --replace-fail \
+            '        return DatabaseConfig(**data)' \
+            '        config = DatabaseConfig(**data);
+                    config.mod_base_path = os.path.join(os.path.dirname(os.path.dirname(config_path)), config.mod_base_path)
+                    return config'
         '';
         makeWrapperArgs = ["--set-default NIX_TUXEMON_DIR $out/share/tuxemon"];
         postInstall = ''

@@ -6,8 +6,10 @@ in stdenvNoCC.mkDerivation {
     inherit (unwrapped) version src;
     dontBuild = true;
     installPhase = ''
+        runHook preInstall
         mkdir -p "$out"/share/tuxemon
         cp -r mods "$out"/share/tuxemon/mods
+        runHook postInstall
     '';
     outputHash = hash;
     outputHashAlgo = hashAlgo;
