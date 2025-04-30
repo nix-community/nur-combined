@@ -35,6 +35,7 @@ let
     ferdium = {
       pnpm = pkgs.pnpm_9;
     };
+    fw-ectool = { };
     go-mod-upgrade = { };
     imhex = { };
     lddtree = { };
