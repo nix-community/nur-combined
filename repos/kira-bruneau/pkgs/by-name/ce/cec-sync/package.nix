@@ -11,13 +11,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cec-sync";
-  version = "0-unstable-2025-01-25";
+  version = "0-unstable-2025-04-30";
 
   src = fetchFromGitLab {
     owner = "kira-bruneau";
     repo = "cec-sync";
-    rev = "88bcd13b3cf446f1d76688fb462f7a59a68556d7";
-    hash = "sha256-/S3X9rWfzmve2HbqEelY+XcQwNtuBTBOedNuL0oOW/A=";
+    rev = "92836390f800b6bdf2f92d0d66d3648922c573dc";
+    hash = "sha256-wrb9QHkZ1XnzqaRiqY7eVX9KMaRwlKql+bbJkGYlRiQ=";
   };
 
   useFetchCargoVendor = true;
