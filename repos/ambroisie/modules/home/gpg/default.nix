@@ -17,7 +17,7 @@ in
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true; # One agent to rule them all
-      pinentryPackage = cfg.pinentry;
+      pinentry.package = cfg.pinentry;
       extraConfig = ''
         allow-loopback-pinentry
       '';

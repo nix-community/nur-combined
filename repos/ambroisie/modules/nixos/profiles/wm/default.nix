@@ -24,6 +24,8 @@ in
       my.home.udiskie.enable = true;
       # udiskie fails if it can't find this dbus service
       services.udisks2.enable = true;
+      # Ensure i3lock can actually unlock the session
+      security.pam.services.i3lock.enable = true;
     })
   ];
 }
