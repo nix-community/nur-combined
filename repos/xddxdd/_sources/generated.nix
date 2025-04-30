@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "7337274fcb2b8bfd6238660d3b3fb3fc375159ee";
+    version = "343afd07bb807bf467387e8881305969cd84083b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "7337274fcb2b8bfd6238660d3b3fb3fc375159ee";
-      hash = "sha256-ieR4YVmcZczPqH5S8KYKqiXe1jnN236HJ9F4oncxrIA=";
+      rev = "343afd07bb807bf467387e8881305969cd84083b";
+      hash = "sha256-yzA7d8USGICXdoXtDD2bTcKWTBgWmUaigHQQIwz6zCo=";
     };
-    date = "2025-04-25";
+    date = "2025-04-29";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "41c1c5db522013fa7608bbaba61ae2065a0ed0b4";
+    version = "7d3659083bc227a4f8a86314f3478ef95f03dcae";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "41c1c5db522013fa7608bbaba61ae2065a0ed0b4";
-      hash = "sha256-gY1+WOVoPy6SwkmEc2yfmM+cQU9LQqevFd7c12dEG+w=";
+      rev = "7d3659083bc227a4f8a86314f3478ef95f03dcae";
+      hash = "sha256-Fdo//JkYpBFJ5B49iVN+LHV1mnistjMLuVznJB86vLY=";
     };
-    date = "2025-04-29";
+    date = "2025-04-30";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -971,12 +971,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5216";
+    version = "b5226";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5216";
-      hash = "sha256-TDGa+/P14TAS1DC9MsTilNQ3sw/mL08s4KYIlTwW850=";
+      tag = "b5226";
+      hash = "sha256-2Z6p/F+rmT0hI3IZKpvKp94vS9GuhSoJUUoWLnJOFqA=";
     };
   };
   loralib = {
@@ -1403,12 +1403,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.32";
+    version = "1.1.3.33";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.32";
-      hash = "sha256-ws9zukGU9MqlEhbbBd06HesY1RGwGqAn+y6ZcO+MrR0=";
+      tag = "1.1.3.33";
+      hash = "sha256-tZ6g1TDhAG7on5el2czKzOurbP0aWd1L5WIVEy5vLh8=";
     };
   };
   plangothic-fonts = {
@@ -1434,12 +1434,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.2.0";
+    version = "v2.3.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.2.0";
-      hash = "sha256-Wg630oTPnNPIb2ktRxfOE3PQSKTw20XsBRSxlV7QBio=";
+      tag = "v2.3.0";
+      hash = "sha256-DYyM3pAaEbc4lbiSzBvPb4FoxmcmN1ubmE07kNd1RLs=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -2034,15 +2034,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "03de5463ed58579c50c2e2b777f91ae74628c639";
+    version = "c8892ada68259fbe774ebf6ff927979b8b6b3a29";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "03de5463ed58579c50c2e2b777f91ae74628c639";
+      rev = "c8892ada68259fbe774ebf6ff927979b8b6b3a29";
       fetchSubmodules = true;
-      hash = "sha256-42IXnTgEwQGZUOhbeD75F6ffdipQ8G3gdjxvBLF8X3E=";
+      hash = "sha256-OuudJ+A6xmXLPauJ6Ou8rbIRI3uu6TVBUy+rZf1KBRs=";
     };
-    date = "2025-04-29";
+    date = "2025-04-30";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
