@@ -1,0 +1,8 @@
+builds:
+  exclude:
+    - "packages.x86_64-darwin.sjtu-canvas-helper"
+    - "packages.aarch64-darwin.sjtu-canvas-helper"
+    - "packages.x86_64-darwin.lyricer"
+    - "packages.aarch64-darwin.lyricer"
+  include:
+    - "packages.*.*"

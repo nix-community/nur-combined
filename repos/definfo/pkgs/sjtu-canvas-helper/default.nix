@@ -17,21 +17,22 @@
   desktop-file-utils,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sjtu-canvas-helper";
-  version = "1.3.24";
+  version = "1.3.27";
 
   src = fetchFromGitHub {
     owner = "Okabe-Rintarou-0";
     repo = "SJTU-Canvas-Helper";
-    tag = "app-v${version}";
-    hash = "sha256-DE4qL2dbUqTIIpjiWssKnBRSRtXbl7hTQv8zMZKNw/A=";
+    tag = "app-v${finalAttrs.version}";
+    hash = "sha256-wTT7vi/Y1iQr64TmxndFNS7986iM6tunE29EYiXNUcY=";
   };
 
-  cargoHash = "sha256-/R6O7cOjKBVj9xDdUePCmpZ6myUMRUmOiOoXoJoT3UE=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-ygdyaztWKMuvBpc0cpgZjBdJQ5K8z7OMHbrpCsLSiLo=";
 
   yarnOfflineCache = fetchYarnDeps {
-    yarnLock = src + "/yarn.lock";
+    yarnLock = finalAttrs.src + "/yarn.lock";
     hash = "sha256-ARr9KdUamHpXQR9qmJ/upmVhSIltzim0pLUbR8Wgkik=";
   };
 
@@ -60,11 +61,12 @@ rustPlatform.buildRustPackage rec {
       libsoup_2_4
       webkitgtk_4_0
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin (
+    ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks;
       [
         AppKit
         CoreServices
+        Foundation
         Security
         WebKit
       ]
@@ -83,13 +85,13 @@ rustPlatform.buildRustPackage rec {
   # Set our Tauri source directory
   cargoRoot = "src-tauri";
   # And make sure we build there too
-  buildAndTestSubdir = cargoRoot;
+  buildAndTestSubdir = finalAttrs.cargoRoot;
 
   meta = {
     description = "An assistant tool for SJTU Canvas online course platform";
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ definfo ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    maintainers = with lib.maintainers; [ definfo ];
   };
-}
+})

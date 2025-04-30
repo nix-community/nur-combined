@@ -1,9 +1,9 @@
-name: "Update package metadata"
+name: "Update flake.lock"
 on:
   workflow_dispatch:
   schedule:
-    # update everyday at 3:00
-    - cron:  '0 3 * * *'
+    # update everyday at 2:00
+    - cron:  '0 2 * * *'
 jobs:
   tests:
     strategy:
@@ -21,8 +21,8 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Run update script
-      run: ./auto-update.sh
+    - name: Update flake lock
+      run: nix flake update
     - name: Check for changes
       id: git-check
       run: git diff --quiet || echo "changes=true" >> "$GITHUB_OUTPUT"
@@ -32,7 +32,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: Automated changes
-        title: 'Automated PR: Update packages'
+        title: 'Automated PR: Update flake.lock'
         body: |
           Automated PR created due to repository changes.
           Please review the changes and merge if appropriate.
@@ -41,4 +41,4 @@ jobs:
         base: master
         labels: |
           auto merge
-          package-update
+          flake-lock-update

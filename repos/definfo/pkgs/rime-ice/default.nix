@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "rime-ice";
-  version = "2024.12.12";
+  version = "2025.04.06";
 
   src = fetchFromGitHub {
     owner = "iDvel";

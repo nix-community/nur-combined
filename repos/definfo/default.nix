@@ -30,7 +30,7 @@ let
     inherit sets fixedpoints;
   };
 in
-rec {
+{
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -38,9 +38,6 @@ rec {
 
   lyricer = pkgs.callPackage ./pkgs/lyricer { };
   rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
-  rime-ls = (pkgs.callPackage ./pkgs/rime-ls { }).override {
-    rimeDataPkgs = [ rime-ice ];
-  };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
   smartdns-rs = pkgs.callPackage ./pkgs/smartdns-rs { };
 

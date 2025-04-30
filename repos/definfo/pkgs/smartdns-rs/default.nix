@@ -6,28 +6,31 @@
   darwin,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "smartdns-rs";
-  version = "0.9.1";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "mokeyish";
     repo = "smartdns-rs";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-m3SkCvwS/+ixo5Q5vKFcdGMTQZqadcPTVrrclwLJHtg=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-BSxM1HZRXe9a8a7c2I6QoqhET92ZythIrp68MrxCvsU=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-oCRDD+BiAmrjUbiWCWsXB3j7WazJbWSN7UPEBpLA2mU=";
+  cargoHash = "sha256-AERHDoWsgLyeB4twBKcWMULcsfwRXOf6vw9CXqkiIbk=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.IOKit
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks;
+    [
+      IOKit
+      Security
+    ]
+  );
 
   checkFlags = [
     # need network
@@ -50,7 +53,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Cross platform local DNS server (Dnsmasq like) written in rust";
     homepage = "https://github.com/mokeyish/smartdns-rs";
-    license = lib.licenses.gpl3Only;
     mainProgram = "smartdns";
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.all;
   };
-}
+})

@@ -33,6 +33,7 @@ rustPlatform.buildRustPackage {
     description = "An addon for waybar to display lyrics";
     homepage = "https://github.com/moelife-coder/lyricer";
     license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ definfo ];
   };
 }
