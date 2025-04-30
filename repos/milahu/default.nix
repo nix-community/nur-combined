@@ -1064,6 +1064,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gtk-gnutella = callPackage ./pkgs/tools/networking/p2p/gtk-gnutella { };
 
+  wireshare = callPackage ./pkgs/applications/networking/p2p/wireshare { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
