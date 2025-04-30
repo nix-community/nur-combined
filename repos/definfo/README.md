@@ -2,16 +2,12 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-<!-- Remove this if you don't use github actions -->
+<!-- GitHub Actions -->
 
-![Build and populate cache](https://github.com/definfo/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+[![Update flake.lock](https://github.com/definfo/nur-packages/actions/workflows/update-flake-lock.yml/badge.svg)](https://github.com/definfo/nur-packages/actions/workflows/update-flake-lock.yml)
 
-![Automated update](https://github.com/definfo/nur-packages/workflows/Update%20package%20metadata/badge.svg)
+[![Update package metadata](https://github.com/definfo/nur-packages/actions/workflows/update-packages.yml/badge.svg)](https://github.com/definfo/nur-packages/actions/workflows/update-packages.yml)
 
-<!--
-Uncomment this if you use travis:
+<!-- Garnix CI -->
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-
-[![Cachix Cache](https://img.shields.io/badge/cachix-definfo-blue.svg)](https://definfo.cachix.org)
+[![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fdefinfo%2Fnur-packages)](https://garnix.io/repo/definfo/nur-packages)
