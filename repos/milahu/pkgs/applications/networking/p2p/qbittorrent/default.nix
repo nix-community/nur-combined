@@ -21,13 +21,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qbittorrent" + lib.optionalString (!guiSupport) "-nox";
-  version = "5.0.4";
+  version = "5.1.0";
 
   src =
   if true then
   fetchurl {
-    url = "https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-5.0.4.tar.gz";
-    hash = "sha256-bBB35RviGJGJxKDsmUAszIik9D2I2N7Ochy+UIRg3Us=";
+    url = "https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-${finalAttrs.version}.tar.gz";
+    hash = "sha256-rFTNizxgNc/NaEvlr9DszIxfu8MAiptvm6QvbvkRBa8=";
   }
   else
   fetchFromGitHub {
