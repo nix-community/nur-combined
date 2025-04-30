@@ -1062,6 +1062,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
 
+  gtk-gnutella = callPackage ./pkgs/tools/networking/p2p/gtk-gnutella { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
