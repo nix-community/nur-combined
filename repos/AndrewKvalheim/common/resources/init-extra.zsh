@@ -64,6 +64,9 @@ source @zsh-prezto-terminal@
 # Click
 source @zsh-click@
 
+# Workaround for direnv/direnv#443
+source @zsh-completion-sync@
+
 # Procedural aliases
 extract-pdf-images() { mkdir "${1%.pdf}" && @pdfimages@ -all -p "$1" "${1%.pdf}/${1%.pdf}" }
 idiff() { compare "$@" png:- | kitty +kitten icat }

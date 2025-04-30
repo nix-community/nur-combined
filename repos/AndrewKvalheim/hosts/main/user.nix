@@ -44,6 +44,7 @@
     gpsprune
     graphviz
     hugin
+    jan
     jitsi-meet-electron
     josm
     kdenlive

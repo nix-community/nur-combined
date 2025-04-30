@@ -12,15 +12,15 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "ch57x-keyboard-tool";
-  version = "1.5.2";
+  version = "1.5.4";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-HldGw7m32PZUuDQIpYCdauk6B75sD0S5I8NNbpT7X4A=";
+    sha256 = "sha256-i9UHMDptpptjqqycmsca7lri8tyiUPfyO2oV/nWicIc=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-/I77kgC596jE6PDGzF1MjD6tyj880hcHEL4HSuFHaew=";
+  cargoHash = "sha256-c+7U4SHAZy35QWKLF7v3e8CNQhJcORJIPQiks5UGltU=";
 
   postInstall = ''
     install -D ${rules} $out/etc/udev/rules.d/70-ch57x.rules

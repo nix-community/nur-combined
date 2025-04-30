@@ -33,8 +33,6 @@ in
       options = { table = "local"; protocol = "kernel"; scope = "host"; src = guiIp; };
     }];
 
-    networking.hosts.${guiIp} = [ "syncthing.localhost" ];
-
     services.syncthing = {
       enable = true;
 

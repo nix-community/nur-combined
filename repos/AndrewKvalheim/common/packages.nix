@@ -11,7 +11,7 @@ in
   add-words = any;
   affine-font = any;
   album-art = any;
-  alpaca.version = "≥4";
+  alpaca.version = "≥4"; # Jeffser/Alpaca#485
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
@@ -49,6 +49,7 @@ in
   iosevka-custom = any;
   iptables_exporter = any;
   isd = any;
+  jan.version = "≥0.5.16";
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
   jujutsu.version = "≥0.28.1"; # https://github.com/advisories/GHSA-794x-2rpg-rfgr
@@ -87,7 +88,7 @@ in
   nbt-explorer = any;
   nix-preview = any;
   off = any;
-  ollama = { version = "≥0.5.7"; patch = stable.fetchpatch2 { url = "https://github.com/ollama/ollama/pull/6282.patch"; hash = "sha256-4rshZbU/+kOO7DYQckSAkE7yGMJRtBVUdZPrS++K+S0="; }; }; # ollama/ollama#6282
+  ollama = { version = "≥0.6.6"; patch = stable.fetchpatch2 { url = "https://github.com/ollama/ollama/pull/6282.patch"; hash = "sha256-4rshZbU/+kOO7DYQckSAkE7yGMJRtBVUdZPrS++K+S0="; }; }; # ollama/ollama#6282
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
@@ -135,6 +136,7 @@ in
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
+  zsh-completion-sync = any;
 }) // {
   fetchsvn = if stable.lib.versionAtLeast stable.lib.trivial.release "25.05" then stable.fetchsvn else (a: (stable.fetchsvn a).overrideAttrs (f: stable.lib.throwIf (builtins.any (p: p.pname == "nss-cacert") f.nativeBuildInputs) "fetchsvn no longer requires an override" { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; })); # Pending NixOS/nixpkgs#356829
 }

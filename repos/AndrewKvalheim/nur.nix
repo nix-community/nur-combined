@@ -88,4 +88,5 @@ rec {
   spf-check = pkgs.callPackage ./packages/spf-check.nix { };
   spf-tree = pkgs.callPackage ./packages/spf-tree.nix { };
   tile-stitch = pkgs.callPackage ./packages/tile-stitch.nix { };
+  zsh-completion-sync = pkgs.callPackage ./packages/zsh-completion-sync.nix { };
 }
