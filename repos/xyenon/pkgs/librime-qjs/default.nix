@@ -2,19 +2,19 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "librime-qjs";
-  version = "latest-unstable-2025-04-24";
+  version = "1.1.0-unstable-2025-04-30";
 
   src = fetchFromGitHub {
     owner = "HuangJian";
     repo = "librime-qjs";
-    rev = "ddd0e4a8fa50af293e4f4ad4f5dea68b728e0e3c";
+    rev = "db8ca3be40d7ccb56bb5ee9c84309d0af52babf2";
     fetchSubmodules = true;
-    hash = "sha256-IHyADqc99GN5pTXk1Nv+UOm0OmlJeGhZMyEd0FKL03U=";
+    hash = "sha256-Dql8vSuIBgQAck2h5TauMrycM9NP2txUnFGg5T0UDdY=";
   };
 
   installPhase = ''
@@ -27,7 +27,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = unstableGitUpdater {
+    tagPrefix = "v";
+    tagFormat = "v*";
+  };
 
   meta = with lib; {
     description = "Bring a fresh JavaScript plugin ecosystem to the Rime Input Method Engine";
