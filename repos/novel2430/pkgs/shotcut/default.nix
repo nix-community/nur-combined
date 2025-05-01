@@ -1,14 +1,14 @@
 { stdenv, lib, makeWrapper, appimageTools, fetchurl, copyDesktopItems, makeDesktopItem }:
 let
   pkgname = "shotcut";
-  pkgver = "24.11.17";
+  pkgver = "25.03.29";
   shotcut-src = appimageTools.wrapType2 {
     pname = "${pkgname}";
     version = "${pkgver}";
 
     src = fetchurl {
-      url = "https://zenlayer.dl.sourceforge.net/project/shotcut/v${pkgver}/shotcut-linux-x86_64-241117.AppImage";
-      hash = "sha256-TQiRW7RERL7kGsQwEgyNRGh1CUSQSSTp0uVRuMs+qo0=";
+      url = "https://zenlayer.dl.sourceforge.net/project/shotcut/v${pkgver}/shotcut-linux-x86_64-250329.AppImage";
+      hash = "sha256-gKo+xgln5hNR5gYqx86Oe2CQ4QpX8S9BCzbKeWcFFq4=";
     };
   };
 in
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    description = "Shotcut is a free, open source, cross-platform video editor.";
+    description = "Shotcut is a free, open source, cross-platform video editor. (AppImage)";
     homepage = "https://shotcut.org/";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
