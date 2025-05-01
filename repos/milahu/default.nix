@@ -1058,7 +1058,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
 
-  qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent { };
+  qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent {
+    guiSupport = false;
+  };
 
   test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
 
