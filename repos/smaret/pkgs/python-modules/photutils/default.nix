@@ -1,38 +1,46 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, astropy
-, astropy-extension-helpers
-, cython
-, numpy
-, pytest-astropy
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  astropy,
+  astropy-extension-helpers,
+  cython,
+  extension-helpers,
+  numpy,
+  pytest-astropy,
+  pytest-xdist,
+  scipy,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
   pname = "photutils";
-  version = "1.6.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.8";
+  version = "2.2.0";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-bafxv+9fRFFhvG8/pKaulZnHJxg8T5PG5uJKrAztk3A=";
+    sha256 = "sha256-61tn8zXfWUyVRgXJvPxoCMxmNhkJuJd2w8ldkgxyK8A=";
   };
 
-  nativeBuildInputs = [
-    astropy-extension-helpers
+  build-system = [
     cython
+    extension-helpers
+    setuptools
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ astropy numpy ];
+  dependencies = [
+    astropy
+    numpy
+    scipy
+  ];
 
   checkInputs = [
     pytest-astropy
+    pytest-xdist
     pytestCheckHook
   ];
 
@@ -42,10 +50,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "photutils" ];
 
   meta = with lib; {
+    changelog = "https://github.com/astropy/photutils/releases/tag/${version}";
     description = "Astropy package for detection and photometry of astronomical sources.";
-    homepage = "https://github.com/astropy/photutils";
+    homepage = "https://photutils.readthedocs.io";
     license = licenses.bsd3;
     maintainers = with maintainers; [ smaret ];
-    broken = true;
   };
 }

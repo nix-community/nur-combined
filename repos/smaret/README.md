@@ -27,6 +27,6 @@ nix-env -iA nur.repos.smaret.astrochem
 To avoid compiling the packages, you may download binaries with
 [Cachix](https://smaret.cachix.org).
 
-![Build and populate cache](https://github.com/smaret/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+[![Build and populate cache](https://github.com/smaret/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)](https://github.com/smaret/nur-packages/actions/workflows/build.yml)
 [![Cachix Cache](https://img.shields.io/badge/cachix-smaret-blue.svg)](https://smaret.cachix.org)
 
