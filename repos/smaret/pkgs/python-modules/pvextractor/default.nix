@@ -1,6 +1,7 @@
 {
   lib,
   fetchPypi,
+  fetchpatch2,
   buildPythonPackage,
   astropy,
   matplotlib,
@@ -22,6 +23,15 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-7WoRWTXoPm+qdycQfpYbxJ15FP7IXjMm5a32XN4eg84=";
   };
+
+  patches = [
+    (fetchpatch2 {
+      # Fix distutils deprecation on Python >= 3.12
+      # See https://github.com/radio-astro-tools/pvextractor/issues/129
+      url = "https://github.com/radio-astro-tools/pvextractor/pull/129/commits/2191f5fd557cea80448a0beeb7e3fd0a12ab8ed2.patch";
+      hash = "sha256-V4rxNnN3YQPjUo8TWhTS6xMqajOJwd0o/1VOocypU1A=";
+    })
+  ];
 
   build-system = [
     setuptools
