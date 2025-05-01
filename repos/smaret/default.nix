@@ -9,7 +9,6 @@
   astrochem = pkgs.python3Packages.toPythonModule (
     pkgs.callPackage ./pkgs/astrochem {
       pythonPackages = pkgs.python3Packages;
-      sundials = pkgs.callPackage ./pkgs/astrochem/dependencies/sundials5 { };
     }
   );
   lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };

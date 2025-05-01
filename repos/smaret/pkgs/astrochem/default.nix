@@ -1,28 +1,34 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pythonPackages
-, autoconf
-, automake
-, libtool
-, ncurses
-, hdf5
-, sundials
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pythonPackages,
+  autoconf,
+  automake,
+  libtool,
+  ncurses,
+  hdf5,
+  sundials,
 }:
 
 stdenv.mkDerivation rec {
 
   pname = "astrochem";
-  version = "v0.9";
+  version = "v0.10";
 
   src = fetchFromGitHub {
     owner = "smaret";
     repo = "astrochem";
-    rev = "5dc0b2e71c27d03696195741437cdb695e92ff70";
-    sha256 = "0qp5w3gn0v1fwqn29dvd0jqydh0v23mv8xmw1y24461q4dcn5403";
+    rev = "v0.10";
+    hash = "sha256-d2a8Nad80rdXY9waOcTfk6TDTm+cldb44tBXX4lNXFA=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool ncurses ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    ncurses
+  ];
 
   buildInputs = [
     pythonPackages.python
@@ -47,12 +53,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # TODO: Fix build
   meta = with lib; {
     description = "Code to compute the abundances of chemical species in the interstellar medium";
     homepage = "https://github.com/smaret/astrochem";
     license = licenses.gpl3;
     maintainers = with maintainers; [ smaret ];
-    broken = true;
   };
 }
