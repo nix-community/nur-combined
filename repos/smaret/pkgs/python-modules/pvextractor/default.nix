@@ -1,31 +1,45 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, astropy
-, matplotlib
-, scipy
-, qtpy
-, spectral-cube
-, pytestCheckHook
-, pytest-astropy
-, setuptools_scm
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  astropy,
+  matplotlib,
+  scipy,
+  qtpy,
+  spectral-cube,
+  pytestCheckHook,
+  pytest-astropy,
+  setuptools,
+  setuptools_scm,
 }:
 
 buildPythonPackage rec {
   pname = "pvextractor";
-  version = "0.3";
-  format = "setuptools";
+  version = "0.4";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-pU6YZ2DO9rGG4C0cPZjX4cGOTnXF0LcTQ7X/Wf2cCcM=";
+    sha256 = "sha256-7WoRWTXoPm+qdycQfpYbxJ15FP7IXjMm5a32XN4eg84=";
   };
 
-  propagatedBuildInputs = [ astropy matplotlib scipy qtpy spectral-cube ];
+  build-system = [
+    setuptools
+    setuptools_scm
+  ];
 
-  nativeBuildInputs = [ setuptools_scm ];
+  dependencies = [
+    astropy
+    matplotlib
+    scipy
+    qtpy
+    spectral-cube
+  ];
 
-  checkInputs = [ pytestCheckHook pytest-astropy ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-astropy
+  ];
 
   disabledTests = [
     # segfaults with Matplotlib 3.1 and later
@@ -33,12 +47,11 @@ buildPythonPackage rec {
   ];
 
   meta = {
+    changelog = "https://github.com/radio-astro-tools/pvextractor/releases/tag/${version}";
     description = "Position-Velocity Diagram Extractor";
-    homepage = http://radio-astro-tools.github.io;
+    homepage = "https://pvextractor.readthedocs.io";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ smaret ];
-    broken = true;
   };
 }
-
