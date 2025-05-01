@@ -13,6 +13,7 @@
   which,
   darwin,
   ncurses,
+  makeWrapper,
 }:
 
 let
@@ -24,7 +25,7 @@ let
   );
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "4.4-01";
   pname = "imager";
 
@@ -43,6 +44,7 @@ stdenv.mkDerivation rec {
     getopt
     gfortran
     which
+    makeWrapper
   ];
 
   buildInputs = [
@@ -50,51 +52,66 @@ stdenv.mkDerivation rec {
     cfitsio
     python3Env
     ncurses
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
+  ];
 
-  patches =
-    [
-      ./wrapper.patch
-      ./python-ldflags.patch
-      ./clean-segfault.patch
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin ([
-      ./clang.patch
-      ./cpp-darwin.patch
-    ]);
+  patches = [
+    # Update the Python link flag script from Gildas upstream
+    # version. This patch will be included in the the IMAGER release.
+    ./python-ldflags.patch
+    # Use Clang as the default compiler on Darwin.
+    ./clang.patch
+    # Replace hardcoded cpp with GAG_CPP (see below).
+    ./cpp-darwin.patch
+    # Patch for clean segfault
+    ./clean-segfault.patch
+  ];
 
-  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
   # Workaround for https://github.com/NixOS/nixpkgs/issues/304528
-  env.GAG_CPP = lib.optionalString stdenv.hostPlatform.isDarwin "${gfortran.outPath}/bin/cpp";
+  env.GAG_CPP = if stdenv.hostPlatform.isDarwin then "${gfortran.outPath}/bin/cpp" else "cpp";
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin (
     with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"
   );
 
+  postPatch = ''
+    substituteInPlace utilities/main/gag-makedepend.pl --replace-fail '/usr/bin/perl' ${lib.getExe perl}
+  '';
+
   configurePhase = ''
-    substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out
-    substituteInPlace admin/wrapper.sh --replace '%%PYTHONHOME%%' ${python3Env}
-    substituteInPlace utilities/main/gag-makedepend.pl --replace '/usr/bin/perl' ${perl}/bin/perl
     source admin/gildas-env.sh -c gfortran -o openmp
     echo "gag_doc:        $out/share/doc/" >> kernel/etc/gag.dico.lcl
   '';
 
   postInstall = ''
-    mkdir -p $out/bin
     cp -a ../gildas-exe/* $out
     mv $out/$GAG_EXEC_SYSTEM $out/libexec
-    cp admin/wrapper.sh $out/bin/imager
-    chmod 755 $out/bin/imager
+    makeWrapper $out/libexec/bin/imager $out/bin/imager \
+       --set GAG_ROOT_DIR $out \
+       --set GAG_PATH $out/etc \
+       --set GAG_GAG \$HOME/.gag \
+       --set PYTHONHOME ${python3Env} \
+       --prefix PYTHONPATH : $out/libexec/python \
+       --set LD_LIBRARY_PATH $out/libexec/lib/
   '';
 
   meta = {
     description = "Interferometric imaging package";
-    longDescription = ''IMAGER is an interferometric imaging package in the GILDAS software, tailored for usage simplicity and efficiency for multi-spectral data sets. IMAGER was developed and optimized to handle large data files. Therefore, IMAGER works mostly on internal buffers and avoids as much as possible saving data to intermediate files. File saving is done ultimately once the data analysis process is complete, which offers an optimum use of the disk bandwidth.'';
+    longDescription = ''
+      IMAGER is an interferometric imaging package in the GILDAS software,
+      tailored for usage simplicity and efficiency for multi-spectral data sets.
+
+      IMAGER was developed and optimized to handle large data files.
+      Therefore, IMAGER works mostly on internal buffers and avoids as much as possible
+      saving data to intermediate files.
+      File saving is done ultimately once the data analysis process is complete,
+      which offers an optimum use of the disk bandwidth.
+    '';
     homepage = "https://imager.oasu.u-bordeaux.fr";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.smaret ];
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 
-}
+})

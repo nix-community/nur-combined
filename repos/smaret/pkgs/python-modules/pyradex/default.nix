@@ -52,7 +52,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python interface to RADEX";
-    homepage = https://github.com/keflavich/pyradex;
+    homepage = "https://github.com/keflavich/pyradex";
     # TODO: Fix package
     broken = true;
     license = licenses.bsd3;
