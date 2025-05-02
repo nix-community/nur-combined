@@ -1088,10 +1088,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.8.0";
+      version = "0.8.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464284/bilisponsorblock-0.8.0.xpi";
-      sha256 = "6df7b628ac1ef4ecf4d2309350abcbe4db69b8937142ebb57bf22a1eb3ebc12a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4484772/bilisponsorblock-0.8.1.xpi";
+      sha256 = "7c51c02023a0a5b99bf39e12e7b24bc7a0fdeed7ff959008f0ec0dfa28f850e7";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1479,10 +1479,10 @@
     };
     "catppuccin-web-file-icons" = buildFirefoxXpiAddon {
       pname = "catppuccin-web-file-icons";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477739/catppuccin_web_file_icons-1.1.0.xpi";
-      sha256 = "178a2471b57203e751563035475ef8975087e1f0361d617e0a30ebb22ff7c9f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485069/catppuccin_web_file_icons-1.2.0.xpi";
+      sha256 = "6a2947482ad986114a4ae76012618ad8c4fc0f002c65f30e1b1e0c47e2fff216";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/web-file-explorer-icons";
@@ -10850,10 +10850,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "16.0.2";
+      version = "16.0.3";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4448042/sidebartabs-16.0.2.xpi";
-      sha256 = "cdb4d3ef126b99e1e2f8e21db609d1203f5ad0c7e1fd61955d1dc19cb64d72e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485050/sidebartabs-16.0.3.xpi";
+      sha256 = "758a4aa9dcb5fcd9fc21a54bc3b660c763874b09f18fcc5dad43ac3297c41399";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
