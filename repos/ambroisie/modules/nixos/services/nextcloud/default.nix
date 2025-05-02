@@ -44,10 +44,14 @@ in
         adminuser = cfg.admin;
         adminpassFile = cfg.passwordFile;
         dbtype = "pgsql";
-        dbhost = "/run/postgresql";
       };
 
       https = true;
+
+      # Automatic PostgreSQL provisioning
+      database = {
+        createLocally = true;
+      };
 
       settings = {
         overwriteprotocol = "https"; # Nginx only allows SSL
@@ -58,22 +62,6 @@ in
         # Allow using the push service without hard-coding my IP in the configuration
         bendDomainToLocalhost = true;
       };
-    };
-
-    services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "nextcloud" ];
-      ensureUsers = [
-        {
-          name = "nextcloud";
-          ensureDBOwnership = true;
-        }
-      ];
-    };
-
-    systemd.services."nextcloud-setup" = {
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
     };
 
     # The service above configures the domain, no need for my wrapper
