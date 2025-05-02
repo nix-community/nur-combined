@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741895735,
-        "narHash": "sha256-Ilad2zBwIXZlOFuLt35jG4knCaO6JvNjm0wk99ArEhU=",
+        "lastModified": 1745819625,
+        "narHash": "sha256-0mKwXeIIPDdrSDepq6M46YhpIbuVDgw2C9M1Dybms4E=",
         "owner": "Cryolitia",
         "repo": "gpd-fan-driver",
-        "rev": "ab215d85df51c3e9532afb653fdf879dc389d8a2",
+        "rev": "485a8de8b2ce38b62ae0c5994a3ec0f64b8897e7",
         "type": "github"
       },
       "original": {
@@ -57,11 +57,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1745377448,
-        "narHash": "sha256-jhZDfXVKdD7TSEGgzFJQvEEZ2K65UMiqW5YJ2aIqxMA=",
+        "lastModified": 1746123514,
+        "narHash": "sha256-UNO+MbVHLl4AkVWYqekk72/gqFNSLYNkBgto7h+7P3U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "507b63021ada5fee621b6ca371c4fca9ca46f52c",
+        "rev": "b5dd9efc912ecabeafa4f082d31e19cb1c74266c",
         "type": "github"
       },
       "original": {
@@ -145,11 +145,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745548521,
-        "narHash": "sha256-xyliq8oS5OnzXjHRGr92RtmrtYI/dflf2gSEo0wMFjc=",
+        "lastModified": 1746153335,
+        "narHash": "sha256-vwKelhJJS8haCdH3t8uf96VFao7/YzJahPG5JLTO1PU=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "eb0afb4ac0720d55c29e88eb29432103d73ae11d",
+        "rev": "ebc7823c3ffde594c7733113042b72694d996de9",
         "type": "github"
       },
       "original": {
