@@ -109,16 +109,6 @@ in
        </para>
       </listitem>
      </varlistentry>
-     <varlistentry>
-      <term>
-       <varname>home-manager</varname>
-      </term>
-      <listitem>
-       <para>
-        for using Home Manager as a NixOS module.
-       </para>
-      </listitem>
-     </varlistentry>
     </variablelist>
    </para>
   </section>

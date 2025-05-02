@@ -23,14 +23,4 @@
   </para>
   <xi:include href="./nmd-result/nur-rycee-hm-options.xml" />
  </refsection>
- <refsection>
-  <title>See also</title>
-  <para>
-   <citerefentry>
-   <refentrytitle>home-manager</refentrytitle>
-   <manvolnum>1</manvolnum> </citerefentry> and <citerefentry>
-   <refentrytitle>home-configuration.nix</refentrytitle>
-   <manvolnum>5</manvolnum> </citerefentry>
-  </para>
- </refsection>
 </refentry>
