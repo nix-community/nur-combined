@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-22.15.2" = {
+    "@types/node-22.15.3" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "22.15.2";
+      version = "22.15.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-22.15.2.tgz";
-        sha512 = "uKXqKN9beGoMdBfcaTY1ecwz6ctxuJAcUlwE55938g0ZJ8lRxwAZqRz2AJ4pzpt5dHdTPMB863UZ0ESiFUcP7A==";
+        url = "https://registry.npmjs.org/@types/node/-/node-22.15.3.tgz";
+        sha512 = "lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -328,13 +328,13 @@ let
         sha512 = "YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==";
       };
     };
-    "browserslist-4.24.4" = {
+    "browserslist-4.24.5" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.24.4";
+      version = "4.24.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.24.4.tgz";
-        sha512 = "KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.24.5.tgz";
+        sha512 = "FDToo4Wo82hIdgc1CQ+NQD0hEhmpPjrZ3hiUgwgOG6IuTdlpr8jdjyG24P6cNP1yJpTLzS5OcGgSw0xmDU1/Tw==";
       };
     };
     "buffer-from-1.1.2" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001715" = {
+    "caniuse-lite-1.0.30001716" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001715";
+      version = "1.0.30001716";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz";
-        sha512 = "7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001716.tgz";
+        sha512 = "49/c1+x3Kwz7ZIWt+4DvK3aMJy9oYXXG6/97JKsnjdCk/6n9vVyWL8NAwVt95Lwt9eigI10Hl782kDfZUUlRXw==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.142" = {
+    "electron-to-chromium-1.5.149" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.142";
+      version = "1.5.149";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.142.tgz";
-        sha512 = "Ah2HgkTu/9RhTDNThBtzu2Wirdy4DC9b0sMT1pUhbkZQ5U/iwmE+PHZX1MpjD5IkJCc2wSghgGG/B04szAx07w==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.149.tgz";
+        sha512 = "UyiO82eb9dVOx8YO3ajDf9jz2kKyt98DEITRdeLPstOEuTlLzDA4Gyq5K9he71TQziU5jUVu2OAu5N48HmQiyQ==";
       };
     };
     "enhanced-resolve-5.18.1" = {
@@ -1084,7 +1084,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.7"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-22.15.2"
+      sources."@types/node-22.15.3"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1109,15 +1109,15 @@ let
       sources."ajv-8.17.1"
       sources."ajv-formats-2.1.1"
       sources."ajv-keywords-5.1.0"
-      sources."browserslist-4.24.4"
+      sources."browserslist-4.24.5"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001715"
+      sources."caniuse-lite-1.0.30001716"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.142"
+      sources."electron-to-chromium-1.5.149"
       sources."enhanced-resolve-5.18.1"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
