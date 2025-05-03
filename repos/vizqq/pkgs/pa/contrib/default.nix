@@ -2,6 +2,8 @@
   pkgs,
   source,
   pa,
+  gitSupport,
+  git,
 }:
 let
   callPackage = pkgs.lib.callPackageWith (
@@ -18,4 +20,5 @@ in
   pa-dmenu = callPackage ./pa-dmenu.nix { };
   pa-rofi = callPackage ./pa-rofi.nix { };
   pa-rekey = callPackage ./pa-rekey.nix { };
+  pa-pass = callPackage ./pa-pass.nix { inherit gitSupport git; };
 }

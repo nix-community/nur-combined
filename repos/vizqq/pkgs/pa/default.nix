@@ -58,7 +58,12 @@ let
     };
   };
   packages = import ./contrib {
-    inherit pkgs source;
+    inherit
+      pkgs
+      source
+      gitSupport
+      git
+      ;
     pa = package;
   };
   withPackages =
