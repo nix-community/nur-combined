@@ -63,6 +63,7 @@ let
       source
       gitSupport
       git
+      age'
       ;
     pa = package;
   };

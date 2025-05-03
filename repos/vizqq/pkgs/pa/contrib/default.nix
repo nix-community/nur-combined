@@ -4,6 +4,7 @@
   pa,
   gitSupport,
   git,
+  age',
 }:
 let
   callPackage = pkgs.lib.callPackageWith (
@@ -19,6 +20,6 @@ in
   pa-wmenu = callPackage ./pa-wmenu.nix { };
   pa-dmenu = callPackage ./pa-dmenu.nix { };
   pa-rofi = callPackage ./pa-rofi.nix { };
-  pa-rekey = callPackage ./pa-rekey.nix { };
-  pa-pass = callPackage ./pa-pass.nix { inherit gitSupport git; };
+  pa-rekey = callPackage ./pa-rekey.nix { inherit age'; };
+  pa-pass = callPackage ./pa-pass.nix { inherit gitSupport git age'; };
 }
