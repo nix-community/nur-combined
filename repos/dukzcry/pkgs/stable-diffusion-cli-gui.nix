@@ -3,11 +3,18 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  wrapQtAppsHook, qtbase, shaderc
+  wrapQtAppsHook, qtbase, shaderc, makeDesktopItem
 }:
 
-stdenv.mkDerivation rec {
-  pname = "stable-diffusion-cpp";
+let
+  sd = makeDesktopItem rec {
+    name = "sd";
+    exec = name;
+    desktopName = "Stable Diffusion";
+    categories = [ "Graphics" ];
+  };
+in stdenv.mkDerivation rec {
+  pname = "stable-diffusion-cli-gui";
   version = "9b5942";
 
   src = fetchFromGitHub {
@@ -32,12 +39,17 @@ stdenv.mkDerivation rec {
     "-DSD_VULKAN=ON"
   ];
 
+  postInstall = ''
+    mkdir -p $out/share/applications
+    ln -s ${sd}/share/applications/* $out/share/applications
+  '';
+
   meta = {
     description = "Stable Diffusion in pure C/C";
     homepage = "https://github.com/piallai/stable-diffusion.cpp";
     license = with lib.licenses; [ gpl3Only mit ];
     maintainers = with lib.maintainers; [ ];
-    mainProgram = "stable-diffusion-cpp";
+    mainProgram = "sd";
     platforms = lib.platforms.all;
   };
 }
