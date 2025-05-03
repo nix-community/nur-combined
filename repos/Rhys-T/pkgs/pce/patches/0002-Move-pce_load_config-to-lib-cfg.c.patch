@@ -1,0 +1,889 @@
+From 453246234093bcd4ff763734f64d2ddfffbf4355 Mon Sep 17 00:00:00 2001
+From: Hampa Hug <hampa@hampa.ch>
+Date: Sun, 6 Jan 2019 19:14:32 +0100
+Subject: [PATCH] Move pce_load_config() to lib/cfg.c
+
+The function pce_load_config() appears in src/arch/*/main.c. This
+patch moves it to its own file in lib/cfg.c.
+
+Bug reported by Peter Naszvadi.
+---
+ Makefile.dep                  | 14 +++++++++++
+ src/arch/atarist/Makefile.inc |  1 +
+ src/arch/atarist/main.c       | 24 ++++---------------
+ src/arch/cpm80/Makefile.inc   |  1 +
+ src/arch/cpm80/main.c         | 27 ++++++---------------
+ src/arch/ibmpc/Makefile.inc   |  1 +
+ src/arch/ibmpc/main.c         | 24 ++++---------------
+ src/arch/macplus/Makefile.inc |  1 +
+ src/arch/macplus/main.c       | 26 ++++-----------------
+ src/arch/rc759/Makefile.inc   |  1 +
+ src/arch/rc759/main.c         | 24 ++++---------------
+ src/arch/sim405/Makefile.inc  |  1 +
+ src/arch/sim405/main.c        | 24 ++++---------------
+ src/arch/sim6502/Makefile.inc |  1 +
+ src/arch/sim6502/main.c       | 23 ++++--------------
+ src/arch/simarm/Makefile.inc  |  1 +
+ src/arch/simarm/main.c        | 22 +++---------------
+ src/arch/sims32/Makefile.inc  |  1 +
+ src/arch/sims32/main.c        | 23 ++++--------------
+ src/lib/Makefile.inc          |  2 ++
+ src/lib/cfg.c                 | 44 +++++++++++++++++++++++++++++++++++
+ src/lib/cfg.h                 | 33 ++++++++++++++++++++++++++
+ 22 files changed, 141 insertions(+), 178 deletions(-)
+ create mode 100644 src/lib/cfg.c
+ create mode 100644 src/lib/cfg.h
+
+diff --git a/Makefile.dep b/Makefile.dep
+index 78d2f4dd..1f4598f7 100644
+--- a/Makefile.dep
++++ b/Makefile.dep
+@@ -144,6 +144,7 @@ src/arch/atarist/main.o: src/arch/atarist/main.c \
+ 	src/drivers/video/keys.h \
+ 	src/drivers/video/terminal.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -322,6 +323,7 @@ src/arch/cpm80/main.o: src/arch/cpm80/main.c \
+ 	src/drivers/block/block.h \
+ 	src/drivers/char/char.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -715,6 +717,7 @@ src/arch/ibmpc/main.o: src/arch/ibmpc/main.c \
+ 	src/drivers/video/keys.h \
+ 	src/drivers/video/terminal.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -1005,6 +1008,7 @@ src/arch/macplus/main.o: src/arch/macplus/main.c \
+ 	src/drivers/video/keys.h \
+ 	src/drivers/video/terminal.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -1224,6 +1228,7 @@ src/arch/rc759/main.o: src/arch/rc759/main.c \
+ 	src/drivers/video/keys.h \
+ 	src/drivers/video/terminal.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -1426,6 +1431,7 @@ src/arch/sim405/main.o: src/arch/sim405/main.c \
+ 	src/drivers/block/block.h \
+ 	src/drivers/char/char.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/getopt.h \
+@@ -1562,6 +1568,7 @@ src/arch/sim6502/main.o: src/arch/sim6502/main.c \
+ 	src/cpu/e6502/e6502.h \
+ 	src/devices/memory.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/ihex.h \
+@@ -1642,6 +1649,7 @@ src/arch/simarm/main.o: src/arch/simarm/main.c \
+ 	src/drivers/block/block.h \
+ 	src/drivers/char/char.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/log.h \
+@@ -1751,6 +1759,7 @@ src/arch/sims32/main.o: src/arch/sims32/main.c \
+ 	src/devices/serport.h \
+ 	src/drivers/char/char.h \
+ 	src/lib/brkpt.h \
++	src/lib/cfg.h \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h \
+ 	src/lib/iniram.h \
+@@ -2600,6 +2609,11 @@ src/lib/brkpt.o: src/lib/brkpt.c \
+ 	src/lib/brkpt.h \
+ 	src/lib/cmd.h
+ 
++src/lib/cfg.o: src/lib/cfg.c \
++	src/lib/cfg.h \
++	src/lib/log.h \
++	src/libini/libini.h
++
+ src/lib/cmd.o: src/lib/cmd.c \
+ 	src/lib/cmd.h \
+ 	src/lib/console.h
+diff --git a/src/arch/atarist/Makefile.inc b/src/arch/atarist/Makefile.inc
+index 9089bd78..13c35b96 100644
+--- a/src/arch/atarist/Makefile.inc
++++ b/src/arch/atarist/Makefile.inc
+@@ -69,6 +69,7 @@ PCE_ATARIST_OBJ_EXT := \
+ 	src/devices/memory.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/atarist/main.c b/src/arch/atarist/main.c
+index f6f0191d..70d76eed 100644
+--- a/src/arch/atarist/main.c
++++ b/src/arch/atarist/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/atarist/main.c                                      *
+  * Created:     2011-03-17 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2011-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2011-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -31,6 +31,7 @@
+ #include <unistd.h>
+ #include <signal.h>
+ 
++#include <lib/cfg.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+ #include <lib/log.h>
+@@ -94,7 +95,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-atarist version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 2011-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 2011-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -106,7 +107,7 @@ void st_log_banner (void)
+ {
+ 	pce_log (MSG_INF,
+ 		"pce-atarist version " PCE_VERSION_STR "\n"
+-		"Copyright (C) 2011-2018 Hampa Hug <hampa@hampa.ch>\n"
++		"Copyright (C) 2011-2019 Hampa Hug <hampa@hampa.ch>\n"
+ 	);
+ }
+ 
+@@ -204,23 +205,6 @@ void st_log_deb (const char *msg, ...)
+ 	va_end (va);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/cpm80/Makefile.inc b/src/arch/cpm80/Makefile.inc
+index ff06ad41..804f0cdc 100644
+--- a/src/arch/cpm80/Makefile.inc
++++ b/src/arch/cpm80/Makefile.inc
+@@ -37,6 +37,7 @@ PCE_CPM80_OBJ_EXT := \
+ 	src/devices/memory.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/cpm80/main.c b/src/arch/cpm80/main.c
+index 4c7d3441..e84678c4 100644
+--- a/src/arch/cpm80/main.c
++++ b/src/arch/cpm80/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/cpm80/main.c                                        *
+  * Created:     2012-11-28 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2012-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2012-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -33,6 +33,7 @@
+ 
+ #include <drivers/char/char.h>
+ 
++#include <lib/cfg.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+ #include <lib/log.h>
+@@ -83,7 +84,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-cpm80 version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 2012-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 2012-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -93,7 +94,10 @@ void print_version (void)
+ static
+ void sim_log_banner (void)
+ {
+-	pce_log (MSG_MSG, "pce-cpm80 version " PCE_VERSION_STR "\n");
++	pce_log (MSG_MSG,
++		"pce-cpm80 version " PCE_VERSION_STR "\n"
++		"Copyright (C) 2012-2019 Hampa Hug <hampa@hampa.ch>\n"
++	);
+ }
+ 
+ static
+@@ -192,23 +196,6 @@ void sim_log_deb (const char *msg, ...)
+ 	va_end (va);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/ibmpc/Makefile.inc b/src/arch/ibmpc/Makefile.inc
+index df06f852..9a9128f2 100644
+--- a/src/arch/ibmpc/Makefile.inc
++++ b/src/arch/ibmpc/Makefile.inc
+@@ -75,6 +75,7 @@ PCE_IBMPC_OBJ_EXT := \
+ 	src/devices/serport.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/ibmpc/main.c b/src/arch/ibmpc/main.c
+index 45784e0d..654d7271 100644
+--- a/src/arch/ibmpc/main.c
++++ b/src/arch/ibmpc/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/ibmpc/main.c                                        *
+  * Created:     1999-04-16 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 1999-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 1999-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -34,6 +34,7 @@
+ #include <SDL.h>
+ #endif
+ 
++#include <lib/cfg.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+ #include <lib/log.h>
+@@ -94,7 +95,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-ibmpc version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 1995-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 1995-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -106,7 +107,7 @@ void pc_log_banner (void)
+ {
+ 	pce_log (MSG_MSG,
+ 		"pce-ibmpc version " PCE_VERSION_STR "\n"
+-		"Copyright (C) 1995-2018 Hampa Hug <hampa@hampa.ch>\n"
++		"Copyright (C) 1995-2019 Hampa Hug <hampa@hampa.ch>\n"
+ 	);
+ }
+ 
+@@ -214,23 +215,6 @@ void pc_log_deb (const char *msg, ...)
+ 	va_end (va);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/macplus/Makefile.inc b/src/arch/macplus/Makefile.inc
+index 9a33ea10..4a4b0df3 100644
+--- a/src/arch/macplus/Makefile.inc
++++ b/src/arch/macplus/Makefile.inc
+@@ -72,6 +72,7 @@ PCE_MACPLUS_OBJ_EXT := \
+ 	src/devices/memory.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/macplus/main.c b/src/arch/macplus/main.c
+index 34b926d6..883baaf4 100644
+--- a/src/arch/macplus/main.c
++++ b/src/arch/macplus/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/macplus/main.c                                      *
+  * Created:     2007-04-15 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2007-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2007-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -32,6 +32,7 @@
+ #include <unistd.h>
+ #include <signal.h>
+ 
++#include <lib/cfg.h>
+ #include <lib/cmd.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+@@ -102,7 +103,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-macplus version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 2007-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 2007-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -112,9 +113,9 @@ void print_version (void)
+ static
+ void mac_log_banner (void)
+ {
+-	pce_log (MSG_INF,
++	pce_log (MSG_MSG,
+ 		"pce-macplus version " PCE_VERSION_STR "\n"
+-		"Copyright (C) 2007-2018 Hampa Hug <hampa@hampa.ch>\n"
++		"Copyright (C) 2007-2019 Hampa Hug <hampa@hampa.ch>\n"
+ 	);
+ }
+ 
+@@ -192,23 +193,6 @@ void mac_log_deb (const char *msg, ...)
+ 	va_end (va);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/rc759/Makefile.inc b/src/arch/rc759/Makefile.inc
+index c93138fe..35ea7079 100644
+--- a/src/arch/rc759/Makefile.inc
++++ b/src/arch/rc759/Makefile.inc
+@@ -67,6 +67,7 @@ PCE_RC759_OBJ_EXT := \
+ 	src/devices/memory.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/rc759/main.c b/src/arch/rc759/main.c
+index 30d99747..3e78fa3f 100644
+--- a/src/arch/rc759/main.c
++++ b/src/arch/rc759/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/rc759/main.c                                        *
+  * Created:     2012-06-29 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2012-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2012-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -34,6 +34,7 @@
+ #include <SDL.h>
+ #endif
+ 
++#include <lib/cfg.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+ #include <lib/log.h>
+@@ -91,7 +92,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-rc759 version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 2012-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 2012-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -103,7 +104,7 @@ void rc759_log_banner (void)
+ {
+ 	pce_log (MSG_MSG,
+ 		"pce-rc759 version " PCE_VERSION_STR "\n"
+-		"Copyright (C) 2012-2018 Hampa Hug <hampa@hampa.ch>\n"
++		"Copyright (C) 2012-2019 Hampa Hug <hampa@hampa.ch>\n"
+ 	);
+ }
+ 
+@@ -206,23 +207,6 @@ void sim_log_deb (const char *msg, ...)
+ 	va_end (va);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/sim405/Makefile.inc b/src/arch/sim405/Makefile.inc
+index d88b5c7c..9b2c05ac 100644
+--- a/src/arch/sim405/Makefile.inc
++++ b/src/arch/sim405/Makefile.inc
+@@ -52,6 +52,7 @@ PCE_SIM405_OBJ_EXT := \
+ 	src/devices/slip.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/getopt.o \
+diff --git a/src/arch/sim405/main.c b/src/arch/sim405/main.c
+index f416e9de..8d56c811 100644
+--- a/src/arch/sim405/main.c
++++ b/src/arch/sim405/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/sim405/main.c                                       *
+  * Created:     2004-06-01 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2004-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2004-2019 Hampa Hug <hampa@hampa.ch>                     *
+  * Copyright:   (C) 2004-2006 Lukas Ruf <ruf@lpr.ch>                         *
+  *****************************************************************************/
+ 
+@@ -37,6 +37,7 @@
+ #include "msg.h"
+ #include "sim405.h"
+ 
++#include <lib/cfg.h>
+ #include <lib/cmd.h>
+ #include <lib/console.h>
+ #include <lib/getopt.h>
+@@ -95,7 +96,7 @@ void print_version (void)
+ 	fputs (
+ 		"pce-sim405 version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 2004-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 2004-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -107,7 +108,7 @@ void s405_log_banner (void)
+ {
+ 	pce_log (MSG_MSG,
+ 		"pce-sim405 version " PCE_VERSION_STR "\n"
+-		"Copyright (C) 2004-2018 Hampa Hug <hampa@hampa.ch>\n"
++		"Copyright (C) 2004-2019 Hampa Hug <hampa@hampa.ch>\n"
+ 	);
+ }
+ 
+@@ -177,23 +178,6 @@ void s405_set_mem8 (sim405_t *sim, unsigned long addr, unsigned char val)
+ 	}
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int main (int argc, char *argv[])
+ {
+ 	int       r;
+diff --git a/src/arch/sim6502/Makefile.inc b/src/arch/sim6502/Makefile.inc
+index de44b057..e25a0092 100644
+--- a/src/arch/sim6502/Makefile.inc
++++ b/src/arch/sim6502/Makefile.inc
+@@ -32,6 +32,7 @@ PCE_SIM6502_BIN := $(rel)/pce-sim6502$(EXEEXT)
+ PCE_SIM6502_OBJ_EXT := \
+ 	src/devices/memory.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/ihex.o \
+diff --git a/src/arch/sim6502/main.c b/src/arch/sim6502/main.c
+index 5bd2e905..62472de8 100644
+--- a/src/arch/sim6502/main.c
++++ b/src/arch/sim6502/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/sim6502/main.c                                      *
+  * Created:     2004-05-25 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2004-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2004-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -30,6 +30,8 @@
+ 
+ #include "main.h"
+ 
++#include <lib/cfg.h>
++
+ 
+ static mon_cmd_t par_cmd[] = {
+ 	{ "c", "[cnt]", "clock" },
+@@ -78,7 +80,7 @@ void prt_version (void)
+ 	fputs (
+ 		"pce sim6502 version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 1995-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 1995-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -616,23 +618,6 @@ int s6502_do_cmd (sim6502_t *sim, cmd_t *cmd)
+ 	return (0);
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int str_isarg1 (const char *str, const char *arg)
+ {
+ 	if (strcmp (str, arg) == 0) {
+diff --git a/src/arch/simarm/Makefile.inc b/src/arch/simarm/Makefile.inc
+index 224db387..1394a848 100644
+--- a/src/arch/simarm/Makefile.inc
++++ b/src/arch/simarm/Makefile.inc
+@@ -39,6 +39,7 @@ PCE_SIMARM_OBJ_EXT := \
+ 	src/devices/serport.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/ihex.o \
+diff --git a/src/arch/simarm/main.c b/src/arch/simarm/main.c
+index 11db444e..885ab10f 100644
+--- a/src/arch/simarm/main.c
++++ b/src/arch/simarm/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/simarm/main.c                                       *
+  * Created:     2004-11-04 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2004-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2004-2019 Hampa Hug <hampa@hampa.ch>                     *
+  * Copyright:   (C) 2004-2006 Lukas Ruf <ruf@lpr.ch>                         *
+  *****************************************************************************/
+ 
+@@ -37,6 +37,7 @@
+ 
+ #include <signal.h>
+ 
++#include <lib/cfg.h>
+ #include <lib/console.h>
+ #include <lib/log.h>
+ #include <lib/monitor.h>
+@@ -79,7 +80,7 @@ void prt_version (void)
+ 	fputs (
+ 		"pce-simarm version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 1995-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 1995-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -150,23 +151,6 @@ void sarm_set_mem8 (simarm_t *sim, unsigned long addr, unsigned char val)
+ 	}
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int str_isarg1 (const char *str, const char *arg)
+ {
+ 	if (strcmp (str, arg) == 0) {
+diff --git a/src/arch/sims32/Makefile.inc b/src/arch/sims32/Makefile.inc
+index fd496d88..2f50eaa6 100644
+--- a/src/arch/sims32/Makefile.inc
++++ b/src/arch/sims32/Makefile.inc
+@@ -36,6 +36,7 @@ PCE_SIMS32_OBJ_EXT := \
+ 	src/devices/serport.o \
+ 	src/drivers/options.o \
+ 	src/lib/brkpt.o \
++	src/lib/cfg.o \
+ 	src/lib/cmd.o \
+ 	src/lib/console.o \
+ 	src/lib/ihex.o \
+diff --git a/src/arch/sims32/main.c b/src/arch/sims32/main.c
+index 3bbbe52e..39ae74a3 100644
+--- a/src/arch/sims32/main.c
++++ b/src/arch/sims32/main.c
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/arch/sims32/main.c                                       *
+  * Created:     2004-09-28 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2004-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2004-2019 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -30,6 +30,8 @@
+ 
+ #include "main.h"
+ 
++#include <lib/cfg.h>
++
+ 
+ char      *par_cpu = NULL;
+ 
+@@ -69,7 +71,7 @@ void prt_version (void)
+ 	fputs (
+ 		"pce sims32 version " PCE_VERSION_STR
+ 		"\n\n"
+-		"Copyright (C) 1995-2018 Hampa Hug <hampa@hampa.ch>\n",
++		"Copyright (C) 1995-2019 Hampa Hug <hampa@hampa.ch>\n",
+ 		stdout
+ 	);
+ 
+@@ -162,23 +164,6 @@ void prt_state (sims32_t *sim, FILE *fp, const char *str)
+ 	}
+ }
+ 
+-static
+-int pce_load_config (ini_sct_t *ini, const char *fname)
+-{
+-	if (fname == NULL) {
+-		return (0);
+-	}
+-
+-	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
+-
+-	if (ini_read (par_cfg, fname)) {
+-		pce_log (MSG_ERR, "*** loading config file failed\n");
+-		return (1);
+-	}
+-
+-	return (0);
+-}
+-
+ int str_isarg1 (const char *str, const char *arg)
+ {
+ 	if (strcmp (str, arg) == 0) {
+diff --git a/src/lib/Makefile.inc b/src/lib/Makefile.inc
+index 776c4f77..5865a679 100644
+--- a/src/lib/Makefile.inc
++++ b/src/lib/Makefile.inc
+@@ -7,6 +7,7 @@ DIST += $(rel)/Makefile.inc $(rel)/stdint/stdint.h
+ 
+ LIBPCE_BAS := \
+ 	brkpt \
++	cfg \
+ 	cmd \
+ 	console \
+ 	getopt \
+@@ -39,6 +40,7 @@ CLN  += $(LIBPCE_OBJ)
+ DIST += $(LIBPCE_SRC) $(LIBPCE_HDR)
+ 
+ $(rel)/brkpt.o:		$(rel)/brkpt.c
++$(rel)/cfg.o:		$(rel)/cfg.c
+ $(rel)/cmd.o:		$(rel)/cmd.c
+ $(rel)/console.o:	$(rel)/console.c
+ $(rel)/getopt.o:	$(rel)/getopt.c
+diff --git a/src/lib/cfg.c b/src/lib/cfg.c
+new file mode 100644
+index 00000000..07467e55
+--- /dev/null
++++ b/src/lib/cfg.c
+@@ -0,0 +1,44 @@
++/*****************************************************************************
++ * pce                                                                       *
++ *****************************************************************************/
++
++/*****************************************************************************
++ * File name:   src/lib/cfg.c                                                *
++ * Created:     2019-01-06 by Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2019 Hampa Hug <hampa@hampa.ch>                          *
++ *****************************************************************************/
++
++/*****************************************************************************
++ * This program is free software. You can redistribute it and / or modify it *
++ * under the terms of the GNU General Public License version 2 as  published *
++ * by the Free Software Foundation.                                          *
++ *                                                                           *
++ * This program is distributed in the hope  that  it  will  be  useful,  but *
++ * WITHOUT  ANY   WARRANTY,   without   even   the   implied   warranty   of *
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU  General *
++ * Public License for more details.                                          *
++ *****************************************************************************/
++
++
++#include "cfg.h"
++
++#include <lib/log.h>
++
++#include <libini/libini.h>
++
++
++int pce_load_config (ini_sct_t *ini, const char *fname)
++{
++	if (fname == NULL) {
++		return (0);
++	}
++
++	pce_log_tag (MSG_INF, "CONFIG:", "file=\"%s\"\n", fname);
++
++	if (ini_read (ini, fname)) {
++		pce_log (MSG_ERR, "*** loading config file failed\n");
++		return (1);
++	}
++
++	return (0);
++}
+diff --git a/src/lib/cfg.h b/src/lib/cfg.h
+new file mode 100644
+index 00000000..b7cfaa30
+--- /dev/null
++++ b/src/lib/cfg.h
+@@ -0,0 +1,33 @@
++/*****************************************************************************
++ * pce                                                                       *
++ *****************************************************************************/
++
++/*****************************************************************************
++ * File name:   src/lib/cfg.h                                                *
++ * Created:     2019-01-06 by Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2019 Hampa Hug <hampa@hampa.ch>                          *
++ *****************************************************************************/
++
++/*****************************************************************************
++ * This program is free software. You can redistribute it and / or modify it *
++ * under the terms of the GNU General Public License version 2 as  published *
++ * by the Free Software Foundation.                                          *
++ *                                                                           *
++ * This program is distributed in the hope  that  it  will  be  useful,  but *
++ * WITHOUT  ANY   WARRANTY,   without   even   the   implied   warranty   of *
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU  General *
++ * Public License for more details.                                          *
++ *****************************************************************************/
++
++
++#ifndef PCE_LIB_CFG_H
++#define PCE_LIB_CFG_H 1
++
++
++#include <libini/libini.h>
++
++
++int pce_load_config (ini_sct_t *ini, const char *fname);
++
++
++#endif

@@ -1,6 +1,6 @@
 {
     stdenv, stdenvNoCC, lib, requireFile,
-    version, gitRev ? null, src, patches ? [],
+    version, gitRev ? null, src, patches ? [], postPatch ? "",
     supportsSDL2, includesUnfreeROMs,
     withX11 ? false, withSDL ? if supportsSDL2 then 2 else 1,
     withReadline ? true, readline ? null,
@@ -69,12 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
     src = src'';
     # The config file for PCE has to point to the ROM extension file in $out/share/pce
     # to make certain features work. These patches allow the config file to refer to
-    # $PCE_DIR_DATA in the 'path' setting, instead of having to update the config file
+    # PCE_DIR_DATA in the 'path' setting, instead of having to update the config file
     # whenever the store path changes.
     patches = patches ++ [./patches/0001-Allow-referencing-PCE_DIR_DATA-in-config-files-inste.patch];
-    postPatch = ''
+    postPatch = postPatch + ''
         for file in src/arch/*/Makefile.inc; do
-            substituteInPlace "$file" --replace-quiet '"s]PCE_DIR_DATA]$(datadir)]g"' '"s]PCE_DIR_DATA]\$$PCE_DIR_DATA/pce]g"'
+            substituteInPlace "$file" --replace-quiet '"s]PCE_DIR_DATA]$(datadir)]g"' '"s]\"PCE_DIR_DATA]PCE_DIR_DATA + \"/pce]g"'
         done
     '';
     configureFlags = [

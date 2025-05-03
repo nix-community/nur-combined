@@ -21,7 +21,7 @@ pkgs = if with pkgs'; (
         pythonPackagesExtensions = super.pythonPackagesExtensions ++ [(pself: psuper: {
             pysdl2 = psuper.pysdl2.overridePythonAttrs (old: {
                 postPatch = (old.postPatch or "") + ''
-                    substituteInPlace sdl2/test/platform_test.py --replace \
+                    substituteInPlace sdl2/test/platform_test.py --replace-fail \
                         'retval == b"Mac OS X"' \
                         'retval in (b"Mac OS X", b"macOS")'
                 '';
