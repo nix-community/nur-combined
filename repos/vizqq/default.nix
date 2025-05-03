@@ -30,4 +30,5 @@ in
   age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card {
     source = sources.age-plugin-openpgp-card;
   };
+  pa = pkgs.callPackage ./pkgs/pa { source = sources.pa; };
 }

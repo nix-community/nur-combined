@@ -14,3 +14,6 @@ fetch.github = "0xuserpag3/HuaweiPasswordTool"
 src.git = "https://github.com/thrimbor/thinkpad-uefi-sign"
 fetch.github = "thrimbor/thinkpad-uefi-sign"
 
+[pa]
+src.git = "https://github.com/biox/pa"
+fetch.github = "biox/pa"

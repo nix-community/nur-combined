@@ -23,6 +23,18 @@
       sha256 = "sha256-uvLY+/XAE62Ft+bEm2t5SNhXb5nrWPQouJEdAkrguYg=";
     };
   };
+  pa = {
+    pname = "pa";
+    version = "27f5563bee452c9b9986c4724c556d51d6484e6a";
+    src = fetchFromGitHub {
+      owner = "biox";
+      repo = "pa";
+      rev = "27f5563bee452c9b9986c4724c556d51d6484e6a";
+      fetchSubmodules = false;
+      sha256 = "sha256-5TYyewtng4AEqJ9EvqFXDkcRtruUPRP/CcEoT+p94Ps=";
+    };
+    date = "2025-03-08";
+  };
   thinkpad-uefi-sign = {
     pname = "thinkpad-uefi-sign";
     version = "b502420583b8a38d4b3e706b20a51a435740f749";

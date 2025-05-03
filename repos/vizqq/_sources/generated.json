@@ -39,6 +39,26 @@
         },
         "version": "v1.0.0"
     },
+    "pa": {
+        "cargoLocks": null,
+        "date": "2025-03-08",
+        "extract": null,
+        "name": "pa",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "biox",
+            "repo": "pa",
+            "rev": "27f5563bee452c9b9986c4724c556d51d6484e6a",
+            "sha256": "sha256-5TYyewtng4AEqJ9EvqFXDkcRtruUPRP/CcEoT+p94Ps=",
+            "type": "github"
+        },
+        "version": "27f5563bee452c9b9986c4724c556d51d6484e6a"
+    },
     "thinkpad-uefi-sign": {
         "cargoLocks": null,
         "date": "2020-06-26",
