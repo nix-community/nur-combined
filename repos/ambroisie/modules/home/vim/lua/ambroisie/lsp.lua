@@ -53,6 +53,10 @@ M.on_attach = function(client, bufnr)
         vim.diagnostic.open_float(nil, { scope = "buffer" })
     end
 
+    local function toggle_inlay_hints()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end
+
     local keys = {
         buffer = bufnr,
         -- LSP navigation
@@ -67,6 +71,7 @@ M.on_attach = function(client, bufnr)
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
         { "<leader>cd", cycle_diagnostics_display, desc = "Cycle diagnostics display" },
         { "<leader>cD", show_buffer_diagnostics, desc = "Show buffer diagnostics" },
+        { "<leader>ch", toggle_inlay_hints, desc = "Toggle inlay hints" },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename symbol" },
         { "<leader>cs", vim.lsp.buf.signature_help, desc = "Show signature" },
         { "<leader>ct", vim.lsp.buf.type_definition, desc = "Go to type definition" },
