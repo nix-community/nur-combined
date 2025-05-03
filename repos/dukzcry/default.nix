@@ -39,10 +39,12 @@ rec {
   metube = callPackage ./pkgs/metube.nix {};
   catppuccin = callPackage ./pkgs/catppuccin.nix {};
   stable-diffusion-cpp = callPackage ./pkgs/stable-diffusion-cpp.nix {};
+  stable-diffusion-cli-gui = qt6Packages.callPackage ./pkgs/stable-diffusion-cli-gui.nix {};
   sd-cpp-webui = callPackage ./pkgs/sd-cpp-webui { inherit stable-diffusion-cpp; };
   olivetin = callPackage ./pkgs/olivetin.nix {};
   sftpgo-plugin-auth = callPackage ./pkgs/sftpgo-plugin-auth.nix {};
   rvc-cli = callPackage ./pkgs/rvc-cli/default.nix {};
   daggerfall-unity-russian = callPackage ./pkgs/daggerfall-unity-russian.nix {};
   aulaf87-rgb = callPackage ./pkgs/aulaf87-rgb.nix {};
+  sd-cpp-gui-wx = callPackage ./pkgs/sd-cpp-gui-wx {};
 }
