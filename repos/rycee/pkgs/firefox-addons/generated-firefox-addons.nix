@@ -1186,10 +1186,10 @@
     };
     "bookmark-search-plus-2" = buildFirefoxXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.133";
+      version = "2.0.134";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4422330/bookmark_search_plus_2-2.0.133.xpi";
-      sha256 = "0a6b8e1019e32791aeb30411ba9539033981f1a793d4fb2cfbbe0247e7d45d8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485249/bookmark_search_plus_2-2.0.134.xpi";
+      sha256 = "3fdc6817235d22301f826a4ea4f665abce953a10ded84e729a83bc10887dd89d";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -2287,10 +2287,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "138.0.20250430.203103";
+      version = "139.0.20250502.90704";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484541/dansk_da_language_pack-138.0.20250430.203103.xpi";
-      sha256 = "c1031e7ed441f6460165e658ee8765b165ee4ffd6eb0ebbf2fd91300eea103bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485313/dansk_da_language_pack-139.0.20250502.90704.xpi";
+      sha256 = "7a5d7d59fafebf42e90dd5d4e85dc38087dad43898877b13eac163312e5257a6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2484,10 +2484,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "138.0.20250430.203103";
+      version = "139.0.20250502.90704";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484542/deutsch_de_language_pack-138.0.20250430.203103.xpi";
-      sha256 = "7da6a446421b0b01e5e1ba379e19074286eb2ecd141b3e9c5bcfe2483f23216c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485314/deutsch_de_language_pack-139.0.20250502.90704.xpi";
+      sha256 = "fe1fca2407d966849aa0fa35197943d32b42c8f5db9f73c879428c188dc638e6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3740,10 +3740,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "138.0.20250430.203103";
+      version = "139.0.20250502.90704";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484558/francais_language_pack-138.0.20250430.203103.xpi";
-      sha256 = "cfeb280ebc3364cb01aa8fad7c8d147f93d5998394d38faa17511bd7895e8827";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485333/francais_language_pack-139.0.20250502.90704.xpi";
+      sha256 = "b5c0e58c3985280bd72835296c41b87dab28e864e6edcae798467b5876556d6c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3777,10 +3777,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "138.0.20250430.203103";
+      version = "139.0.20250502.90704";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484565/gaidhlig_language_pack-138.0.20250430.203103.xpi";
-      sha256 = "8b19eded5bf05b51810c0bdfb5697cc87b6c0541806fd4198048a382081dcd6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485396/gaidhlig_language_pack-139.0.20250502.90704.xpi";
+      sha256 = "351fab1419806a50bfdce2ff0304d0ebfe3a8733a94a4aa5d174728f7fff6418";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6099,10 +6099,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.20.1";
+      version = "0.20.2";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4471377/javascript_restrictor-0.20.1.xpi";
-      sha256 = "e8051e552a64416ec7f31257b4b082d64fa03ad4b8a6d9f24a9fd8df3d68e6e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485412/javascript_restrictor-0.20.2.xpi";
+      sha256 = "18d92e559d8dea1bed8846cd86b84fea72b1a8aeebafcb1525092689d430b7ba";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -7797,10 +7797,10 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.10.2";
+      version = "1.10.3";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4467552/material_icons_for_github-1.10.2.xpi";
-      sha256 = "cf1b140c833acb2758f3bee22f3de5853a7e8c66b97293bb95ba03c61098a8ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485826/material_icons_for_github-1.10.3.xpi";
+      sha256 = "38316c95a30b652b730638cf9379bf4be51c191a9eb80ae95c4f0c1a7dc43400";
       meta = with lib;
       {
         homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
@@ -9871,10 +9871,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.29.9";
+      version = "1.31.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4450700/proton_pass-1.29.9.xpi";
-      sha256 = "76b40e3d1522ce15b3adf02e4b8705c463cbd4af382e09b8cd7b5dae8237e694";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4474339/proton_pass-1.31.1.xpi";
+      sha256 = "1a5b44f5a3a3599af33ebc5307027682a951670ca7f797cc49cfd2a105db92ae";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10218,10 +10218,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.4.1";
+      version = "2.4.3";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4459683/readeck-2.4.1.xpi";
-      sha256 = "beaf53ca080b64671801de8f6e9f19f78564f42322a367877a9390033175be3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485293/readeck-2.4.3.xpi";
+      sha256 = "9cedf253a2ecdce3a5a08e3b8400515127c2df3b59f0c07e009af49c2cd57872";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -10571,10 +10571,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "138.0.20250430.203103";
+      version = "139.0.20250502.90704";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484536/scots_language_pack-138.0.20250430.203103.xpi";
-      sha256 = "dbdf2a1c7a7053957cd7a80f2d275272964f651dd0d4f95dae6ff99474722476";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485344/scots_language_pack-139.0.20250502.90704.xpi";
+      sha256 = "b2a986826b1cb30ef4c0d8d7027bd943671eeef90713f26f794ce8465d7db142";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12395,10 +12395,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.79.0";
+      version = "3.80.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4482169/tweaks_for_youtube-3.79.0.xpi";
-      sha256 = "132936d300e650be2d85a3ed2dd68a8565a68617bb6f98dcb1b5499cdc5a7205";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485758/tweaks_for_youtube-3.80.0.xpi";
+      sha256 = "c4c59460844edc46a0c594c88a085aa372422b4f5cbb81ff198bb0e129db696b";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
