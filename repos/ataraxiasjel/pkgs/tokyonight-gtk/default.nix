@@ -4,43 +4,34 @@
   fetchFromGitHub,
   gtk-engine-murrine,
   jdupes,
+  nix-update-script,
 }:
-
-builtins.mapAttrs
-  (
-    pname: attrs:
-    stdenv.mkDerivation (
-      attrs
-      // {
-        inherit pname;
-
-        version = "unstable-2023-05-30";
-
-        src = fetchFromGitHub {
-          owner = "Fausto-Korpsvart";
-          repo = "Tokyo-Night-GTK-Theme";
-          rev = "e9790345a6231cd6001f1356d578883fac52233a";
-          hash = "sha256-Q9UnvmX+GpvqSmTwdjU4hsEsYhA887wPqs5pyqbIhmc=";
-        };
-
-        dontBuild = true;
-
-        nativeBuildInputs = [ jdupes ];
-
-        propagatedUserEnvPkgs = [ gtk-engine-murrine ];
-
-        meta = with lib; {
-          description = "A GTK theme based on the Tokyo Night colour palette";
-          homepage = "https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme";
-          license = licenses.gpl3Only;
-          platforms = platforms.all;
-          maintainers = with maintainers; [ ataraxiasjel ];
-        };
-      }
-    )
-  )
-  {
-    tokyonight-gtk-theme = {
+let
+  defaultAttrs = {
+    dontBuild = true;
+    dontConfigure = true;
+    nativeBuildInputs = [ jdupes ];
+    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    meta = with lib; {
+      description = "A GTK theme based on the Tokyo Night colour palette";
+      homepage = "https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme";
+      license = licenses.gpl3Only;
+      platforms = platforms.all;
+      maintainers = with maintainers; [ ataraxiasjel ];
+    };
+  };
+in
+{
+  tokyonight-gtk-theme = stdenv.mkDerivation (
+    lib.recursiveUpdate {
+      pname = "tokyonight-gtk-theme";
+      version = "0-unstable-2025-04-24";
+      src = fetchFromGitHub {
+        owner = "Fausto-Korpsvart";
+        repo = "Tokyo-Night-GTK-Theme";
+        rev = "006154c78dde52b5851347a7e91f924af62f1b8f";
+        hash = "sha256-h5k9p++zjzxGFkTK/6o/ISl/Litgf6fzy8Jf6Ikt5V8=";
+      };
       installPhase = ''
         runHook preInstall
 
@@ -50,8 +41,21 @@ builtins.mapAttrs
 
         runHook postInstall
       '';
-    };
-    tokyonight-gtk-icons = {
+      passthru.updateScript = nix-update-script {
+        extraArgs = [ "--version=branch" ];
+      };
+    } defaultAttrs
+  );
+  tokyonight-gtk-icons = stdenv.mkDerivation (
+    lib.recursiveUpdate {
+      pname = "tokyonight-gtk-icons";
+      version = "0-unstable-2025-04-24";
+      src = fetchFromGitHub {
+        owner = "Fausto-Korpsvart";
+        repo = "Tokyo-Night-GTK-Theme";
+        rev = "006154c78dde52b5851347a7e91f924af62f1b8f";
+        hash = "sha256-h5k9p++zjzxGFkTK/6o/ISl/Litgf6fzy8Jf6Ikt5V8=";
+      };
       installPhase = ''
         runHook preInstall
 
@@ -61,5 +65,9 @@ builtins.mapAttrs
 
         runHook postInstall
       '';
-    };
-  }
+      passthru.updateScript = nix-update-script {
+        extraArgs = [ "--version=branch" ];
+      };
+    } defaultAttrs
+  );
+}

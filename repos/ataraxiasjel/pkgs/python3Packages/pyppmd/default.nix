@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "pyppmd";
-  version = "1.1.1";
+  version = "1.2.0";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-8agS8edij0wm0F3jQLkbchZde2J3jCfTIrgs4uj/AMs=";
+    hash = "sha256-zASvkvHSaDHslpY0Od+yfJZGe1RSuUQ2pq9pZkmhIf0=";
   };
 
   build-system = [

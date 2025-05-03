@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "pybcj";
-  version = "1.0.3";
+  version = "1.0.6";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-uIc2N/C+AM6qNy0PuBaTYEtLvI3s2ysa5fm4TRlniNk=";
+    hash = "sha256-cLvi3BhZkzUZVb/o9hOVA4+W9d6SuzpDassBUFeB+PI=";
   };
 
   build-system = [
