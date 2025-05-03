@@ -110,7 +110,7 @@ with pkgs;
   # zathura
 
   # social
-  # discord
+  discord
   # materialgram
   tdesktop
   # thunderbird

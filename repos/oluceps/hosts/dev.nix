@@ -9,7 +9,7 @@
 {
   systemd.tmpfiles.rules = [
     "L+ /home/${user}/.ssh/config - - - - ${pkgs.writeText "ssh-config" ''
-      ${builtins.concatStringsSep "\n" (
+      ${lib.concatLines (
         let
           hosts = lib.data.node;
         in

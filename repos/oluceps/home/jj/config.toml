@@ -1,0 +1,13 @@
+[user]
+email = "secinia@outlook.com"
+name = "oluceps"
+
+[signing]
+behavior = "drop"
+backend = "ssh"
+key = "/run/vaultix/id"
+
+[git]
+sign-on-push = true
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
+

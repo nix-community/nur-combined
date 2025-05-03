@@ -5,9 +5,10 @@ in
 {
   vaultix = {
     settings.hostPubkey = data.keys.kaamblHostPubKey;
+    # beforeUserborn = [ "on-yidong.toml" ];
     secrets = {
       id = {
-        file = ../../sec/id.age;
+        # file = ../../sec/id.age;
         mode = "400";
         owner = user;
         group = "users";

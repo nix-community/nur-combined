@@ -15,7 +15,7 @@ let
         ) userCfg."sub${kindLetter}idRanges"
       ) config.users.users
     );
-  mkIdRangeFile = kindLetter: lib.concatStringsSep "\n" (entries kindLetter) + "\n";
+  mkIdRangeFile = kindLetter: lib.concatLines (entries kindLetter) + "\n";
   commonSettings = {
     mode = "0644"; # newuidmap open files using O_NOFOLLOW
   };

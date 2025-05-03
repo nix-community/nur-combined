@@ -258,6 +258,7 @@
         intel-one-mono
         monaspace
         stix-two
+        fira-sans
       ]
       ++ (with pkgs; [
         glowsans-j

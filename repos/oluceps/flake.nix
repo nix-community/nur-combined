@@ -23,7 +23,7 @@
           ++ [
             ./hosts
             (import ./topo.nix extraLibs)
-            vaultix.flakeModules.default
+            # vaultix.flakeModules.default
             inputs.nix-topology.flakeModule
             flake-parts.flakeModules.easyOverlay
           ];
@@ -94,7 +94,7 @@
           };
 
         flake = {
-          vaultix = {
+          vaultix = inputs.vaultix.configure {
             nodes =
               let
                 inherit (inputs.nixpkgs.lib) filterAttrs elem;
@@ -112,6 +112,7 @@
               ) self.nixosConfigurations;
             identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
             extraRecipients = [ extraLibs.data.keys.ageKey ];
+            defaultSecretDirectory = "./sec";
             cache = "./sec/.cache";
           };
           lib = inputs.nixpkgs.lib.extend self.overlays.lib;
@@ -156,7 +157,7 @@
     browser-previews = {
       url = "github:nix-community/browser-previews";
     };
-    vaultix.url = "github:milieuim/vaultix";
+    vaultix.url = "github:milieuim/vaultix/default-secdir";
     # vaultix.url = "/home/elen/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
