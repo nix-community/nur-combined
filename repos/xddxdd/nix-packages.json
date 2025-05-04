@@ -829,6 +829,11 @@
     "pname": "llama-cpp",
     "version": "5226"
   },
+  "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
+    "description": "List IOMMUs on system",
+    "pname": "ls-iommu",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
     "pname": "materialgram",
@@ -844,6 +849,11 @@
     "pname": "nginx-lantian",
     "version": "1.27.1.2-unstable-2025-04-13"
   },
+  "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
+    "description": "Cleanup old profiles on NixOS",
+    "pname": "nixos-cleanup",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
@@ -853,6 +863,11 @@
     "description": "Fast, easy and free BitTorrent client",
     "pname": "transmission",
     "version": "4.0.6"
+  },
+  "legacyPackages.x86_64-linux.lantianCustomized.x86-arch-level": {
+    "description": "Check x86 architecture level",
+    "pname": "x86-arch-level",
+    "version": ""
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts": {
     "description": "Linux CachyOS Kernel with Lan Tian Modifications",
