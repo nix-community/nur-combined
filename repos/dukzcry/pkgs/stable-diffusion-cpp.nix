@@ -14,7 +14,7 @@ let
     categories = [ "Graphics" ];
   };
 in stdenv.mkDerivation rec {
-  pname = "stable-diffusion-cli-gui";
+  pname = "stable-diffusion-cpp";
   version = "9b5942";
 
   src = fetchFromGitHub {
@@ -45,7 +45,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Stable Diffusion in pure C/C";
+    description = "Stable Diffusion in pure C/C++";
     homepage = "https://github.com/piallai/stable-diffusion.cpp";
     license = with lib.licenses; [ gpl3Only mit ];
     maintainers = with lib.maintainers; [ ];
