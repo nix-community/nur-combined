@@ -263,6 +263,27 @@
         },
         "version": "1.2.1"
     },
+    "bergamot-translator": {
+        "cargoLocks": null,
+        "date": "2024-05-12",
+        "extract": null,
+        "name": "bergamot-translator",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "browsermt",
+            "repo": "bergamot-translator",
+            "rev": "9271618ebbdc5d21ac4dc4df9e72beb7ce644774",
+            "sha256": "sha256-VWKFSxvCH7fVSABMieBWlA0knLYWLI61MyVqoZa6Pm4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "9271618ebbdc5d21ac4dc4df9e72beb7ce644774"
+    },
     "bilibili": {
         "cargoLocks": null,
         "date": null,
@@ -1790,6 +1811,48 @@
         },
         "version": "657a923cd4c333e681dc943e6894e6f6d42d25b4"
     },
+    "linguaspark-core": {
+        "cargoLocks": null,
+        "date": "2025-04-22",
+        "extract": null,
+        "name": "linguaspark-core",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LinguaSpark",
+            "repo": "core",
+            "rev": "6a2bc711cce73bc053675c0293dd37c8029e62dd",
+            "sha256": "sha256-2cDaHKrmCAkwUGc7FobMb5HAeSKQ2K/zrW6fh0D0TLk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6a2bc711cce73bc053675c0293dd37c8029e62dd"
+    },
+    "linguaspark-server": {
+        "cargoLocks": null,
+        "date": "2025-04-22",
+        "extract": null,
+        "name": "linguaspark-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LinguaSpark",
+            "repo": "server",
+            "rev": "f94b45925e130c08fa976a0ed370079a588578ae",
+            "sha256": "sha256-W6fwr/psngL4luyC3oD/VwopVEweCwaRN92RBLg/TBY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f94b45925e130c08fa976a0ed370079a588578ae"
+    },
     "linux-xanmod": {
         "cargoLocks": null,
         "date": null,
@@ -2051,27 +2114,6 @@
             "type": "github"
         },
         "version": "2.0.1.freeze"
-    },
-    "mtranservercore-rs": {
-        "cargoLocks": null,
-        "date": "2025-04-22",
-        "extract": null,
-        "name": "mtranservercore-rs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "LinguaSpark",
-            "repo": "server",
-            "rev": "f94b45925e130c08fa976a0ed370079a588578ae",
-            "sha256": "sha256-W6fwr/psngL4luyC3oD/VwopVEweCwaRN92RBLg/TBY=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "f94b45925e130c08fa976a0ed370079a588578ae"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,

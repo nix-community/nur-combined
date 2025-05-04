@@ -1321,7 +1321,7 @@
   },
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
-    "pname": "mtranservercore-rs",
+    "pname": "linguaspark-server",
     "version": "0-unstable-2025-04-22"
   },
   "legacyPackages.x86_64-linux.ncmdump-rs": {
@@ -4431,7 +4431,7 @@
   },
   "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
-    "pname": "mtranservercore-rs",
+    "pname": "linguaspark-server",
     "version": "0-unstable-2025-04-22"
   },
   "legacyPackages.x86_64-linux.uncategorized.ncmdump-rs": {
@@ -5366,7 +5366,7 @@
   },
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
-    "pname": "mtranservercore-rs",
+    "pname": "linguaspark-server",
     "version": "0-unstable-2025-04-22"
   },
   "packages.x86_64-linux.ncmdump-rs": {

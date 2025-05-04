@@ -1,7 +1,7 @@
-diff --git a/bergamot/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake b/bergamot/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
+diff --git a/3rd_party/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake b/3rd_party/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
 index 31352565..d90a366d 100644
---- a/bergamot/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
-+++ b/bergamot/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
+--- a/3rd_party/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
++++ b/3rd_party/bergamot-translator/3rd_party/marian-dev/cmake/GetVersionFromFile.cmake
 @@ -22,10 +22,8 @@ else()
  endif()
  
@@ -15,10 +15,10 @@ index 31352565..d90a366d 100644
  
  # Get partial versions into a list
  string(REGEX MATCHALL "-.*$|[0-9]+" PROJECT_PARTIAL_VERSION_LIST
-diff --git a/bergamot/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt b/bergamot/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
+diff --git a/3rd_party/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt b/3rd_party/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
 index 76aa0e2b..ca982bd3 100644
---- a/bergamot/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
-+++ b/bergamot/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
+--- a/3rd_party/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
++++ b/3rd_party/bergamot-translator/3rd_party/marian-dev/src/CMakeLists.txt
 @@ -149,23 +149,8 @@ target_compile_options(marian PRIVATE ${ALL_WARNINGS})
  #
  # We set MARIAN_GIT_DIR to the appropriate path, depending on whether

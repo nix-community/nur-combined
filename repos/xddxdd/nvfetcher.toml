@@ -59,6 +59,11 @@ fetch.url = "https://google.com/generate_204"
 src.pypi = "bepasty"
 fetch.pypi = "bepasty"
 
+[bergamot-translator]
+src.git = "https://github.com/browsermt/bergamot-translator.git"
+fetch.github = "browsermt/bergamot-translator"
+git.fetchSubmodules = true
+
 [bilibili]
 src.github = "msojocs/bilibili-linux"
 fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/$ver/bilibili-asar-$ver.tar.gz"
@@ -398,6 +403,11 @@ fetch.github = "lotem/librime-octagram"
 src.git = "https://github.com/lotem/librime-proto.git"
 fetch.github = "lotem/librime-proto"
 
+[linguaspark-core]
+src.git = "https://github.com/LinguaSpark/core.git"
+fetch.github = "LinguaSpark/core"
+git.fetchSubmodules = true
+
 [linux-xanmod]
 src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags"
 src.regex = "\"name\":\"([^\"]+)\","
@@ -460,7 +470,7 @@ fetch.github = "modelscope/modelscope"
 src.github = "bkerler/mtkclient"
 fetch.github = "bkerler/mtkclient"
 
-[mtranservercore-rs]
+[linguaspark-server]
 src.git = "https://github.com/LinguaSpark/server.git"
 fetch.github = "LinguaSpark/server"
 git.fetchSubmodules = true

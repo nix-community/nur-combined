@@ -22,6 +22,8 @@ let
             nixpkgs.config.allowUnfree = true;
             system.stateVersion = lib.trivial.release;
 
+            lantian.qemu-user-static-binfmt.package = packagesAttr.qemu-user-static;
+
             # Add all CI packages
             environment.etc = lib.mapAttrs' (
               _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
