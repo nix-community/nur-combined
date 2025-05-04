@@ -1138,12 +1138,12 @@
             "name": null,
             "owner": "glauth",
             "repo": "glauth",
-            "rev": "v2.4.0",
-            "sha256": "sha256-UUTL+ZnHRSYuD/TUYpsuo+Nu90kpA8ZL4XaGz6in3ME=",
+            "rev": "v2.3.2",
+            "sha256": "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.4.0"
+        "version": "v2.3.2"
     },
     "google-earth-pro": {
         "cargoLocks": null,
@@ -3406,6 +3406,27 @@
             "type": "github"
         },
         "version": "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197"
+    },
+    "rtpengine": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rtpengine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sipwise",
+            "repo": "rtpengine",
+            "rev": "mr13.2.1.1",
+            "sha256": "sha256-M0MWWHGx9FRkE4iBJhHY3ErsILgWT6ear2bUI0nKn3c=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "mr13.2.1.1"
     },
     "runpod-python": {
         "cargoLocks": null,

@@ -584,12 +584,12 @@
   };
   glauth = {
     pname = "glauth";
-    version = "v2.4.0";
+    version = "v2.3.2";
     src = fetchFromGitHub {
       owner = "glauth";
       repo = "glauth";
-      tag = "v2.4.0";
-      hash = "sha256-UUTL+ZnHRSYuD/TUYpsuo+Nu90kpA8ZL4XaGz6in3ME=";
+      tag = "v2.3.2";
+      hash = "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=";
     };
   };
   google-earth-pro = {
@@ -1744,6 +1744,16 @@
       hash = "sha256-nliVHuZ8MmirgQQAaaWl92nbx6zQhX+pXXimM+II0JY=";
     };
     date = "2023-09-09";
+  };
+  rtpengine = {
+    pname = "rtpengine";
+    version = "mr13.2.1.1";
+    src = fetchFromGitHub {
+      owner = "sipwise";
+      repo = "rtpengine";
+      tag = "mr13.2.1.1";
+      hash = "sha256-M0MWWHGx9FRkE4iBJhHY3ErsILgWT6ear2bUI0nKn3c=";
+    };
   };
   runpod-python = {
     pname = "runpod-python";

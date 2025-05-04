@@ -1,8 +1,20 @@
-{ lib, flake-parts-lib, ... }:
 {
+  devshell,
+  flake-parts-lib,
+  ...
+}:
+{
+  imports = [ devshell.flakeModule ];
+
   options.perSystem = flake-parts-lib.mkPerSystemOption (
-    { pkgs, config, ... }:
     {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
+    {
+
       options.commands = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
         default = { };
@@ -14,23 +26,25 @@
           program = pkgs.writeShellScriptBin n v;
         }) config.commands;
 
-        devShells.default = pkgs.mkShell (
-          {
-            buildInputs = lib.mapAttrsToList (
-              n: _v:
-              pkgs.writeShellScriptBin n ''
-                exec nix run .#${n} -- "$@"
-              ''
-            ) apps;
-          }
-          // (lib.optionalAttrs (config ? pre-commit) {
-            nativeBuildInputs = config.pre-commit.settings.enabledPackages ++ [
-              config.pre-commit.settings.package
-            ];
-            shellHook = config.pre-commit.installationScript;
+        devshells.default = {
+          commands = lib.mapAttrsToList (n: _v: {
+            name = n;
+            command = "exec nix run .#${n} -- \"$@\"";
+          }) apps;
 
-          })
-        );
+          motd = lib.mkDefault "";
+
+          packages = lib.optionals (config ? pre-commit) (
+            config.pre-commit.settings.enabledPackages
+            ++ [
+              config.pre-commit.settings.package
+            ]
+          );
+
+          devshell.startup = lib.optionalAttrs (config ? pre-commit) {
+            pre-commit.text = config.pre-commit.installationScript;
+          };
+        };
       };
     }
   );

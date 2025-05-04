@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.deprecated.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
-    "version": "2.4.0"
+    "version": "2.3.2"
   },
   "legacyPackages.x86_64-linux.deprecated.inter-knot": {
     "description": "(DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台",
@@ -632,7 +632,7 @@
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
-    "version": "2.4.0"
+    "version": "2.3.2"
   },
   "legacyPackages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
@@ -3979,6 +3979,11 @@
     "pname": "route-chain",
     "version": "0-unstable-2023-09-09"
   },
+  "legacyPackages.x86_64-linux.rtpengine": {
+    "description": "Sipwise media proxy for Kamailio",
+    "pname": "rtpengine-mr13.2.1.1",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
@@ -4624,6 +4629,11 @@
     "pname": "route-chain",
     "version": "0-unstable-2023-09-09"
   },
+  "legacyPackages.x86_64-linux.uncategorized.rtpengine": {
+    "description": "Sipwise media proxy for Kamailio",
+    "pname": "rtpengine-mr13.2.1.1",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.uncategorized.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
@@ -5117,7 +5127,7 @@
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
-    "version": "2.4.0"
+    "version": "2.3.2"
   },
   "packages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
@@ -5633,6 +5643,11 @@
     "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain",
     "version": "0-unstable-2023-09-09"
+  },
+  "packages.x86_64-linux.rtpengine": {
+    "description": "Sipwise media proxy for Kamailio",
+    "pname": "rtpengine-mr13.2.1.1",
+    "version": ""
   },
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",

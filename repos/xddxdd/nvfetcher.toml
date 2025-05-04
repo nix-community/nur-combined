@@ -257,7 +257,8 @@ src.git = "https://github.com/modelscope/FunASR.git"
 fetch.github = "modelscope/FunASR"
 
 [glauth]
-src.github = "glauth/glauth"
+src.manual = "v2.3.2"
+# src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
 
 [google-earth-pro]
@@ -768,6 +769,10 @@ fetch.github = "ashleve/rootutils"
 [route-chain]
 src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
+
+[rtpengine]
+src.github = "sipwise/rtpengine"
+fetch.github = "sipwise/rtpengine"
 
 [runpodctl]
 src.github = "runpod/runpodctl"
