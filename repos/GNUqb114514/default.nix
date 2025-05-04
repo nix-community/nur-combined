@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pegviz = pkgs.callPackage ./pkgs/pegviz { };
+  lxgw-wenkai-gb = pkgs.callPackage ./pkgs/lxgw-wenkai-gb { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
