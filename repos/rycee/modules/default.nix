@@ -1,3 +1,1 @@
-{
-  containers-docker-support = ./containers-docker-support.nix;
-}
+{ containers-docker-support = ./containers-docker-support.nix; }

@@ -1,5 +1,4 @@
 [
-  {"slug":"better-darker-docs"},
   {
     "slug": "10ten-ja-reader"
   },
@@ -122,6 +121,9 @@
   },
   {
     "slug": "better-canvas"
+  },
+  {
+    "slug": "better-darker-docs"
   },
   {
     "slug": "betterttv",
@@ -1434,6 +1436,9 @@
     "slug": "rsspreview"
   },
   {
+    "slug": "ruffle_rs"
+  },
+  {
     "slug": "rust-search-extension"
   },
   {
@@ -1924,6 +1929,9 @@
   {
     "slug": "wayback-machine_new",
     "pname": "wayback-machine"
+  },
+  {
+    "slug": "web-clipper-obsidian"
   },
   {
     "slug": "web-developer"
