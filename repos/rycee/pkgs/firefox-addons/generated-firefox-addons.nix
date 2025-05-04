@@ -2909,10 +2909,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.6.0";
+      version = "1.7.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4459064/elasticvue-1.6.0.xpi";
-      sha256 = "7cd2c184c8a257300f5ab1fe7d33d4fa71c0642bdf3cd51c85253ac2b877fe94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4486030/elasticvue-1.7.0.xpi";
+      sha256 = "1593351e7f845cd2bf4a4fbcb20f0d618bd6650fffcba9625752156d92eabb62";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -6928,10 +6928,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.3.2";
+      version = "1.3.3";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4432836/linkwarden-1.3.2.xpi";
-      sha256 = "99cb54fae45bdae23ef5620ea3ba89e017caad4bca95b09521ac04382d0c2fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4485947/linkwarden-1.3.3.xpi";
+      sha256 = "4f1f38cf8a86e2b709d4f25c3f3040e4abaa9e2e62f0f5d5a4995eb42d8e0cfd";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
