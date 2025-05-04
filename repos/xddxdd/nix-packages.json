@@ -779,6 +779,11 @@
     "pname": "r8168",
     "version": "8.055.00"
   },
+  "legacyPackages.x86_64-linux.kernel-modules.xt_rtpengine": {
+    "description": "Sipwise media proxy for Kamailio (kernel module)",
+    "pname": "xt_rtpengine-mr13.2.1.1",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
@@ -4874,6 +4879,11 @@
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
   },
+  "legacyPackages.x86_64-linux.xt_rtpengine": {
+    "description": "Sipwise media proxy for Kamailio (kernel module)",
+    "pname": "xt_rtpengine-mr13.2.1.1",
+    "version": ""
+  },
   "legacyPackages.x86_64-linux.xue": {
     "description": "Minimalist web front-end framework composed of HTMX and Python",
     "pname": "python3.12-xue",
@@ -5848,6 +5858,11 @@
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
+  },
+  "packages.x86_64-linux.xt_rtpengine": {
+    "description": "Sipwise media proxy for Kamailio (kernel module)",
+    "pname": "xt_rtpengine-mr13.2.1.1",
+    "version": ""
   },
   "packages.x86_64-linux.xue": {
     "description": "Minimalist web front-end framework composed of HTMX and Python",
