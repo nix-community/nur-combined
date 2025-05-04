@@ -197,13 +197,12 @@ src.git = "https://github.com/spoonnotfound/fake-ollama.git"
 fetch.github = "spoonnotfound/fake-ollama"
 
 [fastapi-dls]
-src.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
-fetch.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
+src.git = "https://github.com/GreenDamTan/fastapi-dls_mirror.git"
+fetch.github = "GreenDamTan/fastapi-dls_mirror"
 
 [fastapi-dls-stable]
-src.webpage = "https://gitea.publichub.eu/api/v1/repos/oscar.krause/fastapi-dls/tags"
-src.regex = "\"name\":\"([^\\\"]+)\""
-fetch.url = "https://google.com/generate_204"
+src.github_tag = "GreenDamTan/fastapi-dls_mirror"
+fetch.github = "GreenDamTan/fastapi-dls_mirror"
 
 [fcitx5-breeze]
 src.webpage = "https://gitlab.com/api/v4/projects/53966606/releases/"

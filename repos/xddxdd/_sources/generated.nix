@@ -465,10 +465,10 @@
   fastapi-dls = {
     pname = "fastapi-dls";
     version = "b577edcf67318ba3caf3842fc173208eba99c5d1";
-    src = fetchgit {
-      url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
+    src = fetchFromGitHub {
+      owner = "GreenDamTan";
+      repo = "fastapi-dls_mirror";
       rev = "b577edcf67318ba3caf3842fc173208eba99c5d1";
-      fetchSubmodules = false;
       hash = "sha256-5IgmIIFNhE0p2tqh0KvsUNcIKpOvOw/oaIiplxxuIKI=";
     };
     date = "2025-04-23";
@@ -476,9 +476,11 @@
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
     version = "2.0.0";
-    src = fetchurl {
-      url = "https://google.com/generate_204";
-      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    src = fetchFromGitHub {
+      owner = "GreenDamTan";
+      repo = "fastapi-dls_mirror";
+      tag = "2.0.0";
+      hash = "sha256-QRWUd+Vstt9T1aZ9mCMpoJgzgxfkhTOY0j2IqKfz95U=";
     };
   };
   fcitx5-breeze = {

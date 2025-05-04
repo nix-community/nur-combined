@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mv $out/bin/server $out/bin/${finalAttrs.pname}
   '';
 
-  cargoHash = "sha256-lMHaSkOF7v7Sbe8CaSxfcD61BcKSuk9e0LGQeiYPe7U=";
+  cargoHash = "sha256-ztttmouKz0SmQ3HDFnSfTdOpj9DS2uRQmKwiuez41mA=";
   useFetchCargoVendor = true;
 
   env.MKLROOT = "${mklStatic}";
@@ -46,5 +46,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs";
     homepage = "https://github.com/LinguaSpark/server";
     license = lib.licenses.agpl3Only;
+    inherit (mklStatic.meta) platforms;
   };
 })

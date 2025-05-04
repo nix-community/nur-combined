@@ -906,11 +906,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
+            "owner": "GreenDamTan",
+            "repo": "fastapi-dls_mirror",
             "rev": "b577edcf67318ba3caf3842fc173208eba99c5d1",
             "sha256": "sha256-5IgmIIFNhE0p2tqh0KvsUNcIKpOvOw/oaIiplxxuIKI=",
             "sparseCheckout": [],
-            "type": "git",
-            "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
+            "type": "github"
         },
         "version": "b577edcf67318ba3caf3842fc173208eba99c5d1"
     },
@@ -922,10 +923,16 @@
         "passthru": null,
         "pinned": false,
         "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
             "name": null,
-            "sha256": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
-            "type": "url",
-            "url": "https://google.com/generate_204"
+            "owner": "GreenDamTan",
+            "repo": "fastapi-dls_mirror",
+            "rev": "2.0.0",
+            "sha256": "sha256-QRWUd+Vstt9T1aZ9mCMpoJgzgxfkhTOY0j2IqKfz95U=",
+            "sparseCheckout": [],
+            "type": "github"
         },
         "version": "2.0.0"
     },

@@ -159,7 +159,7 @@ Or, use variables from this repository in case I change them:
 |  | `metee` | [metee](https://github.com/intel/metee) | 5.0.0 | C library to access CSE/CSME/GSC firmware via a MEI interface |
 |  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.25.0 | Bring the notion of Model-as-a-Service to life |
 |  | `mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 2.0.1.freeze | MTK reverse engineering and flash tool |
-|  | `mtranservercore-rs` | [mtranservercore-rs](https://github.com/LinguaSpark/server) | 0-unstable-2025-04-22 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
+| `x86_64-linux` | `mtranservercore-rs` | [mtranservercore-rs](https://github.com/LinguaSpark/server) | 0-unstable-2025-04-22 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `ncmdump-rs` | [ncmdump-rs](https://github.com/iqiziqi/ncmdump.rs) | 0.8.0 | NetEase Cloud Music copyright protection file dump by rust |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.86 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE |
 | `x86_64-linux` | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
@@ -1102,7 +1102,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 28.1 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `uncategorized.mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.6.1 | Matrix-Google Messages puppeting bridge |
 |  | `uncategorized.metee` | [metee](https://github.com/intel/metee) | 5.0.0 | C library to access CSE/CSME/GSC firmware via a MEI interface |
-|  | `uncategorized.mtranservercore-rs` | [mtranservercore-rs](https://github.com/LinguaSpark/server) | 0-unstable-2025-04-22 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
+| `x86_64-linux` | `uncategorized.mtranservercore-rs` | [mtranservercore-rs](https://github.com/LinguaSpark/server) | 0-unstable-2025-04-22 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.ncmdump-rs` | [ncmdump-rs](https://github.com/iqiziqi/ncmdump.rs) | 0.8.0 | NetEase Cloud Music copyright protection file dump by rust |
 |  | `uncategorized.netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.86 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE |
 | `x86_64-linux` | `uncategorized.netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
