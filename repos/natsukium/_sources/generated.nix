@@ -94,15 +94,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "dcd538c1cb63026543665d762feb4740d591ddf5";
+    version = "df35c7425429c7670e20106a163bc0e06b042329";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "dcd538c1cb63026543665d762feb4740d591ddf5";
+      rev = "df35c7425429c7670e20106a163bc0e06b042329";
       fetchSubmodules = false;
-      sha256 = "sha256-u5fWC8a4HBGgWinGH5KCmusRJSalrVv7ke4YUkBj+zs=";
+      sha256 = "sha256-skkBeLXxLPNmiQR16B1Zqeim8FBz/eF5f8p3CiHCqVo=";
     };
-    date = "2025-04-27";
+    date = "2025-05-03";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
@@ -114,10 +114,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.11.5b";
+    version = "1.12.1b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.11.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-iONb4jqWW6XKZA0BwNr9KkaTw7mLtkwF6S/veN4gktU=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.12.1b/zen.macos-universal.dmg";
+      sha256 = "sha256-cf6d//9tjYvUVZHtAsvpJ5H0+8Pw/99dYViAhH8qIZM=";
     };
   };
 }
