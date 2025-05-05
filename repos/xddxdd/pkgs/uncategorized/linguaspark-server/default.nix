@@ -7,9 +7,10 @@
   callPackage,
   runCommandNoCC,
   autoPatchelfHook,
+  buildArch ? null,
 }:
 let
-  linguaspark-core = callPackage ./linguaspark-core.nix { inherit sources; };
+  linguaspark-core = callPackage ./linguaspark-core.nix { inherit sources buildArch; };
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.linguaspark-server) pname version src;
@@ -47,6 +48,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs";
     homepage = "https://github.com/LinguaSpark/server";
     license = lib.licenses.agpl3Only;
-    inherit (linguaspark-core.meta) platforms;
+    platforms = [ "x86_64-linux" ];
   };
 })
