@@ -7,6 +7,7 @@
   pydantic-settings,
   tree-sitter,
   tree-sitter-devicetree,
+  pyparsing,
   poetry-core,
   pythonRelaxDepsHook,
   lib,
@@ -28,6 +29,7 @@ buildPythonPackage {
   propagatedBuildInputs = [
     pydantic
     pcpp
+    pyparsing
     pyyaml
     platformdirs
     pydantic-settings
