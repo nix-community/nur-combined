@@ -29,10 +29,9 @@ let
   ];
 in
 {
-  kaambl = {
-  } // sum;
-  hastur = {
-  } // sum;
-  eihort = {
-  } // sum;
+  kaambl = sum;
+  hastur = sum;
+  eihort = sum // {
+    "127.0.0.1" = srvOnEihort;
+  };
 }
