@@ -23,7 +23,7 @@
           ++ [
             ./hosts
             (import ./topo.nix extraLibs)
-            # vaultix.flakeModules.default
+            vaultix.flakeModules.default
             inputs.nix-topology.flakeModule
             flake-parts.flakeModules.easyOverlay
           ];
@@ -94,7 +94,7 @@
           };
 
         flake = {
-          vaultix = inputs.vaultix.configure {
+          vaultix = {
             nodes =
               let
                 inherit (inputs.nixpkgs.lib) filterAttrs elem;
