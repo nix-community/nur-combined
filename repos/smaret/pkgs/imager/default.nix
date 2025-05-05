@@ -90,6 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper $out/libexec/bin/imager $out/bin/imager \
        --set GAG_ROOT_DIR $out \
        --set GAG_PATH $out/etc \
+       --set GAG_EXEC_SYSTEM libexec \
        --set GAG_GAG \$HOME/.gag \
        --set PYTHONHOME ${python3Env} \
        --prefix PYTHONPATH : $out/libexec/python \
