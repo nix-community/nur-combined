@@ -17,7 +17,7 @@ buildGoModule rec {
     pname = "${pname}-frontend";
     inherit version src;
 
-    npmDepsHash = "sha256-YqCRbv9QOqrqI+lsDSYhHZI/0Dkn1HnR/wyR/2sIg40=";
+    npmDepsHash = "sha256-qzVNNVuIzKvNI4coZYpqN7Efm21YCqVCYs2IBTjOgcw=";
 
     inherit nodejs;
 
@@ -30,7 +30,7 @@ buildGoModule rec {
     '';
   };
 
-  vendorHash = "sha256-5sv2pZ2INdmH0DJD8Wf83b54z3Mpegvj9AVSpGCq4R4=";
+  vendorHash = "sha256-UMu4xRs1Lb14sE1pXbFXclLqTfCATh92BzY9VbCYquM=";
 
   ldflags = [
     "-X main.version=${version}"

@@ -15,9 +15,15 @@ let
     packages = lib.filterAttrs (name: drv: lib.isDerivation drv) pkgs.nur;
     sources = {
       freenginx = {
-        source = "mercurial";
-        mercurial = "http://freenginx.org/hg/nginx";
+        source = "github";
+        github = "freenginx/nginx";
+        use_max_tag = true;
         prefix = "release-";
+      };
+      fw-ectool = {
+        source = "git";
+        git = "https://gitlab.howett.net/DHowett/ectool.git";
+        use_commit = true;
       };
       iocaine = {
         source = "gitea";
@@ -25,6 +31,20 @@ let
         gitea = "iocaine/iocaine";
         use_max_tag = true;
         prefix = "iocaine-";
+      };
+      safetwitch = {
+        source = "gitea";
+        host = "codeberg.org";
+        gitea = "SafeTwitch/safetwitch-backend";
+        use_max_tag = true;
+        prefix = "v";
+      };
+      safetwitch-frontend = {
+        source = "gitea";
+        host = "codeberg.org";
+        gitea = "SafeTwitch/safetwitch";
+        use_max_tag = true;
+        prefix = "v";
       };
       tumelune = {
         source = "gitlab";
