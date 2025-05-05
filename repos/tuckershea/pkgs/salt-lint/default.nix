@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     description = "Command-line utility that checks for best practices in SaltStack";
     homepage = "https://salt-lint.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [  ];
+    maintainers = with maintainers; [ ];
     mainProgram = "salt-lint";
   };
 }

@@ -14,7 +14,7 @@ let
     rev = "v${version}";
     sha256 = "sha256-wprsaIe6hgH28yHkSqdHQdFyQMvObQY6hChsfBTviTA=";
   };
-  
+
   cfgDerivation = stdenv.mkDerivation {
     pname = "${pname}-cfg";
     inherit version;
@@ -34,19 +34,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-+Q/GVNKhzytAdw5Ni71bwW/TgFU/oIfd6CkOfWSg2VI=";
 
-  patches = [
-    ./linker-writable-default-cfgdir.patch
-  ];
+  patches = [ ./linker-writable-default-cfgdir.patch ];
 
-  ldflags = [
-    "-X main.cfgDir=${cfgDerivation}/cfg"
-  ];
+  ldflags = [ "-X main.cfgDir=${cfgDerivation}/cfg" ];
 
   meta = with lib; {
     description = "Checks whether a Linux server according to security best practices as defined in the CIS Distribution-Independent Linux Benchmark";
     homepage = "https://github.com/aquasecurity/linux-bench";
     license = licenses.asl20;
-    maintainers = [  ];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

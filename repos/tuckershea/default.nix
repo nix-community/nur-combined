@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -14,7 +16,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  linux-bench = pkgs.callPackage ./pkgs/linux-bench {};
-  mailrise = pkgs.callPackage ./pkgs/mailrise {};
-  salt-lint = pkgs.callPackage ./pkgs/salt-lint {};
+  linux-bench = pkgs.callPackage ./pkgs/linux-bench { };
+  mailrise = pkgs.callPackage ./pkgs/mailrise { };
+  salt-lint = pkgs.callPackage ./pkgs/salt-lint { };
 }
