@@ -2069,7 +2069,7 @@
       sha256 = "4606a84e211a65ab7e8dd19b2df1765ca71cb11dde4922b7fd3b668fc3b7dbaf";
       meta = with lib;
       {
-        homepage = "https://github.com/insin/control-panel-for-twitter";
+        homepage = "https://soitis.dev/control-panel-for-twitter";
         description = "Gives you more control over Twitter and adds missing features and UI improvements";
         license = licenses.mit;
         mozPermissions = [
