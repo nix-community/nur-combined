@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     let
       # lv2 = lib.optionalString lv2Plugins ",lv2";
       NodalRed2x = lib.optionalString nodalRed2xPlugin "NodalRed2x";
-      Osirus = lib.optionalString osirusPlugin "NodalRed2x";
+      Osirus = lib.optionalString osirusPlugin "Osirus";
       OsTIrus = lib.optionalString osTIrusPlugin "OsTIrus";
       Vavra = lib.optionalString vavraPlugin "Vavra";
       Xenia = lib.optionalString xeniaPlugin "Xenia";
