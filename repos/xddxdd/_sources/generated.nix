@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "f2f952ed34a9082a27ce56dedfad794aa17c0195";
+    version = "9f82f52923b68f45454872b2e355d4c28273365b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "f2f952ed34a9082a27ce56dedfad794aa17c0195";
-      hash = "sha256-QxIIlheDu44ed+QMygMtqsvCBstXlbxujZ4JE4/NoOc=";
+      rev = "9f82f52923b68f45454872b2e355d4c28273365b";
+      hash = "sha256-KJNUnh/IYDxxX3bFMIy63C/m6eDiHrB5v856ecvk1Zg=";
     };
     date = "2025-05-05";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "0e4d5010202eb9d0c220899a470dbfeee1be00c2";
+    version = "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "0e4d5010202eb9d0c220899a470dbfeee1be00c2";
-      hash = "sha256-QcVhKOuofgBL79XbvuiKFwRCuPpa8ue24mDkNHbhic4=";
+      rev = "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9";
+      hash = "sha256-6lIlqAxbArvzeg6Zb6gX0PwsmnAo4GOK8lPGAZ2qZow=";
     };
-    date = "2025-05-03";
+    date = "2025-05-05";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5281";
+    version = "b5289";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5281";
-      hash = "sha256-TlMtKrm2Dsy1AFk3Y5rYXzAJIzKSwYjruWcPvkO26aM=";
+      tag = "b5289";
+      hash = "sha256-jSRCNhdVE0zZFDMARNz6oSLj0JYPFjgKCgEvc70sZvE=";
     };
   };
   loralib = {
@@ -1192,12 +1192,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.8.10";
+    version = "0.9.0";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.8.10";
-      hash = "sha256-3F0zuUxRJW5sJ17XBRFeNq8zAKnw/JtKr9m+kd6+l1I=";
+      tag = "0.9.0";
+      hash = "sha256-JqesjoyxJvGu0JJyGKqQx5Mb206oSRXqvuMkoC4YLCM=";
     };
   };
   ngx_brotli = {
@@ -2032,12 +2032,12 @@
   };
   uesave = {
     pname = "uesave";
-    version = "v0.6.1";
+    version = "v0.6.2";
     src = fetchFromGitHub {
       owner = "trumank";
       repo = "uesave-rs";
-      tag = "v0.6.1";
-      hash = "sha256-wUl5A6UFbWYIJPaG2yzSwvoGnZSwa5vWdOyuIguFaso=";
+      tag = "v0.6.2";
+      hash = "sha256-cwkeuHmtIS8zTxTSa1qLtWfN2OZinqKngMEYvrCCAk0=";
     };
   };
   uesave-0_3_0 = {

@@ -406,16 +406,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "f2f952ed34a9082a27ce56dedfad794aa17c0195",
-            "sha256": "sha256-QxIIlheDu44ed+QMygMtqsvCBstXlbxujZ4JE4/NoOc=",
+            "rev": "9f82f52923b68f45454872b2e355d4c28273365b",
+            "sha256": "sha256-KJNUnh/IYDxxX3bFMIy63C/m6eDiHrB5v856ecvk1Zg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f2f952ed34a9082a27ce56dedfad794aa17c0195"
+        "version": "9f82f52923b68f45454872b2e355d4c28273365b"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-05-03",
+        "date": "2025-05-05",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "0e4d5010202eb9d0c220899a470dbfeee1be00c2",
-            "sha256": "sha256-QcVhKOuofgBL79XbvuiKFwRCuPpa8ue24mDkNHbhic4=",
+            "rev": "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9",
+            "sha256": "sha256-6lIlqAxbArvzeg6Zb6gX0PwsmnAo4GOK8lPGAZ2qZow=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0e4d5010202eb9d0c220899a470dbfeee1be00c2"
+        "version": "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5281",
-            "sha256": "sha256-TlMtKrm2Dsy1AFk3Y5rYXzAJIzKSwYjruWcPvkO26aM=",
+            "rev": "b5289",
+            "sha256": "sha256-jSRCNhdVE0zZFDMARNz6oSLj0JYPFjgKCgEvc70sZvE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5281"
+        "version": "b5289"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2327,12 +2327,12 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.8.10",
-            "sha256": "sha256-3F0zuUxRJW5sJ17XBRFeNq8zAKnw/JtKr9m+kd6+l1I=",
+            "rev": "0.9.0",
+            "sha256": "sha256-JqesjoyxJvGu0JJyGKqQx5Mb206oSRXqvuMkoC4YLCM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.8.10"
+        "version": "0.9.0"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -3974,12 +3974,12 @@
             "name": null,
             "owner": "trumank",
             "repo": "uesave-rs",
-            "rev": "v0.6.1",
-            "sha256": "sha256-wUl5A6UFbWYIJPaG2yzSwvoGnZSwa5vWdOyuIguFaso=",
+            "rev": "v0.6.2",
+            "sha256": "sha256-cwkeuHmtIS8zTxTSa1qLtWfN2OZinqKngMEYvrCCAk0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.6.1"
+        "version": "v0.6.2"
     },
     "uesave-0_3_0": {
         "cargoLocks": null,

@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5281"
+    "version": "5289"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4137,7 +4137,7 @@
   "legacyPackages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "legacyPackages.x86_64-linux.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
@@ -4727,7 +4727,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
@@ -5787,7 +5787,7 @@
   "packages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "packages.x86_64-linux.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
