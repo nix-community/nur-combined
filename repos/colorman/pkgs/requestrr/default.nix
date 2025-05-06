@@ -58,4 +58,5 @@ in
         nodejs.meta.platforms;
       mainProgram = "Requestrr.WebApi";
     };
+    preferLocalBuild = true;
   }
