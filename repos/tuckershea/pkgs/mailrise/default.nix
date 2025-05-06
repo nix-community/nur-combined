@@ -17,9 +17,7 @@ python3Packages.buildPythonApplication rec {
     aiosmtpd
     pyyaml
 
-    setuptools
-    setuptools_scm
-    wheel
+    pip
   ];
 
   pythonImportsCheck = [ "mailrise" ];
