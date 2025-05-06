@@ -10,14 +10,12 @@ rec {
         (builtins.readDir dir)
     );
 
-  # read all modules in a directory as a list
-  # dir should be a path
-  listModules = dir: map
-    (m: dir + "/${m}")
-    (filterDir
-      # if it's a directory, it should contain default.nix
-      (n: v: v == "directory" || strings.hasSuffix ".nix" n)
-      dir);
+  # list names of all modules in a dir (a dir or nix file)
+  # ()f it's a directory, it should contain default.nix
+  listModuleNames = filterDir (n: v: v == "directory" || strings.hasSuffix ".nix" n);
+
+  # list paths of all modules in a dir
+  listModulePaths = dir: map (v: dir + "/${v}") (listModuleNames dir);
 
   # list names of all subdirectories in a dir
   listSubdirNames = filterDir (n: v: v == "directory");
