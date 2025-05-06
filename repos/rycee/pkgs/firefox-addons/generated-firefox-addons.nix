@@ -27,14 +27,14 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.7.3";
+      version = "1.7.4";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4373796/2fas_two_factor_authentication-1.7.3.xpi";
-      sha256 = "fe3ddab5b5b7414682a4336314e4d5dc180a43cea3009818784c14504a1e2472";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4486799/2fas_two_factor_authentication-1.7.4.xpi";
+      sha256 = "1009604f495182a7e3f83c24252bcfafaa24061fc3e2e03e406b0e9f9a49038e";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
-        description = "2FAS extension is simple, private, and secured: one click, one tap, and your 2FA token is automatically entered!";
+        description = "2FAS Auth Browser Extension is simple, private, and secured: one click, one tap, and your 2FA token is automatically entered!";
         license = licenses.gpl3;
         mozPermissions = [
           "activeTab"
@@ -43,8 +43,6 @@
           "notifications"
           "contextMenus"
           "webNavigation"
-          "https://*.2fas.com/*"
-          "wss://*.2fas.com/*"
           "https://*/*"
           "http://*/*"
         ];
@@ -2287,10 +2285,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "139.0.20250502.90704";
+      version = "139.0.20250505.113901";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485313/dansk_da_language_pack-139.0.20250502.90704.xpi";
-      sha256 = "7a5d7d59fafebf42e90dd5d4e85dc38087dad43898877b13eac163312e5257a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487101/dansk_da_language_pack-139.0.20250505.113901.xpi";
+      sha256 = "cf4a945dcac2710a7b2cc29e6ca4c8866c257cad0b0cf283b673cd1ea0f17aaf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2484,10 +2482,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "139.0.20250502.90704";
+      version = "139.0.20250505.113901";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485314/deutsch_de_language_pack-139.0.20250502.90704.xpi";
-      sha256 = "fe1fca2407d966849aa0fa35197943d32b42c8f5db9f73c879428c188dc638e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487087/deutsch_de_language_pack-139.0.20250505.113901.xpi";
+      sha256 = "b54738870d48b11ced6a2d7cc755e9729581053e439afd0cb785165c16b6eaef";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2746,10 +2744,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.59.1";
+      version = "2.59.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4483376/dualsub-2.59.1.xpi";
-      sha256 = "f1f0a5f76893f85a4f70a39964d4fedd103927b4c9e5810a206e99d5c7f0a351";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4486998/dualsub-2.59.2.xpi";
+      sha256 = "9059e2d5881bde1fe12d732ecef5dc040e2457141e904a022d39b06019e8ee43";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3740,10 +3738,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "139.0.20250502.90704";
+      version = "139.0.20250505.113901";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485333/francais_language_pack-139.0.20250502.90704.xpi";
-      sha256 = "b5c0e58c3985280bd72835296c41b87dab28e864e6edcae798467b5876556d6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487113/francais_language_pack-139.0.20250505.113901.xpi";
+      sha256 = "78f7f92a5951ee9493d498b1125434ccdafa28a5f1060633b9ff40804b40f19b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3777,10 +3775,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "139.0.20250502.90704";
+      version = "139.0.20250505.113901";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485396/gaidhlig_language_pack-139.0.20250502.90704.xpi";
-      sha256 = "351fab1419806a50bfdce2ff0304d0ebfe3a8733a94a4aa5d174728f7fff6418";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487115/gaidhlig_language_pack-139.0.20250505.113901.xpi";
+      sha256 = "01575d48c11c1f23e58378e7c9a8332e53eabb575f6df0f766c54993cdd2919d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7970,10 +7968,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.22.1";
+      version = "2.23.0";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4469886/momentumdash-2.22.1.xpi";
-      sha256 = "ced3238d5f462557c46f3b0558146c3c6e76a6c619176f4217a25ad990fb7fc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4479085/momentumdash-2.23.0.xpi";
+      sha256 = "f052c451a2315b353c457be3a4dc3c064254a77e7db183629c77a7a2d9c27439";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8907,10 +8905,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "5.0.0";
+      version = "5.0.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4471580/passbolt-5.0.0.xpi";
-      sha256 = "266f82e820a812a50fe22d7362cb789e96b772711466daa298d7e25944e709ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480292/passbolt-5.0.1.xpi";
+      sha256 = "dc3da80fec64c654c244b1a298ee2339f2067fc98eb6257bee5a2b35a8211146";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10591,10 +10589,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "139.0.20250502.90704";
+      version = "139.0.20250505.113901";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485344/scots_language_pack-139.0.20250502.90704.xpi";
-      sha256 = "b2a986826b1cb30ef4c0d8d7027bd943671eeef90713f26f794ce8465d7db142";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487153/scots_language_pack-139.0.20250505.113901.xpi";
+      sha256 = "bf1b2fb813bd89c5e814275eea7b981e09f2b1178de1ff3bc42f39d79bba716b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11247,10 +11245,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.11.10";
+      version = "5.12.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4465727/sponsorblock-5.11.10.xpi";
-      sha256 = "07e8f50f01a7be1d7b35233a26f599d1471a5b601acd8dfa07dc023c86cac83d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4480833/sponsorblock-5.12.1.xpi";
+      sha256 = "1ba2e6f90f64281397c131f8cd195faa01832600bee19ec3b93dce9366cfa96e";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -14228,10 +14226,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.8.1";
+      version = "3.8.2";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4481722/youtube_redux-3.8.1.xpi";
-      sha256 = "df85c6721aa33820698dfdce637b71fd41edf2c9cb4aecabbcc127b1dd10fb7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487262/youtube_redux-3.8.2.xpi";
+      sha256 = "9e0da7d841ed8595f8c97ac03ada7c3d0ca0bbb7fe93957983e518324267315a";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
