@@ -16,4 +16,5 @@ in {
   problemtools = callPackage ./pkgs/problemtools {};
   bapctools = callPackage ./pkgs/bapctools {};
   speed-cloudflare-cli = callPackage ./pkgs/speed-cloudflare-cli {};
+  requestrr = callPackage ./pkgs/requestrr {};
 }
