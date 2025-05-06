@@ -5,7 +5,7 @@
   pkg-config,
   haskellPackages,
   cudaPackages,
-  substituteAll,
+  replaceVars,
   fetchFromGitHub,
 }:
 cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
@@ -19,8 +19,7 @@ cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-Ba0Fi0v/sQ+1iJ4mslgyIAE+oK5KO0lMoTQCC91vpiA=";
   };
   patches = [
-    (substituteAll {
-      src = ./meson.patch;
+    (replaceVars ./meson.patch {
       inherit (finalAttrs) version;
     })
     ./cpp20.patch
