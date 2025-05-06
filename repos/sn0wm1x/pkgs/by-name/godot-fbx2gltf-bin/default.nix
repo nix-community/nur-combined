@@ -16,6 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    stdenv.cc.cc.libgcc
+  ];
 
   sourceRoot = ".";
 
