@@ -21,7 +21,7 @@
           '';
         };
 
-        package = mkPackageOption pkgs "requestrr" {};
+        package = mkPackageOption pkgs.nur "requestrr" {};
 
         settings = mkOption {
           type = types.attrs;
@@ -117,10 +117,6 @@ in {
     instances = lib.attrValues cfg.instances;
     mapInstances = f: lib.mkMerge (map f instances);
   in {
-    nixpkgs.overlays = [
-      (import ../overlays/requestrr.nix)
-    ];
-
     systemd.services = mapInstances (instance:
       lib.mkIf instance.enable {
         "requestrr-${instance.name}" = mkInstanceServiceConfig instance;
