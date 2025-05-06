@@ -21,7 +21,7 @@
           '';
         };
 
-        package = mkPackageOption pkgs.nur "requestrr" {};
+        package = mkPackageOption pkgs.nur.repos.colorman "requestrr" {};
 
         settings = mkOption {
           type = types.attrs;
