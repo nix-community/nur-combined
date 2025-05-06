@@ -6,17 +6,18 @@ let
   page = { name
            , protocol ? "http"
            , host ? "127.0.0.1"
-           , port
+           , port ? ""
            , attrs ? {}
            , hasWidget ? true
            , hasSiteMonitor ? false
            , path ? ""
            , description ? ""
+           , nginx ? true
            , ...
          }:
     {
       "${name}" = rec {
-        href = "//${name}.${cfg.networking.fqdn}/${path}";
+        href = "//" + optionalString nginx "${name}." + "${cfg.networking.fqdn}/${path}";
         icon = attrs.alticon or "${name}.png";
         siteMonitor = optionalString hasSiteMonitor "${protocol}://${host}:${toString port}";
         inherit description;
@@ -30,7 +31,7 @@ let
   nginx = { name
             , protocol ? "http"
             , host ? "127.0.0.1"
-            , port
+            , port ? ""
             , websockets ? false
             , ...
           }:
@@ -88,7 +89,7 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.homepage-dashboard.listenPort}";
         };
       };
-    } // mergeAttrsList (flatten' cond nginx cfg.allservices);
+    } // mergeAttrsList (flatten' cond nginx (filter (x: x.nginx or true) cfg.allservices));
     services.homepage-dashboard.enable = true;
     services.homepage-dashboard.settings = {
       target = "_self";
