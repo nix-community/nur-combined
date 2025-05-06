@@ -12,7 +12,7 @@ rec {
 
   # read all modules in a directory as a list
   # dir should be a path
-  readModules = dir: map
+  listModules = dir: map
     (m: dir + "/${m}")
     (filterDir
       # if it's a directory, it should contain default.nix
