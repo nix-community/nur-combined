@@ -1,0 +1,22 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions: []
+dictionaries: []
+words:
+  - arpk
+  - cachix
+  - fetchurl
+  - fetchzip
+  - gltf
+  - hatsu
+  - importantimport
+  - kwaa
+  - libgcc
+  - moeru
+  - nixpkgs
+  - passthru
+  - patchelf
+  - pname
+  - stdenv
+ignoreWords: []
+import: []

@@ -3,22 +3,19 @@
   lib,
   makeWrapper,
   nodejs_22,
-  pnpm_9,
+  pnpm,
   stdenvNoCC,
   testers,
 }:
-let
-  pnpm = pnpm_9;
-in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "arpk";
-  version = "0.2.4";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "moeru-ai";
     repo = "arpk";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-/3tPUwjzZ4U/1sRkMzppWVh26eQ7IAiVXXhho4rKYnw=";
+    hash = "sha256-FBc+i+cUl3W8ATrGbdbGN2AOKtv7/j4pbVq8LYbrVy0=";
   };
 
   nativeBuildInputs = [
@@ -29,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-T33el2V62BEgxtY9hXRCMdJdZWEYWm+x31bkylzPUzY=";
+    hash = "sha256-sdHNNrmB4Lr1xl1WdGlYYTwecqC9ww7ISnW9NGw95dQ=";
   };
 
   buildPhase = ''
@@ -54,9 +51,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
-    description = "Ollama as your translator, with DeepLX-compatible API";
+    description = "LLM as your translator, with DeepLX-compatible API";
     homepage = "https://github.com/moeru-ai/arpk";
-    # changelog = "https://github.com/moeru-ai/arpk/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/moeru-ai/arpk/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "arpk";
     maintainers = with lib.maintainers; [ kwaa ];

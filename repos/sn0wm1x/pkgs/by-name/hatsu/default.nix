@@ -2,19 +2,25 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hatsu";
-  version = "0.3.0";
+  version = "0.3.3";
 
   src = fetchFromGitHub {
     owner = "importantimport";
     repo = "hatsu";
     rev = "refs/tags/v${version}";
-    hash = "sha256-K+8X/bNPdjxBSJdlFIXUUOXlTq7Cgol3fFToj5KzbeE=";
+    hash = "sha256-mqs26srbEkGeQzeF4OdqI7o18Ajs+mmAXGLlVfS52sk=";
   };
 
-  cargoHash = "sha256-+fNFy3WnQKtDjpNU3veoR2JrBNHj6/Wz2MQP38SR23I=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-5c6boVdq0XXbtVHqmIGoxJGQRh8lvn2jbmALPuOSMs4=";
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
 
   meta = {
     description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
