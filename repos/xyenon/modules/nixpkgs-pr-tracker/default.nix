@@ -111,7 +111,7 @@ in
         wantedBy = [ "sockets.target" ];
       };
 
-      systemd.timers.fetch-nixpkgs = {
+      timers.fetch-nixpkgs = {
         description = "Fetch nixpkgs repository";
         timerConfig = {
           OnCalendar = cfg.nixpkgsUpdateOnCalendar;
