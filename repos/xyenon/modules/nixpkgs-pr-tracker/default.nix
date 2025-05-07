@@ -90,7 +90,7 @@ in
         };
         fetch-nixpkgs = {
           description = "Fetch nixpkgs repository";
-          afters = [ "network-online.target" ];
+          after = [ "network-online.target" ];
           path = with pkgs; [ git ];
           serviceConfig = {
             ExecStart = "git fetch --all";
