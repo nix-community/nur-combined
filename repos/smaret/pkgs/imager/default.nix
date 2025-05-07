@@ -26,15 +26,15 @@ let
 in
 
 stdenv.mkDerivation (finalAttrs: {
-  version = "4.4-01";
+  version = "4.5-01";
   pname = "imager";
 
   src = fetchurl {
     # The recommended download link is on Nextcloud instance that
     # requires to accept some general terms of use. Use a mirror at
     # univ-grenoble-alpes.fr instead.
-    url = "https://cloud.univ-grenoble-alpes.fr/s/J6yEqA6yZ8tX9da/download?path=%2F&files=imager-dec24.tar.gz";
-    hash = "sha256-Pq92IsGY4heekm5zNGngnp6J6YiCHYAyuMT2RsD1/9o=";
+    url = "https://cloud.univ-grenoble-alpes.fr/s/J6yEqA6yZ8tX9da/download?path=%2F&files=imager-apr25.tar.gz";
+    hash = "sha256-/1Sij+FK6fF2wgSXBGEAdL7yxN877NIXi3OLztd988c=";
   };
 
   nativeBuildInputs = [
@@ -55,25 +55,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
-    # Update the Python link flag script from Gildas upstream
-    # version. This patch will be included in the the IMAGER release.
-    ./python-ldflags.patch
     # Use Clang as the default compiler on Darwin.
     ./clang.patch
     # Replace hardcoded cpp with GAG_CPP (see below).
     ./cpp-darwin.patch
-    # Patch for clean segfault
-    ./clean-segfault.patch
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
   # Workaround for https://github.com/NixOS/nixpkgs/issues/304528
   env.GAG_CPP = if stdenv.hostPlatform.isDarwin then "${gfortran.outPath}/bin/cpp" else "cpp";
-
-  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin (
-    with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"
-  );
 
   postPatch = ''
     substituteInPlace utilities/main/gag-makedepend.pl --replace-fail '/usr/bin/perl' ${lib.getExe perl}
