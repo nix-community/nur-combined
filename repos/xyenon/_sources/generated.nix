@@ -16,16 +16,16 @@
   };
   "caddy-dns/cloudflare" = {
     pname = "caddy-dns/cloudflare";
-    version = "006ebb07b34945b53dd0bb31a7a823ef2e8ccc56";
+    version = "35fb8474f57d7476329f75d63eebafb95a93022f";
     src = fetchFromGitHub {
       owner = "caddy-dns";
       repo = "cloudflare";
-      rev = "006ebb07b34945b53dd0bb31a7a823ef2e8ccc56";
+      rev = "35fb8474f57d7476329f75d63eebafb95a93022f";
       fetchSubmodules = false;
-      sha256 = "sha256-/QK/he7HqLsuJP9EpERQpcfPCiQw7D87lHT8vMRFfyg=";
+      sha256 = "sha256-6Od+Ho2Tpn8dsm6fH5SxrGBND9Hfly2uZkTltgXzPE8=";
     };
     moduleName = "github.com/caddy-dns/cloudflare";
-    date = "20250420074112-0600";
+    date = "20250506093119-0600";
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
