@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttr: {
 
     install -vDm 644 "qcustomplot.h" -t "$out/include/"
     install -vdm 755 "$out/lib/"
-    cp -av "libqcustomplot.so"* "$out/lib/"
+    cp -av libqcustomplot*.{so,dylib}* "$out/lib/"
 
     runHook postInstall
   '';
