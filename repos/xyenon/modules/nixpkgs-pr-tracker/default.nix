@@ -26,12 +26,22 @@ in
       description = "Group account under which nixpkgs pr-tracker runs.";
     };
 
+    nixpkgsPath = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/nixpkgs.git";
+      description = "Path to the nixpkgs repository.";
+    };
+
+    nixpkgsUpdateOnCalendar = lib.mkOption {
+      type = lib.types.nonEmptyStr;
+      default = "hourly";
+      description = "Calendar time to update the nixpkgs repository.  See {manpage}`systemd.time(7)` for details.";
+    };
+
     args = lib.mkOption {
       type = with lib.types; listOf str;
       description = "Command-line arguments.";
       default = [
-        "--path"
-        "/var/lib/nixpkgs.git"
         "--remote"
         "origin"
         "--user-agent"
@@ -57,16 +67,37 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd = {
-      services.nixpkgs-pr-tracker = {
-        description = "Nixpkgs pr-tracker";
-        requires = [ "nixpkgs-pr-tracker.socket" ];
-        path = with pkgs; [ git ];
-        serviceConfig = {
-          ExecStart = "${lib.getExe cfg.package} ${lib.strings.escapeShellArgs cfg.args}";
-          NonBlocking = true;
-          StandardInput = "file:${cfg.githubTokenFile}";
-          User = cfg.user;
-          Group = cfg.group;
+      services = {
+        nixpkgs-pr-tracker = {
+          description = "Nixpkgs pr-tracker";
+          requires = [ "nixpkgs-pr-tracker.socket" ];
+          path = with pkgs; [ git ];
+          serviceConfig = {
+            ExecStart = "${lib.getExe cfg.package} ${
+              lib.strings.escapeShellArgs (
+                [
+                  "--path"
+                  cfg.nixpkgsPath
+                ]
+                ++ cfg.args
+              )
+            }";
+            NonBlocking = true;
+            StandardInput = "file:${cfg.githubTokenFile}";
+            User = cfg.user;
+            Group = cfg.group;
+          };
+        };
+        fetch-nixpkgs = {
+          description = "Fetch nixpkgs repository";
+          afters = [ "network-online.target" ];
+          path = with pkgs; [ git ];
+          serviceConfig = {
+            ExecStart = "git fetch --all";
+            WorkingDirectory = cfg.nixpkgsPath;
+            User = cfg.user;
+            Group = cfg.group;
+          };
         };
       };
 
@@ -78,6 +109,15 @@ in
           SocketGroup = cfg.group;
         };
         wantedBy = [ "sockets.target" ];
+      };
+
+      systemd.timers.fetch-nixpkgs = {
+        description = "Fetch nixpkgs repository";
+        timerConfig = {
+          OnCalendar = cfg.nixpkgsUpdateOnCalendar;
+          Persistent = true;
+        };
+        wantedBy = [ "timers.target" ];
       };
     };
 
