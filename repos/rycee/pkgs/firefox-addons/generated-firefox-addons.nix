@@ -2061,10 +2061,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.10.0";
+      version = "4.10.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4453696/control_panel_for_twitter-4.10.0.xpi";
-      sha256 = "4606a84e211a65ab7e8dd19b2df1765ca71cb11dde4922b7fd3b668fc3b7dbaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4482136/control_panel_for_twitter-4.10.1.xpi";
+      sha256 = "b7a6d904d7d3726813a745f24f4861fc2b5fc92bd7f200ee0ca1c6f29ab05304";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2434,10 +2434,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.0.7";
+      version = "2.0.9";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4458923/dearrow-2.0.7.xpi";
-      sha256 = "dd124351fe2d11d7de3c11322a623ccbea9cf7e11887eee3fd19b10800410647";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4482371/dearrow-2.0.9.xpi";
+      sha256 = "f05e5e330919f8900f56937e24bfc39e7d7d35f23cc9546520a0e875894d3116";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2518,10 +2518,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.5.2";
+      version = "5.6.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4478509/dictionaries-5.5.2.xpi";
-      sha256 = "a4d919a408c45bb3a60d778929341035b9c31b6b1ea61c5948ebc164b4dd2add";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4488113/dictionaries-5.6.0.xpi";
+      sha256 = "f5cbe341954f89ceb20f0246466d5a32e769825a4c8300cfd07766da373cb1bf";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3435,10 +3435,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.85";
+      version = "6.1.86";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464995/flagfox-6.1.85.xpi";
-      sha256 = "e05b5ba12a7c642b4a7ed3d2791847b70868ca39160545ddba5da628b00f1573";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4483776/flagfox-6.1.86.xpi";
+      sha256 = "540d24cada008deed908d9c0339ce0f413b9adc763d10cc8d1e2b8e810ba3498";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4299,29 +4299,6 @@
           "*://*.youtube.com/*"
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "hackontext" = buildFirefoxXpiAddon {
-      pname = "hackontext";
-      version = "1.3";
-      addonId = "{ed26d465-baef-4e1a-b242-6681b024b941}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952457/hackontext-1.3.xpi";
-      sha256 = "336039d14185e052f4bf563086457c7f64eb4794f3e6335330ddb01de954c4f2";
-      meta = with lib;
-      {
-        homepage = "https://github.com/D3vil0per/hackontext";
-        description = "HacKontext allows to inject website information, HTTP headers and body parameters of the active browser tab on specific InfoSec command-line tools in order to improve and speed up their correct usage.";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "contextMenus"
-          "activeTab"
-          "cookies"
-          "webRequest"
-          "<all_urls>"
-          "tabs"
-          "clipboardWrite"
         ];
         platforms = platforms.all;
       };
@@ -8394,10 +8371,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "12.1.1";
+      version = "12.6";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4411102/noscript-12.1.1.xpi";
-      sha256 = "f9639e63ffcfc352036de00e4ff6694bb0ca65a0bb8fbd103bd08f32dc1ff31a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4482368/noscript-12.6.xpi";
+      sha256 = "91d9aecbccdbad8b370ec243108f45328fa638d924b74e0abe6f2ca870dd1bf6";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -11107,10 +11084,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.6.2";
+      version = "1.7";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405616/smartproxy-1.6.2.xpi";
-      sha256 = "3ec7a78afb8db68366918e1bdf0e243c38d819498674dd4bc08a437974e3b679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4487882/smartproxy-1.7.xpi";
+      sha256 = "61bab834adffa19458928b76f9433dda7c412124446ce83c70caabcb47e7e3a9";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -11690,10 +11667,10 @@
     };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "3.2";
+      version = "3.3";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4433697/tab_stash-3.2.xpi";
-      sha256 = "6f40c735df4edf3ed6dbaf6647c29c3a19277f14e7a7614359d095aab68a5bbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4481624/tab_stash-3.3.xpi";
+      sha256 = "57ffe879f571d28b9a5b22cbe0fc7587fe820b936c2bbd7990c5d5a4cd6d3730";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -12459,10 +12436,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.10.1";
+      version = "8.10.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4451731/ublacklist-8.10.1.xpi";
-      sha256 = "6c6d82d8d76ffa3c3ab7794aeba6f2b5bb2ad691207dd6eea1cd065b6a267aa0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4478450/ublacklist-8.10.2.xpi";
+      sha256 = "13b3226751248dbf62df7b14663720258b40973e3a94dc671cb42d562f9c64de";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
