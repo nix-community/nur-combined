@@ -110,10 +110,8 @@ jobs:
           key: nixCache-${{ steps.matrix.outputs.cacheKey }}
           restore-keys: nixCache-${{ steps.matrix.outputs.cachePrefix }}
       - name: Install nix
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         uses: nixbuild/nix-quick-install-action@v30
       - name: Pre-cache Nixpkgs tarballs
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           shopt -s lastpipe
           unpackPIDs=()

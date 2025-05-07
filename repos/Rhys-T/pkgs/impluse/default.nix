@@ -19,6 +19,7 @@
     meta = {
         description = "Tool for converting HFS (Mac OS Standard) volumes to HFS+ (Mac OS Extended) format";
         homepage = "https://github.com/boredzo/impluse-hfs";
+        platforms = lib.platforms.darwin;
         license = lib.licenses.bsd3;
         mainProgram = "impluse";
         maintainers = [maintainers.Rhys-T];
