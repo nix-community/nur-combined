@@ -402,7 +402,7 @@
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
     "pname": "python3.12-bepasty",
-    "version": "1.2.1"
+    "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5289"
+    "version": "5299"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3772,7 +3772,7 @@
   "legacyPackages.x86_64-linux.python3Packages.bepasty": {
     "description": "Universal pastebin server",
     "pname": "python3.12-bepasty",
-    "version": "1.2.1"
+    "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.click-loglevel": {
     "description": "Log level parameter type for Click",
@@ -4742,7 +4742,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-04"
+    "version": "0-unstable-2025-05-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4817,7 +4817,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-04"
+    "version": "0-unstable-2025-05-07"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4982,7 +4982,7 @@
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
     "pname": "python3.12-bepasty",
-    "version": "1.2.1"
+    "version": "1.2.2"
   },
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
@@ -5807,7 +5807,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-04"
+    "version": "0-unstable-2025-05-07"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

@@ -132,10 +132,10 @@
   };
   bepasty = {
     pname = "bepasty";
-    version = "1.2.1";
+    version = "1.2.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.1.tar.gz";
-      hash = "sha256-08cyr2AruGAfHAwHHS8WMfJh7DBKymaYyz4AxI/ubkE=";
+      url = "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.2.tar.gz";
+      hash = "sha256-teazPj+IrgbVeUkWqgWhpIldgfCTbZYJAqn5Q5blcm8=";
     };
   };
   bergamot-translator = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5289";
+    version = "b5299";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5289";
-      hash = "sha256-jSRCNhdVE0zZFDMARNz6oSLj0JYPFjgKCgEvc70sZvE=";
+      tag = "b5299";
+      hash = "sha256-jXfhUjRJvmJj/NwUSowZ35fWZnEwGQoFpOqzKSW1bDc=";
     };
   };
   loralib = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a94fa936d40fffa71ebbac52c8a3223ac6cfcd71";
+    version = "7c52a825e2ebd04a68a88b41818e8ee9934167d8";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a94fa936d40fffa71ebbac52c8a3223ac6cfcd71";
+      rev = "7c52a825e2ebd04a68a88b41818e8ee9934167d8";
       fetchSubmodules = true;
-      hash = "sha256-YxngbCBzBSBK4dJAu03JrO9ympW1zgC2jTtWrUV3WOQ=";
+      hash = "sha256-eBzFGooxM2cxllxsDwtblEph05Q6/LUe+gZY7dKmEJE=";
     };
-    date = "2025-05-04";
+    date = "2025-05-07";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

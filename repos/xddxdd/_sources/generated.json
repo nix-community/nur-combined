@@ -257,11 +257,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-08cyr2AruGAfHAwHHS8WMfJh7DBKymaYyz4AxI/ubkE=",
+            "sha256": "sha256-teazPj+IrgbVeUkWqgWhpIldgfCTbZYJAqn5Q5blcm8=",
             "type": "url",
-            "url": "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.1.tar.gz"
+            "url": "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.2.tar.gz"
         },
-        "version": "1.2.1"
+        "version": "1.2.2"
     },
     "bergamot-translator": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5289",
-            "sha256": "sha256-jSRCNhdVE0zZFDMARNz6oSLj0JYPFjgKCgEvc70sZvE=",
+            "rev": "b5299",
+            "sha256": "sha256-jXfhUjRJvmJj/NwUSowZ35fWZnEwGQoFpOqzKSW1bDc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5289"
+        "version": "b5299"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-04",
+        "date": "2025-05-07",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "a94fa936d40fffa71ebbac52c8a3223ac6cfcd71",
-            "sha256": "sha256-YxngbCBzBSBK4dJAu03JrO9ympW1zgC2jTtWrUV3WOQ=",
+            "rev": "7c52a825e2ebd04a68a88b41818e8ee9934167d8",
+            "sha256": "sha256-eBzFGooxM2cxllxsDwtblEph05Q6/LUe+gZY7dKmEJE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a94fa936d40fffa71ebbac52c8a3223ac6cfcd71"
+        "version": "7c52a825e2ebd04a68a88b41818e8ee9934167d8"
     },
     "unigine-heaven": {
         "cargoLocks": null,
