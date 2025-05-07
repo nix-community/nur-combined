@@ -60,6 +60,7 @@
     isUnstable = lib.hasInfix "unstable" drv.name;
 
     github = builtins.match "https://github.com/([^/]+)/([^/]+)(/.*)?" src.url;
+    codeberg = builtins.match "https://codeberg.org/([^/]+)/([^/]+)(/.*)?" src.url;
     pypi = builtins.match "mirror://pypi/./([^/]+)/.*" src.url;
     cratesio = builtins.match "https://crates.io/api/v1/crates/([^/]+)/.*" src.url;
 
@@ -69,6 +70,9 @@
       githubOwner = builtins.elemAt github 0;
       githubRepo = lib.removeSuffix ".git" (builtins.elemAt github 1);
 
+      codebergOwner = builtins.elemAt codeberg 0;
+      codebergRepo = lib.removeSuffix ".git" (builtins.elemAt codeberg 1);
+
       pypiName = builtins.elemAt pypi 0;
 
       cratesioName = builtins.elemAt cratesio 0;
@@ -76,6 +80,12 @@
       stableConfig = if github != null then {
         source = "github";
         github = "${githubOwner}/${githubRepo}";
+        use_max_tag = true;
+      }
+      else if codeberg != null then {
+        source = "gitea";
+        host = "codeberg.org";
+        gitea = "${codebergOwner}/${codebergRepo}";
         use_max_tag = true;
       }
       else if pypi != null then {
