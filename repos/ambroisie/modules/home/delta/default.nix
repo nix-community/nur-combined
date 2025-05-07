@@ -23,6 +23,13 @@ in
           properly configured.
         '';
       }
+      {
+        assertion = cfg.enable -> config.programs.git.enable;
+        message = ''
+          `config.my.home.delta` relies on `config.programs.git` to be
+          enabled.
+        '';
+      }
     ];
 
     home.packages = [ cfg.package ];
