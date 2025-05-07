@@ -93,7 +93,7 @@ in
           after = [ "network-online.target" ];
           path = with pkgs; [ git ];
           serviceConfig = {
-            ExecStart = "git fetch --all";
+            ExecStart = "${lib.getExe pkgs.git} fetch --all";
             WorkingDirectory = cfg.nixpkgsPath;
             User = cfg.user;
             Group = cfg.group;
