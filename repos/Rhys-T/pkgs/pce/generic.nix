@@ -59,7 +59,7 @@ let
     });
     pkgsm68kElf = import (pkgs.path+"/pkgs/top-level") {
         localSystem.system = pkgs.system;
-        crossSystem.system = "m68k-elf";
+        crossSystem.config = "m68k-none-elf";
     };
     macplus-cc = pkgsm68kElf.stdenv.cc;
 in

@@ -159,6 +159,8 @@ in {
     
     xscorch = callPackage ./pkgs/xscorch {};
     
+    impluse = callPackage ./pkgs/impluse {};
+    
     pce = callPackage ./pkgs/pce {};
     pce-with-unfree-roms = self.pce.override { enableUnfreeROMs = true; };
     pce-snapshot = callPackage ./pkgs/pce/snapshot.nix {};
