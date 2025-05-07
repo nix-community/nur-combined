@@ -22,10 +22,6 @@ let
   ];
 
   mkHome = name: system: inputs.home-manager.lib.homeManagerConfiguration {
-    # Work-around for home-manager
-    # * not letting me set `lib` as an extraSpecialArgs
-    # * not respecting `nixpkgs.overlays` [1]
-    # [1]: https://github.com/nix-community/home-manager/issues/2954
     pkgs = inputs.nixpkgs.legacyPackages.${system};
 
     modules = defaultModules ++ [
