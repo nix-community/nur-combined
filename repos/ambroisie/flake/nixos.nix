@@ -15,8 +15,10 @@ let
   ];
 
   buildHost = name: system: lib.nixosSystem {
-    inherit system;
     modules = defaultModules ++ [
+      {
+        nixpkgs.hostPlatform = system;
+      }
       "${self}/hosts/nixos/${name}"
     ];
     specialArgs = {
