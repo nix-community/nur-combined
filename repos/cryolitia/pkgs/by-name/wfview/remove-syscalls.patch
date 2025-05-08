@@ -83,22 +83,31 @@ index 0404fda..e400a74 100644
  #ifdef USB_CONTROLLER
      #ifdef Q_OS_WIN
 diff --git a/wfview.pro b/wfview.pro
-index a0943bd..125d78c 100644
+index a0943bd..e8f97e1 100644
 --- a/wfview.pro
 +++ b/wfview.pro
-@@ -62,9 +62,8 @@ win32:DEFINES += __WINDOWS_WASAPI__
+@@ -62,10 +62,8 @@ win32:DEFINES += __WINDOWS_WASAPI__
  #linux:DEFINES += __LINUX_OSS__
  linux:DEFINES += __LINUX_PULSE__
  macx:DEFINES += __MACOSX_CORE__
 -!linux:SOURCES += ../rtaudio/RTAudio.cpp
 -!linux:HEADERS += ../rtaudio/RTAUdio.h
 -!linux:INCLUDEPATH += ../rtaudio
-+
-+macx:LIBS += -lrtaudio
  
++macx:LIBS += -lrtaudio
  linux:LIBS += -lpulse -lpulse-simple -lrtaudio -lpthread -ludev
  
-@@ -120,8 +119,7 @@ macx{
+ win32:INCLUDEPATH += ../portaudio/include
+@@ -107,8 +105,6 @@ win32:RC_ICONS = "resources/icons/Windows/wfview 512x512.ico"
+ 
+ macx{
+     ICON = resources/wfview.icns
+-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+-    QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+     MY_ENTITLEMENTS.name = CODE_SIGN_ENTITLEMENTS
+     MY_ENTITLEMENTS.value = resources/wfview.entitlements
+     QMAKE_MAC_XCODE_SETTINGS += MY_ENTITLEMENTS
+@@ -120,8 +116,7 @@ macx{
  
  QMAKE_TARGET_BUNDLE_PREFIX = org.wfview
  
@@ -108,7 +117,7 @@ index a0943bd..125d78c 100644
  
  win32:DEFINES += GITSHORT=\\\"$$system(git -C $$PWD rev-parse --short HEAD)\\\"
  win32:DEFINES += HOST=\\\"$$system(hostname)\\\"
-@@ -169,19 +167,8 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
+@@ -169,19 +164,8 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
  
  CONFIG(debug, release|debug) {
  
@@ -130,7 +139,7 @@ index a0943bd..125d78c 100644
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/DebugDLL/
-@@ -211,17 +198,8 @@ CONFIG(debug, release|debug) {
+@@ -211,17 +195,8 @@ CONFIG(debug, release|debug) {
    }
  } else {
  
@@ -150,7 +159,7 @@ index a0943bd..125d78c 100644
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/ReleaseDLL/
-@@ -264,9 +242,6 @@ win32:LIBS += -lopus -lole32 -luser32
+@@ -264,9 +239,6 @@ win32:LIBS += -lopus -lole32 -luser32
  #macx:HEADERS += ../qcustomplot/qcustomplot.h
  
  win32:INCLUDEPATH += ../qcustomplot
