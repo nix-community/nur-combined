@@ -38,7 +38,7 @@
 , nixosTestRunner ? false
 # SCREAMER: backported https://github.com/NixOS/nixpkgs/commit/6e980e645823095c83c12eea43691e7a407bd6b4
 # SCREAMER:
-, fetchFromGitHub, callPackage, maintainers
+, apple-sdk_11, fetchFromGitHub, callPackage, maintainers
 }:
 # SCREAMER: load patches from GitHub
 let
@@ -77,6 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3Packages.looseversion
   ]
     ++ lib.optionals gtkSupport [ wrapGAppsHook ]
+    # SCREAMER: Remove old frameworks and stubs
     ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs = [ zlib glib perl pixman
@@ -104,7 +105,9 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals libiscsiSupport [ libiscsi ]
     ++ lib.optionals smbdSupport [ samba ]
     ++ lib.optionals uringSupport [ liburing ]
-    ++ lib.optionals canokeySupport [ canokey-qemu ];
+    ++ lib.optionals canokeySupport [ canokey-qemu ]
+    # SCREAMER:
+    ++ lib.optionals stdenv.isDarwin [ apple-sdk_11 ];
 
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
@@ -114,6 +117,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   # SCREAMER: load patches from GitHub
   patches = [
+    # SCREAMER:
+    # On macOS, QEMU uses `Rez(1)` and `SetFile(1)` to attach its icon
+    # to the binary. Unfortunately, those commands are proprietary,
+    # deprecated since Xcode 6, and operate on resource forks, which
+    # these days are stored in extended attributes, which aren’t
+    # supported in the Nix store. So we patch out the calls.
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/ed8925fc509a703a5799c97dbdd89ce0c8ac86b8/pkgs/applications/virtualization/qemu/skip-macos-icon.patch";
+      hash = "sha256-MMyv5cRstt+aYvDb7T65tnx9iux4Uvoy/hthz02VqjY=";
+    })
+
     (nixpkgsPatch "fix-qemu-ga.patch")
 
     # QEMU upstream does not demand compatibility to pre-10.13, so 9p-darwin
@@ -163,10 +177,11 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs .
     # avoid conflicts with libc++ include for <version>
     mv VERSION QEMU_VERSION
+    # SCREAMER: updated deprecated `--replace` to `--replace-fail`.
     substituteInPlace configure \
-      --replace '$source_path/VERSION' '$source_path/QEMU_VERSION'
+      --replace-fail '$source_path/VERSION' '$source_path/QEMU_VERSION'
     substituteInPlace meson.build \
-      --replace "'VERSION'" "'QEMU_VERSION'"
+      --replace-fail "'VERSION'" "'QEMU_VERSION'"
   '';
 
   configureFlags = [
@@ -237,23 +252,24 @@ stdenv.mkDerivation (finalAttrs: {
   preCheck = ''
     # time limits are a little meagre for a build machine that's
     # potentially under load.
+    # SCREAMER: updated deprecated `--replace` to `--replace-fail`.
     substituteInPlace ../tests/unit/meson.build \
-      --replace 'timeout: slow_tests' 'timeout: 50 * slow_tests'
+      --replace-fail 'timeout: slow_tests' 'timeout: 50 * slow_tests'
     substituteInPlace ../tests/qtest/meson.build \
-      --replace 'timeout: slow_qtests' 'timeout: 50 * slow_qtests'
+      --replace-fail 'timeout: slow_qtests' 'timeout: 50 * slow_qtests'
     substituteInPlace ../tests/fp/meson.build \
-      --replace 'timeout: 90)' 'timeout: 300)'
+      --replace-fail 'timeout: 90)' 'timeout: 300)'
 
     # point tests towards correct binaries
     substituteInPlace ../tests/unit/test-qga.c \
-      --replace '/bin/echo' "$(type -P echo)"
+      --replace-fail '/bin/echo' "$(type -P echo)"
     substituteInPlace ../tests/unit/test-io-channel-command.c \
-      --replace '/bin/socat' "$(type -P socat)"
+      --replace-fail '/bin/socat' "$(type -P socat)"
 
     # combined with a long package name, some temp socket paths
     # can end up exceeding max socket name len
     substituteInPlace ../tests/qtest/bios-tables-test.c \
-      --replace 'qemu-test_acpi_%s_tcg_%s' '%s_%s'
+      --replace-fail 'qemu-test_acpi_%s_tcg_%s' '%s_%s'
 
     # get-fsinfo attempts to access block devices, disallowed by sandbox
     sed -i -e '/\/qga\/get-fsinfo/d' -e '/\/qga\/blacklist/d' \
@@ -262,7 +278,7 @@ stdenv.mkDerivation (finalAttrs: {
     # skip test that stalls on darwin, perhaps due to subtle differences
     # in fifo behaviour
     substituteInPlace ../tests/unit/meson.build \
-      --replace "'test-io-channel-command'" "#'test-io-channel-command'"
+      --replace-fail "'test-io-channel-command'" "#'test-io-channel-command'"
   '';
 
   # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.

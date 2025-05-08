@@ -352,17 +352,7 @@ in {
     man2html = callPackage ./pkgs/man2html {};
     
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
-    qemu-screamer = let
-        darwinSdkVersion = "11.0";
-        stdenv = if pkgs.stdenv.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
-            pkgs.overrideSDK pkgs.stdenv {
-                inherit darwinSdkVersion;
-            }
-        else
-            pkgs.stdenv
-        ;
-    in callPackage ./pkgs/qemu-screamer {
-        inherit stdenv;
+    qemu-screamer = callPackage ./pkgs/qemu-screamer {
         inherit (pkgs.darwin) sigtool;
     };
     

@@ -5,22 +5,18 @@
     makeBinaryWrapper, desktopToDarwinBundle, writeDarwinBundle,
     disableNativeImageLoader,
     pkg-config,
-    overrideSDK, fetchpatch,
+    apple-sdk_11, fetchpatch,
     common, lix-game-packages
 }: let
     inherit (stdenv.hostPlatform) isDarwin;
-    allegro5' = if disableNativeImageLoader == "CIImage" then (allegro5.override {
-        stdenv = overrideSDK stdenv {
-            ${if lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14" then "darwinMinVersion" else null} = "10.14";
-            ${if lib.versionOlder stdenv.hostPlatform.darwinSdkVersion "11.0" then "darwinSdkVersion" else null} = "11.0";
-        };
-    }).overrideAttrs (old: {
+    allegro5' = if disableNativeImageLoader == "CIImage" then allegro5.overrideAttrs (old: {
         # src = fetchFromGitHub {
         #     owner = "pedro-w";
         #     repo = "allegro5";
         #     rev = "c196fe292eb28d20e2d21d639651bbafc78373f2";
         #     hash = "sha256-PyAQN1CfR3PfG2lUZIYc+eCcULHSbWvMWKQgonS7xHo=";
         # };
+        buildInputs = (old.buildInputs or []) ++ [apple-sdk_11];
         patches = (old.patches or []) ++ [
             (fetchpatch {
                 url = "https://github.com/pedro-w/allegro5/commit/c196fe292eb28d20e2d21d639651bbafc78373f2.patch";

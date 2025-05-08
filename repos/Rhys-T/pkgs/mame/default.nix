@@ -1,20 +1,13 @@
 { mame, lib }: let
     mameArgSpecs = lib.mapAttrs (k: v: true) (lib.functionArgs mame.override);
     myArgSpecs = lib.functionArgs mameFunc;
-    mameFunc = { stdenv, callPackage, papirus-icon-theme, darwinMinVersion ? "10.15", overrideSDK, ... }@args: let
-        stdenv' = overrideSDK stdenv {
-            inherit darwinMinVersion;
-            darwinSdkVersion = "11.0";
-        };
+    mameFunc = { stdenv, callPackage, papirus-icon-theme, darwinMinVersion ? "10.15", apple-sdk_11, darwinMinVersionHook, ... }@args: let
         mame-icon = if (builtins.tryEval "${papirus-icon-theme}").success then
             papirus-icon-theme
         else
             callPackage ./icon.nix {};
         thruArgs = builtins.intersectAttrs mameArgSpecs (args // { papirus-icon-theme = mame-icon; });
-        needToChangeStdenv = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion darwinMinVersion;
-        mame' = mame.override (thruArgs // lib.optionalAttrs needToChangeStdenv {
-            stdenv = stdenv';
-        });
+        mame' = mame.override thruArgs;
         needToRemoveMetal = let inherit (mame') stdenv; in stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11.0";
         mame'' = if needToRemoveMetal then mame'.overrideAttrs (old: {
             env = (old.env or {}) // {
@@ -34,6 +27,8 @@
                 description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
                 broken = false;
             };
+        } // lib.optionalAttrs (lib.versionOlder stdenv.hostPlatform.darwinMinVersion darwinMinVersion) {
+            buildInputs = (old.buildInputs or []) ++ [apple-sdk_11 (darwinMinVersionHook darwinMinVersion)];
         });
     in mame''';
 in lib.setFunctionArgs mameFunc (myArgSpecs // mameArgSpecs)
