@@ -4,14 +4,14 @@
 , stdenv
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (zsh-completion-sync: {
   pname = "zsh-completion-sync";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "BronzeDeer";
     repo = "zsh-completion-sync";
-    rev = "v${version}";
+    rev = "v${zsh-completion-sync.version}";
     hash = "sha256-zDlmFaKU/Ilzcw6o22Hu9JFt8JKsER8idkb6QrtQKjI=";
   };
 
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BronzeDeer/zsh-completion-sync";
     license = lib.licenses.asl20;
   };
-}
+})

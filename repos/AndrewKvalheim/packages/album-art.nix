@@ -1,4 +1,5 @@
 { fetchurl
+, lib
 , makeDesktopItem
 , resholve
 
@@ -11,11 +12,12 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 
   album-art = resholve.writeScriptBin "album-art" {
-    interpreter = "${bash}/bin/bash";
+    interpreter = getExe bash;
     inputs = [ imagemagick kitty mozjpeg ];
-    execer = [ "cannot:${kitty}/bin/kitty" ];
+    execer = [ "cannot:${getExe kitty}" ];
   } (readFile ./resources/album-art);
 in
 makeDesktopItem {
@@ -26,6 +28,6 @@ makeDesktopItem {
     url = "https://github.com/metabrainz/picard/raw/1cbb7a8522f945e602744c6e6aa935ec778b3cce/resources/images/CoverArtShadow.png";
     hash = "sha256-BOtmn89tOZga0PIOYYYoHr/gB/16Z3DCY7e9xU9wYU8=";
   };
-  exec = "${album-art}/bin/album-art %f";
+  exec = "${getExe album-art} %f";
   mimeTypes = [ "image/jpeg" "image/png" ];
 }

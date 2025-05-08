@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 let
+  inherit (lib) getExe;
+
   nur = import ../../nur.nix { inherit pkgs; };
 in
 {
@@ -9,7 +11,7 @@ in
   config = {
     # Diff after rebuild
     home.activation.diff = lib.hm.dag.entryAnywhere ''
-      ${pkgs.nvd}/bin/nvd diff "$oldGenPath" "$newGenPath"
+      ${getExe pkgs.nvd} diff "$oldGenPath" "$newGenPath"
     '';
 
     # Custom packages

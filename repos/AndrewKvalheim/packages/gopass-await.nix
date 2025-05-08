@@ -1,13 +1,17 @@
-{ writeShellScriptBin
+{ lib
+, writeShellScriptBin
 
   # Dependencies
 , gopass
 , zenity
 }:
 
+let
+  inherit (lib) getExe;
+in
 writeShellScriptBin "gopass-await" ''
-  ${gopass}/bin/gopass show "$@" 2> >( \
-    ${zenity}/bin/zenity --progress --auto-close --no-cancel --pulsate \
+  ${getExe gopass} show "$@" 2> >( \
+    ${getExe zenity} --progress --auto-close --no-cancel --pulsate \
       --title 'Please tap the hardware key' \
       --text "gopass show $*" \
       >&2 \

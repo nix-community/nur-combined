@@ -1,5 +1,4 @@
 { fetchsvn
-, fetchurl
 , lib
 , stdenv
 
@@ -9,14 +8,17 @@
 , josm
 }:
 
-{ pluginName ? args.pname, ... } @ args:
-
 # Modeled after https://josm.openstreetmap.de/wiki/DevelopersGuide/DevelopingPlugins
 let
   inherit (builtins) toFile;
+  inherit (lib) extendMkDerivation;
 in
-stdenv.mkDerivation
-  (args // {
+extendMkDerivation {
+  constructDrv = stdenv.mkDerivation;
+
+  excludeDrvArgNames = [ "pluginName" ];
+
+  extendDrvArgs = _: { pluginName ? args.pname, ... } @ args: {
     srcJosmPlugins = fetchsvn {
       url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm/";
       rev = "36353"; # TODO: Derive from pkgs.josm
@@ -70,4 +72,5 @@ stdenv.mkDerivation
     installPhase = ''
       install -D -t $out/share/JOSM/plugins /build/josm/dist/${pluginName}.jar
     '';
-  })
+  };
+}

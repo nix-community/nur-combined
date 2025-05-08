@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -8,9 +9,10 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "git-remote" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ git gnugrep ];
-  execer = [ "cannot:${git}/bin/git" ];
+  execer = [ "cannot:${getExe git}" ];
 } (readFile ./resources/git-remote)

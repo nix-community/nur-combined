@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) readFile replaceStrings;
-  inherit (lib) concatLines concatStringsSep escapeShellArg genAttrs mapAttrsToList;
+  inherit (lib) concatLines concatStringsSep escapeShellArg genAttrs getExe getExe' mapAttrsToList;
   inherit ((import ../../nur.nix { inherit pkgs; }).lib) sgr;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
@@ -51,7 +51,7 @@ in
       }
 
       use_gopass() {
-        eval "$(${gopass-await}/bin/gopass-await "$@")"
+        eval "$(${getExe gopass-await} "$@")"
       }
     '';
   };
@@ -106,7 +106,7 @@ in
       "@zsh-prezto-terminal@"
       "@zsh-syntax-highlighting@"
     ] (with pkgs; [
-      "${poppler_utils}/bin/pdfimages"
+      (getExe' poppler_utils "pdfimages")
       "${zsh-abbr}/share/zsh/plugins/zsh-abbr/zsh-abbr.plugin.zsh"
       "${zsh-click}/share/zsh/plugins/click/click.plugin.zsh"
       "${zsh-completion-sync}/share/zsh/plugins/zsh-completion-sync/zsh-completion-sync.plugin.zsh"
@@ -125,7 +125,7 @@ in
         cat = "bat --plain";
         cp = "cp --reflink=auto";
         get-clipboard = "wl-paste --no-newline --type 'text'";
-        get-public-ip = "${pkgs.dig}/bin/dig +short @208.67.222.222 myip.opendns.com";
+        get-public-ip = "${getExe pkgs.dig} +short @208.67.222.222 myip.opendns.com";
         e = "eza --all --group-directories-first --long --header --time-style long-iso";
         ffmpeg = "ffmpeg -hide_banner";
         ffprobe = "ffprobe -hide_banner";

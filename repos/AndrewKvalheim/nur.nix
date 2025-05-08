@@ -21,7 +21,6 @@ rec {
       oklchToCss
       oklchToLinearRgb
       rgbToHex
-      round
       sgr;
   };
 

@@ -1,4 +1,6 @@
-{ resholve, stdenv
+{ lib
+, resholve
+, stdenv
 
   # Dependencies
 , pipewire
@@ -7,12 +9,13 @@
 
 let
   inherit (builtins) readFile replaceStrings;
+  inherit (lib) getExe;
 in
 stdenv.mkDerivation {
   name = "zsh-click";
 
   src = resholve.writeScript "click.plugin.zsh" {
-    interpreter = "${zsh}/bin/zsh";
+    interpreter = getExe zsh;
     inputs = [ pipewire ];
   } (
     # Pending abathur/resholve#85

@@ -4,6 +4,7 @@ let
   inherit (builtins) floor head mapAttrs sort toJSON;
   inherit (config) dconf host;
   inherit (config.programs) kitty;
+  inherit (lib) getExe;
   inherit (lib.generators) toINI;
   inherit (lib.hm.gvariant) mkTuple;
 
@@ -58,7 +59,7 @@ in
       Exec = pkgs.writeShellScript "disabled-extensions-notification" ''
         [[ "$(gsettings get org.gnome.shell disable-user-extensions)" == 'true' ]] || exit
 
-        case "$(${pkgs.libnotify}/bin/notify-send --urgency 'critical' --icon 'extensions' \
+        case "$(${getExe pkgs.libnotify} --urgency 'critical' --icon 'extensions' \
           'Extensions have been automatically disabled.' \
           --action 'enable=Re-Enable' \
           --action 'settings=Settings…')" \
@@ -85,7 +86,7 @@ in
   };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
     name = "Emote";
-    command = "${pkgs.emote}/bin/emote";
+    command = getExe pkgs.emote;
     binding = "Favorites";
   };
   dconf.settings."org/gnome/shell/extensions/paperwm" =
@@ -149,6 +150,7 @@ in
         { wm_class = "Display"; scratch_layer = true; }
         { wm_class = "displaycal"; scratch_layer = true; }
         { wm_class = "emote"; scratch_layer = true; }
+        { wm_class = "firefox"; title = "Picture-in-Picture"; scratch_layer = true; }
         { wm_class = "@joplin/app-desktop"; preferredWidth = "${toString term}px"; }
         { wm_class = "qalculate-gtk"; preferredWidth = "480px"; }
         { wm_class = "Tor Browser"; scratch_layer = true; }

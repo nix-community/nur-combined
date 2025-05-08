@@ -10,12 +10,12 @@ let
     ATTRS{idVendor}=="1189", ATTRS{idProduct}=="8890", MODE="0660", TAG+="uaccess"
   '';
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (ch57x-keyboard-tool: {
   pname = "ch57x-keyboard-tool";
   version = "1.5.4";
 
   src = fetchCrate {
-    inherit pname version;
+    inherit (ch57x-keyboard-tool) pname version;
     sha256 = "sha256-i9UHMDptpptjqqycmsca7lri8tyiUPfyO2oV/nWicIc=";
   };
 
@@ -33,4 +33,4 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kriomant/ch57x-keyboard-tool";
     license = lib.licenses.mit;
   };
-}
+})

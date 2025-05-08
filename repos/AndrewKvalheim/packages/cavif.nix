@@ -7,12 +7,12 @@
 , nasm
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (cavif: {
   pname = "cavif";
   version = "1.5.6";
 
   src = fetchCrate {
-    inherit pname version;
+    inherit (cavif) pname version;
     sha256 = "sha256-vUmf9kTG3Gm4SH0gRf0NUK7Rr0Xq0BHNW2//5y4jMXY=";
   };
 
@@ -28,4 +28,4 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kornelski/cavif-rs";
     license = lib.licenses.bsd3;
   };
-}
+})

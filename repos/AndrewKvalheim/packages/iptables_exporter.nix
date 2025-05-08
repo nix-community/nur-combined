@@ -4,19 +4,22 @@
 , rustPlatform
 }:
 
-rustPlatform.buildRustPackage rec {
+let
+  inherit (lib) getExe;
+in
+rustPlatform.buildRustPackage (iptables_exporter: {
   pname = "iptables_exporter";
   version = "0.4.0";
 
   src = fetchCrate {
-    inherit pname version;
+    inherit (iptables_exporter) pname version;
     hash = "sha256-hGXBGKVV5Iak0SCon3QlffKDgo2djLLWbfHI06QN+Dc=";
   };
 
   patches = [ ./resources/iptables_exporter_no-git.patch ];
 
   postPatch = ''
-    git_hash=$(${jq}/bin/jq --raw-output '.git.sha1' '.cargo_vcs_info.json')
+    git_hash=$(${getExe jq} --raw-output '.git.sha1' '.cargo_vcs_info.json')
     substituteInPlace build.rs --replace-fail '@git_hash@' "$git_hash"
   '';
 
@@ -29,4 +32,4 @@ rustPlatform.buildRustPackage rec {
     license = with lib.licenses; [ afl20 mit ];
     mainProgram = "iptables_exporter";
   };
-}
+})

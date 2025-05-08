@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  inherit (lib) makeBinPath;
+  inherit (lib) getExe makeBinPath;
 
   nur = import ../../nur.nix { inherit pkgs; };
 in
@@ -49,7 +49,7 @@ in
     # Diff after rebuild (pending NixOS/nixpkgs#208902)
     system.activationScripts.diff = ''
       PATH="${makeBinPath [ pkgs.nix ]}" \
-        ${pkgs.nvd}/bin/nvd diff '/run/current-system' "$systemConfig"
+        ${getExe pkgs.nvd} diff '/run/current-system' "$systemConfig"
     '';
 
     # Custom packages

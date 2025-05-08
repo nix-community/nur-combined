@@ -4,7 +4,7 @@
 , lib
 }:
 
-buildJosmPlugin rec {
+buildJosmPlugin (josm-imagery-used: {
   pname = "josm-imagery-used";
   version = "0.0.1";
 
@@ -12,7 +12,7 @@ buildJosmPlugin rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "imagery_used";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${josm-imagery-used.version}";
     hash = "sha256-JGYKN9ggUom48StabPoswoYymJiMo7tpXv/t2Ithurg=";
   };
 
@@ -25,4 +25,4 @@ buildJosmPlugin rec {
     homepage = "https://codeberg.org/AndrewKvalheim/imagery_used";
     license = lib.licenses.gpl3;
   };
-}
+})

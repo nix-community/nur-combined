@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -9,9 +10,10 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "add-words" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ coreutils git moreutils ];
-  execer = [ "cannot:${git}/bin/git" ];
+  execer = [ "cannot:${getExe git}" ];
 } (readFile ./resources/add-words)

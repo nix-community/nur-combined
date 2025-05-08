@@ -2,7 +2,7 @@
 
 let
   inherit (config) host;
-  inherit (lib) getExe mapAttrs' mapAttrsToList mkOption nameValuePair;
+  inherit (lib) getExe getExe' mapAttrs' mapAttrsToList mkOption nameValuePair;
   inherit (lib.types) attrsOf int str submodule;
   inherit (pkgs) coreutils dig wireguard-tools writeShellApplication;
 
@@ -25,7 +25,7 @@ let
       while true; do
         refreshing="$refresh"
         refresh=
-        response="$(dig +noall +answer "$domain" A)"
+        response="$(dig +noall +answer "$domain" A ||:)"
 
         previous_a="$a"
         if [[ "$response" =~ [^[:space:]]+[[:blank:]]+([[:digit:]]+)[[:blank:]]+IN[[:blank:]]+A[[:blank:]]+([[:digit:].]+) ]]; then
@@ -94,7 +94,7 @@ in
       (name: peer: nameValuePair "wireguard-reresolve-${name}" {
         wantedBy = [ "sys-subsystem-net-devices-wg0.device" ];
         wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        after = [ "network-online.target" "nss-lookup.target" ];
         unitConfig.StopWhenUnneeded = true;
         onFailure = [ "alert@%N.service" ];
 
@@ -108,7 +108,7 @@ in
           SyslogIdentifier = "%N";
 
           ExecStart = getExe wireguard-reresolve;
-          ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
+          ExecReload = "${getExe' coreutils "kill"} -HUP $MAINPID";
         };
       })
       host.wireguard.peers;

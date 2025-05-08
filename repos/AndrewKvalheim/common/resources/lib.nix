@@ -1,10 +1,10 @@
 { lib }:
 
 let
-  inherit (builtins) add all attrValues floor head mapAttrs split stringLength tail;
+  inherit (builtins) add all attrValues head mapAttrs split stringLength tail;
   inherit (lib) concatLines fixedWidthNumber fold isList max removeSuffix splitString throwIf throwIfNot toHexString;
   inherit (lib.strings) replicate;
-  inherit (import <nix-math> { inherit lib; }) cos pi pow sin;
+  inherit (import <nix-math> { inherit lib; }) cos pi pow round sin;
 in
 rec {
   # Adapted from https://en.wikipedia.org/wiki/Clenshaw_algorithm#Special_case_for_Chebyshev_series
@@ -105,8 +105,6 @@ rec {
     in "#${f r}${f g}${f b}";
 
   rgbToCssRgba = rgb: a: with mapAttrs (_: v: toString (round (v * 255))) rgb; "rgba(${r}, ${g}, ${b}, ${toString a})";
-
-  round = x: floor (x + 0.5);
 
   sgr = off: on: text: "[${on}m${text}[${off}m";
 }

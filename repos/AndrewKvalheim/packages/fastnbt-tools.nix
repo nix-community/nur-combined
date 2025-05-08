@@ -4,12 +4,12 @@
 , rustPlatform
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (fastnbt-tools: {
   pname = "fastnbt-tools";
   version = "0.27.0";
 
   src = fetchCrate {
-    inherit pname version;
+    inherit (fastnbt-tools) pname version;
     sha256 = "sha256-KnbJXiMPHjk/pReurP5WdE9I1GgLMhGEHKtZwFekzzM=";
   };
 
@@ -23,4 +23,4 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/owengage/fastnbt";
     license = lib.licenses.mit;
   };
-}
+})

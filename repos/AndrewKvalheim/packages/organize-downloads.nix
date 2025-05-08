@@ -24,7 +24,7 @@ in
 
     systemd.user.services.organize-downloads = {
       Unit.Description = "Organize downloads";
-      Service.ExecStart = "${handler}/bin/organize-downloads";
+      Service.ExecStart = getExe handler;
       Service.Nice = 10;
     };
   };

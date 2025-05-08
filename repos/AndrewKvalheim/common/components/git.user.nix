@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) listToAttrs;
-  inherit (lib) mkForce nameValuePair range;
+  inherit (lib) getExe getExe' mkForce nameValuePair range;
 
   identity = import ../resources/identity.nix;
   palette = import ../resources/palette.nix { inherit lib pkgs; };
@@ -83,7 +83,7 @@ in
           };
         };
     };
-    iniContent.core.pager = mkForce "${pkgs.delta}/bin/delta --color-only --features full"; # Set feature
+    iniContent.core.pager = mkForce "${getExe pkgs.delta} --color-only --features full"; # Set feature
 
     extraConfig = {
       branch.sort = "-committerdate";
@@ -107,8 +107,8 @@ in
       rerere.enabled = true;
       tag.sort = "version:refname";
 
-      diff.anvil.textconv = "${pkgs.git-diff-minecraft}/bin/git-diff-anvil";
-      diff.image.command = "${pkgs.git-diff-image}/bin/git_diff_image";
+      diff.anvil.textconv = getExe pkgs.git-diff-minecraft;
+      diff.image.command = getExe' pkgs.git-diff-image "git_diff_image";
       difftool = { prompt = false; trustExitCode = true; };
 
       filter.sfd.clean = "sed '/^Flags:/s/[OS]//g'"; # Unset (O)pen, (S)elected

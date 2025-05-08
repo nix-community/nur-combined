@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -6,9 +7,10 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "off" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ ];
   fake.external = [
     "btrfs"

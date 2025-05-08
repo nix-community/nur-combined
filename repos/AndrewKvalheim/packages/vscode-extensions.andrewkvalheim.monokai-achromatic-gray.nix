@@ -82,14 +82,14 @@ let
     print(json.dumps(theme))
   '';
 in
-vscode-utils.buildVscodeExtension rec {
+vscode-utils.buildVscodeExtension (extension: {
   name = "monokai-achromatic-gray";
-  pname = name; # TODO: Why is it necessary to set both name and pname?
+  pname = extension.name; # TODO: Why is it necessary to set both name and pname?
   version = vscodium.version;
 
   vscodeExtPublisher = "andrewkvalheim";
-  vscodeExtName = name;
-  vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+  vscodeExtName = extension.name;
+  vscodeExtUniqueId = "${extension.vscodeExtPublisher}.${extension.vscodeExtName}";
 
   src = vscodium + /lib/vscode/resources/app/extensions/theme-monokai;
 
@@ -104,4 +104,4 @@ vscode-utils.buildVscodeExtension rec {
     jaq --in-place ${escapeShellArg patchPackageNls} 'package.nls.json'
     <'themes/monokai-color-theme.json' ${patchTheme} | sponge 'themes/monokai-color-theme.json'
   '';
-}
+})

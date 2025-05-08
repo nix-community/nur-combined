@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -7,9 +8,10 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "gopass-env" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ gopass-await ];
-  execer = [ "cannot:${gopass-await}/bin/gopass-await" ];
+  execer = [ "cannot:${getExe gopass-await}" ];
 } (readFile ./resources/gopass-env)

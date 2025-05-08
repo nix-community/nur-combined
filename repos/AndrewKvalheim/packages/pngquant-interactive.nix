@@ -15,7 +15,7 @@
 , pkg-config
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (pngquant-interactive: {
   pname = "pngquant-interactive";
   version = "0.2.0";
 
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "pngquant-interactive";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${pngquant-interactive.version}";
     hash = "sha256-lEXBQ6toomT8Q8QDGz5l+ywcCGcuO3gKBymMDMlk+ak=";
   };
 
@@ -41,4 +41,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl3;
     mainProgram = "pngquant-interactive";
   };
-}
+})

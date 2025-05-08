@@ -1,12 +1,14 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
+  inherit (lib) getExe;
+
   # Packages
   pretty-whois = with pkgs; writeShellScriptBin "pretty-whois" ''
     set -Eeuo pipefail
 
-    ${whois}/bin/whois "$@" \
-      | ${ack}/bin/ack --color-match 'bold blue' --passthru '[-\w.!$%+=]+@[-\w.]+'
+    ${getExe whois} "$@" \
+      | ${getExe ack} --color-match 'bold blue' --passthru '[-\w.!$%+=]+@[-\w.]+'
   '';
 in
 {
@@ -51,8 +53,8 @@ in
   ];
   programs.zsh.initExtra = ''
     function asn() {
-      ${pkgs.mmdbinspect}/bin/mmdbinspect --db '/var/lib/GeoIP/GeoLite2-ASN.mmdb' "$1" \
-      | ${pkgs.jq}/bin/jq --raw-output '.[0].Records[] | "\(.Network) AS\(.Record.autonomous_system_number) “\(.Record.autonomous_system_organization)”"'
+      ${getExe pkgs.mmdbinspect} --db '/var/lib/GeoIP/GeoLite2-ASN.mmdb' "$1" \
+      | ${getExe pkgs.jq} --raw-output '.[0].Records[] | "\(.Network) AS\(.Record.autonomous_system_number) “\(.Record.autonomous_system_organization)”"'
     }
   '';
   programs.zsh.shellAliases.w = "pretty-whois";

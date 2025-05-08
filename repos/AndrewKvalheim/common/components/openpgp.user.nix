@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (lib) getExe;
   inherit (lib.generators) toINI;
 
   identity = import ../resources/identity.nix;
@@ -15,7 +16,7 @@ in
     Install.WantedBy = [ "graphical-session.target" ];
     Unit.PartOf = [ "graphical-session.target" ];
     Unit.Description = "YubiKey touch detector";
-    Service.ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector --libnotify";
+    Service.ExecStart = "${getExe pkgs.yubikey-touch-detector} --libnotify";
   };
 
   programs.gpg = {

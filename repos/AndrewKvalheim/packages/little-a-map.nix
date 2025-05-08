@@ -7,7 +7,7 @@
 , cmake
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (little-a-map: {
   pname = "little-a-map";
   version = "0.13.6";
 
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "little-a-map";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${little-a-map.version}";
     hash = "sha256-6InYRpSKPOeff2Vu1Q6OWpVFq+OTCuRs9tQsAVUDPsA=";
   };
 
@@ -36,4 +36,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl3;
     mainProgram = "little-a-map";
   };
-}
+})

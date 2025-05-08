@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -7,8 +8,9 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "git-diff-anvil" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ fastnbt-tools ];
 } (readFile ./resources/git-diff-anvil)

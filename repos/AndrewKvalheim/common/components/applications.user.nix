@@ -3,7 +3,7 @@
 let
   inherit (builtins) listToAttrs;
   inherit (config) host;
-  inherit (lib) foldlAttrs imap0 mkOption nameValuePair;
+  inherit (lib) foldlAttrs getExe getExe' imap0 mkOption nameValuePair;
   inherit (lib.generators) toINI toKeyValue;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
   inherit (pkgs) formats onlyBin;
@@ -164,17 +164,17 @@ in
 
     # Nautilus scripts
     nautilusScripts = with pkgs; {
-      "HEIF,PNG,TIFF → JPEG".xargs = "-n 1 -P 8 nice ${mozjpeg-simple}/bin/mozjpeg";
-      "JPEG: Strip geolocation".xargs = "nice ${exiftool}/bin/exiftool -overwrite_original -gps:all= -xmp:geotag=";
+      "HEIF,PNG,TIFF → JPEG".xargs = "-n 1 -P 8 nice ${getExe mozjpeg-simple}";
+      "JPEG: Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
       "PNG: Optimize".xargs = ''
-        nice ${efficient-compression-tool}/bin/ect -8 -keep -quiet --mt-file \
-        2> >(${zenity}/bin/zenity --width 600 --progress --pulsate --auto-close --auto-kill)
+        nice ${getExe efficient-compression-tool} -8 -keep -quiet --mt-file \
+        2> >(${getExe zenity} --width 600 --progress --pulsate --auto-close --auto-kill)
       '';
       "PNG: Quantize".each = ''
-        ${pngquant-interactive}/bin/pngquant-interactive --suffix '.qnt' "$path"
-        nice ${efficient-compression-tool}/bin/ect -8 -keep -quiet "''${path%.png}.qnt.png"
+        ${getExe pngquant-interactive} --suffix '.qnt' "$path"
+        nice ${getExe efficient-compression-tool} -8 -keep -quiet "''${path%.png}.qnt.png"
       '';
-      "PNG: Trim".xargs = "-n 1 -P 8 nice ${imagemagick}/bin/mogrify -trim";
+      "PNG: Trim".xargs = "-n 1 -P 8 nice ${getExe' imagemagick "mogrify"} -trim";
     };
 
     # Configuration
@@ -228,8 +228,8 @@ in
         end
       '';
     home.file.".visidatarc".text = with pkgs; toKeyValue { } {
-      "options.clipboard_copy_cmd" = "${wl-clipboard}/bin/wl-copy";
-      "options.clipboard_paste_cmd" = "${wl-clipboard}/bin/wl-paste --no-newline";
+      "options.clipboard_copy_cmd" = getExe' wl-clipboard "wl-copy";
+      "options.clipboard_paste_cmd" = "${getExe' wl-clipboard "wl-paste"} --no-newline";
     };
     xdg.configFile."gopass/config".text = toINI { } config.programs.gopass.settings;
     xdg.configFile."watchlog/config.scfg".text = ''

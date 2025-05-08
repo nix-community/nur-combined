@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) listToAttrs;
-  inherit (lib) escapeShellArg hm makeBinPath nameValuePair range;
+  inherit (lib) escapeShellArg getExe hm makeBinPath nameValuePair range;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
@@ -105,20 +105,20 @@ in
 
     userSettings = with palette.hex; {
       # Dependencies
-      "biome.lsp.bin" = "${pkgs.biome}/bin/biome";
-      "flow.pathToFlow" = "${pkgs.flow}/bin/flow";
-      "hadolint.hadolintPath" = "${pkgs.hadolint}/bin/hadolint";
-      "nix.serverPath" = "${pkgs.nil}/bin/nil";
-      "nix.serverSettings".nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
-      "php.validate.executablePath" = "${pkgs.php}/bin/php";
+      "biome.lsp.bin" = getExe pkgs.biome;
+      "flow.pathToFlow" = getExe pkgs.flow;
+      "hadolint.hadolintPath" = getExe pkgs.hadolint;
+      "nix.serverPath" = getExe pkgs.nil;
+      "nix.serverSettings".nil.formatting.command = [ (getExe pkgs.nixpkgs-fmt) ];
+      "php.validate.executablePath" = getExe pkgs.php;
       "prettier.prettierPath" = "${pkgs.nodePackages.prettier}/lib/node_modules/prettier/index.cjs"; # Pending prettier/prettier-vscode#3100
-      "python.formatting.blackPath" = "${pkgs.black}/bin/black";
-      "qalc.path" = "${pkgs.libqalculate}/bin/qalc";
+      "python.formatting.blackPath" = getExe pkgs.black;
+      "qalc.path" = getExe pkgs.libqalculate;
       "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
-      "ruff.path" = [ "${pkgs.ruff}/bin/ruff" ];
+      "ruff.path" = [ (getExe pkgs.ruff) ];
       "ruff.nativeServer" = true;
-      "rufo.exe" = "${pkgs.rufo}/bin/rufo";
-      "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
+      "rufo.exe" = getExe pkgs.rufo;
+      "shellcheck.executablePath" = getExe pkgs.shellcheck;
       "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";
 
       # Advertisements
@@ -429,13 +429,13 @@ in
   };
 
   home.sessionVariables = rec {
-    EDITOR = "${pkgs.vscodium}/bin/codium --wait";
+    EDITOR = "${getExe pkgs.vscodium} --wait";
     VISUAL = EDITOR;
   };
 
   programs.zsh.shellAliases.code = "codium";
 
-  programs.git.extraConfig."mergetool \"code\"".cmd = "${pkgs.vscodium}/bin/codium --wait --merge $REMOTE $LOCAL $BASE $MERGED";
+  programs.git.extraConfig."mergetool \"code\"".cmd = "${getExe pkgs.vscodium} --wait --merge $REMOTE $LOCAL $BASE $MERGED";
 
   home.activation.biome = hm.dag.entryAfter [ "writeBoundary" ] ''
     if [[ -d ${escapeShellArg userDir}'/globalStorage/biomejs.biome/tmp-bin' ]]; then

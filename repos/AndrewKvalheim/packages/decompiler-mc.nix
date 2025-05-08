@@ -9,7 +9,7 @@
 , python3
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "decompiler-mc";
   version = "0.9-unstable-2024-11-02";
 
@@ -26,11 +26,11 @@ stdenv.mkDerivation rec {
     mkdir --parents $out
     cp --recursive $src/lib $out/lib
 
-    install -D main.py $out/bin/${pname}
-    substituteInPlace $out/bin/${pname} \
+    install -D main.py $out/bin/decompiler-mc
+    substituteInPlace $out/bin/decompiler-mc \
       --replace-fail 'PATH_TO_ROOT_DIR / "lib"' "Path(\"$out/lib\")" \
       --replace-fail 'PATH_TO_ROOT_DIR = Path(os.path.dirname(sys.argv[0]))' 'PATH_TO_ROOT_DIR = Path.cwd()'
-    wrapProgram $out/bin/${pname} --prefix PATH : ${lib.makeBinPath [ jre ]}
+    wrapProgram $out/bin/decompiler-mc --prefix PATH : ${lib.makeBinPath [ jre ]}
   '';
 
   passthru.updateScript = unstableGitUpdater { };
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
       bsd3 # SpecialSource (vendored)
       mit # DecompilerMC, CFR (vendored)
     ];
-    mainProgram = pname;
+    mainProgram = "decompiler-mc";
   };
 }

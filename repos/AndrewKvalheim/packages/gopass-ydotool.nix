@@ -1,4 +1,5 @@
-{ resholve
+{ lib
+, resholve
 
   # Dependencies
 , bash
@@ -8,9 +9,10 @@
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
 in
 resholve.writeScriptBin "gopass-ydotool" {
-  interpreter = "${bash}/bin/bash";
+  interpreter = getExe bash;
   inputs = [ gopass ydotool ];
-  execer = [ "cannot:${gopass}/bin/gopass" ];
+  execer = [ "cannot:${getExe gopass}" ];
 } (readFile ./resources/gopass-ydotool)

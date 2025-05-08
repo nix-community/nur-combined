@@ -1,10 +1,13 @@
-{ stdenv
+{ lib
+, stdenv
 
   # Dependencies
 , gtk4
 }:
 
-
+let
+  inherit (lib) getExe';
+in
 stdenv.mkDerivation {
   inherit (gtk4) version;
 
@@ -14,7 +17,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir --parents $out/bin
-    ln --symbolic ${gtk4.dev}/bin/gtk4-icon-browser $out/bin/
+    ln --symbolic ${getExe' gtk4.dev "gtk4-icon-browser"} $out/bin/
 
     mkdir --parents $out/share/applications
     ln --symbolic ${gtk4}/share/applications/org.gtk.IconBrowser4.desktop $out/share/applications/

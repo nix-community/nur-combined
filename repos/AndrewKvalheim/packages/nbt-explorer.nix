@@ -12,12 +12,15 @@
 , mono
 }:
 
-stdenv.mkDerivation rec {
+let
+  inherit (lib) getExe;
+in
+stdenv.mkDerivation (nbt-explorer: {
   pname = "nbt-explorer";
   version = "2.8.0";
 
   src = fetchzip {
-    url = "https://github.com/jaquadro/NBTExplorer/releases/download/v${version}-win/NBTExplorer-${version}.zip";
+    url = "https://github.com/jaquadro/NBTExplorer/releases/download/v${nbt-explorer.version}-win/NBTExplorer-${nbt-explorer.version}.zip";
     hash = "sha256-T0FLxuzgVHBz78rScPC81Ns2X1Mw/omzvYJVRQM24iU=";
     stripRoot = false;
   };
@@ -35,13 +38,12 @@ stdenv.mkDerivation rec {
       categories = [ "Utility" ];
       genericName = "Minecraft data editor";
       desktopName = "NBTExplorer";
-      name = pname;
-      icon = pname;
-      exec = meta.mainProgram;
+      name = nbt-explorer.pname;
+      icon = nbt-explorer.pname;
+      exec = "@out@/bin/nbt-explorer";
     })
   ];
 
-  phases = [ "installPhase" "patchPhase" ];
   nativeBuildInputs = [ copyDesktopItems makeWrapper ];
   postInstall = ''
     mkdir -p $out/lib
@@ -50,11 +52,15 @@ stdenv.mkDerivation rec {
       $src/NBTModel.dll \
       $src/Substrate.dll
 
-    makeWrapper "${mono}/bin/mono" $out/bin/${pname} \
+    makeWrapper ${getExe mono} $out/bin/nbt-explorer \
       --add-flags "$out/lib/NBTExplorer.exe" \
       --suffix LD_LIBRARY_PATH : ${gtk2-x11}/lib
 
-    install -D $iconSrc/NBTExplorer/Resources/Dead_Bush_256.png $out/share/icons/${pname}.png
+    install -D $iconSrc/NBTExplorer/Resources/Dead_Bush_256.png $out/share/icons/${nbt-explorer.pname}.png
+  '';
+
+  preFixup = ''
+    substituteAllInPlace $out/share/applications/*
   '';
 
   # FIXME: “replace() argument 1 must be str, not None” at nix_update/update.py:39
@@ -66,6 +72,6 @@ stdenv.mkDerivation rec {
     description = "Graphical NBT editor for all Minecraft NBT data sources";
     homepage = "https://github.com/jaquadro/NBTExplorer";
     license = lib.licenses.mit;
-    mainProgram = pname;
+    mainProgram = "nbt-explorer";
   };
-}
+})

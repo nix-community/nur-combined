@@ -8,6 +8,9 @@
 , python3
 }:
 
+let
+  inherit (lib) getExe;
+in
 stdenv.mkDerivation {
   pname = "ansible-vault-pass-client";
   version = "1.0.1-unstable-2022-04-21";
@@ -21,7 +24,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace ansible-vault-pass-client \
-      --replace-fail "'pass'" "'${gopass}/bin/gopass'"
+      --replace-fail "'pass'" "'${getExe gopass}'"
   '';
 
   buildInputs = [ python3 ];

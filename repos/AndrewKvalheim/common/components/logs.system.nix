@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
+  inherit (lib) getExe getExe';
   inherit (pkgs) zstd;
 in
 {
@@ -11,8 +12,8 @@ in
   services.logrotate.settings.header = {
     compress = true;
     compressext = ".zst";
-    compresscmd = "${zstd}/bin/zstd";
+    compresscmd = getExe zstd;
     compressoptions = "--long";
-    uncompresscmd = "${zstd}/bin/unzstd";
+    uncompresscmd = getExe' zstd "unzstd";
   };
 }
