@@ -16,6 +16,6 @@ in
   config.services.gpg-agent = mkIf cfg.enable {
     enable = true;
     enableSshSupport = true;
-    pinentryPackage = mkDefault pkgs.pinentry-gnome3;
+    pinentry.package = mkDefault pkgs.pinentry-gnome3;
   };
 }

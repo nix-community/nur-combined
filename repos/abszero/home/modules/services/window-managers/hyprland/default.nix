@@ -131,6 +131,8 @@ in
         "pseudo,       class:org\.gnome\.Solanum"
         "size 370 370, class:org\.gnome\.Solanum"
 
+        "maximize,     title:Waydroid" # Full ui
+
         "float,        class:zen, title:^$" # Notification popups
 
         "float,        class:Zotero, title: Error"

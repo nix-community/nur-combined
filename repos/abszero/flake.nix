@@ -113,7 +113,6 @@
                 cachix
                 deploy-rs
                 nixd
-                nil
                 nixfmt-rfc-style
                 nixos-anywhere
                 nix-init

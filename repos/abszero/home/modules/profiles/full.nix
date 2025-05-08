@@ -22,6 +22,7 @@ in
         direnv.enable = true;
         dotdrop.enable = true;
         git.enable = true;
+        helix.enable = true;
         jujutsu.enable = true;
         nushell.enable = true;
         thunderbird.enable = true;
@@ -58,10 +59,6 @@ in
       };
       fastfetch.enable = true;
       fzf.enable = true;
-      helix = {
-        enable = true;
-        defaultEditor = true;
-      };
       nix-index-database.comma.enable = true;
       starship.enable = true;
       yazi.enable = true;
