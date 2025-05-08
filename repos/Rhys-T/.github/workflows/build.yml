@@ -100,9 +100,9 @@ jobs:
           echo -E "matrix=$(<matrix.json)" >> "$GITHUB_OUTPUT"
           echo -E "cacheKey=$cacheKey" >> "$GITHUB_OUTPUT"
           echo -E "cachePrefix=$cachePrefix" >> "$GITHUB_OUTPUT"
-      - name: GHA cache of Nix cache
+      - name: Restore GHA cache of Nix cache
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             ~/.cache/nix/*
@@ -112,8 +112,12 @@ jobs:
       - name: Install nix
         uses: nixbuild/nix-quick-install-action@v30
       - name: Pre-cache Nixpkgs tarballs
+        id: fetch
         run: |
           shopt -s lastpipe
+          if [[ '${{ steps.cache.outputs.cache-hit }}' == 'true' ]]; then
+            oldModTime="$(find ~/.cache/nix -type f -exec stat -c '%Y' {} + | sort -n | tail -1)"
+          fi
           unpackPIDs=()
           jq -r '[.include[].nixpkgsPath] | unique[]' matrix.json | while IFS= read -r nixpkgsPath; do
             NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs/archive/$nixpkgsPath.tar.gz" nix-instantiate --eval -E '{nixpkgsPath}: nixpkgsPath + ": " + (import <nixpkgs> {}).lib.version' --argstr nixpkgsPath "$nixpkgsPath" &
@@ -125,7 +129,35 @@ jobs:
               result=false
             fi
           done
+          if [[ '${{ steps.cache.outputs.cache-hit }}' == 'true' ]]; then
+            newModTime="$(find ~/.cache/nix -type f -exec stat -c '%Y' {} + | sort -n | tail -1)"
+            if [[ "$newModTime" -ne "$oldModTime" ]]; then
+              echo 'shouldDeleteCache=true' >> "$GITHUB_OUTPUT"
+            fi
+          fi
           "$result"
+      - name: Get token for deleting cache
+        if: ${{ steps.fetch.outputs.shouldDeleteCache == 'true' }}
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          # required
+          app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
+          private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
+      - name: Delete cache to update it
+        if: ${{ steps.fetch.outputs.shouldDeleteCache == 'true' }}
+        run: |
+          gh cache delete --repo ${{ github.repository }} nixCache-${{ steps.matrix.outputs.cacheKey }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Save GHA cache of Nix cache
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cache/nix/*
+            !~/.cache/nix/binary-cache-*
+          key: nixCache-${{ steps.matrix.outputs.cacheKey }}
+      
   tests:
     needs: define-matrix
     strategy:
