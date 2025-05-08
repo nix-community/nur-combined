@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  cmakeFlags = [ "-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk" ];
+  cmakeFlags = [
+    (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk}/lib/pico-sdk")
+  ];
 
   postInstall = ''
     install -Dm444 ../udev/99-picotool.rules -t $out/etc/udev/rules.d

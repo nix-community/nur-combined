@@ -7,6 +7,7 @@
 lib.makeOverridable (
   {
     eddsaSupport ? false,
+    generateOtpFile ? false,
   }:
   let
     tinycbor = callPackage ./tinycbor.nix { };
@@ -22,6 +23,11 @@ lib.makeOverridable (
       rev = "580b0acffa8e685caee4508fb656b78247064248";
       hash = "sha256-uzOeX5EwZ0iQ53zs6VU+PukyTWcEG4HBqWPF8JqDG74=";
     };
+
+    prePatch = lib.optionalString generateOtpFile ''
+      sed -i -e '/pico_hash_binary(''${CMAKE_PROJECT_NAME})/a\
+      pico_set_otp_key_output_file(''${CMAKE_PROJECT_NAME} ''${CMAKE_CURRENT_SOURCE_DIR}/otp.json)' pico_keys_sdk_import.cmake
+    '';
 
     dontBuild = true;
     dontConfigure = true;

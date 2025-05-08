@@ -27,6 +27,8 @@ let
       usbPid ? null,
       vidPid ? null,
       eddsaSupport ? false,
+      secureBootKey ? null,
+      generateOtpFile ? false,
     }:
     stdenv.mkDerivation {
       pname = "pico-hsm${lib.optionalString eddsaSupport "-eddsa"}";
@@ -49,26 +51,26 @@ let
 
       cmakeFlags =
         [
-          "-DPICO_SDK_PATH=${pico-sdk-full}/lib/pico-sdk"
-          "-DCMAKE_C_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-gcc"
-          "-DCMAKE_CXX_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-g++"
+          (lib.cmakeFeature "CMAKE_CXX_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-g++")
+          (lib.cmakeFeature "CMAKE_C_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-gcc")
+          (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk-full}/lib/pico-sdk")
+
+          (lib.cmakeFeature "PICO_BOARD" picoBoard)
+          (lib.cmakeBool "ENABLE_EDDSA" eddsaSupport)
         ]
-        ++ lib.optional (picoBoard != null) [
-          "-DPICO_BOARD=${picoBoard}"
+        ++ lib.optional (usbVid != null && usbPid != null) [
+          (lib.cmakeFeature "USB_VID" usbVid)
+          (lib.cmakeFeature "USB_PID" usbPid)
         ]
-        ++ lib.optional (usbVid != null) [
-          "-DUSB_VID=${usbVid}"
+        ++ lib.optional (vidPid != null) [
+          (lib.cmakeFeature "VIDPID" vidPid)
         ]
-        ++ lib.optional (usbPid != null) [
-          "-DUSB_PID=${usbPid}"
-        ]
-        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ]
-        ++ lib.optional eddsaSupport [
-          "-DENABLE_EDDSA=1"
+        ++ lib.optional (secureBootKey != null) [
+          (lib.cmakeFeature "SECURE_BOOT_PKEY" secureBootKey)
         ];
 
       prePatch = ''
-        cp -r ${pico-keys-sdk { inherit eddsaSupport; }}/share/pico-keys-sdk .
+        cp -r ${pico-keys-sdk { inherit eddsaSupport generateOtpFile; }}/share/pico-keys-sdk .
         chmod -R +w pico-keys-sdk
       '';
 
@@ -82,7 +84,12 @@ let
           vidPid != null && picoBoard == null
         ) "mv pico_hsm.uf2 pico_hsm${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"}
         mkdir -p $out
-        cp -r *.uf2 $out
+        cp *.uf2 $out
+        runHook postInstall
+      '';
+
+      postInstall = lib.optionalString generateOtpFile ''
+        cp /build/source/otp.json $out
       '';
 
       meta = {

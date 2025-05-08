@@ -1,5 +1,7 @@
 {
   picoBoard ? "waveshare_rp2040_one",
+  secureBootKey ? null,
+  generateOtpFile ? false,
 
   lib,
   stdenv,
@@ -14,15 +16,20 @@
 
 stdenv.mkDerivation rec {
   pname = "pico-nuke";
-  version = "1.3";
+  version = "1.4";
 
   src = fetchFromGitHub {
     owner = "polhenarejos";
     repo = "pico-nuke";
     rev = "v${version}";
-    hash = "sha256-c4T3BinzP9P7xn4zpjyElX/1f0CSwr3Z0opnoNndj/w=";
+    hash = "sha256-qpNxdR7Pr7ch8XHp4mLA45/AJjMtElj/hVK0YXVngrA=";
     fetchSubmodules = true;
   };
+
+  prePatch = lib.optionalString generateOtpFile ''
+    sed -i -e '/pico_hash_binary(''${CMAKE_PROJECT_NAME})/a\
+    pico_set_otp_key_output_file(''${CMAKE_PROJECT_NAME} ''${CMAKE_CURRENT_SOURCE_DIR}/otp.json)' CMakeLists.txt
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -33,6 +40,7 @@ stdenv.mkDerivation rec {
 
   phases = [
     "unpackPhase"
+    "patchPhase"
     "configurePhase"
     "buildPhase"
     "installPhase"
@@ -40,18 +48,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      "-DPICO_SDK_PATH=${pico-sdk-full}/lib/pico-sdk"
-      "-DCMAKE_C_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-gcc"
-      "-DCMAKE_CXX_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-g++"
+      (lib.cmakeFeature "CMAKE_CXX_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-g++")
+      (lib.cmakeFeature "CMAKE_C_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-gcc")
+      (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk-full}/lib/pico-sdk")
+
+      (lib.cmakeFeature "PICO_BOARD" picoBoard)
     ]
-    ++ lib.optional (picoBoard != null) [
-      "-DPICO_BOARD=${picoBoard}"
+    ++ lib.optional (secureBootKey != null) [
+      (lib.cmakeFeature "SECURE_BOOT_PKEY" secureBootKey)
     ];
 
   installPhase = ''
     ${lib.optionalString (picoBoard != null) "mv flash_nuke.uf2 flash_nuke_${picoBoard}-${version}.uf2"}
     mkdir -p $out
-    cp -r *.uf2 $out
+    cp *.uf2 $out
+    runHook postInstall
+  '';
+
+  postInstall = lib.optionalString generateOtpFile ''
+    cp /build/source/otp.json $out
   '';
 
   meta = {

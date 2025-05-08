@@ -45,4 +45,31 @@ in
   pico-nuke = picopkgs.pico-nuke.override {
     picoBoard = "waveshare_rp2350_one";
   };
+  # sign binary with own private key
+  pico-openpgp-signed = picopkgs.pico-openpgp.override {
+    picoBoard = "waveshare_rp2350_one";
+    usbVid = "0xFEFF";
+    usbPid = "0xFCFD";
+    secureBootKey = "${./path/key.pem}";
+    generateOtpFile = true; # gen otp.json in result/
+  };
+  pico-fido-signed = picopkgs.pico-fido.override {
+    picoBoard = "waveshare_rp2350_one";
+    usbVid = "0xFEFF";
+    usbPid = "0xFCFD";
+    secureBootKey = "${./path/key.pem}";
+    generateOtpFile = true;
+  };
+  pico-hsm-signed = picopkgs.pico-hsm.override {
+    picoBoard = "waveshare_rp2350_one";
+    usbVid = "0xFEFF";
+    usbPid = "0xFCFD";
+    secureBootKey = "${./path/key.pem}";
+    generateOtpFile = true;
+  };
+  pico-nuke-signed = picopkgs.pico-nuke.override {
+    picoBoard = "waveshare_rp2350_one";
+    secureBootKey = "${./path/key.pem}";
+    generateOtpFile = true;
+  };
 }
