@@ -139,12 +139,12 @@ in
 
   mangohud = callPackage ./tools/graphics/mangohud rec {
     libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
+    python3Packages = prev.python3Packages;
     mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
-      libXNVCtrl = pkgsi686Linux.linuxPackages.nvidia_x11.settings.libXNVCtrl;
+      libXNVCtrl = prev.pkgsi686Linux.linuxPackages.nvidia_x11.settings.libXNVCtrl;
+      python3Packages = prev.pkgsi686Linux.python3Packages;
       inherit mangohud32;
-      inherit (pkgsi686Linux.python3Packages) mako;
     };
-    inherit (prev.python3Packages) mako;
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
@@ -153,10 +153,6 @@ in
   };
 
   sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
-
-  texlab = callPackage ./development/tools/misc/texlab {
-    inherit (darwin.apple_sdk.frameworks) Security CoreServices;
-  };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };

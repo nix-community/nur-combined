@@ -41,7 +41,6 @@ let
       "pkgs/development/python-modules/pytest-datadir"
       "pkgs/development/python-modules/vdf"
       "pkgs/development/tools/misc/cmake-language-server"
-      "pkgs/development/tools/misc/texlab"
       "pkgs/os-specific/linux/xpadneo"
       "pkgs/tools/audio/yabridge"
       "pkgs/tools/audio/yabridgectl"
