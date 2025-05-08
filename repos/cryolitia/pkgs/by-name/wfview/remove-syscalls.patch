@@ -1,8 +1,21 @@
 diff --git a/wfview.pro b/wfview.pro
-index a0943bd..8c0fd17 100644
+index a0943bd..fee1362 100644
 --- a/wfview.pro
 +++ b/wfview.pro
-@@ -120,8 +120,7 @@ macx{
+@@ -62,11 +62,9 @@ win32:DEFINES += __WINDOWS_WASAPI__
+ #linux:DEFINES += __LINUX_OSS__
+ linux:DEFINES += __LINUX_PULSE__
+ macx:DEFINES += __MACOSX_CORE__
+-!linux:SOURCES += ../rtaudio/RTAudio.cpp
+-!linux:HEADERS += ../rtaudio/RTAUdio.h
+-!linux:INCLUDEPATH += ../rtaudio
+ 
+ linux:LIBS += -lpulse -lpulse-simple -lrtaudio -lpthread -ludev
++macx:LIBS += -lpulse -lpulse-simple -lrtaudio -lpthread -ludev
+ 
+ win32:INCLUDEPATH += ../portaudio/include
+ !win32:LIBS += -lportaudio
+@@ -120,8 +118,7 @@ macx{
  
  QMAKE_TARGET_BUNDLE_PREFIX = org.wfview
  
@@ -12,7 +25,7 @@ index a0943bd..8c0fd17 100644
  
  win32:DEFINES += GITSHORT=\\\"$$system(git -C $$PWD rev-parse --short HEAD)\\\"
  win32:DEFINES += HOST=\\\"$$system(hostname)\\\"
-@@ -169,19 +168,8 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
+@@ -169,19 +166,8 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
  
  CONFIG(debug, release|debug) {
  
@@ -30,11 +43,11 @@ index a0943bd..8c0fd17 100644
 -  }
 -
 +  macos:LIBS += -lqcustomplotd
-+  linux:LIBS += -lqCustomPlot
++  linux:LIBS += -lqcustomplot
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/DebugDLL/
-@@ -211,17 +199,8 @@ CONFIG(debug, release|debug) {
+@@ -211,17 +197,8 @@ CONFIG(debug, release|debug) {
    }
  } else {
  
@@ -50,7 +63,17 @@ index a0943bd..8c0fd17 100644
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libqcustomplotqt6.so/ {print \"-lqcustomplotqt6\"}'")
 -  }
 +  macos:LIBS += -lqcustomplot
-+  linux:LIBS += -lqCustomPlot
++  linux:LIBS += -lqcustomplot
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/ReleaseDLL/
+@@ -264,9 +241,6 @@ win32:LIBS += -lopus -lole32 -luser32
+ #macx:HEADERS += ../qcustomplot/qcustomplot.h
+ 
+ win32:INCLUDEPATH += ../qcustomplot
+-!linux:INCLUDEPATH += ../opus/include
+-!linux:INCLUDEPATH += ../eigen
+-!linux:INCLUDEPATH += ../r8brain-free-src
+ 
+ INCLUDEPATH += resampler
+ 
