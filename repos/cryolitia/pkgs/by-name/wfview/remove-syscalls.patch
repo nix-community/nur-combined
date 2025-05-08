@@ -1,5 +1,5 @@
 diff --git a/wfview.pro b/wfview.pro
-index a0943bd..16be5e6 100644
+index a0943bd..8c0fd17 100644
 --- a/wfview.pro
 +++ b/wfview.pro
 @@ -120,8 +120,7 @@ macx{
@@ -12,10 +12,11 @@ index a0943bd..16be5e6 100644
  
  win32:DEFINES += GITSHORT=\\\"$$system(git -C $$PWD rev-parse --short HEAD)\\\"
  win32:DEFINES += HOST=\\\"$$system(hostname)\\\"
-@@ -170,18 +169,7 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
+@@ -169,19 +168,8 @@ macx:LIBS += -framework CoreAudio -framework CoreFoundation -lpthread -lopus
+ 
  CONFIG(debug, release|debug) {
  
-   macos:LIBS += -L ../qcustomplot/qcustomplot-sharedlib/build -lqcustomplotd
+-  macos:LIBS += -L ../qcustomplot/qcustomplot-sharedlib/build -lqcustomplotd
 -
 -  lessThan(QT_MAJOR_VERSION, 6) {
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libQCustomPlotd.so/ {print \"-lQCustomPlotd\"}'")
@@ -28,14 +29,16 @@ index a0943bd..16be5e6 100644
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libqcustomplotdqt6.so/ {print \"-lqcustomplotdqt6\"}'")
 -  }
 -
-+  linux:LIBS += -lqcustomplot
++  macos:LIBS += -lqcustomplotd
++  linux:LIBS += -lqCustomPlot
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/DebugDLL/
-@@ -212,16 +200,7 @@ CONFIG(debug, release|debug) {
+@@ -211,17 +199,8 @@ CONFIG(debug, release|debug) {
+   }
  } else {
  
-   macos:LIBS += -L ../qcustomplot/qcustomplot-sharedlib/build -lqcustomplot
+-  macos:LIBS += -L ../qcustomplot/qcustomplot-sharedlib/build -lqcustomplot
 -
 -  lessThan(QT_MAJOR_VERSION, 6) {
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libQCustomPlot.so/ {print \"-lQCustomPlot\"}'")
@@ -46,7 +49,8 @@ index a0943bd..16be5e6 100644
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libqcustomplot2qt6.so/ {print \"-lqcustomplot2qt6\"}'")
 -    linux:LIBS += $$system("/sbin/ldconfig -p | awk '/libqcustomplotqt6.so/ {print \"-lqcustomplotqt6\"}'")
 -  }
-+  linux:LIBS += -lqcustomplot
++  macos:LIBS += -lqcustomplot
++  linux:LIBS += -lqCustomPlot
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/ReleaseDLL/
