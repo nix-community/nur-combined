@@ -1,4 +1,4 @@
-theme = "catppuccin_latte"
+theme = "rose_pine_dawn"
 # theme = "ayu_dark"
 [editor]
 auto-pairs = true
