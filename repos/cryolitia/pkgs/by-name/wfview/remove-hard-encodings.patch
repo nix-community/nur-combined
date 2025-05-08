@@ -135,7 +135,7 @@ index a0943bd..e8f97e1 100644
 -  }
 -
 +  macos:LIBS += -lqcustomplotd
-+  linux:LIBS += -lqcustomplot
++  linux:LIBS += -lqcustomplotd
    win32 {
      contains(QMAKE_TARGET.arch, x86_64) {
        LIBS += -L../opus/win32/VS2015/x64/DebugDLL/
