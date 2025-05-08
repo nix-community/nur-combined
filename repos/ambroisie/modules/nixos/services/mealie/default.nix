@@ -38,25 +38,11 @@ in
         # Make it work with socket auth
         POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
       };
-    };
 
-    systemd.services = {
-      mealie = {
-        after = [ "postgresql.service" ];
-        requires = [ "postgresql.service" ];
+      # Automatic PostgreSQL provisioning
+      database = {
+        createLocally = true;
       };
-    };
-
-    # Set-up database
-    services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "mealie" ];
-      ensureUsers = [
-        {
-          name = "mealie";
-          ensureDBOwnership = true;
-        }
-      ];
     };
 
     my.services.nginx.virtualHosts = {
