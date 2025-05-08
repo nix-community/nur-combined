@@ -10818,6 +10818,28 @@
         platforms = platforms.all;
       };
     };
+    "shiori" = buildFirefoxXpiAddon {
+      pname = "shiori";
+      version = "1.7.4.0";
+      addonId = "{c6e8bd66-ebb4-4b63-bd29-5ef59c795903}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4464707/shiori_ext-1.7.4.0.xpi";
+      sha256 = "823a8aedf2e4e9d78f628921c8c0a80e8e6d1382494dc279e4adf50772df9c1c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/go-shiori/shiori-web-ext";
+        description = "Web extension for Shiori, a simple bookmark manager.\nSource code: https://github.com/go-shiori/shiori, https://github.com/go-shiori/shiori-web-ext";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "storage"
+          "bookmarks"
+          "scripting"
+          "activeTab"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "side-view" = buildFirefoxXpiAddon {
       pname = "side-view";
       version = "0.6.6956";
@@ -11897,6 +11919,40 @@
           "nativeMessaging"
           "storage"
           "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "the-camelizer-price-history-ch" = buildFirefoxXpiAddon {
+      pname = "the-camelizer-price-history-ch";
+      version = "3.0.15";
+      addonId = "izer@camelcamelcamel.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075638/the_camelizer_price_history_ch-3.0.15.xpi";
+      sha256 = "6c799742bb52cba018b109022b23ff3d95bf32481037e42ed50dd31dc9dcf07a";
+      meta = with lib;
+      {
+        homepage = "https://camelcamelcamel.com/camelizer";
+        description = "Add price history charts and price watch features to Firefox when viewing product pages on Amazon.  Use it to make informed purchasing decisions and to receive price drop alerts via email, Twitter, or RSS feed.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "tabs"
+          "activeTab"
+          "storage"
+          "https://*.camelcamelcamel.com/*"
+          "https://camelcamelcamel.com/*"
+          "https://*.amazon.com/*"
+          "https://*.amazon.co.uk/*"
+          "https://*.amazon.fr/*"
+          "https://*.amazon.de/*"
+          "https://*.amazon.es/*"
+          "https://*.amazon.ca/*"
+          "https://*.amazon.it/*"
+          "https://*.amazon.com.au/*"
         ];
         platforms = platforms.all;
       };

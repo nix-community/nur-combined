@@ -1490,6 +1490,10 @@
     "slug": "shinigami-eyes"
   },
   {
+    "slug": "shiori_ext",
+    "pname": "shiori"
+  },
+  {
     "slug": "side-view"
   },
   {
@@ -1667,6 +1671,16 @@
   },
   {
     "slug": "textern"
+  },
+  {
+    "slug": "the-camelizer-price-history-ch",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "theater-mode-for-youtube"
