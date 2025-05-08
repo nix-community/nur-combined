@@ -7,7 +7,7 @@ let
         version,
         src,
         applyMacDataPathPatch ? false,
-        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, darwin ? null, Cocoa ? darwin.apple_sdk.frameworks.Cocoa, xorg, alsa-lib, maintainers, ...
+        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, xorg, alsa-lib, maintainers, ...
     }@args:
         let
             options = callPackage ./options.nix { };
@@ -77,7 +77,7 @@ let
             '';
             # Mini vMac gets stuck in the background if I run it from a symlink in bin - use a wrapper instead
             nativeBuildInputs = lib.optionals hostPlatform.isDarwin [ makeBinaryWrapper ];
-            buildInputs = lib.optionals hostPlatform.isLinux [ xorg.libX11 ] ++ lib.optionals hostPlatform.isDarwin [ Cocoa ];
+            buildInputs = lib.optionals hostPlatform.isLinux [ xorg.libX11 ];
             installPhase = ''
                 runHook preInstall
             '' + (if hostPlatform.isDarwin then ''

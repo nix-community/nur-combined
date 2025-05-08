@@ -363,8 +363,6 @@ in {
         ;
     in callPackage ./pkgs/qemu-screamer {
         inherit stdenv;
-        inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices Cocoa Hypervisor vmnet;
-        inherit (pkgs.darwin.stubs) rez setfile;
         inherit (pkgs.darwin) sigtool;
     };
     

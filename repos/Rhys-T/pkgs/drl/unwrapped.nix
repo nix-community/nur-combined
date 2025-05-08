@@ -1,4 +1,4 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, xorg, ncurses, darwin, fpc, drl-common }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, xorg, ncurses, fpc, drl-common }: let
     libExt = stdenv.hostPlatform.extensions.sharedLibrary;
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
@@ -36,7 +36,6 @@ in stdenv.mkDerivation rec {
     nativeBuildInputs = [lua5_1 fpc-wrapper] ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [xorg.libX11];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
-    env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
     # env.NIX_DEBUG = 7;
     postPatch = ''
         sed -i '
