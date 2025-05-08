@@ -1600,12 +1600,12 @@
             "name": null,
             "owner": "abersheeran",
             "repo": "kui",
-            "rev": "v1.9.0",
-            "sha256": "sha256-61WNs4MEMbh2QX/rbQJq4L2cLXgBVsoANftCozNVGwU=",
+            "rev": "v1.9.2",
+            "sha256": "sha256-x4I4nonziW2KjtdjA/VSidAG1dSE/SV9D/lMyL/yH1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.0"
+        "version": "v1.9.2"
     },
     "ldap-auth-proxy": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5299",
-            "sha256": "sha256-jXfhUjRJvmJj/NwUSowZ35fWZnEwGQoFpOqzKSW1bDc=",
+            "rev": "b5308",
+            "sha256": "sha256-iMGzad3RaLlJxYg20lsHB49HctIaVxd9wBLAHd9j1xc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5299"
+        "version": "b5308"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2166,11 +2166,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-D0UnGL0H+zua5fJAoBbfEyU4ZdjQXf6LeQ+475oVKow=",
+            "sha256": "sha256-8kd17ChqLuVH5/OdPc2rVDKEDWHl9ZWLh8k+EBrCGH8=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.86/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.efi"
         },
-        "version": "2.0.86"
+        "version": "2.0.87"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -2181,11 +2181,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zUuvv/MCXhgqBCa4dl4+bWtS+Z1PCDRUX0pGLonaWpY=",
+            "sha256": "sha256-/qY3NdRC0SghQ4kamrkm9EFumrKlirqDCJ+XY+jHWLA=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.86/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.lkrn"
         },
-        "version": "2.0.86"
+        "version": "2.0.87"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -2534,7 +2534,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-04-13",
+        "date": "2025-05-08",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2546,12 +2546,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "7e3bbab001b2dc28406358cb6042ceaf6db236a2",
-            "sha256": "sha256-LbKisUJ4AgsVgfPWDbkSyIHIIQoApdUGzOJ4Z9L9Cn0=",
+            "rev": "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea",
+            "sha256": "sha256-F1PkpY58ukkTi4Wdq+myVLbDW0RoAgtejrA1dYKpc20=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7e3bbab001b2dc28406358cb6042ceaf6db236a2"
+        "version": "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -2801,12 +2801,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.33",
-            "sha256": "sha256-tZ6g1TDhAG7on5el2czKzOurbP0aWd1L5WIVEy5vLh8=",
+            "rev": "1.1.3.34",
+            "sha256": "sha256-c1t7/dJM/D0vhAdiN6NKHQcL1Wmyylt1/+z8DIc/mzY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.33"
+        "version": "1.1.3.34"
     },
     "plangothic-fonts": {
         "cargoLocks": null,

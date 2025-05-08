@@ -819,12 +819,12 @@
   };
   kui = {
     pname = "kui";
-    version = "v1.9.0";
+    version = "v1.9.2";
     src = fetchFromGitHub {
       owner = "abersheeran";
       repo = "kui";
-      tag = "v1.9.0";
-      hash = "sha256-61WNs4MEMbh2QX/rbQJq4L2cLXgBVsoANftCozNVGwU=";
+      tag = "v1.9.2";
+      hash = "sha256-x4I4nonziW2KjtdjA/VSidAG1dSE/SV9D/lMyL/yH1k=";
     };
   };
   ldap-auth-proxy = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5299";
+    version = "b5308";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5299";
-      hash = "sha256-jXfhUjRJvmJj/NwUSowZ35fWZnEwGQoFpOqzKSW1bDc=";
+      tag = "b5308";
+      hash = "sha256-iMGzad3RaLlJxYg20lsHB49HctIaVxd9wBLAHd9j1xc=";
     };
   };
   loralib = {
@@ -1109,18 +1109,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.86";
+    version = "2.0.87";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.86/netboot.xyz.efi";
-      hash = "sha256-D0UnGL0H+zua5fJAoBbfEyU4ZdjQXf6LeQ+475oVKow=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.efi";
+      hash = "sha256-8kd17ChqLuVH5/OdPc2rVDKEDWHl9ZWLh8k+EBrCGH8=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.86";
+    version = "2.0.87";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.86/netboot.xyz.lkrn";
-      hash = "sha256-zUuvv/MCXhgqBCa4dl4+bWtS+Z1PCDRUX0pGLonaWpY=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.lkrn";
+      hash = "sha256-/qY3NdRC0SghQ4kamrkm9EFumrKlirqDCJ+XY+jHWLA=";
     };
   };
   netns-exec = {
@@ -1303,14 +1303,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "7e3bbab001b2dc28406358cb6042ceaf6db236a2";
+    version = "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "7e3bbab001b2dc28406358cb6042ceaf6db236a2";
-      hash = "sha256-LbKisUJ4AgsVgfPWDbkSyIHIIQoApdUGzOJ4Z9L9Cn0=";
+      rev = "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea";
+      hash = "sha256-F1PkpY58ukkTi4Wdq+myVLbDW0RoAgtejrA1dYKpc20=";
     };
-    date = "2025-04-13";
+    date = "2025-05-08";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1429,12 +1429,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.33";
+    version = "1.1.3.34";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.33";
-      hash = "sha256-tZ6g1TDhAG7on5el2czKzOurbP0aWd1L5WIVEy5vLh8=";
+      tag = "1.1.3.34";
+      hash = "sha256-c1t7/dJM/D0vhAdiN6NKHQcL1Wmyylt1/+z8DIc/mzY=";
     };
   };
   plangothic-fonts = {

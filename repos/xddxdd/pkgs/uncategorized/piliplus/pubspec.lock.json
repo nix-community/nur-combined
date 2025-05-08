@@ -307,6 +307,16 @@
       "source": "hosted",
       "version": "1.3.1"
     },
+    "cached_network_svg_image": {
+      "dependency": "direct main",
+      "description": {
+        "name": "cached_network_svg_image",
+        "sha256": "fe9df0217c12e3903558dad14e1bb938c51296a1d96faa080415c6146bbd7a7d",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "1.2.0"
+    },
     "canvas_danmaku": {
       "dependency": "direct main",
       "description": {
@@ -711,7 +721,7 @@
       "version": "0.9.3+4"
     },
     "fixnum": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "fixnum",
         "sha256": "b6dc7065e46c974bc7c5f143080a6764ec7a4be6da1285ececdc37be96de53be",
@@ -932,6 +942,17 @@
       },
       "source": "hosted",
       "version": "4.9.8+7"
+    },
+    "flutter_sortable_wrap": {
+      "dependency": "direct main",
+      "description": {
+        "path": ".",
+        "ref": "master",
+        "resolved-ref": "ed2d47c7a8cc0d218bc322ab770fd19c0b56a863",
+        "url": "https://github.com/bggRGjQaUbCoE/flutter_sortable_wrap.git"
+      },
+      "source": "git",
+      "version": "1.0.6"
     },
     "flutter_svg": {
       "dependency": "direct main",
@@ -1276,7 +1297,7 @@
       "version": "0.6.7"
     },
     "json_annotation": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "json_annotation",
         "sha256": "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1",
@@ -1527,7 +1548,7 @@
       "version": "1.15.0"
     },
     "mime": {
-      "dependency": "direct overridden",
+      "dependency": "direct main",
       "description": {
         "name": "mime",
         "sha256": "41a20518f0cb1256669420fdba0cd90d21561e560ac240f26ef8322e45bb7ed6",
@@ -1597,7 +1618,7 @@
       "version": "3.2.0"
     },
     "path": {
-      "dependency": "direct overridden",
+      "dependency": "direct main",
       "description": {
         "name": "path",
         "sha256": "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5",
@@ -1887,7 +1908,7 @@
       "version": "4.0.1"
     },
     "screen_brightness": {
-      "dependency": "direct overridden",
+      "dependency": "direct main",
       "description": {
         "name": "screen_brightness",
         "sha256": "eca7bd9d2c3c688bcad14855361cab7097839400b6b4a56f62b7ae511c709958",
@@ -2194,7 +2215,7 @@
       "version": "2.1.2"
     },
     "stream_transform": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "stream_transform",
         "sha256": "ad47125e588cfd37a9a7f86c7d6356dde8dfe89d071d293f80ca9e9273a33871",
@@ -2284,7 +2305,7 @@
       "version": "2.2.2"
     },
     "universal_platform": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "universal_platform",
         "sha256": "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec",
@@ -2424,7 +2445,7 @@
       "version": "1.1.16"
     },
     "vector_math": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "vector_math",
         "sha256": "80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803",
