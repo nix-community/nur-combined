@@ -39,8 +39,7 @@ in
   flake = {
     nixosConfigurations = builtins.listToAttrs (
       lib.flatten (
-        (builtins.map (system: mkNixOSConf "${system}" system self.ciPackages."${system}") config.systems)
-        ++ [ (mkNixOSConf "x86_64-linux-cuda" "x86_64-linux" self.ciPackagesWithCuda.x86_64-linux) ]
+        builtins.map (system: mkNixOSConf "${system}" system self.ciPackages."${system}") config.systems
       )
     );
   };
