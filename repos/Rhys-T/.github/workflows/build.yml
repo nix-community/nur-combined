@@ -248,7 +248,7 @@ jobs:
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
     - name: Find build failures for subset
-      if: '!cancelled()'
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' }}
       run: |
         mv /tmp/buildFailures{,-old}
         mkdir /tmp/buildFailures
@@ -270,8 +270,10 @@ jobs:
               }' > "/tmp/buildFailures/$drvName.json"
             fi
           done
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
     - name: Upload build failures for subset
-      if: '!cancelled()'
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' }}
       uses: actions/upload-artifact@v4
       with:
         name: buildFailures-${{ matrix.cacheName }}
