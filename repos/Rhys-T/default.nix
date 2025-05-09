@@ -8,25 +8,30 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-# Backported fix for https://github.com/libsdl-org/sdl2-compat/issues/473
+# Backported updates from <https://github.com/NixOS/nixpkgs/pull/404228>
 # See <https://github.com/NixOS/nixpkgs/issues/402811>
 let pkgs' = pkgs; in
 let
 pkgs = if with pkgs'; (
     stdenv.hostPlatform.isDarwin &&
     lib.getName SDL2 == "sdl2-compat" &&
-    lib.versionOlder (lib.getVersion SDL2) "2.32.54-unstable-2025-04-29"
+    lib.getVersion sdl2-compat == "2.32.54"
 ) then
     pkgs'.extend (self: super: {
-        pythonPackagesExtensions = super.pythonPackagesExtensions ++ [(pself: psuper: {
-            pysdl2 = psuper.pysdl2.overridePythonAttrs (old: {
-                postPatch = (old.postPatch or "") + ''
-                    substituteInPlace sdl2/test/platform_test.py --replace-fail \
-                        'retval == b"Mac OS X"' \
-                        'retval in (b"Mac OS X", b"macOS")'
-                '';
-            });
-        })];
+        sdl3 = super.sdl3.overrideAttrs (old: rec {
+            version = "3.2.12";
+            src = old.src.override {
+                tag = "release-${version}";
+                hash = "sha256-CPCbbVbi0gwSUkaEBOQPJwCU2NN9Lex2Z4hqBfIjn+o=";
+            };
+        });
+        sdl2-compat = super.sdl2-compat.overrideAttrs (old: rec {
+            version = "2.32.56";
+            src = old.src.override {
+                tag = "release-${version}";
+                hash = "sha256-Xg886KX54vwGANIhTAFslzPw/sZs2SvpXzXUXcOKgMs=";
+            };
+        });
     })
 else pkgs'; in
 
@@ -116,7 +121,11 @@ in {
     # and downgrading the bootstrap compiler.
     ldc = let
         inherit (pkgs.stdenv) hostPlatform;
-        needsMacPatch = hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.ldc.version "1.40.2";
+        needsMacPatch =
+            hostPlatform.isDarwin &&
+            pkgs.lib.versionOlder pkgs.ldc.version "1.40.2" &&
+            !(pkgs.lib.any (p: (p.outputHash or null) == "sha256-Y/5+zt5ou9rzU7rLJq2OqUxMDvC7aSFS6AsPeDxNATQ=") pkgs.ldc.patches)
+        ;
         ldcBootstrap = pkgs.callPackage (pkgs.path + "/pkgs/by-name/ld/ldc/bootstrap.nix") {};
         OS = if hostPlatform.isDarwin then "osx" else hostPlatform.parsed.kernel.name;
         ARCH = if hostPlatform.isDarwin && hostPlatform.isAarch64 then "arm64" else hostPlatform.parsed.cpu.name;
@@ -329,7 +338,7 @@ in {
     fpc = let
         inherit (pkgs) lib;
         fpcOrig = pkgs.fpc;
-        needsOldClang = fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18";
+        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18";
         fpc = if needsOldClang then fpcOrig.override {
             inherit (pkgs.llvmPackages_17) stdenv;
         } else fpcOrig;

@@ -27,7 +27,7 @@
                 description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
                 broken = false;
             };
-        } // lib.optionalAttrs (lib.versionOlder stdenv.hostPlatform.darwinMinVersion darwinMinVersion) {
+        } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion darwinMinVersion) {
             buildInputs = (old.buildInputs or []) ++ [apple-sdk_11 (darwinMinVersionHook darwinMinVersion)];
         });
     in mame''';
