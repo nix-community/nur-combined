@@ -115,7 +115,8 @@ in
 
     security = {
       rtkit.enable = true;
-      sudo = {
+      sudo-rs = {
+        enable = true;
         wheelNeedsPassword = mkDefault false;
         execWheelOnly = true;
       };

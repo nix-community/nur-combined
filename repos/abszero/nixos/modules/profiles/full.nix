@@ -76,7 +76,6 @@ in
         inotify-tools
         jetbrains.idea-community
         jq
-        katawa-shoujo-re-engineered
         kooha
         libreoffice-qt
         lutris
