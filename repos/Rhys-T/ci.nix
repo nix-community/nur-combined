@@ -83,13 +83,14 @@ rec {
   cachePkgs'' = filter subset cachePkgs';
   cachePkgs = if cachedBuildFailures != null then
     let
-      notCachedBuildFailure = p: !(p?drvPath && pathExists (cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}"));
+      cachedBuildFailurePathForDrv = p: cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}.json";
+      notCachedBuildFailure = p: !(p?drvPath && pathExists (cachedBuildFailurePathForDrv p));
       results = lib.partition notCachedBuildFailure cachePkgs'';
     in results.right ++ lib.optional (builtins.length results.wrong > 0) (pkgs.runCommandLocal "_Rhys-T-replayed-cached-errors" {
-      failureInfo = builtins.toJSON (map (p: lib.importJSON (cachedBuildFailures + "/${builtins.unsafeDiscardStringContext (baseNameOf p.drvPath)}")) (filter (p: p?drvPath) results.wrong));
+      failureInfo = builtins.toJSON (map (p: lib.importJSON (cachedBuildFailurePathForDrv p)) (filter (p: p?drvPath) results.wrong));
     } ''
       echo "error: derivation(s) matched build failure cache:" >&2
-      ${with pkgs; lib.getExe jq} -r '.[] | "error:     \(.drv_path) - https://github.com/\(.repository)/actions/runs/\(.run_id)/job/\(.job_id)\(if .run_attempt != "1" then "/attempts/"+.run_attempt else "" end)' <<< "$failureInfo" >&2
+      ${with pkgs; lib.getExe jq} -r '.[] | "error:     \(.drv_path) - https://github.com/\(.repository)/actions/runs/\(.run_id)/job/\(.job_id)\(if .attempt != "1" then "/attempts/"+.attempt else "" end)"' <<< "$failureInfo" >&2
       echo "error: end of replayed build failures" >&2
       exit 1
     '')

@@ -222,14 +222,6 @@ jobs:
         key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
         restore-keys:
           buildFailures-
-    - name: Clean empty build failure files
-      if: ${{ steps.restoreFailCache.outputs.cache-matched-key != '' }}
-      run: |
-        for file in /tmp/buildFailures/*; do
-          if [[ ! -s "$file" ]]; then
-            rm "$file"
-          fi
-        done
     - name: Build nix packages
       id: build
       run: |
@@ -260,21 +252,22 @@ jobs:
       run: |
         mv /tmp/buildFailures{,-old}
         mkdir /tmp/buildFailures
+        job_id=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[0].id')
         grep -E '^error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | \
           sort | uniq | \
           tee /dev/stderr | \
           while IFS= read -r drvPath; do
             drvName="${drvPath##*/}"
-            if [[ -e "/tmp/buildFailures-old/$drvName" ]]; then
-              cp "/tmp/buildFailures-old/$drvName" /tmp/buildFailures/
+            if [[ -e "/tmp/buildFailures-old/$drvName.json" ]]; then
+              cp "/tmp/buildFailures-old/$drvName.json" /tmp/buildFailures/
             else
               echo -E '{
                 "drv_path": "'"$drvPath"'",
-                "repository": "${{ github.run_id }}",
+                "repository": "${{ github.repository }}",
                 "run_id": "${{ github.run_id }}",
-                "job_id": "${{ github.job }}",
+                "job_id": "'"$job_id"'",
                 "attempt": "${{ github.run_attempt }}"
-              }' > "/tmp/buildFailures/$drvName"
+              }' > "/tmp/buildFailures/$drvName.json"
             fi
           done
     - name: Upload build failures for subset
@@ -282,7 +275,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: buildFailures-${{ matrix.cacheName }}
-        path: /tmp/buildFailures/*.drv
+        path: /tmp/buildFailures/*.drv.json
         if-no-files-found: ignore
   trigger-update:
     name: Trigger NUR update
