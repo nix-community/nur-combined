@@ -349,10 +349,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "com.alibabainc.dingtalk_7.6.45.5032501";
+    version = "com.alibabainc.dingtalk_7.6.45.5041701";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.45.5032501_amd64.deb";
-      hash = "sha256-xB3QyfXpWHEOu0+y7FvnrPjixRX/GAMHGqQjIZL6sZk=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.45.5041701_amd64.deb";
+      hash = "sha256-HXvVkIrQgXWA5NKvcVgJeOtK+kSD6a3yXJB5nyLNqzU=";
     };
   };
   dn42-pingfinder = {
@@ -587,14 +587,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "2c2fb5e1eb1185a081e3507c2aa5c3aafaa2bb6d";
+    version = "ae013cf597db1c523c9fac21b7e83db62304ae2d";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "2c2fb5e1eb1185a081e3507c2aa5c3aafaa2bb6d";
-      hash = "sha256-Z5c/lwmnaHZSCJqDoig8vvngP8J6Uj6QYLfMr7b06Xs=";
+      rev = "ae013cf597db1c523c9fac21b7e83db62304ae2d";
+      hash = "sha256-u/pgJMBImxyyJAvtz6wXgsZJm4KRKAQbufvZJnPr6s8=";
     };
-    date = "2025-04-22";
+    date = "2025-05-08";
   };
   glauth = {
     pname = "glauth";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5308";
+    version = "b5321";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5308";
-      hash = "sha256-iMGzad3RaLlJxYg20lsHB49HctIaVxd9wBLAHd9j1xc=";
+      tag = "b5321";
+      hash = "sha256-p45QVCXhFr51SRy9E2kjKkPn0z8cjO3TmZfJkyd73+A=";
     };
   };
   loralib = {
@@ -1403,10 +1403,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.4.14";
+    version = "7.4.15";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.14/PeerBanHelper_7.4.14.zip";
-      hash = "sha256-mgA6Rur2hvjQXyF4RWZX4QM2x05JLiJMS3qfSKlwWjs=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.15/PeerBanHelper_7.4.15.zip";
+      hash = "sha256-LICKttYbqC0Lszt4bOJflcqmLoPWty3DcBxOTwenJ1Y=";
     };
   };
   phpmyadmin = {
@@ -1725,14 +1725,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "5322bcd86f47d18e0785cac4a5da239664b46235";
+    version = "60cd1631f9f5023cf00e86adc535571d1b86f1b2";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "5322bcd86f47d18e0785cac4a5da239664b46235";
-      hash = "sha256-BFS/pMuUlZ6pQEITZ37hotl7YUMmU7kWoHA26L+y7Pc=";
+      rev = "60cd1631f9f5023cf00e86adc535571d1b86f1b2";
+      hash = "sha256-3K25oc4q/5pmZL7WYoSR6RyjgV+7o7W6MzBcIKeRD0Y=";
     };
-    date = "2025-05-01";
+    date = "2025-05-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2122,12 +2122,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.0.3";
+    version = "v1.0.4";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.0.3";
-      hash = "sha256-PFF+8BFGWSE/TrY9Y9WsM/7spT8/4g+ZG/t39NUJbPU=";
+      tag = "v1.0.4";
+      hash = "sha256-od6JXHjZnM86oYLWNTogoVgHfZGubTUuITzEj13MKGE=";
     };
   };
   vbmeta-disable-verification = {
