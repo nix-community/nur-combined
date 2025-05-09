@@ -12,27 +12,30 @@
 # See <https://github.com/NixOS/nixpkgs/issues/402811>
 let pkgs' = pkgs; in
 let
-pkgs = if with pkgs'; (
+overlays = pkgs'.lib.optional (with pkgs'; (
     lib.getName SDL2 == "sdl2-compat" &&
     lib.getVersion sdl2-compat == "2.32.54"
-) then
-    pkgs'.extend (self: super: {
-        sdl3 = super.sdl3.overrideAttrs (old: rec {
-            version = "3.2.12";
-            src = old.src.override {
-                tag = "release-${version}";
-                hash = "sha256-CPCbbVbi0gwSUkaEBOQPJwCU2NN9Lex2Z4hqBfIjn+o=";
-            };
-        });
-        sdl2-compat = super.sdl2-compat.overrideAttrs (old: rec {
-            version = "2.32.56";
-            src = old.src.override {
-                tag = "release-${version}";
-                hash = "sha256-Xg886KX54vwGANIhTAFslzPw/sZs2SvpXzXUXcOKgMs=";
-            };
-        });
-    })
-else pkgs'; in
+)) (self: super: {
+    sdl3 = super.sdl3.overrideAttrs (old: rec {
+        version = "3.2.12";
+        src = old.src.override {
+            tag = "release-${version}";
+            hash = "sha256-CPCbbVbi0gwSUkaEBOQPJwCU2NN9Lex2Z4hqBfIjn+o=";
+        };
+    });
+    sdl2-compat = super.sdl2-compat.overrideAttrs (old: rec {
+        version = "2.32.56";
+        src = old.src.override {
+            tag = "release-${version}";
+            hash = "sha256-Xg886KX54vwGANIhTAFslzPw/sZs2SvpXzXUXcOKgMs=";
+        };
+    });
+}) ++ pkgs'.lib.optional (builtins.elem null pkgs'.SDL_compat.buildInputs) (self: super: {
+    SDL_compat = super.SDL_compat.overrideAttrs (old: {
+        buildInputs = builtins.filter (p: p != null) old.buildInputs;
+    });
+});
+pkgs = if builtins.length overlays > 0 then pkgs'.appendOverlays overlays else pkgs'; in
 
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
     inherit (self) callPackage myLib;
