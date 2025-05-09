@@ -3,7 +3,7 @@
 set SYSTEM $(nix eval --impure --raw --expr 'builtins.currentSystem')
 set PKGS $(nix eval --raw .\#packages."$SYSTEM" --apply 'attrs: builtins.toString (builtins.attrNames attrs)')
 
-set EXCLUDED_PKGS [ lyricer ]
+set EXCLUDED_PKGS [ lyricer aya-prover-lsp ]
 
 for pkg in (string split ' ' $PKGS)
     if not contains $pkg $EXCLUDED_PKGS;

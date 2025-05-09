@@ -84,6 +84,7 @@
           };
         flake = {
           updateArgs = {
+            aya-prover = "--version-regex 'v(.*)'";
             sjtu-canvas-helper = "--version-regex 'app-v(.*)'";
             smartdns-rs = "--version-regex 'v(.*)'";
           };
