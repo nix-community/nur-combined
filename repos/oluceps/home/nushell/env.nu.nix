@@ -63,7 +63,7 @@
   $env.PROMPT_INDICATOR_VI_NORMAL = {|| $"(ansi blue)<(ansi reset) " }
   $env.PROMPT_MULTILINE_INDICATOR = {|| "::" }
 
-  $env.LS_COLORS = (${lib.getExe pkgs.vivid} generate catppuccin-latte)
+  $env.LS_COLORS = (${lib.getExe pkgs.vivid} generate rose-pine-dawn)
 
 
   $env.EDITOR = "hx"
