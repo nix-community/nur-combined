@@ -4,5 +4,9 @@ builds:
     - "packages.aarch64-darwin.sjtu-canvas-helper"
     - "packages.x86_64-darwin.lyricer"
     - "packages.aarch64-darwin.lyricer"
+    - "packages.x86_64-darwin.aya-prover"
+    - "packages.aarch64-darwin.aya-prover"
+    - "packages.x86_64-darwin.aya-prover-lsp"
+    - "packages.aarch64-darwin.aya-prover-lsp"
   include:
     - "packages.*.*"

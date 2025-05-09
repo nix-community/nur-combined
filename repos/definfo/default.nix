@@ -36,6 +36,8 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
+  aya-prover-lsp = pkgs.callPackage ./pkgs/aya-prover { mainProgram = "aya-lsp"; };
   lyricer = pkgs.callPackage ./pkgs/lyricer { };
   rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
