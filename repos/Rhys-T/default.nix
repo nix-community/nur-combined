@@ -13,7 +13,6 @@
 let pkgs' = pkgs; in
 let
 pkgs = if with pkgs'; (
-    stdenv.hostPlatform.isDarwin &&
     lib.getName SDL2 == "sdl2-compat" &&
     lib.getVersion sdl2-compat == "2.32.54"
 ) then
