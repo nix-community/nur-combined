@@ -2265,10 +2265,10 @@
     };
     "danish-dictionary" = buildFirefoxXpiAddon {
       pname = "danish-dictionary";
-      version = "2.8";
+      version = "2.9";
       addonId = "danish@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4471155/dansk_ordbog-2.8.xpi";
-      sha256 = "9cdab7be553ae88b852d3026e6f75be9e0204669812650fbfdb831f8d1b35118";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4489588/dansk_ordbog-2.9.xpi";
+      sha256 = "880da26ac82e00bca036ca4e3997940ec8e57d437e8b3814d077e41008f2cdf2";
       meta = with lib;
       {
         homepage = "https://mozilladanmark.dk/stavekontrol/";
@@ -2751,7 +2751,7 @@
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
-        description = "Display dual subtitles.";
+        description = "Display dual subtitles on video websites.";
         license = {
           shortName = "allrightsreserved";
           fullName = "All Rights Reserved";
@@ -14088,10 +14088,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "1.0.2";
+      version = "1.0.3";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4450692/yang_addon-1.0.2.xpi";
-      sha256 = "2fad727b00420ebea485fb2a104fbd943b58f949ded1c7d026ad13c511b19711";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4489547/yang_addon-1.0.3.xpi";
+      sha256 = "43f30d34df66408eade8ecd15a59c9e222abc6b41bdf8bbf80d71a76229d240f";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
