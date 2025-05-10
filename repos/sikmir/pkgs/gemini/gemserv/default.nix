@@ -5,7 +5,6 @@
   fetchFromSourcehut,
   pkg-config,
   openssl,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  buildInputs = [ openssl ];
 
   postInstall = ''
     install -Dm644 config.toml -t $out/share/gemserv

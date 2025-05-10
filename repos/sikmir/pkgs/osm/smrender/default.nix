@@ -6,7 +6,6 @@
   pkg-config,
   cairo,
   librsvg,
-  darwin,
   testers,
 }:
 
@@ -26,14 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      cairo
-      librsvg
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Foundation
-    ];
+  buildInputs = [
+    cairo
+    librsvg
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;

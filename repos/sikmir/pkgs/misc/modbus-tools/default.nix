@@ -1,9 +1,7 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitLab,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,8 +20,6 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
-
-  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.IOKit;
 
   meta = {
     description = "Tool(s) for working with Modbus protocol";

@@ -1,9 +1,7 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
-  darwin,
   buildPackages,
 }:
 
@@ -26,8 +24,6 @@ rustPlatform.buildRustPackage rec {
   };
 
   PROTOC = "${buildPackages.protobuf}/bin/protoc";
-
-  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
 
   cargoBuildFlags = [
     "--package"

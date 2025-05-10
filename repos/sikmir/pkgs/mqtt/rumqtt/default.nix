@@ -1,10 +1,8 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
   cmake,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,8 +21,6 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-/OUSTfpjqTily2b2RNZEfmHdKHSQo7lQsGwqW08vPnc=";
 
   nativeBuildInputs = [ cmake ];
-
-  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = {
     description = "The MQTT ecosystem in rust";

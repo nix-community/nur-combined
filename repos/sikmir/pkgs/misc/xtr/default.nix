@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
   libiconv,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,7 +25,6 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
-    darwin.apple_sdk.frameworks.Foundation
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-incompatible-function-pointer-types";

@@ -345,9 +345,7 @@ lib.makeScope newScope (
     ascii-dash = callPackage ./misc/ascii-dash { };
     bash-completor = callPackage ./misc/bash-completor { };
     btpd = callPackage ./misc/btpd { };
-    bwh = darwin.apple_sdk_11_0.callPackage ./misc/bwh {
-      inherit (darwin.apple_sdk_11_0.frameworks) AppKit;
-    };
+    bwh = callPackage ./misc/bwh { };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
     chasquid = callPackage ./misc/chasquid { };

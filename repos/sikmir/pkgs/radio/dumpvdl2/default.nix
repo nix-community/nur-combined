@@ -11,7 +11,6 @@
   soapysdr,
   sqlite,
   zeromq,
-  darwin,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -30,20 +29,15 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      glib
-      libacars
-      protobufc
-      rtl-sdr
-      soapysdr
-      sqlite
-      zeromq
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.AppKit
-      darwin.apple_sdk.frameworks.Foundation
-    ];
+  buildInputs = [
+    glib
+    libacars
+    protobufc
+    rtl-sdr
+    soapysdr
+    sqlite
+    zeromq
+  ];
 
   meta = {
     description = "VDL Mode 2 message decoder and protocol analyzer";

@@ -1,9 +1,7 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage {
@@ -22,8 +20,6 @@ rustPlatform.buildRustPackage {
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
-
-  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
 
   meta = {
     description = "A lightning-fast tool for querying Tatoebe from the command-line";

@@ -1,9 +1,7 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -38,11 +36,6 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInnputs = [
     rustPlatform.bindgenHook
-  ];
-
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.AudioToolbox
-    darwin.apple_sdk_11_0.frameworks.CoreAudio
   ];
 
   doCheck = false;

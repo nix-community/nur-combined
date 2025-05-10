@@ -1,21 +1,19 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
-  darwin,
   protobuf,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rmqtt";
-  version = "0.10.0";
+  version = "0.13.1";
 
   src = fetchFromGitHub {
     owner = "rmqtt";
     repo = "rmqtt";
     tag = version;
-    hash = "sha256-EPHiwDct8abzzYUj5egKf93yIrzFxoYDcH6ki4bZfGw=";
+    hash = "sha256-5drl63QwbcprLIRyaKl3/QUOOoG+uRZd6qxDX9yOLYQ=";
   };
 
   cargoLock = {
@@ -31,11 +29,6 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [ protobuf ];
-
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
 
   meta = {
     description = "MQTT Broker";
