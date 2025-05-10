@@ -4,18 +4,23 @@
   fetchFromGitHub,
   bashInteractive,
   installShellFiles,
+  bash,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bash-completor";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "adoyle-h";
     repo = "bash-completor";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Ph+cQaXbykn703cdgkqlXcYMO4vvH6e0hCeecWS/6yA=";
+    hash = "sha256-nE+UPjDglFEPXyKZk1cs22eUaUxnWEjikMKcku4Pmy0=";
   };
+
+  postPatch = ''
+    substituteInPlace tools/build-dist --replace "/usr/bin/env bash" "${lib.getExe bash}"
+  '';
 
   nativeBuildInputs = [
     bashInteractive

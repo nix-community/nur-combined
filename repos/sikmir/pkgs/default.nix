@@ -341,6 +341,7 @@ lib.makeScope newScope (
     arduinojson = callPackage ./misc/arduinojson { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     bash-completor = callPackage ./misc/bash-completor { };
+    brink = callPackage ./misc/brink { };
     btpd = callPackage ./misc/btpd { };
     bwh = callPackage ./misc/bwh { };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };

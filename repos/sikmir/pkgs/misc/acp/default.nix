@@ -6,22 +6,24 @@
 
 buildGoModule rec {
   pname = "acp";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "Contextualist";
     repo = "acp";
     tag = "v${version}";
-    hash = "sha256-qoS3lHr98S5uqmwZ3rZwPDZEQRTDIrxChfOlppbJHI4=";
+    hash = "sha256-FxpIfJ6WWWgaBQnTbvp0DqRrmPmT0ZUjueBFgJ24HAY=";
   };
 
-  vendorHash = "sha256-OCoghYUNznwBz7JN2MkHzdngA+mhHcfFIpw8ZMxeeMc=";
+  vendorHash = "sha256-Z7RfbOea1cKavbLqPMgWvez2mzvvjl0ll/ikotrWlbA=";
 
   ldflags = [
     "-s"
     "-w"
     "-X main.buildTag=${version}"
   ];
+
+  __darwinAllowLocalNetworking = true;
 
   meta = {
     description = "Make terminal personal file transfers as simple as `cp`";
