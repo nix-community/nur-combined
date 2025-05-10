@@ -28,6 +28,7 @@ in
     home.packages = with pkgs; [
       albert
       brillo
+      smile
     ];
 
     services.hyprpaper.enable = true;
@@ -40,6 +41,7 @@ in
         "Mod+Ctrl+t".action = spawn "foot";
         "Mod+Ctrl+slash".action = spawn "albert" "show";
         "Mod+Ctrl+b".action = spawn "zen";
+        "Mod+Ctrl+period".action = spawn "smile";
       };
 
       window-rules = [
@@ -52,7 +54,6 @@ in
         {
           open-floating = true;
           matches = [
-            { title = "KDE Connect"; }
             { app-id = "it\\.mijorus\\.smile"; }
           ];
         }

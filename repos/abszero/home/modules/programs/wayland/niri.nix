@@ -41,29 +41,40 @@ in
         # Navigation
         "Mod+Space".action = switch-focus-between-floating-and-tiling;
         "Mod+Tab".action = focus-window-previous;
+        "Mod+m".action = focus-monitor-previous;
 
-        "Mod+n".action = focus-column-left;
-        "Mod+e".action = focus-window-or-workspace-down;
-        "Mod+i".action = focus-window-or-workspace-up;
-        "Mod+a".action = focus-column-right;
-        "Mod+h".action = focus-column-first;
-        "Mod+slash".action = focus-monitor-previous;
-        "Mod+comma".action = focus-monitor-next;
-        "Mod+period".action = focus-column-last;
+        "Mod+Left".action = focus-column-left;
+        "Mod+Down".action = focus-window-or-workspace-down;
+        "Mod+Up".action = focus-window-or-workspace-up;
+        "Mod+Right".action = focus-column-right;
+        "Mod+Home".action = focus-column-first;
+        "Mod+End".action = focus-column-last;
 
-        # Movement
+        # Window movement
         "Mod+w".action = close-window;
         "Mod+f".action = fullscreen-window;
-        "Mod+m".action = maximize-column;
+        "Mod+l".action = switch-layout "next";
         "Mod+Shift+Space".action = toggle-window-floating;
+        "Mod+Shift+m".action = move-window-to-monitor-previous;
+
+        "Mod+Shift+Left".action = consume-or-expel-window-left;
+        "Mod+Shift+Down".action = move-window-down-or-to-workspace-down;
+        "Mod+Shift+Up".action = move-window-up-or-to-workspace-up;
+        "Mod+Shift+Right".action = consume-or-expel-window-right;
+
+        # Column movement
         "Mod+t".action = toggle-column-tabbed-display;
+        "Mod+Ctrl+f".action = maximize-column;
         "Mod+u".action = consume-window-into-column;
         "Mod+x".action = expel-window-from-column;
-
-        "Mod+Shift+n".action = move-column-left;
-        "Mod+Shift+e".action = move-window-down-or-to-workspace-down;
-        "Mod+Shift+i".action = move-window-up-or-to-workspace-up;
-        "Mod+Shift+a".action = move-column-right;
+        "Mod+Ctrl+Shift+m".action = move-column-to-monitor-previous;
+        
+        "Mod+Ctrl+Shift+Left".action = move-column-left;
+        "Mod+Ctrl+Shift+Down".action = move-column-to-workspace-down { focus = true; };
+        "Mod+Ctrl+Shift+Up".action = move-column-to-workspace-up { focus = true; };
+        "Mod+Ctrl+Shift+Right".action = move-column-right;
+        "Mod+Ctrl+Shift+Home".action = move-column-to-first;
+        "Mod+Ctrl+Shift+End".action = move-column-to-last;
 
         # Media
         XF86AudioMute = {

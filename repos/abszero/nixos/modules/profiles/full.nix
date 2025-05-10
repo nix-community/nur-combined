@@ -85,7 +85,6 @@ in
         osu-lazer-bin
         proton-pass
         protonvpn-gui
-        smile
         taisei
         tenacity
         unzip

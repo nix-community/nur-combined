@@ -18,8 +18,13 @@ in
   config = mkIf cfg.niri.enable {
     abszero.themes.catppuccin.enable = true;
 
+    # Remove minimize, maximize, close buttons
+    dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "";
+
     programs.niri.settings = {
       layout = {
+        always-center-single-column = true;
+      
         tab-indicator = {
           place-within-column = true;
           gap = 8;
@@ -44,8 +49,9 @@ in
 
         shadow.enable = true;
 
+        gaps = 24;
         struts = rec {
-          top = 32;
+          top = 24;
           right = top;
           bottom = top;
           left = top;
