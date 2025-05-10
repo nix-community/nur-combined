@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "pygpsclient";
-  version = "1.5.6";
+  version = "1.5.7";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "PyGPSClient";
     tag = "v${version}";
-    hash = "sha256-WfJlc227vd8RIdtmqaJYtV6ydcjP+gl4g4o3If+WyY4=";
+    hash = "sha256-dh3ohHEQW2hWFiQmH/ID2q0POzvo0Q/45rqXjpheWSY=";
   };
 
   build-system = with python3Packages; [ setuptools ];
