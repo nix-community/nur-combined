@@ -7,7 +7,10 @@ let
 in
 
 {
-  imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
+  imports = [
+    ../../../../lib/modules/themes/catppuccin/catppuccin.nix
+    ../base/cursors.nix
+  ];
 
   options.abszero.themes.catppuccin.cursors = {
     enable = mkExternalEnableOption config "catppuccin cursor theme. Complementary to catppuccin/nix";
@@ -15,7 +18,10 @@ in
   };
 
   config = mkIf cfg.cursors.enable {
-    abszero.themes.catppuccin.enable = true;
+    abszero.themes = {
+      base.pointerCursor.enable = true;
+      catppuccin.enable = true;
+    };
     catppuccin.cursors = {
       enable = true;
       accent = mkIf cfg.cursors.monochromeAccent cfg.polarity;

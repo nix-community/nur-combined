@@ -18,15 +18,31 @@ in
     mkExternalEnableOption config "fonts to use with catppuccin theme";
 
   config = mkIf cfg.fonts.enable {
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts = {
+        sansSerif = [
+          "Open Sans"
+          "Noto Sans CJK"
+        ];
+        serif = [ "Iosevka Etoile" ];
+        monospace = [
+          "Iosevka Inconsolata"
+          "Ligconsolata"
+          "Fira Code"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+
     home.packages = with pkgs; [
+      open-sans
+      noto-fonts-cjk-sans
+      (iosevka-bin.override { variant = "Etoile"; })
       fira-code
       inconsolata
-      (iosevka-bin.override { variant = "Etoile"; })
       iosevka-inconsolata
       nerd-fonts.departure-mono
-      noto-fonts-cjk-sans
-      open-sans
     ];
   };
 }

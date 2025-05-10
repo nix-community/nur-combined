@@ -62,14 +62,19 @@ in
           inherit inputs;
         };
         modules = flatten [
-          inputs.catppuccin.homeModules.catppuccin
+          # Install only the config as the program is installed by NixOS module
+          inputs.niri.homeModules.config
           inputs.nix-index-database.hmModules.nix-index
+          inputs.catppuccin.homeModules.catppuccin
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)
           c.modules
           {
             abszero.enableExternalModulesByDefault = false;
-            nixpkgs.overlays = [ (_: prev: import ../../pkgs { pkgs = prev; }) ];
+            nixpkgs.overlays = [
+              (_: prev: import ../../pkgs { pkgs = prev; })
+              inputs.niri.overlays.niri
+            ];
             home = {
               inherit (c) username homeDirectory;
             };

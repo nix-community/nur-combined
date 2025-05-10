@@ -3,7 +3,7 @@ let
 
   mainModule = {
     abszero = {
-      profiles.hyprland.enable = true;
+      profiles.niri.enable = true;
 
       services.darkman = {
         enable = true;
@@ -14,7 +14,6 @@ let
       themes = {
         base = {
           fastfetch.enable = true;
-          hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
           starship.enable = true;
         };
@@ -23,11 +22,11 @@ let
           fcitx5.enable = true;
           foot.enable = true;
           gtk.enable = true;
-          hyprland.enable = true;
           hyprpaper = {
             enable = true;
             wallpaper = "xppen-chan";
           };
+          niri.enable = true;
         };
       };
     };

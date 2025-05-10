@@ -36,7 +36,11 @@ in
       '';
     };
 
-    xdg.enable = true;
+    xdg = {
+      enable = true;
+      autostart.enable = true;
+      mimeApps.enable = true;
+    };
 
     programs = {
       # NOTE: most of gpg config is in user's configuration

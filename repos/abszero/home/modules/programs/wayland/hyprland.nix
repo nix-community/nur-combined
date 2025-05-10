@@ -1,3 +1,5 @@
+# NOTE: The hyprland option in home-manager is `wayland.windowManager.hyprland`, however we use
+#       `programs.hyprland` to be consistent with NixOS.
 {
   config,
   pkgs,
@@ -8,13 +10,13 @@
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (builtins) concatMap;
-  cfg = config.abszero.wayland.windowManager.hyprland;
+  cfg = config.abszero.programs.hyprland;
 in
 
 {
   # imports = [ ./mosaic-tiling.nix ];
 
-  options.abszero.wayland.windowManager.hyprland.enable = mkEnableOption "Wayland compositor";
+  options.abszero.programs.hyprland.enable = mkEnableOption "Wayland compositor";
 
   config.wayland.windowManager.hyprland = mkIf cfg.enable {
     enable = true;
@@ -106,40 +108,8 @@ in
 
       bindm = "$mod, mouse:272, movewindow";
 
-      windowrule = [
-        "float,        title:Albert"
-        "pin,          title:Albert"
-        "noblur,       title:Albert"
-        "noborder,     title:Albert"
-
-        "pseudo,       title:.* - Anki"
-        "size 666 560, title:.* - Anki"
-
-        "float,        title:CollectorMainWindow"
-
-        "size 600 500, class:foot"
-
-        "size 600 500, class:com\.mitchellh\.ghostty"
-
-        "pseudo,       title:KDE Connect"
-        "size 350 350, title:KDE Connect"
-
-        "immediate,    class:osu!" # Enable tearing
-
-        "float,        class:it\.mijorus\.smile"
-
-        "pseudo,       class:org\.gnome\.Solanum"
-        "size 370 370, class:org\.gnome\.Solanum"
-
-        "maximize,     title:Waydroid" # Full ui
-
-        "float,        class:zen, title:^$" # Notification popups
-
-        "float,        class:Zotero, title: Error"
-      ];
-
       exec-once = [
-        "fcitx5 -d"
+        # "fcitx5 -d"
         # Polkit authentication agent
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"
       ];

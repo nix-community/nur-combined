@@ -34,10 +34,12 @@ in
           "root"
           "@wheel"
         ];
-        substituters = [
-          # CN mirrors of https://cache.nixos.org
-          # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-          # "https://mirrors.ustc.edu.cn/nix-channels/store"
+        # substituters = [
+        #   # CN mirrors of https://cache.nixos.org
+        #   "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        #   "https://mirrors.ustc.edu.cn/nix-channels/store"
+        # ];
+        extra-substituters = [
           "https://abszero.cachix.org"
           "https://nix-community.cachix.org"
         ];
@@ -122,7 +124,10 @@ in
       };
     };
 
-    services.journald.console = "/dev/tty1";
+    services = {
+      dbus.implementation = "broker";
+      journald.console = "/dev/tty1";
+    };
 
     programs.zsh.enable = true;
 

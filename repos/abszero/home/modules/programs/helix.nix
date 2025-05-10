@@ -15,7 +15,10 @@ in
     settings = {
       editor = {
         text-width = 100;
-        rulers = [100 120];
+        rulers = [
+          100
+          120
+        ];
         bufferline = "multiple";
 
         lsp.display-inlay-hints = true;
@@ -49,13 +52,13 @@ in
         normal = {
           # Movement
           home = "goto_first_nonwhitespace";
-        
+
           # Selection
           A-n = "select_prev_sibling";
           A-e = "shrink_selection";
           A-i = "expand_selection";
           A-a = "select_next_sibling";
-          
+
           A-S-e = "select_all_children";
           A-S-a = "select_all_siblings";
 
@@ -70,7 +73,7 @@ in
             e = "jump_view_down";
             i = "jump_view_up";
             a = "jump_view_right";
-            
+
             S-n = "swap_view_left";
             S-e = "swap_view_down";
             S-i = "swap_view_up";
@@ -95,22 +98,23 @@ in
       language = [
         {
           name = "devicetree";
-          file-types = ["dts" "dtsi" "overlay" "keymap"];
+          file-types = [
+            "dts"
+            "dtsi"
+            "overlay"
+            "keymap"
+          ];
         }
       ];
-    
+
       language-server.nixd = {
         config = {
           nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
           options = {
-            nixos.expr =
-              "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-redmibook.options";
-            home-manager.expr =
-              ''(builtins.getFlake (toString ./.)).homeConfigurations."weathercold@nixos-redmibook".options'';
-            flake-parts.expr =
-              "(builtins.getFlake (toString ./.)).debug.options";
-            flake-parts2.expr =
-              "(builtins.getFlake (toString ./.)).currentSystem.options";
+            nixos.expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-redmibook.options";
+            home-manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."weathercold@nixos-redmibook".options'';
+            flake-parts.expr = "(builtins.getFlake (toString ./.)).debug.options";
+            flake-parts2.expr = "(builtins.getFlake (toString ./.)).currentSystem.options";
           };
         };
       };

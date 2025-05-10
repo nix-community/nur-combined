@@ -118,8 +118,8 @@ let
 
     hyprland-latte-pink = {
       abszero = {
-        wayland.windowManager.hyprland.enable = true;
         services.displayManager.tuigreet.enable = true;
+        programs.hyprland.enable = true;
       };
 
       catppuccin.accent = "pink";

@@ -102,7 +102,7 @@ in
       };
       terminal-exec = {
         enable = true;
-        settings.default = [ "ghostty.desktop" ];
+        settings.default = [ "foot.desktop" ];
       };
     };
 

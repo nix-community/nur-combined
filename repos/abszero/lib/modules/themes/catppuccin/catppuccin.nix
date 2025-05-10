@@ -76,6 +76,9 @@ in
       flavor = cfg."${cfg.polarity}Flavor";
     };
 
-    lib.catppuccin.toTitleCase = s: toUpper (substring 0 1 s) + substring 1 100 s;
+    lib.catppuccin = {
+      toTitleCase = s: toUpper (substring 0 1 s) + substring 1 100 s;
+      palette = builtins.fromJSON (builtins.readFile ./palette.json);
+    };
   };
 }

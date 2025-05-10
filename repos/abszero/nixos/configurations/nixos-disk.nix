@@ -26,8 +26,6 @@ let
 
       hardware.xiaomi-redmibook-16-pro-2024.enable = true;
 
-      wayland.windowManager.hyprland.enable = true;
-
       services = {
         displayManager.tuigreet.enable = true;
         xray = recursiveUpdate proxySettings {
@@ -36,6 +34,8 @@ let
           reality.shortId = "77b852c767077a1a";
         };
       };
+
+      programs.hyprland.enable = true;
 
       themes.catppuccin = {
         enable = true;

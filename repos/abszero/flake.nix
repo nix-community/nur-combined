@@ -4,6 +4,13 @@
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -106,7 +113,7 @@
           { pkgs, ... }:
           with pkgs;
           {
-            formatter = nixfmt-rfc-style;
+            formatter = nixfmt-tree;
 
             devShells.default = mkShell {
               packages = [
@@ -114,6 +121,7 @@
                 deploy-rs
                 nixd
                 nixfmt-rfc-style
+                nixfmt-tree
                 nixos-anywhere
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts

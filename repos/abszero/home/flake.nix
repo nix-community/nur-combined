@@ -4,6 +4,13 @@
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
     # bocchi-cursors = {
     #   url = "github:Weathercold/Bocchi-Cursors";
     #   inputs = {

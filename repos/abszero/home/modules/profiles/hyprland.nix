@@ -19,10 +19,10 @@ in
   config = mkIf cfg.enable {
     abszero = {
       profiles.full.enable = true;
-      wayland.windowManager.hyprland.enable = true;
       services.hypridle.enable = true;
       programs = {
         foot.enable = true;
+        hyprland.enable = true;
         hyprlock.enable = true;
       };
     };
@@ -42,6 +42,38 @@ in
         "$mod,  t,                     exec, foot"
         ",      Print,                 exec, grimblast copysave area"
         "SHIFT, Print,                 exec, grimblast copysave output"
+      ];
+
+      windowrule = [
+        "float,        title:Albert"
+        "pin,          title:Albert"
+        "noblur,       title:Albert"
+        "noborder,     title:Albert"
+
+        "pseudo,       title:.* - Anki"
+        "size 666 560, title:.* - Anki"
+
+        "float,        title:CollectorMainWindow"
+
+        "size 600 500, class:foot"
+
+        "size 600 500, class:com\\.mitchellh\\.ghostty"
+
+        "pseudo,       title:KDE Connect"
+        "size 350 350, title:KDE Connect"
+
+        "immediate,    class:osu!" # Enable tearing
+
+        "float,        class:it\\.mijorus\\.smile"
+
+        "pseudo,       class:org\\.gnome\\.Solanum"
+        "size 370 370, class:org\\.gnome\\.Solanum"
+
+        "maximize,     title:Waydroid" # Full ui
+
+        "float,        class:zen, title:^$" # Notification popups
+
+        "float,        class:Zotero, title: Error"
       ];
 
       exec-once = [ "albert" ];

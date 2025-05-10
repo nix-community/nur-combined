@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="CustomFileTypes">
-    <file url="file://$PROJECT_DIR$/home/modules/themes/catppuccin/eww/scripts/wifi.clj" value="BABASHKA" />
-    <file url="file://$PROJECT_DIR$/home/modules/themes/catppuccin/eww/scripts/workspaces.clj" value="BABASHKA" />
-  </component>
-</project>
