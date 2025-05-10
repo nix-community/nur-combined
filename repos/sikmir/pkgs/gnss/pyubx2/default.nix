@@ -19,6 +19,8 @@ python3Packages.buildPythonPackage rec {
 
   build-system = with python3Packages; [ setuptools ];
 
+  pythonRelaxDeps = [ "pynmeagps" ];
+
   dependencies = with python3Packages; [
     pynmeagps
     pyrtcm
