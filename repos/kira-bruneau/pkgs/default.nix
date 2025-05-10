@@ -95,10 +95,6 @@ in
 // {
   inherit callPackage;
 
-  anytype = callPackage ./by-name/an/anytype/package.nix {
-    electron = electron_35;
-  };
-
   cec-sync = callPackage ./by-name/ce/cec-sync/package.nix {
     libcec = libcec.overrideAttrs (
       finalAttrs: prevAttrs: {
