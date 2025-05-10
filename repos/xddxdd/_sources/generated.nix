@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "9f82f52923b68f45454872b2e355d4c28273365b";
+    version = "fa6317794a8b01c3e8f72d472d98e0fdf30e7a73";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "9f82f52923b68f45454872b2e355d4c28273365b";
-      hash = "sha256-KJNUnh/IYDxxX3bFMIy63C/m6eDiHrB5v856ecvk1Zg=";
+      rev = "fa6317794a8b01c3e8f72d472d98e0fdf30e7a73";
+      hash = "sha256-eAg3Do5x8MKiwygnEOM7KFJT1l5WnY/50d4sNiawJRw=";
     };
-    date = "2025-05-05";
+    date = "2025-05-09";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9";
+    version = "04121d09c31a7bbbc65a6c68334b6b6954ca7a2f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2c0ec4a2728b2ebe384f594a54f6c040fb56b3a9";
-      hash = "sha256-6lIlqAxbArvzeg6Zb6gX0PwsmnAo4GOK8lPGAZ2qZow=";
+      rev = "04121d09c31a7bbbc65a6c68334b6b6954ca7a2f";
+      hash = "sha256-esjV3S2YmJxLPkJC6Zih7qR5xCRGgaHEOq0iLMxE84E=";
     };
-    date = "2025-05-05";
+    date = "2025-05-10";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -959,12 +959,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.14.5-xanmod1";
+    version = "6.14.6-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.14.5-xanmod1";
+      tag = "6.14.6-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-HTy8Q5HclYo7bAHQAbANfUmVq2kkmnBgxK7f7SEWRO4=";
+      hash = "sha256-wI383p+g03RrNUkPdo0TnB1n5yZI7bGwcSjB/9HpQH0=";
     };
   };
   linux-xanmod-6_0 = {
@@ -989,12 +989,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.26-xanmod1";
+    version = "6.12.28-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.26-xanmod1";
+      tag = "6.12.28-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-9dJ9XdP0KSnPYWS8eRL/rtdammvxLaur5lTydzsE8uU=";
+      hash = "sha256-afmAC1tdiggI2qN1Kf9fJiUJqC9d8gzTj5PAg7wsiuw=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5321";
+    version = "b5335";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5321";
-      hash = "sha256-p45QVCXhFr51SRy9E2kjKkPn0z8cjO3TmZfJkyd73+A=";
+      tag = "b5335";
+      hash = "sha256-H5Lp+TQvYV7a8QgUaJSvbbPjPwy+IK4LWIYati9fFKY=";
     };
   };
   loralib = {
@@ -1030,12 +1030,12 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.12";
+    version = "v0.13";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      tag = "v0.12";
-      hash = "sha256-z7oAlWwL2qKzUGUYzxteGlb+lZkMCh2I4qR+coI5Kmk=";
+      tag = "v0.13";
+      hash = "sha256-4v3CvWhs6vSIKo2FJK6jXFxd7VdXShr2lIuly+vIyAs=";
     };
   };
   magiskboot = {
@@ -1736,10 +1736,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250409";
+    version = "20250509";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250409/moegirl.dict.yaml";
-      hash = "sha256-/MBYX1Zb66RK6Nowky4LdMB6Vt/4n4UAxRTN0KODdwk=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250509/moegirl.dict.yaml";
+      hash = "sha256-Lte1xjgayhRrkw1RkBCy+EitzsRbwFhtYrhlTqbOvtA=";
     };
   };
   rime-zhwiki = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "7c52a825e2ebd04a68a88b41818e8ee9934167d8";
+    version = "1402366a5b84e24f330cfeebe2466c37c79b07c1";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "7c52a825e2ebd04a68a88b41818e8ee9934167d8";
+      rev = "1402366a5b84e24f330cfeebe2466c37c79b07c1";
       fetchSubmodules = true;
-      hash = "sha256-eBzFGooxM2cxllxsDwtblEph05Q6/LUe+gZY7dKmEJE=";
+      hash = "sha256-/bZBOX5mV2a/DxiOq1ZAzBvfjA0gLRbVCooYJCx6kTU=";
     };
-    date = "2025-05-07";
+    date = "2025-05-09";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
