@@ -2,7 +2,6 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-  modbus_tk,
   writableTmpDirAsHomeHook,
 }:
 
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication {
 
   dependencies = with python3Packages; [
     coloredlogs
-    modbus_tk
+    modbus-tk
     pyyaml
   ];
 
