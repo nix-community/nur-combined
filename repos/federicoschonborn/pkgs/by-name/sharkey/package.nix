@@ -19,6 +19,10 @@
   ...
 }:
 
+let
+  pnpm = pnpm_9.override { nodejs = nodejs_22; };
+in
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "sharkey";
   version = "2025.2.3";
@@ -34,13 +38,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     nodejs_22
-    pnpm_9.configHook
+    pnpm.configHook
     makeWrapper
     python3
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild.xcrun ];
 
   # https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
-  pnpmDeps = pnpm_9.fetchDeps {
+  pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "sha256-ALstAaN8dr5qSnc/ly0hv+oaeKrYFQ3GhObYXOv4E6I=";
   };
@@ -91,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
       # Otherwise, maybe somehow bindmount a writable directory into <package>/data/files.
       ln -s /var/lib/misskey $out/data/files
 
-      makeWrapper ${pnpm_9}/bin/pnpm $out/bin/misskey \
+      makeWrapper ${pnpm}/bin/pnpm $out/bin/misskey \
         --run "${checkEnvVarScript} || exit" \
         --chdir $out/data \
         --add-flags run \
@@ -99,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
         --prefix PATH : ${
           lib.makeBinPath [
             nodejs_22
-            pnpm_9
+            pnpm
             bash
           ]
         } \

@@ -76,6 +76,7 @@ stdenv.mkDerivation {
       gpl2Plus
     ];
     platforms = lib.platforms.linux;
+    broken = lib.versionOlder kdePackages.extra-cmake-modules.version "6.10";
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
