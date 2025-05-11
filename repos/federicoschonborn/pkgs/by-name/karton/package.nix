@@ -15,14 +15,14 @@
 
 stdenv.mkDerivation {
   pname = "karton";
-  version = "0.1-prealpha-unstable-2025-03-31";
+  version = "0.1-prealpha-unstable-2025-05-02";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sitter";
     repo = "karton";
-    rev = "8a983c95391009fe681704ebaf29142cef795733";
-    hash = "sha256-qNv1Z69NTJJbwzDIqLgLXJoOSjgSPVyjtBRr8OFPtZ0=";
+    rev = "b318dca300c7a39a80b4a21d979c45c869ceac76";
+    hash = "sha256-j84dxc8yO1wJeizlBmHcVKiCU9BF18AgBXo95b65EWs=";
   };
 
   nativeBuildInputs = [
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
 
     substituteInPlace src/karton.cpp \
       --replace-fail "virt-install" "${lib.getExe' virt-manager "virt-install"}" \
-      --replace-fail "virt-viewer" "${lib.getExe virt-viewer}"
+      --replace-fail "virt-viewer" "${lib.getExe' virt-viewer "virt-viewer"}"
   '';
 
   strictDeps = true;

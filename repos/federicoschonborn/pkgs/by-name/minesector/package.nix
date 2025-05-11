@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    (SDL2.override { withStatic = true; })
+    SDL2
     SDL2_image
     SDL2_ttf
     SDL2_mixer

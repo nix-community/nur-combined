@@ -3,7 +3,7 @@
   buildDotnetModule,
   dotnetCorePackages,
   fetchFromGitHub,
-  nix-update-script,
+  writeScript,
 }:
 
 let
@@ -11,7 +11,7 @@ let
 in
 
 buildDotnetModule {
-  pname = "hedge-mod-manager";
+  pname = "hedgemodmanager";
   inherit version;
 
   src = fetchFromGitHub {
@@ -31,19 +31,20 @@ buildDotnetModule {
     substituteInPlace flatpak/hedgemodmanager.desktop --replace-fail "/app/bin/HedgeModManager.UI" "$out/bin/HedgeModManager.UI"
   '';
 
-  # https://github.com/hedge-dev/HedgeModManager/blob/135a1be462ae5642a7e1d9b3b156fd908d2cc459/flatpak/io.github.hedge_dev.hedgemodmanager.yml
   postInstall = ''
     install -Dm644 flatpak/hedgemodmanager.png $out/share/icons/hicolor/256x256/apps/io.github.hedge_dev.hedgemodmanager.png
     install -Dm644 flatpak/hedgemodmanager.metainfo.xml $out/share/metainfo/io.github.hedge_dev.hedgemodmanager.metainfo.xml
     install -Dm644 flatpak/hedgemodmanager.desktop $out/share/applications/io.github.hedge_dev.hedgemodmanager.desktop
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-    ];
-  };
+  passthru.updateScript = writeScript "update.sh" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p nix-update
+    set -euo pipefail
+
+    nix-update --version unstable hedgemodmanager
+    eval "$(nix-build . -A hedgemodmanager.fetch-deps --no-out-link)"
+  '';
 
   meta = {
     mainProgram = "HedgeModManager.UI";

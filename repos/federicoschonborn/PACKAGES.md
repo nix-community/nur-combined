@@ -65,10 +65,10 @@ V2 daemon for Budgie Desktop.
 Feature-rich, modern desktop designed to keep out the way of the user.
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-04-08`
+- Version: `10.9.2-unstable-2025-05-08`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-04-08)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-08)
 - [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L140)
 - 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -112,10 +112,10 @@ Tool to generate flags for your CPU.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.41.0`
+- Version: `2.42.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.41.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.42.0)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -125,10 +125,10 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.41.0`
+- Version: `2.42.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.41.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.42.0)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -179,14 +179,14 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
-## `hedge-mod-manager` {#hedge-mod-manager}
+## `hedgemodmanager` {#hedgemodmanager}
 
 Multiplatform rewrite of Hedge Mod Manager.
 
-- Name: `hedge-mod-manager`
+- Name: `hedgemodmanager`
 - Version: `8.0.0-beta4`
 - [🌐 Homepage](https://github.com/hedge-dev/HedgeModManager)
-- [📦 Source](./pkgs/by-name/hedge-mod-manager/package.nix#L50)
+- [📦 Source](./pkgs/by-name/hedgemodmanager/package.nix#L51)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-linux`, `aarch64-linux`
 
@@ -207,7 +207,7 @@ A language for building concurrent software with confidence.
 KDE Virtual Machine Manager.
 
 - Name: `karton`
-- Version: `0.1-prealpha-unstable-2025-03-31`
+- Version: `0.1-prealpha-unstable-2025-05-02`
 - [🌐 Homepage](https://invent.kde.org/sitter/karton)
 - [📦 Source](./pkgs/by-name/karton/package.nix#L67)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -389,7 +389,7 @@ Phonon Backend using MPV Player.
 Camera application for Plasma Mobile.
 
 - Name: `plasma-camera`
-- Version: `1.0-unstable-2025-03-05`
+- Version: `1.0-unstable-2025-05-07`
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L54)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -400,7 +400,7 @@ Camera application for Plasma Mobile.
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-04-11`
+- Version: `0-unstable-2025-05-10`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
@@ -411,7 +411,7 @@ Plasma Login Manager provides the backend for Plasma's login experience.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-04-02`
+- Version: `SLE2024-artifact-unstable-2025-05-04`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
@@ -455,10 +455,10 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sharkish microblogging platform.
 
 - Name: `sharkey`
-- Version: `2025.2.2`
+- Version: `2025.2.3`
 - [🌐 Homepage](https://activitypub.software/TransFem-org/Sharkey)
-- [📰 Changelog](https://activitypub.software/TransFem-org/Sharkey/-/releases/2025.2.2)
-- [📦 Source](./pkgs/by-name/sharkey/package.nix#L132)
+- [📰 Changelog](https://activitypub.software/TransFem-org/Sharkey/-/releases/2025.2.3)
+- [📦 Source](./pkgs/by-name/sharkey/package.nix#L129)
 - 📄 License: [`GNU Affero General Public License v3.0 only`](https://spdx.org/licenses/AGPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -471,17 +471,6 @@ Fan sequel to Super Mario 63.
 - [🌐 Homepage](https://charpurrr.itch.io/super-mario-127)
 - [📦 Source](./pkgs/by-name/super-mario-127/package.nix#L59)
 - 📄 License: Unfree
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
-
-## `supermodel` {#supermodel}
-
-Sega Model 3 arcade machine emulator.
-
-- Name: `supermodel`
-- Version: `0-unstable-2025-04-10`
-- [🌐 Homepage](https://github.com/trzy/Supermodel)
-- [📦 Source](./pkgs/by-name/supermodel/package.nix#L69)
-- 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
 ## `surgescript` {#surgescript}
@@ -556,9 +545,9 @@ A GNOME theme for Thunderbird.
 Generate a static HTML page from a collection of feeds wtih a simple CLI tool.
 
 - Name: `tinyfeed`
-- Version: `1.1.0`
+- Version: `1.2.0`
 - [🌐 Homepage](https://github.com/TheBigRoomXXL/tinyfeed)
-- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.1.0)
+- [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.2.0)
 - [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
@@ -618,4 +607,27 @@ Original Xbox DVD Filesystem library and management tool.
 - [📰 Changelog](https://github.com/antangelo/xdvdfs/releases/tag/v0.8.3)
 - [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+
+## `ziggy` {#ziggy}
+
+A data serialization language for expressing clear API messages, config files, etc.
+
+- Name: `ziggy`
+- Version: `0.0.1-unstable-2025-04-18`
+- [🌐 Homepage](https://github.com/kristoff-it/ziggy)
+- [📦 Source](./pkgs/by-name/ziggy/package.nix#L43)
+- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+
+## `zon2nix-unstable` {#zon2nix-unstable}
+
+Convert the dependencies in `build.zig.zon` to a Nix expression.
+
+- Name: `zon2nix-unstable`
+- Version: `0.1.2-unstable-2025-03-20`
+- [🌐 Homepage](https://github.com/nix-community/zon2nix)
+- [📰 Changelog](https://github.com/nix-community/zon2nix/blob/2360e358c2107860dadd340f88b25d260b538188/CHANGELOG.md)
+- [📦 Source](./pkgs/by-name/zon2nix-unstable/package.nix#L28)
+- 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`

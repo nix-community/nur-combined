@@ -1,33 +1,35 @@
 # Adapted from https://github.com/NixOS/nixpkgs/blob/9abb87b552b7f55ac8916b6fc9e5cb486656a2f3/pkgs/by-name/mi/misskey/package.nix
 
 {
-  lib,
   stdenv,
+  lib,
+  # nixosTests,
   fetchFromGitLab,
-  makeWrapper,
+  # fetchpatch
   nodejs,
   pnpm_9,
+  makeWrapper,
   python3,
-  xcbuild,
   bash,
-  ffmpeg-headless,
   jemalloc,
+  ffmpeg-headless,
   writeShellScript,
+  xcbuild,
   callPackage,
-  writeScript,
+  ...
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sharkey";
-  version = "2025.2.2";
+  version = "2025.2.3";
 
   src = fetchFromGitLab {
     domain = "activitypub.software";
     owner = "TransFem-org";
     repo = "Sharkey";
     rev = "refs/tags/${finalAttrs.version}";
+    hash = "sha256-VBfkJuoQzQ93sUmJNnr1JUjA2GQNgOIuX+j8nAz3bb4=";
     fetchSubmodules = true;
-    hash = "sha256-KVr4KLtJ22LEk94GuxeTk8/GcFs7oU/gkoVTvrgbYBg=";
   };
 
   nativeBuildInputs = [
@@ -37,9 +39,10 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild.xcrun ];
 
+  # https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
   pnpmDeps = pnpm_9.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-XWcDchvrYSJr0s/DMb8FIEK7MdE6aC2bAbrW88Ig4ug=";
+    hash = "sha256-ALstAaN8dr5qSnc/ly0hv+oaeKrYFQ3GhObYXOv4E6I=";
   };
 
   buildPhase = ''
@@ -95,9 +98,9 @@ stdenv.mkDerivation (finalAttrs: {
         --set-default NODE_ENV production \
         --prefix PATH : ${
           lib.makeBinPath [
-            bash
             nodejs
             pnpm_9
+            bash
           ]
         } \
         --prefix LD_LIBRARY_PATH : ${
@@ -118,13 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests.sharkey = callPackage ./nixos-test.nix { sharkey = finalAttrs.finalPackage; };
 
     # nix-update is having a hard time calling the API
-    updateScript = writeScript "sharkey-update-script" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p curl jq nix-update
-
-      version=$(curl "https://activitypub.software/api/v4/projects/TransFem-org%2FSharkey/repository/tags" | jq -r '.[0].release.tag_name')
-      nix-update sharkey --version "$version"
-    '';
+    updateScript = ./update.sh;
   };
 
   meta = {

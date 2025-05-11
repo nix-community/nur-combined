@@ -159,7 +159,7 @@
                         lib.optional (meta ? platforms)
                           "- 🖥️ Platforms: ${
                             lib.concatMapStringsSep ", " (system: "`${system}`") (
-                              lib.filter (x: builtins.elem x toplevel.config.systems) meta.platforms
+                              lib.intersectLists toplevel.config.systems meta.platforms
                             )
                           }"
                     )

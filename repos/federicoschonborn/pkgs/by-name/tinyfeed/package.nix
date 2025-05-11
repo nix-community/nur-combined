@@ -8,7 +8,7 @@
 }:
 
 let
-  version = "1.1.0";
+  version = "1.2.0";
 in
 
 buildGoModule {
@@ -19,10 +19,10 @@ buildGoModule {
     owner = "TheBigRoomXXL";
     repo = "tinyfeed";
     rev = "refs/tags/v${version}";
-    hash = "sha256-LQ8wQD4b8eysVjDlxd06eflBpCZJ7uO7dtSwfTvQyT8=";
+    hash = "sha256-Y0YgvouUz/hCeLriHR+SKze1+DSxVV74xfMFdEhe/r0=";
   };
 
-  vendorHash = "sha256-cDNGM1c/ZM5k3Er22Yw/IpCgij/NGwnk1OqKGhfGgY0=";
+  vendorHash = "sha256-lwT2eD+zFI49wvdlLcZILa2X/NsEi/jDzshngH3CLyQ=";
 
   ldflags = [
     "-s"
