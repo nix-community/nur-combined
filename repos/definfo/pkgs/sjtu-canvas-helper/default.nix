@@ -19,21 +19,21 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sjtu-canvas-helper";
-  version = "1.3.28";
+  version = "1.3.29";
 
   src = fetchFromGitHub {
     owner = "Okabe-Rintarou-0";
     repo = "SJTU-Canvas-Helper";
     tag = "app-v${finalAttrs.version}";
-    hash = "sha256-tPSlL+D6gysHhXDMt45YWstXXRVVusMamdhQ3PJhgyY=";
+    hash = "sha256-p5Cu8Fsa8faywxi1DIg0Q0sDOVDlevgMldjqlxDFG+o=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-RqOwOwo4bx+UhHPfHxXSULfqNY4LpLoa9ZgTti47q7I=";
+  cargoHash = "sha256-+Nbu1BZ25Ij+qD4i82xg8UoVazEbq7/v/ap8UoSHqnU=";
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-ARr9KdUamHpXQR9qmJ/upmVhSIltzim0pLUbR8Wgkik=";
+    hash = "sha256-a/MdJC/GRunZY/yfXR74/WKaqJr5K+HMhfHHDC42yEE=";
   };
 
   nativeBuildInputs = [
