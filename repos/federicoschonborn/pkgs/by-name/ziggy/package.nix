@@ -44,6 +44,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/kristoff-it/ziggy";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder zig.version "0.14";
     inherit (zig.meta) platforms;
   };
 }

@@ -134,7 +134,8 @@ lib.makeScope pkgs.newScope (
           withBzip2 = true;
           withPthread = true;
           withFftw3 = true;
-          withLevmar = true;
+          # Broken
+          withLevmar = false;
           withPng = true;
           withZlib = true;
         };

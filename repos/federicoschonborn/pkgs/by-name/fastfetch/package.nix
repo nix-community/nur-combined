@@ -8,6 +8,7 @@
   pkg-config,
   python3,
   yyjson,
+  apple-sdk_15,
   hwdata,
   versionCheckHook,
   nix-update-script,
@@ -199,7 +200,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableDirectxHeaders directx-headers
     ++ lib.optional enableElf libelf
     ++ lib.optional enableLibzfs zfs
-    ++ lib.optional enablePciaccess xorg.libpciaccess;
+    ++ lib.optional enablePciaccess xorg.libpciaccess
+    ++ lib.optional stdenv.hostPlatform.isDarwin [ apple-sdk_15 ];
 
   cmakeFlags =
     [
