@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "isotp-c";
-  version = "1.1.2";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "isotp-c";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bfZXPQQjNIH2wa16RB4/8u9roocEIJhFKQaYMfY7Y4c=";
+    hash = "sha256-cu4BPPu/nHyTpJQuIN0jpwzQeyn/Ryfe59dbYs8DGd0=";
   };
 
   nativeBuildInputs = [ cmake ];

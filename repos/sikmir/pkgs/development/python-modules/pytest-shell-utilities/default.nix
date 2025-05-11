@@ -34,6 +34,8 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  __darwinAllowLocalNetworking = true;
+
   meta = {
     description = "Pytest Shell Utilities";
     homepage = "https://github.com/saltstack/pytest-shell-utilities";

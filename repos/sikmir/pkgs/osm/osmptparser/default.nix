@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "osmptparser";
-  version = "2.1.0";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "cualbondi";
     repo = "osmptparser";
     tag = "v${version}";
-    hash = "sha256-+u1UP+hFI8fi+NAzQ4pIObo+ZCBBaEoIkUNvHPO7jSQ=";
+    hash = "sha256-/Uokg1CPn/ut2k0u/QCBAFECOctgHkUZMVMgcvkDYnw=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-Ds6fgL8aeRk/Pq6VmQupAZR8gN7Yl3c/LNCYigbE+CI=";
+  cargoHash = "sha256-UXYcoBwChSEofyQWpZPp5GTVMA2xft1DY0WefSSOV2c=";
 
   doCheck = false;
 

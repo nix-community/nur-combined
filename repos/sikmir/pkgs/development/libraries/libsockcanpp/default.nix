@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsockcanpp";
-  version = "0-unstable-2024-03-06";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "libsockcanpp";
-    rev = "f2463f9ac320e457bdb3dd1f406511fb75916f2a";
-    hash = "sha256-n3dmkxhdEQXD4ekanfgPZ/BT+p1oYZJowr2m87W5BZ4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-qIjFEbBRnVFZ5NQlFgjljgtWutWCn2EEymfpJ5LuLQU=";
   };
 
   postPatch = ''

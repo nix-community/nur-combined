@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "tg-spam";
-  version = "1.15.0";
+  version = "1.18.0";
 
   src = fetchFromGitHub {
     owner = "umputun";
     repo = "tg-spam";
     tag = "v${version}";
-    hash = "sha256-1nxMpRGaRmdOnboUbyX6+dSDlucaHZCOzA3LZnpeOgs=";
+    hash = "sha256-lGYE5ixrWpqjQ0IEv6SK9S2cn81MtLPLstyG5psm2TQ=";
   };
 
   vendorHash = null;

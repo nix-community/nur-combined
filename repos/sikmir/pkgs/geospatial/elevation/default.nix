@@ -35,14 +35,15 @@ python3Packages.buildPythonApplication rec {
   ];
 
   postPatch = ''
+    substituteInPlace tests/test_datasource.py --replace-fail "/tmp" "./tmp"
     for f in elevation/datasource.* \
              elevation/util.py \
              tests/test_*.py; do
       substituteInPlace $f \
-        --replace-warn "make " "${lib.getBin gnumake}/bin/make " \
-        --replace-warn "curl " "${lib.getBin curl}/bin/curl " \
+        --replace-warn "make " "${lib.getExe gnumake} " \
+        --replace-warn "curl " "${lib.getExe curl} " \
         --replace-warn "gunzip " "gunzip.t " \
-        --replace-warn "unzip " "${lib.getBin unzip}/bin/unzip " \
+        --replace-warn "unzip " "${lib.getExe unzip} " \
         --replace-warn "gunzip.t " "${lib.getBin gzip}/bin/gunzip " \
         --replace-warn "gdal_translate " "${lib.getBin gdal}/bin/gdal_translate " \
         --replace-warn "gdalbuildvrt " "${lib.getBin gdal}/bin/gdalbuildvrt "
