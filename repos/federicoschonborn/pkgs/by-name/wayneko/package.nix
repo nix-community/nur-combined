@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     description = "Display an animated neko cat on the bottom of an output";
     homepage = "https://sr.ht/~leon_plickat/wayneko/";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -66,7 +66,7 @@ stdenv.mkDerivation (_: {
       lgpl21Only
       lgpl3Only
     ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

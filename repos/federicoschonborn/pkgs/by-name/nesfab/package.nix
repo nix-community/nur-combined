@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pubby/nesfab";
     changelog = "https://github.com/pubby/nesfab/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
