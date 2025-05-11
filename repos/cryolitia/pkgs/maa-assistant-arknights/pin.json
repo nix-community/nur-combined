@@ -1,12 +1,12 @@
 {
   "beta": {
-    "version": "5.16.2",
-    "hash": "sha256-8WvCJ3JoQMfDVnmzsgI5teCJmXLKuvRwHySnUe4X1zM="
+    "version": "5.16.3",
+    "hash": "sha256-Sv9mYglsxXduP7htDs2q/CRgfrsW45hryHczZ+vHVJs="
   },
   "maa-cli": {
-    "name": "0.5.4",
-    "version": "8621ca291bfcca59fae92ab8d4de6d0353b93f64",
-    "hash": "sha256-KoKMfZrI3V73hbZGm0Xx8VxL7ENicSApropLm02B098=",
-    "cargoHash": "sha256-qAwluwuu+rJn4gP6lCwjllIRg43jBfBd82BBuJRXEHc="
+    "name": "0.5.5-alpha.1+sha.42966c6",
+    "version": "42966c65188544406cc85fbabf03f5abd9a901f7",
+    "hash": "sha256-GNlhOpEeoPlN5oKLq3ueDmXNrS+EqZj9LJAf5H+lx1I=",
+    "cargoHash": "sha256-3MNIlDdJRQOzxFMYJfPqbzJg5s+YtVXzXVfAoPhT22I="
   }
 }
