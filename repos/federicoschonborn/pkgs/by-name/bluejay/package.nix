@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/EbonJaeger/bluejay";
     changelog = "https://github.com/EbonJaeger/bluejay/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mpl20;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = lib.versionOlder kdePackages.kirigami-addons.version "1.7.0";
   };

@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       gpl2Only
       cc-by-sa-40
     ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

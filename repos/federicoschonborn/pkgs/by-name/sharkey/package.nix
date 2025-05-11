@@ -6,7 +6,7 @@
   # nixosTests,
   fetchFromGitLab,
   # fetchpatch
-  nodejs,
+  nodejs_22,
   pnpm_9,
   makeWrapper,
   python3,
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    nodejs
+    nodejs_22
     pnpm_9.configHook
     makeWrapper
     python3
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
 
     # https://github.com/NixOS/nixpkgs/pull/296697/files#r1617595593
-    export npm_config_nodedir=${nodejs}
+    export npm_config_nodedir=${nodejs_22}
     (
       cd node_modules/.pnpm/node_modules/re2
       pnpm run rebuild
@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
         --set-default NODE_ENV production \
         --prefix PATH : ${
           lib.makeBinPath [
-            nodejs
+            nodejs_22
             pnpm_9
             bash
           ]
