@@ -6,7 +6,7 @@
   # nixosTests,
   fetchFromGitLab,
   # fetchpatch
-  nodejs_22,
+  nodejs,
   pnpm_9,
   makeWrapper,
   python3,
@@ -18,10 +18,6 @@
   callPackage,
   ...
 }:
-
-let
-  pnpm = pnpm_9.override { nodejs = nodejs_22; };
-in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sharkey";
@@ -37,14 +33,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    nodejs_22
-    pnpm.configHook
+    nodejs
+    pnpm_9.configHook
     makeWrapper
     python3
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild.xcrun ];
 
   # https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = pnpm_9.fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "sha256-ALstAaN8dr5qSnc/ly0hv+oaeKrYFQ3GhObYXOv4E6I=";
   };
@@ -59,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
 
     # https://github.com/NixOS/nixpkgs/pull/296697/files#r1617595593
-    export npm_config_nodedir=${nodejs_22}
+    export npm_config_nodedir=${nodejs}
     (
       cd node_modules/.pnpm/node_modules/re2
       pnpm run rebuild
@@ -95,15 +91,15 @@ stdenv.mkDerivation (finalAttrs: {
       # Otherwise, maybe somehow bindmount a writable directory into <package>/data/files.
       ln -s /var/lib/misskey $out/data/files
 
-      makeWrapper ${pnpm}/bin/pnpm $out/bin/misskey \
+      makeWrapper ${pnpm_9}/bin/pnpm $out/bin/misskey \
         --run "${checkEnvVarScript} || exit" \
         --chdir $out/data \
         --add-flags run \
         --set-default NODE_ENV production \
         --prefix PATH : ${
           lib.makeBinPath [
-            nodejs_22
-            pnpm
+            nodejs
+            pnpm_9
             bash
           ]
         } \
@@ -135,6 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://activitypub.software/TransFem-org/Sharkey/-/releases/${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
+    broken = lib.versionOlder nodejs.version "22.0";
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

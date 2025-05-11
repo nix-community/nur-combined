@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/projg2/cpuid2cpuflags";
     changelog = "https://github.com/projg2/cpuid2cpuflags/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

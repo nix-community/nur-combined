@@ -201,7 +201,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableElf libelf
     ++ lib.optional enableLibzfs zfs
     ++ lib.optional enablePciaccess xorg.libpciaccess
-    ++ lib.optional stdenv.hostPlatform.isDarwin [ apple-sdk_15 ];
+    ++ lib.optional stdenv.hostPlatform.isDarwin apple-sdk_15;
 
   cmakeFlags =
     [

@@ -105,7 +105,7 @@ Tool to generate flags for your CPU.
 - [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v15)
 - [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L32)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
 ## `fastfetch` {#fastfetch}
 
@@ -116,7 +116,7 @@ Like neofetch, but much faster because written in C.
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.42.0)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L264)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L266)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -358,7 +358,7 @@ Programming language that targets the Nintendo Entertainment System.
 - [📰 Changelog](https://github.com/pubby/nesfab/releases/tag/v1.6_mac)
 - [📦 Source](./pkgs/by-name/nesfab/package.nix#L48)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-linux`
 
 ## `opensurge` {#opensurge}
 
@@ -446,7 +446,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Name: `raze`
 - Version: `1.12pre`
 - [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./pkgs/by-name/raze/package.nix#L48)
+- [📦 Source](./pkgs/by-name/raze/package.nix#L65)
 - 📄 License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -503,7 +503,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L146)
+- [📦 Source](./default.nix#L147)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -514,7 +514,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L159)
+- [📦 Source](./default.nix#L160)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -572,7 +572,7 @@ Display an animated neko cat on the bottom of an output.
 - [🌐 Homepage](https://sr.ht/~leon_plickat/wayneko/)
 - [📦 Source](./pkgs/by-name/wayneko/package.nix#L43)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
 ## `wisp` {#wisp}
 
