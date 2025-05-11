@@ -69,7 +69,7 @@ stdenv.mkDerivation (_: {
     description = "wlroots-based Wayland compositor designed for the Budgie Desktop";
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
     license = lib.licenses.asl20;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

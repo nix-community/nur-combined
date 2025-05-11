@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     description = "Camera application for Plasma Mobile";
     homepage = "https://invent.kde.org/plasma-mobile/plasma-camera";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

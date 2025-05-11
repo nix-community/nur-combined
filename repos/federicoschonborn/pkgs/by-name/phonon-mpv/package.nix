@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/OpenProgger/phonon-mpv";
     changelog = "https://github.com/OpenProgger/phonon-mpv/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.lgpl21Only;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

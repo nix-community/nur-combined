@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   pkg-config,
   alsa-lib,
   libGLU,
@@ -21,6 +22,16 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-ugXPEENU2QKjF/R7MWes4rZuTVeyTfvSXhy/SnfPqJo=";
   };
+
+  patches = [
+    (
+      # Fix building on ARM.
+      fetchpatch {
+        url = "https://github.com/buserror/mii_emu/commit/cb27727bb2f8270fcb6545b3514d9f85b99f731c.patch";
+        hash = "sha256-YuKaJieK2dXr32Cn+dEOmZp1hPZoxdUmVkgQzYly/8c=";
+      }
+    )
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -44,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/buserror/mii_emu";
     changelog = "https://github.com/buserror/mii_emu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

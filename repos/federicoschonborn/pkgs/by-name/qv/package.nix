@@ -31,8 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libtgd
     qt6.qtbase
-    qt6.qtwayland
-  ];
+  ] ++ lib.optional stdenv.hostPlatform.isLinux qt6.qtwayland;
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
