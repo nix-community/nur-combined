@@ -6696,10 +6696,10 @@
     };
     "linkding-injector" = buildFirefoxXpiAddon {
       pname = "linkding-injector";
-      version = "1.3.4";
+      version = "1.3.5";
       addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190205/linkding_injector-1.3.4.xpi";
-      sha256 = "3eb979e0f51eca48f945d82042b0ddd3bb78d438bbae7d3d76edc77ec7ca0e70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490938/linkding_injector-1.3.5.xpi";
+      sha256 = "b3dd1ce98c2b0e60b4a99f61ec435de456e2d2c4f3ab3c31cd7af56eb47dad61";
       meta = with lib;
       {
         homepage = "https://github.com/Fivefold/linkding-injector";
@@ -7947,10 +7947,10 @@
     };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.7.1";
+      version = "1.7.2";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152621/modrinthify-1.7.1.xpi";
-      sha256 = "eef38c5b7eee035850afb1f5bcba6b70d1bf88de4bf898e3d12affe13f69902e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490896/modrinthify-1.7.2.xpi";
+      sha256 = "fd1144e343f57bdcf436dae26f66850e5b50e2bc90481203473570d40cc5dd77";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -8510,10 +8510,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "8.1.0";
+      version = "8.1.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490464/octotree-8.1.0.xpi";
-      sha256 = "5982bc29af6ca557a4243003936119d2d00bb844e9288e1aa45c619515d7b0ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490734/octotree-8.1.3.xpi";
+      sha256 = "05f97b5b4a81c0af48d25cf8a3ef516206e9801e8082603d2fcc6cc842235bba";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -9931,7 +9931,7 @@
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
         description = "Shows ratings from protondb.com on Steam";
-        license = licenses.lgpl3;
+        license = licenses.gpl3;
         mozPermissions = [
           "https://www.protondb.com/*"
           "https://store.steampowered.com/app/*"
