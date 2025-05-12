@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A tool for learning programming basis with a simple Spanish pseudocode";
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -56,6 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/dcantrell/bsdutils/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
+    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

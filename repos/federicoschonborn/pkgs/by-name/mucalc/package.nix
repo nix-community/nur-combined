@@ -49,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/mucalc/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

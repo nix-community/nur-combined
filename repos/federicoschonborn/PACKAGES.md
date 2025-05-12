@@ -312,7 +312,7 @@ Level editor for creating (new) NES games.
 - [📰 Changelog](https://github.com/pubby/mapfab/releases/tag/v0.4)
 - [📦 Source](./pkgs/by-name/mapfab/package.nix#L72)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-linux`
 
 ## `mii-emu` {#mii-emu}
 
@@ -333,7 +333,7 @@ Snazzy Minesweeper-based game built with SDL2.
 - Name: `minesector`
 - Version: `1.1.5`
 - [🌐 Homepage](https://github.com/grassdne/minesector)
-- [📦 Source](./pkgs/by-name/minesector/package.nix#L43)
+- [📦 Source](./pkgs/by-name/minesector/package.nix#L48)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
@@ -426,7 +426,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - [🌐 Homepage](https://pseint.sourceforge.net/)
 - [📦 Source](./pkgs/by-name/pseint/package.nix#L71)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
 
 ## `qv` {#qv}
 
