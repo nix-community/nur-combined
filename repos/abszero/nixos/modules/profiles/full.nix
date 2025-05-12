@@ -34,7 +34,6 @@ in
           enable = true;
           enableFileSystems = true;
         };
-        wluma.enable = true;
       };
       programs = {
         pot.enable = true;

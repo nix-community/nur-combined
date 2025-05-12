@@ -119,6 +119,7 @@
               packages = [
                 cachix
                 deploy-rs
+                markdown-oxide
                 nixd
                 nixfmt-rfc-style
                 nixfmt-tree

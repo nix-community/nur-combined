@@ -62,8 +62,10 @@ in
           inherit inputs;
         };
         modules = flatten [
-          # Install only the config as the program is installed by NixOS module
-          inputs.niri.homeModules.config
+          # We do want to install niri for portals (even though it's already installed in NixOS).
+          # For some reason this is required to get gtk apps to automatically switch themes.
+          # See https://github.com/ghostty-org/ghostty/discussions/6017#discussioncomment-12357838
+          inputs.niri.homeModules.niri
           inputs.nix-index-database.hmModules.nix-index
           inputs.catppuccin.homeModules.catppuccin
           (toModuleList ../../lib/modules)

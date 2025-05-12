@@ -82,7 +82,7 @@ in
       users = genAttrs config.abszero.users.admins (const {
         extraGroups = [
           "audio" # For pipeire
-          "video" # For wluma and brillo
+          "video" # For brillo
           "networkmanager"
         ];
       });

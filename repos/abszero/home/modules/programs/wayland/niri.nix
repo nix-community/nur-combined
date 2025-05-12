@@ -14,7 +14,9 @@ in
   options.abszero.programs.niri.enable = mkEnableOption "scrolling wayland compositor";
 
   config.programs.niri = mkIf cfg.enable {
+    enable = true;
     package = pkgs.niri-unstable;
+
     settings = {
       clipboard.disable-primary = true; # Disable the clipboard containing last mouse selection
       hotkey-overlay.skip-at-startup = true;
@@ -68,7 +70,7 @@ in
         "Mod+u".action = consume-window-into-column;
         "Mod+x".action = expel-window-from-column;
         "Mod+Ctrl+Shift+m".action = move-column-to-monitor-previous;
-        
+
         "Mod+Ctrl+Shift+Left".action = move-column-left;
         "Mod+Ctrl+Shift+Down".action = move-column-to-workspace-down { focus = true; };
         "Mod+Ctrl+Shift+Up".action = move-column-to-workspace-up { focus = true; };
