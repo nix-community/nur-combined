@@ -484,12 +484,12 @@
             "name": null,
             "owner": "jwodder",
             "repo": "click-loglevel",
-            "rev": "v0.6.0",
-            "sha256": "sha256-ACAKKrJHaxjlYjg2v+0Z9DYp2l7CW21O4kTk22T995Q=",
+            "rev": "v0.6.1",
+            "sha256": "sha256-6bUNM/gKB29c467dh079N2jA7d7CDzVrjkAybHneT3s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.6.0"
+        "version": "v0.6.1"
     },
     "cockpy": {
         "cargoLocks": null,
@@ -1080,11 +1080,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GkQNx8T51PZ12ZkPSFglmh2T1lMCQCyrLcZ0eK9W0Pk=",
+            "sha256": "sha256-dQ7N/atF/D2IAuk4ZUkrhC5FzfXMHU6+pq0IvScGnhw=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_arm64.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.51-0_arm64.deb"
         },
-        "version": "1.0.48-0"
+        "version": "1.0.51-0"
     },
     "fr24feed-armhf": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5342",
-            "sha256": "sha256-InRFx9pheGAGG/4Isrx+kPdbQd/OPgrCy2fIjaggr9o=",
+            "rev": "b5351",
+            "sha256": "sha256-u8iK3cqss+ESrJ4bfdWOGhe+QyrI+yi14gUWJWFEV1s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5342"
+        "version": "b5351"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-11",
+        "date": "2025-05-12",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "a04f04a707784793a259e9670c36cfe982d4d3e8",
-            "sha256": "sha256-QZ9HU8zmUxRDnyz0VBI7FWnLC+dlIhC24s/inIkILNs=",
+            "rev": "7d96aa407145fdf123df6f3c111b636a83348b9d",
+            "sha256": "sha256-9YBfnTdANB68tpZIIIfZ9uM+0fK1MJ1g9LQ+YpPe7+Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a04f04a707784793a259e9670c36cfe982d4d3e8"
+        "version": "7d96aa407145fdf123df6f3c111b636a83348b9d"
     },
     "unigine-heaven": {
         "cargoLocks": null,

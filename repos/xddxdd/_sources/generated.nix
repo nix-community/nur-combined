@@ -248,12 +248,12 @@
   };
   click-loglevel = {
     pname = "click-loglevel";
-    version = "v0.6.0";
+    version = "v0.6.1";
     src = fetchFromGitHub {
       owner = "jwodder";
       repo = "click-loglevel";
-      tag = "v0.6.0";
-      hash = "sha256-ACAKKrJHaxjlYjg2v+0Z9DYp2l7CW21O4kTk22T995Q=";
+      tag = "v0.6.1";
+      hash = "sha256-6bUNM/gKB29c467dh079N2jA7d7CDzVrjkAybHneT3s=";
     };
   };
   cockpy = {
@@ -555,10 +555,10 @@
   };
   fr24feed-arm64 = {
     pname = "fr24feed-arm64";
-    version = "1.0.48-0";
+    version = "1.0.51-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_arm64.deb";
-      hash = "sha256-GkQNx8T51PZ12ZkPSFglmh2T1lMCQCyrLcZ0eK9W0Pk=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.51-0_arm64.deb";
+      hash = "sha256-dQ7N/atF/D2IAuk4ZUkrhC5FzfXMHU6+pq0IvScGnhw=";
     };
   };
   fr24feed-armhf = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5342";
+    version = "b5351";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5342";
-      hash = "sha256-InRFx9pheGAGG/4Isrx+kPdbQd/OPgrCy2fIjaggr9o=";
+      tag = "b5351";
+      hash = "sha256-u8iK3cqss+ESrJ4bfdWOGhe+QyrI+yi14gUWJWFEV1s=";
     };
   };
   loralib = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a04f04a707784793a259e9670c36cfe982d4d3e8";
+    version = "7d96aa407145fdf123df6f3c111b636a83348b9d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a04f04a707784793a259e9670c36cfe982d4d3e8";
+      rev = "7d96aa407145fdf123df6f3c111b636a83348b9d";
       fetchSubmodules = true;
-      hash = "sha256-QZ9HU8zmUxRDnyz0VBI7FWnLC+dlIhC24s/inIkILNs=";
+      hash = "sha256-9YBfnTdANB68tpZIIIfZ9uM+0fK1MJ1g9LQ+YpPe7+Y=";
     };
-    date = "2025-05-11";
+    date = "2025-05-12";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
