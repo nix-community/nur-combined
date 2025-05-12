@@ -6,7 +6,7 @@
   callPackage,
   nix-update-script,
 # writeScript,
-# zon2nix-unstable,
+# zon2nix,
 }:
 
 stdenv.mkDerivation {
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     # updateDeps = writeScript "update-deps" ''
-    #   ${lib.getExe zon2nix-unstable} ${finalAttrs.src} > deps.nix
+    #   ${lib.getExe zon2nix} ${finalAttrs.src} > deps.nix
     # '';
   };
 
