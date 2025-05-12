@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pubby/mapfab";
     changelog = "https://github.com/pubby/mapfab/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
