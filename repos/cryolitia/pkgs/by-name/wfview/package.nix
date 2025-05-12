@@ -3,12 +3,12 @@
   stdenv,
   callPackage,
   fetchFromGitLab,
-  kdePackages,
   eigen,
   hidapi,
   libopus,
   libpulseaudio,
   portaudio,
+  qt6,
   rtaudio,
 }:
 
@@ -37,20 +37,22 @@ stdenv.mkDerivation (finalAttr: {
       eigen
       hidapi
       libopus
-      libpulseaudio
       portaudio
       rtaudio
       qcustomplot
     ]
-    ++ (with kdePackages; [
+    ++ (with qt6; [
       qtbase
       qtserialport
       qtmultimedia
       qtwebsockets
     ])
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      libpulseaudio
+    ]
   );
 
-  nativeBuildInputs = with kdePackages; [
+  nativeBuildInputs = with qt6; [
     wrapQtAppsHook
     qmake
   ];
@@ -58,6 +60,14 @@ stdenv.mkDerivation (finalAttr: {
   env.LANG = "C.UTF-8";
 
   qmakeFlags = [ "wfview.pro" ];
+
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -pv $out/Applications 
+    mv -v "$out/bin/wfview.app" $out/Applications 
+
+    # wrap executable to $out/bin 
+    makeWrapper "$out/Applications/wfview.app/Contents/MacOS/wfview" "$out/bin/wfview"
+  '';
 
   meta = {
     description = "Open-source software for the control of modern Icom radios";

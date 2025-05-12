@@ -3,6 +3,7 @@
   lib,
   fetchFromGitLab,
   fetchurl,
+  fixDarwinDylibNames,
   kdePackages,
 }:
 
@@ -22,14 +23,18 @@ stdenv.mkDerivation (finalAttr: {
       hash = "sha256-Xi0i3sd5248B81fL2yXlT7z5ca2u516ujXrSRESHGC8=";
     })
   ];
-  
+
   sourceRoot = ".";
 
   buildInputs = [ kdePackages.qtbase ];
 
-  nativeBuildInputs = [
-    kdePackages.qmake
-  ];
+  nativeBuildInputs =
+    [
+      kdePackages.qmake
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      fixDarwinDylibNames
+    ];
 
   env.LANG = "C.UTF-8";
 
@@ -47,7 +52,7 @@ stdenv.mkDerivation (finalAttr: {
 
     install -vDm 644 "qcustomplot.h" -t "$out/include/"
     install -vdm 755 "$out/lib/"
-    cp -av libqcustomplot*.{so,dylib}* "$out/lib/"
+    cp -av libqcustomplot*${stdenv.hostPlatform.extensions.sharedLibrary}* "$out/lib/"
 
     runHook postInstall
   '';
@@ -55,7 +60,7 @@ stdenv.mkDerivation (finalAttr: {
   meta = with lib; {
     homepage = "https://qtcustomplot.com/";
     description = "A Qt C++ widget for plotting and data visualization";
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ Cryolitia ];
   };
