@@ -20,7 +20,7 @@
 
 stdenv.mkDerivation rec {
   pname = "vvmd";
-  version = "1.0";
+  version = "1.1";
 
   src = fetchFromGitLab {
     owner = "kop316";
