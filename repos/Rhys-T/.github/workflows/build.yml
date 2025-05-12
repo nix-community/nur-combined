@@ -227,7 +227,11 @@ jobs:
       run: |
         cacheFlags=()
         if [[ -d /tmp/buildFailures ]]; then
+          echo /tmp/buildFailures:
+          ls -lR /tmp/buildFailures
           cacheFlags+=(--arg cachedBuildFailures /tmp/buildFailures)
+        else
+          echo no cached build failures
         fi
         set -xo pipefail
         nix shell -f '<nixpkgs>' nix-build-uncached -c \
@@ -314,8 +318,8 @@ jobs:
         with:
           path: /tmp/buildFailures
           key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Cleanup partial build failure caches
-        uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
-        with:
-          name: buildFailures-*
-          failOnError: false
+      # - name: Cleanup partial build failure caches
+      #   uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
+      #   with:
+      #     name: buildFailures-*
+      #     failOnError: false
