@@ -114,7 +114,7 @@
     },
     "rime-ice-unstable": {
         "cargoLocks": null,
-        "date": "2025-05-01",
+        "date": "2025-05-11",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -126,12 +126,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "5322bcd86f47d18e0785cac4a5da239664b46235",
-            "sha256": "sha256-BFS/pMuUlZ6pQEITZ37hotl7YUMmU7kWoHA26L+y7Pc=",
+            "rev": "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7",
+            "sha256": "sha256-K+xYo4SBDws5oPKVkxkfosw8sizzFO9DWxWEu7PRPQ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5322bcd86f47d18e0785cac4a5da239664b46235"
+        "version": "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -142,15 +142,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/MBYX1Zb66RK6Nowky4LdMB6Vt/4n4UAxRTN0KODdwk=",
+            "sha256": "sha256-Lte1xjgayhRrkw1RkBCy+EitzsRbwFhtYrhlTqbOvtA=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250409/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250509/moegirl.dict.yaml"
         },
-        "version": "20250409"
+        "version": "20250509"
     },
     "yazi-rs-plugins": {
         "cargoLocks": null,
-        "date": "2025-04-27",
+        "date": "2025-05-11",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -162,11 +162,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "864a0210d9ba1e8eb925160c2e2a25342031d8d3",
-            "sha256": "sha256-m3709h7/AHJAtoJ3ebDA40c77D+5dCycpecprjVqj/k=",
+            "rev": "55bf6996ada3df4cbad331ce3be0c1090769fc7c",
+            "sha256": "sha256-v/C+ZBrF1ghDt1SXpZcDELmHMVAqfr44iWxzUWynyRk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "864a0210d9ba1e8eb925160c2e2a25342031d8d3"
+        "version": "55bf6996ada3df4cbad331ce3be0c1090769fc7c"
     }
 }

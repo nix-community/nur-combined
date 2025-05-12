@@ -10,17 +10,17 @@
 
 rustPlatform.buildRustPackage {
   pname = "mq";
-  version = "0.1.4-unstable-2025-05-06";
+  version = "0.1.4-unstable-2025-05-11";
 
   src = fetchFromGitHub {
     owner = "harehare";
     repo = "mq";
-    rev = "cb1b6d08a2ba8a2f2cc2d4824e34ffd62c66a60f";
-    hash = "sha256-yQl004h5hEy7znyrSeX7LnPs0KvJVyXtRegtF3YFOZQ=";
+    rev = "565614a65873610028a6fcc3e5039d262ab71656";
+    hash = "sha256-7+wbr+hOczplyJCc3As4I1iXiBNYqPQxf2A8vzJNPoA=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-Vu3Py/ucMJ3djpsr/foFHO9QadNyG38TKPqp+H5kLK4=";
+  cargoHash = "sha256-Qatz6gtfZMaoS/c9PJWBxpt5PUmzZEik65dYfKOV2sk=";
 
   nativeBuildInputs = [ installShellFiles ];
 
