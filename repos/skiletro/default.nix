@@ -18,4 +18,5 @@
   mplus = pkgs.callPackage ./pkgs/mplus {};
   sgdboop = pkgs.callPackage ./pkgs/sgdboop {};
   urbanist = pkgs.callPackage ./pkgs/urbanist {};
+  wheelwizard = pkgs.callPackage ./pkgs/wheelwizard {};
 }
