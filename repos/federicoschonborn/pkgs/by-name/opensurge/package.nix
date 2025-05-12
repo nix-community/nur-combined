@@ -45,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
+  # Darwin fails with "Critical error: required built-in appearance SystemAppearance not found"
+  doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
   strictDeps = true;
 
