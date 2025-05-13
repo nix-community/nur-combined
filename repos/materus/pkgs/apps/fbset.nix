@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   pname = "fbset";
-  version = "2.1-33";
+  version = "2.1-34";
 
   src = fetchurl {
     url = "http://ftp.pl.debian.org/debian/pool/main/f/fbset/fbset_${version}_amd64.deb";
-    sha256 = "sha256-SgnrDvxLeYxkxFWetB/M5DOJwHk/mB3gTO0EyZRpLk4=";
+    sha256 = "sha256-fAe35rNjTuRgASq2U+q7rXV6c1yc57gJjswDuibVThw=";
   };
 
   dontBuild = true;
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
   mkdir -p $out
-  mv bin $out
+  mv usr/bin $out
   mv etc $out
   mv usr/share $out
   patchShebangs $out/bin/modeline2fb
