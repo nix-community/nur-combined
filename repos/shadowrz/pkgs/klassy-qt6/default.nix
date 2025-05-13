@@ -2,31 +2,19 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
-  extra-cmake-modules,
-  kdecoration,
-  kcoreaddons,
-  kguiaddons,
-  kconfigwidgets,
-  kiconthemes,
-  kwindowsystem,
-  kwayland,
-  kirigami,
-  frameworkintegration,
-  kcmutils,
-  wrapQtAppsHook,
-  qtsvg,
+  kdePackages,
 }:
+
 stdenv.mkDerivation rec {
   pname = "klassy";
-  version = "6.2.breeze6.2.1";
+  version = "6.3.breeze6.3.5";
 
   src = fetchFromGitHub {
     owner = "paulmcauley";
     repo = pname;
     rev = version;
-    sha256 = "sha256-tFqze3xN1XECY74Gj0nScis7DVNOZO4wcfeA7mNZT5M=";
+    sha256 = "sha256-psXlkTo11e1Yuk85pI1KTRHl0eVdXh0bXcYbnhTa7Qk=";
   };
 
   cmakeFlags = [
@@ -36,38 +24,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    extra-cmake-modules
-    wrapQtAppsHook
+    kdePackages.extra-cmake-modules
+    kdePackages.wrapQtAppsHook
   ];
 
-  patches =
-    [
-      (fetchpatch rec {
-        name = "project-version.patch";
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=klassy";
-        hash = "sha256-y/wtvJw0sObvQtBRD92kOn/25rqiJ/TKG3fhQAdKJBo=";
-      })
-    ]
-    ++ lib.optionals (lib.strings.versionAtLeast kdecoration.version "6.3.0") [
-      (fetchpatch {
-        name = "kdecorations-6.3.patch";
-        url = "https://github.com/paulmcauley/klassy/pull/178.patch";
-        hash = "sha256-b6IIyx2ViuLzKAVfoqEN0B5dek8AIJzpNTayxf8Mwqk=";
-      })
-    ];
-
   buildInputs = [
-    kdecoration
-    kcoreaddons
-    kguiaddons
-    kconfigwidgets
-    kiconthemes
-    kwayland
-    kwindowsystem
-    kirigami
-    frameworkintegration
-    kcmutils
-    qtsvg
+    kdePackages.kdecoration
+    kdePackages.kcoreaddons
+    kdePackages.kguiaddons
+    kdePackages.kconfigwidgets
+    kdePackages.kiconthemes
+    kdePackages.kwayland
+    kdePackages.kwindowsystem
+    kdePackages.kirigami
+    kdePackages.frameworkintegration
+    kdePackages.kcmutils
+    kdePackages.qtsvg
   ];
 
   meta = with lib; {
