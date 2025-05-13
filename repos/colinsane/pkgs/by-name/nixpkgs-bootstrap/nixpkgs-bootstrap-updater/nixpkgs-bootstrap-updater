@@ -1,0 +1,28 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p common-updater-scripts -p curl -p jq -p nix-prefetch-github
+
+set -eu
+
+branch=$1
+
+if [ -z "$branch" ]; then
+  echo "USAGE: nixpkgsUpdater <branch>"
+  exit 1
+fi
+
+jsonGetField() {
+  local json=$1
+  local field=$2
+  echo "$json" | jq --exit-status --raw-output ".$field"
+}
+
+set -x
+prefetchData=$(nix-prefetch-github --json --meta --rev "$branch" NixOS nixpkgs)
+
+rev=$(jsonGetField "$prefetchData" src.rev)
+nixHash=$(jsonGetField "$prefetchData" src.hash)
+commitDate=$(jsonGetField "$prefetchData" meta.commitDate)
+
+update-source-version "sane.nixpkgs-bootstrap.$branch" "unstable-$commitDate" "$nixHash" \
+  --rev="$rev" \
+  --print-changes

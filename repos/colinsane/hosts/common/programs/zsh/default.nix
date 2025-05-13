@@ -190,7 +190,7 @@ in
       # TODO: move to `shellAliases` config?
       function c() {
         # list a dir after entering it
-        cd "$1"
+        cd "$@"
         eza --oneline
       }
       function deref() {

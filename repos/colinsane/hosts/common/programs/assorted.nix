@@ -199,8 +199,9 @@ in
       "dasht"  # docset documentation viewer
       # "gh"  # MS GitHub cli
       "haredoc"
+      "nix-check-deps"  # run `nix-check-deps packageName -f .` before submitting stuff upstream
       "nix-index"
-      "nixfmt-rfc-style"  # run `nixpkgs path/to/package.nix` before submitting stuff upstream
+      "nixfmt-rfc-style"  # run `nixfmt path/to/package.nix` before submitting stuff upstream
       "nixpkgs-hammering"
       "nixpkgs-review"
       "qmk-udev-rules"
@@ -889,6 +890,12 @@ in
     nil.sandbox.keepPids = true;
 
     nixd.sandbox.whitelistPwd = true;
+
+    nix-check-deps.sandbox.whitelistPwd = true;
+    nix-check-deps.sandbox.net = "all";
+    nix-check-deps.sandbox.extraPaths = [
+      "/nix/var"
+    ];
 
     nix-tree.sandbox.extraPaths = [
       "/nix/var"

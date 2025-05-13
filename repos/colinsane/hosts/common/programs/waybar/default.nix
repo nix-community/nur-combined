@@ -100,8 +100,7 @@ in
       (pkgs.formats.json {}).generate "waybar-config.json" [
         ({ layer = "top"; } // cfg.config.top)
       ];
-    fs.".config/waybar/style.css".symlink.target = pkgs.substituteAll {
-      src = ./waybar-style.css;
+    fs.".config/waybar/style.css".symlink.target = pkgs.replaceVars ./waybar-style.css {
       inherit (cfg.config) extraStyle fontSize;
     };
 

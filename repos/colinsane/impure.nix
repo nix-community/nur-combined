@@ -8,10 +8,11 @@
   localSystem ? builtins.currentSystem,
 }:
 let
-  mkNixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/mkNixpkgs.nix {};
-  mkPkgs = branch: args: (
-    (mkNixpkgs (args // { inherit branch; })).pkgs
-  ).extend (import ./overlays/all.nix);
+  mkPkgs = branch: config: let
+    mkNixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/mkNixpkgs.nix config;
+  in (
+    import ./pkgs/by-name/nixpkgs-bootstrap/${branch}.nix { inherit mkNixpkgs; }
+  ).pkgs.extend (import ./overlays/all.nix);
   pkgs = mkPkgs "master" { inherit localSystem; };
   inherit (pkgs) lib;
 

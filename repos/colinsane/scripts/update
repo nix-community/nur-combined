@@ -1,7 +1,10 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p findutils -p git -p nix-update
 
-# each update job has to do an entire nix eval, which can be memory intensive; be careful when tuning this
+# each update job has to do an entire nix eval, which can be memory intensive; be careful when tuning this.
+# N.B.: not all update jobs are atomic; parallel updates _may_ cause failed updates if eval of some package `pkgFoo`
+# depends on the `src` field of some library `libBar`, and the two are updated simultaneously.
+# this typically only happens when `libBar` is nix code, and `import`'d.
 PARALLELISM=8
 SELF_PATH=$PWD/$0
 

@@ -44,6 +44,9 @@ in
       i-still-dont-care-about-cookies = {
         enable = lib.mkDefault false;  #< obsoleted by uBlock Origin annoyances/cookies lists
       };
+      kagi-search = {
+        enable = lib.mkDefault false;
+      };
       # open-in-mpv = {
       #   # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`
       #   package = pkgs.firefox-extensions.open-in-mpv;

@@ -4,16 +4,12 @@
   cairo,
   copyDesktopItems,
   fetchFromGitHub,
-  fetchzip,
   gdk-pixbuf,
-  getconf,
   libsodium,
   libxkbcommon,
   makeDesktopItem,
   meson,
   ninja,
-  openssl,
-  pam,
   pkg-config,
   scdoc,
   wayland,
@@ -49,6 +45,82 @@ stdenv.mkDerivation rec {
     substituteInPlace main.c \
       --replace-fail 'if (!state.input_inhibit_manager)' 'if (false)' \
       --replace-fail 'zwlr_input_inhibit_manager_v1_get_inhibitor' '// '
+
+    # default is for the submit button to be "☺" (smiley face),
+    # rendered in the system-default `sans-serif` font.
+    # not all fonts have that glyph:
+    # - NotoSans Nerd Font  => no
+    # - DejaVu Sans         => yes
+    # i could change my default fonts... or i can just patch in a nicer glyph :)
+    # - ✅  => no
+    # -    => yes
+    # -    => untested
+    # -    => untested
+    # -    => yes
+    # -    => untested
+    # - 󰓆   => untested
+    # - »   => yes (not vertically centered though)
+    # - ›   => untested
+    # - ‣   => yes (very small though)
+    # - ❭   => untested
+    # - ❯   => untested
+    # - ❱   => untested
+    # -    => untested
+    # -    => untested
+    # -    => untested
+    # -    => untested
+    # -    => yes
+    # -    => untested
+    # -    => untested
+    # - 󰤲   => untested
+    # -    => yes
+    # -    => untested
+    # - 󰶮   => yes
+    # - 󰈆   => yes
+    # - 󰍃   => yes
+    # - 󰍀   => yes
+    # -    => untested
+    # - 󰣧   => untested
+    # - 󰫍   => untested
+    # - 󰫎   => untested
+    # - 󰣿   => untested
+    # -    => yes
+    # -    => untested
+    # -    => yes (a bit large though)
+    # -    => yes
+    # -    => untested
+    # -    => untested
+    # -    => untested
+    # backspace:
+    # -    => yes
+    # -    => untested
+    # - 󱞳   => yes
+    # - 󱞱   => untested
+    # -    => yes
+    # - 󰓕   => untested
+    # - 󰓖   => untested
+    # - 󰶢   => untested
+    # - 󰘀   => yes (small though)
+    # -    => yes (a bit small though)
+    # -    => yes (a bit small though)
+    # -    => untested
+    # - 󱎘   => untested
+    # - 󱀬   => yes
+    # -    => yes
+    # -    => yes
+    # - 󰂭   => untested
+    # -    => yes
+    # -    => untested
+    # -    => yes
+    # - 󱆮   => untested
+    # - 󰹿   => yes
+    # - 󰹾   => untested
+    # -    => works
+    substituteInPlace pinentry.c \
+      --replace-fail 'backspace = "⌫"' 'backspace = ""' \
+      --replace-fail 'submit = "\u263a"' 'submit = ""'
+    # optionally, change the font family:
+    # --replace-fail 'cairo_select_font_face(cairo, "sans-serif"' 'cairo_select_font_face(cairo, "monospace"'
   '' + lib.optionalString (pwhashDifficulty != null) ''
     substituteInPlace mkpin.c \
       --replace-fail '_MODERATE' '_${pwhashDifficulty}'
@@ -75,7 +147,7 @@ stdenv.mkDerivation rec {
     (makeDesktopItem {
       name = "schlock";
       # exec = "schlock -p $HOME/.config/schlock/schlock.pin";
-      exec = ''/bin/sh -c "schlock -p \\$HOME/.config/schlock/schlock.pin"'';
+      exec = ''/bin/sh -c "schlock --color fffff0 -p \\$HOME/.config/schlock/schlock.pin"'';
       desktopName = "Lock Screen";
     })
   ];

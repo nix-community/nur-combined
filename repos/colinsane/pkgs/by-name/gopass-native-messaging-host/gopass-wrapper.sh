@@ -1,2 +1,2 @@
 #! @bash@/bin/sh
-exec @gopassJsonapi@/bin/gopass-jsonapi listen
+exec @gopass-jsonapi@/bin/gopass-jsonapi listen

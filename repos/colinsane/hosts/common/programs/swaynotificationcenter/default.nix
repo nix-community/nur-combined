@@ -82,17 +82,6 @@ in
 
     # prevent dbus from automatically activating swaync so i can manage it as a service instead
     packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
-      version = "0.10.1-unstable-2024-04-16";
-      # toggling the panel on 0.10.1 sometimes causes toggle-buttons to toggle.
-      # this is fixed post-0.10.1.
-      # see: <https://github.com/ErikReider/SwayNotificationCenter/issues/405>
-      src = lib.warnIf (lib.versionOlder "0.10.1" upstream.version) "swaync: safe to unpin" pkgs.fetchFromGitHub {
-        owner = "ErikReider";
-        repo = "SwayNotificationCenter";
-        rev = "8cb9be59708bb051616d7e14d9fa0b87b86985af";
-        hash = "sha256-UAegyzqutGulp6H7KplEfwHV0MfFfOHgYNNu+AQHx3g=";
-      };
-
       postPatch = (upstream.postPatch or "") + ''
         # Gtk3 by default won't pack more than 7 items into one row of a FlowBox.
         # but i want tighter control over my icon placement than that:

@@ -291,8 +291,7 @@ in
       org.freedesktop.impl.portal.Inhibit=none
     '';
 
-    fs.".config/sway/config".symlink.target = pkgs.substituteAll {
-      src = ./config;
+    fs.".config/sway/config".symlink.target = (pkgs.replaceVars ./config {
       inherit (cfg.config)
         extra_lines
         font
@@ -301,6 +300,13 @@ in
         workspace_layout
       ;
       xwayland = if enableXWayland then "enable" else "disable";
+    }).overrideAttrs {
+      # @DEFAULT_AUDIO_SINK@ should remain unsubstituted: that's wireplumber syntax resolved at runtime.
+      # override `replaceVars` checkPhase to not complain about it being unsubstituted:
+      preCheck = ''
+        substitute $target targetForCheck --replace-fail '@DEFAULT_AUDIO_SINK@' 'XXX_REMOVED_FOR_CHECK_XXX'
+        target=targetForCheck
+      '';
     };
 
     env.XDG_CURRENT_DESKTOP = "sway";

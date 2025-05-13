@@ -41,7 +41,7 @@
 
 let
   cfg = config.sane.programs.mpv;
-  uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
+  uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: rec {
     version = "5.2.0-unstable-2024-05-07";
     src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
       owner = "tomasklaen";
@@ -56,6 +56,12 @@ let
     #   rev = "dev-sane-5.2.0";
     #   hash = "sha256-lpqk4nnCxDZr/Y7/seM4VyR30fVrDAT4VP7C8n88lvA=";
     # };
+
+    tools = pkgs.buildGoModule {
+      pname = "uosc-bin";
+      inherit version src;
+      vendorHash = "sha256-nkY0z2GiDxfNs98dpe+wZNI3dAXcuHaD/nHiZ2XnZ1Y=";
+    };
 
     postPatch = (upstream.postPatch or "") + ''
       ### patch so touch controls work well with sway 1.9+
@@ -219,8 +225,7 @@ in
     ];
 
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
-    fs.".config/mpv/mpv.conf".symlink.target = pkgs.substituteAll {
-      src = ./mpv.conf;
+    fs.".config/mpv/mpv.conf".symlink.target = pkgs.replaceVars ./mpv.conf {
       inherit (cfg.config) defaultProfile;
     };
     fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;

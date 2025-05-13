@@ -32,6 +32,5 @@ json_path="$sources_dir/$name/default.json"
 # but in a way where the least could go wrong.
 pushd "$sources_dir"; mkdir -p "$name"; popd
 
-# update.py: from `feeds.update-feed` (TODO: rename the binary!)
-update.py "$name" "$json_path" "${passthruArgs[@]}"
+update-feed "$name" "$json_path" "${passthruArgs[@]}"
 cat "$json_path"

@@ -53,6 +53,14 @@ let
       };
     });
 
+    ### FIREFOX EXTENSIONS
+    # build like `nix-build -A firefox-extensions.default-zoom`.
+    # doesn't *need* to be its own scope, but this style of organization makes it easier to track.
+    firefox-extensions = lib.filesystem.packagesFromDirectoryRecursive {
+      inherit callPackage newScope;
+      directory = ./firefox-extensions;
+    };
+
     ### aliases
     inherit (trivial-builders)
       copyIntoOwnPackage

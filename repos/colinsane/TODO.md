@@ -87,6 +87,7 @@
 - make dconf stuff less monolithic
   - i.e. per-app dconf profiles for those which need it. possible static config.
   - flatpak/spectrum has some stuff to proxy dconf per-app
+- rework `programs` API to be just an overlay which wraps each binary in an env with XDG_DATA_DIRS etc set & the config/state links placed in /nix/store instead of $HOME.
 
 ### user experience
 - setup a real calendar system, for recurring events

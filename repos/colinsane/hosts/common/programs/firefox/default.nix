@@ -224,6 +224,7 @@ in
       "Print"  # not sure if used
       "ScreenCast"  # not sure if used
     ];
+    sandbox.whitelistSecurityKeys = true;
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

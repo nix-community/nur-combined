@@ -30,29 +30,51 @@ let
 in
 [
   (fetchpatch' {
-    name = "blueprint-compiler: wrap with required dependencies";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/400415";
-    # saneCommit = "8f5822c7c949aea432b5b361998e781ff273e058";
-    hash = "sha256-m6o4nWGWtsYerJAJtOL5+TVNoyyUcptDfZr47RMkHb0=";
+    name = "xarchiver: build with strictDeps=true";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/406599";
+    hash = "sha256-xaI6YEGuxZaYtaTbfeTK9cr2ELhWnrO+Azic5aG6XbE=";
+  })
+  (fetchpatch' {
+    # 2025-05-03: merged into staging
+    name = "qt6.{qttools,qtwayland}: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/403830";
+    hash = "sha256-NaDHdsfKY3Gg3RJTMgbHYqnezdLuei/71d0d+/cubmE=";
   })
 
   (fetchpatch' {
+    # 2025-05-03: merged into staging
+    name = "qt6.qttranslations: bootstrap directly";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/403944";
+    hash = "sha256-ZjEGozWbxfplMGU61ohTkqjDmhZRvVildXx6TWlHhvQ=";
+  })
+
+  (fetchpatch' {
+    # 2025-05-02: merged into staging
     name = "fcitx5: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/399981";
     hash = "sha256-BSnp80+8cpb+1yFaB0g7ZnPgQQqC7qo+ReMJUtlKgr4=";
   })
 
   (fetchpatch' {
-    # 2025-04-20: merged into staging
-    name = "git: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/399955";
-    hash = "sha256-UsVH6NhHIEoipi9fzl89mZolo/Lo1l0dos7trOGdU9A=";
+    # 2025-05-02: merged into staging
+    name = "psqlodbc: fix cross";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/403706";
+    hash = "sha256-VKX8RpD8V0tYC6w0O97iJN1r8nVRRSU1FCY3hXlfZoc=";
   })
 
   (fetchpatch' {
-    name = "zelda64recomp: init at 1.1.1-unstable-2025-02-14";
+    # 2025-05-04: merged into staging
+    name = "libcdio: omit manpages when cross compiling";
+    # saneCommit = "2248d99b4edb7b01b667139f16949367773bf03a";
+    # hash = "sha256-OjK34Mo/5JXFNn4rBFhWq8wfeHItM6zzDodMPBYyERY=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/404076";  #< someone else's fix (worse though :P)
+    hash = "sha256-pP4rnz8vskuVC5hkoGORVpcW3/kFF3m4gSW25H4TJvg=";
+  })
+
+  (fetchpatch' {
+    name = "zelda64recomp: init at 1.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/313013";
-    hash = "sha256-9GjvmZoDmU2vIR4g5ADAGRixe13/js44dzVfh2IIDBw=";
+    hash = "sha256-zCZmR+ffSd6WXoRmaorMNrJsdithC2hXzGOYcZAzZjc=";
   })
 
   # (fetchpatch' {

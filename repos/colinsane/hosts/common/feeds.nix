@@ -9,6 +9,7 @@
 #   - active lemmy: <https://slrpnk.net/c/podcasts>
 #   - old thread: <https://lemmy.ml/post/1565858>
 #
+# - paywall bypass / bootlegs: <https://jumble.top/>
 { lib, sane-data, ... }:
 let
   hourly = { freq = "hourly"; };
@@ -67,6 +68,7 @@ let
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
     (fromDb "bluecityblues.org.podcastpage.io" // pol)  # hosts overlap with Seattle Nice
+    (fromDb "buzzsprout.com/2126417" // tech)  # Mystery AI Hype Theater 3000
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
@@ -100,6 +102,7 @@ let
     (fromDb "linuxdevtime.com" // tech)
     (fromDb "malicious.life" // tech)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
+    (fromDb "motherearthnewsandfriends.libsyn.com" // uncat)  # off-grid living
     (fromDb "microarch.club" // tech)
     (fromDb "nocturnepodcast.org")
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English

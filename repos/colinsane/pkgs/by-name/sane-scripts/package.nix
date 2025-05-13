@@ -82,7 +82,7 @@ let
       srcRoot = ./src;
       pkgs = [ "nix" ];
     };
-    deadlines = static-nix-shell.mkBash {
+    deadlines = static-nix-shell.mkYsh {
       pname = "sane-deadlines";
       srcRoot = ./src;
       pkgs = [ "coreutils-full" "gnused" ];

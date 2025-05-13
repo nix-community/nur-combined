@@ -18,7 +18,8 @@ set $mute wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 set $default_workspace_layout @workspace_layout@
 set $locker @locker@
 
-set $out_tv "LG Electronics LG TV 0x01010101"
+set $out_cuddlevision "LG Electronics LG TV 0x01010101"
+set $out_theater "Sony SONY TV  *00 0x01010101"
 set $out_projector "MS Telematica TV 0x00000001"
 # TODO: these 0x... numbers change on occassion: i should ignore them.
 set $out_desko_1 "LG Electronics LG ULTRAWIDE 0x000C4694"
@@ -161,7 +162,7 @@ for_window [app_id="me.gapixels.Megapixels"] inhibit_idle open
 for_window [app_id="org.gnome.Maps"] inhibit_idle visible
 
 # workspace assignments
-workspace TV output $out_tv $out_projector
+workspace TV output $out_cuddlevision $out_theater $out_projector
 for_window [workspace="TV"] fullscreen enable
 
 # mostly, messengers belong on WS 1
@@ -189,16 +190,22 @@ for_window [app_id="deadd-notification-center"] {
 # Celeste64: only works if Celeste doesn't itself request fullscreen (else, random chance of which display it gets).
 #   so enter in-game options and disable "Fullscreen", then we manage it here ourselves
 for_window [app_id="Celeste64|mpv"] {
+  move to output $out_cuddlevision
+  move to output $out_theater
   move to output $out_projector
-  move to output $out_tv
   fullscreen enable  #< should be redundant with the rules for TV, but isn't for some reason
 }
 
+# swaymsg --pretty -t get_tree | grep -i itgmania:
+#   con "Simply Love" (xwayland, pid: 0, instance: "StepMania 5.1", class: "ITGmania", X11 window: 0x800002)
+# swaymsg --pretty -t get_tree | grep -i zelda
+#   #30: con "Zelda 64: Recompiled" (xwayland, pid: 0, instance: ".Zelda64Recompiled-wrapped", class: ".Zelda64Recompiled-wrapped", X11 window: 0x60000E)
 # for_window [class="sm64ex"] {
 # for_window [instance="sm64ex"] {
-for_window [title="sm64ex-coop: beta 31.0"] {
+for_window [title="sm64ex-coop: beta 31.0|Simply Love|Zelda 64: Recompiled"] {
+  move to output $out_cuddlevision
+  move to output $out_theater
   move to output $out_projector
-  move to output $out_tv
 }
 
 
@@ -221,10 +228,16 @@ input "type:keyboard" xkb_options caps:escape
 # USB DAC: don't emulate media keys, as they tend to false trigger on plug events or noisy lines
 input "3034:19984:Generic_USB_Audio_Consumer_Control" events disabled
 # TV
-output $out_tv {
+output $out_cuddlevision {
   pos 1920,0
   res 1920x1080
   # 4k is limited to 30Hz; 1080p is the next-highest resolution (at 120Hz)
+  # res 3840x2160
+}
+output $out_theater {
+  pos 1920,0
+  res 1920x1080
+  # 4k is limited to 30Hz; 1080p is the next-highest resolution (at 60Hz)
   # res 3840x2160
 }
 # projector

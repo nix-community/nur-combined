@@ -76,11 +76,6 @@ in rec {
     # allow any package to be a list of packages, to support things like
     # -p python3.pkgs.foo.propagatedBuildInputs
     pkgsEnv' = lib.flatten pkgsEnv;
-
-    makeWrapperArgs = lib.optionals (pkgsEnv' != []) [
-      "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
-    ] ++ extraMakeWrapperArgs;
-    doWrap = makeWrapperArgs != [];
   in
     stdenv.mkDerivation (final: {
       version = "0.1.0";  # default version
@@ -90,7 +85,7 @@ in rec {
         makeBinaryWrapper
       ];
 
-      inherit makeWrapperArgs;
+      runtimePrefixes = pkgsEnv';
 
       patchPhase = ''
         substituteInPlace ${srcPath} \
@@ -102,6 +97,7 @@ in rec {
 
       installPhase = ''
         runHook preInstall
+
         mkdir -p $out/bin
         mv ${srcPath} $out/bin/${srcPath}
 
@@ -109,16 +105,33 @@ in rec {
           echo "$@"
           exit 1
         }
+
         # ensure that all nix-shell references were substituted
         (! grep '#![ \t]*nix-shell' $out/bin/${srcPath}) || die 'not all #!nix-shell directives were processed in ${srcPath}'
         # ensure that there weren't some trailing deps we *didn't* substitute
         grep '^# nix deps evaluated statically$' $out/bin/${srcPath} || die 'trailing characters in nix-shell directive for ${srcPath}'
 
-      '' + lib.optionalString doWrap ''
-        # add runtime dependencies to PATH
-        wrapProgram $out/bin/${srcPath} \
-          ${lib.escapeShellArgs final.makeWrapperArgs}
-      '' + ''
+        # wrap the program to place each dependency on PATH and XDG_DATA_DIRS:
+        concatTo runtimePrefixesList runtimePrefixes
+        extraPaths=
+        extraXdgDataDirs=
+        for p in "''${runtimePrefixesList[@]}"; do
+          echo "considering if dependency needs to be added to runtime environment(s): $p"
+          # `addToSearchPath` behaves as no-op if the provided path doesn't exist
+          addToSearchPath extraPaths "$p/bin"
+          addToSearchPath extraXdgDataDirs "$p/share"
+        done
+
+        if [ -n "$extraPaths" ]; then
+          makeWrapperArgs+=("--suffix" "PATH" ":" "$extraPaths")
+        fi
+        if [ -n "$extraXdgDataDirs" ]; then
+          makeWrapperArgs+=("--suffix" "XDG_DATA_DIRS" ":" "$extraXdgDataDirs")
+        fi
+        if [[ ''${#makeWrapperArgs[@]} != 0 ]]; then
+          wrapProgram $out/bin/${srcPath} \
+            "''${makeWrapperArgs[@]}"
+        fi
 
         runHook postInstall
       '';

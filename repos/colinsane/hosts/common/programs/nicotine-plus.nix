@@ -29,7 +29,7 @@
     # and write back *all* options for you to then edit further.
     secrets.".config/nicotine/config" = ../../../secrets/common/nicotine-config.bin;
     persist.byStore.plaintext = [
-      ".local/share/nicotine/downloads"
+      ".local/share/nicotine/downloads"  #< this dir is configured by `transfers.downloaddir` config
     ];
   };
 }

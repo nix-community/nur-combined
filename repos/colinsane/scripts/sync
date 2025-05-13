@@ -40,7 +40,9 @@ homeMountFor() {
 sync_pkm() {
   local host=$1
   local me=$(hostname)
-  ssh "$host" "set -eux; remote=$me; "'cd ~/knowledge; old=$(git rev-parse --abbrev-ref HEAD); [ "$old" = master ]; st=$(git stash create); git reset --hard HEAD; git branch -D sync || true; git checkout -b sync; git fetch $remote master && git rebase $remote/master && (if [ -n "$st" ]; then git stash apply "$st"; fi) && git branch --move --force master || (git --reset-hard HEAD; git checkout "$old"; (if [ -n "$st" ]; then git stash apply "$st"; fi); false)'
+  if [ "$host" != "$me" ]; then
+    ssh "$host" "set -eux; remote=$me; "'cd ~/knowledge; old=$(git rev-parse --abbrev-ref HEAD); [ "$old" = master ]; st=$(git stash create); git reset --hard HEAD; git branch -D sync || true; git checkout -b sync; git fetch $remote master && git rebase $remote/master && (if [ -n "$st" ]; then git stash apply "$st"; fi) && git branch --move --force master || (git --reset-hard HEAD; git checkout "$old"; (if [ -n "$st" ]; then git stash apply "$st"; fi); false)'
+  fi
 }
 
 sync_music() {
@@ -79,9 +81,8 @@ sync_books() {
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
       ifExists /mnt/servo/media/Books/Books \
         rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Books/"
-      # TODO: recover servo Books/Visual collection, and then re-enable syncing
-      # ifExists /mnt/servo/media/Books/Visual \
-      #   rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Visual/"
+      ifExists /mnt/servo/media/Books/Visual \
+        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Visual/ "$mobyHome/Books/Visual/"
       ;;
     (*)
       ;;

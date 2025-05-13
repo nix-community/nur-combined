@@ -41,11 +41,12 @@ in
   #   hareHook = crossHareHook;
   # };
 
-  # XXX(2024-12-26): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
+  # XXX(2024-12-26 - 2025-04-30): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
   # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
   electron = electron-bin;
   electron_33 = electron_33-bin;
   electron_34 = electron_34-bin;
+  electron_35 = electron_35-bin;
 
   # evolution-data-server = super.evolution-data-server.override {
   #   # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation

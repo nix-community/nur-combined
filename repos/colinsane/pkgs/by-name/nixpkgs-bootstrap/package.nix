@@ -7,6 +7,7 @@
 lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   mkNixpkgs = callPackage ./mkNixpkgs.nix { };
   master = callPackage ./master.nix { };
+  nixpkgs-bootstrap-updater = callPackage ./nixpkgs-bootstrap-updater { };
   staging = callPackage ./staging.nix { };
   staging-next = callPackage ./staging-next.nix { };
 }))

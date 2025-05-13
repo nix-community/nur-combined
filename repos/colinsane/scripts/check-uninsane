@@ -37,9 +37,9 @@ check() {
   local label=$1
   shift
   if [ "$verbose" -ge 1 ]; then
-    printf "checking %s (%s) \n" "$label" "$*"
+    printf "checking %s (%s)... " "$label" "$*"
   else
-    printf "checking %s\n" "$label"
+    printf "checking %s... " "$label"
   fi
   if [ "$verbose" -ge 2 ]; then
     "$@"
@@ -49,8 +49,10 @@ check() {
   local rc=$?
   if [ $rc -ne 0 ]; then
     last_error=$rc
-    printf "FAILED CHECK '%s'\n" "$label" >&2
+    printf "❌\n  FAILED CHECK '%s'\n" "$label" >&2
     echo "  $@" >&2
+  else
+    printf "✅\n"
   fi
   return $rc
 }

@@ -19,7 +19,7 @@
       preferLocalBuild = true;
       nativeBuildInputs = [ pkgs.geoclue-ols ];
     } ''
-      cellid-ols-import -o "$out" "${pkgs.opencellid}/cell_towers.csv"
+      cellid-ols-import -o "$out" "${pkgs.opencellid}/share/opencellid/cell_towers.csv"
     '';
 
     persist.byStore.private = [

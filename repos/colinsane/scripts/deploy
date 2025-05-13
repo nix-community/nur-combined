@@ -94,7 +94,7 @@ parseArgs() {
       (--reboot)
         doReboot=1
         ;;
-      (--reboot-force)
+      (--reboot-force|--force-reboot)
         doReboot=1
         doRebootForce=1
         ;;

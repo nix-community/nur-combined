@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation {
   pname = "opencellid";
-  version = "0-unstable-2025-04-23";
+  version = "0-unstable-2025-05-12";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "c7046b0e6db04d9db0c1f8386c2a84eb3b9f83ac";
-    hash = "sha256-R2Q+F6EMJleXN5jqv4xCUk0UGgLUH1c23A2NQDc78So=";
+    rev = "ade60e72ab30515c7db4bd3e9c8fec24712aba65";
+    hash = "sha256-h8/q0t5G8Yi5p8aezfMRI0pFNH7hKtaBoUC13p+P2xE=";
   };
 
   dontBuild = true;
@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir $out
-    cp cell_towers.csv $out
+    mkdir -p $out/share/opencellid
+    cp cell_towers.csv $out/share/opencellid
 
     runHook postInstall
   '';

@@ -157,8 +157,7 @@ in
       "torch-toggle"
     ];
 
-    fs.".config/nwg-panel/style.css".symlink.target = pkgs.substituteAll {
-      src = ./style.css;
+    fs.".config/nwg-panel/style.css".symlink.target = pkgs.replaceVars ./style.css {
       inherit (cfg.config) fontSize clockFontSize;
     };
     fs.".config/nwg-panel/common-settings.json".symlink.target = ./common-settings.json;

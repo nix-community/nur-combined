@@ -30,6 +30,7 @@
   sane.persist.enable = lib.mkDefault true;
   sane.root-on-tmpfs = lib.mkDefault true;
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
+  sane.programs.sysadminExtraUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
   services.buffyboard.enable = true;

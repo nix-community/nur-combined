@@ -1,4 +1,10 @@
 # to fix sha256 (in case the updater glitches):
+# - delete `sha256` or set `sha256 = "";`
+# - nix-build -A hello
+#   => it will fail, `hash mismatch ... got: sha256-xyz`
+# - past that hash back into the `sha256` field
+#
+# if that fails, then:
 # - set `sha256 = "";`
 # - nix-build -A hello
 #   => it will fail, `hash mismatch ... got:  sha256:xyz`
@@ -8,8 +14,8 @@
   mkNixpkgs ? import ./mkNixpkgs.nix {},
 }:
 mkNixpkgs {
-  rev = "fd15f0eb3cfa66f56c8188a7f865886e652a16f1";
-  sha256 = "sha256-rizeOTMhSQ1SDYuuoJzHilsewNA9Mq6DQk/GO8+pfAA=";
-  version = "0-unstable-2025-04-23";
+  rev = "51894b331ef3aa33215738797d6e375fb3217e11";
+  sha256 = "sha256-pwj1IYh7/2IOqegorvieBSbngD7kI6n8eBosb15/2kY=";
+  version = "unstable-2025-05-13";
   branch = "master";
 }
