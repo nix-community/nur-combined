@@ -34,8 +34,8 @@ callPackage ./generic.nix rec {
   withVST3 = false; # No VST3
 
   src = fetchurl {
-    url = "https://loomer.co.uk/downloads/${displayName}/${displayName}${arch}-${version}.${archive_fmt}";
     inherit hash;
+    url = "https://loomer.co.uk/downloads/${displayName}/${displayName}${arch}-${version}.${archive_fmt}";
   };
 
   extraBuildInputs = with xorg; [

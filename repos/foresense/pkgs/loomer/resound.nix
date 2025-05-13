@@ -36,8 +36,8 @@ callPackage ./generic.nix rec {
   withVST3 = true;
 
   src = fetchurl {
-    url = "https://lmr-dply.s3.eu-west-2.amazonaws.com/${pname}/${version}/${displayName}${arch}-${version}.${archive_fmt}";
     inherit hash;
+    url = "https://lmr-dply.s3.eu-west-2.amazonaws.com/${pname}/${version}/${displayName}${arch}-${version}.${archive_fmt}";
   };
 
   meta = {

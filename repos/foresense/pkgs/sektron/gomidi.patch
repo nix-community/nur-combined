@@ -1,0 +1,39 @@
+diff --git a/go.mod b/go.mod
+index 872207a..1584db2 100644
+--- a/go.mod
++++ b/go.mod
+@@ -1,8 +1,8 @@
+ module sektron
+ 
+-go 1.22.2
++go 1.24.2
+ 
+-toolchain go1.22.5
++toolchain go1.24.3
+ 
+ require (
+ 	github.com/charmbracelet/bubbles v0.18.0
+@@ -10,7 +10,7 @@ require (
+ 	github.com/charmbracelet/lipgloss v0.12.1
+ 	github.com/muesli/reflow v0.3.0
+ 	github.com/xaviergodart/bubble-carousel v0.4.2
+-	gitlab.com/gomidi/midi/v2 v2.2.10
++	gitlab.com/gomidi/midi/v2 v2.3.10
+ )
+ 
+ require (
+diff --git a/go.sum b/go.sum
+index 6d66b5e..dfdb27f 100644
+--- a/go.sum
++++ b/go.sum
+@@ -41,8 +41,8 @@ github.com/xaviergodart/bubble-carousel v0.4.2 h1:qVzCPVifHQrkq8+TH3RZmMhsOJQ5y9
+ github.com/xaviergodart/bubble-carousel v0.4.2/go.mod h1:qRzakeoPl1GY4NiahIONc+ed8e9X295K6J4gA254moM=
+ github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e h1:JVG44RsyaB9T2KIHavMF/ppJZNG9ZpyihvCd0w101no=
+ github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e/go.mod h1:RbqR21r5mrJuqunuUZ/Dhy/avygyECGrLceyNeo4LiM=
+-gitlab.com/gomidi/midi/v2 v2.2.10 h1:u9D+5TM0vkFWF5DcO6xGKG99ERYqksh6wPj2X2Rx5A8=
+-gitlab.com/gomidi/midi/v2 v2.2.10/go.mod h1:ENtYaJPOwb2N+y7ihv/L7R4GtWjbknouhIIkMrJ5C0g=
++gitlab.com/gomidi/midi/v2 v2.3.10 h1:Ynoad+e8MUNpIqsXuAO/0tLoMcNAwv5jH6t1iUpleUA=
++gitlab.com/gomidi/midi/v2 v2.3.10/go.mod h1:jDpP4O4skYi+7iVwt6Zyp18bd2M4hkjtMuw2cmgKgfw=
+ golang.org/x/exp v0.0.0-20231006140011-7918f672742d h1:jtJma62tbqLibJ5sFQz8bKtEM8rJBtfilJ2qTU199MI=
+ golang.org/x/exp v0.0.0-20231006140011-7918f672742d/go.mod h1:ldy0pHrwJyGW56pPQzzkH36rKxoZW1tw7ZJpeKx+hdo=
+ golang.org/x/sync v0.8.0 h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=

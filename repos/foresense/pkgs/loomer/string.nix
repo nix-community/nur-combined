@@ -29,15 +29,15 @@ callPackage ./generic.nix rec {
   pname = "string";
   version = "1.17.3";
   displayName = "String";
-  
+
   withApp = true;
   withAU = if stdenv.hostPlatform.isDarwin then true else false;
   withVST = true;
   withVST3 = true;
 
   src = fetchurl {
-    url = "https://lmr-dply.s3.eu-west-2.amazonaws.com/${displayName}/${version}/${displayName}${arch}-${version}.${archive_fmt}";
     inherit hash;
+    url = "https://lmr-dply.s3.eu-west-2.amazonaws.com/${displayName}/${version}/${displayName}${arch}-${version}.${archive_fmt}";
   };
 
   meta = {
