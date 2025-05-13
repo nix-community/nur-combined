@@ -394,7 +394,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-05-09",
+        "date": "2025-05-13",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -406,16 +406,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "fa6317794a8b01c3e8f72d472d98e0fdf30e7a73",
-            "sha256": "sha256-eAg3Do5x8MKiwygnEOM7KFJT1l5WnY/50d4sNiawJRw=",
+            "rev": "5a85ca5428fdacdc3a08bf493e30e9169f6b74ca",
+            "sha256": "sha256-MlcGW9dJgh1kEg3DKF0FCwZ6qLvamcj0DYm68QkFDm0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fa6317794a8b01c3e8f72d472d98e0fdf30e7a73"
+        "version": "5a85ca5428fdacdc3a08bf493e30e9169f6b74ca"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-05-11",
+        "date": "2025-05-13",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d9bfde351d4d4319de6fef723915d6cc65fe5cdb",
-            "sha256": "sha256-g7LcVlPeW2mXSG0eYlUseaCt+eV5kM4ot4khAstGhrU=",
+            "rev": "192955bd484423680fd71404ca3ca2d05f0e1b50",
+            "sha256": "sha256-ga/l7zRn3hbQUmQ/rypuQ+mzE0lu5CrxaTG83RHKGn0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d9bfde351d4d4319de6fef723915d6cc65fe5cdb"
+        "version": "192955bd484423680fd71404ca3ca2d05f0e1b50"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5351",
-            "sha256": "sha256-u8iK3cqss+ESrJ4bfdWOGhe+QyrI+yi14gUWJWFEV1s=",
+            "rev": "b5361",
+            "sha256": "sha256-KIWfrMeYabthZBXM0ULjWN9/y9I72kn0f7cRwlq0rMg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5351"
+        "version": "b5361"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3021,11 +3021,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-6uj6idNXhSaACF/L6kGLxbaLsF68fUhuzWa/q8tJAq0=",
+            "sha256": "sha256-yRO7ckkUxhfJ9TZb+pWUVNH42glId+9cgpb1k4Qa96I=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-2_amd64.deb"
         },
-        "version": "10.0.0+ds-1"
+        "version": "10.0.0+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3036,11 +3036,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-GRJejVV4UzBE9DSFPMXc6FAprD69g6snuDoJnJbKyiI=",
+            "sha256": "sha256-zYzZ3w35bNse6rLeqaNlnijUN5lR6Tnihr3hbJrZMUg=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-2_arm64.deb"
         },
-        "version": "10.0.0+ds-1"
+        "version": "10.0.0+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3051,11 +3051,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-pi0gKeB0Su5wEmnfK4/8GqsQYn9gc3H0RRnHk0TAlAo=",
+            "sha256": "sha256-kRQwK2otLvqfYZoj0HQTxT3E3Om30mInVvt6xwypXCY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-2_armhf.deb"
         },
-        "version": "10.0.0+ds-1"
+        "version": "10.0.0+ds-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3066,11 +3066,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-bpcorm59q40T/U6kXWxCO39vdGtX59fVZmucbHJa554=",
+            "sha256": "sha256-KhLlTiWVZJ/QZw9E57vbCYpGPiXAtPXIbM7Fmjn46Zc=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.0+ds-2_i386.deb"
         },
-        "version": "10.0.0+ds-1"
+        "version": "10.0.0+ds-2"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-12",
+        "date": "2025-05-13",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "7d96aa407145fdf123df6f3c111b636a83348b9d",
-            "sha256": "sha256-9YBfnTdANB68tpZIIIfZ9uM+0fK1MJ1g9LQ+YpPe7+Y=",
+            "rev": "bc0c8741a7065531b8803d90587acd4a1ea17240",
+            "sha256": "sha256-afT9dtUGEV7mSXgIM6AxrNBWF3gPWfl99RMFEWHKSsM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7d96aa407145fdf123df6f3c111b636a83348b9d"
+        "version": "bc0c8741a7065531b8803d90587acd4a1ea17240"
     },
     "unigine-heaven": {
         "cargoLocks": null,
