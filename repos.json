@@ -319,6 +319,9 @@
             "submodules": true,
             "url": "https://github.com/cwyc/nur-packages"
         },
+        "cyberleagueaustria": {
+            "url": "https://github.com/CyberLeagueAustria/nur-packages"
+        },
         "dagger": {
             "url": "https://github.com/dagger/nix"
         },
