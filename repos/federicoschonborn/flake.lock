@@ -178,11 +178,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-9B3KJq2i4AuUpyXdPgiL71ubTnD6OSqKcIUpqS6z3kA=",
-        "path": "./flake.systems.nix",
+        "path": "flake.systems.nix",
         "type": "path"
       },
       "original": {
-        "path": "./flake.systems.nix",
+        "path": "flake.systems.nix",
         "type": "path"
       }
     },
