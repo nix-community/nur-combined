@@ -10,11 +10,11 @@
   - OsTIrus (Acces Virus TI)
   - Vavra (Waldorf microQ)
   - Xenia (Waldorf Microwave XT)
-- [Sektron](https://empr.cl/sektrn/)
+- [Sektron](https://empr.cl/sektron/)
 - [SerialOSC](https://github.com/monome/serialosc/)
 - [Signls](https://empr.cl/signls/)
 
----
+-----
 
 ## Binary distributions
 

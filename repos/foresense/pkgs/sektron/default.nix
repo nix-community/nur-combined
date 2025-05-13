@@ -1,11 +1,11 @@
 {
   lib,
-  buildGo124Module,
+  buildGoModule,
   fetchFromGitHub,
   alsa-lib,
 }:
 
-buildGo124Module rec {
+buildGoModule rec {
   pname = "sektron";
   version = "0.2.1";
 
