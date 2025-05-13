@@ -49,22 +49,22 @@ jobs:
             
             [
               "Lnx x64/ubuntu-latest",
-              "Lnx A64/ubuntu-24.04-arm",
-              "Mac x64/macos-13",
-              "Mac A64/macos-latest",
+              # "Lnx A64/ubuntu-24.04-arm",
+              # "Mac x64/macos-13",
+              # "Mac A64/macos-latest",
             empty] as $runners |
             
             [
               "nixpkgs-unstable",
-              "nixos-unstable",
-              "nixos-\(($stable, $oldStable) | select(. != null))",
+              # "nixos-unstable",
+              # "nixos-\(($stable, $oldStable) | select(. != null))",
             empty] as $nixpkgss |
             
             [
               "base",
-              "mame",
-              "hbmame",
-              "qemu-screamer",
+              # "mame",
+              # "hbmame",
+              # "qemu-screamer",
             empty] as $subsets |
             
             {include: [
@@ -228,13 +228,14 @@ jobs:
       id: build
       run: |
         set -x
-        mkdir /tmp/tempFlake
+        mkdir -p /tmp/tempFlake/conf
+        echo -En '${{ matrix.subset }}' > /tmp/tempFlake/conf/ciSubsetName
         cat <<EOF >/tmp/tempFlake/flake.nix
         {
-          inputs.Rhys-T.url = $(nix-instantiate --eval -E 'toString ./.');
+          inputs.Rhys-T.url = $(nix-instantiate --eval -E '"git+file://" + toString ./.');
           inputs.Rhys-T.inputs.nixpkgs.url = "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}";
           inputs.Rhys-T.inputs.ciSubsetName = {
-              url = "path:./.";
+              url = "path:./conf";
               flake = false;
           };
           $(if [[ -d /tmp/buildFailures ]]; then
@@ -251,9 +252,9 @@ jobs:
         }
         EOF
         cat /tmp/tempFlake/flake.nix
-        nix flake update /tmp/tempFlake
+        nix flake lock /tmp/tempFlake
         set -o pipefail
-        nix run github:Mic92/nix-fast-build -- -f '/tmp/tempFlake#cacheOutputs' --skip-cached --no-nom | tee /tmp/build-uncached.log
+        nix run github:Mic92/nix-fast-build -- -f '/tmp/tempFlake#cacheOutputs' --skip-cached --no-nom --eval-workers 1 | tee /tmp/build-uncached.log
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
