@@ -6,7 +6,6 @@ let
       shadowsocks-rust = ./networking/shadowsocks-rust.nix;
     };
     services = {
-      anubis = ./services/anubis.nix;
       edgee = ./services/edgee.nix;
       iocaine = ./services/iocaine.nix;
       linx-server = ./services/linx-server.nix;
