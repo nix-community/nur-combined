@@ -91,6 +91,7 @@ jobs:
                 gsub("^(?<short>[0-9a-f]{8})[0-9a-f]{32}$"; "\(.short)") |
               .) as $displayNixpkgs |
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
+              (if $qemuSystem then "TODO make qemu builds work again" | error else . end) |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName}
             ]}
             
@@ -119,8 +120,8 @@ jobs:
             oldModTime="$(find ~/.cache/nix -type f -exec stat -c '%Y' {} + | sort -n | tail -1)"
           fi
           unpackPIDs=()
-          jq -r '[.include[].nixpkgsPath] | unique[]' matrix.json | while IFS= read -r nixpkgsPath; do
-            NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs/archive/$nixpkgsPath.tar.gz" nix-instantiate --eval -E '{nixpkgsPath}: nixpkgsPath + ": " + (import <nixpkgs> {}).lib.version' --argstr nixpkgsPath "$nixpkgsPath" &
+          jq -r '[.include[].nixpkgs] | unique[]' matrix.json | while IFS= read -r nixpkgs; do
+            nix-instantiate --eval -E '{nixpkgs}: nixpkgs + ": " + (builtins.getFlake "github:NixOS/nixpkgs/${nixpkgs}").lib.version' --argstr nixpkgs "$nixpkgs" &
             unpackPIDs+=("$!")
           done
           result=true
@@ -186,7 +187,8 @@ jobs:
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
     - name: Set NIX_PATH
       run: |
-        echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz' >> "$GITHUB_ENV"
+        nix registry pin myNixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}"
+        echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Restore Nixpkgs cache
       uses: actions/cache/restore@v4
       with:
@@ -225,23 +227,33 @@ jobs:
     - name: Build nix packages
       id: build
       run: |
-        cacheFlags=()
-        if [[ -d /tmp/buildFailures ]]; then
-          echo /tmp/buildFailures:
-          ls -lR /tmp/buildFailures
-          cacheFlags+=(--arg cachedBuildFailures /tmp/buildFailures)
-        else
-          echo no cached build failures
-        fi
-        set -xo pipefail
-        nix shell -f '<nixpkgs>' nix-build-uncached -c \
-          nix-build-uncached ci.nix \
-            -build-flags '-L --keep-going' \
-            ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) || '' }} \
-            "${cacheFlags[@]}" \
-            --argstr subsetName ${{ matrix.subset }} -A cacheOutputs \
-          2>&1 | tee /tmp/build-uncached.log
-        set +xo pipefail
+        set -x
+        mkdir /tmp/tempFlake
+        cat <<EOF >/tmp/tempFlake/flake.nix
+        {
+          inputs.Rhys-T.url = $(nix-instantiate --eval -E 'toString ./.');
+          inputs.Rhys-T.inputs.nixpkgs.url = "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}";
+          inputs.Rhys-T.inputs.ciSubsetName = {
+              url = "path:./.";
+              flake = false;
+          };
+          $(if [[ -d /tmp/buildFailures ]]; then
+            <<EOF2
+          inputs.Rhys-T.inputs.ciCachedBuildFailures = {
+              url = "path:/tmp/buildFailures";
+              flake = false;
+          };
+        EOF2
+          fi)
+          outputs = {self, Rhys-T}: {
+            cacheOutputs = builtins.mapAttrs (system: ps: ps.ci.cacheOutputsAsAttrs) Rhys-T.legacyPackages;
+          };
+        }
+        EOF
+        cat /tmp/tempFlake/flake.nix
+        nix flake update /tmp/tempFlake
+        set -o pipefail
+        nix run github:Mic92/nix-fast-build -- -f '/tmp/tempFlake#cacheOutputs' --skip-cached --no-nom | tee /tmp/build-uncached.log
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
@@ -257,7 +269,7 @@ jobs:
         mv /tmp/buildFailures{,-old}
         mkdir /tmp/buildFailures
         job_id=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] | select(.name == "${{ matrix.displayRunner }} ${{ matrix.displayNixpkgs }} ${{ matrix.subset }}") | .id')
-        grep -E '^error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | \
+        grep -E 'error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | \
           sort | uniq | \
           tee /dev/stderr | \
           while IFS= read -r drvPath; do

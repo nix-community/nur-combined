@@ -1,5 +1,29 @@
 {
   "nodes": {
+    "ciCachedBuildFailures": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-d6xi4mKdjkX2JFicDIv5niSzpyI0m/Hnm8GGAIU04kY=",
+        "type": "file",
+        "url": "file:///dev/null"
+      },
+      "original": {
+        "type": "file",
+        "url": "file:///dev/null"
+      }
+    },
+    "ciSubsetName": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-d6xi4mKdjkX2JFicDIv5niSzpyI0m/Hnm8GGAIU04kY=",
+        "type": "file",
+        "url": "file:///dev/null"
+      },
+      "original": {
+        "type": "file",
+        "url": "file:///dev/null"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1746300365,
@@ -18,6 +42,8 @@
     },
     "root": {
       "inputs": {
+        "ciCachedBuildFailures": "ciCachedBuildFailures",
+        "ciSubsetName": "ciSubsetName",
         "nixpkgs": "nixpkgs"
       }
     }
