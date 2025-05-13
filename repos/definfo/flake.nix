@@ -45,11 +45,8 @@
           }:
           {
             treefmt = {
-              projectRootFile = "flake.nix";
+              projectRootFile = ".git/config";
               settings.global.excludes = [
-                "result/**"
-                ".envrc"
-                ".pre-commit-config.yaml"
                 ".github/dependabot.yml"
                 "garnix.yaml"
                 "LICENSE"

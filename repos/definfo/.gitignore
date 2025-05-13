@@ -2,4 +2,6 @@ result
 result-*
 
 .direnv
-update.sh
+
+.pre-commit-config.yaml
+
