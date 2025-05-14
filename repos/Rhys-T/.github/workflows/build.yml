@@ -239,7 +239,7 @@ jobs:
           $(if [[ -d /tmp/buildFailures ]]; then
             <<EOF2
           inputs.Rhys-T.inputs.ciCachedBuildFailures = {
-              url = "path:/tmp/buildFailures";
+              url = "path:$(realpath /tmp/buildFailures)";
               flake = false;
           };
         EOF2
