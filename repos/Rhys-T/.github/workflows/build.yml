@@ -7,8 +7,6 @@ on:
       - 'LICENSE'
       - '.github/**'
       - '!.github/workflows/build.yml'
-      - 'flake.nix'
-      - 'flake.lock'
       - 'update.nix'
   push:
     branches:
@@ -19,8 +17,6 @@ on:
       - 'LICENSE'
       - '.github/**'
       - '!.github/workflows/build.yml'
-      - 'flake.nix'
-      - 'flake.lock'
       - 'update.nix'
   schedule:
     # rebuild everyday at 3:30
@@ -91,6 +87,7 @@ jobs:
                 gsub("^(?<short>[0-9a-f]{8})[0-9a-f]{32}$"; "\(.short)") |
               .) as $displayNixpkgs |
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
+              (if $qemuSystem then "TODO make qemu builds work again" | error else . end) |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName}
             ]}
             
@@ -119,8 +116,8 @@ jobs:
             oldModTime="$(find ~/.cache/nix -type f -exec stat -c '%Y' {} + | sort -n | tail -1)"
           fi
           unpackPIDs=()
-          jq -r '[.include[].nixpkgsPath] | unique[]' matrix.json | while IFS= read -r nixpkgsPath; do
-            NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs/archive/$nixpkgsPath.tar.gz" nix-instantiate --eval -E '{nixpkgsPath}: nixpkgsPath + ": " + (import <nixpkgs> {}).lib.version' --argstr nixpkgsPath "$nixpkgsPath" &
+          jq -r '[.include[].nixpkgs] | unique[]' matrix.json | while IFS= read -r nixpkgs; do
+            nix-instantiate --eval -E '{nixpkgs}: nixpkgs + ": " + (builtins.getFlake "github:NixOS/nixpkgs/${nixpkgs}").lib.version' --argstr nixpkgs "$nixpkgs" &
             unpackPIDs+=("$!")
           done
           result=true
@@ -184,9 +181,6 @@ jobs:
       with:
         nix_conf: |
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
-    - name: Set NIX_PATH
-      run: |
-        echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz' >> "$GITHUB_ENV"
     - name: Restore Nixpkgs cache
       uses: actions/cache/restore@v4
       with:
@@ -195,6 +189,10 @@ jobs:
             !~/.cache/nix/binary-cache-*
         key: nixCache-${{ needs.define-matrix.outputs.cacheKey }}
         restore-keys: nixCache-${{ needs.define-matrix.outputs.cachePrefix }}
+    - name: Set NIX_PATH
+      run: |
+        nix registry pin myNixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}"
+        echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
@@ -225,29 +223,47 @@ jobs:
     - name: Build nix packages
       id: build
       run: |
-        cacheFlags=()
-        if [[ -d /tmp/buildFailures ]]; then
-          echo /tmp/buildFailures:
-          ls -lR /tmp/buildFailures
-          cacheFlags+=(--arg cachedBuildFailures /tmp/buildFailures)
-        else
-          echo no cached build failures
-        fi
-        set -xo pipefail
-        nix shell -f '<nixpkgs>' nix-build-uncached -c \
-          nix-build-uncached ci.nix \
-            -build-flags '-L --keep-going' \
-            ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) || '' }} \
-            "${cacheFlags[@]}" \
-            --argstr subsetName ${{ matrix.subset }} -A cacheOutputs \
-          2>&1 | tee /tmp/build-uncached.log
-        set +xo pipefail
+        set -x
+        mkdir -p /tmp/tempFlake/conf
+        tempFlake="$(realpath /tmp/tempFlake)"
+        echo -En '${{ matrix.subset }}' > "$tempFlake/conf/ciSubsetName"
+        cat <<EOF >"$tempFlake/flake.nix"
+        {
+          inputs.nixpkgs.url = "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}";
+          inputs.Rhys-T.url = $(nix-instantiate --eval -E '"git+file://" + toString ./.');
+          inputs.Rhys-T.inputs.nixpkgs.follows = "nixpkgs";
+          inputs.Rhys-T.inputs.ciSubsetName = {
+              url = "path:$tempFlake/conf";
+              flake = false;
+          };
+          $(if [[ -d /tmp/buildFailures ]]; then
+            <<EOF2
+          inputs.Rhys-T.inputs.ciCachedBuildFailures = {
+              url = "path:/tmp/buildFailures";
+              flake = false;
+          };
+        EOF2
+          fi)
+          outputs = {self, Rhys-T, nixpkgs}: let inherit (nixpkgs) lib; in {
+            cacheOutputs = lib.pipe Rhys-T.legacyPackages [
+              (builtins.mapAttrs (system: ps: ps.ci.cacheOutputsAsAttrs or null))
+              (lib.filterAttrs (system: co: co != null))
+            ];
+          };
+        }
+        EOF
+        # cat "$tempFlake/flake.nix"
+        nix flake lock "$tempFlake"
+        set -o pipefail
+        nix run github:Mic92/nix-fast-build -- -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --eval-workers 1 2>&1 | \
+          tee >(nix run 'nixpkgs#ansifilter' > /tmp/build-uncached.log)
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
       with:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
+          /tmp/build-uncached.log
           /nix/var/log
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
