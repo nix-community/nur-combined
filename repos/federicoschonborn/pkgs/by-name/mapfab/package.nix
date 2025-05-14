@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  fetchpatch2,
   wrapGAppsHook3,
   wxGTK32,
   nix-update-script,
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # Unset GIT_COMMIT
-    (fetchpatch {
+    (fetchpatch2 {
       url = "https://github.com/FedericoSchonborn/mapfab/commit/6eeab0ae2bc4618d0091226417bc073aa5675daf.patch";
       hash = "sha256-NwLX5hCMBzakS3Abbwff+jOkYiMR+W2O7RUJoZbKbDY=";
     })

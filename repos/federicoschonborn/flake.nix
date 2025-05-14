@@ -5,11 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
-    systems = {
-      url = "path:flake.systems.nix";
-      flake = false;
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -33,10 +28,7 @@
     };
 
     # Indirect
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
@@ -72,8 +64,6 @@
               "aarch64-darwin"
             ];
 
-            allSystems = linuxSystems ++ darwinSystems;
-
             linuxChannels = [
               "nixpkgs-unstable"
               "nixos-unstable"
@@ -84,21 +74,15 @@
               "nixpkgs-unstable"
               "nixpkgs-24.11-darwin"
             ];
-
-            allPackages = lib.flatten (
-              lib.mapAttrsToList (_: lib.attrNames) (lib.getAttrs allSystems toplevel.config.flake.packages)
-            );
           in
           lib.concatLists [
             (lib.cartesianProduct {
               system = linuxSystems;
               channel = linuxChannels;
-              package = allPackages;
             })
             (lib.cartesianProduct {
               system = darwinSystems;
               channel = darwinChannels;
-              package = allPackages;
             })
           ];
       };

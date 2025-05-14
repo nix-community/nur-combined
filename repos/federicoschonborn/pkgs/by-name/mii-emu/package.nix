@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  fetchpatch2,
   pkg-config,
   alsa-lib,
   libGLU,
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     (
       # Fix building on ARM.
-      fetchpatch {
+      fetchpatch2 {
         url = "https://github.com/buserror/mii_emu/commit/cb27727bb2f8270fcb6545b3514d9f85b99f731c.patch";
         hash = "sha256-YuKaJieK2dXr32Cn+dEOmZp1hPZoxdUmVkgQzYly/8c=";
       }

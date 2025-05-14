@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  fetchpatch2,
   boost,
   nix-update-script,
 }:
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # Unset GIT_COMMIT
-    (fetchpatch {
+    (fetchpatch2 {
       url = "https://github.com/FedericoSchonborn/nesfab/commit/d755b1a646f7842e953cb6f34360992a7d7337b2.patch";
       hash = "sha256-KhLK1KXBkA1REu9qXDfHTzlAE9a9ILfzWhZGxAwEVak=";
     })
