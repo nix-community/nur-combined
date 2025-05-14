@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/psnszsn/degit-rs";
     license = licenses.mit;
     platforms = platforms.linux;
-    mainProgram = "degit-rs";
+    mainProgram = "degit";
   };
 }
