@@ -229,10 +229,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "3.6.1";
+    version = "3.6.5";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.6.1/cops-3.6.1-php82.zip";
-      hash = "sha256-nv1N6zliQDgscgZDlVVwH77wLH4LaBshrfi0VUz9H8o=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.6.5/cops-3.6.5-php82.zip";
+      hash = "sha256-qLsnlE2OiW9GC5WvCoS8MgWBVbg9f+1IccVjl7ywkPE=";
     };
   };
   cef-binary = {
@@ -476,23 +476,23 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "b577edcf67318ba3caf3842fc173208eba99c5d1";
+    version = "52e9f2cae9e2ae791e810593a99d642763431806";
     src = fetchFromGitHub {
       owner = "GreenDamTan";
       repo = "fastapi-dls_mirror";
-      rev = "b577edcf67318ba3caf3842fc173208eba99c5d1";
-      hash = "sha256-5IgmIIFNhE0p2tqh0KvsUNcIKpOvOw/oaIiplxxuIKI=";
+      rev = "52e9f2cae9e2ae791e810593a99d642763431806";
+      hash = "sha256-nTWvnoHIOt1jHv2m9JGPhFithu2/VZdl+Ju2n6woVHY=";
     };
-    date = "2025-04-23";
+    date = "2025-05-13";
   };
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
-    version = "2.0.0";
+    version = "2.0.1";
     src = fetchFromGitHub {
       owner = "GreenDamTan";
       repo = "fastapi-dls_mirror";
-      tag = "2.0.0";
-      hash = "sha256-QRWUd+Vstt9T1aZ9mCMpoJgzgxfkhTOY0j2IqKfz95U=";
+      tag = "2.0.1";
+      hash = "sha256-nTWvnoHIOt1jHv2m9JGPhFithu2/VZdl+Ju2n6woVHY=";
     };
   };
   fcitx5-breeze = {
@@ -547,10 +547,10 @@
   };
   fr24feed-amd64 = {
     pname = "fr24feed-amd64";
-    version = "1.0.48-0";
+    version = "1.0.51-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_amd64.deb";
-      hash = "sha256-vJZb4wMUxHJhnfLdGWEXEELepbDIhzlsp/tHyGx+ya0=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.51-0_amd64.deb";
+      hash = "sha256-yGTCBxEgRkErbZeiu6/EMIwrQA+8Qu9R55OhSA1iko0=";
     };
   };
   fr24feed-arm64 = {
@@ -563,18 +563,18 @@
   };
   fr24feed-armhf = {
     pname = "fr24feed-armhf";
-    version = "1.0.48-0";
+    version = "1.0.51-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.48-0_armhf.deb";
-      hash = "sha256-1pr6yFbcIvGMg3ilG9wnJgRZ8sJpYNyI7QX/yUToHvc=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.51-0_armhf.deb";
+      hash = "sha256-33TeySayN7L4rxCDbFKaLt/xfRqLRniWfmbwI51cq8A=";
     };
   };
   fr24feed-i386 = {
     pname = "fr24feed-i386";
-    version = "1.0.48-0";
+    version = "1.0.51-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.48-0_i386.deb";
-      hash = "sha256-ejuIq3u2fxrB7sg1JJDSRUmI5q7XdBbFe1k3PE5GnVk=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.51-0_i386.deb";
+      hash = "sha256-8KP9HrACfNTamzp1o2aqecvEe0FUn+DZSCvMWFaRp1c=";
     };
   };
   ftp-proxy = {
@@ -702,14 +702,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "9b0172b816573539fc3ff253dfa335be7f9dec84";
+    version = "4de11bfac15ceb2780641b0abc0aac3496abb3d7";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "9b0172b816573539fc3ff253dfa335be7f9dec84";
-      hash = "sha256-KDEFKa7bgDsm/GCvYDFObNDoZn2c71oaQlgYMAN2B0I=";
+      rev = "4de11bfac15ceb2780641b0abc0aac3496abb3d7";
+      hash = "sha256-1MlNNzNhxAkffnJ3eBh6nhXQIBsGH5ROIOyOlxsU8Qs=";
     };
-    date = "2025-03-27";
+    date = "2025-05-14";
   };
   igsc = {
     pname = "igsc";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5361";
+    version = "b5372";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5361";
-      hash = "sha256-KIWfrMeYabthZBXM0ULjWN9/y9I72kn0f7cRwlq0rMg=";
+      tag = "b5372";
+      hash = "sha256-h3jC1uoOGluE6V5Ni1Vd9E+yULV8mvS16ACLIofyd5E=";
     };
   };
   loralib = {
@@ -1040,10 +1040,10 @@
   };
   magiskboot = {
     pname = "magiskboot";
-    version = "v28.1";
+    version = "v29.0";
     src = fetchurl {
-      url = "https://github.com/topjohnwu/Magisk/releases/download/v28.1/Magisk-v28.1.apk";
-      hash = "sha256-i/0zRrPaWBT4Lv9vGxtf7dCtWF85olcJsj61SqxFaR0=";
+      url = "https://github.com/topjohnwu/Magisk/releases/download/v29.0/Magisk-v29.0.apk";
+      hash = "sha256-KrmRZTovz8qpVfXHBDKuJ/fhaFZblYeMzE+GSoa525M=";
     };
   };
   mautrix-gmessages = {
@@ -1499,14 +1499,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "d2b4e983f521f567af1e8c15af3b9b1c59ef4526";
+    version = "35d2e0f0400872ee3edcfc8f675b9581371f3c1c";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "d2b4e983f521f567af1e8c15af3b9b1c59ef4526";
-      hash = "sha256-bbPMkkIa3ZWDg1boPMwNBBj/0PsIA85eQeCE9fTVR2U=";
+      rev = "35d2e0f0400872ee3edcfc8f675b9581371f3c1c";
+      hash = "sha256-OY0dWOLDeMKJrOg57AKh2FzHK5BPJw6Y4hxvNtkNRDo=";
     };
-    date = "2025-05-01";
+    date = "2025-05-13";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -1632,14 +1632,14 @@
   };
   qsp = {
     pname = "qsp";
-    version = "3ba547a14e6d2cbb7391d975e03383fd30b1c8b7";
+    version = "6964bbe527de28ab21d15f695596abfdf0c16e06";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "3ba547a14e6d2cbb7391d975e03383fd30b1c8b7";
-      hash = "sha256-O88JJ26w3DfCyMZmK4xz1AcyzZ1Ej5EOYz3zMYqs8TU=";
+      rev = "6964bbe527de28ab21d15f695596abfdf0c16e06";
+      hash = "sha256-8n59vqoRtXJX4NI3j1XBlwdejreC61Q4a95DKicdpPI=";
     };
-    date = "2025-03-27";
+    date = "2025-05-13";
   };
   qsp-lib = {
     pname = "qsp-lib";
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "bc0c8741a7065531b8803d90587acd4a1ea17240";
+    version = "ec03a0e385ddcbd02548c396377d2b2068bf5e40";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "bc0c8741a7065531b8803d90587acd4a1ea17240";
+      rev = "ec03a0e385ddcbd02548c396377d2b2068bf5e40";
       fetchSubmodules = true;
-      hash = "sha256-afT9dtUGEV7mSXgIM6AxrNBWF3gPWfl99RMFEWHKSsM=";
+      hash = "sha256-E84KK8Ka41Iz7lfycFMLYwsPtzOQjttJ29lDc38MinU=";
     };
-    date = "2025-05-13";
+    date = "2025-05-14";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
