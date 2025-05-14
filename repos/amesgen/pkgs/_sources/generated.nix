@@ -65,4 +65,12 @@
       sha256 = "sha256-bnz3dTf03YErRCYFN0RSMTvbuXYFdQdQlxNDpIzG7No=";
     };
   };
+  pandoc = {
+    pname = "pandoc";
+    version = "3.6.4";
+    src = fetchurl {
+      url = "https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz";
+      sha256 = "sha256-Xe9uH/U145e+zOKS7pd2epRzBhULn7FIgAO2esNBfF4=";
+    };
+  };
 }

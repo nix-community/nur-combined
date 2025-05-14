@@ -118,5 +118,20 @@
             "url": "https://github.com/tweag/ormolu/releases/download/0.8.0.0/ormolu-x86_64-linux.zip"
         },
         "version": "0.8.0.0"
+    },
+    "pandoc": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pandoc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Xe9uH/U145e+zOKS7pd2epRzBhULn7FIgAO2esNBfF4=",
+            "type": "url",
+            "url": "https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz"
+        },
+        "version": "3.6.4"
     }
 }

@@ -50,4 +50,8 @@ in
     useTag = true;
     src.include_regex = ''\d{4}-\d{2}-\d{2}'';
   };
+  pandoc = github {
+    slug = "jgm/pandoc";
+    restUrl = "$ver/pandoc-$ver-linux-amd64.tar.gz";
+  };
 }
