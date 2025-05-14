@@ -1,7 +1,7 @@
-{ lib
-, _common
-
-, buildGoModule
+{
+  lib,
+  _common,
+  buildGoModule,
 }:
 buildGoModule rec {
   pname = "ots-cli";
@@ -9,7 +9,7 @@ buildGoModule rec {
 
   modRoot = "cmd/ots-cli";
 
-  vendorHash = "sha256-/DUeDXoOeOv9UyHasrP/WtuUIpUjDqKDwPFeXCd5Oqw=";
+  vendorHash = "sha256-91drHp7TJxNjpuT9FpauZ4N99SKukw7MqgvnRfjnyOo=";
 
   ldflags = [
     "-X main.version=${version}"

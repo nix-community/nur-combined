@@ -1,25 +1,32 @@
-{ lib
-, _common
-
-, buildGoModule
-, buildNpmPackage
-
-, font-awesome
-, nodejs
-
-, ots-cli
+{
+  lib,
+  stdenv,
+  _common,
+  buildGoModule,
+  fetchYarnDeps,
+  yarnConfigHook,
+  font-awesome,
+  nodejs,
+  ots-cli,
 }:
 buildGoModule rec {
   pname = "ots";
   inherit (_common) version src;
 
-  frontend = buildNpmPackage {
+  frontend = stdenv.mkDerivation {
     pname = "${pname}-frontend";
     inherit version src;
 
-    npmDepsHash = "sha256-qzVNNVuIzKvNI4coZYpqN7Efm21YCqVCYs2IBTjOgcw=";
+    yarnOfflineCache = fetchYarnDeps {
+      name = "${pname}-frontend-offline";
+      inherit src;
+      hash = "sha256-3/6beeyyjQ0zMJEWyPOPAMmttFVh3KA80IgoKCRzMQk=";
+    };
 
-    inherit nodejs;
+    nativeBuildInputs = [
+      yarnConfigHook
+      nodejs
+    ];
 
     buildPhase = ''
       node ci/build.mjs
@@ -30,7 +37,7 @@ buildGoModule rec {
     '';
   };
 
-  vendorHash = "sha256-UMu4xRs1Lb14sE1pXbFXclLqTfCATh92BzY9VbCYquM=";
+  vendorHash = "sha256-0BMFUY54PhGmJzKOZFH+CBK1ft5wi1EhLEoXtkd8Dx4=";
 
   ldflags = [
     "-X main.version=${version}"
