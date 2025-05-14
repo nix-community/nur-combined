@@ -896,6 +896,9 @@
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
+        "nolith": {
+            "url": "https://github.com/nolith/nur-packages"
+        },
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
         },
