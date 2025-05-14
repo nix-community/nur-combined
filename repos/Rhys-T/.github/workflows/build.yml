@@ -45,22 +45,22 @@ jobs:
             
             [
               "Lnx x64/ubuntu-latest",
-              # "Lnx A64/ubuntu-24.04-arm",
-              # "Mac x64/macos-13",
-              # "Mac A64/macos-latest",
+              "Lnx A64/ubuntu-24.04-arm",
+              "Mac x64/macos-13",
+              "Mac A64/macos-latest",
             empty] as $runners |
             
             [
               "nixpkgs-unstable",
-              # "nixos-unstable",
-              # "nixos-\(($stable, $oldStable) | select(. != null))",
+              "nixos-unstable",
+              "nixos-\(($stable, $oldStable) | select(. != null))",
             empty] as $nixpkgss |
             
             [
               "base",
-              # "mame",
-              # "hbmame",
-              # "qemu-screamer",
+              "mame",
+              "hbmame",
+              "qemu-screamer",
             empty] as $subsets |
             
             {include: [
@@ -225,8 +225,6 @@ jobs:
       run: |
         set -x
         ls -al /tmp/buildFailures || true
-        [[ -d /tmp/buildFailures ]] && echo '[[ -d /tmp/buildFailures ]]' || echo '[[ ! -d /tmp/buildFailures ]]'
-        exit 1
         mkdir -p /tmp/tempFlake/conf
         tempFlake="$(realpath /tmp/tempFlake)"
         echo -En '${{ matrix.subset }}' > "$tempFlake/conf/ciSubsetName"
@@ -240,7 +238,7 @@ jobs:
               flake = false;
           };
           $(if [[ -d /tmp/buildFailures ]]; then
-            <<EOF2
+            cat <<EOF2
           inputs.Rhys-T.inputs.ciCachedBuildFailures = {
               url = "path:$(realpath /tmp/buildFailures)";
               flake = false;
