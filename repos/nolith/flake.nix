@@ -24,6 +24,15 @@
         })
       ];
 
+      flake = {
+        templates = {
+          mise = {
+            path = ./templates/mise;
+            description = "A flake for projects managed with mise";
+          };
+        };
+      };
+
       perSystem = {
         pkgs,
         system,
