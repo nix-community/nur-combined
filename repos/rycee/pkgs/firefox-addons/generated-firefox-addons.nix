@@ -2744,10 +2744,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.59.4";
+      version = "2.59.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4491211/dualsub-2.59.4.xpi";
-      sha256 = "4527f96b577988048c0e74fde028b806c6fc21e5648c9fb3d6e0ab7759ea6f05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4492068/dualsub-2.59.5.xpi";
+      sha256 = "6099bd8ba8f48973cb6e601e762d7c7d09294dda84452ac9b76a884f49d381ff";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6624,10 +6624,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.20";
+      version = "2.2.21";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4480133/lingq_importer2-2.2.20.xpi";
-      sha256 = "902d47625ac9f688514338759120b1127915b6e4b327b3c4d4f0fe427173328d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4492566/lingq_importer2-2.2.21.xpi";
+      sha256 = "8226a182a9aa7abafe00866fb89b4cf4b586306c8452398049844cf66f08c536";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -7865,10 +7865,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.26";
+      version = "1.0.27";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4480995/mergify-1.0.26.xpi";
-      sha256 = "0942705060daeb00cf7e22eeda70616073d54ab5dbf4f140551dc70cca7f3a3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4492103/mergify-1.0.27.xpi";
+      sha256 = "564f0703b1c7d5afdbc4a41722bd92b247f8812ba852ee3c86766128ac431232";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -9010,7 +9010,7 @@
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
-        description = "Penetration Testing Kit is an extension for application security practitioners, penetration testers, and red teams.";
+        description = "Attention! This version is no longer supported. Use /firefox/addon/owasp-penetration-testing-kit/ extension instead.";
         license = licenses.mit;
         mozPermissions = [
           "<all_urls>"
