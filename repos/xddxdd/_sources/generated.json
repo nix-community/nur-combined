@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5372",
-            "sha256": "sha256-h3jC1uoOGluE6V5Ni1Vd9E+yULV8mvS16ACLIofyd5E=",
+            "rev": "b5392",
+            "sha256": "sha256-KPX4PypT+GfiNZlTsYZMMLEfu/T6AmyaiOdrGYAN8rE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5372"
+        "version": "b5392"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2025,7 +2025,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KrmRZTovz8qpVfXHBDKuJ/fhaFZblYeMzE+GSoa525M=",
+            "sha256": "sha256-mdQN8aaKBaXnhFKpzU8tdTQ012IrrutE6hSugjjBqco=",
             "type": "url",
             "url": "https://github.com/topjohnwu/Magisk/releases/download/v29.0/Magisk-v29.0.apk"
         },
@@ -3470,12 +3470,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "mr13.2.1.1",
-            "sha256": "sha256-M0MWWHGx9FRkE4iBJhHY3ErsILgWT6ear2bUI0nKn3c=",
+            "rev": "mr13.3.1.4",
+            "sha256": "sha256-zEgiqJlTBZ6dQfw2fh1skmtwZ+ixHVKeQlbk6mR9R+o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "mr13.2.1.1"
+        "version": "mr13.3.1.4"
     },
     "runpod-python": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-14",
+        "date": "2025-05-15",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "ec03a0e385ddcbd02548c396377d2b2068bf5e40",
-            "sha256": "sha256-E84KK8Ka41Iz7lfycFMLYwsPtzOQjttJ29lDc38MinU=",
+            "rev": "0aa6cda0500b68237d275c34d42ad152ae984468",
+            "sha256": "sha256-86hlaKKw0Bp7xBDf1hvdLlUa3/udSm7y5EfBnlcOxP8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ec03a0e385ddcbd02548c396377d2b2068bf5e40"
+        "version": "0aa6cda0500b68237d275c34d42ad152ae984468"
     },
     "unigine-heaven": {
         "cargoLocks": null,

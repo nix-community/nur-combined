@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5372";
+    version = "b5392";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5372";
-      hash = "sha256-h3jC1uoOGluE6V5Ni1Vd9E+yULV8mvS16ACLIofyd5E=";
+      tag = "b5392";
+      hash = "sha256-KPX4PypT+GfiNZlTsYZMMLEfu/T6AmyaiOdrGYAN8rE=";
     };
   };
   loralib = {
@@ -1043,7 +1043,7 @@
     version = "v29.0";
     src = fetchurl {
       url = "https://github.com/topjohnwu/Magisk/releases/download/v29.0/Magisk-v29.0.apk";
-      hash = "sha256-KrmRZTovz8qpVfXHBDKuJ/fhaFZblYeMzE+GSoa525M=";
+      hash = "sha256-mdQN8aaKBaXnhFKpzU8tdTQ012IrrutE6hSugjjBqco=";
     };
   };
   mautrix-gmessages = {
@@ -1773,12 +1773,12 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "mr13.2.1.1";
+    version = "mr13.3.1.4";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr13.2.1.1";
-      hash = "sha256-M0MWWHGx9FRkE4iBJhHY3ErsILgWT6ear2bUI0nKn3c=";
+      tag = "mr13.3.1.4";
+      hash = "sha256-zEgiqJlTBZ6dQfw2fh1skmtwZ+ixHVKeQlbk6mR9R+o=";
     };
   };
   runpod-python = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ec03a0e385ddcbd02548c396377d2b2068bf5e40";
+    version = "0aa6cda0500b68237d275c34d42ad152ae984468";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ec03a0e385ddcbd02548c396377d2b2068bf5e40";
+      rev = "0aa6cda0500b68237d275c34d42ad152ae984468";
       fetchSubmodules = true;
-      hash = "sha256-E84KK8Ka41Iz7lfycFMLYwsPtzOQjttJ29lDc38MinU=";
+      hash = "sha256-86hlaKKw0Bp7xBDf1hvdLlUa3/udSm7y5EfBnlcOxP8=";
     };
-    date = "2025-05-14";
+    date = "2025-05-15";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
