@@ -68,6 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    # g++: command not found
+    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
