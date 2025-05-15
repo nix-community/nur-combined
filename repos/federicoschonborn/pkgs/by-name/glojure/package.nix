@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   clojure,
+  writableTmpDirAsHomeHook,
   nix-update-script,
 }:
 
@@ -23,16 +24,15 @@ buildGoModule {
 
   vendorHash = "sha256-bofeBp8aa/I5jhblv+BhqHX9tmD1hDgUBwEFJpLH/A8=";
 
-  nativeBuildInputs = [ clojure ];
+  nativeBuildInputs = [
+    clojure
+    writableTmpDirAsHomeHook
+  ];
 
   ldflags = [
     "-s"
     "-w"
   ];
-
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
 
   checkFlags = [
     # Requires network access

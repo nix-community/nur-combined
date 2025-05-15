@@ -21,16 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    copyDesktopItems
     wxGTK32 # wx-config
-  ];
+  ] ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
 
   buildInputs = [
     libGLU
     libglvnd
     wxGTK32
-    xorg.libX11
-  ];
+  ] ++ lib.optional stdenv.hostPlatform.isLinux xorg.libX11;
 
   postPatch = ''
     substituteInPlace dtl/dtl/Diff.hpp --replace-fail "enableTrivial () const" "enableTrivial ()"
@@ -38,15 +36,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "ARCH=lnx" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "pseint";
-      exec = "pseint";
-      icon = "pseint";
-      desktopName = "pseint";
-      categories = [ "Development" ];
-    })
-  ];
+  desktopItems = lib.optional stdenv.hostPlatform.isLinux (makeDesktopItem {
+    name = "pseint";
+    exec = "pseint";
+    icon = "pseint";
+    desktopName = "pseint";
+    categories = [ "Development" ];
+  });
 
   installPhase = ''
     runHook preInstall
@@ -71,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A tool for learning programming basis with a simple Spanish pseudocode";
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
