@@ -57,6 +57,11 @@
     || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   glib,
+  libsysprof-capture,
+  pcre2,
+  libselinux,
+  libsepol,
+  util-linux,
   enableDconf ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
@@ -150,13 +155,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.42.0";
+  version = "2.43.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-nlhW3ftBOjb2BHz1qjOI4VGiSn1+VAUcaA9n0nPikCU=";
+    hash = "sha256-gUqNiiPipoxLKwGVsi42PyOnmPbfvUs7UwfqOdmFn/E=";
   };
 
   outputs = [
@@ -176,10 +181,26 @@ stdenv.mkDerivation (finalAttrs: {
     [ yyjson ]
     ++ lib.optional enableVulkan vulkan-loader
     ++ lib.optional enableWayland wayland
-    ++ lib.optional enableXcbRandr xorg.libxcb
+    ++ lib.optionals enableXcbRandr [
+      xorg.libxcb
+      xorg.libXau
+      xorg.libXdmcp
+      xorg.libXext
+    ]
     ++ lib.optional enableXrandr xorg.libXrandr
     ++ lib.optional (enableDrm || enableDrmAmdgpu) libdrm
-    ++ lib.optional enableGio glib
+    ++ (
+      lib.optionals enableGio [
+        glib
+        libsysprof-capture
+        pcre2
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        libselinux
+        libsepol
+        util-linux
+      ]
+    )
     ++ lib.optional enableDconf dconf
     ++ lib.optional enableDbus dbus
     ++ lib.optional enableXfconf xfce.xfconf

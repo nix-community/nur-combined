@@ -12,7 +12,7 @@ An old cellphone arcade recreated for PC.
 - [📰 Changelog](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.2.1)
 - [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L45)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `bluejay` {#bluejay}
 
@@ -24,7 +24,7 @@ Bluetooth manager written in Qt.
 - [📰 Changelog](https://github.com/EbonJaeger/bluejay/releases/tag/v1.0.2)
 - [📦 Source](./pkgs/by-name/bluejay/package.nix#L46)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `brisk-menu` {#brisk-menu}
 
@@ -35,7 +35,7 @@ An efficient menu for the MATE Desktop.
 - [🌐 Homepage](https://github.com/getsolus/brisk-menu)
 - [📦 Source](./pkgs/by-name/brisk-menu/package.nix#L53)
 - 📄 Licenses: [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`Creative Commons Attribution Share Alike 4.0`](https://spdx.org/licenses/CC-BY-SA-4.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `bsdutils` {#bsdutils}
 
@@ -47,7 +47,7 @@ Alternative to GNU coreutils using software from FreeBSD.
 - [📰 Changelog](https://github.com/dcantrell/bsdutils/releases/tag/v13.2)
 - [📦 Source](./pkgs/by-name/bsdutils/package.nix#L54)
 - 📄 License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `budgie-daemon-v2` {#budgie-daemon-v2}
 
@@ -58,20 +58,23 @@ V2 daemon for Budgie Desktop.
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-daemon-v2)
 - [📦 Source](./pkgs/by-name/budgie-daemon-v2/package.nix#L57)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `budgie-desktop-unstable` {#budgie-desktop-unstable}
+
+> [!WARNING]
+> 💥 This package is currently marked as broken.
 
 Feature-rich, modern desktop designed to keep out the way of the user.
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-05-08`
+- Version: `10.9.2-unstable-2025-05-13`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-08)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-13)
 - [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L147)
 - 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `budgie-wayland-session` {#budgie-wayland-session}
 
@@ -82,7 +85,7 @@ Wayland session for the Budgie Desktop using a variety of window managers.
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-wayland-session)
 - [📦 Source](./pkgs/by-name/budgie-wayland-session/package.nix#L42)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `cargo-aoc` {#cargo-aoc}
 
@@ -93,7 +96,7 @@ Cargo Advent of Code Helper.
 - [🌐 Homepage](https://github.com/gobanos/cargo-aoc)
 - [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L43)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `cpuid2cpuflags` {#cpuid2cpuflags}
 
@@ -105,33 +108,33 @@ Tool to generate flags for your CPU.
 - [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v15)
 - [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L32)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `fastfetch` {#fastfetch}
 
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.42.0`
+- Version: `2.43.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.42.0)
-- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L266)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.43.0)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L287)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `fastfetchMinimal` {#fastfetchMinimal}
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.42.0`
+- Version: `2.43.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.42.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.43.0)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `firefox-gnome-theme` {#firefox-gnome-theme}
 
@@ -143,7 +146,7 @@ A GNOME theme for Firefox.
 - [📰 Changelog](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v137)
 - [📦 Source](./pkgs/by-name/firefox-gnome-theme/package.nix#L30)
 - 📄 License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `glojure` {#glojure}
 
@@ -155,7 +158,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - [📰 Changelog](https://github.com/glojurelang/glojure/releases/tag/v0.2.6)
 - [📦 Source](./pkgs/by-name/glojure/package.nix#L46)
 - 📄 License: [`Eclipse Public License 1.0`](https://spdx.org/licenses/EPL-1.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `gtatool` {#gtatool}
 
@@ -166,7 +169,7 @@ A set of commands that manipulate GTAs on various levels.
 - [🌐 Homepage](https://marlam.de/gta/)
 - [📦 Source](./pkgs/by-name/gtatool/package.nix#L117)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `gtatoolFull` {#gtatoolFull}
 
@@ -177,7 +180,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - [🌐 Homepage](https://marlam.de/gta/)
 - [📦 Source](./default.nix#L65)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `hedgemodmanager` {#hedgemodmanager}
 
@@ -200,7 +203,7 @@ A language for building concurrent software with confidence.
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
 - [📦 Source](./pkgs/by-name/inko/package.nix#L52)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `karton` {#karton}
 
@@ -211,7 +214,7 @@ KDE Virtual Machine Manager.
 - [🌐 Homepage](https://invent.kde.org/sitter/karton)
 - [📦 Source](./pkgs/by-name/karton/package.nix#L67)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `kiview` {#kiview}
 
@@ -222,7 +225,7 @@ Quick file preview for Dolphin.
 - [🌐 Homepage](https://invent.kde.org/danagost/Kiview)
 - [📦 Source](./pkgs/by-name/kiview/package.nix#L46)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `kuroko` {#kuroko}
 
@@ -234,7 +237,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - [📰 Changelog](https://github.com/kuroko-lang/kuroko/releases/tag/v1.4.0)
 - [📦 Source](./pkgs/by-name/kuroko/package.nix#L31)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `libgta` {#libgta}
 
@@ -245,7 +248,7 @@ A library that reads and writes GTA files, with interfaces in C and C++.
 - [🌐 Homepage](https://marlam.de/gta/)
 - [📦 Source](./pkgs/by-name/libgta/package.nix#L47)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `libtgd` {#libtgd}
 
@@ -256,7 +259,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - [🌐 Homepage](https://marlam.de/tgd/)
 - [📦 Source](./pkgs/by-name/libtgd/package.nix#L105)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `libtgdFull` {#libtgdFull}
 
@@ -267,7 +270,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - [🌐 Homepage](https://marlam.de/tgd/)
 - [📦 Source](./default.nix#L98)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `libxo` {#libxo}
 
@@ -278,7 +281,7 @@ Library for emitting text, XML, JSON, or HTML output.
 - [🌐 Homepage](https://github.com/Juniper/libxo)
 - [📦 Source](./pkgs/by-name/libxo/package.nix#L35)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `magothy` {#magothy}
 
@@ -289,7 +292,7 @@ A hardware profiling application for Linux.
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L39)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `magpie-wayland` {#magpie-wayland}
 
@@ -300,7 +303,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/magpie)
 - [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L69)
 - 📄 License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `mapfab` {#mapfab}
 
@@ -324,7 +327,7 @@ MII Apple //e Emulator for Linux.
 - [📰 Changelog](https://github.com/buserror/mii_emu/releases/tag/v1.97)
 - [📦 Source](./pkgs/by-name/mii-emu/package.nix#L54)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `minesector` {#minesector}
 
@@ -335,7 +338,7 @@ Snazzy Minesweeper-based game built with SDL2.
 - [🌐 Homepage](https://github.com/grassdne/minesector)
 - [📦 Source](./pkgs/by-name/minesector/package.nix#L48)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `mucalc` {#mucalc}
 
@@ -346,7 +349,7 @@ A convenient calculator for the command line.
 - [🌐 Homepage](https://marlam.de/mucalc/)
 - [📦 Source](./pkgs/by-name/mucalc/package.nix#L48)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `nesfab` {#nesfab}
 
@@ -370,7 +373,7 @@ A fun 2D retro platformer inspired by Sonic games and a game creation system.
 - [📰 Changelog](https://github.com/alemart/opensurge/releases/tag/v0.6.1.2)
 - [📦 Source](./pkgs/by-name/opensurge/package.nix#L57)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `phonon-mpv` {#phonon-mpv}
 
@@ -382,7 +385,7 @@ Phonon Backend using MPV Player.
 - [📰 Changelog](https://github.com/OpenProgger/phonon-mpv/releases/tag/v0.1.0)
 - [📦 Source](./pkgs/by-name/phonon-mpv/package.nix#L53)
 - 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `plasma-camera` {#plasma-camera}
 
@@ -393,7 +396,7 @@ Camera application for Plasma Mobile.
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L54)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `plasma-login-manager` {#plasma-login-manager}
 
@@ -404,7 +407,7 @@ Plasma Login Manager provides the backend for Plasma's login experience.
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `pnut` {#pnut}
 
@@ -415,7 +418,7 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `pseint` {#pseint}
 
@@ -426,7 +429,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - [🌐 Homepage](https://pseint.sourceforge.net/)
 - [📦 Source](./pkgs/by-name/pseint/package.nix#L71)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `qv` {#qv}
 
@@ -437,7 +440,7 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
 - [🌐 Homepage](https://marlam.de/qv/)
 - [📦 Source](./pkgs/by-name/qv/package.nix#L53)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `raze` {#raze}
 
@@ -448,7 +451,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - [🌐 Homepage](https://github.com/ZDoom/Raze)
 - [📦 Source](./pkgs/by-name/raze/package.nix#L65)
 - 📄 License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `super-mario-127` {#super-mario-127}
 
@@ -459,7 +462,7 @@ Fan sequel to Super Mario 63.
 - [🌐 Homepage](https://charpurrr.itch.io/super-mario-127)
 - [📦 Source](./pkgs/by-name/super-mario-127/package.nix#L59)
 - 📄 License: Unfree
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `surgescript` {#surgescript}
 
@@ -471,7 +474,7 @@ A scripting language for games.
 - [📰 Changelog](https://github.com/alemart/surgescript/releases/tag/v0.6.1)
 - [📦 Source](./pkgs/by-name/surgescript/package.nix#L40)
 - 📄 License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `teem` {#teem}
 
@@ -482,7 +485,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - [🌐 Homepage](https://teem.sourceforge.net/)
 - [📦 Source](./pkgs/by-name/teem/package.nix#L62)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `teemExperimental` {#teemExperimental}
 
@@ -493,7 +496,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - [🌐 Homepage](https://teem.sourceforge.net/)
 - [📦 Source](./default.nix#L147)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `teemExperimentalFull` {#teemExperimentalFull}
 
@@ -504,7 +507,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - [🌐 Homepage](https://teem.sourceforge.net/)
 - [📦 Source](./default.nix#L160)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `teemFull` {#teemFull}
 
@@ -515,7 +518,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - [🌐 Homepage](https://teem.sourceforge.net/)
 - [📦 Source](./default.nix#L129)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `thunderbird-gnome-theme` {#thunderbird-gnome-theme}
 
@@ -526,7 +529,7 @@ A GNOME theme for Thunderbird.
 - [🌐 Homepage](https://github.com/rafaelmardojai/thunderbird-gnome-theme)
 - [📦 Source](./pkgs/by-name/thunderbird-gnome-theme/package.nix#L35)
 - 📄 License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `tinyfeed` {#tinyfeed}
 
@@ -538,7 +541,7 @@ Generate a static HTML page from a collection of feeds wtih a simple CLI tool.
 - [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.2.0)
 - [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `union` {#union}
 
@@ -549,7 +552,7 @@ A Qt style supporting both QtQuick and QtWidgets.
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L59)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `wayneko` {#wayneko}
 
@@ -560,7 +563,7 @@ Display an animated neko cat on the bottom of an output.
 - [🌐 Homepage](https://sr.ht/~leon_plickat/wayneko/)
 - [📦 Source](./pkgs/by-name/wayneko/package.nix#L43)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `wisp` {#wisp}
 
@@ -571,7 +574,7 @@ Wisp turns indentation based syntax into Lisp.
 - [🌐 Homepage](https://www.draketo.de/software/wisp)
 - [📦 Source](./pkgs/by-name/wisp/package.nix#L51)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `woke` {#woke}
 
@@ -583,7 +586,7 @@ Detect non-inclusive language in your source code.
 - [📰 Changelog](https://github.com/get-woke/woke/releases/tag/v0.19.0)
 - [📦 Source](./pkgs/by-name/woke/package.nix#L53)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `xdvdfs-cli` {#xdvdfs-cli}
 
@@ -595,7 +598,7 @@ Original Xbox DVD Filesystem library and management tool.
 - [📰 Changelog](https://github.com/antangelo/xdvdfs/releases/tag/v0.8.3)
 - [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `ziggy` {#ziggy}
 
@@ -606,4 +609,4 @@ A data serialization language for expressing clear API messages, config files, e
 - [🌐 Homepage](https://github.com/kristoff-it/ziggy)
 - [📦 Source](./pkgs/by-name/ziggy/package.nix#L43)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `x86_64-linux`
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`

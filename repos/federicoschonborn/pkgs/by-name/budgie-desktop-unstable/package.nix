@@ -4,15 +4,16 @@
   gtk-layer-shell,
   nix-update-script,
   xfce,
+  gobject-introspection,
   ...
 }:
 
 budgie-desktop.overrideAttrs (prevAttrs: {
-  version = "10.9.2-unstable-2025-05-08";
+  version = "10.9.2-unstable-2025-05-13";
 
   src = prevAttrs.src.override {
-    rev = "20aa4db4acd65de288466667ea12ebc3265e1ef0";
-    hash = "sha256-G2c+DyhbRVOE1ILmd6X10oTfkyh0W7Xa6l0pTaG1CLw=";
+    rev = "f0d30bc83f1a498f769bd09e08210ba04e45a419";
+    hash = "sha256-jjhbg1nN1Fte7KtTdTh5bVMuU320+n7iZmkUaZWepeU=";
   };
 
   patches = [ ];
@@ -36,6 +37,8 @@ budgie-desktop.overrideAttrs (prevAttrs: {
   };
 
   meta = (prevAttrs.meta or { }) // {
-    broken = lib.versionOlder xfce.libxfce4windowing.version "4.19.7";
+    broken =
+      (lib.versionOlder xfce.libxfce4windowing.version "4.19.7")
+      || (lib.versionOlder gobject-introspection.version "1.84.0");
   };
 })
