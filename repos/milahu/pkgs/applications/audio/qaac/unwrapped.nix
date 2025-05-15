@@ -14,18 +14,18 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "qaac-unwrapped";
-  version = "2.82";
+  version = "2.85";
 
   src = fetchurl {
     url = "https://github.com/nu774/qaac/releases/download/v${version}/qaac_${version}.zip";
-    hash = "sha256-9Zi+HMpzB6EKHSPcjoHeXBfSkwVwPs2g/+YtZIKPobQ=";
+    hash = "sha256-Tkod2BRdZLdg/XPbYvFVquBA+9YYmg1AtmTqkFOEc6c=";
   };
 
   src-itunes = fetchurl {
     name = "iTunes64Setup.exe";
     # curl -s -I https://www.apple.com/itunes/download/win64 | grep ^location
-    url = "https://secure-appldnld.apple.com/itunes12/042-92440-20231213-DDE54149-6537-4DB9-97D6-69413CD6CF86/iTunes64Setup.exe";
-    hash = "sha256-VBwwstcnBa/nVkn5fj2vZ3uFdubnPW949yZaDe1hAR8=";
+    url = "https://secure-appldnld.apple.com/itunes12/082-11723-20250331-b31ec27c-f9dd-42b1-9af3-2e2590232c09/iTunes64Setup.exe";
+    hash = "sha256-L1p/SoXiSBApfLPvY/1tdD3xxi7fxeTKNnfHsIO8L/A=";
   };
 
   # use cache to build faster: 30 seconds versus 150 seconds
@@ -46,9 +46,11 @@ stdenvNoCC.mkDerivation rec {
   # note: glob pattern icudt*.dll. example: icudt62.dll
   src_itunes_dll_files = "ASL.dll CoreAudioToolbox.dll CoreFoundation.dll icudt*.dll libdispatch.dll libicuin.dll libicuuc.dll objc.dll";
 
+  src-flac-version = "1.5.0";
+
   src-flac = fetchurl {
-    url = "https://github.com/xiph/flac/releases/download/1.4.3/flac-1.4.3-win.zip";
-    hash = "sha256-xFWM95/BNl0YIveUWiC9v1X5lkLO6VqCPUTzph+3SMY=";
+    url = "https://github.com/xiph/flac/releases/download/${src-flac-version}/flac-${src-flac-version}-win.zip";
+    hash = "sha256-U/FQDw1ufGE3nX/uUNSp9/UExlAAlQbZugFVMNdsDd4=";
   };
 
   nativeBuildInputs = [
