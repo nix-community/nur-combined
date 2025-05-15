@@ -5,41 +5,18 @@
   ...
 }:
 let
-  opensslConf = pkgs.writeText "openssl.conf" ''
-    openssl_conf = openssl_init
-
-    [openssl_init]
-    providers = provider_sect
-    ssl_conf = ssl_sect
-
-    ### Providers
-
-    [provider_sect]
-    oqsprovider = oqsprovider_sect
-    default = default_sect
-    # fips = fips_sect
-
-    [default_sect]
-    activate = 1
-
-    #[fips_sect]
-    #activate = 1
-
-    [oqsprovider_sect]
-    activate = 1
-    module = ${config.programs.openssl-oqs-provider.package}/lib/oqsprovider.so
-
-    # SSL Options
-
-    [ssl_sect]
-    system_default = system_default_sect
-
-    [system_default_sect]
-    Groups = ${builtins.concatStringsSep ":" config.programs.openssl-oqs-provider.curves}
-  '';
+  cfg = config.security.openssl.oqs-provider;
 in
 {
-  options.programs.openssl-oqs-provider = {
+  imports = [
+    ./openssl-conf.nix
+    (lib.mkRenamedOptionModule
+      [ "programs" "openssl-oqs-provider" ]
+      [ "security" "openssl" "oqs-provider" ]
+    )
+  ];
+
+  options.security.openssl.oqs-provider = {
     enable = lib.mkEnableOption (lib.mdDoc "load post-quantum algorithm provider for OpenSSL 3.x") // {
       default = true;
     };
@@ -66,7 +43,20 @@ in
     };
   };
 
-  config = {
-    environment.variables.OPENSSL_CONF = builtins.toString opensslConf;
+  config = lib.mkIf cfg.enable {
+    security.openssl = {
+      enable = true;
+      settings = {
+        provider_sect.oqsprovider = "oqsprovider_sect";
+        oqsprovider_sect = {
+          activate = "1";
+          module = "${cfg.package}/lib/oqsprovider.so";
+        };
+
+        openssl_init.ssl_conf = "ssl_sect";
+        ssl_sect.system_default = "system_default_sect";
+        system_default_sect.Groups = builtins.concatStringsSep ":" cfg.curves;
+      };
+    };
   };
 }
