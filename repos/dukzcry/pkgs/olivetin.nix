@@ -2,7 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  protobuf, protoc-gen-go, protoc-gen-go-grpc, grpc-gateway, buildNpmPackage
+  protobuf, protoc-gen-go, protoc-gen-go-grpc, grpc-gateway, buildNpmPackage, installShellFiles
 }:
 
 let
@@ -45,7 +45,7 @@ in buildGoModule rec {
   ];
 
 
-  nativeBuildInputs = [ protobuf protoc-gen-go protoc-gen-go-grpc grpc-gateway ];
+  nativeBuildInputs = [ protobuf protoc-gen-go protoc-gen-go-grpc grpc-gateway installShellFiles ];
 
   subPackages = [ "cmd/OliveTin" ];
 
@@ -58,8 +58,8 @@ in buildGoModule rec {
   '';
 
   postInstall = ''
-    install -Dm644 var/manpage/OliveTin.1.gz $out/share/man/man1/OliveTin.1.gz
-    install -Dm755 var/helper-actions/olivetin-setup-easy-ssh $out/bin
+    installManPage var/manpage/OliveTin.1.gz
+    installBin var/helper-actions/olivetin-setup-easy-ssh
     mkdir -p $out/webui
     cp ${webui}/lib/node_modules/olivetin-webui/dist/* $out/webui
     cp ${webui}/lib/node_modules/olivetin-webui/*.png $out/webui

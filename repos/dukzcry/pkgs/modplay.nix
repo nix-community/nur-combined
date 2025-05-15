@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitLab, makeWrapper
+{ stdenv, lib, fetchFromGitLab, makeWrapper, installShellFiles
 , coreutils, curl, dtrx, uade123, libopenmpt, sidplayfp, libnotify }:
 
 stdenv.mkDerivation rec {
@@ -13,10 +13,11 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
-    install -Dm755 modplay/modplay.sh $out/bin/modplay.sh
-    install -Dm755 modplay/modplay-shuffle.sh $out/bin/modplay-shuffle.sh
+    installBin modplay/modplay.sh
+    installBin modplay/modplay-shuffle.sh
     wrapProgram $out/bin/modplay.sh \
       --prefix PATH : ${lib.makeBinPath [ coreutils curl dtrx uade123 libopenmpt sidplayfp libnotify ]}
   '';

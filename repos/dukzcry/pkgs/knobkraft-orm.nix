@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub, cmake, python3, pkg-config, gtk3
 , glew, webkitgtk, icu, boost, curl, alsa-lib, makeWrapper
-, gnome, makeDesktopItem, gcc-unwrapped
+, gnome, makeDesktopItem, gcc-unwrapped, installShellFiles
 , debug ? false }:
 
 let
@@ -37,11 +37,11 @@ in stdenv.mkDerivation rec {
     gtk3 glew webkitgtk icu boost curl alsa-lib
   ];
   nativeBuildInputs = [
-    cmake python3 pkg-config makeWrapper
+    cmake python3 pkg-config makeWrapper installShellFiles
   ];
 
   installPhase = ''
-    install -Dm755 ./The-Orm/KnobKraftOrm $out/bin/KnobKraftOrm
+    installBin ./The-Orm/KnobKraftOrm
     # make file dialogs work under JUCE
     ${optionalString (!debug) ''
       wrapProgram $out/bin/KnobKraftOrm --prefix PATH ":" ${gnome.zenity}/bin

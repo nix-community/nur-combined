@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, wrapWine, makeDesktopItem, fetchurl, unzip }:
+{ stdenvNoCC, lib, wrapWine, makeDesktopItem, fetchurl, unzip, installShellFiles }:
 
 let
   version = "2.8.2";
@@ -29,8 +29,10 @@ in stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
+  nativeBuildInputs = [ installShellFiles ];
+
   installPhase = ''
-    install -Dm755 -t $out/bin ${lib.getExe bin}
+    installBin ${lib.getExe bin}
     install -Dm444 -t $out/share/applications ${item}/share/applications/cubesuite.desktop
   '';
 

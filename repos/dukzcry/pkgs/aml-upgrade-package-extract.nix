@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "aml-upgrade-package-extract";
@@ -9,8 +9,9 @@ stdenv.mkDerivation rec {
     rev = "159f172df587a93a814f45a9e9ebea260d50a558";
     sha256 = "sha256-Lg/R1ckQm/k3ezky1FubW9c3eAtRhgRZcDrl3015/TI=";
   };
+  nativeBuildInputs = [ installShellFiles ];
   installPhase = ''
-    install -Dm755 aml-upgrade-package-extract $out/bin/aml-upgrade-package-extract
+    installBin aml-upgrade-package-extract
   '';
   meta = with lib; {
     description = "Amlogic Burn Card Maker alternative for Linux";

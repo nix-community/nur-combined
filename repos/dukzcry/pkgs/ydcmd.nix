@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, python3 }:
+{ stdenv, lib, fetchFromGitHub, python3, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "ydcmd";
@@ -15,9 +15,12 @@ stdenv.mkDerivation rec {
     (python3.withPackages (pythonPackages: with pythonPackages; [ dateutil ]))
   ];
 
+  nativeBuildInputs = [ installShellFiles ];
+
   installPhase = ''
-    install -Dm755 ydcmd.py $out/bin/ydcmd
-    install -Dm644 man/ydcmd.1 $out/share/man/man1/ydcmd.1
+    mv ydcmd.py ydcmd
+    installBin ydcmd
+    installManPage man/ydcmd.1
     install -Dm644 man/ydcmd.ru.1 $out/share/man/ru/man1/ydcmd.1
   '';
 
