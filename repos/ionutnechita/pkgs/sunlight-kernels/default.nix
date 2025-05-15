@@ -15,7 +15,7 @@ let
 
   rev = "${version}-${rc}-${flavour}-${suffix}";
 
-  hash = "sha256-cjEyJbRLGVBnFWIp+/ltmJRhHj9E5FR+PnEtOji3vCw=";
+  hash = "sha256-ISpddRbCD2LBE46fnef1BGb6uvo5KhB9KKchERXlvBM=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -77,6 +77,7 @@ buildLinux (args // rec {
       UHID = yes;
 
       RUST = lib.mkForce no;
+      MOUSE_ELAN_I2C = lib.mkForce no;
       SECURITY_APPARMOR_RESTRICT_USERNS = lib.mkForce no;
     };
 
