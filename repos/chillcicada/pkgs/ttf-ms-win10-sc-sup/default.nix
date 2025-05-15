@@ -4,13 +4,13 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ttf-ms-win10-sc-sup";
   version = "2025-03-25";
 
   src = fetchFromGitHub {
     owner = "chillcicada";
-    repo = pname;
+    repo = "ttf-ms-win10-sc-sup";
     rev = "425fbc570a2e6eac6c9eeb852c2a8e946d4f2238";
     sha256 = "sha256-3FV7tE9xEteTv5rrvZcMgGw4wBAJa11vFiNnvwRJ4dw=";
   };
@@ -24,10 +24,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/chillcicada/ttf-ms-win10-sc-sup";
     description = "Microsoft Windows 10 TrueType fonts (Simplified Chinese Supplemental fonts)";
-    license = licenses.unfree;
-    platforms = platforms.all;
+    license = lib.licenses.unfree;
+    platforms = lib.platforms.all;
   };
-}
+})
