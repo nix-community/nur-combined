@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-if [[ ! ( "${2-}" =~ ^([-_[:alnum:]]+)/([-_.[:alnum:]]+)$ ) ]]; then
+if [[ ! ( "${2-}" =~ ^~?([-_[:alnum:]]+)/([-_.[:alnum:]]+)$ ) ]]; then
   echo "Usage: ${0##*/} <hostname> <owner>/<repo> [local path]" >&2
   exit 1
 fi
@@ -11,8 +11,17 @@ owner="${BASH_REMATCH[1]}"
 repo="${BASH_REMATCH[2]}"
 path="${3:-$repo}"
 
-https="https://$hostname/$owner/$repo.git"
-ssh="git@$hostname:$owner/$repo.git"
+case "$hostname" in
+  'codeberg.org'|'github.com'|'gist.github.com'|'gitlab.com')
+    https="https://$hostname/$owner/$repo.git"
+    ssh="git@$hostname:$owner/$repo.git"
+    ;;
+  'sr.ht')
+    https="https://git.$hostname/~$owner/$repo"
+    ssh="git@git.$hostname:~$owner/$repo"
+    ;;
+  *) echo "Remote configuration unknown for [3m$hostname[23m" >&2; exit 1;;
+esac
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if git remote | grep --quiet "^$owner$"; then
@@ -46,5 +55,6 @@ case "$hostname" in
   'codeberg.org'|'github.com') configure_requests 'pull' 'pull';;
   'gist.github.com');;
   'gitlab.com') configure_requests 'merge' 'merge-requests';;
+  'sr.ht');;
   *) echo "Warning: Merge request configuration unknown for [3m$hostname[23m" >&2;;
 esac

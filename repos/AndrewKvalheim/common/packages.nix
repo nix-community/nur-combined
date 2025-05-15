@@ -14,6 +14,7 @@ in
   alpaca.version = "≥4"; # Jeffser/Alpaca#485
   ansible-vault-pass-client = any;
   apex = any;
+  aws-sam-cli.version = "≥1.133"; # nodejs22.x
   attachments = any;
   blocky.version = "≥0.25"; # 0xERR0R/blocky#1618
   blocky-ui = any;

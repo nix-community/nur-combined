@@ -77,6 +77,7 @@ AVIF
 AWK
 backcountry
 backfill
+backgrounded
 backlink
 backport
 backported
@@ -732,6 +733,7 @@ Misskey
 mitigations
 Miyazaki
 Mjolnir
+Mjölnir
 mjs
 mkdir
 MMS
@@ -1096,6 +1098,7 @@ sandboxing
 sanitization
 Saruman
 SASL
+scaffolded
 schedulable
 SciPy
 screencast
