@@ -225,15 +225,15 @@
   };
   osc52 = {
     pname = "osc52";
-    version = "477b99c8a1053183ede9978b2fe00dbcdb7c4b91";
+    version = "49fbbb3d297dc8c50f8c35cb4402502713494573";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "osc52";
-      rev = "477b99c8a1053183ede9978b2fe00dbcdb7c4b91";
+      rev = "49fbbb3d297dc8c50f8c35cb4402502713494573";
       fetchSubmodules = false;
-      sha256 = "sha256-A4SIzkKs02csNGaETmU/9P0n8mjx6hjeTUbTjSi8unI=";
+      sha256 = "sha256-XCCEAcBn/48uJrBopwCnh/rwSg8Wt2ZAt76A0u6kG6w=";
     };
-    date = "2023-09-12";
+    date = "2025-05-16";
   };
   rime-ice = {
     pname = "rime-ice";
@@ -305,15 +305,15 @@
   };
   task-utils = {
     pname = "task-utils";
-    version = "b32f3de2ad95769966c147a577b275e113223762";
+    version = "8e9da85929dc87aba8ce9c3bda15b22c3231e5c3";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "task-utils";
-      rev = "b32f3de2ad95769966c147a577b275e113223762";
+      rev = "8e9da85929dc87aba8ce9c3bda15b22c3231e5c3";
       fetchSubmodules = false;
-      sha256 = "sha256-3WbvMm152pCpWvLc+rTHdgELQyN3izAvd7wUv0VVWXE=";
+      sha256 = "sha256-1flBJkbubVk+MOWNR+EKTJHEMJg+3g/s2e7nvskt5ag=";
     };
-    date = "2024-12-27";
+    date = "2025-05-16";
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";
