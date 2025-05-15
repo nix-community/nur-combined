@@ -72,7 +72,7 @@ lib.makeScope pkgs.newScope (
           withExr = true;
           # Needs patching
           withFfmpeg = false;
-          withGdal = true;
+          withGdal = false;
           withJpeg = true;
           # ImageMagick 6 is marked as insecure
           withMagick = false;
@@ -106,7 +106,7 @@ lib.makeScope pkgs.newScope (
           # Broken
           withExiv2 = false;
           withFfmpeg = true;
-          withGdal = true;
+          withGdal = false;
           withGta = true;
           withHdf5 = true;
           withJpeg = true;
