@@ -37,6 +37,7 @@ in
             default = null;
             description = "Gid of the mapped file";
           };
+          preload = mkEnableOption "preloading for the mapped file";
         };
       };
     in {
@@ -113,31 +114,35 @@ in
     fileSystems = builtins.mapAttrs (_: fs: let
       configList = [ "file" "timeout" "stdout" "stderr" ];
       # convert to key value str if value not null
-      keyValueStr = sep: k: v:
-        if v != null then "${k}${sep}${toString v}" else null;
+      optStr = sep: k: v:
+        if v == true then k
+        else if (v != null && v != false) then "${k}${sep}${toString v}"
+        else null;
     in {
       device = fs.source;
       fsType = "fuse.rangefs";
       options = let
-        optionList = [ "name" "offset" "size" "uid" "gid" ];
-      in [
-        (builtins.concatStringsSep "::" (
+        optionList = [ "name" "offset" "size" "uid" "gid" "preload" ];
+      in builtins.concatLists [
+        [(builtins.concatStringsSep "::" (
           [ "config" ] ++
           (map (c: builtins.concatStringsSep ":" (
             filter
               (x: x != null)
               (map
-                (k: keyValueStr "=" k c."${k}")
+                (k: optStr "=" k c.${k})
                 optionList)
           )) fs.config)
-        ))
-      ] ++(
-        filter
+        ))]
+
+        (filter
           (x: x != null)
           (map
-            (k: keyValueStr "::" k fs."${k}")
-            configList)
-      ) ++ fs.extraOptions;
+            (k: optStr "::" k fs.${k})
+            configList))
+
+        fs.extraOptions
+      ];
     }) cfg.fileSystems;
   };
 }
