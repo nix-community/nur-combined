@@ -743,6 +743,7 @@ in
         WorkingDirectory = cfg.stateDir;
         ExecStart = "${exe} web --pid /run/gitea/gitea.pid";
         Restart = "always";
+        RestartSec = "10";
         # Runtime directory and mode
         RuntimeDirectory = "gitea";
         RuntimeDirectoryMode = "0755";
