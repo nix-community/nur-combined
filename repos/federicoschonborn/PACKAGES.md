@@ -403,7 +403,7 @@ Camera application for Plasma Mobile.
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-05-13`
+- Version: `0-unstable-2025-05-16`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
@@ -427,9 +427,9 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - Name: `pseint`
 - Version: `20240122`
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L71)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L67)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
-- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`, `x86_64-darwin`, `aarch64-darwin`
 
 ## `qv` {#qv}
 
