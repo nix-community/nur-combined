@@ -323,12 +323,13 @@ in
 
       # add package*
       # TODO oarVisualization conditional
-      environment.systemPackages = [
+      environment.systemPackages = with pkgs; [
+        perl
         oarVisualization
         oarTools
-        pkgs.taktuk
-        pkgs.xorg.xauth
-        pkgs.nur.repos.kapack.oar
+        taktuk
+        xorg.xauth
+        nur.repos.kapack.oar
       ];
 
       # manage setuid for oardodo and oarcli
