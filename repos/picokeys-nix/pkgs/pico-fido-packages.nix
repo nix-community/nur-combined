@@ -25,6 +25,7 @@ let
       usbVid ? null,
       usbPid ? null,
       vidPid ? null,
+      delayedBoot ? false,
       eddsaSupport ? false,
       secureBootKey ? null,
       generateOtpFile ? false,
@@ -55,6 +56,7 @@ let
           (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk-full}/lib/pico-sdk")
 
           (lib.cmakeFeature "PICO_BOARD" picoBoard)
+          (lib.cmakeBool "ENABLE_DELAYED_BOOT" delayedBoot)
           (lib.cmakeBool "ENABLE_EDDSA" eddsaSupport)
         ]
         ++ lib.optional (usbVid != null && usbPid != null) [
