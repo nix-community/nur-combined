@@ -31,7 +31,7 @@ OARSUB_NODES_RESOURCES="network_address"
 OARSUB_FORCE_JOB_KEY="no"
 
 # OAR log level: 3(debug+warnings+errors), 2(warnings+errors), 1(errors)
-LOG_LEVEL="1"
+LOG_LEVEL="3"
 
 # Log categories to display in the log file.
 # Ex: LOG_CATEGORIES="scheduler,main,energy"
@@ -77,7 +77,7 @@ DETACH_JOB_FROM_SERVER="1"
 #MAX_CONCURRENT_JOBS_STARTING_OR_TERMINATING=25
 
 # Command to use to connect to other nodes (default is "ssh" in the PATH)
-OPENSSH_CMD="${pkgs.openssh}/bin/ssh -p 6667"
+OPENSSH_CMD="${pkgs.openssh}/bin/ssh -p 6667 -e none"
 
 # Set the timeout value for each ssh connection (default is 120)
 #OAR_SSH_CONNECTION_TIMEOUT="200"
@@ -86,6 +86,8 @@ OPENSSH_CMD="${pkgs.openssh}/bin/ssh -p 6667"
 # nothing respond in JOBDEL_WALLTIME seconds then the job is EXTERMINATED and
 # the resources turned into the Suspected state (default is 300s)
 #JOBDEL_WALLTIME="300"
+
+ADMISSION_RULES_IN_FILES="yes"
 
 # If you have installed taktuk and want to use it to manage remote
 # admnistration commands then give the full command path
@@ -235,7 +237,7 @@ SCHEDULER_GANTT_HOLE_MINIMUM_TIME="300"
 
 # You can add an order preference on resources assigned by the
 # system(SQL ORDER syntax)
-SCHEDULER_RESOURCE_ORDER="scheduler_priority ASC, state_num ASC, available_upto DESC, suspended_jobs ASC, network_address ASC, resource_id ASC"
+SCHEDULER_RESOURCE_ORDER="scheduler_priority ASC, state_num ASC, available_upto DESC, suspended_jobs ASC, resource_id ASC, network_address ASC"
 
 # If next line is uncommented then OAR will automatically update the value of 
 # "scheduler_priority" field corresponding to the besteffort jobs.
@@ -565,7 +567,7 @@ JOB_RESOURCE_MANAGER_PROPERTY_DB_FIELD="cpuset"
 # Name of the perl script that manages cpuset.
 # (default is /etc/oar/job_resource_manager.pl which handles the linux kernel
 # cpuset, job keys, clean processes, ...)
-JOB_RESOURCE_MANAGER_FILE="/etc/oar/job_resource_manager_cgroups_nixos.pl"
+JOB_RESOURCE_MANAGER_FILE="/etc/oar/job_resource_manager_systemd_nixos.pl"
 
 # Path of the relative directory where the cpusets will be created on each
 # nodes(same value than in /proc/self/cpuset).
@@ -577,8 +579,7 @@ CPUSET_PATH="/oar"
 
 # Command to get a process cpuset
 # If unset, OAR (oarsh) will read /proc/self/cpuset.
-GET_CURRENT_CPUSET_CMD="cat /proc/self/cpuset | sed -e 's@^/oardocker/node[[:digit:]]\+@@'"
-#GET_CURRENT_CPUSET_CMD="cat /proc/self/cpuset"
+GET_CURRENT_CPUSET_CMD="cat /proc/self/cpuset"
 
 # Name of the perl script the retrieve monitoring data from compute nodes.
 # This is used in oarmonitor command.
@@ -592,36 +593,39 @@ GET_CURRENT_CPUSET_CMD="cat /proc/self/cpuset | sed -e 's@^/oardocker/node[[:dig
 #
 # The following variable must be set to enable the use of oarsh on frontend
 # machines. On other machines (compute nodes), it does not need to be set.
-OARSH_OARSTAT_CMD="/usr/local/bin/oarstat"
+OARSH_OARSTAT_CMD="/run/wrappers/bin/oarstat"
+# Configuration for module: user, api
 
 # The following variable gives the OpenSSH options which the oarsh command must
 # understand in order to parse user commands.
 # The value of OPENSSH_OPTSTR must match the option string of OpenSSH ssh
-# command installed on the system (mind checking it is up-to-date, as OpenSSH 
-# development is very active), which can be found in the ssh.c file of the 
+# command installed on the system (mind checking it is up-to-date, as OpenSSH
+# development is very active), which can be found in the ssh.c file of the
 # OpenSSH sources. For instance, the following command extracts the option
 # string of OpenSSH 7.2p2 :
 #
-# $ cd path/to/openssh/sources/ 
+# $ cd path/to/openssh/sources/
 # $ grep getopt -A1 ssh.c | sed 's/.*"\(.\+\)".*/\1/' | xargs | sed 's/ //g'
-# 1246ab:c:e:fgi:kl:m:no:p:qstvxACD:E:F:GI:KL:MNO:PQ:R:S:TVw:W:XYy
-#
-OPENSSH_OPTSTR="1246ab:c:e:fgi:kl:m:no:p:qstvxACD:E:F:GI:KL:MNO:PQ:R:S:TVw:W:XYy"
+# 1246ab:c:e:fgi:kl:m:no:p:qstvxACD:E:F:GI:J:KL:MNO:PQ:R:S:TVw:W:XYy
+OPENSSH_OPTSTR="1246ab:c:e:fgi:kl:m:no:p:qstvxAB:CD:E:F:GI:J:KL:MNO:PQ:R:S:TVw:W:XYy"
+# Configuration for module: server, user, api, node
 
 # The following variable sets the OpenSSH options which oarsh actually uses.
-# Any option which is filtered out from the OPENSSH_OPTSTR variable above is 
+# Any option which is filtered out from the OPENSSH_OPTSTR variable above is
 # just ignored (see oarsh -v for debug)
 # WARNING: if not fitlered out, some options may allow root exploit using oarsh.
-# At least the following OpenSSH options are recommanded to be fitlered out: 
+# At least the following OpenSSH options are recommanded to be fitlered out:
 #  -a -A -i -l -o -p -E -F -G -I -w
-OPENSSH_OPTSTR_FILTERED="1246b:c:e:fgkm:nqstvxCD:KL:MNO:PQ:R:S:TVW:XYy"
+OPENSSH_OPTSTR_FILTERED="1246b:c:fm:nqstvxBCNPQ:TVXYy"
+# Configuration for module: server, user, api, node
 
-# The following variable forces OpenSSH configuration options for the ssh call 
+# The following variable forces OpenSSH configuration options for the ssh call
 # made by in oarsh, so that, for security reasons, they cannot be set by the
 # user (whenever "o:" is not filtered out in the OPENSSH_OPTSTR_FILTERED
 # variable above).
 # WARNING: for security, do not change unless you know what you are doing
-OARSH_OPENSSH_DEFAULT_OPTIONS="-oProxyCommand=none -oPermitLocalCommand=no -oUserKnownHostsFile=/var/lib/oar/.ssh/known_hosts"
+OARSH_OPENSSH_DEFAULT_OPTIONS="-e none -oProxyCommand=none -oPermitLocalCommand=no -oUserKnownHostsFile=/var/lib/oar/.ssh/known_hosts"
+# Configuration for module: server, user, api, node
 
 # If the following variable is set to a value which is not 0, oarsh will act
 # like a normal ssh, **without** the CPUSET isolation mechanism.
@@ -630,7 +634,10 @@ OARSH_OPENSSH_DEFAULT_OPTIONS="-oProxyCommand=none -oPermitLocalCommand=no -oUse
 # provides users with a mechanism which allows to connect to compute nodes
 # without having to care of their ssh configuration (e.g. key setup)
 #OARSH_BYPASS_WHOLE_SECURITY="0"
+# Configuration for module: user, api, node
 
+###########
+# OARSTAT #
 ###############################################################################
 
 # Default oarstat output format.
@@ -715,6 +722,11 @@ PROXY="traefik"
 OAR_PROXY_BASE_URL="/proxy"
 PROXY_TRAEFIK_RULES_FILE="/etc/oar/proxy/rules_oar_traefik.toml"
 PROXY_TRAEFIK_ENTRYPOINT="http://localhost:5000"
+
+# Option for jwt auth with restapi
+API_SECRET_KEY="3f22a0a65212bfb6cdf0dc4b39be189b3c89c6c2c8ed0d1655e0df837145208b"
+API_SECRET_ALGORITHM="HS256" 
+API_ACCESS_TOKEN_EXPIRE_MINUTES=524160 # One year
   '';
 
 vars =  mapAttrsToList (name: value: name) cfg.extraConfig;
@@ -1102,7 +1114,7 @@ $CONF['label_right_align'] = 105; // default: 105
 $CONF['hierarchy_left_align'] = 110; // default: 110
 $CONF['gantt_left_align'] = 160; // default: 160
 $CONF['gantt_min_width'] = 900; // default: 900
-$CONF['gantt_min_height'] = 100; // default: 100
+$CONF['gantt_min_height'] = 300; // default: 100
 $CONF['gantt_min_job_width_for_label'] = 40; // default: 40
 $CONF['min_state_duration'] = 2; // default: 2
 
@@ -1154,7 +1166,7 @@ EOT;
 // Standby state display options for the part shown in the future
 $CONF['standby_truncate_state_to_now'] = 1; // default: 1
 // Besteffort job display options for the part shown in the future
-$CONF['besteffort_truncate_job_to_now'] = 1; // default: 1
+$CONF['besteffort_truncate_job_to_now'] = 0; // default: 1
 $CONF['besteffort_pattern'] = <<<EOT
 <pattern id="%%PATTERN_ID%%" patternUnits="userSpaceOnUse" x="0" y="0" width="10" height="10" viewBox="0 0 10 10" >
 <polygon points="0,0 7,0 10,5 7,10 0,10 3,5" fill="%%PATTERN_COLOR%%" stroke-width="0"/>

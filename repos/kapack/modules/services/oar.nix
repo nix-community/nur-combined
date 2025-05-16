@@ -62,11 +62,12 @@ let
       mkdir -p $out/bin
 
       #oarsh
-      substitute ${cfg.package}/tools/oarsh/oarsh.in $out/bin/oarsh \
+      substitute ${cfg.package}/tools/oarsh/oarsh.in $out/bin/.oarsh \
         --replace "%%OARHOMEDIR%%" ${cfg.oarHomeDir} \
         --replace "%%XAUTHCMDPATH%%" /run/current-system/sw/bin/xauth \
+        --replace "/bin/bash" "${pkgs.bash}/bin/bash" \
         --replace /usr/bin/ssh /run/current-system/sw/bin/ssh
-      chmod 755 $out/bin/oarsh
+      chmod 755 $out/bin/.oarsh
 
       #oarsh_shell
       substitute ${cfg.package}/tools/oarsh/oarsh_shell.in $out/bin/oarsh_shell \
@@ -91,26 +92,28 @@ let
       #oardo -> cli
       gen_oardo () {
         substitute ${cfg.package}/tools/oardo.c.in oardo.c\
-          --replace TT/usr/local/oar/oarsub ${pkgs.nur.repos.kapack.oar}/bin/$1 \
+          --replace TT/usr/local/oar/oarsub $1/$2 \
           --replace "%%OARDIR%%" /run/wrappers/bin \
           --replace "%%OARCONFDIR%%" /etc/oar \
           --replace "%%XAUTHCMDPATH%%" /run/current-system/sw/bin/xauth \
           --replace "%%OAROWNER%%" oar \
           --replace "%%OARDOPATH%%"  /run/wrappers/bin:/run/current-system/sw/bin
 
-        $CC -Wall -O2 oardo.c -o $out/$2
+        $CC -Wall -O2 oardo.c -o $out/$3
       }
 
-      # generate cli
+      # generate binary wrappers 
       a=(oarsub oarstat oardel oarresume oarnodes oarnotify oarqueue oarconnect oarremoveresource \
-      oarnodesetting oaraccounting oarproperty oarwalltime)
+      oarnodesetting oaraccounting oarproperty oarwalltime oarsh)
 
       for (( i=0; i<''${#a[@]}; i++ ))
       do
         echo generate ''${a[i]}
-        gen_oardo .''${a[i]} ''${a[i]}
+        gen_oardo ${pkgs.nur.repos.kapack.oar}/bin .''${a[i]} ''${a[i]}
       done
 
+      # generate binary wrappers fo oarsh 
+      gen_oardo $out/bin .oarsh oarsh
     '';
   };
 
@@ -127,6 +130,13 @@ in
         type = types.package;
         default = pkgs.nur.repos.kapack.oar;
         defaultText = "pkgs.nur.repos.kapack.oar";
+      };
+
+      plugins = mkOption {
+        type = types.listOf types.package;
+        default = [];
+        defaultText = "[]";
+        description = "List of plugins packages";
       };
 
       privateKeyFile = mkOption {
@@ -305,7 +315,7 @@ in
     (cfg.client.enable || cfg.node.enable || cfg.server.enable
       || cfg.dbserver.enable)
     {
-
+      environment.variables.OAR_TOOLS = "${oarTools}"; 
       environment.etc."oar/oar-base.conf" = {
         mode = "0600";
         source = oarBaseConf;
@@ -333,6 +343,7 @@ in
       } // lib.genAttrs [
         "oarsub"
         "oarstat"
+        "oarsh"
         "oarresume"
         "oardel"
         "oarnodes"
@@ -360,6 +371,8 @@ in
           isSystemUser = true;
           home = cfg.oarHomeDir;
           shell = "${oarTools}/bin/oarsh_shell";
+          createHome = true; #
+          homeMode = "700";  #
           group = "oar";
           uid = 745;
         };
@@ -436,6 +449,7 @@ in
 
           # copy some required and useful scripts
           cp ${cfg.package}/tools/*.pl ${cfg.package}/tools/*.sh /etc/oar/
+          cp -r ${cfg.package}/admission_rules.d /etc/oar
 
           touch /etc/oar/oar.conf
           chmod 600 /etc/oar/oar.conf
@@ -485,41 +499,17 @@ in
         ];
       };
 
-      ####
-      # systemd.services.oar-node-job-notifier = mkIf (cfg.node.job_notifier.enable) {
-      #   wantedBy = [ "multi-user.target" ];
-      #   after = [ "network.target" "oar-user-init" "oar-conf-init" "oar-node" ];
-      #    path = [ pkgs.inotify-tools ];
-      #    script = ''
-      #       source /etc/oar/oar.conf
-      #       cpuset_path=${cfg.cpusetBasePath}$CPUSET_PATH
-
-      #       # TODO prepare_cpuset_nixos.pl|py
-
-      #       ${pkgs.inotify-tools}/bin/inotifywait -q -m -e create -e delete --format '%:e %f' \
-      #           $cpuset_path | \
-      #       while read events; do
-      #       echo $events $CPUSET_PATH >> /tmp/yop
-      #       done
-      #       # ${cfg.node.job_notifier.command}
-      #     '';
-      #    serviceConfig = {
-      #      User = "oar";
-      #      Group = "oar";
-      #      KillMode = "process";
-      #      Type = "simple";
-      #      Restart = "always";
-      #    };
-      # };
-
       ################
       # Server Section
-      systemd.services.oar-server = mkIf (cfg.server.enable) {
+      systemd.services.oar-server =
+      let
+          pythonEnv = (pkgs.python3.withPackages (ps: [ cfg.package ] ++ cfg.plugins));
+      in mkIf (cfg.server.enable) {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         description = "OAR server's main processes";
         restartIfChanged = false;
-        environment.OARDIR = "${cfg.package}/bin";
+        environment.OARDIR = "${pythonEnv}/bin";
         serviceConfig = {
           User = "oar";
           Group = "oar";
@@ -544,8 +534,6 @@ in
           host  all all ::0.0.0.0/96  md5
         '';
       };
-
-      #networking.firewall.allowedTCPPorts = mkIf cfg.dbserver.enable [5432];
 
       systemd.services.oar-db-init = mkIf cfg.dbserver.enable {
         requires = [ "postgresql.service" ];
@@ -590,6 +578,7 @@ in
         enable = true;
         user = "oar";
         group = "oar";
+        logError = "/tmp/nginx.log";
 
         virtualHosts.default = {
           #TODO root = "${pkgs.nix.doc}/share/doc/nix/manual";
@@ -688,7 +677,7 @@ in
             chdir = pkgs.writeTextDir "oarapi.py" ''
               from oar.rest_api.app import wsgi_app as application
             '';
-            pythonPackages = self: with self; [ pkgs.nur.repos.kapack.oar ];
+            pythonPackages = self: with self; [ pkgs.nur.repos.kapack.oar ]; #TODO : test is needed
           };
         };
       };
@@ -700,7 +689,35 @@ in
         config =
           let
             app = pkgs.writeTextDir "asgi.py" ''
-              from oar.api.app import app
+              # TODO: Is it a nixos compose thing, or does it belong to nur-kapack ?
+              import time
+              import sys
+
+              from oar.lib.tools import get_date
+              from oar.api.app import create_app
+              from oar.lib.globals import init_oar, init_and_get_session, init_config, get_logger
+              r = True
+
+              config = init_config()
+
+              # Force writing to stderr to otherwise log are lost
+              config["LOG_FILE"] = ":stderr:"
+
+              logger = get_logger("asgi", config=config)
+
+              # Waiting for the database to be accessible
+              # This is needed in the context of nixos-compose.
+              while r:
+                  try:
+                      session = init_and_get_session(config)
+                      r = False
+                  except Exception as e:
+                      logger.error(f"db not ready: {e}")
+                      time.sleep(0.25)
+
+              # The root path must be defined according to the nginx configuration
+              # TODO: It might be made as a parameter.
+              app = create_app(config=config, root_path="/api/")
             '';
             app_env =
               pkgs.python3.withPackages (ps: [ pkgs.nur.repos.kapack.oar ]);
@@ -719,6 +736,9 @@ in
               home = "${app_env}";
               module = "asgi";
               callable = "app";
+              # Most of the time we want the logs
+              stderr = "/var/log/unit/oar.log.err";
+              stdout = "/var/log/unit/oar.log.out";
             };
           };
       };
@@ -739,6 +759,9 @@ in
             "listen.owner" = "oar";
             "listen.group" = "oar";
             "listen.mode" = "0660";
+            "php_admin_value[error_log]" = "/var/log/fpm-php.www.log";
+            "php_admin_flag[log_errors]" = "on";
+            "catch_workers_output" = "yes";
             "pm" = "dynamic";
             "pm.start_servers" = 1;
             "pm.min_spare_servers" = 1;
@@ -781,6 +804,10 @@ in
 
             (optionalString cfg.web.drawgantt.enable ''
               touch /etc/oar/drawgantt-config.inc.php
+
+              touch /var/log/fpm-php.www.log
+              chmod 777 /var/log/fpm-php.www.log
+
               chmod 600 /etc/oar/drawgantt-config.inc.php
               chown oar /etc/oar/drawgantt-config.inc.php
 
@@ -841,6 +868,7 @@ in
           StartLimitBurst = 5;
         };
       };
+
       # services.traefik = mkIf cfg.web.proxy.enable {
       #   enable = true;
       #   configOptions = {
