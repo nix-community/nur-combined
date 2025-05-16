@@ -29,6 +29,14 @@
           mise = {
             path = ./templates/mise;
             description = "A flake for projects managed with mise";
+            welcomeText = ''
+              # Getting started
+              ## without direnv
+              - Run `nix develop`
+              ## with direnv
+              - Add "use flake" to .enrc - `echo "use flake" >> .envrc`
+              - Run `direnv allow`
+            '';
           };
         };
       };
