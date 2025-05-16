@@ -4,9 +4,9 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "ttf-ms-win10-sc-sup";
-  version = "2025-03-25";
+  version = "unstable-2025-03-25";
 
   src = fetchFromGitHub {
     owner = "chillcicada";
@@ -30,4 +30,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.unfree;
     platforms = lib.platforms.all;
   };
-})
+}

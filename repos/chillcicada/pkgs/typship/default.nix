@@ -7,22 +7,18 @@
   perl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "typship";
   version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "sjfhsjfh";
-    repo = pname;
-    rev = "v${version}";
+    repo = "typship";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-e7jGc/ENVEMGzXl+sidzNBFy+qZo9+ClRPYhsXtnyD8=";
   };
 
-  sourceRoot = src.name;
-
   cargoHash = "sha256-lRB+GL5dgl22B+qBZV273V9tavGu5HqK2Z9JFyqVoK8=";
-
-  doCheck = false;
 
   nativeBuildInputs = [
     pkg-config
@@ -38,4 +34,4 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.linux;
     mainProgram = "typship";
   };
-}
+})

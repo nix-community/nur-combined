@@ -30,12 +30,12 @@ let
   uri = builtins.replaceStrings [ "https://wps-linux-personal.wpscdn.cn" ] [ "" ] url;
   securityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wpsoffice";
   version = pkgVersion;
 
   src =
-    runCommandLocal "wps-office_${version}_amd64.deb"
+    runCommandLocal "wps-office_${finalAttrs.version}_amd64.deb"
       {
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
@@ -132,4 +132,4 @@ stdenv.mkDerivation rec {
       pokon548
     ];
   };
-}
+})
