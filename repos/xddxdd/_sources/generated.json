@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5392",
-            "sha256": "sha256-KPX4PypT+GfiNZlTsYZMMLEfu/T6AmyaiOdrGYAN8rE=",
+            "rev": "b5401",
+            "sha256": "sha256-HwxkDh4uhhXjs5yNecXhREeH6kl4/GEqpU3dD+a2eVs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5392"
+        "version": "b5401"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2045,12 +2045,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "gmessages",
-            "rev": "v0.6.1",
-            "sha256": "sha256-qpqFWQ4ZhgzG7SG6phW6LnS52Ve1S+Ky6YtjzfBkBmE=",
+            "rev": "v0.6.2",
+            "sha256": "sha256-NzLHCVJaYl8q5meKZDy8St8J9c8oyASLLrXhWG7K+yw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.6.1"
+        "version": "v0.6.2"
     },
     "metee": {
         "cargoLocks": null,
@@ -2471,7 +2471,7 @@
     },
     "openai-edge-tts": {
         "cargoLocks": null,
-        "date": "2025-04-01",
+        "date": "2025-05-16",
         "extract": null,
         "name": "openai-edge-tts",
         "passthru": null,
@@ -2483,12 +2483,12 @@
             "name": null,
             "owner": "travisvn",
             "repo": "openai-edge-tts",
-            "rev": "da35c47700a0f5245dad04e2298b13e4f31264fc",
-            "sha256": "sha256-C7vVEPBW/O5O7OfQ9cx9Jr+c2kOC1469uX4m99XcJsI=",
+            "rev": "936cd1ab398209bac122578abc61b8c354ca9c7a",
+            "sha256": "sha256-Xe78N758g5FWuce69klcDiBoFvJeD1Iq+LB1bxoFouY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "da35c47700a0f5245dad04e2298b13e4f31264fc"
+        "version": "936cd1ab398209bac122578abc61b8c354ca9c7a"
     },
     "opencc-python-reimplemented": {
         "cargoLocks": null,
@@ -2534,7 +2534,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-05-08",
+        "date": "2025-05-16",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2546,12 +2546,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea",
-            "sha256": "sha256-F1PkpY58ukkTi4Wdq+myVLbDW0RoAgtejrA1dYKpc20=",
+            "rev": "335b4e284eb04b98d1e986e1ab59f1b852fe2bed",
+            "sha256": "sha256-dF9BnGiuMh161Jbf7+2TT6hrtQoZPDl4cvP3y6MbBAE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea"
+        "version": "335b4e284eb04b98d1e986e1ab59f1b852fe2bed"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "0aa6cda0500b68237d275c34d42ad152ae984468",
-            "sha256": "sha256-86hlaKKw0Bp7xBDf1hvdLlUa3/udSm7y5EfBnlcOxP8=",
+            "rev": "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69",
+            "sha256": "sha256-HgfdquRUzUbNmhRmdJ1nkZyPCF6XS1zSHy+hbILzY7M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0aa6cda0500b68237d275c34d42ad152ae984468"
+        "version": "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4148,12 +4148,12 @@
             "name": null,
             "owner": "Diniboy1123",
             "repo": "usque",
-            "rev": "v1.0.4",
-            "sha256": "sha256-od6JXHjZnM86oYLWNTogoVgHfZGubTUuITzEj13MKGE=",
+            "rev": "v1.1.0",
+            "sha256": "sha256-V8y8cTqblaMtYIFdX5DDg+KhaQQjrMkY42WgpGUuMPo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.4"
+        "version": "v1.1.0"
     },
     "vbmeta-disable-verification": {
         "cargoLocks": null,

@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5392"
+    "version": "5401"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -847,7 +847,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-05-08"
+    "version": "1.27.1.2-unstable-2025-05-16"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
     "description": "Cleanup old profiles on NixOS",
@@ -1262,7 +1262,7 @@
   "legacyPackages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
-    "version": "1.2.8"
+    "version": "1.2.9"
   },
   "legacyPackages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
@@ -1312,7 +1312,7 @@
   "legacyPackages.x86_64-linux.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "legacyPackages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
@@ -1362,7 +1362,7 @@
   "legacyPackages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
     "pname": "nftables",
-    "version": "1.1.1"
+    "version": "1.1.3"
   },
   "legacyPackages.x86_64-linux.noise-suppression-for-voice": {
     "description": "Noise suppression plugin based on Xiph's RNNoise",
@@ -2202,7 +2202,7 @@
   "legacyPackages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-04-01"
+    "version": "0-unstable-2025-05-16"
   },
   "legacyPackages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -4437,7 +4437,7 @@
   "legacyPackages.x86_64-linux.uncategorized.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
-    "version": "1.2.8"
+    "version": "1.2.9"
   },
   "legacyPackages.x86_64-linux.uncategorized.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
@@ -4482,7 +4482,7 @@
   "legacyPackages.x86_64-linux.uncategorized.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
@@ -4517,7 +4517,7 @@
   "legacyPackages.x86_64-linux.uncategorized.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
     "pname": "nftables",
-    "version": "1.1.1"
+    "version": "1.1.3"
   },
   "legacyPackages.x86_64-linux.uncategorized.noise-suppression-for-voice": {
     "description": "Noise suppression plugin based on Xiph's RNNoise",
@@ -4552,7 +4552,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-04-01"
+    "version": "0-unstable-2025-05-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.openedai-speech": {
     "description": "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend",
@@ -4812,7 +4812,7 @@
   "legacyPackages.x86_64-linux.uncategorized.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.0.4"
+    "version": "1.1.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -4887,7 +4887,7 @@
   "legacyPackages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.0.4"
+    "version": "1.1.0"
   },
   "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -5367,7 +5367,7 @@
   "packages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
-    "version": "1.2.8"
+    "version": "1.2.9"
   },
   "packages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
@@ -5417,7 +5417,7 @@
   "packages.x86_64-linux.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.1"
+    "version": "0.6.2"
   },
   "packages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
@@ -5467,7 +5467,7 @@
   "packages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
     "pname": "nftables",
-    "version": "1.1.1"
+    "version": "1.1.3"
   },
   "packages.x86_64-linux.noise-suppression-for-voice": {
     "description": "Noise suppression plugin based on Xiph's RNNoise",
@@ -5512,7 +5512,7 @@
   "packages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
-    "version": "0-unstable-2025-04-01"
+    "version": "0-unstable-2025-05-16"
   },
   "packages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
@@ -5877,7 +5877,7 @@
   "packages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.0.4"
+    "version": "1.1.0"
   },
   "packages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",

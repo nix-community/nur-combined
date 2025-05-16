@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5392";
+    version = "b5401";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5392";
-      hash = "sha256-KPX4PypT+GfiNZlTsYZMMLEfu/T6AmyaiOdrGYAN8rE=";
+      tag = "b5401";
+      hash = "sha256-HwxkDh4uhhXjs5yNecXhREeH6kl4/GEqpU3dD+a2eVs=";
     };
   };
   loralib = {
@@ -1048,12 +1048,12 @@
   };
   mautrix-gmessages = {
     pname = "mautrix-gmessages";
-    version = "v0.6.1";
+    version = "v0.6.2";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      tag = "v0.6.1";
-      hash = "sha256-qpqFWQ4ZhgzG7SG6phW6LnS52Ve1S+Ky6YtjzfBkBmE=";
+      tag = "v0.6.2";
+      hash = "sha256-NzLHCVJaYl8q5meKZDy8St8J9c8oyASLLrXhWG7K+yw=";
     };
   };
   metee = {
@@ -1271,14 +1271,14 @@
   };
   openai-edge-tts = {
     pname = "openai-edge-tts";
-    version = "da35c47700a0f5245dad04e2298b13e4f31264fc";
+    version = "936cd1ab398209bac122578abc61b8c354ca9c7a";
     src = fetchFromGitHub {
       owner = "travisvn";
       repo = "openai-edge-tts";
-      rev = "da35c47700a0f5245dad04e2298b13e4f31264fc";
-      hash = "sha256-C7vVEPBW/O5O7OfQ9cx9Jr+c2kOC1469uX4m99XcJsI=";
+      rev = "936cd1ab398209bac122578abc61b8c354ca9c7a";
+      hash = "sha256-Xe78N758g5FWuce69klcDiBoFvJeD1Iq+LB1bxoFouY=";
     };
-    date = "2025-04-01";
+    date = "2025-05-16";
   };
   opencc-python-reimplemented = {
     pname = "opencc-python-reimplemented";
@@ -1303,14 +1303,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea";
+    version = "335b4e284eb04b98d1e986e1ab59f1b852fe2bed";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "f2d027cd9a8a3a1f17ffc747a6c6cef00cb3d0ea";
-      hash = "sha256-F1PkpY58ukkTi4Wdq+myVLbDW0RoAgtejrA1dYKpc20=";
+      rev = "335b4e284eb04b98d1e986e1ab59f1b852fe2bed";
+      hash = "sha256-dF9BnGiuMh161Jbf7+2TT6hrtQoZPDl4cvP3y6MbBAE=";
     };
-    date = "2025-05-08";
+    date = "2025-05-16";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -2070,13 +2070,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "0aa6cda0500b68237d275c34d42ad152ae984468";
+    version = "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "0aa6cda0500b68237d275c34d42ad152ae984468";
+      rev = "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69";
       fetchSubmodules = true;
-      hash = "sha256-86hlaKKw0Bp7xBDf1hvdLlUa3/udSm7y5EfBnlcOxP8=";
+      hash = "sha256-HgfdquRUzUbNmhRmdJ1nkZyPCF6XS1zSHy+hbILzY7M=";
     };
     date = "2025-05-15";
   };
@@ -2122,12 +2122,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.0.4";
+    version = "v1.1.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.0.4";
-      hash = "sha256-od6JXHjZnM86oYLWNTogoVgHfZGubTUuITzEj13MKGE=";
+      tag = "v1.1.0";
+      hash = "sha256-V8y8cTqblaMtYIFdX5DDg+KhaQQjrMkY42WgpGUuMPo=";
     };
   };
   vbmeta-disable-verification = {
