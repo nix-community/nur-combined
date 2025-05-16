@@ -136,6 +136,23 @@ let
       };
     };
 
+    free-map-genie = let version = "2.1.1";
+    in buildFirefoxXpiAddon {
+      pname = "free-map-genie";
+      inherit version;
+      addonId = "viper-fmg@freemapgenie.com";
+      url =
+        "https://github.com/V1P3R-FMG/free-map-genie/releases/download/v${version}/fmg-firefox-v${version}.xpi";
+      sha256 =
+        "4eee47959d3e553c683ab380b532c58c457bc6f2f1f9a7fc831941d95b293359";
+      meta = with lib; {
+        homepage = "https://github.com/V1P3R-FMG/free-map-genie";
+        description = "Unlock mapgenie pro features for free";
+        license = licenses.mit;
+        platforms = platforms.all;
+      };
+    };
+
     zotero-connector =
       import ./zotero.nix { inherit buildFirefoxXpiAddon fetchurl lib stdenv; };
   };

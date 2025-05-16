@@ -2228,6 +2228,21 @@
         platforms = platforms.all;
       };
     };
+    "ctrl-number-to-switch-tabs" = buildFirefoxXpiAddon {
+      pname = "ctrl-number-to-switch-tabs";
+      version = "1.0.2";
+      addonId = "{84601290-bec9-494a-b11c-1baa897a9683}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4192880/ctrl_number_to_switch_tabs-1.0.2.xpi";
+      sha256 = "777d01ddedaf027436f4651814cfe94658552ee311beec745753633401550a68";
+      meta = with lib;
+      {
+        homepage = "https://github.com/AbigailBuccaneer/firefox-ctrlnumber";
+        description = "Adds keyboard shortcut Ctrl+1 to switch to the first tab, Ctrl+2 to switch to the second, and so on. Ctrl+9 switches to the last tab.";
+        license = licenses.mit;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "custom-new-tab-page" = buildFirefoxXpiAddon {
       pname = "custom-new-tab-page";
       version = "1.0.0";
@@ -2265,10 +2280,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "139.0.20250514.34321";
+      version = "139.0.20250516.91640";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492975/dansk_da_language_pack-139.0.20250514.34321.xpi";
-      sha256 = "2cf323aec68a258839428bed11966e170297bd20444d8fb1dc0f3c59a162488e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494364/dansk_da_language_pack-139.0.20250516.91640.xpi";
+      sha256 = "01df71b47bc92833d8427fb377dd15415dbbbf57cca6b641773100c071073558";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2462,10 +2477,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "139.0.20250514.34321";
+      version = "139.0.20250516.91640";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492983/deutsch_de_language_pack-139.0.20250514.34321.xpi";
-      sha256 = "0f799abfa3d1c157cd326ff0f307e85d0712c5a1cf84e3e7591e537b3e45173f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494352/deutsch_de_language_pack-139.0.20250516.91640.xpi";
+      sha256 = "22225907f190aa5f5c789697354a54212c6ad78c311a3013313f5f080e141cc8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2724,10 +2739,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.59.6";
+      version = "2.59.7";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492785/dualsub-2.59.6.xpi";
-      sha256 = "a72e2f2b2c0e8f08645bf683e5cb2c4a39997937e149d1addc0653502ccf7529";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494240/dualsub-2.59.7.xpi";
+      sha256 = "d463fcb59c6909ee5dc6d5427baa1c5d1dd4bae7f456b38053e50b3cb2baca89";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2741,6 +2756,7 @@
         mozPermissions = [
           "storage"
           "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
           "https://www.ardmediathek.de/*"
           "https://www.bilibili.com/*"
           "https://www.coursera.org/*"
@@ -2750,7 +2766,6 @@
           "https://www.viki.com/*"
           "https://www.youku.tv/*"
           "https://www.zdf.de/*"
-          "https://m.youtube.com/*"
           "https://wetv.vip/*"
         ];
         platforms = platforms.all;
@@ -3718,10 +3733,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "139.0.20250514.34321";
+      version = "139.0.20250516.91640";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493049/francais_language_pack-139.0.20250514.34321.xpi";
-      sha256 = "baa1634eb85b02cfc6c11f0bc31c61a6afc5a56d787b77e6f0d88af667d6c41b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494382/francais_language_pack-139.0.20250516.91640.xpi";
+      sha256 = "85c18444fed586a848e581a01a32d7a80ab183222e5df6285c0204886cf5a6fa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3755,10 +3770,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "139.0.20250514.34321";
+      version = "139.0.20250516.91640";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493029/gaidhlig_language_pack-139.0.20250514.34321.xpi";
-      sha256 = "b414b77a69af85d786de950d7dacccecef845fc2b164cde43d72a0b3d2d625bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494346/gaidhlig_language_pack-139.0.20250516.91640.xpi";
+      sha256 = "058f65b1757414df7822671aae2f19ffb2dcfd19795bfb1c21dc824ffc4d623d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5620,7 +5635,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
-        description = "Youtube Extension. Powerful but lightweight. Enrich your Youtube &amp; content selection.\nMake YouTube tidy&amp;smart! Layout Filters Shortcuts Adblocker Playlist";
+        description = "Youtube Extension. Powerful but lightweight. Enrich your Youtube and content selection. Make YouTube tidy and smart! (Layout, Filters, Shortcuts, Playlist)";
         license = {
           shortName = "improved-tube";
           fullName = "ImprovedTube License";
@@ -10570,10 +10585,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "139.0.20250514.34321";
+      version = "139.0.20250516.91640";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493066/scots_language_pack-139.0.20250514.34321.xpi";
-      sha256 = "f28e882c29b717d74ec53750d08467ce39f87797201e438e3fb412a98e97998e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494340/scots_language_pack-139.0.20250516.91640.xpi";
+      sha256 = "bf3ee3bcf9780fa13a8e96dce7e901772854d3a0b5f03f0223e33fdc2f1ad3eb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
