@@ -1086,10 +1086,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.8.1";
+      version = "0.8.2";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484772/bilisponsorblock-0.8.1.xpi";
-      sha256 = "7c51c02023a0a5b99bf39e12e7b24bc7a0fdeed7ff959008f0ec0dfa28f850e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494048/bilisponsorblock-0.8.2.xpi";
+      sha256 = "3b735885eec80e7bba37214b56fb476164b5cc344d626d23286755c2fe3ebd75";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1843,26 +1843,6 @@
         description = "Adds a button to close all tabs in other windows which are not pinned";
         license = licenses.mit;
         mozPermissions = [];
-        platforms = platforms.all;
-      };
-    };
-    "codecov" = buildFirefoxXpiAddon {
-      pname = "codecov";
-      version = "0.5.5";
-      addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4473851/codecov-0.5.5.xpi";
-      sha256 = "5bea76d24e2039de6309881fd6a5c7788f819e1d8bff4be997d1311b9055dc73";
-      meta = with lib;
-      {
-        homepage = "https://about.codecov.io";
-        description = "Codecov Browser Extension\n\nAdds Codecov coverage data and line annotations to public and private repositories on GitHub.";
-        license = licenses.asl20;
-        mozPermissions = [
-          "storage"
-          "scripting"
-          "activeTab"
-          "*://github.com/*"
-        ];
         platforms = platforms.all;
       };
     };
