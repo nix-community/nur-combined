@@ -3,13 +3,15 @@
 , fetchFromGitHub
 , ncurses
 , nodejs
+, bun
 , pnpm
 , yarn
 , just
+, nix
 ,
 }:
 let
-  rev = "27c6fbc7fa534ce891db75361f2d2a27db64bb63";
+  rev = "8de1acb1975d3811b8c3a8f175c8dfabd800da10";
 in
 stdenv.mkDerivation rec {
   pname = "projectdo";
@@ -19,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "paldepind";
     repo = "projectdo";
     inherit rev;
-    hash = "sha256-ZBAzHo7/Sy8uyjWganSFs/uOJkmuDP8WxU3WVGttPTo=";
+    hash = "sha256-WAhw5meVs7k4oaQFyS4LxG7TIrNK8Tl+hSAiFzdeZVM=";
   };
 
   dontConfigure = true;
@@ -35,10 +37,12 @@ stdenv.mkDerivation rec {
   ];
 
   nativeCheckInputs = [
+    bun
     nodejs
     pnpm
     yarn
     just
+    nix
   ];
 
   installPhase = ''
