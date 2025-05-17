@@ -159,6 +159,7 @@
     ./playerctl.nix
     ./qmk-udev-rules.nix
     ./radicale.nix
+    ./readline.nix
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi

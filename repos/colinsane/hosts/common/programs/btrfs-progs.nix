@@ -20,7 +20,10 @@ in
     ];
     sandbox.tryKeepUsers = true;
     sandbox.keepPids = true;  # required for `sudo btrfs scrub start`
-    sandbox.capabilities = [ "sys_admin" ];  # for `btrfs scrub`
+    sandbox.capabilities = [
+      "dac_read_search"  # for `btrfs replace`
+      "sys_admin"  # for `btrfs scrub`
+    ];
   };
 
   # TODO: service sandboxing

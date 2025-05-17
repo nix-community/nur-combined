@@ -43,8 +43,9 @@
       "device=/dev/disk/by-partuuid/409a147e-2282-49eb-87a7-c968032ede88"  #< added 2024-11-24
       "device=/dev/disk/by-partuuid/6b86cc10-c3cc-ec4d-b20d-b6688f0959a6"
       # "device=/dev/disk/by-partuuid/7fd85cac-b6f3-8248-af4e-68e703d11020"  #< removed 2024-11-13 (early drive failure)
+      "device=/dev/disk/by-partuuid/92ebbbfb-022f-427d-84d5-39349d4bc02a"  #< added 2025-05-14
       "device=/dev/disk/by-partuuid/d9ad5ebc-0fc4-4d89-9fd0-619ce5210f1b"  #< added 2024-11-13
-      "device=/dev/disk/by-partuuid/ef0e5c7b-fccf-f444-bac4-534424326159"
+      # "device=/dev/disk/by-partuuid/ef0e5c7b-fccf-f444-bac4-534424326159"  #< removed 2025-05-14 (early drive failure)
       "nofail"
       # "x-systemd.before=local-fs.target"
       "x-systemd.device-bound=false"  #< don't unmount when `device` disappears (i thought this was necessary, for drive replacement, but it might not be)

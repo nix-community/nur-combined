@@ -181,19 +181,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "signal-desktop-from-src";
-  version = "7.54.0";
+  version = "7.55.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${finalAttrs.version}";
-    hash = "sha256-+KeUkwJ4smxHy8Ss4ARvRgZeh/d1EqfBBOq9VbJVQ8A=";
+    hash = "sha256-5zo8FYyO4l48IFxL5CfkCN5i9+DDfsJMElwf1+hh7ws=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src patches;
-    hash = "sha256-90qgZZSFLr48EqrENhpNpa9xNHu//TP8J7h+NqN3OQg=";
+    hash = "sha256-UZ1oM/6HP4IJgSPasSxE9TmXyp5S79HhJRZee4iRbWY=";
   };
 
   patches = [

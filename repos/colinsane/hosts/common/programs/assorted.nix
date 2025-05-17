@@ -172,6 +172,7 @@ in
       "pulsemixer"
       "python3-repl"
       # "python3.pkgs.eyeD3"  # music tagging
+      "readline"  # for the config
       "ripgrep"  # needed as a user package so that its user-level config file can be installed
       # "rsyslog"  # KEEP THIS HERE if you want persistent logging (TODO: port to systemd, store in /var/log/...)
       "sane-deadlines"

@@ -79,6 +79,7 @@ parseArgs "$@"
 
 check "uninsane.org. DNS" nslookup uninsane.org.
 check "[1.1.1.1] uninsane.org. DNS" nslookup uninsane.org. 1.1.1.1
+check "[8.8.8.8] uninsane.org. DNS" nslookup uninsane.org. 8.8.8.8
 check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
 # OVPNS DNS is no longer used
 # check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
