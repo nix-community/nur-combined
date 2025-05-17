@@ -9,10 +9,12 @@
   ninja,
   pkg-config,
   vcpkg,
+  # UnleashedRecomp includes its own copy of SDL2.
+  SDL2_classic,
   curl,
   freetype,
-  glib,
   gtk3,
+  vulkan-loader,
   replaceVarsWith,
   nix-update-script,
 }:
@@ -81,14 +83,15 @@ clangStdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
     vcpkg
-  ];
+  ] ++ SDL2_classic.nativeBuildInputs;
 
   buildInputs = [
     curl
+    # Required by bundled msdfgen library
     freetype
-    glib
+    # Required by bundled nativefiledialog library
     gtk3
-  ];
+  ] ++ SDL2_classic.buildInputs;
 
   directx-dxc-config = replaceVarsWith {
     src = ./directx-dxc-config.cmake;
@@ -108,6 +111,7 @@ clangStdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace UnleashedRecomp/CMakeLists.txt --replace-fail "file(CHMOD" "# file(CHMOD"
+    substituteInPlace thirdparty/volk/volk.c --replace-fail '"libvulkan.so' '"${vulkan-loader}/lib/libvulkan.so'
   '';
 
   preConfigure = ''
