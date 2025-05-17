@@ -31,7 +31,8 @@ rec {
   batsched-140 = pkgs.callPackage ./pkgs/batsched/batsched140.nix { inherit loguru redox debug; intervalset = intervalsetlight; };
   batsched = batsched-140;
 
-  batexpe = pkgs.callPackage ./pkgs/batexpe { };
+  # Need to switch from 'buildGoPackage' to 'buildGoModule'
+  #batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
   batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-334light; intervalset = intervalsetlight; };
   batsim-420 = pkgs.callPackage ./pkgs/batsim/batsim420.nix { inherit redox debug; simgrid = simgrid-334light; intervalset = intervalsetlight; };
@@ -86,17 +87,17 @@ rec {
 
   npb =  pkgs.callPackage ./pkgs/npb { };
 
-  #go-swagger  = pkgs.callPackage ./pkgs/go-swagger { };
-
   gocov = pkgs.callPackage ./pkgs/gocov { };
 
-  gocovmerge = pkgs.callPackage ./pkgs/gocovmerge { };
+  # Need to switch from 'buildGoPackage' to 'buildGoModule'
+  #gocovmerge = pkgs.callPackage ./pkgs/gocovmerge { };
 
   intervalset = pkgs.callPackage ./pkgs/intervalset { };
   intervalsetlight = pkgs.callPackage ./pkgs/intervalset { withoutBoostPropagation = true; };
 
   iterators = pkgs.callPackage ./pkgs/iterators { };
 
+  # Need to switch from 'buildGoPackage' to 'buildGoModule'
   #kube-batch = pkgs.callPackage ./pkgs/kube-batch { };
 
   loguru = pkgs.callPackage ./pkgs/loguru { inherit debug; };
@@ -198,5 +199,6 @@ rec {
 
   wirerope = pkgs.callPackage ./pkgs/wirerope { };
 
-  yamldiff = pkgs.callPackage ./pkgs/yamldiff { };
+  # Need to switch from 'buildGoPackage' to 'buildGoModule'
+  #yamldiff = pkgs.callPackage ./pkgs/yamldiff { };
 }
