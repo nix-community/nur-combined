@@ -367,25 +367,9 @@ in {
         inherit (pkgs.darwin) sigtool;
     };
     
-    wine64Full = let
-        inherit (pkgs) lib;
-        wine64Full = pkgs.wine64Packages.full;
-    in
-    myLib.warnOnInstantiate "Rhys-T.wine64Full is no longer needed - use wine64Packages.full from Nixpkgs directly" (
-        dontUpdate (wine64Full.overrideAttrs (old: {
-            meta = (old.meta or {}) // {
-                description = (old.meta.description or "wine64Full") + " [DEPRECATED - use wine64Packages.full from Nixpkgs directly]";
-                position = myPos "wine64Full";
-            };
-            passthru = (old.passthru or {}) // {
-                _Rhys-T.allowCI = false;
-            };
-        }))
-    );
-    
-    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
-        wine64Full = pkgs.wine64Packages.full;
-    });
+    # _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
+    #     wine64Full = pkgs.wine64Packages.full;
+    # });
     
     tuxemon = callPackage ./pkgs/tuxemon {};
     tuxemon-git = callPackage ./pkgs/tuxemon/git.nix {};

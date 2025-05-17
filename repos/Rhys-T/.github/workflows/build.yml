@@ -250,7 +250,7 @@ jobs:
           outputs = {self, Rhys-T, nixpkgs}: let inherit (nixpkgs) lib; in {
             cacheOutputs = lib.pipe Rhys-T.legacyPackages [
               (builtins.mapAttrs (system: ps: ps.ci.cacheOutputsAsAttrs or null))
-              (lib.filterAttrs (system: co: co != null))
+              (lib.filterAttrs (system: co: system == $(nix-instantiate --eval '<nixpkgs>' -A system) && co != null))
             ];
           };
         }
