@@ -18,7 +18,7 @@ Uncomment this if you use travis:
 
 ### `drl`
 
-DRL (formerly DoomRL) expects to run with the game directory as its working directory, containing both the read-only game data and mutable state. Obviously that doesn't work very well with Nix, so I'm using a similar approach to [the `sdlpop` derivation](https://github.com/NixOS/nixpkgs/blob/master/pkgs/games/sdlpop/default.nix): `drl` is actually a wrapper script that links/copies the game data into `${XDG_DATA_HOME:-$HOME/.local/share}/drl` as appropriate, then runs the game from there. It won't replace any file/directory there that isn't a symlink into the Nix store, so you can always override any of the files you need to.
+DRL (formerly DoomRL) expects to run with the game directory as its working directory, containing both the read-only game data and mutable state. Obviously that doesn't work very well with Nix, so I'm using a similar approach to [the `sdlpop` derivation](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/sd/sdlpop/package.nix): `drl` is actually a wrapper script that links/copies the game data into `${XDG_DATA_HOME:-$HOME/.local/share}/drl` as appropriate, then runs the game from there. It won't replace any file/directory there that isn't a symlink into the Nix store, so you can always override any of the files you need to.
 
 ### `hbmame`
 
@@ -103,6 +103,14 @@ minivmac37.override {
     localtalkOver = "udp";
 }
 ```
+
+| Feature                 | Nixpkgs `minivmac`                                               | This `minivmac`                                                                                                                                        |
+| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Built from              | [@erichegelson's fork](https://github.com/erichegelson/minivmac) | [Upstream from Paul C. Pratt](https://gryphel.com/c/minivmac/)                                                                                         |
+| Versions                | Forked from 37.03 beta                                           | `minivmac`: 36.04<br>`minivmac-unstable`: 37.03 beta                                                                                                   |
+| Platforms               | <ul><li>`x86_64-linux`</li></ul>                                 | <ul><li>`x86_64-linux`</li><li>`aarch64-linux` (v37+ only)</li><li>`i686-linux`</li><li>`x86_64-darwin`</li><li>`aarch64-darwin` (v37+ only)</li></ul> |
+| Select emulated machine | ❌ No (always Macintosh Plus)                                    | ✅ Yes                                                                                                                                                 |
+| Select other options    | ❌ No                                                            | ✅ Yes                                                                                                                                                 |
 
 ### `pce`
 

@@ -7,6 +7,7 @@ let
         version,
         src,
         applyMacDataPathPatch ? false,
+        buildPackages,
         callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, xorg, alsa-lib, maintainers, ...
     }@args:
         let
@@ -19,6 +20,7 @@ let
                 i686-linux = "lx86";
                 x86_64-darwin = "mc64";
             } // lib.optionalAttrs isAtLeast37 {
+                aarch64-linux = "larm -cpu a64";
                 aarch64-darwin = "mcar";
             };
             argsPlusDefaults = options.defaultOptions // args;
@@ -70,7 +72,7 @@ let
             '';
             configurePhase = ''
                 runHook preConfigure
-                cc -o setup_t setup/tool.c
+                ${lib.getExe buildPackages.stdenv.cc} -o setup_t setup/tool.c
                 ./setup_t -t ${targetCode} ${minivmacOptions} ${lib.optionalString (hostPlatform.isDarwin && isAtLeast37) "-cl"} > setup.sh
                 bash setup.sh
                 runHook postConfigure
