@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    mainProgram = "xdvdfs-cli";
+    mainProgram = "xdvdfs";
     description = "Original Xbox DVD Filesystem library and management tool";
     homepage = "https://github.com/antangelo/xdvdfs";
     changelog = "https://github.com/antangelo/xdvdfs/releases/tag/v${version}";

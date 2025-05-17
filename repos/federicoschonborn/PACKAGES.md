@@ -554,6 +554,18 @@ A Qt style supporting both QtQuick and QtWidgets.
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
+## `unleashedrecomp` {#unleashedrecomp}
+
+An unofficial PC port of the Xbox 360 version of Sonic Unleashed created through the process of static recompilation.
+
+- Name: `unleashedrecomp`
+- Version: `1.0.3`
+- [🌐 Homepage](https://github.com/hedge-dev/UnleashedRecomp)
+- [📰 Changelog](https://github.com/hedge-dev/UnleashedRecomp/releases/tag/v1.0.3)
+- [📦 Source](./pkgs/by-name/unleashedrecomp/package.nix#L135)
+- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
+
 ## `wayneko` {#wayneko}
 
 Display an animated neko cat on the bottom of an output.
