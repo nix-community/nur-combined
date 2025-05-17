@@ -445,13 +445,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001717" = {
+    "caniuse-lite-1.0.30001718" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001717";
+      version = "1.0.30001718";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001717.tgz";
-        sha512 = "auPpttCq6BDEG8ZAuHJIplGw6GODhjw+/11e7IjpnYCxZcW/ONgPs0KVBJ0d1bY3e2+7PRe5RCLyP+PfwVgkYw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001718.tgz";
+        sha512 = "AflseV1ahcSunK53NfEs9gFWgOEmzr0f+kaMFA4xiLZlr9Hzt7HxcSpIFcnNCUkz6R6dWKa54rUz3HUmI3nVcw==";
       };
     };
     "chalk-5.4.1" = {
@@ -517,22 +517,22 @@ let
         sha512 = "Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==";
       };
     };
-    "debug-4.4.0" = {
+    "debug-4.4.1" = {
       name = "debug";
       packageName = "debug";
-      version = "4.4.0";
+      version = "4.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.4.0.tgz";
-        sha512 = "6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.4.1.tgz";
+        sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.151" = {
+    "electron-to-chromium-1.5.155" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.151";
+      version = "1.5.155";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.151.tgz";
-        sha512 = "Rl6uugut2l9sLojjS4H4SAr3A4IgACMLgpuEMPYCVcKydzfyPrn5absNRju38IhQOf/NwjJY8OGWjlteqYeBCA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.155.tgz";
+        sha512 = "ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==";
       };
     };
     "emoji-regex-10.4.0" = {
@@ -1084,13 +1084,13 @@ let
         sha512 = "BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==";
       };
     };
-    "semver-7.7.1" = {
+    "semver-7.7.2" = {
       name = "semver";
       packageName = "semver";
-      version = "7.7.1";
+      version = "7.7.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.7.1.tgz";
-        sha512 = "hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz";
+        sha512 = "RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==";
       };
     };
     "signal-exit-4.1.0" = {
@@ -1292,7 +1292,7 @@ let
       sources."@jspm/import-map-1.1.0"
       (sources."@npmcli/fs-1.1.1" // {
         dependencies = [
-          sources."semver-7.7.1"
+          sources."semver-7.7.2"
         ];
       })
       sources."@npmcli/move-file-1.1.2"
@@ -1311,7 +1311,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001717"
+      sources."caniuse-lite-1.0.30001718"
       sources."chalk-5.4.1"
       sources."chownr-2.0.0"
       sources."clean-stack-2.2.0"
@@ -1319,8 +1319,8 @@ let
       sources."cli-spinners-2.9.2"
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
-      sources."debug-4.4.0"
-      sources."electron-to-chromium-1.5.151"
+      sources."debug-4.4.1"
+      sources."electron-to-chromium-1.5.155"
       sources."emoji-regex-10.4.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
