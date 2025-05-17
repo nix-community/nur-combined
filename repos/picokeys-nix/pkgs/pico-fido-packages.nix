@@ -2,22 +2,19 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   python3,
-  cmake,
-  pico-sdk-full,
-  picotool,
-  gcc-arm-embedded,
 
-  pico-keys-sdk,
+  version ? "6.4",
+  rev ? "v6.4",
+  hash ? "sha256-k5oermMHzLt7IYnnuM3uqDyMToP5hc/lZv6tJ48mEPw=",
 }:
 let
-  version = "6.6";
-  src = fetchFromGitHub {
+  inherit version;
+  source = fetchFromGitHub {
+    inherit rev hash;
     owner = "polhenarejos";
     repo = "pico-fido";
-    rev = "v${version}";
-    hash = "sha256-Em8QULTe+NlTeSYZe/pmfCPBABpLHrIyviOD8N4KX14=";
+    fetchSubmodules = true;
   };
   pico-fido =
     {
@@ -25,14 +22,17 @@ let
       usbVid ? null,
       usbPid ? null,
       vidPid ? null,
-      delayedBoot ? false,
-      eddsaSupport ? false,
-      secureBootKey ? null,
-      generateOtpFile ? false,
+
+      cmake,
+      pico-sdk-full,
+      picotool,
+      gcc-arm-embedded,
     }:
     stdenv.mkDerivation {
-      pname = "pico-fido${lib.optionalString eddsaSupport "-eddsa"}";
-      inherit version src;
+      pname = "pico-fido";
+      inherit version;
+
+      src = source;
 
       nativeBuildInputs = [
         cmake
@@ -43,7 +43,6 @@ let
 
       phases = [
         "unpackPhase"
-        "patchPhase"
         "configurePhase"
         "buildPhase"
         "installPhase"
@@ -51,46 +50,32 @@ let
 
       cmakeFlags =
         [
-          (lib.cmakeFeature "CMAKE_CXX_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-g++")
-          (lib.cmakeFeature "CMAKE_C_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-gcc")
-          (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk-full}/lib/pico-sdk")
-
-          (lib.cmakeFeature "PICO_BOARD" picoBoard)
-          (lib.cmakeBool "ENABLE_DELAYED_BOOT" delayedBoot)
-          (lib.cmakeBool "ENABLE_EDDSA" eddsaSupport)
+          "-DPICO_SDK_PATH=${pico-sdk-full}/lib/pico-sdk"
+          "-DCMAKE_C_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-gcc"
+          "-DCMAKE_CXX_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-g++"
         ]
-        ++ lib.optional (usbVid != null && usbPid != null) [
-          (lib.cmakeFeature "USB_VID" usbVid)
-          (lib.cmakeFeature "USB_PID" usbPid)
+        ++ lib.optional (picoBoard != null) [
+          "-DPICO_BOARD=${picoBoard}"
         ]
-        ++ lib.optional (vidPid != null) [
-          (lib.cmakeFeature "VIDPID" vidPid)
+        ++ lib.optional (usbVid != null) [
+          "-DUSB_VID=${usbVid}"
         ]
-        ++ lib.optional (secureBootKey != null) [
-          (lib.cmakeFeature "SECURE_BOOT_PKEY" secureBootKey)
-        ];
-
-      prePatch = ''
-        cp -r ${pico-keys-sdk { inherit eddsaSupport generateOtpFile; }}/share/pico-keys-sdk .
-        chmod -R +w pico-keys-sdk
-      '';
+        ++ lib.optional (usbPid != null) [
+          "-DUSB_PID=${usbPid}"
+        ]
+        ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ];
 
       installPhase = ''
         ${lib.optionalString (picoBoard != null)
-          "mv pico_fido.uf2 pico_fido${lib.optionalString eddsaSupport "_eddsa"}_${
+          "mv pico_fido.uf2 pico_fido_${
             lib.optionalString (vidPid != null) "${vidPid}-"
           }${picoBoard}-${version}.uf2"
         }
         ${lib.optionalString (
           vidPid != null && picoBoard == null
-        ) "mv pico_fido.uf2 pico_fido${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"}
+        ) "mv pico_fido.uf2 pico_fido_${vidPid}-${version}.uf2"}
         mkdir -p $out
-        cp *.uf2 $out
-        runHook postInstall        
-      '';
-
-      postInstall = lib.optionalString generateOtpFile ''
-        cp /build/source/otp.json $out
+        cp -r *.uf2 $out
       '';
 
       meta = {
@@ -102,12 +87,13 @@ let
     };
 
   pico-fido-tool = python3.pkgs.buildPythonApplication rec {
-    inherit src;
     pname = "pico-fido-tool";
     version = "1.8";
     pyproject = true;
 
     doCheck = false;
+
+    src = source;
 
     sourceRoot = "source/tools";
 
@@ -141,5 +127,5 @@ let
   };
 in
 {
-  inherit pico-fido-tool pico-fido;
+  inherit pico-fido pico-fido-tool;
 }

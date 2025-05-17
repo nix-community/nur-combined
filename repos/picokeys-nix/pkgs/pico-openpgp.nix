@@ -1,13 +1,12 @@
 {
-
   picoBoard ? "waveshare_rp2040_one",
   usbVid ? null,
   usbPid ? null,
   vidPid ? null,
-  delayedBoot ? false,
-  eddsaSupport ? false,
-  secureBootKey ? null,
-  generateOtpFile ? false,
+
+  version ? "3.4",
+  rev ? "v3.4",
+  hash ? "sha256-IW/ejyPEtUn6FayhmtNOfiiupYrVRMtHoBe33EdvPw4=",
 
   lib,
   stdenv,
@@ -17,18 +16,17 @@
   picotool,
   gcc-arm-embedded,
   python3,
-
-  pico-keys-sdk,
 }:
+
 stdenv.mkDerivation rec {
-  pname = "pico-openpgp${lib.optionalString eddsaSupport "-eddsa"}";
-  version = "3.6";
+  pname = "pico-openpgp";
+  inherit version;
 
   src = fetchFromGitHub {
+    inherit rev hash;
     owner = "polhenarejos";
     repo = "pico-openpgp";
-    rev = "v${version}";
-    hash = "sha256-za3hymEurUQarSvaD9DrYnhsFUhe8G2p+LONN/ag260=";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
@@ -40,7 +38,6 @@ stdenv.mkDerivation rec {
 
   phases = [
     "unpackPhase"
-    "patchPhase"
     "configurePhase"
     "buildPhase"
     "installPhase"
@@ -48,47 +45,33 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      (lib.cmakeFeature "CMAKE_CXX_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-g++")
-      (lib.cmakeFeature "CMAKE_C_COMPILER" "${gcc-arm-embedded}/bin/arm-none-eabi-gcc")
-      (lib.cmakeFeature "PICO_SDK_PATH" "${pico-sdk-full}/lib/pico-sdk")
-
-      (lib.cmakeFeature "PICO_BOARD" picoBoard)
-      (lib.cmakeBool "ENABLE_DELAYED_BOOT" delayedBoot)
-      (lib.cmakeBool "ENABLE_EDDSA" eddsaSupport)
+      "-DPICO_SDK_PATH=${pico-sdk-full}/lib/pico-sdk"
+      "-DCMAKE_C_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-gcc"
+      "-DCMAKE_CXX_COMPILER=${gcc-arm-embedded}/bin/arm-none-eabi-g++"
     ]
-    ++ lib.optional (usbVid != null && usbPid != null) [
-      (lib.cmakeFeature "USB_VID" usbVid)
-      (lib.cmakeFeature "USB_PID" usbPid)
+    ++ lib.optional (picoBoard != null) [
+      "-DPICO_BOARD=${picoBoard}"
     ]
-    ++ lib.optional (vidPid != null) [
-      (lib.cmakeFeature "VIDPID" vidPid)
+    ++ lib.optional (usbVid != null) [
+      "-DUSB_VID=${usbVid}"
     ]
-    ++ lib.optional (secureBootKey != null) [
-      (lib.cmakeFeature "SECURE_BOOT_PKEY" secureBootKey)
-    ];
-
-  prePatch = ''
-    cp -r ${pico-keys-sdk { inherit eddsaSupport generateOtpFile; }}/share/pico-keys-sdk .
-    chmod -R +w pico-keys-sdk
-  '';
+    ++ lib.optional (usbPid != null) [
+      "-DUSB_PID=${usbPid}"
+    ]
+    ++ lib.optional (vidPid != null) [ "-DVIDPID=${vidPid}" ];
 
   installPhase = ''
     ${lib.optionalString (picoBoard != null)
-      "mv pico_openpgp.uf2 pico_openpgp${lib.optionalString eddsaSupport "_eddsa"}_${
+      "mv pico_openpgp.uf2 pico_openpgp_${
         lib.optionalString (vidPid != null) "${vidPid}-"
       }${picoBoard}-${version}.uf2"
     }
-    ${lib.optionalString (vidPid != null && picoBoard == null)
-      "mv pico_openpgp.uf2 pico_openpgp${lib.optionalString eddsaSupport "_eddsa"}_${vidPid}-${version}.uf2"
-    }
+    ${lib.optionalString (
+      vidPid != null && picoBoard == null
+    ) "mv pico_openpgp.uf2 pico_openpgp_${vidPid}-${version}.uf2"}
 
     mkdir -p $out
-    cp *.uf2 $out
-    runHook postInstall
-  '';
-
-  postInstall = lib.optionalString generateOtpFile ''
-    cp /build/source/otp.json $out
+    cp -r *.uf2 $out
   '';
 
   meta = {
