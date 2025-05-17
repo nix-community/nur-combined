@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5401",
-            "sha256": "sha256-HwxkDh4uhhXjs5yNecXhREeH6kl4/GEqpU3dD+a2eVs=",
+            "rev": "b5412",
+            "sha256": "sha256-MSRZaKrWJ5Wqg43NdfUdhcdZGCW1PGSwCLBKhj4O+Rw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5401"
+        "version": "b5412"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3365,7 +3365,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-05-11",
+        "date": "2025-05-16",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3377,12 +3377,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7",
-            "sha256": "sha256-K+xYo4SBDws5oPKVkxkfosw8sizzFO9DWxWEu7PRPQ0=",
+            "rev": "10053e774d22b64d1e4d169c041ef7d9224a6a33",
+            "sha256": "sha256-A4GUoD3Ayc354vyMEevNprNfL/JAzSRp6Jk8yB4EnSY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7"
+        "version": "10053e774d22b64d1e4d169c041ef7d9224a6a33"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-15",
+        "date": "2025-05-16",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69",
-            "sha256": "sha256-HgfdquRUzUbNmhRmdJ1nkZyPCF6XS1zSHy+hbILzY7M=",
+            "rev": "57a53380df8f282ccd92524bd63817e9a6b5c55b",
+            "sha256": "sha256-M8ZTzZjBm++jDisFACTi8laHVVTPMG7dvwyuTJUaaOw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69"
+        "version": "57a53380df8f282ccd92524bd63817e9a6b5c55b"
     },
     "unigine-heaven": {
         "cargoLocks": null,

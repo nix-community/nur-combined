@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5401";
+    version = "b5412";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5401";
-      hash = "sha256-HwxkDh4uhhXjs5yNecXhREeH6kl4/GEqpU3dD+a2eVs=";
+      tag = "b5412";
+      hash = "sha256-MSRZaKrWJ5Wqg43NdfUdhcdZGCW1PGSwCLBKhj4O+Rw=";
     };
   };
   loralib = {
@@ -1725,14 +1725,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7";
+    version = "10053e774d22b64d1e4d169c041ef7d9224a6a33";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "face4fabbe9d2ab01e73ec3cc6253924cca5e2f7";
-      hash = "sha256-K+xYo4SBDws5oPKVkxkfosw8sizzFO9DWxWEu7PRPQ0=";
+      rev = "10053e774d22b64d1e4d169c041ef7d9224a6a33";
+      hash = "sha256-A4GUoD3Ayc354vyMEevNprNfL/JAzSRp6Jk8yB4EnSY=";
     };
-    date = "2025-05-11";
+    date = "2025-05-16";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69";
+    version = "57a53380df8f282ccd92524bd63817e9a6b5c55b";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "2a02b7e0a1c5ccb5dd0fa022873df42d4a984a69";
+      rev = "57a53380df8f282ccd92524bd63817e9a6b5c55b";
       fetchSubmodules = true;
-      hash = "sha256-HgfdquRUzUbNmhRmdJ1nkZyPCF6XS1zSHy+hbILzY7M=";
+      hash = "sha256-M8ZTzZjBm++jDisFACTi8laHVVTPMG7dvwyuTJUaaOw=";
     };
-    date = "2025-05-15";
+    date = "2025-05-16";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
