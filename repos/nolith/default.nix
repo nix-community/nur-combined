@@ -12,4 +12,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ringctl = pkgs.callPackage ./pkgs/ringctl {};
+  fitcsvtool = pkgs.callPackage ./pkgs/fitcsvtool {};
 }
