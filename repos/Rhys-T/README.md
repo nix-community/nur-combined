@@ -104,13 +104,16 @@ minivmac37.override {
 }
 ```
 
-| Feature                 | Nixpkgs `minivmac`                                               | This `minivmac`                                                                                                                                        |
-| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Built from              | [@erichegelson's fork](https://github.com/erichegelson/minivmac) | [Upstream from Paul C. Pratt](https://gryphel.com/c/minivmac/)                                                                                         |
-| Versions                | Forked from 37.03 beta                                           | `minivmac`: 36.04<br>`minivmac-unstable`: 37.03 beta                                                                                                   |
-| Platforms               | <ul><li>`x86_64-linux`</li></ul>                                 | <ul><li>`x86_64-linux`</li><li>`aarch64-linux` (v37+ only)</li><li>`i686-linux`</li><li>`x86_64-darwin`</li><li>`aarch64-darwin` (v37+ only)</li></ul> |
-| Select emulated machine | ❌ No (always Macintosh Plus)                                    | ✅ Yes                                                                                                                                                 |
-| Select other options    | ❌ No                                                            | ✅ Yes                                                                                                                                                 |
+| Feature                 | Nixpkgs `minivmac`                                                | This `minivmac`                                                                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Built from              | [@erichegelson's fork](https://github.com/erichegelson/minivmac)  | [Upstream from Paul C. Pratt](https://gryphel.com/c/minivmac/)                                                                                                  |
+| Versions                | Forked from 37.03 beta                                            | `minivmac`: 36.04<br>`minivmac-unstable`: 37.03 beta                                                                                                            |
+| Platforms               | <ul><li>`x86_64-linux`</li><li>`aarch64-linux`[^mvarm1]</li></ul> | <ul><li>`x86_64-linux`</li><li>`aarch64-linux`[^mvarm2] (v37+ only)</li><li>`i686-linux`</li><li>`x86_64-darwin`</li><li>`aarch64-darwin` (v37+ only)</li></ul> |
+| Select emulated machine | ❌ No (always Macintosh Plus)                                     | ✅ Yes                                                                                                                                                          |
+| Select other options    | ❌ No                                                             | ✅ Yes                                                                                                                                                          |
+
+[^mvarm1]: Using `lx64` target.
+[^mvarm2]: Using `larm` target with CPU explicitly overridden to `a64`.
 
 ### `pce`
 
