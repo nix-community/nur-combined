@@ -73,7 +73,6 @@ rec {
   fediblockhole = pkgs.callPackage ./packages/fediblockhole.nix { };
   git-diff-image = pkgs.callPackage ./packages/git-diff-image.nix { };
   gpx-reduce = pkgs.callPackage ./packages/gpx-reduce.nix { };
-  gtk4-icon-browser = pkgs.callPackage ./packages/gtk4-icon-browser.nix { };
   iptables_exporter = pkgs.callPackage ./packages/iptables_exporter.nix { };
   josm-imagery-used = pkgs.callPackage ./packages/josm-imagery-used.nix { inherit buildJosmPlugin; };
   little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };

@@ -15,6 +15,7 @@ nullglob
 pdfinfo
 popd
 pushd
+readarray
 readlink
 realpath
 setaf

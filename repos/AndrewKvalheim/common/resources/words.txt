@@ -1518,6 +1518,7 @@ zdiff3
 Zenity
 zeroable
 ZFS
+Zigbee
 zoomable
 Zopfli
 zram
