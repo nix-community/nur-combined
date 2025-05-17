@@ -339,10 +339,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.45.2";
+      version = "1.45.3";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4424252/animalese_typing-1.45.2.xpi";
-      sha256 = "227930642101de655d6b131e892633c162a4ab7f760d1a7d49f26a60846232b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494704/animalese_typing-1.45.3.xpi";
+      sha256 = "850842d4f68e20715d39fab86e832fb8bbc50a518b10d76cb16949f80d4e5f13";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type!";
@@ -964,10 +964,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.13.1";
+      version = "2.14.0";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4440018/beyond_20-2.13.1.xpi";
-      sha256 = "1e9a80f37071243a5bbd327b8d5a1590b552f9463e37aba6d1ea9e0d9d60a6f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4486200/beyond_20-2.14.0.xpi";
+      sha256 = "1a9be38c2a2889bd0bfcba049401c333c80c8a445a6f9a72510d18bc021300b7";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -6989,7 +6989,7 @@
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
-        description = "Enhance your webmail provider with end-to-end encryption. Secure email communication based on the OpenPGP standard.";
+        description = "Protect your email conversations and attachments on Gmail, Nextcloud, Outlook and more with PGP and end-to-end encryption.";
         license = licenses.gpl3;
         mozPermissions = [
           "*://*/*"
@@ -7791,10 +7791,10 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.10.3";
+      version = "1.10.4";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485826/material_icons_for_github-1.10.3.xpi";
-      sha256 = "38316c95a30b652b730638cf9379bf4be51c191a9eb80ae95c4f0c1a7dc43400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494848/material_icons_for_github-1.10.4.xpi";
+      sha256 = "ebd249872fd551197772f413bb5761782da74501560774581186d80ad890326c";
       meta = with lib;
       {
         homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
@@ -12725,10 +12725,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.63.2";
+      version = "1.64.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4458450/ublock_origin-1.63.2.xpi";
-      sha256 = "d93176cef4dc042e41ba500aa2a90e5d57b5be77449cbd522111585e3a0cd158";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4492375/ublock_origin-1.64.0.xpi";
+      sha256 = "b9e1c868bd1ac1defcabf2e01776d1a90effba34b07fe6a21350d45f022e0e9f";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -13382,10 +13382,10 @@
     };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
-      version = "10.3";
+      version = "10.8";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337397/w2g-10.3.xpi";
-      sha256 = "cc0271c54fbdffdb401e85dd2634c0a7084c1796a03b28067d62ba6a048904e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4491885/w2g-10.8.xpi";
+      sha256 = "212592ce269cbee52793a99be55b56415f5844b4e73692a3e8805ac97f27f87a";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
@@ -13916,10 +13916,10 @@
     };
     "whowrotethat" = buildFirefoxXpiAddon {
       pname = "whowrotethat";
-      version = "0.22.2.0";
+      version = "0.22.3.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333287/whowrotethat-0.22.2.0.xpi";
-      sha256 = "dfb24e750b7b150141c55353ea2f2159c161941782fe994175a256b73a60fab0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494744/whowrotethat-0.22.3.0.xpi";
+      sha256 = "1bc5be641e6226c0585e1727f406455b0898c0b5a3c0fb927cafb9238bc464dc";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
