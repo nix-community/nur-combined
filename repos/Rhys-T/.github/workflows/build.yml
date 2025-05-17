@@ -40,6 +40,8 @@ jobs:
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             
+            # "25.05" as $beta |
+            null as $beta |
             "24.11" as $stable |
             null as $oldStable |
             
@@ -53,7 +55,7 @@ jobs:
             [
               "nixpkgs-unstable",
               "nixos-unstable",
-              "nixos-\(($stable, $oldStable) | select(. != null))",
+              "nixos-\(($beta, $stable, $oldStable) | select(. != null))",
             empty] as $nixpkgss |
             
             [

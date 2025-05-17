@@ -233,13 +233,13 @@ in {
         inherit (pkgs) lib fetchFromGitea;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "25.5.11-unstable-2025-05-11";
+            version = "25.5.17";
             src = fetchFromGitea {
                 domain = "git.envs.net";
                 owner = "mpech";
                 repo = "pil21";
-                rev = "9b77acb6f8728c0e57ce338eacebd4fe619be2f4";
-                hash = "sha256-pErQngLC4erXhFafMONm6ybJa2eWflFgjPMV53mtAoY=";
+                rev = "69772989611ea97fbb6886a472de9f6cd266ae2c";
+                hash = "sha256-mbFCM/3+Yc4XMlJBo7FUqbRH227ug5ghm9qnQ9u1qNA=";
             };
             sourceRoot = null;
             passthru = (old.passthru or {}) // {
