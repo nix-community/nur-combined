@@ -67,10 +67,10 @@
   };
   pandoc = {
     pname = "pandoc";
-    version = "3.6.4";
+    version = "3.7";
     src = fetchurl {
-      url = "https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz";
-      sha256 = "sha256-Xe9uH/U145e+zOKS7pd2epRzBhULn7FIgAO2esNBfF4=";
+      url = "https://github.com/jgm/pandoc/releases/download/3.7/pandoc-3.7-linux-amd64.tar.gz";
+      sha256 = "sha256-jm3MAsOxSw29U3RGtdMvC7ShVQOtgTjRXSIAb5dIelM=";
     };
   };
 }
