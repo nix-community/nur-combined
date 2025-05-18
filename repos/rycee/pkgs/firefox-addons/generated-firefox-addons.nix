@@ -2280,10 +2280,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "139.0.20250516.91640";
+      version = "139.0.20250517.142841";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494364/dansk_da_language_pack-139.0.20250516.91640.xpi";
-      sha256 = "01df71b47bc92833d8427fb377dd15415dbbbf57cca6b641773100c071073558";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495517/dansk_da_language_pack-139.0.20250517.142841.xpi";
+      sha256 = "8a323f700f5eb7aa5a54de71aeeea5179f32c66b13bebdfdd9681acbce301a30";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2477,10 +2477,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "139.0.20250516.91640";
+      version = "139.0.20250517.142841";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494352/deutsch_de_language_pack-139.0.20250516.91640.xpi";
-      sha256 = "22225907f190aa5f5c789697354a54212c6ad78c311a3013313f5f080e141cc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495534/deutsch_de_language_pack-139.0.20250517.142841.xpi";
+      sha256 = "763dd4fc37abfdf14c181a30c4b74405f9e8434df9b0121c7c55966bd2916f5a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3733,10 +3733,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "139.0.20250516.91640";
+      version = "139.0.20250517.142841";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494382/francais_language_pack-139.0.20250516.91640.xpi";
-      sha256 = "85c18444fed586a848e581a01a32d7a80ab183222e5df6285c0204886cf5a6fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495518/francais_language_pack-139.0.20250517.142841.xpi";
+      sha256 = "9dec493dc5c3550c39496e92d0368a82966fb87fd15cc9921650505ea285f1af";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3770,10 +3770,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "139.0.20250516.91640";
+      version = "139.0.20250517.142841";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494346/gaidhlig_language_pack-139.0.20250516.91640.xpi";
-      sha256 = "058f65b1757414df7822671aae2f19ffb2dcfd19795bfb1c21dc824ffc4d623d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495569/gaidhlig_language_pack-139.0.20250517.142841.xpi";
+      sha256 = "47d81e2ff480008997a5bc63e83b5d698498412ced12f7f6792ed4fb472335a8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10212,16 +10212,23 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.4.3";
+      version = "2.4.4";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485293/readeck-2.4.3.xpi";
-      sha256 = "9cedf253a2ecdce3a5a08e3b8400515127c2df3b59f0c07e009af49c2cd57872";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494970/readeck-2.4.4.xpi";
+      sha256 = "945f1365d2ba7a6e9f4a3b4b3a3942d297eef7385a8dcb9802ebc05bfa6a7718";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
         description = "Readeck companion browser extension";
         license = licenses.lgpl3;
-        mozPermissions = [ "activeTab" "contextMenus" "scripting" "storage" ];
+        mozPermissions = [
+          "activeTab"
+          "contextMenus"
+          "scripting"
+          "storage"
+          "http://*/*"
+          "https://*/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10369,10 +10376,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.4.8";
+      version = "25.5.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470107/refined_github-25.4.8.xpi";
-      sha256 = "4e07f83622497c5ea1e2fb39f94d910233cdf467a562df4b37dc39adea6fba47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495758/refined_github-25.5.18.xpi";
+      sha256 = "36c23ff732d3cf221f2764c81883311dae5e23ed2ad352a68d52887d594dab91";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10585,10 +10592,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "139.0.20250516.91640";
+      version = "139.0.20250517.142841";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494340/scots_language_pack-139.0.20250516.91640.xpi";
-      sha256 = "bf3ee3bcf9780fa13a8e96dce7e901772854d3a0b5f03f0223e33fdc2f1ad3eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495512/scots_language_pack-139.0.20250517.142841.xpi";
+      sha256 = "3895086112216eb6d0d7f9d052760724c2815c19b26990784d3b26f47ffdf146";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
