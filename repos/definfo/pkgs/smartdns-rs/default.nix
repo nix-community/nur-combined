@@ -8,17 +8,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "smartdns-rs";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "mokeyish";
     repo = "smartdns-rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-A/h2vPBbC4EzqLjWjQM0eiYXQZHEkJZW20/NbHkXNi0=";
+    hash = "sha256-mD4QIVx/PnC6IVnH8p+J9arLBFiugeWynTSKGKmzoBQ=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-Tgm+c0JPhF93TI9k7jrRjxPUjxpJgED3RtBbK9yDtwQ=";
+  cargoHash = "sha256-X/E0P3fnVQxUuXM8+tNDg9pSGd4xYanSpTvvj4n/KiM=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
