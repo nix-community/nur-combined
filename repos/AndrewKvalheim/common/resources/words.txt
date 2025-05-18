@@ -1423,6 +1423,7 @@ UTF
 UW
 UX
 validatable
+varyingly
 Vaultwarden
 VCS
 vendored

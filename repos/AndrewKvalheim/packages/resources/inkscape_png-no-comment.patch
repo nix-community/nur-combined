@@ -1,0 +1,4 @@
+--- i/src/helper/png-write.cpp
++++ w/src/helper/png-write.cpp
+@@ -218 +217,0 @@
+-    textList.add("Software", "www.inkscape.org"); // Made by Inkscape comment

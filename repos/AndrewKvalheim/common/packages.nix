@@ -44,6 +44,7 @@ in
   graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = ({ "24.0.1" = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; "24.1.1" = "sha256-ctFw/8HL9vAHeDhQHallUYHAqkJGHPAdzP08MptGOD8="; "24.2.0" = "sha256-XAJsvmQW5ZYNJgCSlGf7PSW4H1hz0MacRt7xv/AwLhY="; }).${g.version}; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
   htop.patch = ../packages/resources/htop_colors.patch; # htop-dev/htop#1416
   httpie.env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # NixOS/nixpkgs#94666
+  inkscape.patch = ../packages/resources/inkscape_png-no-comment.patch; # TODO: Contribute option to disable
   ios-safari-remote-debug-kit = any;
   ios-webkit-debug-proxy = any;
   iosevka-custom = any;
