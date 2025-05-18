@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5412",
-            "sha256": "sha256-MSRZaKrWJ5Wqg43NdfUdhcdZGCW1PGSwCLBKhj4O+Rw=",
+            "rev": "b5415",
+            "sha256": "sha256-GOB1QKc3KDKT+brNqi7kpSxjdCoi6aEIEvmc4H2Fi1A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5412"
+        "version": "b5415"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-16",
+        "date": "2025-05-17",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "57a53380df8f282ccd92524bd63817e9a6b5c55b",
-            "sha256": "sha256-M8ZTzZjBm++jDisFACTi8laHVVTPMG7dvwyuTJUaaOw=",
+            "rev": "f49cb20fbd062c74441bc513067a6ce579104ac7",
+            "sha256": "sha256-02hovpSz/N2AmuscQshd8FBtuP9/i76wnz3S6xhxriE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "57a53380df8f282ccd92524bd63817e9a6b5c55b"
+        "version": "f49cb20fbd062c74441bc513067a6ce579104ac7"
     },
     "unigine-heaven": {
         "cargoLocks": null,

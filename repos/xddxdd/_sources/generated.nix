@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5412";
+    version = "b5415";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5412";
-      hash = "sha256-MSRZaKrWJ5Wqg43NdfUdhcdZGCW1PGSwCLBKhj4O+Rw=";
+      tag = "b5415";
+      hash = "sha256-GOB1QKc3KDKT+brNqi7kpSxjdCoi6aEIEvmc4H2Fi1A=";
     };
   };
   loralib = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "57a53380df8f282ccd92524bd63817e9a6b5c55b";
+    version = "f49cb20fbd062c74441bc513067a6ce579104ac7";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "57a53380df8f282ccd92524bd63817e9a6b5c55b";
+      rev = "f49cb20fbd062c74441bc513067a6ce579104ac7";
       fetchSubmodules = true;
-      hash = "sha256-M8ZTzZjBm++jDisFACTi8laHVVTPMG7dvwyuTJUaaOw=";
+      hash = "sha256-02hovpSz/N2AmuscQshd8FBtuP9/i76wnz3S6xhxriE=";
     };
-    date = "2025-05-16";
+    date = "2025-05-17";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
