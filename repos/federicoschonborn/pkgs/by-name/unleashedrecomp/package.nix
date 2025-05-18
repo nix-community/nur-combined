@@ -6,15 +6,17 @@
   requireFile,
   cmake,
   directx-shader-compiler,
+  makeWrapper,
   ninja,
   pkg-config,
   vcpkg,
+  wrapGAppsHook3,
   # UnleashedRecomp includes its own copy of SDL2.
   SDL2_classic,
   curl,
+  vulkan-loader,
   freetype,
   gtk3,
-  vulkan-loader,
   replaceVarsWith,
   nix-update-script,
 }:
@@ -80,13 +82,16 @@ clangStdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     directx-shader-compiler-libdxildll
+    makeWrapper
     ninja
     pkg-config
     vcpkg
+    wrapGAppsHook3
   ] ++ SDL2_classic.nativeBuildInputs;
 
   buildInputs = [
     curl
+    vulkan-loader
     # Required by bundled msdfgen library
     freetype
     # Required by bundled nativefiledialog library
@@ -106,12 +111,12 @@ clangStdenv.mkDerivation (finalAttrs: {
   };
 
   cmakeFlags = [
+    "-DSDL2MIXER_VORBIS=VORBISFILE"
     "-Ddirectx-dxc_DIR=${finalAttrs.directx-dxc-config}/cmake"
   ];
 
   postPatch = ''
     substituteInPlace UnleashedRecomp/CMakeLists.txt --replace-fail "file(CHMOD" "# file(CHMOD"
-    substituteInPlace thirdparty/volk/volk.c --replace-fail '"libvulkan.so' '"${vulkan-loader}/lib/libvulkan.so'
   '';
 
   preConfigure = ''
@@ -130,6 +135,14 @@ clangStdenv.mkDerivation (finalAttrs: {
     install -Dm00644 ../flatpak/io.github.hedge_dev.unleashedrecomp.desktop -t $out/share/applications
 
     runHook postInstall
+  '';
+
+  dontWrapGApps = true;
+
+  postFixup = ''
+    wrapProgram $out/bin/UnleashedRecomp \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}" \
+      "''${gappsWrapperArgs[@]}"
   '';
 
   passthru.updateScript = nix-update-script { };
