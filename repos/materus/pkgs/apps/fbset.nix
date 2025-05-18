@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Program to modify settings for the framebuffer devices (/dev/fb[0-9]* or /dev/fb/[0-9]*) on Linux, like depth, virtual resolution, timing parameters etc.";
     homepage = "https://sources.debian.org/src/fbset/";
     license = licenses.gpl2;
-    platforms = platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 }

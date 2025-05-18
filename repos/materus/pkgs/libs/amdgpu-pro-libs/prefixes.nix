@@ -41,8 +41,8 @@ pkgs.buildEnv {
     (writeShellScriptBin "vk_radv"
       ''
         export DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1
-        export VK_ICD_FILENAMES="${mesa.drivers}/share/vulkan/icd.d/radeon_icd.x86_64.json"
-        ${(if with32bit then ''export VK_ICD_FILENAMES=$VK_ICD_FILENAMES:${driversi686Linux.mesa.drivers}/share/vulkan/icd.d/radeon_icd.i686.json'' else "")}
+        export VK_ICD_FILENAMES="${mesa}/share/vulkan/icd.d/radeon_icd.x86_64.json"
+        ${(if with32bit then ''export VK_ICD_FILENAMES=$VK_ICD_FILENAMES:${driversi686Linux.mesa}/share/vulkan/icd.d/radeon_icd.i686.json'' else "")}
         "$@"
       ''
     )
