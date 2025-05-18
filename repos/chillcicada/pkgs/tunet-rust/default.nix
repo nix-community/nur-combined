@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Berrysoft";
     repo = "tunet-rust";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-q4jJXSq7KCTSOD7unQT0IraXzf2zIx3/ZjO8Dq5dEK0=";
   };
 
