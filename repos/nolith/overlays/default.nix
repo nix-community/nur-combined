@@ -1,5 +1,3 @@
-{
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+{nolithPkgs}: {
+  default = final: prev: nolithPkgs;
 }

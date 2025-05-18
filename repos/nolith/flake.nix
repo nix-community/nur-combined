@@ -25,6 +25,9 @@
       ];
 
       flake = {
+        overlays = {
+          default = final: prev: ((import ./default.nix {pkgs = prev;}).overlays.default final prev);
+        };
         templates = {
           mise = {
             path = ./templates/mise;
