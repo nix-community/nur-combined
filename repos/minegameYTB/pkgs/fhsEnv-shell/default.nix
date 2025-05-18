@@ -129,14 +129,12 @@ let
     ]) ++ lib.optionals debian-tools ([
       ### Debian package
       dpkg
-      apt
       
       ### Use glibc.dev to match with build-essential package on debian
       glibc.dev
     ]) ++ lib.optionals redhat-tools ([
       ### RedHat package
       rpm
-      dnf5
     ]);
 
     ### Shell script that run automacally when enterred in this environment
