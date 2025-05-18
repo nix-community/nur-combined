@@ -13,4 +13,6 @@
 
   ringctl = pkgs.callPackage ./pkgs/ringctl {};
   fitcsvtool = pkgs.callPackage ./pkgs/fitcsvtool {};
+  srtmpy = pkgs.callPackage ./pkgs/srtmpy {inherit (pkgs.python3.pkgs) buildPythonPackage requests;};
+  gpxtofitconverter = pkgs.callPackage ./pkgs/gpxtofitconverter {};
 }
