@@ -94,8 +94,9 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/18605/wps-office_${version}.AK.preload.sw_amd64.deb";
     # hash = "sha256-fy238yjdaV6pZOPulAMRJlcj/IHeRDjgMgrTVC0JPLQ=";
-    url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/20327/wps-office_${version}.AK.preload.sw_amd64.deb";
+    url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/${lib.last (builtins.splitVersion version)}/wps-office_${version}.AK.preload.sw_amd64.deb";
     hash = "sha256-N+2n6i7RCoKjAQ6Pds/dpfupnKR624RUiGj2cQQFpHk=";
+    curlOptsList = [ "-ehttps://365.wps.cn" ];
   };
 
   unpackCmd = " dpkg -x $src .";
