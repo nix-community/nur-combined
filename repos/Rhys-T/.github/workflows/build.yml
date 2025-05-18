@@ -40,8 +40,7 @@ jobs:
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             
-            # "25.05" as $beta |
-            null as $beta |
+            "25.05" as $beta |
             "24.11" as $stable |
             null as $oldStable |
             
