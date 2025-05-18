@@ -40,5 +40,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://codeberg.org/jeang3nie/eva";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.isDarwin; # gupnp-1.6.8
   };
 }
