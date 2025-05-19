@@ -48,7 +48,26 @@
     cowsay
     eza
     bat
-  ];
+    imagemagick
+    python3Full
+    htop
+    wget
+    unar
+    # GUI APPS
+    sqlitebrowser
+    librewolf
+    qbittorrent
+    telegram-desktop
+    vscodium
+  ] ++ (if pkgs.stdenv.isLinux then [
+    # too be added..
+  ] else [
+    libreoffice-bin
+    whisky
+    lunarfyi
+    iina
+    utm
+  ]);
 
   programs.zsh = {
     enable = true;
@@ -56,13 +75,14 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    initExtra = ''
+    initContent = ''
       zstyle ':completion:*' menu select
       zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
       if [[ $TERM = "xterm-256color" ]]; then
           source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
           source ~/.p10k.zsh
       fi
+      export LESSHISTFILE=- 
       fortune-kind | cowsay -f koala
     '';
 
@@ -72,6 +92,32 @@
       ls = "eza -lh --octal-permissions --no-permissions --group  -F";
     };
   };
+
+  targets.darwin.defaults = {
+    NSGlobalDomain = { 
+      _NS_4445425547 = true; # Enable Debug Menu
+      AppleShowAllExtensions = true; # Show file extensions
+      "com.apple.mouse.tapBehavior" = 1;  # Enable trackpad tap to click
+    };
+
+    # Disable .DS_Store Writing
+    "com.apple.desktopservices" = {
+      DSDontWriteNetworkStores = true;
+      DSDontWriteUSBStores = true;
+    };
+
+    "com.apple.finder" = {
+      _FXSortFoldersFirst = true; # Show Folder on top;
+      FXPreferredViewStyle = "Nlsv"; # default to list view
+      AppleShowAllFiles = true;  # Show hidden files
+      QuitMenuItem = true;  # Quit Find by CMD+Q
+      FXEnableExtensionChangeWarning = false; # Changing file extension warning
+      ShowPathbar = true;   # Show bottom path bar
+    };
+
+    # Show battery percentage
+    "com.apple.controlcenter.plist" = { BatteryShowPercentage = true; };
+  }; 
 
   dconf.settings = if pkgs.stdenv.isLinux then {
     "org/gnome/desktop/peripherals/touchpad" = {
