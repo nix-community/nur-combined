@@ -161,10 +161,10 @@
     };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.3.3";
+      version = "2.3.5";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4345117/addy_io-2.3.3.xpi";
-      sha256 = "523226c1fba8d8b67f2e824ae635e5bd2e136d9fbc83cd7c766da038bc2c0614";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4495917/addy_io-2.3.5.xpi";
+      sha256 = "0cda4c2a7a39f15ae239eab5b77019580805c3516123195b4c6c585935cafc1d";
       meta = with lib;
       {
         homepage = "https://addy.io";
