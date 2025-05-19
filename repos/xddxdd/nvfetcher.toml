@@ -965,10 +965,7 @@ fetch.github = "mbilker/vgpu_unlock-rs"
 [vk-hdr-layer]
 src.git = "https://github.com/Zamundaaa/VK_hdr_layer.git"
 fetch.github = "Zamundaaa/VK_hdr_layer"
-
-[vkroots]
-src.git = "https://github.com/misyltoad/vkroots.git"
-fetch.github = "misyltoad/vkroots"
+git.fetchSubmodules = true
 
 [vpp]
 src.github_tag = "FDio/vpp"

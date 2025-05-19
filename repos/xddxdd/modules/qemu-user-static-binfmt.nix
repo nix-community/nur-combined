@@ -220,6 +220,8 @@ let
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
 in
 {
+  key = "xddxdd-nur-packages-qemu-user-static-binfmt";
+
   options.lantian.qemu-user-static-binfmt = {
     enable = lib.mkOption {
       type = lib.types.bool;

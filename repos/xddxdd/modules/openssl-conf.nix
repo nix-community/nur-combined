@@ -13,6 +13,8 @@ let
   '';
 in
 {
+  key = "xddxdd-nur-packages-openssl-conf";
+
   options.security.openssl = {
     enable = lib.mkEnableOption (lib.mdDoc "Specify settings (OPENSSL_CONF) for OpenSSL") // {
       default = true;

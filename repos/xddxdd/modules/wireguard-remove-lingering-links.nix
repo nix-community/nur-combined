@@ -5,6 +5,8 @@
   ...
 }:
 {
+  key = "xddxdd-nur-packages-wireguard-remove-lingering-links";
+
   # Remove lingering WireGuard links after they are shut down.
   systemd.services =
     let

@@ -8,6 +8,8 @@ let
   cfg = config.security.openssl.gost-engine;
 in
 {
+  key = "xddxdd-nur-packages-openssl-gost-engine";
+
   imports = [ ./openssl-conf.nix ];
 
   options.security.openssl.gost-engine = {

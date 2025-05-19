@@ -4227,38 +4227,17 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "owner": "Zamundaaa",
             "repo": "VK_hdr_layer",
             "rev": "3b276e68136eb10825aa7cabd06abb324897f0e8",
-            "sha256": "sha256-Egd7GXbtavuJJaGYxMevh72j+B85OibQirR18ZIk6+8=",
+            "sha256": "sha256-c3OLT2qMKAQnQYrTVhrs3BEVS55HoaeBijgzygz6zgs=",
             "sparseCheckout": [],
             "type": "github"
         },
         "version": "3b276e68136eb10825aa7cabd06abb324897f0e8"
-    },
-    "vkroots": {
-        "cargoLocks": null,
-        "date": "2024-11-30",
-        "extract": null,
-        "name": "vkroots",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "misyltoad",
-            "repo": "vkroots",
-            "rev": "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3",
-            "sha256": "sha256-ZrWPPZV8YpKmycni2/6gKNin5mk7tRFZysklmWsrIPw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3"
     },
     "vpp": {
         "cargoLocks": null,

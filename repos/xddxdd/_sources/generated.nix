@@ -2167,20 +2167,10 @@
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
       rev = "3b276e68136eb10825aa7cabd06abb324897f0e8";
-      hash = "sha256-Egd7GXbtavuJJaGYxMevh72j+B85OibQirR18ZIk6+8=";
+      fetchSubmodules = true;
+      hash = "sha256-c3OLT2qMKAQnQYrTVhrs3BEVS55HoaeBijgzygz6zgs=";
     };
     date = "2025-04-16";
-  };
-  vkroots = {
-    pname = "vkroots";
-    version = "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3";
-    src = fetchFromGitHub {
-      owner = "misyltoad";
-      repo = "vkroots";
-      rev = "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3";
-      hash = "sha256-ZrWPPZV8YpKmycni2/6gKNin5mk7tRFZysklmWsrIPw=";
-    };
-    date = "2024-11-30";
   };
   vpp = {
     pname = "vpp";

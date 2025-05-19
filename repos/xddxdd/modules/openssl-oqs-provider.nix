@@ -8,6 +8,8 @@ let
   cfg = config.security.openssl.oqs-provider;
 in
 {
+  key = "xddxdd-nur-packages-openssl-oqs-provider";
+
   imports = [
     ./openssl-conf.nix
     (lib.mkRenamedOptionModule

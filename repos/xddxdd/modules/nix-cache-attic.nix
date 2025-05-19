@@ -3,7 +3,10 @@ let
   meta = import ../helpers/meta.nix;
 in
 {
-  nix.settings.substituters = [ meta.atticUrl ];
-  nix.settings.trusted-substituters = [ meta.atticUrl ];
-  nix.settings.trusted-public-keys = [ meta.atticPublicKey ];
+  key = "xddxdd-nur-packages-nix-cache-attic";
+  config = {
+    nix.settings.substituters = [ meta.atticUrl ];
+    nix.settings.trusted-substituters = [ meta.atticUrl ];
+    nix.settings.trusted-public-keys = [ meta.atticPublicKey ];
+  };
 }

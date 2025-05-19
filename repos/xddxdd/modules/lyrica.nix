@@ -5,6 +5,8 @@
   ...
 }:
 {
+  key = "xddxdd-nur-packages-lyrica";
+
   imports = [
     (lib.mkRenamedOptionModule
       [

@@ -11,6 +11,8 @@ let
   configFile = settingsFormat.generate "configuration.toml" cfg.settings;
 in
 {
+  key = "xddxdd-nur-packages-kata-containers";
+
   options = {
     virtualisation.kata-containers = {
       enable = lib.mkEnableOption "Enable Kata Containers";
@@ -40,7 +42,8 @@ in
       "L+ /var/lib/kata-containers - - - - ${config.virtualisation.kata-containers.imagePackage}/share/kata-containers"
     ];
 
-    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path = "${config.virtualisation.kata-containers.runtimePackage}/bin/kata-runtime";
+    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path =
+      "${config.virtualisation.kata-containers.runtimePackage}/bin/kata-runtime";
     virtualisation.podman.extraPackages = [ config.virtualisation.kata-containers.runtimePackage ];
   };
 }
