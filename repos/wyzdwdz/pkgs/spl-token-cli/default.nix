@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage {
     hash = "sha1-544C0IqNvWRZqG5lmlvQPtiI7gU=";
   };
 
-  cargoHash = "sha256-k0fyf8qMSzQvooSspJT1EoPNzhnKDGl7zaSxTJUCZDc=";
+  cargoHash = "sha256-LCrk/wBLiQPsnRSdMaloOrk5dYoF76okwaQm1tAaWxs=";
 
   cargoBuildFlags = [ "-p spl-token-cli" ];
 

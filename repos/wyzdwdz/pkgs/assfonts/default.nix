@@ -26,9 +26,11 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin $out/share
     install -m 555 -D ./bin/assfonts -t $out/bin
     cp -r ./share $out
+    runHook postInstall
   '';
 
   meta = {
