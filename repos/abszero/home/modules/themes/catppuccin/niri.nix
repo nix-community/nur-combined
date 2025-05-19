@@ -23,8 +23,6 @@ in
 
     programs.niri.settings = {
       layout = {
-        always-center-single-column = true;
-
         tab-indicator = {
           place-within-column = true;
           gap = 8;

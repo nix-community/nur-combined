@@ -26,6 +26,7 @@ in
         jujutsu.enable = true;
         nushell.enable = true;
         thunderbird.enable = true;
+        yazi.enable = true;
         zoxide.enable = true;
       };
     };
@@ -64,7 +65,6 @@ in
       fzf.enable = true;
       nix-index-database.comma.enable = true;
       starship.enable = true;
-      yazi.enable = true;
       zsh = {
         syntaxHighlighting.enable = true;
         autosuggestion.enable = true;

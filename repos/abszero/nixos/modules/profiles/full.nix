@@ -87,7 +87,8 @@ in
         taisei
         tenacity
         unzip
-        ventoy-full-qt
+        # TODO: switch to Qt6 when it's supported
+        ventoy-full-gtk
         vesktop
         vscode
         wev

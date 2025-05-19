@@ -46,23 +46,9 @@ in
 
       window-rules = [
         {
-          open-fullscreen = true;
-          matches = [
-            { title = "Waydroid"; }
-          ];
-        }
-        {
           open-floating = true;
           matches = [
             { app-id = "it\\.mijorus\\.smile"; }
-          ];
-        }
-        {
-          default-column-width.fixed = 370;
-          default-window-height.fixed = 370;
-          matches = [
-            { title = "KDE Connect"; }
-            { app-id = "org\\.gnome\\.Solanum"; }
           ];
         }
       ];
