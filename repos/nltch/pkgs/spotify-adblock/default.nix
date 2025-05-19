@@ -9,14 +9,15 @@
 }: let
   spotify-adblock = rustPlatform.buildRustPackage {
     pname = "spotify-adblock";
-    version = "1.0.3";
+    version = "lastcommit at 2025-05-20";
     src = fetchFromGitHub {
       owner = "abba23";
       repo = "spotify-adblock";
-      rev = "5a3281dee9f889afdeea7263558e7a715dcf5aab";
-      hash = "sha256-UzpHAHpQx2MlmBNKm2turjeVmgp5zXKWm3nZbEo0mYE=";
+      rev = "refs/heads/main";
+      fetchSubmodules = false;
+      hash = "sha256-nwiX2wCZBKRTNPhmrurWQWISQdxgomdNwcIKG2kSQsE="; # temporarily fake
     };
-    cargoHash = "sha256-oGpe+kBf6kBboyx/YfbQBt1vvjtXd1n2pOH6FNcbF8M=";
+    cargoHash = "sha256-gqy/IbdBu7j2cza6dnlhmqHuyMSwIV1WH6RzVCKSNhs=";
 
     patchPhase = ''
       substituteInPlace src/lib.rs \
@@ -25,18 +26,16 @@
 
     buildPhase = ''
       make
-     '';
+    '';
 
     installPhase = ''
       mkdir -p $out/etc/spotify-adblock
       install -D --mode=644 config.toml $out/etc/spotify-adblock
       mkdir -p $out/lib
       install -D --mode=644 --strip target/release/libspotifyadblock.so $out/lib
-      
     '';
-
   };
-  spotifywm = stdenv.mkDerivation {
+spotifywm = stdenv.mkDerivation {
     name = "spotifywm";
     src = fetchFromGitHub {
       owner = "dasj";
