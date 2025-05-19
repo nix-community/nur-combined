@@ -42,6 +42,10 @@ in
       };
     };
 
+    nixpkgs.config.permittedInsecurePackages = [
+      "ventoy-qt5-1.1.05"
+    ];
+
     virtualisation.waydroid.enable = true;
 
     services = {
@@ -87,8 +91,7 @@ in
         taisei
         tenacity
         unzip
-        # TODO: switch to Qt6 when it's supported
-        ventoy-full-gtk
+        ventoy-full-qt
         vesktop
         vscode
         wev
