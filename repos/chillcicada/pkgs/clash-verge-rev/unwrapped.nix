@@ -93,4 +93,8 @@ rustPlatform.buildRustPackage {
     openssl
     webkitgtk_4_1
   ];
+
+  postInstall = ''
+    mv $out/share/applications/Clash\ Verge.desktop $out/share/applications/clash-verge.desktop
+  '';
 }
