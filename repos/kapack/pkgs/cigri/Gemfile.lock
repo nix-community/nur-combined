@@ -1,25 +1,34 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    deprecated (2.0.1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    epoxy (0.3.1)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     json (2.3.0)
     kgio (2.11.2)
+    methlab (0.1.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     netrc (0.11.0)
-    pg (1.2.1)
+    pg (1.5.9)
     rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
     raindrops (0.19.0)
+    rdbi (1.2.2)
+      epoxy (>= 0.3.1)
+      typelib (>= 0.1.1)
+    rdbi-driver-postgresql (0.10.1)
+      epoxy (>= 0.3.1)
+      methlab
+      pg (>= 1.0.0)
+      rdbi (~> 1.2.2)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -32,18 +41,14 @@ GEM
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
     tilt (2.0.10)
+    typelib (0.1.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
-    unicorn (5.5.2)
+    unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     xmpp4r (0.5.6)
-    ydbd-pg (0.5.6)
-      pg
-      ydbi (= 0.5.6)
-    ydbi (0.5.6)
-      deprecated (= 2.0.1)
 
 PLATFORMS
   ruby
@@ -51,12 +56,12 @@ PLATFORMS
 DEPENDENCIES
   json
   pg
+  rdbi
+  rdbi-driver-postgresql
   rest-client
   sinatra
   unicorn
   xmpp4r
-  ydbd-pg
-  ydbi
 
 BUNDLED WITH
-   1.17.3
+   2.4.13

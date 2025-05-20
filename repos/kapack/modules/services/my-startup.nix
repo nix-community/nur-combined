@@ -23,7 +23,7 @@ in
       };
 
       path =  mkOption {
-        type = types.path;
+        type = types.listOf types.path;
         default = [ ];
         description = "Path to tools used by provided script";
       };

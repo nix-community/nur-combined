@@ -5,7 +5,7 @@ let
   baseConfString = ''
 # Database settings
 # TYPE may be Pg or Mysql
-DATABASE_TYPE = "Pg" 
+DATABASE_TYPE = "PostgreSQL" 
 DATABASE_HOST = "${cfg.server.host}"
 DATABASE_NAME = "${cfg.database.dbname}"
 

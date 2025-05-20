@@ -219,7 +219,8 @@ in
         KillMode = "process";
         Restart = "on-failure";
         WorkingDirectory = "${cfg.package}/share/cigri/api";
-        ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -d -c ${unicornConfig} -E production";
+        # ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -d -c ${unicornConfig} -E production";
+        ExecStart = "${cfg.package.rubyEnv}/bin/unicorn -c ${unicornConfig} -E production";
       };
     };
     
@@ -235,9 +236,9 @@ in
         
           # Deny access by default, except from localhost
 
-          Order deny,allow
-          Allow from             ${cfg.server.host}
-          Deny from all
+          # Order deny,allow
+          # Allow from ${cfg.server.host}
+          # Deny from all
           # Pidentd is a simple and efficient way to authentify unix users on a cigri frontend
           <IfModule ident_module>
             IdentityCheck On

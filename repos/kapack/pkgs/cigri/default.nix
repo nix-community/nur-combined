@@ -3,20 +3,26 @@ let
   rubyEnv = bundlerEnv rec {
   name = "cigri-env";
   inherit ruby;
-  gemdir  = ./.;
+  # gemdir  = ./.;
+  gemfile = ./Gemfile;
+  lockfile = ./Gemfile.lock;
+  gemset = ./gemset.nix;
   #groups = [ "default" "unicorn" "test" ]; # TODO not used
 };
   in
     stdenv.mkDerivation rec {
-  name = "cigri-3.0.0";
+  name = "cigri-3.2.2";
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "cigri";
-    rev = "904bed81d61f5565bd5b86c345241bc0c511c317";
-    sha256 = "001rapmzp08314c4y9birmfi6njgyvn7f95735qrd0443kfwhd19";
+    rev = "3.2.2";
+    sha256 = "sha256-qeDTT9Ca1Pd2Amg08J3PwuG+OfqxJkGQJCZIz8LcLA0=";
   };
   
-  buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler bash perl ];
+  buildInputs = [
+    rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler
+    bash perl
+  ];
   
   buildPhase = ''
     # TODO warning /var/cigri/state can be overriden /modules/services/cigri.nix configuration 
@@ -49,6 +55,6 @@ let
     license = licenses.lgpl3;
     longDescription = ''
     '';
-    broken = true;
+    # broken = true;
   };
 }

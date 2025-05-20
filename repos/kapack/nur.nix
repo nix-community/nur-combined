@@ -53,8 +53,11 @@ rec {
 
   bacnet-stack = pkgs.callPackage ./pkgs/bacnet-stack { };
 
+  alumet = pkgs.callPackage ./pkgs/alumet { };
+    
   colmet = pkgs.callPackage ./pkgs/colmet { };
 
+  # TODO to remove when alumet package is finalized
   colmet-rs = pkgs.callPackage ./pkgs/colmet-rs { };
 
   colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
