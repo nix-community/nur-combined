@@ -932,6 +932,9 @@
         "ocfox": {
             "url": "https://github.com/ocfox/nur-pkgs"
         },
+        "ohheyrj": {
+            "url": "https://github.com/ohheyrj/nur"
+        },
         "oluceps": {
             "url": "https://github.com/oluceps/nixos-config"
         },
