@@ -12,11 +12,11 @@ let
     {
       fontSize,
       fontStyle,
-      fontType,
+      fontFormat,
     }:
 
     stdenvNoCC.mkDerivation (finalAttrs: {
-      pname = "fusion-pixel-font-${fontSize}-${fontStyle}-${fontType}";
+      pname = "fusion-pixel-font-${fontSize}-${fontStyle}-${fontFormat}";
       version = "2025.03.14";
 
       src = fetchurl {
@@ -28,8 +28,6 @@ let
       nativeBuildInputs = [ unzip ];
 
       installPhase = ''
-        mkdir -p $out/share/fonts/{truetype,opentype,woff2,misc}
-
         find . -name '*.ttf'   -exec install -Dt $out/share/fonts/truetype {} \;
         find . -name '*.ttc'   -exec install -Dt $out/share/fonts/truetype {} \;
         find . -name '*.otf'   -exec install -Dt $out/share/fonts/opentype {} \;
@@ -56,11 +54,11 @@ lib.listToAttrs (
       let
         fontSize = variant.fontSize;
         fontStyle = variant.fontStyle;
-        fontType = variant.fontType;
+        fontFormat = variant.fontFormat;
       in
       {
-        name = "${fontSize}-${fontStyle}-${fontType}";
-        value = fusion-pixel-font { inherit fontSize fontStyle fontType; };
+        name = "${fontSize}-${fontStyle}-${fontFormat}";
+        value = fusion-pixel-font { inherit fontSize fontStyle fontFormat; };
       }
     )
     (
@@ -74,7 +72,7 @@ lib.listToAttrs (
           "proportional"
           "monospaced"
         ];
-        fontType = [
+        fontFormat = [
           "ttf"
           "ttc"
           "otc"
