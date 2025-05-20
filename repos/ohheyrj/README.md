@@ -36,10 +36,10 @@ These packages are available via nur.
 ## 💬 Chat
 
 
-### 🧰 chatterino `v2.5.3`
+### 🧰 chatterino `vunknown`
 - 💡 **Description:** Chat client for Twitch
-- 🛡️ **License:** unknown
-- 🖥️ **Platforms:** unknown
+- 🛡️ **License:** mit
+- 🖥️ **Platforms:** darwin
 - 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
 

@@ -92,6 +92,7 @@ def extract_fields(file_path):
         [
             r"\bmeta\s*=\s*with\s+lib;\s*{[^}]*license\s*=\s*licenses\.([a-zA-Z0-9_]+)",
             r"license\s*=\s*licenses\.([a-zA-Z0-9_]+)",
+            r"\bmeta\s*=\s*{[^}]*license\s*=\s*lib\.licenses\.([a-zA-Z0-9_]+)",
         ]
     )
     description = extract(
@@ -119,6 +120,7 @@ def extract_fields(file_path):
         [
             r"\bmeta\s*=\s*with\s+lib;\s*{[^}]*platforms\s*=\s*platforms\.([a-zA-Z0-9_]+)",
             r'platforms\s*=\s*\[\s*((?:"[^"]+"\s*)+)\]',
+            r"\bmeta\s*=\s*{[^}]*platforms\s*=\s*lib\.platforms\.([a-zA-Z0-9_]+)",
         ]
     )
     if '"' in platform_str:
