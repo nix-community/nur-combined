@@ -1,0 +1,38 @@
+---
+name: Update README Table
+
+on:
+  push:
+    paths:
+      - "pkgs/**/default.nix"
+      - "pkgs/**/.pr"
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Run script to update README
+        run: python .github/scripts/update_readme_table.py
+
+      - name: Commit and push if README changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs(README.md): Update package table in README"
+          file_pattern: "README.md"
+          commit_user_name: "github-actions"
+          commit_user_email: "github-actions@github.com"
+          commit_author: "GitHub Actions Bot <github-actions@github.com>"
