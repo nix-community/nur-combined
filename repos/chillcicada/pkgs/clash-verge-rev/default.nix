@@ -85,10 +85,9 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,share,lib/Clash\ Verge/resources}
-    cp -r ${unwrapped}/share/* $out/share
-    # Rename the desktop file to lowercase
-    mv $out/share/applications/Clash\ Verge.desktop $out/share/applications/clash-verge.desktop
+    mkdir -p $out/{bin,share/{icons,applications},lib/Clash\ Verge/resources}
+    cp -r ${unwrapped}/share/icons/* $out/share/icons
+    cp -r ${unwrapped}/share/applications/Clash\ Verge.desktop $out/share/applications/clash-verge.desktop
     cp -r ${unwrapped}/bin/clash-verge $out/bin/clash-verge
     # This can't be symbol linked. It will find mihomo in its runtime path
     cp ${service}/bin/clash-verge-service $out/bin/clash-verge-service
