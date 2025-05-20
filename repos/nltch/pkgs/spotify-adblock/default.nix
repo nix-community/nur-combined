@@ -15,9 +15,9 @@
       repo = "spotify-adblock";
       rev = "refs/heads/main";
       fetchSubmodules = false;
-      hash = "sha256-nwiX2wCZBKRTNPhmrurWQWISQdxgomdNwcIKG2kSQsE="; # temporarily fake
+      hash = "sha256-nwiX2wCZBKRTNPhmrurWQWISQdxgomdNwcIKG2kSQsE=";
     };
-    cargoHash = "sha256-gqy/IbdBu7j2cza6dnlhmqHuyMSwIV1WH6RzVCKSNhs=";
+    cargoHash = "sha256-oGpe+kBf6kBboyx/YfbQBt1vvjtXd1n2pOH6FNcbF8M=";
 
     patchPhase = ''
       substituteInPlace src/lib.rs \
