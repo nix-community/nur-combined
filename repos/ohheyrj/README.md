@@ -3,7 +3,7 @@
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
 <!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/ohheyrj/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+![Build and populate cache](https://github.com/ohheyrj/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-ohheyrj-blue.svg)](https://ohheyrj.cachix.org)
 
@@ -22,4 +22,27 @@ These packages are available via nur.
 - 📦 PR & tracker links (if submitted upstream)
 
 <!--table:start-->
+
+## 📦 Packages by Category
+
+
+
+### 🗂️ Table of Contents
+
+- [💬 Chat](#chat)
+
+
+
+## 💬 Chat
+
+
+### 🧰 chatterino `v2.5.3`
+- 💡 **Description:** Chat client for Twitch
+- 🛡️ **License:** unknown
+- 🖥️ **Platforms:** unknown
+- 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
+
+
+
 <!--table:end-->

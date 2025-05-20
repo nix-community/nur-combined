@@ -51,7 +51,7 @@ jobs:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             experimental-features = nix-command flakes
-  :           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix
