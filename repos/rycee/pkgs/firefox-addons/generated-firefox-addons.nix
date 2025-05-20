@@ -1475,6 +1475,20 @@
         platforms = platforms.all;
       };
     };
+    "catppuccin-mocha-mauve" = buildFirefoxXpiAddon {
+      pname = "catppuccin-mocha-mauve";
+      version = "2.0";
+      addonId = "{76aabc99-c1a8-4c1e-832b-d4f2941d5a7a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990325/catppuccin_mocha_mauve_git-2.0.xpi";
+      sha256 = "a5297355eed76d36eb0bbea20229d8aebeea225ebd3a91f75a4d343280087bbe";
+      meta = with lib;
+      {
+        description = "🦊 Soothing pastel theme for Firefox (Official)";
+        license = licenses.cc-by-30;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "catppuccin-web-file-icons" = buildFirefoxXpiAddon {
       pname = "catppuccin-web-file-icons";
       version = "1.3.0";
@@ -7917,10 +7931,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "12.12.1";
+      version = "12.17.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4458206/ether_metamask-12.12.1.xpi";
-      sha256 = "7ae2d2f852522834a9aaa1869555fee6c503e3e82d8a7298af15fe7e27133c5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494284/ether_metamask-12.17.3.xpi";
+      sha256 = "c9ac19197bd9e2811013e0afb69fb6445c28a929f0a3e479921c3a028f100ac4";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
