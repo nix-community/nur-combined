@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   postInstall = ''
     mkdir -p $out/Applications
-    mv Ghostty.app $out/Applications/
+    cp -a Ghostty.app $out/Applications/
     makeWrapper $out/Applications/Ghostty.app/Contents/MacOS/ghostty $out/bin/ghostty
   '';
 
