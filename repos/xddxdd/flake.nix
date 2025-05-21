@@ -42,6 +42,7 @@
           auto-colmena-hive = ./flake-modules/auto-colmena-hive-v0.nix;
           auto-colmena-hive-v0 = ./flake-modules/auto-colmena-hive-v0.nix;
           auto-colmena-hive-v0_20241006 = ./flake-modules/auto-colmena-hive-v0_20241006.nix;
+          auto-colmena-hive-v0_5 = ./flake-modules/auto-colmena-hive-v0_5.nix;
           commands = importApply ./flake-modules/commands.nix {
             inherit (inputs) devshell;
             inherit flake-parts-lib;
