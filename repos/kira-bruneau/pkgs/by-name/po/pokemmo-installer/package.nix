@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchFromGitLab,
   makeWrapper,
   coreutils,
@@ -17,7 +17,7 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pokemmo-installer";
   version = "1.4.8";
 

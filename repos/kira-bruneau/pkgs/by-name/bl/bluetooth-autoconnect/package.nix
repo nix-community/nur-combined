@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchFromGitHub,
   makeWrapper,
   wrapGAppsHook4,
@@ -8,7 +8,7 @@
   python3,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bluetooth-autoconnect";
   version = "1.3";
   format = "other";
