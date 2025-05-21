@@ -36,7 +36,7 @@ These packages are available via nur.
 ## 💬 Chat
 
 
-### 🧰 chatterino `vunknown`
+### 🧰 chatterino `v2.5.3`
 - 💡 **Description:** Chat client for Twitch
 - 🛡️ **License:** mit
 - 🖥️ **Platforms:** darwin
