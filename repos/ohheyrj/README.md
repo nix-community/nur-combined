@@ -31,6 +31,8 @@ These packages are available via nur.
 
 - [💬 Chat](#chat)
 
+- [🎵 Media](#media)
+
 
 
 ## 💬 Chat
@@ -42,6 +44,17 @@ These packages are available via nur.
 - 🖥️ **Platforms:** darwin
 - 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
+
+
+
+## 🎵 Media
+
+
+### 🧰 kobo-desktop `v0-unstable-2025-05-11`
+- 💡 **Description:** Kobo Desktop is a free app for Windows and Mac that lets you buy, read, and manage eBooks, as well as sync them with your Kobo eReader.
+- 🛡️ **License:** unfree
+- 🖥️ **Platforms:** darwin
+- 🌐 **Homepage:** [kobo-desktop Website](https://www.kobo.com/gb/en/p/desktop)
 
 
 
