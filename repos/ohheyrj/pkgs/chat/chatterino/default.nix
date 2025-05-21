@@ -33,6 +33,5 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       license = lib.licenses.mit;
       platforms = lib.platforms.darwin;
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      broken = !stdenv.isDarwin;
     };
 })

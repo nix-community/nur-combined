@@ -1,19 +1,37 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+let
+  inherit (pkgs) lib stdenv;
 
-  chatterino = pkgs.callPackage ./pkgs/chat/chatterino {};
-  kobo-desktop = pkgs.callPackage ./pkgs/media/kobo-desktop {};
-}
+  # Recursively find all ./pkgs/**/default.nix files
+  findDefaultNixFiles = path:
+    lib.flatten (lib.mapAttrsToList (name: type:
+      let fullPath = "${toString path}/${name}";
+      in if type == "directory" then findDefaultNixFiles fullPath
+         else if name == "default.nix" then [ fullPath ]
+         else []
+    ) (builtins.readDir path));
+
+  defaultNixFiles = findDefaultNixFiles ./pkgs;
+
+  # Turn file path into attribute name (e.g. pkgs/chat/chatterino → chatterino)
+  deriveName = path:
+    builtins.baseNameOf (toString (builtins.dirOf path));
+
+  rawPackages = lib.genAttrs (map deriveName defaultNixFiles) (name:
+    let
+      file = lib.findFirst (p: deriveName p == name) null defaultNixFiles;
+      drv = pkgs.callPackage file {};
+    in
+      if lib.elem stdenv.hostPlatform.system (drv.meta.platforms or []) then drv else null
+  );
+
+  filteredPackages = lib.filterAttrs (_: v: v != null) rawPackages;
+
+in {
+  lib = import ./lib { inherit pkgs; };
+  modules = import ./modules;
+  overlays = import ./overlays;
+} // filteredPackages
+
