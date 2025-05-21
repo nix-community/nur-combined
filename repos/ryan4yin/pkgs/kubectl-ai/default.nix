@@ -27,6 +27,8 @@ buildGoModule (finalAttrs: {
   ldflags = [
     "-s"
     "-w"
+    "-X main.version=${finalAttrs.version}"
+    "-X main.date=unknown"
   ];
 
   # Disable the automatic subpackage detection
