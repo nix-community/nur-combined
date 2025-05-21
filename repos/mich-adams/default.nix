@@ -19,4 +19,5 @@
   # Packages
   vvmd = pkgs.callPackage ./pkgs/vvmd { };
   vvmplayer = pkgs.callPackage ./pkgs/vvmplayer { };
+    afterglow-cursors = pkgs.callPackage ./pkgs/afterglow-cursors.nix {};
 }
