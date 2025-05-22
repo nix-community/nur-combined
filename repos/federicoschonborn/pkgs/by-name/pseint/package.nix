@@ -30,8 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     libglvnd
     wxGTK32
     xorg.libX11
-    # Debugging
-    tree
   ];
 
   makeFlags =
@@ -60,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    tree
+    ${lib.getExe tree}
     mkdir -p $out/bin $out/share/pseint
     cp -r bin/. $out/share/pseint
     ln -s $out/share/pseint/bin/* $out/bin
