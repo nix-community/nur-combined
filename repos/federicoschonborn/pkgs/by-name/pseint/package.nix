@@ -8,6 +8,7 @@
   libglvnd,
   wxGTK32,
   xorg,
+  tree,
   versionCheckHook,
 }:
 
@@ -29,13 +30,24 @@ stdenv.mkDerivation (finalAttrs: {
     libglvnd
     wxGTK32
     xorg.libX11
+    # Debugging
+    tree
   ];
 
-  makeFlags = [
-    "GCC=cc"
-    "GPP=c++"
-    "ARCH=lnx"
-  ];
+  makeFlags =
+    [
+      "GCC=cc"
+      "GPP=c++"
+      "AR=ar"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux "ARCH=lnx"
+    ++ lib.optional stdenv.hostPlatform.isDarwin (
+      {
+        "x86_64-darwin" = "ARCH=mi64";
+        "aarch64-darwin" = "ARCH=ma64";
+      }
+      .${stdenv.hostPlatform.system} or (throw "unsupported system")
+    );
 
   desktopItems = lib.optional stdenv.hostPlatform.isLinux (makeDesktopItem {
     name = "pseint";
@@ -48,6 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
+    tree
     mkdir -p $out/bin $out/share/pseint
     cp -r bin/. $out/share/pseint
     ln -s $out/share/pseint/bin/* $out/bin
