@@ -1,37 +1,29 @@
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 
 let
   inherit (pkgs) lib stdenv;
 
-  # Recursively find all ./pkgs/**/default.nix files
-  findDefaultNixFiles = path:
-    lib.flatten (lib.mapAttrsToList (name: type:
-      let fullPath = "${toString path}/${name}";
-      in if type == "directory" then findDefaultNixFiles fullPath
-         else if name == "default.nix" then [ fullPath ]
-         else []
-    ) (builtins.readDir path));
+  # Shared arguments to inject into every package
+  sharedOverrides = {
+    versionCheckHook = pkgs.versionCheckHook;
+    writeShellScript = pkgs.writeShellScriptBin or pkgs.writeShellScript;
+    xcbuild = pkgs.xcbuild;
+  };
 
-  defaultNixFiles = findDefaultNixFiles ./pkgs;
+  maybeEnable = drv:
+    if lib.elem stdenv.hostPlatform.system (drv.meta.platforms or []) then drv else null;
 
-  # Turn file path into attribute name (e.g. pkgs/chat/chatterino → chatterino)
-  deriveName = path:
-    builtins.baseNameOf (toString (builtins.dirOf path));
-
-  rawPackages = lib.genAttrs (map deriveName defaultNixFiles) (name:
-    let
-      file = lib.findFirst (p: deriveName p == name) null defaultNixFiles;
-      drv = pkgs.callPackage file {};
-    in
-      if lib.elem stdenv.hostPlatform.system (drv.meta.platforms or []) then drv else null
-  );
-
-  filteredPackages = lib.filterAttrs (_: v: v != null) rawPackages;
+  # Now call every package with the shared overrides
+  openaudible   = maybeEnable (pkgs.callPackage ./pkgs/media/openaudible sharedOverrides);
+  chatterino    = maybeEnable (pkgs.callPackage ./pkgs/chat/chatterino sharedOverrides);
+  kobo-desktop  = maybeEnable (pkgs.callPackage ./pkgs/media/kobo-desktop sharedOverrides);
 
 in {
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
-} // filteredPackages
+} // lib.filterAttrs (_: v: v != null) {
+  inherit openaudible chatterino kobo-desktop;
+}
 

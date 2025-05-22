@@ -3,7 +3,10 @@
   fetchurl,
   undmg,
   lib,
-  stdenv
+  stdenv,
+  versionCheckHook,
+  writeShellScript,
+  xcbuild
 }:
 
 
@@ -25,6 +28,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/Applications
     mv Chatterino.app $out/Applications
     '';
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgram = writeShellScript "version-check" ''
+    ${xcbuild}/bin/PlistBuddy -c "Print :CFBundleShortVersionString" "$1"
+  '';
+  versionCheckProgramArg = [
+    "${placeholder "out"}/Applications/Chatterino.app/Contents/Info.plist"
+  ];
+
 
     meta = {
       homepage = "https://chatterino.com";

@@ -3,7 +3,10 @@
   undmg,
   fetchurl,
   lib,
-  stdenv
+  stdenv,
+  versionCheckHook,
+  writeShellScript,
+  xcbuild
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -29,6 +32,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/Applications
     mv Kobo.app $out/Applications
     '';
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgram = writeShellScript "version-check" ''
+    ${xcbuild}/bin/PlistBuddy -c "Print :CFBundleShortVersionString" "$1"
+  '';
+  versionCheckProgramArg = [
+    "${placeholder "out"}/Applications/Kobo.app/Contents/Info.plist"
+  ];
 
     meta = {
       homepage = "https://www.kobo.com/gb/en/p/desktop";
