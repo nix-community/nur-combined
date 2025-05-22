@@ -214,6 +214,7 @@
               nil
               shfmt
               nixfmt-rfc-style
+              ruff
               # taplo
               rustfmt
               clang-tools
