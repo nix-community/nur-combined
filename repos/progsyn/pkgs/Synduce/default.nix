@@ -2,11 +2,13 @@
   fetchFromGitHub,
   lib,
   makeWrapper,
-  ocamlPackages,
+  ocaml-ng,
   z3,
   cvc4,
   cvc5,
 }: let
+  ocamlPackages = ocaml-ng.ocamlPackages_5_1;
+
   parsexp_io = ocamlPackages.buildDunePackage rec {
     pname = "parsexp_io";
     version = "v0.17.0";

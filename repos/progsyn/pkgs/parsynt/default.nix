@@ -2,10 +2,13 @@
   fetchFromGitHub,
   lib,
   makeWrapper,
-  ocamlPackages,
+  ocaml-ng,
   z3,
   racket,
 }:
+let
+  ocamlPackages = ocaml-ng.ocamlPackages_5_1;
+in
 ocamlPackages.buildDunePackage rec {
   pname = "Parsynt";
   version = "0-unstable-2021-12-15";
