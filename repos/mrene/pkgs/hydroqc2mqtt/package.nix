@@ -6,9 +6,8 @@
 let
   python312 = home-assistant.passthru.python;
   hydroqc = python312.pkgs.callPackage ./hydro-quebec-api-wrapper.nix { };
-  mqtt-hass-base = python312.pkgs.callPackage ./mqtt-hass-base.nix { inherit aiomqtt; };
-  aiomqtt = python312.pkgs.callPackage ./aiomqtt.nix {};
-  version = "1.3.0";
+  mqtt-hass-base = python312.pkgs.callPackage ./mqtt-hass-base.nix { };
+  version = "2.0.0";
 in
 
 python312.pkgs.buildPythonApplication rec {
@@ -20,7 +19,7 @@ python312.pkgs.buildPythonApplication rec {
     owner = "hydroqc";
     repo = "hydroqc2mqtt";
     rev = version;
-    hash = "sha256-rLtyQLW4oYXx6GkbfU2ZZmacfEWqlj3t8pDJAt1u+RQ=";
+    hash = "sha256-c6idfbeUAajOyb8e+tNncj9FT8QlmBTCP1P+80tSdOA=";
   };
 
   postPatch = ''
