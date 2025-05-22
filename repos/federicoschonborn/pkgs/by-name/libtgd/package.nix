@@ -106,6 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/tgd/";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
+    # io/io.cpp:217:55: error: use of undeclared identifier 'RTLD_NOW'
     broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };

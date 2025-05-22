@@ -18,6 +18,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace Makefile \
+      --replace-fail "gcc" "cc" \
       --replace-fail "sudo cp" "cp" \
       --replace-fail "/usr/local" "$out"
   '';
@@ -44,7 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/udem-dlteam/pnut";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -35,7 +35,7 @@ Alternative to GNU coreutils using software from FreeBSD.
 - [📰 Changelog](https://github.com/dcantrell/bsdutils/releases/tag/v13.2)
 - [📦 Source](./pkgs/by-name/bsdutils/package.nix#L54)
 - 📄 License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `budgie-daemon-v2` {#budgie-daemon-v2}
 
@@ -186,7 +186,7 @@ A language for building concurrent software with confidence.
 - Version: `0.18.1`
 - [🌐 Homepage](https://github.com/inko-lang/inko)
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L52)
+- [📦 Source](./pkgs/by-name/inko/package.nix#L51)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -321,7 +321,7 @@ Snazzy Minesweeper-based game built with SDL2.
 - Name: `minesector`
 - Version: `1.1.5`
 - [🌐 Homepage](https://github.com/grassdne/minesector)
-- [📦 Source](./pkgs/by-name/minesector/package.nix#L43)
+- [📦 Source](./pkgs/by-name/minesector/package.nix#L52)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -401,7 +401,7 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 - Name: `pnut`
 - Version: `SLE2024-artifact-unstable-2025-05-12`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
-- [📦 Source](./pkgs/by-name/pnut/package.nix#L43)
+- [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -410,9 +410,9 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 A tool for learning programming basis with a simple Spanish pseudocode.
 
 - Name: `pseint`
-- Version: `20240122`
+- Version: `20250314`
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L67)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L95)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`, `x86_64-darwin`, `aarch64-darwin`
 

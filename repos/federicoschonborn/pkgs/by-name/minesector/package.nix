@@ -4,6 +4,8 @@
   fetchFromGitHub,
   cmake,
   ninja,
+  libtiff,
+  libwebp,
   SDL2,
   SDL2_image,
   SDL2_ttf,
@@ -28,11 +30,18 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
+    libtiff
+    libwebp
     SDL2
     SDL2_image
     SDL2_ttf
     SDL2_mixer
   ];
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "set(STATIC_LINK" "# set(STATIC_LINK"
+  '';
 
   strictDeps = true;
 
@@ -44,7 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/grassdne/minesector";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -118,6 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    # fio.cpp:857:15: error: no member named 'fdatasync' in the global namespace
     broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };

@@ -33,6 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/kuroko-lang/kuroko/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
+    # ld: illegal data reference in _krk_currentThread to thread local variable
     broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };

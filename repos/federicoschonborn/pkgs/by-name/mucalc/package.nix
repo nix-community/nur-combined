@@ -49,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/mucalc/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    # mucalc.cpp:382:12: error: no matching member function for call to 'DefineFun'
     broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
