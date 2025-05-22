@@ -343,7 +343,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2025-04-11",
+        "date": "2025-05-20",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -355,12 +355,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "3b32b84b8877360f1bd54ec6f5353e2b5f40145a",
-            "sha256": "sha256-3uuHnlVSqZ0CpRA40RWekKYCnicnXY4o13T/88Dr7Wc=",
+            "rev": "8ed7d2c54a14a152c7a85a29effc1fe29985fd63",
+            "sha256": "sha256-LaJDjveLJ2vNSzsreyepVDf4nlX7zntfT6grtAC/1Fs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3b32b84b8877360f1bd54ec6f5353e2b5f40145a"
+        "version": "8ed7d2c54a14a152c7a85a29effc1fe29985fd63"
     },
     "browser360-amd64": {
         "cargoLocks": null,
@@ -415,7 +415,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-05-19",
+        "date": "2025-05-21",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d982986cb89d3acbadb011eeb6780105f76646cd",
-            "sha256": "sha256-kAGpzcDTWubgh/Dn+g0eS6lL0lb7bFmTAGIKnWDX+YA=",
+            "rev": "e43ef0e88c11cf311f886bd02b993f62a1da427d",
+            "sha256": "sha256-lG2WLBA9zRI3g7b67BH8Jeh1AvMf37wdf7kugcPZGRo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d982986cb89d3acbadb011eeb6780105f76646cd"
+        "version": "e43ef0e88c11cf311f886bd02b993f62a1da427d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1133,7 +1133,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-05-20",
+        "date": "2025-05-22",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1145,12 +1145,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "fe588bc508c0076bb007d6ed36c18ac8ecb341ac",
-            "sha256": "sha256-Bo0pQabsjQGbywAxk2zG4AJt6EMSfBE6pIiiqxcF7GQ=",
+            "rev": "eccf74684743593950ad259877db7ce9ffc06e93",
+            "sha256": "sha256-j59hOsKEXtU5s3HwUP2MVJyF0JmzWeQzbog36dJJkvw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fe588bc508c0076bb007d6ed36c18ac8ecb341ac"
+        "version": "eccf74684743593950ad259877db7ce9ffc06e93"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1480,12 +1480,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.16.0",
-            "sha256": "sha256-+SppAF77NbXlSrBGvIm40AmNC12GrexbX7fAPBoDAcs=",
+            "rev": "3.17.0",
+            "sha256": "sha256-rYF9YIZ8GdiE12QfX4rDXVPb7umuIhsLXoWmRl3oesk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.16.0"
+        "version": "3.17.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1496,11 +1496,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Vstpp7ttM2TpIVXgYoOXLnFlSojHCBalX4kfIJqPdNs=",
+            "sha256": "sha256-EpjiSSKwNQfpNWMmfABJvIGpFmb9qH+GMgBoKFeOYOA=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.16.0/kata-static-3.16.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.17.0/kata-static-3.17.0-amd64.tar.xz"
         },
-        "version": "3.16.0"
+        "version": "3.17.0"
     },
     "kikoplay": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5431",
-            "sha256": "sha256-5eZqdEic32sgDqW1Jt3VKg5kDSto74CEgYcm6/HEt88=",
+            "rev": "b5453",
+            "sha256": "sha256-MoVgmfvtNiUTl3gauvPbkdoEzuFp9zMIoJ3Bg/g+NlA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5431"
+        "version": "b5453"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2666,12 +2666,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "v0.2.20241216",
-            "sha256": "sha256-Ifgo9dDNgjMxO6LQBSLuz2kWhP8cOkbdbWTHDuMVLzI=",
+            "rev": "v0.2.20250520",
+            "sha256": "sha256-PRqra8EWOI0AttQzj0v/b/1jB8rsMSbX5Ee0WBIIszY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.20241216"
+        "version": "v0.2.20250520"
     },
     "palworld-exporter": {
         "cargoLocks": null,
@@ -3102,11 +3102,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kCA5MmLHumCJqQ959L3wXO9bX5mzhowyrRxy5LRocfY=",
+            "sha256": "sha256-BG6Qz+hquexSa5QCwWx6vucb4TS0dUQ6UYKB/zkkI1g=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250519_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250521_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.17_250519_amd64_01"
+        "version": "Linux/QQ_3.2.17_250521_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -3117,11 +3117,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IGwcZfxePhhu46ARCML/TgVCC2QrIqsd6sh5As30JBY=",
+            "sha256": "sha256-PdZ9yHyyx55Y6J59ZsjDsXhXHyNkk1JBS9K0i0vuX/Q=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250519_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250521_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.17_250519_arm64_01"
+        "version": "Linux/QQ_3.2.17_250521_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-19",
+        "date": "2025-05-22",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "d5609c1c14247dacdab778ceb6c7522d8947dff8",
-            "sha256": "sha256-6hbyTIAGEqHPpAgJkep64Ijw5dS1UdGfSc7uILLtzvg=",
+            "rev": "b54d67edef1786b9a7c0e6bfa4b884995b153663",
+            "sha256": "sha256-eWsai/YALXe0H1QbePYs2wdlUViJ/KXi0TbPbIwtyB0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d5609c1c14247dacdab778ceb6c7522d8947dff8"
+        "version": "b54d67edef1786b9a7c0e6bfa4b884995b153663"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4220,7 +4220,7 @@
     },
     "vk-hdr-layer": {
         "cargoLocks": null,
-        "date": "2025-04-16",
+        "date": "2025-05-22",
         "extract": null,
         "name": "vk-hdr-layer",
         "passthru": null,
@@ -4232,12 +4232,12 @@
             "name": null,
             "owner": "Zamundaaa",
             "repo": "VK_hdr_layer",
-            "rev": "3b276e68136eb10825aa7cabd06abb324897f0e8",
-            "sha256": "sha256-c3OLT2qMKAQnQYrTVhrs3BEVS55HoaeBijgzygz6zgs=",
+            "rev": "1384036ea24a9bc38a5c684dac5122d5e3431ae6",
+            "sha256": "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3b276e68136eb10825aa7cabd06abb324897f0e8"
+        "version": "1384036ea24a9bc38a5c684dac5122d5e3431ae6"
     },
     "vpp": {
         "cargoLocks": null,

@@ -180,14 +180,14 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "3b32b84b8877360f1bd54ec6f5353e2b5f40145a";
+    version = "8ed7d2c54a14a152c7a85a29effc1fe29985fd63";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "3b32b84b8877360f1bd54ec6f5353e2b5f40145a";
-      hash = "sha256-3uuHnlVSqZ0CpRA40RWekKYCnicnXY4o13T/88Dr7Wc=";
+      rev = "8ed7d2c54a14a152c7a85a29effc1fe29985fd63";
+      hash = "sha256-LaJDjveLJ2vNSzsreyepVDf4nlX7zntfT6grtAC/1Fs=";
     };
-    date = "2025-04-11";
+    date = "2025-05-20";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -218,14 +218,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d982986cb89d3acbadb011eeb6780105f76646cd";
+    version = "e43ef0e88c11cf311f886bd02b993f62a1da427d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d982986cb89d3acbadb011eeb6780105f76646cd";
-      hash = "sha256-kAGpzcDTWubgh/Dn+g0eS6lL0lb7bFmTAGIKnWDX+YA=";
+      rev = "e43ef0e88c11cf311f886bd02b993f62a1da427d";
+      hash = "sha256-lG2WLBA9zRI3g7b67BH8Jeh1AvMf37wdf7kugcPZGRo=";
     };
-    date = "2025-05-19";
+    date = "2025-05-21";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -587,14 +587,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "fe588bc508c0076bb007d6ed36c18ac8ecb341ac";
+    version = "eccf74684743593950ad259877db7ce9ffc06e93";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "fe588bc508c0076bb007d6ed36c18ac8ecb341ac";
-      hash = "sha256-Bo0pQabsjQGbywAxk2zG4AJt6EMSfBE6pIiiqxcF7GQ=";
+      rev = "eccf74684743593950ad259877db7ce9ffc06e93";
+      hash = "sha256-j59hOsKEXtU5s3HwUP2MVJyF0JmzWeQzbog36dJJkvw=";
     };
-    date = "2025-05-20";
+    date = "2025-05-22";
   };
   glauth = {
     pname = "glauth";
@@ -759,20 +759,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.16.0";
+    version = "3.17.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.16.0";
-      hash = "sha256-+SppAF77NbXlSrBGvIm40AmNC12GrexbX7fAPBoDAcs=";
+      tag = "3.17.0";
+      hash = "sha256-rYF9YIZ8GdiE12QfX4rDXVPb7umuIhsLXoWmRl3oesk=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.16.0";
+    version = "3.17.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.16.0/kata-static-3.16.0-amd64.tar.xz";
-      hash = "sha256-Vstpp7ttM2TpIVXgYoOXLnFlSojHCBalX4kfIJqPdNs=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.17.0/kata-static-3.17.0-amd64.tar.xz";
+      hash = "sha256-EpjiSSKwNQfpNWMmfABJvIGpFmb9qH+GMgBoKFeOYOA=";
     };
   };
   kikoplay = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5431";
+    version = "b5453";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5431";
-      hash = "sha256-5eZqdEic32sgDqW1Jt3VKg5kDSto74CEgYcm6/HEt88=";
+      tag = "b5453";
+      hash = "sha256-MoVgmfvtNiUTl3gauvPbkdoEzuFp9zMIoJ3Bg/g+NlA=";
     };
   };
   loralib = {
@@ -1363,12 +1363,12 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "v0.2.20241216";
+    version = "v0.2.20250520";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      tag = "v0.2.20241216";
-      hash = "sha256-Ifgo9dDNgjMxO6LQBSLuz2kWhP8cOkbdbWTHDuMVLzI=";
+      tag = "v0.2.20250520";
+      hash = "sha256-PRqra8EWOI0AttQzj0v/b/1jB8rsMSbX5Ee0WBIIszY=";
     };
   };
   palworld-exporter = {
@@ -1587,18 +1587,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.17_250519_amd64_01";
+    version = "Linux/QQ_3.2.17_250521_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250519_amd64_01.deb";
-      hash = "sha256-kCA5MmLHumCJqQ959L3wXO9bX5mzhowyrRxy5LRocfY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250521_amd64_01.deb";
+      hash = "sha256-BG6Qz+hquexSa5QCwWx6vucb4TS0dUQ6UYKB/zkkI1g=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.17_250519_arm64_01";
+    version = "Linux/QQ_3.2.17_250521_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250519_arm64_01.deb";
-      hash = "sha256-IGwcZfxePhhu46ARCML/TgVCC2QrIqsd6sh5As30JBY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.17_250521_arm64_01.deb";
+      hash = "sha256-PdZ9yHyyx55Y6J59ZsjDsXhXHyNkk1JBS9K0i0vuX/Q=";
     };
   };
   qqmusic = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d5609c1c14247dacdab778ceb6c7522d8947dff8";
+    version = "b54d67edef1786b9a7c0e6bfa4b884995b153663";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d5609c1c14247dacdab778ceb6c7522d8947dff8";
+      rev = "b54d67edef1786b9a7c0e6bfa4b884995b153663";
       fetchSubmodules = true;
-      hash = "sha256-6hbyTIAGEqHPpAgJkep64Ijw5dS1UdGfSc7uILLtzvg=";
+      hash = "sha256-eWsai/YALXe0H1QbePYs2wdlUViJ/KXi0TbPbIwtyB0=";
     };
-    date = "2025-05-19";
+    date = "2025-05-22";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2162,15 +2162,15 @@
   };
   vk-hdr-layer = {
     pname = "vk-hdr-layer";
-    version = "3b276e68136eb10825aa7cabd06abb324897f0e8";
+    version = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "3b276e68136eb10825aa7cabd06abb324897f0e8";
+      rev = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
       fetchSubmodules = true;
-      hash = "sha256-c3OLT2qMKAQnQYrTVhrs3BEVS55HoaeBijgzygz6zgs=";
+      hash = "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=";
     };
-    date = "2025-04-16";
+    date = "2025-05-22";
   };
   vpp = {
     pname = "vpp";
