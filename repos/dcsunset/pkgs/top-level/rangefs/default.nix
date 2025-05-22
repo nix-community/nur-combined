@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     wrapProgram $out/bin/rangefs \
       --suffix PATH : ${lib.makeBinPath [ fuse3 ]} \
-      --add-flags "--foreground" \
+      --add-flags "--foreground"
     ln -s $out/bin/rangefs $out/bin/mount.fuse.rangefs
   '';
 
