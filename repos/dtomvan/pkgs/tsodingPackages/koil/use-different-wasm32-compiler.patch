@@ -1,0 +1,38 @@
+diff --git i/build.js w/build.js
+index b4a667a..ad9f85b 100644
+--- i/build.js
++++ w/build.js
+@@ -51,24 +51,30 @@ async function buildClient() {
+     ]);
+ 
+     await Promise.all([
+-        cmdAsync("clang", [
++        cmdAsync("clang-19", [
+             "-Wall", "-Wextra",
+             "--target=wasm32",
++            "-I", "@GLIBC@/include",              
++            "-I", "@CLANG@/lib/clang/19/include", 
+             "-I", SRC_FOLDER+"cws/",
+             "-c", SRC_FOLDER+"common.c",
+             "-o", BUILD_FOLDER+"common.wasm.o",
+         ]),
+-        cmdAsync("clang", [
++        cmdAsync("clang-19", [
+             "-Wall", "-Wextra",
+             "--target=wasm32",
++            "-I", "@GLIBC@/include",              
++            "-I", "@CLANG@/lib/clang/19/include", 
+             "-I", SRC_FOLDER+"cws/",
+             "-I", BUILD_FOLDER,
+             "-c", SRC_FOLDER+"client.c",
+             "-o", BUILD_FOLDER+"client.wasm.o",
+         ]),
+-        cmdAsync("clang", [
++        cmdAsync("clang-19", [
+             "-Wall", "-Wextra",
+             "--target=wasm32",
++            "-I", "@GLIBC@/include",              
++            "-I", "@CLANG@/lib/clang/19/include", 
+             "-I", SRC_FOLDER+"cws/",
+             "-c", SRC_FOLDER+"sort.c",
+             "-o", BUILD_FOLDER+"sort.wasm.o",

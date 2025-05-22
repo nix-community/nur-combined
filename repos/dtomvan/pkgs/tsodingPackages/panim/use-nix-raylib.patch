@@ -1,0 +1,27 @@
+diff --git i/nob.c w/nob.c
+index f4b22a9..863fae1 100644
+--- i/nob.c
++++ w/nob.c
+@@ -9,7 +9,7 @@
+ void cflags(Nob_Cmd *cmd)
+ {
+     nob_cmd_append(cmd, "-Wall", "-Wextra", "-ggdb");
+-    nob_cmd_append(cmd, "-I./raylib/raylib-5.0_linux_amd64/include");
++    nob_cmd_append(cmd, "-I@RAYLIB@/include");
+     nob_cmd_append(cmd, "-I"PANIM_DIR);
+     nob_cmd_append(cmd, "-I.");
+ }
+@@ -29,10 +29,10 @@ void cxx(Nob_Cmd *cmd)
+ 
+ void libs(Nob_Cmd *cmd)
+ {
+-    nob_cmd_append(cmd, "-Wl,-rpath=./raylib/raylib-5.0_linux_amd64/lib/");
++    nob_cmd_append(cmd, "-Wl,-rpath=@RAYLIB@/lib/");
+     nob_cmd_append(cmd, "-Wl,-rpath="PANIM_DIR);
+-    nob_cmd_append(cmd, "-L./raylib/raylib-5.0_linux_amd64/lib");
+-    nob_cmd_append(cmd, "-l:libraylib.so", "-lm", "-ldl", "-lpthread");
++    nob_cmd_append(cmd, "-L@RAYLIB/lib");
++    nob_cmd_append(cmd, "-lraylib", "-lm", "-ldl", "-lpthread");
+ }
+ 
+ bool build_plug_c3(bool force, Nob_Cmd *cmd, const char *output_path, const char **source_paths, size_t source_paths_count)

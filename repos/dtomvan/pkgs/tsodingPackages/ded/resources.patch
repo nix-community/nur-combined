@@ -1,0 +1,37 @@
+diff --git i/src/main.c w/src/main.c
+index eac9ac5..2a3d9d8 100644
+--- i/src/main.c
++++ w/src/main.c
+@@ -70,7 +70,7 @@ int main(int argc, char **argv)
+ 
+     // TODO: users should be able to customize the font
+     // const char *const font_file_path = "./fonts/VictorMono-Regular.ttf";
+-    const char *const font_file_path = "./fonts/iosevka-regular.ttf";
++    const char *const font_file_path = "@out@/fonts/iosevka-regular.ttf";
+ 
+     FT_Face face;
+     error = FT_New_Face(library, font_file_path, 0, &face);
+diff --git i/src/simple_renderer.c w/src/simple_renderer.c
+index 546678b..4181a08 100644
+--- i/src/simple_renderer.c
++++ w/src/simple_renderer.c
+@@ -7,14 +7,14 @@
+ #include "./simple_renderer.h"
+ #include "./common.h"
+ 
+-#define vert_shader_file_path "./shaders/simple.vert"
++#define vert_shader_file_path "@out@/shaders/simple.vert"
+ 
+ static_assert(COUNT_SIMPLE_SHADERS == 4, "The amount of fragment shaders has changed");
+ const char *frag_shader_file_paths[COUNT_SIMPLE_SHADERS] = {
+-    [SHADER_FOR_COLOR] = "./shaders/simple_color.frag",
+-    [SHADER_FOR_IMAGE] = "./shaders/simple_image.frag",
+-    [SHADER_FOR_TEXT] = "./shaders/simple_text.frag",
+-    [SHADER_FOR_EPICNESS] = "./shaders/simple_epic.frag",
++    [SHADER_FOR_COLOR] = "@out@/shaders/simple_color.frag",
++    [SHADER_FOR_IMAGE] = "@out@/shaders/simple_image.frag",
++    [SHADER_FOR_TEXT] = "@out@/shaders/simple_text.frag",
++    [SHADER_FOR_EPICNESS] = "@out@/shaders/simple_epic.frag",
+ };
+ 
+ static const char *shader_type_as_cstr(GLuint shader)

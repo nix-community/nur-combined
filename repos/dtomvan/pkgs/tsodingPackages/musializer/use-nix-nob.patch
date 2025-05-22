@@ -1,0 +1,65 @@
+diff --git i/nob.c w/nob.c
+index b7842fc..b2ea61f 100644
+--- i/nob.c
++++ w/nob.c
+@@ -1,12 +1,12 @@
+ #define NOB_IMPLEMENTATION
+ #define NOB_STRIP_PREFIX
+ #define NOB_EXPERIMENTAL_DELETE_OLD
+-#include "./thirdparty/nob.h"
++#include "nob.h"
+ #include "./src_build/configurer.c"
+ 
+ int main(int argc, char **argv)
+ {
+-    NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "./thirdparty/nob.h", "./src_build/configurer.c");
++    NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "@NOB_H@", "./src_build/configurer.c");
+ 
+     const char *program = nob_shift_args(&argc, &argv);
+ 
+@@ -66,6 +66,7 @@ int main(int argc, char **argv)
+     Nob_Cmd cmd = {0};
+     const char *stage2_binary = "build/nob_stage2";
+     nob_cmd_append(&cmd, NOB_REBUILD_URSELF(stage2_binary, "./src_build/nob_stage2.c"));
++    nob_cmd_append(&cmd, "-I@NOB_H@/include");
+     if (!nob_cmd_run_sync(cmd)) return 1;
+ 
+     cmd.count = 0;
+diff --git i/src/plug.c w/src/plug.c
+index 9890cc9..07d054f 100644
+--- i/src/plug.c
++++ w/src/plug.c
+@@ -11,7 +11,7 @@
+ #include "ffmpeg.h"
+ #define NOB_IMPLEMENTATION
+ #define NOB_STRIP_PREFIX
+-#include "thirdparty/nob.h"
++#include "nob.h"
+ #include "thirdparty/tinyfiledialogs.h"
+ 
+ #include <raylib.h>
+diff --git i/src_build/nob_linux.c w/src_build/nob_linux.c
+index 8f7040c..486b86d 100644
+--- i/src_build/nob_linux.c
++++ w/src_build/nob_linux.c
+@@ -42,6 +42,7 @@ bool build_musializer(void)
+         "-I.",
+         "-I@RAYLIB_SRC@/src",
+         "-I@RAYLIB@/include",
++        "-I@NOB_H@/include",
+         "-o", "./build/musializer",
+         "./src/plug.c", "./src/ffmpeg_posix.c", "./src/musializer.c", "./thirdparty/tinyfiledialogs.c",
+         "-lraylib",
+diff --git i/src_build/nob_stage2.c w/src_build/nob_stage2.c
+index db297ba..862e11c 100644
+--- i/src_build/nob_stage2.c
++++ w/src_build/nob_stage2.c
+@@ -2,7 +2,7 @@
+ 
+ #define NOB_IMPLEMENTATION
+ #define NOB_STRIP_PREFIX
+-#include "../thirdparty/nob.h"
++#include "nob.h"
+ #include "../build/config.h"
+ #include "./configurer.c"
+ 

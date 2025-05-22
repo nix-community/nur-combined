@@ -1,0 +1,18 @@
+diff --git i/build.d w/build.d
+index d90777b..856544e 100755
+--- i/build.d
++++ w/build.d
+@@ -15,9 +15,9 @@ int main() {
+         "-I=./src/",
+         "-i",
+         "./src/main.d",
+-        "-L=-l:libreadline.a",
+-        "-L=-l:libhistory.a",
+-        "-L=-l:libncurses.a",
++        "-L=-lreadline",
++        "-L=-lhistory",
++        "-L=-lncurses",
+     ])) return 1;
+     return 0;
+ }
+

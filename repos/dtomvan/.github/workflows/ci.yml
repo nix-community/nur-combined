@@ -1,0 +1,24 @@
+name: ci
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  nix-ci:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      # probably not needed, but raises available space 20GB -> 65GB without
+      # much time cost
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: 'holster'
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Check flake
+        run: nix run nixpkgs#just
