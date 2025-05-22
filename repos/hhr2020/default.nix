@@ -17,7 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
   hmModules = import ./homeModules; # Home Manager modules
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   fiz = pkgs.callPackage ./pkgs/fiz { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
