@@ -50,13 +50,14 @@ in
       };
     };
 
-    packageUnwrapped = pkgs.dino.override {
-      # XXX(2024/04/24): build without echo cancelation (i.e. force WITH_VOICE_PROCESSOR to be undefined).
-      # this means that if the other end of the call is on speaker phone, i'm liable to hear my own voice
-      # leave their speaker, enter their mic, and then return to me.
-      # the benefit is a >50% reduction in CPU use. insignificant on any modern PC; make-or-break on a low-power Pinephone.
-      webrtc-audio-processing = null;
-    };
+    # packageUnwrapped = pkgs.dino.override {
+    #   # XXX(2024/04/24): build without echo cancelation (i.e. force WITH_VOICE_PROCESSOR to be undefined).
+    #   # this means that if the other end of the call is on speaker phone, i'm liable to hear my own voice
+    #   # leave their speaker, enter their mic, and then return to me.
+    #   # the benefit is a >50% reduction in CPU use. insignificant on any modern PC; make-or-break on a low-power Pinephone.
+    #   # XXX(2025/05/16): this appears to no longer be optional
+    #   # webrtc-audio-processing_1 = null;
+    # };
 
     # suggestedPrograms = [
     #   "gnome-keyring"

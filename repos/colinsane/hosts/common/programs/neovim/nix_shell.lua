@@ -6,6 +6,10 @@ vim.filetype.add {
   pattern = {
     ['.*'] = {
       function(path, bufnr)
+        -- returns true if the input is a shebang likely to evaluate to `nix-shell`, e.g.
+        -- - "#!/usr/bin/env nix-shell"  => true
+        -- - "#!nix-shell -i bash -p coreutils"  => true
+        -- - "#!/usr/bin/env python"  => false
         function test_for_nix_shell_shebang(maybe_hashbang)
           local bang_payload = string.match(maybe_hashbang, '^#!(.*)$')
           if not bang_payload then
@@ -19,7 +23,12 @@ vim.filetype.add {
           end
         end
 
-        -- extract `$interpreter` from some `#!nix-shell -i $interpreter ...` line
+        -- extract `$interpreter` from some `#!nix-shell -i $interpreter ...` line.
+        -- returns `nil` if no `-i $interpreter` was specified.
+        -- - "#!nix-shell -i my-beautiful-int -p foo" => "my-beautiful-int"
+        -- - "#!nix-shell -p python3 -i python" => "python"
+        -- - "#!/usr/bin/env python" => nil
+        -- - "#!nix-shell -p python" => nil
         function parse_nix_shell(maybe_nix_shell)
           local shell_payload = string.match(maybe_nix_shell, "^#!nix%-shell(.*)$")
 
@@ -43,10 +52,25 @@ vim.filetype.add {
           return interpreters[1]
         end
 
+        -- given an interpreter (basename), guess a suitable vim filetype.
+        -- for many languages, these are equivalent and this function is a no-op.
+        -- "python2.7" => "python"
+        -- "bash"  => "bash"
+        -- "totally-unknown" => "totally-unknown"
         function filetype_from_interpreter(i)
+          -- list of known vim filetypes may be found in <repo:neovim/neovim:runtime/lua/vim/filetype.lua>
           if string.match(i, "^python") then
             -- python3, python2.7, etc
             return "python"
+          elseif i == "ysh" then
+            -- XXX(2025-05-16): neovim has no `ysh`/oil-shell filetype.
+            -- consider one of these filetypes:
+            -- - "sh": but ysh curly braces will confuse the syntax highlighting
+            -- - "csh": no highlighting bugs, just omits some highlights
+            -- - "cpp": better highlighting of functions, but thinks `#` comments are compiler directives
+            -- - "fish": highlights a LOT, but still occasional bugs
+            -- - "zsh": slightly more capable than csh; no bugs
+            return "zsh"
           else
             -- very common for interpreter name to be the same as filetype
             return i

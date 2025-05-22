@@ -16,8 +16,8 @@ flags:
 operations:
 sane-vpn up [REGION]
 sane-vpn down [REGION]
-sane-vpn do [REGION [-- COMMAND ...] ]
-sane-vpn do - [-- COMMAND ...]
+sane-vpn do [REGION [--] [ COMMAND ...] ]
+sane-vpn do - [--] [ COMMAND ...]
 sane-vpn --help
 
 special regions:

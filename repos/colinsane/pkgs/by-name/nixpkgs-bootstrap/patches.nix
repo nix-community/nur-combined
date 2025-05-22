@@ -30,45 +30,29 @@ let
 in
 [
   (fetchpatch' {
+    name = "conky: 1.19.6 -> 1.22.1, fix cross and docs, and modernize";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/400497";
+    hash = "sha256-7/RZvTQGDff5J05or/74updDdCpM9l0Lanm+dkluce0=";
+  })
+
+  (fetchpatch' {
+    # XXX(2025-05-17): merged into staging
+    name = "libmanette: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/407662";
+    hash = "sha256-wubEvz5MgMS9g4PAzy4E0pUZ30AW4AvD7ZGQeie9/Mk=";
+  })
+
+  (fetchpatch' {
+    # XXX(2025-05-17): merged into master
+    name = "gnome-keyring: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/407664";
+    hash = "sha256-mlzlu3S9UuKCqQ+50ycC00FMp587pN5iiWc4OY0VrLE=";
+  })
+
+  (fetchpatch' {
     name = "xarchiver: build with strictDeps=true";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/406599";
     hash = "sha256-xaI6YEGuxZaYtaTbfeTK9cr2ELhWnrO+Azic5aG6XbE=";
-  })
-  (fetchpatch' {
-    # 2025-05-03: merged into staging
-    name = "qt6.{qttools,qtwayland}: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/403830";
-    hash = "sha256-NaDHdsfKY3Gg3RJTMgbHYqnezdLuei/71d0d+/cubmE=";
-  })
-
-  (fetchpatch' {
-    # 2025-05-03: merged into staging
-    name = "qt6.qttranslations: bootstrap directly";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/403944";
-    hash = "sha256-ZjEGozWbxfplMGU61ohTkqjDmhZRvVildXx6TWlHhvQ=";
-  })
-
-  (fetchpatch' {
-    # 2025-05-02: merged into staging
-    name = "fcitx5: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/399981";
-    hash = "sha256-BSnp80+8cpb+1yFaB0g7ZnPgQQqC7qo+ReMJUtlKgr4=";
-  })
-
-  (fetchpatch' {
-    # 2025-05-02: merged into staging
-    name = "psqlodbc: fix cross";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/403706";
-    hash = "sha256-VKX8RpD8V0tYC6w0O97iJN1r8nVRRSU1FCY3hXlfZoc=";
-  })
-
-  (fetchpatch' {
-    # 2025-05-04: merged into staging
-    name = "libcdio: omit manpages when cross compiling";
-    # saneCommit = "2248d99b4edb7b01b667139f16949367773bf03a";
-    # hash = "sha256-OjK34Mo/5JXFNn4rBFhWq8wfeHItM6zzDodMPBYyERY=";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/404076";  #< someone else's fix (worse though :P)
-    hash = "sha256-pP4rnz8vskuVC5hkoGORVpcW3/kFF3m4gSW25H4TJvg=";
   })
 
   (fetchpatch' {

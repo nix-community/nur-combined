@@ -91,17 +91,33 @@ let
   in (final.pkgsBuildBuild.writeShellScriptBin "cargo" ''
     targetDir=target
     isFlavored=
+    outDir=
+    profile=
 
     cargoArgs=("$@")
+    nextIsOutDir=
+    nextIsProfile=
     nextIsTargetDir=
     for arg in "''${cargoArgs[@]}"; do
-      if [[ -n "$nextIsTargetDir" ]]; then
+      if [[ -n "$nextIsOutDir" ]]; then
+        nextIsOutDir=
+        outDir="$arg"
+      elif [[ -n "$nextIsProfile" ]]; then
+        nextIsProfile=
+        profile="$arg"
+      elif [[ -n "$nextIsTargetDir" ]]; then
         nextIsTargetDir=
         targetDir="$arg"
-      elif [[ "$arg" = "--target-dir" ]]; then
-        nextIsTargetDir=1
       elif [[ "$arg" = "build" ]]; then
         isFlavored=1
+      elif [[ "$arg" = "--out-dir" ]]; then
+        nextIsOutDir=1
+      elif [[ "$arg" = "--profile" ]]; then
+        nextIsProfile=1
+      elif [[ "$arg" = "--release" ]]; then
+        profile=release
+      elif [[ "$arg" = "--target-dir" ]]; then
+        nextIsTargetDir=1
       fi
     done
 
@@ -114,8 +130,12 @@ let
       extraFlags+=(
         --target "${rustHostPlatformSpec}"
         -Z unstable-options
-        --out-dir "$targetDir"/release
       )
+      if [ -z "$outDir" ]; then
+        extraFlags+=(
+          --out-dir "$targetDir"/''${profile:-debug}
+        )
+      fi
     fi
 
     exec ${setEnv} "${lib.getExe cargo}" "$@" "''${extraFlags[@]}"
@@ -219,17 +239,13 @@ in with final; {
   };
 
   # 2025/05/01: upstreaming is unblocked
-  glycin-loaders = (prev.glycin-loaders.override {
+  glycin-loaders = prev.glycin-loaders.override {
     cargo = crossCargo;
-  });
+  };
 
-  # 2025/05/01: upstreaming is unblocked
-  # # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
-  # gnustep-base = prev.gnustep-base.overrideAttrs (upstream: {
-  #   # fixes: "checking FFI library usage... ./configure: line 11028: pkg-config: command not found"
-  #   # nixpkgs has this in nativeBuildInputs... but that's failing when we partially emulate things.
-  #   buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
-  # });
+  # 2025/05/16: out for PR: <https://github.com/NixOS/nixpkgs/pull/407664>
+  # fixes: `pkcs11/gkm/meson.build:47:20: ERROR: Program 'glib-genmarshal' not found or not executable`
+  # gnome-keyring = addNativeInputs [ buildPackages.glib ] prev.gnome-keyring;
 
   # 2025/01/13: upstreaming is blocked on gnome-shell
   # fixes: "gdbus-codegen not found or executable"
@@ -258,6 +274,25 @@ in with final; {
   #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
   #     gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
   #   ];
+  # });
+
+  gnome-user-share = prev.gnome-user-share.override {
+    cargo = crossCargo;
+  };
+  # 2025/05/16: this part is out for PR: <https://github.com/NixOS/nixpkgs/pull/407667>
+  # .overrideAttrs {
+  #   # see src/meson.build.
+  #   # nix default is `plain` but that has g-u-s build in debug mode,
+  #   # which disagrees with the build directories used by `crossCargo` (target/debug v.s. target/release)
+  #   mesonBuildType = "release";
+  # };
+
+  # 2025/05/01: upstreaming is unblocked
+  # # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
+  # gnustep-base = prev.gnustep-base.overrideAttrs (upstream: {
+  #   # fixes: "checking FFI library usage... ./configure: line 11028: pkg-config: command not found"
+  #   # nixpkgs has this in nativeBuildInputs... but that's failing when we partially emulate things.
+  #   buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   # });
 
   # 2025/05/02: blocked on psqlodbc (available after next staging merge)
@@ -305,6 +340,10 @@ in with final; {
   # });
 
   lemoa = prev.lemoa.override { cargo = crossCargo; };
+
+  # 2025/05/16: upstreaming is unblocked; out for PR: <https://github.com/NixOS/nixpkgs/pull/407662>
+  # fixes `Build-time dependency gi-docgen found: NO (tried pkgconfig and cmake)`
+  # libmanette = addDepsBuildBuild [ pkgsBuildBuild.pkg-config ] prev.libmanette;
 
   # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   phonon = super.phonon.overrideAttrs (orig: {

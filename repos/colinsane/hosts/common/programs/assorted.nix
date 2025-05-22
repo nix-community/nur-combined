@@ -378,7 +378,7 @@ in
       "megapixels"  # camera app (does not support PPP as of 2024-11-29)
       "megapixels-next"  # camera app (which supports PPP, as of 2024-11-29)
       "notejot"  # note taking, e.g. shopping list
-      "planify"  # todo-tracker/planner
+      # "planify"  # todo-tracker/planner  (XXX(2025-05-16): does not build; gxml tests fail against glib 2.84.1; planify itself fails still, if gxml.doCheck forced false)
       "portfolio-filemanager"
       # "tangram"  # web browser
       "wike"  # Wikipedia Reader

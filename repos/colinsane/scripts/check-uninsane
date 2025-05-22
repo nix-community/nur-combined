@@ -5,7 +5,7 @@ echo "this script will check that uninsane.org is baseline operational"
 echo "it doesn't check all services, just the most critical ones"
 echo ""
 
-OVPNS_IPV4=185.157.162.178
+OVPNS_IPV4=156.146.51.235
 DOOF_IPV4=205.201.63.12
 
 usage() {
@@ -98,6 +98,12 @@ check "[DOOF] https://uninsane.org online" curl "--connect-to" "uninsane.org:443
 check "[DOOF] https://matrix.uninsane.org online" curl "--connect-to" "matrix.uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://matrix.uninsane.org
 
 check "uninsane.org DMARC record" nslookup -querytype=TXT _dmarc.uninsane.org.
+_checkPtr() {
+  local fwd=$1
+  local rev=$2
+  nslookup "$fwd" | grep "name = $rev$"
+}
+check "mx.uninsane.org PTR" _checkPtr "$OVPNS_IPV4" mx.uninsane.org.
 
 check "servo-hn wireguard network" ping -c 1 -W 3 servo-hn
 
