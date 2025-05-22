@@ -21,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   # reference: https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/filesystems/gocryptfs/default.nix
   postInstall = ''
     wrapProgram $out/bin/rangefs \
-      --suffix PATH : ${lib.makeBinPath [ fuse3 ]}
+      --suffix PATH : ${lib.makeBinPath [ fuse3 ]} \
+      --add-flags "--foreground" \
     ln -s $out/bin/rangefs $out/bin/mount.fuse.rangefs
   '';
 
