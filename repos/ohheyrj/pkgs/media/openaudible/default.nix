@@ -6,7 +6,8 @@
   versionCheckHook,
   xcbuild,
   writeShellScript,
-  _7zz
+  _7zz,
+  config
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs:{
@@ -48,6 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs:{
     license = lib.licenses.unfree;
     platforms = lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    broken = !(config.allowUnfree or false);
   };
 }
 )
