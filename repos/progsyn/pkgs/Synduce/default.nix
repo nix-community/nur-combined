@@ -31,7 +31,7 @@
 in
   ocamlPackages.buildDunePackage rec {
     pname = "Synduce";
-    version = "0.2";
+    version = "0-unstable-2023-08-12";
     duneVersion = "3";
     src =
       fetchFromGitHub

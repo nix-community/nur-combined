@@ -17,11 +17,9 @@ We provide [`template.nix`](./template.nix), a minimal Nix flake template that d
 2. **Customize Your Environment/Package**: Change your devShell environment or define your packages
 3. **Launch/Build**: Use `nix develop` to enter the default devShell, or use `nix build` to build your package
 
-## More Nix-Enabled Program Synthesis Tools
+## More Program Synthesis Tools with Nix Derivations
 
 - EUSolver: https://github.com/mistzzt/EUSolver
-- Synduce: https://github.com/mistzzt/Synduce
-- parsynt: https://github.com/mistzzt/parsynt
 - Opera: https://github.com/utopia-group/Opera
 
 If you're working with or developing a tool that you believe should be listed here, please reach out.

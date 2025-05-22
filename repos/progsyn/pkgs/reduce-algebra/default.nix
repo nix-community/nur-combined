@@ -1,4 +1,5 @@
 {
+  autoPatchelfHook,
   fetchurl,
   lib,
   makeWrapper,
@@ -11,7 +12,6 @@
   bzip2,
   libiconv,
   which,
-  darwin,
   brotli,
   fontconfig,
   freetype,
@@ -26,52 +26,48 @@
 }:
 stdenv.mkDerivation {
   name = "reduce-algebra";
-  version = "r6860";
+  version = "6860";
   src = fetchurl {
     url = "https://sourceforge.net/projects/reduce-algebra/files/snapshot_2024-08-12/Reduce-svn6860-src.tar.gz";
     sha1 = "q81l4MA2h+4ky4Rwt26Vl0QPf5c=";
   };
   patches = [./fox.patch];
 
-  nativeBuildInputs =
-    [
-      autoconf
-      automake
-      ccache
-      coreutils
-      libtool
-      perl
-      ncurses
-      zlib
-      bzip2
-      libiconv
-      which
-      makeWrapper
+  nativeBuildInputs = [
+    autoconf
+    automake
+    ccache
+    coreutils
+    libtool
+    perl
+    ncurses
+    zlib
+    bzip2
+    libiconv
+    which
+    makeWrapper
 
-      # homebrew package
-      expat
-      brotli
-      fontconfig
-      freetype
-      gettext
-      libffi
-      libpng
-      xorg.libX11
-      xorg.libXau
-      xorg.libxcb
-      xorg.libXcursor
-      xorg.libXdmcp
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXft
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Carbon
-      darwin.stubs.rez
-    ];
+    # homebrew package
+    expat
+    brotli
+    fontconfig
+    freetype
+    gettext
+    libffi
+    libpng
+    xorg.libX11
+    xorg.libXau
+    xorg.libxcb
+    xorg.libXcursor
+    xorg.libXdmcp
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXft
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    autoPatchelfHook
+  ];
 
   preConfigure = ''
     # Configuration: Rewrite CSL hard-coded paths to use dynamic libraries
@@ -133,18 +129,46 @@ stdenv.mkDerivation {
     substituteInPlace csl/configure csl/configure.ac \
       --replace 'LIBS="-lncurses  $LIBS"' 'LIBS="-lncurses -lz $LIBS"'
 
-    ./autogen.sh --fast --with-csl --with-psl
+    # reduce includes precompiled bpsl binaries
+    # need to patch them to use the Nix dynamic linker
+    find psl/dist/kernel -type f -name "bpsl" | while read -r file; do
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
+    done
+    # Note: bpsl is broken on Darwin
+
+    substituteInPlace csl/cslbase/Makefile csl/cslbase/Makefile.am csl/cslbase/Makefile.in \
+                      configure configure.ac \
+      --replace 'g++' '$(CXX)' \
+      --replace 'gcc' '$(CC)'
+
+    ./autogen.sh --fast --with-csl ${
+      if stdenv.isDarwin
+      then ""
+      else "--with-psl"
+    }
   '';
 
-  configureFlags = [
-    "--disable-libtool-lock"
-    "--disable-option-checking"
-    "--with-ccache"
-    "--with-csl"
-    "--with-lto"
-    "--with-psl"
-    "--without-autogen"
-  ];
+  configureFlags =
+    [
+      "--disable-libtool-lock"
+      "--disable-option-checking"
+      "--with-ccache"
+      "--with-csl"
+      "--with-lto"
+      "--without-autogen"
+    ]
+    ++ (
+      if stdenv.isDarwin
+      then [
+        "CXXFLAGS=-std=c++20"
+        "--without-fox"
+        "--disable-universal"
+        "--with-clang"
+      ]
+      else [
+        "--with-psl"
+      ]
+    );
   dontDisableStatic = true;
 
   installPhase =
@@ -169,17 +193,11 @@ stdenv.mkDerivation {
       cp cslbuild/*/redfront/rfpsl $out/psl/rfpsl
       chmod +x $out/psl/rfpsl
 
-      makeWrapper $out/csl/redcsl $out/bin/reduce \
-        --argv0 "reduce" \
-        --chdir $out
-
       makeWrapper $out/csl/redcsl $out/bin/redcsl \
-        --argv0 "redcsl" \
-        --chdir $out
+        --argv0 "redcsl"
 
       makeWrapper $out/psl/redpsl $out/bin/redpsl \
-        --argv0 "redpsl" \
-        --chdir $out
+        --argv0 "redpsl"
     ''
     else ''
       BUILD=$(scripts/findhost.sh $(./config.guess))
@@ -207,17 +225,11 @@ stdenv.mkDerivation {
       chmod +x $out/redcsl $out/bin/rfcsl
       chmod +x $out/redpsl $out/bin/rfpsl
 
-      makeWrapper $out/redcsl $out/bin/reduce \
-        --argv0 "reduce" \
-        --chdir $out
-
       makeWrapper $out/redcsl $out/bin/redcsl \
-        --argv0 "redcsl" \
-        --chdir $out
+        --argv0 "redcsl"
 
       makeWrapper $out/redpsl $out/bin/redpsl \
-        --argv0 "redpsl" \
-        --chdir $out
+        --argv0 "redpsl"
     '';
 
   meta = with lib; {

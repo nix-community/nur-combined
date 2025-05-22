@@ -19,7 +19,8 @@ jobs:
         cachixName:
           - mistzzt
         nixPath:
-          - nixpkgs=channel:nixos-24.05
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
     env:
       NIXPKGS_ALLOW_UNFREE: '1'

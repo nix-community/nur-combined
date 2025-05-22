@@ -8,7 +8,7 @@
 }:
 ocamlPackages.buildDunePackage rec {
   pname = "Parsynt";
-  version = "0.3";
+  version = "0-unstable-2021-12-15";
   duneVersion = "3";
   src =
     fetchFromGitHub
