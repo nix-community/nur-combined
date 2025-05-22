@@ -2,16 +2,21 @@
   fetchurl,
   lib,
   stdenv,
+  qt5,
 }:
 stdenv.mkDerivation rec {
   pname = "gowin-eda-edu-ide";
-  version = "1.9.8.11";
+  version = "1.9.11.01";
 
   src = fetchurl {
-    url = "http://cdn.gowinsemi.com.cn/Gowin_V${version}_Education_linux.tar.gz";
-    sha256 = "sha256-FpbJ+IDGkqA6cjn9RMCda2wJf4a+RhWI/JO1X+MW1cg=";
+    # https://www.gowinsemi.com.cn/faq.aspx
+    url = "https://cdn.gowinsemi.com.cn/Gowin_V${version}_Education_Linux.tar.gz";
+    sha256 = "sha256-I26TSznMquS74NZzgJtRDMQ4V9hg7z4WCSJ0ybkvrQ4=";
   };
   sourceRoot = ".";
+
+  buildInputs = [qt5.qtbase];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   installPhase = ''
     _package-ide() {
