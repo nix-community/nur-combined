@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  wrapQtAppsHook, qtbase, shaderc, makeDesktopItem
+  wrapQtAppsHook, qtbase, shaderc, makeDesktopItem, fetchpatch, git
 }:
 
 let
@@ -15,19 +15,26 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "stable-diffusion-cpp";
-  version = "9b5942";
+  version = "10c6501";
 
   src = fetchFromGitHub {
     owner = "piallai";
     repo = "stable-diffusion.cpp";
-    rev = "CLI-GUI-d${version}";
-    hash = "sha256-kTD5hYgZaxMcfWOcv1FfhuOiWG/4SWnMbtBuUFX8ZVc=";
+    rev = "CLI-GUI-${version}";
+    hash = "sha256-lNO/8SLpH8sQe0yeZeEyJ6gc1WCEI0RxXVNW6LSHjqQ=";
     fetchSubmodules = true;
   };
 
+  patches = [
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/leejet/stable-diffusion.cpp/pull/484.patch";
+      hash = "sha256-VapHVytOgJEMKUG9EECZChpcD3CrauYcAnl21PNrxo4=";
+    })
+  ];
+
   nativeBuildInputs = [
     cmake
-    wrapQtAppsHook shaderc
+    wrapQtAppsHook shaderc git
   ];
 
   buildInputs = [
