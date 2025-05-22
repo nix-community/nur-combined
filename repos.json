@@ -1012,6 +1012,9 @@
         "propheci": {
             "url": "https://github.com/Propheci/NixUR"
         },
+        "ps": {
+            "url": "https://github.com/patryk-s/nur-packages"
+        },
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
         },
