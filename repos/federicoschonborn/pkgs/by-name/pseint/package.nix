@@ -8,7 +8,6 @@
   libglvnd,
   wxGTK32,
   xorg,
-  tree,
   versionCheckHook,
 }:
 
@@ -55,16 +54,33 @@ stdenv.mkDerivation (finalAttrs: {
     categories = [ "Development" ];
   });
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    if stdenv.hostPlatform.isLinux then
+      ''
+        runHook preInstall
 
-    ${lib.getExe tree}
-    mkdir -p $out/bin $out/share/pseint
-    cp -r bin/. $out/share/pseint
-    ln -s $out/share/pseint/bin/* $out/bin
+        mkdir -p $out/bin $out/share/pseint
+        cp -r bin/. $out/share/pseint
+        for name in psdraw3 psdrawE pseint pseval psexport psterm; do
+          ln -s $out/share/pseint/bin/$name $out/bin/$name
+        done
 
-    runHook postInstall
-  '';
+        runHook postInstall
+      ''
+    else if stdenv.hostPlatform.isDarwin then
+      ''
+        runHook preInstall
+
+        appDir=$out/Applications/pseint.app/Contents
+        mkdir -p $appDir/MacOS $appDir/Resources
+        cp -r bin/. $appDir/Resources
+        ln -s $appDir/Resources/pseint $appDir/MacOS/pseint
+        cp dist/Info.plist $appDir/Info.plist
+
+        runHook postInstall
+      ''
+    else
+      throw "unsupported platform";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   # Prints the wrong version for some reason.
