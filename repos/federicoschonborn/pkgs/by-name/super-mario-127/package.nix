@@ -27,7 +27,7 @@ let
       mkdir -p $out/{bin,opt/super-mario-127}
       unzip $src -d $out/opt/super-mario-127
       chmod +x $out/opt/super-mario-127/Super_Mario_127.x86_64
-      ln -s $out/opt/super-mario-127/Super_Mario_127.x86_64 $out/bin/super-mario-127
+      ln -sr $out/opt/super-mario-127/Super_Mario_127.x86_64 $out/bin/super-mario-127
     '';
   });
 in

@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
         mkdir -p $out/bin $out/share/pseint
         cp -r bin/. $out/share/pseint
         for name in psdraw3 psdrawE pseint pseval psexport psterm; do
-          ln -s $out/share/pseint/bin/$name $out/bin/$name
+          ln -sr $out/share/pseint/bin/$name $out/bin/$name
         done
 
         runHook postInstall
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
         appDir=$out/Applications/pseint.app/Contents
         mkdir -p $appDir/MacOS $appDir/Resources
         cp -r bin/. $appDir/Resources
-        ln -s $appDir/Resources/pseint $appDir/MacOS/pseint
+        ln -sr $appDir/Resources/pseint $appDir/MacOS/pseint
         cp dist/Info.plist $appDir/Info.plist
 
         runHook postInstall
@@ -85,8 +85,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   # Prints the wrong version for some reason.
   doInstallCheck = false;
-  installCheckProgram = "${placeholder "out"}/bin/pseint";
-  installCheckProgramArg = "--version";
+  versionCheckProgram = "${placeholder "out"}/bin/pseint";
+  versionCheckProgramArg = "--version";
 
   strictDeps = true;
 
