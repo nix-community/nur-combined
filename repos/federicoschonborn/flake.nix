@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -67,7 +66,6 @@
               allowUnfreePredicate =
                 p:
                 builtins.elem (lib.getName p) [
-                  "plasma-login"
                   "super-mario-127"
                 ];
             };
@@ -157,9 +155,16 @@
                 );
 
                 packageListFormatted =
-                  pkgs.runCommand "PACKAGES.md" { nativeBuildInputs = [ pkgs.nodePackages.prettier ]; }
+                  pkgs.runCommand "PACKAGES.md"
+                    {
+                      nativeBuildInputs = [
+                        pkgs.which
+                        pkgs.nodejs-slim
+                        pkgs.nodePackages.prettier
+                      ];
+                    }
                     ''
-                      prettier ${packageList} > $out
+                      node $(which prettier) ${packageList} > $out
                     '';
               in
               pkgs.writeShellApplication {
@@ -263,18 +268,17 @@
                 in
                 ''
                   echo '${
-                    builtins.toJSON (
-                      lib.filter (x: x != "") (
-                        lib.flatten (
-                          lib.mapAttrsToList (
-                            name: value:
-                            lib.optionalString (isBuildable value && value ? tests && value.tests != { }) (
-                              builtins.map (testName: ".#${name}.tests.${testName}") (builtins.attrNames value.tests)
-                            )
-                          ) config.packages
+                    lib.pipe config.packages [
+                      (lib.mapAttrsToList (
+                        name: value:
+                        lib.optionalString (isBuildable value && value ? tests && value.tests != { }) (
+                          builtins.map (testName: ".#${name}.tests.${testName}") (builtins.attrNames value.tests)
                         )
-                      )
-                    )
+                      ))
+                      (lib.filter (x: x != ""))
+                      lib.flatten
+                      builtins.toJSON
+                    ]
                   }'
                 '';
             };

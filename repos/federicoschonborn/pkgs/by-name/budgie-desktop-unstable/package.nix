@@ -2,6 +2,7 @@
   lib,
   budgie-desktop,
   gtk-layer-shell,
+  libpeas2,
   nix-update-script,
   xfce,
   gobject-introspection,
@@ -20,6 +21,7 @@ budgie-desktop.overrideAttrs (prevAttrs: {
 
   buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
     gtk-layer-shell
+    libpeas2
   ];
 
   mesonFlags = (prevAttrs.mesonFlags or [ ]) ++ [

@@ -8,18 +8,18 @@
 
 rustPlatform.buildRustPackage {
   pname = "magothy";
-  version = "0-unstable-2025-03-30";
+  version = "0-unstable-2025-05-18";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "serebit";
     repo = "magothy";
-    rev = "04e73cf2d2aadf152a1cc46e29f9485a6b34af9e";
-    hash = "sha256-tfoDoBAQ4q7b1f5FruWEgnXOsO4GClHSPFtMo2pUjDM=";
+    rev = "47b67a0cd23452853e214f146c583ebc976e2207";
+    hash = "sha256-NZrpXsGJ1wW7WJx5j0FNkZw0yAe/PqM45ySP2WQ+XPA=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-OtqTaiLGvlurNXBaTXz0XrggPvWEkxUINuS3I3S/isc=";
+  cargoHash = "sha256-5l306byTAmpGjYs7iPZGWGSQt5axt9h2o1cKEyIjsKk=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

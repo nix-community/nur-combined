@@ -18,92 +18,123 @@ default_args := "--verbose --print-build-logs --log-format multiline-with-logs -
 @_cache-outputs-tests:
     nix eval -f ./ci.nix cacheOutputs --apply 'xs: builtins.concatStringsSep " " (builtins.concatMap (x: map (t: t.drvPath + "^*") (builtins.attrValues (x.tests or {}))) xs)' --raw
 
-_nix-unstable +ARGS:
-    nix {{ ARGS }} {{ default_args }}
+_nix-nixpkgs-unstable +ARGS:
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixpkgs-unstable
 
-_nix-stable +ARGS:
-    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs nixpkgs-stable
+_nix-nixos-unstable +ARGS:
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable
 
-[group("build")]
-build-unstable +PACKAGES:
-    just _nix-unstable build $(just _to-outputs {{ PACKAGES }})
-
-[group("build")]
-build-stable +PACKAGES:
-    just _nix-stable build $(just _to-outputs {{ PACKAGES }})
+_nix-nixos-stable +ARGS:
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixos-24.11
 
 [group("build")]
-build +PACKAGES: (build-unstable PACKAGES) (build-stable PACKAGES)
+build-nixpkgs-unstable +PACKAGES:
+    just _nix-nixpkgs-unstable build $(just _to-outputs {{ PACKAGES }})
+
+[group("build")]
+build-nixos-unstable +PACKAGES:
+    just _nix-nixos-unstable build $(just _to-outputs {{ PACKAGES }})
+
+[group("build")]
+build-nixos-stable +PACKAGES:
+    just _nix-nixos-stable build $(just _to-outputs {{ PACKAGES }})
+
+[group("build")]
+build +PACKAGES: (build-nixpkgs-unstable PACKAGES) (build-nixos-unstable PACKAGES) (build-nixos-stable PACKAGES)
 
 [group("build-all")]
-build-all-unstable:
-    just _nix-unstable build --no-link $(just _cache-outputs)
+build-all-nixpkgs-unstable:
+    just _nix-nixpkgs-unstable build --no-link $(just _cache-outputs)
 
 [group("build-all")]
-build-all-stable:
-    just _nix-stable build --no-link $(just _cache-outputs)
+build-all-nixos-unstable:
+    just _nix-nixos-unstable build --no-link $(just _cache-outputs)
 
 [group("build-all")]
-build-all: build-all-unstable build-all-stable
+build-all-nixos-stable:
+    just _nix-nixos-stable build --no-link $(just _cache-outputs)
+
+[group("build-all")]
+build-all: build-all-nixpkgs-unstable build-all-nixos-unstable build-all-nixos-stable
 
 [group("rebuild")]
-rebuild-unstable +PACKAGES: (build-unstable PACKAGES)
-    just _nix-unstable build --rebuild $(just _to-outputs {{ PACKAGES }})
+rebuild-nixpkgs-unstable +PACKAGES: (build-nixpkgs-unstable PACKAGES)
+    just _nix-nixpkgs-unstable build --rebuild $(just _to-outputs {{ PACKAGES }})
 
 [group("rebuild")]
-rebuild-stable +PACKAGES: (build-stable PACKAGES)
-    just _nix-stable build --rebuild $(just _to-outputs {{ PACKAGES }})
+rebuild-nixos-unstable +PACKAGES: (build-nixos-unstable PACKAGES)
+    just _nix-nixos-unstable build --rebuild $(just _to-outputs {{ PACKAGES }})
 
 [group("rebuild")]
-rebuild +PACKAGES: (rebuild-unstable PACKAGES) (rebuild-stable PACKAGES)
+rebuild-nixos-stable +PACKAGES: (build-nixos-stable PACKAGES)
+    just _nix-nixos-stable build --rebuild $(just _to-outputs {{ PACKAGES }})
+
+[group("rebuild")]
+rebuild +PACKAGES: (rebuild-nixpkgs-unstable PACKAGES) (rebuild-nixos-stable PACKAGES)
 
 [group("rebuild-all")]
-rebuild-all-unstable:
-    just _nix-unstable build --no-link --rebuild $(just _cache-outputs)
+rebuild-all-nixpkgs-unstable:
+    just _nix-nixpkgs-unstable build --no-link --rebuild $(just _cache-outputs)
 
 [group("rebuild-all")]
-rebuild-all-stable:
-    just _nix-stable build --no-link --rebuild $(just _cache-outputs)
+rebuild-all-nixos-unstable:
+    just _nix-nixos-unstable build --no-link --rebuild $(just _cache-outputs)
 
 [group("rebuild-all")]
-rebuild-all: rebuild-all-unstable rebuild-all-stable
+rebuild-all-nixos-stable:
+    just _nix-nixos-stable build --no-link --rebuild $(just _cache-outputs)
+
+[group("rebuild-all")]
+rebuild-all: rebuild-all-nixpkgs-unstable rebuild-all-nixos-stable
 
 [group("test-all")]
-test-all-unstable:
-    just _nix-unstable build --no-link $(just _cache-outputs-tests)
+test-all-nixpkgs-unstable:
+    just _nix-nixpkgs-unstable build --no-link $(just _cache-outputs-tests)
 
 [group("test-all")]
-test-all-stable:
-    just _nix-stable build --no-link $(just _cache-outputs-tests)
+test-all-nixos-unstable:
+    just _nix-nixos-unstable build --no-link $(just _cache-outputs-tests)
 
 [group("test-all")]
-test-all: test-all-unstable test-all-stable
+test-all-nixos-stable:
+    just _nix-nixos-stable build --no-link $(just _cache-outputs-tests)
+
+[group("test-all")]
+test-all: test-all-nixpkgs-unstable test-all-nixos-stable
 
 [group("run")]
-run-unstable PACKAGE: (build-unstable PACKAGE)
-    just _nix-unstable run ".#{{ PACKAGE }}"
+run-nixpkgs-unstable PACKAGE: (build-nixpkgs-unstable PACKAGE)
+    just _nix-nixpkgs-unstable run ".#{{ PACKAGE }}"
 
 [group("run")]
-run-stable PACKAGE: (build-stable PACKAGE)
-    just _nix-stable run ".#{{ PACKAGE }}"
+run-nixos-unstable PACKAGE: (build-nixos-stable PACKAGE)
+    just _nix-nixos-unstable run ".#{{ PACKAGE }}"
+
+[group("run")]
+run-nixos-stable PACKAGE: (build-nixos-stable PACKAGE)
+    just _nix-nixos-stable run ".#{{ PACKAGE }}"
 
 [group("path-info")]
-path-info-unstable PACKAGE: (build-unstable PACKAGE)
-    just _nix-unstable path-info ".#{{ PACKAGE }}"
+path-info-nixpkgs-unstable PACKAGE: (build-nixpkgs-unstable PACKAGE)
+    just _nix-nixpkgs-unstable path-info ".#{{ PACKAGE }}"
 
 [group("path-info")]
-path-info-stable PACKAGE: (build-stable PACKAGE)
-    just _nix-stable path-info ".#{{ PACKAGE }}"
+path-info-nixos-unstable PACKAGE: (build-nixos-stable PACKAGE)
+    just _nix-nixos-unstable path-info ".#{{ PACKAGE }}"
+
+[group("path-info")]
+path-info-nixos-stable PACKAGE: (build-nixos-stable PACKAGE)
+    just _nix-nixos-stable path-info ".#{{ PACKAGE }}"
 
 [group("update")]
 update +PACKAGES:
-    just _nix-unstable run ".#update" {{ PACKAGES }}
+    just _nix-nixpkgs-unstable run ".#update" {{ PACKAGES }}
 
 [group("update-all")]
 update-all:
-    just _nix-unstable run ".#update-all"
+    just _nix-nixpkgs-unstable run ".#update-all"
 
-tree PACKAGE: (build-unstable PACKAGE)
+tree PACKAGE: (build-nixpkgs-unstable PACKAGE)
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p nix-tree
     set -euxo pipefail
@@ -123,4 +154,4 @@ lint:
     deadnix
 
 generate-readme:
-    just _nix-unstable run ".#generate-readme"
+    just _nix-nixpkgs-unstable run ".#generate-readme"

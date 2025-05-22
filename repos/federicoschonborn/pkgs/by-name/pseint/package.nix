@@ -13,11 +13,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pseint";
-  version = "20240122";
+  version = "20250314";
 
   src = fetchurl {
     url = "mirror://sourceforge/project/pseint/${finalAttrs.version}/pseint-src-${finalAttrs.version}.tgz";
-    hash = "sha256-OvmkSvMT7hhQWuBxaslJIZ0ZWFQGm0zjO9Qcrb/mVLA=";
+    hash = "sha256-ETLkkxzmzouVxzzjyhQGgp8Em8CjcF3YjeUdsiiOtSc=";
   };
 
   nativeBuildInputs = [
@@ -28,13 +28,14 @@ stdenv.mkDerivation (finalAttrs: {
     libGLU
     libglvnd
     wxGTK32
-  ] ++ lib.optional stdenv.hostPlatform.isLinux xorg.libX11;
+    xorg.libX11
+  ];
 
-  postPatch = ''
-    substituteInPlace dtl/dtl/Diff.hpp --replace-fail "enableTrivial () const" "enableTrivial ()"
-  '';
-
-  makeFlags = [ "ARCH=lnx" ];
+  makeFlags = [
+    "GCC=cc"
+    "GPP=c++"
+    "ARCH=lnx"
+  ];
 
   desktopItems = lib.optional stdenv.hostPlatform.isLinux (makeDesktopItem {
     name = "pseint";
@@ -47,18 +48,18 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt/pseint
-    cp -r bin/. $out/opt/pseint
-    ln -s $out/opt/pseint/bin/* $out/bin
+    mkdir -p $out/bin $out/share/pseint
+    cp -r bin/. $out/share/pseint
+    ln -s $out/share/pseint/bin/* $out/bin
 
     runHook postInstall
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
-
-  # Uses the wrong version for some godforsaken reason.
-  dontVersionCheck = true;
+  # Prints the wrong version for some reason.
+  doInstallCheck = false;
+  installCheckProgram = "${placeholder "out"}/bin/pseint";
+  installCheckProgramArg = "--version";
 
   strictDeps = true;
 
@@ -68,8 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    # g++: command not found
-    broken = stdenv.hostPlatform.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

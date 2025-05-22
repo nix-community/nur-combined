@@ -4,17 +4,12 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  SDL2 ? null,
-  SDL2_classic ? null,
+  SDL2,
   SDL2_image,
   SDL2_ttf,
   SDL2_mixer,
   nix-update-script,
 }:
-
-let
-  SDL2' = if SDL2_classic != null then SDL2_classic else SDL2;
-in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "minesector";
@@ -33,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    (SDL2'.override { withStatic = true; })
+    SDL2
     SDL2_image
     SDL2_ttf
     SDL2_mixer

@@ -14,18 +14,6 @@ An old cellphone arcade recreated for PC.
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
-## `bluejay` {#bluejay}
-
-Bluetooth manager written in Qt.
-
-- Name: `bluejay`
-- Version: `1.0.2`
-- [🌐 Homepage](https://github.com/EbonJaeger/bluejay)
-- [📰 Changelog](https://github.com/EbonJaeger/bluejay/releases/tag/v1.0.2)
-- [📦 Source](./pkgs/by-name/bluejay/package.nix#L46)
-- 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
-
 ## `brisk-menu` {#brisk-menu}
 
 An efficient menu for the MATE Desktop.
@@ -61,9 +49,6 @@ V2 daemon for Budgie Desktop.
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `budgie-desktop-unstable` {#budgie-desktop-unstable}
-
-> [!WARNING]
-> 💥 This package is currently marked as broken.
 
 Feature-rich, modern desktop designed to keep out the way of the user.
 
@@ -288,7 +273,7 @@ Library for emitting text, XML, JSON, or HTML output.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-03-30`
+- Version: `0-unstable-2025-05-18`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L39)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -336,7 +321,7 @@ Snazzy Minesweeper-based game built with SDL2.
 - Name: `minesector`
 - Version: `1.1.5`
 - [🌐 Homepage](https://github.com/grassdne/minesector)
-- [📦 Source](./pkgs/by-name/minesector/package.nix#L48)
+- [📦 Source](./pkgs/by-name/minesector/package.nix#L43)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -392,7 +377,7 @@ Phonon Backend using MPV Player.
 Camera application for Plasma Mobile.
 
 - Name: `plasma-camera`
-- Version: `1.0-unstable-2025-05-07`
+- Version: `1.0-unstable-2025-05-21`
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L54)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -403,7 +388,7 @@ Camera application for Plasma Mobile.
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-05-16`
+- Version: `0-unstable-2025-05-21`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
@@ -552,18 +537,6 @@ A Qt style supporting both QtQuick and QtWidgets.
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L59)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
-
-## `unleashedrecomp` {#unleashedrecomp}
-
-An unofficial PC port of the Xbox 360 version of Sonic Unleashed created through the process of static recompilation.
-
-- Name: `unleashedrecomp`
-- Version: `1.0.3`
-- [🌐 Homepage](https://github.com/hedge-dev/UnleashedRecomp)
-- [📰 Changelog](https://github.com/hedge-dev/UnleashedRecomp/releases/tag/v1.0.3)
-- [📦 Source](./pkgs/by-name/unleashedrecomp/package.nix#L135)
-- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `wayneko` {#wayneko}

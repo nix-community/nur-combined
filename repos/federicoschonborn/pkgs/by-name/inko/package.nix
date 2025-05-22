@@ -1,7 +1,6 @@
 {
   lib,
   rustPlatform,
-  rustc,
   fetchFromGitHub,
   libffi,
   libxml2,
@@ -54,6 +53,5 @@ rustPlatform.buildRustPackage {
     changelog = "https://github.com/inko-lang/inko/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder rustc.version "1.78.0";
   };
 }
