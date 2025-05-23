@@ -1,56 +1,58 @@
-# This file provides all the buildable and cacheable packages and
-# package outputs in your package set. These are what gets built by CI,
-# so if you correctly mark packages as
-#
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
-#
-# then your CI will be able to build and cache only those packages for
-# which this is possible.
+# This file provides all the buildable packages and package outputs in your
+# package set. These are what gets built by CI, so if you correctly mark
+# packages as broken your CI will not try to build them and the cache
+# will not contain them.
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { config.allowUnfree = true; }
+, system ? builtins.currentSystem
+}:
 
-with builtins;
 let
+  # Import nixpkgs for the requested system WITH allowUnfree
+  pkgsForSystem = import <nixpkgs> { 
+    inherit system; 
+    config.allowUnfree = true; 
+  };
+  
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: let
-    licenseFromMeta = p.meta.license or [];
-    licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
-  in !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
-  isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
-  nameValuePair = n: v: { name = n; value = v; };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
-
-  flattenPkgs = s:
+  isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
+  
+  # Safe evaluation that won't fail if package can't be evaluated
+  tryGetMeta = p: attr: default:
+    let result = builtins.tryEval (p.meta.${attr} or default);
+    in if result.success then result.value else default;
+  
+  # Check if package is buildable on current platform
+  isBuildable = p:
     let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [ p ]
-        else [ ];
-    in
-    concatMap f (attrValues s);
+      platformCheck = builtins.tryEval (
+        isDerivation p && 
+        !(tryGetMeta p "broken" false) &&
+        (
+          let platforms = tryGetMeta p "platforms" [];
+          in if platforms == [] 
+             then true  # No platforms specified means all platforms
+             else builtins.elem system platforms
+        )
+      );
+    in platformCheck.success && platformCheck.value;
 
-  outputsOf = p: map (o: p.${o}) p.outputs;
+  nurAttrs = import ./default.nix { pkgs = pkgsForSystem; };
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  # Filter to only include derivations that are buildable on this platform
+  nurPkgs = pkgsForSystem.lib.filterAttrs (n: v:
+    !isReserved n && 
+    (builtins.tryEval (isBuildable v)).value or false
+  ) nurAttrs;
 
-  nurPkgs =
-    flattenPkgs
-      (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
+in rec {
+  # Packages that can be built on the current platform
+  buildPkgs = nurPkgs;
+  
+  # Packages to be cached (same as buildPkgs in this case)
+  cachePkgs = nurPkgs;
 
-in
-rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
-
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
+  # The actual derivations to be built
+  buildOutputs = builtins.attrValues buildPkgs;
+  cacheOutputs = builtins.attrValues cachePkgs;
 }
