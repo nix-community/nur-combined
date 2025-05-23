@@ -3,10 +3,11 @@ name: Update README Table
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "pkgs/**/default.nix"
       - "pkgs/**/.pr"
-      - "README.md"
   workflow_dispatch:
 
 jobs:
@@ -18,7 +19,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -28,12 +29,21 @@ jobs:
       - name: Run script to update README
         run: python .github/scripts/update_readme_table.py
 
+      - name: Check if README was modified
+        id: readme-check
+        run: |
+          if git diff --quiet README.md; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit and push if README changed
+        if: steps.readme-check.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs(README.md): Update package table in README"
           file_pattern: "README.md"
-          commit_user_name: "github-actions"
-          commit_user_email: "github-actions@github.com"
-          commit_author: "GitHub Actions Bot <github-actions@github.com>"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
