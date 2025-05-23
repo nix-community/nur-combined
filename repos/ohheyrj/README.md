@@ -36,6 +36,7 @@ These packages are available via nur.
 - 💡 **Description:** Chat client for Twitch
 - 🛡️ **License:** mit
 - 🖥️ **Platforms:** darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
 

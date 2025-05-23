@@ -8,6 +8,7 @@ from pathlib import Path
 # Config
 README_PATH = Path("README.md")
 PKG_PATH = Path("pkgs")
+SOURCES_PATH = Path("_sources/generated.nix")
 START_MARKER = "<!--table:start-->"
 END_MARKER = "<!--table:end-->"
 GITHUB_API_BASE = "https://api.github.com"
@@ -33,6 +34,42 @@ category_emojis = {
     "misc": "🌀",
     "unknown": "❓",
 }
+
+
+def parse_generated_sources():
+    """Parse _sources/generated.nix to extract version info."""
+    if not SOURCES_PATH.exists():
+        return {}
+
+    try:
+        content = SOURCES_PATH.read_text()
+        sources = {}
+
+        # Look for package entries like:
+        # packagename = {
+        #   pname = "packagename";
+        #   version = "1.2.3";
+        #   ...
+        # };
+
+        # Find all package blocks
+        package_blocks = re.findall(r"(\w+)\s*=\s*{([^}]*)};", content, re.DOTALL)
+
+        for package_name, block_content in package_blocks:
+            # Extract pname and version from the block
+            pname_match = re.search(r'pname\s*=\s*"([^"]+)"', block_content)
+            version_match = re.search(r'version\s*=\s*"([^"]+)"', block_content)
+
+            if pname_match and version_match:
+                sources[package_name] = {
+                    "pname": pname_match.group(1),
+                    "version": version_match.group(1),
+                }
+
+        return sources
+    except Exception as e:
+        print(f"⚠️  Error parsing generated sources: {e}")
+        return {}
 
 
 def find_pr_number(package_dir):
@@ -73,8 +110,9 @@ def get_pr_status(pr_number):
         return "⚠️ API Error", False
 
 
-def extract_fields(file_path):
+def extract_fields(file_path, generated_sources):
     package_dir = file_path.parent
+    package_name = package_dir.name
     content = file_path.read_text()
 
     def extract(patterns, default="unknown"):
@@ -86,8 +124,23 @@ def extract_fields(file_path):
                 return match.group(1).strip()
         return default
 
-    pname = extract(r'\bpname\s*=\s*"([^"]+)"')
-    version = extract(r'\bversion\s*=\s*"([^"]+)"')
+    # Try to get version and pname from generated sources first
+    if package_name in generated_sources:
+        pname = generated_sources[package_name]["pname"]
+        version = generated_sources[package_name]["version"]
+        print(f"📦 Using nvfetcher data for {package_name}: v{version}")
+    else:
+        # Fall back to extracting from default.nix
+        pname = extract(r'\bpname\s*=\s*"([^"]+)"')
+        version = extract(r'\bversion\s*=\s*"([^"]+)"')
+        if version != "unknown":
+            print(f"📝 Using default.nix data for {package_name}: v{version}")
+        else:
+            print(f"⚠️  No version found for {package_name}")
+
+    # Check if package uses generated sources
+    uses_generated = "inherit (generated)" in content or "generated." in content
+
     license_ = extract(
         [
             r"\bmeta\s*=\s*with\s+lib;\s*{[^}]*license\s*=\s*licenses\.([a-zA-Z0-9_]+)",
@@ -147,14 +200,23 @@ def extract_fields(file_path):
         "pr": pr_url,
         "tracker": tracker_url,
         "status": status,
+        "uses_nvfetcher": uses_generated,
     }
 
 
 def generate_markdown_list_with_toc_defaulted():
     categories = defaultdict(list)
 
+    # Parse generated sources first
+    print("🔍 Parsing nvfetcher generated sources...")
+    generated_sources = parse_generated_sources()
+    if generated_sources:
+        print(f"✅ Found {len(generated_sources)} packages in generated sources")
+    else:
+        print("ℹ️  No generated sources found, using default.nix fallback")
+
     for default_nix in PKG_PATH.glob("*/*/default.nix"):
-        pkg = extract_fields(default_nix)
+        pkg = extract_fields(default_nix, generated_sources)
         category = pkg["category"].lower()
         if category not in category_emojis:
             print(f"⚠️  Unknown category '{category}', defaulting to 'unknown'")
@@ -167,6 +229,11 @@ def generate_markdown_list_with_toc_defaulted():
             f"- 🛡️ **License:** {pkg['license']}",
             f"- 🖥️ **Platforms:** {pkg['platforms']}",
         ]
+
+        # Add nvfetcher indicator if applicable
+        if pkg["uses_nvfetcher"]:
+            lines.append("- 🔄 **Auto-updated:** Uses nvfetcher for version management")
+
         if pkg["homepage"]:
             lines.append(
                 f"- 🌐 **Homepage:** [{pkg['pname']} Website]({pkg['homepage']})"
@@ -223,7 +290,7 @@ def replace_readme_section(new_content):
 
 
 if __name__ == "__main__":
-    print("🔧 Generating README section with collapsible categories and emojis...")
+    print("🔧 Generating README section with nvfetcher support...")
     section = generate_markdown_list_with_toc_defaulted()
     replace_readme_section(section)
-    print("✅ README updated with collapsible sections.")
+    print("✅ README updated with nvfetcher version support.")

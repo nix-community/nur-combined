@@ -1,0 +1,17 @@
+{
+    "chatterino": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "chatterino",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-pTAw2Ko1fcYxWhQK9j0odQPn28I1Lw2CHLs21KCbo7g=",
+            "type": "url",
+            "url": "https://chatterino.fra1.digitaloceanspaces.com/bin/2.5.3/Chatterino.dmg"
+        },
+        "version": "2.5.3"
+    }
+}

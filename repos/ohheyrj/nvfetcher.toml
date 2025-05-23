@@ -1,0 +1,4 @@
+[chatterino]
+src.github = "Chatterino/chatterino2"
+src.prefix = "v"
+fetch.url = "https://chatterino.fra1.digitaloceanspaces.com/bin/$ver/Chatterino.dmg"
