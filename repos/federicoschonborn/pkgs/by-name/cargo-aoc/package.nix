@@ -2,8 +2,6 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  openssl,
-  pkg-config,
   versionCheckHook,
   nix-update-script,
 }:
@@ -26,15 +24,11 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1wWqIA0MtnG5nrHLpmheV1a3qDIiBPTa9HCxSPh9ftQ=";
 
-  nativeBuildInputs = [ pkg-config ];
-
-  buildInputs = [ openssl ];
-
   nativeInstallCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
-
   # Outputs "0.3.0" for some reason...
-  dontVersionCheck = true;
+  doInstallCheck = false;
+  versionCheckProgram = "${placeholder "out"}/bin/cargo-aoc";
+  versionCheckProgramArg = "--version";
 
   passthru.updateScript = nix-update-script { };
 

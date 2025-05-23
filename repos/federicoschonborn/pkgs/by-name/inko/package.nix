@@ -43,6 +43,8 @@ rustPlatform.buildRustPackage {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/inko";
+  versionCheckProgramArg = "--version";
 
   passthru.updateScript = nix-update-script { };
 
