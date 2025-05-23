@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     # ld: illegal data reference in _krk_currentThread to thread local variable
-    broken = stdenv.hostPlatform.isDarwin;
+    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

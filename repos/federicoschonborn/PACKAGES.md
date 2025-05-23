@@ -79,8 +79,19 @@ Cargo Advent of Code Helper.
 - Name: `cargo-aoc`
 - Version: `0.3.7`
 - [🌐 Homepage](https://github.com/gobanos/cargo-aoc)
-- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L43)
+- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
+
+## `cargo-shock` {#cargo-shock}
+
+When writing Rust is not hurtful enough.
+
+- Name: `cargo-shock`
+- Version: `0-unstable-2025-05-22`
+- [🌐 Homepage](https://github.com/funkeleinhorn/cargo-shock)
+- [📦 Source](./pkgs/by-name/cargo-shock/package.nix#L40)
+- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `cpuid2cpuflags` {#cpuid2cpuflags}
@@ -167,17 +178,6 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
-## `hedgemodmanager` {#hedgemodmanager}
-
-Multiplatform rewrite of Hedge Mod Manager.
-
-- Name: `hedgemodmanager`
-- Version: `8.0.0-beta4`
-- [🌐 Homepage](https://github.com/hedge-dev/HedgeModManager)
-- [📦 Source](./pkgs/by-name/hedgemodmanager/package.nix#L51)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-linux`, `aarch64-linux`
-
 ## `inko` {#inko}
 
 A language for building concurrent software with confidence.
@@ -186,7 +186,7 @@ A language for building concurrent software with confidence.
 - Version: `0.18.1`
 - [🌐 Homepage](https://github.com/inko-lang/inko)
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L51)
+- [📦 Source](./pkgs/by-name/inko/package.nix#L53)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -348,18 +348,6 @@ Programming language that targets the Nintendo Entertainment System.
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-linux`
 
-## `opensurge` {#opensurge}
-
-A fun 2D retro platformer inspired by Sonic games and a game creation system.
-
-- Name: `opensurge`
-- Version: `0.6.1.2`
-- [🌐 Homepage](https://github.com/alemart/opensurge)
-- [📰 Changelog](https://github.com/alemart/opensurge/releases/tag/v0.6.1.2)
-- [📦 Source](./pkgs/by-name/opensurge/package.nix#L57)
-- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
 ## `phonon-mpv` {#phonon-mpv}
 
 Phonon Backend using MPV Player.
@@ -447,18 +435,6 @@ Fan sequel to Super Mario 63.
 - [🌐 Homepage](https://charpurrr.itch.io/super-mario-127)
 - [📦 Source](./pkgs/by-name/super-mario-127/package.nix#L59)
 - 📄 License: Unfree
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `surgescript` {#surgescript}
-
-A scripting language for games.
-
-- Name: `surgescript`
-- Version: `0.6.1`
-- [🌐 Homepage](https://github.com/alemart/surgescript)
-- [📰 Changelog](https://github.com/alemart/surgescript/releases/tag/v0.6.1)
-- [📦 Source](./pkgs/by-name/surgescript/package.nix#L40)
-- 📄 License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `teem` {#teem}
@@ -570,18 +546,6 @@ Detect non-inclusive language in your source code.
 - [🌐 Homepage](https://github.com/get-woke/woke)
 - [📰 Changelog](https://github.com/get-woke/woke/releases/tag/v0.19.0)
 - [📦 Source](./pkgs/by-name/woke/package.nix#L53)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `xdvdfs-cli` {#xdvdfs-cli}
-
-Original Xbox DVD Filesystem library and management tool.
-
-- Name: `xdvdfs-cli`
-- Version: `0.8.3`
-- [🌐 Homepage](https://github.com/antangelo/xdvdfs)
-- [📰 Changelog](https://github.com/antangelo/xdvdfs/releases/tag/v0.8.3)
-- [📦 Source](./pkgs/by-name/xdvdfs-cli/package.nix#L39)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
