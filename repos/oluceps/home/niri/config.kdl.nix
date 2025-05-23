@@ -309,6 +309,7 @@ in
       Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono NF CN:style=Regular:size=15" "-P" "10" "-B" "7"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }
+      Mod+T { toggle-overview; }
 
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
