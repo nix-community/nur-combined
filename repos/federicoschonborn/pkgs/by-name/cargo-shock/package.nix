@@ -37,10 +37,12 @@ rustPlatform.buildRustPackage {
   };
 
   meta = {
-    description = "When writing Rust is not hurtful enough";
+    mainProgram = "cargo-shock";
+    description = "Let Cargo make you learn Rust by giving you shocks";
     homepage = "https://github.com/funkeleinhorn/cargo-shock";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    mainProgram = "cargo-shock";
+    # Requires 2024 edition
+    broken = lib.versionOlder rustPlatform.rust.rustc.version "1.85.0";
   };
 }
