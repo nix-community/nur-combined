@@ -19,16 +19,11 @@
   avahi2dns              = pkgs.callPackage ./pkgs/avahi2dns { };
   inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers { };
   libva-v4l2-request     = pkgs.callPackage ./pkgs/libva-v4l2-request { };
-  lilipod                = pkgs.callPackage ./pkgs/lilipod { };
   netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
   overlayfs-tools        = pkgs.callPackage ./pkgs/overlayfs-tools { };
   plank-themes           = pkgs.callPackage ./pkgs/plank-themes { };
   pw_wp_bluetooth_rpi_speaker =
     pkgs.callPackage ./pkgs/pw_wp_bluetooth_rpi_speaker { };
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
-  simulide               = pkgs.callPackage ./pkgs/simulide { };
-  simulide-unwrapped     = pkgs.libsForQt5.callPackage ./pkgs/simulide/unwrapped.nix { };
-  systemd-lock-handler   = pkgs.callPackage ./pkgs/systemd-lock-handler { };
-  tailscale-systray      = pkgs.callPackage ./pkgs/tailscale-systray { };
   unison-gitignore       = pkgs.callPackage ./pkgs/unison-gitignore { };
 }
