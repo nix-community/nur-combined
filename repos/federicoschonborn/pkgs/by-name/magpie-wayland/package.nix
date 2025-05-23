@@ -48,14 +48,13 @@ stdenv.mkDerivation (_: {
     xorg.xcbutilwm
   ];
 
+  strictDeps = true;
+
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-
   versionCheckProgram = "${placeholder "out"}/bin/magpie-wm";
   # Does not have a proper version yet.
   dontVersionCheck = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

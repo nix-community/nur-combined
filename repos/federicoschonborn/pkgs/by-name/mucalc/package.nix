@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "mucalc";
-    rev = "refs/tags/mucalc-${finalAttrs.version}";
+    tag = "mucalc-${finalAttrs.version}";
     hash = "sha256-6nvP7aVWF66ze/bANHujWUkqpCdvocD4eKPLXrg1cYM=";
   };
 
@@ -31,10 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
+  strictDeps = true;
+
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

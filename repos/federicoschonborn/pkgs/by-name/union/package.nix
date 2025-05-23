@@ -28,15 +28,17 @@ stdenv.mkDerivation (_: {
   ];
 
   buildInputs = [
-    kdePackages.qtbase
-    kdePackages.qtdeclarative
-    kdePackages.qtsvg
     kdePackages.karchive
     kdePackages.kcolorscheme
     kdePackages.kconfig
     kdePackages.libplasma
+    kdePackages.qtbase
+    kdePackages.qtdeclarative
+    kdePackages.qtsvg
     rapidyaml
   ];
+
+  strictDeps = true;
 
   postPatch = ''
     # Added on ECM 6.11.0
@@ -45,8 +47,6 @@ stdenv.mkDerivation (_: {
   '';
 
   dontWrapQtApps = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

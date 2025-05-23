@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "grassdne";
     repo = "minesector";
-    rev = "refs/tags/${finalAttrs.version}";
+    tag = finalAttrs.version;
     hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
   };
 
@@ -38,12 +38,12 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_mixer
   ];
 
+  strictDeps = true;
+
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace-fail "set(STATIC_LINK" "# set(STATIC_LINK"
   '';
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

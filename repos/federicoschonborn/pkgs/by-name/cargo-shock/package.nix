@@ -18,7 +18,6 @@ rustPlatform.buildRustPackage {
     hash = "sha256-UaAdFMQm1lS/INHxNU52vHjTYJJpbZ1P8iLjtI9mHHA=";
   };
 
-  useCargoFetchVendor = true;
   cargoHash = "sha256-K0C0CgHxvssJXM4zfcFbocwWxpGld4B5z/GnziuVOnw=";
 
   nativeBuildInputs = [
@@ -28,6 +27,8 @@ rustPlatform.buildRustPackage {
   buildInputs = [
     openssl
   ];
+
+  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -42,7 +43,5 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/funkeleinhorn/cargo-shock";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    # Requires 2024 edition
-    broken = lib.versionOlder rustPlatform.rust.rustc.version "1.85.0";
   };
 }

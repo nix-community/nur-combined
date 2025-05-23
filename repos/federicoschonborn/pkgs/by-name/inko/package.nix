@@ -11,22 +11,17 @@
   nix-update-script,
 }:
 
-let
-  version = "0.18.1";
-in
-
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "inko";
-  inherit version;
+  version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jVfAfR02R2RaTtzFSBoLuq/wdPaaI/eochrZaRVdmHY=";
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-IOMhwcZHB5jVYDM65zifxCjVHWl1EBbxNA3WVmarWcs=";
 
   buildInputs = [
@@ -36,15 +31,17 @@ rustPlatform.buildRustPackage {
     zlib
   ];
 
+  strictDeps = true;
+
   env.LLVM_SYS_170_PREFIX = llvmPackages_17.llvm.dev;
 
   # Some of the tests require git to be installed.
   doCheck = false;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/inko";
-  versionCheckProgramArg = "--version";
 
   passthru.updateScript = nix-update-script { };
 
@@ -52,8 +49,8 @@ rustPlatform.buildRustPackage {
     mainProgram = "inko";
     description = "A language for building concurrent software with confidence";
     homepage = "https://github.com/inko-lang/inko";
-    changelog = "https://github.com/inko-lang/inko/releases/tag/v${version}";
+    changelog = "https://github.com/inko-lang/inko/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})

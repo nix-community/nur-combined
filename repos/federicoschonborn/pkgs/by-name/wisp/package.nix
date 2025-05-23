@@ -25,7 +25,11 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [
+    guile
+  ];
+
+  strictDeps = true;
 
   postPatch = ''
     patchShebangs *.py *.sh *.w wisp.in
@@ -38,13 +42,12 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH"
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
   doInstallCheck = true;
-
   # Prints the version of Guile, not Wisp.
   dontVersionCheck = true;
-
-  strictDeps = true;
 
   meta = {
     mainProgram = "wisp";

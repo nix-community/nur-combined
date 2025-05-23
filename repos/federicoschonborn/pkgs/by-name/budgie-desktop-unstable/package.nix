@@ -4,8 +4,6 @@
   gtk-layer-shell,
   libpeas2,
   nix-update-script,
-  xfce,
-  gobject-introspection,
   ...
 }:
 
@@ -36,11 +34,5 @@ budgie-desktop.overrideAttrs (prevAttrs: {
         "branch"
       ];
     };
-  };
-
-  meta = (prevAttrs.meta or { }) // {
-    broken =
-      (lib.versionOlder xfce.libxfce4windowing.version "4.19.7")
-      || (lib.versionOlder gobject-introspection.version "1.84.0");
   };
 })

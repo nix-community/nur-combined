@@ -6,18 +6,14 @@
   nix-update-script,
 }:
 
-let
-  version = "0.19.0";
-in
-
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "woke";
-  inherit version;
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "get-woke";
     repo = "woke";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-X9fhExHhOLjPfpwrYPMqTJkgQL2ruHCGEocEoU7m6fM=";
   };
 
@@ -26,7 +22,7 @@ buildGoModule {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/get-woke/woke/cmd.Version=${version}"
+    "-X github.com/get-woke/woke/cmd.Version=${finalAttrs.version}"
   ];
 
   checkFlags =
@@ -40,10 +36,11 @@ buildGoModule {
         "TestIgnoreTestSuite/TestGetRootGitDir"
       ];
     in
-    [ ("-skip=" + builtins.concatStringsSep "|" skipTests) ];
+    [ "-skip=^${builtins.concatStringsSep "$|^" skipTests}$" ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
   doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
@@ -52,9 +49,9 @@ buildGoModule {
     mainProgram = "woke";
     description = "Detect non-inclusive language in your source code";
     homepage = "https://github.com/get-woke/woke";
-    changelog = "https://github.com/get-woke/woke/releases/tag/v${version}";
+    changelog = "https://github.com/get-woke/woke/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})

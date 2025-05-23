@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dcantrell";
     repo = "bsdutils";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
   };
 
@@ -42,11 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
+  strictDeps = true;
+
   dontUseCmakeConfigure = true;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

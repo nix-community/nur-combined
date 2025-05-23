@@ -44,6 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withPng libpng
     ++ lib.optional withZlib zlib;
 
+  strictDeps = true;
+
   cmakeFlags = [
     (lib.cmakeBool "BUILD_EXPERIMENTAL_APPS" withExperimentalApps)
     (lib.cmakeBool "BUILD_EXPERIMENTAL_LIBS" withExperimentalLibs)
@@ -53,10 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-
   versionCheckProgram = "${placeholder "out"}/bin/ilk";
-
-  strictDeps = true;
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";

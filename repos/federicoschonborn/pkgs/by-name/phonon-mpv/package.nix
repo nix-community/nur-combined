@@ -7,7 +7,6 @@
   pkg-config,
   kdePackages,
   mpv,
-  qt6,
   nix-update-script,
 }:
 
@@ -18,29 +17,29 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "OpenProgger";
     repo = "phonon-mpv";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-IBCCQPI1Vrgj1hXlB3wxAIXjyLoKuNVc18P/X3axioE=";
   };
 
   nativeBuildInputs = [
     cmake
+    kdePackages.wrapQtAppsHook
     ninja
     pkg-config
-    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
     kdePackages.phonon
+    kdePackages.qtbase
     mpv
-    qt6.qtbase
   ];
+
+  strictDeps = true;
 
   cmakeFlags = [
     (lib.cmakeBool "PHONON_BUILD_QT5" false)
     (lib.cmakeBool "PHONON_BUILD_QT6" true)
   ];
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

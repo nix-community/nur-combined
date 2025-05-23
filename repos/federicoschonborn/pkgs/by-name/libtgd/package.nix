@@ -20,8 +20,6 @@
   ffmpeg,
   withGdal ? false,
   gdal,
-  withGta ? false,
-  libgta,
   withHdf5 ? false,
   hdf5-cpp,
   withJpeg ? false,
@@ -51,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "tgd";
-    rev = "refs/tags/tgd-${finalAttrs.version}";
+    tag = "tgd-${finalAttrs.version}";
     hash = "sha256-FRejQ4uijpKdrFYEc9PkPrDo8pLKXMmJCXFTZ9Hx6Ug=";
   };
 
@@ -68,7 +66,6 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withExiv2 exiv2
     ++ lib.optional withFfmpeg ffmpeg
     ++ lib.optional withGdal gdal
-    ++ lib.optional withGta libgta
     ++ lib.optional withHdf5 hdf5-cpp
     ++ lib.optional withJpeg libjpeg
     ++ lib.optional withMagick imagemagick
@@ -80,6 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withPoppler poppler
     ++ lib.optional withTiff libtiff;
 
+  strictDeps = true;
+
   cmakeFlags = [
     (lib.cmakeBool "TGD_BUILD_TOOL" withTool)
     (lib.cmakeBool "TGD_BUILD_DOCUMENTATION" withDocs)
@@ -88,10 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-
   versionCheckProgram = "${placeholder "out"}/bin/tgd";
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "regular-dev";
     repo = "biplanes-revival";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rdPcI4j84fVKNwv2OQ9gwC0X2CHlObYfSYkCMlcm4sM=";
     fetchSubmodules = true;
   };
@@ -33,10 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_mixer
   ];
 
-  # Escape the clutches of the CMake build directory.
-  env.CXXFLAGS = "-I ../deps/TimeUtils/include";
-
   strictDeps = true;
+
+  env.NIX_CFLAGS_COMPILE = "-I ../deps/TimeUtils/include";
 
   passthru.updateScript = nix-update-script { };
 

@@ -8,15 +8,6 @@
   nix-update-script,
 }:
 
-let
-  twod = fetchFromGitHub {
-    owner = "pubby";
-    repo = "2d";
-    rev = "cd148969b02ced983e998eaa369ac81e5fdfd825";
-    hash = "sha256-LrbbBP7BzTM4v2FFYLg2BNrk7I0mYr3zfRbbwSrTT4Q=";
-  };
-in
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapfab";
   version = "0.4";
@@ -24,8 +15,15 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pubby";
     repo = "mapfab";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-OnXzHMseEz4dKemCyIPB7Dw73cWhihrmfjoYqkmcWEk=";
+  };
+
+  twod = fetchFromGitHub {
+    owner = "pubby";
+    repo = "2d";
+    rev = "cd148969b02ced983e998eaa369ac81e5fdfd825";
+    hash = "sha256-LrbbBP7BzTM4v2FFYLg2BNrk7I0mYr3zfRbbwSrTT4Q=";
   };
 
   patches = [
@@ -45,14 +43,16 @@ stdenv.mkDerivation (finalAttrs: {
     wxGTK32
   ];
 
-  preBuild = ''
-    rmdir src/2d
-    cp -r ${twod} src/2d
-  '';
+  strictDeps = true;
 
   makeFlags = [
     "release"
   ];
+
+  preBuild = ''
+    rmdir src/2d
+    cp -r ${finalAttrs.twod} src/2d
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -62,8 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

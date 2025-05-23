@@ -160,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
-    rev = "refs/tags/${finalAttrs.version}";
+    tag = finalAttrs.version;
     hash = "sha256-gUqNiiPipoxLKwGVsi42PyOnmPbfvUs7UwfqOdmFn/E=";
   };
 
@@ -224,6 +224,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enablePciaccess xorg.libpciaccess
     ++ lib.optional stdenv.hostPlatform.isDarwin apple-sdk_15;
 
+  strictDeps = true;
+
   cmakeFlags =
     [
       (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
@@ -277,8 +279,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

@@ -48,6 +48,8 @@ stdenv.mkDerivation {
     kdePackages.plasma-workspace
   ];
 
+  strictDeps = true;
+
   # Mostly copied from https://github.com/NixOS/nixpkgs/blob/698214a32beb4f4c8e3942372c694f40848b360d/pkgs/applications/display-managers/sddm/unwrapped.nix#L62-L85
   cmakeFlags = [
     # Set UID_MIN and UID_MAX so that the build script won't try
@@ -62,8 +64,6 @@ stdenv.mkDerivation {
     "-DSYSTEMD_SYSUSERS_DIR=${placeholder "out"}/lib/sysusers.d"
     "-DSYSTEMD_TMPFILES_DIR=${placeholder "out"}/lib/tmpfiles.d"
   ];
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

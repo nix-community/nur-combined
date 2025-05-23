@@ -26,7 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [
+    boost
+  ];
+
+  strictDeps = true;
 
   makeFlags = [ "release" ];
 
@@ -38,8 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

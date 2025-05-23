@@ -5,7 +5,6 @@
   kdePackages,
   cmake,
   ninja,
-  qt6,
   nix-update-script,
 }:
 
@@ -17,25 +16,25 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "danagost";
     repo = "Kiview";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MlXrCKEMSOoTq6Lkc//ZE9r2b2Img8lYBRjvlImqIAI=";
   };
 
   nativeBuildInputs = [
     cmake
     kdePackages.extra-cmake-modules
+    kdePackages.wrapQtAppsHook
     ninja
-    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
     kdePackages.kcoreaddons
     kdePackages.ki18n
     kdePackages.kirigami
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtwebengine
-  ];
+    kdePackages.qtbase
+    kdePackages.qtdeclarative
+    kdePackages.qtwebengine
+  ] ++ lib.optional stdenv.hostPlatform.isLinux kdePackages.qtwayland;
 
   strictDeps = true;
 
@@ -45,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "kiview";
     description = "Quick file preview for Dolphin";
     homepage = "https://invent.kde.org/danagost/Kiview";
+    changelog = "https://invent.kde.org/danagost/Kiview/-/tags/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];

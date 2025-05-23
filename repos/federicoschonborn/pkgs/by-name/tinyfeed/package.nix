@@ -3,22 +3,17 @@
   buildGoModule,
   fetchFromGitHub,
   callPackage,
-  tinyfeed,
   nix-update-script,
 }:
 
-let
-  version = "1.2.0";
-in
-
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "tinyfeed";
-  inherit version;
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "TheBigRoomXXL";
     repo = "tinyfeed";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Y0YgvouUz/hCeLriHR+SKze1+DSxVV74xfMFdEhe/r0=";
   };
 
@@ -30,17 +25,17 @@ buildGoModule {
   ];
 
   passthru = {
-    tests.tinyfeed = callPackage ./nixos-test.nix { inherit tinyfeed; };
+    tests.tinyfeed = callPackage ./nixos-test.nix { tinyfeed = finalAttrs.finalPackage; };
     updateScript = nix-update-script { extraArgs = [ "--version-regex=v(.*)" ]; };
   };
 
   meta = {
     mainProgram = "tinyfeed";
-    description = "Generate a static HTML page from a collection of feeds wtih a simple CLI tool";
+    description = "Generate a static HTML page from a collection of feeds with a simple CLI tool";
     homepage = "https://github.com/TheBigRoomXXL/tinyfeed";
-    changelog = "https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v${version}";
+    changelog = "https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})

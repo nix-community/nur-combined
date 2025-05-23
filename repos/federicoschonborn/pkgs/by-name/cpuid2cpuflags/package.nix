@@ -14,16 +14,20 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "projg2";
     repo = "cpuid2cpuflags";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wLkb1TXqMZaB9bjh8T7m31DMXT0uY6/FjcDwFh/SjYY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
+  nativeBuildInputs = [
+    autoreconfHook
+  ];
 
   strictDeps = true;
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
 

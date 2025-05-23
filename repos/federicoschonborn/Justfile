@@ -25,7 +25,7 @@ _nix-nixos-unstable +ARGS:
     nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable
 
 _nix-nixos-stable +ARGS:
-    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixos-24.11
+    nix {{ ARGS }} {{ default_args }} --inputs-from . --override-input nixpkgs github:NixOS/nixpkgs/nixos-25.05
 
 [group("build")]
 build-nixpkgs-unstable +PACKAGES:

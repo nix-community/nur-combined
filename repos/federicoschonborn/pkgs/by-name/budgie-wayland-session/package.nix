@@ -7,7 +7,7 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation (_: {
+stdenv.mkDerivation {
   pname = "budgie-wayland-session";
   version = "0-unstable-2025-03-15";
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation (_: {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-})
+}

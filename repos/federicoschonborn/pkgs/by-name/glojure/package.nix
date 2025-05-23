@@ -7,18 +7,14 @@
   nix-update-script,
 }:
 
-let
-  version = "0.2.6";
-in
-
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "glojure";
-  inherit version;
+  version = "0.2.6";
 
   src = fetchFromGitHub {
     owner = "glojurelang";
     repo = "glojure";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-WzyslO3YaGPJnINDSjk3AcjC/raVh5c5K2a6EBZC4Rk=";
   };
 
@@ -29,15 +25,25 @@ buildGoModule {
     writableTmpDirAsHomeHook
   ];
 
+  strictDeps = true;
+
   ldflags = [
     "-s"
     "-w"
   ];
 
-  checkFlags = [
-    # Requires network access
-    "-skip=FuzzCLJConformance/seed"
-  ];
+  checkFlags =
+    let
+      # Requires network access
+      skippedTests = [
+        "FuzzCLJConformance/seed#2"
+        "FuzzCLJConformance/seed#11"
+        "FuzzCLJConformance/seed#12"
+      ];
+    in
+    [
+      "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"
+    ];
 
   passthru.updateScript = nix-update-script { };
 
@@ -45,9 +51,9 @@ buildGoModule {
     mainProgram = "glj";
     description = "Clojure interpreter hosted on Go, with extensible interop support";
     homepage = "https://github.com/glojurelang/glojure";
-    changelog = "https://github.com/glojurelang/glojure/releases/tag/v${version}";
+    changelog = "https://github.com/glojurelang/glojure/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.epl10;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})

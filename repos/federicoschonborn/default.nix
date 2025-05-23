@@ -58,39 +58,6 @@ lib.makeScope pkgs.newScope (
           enablePciaccess = false;
         };
 
-    gtatoolFull =
-      (self.gtatool.overrideAttrs (
-        _: prevAttrs: {
-          meta = (prevAttrs.meta or { }) // {
-            description = "${prevAttrs.meta.description} (with all features enabled)";
-          };
-        }
-      )).override
-        {
-          # Broken
-          withBashCompletion = false;
-          withExr = true;
-          # Needs patching
-          withFfmpeg = false;
-          withGdal = false;
-          withJpeg = true;
-          # ImageMagick 6 is marked as insecure
-          withMagick = false;
-          withMatio = true;
-          withMuparser = true;
-          withNetcdf = true;
-          withNetpbm = true;
-          # Broken
-          withPcl = false;
-          # Requires ImageMagick 6
-          withPfs = false;
-          withPng = true;
-          # Needs patching
-          withQt = false;
-          withSndfile = true;
-          withTeem = true;
-        };
-
     libtgdFull =
       (self.libtgd.overrideAttrs (
         _: prevAttrs: {
@@ -107,7 +74,6 @@ lib.makeScope pkgs.newScope (
           withExiv2 = false;
           withFfmpeg = true;
           withGdal = false;
-          withGta = true;
           withHdf5 = true;
           withJpeg = true;
           # ImageMagick 6 is marked as insecure

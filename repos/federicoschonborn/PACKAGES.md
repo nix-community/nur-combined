@@ -10,7 +10,7 @@ An old cellphone arcade recreated for PC.
 - Version: `1.2.1`
 - [🌐 Homepage](https://github.com/regular-dev/biplanes-revival)
 - [📰 Changelog](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.2.1)
-- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L45)
+- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L44)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -21,7 +21,8 @@ An efficient menu for the MATE Desktop.
 - Name: `brisk-menu`
 - Version: `0.6.2`
 - [🌐 Homepage](https://github.com/getsolus/brisk-menu)
-- [📦 Source](./pkgs/by-name/brisk-menu/package.nix#L53)
+- [📰 Changelog](https://github.com/getsolus/brisk-menu/releases/tag/v0.6.2)
+- [📦 Source](./pkgs/by-name/brisk-menu/package.nix#L49)
 - 📄 Licenses: [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`Creative Commons Attribution Share Alike 4.0`](https://spdx.org/licenses/CC-BY-SA-4.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -79,18 +80,19 @@ Cargo Advent of Code Helper.
 - Name: `cargo-aoc`
 - Version: `0.3.7`
 - [🌐 Homepage](https://github.com/gobanos/cargo-aoc)
-- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L37)
+- [📰 Changelog](https://github.com/gobanos/cargo-aoc/releases/tag/0.3.7)
+- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L33)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `cargo-shock` {#cargo-shock}
 
-When writing Rust is not hurtful enough.
+Let Cargo make you learn Rust by giving you shocks.
 
 - Name: `cargo-shock`
 - Version: `0-unstable-2025-05-22`
 - [🌐 Homepage](https://github.com/funkeleinhorn/cargo-shock)
-- [📦 Source](./pkgs/by-name/cargo-shock/package.nix#L40)
+- [📦 Source](./pkgs/by-name/cargo-shock/package.nix#L42)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -102,7 +104,7 @@ Tool to generate flags for your CPU.
 - Version: `15`
 - [🌐 Homepage](https://github.com/projg2/cpuid2cpuflags)
 - [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v15)
-- [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L32)
+- [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L36)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -152,30 +154,8 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - Version: `0.2.6`
 - [🌐 Homepage](https://github.com/glojurelang/glojure)
 - [📰 Changelog](https://github.com/glojurelang/glojure/releases/tag/v0.2.6)
-- [📦 Source](./pkgs/by-name/glojure/package.nix#L46)
+- [📦 Source](./pkgs/by-name/glojure/package.nix#L52)
 - 📄 License: [`Eclipse Public License 1.0`](https://spdx.org/licenses/EPL-1.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `gtatool` {#gtatool}
-
-A set of commands that manipulate GTAs on various levels.
-
-- Name: `gtatool`
-- Version: `2.4.0`
-- [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./pkgs/by-name/gtatool/package.nix#L117)
-- 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `gtatoolFull` {#gtatoolFull}
-
-A set of commands that manipulate GTAs on various levels (with all features enabled).
-
-- Name: `gtatool`
-- Version: `2.4.0`
-- [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./default.nix#L65)
-- 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `inko` {#inko}
@@ -186,7 +166,7 @@ A language for building concurrent software with confidence.
 - Version: `0.18.1`
 - [🌐 Homepage](https://github.com/inko-lang/inko)
 - [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L53)
+- [📦 Source](./pkgs/by-name/inko/package.nix#L50)
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -208,7 +188,8 @@ Quick file preview for Dolphin.
 - Name: `kiview`
 - Version: `1.1`
 - [🌐 Homepage](https://invent.kde.org/danagost/Kiview)
-- [📦 Source](./pkgs/by-name/kiview/package.nix#L46)
+- [📰 Changelog](https://invent.kde.org/danagost/Kiview/-/tags/v1.1)
+- [📦 Source](./pkgs/by-name/kiview/package.nix#L45)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -220,19 +201,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Version: `1.4.0`
 - [🌐 Homepage](https://github.com/kuroko-lang/kuroko)
 - [📰 Changelog](https://github.com/kuroko-lang/kuroko/releases/tag/v1.4.0)
-- [📦 Source](./pkgs/by-name/kuroko/package.nix#L31)
+- [📦 Source](./pkgs/by-name/kuroko/package.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
-## `libgta` {#libgta}
+## `libslax` {#libslax}
 
-A library that reads and writes GTA files, with interfaces in C and C++.
+C implementation of the SLAX programming language.
 
-- Name: `libgta`
-- Version: `1.2.1`
-- [🌐 Homepage](https://marlam.de/gta/)
-- [📦 Source](./pkgs/by-name/libgta/package.nix#L47)
-- 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
+- Name: `libslax`
+- Version: `3.1.3`
+- [🌐 Homepage](https://github.com/Juniper/libslax)
+- [📰 Changelog](https://github.com/Juniper/libslax/releases/tag/3.1.3)
+- [📦 Source](./pkgs/by-name/libslax/package.nix#L51)
+- 📄 License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `libtgd` {#libtgd}
@@ -242,7 +224,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - Name: `libtgd`
 - Version: `4.3`
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./pkgs/by-name/libtgd/package.nix#L105)
+- [📦 Source](./pkgs/by-name/libtgd/package.nix#L101)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -253,7 +235,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Name: `libtgd`
 - Version: `4.3`
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L98)
+- [📦 Source](./default.nix#L65)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -264,7 +246,7 @@ Library for emitting text, XML, JSON, or HTML output.
 - Name: `libxo`
 - Version: `1.7.5`
 - [🌐 Homepage](https://github.com/Juniper/libxo)
-- [📦 Source](./pkgs/by-name/libxo/package.nix#L35)
+- [📦 Source](./pkgs/by-name/libxo/package.nix#L40)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -275,7 +257,7 @@ A hardware profiling application for Linux.
 - Name: `magothy`
 - Version: `0-unstable-2025-05-18`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
-- [📦 Source](./pkgs/by-name/magothy/package.nix#L39)
+- [📦 Source](./pkgs/by-name/magothy/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -286,7 +268,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - Name: `magpie-wayland`
 - Version: `0.9.4-unstable-2025-03-25`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/magpie)
-- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L69)
+- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L68)
 - 📄 License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -298,7 +280,7 @@ Level editor for creating (new) NES games.
 - Version: `0.4`
 - [🌐 Homepage](https://github.com/pubby/mapfab)
 - [📰 Changelog](https://github.com/pubby/mapfab/releases/tag/v0.4)
-- [📦 Source](./pkgs/by-name/mapfab/package.nix#L72)
+- [📦 Source](./pkgs/by-name/mapfab/package.nix#L70)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-linux`
 
@@ -344,7 +326,7 @@ Programming language that targets the Nintendo Entertainment System.
 - Version: `1.6_mac`
 - [🌐 Homepage](https://github.com/pubby/nesfab)
 - [📰 Changelog](https://github.com/pubby/nesfab/releases/tag/v1.6_mac)
-- [📦 Source](./pkgs/by-name/nesfab/package.nix#L48)
+- [📦 Source](./pkgs/by-name/nesfab/package.nix#L50)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `x86_64-linux`
 
@@ -356,7 +338,7 @@ Phonon Backend using MPV Player.
 - Version: `0.1.0`
 - [🌐 Homepage](https://github.com/OpenProgger/phonon-mpv)
 - [📰 Changelog](https://github.com/OpenProgger/phonon-mpv/releases/tag/v0.1.0)
-- [📦 Source](./pkgs/by-name/phonon-mpv/package.nix#L53)
+- [📦 Source](./pkgs/by-name/phonon-mpv/package.nix#L52)
 - 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -367,7 +349,7 @@ Camera application for Plasma Mobile.
 - Name: `plasma-camera`
 - Version: `1.0-unstable-2025-05-21`
 - [🌐 Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
-- [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L54)
+- [📦 Source](./pkgs/by-name/plasma-camera/package.nix#L53)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
@@ -400,7 +382,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - Name: `pseint`
 - Version: `20250314`
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L95)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L92)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`, `x86_64-darwin`, `aarch64-darwin`
 
@@ -444,7 +426,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/teem/package.nix#L62)
+- [📦 Source](./pkgs/by-name/teem/package.nix#L61)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -455,7 +437,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L147)
+- [📦 Source](./default.nix#L113)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -466,7 +448,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L160)
+- [📦 Source](./default.nix#L126)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -477,7 +459,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L129)
+- [📦 Source](./default.nix#L95)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -494,13 +476,13 @@ A GNOME theme for Thunderbird.
 
 ## `tinyfeed` {#tinyfeed}
 
-Generate a static HTML page from a collection of feeds wtih a simple CLI tool.
+Generate a static HTML page from a collection of feeds with a simple CLI tool.
 
 - Name: `tinyfeed`
 - Version: `1.2.0`
 - [🌐 Homepage](https://github.com/TheBigRoomXXL/tinyfeed)
 - [📰 Changelog](https://github.com/TheBigRoomXXL/tinyfeed/releases/tag/v1.2.0)
-- [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L39)
+- [📦 Source](./pkgs/by-name/tinyfeed/package.nix#L34)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -533,7 +515,7 @@ Wisp turns indentation based syntax into Lisp.
 - Name: `wisp`
 - Version: `1.0.12`
 - [🌐 Homepage](https://www.draketo.de/software/wisp)
-- [📦 Source](./pkgs/by-name/wisp/package.nix#L51)
+- [📦 Source](./pkgs/by-name/wisp/package.nix#L54)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -545,7 +527,7 @@ Detect non-inclusive language in your source code.
 - Version: `0.19.0`
 - [🌐 Homepage](https://github.com/get-woke/woke)
 - [📰 Changelog](https://github.com/get-woke/woke/releases/tag/v0.19.0)
-- [📦 Source](./pkgs/by-name/woke/package.nix#L53)
+- [📦 Source](./pkgs/by-name/woke/package.nix#L50)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 

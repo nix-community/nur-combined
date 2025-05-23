@@ -6,7 +6,6 @@
   kdePackages,
   ninja,
   python3,
-  qt6,
   nix-update-script,
 }:
 
@@ -25,9 +24,9 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     kdePackages.extra-cmake-modules
+    kdePackages.wrapQtAppsHook
     ninja
     python3
-    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
@@ -35,10 +34,10 @@ stdenv.mkDerivation {
     kdePackages.kcoreaddons
     kdePackages.ki18n
     kdePackages.kirigami
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtsvg
-  ];
+    kdePackages.qtbase
+    kdePackages.qtdeclarative
+    kdePackages.qtsvg
+  ] ++ lib.optional stdenv.hostPlatform.isLinux kdePackages.qtwayland;
 
   strictDeps = true;
 

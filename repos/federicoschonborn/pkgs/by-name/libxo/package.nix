@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   autoreconfHook,
-  libtool,
+  libslax,
   validatePkgConfig,
   nix-update-script,
 }:
@@ -15,18 +15,23 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Juniper";
     repo = "libxo";
-    rev = "refs/tags/${finalAttrs.version}";
+    tag = finalAttrs.version;
     hash = "sha256-ElSxegY2ejw7IuIMznfVpl29Wyvpx9k1BdXregzYsoQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libslax # slax-config
+  ];
 
-  makeFlags = [ "LIBTOOL=${libtool}/bin/libtool" ];
+  buildInputs = [
+    libslax
+  ];
+
+  strictDeps = true;
 
   nativeInstallCheckInputs = [ validatePkgConfig ];
   doInstallCheck = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script { };
 

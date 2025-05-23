@@ -27,21 +27,23 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     cmake
+    kdePackages.extra-cmake-modules
+    kdePackages.wrapQtAppsHook
     ninja
     pkg-config
     python3
-    kdePackages.extra-cmake-modules
-    kdePackages.wrapQtAppsHook
   ];
 
   buildInputs = [
     libvirt
-    kdePackages.qtbase
-    kdePackages.qtdeclarative
     kdePackages.kconfig
     kdePackages.kcoreaddons
     kdePackages.kirigami
-  ];
+    kdePackages.qtbase
+    kdePackages.qtdeclarative
+  ] ++ lib.optional stdenv.hostPlatform.isLinux kdePackages.qtwayland;
+
+  strictDeps = true;
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -52,8 +54,6 @@ stdenv.mkDerivation {
       --replace-fail "virt-install" "${lib.getExe' virt-manager "virt-install"}" \
       --replace-fail "virt-viewer" "${lib.getExe' virt-viewer "virt-viewer"}"
   '';
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

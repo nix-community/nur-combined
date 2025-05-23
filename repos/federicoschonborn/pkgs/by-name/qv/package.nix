@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "qv-mirror";
-    rev = "refs/tags/qv-${finalAttrs.version}";
+    tag = "qv-${finalAttrs.version}";
     hash = "sha256-EZT2DU6jqERj+Uf0T4Xx3dnbDD4nEgidmV0L5wyWTaY=";
   };
 
@@ -33,13 +33,13 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
   ] ++ lib.optional stdenv.hostPlatform.isLinux qt6.qtwayland;
 
+  strictDeps = true;
+
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
   # Requires a graphical session.
   dontVersionCheck = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

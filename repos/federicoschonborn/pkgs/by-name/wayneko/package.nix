@@ -30,11 +30,11 @@ stdenv.mkDerivation {
     wayland
   ];
 
+  strictDeps = true;
+
   makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
-
-  strictDeps = true;
 
   passthru.updateScript = unstableGitUpdater { };
 

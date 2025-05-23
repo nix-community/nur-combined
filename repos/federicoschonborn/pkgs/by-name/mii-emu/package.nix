@@ -19,21 +19,21 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "buserror";
     repo = "mii_emu";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ugXPEENU2QKjF/R7MWes4rZuTVeyTfvSXhy/SnfPqJo=";
   };
 
   patches = [
-    (
-      # Fix building on ARM.
-      fetchpatch2 {
-        url = "https://github.com/buserror/mii_emu/commit/cb27727bb2f8270fcb6545b3514d9f85b99f731c.patch";
-        hash = "sha256-YuKaJieK2dXr32Cn+dEOmZp1hPZoxdUmVkgQzYly/8c=";
-      }
-    )
+    # Fix building on ARM.
+    (fetchpatch2 {
+      url = "https://github.com/buserror/mii_emu/commit/cb27727bb2f8270fcb6545b3514d9f85b99f731c.patch";
+      hash = "sha256-YuKaJieK2dXr32Cn+dEOmZp1hPZoxdUmVkgQzYly/8c=";
+    })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib
@@ -43,9 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libX11
   ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
-
   strictDeps = true;
+
+  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
   passthru.updateScript = nix-update-script { };
 

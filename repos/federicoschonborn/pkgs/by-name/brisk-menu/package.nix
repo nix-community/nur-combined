@@ -13,18 +13,14 @@
   nix-update-script,
 }:
 
-let
-  version = "0.6.2";
-in
-
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "brisk-menu";
-  inherit version;
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "getsolus";
     repo = "brisk-menu";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-e7ETdVv0/9UFyfLFQiZalxCEiVaOWYq+0Cv3BTvYecU=";
     fetchSubmodules = true;
   };
@@ -52,6 +48,7 @@ stdenv.mkDerivation {
   meta = {
     description = "An efficient menu for the MATE Desktop";
     homepage = "https://github.com/getsolus/brisk-menu";
+    changelog = "https://github.com/getsolus/brisk-menu/releases/tag/v${finalAttrs.version}";
     license = with lib.licenses; [
       gpl2Only
       cc-by-sa-40
@@ -59,4 +56,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})

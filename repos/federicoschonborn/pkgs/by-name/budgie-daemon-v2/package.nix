@@ -33,6 +33,8 @@ stdenv.mkDerivation (_: {
     wayland
   ];
 
+  strictDeps = true;
+
   cmakeFlags = [
     "-DQtWaylandScanner_EXECUTABLE=${kdePackages.qtwayland}/libexec/qtwaylandscanner"
   ];
@@ -42,8 +44,6 @@ stdenv.mkDerivation (_: {
   '';
 
   dontWrapQtApps = true;
-
-  strictDeps = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

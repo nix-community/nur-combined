@@ -31,11 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libX11
   ];
 
+  strictDeps = true;
+
   makeFlags =
     [
       "GCC=cc"
       "GPP=c++"
-      "AR=ar"
     ]
     ++ lib.optional stdenv.hostPlatform.isLinux "ARCH=lnx"
     ++ lib.optional stdenv.hostPlatform.isDarwin (
@@ -85,10 +86,6 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   # Prints the wrong version for some reason.
   doInstallCheck = false;
-  versionCheckProgram = "${placeholder "out"}/bin/pseint";
-  versionCheckProgramArg = "--version";
-
-  strictDeps = true;
 
   meta = {
     mainProgram = "pseint";
