@@ -2,17 +2,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rangefs";
-  version = "0.5.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-p/A3lDpNVGctofuJq0vA4XaT+kk5F8aW/kx/I4IgVaE=";
+    hash = "sha256-WyUvmOmQzcZaTJcOYjPOm8EfKRSLABpvE0qlefUxA0c=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-GJiiW74JJ4UHDmp8BO+6f4AzhwCNTLgi10VniD8qAjQ=";
+  cargoHash = "sha256-+8nSXo1si29Rc8DHiqztMyW5Ih9ixr5mv6Z0QMcgr/o=";
 
   nativeBuildInputs = [
     makeWrapper
