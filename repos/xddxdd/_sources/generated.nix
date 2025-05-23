@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "48ba5aa45c33945fc4c141c63e08a23f7723cae5";
+    version = "d82504e1aaf89b075f140eed1ee1224eec2c2b99";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "48ba5aa45c33945fc4c141c63e08a23f7723cae5";
-      hash = "sha256-YUx8j5Ns/DmQLmbI1/fPsI5cjdMO2LiehQo2Bsm1GTw=";
+      rev = "d82504e1aaf89b075f140eed1ee1224eec2c2b99";
+      hash = "sha256-2pzxgreLGlVjF3DbwPgfyayF3gt6RQmrcjJQxxxEi/c=";
     };
-    date = "2025-05-19";
+    date = "2025-05-22";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e43ef0e88c11cf311f886bd02b993f62a1da427d";
+    version = "aa3169141003dbb10733442fb147c72b8af9a434";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e43ef0e88c11cf311f886bd02b993f62a1da427d";
-      hash = "sha256-lG2WLBA9zRI3g7b67BH8Jeh1AvMf37wdf7kugcPZGRo=";
+      rev = "aa3169141003dbb10733442fb147c72b8af9a434";
+      hash = "sha256-/G9rQe9tSmgq2egki/5+XSKPDRRSnu2YLlvVhISCP8o=";
     };
-    date = "2025-05-21";
+    date = "2025-05-22";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -959,12 +959,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.14.7-xanmod1";
+    version = "6.14.8-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.14.7-xanmod1";
+      tag = "6.14.8-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-iyQirCCfjMq2hV4i+yPGX2ZFgvSmoxnWx7/hiIKlhr0=";
+      hash = "sha256-ap3NaM/pk+TWg3RBRxFJPwnfv2n042r47bo66jhj3ck=";
     };
   };
   linux-xanmod-6_0 = {
@@ -989,12 +989,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.29-xanmod1";
+    version = "6.12.30-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.29-xanmod1";
+      tag = "6.12.30-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-1UvxqjFMSpY6kwefor1OuG8EMU2nWi62JoyYAso4ibI=";
+      hash = "sha256-OqO41rbb3nBegL+ZjgqR0RGwrka6oLv0QOYXJ8Wdpv8=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5453";
+    version = "b5465";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5453";
-      hash = "sha256-MoVgmfvtNiUTl3gauvPbkdoEzuFp9zMIoJ3Bg/g+NlA=";
+      tag = "b5465";
+      hash = "sha256-A8x2cZqBHZdnW7QisI49i0OOZIhRSPsn96L/Tri42o0=";
     };
   };
   loralib = {
@@ -1489,12 +1489,12 @@
   };
   pocl = {
     pname = "pocl";
-    version = "v6.0";
+    version = "v7.0";
     src = fetchFromGitHub {
       owner = "pocl";
       repo = "pocl";
-      tag = "v6.0";
-      hash = "sha256-NHR9yrI6Odb/s/OBnEVifdcLEXvwqzAMZWpGViv2cJg=";
+      tag = "v7.0";
+      hash = "sha256-pyolM0SR6xiwhad7K0mX9I/PKbIa8Ltin0CYoA1U/qo=";
     };
   };
   pterodactyl-wings = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "b54d67edef1786b9a7c0e6bfa4b884995b153663";
+    version = "ac0d1a464f2a019ca0bfc6680757216c181a5f63";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "b54d67edef1786b9a7c0e6bfa4b884995b153663";
+      rev = "ac0d1a464f2a019ca0bfc6680757216c181a5f63";
       fetchSubmodules = true;
-      hash = "sha256-eWsai/YALXe0H1QbePYs2wdlUViJ/KXi0TbPbIwtyB0=";
+      hash = "sha256-gxLd24sCvJHl/nZ8Vaju/9PvWZjnFUeIwFG/hLXyYuA=";
     };
-    date = "2025-05-22";
+    date = "2025-05-23";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
