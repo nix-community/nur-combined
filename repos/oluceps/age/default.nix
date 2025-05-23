@@ -11,9 +11,7 @@
 {
   systemd.services.vaultix-activate.serviceConfig.Environment = [ "RUST_LOG=trace" ];
   vaultix = {
-    settings = {
-      # storageLocation = "./sec/rekeyed/${config.networking.hostName}";
-    };
+    settings = {  };
 
     secrets =
       let
