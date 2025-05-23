@@ -192,12 +192,25 @@ def generate_markdown_list_with_toc_defaulted():
 
     for category in sorted(categories.keys()):
         emoji = category_emojis.get(category, "❓")
-        markdown.append(f"## {emoji} {category.capitalize()}\n")
-        markdown.extend(categories[category])
+        package_count = len(categories[category])
+
+        # Create collapsible section using HTML details/summary
+        markdown.append(f'<details id="{category.lower()}">')
+        markdown.append(
+            f"<summary><h2>{emoji} {category.capitalize()} ({package_count} packages)</h2></summary>"
+        )
+        markdown.append("")
+
+        # Add all packages in this category
+        for package_content in categories[category]:
+            markdown.append(package_content)
+            markdown.append("")
+
+        markdown.append("</details>")
         markdown.append("")
 
     markdown.append(END_MARKER)
-    return "\n\n".join(markdown)
+    return "\n".join(markdown)
 
 
 def replace_readme_section(new_content):
@@ -210,7 +223,7 @@ def replace_readme_section(new_content):
 
 
 if __name__ == "__main__":
-    print("🔧 Generating README section with categories and emojis...")
+    print("🔧 Generating README section with collapsible categories and emojis...")
     section = generate_markdown_list_with_toc_defaulted()
     replace_readme_section(section)
-    print("✅ README updated.")
+    print("✅ README updated with collapsible sections.")

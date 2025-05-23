@@ -22,23 +22,15 @@ These packages are available via nur.
 - 📦 PR & tracker links (if submitted upstream)
 
 <!--table:start-->
-
 ## 📦 Packages by Category
 
-
-
 ### 🗂️ Table of Contents
-
 - [💬 Chat](#chat)
-
 - [🎮 Gaming](#gaming)
-
 - [🎵 Media](#media)
 
-
-
-## 💬 Chat
-
+<details id="chat">
+<summary><h2>💬 Chat (1 packages)</h2></summary>
 
 ### 🧰 chatterino `v2.5.3`
 - 💡 **Description:** Chat client for Twitch
@@ -47,10 +39,10 @@ These packages are available via nur.
 - 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
 
+</details>
 
-
-## 🎮 Gaming
-
+<details id="gaming">
+<summary><h2>🎮 Gaming (1 packages)</h2></summary>
 
 ### 🧰 ps-remote-play `v8.0.0`
 - 💡 **Description:** PS Remote Play is a free app that lets you stream and play your PS5 or PS4 games on compatible devices like smartphones, tablets, PCs, and Macs, allowing you to game remotely over Wi-Fi or mobile data.
@@ -58,10 +50,10 @@ These packages are available via nur.
 - 🖥️ **Platforms:** darwin
 - 🌐 **Homepage:** [ps-remote-play Website](https://remoteplay.dl.playstation.net/remoteplay/lang/gb/)
 
+</details>
 
-
-## 🎵 Media
-
+<details id="media">
+<summary><h2>🎵 Media (2 packages)</h2></summary>
 
 ### 🧰 kobo-desktop `v0-unstable-2025-05-11`
 - 💡 **Description:** Kobo Desktop is a free app for Windows and Mac that lets you buy, read, and manage eBooks, as well as sync them with your Kobo eReader.
@@ -76,6 +68,6 @@ These packages are available via nur.
 - 🌐 **Homepage:** [OpenAudible Website](https://openaudible.org/)
 - 📄 **Changelog:** [CHANGELOG](https://openaudible.org/versions)
 
-
+</details>
 
 <!--table:end-->
