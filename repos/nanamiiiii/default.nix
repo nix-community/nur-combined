@@ -6,4 +6,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   microsoft-edge = pkgs.callPackage ./pkgs/microsoft-edge { };
+  sddm-astronaut = pkgs.callPackage ./pkgs/sddm-astronaut { };
+  clock-tui = pkgs.callPackage ./pkgs/clock-tui { };
+  xpipe = pkgs.callPackage ./pkgs/xpipe { };
 }
