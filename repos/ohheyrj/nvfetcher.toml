@@ -2,3 +2,8 @@
 src.github = "Chatterino/chatterino2"
 src.prefix = "v"
 fetch.url = "https://chatterino.fra1.digitaloceanspaces.com/bin/$ver/Chatterino.dmg"
+
+[openaudible]
+src.github = "openaudible/openaudible"
+src.prefix = "v"
+fetch.url = "https://github.com/openaudible/openaudible/releases/download/v$ver/OpenAudible_$ver.dmg"

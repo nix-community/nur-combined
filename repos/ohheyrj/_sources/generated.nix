@@ -9,4 +9,12 @@
       sha256 = "sha256-pTAw2Ko1fcYxWhQK9j0odQPn28I1Lw2CHLs21KCbo7g=";
     };
   };
+  openaudible = {
+    pname = "openaudible";
+    version = "4.5.3";
+    src = fetchurl {
+      url = "https://github.com/openaudible/openaudible/releases/download/v4.5.3/OpenAudible_4.5.3.dmg";
+      sha256 = "sha256-AHr7uOwyPhWX8Qm0X1n/eGbP5MYcCe4+wSFQyPkR9w8=";
+    };
+  };
 }

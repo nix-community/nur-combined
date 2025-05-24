@@ -13,5 +13,20 @@
             "url": "https://chatterino.fra1.digitaloceanspaces.com/bin/2.5.3/Chatterino.dmg"
         },
         "version": "2.5.3"
+    },
+    "openaudible": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "openaudible",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-AHr7uOwyPhWX8Qm0X1n/eGbP5MYcCe4+wSFQyPkR9w8=",
+            "type": "url",
+            "url": "https://github.com/openaudible/openaudible/releases/download/v4.5.3/OpenAudible_4.5.3.dmg"
+        },
+        "version": "4.5.3"
     }
 }
