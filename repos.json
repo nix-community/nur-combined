@@ -96,6 +96,9 @@
         "SuperKenVery": {
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
+        "Vortriz": {
+            "url": "https://github.com/Vortriz/nur-packages"
+        },
         "YisuiMilena": {
             "url": "https://github.com/YisuiDenghua/nur-apps"
         },
