@@ -13,6 +13,7 @@
       pkgs.callPackage ./pkgs/gon { }
     else
       null;
+  jtt-nvim = pkgs.callPackage ./pkgs/jtt-nvim { };
   jurigged = pkgs.callPackage ./pkgs/jurigged { };
   llrt = pkgs.callPackage ./pkgs/llrt { };
   newsflash-nvim = pkgs.callPackage ./pkgs/newsflash-nvim { };
