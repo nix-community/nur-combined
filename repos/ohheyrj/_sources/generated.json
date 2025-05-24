@@ -1,4 +1,19 @@
 {
+    "balenaEtcher": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "balenaEtcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sqXbFtmCU+H9dGekzUZwA8Umop4tSYKCx0dm8FHBlgY=",
+            "type": "url",
+            "url": "https://github.com/balena-io/etcher/releases/download/v2.1.2/balenaEtcher-2.1.2-arm64.dmg"
+        },
+        "version": "2.1.2"
+    },
     "chatterino": {
         "cargoLocks": null,
         "date": null,

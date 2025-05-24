@@ -12,4 +12,5 @@ rec {
   openaudible = lib.callPackage "openaudible" ./pkgs/media/openaudible;
   ps-remote-play = lib.callPackage "ps-remote-play" ./pkgs/gaming/ps-remote-play;
   alfred5 = pkgs.callPackage ./pkgs/utilities/alfred5 { };
+  balenaEtcher = lib.callPackage "balenaEtcher" ./pkgs/utilities/balenaEtcher;
 }

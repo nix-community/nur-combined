@@ -12,3 +12,8 @@ fetch.url = "https://github.com/openaudible/openaudible/releases/download/v$ver/
 src.webpage = "https://remoteplay.dl.playstation.net/remoteplay/lang/gb"
 src.regex = "Version (\\d+\\.\\d+\\.\\d+) for Mac computer"
 fetch.url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"
+
+[balenaEtcher]
+src.github = "balena-io/etcher"
+src.prefix = "v"
+fetch.url = "https://github.com/balena-io/etcher/releases/download/v$ver/balenaEtcher-$ver-arm64.dmg"

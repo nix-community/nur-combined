@@ -75,13 +75,21 @@ These packages are available via nur.
 </details>
 
 <details id="utilities">
-<summary><h2>🧰 Utilities (1 packages)</h2></summary>
+<summary><h2>🧰 Utilities (2 packages)</h2></summary>
 
 ### 🧰 alfred5 `v5.6.2`
 - 💡 **Description:** Productivity app for macOS that boosts efficiency with hotkeys, keywords, text expansion, and powerful workflows.
 - 🛡️ **License:** unfree
 - 🖥️ **Platforms:** darwin
 - 🌐 **Homepage:** [alfred5 Website](https://www.alfredapp.com)
+
+### 🧰 balenaEtcher `v2.1.2`
+- 💡 **Description:** Flash OS images to SD cards & USB drives, safely and easily.
+- 🛡️ **License:** asl20
+- 🖥️ **Platforms:** aarch64-darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [balenaEtcher Website](https://github.com/balena-io/etcher)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/balena-io/etcher/blob/master/CHANGELOG.md)
 
 </details>
 
