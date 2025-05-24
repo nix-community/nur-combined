@@ -1134,10 +1134,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2025.4.0";
+      version = "2025.5.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484791/bitwarden_password_manager-2025.4.0.xpi";
-      sha256 = "643cb6fd7b9d1b209f82ca552342390a45c3edc94645cb049e49d016ee28b63c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4493940/bitwarden_password_manager-2025.5.0.xpi";
+      sha256 = "56e62622b7c322d2c2c4db04ad3eac2e7454bd7eebffebdcf5ca4b728ba09feb";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -7025,10 +7025,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.11.1";
+      version = "0.12.0";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4440959/mal_sync-0.11.1.xpi";
-      sha256 = "8713da2188a2204ef9e48f1729b9090691e8a6df796e64d5965e936886e87820";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4491278/mal_sync-0.12.0.xpi";
+      sha256 = "55087d44de5af98a9b74da6ea02b3c7f2d7f45277ee181e8059d3e81ee4092b0";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -7134,10 +7134,6 @@
           "*://voiranime.com/*"
           "*://*.voiranime.com/*"
           "*://www.viz.com/*"
-          "*://manganato.com/*"
-          "*://readmanganato.com/*"
-          "*://chapmanganato.com/*"
-          "*://chapmanganato.to/*"
           "*://www.animezone.pl/odcinki/*"
           "*://www.animezone.pl/odcinek/*"
           "*://www.animezone.pl/anime/*"
@@ -7238,7 +7234,6 @@
           "*://*.japscan.ws/*"
           "*://www.hulu.com/*"
           "*://www.hidive.com/*"
-          "*://*.primevideo.com/*"
           "*://mangakatana.com/manga/*"
           "*://*.manga4life.com/*"
           "*://bato.to/*"
@@ -7247,6 +7242,7 @@
           "*://animexin.xyz/*"
           "*://animexinax.com/*"
           "*://animexin.top/*"
+          "*://animexin.dev/*"
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
           "*://smotret-anime.org/catalog/*"
@@ -7254,6 +7250,8 @@
           "*://smotret-anime.com/catalog/*"
           "*://anime365.ru/catalog/*"
           "*://anime-365.ru/catalog/*"
+          "*://smotret-anime.ru/catalog/*"
+          "*://smotretanime.ru/catalog/*"
           "*://animefire.net/*"
           "*://animefire.plus/*"
           "*://otakufr.co/*"
@@ -7310,7 +7308,6 @@
           "*://*.otakustv.com/anime/*"
           "*://demo.komga.org/*"
           "*://animewho.com/*"
-          "*://toonily.com/webtoon/*"
           "*://fumetsu.pl/anime/*"
           "*://frixysubs.pl/*"
           "*://guya.moe/*"
@@ -7337,6 +7334,10 @@
           "*://hianime.nz/*"
           "*://hianime.mn/*"
           "*://hianime.sx/*"
+          "*://hianime.bz/*"
+          "*://hianime.pe/*"
+          "*://hianimez.to/*"
+          "*://hianimez.is/*"
           "*://kitsune.tv/*"
           "*://beta.kitsune.tv/*"
           "*://lhtranslation.net/manga*"
@@ -7356,9 +7357,8 @@
           "*://luminous-scans.com/*"
           "*://*.animeworld.tv/play/*"
           "*://*.animeworld.so/play/*"
+          "*://*.animeworld.ac/play/*"
           "*://mangabuddy.com/*"
-          "*://hivetoon.com/*"
-          "*://void-scans.com/*"
           "*://vvww.toonanime.cc/*"
           "*://*.adkami.com/*"
           "*://kaguya.app/*"
@@ -7398,6 +7398,7 @@
           "*://manhuaus.com/*"
           "*://*.taiyo.moe/*"
           "*://*.animesonline.in/*"
+          "*://*.miruro.to/*"
           "*://*.miruro.tv/*"
           "*://*.miruro.online/*"
           "*://latanime.org/*"
@@ -7407,18 +7408,13 @@
           "*://scyllacomics.xyz/*"
           "*://vortexscans.org/*"
           "*://weebcentral.com/*"
-          "*://anilib.me/*"
           "*://demo.kavitareader.com/*"
-          "*://mangalib.org/*"
-          "*://mangalib.me/*"
-          "*://*.slashlib.me/*"
-          "*://*.yaoilib.net/*"
-          "*://ranobelib.me/*"
           "*://rawkuma.com/*"
           "*://aninexus.to/*"
           "*://animekai.to/*"
           "*://watch.hikaritv.xyz/*"
           "*://hikari.gg/*"
+          "*://*.anidream.cc/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -7532,6 +7528,7 @@
           "*://*.mixdrop.sx/e/*"
           "*://*.mixdrop.ms/e/*"
           "*://*.mixdrop.ps/e/*"
+          "*://*.mixdrop.my/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -7691,6 +7688,15 @@
           "*://sandratableother.com/e/*"
           "*://robertordercharacter.com/e/*"
           "*://maxfinishseveral.com/e/*"
+          "*://alejandrocenturyoil.com/e/*"
+          "*://heatherwholeinvolve.com/e/*"
+          "*://nathanfromsubject.com/e/*"
+          "*://jennifercertaindevelopment.com/e/*"
+          "*://richardsignfish.com/e/*"
+          "*://sarahnewspaperbeat.com/e/*"
+          "*://diananatureforeign.com/e/*"
+          "*://jonathansociallike.com/e/*"
+          "*://mariatheserepublican.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -7735,6 +7741,7 @@
           "*://*.solidfiles.com/*"
           "*://www.animeworld.tv/api/episode/serverPlayerAnimeWorld?id=*"
           "*://www.animeworld.so/api/episode/serverPlayerAnimeWorld?id=*"
+          "*://www.animeworld.ac/api/episode/serverPlayerAnimeWorld?id=*"
           "*://filemoon.sx/e/*"
           "*://filemoon.sx/lol/*"
           "*://kerapoxy.cc/e/*"
@@ -7757,12 +7764,15 @@
           "*://81u6xl9d.xyz/lol/*"
           "*://gorro-chfzoaas.fun/e/*"
           "*://gorro-chfzoaas.fun/lol/*"
+          "*://z7ihwgqj.fun/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
           "*://animenosub.upn.one/#*"
           "*://*.streamhide.to/e/*"
           "*://megacloud.tv/*"
+          "*://megacloud.club/*"
+          "*://megacloud.blog/*"
           "*://vixcloud.cc/*"
           "*://vixcloud.co/*"
           "*://yonaplay.org/*"
@@ -7773,6 +7783,7 @@
           "*://sfastwish.com/e/*"
           "*://awish.pro/e/*"
           "*://hlswish.com/e/*"
+          "*://swishsrv.com/e/*"
           "*://alions.pro/v/*"
           "*://megaf.cc/e/*"
           "*://rogeriobetin.com/*"
@@ -7783,6 +7794,7 @@
           "*://dhtpre.com/*"
           "*://*.bunniescdn.online/*"
           "*://megaup.cc/e/*"
+          "*://boosterx.stream/*"
         ];
         platforms = platforms.all;
       };
@@ -8921,10 +8933,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "5.0.1";
+      version = "5.1.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4480292/passbolt-5.0.1.xpi";
-      sha256 = "dc3da80fec64c654c244b1a298ee2339f2067fc98eb6257bee5a2b35a8211146";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4498628/passbolt-5.1.1.xpi";
+      sha256 = "3fbc881d21c1d2036083593a5fe980421d5b9cbee7b0d4f6fbd770d7de79e78b";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10211,10 +10223,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.79.1";
+      version = "1.79.2";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4487610/read_aloud-1.79.1.xpi";
-      sha256 = "d81a1bdef8be2e0ca5d3f0aee6a842fd9fa44bfbdd66789c763c8ab18178061a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4493762/read_aloud-1.79.2.xpi";
+      sha256 = "bd0dcc3efcd79ebeb3224337a56aff09705611e0de5e03d1cb8dfc002ed4201c";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -11412,10 +11424,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.15";
+      version = "4.16";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475010/steam_database-4.15.xpi";
-      sha256 = "a06be7e4f9071855d4e98ee1468fff89b078f30b23688d2117591bb6f1e4c2ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4493966/steam_database-4.16.xpi";
+      sha256 = "9e16058e583fd83c7cf6d9125dc651e41b60b72376208d8f844e3106d48b4af4";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -13967,14 +13979,14 @@
     };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
-      version = "3.0.0";
+      version = "3.1.0";
       addonId = "{72742915-c83b-4485-9023-b55dc5a1e730}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4489083/widegithub-3.0.0.xpi";
-      sha256 = "cda7b62c351ab73c99cbcdc47de249e468ceadbfd839707249cb42582819fde3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499685/widegithub-3.1.0.xpi";
+      sha256 = "d802a050a59a3009d80dbe9a155212ce7d862c93b6c35fff708d393c3c5d57c9";
       meta = with lib;
       {
         homepage = "https://github.com/fabiocchetti/wide-github/";
-        description = "Makes GitHub wide on Mozilla Firefox.";
+        description = "Makes GitHub wide on Mozilla Firefox.\n\nSupports GitHub, private Gists, GitHub Enterprise, and custom TLDs.";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
