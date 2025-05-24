@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-22.15.18" = {
+    "@types/node-22.15.21" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "22.15.18";
+      version = "22.15.21";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-22.15.18.tgz";
-        sha512 = "v1DKRfUdyW+jJhZNEI1PYy29S2YRxMV5AOO/x/SjKmW0acCIOqmbj6Haf9eHAhsPmrhlHSxEhv/1WszcLWV4cg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-22.15.21.tgz";
+        sha512 = "EV/37Td6c+MgKAbkcLG6vqZ2zEYHD7bvSrzqqs2RIhbA6w3x+Dqz8MZM3sP6kGTeLrdoOgKZe+Xja7tUB2DNkQ==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -409,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.155" = {
+    "electron-to-chromium-1.5.157" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.155";
+      version = "1.5.157";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.155.tgz";
-        sha512 = "ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.157.tgz";
+        sha512 = "/0ybgsQd1muo8QlnuTpKwtl0oX5YMlUGbm8xyqgDU00motRkKFFbUJySAQBWcY79rVqNLWIWa87BGVGClwAB2w==";
       };
     };
     "enhanced-resolve-5.18.1" = {
@@ -958,13 +958,13 @@ let
         sha512 = "ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==";
       };
     };
-    "tapable-2.2.1" = {
+    "tapable-2.2.2" = {
       name = "tapable";
       packageName = "tapable";
-      version = "2.2.1";
+      version = "2.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz";
-        sha512 = "GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==";
+        url = "https://registry.npmjs.org/tapable/-/tapable-2.2.2.tgz";
+        sha512 = "Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==";
       };
     };
     "terser-5.39.2" = {
@@ -1003,22 +1003,22 @@ let
         sha512 = "UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==";
       };
     };
-    "watchpack-2.4.2" = {
+    "watchpack-2.4.4" = {
       name = "watchpack";
       packageName = "watchpack";
-      version = "2.4.2";
+      version = "2.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/watchpack/-/watchpack-2.4.2.tgz";
-        sha512 = "TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==";
+        url = "https://registry.npmjs.org/watchpack/-/watchpack-2.4.4.tgz";
+        sha512 = "c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==";
       };
     };
-    "webpack-5.99.8" = {
+    "webpack-5.99.9" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.99.8";
+      version = "5.99.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.8.tgz";
-        sha512 = "lQ3CPiSTpfOnrEGeXDwoq5hIGzSjmwD72GdfVzF7CQAI7t47rJG9eDWvcEkEn3CUQymAElVvDg3YNTlCYj+qUQ==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.9.tgz";
+        sha512 = "brOPwM3JnmOa+7kd3NsmOUOwbDAj8FT9xDsG3IW0MgbN9yZV7Oi/s/+MNQ/EcSMqw7qfoRyXPoeEWT8zLVdVGg==";
       };
     };
     "webpack-cli-6.0.1" = {
@@ -1039,13 +1039,13 @@ let
         sha512 = "hXXvrjtx2PLYx4qruKl+kyRSLc52V+cCvMxRjmKwoA+CBbbF5GfIBtR6kCvl0fYGqTUPKB+1ktVmTHqMOzgCBg==";
       };
     };
-    "webpack-sources-3.2.3" = {
+    "webpack-sources-3.3.0" = {
       name = "webpack-sources";
       packageName = "webpack-sources";
-      version = "3.2.3";
+      version = "3.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack-sources/-/webpack-sources-3.2.3.tgz";
-        sha512 = "/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==";
+        url = "https://registry.npmjs.org/webpack-sources/-/webpack-sources-3.3.0.tgz";
+        sha512 = "77R0RDmJfj9dyv5p3bM5pOHa+X8/ZkO9c7kpDstigkC4nIDobadsfSGCwB4bKhMVxqAok8tajaoR8rirM7+VFQ==";
       };
     };
     "which-2.0.2" = {
@@ -1084,7 +1084,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.7"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-22.15.18"
+      sources."@types/node-22.15.21"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1117,7 +1117,7 @@ let
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.155"
+      sources."electron-to-chromium-1.5.157"
       sources."enhanced-resolve-5.18.1"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
@@ -1181,7 +1181,7 @@ let
       sources."source-map-support-0.5.21"
       sources."supports-color-8.1.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
-      sources."tapable-2.2.1"
+      sources."tapable-2.2.2"
       (sources."terser-5.39.2" // {
         dependencies = [
           sources."commander-2.20.3"
@@ -1190,11 +1190,11 @@ let
       sources."terser-webpack-plugin-5.3.14"
       sources."undici-types-6.21.0"
       sources."update-browserslist-db-1.1.3"
-      sources."watchpack-2.4.2"
-      sources."webpack-5.99.8"
+      sources."watchpack-2.4.4"
+      sources."webpack-5.99.9"
       sources."webpack-cli-6.0.1"
       sources."webpack-merge-6.0.1"
-      sources."webpack-sources-3.2.3"
+      sources."webpack-sources-3.3.0"
       sources."which-2.0.2"
       sources."wildcard-2.0.1"
     ];

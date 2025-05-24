@@ -2533,13 +2533,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.5.155" = {
+    "electron-to-chromium-1.5.157" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.155";
+      version = "1.5.157";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.155.tgz";
-        sha512 = "ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.157.tgz";
+        sha512 = "/0ybgsQd1muo8QlnuTpKwtl0oX5YMlUGbm8xyqgDU00motRkKFFbUJySAQBWcY79rVqNLWIWa87BGVGClwAB2w==";
       };
     };
     "elliptic-6.6.1" = {
@@ -2605,13 +2605,13 @@ let
         sha512 = "7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==";
       };
     };
-    "es-abstract-1.23.9" = {
+    "es-abstract-1.23.10" = {
       name = "es-abstract";
       packageName = "es-abstract";
-      version = "1.23.9";
+      version = "1.23.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.23.9.tgz";
-        sha512 = "py07lI0wjxAC/DcfK1S6G7iANonniZwTISvdPzk9hzeH0IZIshbuuFxLIU96OyF89Yb9hiqWn8M/bY83KY5vzA==";
+        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.23.10.tgz";
+        sha512 = "MtUbM072wlJNyeYAe0mhzrD+M6DIJa96CZAOBBrhDbgKnB4MApIKefcyAB1eOdYn8cUNZgvwBvEzdoAYsxgEIw==";
       };
     };
     "es-array-method-boxes-properly-1.0.0" = {
@@ -7273,7 +7273,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.5.155"
+      sources."electron-to-chromium-1.5.157"
       (sources."elliptic-6.6.1" // {
         dependencies = [
           sources."bn.js-4.12.2"
@@ -7283,7 +7283,7 @@ let
       sources."entities-2.2.0"
       sources."envinfo-7.14.0"
       sources."error-ex-1.3.2"
-      (sources."es-abstract-1.23.9" // {
+      (sources."es-abstract-1.23.10" // {
         dependencies = [
           sources."object-inspect-1.13.4"
         ];
