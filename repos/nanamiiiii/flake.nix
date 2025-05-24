@@ -1,5 +1,5 @@
 {
-  description = "My personal NUR repository";
+  description = "Myuu's NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
     let
@@ -10,5 +10,7 @@
         pkgs = import nixpkgs { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      overlays.default = import ./overlay.nix;
     };
 }
