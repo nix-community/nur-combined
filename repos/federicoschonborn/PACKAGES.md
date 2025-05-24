@@ -73,18 +73,6 @@ Wayland session for the Budgie Desktop using a variety of window managers.
 - 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
-## `cargo-aoc` {#cargo-aoc}
-
-Cargo Advent of Code Helper.
-
-- Name: `cargo-aoc`
-- Version: `0.3.7`
-- [🌐 Homepage](https://github.com/gobanos/cargo-aoc)
-- [📰 Changelog](https://github.com/gobanos/cargo-aoc/releases/tag/0.3.7)
-- [📦 Source](./pkgs/by-name/cargo-aoc/package.nix#L33)
-- 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
 ## `cargo-shock` {#cargo-shock}
 
 Let Cargo make you learn Rust by giving you shocks.
@@ -158,18 +146,6 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - 📄 License: [`Eclipse Public License 1.0`](https://spdx.org/licenses/EPL-1.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
-## `inko` {#inko}
-
-A language for building concurrent software with confidence.
-
-- Name: `inko`
-- Version: `0.18.1`
-- [🌐 Homepage](https://github.com/inko-lang/inko)
-- [📰 Changelog](https://github.com/inko-lang/inko/releases/tag/v0.18.1)
-- [📦 Source](./pkgs/by-name/inko/package.nix#L50)
-- 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
 ## `karton` {#karton}
 
 KDE Virtual Machine Manager.
@@ -205,18 +181,6 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
-## `libslax` {#libslax}
-
-C implementation of the SLAX programming language.
-
-- Name: `libslax`
-- Version: `3.1.3`
-- [🌐 Homepage](https://github.com/Juniper/libslax)
-- [📰 Changelog](https://github.com/Juniper/libslax/releases/tag/3.1.3)
-- [📦 Source](./pkgs/by-name/libslax/package.nix#L51)
-- 📄 License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
 ## `libtgd` {#libtgd}
 
 A library to make working with multidimensional arrays in C++ easy.
@@ -237,17 +201,6 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - [🌐 Homepage](https://marlam.de/tgd/)
 - [📦 Source](./default.nix#L65)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `libxo` {#libxo}
-
-Library for emitting text, XML, JSON, or HTML output.
-
-- Name: `libxo`
-- Version: `1.7.5`
-- [🌐 Homepage](https://github.com/Juniper/libxo)
-- [📦 Source](./pkgs/by-name/libxo/package.nix#L40)
-- 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `magothy` {#magothy}
@@ -382,7 +335,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - Name: `pseint`
 - Version: `20250314`
 - [🌐 Homepage](https://pseint.sourceforge.net/)
-- [📦 Source](./pkgs/by-name/pseint/package.nix#L92)
+- [📦 Source](./pkgs/by-name/pseint/package.nix#L93)
 - 📄 License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`, `x86_64-darwin`, `aarch64-darwin`
 
@@ -395,17 +348,6 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
 - [🌐 Homepage](https://marlam.de/qv/)
 - [📦 Source](./pkgs/by-name/qv/package.nix#L53)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `raze` {#raze}
-
-Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed.
-
-- Name: `raze`
-- Version: `1.12pre`
-- [🌐 Homepage](https://github.com/ZDoom/Raze)
-- [📦 Source](./pkgs/by-name/raze/package.nix#L65)
-- 📄 License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `super-mario-127` {#super-mario-127}
@@ -497,17 +439,6 @@ A Qt style supporting both QtQuick and QtWidgets.
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
-## `wayneko` {#wayneko}
-
-Display an animated neko cat on the bottom of an output.
-
-- Name: `wayneko`
-- Version: `0-unstable-2024-03-29`
-- [🌐 Homepage](https://sr.ht/~leon_plickat/wayneko/)
-- [📦 Source](./pkgs/by-name/wayneko/package.nix#L43)
-- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
-- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
-
 ## `wisp` {#wisp}
 
 Wisp turns indentation based syntax into Lisp.
@@ -517,18 +448,6 @@ Wisp turns indentation based syntax into Lisp.
 - [🌐 Homepage](https://www.draketo.de/software/wisp)
 - [📦 Source](./pkgs/by-name/wisp/package.nix#L54)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `woke` {#woke}
-
-Detect non-inclusive language in your source code.
-
-- Name: `woke`
-- Version: `0.19.0`
-- [🌐 Homepage](https://github.com/get-woke/woke)
-- [📰 Changelog](https://github.com/get-woke/woke/releases/tag/v0.19.0)
-- [📦 Source](./pkgs/by-name/woke/package.nix#L50)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
 ## `ziggy` {#ziggy}

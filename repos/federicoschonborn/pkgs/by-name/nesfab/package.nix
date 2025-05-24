@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pubby";
     repo = "nesfab";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Mypn4N9+h/Wnxu47sI8jYVSDPiyQ7+aZoE3by2M9XQo=";
   };
 

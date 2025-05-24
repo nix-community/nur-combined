@@ -37,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "GCC=cc"
       "GPP=c++"
+      "AR=ar"
     ]
     ++ lib.optional stdenv.hostPlatform.isLinux "ARCH=lnx"
     ++ lib.optional stdenv.hostPlatform.isDarwin (
