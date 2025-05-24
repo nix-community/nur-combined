@@ -15,8 +15,4 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  get-authkey = pkgs.callPackage ./pkgs/get-authkey { };
-  linux-bench = pkgs.callPackage ./pkgs/linux-bench { };
-  mailrise = pkgs.callPackage ./pkgs/mailrise { };
-}
+} // (import ./pkgs { inherit pkgs; })
