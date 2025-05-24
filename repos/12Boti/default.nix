@@ -9,7 +9,6 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -22,6 +21,7 @@
   koboldcpp = pkgs.callPackage ./pkgs/koboldcpp {
     clblast = pkgs.clblast or (pkgs.callPackage ./pkgs/clblast { });
   };
+  libdebug = pkgs.python3Packages.callPackage ./pkgs/libdebug { };
   nsight-graphics = pkgs.callPackage ./pkgs/nsight-graphics { };
   openvscode-server = pkgs.callPackage ./pkgs/openvscode-server { };
   pcalc = pkgs.callPackage ./pkgs/pcalc { };
