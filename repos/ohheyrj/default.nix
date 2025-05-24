@@ -13,4 +13,5 @@ rec {
   ps-remote-play = lib.callPackage "ps-remote-play" ./pkgs/gaming/ps-remote-play;
   alfred5 = pkgs.callPackage ./pkgs/utilities/alfred5 { };
   balenaEtcher = lib.callPackage "balenaEtcher" ./pkgs/utilities/balenaEtcher;
+  garmin-basecamp = lib.callPackage "garmin-basecamp" ./pkgs/other/garmin-basecamp;
 }

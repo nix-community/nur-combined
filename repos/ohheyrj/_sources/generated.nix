@@ -17,6 +17,14 @@
       sha256 = "sha256-pTAw2Ko1fcYxWhQK9j0odQPn28I1Lw2CHLs21KCbo7g=";
     };
   };
+  garmin-basecamp = {
+    pname = "garmin-basecamp";
+    version = "4813";
+    src = fetchurl {
+      url = "https://download.garmin.com/software/BaseCampforMac_4813.dmg";
+      sha256 = "sha256-5M209u+JpwnRl+AnOgb5lbtLNUJTjw8+R0O/yFznTgs=";
+    };
+  };
   openaudible = {
     pname = "openaudible";
     version = "4.5.3";

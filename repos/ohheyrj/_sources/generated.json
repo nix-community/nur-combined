@@ -29,6 +29,21 @@
         },
         "version": "2.5.3"
     },
+    "garmin-basecamp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "garmin-basecamp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-5M209u+JpwnRl+AnOgb5lbtLNUJTjw8+R0O/yFznTgs=",
+            "type": "url",
+            "url": "https://download.garmin.com/software/BaseCampforMac_4813.dmg"
+        },
+        "version": "4813"
+    },
     "openaudible": {
         "cargoLocks": null,
         "date": null,

@@ -17,3 +17,10 @@ fetch.url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemoteP
 src.github = "balena-io/etcher"
 src.prefix = "v"
 fetch.url = "https://github.com/balena-io/etcher/releases/download/v$ver/balenaEtcher-$ver-arm64.dmg"
+
+[garmin-basecamp]
+src.webpage = "https://www8.garmin.com/support/download_details.jsp?id=4449"
+src.regex = "BaseCamp for Mac software version (\\d+\\.\\d+\\.\\d+)"
+src.from_pattern = "\\."
+src.to_pattern = ""
+fetch.url = "https://download.garmin.com/software/BaseCampforMac_$ver.dmg"

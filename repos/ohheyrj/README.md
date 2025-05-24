@@ -28,6 +28,7 @@ These packages are available via nur.
 - [💬 Chat](#chat)
 - [🎮 Gaming](#gaming)
 - [🎵 Media](#media)
+- [📦 Other](#other)
 - [🧰 Utilities](#utilities)
 
 <details id="chat">
@@ -71,6 +72,19 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [openaudible Website](https://openaudible.org/)
 - 📄 **Changelog:** [CHANGELOG](https://openaudible.org/versions)
+
+</details>
+
+<details id="other">
+<summary><h2>📦 Other (1 packages)</h2></summary>
+
+### 🧰 unknown `vunknown`
+- 💡 **Description:** Garmin BaseCamp is a free desktop app for planning outdoor adventures and managing GPS data with Garmin devices.
+- 🛡️ **License:** unfree
+- 🖥️ **Platforms:** darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [unknown Website](https://www.garmin.com/en-GB/software/basecamp/)
+- 📄 **Changelog:** [CHANGELOG](https://www8.garmin.com/support/download_details.jsp?id=4449)
 
 </details>
 
