@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5465";
+    version = "b5468";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5465";
-      hash = "sha256-A8x2cZqBHZdnW7QisI49i0OOZIhRSPsn96L/Tri42o0=";
+      tag = "b5468";
+      hash = "sha256-ceTkGwAO8w9y21bBLgesu1zl1qL96U4cPfeEB51bV3Q=";
     };
   };
   loralib = {
@@ -1181,14 +1181,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "1485f3f47890a237f1517f1d6bf7a417a82e99a5";
+    version = "c3823423d9adff33a98d00255a98b27eee082d53";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "1485f3f47890a237f1517f1d6bf7a417a82e99a5";
-      hash = "sha256-J+141DiTL2m3Mrq0xzqEj6cVpTtKAoZNwXOzX0BqbCs=";
+      rev = "c3823423d9adff33a98d00255a98b27eee082d53";
+      hash = "sha256-7g/lBMMG9wUY+S+IuUKi++xGeK7ncJbNOGHyIdrYq0k=";
     };
-    date = "2025-04-07";
+    date = "2025-05-24";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1363,12 +1363,12 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "v0.2.20250520";
+    version = "v0.2.20250523";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      tag = "v0.2.20250520";
-      hash = "sha256-PRqra8EWOI0AttQzj0v/b/1jB8rsMSbX5Ee0WBIIszY=";
+      tag = "v0.2.20250523";
+      hash = "sha256-M8rTunf1jSAHnwjHIC73J+noGetTijd0opdbTGynJVg=";
     };
   };
   palworld-exporter = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ac0d1a464f2a019ca0bfc6680757216c181a5f63";
+    version = "6dcb348f34ecb24b658acc26f1d3c4dd1421241f";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ac0d1a464f2a019ca0bfc6680757216c181a5f63";
+      rev = "6dcb348f34ecb24b658acc26f1d3c4dd1421241f";
       fetchSubmodules = true;
-      hash = "sha256-gxLd24sCvJHl/nZ8Vaju/9PvWZjnFUeIwFG/hLXyYuA=";
+      hash = "sha256-t+oz/Gl48XtBcL64zZ3/6GuCwJBQYbEVXuYFQOGLE34=";
     };
-    date = "2025-05-23";
+    date = "2025-05-24";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5465",
-            "sha256": "sha256-A8x2cZqBHZdnW7QisI49i0OOZIhRSPsn96L/Tri42o0=",
+            "rev": "b5468",
+            "sha256": "sha256-ceTkGwAO8w9y21bBLgesu1zl1qL96U4cPfeEB51bV3Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5465"
+        "version": "b5468"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2294,7 +2294,7 @@
     },
     "nginx-module-vts": {
         "cargoLocks": null,
-        "date": "2025-04-07",
+        "date": "2025-05-24",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2306,12 +2306,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "1485f3f47890a237f1517f1d6bf7a417a82e99a5",
-            "sha256": "sha256-J+141DiTL2m3Mrq0xzqEj6cVpTtKAoZNwXOzX0BqbCs=",
+            "rev": "c3823423d9adff33a98d00255a98b27eee082d53",
+            "sha256": "sha256-7g/lBMMG9wUY+S+IuUKi++xGeK7ncJbNOGHyIdrYq0k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1485f3f47890a237f1517f1d6bf7a417a82e99a5"
+        "version": "c3823423d9adff33a98d00255a98b27eee082d53"
     },
     "nginx-njs": {
         "cargoLocks": null,
@@ -2666,12 +2666,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "v0.2.20250520",
-            "sha256": "sha256-PRqra8EWOI0AttQzj0v/b/1jB8rsMSbX5Ee0WBIIszY=",
+            "rev": "v0.2.20250523",
+            "sha256": "sha256-M8rTunf1jSAHnwjHIC73J+noGetTijd0opdbTGynJVg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.20250520"
+        "version": "v0.2.20250523"
     },
     "palworld-exporter": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-05-23",
+        "date": "2025-05-24",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "ac0d1a464f2a019ca0bfc6680757216c181a5f63",
-            "sha256": "sha256-gxLd24sCvJHl/nZ8Vaju/9PvWZjnFUeIwFG/hLXyYuA=",
+            "rev": "6dcb348f34ecb24b658acc26f1d3c4dd1421241f",
+            "sha256": "sha256-t+oz/Gl48XtBcL64zZ3/6GuCwJBQYbEVXuYFQOGLE34=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac0d1a464f2a019ca0bfc6680757216c181a5f63"
+        "version": "6dcb348f34ecb24b658acc26f1d3c4dd1421241f"
     },
     "unigine-heaven": {
         "cargoLocks": null,

@@ -767,7 +767,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
     "pname": "ovpn-dco",
-    "version": "0.2.20250520"
+    "version": "0.2.20250523"
   },
   "legacyPackages.x86_64-linux.kernel-modules.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5465"
+    "version": "5468"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3732,7 +3732,7 @@
   "legacyPackages.x86_64-linux.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
     "pname": "ovpn-dco",
-    "version": "0.2.20250520"
+    "version": "0.2.20250523"
   },
   "legacyPackages.x86_64-linux.palworld-exporter": {
     "description": "Prometheus exporter for Palword Server",
@@ -4782,7 +4782,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-23"
+    "version": "0-unstable-2025-05-24"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4857,7 +4857,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-23"
+    "version": "0-unstable-2025-05-24"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5562,7 +5562,7 @@
   "packages.x86_64-linux.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
     "pname": "ovpn-dco",
-    "version": "0.2.20250520"
+    "version": "0.2.20250523"
   },
   "packages.x86_64-linux.palworld-exporter": {
     "description": "Prometheus exporter for Palword Server",
@@ -5847,7 +5847,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-23"
+    "version": "0-unstable-2025-05-24"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
