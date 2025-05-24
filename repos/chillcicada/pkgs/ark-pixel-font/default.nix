@@ -8,7 +8,7 @@
 let
   buildHashes = builtins.fromJSON (builtins.readFile ./hashes.json);
 
-  fusion-pixel-font =
+  ark-pixel-font =
     {
       fontSize,
       fontStyle,
@@ -16,11 +16,11 @@ let
     }:
 
     stdenvNoCC.mkDerivation (finalAttrs: {
-      pname = "fusion-pixel-font-${fontSize}-${fontStyle}-${fontFormat}";
+      pname = "ark-pixel-font-${fontSize}-${fontStyle}-${fontFormat}";
       version = "2025.03.14";
 
       src = fetchurl {
-        url = "https://github.com/TakWolf/fusion-pixel-font/releases/download/${finalAttrs.version}/${finalAttrs.pname}-v${finalAttrs.version}.zip";
+        url = "https://github.com/TakWolf/ark-pixel-font/releases/download/${finalAttrs.version}/${finalAttrs.pname}-v${finalAttrs.version}.zip";
         hash = buildHashes."${finalAttrs.pname}";
       };
 
@@ -38,9 +38,9 @@ let
       '';
 
       meta = {
-        homepage = "https://github.com/TakWolf/fusion-pixel-font";
+        homepage = "https://github.com/TakWolf/ark-pixel-font";
         description = ''
-          fusion pixel font ${fontSize} ${fontStyle} ${fontFormat}, Open Source Pan-CJK Pixel Font
+          ark pixel font ${fontSize} ${fontStyle} ${fontFormat}, Open Source Pan-CJK Pixel Font
         '';
         license = lib.licenses.ofl;
         platforms = lib.platforms.all;
@@ -60,15 +60,15 @@ lib.listToAttrs (
       in
       {
         name = "${fontSize}-${fontStyle}-${fontFormat}";
-        value = fusion-pixel-font { inherit fontSize fontStyle fontFormat; };
+        value = ark-pixel-font { inherit fontSize fontStyle fontFormat; };
       }
     )
     (
       lib.cartesianProduct {
         fontSize = [
+          "16px"
           "12px"
           "10px"
-          "8px"
         ];
         fontStyle = [
           "proportional"

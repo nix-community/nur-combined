@@ -13,6 +13,7 @@ with pkgs;
   typship = callPackage ./pkgs/typship { };
   degit-rs = callPackage ./pkgs/degit-rs { };
   tunet-rust = callPackage ./pkgs/tunet-rust { };
+  ark-pixel-font = callPackages ./pkgs/ark-pixel-font { };
   clash-verge-rev = callPackage ./pkgs/clash-verge-rev { };
   fusion-pixel-font = callPackages ./pkgs/fusion-pixel-font { };
   wpsoffice-cn = libsForQt5.callPackage ./pkgs/wpsoffice-cn { };
