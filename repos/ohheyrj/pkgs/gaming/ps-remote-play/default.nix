@@ -1,12 +1,8 @@
-{ stdenvNoCC, fetchurl, _7zz, cpio, xar, xcbuild, versionCheckHook, writeShellScript, lib, config }:
+{ stdenvNoCC, fetchurl, _7zz, cpio, xar, xcbuild, versionCheckHook, writeShellScript, lib, config, generated }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "ps-remote-play";
-  version = "8.0.0";
-  src = fetchurl {
-    url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg";
-    sha256 = "sha256-+iyK9RcaFLqVlRZaHMGxxlMpxkGgCuP+zzW12xOjms4=";
-  };
+  inherit (generated) pname version src;
+
   buildInputs = [
     _7zz
     cpio

@@ -46,11 +46,12 @@ These packages are available via nur.
 <details id="gaming">
 <summary><h2>🎮 Gaming (1 packages)</h2></summary>
 
-### 🧰 ps-remote-play `v8.0.0`
+### 🧰 unknown `vunknown`
 - 💡 **Description:** PS Remote Play is a free app that lets you stream and play your PS5 or PS4 games on compatible devices like smartphones, tablets, PCs, and Macs, allowing you to game remotely over Wi-Fi or mobile data.
 - 🛡️ **License:** unfree
 - 🖥️ **Platforms:** darwin
-- 🌐 **Homepage:** [ps-remote-play Website](https://remoteplay.dl.playstation.net/remoteplay/lang/gb/)
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [unknown Website](https://remoteplay.dl.playstation.net/remoteplay/lang/gb/)
 
 </details>
 

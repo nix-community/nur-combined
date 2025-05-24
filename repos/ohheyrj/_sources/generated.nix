@@ -17,4 +17,12 @@
       sha256 = "sha256-AHr7uOwyPhWX8Qm0X1n/eGbP5MYcCe4+wSFQyPkR9w8=";
     };
   };
+  ps-remote-play = {
+    pname = "ps-remote-play";
+    version = "8.0.0";
+    src = fetchurl {
+      url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg";
+      sha256 = "sha256-+iyK9RcaFLqVlRZaHMGxxlMpxkGgCuP+zzW12xOjms4=";
+    };
+  };
 }

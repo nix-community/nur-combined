@@ -7,3 +7,8 @@ fetch.url = "https://chatterino.fra1.digitaloceanspaces.com/bin/$ver/Chatterino.
 src.github = "openaudible/openaudible"
 src.prefix = "v"
 fetch.url = "https://github.com/openaudible/openaudible/releases/download/v$ver/OpenAudible_$ver.dmg"
+
+[ps-remote-play]
+src.webpage = "https://remoteplay.dl.playstation.net/remoteplay/lang/gb"
+src.regex = "Version (\\d+\\.\\d+\\.\\d+) for Mac computer"
+fetch.url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"

@@ -28,5 +28,20 @@
             "url": "https://github.com/openaudible/openaudible/releases/download/v4.5.3/OpenAudible_4.5.3.dmg"
         },
         "version": "4.5.3"
+    },
+    "ps-remote-play": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ps-remote-play",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+iyK9RcaFLqVlRZaHMGxxlMpxkGgCuP+zzW12xOjms4=",
+            "type": "url",
+            "url": "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"
+        },
+        "version": "8.0.0"
     }
 }
