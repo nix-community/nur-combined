@@ -1,19 +1,6 @@
 { lib, stdenv, fetchFromGitHub, premake5, glfw, openal, libX11, libXrandr, mpg123, libsndfile }:
 
-let
-  # attempt to call a nil value (global 'staticruntime')  
-  premake = premake5.overrideDerivation (oldAttrs: rec {
-    pname = "premake5";
-    version = "5.0.0-alpha13";
-
-    src = fetchFromGitHub {
-      owner = "premake";
-      repo = "premake-core";
-      rev = "v${version}";
-      sha256 = "1rcdqm60l4dgznmq8w4c008858g9jq798nfcca6l5zx74wk7kr7c";
-    };
-  });
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "re3";
   version = "0.1";
 
@@ -26,7 +13,7 @@ in stdenv.mkDerivation rec {
   };
 
   buildInputs = [ glfw openal mpg123 libsndfile ];
-  nativeBuildInputs = [ premake ];
+  nativeBuildInputs = [ premake5 ];
 
   preConfigure = ''
     patchShebangs printHash.sh

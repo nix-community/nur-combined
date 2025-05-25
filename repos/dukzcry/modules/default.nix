@@ -29,6 +29,5 @@ rec {
   branding = ./branding.nix;
   dashboard = ./dashboard.nix;
   watchyourlan = ./watchyourlan.nix;
-  olivetin = ./olivetin.nix;
   aulaf87-rgb = ./aulaf87-rgb.nix;
 }

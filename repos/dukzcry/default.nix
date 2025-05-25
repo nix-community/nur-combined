@@ -39,7 +39,6 @@ rec {
   metube = callPackage ./pkgs/metube.nix {};
   catppuccin = callPackage ./pkgs/catppuccin.nix {};
   stable-diffusion-cpp = qt6Packages.callPackage ./pkgs/stable-diffusion-cpp.nix {};
-  olivetin = callPackage ./pkgs/olivetin.nix {};
   sftpgo-plugin-auth = callPackage ./pkgs/sftpgo-plugin-auth.nix {};
   daggerfall-unity-russian = callPackage ./pkgs/daggerfall-unity-russian.nix {};
   aulaf87-rgb = callPackage ./pkgs/aulaf87-rgb.nix {};
