@@ -155,6 +155,23 @@ let
 
     zotero-connector =
       import ./zotero.nix { inherit buildFirefoxXpiAddon fetchurl lib stdenv; };
+
+    improved-intra = let version = "4.4.0";
+    in buildFirefoxXpiAddon {
+      pname = "improved-intra";
+      inherit version;
+      addonId = "{56d1b2d9-ceba-435d-b8a5-b89dd0d1f9ef}";
+      url =
+        "https://github.com/FreekBes/improved_intra/releases/download/v${version}/firefox.xpi";
+      sha256 =
+        "d14e951035c86d783379fff74ee6ced942834ae2fc3774715a2f9aa67f562ab3";
+      meta = with lib; {
+        homepage = "https://github.com/FreekBes/improved_intra";
+        description = "The ultimate browser extension for 42's Intranet, adding many improvements, such as dark mode, customizable profiles and much more!";
+        license = licenses.mit;
+        platforms = platforms.all;
+      };
+    };
   };
 
 in packages
