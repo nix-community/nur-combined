@@ -24,3 +24,11 @@ src.regex = "BaseCamp for Mac software version (\\d+\\.\\d+\\.\\d+)"
 src.from_pattern = "\\."
 src.to_pattern = ""
 fetch.url = "https://download.garmin.com/software/BaseCampforMac_$ver.dmg"
+
+[bartender5]
+src.webpage = "https://www.macbartender.com/Bartender5/release_notes/"
+src.regex = "Bartender (\\d+\\.\\d+\\.\\d+)"
+src.from_pattern = "\\."
+src.to_pattern = "-"
+fetch.url = "https://www.macbartender.com/B2/updates/$ver/Bartender%205.dmg"
+url.name = "Bartender5.dmg"

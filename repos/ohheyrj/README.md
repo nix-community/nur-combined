@@ -89,13 +89,21 @@ These packages are available via nur.
 </details>
 
 <details id="utilities">
-<summary><h2>🧰 Utilities (2 packages)</h2></summary>
+<summary><h2>🧰 Utilities (3 packages)</h2></summary>
 
 ### 🧰 alfred5 `v5.6.2`
 - 💡 **Description:** Productivity app for macOS that boosts efficiency with hotkeys, keywords, text expansion, and powerful workflows.
 - 🛡️ **License:** unfree
 - 🖥️ **Platforms:** darwin
 - 🌐 **Homepage:** [alfred5 Website](https://www.alfredapp.com)
+
+### 🧰 bartender5 `v5-3-6`
+- 💡 **Description:** Bartender is a macOS app that lets you manage and hide menu bar items, improving workflow with search, hotkeys, and automation.
+- 🛡️ **License:** unfree
+- 🖥️ **Platforms:** darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [bartender5 Website](https://www.macbartender.com)
+- 📄 **Changelog:** [CHANGELOG](https://www.macbartender.com/Bartender5/release_notes/)
 
 ### 🧰 balenaEtcher `v2.1.2`
 - 💡 **Description:** Flash OS images to SD cards & USB drives, safely and easily.

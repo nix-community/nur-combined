@@ -9,6 +9,15 @@
       sha256 = "sha256-sqXbFtmCU+H9dGekzUZwA8Umop4tSYKCx0dm8FHBlgY=";
     };
   };
+  bartender5 = {
+    pname = "bartender5";
+    version = "5-3-6";
+    src = fetchurl {
+      url = "https://www.macbartender.com/B2/updates/5-3-6/Bartender%205.dmg";
+      name = "Bartender5.dmg";
+      sha256 = "sha256-ojdOO1coUs41Hwz10mX7L0pV0MJLMTe8i6a79kod8p8=";
+    };
+  };
   chatterino = {
     pname = "chatterino";
     version = "2.5.3";
