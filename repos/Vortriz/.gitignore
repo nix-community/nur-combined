@@ -1,4 +1,4 @@
 result
 result-*
 .direnv
-.zed
+.pre-commit-config.yaml

@@ -1,0 +1,3 @@
+{
+    niriswitcher = import ./niriswitcher.nix;
+}
