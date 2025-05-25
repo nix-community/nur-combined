@@ -1004,10 +1004,10 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.40.0";
+      version = "0.40.2";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498408/bibbot-0.40.0.xpi";
-      sha256 = "295fab1041ff5ff47e06250559c3bc92442a8ba6c8ec5fc118c820c2b8ad1a16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499847/bibbot-0.40.2.xpi";
+      sha256 = "f91bd94c19c726268fbe674c7508e2ed59b3ae8672efea5426598ee82f34b0a9";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -8101,10 +8101,10 @@
     };
     "multiple-tab-handler" = buildFirefoxXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.0";
+      version = "3.2.1";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4453660/multiple_tab_handler-3.2.0.xpi";
-      sha256 = "bab1546f6c4ef1ae299255eba6c3691d1920736919e51937832b2921e8df8008";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499918/multiple_tab_handler-3.2.1.xpi";
+      sha256 = "3dc3ea9cac0f036198e2dabceb2fab0d9811f5604b48e76219ac8748a0c96ba6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -14258,10 +14258,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.2.28";
+      version = "2.2.30";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4481434/youtube_no_translation-2.2.28.xpi";
-      sha256 = "f3c5f5a5f487ca5f162c28d2c6749c92cfd5cb7bec54a2dcc5177cd36b4fa167";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499838/youtube_no_translation-2.2.30.xpi";
+      sha256 = "aa4550c557c4fea2c5acead6307d09edcd1e67a5cc71696cb967fb0304e20c6c";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
