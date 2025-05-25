@@ -394,7 +394,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-05-22",
+        "date": "2025-05-25",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -406,16 +406,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "d82504e1aaf89b075f140eed1ee1224eec2c2b99",
-            "sha256": "sha256-2pzxgreLGlVjF3DbwPgfyayF3gt6RQmrcjJQxxxEi/c=",
+            "rev": "8d403915ad2308d689c721ed9bde6411496374c2",
+            "sha256": "sha256-uUjKiCMCLQbFwHQbMZkbPCWWEwRUB/nIyPGqnnBSr2Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d82504e1aaf89b075f140eed1ee1224eec2c2b99"
+        "version": "8d403915ad2308d689c721ed9bde6411496374c2"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-05-22",
+        "date": "2025-05-25",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "aa3169141003dbb10733442fb147c72b8af9a434",
-            "sha256": "sha256-/G9rQe9tSmgq2egki/5+XSKPDRRSnu2YLlvVhISCP8o=",
+            "rev": "ffd4376b98226187480430d62804941fa08d4f57",
+            "sha256": "sha256-4yMmU8eEKhhUwWdaCa8qqbxc8QiSO0hzMXFXMzSXjQo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aa3169141003dbb10733442fb147c72b8af9a434"
+        "version": "ffd4376b98226187480430d62804941fa08d4f57"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5468",
-            "sha256": "sha256-ceTkGwAO8w9y21bBLgesu1zl1qL96U4cPfeEB51bV3Q=",
+            "rev": "b5480",
+            "sha256": "sha256-Dnw0wGCBsZlbF2oX42eZwsufPCzm4vKX1fVRgeFOxGs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5468"
+        "version": "b5480"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2624,12 +2624,12 @@
             "name": null,
             "owner": "aviramha",
             "repo": "ormsgpack",
-            "rev": "1.9.1",
-            "sha256": "sha256-lFKHXTYtYEjtu+nXemQnB0yjkFD69gr0n7XfJ1Hy3J0=",
+            "rev": "1.10.0",
+            "sha256": "sha256-7VESiHAkDynf31xrQQh0Vv5vSfMOjnVXRFackUQdB68=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.9.1"
+        "version": "1.10.0"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -4148,12 +4148,12 @@
             "name": null,
             "owner": "Diniboy1123",
             "repo": "usque",
-            "rev": "v1.1.0",
-            "sha256": "sha256-V8y8cTqblaMtYIFdX5DDg+KhaQQjrMkY42WgpGUuMPo=",
+            "rev": "v1.1.1",
+            "sha256": "sha256-VgqF98tZGNA0j+AR6/rZI64nWWjO11UDeCziXiCND5o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.0"
+        "version": "v1.1.1"
     },
     "vbmeta-disable-verification": {
         "cargoLocks": null,

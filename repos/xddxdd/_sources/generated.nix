@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "d82504e1aaf89b075f140eed1ee1224eec2c2b99";
+    version = "8d403915ad2308d689c721ed9bde6411496374c2";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "d82504e1aaf89b075f140eed1ee1224eec2c2b99";
-      hash = "sha256-2pzxgreLGlVjF3DbwPgfyayF3gt6RQmrcjJQxxxEi/c=";
+      rev = "8d403915ad2308d689c721ed9bde6411496374c2";
+      hash = "sha256-uUjKiCMCLQbFwHQbMZkbPCWWEwRUB/nIyPGqnnBSr2Q=";
     };
-    date = "2025-05-22";
+    date = "2025-05-25";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "aa3169141003dbb10733442fb147c72b8af9a434";
+    version = "ffd4376b98226187480430d62804941fa08d4f57";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "aa3169141003dbb10733442fb147c72b8af9a434";
-      hash = "sha256-/G9rQe9tSmgq2egki/5+XSKPDRRSnu2YLlvVhISCP8o=";
+      rev = "ffd4376b98226187480430d62804941fa08d4f57";
+      hash = "sha256-4yMmU8eEKhhUwWdaCa8qqbxc8QiSO0hzMXFXMzSXjQo=";
     };
-    date = "2025-05-22";
+    date = "2025-05-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5468";
+    version = "b5480";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5468";
-      hash = "sha256-ceTkGwAO8w9y21bBLgesu1zl1qL96U4cPfeEB51bV3Q=";
+      tag = "b5480";
+      hash = "sha256-Dnw0wGCBsZlbF2oX42eZwsufPCzm4vKX1fVRgeFOxGs=";
     };
   };
   loralib = {
@@ -1343,12 +1343,12 @@
   };
   ormsgpack = {
     pname = "ormsgpack";
-    version = "1.9.1";
+    version = "1.10.0";
     src = fetchFromGitHub {
       owner = "aviramha";
       repo = "ormsgpack";
-      tag = "1.9.1";
-      hash = "sha256-lFKHXTYtYEjtu+nXemQnB0yjkFD69gr0n7XfJ1Hy3J0=";
+      tag = "1.10.0";
+      hash = "sha256-7VESiHAkDynf31xrQQh0Vv5vSfMOjnVXRFackUQdB68=";
     };
   };
   osdlyrics = {
@@ -2122,12 +2122,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.1.0";
+    version = "v1.1.1";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.1.0";
-      hash = "sha256-V8y8cTqblaMtYIFdX5DDg+KhaQQjrMkY42WgpGUuMPo=";
+      tag = "v1.1.1";
+      hash = "sha256-VgqF98tZGNA0j+AR6/rZI64nWWjO11UDeCziXiCND5o=";
     };
   };
   vbmeta-disable-verification = {
