@@ -24,6 +24,7 @@ buildPythonPackage rec {
     description = "A tool to convert Windows .cur and .ani cursors to Xcursor format.";
     homepage = "https://github.com/quantum5/win2xcur";
     license = licenses.unfree; # No license upstream
+    maintainers = with maintainers; [ weathercold ];
     platforms = platforms.all;
   };
 }

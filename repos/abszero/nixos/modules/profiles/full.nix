@@ -65,8 +65,7 @@ in
     environment = {
       defaultPackages = [ ];
       systemPackages = with pkgs; [
-        # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
-        anki-bin-qt6-wayland
+        anki-wayland
         aseprite
         collector
         ffmpeg-full
