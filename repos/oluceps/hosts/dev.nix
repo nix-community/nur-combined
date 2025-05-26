@@ -290,6 +290,7 @@
             dmidecode
             nix-output-monitor
             numbat
+            fend
             rustic
 
           ];

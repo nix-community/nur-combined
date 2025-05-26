@@ -8,10 +8,10 @@ reIf {
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.vaultix.secrets.mautrix-tg.path;
-    serviceDependencies = [ "conduwuit.service" ];
+    serviceDependencies = [ "tuwunel.service" ];
     settings = {
       homeserver = {
-        address = "http://127.0.0.1:${toString config.services.conduwuit.settings.global.port}";
+        address = "http://127.0.0.1:${toString config.services.matrix-conduit.settings.global.port}";
         domain = config.services.conduwuit.settings.global.server_name;
       };
       appservice = {

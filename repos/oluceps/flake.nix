@@ -144,12 +144,13 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
+    nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
+
     nix-topology.url = "github:oluceps/nix-topology/dev";
     niri = {
       url = "github:YaLTeR/niri";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -157,7 +158,7 @@
     browser-previews = {
       url = "github:nix-community/browser-previews";
     };
-    vaultix.url = "github:milieuim/vaultix";
+    vaultix.url = "github:milieuim/vaultix/doc-enh";
     # vaultix.url = "/home/elen/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
@@ -194,7 +195,7 @@
       url = "github:atuinsh/atuin";
     };
     conduit = {
-      url = "github:girlbossceo/conduwuit";
+      url = "github:matrix-construct/tuwunel";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     nyx = {
