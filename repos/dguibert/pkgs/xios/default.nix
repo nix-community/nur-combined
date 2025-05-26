@@ -4,7 +4,7 @@
   gfortran,
   openmpi,
   mpi ? openmpi,
-  substituteAll,
+  replaceVars,
   perl,
   perlPackages,
   netcdf-mpi,
@@ -19,8 +19,7 @@
     hdf5 = hdf5-mpi;
   };
 
-  arch-X86_nix_fcm = substituteAll {
-    src = ./arch-X86_nix.fcm;
+  arch-X86_nix_fcm = replaceVars ./arch-X86_nix.fcm {
     inherit netcdffortran boost;
     fc =
       if ((mpi.isIntel or false) && (stdenv.cc.isIntel or false))
@@ -37,8 +36,7 @@
     cflags = "";
   };
 
-  arch-X86_nix_path = substituteAll {
-    src = ./arch-X86_nix.path;
+  arch-X86_nix_path = replaceVars ./arch-X86_nix.path {
     boost = boost.dev;
     inherit blitz;
   };

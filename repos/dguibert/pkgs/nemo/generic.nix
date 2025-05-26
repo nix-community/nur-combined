@@ -9,7 +9,7 @@
   hdf5,
   perl,
   perlPackages,
-  substituteAll,
+  replaceVars,
   xios,
   drvFlavor,
   lib,
@@ -21,8 +21,7 @@
   makenemoFlags ? "",
   ...
 }: let
-  nemo_arch-X64_nix-fcm = substituteAll {
-    src = ./arch-X64_nix.fcm;
+  nemo_arch-X64_nix-fcm = replaceVars ./arch-X64_nix.fcm {
     inherit netcdffortran xios;
     fc =
       if ((mpi.isIntel or false) && (stdenv.cc.isIntel or false))

@@ -2,7 +2,7 @@ final: prev: let
   exec = builtins.exec or null;
 
   makeProg = args:
-    prev.substituteAll (args
+    prev.replaceVarsWith (args
       // {
         isExecutable = true;
       });
@@ -28,7 +28,9 @@ final: prev: let
   ssh_sign_host = makeProg {
     name = "ssh-sign-host";
     src = ./ssh-sign-host.sh;
-    inherit ssh_generate_ca;
+    replacements = {
+      inherit ssh_generate_ca;
+    };
   };
 
   ssh_sign_user = "";
@@ -36,19 +38,25 @@ final: prev: let
   wg_keys = makeProg {
     name = "wg-keys";
     src = ./wg-keys.sh;
-    wireguardtools = prev.wireguard-tools;
+    replacements = {
+      wireguardtools = prev.wireguard-tools;
+    };
   };
 
   wg_pubkey = makeProg {
     name = "wg-pubkey";
     src = ./wg-pubkey.sh;
-    wireguardtools = prev.wireguard-tools;
+    replacements = {
+      wireguardtools = prev.wireguard-tools;
+    };
   };
 
   sops_decrypt = makeProg {
     name = "sops-decrypt";
     src = ./sops-decrypt.sh;
-    inherit (prev) sops;
+    replacements = {
+      inherit (prev) sops;
+    };
   };
   # user
   #* System wide:

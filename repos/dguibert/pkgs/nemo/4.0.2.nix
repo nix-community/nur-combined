@@ -9,7 +9,7 @@
   hdf5,
   perl,
   perlPackages,
-  substituteAll,
+  replaceVars,
   xios,
   lib,
   drvFlavor,

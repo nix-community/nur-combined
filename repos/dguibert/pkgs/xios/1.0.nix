@@ -4,7 +4,7 @@
   gfortran,
   openmpi,
   mpi ? openmpi,
-  substituteAll,
+  replaceVars,
   perl,
   perlPackages,
   netcdf-mpi,
@@ -19,8 +19,7 @@
     hdf5 = hdf5-mpi;
   };
 
-  arch-X86_nix_fcm = substituteAll {
-    src = ./arch-X86_nix.fcm;
+  arch-X86_nix_fcm = replaceVars ./arch-X86_nix.fcm {
     inherit netcdffortran;
     boost = boost166;
     fc =

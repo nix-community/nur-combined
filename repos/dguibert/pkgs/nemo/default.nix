@@ -9,7 +9,7 @@
   hdf5,
   perl,
   perlPackages,
-  substituteAll,
+  replaceVars,
   xios_10, # for nemo_36
   xios,
   fetchpatch,
