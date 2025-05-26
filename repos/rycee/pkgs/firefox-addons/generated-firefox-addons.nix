@@ -2976,10 +2976,10 @@
     };
     "enhancer-for-nebula" = buildFirefoxXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4468911/enhancer_for_nebula-1.6.1.xpi";
-      sha256 = "febc3a0ee3335143437572602341cb2a1fa809186a5b47ba2367c30545451bf8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4500420/enhancer_for_nebula-1.6.2.xpi";
+      sha256 = "710ab3f6cd51414c38ded93a8fb5745ec5912cf8dd7c935441b89b5deb716482";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -10762,10 +10762,10 @@
     };
     "shaarli" = buildFirefoxXpiAddon {
       pname = "shaarli";
-      version = "2.0.1resigned1";
+      version = "2.2.0";
       addonId = "shaarli@imirhil.fr";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4270418/shaarli-2.0.1resigned1.xpi";
-      sha256 = "9181c2c3ae085518a9ffe95a592a84ed20942605c78b556b42aed05e1e03f5fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4500528/shaarli-2.2.0.xpi";
+      sha256 = "26a123b469718792c25b7382918fc2c20d7bc54dfb24a93d4faa2386c9ac8180";
       meta = with lib;
       {
         description = "Cette extension remplace le bookmarklet officiel et intègre un bouton « Shaarli » dans la barre des modules.";
@@ -13979,14 +13979,14 @@
     };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "{72742915-c83b-4485-9023-b55dc5a1e730}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499685/widegithub-3.1.0.xpi";
-      sha256 = "d802a050a59a3009d80dbe9a155212ce7d862c93b6c35fff708d393c3c5d57c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4500323/widegithub-3.2.0.xpi";
+      sha256 = "f8bdfeb2d4555180207855c120611cc18fc95431c48a79c1b626673382c66847";
       meta = with lib;
       {
         homepage = "https://github.com/fabiocchetti/wide-github/";
-        description = "Makes GitHub wide on Mozilla Firefox.\n\nSupports GitHub, private Gists, GitHub Enterprise, and custom TLDs.";
+        description = "Makes GitHub wide on Mozilla Firefox.\n\nSupports GitHub, private Gists, GitHub Enterprise, and custom domains (TLDs).";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
