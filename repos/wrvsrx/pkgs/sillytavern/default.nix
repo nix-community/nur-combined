@@ -6,14 +6,14 @@
 }:
 buildNpmPackage rec {
   pname = "sillytavern";
-  version = "1.12.12";
+  version = "1.13.0";
   src = fetchFromGitHub {
     owner = "SillyTavern";
     repo = "SillyTavern";
     tag = version;
-    sha256 = "sha256-uy7NxI8SkGZvSle2thjz3W2df7OxdlgKvHMFXlV+bI0=";
+    sha256 = "sha256-HUlypAPadlad12J60Xfa30qE18II6MceVYkMqANWlyI=";
   };
-  npmDepsHash = "sha256-fUJWBUxScllssxjhrJmql5ZiO/13K4Cz24moHgyq5NU=";
+  npmDepsHash = "sha256-IZMwDgazY+6oyuOlE7zdWcDn5D2/8v2mHX9yDBwK+4I=";
   buildPhase = "true";
   installPhase = ''
     mkdir -p $out/{bin,lib}
