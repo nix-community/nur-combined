@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.programs.catppuccin;
-  catppuccin = pkgs.nur.repos.dukzcry.catppuccin.override { variant = cfg.variant; };
+  catppuccin = pkgs.nur.repos.dukzcry.catppuccin.override { inherit (cfg) variant accent; };
   capitalize = s: toUpper (substring 0 1 s) + substring 1 (-1) s;
   capitalizedVariant = capitalize cfg.variant;
   capitalizedAccent = capitalize cfg.accent;
@@ -21,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     environment.etc."sway/config.d/catppuccin.conf".source = "${catppuccin}/i3/catppuccin-${cfg.variant}";
 
-    environment.etc."mako.conf".text = mkBefore (builtins.readFile "${catppuccin}/mako/${cfg.variant}");
+    environment.etc."mako.conf".text = mkBefore (builtins.readFile "${catppuccin}/mako/catppuccin-${cfg.variant}-${cfg.accent}");
 
     environment.etc."xdg/foot/foot.ini".text = mkBefore ''
       include=${pkgs.foot.themes}/share/foot/themes/catppuccin-${cfg.variant}

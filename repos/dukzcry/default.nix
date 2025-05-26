@@ -21,13 +21,11 @@ rec {
   realrtcw = callPackage ./pkgs/realrtcw.nix { };
   re3 = callPackage ./pkgs/re3 {};
   revc = callPackage ./pkgs/re3/revc.nix { inherit re3; };
-  massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
   cockpit-client = callPackage ./pkgs/cockpit/client.nix {};
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
-  homer = callPackage ./pkgs/homer.nix {};
   gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
   aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
   dsdt = callPackage ./pkgs/dsdt.nix;

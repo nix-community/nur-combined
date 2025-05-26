@@ -27,8 +27,8 @@ let
       name = "mako";
       owner = "catppuccin";
       repo = "mako";
-      rev = "9dd088aa5f4529a3dd4d9760415e340664cb86df";
-      hash = "sha256-nUzWkQVsIH4rrCFSP87mXAka6P+Td2ifNbTuP7NM/SQ=";
+      rev = "92844f144e72f2dc8727879ec141ffdacf3ff6a1";
+      hash = "sha256-jgiZ+CrM4DX2nZR5BjjD9/Rk5CGGUy3gq9CCvYzp5Vs=";
     };
     swaylock = fetchFromGitHub {
       name = "swaylock";
@@ -45,7 +45,7 @@ lib.checkListOfEnum "${pname}: themes" validThemes themeList
 
 stdenvNoCC.mkDerivation {
   inherit pname;
-  version = "unstable-2024-07-29";
+  version = "unstable-2025-05-26";
 
   srcs = selectedSources;
 
@@ -68,7 +68,7 @@ stdenvNoCC.mkDerivation {
 
   '' + lib.optionalString (lib.elem "mako" themeList) ''
     mkdir -p $out/mako
-    cp "${sources.mako}/src/${variant}" "$out/mako/"
+    cp "${sources.mako}/themes/catppuccin-${variant}/catppuccin-${variant}-${accent}" "$out/mako/"
 
   '' + lib.optionalString (lib.elem "swaylock" themeList) ''
     mkdir -p $out/swaylock
