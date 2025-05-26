@@ -587,14 +587,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "eccf74684743593950ad259877db7ce9ffc06e93";
+    version = "ab2148ec182db2b5d18d38f2dd690922d2cf56b8";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "eccf74684743593950ad259877db7ce9ffc06e93";
-      hash = "sha256-j59hOsKEXtU5s3HwUP2MVJyF0JmzWeQzbog36dJJkvw=";
+      rev = "ab2148ec182db2b5d18d38f2dd690922d2cf56b8";
+      hash = "sha256-/gJ8pSrmblYSf+zh1k/KgAG9XgBxF5Fw2B7tqHeSuEo=";
     };
-    date = "2025-05-22";
+    date = "2025-05-26";
   };
   glauth = {
     pname = "glauth";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5480";
+    version = "b5490";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5480";
-      hash = "sha256-Dnw0wGCBsZlbF2oX42eZwsufPCzm4vKX1fVRgeFOxGs=";
+      tag = "b5490";
+      hash = "sha256-nHx1dn4ILhrC8ZBBWRadaajT6XcHiyGBres3oB5eYJw=";
     };
   };
   loralib = {
@@ -1725,14 +1725,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7fab37280f1a90055007f561518c7daf59da9a09";
+    version = "904aedb7c2097309e4f5a9be29baf6ce5cc64415";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7fab37280f1a90055007f561518c7daf59da9a09";
-      hash = "sha256-vWjAJ7UEnuGpYVfqwLt0Cq1jzz+S+DjivQpR9QKyad8=";
+      rev = "904aedb7c2097309e4f5a9be29baf6ce5cc64415";
+      hash = "sha256-a0b6k0dOwrdxCf+ZcX/fiF4K1LLGuEw5eBriRFkY2AI=";
     };
-    date = "2025-05-19";
+    date = "2025-05-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1744,10 +1744,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20250415";
+    version = "20250526";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20250415.dict.yaml";
-      hash = "sha256-FeDbafbUn7BTxwxdLCIlmlT8uMJ+Ze848j/G3CTsZ4k=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20250526.dict.yaml";
+      hash = "sha256-GI/n0Xmv1dnyemITEzXlHa/QP5RQu6Z9TUUJeeT+ZJQ=";
     };
   };
   rootutils = {
