@@ -127,6 +127,9 @@
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts
+                taplo # TOML language server
+                yaml-language-server
+                vscode-langservers-extracted # For vscode-json-language-server
               ];
               shellHook = ''
                 export NIXPKGS_ALLOW_BROKEN=1

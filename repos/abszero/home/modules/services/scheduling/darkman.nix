@@ -56,9 +56,6 @@ in
     enable = true;
     lightModeScripts.switch-hm-specialisation = switch-hm-specialisation cfg.lightSpecialisation;
     darkModeScripts.switch-hm-specialisation = switch-hm-specialisation cfg.darkSpecialisation;
-    settings = {
-      lat = 46;
-      lng = -74;
-    };
+    settings.usegeoclue = true;
   };
 }

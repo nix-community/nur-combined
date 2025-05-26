@@ -21,10 +21,11 @@ in
         # https://github.com/YaLTeR/niri/wiki/Application-Issues#steam
         extraArgs = "-system-composer";
       };
+      extest.enable = true; # Support Steam Input
       remotePlay.openFirewall = true;
       gamescopeSession.enable = true;
     };
-    
+
     # Let gamescope renice itself
     gamescope.capSysNice = true;
   };

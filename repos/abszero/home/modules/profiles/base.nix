@@ -19,7 +19,7 @@ in
     nixpkgs.config.allowUnfree = true;
 
     home = {
-      stateVersion = "25.05";
+      stateVersion = "25.11";
       preferXdgDirectories = true;
       # NOTE: this doesn't enable pointerCursor by default.
       pointerCursor = {
