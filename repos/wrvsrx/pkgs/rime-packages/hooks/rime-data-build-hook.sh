@@ -31,7 +31,7 @@ function rimeDataBuildHook {
   runHook preBuild
 
   for schema_file in *.schema.yaml; do
-    rime_deployer --compile "$schema_file" . rime_data_deps
+    faketime -f "1970-01-01 00:00:01" rime_deployer --compile "$schema_file" . rime_data_deps
   done
 
   runHook postBuild
