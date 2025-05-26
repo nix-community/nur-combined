@@ -2,12 +2,12 @@
 , makeWrapper, ffmpeg }:
 
 let
-  version = "2024-11-19";
+  version = "2025-05-23";
   src = fetchFromGitHub {
     owner = "alexta69";
     repo = "metube";
-    rev = "4a87e9fa68569e467224c8ef9cc49df8dfede831";
-    hash = "sha256-thKEe9nMTWgecYoKrXzHpNO+Fmhrtj9ru5aNd2EhK38=";
+    rev = "b07db0c9e321acc600183c8cd0a8721001a9428a";
+    hash = "sha256-BsvyeiFx8Ov3/Pt7D6wSnDLoCh3plXYCcAJ7r9deq7k=";
   };
   metube_ui = buildNpmPackage rec {
     pname = "metube-ui";
