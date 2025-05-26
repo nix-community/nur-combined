@@ -299,7 +299,7 @@
             freshfetch
             htop
             onefetch
-            hardinfo
+            hardinfo2
             imgcat
             nix-index
             ccze

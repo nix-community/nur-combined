@@ -10,6 +10,7 @@ let
   cfg = config.programs.gtklock;
 in
 {
+  disabledModules = [ "programs/wayland/gtklock.nix" ];
   options.programs.gtklock = {
     enable = mkOption {
       type = types.bool;

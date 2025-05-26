@@ -18,6 +18,7 @@ reIf {
       home = "/var/lib/misskey";
       linger = true;
       createHome = true;
+      uid = 984;
       subUidRanges = [
         {
           count = 65536;
