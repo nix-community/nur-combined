@@ -15,4 +15,5 @@ rec {
   balenaEtcher = lib.callPackage "balenaEtcher" ./pkgs/utilities/balenaEtcher;
   garmin-basecamp = lib.callPackage "garmin-basecamp" ./pkgs/other/garmin-basecamp;
   bartender5 = lib.callPackage "bartender5" ./pkgs/utilities/bartender5;
+  cryptomator = lib.callPackage "cryptomator" ./pkgs/utilities/cryptomator;
 }

@@ -89,7 +89,7 @@ These packages are available via nur.
 </details>
 
 <details id="utilities">
-<summary><h2>🧰 Utilities (3 packages)</h2></summary>
+<summary><h2>🧰 Utilities (4 packages)</h2></summary>
 
 ### 🧰 alfred5 `v5.6.2`
 - 💡 **Description:** Productivity app for macOS that boosts efficiency with hotkeys, keywords, text expansion, and powerful workflows.
@@ -112,6 +112,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [balenaEtcher Website](https://github.com/balena-io/etcher)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/balena-io/etcher/blob/master/CHANGELOG.md)
+
+### 🧰 cryptomator `v1.16.2`
+- 💡 **Description:** Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
+- 🛡️ **License:** gpl3Only
+- 🖥️ **Platforms:** aarch64-darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [cryptomator Website](https://github.com/cryptomator/cryptomator)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/cryptomator/cryptomator/releases)
 
 </details>
 

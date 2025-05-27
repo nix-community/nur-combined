@@ -44,6 +44,21 @@
         },
         "version": "2.5.3"
     },
+    "cryptomator": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cryptomator",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ENYGW4eX2jtrokjy2FT/TJ+Iu7H/0a74O6d0QIz5FkE=",
+            "type": "url",
+            "url": "https://github.com/cryptomator/cryptomator/releases/download/1.16.2/Cryptomator-1.16.2-arm64.dmg"
+        },
+        "version": "1.16.2"
+    },
     "garmin-basecamp": {
         "cargoLocks": null,
         "date": null,
