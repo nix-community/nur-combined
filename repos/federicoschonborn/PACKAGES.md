@@ -306,17 +306,6 @@ Camera application for Plasma Mobile.
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
-## `plasma-login-manager` {#plasma-login-manager}
-
-Plasma Login Manager provides the backend for Plasma's login experience.
-
-- Name: `plasma-login-manager`
-- Version: `0-unstable-2025-05-27`
-- [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
-- [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
-- 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
-- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
-
 ## `pnut` {#pnut}
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
