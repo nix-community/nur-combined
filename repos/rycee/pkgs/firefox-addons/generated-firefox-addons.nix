@@ -2055,10 +2055,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.10.1";
+      version = "4.11.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4482136/control_panel_for_twitter-4.10.1.xpi";
-      sha256 = "b7a6d904d7d3726813a745f24f4861fc2b5fc92bd7f200ee0ca1c6f29ab05304";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4500640/control_panel_for_twitter-4.11.1.xpi";
+      sha256 = "20b0ce4c2ece6cb252af2f17dbb26e6933b8f9d51038093dfa4efbb90912aa6b";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2294,10 +2294,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "139.0.20250522.210034";
+      version = "140.0.20250526.170029";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499178/dansk_da_language_pack-139.0.20250522.210034.xpi";
-      sha256 = "3a78f274a51fce6e8f69b2d3a1a714324a497086a4b83a0c6a62b665edd7b742";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501030/dansk_da_language_pack-140.0.20250526.170029.xpi";
+      sha256 = "9b0f2bbbca3b75d35833dbecba1f1b2c529593cb92fa6c371c20b7a97c225cd2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2491,10 +2491,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "139.0.20250522.210034";
+      version = "140.0.20250526.170029";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499180/deutsch_de_language_pack-139.0.20250522.210034.xpi";
-      sha256 = "2b77a51029f22e7ca9b41e40fe026ff3f8b00b66b25b74a4dcc0614e730f3144";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501028/deutsch_de_language_pack-140.0.20250526.170029.xpi";
+      sha256 = "ee867977cb685806d66ee2005071d548be00e5d5f72a06041bf31b2957cbfcc0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3752,10 +3752,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "139.0.20250522.210034";
+      version = "140.0.20250526.170029";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499100/francais_language_pack-139.0.20250522.210034.xpi";
-      sha256 = "96bdd216d94865872a422e309eb1f516c59098cbfc6ded49a3fb3f03a6cdd4ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501045/francais_language_pack-140.0.20250526.170029.xpi";
+      sha256 = "4eebb9a6a97e11bc2fca3109fef1c7c6bc921d4a353368f50b2918c4971b8ff0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3789,10 +3789,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "139.0.20250522.210034";
+      version = "140.0.20250526.170029";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499164/gaidhlig_language_pack-139.0.20250522.210034.xpi";
-      sha256 = "2c87aca69d60218b2db554b76aa5cba12af7bd9d6bd6135dbb7947ea8842e8be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501035/gaidhlig_language_pack-140.0.20250526.170029.xpi";
+      sha256 = "2a6b2937d4f0f11f7ba34ed1c08645cd5f11e8b77665bcd740edc7229133b36f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10617,10 +10617,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "139.0.20250522.210034";
+      version = "140.0.20250526.170029";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499078/scots_language_pack-139.0.20250522.210034.xpi";
-      sha256 = "b9a044bd64b388cccb1a26348b4b8fad60b68bde4132bb7112bf2637c23873db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501102/scots_language_pack-140.0.20250526.170029.xpi";
+      sha256 = "0d8c7fd2cdcae224c11800bfdb2ba1c21a35f971e16fa4e5adc8da625d89fc35";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10918,10 +10918,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "16.0.3";
+      version = "16.0.4";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485050/sidebartabs-16.0.3.xpi";
-      sha256 = "758a4aa9dcb5fcd9fc21a54bc3b660c763874b09f18fcc5dad43ac3297c41399";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501294/sidebartabs-16.0.4.xpi";
+      sha256 = "9a69f9c279311b18ea83dfc09b294be223d4a2120fcd838445091bb99fa90413";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -11295,10 +11295,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.12.1";
+      version = "5.12.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4480833/sponsorblock-5.12.1.xpi";
-      sha256 = "1ba2e6f90f64281397c131f8cd195faa01832600bee19ec3b93dce9366cfa96e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499756/sponsorblock-5.12.3.xpi";
+      sha256 = "24d33d252ac33d263e54247e7e6898cb3277991dbb54fe9329589bdedeb7fe80";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -12543,10 +12543,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.10.2";
+      version = "8.12.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4478450/ublacklist-8.10.2.xpi";
-      sha256 = "13b3226751248dbf62df7b14663720258b40973e3a94dc671cb42d562f9c64de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494965/ublacklist-8.12.0.xpi";
+      sha256 = "24bf54c68f283037f87c78d7a01e916c2417b7d7388126dbd6872ab4f4b4bb85";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -12555,7 +12555,9 @@
         mozPermissions = [
           "activeTab"
           "alarms"
+          "declarativeNetRequestWithHostAccess"
           "identity"
+          "scripting"
           "storage"
           "unlimitedStorage"
           "https://www.google.com/search?*"
