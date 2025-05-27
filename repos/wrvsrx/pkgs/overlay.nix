@@ -43,9 +43,7 @@ let
       source = sources.cmdlime;
     };
     yalantinglibs = callPackage ./yalantinglibs { source = sources.yalantinglibs; };
-    sillytavern = callPackage ./sillytavern { };
-    vscode-markdown-languageserver = callPackage ./vscode-markdown-languageserver {
-    };
+    vscode-markdown-languageserver = callPackage ./vscode-markdown-languageserver { };
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
