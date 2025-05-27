@@ -21,7 +21,7 @@ jobs:
           - ataraxiadev-foss
         nixpkgs:
           - nixos-unstable # Unstable from flake.lock, updated weekly
-          - nixos-24.11 # Latest stable
+          - nixos-25.05 # Latest stable
     runs-on: ubuntu-latest
     permissions:
       contents: write

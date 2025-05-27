@@ -3,7 +3,7 @@
   lib,
   buildPythonApplication,
   fetchFromGitHub,
-  substituteAll,
+  replaceVars,
   inquirerpy,
   requests,
   tqdm,
@@ -45,8 +45,7 @@ buildPythonApplication rec {
 
   postPatch =
     let
-      setup = substituteAll {
-        src = ./setup.py;
+      setup = replaceVars ./setup.py {
         inherit pname;
         desc = meta.description;
         version = builtins.replaceStrings [ "-" ] [ "." ] (lib.strings.removePrefix "0-unstable-" version);
