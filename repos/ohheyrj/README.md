@@ -128,7 +128,6 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [cryptomator Website](https://github.com/cryptomator/cryptomator)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/cryptomator/cryptomator/releases)
-
 </details>
 
 <!--table:end-->
