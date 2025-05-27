@@ -5,15 +5,15 @@
   tzdata,
   ...
 }: let
-  pname = "tackler-ng";
-  owner = "e257-fi";
-  version = "v25.04.1";
+  pname = "tackler";
+  owner = "tackler-ng";
+  version = "v25.05.1";
   src = fetchFromGitHub {
     owner = owner;
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    hash = "sha256-1VlOEezEZdTigCM8kDRGmNHIwpfzWkBHeE6rZ4NzI8I=";
+    hash = "sha256-Z/gSLEZp4ZWiz3PzLhZdRSmuW7/hbccAG8EpiyQry2c=";
   };
 in
   rustPlatform.buildRustPackage {
@@ -21,7 +21,7 @@ in
     version = version;
     src = src;
 
-    cargoHash = "sha256-8sojWNg365kvJVX0MjWGKYFE+LkbxyFuZdXIsALQ0Xg=";
+    cargoHash = "sha256-CfBpR1lX4K6d8105hRquPFexp6Fj7+zmKwsm/8ia2KI=";
 
     nativeBuildInputs = [tzdata];
     env = {
