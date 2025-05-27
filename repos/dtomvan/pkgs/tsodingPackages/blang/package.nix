@@ -7,17 +7,18 @@
   fasm,
   nob_h,
   nix-update-script,
+  makeWrapper,
 }:
 clangStdenv.mkDerivation {
   # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
-  version = "0-unstable-2025-05-22";
+  version = "0-unstable-2025-05-26";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "b";
-    rev = "669eea594e680b4509a0e36f373d3d0c55af6543";
-    hash = "sha256-PMh1z4Ndy/0KlfL8OHx+94NVjTJ6xednUaAxQV87Gd0=";
+    rev = "cbe341c184c378cc888cc313b0ef984ce31b821e";
+    hash = "sha256-e1OGgVAyYLdZP4IIz3Y+Ir+mO5caclYciISP/ARorcU=";
   };
 
   patches = [
@@ -30,16 +31,18 @@ clangStdenv.mkDerivation {
 
   nativeBuildInputs = [
     rustc
-    fasm
+    makeWrapper
   ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt/b/examples
+    mkdir -p $out/bin
     cp build/b $out/bin
-    # removed (temporarily?)
-    # cp build/{hello.js,hello} index.html $out/opt/b/examples
+    install -Dm444 examples/*.b -t $out/opt/b
+
+    wrapProgram $out/bin/b \
+      --prefix PATH : "${lib.makeBinPath [ fasm ]}"
 
     runHook postInstall
   '';
