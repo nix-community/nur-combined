@@ -7,6 +7,20 @@
   services.gpg-agent.enable = lib.mkForce false;
 
   my.home = {
+    atuin = {
+      package = pkgs.stdenv.mkDerivation {
+        pname = "atuin";
+        version = "18.4.0";
+
+        buildCommand = ''
+          mkdir -p $out/bin
+          ln -s /usr/bin/atuin $out/bin/atuin
+        '';
+
+        meta.mainProgram = "atuin";
+      };
+    };
+
     git = {
       package = pkgs.emptyDirectory;
     };
