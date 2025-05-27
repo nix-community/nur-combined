@@ -12,14 +12,14 @@
 
 stdenv.mkDerivation {
   pname = "plasma-login-manager";
-  version = "0-unstable-2025-05-21";
+  version = "0-unstable-2025-05-26";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "davidedmundson";
     repo = "plasma-login-manager";
-    rev = "cac307c18270eeb7b2100f72c267e677291e9e04";
-    hash = "sha256-b84sjdW4BpvqizrSWPfBmNwi2W/M1vFphwB5C0IaBhE=";
+    rev = "c22f16044e561b28a74e04ea52b2ee0a58ef53ba";
+    hash = "sha256-J1nGF20XcJ6gHI5VlnK29Z5ZMSJ+Y3eRDDGSW1JX63E=";
   };
 
   nativeBuildInputs = [

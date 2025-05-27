@@ -54,10 +54,10 @@ V2 daemon for Budgie Desktop.
 Feature-rich, modern desktop designed to keep out the way of the user.
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-05-13`
+- Version: `10.9.2-unstable-2025-05-24`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-13)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-24)
 - [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L147)
 - 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
@@ -101,10 +101,10 @@ Tool to generate flags for your CPU.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.43.0`
+- Version: `2.44.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.43.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.44.0)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L287)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
@@ -114,10 +114,10 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.43.0`
+- Version: `2.44.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.43.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.44.0)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
@@ -208,7 +208,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-05-18`
+- Version: `0-unstable-2025-05-24`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -311,7 +311,7 @@ Camera application for Plasma Mobile.
 Plasma Login Manager provides the backend for Plasma's login experience.
 
 - Name: `plasma-login-manager`
-- Version: `0-unstable-2025-05-21`
+- Version: `0-unstable-2025-05-26`
 - [🌐 Homepage](https://invent.kde.org/davidedmundson/plasma-login-manager)
 - [📦 Source](./pkgs/by-name/plasma-login-manager/package.nix#L72)
 - 📄 Licenses: [`Creative Commons Attribution 3.0`](https://spdx.org/licenses/CC-BY-3.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
