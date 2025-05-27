@@ -74,6 +74,21 @@
         },
         "version": "4813"
     },
+    "handbrake": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "handbrake",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-YaV8UzEaDKI+WDZ/USE0r5lCjBSsOmJmXyRfxeRsN5E=",
+            "type": "url",
+            "url": "https://github.com/HandBrake/HandBrake/releases/download/1.9.2/HandBrake-1.9.2.dmg"
+        },
+        "version": "1.9.2"
+    },
     "openaudible": {
         "cargoLocks": null,
         "date": null,

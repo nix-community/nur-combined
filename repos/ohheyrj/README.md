@@ -57,7 +57,7 @@ These packages are available via nur.
 </details>
 
 <details id="media">
-<summary><h2>🎵 Media (2 packages)</h2></summary>
+<summary><h2>🎵 Media (3 packages)</h2></summary>
 
 ### 🧰 kobo-desktop `v0-unstable-2025-05-11`
 - 💡 **Description:** Kobo Desktop is a free app for Windows and Mac that lets you buy, read, and manage eBooks, as well as sync them with your Kobo eReader.
@@ -72,6 +72,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [openaudible Website](https://openaudible.org/)
 - 📄 **Changelog:** [CHANGELOG](https://openaudible.org/versions)
+
+### 🧰 handbrake `v1.9.2`
+- 💡 **Description:** HandBrake is an open-source video transcoder available for Linux, Mac, and Windows.
+- 🛡️ **License:** gpl2Only
+- 🖥️ **Platforms:** darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [handbrake Website](https://handbrake.fr)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/HandBrake/HandBrake/releases)
 
 </details>
 

@@ -38,3 +38,6 @@ src.webpage = "https://cryptomator.org/downloads/#mac"
 src.regex = "Version (\\d+\\.\\d+\\.\\d+)"
 fetch.url = "https://github.com/cryptomator/cryptomator/releases/download/$ver/Cryptomator-$ver-arm64.dmg"
 
+[handbrake]
+src.github = "HandBrake/HandBrake"
+fetch.url = "https://github.com/HandBrake/HandBrake/releases/download/$ver/HandBrake-$ver.dmg"

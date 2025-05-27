@@ -42,6 +42,14 @@
       sha256 = "sha256-5M209u+JpwnRl+AnOgb5lbtLNUJTjw8+R0O/yFznTgs=";
     };
   };
+  handbrake = {
+    pname = "handbrake";
+    version = "1.9.2";
+    src = fetchurl {
+      url = "https://github.com/HandBrake/HandBrake/releases/download/1.9.2/HandBrake-1.9.2.dmg";
+      sha256 = "sha256-YaV8UzEaDKI+WDZ/USE0r5lCjBSsOmJmXyRfxeRsN5E=";
+    };
+  };
   openaudible = {
     pname = "openaudible";
     version = "4.5.3";
