@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   python3Packages,
-  substituteAll,
+  replaceVars,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -23,8 +23,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches = [
-    (substituteAll {
-      src = ./version.patch;
+    (replaceVars ./version.patch {
       inherit version;
     })
   ];

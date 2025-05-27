@@ -6,7 +6,7 @@
   mkgmap,
   p7zip,
   zsh,
-  substituteAll,
+  replaceVars,
 }:
 
 stdenv.mkDerivation {
@@ -20,12 +20,11 @@ stdenv.mkDerivation {
     hash = "sha256-J09SYLk869pQYeoGfuY9PFIOU+/W9w22kKwAkVpvkNI=";
   };
 
-  patches = (
-    substituteAll {
-      src = ./0001-fix-path.patch;
+  patches = [
+    (replaceVars ./0001-fix-path.patch {
       inherit gmaptool mkgmap p7zip;
-    }
-  );
+    })
+  ];
 
   buildInputs = [ zsh ];
 

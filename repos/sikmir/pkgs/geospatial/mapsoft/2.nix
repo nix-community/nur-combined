@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-  substituteAll,
   desktopToDarwinBundle,
   db,
   fig2dev,

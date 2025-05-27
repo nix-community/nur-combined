@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchurl,
-  substituteAll,
+  replaceVars,
   cmake,
   boost,
   jre,
@@ -46,8 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # Prevent CMake from trying to fetch libraries from GitHub
-    (substituteAll {
-      src = ./deps.patch;
+    (replaceVars ./deps.patch {
       inherit
         antlr_src
         antlr_jar

@@ -1,7 +1,7 @@
 {
   lib,
   python3Packages,
-  substituteAll,
+  replaceVars,
   locale,
 }:
 
@@ -14,10 +14,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-8VUW30eNWlYYD7+A5o8gYBDm0WD8OfpQi2XgNf11Ews=";
   };
 
-  patches = lib.optional (lib.versionAtLeast version "6.7") (substituteAll {
-    src = ./fix-paths.patch;
-    locale = "${locale}/bin/locale";
-  });
+  patches = lib.optionals (lib.versionAtLeast version "6.7") [
+    (replaceVars ./fix-paths.patch {
+      locale = "${locale}/bin/locale";
+    })
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

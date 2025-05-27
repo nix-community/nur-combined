@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mqtt-cli";
-  version = "4.39.0";
+  version = "4.40.0";
 
   src = fetchfromgh {
     owner = "hivemq";
     repo = "mqtt-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-szCbho80fvO1gf7hehphBDHGKEfLq96p2LoUbFzcLOs=";
+    hash = "sha256-D0zCS+Ju4SlD5lHAv0OKZKNvTFi0BIeFhvlR+6/9X7Y=";
     name = "mqtt-cli-${finalAttrs.version}.jar";
   };
 
