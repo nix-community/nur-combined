@@ -1,14 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, premake5, glfw, openal, libX11, libXrandr, mpg123, libsndfile }:
+{ lib, stdenv, fetchurl, fetchgit, premake5, glfw, openal, mpg123, libsndfile }:
 
 stdenv.mkDerivation rec {
   pname = "re3";
   version = "0.1";
 
-  src = fetchFromGitHub {
-    owner = "halpz";
-    repo = "re3";
-    rev = "310dd8637147c4db643107b69d603902abc78141";
-    sha256 = "sha256-/6VRXYT0fA7PitwK4GecpHPQiuLjDpMURfGUmjz8r0k=";
+  src' = fetchurl {
+    url = "https://archive.org/download/github.com-GTAmodding-re3_-_2021-09-06_14-11-00/GTAmodding-re3_-_2021-09-06_14-11-00.bundle";
+    sha256 = "sha256-A1y19ZgRrghlEPAr04F+r0OTPJcj5S26YIB/SMTp2cM=";
+  };
+
+  src = fetchgit {
+    url = src';
+    sha256 = "sha256-WCvs5QGkfnj33yu26LdSVTtwhuLyB3NhkT1i1nirvCk=";
     fetchSubmodules = true;
   };
 
