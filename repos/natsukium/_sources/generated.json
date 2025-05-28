@@ -94,7 +94,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-04-07",
+        "date": "2025-05-18",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "88aa02ad9002d1b5697aeaf9fb27cdb5cedc4964",
-            "sha256": "sha256-c6ltYZKLjZXXin8UaURY0xIrdFvA06aKxC5oty2FCdY=",
+            "rev": "e47ca19eddb1cb6000415a6a61db7255162f4cdb",
+            "sha256": "sha256-QHEhH+Gya8KzLKH17DMDqwXu7rnUzQ5JYTF8q2RzyYE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "88aa02ad9002d1b5697aeaf9fb27cdb5cedc4964"
+        "version": "e47ca19eddb1cb6000415a6a61db7255162f4cdb"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -166,7 +166,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2025-05-03",
+        "date": "2025-05-05",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "df35c7425429c7670e20106a163bc0e06b042329",
-            "sha256": "sha256-skkBeLXxLPNmiQR16B1Zqeim8FBz/eF5f8p3CiHCqVo=",
+            "rev": "3e019b331fbf9bd1d4539e7bd650a1c543125cee",
+            "sha256": "sha256-VDu8WypgpzY+Dd8KIPJXsvtBEwt5YiuGXn6HAUKCbIQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "df35c7425429c7670e20106a163bc0e06b042329"
+        "version": "3e019b331fbf9bd1d4539e7bd650a1c543125cee"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y0/JCnYBd5mbF6dMwJ20H3/C1epQyjb/NfybbsH9br0=",
+            "sha256": "sha256-6+WQU1fLEqfQuIsZMHuNCsKIAnYzGcBxJiS18eceh18=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.3.3635.11.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.4.3684.38.universal.dmg"
         },
-        "version": "7.3.3635.11"
+        "version": "7.4.3684.38"
     },
     "zen-browser": {
         "cargoLocks": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cf6d//9tjYvUVZHtAsvpJ5H0+8Pw/99dYViAhH8qIZM=",
+            "sha256": "sha256-1M1HlR5DbBY2b5KOl+eJm8ITpKjyOoPvawLojeAAlik=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.12.1b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.12.8b/zen.macos-universal.dmg"
         },
-        "version": "1.12.1b"
+        "version": "1.12.8b"
     }
 }
