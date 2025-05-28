@@ -284,6 +284,7 @@
             just
             typst
             cosmic-term
+            hyprfine
             acpi
             swww
             distrobox
