@@ -113,12 +113,12 @@ These packages are available via nur.
 - 🌐 **Homepage:** [bartender5 Website](https://www.macbartender.com)
 - 📄 **Changelog:** [CHANGELOG](https://www.macbartender.com/Bartender5/release_notes/)
 
-### 🧰 unknown `vunknown`
+### 🧰 komiser `vunknown`
 - 💡 **Description:** Cloud cost visibility and optimisation tool
 - 🛡️ **License:** mit
 - 🖥️ **Platforms:** aarch64-darwin, x86_64-darwin, x86_64-linux
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
-- 🌐 **Homepage:** [unknown Website](https://github.com/tailwarden/komiser)
+- 🌐 **Homepage:** [komiser Website](https://github.com/tailwarden/komiser)
 
 ### 🧰 balenaEtcher `v2.1.2`
 - 💡 **Description:** Flash OS images to SD cards & USB drives, safely and easily.
