@@ -17,6 +17,33 @@
   cloudflare-ddns = pkgs.callPackage ./pkgs/cloudflare-ddns { };
   nh = pkgs.callPackage ./pkgs/nh { };
   rename_music = pkgs.callPackage ./pkgs/rename_music { };
+  catppuccin-papirus-folders-frappe-red = pkgs.catppuccin-papirus-folders.override {
+    flavor = "frappe";
+    accent = "red";
+  };
+  catppuccin-papirus-folders-latte-red = pkgs.catppuccin-papirus-folders.override {
+    flavor = "latte";
+    accent = "red";
+  };
+  catppuccin-papirus-folders-latte-pink = pkgs.catppuccin-papirus-folders.override {
+    flavor = "latte";
+    accent = "pink";
+  };
+  catpuccin-kde-frappe-red = pkgs.catppuccin-kde.override {
+    flavour = [ "frappe" ];
+    accents = [ "red" ];
+    winDecStyles = [ "classic" ];
+  };
+  catpuccin-kde-latte-red = pkgs.catppuccin-kde.override {
+    flavour = [ "latte" ];
+    accents = [ "red" ];
+    winDecStyles = [ "classic" ];
+  };
+  catpuccin-kde-latte-pink = pkgs.catppuccin-kde.override {
+    flavour = [ "latte" ];
+    accents = [ "pink" ];
+    winDecStyles = [ "classic" ];
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
