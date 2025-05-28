@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     rev = "af035d498648dc00baf499efea7c0a57d21c0d6c";
     sha256 = "sha256-rhvI7JzKwCNL7NvIczC9Y6QDOXPGeSbLeJuBqRn8Quo=";
     sparseCheckout = [
-      "modplay"
+      pname
     ];
   };
 
@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
-    installBin modplay/modplay.sh
-    installBin modplay/modplay-shuffle.sh
+    installBin ${pname}/modplay.sh
+    installBin ${pname}/modplay-shuffle.sh
     wrapProgram $out/bin/modplay.sh \
       --prefix PATH : ${lib.makeBinPath [ coreutils curl dtrx uade123 libopenmpt sidplayfp libnotify ]}
   '';
