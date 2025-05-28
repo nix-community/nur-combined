@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
     owner = "dukzcry";
     repo = "crap";
     rev = "0b8cfa984b6247dcc81d27b9d6cf0b88ba8bb6e3";
-    hash = "sha256-BD+Sbiv88xQPOmFCs4uUOcjhHGElPayicZ3bn0wcIOg=";
+    hash = "sha256-CqTSWLnQFQz1WYHi/cG6GxmNhfgWG+8vfB9cymtMZlo=";
+    sparseCheckout = [
+      "aulaf87-rgb"
+    ];
   };
 
   setSourceRoot = ''export sourceRoot="$(echo */aulaf87-rgb)"'';

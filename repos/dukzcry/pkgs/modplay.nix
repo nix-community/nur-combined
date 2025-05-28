@@ -9,7 +9,10 @@ stdenv.mkDerivation rec {
     owner = "dukzcry";
     repo = "crap";
     rev = "af035d498648dc00baf499efea7c0a57d21c0d6c";
-    sha256 = "sha256-2TOysYBH/tt/WzMn91VCNgsomUhFwrgvElQy92hI3Ig=";
+    sha256 = "sha256-rhvI7JzKwCNL7NvIczC9Y6QDOXPGeSbLeJuBqRn8Quo=";
+    sparseCheckout = [
+      "modplay"
+    ];
   };
 
   buildInputs = [ makeWrapper ];
