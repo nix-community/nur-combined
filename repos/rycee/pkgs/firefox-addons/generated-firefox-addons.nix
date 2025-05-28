@@ -2411,10 +2411,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2518.0";
+      version = "6.2522.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4483894/dashlane-6.2518.0.xpi";
-      sha256 = "92ffc8d72b95adfe35134efc79bc3622a8aa092bcac7bd4f6d759252c209ebce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4500845/dashlane-6.2522.0.xpi";
+      sha256 = "40a69d30ac0eba460fb737d2b688c17cc052eedc524d476bf39b0baa57c2d2d4";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2976,10 +2976,10 @@
     };
     "enhancer-for-nebula" = buildFirefoxXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.6.2";
+      version = "1.6.3";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4500420/enhancer_for_nebula-1.6.2.xpi";
-      sha256 = "710ab3f6cd51414c38ded93a8fb5745ec5912cf8dd7c935441b89b5deb716482";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501807/enhancer_for_nebula-1.6.3.xpi";
+      sha256 = "9c62a6ca760f304b21b55d517a4366bab9bc79aa264b37adcb73ac7b700a8b21";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -7996,10 +7996,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.23.1";
+      version = "2.23.4";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4489149/momentumdash-2.23.1.xpi";
-      sha256 = "43dd486b168a655d43e79739ff3c7f1851aa92c686dd0916e7e7db16bd0583d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499640/momentumdash-2.23.4.xpi";
+      sha256 = "bfea7082d271dfcc4758d081d862e7478c0a1d0216e548b85aeaeafca5427e34";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8422,10 +8422,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.0.6";
+      version = "13.0.8";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4495120/noscript-13.0.6.xpi";
-      sha256 = "85066ef24c44cc839b2d6bbe4d3d08652c8e09f06515e1b86ee72ba26c406989";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497468/noscript-13.0.8.xpi";
+      sha256 = "9d978cfe083cb9cce120b5ee41e8933d752d7ab4680bf517c5ec4b29c4cfd2dc";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10525,10 +10525,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.1.0.1568";
+      version = "0.1.0.1580";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4489064/ruffle_rs-0.1.0.1568.xpi";
-      sha256 = "953e3705f368e7513a8380eddf18302dcc2a77b7c70432521b2088dc90b3e432";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497149/ruffle_rs-0.1.0.1580.xpi";
+      sha256 = "9131ce4826a204c562ed625a5f96172ab0554583d722d0d97f5787652013850b";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -12947,10 +12947,10 @@
     };
     "user-agent-string-switcher" = buildFirefoxXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.5.0";
+      version = "0.6.5.1";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4098688/user_agent_string_switcher-0.5.0.xpi";
-      sha256 = "9dc8da3c8c46d4f04d12fd789c63501fa6a2f502f859b286939a090db63eae33";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497925/user_agent_string_switcher-0.6.5.1.xpi";
+      sha256 = "aaaf7cfc3434b42836fd0c152a218dbf5e405f65095a8d8f431578461a34c171";
       meta = with lib;
       {
         homepage = "http://add0n.com/useragent-switcher.html";
@@ -12958,12 +12958,9 @@
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
-          "<all_urls>"
-          "webNavigation"
-          "webRequest"
-          "webRequestBlocking"
           "contextMenus"
-          "*://*/*"
+          "scripting"
+          "declarativeNetRequestWithHostAccess"
         ];
         platforms = platforms.all;
       };
@@ -13624,10 +13621,10 @@
     };
     "web-clipper-obsidian" = buildFirefoxXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "0.11.7";
+      version = "0.11.8";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475961/web_clipper_obsidian-0.11.7.xpi";
-      sha256 = "7d6d792d4e8cab559ee7041da6b9b3983b3256a283c4bf39033c01fe4702f2f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497129/web_clipper_obsidian-0.11.8.xpi";
+      sha256 = "54379df76b1df8560f6de88449bd95025a9bbb82308919a645ce050839d32379";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
