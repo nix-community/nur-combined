@@ -1,12 +1,19 @@
+
 { pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
 
-rec {
-  # If you have lib, modules, overlays (optional)
+let
   lib = import ./lib { inherit pkgs; };
+
+  generated = import ./_sources/generated.nix {
+    inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools;
+  };
+in rec {
+  inherit lib;
+
   modules = import ./modules;
   overlays = import ./overlays;
-  
-  # Explicitly list your packages
+
+  # Packages
   chatterino = lib.callPackage "chatterino" ./pkgs/chat/chatterino;
   kobo-desktop = pkgs.callPackage ./pkgs/media/kobo-desktop { };
   openaudible = lib.callPackage "openaudible" ./pkgs/media/openaudible;
@@ -17,4 +24,11 @@ rec {
   bartender5 = lib.callPackage "bartender5" ./pkgs/utilities/bartender5;
   cryptomator = lib.callPackage "cryptomator" ./pkgs/utilities/cryptomator;
   handbrake = lib.callPackage "handbrake" ./pkgs/media/handbrake;
+
+  komiser = pkgs.callPackage ./pkgs/utilities/komiser {
+    generatedDarwinArm64 = generated."komiser-darwin-arm64";
+    generatedDarwinX86   = generated."komiser-darwin-x86";
+    generatedLinuxX86    = generated."komiser-linux-x86";
+  };
 }
+

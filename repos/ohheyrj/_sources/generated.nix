@@ -50,6 +50,30 @@
       sha256 = "sha256-YaV8UzEaDKI+WDZ/USE0r5lCjBSsOmJmXyRfxeRsN5E=";
     };
   };
+  komiser-darwin-arm64 = {
+    pname = "komiser-darwin-arm64";
+    version = "v3.1.22";
+    src = fetchurl {
+      url = "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Darwin_arm64";
+      sha256 = "sha256-HuRn7jf2OQ7c017gWkNiPnQpIEDViAIpDSKCJXRlEZ4=";
+    };
+  };
+  komiser-darwin-x86 = {
+    pname = "komiser-darwin-x86";
+    version = "v3.1.22";
+    src = fetchurl {
+      url = "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Darwin_x86_64";
+      sha256 = "sha256-fYzK7EEAUkaJYjnIn3Fid5Go6tdp7YRahLscebQ7iaE=";
+    };
+  };
+  komiser-linux-x86 = {
+    pname = "komiser-linux-x86";
+    version = "v3.1.22";
+    src = fetchurl {
+      url = "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Linux_x86_64";
+      sha256 = "sha256-1E5Soxjx7ei3RivaFe213cbzPClekpF+TcZhDoPJ6AE=";
+    };
+  };
   openaudible = {
     pname = "openaudible";
     version = "4.5.3";
