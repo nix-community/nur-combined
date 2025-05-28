@@ -90,4 +90,12 @@
       sha256 = "sha256-+iyK9RcaFLqVlRZaHMGxxlMpxkGgCuP+zzW12xOjms4=";
     };
   };
+  signal-desktop = {
+    pname = "signal-desktop";
+    version = "7.56.0";
+    src = fetchurl {
+      url = "https://updates.signal.org/desktop/signal-desktop-mac-universal-7.56.0.dmg";
+      sha256 = "sha256-uwzj5P/bZLcjrXBmtPtSBf/+CdN9e6mry2rWhuQxKks=";
+    };
+  };
 }

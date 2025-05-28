@@ -32,7 +32,7 @@ These packages are available via nur.
 - [🧰 Utilities](#utilities)
 
 <details id="chat">
-<summary><h2>💬 Chat (1 packages)</h2></summary>
+<summary><h2>💬 Chat (2 packages)</h2></summary>
 
 ### 🧰 chatterino `v2.5.3`
 - 💡 **Description:** Chat client for Twitch
@@ -41,6 +41,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [chatterino Website](https://chatterino.com)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/Chatterino/chatterino2/blob/master/CHANGELOG.md)
+
+### 🧰 unknown `vunknown`
+- 💡 **Description:** Signal Desktop links with Signal on Android or iOS and lets you message from your Windows, macOS, and Linux computers.
+- 🛡️ **License:** agpl3Only
+- 🖥️ **Platforms:** darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [unknown Website](https://signal.org)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/signalapp/Signal-Desktop/releases)
 
 </details>
 

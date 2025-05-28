@@ -163,5 +163,20 @@
             "url": "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"
         },
         "version": "8.0.0"
+    },
+    "signal-desktop": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "signal-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-uwzj5P/bZLcjrXBmtPtSBf/+CdN9e6mry2rWhuQxKks=",
+            "type": "url",
+            "url": "https://updates.signal.org/desktop/signal-desktop-mac-universal-7.56.0.dmg"
+        },
+        "version": "7.56.0"
     }
 }

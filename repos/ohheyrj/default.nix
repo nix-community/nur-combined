@@ -24,7 +24,7 @@ in rec {
   bartender5 = lib.callPackage "bartender5" ./pkgs/utilities/bartender5;
   cryptomator = lib.callPackage "cryptomator" ./pkgs/utilities/cryptomator;
   handbrake = lib.callPackage "handbrake" ./pkgs/media/handbrake;
-
+  signal-desktop = lib.callPackage "signal-desktop" ./pkgs/chat/signal-desktop;
   komiser = pkgs.callPackage ./pkgs/utilities/komiser {
     generatedDarwinArm64 = generated."komiser-darwin-arm64";
     generatedDarwinX86   = generated."komiser-darwin-x86";
