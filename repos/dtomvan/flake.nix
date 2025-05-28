@@ -17,12 +17,8 @@
       let
         pkgs = import nixpkgs { inherit system; };
         defaultNix = (import ./. { inherit pkgs; });
-        # HACK: I don't know how to make `nix flake show` not scream at me without doing this
-        flakePackages =
-          with pkgs.lib;
-          mapAttrs (_: p: if !isDerivation p then filterAttrs (_: isDerivation) p else p) (
-            filterAttrs (_: p: isDerivation p || isAttrs p) defaultNix
-          );
+        flattenPkgs = (import lib/flatten.nix { inherit pkgs; });
+        flakePackages = flattenPkgs defaultNix;
         warnPackages =
           if system != "x86_64-linux" then
             pkgs.lib.warn "dtomvan/nur-packages: only x86_64-linux builds are tested, use at own risk" flakePackages

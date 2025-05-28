@@ -11,8 +11,6 @@ check-nur-eval:
 check-formatting:
     nix fmt -- --ci
 
-# TODO: in CI, only rebuild the package that changed
-# this doesn't have a lot of packages right now so should be fine
 build-test:
     #!/usr/bin/env bash
     if [ -z "$CI" ]; then
