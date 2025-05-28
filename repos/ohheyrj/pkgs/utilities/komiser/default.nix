@@ -18,7 +18,9 @@ let
 in
 
 stdenvNoCC.mkDerivation {
-  inherit (generated) pname version src;
+  pname = "komiser";
+  inherit (generated) version src;
+
   sourceRoot = ".";
   dontUnpack = true;
 
