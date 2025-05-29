@@ -47,6 +47,9 @@
   "toggle-pane": {
     "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and preview"
   },
+  "types": {
+    "description": "Type definitions for Yazi's Lua API, empowering an efficient plugin development experience"
+  },
   "vcs-files": {
     "description": "Show Git file changes in Yazi"
   }
