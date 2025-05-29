@@ -105,7 +105,7 @@ These packages are available via nur.
 </details>
 
 <details id="utilities">
-<summary><h2>🧰 Utilities (7 packages)</h2></summary>
+<summary><h2>🧰 Utilities (8 packages)</h2></summary>
 
 ### 🧰 alfred5 `v5.6.2`
 - 💡 **Description:** Productivity app for macOS that boosts efficiency with hotkeys, keywords, text expansion, and powerful workflows.
@@ -143,6 +143,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [cryptomator Website](https://github.com/cryptomator/cryptomator)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/cryptomator/cryptomator/releases)
+
+### 🧰 unknown `vunknown`
+- 💡 **Description:** OnyX is a multifunction utility for MacOS Sequoia.
+- 🛡️ **License:** unfree
+- 🖥️ **Platforms:** aarch64-darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [unknown Website](https://www.titanium-software.fr/en/onyx.html)
+- 📄 **Changelog:** [CHANGELOG](https://www.titanium-software.fr/en/onyx_release.html)
 
 ### 🧰 hazel `v6.0.4`
 - 💡 **Description:** Automated Organization for Your Mac.

@@ -98,6 +98,14 @@
       sha256 = "sha256-1E5Soxjx7ei3RivaFe213cbzPClekpF+TcZhDoPJ6AE=";
     };
   };
+  onyx-sequoia = {
+    pname = "onyx-sequoia";
+    version = "4.7.9";
+    src = fetchurl {
+      url = "https://www.titanium-software.fr/download/15/OnyX.dmg";
+      sha256 = "sha256-OdWxVShgprkj0XxNO0SwSwvdgwYVvvJxuKR/VzWYTl8=";
+    };
+  };
   openaudible = {
     pname = "openaudible";
     version = "4.5.3";

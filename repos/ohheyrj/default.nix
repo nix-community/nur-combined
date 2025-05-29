@@ -26,6 +26,7 @@ in rec {
   handbrake = lib.callPackage "handbrake" ./pkgs/media/handbrake;
   signal-desktop = lib.callPackage "signal-desktop" ./pkgs/chat/signal-desktop;
   hazel = lib.callPackage "hazel" ./pkgs/utilities/hazel;
+  onxy-sequoia = lib.callPackage "onyx-sequoia" ./pkgs/utilities/onyx-sequoia;
   
   komiser = pkgs.callPackage ./pkgs/utilities/komiser {
     generatedDarwinArm64 = generated."komiser-darwin-arm64";

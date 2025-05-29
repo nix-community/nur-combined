@@ -179,6 +179,21 @@
         },
         "version": "v3.1.22"
     },
+    "onyx-sequoia": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "onyx-sequoia",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-OdWxVShgprkj0XxNO0SwSwvdgwYVvvJxuKR/VzWYTl8=",
+            "type": "url",
+            "url": "https://www.titanium-software.fr/download/15/OnyX.dmg"
+        },
+        "version": "4.7.9"
+    },
     "openaudible": {
         "cargoLocks": null,
         "date": null,
