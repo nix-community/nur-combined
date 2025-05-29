@@ -105,7 +105,7 @@ These packages are available via nur.
 </details>
 
 <details id="utilities">
-<summary><h2>🧰 Utilities (5 packages)</h2></summary>
+<summary><h2>🧰 Utilities (6 packages)</h2></summary>
 
 ### 🧰 alfred5 `v5.6.2`
 - 💡 **Description:** Productivity app for macOS that boosts efficiency with hotkeys, keywords, text expansion, and powerful workflows.
@@ -143,6 +143,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [cryptomator Website](https://github.com/cryptomator/cryptomator)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/cryptomator/cryptomator/releases)
+
+### 🧰 gitkraken-cli `vunknown`
+- 💡 **Description:** GitKraken CLI is the developer tool that transforms how you interact with Git.
+- 🛡️ **License:** unfree
+- 🖥️ **Platforms:** aarch64-darwin, x86_64-darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [gitkraken-cli Website](https://www.gitkraken.com/cli)
+- 📄 **Changelog:** [CHANGELOG](https://github.com/gitkraken/gk-cli/releases)
 
 </details>
 

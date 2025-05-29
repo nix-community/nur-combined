@@ -74,6 +74,36 @@
         },
         "version": "4813"
     },
+    "gitkraken-cli-darwin-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gitkraken-cli-darwin-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ZC+RLoWQ1YfHlf8o7/35Gm8WwD6H9Y14x+wT+b75S58=",
+            "type": "url",
+            "url": "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_arm64.zip"
+        },
+        "version": "3.0.7"
+    },
+    "gitkraken-cli-darwin-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gitkraken-cli-darwin-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+uO3HGjFa98Mp9YFvy8JQ8naAbDdXyDRWXv2++lpc+c=",
+            "type": "url",
+            "url": "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_amd64.zip"
+        },
+        "version": "3.0.7"
+    },
     "handbrake": {
         "cargoLocks": null,
         "date": null,

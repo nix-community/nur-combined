@@ -42,6 +42,22 @@
       sha256 = "sha256-5M209u+JpwnRl+AnOgb5lbtLNUJTjw8+R0O/yFznTgs=";
     };
   };
+  gitkraken-cli-darwin-arm64 = {
+    pname = "gitkraken-cli-darwin-arm64";
+    version = "3.0.7";
+    src = fetchurl {
+      url = "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_arm64.zip";
+      sha256 = "sha256-ZC+RLoWQ1YfHlf8o7/35Gm8WwD6H9Y14x+wT+b75S58=";
+    };
+  };
+  gitkraken-cli-darwin-x86 = {
+    pname = "gitkraken-cli-darwin-x86";
+    version = "3.0.7";
+    src = fetchurl {
+      url = "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_amd64.zip";
+      sha256 = "sha256-+uO3HGjFa98Mp9YFvy8JQ8naAbDdXyDRWXv2++lpc+c=";
+    };
+  };
   handbrake = {
     pname = "handbrake";
     version = "1.9.2";

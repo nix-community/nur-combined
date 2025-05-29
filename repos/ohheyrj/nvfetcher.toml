@@ -58,3 +58,13 @@ fetch.url = "https://github.com/tailwarden/komiser/releases/download/$ver/komise
 src.github = "signalapp/Signal-Desktop"
 src.prefix = "v"
 fetch.url = "https://updates.signal.org/desktop/signal-desktop-mac-universal-$ver.dmg"
+
+[gitkraken-cli-darwin-arm64]
+src.github = "gitkraken/gk-cli"
+src.prefix = "v"
+fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver_darwin_arm64.zip"
+
+[gitkraken-cli-darwin-x86]
+src.github = "gitkraken/gk-cli"
+src.prefix = "v"
+fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver_darwin_amd64.zip"
