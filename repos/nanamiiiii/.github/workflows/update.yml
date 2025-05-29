@@ -1,0 +1,41 @@
+name: "Update package version"
+permissions:
+  contents: write
+  pull-requests: write
+on:
+  schedule:
+    - cron:  '00 2 * * *'
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v30
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Update ms-edge
+      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py microsoft-edge"
+    - name: Update clock-tui
+      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py clock-tui"
+    - name: Update sddm-astronaut
+      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py sddm-astronaut"
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: "Bump package version"
+        title: "chore: bump package version"
+        assignees: Nanamiiiii
+        reviewers: Nanamiiiii
+        branch: ci/update-version
