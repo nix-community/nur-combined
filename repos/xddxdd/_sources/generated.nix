@@ -869,14 +869,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b75bfb8c56d23a92227b04c096f0264b992de874";
+    version = "51bf0b6b94ba534dac7557014239f05468d2e2ba";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b75bfb8c56d23a92227b04c096f0264b992de874";
-      hash = "sha256-aX6g2lxziiqWynCE6iommHGSy5n9xaBiV00DKxOKqlo=";
+      rev = "51bf0b6b94ba534dac7557014239f05468d2e2ba";
+      hash = "sha256-Ha/yAyRJchu62Kd9oIRWrXduKutO5Dh0al8qYyl2ExI=";
     };
-    date = "2025-05-02";
+    date = "2025-05-28";
   };
   libqcef = {
     pname = "libqcef";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5517";
+    version = "b5530";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5517";
-      hash = "sha256-znel/OtHOAHNMUm5RUgziR2gyaRYsZ3qOn1pLp6+Kik=";
+      tag = "b5530";
+      hash = "sha256-P9n60qJxi62ecEwBFGp0auf9ofU7xcpIKYrJPKEOyJw=";
     };
   };
   loralib = {
@@ -1333,12 +1333,12 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "0.8.0";
+    version = "0.9.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      tag = "0.8.0";
-      hash = "sha256-P3UEiWYchHVQ5s3JXHOzaDaN09K62pMYjnrW/gS5x/I=";
+      tag = "0.9.0";
+      hash = "sha256-R9rau/Q+KSkr0hNxpvc3ub9eLQqS1kIONoOEw8zFUBk=";
     };
   };
   ormsgpack = {
@@ -1783,12 +1783,12 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.7.9";
+    version = "1.7.10";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      tag = "1.7.9";
-      hash = "sha256-+d3bxn7DMAPrteZPkhZZjmWAHZNEDvqkg4ZJEYqb2jk=";
+      tag = "1.7.10";
+      hash = "sha256-33gYS7DcHvj3k++HK7HsaGZaD+Ttx2g5VPB8s7/IZD0=";
     };
   };
   runpodctl = {
@@ -2122,12 +2122,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.1.1";
+    version = "v1.2.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.1.1";
-      hash = "sha256-VgqF98tZGNA0j+AR6/rZI64nWWjO11UDeCziXiCND5o=";
+      tag = "v1.2.0";
+      hash = "sha256-PVs5XhYvsiNkFmHbSCI1mizfXpKRG6H6qqO1qjdEFIs=";
     };
   };
   vbmeta-disable-verification = {

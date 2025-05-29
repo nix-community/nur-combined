@@ -1687,7 +1687,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-05-02",
+        "date": "2025-05-28",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1699,12 +1699,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "b75bfb8c56d23a92227b04c096f0264b992de874",
-            "sha256": "sha256-aX6g2lxziiqWynCE6iommHGSy5n9xaBiV00DKxOKqlo=",
+            "rev": "51bf0b6b94ba534dac7557014239f05468d2e2ba",
+            "sha256": "sha256-Ha/yAyRJchu62Kd9oIRWrXduKutO5Dh0al8qYyl2ExI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b75bfb8c56d23a92227b04c096f0264b992de874"
+        "version": "51bf0b6b94ba534dac7557014239f05468d2e2ba"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5517",
-            "sha256": "sha256-znel/OtHOAHNMUm5RUgziR2gyaRYsZ3qOn1pLp6+Kik=",
+            "rev": "b5530",
+            "sha256": "sha256-P9n60qJxi62ecEwBFGp0auf9ofU7xcpIKYrJPKEOyJw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5517"
+        "version": "b5530"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2603,12 +2603,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "0.8.0",
-            "sha256": "sha256-P3UEiWYchHVQ5s3JXHOzaDaN09K62pMYjnrW/gS5x/I=",
+            "rev": "0.9.0",
+            "sha256": "sha256-R9rau/Q+KSkr0hNxpvc3ub9eLQqS1kIONoOEw8zFUBk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.8.0"
+        "version": "0.9.0"
     },
     "ormsgpack": {
         "cargoLocks": null,
@@ -3491,12 +3491,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpod-python",
-            "rev": "1.7.9",
-            "sha256": "sha256-+d3bxn7DMAPrteZPkhZZjmWAHZNEDvqkg4ZJEYqb2jk=",
+            "rev": "1.7.10",
+            "sha256": "sha256-33gYS7DcHvj3k++HK7HsaGZaD+Ttx2g5VPB8s7/IZD0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.7.9"
+        "version": "1.7.10"
     },
     "runpodctl": {
         "cargoLocks": null,
@@ -4148,12 +4148,12 @@
             "name": null,
             "owner": "Diniboy1123",
             "repo": "usque",
-            "rev": "v1.1.1",
-            "sha256": "sha256-VgqF98tZGNA0j+AR6/rZI64nWWjO11UDeCziXiCND5o=",
+            "rev": "v1.2.0",
+            "sha256": "sha256-PVs5XhYvsiNkFmHbSCI1mizfXpKRG6H6qqO1qjdEFIs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.1"
+        "version": "v1.2.0"
     },
     "vbmeta-disable-verification": {
         "cargoLocks": null,
