@@ -27,6 +27,7 @@
   "db.key"
   "db.pem"
   "dae"
+  "cf-exporter"
 ])
 // {
   hyst-osa-cli = {

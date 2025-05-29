@@ -139,7 +139,6 @@
             devenv
             zoxide
             nodejs_latest
-            hyperfine
             zed-editor
             # vscode.fhs
             # nodejs_latest.pkgs.pnpm
@@ -284,7 +283,7 @@
             just
             typst
             cosmic-term
-            hyprfine
+            hyperfine
             acpi
             swww
             distrobox
