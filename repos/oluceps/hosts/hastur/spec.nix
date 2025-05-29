@@ -88,7 +88,10 @@
         ];
       };
     };
-    cloudflare-exporter.environmentFile = config.vaultix.secrets.cf-exporter.path;
+    cloudflare-exporter = {
+      environmentFile = config.vaultix.secrets.cf-exporter.path;
+      enable = true;
+    };
 
     # xserver.videoDrivers = [ "nvidia" ];
 

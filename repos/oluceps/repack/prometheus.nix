@@ -97,7 +97,7 @@ reIf {
         {
           job_name = "cloudflare-metrics-notls";
           scheme = "http";
-          static_configs = [ { targets = "localhost${config.services.cloudflare-exporter.listen}"; } ];
+          static_configs = [ { targets = [ "localhost${config.services.cloudflare-exporter.listen}" ]; } ];
         }
         # {
         #   job_name = "bird-metrics";

@@ -31,6 +31,7 @@ in
 
       serviceConfig = {
         Type = "simple";
+        DynamicUser = true;
         ExecStart = "${lib.getExe pkgs.prometheus-cloudflare-exporter} --listen=${cfg.listen} --cf_api_token=$CF_API_TOKEN";
         EnvironmentFile = cfg.environmentFile;
         Restart = "on-failure";

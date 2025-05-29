@@ -21,41 +21,14 @@ in
       public = lib.mkEnableOption "shared certificate storage, and API env";
       package = lib.mkOption {
         type = lib.types.package;
-        default =
-          (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/plugins.nix" {
-            caddy = (
-              (pkgs.callPackage "${pkgs.path}/pkgs/by-name/ca/caddy/package.nix" {
-                buildGoModule = pkgs.buildGo124Module;
-              }).overrideAttrs
-                (
-                  final: prev:
-                  let
-                    version = "2.10.0-beta.4";
-                  in
-                  {
-                    inherit version;
-                    src = pkgs.fetchFromGitHub {
-                      owner = "caddyserver";
-                      repo = "caddy";
-                      rev = "v${version}";
-                      # hash = "sha256-lq8BMY5TJ4BlUznS3vyL6vIXpPbVU1O8uVLDTf47cUk=";
-                      hash = "";
-                    };
-                    # vendorHash = "sha256-3b3h4wa8L8anca/d9PlYK6NBh5vJPkNYF0rYS8sUSe0=";
-                    vendorHash = "";
-                    #
-                  }
-                )
-            );
-          })
-            {
-              plugins = [
-                "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
-                "github.com/mholt/caddy-ratelimit@v0.1.0"
-                "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
-              ];
-              hash = "sha256-uZGPDnO9aVpSSEhpi1Gvjc0ekREbgcVT2ST5su0PMMI=";
-            };
+        default = pkgs.caddy.withPlugins {
+          plugins = [
+            "github.com/caddy-dns/cloudflare@v0.0.0-20250506153119-35fb8474f57d"
+            "github.com/mholt/caddy-ratelimit@v0.1.0"
+            "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
+          ];
+          hash = "sha256-lq9zGQE3nk4sXpH2mfKt5FqIS2R0K3DwSQjES+2lpQ0=";
+        };
       };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
@@ -83,7 +56,6 @@ in
           automatic_https = {
             skip_certificates = [
             ];
-            prefer_wildcard = true;
           };
           routes = [
             {
