@@ -119,6 +119,21 @@
         },
         "version": "1.9.2"
     },
+    "hazel": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hazel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-F6E3m5HvnhgMjtyQfrgUHCIQyxjg0ggBZinOxTapSNY=",
+            "type": "url",
+            "url": "https://s3.amazonaws.com/Noodlesoft/Hazel-6.0.4.dmg"
+        },
+        "version": "6.0.4"
+    },
     "komiser-darwin-arm64": {
         "cargoLocks": null,
         "date": null,

@@ -66,6 +66,14 @@
       sha256 = "sha256-YaV8UzEaDKI+WDZ/USE0r5lCjBSsOmJmXyRfxeRsN5E=";
     };
   };
+  hazel = {
+    pname = "hazel";
+    version = "6.0.4";
+    src = fetchurl {
+      url = "https://s3.amazonaws.com/Noodlesoft/Hazel-6.0.4.dmg";
+      sha256 = "sha256-F6E3m5HvnhgMjtyQfrgUHCIQyxjg0ggBZinOxTapSNY=";
+    };
+  };
   komiser-darwin-arm64 = {
     pname = "komiser-darwin-arm64";
     version = "v3.1.22";

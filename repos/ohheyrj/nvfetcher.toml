@@ -68,3 +68,8 @@ fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver
 src.github = "gitkraken/gk-cli"
 src.prefix = "v"
 fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver_darwin_amd64.zip"
+
+[hazel]
+src.webpage = "https://www.noodlesoft.com/release_notes"
+src.regex = "Version (\\d+\\.\\d+\\.\\d+)"
+fetch.url = "https://s3.amazonaws.com/Noodlesoft/Hazel-$ver.dmg"

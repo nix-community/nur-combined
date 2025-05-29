@@ -25,6 +25,7 @@ in rec {
   cryptomator = lib.callPackage "cryptomator" ./pkgs/utilities/cryptomator;
   handbrake = lib.callPackage "handbrake" ./pkgs/media/handbrake;
   signal-desktop = lib.callPackage "signal-desktop" ./pkgs/chat/signal-desktop;
+  hazel = lib.callPackage "hazel" ./pkgs/utilities/hazel;
   
   komiser = pkgs.callPackage ./pkgs/utilities/komiser {
     generatedDarwinArm64 = generated."komiser-darwin-arm64";
