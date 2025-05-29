@@ -95,10 +95,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.4.3684.38";
+    version = "7.4.3684.43";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.4.3684.38.universal.dmg";
-      sha256 = "sha256-6+WQU1fLEqfQuIsZMHuNCsKIAnYzGcBxJiS18eceh18=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.4.3684.43.universal.dmg";
+      sha256 = "sha256-xggzqGKZFIZTAobSChVHYaXNifP3GaBSR8wqmGUSIPA=";
     };
   };
   zen-browser = {
