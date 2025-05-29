@@ -3,7 +3,6 @@
   sources,
   stdenv,
   fetchurl,
-  substituteAll,
   callPackage,
   # nginx dependencies
   brotli,
@@ -33,13 +32,6 @@ let
   patchUring = fetchurl {
     url = "https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_io_uring.patch";
     sha256 = "1cgpnhyd2kfqvh32yap651snvq1qvxc1cxvyrjc0vvxcw38d14p8";
-  };
-
-  patchNixEtag = substituteAll {
-    src = ./patches/nix-etag-1.15.4.patch;
-    preInstall = ''
-      export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
-    '';
   };
 in
 stdenv.mkDerivation rec {
@@ -96,10 +88,13 @@ stdenv.mkDerivation rec {
       ${patch patchUseOpensslMd5Sha1}
       ${patch ./patches/nginx-plain.patch}
       ${patch ./patches/nginx-plain-proxy.patch}
-      ${patch patchNixEtag}
+      ${patch ./patches/nix-etag-1.15.4.patch}
       ${patch ./patches/nix-skip-check-logs-path.patch}
       ${patch patchUring}
       sed -i 's#"/usr/include/libxml2"#"${libxml2.dev}/include/libxml2"#g' auto/lib/libxslt/conf
+      substituteInPlace src/http/ngx_http_core_module.c \
+        --replace-fail '@nixStoreDir@' "$NIX_STORE" \
+        --replace-fail '@nixStoreDirLen@' "''${#NIX_STORE}"
       popd
 
       pushd bundle/ngx_brotli
