@@ -20,7 +20,7 @@ buildGoModule rec {
     yarnOfflineCache = fetchYarnDeps {
       name = "${pname}-frontend-offline";
       inherit src;
-      hash = "sha256-3/6beeyyjQ0zMJEWyPOPAMmttFVh3KA80IgoKCRzMQk=";
+      hash = "sha256-OymZGx2aszwtkmNdNZCjpEwC1wSNXcEX+neXBBNu11o=";
     };
 
     nativeBuildInputs = [
@@ -37,7 +37,7 @@ buildGoModule rec {
     '';
   };
 
-  vendorHash = "sha256-0BMFUY54PhGmJzKOZFH+CBK1ft5wi1EhLEoXtkd8Dx4=";
+  vendorHash = "sha256-+foydlBnVA3FvJM1ffrfg+GY/s3mPGDShEr6F+zn0Dc=";
 
   ldflags = [
     "-X main.version=${version}"
