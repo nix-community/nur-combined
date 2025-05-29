@@ -29,6 +29,21 @@
         },
         "version": "5-3-6"
     },
+    "calibre": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "calibre",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-NngNwMrQ0bLhDYc/Gnf/cFisAC+fMR7JQeXBjH/+m68=",
+            "type": "url",
+            "url": "https://github.com/kovidgoyal/calibre/releases/download/v8.4.0/calibre-8.4.0.dmg"
+        },
+        "version": "8.4.0"
+    },
     "chatterino": {
         "cargoLocks": null,
         "date": null,

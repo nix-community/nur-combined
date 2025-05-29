@@ -18,6 +18,14 @@
       sha256 = "sha256-ojdOO1coUs41Hwz10mX7L0pV0MJLMTe8i6a79kod8p8=";
     };
   };
+  calibre = {
+    pname = "calibre";
+    version = "8.4.0";
+    src = fetchurl {
+      url = "https://github.com/kovidgoyal/calibre/releases/download/v8.4.0/calibre-8.4.0.dmg";
+      sha256 = "sha256-NngNwMrQ0bLhDYc/Gnf/cFisAC+fMR7JQeXBjH/+m68=";
+    };
+  };
   chatterino = {
     pname = "chatterino";
     version = "2.5.3";

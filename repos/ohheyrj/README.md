@@ -65,7 +65,7 @@ These packages are available via nur.
 </details>
 
 <details id="media">
-<summary><h2>🎵 Media (3 packages)</h2></summary>
+<summary><h2>🎵 Media (4 packages)</h2></summary>
 
 ### 🧰 kobo-desktop `v0-unstable-2025-05-11`
 - 💡 **Description:** Kobo Desktop is a free app for Windows and Mac that lets you buy, read, and manage eBooks, as well as sync them with your Kobo eReader.
@@ -88,6 +88,14 @@ These packages are available via nur.
 - 🔄 **Auto-updated:** Uses nvfetcher for version management
 - 🌐 **Homepage:** [handbrake Website](https://handbrake.fr)
 - 📄 **Changelog:** [CHANGELOG](https://github.com/HandBrake/HandBrake/releases)
+
+### 🧰 calibre `v8.4.0`
+- 💡 **Description:** Calibre is the one stop solution to all your e-book needs.
+- 🛡️ **License:** gpl3Only
+- 🖥️ **Platforms:** aarch64-darwin
+- 🔄 **Auto-updated:** Uses nvfetcher for version management
+- 🌐 **Homepage:** [calibre Website](https://calibre-ebook.com)
+- 📄 **Changelog:** [CHANGELOG](https://calibre-ebook.com/whats-new)
 
 </details>
 

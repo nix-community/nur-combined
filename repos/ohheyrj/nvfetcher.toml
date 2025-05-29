@@ -78,3 +78,10 @@ fetch.url = "https://s3.amazonaws.com/Noodlesoft/Hazel-$ver.dmg"
 src.webpage = "https://www.titanium-software.fr/en/onyx_release.html"
 src.regex = "OnyX (\\d+\\.\\d+\\.\\d+)"
 fetch.url = "https://www.titanium-software.fr/download/15/OnyX.dmg"
+
+[calibre]
+src.github = "kovidgoyal/calibre"
+src.prefix = "version "
+src.from_pattern = "v"
+src.to_pattern = ""
+fetch.url = "https://github.com/kovidgoyal/calibre/releases/download/v$ver/calibre-$ver.dmg"
