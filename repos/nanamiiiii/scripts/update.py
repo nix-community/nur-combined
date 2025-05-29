@@ -18,6 +18,8 @@ def main(args):
     nix_args = [update_nix]
     nix_args += ['--arg', 'include-overlays', f'[(import {path + "/overlay.nix"})]']
     nix_args += ['--argstr', 'path', args.attr_path]
+    if args.noconfirm:
+        nix_args += ['--argstr', 'skip-prompt', 'true']
     if args.commit:
         nix_args += ['--argstr', 'commit', 'true']
 
@@ -28,6 +30,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Rebuild system')
     parser.add_argument('--commit', help='Commit the changes', action='store_true')
+    parser.add_argument('--noconfirm', help='Skip confirmation', action='store_true')
     parser.add_argument('--nixpkgs', dest='nixpkgs', help='Override the nixpkgs flake input with this path, it will be used fir finding update.nix', nargs='?')
     parser.add_argument('attr_path', metavar='attr-path', help='Attribute path of package to update')
 

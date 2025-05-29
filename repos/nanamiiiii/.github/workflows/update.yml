@@ -7,7 +7,7 @@ on:
     - cron:  '00 2 * * *'
   workflow_dispatch:
 jobs:
-  tests:
+  update:
     strategy:
       matrix:
         nixPath:
@@ -26,11 +26,11 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Update ms-edge
-      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py microsoft-edge"
+      run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm microsoft-edge"
     - name: Update clock-tui
-      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py clock-tui"
+      run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm clock-tui"
     - name: Update sddm-astronaut
-      run: nix-shell -p python3 --cmd "python3 ./scripts/update.py sddm-astronaut"
+      run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm sddm-astronaut"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
