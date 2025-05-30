@@ -31,4 +31,6 @@ in
     source = sources.age-plugin-openpgp-card;
   };
   pa = pkgs.callPackage ./pkgs/pa { source = sources.pa; };
+
+  sway-disable-titlebar = import ./pkgs/sway-disable-titlebar { inherit pkgs; };
 }
