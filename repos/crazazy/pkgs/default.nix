@@ -13,7 +13,7 @@ let
 in
 {
   # package sets
-  js = import ./js { inherit pkgs; };
+  js = import ./js { inherit pkgs; inherit (pkgs) nodejs; };
   firefox-addons = import ./firefox-addons { inherit pkgs; };
 
   # standalone packages
