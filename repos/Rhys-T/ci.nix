@@ -98,5 +98,5 @@ rec {
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
-  cacheOutputsAsAttrs = builtins.listToAttrs (lib.imap0 (i: x: lib.nameValuePair ("_" + toString i) x) cacheOutputs);
+  cacheOutputsAsAttrs = builtins.listToAttrs (lib.imap0 (i: x: lib.nameValuePair ("_${toString i}-${builtins.replaceStrings ["."] ["_"] x.name}") x) cacheOutputs);
 }
