@@ -14,5 +14,5 @@
   webpack = (import ./webpack-cli { inherit pkgs nodejs; }).package;
 
   # expose this attribute set as a package set
-  recurseForDerivations = true;
+  # recurseForDerivations = true;
 }
