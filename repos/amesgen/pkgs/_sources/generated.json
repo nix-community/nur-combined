@@ -83,11 +83,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-263jaRYdcqsIKMBS6BSsgkPksYIoGlsnhDLV6uIl454=",
+            "sha256": "sha256-MWe6emmRRUuDMhEqBQEDfudj4hHheED/c2F1+lbTBKE=",
             "type": "url",
-            "url": "https://github.com/chrisdone/hell/releases/download/2025-03-04/hell-linux-x86-64bit"
+            "url": "https://github.com/chrisdone/hell/releases/download/2025-05-30/hell-linux-x86-64bit"
         },
-        "version": "2025-03-04"
+        "version": "2025-05-30"
     },
     "hlint": {
         "cargoLocks": null,

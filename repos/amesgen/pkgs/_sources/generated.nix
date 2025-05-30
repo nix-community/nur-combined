@@ -43,10 +43,10 @@
   };
   hell = {
     pname = "hell";
-    version = "2025-03-04";
+    version = "2025-05-30";
     src = fetchurl {
-      url = "https://github.com/chrisdone/hell/releases/download/2025-03-04/hell-linux-x86-64bit";
-      sha256 = "sha256-263jaRYdcqsIKMBS6BSsgkPksYIoGlsnhDLV6uIl454=";
+      url = "https://github.com/chrisdone/hell/releases/download/2025-05-30/hell-linux-x86-64bit";
+      sha256 = "sha256-MWe6emmRRUuDMhEqBQEDfudj4hHheED/c2F1+lbTBKE=";
     };
   };
   hlint = {
