@@ -5,16 +5,15 @@
   ...
 }:
 reIf {
-  systemd.services.matrix-conduit.serviceConfig = {
+  systemd.services.tuwunel.serviceConfig = {
     ReadWritePaths = [ "/var/lib/backup/tuwunel" ];
   };
-  services.matrix-conduit = {
+  services.tuwunel = {
     enable = true;
     settings.global = {
       server_name = "nyaw.xyz";
-      well_known = "nyaw.xyz";
-      port = 6167;
-      address = "::";
+      port = [ 6167 ];
+      address = [ "::" ];
       dns_tcp_fallback = false;
       ip_lookup_strategy = 5;
       database_backup_path = "/var/lib/backup/tuwunel";

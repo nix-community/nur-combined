@@ -30,6 +30,9 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
+
+      tuwunel = inputs'.conduit.packages.default;
+
       # misskey = prev.misskey.overrideAttrs (old: {
       #   patches = [
       #     ./pkgs/patch/0001-welcome-shape.patch
