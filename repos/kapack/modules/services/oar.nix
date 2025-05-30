@@ -109,7 +109,7 @@ let
       for (( i=0; i<''${#a[@]}; i++ ))
       do
         echo generate ''${a[i]}
-        gen_oardo ${pkgs.nur.repos.kapack.oar}/bin .''${a[i]} ''${a[i]}
+        gen_oardo ${cfg.package}/bin .''${a[i]} ''${a[i]}
       done
 
       # generate binary wrappers fo oarsh 
@@ -329,7 +329,7 @@ in
         oarTools
         taktuk
         xorg.xauth
-        nur.repos.kapack.oar
+        cfg.package
       ];
 
       # manage setuid for oardodo and oarcli
@@ -490,7 +490,7 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" "oar-user-init.service" "oar-conf-init.service" "oar-node.service" ];
         serviceConfig.Type = "oneshot";
-        path = [ pkgs.hostname ];
+        path = [ pkgs.hostname cfg.package ];
         script = concatStringsSep "\n" [
           (optionalString cfg.node.register.add
             "/run/wrappers/bin/oarnodesetting -a -s Alive")
@@ -681,7 +681,7 @@ in
             chdir = pkgs.writeTextDir "oarapi.py" ''
               from oar.rest_api.app import wsgi_app as application
             '';
-            pythonPackages = self: with self; [ pkgs.nur.repos.kapack.oar ]; #TODO : test is needed
+            pythonPackages = self: with self; [ cfg.package ]; #TODO : test is needed
           };
         };
       };
@@ -724,7 +724,7 @@ in
               app = create_app(config=config, root_path="/api/")
             '';
             app_env =
-              pkgs.python3.withPackages (ps: [ pkgs.nur.repos.kapack.oar ]);
+              pkgs.python3.withPackages (ps: [ cfg.package ]);
           in
           pkgs.lib.strings.toJSON {
             listeners."*:8080" = {

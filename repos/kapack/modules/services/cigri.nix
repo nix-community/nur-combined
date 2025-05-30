@@ -128,6 +128,14 @@ in
         web = {
           enable = mkEnableOption "Web server to serve rest-api";
         };
+
+        cycleDuration = mkOption {
+          type = types.int;
+          default = 15;
+          description = ''
+            Sampling period of CiGri
+          '';
+        };
       
       };
       
@@ -150,7 +158,7 @@ in
     environment.etc."cigri/cigri-base.conf" = { mode = "0600"; source = cigriBaseConf; };
     environment.etc."cigri/api-clients.conf" = mkIf cfg.client.enable {source = cigriApiClientsConf; };
 
-    environment.systemPackages =  [ pkgs.nur.repos.kapack.cigri ];
+    environment.systemPackages =  [ cfg.package ];
     # cigri user declaration
     users.users.cigri = mkIf cfg.server.enable {
       description = "CiGri user";

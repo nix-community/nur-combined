@@ -69,7 +69,7 @@ REST_CLIENT_KEY_FILE="/etc/cigri/ssl/cigri.key"
 # Minimum cycle duration
 # The runner sleeps this time of seconds if necessary to prevent
 # from looping too fast and let the time to clusters for jobs digestion
-RUNNER_MIN_CYCLE_DURATION = "15"
+RUNNER_MIN_CYCLE_DURATION = "${toString cfg.server.cycleDuration}"
 # Default initial number of jobs to submit
 # The runner submits several jobs at a time using oar array jobs.
 # This number specifies the initial number of jobs to submit. Then,
