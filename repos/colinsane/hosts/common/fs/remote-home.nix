@@ -24,8 +24,19 @@ let
       type = fsType;
       options = lib.concatStringsSep "," options;
       wantedBy = [ "default.target" ];
-      after = [ "network-online.target" ];
+      after = [
+        "emergency.service"
+        "network-online.target"
+      ];
       requires = [ "network-online.target" ];
+
+      unitConfig.Conflicts = [
+        # emergency.service drops the user into a root shell;
+        # only accessible via physical TTY, but unmount sensitive data before that as a precaution.
+        "emergency.service"
+      ];
+
+      # mountConfig.LazyUnmount = true;  #< else it _ocassionally_ fails "target is busy"
 
       mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
       mountConfig.User = "colin";

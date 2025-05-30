@@ -101,6 +101,13 @@ let
     applyPatches' = if applyPatches != null then applyPatches else unpatchedNixpkgs.applyPatches;
     fetchpatch2' = if fetchpatch2 != null then fetchpatch2 else unpatchedNixpkgs.fetchpatch2;
 
+    srcMeta = (src'.meta or {}) // {
+      position = let
+        position = builtins.unsafeGetAttrPos "rev" args;
+      in
+        "${position.file}:${toString position.line}";
+    };
+
     patchedSrc = applyPatches' {
       name = "nixpkgs-${branch}-sane";
       inherit version;
@@ -109,7 +116,21 @@ let
         # required by unstableGitUpdater
         gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";
         inherit rev;
-      } // src';
+      } // src' // {
+        meta = srcMeta;
+        passthru = (src'.passthru or {}) // {
+          # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in:
+          # N.B.: declare `meta` in passthru instead of toplevel, so that it takes precedence over the default calculated by `mkDerivation`/`applyPatches`
+          meta = srcMeta;
+          # for convenience:
+          pkgs = nixpkgs;
+          unpatchedSrc = src';
+        } // optionalAttrs (nixpkgs-bootstrap-updater != null) {
+          updateScript = nixpkgs-bootstrap-updater.makeUpdateScript {
+            inherit branch;
+          };
+        };
+      };
 
       patches = import ./patches.nix { fetchpatch2 = fetchpatch2'; };
       # skip applied patches
@@ -119,29 +140,6 @@ let
            OUT=$($realpatch "$@") || echo "$OUT" | grep "Skipping patch" -q
         }
       '';
-
-      passthru = {
-        pkgs = nixpkgs;
-
-        # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in.
-        meta.position = let
-          position = builtins.unsafeGetAttrPos "rev" args;
-        in
-          "${position.file}:${toString position.line}";
-
-        # updateScript = nix-update-script {
-        #   extraArgs = [ "--version=branch=${branch}" ];
-        # };
-        # updateScript = unstableGitUpdater {
-        #   # else the update script tries to walk 10000's of commits to find a tag
-        #   hardcodeZeroVersion = true;
-        #   inherit branch;
-        # };
-      } // optionalAttrs (nixpkgs-bootstrap-updater != null) {
-        updateScript = nixpkgs-bootstrap-updater.makeUpdateScript {
-          inherit branch;
-        };
-      };
     };
 
     nixpkgsArgs = commonNixpkgsArgs // {

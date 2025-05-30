@@ -9,7 +9,7 @@ const SELF = $(hostname)
 var DRY_RUN = false
 var NIX_ARGS = []  # extra args to pass to nix invocations
 
-proc usage {
+proc usage (;; status=1) {
   echo "deploy: deploy a nix config to a remote machine, possibly activating it"
   echo ""
   echo "usage: deploy [options] [host] [host2 ...]"
@@ -34,7 +34,7 @@ proc usage {
   echo "- deploy --pre: build and copy all hosts"
   echo "- deploy desko lappy: build and deploy just those hosts"
   echo "- deploy: deploy the local host"
-  exit 1
+  exit "$status"
 }
 
 proc info (...plain; ...escape) {
@@ -315,6 +315,10 @@ proc deployOneHost (; nixcfg) {
 
 proc main (...args) {
   var cli = parseArgs (...args)
+
+  if (cli.help) {
+    usage (status=0)
+  }
 
   setglobal NIX_ARGS = cli.unhandled;
   if (cli.dryRun) {

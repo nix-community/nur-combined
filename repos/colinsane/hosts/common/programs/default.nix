@@ -183,6 +183,7 @@
     ./sfeed.nix
     ./shadow.nix
     ./signal-desktop.nix
+    ./slack.nix
     ./sm64coopdx.nix
     ./sm64ex-coop.nix
     ./smartmontools.nix
@@ -207,6 +208,7 @@
     ./tor-browser.nix
     ./tuba.nix
     ./unl0kr
+    ./uptime.nix
     ./v4l-utils.nix
     ./via.nix
     ./video-trimmer.nix
@@ -236,6 +238,7 @@
     ./zeal.nix
     ./zecwallet-lite.nix
     ./zelda64recomp.nix
+    ./zoom-us.nix
     ./zulip.nix
     ./zsa-udev-rules.nix
     ./zfs-tools.nix

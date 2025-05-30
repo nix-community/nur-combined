@@ -32,14 +32,14 @@ in
   (fetchpatch' {
     name = "conky: 1.19.6 -> 1.22.1, fix cross and docs, and modernize";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/400497";
-    hash = "sha256-7/RZvTQGDff5J05or/74updDdCpM9l0Lanm+dkluce0=";
+    hash = "sha256-GWUDFtaz6LuMtIahrry8VMzQJArb9h0me5exDjkmxx8=";
   })
 
   (fetchpatch' {
     # XXX(2025-05-17): merged into staging
     name = "libmanette: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/407662";
-    hash = "sha256-wubEvz5MgMS9g4PAzy4E0pUZ30AW4AvD7ZGQeie9/Mk=";
+    hash = "sha256-1+izT6Y15LagapzVfBjzNU0xJiGfJkl1+Y7IACRVD84=";
   })
 
   (fetchpatch' {
@@ -58,7 +58,7 @@ in
   (fetchpatch' {
     name = "zelda64recomp: init at 1.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/313013";
-    hash = "sha256-zCZmR+ffSd6WXoRmaorMNrJsdithC2hXzGOYcZAzZjc=";
+    hash = "sha256-zfGymC2uUpq10tr4LHLv3vQUmDe8zbL3Qm7sV/AzsQY=";
   })
 
   # (fetchpatch' {

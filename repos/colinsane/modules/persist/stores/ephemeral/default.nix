@@ -65,8 +65,19 @@ lib.mkIf config.sane.persist.enable
     type = fsType;
     options = lib.concatStringsSep "," options;
     wantedBy = [ "local-fs.target" ];
-    before = [ "local-fs.target" ];
+    before = [
+      "emergency.service"
+      "local-fs.target"
+    ];
     unitConfig.RequiresMountsFor = [ backing ];
+
+    unitConfig.Conflicts = [
+      # emergency.service drops the user into a root shell;
+      # only accessible via physical TTY, but unmount sensitive data before that as a precaution.
+      "emergency.service"
+    ];
+
+    mountConfig.LazyUnmount = true;  #< else it usually fails "target is busy"
 
     # hardening (systemd-analyze security mnt-persist-ephemeral.mount)
     mountConfig.AmbientCapabilities = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";

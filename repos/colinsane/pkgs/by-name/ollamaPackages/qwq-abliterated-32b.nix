@@ -4,9 +4,9 @@
   owner = "huihui_ai";
   modelName = "qwq-abliterated";
   variant = "32b";
-  manifestHash = "sha256-EdT/0h+Uwtuluy5HO8EGKmmrl1tNIrSt33KUI3mOefo=";
-  modelBlob = "6278acec322cac64ac9f5f98578a16e6ca88d361ebb3f54b82a3a5d1b0208a61";
-  modelBlobHash = "sha256-Ynis7DIsrGSsn1+YV4oW5sqI02Hrs/VLgqOl0bAgimE=";
-  systemBlob = "50795fcf7f4df9be65090ce980b63e8d82f51b5cbad9492fa504aefa3ad3c9a0";
-  systemBlobHash = "sha256-UHlfz39N+b5lCQzpgLY+jYL1G1y62UkvpQSu+jrTyaA=";
+  manifestHash = "sha256-Q4hXW0mSnOdM7KJ239FGrFhokEO9Ckhwis5mxgD/ogw=";
+  modelBlob = "69edda6c6260b38432384a26242d0cdef49dd4f48507b81e0e655d4b9951f6a9";
+  modelBlobHash = "sha256-ae3abGJgs4QyOEomJC0M3vSd1PSFB7geDmVdS5lR9qk=";
+  paramsBlob = "4afe5edfdb51c6d15bdb8124bd38ea5642bb6732ae3fd09abe0fefa1ace25caa";
+  paramsBlobHash = "sha256-Sv5e39tRxtFb24EkvTjqVkK7ZzKuP9Cavg/voaziXKo=";
 }

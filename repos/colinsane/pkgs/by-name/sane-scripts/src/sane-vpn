@@ -33,6 +33,8 @@ idioms:
   - patch the system to route all traffic over the VPN, but use our stub resolver (still through the VPN) instead of delegating to the VPN owner's resolver
 - sane-vpn do unmetered -- [COMMAND ...]
   - run the command using only those interfaces which are unmetered (i.e. ethernet/wifi)
+- sane-vpn --dns 1.1.1.1 do none -- COMMAND
+  - run the command in a default networking environment except for custom DNS
 """
 
 from dataclasses import dataclass
@@ -367,6 +369,9 @@ def main():
     parser = argparse.ArgumentParser(usage=__doc__)
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--no-proxy-dns", action="store_true")
+    parser.add_argument("--addr-v4", nargs="?", type=str, help="ip address to use within the VPN")
+    parser.add_argument("--dev", nargs="?", type=str, help="ip device over which to route traffic")
+    parser.add_argument("--dns", nargs="?", type=str, help="DNS server(s) to use")  #< TODO: should allow multiple DNS
     subparsers = parser.add_subparsers(help="what to do")
 
     up_parser = subparsers.add_parser("up")
@@ -397,6 +402,15 @@ def main():
 
     if args.no_proxy_dns:
         vpn_config.dns = []
+
+    if args.addr_v4:
+        vpn_config.addr_v4 = args.addr_v4
+
+    if args.dev:
+        vpn_config.dev = args.dev
+
+    if args.dns:
+        vpn_config.dns = [ args.dns ]
 
     if subcommand == "do":
         vpn_do(vpn_config, args.command)

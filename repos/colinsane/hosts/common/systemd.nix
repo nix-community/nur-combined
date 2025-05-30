@@ -130,6 +130,15 @@ in
     DefaultTimeoutStopSec=${builtins.toString haltTimeout}
   '';
 
+  # fixes "Cannot open access to console, the root account is locked" on systemd init failure.
+  # see: <https://github.com/systemd/systemd/commit/33eb44fe4a8d7971b5614bc4c2d90f8d91cce66c>
+  # - emergency: kill (or don't start) everything; drop into root shell.
+  # - rescue: start sysinit.target (which mounts the local-fs, and others), and drop into root shell.
+  # enable emergency.target; configure elsewhere everything sensitive (e.g. /mnt/persist/private) to conflict with it.
+  # because of `rescue.target`'s `Requires=sysinit.target`, we can't (easily) allow its root shell safely.
+  systemd.services.emergency.environment.SYSTEMD_SULOGIN_FORCE = "1";
+  # systemd.services.rescue.environment.SYSTEMD_SULOGIN_FORCE = "1";
+
   # harden base systemd services
   # see: `systemd-analyze security`
   systemd.services.systemd-rfkill.serviceConfig = {

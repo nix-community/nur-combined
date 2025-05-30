@@ -64,7 +64,7 @@ let
       qwen2_5-abliterate-14b
       qwen2_5-abliterate-32b
       # qwen2_5-coder-7b  # fast, and concise, but generates invalid code
-      qwq-32b  # heavily restricted
+      # qwq-32b  # heavily restricted
       qwq-abliterated-32b
       # solar-pro-22b  # generates invalid code
       # starcoder2-15b-instruct  # it gets stuck

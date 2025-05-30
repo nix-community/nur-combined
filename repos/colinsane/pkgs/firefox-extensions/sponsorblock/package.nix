@@ -9,10 +9,10 @@
 }:
 stdenv.mkDerivation rec {
   pname = "sponsorblock";
-  version = "5.12.1";
+  version = "5.12.4";
   src = fetchurl {
     url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-    hash = "sha256-boZskrdec2qh1cfe3NkjWKPk00m5qEzrtEqs2v+V1ag=";
+    hash = "sha256-TJ7+myrriCBGaUZS6rNBS/v50CAUChhHgAhwOP8QdVs=";
     name = "FirefoxSignedInstaller.zip";
   };
   # .zip file has everything in the top-level; stdenv needs it to be extracted into a subdir:

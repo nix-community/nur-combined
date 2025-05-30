@@ -117,6 +117,7 @@ in
       "unixtools.ps"
       "unixtools.sysctl"
       "unixtools.xxd"
+      "uptime"
       "usbutils"  # lsusb
       "util-linux"  # lsblk, lscpu, etc
       "valgrind"
