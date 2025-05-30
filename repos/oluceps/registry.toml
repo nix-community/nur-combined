@@ -14,7 +14,7 @@ pub_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 [node.kaambl]
 # laptop
 id = 1
-addr = "192.168.1.187"
+addr = "fdcc::2"
 censor = true
 nat = true
 loc = 1
