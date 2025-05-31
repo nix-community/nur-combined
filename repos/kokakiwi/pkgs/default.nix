@@ -31,6 +31,7 @@ let
   applications = importSub ./applications {
     agree = { };
     aura = { };
+    asncounter = { };
     enquirer = { };
     ferdium = {
       pnpm = pkgs.pnpm_9;

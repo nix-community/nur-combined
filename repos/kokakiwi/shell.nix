@@ -14,6 +14,11 @@ let
   updateChecker = lib.mkUpdateChecker {
     packages = lib.filterAttrs (name: drv: lib.isDerivation drv) pkgs.nur;
     sources = {
+      asncounter = {
+        source = "gitlab";
+        gitlab = "anarcat/asncounter";
+        use_max_tag = true;
+      };
       freenginx = {
         source = "github";
         github = "freenginx/nginx";
