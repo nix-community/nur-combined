@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
+{
+  pkgs ? import <nixpkgs> { config.allowUnfree = true; },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special

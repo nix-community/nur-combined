@@ -34,7 +34,6 @@ let
       nss
       nspr
       at-spi2-core
-      libgbm
       mesa
       alsa-lib
       libpulseaudio
