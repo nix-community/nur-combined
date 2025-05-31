@@ -21,16 +21,12 @@
   wemeet-bin-bwrap = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { };
   wemeet-bin-bwrap-wayland-screenshare = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { useWaylandScreenshare = true; };
   nvim-vscode-colorscheme = pkgs.callPackage ./pkgs/nvim-vscode-colorscheme { };
-  # suyu = pkgs.callPackage ./pkgs/suyu { };
-  # suyu-room = pkgs.callPackage ./pkgs/suyu-room { };
+  suyu = pkgs.callPackage ./pkgs/suyu { };
   latex-chinese-fonts = pkgs.callPackage ./pkgs/latex-chinese-fonts { };
   zzz = pkgs.callPackage ./pkgs/zzz { };
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
-  labwc-git = pkgs.callPackage ./pkgs/labwc-git { };
-  waybar-Consolatis-fork = pkgs.callPackage ./pkgs/waybar-Consolatis-fork { };
   shotcut = pkgs.callPackage ./pkgs/shotcut { };
-  ppsspp = pkgs.callPackage ./pkgs/ppsspp { };
   vita3k = pkgs.callPackage ./pkgs/vita3k { };
   gedit = pkgs.callPackage ./pkgs/gedit { };
   zen-browser-bin = pkgs.callPackage ./pkgs/zen-browser { };

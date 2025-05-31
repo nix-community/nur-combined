@@ -16,9 +16,9 @@
   curl,
   git,
   ninja,
-  clang,
-  lld,
+  gcc,
   which,
+  xorg,
 }:
 let
   vita3k-ffmpeg = fetchurl {
@@ -32,6 +32,7 @@ let
     dbus
     curl
     vulkan-loader
+    xorg.libX11
   ];
 in
 stdenv.mkDerivation {
@@ -41,9 +42,9 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "Vita3k";
     repo = "Vita3k";
-    rev = "3ef6220197d76a96c5f4869c86b2489d25080191";
+    rev = "e70f38e0129c4b48b12a7aefee4121652d7315b2";
     fetchSubmodules = true;
-    hash = "sha256-PmHW3n0YXqwzjQt5d0h9rmEymue5EEvAXhKcPTKgJ/M=";
+    hash = "sha256-GIObVkW/vmP7nBUZ7dzL3GWnGQif4SR5aSPuHzuwGas=";
   };
 
   nativeBuildInputs = [
@@ -53,23 +54,22 @@ stdenv.mkDerivation {
     pkg-config
     git
     ninja
-    clang
-    lld
+    gcc
     which
   ];
 
   buildInputs = libs;
 
   postPatch = ''
-    mkdir -p build/linux-ninja-clang/external 
-    cp ${vita3k-ffmpeg} build/linux-ninja-clang/external/ffmpeg.zip
+    mkdir -p build/linux-ninja-gnu/external 
+    cp ${vita3k-ffmpeg} build/linux-ninja-gnu/external/ffmpeg.zip
     substituteInPlace external/boost/tools/build/src/engine/build.sh --replace-fail '#!/usr/bin/env sh' '#!/bin/sh'
   '';
 
   dontUseCmakeConfigure = true;
   buildPhase = ''
-    cmake --preset linux-ninja-clang
-    cmake --build build/linux-ninja-clang --preset linux-ninja-clang-relwithdebinfo
+    cmake --preset linux-ninja-gnu
+    cmake --build build/linux-ninja-gnu --preset linux-ninja-gnu-relwithdebinfo
   '';
 
   desktopItems = [
@@ -88,10 +88,10 @@ stdenv.mkDerivation {
     runHook preInstall
     mkdir -p $out/bin
     mkdir -p $out/share/vita3k
-    install -Dm555 build/linux-ninja-clang/bin/RelWithDebInfo/Vita3K $out/share/vita3k/Vita3k
-    mv build/linux-ninja-clang/bin/RelWithDebInfo/data $out/share/vita3k/data
-    mv build/linux-ninja-clang/bin/RelWithDebInfo/lang $out/share/vita3k/lang
-    mv build/linux-ninja-clang/bin/RelWithDebInfo/shaders-builtin $out/share/vita3k/shaders-builtin
+    install -Dm555 build/linux-ninja-gnu/bin/RelWithDebInfo/Vita3K $out/share/vita3k/Vita3k
+    mv build/linux-ninja-gnu/bin/RelWithDebInfo/data $out/share/vita3k/data
+    mv build/linux-ninja-gnu/bin/RelWithDebInfo/lang $out/share/vita3k/lang
+    mv build/linux-ninja-gnu/bin/RelWithDebInfo/shaders-builtin $out/share/vita3k/shaders-builtin
     install -Dm644 \
         $out/share/vita3k/data/image/icon.png \
         $out/share/icons/hicolor/128x128/apps/Vita3k.png

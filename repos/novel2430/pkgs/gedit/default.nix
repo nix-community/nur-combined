@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, fetchFromGitHub, fetchFromGitLab
 , lib
 , meson
 , mesonEmulatorHook
 , fetchurl
-, python3
+, python312
 , pkg-config
 , gtk3
 , gtk-mac-integration
@@ -19,7 +19,6 @@
 , gobject-introspection
 , docbook-xsl-nons
 , ninja
-, gnome
 , gspell
 , perl
 , itstool
@@ -35,8 +34,8 @@ let
   gedit-markdown-preview = fetchFromGitHub {
     owner = "novel2430";
     repo = "gedit-markdown-preview";
-    rev = "fd758f9d5db22bfba8768ed3c1be74e16951d2ca";
-    sha256 = "sha256-pxLaFxLjS/yMIimM3t3Q8bzatPJZrREhhc97hGr0u3s=";
+    rev = "a03afe0d42e015c65aed3eb104061ace3decd425";
+    sha256 = "sha256-scKAcsbgv4hX6VsQBYF/09tUWPYppDak/dytB6+/fAM=";
   };
   libs = [
     glib
@@ -45,9 +44,11 @@ let
     gtk3
     libgedit-amtk
     libgedit-gtksourceview
-    libgedit-tepl
+    #libgedit-tepl
+    libgedit-tepl-6-11 
     libpeas
     # plugins
+    python312
     webkitgtk_4_0
     python312Packages.pygobject3
     gst_all_1.gstreamer
@@ -58,7 +59,17 @@ let
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     gtk-mac-integration
   ];
-
+  libgedit-tepl-6-11 = libgedit-tepl.overrideAttrs (final: prev : rec {
+    version = "6.11.0";
+    src = fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      group = "World";
+      owner = "gedit";
+      repo = "libgedit-tepl";
+      rev = version;
+      hash = "sha256-8y3EQZKYRcx2ocG7aR7tGBCE/68yPdrBcPNm6O2lM4c=";
+    };
+  });
 in
 stdenv.mkDerivation rec {
   pname = "gedit";
@@ -66,9 +77,19 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "devdoc" ];
 
-  src = fetchurl {
-    url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
-    sha256 = "/g/vm3sHmRINuGrok6BgA2oTRFNS3tkWm6so04rPDoA=";
+  # src = fetchurl {
+  #   url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
+  #   sha256 = "/g/vm3sHmRINuGrok6BgA2oTRFNS3tkWm6so04rPDoA=";
+  # };
+
+  src = fetchFromGitLab {
+    domain = "gitlab.gnome.org";
+    group = "World";
+    owner = "gedit";
+    repo = "gedit";
+    tag = version;
+    fetchSubmodules = true;
+    hash = "sha256-enK7JqPl0oTG6/URdKuuXDmWT3VP8Ws4S9M4/Jdkpco=";
   };
 
   patches = [
@@ -85,7 +106,7 @@ stdenv.mkDerivation rec {
     ninja
     perl
     pkg-config
-    python3
+    python312
     vala
     wrapGAppsHook3
     gtk-doc
