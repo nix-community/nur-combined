@@ -167,7 +167,8 @@ let
         "d14e951035c86d783379fff74ee6ced942834ae2fc3774715a2f9aa67f562ab3";
       meta = with lib; {
         homepage = "https://github.com/FreekBes/improved_intra";
-        description = "The ultimate browser extension for 42's Intranet, adding many improvements, such as dark mode, customizable profiles and much more!";
+        description =
+          "The ultimate browser extension for 42's Intranet, adding many improvements, such as dark mode, customizable profiles and much more!";
         license = licenses.mit;
         platforms = platforms.all;
       };

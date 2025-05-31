@@ -62,6 +62,9 @@
     "slug": "animalese-typing"
   },
   {
+    "slug": "anki-jpdb-reader"
+  },
+  {
     "slug": "annotations-restored"
   },
   {
@@ -69,6 +72,9 @@
   },
   {
     "slug": "aria2-integration"
+  },
+  {
+    "slug": "asbplayer-learn-with-subs"
   },
   {
     "slug": "ask-historians-comment-helper"
@@ -736,6 +742,9 @@
   },
   {
     "slug": "history-cleaner"
+  },
+  {
+    "slug": "historyblock"
   },
   {
     "slug": "hls-stream-detector"

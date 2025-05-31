@@ -351,6 +351,21 @@
         platforms = platforms.all;
       };
     };
+    "anki-jpdb-reader" = buildFirefoxXpiAddon {
+      pname = "anki-jpdb-reader";
+      version = "0.6.3";
+      addonId = "{67e602c3-7324-4b00-85cd-b652eb47b0f9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499592/anki_jpdb_reader-0.6.3.xpi";
+      sha256 = "b8ac031cb78e4bbeb2129f46b7b8cfb688e9eecc5194c6522bf872e9b00327e4";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Kagu-chan/anki-jpdb.reader";
+        description = "Japanese text parsing + sentence mining with JPDB and Anki";
+        license = licenses.mit;
+        mozPermissions = [ "contextMenus" "scripting" "storage" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "annotations-restored" = buildFirefoxXpiAddon {
       pname = "annotations-restored";
       version = "1.2";
@@ -412,6 +427,29 @@
           "webRequestBlocking"
           "cookies"
           "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "asbplayer-learn-with-subs" = buildFirefoxXpiAddon {
+      pname = "asbplayer-learn-with-subs";
+      version = "1.9.1";
+      addonId = "{a6b3e1d4-8c23-4cfa-9123-1f2b95a7ab23}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4464239/asbplayer_learn_with_subs-1.9.1.xpi";
+      sha256 = "ec6d8f527abd1c26c291ae5f74c4888c76af884ff3cea40a6b1dee8811ff0660";
+      meta = with lib;
+      {
+        description = "Language learning subtitle player for streaming platforms like Netflix, YouTube, and more.";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "storage"
+          "contextMenus"
+          "webRequest"
+          "webRequestBlocking"
+          "<all_urls>"
+          "*://killergerbah.github.io/asbplayer*"
+          "*://localhost/*"
         ];
         platforms = platforms.all;
       };
@@ -4421,6 +4459,27 @@
         description = "Deletes browsing history older than a specified number of days.";
         license = licenses.mit;
         mozPermissions = [ "history" "storage" "idle" "alarms" ];
+        platforms = platforms.all;
+      };
+    };
+    "historyblock" = buildFirefoxXpiAddon {
+      pname = "historyblock";
+      version = "2.1resigned1";
+      addonId = "historyblock@kain";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270263/historyblock-2.1resigned1.xpi";
+      sha256 = "cd80c7ee6e7b1470c5dc6f8c492f694f355feb667fb69c13b2120a20ce091d67";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kainsavage/HistoryBlock";
+        description = "Cover your tracks!";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "sessions"
+          "tabs"
+          "history"
+          "storage"
+          "contextMenus"
+        ];
         platforms = platforms.all;
       };
     };
