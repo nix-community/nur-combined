@@ -1086,10 +1086,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.8.3";
+      version = "0.8.4";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498555/bilisponsorblock-0.8.3.xpi";
-      sha256 = "918ef28170b7b80a4f904b4d1753060a40429fee6c40a4e9507e703db58eaaed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503720/bilisponsorblock-0.8.4.xpi";
+      sha256 = "9d71bb9cbdd93a7f7f43b8c4e9d2bb49232e3514d9bbc3401a8d5483e5f9c607";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -2294,10 +2294,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "139.0.20250529.122813";
+      version = "140.0.20250530.91050";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503336/dansk_da_language_pack-139.0.20250529.122813.xpi";
-      sha256 = "dffdefc5d105a0eef2e7da53c153e4de707806eddd5e5a1704d01fb07419d115";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503950/dansk_da_language_pack-140.0.20250530.91050.xpi";
+      sha256 = "bad0abc586214dd37d97a3fd7ade4f4eb27e18b26a92ceb9ee4fc0685b2a5fd8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2491,10 +2491,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "139.0.20250529.122813";
+      version = "140.0.20250530.91050";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503337/deutsch_de_language_pack-139.0.20250529.122813.xpi";
-      sha256 = "aceaaad2613b26752399d5f93d5e74bf08937b012d0087e9b5c53a51182ca83a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503949/deutsch_de_language_pack-140.0.20250530.91050.xpi";
+      sha256 = "dd14acaf71209950325f7cfbf520926d945e26f32f07ae693b809a4728e9be6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2757,10 +2757,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.61.0";
+      version = "2.62.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498566/dualsub-2.61.0.xpi";
-      sha256 = "af62727f237953b581a55a63069dc07bd5336074c07169ed378e8ab8519f1311";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503786/dualsub-2.62.0.xpi";
+      sha256 = "3a5bf35fba72ded61586fdeb147e25f279d1dfd9194efe268cca92e31ed7060d";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3752,10 +3752,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "139.0.20250529.122813";
+      version = "140.0.20250530.91050";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503338/francais_language_pack-139.0.20250529.122813.xpi";
-      sha256 = "144201fd0e5f27451a71924e200271e9b9db415ce9993859258dd8616d098b18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503901/francais_language_pack-140.0.20250530.91050.xpi";
+      sha256 = "93d054fd4cec168113893b25615bd27008ebcb3a8881624bd80a0b7dbcffd586";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3789,10 +3789,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "139.0.20250529.122813";
+      version = "140.0.20250530.91050";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503239/gaidhlig_language_pack-139.0.20250529.122813.xpi";
-      sha256 = "58d8d6c3b009700ceff112a61174ef4e114b5a6579bcb5fa7757b37d2f3d2b6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503869/gaidhlig_language_pack-140.0.20250530.91050.xpi";
+      sha256 = "359b1564980285d87a12563e9590b487d9ac6e755e0ad419a3e2b836120b1225";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7002,20 +7002,19 @@
     };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "5.2.0";
+      version = "6.1.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310662/mailvelope-5.2.0.xpi";
-      sha256 = "833bffcb546cb6f0c193bd3246ec7f60ff80a8c0db4e1340a1db81b209045ee2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4496547/mailvelope-6.1.0.xpi";
+      sha256 = "b3f1808425085fb0cc7978de7d600c8890f5ed01171ef0772d4d546a2a6a22b3";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
         description = "Protect your email conversations and attachments on Gmail, Nextcloud, Outlook and more with PGP and end-to-end encryption.";
         license = licenses.gpl3;
         mozPermissions = [
-          "*://*/*"
-          "dns"
+          "alarms"
           "identity"
-          "nativeMessaging"
+          "scripting"
           "storage"
           "tabs"
           "webNavigation"
@@ -10617,10 +10616,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "139.0.20250529.122813";
+      version = "140.0.20250530.91050";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503237/scots_language_pack-139.0.20250529.122813.xpi";
-      sha256 = "3c39814de405be1120ee78bc422e58bd4e225bb9d5be0cc63fce39805f733457";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503945/scots_language_pack-140.0.20250530.91050.xpi";
+      sha256 = "dd88a86d913829ec17862739c0ee55b04197e21d446dcfd8efa4d0d5090bf7bf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11295,10 +11294,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.12.3";
+      version = "5.12.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499756/sponsorblock-5.12.3.xpi";
-      sha256 = "24d33d252ac33d263e54247e7e6898cb3277991dbb54fe9329589bdedeb7fe80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501802/sponsorblock-5.12.4.xpi";
+      sha256 = "789c63e5cfc74aa11661459de7ab87c0143cca5a0944aab700a6044497bf40eb";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -12262,10 +12261,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.1.7";
+      version = "4.1.11";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493818/tree_style_tab-4.1.7.xpi";
-      sha256 = "4977a5889ef12337c184e84a1abed243ae6544149491d1cd7749adf46c28d7a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4502732/tree_style_tab-4.1.11.xpi";
+      sha256 = "e9314a7673bc239be5b3a6fbe4883adf77df69b5c801b89541af50b8f0037ef5";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
