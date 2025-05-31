@@ -1,0 +1,16 @@
+diff --git a/src/python/eusolver.py b/src/python/eusolver.py
+index bda071e..da747e2 100644
+--- a/src/python/eusolver.py
++++ b/src/python/eusolver.py
+@@ -64,7 +64,10 @@ def _lib():
+     global _loaded_lib
+     if (_loaded_lib == None):
+         mydir = os.path.dirname(os.path.abspath(__file__))
+-        lib_dir = os.path.join(mydir, './libeusolver.so')
++        if sys.platform == "darwin":
++            lib_dir = os.path.join(mydir, './libeusolver.dylib')
++        else:
++            lib_dir = os.path.join(mydir, './libeusolver.so')
+         try:
+             init(lib_dir)
+             # also disable interception of SIGINT

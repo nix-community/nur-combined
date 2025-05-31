@@ -20,6 +20,7 @@
     name = "libeusolver";
     version = "0-unstable-2020-06-15";
     inherit src;
+    patches = [./libeusolver-darwin.patch];
 
     sourceRoot = "${src.name}/thirdparty/libeusolver";
     buildInputs = [cmake python311];
@@ -34,7 +35,7 @@ in
     name = "eusolver";
     version = "0-unstable-2020-06-15";
     inherit src;
-    patches = [./diff.patch];
+    patches = [./time.patch];
 
     nativeBuildInputs = [
       python
