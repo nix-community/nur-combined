@@ -61,7 +61,7 @@ in
         # Security settings
         PAPERLESS_URL = "https://paperless.${config.networking.domain}";
         PAPERLESS_USE_X_FORWARD_HOST = true;
-        PAPERLESS_PROXY_SSL_HEADER = ''["HTTP_X_FORWARDED_PROTO", "https"]'';
+        PAPERLESS_PROXY_SSL_HEADER = [ "HTTP_X_FORWARDED_PROTO" "https" ];
 
         # OCR settings
         PAPERLESS_OCR_LANGUAGE = "fra+eng";
