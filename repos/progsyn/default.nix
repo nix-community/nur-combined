@@ -8,4 +8,5 @@
   AutoLifter = pkgs.callPackage ./pkgs/AutoLifter {};
   parsynt = pkgs.callPackage ./pkgs/parsynt {};
   Synduce = pkgs.callPackage ./pkgs/Synduce {};
+  eusolver = pkgs.callPackage ./pkgs/eusolver {};
 }

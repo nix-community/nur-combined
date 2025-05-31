@@ -19,7 +19,6 @@ We provide [`template.nix`](./template.nix), a minimal Nix flake template that d
 
 ## More Program Synthesis Tools with Nix Derivations
 
-- EUSolver: https://github.com/mistzzt/EUSolver
 - Opera: https://github.com/utopia-group/Opera
 
 If you're working with or developing a tool that you believe should be listed here, please reach out.

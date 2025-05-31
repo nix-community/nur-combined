@@ -1,0 +1,71 @@
+diff --git a/scripts/job_scheduler.py b/scripts/job_scheduler.py
+index 3feaceb..0ec4e33 100755
+--- a/scripts/job_scheduler.py
++++ b/scripts/job_scheduler.py
+@@ -68,11 +68,11 @@ for process_id in range(num_concurrent_processes):
+ 
+ print('Starting %d worker processes, with %d jobs to run' % (num_concurrent_processes, len(job_list)))
+ sys.stdout.flush()
+-begin_time = time.clock()
++begin_time = time.process_time()
+ for worker_process in worker_processes:
+     worker_process.start()
+ 
+ for worker_process in worker_processes:
+     worker_process.join()
+-end_time = time.clock()
++end_time = time.process_time()
+ print('Completed %d jobs in %f seconds, with %d worker processes' % (len(job_list), end_time - begin_time, num_concurrent_processes))
+diff --git a/src/core/solvers.py b/src/core/solvers.py
+index 6b079cf..e84d34c 100644
+--- a/src/core/solvers.py
++++ b/src/core/solvers.py
+@@ -78,7 +78,7 @@ class Solver(object):
+     def solve(self, generator_factory, term_solver, unifier, verifier, verify_term_solve=True):
+         import time
+ 
+-        time_origin = time.clock()
++        time_origin = time.process_time()
+ 
+         while (True):
+             # print('________________')
+@@ -110,7 +110,7 @@ class Solver(object):
+                 sol_or_cex = cexs
+ 
+             if _is_expr(sol_or_cex):
+-                solution_found_at = time.clock() - time_origin
++                solution_found_at = time.process_time() - time_origin
+                 if self.report_additional_info:
+                     yield (sol_or_cex,
+                             unifier.last_dt_size,
+diff --git a/src/enumerators/enumerators.py b/src/enumerators/enumerators.py
+index 13f325b..7883b7f 100644
+--- a/src/enumerators/enumerators.py
++++ b/src/enumerators/enumerators.py
+@@ -549,7 +549,7 @@ class StreamGenerator(GeneratorBase):
+         # total_exps = 0
+         # logging_enabled = self.enable_logging
+         # if (logging_enabled):
+-        #     generation_start_time = time.clock()
++        #     generation_start_time = time.process_time()
+ 
+         max_size = self.max_size
+         sub_generator_object = self.generator_object
+@@ -558,7 +558,7 @@ class StreamGenerator(GeneratorBase):
+             total_of_current_size = 0
+             sub_generator_object.set_size(current_size)
+             # if (logging_enabled):
+-            #     current_size_start_time = time.clock()
++            #     current_size_start_time = time.process_time()
+ 
+             sub_generator_state = sub_generator_object.generate()
+             while (True):
+@@ -568,7 +568,7 @@ class StreamGenerator(GeneratorBase):
+                     yield retval
+                 except StopIteration:
+                     # if (logging_enabled):
+-                    #     current_size_end_time = time.clock()
++                    #     current_size_end_time = time.process_time()
+                     #     current_size_time = current_size_end_time - current_size_start_time
+                     #     cumulative_size_time = current_size_end_time - generation_start_time
+                     #     total_exps += total_of_current_size
