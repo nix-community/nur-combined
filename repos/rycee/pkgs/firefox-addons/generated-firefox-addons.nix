@@ -431,29 +431,6 @@
         platforms = platforms.all;
       };
     };
-    "asbplayer-learn-with-subs" = buildFirefoxXpiAddon {
-      pname = "asbplayer-learn-with-subs";
-      version = "1.9.1";
-      addonId = "{a6b3e1d4-8c23-4cfa-9123-1f2b95a7ab23}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464239/asbplayer_learn_with_subs-1.9.1.xpi";
-      sha256 = "ec6d8f527abd1c26c291ae5f74c4888c76af884ff3cea40a6b1dee8811ff0660";
-      meta = with lib;
-      {
-        description = "Language learning subtitle player for streaming platforms like Netflix, YouTube, and more.";
-        license = licenses.mit;
-        mozPermissions = [
-          "tabs"
-          "storage"
-          "contextMenus"
-          "webRequest"
-          "webRequestBlocking"
-          "<all_urls>"
-          "*://killergerbah.github.io/asbplayer*"
-          "*://localhost/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "ask-historians-comment-helper" = buildFirefoxXpiAddon {
       pname = "ask-historians-comment-helper";
       version = "1.0.6";
