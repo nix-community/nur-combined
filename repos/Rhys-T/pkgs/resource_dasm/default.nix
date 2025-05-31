@@ -1,16 +1,17 @@
-{stdenv, lib, zlib, cmake, memorymappingHook ? {}.memorymappingHook, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, unstableGitUpdater, maintainers}: let
+{stdenv, lib, zlib, cmake, memorymappingHook ? {}.memorymappingHook, fmt, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, unstableGitUpdater, maintainers}: let
     needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
+    needsFmt = stdenv.cc.isClang && stdenv.cc.libcxx != null && lib.versionOlder (lib.getVersion stdenv.cc.libcxx) "17";
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2025-05-09";
+    version = "0-unstable-2025-05-25";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = pname;
-        rev = "97a96cf12e687488cd5d3623baaf87cd17db2a3c";
-        hash = "sha256-PqCBR8acwWkBC2Qvr5eKW48p0SLtyzLnt1JWEZWl2tA=";
+        rev = "7d9287fc97a966cc0f5f6fb8988ec26a87ee1b79";
+        hash = "sha256-DQazlI7xqJLrAvVSwHzZ0EB88NJoeICEZmnn4+NxoHU=";
     };
     nativeBuildInputs = [cmake] ++ lib.optionals useNetpbm [makeBinaryWrapper];
-    buildInputs = [phosg zlib] ++ lib.optionals needsMemorymapping [memorymappingHook];
+    buildInputs = [phosg zlib] ++ lib.optionals needsMemorymapping [memorymappingHook] ++ lib.optionals needsFmt [fmt];
     # The CMakeLists.txt file provided doesn't install all the executables. Patch it to include the rest:
     postPatch = ''
         allExes=($(sed -En '
@@ -27,7 +28,19 @@ in stdenv.mkDerivation rec {
             installLine="install(TARGETS $exeToInstall DESTINATION bin)"
             ${lib.getExe ripgrep} -Fq "$installLine" CMakeLists.txt || echo "$installLine" >> CMakeLists.txt
         done
+    '' + lib.optionalString needsFmt ''
+        shopt -s globstar
+        for file in src/**/*.{cc,hh}; do
+            substituteInPlace "$file" \
+                --replace-quiet '#include <format>' '#include <fmt/format.h>' \
+                --replace-quiet 'std::format' 'fmt::format' \
+                --replace-quiet 'return format(' 'return fmt::format('
+        done
+        shopt -u globstar
     '';
+    env = lib.optionalAttrs needsFmt {
+        NIX_LDFLAGS = "-lfmt";
+    };
     ${if useNetpbm then "postInstall" else null} = ''
         for file in "$out"/bin/*; do
             wrapProgram "$file" --prefix PATH : ${lib.makeBinPath [netpbm]}

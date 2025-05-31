@@ -40,9 +40,9 @@ jobs:
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             
-            "25.05" as $beta |
-            "24.11" as $stable |
-            null as $oldStable |
+            null    as $beta |
+            "25.05" as $stable |
+            "24.11" as $oldStable |
             
             [
               "Lnx x64/ubuntu-latest",
