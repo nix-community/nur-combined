@@ -3,12 +3,13 @@
   fetchFromGitHub,
   lib,
   stdenvNoCC,
-  stdenv,
   bun,
   nodejs-slim_latest,
+  nix-update-script,
+  withServer ? true,
 }:
 let
-  pname = "cup";
+  pname = "cup-docker";
   version = "3.4.0";
   src = fetchFromGitHub {
     owner = "sergi0g";
@@ -25,8 +26,10 @@ let
       "SOCKS_SERVER"
     ];
     sourceRoot = "${finalAttrs.src.name}/web";
-    nativeBuildInputs = [ bun ];
-    buildInputs = [ nodejs-slim_latest ];
+    nativeBuildInputs = [
+      bun
+      nodejs-slim_latest
+    ];
     dontConfigure = true;
     buildPhase = ''
       bun install --no-progress --frozen-lockfile
@@ -36,8 +39,7 @@ let
       mkdir -p $out/node_modules
       cp -R ./node_modules $out
     '';
-    outputHash =
-      if stdenv.isLinux then "sha256-RhfH4+mRMqoypk5rxN3ATse5AVhd3mbg4dSmuUWX1t0=" else lib.fakeHash;
+    outputHash = "sha256-RhfH4+mRMqoypk5rxN3ATse5AVhd3mbg4dSmuUWX1t0=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   });
@@ -83,9 +85,27 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-L9zugOwlPwpdtjV87dT1PH7FAMJYHYFuvfyOfPe5b2k=";
 
+  buildNoDefaultFeatures = true;
+  buildFeatures =
+    [
+      "cli"
+    ]
+    ++ lib.optional withServer [
+      "server"
+    ];
+
   preConfigure = ''
     cp -r ${web}/dist src/static
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--subpackage"
+      "web.web-node-modules"
+      "--subpackage"
+      "web"
+    ];
+  };
 
   meta = {
     description = "a lightweight way to check for container image updates. written in Rust";
@@ -93,7 +113,7 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.all;
     changelog = "https://github.com/sergi0g/cup/releases";
-    mainProgram = pname;
+    mainProgram = "cup";
     maintainers = with lib.maintainers; [
       kuflierl
     ];
