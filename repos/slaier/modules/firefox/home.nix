@@ -28,7 +28,7 @@ in
       };
     };
     profiles.default = {
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         adnauseam
         aria2-integration
         bitwarden
@@ -46,40 +46,43 @@ in
       ] ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
         imagus
       ]);
-      bookmarks = [
-        {
-          name = "Nix sites";
-          bookmarks = [
-            { name = "NUR search"; url = "https://nur.nix-community.org/"; }
-            { name = "Nix Manual"; url = "https://nixos.org/manual/nix/stable/"; }
-            { name = "Nixpkgs Manual"; url = "https://ryantm.github.io/nixpkgs/"; }
-            { name = "Noogle"; url = "https://noogle.dev/"; }
-          ];
-        }
-        {
-          name = "Learn";
-          bookmarks = [
-            { name = "Rust OS"; url = "https://learningos.github.io/rust-based-os-comp2022/"; }
-            { name = "nLab"; url = "https://ncatlab.org/nlab/show/HomePage"; }
-          ];
-        }
-        {
-          name = "Collection";
-          bookmarks = [
-            { name = "ACGN"; url = "https://www.myiys.com/"; }
-            { name = "MirrorZ"; url = "https://mirrorz.org/site"; }
-            { name = "Pling"; url = "https://www.pling.com/"; }
-          ];
-        }
-        {
-          name = "Post";
-          bookmarks = [
-            { name = "Proxy Env"; url = "https://about.gitlab.com/blog/2021/01/27/we-need-to-talk-no-proxy"; }
-            { name = "Google Language Codes"; url = "https://sites.google.com/site/tomihasa/google-language-codes"; }
-          ];
-        }
-        { name = "Dns Lookup"; url = "https://dnslookup.online/"; }
-      ];
+      bookmarks = {
+        force = true;
+        settings = [
+          {
+            name = "Nix sites";
+            bookmarks = [
+              { name = "NUR search"; url = "https://nur.nix-community.org/"; }
+              { name = "Nix Manual"; url = "https://nixos.org/manual/nix/stable/"; }
+              { name = "Nixpkgs Manual"; url = "https://ryantm.github.io/nixpkgs/"; }
+              { name = "Noogle"; url = "https://noogle.dev/"; }
+            ];
+          }
+          {
+            name = "Learn";
+            bookmarks = [
+              { name = "Rust OS"; url = "https://learningos.github.io/rust-based-os-comp2022/"; }
+              { name = "nLab"; url = "https://ncatlab.org/nlab/show/HomePage"; }
+            ];
+          }
+          {
+            name = "Collection";
+            bookmarks = [
+              { name = "ACGN"; url = "https://www.myiys.com/"; }
+              { name = "MirrorZ"; url = "https://mirrorz.org/site"; }
+              { name = "Pling"; url = "https://www.pling.com/"; }
+            ];
+          }
+          {
+            name = "Post";
+            bookmarks = [
+              { name = "Proxy Env"; url = "https://about.gitlab.com/blog/2021/01/27/we-need-to-talk-no-proxy"; }
+              { name = "Google Language Codes"; url = "https://sites.google.com/site/tomihasa/google-language-codes"; }
+            ];
+          }
+          { name = "Dns Lookup"; url = "https://dnslookup.online/"; }
+        ];
+      };
       settings = {
         "browser.urlbar.suggest.topsites" = false;
         "browser.warnOnQuitShortcut" = false;
@@ -170,11 +173,11 @@ in
       search = {
         default = "Google NCR";
         engines = {
-          "Amazon.com".metaData.hidden = true;
-          "Wikipedia (en)".metaData.hidden = true;
-          "Bing".metaData.hidden = true;
-          "DuckDuckGo".metaData.hidden = true;
-          "Google".metaData.hidden = true;
+          "amazondotcom-us".metaData.hidden = true;
+          "wikipedia".metaData.hidden = true;
+          "bing".metaData.hidden = true;
+          "ddg".metaData.hidden = true;
+          "google".metaData.hidden = true;
           "Google NCR" = {
             urls = [{
               template = "https://www.google.com/search";

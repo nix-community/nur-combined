@@ -47,6 +47,8 @@ _:
     ];
     users.nixos = {
       directories = [
+        ".arduino15"
+        ".arduinoIDE"
         ".cache"
         ".cmake"
         ".config"
@@ -54,7 +56,9 @@ _:
         ".mozilla"
         ".nali"
         ".pki"
+        ".platformio"
         ".ssh"
+        ".wokwi"
         "repos"
       ];
     };
@@ -129,29 +133,33 @@ _:
       '';
     };
 
-  services.udev.extraRules = lib.strings.concatStringsSep ", " [
-    ''ACTION=="add"''
-    ''SUBSYSTEM=="hwmon"''
-    ''ATTR{name}=="amdgpu"''
-    ''ATTRS{power_dpm_force_performance_level}=="auto"''
-    ''ATTR{power1_cap}="172000000"''
-    ''RUN+="${pkgs.writeShellScript "sysfs-reload" ''
-      set -o errexit
-      cd $1
-      [[ -e power_dpm_force_performance_level ]]
-      [[ -e pp_od_clk_voltage ]]
-      echo "manual" > power_dpm_force_performance_level
-      echo "s 0 300 750" > pp_od_clk_voltage
-      echo "s 1 845 750" > pp_od_clk_voltage
-      echo "s 2 1055 800" > pp_od_clk_voltage
-      echo "s 3 1175 900" > pp_od_clk_voltage
-      echo "s 4 1270 900" > pp_od_clk_voltage
-      echo "s 5 1330 900" > pp_od_clk_voltage
-      echo "s 6 1385 950" > pp_od_clk_voltage
-      echo "s 7 1450 1000" > pp_od_clk_voltage
-      echo "c" > pp_od_clk_voltage
-    ''} %S%p/device"''
-  ];
+  services.udev.extraRules = ''
+    ${lib.strings.concatStringsSep ", " [
+      ''ACTION=="add"''
+      ''SUBSYSTEM=="hwmon"''
+      ''ATTR{name}=="amdgpu"''
+      ''ATTRS{power_dpm_force_performance_level}=="auto"''
+      ''ATTR{power1_cap}="172000000"''
+      ''RUN+="${pkgs.writeShellScript "sysfs-reload" ''
+        set -o errexit
+        cd $1
+        [[ -e power_dpm_force_performance_level ]]
+        [[ -e pp_od_clk_voltage ]]
+        echo "manual" > power_dpm_force_performance_level
+        echo "s 0 300 750" > pp_od_clk_voltage
+        echo "s 1 845 750" > pp_od_clk_voltage
+        echo "s 2 1055 800" > pp_od_clk_voltage
+        echo "s 3 1175 900" > pp_od_clk_voltage
+        echo "s 4 1270 900" > pp_od_clk_voltage
+        echo "s 5 1330 900" > pp_od_clk_voltage
+        echo "s 6 1385 950" > pp_od_clk_voltage
+        echo "s 7 1450 1000" > pp_od_clk_voltage
+        echo "c" > pp_od_clk_voltage
+      ''} %S%p/device"''
+    ]}
+    SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="tty_nano_esp32c6", MODE="0666"
+    SUBSYSTEM=="tty", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="1001", SYMLINK+="tty_xiao_esp32c6", MODE="0666"
+  '';
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  sing-box-config = with pkgs; substituteAll {
-    src = ./config.json;
+  sing-box-config = pkgs.replaceVars ./config.json {
     yacd = pkgs.nur.repos.linyinfeng.yacd;
     geoip = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
     geosite = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
@@ -13,6 +12,10 @@ in
     after = [ "network.target" ];
     description = "Enable sing-box services";
     serviceConfig = {
+      Environment = [
+        "ENABLE_DEPRECATED_GEOIP=true"
+        "ENABLE_DEPRECATED_GEOSITE=true"
+      ];
       RuntimeDirectory = "sing-box";
       StateDirectory = "sing-box";
       Type = "simple";

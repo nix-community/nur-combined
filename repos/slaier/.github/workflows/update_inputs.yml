@@ -2,37 +2,64 @@ name: Update inputs
 on:
   schedule:
     # Run every Thursday during the first week of each month at 04:05 UTC
-    - cron: "5 4 1-7 * 4"
+    - cron: "5 4 * * 4"
   workflow_dispatch:
 jobs:
   update_inputs:
     runs-on: ubuntu-latest
     steps:
+      - name: Filter the first week of the month
+        id: first_week
+        run: |
+          # Ignore check if it is triggered manually
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "is_first_week=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          # Get the current date and check if it is in the first week of the month
+          current_date=$(date +%d)
+          if [ "$current_date" -le 7 ]; then
+            echo "is_first_week=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_first_week=false" >> $GITHUB_OUTPUT
+          fi
       - name: Checkout repository
+        if: steps.first_week.outputs.is_first_week == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: ./.github/actions/setup_nix
+      - name: Set up Nix
+        if: steps.first_week.outputs.is_first_week == 'true'
+        uses: ./.github/actions/setup_nix
         with:
-          channel: nixos-24.11
+          channel: nixos-25.05
           cachix_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - uses: ./.github/actions/check_system
+      - name: Check system
+        if: steps.first_week.outputs.is_first_week == 'true'
+        uses: ./.github/actions/check_system
         id: old
       - name: Update inputs
+        if: steps.first_week.outputs.is_first_week == 'true'
         run: |
           nix develop .#update --command just update
           nix flake update
           git diff | tee ${{ runner.temp }}/update.patch
       - name: Upload patch
+        if: steps.first_week.outputs.is_first_week == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: nix-update-patch
           path: ${{ runner.temp }}/update.patch
           retention-days: 7
-      - uses: ./.github/actions/check_packages
-      - uses: ./.github/actions/check_system
+      - name: Check packages
+        if: steps.first_week.outputs.is_first_week == 'true'
+        uses: ./.github/actions/check_packages
+      - name: Check new system
+        if: steps.first_week.outputs.is_first_week == 'true'
+        uses: ./.github/actions/check_system
         id: new
       - name: Commit
+        if: steps.first_week.outputs.is_first_week == 'true'
         run: |
           nix_diff=$(nix store diff-closures \
             ${{ steps.old.outputs.out_path }} \

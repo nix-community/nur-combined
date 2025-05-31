@@ -19,6 +19,9 @@ nixosSystem {
       nixpkgs.overlays = [
         super.overlay
         inputs.bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
+        (final: prev: {
+          rocmPackages_5 = inputs.nixpkgs-2411.legacyPackages.${config.nixpkgs.hostPlatform.system}.rocmPackages_5;
+        })
       ];
 
       home-manager = {

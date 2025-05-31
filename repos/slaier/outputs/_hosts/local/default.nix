@@ -41,8 +41,10 @@
   };
   services.earlyoom.enable = true;
 
+  programs.nix-ld.enable = true;
   environment.systemPackages = with pkgs; [
     alacritty
+    arduino-ide
     audiorelay
     bottom
     curl
@@ -56,6 +58,7 @@
     ianny
     iotop
     just
+    kdePackages.okular
     keepassxc
     killall
     librespeed-cli
@@ -67,7 +70,6 @@
     nix-tree
     nixpkgs-fmt
     nvfetcher
-    okular
     p7zip
     pavucontrol
     pciutils

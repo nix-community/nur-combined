@@ -3,11 +3,7 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       iosevka
-      (nerdfonts.override {
-        fonts = [
-          "FantasqueSansMono"
-        ];
-      })
+      nerd-fonts.fantasque-sans-mono
       noto-fonts-emoji
       sarasa-gothic
       source-han-mono
