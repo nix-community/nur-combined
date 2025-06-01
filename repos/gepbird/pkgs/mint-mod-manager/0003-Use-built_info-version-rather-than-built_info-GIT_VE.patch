@@ -1,4 +1,4 @@
-From dcd218620f98c6a110f92f7888cc2c6679c86b58 Mon Sep 17 00:00:00 2001
+From 1dd858e71653607fa088d632df0c3eb2e840c061 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
 Date: Sun, 27 Apr 2025 12:15:38 +0200
 Subject: [PATCH 3/4] Use built_info::version rather than
@@ -10,7 +10,7 @@ Subject: [PATCH 3/4] Use built_info::version rather than
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/gui/mod.rs b/src/gui/mod.rs
-index 42b16c4..905410e 100644
+index e29849f..dcd9827 100644
 --- a/src/gui/mod.rs
 +++ b/src/gui/mod.rs
 @@ -62,7 +62,7 @@ pub fn gui(dirs: Dirs, args: Option<Vec<String>>) -> Result<(), MintError> {
@@ -23,7 +23,7 @@ index 42b16c4..905410e 100644
          Box::new(|cc| Ok(Box::new(App::new(cc, dirs, args)?))),
      )
 diff --git a/src/main.rs b/src/main.rs
-index 108e8fb..9e7a7de 100644
+index f87990e..1a83c26 100644
 --- a/src/main.rs
 +++ b/src/main.rs
 @@ -84,7 +84,7 @@ enum Action {

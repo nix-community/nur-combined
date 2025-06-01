@@ -14,13 +14,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mint-mod-manager";
-  version = "0.2.10-unstable-2025-04-23";
+  version = "0.2.10-unstable-2025-05-04";
 
   src = fetchFromGitHub {
     owner = "trumank";
     repo = "mint";
-    rev = "276bf5fdbf6dd7b14e989f9849ea465fe9c88465";
-    hash = "sha256-4/NcubWmkRDR44Ud50SNvTxNZxCkAE6ZLeK6yHtAuZU=";
+    rev = "6335041f21b95976d29fe2cfbf282feb0c9f38ac";
+    hash = "sha256-qiDxcc9m30HAY5vMH1bhF40jfsLyKQxmLI/3vQg7M8s=";
     deepClone = true;
     postFetch = ''
       echo -n $(git -C $out describe) > $out/mint_lib/src/GIT_VERSION
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-cYjaRbbwK6Amd47PlCWIkv12oXauRcWXHU1/dWYTiI0=";
+  cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ "oodle_platform_dependent" ]; # remove "hook" which is used for windows

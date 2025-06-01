@@ -1,4 +1,4 @@
-From 38adef3fe7d4cd2e12f1a3d381ce756d0c1cd080 Mon Sep 17 00:00:00 2001
+From b56b609c2367645fd63df54dde53a831173a9e61 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
 Date: Sun, 23 Mar 2025 13:00:41 +0100
 Subject: [PATCH 1/4] Drop usage of unstable if_let_guard feature
@@ -9,7 +9,7 @@ Subject: [PATCH 1/4] Drop usage of unstable if_let_guard feature
  2 files changed, 58 insertions(+), 40 deletions(-)
 
 diff --git a/src/gui/message.rs b/src/gui/message.rs
-index 5b72bd0..8fc4037 100644
+index df50d66..a92302f 100644
 --- a/src/gui/message.rs
 +++ b/src/gui/message.rs
 @@ -214,19 +214,25 @@ impl Integrate {
@@ -51,7 +51,7 @@ index 5b72bd0..8fc4037 100644
              }
              app.integrate_rid = None;
          }
-@@ -476,19 +482,25 @@ impl LintMods {
+@@ -475,19 +481,25 @@ impl LintMods {
                      app.last_action =
                          Some(LastAction::success("lint mod report complete".to_string()));
                  }
