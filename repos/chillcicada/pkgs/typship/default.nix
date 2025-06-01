@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "typship";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "sjfhsjfh";
     repo = "typship";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-e7jGc/ENVEMGzXl+sidzNBFy+qZo9+ClRPYhsXtnyD8=";
+    hash = "sha256-LDiKAQmzEgzFJH2NAR3FYsO4SmH5uAEOa6I4A0FnwJk=";
   };
 
-  cargoHash = "sha256-lRB+GL5dgl22B+qBZV273V9tavGu5HqK2Z9JFyqVoK8=";
+  cargoHash = "sha256-t4Vnww49CnkBSRsAWKxSpJffuUuqFAxqUN0GtoxnKLY=";
 
   nativeBuildInputs = [
     pkg-config
