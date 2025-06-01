@@ -24,7 +24,10 @@
 **Zoneshiyi's [NUR](https://github.com/nix-community/NUR) repository**
 
 <!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/Zoneshiyi/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+![Build and populate cache](https://github.com/Zoneshiyi/nur-pkgs/workflows/Build%20and%20populate%20cache/badge.svg)
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-zoneshiyi-blue.svg)](https://zoneshiyi.cachix.org)
-
+To use it add the following line to your nix.conf
+```
+zoneshiyi.cachix.org-1:lEJ8pJccD7CmzFgo+ZrKM5vi8h6+dosW0HLEzgvHlIE=
+```
