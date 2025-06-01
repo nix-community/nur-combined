@@ -10,17 +10,12 @@
 
   outputs =
     inputs@{
-      self,
-      nixpkgs,
       flake-parts,
       ...
     }:
     # See https://flake.parts/module-arguments for module arguments
     flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
-        config,
-        withSystem,
-        moduleWithSystem,
+      {
         ...
       }:
       {
@@ -38,7 +33,6 @@
           {
             config,
             self',
-            inputs',
             pkgs,
             lib,
             ...
@@ -53,8 +47,12 @@
                 "README.md"
               ];
 
-              programs.actionlint.enable = true;
-              programs.nixfmt.enable = true;
+              programs = {
+                actionlint.enable = true;
+                deadnix.enable = true;
+                nixfmt.enable = true;
+                statix.enable = true;
+              };
             };
 
             # https://flake.parts/options/git-hooks-nix.html

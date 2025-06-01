@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fetchYarnDeps,
   cargo-tauri_1, # ! tauri_cli for Tauri v1
-  darwin,
   glib-networking,
   nodejs,
   yarnConfigHook,
@@ -60,17 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       glib-networking # Most Tauri apps need networking
       libsoup_2_4
       webkitgtk_4_0
-    ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks;
-      [
-        AppKit
-        CoreServices
-        Foundation
-        Security
-        WebKit
-      ]
-    );
+    ];
 
   env.OPENSSL_NO_VENDOR = 1;
 

@@ -2,7 +2,7 @@
 # case where you don't want to add the whole NUR namespace to your
 # configuration.
 
-self: super:
+_self: super:
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: {
