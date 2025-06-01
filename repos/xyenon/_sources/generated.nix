@@ -29,16 +29,16 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "8e3b9724e26abc5f028fbce9948682bc62864804";
+    version = "4d3c80e89c5f80438a3e048a410d5543ff5fb9f4";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "8e3b9724e26abc5f028fbce9948682bc62864804";
+      rev = "4d3c80e89c5f80438a3e048a410d5543ff5fb9f4";
       fetchSubmodules = false;
-      sha256 = "sha256-iM5rt3uiJaneonqDNH9rqAV4fBmmornL+abQehl/7hY=";
+      sha256 = "sha256-JhxoJYatDgOfYO3TJXQdg16RNWualZ1IsIiNEYEjwbA=";
     };
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20250519105220-0600";
+    date = "20250530094005-0600";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -66,15 +66,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "904aedb7c2097309e4f5a9be29baf6ce5cc64415";
+    version = "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "904aedb7c2097309e4f5a9be29baf6ce5cc64415";
+      rev = "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7";
       fetchSubmodules = false;
-      sha256 = "sha256-a0b6k0dOwrdxCf+ZcX/fiF4K1LLGuEw5eBriRFkY2AI=";
+      sha256 = "sha256-QIwcf+7C2h/3TAdwc19ntBgnDi3ZjoDngkJQ4HowGE8=";
     };
-    date = "2025-05-25";
+    date = "2025-06-01";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -86,14 +86,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "a54b96a3f21495ab3659e45d5354bcc8413be15c";
+    version = "63f9650e522336e0010261dcd0ffb0bf114cf912";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "a54b96a3f21495ab3659e45d5354bcc8413be15c";
+      rev = "63f9650e522336e0010261dcd0ffb0bf114cf912";
       fetchSubmodules = false;
-      sha256 = "sha256-TtVaWazkk2xnomhJFinElbUsXUKAbDDhLEVq5Ah3nAk=";
+      sha256 = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
     };
-    date = "2025-05-29";
+    date = "2025-05-31";
   };
 }
