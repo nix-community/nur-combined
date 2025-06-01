@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.16.5-1";
+    version = "v1.16.5-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-1/bilibili-asar-v1.16.5-1.tar.gz";
-      hash = "sha256-XPLnNhdD64UWXH2e6t8gjdj9EA907lOawJ/inN7N+Bg=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-2/bilibili-asar-v1.16.5-2.tar.gz";
+      hash = "sha256-FsT29j1370YdYQdV9YzOzBc8F4pCuH1858/ph5MuTWo=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.16.5-1";
+    version = "v1.16.5-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.16.5-1";
-      hash = "sha256-4vyVMLvFBr5iIscVgY078kKyvvFoQmiC8xE7g/W4vhE=";
+      tag = "v1.16.5-2";
+      hash = "sha256-gOxeShqi7XtFYqHbV8E98qaukTrCNt4WC5bqPy749Uo=";
     };
   };
   bird-lg-go = {
@@ -505,12 +505,12 @@
   };
   fish-speech = {
     pname = "fish-speech";
-    version = "v1.5.0";
+    version = "v1.5.1";
     src = fetchFromGitHub {
       owner = "fishaudio";
       repo = "fish-speech";
-      tag = "v1.5.0";
-      hash = "sha256-uT9VX57oZU0nsP3fRsMCBVMVjuS/0swoIJFtEOJFltg=";
+      tag = "v1.5.1";
+      hash = "sha256-/PH2or5fvfb2+OgN6Wfg76ZyBo+fsAIVuQFrTtIzia8=";
     };
   };
   flaresolverr-21hsmw = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5551";
+    version = "b5559";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5551";
-      hash = "sha256-AYAOCzlcceQOuQmbrNbRrioPWCx6vD9mqp2+4NvogPg=";
+      tag = "b5559";
+      hash = "sha256-f4+iPRLieNug30hnxgye6PI9GKtVJm9/9+CUfLfR3Y8=";
     };
   };
   loralib = {
@@ -1429,12 +1429,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.36";
+    version = "1.1.3.37-fix2";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.36";
-      hash = "sha256-tju0UVpD1DHoY2CIT0vDOx6Marldo09beTWxbJtacCw=";
+      tag = "1.1.3.37-fix2";
+      hash = "sha256-AS/ruc+lNHRgZpB9sCqiEt1ZG7+g78PYoHzY8eR/XWM=";
     };
   };
   plangothic-fonts = {
@@ -1725,14 +1725,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2e0d8d9a3ba292ecca3f6dccb5719a06764917ca";
+    version = "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2e0d8d9a3ba292ecca3f6dccb5719a06764917ca";
-      hash = "sha256-v+j2Bp7+OEbiWImf0/6YbZTTHlaORvtK2foXTfjZW9s=";
+      rev = "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7";
+      hash = "sha256-QIwcf+7C2h/3TAdwc19ntBgnDi3ZjoDngkJQ4HowGE8=";
     };
-    date = "2025-05-29";
+    date = "2025-06-01";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

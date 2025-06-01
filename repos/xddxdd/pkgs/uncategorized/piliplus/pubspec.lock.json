@@ -400,7 +400,7 @@
       "version": "4.10.1"
     },
     "collection": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "collection",
         "sha256": "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76",
@@ -755,7 +755,7 @@
       "description": {
         "path": ".",
         "ref": "version-3",
-        "resolved-ref": "44bd7a589f199e0b8f7f5bb1a6df08579079c570",
+        "resolved-ref": "929e9ec1312d9d1b4755d7589dd53db5b4d6d50d",
         "url": "https://github.com/bggRGjQaUbCoE/floating.git"
       },
       "source": "git",
@@ -2618,6 +2618,6 @@
   },
   "sdks": {
     "dart": ">=3.8.0 <4.0.0",
-    "flutter": ">=3.32.0"
+    "flutter": ">=3.32.1"
   }
 }

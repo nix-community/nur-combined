@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XPLnNhdD64UWXH2e6t8gjdj9EA907lOawJ/inN7N+Bg=",
+            "sha256": "sha256-FsT29j1370YdYQdV9YzOzBc8F4pCuH1858/ph5MuTWo=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-1/bilibili-asar-v1.16.5-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-2/bilibili-asar-v1.16.5-2.tar.gz"
         },
-        "version": "v1.16.5-1"
+        "version": "v1.16.5-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.5-1",
-            "sha256": "sha256-4vyVMLvFBr5iIscVgY078kKyvvFoQmiC8xE7g/W4vhE=",
+            "rev": "v1.16.5-2",
+            "sha256": "sha256-gOxeShqi7XtFYqHbV8E98qaukTrCNt4WC5bqPy749Uo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.5-1"
+        "version": "v1.16.5-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -986,12 +986,12 @@
             "name": null,
             "owner": "fishaudio",
             "repo": "fish-speech",
-            "rev": "v1.5.0",
-            "sha256": "sha256-uT9VX57oZU0nsP3fRsMCBVMVjuS/0swoIJFtEOJFltg=",
+            "rev": "v1.5.1",
+            "sha256": "sha256-/PH2or5fvfb2+OgN6Wfg76ZyBo+fsAIVuQFrTtIzia8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.0"
+        "version": "v1.5.1"
     },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5551",
-            "sha256": "sha256-AYAOCzlcceQOuQmbrNbRrioPWCx6vD9mqp2+4NvogPg=",
+            "rev": "b5559",
+            "sha256": "sha256-f4+iPRLieNug30hnxgye6PI9GKtVJm9/9+CUfLfR3Y8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5551"
+        "version": "b5559"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2801,12 +2801,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.36",
-            "sha256": "sha256-tju0UVpD1DHoY2CIT0vDOx6Marldo09beTWxbJtacCw=",
+            "rev": "1.1.3.37-fix2",
+            "sha256": "sha256-AS/ruc+lNHRgZpB9sCqiEt1ZG7+g78PYoHzY8eR/XWM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.36"
+        "version": "1.1.3.37-fix2"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3365,7 +3365,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-05-29",
+        "date": "2025-06-01",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3377,12 +3377,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "2e0d8d9a3ba292ecca3f6dccb5719a06764917ca",
-            "sha256": "sha256-v+j2Bp7+OEbiWImf0/6YbZTTHlaORvtK2foXTfjZW9s=",
+            "rev": "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7",
+            "sha256": "sha256-QIwcf+7C2h/3TAdwc19ntBgnDi3ZjoDngkJQ4HowGE8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2e0d8d9a3ba292ecca3f6dccb5719a06764917ca"
+        "version": "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7"
     },
     "rime-moegirl": {
         "cargoLocks": null,
