@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage rec {
     owner = "trumank";
     repo = "mint";
     rev = "6335041f21b95976d29fe2cfbf282feb0c9f38ac";
-    hash = "sha256-qiDxcc9m30HAY5vMH1bhF40jfsLyKQxmLI/3vQg7M8s=";
+    hash = "sha256-OyfLyAOMSrvXkyGL+PkyrZ7PLBgQ040SCv9Q85AkX+o=";
     deepClone = true;
     postFetch = ''
-      echo -n $(git -C $out describe) > $out/mint_lib/src/GIT_VERSION
+      echo -n $(git -C $out describe) > $out/GIT_VERSION
       rm -rf $out/.git
     '';
   };
@@ -33,11 +33,12 @@ rustPlatform.buildRustPackage rec {
     ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
     # TODO: remove in rust 1.88.0: https://github.com/rust-lang/rust/pull/132833
     ./0002-Drop-usage-of-unstable-let_chains-feature.patch
-    # this can be upstreamed
-    ./0003-Use-built_info-version-rather-than-built_info-GIT_VE.patch
-    # https://github.com/lukaslueg/built/issues/77
-    ./0004-Use-GIT_VERSION-file-instead-builts.rs-s-GIT_VERSION.patch
   ];
+
+  preConfigure = ''
+    export BUILT_OVERRIDE_mint_lib_GIT_VERSION=$(cat GIT_VERSION)
+    echo "Using mint_lib GIT_VERSION: $BUILT_OVERRIDE_mint_lib_GIT_VERSION"
+  '';
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
