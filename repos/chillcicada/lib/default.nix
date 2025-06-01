@@ -1,6 +1,6 @@
-{ lib }:
+{ pkgs }:
 
-with lib;
+with pkgs.lib;
 {
   # Add your library functions here
   #

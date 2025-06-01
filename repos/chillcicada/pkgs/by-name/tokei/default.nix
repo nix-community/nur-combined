@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
+  darwin,
   fetchFromGitHub,
   rustPlatform,
   libiconv,
-  Security,
   zlib,
 }:
 
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
-    Security
+    darwin.apple_sdk.frameworks.Security
   ];
 
   checkInputs = lib.optionals stdenv.hostPlatform.isDarwin [ zlib ];
