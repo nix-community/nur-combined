@@ -4,18 +4,19 @@
   pkgs,
   fetchFromGitHub,
 }:
-let 
-  
+let
+
   hasRustNightly = pkgs ? rust-bin;
 
-  rustPlatform = if hasRustNightly then
-    pkgs.makeRustPlatform {
-            cargo = pkgs.rust-bin.nightly.latest.minimal;
-            rustc = pkgs.rust-bin.nightly.latest.minimal;
-          }
-  else
-    pkgs.rustPlatform;
-in 
+  rustPlatform =
+    if hasRustNightly then
+      pkgs.makeRustPlatform {
+        cargo = pkgs.rust-bin.nightly.latest.minimal;
+        rustc = pkgs.rust-bin.nightly.latest.minimal;
+      }
+    else
+      pkgs.rustPlatform;
+in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "microsoft-edit";
