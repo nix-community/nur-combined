@@ -47,9 +47,9 @@ in
       package = pkgs.yggdrasil.overrideAttrs (old: {
         src = pkgs.fetchurl {
           url = "https://github.com/nagy/yggdrasil-go/archive/vsock.tar.gz";
-          hash = "sha256-b5Z2NblR224dD/Re9Kok7Bdyc8lFCAMb27XdqlpwJpE=";
+          hash = "sha256-0537WLYjKdYBRWdDIFGa/QPl3OXW8X2ITp2NMwcHu3Y=";
         };
-        vendorHash = "sha256-Djhv2cYgGSWkNkr+Gy7OWw+vyNnxIqm8fZvO1FsdMdI=";
+        vendorHash = "sha256-fy7u+71kDwnSsQfd6gHOz2IWdMRWNfSP+F0wPkClGpU=";
         patches = [
           # shorter private keys
           (pkgs.fetchpatch {

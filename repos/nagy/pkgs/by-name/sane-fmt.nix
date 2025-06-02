@@ -6,14 +6,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sane-fmt";
   version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "sane-fmt";
     repo = "sane-fmt";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-DJBphNc9fMdmnD9k12YLCpJI1IUjVyH94XBu2LChWJQ=";
   };
 
@@ -37,4 +37,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "sane-fmt";
   };
-}
+})

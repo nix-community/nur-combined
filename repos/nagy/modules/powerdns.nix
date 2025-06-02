@@ -8,9 +8,9 @@
 {
   services.pdns-recursor = {
     # exportHosts = true;
-    dns.address = "127.0.0.1";
+    dns.address = [ "127.0.0.1" ];
     dnssecValidation = "off";
-    settings = {
+    old-settings = {
       trace = "fail";
       # max-negative-ttl = "5";
       # Disable auto update check.
