@@ -1,6 +1,8 @@
 name: "Build and populate cache"
 on:
   pull_request:
+    branches-ignore:
+      - dev
   push:
     branches:
       - main
