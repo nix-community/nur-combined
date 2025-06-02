@@ -80,7 +80,7 @@ reIf {
 
           dip(${
             lib.concatStringsSep "," (
-              map (i: i.addr) (builtins.attrValues (lib.filterAttrs (k: v: v.censor) lib.data.node))
+              map (i: "\"${i.addr}\"") (builtins.attrValues (lib.filterAttrs (k: v: v.censor) lib.data.node))
             )
           }) -> direct
 

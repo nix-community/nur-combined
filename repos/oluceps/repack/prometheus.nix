@@ -57,7 +57,7 @@ reIf {
     port = 9090;
     retentionTime = "7d";
     globalConfig = {
-      scrape_interval = "1m";
+      scrape_interval = "0.5m";
       evaluation_interval = "1m";
     };
     # prometheus not exit when credentials could not be load.

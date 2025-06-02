@@ -259,14 +259,16 @@
           virt = [
             # virt-manager
             virtiofsd
-            runwin
-            guix-run
-            runbkworm
-            bkworm
-            arch-run
+
+            # runwin
+            # guix-run
+            # runbkworm
+            # bkworm
+            # arch-run
+            # lunar-run
+
             # ubt-rv-run
             #opulr-a-run
-            lunar-run
             # virt-viewer
           ];
           fs = [
