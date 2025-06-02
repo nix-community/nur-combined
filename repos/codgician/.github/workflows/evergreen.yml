@@ -24,7 +24,6 @@ jobs:
             accept-flake-config = true
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Update nix flake
         run: nix flake update >> $GITHUB_STEP_SUMMARY
       - name: Push changes
@@ -75,7 +74,6 @@ jobs:
             accept-flake-config = true
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Run update script for ${{ matrix.package }}
         id: run_update_script
         run: |
