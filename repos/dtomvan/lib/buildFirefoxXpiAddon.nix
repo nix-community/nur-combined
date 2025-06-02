@@ -12,6 +12,7 @@ lib.makeOverridable (
     addonId,
     url ? null,
     hash ? null,
+    passthru ? { },
     meta,
     src ? fetchurl { inherit url hash; },
     ...
@@ -24,7 +25,9 @@ lib.makeOverridable (
     preferLocalBuild = true;
     allowSubstitutes = true;
 
-    passthru = { inherit addonId; };
+    passthru = passthru // {
+      inherit addonId;
+    };
 
     buildCommand = ''
       dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"

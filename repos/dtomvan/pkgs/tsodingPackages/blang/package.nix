@@ -1,48 +1,51 @@
 {
   clangStdenv,
   lib,
-  replaceVars,
-  fetchFromGitHub,
   rustc,
-  fasm,
-  nob_h,
+
+  fetchFromGitHub,
   nix-update-script,
   makeWrapper,
+
+  fasm,
+  uxn,
+  binutils,
 }:
+let
+  runtimeDeps = [
+    fasm
+    uxn
+  ] ++ lib.optionals (clangStdenv.hostPlatform.system == "aarch64-linux") [ binutils ];
+in
 clangStdenv.mkDerivation {
   # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
-  version = "0-unstable-2025-05-26";
+  version = "0-unstable-2025-06-02";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "b";
-    rev = "cbe341c184c378cc888cc313b0ef984ce31b821e";
-    hash = "sha256-e1OGgVAyYLdZP4IIz3Y+Ir+mO5caclYciISP/ARorcU=";
+    rev = "aa97e2ec480bb62cad7b005a047db3df9da02852";
+    hash = "sha256-oZFzI84lhFxpWeY7cGULaGu7zfzdBBxhBC8RmoQg5Xs=";
   };
-
-  patches = [
-    (replaceVars ./use-nix-nob.patch {
-      NOB_H = "${nob_h}/include/nob.h";
-    })
-  ];
-
-  postPatch = "rm thirdparty/nob.h";
 
   nativeBuildInputs = [
     rustc
     makeWrapper
   ];
 
+  doCheck = true;
+  nativeCheckInputs = runtimeDeps;
+
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
+    mkdir -p $out/bin $out/opt/b/
     cp build/b $out/bin
-    install -Dm444 examples/*.b -t $out/opt/b
+    cp -r examples $out/opt/b
 
     wrapProgram $out/bin/b \
-      --prefix PATH : "${lib.makeBinPath [ fasm ]}"
+      --prefix PATH : "${lib.makeBinPath runtimeDeps}"
 
     runHook postInstall
   '';
