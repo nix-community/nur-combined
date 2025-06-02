@@ -853,10 +853,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.8";
+      version = "1.5.0";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361245/batchcamp-1.4.8.xpi";
-      sha256 = "4f195cf36fe22253584e46b910ec8d30f1684abb30379f157d002ee9ca1bf92a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4504980/batchcamp-1.5.0.xpi";
+      sha256 = "cea2fe84df3733bd78de0369dce18da4f0ae71d808b1af9ed40653eaf85955eb";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2239,10 +2239,10 @@
     };
     "copy-selection-as-markdown" = buildFirefoxXpiAddon {
       pname = "copy-selection-as-markdown";
-      version = "0.22.0";
+      version = "0.23.0";
       addonId = "{db9a72da-7bc5-4805-bcea-da3cb1a15316}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250904/copy_selection_as_markdown-0.22.0.xpi";
-      sha256 = "5d76d73b93762b2a42781cc564de20e982387b428664e96bda50b3066db9ac08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4504977/copy_selection_as_markdown-0.23.0.xpi";
+      sha256 = "64cb064d31aa79a26d0d8233272271f945b6dce79a1313832469a613e8370cee";
       meta = with lib;
       {
         homepage = "https://github.com/0x6b/copy-selection-as-markdown";
@@ -2253,6 +2253,7 @@
           "clipboardWrite"
           "contextMenus"
           "storage"
+          "scripting"
         ];
         platforms = platforms.all;
       };
@@ -2542,10 +2543,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.6.0";
+      version = "5.6.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4488113/dictionaries-5.6.0.xpi";
-      sha256 = "f5cbe341954f89ceb20f0246466d5a32e769825a4c8300cfd07766da373cb1bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505065/dictionaries-5.6.1.xpi";
+      sha256 = "5655d0814828fcd9926003072660dde2a925eeb2b64ae70ec3becc43a9fb62e5";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
