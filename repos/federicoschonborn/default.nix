@@ -58,6 +58,8 @@ lib.makeScope pkgs.newScope (
           enablePciaccess = false;
         };
 
+    libtgdWithoutTool = self.libtgd.override { withTool = false; };
+
     libtgdFull =
       (self.libtgd.overrideAttrs (
         _: prevAttrs: {
@@ -74,7 +76,37 @@ lib.makeScope pkgs.newScope (
           withExiv2 = false;
           withFfmpeg = true;
           withGdal = false;
-          withHdf5 = true;
+          withHdf5 = false;
+          withJpeg = true;
+          # ImageMagick 6 is marked as insecure
+          withMagick = false;
+          withMatio = true;
+          withMuparser = true;
+          withOpenexr = true;
+          # Requires ImageMagick 6
+          withPfs = false;
+          withPng = true;
+          withPoppler = true;
+          withTiff = true;
+        };
+
+    libtgdFullWithoutTool =
+      (self.libtgd.overrideAttrs (
+        _: prevAttrs: {
+          meta = (prevAttrs.meta or { }) // {
+            description = "${prevAttrs.meta.description} (with all features enabled)";
+          };
+        }
+      )).override
+        {
+          withTool = false;
+          withDocs = true;
+          withCfitsio = true;
+          # Broken
+          withExiv2 = false;
+          withFfmpeg = true;
+          withGdal = false;
+          withHdf5 = false;
           withJpeg = true;
           # ImageMagick 6 is marked as insecure
           withMagick = false;

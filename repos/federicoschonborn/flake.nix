@@ -286,14 +286,14 @@
               # Nix
               nixfmt-rfc-style = {
                 enable = true;
-                package = config.formatter;
+                package = pkgs.nixfmt-rfc-style;
               };
               deadnix.enable = true;
               statix.enable = true;
             };
           };
 
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt-tree;
         };
     });
 }

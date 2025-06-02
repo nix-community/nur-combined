@@ -85,9 +85,9 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "TGD_STATIC" withStatic)
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/tgd";
+  nativeInstallCheckInputs = lib.optionals withTool [ versionCheckHook ];
+  doInstallCheck = withTool;
+  versionCheckProgram = lib.optionalString withTool "${placeholder "out"}/bin/tgd";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
