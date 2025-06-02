@@ -44,13 +44,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtgd";
-  version = "4.3";
+  version = "5.0";
 
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "tgd";
     tag = "tgd-${finalAttrs.version}";
-    hash = "sha256-FRejQ4uijpKdrFYEc9PkPrDo8pLKXMmJCXFTZ9Hx6Ug=";
+    hash = "sha256-43HK+rpEYJyMiSREZiqX8P9M5J6LWTtHqblhIOj6Itg=";
   };
 
   nativeBuildInputs =

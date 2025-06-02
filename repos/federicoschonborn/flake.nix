@@ -157,14 +157,10 @@
                 packageListFormatted =
                   pkgs.runCommand "PACKAGES.md"
                     {
-                      nativeBuildInputs = [
-                        pkgs.which
-                        pkgs.nodejs-slim
-                        pkgs.nodePackages.prettier
-                      ];
+                      nativeBuildInputs = [ pkgs.nodePackages.prettier ];
                     }
                     ''
-                      node $(which prettier) ${packageList} > $out
+                      prettier ${packageList} > $out
                     '';
               in
               pkgs.writeShellApplication {

@@ -54,10 +54,10 @@ V2 daemon for Budgie Desktop.
 Feature-rich, modern desktop designed to keep out the way of the user.
 
 - Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-05-24`
+- Version: `10.9.2-unstable-2025-05-29`
 - Outputs: **`out`**, `dev`, `man`
 - [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-24)
+- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-29)
 - [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L147)
 - 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
@@ -89,9 +89,9 @@ Let Cargo make you learn Rust by giving you shocks.
 Tool to generate flags for your CPU.
 
 - Name: `cpuid2cpuflags`
-- Version: `15`
+- Version: `16`
 - [🌐 Homepage](https://github.com/projg2/cpuid2cpuflags)
-- [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v15)
+- [📰 Changelog](https://github.com/projg2/cpuid2cpuflags/releases/tag/v16)
 - [📦 Source](./pkgs/by-name/cpuid2cpuflags/package.nix#L36)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
@@ -186,7 +186,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 A library to make working with multidimensional arrays in C++ easy.
 
 - Name: `libtgd`
-- Version: `4.3`
+- Version: `5.0`
 - [🌐 Homepage](https://marlam.de/tgd/)
 - [📦 Source](./pkgs/by-name/libtgd/package.nix#L101)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
@@ -197,7 +197,7 @@ A library to make working with multidimensional arrays in C++ easy.
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
 - Name: `libtgd`
-- Version: `4.3`
+- Version: `5.0`
 - [🌐 Homepage](https://marlam.de/tgd/)
 - [📦 Source](./default.nix#L65)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
@@ -333,7 +333,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 A a viewer for 2D data such as images, sensor data, simulations, renderings and videos.
 
 - Name: `qv`
-- Version: `5.2`
+- Version: `6.0`
 - [🌐 Homepage](https://marlam.de/qv/)
 - [📦 Source](./pkgs/by-name/qv/package.nix#L53)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)

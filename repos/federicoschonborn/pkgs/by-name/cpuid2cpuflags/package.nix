@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cpuid2cpuflags";
-  version = "15";
+  version = "16";
 
   src = fetchFromGitHub {
     owner = "projg2";
     repo = "cpuid2cpuflags";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wLkb1TXqMZaB9bjh8T7m31DMXT0uY6/FjcDwFh/SjYY=";
+    hash = "sha256-r1ZvNzPcAnADyb7f6aFGljAGMXIvXQMcQau4ezfMdzs=";
   };
 
   nativeBuildInputs = [
