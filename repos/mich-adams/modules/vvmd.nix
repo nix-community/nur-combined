@@ -16,6 +16,8 @@ let
     # https://github.com/freedesktop/dbus/blob/ef55a3db0d8f17848f8a579092fb05900cc076f5/test/data/systemd-activation/com.example.SystemdActivatable1.service
     Exec=${pkgs.coreutils}/bin/false vvmd
   '';
+    vvmd-pkg = pkgs.callPackage ../pkgs/vvmd {};
+    vvmplayer-pkg = pkgs.callPackage ../pkgs/vvmplayer {};
 in
 {
   #meta.maintainers = [ maintainers.mich-adams ];
@@ -27,8 +29,8 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = [
-      pkgs.vvmd
-      pkgs.vvmplayer
+      vvmd-pkg
+      vvmplayer-pkg
     ];
 
     services.dbus.packages = [ dbusServiceFile ];
@@ -38,7 +40,7 @@ in
       aliases = [ "dbus-org.kop316.vvm.service" ];
       serviceConfig = {
         Type = "dbus";
-        ExecStart = "${pkgs.vvmd}/bin/vvmd";
+        ExecStart = "${vvmd-pkg}/bin/vvmd";
         BusName = "org.kop316.vvm";
         Restart = "on-failure";
       };
