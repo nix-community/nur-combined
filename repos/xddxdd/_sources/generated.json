@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5559",
-            "sha256": "sha256-f4+iPRLieNug30hnxgye6PI9GKtVJm9/9+CUfLfR3Y8=",
+            "rev": "b5573",
+            "sha256": "sha256-JqselunE+WH7eKFijjCahGpGIS/ucmBAYSpqlYiF0Og=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5559"
+        "version": "b5573"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3941,7 +3941,7 @@
     },
     "transmission-web-control": {
         "cargoLocks": null,
-        "date": "2025-02-21",
+        "date": "2025-06-01",
         "extract": null,
         "name": "transmission-web-control",
         "passthru": null,
@@ -3953,12 +3953,12 @@
             "name": null,
             "owner": "ronggang",
             "repo": "transmission-web-control",
-            "rev": "c9d83844ee2cf2f07e36e03660a2886da5f4208a",
-            "sha256": "sha256-NQ1wZwe8VRIcvuLtUhjjldD00f1WgZsGAIkTDkIxgLw=",
+            "rev": "054e2edf7ee1ec859cec3ee5661a550481321a27",
+            "sha256": "sha256-OsGT4emj6nLVNG87RZ/NW1RcSrw50phKGy04t45QvX8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c9d83844ee2cf2f07e36e03660a2886da5f4208a"
+        "version": "054e2edf7ee1ec859cec3ee5661a550481321a27"
     },
     "uesave": {
         "cargoLocks": null,

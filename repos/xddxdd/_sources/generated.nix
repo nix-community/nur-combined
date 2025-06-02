@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5559";
+    version = "b5573";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5559";
-      hash = "sha256-f4+iPRLieNug30hnxgye6PI9GKtVJm9/9+CUfLfR3Y8=";
+      tag = "b5573";
+      hash = "sha256-JqselunE+WH7eKFijjCahGpGIS/ucmBAYSpqlYiF0Og=";
     };
   };
   loralib = {
@@ -2021,14 +2021,14 @@
   };
   transmission-web-control = {
     pname = "transmission-web-control";
-    version = "c9d83844ee2cf2f07e36e03660a2886da5f4208a";
+    version = "054e2edf7ee1ec859cec3ee5661a550481321a27";
     src = fetchFromGitHub {
       owner = "ronggang";
       repo = "transmission-web-control";
-      rev = "c9d83844ee2cf2f07e36e03660a2886da5f4208a";
-      hash = "sha256-NQ1wZwe8VRIcvuLtUhjjldD00f1WgZsGAIkTDkIxgLw=";
+      rev = "054e2edf7ee1ec859cec3ee5661a550481321a27";
+      hash = "sha256-OsGT4emj6nLVNG87RZ/NW1RcSrw50phKGy04t45QvX8=";
     };
-    date = "2025-02-21";
+    date = "2025-06-01";
   };
   uesave = {
     pname = "uesave";
