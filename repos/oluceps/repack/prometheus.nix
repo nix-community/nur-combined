@@ -57,7 +57,7 @@ reIf {
     port = 9090;
     retentionTime = "7d";
     globalConfig = {
-      scrape_interval = "0.5m";
+      scrape_interval = "30s";
       evaluation_interval = "1m";
     };
     # prometheus not exit when credentials could not be load.
@@ -94,11 +94,7 @@ reIf {
           };
           static_configs = [ { targets = targets_notls; } ];
         }
-        {
-          job_name = "cloudflare-metrics-notls";
-          scheme = "http";
-          static_configs = [ { targets = [ "localhost${config.services.cloudflare-exporter.listen}" ]; } ];
-        }
+
         # {
         #   job_name = "bird-metrics";
         #   scheme = "https";
