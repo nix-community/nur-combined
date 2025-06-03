@@ -17,9 +17,8 @@ let
     tag = "v${version}";
     hash = "sha256-ciH3t2L2eJhk1+JXTqEJSuHve8OuVod7AuQ3iFWmKRE=";
   };
-  # inspired by https://github.com/NixOS/nixpkgs/issues/255890#issue-1900964134
-  web-node-modules = stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "${pname}-web-node-modules";
+  web = stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "${pname}-web";
     inherit version src;
     impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
       "GIT_PROXY_COMMAND"
@@ -30,36 +29,11 @@ let
       bun
       nodejs-slim_latest
     ];
-    dontConfigure = true;
-    buildPhase = ''
-      bun install --no-progress --frozen-lockfile
-    '';
-    dontPatchShebangs = true;
-    installPhase = ''
-      mkdir -p $out/node_modules
-      cp -R ./node_modules $out
-    '';
-    outputHash = "sha256-RhfH4+mRMqoypk5rxN3ATse5AVhd3mbg4dSmuUWX1t0=";
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-  });
-  web = stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "${pname}-web";
-    inherit version src web-node-modules;
-    sourceRoot = "${finalAttrs.src.name}/web";
-    nativeBuildInputs = [ bun ];
     configurePhase = ''
       runHook preConfigure
-
-      # node modules need to be copied to substitute for reference
-      # substitution step cannot be done before otherwise
-      # nix complains about unallowed reference in FOD
-      cp -R ${web-node-modules}/node_modules .
-      # bun installs .bin package with a usr bin env ref to node
-      # replace any ref for bin that are used
+      bun install --no-progress --frozen-lockfile
       substituteInPlace node_modules/.bin/{vite,tsc} \
         --replace-fail "/usr/bin/env node" "${nodejs-slim_latest}/bin/node"
-
       runHook postConfigure
     '';
     buildPhase = ''
@@ -73,6 +47,9 @@ let
       cp -R ./dist $out
       runHook postInstall
     '';
+    outputHash = "sha256-Ac1PJYmTQv9XrmhmF1p77vdXh8252hz0CUKxJA+VQR4=";
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
   });
 in
 rustPlatform.buildRustPackage {
@@ -100,8 +77,6 @@ rustPlatform.buildRustPackage {
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      "--subpackage"
-      "web.web-node-modules"
       "--subpackage"
       "web"
     ];
