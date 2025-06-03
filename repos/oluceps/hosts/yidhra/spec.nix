@@ -46,6 +46,7 @@
   };
   services = {
     metrics.enable = true;
+    srs.enable = true;
     coturn = {
       enable = true;
       # static-auth-secret-file = config.vaultix.secrets.wg.path;
