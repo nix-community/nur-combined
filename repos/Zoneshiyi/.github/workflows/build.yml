@@ -5,10 +5,10 @@ on:
       - main
       - master
   schedule:
-    # rebuild everyday at 2:51
+    # rebuild every first day of the month at 0:00
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    - cron:  '0 0 1 * *'
   workflow_dispatch:
 jobs:
   tests:
