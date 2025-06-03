@@ -2310,10 +2310,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "140.0.20250530.91050";
+      version = "140.0.20250602.90557";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503950/dansk_da_language_pack-140.0.20250530.91050.xpi";
-      sha256 = "bad0abc586214dd37d97a3fd7ade4f4eb27e18b26a92ceb9ee4fc0685b2a5fd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505442/dansk_da_language_pack-140.0.20250602.90557.xpi";
+      sha256 = "892acf60f5176b41e0f5099db369d00f043e9c5c28f7959169d6faeed68b958e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2507,10 +2507,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "140.0.20250530.91050";
+      version = "140.0.20250602.90557";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503949/deutsch_de_language_pack-140.0.20250530.91050.xpi";
-      sha256 = "dd14acaf71209950325f7cfbf520926d945e26f32f07ae693b809a4728e9be6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505438/deutsch_de_language_pack-140.0.20250602.90557.xpi";
+      sha256 = "1cc5368edcdcaf77168a7a3acc0929f9d563742eea08212b1fcf04b61cc7b241";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3768,10 +3768,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "140.0.20250530.91050";
+      version = "140.0.20250602.90557";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503901/francais_language_pack-140.0.20250530.91050.xpi";
-      sha256 = "93d054fd4cec168113893b25615bd27008ebcb3a8881624bd80a0b7dbcffd586";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505448/francais_language_pack-140.0.20250602.90557.xpi";
+      sha256 = "4fcb153ecfc27cc6d3d2d875d2d15d02a2065f21b1c90cb3ea87bbbb11096c3b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3805,10 +3805,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "140.0.20250530.91050";
+      version = "140.0.20250602.90557";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503869/gaidhlig_language_pack-140.0.20250530.91050.xpi";
-      sha256 = "359b1564980285d87a12563e9590b487d9ac6e755e0ad419a3e2b836120b1225";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505506/gaidhlig_language_pack-140.0.20250602.90557.xpi";
+      sha256 = "bfd770d876adc7ee1cd08cfd3cdb9cc329ecc08b46770173cd9998420f16c6fd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10653,10 +10653,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "140.0.20250530.91050";
+      version = "140.0.20250602.90557";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503945/scots_language_pack-140.0.20250530.91050.xpi";
-      sha256 = "dd88a86d913829ec17862739c0ee55b04197e21d446dcfd8efa4d0d5090bf7bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505534/scots_language_pack-140.0.20250602.90557.xpi";
+      sha256 = "edf9081910e07a3702bb72e7bbf768ebef5c12d7e983d350304667081c0907e1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14406,10 +14406,10 @@
     };
     "zeroomega" = buildFirefoxXpiAddon {
       pname = "zeroomega";
-      version = "3.3.23";
+      version = "3.4.0";
       addonId = "suziwen1@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4442919/zeroomega-3.3.23.xpi";
-      sha256 = "0e9614a09995560544513fa59b7a696007cc765eea082799df940504662e34fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505861/zeroomega-3.4.0.xpi";
+      sha256 = "b056414f58ff82eb6a8da97ae7e0feeeb2a7a04ed92ba027825ba8abd46cd128";
       meta = with lib;
       {
         description = "Manage and switch between multiple proxies quickly &amp; easily.";
