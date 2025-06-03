@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5573"
+    "version": "5581"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3822,7 +3822,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-05-13"
+    "version": "1.11.13-unstable-2025-06-02"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4652,7 +4652,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-05-13"
+    "version": "1.11.13-unstable-2025-06-02"
   },
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
@@ -4802,7 +4802,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-06-03"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4832,7 +4832,7 @@
   "legacyPackages.x86_64-linux.uncategorized.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -4877,7 +4877,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-06-03"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4907,7 +4907,7 @@
   "legacyPackages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -5652,7 +5652,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-05-13"
+    "version": "1.11.13-unstable-2025-06-02"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -5867,7 +5867,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-06-03"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5897,7 +5897,7 @@
   "packages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "packages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",

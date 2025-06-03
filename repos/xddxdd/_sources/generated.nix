@@ -218,14 +218,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "83f4944dc27f967c0292595de6fc9f4e716fc0e6";
+    version = "000186c3ddaea185970ddd76988bce4548f23171";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "83f4944dc27f967c0292595de6fc9f4e716fc0e6";
-      hash = "sha256-DoORN1ZqHCAEa2YCKKabCQ4uIaNfMHtdYLdGpsG70pU=";
+      rev = "000186c3ddaea185970ddd76988bce4548f23171";
+      hash = "sha256-haXqdXvoDd5nEoXPlmP/k5kVb/JHqjAaibmnQDh7D2o=";
     };
-    date = "2025-05-26";
+    date = "2025-06-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5573";
+    version = "b5581";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5573";
-      hash = "sha256-JqselunE+WH7eKFijjCahGpGIS/ucmBAYSpqlYiF0Og=";
+      tag = "b5581";
+      hash = "sha256-BmdtmB9GXqlUYvsDYN39LWkM+lEj+8FpS4TwBUvSMbs=";
     };
   };
   loralib = {
@@ -1499,14 +1499,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "35d2e0f0400872ee3edcfc8f675b9581371f3c1c";
+    version = "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "35d2e0f0400872ee3edcfc8f675b9581371f3c1c";
-      hash = "sha256-OY0dWOLDeMKJrOg57AKh2FzHK5BPJw6Y4hxvNtkNRDo=";
+      rev = "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab";
+      hash = "sha256-GRPcIsx6COlUXbCZu4RkWOVhFKDCYur5+DvOQVi4GRQ=";
     };
-    date = "2025-05-13";
+    date = "2025-06-02";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "6c1e3c103b126940b44d8015187ca901ae4b77b8";
+    version = "9d66b94cbf20ee3170583d116acf0904ebc7f0d5";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "6c1e3c103b126940b44d8015187ca901ae4b77b8";
+      rev = "9d66b94cbf20ee3170583d116acf0904ebc7f0d5";
       fetchSubmodules = true;
-      hash = "sha256-+cAkJT3tQGThdzsvEH4kkVynx58pgJe6RTDaAtn1Tw0=";
+      hash = "sha256-2bJudkkQRjcrR0uv/yepheNSJs0f1iVxz13IpD7VVPA=";
     };
-    date = "2025-05-30";
+    date = "2025-06-03";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2122,12 +2122,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.2.0";
+    version = "v1.2.1";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.2.0";
-      hash = "sha256-PVs5XhYvsiNkFmHbSCI1mizfXpKRG6H6qqO1qjdEFIs=";
+      tag = "v1.2.1";
+      hash = "sha256-TCqf7EpQnIWACIVwpfVo0PBnnpbr2jhM9EbeReee9x8=";
     };
   };
   vbmeta-disable-verification = {
