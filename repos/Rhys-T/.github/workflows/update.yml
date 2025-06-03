@@ -55,14 +55,13 @@ jobs:
             --argstr keep-going true \
             --argstr commit true \
             --show-trace
-          exitStatus="$?"
           if ! git diff --exit-code --quiet origin/${{ github.ref_name }}..; then
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
-          if [[ "$exitStatus" -eq 0 ]] && compgen -G '*.log' > /dev/null; then
+          if compgen -G '*.log' > /dev/null; then
             echo 'error_logs_generated=true' >> "$GITHUB_OUTPUT"
+            exit 1
           fi
-          exit "$exitStatus"
       - name: Upload error logs
         if: '!cancelled()'
         uses: actions/upload-artifact@v4
@@ -72,7 +71,7 @@ jobs:
             ./*.log
           if-no-files-found: ignore
       - name: Create pull request
-        if: steps.update.outputs.changed == 'true'
+        if: ${{ !cancelled() && steps.update.outputs.changed == 'true' }}
         uses: peter-evans/create-pull-request@v7
         with:
           title: 'Nix package auto-updates'
@@ -82,6 +81,3 @@ jobs:
             automated
           delete-branch: true
           token: ${{ steps.app-token.outputs.token }}
-      - name: Fail if error logs were generated
-        if: steps.update.outputs.error_logs_generated == 'true'
-        run: exit 1
