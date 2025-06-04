@@ -9,14 +9,10 @@
   pkgs ? import <nixpkgs> { },
 }:
 {
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  nh = pkgs.callPackage ./pkgs/nh.nix { };
+  rename_music = pkgs.callPackage ./pkgs/rename_music.nix { };
+  byparr = pkgs.callPackage ./pkgs/byparr.nix { };
 
-  cloudflare-ddns = pkgs.callPackage ./pkgs/cloudflare-ddns { };
-  nh = pkgs.callPackage ./pkgs/nh { };
-  rename_music = pkgs.callPackage ./pkgs/rename_music { };
   catppuccin-papirus-folders-frappe-red = pkgs.catppuccin-papirus-folders.override {
     flavor = "frappe";
     accent = "red";
