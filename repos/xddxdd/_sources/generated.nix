@@ -959,12 +959,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.14.9-xanmod1";
+    version = "6.15.0-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.14.9-xanmod1";
+      tag = "6.15.0-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-kwMvXdqr1i3UZ3+N/qsQDjU1TvnymS54tCdOLNxL0nc=";
+      hash = "sha256-whe/gCncwwD8US+nML++BP+ut/5jCs4DynONFN1DjqQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5581";
+    version = "b5586";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5581";
-      hash = "sha256-BmdtmB9GXqlUYvsDYN39LWkM+lEj+8FpS4TwBUvSMbs=";
+      tag = "b5586";
+      hash = "sha256-1O/16AnrXNBlPGcvhMiwygMgGy6ot4OjdOu/+/0xFck=";
     };
   };
   loralib = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "9d66b94cbf20ee3170583d116acf0904ebc7f0d5";
+    version = "ccfee38eed9bc86891e98b558eb36e7212f20e63";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "9d66b94cbf20ee3170583d116acf0904ebc7f0d5";
+      rev = "ccfee38eed9bc86891e98b558eb36e7212f20e63";
       fetchSubmodules = true;
-      hash = "sha256-2bJudkkQRjcrR0uv/yepheNSJs0f1iVxz13IpD7VVPA=";
+      hash = "sha256-AmpGk15Pj3twPSTLaXDeus0uNE/uf7ghf7chTcaLrUE=";
     };
-    date = "2025-06-03";
+    date = "2025-06-04";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

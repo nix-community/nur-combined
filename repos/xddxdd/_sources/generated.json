@@ -1865,13 +1865,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.14.9-xanmod1",
-            "sha256": "sha256-kwMvXdqr1i3UZ3+N/qsQDjU1TvnymS54tCdOLNxL0nc=",
+            "rev": "6.15.0-xanmod1",
+            "sha256": "sha256-whe/gCncwwD8US+nML++BP+ut/5jCs4DynONFN1DjqQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.14.9-xanmod1"
+        "version": "6.15.0-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5581",
-            "sha256": "sha256-BmdtmB9GXqlUYvsDYN39LWkM+lEj+8FpS4TwBUvSMbs=",
+            "rev": "b5586",
+            "sha256": "sha256-1O/16AnrXNBlPGcvhMiwygMgGy6ot4OjdOu/+/0xFck=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5581"
+        "version": "b5586"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-06-03",
+        "date": "2025-06-04",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "9d66b94cbf20ee3170583d116acf0904ebc7f0d5",
-            "sha256": "sha256-2bJudkkQRjcrR0uv/yepheNSJs0f1iVxz13IpD7VVPA=",
+            "rev": "ccfee38eed9bc86891e98b558eb36e7212f20e63",
+            "sha256": "sha256-AmpGk15Pj3twPSTLaXDeus0uNE/uf7ghf7chTcaLrUE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9d66b94cbf20ee3170583d116acf0904ebc7f0d5"
+        "version": "ccfee38eed9bc86891e98b558eb36e7212f20e63"
     },
     "unigine-heaven": {
         "cargoLocks": null,
