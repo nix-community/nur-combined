@@ -21,7 +21,3 @@ alias p := push
 # format nix files
 fmt:
   nixfmt .
-
-# list packages under `pkgs/`
-ls:
-  ls {{CURRENT_DIR}}/pkgs/

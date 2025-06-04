@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "ttf-ms-win10-sc-sup";
-  version = "unstable-2025-03-25";
+  version = "unstable-2025-06-03";
 
   src = fetchFromGitHub {
     owner = "chillcicada";
     repo = "ttf-ms-win10-sc-sup";
-    rev = "425fbc570a2e6eac6c9eeb852c2a8e946d4f2238";
-    sha256 = "sha256-3FV7tE9xEteTv5rrvZcMgGw4wBAJa11vFiNnvwRJ4dw=";
+    rev = "f5d2ef2c84e8979b322563a53ea3adb5ab995176";
+    sha256 = "sha256-gIMRE1jOEtskRzXGdUr6DRXghpMdM37NtoEJsC80/MQ=";
   };
 
   installPhase = ''
