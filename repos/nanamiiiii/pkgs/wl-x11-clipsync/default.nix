@@ -7,7 +7,8 @@
   wl-clipboard,
   clipnotify,
   python3,
-  makeWrapper
+  makeWrapper,
+  which
 }:
 stdenv.mkDerivation rec {
   name = "wl-x11-clipsync";
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/share/wl-x11-clipsync/clipsync
     patchShebangs --host $out/share/wl-x11-clipsync/clipsync
     makeWrapper $out/share/wl-x11-clipsync/clipsync $out/bin/clipsync \
-      --prefix PATH : "${lib.makeBinPath [ xclip wl-clipboard clipnotify ]}"
+      --prefix PATH : "${lib.makeBinPath [ xclip wl-clipboard clipnotify which ]}"
   '';
 
   meta = with lib; {
