@@ -5,6 +5,6 @@
     ./client
     ./handheld.nix
     ./pc.nix
-    ./work.nix
+    ./work
   ];
 }

@@ -48,6 +48,10 @@ let
     ]; # ++ pkgs.librewolf-pmos-mobile.extraPrefsFiles
 
     extraPolicies = {
+      # firefox policy schema is documented in <repo:mozilla-firefox/firefox:browser/components/enterprisepolicies/schemas/policies-schema.json>
+      # and <https://mozilla.github.io/policy-templates>
+      # however the bulk of them seem to not actually have any effect T_T
+      #
       # XXX(2024-12-02): using `nixExtensions` causes `about:debugging` to be blocked.
       # i guess this is because the page can install extensions, or something.
       # fuck that, enable it by brute force
@@ -56,6 +60,18 @@ let
           installation_mode = "allowed";
         };
       };
+      PasswordManagerEnabled = false;  #< TODO(2025-05-31): does this actually have an effect?
+      # see also ~/.mozilla/firefox/default/search.json.mozlz4
+      # (use mozlz4a package to view)
+      # XXX(2025-05-31): the below SearchEngines policy has no observable effect.
+      # SearchEngines = {
+      #   Add = [];
+      #   # Default = "search@kagi.comdefault";
+      #   Default = "ddg";  #< builtin
+      #   DefaultPrivate = "ddg";  #< builtin
+      #   PreventInstalls = false;
+      #   Remove = [];
+      # };
     };
   }).overrideAttrs (base: {
     nativeBuildInputs = (base.nativeBuildInputs or []) ++ [
@@ -255,38 +271,127 @@ in
 
     env.BROWSER = "firefox";  # used by misc tools like xdg-email, as fallback
 
-    fs = {
-      ".mozilla/firefox/bookmarks.html".symlink.target = ./bookmarks.html;
+    fs.".mozilla/firefox/bookmarks.html".symlink.target = ./bookmarks.html;
+    # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
+    # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.
+    fs.".mozilla/firefox/profiles.ini".symlink.text = ''
+      [Profile0]
+      Name=default
+      IsRelative=1
+      Path=default
+      Default=1
 
-      # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
-      # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.
-      ".mozilla/firefox/profiles.ini".symlink.text = ''
-        [Profile0]
-        Name=default
-        IsRelative=1
-        Path=default
-        Default=1
+      [General]
+      StartWithLastProfile=1
+    '';
 
-        [General]
-        StartWithLastProfile=1
-      '';
-
-      ".mozilla/firefox/user.js".symlink.target = ./user.js;
-    };
+    fs.".mozilla/firefox/user.js".symlink.target = ./user.js;
+    fs.".mozilla/firefox/default/search.json.mozlz4".symlink.target = let
+      drv = pkgs.stdenvNoCC.mkDerivation {
+        # Mozilla uses a custom compression scheme for `search.json` because they're ASSHOLES.
+        # seriously, why do you need to compress this 2 KiB file? and then why do you need to INVENT YOUR OWN COMPRESSION FORMAT FOR THAT?
+        # GET YOUR HEAD OUT OF YOUR ASS.
+        #
+        # search.json fields:
+        # - `metaData.defaultEngineIdHash`: this is a digest of the defaultEngineId _value_, plus some legalese text;
+        #   compute this either by manually updating the search engine in firefox and seeing what it generates,
+        #   or, see the code for it in <repo:nix-community/home-manager>
+        name = "search.json.mozlz4";
+        src = ./.;
+        nativeBuildInputs = with pkgs; [ mozlz4a ];
+        buildPhase = ''
+          mozlz4a ./search.json search.json.mozlz4
+        '';
+        installPhase = ''
+          install -D search.json.mozlz4 "$out"/search.json.mozlz4
+        '';
+      };
+    in "${drv}/search.json.mozlz4";
 
     # flush the cache to disk to avoid it taking up too much tmp.
-    persist.byPath.".cache/mozilla".store =
-      if (cfg.persistData != null) then
+    persist.byPath = let
+      maybePersist = if (cfg.persistData != null) then
         cfg.persistData
       else
         "ephemeral"
-    ;
-
-    persist.byPath.".mozilla/firefox/default".store =
-      if (cfg.persistData != null) then
-        cfg.persistData
-      else
-        "ephemeral"
-    ;
+      ;
+    in {
+      ".cache/mozilla".store = maybePersist;
+      # storage consumes 80+ MB
+      # the other profile dirs take significantly less; < 20MB total
+      ".mozilla/firefox/default/storage".store = maybePersist;
+      # profile files (.mozilla/firefox/default/...):
+      # - addons.json
+      #   - regenerated on launch
+      # - addonStartup.json.lz4
+      #   - regenerated on next-next launch
+      # - bookmarkbackups/
+      # - bounce-tracking-protection.sqlite
+      #   - recreated on launch
+      # - cert9.db
+      #   - regenerated on launch
+      # - compatibility.ini
+      #   - regenerated on launch
+      # - containers.json
+      #   - regenerated on launch
+      # - content-prefs.sqlite
+      #   - recreated on launch
+      # - cookies.sqlite{,-wal}
+      #   - recreated on launch
+      # - crashes/
+      # - datareporting/
+      # - domain_to_categories.sqlite{,-journal}
+      #   - recreated on launch
+      # - enumerate_devices.txt
+      #   - recreated on launch
+      # - extension-preferences.json
+      #   - NOT recreated, but inconsequential to delete
+      # - extension-settings.json
+      #   - regenerated on launch
+      # - extension-store/
+      # - extension-store-menus/
+      # - extensions/
+      # - extensions.json
+      #   - regenerated on launch
+      # - failover.jsc
+      #   - regenerated on launch
+      # - favicons.sqlite{,-wal}
+      #   - regenerated on launch
+      # - formhistory.sqlite
+      #   - recreated on launch
+      # - handlers.json
+      #   - NOT recreated, but inconsequential to delete
+      # - key4.db
+      #   - recreated on launch
+      # - lock -> ...
+      # - minidumps/
+      # - permissions.sqlite
+      #   - recreated on launch
+      # - pkcs11.txt
+      #   - regenerated on launch
+      # - places.sqlite{,-wal}
+      #   - recreated on launch
+      # - prefs.js
+      #   - recreated on launch
+      # - protections.sqlite
+      #   - recreated on launch
+      # - search.json.mozlz4
+      #   - recreated on launch; loses any customized search engines
+      # - security_state/
+      # - serviceworker.txt
+      #   - NOT recreated, but inconsequential to delete
+      # - sessionCheckpoints.json
+      #   - recreated on launch
+      # - shield-preference-experiments.json
+      #   - NOT recreated, but inconsequential to delete
+      # - storage/
+      # - storage-sync-v2.sqlite
+      #   - recreated on launch
+      # - storage.sqlite
+      # - times.json
+      #   - recreated on launch
+      # - xulstore.json
+      #   - recreated on launch
+    };
   };
 }

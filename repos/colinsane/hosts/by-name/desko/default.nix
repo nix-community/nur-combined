@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./fs.nix
@@ -25,7 +25,6 @@
   sane.roles.work = true;
   sane.services.ollama.enable = true;
   sane.services.wg-home.enable = true;
-  sane.services.wg-home.ip = config.sane.hosts.by-name."desko".wg-home.ip;
   sane.ovpn.addrV4 = "172.26.55.21";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:20c1:a73c";
   sane.services.rsync-net.enable = true;

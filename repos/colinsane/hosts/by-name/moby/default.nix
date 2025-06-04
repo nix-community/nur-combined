@@ -6,7 +6,7 @@
 # - Mobian wiki: <https://wiki.mobian-project.org/doku.php?id=start>
 #   - recommended apps, chatrooms
 
-{ config, ... }:
+{ ... }:
 {
   imports = [
     ./fs.nix
@@ -16,7 +16,6 @@
   sane.roles.client = true;
   sane.roles.handheld = true;
   sane.services.wg-home.enable = true;
-  sane.services.wg-home.ip = config.sane.hosts.by-name."moby".wg-home.ip;
   sane.ovpn.addrV4 = "172.24.87.255";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:18cd:a72b";
 

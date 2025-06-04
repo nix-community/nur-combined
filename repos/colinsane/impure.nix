@@ -92,6 +92,7 @@ let
       # real hosts:
       # { name = "crappy"; system = "armv7l-linux";  }
       { name = "desko";  system = elaborate "x86_64-linux";  }
+      { name = "flowy";  system = elaborate "x86_64-linux";  }
       { name = "lappy";  system = elaborate "x86_64-linux";  }
       { name = "moby";   system = elaborate "aarch64-linux"; }
       { name = "servo";  system = elaborate "x86_64-linux";  }

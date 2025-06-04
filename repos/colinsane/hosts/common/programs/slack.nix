@@ -15,10 +15,15 @@
     # sandbox.whitelistDbus.user = true;
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;  #< for calls, media
+    sandbox.whitelistAvDev = true;  #< for webcam access
     sandbox.whitelistDri = true;
     sandbox.whitelistPortal = [
+      "Camera"  # not sure if used
+      "FileChooser"  #< seems to not actually be used though
       "OpenURI"
+      "ScreenCast"  # not sure if used
     ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     # mime.urlAssociations."^slack://.*$" = "slack.desktop";
     mime.associations."x-scheme-handler/slack" = "slack.desktop";  #< required as part of auth flow

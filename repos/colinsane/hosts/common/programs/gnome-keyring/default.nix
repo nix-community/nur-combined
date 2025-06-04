@@ -19,37 +19,26 @@
       ".local/share/keyrings"
     ];
 
-    fs.".local/share/keyrings/default" = {
-      file.text = "Default_keyring.keyring";  #< no trailing newline
-      # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
-      # wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
-      #   "gnome-keyring.service"  # TODO: sane.programs should declare this dependency for us
-      # ];
-    };
-    # N.B.: certain keyring names have special significance
-    # `login.keyring` is forcibly encrypted to the user's password, so that pam gnome-keyring can unlock it on login.
-    # - it does this re-encryption forcibly, any time it wants to write to the keyring.
-    fs.".local/share/keyrings/Default_keyring.keyring" = {
-      file.text = ''
-        [keyring]
-        display-name=Default keyring
-        lock-on-idle=false
-        lock-after=false
-      '';
-      # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
-      # wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
-      #   "gnome-keyring.service"
-      # ];
-    };
-
     services.gnome-keyring = {
       description = "gnome-keyring-daemon: secret provider";
       partOf = [ "graphical-session" ];
       command = let
+        default_keyring = pkgs.writeText "Default_keyring.keyring" ''
+          [keyring]
+          display-name=Default keyring
+          lock-on-idle=false
+          lock-after=false
+        '';
         gkr-start = pkgs.writeShellScriptBin "gnome-keyring-daemon-start" ''
           set -eu
           # XXX(2024-09-05): this service races with the creation of the keyrings directory, so wait for it to appear
           test -e ~/.local/share/keyrings
+          # N.B.: certain keyring names have special significance
+          # `login.keyring` is forcibly encrypted to the user's password, so that pam gnome-keyring can unlock it on login.
+          # - it does this re-encryption forcibly, any time it wants to write to the keyring.
+          echo -n "Default_keyring" > ~/.local/share/keyrings/default
+          cp ${default_keyring} --update=none ~/.local/share/keyrings/Default_keyring.keyring
+
           mkdir -m 0700 -p $XDG_RUNTIME_DIR/keyring
           exec gnome-keyring-daemon --start --foreground --components=secrets
         '';

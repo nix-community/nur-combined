@@ -107,6 +107,8 @@ defaultPref("network.protocol-handler.external.xdg-open", true); // for firefox-
 defaultPref("network.protocol-handler.external.mpv", true); // for open-in-mpv extension
 defaultPref("network.protocol-handler.external.element", true); // for Element matrix client
 defaultPref("network.protocol-handler.external.matrix", true); // for Nheko matrix client
+defaultPref("network.protocol-handler.external.slack", true); // for official Slack desktop app
+defaultPref("network.protocol-handler.external.zoommtg", true); // for official zoom desktop app
 
 // statically configure bookmarks.
 // notably, these bookmarks have "shortcut url" fields:

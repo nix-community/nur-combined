@@ -189,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${finalAttrs.version}";
     # XXX: hash is unstable because of the git pack dir
-    hash = "sha256-ZgR4//VIIHxoA+vysp3pM1qMkYio6QOXGAF/b+tWrWI=";
+    hash = "sha256-TlkGu39grZRq9WtR8jAI8RSTUuIcbWHUYqGKslwh/XU=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {

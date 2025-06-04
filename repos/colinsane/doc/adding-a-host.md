@@ -1,7 +1,10 @@
 to add a host:
 - create the new nix targets
   - hosts/by-name/HOST
-  - let the toplevel (flake.nix) know about HOST
+  - let the toplevel (impure.nix) know about HOST
+  - let the other hosts know about this host (hosts/common/hosts.nix)
+  - let sops know about the host's pubkey (.sops.yaml)
+    - re-encrypt all sops keys in secrets/common
 - build and flash an image
 - optionally expand the rootfs
   - `cfdisk /dev/sda2` -> resize partition
@@ -22,4 +25,9 @@ to add a host:
   - instructions in hosts/common/secrets.nix
   - run `ssh-to-age` on user/host pubkeys
   - add age key to .sops.yaml
-  - update encrypted secrets: `sops updatekeys path/to/secret.yaml`
+  - update encrypted secrets: `find secrets -type f -exec sops updatekeys -y '{}' ';'`
+- setup wireguard keys
+  - `pk=$(wg genkey)`
+  - `echo "$pk" | sops encrypt --filename-override secrets/$(hostname)/wg-home.priv.bin --output secrets/$(hostname)/wg-home.priv.bin`
+  - `pub=$(echo "$pk" | wg pubkey)`
+  - add pubkey to hosts/common/hosts.nix

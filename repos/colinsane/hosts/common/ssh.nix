@@ -5,7 +5,10 @@ let
     (hostName: hostCfg:
       # generate `root@servo`, `colin@servo`, `root@servo-hn`, `colin@servo-hn`, ... as a single attrset:
       lib.foldl' (acc: alias: acc // {
-        "root@${alias}" = hostCfg.ssh.host_pubkey;
+        "root@${alias}" = lib.mkIf (hostCfg.ssh.host_pubkey != null) hostCfg.ssh.host_pubkey;
+        # XXX: ALL `colin@` keys we propagate here are added as authorized keys, in hosts/common/home/ssh.nix.
+        # so only propagate the ones we want to authorize, here!
+        # (this is a confusing footgun, should be changed)
         "colin@${alias}" = lib.mkIf (hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized) hostCfg.ssh.user_pubkey;
       })
       {}

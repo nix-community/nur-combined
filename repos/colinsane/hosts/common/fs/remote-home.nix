@@ -78,6 +78,7 @@ in
 lib.mkMerge [
   (ifSshAuthorized (remoteHome "crappy" {}))
   (ifSshAuthorized (remoteHome "desko" {}))
+  (ifSshAuthorized (remoteHome "flowy" {}))
   (ifSshAuthorized (remoteHome "lappy" {}))
   (ifSshAuthorized (remoteHome "moby" { host = "moby-hn"; }))
   (ifSshAuthorized (remoteHome "servo" {}))

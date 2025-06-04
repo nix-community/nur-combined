@@ -18,6 +18,14 @@
     lan-ip = "10.78.79.52";
   };
 
+  sane.hosts.by-name."flowy" = {
+    ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAa9U2+aUc5Kr6f2oeILAy2EC86W5OZSprmBb1F+8n7/";
+    ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMNuTITzc07mqYspWw6fqRw40ObxwnmWCwg188apHB/o";
+    wg-home.pubkey = "o6Vh+gHF87wAOOofgKKYIhV91kgDRnLvwnd5W2WHsDE=";
+    wg-home.ip = "10.0.10.56";
+    lan-ip = "10.78.79.56";
+  };
+
   sane.hosts.by-name."lappy" = {
     ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDpmFdNSVPRol5hkbbCivRhyeENzb9HVyf9KutGLP2Zu";
     ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSJnqmVl9/SYQ0btvGb0REwwWY8wkdkGXQZfn/1geEc";

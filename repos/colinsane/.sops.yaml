@@ -1,10 +1,12 @@
 keys:
   - &user_desko_colin age1tnl4jfgacwkargzeqnhzernw29xx8mkv73xh6ufdyde6q7859slsnzf24x
+  - &user_flowy_colin age1nw3z25gn6l8gxneqw43tp8d2354c83d9sn3r0dqy5tapakdwhyvse0j2cc
   - &user_lappy_colin age1j2pqnl8j0krdzk6npe93s4nnqrzwx978qrc0u570gzlamqpnje9sc8le2g
   - &user_servo_colin age1z8fauff34cdecr6sjkre260luzxcca05kpcwvhx988d306tpcejsp63znu
   - &user_moby_colin age1zsrsvd7j6l62fjxpfd2qnhqlk8wk4p8r0dtxpe4sdgnh2474095qdu7xj9
   - &host_crappy age1hl50ufuxnqy0jnk8fqeu4tclh4vte2xn2d59pxff0gun20vsmv5sp78chj
   - &host_desko age1vnw7lnfpdpjn62l3u5nyv5xt2c965k96p98kc43mcnyzpetrts9q54mc9v
+  - &host_flowy age1azm6carlm6tdjup37u5dr40585vjujajev70u4glwd9sv7swa99sk6mswx
   - &host_lappy age1w7mectcjku6x3sd8plm8wkn2qfrhv9n6zhzlf329e2r2uycgke8qkf9dyn
   - &host_servo age1tzlyex2z6t88tg9h82943e39shxhmqeyr7ywhlwpdjmyqsndv3qq27x0rf
   - &host_moby age18vq5ktwgeaysucvw9t67drqmg5zd5c5k3le34yqxckkfj7wqdqgsd4ejmt
@@ -13,11 +15,13 @@ creation_rules:
     key_groups:
     - age:
       - *user_desko_colin
+      - *user_flowy_colin
       - *user_lappy_colin
       - *user_servo_colin
       - *user_moby_colin
       - *host_crappy
       - *host_desko
+      - *host_flowy
       - *host_lappy
       - *host_servo
       - *host_moby
@@ -25,6 +29,7 @@ creation_rules:
     key_groups:
     - age:
       - *user_desko_colin
+      - *user_flowy_colin
       - *user_lappy_colin
       - *user_servo_colin
       - *host_servo
@@ -32,18 +37,28 @@ creation_rules:
     key_groups:
     - age:
       - *user_desko_colin
+      - *user_flowy_colin
       - *user_lappy_colin
       - *host_desko
+  - path_regex: secrets/flowy*
+    key_groups:
+    - age:
+      - *user_lappy_colin
+      - *user_flowy_colin
+      - *user_desko_colin
+      - *host_flowy
   - path_regex: secrets/lappy*
     key_groups:
     - age:
       - *user_lappy_colin
+      - *user_flowy_colin
       - *user_desko_colin
       - *host_lappy
   - path_regex: secrets/moby*
     key_groups:
     - age:
       - *user_desko_colin
+      - *user_flowy_colin
       - *user_lappy_colin
       - *user_moby_colin
       - *host_moby

@@ -1,0 +1,34 @@
+{
+  "version": 12,
+  "engines": [
+    {
+      "id": "search@kagi.comdefault",
+      "_name": "Kagi",
+      "_loadPath": "[addon]search@kagi.com",
+      "_urls": [
+        {
+          "params": [],
+          "rels": [],
+          "template": "https://kagi.com/search?q={searchTerms}"
+        },
+        {
+          "params": [],
+          "rels": [],
+          "template": "https://kagi.com/api/autosuggest?q={searchTerms}",
+          "type": "application/x-suggestions+json"
+        }
+      ],
+      "_orderHint": null,
+      "_telemetryId": null,
+      "_filePath": null,
+      "_definedAliases": [
+        "@kagi"
+      ],
+      "_extensionID": "search@kagi.com"
+    }
+  ],
+  "metaData": {
+    "defaultEngineId": "search@kagi.comdefault",
+    "defaultEngineIdHash": "hrzTeftqb+2F9OI3GYJwG6XAMryJr8Eut/3f90YKv3k="
+  }
+}

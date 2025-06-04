@@ -7,12 +7,12 @@
 }:
 buildDotnetModule rec {
   pname = "UVtools";
-  version = "5.1.1";
+  version = "5.1.2";
   src = fetchFromGitHub {
     owner = "sn4k3";
     repo = "UVtools";
     rev = "v${version}";
-    hash = "sha256-Iu9yaPSr74fI2LoBIVy0WMxu1z9QRNneMTIbfndqkX4=";
+    hash = "sha256-qiY83J7RRwLzeBtIkyw5Ggvk6JJ7hDA0p9A6Je5rf0g=";
   };
 
   nugetDeps = ./deps.json;

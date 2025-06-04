@@ -44,7 +44,7 @@ let
         vpn = if sandbox.net == "vpn" then
           lib.findSingle (v: v.isDefault) null null (builtins.attrValues config.sane.vpn)
         else if sandbox.net == "vpn.wg-home" then
-          config.sane.vpn.wg-home
+          config.sane.vpn.wg-home or null
         else
           null
         ;

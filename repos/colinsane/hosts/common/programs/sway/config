@@ -24,7 +24,9 @@ set $out_projector "MS Telematica TV 0x00000001"
 # TODO: these 0x... numbers change on occassion: i should ignore them.
 set $out_desko_1 "LG Electronics LG ULTRAWIDE 0x000C4694"
 set $out_desko_2 "Samsung Electric Company S22C300 0x5A365335"
-set $out_lappy "BOE 0x0637 Unknown"
+set $out_flowy_int "AU Optronics 0xB9AC Unknown"
+set $out_flowy_ext_1 "ViewSonic Corporation VG3456 WFN212500418"
+set $out_lappy_int "BOE 0x0637 Unknown"
 # DSI-1 a.k.a. "Unknown Unknown Unknown"
 set $out_moby "DSI-1"
 
@@ -162,6 +164,7 @@ for_window [app_id="me.gapixels.Megapixels"] inhibit_idle open
 for_window [app_id="org.gnome.Maps"] inhibit_idle visible
 
 # workspace assignments
+workspace 1 output $out_desko_2 $out_flowy_int
 workspace TV output $out_cuddlevision $out_theater $out_projector
 for_window [workspace="TV"] fullscreen enable
 
@@ -245,7 +248,8 @@ output $out_projector {
   pos 5360,0
   res 1920x1080
 }
-## DESKTOP
+
+## DESKO
 output $out_desko_1 {
   pos 0,0
   res 3440x1440
@@ -255,16 +259,26 @@ output $out_desko_2 {
   res 1920x1080
 }
 
-## LAPTOP
+## FLOWY
+output $out_flowy_ext_1 {
+  pos 0,0
+  res 3440x1440
+}
+output $out_flowy_int {
+  pos 3440,240
+  res 1920x1200
+}
+
+## LAPPY
 # laptop internal display (a.k.a. "eDP-1")
-input "1386:20606:Wacom_Pen_and_multitouch_sensor_Pen" map_to_output $out_lappy
-input "1386:20606:Wacom_Pen_and_multitouch_sensor_Finger" map_to_output $out_lappy
-output $out_lappy {
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Pen" map_to_output $out_lappy_int
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Finger" map_to_output $out_lappy_int
+output $out_lappy_int {
   pos 0,0
   res 1920x1080
 }
 
-## MOBILE
+## MOBY
 # pinephone internal display (a.k.a. "Unknown Unknown Unknown")
 input "1046:4097:Goodix_Capacitive_TouchScreen" map_to_output $out_moby
 # pinephone pro internal display

@@ -45,7 +45,7 @@ let
       passthru.sway-unwrapped = configuredSway;
     };
 
-  wlroots = (pkgs'.wlroots.override {
+  wlroots = (pkgs'.wlroots_0_18.override {
     # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
     # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
     xwayland = config.sane.programs.xwayland.package;

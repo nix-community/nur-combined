@@ -160,6 +160,7 @@ in
       # "memtester"
       "mercurial"  # hg
       "mimeo"  # like xdg-open
+      "mozlz4a"  # for extracting .mozlz4 files (firefox)
       "neovim"  # needed as a user package, for swap persistence
       "nix"  # needed as user package, for ~/.cache/nix persistence
       # "nettools"
@@ -185,7 +186,7 @@ in
       "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
       "speedtest-cli"
-      # "ssh-to-age"
+      "ssh-to-age" # used when provisioning a new nixos host
       "strings"
       "sudo"
       # "tageditor"  # music tagging
@@ -871,6 +872,8 @@ in
       "records/finance/cryptocurrencies/monero"
     ];
 
+    mozlz4a.sandbox.autodetectCliPaths = "existingOrParent";
+
     mslicer.sandbox.method = null;  #< TODO: sandbox
 
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
@@ -1115,6 +1118,8 @@ in
     speedtest-cli.sandbox.net = "all";
 
     sqlite.sandbox.method = null;  #< TODO: sandbox
+
+    ssh-to-age.sandbox.autodetectCliPaths = "existingFile";
 
     # N.B. if you call sshfs-fuse from the CLI -- without `mount.fuse` -- disable sandboxing
     sshfs-fuse.sandbox.net = "all";

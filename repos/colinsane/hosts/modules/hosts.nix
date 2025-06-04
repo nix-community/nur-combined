@@ -18,7 +18,8 @@ let
         '';
       };
       ssh.host_pubkey = mkOption {
-        type = types.str;
+        type = types.nullOr types.str;
+        default = null;
         description = ''
           ssh pubkey which this host will present to connections initiated against it.
           e.g. "ssh-ed25519 AAAA<base64>".

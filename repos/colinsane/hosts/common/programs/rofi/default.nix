@@ -29,15 +29,15 @@ let
       (pkgs.fetchpatch {
         # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
         # N.B.: since 1.7.6, rofi is able to dbus-activate applications as well
-        url = "https://git.uninsane.org/colin/rofi/commit/395eb111e5e39f819e4642b4b33bb293c3cadb9d.patch";
+        url = "https://git.uninsane.org/colin/rofi/commit/81e9d6ca1f7c5367752a81e39d30908a3e8e65cf.patch";
         name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-        hash = "sha256-XH6ytT1nhmQ8YUoBR/CfMhDORsaO/jNYiYF4jpshIX4=";
+        hash = "sha256-g7802EDxt/iOLTslhzKaYpy0bDUeHCo7yacRJnF/1/o=";
       })
       (pkgs.fetchpatch {
         # workaround for <https://github.com/davatorium/rofi/issues/1954>
         # which was only ever fixed for the *recursive* file browser.
         # maintainer doesn't want to `stat` in non-recursive file browser yet; defer patching until filebrowser is made to be async
-        url = "https://git.uninsane.org/colin/rofi/commit/3016e229e199c04e305c51bbee54892c7b4eb778.patch";
+        url = "https://git.uninsane.org/colin/rofi/commit/ede969e9ce4b549ad0b28cfb36f9e5a156114d70.patch";
         name = "filebrowser: include entries of d_type DT_UNKNOWN";
         hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
       })

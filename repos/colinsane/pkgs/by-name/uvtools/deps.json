@@ -66,23 +66,23 @@
   },
   {
     "pname": "Microsoft.CodeAnalysis.Common",
-    "version": "4.13.0",
-    "hash": "sha256-Bu5ev3JM+fyf9USnLM7AJbd5lFmpVfaxm6EQYoYM9Vc="
+    "version": "4.14.0",
+    "hash": "sha256-ne/zxH3GqoGB4OemnE8oJElG5mai+/67ASaKqwmL2BE="
   },
   {
     "pname": "Microsoft.CodeAnalysis.CSharp",
-    "version": "4.13.0",
-    "hash": "sha256-jzO7/2j7rPqu4Xtm4lhh2Ijaiw+aUkiR+yYn+a8mg/M="
+    "version": "4.14.0",
+    "hash": "sha256-5Mzj3XkYYLkwDWh17r1NEXSbXwwWYQPiOmkSMlgo1JY="
   },
   {
     "pname": "Microsoft.CodeAnalysis.CSharp.Scripting",
-    "version": "4.13.0",
-    "hash": "sha256-4eTynAM4ruf2gYDNrEmVk2lqwC0aZPLWEH04C0lwArU="
+    "version": "4.14.0",
+    "hash": "sha256-x4Ny/AYntWwRpWkQ2WJLaqCPTLi8vvWIvHGXVTeT0A0="
   },
   {
     "pname": "Microsoft.CodeAnalysis.Scripting.Common",
-    "version": "4.13.0",
-    "hash": "sha256-0Z25a8Yc7N3Y59Td0ga5H78dUOZV8yoS6PubqcCsktA="
+    "version": "4.14.0",
+    "hash": "sha256-BdZX5QLK6jsL99XfpeYCAtZ2VcXGVQjM6hM1YAf39/Y="
   },
   {
     "pname": "Microsoft.CSharp",
@@ -366,8 +366,8 @@
   },
   {
     "pname": "System.Collections.Immutable",
-    "version": "8.0.0",
-    "hash": "sha256-F7OVjKNwpqbUh8lTidbqJWYi476nsq9n+6k0+QVRo3w="
+    "version": "9.0.0",
+    "hash": "sha256-+6q5VMeoc5bm4WFsoV6nBXA9dV5pa/O4yW+gOdi8yac="
   },
   {
     "pname": "System.CommandLine",
@@ -521,8 +521,8 @@
   },
   {
     "pname": "System.Reflection.Metadata",
-    "version": "8.0.0",
-    "hash": "sha256-dQGC30JauIDWNWXMrSNOJncVa1umR1sijazYwUDdSIE="
+    "version": "9.0.0",
+    "hash": "sha256-avEWbcCh7XgpsSesnR3/SgxWi/6C5OxjR89Jf/SfRjQ="
   },
   {
     "pname": "System.Reflection.Primitives",
@@ -651,8 +651,8 @@
   },
   {
     "pname": "System.Text.Json",
-    "version": "9.0.4",
-    "hash": "sha256-oIOqfOIIUXXVkfFiTCI9wwIJBETQqF7ZcOJv2iYuq1s="
+    "version": "9.0.5",
+    "hash": "sha256-M5G8EtmsV13O3qNMsAdk4isdKJ/SHfrbRzMhdVsoG2c="
   },
   {
     "pname": "System.Text.RegularExpressions",
@@ -696,7 +696,7 @@
   },
   {
     "pname": "ZLinq",
-    "version": "1.4.2",
-    "hash": "sha256-aLlfISqxKkqqHniD1FzYWTWTb/uAnUGexdm/rtd4SA0="
+    "version": "1.4.6",
+    "hash": "sha256-RJUdcCwX6elhP6VYvySAyRB2Ar6TH3HnqMWjB8TaMl8="
   }
 ]

@@ -1,6 +1,6 @@
 { stdenv, syslinux }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "bootpart-uefi-x86_64";
   version = "1";
 
@@ -22,16 +22,21 @@ stdenv.mkDerivation rec {
     cp "${syslinux}/share/syslinux/efi64/menu.c32" "$out/syslinux/menu.c32"
     echo "UI menu.c32" > "$out/syslinux/syslinux.cfg"
     echo "INCLUDE ../extlinux/extlinux.conf" >> "$out/syslinux/syslinux.cfg"
-    
+
     # create the EFI/BOOT/BOOTX64.EFI default entry
     cp "$out/EFI/syslinux"/* "$out/EFI/BOOT"
     mv "$out/EFI/BOOT/syslinux.efi" "$out/EFI/BOOT/BOOTX64.EFI"
   '';
 
-
   meta = {
     description = "unmanaged files to place in /boot on a x86-64 extlinux system";
+    longDescription = ''
+      provides:
+      - EFI/BOOT/BOOTX64.EFI: the UEFI-spec default entry, when the BIOS doesn't know about any other entries.
+      - EFI/syslinux/syslinux.efi: an EFI entry point one can configure the BIOS to boot,
+        in case there are multiple EFI entries.
+        use `efibootmgr` CLI tool to register this with the BIOS.
+    '';
     platforms = [ "x86_64-linux" ];
   };
 }
-

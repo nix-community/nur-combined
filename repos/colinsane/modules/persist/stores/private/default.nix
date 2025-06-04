@@ -13,7 +13,7 @@ let
     "nofail"
     # "noexec"  # handful of scripts in ~/knowledge that are executable
     "nodev"   # only works via mount.fuse; gocryptfs requires this be passed as `-ko nodev`
-    "nosuid"  # only works via mount.fuse; gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
+    # "nosuid"  # only works via mount.fuse; gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
     "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
     # "quiet"
     # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"

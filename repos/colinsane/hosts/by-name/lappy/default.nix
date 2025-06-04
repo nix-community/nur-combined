@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./fs.nix
@@ -7,7 +7,6 @@
   sane.roles.client = true;
   sane.roles.pc = true;
   sane.services.wg-home.enable = true;
-  sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
   sane.ovpn.addrV4 = "172.23.119.72";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:0332:aa96/128";
 

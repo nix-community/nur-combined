@@ -45,7 +45,7 @@ in
         enable = lib.mkDefault false;  #< obsoleted by uBlock Origin annoyances/cookies lists
       };
       kagi-search = {
-        enable = lib.mkDefault false;
+        enable = lib.mkDefault true;
       };
       # open-in-mpv = {
       #   # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`

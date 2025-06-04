@@ -52,7 +52,7 @@ in
   (fetchpatch' {
     name = "xarchiver: build with strictDeps=true";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/406599";
-    hash = "sha256-xaI6YEGuxZaYtaTbfeTK9cr2ELhWnrO+Azic5aG6XbE=";
+    hash = "sha256-CdNriljvuHFDCRiTu5P5BjCsyPT4gc1KzMYpisEhGcU=";
   })
 
   (fetchpatch' {

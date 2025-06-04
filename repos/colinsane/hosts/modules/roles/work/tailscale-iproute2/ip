@@ -1,0 +1,68 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i ysh -p iproute2 -p oils-for-unix -p systemdMinimal
+
+# this script intercepts tailscale's calls into the `ip` tool.
+# example invocations:
+# ip rule
+# ip addr add 100.12.34.56/32 dev tailscale0
+# ip -4 rule add pref 5210 fwmark 0x80000/0xff0000 table main
+# ip -4 rule add pref 5270 table 52
+# ip link set dev tailscale0 up
+# ip route add 100.23.145.167/32 dev tailscale0 table 52
+# ip route add 10.100.0.0/16 dev tailscale0 table 52
+#
+# ip -4 rule del pref 5250 type unreachable
+# ip -4 rule del pref 5210 table main
+
+
+proc log(...args) {
+  echo "[tailscale-iproute2]" @args | systemd-cat --identifier=tailscaled
+  echo "[tailscale-iproute2]" @args >&2
+}
+
+log ip @ARGV
+
+func isPermitted(...args) {
+  for a in (args) {
+    case (a) {
+      route | rule {
+        # DON'T allow these operations:
+        # - modify `route`s
+        # - add `rule`s to perform lookups in other tables, sometimes matched by fwmark
+        #   - these should be safe, but since the tables themselves stay empty, it's just useless spam
+        #     and makes debugging trickier
+        #   - note that tailscale uses empty `ip rule` invocation to test for support;
+        #     doesn't parse the output, just the exit code.
+        return (false)
+      }
+      addr | link {
+        # DO allow these operations:
+        # - `add` addresses to the device
+        # - bring up/down tailscale0 `link` device
+        return (true)
+      }
+    }
+  }
+
+  log "UNRECOGNIZED IP COMMAND" @args
+  return (false)
+}
+
+if (not isPermitted(...ARGV)) {
+  log "command not permitted; exiting 0:" @ARGV
+  exit 0
+}
+
+var me = $(realpath "$_this_dir/ip")
+for p in (ENV.PATH => split(":")) {
+  if test -x "$p/ip" {
+    var them = $(realpath "$p/ip")
+    if (me !== them) {
+      log "forwarding request:" "$them" @ARGV
+      exec "$them" @ARGV
+    }
+  }
+}
+
+log "NO IPROUTE2 FOUND"
+exit 1

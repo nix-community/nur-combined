@@ -2,7 +2,7 @@
 # for wireguard docs, see:
 # - <https://nixos.wiki/wiki/WireGuard>
 # - <https://wiki.archlinux.org/title/WireGuard>
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.sane.services.wg-home;
@@ -33,6 +33,7 @@ in
     };
     sane.services.wg-home.ip = mkOption {
       type = types.str;
+      default = config.sane.hosts.by-name."${config.networking.hostName}".wg-home.ip;
     };
   };
 

@@ -14,9 +14,9 @@
 #   since we specify ssh pubkeys in the nix config, you can just grep for `ssh-ed25519` here and use those instead
 #
 # for each host you want to decrypt secrets:
-#   $ cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
+#   $ cat /etc/ssh/ssh_host_keys/ssh_host_ed25519_key.pub | ssh-to-age
 #   add the result to .sops.yaml
-#   $ sops updatekeys secrets/example.yaml
+#   $ find secrets -type f -exec sops updatekeys -y '{}' ';'
 #
 # to create a new secret:
 #   $ sops secrets/example.yaml

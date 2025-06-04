@@ -49,12 +49,17 @@ sync_music() {
   local host=$1
   shift
   local deskoHome=$(homeMountFor desko)
+  local flowyHome=$(homeMountFor flowy)
   local lappyHome=$(homeMountFor lappy)
   local mobyHome=$(homeMountFor moby)
   case $host in
     (desko)
       ifExists /mnt/servo/media/Music/Various.Artists \
         sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "$@"
+      ;;
+    (flowy)
+      ifExists /mnt/servo/media/Music/Various.Artists \
+        sane-sync-music --compat /mnt/servo/media/Music "$flowyHome/Music" "${syncFlags[@]}"
       ;;
     (lappy)
       ifExists /mnt/servo/media/Music/Various.Artists \
@@ -73,6 +78,7 @@ sync_books() {
   local host="$1"
   local deskoHome=$(homeMountFor desko)
   local lappyHome=$(homeMountFor lappy)
+  local flowyHome=$(homeMountFor flowy)
   local mobyHome=$(homeMountFor moby)
   case $host in
     (moby)
@@ -93,6 +99,7 @@ sync_photos() {
   local host=$1
   local deskoHome=$(homeMountFor desko)
   local lappyHome=$(homeMountFor lappy)
+  local flowyHome=$(homeMountFor flowy)
   local mobyHome=$(homeMountFor moby)
   case $host in
     (desko)
@@ -114,12 +121,12 @@ parseArgs() {
   while [[ $# -ge 1 ]]; do
     local arg=$1
     case $arg in
-      (desko|lappy|moby)
+      (desko|flowy|lappy|moby)
         hosts+=("$arg")
         shift
         ;;
       (all)
-        hosts+=(desko lappy moby)
+        hosts+=(desko flowy lappy moby)
         shift
         ;;
       (pkm|music|books|photos)
@@ -148,7 +155,7 @@ parseArgs() {
   passthruArgs+=("$@")
 
   if [[ ${#hosts[@]} -eq 0 ]]; then
-    hosts+=(desko lappy moby)
+    hosts+=(desko flowy lappy moby)
   fi
 
   if [[ ${#targets[@]} -eq 0 ]]; then

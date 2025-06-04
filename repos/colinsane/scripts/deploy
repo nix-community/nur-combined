@@ -148,7 +148,7 @@ func _parseArgs(p,cur=null, next=null, ...rest) {
         setvar p.wireguard = next
         return (_parseArgs (p, ...rest))
       }
-      all | crappy | desko | lappy | moby | servo {
+      all | crappy | desko | flowy | lappy | moby | servo {
         call p.hosts->append(cur)
         return (_parseArgs (p, next, ...rest))
       }

@@ -12,9 +12,7 @@ let
     "stderr_path=/var/log/curlftpfs/servo-hn.stderr"
   ];
 
-  remoteServo = subdir: let
-    systemdBindName = utils.escapeSystemdPath "/mnt/servo/${subdir}";
-  in {
+  remoteServo = subdir: {
     # sane.fs."/mnt/servo/${subdir}".mount.bind = "/mnt/.servo_ftp/${subdir}";
     systemd.mounts = [{
       where = "/mnt/servo/${subdir}";
