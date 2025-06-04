@@ -199,7 +199,29 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Name: `libtgd`
 - Version: `5.0`
 - [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L65)
+- [📦 Source](./default.nix#L67)
+- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
+
+## `libtgdFullWithoutTool` {#libtgdFullWithoutTool}
+
+A library to make working with multidimensional arrays in C++ easy (with all features enabled).
+
+- Name: `libtgd`
+- Version: `5.0`
+- [🌐 Homepage](https://marlam.de/tgd/)
+- [📦 Source](./default.nix#L97)
+- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
+
+## `libtgdWithoutTool` {#libtgdWithoutTool}
+
+A library to make working with multidimensional arrays in C++ easy.
+
+- Name: `libtgd`
+- Version: `5.0`
+- [🌐 Homepage](https://marlam.de/tgd/)
+- [📦 Source](./pkgs/by-name/libtgd/package.nix#L101)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -368,7 +390,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L113)
+- [📦 Source](./default.nix#L145)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -379,7 +401,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L126)
+- [📦 Source](./default.nix#L158)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -390,7 +412,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Name: `teem`
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L95)
+- [📦 Source](./default.nix#L127)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
