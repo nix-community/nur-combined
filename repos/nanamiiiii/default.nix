@@ -9,4 +9,5 @@
   sddm-astronaut = pkgs.callPackage ./pkgs/sddm-astronaut { };
   clock-tui = pkgs.callPackage ./pkgs/clock-tui { };
   xpipe = pkgs.callPackage ./pkgs/xpipe { };
+  wl-x11-clipsync = pkgs.callPackage ./pkgs/wl-x11-clipsync { };
 }
