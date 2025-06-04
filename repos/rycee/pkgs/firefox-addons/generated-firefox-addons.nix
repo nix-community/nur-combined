@@ -6368,10 +6368,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.1.1";
+      version = "17.1.2";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477554/keeper_password_manager-17.1.1.xpi";
-      sha256 = "ff6fa9d4d8d633df4263b600eabd9e3ef5028c0cf9b075fca673d10cca1ae917";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4499684/keeper_password_manager-17.1.2.xpi";
+      sha256 = "0bec333d483d07032c5d508711d2b492a1fe15e9de2ea3445d41ebacd329f2dd";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -9311,7 +9311,7 @@
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
-        description = "Automatically learns to block invisible trackers.";
+        description = "Automatically learns to block hidden trackers. Made by the leading digital rights nonprofit EFF to stop companies from spying on you.";
         license = licenses.gpl3;
         mozPermissions = [
           "<all_urls>"
@@ -10713,10 +10713,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.2.1";
+      version = "8.2.3";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492596/search_by_image-8.2.1.xpi";
-      sha256 = "b85dec6d91e5ae9d6e7bd86156956f4443d57b3d217878cdcfe6fe3926017736";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4501793/search_by_image-8.2.3.xpi";
+      sha256 = "226277b7081dc3b867804d3208136a8e8d488e62203943dc1eb6a6a86b213013";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -14191,10 +14191,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.5.12.0";
+      version = "25.5.26.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4497262/yomitan-25.5.12.0.xpi";
-      sha256 = "c590248de5a257944f704ec62ca9c939893c4856cd05131a0a6d1ae6d08d6ed9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505937/yomitan-25.5.26.0.xpi";
+      sha256 = "0c5f0303c62bfe5b9b124dbd454410910ff6361c453f1c7241974dccee50611b";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
