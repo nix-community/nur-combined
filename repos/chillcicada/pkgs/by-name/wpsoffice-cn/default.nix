@@ -31,7 +31,7 @@ let
   securityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "wpsoffice";
+  pname = "wpsoffice-cn";
   version = pkgVersion;
 
   src =
