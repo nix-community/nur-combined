@@ -12,7 +12,7 @@
   libtiff,
   udev,
   gtk3,
-  qtbase,
+  libsForQt5,
   xorg,
   cups,
   pango,
@@ -78,8 +78,8 @@ stdenv.mkDerivation (finalAttrs: {
     libtiff
     udev
     gtk3
-    qtbase
     libusb1
+    libsForQt5.qtbase
     xorg.libXdamage
     xorg.libXtst
     xorg.libXv
