@@ -105,15 +105,15 @@
   };
   cyCodeBase = {
     pname = "cyCodeBase";
-    version = "ede026f5c1976faa90709690a4290161ed05c19b";
+    version = "6d3a2c9958d71794016119826d39206903e00d26";
     src = fetchFromGitHub {
       owner = "cemyuksel";
       repo = "cyCodeBase";
-      rev = "ede026f5c1976faa90709690a4290161ed05c19b";
+      rev = "6d3a2c9958d71794016119826d39206903e00d26";
       fetchSubmodules = false;
-      sha256 = "sha256-1wBpadgCNbcrp4kRn4XLjbthtxuzMuOMNC/hbREHbiE=";
+      sha256 = "sha256-+lrqIVr16I/+FJraJ8Js/TuPMYaHKb3e6+IUG2CNzas=";
     };
-    date = "2023-07-26";
+    date = "2024-05-26";
   };
   e3nn-jax = {
     pname = "e3nn-jax";
