@@ -1,7 +1,9 @@
 {
+  pkgs,
   lib,
-  rustPlatform,
   fetchFromGitHub,
+  pkgsCross,
+  makeRustPlatform,
   pkg-config,
   makeWrapper,
   gtk3,
@@ -12,6 +14,28 @@
   wayland,
 }:
 
+let
+  rust-overlay = import ./rust-overlay (
+    pkgs
+    // {
+      inherit (rust-overlay) rust-bin;
+    }
+  ) { };
+
+  rustToolchain = rust-overlay.rust-bin.selectLatestNightlyWith (
+    toolchain:
+    toolchain.minimal.override {
+      targets = [ "x86_64-pc-windows-gnu" ];
+    }
+  );
+  rustPlatform = makeRustPlatform {
+    cargo = rustToolchain;
+    rustc = rustToolchain;
+  };
+
+  mingwPkgs = pkgsCross.mingwW64;
+  mingwCompiler = mingwPkgs.buildPackages.gcc;
+in
 rustPlatform.buildRustPackage rec {
   pname = "mint-mod-manager";
   version = "0.2.10-unstable-2025-05-04";
@@ -28,25 +52,20 @@ rustPlatform.buildRustPackage rec {
     '';
   };
 
-  patches = [
-    # https://github.com/rust-lang/rust/issues/51114
-    ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
-    # TODO: remove in rust 1.88.0: https://github.com/rust-lang/rust/pull/132833
-    ./0002-Drop-usage-of-unstable-let_chains-feature.patch
-  ];
-
-  preConfigure = ''
-    export BUILT_OVERRIDE_mint_lib_GIT_VERSION=$(cat GIT_VERSION)
-    echo "Using mint_lib GIT_VERSION: $BUILT_OVERRIDE_mint_lib_GIT_VERSION"
-  '';
-
   useFetchCargoVendor = true;
   cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
 
-  buildNoDefaultFeatures = true;
-  buildFeatures = [ "oodle_platform_dependent" ]; # remove "hook" which is used for windows
+  # Necessary for cross compiled build scripts, otherwise it will build as ELF format
+  # https://docs.rs/cc/latest/cc/#external-configuration-via-environment-variables
+  CC_x86_64_pc_windows_gnu = "${mingwCompiler}/bin/${mingwCompiler.targetPrefix}cc";
+
+  preConfigure = ''
+    export CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-L ${mingwPkgs.windows.pthreads}/lib";
+    export BUILT_OVERRIDE_mint_lib_GIT_VERSION=unstable
+  '';
 
   nativeBuildInputs = [
+    mingwCompiler
     pkg-config
     makeWrapper
   ];
