@@ -874,6 +874,13 @@
     "pname": "kagi-search"
   },
   {
+    "slug": "karakeep",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Only"
+    }
+  },
+  {
     "slug": "keepa",
     "license": {
       "tag": "custom",
