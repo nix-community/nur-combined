@@ -41,7 +41,6 @@ lib.makeScope newScope (
     pinentry-touchid = callPackage ./darwin/pinentry-touchid { };
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
-    qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sequel-ace = callPackage ./darwin/sequel-ace { };
     zed = callPackage ./darwin/zed { };
 
@@ -377,6 +376,7 @@ lib.makeScope newScope (
     modbus-tools = callPackage ./misc/modbus-tools { };
     modbus_sim_cli = callPackage ./misc/modbus_sim_cli { python3Packages = pkgs.python310Packages; };
     morse-talk = callPackage ./misc/morse-talk { python3Packages = pkgs.python311Packages; };
+    msg-cli = callPackage ./misc/msg-cli { };
     musig = callPackage ./misc/musig { };
     mysql-to-sqlite3 = callPackage ./misc/mysql-to-sqlite3 { };
     nanodns = callPackage ./misc/nanodns { };
