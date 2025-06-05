@@ -17,7 +17,6 @@
   domain = config.networking.domain;
   hostname = config.networking.hostName;
   fqdn = "${hostname}.${domain}";
-  pkg = pkgs.unstable.mealie;
   listenAddress = "127.0.0.1";
 in {
   options.my.services.mealie = let
@@ -48,7 +47,7 @@ in {
       inherit (cfg) credentialsFile;
 
       enable = true;
-      package = pkgs.unstable.mealie;
+      package = pkgs.mealie;
       port = cfg.port;
 
       settings = {

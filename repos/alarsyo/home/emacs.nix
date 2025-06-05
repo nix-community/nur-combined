@@ -30,7 +30,7 @@ in {
         ;
 
       inherit
-        (pkgs.unstable.nerd-fonts)
+        (pkgs.nerd-fonts)
         iosevka
         ;
     };
