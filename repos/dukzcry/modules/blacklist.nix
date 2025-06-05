@@ -50,7 +50,7 @@ in {
         ipv6 = cfg.resolver.ipv6;
       };
       services.nginx.virtualHosts = {
-        vpn = {
+        blacklist = {
           default = true;
           listen = [
             { addr = cfg.address; port = 80; }
