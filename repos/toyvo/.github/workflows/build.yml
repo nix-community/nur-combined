@@ -29,6 +29,8 @@ jobs:
             automated
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs.lib.version'
+      - name: Check evaluation
+        run: nix flake show
       - name: Build nix packages
         run: nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1 --no-nom --cachix-cache toyvo --option accept-flake-config true
         env:
@@ -38,7 +40,8 @@ jobs:
         run: "gh pr merge --auto --squash ${{ steps.update-flake-lock.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ github.token }}
-  Legacy:
+  tests:
+    needs: Build
     strategy:
       matrix:
         runner:
@@ -63,6 +66,14 @@ jobs:
         with:
           name: toyvo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Check evaluation
+        run: |
+          NIX_PATH="${{ matrix.nixPath }}" nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs) \
+            -I $PWD
       - name: Build nix packages
         run: NIX_PATH="${{ matrix.nixPath }}" nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update

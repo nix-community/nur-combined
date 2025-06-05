@@ -55,29 +55,11 @@
               mdformat.enable = true;
             };
           };
-          legacyPackages = self'.packages;
-          packages = import ./. {
-            inherit pkgs;
-          };
-          checks =
-            let
-              isCacheable =
-                p:
-                let
-                  licenseFromMeta = p.meta.license or [ ];
-                  licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
-                in
-                builtins.any (s: s == system) (p.meta.platforms or [ system ])
-                && !(p.meta.broken or false)
-                && !(p.preferLocalBuild or false)
-                && builtins.all (license: license.free or true) licenseList;
-            in
-            lib.mapAttrs' (n: lib.nameValuePair "package-${n}") (
-              lib.filterAttrs (n: v: isCacheable v) self'.packages
-            )
-            // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
-              lib.filterAttrs (n: v: isCacheable v) self'.devShells
-            );
+          legacyPackages = import ./default.nix { inherit pkgs; };
+          packages = lib.filterAttrs (
+            n: p: !(self'.legacyPackages.lib.isReserved n) && (self'.legacyPackages.lib.forPlatform p)
+          ) self'.legacyPackages;
+          checks = self'.legacyPackages.lib.derivationOutputs self'.packages;
         };
     };
 }

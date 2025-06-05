@@ -183,5 +183,6 @@ python.pkgs.buildPythonApplication {
     description = "FlareSolverr drop-in replacement with FastAPI and nodriver";
     homepage = "https://github.com/ThePhaseless/Byparr";
     license = lib.licenses.gpl3;
+    platforms = lib.platforms.linux;
   };
 }
