@@ -50,6 +50,7 @@
               programs = {
                 actionlint.enable = true;
                 deadnix.enable = true;
+                mdformat.enable = true;
                 nixfmt.enable = true;
                 statix.enable = true;
               };
@@ -62,6 +63,7 @@
               commitizen.enable = true;
               eclint.enable = true;
               editorconfig-checker.enable = true;
+              markdownlint.enable = true;
               treefmt.enable = true;
             };
 

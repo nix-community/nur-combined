@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "An assistant tool for SJTU Canvas online course platform";
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
-    license = lib.licenses.unlicense;
+    license = lib.licenses.mit;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [ definfo ];
   };
