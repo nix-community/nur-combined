@@ -63,10 +63,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.5.0";
+    version = "3.5.1";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.5.0/qutebrowser-3.5.0-arm64.dmg";
-      sha256 = "sha256-ib7eF7smzQ5yzU8tilW0IQkTPIrTWKNY6L0YFkifBc0=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.5.1/qutebrowser-3.5.1-arm64.dmg";
+      sha256 = "sha256-sUB4ECoMn6jSFJD4+QLY7khrn7PgOMUrUPQvca88Gxo=";
     };
   };
   sbarlua = {
