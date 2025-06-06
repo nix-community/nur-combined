@@ -230,13 +230,12 @@ in {
     }) picolisp');
     
     picolisp-rolling = let
-        inherit (pkgs) lib fetchFromGitea;
+        inherit (pkgs) lib fetchFromGitHub;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
             version = "25.5.30";
-            src = fetchFromGitea {
-                domain = "git.envs.net";
-                owner = "mpech";
+            src = fetchFromGitHub {
+                owner = "tankf33der";
                 repo = "pil21";
                 rev = "7e35947bb3fd52de8c0ff4bf5436312de9bc6733";
                 hash = "sha256-4HhgYj4rV/Cp6rxU71WJGcBD7FzdJ16zwVUf5Uggy1U=";
@@ -253,6 +252,9 @@ in {
                         nix-prefetch-git
                     ])}
                     set -euo pipefail
+                    ghcurl() {
+                        curl -H 'X-GitHub-Api-Version: 2022-11-28' ''${GITHUB_TOKEN:+ -H "Authorization: bearer $GITHUB_TOKEN"} "$@"
+                    }
                     jqOrDump() {
                         local data
                         IFS= read -d ''' data
@@ -266,7 +268,7 @@ in {
                         set -e
                         return "$exitStatus"
                     }
-                    eval "$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/branches/master" | jqOrDump -r '
+                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/branches/master" | jqOrDump -r '
                         (.commit.id) as $latestRev |
                         (.commit.timestamp | scan("^[^T]+")) as $latestDate |
                         @sh "
@@ -276,7 +278,7 @@ in {
                     ')"
                     echo "latestRev=$latestRev" >&2
                     echo "latestDate=$latestDate" >&2
-                    eval "$(curl "https://git.envs.net/api/v1/repos/mpech/pil21/contents/src/vers.l?ref=$latestRev" | jqOrDump -r '
+                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/contents/src/vers.l?ref=$latestRev" | jqOrDump -r '
                         (.last_commit_sha) as $versRev |
                         (.content | @base64d | scan("\\(pico~de \\*Version (\\d+) (\\d+) (\\d+)\\)") | join(".")) as $versVer |
                         @sh "
