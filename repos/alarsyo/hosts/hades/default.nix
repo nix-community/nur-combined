@@ -143,7 +143,7 @@ in {
     };
 
     transmission = {
-      enable = false;
+      enable = true;
       username = "alarsyo";
     };
 
