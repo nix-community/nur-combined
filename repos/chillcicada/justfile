@@ -21,3 +21,7 @@ alias p := push
 # format nix files
 fmt:
   nixfmt .
+
+# clean
+clean:
+  rm -rf result
