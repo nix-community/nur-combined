@@ -14,7 +14,7 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "shy1132";
     repo = "vacuumtube";
-    tag = "v${version}";
+    rev = "v${version}";
     hash = "sha256-KmCrod5ud03EDut9RJpeKP3dIzKmR2FqGfzMFFSADRE=";
   };
 
