@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [
       pytestCheckHook
-  ];
+  ] ++ optional-dependencies.full;
 
   optional-dependencies = with python3.pkgs; {
     full = [
