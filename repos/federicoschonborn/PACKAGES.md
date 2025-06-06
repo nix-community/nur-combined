@@ -146,6 +146,17 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - 📄 License: [`Eclipse Public License 1.0`](https://spdx.org/licenses/EPL-1.0.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
+## `highscore` {#highscore}
+
+Retro gaming application for the GNOME desktop.
+
+- Name: `highscore`
+- Version: `0-unstable-2025-06-06`
+- [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
+- [📦 Source](./pkgs/by-name/highscore/package.nix#L96)
+- 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
+
 ## `karton` {#karton}
 
 KDE Virtual Machine Manager.
@@ -180,6 +191,30 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - [📦 Source](./pkgs/by-name/kuroko/package.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
+
+## `libhighscore` {#libhighscore}
+
+Interface for porting emulators to
+Highscore.
+
+- Name: `libhighscore`
+- Version: `0-unstable-2025-05-11`
+- [🌐 Homepage](https://gitlab.gnome.org/alicem/libhighscore)
+- [📦 Source](./pkgs/by-name/libhighscore/package.nix#L48)
+- 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
+
+## `libmanette-1` {#libmanette-1}
+
+.
+
+- Name: `libmanette-1`
+- Version: `0.2.12-unstable-2025-04-19`
+- [🌐 Homepage](https://gitlab.gnome.org/GNOME/libmanette)
+- [📰 Changelog](https://gitlab.gnome.org/GNOME/libmanette/-/blob/da8ec205321d30dd9968a0e49fb007a74ce2a453/NEWS)
+- [📦 Source](./pkgs/by-name/libmanette-1/package.nix#L54)
+- 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
+- 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `libtgd` {#libtgd}
 
