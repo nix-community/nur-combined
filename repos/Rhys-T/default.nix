@@ -263,14 +263,14 @@ in {
                         local exitStatus="$?"
                         if [[ "$exitStatus" -ne 0 ]]; then
                             echo 'Output from server:' >&2
-                            echo -E "$branchInfo" >&2
+                            echo -E "$data" >&2
                         fi
                         set -e
                         return "$exitStatus"
                     }
                     eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/branches/master" | jqOrDump -r '
-                        (.commit.id) as $latestRev |
-                        (.commit.timestamp | scan("^[^T]+")) as $latestDate |
+                        (.commit.sha) as $latestRev |
+                        (.commit.commit.author.date | scan("^[^T]+")) as $latestDate |
                         @sh "
                             latestRev=\($latestRev)
                             latestDate=\($latestDate)
@@ -278,16 +278,19 @@ in {
                     ')"
                     echo "latestRev=$latestRev" >&2
                     echo "latestDate=$latestDate" >&2
-                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/contents/src/vers.l?ref=$latestRev" | jqOrDump -r '
-                        (.last_commit_sha) as $versRev |
-                        (.content | @base64d | scan("\\(pico~de \\*Version (\\d+) (\\d+) (\\d+)\\)") | join(".")) as $versVer |
+                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/commits?path=src/vers.l&per_page=1" | jqOrDump -r '
+                        (.[0].sha) as $versRev |
                         @sh "
                             versRev=\($versRev)
-                            versVer=\($versVer)
                         "
                     ')"
                     echo "versRev=$versRev" >&2
-                    echo "versVer=$versVer" >&2
+                    eval "$(ghcurl "https://raw.githubusercontent.com/tankf33der/pil21/$latestRev/src/vers.l" | jqOrDump -Rsr '
+                        (scan("\\(pico~de \\*Version (\\d+) (\\d+) (\\d+)\\)") | join(".")) as $versVer |
+                        @sh "
+                            versVer=\($versVer)
+                        "
+                    ')"
                     latestVer="$versVer"
                     if [[ "$latestRev" != "$versRev" ]]; then
                         latestVer+="-unstable-$latestDate"

@@ -227,7 +227,7 @@ jobs:
         set -x
         ls -al /tmp/buildFailures || true
         mkdir -p /tmp/tempFlake/conf
-        tempFlake="$(realpath /tmp/tempFlake)"
+        export tempFlake="$(realpath /tmp/tempFlake)"
         echo -En '${{ matrix.subset }}' > "$tempFlake/conf/ciSubsetName"
         cat <<EOF >"$tempFlake/flake.nix"
         {
@@ -257,8 +257,10 @@ jobs:
         # cat "$tempFlake/flake.nix"
         nix flake lock "$tempFlake"
         set -o pipefail
-        nix run github:Mic92/nix-fast-build -- -f "$tempFlake#cacheOutputs" --skip-cached --no-nom 2>&1 | \
-          tee >(nix run 'nixpkgs#ansifilter' > /tmp/build-uncached.log)
+        nix shell github:Mic92/nix-fast-build 'nixpkgs#ansifilter' -c bash -c '
+          nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom 2>&1 | \
+            tee >(ansifilter > /tmp/build-uncached.log)
+        '
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
@@ -273,7 +275,7 @@ jobs:
     - name: Find build failures for subset
       if: ${{ !cancelled() && steps.build.outcome == 'failure' }}
       run: |
-        mv /tmp/buildFailures{,-old}
+        mv /tmp/buildFailures{,-old} || true
         mkdir /tmp/buildFailures
         job_id=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs --jq '.jobs[] | select(.name == "${{ matrix.displayRunner }} ${{ matrix.displayNixpkgs }} ${{ matrix.subset }}") | .id')
         grep -E 'error:.*/nix/store/[^/]*\.drv' /tmp/build-uncached.log | grep -Eo '/nix/store/[^/]*\.drv' | \
