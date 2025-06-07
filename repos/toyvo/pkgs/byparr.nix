@@ -31,11 +31,30 @@ let
             cssselect
             mycdp
             websockets
+            sbvirtualdisplay
           ];
           meta = {
             description = "Python APIs for web automation, testing, and bypassing bot-detection.";
             homepage = "https://seleniumbase.io";
             license = lib.licenses.mit;
+          };
+        };
+        sbvirtualdisplay = pyfinal.buildPythonPackage rec {
+          pname = "sbvirtualdisplay";
+          version = "1.4.0";
+          pyproject = true;
+          src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-KaNltQnNe/3k91hgO3t1cDkJsRzfQkWryPgo7TVmDZs=";
+          };
+          build-system = with pyfinal; [
+            setuptools
+            wheel
+          ];
+          meta = {
+            description = "A customized pyvirtualdisplay for use with SeleniumBase automation.";
+            homepage = "https://github.com/mdmintz/sbVirtualDisplay";
+            license = lib.licenses.bsd2;
           };
         };
         mycdp = pyfinal.buildPythonPackage rec {
