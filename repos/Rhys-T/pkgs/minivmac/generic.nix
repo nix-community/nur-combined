@@ -7,9 +7,11 @@ let
         version,
         src,
         applyMacDataPathPatch ? false,
+        targetCode ? null,
         buildPackages,
         callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, xorg, alsa-lib, maintainers, ...
     }@args:
+        let targetCode' = targetCode; in
         let
             options = callPackage ./options.nix { };
             isAtLeast37 = lib.versionAtLeast version "37a";
@@ -19,17 +21,17 @@ let
                 x86_64-linux = "lx64";
                 i686-linux = "lx86";
                 x86_64-darwin = "mc64";
-            } // lib.optionalAttrs isAtLeast37 {
-                aarch64-linux = "larm -cpu a64";
-                aarch64-darwin = "mcar";
+            # } // lib.optionalAttrs isAtLeast37 {
+                aarch64-linux = "larm" + lib.optionalString isAtLeast37 " -cpu a64";
+                aarch64-darwin = if isAtLeast37 then "mcar" else "mc64 -cpu arm";
             };
             argsPlusDefaults = options.defaultOptions // args;
-            # Until 37.x, these two options need to be patched into setup/CNFGDLFT.i instead
+            # Until 37.x, these two options need to be set using setup/CONFIGUR.i instead
             argsForOptions = removeAttrs argsPlusDefaults (lib.optionals (!isAtLeast37) ["maintainer" "homepage"]);
             
             inherit (argsPlusDefaults) maintainer homepage;
             minivmacOptions = options.buildOptionsFrom argsForOptions;
-            targetCode = minivmacOptions.targetCode or targetCodes.${hostPlatform.system} or (throw ''
+            targetCode = if targetCode' != null then targetCode' else targetCodes.${hostPlatform.system} or (throw ''
                 Platform ${hostPlatform.system} is not currently supported by this derivation.
                 If this platform is listed on one of:
                 - https://www.gryphel.com/c/minivmac/options.html#option_t
@@ -44,11 +46,12 @@ let
             # patches = lib.optionals applyMacDataPathPatch [ ./mac-data-path-from-env.patch ];
             patches = lib.optionals (isDarwin && !isAtLeast37) [ ./patches/0001-Backport-Retina-fix-from-Mini-vMac-v37.x.patch ];
             postPatch = lib.optionalString (!isAtLeast37 && (maintainer != null || homepage != null)) ''
-            substituteInPlace setup/CNFGDLFT.i ${
-                lib.optionalString (maintainer != null) ''--replace-fail '#define kMaintainerName "unknown"' '#define kMaintainerName "'${lib.escapeShellArg maintainer}\"''
-            } ${
-                lib.optionalString (homepage != null) ''--replace-fail '#define kStrHomePage "(unknown)"' '#define kStrHomePage "'${lib.escapeShellArg homepage}\"''
-            }
+            ${lib.optionalString (maintainer != null) ''
+                echo -E '#define kMaintainerName "'${lib.escapeShellArg maintainer}\" >> setup/CONFIGUR.i
+            ''}
+            ${lib.optionalString (homepage != null) ''
+                echo -E '#define kStrHomePage "'${lib.escapeShellArg homepage}\" >> setup/CONFIGUR.i
+            ''}
             '' + lib.optionalString hostPlatform.isLinux ''
             substituteInPlace src/SGLUALSA.h --replace-fail '"libasound.so.2"' "\"${lib.getLib alsa-lib}/lib/libasound.so.2\""
             '' + ''

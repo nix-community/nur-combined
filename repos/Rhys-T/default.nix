@@ -186,11 +186,13 @@ in {
     
     minivmac36 = callPackage ./pkgs/minivmac/36.nix {};
     minivmac37 = callPackage ./pkgs/minivmac/37.nix {};
+    minivmac-ce = callPackage ./pkgs/minivmac/ce.nix {};
     minivmac = self.minivmac36;
     minivmac-unstable = self.minivmac37;
     
     minivmac-ii = self.minivmac.override { macModel = "II"; };
     minivmac-ii-unstable = self.minivmac-unstable.override { macModel = "II"; };
+    minivmac-ii-ce = self.minivmac-ce.override { macModel = "II"; };
     
     mame = dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {});
     mame-metal = dontUpdate (self.mame.override { darwinMinVersion = "11.0"; });
