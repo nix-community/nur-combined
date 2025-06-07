@@ -12,11 +12,12 @@ _final: prev: {
         url = "https://aur.archlinux.org/cgit/aur.git/plain/argon_2.patch?h=grub-improved-luks2-git";
         hash = "sha256-OMQYjTFq0PpO38wAAXRsYUfY8nWoAMcPhKUlbqizIS8=";
       })
-      (prev.fetchpatch {
-        name = "argon_3.patch";
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/argon_3.patch?h=grub-improved-luks2-git";
-        hash = "sha256-nWtJSi7zJjD/gvM3OVbsH3vktbDnSHlIb+Fixd9DFDk=";
-      })
+      ./argon_3.patch
+      # (prev.fetchpatch {
+      #   name = "argon_3.patch";
+      #   url = "https://aur.archlinux.org/cgit/aur.git/plain/argon_3.patch?h=grub-improved-luks2-git";
+      #   hash = "sha256-nWtJSi7zJjD/gvM3OVbsH3vktbDnSHlIb+Fixd9DFDk=";
+      # })
       (prev.fetchpatch {
         name = "argon_4.patch";
         url = "https://aur.archlinux.org/cgit/aur.git/plain/argon_4.patch?h=grub-improved-luks2-git";
