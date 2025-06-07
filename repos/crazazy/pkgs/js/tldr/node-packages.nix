@@ -310,13 +310,13 @@ let
         sha512 = "gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==";
       };
     };
-    "form-data-4.0.2" = {
+    "form-data-4.0.3" = {
       name = "form-data";
       packageName = "form-data";
-      version = "4.0.2";
+      version = "4.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/form-data/-/form-data-4.0.2.tgz";
-        sha512 = "hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==";
+        url = "https://registry.npmjs.org/form-data/-/form-data-4.0.3.tgz";
+        sha512 = "qsITQPfmvMOSAdeyZ+12I1c+CKSstAFAwu+97zrnWAbIr5u8wfsExUzCesVLC8NgHuRUqNN4Zy6UPWUTRGslcA==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -846,7 +846,7 @@ let
       sources."es-object-atoms-1.1.1"
       sources."es-set-tostringtag-2.1.0"
       sources."follow-redirects-1.15.9"
-      sources."form-data-4.0.2"
+      sources."form-data-4.0.3"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.2"

@@ -64,11 +64,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-K4QHqUuWDx6ywkb3dqRV8NlmxZzkhdezWdK0bDTPvGg=",
+            "sha256": "sha256-+h1iul2uxBPSjADtWLZKDxwNoRpQf0zLPBlQuGdjNGw=",
             "type": "tarball",
-            "url": "https://archive.seamonkey-project.org/releases/2.53.20/linux-x86_64/en-US/seamonkey-2.53.20.en-US.linux-x86_64.tar.bz2"
+            "url": "https://archive.seamonkey-project.org/releases/2.53.21/linux-x86_64/en-US/seamonkey-2.53.21.en-US.linux-x86_64.tar.bz2"
         },
-        "version": "2.53.20"
+        "version": "2.53.21"
     },
     "trufflesqueak": {
         "cargoLocks": null,

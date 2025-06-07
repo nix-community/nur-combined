@@ -35,10 +35,10 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.20";
+    version = "2.53.21";
     src = fetchzip {
-      url = "https://archive.seamonkey-project.org/releases/2.53.20/linux-x86_64/en-US/seamonkey-2.53.20.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-K4QHqUuWDx6ywkb3dqRV8NlmxZzkhdezWdK0bDTPvGg=";
+      url = "https://archive.seamonkey-project.org/releases/2.53.21/linux-x86_64/en-US/seamonkey-2.53.21.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-+h1iul2uxBPSjADtWLZKDxwNoRpQf0zLPBlQuGdjNGw=";
     };
   };
   trufflesqueak = {

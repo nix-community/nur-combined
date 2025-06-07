@@ -130,13 +130,13 @@ let
         sha512 = "bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==";
       };
     };
-    "@types/estree-1.0.7" = {
+    "@types/estree-1.0.8" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "1.0.7";
+      version = "1.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.7.tgz";
-        sha512 = "w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.8.tgz";
+        sha512 = "dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==";
       };
     };
     "@types/json-schema-7.0.15" = {
@@ -815,7 +815,7 @@ let
       })
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/retry-0.4.3"
-      sources."@types/estree-1.0.7"
+      sources."@types/estree-1.0.8"
       sources."@types/json-schema-7.0.15"
       sources."acorn-8.14.1"
       sources."acorn-jsx-5.3.2"

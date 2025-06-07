@@ -22,13 +22,13 @@ let
         sha512 = "cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==";
       };
     };
-    "@babel/compat-data-7.27.3" = {
+    "@babel/compat-data-7.27.5" = {
       name = "_at_babel_slash_compat-data";
       packageName = "@babel/compat-data";
-      version = "7.27.3";
+      version = "7.27.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.27.3.tgz";
-        sha512 = "V42wFfx1ymFte+ecf6iXghnnP8kWTO+ZLXIyZq+1LAXHHvTZdVxicn4yiVYdYMGaCO3tmqub11AorKkv+iodqw==";
+        url = "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.27.5.tgz";
+        sha512 = "KiRAp/VoJaWkkte84TvUd9qjdbZAdiqyvMxrGl1N6vzFogKmaLgoM3L1kgtLicp2HP5fBJS8JrZKLVIZGVJAVg==";
       };
     };
     "@babel/core-7.27.4" = {
@@ -40,13 +40,13 @@ let
         sha512 = "bXYxrXFubeYdvB0NhD/NBB3Qi6aZeV20GOWVI47t2dkecCEoneR4NPVcb7abpXDEvejgrUfFtG6vG/zxAKmg+g==";
       };
     };
-    "@babel/generator-7.27.3" = {
+    "@babel/generator-7.27.5" = {
       name = "_at_babel_slash_generator";
       packageName = "@babel/generator";
-      version = "7.27.3";
+      version = "7.27.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.27.3.tgz";
-        sha512 = "xnlJYj5zepml8NXtjkG0WquFUv8RskFqyFcVgTBp5k+NaA/8uw/K+OSVf8AMGw5e9HKP2ETd5xpK5MLZQD6b4Q==";
+        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.27.5.tgz";
+        sha512 = "ZGhA37l0e/g2s1Cnzdix0O3aLYm66eF8aufiVteOgnwxgnRP8GoyMj7VWsgWnQbVKXyge7hqrFh2K2TQM6t1Hw==";
       };
     };
     "@babel/helper-annotate-as-pure-7.27.3" = {
@@ -166,22 +166,22 @@ let
         sha512 = "YvjJow9FxbhFFKDSuFnVCe2WxXk1zWc22fFePVNEaWJEu8IrZVlda6N0uHwzZrUM1il7NC9Mlp4MaJYbYd9JSg==";
       };
     };
-    "@babel/helpers-7.27.4" = {
+    "@babel/helpers-7.27.6" = {
       name = "_at_babel_slash_helpers";
       packageName = "@babel/helpers";
-      version = "7.27.4";
+      version = "7.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.27.4.tgz";
-        sha512 = "Y+bO6U+I7ZKaM5G5rDUZiYfUvQPUibYmAFe7EnKdnKBbVXDZxvp+MWOH5gYciY0EPk4EScsuFMQBbEfpdRKSCQ==";
+        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.27.6.tgz";
+        sha512 = "muE8Tt8M22638HU31A3CgfSUciwz1fhATfoVai05aPXGor//CdWDCbnlY1yvBPo07njuVOCNGCSp/GTt12lIug==";
       };
     };
-    "@babel/parser-7.27.4" = {
+    "@babel/parser-7.27.5" = {
       name = "_at_babel_slash_parser";
       packageName = "@babel/parser";
-      version = "7.27.4";
+      version = "7.27.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.27.4.tgz";
-        sha512 = "BRmLHGwpUqLFR2jzx9orBuX/ABDkj2jLKOXrHDTN2aOKL+jFDDKaRNo9nyYsIl9h/UE/7lMKdDjKQQyxKKDZ7g==";
+        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.27.5.tgz";
+        sha512 = "OsQd175SxWkGlzbny8J3K8TnnDD0N3lrIUtB92xwyRpzaenGZhxDvxN/JgU00U3CDZNj9tPuDJ5H0WS4Nt3vKg==";
       };
     };
     "@babel/plugin-syntax-import-attributes-7.27.1" = {
@@ -256,13 +256,13 @@ let
         sha512 = "oNcu2QbHqts9BtOWJosOVJapWjBDSxGCpFvikNR5TGDYDQf3JwpIoMzIKrvfoti93cLfPJEG4tH9SPVeyCGgdA==";
       };
     };
-    "@babel/types-7.27.3" = {
+    "@babel/types-7.27.6" = {
       name = "_at_babel_slash_types";
       packageName = "@babel/types";
-      version = "7.27.3";
+      version = "7.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/types/-/types-7.27.3.tgz";
-        sha512 = "Y1GkI4ktrtvmawoSq+4FCVHNryea6uR+qUQy0AGxLSsjCX0nVmkYQMBLHDkXZuo5hGx7eYdnIaslsdBFm7zbUw==";
+        url = "https://registry.npmjs.org/@babel/types/-/types-7.27.6.tgz";
+        sha512 = "ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==";
       };
     };
     "@gar/promisify-1.1.3" = {
@@ -499,13 +499,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001720" = {
+    "caniuse-lite-1.0.30001721" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001720";
+      version = "1.0.30001721";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001720.tgz";
-        sha512 = "Ec/2yV2nNPwb4DnTANEV99ZWwm3ZWfdlfkQbWSDDt+PsXEVYwlhPH8tdMaPunYTKKmz7AnHi2oNEi1GcmKCD8g==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001721.tgz";
+        sha512 = "cOuvmUVtKrtEaoKiO0rSc29jcjwMwX5tOHDy4MgVFEWiUXj4uBMJkwI8MDySkgXidpMiHUcviogAvFi4pA2hDQ==";
       };
     };
     "chalk-5.4.1" = {
@@ -598,13 +598,13 @@ let
         sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.161" = {
+    "electron-to-chromium-1.5.165" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.161";
+      version = "1.5.165";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.161.tgz";
-        sha512 = "hwtetwfKNZo/UlwHIVBlKZVdy7o8bIZxxKs0Mv/ROPiQQQmDgdm5a+KvKtBsxM8ZjFzTaCeLoodZ8jiBE3o9rA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.165.tgz";
+        sha512 = "naiMx1Z6Nb2TxPU6fiFrUrDTjyPMLdTtaOd2oLmG8zVSg2hCWGkhPyxwk+qRmZ1ytwVqUv0u7ZcDA5+ALhaUtw==";
       };
     };
     "emoji-regex-10.4.0" = {
@@ -1264,13 +1264,13 @@ let
         sha512 = "UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==";
       };
     };
-    "streamx-2.22.0" = {
+    "streamx-2.22.1" = {
       name = "streamx";
       packageName = "streamx";
-      version = "2.22.0";
+      version = "2.22.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/streamx/-/streamx-2.22.0.tgz";
-        sha512 = "sLh1evHOzBy/iWRiR6d1zRcLao4gGZr3C1kzNz4fopCOKJb6xD9ub8Mpi9Mr1R6id5o43S+d93fI48UC5uM9aw==";
+        url = "https://registry.npmjs.org/streamx/-/streamx-2.22.1.tgz";
+        sha512 = "znKXEBxfatz2GBNK02kRnCXjV+AA4kjZIUxeWSr3UGirZMJfTE9uiwKHobnbgxWyL/JWro8tTq+vOqAK1/qbSA==";
       };
     };
     "string-width-7.2.0" = {
@@ -1318,13 +1318,13 @@ let
         sha512 = "qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==";
       };
     };
-    "terser-5.40.0" = {
+    "terser-5.41.0" = {
       name = "terser";
       packageName = "terser";
-      version = "5.40.0";
+      version = "5.41.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.40.0.tgz";
-        sha512 = "cfeKl/jjwSR5ar7d0FGmave9hFGJT8obyo0z+CrQOylLDbk7X81nPU6vq9VORa5jU30SkDnT2FXjLbR8HLP+xA==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.41.0.tgz";
+        sha512 = "H406eLPXpZbAX14+B8psIuvIr8+3c+2hkuYzpMkoE0ij+NdsVATbA78vb8neA/eqrj7rywa2pIkdmWRsXW6wmw==";
       };
     };
     "text-decoder-1.2.3" = {
@@ -1399,9 +1399,9 @@ let
     dependencies = [
       sources."@ampproject/remapping-2.3.0"
       sources."@babel/code-frame-7.27.1"
-      sources."@babel/compat-data-7.27.3"
+      sources."@babel/compat-data-7.27.5"
       sources."@babel/core-7.27.4"
-      sources."@babel/generator-7.27.3"
+      sources."@babel/generator-7.27.5"
       sources."@babel/helper-annotate-as-pure-7.27.3"
       sources."@babel/helper-compilation-targets-7.27.2"
       sources."@babel/helper-create-class-features-plugin-7.27.1"
@@ -1415,8 +1415,8 @@ let
       sources."@babel/helper-string-parser-7.27.1"
       sources."@babel/helper-validator-identifier-7.27.1"
       sources."@babel/helper-validator-option-7.27.1"
-      sources."@babel/helpers-7.27.4"
-      sources."@babel/parser-7.27.4"
+      sources."@babel/helpers-7.27.6"
+      sources."@babel/parser-7.27.5"
       sources."@babel/plugin-syntax-import-attributes-7.27.1"
       sources."@babel/plugin-syntax-jsx-7.27.1"
       sources."@babel/plugin-syntax-typescript-7.27.1"
@@ -1425,7 +1425,7 @@ let
       sources."@babel/preset-typescript-7.27.1"
       sources."@babel/template-7.27.2"
       sources."@babel/traverse-7.27.4"
-      sources."@babel/types-7.27.3"
+      sources."@babel/types-7.27.6"
       sources."@gar/promisify-1.1.3"
       sources."@jridgewell/gen-mapping-0.3.8"
       sources."@jridgewell/resolve-uri-3.1.2"
@@ -1460,7 +1460,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001720"
+      sources."caniuse-lite-1.0.30001721"
       sources."chalk-5.4.1"
       sources."chownr-2.0.0"
       sources."cjs-module-lexer-1.4.3"
@@ -1471,7 +1471,7 @@ let
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.1"
-      sources."electron-to-chromium-1.5.161"
+      sources."electron-to-chromium-1.5.165"
       sources."emoji-regex-10.4.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
@@ -1565,7 +1565,7 @@ let
       sources."sprintf-js-1.1.3"
       sources."ssri-8.0.1"
       sources."stdin-discarder-0.2.2"
-      sources."streamx-2.22.0"
+      sources."streamx-2.22.1"
       sources."string-width-7.2.0"
       sources."strip-ansi-7.1.0"
       sources."sver-1.8.4"
@@ -1576,7 +1576,7 @@ let
         ];
       })
       sources."tar-stream-3.1.7"
-      sources."terser-5.40.0"
+      sources."terser-5.41.0"
       sources."text-decoder-1.2.3"
       sources."unique-filename-1.1.1"
       sources."unique-slug-2.0.2"
