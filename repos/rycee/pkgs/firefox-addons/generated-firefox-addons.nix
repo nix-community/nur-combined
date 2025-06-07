@@ -2310,10 +2310,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "140.0.20250604.91121";
+      version = "140.0.20250606.90602";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506924/dansk_da_language_pack-140.0.20250604.91121.xpi";
-      sha256 = "bde35b7a6eb94bc215727424acf128d476f1e9c64ad81b0028f2e35efcd0caee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508143/dansk_da_language_pack-140.0.20250606.90602.xpi";
+      sha256 = "31ef5f168c5eb86c5e9b140708316b23a6f16f7faaf5b7e30a1ff964a2c3f20b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2507,10 +2507,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "140.0.20250604.91121";
+      version = "140.0.20250606.90602";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506949/deutsch_de_language_pack-140.0.20250604.91121.xpi";
-      sha256 = "f1deb69525ca0fa26d6935b13c1f47296a293dcde0aa258c4c3336e8496f7fc0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508153/deutsch_de_language_pack-140.0.20250606.90602.xpi";
+      sha256 = "f8dcaaf2fc6f37647c2cdcbf04d5fb9a031a5b68bdc9ae1d4f916b626436dc37";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2897,10 +2897,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "5.2.0";
+      version = "5.2.7";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4455893/ecosia_the_green_search-5.2.0.xpi";
-      sha256 = "25366f4f0426ccf6746538f00010d86a4da130b76bff8ca23524d73081539719";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505683/ecosia_the_green_search-5.2.7.xpi";
+      sha256 = "cb6ad5b90fdc0e81842981d67b20ba6a2be9d75956ed310358ef606a59808e6f";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3227,10 +3227,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.45";
+      version = "1.3.46";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4482213/faststream-1.3.45.xpi";
-      sha256 = "9eecf0682b41ad6eaa382c48aa251e38ad99696a709d7fb30a3f5c0ad340c3f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4507925/faststream-1.3.46.xpi";
+      sha256 = "7c11359f49bd9aea3a48f4b9a3cd2287a8a5e0e46c6a7195d1e7fd5fc589fdd2";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3465,10 +3465,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.86";
+      version = "6.1.87";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4483776/flagfox-6.1.86.xpi";
-      sha256 = "540d24cada008deed908d9c0339ce0f413b9adc763d10cc8d1e2b8e810ba3498";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4503653/flagfox-6.1.87.xpi";
+      sha256 = "263da20adb8b8d5324b2504453c5b61576c8362e1c41d87bf9fd88753416677b";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3768,10 +3768,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "140.0.20250604.91121";
+      version = "140.0.20250606.90602";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506878/francais_language_pack-140.0.20250604.91121.xpi";
-      sha256 = "7bca446321ad238853ca306d0684399a6fbabe314d5e3fcb0c95f0faa4ee10b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508195/francais_language_pack-140.0.20250606.90602.xpi";
+      sha256 = "d5e32128f476cce454179b70ef21ec5c908d46df38e7a39590c0405944c4465e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3805,10 +3805,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "140.0.20250604.91121";
+      version = "140.0.20250606.90602";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506914/gaidhlig_language_pack-140.0.20250604.91121.xpi";
-      sha256 = "08ab71ea3cdb6f8619c10627aa5743d4bc33633ade07cc6ff8de8716bec63e7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508176/gaidhlig_language_pack-140.0.20250606.90602.xpi";
+      sha256 = "a6e65f6888cdf5b9fc25f4667bb6f74d407c7c6da463b91ac9d963436a8e291a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8047,10 +8047,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.23.4";
+      version = "2.23.7";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499640/momentumdash-2.23.4.xpi";
-      sha256 = "bfea7082d271dfcc4758d081d862e7478c0a1d0216e548b85aeaeafca5427e34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4507332/momentumdash-2.23.7.xpi";
+      sha256 = "2d4740301d2d9b13eadc0fde36a2c114259b17e516f961fe98eaf66d58cc80e9";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9319,10 +9319,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2025.5.14";
+      version = "2025.5.30";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493398/privacy_badger17-2025.5.14.xpi";
-      sha256 = "c3b6c0bf249b6b2661dc29f414d3abe1c0d637b4e059a49f42a01cc73f319aea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4504218/privacy_badger17-2025.5.30.xpi";
+      sha256 = "d8cc7a2c1f5afa53b32f56be33167acafe45561ad7acc50c4aadb5ce35fe2389";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -10668,10 +10668,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "140.0.20250604.91121";
+      version = "140.0.20250606.90602";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506930/scots_language_pack-140.0.20250604.91121.xpi";
-      sha256 = "535fcf11f684f60f62732bc03e993419de648f19a1fdbeb7ca9c44e5a752ab77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508181/scots_language_pack-140.0.20250606.90602.xpi";
+      sha256 = "5db064efbd624f2c12ff5a45623aeb9dbb3ca3ab4f37ed70919015ab656863ff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12313,10 +12313,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.1.11";
+      version = "4.2.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4502732/tree_style_tab-4.1.11.xpi";
-      sha256 = "e9314a7673bc239be5b3a6fbe4883adf77df69b5c801b89541af50b8f0037ef5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505103/tree_style_tab-4.2.0.xpi";
+      sha256 = "f1d51638eeb1531f0a222c26b2fb96ae2d3565a60bf990b3cd084ff2258c5917";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -12337,6 +12337,7 @@
           "search"
           "sessions"
           "storage"
+          "tabGroups"
           "tabs"
           "theme"
         ];
@@ -14176,10 +14177,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4484742/xkit_rewritten-1.0.10.xpi";
-      sha256 = "6a8c8f83fab1f5789ba77b17646b6d1728b0a93e009078a72afec041485debd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4505711/xkit_rewritten-1.0.11.xpi";
+      sha256 = "2cd46553ec7d76ac73b7f18139c3862409f463f75c8c632551bf8aa302bb8626";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
