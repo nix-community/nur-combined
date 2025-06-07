@@ -46,7 +46,7 @@ layout_uv() {
     fi
 
     # create venv if it doesn't exist
-    uv venv -q
+    uv venv -q --allow-existing
 
     export VIRTUAL_ENV
     export UV_ACTIVE=1
