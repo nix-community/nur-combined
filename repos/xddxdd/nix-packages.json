@@ -807,7 +807,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
     "pname": "attic",
-    "version": "0-unstable-2025-02-02"
+    "version": "0-unstable-2025-05-29"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.coredns": {
     "description": "CoreDNS with Lan Tian's modifications",
@@ -827,7 +827,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5600"
+    "version": "5602"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1272,7 +1272,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-05"
+    "version": "0-unstable-2025-06-06"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3737,7 +3737,7 @@
   "legacyPackages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.5.0"
+    "version": "3.5.1"
   },
   "legacyPackages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
@@ -4047,7 +4047,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-01"
+    "version": "0-unstable-2025-06-06"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4467,7 +4467,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-05"
+    "version": "0-unstable-2025-06-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4592,7 +4592,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.5.0"
+    "version": "3.5.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -4712,7 +4712,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-01"
+    "version": "0-unstable-2025-06-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4802,7 +4802,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-06"
+    "version": "0-unstable-2025-06-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4877,7 +4877,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-06"
+    "version": "0-unstable-2025-06-07"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5397,7 +5397,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-05"
+    "version": "0-unstable-2025-06-06"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5567,7 +5567,7 @@
   "packages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.5.0"
+    "version": "3.5.1"
   },
   "packages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
@@ -5737,7 +5737,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-01"
+    "version": "0-unstable-2025-06-06"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -5867,7 +5867,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-06"
+    "version": "0-unstable-2025-06-07"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

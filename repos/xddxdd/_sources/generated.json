@@ -394,7 +394,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-06-05",
+        "date": "2025-06-07",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "028c7526500c8a3a065c95d3057da05390db26cc",
-            "sha256": "sha256-iqpEir72stNTDQ/2dn4S/MR7OyJvWjpn7dF5UHkYu7s=",
+            "rev": "cb876904c0252361c0c15947fcfd64164ee58b52",
+            "sha256": "sha256-ZKQbBHyjKPUz7CNlDLXklZipo1i1pXJ54VMc2rOq5sc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "028c7526500c8a3a065c95d3057da05390db26cc"
+        "version": "cb876904c0252361c0c15947fcfd64164ee58b52"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1687,7 +1687,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-06-05",
+        "date": "2025-06-06",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1699,12 +1699,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "f06ade94068fdd2d994c5f7de1647793e5753034",
-            "sha256": "sha256-WlksUzLqs8Kefn8pjkJg6TuXpvYTZWrJ62/J23uBzew=",
+            "rev": "a47d8926c912f293147ca22bc896b8f31d3787fe",
+            "sha256": "sha256-4ql5h2Vmya2D9ChltjGItowYb7uD4xwwgT51yP8fokE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f06ade94068fdd2d994c5f7de1647793e5753034"
+        "version": "a47d8926c912f293147ca22bc896b8f31d3787fe"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5600",
-            "sha256": "sha256-TwwSJL+X+v3L+kbA3w+GQaqj+4FyHBJAooRUKOeu4D4=",
+            "rev": "b5602",
+            "sha256": "sha256-+sb4ZDeFuxSvu0yB1WWbJsMyQabuY7Vd4NTp0Nog8R8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5600"
+        "version": "b5602"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3365,7 +3365,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-06-01",
+        "date": "2025-06-06",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3377,12 +3377,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7",
-            "sha256": "sha256-QIwcf+7C2h/3TAdwc19ntBgnDi3ZjoDngkJQ4HowGE8=",
+            "rev": "b86e6147d68c229b45bb1f2a593f8b76155e964d",
+            "sha256": "sha256-ttGHvxv6ZImn6xBifsL4bc+7Q/RvarwPwegx9pT+Hsg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ab5bf4f20de28d3fd8f2f21653a2cfff64e1b4d7"
+        "version": "b86e6147d68c229b45bb1f2a593f8b76155e964d"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-06-06",
+        "date": "2025-06-07",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "a6722aa5fadf2da3e35a9f1e99122a40b96f3466",
-            "sha256": "sha256-XymFlaLAef9FIggmhsuUSMYDd6yhyhimRab0VopZ/64=",
+            "rev": "5251077d12cb2d4882164df95ff4084410464379",
+            "sha256": "sha256-GqJm9KCn4L58cxOrqak74xfSm2gAy1R/r6eW5VonZR8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a6722aa5fadf2da3e35a9f1e99122a40b96f3466"
+        "version": "5251077d12cb2d4882164df95ff4084410464379"
     },
     "unigine-heaven": {
         "cargoLocks": null,
