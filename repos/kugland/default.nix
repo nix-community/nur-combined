@@ -1,5 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
-rec {
+{ pkgs ? import <nixpkgs> { } }: rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -7,6 +6,8 @@ rec {
 
   auditok = pkgs.callPackage ./pkgs/auditok { };
   bip39 = pkgs.callPackage ./pkgs/bip39 { };
+  bop = pkgs.callPackage ./pkgs/bop { };
+  cursor = pkgs.callPackage ./pkgs/cursor { };
   ffsubsync = pkgs.callPackage ./pkgs/ffsubsync { inherit auditok pysubs2; };
   my-bookmarks-pl = pkgs.callPackage ./pkgs/my-bookmarks-pl { };
   neocities-deploy = pkgs.callPackage ./pkgs/neocities-deploy { };
