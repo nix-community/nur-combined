@@ -30,6 +30,7 @@
   vita3k = pkgs.callPackage ./pkgs/vita3k { };
   gedit = pkgs.callPackage ./pkgs/gedit { };
   zen-browser-bin = pkgs.callPackage ./pkgs/zen-browser { };
+  wechat-appimage = pkgs.callPackage ./pkgs/wechat-appimage { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
