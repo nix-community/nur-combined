@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "clock-tui";
-  version = "0.6.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "race604";
     repo = "clock-tui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-IsJxKCR3yBuwv33FYfHF+Xuu8zgu4mxx3RBnxJkR4rI=";
+    hash = "sha256-GuxE50rP+NOzeoFljmBTCp23LCuu6mz2HNL/eEf5ZJE=";
   };
 
-  cargoHash = "sha256-u3sRuZVLOqbCmhDXRHjInr9AQE3pnOHU0vFITb7N6Yk=";
+  cargoHash = "sha256-wbkWO2UqE7ymmb6RyV7G1J1GjgSr0lbhzc7pFi6/ajo=";
 
   passthru.updateScript = nix-update-script { };
 
