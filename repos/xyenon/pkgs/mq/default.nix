@@ -8,17 +8,17 @@
 
 rustPlatform.buildRustPackage {
   pname = "mq";
-  version = "0.2.2-unstable-2025-06-08";
+  version = "0.2.0-unstable-2025-06-05";
 
   src = fetchFromGitHub {
     owner = "harehare";
     repo = "mq";
-    rev = "67f2c19470893379ce8e362c9d6a4ae69d2dcdd4";
-    hash = "sha256-zhkV+FIzDoy9Tj7NDUPc/jmfQW2aRUj16W18FJnP+dE=";
+    rev = "c45bac1f1692a07743dcd040b5ea9efa19d0a4f5";
+    hash = "sha256-AOhtZzLSW7+ss0zPfcUpp6k7SSsKOMQOvAY7xbmmr3A=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-/5kDbdFcYHllWXwWKdxDHnfJtVGs/eq2uhbhhpclAW0=";
+  cargoHash = "sha256-Omc+9/DO3ALUy8m5uYldPtFGoX2AmnPkQSZ2KDOhrxo=";
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
