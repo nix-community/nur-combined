@@ -14,7 +14,7 @@ buildRustPackage rec {
     rev = "v${version}";
     hash = "sha256-PkjgHXvFhTJ0AVRz6/hXkzo94tsIzgxHKuGNy3fDzIU=";
   };
-  cargoHash = "sha256-DPp48x8ufPho1+zZkj9KeHhaaZ2zF6XS4E4JIfc2uJg=";
+  cargoHash = "sha256-0RgvYK81maes3+bmlvPVih0lsLpYrYWgAJLJT3p/KWA=";
   doCheck = false;
   meta = with lib; {
     description = "A command-line tool for deploying your Neocities site";
