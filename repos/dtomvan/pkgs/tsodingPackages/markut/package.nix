@@ -6,13 +6,13 @@
 }:
 buildGoModule {
   pname = "markut";
-  version = "0-unstable-2025-04-25";
+  version = "0-unstable-2025-06-04";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "markut";
-    rev = "4ea2951a94ca8407e4c52e17834904e9e20e761a";
-    hash = "sha256-Fr41mydYfafnwKZgaI7MEI7TIM5Zs4zDZOLtzSrh2B4=";
+    rev = "c7e52821dcb9b247636e192da8b36c0245037b5d";
+    hash = "sha256-RM5cjHcuXNkId0HLl32PTdzzzPQLJ1f7Fn0/fQIMhZY=";
   };
 
   vendorHash = null;

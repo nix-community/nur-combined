@@ -16,7 +16,10 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-        defaultNix = (import ./. { inherit pkgs; });
+        defaultNix = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+          inherit (pkgs) callPackage newScope;
+          directory = ./pkgs;
+        };
         flattenPkgs = (import lib/flatten.nix { inherit pkgs; });
         flakePackages = flattenPkgs defaultNix;
         warnPackages =
