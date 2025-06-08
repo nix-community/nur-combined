@@ -8,14 +8,14 @@
 
 rustPlatform.buildRustPackage {
   pname = "magothy";
-  version = "0-unstable-2025-05-24";
+  version = "0-unstable-2025-06-05";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "serebit";
     repo = "magothy";
-    rev = "6f1b01df9006be3430a2731f323c7aacc243c771";
-    hash = "sha256-gweUIhZev67fjgpN4rQh5HuLeQbRMzd6nr4Lz+IYXeI=";
+    rev = "da92822fca094e553399f4208d7ca87f0ed9b778";
+    hash = "sha256-HNCgxHLYHaF12cmWm7XzLcJcTdYG6Mgu1vR7tGBTeWk=";
   };
 
   cargoHash = "sha256-5l306byTAmpGjYs7iPZGWGSQt5axt9h2o1cKEyIjsKk=";

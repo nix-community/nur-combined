@@ -101,10 +101,10 @@ Tool to generate flags for your CPU.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.44.0`
+- Version: `2.45.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.44.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.45.0)
 - [📦 Source](./pkgs/by-name/fastfetch/package.nix#L287)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
@@ -114,10 +114,10 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch`
-- Version: `2.44.0`
+- Version: `2.45.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.44.0)
+- [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.45.0)
 - [📦 Source](./default.nix#L29)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
@@ -151,7 +151,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 Retro gaming application for the GNOME desktop.
 
 - Name: `highscore`
-- Version: `0-unstable-2025-06-06`
+- Version: `0-unstable-2025-06-07`
 - [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
 - [📦 Source](./pkgs/by-name/highscore/package.nix#L96)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -265,7 +265,7 @@ A library to make working with multidimensional arrays in C++ easy.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-05-24`
+- Version: `0-unstable-2025-06-05`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -368,7 +368,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-05-12`
+- Version: `SLE2024-artifact-unstable-2025-06-06`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
