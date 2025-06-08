@@ -42,6 +42,7 @@ reIf {
           pname(bird, systemd-networkd, systemd-resolved, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
           pname(prometheus) -> direct
+          pname(chatmcp) -> ai
 
           pname(Misskey, conduit, tuwunel, conduwuit, .mautrix-telegr, arti) -> all
           dip(9.9.9.9) -> direct

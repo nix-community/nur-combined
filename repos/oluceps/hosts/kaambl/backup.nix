@@ -17,7 +17,7 @@
       insert = {
         "0206c8ff3ff866c4212f1a968882f993e101fbf7ffdaa4e0e722b3ca069c5559".content = ''
           [[backup.snapshots]]
-          sources = [ "/home/elen/Documents", "/home/elen/Src/blog.nyaw.xyz" ]
+          sources = [ "/home/elen/Documents", "/home/elen/Src/blog.nyaw.xyz", "/home/elen/Src/bishe"]
         '';
       };
     };

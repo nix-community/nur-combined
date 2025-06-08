@@ -107,6 +107,7 @@
     # linkwarden.enable = true;
     userborn-subid.enable = true;
     ollama.enable = true;
+
   };
 
   systemd.services.minio.serviceConfig.Environment = [
@@ -116,6 +117,9 @@
     rsyncd = {
       enable = true;
       socketActivated = true;
+    };
+    rqbit = {
+      location = "/three/storage/Downloads";
     };
     bpftune.enable = true;
     sing-box.enable = true;

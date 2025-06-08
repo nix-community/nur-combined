@@ -14,6 +14,7 @@ let
         sing-box
         tor
         arti
+        oniux
       ]
 
       [

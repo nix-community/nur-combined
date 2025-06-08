@@ -4,6 +4,7 @@ with pkgs;
   turbo
   eva
   paperback
+  chatmcp
   thunderbird
   amberol
   nix-weather
@@ -98,6 +99,7 @@ with pkgs;
   sioyek
   zathura
   foliate
+  librum
 
   # file
   filezilla
