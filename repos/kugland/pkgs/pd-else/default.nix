@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, puredata
-, pkg-config
-, cmake
-, openssl
-, libogg
-, libvorbis
-, opusfile
-, ffmpeg
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  puredata,
+  pkg-config,
+  cmake,
+  openssl,
+  libogg,
+  libvorbis,
+  opusfile,
+  ffmpeg,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
   pname = "pd-else";
-  version = "1.0-beta";
+  version = "1.0-rc13";
 
   src = fetchFromGitHub {
     owner = "porres";
     repo = "pd-else";
-    rev = "1.0-beta";
-    hash = "sha256-PndIy5fDK5f4wkd0noLJHT6IIzYP8QRBLC0+tPnaDek=";
+    tag = "v.${version}";
+    hash = "sha256-WebjdozcFup2xk3cS9LPTiA6m0l1sR6sj3hHlt6ScfU=";
   };
 
   nativeBuildInputs = [
@@ -43,8 +44,6 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt \
       --replace-fail 'add_subdirectory(Source/Shared/ffmpeg)' '# add_subdirectory(Source/Shared/ffmpeg) - using system FFmpeg' \
       --replace-fail 'target_link_libraries(play.file_tilde PRIVATE ffmpeg)' 'target_link_libraries(play.file_tilde PRIVATE avformat avcodec avutil swresample z)' \
-      --replace-fail 'target_link_libraries(streamin_tilde PRIVATE ffmpeg)' 'target_link_libraries(streamin_tilde PRIVATE avformat avcodec avutil swresample z)' \
-      --replace-fail 'target_link_libraries(streamout_tilde PRIVATE ffmpeg)' 'target_link_libraries(streamout_tilde PRIVATE avformat avcodec avutil swresample z)' \
       --replace-fail 'target_link_libraries(sfload PRIVATE ffmpeg)' 'target_link_libraries(sfload PRIVATE avformat avcodec avutil swresample z)' \
       --replace-fail 'target_link_libraries(sfinfo PRIVATE ffmpeg)' 'target_link_libraries(sfinfo PRIVATE avformat avcodec avutil swresample z)'
   '';
@@ -52,14 +51,9 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_C_FLAGS=-I${puredata}/include/pd"
     "-DCMAKE_CXX_FLAGS=-I${puredata}/include/pd"
-
-    # LTO brings up overall build time, but results in much smaller
-    # binaries for all users and the cache.
     "-DUSE_LTO=ON"
-
-    # Use pkg-config to locate OpenSSL libraries dynamically.
-    "-DOPENSSL_CRYPTO_LIBRARY=${openssl.out}/lib/libcrypto.so"
-    "-DOPENSSL_SSL_LIBRARY=${openssl.out}/lib/libssl.so"
+    "-DOPENSSL_CRYPTO_LIBRARY=${lib.getLib openssl}/lib/libcrypto.so"
+    "-DOPENSSL_SSL_LIBRARY=${lib.getLib openssl}/lib/libssl.so"
   ];
 
   postInstall = ''
@@ -68,21 +62,20 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    # Patch binaries.
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    find $out -type f -executable -exec patchelf --set-interpreter $interpreter --set-rpath ${lib.makeLibraryPath buildInputs} {} \;
+    find $out -type f -executable -exec patchelf --set-interpreter "$interpreter" --set-rpath ${lib.makeLibraryPath buildInputs} {} \;
   '';
 
-  meta = with lib; {
-    description = "ELSE - EL Locus Solus' Externals for Pure Data";
+  meta = {
+    description = "EL Locus Solus' Externals for Pure Data";
     longDescription = ''
       ELSE is a library of externals and abstractions for Pure Data.
       It provides a comprehensive set of tools for signal processing,
       MIDI, GUI, and more in Pure Data.
     '';
     homepage = "https://github.com/porres/pd-else";
-    license = licenses.gpl3;
-    platforms = platforms.unix;
-    maintainers = [lib.maintainers.kugland];
+    license = lib.licenses.wtfpl;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.kugland ];
   };
 }
