@@ -207,12 +207,12 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "cb876904c0252361c0c15947fcfd64164ee58b52";
+    version = "05b79dd1e65920cd023525e0971e1afc59a52b95";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "cb876904c0252361c0c15947fcfd64164ee58b52";
-      hash = "sha256-ZKQbBHyjKPUz7CNlDLXklZipo1i1pXJ54VMc2rOq5sc=";
+      rev = "05b79dd1e65920cd023525e0971e1afc59a52b95";
+      hash = "sha256-P5lfEOEIXFcFzVqO4ODQAWLZ8P7tvU4ilyHgd5ifqBA=";
     };
     date = "2025-06-07";
   };
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5602";
+    version = "b5604";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5602";
-      hash = "sha256-+sb4ZDeFuxSvu0yB1WWbJsMyQabuY7Vd4NTp0Nog8R8=";
+      tag = "b5604";
+      hash = "sha256-SFLVHirEG5NIhZ0/j6sCPPaXrSpzDDhJJEZQdEhJx+I=";
     };
   };
   loralib = {
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "5251077d12cb2d4882164df95ff4084410464379";
+    version = "d976fc893e08931b4bdab2f6f0d61cf84657cabc";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "5251077d12cb2d4882164df95ff4084410464379";
+      rev = "d976fc893e08931b4bdab2f6f0d61cf84657cabc";
       fetchSubmodules = true;
-      hash = "sha256-GqJm9KCn4L58cxOrqak74xfSm2gAy1R/r6eW5VonZR8=";
+      hash = "sha256-p/Be7lODTw3Hmz2QSgCrGj6jpfq/wWTbOPk54NrXUQ0=";
     };
-    date = "2025-06-07";
+    date = "2025-06-08";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

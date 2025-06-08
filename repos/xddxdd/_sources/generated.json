@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "cb876904c0252361c0c15947fcfd64164ee58b52",
-            "sha256": "sha256-ZKQbBHyjKPUz7CNlDLXklZipo1i1pXJ54VMc2rOq5sc=",
+            "rev": "05b79dd1e65920cd023525e0971e1afc59a52b95",
+            "sha256": "sha256-P5lfEOEIXFcFzVqO4ODQAWLZ8P7tvU4ilyHgd5ifqBA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cb876904c0252361c0c15947fcfd64164ee58b52"
+        "version": "05b79dd1e65920cd023525e0971e1afc59a52b95"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5602",
-            "sha256": "sha256-+sb4ZDeFuxSvu0yB1WWbJsMyQabuY7Vd4NTp0Nog8R8=",
+            "rev": "b5604",
+            "sha256": "sha256-SFLVHirEG5NIhZ0/j6sCPPaXrSpzDDhJJEZQdEhJx+I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5602"
+        "version": "b5604"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-06-07",
+        "date": "2025-06-08",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "5251077d12cb2d4882164df95ff4084410464379",
-            "sha256": "sha256-GqJm9KCn4L58cxOrqak74xfSm2gAy1R/r6eW5VonZR8=",
+            "rev": "d976fc893e08931b4bdab2f6f0d61cf84657cabc",
+            "sha256": "sha256-p/Be7lODTw3Hmz2QSgCrGj6jpfq/wWTbOPk54NrXUQ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5251077d12cb2d4882164df95ff4084410464379"
+        "version": "d976fc893e08931b4bdab2f6f0d61cf84657cabc"
     },
     "unigine-heaven": {
         "cargoLocks": null,
