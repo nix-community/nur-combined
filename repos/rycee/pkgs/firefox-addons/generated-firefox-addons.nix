@@ -4003,10 +4003,10 @@
     };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
-      version = "10.0.14";
+      version = "10.0.15";
       addonId = "{bc2166c4-e7a2-46d5-ad9e-342cef57f1f7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416169/gloc-10.0.14.xpi";
-      sha256 = "43cdc062f107a37cfbf3b847b88a4bdc27949318bae83f5e729a2b24b5814291";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4508999/gloc-10.0.15.xpi";
+      sha256 = "3671b1cb99d37f50e644c87c7cae6262b7c64d251123fd382558bf0cdc771149";
       meta = with lib;
       {
         homepage = "https://github.com/kas-elvirov/gloc";
@@ -6280,10 +6280,10 @@
     };
     "karakeep" = buildFirefoxXpiAddon {
       pname = "karakeep";
-      version = "1.2.5";
+      version = "1.2.6";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477863/karakeep-1.2.5.xpi";
-      sha256 = "a0faff335bfdef98e23725270c6e805799fa441bbe7544be0496f6f93f648815";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4509061/karakeep-1.2.6.xpi";
+      sha256 = "d3c2fbf3bb81a827a32f8f7385134036bc0cafd5d8102163073e6144be442734";
       meta = with lib;
       {
         homepage = "https://karakeep.app";
@@ -11208,10 +11208,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.6.2";
+      version = "1.7.1";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405616/smartproxy-1.6.2.xpi";
-      sha256 = "3ec7a78afb8db68366918e1bdf0e243c38d819498674dd4bc08a437974e3b679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4509430/smartproxy-1.7.1.xpi";
+      sha256 = "6c6c86dcc3b68f115d13336055a361b3b217e521246f988386414bd210f4d1cb";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
