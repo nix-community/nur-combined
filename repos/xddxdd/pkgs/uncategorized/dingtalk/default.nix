@@ -187,9 +187,23 @@ stdenv.mkDerivation rec {
 
     # Entrypoint
     mkdir -p $out/bin
-    makeWrapper $out/lib/com.alibabainc.dingtalk $out/bin/dingtalk \
+    cat > $out/bin/dingtalk <<EOF
+    #!/usr/bin/env bash
+    if [[ \''${XMODIFIERS} =~ fcitx ]]; then
+      export QT_IM_MODULE=fcitx
+      export GTK_IM_MODULE=fcitx
+    elif [[ \''${XMODIFIERS} =~ ibus ]]; then
+      export QT_IM_MODULE=ibus
+      export GTK_IM_MODULE=ibus
+      export IBUS_USE_PORTAL=1
+    fi
+
+    exec $out/lib/com.alibabainc.dingtalk
+    EOF
+    chmod +x $out/bin/dingtalk
+
+    wrapProgram $out/bin/dingtalk \
       "''${qtWrapperArgs[@]}" \
-      --argv0 "com.alibabainc.dingtalk" \
       --chdir $out/lib \
       --unset WAYLAND_DISPLAY \
       --set QT_QPA_PLATFORM "xcb" \
