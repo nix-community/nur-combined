@@ -116,7 +116,7 @@ minivmac37.override {
 
 [^mvarm1]: Using `lx64` target.
 [^mvarm2]: Using `larm` target, with CPU explicitly overridden to `a64` if on at least v37.
-[^mvarm3]: Using `mcar` if on at least v37, else `mc64` with CPU explicitly overridden to `arm` and API overriden to `cco`.
+[^mvarmmac]: Using `mcar` if on at least v37, else `mc64` with CPU explicitly overridden to `arm` and API overriden to `cco`.
 
 ### `pce`
 
