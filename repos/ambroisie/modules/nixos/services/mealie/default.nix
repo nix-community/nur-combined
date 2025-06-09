@@ -32,11 +32,6 @@ in
         BASE_URL = "https://mealie.${config.networking.domain}";
         TZ = config.time.timeZone;
         ALLOw_SIGNUP = "false";
-
-        # Use PostgreSQL
-        DB_ENGINE = "postgres";
-        # Make it work with socket auth
-        POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
       };
 
       # Automatic PostgreSQL provisioning
