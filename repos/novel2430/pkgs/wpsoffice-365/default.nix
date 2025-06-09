@@ -89,14 +89,17 @@ in
 stdenv.mkDerivation rec {
   pname = "wpsoffice-365";
   # version = "12.8.2.18605";
-  version = "12.8.2.20327";
+  # version = "12.8.2.20327";
+  version = "12.8.2.21176";
 
   src = fetchurl {
     # url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/18605/wps-office_${version}.AK.preload.sw_amd64.deb";
     # hash = "sha256-fy238yjdaV6pZOPulAMRJlcj/IHeRDjgMgrTVC0JPLQ=";
-    url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/${lib.last (builtins.splitVersion version)}/wps-office_${version}.AK.preload.sw_amd64.deb";
-    hash = "sha256-N+2n6i7RCoKjAQ6Pds/dpfupnKR624RUiGj2cQQFpHk=";
-    curlOptsList = [ "-ehttps://365.wps.cn" ];
+    # url = "https://wps-linux-365.wpscdn.cn/wps/download/ep/Linux365/${lib.last (builtins.splitVersion version)}/wps-office_${version}.AK.preload.sw_amd64.deb";
+    # hash = "sha256-N+2n6i7RCoKjAQ6Pds/dpfupnKR624RUiGj2cQQFpHk=";
+    url = "https://pubwps-wps365-obs.wpscdn.cn/download/Linux/${lib.last (builtins.splitVersion version)}/wps-office_${version}.AK.preload.sw_amd64.deb";
+    hash = "sha256-kcxZ5ySWYpBJ7a8bNfp9ho4vWPZaVz2fcN+5HwQoGyw=";
+    # curlOptsList = [ "-ehttps://365.wps.cn" ];
   };
 
   unpackCmd = " dpkg -x $src .";
