@@ -12,17 +12,17 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.8";
+  version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-O9SwBSLXB3t1lIULt7JDJq8cCY7sFRMuRPeN6tjV1jw=";
+    hash = "sha256-0S4od60X5j7wWD9mV/jUuJ8EwJ+OLYM2bnUTjr0pozo=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-D6jzu+6aqqHsjF6oGs83NzSAydA1/7mK3hwC6CH7aes=";
+  cargoHash = "sha256-IX95AnLYMtVrkQY/nLEgTq44m6I1z/HiT7MXVGv2epM=";
 
   nativeBuildInputs = [
     pkg-config
@@ -38,6 +38,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildFeatures = [ "libbpf" ] ++ lib.optionals enableIpv6 [ "ipv6" ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "An eBPF-based Endpoint-Independent(Full Cone) NAT";

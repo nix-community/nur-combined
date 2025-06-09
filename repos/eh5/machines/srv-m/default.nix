@@ -39,7 +39,6 @@ lib.nixosSystem rec {
         nixpkgs.overlays = [
           self.overlays.default
         ];
-        sops.package = sops-install-secrets-nonblock;
       }
     ];
 }
