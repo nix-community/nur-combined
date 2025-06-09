@@ -415,7 +415,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-06-05",
+        "date": "2025-06-09",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "09e9be8e54a064f57e86ee4f559b288b88906dc9",
-            "sha256": "sha256-waT6ao2HJdYl+vZ4K+RgE7AOeFoGAlrbChKzoFFuHsE=",
+            "rev": "79dd30cd398c51f06f86e865dbd5ece233d06d79",
+            "sha256": "sha256-kReA8s3EjzjpOn5DW2C6sZxWQ5hBjNdDo2yuqlC42T0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "09e9be8e54a064f57e86ee4f559b288b88906dc9"
+        "version": "79dd30cd398c51f06f86e865dbd5ece233d06d79"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5604",
-            "sha256": "sha256-SFLVHirEG5NIhZ0/j6sCPPaXrSpzDDhJJEZQdEhJx+I=",
+            "rev": "b5608",
+            "sha256": "sha256-XlHj8P8qw3kRk+Dj2mrfNYrrHxtA55+1fQrr9dp/CYc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5604"
+        "version": "b5608"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3365,7 +3365,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-06-06",
+        "date": "2025-06-09",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3377,12 +3377,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "b86e6147d68c229b45bb1f2a593f8b76155e964d",
-            "sha256": "sha256-ttGHvxv6ZImn6xBifsL4bc+7Q/RvarwPwegx9pT+Hsg=",
+            "rev": "5b94b7df626bffedc3fe05ee71511aa0272bfc36",
+            "sha256": "sha256-RK5togo9YEQVSUL1bpkcsHmzK1V8IMe0adFB1T2hVoI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b86e6147d68c229b45bb1f2a593f8b76155e964d"
+        "version": "5b94b7df626bffedc3fe05ee71511aa0272bfc36"
     },
     "rime-moegirl": {
         "cargoLocks": null,
