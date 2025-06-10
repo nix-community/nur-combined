@@ -14,7 +14,7 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
       dc-lib = import ./lib { inherit (nixpkgs) lib; };
     in
-    {
+    rec {
       legacyPackages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
@@ -25,11 +25,20 @@
 
       overlays = import ./overlays;
 
-      modules = builtins.listToAttrs (
+      nixosModules = builtins.listToAttrs (
         map (m: {
           name = m;
           value = import (./modules + "/${m}");
         }) (dc-lib.listSubdirNames ./modules)
+      );
+
+      modules = nixosModules;
+
+      hmModules = builtins.listToAttrs (
+        map (m: {
+          name = m;
+          value = import (./hmModules + "/${m}");
+        }) (dc-lib.listSubdirNames ./hmModules)
       );
 
       # devShells = forAllSystems (system: let
