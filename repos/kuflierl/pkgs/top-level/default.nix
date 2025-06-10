@@ -12,6 +12,7 @@ let
     cup = pkgs.lib.warnOnInstantiate "'cup' has been renamed to 'cup-docker' due to a package with the same name: 'cup: LALR parser generator'" packages.cup-docker;
     cup-docker = callPackageByName "cup-docker" { };
     cup-docker-noserver = callPackageByName "cup-docker" { withServer = false; };
+    ugdb = callPackageByName "ugdb" { };
   };
 in
 packages
