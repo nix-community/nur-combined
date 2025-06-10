@@ -6,6 +6,7 @@
   openssl,
   stdenv,
   darwin,
+  installShellFiles,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,6 +30,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
+    installShellFiles
   ];
 
   buildInputs = [
@@ -39,9 +41,9 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postInstall = ''
-    installShellCompletion --bash completions/bash/neocmakelsp
-    installShellCompletion --fish completions/fish/neocmakelsp.fish
-    installShellCompletion --zsh completions/zsh/_neocmakelsp
+    installShellCompletion --bash completions/git-commit-helper.bash
+    installShellCompletion --fish completions/git-commit-helper.fish
+    installShellCompletion --zsh completions/git-commit-helper.zsh
   '';
 
   meta = {
