@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "05b79dd1e65920cd023525e0971e1afc59a52b95";
+    version = "434f69d4242252d2a43370f13c9357ba8bfbac6f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "05b79dd1e65920cd023525e0971e1afc59a52b95";
-      hash = "sha256-P5lfEOEIXFcFzVqO4ODQAWLZ8P7tvU4ilyHgd5ifqBA=";
+      rev = "434f69d4242252d2a43370f13c9357ba8bfbac6f";
+      hash = "sha256-eICG2FPEawINv6wmZJQ32KheBgFJ5yf0zhGvziClhyM=";
     };
-    date = "2025-06-07";
+    date = "2025-06-10";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "79dd30cd398c51f06f86e865dbd5ece233d06d79";
+    version = "2fe8ecbbcf8244cdf5990d32211d0beba04db8f4";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "79dd30cd398c51f06f86e865dbd5ece233d06d79";
-      hash = "sha256-kReA8s3EjzjpOn5DW2C6sZxWQ5hBjNdDo2yuqlC42T0=";
+      rev = "2fe8ecbbcf8244cdf5990d32211d0beba04db8f4";
+      hash = "sha256-Pvm66yjqiGEY4XEJlLx67Uqjofb5lMervUcs4bvneBA=";
     };
-    date = "2025-06-09";
+    date = "2025-06-10";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5608";
+    version = "b5620";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5608";
-      hash = "sha256-XlHj8P8qw3kRk+Dj2mrfNYrrHxtA55+1fQrr9dp/CYc=";
+      tag = "b5620";
+      hash = "sha256-v5HeD7wXUW2jH6hJuunjZkkp5Z9xJzDtNKhzovYo6Ek=";
     };
   };
   loralib = {
@@ -1499,14 +1499,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab";
+    version = "56bb2ce2985e8011ef77c83fff486cacef6bf6ab";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab";
-      hash = "sha256-GRPcIsx6COlUXbCZu4RkWOVhFKDCYur5+DvOQVi4GRQ=";
+      rev = "56bb2ce2985e8011ef77c83fff486cacef6bf6ab";
+      hash = "sha256-EXXBPtg1iph7YhRIlFJocQwcFpvCGjzOGLB0EqfsX6E=";
     };
-    date = "2025-06-02";
+    date = "2025-06-09";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -1736,10 +1736,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250509";
+    version = "20250609";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250509/moegirl.dict.yaml";
-      hash = "sha256-Lte1xjgayhRrkw1RkBCy+EitzsRbwFhtYrhlTqbOvtA=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250609/moegirl.dict.yaml";
+      hash = "sha256-Zry74q94cupBxHExTvUSS/sF6Vp8LbALhaEhiHEQ7UY=";
     };
   };
   rime-zhwiki = {

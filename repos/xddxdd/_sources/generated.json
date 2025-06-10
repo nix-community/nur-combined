@@ -394,7 +394,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-06-07",
+        "date": "2025-06-10",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -406,16 +406,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "05b79dd1e65920cd023525e0971e1afc59a52b95",
-            "sha256": "sha256-P5lfEOEIXFcFzVqO4ODQAWLZ8P7tvU4ilyHgd5ifqBA=",
+            "rev": "434f69d4242252d2a43370f13c9357ba8bfbac6f",
+            "sha256": "sha256-eICG2FPEawINv6wmZJQ32KheBgFJ5yf0zhGvziClhyM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "05b79dd1e65920cd023525e0971e1afc59a52b95"
+        "version": "434f69d4242252d2a43370f13c9357ba8bfbac6f"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-06-09",
+        "date": "2025-06-10",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "79dd30cd398c51f06f86e865dbd5ece233d06d79",
-            "sha256": "sha256-kReA8s3EjzjpOn5DW2C6sZxWQ5hBjNdDo2yuqlC42T0=",
+            "rev": "2fe8ecbbcf8244cdf5990d32211d0beba04db8f4",
+            "sha256": "sha256-Pvm66yjqiGEY4XEJlLx67Uqjofb5lMervUcs4bvneBA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "79dd30cd398c51f06f86e865dbd5ece233d06d79"
+        "version": "2fe8ecbbcf8244cdf5990d32211d0beba04db8f4"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5608",
-            "sha256": "sha256-XlHj8P8qw3kRk+Dj2mrfNYrrHxtA55+1fQrr9dp/CYc=",
+            "rev": "b5620",
+            "sha256": "sha256-v5HeD7wXUW2jH6hJuunjZkkp5Z9xJzDtNKhzovYo6Ek=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5608"
+        "version": "b5620"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2930,7 +2930,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-06-02",
+        "date": "2025-06-09",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -2942,12 +2942,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab",
-            "sha256": "sha256-GRPcIsx6COlUXbCZu4RkWOVhFKDCYur5+DvOQVi4GRQ=",
+            "rev": "56bb2ce2985e8011ef77c83fff486cacef6bf6ab",
+            "sha256": "sha256-EXXBPtg1iph7YhRIlFJocQwcFpvCGjzOGLB0EqfsX6E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d1f2c4e641877e8cc3cbc930c3d360f4c33b1dab"
+        "version": "56bb2ce2985e8011ef77c83fff486cacef6bf6ab"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -3393,11 +3393,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Lte1xjgayhRrkw1RkBCy+EitzsRbwFhtYrhlTqbOvtA=",
+            "sha256": "sha256-Zry74q94cupBxHExTvUSS/sF6Vp8LbALhaEhiHEQ7UY=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250509/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250609/moegirl.dict.yaml"
         },
-        "version": "20250509"
+        "version": "20250609"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
