@@ -28,17 +28,17 @@
       nixosModules = builtins.listToAttrs (
         map (m: {
           name = m;
-          value = import (./modules + "/${m}");
-        }) (dc-lib.listSubdirNames ./modules)
+          value = import (./nixosModules + "/${m}");
+        }) (dc-lib.listSubdirNames ./nixosModules)
       );
 
       modules = nixosModules;
 
-      hmModules = builtins.listToAttrs (
+      homeManagerModules = builtins.listToAttrs (
         map (m: {
           name = m;
-          value = import (./hmModules + "/${m}");
-        }) (dc-lib.listSubdirNames ./hmModules)
+          value = import (./homeManagerModules + "/${m}");
+        }) (dc-lib.listSubdirNames ./homeManagerModules)
       );
 
       # devShells = forAllSystems (system: let

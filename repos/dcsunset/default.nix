@@ -17,8 +17,8 @@ in {
   modules = builtins.listToAttrs (
     map (m: {
       name = m;
-      value = import (./modules + "/${m}");
-    }) (dc-lib.listSubdirNames ./modules)
+      value = import (./nixosModules + "/${m}");
+    }) (dc-lib.listSubdirNames ./nixosModules)
   );
 
   overlays = import ./overlays; # nixpkgs overlays
