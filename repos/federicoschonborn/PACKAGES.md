@@ -111,14 +111,14 @@ Like neofetch, but much faster because written in C.
 
 ## `fastfetchMinimal` {#fastfetchMinimal}
 
-Like neofetch, but much faster because written in C (with all features disabled).
+Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
 - Version: `2.45.0`
 - Outputs: **`out`**, `man`
 - [🌐 Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [📰 Changelog](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.45.0)
-- [📦 Source](./default.nix#L29)
+- [📦 Source](./pkgs/by-name/fastfetch/package.nix#L287)
 - 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -217,39 +217,6 @@ Highscore.
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
 ## `libtgd` {#libtgd}
-
-A library to make working with multidimensional arrays in C++ easy.
-
-- Name: `libtgd`
-- Version: `5.0`
-- [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./pkgs/by-name/libtgd/package.nix#L101)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `libtgdFull` {#libtgdFull}
-
-A library to make working with multidimensional arrays in C++ easy (with all features enabled).
-
-- Name: `libtgd`
-- Version: `5.0`
-- [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L67)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `libtgdFullWithoutTool` {#libtgdFullWithoutTool}
-
-A library to make working with multidimensional arrays in C++ easy (with all features enabled).
-
-- Name: `libtgd`
-- Version: `5.0`
-- [🌐 Homepage](https://marlam.de/tgd/)
-- [📦 Source](./default.nix#L97)
-- 📄 License: [`MIT License`](https://spdx.org/licenses/MIT.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `libtgdWithoutTool` {#libtgdWithoutTool}
 
 A library to make working with multidimensional arrays in C++ easy.
 
@@ -368,9 +335,9 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2025-06-06`
+- Version: `0-unstable-2025-06-06`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
-- [📦 Source](./pkgs/by-name/pnut/package.nix#L44)
+- [📦 Source](./pkgs/by-name/pnut/package.nix#L39)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 
@@ -415,39 +382,6 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [🌐 Homepage](https://teem.sourceforge.net/)
 - [📦 Source](./pkgs/by-name/teem/package.nix#L61)
-- 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `teemExperimental` {#teemExperimental}
-
-A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
-
-- Name: `teem`
-- Version: `1.11.0`
-- [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L145)
-- 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `teemExperimentalFull` {#teemExperimentalFull}
-
-A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
-
-- Name: `teem`
-- Version: `1.11.0`
-- [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L158)
-- 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
-
-## `teemFull` {#teemFull}
-
-A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
-
-- Name: `teem`
-- Version: `1.11.0`
-- [🌐 Homepage](https://teem.sourceforge.net/)
-- [📦 Source](./default.nix#L127)
 - 📄 License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `x86_64-linux`
 

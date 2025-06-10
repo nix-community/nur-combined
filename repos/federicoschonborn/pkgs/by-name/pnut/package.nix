@@ -2,12 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation {
   pname = "pnut";
-  version = "SLE2024-artifact-unstable-2025-06-06";
+  version = "0-unstable-2025-06-06";
 
   src = fetchFromGitHub {
     owner = "udem-dlteam";
@@ -32,12 +32,7 @@ stdenv.mkDerivation {
     "pnut-sh.sh"
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
 
   meta = {
     mainProgram = "pnut";
