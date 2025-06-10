@@ -10,7 +10,6 @@ with pkgs; rec {
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
-  # wsm = pkgs.callPackage ./pkgs/wsm { };
   wayland-debug = pkgs.callPackage ./pkgs/wayland-debug {
     wayland = pkgs.callPackage ./pkgs/wayland-debug/wayland.nix { };
   };
