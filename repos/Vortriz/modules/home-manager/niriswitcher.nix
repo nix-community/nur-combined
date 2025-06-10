@@ -58,6 +58,11 @@ in {
 
     config = mkMerge [
         (mkIf cfg.enable {
+            warnings = [
+                ''
+                    An improved home-manager module has been upstreamed into the home-manager repo. Please switch to that.
+                ''
+            ];
             home.packages = [cfg.package];
         })
 
