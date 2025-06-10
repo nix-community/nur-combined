@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
       sha256 = "af3e5395480984ec14ee4819273c051d29884b34f553f512e2bd35d3c14604ec";
     })
     (fetchurl {
-      url="https://registrationcenter-download.intel.com/akdlm/IRC_NAS/2238465b-cfc7-4bf8-ad04-e55cb6577cba/intel-fortran-essentials-2025.1.1.8_offline.sh";
-      sha256="aa4bcf4eac5e3ea768c345e42ec35278ca38099f30181486daf7e04ad24dc888";
+      url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/2238465b-cfc7-4bf8-ad04-e55cb6577cba/intel-fortran-essentials-2025.1.1.8_offline.sh";
+      sha256 = "aa4bcf4eac5e3ea768c345e42ec35278ca38099f30181486daf7e04ad24dc888";
     })
   ];
 
@@ -141,12 +141,12 @@ stdenv.mkDerivation rec {
       sed -e "s,/bin/sh,${stdenv.shell},g" -i $file
     done
     export HOME=$out
-    # Patch the bootstraper binaries and libs
-    # for files in `find $out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib`
-    # do
-    #   patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib" $file 2>/dev/null || true
-    # done
-    # patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-oneapi-base-toolkit-${version}_offline/lib" $out/tmp/intel-oneapi-base-toolkit-${version}_offline/bootstrapper
+    Patch the bootstraper binaries and libs
+    for files in `find $out/tmp/intel-cpp-essentials-${version}_offline/lib`
+    do
+      patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $file 2>/dev/null || true
+    done
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $out/tmp/intel-oneapi-base-toolkit-${version}_offline/bootstrapper
     for files in `find $out/tmp/intel-cpp-essentials-${version}_offline/lib`
     do
       patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $file 2>/dev/null || true
@@ -159,7 +159,6 @@ stdenv.mkDerivation rec {
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-fortran-essentials-${version}_offline/lib" $out/tmp/intel-fortran-essentials-${version}_offline/bootstrapper
     # launch install
     export LD_LIBRARY_PATH=${zlib}/lib
-    # $out/tmp/intel-oneapi-base-toolkit-${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
     $out/tmp/intel-cpp-essentials-${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors 
     $out/tmp/intel-fortran-essentials-${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors 
     rm -rf $out/tmp
