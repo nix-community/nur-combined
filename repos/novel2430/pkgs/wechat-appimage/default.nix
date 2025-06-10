@@ -130,7 +130,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     for res in 16 32 48 64 128 256; do
-      for name in { ${pkgname},wechat,weixin,com.tencent.WeChat,com.tencent.wechat }; do
+      for name in {${pkgname},wechat,weixin,com.tencent.WeChat,com.tencent.wechat}; do
         install -Dm644 \
             ${appimageContent}/wechat.png \
             $out/share/icons/hicolor/''${res}x''${res}/apps/''${name}.png
