@@ -183,7 +183,6 @@
         };
       }
     ];
-    alist.enable = true;
   };
 
   programs = {
