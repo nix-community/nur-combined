@@ -141,12 +141,12 @@ stdenv.mkDerivation rec {
       sed -e "s,/bin/sh,${stdenv.shell},g" -i $file
     done
     export HOME=$out
-    Patch the bootstraper binaries and libs
+    # Patch the bootstraper binaries and libs
     for files in `find $out/tmp/intel-cpp-essentials-${version}_offline/lib`
     do
       patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $file 2>/dev/null || true
     done
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $out/tmp/intel-oneapi-base-toolkit-${version}_offline/bootstrapper
+    # patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $out/tmp/intel-oneapi-base-toolkit-${version}_offline/bootstrapper
     for files in `find $out/tmp/intel-cpp-essentials-${version}_offline/lib`
     do
       patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/intel-cpp-essentials-${version}_offline/lib" $file 2>/dev/null || true
