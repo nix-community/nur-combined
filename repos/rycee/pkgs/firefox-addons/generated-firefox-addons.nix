@@ -2427,10 +2427,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2522.0";
+      version = "6.2524.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4500845/dashlane-6.2522.0.xpi";
-      sha256 = "40a69d30ac0eba460fb737d2b688c17cc052eedc524d476bf39b0baa57c2d2d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4509595/dashlane-6.2524.0.xpi";
+      sha256 = "a97773dc39244fa217d4af07d00cfd3475e0cbd3acc5b4adfb4cd8678225a8e7";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3854,10 +3854,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.35";
+      version = "10.4.36";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498759/ghostery-10.4.35.xpi";
-      sha256 = "a29513ecfbcf179f006cffe99efbc558d1090f08a6f1d65763b016ae812bf400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4506130/ghostery-10.4.36.xpi";
+      sha256 = "6c0d4a83fdd099745edeccb1c2aa0fea2e19d56a84d89c34631d0bbeff64d79c";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -3971,10 +3971,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.4.0";
+      version = "2.4.1";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4475942/gitpod-2.4.0.xpi";
-      sha256 = "a1356fdba1cd04f278b45dbd878adfd24fc6a9bc269197141fba17dc8533861d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4510573/gitpod-2.4.1.xpi";
+      sha256 = "82f35a9d7389ff1d0b32996f52cc83763e9978be401f1fbce068675fb38a28be";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -6692,10 +6692,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.3";
+      version = "2.3.4";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4510160/lingq_importer2-2.3.3.xpi";
-      sha256 = "873de80f44cb221f8e5bbf25cd516e1ad396dd6c14b3df4a626737bf7a3dc7d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4510888/lingq_importer2-2.3.4.xpi";
+      sha256 = "751e06d9d3bec3c101035b45792820af736bb33642004f9a33ac72173da9314c";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -6709,6 +6709,7 @@
           "https://*.netflix.com/*"
           "https://*.primevideo.com/*"
           "https://*.youtube.com/*"
+          "https://*.lingq.com/*"
         ];
         platforms = platforms.all;
       };
@@ -14305,10 +14306,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.2.30";
+      version = "2.3.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499838/youtube_no_translation-2.2.30.xpi";
-      sha256 = "aa4550c557c4fea2c5acead6307d09edcd1e67a5cc71696cb967fb0304e20c6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4511059/youtube_no_translation-2.3.0.xpi";
+      sha256 = "b9afd9f8a989f74abf622bc58cd6b2c89591a63d51c0ee73970557ac05ea6476";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
