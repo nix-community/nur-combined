@@ -80,9 +80,7 @@ in
         packages = lib.mapAttrs' (
           n: v:
           let
-            applyPatches =
-              (import v.sourceInput { inherit system; }).applyPatches
-                or (import inputs.nixpkgs.sourceInput { inherit system; }).applyPatches;
+            inherit ((import inputs.nixpkgs { inherit system; })) applyPatches;
           in
           lib.nameValuePair "${n}-patched" (applyPatches {
             name = "${n}-patched";
