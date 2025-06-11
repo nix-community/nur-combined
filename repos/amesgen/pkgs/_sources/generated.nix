@@ -3,18 +3,18 @@
 {
   cabal-docspec = {
     pname = "cabal-docspec";
-    version = "0.0.0.20240703";
+    version = "0.0.0.20250606";
     src = fetchurl {
-      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20240703/cabal-docspec-0.0.0.20240703-x86_64-linux.xz";
-      sha256 = "sha256-SL87f9L38MqmFir+5Xp1W+hSPn9Ge2lJAOtCD1+ae3Y=";
+      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20250606/cabal-docspec-0.0.0.20250606-x86_64-linux.xz";
+      sha256 = "sha256-zCC7XBlQG0K953VWvEGcfApcjR62VmMCTYpOTIaL7yU=";
     };
   };
   cabal-docspec-man = {
     pname = "cabal-docspec-man";
-    version = "0.0.0.20240703";
+    version = "0.0.0.20250606";
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20240703/cabal-docspec/cabal-docspec.1";
-      sha256 = "sha256-Bswvhto4YdbmkRSmiQVl4fyerNIVnH54nckaxXhCQhQ=";
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20250606/cabal-docspec/cabal-docspec.1";
+      sha256 = "sha256-xUlY741U1U8zLWcVBTmz27cRfRXoSPBkwnvOkRr8cdI=";
     };
   };
   cabal-gild = {
@@ -43,10 +43,10 @@
   };
   hell = {
     pname = "hell";
-    version = "2025-05-30";
+    version = "2025-06-09";
     src = fetchurl {
-      url = "https://github.com/chrisdone/hell/releases/download/2025-05-30/hell-linux-x86-64bit";
-      sha256 = "sha256-MWe6emmRRUuDMhEqBQEDfudj4hHheED/c2F1+lbTBKE=";
+      url = "https://github.com/chrisdone/hell/releases/download/2025-06-09/hell-linux-x86-64bit";
+      sha256 = "sha256-C/10AaPf3MHpaCfVqQlkwHKVJvaevGCCKz2ddDp8mSU=";
     };
   };
   hlint = {
