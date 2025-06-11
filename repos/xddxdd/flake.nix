@@ -156,18 +156,6 @@
           };
         };
 
-        nixpkgs-options = {
-          pkgs = {
-            sourceInput = inputs.nixpkgs;
-            allowInsecurePredicate = _: true;
-          };
-          pkgsWithCuda = {
-            sourceInput = inputs.nixpkgs;
-            allowInsecurePredicate = _: true;
-            settings.cudaSupport = true;
-          };
-        };
-
         perSystem =
           {
             pkgs,
@@ -176,6 +164,18 @@
             ...
           }:
           {
+            nixpkgs-options = {
+              pkgs = {
+                sourceInput = inputs.nixpkgs;
+                allowInsecurePredicate = _: true;
+              };
+              pkgsWithCuda = {
+                sourceInput = inputs.nixpkgs;
+                allowInsecurePredicate = _: true;
+                settings.cudaSupport = true;
+              };
+            };
+
             packages = import ./pkgs null {
               inherit inputs pkgs;
               pkgs-24_05 = pkgsForSystem-24_05 system;

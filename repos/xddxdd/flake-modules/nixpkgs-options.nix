@@ -1,7 +1,7 @@
 {
   inputs,
   lib,
-  config,
+  flake-parts-lib,
   ...
 }:
 let
@@ -45,41 +45,52 @@ let
   };
 in
 {
-  options.nixpkgs-options = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule instanceOptions);
-    default = { };
-  };
+  options.perSystem = flake-parts-lib.mkPerSystemOption (
+    {
+      lib,
+      system,
+      config,
+      ...
+    }:
+    {
+      options.nixpkgs-options = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.submodule instanceOptions);
+        default = { };
+      };
 
-  config.perSystem =
-    { system, ... }:
-    rec {
-      _module.args = lib.mapAttrs (
-        n: v:
-        lib.mkForce (
-          import packages."${n}-patched" {
-            inherit system;
-            config =
-              {
-                inherit (v) allowUnfree permittedInsecurePackages;
-              }
-              // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
-                inherit (v) allowInsecurePredicate;
-              })
-              // v.settings;
-            inherit (v) overlays;
-          }
-        )
-      ) config.nixpkgs-options;
+      config = rec {
+        _module.args = lib.mapAttrs (
+          n: v:
+          lib.mkForce (
+            import packages."${n}-patched" {
+              inherit system;
+              config =
+                {
+                  inherit (v) allowUnfree permittedInsecurePackages;
+                }
+                // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
+                  inherit (v) allowInsecurePredicate;
+                })
+                // v.settings;
+              inherit (v) overlays;
+            }
+          )
+        ) config.nixpkgs-options;
 
-      packages = lib.mapAttrs' (
-        n: v:
-        lib.nameValuePair "${n}-patched" (
-          (import v.sourceInput { inherit system; }).applyPatches {
-            name = "nixpkgs-patched";
+        packages = lib.mapAttrs' (
+          n: v:
+          let
+            applyPatches =
+              (import v.sourceInput { inherit system; }).applyPatches
+                or (import inputs.nixpkgs.sourceInput { inherit system; }).applyPatches;
+          in
+          lib.nameValuePair "${n}-patched" (applyPatches {
+            name = "${n}-patched";
             src = builtins.toString v.sourceInput;
             inherit (v) patches;
-          }
-        )
-      ) config.nixpkgs-options;
-    };
+          })
+        ) config.nixpkgs-options;
+      };
+    }
+  );
 }
