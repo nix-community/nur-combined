@@ -1,7 +1,7 @@
 {
   lib,
   buildPythonApplication,
-  fetchFromGitea,
+  fetchgit,
   pbr,
   requests,
   setuptools,
@@ -16,11 +16,10 @@ buildPythonApplication rec {
   # upstream repository (and we are installing from tarball instead)
   PBR_VERSION = version;
 
-  src = fetchFromGitea {
-    domain = "opendev.org";
-    owner = "opendev";
-    repo = "git-review";
-    rev = version;
+  # fetchFromGitea fails trying to download archive file
+  src = fetchgit {
+    url = "https://opendev.org/opendev/git-review";
+    tag = version;
     hash = "sha256-RE5XAUS46Y/jtI0/csR59B9l1gYpHuwGQkbWqoTfxPk=";
   };
 
