@@ -9,5 +9,4 @@ builtins.removeAttrs
   })
   [
     "microsoft-edit"
-    "microsoft-edit-git"
   ]
