@@ -1,0 +1,10 @@
+pull_request_rules:
+  - name: Merge when labeled and all CI jobs pass
+    conditions:
+      - and:
+          - label=dependencies
+          - check-success=All Garnix checks
+    actions:
+      update:
+      merge:
+        method: squash

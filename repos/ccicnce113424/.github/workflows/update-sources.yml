@@ -1,0 +1,39 @@
+name: Update Sources
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update-sources:
+    runs-on: ubuntu-latest
+    name: Update Sources
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - name: Update sources
+        run: |
+          nix flake update
+          nix run nixpkgs#nvfetcher
+          nix fmt _sources
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          commit-message: Update sources
+          branch: ci/update-sources
+          delete-branch: true
+          title: Update sources
+          labels: dependencies
