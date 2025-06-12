@@ -16,6 +16,7 @@ writeShellApplication rec {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Cleanup old profiles on NixOS";
     license = lib.licenses.free;
+    homepage = "https://github.com/xddxdd/nur-packages";
     mainProgram = name;
   };
 }
