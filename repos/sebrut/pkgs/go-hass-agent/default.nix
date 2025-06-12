@@ -2,7 +2,7 @@
   stdenv,
   lib,
   pkgs,
-  buildGo123Module, # workaround till buildGoModule uses go 1.23 by default
+  buildGoModule, # workaround till buildGoModule uses go 1.23 by default
   pkg-config,
   glfw,
   libX11,
@@ -16,18 +16,18 @@
   git,
   ...
 }:
-buildGo123Module rec {
+buildGoModule rec {
   pname = "go-hass-agent";
-  version = "10.4.0";
+  version = "13.2.7";
 
   src = pkgs.fetchFromGitHub {
     owner = "joshuar";
     repo = "go-hass-agent";
     rev = "v${version}";
-    hash = "sha256-Mr/BwcIKoH7IrvgjviBfhWzbxcOapYrQsY0bDrJsQV8=";
+    hash = "sha256-nec5gH/p65sfxNDD+5TEc7POP7B2MOA23aMqJ9aXAz8=";
   };
 
-  vendorHash = "sha256-ZgpnvgPDzsXcf3XkvceezhELZWqn+9u8JuOv0euskI0=";
+  vendorHash = "sha256-PVicvYGaZxNVUbmNCEGUd4BZklhgaSMKpeiy898YTbM=";
 
   doCheck = false;
 
@@ -83,5 +83,6 @@ buildGo123Module rec {
     homepage = "https://github.com/joshuar/go-hass-agent";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ sebrut ];
+    mainProgram = "go-hass-agent";
   };
 }
