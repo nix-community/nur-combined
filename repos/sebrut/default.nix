@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   autotheme = pkgs.callPackage ./pkgs/autotheme { };
+  envmon = pkgs.callPackage ./pkgs/envmon { };
   flathunter = pkgs.callPackage ./pkgs/flathunter { };
   go-hass-agent = pkgs.callPackage ./pkgs/go-hass-agent { };
   hostman = pkgs.callPackage ./pkgs/hostman { };
