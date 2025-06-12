@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs>,
+  pkgs ? import <nixpkgs> { },
 }:
 let
   fetched-src = pkgs.callPackage ../_sources/generated.nix { };
@@ -15,6 +15,17 @@ rec {
   mpv-handler = pkgs.callPackage ./mpv-handler { sources = fetched-src.mpv-handler; };
 
   shijima-qt = pkgs.callPackage ./shijima-qt { };
+
+  splayer = pkgs.callPackage ./splayer {
+    pnpm = pkgs.pnpm_10;
+    hash = import ./splayer/hash.nix;
+    sources = fetched-src.splayer;
+  };
+  splayer-git = pkgs.callPackage ./splayer {
+    pnpm = pkgs.pnpm_10;
+    hash = import ./splayer/hash-git.nix;
+    sources = fetched-src.splayer-git;
+  };
 
   uosc-danmaku = pkgs.mpvScripts.callPackage ./uosc-danmaku {
     inherit danmakufactory;

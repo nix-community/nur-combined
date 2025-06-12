@@ -27,6 +27,7 @@ jobs:
           nix flake update
           nix run nixpkgs#nvfetcher
           nix fmt _sources
+          ./update.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
