@@ -74,8 +74,9 @@ in {
         modifier = "Mod4";
         input = {
           "type:keyboard" = {
-            xkb_layout = "fr";
-            xkb_variant = "us";
+            xkb_layout = "fr,fr";
+            xkb_variant = "us,ergol";
+            xkb_options = "grp:shift_caps_toggle";
           };
           "type:touchpad" = {
             dwt = "enabled";
@@ -95,6 +96,7 @@ in {
         };
         bars = [];
 
+        bindkeysToCode = true;
         keybindings = mkOptionDefault {
           "Mod4+Shift+a" = "exec shikanectl reload";
           "Mod4+Shift+e" = ''mode "${logoutMode}"'';
