@@ -59,10 +59,18 @@
 
               darwinChannels = baseChannels ++ [ "nixpkgs-25.05-darwin" ];
 
-              linuxSystems = [
+              nativelinuxSystems = [
                 "x86_64-linux"
                 "aarch64-linux"
               ];
+
+              emulatedLinuxSystems = [
+                "armv6l-linux"
+                "armv7l-linux"
+                "i686-linux"
+              ];
+
+              linuxSystems = nativelinuxSystems ++ emulatedLinuxSystems;
 
               linuxChannels = baseChannels ++ [
                 "nixos-unstable"
@@ -71,19 +79,37 @@
                 "nixos-25.05-small"
               ];
 
-              runners = {
-                x86_64-linux = "ubuntu-24.04";
-                aarch64-linux = "ubuntu-24.04-arm";
-                x86_64-darwin = "macos-13";
-                aarch64-darwin = "macos-15";
-              };
+              runners =
+                let
+                  ubuntuVersion = "24.04";
+                in
+                {
+                  x86_64-linux = "ubuntu-${ubuntuVersion}";
+                  aarch64-linux = "ubuntu-${ubuntuVersion}-arm";
+                  x86_64-darwin = "macos-13";
+                  aarch64-darwin = "macos-15";
+                };
+
+              emulatorRunner = runners.x86_64-linux;
 
               matrixFor =
                 systems: channels:
-                lib.mapCartesianProduct (attrs: attrs // { runner = runners.${attrs.system}; }) {
-                  system = systems;
-                  channel = channels;
-                };
+                lib.mapCartesianProduct
+                  (
+                    { system, ... }@attrs:
+                    let
+                      withQemu = lib.elem system emulatedLinuxSystems;
+                    in
+                    attrs
+                    // {
+                      runner = if withQemu then emulatorRunner else runners.${system};
+                      inherit withQemu;
+                    }
+                  )
+                  {
+                    system = systems;
+                    channel = channels;
+                  };
             in
             lib.concatLists [
               (matrixFor linuxSystems linuxChannels)
