@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 rime_data=()
 
 function addRimeData {
@@ -31,7 +33,7 @@ function rimeDataBuildHook {
   runHook preBuild
 
   for schema_file in *.schema.yaml; do
-    rime_deployer --compile "$schema_file" . rime_data_deps
+    faketime -f "1970-01-01 00:00:01" rime_deployer --compile "$schema_file" . rime_data_deps
   done
 
   runHook postBuild
@@ -42,10 +44,11 @@ function rimeDataBuildPostBuildHook {
   echo "Executing rimeDataBuildPostBuildHook"
 
   if [ -d rime_data_deps/build ]; then
-    for compiled_file in $(ls rime_data_deps/build); do
-      if [ -f "build/$compiled_file" ]; then
-        echo "delete 'build/$compiled_file'..."
-        rm "build/$compiled_file"
+    for compiled_file in rime_data_deps/build/*; do
+      filename=$(basename "$compiled_file")
+      if [ -f "build/$filename" ]; then
+        echo "delete 'build/$filename'..."
+        rm "build/$filename"
       fi
     done
   fi
