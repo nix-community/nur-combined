@@ -27,6 +27,10 @@ stdenv.mkDerivation (final: {
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 
+  postConfigure = ''
+    cp .env.example .env
+  '';
+
   postBuild = ''
     pnpm build
 
@@ -69,6 +73,7 @@ stdenv.mkDerivation (final: {
       startupWMClass = "SPlayer";
       comment = "A minimalist music player";
       categories = [
+        "AudioVideo"
         "Audio"
         "Music"
       ];
