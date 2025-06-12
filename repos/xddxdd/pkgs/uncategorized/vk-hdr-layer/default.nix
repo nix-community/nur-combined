@@ -11,7 +11,7 @@
   wayland,
   xorg,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.vk-hdr-layer) pname version src;
   nativeBuildInputs = [
     meson
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Zamundaaa/VK_hdr_layer";
     license = lib.licenses.mit;
   };
-}
+})

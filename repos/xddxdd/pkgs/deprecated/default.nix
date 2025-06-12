@@ -15,7 +15,7 @@ let
   };
 in
 lib.mapAttrs (
-  _k: v:
+  k: v:
   v
   // {
     meta = v.meta // {

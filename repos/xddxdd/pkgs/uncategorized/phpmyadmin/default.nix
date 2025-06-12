@@ -6,7 +6,7 @@
 let
   configFile = ./config.inc.php;
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.phpmyadmin) pname version src;
 
   installPhase = ''
@@ -26,4 +26,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.phpmyadmin.net/";
     license = lib.licenses.gpl2Only;
   };
-}
+})

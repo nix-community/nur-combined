@@ -6,7 +6,7 @@
   makeWrapper,
   unzip,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.jproxy) pname version src;
 
   nativeBuildInputs = [
@@ -37,4 +37,4 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.mit;
     mainProgram = "jproxy";
   };
-}
+})

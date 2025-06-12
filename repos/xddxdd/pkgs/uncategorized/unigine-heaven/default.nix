@@ -15,7 +15,7 @@
   xorg,
   zlib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.unigine-heaven) pname version src;
 
   nativeBuildInputs = [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     makeWrapper $out/opt/heaven $out/bin/unigine-heaven \
       --chdir $out/opt \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
     install -Dm644 $out/opt/data/launcher/icon.png $out/share/pixmaps/unigine-heaven.png
   '';
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       name = "unigine-heaven";
       exec = "unigine-heaven";
       desktopName = "Unigine Heaven";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       icon = "unigine-heaven";
       categories = [
         "Game"
@@ -99,4 +99,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "unigine-heaven";
   };
-}
+})

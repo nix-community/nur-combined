@@ -24,7 +24,7 @@ let
     libglvnd
   ];
 
-  dist = stdenv.mkDerivation rec {
+  dist = stdenv.mkDerivation (finalAttrs: {
     inherit (sources.baidunetdisk) pname version src;
 
     dontFixup = true;
@@ -68,9 +68,9 @@ let
         vk_swiftshader_icd.json
       popd
     '';
-  };
+  });
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.baidunetdisk) pname version;
   dontUnpack = true;
 
@@ -116,4 +116,4 @@ stdenv.mkDerivation {
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "baidunetdisk";
   };
-}
+})

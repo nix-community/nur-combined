@@ -31,8 +31,8 @@ rec {
           ;
         kernel = pkgs.linux;
         # Integrate to nixpkgs python3Packages
-        python = pkgs.python.override { packageOverrides = _final: _prev: _packages.python3Packages; };
-        python3 = pkgs.python3.override { packageOverrides = _final: _prev: _packages.python3Packages; };
+        python = pkgs.python.override { packageOverrides = final: prev: _packages.python3Packages; };
+        python3 = pkgs.python3.override { packageOverrides = final: prev: _packages.python3Packages; };
         python3Packages = python3.pkgs;
       }
     );
@@ -76,7 +76,7 @@ rec {
       );
 
   _doGroupPackages =
-    callGroup: groups: lib.mapAttrs (_n: callGroup) (lib.filterAttrs (_n: v: v != null) groups);
+    callGroup: groups: lib.mapAttrs (n: callGroup) (lib.filterAttrs (n: v: v != null) groups);
 
   doFlatGroupPackages =
     _packages: groups:
@@ -95,5 +95,5 @@ rec {
     in
     _doGroupPackages callGroup groups;
 
-  doMergePkgs = lib.mapAttrs (_n: v: if lib.isDerivation v then v else mergePkgs v);
+  doMergePkgs = lib.mapAttrs (n: v: if lib.isDerivation v then v else mergePkgs v);
 }

@@ -6,7 +6,7 @@
   autoPatchelfHook,
   pciutils,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bnxtnvm";
   version = "222.0.144.0";
   src = fetchurl {
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     homepage = "https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf";
     license = lib.licenses.unfree;
   };
-}
+})

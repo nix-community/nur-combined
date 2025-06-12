@@ -3,7 +3,7 @@
   sources,
   buildGoModule,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit (sources.drone-vault) pname version src;
   vendorHash = "sha256-T97PO3Q8C+0+QYRkl3iwRujU4mLFy16zUUjVXNlgQdw=";
 
@@ -14,4 +14,4 @@ buildGoModule rec {
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "drone-vault";
   };
-}
+})

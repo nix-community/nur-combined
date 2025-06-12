@@ -27,7 +27,7 @@
         }) config.commands;
 
         devshells.default = {
-          commands = lib.mapAttrsToList (n: _v: {
+          commands = lib.mapAttrsToList (n: nv: {
             name = n;
             command = "exec nix run .#${n} -- \"$@\"";
           }) apps;

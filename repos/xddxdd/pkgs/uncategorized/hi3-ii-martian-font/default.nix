@@ -3,7 +3,7 @@
   lib,
   sources,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.hi3-ii-martian-font) pname version src;
 
   installPhase = ''
@@ -21,4 +21,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/Wenti-D/HI3IIMartianFont";
     license = with lib.licenses; [ unfreeRedistributable ];
   };
-}
+})

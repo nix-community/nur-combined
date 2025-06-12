@@ -4,7 +4,7 @@
   lib,
   ncurses,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.gopherus) pname version src;
 
   buildInputs = [ ncurses ];
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     license = with lib.licenses; [ bsd2 ];
     mainProgram = "gopherus";
   };
-}
+})

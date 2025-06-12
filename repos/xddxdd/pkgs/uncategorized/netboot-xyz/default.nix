@@ -4,7 +4,7 @@
   sources,
 }:
 assert (sources.netboot-xyz-lkrn.version == sources.netboot-xyz-lkrn.version);
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "netboot-xyz";
   inherit (sources.netboot-xyz-lkrn) version;
 
@@ -21,4 +21,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://netboot.xyz/";
     license = lib.licenses.asl20;
   };
-}
+})

@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.route-chain) pname version src;
   enableParallelBuilding = true;
   installPhase = ''
@@ -21,4 +21,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unlicense;
     mainProgram = "route-chain";
   };
-}
+})

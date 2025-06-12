@@ -140,7 +140,7 @@ let
     xorg.xcbutilwm
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.dingtalk) pname src;
   version = builtins.elemAt (lib.splitString "_" sources.dingtalk.version) 1;
 
@@ -243,4 +243,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "dingtalk";
   };
-}
+})

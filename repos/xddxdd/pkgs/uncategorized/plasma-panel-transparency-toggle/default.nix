@@ -3,7 +3,7 @@
   sources,
   stdenvNoCC,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.plasma-panel-transparency-toggle) pname version src;
 
   postInstall = ''
@@ -17,4 +17,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6";
     license = lib.licenses.gpl2Only;
   };
-}
+})

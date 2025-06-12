@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.vbmeta-disable-verification) pname version src;
   buildPhase = ''
     runHook preBuild
@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/libxzr/vbmeta-disable-verification/releases/tag/v${version}";
+    changelog = "https://github.com/libxzr/vbmeta-disable-verification/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Patch Android vbmeta image and disable verification flags inside";
     homepage = "https://github.com/libxzr/vbmeta-disable-verification";
     license = lib.licenses.mit;
     mainProgram = "vbmeta-disable-verification";
   };
-}
+})

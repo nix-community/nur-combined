@@ -4,7 +4,7 @@
   rustPlatform,
   versionCheckHook,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uesave";
   inherit (sources.uesave-0_3_0) version src;
 
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
+  versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
   meta = {
     mainProgram = "uesave";
@@ -24,4 +24,4 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/trumank/uesave-rs";
     license = lib.licenses.mit;
   };
-}
+})

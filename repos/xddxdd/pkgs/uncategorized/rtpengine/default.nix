@@ -25,7 +25,7 @@
   pandoc,
   ncurses,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.rtpengine) pname version src;
 
   enableParallelBuilding = true;
@@ -69,11 +69,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${version}";
+    changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Sipwise media proxy for Kamailio";
     homepage = "https://github.com/sipwise/rtpengine";
     license = lib.licenses.gpl3Only;
     mainProgram = "rtpengine";
   };
-}
+})

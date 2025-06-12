@@ -4,7 +4,7 @@
   sources,
   unzip,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.hoyo-glyphs) pname version src;
 
   sourceRoot = ".";
@@ -21,10 +21,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs/releases/tag/${version}";
+    changelog = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Constructed scripts by Hoyoverse 米哈游的架空文字";
     homepage = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs";
     license = with lib.licenses; [ unfreeRedistributable ];
   };
-}
+})

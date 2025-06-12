@@ -4,11 +4,11 @@
   fetchurl,
   p7zip,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "hesuvi-hrir";
   version = "2.0.0.1";
   src = fetchurl {
-    url = "https://sourceforge.net/projects/hesuvi/files/HeSuVi_${version}.exe/download";
+    url = "https://sourceforge.net/projects/hesuvi/files/HeSuVi_${finalAttrs.version}.exe/download";
     sha256 = "1fh1lqkv992xjglwkp3b544ai552pyjbmgfm9yp8fylg9mqp85x3";
   };
 
@@ -29,4 +29,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/hesuvi/";
     license = lib.licenses.free;
   };
-}
+})

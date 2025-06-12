@@ -55,7 +55,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.osdlyrics) pname version src;
   nativeBuildInputs = [
     autoreconfHook
@@ -80,11 +80,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/osdlyrics/osdlyrics/releases/tag/${version}";
+    changelog = "https://github.com/osdlyrics/osdlyrics/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Standalone lyrics fetcher/displayer (windowed and OSD mode)";
     homepage = "https://github.com/osdlyrics/osdlyrics";
     license = lib.licenses.gpl3Only;
     mainProgram = "osdlyrics";
   };
-}
+})

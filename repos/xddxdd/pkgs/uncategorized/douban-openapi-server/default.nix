@@ -23,7 +23,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.douban-openapi-server) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -50,4 +50,4 @@ stdenv.mkDerivation rec {
     license = with lib.licenses; [ mit ];
     broken = true;
   };
-}
+})

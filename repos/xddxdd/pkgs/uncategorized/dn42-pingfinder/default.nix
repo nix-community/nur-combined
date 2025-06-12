@@ -15,7 +15,7 @@ let
     which
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.dn42-pingfinder) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "dn42-pingfinder";
   };
-}
+})

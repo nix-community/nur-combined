@@ -6,7 +6,7 @@
   python3,
   uesave-0_3_0,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.palworld-worldoptions) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/legoduded/palworld-worldoptions/releases/tag/v${version}";
+    changelog = "https://github.com/legoduded/palworld-worldoptions/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers";
     homepage = "https://github.com/legoduded/palworld-worldoptions";
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     mainProgram = "palworld-worldoptions";
   };
-}
+})

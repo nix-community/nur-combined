@@ -30,6 +30,7 @@ flutter324.buildFlutterApplication rec {
       static const bool isDebug = false;
       static const String buildTime = '1980-01-01 00:00:00';
       static const String commitHash = '0000000000000000000000000000000000000000';
+      static const String version = "${version}";
     }
     EOL
   '';

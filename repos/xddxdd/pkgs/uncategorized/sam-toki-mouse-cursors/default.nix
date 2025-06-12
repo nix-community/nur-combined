@@ -11,7 +11,7 @@ let
     win2xcur
   ]);
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.sam-toki-mouse-cursors) pname version src;
 
   nativeBuildInputs = [ py ];
@@ -40,10 +40,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/SamToki/Sam-Toki-Mouse-Cursors/releases/tag/v${version}";
+    changelog = "https://github.com/SamToki/Sam-Toki-Mouse-Cursors/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Original mouse cursors (pointers) for Windows, with minimalistic design";
     homepage = "https://github.com/SamToki/Sam-Toki-Mouse-Cursors";
     license = lib.licenses.cc-by-nc-sa-30;
   };
-}
+})

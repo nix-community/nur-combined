@@ -24,7 +24,7 @@ in
 {
   flake = {
     colmenaHive = mkColmenaHive { allowApplyAll = false; } (
-      lib.filterAttrs (n: _v: !lib.hasPrefix "_" n) config.flake.nixosConfigurations
+      lib.filterAttrs (n: nv: !lib.hasPrefix "_" n) config.flake.nixosConfigurations
     );
   };
 }

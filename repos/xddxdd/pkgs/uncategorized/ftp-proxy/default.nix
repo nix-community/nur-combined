@@ -3,7 +3,7 @@
   stdenv,
   sources,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.ftp-proxy) pname version src;
 
   buildPhase = ''
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ftpproxy.org/";
     license = lib.licenses.gpl2Only;
   };
-}
+})

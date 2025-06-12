@@ -3,7 +3,7 @@
   lib,
   buildGoModule,
 }:
-buildGoModule {
+buildGoModule (finalAttrs: {
   inherit (sources.ldap-auth-proxy) pname version src;
   vendorHash = "sha256-drLTMaRelaz36ORl1qKndGYN2i6qRgJxy2D+wTDzmWA=";
 
@@ -19,4 +19,4 @@ buildGoModule {
     license = lib.licenses.mit;
     mainProgram = "ldap-auth-proxy";
   };
-}
+})

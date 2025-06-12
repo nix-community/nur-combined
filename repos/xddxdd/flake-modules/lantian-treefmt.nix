@@ -22,7 +22,11 @@
           # # Disabled for not recognizing ARM64 runner
           # actionlint.enable = true;
           black.enable = true;
-          deadnix.enable = true;
+          deadnix = {
+            enable = true;
+            no-lambda-arg = true;
+            no-lambda-pattern-names = true;
+          };
           dos2unix.enable = true;
           # # Disable for build failure
           # formatjson5.enable = true;

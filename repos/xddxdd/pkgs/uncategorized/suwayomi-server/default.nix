@@ -6,7 +6,7 @@
   jre_headless,
   makeWrapper,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.suwayomi-server) pname version src;
 
   dontUnpack = true;
@@ -36,4 +36,4 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.mpl20;
     mainProgram = "suwayomi-server";
   };
-}
+})

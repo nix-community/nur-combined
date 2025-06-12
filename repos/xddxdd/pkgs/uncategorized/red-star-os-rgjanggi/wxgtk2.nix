@@ -19,12 +19,12 @@
   withMesa ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wxGTK";
   version = "2.8.12.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/wxpython/wxPython-src-${version}.tar.bz2";
+    url = "mirror://sourceforge/wxpython/wxPython-src-${finalAttrs.version}.tar.bz2";
     hash = "sha256-Hz8VPZ8VBMbOLSxLI+lAuPWLgfTLo1zaGluzEUIkPNA=";
   };
 
@@ -48,14 +48,17 @@ stdenv.mkDerivation rec {
     xorgproto
   ] ++ lib.optional withMesa libGLU;
 
-  configureFlags = [
-    "--enable-gtk2"
-    "--disable-precomp-headers"
-    "--enable-mediactrl"
-    "--enable-graphics_ctx"
-    (if compat24 then "--enable-compat24" else "--disable-compat24")
-    (if compat26 then "--enable-compat26" else "--disable-compat26")
-  ] ++ lib.optional unicode "--enable-unicode" ++ lib.optional withMesa "--with-opengl";
+  configureFlags =
+    [
+      "--enable-gtk2"
+      "--disable-precomp-headers"
+      "--enable-mediactrl"
+      "--enable-graphics_ctx"
+      (if compat24 then "--enable-compat24" else "--disable-compat24")
+      (if compat26 then "--enable-compat26" else "--disable-compat26")
+    ]
+    ++ lib.optional unicode "--enable-unicode"
+    ++ lib.optional withMesa "--with-opengl";
 
   hardeningDisable = [ "format" ];
 
@@ -116,4 +119,4 @@ stdenv.mkDerivation rec {
     inherit compat24 compat26 unicode;
     gtk = gtk2;
   };
-}
+})

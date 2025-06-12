@@ -6,7 +6,7 @@
   stdenv,
   cmake,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version src;
 
   enableParallelBuilding = true;
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     homepage = "https://openquantumsafe.org";
     license = with lib.licenses; [ mit ];
   };
-}
+})

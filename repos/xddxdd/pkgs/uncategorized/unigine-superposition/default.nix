@@ -97,7 +97,7 @@ let
     unshareCgroup = false;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.unigine-superposition) pname version;
 
   dontUnpack = true;
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       name = "unigine-superposition";
       exec = "unigine-superposition";
       desktopName = "Unigine Superposition";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       icon = "unigine-superposition";
       categories = [
         "Game"
@@ -136,4 +136,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "unigine-superposition";
   };
-}
+})

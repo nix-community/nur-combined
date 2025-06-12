@@ -85,7 +85,7 @@ let
     inherit meta;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
   dontUnpack = true;
 
@@ -145,4 +145,4 @@ stdenv.mkDerivation rec {
   '';
 
   inherit meta;
-}
+})

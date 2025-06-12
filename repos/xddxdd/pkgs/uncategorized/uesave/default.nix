@@ -4,7 +4,7 @@
   rustPlatform,
   versionCheckHook,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.uesave) pname version src;
 
   cargoHash = "sha256-QGhaaBvxKYnljrkCCcFZLALppvM15c8Xtn36SecaNJ8=";
@@ -16,14 +16,14 @@ rustPlatform.buildRustPackage rec {
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
+  versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
   meta = {
-    changelog = "https://github.com/trumank/uesave-rs/releases/tag/v${version}";
+    changelog = "https://github.com/trumank/uesave-rs/releases/tag/v${finalAttrs.version}";
     mainProgram = "uesave";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)";
     homepage = "https://github.com/trumank/uesave-rs";
     license = lib.licenses.mit;
   };
-}
+})

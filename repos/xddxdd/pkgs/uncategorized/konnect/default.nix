@@ -3,7 +3,7 @@
   sources,
   buildGoModule,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit (sources.konnect) pname version src;
   vendorHash = "sha256-ZrwFUZDTbJx5qvloVOa5qK1ykKNkUn1hjfz0xf+8sWk=";
 
@@ -14,4 +14,4 @@ buildGoModule rec {
     homepage = "https://github.com/Kopano-dev/konnect";
     license = lib.licenses.asl20;
   };
-}
+})

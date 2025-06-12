@@ -8,7 +8,7 @@
 let
   res = "${sources.bilibili-src.src}/res";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.bilibili) pname version src;
 
   buildInputs = [ makeWrapper ];
@@ -36,11 +36,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/msojocs/bilibili-linux/releases/tag/${version}";
+    changelog = "https://github.com/msojocs/bilibili-linux/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Bilibili desktop client";
     homepage = "https://app.bilibili.com/";
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "bilibili";
   };
-}
+})

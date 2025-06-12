@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.sgx-software-enable) pname version src;
 
   installPhase = ''
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     mainProgram = "sgx-software-enable";
   };
-}
+})

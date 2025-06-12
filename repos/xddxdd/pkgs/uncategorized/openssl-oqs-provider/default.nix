@@ -7,7 +7,7 @@
   openssl_3_0,
   python3,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.openssl-oqs-provider) pname version src;
 
   enableParallelBuilding = true;
@@ -52,10 +52,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/open-quantum-safe/oqs-provider/releases/tag/${version}";
+    changelog = "https://github.com/open-quantum-safe/oqs-provider/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL 3 provider containing post-quantum algorithms";
     homepage = "https://openquantumsafe.org";
     license = with lib.licenses; [ mit ];
   };
-}
+})

@@ -66,7 +66,7 @@ let
     xorg.libX11
   ];
 
-  svp-dist = stdenv.mkDerivation rec {
+  svp-dist = stdenv.mkDerivation (finalAttrs: {
     pname = "svp-dist";
     inherit (sources.svp) version src;
 
@@ -98,7 +98,7 @@ let
       done
       rm -f $out/opt/{add,remove}-menuitem.sh
     '';
-  };
+  });
 
   fhs = buildFHSEnv {
     name = "SVPManager";
@@ -112,7 +112,7 @@ let
     unshareCgroup = false;
   };
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.svp) pname version;
 
   dontUnpack = true;
@@ -161,4 +161,4 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

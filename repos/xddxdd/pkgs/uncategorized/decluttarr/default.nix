@@ -16,7 +16,7 @@ let
     ]
   );
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.decluttarr) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -38,4 +38,4 @@ stdenvNoCC.mkDerivation rec {
     license = with lib.licenses; [ gpl3Only ];
     mainProgram = "decluttarr";
   };
-}
+})

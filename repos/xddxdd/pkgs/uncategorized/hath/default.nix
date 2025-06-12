@@ -5,11 +5,11 @@
   jre_headless,
   makeWrapper,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "hath";
   version = "1.6.2";
   src = fetchzip {
-    url = "https://repo.e-hentai.org/hath/HentaiAtHome_${version}.zip";
+    url = "https://repo.e-hentai.org/hath/HentaiAtHome_${finalAttrs.version}.zip";
     stripRoot = false;
     hash = "sha256-0c8ltti19c6QBkcxZThdqHRGN7pDP0YUwwFXcvvmqDM=";
   };
@@ -38,4 +38,4 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     mainProgram = "hath";
   };
-}
+})

@@ -13,7 +13,7 @@
 let
   procps = callPackage ./procps.nix { inherit sources; };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.uksmd) pname version src;
   nativeBuildInputs = [
     meson
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     mainProgram = "uksmd";
   };
-}
+})

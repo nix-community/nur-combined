@@ -3,7 +3,7 @@
   lib,
   sources,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "bird-lgproxy-go";
   inherit (sources.bird-lg-go) version src;
   vendorHash = "sha256-MAR+4o+BKd24uOpgcwsfMWoKWbRYxrCG6tMCrH8LS7Y=";
@@ -17,4 +17,4 @@ buildGoModule rec {
     homepage = "https://github.com/xddxdd/bird-lg-go";
     license = lib.licenses.gpl3Only;
   };
-}
+})

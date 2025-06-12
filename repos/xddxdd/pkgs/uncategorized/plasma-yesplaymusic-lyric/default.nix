@@ -3,7 +3,7 @@
   sources,
   stdenvNoCC,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.plasma-yesplaymusic-lyric) pname version src;
 
   postInstall = ''
@@ -17,4 +17,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics";
     license = lib.licenses.mit;
   };
-}
+})

@@ -45,7 +45,7 @@ let
     else
       throw "Unsupported architecture";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qq";
   version = builtins.elemAt (lib.splitString "_" source.version) 1;
   inherit (source) src;
@@ -95,4 +95,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "qq";
   };
-}
+})

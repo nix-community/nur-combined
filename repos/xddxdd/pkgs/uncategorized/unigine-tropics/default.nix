@@ -58,7 +58,7 @@ let
     '';
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.unigine-tropics) pname version;
   dontUnpack = true;
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       name = "unigine-tropics";
       exec = "unigine-tropics";
       desktopName = "Unigine Tropics";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       categories = [
         "Game"
         "Utility"
@@ -110,4 +110,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "unigine-tropics";
   };
-}
+})

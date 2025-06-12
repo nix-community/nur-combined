@@ -26,7 +26,7 @@ let
 
             # Add all CI packages
             environment.etc = lib.mapAttrs' (
-              _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
+              n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
             ) packagesAttr;
           }
         ];

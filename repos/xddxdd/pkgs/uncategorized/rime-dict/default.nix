@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.rime-dict) pname version src;
   installPhase = ''
     runHook preInstall
@@ -20,4 +20,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/Iorest/rime-dict";
     license = with lib.licenses; [ unfree ];
   };
-}
+})

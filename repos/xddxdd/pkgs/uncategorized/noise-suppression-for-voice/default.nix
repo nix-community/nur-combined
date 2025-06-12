@@ -26,7 +26,7 @@
   webkitgtk,
   xorg,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.noise-suppression-for-voice) pname version src;
   nativeBuildInputs = [
     cmake
@@ -62,10 +62,10 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${version}";
+    changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Noise suppression plugin based on Xiph's RNNoise";
     homepage = "https://github.com/werman/noise-suppression-for-voice";
     license = lib.licenses.gpl3Only;
   };
-}
+})

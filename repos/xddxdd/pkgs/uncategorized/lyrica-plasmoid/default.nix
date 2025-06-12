@@ -4,7 +4,7 @@
   stdenvNoCC,
   lyrica,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.lyrica) pname version src;
 
   postInstall = ''
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)";
     homepage = "https://github.com/chiyuki0325/lyrica";
-    # Upsteam did not specify license
+    # Upstream did not specify license
     license = lib.licenses.unfreeRedistributable;
   };
-}
+})

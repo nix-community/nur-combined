@@ -8,13 +8,13 @@
   enableNvidia530Patch ? false,
 }:
 let
-  zycoreOld = stdenv.mkDerivation rec {
+  zycoreOld = stdenv.mkDerivation (finalAttrs: {
     pname = "zycore";
     version = "636bb29945c94ffe4cedb5b6cc797e42c98de3af";
     src = fetchFromGitHub {
       owner = "zyantific";
       repo = "zycore-c";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-Rtg5nXj4Cplr1xr3lz8lexzmkvQL9v75a6Blc0f+To0=";
     };
 
@@ -23,15 +23,15 @@ let
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zycore-config.cmake.in
     '';
-  };
+  });
 
-  zydisOld = stdenv.mkDerivation rec {
+  zydisOld = stdenv.mkDerivation (finalAttrs: {
     pname = "zydis";
     version = "55dd08c210722aed81b38132f5fd4a04ec1943b5";
     src = fetchFromGitHub {
       owner = "zyantific";
       repo = "zydis";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-PU++CMQ8zlaTt4q2cHfHLcHRoM2UgzvW8XNrgN6hbrg=";
     };
 
@@ -42,9 +42,9 @@ let
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zydis-config.cmake.in
     '';
-  };
+  });
 
-  liefOld = stdenv.mkDerivation {
+  liefOld = stdenv.mkDerivation (finalAttrs: {
     pname = "lief";
     version = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
     src = fetchFromGitHub {
@@ -68,7 +68,7 @@ let
 
     # https://github.com/lief-project/LIEF/issues/770
     patches = [ ./lief.patch ];
-  };
+  });
 
   ppkAssertOld = fetchFromGitHub {
     owner = "gpakosz";
@@ -82,7 +82,7 @@ let
     sha256 = "0r1p423x3n12xz0nvdvnyjmf1v6w8908nd0fkg6r00yj29fgzx50";
   };
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nvlax";
   version = "unstable-2021-10-29";
   src = fetchFromGitHub {
@@ -116,4 +116,4 @@ stdenv.mkDerivation {
     license = with lib.licenses; [ gpl3Only ];
     # broken = true;
   };
-}
+})

@@ -54,11 +54,11 @@ in
       sources = nvfetcherLoader ../../_sources/generated.nix;
     in
     rec {
-      ciPackages = lib.filterAttrs (_n: isBuildable) (
+      ciPackages = lib.filterAttrs (n: isBuildable) (
         (import ../../pkgs "ci" { inherit inputs pkgs; })
         // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
       );
-      ciPackagesWithCuda = lib.filterAttrs (_n: isBuildable) (
+      ciPackagesWithCuda = lib.filterAttrs (n: isBuildable) (
         (import ../../pkgs "ci" {
           inherit inputs;
           pkgs = pkgsWithCuda;

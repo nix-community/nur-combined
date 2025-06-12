@@ -14,7 +14,7 @@ let
     hash = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
   };
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.grasscutter) pname version src;
 
   dontUnpack = true;
@@ -53,11 +53,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/Grasscutters/Grasscutter/releases/tag/${version}";
+    changelog = "https://github.com/Grasscutters/Grasscutter/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Server software reimplementation for a certain anime game";
     homepage = "https://github.com/Grasscutters/Grasscutter";
     license = with lib.licenses; [ agpl3Only ];
     mainProgram = "grasscutter";
   };
-}
+})

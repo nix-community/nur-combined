@@ -5,7 +5,7 @@
   ...
 }:
 let
-  package = stdenvNoCC.mkDerivation rec {
+  package = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "plangothic-fonts";
     inherit (sources.plangothic-fonts) version src;
     installPhase = ''
@@ -24,7 +24,7 @@ let
       homepage = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project";
       license = lib.licenses.ofl;
     };
-  };
+  });
 in
 package
 // {

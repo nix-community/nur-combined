@@ -5,7 +5,7 @@
   boost186,
   soapysdr-with-plugins,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.dump978) pname version src;
 
   enableParallelBuilding = true;
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     soapysdr-with-plugins
   ];
 
-  makeFlags = [ "VERSION=${version}" ];
+  makeFlags = [ "VERSION=${finalAttrs.version}" ];
 
   installPhase = ''
     runHook preInstall
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ xddxdd ];
     mainProgram = "dump978-fa";
   };
-}
+})

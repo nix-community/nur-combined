@@ -106,7 +106,7 @@ rec {
           '').outPath;
     in
     lib.mapAttrs (
-      _k: v:
+      k: v:
       if v == "y" then
         lib.mkForce lib.kernel.yes
       else if v == "n" then

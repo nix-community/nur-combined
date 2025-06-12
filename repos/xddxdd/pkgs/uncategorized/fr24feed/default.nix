@@ -61,7 +61,7 @@ let
     }
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fr24feed";
   inherit (source) version;
   dontUnpack = true;
@@ -97,4 +97,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     mainProgram = "fr24feed";
   };
-}
+})

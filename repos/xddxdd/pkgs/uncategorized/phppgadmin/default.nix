@@ -6,7 +6,7 @@
 let
   configFile = ./config.inc.php;
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.phppgadmin) pname version src;
 
   installPhase = ''
@@ -23,10 +23,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/ReimuHakurei/phppgadmin/releases/tag/v${version}";
+    changelog = "https://github.com/ReimuHakurei/phppgadmin/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Premier web-based administration tool for PostgreSQL";
     homepage = "https://github.com/phppgadmin/phppgadmin";
     license = lib.licenses.gpl2Only;
   };
-}
+})

@@ -12,7 +12,7 @@
 let
   qhttpengine = callPackage ./qhttpengine.nix { inherit sources; };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.kikoplay) pname version src;
 
   nativeBuildInputs = [
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/KikoPlayProject/KikoPlay/releases/tag/${version}";
+    changelog = "https://github.com/KikoPlayProject/KikoPlay/releases/tag/${finalAttrs.version}";
     mainProgram = "KikoPlay";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "More than a Full-Featured Danmu Player";
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     # See https://github.com/NixOS/nixpkgs/pull/354929
     broken = stdenv.isDarwin;
   };
-}
+})

@@ -4,7 +4,7 @@
   sources,
   autoPatchelfHook,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "one-api";
   inherit
     (
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "one-api";
   };
-}
+})

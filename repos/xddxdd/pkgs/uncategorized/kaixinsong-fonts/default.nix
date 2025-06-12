@@ -13,7 +13,7 @@ let
     hash = "sha256-2nvseKgZSVIy0oYkT+DB+V0UfoSBG4Ds4EcWnFfNSkU=";
   };
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kaixinsong-fonts";
   version = "3.0";
 
@@ -32,4 +32,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php";
     license = with lib.licenses; [ unfreeRedistributable ];
   };
-}
+})

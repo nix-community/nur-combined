@@ -74,11 +74,11 @@ let
     xorg.libXtst
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "netease-cloud-music";
   version = "1.2.1";
   src = fetchurl {
-    url = "http://d1.music.126.net/dmusic/netease-cloud-music_${version}_amd64_ubuntu_20190428.deb";
+    url = "http://d1.music.126.net/dmusic/netease-cloud-music_${finalAttrs.version}_amd64_ubuntu_20190428.deb";
     sha256 = "1fzc5xb3h17jcdg8w8xliqx2372g0wrfkcj8kk3wihp688lg1s8y";
     curlOpts = "-A 'Mozilla/5.0'";
   };
@@ -129,4 +129,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     mainProgram = "netease-cloud-music";
   };
-}
+})

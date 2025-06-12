@@ -103,10 +103,10 @@
                 // rec {
                   # Integrate to nixpkgs python3Packages
                   python = prev.python.override {
-                    packageOverrides = _final: _prev: _legacyPackages.python3Packages;
+                    packageOverrides = final: prev: _legacyPackages.python3Packages;
                   };
                   python3 = prev.python3.override {
-                    packageOverrides = _final: _prev: _legacyPackages.python3Packages;
+                    packageOverrides = final: prev: _legacyPackages.python3Packages;
                   };
                   python3Packages = python3.pkgs;
                 };
@@ -117,10 +117,10 @@
                   inherit inputs;
                 };
               };
-              inSubTree-pinnedNixpkgs = final: _prev: {
+              inSubTree-pinnedNixpkgs = final: prev: {
                 nur-xddxdd = self.legacyPackages.${final.system};
               };
-              inSubTree-pinnedNixpkgsWithCuda = final: _prev: {
+              inSubTree-pinnedNixpkgsWithCuda = final: prev: {
                 nur-xddxdd = self.legacyPackagesWithCuda.${final.system};
               };
             }
@@ -129,11 +129,11 @@
                 builtins.map (s: [
                   {
                     name = "pinnedNixpkgs-${s}";
-                    value = _final: _prev: self.legacyPackages.${s};
+                    value = final: prev: self.legacyPackages.${s};
                   }
                   {
                     name = "pinnedNixpkgsWithCuda-${s}";
-                    value = _final: _prev: self.legacyPackagesWithCuda.${s};
+                    value = final: prev: self.legacyPackagesWithCuda.${s};
                   }
                 ]) systems
               )

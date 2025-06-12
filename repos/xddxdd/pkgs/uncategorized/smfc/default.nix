@@ -8,7 +8,7 @@
   ipmitool,
   smartmontools,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.smfc) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/petersulyok/smfc/releases/tag/v${version}";
+    changelog = "https://github.com/petersulyok/smfc/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Super Micro Fan Control";
     homepage = "https://github.com/petersulyok/smfc";
     license = with lib.licenses; [ gpl3Only ];
     mainProgram = "smfc";
   };
-}
+})

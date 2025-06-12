@@ -4,7 +4,7 @@
   stdenv,
   libftdi,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.xvcd) pname version src;
   sourceRoot = "source/linux";
 
@@ -25,4 +25,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/RHSResearchLLC/xvcd";
     license = lib.licenses.cc0;
   };
-}
+})

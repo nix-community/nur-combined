@@ -6,7 +6,7 @@
   bcg729,
   asterisk,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.asterisk-g72x) pname version src;
 
   nativeBuildInputs = [ autoreconfHook ];
@@ -25,4 +25,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/arkadijs/asterisk-g72x";
     license = lib.licenses.unfreeRedistributable;
   };
-}
+})

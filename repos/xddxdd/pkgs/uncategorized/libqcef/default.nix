@@ -52,7 +52,7 @@ let
 
   rpaths = lib.concatMapStringsSep " " (l: "-Wl,-rpath,${lib.getOutput "lib" l}/lib") libraries;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.libqcef) pname version src;
 
   patches = [ ./fix-deprecated-option.patch ];
@@ -88,4 +88,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.lgpl3Only;
   };
-}
+})

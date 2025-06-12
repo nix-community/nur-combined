@@ -4,7 +4,7 @@
   sources,
   versionCheckHook,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit (sources.baidupcs-go) pname version src;
   vendorHash = "sha256-hW+IrzS5+DublQUIIcecL08xoauTjba9qnAtpzNeDXw=";
   doCheck = false;
@@ -12,14 +12,14 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.Version=${version}"
+    "-X main.Version=${finalAttrs.version}"
   ];
 
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
+  versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
   postInstall = ''
     rm -f $out/bin/AndroidNDKBuild
@@ -36,4 +36,4 @@ buildGoModule rec {
     homepage = "https://github.com/qjfoidnh/BaiduPCS-Go";
     license = lib.licenses.asl20;
   };
-}
+})

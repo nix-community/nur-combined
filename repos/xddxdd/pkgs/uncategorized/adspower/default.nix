@@ -109,7 +109,7 @@ let
     unshareCgroup = false;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.adspower) pname version;
 
   dontUnpack = true;
@@ -117,17 +117,17 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 ${fhs}/bin/${pname} $out/bin/${pname}
+    install -Dm755 ${fhs}/bin/${finalAttrs.pname} $out/bin/${finalAttrs.pname}
     install -Dm644 ${distPkg}/usr/share/applications/adspower_global.desktop $out/share/applications/adspower_global.desktop
     substituteInPlace $out/share/applications/adspower_global.desktop \
-      --replace-fail '"/opt/AdsPower Global/adspower_global"' "$out/bin/${pname}"
+      --replace-fail '"/opt/AdsPower Global/adspower_global"' "$out/bin/${finalAttrs.pname}"
 
     cp -r ${distPkg}/usr/share/icons $out/share/icons
 
     runHook postInstall
   '';
 
-  passthru = { inherit distPkg; };
+  passthru = { inherit (finalAttrs) distPkg; };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
@@ -140,4 +140,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "adspower";
   };
-}
+})

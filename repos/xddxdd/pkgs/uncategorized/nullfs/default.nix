@@ -4,7 +4,7 @@
   lib,
   fuse,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.nullfs) pname version src;
 
   patches = [ ./6-nulnfs-fix-warnings.patch ];
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     license = with lib.licenses; [ gpl1Only ];
     mainProgram = "nullfs";
   };
-}
+})

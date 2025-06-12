@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.sx1302-hal) pname version src;
   enableParallelBuilding = true;
 
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NebraLtd/sx1302_hal";
     license = lib.licenses.unfreeRedistributable;
   };
-}
+})

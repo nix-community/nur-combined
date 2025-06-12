@@ -3,7 +3,7 @@
   sources,
   buildGoModule,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit (sources.drone-file-secret) pname version src;
   vendorHash = "sha256-5F831dsOw7BlqSJFLknp4lhsTPqv2suzWO+o3xX7Mnk=";
 
@@ -14,4 +14,4 @@ buildGoModule rec {
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "drone-file-secret";
   };
-}
+})

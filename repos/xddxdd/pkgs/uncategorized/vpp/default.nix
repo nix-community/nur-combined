@@ -26,7 +26,7 @@ let
     mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Denable_driver_sdk=true" ];
   });
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.vpp) pname version src;
   sourceRoot = "source/src";
 
@@ -81,4 +81,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     mainProgram = "vppctl";
   };
-}
+})

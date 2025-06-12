@@ -8,7 +8,7 @@
         apps:
         pkgs.mkShell {
           buildInputs = lib.mapAttrsToList (
-            n: _v:
+            n: nv:
             pkgs.writeShellScriptBin n ''
               exec nix run .#${n} -- "$@"
             ''

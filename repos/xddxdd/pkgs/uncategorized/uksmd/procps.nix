@@ -5,7 +5,7 @@
   pkg-config,
   ncurses,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.uksmd-procps) pname version src;
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ];
@@ -20,4 +20,4 @@ stdenv.mkDerivation rec {
     priority = 11; # less than coreutils, which also provides "kill" and "uptime"
     license = lib.licenses.gpl2Only;
   };
-}
+})

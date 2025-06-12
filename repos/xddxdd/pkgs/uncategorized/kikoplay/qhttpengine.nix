@@ -5,7 +5,7 @@
   cmake,
   qt5,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.qhttpengine) pname version src;
 
   nativeBuildInputs = [
@@ -21,4 +21,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nitroshare/qhttpengine";
     license = lib.licenses.mit;
   };
-}
+})

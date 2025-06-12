@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.netns-exec) pname version src;
 
   postPatch = ''
@@ -24,4 +24,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     mainProgram = "netns-exec";
   };
-}
+})

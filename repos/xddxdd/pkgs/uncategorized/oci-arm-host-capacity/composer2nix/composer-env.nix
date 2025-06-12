@@ -79,12 +79,10 @@ let
                   else
                       $allPackages = array();
 
-                  ${
-                    lib.optionalString (!noDev) ''
-                      if(array_key_exists("packages-dev", $config))
-                          $allPackages = array_merge($allPackages, $config["packages-dev"]);
-                    ''
-                  }
+                  ${lib.optionalString (!noDev) ''
+                    if(array_key_exists("packages-dev", $config))
+                        $allPackages = array_merge($allPackages, $config["packages-dev"]);
+                  ''}
 
                   $packagesStr = json_encode($allPackages, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
                   print($packagesStr);
