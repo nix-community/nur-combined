@@ -5,13 +5,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "flexfox-css";
-  version = "3.6.1";
+  version = "3.6.2";
 
   src = fetchFromGitHub {
     owner = "yuuqilin";
     repo = "FlexFox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pLNYQx+rKAvN3kPCEWP08x+8v5Cdcm+zh6f7XxzFycM=";
+    hash = "sha256-L6Uqeobrh9gXFR4f8u8pu+jjA83bvnlzXfh/CBaEbPs=";
   };
 
   installPhase = ''
