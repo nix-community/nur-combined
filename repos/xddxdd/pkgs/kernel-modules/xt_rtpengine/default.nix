@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
   INSTALL_MOD_PATH = placeholder "out";
 
   postPatch = ''
+    patchShebangs .
     substituteInPlace Makefile \
       --replace-fail "depmod -a" "# depmod -a"
   '';
