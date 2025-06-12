@@ -203,6 +203,10 @@ rec {
               })
           )
           // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { });
+
+        extraMeta = {
+          platforms = [ "x86_64-linux" ];
+        };
       }
       // extraArgs
     );

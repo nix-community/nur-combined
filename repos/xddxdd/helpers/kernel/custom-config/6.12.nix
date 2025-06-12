@@ -39,7 +39,6 @@ with lib.kernel;
   X86_PLATFORM_DRIVERS_HP = yes;
 
   # i915 PXP (for i915-sriov-dkms)
-  DRM_I915_PXP = yes;
   PMIC_OPREGION = yes;
 
   # Intel SGX
@@ -84,7 +83,6 @@ with lib.kernel;
   # Various tunings
   ACPI_APEI = yes;
   ACPI_APEI_GHES = yes;
-  ACPI_DPTF = yes;
   ACPI_FPDT = yes;
   ACPI_PCI_SLOT = yes;
   BPF_JIT_ALWAYS_ON = lib.mkForce yes;

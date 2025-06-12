@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.rime-moegirl) pname version src;
 
   dontUnpack = true;
@@ -17,10 +17,13 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/outloudvi/mw2fcitx/releases/tag/${version}";
+    changelog = "https://github.com/outloudvi/mw2fcitx/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "RIME dictionary file for entries from zh.moegirl.org.cn";
     homepage = "https://github.com/outloudvi/mw2fcitx/releases";
-    license = lib.licenses.unlicense;
+    license = with lib.licenses; [
+      unlicense # the tool packaging dictionary
+      cc-by-nc-sa-30 # moegirl wiki itself
+    ];
   };
-}
+})
