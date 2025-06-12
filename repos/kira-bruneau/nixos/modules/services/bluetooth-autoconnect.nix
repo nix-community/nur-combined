@@ -42,7 +42,7 @@ in
       };
 
       user.services = lib.mkMerge [
-        (lib.mkIf config.hardware.pulseaudio.enable {
+        (lib.mkIf config.services.pulseaudio.enable {
           pulseaudio-bluetooth-autoconnect = {
             description = "Bluetooth autoconnect service for pulseaudio";
             wantedBy = [ "pulseaudio.service" ];
