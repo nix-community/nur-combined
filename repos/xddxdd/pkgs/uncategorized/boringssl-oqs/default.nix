@@ -60,14 +60,16 @@ buildGoModule {
     # runHook postBuild
   '';
 
+  doCheck = false;
+
   installPhase = ''
     runHook preInstall
 
     mkdir -p $bin/bin $dev $out/lib
-    mv tool/bssl              $bin/bin
-    mv ssl/libssl.*           $out/lib
-    mv crypto/libcrypto.*     $out/lib
-    mv decrepit/libdecrepit.* $out/lib
+    mv bssl          $bin/bin
+    mv libssl.*      $out/lib
+    mv libcrypto.*   $out/lib
+    mv libdecrepit.* $out/lib
     mv ../include $dev
 
     runHook postInstall

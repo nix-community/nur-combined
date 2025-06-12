@@ -5,7 +5,7 @@
 }:
 buildGoModule {
   inherit (sources.pterodactyl-wings) pname version src;
-  vendorHash = "sha256-uJD15yctEQ77itmVQM5kspRfLR//HN0iWKPLaUEFSnY=";
+  vendorHash = "sha256-TIfnaBKS25sso/M/1PIGBAZQQeKK0Iz/MUTCFk37Afs=";
 
   meta = {
     mainProgram = "wings";
