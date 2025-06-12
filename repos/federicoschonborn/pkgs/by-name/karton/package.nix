@@ -7,6 +7,7 @@
   ninja,
   pkg-config,
   python3,
+  libosinfo,
   libvirt,
   virt-manager,
   virt-viewer,
@@ -15,14 +16,14 @@
 
 stdenv.mkDerivation {
   pname = "karton";
-  version = "0.1-prealpha-unstable-2025-05-02";
+  version = "0.1-prealpha-unstable-2025-06-12";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sitter";
     repo = "karton";
-    rev = "b318dca300c7a39a80b4a21d979c45c869ceac76";
-    hash = "sha256-j84dxc8yO1wJeizlBmHcVKiCU9BF18AgBXo95b65EWs=";
+    rev = "fdfaef87d975786cdbd6ddf3bdefbb40f6179002";
+    hash = "sha256-ZHmesXc5mJvqHGQdOx2QEmGih1b46ZfQkmn/QY8+RpI=";
   };
 
   nativeBuildInputs = [
@@ -35,6 +36,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
+    libosinfo
     libvirt
     kdePackages.kconfig
     kdePackages.kcoreaddons

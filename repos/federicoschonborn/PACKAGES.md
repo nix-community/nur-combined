@@ -151,7 +151,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 Retro gaming application for the GNOME desktop.
 
 - Name: `highscore`
-- Version: `0-unstable-2025-06-09`
+- Version: `0-unstable-2025-06-12`
 - [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
 - [📦 Source](./pkgs/by-name/highscore/package.nix#L96)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -162,9 +162,9 @@ Retro gaming application for the GNOME desktop.
 KDE Virtual Machine Manager.
 
 - Name: `karton`
-- Version: `0.1-prealpha-unstable-2025-05-02`
+- Version: `0.1-prealpha-unstable-2025-06-12`
 - [🌐 Homepage](https://invent.kde.org/sitter/karton)
-- [📦 Source](./pkgs/by-name/karton/package.nix#L67)
+- [📦 Source](./pkgs/by-name/karton/package.nix#L69)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - 🖥️ Platforms: `aarch64-linux`, `x86_64-linux`
 
