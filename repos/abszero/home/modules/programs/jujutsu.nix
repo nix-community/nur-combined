@@ -27,9 +27,14 @@ in
         };
         ui = {
           default-command = "log";
-          pager = "delta";
-          diff.format = "git";
+          diff-formatter = "difft";
         };
+
+        merge-tools.difft.diff-args = [
+          "--color=always" # Doesn't show color otherwise
+          "$left"
+          "$right"
+        ];
       };
     };
   };

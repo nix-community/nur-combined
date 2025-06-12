@@ -11,21 +11,26 @@ in
 {
   options.abszero.programs.git.enable = mkEnableOption "stupid content tracker";
 
-  config.programs.git = mkIf cfg.enable {
-    enable = true;
-    userName = mkDefault primaryEmail.realName;
-    userEmail = mkDefault primaryEmail.address;
-    signing = {
-      signByDefault = true;
-      format = "openpgp";
-      key = null;
-    };
-    extraConfig = {
-      pull.ff = "only";
-    };
-    delta = {
+  config.programs = mkIf cfg.enable {
+    git = {
       enable = true;
-      options.hyperlinks = true;
+      userName = mkDefault primaryEmail.realName;
+      userEmail = mkDefault primaryEmail.address;
+      signing = {
+        signByDefault = true;
+        format = "openpgp";
+        key = null;
+      };
+      extraConfig = {
+        pull.ff = "only";
+      };
+      
+      difftastic = {
+        enable = true;
+        enableAsDifftool = true;
+      };
     };
+
+    mergiraf.enable = true;
   };
 }

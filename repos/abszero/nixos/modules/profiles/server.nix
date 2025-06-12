@@ -30,7 +30,5 @@ in
       # make it less detectable by the GFW.
       ports = [ 1337 ];
     };
-
-    environment.noXlibs = true;
   };
 }
