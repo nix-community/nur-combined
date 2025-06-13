@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake }:
 stdenv.mkDerivation rec {
   pname = "libdwarf";
-  version = "0.11.1";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "davea42";
     repo = "libdwarf-code";
     rev = "v${version}";
-    hash = "sha256-e+NtRzPPyahNcxWPKv4j/EIJdFwTgKCLfjldsBUatk0=";
+    hash = "sha256-SsFg+7zGBEGxDSzfiIP5bxdttlBkhEiEQWaU12hINas=";
   };
 
   nativeBuildInputs = [ cmake ];

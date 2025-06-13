@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost_unordered";
-  version = "1.85.1";
+  version = "1.87.1";
 
   src = fetchFromGitHub {
     owner = "MikePopoloski";
     repo = "boost_unordered";
     rev = "v${version}";
-    hash = "sha256-II3LhaZTAmqn0xcWuSF01czy/IGobvpiGAgZ4EjJ6aY=";
+    hash = "sha256-abMXIEKXl+lBuyebnY0JaeGa3MMuvXpvfr5arQOgwcE=";
   };
 
   nativeBuildInputs = [ cmake ];
