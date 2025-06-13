@@ -53,7 +53,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/glojurelang/glojure";
     changelog = "https://github.com/glojurelang/glojure/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.epl10;
-    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
