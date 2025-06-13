@@ -43,10 +43,7 @@
   },
   "mpv-handler": {
     "cargoLocks": {
-      "Cargo.lock": [
-        "./mpv-handler-v0.3.16/Cargo.lock",
-        {}
-      ]
+      "Cargo.lock": ["./mpv-handler-v0.3.16/Cargo.lock", {}]
     },
     "date": null,
     "extract": null,
