@@ -8,7 +8,6 @@ let
     # Patches obtained from https://github.com/Layerex/telegram-desktop-patches
     patches = (old.patches or [ ]) ++ [
       ./disable-invite-peeking-restrictions.patch
-      ./disable-saving-restrictions.patch
       ./disable-sponspored-messages.patch
       ./disable-stories.patch
     ];
