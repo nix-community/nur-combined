@@ -22,11 +22,6 @@ rec {
         ./nixpkgs.nix
         ./pkgs/flake-module.nix
       ];
-      flake.templates.default = {
-        path = ./.;
-        inherit description;
-      };
-
       perSystem =
         { pkgs, ... }:
         {
