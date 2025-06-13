@@ -77,7 +77,7 @@
             buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
             packages = with pkgs; [
               nil
-              # nixd
+              nix-prefetch-git
             ];
           };
         };
