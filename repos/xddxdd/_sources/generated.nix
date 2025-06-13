@@ -869,14 +869,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "d745d35938d17e666ffa88673523fd4c4399d326";
+    version = "8d9cfd7f33080b2463e145218ec0db47048a2d81";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d745d35938d17e666ffa88673523fd4c4399d326";
-      hash = "sha256-xaFoH6VsXasVIi8fVGlKg1XLbMvRt/Tq48bDV6PrUvM=";
+      rev = "8d9cfd7f33080b2463e145218ec0db47048a2d81";
+      hash = "sha256-QZaVa7ysFiuW23Q1CWDw0z13eKE5YVrpVYrJw2UweLY=";
     };
-    date = "2025-06-11";
+    date = "2025-06-12";
   };
   libqcef = {
     pname = "libqcef";
@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5644";
+    version = "b5650";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5644";
-      hash = "sha256-npXXxbLjiC84aqJun14c7y/zZy5+847sYzEYOyLGQlg=";
+      tag = "b5650";
+      hash = "sha256-bkfpmioSYwgA0HVKvOShBfLBnGDAkcAYq1NhQVUG46c=";
     };
   };
   loralib = {
@@ -1783,12 +1783,12 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.7.10";
+    version = "1.7.11";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      tag = "1.7.10";
-      hash = "sha256-33gYS7DcHvj3k++HK7HsaGZaD+Ttx2g5VPB8s7/IZD0=";
+      tag = "1.7.11";
+      hash = "sha256-mdPzgA2ki/5EuYpAY7cv00V8jm+u1VQ6pS6/Bj2ebjI=";
     };
   };
   runpodctl = {
@@ -2070,13 +2070,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "87cf2fdcecaba0efd20dd89057d961836e63c732";
+    version = "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "87cf2fdcecaba0efd20dd89057d961836e63c732";
+      rev = "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da";
       fetchSubmodules = true;
-      hash = "sha256-RA6M0KvVT0Ni7v3myNwpAgMUJoQMeBc2AoBRZleAgWU=";
+      hash = "sha256-q0iTe70ENzTbyVTPPxX55oVINt7Nd1KEit7qMaLdq7I=";
     };
     date = "2025-06-12";
   };

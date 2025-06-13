@@ -1687,7 +1687,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-06-11",
+        "date": "2025-06-12",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1699,12 +1699,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d745d35938d17e666ffa88673523fd4c4399d326",
-            "sha256": "sha256-xaFoH6VsXasVIi8fVGlKg1XLbMvRt/Tq48bDV6PrUvM=",
+            "rev": "8d9cfd7f33080b2463e145218ec0db47048a2d81",
+            "sha256": "sha256-QZaVa7ysFiuW23Q1CWDw0z13eKE5YVrpVYrJw2UweLY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d745d35938d17e666ffa88673523fd4c4399d326"
+        "version": "8d9cfd7f33080b2463e145218ec0db47048a2d81"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5644",
-            "sha256": "sha256-npXXxbLjiC84aqJun14c7y/zZy5+847sYzEYOyLGQlg=",
+            "rev": "b5650",
+            "sha256": "sha256-bkfpmioSYwgA0HVKvOShBfLBnGDAkcAYq1NhQVUG46c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5644"
+        "version": "b5650"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3491,12 +3491,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpod-python",
-            "rev": "1.7.10",
-            "sha256": "sha256-33gYS7DcHvj3k++HK7HsaGZaD+Ttx2g5VPB8s7/IZD0=",
+            "rev": "1.7.11",
+            "sha256": "sha256-mdPzgA2ki/5EuYpAY7cv00V8jm+u1VQ6pS6/Bj2ebjI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.7.10"
+        "version": "1.7.11"
     },
     "runpodctl": {
         "cargoLocks": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "87cf2fdcecaba0efd20dd89057d961836e63c732",
-            "sha256": "sha256-RA6M0KvVT0Ni7v3myNwpAgMUJoQMeBc2AoBRZleAgWU=",
+            "rev": "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da",
+            "sha256": "sha256-q0iTe70ENzTbyVTPPxX55oVINt7Nd1KEit7qMaLdq7I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "87cf2fdcecaba0efd20dd89057d961836e63c732"
+        "version": "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da"
     },
     "unigine-heaven": {
         "cargoLocks": null,
