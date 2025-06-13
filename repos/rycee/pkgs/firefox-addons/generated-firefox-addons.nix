@@ -9030,10 +9030,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.14";
+      version = "2.4.15";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4510199/pay_by_privacy-2.4.14.xpi";
-      sha256 = "b6db755b2c315bacea20687ba60e0c28d53a1ec78696d5b6cf140b213f23227b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512297/pay_by_privacy-2.4.15.xpi";
+      sha256 = "ba3b81ca9b9dc1405328ae82a922e488efcc3388c428c0d6cdad75102a4767db";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4511059/youtube_no_translation-2.3.0.xpi";
-      sha256 = "b9afd9f8a989f74abf622bc58cd6b2c89591a63d51c0ee73970557ac05ea6476";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512021/youtube_no_translation-2.3.1.xpi";
+      sha256 = "bc2744025ef99e8464746652d3d951d7d6d7047651242013a48475eaf3a43154";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
