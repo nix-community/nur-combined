@@ -23,7 +23,7 @@
   sqlite,
   util-linux,
   vtk,
-  webkitgtk,
+  webkitgtk_4_0,
   xorg,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
     util-linux
     vtk
-    webkitgtk
+    webkitgtk_4_0
     xorg.libX11
     xorg.libXcursor
     xorg.libXdmcp
