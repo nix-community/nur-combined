@@ -38,41 +38,6 @@ Alternative to GNU coreutils using software from FreeBSD.
 - 📄 License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
 
-## `budgie-daemon-v2` {#budgie-daemon-v2}
-
-V2 daemon for Budgie Desktop.
-
-- Name: `budgie-daemon-v2`
-- Version: `0-unstable-2025-03-19`
-- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-daemon-v2)
-- [📦 Source](./pkgs/by-name/budgie-daemon-v2/package.nix#L57)
-- 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
-
-## `budgie-desktop-unstable` {#budgie-desktop-unstable}
-
-Feature-rich, modern desktop designed to keep out the way of the user.
-
-- Name: `budgie-desktop`
-- Version: `10.9.2-unstable-2025-05-29`
-- Outputs: **`out`**, `dev`, `man`
-- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-desktop)
-- [📰 Changelog](https://github.com/BuddiesOfBudgie/budgie-desktop/releases/tag/v10.9.2-unstable-2025-05-29)
-- [📦 Source](./pkgs/by-name/bu/budgie-desktop/package.nix#L147)
-- 📄 Licenses: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`Creative Commons Attribution Share Alike 3.0`](https://spdx.org/licenses/CC-BY-SA-3.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
-
-## `budgie-wayland-session` {#budgie-wayland-session}
-
-Wayland session for the Budgie Desktop using a variety of window managers.
-
-- Name: `budgie-wayland-session`
-- Version: `0-unstable-2025-03-15`
-- [🌐 Homepage](https://github.com/BuddiesOfBudgie/budgie-wayland-session)
-- [📦 Source](./pkgs/by-name/budgie-wayland-session/package.nix#L42)
-- 📄 License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
-
 ## `cargo-shock` {#cargo-shock}
 
 Let Cargo make you learn Rust by giving you shocks.
@@ -151,7 +116,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 Retro gaming application for the GNOME desktop.
 
 - Name: `highscore`
-- Version: `0-unstable-2025-06-12`
+- Version: `0-unstable-2025-06-14`
 - [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
 - [📦 Source](./pkgs/by-name/highscore/package.nix#L96)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
