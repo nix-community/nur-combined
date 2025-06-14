@@ -4,9 +4,10 @@
     inputs.flake-parts.flakeModules.easyOverlay
   ];
   perSystem =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       packages = import ./. { inherit pkgs; };
+      overlayAttrs = config.packages;
     };
 
   flake = {

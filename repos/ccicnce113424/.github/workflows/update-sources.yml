@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+concurrency:
+  group: update-sources
+  cancel-in-progress: true
+
 jobs:
   update-sources:
     runs-on: ubuntu-latest
