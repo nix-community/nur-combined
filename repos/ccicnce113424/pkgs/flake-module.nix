@@ -1,5 +1,8 @@
-{ self, ... }:
+{ self, inputs, ... }:
 {
+  imports = [
+    inputs.flake-parts.flakeModules.easyOverlay
+  ];
   perSystem =
     { pkgs, ... }:
     {
@@ -7,11 +10,8 @@
     };
 
   flake = {
-    overlays.default = (_: pkgs: import ./. { inherit pkgs; });
-    nixosModules.default =
-      { ... }:
-      {
-        nixpkgs.overlays = [ self.overlays.default ];
-      };
+    nixosModules.default = {
+      nixpkgs.overlays = [ self.overlays.default ];
+    };
   };
 }
