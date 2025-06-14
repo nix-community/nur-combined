@@ -1967,12 +1967,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5650",
-            "sha256": "sha256-bkfpmioSYwgA0HVKvOShBfLBnGDAkcAYq1NhQVUG46c=",
+            "rev": "b5662",
+            "sha256": "sha256-cFzpDgMdQ7XfSgeLHKsX+KnyTFGsVYtvuercorKmiNo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5650"
+        "version": "b5662"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2801,12 +2801,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.3.37-fix2",
-            "sha256": "sha256-AS/ruc+lNHRgZpB9sCqiEt1ZG7+g78PYoHzY8eR/XWM=",
+            "rev": "1.1.3.38",
+            "sha256": "sha256-sI6SKmtz+w/DFFiq+lwOP/FcVGPRZvx7t0JeH4jZhBs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.3.37-fix2"
+        "version": "1.1.3.38"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3203,7 +3203,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-06-05",
+        "date": "2025-06-13",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3215,12 +3215,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "d974235887719a11393a17285ab7c8bdc4e96912",
-            "sha256": "sha256-xbW8f6GnuF56MiEWq8xDJI8dHcx4rWufB23ogi63wSs=",
+            "rev": "32419b2cdb6be703b16f5f8a41602fe04a721dd2",
+            "sha256": "sha256-rRFp+NPbcYFtu2oyQUzEXjDDojqga/XuT0ZT2ur56P4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d974235887719a11393a17285ab7c8bdc4e96912"
+        "version": "32419b2cdb6be703b16f5f8a41602fe04a721dd2"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -4040,7 +4040,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-06-12",
+        "date": "2025-06-14",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4052,12 +4052,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da",
-            "sha256": "sha256-q0iTe70ENzTbyVTPPxX55oVINt7Nd1KEit7qMaLdq7I=",
+            "rev": "2738d1e575c71596bf52a8ce2c6bddbe38a2ab06",
+            "sha256": "sha256-xSc7D9lkE6Y1OcT74hJPdt0FLdWhzTfLTKB0ISqQYS0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da"
+        "version": "2738d1e575c71596bf52a8ce2c6bddbe38a2ab06"
     },
     "unigine-heaven": {
         "cargoLocks": null,

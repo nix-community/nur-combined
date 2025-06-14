@@ -1009,12 +1009,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5650";
+    version = "b5662";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5650";
-      hash = "sha256-bkfpmioSYwgA0HVKvOShBfLBnGDAkcAYq1NhQVUG46c=";
+      tag = "b5662";
+      hash = "sha256-cFzpDgMdQ7XfSgeLHKsX+KnyTFGsVYtvuercorKmiNo=";
     };
   };
   loralib = {
@@ -1429,12 +1429,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.37-fix2";
+    version = "1.1.3.38";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.37-fix2";
-      hash = "sha256-AS/ruc+lNHRgZpB9sCqiEt1ZG7+g78PYoHzY8eR/XWM=";
+      tag = "1.1.3.38";
+      hash = "sha256-sI6SKmtz+w/DFFiq+lwOP/FcVGPRZvx7t0JeH4jZhBs=";
     };
   };
   plangothic-fonts = {
@@ -1643,14 +1643,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "d974235887719a11393a17285ab7c8bdc4e96912";
+    version = "32419b2cdb6be703b16f5f8a41602fe04a721dd2";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "d974235887719a11393a17285ab7c8bdc4e96912";
-      hash = "sha256-xbW8f6GnuF56MiEWq8xDJI8dHcx4rWufB23ogi63wSs=";
+      rev = "32419b2cdb6be703b16f5f8a41602fe04a721dd2";
+      hash = "sha256-rRFp+NPbcYFtu2oyQUzEXjDDojqga/XuT0ZT2ur56P4=";
     };
-    date = "2025-06-05";
+    date = "2025-06-13";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2070,15 +2070,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da";
+    version = "2738d1e575c71596bf52a8ce2c6bddbe38a2ab06";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "fe1a9a683bc9c2d2f1e81c6d47fc97c465c6d7da";
+      rev = "2738d1e575c71596bf52a8ce2c6bddbe38a2ab06";
       fetchSubmodules = true;
-      hash = "sha256-q0iTe70ENzTbyVTPPxX55oVINt7Nd1KEit7qMaLdq7I=";
+      hash = "sha256-xSc7D9lkE6Y1OcT74hJPdt0FLdWhzTfLTKB0ISqQYS0=";
     };
-    date = "2025-06-12";
+    date = "2025-06-14";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
