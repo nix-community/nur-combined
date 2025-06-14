@@ -82,14 +82,14 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "8080a697c2ad15d178e1a04718e5de8208d334db";
+    version = "3cb20f28575cff36b48da4c1da0c958ce4a71d4e";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "8080a697c2ad15d178e1a04718e5de8208d334db";
+      rev = "3cb20f28575cff36b48da4c1da0c958ce4a71d4e";
       fetchSubmodules = false;
-      sha256 = "sha256-BRifDs7gkHZuoxq5zoTyaB+qBac65/hCOswt/oQpLOY=";
+      sha256 = "sha256-YBT+OJw1wwl6q0fAuUDwnuuw1ioxevcWTYqcZpBo4pg=";
     };
-    date = "2025-05-14";
+    date = "2025-06-13";
   };
 }
