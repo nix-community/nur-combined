@@ -1,11 +1,11 @@
 { appimageTools, fetchurl }:
 let
   pname = "qobuz-linux";
-  version = "1.0.1-6cd9e80";
+  version = "1.0.1-f15d602";
 
   src = fetchurl {
-    url = "https://github.com/mattipunkt/qobuz-linux/releases/download/1.0.1-6cd9e80/${pname}-${version}.AppImage";
-    hash = "sha256-Ua1BASW5TwV35MMd5UGHYoOsUxwrTuYeiZjLmAp5ZYg=";
+    url = "https://github.com/mattipunkt/qobuz-linux/releases/download/${version}/${pname}-${version}.AppImage";
+    hash = "sha256-xJklwJ/jJ/V35XN4rA2kJZ0433jVXc4vPxzYRpFGQJA=";
   };
 in
 appimageTools.wrapType2 {
