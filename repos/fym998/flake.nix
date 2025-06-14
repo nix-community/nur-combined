@@ -78,13 +78,6 @@
             packages = with pkgs; [
               nil
               nix-prefetch-git
-              yaml2json
-              (python313.withPackages (
-                ps: with ps; [
-                  pyyaml
-                  ruff
-                ]
-              ))
             ];
           };
         };
