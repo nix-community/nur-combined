@@ -533,6 +533,27 @@
         },
         "version": "1726b1d8e22ee1fa53c7560169d8814c7847a447"
     },
+    "comp128": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "comp128",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Takuto88",
+            "repo": "comp128-python",
+            "rev": "1.0.0",
+            "sha256": "sha256-0y36/J7l/PpiG5claCJF5oCCcFB7BPUQvba+73+Jwzc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.0.0"
+    },
     "coqui-tts": {
         "cargoLocks": null,
         "date": null,
@@ -2990,6 +3011,89 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "pyhss": {
+        "cargoLocks": null,
+        "date": "2025-06-13",
+        "extract": null,
+        "name": "pyhss",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nickvsnetworking",
+            "repo": "pyhss",
+            "rev": "c4182a78d2a4b28fdf8c444519d5e42bd24d7594",
+            "sha256": "sha256-lAiSJKvGVZcQXvzLIVgWR+eXRBadPypNXOjPto9GB1Y=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "c4182a78d2a4b28fdf8c444519d5e42bd24d7594"
+    },
+    "pyhss-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pyhss-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nickvsnetworking",
+            "repo": "pyhss",
+            "rev": "1.0.2",
+            "sha256": "sha256-IW1O+VdMzgiDijg8PATRt3ihTCExvbs51Gb7eaV/kEA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.0.2"
+    },
+    "pyosmocom": {
+        "cargoLocks": null,
+        "date": "2025-06-04",
+        "extract": null,
+        "name": "pyosmocom",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "0171b3f5ef9420fab88cc47814acd860af8a8d5d",
+            "sha256": "sha256-AkV6Qf0oc7/FaZvqjvqKwbpLMw2y0RmcVC+24kGeAPY=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
+        },
+        "version": "0171b3f5ef9420fab88cc47814acd860af8a8d5d"
+    },
+    "pysctp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pysctp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "p1sec",
+            "repo": "pysctp",
+            "rev": "v0.7.2",
+            "sha256": "sha256-XDBuxCaT8ho7UPfQHhFdYs9KCRWmguebZa2fqb423A4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.2"
     },
     "pytorch-wpe": {
         "cargoLocks": null,

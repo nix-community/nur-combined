@@ -117,6 +117,10 @@ src.git = "https://github.com/lilmayofuksu/pyenet.git"
 fetch.github = "lilmayofuksu/pyenet"
 git.fetchSubmodules = true
 
+[comp128]
+src.github = "Takuto88/comp128-python"
+fetch.github = "Takuto88/comp128-python"
+
 [coqui-tts]
 src.github = "coqui-ai/TTS"
 fetch.github = "coqui-ai/TTS"
@@ -659,6 +663,22 @@ fetch.github = "pterodactyl/wings"
 [pterodactyl-wings-stable]
 src.github = "pterodactyl/wings"
 fetch.github = "pterodactyl/wings"
+
+[pyhss]
+src.git = "https://github.com/nickvsnetworking/pyhss.git"
+fetch.github = "nickvsnetworking/pyhss"
+
+[pyhss-stable]
+src.github = "nickvsnetworking/pyhss"
+fetch.github = "nickvsnetworking/pyhss"
+
+[pyosmocom]
+src.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
+fetch.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
+
+[pysctp]
+src.github = "p1sec/pysctp"
+fetch.github = "p1sec/pysctp"
 
 [pytorch-wpe]
 src.github = "nttcslab-sp/dnn_wpe"

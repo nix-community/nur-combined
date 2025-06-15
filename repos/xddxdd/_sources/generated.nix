@@ -279,6 +279,16 @@
     };
     date = "2022-11-20";
   };
+  comp128 = {
+    pname = "comp128";
+    version = "1.0.0";
+    src = fetchFromGitHub {
+      owner = "Takuto88";
+      repo = "comp128-python";
+      tag = "1.0.0";
+      hash = "sha256-0y36/J7l/PpiG5claCJF5oCCcFB7BPUQvba+73+Jwzc=";
+    };
+  };
   coqui-tts = {
     pname = "coqui-tts";
     version = "v0.22.0";
@@ -1526,6 +1536,48 @@
       repo = "py-rcon";
       tag = "v1.3.0";
       hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
+    };
+  };
+  pyhss = {
+    pname = "pyhss";
+    version = "c4182a78d2a4b28fdf8c444519d5e42bd24d7594";
+    src = fetchFromGitHub {
+      owner = "nickvsnetworking";
+      repo = "pyhss";
+      rev = "c4182a78d2a4b28fdf8c444519d5e42bd24d7594";
+      hash = "sha256-lAiSJKvGVZcQXvzLIVgWR+eXRBadPypNXOjPto9GB1Y=";
+    };
+    date = "2025-06-13";
+  };
+  pyhss-stable = {
+    pname = "pyhss-stable";
+    version = "1.0.2";
+    src = fetchFromGitHub {
+      owner = "nickvsnetworking";
+      repo = "pyhss";
+      tag = "1.0.2";
+      hash = "sha256-IW1O+VdMzgiDijg8PATRt3ihTCExvbs51Gb7eaV/kEA=";
+    };
+  };
+  pyosmocom = {
+    pname = "pyosmocom";
+    version = "0171b3f5ef9420fab88cc47814acd860af8a8d5d";
+    src = fetchgit {
+      url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
+      rev = "0171b3f5ef9420fab88cc47814acd860af8a8d5d";
+      fetchSubmodules = false;
+      hash = "sha256-AkV6Qf0oc7/FaZvqjvqKwbpLMw2y0RmcVC+24kGeAPY=";
+    };
+    date = "2025-06-04";
+  };
+  pysctp = {
+    pname = "pysctp";
+    version = "v0.7.2";
+    src = fetchFromGitHub {
+      owner = "p1sec";
+      repo = "pysctp";
+      tag = "v0.7.2";
+      hash = "sha256-XDBuxCaT8ho7UPfQHhFdYs9KCRWmguebZa2fqb423A4=";
     };
   };
   pytorch-wpe = {
