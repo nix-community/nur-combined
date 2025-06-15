@@ -26,7 +26,6 @@ rec {
   metube = ./metube.nix;
   catppuccin = ./catppuccin.nix;
   zsh = ./zsh.nix;
-  branding = ./branding.nix;
   dashboard = ./dashboard.nix;
   watchyourlan = ./watchyourlan.nix;
   aulaf87-rgb = ./aulaf87-rgb.nix;
