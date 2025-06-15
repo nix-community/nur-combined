@@ -8,9 +8,9 @@ An old cellphone arcade recreated for PC.
 
 - Name: `biplanes-revival`
 - Version: `1.2.1`
-- [🌐 Homepage](https://github.com/regular-dev/biplanes-revival)
+- [🌐 Homepage](https://regular-dev.org/biplanes-revival)
 - [📰 Changelog](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.2.1)
-- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L44)
+- [📦 Source](./pkgs/by-name/biplanes-revival/package.nix#L67)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 
@@ -213,17 +213,6 @@ A hardware profiling application for Linux.
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv64-linux`, `s390x-linux`, `x86_64-linux`, `armv5tel-linux`, `armv7a-linux`, `m68k-linux`, `mips-linux`, `mips64-linux`, `mipsel-linux`, `mips64el-linux`, `riscv32-linux`
-
-## `magpie-wayland` {#magpie-wayland}
-
-wlroots-based Wayland compositor designed for the Budgie Desktop.
-
-- Name: `magpie-wayland`
-- Version: `0.9.4-unstable-2025-03-25`
-- [🌐 Homepage](https://github.com/BuddiesOfBudgie/magpie)
-- [📦 Source](./pkgs/by-name/magpie-wayland/package.nix#L68)
-- 📄 License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
-- 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
 
 ## `mapfab` {#mapfab}
 
