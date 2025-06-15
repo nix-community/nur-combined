@@ -2543,10 +2543,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.6.1";
+      version = "5.7.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4505065/dictionaries-5.6.1.xpi";
-      sha256 = "5655d0814828fcd9926003072660dde2a925eeb2b64ae70ec3becc43a9fb62e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513687/dictionaries-5.7.0.xpi";
+      sha256 = "29b1c5f3ae23cf34b83747e1455a71b48ea4d151023466541558fcede0a2f1a4";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -2773,10 +2773,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.62.0";
+      version = "2.62.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503786/dualsub-2.62.0.xpi";
-      sha256 = "3a5bf35fba72ded61586fdeb147e25f279d1dfd9194efe268cca92e31ed7060d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513779/dualsub-2.62.1.xpi";
+      sha256 = "17e0ff68b0a3a0584e2153210d10ea9664baf55b697ae306915ff23b685b2de8";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6082,10 +6082,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.23";
+      version = "2.24";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4474333/ipvfoo-2.23.xpi";
-      sha256 = "bbe18e844e8bd3c12a15ad487a6db64b2f74abd718d5b0d6400fe2a2abd0a912";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513731/ipvfoo-2.24.xpi";
+      sha256 = "adc6b5fcd36b42784044a09cab1872473c049b5f55df559ecffc6435ecb8958a";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
