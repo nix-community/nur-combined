@@ -23,6 +23,8 @@ in
       boot.lanzaboote.enable = true;
     };
 
+    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+
     console.useXkbConfig = true; # use xkbOptions in tty.
 
     fonts.fontconfig = {

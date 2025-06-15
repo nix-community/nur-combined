@@ -24,7 +24,7 @@ in
       extraConfig = {
         pull.ff = "only";
       };
-      
+
       difftastic = {
         enable = true;
         enableAsDifftool = true;

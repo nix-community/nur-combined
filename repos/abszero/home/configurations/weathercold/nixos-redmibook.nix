@@ -36,6 +36,8 @@ let
       gtk.icon.enable = true;
     };
 
+    programs.niri.settings.outputs.eDP-1.variable-refresh-rate = true;
+
     specialisation = {
       # Hint nh to autoswitch to the current specialisation
       catppuccin-latte-pink.configuration.xdg.dataFile."home-manager/specialisation".text =

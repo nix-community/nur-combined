@@ -10,5 +10,5 @@ symlinkJoin {
   postBuild = ''
     wrapProgram "$out/bin/anki" --set ANKI_WAYLAND 1
   '';
-  meta = builtins.removeAttrs anki.meta ["outputsToInstall"];
+  meta = builtins.removeAttrs anki.meta [ "outputsToInstall" ];
 }

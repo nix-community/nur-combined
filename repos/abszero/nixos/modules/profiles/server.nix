@@ -1,5 +1,10 @@
 # Headless server
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkIf;
@@ -14,6 +19,8 @@ in
 
   config = mkIf cfg.enable {
     abszero.profiles.base.enable = true;
+
+    boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
 
     # UTC is the default but we explicitly set it to disallow imperative changing.
     time.timeZone = "UTC";

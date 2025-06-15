@@ -70,10 +70,7 @@ in
         # Disable kernel command line editor for security
         systemd-boot.editor = false;
       };
-
-      kernelPackages = pkgs.linuxKernel.packages.linux_zen;
       kernel.sysctl."vm.swappiness" = mkDefault 20;
-
       tmp.useTmpfs = true;
     };
 
