@@ -41,7 +41,7 @@ let
     lantianCustomized = ./lantian-customized;
     lantianLinuxCachyOS = ifNotNUR (ifNotCI ./lantian-linux-cachyos);
     lantianLinuxCachyOSPackages = ifNotNUR (ifNotCI ./lantian-linux-cachyos/packages.nix);
-    lantianLinuxXanmod = ./lantian-linux-xanmod;
+    lantianLinuxXanmod = ifNotCI ./lantian-linux-xanmod;
     lantianLinuxXanmodPackages = ifNotCI ./lantian-linux-xanmod/packages.nix;
     lantianPersonal = ifNotCI ./lantian-personal;
     nvidia-grid = ifNotCI ./nvidia-grid;

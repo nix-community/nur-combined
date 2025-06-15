@@ -17,6 +17,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sctp" ];
 
   meta = {
+    changelog = "https://github.com/p1sec/pysctp/releases/tag/${version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "SCTP stack for Python";
     homepage = "https://github.com/p1sec/pysctp";

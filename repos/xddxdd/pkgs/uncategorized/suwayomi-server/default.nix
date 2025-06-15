@@ -30,6 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
+    changelog = "https://github.com/Suwayomi/Suwayomi-Server/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Rewrite of Tachiyomi for the Desktop";
     homepage = "https://github.com/Suwayomi/Suwayomi-Server";
