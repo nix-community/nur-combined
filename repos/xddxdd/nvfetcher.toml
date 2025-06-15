@@ -666,6 +666,7 @@ fetch.github = "pterodactyl/wings"
 
 [pyhss]
 src.git = "https://github.com/nickvsnetworking/pyhss.git"
+src.branch = "DockerFixes"
 fetch.github = "nickvsnetworking/pyhss"
 
 [pyhss-stable]

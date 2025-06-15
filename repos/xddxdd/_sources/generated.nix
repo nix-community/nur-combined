@@ -1540,14 +1540,14 @@
   };
   pyhss = {
     pname = "pyhss";
-    version = "c4182a78d2a4b28fdf8c444519d5e42bd24d7594";
+    version = "e3f2f9c97ff05658658d2d44969a243857febc3d";
     src = fetchFromGitHub {
       owner = "nickvsnetworking";
       repo = "pyhss";
-      rev = "c4182a78d2a4b28fdf8c444519d5e42bd24d7594";
-      hash = "sha256-lAiSJKvGVZcQXvzLIVgWR+eXRBadPypNXOjPto9GB1Y=";
+      rev = "e3f2f9c97ff05658658d2d44969a243857febc3d";
+      hash = "sha256-8+2vFAGvsgd5TJlEo4K6fiO+6x7X5mEWzygUCcu71oQ=";
     };
-    date = "2025-06-13";
+    date = "2025-04-03";
   };
   pyhss-stable = {
     pname = "pyhss-stable";

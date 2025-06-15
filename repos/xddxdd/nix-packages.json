@@ -3837,7 +3837,7 @@
   "legacyPackages.x86_64-linux.pyhss": {
     "description": "Python HSS / Diameter Server",
     "pname": "pyhss",
-    "version": "1.0.2-unstable-2025-06-13"
+    "version": "1.0.2-unstable-2025-04-03"
   },
   "legacyPackages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
@@ -4692,7 +4692,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
     "pname": "pyhss",
-    "version": "1.0.2-unstable-2025-06-13"
+    "version": "1.0.2-unstable-2025-04-03"
   },
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
@@ -5707,7 +5707,7 @@
   "packages.x86_64-linux.pyhss": {
     "description": "Python HSS / Diameter Server",
     "pname": "pyhss",
-    "version": "1.0.2-unstable-2025-06-13"
+    "version": "1.0.2-unstable-2025-04-03"
   },
   "packages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",

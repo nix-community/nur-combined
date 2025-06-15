@@ -3014,7 +3014,7 @@
     },
     "pyhss": {
         "cargoLocks": null,
-        "date": "2025-06-13",
+        "date": "2025-04-03",
         "extract": null,
         "name": "pyhss",
         "passthru": null,
@@ -3026,12 +3026,12 @@
             "name": null,
             "owner": "nickvsnetworking",
             "repo": "pyhss",
-            "rev": "c4182a78d2a4b28fdf8c444519d5e42bd24d7594",
-            "sha256": "sha256-lAiSJKvGVZcQXvzLIVgWR+eXRBadPypNXOjPto9GB1Y=",
+            "rev": "e3f2f9c97ff05658658d2d44969a243857febc3d",
+            "sha256": "sha256-8+2vFAGvsgd5TJlEo4K6fiO+6x7X5mEWzygUCcu71oQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c4182a78d2a4b28fdf8c444519d5e42bd24d7594"
+        "version": "e3f2f9c97ff05658658d2d44969a243857febc3d"
     },
     "pyhss-stable": {
         "cargoLocks": null,
