@@ -1019,12 +1019,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5662";
+    version = "b5669";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5662";
-      hash = "sha256-cFzpDgMdQ7XfSgeLHKsX+KnyTFGsVYtvuercorKmiNo=";
+      tag = "b5669";
+      hash = "sha256-ZyLBS/q6U5/HOSl9B+9qQPz2UemUris25KufiyxrKGU=";
     };
   };
   loralib = {
@@ -1470,12 +1470,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.3.0";
+    version = "v2.3.1";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.3.0";
-      hash = "sha256-DYyM3pAaEbc4lbiSzBvPb4FoxmcmN1ubmE07kNd1RLs=";
+      tag = "v2.3.1";
+      hash = "sha256-2KXOpg1F+SsFY3KLfKnk7ERCxKOaRwqnRXecLmyZ72s=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1684,45 +1684,45 @@
   };
   qsp = {
     pname = "qsp";
-    version = "24cc85e6a1fcb69fb519d0dee5df723deba9696f";
+    version = "9b01652b275ee4ee554efca31157ec9101294cab";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "24cc85e6a1fcb69fb519d0dee5df723deba9696f";
-      hash = "sha256-mmnI4/ColBJYnOwcYYRSGORMIk8CiM/XW3MMYXEJ2ZU=";
+      rev = "9b01652b275ee4ee554efca31157ec9101294cab";
+      hash = "sha256-Z9NtFZChzWohJ3XxzQgjx9ZwozYml8Qfudzd9Nd1Ls8=";
     };
-    date = "2025-06-05";
+    date = "2025-06-14";
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "32419b2cdb6be703b16f5f8a41602fe04a721dd2";
+    version = "c6c41cbfdc1181541de0ebd7ab7b3ded2f66b598";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "32419b2cdb6be703b16f5f8a41602fe04a721dd2";
-      hash = "sha256-rRFp+NPbcYFtu2oyQUzEXjDDojqga/XuT0ZT2ur56P4=";
+      rev = "c6c41cbfdc1181541de0ebd7ab7b3ded2f66b598";
+      hash = "sha256-szAnO2A09ne7C1QGojhacqeG5lVGbKlHR8zpc1E0j1k=";
     };
-    date = "2025-06-13";
+    date = "2025-06-14";
   };
   qsp-stable = {
     pname = "qsp-stable";
-    version = "v5.9.2-b3";
+    version = "v5.9.3-b1";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      tag = "v5.9.2-b3";
-      hash = "sha256-O88JJ26w3DfCyMZmK4xz1AcyzZ1Ej5EOYz3zMYqs8TU=";
+      tag = "v5.9.3-b1";
+      hash = "sha256-Z9NtFZChzWohJ3XxzQgjx9ZwozYml8Qfudzd9Nd1Ls8=";
     };
   };
   qsp-wx = {
     pname = "qsp-wx";
-    version = "5d8d577d74632e71075575de4b1ca38f9200783a";
+    version = "66bd59a958705398ad22536a8d301596b1951cb8";
     src = fetchFromGitHub {
       owner = "wxWidgets";
       repo = "wxWidgets";
-      rev = "5d8d577d74632e71075575de4b1ca38f9200783a";
+      rev = "66bd59a958705398ad22536a8d301596b1951cb8";
       fetchSubmodules = true;
-      hash = "sha256-rnRKXRFU24JDP9Jewzqlcr1RIMpsNAWMBvYeuIzeTb8=";
+      hash = "sha256-wn+kgHqg4waFJVYp5XSRtdnOAN8pDeASL9cWRJXF+aU=";
     };
   };
   r8125 = {
@@ -2174,12 +2174,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.2.1";
+    version = "v1.3.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.2.1";
-      hash = "sha256-TCqf7EpQnIWACIVwpfVo0PBnnpbr2jhM9EbeReee9x8=";
+      tag = "v1.3.0";
+      hash = "sha256-cBeZqfKjNbSun6UPJRVi9o7p822yw+uR6VneCfoqieE=";
     };
   };
   vbmeta-disable-verification = {

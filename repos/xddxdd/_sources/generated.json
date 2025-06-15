@@ -1988,12 +1988,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5662",
-            "sha256": "sha256-cFzpDgMdQ7XfSgeLHKsX+KnyTFGsVYtvuercorKmiNo=",
+            "rev": "b5669",
+            "sha256": "sha256-ZyLBS/q6U5/HOSl9B+9qQPz2UemUris25KufiyxrKGU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5662"
+        "version": "b5669"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2885,12 +2885,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.3.0",
-            "sha256": "sha256-DYyM3pAaEbc4lbiSzBvPb4FoxmcmN1ubmE07kNd1RLs=",
+            "rev": "v2.3.1",
+            "sha256": "sha256-2KXOpg1F+SsFY3KLfKnk7ERCxKOaRwqnRXecLmyZ72s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.0"
+        "version": "v2.3.1"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,
@@ -3286,7 +3286,7 @@
     },
     "qsp": {
         "cargoLocks": null,
-        "date": "2025-06-05",
+        "date": "2025-06-14",
         "extract": null,
         "name": "qsp",
         "passthru": null,
@@ -3298,16 +3298,16 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "24cc85e6a1fcb69fb519d0dee5df723deba9696f",
-            "sha256": "sha256-mmnI4/ColBJYnOwcYYRSGORMIk8CiM/XW3MMYXEJ2ZU=",
+            "rev": "9b01652b275ee4ee554efca31157ec9101294cab",
+            "sha256": "sha256-Z9NtFZChzWohJ3XxzQgjx9ZwozYml8Qfudzd9Nd1Ls8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "24cc85e6a1fcb69fb519d0dee5df723deba9696f"
+        "version": "9b01652b275ee4ee554efca31157ec9101294cab"
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-06-13",
+        "date": "2025-06-14",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3319,12 +3319,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "32419b2cdb6be703b16f5f8a41602fe04a721dd2",
-            "sha256": "sha256-rRFp+NPbcYFtu2oyQUzEXjDDojqga/XuT0ZT2ur56P4=",
+            "rev": "c6c41cbfdc1181541de0ebd7ab7b3ded2f66b598",
+            "sha256": "sha256-szAnO2A09ne7C1QGojhacqeG5lVGbKlHR8zpc1E0j1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "32419b2cdb6be703b16f5f8a41602fe04a721dd2"
+        "version": "c6c41cbfdc1181541de0ebd7ab7b3ded2f66b598"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -3340,12 +3340,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "v5.9.2-b3",
-            "sha256": "sha256-O88JJ26w3DfCyMZmK4xz1AcyzZ1Ej5EOYz3zMYqs8TU=",
+            "rev": "v5.9.3-b1",
+            "sha256": "sha256-Z9NtFZChzWohJ3XxzQgjx9ZwozYml8Qfudzd9Nd1Ls8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.9.2-b3"
+        "version": "v5.9.3-b1"
     },
     "qsp-wx": {
         "cargoLocks": null,
@@ -3361,12 +3361,12 @@
             "name": null,
             "owner": "wxWidgets",
             "repo": "wxWidgets",
-            "rev": "5d8d577d74632e71075575de4b1ca38f9200783a",
-            "sha256": "sha256-rnRKXRFU24JDP9Jewzqlcr1RIMpsNAWMBvYeuIzeTb8=",
+            "rev": "66bd59a958705398ad22536a8d301596b1951cb8",
+            "sha256": "sha256-wn+kgHqg4waFJVYp5XSRtdnOAN8pDeASL9cWRJXF+aU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5d8d577d74632e71075575de4b1ca38f9200783a"
+        "version": "66bd59a958705398ad22536a8d301596b1951cb8"
     },
     "r8125": {
         "cargoLocks": null,
@@ -4252,12 +4252,12 @@
             "name": null,
             "owner": "Diniboy1123",
             "repo": "usque",
-            "rev": "v1.2.1",
-            "sha256": "sha256-TCqf7EpQnIWACIVwpfVo0PBnnpbr2jhM9EbeReee9x8=",
+            "rev": "v1.3.0",
+            "sha256": "sha256-cBeZqfKjNbSun6UPJRVi9o7p822yw+uR6VneCfoqieE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.1"
+        "version": "v1.3.0"
     },
     "vbmeta-disable-verification": {
         "cargoLocks": null,
