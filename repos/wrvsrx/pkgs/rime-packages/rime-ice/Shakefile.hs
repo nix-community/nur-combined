@@ -24,6 +24,94 @@ import Text.RawString.QQ (r)
 
 type Component = Tr.Tree (String, Action ())
 
+buildDir :: FilePath
+buildDir = "build"
+
+renderComponentClosure :: Component -> Rules ()
+renderComponentClosure (Tr.Node (name, act) children) = do
+  phony (name <> "-closure") $ do
+    need (map ((<> "-closure") . fst . Tr.rootLabel) children)
+    act
+  mapM_ renderComponentClosure children
+
+renderComponent :: Component -> Rules ()
+renderComponent (Tr.Node (name, act) children) = do
+  phony name act
+  mapM_ renderComponent children
+
+renderComponentToNix :: Component -> Rules ()
+renderComponentToNix (Tr.Node (name, act) children) = do
+  phony (name <> "-nix") $
+    do
+      let
+        nixCnt :: String =
+          printf
+            [r|
+{
+  stdenvNoCC,
+  haskellPackages,
+  rimeDataBuildHook,
+  librime,
+  # we need default.yaml provided by rime-prelude
+  rime-prelude,
+  source,
+  %s
+}:
+let
+  src_ =
+    stdenvNoCC.mkDerivation {
+      inherit (source) src version;
+      pname = "rime-ice-%s";
+      propagatedBuildInputs = [ rime-prelude %s ];
+      nativeBuildInputs = [
+        (haskellPackages.ghcWithPackages (
+          ps: with ps; [
+            shake
+            yaml
+            utf8-string
+            raw-strings-qq
+          ]
+        ))
+      ];
+      env.LC_CTYPE = "C.UTF-8";
+      postPatch = ''
+        cp ${../Shakefile.hs} Shakefile.hs
+      '';
+      buildPhase = ''
+        shake %s
+      '';
+      installPhase = ''
+        mkdir -p $out/share/rime-data
+        mkdir -p build
+        cp -r build/. $out/share/rime-data/
+      '';
+    };
+in
+  stdenvNoCC.mkDerivation {
+    inherit (src_)
+      pname
+      version
+      propagatedBuildInputs;
+    src = "${src_}/share/rime-data";
+    nativeBuildInputs = [
+      rimeDataBuildHook
+      librime
+    ];
+    installPhase = ''
+      rm -rf rime_data_deps/
+      mkdir -p $out/share/rime-data/
+      cp -r . $out/share/rime-data/
+    '';
+  }
+|]
+            (intercalate ", " (map (("rime-ice-" <>) . fst . Tr.rootLabel) children))
+            name
+            (unwords (map (("rime-ice-" <>) . fst . Tr.rootLabel) children))
+            name
+       in
+        writeFileChanged (buildDir </> "nix" </> "rime-ice-" <> name </> "default.nix") nixCnt
+  mapM_ renderComponentToNix children
+
 main :: IO ()
 main = shakeArgs shakeOptions $ do
   want ["all"]
@@ -51,18 +139,6 @@ self:
               allName
         )
  where
-  buildDir = "build"
-  renderComponentClosure :: Component -> Rules ()
-  renderComponentClosure (Tr.Node (name, act) children) = do
-    phony (name <> "-closure") $ do
-      need (map ((<> "-closure") . fst . Tr.rootLabel) children)
-      act
-    mapM_ renderComponentClosure children
-  renderComponent :: Component -> Rules ()
-  renderComponent (Tr.Node (name, act) children) = do
-    phony name act
-    mapM_ renderComponent children
-
   cnDicts' = Tr.Node ("cn_dicts", copyFolderAction "cn_dicts" "*.dict.yaml") []
   enDicts' = Tr.Node ("en_dicts", copyFolderAction "en_dicts" "*.dict.yaml") []
   lua' =
@@ -200,75 +276,3 @@ __patch:
   copyFolderAction dir pattern = do
     dictList <- getDirectoryFiles "" [dir </> pattern]
     mapM_ (\x -> copyFileChanged x (buildDir </> x)) dictList
-  renderComponentToNix :: Component -> Rules ()
-  renderComponentToNix (Tr.Node (name, act) children) = do
-    phony (name <> "-nix") $
-      do
-        let
-          nixCnt :: String =
-            printf
-              [r|
-{
-  stdenvNoCC,
-  haskellPackages,
-  rimeDataBuildHook,
-  librime,
-  # we need default.yaml provided by rime-prelude
-  rime-prelude,
-  source,
-  %s
-}:
-let
-  src_ =
-    stdenvNoCC.mkDerivation {
-      inherit (source) src version;
-      pname = "rime-ice-%s";
-      propagatedBuildInputs = [ rime-prelude %s ];
-      nativeBuildInputs = [
-        (haskellPackages.ghcWithPackages (
-          ps: with ps; [
-            shake
-            yaml
-            utf8-string
-            raw-strings-qq
-          ]
-        ))
-      ];
-      env.LC_CTYPE = "C.UTF-8";
-      postPatch = ''
-        cp ${../Shakefile.hs} Shakefile.hs
-      '';
-      buildPhase = ''
-        shake %s
-      '';
-      installPhase = ''
-        mkdir -p $out/share/rime-data
-        mkdir -p build
-        cp -r build/. $out/share/rime-data/
-      '';
-    };
-in
-  stdenvNoCC.mkDerivation {
-    inherit (src_)
-      pname
-      version
-      propagatedBuildInputs;
-    src = "${src_}/share/rime-data";
-    nativeBuildInputs = [
-      rimeDataBuildHook
-      librime
-    ];
-    installPhase = ''
-      rm -rf rime_data_deps/
-      mkdir -p $out/share/rime-data/
-      cp -r . $out/share/rime-data/
-    '';
-  }
-|]
-              (intercalate ", " (map (("rime-ice-" <>) . fst . Tr.rootLabel) children))
-              name
-              (unwords (map (("rime-ice-" <>) . fst . Tr.rootLabel) children))
-              name
-         in
-          writeFileChanged (buildDir </> "nix" </> "rime-ice-" <> name </> "default.nix") nixCnt
-    mapM_ renderComponentToNix children
