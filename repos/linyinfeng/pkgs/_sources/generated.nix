@@ -163,6 +163,23 @@
     };
     date = "2023-06-04";
   };
+  niri-taskbar = {
+    pname = "niri-taskbar";
+    version = "v0.2.0+niri.25.05";
+    src = fetchFromGitHub {
+      owner = "LawnGnome";
+      repo = "niri-taskbar";
+      rev = "v0.2.0+niri.25.05";
+      fetchSubmodules = false;
+      sha256 = "sha256-2DemaNMzdUjziRvDah4ZvYsyu44+EuSe2w55t21hPws=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./niri-taskbar-v0.2.0+niri.25.05/Cargo.lock;
+      outputHashes = {
+
+      };
+    };
+  };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
     version = "ec991b80ba7d4dda7a962167b036efc5c2d79419";

@@ -42,6 +42,7 @@ lib.makeScope newScope (
     matrix-wechat = callPackage ./matrix-wechat { };
     minio-latest = callPackage ./minio-latest { };
     mstickereditor = callPackage ./mstickereditor { };
+    niri-taskbar = callPackage ./niri-taskbar { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     rcon-cli = callPackage ./rcon-cli { };

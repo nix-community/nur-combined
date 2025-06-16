@@ -50,6 +50,7 @@ packageSet = do
   linuxIntelMainlineTracking
   linuxIntelTts
   mstickereditor
+  niriTaskbar
   swayOsd
   tgSend
   yacd
@@ -154,4 +155,11 @@ baibot =
   define $
     package "baibot"
       `fromGitHubTag` ("etkecc", "baibot", id)
+      `hasCargoLocks` ["Cargo.lock"]
+
+niriTaskbar :: PackageSet ()
+niriTaskbar =
+  define $
+    package "niri-taskbar"
+      `fromGitHubTag` ("LawnGnome", "niri-taskbar", id)
       `hasCargoLocks` ["Cargo.lock"]

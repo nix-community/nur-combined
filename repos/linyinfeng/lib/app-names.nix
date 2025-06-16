@@ -20,6 +20,7 @@ let
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
+    (empty "niri-taskbar")
     (empty "rimePackages/librime")
     (empty "rimePackages/rime-bopomofo")
     (empty "rimePackages/rime-cangjie")

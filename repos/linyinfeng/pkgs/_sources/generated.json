@@ -260,6 +260,32 @@
         },
         "version": "5e72de83dbf48991d8d60913c8396a0d7f86990c"
     },
+    "niri-taskbar": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./niri-taskbar-v0.2.0+niri.25.05/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "niri-taskbar",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LawnGnome",
+            "repo": "niri-taskbar",
+            "rev": "v0.2.0+niri.25.05",
+            "sha256": "sha256-2DemaNMzdUjziRvDah4ZvYsyu44+EuSe2w55t21hPws=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.0+niri.25.05"
+    },
     "plugin-bang-bang": {
         "cargoLocks": null,
         "date": "2023-07-23",
