@@ -1,7 +1,6 @@
 { system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
 with pkgs; rec {
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
-  aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
   graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
   landrop = pkgs.callPackage ./pkgs/landrop { };
