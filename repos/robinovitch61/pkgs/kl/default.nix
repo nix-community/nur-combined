@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1zkjdy3i0cbwhq9xfwbygfgm0ixqv7yc10bivz4222fb5ah8hi83";
-    x86_64-linux = "1gm5qgqcpsxqd8l3laqi188qz7wpnwaqbb0c82h70bg45qm6v38m";
-    aarch64-linux = "0mghsn7z1ah3974mjmmiqa5a9x2f5x41nh0pggxksjgqzwf5yz3j";
-    x86_64-darwin = "1w4ansmsfv7l3na6n98m7q1m3nff9n1in4b5aj2vs6ddk94phbaj";
-    aarch64-darwin = "1w4ansmsfv7l3na6n98m7q1m3nff9n1in4b5aj2vs6ddk94phbaj";
+    i686-linux = "15vxgh5schrxr5vmjvc13l3ygpxn4f044zsjbkjy4smcc9x4n1a7";
+    x86_64-linux = "1mwsahi6hi36m808719zqvzam22rjg2hgqk07v6yd6531ikj73k0";
+    aarch64-linux = "1jkkn6f52zcz0sixdln0gqam4d1745rldxdhvjdfkl9c00sag2j8";
+    x86_64-darwin = "0v7zrpq50zg3qb11ciybq4zwki7bhda2b5qfx3w9j9midzn4x2xl";
+    aarch64-darwin = "0v7zrpq50zg3qb11ciybq4zwki7bhda2b5qfx3w9j9midzn4x2xl";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.0/kl_0.6.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.0/kl_0.6.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.0/kl_0.6.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.6.0/kl_0.6.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.6.0/kl_0.6.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.1/kl_0.6.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.1/kl_0.6.1_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.6.1/kl_0.6.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.6.1/kl_0.6.1_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.6.1/kl_0.6.1_Darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "kl";
-  version = "0.6.0";
+  version = "0.6.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
