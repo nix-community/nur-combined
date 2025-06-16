@@ -1199,10 +1199,10 @@
     };
     "bookmark-search-plus-2" = buildFirefoxXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.134";
+      version = "2.0.135";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485249/bookmark_search_plus_2-2.0.134.xpi";
-      sha256 = "3fdc6817235d22301f826a4ea4f665abce953a10ded84e729a83bc10887dd89d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4514021/bookmark_search_plus_2-2.0.135.xpi";
+      sha256 = "dd64dc528cac77e39dfca90cfadc6c024b900264ddef41c4a57d274233dc261e";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.3.12";
+      version = "2.3.13";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4513397/youtube_no_translation-2.3.12.xpi";
-      sha256 = "dad90a9ce23bbd49492cdda6dc5dcee35ea065f5b8de1f9495a9fe1aabe1612f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4514227/youtube_no_translation-2.3.13.xpi";
+      sha256 = "ee460a459445b97f9875f74f7812b0b511df10ce9f251819167a836cad0595c8";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
