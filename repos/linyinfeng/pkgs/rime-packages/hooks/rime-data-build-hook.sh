@@ -23,7 +23,7 @@ function rimeDataBuildPreBuildHook {
     processed="$processed $data "
 
     echo "linking RIME dependency '$data'..."
-    cp --recursive --verbose "$data/share/rime-data/." rime_data_deps/
+    cp --no-preserve mode --recursive --verbose "$data/share/rime-data/." rime_data_deps/
   done
   echo "Finished executing rimeDataBuildPreBuildHook"
 }
