@@ -1,9 +1,8 @@
- # GRICAD [NUR](https://github.com/nix-community/NUR) repository
+# TonyWu20 [NUR](https://github.com/nix-community/NUR) repository
 
-Basic usage
------------
+## Basic usage
 
-* To make NUR accessible for your login user, add the following to `~/.config/nixpkgs/config.nix`:
+- To make NUR accessible for your login user, add the following to `~/.config/nixpkgs/config.nix`:
 
 ```nix
 {
@@ -15,55 +14,28 @@ Basic usage
 }
 ```
 
-
-* List the packages
-
-```console
-$ nix-env -f "<nixpkgs>" -qaP -A nur.repos.gricad
-```
-
-* Install a package
+- List the packages
 
 ```console
-$ nix-env -iA -f "<nixpkgs>" nur.repos.gricad.openmpi2-opa
+$ nix-env -f "<nixpkgs>" -qaP -A nur.repos.tonywu20
 ```
 
+- Install a package
 
-Advanced usage (mostly for admins)
-----------------------------------
+```console
+$ nix-env -iA -f "<nixpkgs>" nur.repos.tonywu20.intel-oneapi-essentials
+```
 
-* Local build of a package:
+## Advanced usage (mostly for admins)
+
+- Local build of a package:
 
 ```
 nix-build --arg pkgs 'import <nixpkgs> {}' -A hello
 ```
 
-* Optional pushing into the cache (need gricad cachix key)
+- Force an update of the repository
 
 ```
-nix-build --arg pkgs 'import <nixpkgs> {}' -A hello | cachix push gricad
+curl -XPOST https://nur-update.nix-community.org/update?repo=tonywu20
 ```
-
-* Force an update of the repository
-
-```
-curl -XPOST https://nur-update.nix-community.org/update?repo=gricad
-```
-
-* Configure cachix on a cluster
-  * Login as root and load nix environment
-  * Install cachix: `nix-env -iA cachix -f https://cachix.org/api/v1/install`
-  * Activate cachix: `cachix use gricad`
-
-* Cachix configuration for Travis
-
-Frst, get the secretkey (from ~/.config/cachix/cachix.dhall)
-
-```
-travis encrypt --pro CACHIX_SIGNING_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=="
-```
-
-[![Build Status](https://travis-ci.com/Gricad/nur-packages.svg?branch=master)](https://app.travis-ci.com/github/Gricad/nur-packages)
-[![Cachix Cache](https://img.shields.io/badge/cachix-gricad-blue.svg)](https://gricad.cachix.org)
-
-
