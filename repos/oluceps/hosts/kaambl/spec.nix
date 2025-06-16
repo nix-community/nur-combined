@@ -71,7 +71,6 @@
     metrics.enable = true;
 
     sing-box.enable = true;
-
     snapy.instances = [
       {
         name = "persist";
@@ -257,7 +256,7 @@
     fail2ban.enable = true;
     phantomsocks.enable = true;
     garage.enable = true;
-    dae.enable = true;
+    # dae.enable = true;
     dnsproxy = {
       enable = true;
       # loadCert = true;

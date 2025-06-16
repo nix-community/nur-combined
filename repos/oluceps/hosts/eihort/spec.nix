@@ -119,6 +119,7 @@
       socketActivated = true;
     };
     rqbit = {
+      enable = true;
       location = "/three/storage/Downloads";
     };
     bpftune.enable = true;

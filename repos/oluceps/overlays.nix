@@ -34,15 +34,15 @@
       tuwunel = inputs'.conduit.packages.default;
 
       sing-box = prev.sing-box.overrideAttrs (old: rec {
-        version = "v1.12.0-beta.24";
+        version = "v1.12.0-beta.24-patch";
 
         src = prev.fetchFromGitHub {
           owner = "SagerNet";
           repo = "sing-box";
-          rev = version;
-          hash = "sha256-K4/Sfz4doJWR8vG4+h7vD0ZjQRww5OwL7/ebn5cX8Ws=";
+          rev = "1c597d1f5f3fc35b66b3bebbd874a1b02fd8dea1";
+          hash = "sha256-OgNb1vjNazZb2zLACJW8mobALXkjtPIdxz/jdRcD8H0=";
         };
-        vendorHash = "sha256-TIeDP/JnylnhMKFanXnk9rHB0kyPD0ReUOnduUG61Ks=";
+        vendorHash = "sha256-5M7W+cPijIPfnyW3KLdmB0xgE+whdI4J4s6F5kRzGl4=";
         tags = [
           "with_gvisor"
           "with_quic"
@@ -52,7 +52,9 @@
           # "with_acme"
           "with_clash_api"
         ];
-
+        postfixup = ''
+          install -Dm444 release/config/sing-box-split-dns.xml -t $out/share/dbus-1/system.d/sing-box-split-dns.conf
+        '';
       });
 
       # misskey = prev.misskey.overrideAttrs (old: {

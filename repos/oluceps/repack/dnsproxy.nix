@@ -13,6 +13,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    systemd.services.dnsproxy.unitConfig.Conflicts = [ "sing-box.service" ];
     systemd.services.dnsproxy.serviceConfig = {
       LoadCredential = lib.mkIf cfg.loadCert (
         (map (lib.genCredPath config)) [
@@ -35,8 +36,6 @@ in
           "119.29.29.29"
           "114.114.114.114"
           "223.6.6.6"
-          "tls://1.1.1.1"
-          "tls://1.0.0.1"
         ];
         listen-addrs = [ "::" ];
         listen-ports = [ 53 ];
