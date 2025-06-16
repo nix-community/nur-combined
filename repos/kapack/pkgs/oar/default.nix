@@ -1,5 +1,4 @@
-{ lib, pkgs, fetchFromGitHub, python3Packages, poetry, zeromq, procset, pybatsim, remote_pdb }:
-#{ lib, pkgs, fetchFromGitHub, python3Packages, poetry, zeromq, procset, pybatsim, remote_pdb, oar-plugins, enablePlugins ? false }:
+{ lib, pkgs, fetchFromGitHub, python3Packages, poetry, zeromq, procset, pybatsim, remote_pdb, oar-plugins, enablePlugins ? false }:
 
 python3Packages.buildPythonPackage rec {
   pname = "oar";
@@ -47,7 +46,7 @@ python3Packages.buildPythonPackage rec {
     python-jose
     passlib
     bcrypt
-  ]; # ++ lib.optional enablePlugins oar-plugins;
+  ] ++ lib.optional enablePlugins oar-plugins;
 
   doCheck = false;
   postInstall = ''

@@ -132,11 +132,19 @@ rec {
 
   cigri = pkgs.callPackage ./pkgs/cigri { };
 
-  oar = pkgs.callPackage ./pkgs/oar { inherit procset pybatsim remote_pdb; };
+  oar = pkgs.callPackage ./pkgs/oar { inherit procset pybatsim remote_pdb oar-plugins; };
 
+  oar-plugins = pkgs.callPackage ./pkgs/oar-plugins { inherit procset pybatsim remote_pdb oar; };
+  
   oar2 = pkgs.callPackage ./pkgs/oar2 { };
 
   oar3 = oar;
+  
+  oar3-plugins = oar-plugins;
+
+  #oar-with-plugins = oar.override { enablePlugins = true; };
+  oar-with-plugins = pkgs.callPackage ./pkgs/oar { inherit procset pybatsim remote_pdb oar-plugins; enablePlugins = true; };
+
 
   simgrid-327 = pkgs.callPackage ./pkgs/simgrid/simgrid327.nix { inherit debug; };
   simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };
