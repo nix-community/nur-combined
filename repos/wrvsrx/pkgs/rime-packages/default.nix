@@ -9,7 +9,7 @@ lib.makeScope newScope (
   self:
   let
     inherit (self) callPackage;
-    hooks = callPackage ./hooks { };
+    hooks = callPackage ../../externals/linyinfeng/pkgs/rime-packages/hooks { };
   in
   {
     inherit librime;

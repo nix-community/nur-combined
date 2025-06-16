@@ -1,0 +1,13 @@
+pull_request_rules:
+  - name: Automatic merge
+    conditions:
+      - or:
+        - "#approved-reviews-by>=1"
+        - "label=auto update"
+      - "label=auto merge"
+      - "check-success=check"
+      - "#check-pending=0"
+      - "#check-failure=0"
+    actions:
+      merge:
+        method: merge

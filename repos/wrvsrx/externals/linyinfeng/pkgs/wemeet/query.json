@@ -1,0 +1,29 @@
+[
+    {
+        "package-type": "app",
+        "channel": "0300000000",
+        "platform": "linux",
+        "arch": "x86_64",
+        "decorators": [
+            "deb"
+        ]
+    },
+    {
+        "package-type": "app",
+        "channel": "0300000000",
+        "platform": "linux",
+        "arch": "arm64",
+        "decorators": [
+            "deb"
+        ]
+    },
+    {
+        "package-type": "app",
+        "channel": "0300000000",
+        "platform": "linux",
+        "arch": "loongarch64",
+        "decorators": [
+            "deb"
+        ]
+    }
+]

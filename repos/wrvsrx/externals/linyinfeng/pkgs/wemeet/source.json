@@ -1,0 +1,12 @@
+{
+  "x86_64-linux": {
+    "version": "3.19.0.401",
+    "url": "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_3.19.0.401_x86_64_default.publish.deb",
+    "sha512": "2814febb1596cb8e6db75a7d71915771a9d6750cf162c3cb9b70379130da41d7fca7b3df1567a8de1d2967d97add4d2fc08764fbf4155a79852c75ea8fed754b"
+  },
+  "aarch64-linux": {
+    "version": "3.19.0.401",
+    "url": "https://updatecdn.meeting.qq.com/cos/0f96a97b0aaea9b9d5d2c2b912ede656/TencentMeeting_0300000000_3.19.0.401_arm64_default.publish.deb",
+    "sha512": "6099ec383e74dc776a9864743c9a2c624a5bea34e2ffb32b3fb57b66016a60dc1356ad3b58c6142ed2f3d9db83fc38ffd9c9661b282bf895e20d837277a07c76"
+  }
+}

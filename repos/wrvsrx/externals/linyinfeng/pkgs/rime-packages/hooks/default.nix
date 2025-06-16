@@ -3,7 +3,9 @@
 {
   rimeDataBuildHook = makeSetupHook {
     name = "rime-data-build-hook.sh";
-    propagatedBuildInputs = [ libfaketime ];
+    propagatedBuildInputs = [
+      libfaketime
+    ];
     substitutions = { };
   } ./rime-data-build-hook.sh;
 }

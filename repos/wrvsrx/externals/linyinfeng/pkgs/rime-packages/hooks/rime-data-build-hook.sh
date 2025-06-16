@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 rime_data=()
 
 function addRimeData {
@@ -42,10 +44,11 @@ function rimeDataBuildPostBuildHook {
   echo "Executing rimeDataBuildPostBuildHook"
 
   if [ -d rime_data_deps/build ]; then
-    for compiled_file in $(ls rime_data_deps/build); do
-      if [ -f "build/$compiled_file" ]; then
-        echo "delete 'build/$compiled_file'..."
-        rm "build/$compiled_file"
+    for compiled_file in rime_data_deps/build/*; do
+      filename=$(basename "$compiled_file")
+      if [ -f "build/$filename" ]; then
+        echo "delete 'build/$filename'..."
+        rm "build/$filename"
       fi
     done
   fi
