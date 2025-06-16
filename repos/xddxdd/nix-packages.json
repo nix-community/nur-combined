@@ -832,7 +832,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5669"
+    "version": "5676"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -862,7 +862,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
-    "version": "5.15.3"
+    "version": "5.15.4"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",

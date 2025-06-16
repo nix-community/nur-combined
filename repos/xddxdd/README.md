@@ -399,13 +399,13 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.13.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 5669 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 5676 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.14.3.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-05-16 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.nixos-cleanup` | [nixos-cleanup](https://github.com/xddxdd/nur-packages) | 1.0 | Cleanup old profiles on NixOS |
-|  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 5.15.3 | Telegram Desktop messaging app (Without anti-features) |
+|  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 5.15.4 | Telegram Desktop messaging app (Without anti-features) |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](https://www.transmissionbt.com/) | 4.0.6 | Fast, easy and free BitTorrent client |
 |  | `lantianCustomized.x86-arch-level` | [x86-arch-level](https://unix.stackexchange.com/a/631226) | 1.0 | Check x86 architecture level |
 </details>
