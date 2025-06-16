@@ -33,6 +33,28 @@
 
       tuwunel = inputs'.conduit.packages.default;
 
+      sing-box = prev.sing-box.overrideAttrs (old: rec {
+        version = "v1.12.0-beta.24";
+
+        src = prev.fetchFromGitHub {
+          owner = "SagerNet";
+          repo = "sing-box";
+          rev = version;
+          hash = "sha256-K4/Sfz4doJWR8vG4+h7vD0ZjQRww5OwL7/ebn5cX8Ws=";
+        };
+        vendorHash = "sha256-TIeDP/JnylnhMKFanXnk9rHB0kyPD0ReUOnduUG61Ks=";
+        tags = [
+          "with_gvisor"
+          "with_quic"
+          "with_dhcp"
+          "with_wireguard"
+          "with_utls"
+          # "with_acme"
+          "with_clash_api"
+        ];
+
+      });
+
       # misskey = prev.misskey.overrideAttrs (old: {
       #   patches = [
       #     ./pkgs/patch/0001-welcome-shape.patch
