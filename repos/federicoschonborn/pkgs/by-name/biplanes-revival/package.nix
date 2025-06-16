@@ -39,9 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     id="org.regular_dev.biplanes_revival"
-    install -Dm644 $src/flatpak-data/$id.desktop $out/share/applications
-    install -Dm644 $src/flatpak-data/$id.metainfo.xml $out/share/metainfo
-    install -Dm644 $src/flatpak-data/$id.svg $out/share/icons/hicolor/scalable/apps
+    install -Dm644 $src/flatpak-data/$id.desktop -t $out/share/applications
+    install -Dm644 $src/flatpak-data/$id.metainfo.xml -t $out/share/metainfo
+    install -Dm644 $src/flatpak-data/$id.svg -t $out/share/icons/hicolor/scalable/apps
 
     # Move assets directory into the preferred location.
     mkdir -p $out/share/biplanes-revival
@@ -64,10 +64,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     mainProgram = "BiplanesRevival";
-    description = "An old cellphone arcade recreated for PC";
+    description = "Old cellphone arcade recreated for PC";
     homepage = "https://regular-dev.org/biplanes-revival";
     changelog = "https://github.com/regular-dev/biplanes-revival/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.gpl3Plus;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
