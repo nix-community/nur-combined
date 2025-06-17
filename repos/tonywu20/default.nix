@@ -21,6 +21,8 @@ rec {
     gdk_pixbuf = pkgs.gdk-pixbuf;
   };
 
+  amd-aocl = pkgs.callPackage ./pkgs/amd/aocl.nix { };
+
   lammps-impi = pkgs.callPackage ./pkgs/lammps {
     withMPI = true;
     withOneAPI = true;
