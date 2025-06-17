@@ -16,7 +16,6 @@
 
   byparr = pkgs.callPackage ./pkgs/byparr.nix { };
   nh = pkgs.callPackage ./pkgs/nh.nix { };
-  rename_music = pkgs.callPackage ./pkgs/rename_music.nix { };
   catppuccin-papirus-folders-frappe-red = pkgs.catppuccin-papirus-folders.override {
     flavor = "frappe";
     accent = "red";
