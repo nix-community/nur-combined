@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "telnetpp";
-  version = "3.1.0";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "telnetpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BHN1zEnS7v0LScIbKSVETlO3gA5/7HLYVBkaFlu6k50=";
+    hash = "sha256-H5yIfsqW+Aud1JMxq9Hmchxk2sStFZNWtI+zqGpJELI=";
   };
 
   nativeBuildInputs = [

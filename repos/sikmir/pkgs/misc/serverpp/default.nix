@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "serverpp";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "serverpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-22mwf0/fwqkXzlgs+RMpjBQVT2D4T/vGZ3t0kKUqNsk=";
+    hash = "sha256-SV+1RrKvDK8OGTGHjCyl5uuRbh/0TMTtC3ax0++HOCI=";
   };
 
   nativeBuildInputs = [ cmake ];
