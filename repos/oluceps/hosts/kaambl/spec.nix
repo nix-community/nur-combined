@@ -257,19 +257,20 @@
     phantomsocks.enable = true;
     garage.enable = true;
     # dae.enable = true;
-    dnsproxy = {
-      enable = true;
-      # loadCert = true;
-      extraFlags = [
-        "--edns-addr=211.136.150.1"
-        # "--ipv6-disabled"
-        # "--quic-port=853"
-        # "--https-port=843"
-        "--http3"
-        # "--tls-crt=/run/credentials/dnsproxy.service/nyaw.cert"
-        # "--tls-key=/run/credentials/dnsproxy.service/nyaw.key"
-      ];
-    };
+    # dnsproxy = {
+    #   enable = true;
+    #   lazy = true;
+    #   # loadCert = true;
+    #   extraFlags = [
+    #     "--edns-addr=211.136.150.1"
+    #     # "--ipv6-disabled"
+    #     # "--quic-port=853"
+    #     # "--https-port=843"
+    #     "--http3"
+    #     # "--tls-crt=/run/credentials/dnsproxy.service/nyaw.cert"
+    #     # "--tls-key=/run/credentials/dnsproxy.service/nyaw.key"
+    #   ];
+    # };
     earlyoom.enable = true;
     arti.enable = false;
     # calibre.enable = true;
