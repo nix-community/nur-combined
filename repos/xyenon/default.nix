@@ -77,4 +77,5 @@ rec {
       self: _super: { rebar3 = self.rebar3WithPlugins { plugins = with self; [ pc ]; }; }
     );
   };
+  oli = callPackage ./pkgs/oli { };
 }
