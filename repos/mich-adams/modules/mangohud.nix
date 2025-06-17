@@ -68,7 +68,7 @@ in
     programs.steam.extraPackages = [ pkgs.mangohud ];
 
     programs.steam.gamescopeSession.env = {
-      MANGOHUD = 1;
+      MANGOHUD = "1";
       MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
     };
     programs.gamescope.env = {
