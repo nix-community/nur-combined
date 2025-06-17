@@ -65,12 +65,22 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.mangohud ];
+    programs.steam.extraPackages = [ pkgs.mangohud ];
 
+    programs.steam.gamescopeSession.env = {
+      MANGOHUD = 1;
+      MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
+    };
+    programs.gamescope.env = {
+      MANGOHUD = 1;
+      MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
+    };
     environment.etc."MangoHud/MangoHud.conf" = mkIf (cfg.settings != { }) {
       text = renderSettings cfg.settings;
     };
-    environment.sessionVariables.MANGOHUD_CONFIGFILE = mkIf (
-      cfg.settings != { }
-    ) "/etc/MangoHud/MangoHud.conf";
+    environment.sessionVariables = {
+      MANGOHUD = 1;
+      MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
+    };
   };
 }
