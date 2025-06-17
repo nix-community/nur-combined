@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   cfg = config.repack.dnsproxy;
+  inherit (lib) mkIf;
 in
 {
   options = {
@@ -10,10 +11,12 @@ in
         default = [ ];
       };
       loadCert = lib.mkEnableOption { };
+      lazy = lib.mkEnableOption { };
     };
   };
   config = lib.mkIf cfg.enable {
     systemd.services.dnsproxy.unitConfig.Conflicts = [ "sing-box.service" ];
+    systemd.services.dnsproxy.wantedBy = mkIf (!cfg.lazy) [ "multi-user.target" ];
     systemd.services.dnsproxy.serviceConfig = {
       LoadCredential = lib.mkIf cfg.loadCert (
         (map (lib.genCredPath config)) [

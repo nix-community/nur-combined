@@ -117,7 +117,7 @@
       openFirewall = true;
     };
 
-    sing-box.enable = true;
+    # sing-box.enable = true;
 
     hysteria.instances = {
       # nodens = {
@@ -198,7 +198,7 @@
     plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
-    # dae.enable = true;
+    dae.enable = true;
     scrutiny.enable = true;
     # ddns-go.enable = true;
     # atticd.enable = true;
@@ -206,12 +206,13 @@
     # mysql.enable = true;
     prometheus.enable = true;
     # coredns.enable = true;
-    # dnsproxy = {
-    #   enable = true;
-    #   extraFlags = [
-    #     "--edns-addr=211.139.163.1"
-    #   ];
-    # };
+    dnsproxy = {
+      enable = true;
+      extraFlags = [
+        "--edns-addr=211.139.163.1"
+      ];
+      # lazy = true;
+    };
     # srs.enable = true;
     grafana.enable = true;
     # xmrig.enable = true;
