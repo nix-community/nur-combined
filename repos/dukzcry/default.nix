@@ -40,4 +40,5 @@ rec {
   sftpgo-plugin-auth = callPackage ./pkgs/sftpgo-plugin-auth.nix {};
   daggerfall-unity-russian = callPackage ./pkgs/daggerfall-unity-russian.nix {};
   aulaf87-rgb = callPackage ./pkgs/aulaf87-rgb.nix {};
+  yggdrasilckr = callPackage ./pkgs/yggdrasilckr.nix {};
 }
