@@ -13,34 +13,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0qmc0f84095snjnb3mdk3cib1x46n7rs4cmj73273wadgq8jyj6f";
-    x86_64-linux = "0qir47zcd0x8s5nwvcfv8007bsa8in59igrx6l9hb4w9fj1kh2yv";
-    armv7l-linux = "1qbmyx2s4ryd6niaykw6jbzp3j2f4xph25kgmn551pnidkqbim0s";
-    aarch64-linux = "12nhiqrkl20klw2yk3wlfqp2frlnwb8gx6wxyshhn36rc0adqwnj";
-    x86_64-darwin = "1q5qkiwrq203h2h0a1bfl3wkl8k68svpwaylic48hp2spswgyfjk";
-    aarch64-darwin = "0hz72pjp6hz1kbr5s5fwkmabx51xi6k1nng07nz4ah8w9kk5l1qr";
+    i686-linux = "08faygvs61qxwrf1naxdr6b81kfhf1pa6m5m99h34rpy0b6ag94c";
+    x86_64-linux = "01sl2agmqxr8wx12dlqa821vgdyf5przwg2kzv51s46a1a3w6lmm";
+    armv7l-linux = "1zfdapl7a47q7j5qxk6ri5xczvlhf76pcd9q7qkgbhpss57r6rmx";
+    aarch64-linux = "19sjcr5m146xhnlzrihcaqpf3wa03m0wy1aa03fbjha6il100wvd";
+    x86_64-darwin = "0w0bmnjydm2rlvm34g5y0nkb1paclisx6dx798h3gj4x74gsxw8f";
+    aarch64-darwin = "04l0c7dfj8ymg5gp0z5j6m7h4f0s4krhwgan4fk8pb056d06q9fw";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.9.0/vhs_0.9.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.10.0/vhs_0.10.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "vhs_0.9.0_Linux_i386";
-    x86_64-linux = "vhs_0.9.0_Linux_x86_64";
-    armv7l-linux = "vhs_0.9.0_Linux_arm";
-    aarch64-linux = "vhs_0.9.0_Linux_arm64";
-    x86_64-darwin = "vhs_0.9.0_Darwin_x86_64";
-    aarch64-darwin = "vhs_0.9.0_Darwin_arm64";
+    i686-linux = "vhs_0.10.0_Linux_i386";
+    x86_64-linux = "vhs_0.10.0_Linux_x86_64";
+    armv7l-linux = "vhs_0.10.0_Linux_arm";
+    aarch64-linux = "vhs_0.10.0_Linux_arm64";
+    x86_64-darwin = "vhs_0.10.0_Darwin_x86_64";
+    aarch64-darwin = "vhs_0.10.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "vhs";
-  version = "0.9.0";
+  version = "0.10.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
