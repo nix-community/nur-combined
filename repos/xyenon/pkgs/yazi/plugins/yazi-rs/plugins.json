@@ -52,5 +52,8 @@
   },
   "vcs-files": {
     "description": "Show Git file changes in Yazi"
+  },
+  "zoom": {
+    "description": "Enlarge or shrink the preview image of a file, which is useful for magnifying small files for viewing"
   }
 }

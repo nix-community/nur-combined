@@ -2,38 +2,20 @@
   lib,
   stdenv,
   buildGoModule,
-  buildPackages,
   fetchFromGitHub,
   callPackage,
   gitUpdater,
 }:
 
-let
-  # https://github.com/cloudflare/cloudflared/issues/1151#issuecomment-1888819250
-  # https://github.com/cloudflare/cloudflared/blob/master/.teamcity/install-cloudflare-go.sh
-  buildGoModule' = buildGoModule.override {
-    go = buildPackages.go_1_22.overrideAttrs {
-      pname = "cloudflare-go";
-      version = "1.22.5-devel-cf";
-      src = fetchFromGitHub {
-        owner = "cloudflare";
-        repo = "go";
-        rev = "af19da5605ca11f85776ef7af3384a02a315a52b";
-        hash = "sha256-6VT9CxlHkja+mdO1DeFoOTq7gjb3T5jcf2uf9TB/CkU=";
-      };
-    };
-  };
-in
-
-buildGoModule' rec {
+buildGoModule rec {
   pname = "cloudflared";
-  version = "2025.5.0";
+  version = "2025.6.0";
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = "cloudflared";
     tag = version;
-    hash = "sha256-ZnkE9x4A9HoiSXzvYuzyW/dH08r0aJUk/q6gFVgtTjk=";
+    hash = "sha256-yDYfOP1rsiTZqcVRRtTw82I2Vh0WdpUCB1VTWuX3GWs=";
   };
 
   vendorHash = null;
@@ -103,9 +85,5 @@ buildGoModule' rec {
     platforms = platforms.unix ++ platforms.windows;
     maintainers = with maintainers; [ xyenon ];
     mainProgram = "cloudflared";
-    # cloudflared requires a fork of go 1.22 to build (see override above),
-    # but go 1.22 is EOL and the toolchain has been removed from nixpkgs.
-    broken =
-      (!lib.hasAttr "go_1_22" buildPackages) || !(builtins.tryEval buildPackages.go_1_22).success;
   };
 }

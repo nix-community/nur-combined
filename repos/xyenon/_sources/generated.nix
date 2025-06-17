@@ -42,16 +42,16 @@
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
-    version = "42168ba04c9dc2cd228ab8c453dbab27654e52e6";
+    version = "33ba3cd2088c2219e2eeef1edf949bdd90bf47ab";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-webdav";
-      rev = "42168ba04c9dc2cd228ab8c453dbab27654e52e6";
+      rev = "33ba3cd2088c2219e2eeef1edf949bdd90bf47ab";
       fetchSubmodules = false;
-      sha256 = "sha256-LX4R3DQiNPCFirM2M0ddDl0JRaA/EzQJU11Y2Mv9Y7A=";
+      sha256 = "sha256-IpTeH9dK010X2LP00QAOGPjg5LrGVRy2kbAPfDfTu6g=";
     };
     moduleName = "github.com/mholt/caddy-webdav";
-    date = "20241008102340-0600";
+    date = "20250609101527-0600";
   };
   rime-ice = {
     pname = "rime-ice";
@@ -66,34 +66,34 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "b86e6147d68c229b45bb1f2a593f8b76155e964d";
+    version = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b86e6147d68c229b45bb1f2a593f8b76155e964d";
+      rev = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
       fetchSubmodules = false;
-      sha256 = "sha256-ttGHvxv6ZImn6xBifsL4bc+7Q/RvarwPwegx9pT+Hsg=";
+      sha256 = "sha256-HvjDw2BNvMbu/J0NINN2/+iWCv3pYt+HrtlJPWfhERA=";
     };
-    date = "2025-06-06";
+    date = "2025-06-16";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250509";
+    version = "20250610";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250509/moegirl.dict.yaml";
-      sha256 = "sha256-Lte1xjgayhRrkw1RkBCy+EitzsRbwFhtYrhlTqbOvtA=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250610/moegirl.dict.yaml";
+      sha256 = "sha256-ctAxF/H4gnmAvHyLsC4oUNCdGFbi5X7+Db/Lwmknlsw=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "63f9650e522336e0010261dcd0ffb0bf114cf912";
+    version = "aeca767ec27bfbea66873d667a729791de18f364";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "63f9650e522336e0010261dcd0ffb0bf114cf912";
+      rev = "aeca767ec27bfbea66873d667a729791de18f364";
       fetchSubmodules = false;
-      sha256 = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
+      sha256 = "sha256-QkjXl8lGeqFgL2FGTs63xW0/hbZEpIyBCWnkdCgcv5s=";
     };
-    date = "2025-05-31";
+    date = "2025-06-12";
   };
 }
