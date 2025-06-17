@@ -72,7 +72,7 @@ in
       MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
     };
     programs.gamescope.env = {
-      MANGOHUD = 1;
+      MANGOHUD = "1";
       MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
     };
     environment.etc."MangoHud/MangoHud.conf" = mkIf (cfg.settings != { }) {
