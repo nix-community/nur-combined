@@ -357,6 +357,7 @@ lib.makeScope newScope (
     freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
     git-tui = callPackage ./misc/git-tui { };
+    goto = callPackage ./misc/goto { };
     graphene = callPackage ./misc/graphene { };
     heapusage = callPackage ./misc/heapusage { };
     how-to-use-pvs-studio-free = callPackage ./misc/how-to-use-pvs-studio-free { };
