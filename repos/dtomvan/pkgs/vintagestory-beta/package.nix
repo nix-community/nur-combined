@@ -86,6 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
     let
       wrapperFlags = lib.trim ''
         --prefix LD_LIBRARY_PATH : "''${runtimeLibs[@]}" \
+        # fix for plasma6 on wayland
+        --set XDG_SESSION_TYPE x11 \
         --set-default mesa_glthread true
       '';
     in
