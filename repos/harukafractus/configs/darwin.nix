@@ -23,14 +23,13 @@
 
   # Enable flakes and optimise store during every build
   nix.settings.experimental-features = "nix-command flakes";
-  nix.optimise.automatic = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 5;
 
   # Auto upgrade nix package and the daemon service.
   nix = {
-    enable = true;
+    enable = false;
     package = pkgs.nix;
   };
 }

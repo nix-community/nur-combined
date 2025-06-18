@@ -53,12 +53,14 @@
     htop
     wget
     unar
+    ffmpeg
     # GUI APPS
     sqlitebrowser
     librewolf
     qbittorrent
     telegram-desktop
     vscodium
+    audacity
   ] ++ (if pkgs.stdenv.isLinux then [
     # too be added..
   ] else [
@@ -68,6 +70,27 @@
     iina
     utm
   ]);
+
+  programs.bash = {
+    enable = true;
+    bashrcExtra = ''
+      unset HISTFILE
+      SHELL_SESSION_HISTORY=0
+    '';
+  };
+
+  home.sessionVariables = {
+    PYTHONDONTWRITEBYTECODE = 1;
+    PYTHONSTARTUP = "$HOME/.pythonrc";
+  };
+  home.file = {
+    ".pythonrc" = {
+      text = ''
+        import readline
+        readline.write_history_file = lambda *args: None
+      '';
+    };
+  };
 
   programs.zsh = {
     enable = true;
@@ -85,7 +108,7 @@
       export LESSHISTFILE=- 
       fortune-kind | cowsay -f koala
     '';
-
+  
     shellAliases = {
       cat = "bat --paging=never";
       less = "bat";
