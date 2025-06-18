@@ -34,8 +34,8 @@ buildGoModule rec {
   passthru.tests.basic = nixosTests.yggdrasil;
 
   postInstall = ''
-    ln -s ${yggdrasil}/bin/genkeys $out/bin
-    ln -s ${yggdrasil}/bin/yggdrasilctl $out/bin
+    ln -s ${lib.getExe' yggdrasil "genkeys"} $out/bin
+    ln -s ${lib.getExe' yggdrasil "yggdrasilctl"} $out/bin
     mv $out/bin/yggdrasilckr $out/bin/yggdrasil
   '';
 
