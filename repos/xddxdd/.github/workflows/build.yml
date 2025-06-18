@@ -15,10 +15,6 @@ jobs:
           - ubuntu-24.04-arm
         ci-command:
           - ci
-          - ci-cuda
-        exclude:
-          - base-image: ubuntu-24.04-arm
-            ci-command: ci-cuda
     runs-on: ${{ matrix.base-image }}
     env:
       GIT_SSL_NO_VERIFY: 'true'
@@ -91,7 +87,7 @@ jobs:
           env TMPDIR=/nix/tmpdir nix run .#${{ matrix.ci-command }} -- $(nix-instantiate --eval -E 'builtins.currentSystem')
 
       - name: Commit back to repository
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         if: ${{ success() || failure() }}
         with:
           commit_message: 'auto: update package hashes'
