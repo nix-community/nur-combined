@@ -15,7 +15,14 @@
   file-types = ["tex"]
   language-servers = ["texlab"]
   name = "latex"
-  formatter = { command = 'prettier', args = ["--plugin", "${pkgs.prettier-plugin-latex}/lib/node_modules/prettier-plugin-latex/dist/prettier-plugin-latex.js","--parser", "latex-parser"] }
+  # formatter = { command = 'prettier', args = ["--plugin", "${pkgs.prettier-plugin-latex}/lib/node_modules/prettier-plugin-latex/dist/prettier-plugin-latex.js","--parser", "latex-parser"] }
+  [language.soft-wrap]
+  enable = true
+
+  [[language]]
+  file-types = ["md"]
+  language-servers = ["markdown-oxide"]
+  name = "markdown"
   [language.soft-wrap]
   enable = true
 
@@ -42,6 +49,9 @@
   [language-server.biome]
   command = "biome"
   args = ["lsp-proxy"]
+
+  [language-server.markdown-oxide]
+  command = "markdown-oxide"
 
   [language-server.bash-language-server]
   args = ["start"]

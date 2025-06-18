@@ -15,7 +15,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.services.dnsproxy.unitConfig.Conflicts = [ "sing-box.service" ];
+    # systemd.services.dnsproxy.unitConfig.Conflicts = [ "sing-box.service" ];
     systemd.services.dnsproxy.wantedBy = mkIf (!cfg.lazy) [ "multi-user.target" ];
     systemd.services.dnsproxy.serviceConfig = {
       LoadCredential = lib.mkIf cfg.loadCert (

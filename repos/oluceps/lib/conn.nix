@@ -1,4 +1,5 @@
-node:{
+node:
+{
   basePort ? 51800,
 }:
 let

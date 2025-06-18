@@ -201,6 +201,7 @@
               android-file-transfer
               nixpkgs-review
               shfmt
+              markdown-oxide
             ]
             [
               vscode-langservers-extracted

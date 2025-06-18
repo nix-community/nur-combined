@@ -11,7 +11,7 @@
 {
   systemd.services.vaultix-activate.serviceConfig.Environment = [ "RUST_LOG=trace" ];
   vaultix = {
-    settings = {  };
+    settings = { };
 
     secrets =
       let

@@ -65,13 +65,15 @@
               settings.hooks = {
                 nixfmt-rfc-style.enable = true;
                 detect-private-keys.enable = true;
-                commitizen.enable = true;
-
+                commitizen = {
+                  enable = true;
+                };
               };
             };
 
             # flake-root.projectRootFile = ".top";
             devShells.default = pkgs.mkShell {
+              shellHook = config.pre-commit.installationScript;
               inputsFrom = [ config.flake-root.devShell ];
               buildInputs = with pkgs; [
                 just
@@ -93,7 +95,7 @@
                   paths = import ./userPkgs.nix { inherit pkgs; };
                 };
               };
-            formatter = pkgs.nixfmt-rfc-style;
+            formatter = pkgs.nixfmt-tree;
           };
 
         flake = {

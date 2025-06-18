@@ -28,4 +28,3 @@ buildNpmPackage (finalAttrs: {
     maintainers = with lib.maintainers; [ oluceps ];
   };
 })
-

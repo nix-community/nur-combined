@@ -67,7 +67,7 @@ in
 
     systemd.services.sing-box =
       {
-        unitConfig.Conflicts = [ "dnsproxy.service" ];
+        # unitConfig.Conflicts = [ "dnsproxy.service" ];
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
