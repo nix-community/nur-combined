@@ -5,14 +5,14 @@
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "asncounter";
-  version = "0.3.0";
+  version = "0.4.0";
   pyproject = true;
 
   src = fetchFromGitLab {
     owner = "anarcat";
     repo = "asncounter";
     tag = version;
-    hash = "sha256-yYVBM6iS6U6/29b/RAmKmZzxmUQPoF+dcm2465oBeS4=";
+    hash = "sha256-YnwcPMUf5wtOleP6laggggZJt2MN8QtZS5ZDbqH1Qc4=";
   };
 
   build-system = with python3.pkgs; [
