@@ -18,6 +18,7 @@ let
       mysqlclient
       prometheus-client
       prometheus-flask-exporter
+      psycopg2
       pycryptodome
       pydantic
       pydantic-core
