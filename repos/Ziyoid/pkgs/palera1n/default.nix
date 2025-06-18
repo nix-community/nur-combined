@@ -3,7 +3,7 @@
 let
 
   checkra1n-all-binaries =
-    import ./../checkra1n-all-binaries/default.nix { inherit lib stdenv fetchurl; };
+    import ./../checkra1n-all-binaries { inherit lib stdenv fetchurl; };
 
   ramdisk = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/c-rewrite/deps/ramdisk.dmg";
