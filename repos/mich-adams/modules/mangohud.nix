@@ -78,9 +78,5 @@ in
     environment.etc."MangoHud/MangoHud.conf" = mkIf (cfg.settings != { }) {
       text = renderSettings cfg.settings;
     };
-    environment.sessionVariables = {
-      MANGOHUD = 1;
-      MANGOHUD_CONFIGFILE = mkIf (cfg.settings != { }) "/etc/MangoHud/MangoHud.conf";
-    };
   };
 }
