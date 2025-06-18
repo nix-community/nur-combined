@@ -117,10 +117,10 @@
     };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.35";
+      version = "3.8.36";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4483316/adblocker_ultimate-3.8.35.xpi";
-      sha256 = "9a33b9074bdca57eefd400a92739a7ed42001763bf8ededfdb47176f7e359488";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512197/adblocker_ultimate-3.8.36.xpi";
+      sha256 = "7d2ed5b4f4f31a5af1f6726e2b8ada1d47ec6555a547d5f5d26a72c97e4f45f7";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -3150,10 +3150,10 @@
     };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
-      version = "1.5.1";
+      version = "2.0.1";
       addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387015/fakespot_fake_reviews_amazon-1.5.1.xpi";
-      sha256 = "f205abd702b55a0e1522b708700d3b7f84f53367e40827d2ed2216b0ddb272e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512534/fakespot_fake_reviews_amazon-2.0.1.xpi";
+      sha256 = "3a0edcab0048260c45f5261ccfe2656236d6c27fc7883711b1168d5ce125412e";
       meta = with lib;
       {
         homepage = "https://fakespot.com";
@@ -3854,10 +3854,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.36";
+      version = "10.4.37";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506130/ghostery-10.4.36.xpi";
-      sha256 = "6c0d4a83fdd099745edeccb1c2aa0fea2e19d56a84d89c34631d0bbeff64d79c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512024/ghostery-10.4.37.xpi";
+      sha256 = "c6470a59c4e5accb540f1ae3f3a7043314d10c63045aa41418da1e13be52629f";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6150,10 +6150,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.20.3";
+      version = "0.21";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4512877/javascript_restrictor-0.20.3.xpi";
-      sha256 = "bb33b8e8d45bbe6e5a909a4159c71afa9feb5c97917383825a23739ec2f1cfeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515410/javascript_restrictor-0.21.xpi";
+      sha256 = "5f032f9f3bd06f20f0470ca51ae3e538cbbf3d123294dbed91eef1d9b36c2b71";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -6238,10 +6238,10 @@
     };
     "kagi-privacy-pass" = buildFirefoxXpiAddon {
       pname = "kagi-privacy-pass";
-      version = "1.0.6";
+      version = "1.0.7";
       addonId = "privacypass@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4506623/kagi_privacy_pass-1.0.6.xpi";
-      sha256 = "90425d00b765ea07e9ef347d6fb165f51e0149f8d1a2514e2f32a4243bfead7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515873/kagi_privacy_pass-1.0.7.xpi";
+      sha256 = "ca58d422819f536a48d53e9e408b6b8053d3bea9e4820564facae715aa600262";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -8106,10 +8106,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.8.9";
+      version = "1.9.0";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4468523/mtab-1.8.9.xpi";
-      sha256 = "88d27febfe4325d628fe2c9e034c62eb500d45ebb904361722b731a65b9a9507";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515731/mtab-1.9.0.xpi";
+      sha256 = "adec1f5f0999a983abafb32e2fdec93e9d7f5bf0619280981cfce98238de219f";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -8743,10 +8743,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.78.43";
+      version = "8.10.81.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4501824/1password_x_password_manager-8.10.78.43.xpi";
-      sha256 = "9d74fa8b469ccd90a5f9ccfc9ca9c56146c8fa20e59fe841aa15e133d6f1e2be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4511770/1password_x_password_manager-8.10.81.1.xpi";
+      sha256 = "722a7900d8a54150ae3c9323d13fb8f388f7104aac277542bb3c35aec99bfe46";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -10574,10 +10574,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.1.0.1597";
+      version = "0.1.0.1603";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4507870/ruffle_rs-0.1.0.1597.xpi";
-      sha256 = "8a652d6a9398a3e3925ad974b2dd03bb97cd94236ada2ab7a8ba004631813061";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4511859/ruffle_rs-0.1.0.1603.xpi";
+      sha256 = "f74792c9f3337b70b099312b9c66758f25b79bb03cb1f93b2a8f043da09c00ce";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
