@@ -34,7 +34,7 @@ let
   };
 
 in stdenv.mkDerivation rec {
-  pname = "checkra1n";
+  pname = "checkra1n-all-binaries";
   version = "0.12.4";
 
   dontUnpack = true;

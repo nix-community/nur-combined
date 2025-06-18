@@ -2,6 +2,9 @@
 , libusb1, readline, vim, xz, mbedtls, libirecovery, libimobiledevice-glue, }:
 let
 
+  checkra1n-all-binaries =
+    import ./../checkra1n-all-binaries/default.nix { inherit lib stdenv fetchurl; };
+
   ramdisk = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/c-rewrite/deps/ramdisk.dmg";
     sha256 = "62406cd27617fa3f00469425d221cfa801ba043a90a37ccad8146a2c7bb3ac1b";
@@ -21,39 +24,6 @@ let
   pongo_bin = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/artifacts/kpf/iOS15/Pongo.bin";
     sha256 = "828d09fe801dd44b8af943324930bf4d4dab5f6cc1e2f300f2c40f294f0dce4a";
-  };
-
-  checkra1n_binaries = {
-    "x86_64-darwin" = fetchurl {
-      url =
-        "https://assets.checkra.in/downloads/preview/0.1337.3/checkra1n-macos";
-      sha256 =
-        "3bc1a0247dd9782b18de8945e3bb3b2dc740208b8c78f78634b80a7804a9f9be";
-    };
-    "aarch64-linux" = fetchurl {
-      url =
-        "https://assets.checkra.in/downloads/preview/0.1337.3/checkra1n-linux-arm64";
-      sha256 =
-        "078053c11e9a301f0e71b87b6b854e6c8a69c87972325dd0c90deeeba1c3cb70";
-    };
-    "armv7l-linux" = fetchurl {
-      url =
-        "https://assets.checkra.in/downloads/preview/0.1337.3/checkra1n-linux-armel";
-      sha256 =
-        "15dc243fc0e7ee77a9c5c5814667770d02be34ae12c2d77293d506d18b130ab2";
-    };
-    "i686-linux" = fetchurl {
-      url =
-        "https://assets.checkra.in/downloads/preview/0.1337.3/checkra1n-linux-x86";
-      sha256 =
-        "555e1a21ce50bed31826d49cefaeb4bd9099846cd2ac0c7ee0cfe649cb588887";
-    };
-    "x86_64-linux" = fetchurl {
-      url =
-        "https://assets.checkra.in/downloads/preview/0.1337.3/checkra1n-linux-x86_64";
-      sha256 =
-        "53154d87594cf67c56659f24547f1b5bb5336f84ea58c2d42f25a7b2df81a964";
-    };
   };
 
 in stdenv.mkDerivation rec {
@@ -109,22 +79,11 @@ in stdenv.mkDerivation rec {
   preBuild = ''
     mkdir -p /build/source/src/resources
 
-    cp ${
-      checkra1n_binaries."x86_64-darwin"
-    } /build/source/src/resources/checkra1n-macos
-    cp ${
-      checkra1n_binaries."aarch64-linux"
-    } /build/source/src/resources/checkra1n-linux-arm64
-    cp ${
-      checkra1n_binaries."armv7l-linux"
-    } /build/source/src/resources/checkra1n-linux-armel
-    cp ${
-      checkra1n_binaries."i686-linux"
-    } /build/source/src/resources/checkra1n-linux-x86
-    cp ${
-      checkra1n_binaries."x86_64-linux"
-    } /build/source/src/resources/checkra1n-linux-x86_64
-
+    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-darwin /build/source/src/resources/checkra1n-macos
+    cp ${checkra1n-all-binaries}/bin/checkra1n-aarch64-linux /build/source/src/resources/checkra1n-linux-arm64
+    cp ${checkra1n-all-binaries}/bin/checkra1n-armv7l-linux /build/source/src/resources/checkra1n-linux-armel
+    cp ${checkra1n-all-binaries}/bin/checkra1n-i686-linux /build/source/src/resources/checkra1n-linux-x86
+    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-linux /build/source/src/resources/checkra1n-linux-x86_64
 
     cp ${ramdisk} /build/source/src/resources/ramdisk.dmg
     cp ${kpf_pongo} /build/source/src/resources/checkra1n-kpf-pongo
