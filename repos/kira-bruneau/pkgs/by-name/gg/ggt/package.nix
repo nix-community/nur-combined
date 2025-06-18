@@ -10,13 +10,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ggt";
-  version = "1.4.2";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-D1j5LBPuQGDCJxjYWCCye3JauyZH6ek1v11BFudUa3I=";
+    hash = "sha256-z8HQRK6WbCVv/uPw0MCSl95UsgI5/bAGAFHBZN3PAeY=";
   };
 
   strictDeps = true;
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-684EdOMp8ErMaOQf10tw2XvzsINrf2uVubuaageW7eo=";
+    hash = "sha256-s7TEeaCxah7Quatg4ZKicwkB3IJyhzAHfj2fpCAZfDQ=";
   };
 
   npmBuildScript = "build";
