@@ -401,7 +401,7 @@
   },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
-    "pname": "python3.12-bepasty",
+    "pname": "python3.13-bepasty",
     "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.bilibili": {
@@ -446,7 +446,7 @@
   },
   "legacyPackages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
-    "pname": "python3.12-click-loglevel",
+    "pname": "python3.13-click-loglevel",
     "version": "0.6.1"
   },
   "legacyPackages.x86_64-linux.cockpy": {
@@ -456,12 +456,12 @@
   },
   "legacyPackages.x86_64-linux.comp128": {
     "description": "Python implementation of the Comp128 v1-3 GSM authentication algorithms",
-    "pname": "python3.12-comp128",
+    "pname": "python3.13-comp128",
     "version": "1.0.0"
   },
   "legacyPackages.x86_64-linux.coqui-tts": {
     "description": "Deep learning toolkit for Text-to-Speech, battle-tested in research and production",
-    "pname": "python3.12-coqui-tts",
+    "pname": "python3.13-coqui-tts",
     "version": "0.22.0"
   },
   "legacyPackages.x86_64-linux.cryptodev-unstable": {
@@ -471,7 +471,7 @@
   },
   "legacyPackages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
-    "pname": "python3.12-data-recorder",
+    "pname": "python3.13-data-recorder",
     "version": "3.6.2"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
@@ -546,7 +546,7 @@
   },
   "legacyPackages.x86_64-linux.download-kit": {
     "description": "Simple to use multi-threaded download toolkit",
-    "pname": "python3.12-download-kit",
+    "pname": "python3.13-download-kit",
     "version": "2.0.7"
   },
   "legacyPackages.x86_64-linux.dpdk-kmod": {
@@ -556,7 +556,7 @@
   },
   "legacyPackages.x86_64-linux.drission-page": {
     "description": "Python based web automation tool. Powerful and elegant",
-    "pname": "python3.12-drission-page",
+    "pname": "python3.13-drission-page",
     "version": "4.1.0.18"
   },
   "legacyPackages.x86_64-linux.drone-file-secret": {
@@ -576,7 +576,7 @@
   },
   "legacyPackages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
-    "pname": "python3.12-edge-tts",
+    "pname": "python3.13-edge-tts",
     "version": "7.0.2"
   },
   "legacyPackages.x86_64-linux.electron_11": {
@@ -606,7 +606,7 @@
   },
   "legacyPackages.x86_64-linux.fish-speech": {
     "description": "SOTA Open Source TTS",
-    "pname": "python3.12-fish-speech",
+    "pname": "python3.13-fish-speech",
     "version": "1.5.1"
   },
   "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
@@ -631,8 +631,8 @@
   },
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
-    "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-05-28"
+    "pname": "python3.13-funasr",
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -721,7 +721,7 @@
   },
   "legacyPackages.x86_64-linux.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
-    "pname": "python3.12-kaldiio",
+    "pname": "python3.13-kaldiio",
     "version": "2.18.1"
   },
   "legacyPackages.x86_64-linux.kata-image": {
@@ -801,7 +801,7 @@
   },
   "legacyPackages.x86_64-linux.kui": {
     "description": "Easy-to-use web framework",
-    "pname": "python3.12-kui",
+    "pname": "python3.13-kui",
     "version": "1.9.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
@@ -832,7 +832,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5676"
+    "version": "5703"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1277,7 +1277,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-12"
+    "version": "0-unstable-2025-06-18"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1296,7 +1296,7 @@
   },
   "legacyPackages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
-    "pname": "python3.12-loralib",
+    "pname": "python3.13-loralib",
     "version": "0-unstable-2024-12-16"
   },
   "legacyPackages.x86_64-linux.lyrica": {
@@ -1317,21 +1317,21 @@
   "legacyPackages.x86_64-linux.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.2"
+    "version": "0.6.3"
   },
   "legacyPackages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "5.0.0"
+    "version": "6.0.0"
   },
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
-    "pname": "python3.12-modelscope",
+    "pname": "python3.13-modelscope",
     "version": "1.27.0"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
-    "pname": "python3.12-mtkclient",
+    "pname": "python3.13-mtkclient",
     "version": "2.0.1.freeze"
   },
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
@@ -2231,7 +2231,7 @@
   },
   "legacyPackages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
-    "pname": "python3.12-opencc-python-reimplemented",
+    "pname": "python3.13-opencc-python-reimplemented",
     "version": "0-unstable-2023-02-11"
   },
   "legacyPackages.x86_64-linux.openedai-speech": {
@@ -3746,7 +3746,7 @@
   },
   "legacyPackages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
-    "pname": "python3.12-ormsgpack",
+    "pname": "python3.13-ormsgpack",
     "version": "1.10.0"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
@@ -3796,7 +3796,7 @@
   },
   "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
-    "pname": "python3.12-piper",
+    "pname": "python3.13-piper",
     "version": "2023.11.14-2"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
@@ -3827,11 +3827,11 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-09"
+    "version": "1.11.13-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
-    "pname": "python3.12-py-rcon",
+    "pname": "python3.13-py-rcon",
     "version": "1.3.0"
   },
   "legacyPackages.x86_64-linux.pyhss": {
@@ -3841,177 +3841,177 @@
   },
   "legacyPackages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
-    "pname": "python3.12-pyosmocom",
+    "pname": "python3.13-pyosmocom",
     "version": "0-unstable-2025-06-04"
   },
   "legacyPackages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
-    "pname": "python3.12-pysctp",
+    "pname": "python3.13-pysctp",
     "version": "0.7.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.bepasty": {
     "description": "Universal pastebin server",
-    "pname": "python3.12-bepasty",
+    "pname": "python3.13-bepasty",
     "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.click-loglevel": {
     "description": "Log level parameter type for Click",
-    "pname": "python3.12-click-loglevel",
+    "pname": "python3.13-click-loglevel",
     "version": "0.6.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.comp128": {
     "description": "Python implementation of the Comp128 v1-3 GSM authentication algorithms",
-    "pname": "python3.12-comp128",
+    "pname": "python3.13-comp128",
     "version": "1.0.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.coqui-tts": {
     "description": "Deep learning toolkit for Text-to-Speech, battle-tested in research and production",
-    "pname": "python3.12-coqui-tts",
+    "pname": "python3.13-coqui-tts",
     "version": "0.22.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.data-recorder": {
     "description": "Python-based toolkit to record data into files",
-    "pname": "python3.12-data-recorder",
+    "pname": "python3.13-data-recorder",
     "version": "3.6.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.download-kit": {
     "description": "Simple to use multi-threaded download toolkit",
-    "pname": "python3.12-download-kit",
+    "pname": "python3.13-download-kit",
     "version": "2.0.7"
   },
   "legacyPackages.x86_64-linux.python3Packages.drission-page": {
     "description": "Python based web automation tool. Powerful and elegant",
-    "pname": "python3.12-drission-page",
+    "pname": "python3.13-drission-page",
     "version": "4.1.0.18"
   },
   "legacyPackages.x86_64-linux.python3Packages.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
-    "pname": "python3.12-edge-tts",
+    "pname": "python3.13-edge-tts",
     "version": "7.0.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.fish-speech": {
     "description": "SOTA Open Source TTS",
-    "pname": "python3.12-fish-speech",
+    "pname": "python3.13-fish-speech",
     "version": "1.5.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
-    "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-05-28"
+    "pname": "python3.13-funasr",
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
-    "pname": "python3.12-kaldiio",
+    "pname": "python3.13-kaldiio",
     "version": "2.18.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.kui": {
     "description": "Easy-to-use web framework",
-    "pname": "python3.12-kui",
+    "pname": "python3.13-kui",
     "version": "1.9.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
-    "pname": "python3.12-loralib",
+    "pname": "python3.13-loralib",
     "version": "0-unstable-2024-12-16"
   },
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
-    "pname": "python3.12-modelscope",
+    "pname": "python3.13-modelscope",
     "version": "1.27.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
-    "pname": "python3.12-mtkclient",
+    "pname": "python3.13-mtkclient",
     "version": "2.0.1.freeze"
   },
   "legacyPackages.x86_64-linux.python3Packages.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
-    "pname": "python3.12-opencc-python-reimplemented",
+    "pname": "python3.13-opencc-python-reimplemented",
     "version": "0-unstable-2023-02-11"
   },
   "legacyPackages.x86_64-linux.python3Packages.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
-    "pname": "python3.12-ormsgpack",
+    "pname": "python3.13-ormsgpack",
     "version": "1.10.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.piper-tts": {
     "description": "Python component for piper-tts",
-    "pname": "python3.12-piper",
+    "pname": "python3.13-piper",
     "version": "2023.11.14-2"
   },
   "legacyPackages.x86_64-linux.python3Packages.py-rcon": {
     "description": "Python implementation of RCON",
-    "pname": "python3.12-py-rcon",
+    "pname": "python3.13-py-rcon",
     "version": "1.3.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
-    "pname": "python3.12-pyosmocom",
+    "pname": "python3.13-pyosmocom",
     "version": "0-unstable-2025-06-04"
   },
   "legacyPackages.x86_64-linux.python3Packages.pysctp": {
     "description": "SCTP stack for Python",
-    "pname": "python3.12-pysctp",
+    "pname": "python3.13-pysctp",
     "version": "0.7.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.pytorch-wpe": {
     "description": "WPE implementation using PyTorch",
-    "pname": "python3.12-pytorch-wpe",
+    "pname": "python3.13-pytorch-wpe",
     "version": "0.0.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.rootutils": {
     "description": "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables",
-    "pname": "python3.12-rootutils",
+    "pname": "python3.13-rootutils",
     "version": "1.0.7"
   },
   "legacyPackages.x86_64-linux.python3Packages.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
-    "pname": "python3.12-runpod-python",
-    "version": "1.7.11"
+    "pname": "python3.13-runpod-python",
+    "version": "1.7.12"
   },
   "legacyPackages.x86_64-linux.python3Packages.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
-    "pname": "python3.12-silero-vad",
+    "pname": "python3.13-silero-vad",
     "version": "5.1.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
-    "pname": "python3.12-smartrent_py",
+    "pname": "python3.13-smartrent_py",
     "version": "0.5.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
-    "pname": "python3.12-torch-complex",
+    "pname": "python3.13-torch-complex",
     "version": "0.4.4"
   },
   "legacyPackages.x86_64-linux.python3Packages.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
-    "pname": "python3.12-tqdm-loggable",
+    "pname": "python3.13-tqdm-loggable",
     "version": "0-unstable-2024-10-10"
   },
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
-    "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.16"
+    "pname": "python3.13-vector-quantize-pytorch",
+    "version": "1.22.17"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-asciinema-player",
+    "pname": "python3.13-xstatic-asciinema-player",
     "version": "2.6.1.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-font-awesome": {
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-font-awesome",
+    "pname": "python3.13-xstatic-font-awesome",
     "version": "4.7.0.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.xue": {
     "description": "Minimalist web front-end framework composed of HTMX and Python",
-    "pname": "python3.12-xue",
+    "pname": "python3.13-xue",
     "version": "0.0.34"
   },
   "legacyPackages.x86_64-linux.pytorch-wpe": {
     "description": "WPE implementation using PyTorch",
-    "pname": "python3.12-pytorch-wpe",
+    "pname": "python3.13-pytorch-wpe",
     "version": "0.0.1"
   },
   "legacyPackages.x86_64-linux.qemu-user-static": {
@@ -4037,12 +4037,12 @@
   "legacyPackages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-06-14"
+    "version": "5.9.3-b1-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4082,7 +4082,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-09"
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4096,7 +4096,7 @@
   },
   "legacyPackages.x86_64-linux.rootutils": {
     "description": "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables",
-    "pname": "python3.12-rootutils",
+    "pname": "python3.13-rootutils",
     "version": "1.0.7"
   },
   "legacyPackages.x86_64-linux.route-chain": {
@@ -4111,8 +4111,8 @@
   },
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
-    "pname": "python3.12-runpod-python",
-    "version": "1.7.11"
+    "pname": "python3.13-runpod-python",
+    "version": "1.7.12"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -4131,12 +4131,12 @@
   },
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
-    "pname": "python3.12-silero-vad",
+    "pname": "python3.13-silero-vad",
     "version": "5.1.2"
   },
   "legacyPackages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
-    "pname": "python3.12-smartrent_py",
+    "pname": "python3.13-smartrent_py",
     "version": "0.5.0"
   },
   "legacyPackages.x86_64-linux.smfc": {
@@ -4221,12 +4221,12 @@
   },
   "legacyPackages.x86_64-linux.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
-    "pname": "python3.12-torch-complex",
+    "pname": "python3.13-torch-complex",
     "version": "0.4.4"
   },
   "legacyPackages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
-    "pname": "python3.12-tqdm-loggable",
+    "pname": "python3.13-tqdm-loggable",
     "version": "0-unstable-2024-10-10"
   },
   "legacyPackages.x86_64-linux.uesave": {
@@ -4502,7 +4502,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-12"
+    "version": "0-unstable-2025-06-18"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4537,12 +4537,12 @@
   "legacyPackages.x86_64-linux.uncategorized.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.2"
+    "version": "0.6.3"
   },
   "legacyPackages.x86_64-linux.uncategorized.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "5.0.0"
+    "version": "6.0.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -4687,7 +4687,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-09"
+    "version": "1.11.13-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
@@ -4717,12 +4717,12 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-06-14"
+    "version": "5.9.3-b1-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -4752,7 +4752,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-09"
+    "version": "0-unstable-2025-06-16"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4842,7 +4842,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-18"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4917,7 +4917,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-18"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4956,8 +4956,8 @@
   },
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
-    "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.16"
+    "pname": "python3.13-vector-quantize-pytorch",
+    "version": "1.22.17"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -5006,12 +5006,12 @@
   },
   "legacyPackages.x86_64-linux.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-asciinema-player",
+    "pname": "python3.13-xstatic-asciinema-player",
     "version": "2.6.1.1"
   },
   "legacyPackages.x86_64-linux.xstatic-font-awesome": {
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-font-awesome",
+    "pname": "python3.13-xstatic-font-awesome",
     "version": "4.7.0.0"
   },
   "legacyPackages.x86_64-linux.xt_rtpengine": {
@@ -5021,7 +5021,7 @@
   },
   "legacyPackages.x86_64-linux.xue": {
     "description": "Minimalist web front-end framework composed of HTMX and Python",
-    "pname": "python3.12-xue",
+    "pname": "python3.13-xue",
     "version": "0.0.34"
   },
   "legacyPackages.x86_64-linux.xvcd": {
@@ -5081,7 +5081,7 @@
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
-    "pname": "python3.12-bepasty",
+    "pname": "python3.13-bepasty",
     "version": "1.2.2"
   },
   "packages.x86_64-linux.bilibili": {
@@ -5126,7 +5126,7 @@
   },
   "packages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
-    "pname": "python3.12-click-loglevel",
+    "pname": "python3.13-click-loglevel",
     "version": "0.6.1"
   },
   "packages.x86_64-linux.cockpy": {
@@ -5136,12 +5136,12 @@
   },
   "packages.x86_64-linux.comp128": {
     "description": "Python implementation of the Comp128 v1-3 GSM authentication algorithms",
-    "pname": "python3.12-comp128",
+    "pname": "python3.13-comp128",
     "version": "1.0.0"
   },
   "packages.x86_64-linux.coqui-tts": {
     "description": "Deep learning toolkit for Text-to-Speech, battle-tested in research and production",
-    "pname": "python3.12-coqui-tts",
+    "pname": "python3.13-coqui-tts",
     "version": "0.22.0"
   },
   "packages.x86_64-linux.cryptodev-unstable": {
@@ -5151,7 +5151,7 @@
   },
   "packages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
-    "pname": "python3.12-data-recorder",
+    "pname": "python3.13-data-recorder",
     "version": "3.6.2"
   },
   "packages.x86_64-linux.decluttarr": {
@@ -5186,7 +5186,7 @@
   },
   "packages.x86_64-linux.download-kit": {
     "description": "Simple to use multi-threaded download toolkit",
-    "pname": "python3.12-download-kit",
+    "pname": "python3.13-download-kit",
     "version": "2.0.7"
   },
   "packages.x86_64-linux.dpdk-kmod": {
@@ -5196,7 +5196,7 @@
   },
   "packages.x86_64-linux.drission-page": {
     "description": "Python based web automation tool. Powerful and elegant",
-    "pname": "python3.12-drission-page",
+    "pname": "python3.13-drission-page",
     "version": "4.1.0.18"
   },
   "packages.x86_64-linux.drone-file-secret": {
@@ -5216,7 +5216,7 @@
   },
   "packages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
-    "pname": "python3.12-edge-tts",
+    "pname": "python3.13-edge-tts",
     "version": "7.0.2"
   },
   "packages.x86_64-linux.electron_11": {
@@ -5246,7 +5246,7 @@
   },
   "packages.x86_64-linux.fish-speech": {
     "description": "SOTA Open Source TTS",
-    "pname": "python3.12-fish-speech",
+    "pname": "python3.13-fish-speech",
     "version": "1.5.1"
   },
   "packages.x86_64-linux.flaresolverr-21hsmw": {
@@ -5271,8 +5271,8 @@
   },
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
-    "pname": "python3.12-funasr",
-    "version": "0-unstable-2025-05-28"
+    "pname": "python3.13-funasr",
+    "version": "0-unstable-2025-06-16"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5361,7 +5361,7 @@
   },
   "packages.x86_64-linux.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
-    "pname": "python3.12-kaldiio",
+    "pname": "python3.13-kaldiio",
     "version": "2.18.1"
   },
   "packages.x86_64-linux.kata-image": {
@@ -5391,7 +5391,7 @@
   },
   "packages.x86_64-linux.kui": {
     "description": "Easy-to-use web framework",
-    "pname": "python3.12-kui",
+    "pname": "python3.13-kui",
     "version": "1.9.2"
   },
   "packages.x86_64-linux.lantianCustomized": {
@@ -5442,7 +5442,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-12"
+    "version": "0-unstable-2025-06-18"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5461,7 +5461,7 @@
   },
   "packages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
-    "pname": "python3.12-loralib",
+    "pname": "python3.13-loralib",
     "version": "0-unstable-2024-12-16"
   },
   "packages.x86_64-linux.lyrica": {
@@ -5482,21 +5482,21 @@
   "packages.x86_64-linux.mautrix-gmessages": {
     "description": "Matrix-Google Messages puppeting bridge",
     "pname": "mautrix-gmessages",
-    "version": "0.6.2"
+    "version": "0.6.3"
   },
   "packages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "5.0.0"
+    "version": "6.0.0"
   },
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
-    "pname": "python3.12-modelscope",
+    "pname": "python3.13-modelscope",
     "version": "1.27.0"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
-    "pname": "python3.12-mtkclient",
+    "pname": "python3.13-mtkclient",
     "version": "2.0.1.freeze"
   },
   "packages.x86_64-linux.mtranservercore-rs": {
@@ -5581,7 +5581,7 @@
   },
   "packages.x86_64-linux.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
-    "pname": "python3.12-opencc-python-reimplemented",
+    "pname": "python3.13-opencc-python-reimplemented",
     "version": "0-unstable-2023-02-11"
   },
   "packages.x86_64-linux.openedai-speech": {
@@ -5616,7 +5616,7 @@
   },
   "packages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
-    "pname": "python3.12-ormsgpack",
+    "pname": "python3.13-ormsgpack",
     "version": "1.10.0"
   },
   "packages.x86_64-linux.osdlyrics": {
@@ -5666,7 +5666,7 @@
   },
   "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
-    "pname": "python3.12-piper",
+    "pname": "python3.13-piper",
     "version": "2023.11.14-2"
   },
   "packages.x86_64-linux.plangothic-fonts": {
@@ -5697,11 +5697,11 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-09"
+    "version": "1.11.13-unstable-2025-06-16"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
-    "pname": "python3.12-py-rcon",
+    "pname": "python3.13-py-rcon",
     "version": "1.3.0"
   },
   "packages.x86_64-linux.pyhss": {
@@ -5711,12 +5711,12 @@
   },
   "packages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
-    "pname": "python3.12-pyosmocom",
+    "pname": "python3.13-pyosmocom",
     "version": "0-unstable-2025-06-04"
   },
   "packages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
-    "pname": "python3.12-pysctp",
+    "pname": "python3.13-pysctp",
     "version": "0.7.2"
   },
   "packages.x86_64-linux.python3Packages": {
@@ -5726,7 +5726,7 @@
   },
   "packages.x86_64-linux.pytorch-wpe": {
     "description": "WPE implementation using PyTorch",
-    "pname": "python3.12-pytorch-wpe",
+    "pname": "python3.13-pytorch-wpe",
     "version": "0.0.1"
   },
   "packages.x86_64-linux.qemu-user-static": {
@@ -5752,12 +5752,12 @@
   "packages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-06-14"
+    "version": "5.9.3-b1-unstable-2025-06-16"
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-16"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -5797,7 +5797,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-06-09"
+    "version": "0-unstable-2025-06-16"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -5811,7 +5811,7 @@
   },
   "packages.x86_64-linux.rootutils": {
     "description": "Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables",
-    "pname": "python3.12-rootutils",
+    "pname": "python3.13-rootutils",
     "version": "1.0.7"
   },
   "packages.x86_64-linux.route-chain": {
@@ -5826,8 +5826,8 @@
   },
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
-    "pname": "python3.12-runpod-python",
-    "version": "1.7.11"
+    "pname": "python3.13-runpod-python",
+    "version": "1.7.12"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -5846,12 +5846,12 @@
   },
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
-    "pname": "python3.12-silero-vad",
+    "pname": "python3.13-silero-vad",
     "version": "5.1.2"
   },
   "packages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
-    "pname": "python3.12-smartrent_py",
+    "pname": "python3.13-smartrent_py",
     "version": "0.5.0"
   },
   "packages.x86_64-linux.smfc": {
@@ -5896,12 +5896,12 @@
   },
   "packages.x86_64-linux.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
-    "pname": "python3.12-torch-complex",
+    "pname": "python3.13-torch-complex",
     "version": "0.4.4"
   },
   "packages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
-    "pname": "python3.12-tqdm-loggable",
+    "pname": "python3.13-tqdm-loggable",
     "version": "0-unstable-2024-10-10"
   },
   "packages.x86_64-linux.uesave": {
@@ -5927,7 +5927,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-14"
+    "version": "0-unstable-2025-06-18"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5966,8 +5966,8 @@
   },
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
-    "pname": "python3.12-vector-quantize-pytorch",
-    "version": "1.22.16"
+    "pname": "python3.13-vector-quantize-pytorch",
+    "version": "1.22.17"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -6016,12 +6016,12 @@
   },
   "packages.x86_64-linux.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-asciinema-player",
+    "pname": "python3.13-xstatic-asciinema-player",
     "version": "2.6.1.1"
   },
   "packages.x86_64-linux.xstatic-font-awesome": {
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
-    "pname": "python3.12-xstatic-font-awesome",
+    "pname": "python3.13-xstatic-font-awesome",
     "version": "4.7.0.0"
   },
   "packages.x86_64-linux.xt_rtpengine": {
@@ -6031,7 +6031,7 @@
   },
   "packages.x86_64-linux.xue": {
     "description": "Minimalist web front-end framework composed of HTMX and Python",
-    "pname": "python3.12-xue",
+    "pname": "python3.13-xue",
     "version": "0.0.34"
   },
   "packages.x86_64-linux.xvcd": {
