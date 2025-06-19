@@ -1101,10 +1101,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.8.4";
+      version = "0.8.5";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503720/bilisponsorblock-0.8.4.xpi";
-      sha256 = "9d71bb9cbdd93a7f7f43b8c4e9d2bb49232e3514d9bbc3401a8d5483e5f9c607";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4516211/bilisponsorblock-0.8.5.xpi";
+      sha256 = "eddc356c1f27007a20faf39e0b1ed28e0b44287a581543b8bede420a0e36575a";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -2459,10 +2459,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.1";
+      version = "2.1.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492079/dearrow-2.1.xpi";
-      sha256 = "13d0eb03d9793a73dd0aefe002f763abe83b41d443f1aaeadd5fca686d890578";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513273/dearrow-2.1.2.xpi";
+      sha256 = "1df792b06f629b684239d1095e391f1a8f6bb49369cf6a3dd16a61674b5665e0";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -5656,10 +5656,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.17.1";
+      version = "1.18.1";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494150/immersive_translate-1.17.1.xpi";
-      sha256 = "a54f507810542bc2e21e883fa6b6dca1efbf5d9775a143f020fcbae203b650fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4512210/immersive_translate-1.18.1.xpi";
+      sha256 = "bd777e1123ce8829656519bd0de52056cf9bf9df5faccbfc6839ced33689eee5";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -10178,7 +10178,7 @@
       meta = with lib;
       {
         homepage = "https://help.qwant.com/en/docs/qwant-search/add-qwant-on-desktop/on-firefox/";
-        description = "Qwant extension sets qwant.com as your default search engine and blocks trackers for you.";
+        description = "The Qwant extension sets qwant.com as your default search engine and blocks trackers.";
         license = licenses.gpl3;
         mozPermissions = [
           "declarativeNetRequest"
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.3.20";
+      version = "2.4.1";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4515175/youtube_no_translation-2.3.20.xpi";
-      sha256 = "012d83ffc945d873a0815e59bbf5bc45c6d91118e8e8ab78afee25c8965d8174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515921/youtube_no_translation-2.4.1.xpi";
+      sha256 = "e4fa47eb21321c0cdf03284d8f0d2d14dd01e4566412ae3599f83a8cc227cb3a";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
