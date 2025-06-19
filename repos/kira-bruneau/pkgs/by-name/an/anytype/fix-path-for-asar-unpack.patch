@@ -1,5 +1,5 @@
 diff --git a/electron.js b/electron.js
-index 158bb9325c..97d65b7358 100644
+index c5d6760882..7812363372 100644
 --- a/electron.js
 +++ b/electron.js
 @@ -1,14 +1,14 @@
@@ -19,13 +19,6 @@ index 158bb9325c..97d65b7358 100644
  const Store = require('electron-store');
  const suffix = app.isPackaged ? '' : 'dev';
  const store = new Store({ name: [ 'localStorage', suffix ].join('-') });
-@@ -238,4 +238,4 @@ app.on('open-url', (e, url) => {
- 		Util.send(mainWindow, 'route', Util.getRouteFromUrl(url));
- 		mainWindow.show();
- 	};
--});
-\ No newline at end of file
-+});
 diff --git a/electron/js/lib/installNativeMessagingHost.js b/electron/js/lib/installNativeMessagingHost.js
 index e86566093c..8fadd26880 100644
 --- a/electron/js/lib/installNativeMessagingHost.js
@@ -49,7 +42,7 @@ index e86566093c..8fadd26880 100644
  
  const getHomeDir = () => {
 diff --git a/electron/js/window.js b/electron/js/window.js
-index 76c6ffe4e7..f0dce38a91 100644
+index 2aa9c0184c..370d6dfd3e 100644
 --- a/electron/js/window.js
 +++ b/electron/js/window.js
 @@ -1,5 +1,5 @@
