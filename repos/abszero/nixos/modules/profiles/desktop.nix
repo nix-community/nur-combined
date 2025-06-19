@@ -85,9 +85,14 @@ in
         fallbackDns = [ ]; # disable fallback DNS
         dnsovertls = "true";
         dnssec = "true";
-        llmnr = "false";
+        llmnr = "false"; # For security
       };
-      system76-scheduler.enable = true;
+      scx = {
+        enable = true;
+        package = pkgs.scx.rustscheds;
+        scheduler = "scx_lavd"; # Scheduler that minimizes latency and reduces power usage
+        extraArgs = [ "--autopower" ]; # Adjust power mode based on system EPP
+      };
       upower = {
         enable = true;
         percentageLow = 30;

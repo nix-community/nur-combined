@@ -62,6 +62,10 @@ in
 
     system.stateVersion = "25.11";
 
+    # With p-state, powersave balance_performance often outperforms performance performance.
+    # Also, the performance governor requires performance EPP, meaning EPP can't be changed.
+    powerManagement.cpuFreqGovernor = mkDefault "powersave";
+
     boot = {
       loader = {
         timeout = 0;
