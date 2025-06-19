@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, fetchurl, libusbmuxd, libplist, libimobiledevice
-, libusb1, readline, vim, xz, mbedtls, libirecovery, libimobiledevice-glue, }:
+, libusb1, readline, vim, xz, mbedtls, libirecovery, libimobiledevice-glue }:
 let
 
   checkra1n-all-binaries =
@@ -7,23 +7,22 @@ let
 
   ramdisk = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/c-rewrite/deps/ramdisk.dmg";
-    sha256 = "62406cd27617fa3f00469425d221cfa801ba043a90a37ccad8146a2c7bb3ac1b";
+    sha256 = "03908ghycf6dq6nk0w21hws0qx7yqd4mgwn731hgy02qfs302pwd";
   };
 
   kpf_pongo = fetchurl {
-    url =
-      "https://cdn.nickchan.lol/palera1n/artifacts/kpf/iOS15/checkra1n-kpf-pongo";
-    sha256 = "d81dedd1ea5b9cdc9822a5498ff99dbaf3ea7b40bc81e90290802d7253164c76";
+    url = "https://cdn.nickchan.lol/palera1n/artifacts/kpf/iOS15/checkra1n-kpf-pongo";
+    sha256 = "0xjc2r9p4bc0j01fk0dw81xymwxskpwqyjd54acdr72vxb8ys7fq";
   };
 
   binpack = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/c-rewrite/deps/binpack.dmg";
-    sha256 = "04dc0076d9c66bab65c719f8b14784ebda9903d425259c962f783b71342e0234";
+    sha256 = "0l12w7r51gzgxf483srgvhxzi5x6yjfk910bmd6fk05d024drzzc";
   };
 
   pongo_bin = fetchurl {
     url = "https://cdn.nickchan.lol/palera1n/artifacts/kpf/iOS15/Pongo.bin";
-    sha256 = "828d09fe801dd44b8af943324930bf4d4dab5f6cc1e2f300f2c40f294f0dce4a";
+    sha256 = "0jnf1m7jj3y4y80g7qn1digsnkadpwq4jcj3z654pm0xh3z0k3c2";
   };
 
 in stdenv.mkDerivation rec {
@@ -54,8 +53,6 @@ in stdenv.mkDerivation rec {
      sed -i '/curl -Lfo/d' src/Makefile
      sed -i '/cp $(RESOURCES_DIR)\\/checkra1n-/d' src/Makefile
 
-     sed -i '/-static/d' Makefile
-
     substituteInPlace src/Makefile \
      --replace-warn 'shell arch' 'shell uname -m' \
      --replace-warn '$(DEP)/lib/libusb-1.0.a' '${libusb1}/lib/libusb-1.0.so' 
@@ -73,27 +70,28 @@ in stdenv.mkDerivation rec {
      --replace-warn '$(DEP)/lib/libmbedtls.a' '${mbedtls}/lib/libmbedtls.so' \
      --replace-warn '$(DEP)/lib/libmbedcrypto.a' '${mbedtls}/lib/libmbedcrypto.so' \
      --replace-warn '$(DEP)/lib/libmbedx509.a' '${mbedtls}/lib/libmbedx509.so' \
-     --replace-warn '$(DEP)/lib/libreadline.a' '${readline}/lib/libreadline.so' 
+     --replace-warn '$(DEP)/lib/libreadline.a' '${readline}/lib/libreadline.so' \
+     --replace-warn '-static' ""
   '';
 
   preBuild = ''
-    mkdir -p /build/source/src/resources
+    mkdir -p $PWD/src/resources
 
-    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-darwin /build/source/src/resources/checkra1n-macos
-    cp ${checkra1n-all-binaries}/bin/checkra1n-aarch64-linux /build/source/src/resources/checkra1n-linux-arm64
-    cp ${checkra1n-all-binaries}/bin/checkra1n-armv7l-linux /build/source/src/resources/checkra1n-linux-armel
-    cp ${checkra1n-all-binaries}/bin/checkra1n-i686-linux /build/source/src/resources/checkra1n-linux-x86
-    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-linux /build/source/src/resources/checkra1n-linux-x86_64
+    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-darwin src/resources/checkra1n-macos
+    cp ${checkra1n-all-binaries}/bin/checkra1n-aarch64-linux src/resources/checkra1n-linux-arm64
+    cp ${checkra1n-all-binaries}/bin/checkra1n-armv7l-linux src/resources/checkra1n-linux-armel
+    cp ${checkra1n-all-binaries}/bin/checkra1n-i686-linux src/resources/checkra1n-linux-x86
+    cp ${checkra1n-all-binaries}/bin/checkra1n-x86_64-linux src/resources/checkra1n-linux-x86_64
 
-    cp ${ramdisk} /build/source/src/resources/ramdisk.dmg
-    cp ${kpf_pongo} /build/source/src/resources/checkra1n-kpf-pongo
-    cp ${binpack} /build/source/src/resources/binpack.dmg
-    cp ${pongo_bin} /build/source/src/resources/Pongo.bin
+    cp ${ramdisk} src/resources/ramdisk.dmg
+    cp ${kpf_pongo} src/resources/checkra1n-kpf-pongo
+    cp ${binpack} src/resources/binpack.dmg
+    cp ${pongo_bin} src/resources/Pongo.bin
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp  /build/source/src/${pname} $out/bin/${pname} 
+    cp  src/${pname} $out/bin/${pname} 
     chmod +x $out/bin/${pname} 
   '';
 
