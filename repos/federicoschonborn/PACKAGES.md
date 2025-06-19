@@ -116,7 +116,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 Retro gaming application for the GNOME desktop.
 
 - Name: `highscore`
-- Version: `0-unstable-2025-06-14`
+- Version: `0-unstable-2025-06-18`
 - [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
 - [📦 Source](./pkgs/by-name/highscore/package.nix#L96)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -141,7 +141,7 @@ Quick file preview for Dolphin.
 - Version: `1.1`
 - [🌐 Homepage](https://invent.kde.org/danagost/Kiview)
 - [📰 Changelog](https://invent.kde.org/danagost/Kiview/-/tags/v1.1)
-- [📦 Source](./pkgs/by-name/kiview/package.nix#L45)
+- [📦 Source](./pkgs/by-name/kiview/package.nix#L49)
 - 📄 License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
 
@@ -208,7 +208,7 @@ CI friendly wrapper around nix-build.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-06-05`
+- Version: `0-unstable-2025-06-17`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L37)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)

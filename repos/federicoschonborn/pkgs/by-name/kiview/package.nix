@@ -38,6 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
+  cmakeFlags = [
+    "-DQt6WebEngineQuick_DIR=${kdePackages.qtwebengine}/lib/cmake/"
+  ];
+
   passthru.updateScript = nix-update-script { };
 
   meta = {
