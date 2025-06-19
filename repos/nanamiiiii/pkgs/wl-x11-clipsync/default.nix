@@ -12,7 +12,7 @@
 }:
 stdenv.mkDerivation rec {
   name = "wl-x11-clipsync";
-  version = "0-unstable-2025-01-31";
+  version = "0-unstable-2025-01-30";
   
   src = fetchFromGitHub {
     owner = "arabianq";
@@ -33,6 +33,8 @@ stdenv.mkDerivation rec {
     makeWrapper $out/share/wl-x11-clipsync/clipsync $out/bin/clipsync \
       --prefix PATH : "${lib.makeBinPath [ xclip wl-clipboard clipnotify which ]}"
   '';
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "Python script synchronizes the clipboard between Wayland";
