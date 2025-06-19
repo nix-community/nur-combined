@@ -4022,7 +4022,7 @@
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.17"
+    "version": "3.2.18"
   },
   "legacyPackages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
@@ -4702,7 +4702,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.17"
+    "version": "3.2.18"
   },
   "legacyPackages.x86_64-linux.uncategorized.qqmusic": {
     "description": "Tencent QQ Music",
@@ -5737,7 +5737,7 @@
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.17"
+    "version": "3.2.18"
   },
   "packages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",

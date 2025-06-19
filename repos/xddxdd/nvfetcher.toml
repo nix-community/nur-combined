@@ -719,13 +719,13 @@ fetch.github = "nitroshare/qhttpengine"
 
 [qq-amd64]
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
-src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+_amd64[^\"]*).deb\""
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
+src.regex = "\"https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/([^\"]+_amd64[^\"]*).deb\""
+fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 
 [qq-arm64]
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
-src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+_arm64[^\"]*).deb\""
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
+src.regex = "\"https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/([^\"]+_arm64[^\"]*).deb\""
+fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 
 [qqmusic]
 src.webpage = "https://y.qq.com/download/download.html"
