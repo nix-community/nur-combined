@@ -7959,10 +7959,10 @@
     };
     "metager-suche" = buildFirefoxXpiAddon {
       pname = "metager-suche";
-      version = "1.14";
+      version = "1.15";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4456986/metager_suche-1.14.xpi";
-      sha256 = "be8d98af801c957625282cd6ce09e8fd7ab5f48cb3aa972ef44b69d550107447";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4516622/metager_suche-1.15.xpi";
+      sha256 = "d4e5b665520382ab88138cac7641d306c8264a2932bacd88af80933e3f12ebe0";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
