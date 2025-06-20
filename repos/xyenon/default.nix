@@ -70,7 +70,6 @@ rec {
   rime-moegirl = callPackage ./pkgs/rime-moegirl { source = sources.rime-moegirl; };
   rime-ice = callPackage ./pkgs/rime-ice { inherit sources; };
   rime-ice-unstable = rime-ice.override { isUnstable = true; };
-  cloudflared = callPackage ./pkgs/cloudflared { };
   caddy = callPackage ./pkgs/caddy { inherit sources; };
   pleroma = callPackage ./pkgs/pleroma {
     beamPackages = beamPackages.extend (
