@@ -104,6 +104,7 @@ lib.makeScope newScope (
     curses-menu = callPackage ./development/python-modules/curses-menu { };
     earthaccess = callPackage ./development/python-modules/earthaccess { };
     earthpy = callPackage ./development/python-modules/earthpy { };
+    geoip2fast = callPackage ./development/python-modules/geoip2fast { };
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     hardpy = callPackage ./development/python-modules/hardpy { };
@@ -410,6 +411,7 @@ lib.makeScope newScope (
     telegram-send = callPackage ./misc/telegram-send { };
     telnetpp = callPackage ./misc/telnetpp { };
     terminalpp = callPackage ./misc/terminalpp { };
+    tewi = callPackage ./misc/tewi { };
     tg-spam = callPackage ./misc/tg-spam { };
     tiny-frpc = callPackage ./misc/tiny-frpc { };
     tinyflux = callPackage ./misc/tinyflux { };
