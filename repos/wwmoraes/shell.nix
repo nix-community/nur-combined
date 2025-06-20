@@ -28,5 +28,6 @@ in mkShell {
 		pkgs.yamlfixer
 	] ++ pkgs.lib.optionals (builtins.getEnv "CI" != "") [ # CI-only
 	] ++ pkgs.lib.optionals (builtins.getEnv "CI" == "") [ # local-only
+		pkgs.yq-go
 	];
 }

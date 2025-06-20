@@ -19,7 +19,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v4
     - name: direnv nix
-      uses: JRMurr/direnv-nix-action@v4.1.0
+      uses: JRMurr/direnv-nix-action@v4.2.0
       with:
         install-nix: true
         cache-store: false

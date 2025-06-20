@@ -29,6 +29,7 @@
 		pkgsite = callPackage ./pkgs/pkgsite.nix { };
 		structurizr-cli = callPackage ./pkgs/structurizr-cli.nix { };
 		structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
+		visudo = callPackage ./pkgs/visudo.nix { };
 		yamlfixer = callPackage ./pkgs/yamlfixer.nix { };
 	};
 in self
