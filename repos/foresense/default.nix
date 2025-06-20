@@ -10,6 +10,7 @@ in
   overlays = import ./overlays;
 
   # packages
+  convert-with-moss = callPackage ./pkgs/convert-with-moss { };
   id3edit = callPackage ./pkgs/id3edit { };
   libmts = callPackage ./pkgs/libmts { };
   libprinthex = callPackage ./pkgs/libprinthex { };
