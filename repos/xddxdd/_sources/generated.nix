@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "66aef1646fd550ffc020ce8e3329f9f12c4fe52b";
+    version = "a1507ee2ab6db23b9e2e27b3103da715c09b559f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "66aef1646fd550ffc020ce8e3329f9f12c4fe52b";
-      hash = "sha256-BUceBkyvtJlEGR4RAjzKDnu7pH+uhrf/7tW+wq/AL48=";
+      rev = "a1507ee2ab6db23b9e2e27b3103da715c09b559f";
+      hash = "sha256-Snsux6mp8DgxhK5fVAT9YQqZbhuoa+QWYCVZVdr2YCw=";
     };
-    date = "2025-06-17";
+    date = "2025-06-19";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "bddb8803df461a2e3f2315f1be277feedd600740";
+    version = "1fc243888f62589785f2a9502445aa6ea2b3188f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "bddb8803df461a2e3f2315f1be277feedd600740";
-      hash = "sha256-kHdDY0mvW9p0iwXQpsmE7CZ3OKlmp3OnA+KLvoXAjJw=";
+      rev = "1fc243888f62589785f2a9502445aa6ea2b3188f";
+      hash = "sha256-Ug9ZzTV5ivMFgh4KL6QHgOCkrpwAHmUllfCDQXQzGeM=";
     };
-    date = "2025-06-16";
+    date = "2025-06-19";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -769,20 +769,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.17.0";
+    version = "3.18.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.17.0";
-      hash = "sha256-rYF9YIZ8GdiE12QfX4rDXVPb7umuIhsLXoWmRl3oesk=";
+      tag = "3.18.0";
+      hash = "sha256-556EhLJ+tJCE7ZJWdoe07NmK6beXfN0KN7CI9ZDl3rI=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.17.0";
+    version = "3.18.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.17.0/kata-static-3.17.0-amd64.tar.xz";
-      hash = "sha256-EpjiSSKwNQfpNWMmfABJvIGpFmb9qH+GMgBoKFeOYOA=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.18.0/kata-static-3.18.0-amd64.tar.xz";
+      hash = "sha256-7j39Zl5FihKa+1iScUO2vZrK/EyvTIkjEqK/ASTFeiE=";
     };
   };
   kikoplay = {
@@ -879,14 +879,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "6218d54496769f5769e225f26bca69d28cd9610c";
+    version = "47b8fdd4047cccc0a161b1d07e83036d6bf40cad";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "6218d54496769f5769e225f26bca69d28cd9610c";
-      hash = "sha256-Tc0lye4lYxQaqltpPrDHWYXJorfjQpr7Y3Q+Qt/dQiM=";
+      rev = "47b8fdd4047cccc0a161b1d07e83036d6bf40cad";
+      hash = "sha256-exF4S7EXF+3aLBG8h6NfJ291kseBoWvTOBaus4IQ2yA=";
     };
-    date = "2025-06-18";
+    date = "2025-06-19";
   };
   libqcef = {
     pname = "libqcef";
@@ -969,12 +969,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.15.2-xanmod1";
+    version = "6.15.3-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.15.2-xanmod1";
+      tag = "6.15.3-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-PXX+cRmnb4N5lc8gV2N/Bg14W+KZW0EX8hb0uctZKAk=";
+      hash = "sha256-bFBifsKXARRyzyrpAhQWHWebEtyDnc1Fw0mjGCfA/eI=";
     };
   };
   linux-xanmod-6_0 = {
@@ -999,12 +999,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.33-xanmod1";
+    version = "6.12.34-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.33-xanmod1";
+      tag = "6.12.34-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-2/rB4ScAywmYINEJIwm2zTEp1dotiUxM3nTq/mGv1QM=";
+      hash = "sha256-pMc6WzpgxOlgwGfsXyI8404HfHcC52tvmBGoEQidtqc=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1019,12 +1019,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5703";
+    version = "b5715";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5703";
-      hash = "sha256-h2tjmsN9O9Y4qYWM50ICybYFI2ob3b+W2TUCA4dYQTM=";
+      tag = "b5715";
+      hash = "sha256-7QCqp3cLNISPPtowUZyA45A+au6CMnU5mZLAnZ0U7Bc=";
     };
   };
   loralib = {
@@ -1078,12 +1078,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.27.0";
+    version = "v1.27.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.27.0";
-      hash = "sha256-ukTi7tanSL45UxApV4bTzgxSTIX7MModbVzN35OCdFc=";
+      tag = "v1.27.1";
+      hash = "sha256-eaW32++Y9nQEesiW3jrraKjeLlcg1pU0aBFsESlkjC4=";
     };
   };
   mtkclient = {
@@ -1470,12 +1470,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.3.1";
+    version = "v2.3.2";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.3.1";
-      hash = "sha256-2KXOpg1F+SsFY3KLfKnk7ERCxKOaRwqnRXecLmyZ72s=";
+      tag = "v2.3.2";
+      hash = "sha256-Iubi9NCMLM8H4go264IVcKAGuqRutidXBoeUg+FwaKE=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1777,14 +1777,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
+    version = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
-      hash = "sha256-HvjDw2BNvMbu/J0NINN2/+iWCv3pYt+HrtlJPWfhERA=";
+      rev = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
+      hash = "sha256-CTZoJeTuVr2n3U69p/0V3RvAFzpYGqds7stPGXSTj7s=";
     };
-    date = "2025-06-16";
+    date = "2025-06-19";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2174,12 +2174,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v1.3.0";
+    version = "v1.4.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v1.3.0";
-      hash = "sha256-cBeZqfKjNbSun6UPJRVi9o7p822yw+uR6VneCfoqieE=";
+      tag = "v1.4.0";
+      hash = "sha256-PslSvezoqQGYeTO/2E6djPCvkR7SGTnvHvXEx3lbVco=";
     };
   };
   vbmeta-disable-verification = {
