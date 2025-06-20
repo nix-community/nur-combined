@@ -55,7 +55,6 @@ lib.makeScope newScope (
     tg-send = callPackage ./tg-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };
-    wemeet = callPackage ./wemeet { };
     yacd = callPackage ./yacd { };
     zeronsd = callPackage ./zeronsd { };
     # keep-sorted end

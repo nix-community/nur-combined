@@ -94,12 +94,6 @@ let
         "gorcon" = "gorcon";
       };
     }
-    {
-      "wemeet" = {
-        "wemeet" = "wemeetapp";
-        "wemeet-force-x11" = "wemeetapp-force-x11";
-      };
-    }
     # keep-sorted end
   ];
 in
