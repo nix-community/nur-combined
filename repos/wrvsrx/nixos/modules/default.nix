@@ -1,1 +1,6 @@
-{ imports = [ ./goauthing.nix ]; }
+{
+  imports = [
+    ./goauthing.nix
+    ./sillytavern.nix
+  ];
+}
