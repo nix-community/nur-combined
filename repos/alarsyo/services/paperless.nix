@@ -56,8 +56,7 @@ in {
         PAPERLESS_DBUSER = "paperless";
         PAPERLESS_DBNAME = "paperless";
 
-        PAPERLESS_ALLOWED_HOSTS = paperlessDomain;
-        PAPERLESS_CORS_ALLOWED_HOSTS = "https://${paperlessDomain}";
+        PAPERLESS_URL = "https://${paperlessDomain}";
 
         PAPERLESS_OCR_LANGUAGE = "fra+eng";
         PAPERLESS_OCR_MODE = "skip";
