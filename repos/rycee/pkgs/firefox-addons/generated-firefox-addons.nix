@@ -176,10 +176,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.25.2";
+      version = "3.25.4";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4469838/adnauseam-3.25.2.xpi";
-      sha256 = "d50541bfa838404e328b353827b0d4f4178d794393da31e4f9c4ca28cc0dd053";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515352/adnauseam-3.25.4.xpi";
+      sha256 = "8adb4cac231cf6714c0f3af16a84726c2cb9566aedeb872f1f6b11dcb25a1981";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -2070,10 +2070,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.11.1";
+      version = "4.12.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4500640/control_panel_for_twitter-4.11.1.xpi";
-      sha256 = "20b0ce4c2ece6cb252af2f17dbb26e6933b8f9d51038093dfa4efbb90912aa6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513424/control_panel_for_twitter-4.12.3.xpi";
+      sha256 = "f5e99bb88bea65e459e0a0db1427187c205eaebb628094252f90dbf1c3015101";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -12911,10 +12911,10 @@
     };
     "undoclosetabbutton" = buildFirefoxXpiAddon {
       pname = "undoclosetabbutton";
-      version = "8.0.0";
+      version = "8.1.0";
       addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4212173/undoclosetabbutton-8.0.0.xpi";
-      sha256 = "c83a058c417f98d75e62ab310e2995971bf79c99cd83cf1dcbd8a44797aa60c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513641/undoclosetabbutton-8.1.0.xpi";
+      sha256 = "ff9a47b466fe29a860a1846a65502e327717945dc9f7ce627c9cd64a2859baab";
       meta = with lib;
       {
         homepage = "https://github.com/M-Reimer/undoclosetab";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.1";
+      version = "2.4.2";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4515921/youtube_no_translation-2.4.1.xpi";
-      sha256 = "e4fa47eb21321c0cdf03284d8f0d2d14dd01e4566412ae3599f83a8cc227cb3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517637/youtube_no_translation-2.4.2.xpi";
+      sha256 = "40744b303ef26d9f6431afeb4dac597461fdb66a2a7cbeac0c355949a9f0db6c";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
