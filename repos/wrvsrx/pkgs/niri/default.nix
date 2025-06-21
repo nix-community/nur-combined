@@ -5,7 +5,9 @@
 niri.overrideAttrs (
   finalAttrs: oldAttrs: {
     version = "25.05.1-wrvsrx-patched.01";
-    env.NIRI_BUILD_VERSION_STRING = finalAttrs.version;
+    env = oldAttrs.env // {
+      NIRI_BUILD_VERSION_STRING = finalAttrs.version;
+    };
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "niri";
