@@ -84,6 +84,9 @@ stdenvNoCC.mkDerivation rec {
     mv $assets/share/${pname}/LICENSE $out/share/doc/${pname}/
     mv $assets/share/${pname}/README.md $out/share/doc/${pname}/
 
+    ### Symlink "assets" output to "out" (to make them accessible to profile that GLFfetch is installed)
+    ln -s $assets/share/${pname} $out/share/${pname}
+
     ${lib.optionalString (glfIcon == "GLFos") ''
       ### Link logo from nix store
       ln -s ${./logo.png} $assets/share/${pname}/${glfIcon}.png
