@@ -889,14 +889,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "47b8fdd4047cccc0a161b1d07e83036d6bf40cad";
+    version = "50185c6e72036a20202b5184b5d78fb627101f19";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "47b8fdd4047cccc0a161b1d07e83036d6bf40cad";
-      hash = "sha256-exF4S7EXF+3aLBG8h6NfJ291kseBoWvTOBaus4IQ2yA=";
+      rev = "50185c6e72036a20202b5184b5d78fb627101f19";
+      hash = "sha256-rPTLXWxXkaLxhKwi8zO/ZKg3wy3vKK2/dGyLNCAVUak=";
     };
-    date = "2025-06-19";
+    date = "2025-06-20";
   };
   libqcef = {
     pname = "libqcef";
@@ -1029,12 +1029,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5715";
+    version = "b5731";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5715";
-      hash = "sha256-7QCqp3cLNISPPtowUZyA45A+au6CMnU5mZLAnZ0U7Bc=";
+      tag = "b5731";
+      hash = "sha256-qdMiietGs8eytuUGUzoTyClFxABljZa31kB//EkAAbg=";
     };
   };
   loralib = {
@@ -1323,14 +1323,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "335b4e284eb04b98d1e986e1ab59f1b852fe2bed";
+    version = "ac93bda9b484c34919f921305aa504cf4eda5e10";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "335b4e284eb04b98d1e986e1ab59f1b852fe2bed";
-      hash = "sha256-dF9BnGiuMh161Jbf7+2TT6hrtQoZPDl4cvP3y6MbBAE=";
+      rev = "ac93bda9b484c34919f921305aa504cf4eda5e10";
+      hash = "sha256-WKa7+h0vODLgqjaBVP36MYT/KkpI6QYOgOripFME1hE=";
     };
-    date = "2025-05-16";
+    date = "2025-06-21";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1459,12 +1459,12 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V2.9.5777";
+    version = "V2.9.5779";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic_Project";
-      tag = "V2.9.5777";
-      hash = "sha256-gYRKlYdbRLquPvCMaprWWA7NdKwSTlGNTMCwaVc+KXk=";
+      tag = "V2.9.5779";
+      hash = "sha256-j2jA16ScXa2U7xKaI5Rrb/ywOzwY9zNg8aUG2jJWp1c=";
     };
   };
   plasma-panel-transparency-toggle = {

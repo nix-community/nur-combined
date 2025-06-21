@@ -1729,7 +1729,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-06-19",
+        "date": "2025-06-20",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1741,12 +1741,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "47b8fdd4047cccc0a161b1d07e83036d6bf40cad",
-            "sha256": "sha256-exF4S7EXF+3aLBG8h6NfJ291kseBoWvTOBaus4IQ2yA=",
+            "rev": "50185c6e72036a20202b5184b5d78fb627101f19",
+            "sha256": "sha256-rPTLXWxXkaLxhKwi8zO/ZKg3wy3vKK2/dGyLNCAVUak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "47b8fdd4047cccc0a161b1d07e83036d6bf40cad"
+        "version": "50185c6e72036a20202b5184b5d78fb627101f19"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2009,12 +2009,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5715",
-            "sha256": "sha256-7QCqp3cLNISPPtowUZyA45A+au6CMnU5mZLAnZ0U7Bc=",
+            "rev": "b5731",
+            "sha256": "sha256-qdMiietGs8eytuUGUzoTyClFxABljZa31kB//EkAAbg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5715"
+        "version": "b5731"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2576,7 +2576,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-05-16",
+        "date": "2025-06-21",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2588,12 +2588,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "335b4e284eb04b98d1e986e1ab59f1b852fe2bed",
-            "sha256": "sha256-dF9BnGiuMh161Jbf7+2TT6hrtQoZPDl4cvP3y6MbBAE=",
+            "rev": "ac93bda9b484c34919f921305aa504cf4eda5e10",
+            "sha256": "sha256-WKa7+h0vODLgqjaBVP36MYT/KkpI6QYOgOripFME1hE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "335b4e284eb04b98d1e986e1ab59f1b852fe2bed"
+        "version": "ac93bda9b484c34919f921305aa504cf4eda5e10"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -2864,12 +2864,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic_Project",
-            "rev": "V2.9.5777",
-            "sha256": "sha256-gYRKlYdbRLquPvCMaprWWA7NdKwSTlGNTMCwaVc+KXk=",
+            "rev": "V2.9.5779",
+            "sha256": "sha256-j2jA16ScXa2U7xKaI5Rrb/ywOzwY9zNg8aUG2jJWp1c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5777"
+        "version": "V2.9.5779"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,

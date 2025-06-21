@@ -837,7 +837,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5715"
+    "version": "5731"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -857,7 +857,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-05-16"
+    "version": "1.27.1.2-unstable-2025-06-21"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
     "description": "Cleanup old profiles on NixOS",
@@ -1282,7 +1282,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-19"
+    "version": "0-unstable-2025-06-20"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3807,7 +3807,7 @@
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5777"
+    "version": "2.9.5779"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -4512,7 +4512,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-19"
+    "version": "0-unstable-2025-06-20"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4677,7 +4677,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5777"
+    "version": "2.9.5779"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -5457,7 +5457,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-19"
+    "version": "0-unstable-2025-06-20"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5687,7 +5687,7 @@
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5777"
+    "version": "2.9.5779"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
