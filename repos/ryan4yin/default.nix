@@ -15,5 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # gowin-eda-edu-ide = pkgs.callPackage ./pkgs/gowin-eda-edu-ide { };
-  kubectl-ai = pkgs.callPackage ./pkgs/kubectl-ai { };
+  cppman = pkgs.callPackage ./pkgs/cppman {};
 } // (pkgs.callPackage ./pkgs/themes { })
