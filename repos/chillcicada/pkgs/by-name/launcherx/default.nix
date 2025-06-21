@@ -21,7 +21,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  dontBuild = true;
   dontStrip = true;
 
   autoPatchcilRuntimeId = "linux-x64";
