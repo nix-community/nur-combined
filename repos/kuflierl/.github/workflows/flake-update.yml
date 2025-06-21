@@ -1,0 +1,26 @@
+name: "Update Flake Packages ❄️"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 0" # https://crontab.guru/#0_10_*_*_0
+jobs:
+  updateFlakePackages:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Update flake packages
+        id: update
+        uses: DeterminateSystems/update-flake-lock@v25
+        with:
+          pr-title: "chore: update packages"
+          pr-labels: |
+            dependencies
+            automated
