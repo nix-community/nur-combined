@@ -14,8 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  byparr = pkgs.callPackage ./pkgs/byparr.nix { };
-  nh = pkgs.callPackage ./pkgs/nh.nix { };
   catppuccin-papirus-folders-frappe-red = pkgs.catppuccin-papirus-folders.override {
     flavor = "frappe";
     accent = "red";
