@@ -26,7 +26,7 @@
   pkg-config,
   sqlite,
   util-linux,
-  webkitgtk,
+  webkitgtk_6_0,
   xorg,
   unzip,
   # fxPlugins ? false,
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     pcre2
     sqlite
     util-linux
-    webkitgtk
+    webkitgtk_6_0
     xorg.libX11
     xorg.libXcomposite
     xorg.libXcursor
