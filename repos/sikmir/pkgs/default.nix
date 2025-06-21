@@ -394,6 +394,7 @@ lib.makeScope newScope (
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
     qasync = callPackage ./misc/qasync { };
+    qdia = callPackage ./misc/qdia { };
     qoiview = callPackage ./misc/qoiview { };
     qstudio = callPackage ./misc/qstudio { };
     repolocli = callPackage ./misc/repolocli { };
