@@ -15,11 +15,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "stardict-tools";
-  version = "3.0.6";
+  version = "3.0.6.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/stardict-4/stardict-${finalAttrs.version}-2-src.7z";
-    hash = "sha256-2Q+PNqFCnxioFmD4IEUQlD2x22Ueh+nKXP5i9N3STFE=";
+    hash = "sha256-1XLfXs5v2ZvP5xqCN4x1+0BvkIGc8cHWrgiP0b0DP0U=";
   };
 
   nativeBuildInputs = [
