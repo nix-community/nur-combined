@@ -47,7 +47,6 @@ let
     p: with p; [
       chardet
       dbus-python
-      future
       mpd2
       osdlyricsPython
       pycurl
