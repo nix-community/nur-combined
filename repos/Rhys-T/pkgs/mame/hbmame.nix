@@ -16,7 +16,10 @@
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-yJFMIDYyy+8A2vG7Qa6HnYKyp+tTj3b71CKq/LQHGfc=";
+            hash = "sha256-uSFW0om+00zhdoF0qYVA5W+9LrjE1gQDHZUaEoS17SU=";
+            forceFetchGit = true; # Avoids unstable hash issues - see:
+            # https://github.com/NixOS/nixpkgs/issues/84312
+            # https://github.com/NixOS/nixpkgs/issues/259488
         };
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
         desktopItems = [
