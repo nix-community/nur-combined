@@ -222,6 +222,10 @@ fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-
 src.github_tag = "fishaudio/fish-speech"
 fetch.github = "fishaudio/fish-speech"
 
+[flapalerted]
+src.github = "Kioubit/FlapAlerted"
+fetch.github = "Kioubit/FlapAlerted"
+
 [flasgger]
 src.github = "flasgger/flasgger"
 fetch.github = "flasgger/flasgger"

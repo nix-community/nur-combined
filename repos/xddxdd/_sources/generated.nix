@@ -523,6 +523,16 @@
       hash = "sha256-/PH2or5fvfb2+OgN6Wfg76ZyBo+fsAIVuQFrTtIzia8=";
     };
   };
+  flapalerted = {
+    pname = "flapalerted";
+    version = "v3.14.1";
+    src = fetchFromGitHub {
+      owner = "Kioubit";
+      repo = "FlapAlerted";
+      tag = "v3.14.1";
+      hash = "sha256-OLTqxYPNfKg2S2BH5CrWzgdpFOPA+cDC0CLMIwGUHFg=";
+    };
+  };
   flaresolverr-21hsmw = {
     pname = "flaresolverr-21hsmw";
     version = "008ff71315baa40761d9d6283a248e50c43db491";

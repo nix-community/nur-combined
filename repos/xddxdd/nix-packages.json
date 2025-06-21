@@ -609,6 +609,11 @@
     "pname": "python3.13-fish-speech",
     "version": "1.5.1"
   },
+  "legacyPackages.x86_64-linux.flapalerted": {
+    "description": "BGP Update based flap detection",
+    "pname": "flapalerted",
+    "version": "3.14.1"
+  },
   "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
@@ -4384,6 +4389,11 @@
     "pname": "fcitx5-breeze",
     "version": "3.1.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.flapalerted": {
+    "description": "BGP Update based flap detection",
+    "pname": "flapalerted",
+    "version": "3.14.1"
+  },
   "legacyPackages.x86_64-linux.uncategorized.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
@@ -5248,6 +5258,11 @@
     "description": "SOTA Open Source TTS",
     "pname": "python3.13-fish-speech",
     "version": "1.5.1"
+  },
+  "packages.x86_64-linux.flapalerted": {
+    "description": "BGP Update based flap detection",
+    "pname": "flapalerted",
+    "version": "3.14.1"
   },
   "packages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",

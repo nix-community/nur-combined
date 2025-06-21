@@ -11,7 +11,7 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.usque) pname version src;
-  vendorHash = "sha256-dnM4jJVGo9UR47dFc8eEC0ntFopBWco9qS4qKEScXmc=";
+  vendorHash = "sha256-ngLlG9HP0KJPjIBVsNZuwnlJj2egMEh9U0xVQpVEg1Q=";
 
   ldflags = [
     "-s"

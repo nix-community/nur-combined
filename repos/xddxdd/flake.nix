@@ -194,6 +194,16 @@
               pkgs = pkgsWithCuda;
               pkgs-24_05 = pkgsForSystem-24_05 system;
             };
+
+            devshells.default = {
+              packages = [ pkgs.python3 ];
+              env = [
+                {
+                  name = "PYTHONPATH";
+                  unset = true;
+                }
+              ];
+            };
           };
       }
     );

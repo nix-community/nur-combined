@@ -1014,6 +1014,27 @@
         },
         "version": "v1.5.1"
     },
+    "flapalerted": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "flapalerted",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Kioubit",
+            "repo": "FlapAlerted",
+            "rev": "v3.14.1",
+            "sha256": "sha256-OLTqxYPNfKg2S2BH5CrWzgdpFOPA+cDC0CLMIwGUHFg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.14.1"
+    },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
         "date": "2025-03-04",
