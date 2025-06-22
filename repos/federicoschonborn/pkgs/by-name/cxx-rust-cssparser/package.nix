@@ -8,6 +8,7 @@
   rustc,
   kdePackages,
   rustPlatform,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -48,6 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   dontWrapQtApps = true;
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     mainProgram = "cxx-rust-cssparser";
