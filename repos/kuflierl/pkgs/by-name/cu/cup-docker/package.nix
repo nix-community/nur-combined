@@ -57,7 +57,6 @@ rustPlatform.buildRustPackage {
     src
     version
     pname
-    web
     ;
 
   cargoHash = "sha256-L9zugOwlPwpdtjV87dT1PH7FAMJYHYFuvfyOfPe5b2k=";
@@ -71,15 +70,18 @@ rustPlatform.buildRustPackage {
       "server"
     ];
 
-  preConfigure = ''
+  preConfigure = lib.optionalString withServer ''
     cp -r ${web}/dist src/static
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--subpackage"
-      "web"
-    ];
+  passthru = {
+    inherit web;
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--subpackage"
+        "web"
+      ];
+    };
   };
 
   meta = {
