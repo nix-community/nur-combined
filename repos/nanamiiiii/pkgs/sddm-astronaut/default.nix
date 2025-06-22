@@ -13,13 +13,13 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   name = "sddm-astronaut-theme";
-  version = "0-unstable-2025-04-14";
+  version = "0-unstable-2025-06-21";
 
   src = fetchFromGitHub {
     owner = "Keyitdev";
     repo = "sddm-astronaut-theme";
-    rev = "bf4d01732084be29cedefe9815731700da865956";
-    hash = "sha256-JMCG7oviLqwaymfgxzBkpCiNi18BUzPGvd3AF9BYSeo=";
+    rev = "3ef9f511fd072ff3dbb6eb3c1c499a71f338967e";
+    hash = "sha256-33CzZ4vK1dicVzICbudk8gSRC/MExG+WnrE9wIWET14=";
   };
 
   # Avoid wrapping Qt binaries
