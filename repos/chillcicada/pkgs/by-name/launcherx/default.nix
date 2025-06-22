@@ -19,8 +19,6 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2p4psuNlJM98rhm9QFNY8zEcxAiD81wi94QaHSdgw64=";
   };
 
-  sourceRoot = ".";
-
   dontStrip = true;
 
   autoPatchcilRuntimeId = "linux-x64";
@@ -41,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 source/LauncherX.Avalonia $out/bin/LauncherX.Avalonia
+    install -Dm755 LauncherX.Avalonia $out/bin/LauncherX.Avalonia
 
     runHook postInstall
   '';
@@ -57,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Next-generation Minecraft Launcher";
+    homepage = "https://corona.studio";
     license = lib.licenses.unfree;
     mainProgram = "LauncherX.Avalonia";
     platforms = lib.platforms.linux;
