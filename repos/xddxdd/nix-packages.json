@@ -4134,6 +4134,11 @@
     "pname": "sgx-software-enable",
     "version": "1.0-unstable-2023-01-06"
   },
+  "legacyPackages.x86_64-linux.sidestore-vpn": {
+    "description": "Allow SideStore to work across all iOS devices on your local network",
+    "pname": "sidestore-vpn",
+    "version": "0-unstable-2025-06-21"
+  },
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
@@ -4798,6 +4803,11 @@
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
     "pname": "sgx-software-enable",
     "version": "1.0-unstable-2023-01-06"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.sidestore-vpn": {
+    "description": "Allow SideStore to work across all iOS devices on your local network",
+    "pname": "sidestore-vpn",
+    "version": "0-unstable-2025-06-21"
   },
   "legacyPackages.x86_64-linux.uncategorized.smfc": {
     "description": "Super Micro Fan Control",
@@ -5858,6 +5868,11 @@
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
     "pname": "sgx-software-enable",
     "version": "1.0-unstable-2023-01-06"
+  },
+  "packages.x86_64-linux.sidestore-vpn": {
+    "description": "Allow SideStore to work across all iOS devices on your local network",
+    "pname": "sidestore-vpn",
+    "version": "0-unstable-2025-06-21"
   },
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",

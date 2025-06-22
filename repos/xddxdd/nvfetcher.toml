@@ -828,6 +828,10 @@ fetch.github = "intel/sgx-software-enable"
 src.github_tag = "intel/sgx-software-enable"
 fetch.url = "https://google.com/generate_204"
 
+[sidestore-vpn]
+src.git = "https://github.com/xddxdd/sidestore-vpn.git"
+fetch.github = "xddxdd/sidestore-vpn"
+
 [silero-vad]
 src.github = "snakers4/silero-vad"
 fetch.github = "snakers4/silero-vad"

@@ -1892,6 +1892,17 @@
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  sidestore-vpn = {
+    pname = "sidestore-vpn";
+    version = "87c2e05d75dd86e3b39b1ca2cc721a6b4e01ade8";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "sidestore-vpn";
+      rev = "87c2e05d75dd86e3b39b1ca2cc721a6b4e01ade8";
+      hash = "sha256-OlxroaJFgbBDIqd6cle624gefA/gW7aoJBRiQuc2uYU=";
+    };
+    date = "2025-06-21";
+  };
   silero-vad = {
     pname = "silero-vad";
     version = "v5.1.2";
