@@ -38,9 +38,7 @@ jobs:
 
       - name: Update packages
         run: |
-          nix run nixpkgs#nix-update -- --commit --format --flake bmi260
-          nix run nixpkgs#nix-update -- --commit --format --flake get-lrc
-          nix run nixpkgs#nix-update -- --commit --format --flake mdbook-typst-pdf
+          ./update.sh
 
           ./pkgs/maa-assistant-arknights/update.sh
 
