@@ -34,8 +34,11 @@ stdenv.mkDerivation {
     kdePackages.ki18n
     kdePackages.qtbase
     kdePackages.qtpositioning
-    kdePackages.qttools
   ];
+
+  postPatch = ''
+    substituteInPlace src/CMakeLists.txt --replace-fail "ecm_generate_qdoc" "# ecm_generate_qdoc"
+  '';
 
   dontWrapQtApps = true;
 
@@ -55,5 +58,7 @@ stdenv.mkDerivation {
     ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    # 6.15.0 introduced KHolidays/SunEvents
+    broken = lib.versionOlder kdePackages.kholidays.version "6.15.0";
   };
 }
