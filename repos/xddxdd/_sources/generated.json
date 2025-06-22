@@ -647,6 +647,51 @@
         },
         "version": "3.6.2"
     },
+    "dbip-asn-lite": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dbip-asn-lite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ZlbspbZoeUrftP5xaPqY16BBZrPu1tU2AjbmJOOzN0w=",
+            "type": "url",
+            "url": "https://download.db-ip.com/free/dbip-asn-lite-2025-06.mmdb.gz"
+        },
+        "version": "2025-06"
+    },
+    "dbip-city-lite": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dbip-city-lite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iv4UfdLcmLE5d5y38kz4EFpDpecjScESr1I30dB+jDQ=",
+            "type": "url",
+            "url": "https://download.db-ip.com/free/dbip-city-lite-2025-06.mmdb.gz"
+        },
+        "version": "2025-06"
+    },
+    "dbip-country-lite": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dbip-country-lite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-p3HJTzzAtkHgDdiXa9M1jPSukDo+AgRu3Cjf1Q+QXB8=",
+            "type": "url",
+            "url": "https://download.db-ip.com/free/dbip-country-lite-2025-06.mmdb.gz"
+        },
+        "version": "2025-06"
+    },
     "decluttarr": {
         "cargoLocks": null,
         "date": null,
@@ -1193,6 +1238,51 @@
             "type": "github"
         },
         "version": "3ee9e8e3ba1d8d01e9310eef034240d32bf6b5a2"
+    },
+    "geolite2-asn": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-asn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-GLNbpVFoBVY/bn/Si04t+47jkeAgUhHBWB9oRsZ1OqU=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-ASN.mmdb"
+        },
+        "version": "2025.06.22"
+    },
+    "geolite2-city": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-city",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-N8/rk1xTcoTviLrB2sc0op6owYM4RQ0B+AELyBmHabw=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-City.mmdb"
+        },
+        "version": "2025.06.22"
+    },
+    "geolite2-country": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-country",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fIV9EW8apTRZlCHVbBHMiMFKXE+ZllFvPoemjt49PMg=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-Country.mmdb"
+        },
+        "version": "2025.06.22"
     },
     "glauth": {
         "cargoLocks": null,

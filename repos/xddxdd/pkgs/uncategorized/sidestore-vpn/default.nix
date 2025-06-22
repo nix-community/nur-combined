@@ -2,9 +2,6 @@
   sources,
   lib,
   rustPlatform,
-  pkg-config,
-  dbus,
-  openssl,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.sidestore-vpn) pname version src;

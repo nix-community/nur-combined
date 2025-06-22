@@ -337,6 +337,30 @@
       hash = "sha256-jJAkc2aSr2i5R/2IRYnmhcTye8KdAxuBFkRXsJxg4eU=";
     };
   };
+  dbip-asn-lite = {
+    pname = "dbip-asn-lite";
+    version = "2025-06";
+    src = fetchurl {
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2025-06.mmdb.gz";
+      hash = "sha256-ZlbspbZoeUrftP5xaPqY16BBZrPu1tU2AjbmJOOzN0w=";
+    };
+  };
+  dbip-city-lite = {
+    pname = "dbip-city-lite";
+    version = "2025-06";
+    src = fetchurl {
+      url = "https://download.db-ip.com/free/dbip-city-lite-2025-06.mmdb.gz";
+      hash = "sha256-iv4UfdLcmLE5d5y38kz4EFpDpecjScESr1I30dB+jDQ=";
+    };
+  };
+  dbip-country-lite = {
+    pname = "dbip-country-lite";
+    version = "2025-06";
+    src = fetchurl {
+      url = "https://download.db-ip.com/free/dbip-country-lite-2025-06.mmdb.gz";
+      hash = "sha256-p3HJTzzAtkHgDdiXa9M1jPSukDo+AgRu3Cjf1Q+QXB8=";
+    };
+  };
   decluttarr = {
     pname = "decluttarr";
     version = "v1.50.2";
@@ -615,6 +639,30 @@
       hash = "sha256-0yu/740dg/li6Vha1IXIOce299Kr0nQ7+jjTGiDNliQ=";
     };
     date = "2025-06-16";
+  };
+  geolite2-asn = {
+    pname = "geolite2-asn";
+    version = "2025.06.22";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-ASN.mmdb";
+      hash = "sha256-GLNbpVFoBVY/bn/Si04t+47jkeAgUhHBWB9oRsZ1OqU=";
+    };
+  };
+  geolite2-city = {
+    pname = "geolite2-city";
+    version = "2025.06.22";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-City.mmdb";
+      hash = "sha256-N8/rk1xTcoTviLrB2sc0op6owYM4RQ0B+AELyBmHabw=";
+    };
+  };
+  geolite2-country = {
+    pname = "geolite2-country";
+    version = "2025.06.22";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.06.22/GeoLite2-Country.mmdb";
+      hash = "sha256-fIV9EW8apTRZlCHVbBHMiMFKXE+ZllFvPoemjt49PMg=";
+    };
   };
   glauth = {
     pname = "glauth";

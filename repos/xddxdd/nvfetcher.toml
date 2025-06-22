@@ -143,6 +143,21 @@ fetch.url = "https://google.com/generate_204"
 src.pypi = "DataRecorder"
 fetch.pypi = "DataRecorder"
 
+[dbip-asn-lite]
+src.webpage = "https://db-ip.com/db/download/ip-to-asn-lite"
+src.regex = "https://download.db-ip.com/free/dbip-asn-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
+fetch.url = "https://download.db-ip.com/free/dbip-asn-lite-$ver.mmdb.gz"
+
+[dbip-city-lite]
+src.webpage = "https://db-ip.com/db/download/ip-to-city-lite"
+src.regex = "https://download.db-ip.com/free/dbip-city-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
+fetch.url = "https://download.db-ip.com/free/dbip-city-lite-$ver.mmdb.gz"
+
+[dbip-country-lite]
+src.webpage = "https://db-ip.com/db/download/ip-to-country-lite"
+src.regex = "https://download.db-ip.com/free/dbip-country-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
+fetch.url = "https://download.db-ip.com/free/dbip-country-lite-$ver.mmdb.gz"
+
 [decluttarr]
 src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
@@ -267,6 +282,18 @@ fetch.url = "http://www.ftpproxy.org/download/ftpproxy-$ver.tgz"
 [funasr]
 src.git = "https://github.com/modelscope/FunASR.git"
 fetch.github = "modelscope/FunASR"
+
+[geolite2-asn]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-ASN.mmdb"
+
+[geolite2-city]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-City.mmdb"
+
+[geolite2-country]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-Country.mmdb"
 
 [glauth]
 src.manual = "v2.3.2"
