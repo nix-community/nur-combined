@@ -53,7 +53,7 @@ stdenv.mkDerivation {
       lgpl3Only
       mit
     ];
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

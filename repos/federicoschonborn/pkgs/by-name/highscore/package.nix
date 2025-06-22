@@ -37,8 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "highscore";
-    rev = "1bf9c1955b88bc42ba5114db001af174358fc6d6";
-    hash = "sha256-fP3xsbWUkyRrsgOG/0008gvyoWQ1rCOBtbNYn9nWG9w=";
+    rev = "686f34ebb387c3a4e74ac502d94a027ccbf1c2b2";
+    hash = "sha256-Ef5/viZ6XBrGGnGm2lwig3MtD8Lpa6ljakWqKGC14sc=";
   };
 
   patches = [

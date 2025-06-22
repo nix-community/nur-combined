@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Only
       lgpl3Only
     ];
-    inherit (rustc.meta) platforms;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
