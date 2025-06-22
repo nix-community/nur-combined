@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     mv bin/dingusppc $out/bin
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
 
   meta = {
     mainProgram = "dingusppc";

@@ -41,12 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   # Requires a graphical session.
   dontVersionCheck = true;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "qv-(.*)"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=qv-(.*)" ]; };
 
   meta = {
     mainProgram = "qv";

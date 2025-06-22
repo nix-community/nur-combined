@@ -89,12 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = withTool;
   versionCheckProgram = lib.optionalString withTool "${placeholder "out"}/bin/tgd";
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "tgd-(.*)"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=tgd-(.*)" ]; };
 
   meta = {
     mainProgram = "tgd";

@@ -5,20 +5,22 @@
   cmake,
   ninja,
   kdePackages,
+  cxx-rust-cssparser,
   rapidyaml,
   nix-update-script,
+  withCSSInput ? true,
 }:
 
 stdenv.mkDerivation (_: {
   pname = "union";
-  version = "0-unstable-2025-02-12";
+  version = "0-unstable-2025-06-20";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "plasma";
     repo = "union";
-    rev = "fdd7546dcb3f83dc526010d0e79eb172385ae723";
-    hash = "sha256-LaD9lkq/aVVt/6cStp+P0sZy1z5qIvM4ewUMa1PtTTY=";
+    rev = "341d2f9c2ae780a14567336fe4faf0a86ce2c324";
+    hash = "sha256-L+KGNOzImUIjJEnC/MWlqDCrV4sdP4kDSMrBR4hvK/8=";
   };
 
   nativeBuildInputs = [
@@ -36,9 +38,13 @@ stdenv.mkDerivation (_: {
     kdePackages.qtdeclarative
     kdePackages.qtsvg
     rapidyaml
-  ];
+  ] ++ lib.optional withCSSInput cxx-rust-cssparser;
 
   strictDeps = true;
+
+  cmakeFlags = [
+    (lib.cmakeBool "WITH_CSS_INPUT" withCSSInput)
+  ];
 
   postPatch = ''
     # Added on ECM 6.11.0
@@ -48,12 +54,7 @@ stdenv.mkDerivation (_: {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "A Qt style supporting both QtQuick and QtWidgets";

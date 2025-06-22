@@ -31,14 +31,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "highscore";
-  version = "0-unstable-2025-06-18";
+  version = "0-unstable-2025-06-22";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "highscore";
-    rev = "32b6d679b96d4f7d1c395a392ea06ec2d5b9a2ee";
-    hash = "sha256-/QTSQVMDcCvQlNcjvZ9ov8Lh3OqyQzm2rIW27mrIBGQ=";
+    rev = "1bf9c1955b88bc42ba5114db001af174358fc6d6";
+    hash = "sha256-fP3xsbWUkyRrsgOG/0008gvyoWQ1rCOBtbNYn9nWG9w=";
   };
 
   patches = [
@@ -84,12 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     mainProgram = "highscore";

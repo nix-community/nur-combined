@@ -30,12 +30,7 @@ rustPlatform.buildRustPackage {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     mainProgram = "cargo-shock";

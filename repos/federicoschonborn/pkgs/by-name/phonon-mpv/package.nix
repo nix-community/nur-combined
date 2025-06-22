@@ -41,12 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "PHONON_BUILD_QT6" true)
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
 
   meta = {
     description = "Phonon Backend using MPV Player";

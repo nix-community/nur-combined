@@ -49,7 +49,7 @@
     || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   libdrm,
-  enableDrmAmdgpu ? stdenv.hostPlatform.isLinux,
+  enableDrmAmdgpu ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD,
   enableGio ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
@@ -155,13 +155,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.45.0";
+  version = "2.46.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     tag = finalAttrs.version;
-    hash = "sha256-HDr4goUvAKeMk2UGmF2ON72ETQQipNwLfsvyB+f74LE=";
+    hash = "sha256-gRDG3lbUcApUushUPCpTkzc6FOB/CHrsVZwdRn6IEL8=";
   };
 
   outputs = [
