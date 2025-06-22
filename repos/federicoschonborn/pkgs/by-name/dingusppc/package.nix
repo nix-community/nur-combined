@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dingusdev";
     repo = "dingusppc";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-Uk8FUIVbLXkmwIXPDMoWKt14hD700yP2r5fUSCHTsC8=";
     fetchSubmodules = true;
   };
