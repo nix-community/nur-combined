@@ -631,14 +631,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "3ee9e8e3ba1d8d01e9310eef034240d32bf6b5a2";
+    version = "a3d6e48fe10ddecd0c0886a6b9b51a51837c35a7";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "3ee9e8e3ba1d8d01e9310eef034240d32bf6b5a2";
-      hash = "sha256-0yu/740dg/li6Vha1IXIOce299Kr0nQ7+jjTGiDNliQ=";
+      rev = "a3d6e48fe10ddecd0c0886a6b9b51a51837c35a7";
+      hash = "sha256-efq1gaCERYDipYmflKLJmDYikC4n3rYS1Wt9YL4g+Vk=";
     };
-    date = "2025-06-16";
+    date = "2025-06-21";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1077,12 +1077,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5731";
+    version = "b5734";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5731";
-      hash = "sha256-qdMiietGs8eytuUGUzoTyClFxABljZa31kB//EkAAbg=";
+      tag = "b5734";
+      hash = "sha256-MEi4FM0euRezifbW3HqVIp3mrRKQTu+yneVwV9a+64Q=";
     };
   };
   loralib = {
@@ -1942,12 +1942,12 @@
   };
   sidestore-vpn = {
     pname = "sidestore-vpn";
-    version = "87c2e05d75dd86e3b39b1ca2cc721a6b4e01ade8";
+    version = "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "sidestore-vpn";
-      rev = "87c2e05d75dd86e3b39b1ca2cc721a6b4e01ade8";
-      hash = "sha256-OlxroaJFgbBDIqd6cle624gefA/gW7aoJBRiQuc2uYU=";
+      rev = "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0";
+      hash = "sha256-xoiWzosbLm3xYP8aG39kkEfPn3FsZI0HghWW0pjGVWU=";
     };
     date = "2025-06-21";
   };
