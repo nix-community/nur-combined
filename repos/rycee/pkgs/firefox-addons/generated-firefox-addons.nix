@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.2";
+      version = "2.4.21";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4517637/youtube_no_translation-2.4.2.xpi";
-      sha256 = "40744b303ef26d9f6431afeb4dac597461fdb66a2a7cbeac0c355949a9f0db6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517710/youtube_no_translation-2.4.21.xpi";
+      sha256 = "4677890c8defbef805396deccd8d2d2c19e22acca51d0179df396f8647974d58";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
