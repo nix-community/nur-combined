@@ -2,7 +2,6 @@
 	fetchgit,
 	lib,
 	stdenv,
-	# coreutils,
 	...
 }:
 
@@ -13,22 +12,28 @@ stdenv.mkDerivation (finalAttrs: {
 	src = fetchgit {
 		url = "https://git.sudo.ws/sudo";
 		rev = "refs/tags/v${finalAttrs.version}";
-		# hash = lib.fakeHash;
 		hash = "sha256-1G6KddRyXbEDZr7PBHXMxgq5moFUXuihYsPXNgSDTNQ=";
 	};
-	# src = fetchurl {
-	# 	url = "https://www.sudo.ws/dist/sudo-${finalAttrs.version}.tar.gz";
-	# 	hash = lib.fakeHash;
-	# };
 
-	# export MVPROG=${lib.getExe' coreutils "mv"}
-	configurePhase = ''
-		export MVPROG=/bin/mv
-		./configure \
-			--without-pam \
-			--with-rundir=/var/run/sudo \
-			;
-	'';
+	prePatch = ''
+    # do not set sticky bit in nix store
+    substituteInPlace src/Makefile.in --replace 04755 0755
+  '';
+
+  configureFlags = [
+		"--with-env-editor"
+		"--with-editor=/run/current-system/sw/bin/nano"
+		"--with-rundir=/run/sudo"
+		"--with-vardir=/var/db/sudo"
+		"--with-logpath=/var/log/sudo.log"
+		"--with-iologdir=/var/log/sudo-io"
+		"--without-sendmail"
+		"--without-pam"
+		"--enable-static-sudoers"
+		"--disable-shared-libutil"
+	];
+
+	MVPROG = "/bin/mv";
 
 	buildPhase = ''
 		make -C lib/util
@@ -42,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
 	installPhase = ''
 		mkdir -p $out/bin
-		cp plugins/sudoers/.libs/visudo $out/bin/visudo
+		cp plugins/sudoers/visudo $out/bin/visudo
 	'';
 
 	meta = with lib; {
