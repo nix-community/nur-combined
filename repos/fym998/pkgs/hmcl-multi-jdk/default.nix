@@ -1,5 +1,10 @@
 {
-  lib,
   hmcl,
 }:
-lib.trivial.warn "HMCL in nixpkgs supports multiple JDK now, so hmcl-multi-jdk is deprecated" hmcl
+hmcl.overrideAttrs (oldAttrs: {
+  pname = "hmcl-multi-jdk";
+  meta = oldAttrs.meta // {
+    broken = true;
+    description = "HMCL with multiple JDK support (deprecated)";
+  };
+})
