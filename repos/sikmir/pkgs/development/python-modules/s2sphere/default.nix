@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python3Packages,
+  python312Packages,
 }:
 
-python3Packages.buildPythonPackage {
+python312Packages.buildPythonPackage {
   pname = "s2sphere";
   version = "0.2.5";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage {
     hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };
 
-  dependencies = with python3Packages; [ future ];
+  dependencies = with python312Packages; [ future ];
 
   doCheck = false;
 

@@ -1,11 +1,11 @@
 {
   lib,
   fetchFromGitHub,
-  python3Packages,
+  python312Packages,
   s2sphere,
 }:
 
-python3Packages.buildPythonApplication rec {
+python312Packages.buildPythonApplication rec {
   pname = "py-staticmaps";
   version = "0.5.0";
 
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-TWLPCM1tsWiRCLDhowC/uQrDUujNO3FuDgnUQXMcTm0=";
   };
 
-  dependencies = with python3Packages; [
+  dependencies = with python312Packages; [
     appdirs
     geographiclib
     pillow
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     svgwrite
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python312Packages; [ pytestCheckHook ];
 
   meta = {
     description = "A python module to create static map images with markers, geodesic lines, etc";

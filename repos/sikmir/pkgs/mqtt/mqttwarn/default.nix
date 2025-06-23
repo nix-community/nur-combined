@@ -2,11 +2,11 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  python3Packages,
+  python312Packages,
   replaceVars,
 }:
 
-python3Packages.buildPythonApplication rec {
+python312Packages.buildPythonApplication rec {
   pname = "mqttwarn";
   version = "0.35.0";
   pyproject = true;
@@ -28,12 +28,12 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  build-system = with python3Packages; [
+  build-system = with python312Packages; [
     setuptools
     versioningit
   ];
 
-  dependencies = with python3Packages; [
+  dependencies = with python312Packages; [
     attrs
     docopt
     funcy
@@ -50,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     "paho-mqtt"
   ];
 
-  optional-dependencies = with python3Packages; {
+  optional-dependencies = with python312Packages; {
     apprise = [ apprise ];
     celery = [ celery ];
     chromecast = [ pychromecast ];
@@ -64,7 +64,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   nativeCheckInputs = [
-    python3Packages.pytestCheckHook
+    python312Packages.pytestCheckHook
   ] ++ lib.flatten (lib.attrValues optional-dependencies);
 
   meta = {
