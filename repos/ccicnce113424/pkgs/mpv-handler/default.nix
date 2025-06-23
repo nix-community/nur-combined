@@ -1,11 +1,13 @@
 {
   sources,
+  version,
   lib,
   rustPlatform,
   copyDesktopItems,
 }:
 rustPlatform.buildRustPackage (final: {
-  inherit (sources) pname version src;
+  inherit (sources) pname src;
+  inherit version;
 
   cargoLock = sources.cargoLock."Cargo.lock";
 

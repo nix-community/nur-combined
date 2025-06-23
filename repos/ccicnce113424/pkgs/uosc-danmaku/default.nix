@@ -1,12 +1,14 @@
 {
   sources,
+  version,
   lib,
   buildLua,
   danmakufactory,
   opencc,
 }:
 buildLua (final: {
-  inherit (sources) pname version src;
+  inherit (sources) pname src;
+  inherit version;
 
   scriptName = "uosc_danmaku";
   scriptPath = ".";

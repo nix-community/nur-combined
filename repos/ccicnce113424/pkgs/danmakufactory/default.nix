@@ -1,11 +1,13 @@
 {
   sources,
+  version,
   lib,
   stdenv,
   ...
 }:
 stdenv.mkDerivation (final: {
-  inherit (sources) pname version src;
+  inherit (sources) pname src;
+  inherit version;
 
   installPhase = ''
     runHook preInstall

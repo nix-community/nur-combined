@@ -1,5 +1,6 @@
 {
   sources,
+  version,
   hash,
   lib,
   stdenv,
@@ -11,7 +12,8 @@
   makeDesktopItem,
 }:
 stdenv.mkDerivation (final: {
-  inherit (sources) pname version src;
+  inherit (sources) pname src;
+  inherit version;
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (final) pname version src;
