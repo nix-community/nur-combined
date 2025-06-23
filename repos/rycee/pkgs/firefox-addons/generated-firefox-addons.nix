@@ -2937,10 +2937,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.7.0";
+      version = "1.8.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4486030/elasticvue-1.7.0.xpi";
-      sha256 = "1593351e7f845cd2bf4a4fbcb20f0d618bd6650fffcba9625752156d92eabb62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518164/elasticvue-1.8.0.xpi";
+      sha256 = "248621bf0822782f7953fc31f13a0c3b2b39aae80b6414a34745c35d3da47d54";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.21";
+      version = "2.4.24";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4517710/youtube_no_translation-2.4.21.xpi";
-      sha256 = "4677890c8defbef805396deccd8d2d2c19e22acca51d0179df396f8647974d58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518179/youtube_no_translation-2.4.24.xpi";
+      sha256 = "4801b5905238764c3b80e4cb6da8dcea75e3be26f75831e49d531bb4edeed442";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
@@ -14368,10 +14368,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.8.3";
+      version = "3.8.4";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490304/youtube_redux-3.8.3.xpi";
-      sha256 = "b050058fc627cd68756c81e1b6703c2af6918d30955831987cf80d5da91f70ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518114/youtube_redux-3.8.4.xpi";
+      sha256 = "092eeb4c641eb0765720c478a404f5cd76e7d4d1278f18ab644cbde2e5ae0b59";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
