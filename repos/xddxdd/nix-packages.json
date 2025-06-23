@@ -847,7 +847,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5734"
+    "version": "5740"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4147,7 +4147,7 @@
   "legacyPackages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-22"
   },
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
@@ -4827,7 +4827,7 @@
   "legacyPackages.x86_64-linux.uncategorized.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-22"
   },
   "legacyPackages.x86_64-linux.uncategorized.smfc": {
     "description": "Super Micro Fan Control",
@@ -5902,7 +5902,7 @@
   "packages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-22"
   },
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",

@@ -394,7 +394,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-06-19",
+        "date": "2025-06-23",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -406,16 +406,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "a1507ee2ab6db23b9e2e27b3103da715c09b559f",
-            "sha256": "sha256-Snsux6mp8DgxhK5fVAT9YQqZbhuoa+QWYCVZVdr2YCw=",
+            "rev": "6183dd7a925cae7b25fe210603f6fb696385028d",
+            "sha256": "sha256-uJ7dBvO2vhHa3YCvWoz150NgM8fKcmcKek5DWCzw/a8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a1507ee2ab6db23b9e2e27b3103da715c09b559f"
+        "version": "6183dd7a925cae7b25fe210603f6fb696385028d"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-06-19",
+        "date": "2025-06-23",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "1fc243888f62589785f2a9502445aa6ea2b3188f",
-            "sha256": "sha256-Ug9ZzTV5ivMFgh4KL6QHgOCkrpwAHmUllfCDQXQzGeM=",
+            "rev": "046d619a50330b5837a512254fe9f281c8323ae3",
+            "sha256": "sha256-XmRZKolm7hr50s6b27KVaLisGBkqKX22G6gd2YO6rl8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1fc243888f62589785f2a9502445aa6ea2b3188f"
+        "version": "046d619a50330b5837a512254fe9f281c8323ae3"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2099,12 +2099,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5734",
-            "sha256": "sha256-MEi4FM0euRezifbW3HqVIp3mrRKQTu+yneVwV9a+64Q=",
+            "rev": "b5740",
+            "sha256": "sha256-Jfn5AIO1Xc9Nnr0sfjKOaGSVtlDyjH9QGlkveWbchc0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5734"
+        "version": "b5740"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3793,7 +3793,7 @@
     },
     "sidestore-vpn": {
         "cargoLocks": null,
-        "date": "2025-06-21",
+        "date": "2025-06-22",
         "extract": null,
         "name": "sidestore-vpn",
         "passthru": null,
@@ -3805,12 +3805,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "sidestore-vpn",
-            "rev": "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0",
-            "sha256": "sha256-xoiWzosbLm3xYP8aG39kkEfPn3FsZI0HghWW0pjGVWU=",
+            "rev": "f5674ec007126e5164777335183c8ef6d11ffe87",
+            "sha256": "sha256-jeXm9/5kINtPNJCwH84gsf3yNFw4z7frmOvRFZkxC5U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0"
+        "version": "f5674ec007126e5164777335183c8ef6d11ffe87"
     },
     "silero-vad": {
         "cargoLocks": null,
@@ -4609,7 +4609,7 @@
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
-        "date": "2024-04-22",
+        "date": "2025-06-23",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -4621,11 +4621,11 @@
             "name": null,
             "owner": "tokers",
             "repo": "zstd-nginx-module",
-            "rev": "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b",
-            "sha256": "sha256-N8D3KRpd79O8sdlPngtK9Ii7XT2imS4F+nkqsHMHw/w=",
+            "rev": "057a7d339af1111d04b5a9ac5ae9b0250d17cd94",
+            "sha256": "sha256-bDHtHdmFoLkJo9pizkBl3ctnzQjGqbU84tEL2Vb/6tA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b"
+        "version": "057a7d339af1111d04b5a9ac5ae9b0250d17cd94"
     }
 }

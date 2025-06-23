@@ -207,25 +207,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "a1507ee2ab6db23b9e2e27b3103da715c09b559f";
+    version = "6183dd7a925cae7b25fe210603f6fb696385028d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "a1507ee2ab6db23b9e2e27b3103da715c09b559f";
-      hash = "sha256-Snsux6mp8DgxhK5fVAT9YQqZbhuoa+QWYCVZVdr2YCw=";
+      rev = "6183dd7a925cae7b25fe210603f6fb696385028d";
+      hash = "sha256-uJ7dBvO2vhHa3YCvWoz150NgM8fKcmcKek5DWCzw/a8=";
     };
-    date = "2025-06-19";
+    date = "2025-06-23";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "1fc243888f62589785f2a9502445aa6ea2b3188f";
+    version = "046d619a50330b5837a512254fe9f281c8323ae3";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "1fc243888f62589785f2a9502445aa6ea2b3188f";
-      hash = "sha256-Ug9ZzTV5ivMFgh4KL6QHgOCkrpwAHmUllfCDQXQzGeM=";
+      rev = "046d619a50330b5837a512254fe9f281c8323ae3";
+      hash = "sha256-XmRZKolm7hr50s6b27KVaLisGBkqKX22G6gd2YO6rl8=";
     };
-    date = "2025-06-19";
+    date = "2025-06-23";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1077,12 +1077,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5734";
+    version = "b5740";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5734";
-      hash = "sha256-MEi4FM0euRezifbW3HqVIp3mrRKQTu+yneVwV9a+64Q=";
+      tag = "b5740";
+      hash = "sha256-Jfn5AIO1Xc9Nnr0sfjKOaGSVtlDyjH9QGlkveWbchc0=";
     };
   };
   loralib = {
@@ -1942,14 +1942,14 @@
   };
   sidestore-vpn = {
     pname = "sidestore-vpn";
-    version = "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0";
+    version = "f5674ec007126e5164777335183c8ef6d11ffe87";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "sidestore-vpn";
-      rev = "a77e21c56ae032cdbb6f63c1ee5768fce5c955e0";
-      hash = "sha256-xoiWzosbLm3xYP8aG39kkEfPn3FsZI0HghWW0pjGVWU=";
+      rev = "f5674ec007126e5164777335183c8ef6d11ffe87";
+      hash = "sha256-jeXm9/5kINtPNJCwH84gsf3yNFw4z7frmOvRFZkxC5U=";
     };
-    date = "2025-06-21";
+    date = "2025-06-22";
   };
   silero-vad = {
     pname = "silero-vad";
@@ -2364,13 +2364,13 @@
   };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
-    version = "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b";
+    version = "057a7d339af1111d04b5a9ac5ae9b0250d17cd94";
     src = fetchFromGitHub {
       owner = "tokers";
       repo = "zstd-nginx-module";
-      rev = "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b";
-      hash = "sha256-N8D3KRpd79O8sdlPngtK9Ii7XT2imS4F+nkqsHMHw/w=";
+      rev = "057a7d339af1111d04b5a9ac5ae9b0250d17cd94";
+      hash = "sha256-bDHtHdmFoLkJo9pizkBl3ctnzQjGqbU84tEL2Vb/6tA=";
     };
-    date = "2024-04-22";
+    date = "2025-06-23";
   };
 }
