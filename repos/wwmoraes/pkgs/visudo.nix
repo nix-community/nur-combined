@@ -21,12 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   configureFlags = [
-		"--with-env-editor"
-		"--with-editor=/run/current-system/sw/bin/nano"
 		"--with-rundir=/run/sudo"
-		"--with-vardir=/var/db/sudo"
-		"--with-logpath=/var/log/sudo.log"
-		"--with-iologdir=/var/log/sudo-io"
 		"--without-sendmail"
 		"--without-pam"
 		"--enable-static-sudoers"
@@ -34,6 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
 	];
 
 	MVPROG = "/bin/mv";
+	CFLAGS = [
+		"-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION"
+	];
 
 	buildPhase = ''
 		make -C lib/util
