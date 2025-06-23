@@ -42,6 +42,7 @@ in {
           lng = 2.3;
         };
       };
+      playerctld.enable = true;
     };
 
     home.packages = builtins.attrValues {
@@ -107,6 +108,10 @@ in {
           "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2";
           "XF86MonBrightnessUp" = "exec light -A 5";
           "XF86MonBrightnessDown" = "exec light -U 5";
+          "XF86AudioPlay" = "exec --no-startup-id playerctl play-pause";
+          "XF86AudioPause" = "exec --no-startup-id playerctl play-pause";
+          "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
+          "XF86AudioNext" = "exec --no-startup-id playerctl next";
         };
 
         modes = mkOptionDefault {
