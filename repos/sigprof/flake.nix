@@ -12,7 +12,6 @@
 
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
-    git-hooks-nix.inputs.nixpkgs-stable.follows = "nixpkgs";
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
