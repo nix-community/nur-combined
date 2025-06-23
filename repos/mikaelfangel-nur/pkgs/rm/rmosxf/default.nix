@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "rmosxf";
-  version = "0.1.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "MikaelFangel";
     repo = "AwesomeScripts";
-    rev = "be0a3f5554a3449b9a0975cdf8c321589f8d35cd";
-    hash = "sha256-7X6KA3i7V0iIrK4UPwx90tKCyzBR/w2RkZiP030Hda0=";
+    rev = "87c3a9d04699b151c5d08547f77cbece1f923590";
+    hash = "sha256-uvEHHikhMlF4OxaonQjWobfIXf+1E/z4gG/OazxLCCM=";
   };
 
   dontBuild = true;
