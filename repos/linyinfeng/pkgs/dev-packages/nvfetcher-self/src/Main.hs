@@ -13,6 +13,7 @@ packageSet :: PackageSet ()
 packageSet = do
   -- keep-sorted start
   ghPkg "Wind4" "vlmcsd"
+  ghPkg "aspiers" "ly2video"
   ghPkg "awslabs" "aws-sigv4-proxy"
   ghPkg "cowrie" "cowrie"
   ghPkg "estkme-group" "lpac"

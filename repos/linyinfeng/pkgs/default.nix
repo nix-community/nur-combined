@@ -37,6 +37,7 @@ lib.makeScope newScope (
     );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     lpac = callPackage ./lpac { };
+    ly2video = callPackage ./ly2video { };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };

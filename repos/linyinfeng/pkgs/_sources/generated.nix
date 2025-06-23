@@ -101,13 +101,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.33-linux-250614T193704Z";
+    version = "lts-v6.12.34-linux-250619T163003Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.33-linux-250614T193704Z";
+      rev = "lts-v6.12.34-linux-250619T163003Z";
       fetchSubmodules = false;
-      sha256 = "sha256-yTHFiqjI8h2sxFSVGgmxcSicKCiLKgh4zUWyZKhPZ7s=";
+      sha256 = "sha256-AU6P7dDvkujJl1m86h4H253dMeMNE4dhdP710egXs/A=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -130,6 +130,17 @@
       rev = "v2.2.1";
       fetchSubmodules = false;
       sha256 = "sha256-dxoYuX3dNj4piXQBqU4w1ICeyOGid35c+6ZITQiN6wA=";
+    };
+  };
+  ly2video = {
+    pname = "ly2video";
+    version = "v0.5.0";
+    src = fetchFromGitHub {
+      owner = "aspiers";
+      repo = "ly2video";
+      rev = "v0.5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-4ARRCmz7uDKWVuY1LG98oAGV/S0BFo4DYyoWw9TlZoo=";
     };
   };
   mstickereditor = {

@@ -165,12 +165,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.33-linux-250614T193704Z",
-            "sha256": "sha256-yTHFiqjI8h2sxFSVGgmxcSicKCiLKgh4zUWyZKhPZ7s=",
+            "rev": "lts-v6.12.34-linux-250619T163003Z",
+            "sha256": "sha256-AU6P7dDvkujJl1m86h4H253dMeMNE4dhdP710egXs/A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.33-linux-250614T193704Z"
+        "version": "lts-v6.12.34-linux-250619T163003Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -213,6 +213,27 @@
             "type": "github"
         },
         "version": "v2.2.1"
+    },
+    "ly2video": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ly2video",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "aspiers",
+            "repo": "ly2video",
+            "rev": "v0.5.0",
+            "sha256": "sha256-4ARRCmz7uDKWVuY1LG98oAGV/S0BFo4DYyoWw9TlZoo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.5.0"
     },
     "mstickereditor": {
         "cargoLocks": {

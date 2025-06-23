@@ -76,6 +76,13 @@ let
       };
     }
     {
+      "ly2video" = {
+        "ly2video" = "ly2video";
+        "midi-rubato" = "midi-rubato";
+        "xsc2beatmap" = "xsc2beatmap";
+      };
+    }
+    {
       "matrix-media-repo" = {
         "matrix-media-repo" = "media_repo";
         "matrix-media-repo-gdpr-export" = "gdpr_export";
