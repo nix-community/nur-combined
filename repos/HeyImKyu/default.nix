@@ -9,7 +9,8 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  python-fabric = pkgs.callPackage ./pkgs/fabric/python-fabric { };
+  python = pkgs.python3;
+  fabric = pkgs.callPackage ./pkgs/fabric/fabric { python312Packages = python.pkgs; };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -19,5 +20,9 @@ in
 
   fabric-cli = pkgs.callPackage ./pkgs/fabric/fabric-cli { };
   fabric-gray = pkgs.callPackage ./pkgs/fabric/gray { inherit pkgs; };
-  run-widget = pkgs.callPackage ./pkgs/fabric/run-widget { inherit python-fabric; inherit pkgs; };
+
+  run-widget = pkgs.callPackage ./pkgs/fabric/run-widget {
+    inherit fabric pkgs;
+    python3 = python;
+  };
 }

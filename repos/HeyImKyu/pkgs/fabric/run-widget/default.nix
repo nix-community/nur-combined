@@ -2,7 +2,7 @@
   lib,
   python3,
   stdenv,
-  python-fabric,
+  fabric,
   pkgs,
   extraPythonPackages ? [],
   extraBuildInputs ? [],
@@ -18,15 +18,15 @@ let
       pygobject3
       loguru
       psutil
-      python-fabric
       pygobject-stubs
+      fabric
     ]
     ++ extraPythonPackages
   );
 in
 stdenv.mkDerivation {
   pname = "run-widget";
-  version = "0.0.2";
+  version = "0.0.3";
 
   propagatedBuildInputs = with pkgs; [
     gtk3

@@ -7,15 +7,15 @@
 }:
 
 python312Packages.buildPythonPackage {
-  pname = "python-fabric";
-  version = "0.0.2";
+  pname = "fabric";
+  version = "0.0.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
     repo = "fabric";
-    rev = "1831ced4d9bb9f4be3893be55a8d502b47bff29e";
-    hash = "sha256-1dZTqsWPaHyWjZkX4MaJdwUAQoMXwr8hhHymxQIwFrY=";
+    rev = "8ca503bc46f46a3465a7b4b97a5062ebdc5c5035";
+    hash = "sha256-7CfE1pzbUtQy94L9D7xEIpB3TsLLYOxmee5D4c/x5Pw=";
   };
 
   buildInputs = with pkgs; [
