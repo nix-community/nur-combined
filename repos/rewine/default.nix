@@ -29,4 +29,5 @@ with pkgs; rec {
   };*/
   xcursor-viewer = pkgs.callPackage ./pkgs/xcursor-viewer { };
   git-commit-helper = pkgs.callPackage ./pkgs/git-commit-helper { };
+  deepin-translation-utils = pkgs.callPackage ./pkgs/deepin-translation-utils { };
 }
