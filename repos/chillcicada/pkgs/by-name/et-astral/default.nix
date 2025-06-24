@@ -10,11 +10,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "et-astral";
-  version = "2.1.2";
+  version = "2.1.3rc";
 
   src = builtins.fetchTarball {
     url = "https://github.com/chillcicada/easytier-astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    sha256 = "10asm8arpj5dx5021q9la1sqf2vps7xpn8dgwby889zacpkv1mrq";
+    sha256 = "0a1fqliyswl66x71ilf4zl4i5mfaz9pkv8k4hrv83c95cmca91kn";
   };
 
   stripRoot = false;
@@ -41,6 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share
     install -Dm0644 data/flutter_assets/assets/icon.ico \
       $out/share/icons/hicolor/64x64/apps/astral.png
+    install -Dm0644 data/flutter_assets/assets/logo.png \
+      $out/share/icons/hicolor/144x144/apps/astral.png
 
     runHook postInstall
   '';
