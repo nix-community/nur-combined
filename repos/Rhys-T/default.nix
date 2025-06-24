@@ -237,10 +237,10 @@ in {
         picolisp' = picolisp.overrideAttrs (old: {
             version = "25.6.4";
             src = fetchFromGitHub {
-                owner = "tankf33der";
+                owner = "picolisp";
                 repo = "pil21";
-                rev = "5864dfdbbe3ea49f162a30449551b6f33c5ee67d";
-                hash = "sha256-qMhH9/MMC4mxDyFzTfreLTSQivK/BIr9PF+9IdSJrtM=";
+                rev = "fa8c0dee8fc8fb5ba4b222fc8e08dca5cfedb981";
+                hash = "sha256-IS93etnW2gHdDS52/r8p7pXPHan0u7IaH8v/4ghWY6I=";
             };
             sourceRoot = null;
             passthru = (old.passthru or {}) // {
@@ -270,7 +270,7 @@ in {
                         set -e
                         return "$exitStatus"
                     }
-                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/branches/master" | jqOrDump -r '
+                    eval "$(ghcurl "https://api.github.com/repos/picolisp/pil21/branches/master" | jqOrDump -r '
                         (.commit.sha) as $latestRev |
                         (.commit.commit.author.date | scan("^[^T]+")) as $latestDate |
                         @sh "
@@ -280,14 +280,14 @@ in {
                     ')"
                     echo "latestRev=$latestRev" >&2
                     echo "latestDate=$latestDate" >&2
-                    eval "$(ghcurl "https://api.github.com/repos/tankf33der/pil21/commits?path=src/vers.l&per_page=1" | jqOrDump -r '
+                    eval "$(ghcurl "https://api.github.com/repos/picolisp/pil21/commits?path=src/vers.l&per_page=1" | jqOrDump -r '
                         (.[0].sha) as $versRev |
                         @sh "
                             versRev=\($versRev)
                         "
                     ')"
                     echo "versRev=$versRev" >&2
-                    eval "$(ghcurl "https://raw.githubusercontent.com/tankf33der/pil21/$latestRev/src/vers.l" | jqOrDump -Rsr '
+                    eval "$(ghcurl "https://raw.githubusercontent.com/picolisp/pil21/$latestRev/src/vers.l" | jqOrDump -Rsr '
                         (scan("\\(pico~de \\*Version (\\d+) (\\d+) (\\d+)\\)") | join(".")) as $versVer |
                         @sh "
                             versVer=\($versVer)
