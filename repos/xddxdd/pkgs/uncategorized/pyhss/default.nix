@@ -17,7 +17,9 @@ let
       jinja2
       mysqlclient
       prometheus-client
-      prometheus-flask-exporter
+      (prometheus-flask-exporter.overridePythonAttrs (old: {
+        doCheck = false;
+      }))
       psycopg2
       pycryptodome
       pydantic
