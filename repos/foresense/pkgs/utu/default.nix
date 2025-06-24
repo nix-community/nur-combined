@@ -31,20 +31,20 @@ stdenv.mkDerivation {
       fetchSubmodules = true;
     }).overrideAttrs
       (_: {
-        GIT_CONFIG_COUNT = "1"; # Ensure these are strings!
+        GIT_CONFIG_COUNT = 1;
         GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
         GIT_CONFIG_VALUE_0 = "ssh://git@github.com/";
       });
 
   buildInputs = [
     alsa-lib
-    # flac
-    # lame
-    # libopus
-    # libvorbis
-    # mpg123
-    # speex
-    # sqlite
+    flac
+    lame
+    libopus
+    libvorbis
+    mpg123
+    speex
+    sqlite
   ];
 
   nativeBuildInputs = [
