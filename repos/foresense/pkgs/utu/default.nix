@@ -17,30 +17,34 @@
   flac,
   libopus,
   lame,
-  openssh,
 }:
-
 stdenv.mkDerivation {
   pname = "utu";
   version = "unstable-2022-10-11";
 
-  src = fetchFromGitHub {
-    owner = "madronalabs";
-    repo = "utu";
-    rev = "0b5c7b4ae5cf927d0c2a5e4d0023eb95cee73900";
-    hash = "sha256-6vRJi5NebEc6TCQMTD5fZ96K3UrXUpsrsbNT9xqukAQ=";
-    fetchSubmodules = true;
-  };
+  src =
+    (fetchFromGitHub {
+      owner = "madronalabs";
+      repo = "utu";
+      rev = "0b5c7b4ae5cf927d0c2a5e4d0023eb95cee73900";
+      hash = "sha256-7YFCpWKTKadHvw2RKmMLAE2hUzgiL2Tp3nafNL4Uuzw=";
+      fetchSubmodules = true;
+    }).overrideAttrs
+      (_: {
+        GIT_CONFIG_COUNT = "1"; # Ensure these are strings!
+        GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
+        GIT_CONFIG_VALUE_0 = "ssh://git@github.com/";
+      });
 
   buildInputs = [
     alsa-lib
-    flac
-    lame
-    libopus
-    libvorbis
-    mpg123
-    speex
-    sqlite
+    # flac
+    # lame
+    # libopus
+    # libvorbis
+    # mpg123
+    # speex
+    # sqlite
   ];
 
   nativeBuildInputs = [
@@ -51,7 +55,6 @@ stdenv.mkDerivation {
     pkg-config
     clang
     cmake
-    openssh
   ];
 
   installPhase = ''
