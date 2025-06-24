@@ -163,7 +163,7 @@ Helpers for scheduling the dark-light cycle.
 - Name: `knighttime`
 - Version: `0-unstable-2025-06-22`
 - [🌐 Homepage](https://invent.kde.org/plasma/knighttime)
-- [📦 Source](./pkgs/by-name/knighttime/package.nix#L45)
+- [📦 Source](./pkgs/by-name/knighttime/package.nix#L48)
 - 🖥️ Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
 
 ## `kuroko` {#kuroko}
@@ -184,7 +184,7 @@ Interface for porting emulators to
 Highscore.
 
 - Name: `libhighscore`
-- Version: `0-unstable-2025-06-21`
+- Version: `0-unstable-2025-06-22`
 - [🌐 Homepage](https://gitlab.gnome.org/alicem/libhighscore)
 - [📦 Source](./pkgs/by-name/libhighscore/package.nix#L43)
 - 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
@@ -229,7 +229,7 @@ CI friendly wrapper around nix-build.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-06-17`
+- Version: `0-unstable-2025-06-22`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -332,7 +332,7 @@ Virtual Keyboard for Qt based desktops.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `0-unstable-2025-06-19`
+- Version: `0-unstable-2025-06-24`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L39)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
