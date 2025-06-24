@@ -17,6 +17,10 @@
   outputs =
     { self, nixpkgs }:
     let
+      internal-inputs = builtins.mapAttrs (
+        _name: node: builtins.getFlake (builtins.flakeRefToString node.locked)
+      ) (builtins.fromJSON (builtins.readFile ./internal/flake.lock)).nodes;
+
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -24,44 +28,51 @@
       ];
       inherit (nixpkgs) lib;
       eachSystem = lib.genAttrs systems;
-      eachPkgs = f: eachSystem (system: f nixpkgs.legacyPackages.${system});
+      addAttrsetPrefix = prefix: lib.attrsets.concatMapAttrs (n: v: { "${prefix}${n}" = v; });
 
-      treefmt-nix = eachPkgs (import ./internal/treefmt.nix);
+      mkPackages =
+        pkgs:
+        let
+          nurpkgs = import ./default.nix { inherit pkgs; };
+        in
+        lib.attrsets.filterAttrs (_: pkg: pkg.meta.available) nurpkgs;
+
+      mkChecks =
+        name: pkgs:
+        let
+          buildCheckPkg =
+            pkg: pkgs.runCommand "${pkg.name}-${name}-build" { nativeBuildInputs = [ pkg ]; } "touch $out";
+        in
+        lib.attrsets.concatMapAttrs (
+          pkgName: pkg:
+          if (builtins.hasAttr "tests" pkg) then
+            (
+              {
+                "${pkgName}-${name}-build" = buildCheckPkg pkg;
+              }
+              // (addAttrsetPrefix "${pkgName}-${name}-tests-" pkg.tests)
+            )
+          else
+            { "${pkgName}-${name}-build" = buildCheckPkg pkg; }
+        ) (mkPackages pkgs);
+
+      treefmt-nix = eachSystem (import ./internal/treefmt.nix);
     in
     {
       overlays.default = final: _prev: {
         nur.repos.josh = import ./default.nix { pkgs = final; };
       };
 
-      packages = eachPkgs (
-        pkgs:
-        let
-          isAvailable = _: pkg: pkg.meta.available;
-          nurpkgs = import ./default.nix { inherit pkgs; };
-          availablePkgs = lib.attrsets.filterAttrs isAvailable nurpkgs;
-        in
-        availablePkgs
-      );
+      packages = eachSystem (system: mkPackages nixpkgs.legacyPackages.${system});
 
       formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
-      checks = eachPkgs (
-        pkgs:
-        let
-          inherit (pkgs) system;
-          buildPkg = pkg: pkgs.runCommand "${pkg.name}-build" { nativeBuildInputs = [ pkg ]; } "touch $out";
-          addAttrsetPrefix = prefix: lib.attrsets.concatMapAttrs (n: v: { "${prefix}${n}" = v; });
-          localTests = lib.attrsets.concatMapAttrs (
-            pkgName: pkg:
-            if (builtins.hasAttr "tests" pkg) then
-              ({ "${pkgName}-build" = buildPkg pkg; } // (addAttrsetPrefix "${pkgName}-tests-" pkg.tests))
-            else
-              { "${pkgName}-build" = buildPkg pkg; }
-          ) self.packages.${system};
-        in
+      checks = eachSystem (
+        system:
         {
           formatting = treefmt-nix.${system}.check self;
         }
-        // localTests
+        // (mkChecks "stable" internal-inputs.nixpkgs-stable.legacyPackages.${system})
+        // (mkChecks "unstable" internal-inputs.nixpkgs-unstable.legacyPackages.${system})
       );
     };
 }

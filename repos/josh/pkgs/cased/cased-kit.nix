@@ -46,6 +46,8 @@ let
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
       mainProgram = "kit";
+      # FIXME: Broken on nixos-25.05
+      broken = python3Packages.mcp.version == "1.6.0";
     };
   };
 in
