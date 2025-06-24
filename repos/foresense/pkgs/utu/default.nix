@@ -17,6 +17,7 @@
   flac,
   libopus,
   lame,
+  openssh,
 }:
 
 stdenv.mkDerivation {
@@ -50,6 +51,7 @@ stdenv.mkDerivation {
     pkg-config
     clang
     cmake
+    openssh
   ];
 
   installPhase = ''
