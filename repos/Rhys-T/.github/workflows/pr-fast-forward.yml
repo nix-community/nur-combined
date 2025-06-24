@@ -15,7 +15,7 @@ jobs:
     #   issues: write
 
     steps:
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
         id: app-token
         with:
           # required
@@ -23,7 +23,7 @@ jobs:
           app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
           private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
       - name: Fast forwarding
-        uses: Rhys-T/fast-forward-action@curl-globoff
+        uses: Rhys-T/fast-forward-action@f70baff47e5c39f3c119bea350f03b9ed92132af # v1.0.0+curl-globoff
         with:
           github_token: ${{ steps.app-token.outputs.token }}
           merge: true
