@@ -18,23 +18,12 @@ let
       if type == "regular" && isNix then { "${basename}" = callPackage filename { }; } else { }
     ) (builtins.readDir directory);
 
-  exclude = {
-    "node2nix" = true;
-  };
-
-  pkgs' =
-    (lib.attrsets.concatMapAttrs (
-      name: type:
-      let
-        dirname = lib.path.append ./pkgs name;
-        excluded = builtins.hasAttr name exclude;
-      in
-      if type == "directory" && !excluded then packagesFromDirectory dirname else { }
-    ) (builtins.readDir ./pkgs))
-    // {
-      nodePackages = callPackage ./pkgs/node2nix/node-packages.nix {
-        nodeEnv = callPackage ./pkgs/node2nix/node-env.nix { };
-      };
-    };
+  pkgs' = lib.attrsets.concatMapAttrs (
+    name: type:
+    let
+      dirname = lib.path.append ./pkgs name;
+    in
+    if type == "directory" then packagesFromDirectory dirname else { }
+  ) (builtins.readDir ./pkgs);
 in
 pkgs'

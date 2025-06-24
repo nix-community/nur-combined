@@ -6,15 +6,15 @@
   nix-update-script,
 }:
 let
-  skyline = python3Packages.buildPythonApplication rec {
-    pname = "skyline";
-    version = "0-unstable-2025-02-04";
+  trakt-data = python3Packages.buildPythonApplication {
+    pname = "trakt-data";
+    version = "0-unstable-2025-06-12";
 
     src = fetchFromGitHub {
-      owner = "cased";
-      repo = "skyline";
-      rev = "ac30b0a84f2cbf1039035063fa8f466ab3f0ba65";
-      hash = "sha256-60nBO1HRWHvw3LSWkLJWm2u9cs53kN0fVdDAOmq2Nzc=";
+      owner = "josh";
+      repo = "trakt-data";
+      rev = "e7a50d1630b75792a29ff080a61148cc64d2c615";
+      hash = "sha256-c/olPqizLrKzSuMQJH+h/VUhOlanin3xMWkjkeL5X54=";
     };
 
     pyproject = true;
@@ -26,39 +26,39 @@ let
 
     dependencies = with python3Packages; [
       click
-      flask
+      prometheus-client
       requests
-      rich
-      sseclient-py
     ];
 
     meta = {
-      description = "The missing automation for creating GitHub Apps";
-      homepage = "https://github.com/cased/skyline";
+      description = "Export Trakt data";
+      homepage = "https://github.com/josh/trakt-data";
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
-      mainProgram = "skyline";
+      mainProgram = "trakt-data";
     };
   };
 in
-skyline.overrideAttrs (
+trakt-data.overrideAttrs (
   finalAttrs: previousAttrs:
   let
-    skyline = finalAttrs.finalPackage;
+    trakt-data = finalAttrs.finalPackage;
   in
   {
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
       tests = {
+        # TODO: Add --version test
+
         help =
-          runCommand "test-skyline-help"
+          runCommand "test-trakt-data-help"
             {
               __structuredAttrs = true;
-              nativeBuildInputs = [ skyline ];
+              nativeBuildInputs = [ trakt-data ];
             }
             ''
-              skyline --help
+              trakt-data --help
               touch $out
             '';
       };

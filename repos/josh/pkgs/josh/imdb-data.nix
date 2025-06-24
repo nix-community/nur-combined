@@ -8,13 +8,13 @@
 let
   imdb-data = python3Packages.buildPythonApplication rec {
     pname = "imdb-data";
-    version = "0.1.0-unstable-2025-02-14";
+    version = "0.1.0-unstable-2025-06-23";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "imdb-data";
-      rev = "7d75fc966688c168ed5656594ab885552b4219c0";
-      hash = "sha256-J2zHlBkjjj52ht43w9zQwZ3Kqm44FQF9DYKFMSUxxkE=";
+      rev = "52f31a3a2a55bafc761736bcc791a0d49b9e8eed";
+      hash = "sha256-H7meUbWJRKeWOuooUcYEr3cY5Cx9hQ2lHuYpHgKYM7A=";
     };
 
     pyproject = true;
@@ -40,26 +40,28 @@ let
   };
 in
 imdb-data.overrideAttrs (
-  finalAttrs: _previousAttrs:
+  finalAttrs: previousAttrs:
   let
     imdb-data = finalAttrs.finalPackage;
   in
   {
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    passthru = previousAttrs.passthru // {
+      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-    passthru.tests = {
-      # TODO: Add --version test
+      tests = {
+        # TODO: Add --version test
 
-      help =
-        runCommand "test-imdb-data-help"
-          {
-            __structuredAttrs = true;
-            nativeBuildInputs = [ imdb-data ];
-          }
-          ''
-            imdb-data --help
-            touch $out
-          '';
+        help =
+          runCommand "test-imdb-data-help"
+            {
+              __structuredAttrs = true;
+              nativeBuildInputs = [ imdb-data ];
+            }
+            ''
+              imdb-data --help
+              touch $out
+            '';
+      };
     };
   }
 )

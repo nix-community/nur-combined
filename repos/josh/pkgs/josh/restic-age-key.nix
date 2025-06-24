@@ -5,21 +5,23 @@
   nix-update-script,
   runCommand,
   age,
+  jq,
   restic,
+  tinyxxd,
 }:
 let
   restic-age-key = buildGoModule {
     pname = "restic-age-key";
-    version = "0-unstable-2025-02-24";
+    version = "0.1.2-unstable-2025-05-21";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "restic-age-key";
-      rev = "db6ebf6b3fbc0eba34842f677cad7b69587fe591";
-      hash = "sha256-n8x7WUfdUiY3vzAraFjDD5UVYjJcfjmbNZrDlal04A8=";
+      rev = "2430f07021e721ee08a25c15221eb5495afe2cf4";
+      hash = "sha256-tHJzugMMDHQ0pCdg8Tnto+FktsEMbKMUanaHuKXrPzk=";
     };
 
-    vendorHash = "sha256-LlU2QYt/d1gP2tTMR5N7qzEUQ8KCezbUoVApbE6r8Bg=";
+    vendorHash = "sha256-cKa3ov/6aiAxnnbQgDjqiNi1NwZhUsjLIzdkMVj6teU=";
 
     env.CGO_ENABLED = 0;
     ldflags = [
@@ -29,7 +31,9 @@ let
 
     nativeCheckInputs = [
       age
+      jq
       restic
+      tinyxxd
     ];
 
     meta = {
@@ -42,11 +46,16 @@ let
   };
 in
 restic-age-key.overrideAttrs (
-  finalAttrs: _previousAttrs:
+  finalAttrs: previousAttrs:
   let
     restic-age-key = finalAttrs.finalPackage;
   in
   {
+    ldflags = previousAttrs.ldflags ++ [
+      "-X main.Version=${finalAttrs.version}"
+      "-X main.AgeBin=${lib.getExe age}"
+    ];
+
     passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     passthru.tests = {

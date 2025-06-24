@@ -8,13 +8,13 @@
 let
   imdb-plex-sync = python3Packages.buildPythonApplication rec {
     pname = "imdb-plex-sync";
-    version = "0.1.0-unstable-2025-02-08";
+    version = "0.1.1-unstable-2025-06-23";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "imdb-plex-sync";
-      rev = "4b2c55012e8e53e228a34d2b6aa4281fab627642";
-      hash = "sha256-0YxwGK5jlW21rQ62VT50MLGqKZspT9HsY+lnM1tzMeQ=";
+      rev = "ad625f9390c4cbd7275189093bb22a6bba9e0492";
+      hash = "sha256-N/Y3JykZJUbrtxFDKdQxmCCil5qCQOAtyrGxnB1/sOs=";
     };
 
     pyproject = true;
@@ -39,26 +39,28 @@ let
   };
 in
 imdb-plex-sync.overrideAttrs (
-  finalAttrs: _previousAttrs:
+  finalAttrs: previousAttrs:
   let
     imdb-plex-sync = finalAttrs.finalPackage;
   in
   {
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    passthru = previousAttrs.passthru // {
+      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-    passthru.tests = {
-      # TODO: Add --version test
+      tests = {
+        # TODO: Add --version test
 
-      help =
-        runCommand "test-imdb-plex-sync-help"
-          {
-            __structuredAttrs = true;
-            nativeBuildInputs = [ imdb-plex-sync ];
-          }
-          ''
-            imdb-plex-sync --help
-            touch $out
-          '';
+        help =
+          runCommand "test-imdb-plex-sync-help"
+            {
+              __structuredAttrs = true;
+              nativeBuildInputs = [ imdb-plex-sync ];
+            }
+            ''
+              imdb-plex-sync --help
+              touch $out
+            '';
+      };
     };
   }
 )

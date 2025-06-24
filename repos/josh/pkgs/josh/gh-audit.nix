@@ -9,13 +9,13 @@
 let
   gh-audit = python3Packages.buildPythonApplication rec {
     pname = "gh-audit";
-    version = "0.1.2-unstable-2025-02-24";
+    version = "0.1.3-unstable-2025-06-23";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "gh-audit";
-      rev = "6651bf266623a88c275e1bc5b9d60ecc9fce41c8";
-      hash = "sha256-e3+mhxvPIH4kouy4pxF6kBAn8QW7SJjywL4SeQhEM/M=";
+      rev = "8867f1d62a3568e354fec3ae8c5578774a208d53";
+      hash = "sha256-yeSANl2Y+SPfen2017kwwn+gBakmViUuhzrisEWWnzI=";
     };
 
     pyproject = true;
@@ -41,31 +41,33 @@ let
   };
 in
 gh-audit.overrideAttrs (
-  finalAttrs: _previousAttrs:
+  finalAttrs: previousAttrs:
   let
     gh-audit = finalAttrs.finalPackage;
     version-parts = lib.versions.splitVersion finalAttrs.version;
     stable-version = "${builtins.elemAt version-parts 0}.${builtins.elemAt version-parts 1}.${builtins.elemAt version-parts 2}";
   in
   {
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    passthru = previousAttrs.passthru // {
+      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-    passthru.tests = {
-      version = testers.testVersion {
-        package = gh-audit;
-        version = stable-version;
+      tests = {
+        version = testers.testVersion {
+          package = gh-audit;
+          version = stable-version;
+        };
+
+        help =
+          runCommand "test-gh-audit-help"
+            {
+              __structuredAttrs = true;
+              nativeBuildInputs = [ gh-audit ];
+            }
+            ''
+              gh-audit --help
+              touch $out
+            '';
       };
-
-      help =
-        runCommand "test-gh-audit-help"
-          {
-            __structuredAttrs = true;
-            nativeBuildInputs = [ gh-audit ];
-          }
-          ''
-            gh-audit --help
-            touch $out
-          '';
     };
   }
 )

@@ -9,13 +9,13 @@
 let
   wikidata-rdf-patch = python3Packages.buildPythonApplication rec {
     pname = "wikidata-rdf-patch";
-    version = "0.1.1";
+    version = "0.1.2";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "wikidata-rdf-patch";
       rev = "v${version}";
-      hash = "sha256-ol3hjD3er6XTuSIRk04DKNb+IU3S0ynOTC6yrTI7jDY=";
+      hash = "sha256-dAiMab3yzMiI/dacDn+wXjkUEU3oeYRczkgYjQJFZAE=";
     };
 
     pyproject = true;
@@ -41,29 +41,31 @@ let
   };
 in
 wikidata-rdf-patch.overrideAttrs (
-  finalAttrs: _previousAttrs:
+  finalAttrs: previousAttrs:
   let
     wikidata-rdf-patch = finalAttrs.finalPackage;
   in
   {
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+    passthru = previousAttrs.passthru // {
+      updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
-    passthru.tests = {
-      version = testers.testVersion {
-        package = wikidata-rdf-patch;
-        inherit (finalAttrs) version;
+      tests = {
+        version = testers.testVersion {
+          package = wikidata-rdf-patch;
+          inherit (finalAttrs) version;
+        };
+
+        help =
+          runCommand "test-wikidata-rdf-patch-help"
+            {
+              __structuredAttrs = true;
+              nativeBuildInputs = [ wikidata-rdf-patch ];
+            }
+            ''
+              wikidata-rdf-patch --help
+              touch $out
+            '';
       };
-
-      help =
-        runCommand "test-wikidata-rdf-patch-help"
-          {
-            __structuredAttrs = true;
-            nativeBuildInputs = [ wikidata-rdf-patch ];
-          }
-          ''
-            wikidata-rdf-patch --help
-            touch $out
-          '';
     };
   }
 )

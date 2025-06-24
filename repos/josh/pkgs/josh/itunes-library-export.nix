@@ -41,7 +41,8 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
           nativeBuildInputs = [ finalAttrs.finalPackage ];
         }
         ''
-          itunes-library-export --help >$out
+          itunes-library-export --help
+          touch $out
         '';
   };
 

@@ -38,24 +38,24 @@
         let
           isAvailable = _: pkg: pkg.meta.available;
           nurpkgs = import ./default.nix { inherit pkgs; };
-          availablePkgs = lib.attrsets.filterAttrs isAvailable (
-            builtins.removeAttrs nurpkgs [ "nodePackages" ]
-          );
+          availablePkgs = lib.attrsets.filterAttrs isAvailable nurpkgs;
         in
         availablePkgs
       );
 
       formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
-      checks = eachSystem (
-        system:
+      checks = eachPkgs (
+        pkgs:
         let
+          inherit (pkgs) system;
+          buildPkg = pkg: pkgs.runCommand "${pkg.name}-build" { nativeBuildInputs = [ pkg ]; } "touch $out";
           addAttrsetPrefix = prefix: lib.attrsets.concatMapAttrs (n: v: { "${prefix}${n}" = v; });
           localTests = lib.attrsets.concatMapAttrs (
             pkgName: pkg:
             if (builtins.hasAttr "tests" pkg) then
-              ({ "${pkgName}-build" = pkg; } // (addAttrsetPrefix "${pkgName}-tests-" pkg.tests))
+              ({ "${pkgName}-build" = buildPkg pkg; } // (addAttrsetPrefix "${pkgName}-tests-" pkg.tests))
             else
-              { "${pkgName}-build" = pkg; }
+              { "${pkgName}-build" = buildPkg pkg; }
           ) self.packages.${system};
         in
         {

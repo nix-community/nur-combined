@@ -24,8 +24,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
-
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           determinate: true
@@ -35,17 +33,15 @@ jobs:
 
       - uses: DeterminateSystems/flakehub-cache-action@main
 
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/cachix-action@v16
         with:
           name: josh
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           installCommand: nix profile install nixpkgs#cachix
 
-      - uses: DeterminateSystems/flake-checker-action@v9
-
       - name: Check flake
         run: |
-          nix flake check --keep-going --print-build-logs
+          nix flake check --keep-going --print-build-logs github:${{ github.repository }}/${{ github.sha }}
 
   publish:
     needs: build
