@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ udev ];
 
   installPhase = ''
+    runHook preInstall
+
     install -D -t $out/bin ./bin/{serialoscd,serialosc-device,serialosc-detector}
+
+    runHook postInstall
   '';
 
   meta = {

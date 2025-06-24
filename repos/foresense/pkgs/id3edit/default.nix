@@ -1,11 +1,11 @@
 {
   lib,
   stdenv,
-  callPackage,
   fetchFromGitHub,
   binutils,
   clang,
   zlib,
+  libprinthex,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     binutils
     clang
-    (callPackage ../libprinthex { }) # HACK there is probably a better way
+    libprinthex
     zlib
   ];
 
