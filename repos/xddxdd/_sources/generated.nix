@@ -937,14 +937,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "50185c6e72036a20202b5184b5d78fb627101f19";
+    version = "4215362acbf69b88fe1777c4c052f154e29f9897";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "50185c6e72036a20202b5184b5d78fb627101f19";
-      hash = "sha256-rPTLXWxXkaLxhKwi8zO/ZKg3wy3vKK2/dGyLNCAVUak=";
+      rev = "4215362acbf69b88fe1777c4c052f154e29f9897";
+      hash = "sha256-lLwdeZLSIvZXGsCbpOnwSTNUGaMwMlmj+zzaowaV6hY=";
     };
-    date = "2025-06-20";
+    date = "2025-06-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1077,12 +1077,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5740";
+    version = "b5749";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5740";
-      hash = "sha256-Jfn5AIO1Xc9Nnr0sfjKOaGSVtlDyjH9QGlkveWbchc0=";
+      tag = "b5749";
+      hash = "sha256-UJBvRjTUarxFakPHZNnYDx3nx4G4NdGj/zjilnNHx3U=";
     };
   };
   loralib = {
