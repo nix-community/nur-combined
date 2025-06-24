@@ -55,9 +55,6 @@ rustPlatform.buildRustPackage rec {
     ### (based on https://github.com/dtomvan/nur-packages/blob/0d9b84b67786425c259ecdb83f7a88165f06395d/pkgs/microsoft-edit/package.nix)
     wrapProgram $out/bin/msedit \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ icu ]}
-
-    ### Alias msedit to edit (https://github.com/microsoft/edit/?tab=readme-ov-file#notes-to-package-maintainers)
-    ln -s $out/bin/msedit $out/bin/edit
   '';
     
   meta = {
