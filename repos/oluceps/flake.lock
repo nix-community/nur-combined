@@ -395,11 +395,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1748096159,
-        "narHash": "sha256-DCQv+QKmDBM/4uWI4o/wBxA98h3G1t2HMxm6AWCmCus=",
+        "lastModified": 1750579949,
+        "narHash": "sha256-Ry9SoBinv53YMMXmQA1D6wmOEzHiz4aoKAENirpMQcI=",
         "owner": "daeuniverse",
         "repo": "flake.nix",
-        "rev": "5a9cab7839e79d4ecc36ec0ee83a1eb6c36cea95",
+        "rev": "b2fe700ac3c16bea86975b1abb00645e56658237",
         "type": "github"
       },
       "original": {
@@ -1757,11 +1757,11 @@
         "rust-overlay": "rust-overlay_4"
       },
       "locked": {
-        "lastModified": 1748151941,
-        "narHash": "sha256-z4viQZLgC2bIJ3VrzQnR+q2F3gAOEQpU1H5xHtX/2fs=",
+        "lastModified": 1750791124,
+        "narHash": "sha256-F5iVU/hjoSHSSe0gllxm0PcAaseEtGNanYK5Ha3k2Tg=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "8ba57fcf25d2fc9565131684a839d58703f1dae7",
+        "rev": "37458d94b288945f6cfbd3c5c233f634d59f246c",
         "type": "github"
       },
       "original": {

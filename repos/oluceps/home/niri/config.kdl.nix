@@ -85,9 +85,12 @@ in
   }
 
   environment {
-      DISPLAY ":0"
       QT_QPA_PLATFORM "wayland"
   }
+  xwayland-satellite {
+      path "${lib.getExe pkgs.xwayland-satellite}"
+  }
+
   workspace "term"
   workspace "surf"
   workspace "chat"
@@ -141,6 +144,14 @@ in
    mode "2160x1440@60.001"
 
    // position x=1080 y=0
+  }
+
+  output "DP-3" {
+   // off
+
+   scale 2.0
+
+   mode "3840x2160@60.000"
   }
 
   output "Samsung Electric Company S24R35x H4TM706141" {
@@ -292,6 +303,7 @@ in
       skip-at-startup
   }
 
+  // Use a custom build of xwayland-satellite.
   binds {
       // Keys consist of modifiers separated by + signs, followed by an XKB key name
       // in the end. To find an XKB name for a particular key, you may use a program

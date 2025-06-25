@@ -14,10 +14,10 @@ pub_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 [node.kaambl]
 # laptop
 id = 1
-addr = "fdcc::2"
+addr = "192.168.1.186"
 censor = true
 nat = true
-loc = 1
+loc = 0
 user = "elen"
 
 unique_addr = "fdcc::2/128"

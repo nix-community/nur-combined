@@ -43,7 +43,7 @@
         ];
       })
       pkgs.systemd-run-app
-      pkgs.wechat-uos
+      # pkgs.wechat-uos
     ];
   xdg = {
     mime = {

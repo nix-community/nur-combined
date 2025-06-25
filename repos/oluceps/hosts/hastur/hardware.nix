@@ -185,6 +185,10 @@
   };
   hardware = {
 
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [ vpl-gpu-rt ];
+    };
     bluetooth.enable = true; # enables support for Bluetooth
     bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
