@@ -467,7 +467,7 @@
   "legacyPackages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux",
-    "version": "1.14-unstable-2024-10-10"
+    "version": "1.14-unstable-2025-06-24"
   },
   "legacyPackages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
@@ -642,12 +642,12 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-25"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.22"
+    "version": "2025.06.25"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -712,7 +712,7 @@
   "legacyPackages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
     "pname": "igsc",
-    "version": "0.9.5"
+    "version": "0.9.6"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -762,7 +762,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux",
-    "version": "1.14-unstable-2024-10-10"
+    "version": "1.14-unstable-2025-06-24"
   },
   "legacyPackages.x86_64-linux.kernel-modules.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
@@ -847,7 +847,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5749"
+    "version": "5753"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3912,7 +3912,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-25"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4437,7 +4437,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.22"
+    "version": "2025.06.25"
   },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4492,7 +4492,7 @@
   "legacyPackages.x86_64-linux.uncategorized.igsc": {
     "description": "Intel graphics system controller firmware update library",
     "pname": "igsc",
-    "version": "0.9.5"
+    "version": "0.9.6"
   },
   "legacyPackages.x86_64-linux.uncategorized.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -4882,7 +4882,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-18"
+    "version": "0-unstable-2025-06-24"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4912,7 +4912,7 @@
   "legacyPackages.x86_64-linux.uncategorized.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -4957,7 +4957,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-18"
+    "version": "0-unstable-2025-06-24"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4987,7 +4987,7 @@
   "legacyPackages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
@@ -5187,7 +5187,7 @@
   "packages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux",
-    "version": "1.14-unstable-2024-10-10"
+    "version": "1.14-unstable-2025-06-24"
   },
   "packages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
@@ -5322,12 +5322,12 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-21"
+    "version": "0-unstable-2025-06-25"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.22"
+    "version": "2025.06.25"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5392,7 +5392,7 @@
   "packages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
     "pname": "igsc",
-    "version": "0.9.5"
+    "version": "0.9.6"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -5987,7 +5987,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-18"
+    "version": "0-unstable-2025-06-24"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -6017,7 +6017,7 @@
   "packages.x86_64-linux.usque": {
     "description": "Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol",
     "pname": "usque",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   "packages.x86_64-linux.vbmeta-disable-verification": {
     "description": "Patch Android vbmeta image and disable verification flags inside",
