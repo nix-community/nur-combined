@@ -12,6 +12,6 @@
       sha256 = "sha256-B2g2d29jSER30OUqCkdk3+Hv5T3DA4SUKoyiqHb8FeU=";
     };
   }),
-  libfprint-fpcmoh ? pkgs.callPackage ../libfprint-fpcmoh { },
+  libfprint-fpcmoh,
 }:
 fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }

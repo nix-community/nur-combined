@@ -4,17 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     flake-utils.url = "github:numtide/flake-utils";
-
-    pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -30,57 +22,37 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      flake-utils,
-      pre-commit-hooks,
-      treefmt-nix,
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-
-        result = import ./default.nix { inherit pkgs system; };
-
-        treefmtEval = treefmt-nix.lib.evalModule pkgs {
-          projectRootFile = "flake.nix";
-          programs.nixfmt.enable = true;
-          programs.deadnix.enable = true;
-        };
-
-      in
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
       {
-        legacyPackages = result.packages;
-        packages = result.packages;
-
-        formatter = treefmtEval.config.build.wrapper;
-
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
-              deadnix.enable = true;
+        imports = [
+          ./dev/flake-module.nix
+        ];
+        flake = {
+          overlays = import ./overlays;
+        };
+        systems = inputs.flake-utils.lib.defaultSystems;
+        perSystem =
+          {
+            config,
+            pkgs,
+            lib,
+            system,
+            ...
+          }:
+          {
+            _module.args.pkgs = import inputs.nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
             };
+            packages = import ./pkgs { inherit pkgs; };
           };
-          # formatting = treefmtEval.${pkgs.system}.config.build.check self;
-        };
-
-        devShells = {
-          default = pkgs.mkShellNoCC {
-            inherit (self.checks.${system}.pre-commit-check) shellHook;
-            buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-            packages = with pkgs; [
-              nil
-              nix-prefetch-git
-            ];
-          };
-        };
       }
     );
 }

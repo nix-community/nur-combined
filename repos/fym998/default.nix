@@ -9,7 +9,7 @@
   pkgs ? import <nixpkgs> { },
   ...
 }:
-let
-  packages = import ./pkgs { inherit pkgs; };
-in
-{ inherit packages; } // packages
+import ./pkgs { inherit pkgs; }
+// {
+  overlays = import ./overlays;
+}
