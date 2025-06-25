@@ -1827,10 +1827,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.28.0";
+      version = "3.29.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4507385/click_and_read-3.28.0.xpi";
-      sha256 = "40e4e2234f0c03607f7e8a84030275926fb91f6f67d13c914fcda37eddb0153b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4519796/click_and_read-3.29.0.xpi";
+      sha256 = "4bddf82a52d3f776939d4ca5b745220f08739c9162991fd6e404efa819ac4684";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2773,10 +2773,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.62.1";
+      version = "2.62.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4513779/dualsub-2.62.1.xpi";
-      sha256 = "17e0ff68b0a3a0584e2153210d10ea9664baf55b697ae306915ff23b685b2de8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4519658/dualsub-2.62.2.xpi";
+      sha256 = "a40676fb260c6da6d4fa5400256de74a2e69dec9478d40c2bafdd5c54d224ba3";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -12311,10 +12311,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.2.2";
+      version = "4.2.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4509201/tree_style_tab-4.2.2.xpi";
-      sha256 = "8b267467eb8074d89c4dc15b11309081d07d83956a0d5642f636316d5aaafcb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518210/tree_style_tab-4.2.3.xpi";
+      sha256 = "51cb052ac0ff7d469c72f136c3b88484671106a5f05cfd8088d06b227be65e36";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.25";
+      version = "2.4.27";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4518646/youtube_no_translation-2.4.25.xpi";
-      sha256 = "36358b3628d35abeee5214d07a91cf5a3d8962f379d16d344131cdae7e1e8e2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4519784/youtube_no_translation-2.4.27.xpi";
+      sha256 = "123a57c0dc7c7ec9610ec9158d2819eedc75479520a22f0f68c271af9719cf1e";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
