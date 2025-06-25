@@ -4,15 +4,18 @@ with pkgs;
 let
   jdkWithJavaFX = (pkgs.jdk11.override {
     enableJavaFX = true;
-    openjfx = openjfx.override { withWebKit = true; };
+    openjfx_jdk = openjfx17.override { withWebKit = true; };
+#    openjfx17 = openjfx17.override { withWebKit = true; };
+#    openjfx21 = openjfx21.override { withWebKit = true; };
+#    openjfx23 = openjfx23.override { withWebKit = true; };
   });
   ibDerivation = stdenv.mkDerivation rec {
-  version = "10.37.1i";
+  version = "10.38.1b";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "1xiyxbxjx4824spzjvgylcfln29dcmaff0b3gy3k41c4y00xy7iy";
+    sha256 = "1s2hl3sz2a4i08cm92jzsdac3gbp538n9sk5aa4l2cxf7ndnr6a1";
     executable = true;
   };
 
@@ -67,7 +70,7 @@ let
 # Chromium binary (yikes!) that needs an FHS environment. For me, that
 # doesn't yet work, and the chromium fails to launch with an error
 # code.
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "ib-tws";
   targetPkgs = pkgs1: [
     ibDerivation

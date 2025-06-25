@@ -18,7 +18,7 @@ let debExtract = stdenv.mkDerivation {
     rmdir $out/usr
   '';
 };
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "parsecgaming";
   targetPkgs = pkgs: with pkgs; [
     alsaLib

@@ -16,7 +16,7 @@ let debExtract = stdenv.mkDerivation {
     rmdir $out/usr
   '';
 };
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "BeamWallet";
   targetPkgs = pkgs: with pkgs; [
     xorg.libX11
