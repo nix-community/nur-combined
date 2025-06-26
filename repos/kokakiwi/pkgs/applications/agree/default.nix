@@ -52,6 +52,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
+    broken = true;
     description = "A CLI application that implements multi-key-turn security via Shamir's Secret Sharing";
     homepage = "https://github.com/replicadse/agree";
     license = licenses.mit;
