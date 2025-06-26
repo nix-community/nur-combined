@@ -87,7 +87,6 @@ in
           "networkmanager"
         ];
       });
-      defaultUserShell = pkgs.zsh;
     };
 
     i18n = {
@@ -129,8 +128,6 @@ in
       dbus.implementation = "broker";
       journald.console = "/dev/tty1";
     };
-
-    programs.zsh.enable = true;
 
     # Allow unfree packages
     environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";

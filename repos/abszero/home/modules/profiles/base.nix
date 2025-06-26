@@ -1,11 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    mkIf
-    mkDefault
-    removePrefix
-    ;
+  inherit (lib) mkIf mkDefault;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.profiles.base;
 in
@@ -43,6 +39,10 @@ in
     };
 
     programs = {
+      bash = {
+        enable = true;
+        enableVteIntegration = true;
+      };
       # NOTE: most of gpg config is in user's configuration
       gpg = {
         mutableKeys = mkDefault false;
@@ -56,12 +56,6 @@ in
           enable = true;
           extraArgs = "--keep 3 --keep-since 1w";
         };
-      };
-      zsh = {
-        enable = true;
-        # Hack since `dotDir` is relative to home
-        dotDir = "${removePrefix "${config.home.homeDirectory}/" config.xdg.configHome}/zsh";
-        autocd = true;
       };
     };
   };

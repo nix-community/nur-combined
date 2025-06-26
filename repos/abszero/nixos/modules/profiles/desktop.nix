@@ -113,7 +113,10 @@ in
       };
     };
 
-    programs.xwayland.enable = true;
+    programs = {
+      bash.blesh.enable = true;
+      xwayland.enable = true;
+    };
 
     environment.sessionVariables = {
       # Enable running commands without installation

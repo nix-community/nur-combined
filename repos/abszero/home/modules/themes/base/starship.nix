@@ -11,8 +11,8 @@ in
 
   config.programs.starship.settings = mkIf cfg.enable {
     format = ''
-      ($directory )($git_branch )($jobs )($cmd_duration)$fill($git_state)( $nodejs)( $rust)( $nix_shell)
-      ($username$hostname )$character
+      ($directory)( $git_branch)( $jobs)( $cmd_duration)( $status)$fill( $git_state)( $nodejs)( $rust)( $nix_shell)
+      ($username$hostname )($shell )$character
     '';
 
     # region Head Left
@@ -49,6 +49,15 @@ in
       min_time = 1000;
       show_notifications = true;
       min_time_to_notify = 60000;
+    };
+    status = {
+      disabled = false;
+      format = "[[$symbol $status]($style inverted)]($style)";
+      symbol = "󰩈";
+      not_executable_symbol = "";
+      not_found_symbol = "";
+      sigint_symbol = "";
+      signal_symbol = "";
     };
 
     # endregion
@@ -97,6 +106,12 @@ in
 
     username.format = "[$user]($style)";
     hostname.format = "@[$hostname]($style)";
+    shell = {
+      disabled = false;
+      format = "[$indicator]($style)";
+      nu_indicator = "";
+      style = "bold";
+    };
     character = {
       success_symbol = "[󰘧](bold green)";
       error_symbol = "[󰘧](bold red)";
