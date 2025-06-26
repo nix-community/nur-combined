@@ -822,5 +822,25 @@
             "settings_version": "570.144",
             "settings_hash": "sha256-VcCa3P/v3tDRzDgaY+hLrQSwswvNhsm93anmOhUymvM="
         }
+    },
+    "18.3": {
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.3/NVIDIA-GRID-Linux-KVM-570.158.02-570.158.01-573.39": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
+        },
+        "patches": {},
+        "host": {
+            "version": "570.158.02",
+            "persistenced_version": "570.153.02",
+            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
+            "settings_version": "570.153.02",
+            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M="
+        },
+        "guest": {
+            "version": "570.158.01",
+            "persistenced_version": "570.153.02",
+            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
+            "settings_version": "570.153.02",
+            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M="
+        }
     }
 }

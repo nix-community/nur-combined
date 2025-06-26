@@ -218,14 +218,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e65cabc9b6a5998225d1980242d9375e5b2463a1";
+    version = "c4aab791b4c0e3747a62b6cf686dc5941e907938";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e65cabc9b6a5998225d1980242d9375e5b2463a1";
-      hash = "sha256-WAu7Af58kqpsAmWVyvrSO/qBcGyyx0Tcz2vNxl5AcdU=";
+      rev = "c4aab791b4c0e3747a62b6cf686dc5941e907938";
+      hash = "sha256-Tl2DUF4Rh4RE1TcTJV/jfluatdJ7P5mZ26QwL331KEg=";
     };
-    date = "2025-06-24";
+    date = "2025-06-26";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1077,12 +1077,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5753";
+    version = "b5757";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5753";
-      hash = "sha256-NKFBe7aSvQZYFFmXdGvW2DX1zMHSdzMtrYreKrPwO8s=";
+      tag = "b5757";
+      hash = "sha256-TnFwjB3tpRogwpuKLsN1/gwQp0Gxe45b6c2pCARiySk=";
     };
   };
   loralib = {
@@ -2191,15 +2191,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "f0db2b2ad3fef4276a3a7f5454d0db7fce2853f2";
+    version = "fe44fc1141ac95e5169f81f83dbbaa2367c3218d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "f0db2b2ad3fef4276a3a7f5454d0db7fce2853f2";
+      rev = "fe44fc1141ac95e5169f81f83dbbaa2367c3218d";
       fetchSubmodules = true;
-      hash = "sha256-hvr/+7cZYXGATYG+UNvHlHCsloxZ5kCPNI3zahxaGPI=";
+      hash = "sha256-TDcebkmHpgyaR70chs988Pgvgn3v91EoDON4u7ueZtg=";
     };
-    date = "2025-06-24";
+    date = "2025-06-25";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2295,12 +2295,12 @@
   };
   vpp = {
     pname = "vpp";
-    version = "v25.02";
+    version = "v25.06";
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      tag = "v25.02";
-      hash = "sha256-UDO1mlOEQNCmtR18CCTF+ng5Ms9gfTsnohSygLlPopY=";
+      tag = "v25.06";
+      hash = "sha256-BuHKPQA4qHoADqBg2IztlzUMpbvYKK5uH7ktChSW5vk=";
     };
   };
   wechat-uos = {

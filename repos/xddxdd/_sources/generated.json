@@ -415,7 +415,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-06-24",
+        "date": "2025-06-26",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "e65cabc9b6a5998225d1980242d9375e5b2463a1",
-            "sha256": "sha256-WAu7Af58kqpsAmWVyvrSO/qBcGyyx0Tcz2vNxl5AcdU=",
+            "rev": "c4aab791b4c0e3747a62b6cf686dc5941e907938",
+            "sha256": "sha256-Tl2DUF4Rh4RE1TcTJV/jfluatdJ7P5mZ26QwL331KEg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e65cabc9b6a5998225d1980242d9375e5b2463a1"
+        "version": "c4aab791b4c0e3747a62b6cf686dc5941e907938"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2099,12 +2099,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5753",
-            "sha256": "sha256-NKFBe7aSvQZYFFmXdGvW2DX1zMHSdzMtrYreKrPwO8s=",
+            "rev": "b5757",
+            "sha256": "sha256-TnFwjB3tpRogwpuKLsN1/gwQp0Gxe45b6c2pCARiySk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5753"
+        "version": "b5757"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4276,7 +4276,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-06-24",
+        "date": "2025-06-25",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4288,12 +4288,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "f0db2b2ad3fef4276a3a7f5454d0db7fce2853f2",
-            "sha256": "sha256-hvr/+7cZYXGATYG+UNvHlHCsloxZ5kCPNI3zahxaGPI=",
+            "rev": "fe44fc1141ac95e5169f81f83dbbaa2367c3218d",
+            "sha256": "sha256-TDcebkmHpgyaR70chs988Pgvgn3v91EoDON4u7ueZtg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f0db2b2ad3fef4276a3a7f5454d0db7fce2853f2"
+        "version": "fe44fc1141ac95e5169f81f83dbbaa2367c3218d"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4489,12 +4489,12 @@
             "name": null,
             "owner": "FDio",
             "repo": "vpp",
-            "rev": "v25.02",
-            "sha256": "sha256-UDO1mlOEQNCmtR18CCTF+ng5Ms9gfTsnohSygLlPopY=",
+            "rev": "v25.06",
+            "sha256": "sha256-BuHKPQA4qHoADqBg2IztlzUMpbvYKK5uH7ktChSW5vk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v25.02"
+        "version": "v25.06"
     },
     "wechat-uos": {
         "cargoLocks": null,
