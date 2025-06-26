@@ -5,7 +5,7 @@
   stdenv,
   ...
 }:
-stdenv.mkDerivation (final: {
+stdenv.mkDerivation (_final: {
   inherit (sources) pname src;
   inherit version;
 

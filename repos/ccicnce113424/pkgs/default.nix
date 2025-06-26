@@ -2,7 +2,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
-  lib = pkgs.lib;
+  inherit (pkgs) lib;
   fetchedSrc = pkgs.callPackage ../_sources/generated.nix { };
   stableVersion = src: lib.removePrefix "v" src.version;
   unstableVersion = src: "0-unstable-${src.date}";
