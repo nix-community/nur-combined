@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "exercisediary";
   version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "aceberg";
     repo = "ExerciseDiary";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ekGluDuBF4Zb/XTxLRdztVg447x13uo24nNTBuVSfj8=";
   };
 
@@ -29,4 +29,4 @@ buildGoModule rec {
     mainProgram = "ExerciseDiary";
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

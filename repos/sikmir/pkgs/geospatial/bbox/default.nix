@@ -5,14 +5,14 @@
   buildPackages,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bbox";
   version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "bbox-services";
     repo = "bbox";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-FmY9Hqwv9lWjdEMe4JZM/nw8BaeZ+4eK+nibOUwcE+8=";
   };
 
@@ -41,4 +41,4 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

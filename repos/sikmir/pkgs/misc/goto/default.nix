@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "goto";
   version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "grafviktor";
     repo = "goto";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-xQIsA/UC9daR1k6c3TMsWWIt3iYVeHd96OxYlFo27oI=";
   };
 
@@ -20,7 +20,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.buildVersion=${version}"
+    "-X main.buildVersion=${finalAttrs.version}"
   ];
 
   meta = {
@@ -30,4 +30,4 @@ buildGoModule rec {
     mainProgram = "goto";
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

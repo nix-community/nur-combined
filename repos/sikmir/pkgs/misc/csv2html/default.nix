@@ -5,14 +5,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "csv2html";
   version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "dbohdan";
     repo = "csv2html";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-H8nUwK72opUohBN2exZURRAPr1RXLa87exYaGigly0Q=";
   };
 
@@ -26,4 +26,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "csv2html";
   };
-}
+})

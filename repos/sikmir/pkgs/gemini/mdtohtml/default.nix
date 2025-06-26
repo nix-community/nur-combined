@@ -6,14 +6,14 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "mdtohtml";
   version = "0.1.3";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = "mdtohtml";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-qvd4Iz+1uNT1Y/DkHGRYBVCLeIpleQ58Ua4eSYv+ilQ=";
   };
 
@@ -39,4 +39,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mdtohtml";
   };
-}
+})

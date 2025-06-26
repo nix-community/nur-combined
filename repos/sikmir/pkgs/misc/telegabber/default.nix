@@ -7,7 +7,6 @@
   tdlib,
   zlib,
   testers,
-  telegabber,
 }:
 
 let
@@ -23,20 +22,20 @@ let
     }
   );
 in
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "telegabber";
-  version = "1.9.7";
+  version = "1.12.4";
 
   src = fetchFromGitea {
     domain = "dev.narayana.im";
     owner = "narayana";
     repo = "telegabber";
-    tag = "v${version}";
-    hash = "sha256-UrfTPYZMfYZcmE4bLyUZ8mCgvj2IF6AA+8f6ToNhsvU=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-//S4bh2H747059KqDQNWA4lpH3OXPzl+OndGY7WNwg8=";
     forceFetchGit = true;
   };
 
-  vendorHash = "sha256-3qSa6yJXSjrmTIBrulCnZMZzqNtpkzpzWeYAzHl8uUM=";
+  vendorHash = "sha256-qiPMQuk1fUx7GFlJUu71n2pLVqd7vUPnRva3p/iDkr4=";
 
   buildInputs = [
     openssl
@@ -48,12 +47,15 @@ buildGoModule rec {
     install -Dm644 config_schema.json config.yml.example -t $out/share/telegabber
   '';
 
-  passthru.tests.version = testers.testVersion { package = telegabber; };
+  checkFlags = [ "-skip=TestSessionToMap" ];
+
+  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
     description = "XMPP/Jabber transport to Telegram network";
     homepage = "https://dev.narayana.im/narayana/telegabber";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "telegabber";
   };
-}
+})

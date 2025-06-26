@@ -4,7 +4,7 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "ioxy";
   version = "0-unstable-2023-08-20";
 
@@ -15,7 +15,7 @@ buildGoModule rec {
     hash = "sha256-j3qKlR0dwu0ZHc38JMGUjwVpN2s16ZIiRU8W+lI/X0s=";
   };
 
-  sourceRoot = "${src.name}/ioxy";
+  sourceRoot = "${finalAttrs.src.name}/ioxy";
 
   vendorHash = "sha256-VWw9yuwNnJYvIvl6ov24An867koyzPPbqNg0VIXCJiM=";
 
@@ -24,5 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/NVISOsecurity/IOXY";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "ioxy";
   };
-}
+})

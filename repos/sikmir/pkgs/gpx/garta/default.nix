@@ -16,7 +16,7 @@
   zlib,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "garta";
   version = "0.1.0-unstable-2021-02-08";
 
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   configurePhase = ''
-    export PKG_CONFIG_PATH='${lib.makeSearchPathOutput "dev" "lib/pkgconfig" buildInputs}'
+    export PKG_CONFIG_PATH='${lib.makeSearchPathOutput "dev" "lib/pkgconfig" finalAttrs.buildInputs}'
 
     ./configure.sh --prefix $out
 
@@ -81,4 +81,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
-}
+})

@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "abstreet";
   version = "0.3.49";
 
   src = fetchFromGitHub {
     owner = "a-b-street";
     repo = "abstreet";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6Gggio3/4QQXMoQoipIkb0rUaa+TarFmj+lJs1avFOE=";
   };
 
@@ -47,4 +47,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
-}
+})

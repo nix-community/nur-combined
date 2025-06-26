@@ -11,14 +11,14 @@
 let
   fuse = if stdenv.isDarwin then macfuse-stubs else fuse3;
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ffs";
   version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "mgree";
     repo = "ffs";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7hYH+utmAoWtV2xZLvSnE8779qKvzIJVJt9mNwH82sY=";
   };
 
@@ -38,4 +38,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "ffs";
   };
-}
+})

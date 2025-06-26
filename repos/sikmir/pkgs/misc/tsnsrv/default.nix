@@ -4,20 +4,20 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "tsnsrv";
-  version = "0-unstable-2024-07-22";
+  version = "0-unstable-2025-06-05";
 
   src = fetchFromGitHub {
     owner = "boinkor-net";
     repo = "tsnsrv";
-    rev = "0260f4f52d452d15f71e0297561bba367f92d7fd";
-    hash = "sha256-LrMqwcX6e6F93y0+gr1rmABp2eerq6bRu58QftDXLU0=";
+    rev = "e2537464e45db0f173e8e68d0316b40c13e1e49c";
+    hash = "sha256-tVHkh0AGDl+de9itdLsi3lfMOyOLyQjtnp1zw2zyYV8=";
   };
 
   subPackages = [ "cmd/tsnsrv" ];
 
-  vendorHash = "sha256-5Z2qPuQBvLRgsMd9z8WrtGJcLwyJjclyh2g0KdFR3hc=";
+  vendorHash = "sha256-iGW7+jpxfM421RYvmaqaOJ/wKeJDkXn7baHZXYkAqEk=";
 
   meta = {
     description = "A reverse proxy that exposes services on your tailnet";

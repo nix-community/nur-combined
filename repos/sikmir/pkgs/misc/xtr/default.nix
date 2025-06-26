@@ -6,15 +6,15 @@
   libiconv,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "xtr";
-  version = "0.1.9";
+  version = "0.1.11";
 
   src = fetchFromGitHub {
     owner = "woboq";
     repo = "tr";
-    tag = "v${version}";
-    hash = "sha256-Un7p8n0+rSyDzEaUGuFXXWUDShR6AZgIYza40ahdZU8=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ob5vGM/YeD8JLiNX8UtYBDr5qTEaPuuZfJ+SC+jiDXA=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
@@ -41,4 +41,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "xtr";
   };
-}
+})

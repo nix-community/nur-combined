@@ -4,14 +4,14 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "satellite";
   version = "1.0.0";
 
   src = fetchFromSourcehut {
     owner = "~gsthnz";
     repo = "satellite";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-fOsgTuJb/UFmOKb7xV+pvqOhokEuOgt47IYDEpa0DWg=";
   };
 
@@ -23,4 +23,4 @@ buildGoModule rec {
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

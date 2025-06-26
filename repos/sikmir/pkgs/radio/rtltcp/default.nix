@@ -8,14 +8,14 @@
   systemd,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rtltcp";
   version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "niclashoyer";
     repo = "rtltcp";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-mGBU4O4RMTZPoxfg1zr2WeiZsfnIba6VHYX3FYTY+OY=";
   };
 
@@ -41,4 +41,4 @@ rustPlatform.buildRustPackage rec {
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

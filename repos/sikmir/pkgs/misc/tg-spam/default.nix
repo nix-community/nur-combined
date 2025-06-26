@@ -4,15 +4,15 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "tg-spam";
-  version = "1.18.0";
+  version = "1.18.1";
 
   src = fetchFromGitHub {
     owner = "umputun";
     repo = "tg-spam";
-    tag = "v${version}";
-    hash = "sha256-lGYE5ixrWpqjQ0IEv6SK9S2cn81MtLPLstyG5psm2TQ=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ZLn5SCQ8ol16+OFrFb6xutUsUYJH96NAjl3xR8gc4JM=";
   };
 
   vendorHash = null;
@@ -20,7 +20,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.revision=${version}"
+    "-X main.revision=${finalAttrs.version}"
   ];
 
   postInstall = ''
@@ -36,4 +36,4 @@ buildGoModule rec {
     mainProgram = "tg-spam";
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

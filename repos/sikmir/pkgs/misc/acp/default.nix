@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "acp";
   version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "Contextualist";
     repo = "acp";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-FxpIfJ6WWWgaBQnTbvp0DqRrmPmT0ZUjueBFgJ24HAY=";
   };
 
@@ -20,7 +20,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.buildTag=${version}"
+    "-X main.buildTag=${finalAttrs.version}"
   ];
 
   __darwinAllowLocalNetworking = true;
@@ -32,4 +32,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "acp";
   };
-}
+})

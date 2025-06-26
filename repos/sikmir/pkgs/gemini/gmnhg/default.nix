@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "gmnhg";
   version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "tdemin";
     repo = "gmnhg";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ob1bt9SX9qFd9GQ5d8g+fS4z+aT9ob3a7iLY8zjUCp8=";
   };
 
@@ -23,4 +23,4 @@ buildGoModule rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

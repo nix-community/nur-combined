@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "go-mqtt-to-influxdb";
   version = "0.0.7";
 
   src = fetchFromGitHub {
     owner = "elgohr";
     repo = "mqtt-to-influxdb";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wO/TS+J68UvnadeMqm3xzZ/qv7gitW3Hi84v32UlZKI=";
   };
 
@@ -23,5 +23,6 @@ buildGoModule rec {
     homepage = "https://github.com/elgohr/mqtt-to-influxdb";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "mqtt-to-influxdb";
   };
-}
+})

@@ -7,14 +7,14 @@
   perl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "akasa";
   version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "akasamq";
     repo = "akasa";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ff5B8vJ0r0VGf72oiEUHLI1SbuNupBQ+w59MqVZO8/Q=";
   };
 
@@ -32,5 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/akasamq/akasa";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "akasa";
   };
-}
+})

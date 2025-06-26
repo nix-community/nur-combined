@@ -7,14 +7,14 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gemserv";
   version = "0.6.6";
 
   src = fetchFromSourcehut {
     owner = "~int80h";
     repo = "gemserv";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-jFh7OksYGXGWwLb4HtAuDQ7OsWxedqeLARPI20RyAgQ=";
   };
 
@@ -35,4 +35,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

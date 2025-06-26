@@ -9,7 +9,7 @@
   wrapGAppsHook,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "eva";
   version = "0.4.1";
 
@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "jeang3nie";
     repo = "eva";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-beCILpBqW8kHcLkW3q6LRRduDTMDwsqnXUEkZbX9hL4=";
   };
 
@@ -42,4 +42,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isDarwin; # gupnp-1.6.8
   };
-}
+})

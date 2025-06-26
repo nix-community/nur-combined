@@ -5,14 +5,14 @@
   cmake,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rumqtt";
   version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "bytebeamio";
     repo = "rumqtt";
-    tag = "rumqttd-${version}";
+    tag = "rumqttd-${finalAttrs.version}";
     hash = "sha256-3rDnJ1VsyGBDhjOq0Rd55WI1EbIo+17tcFZCoeJB3Kc=";
   };
 
@@ -27,5 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/bytebeamio/rumqtt";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "rumqttd";
   };
-}
+})

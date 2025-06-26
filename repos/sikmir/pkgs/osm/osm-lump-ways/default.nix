@@ -4,19 +4,19 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "osm-lump-ways";
-  version = "2.2.0";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "amandasaurus";
     repo = "osm-lump-ways";
-    tag = "v${version}";
-    hash = "sha256-gHGszPt3rgzm3Q4T3nSBE6y92ovBxa7AUDHvF6/UAE4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-37DdtTPnzmfIjfTiQhOJwq7ieMTpKiOpmEJG7UXaxQo=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-nskIJ4dOih2OsDlGOhL1xTsMwcwY8H8Z32hQZmzgazM=";
+  cargoHash = "sha256-JqHm2oKWFuHrayU5pnDxrrfbi84tmMecRDCrq7fQFuw=";
 
   meta = {
     description = "Group OSM ways together based on topology & tags";
@@ -27,4 +27,4 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

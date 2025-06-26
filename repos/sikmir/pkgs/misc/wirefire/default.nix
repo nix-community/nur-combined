@@ -4,7 +4,7 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "wirefire";
   version = "0-unstable-2024-11-08";
 

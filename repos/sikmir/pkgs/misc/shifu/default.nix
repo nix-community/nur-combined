@@ -7,18 +7,18 @@
   libpcap,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "shifu";
-  version = "0.57.0";
+  version = "0.73.0";
 
   src = fetchFromGitHub {
     owner = "Edgenesis";
     repo = "shifu";
-    tag = "v${version}";
-    hash = "sha256-RRK8N/CLNWf9Jkq1Y2wJ2BGgjJNNc2roI9ChREkF06I=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-XKfnBXKdob+mxVVmjro8LUZoxUFYWRemyNfD5fo+FQU=";
   };
 
-  vendorHash = "sha256-SCse0FybcWNLshY0stgbV/AC3Y17znFtAKKhtCaZeGM=";
+  vendorHash = "sha256-YCHEOe1VpmqJhBirmeIU5MyrxRnDOXdahr+gr4EDKXY=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -50,4 +50,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "shifuctl";
   };
-}
+})

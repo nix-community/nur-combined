@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "hmq";
   version = "1.5.6";
 
   src = fetchFromGitHub {
     owner = "fhmq";
     repo = "hmq";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-vBsUDKrs7add8gFF6dMK5WK8irfWowCrRdB3N4Aegwg=";
   };
 
@@ -27,5 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/fhmq/hmq";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "hmq";
   };
-}
+})

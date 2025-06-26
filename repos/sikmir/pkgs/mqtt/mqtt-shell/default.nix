@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "mqtt-shell";
   version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "rainu";
     repo = "mqtt-shell";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-nyNNdlNC5AWJ9jTnBggUf4OVME3OPXWd1MAj2pWwQL4=";
   };
 
@@ -20,7 +20,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.ApplicationVersion=${version}"
+    "-X main.ApplicationVersion=${finalAttrs.version}"
   ];
 
   doCheck = false;
@@ -30,5 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/rainu/mqtt-shell";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "mqtt-shell";
   };
-}
+})

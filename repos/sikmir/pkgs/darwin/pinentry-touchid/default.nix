@@ -6,14 +6,14 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "pinentry-touchid";
   version = "0.0.3";
 
   src = fetchFromGitHub {
     owner = "jorgelbg";
     repo = "pinentry-touchid";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XMcJjVVAp5drLMVTShITl0v6uVazrG1/23dVerrsoj4=";
   };
 
@@ -33,4 +33,4 @@ buildGoModule rec {
     platforms = lib.platforms.darwin;
     skip.ci = !stdenv.isDarwin;
   };
-}
+})

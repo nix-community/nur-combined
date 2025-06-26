@@ -9,7 +9,7 @@
   guile,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "msg-cli";
   version = "0.1.1";
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     domain = "forge.superkamiguru.org";
     owner = "MSG";
     repo = "msg-cli";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-M/MksKwmV/PQxRtv9cT3KwMquhu2yUyBI9+jQL/vsfA=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "msg";
   };
-}
+})

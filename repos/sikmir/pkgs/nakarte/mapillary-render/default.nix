@@ -7,14 +7,14 @@
   cairo,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "mapillary-render";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "mapillaryRender";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-B2yDjbvpaa9zjPG9yF64s0tJ/bPAH0sOYqY74+f/TYE=";
   };
 
@@ -36,4 +36,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "osmptparser";
   version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "cualbondi";
     repo = "osmptparser";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/Uokg1CPn/ut2k0u/QCBAFECOctgHkUZMVMgcvkDYnw=";
   };
 
@@ -27,4 +27,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "osmptparser";
   };
-}
+})

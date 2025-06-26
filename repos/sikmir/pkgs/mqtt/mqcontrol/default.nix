@@ -4,23 +4,24 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "mqcontrol";
-  version = "0.5.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "albertnis";
     repo = "mqcontrol";
-    tag = "v${version}";
-    hash = "sha256-rsmWrKOEJjd74ElsaR7Rk7FsY0wwSgG/AzYB5LcmWNQ=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-qztn2DSsna7VJnHPSQJn2vUVIAIOC+D4YLihcsagonk=";
   };
 
-  vendorHash = "sha256-tuSrIq2DHMy2KY2z3ZMAwC28UGHrZifAWmOFx5Y4pKU=";
+  vendorHash = "sha256-oLko4fdABrcrSs/hm8p4ELvhzB/VgWvEjIlA3u7DCGk=";
 
   meta = {
     description = "Cross-platform utility to execute commands remotely using MQTT";
     homepage = "https://github.com/albertnis/mqcontrol";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "mqcontrol";
   };
-}
+})

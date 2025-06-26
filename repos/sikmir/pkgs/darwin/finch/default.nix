@@ -6,14 +6,14 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "finch";
   version = "1.8.3";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-x6qIUEKeetEIrI40F6IBItM1HA1lIiDBv0Y6SrABTNE=";
     fetchSubmodules = true;
   };
@@ -22,7 +22,11 @@ buildGoModule rec {
 
   subPackages = [ "cmd/finch" ];
 
-  ldflags = [ "-X github.com/runfinch/finch/pkg/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/runfinch/finch/pkg/version.Version=${finalAttrs.version}"
+  ];
 
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
@@ -36,4 +40,4 @@ buildGoModule rec {
     platforms = lib.platforms.darwin;
     skip.ci = true;
   };
-}
+})

@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "tiny-frpc";
   version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "gofrp";
     repo = "tiny-frpc";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-vrIkSacqjt3lG5LaOXV1m3NI+j0KLFOTV/P5OacwrcU=";
   };
 
@@ -25,9 +25,9 @@ buildGoModule rec {
   meta = {
     description = "tiny frpc using ssh protocol with frps";
     homepage = "https://github.com/gofrp/tiny-frpc";
-    changelog = "https://github.com/gofrp/tiny-frpc/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/gofrp/tiny-frpc/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
-    mainProgram = "tiny-frpc";
+    mainProgram = "frpc";
   };
-}
+})

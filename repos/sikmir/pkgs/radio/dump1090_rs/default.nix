@@ -6,14 +6,14 @@
   soapysdr,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dump1090_rs";
   version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "rsadsb";
     repo = "dump1090_rs";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-YMi+DaLORiy36rl02sKoCanI1hQSh4eRKJdrruxvMWg=";
   };
 
@@ -32,4 +32,4 @@ rustPlatform.buildRustPackage rec {
     platforms = lib.platforms.unix;
     broken = true; # Unable to find libclang
   };
-}
+})

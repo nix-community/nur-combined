@@ -7,14 +7,14 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "astronaut";
   version = "0.1.3";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = "astronaut";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-YkaeJMabEHGcyYeEyiYXR2K8YKX7Qqo5mb1XzvKT2+U=";
   };
 
@@ -42,4 +42,4 @@ buildGoModule rec {
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

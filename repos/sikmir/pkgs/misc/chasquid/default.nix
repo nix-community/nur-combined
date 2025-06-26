@@ -6,18 +6,18 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "chasquid";
-  version = "1.14.0";
+  version = "1.16.0";
 
   src = fetchFromGitHub {
     owner = "albertito";
     repo = "chasquid";
-    tag = "v${version}";
-    hash = "sha256-BgW3qZlP6KPiD/gNJ68dSiwt+Xg3FhC0Q8aoK+Ud1sM=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-IWGO7sIesVg6n2mFeZEHHmT2qRAO7/PbrQiNhvEDhrI=";
   };
 
-  vendorHash = "sha256-dOQJJ2U9Y7zyCNNxUMX85BNMlqn9/KQbZB2CWiYaylc=";
+  vendorHash = "sha256-rI4ClDcRWKywohe9uM3dXDrn5YfZjtJ4pxzheKDqIUk=";
 
   subPackages = [
     "."
@@ -31,7 +31,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=${version}"
+    "-X main.version=${finalAttrs.version}"
   ];
 
   postInstall = ''
@@ -45,4 +45,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "chasquid";
   };
-}
+})

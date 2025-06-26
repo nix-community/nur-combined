@@ -4,18 +4,18 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "comqtt";
-  version = "2.6.0";
+  version = "2.6.1";
 
   src = fetchFromGitHub {
     owner = "wind-c";
     repo = "comqtt";
-    tag = "v${version}";
-    hash = "sha256-h8mHneZisky62axAkT0WwR89g76uIqoW+lit7siaJew=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-FUdOzJ2COMrzU4C/xYblrUsW0SzYhESG68DF8Dg1KMM=";
   };
 
-  vendorHash = "sha256-PHwLKuFweQcGgnjq/L7bOTd0czYvw2YeVmlVFCafPMU=";
+  vendorHash = "sha256-aw9sdkDaa2Z1ZrJ38RxilRRnMMMnWRzBrNIq58ia7zE=";
 
   subPackages = [
     "cmd/single"
@@ -34,5 +34,6 @@ buildGoModule rec {
     homepage = "https://github.com/wind-c/comqtt";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "comqtt";
   };
-}
+})

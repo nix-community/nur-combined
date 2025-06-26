@@ -4,15 +4,15 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "mochi";
-  version = "2.7.7";
+  version = "2.7.9";
 
   src = fetchFromGitHub {
     owner = "mochi-mqtt";
     repo = "server";
-    tag = "v${version}";
-    hash = "sha256-gwkiRNXsInD6m3TGC1qQlyMwbkqN+rl8KRZ6MOEp26E=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ZdKaCzQsigf7G9uMthnm7n3fdyesZul+LNq6i+X8Yls=";
   };
 
   vendorHash = "sha256-qxAl8cyT206jWhC2dEGRikDWmXs9PprmfyFp9nUBUVI=";
@@ -29,5 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/mochi-mqtt/server";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "mochi";
   };
-}
+})

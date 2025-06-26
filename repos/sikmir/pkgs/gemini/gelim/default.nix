@@ -7,25 +7,31 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "gelim";
-  version = "0.9.3";
+  version = "0.13.1";
 
   src = fetchFromSourcehut {
     owner = "~hedy";
     repo = "gelim";
-    rev = "v${version}";
-    hash = "sha256-xFOiE0OLaJ4WK+I8oNXNk7feP3nXp9wvH0bkNnBK1Yg=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-cP0dqgoe8P8W3qKTmDHSUhCLCBoPUvN/EMWql073rf0=";
   };
+
+  patches = [ ./go.mod.patch ];
 
   nativeBuildInputs = [
     scdoc
     installShellFiles
   ];
 
-  vendorHash = "sha256-sWNPNZYcm296zhz57/NCaAlQxJ+Z1zzd/Y+KiLxZ46E=";
+  vendorHash = "sha256-MOdAUPAvodDdYE3f9CvodFCTYVcB0AUbt8T4FcYZWYc=";
 
-  ldflags = [ "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${finalAttrs.version}"
+  ];
 
   postBuild = ''
     scdoc < gelim.1.scd > gelim.1
@@ -40,5 +46,6 @@ buildGoModule rec {
     homepage = "https://sr.ht/~hedy/gelim/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "gelim";
   };
-}
+})

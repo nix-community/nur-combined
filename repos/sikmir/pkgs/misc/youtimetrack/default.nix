@@ -4,14 +4,14 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "youtimetrack";
   version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "bullshitsoftware";
     repo = "youtimetrack";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MZzXeCMlSLriDKg8yqeOzJBA5T47ImKjr+Mdu/wUjzU=";
   };
 
@@ -25,4 +25,4 @@ buildGoModule rec {
     license = lib.licenses.wtfpl;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

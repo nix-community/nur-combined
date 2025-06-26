@@ -6,7 +6,7 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "opcua";
   version = "0.12.0-unstable-2024-10-09";
 

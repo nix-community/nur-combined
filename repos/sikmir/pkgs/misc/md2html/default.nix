@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "md2html";
   version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "nocd5";
     repo = "md2html";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-3DnCLoX0x872zB90Z172iGwc6kQk9tpG1drw4s7LI0o=";
   };
 
@@ -23,4 +23,4 @@ buildGoModule rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

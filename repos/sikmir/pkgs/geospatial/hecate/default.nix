@@ -7,14 +7,14 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hecate";
   version = "0.87.0";
 
   src = fetchFromGitHub {
     owner = "Hecate";
     repo = "Hecate";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-X+49Mnls5xK6ag1QcvEm0GvLPmvcRBwNn/1vnC9GJO8=";
   };
 
@@ -35,4 +35,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isLinux;
   };
-}
+})

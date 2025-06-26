@@ -188,6 +188,7 @@ lib.makeScope newScope (
     stagit-gemini-milotier = callPackage ./gemini/stagit-gemini/milotier.nix { };
     stagit-gemini-sloum = callPackage ./gemini/stagit-gemini/sloum.nix { };
     tom = callPackage ./gemini/tom { };
+    twins = callPackage ./gemini/twins { };
 
     ### GEOSPATIAL
 

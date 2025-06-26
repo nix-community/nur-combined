@@ -6,17 +6,16 @@
   pkg-config,
   portaudio,
   testers,
-  musig,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "musig";
   version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "sfluor";
     repo = "musig";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-FL9FkNOR6/WKRKFroFE3otBM5AYFvyj71QySY3EOQMA=";
   };
 
@@ -26,9 +25,9 @@ buildGoModule rec {
 
   buildInputs = [ portaudio ];
 
-  ldflags = [ "-X main.VERSION=${version}" ];
+  ldflags = [ "-X main.VERSION=${finalAttrs.version}" ];
 
-  passthru.tests.version = testers.testVersion { package = musig; };
+  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
     description = "A shazam like tool to store songs fingerprints and retrieve them";
@@ -37,4 +36,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isDarwin;
   };
-}
+})

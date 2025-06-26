@@ -4,23 +4,23 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "ionscale";
-  version = "0.17.0";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "jsiebens";
     repo = "ionscale";
-    tag = "v${version}";
-    hash = "sha256-i0b+08wh1Z1gspkTz/Bbh8CSe8Sqd7UsiBnMofA1dh8=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-l8l7zH146M3+kEy7nl4pRFDJjzmz8hf0MJ+G3BYYSbA=";
   };
 
-  vendorHash = "sha256-xzHJ81mM+evqNBwYyYVHeRwtnepgFdqc/fgrMTgkQPE=";
+  vendorHash = "sha256-87Ef2idpQ0Jnm+uYS6r3yMcrakiDAXkOitOaXUDdRo8=";
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/jsiebens/ionscale/internal/version.Version=${version}"
+    "-X github.com/jsiebens/ionscale/internal/version.Version=${finalAttrs.version}"
   ];
 
   doCheck = false;
@@ -32,4 +32,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "ionscale";
   };
-}
+})

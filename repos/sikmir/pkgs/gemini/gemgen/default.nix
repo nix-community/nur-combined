@@ -5,14 +5,14 @@
   scdoc,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "gemgen";
   version = "0.6.0";
 
   src = fetchFromSourcehut {
     owner = "~kota";
     repo = "gemgen";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-2oIgBcdq2tJCKyh5ob2cn2mLRd7YoeRsKy5qqu0+jPk=";
   };
 
@@ -26,4 +26,4 @@ buildGoModule rec {
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})
