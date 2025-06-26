@@ -24,45 +24,51 @@
   onnxruntime,
 }:
 let
-  glog' = glog.overrideAttrs (oldAttrs: rec {
-    version = "0.6.0";
-    src = fetchFromGitHub {
-      owner = "google";
-      repo = "glog";
-      rev = "v${version}";
-      sha256 = "sha256-xqRp9vaauBkKz2CXbh/Z4TWqhaUtqfbsSlbYZR/kW9s=";
-    };
-  });
   rootSrc = stdenv.mkDerivation {
     pname = "iEDA-src";
-    version = "2025-03-30";
+    version = "0-unstable-2025-06-05";
     src = fetchgit {
       url = "https://gitee.com/oscc-project/iEDA";
-      rev = "79bd64dec74a08cb295c9a84283bf0e47dfc5e92";
-      sha256 = "sha256-uZmXVc0b37BAfZXN+mhl//SXNg3nubl+eNxZdtdae7Q=";
+      rev = "7afa129e1dd2274e0c800ad7a6daa3219d06bf59";
+      sha256 = "sha256-rP8hs4+5DfGLIOhphm3DsyOyOm/tP+/sd8Q6XS0FEaA=";
+      fetchSubmodules = true;
     };
 
-    patches = [
-      (fetchpatch {
-        name = "fix-subproject-and-headers-paths.patch";
-        url = "https://github.com/Emin017/iEDA/commit/a13079933763a7afdcdda7f188d630e089ae85e7.patch";
-        hash = "sha256-RT+zj5YwgTiQ1pS5jxn7cjB+jZM7vjyVKZkVEVAODhs=";
-      })
-    ];
+    postPatch = ''
+      # Comment out the iCTS test cases that will fail due to some linking issues on aarch64-linux
+      sed -i '17,28s/^/# /' src/operation/iCTS/test/CMakeLists.txt
+    '';
 
+    patches = [
+      # This patch is to fix the build error caused by the missing of the header file,
+      # and remove some libs or path that they hard-coded in the source code.
+      # Should be removed after we upstream these changes.
+      (fetchpatch {
+        url = "https://github.com/Emin017/iEDA/commit/e899b432776010048b558a939ad9ba17452cb44f.patch";
+        hash = "sha256-fLKsb/dgbT1mFCWEldFwhyrA1HSkKGMAbAs/IxV9pwM=";
+      })
+      # This patch is to fix the compile error on the newer version of gcc/g++
+      # which is caused by some incorrect declarations and usages of the Boost library.
+      # Should be removed after we upstream these changes.
+      (fetchpatch {
+        url = "https://github.com/Emin017/iEDA/commit/f5464cc40a2c671c5d405f16b509e2fa8d54f7f1.patch";
+        hash = "sha256-uVMV/CjkX9oLexHJbQvnEDOET/ZqsEPreI6EQb3Z79s=";
+      })
+      # This patch is to fix the glog compatibility issue with the 0.7.1 version glog
+      ./glog.patch
+    ];
     dontBuild = true;
     dontFixup = true;
     installPhase = ''
       cp -r . $out
     '';
-
   };
 
   rustpkgs = callPackages ./rustpkgs.nix { inherit rootSrc; };
 in
 stdenv.mkDerivation {
   pname = "iEDA";
-  version = "0-unstable-2025-03-30";
+  version = "0-unstable-2025-06-05";
 
   src = rootSrc;
 
@@ -93,7 +99,7 @@ stdenv.mkDerivation {
     rustpkgs.verilog-parser
     rustpkgs.liberty-parser
     gtest
-    glog'
+    glog
     gflags
     boost
     onnxruntime
