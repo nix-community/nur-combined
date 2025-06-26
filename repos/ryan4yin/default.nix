@@ -16,4 +16,5 @@
 
   # gowin-eda-edu-ide = pkgs.callPackage ./pkgs/gowin-eda-edu-ide { };
   cppman = pkgs.callPackage ./pkgs/cppman {};
+  gemini-cli = pkgs.callPackage ./pkgs/gemini-cli {};
 } // (pkgs.callPackage ./pkgs/themes { })
