@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -14,6 +16,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  asdf-vm = pkgs.callPackage ./pkgs/asdf-vm { };
   sf-pro = pkgs.callPackage ./pkgs/sf-pro { };
   sunsama = pkgs.callPackage ./pkgs/sunsama { };
   tcld = pkgs.callPackage ./pkgs/tcld { };
