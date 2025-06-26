@@ -1,4 +1,9 @@
-{ pkgs, lib, stdenvNoCC, fetchFromGitHub }:
+{ pkgs
+, lib
+, stdenvNoCC
+, fetchFromGitHub
+,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "bop";
   version = "20250124";
