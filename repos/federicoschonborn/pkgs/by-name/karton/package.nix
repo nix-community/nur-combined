@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     kdePackages.kirigami
     kdePackages.qtbase
     kdePackages.qtdeclarative
-  ] ++ lib.optional stdenv.hostPlatform.isLinux kdePackages.qtwayland;
+  ];
 
   strictDeps = true;
 

@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libtgd
     qt6.qtbase
-  ] ++ lib.optional stdenv.hostPlatform.isLinux qt6.qtwayland;
+  ];
 
   strictDeps = true;
 
