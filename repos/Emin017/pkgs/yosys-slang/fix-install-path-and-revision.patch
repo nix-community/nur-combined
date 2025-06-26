@@ -1,0 +1,101 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 43e4295..dd69538 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,6 +14,9 @@ project(yosys-slang CXX)
+ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
+ option(BUILD_AS_PLUGIN "Build yosys-slang as a plugin" ON)
++option(YOSYS_PLUGIN_DIR "Override yosys plugin installation directory" "")
++option(YOSYS_SLANG_REVISION "Override yosys-slang git revision" "")
++option(SLANG_REVISION "Override slang git revision" "")
+ mark_as_advanced(BUILD_AS_PLUGIN)
+
+ if (APPLE AND BUILD_AS_PLUGIN)
+diff --git a/cmake/GitRevision.cmake b/cmake/GitRevision.cmake
+index 3af6edb..f325c0f 100644
+--- a/cmake/GitRevision.cmake
++++ b/cmake/GitRevision.cmake
+@@ -1,12 +1,27 @@
+ function(git_rev_parse output_var source_dir)
+
+     if (NOT DEFINED ${output_var})
+-        execute_process(
+-            COMMAND git -C ${source_dir} rev-parse HEAD
+-            OUTPUT_VARIABLE ${output_var}
+-            OUTPUT_STRIP_TRAILING_WHITESPACE
+-            COMMAND_ERROR_IS_FATAL ANY
+-        )
++        # First try to find git and execute it
++        find_program(GIT_EXECUTABLE git)
++
++        if (GIT_EXECUTABLE)
++            execute_process(
++                COMMAND ${GIT_EXECUTABLE} -C ${source_dir} rev-parse HEAD
++                OUTPUT_VARIABLE ${output_var}
++                OUTPUT_STRIP_TRAILING_WHITESPACE
++                RESULT_VARIABLE git_result
++            )
++
++            if (NOT git_result EQUAL 0)
++                # Git command failed, use fallback
++                set(${output_var} "unknown")
++                message(WARNING "Git command failed, using fallback revision: ${${output_var}}")
++            endif()
++        else()
++            # Git not found, use fallback
++            set(${output_var} "unknown")
++            message(WARNING "Git not found, using fallback revision: ${${output_var}}")
++        endif()
+     endif()
+
+     message(STATUS "Got ${output_var}: ${${output_var}}")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 79d5baa..24706cb 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -1,8 +1,19 @@
+ find_package(Yosys)
+ include(GitRevision)
+
+-git_rev_parse(YOSYS_SLANG_REVISION ${CMAKE_SOURCE_DIR})
+-git_rev_parse(SLANG_REVISION ${CMAKE_SOURCE_DIR}/third_party/slang)
++# Use provided revision or try to get from git
++if (YOSYS_SLANG_REVISION)
++    message(STATUS "Using provided YOSYS_SLANG_REVISION: ${YOSYS_SLANG_REVISION}")
++else()
++    git_rev_parse(YOSYS_SLANG_REVISION ${CMAKE_SOURCE_DIR})
++endif()
++
++if (SLANG_REVISION)
++    message(STATUS "Using provided SLANG_REVISION: ${SLANG_REVISION}")
++else()
++    git_rev_parse(SLANG_REVISION ${CMAKE_SOURCE_DIR}/third_party/slang)
++endif()
++
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+
+ if (BUILD_AS_PLUGIN)
+@@ -48,12 +59,19 @@ if (BUILD_AS_PLUGIN)
+         SUFFIX ".so"
+     )
+
++    # Determine plugin installation directory
++    if (YOSYS_PLUGIN_DIR)
++        set(PLUGIN_INSTALL_DIR ${YOSYS_PLUGIN_DIR})
++    else()
++        set(PLUGIN_INSTALL_DIR ${YOSYS_DATDIR}/plugins)
++    endif()
++
+     if (WIN32)
+         # install .dll only
+-        install(TARGETS yosys-slang RUNTIME DESTINATION ${YOSYS_DATDIR}/plugins)
++        install(TARGETS yosys-slang RUNTIME DESTINATION ${PLUGIN_INSTALL_DIR})
+     else()
+         # install .so/.dylib only
+-        install(TARGETS yosys-slang LIBRARY DESTINATION ${YOSYS_DATDIR}/plugins)
++        install(TARGETS yosys-slang LIBRARY DESTINATION ${PLUGIN_INSTALL_DIR})
+     endif()
+ else()
+     set_target_properties(yosys-slang PROPERTIES
+

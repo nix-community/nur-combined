@@ -24,6 +24,7 @@ in
   git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator { };
   ieda = ieda-unstable;
   rtl2gds = pkgs.python3Packages.callPackage ./pkgs/rtl2gds { inherit ieda-unstable; };
+  yosys-slang = pkgs.callPackage ./pkgs/yosys-slang { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
