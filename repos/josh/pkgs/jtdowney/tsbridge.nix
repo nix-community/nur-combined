@@ -9,13 +9,13 @@
 let
   tsbridge = buildGoModule rec {
     pname = "tsbridge";
-    version = "0.4.0";
+    version = "0.4.1";
 
     src = fetchFromGitHub {
       owner = "jtdowney";
       repo = "tsbridge";
       rev = "v${version}";
-      hash = "sha256-mTWxzOAP/NSSKbwipBQt4giTE5ZoBnhbXkWYxXIkltQ=";
+      hash = "sha256-COhW8hfaE3L2S42OZfGiWxunY1nW0OKYyzm2u6r34cM=";
     };
 
     vendorHash = "sha256-iG+7m+uXaWkCRo7PCnWvKpj6fQnCb7d1IztLk1a8Ga8=";
