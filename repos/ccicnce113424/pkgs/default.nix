@@ -48,5 +48,5 @@ rec {
     version = unstableVersion sources;
   };
 
-  # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
+  wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
 }
