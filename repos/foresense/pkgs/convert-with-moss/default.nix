@@ -17,7 +17,7 @@ let
 in
 
 maven.buildMavenPackage rec {
-  pname = "convert-with-moss";
+  pname = "convertwithmoss";
   version = "13.1.0";
 
   src = fetchFromGitHub {
