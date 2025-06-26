@@ -125,7 +125,18 @@ in
               { app-id = "org\\.gnome\\.Solanum"; }
             ];
           }
-          # Bottom right notifications
+          # Overlay
+          {
+            open-floating = true;
+            focus-ring.enable = false;
+            shadow.enable = false;
+            matches = [
+              {
+                title = "AIRI";
+              }
+            ];
+          }
+          # Fix to bottom right
           {
             default-floating-position = {
               x = 10;
@@ -136,6 +147,9 @@ in
               {
                 app-id = "steam";
                 title = "^notificationtoasts_\\d+_desktop$";
+              }
+              {
+                title = "AIRI";
               }
             ];
           }

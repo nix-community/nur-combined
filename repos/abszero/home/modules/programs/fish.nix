@@ -22,6 +22,5 @@ in
 
     foot.settings.main.shell = "fish";
     ghostty.settings.command = "fish";
-    nix-your-shell.enable = true;
   };
 }

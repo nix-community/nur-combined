@@ -11,7 +11,6 @@ in
   config.programs = mkIf cfg.enable {
     foot.settings.main.shell = "nu";
     ghostty.settings.command = "nu";
-    nix-your-shell.enable = true;
 
     nushell = {
       enable = true;
