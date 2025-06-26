@@ -13,6 +13,7 @@ let
     cup-docker = callPackageByName "cup-docker" { };
     cup-docker-noserver = callPackageByName "cup-docker" { withServer = false; };
     ugdb = callPackageByName "ugdb" { };
+    krename = callPackageByName "krename" { };
   };
 in
 packages
