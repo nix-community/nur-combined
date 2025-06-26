@@ -7,7 +7,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
      owner = "alumet-dev";
      repo = pname;
-     rev = version;
+     rev = "v${version}";
      hash = "sha256-du9LPNOJp6fFEmddhj2ye4Vy+gzPy8eq2CrGdrV9Ao8=";
   };
 
