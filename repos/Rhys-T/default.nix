@@ -319,30 +319,50 @@ in {
     
     xinvaders3d = callPackage ./pkgs/xinvaders3d {};
     
-    icbm3d = dontUpdate (pkgs.icbm3d.overrideAttrs (old: {
+    # Backported updates from <https://github.com/NixOS/nixpkgs/pull/419640>
+    icbm3d = let
+        inherit (pkgs) stdenv lib icbm3d;
+        needsFix = !(lib.any (lib.hasSuffix "-darwin") (icbm3d.meta.platforms or ["-darwin"]));
+    in dontUpdate (myLib.addMetaAttrsDeep {
+        description = "${icbm3d.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
+        platforms = icbm3d.meta.platforms ++ lib.platforms.darwin;
+        position = myPos "icbm3d";
+    } (if needsFix then icbm3d.overrideAttrs (old: {
+        buildFlags = (old.buildFlags or []) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]; # fix darwin and cross-compiled builds
         postPatch = (old.postPatch or "") + ''
-            substituteInPlace makefile --replace-fail 'CC=' '#CC='
             substituteInPlace randnum.c --replace-fail 'stdio.h' 'stdlib.h'
             sed -i '1i\
             #include <string.h>' text.c
+            
+            # The Makefile tries to install icbm3d immediately after building it, and
+            # ends up trying to copy it to /icbm3d. Normally this just gets an error
+            # and moves on, but it's probably better to not try it in the first place.
+            sed -i '/INSTALLROOT/d' makefile
         '';
-        meta = old.meta // {
-            description = "${old.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
-            platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
-            position = myPos "icbm3d";
-        };
-    }));
+    }) else icbm3d));
     
-    xgalagapp = dontUpdate (pkgs.xgalagapp.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-            substituteInPlace Makefile --replace-fail 'CXX =' '#CXX ='
+    xgalagapp = let
+        inherit (pkgs) stdenv lib xgalagapp;
+        needsFix = !(lib.any (lib.hasSuffix "-darwin") (xgalagapp.meta.platforms or ["-darwin"]));
+    in dontUpdate (myLib.addMetaAttrsDeep {
+        description = "${xgalagapp.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
+        platforms = xgalagapp.meta.platforms ++ lib.platforms.darwin;
+        position = myPos "xgalagapp";
+    } (if needsFix then xgalagapp.overrideAttrs (old: {
+        buildFlags = [
+            "all"
+            "HIGH_SCORES_FILE=.xgalaga++.scores"
+            "CXX=${stdenv.cc.targetPrefix}c++" # fix darwin and cross-compiled builds
+        ];
+        buildPhase = null;
+        installPhase = ''
+            runHook preInstall
+            
+            ${old.installPhase}
+            
+            runHook postInstall
         '';
-        meta = old.meta // {
-            description = "${old.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
-            platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
-            position = myPos "xgalagapp";
-        };
-    }));
+    }) else xgalagapp));
     
     fpc = let
         inherit (pkgs) lib;
