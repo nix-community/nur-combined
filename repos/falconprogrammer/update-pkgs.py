@@ -6,7 +6,7 @@ template = open(".default_template.nix", "r").read()
 let_tag = "<<TEMPLATE_LET>>"
 package_tag = "<<TEMPLATE_PACKAGES>>"
 
-python_versions = ["310", "311", "312"]
+python_versions = ["311", "312", "313"]
 python_app_version = "312"
 
 
@@ -18,7 +18,7 @@ def main():
 	pkg_list.sort()
 
 	# ignore these packages
-	ignore_list = ["example-package", "polydock"]
+	ignore_list = ["example-package", "polydock", "cursebreaker", "pyinstaller"]
 	pkg_list = [x for x in pkg_list if x.name not in ignore_list]
 
 	######
@@ -34,6 +34,7 @@ def main():
 	# Limit packages to specific versions
 	limit_python_versions = {
 		"llama-cpp-python": ["310", "311"],
+		"cursebreaker": ["311"],
 	}
 
 	######
