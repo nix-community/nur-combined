@@ -38,6 +38,7 @@ let
     };
     fw-ectool = { };
     go-mod-upgrade = { };
+    hl = { };
     imhex = { };
     lddtree = { };
     ots-cli = {
