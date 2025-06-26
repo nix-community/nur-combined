@@ -15,13 +15,13 @@
 }:
 buildPythonApplication rec {
   pname = "a2ln";
-  version = "1.1.14";
+  version = "1.1.15";
 
   src = fetchFromGitHub {
     repo = "a2ln-server";
     owner = "patri9ck";
     rev = version;
-    hash = "sha256-6SVAFeVB/YpddJhSHgjIF43i2BAmFFADMwlygp9IrSU=";
+    hash = "sha256-5IrjegEHxd33fxJHumpWi9zXViEl2CmcGsCJdJlXCaA=";
   };
 
   format = "pyproject";
