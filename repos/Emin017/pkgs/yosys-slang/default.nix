@@ -8,6 +8,7 @@
 stdenv.mkDerivation rec {
   pname = "yosys-slang";
   version = "0-unstable-2025-06-21";
+  plugin = "slang";
 
   src = fetchgit {
     url = "https://github.com/povik/yosys-slang.git";
