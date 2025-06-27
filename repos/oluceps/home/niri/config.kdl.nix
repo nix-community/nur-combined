@@ -146,7 +146,7 @@ in
    // position x=1080 y=0
   }
 
-  output "DP-3" {
+  output "PNP(GVT) Kuycon P24U 0x01010101" {
    // off
 
    scale 2.0

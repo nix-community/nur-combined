@@ -154,10 +154,10 @@
 
   };
   # system.forbiddenDependenciesRegexes = [ "perl" ];
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-    search nyaw.xyz
-  '';
+  # environment.etc."resolv.conf".text = ''
+  #   nameserver 127.0.0.1
+  #   search nyaw.xyz
+  # '';
 
   zramSwap = {
     enable = false;
@@ -199,7 +199,7 @@
     prometheus.enable = true;
     # coredns.enable = true;
     dnsproxy = {
-      enable = true;
+      enable = false;
       extraFlags = [
         "--edns-addr=211.139.163.1"
       ];

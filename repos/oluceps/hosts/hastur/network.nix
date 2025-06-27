@@ -2,12 +2,9 @@
 {
   imports = [ ./bird.nix ];
   services.resolved = {
-    enable = lib.mkForce false;
+    # enable = lib.mkForce false;
     llmnr = "false";
     dnssec = "false";
-    extraConfig = ''
-      MulticastDNS=off
-    '';
     fallbackDns = [ "8.8.8.8#dns.google" ];
     # dnsovertls = "true";
   };
@@ -99,11 +96,11 @@
         IPv6AcceptRA = "yes";
       };
       ipv6AcceptRAConfig = {
-        UseDNS = false;
+        # UseDNS = false;
       };
 
-      dhcpV4Config.UseDNS = false;
-      dhcpV6Config.UseDNS = false;
+      # dhcpV4Config.UseDNS = false;
+      # dhcpV6Config.UseDNS = false;
 
       linkConfig.RequiredForOnline = "routable";
       address = [ "192.168.1.2/24" ];
