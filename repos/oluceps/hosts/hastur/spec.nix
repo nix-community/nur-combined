@@ -54,8 +54,10 @@
     # Running database and web services.
 
     stateVersion = "24.11";
-    etc.overlay.enable = true;
-    etc.overlay.mutable = false;
+    etc.overlay = {
+      enable = true;
+      mutable = false;
+    };
   }; # Did you read the comment?
   users.mutableUsers = false;
   services = {

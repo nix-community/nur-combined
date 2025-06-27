@@ -167,12 +167,14 @@
     };
 
   };
-  # system.etc.overlay.enable = true;
-  # system.etc.overlay.mutable = false;
+  system.etc.overlay = {
+    enable = true;
+    mutable = false;
+  };
   # system.forbiddenDependenciesRegexes = [ "perl" ];
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
+  # environment.etc."resolv.conf".text = ''
+  #   nameserver 127.0.0.1
+  # '';
   environment.sessionVariables = {
     # WLR_RENDERER = "vulkan";
   };
@@ -258,7 +260,7 @@
     garage.enable = true;
     dae.enable = true;
     dnsproxy = {
-      enable = true;
+      # enable = true;
       lazy = true;
       # loadCert = true;
       extraFlags = [

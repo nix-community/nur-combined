@@ -67,9 +67,6 @@
 
   environment.systemPackages = [ pkgs.gdu ];
   users.mutableUsers = false;
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
 
   nix.gc = {
     automatic = true;
@@ -86,7 +83,7 @@
     fail2ban.enable = true;
     # phantomsocks.enable = true;
     dae.enable = true;
-    dnsproxy.enable = true;
+    # dnsproxy.enable = true;
     scrutiny.enable = true;
     postgresql.enable = true;
 
@@ -151,7 +148,6 @@
       };
     };
 
-    resolved.enable = lib.mkForce false;
     minio = {
       enable = true;
       region = "ap-east-1";
