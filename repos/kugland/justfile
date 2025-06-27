@@ -3,6 +3,14 @@ format:
     just --unstable --fmt
     nix shell nixpkgs#nixpkgs-fmt -c nixpkgs-fmt .
 
+update:
+    #! /usr/bin/env nix-shell
+    #! nix-shell -i bash -p parallel
+    parallel just ::: update-flakes update-cursor update-musescore
+
+update-flakes:
+    nix flake update
+
 update-cursor:
     #! /usr/bin/env nix-shell
     #! nix-shell -i bash -p curl
