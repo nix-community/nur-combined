@@ -21,6 +21,7 @@ packageSet = do
   ghPkg "matrix-org" "synapse-s3-storage-provider"
   ghPkg "microsoft" "secureboot_objects"
   ghPkg "trojan-gfw" "trojan"
+  gitPkg "libva-v4l2" "https://github.com/mxsrc/libva-v4l2.git"
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
   gitPkg "rime-cangjie" "https://github.com/rime/rime-cangjie.git"

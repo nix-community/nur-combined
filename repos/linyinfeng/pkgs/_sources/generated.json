@@ -151,6 +151,26 @@
         },
         "version": "v2.12.28"
     },
+    "libva-v4l2": {
+        "cargoLocks": null,
+        "date": "2024-10-21",
+        "extract": null,
+        "name": "libva-v4l2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "4bcd48cdeae182c7af5d23526068b51338c01b05",
+            "sha256": "sha256-40wAxU7xj9VF4Dk+zrQWn9iiGAzWlhEdN9dQa5ftLLE=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/mxsrc/libva-v4l2.git"
+        },
+        "version": "4bcd48cdeae182c7af5d23526068b51338c01b05"
+    },
     "linux-intel-lts": {
         "cargoLocks": null,
         "date": null,

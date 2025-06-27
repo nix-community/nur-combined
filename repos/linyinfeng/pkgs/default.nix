@@ -36,6 +36,7 @@ lib.makeScope newScope (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    libva-v4l2 = callPackage ./libva-v4l2 { };
     lpac = callPackage ./lpac { };
     ly2video = callPackage ./ly2video { };
     matrix-media-repo = callPackage ./matrix-media-repo { };

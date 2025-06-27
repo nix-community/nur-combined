@@ -99,6 +99,20 @@
       sha256 = "sha256-lNlzQPDXXVNuacic1BYjWA5sGLRLlcGVRaqHPmZ3ZYs=";
     };
   };
+  libva-v4l2 = {
+    pname = "libva-v4l2";
+    version = "4bcd48cdeae182c7af5d23526068b51338c01b05";
+    src = fetchgit {
+      url = "https://github.com/mxsrc/libva-v4l2.git";
+      rev = "4bcd48cdeae182c7af5d23526068b51338c01b05";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-40wAxU7xj9VF4Dk+zrQWn9iiGAzWlhEdN9dQa5ftLLE=";
+    };
+    date = "2024-10-21";
+  };
   linux-intel-lts = {
     pname = "linux-intel-lts";
     version = "lts-v6.12.34-linux-250619T163003Z";
