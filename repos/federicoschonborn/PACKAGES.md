@@ -132,14 +132,14 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - [📰 Changelog](https://github.com/glojurelang/glojure/releases/tag/v0.2.6)
 - [📦 Source](./pkgs/by-name/glojure/package.nix#L52)
 - 📄 License: [`Eclipse Public License 1.0`](https://spdx.org/licenses/EPL-1.0.html)
-- 🖥️ Platforms: `x86_64-darwin`, `aarch64-darwin`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `wasm64-wasi`, `wasm32-wasi`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`
+- 🖥️ Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
 
 ## `highscore` {#highscore}
 
 Retro gaming application for the GNOME desktop.
 
 - Name: `highscore`
-- Version: `0-unstable-2025-06-25`
+- Version: `0-unstable-2025-06-26`
 - [🌐 Homepage](https://gitlab.gnome.org/World/highscore)
 - [📦 Source](./pkgs/by-name/highscore/package.nix#L91)
 - 📄 License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -229,7 +229,7 @@ CI friendly wrapper around nix-build.
 A hardware profiling application for Linux.
 
 - Name: `magothy`
-- Version: `0-unstable-2025-06-22`
+- Version: `0-unstable-2025-06-26`
 - [🌐 Homepage](https://codeberg.org/serebit/magothy)
 - [📦 Source](./pkgs/by-name/magothy/package.nix#L32)
 - 📄 Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html)
@@ -424,7 +424,7 @@ Generate a static HTML page from a collection of feeds with a simple CLI tool.
 A Qt style supporting both QtQuick and QtWidgets.
 
 - Name: `union`
-- Version: `0-unstable-2025-06-20`
+- Version: `0-unstable-2025-06-23`
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L60)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
@@ -435,7 +435,7 @@ A Qt style supporting both QtQuick and QtWidgets.
 A Qt style supporting both QtQuick and QtWidgets.
 
 - Name: `union`
-- Version: `0-unstable-2025-06-20`
+- Version: `0-unstable-2025-06-23`
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L60)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
