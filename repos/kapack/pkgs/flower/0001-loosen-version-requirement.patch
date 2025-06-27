@@ -1,0 +1,24 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 76b8ac224..c1fe57959 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -65,15 +65,15 @@ python = "^3.9.2"
+ # Mandatory dependencies
+ numpy = ">=1.26.0,<3.0.0"
+ grpcio = "^1.62.3,!=1.65.0"
+-protobuf = "^4.21.6"
+-cryptography = "^44.0.1"
++protobuf = ">=4.21.6"
++cryptography = ">=44.0.1"
+ pycryptodome = "^3.18.0"
+ iterators = "^0.0.2"
+-typer = "^0.12.5"
++typer = ">=0.12.5"
+ tomli = "^2.0.1"
+ tomli-w = "^1.0.0"
+ pathspec = "^0.12.1"
+-rich = "^13.5.0"
++rich = ">=13.5.0"
+ pyyaml = "^6.0.2"
+ requests = "^2.31.0"
+ # Optional dependencies (Simulation Engine)

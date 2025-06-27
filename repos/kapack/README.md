@@ -7,6 +7,8 @@ NUR-Kapack repository
 NUR-Kapack contains [Nix](https://nixos.org/) package definitions of the software we work on in the [DataMove](https://team.inria.fr/datamove/) team: OAR, the Batsim ecosystem, Melissa...
 This is part of [Nix User Repository](https://github.com/nix-community/NUR).
 
+**You can see the available packages and their version [here](packages.md)**
+
 Packages of released versions defined in this repository are built regularly on CI and stored on a [Cachix](https://cachix.org/) binary cache. You can use it to just fetch prebuilt binaries instead of rebuilding them with the following command.
 
 ```bash

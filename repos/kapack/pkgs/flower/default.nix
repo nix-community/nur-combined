@@ -2,17 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "flower";
-  version = "1.4.0";
+  version = "1.16.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "adap";
     repo = "flower";
     rev = "v${version}";
-    sha256 = "sha256-dfe41CtUcsxZEvs3tRUfPCO0rEgM7zGGsyWwzTIuTcg=";
+    sha256 = "sha256-PrXYJBg8pPgGHknV/BGfKBEXYbVCSaWHzQyaE3S3wDM=";
   };
   patches = [
-    ./0001-loosen-protobuf-version-requirement.patch
+    ./0001-loosen-version-requirement.patch
   ];
 
   nativeBuildInputs = [ python3Packages.poetry-core ];
@@ -21,6 +21,15 @@ python3Packages.buildPythonPackage rec {
     protobuf
     grpcio
     iterators
+    cryptography
+    pathspec
+    pycryptodome
+    pyyaml
+    requests
+    rich
+    tomli
+    tomli-w
+    typer
   ];
 
   meta = with lib; {

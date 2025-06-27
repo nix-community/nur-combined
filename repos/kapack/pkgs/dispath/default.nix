@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [];
   nativeBuildInputs = [];
 
-  cargoHash = "sha256-QbY6PicJObGxHVMvU9QPt01ykHN8soEhZvJAfdXbTXA=";
+  cargoHash = "sha256-Wypf8SjEYDgYAH3b5H0/WrieD7OVqV8s5waItfS4sXc=";
 
   meta = with lib; {
     homepage = https://github.com/mpoquet/dispath;
