@@ -8,7 +8,7 @@
       sha256 = "5f35c945be8d96753da5cdcf03d0e9b4b759706f2dd30921f391849c2daa8ef4";
       meta = with lib;
       {
-        homepage = "https://github.com/birchill/10ten-ja-reader/";
+        homepage = "https://10ten.life";
         description = "Quickly translate Japanese by hovering over words. Formerly released as Rikaichamp.";
         license = licenses.gpl3;
         mozPermissions = [
@@ -1827,10 +1827,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.29.0";
+      version = "3.30.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4519796/click_and_read-3.29.0.xpi";
-      sha256 = "4bddf82a52d3f776939d4ca5b745220f08739c9162991fd6e404efa819ac4684";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4521317/click_and_read-3.30.0.xpi";
+      sha256 = "8dc4fe9f95e8b33580e45dd99ef78cb826c3af0caa5c0197e019259578f7891b";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -4492,7 +4492,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
-        description = "Provides better experience for using the Hoppscotch web app.\n\nHaven't used Hoppscotch ? It's an amazing quick API Request Builder.\nTry it at https://hoppscotch.io/ !!!";
+        description = "Removes CORS restrictions for cross-origin requests, particularly those to localhost. It essentially allows Hoppscotch to make requests that might otherwise be blocked by the browser's security policies.";
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "cookies" "scripting" ];
         platforms = platforms.all;
@@ -11111,10 +11111,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.2.4";
+      version = "3.2.6";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4520247/simplifygmail-3.2.4.xpi";
-      sha256 = "deea1778ecfd38229e0a9b066b5a99f44282d057e92d2422d6a15e8a8df5ab99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4521197/simplifygmail-3.2.6.xpi";
+      sha256 = "b2c59cf81566ec35a0b6955f8602115913a3ee66e7a638a24d4708460bdc45f8";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14307,10 +14307,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.30";
+      version = "2.4.31";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4520770/youtube_no_translation-2.4.30.xpi";
-      sha256 = "fc7ede2a7322cadea707b20b04e6a1479df880108a313bad2def20617fe7cfa3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4521594/youtube_no_translation-2.4.31.xpi";
+      sha256 = "c312f2c83bae421c594ab3d590111a78cf74993fab1990ff995775b4935e2771";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
