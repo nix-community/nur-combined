@@ -642,7 +642,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -847,7 +847,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5757"
+    "version": "5760"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1292,7 +1292,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-23"
+    "version": "0-unstable-2025-06-26"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3932,7 +3932,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4167,7 +4167,7 @@
   "legacyPackages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-22"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
@@ -4557,7 +4557,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-23"
+    "version": "0-unstable-2025-06-26"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4847,7 +4847,7 @@
   "legacyPackages.x86_64-linux.uncategorized.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-22"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.uncategorized.smfc": {
     "description": "Super Micro Fan Control",
@@ -5342,7 +5342,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -5517,7 +5517,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-06-23"
+    "version": "0-unstable-2025-06-26"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5922,7 +5922,7 @@
   "packages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2025-06-22"
+    "version": "0-unstable-2025-06-27"
   },
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",

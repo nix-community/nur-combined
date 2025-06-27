@@ -1220,7 +1220,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-06-25",
+        "date": "2025-06-27",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1232,12 +1232,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "443bc09c11f3cf89ffc573aab2021f0c933aa5b3",
-            "sha256": "sha256-/MoMsA5fY35KPtWk7WJ+9T1qd/UOU5Co2JkcLk4orJY=",
+            "rev": "05c8eba11c51ca928eee9c041de1a4192e590aec",
+            "sha256": "sha256-m3ntQv/vOtp/nugDufyuDXT3ym/bI9cPy6Cfe9x4cUs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "443bc09c11f3cf89ffc573aab2021f0c933aa5b3"
+        "version": "05c8eba11c51ca928eee9c041de1a4192e590aec"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -1819,7 +1819,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-06-23",
+        "date": "2025-06-26",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1831,12 +1831,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "4215362acbf69b88fe1777c4c052f154e29f9897",
-            "sha256": "sha256-lLwdeZLSIvZXGsCbpOnwSTNUGaMwMlmj+zzaowaV6hY=",
+            "rev": "b5d3dac4ebdfbbc5de1f6ab9fc6a94c3fd47d13d",
+            "sha256": "sha256-uIsVCw62+9eUNTIrFJfD5PN2rJi0m5nA76yVaJVCI0A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4215362acbf69b88fe1777c4c052f154e29f9897"
+        "version": "b5d3dac4ebdfbbc5de1f6ab9fc6a94c3fd47d13d"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2099,12 +2099,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5757",
-            "sha256": "sha256-TnFwjB3tpRogwpuKLsN1/gwQp0Gxe45b6c2pCARiySk=",
+            "rev": "b5760",
+            "sha256": "sha256-XtAkxKW11rtLggq28pNwVvdTclHrPZDgjljoKzde+nQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5757"
+        "version": "b5760"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3317,11 +3317,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7/c1PwlcWogXO229e7f1gYWktCT+hpyQI1+22TkvzLQ=",
+            "sha256": "sha256-xEw6tE+qX90XQS3e2MTudeUJNfx25hwgq1YFROHqfng=",
             "type": "url",
-            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.18_250616_amd64_01.deb"
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.18_250626_amd64_01.deb"
         },
-        "version": "QQ_3.2.18_250616_amd64_01"
+        "version": "QQ_3.2.18_250626_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -3332,11 +3332,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wwZC+hyyrmmjhlk4hdJTnf5WkRxjit6smUmD4jPKbM0=",
+            "sha256": "sha256-7teJWRvvz5baJsaHmOwnkLgBcBxWOUCGpV2+MHH7Tic=",
             "type": "url",
-            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.18_250616_arm64_01.deb"
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.18_250626_arm64_01.deb"
         },
-        "version": "QQ_3.2.18_250616_arm64_01"
+        "version": "QQ_3.2.18_250626_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -3793,7 +3793,7 @@
     },
     "sidestore-vpn": {
         "cargoLocks": null,
-        "date": "2025-06-22",
+        "date": "2025-06-27",
         "extract": null,
         "name": "sidestore-vpn",
         "passthru": null,
@@ -3805,12 +3805,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "sidestore-vpn",
-            "rev": "f5674ec007126e5164777335183c8ef6d11ffe87",
-            "sha256": "sha256-jeXm9/5kINtPNJCwH84gsf3yNFw4z7frmOvRFZkxC5U=",
+            "rev": "db79bf5c47b4eaeac23f2393f85df41486372f95",
+            "sha256": "sha256-4gCVakfIVMPGhZaOlJhwftpsqcPtRJ2dWLUpTS5cE64=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f5674ec007126e5164777335183c8ef6d11ffe87"
+        "version": "db79bf5c47b4eaeac23f2393f85df41486372f95"
     },
     "silero-vad": {
         "cargoLocks": null,
