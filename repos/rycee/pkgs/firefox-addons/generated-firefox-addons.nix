@@ -1931,10 +1931,10 @@
     };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.1.3";
+      version = "1.1.5";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362793/consent_o_matic-1.1.3.xpi";
-      sha256 = "a3ca5c64ac50376366beb4cce610d0af80e687c8c6a8c21a107c6118059896f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515369/consent_o_matic-1.1.5.xpi";
+      sha256 = "a2119abc329638d6e7af1ab4e5548a348465e02eec11de08dee0af84919923dc";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -2310,10 +2310,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "140.0.20250625.213854";
+      version = "140.0.20250627.85530";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521119/dansk_da_language_pack-140.0.20250625.213854.xpi";
-      sha256 = "65d1b04a8bfebc9308af6fda3a317440e25fdc02c3be6b84e2a2e2f2bac68c20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522305/dansk_da_language_pack-140.0.20250627.85530.xpi";
+      sha256 = "daec355e061daad2d6800300e302071ac0481fcca72d0fb32ebb1a34a96becb0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2507,10 +2507,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "140.0.20250625.213854";
+      version = "140.0.20250627.85530";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521116/deutsch_de_language_pack-140.0.20250625.213854.xpi";
-      sha256 = "5190c1e370d62235594840c7ba3cca93e322d46fb878a554ff79fe541b0fea3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522304/deutsch_de_language_pack-140.0.20250627.85530.xpi";
+      sha256 = "7af258f37892934e2aedad604961b912da4ed033809a98b7a16e80fc94bf532e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3768,10 +3768,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "140.0.20250625.213854";
+      version = "140.0.20250627.85530";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521115/francais_language_pack-140.0.20250625.213854.xpi";
-      sha256 = "d07a0063098f4ec69e03bcbf12022d3da29e0612b29bcf99ca57a732545842a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522263/francais_language_pack-140.0.20250627.85530.xpi";
+      sha256 = "4a8c15679110b5221a82eb6ddb20181a7ab5950511b290c4a0b6fafd775fcff7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3805,14 +3805,29 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "140.0.20250625.213854";
+      version = "140.0.20250627.85530";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521130/gaidhlig_language_pack-140.0.20250625.213854.xpi";
-      sha256 = "faa74b8275f2bbf15abba6b07404920ac131bfb623a8ccf2bf7f384baacb3707";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522284/gaidhlig_language_pack-140.0.20250627.85530.xpi";
+      sha256 = "1d87b25049c31a4b0c5febf6d7bdbf4d8b6c95bf01ff2fcfb45a4438a298be83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
         license = licenses.mpl20;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "gemini-in-sidebar" = buildFirefoxXpiAddon {
+      pname = "gemini-in-sidebar";
+      version = "1.0.0";
+      addonId = "{6668aea4-9581-44e0-8477-5f037252ccb5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279824/gemini_in_sidebar-1.0.0.xpi";
+      sha256 = "a6e6bbf99fd9eb1dd3afd157652c029e6eb5e2952d956f445a5d3d903e724d67";
+      meta = with lib;
+      {
+        homepage = "https://gemini.google.com/";
+        description = "Displays Gemini in the sidebar, provides customizable keyboard shortcut and toggle button.";
+        license = licenses.mit;
         mozPermissions = [];
         platforms = platforms.all;
       };
@@ -6642,6 +6657,32 @@
         platforms = platforms.all;
       };
     };
+    "libkey-nomad" = buildFirefoxXpiAddon {
+      pname = "libkey-nomad";
+      version = "1.47.0";
+      addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4493730/libkey_nomad-1.47.0.xpi";
+      sha256 = "e910054e35522114bb14cc6c55c79b7317142c60334bae968e7336c4d6938be6";
+      meta = with lib;
+      {
+        homepage = "https://thirdiron.com/libkey-nomad/";
+        description = "One-click access to millions of scholarly articles.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "alarms"
+          "http://*/*"
+          "https://*/*"
+          "file://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
       version = "3.1.0";
@@ -8214,6 +8255,45 @@
         description = "Force MathJax/KaTeX/MediaWIki to use native MathML rendering.";
         license = licenses.mpl20;
         mozPermissions = [ "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "nekocap" = buildFirefoxXpiAddon {
+      pname = "nekocap";
+      version = "1.16.0";
+      addonId = "nekocaption@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4513585/nekocap-1.16.0.xpi";
+      sha256 = "f384325bcf7140da63feebb3ee3c1584f52504f9a33463c773b16af0fa867ec7";
+      meta = with lib;
+      {
+        homepage = "https://nekocap.com";
+        description = "Create and upload community captions for YouTube videos (and more) with this easy to use extension that supports SSA/ASS rendering.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "webNavigation"
+          "identity"
+          "https://*.youtube.com/*"
+          "https://*.tver.jp/*"
+          "https://*.nicovideo.jp/*"
+          "https://*.vimeo.com/*"
+          "https://*.bilibili.com/*"
+          "https://*.netflix.com/*"
+          "https://*.primevideo.com/*"
+          "https://*.twitter.com/*"
+          "https://*.x.com/*"
+          "https://*.wetv.vip/*"
+          "https://*.tiktok.com/*"
+          "https://*.iq.com/*"
+          "https://*.abema.tv/*"
+          "https://*.bilibili.tv/*"
+          "https://*.nogidoga.com/*"
+          "https://*.cu.tbs.co.jp/*"
+          "https://*.instagram.com/*"
+          "https://*.unext.jp/*"
+          "https://*.archive.org/*"
+          "https://*.dailymotion.com/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -9839,6 +9919,21 @@
         platforms = platforms.all;
       };
     };
+    "private-grammar-checker-harper" = buildFirefoxXpiAddon {
+      pname = "private-grammar-checker-harper";
+      version = "0.44.0";
+      addonId = "harper@writewithharper.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517467/private_grammar_checker_harper-0.44.0.xpi";
+      sha256 = "4c60ea3f14f57f90f479b9b5c7508f84dbf91c0b4d4dacaf725386c76152db60";
+      meta = with lib;
+      {
+        homepage = "https://writewithharper.com";
+        description = "A private grammar checker for 21st Century English";
+        license = licenses.asl20;
+        mozPermissions = [ "storage" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
       version = "2.8.1";
@@ -10306,6 +10401,83 @@
         platforms = platforms.all;
       };
     };
+    "recap" = buildFirefoxXpiAddon {
+      pname = "recap";
+      version = "2.8.5";
+      addonId = "info@recapthelaw.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4514868/recap_195534-2.8.5.xpi";
+      sha256 = "62f6d71f9618b2c2bad92c4e848026fccfd8e5836a23a57d5eb84d73ac0ca4ff";
+      meta = with lib;
+      {
+        homepage = "https://free.law/recap/";
+        description = "Turning PACER Around since 2009 to make it better and cheaper.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "notifications"
+          "storage"
+          "unlimitedStorage"
+          "activeTab"
+          "tabs"
+          "cookies"
+          "scripting"
+          "*://*.uscourts.gov/*"
+          "*://ca1-showdoc.azurewebsites.us/*"
+          "*://ca2-showdoc.azurewebsites.us/*"
+          "*://ca3-showdoc.azurewebsites.us/*"
+          "*://ca4-showdoc.azurewebsites.us/*"
+          "*://ca5-showdoc.azurewebsites.us/*"
+          "*://ca6-showdoc.azurewebsites.us/*"
+          "*://ca7-showdoc.azurewebsites.us/*"
+          "*://ca8-showdoc.azurewebsites.us/*"
+          "*://ca9-showdoc.azurewebsites.us/*"
+          "*://ca10-showdoc.azurewebsites.us/*"
+          "*://ca11-showdoc.azurewebsites.us/*"
+          "*://cafc-showdoc.azurewebsites.us/*"
+          "*://cadc-showdoc.azurewebsites.us/*"
+          "*://ca1-showdocservices.azurewebsites.us/*"
+          "*://ca2-showdocservices.azurewebsites.us/*"
+          "*://ca3-showdocservices.azurewebsites.us/*"
+          "*://ca4-showdocservices.azurewebsites.us/*"
+          "*://ca5-showdocservices.azurewebsites.us/*"
+          "*://ca6-showdocservices.azurewebsites.us/*"
+          "*://ca7-showdocservices.azurewebsites.us/*"
+          "*://ca8-showdocservices.azurewebsites.us/*"
+          "*://ca9-showdocservices.azurewebsites.us/*"
+          "*://ca10-showdocservices.azurewebsites.us/*"
+          "*://ca11-showdocservices.azurewebsites.us/*"
+          "*://cafc-showdocservices.azurewebsites.us/*"
+          "*://cadc-showdocservices.azurewebsites.us/*"
+          "*://ca1-portal.powerappsportals.us/*"
+          "*://ca2-portal.powerappsportals.us/*"
+          "*://ca3-portal.powerappsportals.us/*"
+          "*://ca4-portal.powerappsportals.us/*"
+          "*://ca5-portal.powerappsportals.us/*"
+          "*://ca6-portal.powerappsportals.us/*"
+          "*://ca7-portal.powerappsportals.us/*"
+          "*://ca8-portal.powerappsportals.us/*"
+          "*://ca9-portal.powerappsportals.us/*"
+          "*://ca10-portal.powerappsportals.us/*"
+          "*://ca11-portal.powerappsportals.us/*"
+          "*://cafc-portal.powerappsportals.us/*"
+          "*://cadc-portal.powerappsportals.us/*"
+          "*://ca1.fedcourts.us/*"
+          "*://ca2.fedcourts.us/*"
+          "*://ca3.fedcourts.us/*"
+          "*://ca4.fedcourts.us/*"
+          "*://ca5.fedcourts.us/*"
+          "*://ca6.fedcourts.us/*"
+          "*://ca7.fedcourts.us/*"
+          "*://ca8.fedcourts.us/*"
+          "*://ca9.fedcourts.us/*"
+          "*://ca10.fedcourts.us/*"
+          "*://ca11.fedcourts.us/*"
+          "*://cafc.fedcourts.us/*"
+          "*://cadc.fedcourts.us/*"
+          "https://www.courtlistener.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "recoll-we" = buildFirefoxXpiAddon {
       pname = "recoll-we";
       version = "2.1";
@@ -10574,10 +10746,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.1.0.1603";
+      version = "0.1.0.1610";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4511859/ruffle_rs-0.1.0.1603.xpi";
-      sha256 = "f74792c9f3337b70b099312b9c66758f25b79bb03cb1f93b2a8f043da09c00ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4516500/ruffle_rs-0.1.0.1610.xpi";
+      sha256 = "41c90896e0c4d2f47c0b8b1efb4f4f3f4ade4a46c49f1b11cfb39cec2ccb52e4";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -10638,6 +10810,28 @@
         platforms = platforms.all;
       };
     };
+    "save-all-images-webextension" = buildFirefoxXpiAddon {
+      pname = "save-all-images-webextension";
+      version = "0.8.4";
+      addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4494884/save_all_images_webextension-0.8.4.xpi";
+      sha256 = "56fb6f2eefd63046c48a1bc025c045b18f730a24284a3a5b7eaf346d496c834f";
+      meta = with lib;
+      {
+        homepage = "https://webextension.org/listing/save-images.html";
+        description = "Easily save images with a wide range of customization features, such as file size, dimensions, and image type.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "notifications"
+          "<all_urls>"
+          "downloads"
+          "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
       version = "28.11";
@@ -10666,10 +10860,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "140.0.20250625.213854";
+      version = "140.0.20250627.85530";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521094/scots_language_pack-140.0.20250625.213854.xpi";
-      sha256 = "c2c1e1f69f81782ef7aafb0dd62ec00d31fe2cac9a34f5bdbcb756d205173de1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522240/scots_language_pack-140.0.20250627.85530.xpi";
+      sha256 = "89534b6a0205f8c414a4ef0f7d21cd08a0886fdbaffe9f33b0c00310e4e8f6d8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12591,6 +12785,26 @@
         platforms = platforms.all;
       };
     };
+    "twiter-x-video-downloader" = buildFirefoxXpiAddon {
+      pname = "twiter-x-video-downloader";
+      version = "15.0";
+      addonId = "{7536027f-96fb-4762-9e02-fdfaedd3bfb5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4520123/twiter_x_video_downloader-15.0.xpi";
+      sha256 = "4965a2bfa590a67ed0853443596e7a8ab1d51de77da3cdd4c05c1eae2388354a";
+      meta = with lib;
+      {
+        description = "Download videos from X (Twitter)";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "*://*.x.com/*"
+          "*://*.twitter.com/*"
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
       version = "9.0.0";
@@ -12921,6 +13135,32 @@
         description = "Allows you to restore the tab you just closed with a single click—plus it can offer a list of recently closed tabs within a convenient context menu.";
         license = licenses.gpl3;
         mozPermissions = [ "menus" "tabs" "sessions" "storage" "theme" ];
+        platforms = platforms.all;
+      };
+    };
+    "unofficial-saladict-popup-dictionary" = buildFirefoxXpiAddon {
+      pname = "unofficial-saladict-popup-dictionary";
+      version = "7.20.0";
+      addonId = "UNOFFICIAL_ext-saladict_whycantI_reusethisID@imayx.top";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4212328/2826049-7.20.0.xpi";
+      sha256 = "e75280776ee8b2d126a1db4451d2075695b0babe932e63b622e40a80fbedaa66";
+      meta = with lib;
+      {
+        homepage = "https://g.imayx.top/UNOFFICIAL_saladict/";
+        description = "Saladict is an all-in-one professional pop-up dictionary and page translator which supports multiple search modes, page translations, new word notebook and PDF selection searching. This distribution is UNOFFICIAL. Remove it if you don't trust it.";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "alarms"
+          "contextMenus"
+          "cookies"
+          "notifications"
+          "storage"
+          "tabs"
+          "unlimitedStorage"
+          "webRequest"
+          "webRequestBlocking"
+        ];
         platforms = platforms.all;
       };
     };
@@ -14203,6 +14443,26 @@
         platforms = platforms.all;
       };
     };
+    "yank" = buildFirefoxXpiAddon {
+      pname = "yank";
+      version = "2.1.0";
+      addonId = "yank@roosta.sh";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4439612/yank-2.1.0.xpi";
+      sha256 = "55f6a0f9bda45d68c48be5f8d7073dbed1a82f6e8f078cd5c900ffcd4f47a66b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/roosta/yank#readme";
+        description = "Yank URL and title of current tab, format to a chosen markup language, and copy to clipboard";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "clipboardWrite"
+          "contextMenus"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
       version = "25.6.3.0";
@@ -14307,10 +14567,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.31";
+      version = "2.4.32";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4521594/youtube_no_translation-2.4.31.xpi";
-      sha256 = "c312f2c83bae421c594ab3d590111a78cf74993fab1990ff995775b4935e2771";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522323/youtube_no_translation-2.4.32.xpi";
+      sha256 = "5b39fa86566b951389366438f2ee7c322187c1d12a879651248168014835b27e";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
@@ -14437,6 +14697,21 @@
           "webRequestBlocking"
           "contextMenus"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "zhihu-undirect" = buildFirefoxXpiAddon {
+      pname = "zhihu-undirect";
+      version = "1.1.2resigned1";
+      addonId = "{e1896037-b13b-4fe4-9aaf-3fc14d0f5c54}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4272066/zhihu_undirect-1.1.2resigned1.xpi";
+      sha256 = "d1d756aa992b3ec2af66e7fc72eb37ced230669fe9c3f54d4574db9813478b65";
+      meta = with lib;
+      {
+        homepage = "https://github.com/paicha/zhihu-undirect";
+        description = "移除知乎外部链接重定向，加速上网、避免访问追踪。";
+        license = licenses.mit;
+        mozPermissions = [ "*://*.zhihu.com/*" ];
         platforms = platforms.all;
       };
     };

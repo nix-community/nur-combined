@@ -636,6 +636,9 @@
     "slug": "furiganaize"
   },
   {
+    "slug": "gemini-in-sidebar"
+  },
+  {
     "slug": "geminize"
   },
   {
@@ -950,6 +953,16 @@
     "slug": "lexicon"
   },
   {
+    "slug": "libkey-nomad",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "libredirect"
   },
   {
@@ -1081,6 +1094,9 @@
   },
   {
     "slug": "native-mathml"
+  },
+  {
+    "slug": "nekocap"
   },
   {
     "slug": "new-tab-override"
@@ -1339,6 +1355,13 @@
     "slug": "privacy-settings"
   },
   {
+    "slug": "private-grammar-checker-harper",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "private-relay"
   },
   {
@@ -1415,6 +1438,10 @@
     "slug": "readeck"
   },
   {
+    "slug": "recap-195534",
+    "pname": "recap"
+  },
+  {
     "slug": "recoll-we"
   },
   {
@@ -1463,6 +1490,9 @@
   },
   {
     "slug": "saka-key"
+  },
+  {
+    "slug": "save-all-images-webextension"
   },
   {
     "slug": "save-page-we"
@@ -1819,6 +1849,9 @@
     "slug": "twitch-auto-points"
   },
   {
+    "slug": "twiter-x-video-downloader"
+  },
+  {
     "slug": "ublacklist"
   },
   {
@@ -2023,6 +2056,9 @@
     "pname": "yang"
   },
   {
+    "slug": "yank"
+  },
+  {
     "slug": "yomitan"
   },
   {
@@ -2089,6 +2125,9 @@
     "slug": "zeroomega"
   },
   {
+    "slug": "zhihu-undirect"
+  },
+  {
     "slug": "zoom-image"
   },
   {
@@ -2096,5 +2135,9 @@
   },
   {
     "slug": "zoom-redirector"
+  },
+  {
+    "slug": "非官方-沙拉查词-聚合词典划词翻译",
+    "pname": "unofficial-saladict-popup-dictionary"
   }
 ]
