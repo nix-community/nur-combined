@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.7.4";
+    version = "v1.7.5";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.7.4";
+      rev = "v1.7.5";
       fetchSubmodules = false;
-      sha256 = "sha256-G100YemvIiBkbYd8VSTzvh5AOnt2kjsjVKI4N1kFkwY=";
+      sha256 = "sha256-6ZJI1tQV03jrxd1V27opx7uH5Yzynd+/jtPXeYXmTqY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./baibot-v1.7.4/Cargo.lock;
+      lockFile = ./baibot-v1.7.5/Cargo.lock;
       outputHashes = {
         "async-openai-0.28.1" = "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw=";
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
