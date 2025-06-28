@@ -5,11 +5,11 @@
 }:
 let
   kaixinsong-a = fetchurl {
-    url = "https://backblaze.lantian.pub/KaiXinSongA.ttf";
+    url = "https://tools.lantian.pub/downloads/KaiXinSongA.ttf";
     hash = "sha256-ThHI0V3O9k5bVVSOV2RELRsfO+b8UjRvEzivm0jPGb0=";
   };
   kaixinsong-b = fetchurl {
-    url = "https://backblaze.lantian.pub/KaiXinSongB.ttf";
+    url = "https://tools.lantian.pub/downloads/KaiXinSongB.ttf";
     hash = "sha256-2nvseKgZSVIy0oYkT+DB+V0UfoSBG4Ds4EcWnFfNSkU=";
   };
 in
