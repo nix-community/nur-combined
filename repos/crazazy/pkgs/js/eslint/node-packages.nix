@@ -22,22 +22,22 @@ let
         sha512 = "CCZCDJuduB9OUkFkY2IgppNZMi2lBQgD2qzwXkEia16cge2pijY/aXi96CJMquDMn3nJdlPV1A5KrJEXwfLNzQ==";
       };
     };
-    "@eslint/config-array-0.20.1" = {
+    "@eslint/config-array-0.21.0" = {
       name = "_at_eslint_slash_config-array";
       packageName = "@eslint/config-array";
-      version = "0.20.1";
+      version = "0.21.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/config-array/-/config-array-0.20.1.tgz";
-        sha512 = "OL0RJzC/CBzli0DrrR31qzj6d6i6Mm3HByuhflhl4LOBiWxN+3i6/t/ZQQNii4tjksXi8r2CRW1wMpWA2ULUEw==";
+        url = "https://registry.npmjs.org/@eslint/config-array/-/config-array-0.21.0.tgz";
+        sha512 = "ENIdc4iLu0d93HeYirvKmrzshzofPw6VkZRKQGe9Nv46ZnWUzcF1xV01dcvEg/1wXUR61OmmlSfyeyO7EvjLxQ==";
       };
     };
-    "@eslint/config-helpers-0.2.3" = {
+    "@eslint/config-helpers-0.3.0" = {
       name = "_at_eslint_slash_config-helpers";
       packageName = "@eslint/config-helpers";
-      version = "0.2.3";
+      version = "0.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/config-helpers/-/config-helpers-0.2.3.tgz";
-        sha512 = "u180qk2Um1le4yf0ruXH3PYFeEZeYC3p/4wCTKrr2U1CmGdzGi3KtY0nuPDH48UJxlKCC5RDzbcbh4X0XlqgHg==";
+        url = "https://registry.npmjs.org/@eslint/config-helpers/-/config-helpers-0.3.0.tgz";
+        sha512 = "ViuymvFmcJi04qdZeDc2whTHryouGcDlaxPqarTD0ZE10ISpxGUVZGZDx4w01upyIynL3iu6IXH2bS1NhclQMw==";
       };
     };
     "@eslint/core-0.14.0" = {
@@ -49,13 +49,13 @@ let
         sha512 = "qIbV0/JZr7iSDjqAc60IqbLdsj9GDt16xQtWD+B78d/HAlvysGdZZ6rpJHGAc2T0FQx1X6thsSPdnoiGKdNtdg==";
       };
     };
-    "@eslint/core-0.15.0" = {
+    "@eslint/core-0.15.1" = {
       name = "_at_eslint_slash_core";
       packageName = "@eslint/core";
-      version = "0.15.0";
+      version = "0.15.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/core/-/core-0.15.0.tgz";
-        sha512 = "b7ePw78tEWWkpgZCDYkbqDOP8dmM6qe+AOC6iuJqlq1R/0ahMAeH3qynpnqKFGkMltrp44ohV4ubGyvLX28tzw==";
+        url = "https://registry.npmjs.org/@eslint/core/-/core-0.15.1.tgz";
+        sha512 = "bkOp+iumZCCbt1K1CmWf0R9pM5yKpDv+ZXtvSyQpudrI9kuFLp+bM2WOPXImuD/ceQuaa8f5pj93Y7zyECIGNA==";
       };
     };
     "@eslint/eslintrc-3.3.1" = {
@@ -67,13 +67,13 @@ let
         sha512 = "gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==";
       };
     };
-    "@eslint/js-9.29.0" = {
+    "@eslint/js-9.30.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "9.29.0";
+      version = "9.30.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-9.29.0.tgz";
-        sha512 = "3PIF4cBw/y+1u2EazflInpV+lYsSG0aByVIQzAgb1m1MhHFSbqTyNqtBKHgWf/9Ykud+DhILS9EGkmekVhbKoQ==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-9.30.0.tgz";
+        sha512 = "Wzw3wQwPvc9sHM+NjakWTcPx11mbZyiYHuwWa/QfZ7cIRX7WK54PSk7bdyXDaoaopUcMatv1zaQvOAAO8hCdww==";
       };
     };
     "@eslint/object-schema-2.1.6" = {
@@ -85,13 +85,13 @@ let
         sha512 = "RBMg5FRL0I0gs51M/guSAj5/e14VQ4tpZnQNWwuDT66P14I43ItmPfIZRhO9fUVIPOAQXU47atlywZ/czoqFPA==";
       };
     };
-    "@eslint/plugin-kit-0.3.2" = {
+    "@eslint/plugin-kit-0.3.3" = {
       name = "_at_eslint_slash_plugin-kit";
       packageName = "@eslint/plugin-kit";
-      version = "0.3.2";
+      version = "0.3.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/plugin-kit/-/plugin-kit-0.3.2.tgz";
-        sha512 = "4SaFZCNfJqvk/kenHpI8xvN42DMaoycy4PzKc5otHxRswww1kAt82OlBuwRVLofCACCTZEcla2Ydxv8scMXaTg==";
+        url = "https://registry.npmjs.org/@eslint/plugin-kit/-/plugin-kit-0.3.3.tgz";
+        sha512 = "1+WqvgNMhmlAambTvT3KPtCl/Ibr68VldY2XY40SL1CE0ZXiakFR/cbTspaF5HsnpDMvcYYoJHfl4980NBjGag==";
       };
     };
     "@humanfs/core-0.19.1" = {
@@ -301,13 +301,13 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-9.29.0" = {
+    "eslint-9.30.0" = {
       name = "eslint";
       packageName = "eslint";
-      version = "9.29.0";
+      version = "9.30.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-9.29.0.tgz";
-        sha512 = "GsGizj2Y1rCWDu6XoEekL3RLilp0voSePurjZIkxL3wlm5o5EC9VpgaP7lrCvjnkuLvzFBQWB3vWB3K5KQTveQ==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-9.30.0.tgz";
+        sha512 = "iN/SiPxmQu6EVkf+m1qpBxzUhE12YqFLOSySuOyVLJLEF9nzTf+h/1AJYc1JWzCnktggeNrjvQGLngDzXirU6g==";
       };
     };
     "eslint-scope-8.4.0" = {
@@ -800,8 +800,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "9.29.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.29.0.tgz"; sha1 = "65e3db3b7e5a5b04a8af541741a0f3648d0a81a6"; };
+    version = "9.30.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.30.0.tgz"; sha1 = "fb0c655f5e28fc1b2f4050c28efa1876d78034fc"; };
     dependencies = [
       (sources."@eslint-community/eslint-utils-4.7.0" // {
         dependencies = [
@@ -809,15 +809,15 @@ let
         ];
       })
       sources."@eslint-community/regexpp-4.12.1"
-      sources."@eslint/config-array-0.20.1"
-      sources."@eslint/config-helpers-0.2.3"
+      sources."@eslint/config-array-0.21.0"
+      sources."@eslint/config-helpers-0.3.0"
       sources."@eslint/core-0.14.0"
       sources."@eslint/eslintrc-3.3.1"
-      sources."@eslint/js-9.29.0"
+      sources."@eslint/js-9.30.0"
       sources."@eslint/object-schema-2.1.6"
-      (sources."@eslint/plugin-kit-0.3.2" // {
+      (sources."@eslint/plugin-kit-0.3.3" // {
         dependencies = [
-          sources."@eslint/core-0.15.0"
+          sources."@eslint/core-0.15.1"
         ];
       })
       sources."@humanfs/core-0.19.1"
@@ -846,7 +846,7 @@ let
       sources."debug-4.4.1"
       sources."deep-is-0.1.4"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-9.29.0"
+      sources."eslint-9.30.0"
       sources."eslint-scope-8.4.0"
       sources."eslint-visitor-keys-4.2.1"
       sources."espree-10.4.0"
