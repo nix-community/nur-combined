@@ -8,7 +8,7 @@
   findutils,
   nugetDeps ? ./deps.json,
   buildDir ? "lib/hikariii",
-  targetDir ? "bin",
+  targetDir ? "usrbin",
 }:
 stdenvNoCC.mkDerivation (final: {
   inherit (sources) pname src;
