@@ -577,7 +577,7 @@
   "legacyPackages.x86_64-linux.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
-    "version": "10.1"
+    "version": "10.2"
   },
   "legacyPackages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.25"
+    "version": "2025.06.28"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -847,7 +847,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5760"
+    "version": "5770"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -932,22 +932,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-lts-generic",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-lts-generic-lto",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1152,22 +1152,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-v6_12-generic",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-v6_12-generic-lto",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.34-xanmod1"
+    "version": "6.12.35-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -4402,7 +4402,7 @@
   "legacyPackages.x86_64-linux.uncategorized.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
-    "version": "10.1"
+    "version": "10.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -4457,7 +4457,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.25"
+    "version": "2025.06.28"
   },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4902,7 +4902,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4977,7 +4977,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5277,7 +5277,7 @@
   "packages.x86_64-linux.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
-    "version": "10.1"
+    "version": "10.2"
   },
   "packages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
@@ -5347,7 +5347,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.25"
+    "version": "2025.06.28"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -6007,7 +6007,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-25"
+    "version": "0-unstable-2025-06-27"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
