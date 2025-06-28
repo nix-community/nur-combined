@@ -29,6 +29,7 @@
   taglib_1,
   udev,
   xorg,
+  python312,
 }:
 # Modified from:
 # - https://github.com/NixOS-CN/flakes/blob/main/packages/netease-cloud-music/default.nix
@@ -44,7 +45,7 @@ let
     gdk-pixbuf
     glib
     gnome-themes-extra
-    gnome2.GConf
+    (gnome2.GConf.override { python3 = python312; })
     gtk2
     libjpeg8
     libnetease-patch

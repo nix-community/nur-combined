@@ -19,6 +19,7 @@
   nspr,
   nss,
   pango,
+  python312,
   qt5,
   xorg,
 }:
@@ -32,7 +33,7 @@ let
     fontconfig
     gdk-pixbuf
     glib
-    gnome2.GConf
+    (gnome2.GConf.override { python3 = python312; })
     gtk2
     libpulseaudio
     nspr

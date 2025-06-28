@@ -2,12 +2,19 @@
   sources,
   lib,
   googleearth-pro,
-  callPackage,
+  libxml2,
+  fetchurl,
 }:
 let
-  libxml2 = callPackage ./libxml2.nix { };
+  libxml2' = libxml2.overrideAttrs rec {
+    version = "2.13.8";
+    src = fetchurl {
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
+      hash = "sha256-J3KUyzMRmrcbK8gfL0Rem8lDW4k60VuyzSsOhZoO6Eo=";
+    };
+  };
 in
-(googleearth-pro.override { inherit libxml2; }).overrideAttrs (old: {
+(googleearth-pro.override { libxml2 = libxml2'; }).overrideAttrs (old: {
   inherit (sources.google-earth-pro) pname version src;
   unpackPhase = ''
     runHook preUnpack

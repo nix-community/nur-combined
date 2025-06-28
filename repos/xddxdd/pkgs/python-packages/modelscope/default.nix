@@ -40,6 +40,11 @@ buildPythonPackage rec {
     urllib3
   ];
 
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace-fail "return locals()['__version__']" "return '${sources.modelscope.version}'"
+  '';
+
   preInstall = ''
     pushd package
   '';
