@@ -4,6 +4,7 @@
   fetchFromGitHub,
   git,
   vlang,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -47,6 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "TUI editor and VIM/Neovim alternative";
