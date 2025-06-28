@@ -2,7 +2,6 @@
   pkgs
 }:
 {
-  get-authkey = pkgs.callPackage ./get-authkey { };
   linux-bench = pkgs.callPackage ./linux-bench { };
   mailrise = pkgs.callPackage ./mailrise { };
 
