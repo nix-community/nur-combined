@@ -17,6 +17,11 @@ rec {
     version = unstableVersion sources;
   };
 
+  hikariii = pkgs.callPackage ./hikariii rec {
+    sources = fetchedSrc.hikariii;
+    inherit (sources) version;
+  };
+
   mpv-handler = pkgs.callPackage ./mpv-handler rec {
     sources = fetchedSrc.mpv-handler;
     version = stableVersion sources;
