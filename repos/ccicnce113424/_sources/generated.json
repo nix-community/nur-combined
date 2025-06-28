@@ -41,27 +41,6 @@
     },
     "version": "40fe8916f8528f57a4a1ca245d043d5c4d2566eb"
   },
-  "hikariii": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "hikariii",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "MATRIX-feather",
-      "repo": "LLin",
-      "rev": "2025.628.0",
-      "sha256": "sha256-+9TbK+tEudE7EHch0G72HuVq4B6zRTLEtrXzOE4jsRM=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "2025.628.0"
-  },
   "mpv-handler": {
     "cargoLocks": {
       "Cargo.lock": ["./mpv-handler-v0.3.16/Cargo.lock", {}]

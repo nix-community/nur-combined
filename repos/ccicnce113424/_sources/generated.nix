@@ -24,17 +24,6 @@
     };
     date = "2025-05-18";
   };
-  hikariii = {
-    pname = "hikariii";
-    version = "2025.628.0";
-    src = fetchFromGitHub {
-      owner = "MATRIX-feather";
-      repo = "LLin";
-      rev = "2025.628.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-+9TbK+tEudE7EHch0G72HuVq4B6zRTLEtrXzOE4jsRM=";
-    };
-  };
   mpv-handler = {
     pname = "mpv-handler";
     version = "v0.3.16";

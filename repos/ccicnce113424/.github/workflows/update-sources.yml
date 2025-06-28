@@ -34,7 +34,6 @@ jobs:
           nix fmt _sources
           pkgs/splayer/update.sh
           pkgs/splayer/update-git.sh
-          pkgs/hikariii/update.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
