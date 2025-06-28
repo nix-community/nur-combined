@@ -83,7 +83,7 @@ stdenv.mkDerivation (final: {
   ];
 
   meta = {
-    description = "Simple Netease cloud music client";
+    description = "Simple Netease Cloud Music player";
     homepage = "https://github.com/imsyy/SPlayer";
     license = lib.licenses.agpl3Only;
     mainProgram = "splayer";
