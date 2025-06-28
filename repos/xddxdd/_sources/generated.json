@@ -320,6 +320,27 @@
         },
         "version": "v1.16.5-2"
     },
+    "bin-cpuflags-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bin-cpuflags-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "HanabishiRecca",
+            "repo": "bin-cpuflags-x86",
+            "rev": "1.0.3",
+            "sha256": "sha256-N+B9z5BZw8mF9TAja0Dq6tH0msIyRsrLZB2+AqDclL4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.0.3"
+    },
     "bird-lg-go": {
         "cargoLocks": null,
         "date": null,
@@ -1879,48 +1900,6 @@
             "type": "github"
         },
         "version": "55e7f563e999802d41a13ba02657c1be4b2011b4"
-    },
-    "librime-lua": {
-        "cargoLocks": null,
-        "date": "2025-06-28",
-        "extract": null,
-        "name": "librime-lua",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "hchunhui",
-            "repo": "librime-lua",
-            "rev": "4a2898fcafdcfaff105be18dfda1076e6b6e825d",
-            "sha256": "sha256-oxFPutLwkuDeGuHk+qoAIT9+ebLVGldAzeDxwcAb+Kw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "4a2898fcafdcfaff105be18dfda1076e6b6e825d"
-    },
-    "librime-octagram": {
-        "cargoLocks": null,
-        "date": "2024-11-18",
-        "extract": null,
-        "name": "librime-octagram",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "lotem",
-            "repo": "librime-octagram",
-            "rev": "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8",
-            "sha256": "sha256-dgUsH10V87mEcX/k3N118qbKo3fKDFcS8inhS6p5bJc=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8"
     },
     "librime-proto": {
         "cargoLocks": null,

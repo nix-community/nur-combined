@@ -409,6 +409,11 @@
     "pname": "bilibili",
     "version": "1.16.5-2"
   },
+  "legacyPackages.x86_64-linux.bin-cpuflags-x86": {
+    "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
+    "pname": "bin-cpuflags-x86",
+    "version": "1.0.3"
+  },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lg-go",
@@ -4319,6 +4324,11 @@
     "pname": "bilibili",
     "version": "1.16.5-2"
   },
+  "legacyPackages.x86_64-linux.uncategorized.bin-cpuflags-x86": {
+    "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
+    "pname": "bin-cpuflags-x86",
+    "version": "1.0.3"
+  },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lg-go",
@@ -5148,6 +5158,11 @@
     "description": "Bilibili desktop client",
     "pname": "bilibili",
     "version": "1.16.5-2"
+  },
+  "packages.x86_64-linux.bin-cpuflags-x86": {
+    "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
+    "pname": "bin-cpuflags-x86",
+    "version": "1.0.3"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",

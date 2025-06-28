@@ -168,6 +168,16 @@
       hash = "sha256-gOxeShqi7XtFYqHbV8E98qaukTrCNt4WC5bqPy749Uo=";
     };
   };
+  bin-cpuflags-x86 = {
+    pname = "bin-cpuflags-x86";
+    version = "1.0.3";
+    src = fetchFromGitHub {
+      owner = "HanabishiRecca";
+      repo = "bin-cpuflags-x86";
+      tag = "1.0.3";
+      hash = "sha256-N+B9z5BZw8mF9TAja0Dq6tH0msIyRsrLZB2+AqDclL4=";
+    };
+  };
   bird-lg-go = {
     pname = "bird-lg-go";
     version = "v1.3.9";
@@ -967,28 +977,6 @@
       hash = "sha256-KfKkpph+2ChQpkkGKubmpg/18uPX9qUHTqJT1PSGorI=";
     };
     date = "2024-03-19";
-  };
-  librime-lua = {
-    pname = "librime-lua";
-    version = "4a2898fcafdcfaff105be18dfda1076e6b6e825d";
-    src = fetchFromGitHub {
-      owner = "hchunhui";
-      repo = "librime-lua";
-      rev = "4a2898fcafdcfaff105be18dfda1076e6b6e825d";
-      hash = "sha256-oxFPutLwkuDeGuHk+qoAIT9+ebLVGldAzeDxwcAb+Kw=";
-    };
-    date = "2025-06-28";
-  };
-  librime-octagram = {
-    pname = "librime-octagram";
-    version = "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8";
-    src = fetchFromGitHub {
-      owner = "lotem";
-      repo = "librime-octagram";
-      rev = "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8";
-      hash = "sha256-dgUsH10V87mEcX/k3N118qbKo3fKDFcS8inhS6p5bJc=";
-    };
-    date = "2024-11-18";
   };
   librime-proto = {
     pname = "librime-proto";

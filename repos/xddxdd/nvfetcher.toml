@@ -72,6 +72,10 @@ fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/$ver/bi
 src.github = "msojocs/bilibili-linux"
 fetch.github = "msojocs/bilibili-linux"
 
+[bin-cpuflags-x86]
+src.github = "HanabishiRecca/bin-cpuflags-x86"
+fetch.github = "HanabishiRecca/bin-cpuflags-x86"
+
 [bird-lg-go]
 src.github = "xddxdd/bird-lg-go"
 fetch.github = "xddxdd/bird-lg-go"
@@ -425,14 +429,6 @@ fetch.github = "martyr-deepin/qcef"
 [librime-charcode]
 src.git = "https://github.com/rime/librime-charcode.git"
 fetch.github = "rime/librime-charcode"
-
-[librime-lua]
-src.git = "https://github.com/hchunhui/librime-lua.git"
-fetch.github = "hchunhui/librime-lua"
-
-[librime-octagram]
-src.git = "https://github.com/lotem/librime-octagram.git"
-fetch.github = "lotem/librime-octagram"
 
 [librime-proto]
 src.git = "https://github.com/lotem/librime-proto.git"

@@ -2,8 +2,12 @@
   sources,
   lib,
   googleearth-pro,
+  callPackage,
 }:
-googleearth-pro.overrideAttrs (old: {
+let
+  libxml2 = callPackage ./libxml2.nix { };
+in
+(googleearth-pro.override { inherit libxml2; }).overrideAttrs (old: {
   inherit (sources.google-earth-pro) pname version src;
   unpackPhase = ''
     runHook preUnpack

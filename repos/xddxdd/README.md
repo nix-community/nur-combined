@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (190 packages)</summary>
+<summary>Package set: (Uncategorized) (191 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -98,6 +98,7 @@ Or, use variables from this repository in case I change them:
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 3.9.7-unstable-2025-02-15 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.2 | Universal pastebin server |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.16.5-2 | Bilibili desktop client |
+|  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.3 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.3.9 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.3.9 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
@@ -1071,7 +1072,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (138 packages)</summary>
+<summary>Package set: uncategorized (139 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1082,6 +1083,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.7 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 3.9.7-unstable-2025-02-15 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.16.5-2 | Bilibili desktop client |
+|  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.3 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.3.9 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.3.9 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
