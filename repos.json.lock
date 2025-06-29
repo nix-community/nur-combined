@@ -682,11 +682,6 @@
             "sha256": "13a065jrdqay0njymhrys1mrbbzlb31rdvl0x8gr25x207rngm4x",
             "url": "https://github.com/Eggflaw/nur-packages"
         },
-        "eh5": {
-            "rev": "9ccd211d2adc57d2b8b9ac768d5ff6371ba5c6d1",
-            "sha256": "1bg4lqdavvks51fvgsqgci3ihqz297qdhbr72kl3mis8f38m09di",
-            "url": "https://github.com/EHfive/flakes"
-        },
         "emiller88": {
             "rev": "0e0450a7b5e653ecb7bf72103e4374d1e91c6c17",
             "sha256": "08hczl8k44dxdxfr234dfv6qnakirvxx7jmfbf7hzqzpiyd8jahq",
@@ -1407,11 +1402,6 @@
             "rev": "92368d5911774f79c701e1a22eeb060a512473f5",
             "sha256": "0dii4a2xqww3l6qwb2kszm6i44k4hp7v2x7z87flgc09lgd8pd4z",
             "url": "https://github.com/nasirhm/nasirhmpkgs"
-        },
-        "natsukium": {
-            "rev": "47831d61988041306f79d5b9bddb9b2a887e83c4",
-            "sha256": "1gkia2vhs2wp69nff30qaj9gy1yira4jz5b5hc54p55i88sqknmw",
-            "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
             "rev": "08d08da8eeb6a896e426b3b9d2780f4755bd1c2e",
