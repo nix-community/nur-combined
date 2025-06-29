@@ -29,9 +29,6 @@
         "AsterisMono": {
             "url": "https://github.com/AsterisMono/nur-packages"
         },
-        "AusCyber": {
-            "url": "https://github.com/Auscyber/nur-packages"
-        },
         "DanNixon": {
             "url": "https://github.com/DanNixon/nur-packages"
         },
@@ -662,9 +659,6 @@
         },
         "jorsn": {
             "url": "https://github.com/jorsn/nur-packages"
-        },
-        "josh": {
-            "url": "https://github.com/josh/nurpkgs"
         },
         "jpts": {
             "url": "https://github.com/jpts/nur"

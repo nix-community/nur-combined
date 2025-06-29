@@ -45,11 +45,6 @@
             "sha256": "1rbchaaspfqqybh1adqa6gzanlsm910h5gh20d9r43ncp0dmi9dw",
             "url": "https://github.com/AsterisMono/nur-packages"
         },
-        "AusCyber": {
-            "rev": "c25ed3ee2214ec278c8b510f599d48dcb321c3d2",
-            "sha256": "0dv5iazjg4c88lig5v2l5dg5nsxgyzckz0vsgc29zb082z2b4cpx",
-            "url": "https://github.com/Auscyber/nur-packages"
-        },
         "DanNixon": {
             "rev": "f446ce3fe3aee4058fa54710726442a64636eb98",
             "sha256": "0g09ksxfn5w8nvkvxq3c0rk1nfmjbby039l67ag2lcyzckqga0lv",
@@ -1066,11 +1061,6 @@
             "rev": "b3f507e6c44d692454230415ded11d6cd0f89445",
             "sha256": "11kzjadiwihimxpynlkxir4y4p041dri52s3h3znkm11q5rb4yii",
             "url": "https://github.com/jorsn/nur-packages"
-        },
-        "josh": {
-            "rev": "e30d25e7338f7c9e6fb64c67f9b260a24830d43d",
-            "sha256": "1d1jmsvjvf8xnxm7f6ivw2qirvzwh7plcnp1cr699qicaps4g8pm",
-            "url": "https://github.com/josh/nurpkgs"
         },
         "jpts": {
             "rev": "31356fa9f17c9a6f34e739d263ce7137b3790e5d",
