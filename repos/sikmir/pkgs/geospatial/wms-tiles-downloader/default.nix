@@ -7,14 +7,14 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "wms-tiles-downloader";
   version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "lmikolajczak";
     repo = "wms-tiles-downloader";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-b1QaquI0s8D9MeXbUNVZpGy3u9eCjakP5BQsyoMne1A=";
   };
 
@@ -51,4 +51,4 @@ buildGoModule rec {
     mainProgram = "wms-tiles-downloader";
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

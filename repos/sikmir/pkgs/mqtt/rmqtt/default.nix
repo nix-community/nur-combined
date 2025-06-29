@@ -5,14 +5,14 @@
   protobuf,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rmqtt";
   version = "0.13.1";
 
   src = fetchFromGitHub {
     owner = "rmqtt";
     repo = "rmqtt";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-5drl63QwbcprLIRyaKl3/QUOOoG+uRZd6qxDX9yOLYQ=";
   };
 
@@ -37,4 +37,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = true; # failed to get `ahash` as a dependency
   };
-}
+})
