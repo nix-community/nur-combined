@@ -2,17 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "nxc";
-  version = "cluster22";
+  version = "24.11";
   format = "pyproject";
 
   src = fetchFromGitLab {
     domain = "gitlab.inria.fr";
     owner = "nixos-compose";
     repo = "nixos-compose";
-    rev = "cluster22-pkg-kapack";
-    sha256 = "sha256-Sqc4FF3yzBvbKFvlEYXmrCrh1AYfpcJv4vhiqN1K+Ws=";
+    rev = "c748d9dae0499edca792ce3b7d85287e03ffd68a";
+    sha256 = "sha256-JO/kpnRO+X5VwaN5zCIr8mGg/4RtEFqNfT0ouUtJ27g=";
   };
-  patches = [ ./0001-bs-loosen-tomlkit-dep-version-constraint.patch ];
+  # patches = [ ./0001-bs-loosen-tomlkit-dep-version-constraint.patch ];
 
   buildInputs = [
     poetry
@@ -29,6 +29,7 @@ python3Packages.buildPythonPackage rec {
     execo
     requests
     tomlkit
+    setuptools
   ] ++ [
     taktuk
   ];
@@ -40,7 +41,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://gitlab.inria.fr/nixos-compose/nixos-compose";
     platforms = platforms.all;
     license = licenses.lgpl3;
-    broken = true;
 
     longDescription = "NixOS Compose";
   };

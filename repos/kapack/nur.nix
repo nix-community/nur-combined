@@ -105,8 +105,7 @@ rec {
 
   mosquitto-dcdb = pkgs.callPackage ./pkgs/mosquitto-dcdb {};
 
-  nxc-cluster = pkgs.callPackage ./pkgs/nxc/cluster.nix { inherit execo; };
-  nxc = nxc-cluster;
+  nxc = pkgs.callPackage ./pkgs/nxc { inherit execo; };
 
   oxidisched = pkgs.callPackage ./pkgs/oxidisched { };
 

@@ -23,6 +23,7 @@
 |mlxp|python3.13-mlxp-1.0.0|Machine Learning eXperimentalist for Python.|
 |mosquitto-dcdb|mosquitto-1.5.5|An open source MQTT v3.1/3.1.1 broker|
 |npb|NPB-3.4.2|The NAS Parallel Benchmarks (NPB) are a small set of programs designed to help evaluate the performance of parallel supercomputers. The benchmarks are derived from computational fluid dynamics (CFD) applications and consist of five kernels and three pseudo-applications in the original "pencil-and-paper" specification (NPB 1). The benchmark suite has been extended to include new benchmarks for unstructured adaptive mesh, parallel I/O, multi-zone applications, and computational grids.  Problem sizes in NPB are predefined and indicated as different classes. Reference implementations of NPB are available in commonly-used programming models like MPI and OpenMP (NPB 2 and NPB 3) |
+|nxc|python3.13-nxc-24.11|NixOS Compose|
 |oar|python3.13-oar-3.0.0|OAR: a Versatile Resource and Job Manager|
 |oar-plugins|python3.13-oar3-plugins-0.0.0a|Official plugin repository for oar|
 |oar-with-plugins|python3.13-oar-3.0.0|OAR: a Versatile Resource and Job Manager|
