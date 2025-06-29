@@ -6,19 +6,20 @@
   runCommand,
   age,
   jq,
+  rclone,
   restic,
   tinyxxd,
 }:
 let
   restic-age-key = buildGoModule {
     pname = "restic-age-key";
-    version = "0.1.2-unstable-2025-05-21";
+    version = "0.2.0";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "restic-age-key";
-      rev = "2430f07021e721ee08a25c15221eb5495afe2cf4";
-      hash = "sha256-tHJzugMMDHQ0pCdg8Tnto+FktsEMbKMUanaHuKXrPzk=";
+      rev = "v0.2.0";
+      hash = "sha256-Z3nOrYkkVDVShbECNhYoVi2L0QKnB9Nuq44h2SsaZ4k=";
     };
 
     vendorHash = "sha256-cKa3ov/6aiAxnnbQgDjqiNi1NwZhUsjLIzdkMVj6teU=";
@@ -53,10 +54,11 @@ restic-age-key.overrideAttrs (
   {
     ldflags = previousAttrs.ldflags ++ [
       "-X main.Version=${finalAttrs.version}"
-      "-X main.AgeBin=${lib.getExe age}"
+      "-X main.AgeProgram=${lib.getExe age}"
+      "-X main.RcloneProgram=${lib.getExe rclone}"
     ];
 
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
     passthru.tests = {
       help =
