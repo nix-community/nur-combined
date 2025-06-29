@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "mkxp-z";
     repo = finalAttrs.pname;
-    rev = finalAttrs.version;
+    rev = "fc42d5f1ead1a4c8ea44d629be8a5c2180c306ae";
     sha256 = "sha256-sgNEfzJC7mH9yNuU+7QoOeYXEah/J0XdtiNqNneP8Mo=";
   };
 

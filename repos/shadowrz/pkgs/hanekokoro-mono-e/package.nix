@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchzip {
     url = "https://github.com/ShadowRZ/hanekokoro-fonts/releases/download/v${version}/PkgTTF-HanekokoroMonoE.zip";
     stripRoot = false;
-    hash = "sha256-xxhX7en/Mk00eTUmKN2nj5GfovIRYkOPN/5qzarR8eU=";
+    hash = "sha256-r4lHMGIml/5wADiNGgoLuolC/m5GqaBDm/rOsQC5KFM=";
   };
 
   installPhase = ''
