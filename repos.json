@@ -114,10 +114,6 @@
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
-        "abszero": {
-            "file": "nur.nix",
-            "url": "https://github.com/Weathercold/nixfiles"
-        },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
@@ -704,9 +700,6 @@
         "kreisys": {
             "submodules": true,
             "url": "https://github.com/kreisys/nur-packages"
-        },
-        "kuflierl": {
-            "url": "https://github.com/kuflierl/NUR"
         },
         "kugland": {
             "submodules": true,
