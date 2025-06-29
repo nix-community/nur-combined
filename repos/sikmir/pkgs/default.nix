@@ -361,6 +361,7 @@ lib.makeScope newScope (
     git-tui = callPackage ./misc/git-tui { };
     goto = callPackage ./misc/goto { };
     graphene = callPackage ./misc/graphene { };
+    headscale-webui = callPackage ./misc/headscale-webui { };
     heapusage = callPackage ./misc/heapusage { };
     how-to-use-pvs-studio-free = callPackage ./misc/how-to-use-pvs-studio-free { };
     huami-token = callPackage ./misc/huami-token { };
