@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "starpu";
-  version = "1.4.0";
+  version = "1.4.8";
   src = fetchFromGitLab {
     domain = "gitlab.inria.fr";
     owner = pname;
     repo = pname;
     rev = "${pname}-${version}";
-    sha256 = "sha256-EwS/BKMdRfn1U/ln1ezbg03zF8XiNMquGBRPe9WAeqw=";
+    sha256 = "sha256-3S2N4Nrnta36/4JQ8udRFJRuZPqv6OIuxHkW7bOKOnw=";
   };
   buildInputs = [
     gnumake
