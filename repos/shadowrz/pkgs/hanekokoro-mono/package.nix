@@ -6,13 +6,13 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "iosevka-minoko";
-  version = "0.1.7";
+  pname = "hanekokoro-mono";
+  version = "0.2.0";
 
   src = fetchzip {
-    url = "https://github.com/ShadowRZ/iosevka-minoko/releases/download/v${version}/PkgTTF-IosevkaMinoko.zip";
+    url = "https://github.com/ShadowRZ/hanekokoro-fonts/releases/download/v${version}/PkgTTF-HanekokoroMono.zip";
     stripRoot = false;
-    hash = "sha256-aIOF4LkOo8fzrOxqMY7Fs2jBzFfqCCnF8IrdhLuaI8U=";
+    hash = "sha256-70ceTeJrj/N6yifvDYts26ljmWp8+t0MUDPlO+lrd54=";
   };
 
   installPhase = ''
@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     inherit (iosevka.meta) license platforms;
-    homepage = "https://github.com/ShadowRZ/iosevka-minoko";
+    homepage = "https://github.com/ShadowRZ/hanekokoro-fonts";
     description = "A Custom Iosevka build";
   };
 }
