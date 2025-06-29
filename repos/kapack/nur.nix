@@ -65,7 +65,8 @@ rec {
 
   ear =  pkgs.callPackage ./pkgs/ear { };
 
-  enoslib = pkgs.callPackage ./pkgs/enoslib { inherit execo iotlabsshcli distem python-grid5000; };
+  enoslib-ansible = pkgs.callPackage ./pkgs/enoslib-ansible { };
+  enoslib = pkgs.callPackage ./pkgs/enoslib { inherit iotlabcli iotlabsshcli distem python-grid5000 enoslib-ansible; };
 
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
 
@@ -74,7 +75,7 @@ rec {
   flower = pkgs.callPackage ./pkgs/flower { inherit iterators; };
 
   iotlabcli = pkgs.callPackage ./pkgs/iotlabcli { };
-  iotlabsshcli = pkgs.callPackage ./pkgs/iotlabsshcli { inherit iotlabcli parallel-ssh; };
+  iotlabsshcli = pkgs.callPackage ./pkgs/iotlabsshcli { inherit iotlabcli; };
 
   likwid = pkgs.callPackage ./pkgs/likwid { };
 
@@ -191,11 +192,6 @@ rec {
       pkgs.ghc.meta.platforms;
     meta.broken = true;
   });
-
-  ssh-python = pkgs.callPackage ./pkgs/ssh-python { };
-  ssh2-python = pkgs.callPackage ./pkgs/ssh2-python { };
-
-  parallel-ssh = pkgs.callPackage ./pkgs/parallel-ssh { inherit ssh-python ssh2-python; };
 
   python-grid5000 = pkgs.callPackage ./pkgs/python-grid5000 { };
 
