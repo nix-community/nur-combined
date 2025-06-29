@@ -1,6 +1,7 @@
 {
   stdenv,
   lib,
+  fetchurl,
   autoPatchelfHook,
   webkitgtk_4_1,
   libayatana-appindicator,
@@ -12,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "et-astral";
   version = "2.1.4";
 
-  src = builtins.fetchTarball {
+  src = fetchurl {
     url = "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    sha256 = "06q3g49336i3gvzccj80n83kka61p92qzf6axhdsb70vjdhydg0i";
+    hash = "sha256-ZarMEnoYLATheC794atAKqv6D6RpIo5UTFOJzXPxvZw=";
   };
 
   stripRoot = false;
