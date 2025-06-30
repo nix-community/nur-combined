@@ -557,11 +557,6 @@
             "sha256": "18cgc0vi4qkchqmq03nw5ycrcabvz7j1d6c86q0wx1q8gyf5vgb7",
             "url": "https://github.com/DeeUnderscore/nur-packages"
         },
-        "definfo": {
-            "rev": "60824f9750befcb552c2f103092a44d95026069e",
-            "sha256": "13h2cf6621rbwik9dgbdv87f8r1gq9w2nyjclxbnmghjbp5i6x79",
-            "url": "https://github.com/definfo/nur-packages"
-        },
         "demivan": {
             "rev": "9f60b00f0092bed201e40da97853d85a7549ff34",
             "sha256": "1cw2yh032qlvx8a15j0c9l0yhmcy2527hx115fjs1npidcjrkcsr",
