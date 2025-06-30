@@ -1774,11 +1774,6 @@
             "sha256": "072hz91fyw7g0f2lawf5rp7kzjzfq0ivs711imk60qr6slnixgms",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
-        "sigprof": {
-            "rev": "8cc8152c03add1f018d15a673abe762555da9d4e",
-            "sha256": "1hld8za38qz9gcqfj5njp6imgb0d0wv3p9n94pkjnxbxdsa71vdk",
-            "url": "https://github.com/sigprof/nur-packages"
-        },
         "sikmir": {
             "rev": "459b39e8658c143aba6c3604f11c997079a4dbbb",
             "sha256": "07v7n3bf46xx2zdca21rzmgbd26dgj6fhaihx8cbfqiblid6bsb5",
