@@ -1236,11 +1236,6 @@
             "sha256": "10r6afd1wpk36ks0i62s0cjal9x62d605v5bk8lpmjnmh0lh8670",
             "url": "https://github.com/michaelglass/nur-packages"
         },
-        "mikaelfangel-nur": {
-            "rev": "38f924dfd2d0f5486fa18ee6778b0772060c29af",
-            "sha256": "003skkg1nn3g7l9y43lqqypa43m9vha6d57ppsmbh025ynhyizrj",
-            "url": "https://github.com/MikaelFangel/NUR"
-        },
         "mikilio": {
             "rev": "a326ea9c0d84ffbe164439f6cd1d9b1105cd3ee2",
             "sha256": "0a0gxwvyranbrp3s769f2ayiq9y797zdl6ivd1vbpgk4cq1y1jim",
