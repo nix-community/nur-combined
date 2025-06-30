@@ -1167,9 +1167,6 @@
         "tox": {
             "url": "https://github.com/tox-rs/nur-tox"
         },
-        "toyvo": {
-            "url": "https://github.com/ToyVo/nur-packages"
-        },
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
         },
