@@ -2005,11 +2005,6 @@
             "sha256": "1qira0yxak8hamxv0zhdwi2vzfkw7v1y61k7d5iqndw3y0ma5gyv",
             "url": "https://github.com/wyzdwdz/nur-pkgs"
         },
-        "xddxdd": {
-            "rev": "aa30fdf4721be23c29ee4ab55a2f67e2b2ae06a2",
-            "sha256": "1mr4qgg5wkcskaqqqz10gxp86mqi34jx7yhcn94i7h51y70bbalx",
-            "url": "https://github.com/xddxdd/nur-packages"
-        },
         "xe": {
             "rev": "5be834d0cfe1abedaaf9fd8ae20764649930df24",
             "sha256": "1kcs2n2wa9wa3i69m4jhlrzi514clarcmm8nbyfa564pymgw92yb",
