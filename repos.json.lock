@@ -135,11 +135,6 @@
             "sha256": "1rbg9fgvkfbh29zmhbhyn6bbs1mx1wp3zwxclrdxxwgqx6dnx5bz",
             "url": "https://github.com/Redrield/nurpkgs"
         },
-        "Rhys-T": {
-            "rev": "b1f5df50598272d84de64cbd815f8560c051e6b1",
-            "sha256": "0crraycz6mcz04qa6vc1l788k59x7r7gv39xhbz0q4qrl2zxvb4y",
-            "url": "https://github.com/Rhys-T/nur-packages"
-        },
         "Samuel-Martineau": {
             "rev": "65a44edc27e56b02b19c5c2eac96dfaa5dfa6c20",
             "sha256": "00hf633mx21k51b9w3bqbpb3zqqa74d1qk15lbmaq63fsjzhq6z9",
