@@ -927,11 +927,6 @@
             "sha256": "15651lqym268jxawqrgii82fwdnbharzc0938acl3qp5ji2kzjwd",
             "url": "https://github.com/IvarWithoutBones/NUR"
         },
-        "ixhbinphoenix": {
-            "rev": "adf1b825d99c73f1004c7269abf0785750e6e5a2",
-            "sha256": "0g9w2grj43rl1mxrbdlhz68ddcb0f9fg8rs93j1db18qfmrg6x0d",
-            "url": "https://github.com/ixhbinphoenix/nur-packages"
-        },
         "izorkin": {
             "rev": "1dfca54e9df9f9fade039f3b356576711391126a",
             "sha256": "10b1a2wqmjc9bz2kpp849dpp939ffd4ldfzybp9bp6zspbfa07sb",
