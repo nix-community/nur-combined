@@ -28,6 +28,7 @@
   unicode-show,
   utf8-string,
   uuid,
+  yaml,
   source,
 }:
 mkDerivation {
@@ -63,12 +64,14 @@ mkDerivation {
     unicode-show
     utf8-string
     uuid
+    yaml
   ];
   executableHaskellDepends = [
     aeson
     base
     bytestring
     containers
+    directory
     doclayout
     fgl
     graphviz
