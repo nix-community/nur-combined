@@ -115,6 +115,11 @@
       enable = true;
       socketActivated = true;
     };
+    openiscsi = {
+      enable = true;
+      discoverPortal = "ip:3260";
+      name = "iqn.2005-10.org.nixos.ctl:ntfs-games";
+    };
     rqbit = {
       enable = true;
       location = "/three/storage/Downloads";
