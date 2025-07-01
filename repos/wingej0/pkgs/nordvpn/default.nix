@@ -22,7 +22,7 @@
 
 let
   pname = "nordvpn";
-  version = "3.20.2";
+  version = "3.20.3";
   wingej0 = {
     name = "Jeff Winget";
     email = "wingej0@gmail.com";
@@ -37,11 +37,11 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-2eLVr0aQpMhIMCrkyIRcCabXc197GJZ31Vl5BND7Di8=";
+      hash = "sha256-5cmCNuHaHPHjDqOnLC/8wxo4+3O4uBRBLytbIRP8dWE=";
     };
 
     buildInputs = [
-      libxml2
+      libxml2_13 
       libidn2
       libnl
       libcap
@@ -52,6 +52,7 @@ let
       dpkg
       autoPatchelfHook
       stdenv.cc.cc.lib
+      libxml2
     ];
 
     dontConfigure = true;
@@ -91,6 +92,14 @@ let
         zlib
         wireguard-tools
       ];
+  };
+
+  libxml2_13 = libxml2.overrideAttrs rec {
+    version = "2.13.8";
+    src = fetchurl {
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
+      hash = "sha256-J3KUyzMRmrcbK8gfL0Rem8lDW4k60VuyzSsOhZoO6Eo=";
+    };
   };
 
 in
