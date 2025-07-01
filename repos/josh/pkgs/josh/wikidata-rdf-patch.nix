@@ -14,7 +14,7 @@ let
     src = fetchFromGitHub {
       owner = "josh";
       repo = "wikidata-rdf-patch";
-      rev = "v${version}";
+      tag = "v${version}";
       hash = "sha256-dAiMab3yzMiI/dacDn+wXjkUEU3oeYRczkgYjQJFZAE=";
     };
 

@@ -14,7 +14,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "itunes-library-export";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-GRNi8FljsgX7iJWLtv1lXtveLFGsxD6SCT/2DJpBh2M=";
   };
 

@@ -13,7 +13,7 @@ let
     src = fetchFromGitHub {
       owner = "josh";
       repo = "gametrack-data";
-      rev = "v${version}";
+      tag = "v${version}";
       hash = "sha256-aUlDpoSzhKZgN5f/78cJmaEjq1CqUTuUX0PJIA7DUaM=";
     };
 

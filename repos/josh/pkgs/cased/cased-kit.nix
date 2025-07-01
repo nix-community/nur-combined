@@ -13,7 +13,7 @@ let
     src = fetchFromGitHub {
       owner = "cased";
       repo = "kit";
-      rev = "v${version}";
+      tag = "v${version}";
       hash = "sha256-GudAzcqhz94enUV0dQxgeuSPrFt5ct9BPGKIhdOsKJo=";
     };
 

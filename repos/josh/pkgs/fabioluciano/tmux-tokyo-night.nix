@@ -7,7 +7,7 @@
 tmuxPlugins.mkTmuxPlugin {
   pluginName = "tmux-tokyo-night";
   rtpFilePath = "tmux-tokyo-night.tmux";
-  version = "1.10.0";
+  version = "1.10.1";
 
   src = fetchFromGitHub {
     owner = "fabioluciano";

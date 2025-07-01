@@ -6,61 +6,51 @@
   runCommand,
   testers,
 }:
-let
-  prometheus-github-exporter = buildGoModule {
-    pname = "prometheus-github-exporter";
-    version = "0.1.2-unstable-2025-06-23";
+buildGoModule (finalAttrs: {
+  pname = "prometheus-github-exporter";
+  version = "0.1.2-unstable-2025-06-30";
 
-    src = fetchFromGitHub {
-      owner = "josh";
-      repo = "github_exporter";
-      rev = "bf4a403e238360e07fd085f4517d5ff3cc79f426";
-      hash = "sha256-MyvyhRmK8/J+7dKH7BHKIKIQ/nfX5jQf2Cf6iIfKv3k=";
-    };
-
-    vendorHash = "sha256-xzbzZrga9/3DBeY5HiluIw4xUHtsJfvAJLHPdDJ+ttA=";
-
-    env.CGO_ENABLED = 0;
-    ldflags = [
-      "-s"
-      "-w"
-    ];
-
-    meta = {
-      description = "Prometheus exporter for GitHub metrics";
-      homepage = "https://github.com/josh/github_exporter";
-      license = lib.licenses.mit;
-      platforms = lib.platforms.all;
-      mainProgram = "github_exporter";
-    };
+  src = fetchFromGitHub {
+    owner = "josh";
+    repo = "github_exporter";
+    rev = "b380cb61a0411fa44817c2ddc7d0af84fee4e6ca";
+    hash = "sha256-4y6spoDfQm94dqziWL33mWnZghEzazhDeb/GGeWPMTM=";
   };
-in
-prometheus-github-exporter.overrideAttrs (
-  finalAttrs: _previousAttrs:
-  let
-    prometheus-github-exporter = finalAttrs.finalPackage;
-    version-parts = lib.versions.splitVersion finalAttrs.version;
-    stable-version = "${builtins.elemAt version-parts 0}.${builtins.elemAt version-parts 1}.${builtins.elemAt version-parts 2}";
-  in
-  {
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-    passthru.tests = {
-      version = testers.testVersion {
-        package = prometheus-github-exporter;
+  vendorHash = "sha256-XoPS4oYYPxgbO7a54xH3gdG11adWlYmKe8IuGPtQdHc=";
+
+  env.CGO_ENABLED = 0;
+  ldflags = [
+    "-s"
+    "-w"
+  ];
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+
+  passthru.tests = {
+    version =
+      let
+        version-parts = lib.versions.splitVersion finalAttrs.version;
+        stable-version = "${builtins.elemAt version-parts 0}.${builtins.elemAt version-parts 1}.${builtins.elemAt version-parts 2}";
+      in
+      testers.testVersion {
+        package = finalAttrs.finalPackage;
         version = stable-version;
       };
 
-      help =
-        runCommand "test-prometheus-github-exporter-help"
-          {
-            __structuredAttrs = true;
-            nativeBuildInputs = [ prometheus-github-exporter ];
-          }
-          ''
-            github_exporter --help
-            touch $out
-          '';
-    };
-  }
-)
+    help =
+      runCommand "test-prometheus-github-exporter-help"
+        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+        ''
+          github_exporter --help
+          touch $out
+        '';
+  };
+
+  meta = {
+    description = "Prometheus exporter for GitHub metrics";
+    homepage = "https://github.com/josh/github_exporter";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
+    mainProgram = "github_exporter";
+  };
+})

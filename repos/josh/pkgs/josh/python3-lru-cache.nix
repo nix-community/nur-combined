@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "lru-cache-python";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-CYBSoBLNa29NPHwgmaYaegMzsJF0Jndik/rYwVTKdVk=";
   };
 

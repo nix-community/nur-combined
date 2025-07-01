@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "lima-vm";
     repo = "socket_vmnet";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MbmfCS8gG7XVbG7mVXGen7F/chEIyTvWSoHfwIiF+2s=";
   };
 

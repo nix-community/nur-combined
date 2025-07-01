@@ -4,14 +4,14 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "testscript";
   version = "1.14.1";
 
   src = fetchFromGitHub {
     owner = "rogpeppe";
     repo = "go-internal";
-    tag = "v1.13.1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-fD4n3XVDNHL7hfUXK9qi31LpBVzWnRK/7LNc3BmPtnU=";
   };
 
@@ -32,4 +32,4 @@ buildGoModule {
     platforms = lib.platforms.all;
     mainProgram = "testscript";
   };
-}
+})
