@@ -1,7 +1,8 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       systems = [
         "x86_64-linux"
@@ -18,31 +19,38 @@
       overlays = {
         default = import ./overlay.nix;
       };
-      legacyPackages = forAllSystems (system: (import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      }));
+      legacyPackages = forAllSystems (
+        system:
+        (import ./default.nix {
+          pkgs = import nixpkgs { inherit system; };
+        })
+      );
       nixosModules = {
         laminar = ./modules/nixos/laminar.nix;
       };
       darwinModules = {
         caddy = ./modules/darwin/caddy;
       };
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           pkgs = import nixpkgs { inherit system; };
 
-          lpkgs = nixpkgs.lib.filterAttrs
-            (_: v: nixpkgs.lib.isDerivation v)
-            self.legacyPackages.${system};
+          lpkgs = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system};
 
           all = pkgs.symlinkJoin {
             name = "all";
             paths = (import ./ci.nix { inherit pkgs; }).cachePkgs;
           };
         in
-        (lpkgs // {
-          inherit all;
-          default = all;
-        }));
+        (
+          lpkgs
+          // {
+            inherit all;
+            default = all;
+          }
+        )
+      );
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
     };
 }

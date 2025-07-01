@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-BIzeNT9UGHR1318NC83ptT92JUet/5Pjz/zBHL7PR9Y=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = {
     description = "Automatically add Trace Spans to Go methods and functions";

@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 with lib;
@@ -11,17 +12,18 @@ let
 
   virtualHosts = attrValues cfg.virtualHosts;
 
-  mkVHostConf = hostOpts:
-    ''
-      ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
-        ${optionalString (hostOpts.listenAddresses != [ ]) "bind ${concatStringsSep " " hostOpts.listenAddresses}"}
-        log {
-          ${hostOpts.logFormat}
-        }
-
-        ${hostOpts.extraConfig}
+  mkVHostConf = hostOpts: ''
+    ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
+      ${optionalString (
+        hostOpts.listenAddresses != [ ]
+      ) "bind ${concatStringsSep " " hostOpts.listenAddresses}"}
+      log {
+        ${hostOpts.logFormat}
       }
-    '';
+
+      ${hostOpts.extraConfig}
+    }
+  '';
 
   configFile =
     let
@@ -33,13 +35,17 @@ let
         ${concatMapStringsSep "\n" mkVHostConf virtualHosts}
       '';
 
-      Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; } ''
-        mkdir -p $out
-        cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
-        caddy fmt --overwrite $out/Caddyfile
-      '';
+      Caddyfile-formatted =
+        pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; }
+          ''
+            mkdir -p $out
+            cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
+            caddy fmt --overwrite $out/Caddyfile
+          '';
     in
-    "${if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile}/Caddyfile";
+    "${
+      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
+    }/Caddyfile";
 
   etcConfigFile = "caddy/caddy_config";
 
@@ -149,7 +155,11 @@ in
     };
 
     adapter = mkOption {
-      default = if ((cfg.configFile != configFile) || (builtins.baseNameOf cfg.configFile) == "Caddyfile") then "caddyfile" else null;
+      default =
+        if ((cfg.configFile != configFile) || (builtins.baseNameOf cfg.configFile) == "Caddyfile") then
+          "caddyfile"
+        else
+          null;
       defaultText = literalExpression ''
         if ((cfg.configFile != configFile) || (builtins.baseNameOf cfg.configFile) == "Caddyfile") then "caddyfile" else null
       '';
@@ -321,7 +331,9 @@ in
 
     launchd.daemons.caddy =
       let
-        runOptions = ''--config ${configPath} ${optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"}'';
+        runOptions = ''--config ${configPath} ${
+          optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
+        }'';
       in
       {
         command = ''${cfg.package}/bin/caddy run ${runOptions} ${optionalString cfg.resume "--resume"}'';

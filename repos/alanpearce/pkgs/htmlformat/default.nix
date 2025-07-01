@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule {
@@ -17,7 +18,10 @@ buildGoModule {
 
   vendorHash = "sha256-mJ6O8y/qg6GkiKZioOov8w4KcpIxG8KdA9PPeRvA/I0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Htmlformat";

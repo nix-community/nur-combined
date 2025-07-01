@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.services.laminar;
@@ -14,7 +15,8 @@ let
     mkPackageOption
     mkOption
     mkIf
-    types;
+    types
+    ;
 in
 {
   options.services.laminar = {
@@ -61,38 +63,40 @@ in
         Nightly jobs to run
       '';
 
-      type = with types; attrsOf (submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
-            default = name;
-            description = "Name of the timer.";
-          };
+      type =
+        with types;
+        attrsOf (submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+              default = name;
+              description = "Name of the timer.";
+            };
 
-          reason = mkOption {
-            type = with types; nullOr str;
-            example = "Nightly build";
-            default = null;
-            description = "optional human-readable string that will be displayed in the web UI as the cause of the build.";
-          };
+            reason = mkOption {
+              type = with types; nullOr str;
+              example = "Nightly build";
+              default = null;
+              description = "optional human-readable string that will be displayed in the web UI as the cause of the build.";
+            };
 
-          startAt = mkOption {
-            type = with types; either str (listOf str);
-            default = "daily";
-            description = ''
-              How often this job is started. See {manpage}`systemd.time(7)` for more information about the format.
-            '';
-          };
+            startAt = mkOption {
+              type = with types; either str (listOf str);
+              default = "daily";
+              description = ''
+                How often this job is started. See {manpage}`systemd.time(7)` for more information about the format.
+              '';
+            };
 
-          accuracy = mkOption {
-            type = types.str;
-            default = "10 min";
-            description = ''
-              How close to `startAt` time the job is actually run. See {manpage}`systemd.time(7)` for more information about the format.
-            '';
+            accuracy = mkOption {
+              type = types.str;
+              default = "10 min";
+              description = ''
+                How close to `startAt` time the job is actually run. See {manpage}`systemd.time(7)` for more information about the format.
+              '';
+            };
           };
-        };
-      });
+        });
     };
 
     settings = mkOption {
@@ -143,49 +147,49 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services = {
-      laminar = {
-        description = "Laminar continuous integration service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        inherit (cfg) path;
-        environment = {
-          XDG_RUNTIME_DIR = "%t/laminar";
+    systemd.services =
+      {
+        laminar = {
+          description = "Laminar continuous integration service";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          inherit (cfg) path;
+          environment = {
+            XDG_RUNTIME_DIR = "%t/laminar";
+          };
+          serviceConfig = {
+            User = cfg.user;
+            Group = cfg.group;
+            ExecStart = "${cfg.package}/bin/laminard -v";
+            RuntimeDirectory = "laminar";
+            EnvironmentFile = pkgs.writeText "laminar.conf" ''
+              LAMINAR_HOME=${cfg.homeDir}
+              LAMINAR_BIND_HTTP=${cfg.settings.bindHTTP}
+              LAMINAR_BIND_RPC=${cfg.settings.bindRPC}
+              LAMINAR_TITLE=${cfg.settings.title}
+              LAMINAR_KEEP_RUNDIRS=${toString cfg.settings.keepRundirs}
+              LAMINAR_BASE_URL=${cfg.settings.baseURL}
+              ${lib.optionalString (
+                cfg.settings.archiveURL != null
+              ) "LAMINAR_ARCHIVE_URL=${cfg.settings.archiveURL}"}
+            '';
+          };
+          unitConfig = {
+            Documentation = [
+              "man:laminard(8)"
+              "https://laminar.ohwg.net/docs.html"
+            ];
+          };
         };
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          ExecStart = "${cfg.package}/bin/laminard -v";
-          RuntimeDirectory = "laminar";
-          EnvironmentFile = pkgs.writeText "laminar.conf" ''
-            LAMINAR_HOME=${cfg.homeDir}
-            LAMINAR_BIND_HTTP=${cfg.settings.bindHTTP}
-            LAMINAR_BIND_RPC=${cfg.settings.bindRPC}
-            LAMINAR_TITLE=${cfg.settings.title}
-            LAMINAR_KEEP_RUNDIRS=${toString cfg.settings.keepRundirs}
-            LAMINAR_BASE_URL=${cfg.settings.baseURL}
-            ${lib.optionalString (cfg.settings.archiveURL != null)
-              "LAMINAR_ARCHIVE_URL=${cfg.settings.archiveURL}"
-            }
-          '';
-        };
-        unitConfig = {
-          Documentation = [
-            "man:laminard(8)"
-            "https://laminar.ohwg.net/docs.html"
-          ];
-        };
-      };
-    } // (mapAttrs'
-      (name: job: {
+      }
+      // (mapAttrs' (name: job: {
         name = "laminar-job-${name}";
         value = {
           description = "Runs laminar CI job.";
           path = [
             cfg.package
             "/run/wrappers"
-          ]
-          ++ cfg.path;
+          ] ++ cfg.path;
           environment = {
             LAMINAR_REASON = job.reason;
           };
@@ -196,10 +200,9 @@ in
             ExecStart = "${cfg.package}/bin/laminarc run ${name}";
           };
         };
-      })
-      cfg.timers);
-    systemd.timers = (mapAttrs'
-      (name: job: {
+      }) cfg.timers);
+    systemd.timers = (
+      mapAttrs' (name: job: {
         name = "laminar-job-${name}";
         value = {
           wantedBy = [ "timers.target" ];
@@ -209,8 +212,8 @@ in
             Persistent = true;
           };
         };
-      })
-      cfg.timers);
+      }) cfg.timers
+    );
 
     environment.systemPackages = [
       pkgs.laminar

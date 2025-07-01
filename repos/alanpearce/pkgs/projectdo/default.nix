@@ -1,14 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, ncurses
-, nodejs
-, bun
-, pnpm
-, yarn
-, just
-, nix
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  nodejs,
+  bun,
+  pnpm,
+  yarn,
+  just,
+  nix,
 }:
 let
   rev = "8de1acb1975d3811b8c3a8f175c8dfabd800da10";

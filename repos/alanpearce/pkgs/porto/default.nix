@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,7 +18,10 @@ buildGoModule rec {
   vendorHash = "sha256-MTuwMP3pnaIBt3FPNPJNaEncpTBVTlTxScQuRKj5b/U=";
   subPackages = [ "cmd/porto" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Tool for adding vanity import to Go code";
