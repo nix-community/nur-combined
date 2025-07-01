@@ -111,7 +111,7 @@ Or, use variables from this repository in case I change them:
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-06-24 | Device that allows access to Linux kernel cryptographic drivers |
 |  | `data-recorder` | [data-recorder](https://github.com/g1879/DataRecorder) | 3.6.2 | Python-based toolkit to record data into files |
-|  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-06 | DBIP's Lite GeoIP Country, City, and ASN databases |
+|  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-07 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `deeplx` | [deeplx](https://deeplx.owo.network) | 1.0.7 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
@@ -134,7 +134,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.51-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-06-27 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.06.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.01 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -200,7 +200,7 @@ Or, use variables from this repository in case I change them:
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
 |  | `plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.3.2 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-06-16 | Server control plane for Pterodactyl Panel |
+|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-06-30 | Server control plane for Pterodactyl Panel |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2025-06-04 | Python implementation of key Osmocom protocols/interfaces |
@@ -211,7 +211,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.3-b1-unstable-2025-06-16 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-06-16 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-07-01 | QSP is an Interactive Fiction development platform (Game Library) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.015.00-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.055.00 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk |
@@ -243,7 +243,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.2 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-06-29 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-06-30 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -274,7 +274,7 @@ Or, use variables from this repository in case I change them:
 | `Deprecated` | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.18.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
 | `Broken` | `kui` | [kui](https://kui.aber.sh/) | 1.9.2 | Easy-to-use web framework |
 | `Deprecated` | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.3.0 | (DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go |
-| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.38 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.39 | Third party Bilibili client built with Flutter |
 | `Deprecated` `x86_64-linux` | `pocl` | [pocl](http://portablecl.org) | 7.0 | (DEPRECATED: pocl is available in nixpkgs) Portable open source (MIT-licensed) implementation of the OpenCL standard |
 | `Broken` | `soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 | `Deprecated` `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
@@ -404,11 +404,11 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.13.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 5775 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 5788 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.14.3.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
-|  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-06-21 | OpenResty with Lan Tian modifications |
+|  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-06-30 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.nixos-cleanup` | [nixos-cleanup](https://github.com/xddxdd/nur-packages) | 1.0 | Cleanup old profiles on NixOS |
 |  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 5.15.4 | Telegram Desktop messaging app (Without anti-features) |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](https://www.transmissionbt.com/) | 4.0.6 | Fast, easy and free BitTorrent client |
@@ -1092,7 +1092,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.6.5 | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | `uncategorized.chmlib-utils` | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | Library for dealing with Microsoft ITSS/CHM format files |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
-|  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-06 | DBIP's Lite GeoIP Country, City, and ASN databases |
+|  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-07 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.0.7 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `uncategorized.dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
@@ -1110,7 +1110,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.51-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.06.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.01 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -1166,14 +1166,14 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
 |  | `uncategorized.plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.3.2 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `uncategorized.plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-06-16 | Server control plane for Pterodactyl Panel |
+|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-06-30 | Server control plane for Pterodactyl Panel |
 |  | `uncategorized.pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.0.2+ds-1 | Generic and open source machine emulator and virtualizer |
 |  | `uncategorized.qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.18 | QQ for Linux |
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `uncategorized.qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.3-b1-unstable-2025-06-16 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-06-16 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-07-01 | QSP is an Interactive Fiction development platform (Game Library) |
 | `x86_64-linux` | `uncategorized.red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk |
 |  | `uncategorized.red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
 |  | `uncategorized.rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
@@ -1197,7 +1197,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.2 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uncategorized.uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-06-29 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-06-30 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -1213,7 +1213,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.44 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `uncategorized.xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
 | `Broken` | `uncategorized.douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
-| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.38 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.3.39 | Third party Bilibili client built with Flutter |
 | `Broken` | `uncategorized.soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 </details>
 

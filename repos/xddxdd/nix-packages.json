@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-06"
+    "version": "2025-07"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -652,7 +652,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.28"
+    "version": "2025.07.01"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -852,7 +852,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5775"
+    "version": "5788"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -872,7 +872,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-06-21"
+    "version": "1.27.1.2-unstable-2025-06-30"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
     "description": "Cleanup old profiles on NixOS",
@@ -3832,7 +3832,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.38"
+    "version": "1.1.3.39"
   },
   "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -3867,7 +3867,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-16"
+    "version": "1.11.13-unstable-2025-06-30"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4082,7 +4082,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-16"
+    "version": "0-unstable-2025-07-01"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4372,7 +4372,7 @@
   "legacyPackages.x86_64-linux.uncategorized.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-06"
+    "version": "2025-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -4467,7 +4467,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.28"
+    "version": "2025.07.01"
   },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4727,7 +4727,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.38"
+    "version": "1.1.3.39"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4752,7 +4752,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-16"
+    "version": "1.11.13-unstable-2025-06-30"
   },
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
@@ -4787,7 +4787,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-16"
+    "version": "0-unstable-2025-07-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -4912,7 +4912,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-29"
+    "version": "0-unstable-2025-06-30"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4987,7 +4987,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-29"
+    "version": "0-unstable-2025-06-30"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5232,7 +5232,7 @@
   "packages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-06"
+    "version": "2025-07"
   },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -5362,7 +5362,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.06.28"
+    "version": "2025.07.01"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5752,7 +5752,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.3.38"
+    "version": "1.1.3.39"
   },
   "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
@@ -5787,7 +5787,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-06-16"
+    "version": "1.11.13-unstable-2025-06-30"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -5847,7 +5847,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-06-16"
+    "version": "0-unstable-2025-07-01"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6022,7 +6022,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-06-29"
+    "version": "0-unstable-2025-06-30"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
