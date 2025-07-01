@@ -431,11 +431,6 @@
             "sha256": "0h558paa1gmpdy6kac1wq9mhd6qnk6yvk6c14iw0761bmws88pim",
             "url": "https://github.com/pillowtrucker/tooo000oooot"
         },
-        "chillcicada": {
-            "rev": "b5900482963dc3cef3a4e38fce04c48d985d683d",
-            "sha256": "1vhyl3flpnl5bnb4b4p5dbam3qgrzidksa2b38b0yf6052gx48bk",
-            "url": "https://github.com/chillcicada/nurpkgs"
-        },
         "chisui": {
             "rev": "eceb3539f793fa7aa304f8fd00add7b1a1affbf0",
             "sha256": "1hdkyqrn0mvvf31m391i3s6fsnzihzbcimhpbrq9kg1bh224j7ij",
