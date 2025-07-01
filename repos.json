@@ -280,9 +280,6 @@
         "clefru": {
             "url": "https://github.com/clefru/nur-packages"
         },
-        "codgician": {
-            "url": "https://github.com/codgician/nur-packages"
-        },
         "colinsane": {
             "file": "integrations/nur/default.nix",
             "type": "gitea",

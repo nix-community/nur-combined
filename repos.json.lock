@@ -451,11 +451,6 @@
             "sha256": "065bsm1s8zz7q6vhadsa0npkk4daaslk2iwqnmfryrpx6gjh2b61",
             "url": "https://github.com/clefru/nur-packages"
         },
-        "codgician": {
-            "rev": "8c1b30c31435a8ae298e7df647c68606c1f64a36",
-            "sha256": "0sncb3sjpxpl0c7x985kl111w4330qq14fzbnpkcvij8nmxcg1qc",
-            "url": "https://github.com/codgician/nur-packages"
-        },
         "colinsane": {
             "rev": "55586b578a6558b35256734f5de4d8f0bf0f7676",
             "sha256": "0pzlc6q5q2v9zdwkl7kwjvmnlvxyw0klzp9zi22vac6x22m5b6yp",
