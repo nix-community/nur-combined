@@ -1,7 +1,6 @@
 {
   stdenv,
   lib,
-  fetchurl,
   autoPatchelfHook,
   webkitgtk_4_1,
   libayatana-appindicator,
@@ -11,11 +10,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "et-astral";
-  version = "2.1.4";
+  version = "2.1.8";
 
-  src = fetchurl {
+  src = builtins.fetchTarball {
     url = "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    hash = "sha256-ZarMEnoYLATheC794atAKqv6D6RpIo5UTFOJzXPxvZw=";
+    sha256 = "1dvwszwp2z8h03385isggqbi751m6pw0clwggmzip5jha7mrn962";
   };
 
   stripRoot = false;
@@ -39,11 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     ln -s $out/app/astral/astral $out/bin/astral
 
-    mkdir -p $out/share
-    install -Dm0644 data/flutter_assets/assets/icon.ico \
-      $out/share/icons/hicolor/64x64/apps/astral.png
-    install -Dm0644 data/flutter_assets/assets/logo.png \
-      $out/share/icons/hicolor/144x144/apps/astral.png
+    mkdir -p $out/share/icons/hicolor/128x128/apps
+    cp ${./assets/icons/astral.png} $out/share/icons/hicolor/128x128/apps/astral.png
 
     runHook postInstall
   '';
