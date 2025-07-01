@@ -287,6 +287,17 @@
             terminal = true;
           }
           {
+            match = [ { host = [ "oidc.nyaw.xyz" ]; } ];
+            handle = [
+              {
+                handler = "reverse_proxy";
+                upstreams = [ { dial = "[fdcc::3]:1411"; } ];
+                response_buffers = 2097152;
+              }
+            ];
+            terminal = true;
+          }
+          {
             handle = [
               {
                 handler = "subroute";

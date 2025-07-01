@@ -78,9 +78,10 @@
           IPv4Forwarding = true;
           IPv6Forwarding = true;
           IPv6AcceptRA = "yes";
-        MulticastDNS = true;
+          MulticastDNS = true;
         };
         ipv6AcceptRAConfig = {
+          DHCPv6Client = false;
           # UseDNS = false;
         };
         # dhcpV4Config.UseDNS = false;

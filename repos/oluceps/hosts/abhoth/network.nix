@@ -1,29 +1,15 @@
 { config, lib, ... }:
 {
   imports = [ ./bird.nix ];
-  # services.babeld = {
-  #   enable = true;
-  #   config = ''
-  #     skip-kernel-setup true
-  #     local-path /var/run/babeld/ro.sock
-  #     router-id f2:3c:95:50:a1:73
-
-  #     interface wg-yidhra type tunnel rtt-min 64 rtt-max 256
-  #     interface wg-hastur type tunnel rtt-min 165 rtt-max 256
-  #     interface wg-azasos type tunnel rtt-min 50 rtt-max 256 rtt-decay 64
-  #     interface wg-kaambl type tunnel rtt-min 210 rtt-max 512 rtt-decay 120
-  #     interface wg-eihort type tunnel rtt-min 170 rtt-max 384 rtt-decay 60
-
-  #     redistribute ip fdcc::/64 ge 64 le 128 local allow
-  #     redistribute local deny
-  #   '';
-  # };
   services = {
-    resolved.enable = lib.mkForce false;
+    resolved = {
+      dnssec = "false";
+      llmnr = "false";
+      extraConfig = ''
+        MulticastDNS=off
+      '';
+    };
   };
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
   networking = {
     domain = "nyaw.xyz";
     # resolvconf.useLocalResolver = true;

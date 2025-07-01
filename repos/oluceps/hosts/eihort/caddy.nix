@@ -69,6 +69,16 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:1411"; } ];
+                        response_buffers = 2097152;
+                      }
+                    ];
+                    match = [ { host = [ "oidc.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "localhost:5244"; } ];
                       }
                     ];

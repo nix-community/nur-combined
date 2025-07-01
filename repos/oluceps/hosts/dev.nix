@@ -49,7 +49,6 @@
   programs = {
 
     ssh = {
-      startAgent = true;
       enableAskPassword = true;
       askPassword = "${pkgs.wayprompt}/bin/wayprompt-ssh-askpass";
       # askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";

@@ -1,7 +1,7 @@
 [node.hastur]
 # homeserver censored
 id = 0 # ro, for Cantor Pair Function
-addr = "192.168.1.2"
+addr = "hastur.local"
 censor = true
 nat = true
 loc = 0
@@ -14,7 +14,7 @@ pub_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 [node.kaambl]
 # laptop
 id = 1
-addr = "192.168.1.186"
+addr = "kaambl.local"
 censor = true
 nat = true
 loc = 0
@@ -27,7 +27,7 @@ pub_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
 [node.eihort]
 # nas
 id = 2
-addr = "192.168.1.16"
+addr = "eihort.local"
 censor = true
 nat = true
 loc = 0

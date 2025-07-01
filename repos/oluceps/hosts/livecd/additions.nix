@@ -24,8 +24,6 @@
     nftables.enable = true;
   };
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  system.switch.enableNg = true;
-  system.switch.enable = lib.mkForce false;
 
   isoImage = {
     compressImage = true;

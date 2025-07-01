@@ -34,26 +34,26 @@
     plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
-    dnsproxy = {
-      enable = true;
-    };
+    # dnsproxy = {
+    #   enable = true;
+    # };
     sing-server.enable = true;
   };
   services = {
-    dnsproxy.settings = lib.mkForce {
-      bootstrap = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-      listen-addrs = [ "0.0.0.0" ];
-      listen-ports = [ 53 ];
-      upstream-mode = "load_balance";
-      upstream = [
-        "1.1.1.1"
-        "8.8.8.8"
-        "https://dns.google/dns-query"
-      ];
-    };
+    # dnsproxy.settings = lib.mkForce {
+    #   bootstrap = [
+    #     "1.1.1.1"
+    #     "8.8.8.8"
+    #   ];
+    #   listen-addrs = [ "0.0.0.0" ];
+    #   listen-ports = [ 53 ];
+    #   upstream-mode = "load_balance";
+    #   upstream = [
+    #     "1.1.1.1"
+    #     "8.8.8.8"
+    #     "https://dns.google/dns-query"
+    #   ];
+    # };
     metrics.enable = true;
 
     hysteria.instances = {

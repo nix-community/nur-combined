@@ -97,13 +97,14 @@
       "20-wireless" = {
         matchConfig.Name = "wlan0";
         networkConfig = {
-          DHCP = "yes";
+          DHCP = "ipv4";
           IPv4Forwarding = true;
           IPv6Forwarding = true;
           IPv6AcceptRA = true;
           MulticastDNS = true;
         };
         ipv6AcceptRAConfig = {
+          DHCPv6Client = false;
           # UseDNS = false;
         };
         dhcpV4Config.RouteMetric = 2040;

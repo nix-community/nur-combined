@@ -119,9 +119,20 @@
       enable = true;
       location = "/three/storage/Downloads";
     };
-    bpftune.enable = true;
+    # bpftune.enable = true;
     # sing-box.enable = true;
     metrics.enable = true;
+
+    pocket-id = {
+      enable = true;
+      settings = {
+        APP_URL = "https://oidc.nyaw.xyz";
+        TRUST_PROXY = true;
+        DB_PROVIDER = "postgres";
+        OTEL_METRICS_EXPORTER = "prometheus";
+      };
+      environmentFile = config.vaultix.secrets.pocketid.path;
+    };
 
     online-keeper.instances.sec = {
       sessionFile = config.vaultix.secrets.tg-session.path;

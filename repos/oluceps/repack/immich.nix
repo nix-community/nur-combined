@@ -8,7 +8,7 @@ reIf {
       database.createDB = false;
       machine-learning.enable = true;
       redis.enable = true;
-      settings.server.externalDomain = "https://photo.nyaw.xyz";
+      settings = null;
     };
     immich-public-proxy = {
       enable = true;

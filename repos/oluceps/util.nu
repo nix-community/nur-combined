@@ -99,10 +99,10 @@ export def dump [path?: string = "./sec/decrypted"] {
 export def chk [] {
   let allow = ["f" "age-yubikey-identity-7d5d5540.txt.pub" "rekeyed"]
   ls sec |
-    filter {|i|
+    where {|i|
       not ($in.name | path basename | str ends-with "age")
     } |
-    filter {|i|
+    where {|i|
       not ($i.name | path basename | $in in $allow)
     }
 }

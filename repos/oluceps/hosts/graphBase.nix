@@ -206,7 +206,7 @@
         yubikey-personalization
         nitrokey-udev-rules
         libu2f-host
-        via
+        # via
         # opensk-udev-rules
         nrf-udev-rules
         disallow-generic-driver-for-switch-rules

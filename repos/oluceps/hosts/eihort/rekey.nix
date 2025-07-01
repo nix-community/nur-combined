@@ -1,4 +1,4 @@
-{ user, data, ... }:
+{config, user, data, ... }:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
@@ -46,6 +46,12 @@ in
         file = ../../sec/misskey.age;
         mode = "444";
         owner = "misskey";
+      };
+
+      pocketid = {
+        file = ../../sec/pocketid.age;
+        mode = "400";
+        owner = config.services.pocket-id.user;
       };
 
       vault.file = ../../sec/vault.age;

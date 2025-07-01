@@ -1,9 +1,6 @@
 { config, lib, ... }:
 {
   imports = [ ./bird.nix ];
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
   networking = {
     domain = "nyaw.xyz";
     firewall = {
@@ -51,8 +48,14 @@
 
   };
 
-  services.resolved = {
-    enable = lib.mkForce false;
+  services = {
+    resolved = {
+      dnssec = "false";
+      llmnr = "false";
+      extraConfig = ''
+        MulticastDNS=off
+      '';
+    };
   };
   systemd.network = {
     enable = true;

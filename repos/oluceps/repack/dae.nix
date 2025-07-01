@@ -39,10 +39,10 @@ reIf {
           mptcp: true
       }
       routing {
-          pname(bird, systemd-resolved, smartdns,
+          pname(bird, systemd-resolved, systemd-networkd, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
 
-          pname(prometheus, systemd-networkd) -> direct
+          pname(prometheus) -> direct
           pname(chatmcp) -> ai
 
           pname(Misskey, conduit, tuwunel, conduwuit, .mautrix-telegr, arti) -> all
@@ -78,12 +78,6 @@ reIf {
 
           domain(${
             lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)
-          }) -> direct
-
-          dip(${
-            lib.concatStringsSep "," (
-              map (i: "\"${i.addr}\"") (builtins.attrValues (lib.filterAttrs (k: v: v.censor) lib.data.node))
-            )
           }) -> direct
 
           domain(geosite:cn) -> direct

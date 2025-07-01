@@ -30,6 +30,7 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
+      inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch;
 
       tuwunel = inputs'.conduit.packages.default;
 
@@ -55,6 +56,36 @@
         postfixup = ''
           install -Dm444 release/config/sing-box-split-dns.xml -t $out/share/dbus-1/system.d/sing-box-split-dns.conf
         '';
+      });
+      pocket-id = prev.pocket-id.overrideAttrs (old: rec {
+        version = "1.5.0";
+
+        src = prev.fetchFromGitHub {
+          owner = "pocket-id";
+          repo = "pocket-id";
+          tag = "v${version}";
+
+          hash = "sha256-U5tZq310A6hnDIG8CeJl58EWLSshbXVaKJGSzLUCMI4=";
+        };
+        frontend = prev.buildNpmPackage {
+          pname = "pocket-id-frontend";
+          inherit version src;
+
+          sourceRoot = "${src.name}/frontend";
+
+          npmDepsHash = "sha256-AZ8je9uaJ1h9wxfs2RtPr2Ki0QNYD0nDd2BZDj6/sl8=";
+          npmFlags = [ "--legacy-peer-deps" ];
+
+          env.BUILD_OUTPUT_PATH = "dist";
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out/lib/pocket-id-frontend
+            cp -r dist $out/lib/pocket-id-frontend/dist
+            runHook postInstall
+          '';
+        };
+
+        # vendorHash = "sha256-AZ8je9uaJ1h9wxfs2RtPr2Ki0QNYD0nDd2BZDj6/sl8=";
       });
 
       # misskey = prev.misskey.overrideAttrs (old: {

@@ -37,10 +37,6 @@
     openssh.enable = true;
     fail2ban.enable = true;
     sing-server.enable = true;
-    dnsproxy = {
-      enable = true;
-      # extraFlags = [ "--ipv6-disabled" ];
-    };
     rustypaste.enable = true;
     subs.enable = true;
   };
