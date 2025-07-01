@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "perf-cpp";
-  version = "0.10.0";
+  version = "0.12.1";
 
   src = fetchFromGitHub {
     owner = "jmuehlig";
     repo = "perf-cpp";
     rev = "v${version}";
-    hash = "sha256-/8ITD1WZBhST+2tLAdwjUYHVc7sOaXcDmeuVHBOfI/Q=";
+    hash = "sha256-NXSGQS+pt3DWKsWIKgFqs76K4+Ckev8qweSU9++Bgwk=";
   };
 
   nativeBuildInputs = [ cmake ];
