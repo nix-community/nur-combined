@@ -1,0 +1,9 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"branchPrefix": "renovate/",
+	"dependencyDashboardTitle": "Dependency Dashboard",
+	"onboarding": false,
+	"requireConfig": "optional",
+	"platform": "github",
+	"repositories": ["spotdemo4/nur"]
+}
