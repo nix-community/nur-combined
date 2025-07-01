@@ -2,7 +2,7 @@
   description = "Packages from my personal dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:numtide/nixpkgs-unfree/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
