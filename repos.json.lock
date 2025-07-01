@@ -1950,11 +1950,6 @@
             "sha256": "0iy9fc36nczc2fj0w2aa12d8x4vi7ldi9ai0984g6nfdcbzcz5s0",
             "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
         },
-        "wrvsrx": {
-            "rev": "7eae424e3309c5cd5e064d92069ba4b0a1010d8e",
-            "sha256": "09r70673x7rapjyimf9s1blkdx4x6nxi2hziqglnwpr0xmihfdf2",
-            "url": "https://github.com/wrvsrx/nur-packages"
-        },
         "wwmoraes": {
             "rev": "56edae23117510751c191b108a2b8f6ecc4b28b9",
             "sha256": "12gr0nyz791d5jlk24sma7kfdlyckzp73ffrxnj0cbym82p700cf",
