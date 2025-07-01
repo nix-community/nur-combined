@@ -2,20 +2,23 @@
   description = "Packages from my personal dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:numtide/nixpkgs-unfree/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
+    nixpkgs-unfree.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     {
       nixpkgs,
+      nixpkgs-unfree,
       flake-utils,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs-unfree.legacyPackages.${system};
         defaultNix = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
           inherit (pkgs) callPackage newScope;
           directory = ./pkgs;

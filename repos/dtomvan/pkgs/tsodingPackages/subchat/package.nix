@@ -22,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "dtomvan";
     repo = "SubChat";
-    rev = "0e6a17364d7d2b4012bba05a1b66ddf39bef0531";
-    hash = "sha256-TuzEMj3uJcBgAKOl9CWc7x4qG4XslfoD3HFlyCcyxHM=";
+    rev = "4528b9bf1066db4d231b13baf59dd0278e2062b8";
+    hash = "sha256-wbTC4VZq1+mQJcrMAW5tLG0TzjSH75zFTrBEdyPvSSs=";
     fetchSubmodules = true;
   };
 

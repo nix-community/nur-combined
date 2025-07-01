@@ -1,7 +1,7 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i nushell -p nix-prefetch gnused gnutar curl
+#!nix-shell -i nu -p nushell nix-prefetch gnused gnutar curl
 
-let gitbutler_dir = path self | path dirname
+const gitbutler_dir = path self | path dirname
 
 def setKV [key: string, value: string] {
     sed -i $'s|($key) = ".*"|($key) = "($value)"|' $'($gitbutler_dir)/package.nix'

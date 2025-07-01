@@ -13,8 +13,8 @@
 }:
 let
   self = import ../../default.nix { };
-  nixpkgs = (builtins.getFlake (builtins.toString ../..)).inputs.nixpkgs.outPath; # HACK
-  pkgs = (import nixpkgs { }) // self;
+  nixpkgs = (builtins.getFlake (builtins.toString ../..)).inputs.nixpkgs; # HACK
+  pkgs = (nixpkgs.legacyPackages.${builtins.currentSystem}) // self;
 
   inherit (pkgs) lib;
 
