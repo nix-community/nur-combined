@@ -117,10 +117,10 @@
     };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.36";
+      version = "3.8.37";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4512197/adblocker_ultimate-3.8.36.xpi";
-      sha256 = "7d2ed5b4f4f31a5af1f6726e2b8ada1d47ec6555a547d5f5d26a72c97e4f45f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517145/adblocker_ultimate-3.8.37.xpi";
+      sha256 = "975bb69f7229826548de9706da9001009aadf8779b61c90922ddf42969106304";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -1019,10 +1019,10 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.40.4";
+      version = "0.40.5";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4514793/bibbot-0.40.4.xpi";
-      sha256 = "28cca26863612f7fbd1c5f4fe6d1407ac6d120fdb83b407ba81ba465bdf4382a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523448/bibbot-0.40.5.xpi";
+      sha256 = "44aa1fc0ee4e989682510ca2b2d5a301b43ada92a5d5e1ed705ffc743905c247";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -2310,10 +2310,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "140.0.20250627.85530";
+      version = "141.0.20250630.90626";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522305/dansk_da_language_pack-140.0.20250627.85530.xpi";
-      sha256 = "daec355e061daad2d6800300e302071ac0481fcca72d0fb32ebb1a34a96becb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523642/dansk_da_language_pack-141.0.20250630.90626.xpi";
+      sha256 = "5be9d6f81b3ce76b9243719f8974ab7451d11b2b312c497239aa67d76d3a1884";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2459,10 +2459,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.1.2";
+      version = "2.1.4";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4513273/dearrow-2.1.2.xpi";
-      sha256 = "1df792b06f629b684239d1095e391f1a8f6bb49369cf6a3dd16a61674b5665e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517611/dearrow-2.1.4.xpi";
+      sha256 = "89db620c2340c67562cf527554d268b1c29c2a5a903e6b8d4229ee815f05395a";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2507,10 +2507,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "140.0.20250627.85530";
+      version = "141.0.20250630.90626";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522304/deutsch_de_language_pack-140.0.20250627.85530.xpi";
-      sha256 = "7af258f37892934e2aedad604961b912da4ed033809a98b7a16e80fc94bf532e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523659/deutsch_de_language_pack-141.0.20250630.90626.xpi";
+      sha256 = "6bd274f3b36132b11287f74a36be1768122e6c5f7018c0a52205db88ae4ba02e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2847,32 +2847,6 @@
         platforms = platforms.all;
       };
     };
-    "ebates" = buildFirefoxXpiAddon {
-      pname = "ebates";
-      version = "5.55.1";
-      addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406709/ebates-5.55.1.xpi";
-      sha256 = "b40d390b7c81933d32862a9cdb8060d60d6965b0a9697c0485b732c31705a426";
-      meta = with lib;
-      {
-        homepage = "https://www.rakuten.com";
-        description = "Start shopping smarter with Cash Back and coupons. By clicking Add to Firefox you agree to the Rakuten Extension Terms &amp; Conditions";
-        license = licenses.mpl20;
-        mozPermissions = [
-          "tabs"
-          "webNavigation"
-          "webRequest"
-          "storage"
-          "cookies"
-          "alarms"
-          "scripting"
-          "<all_urls>"
-          "https://*.rakuten.com/*"
-          "https://*.rakuten.co.uk/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "ebates-express-cash-back" = buildFirefoxXpiAddon {
       pname = "ebates-express-cash-back";
       version = "7.8.1";
@@ -3077,10 +3051,10 @@
     };
     "external-application" = buildFirefoxXpiAddon {
       pname = "external-application";
-      version = "0.5.9";
+      version = "0.6.0";
       addonId = "{65b77238-bb05-470a-a445-ec0efe1d66c4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4430794/external_application-0.5.9.xpi";
-      sha256 = "b75e32ceed2d9f344ec99de1157c523311bc2647054df27ed862c93c3469e05e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523435/external_application-0.6.0.xpi";
+      sha256 = "5b3813b6a409b8d06cc57df3769c787ec0f646add6a31cfa762a14cc3cec043a";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/external-application-button.html";
@@ -3768,10 +3742,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "140.0.20250627.85530";
+      version = "141.0.20250630.90626";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522263/francais_language_pack-140.0.20250627.85530.xpi";
-      sha256 = "4a8c15679110b5221a82eb6ddb20181a7ab5950511b290c4a0b6fafd775fcff7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523718/francais_language_pack-141.0.20250630.90626.xpi";
+      sha256 = "8c5ca7806b96263851824ba91e7ff87b9635110caae64a8edb9b33c111e21790";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3805,10 +3779,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "140.0.20250627.85530";
+      version = "141.0.20250630.90626";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522284/gaidhlig_language_pack-140.0.20250627.85530.xpi";
-      sha256 = "1d87b25049c31a4b0c5febf6d7bdbf4d8b6c95bf01ff2fcfb45a4438a298be83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523700/gaidhlig_language_pack-141.0.20250630.90626.xpi";
+      sha256 = "7e80d57cf4183a1b3aebe71924f8ff6be828d578ed820c91628aa9c2bab61449";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5760,10 +5734,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.13.5";
+      version = "3.13.6";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4471330/indie_wiki_buddy-3.13.5.xpi";
-      sha256 = "9aa6b5aacce9d98a26c500af73725ed81ed0702d888ed4bfac4379f54df9709b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4517716/indie_wiki_buddy-3.13.6.xpi";
+      sha256 = "b0fd9fc37112488c80fc546505e89a31152f77256c852e32164e86d5a6b5a051";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -6367,10 +6341,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.8";
+      version = "1.9.9";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477789/keepassxc_browser-1.9.8.xpi";
-      sha256 = "7629ee8fe6a8bace5d0f12c3aef41803c2ab01407a22ad8803633992a6c4eda2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518185/keepassxc_browser-1.9.9.xpi";
+      sha256 = "84bdfd50bf30b1eb494c6e0753eda64a0c6489f557d59f3e8d3dbc878107fcba";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6383,6 +6357,7 @@
           "cookies"
           "nativeMessaging"
           "notifications"
+          "privacy"
           "storage"
           "tabs"
           "webNavigation"
@@ -7056,10 +7031,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.79";
+      version = "2.6.80";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464649/localcdn_fork_of_decentraleyes-2.6.79.xpi";
-      sha256 = "3180fe626b674d63191cc6d26516b16fd82f3e23500457e6149dcd14febd9eb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518039/localcdn_fork_of_decentraleyes-2.6.80.xpi";
+      sha256 = "bcd7e4b51422c3559f3edb880d7248410169214266b3b40d236f0b7d478b9ded";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -9921,10 +9896,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.46.0";
+      version = "0.47.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522392/private_grammar_checker_harper-0.46.0.xpi";
-      sha256 = "aac62c4160c6f62f233b6fbec011a8d52d61be95ac625b90bf8b79aa2563de70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524075/private_grammar_checker_harper-0.47.0.xpi";
+      sha256 = "740dd49810c24a6bbb9759010e76232d332187b47f23d49470305f93de2b8132";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -10860,10 +10835,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "140.0.20250627.85530";
+      version = "141.0.20250630.90626";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522240/scots_language_pack-140.0.20250627.85530.xpi";
-      sha256 = "89534b6a0205f8c414a4ef0f7d21cd08a0886fdbaffe9f33b0c00310e4e8f6d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523679/scots_language_pack-141.0.20250630.90626.xpi";
+      sha256 = "bf22e6a0edd44274071f66b14a9d5b476641edca48888f0ac3c74c34cfbc1ba9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11538,10 +11513,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.12.4";
+      version = "5.13.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4501802/sponsorblock-5.12.4.xpi";
-      sha256 = "789c63e5cfc74aa11661459de7ab87c0143cca5a0944aab700a6044497bf40eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523436/sponsorblock-5.13.2.xpi";
+      sha256 = "5474885c40991404f1347db69933da631cc24318abe720efe4ba8df5196f0faa";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -14567,10 +14542,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.32";
+      version = "2.4.40";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522323/youtube_no_translation-2.4.32.xpi";
-      sha256 = "5b39fa86566b951389366438f2ee7c322187c1d12a879651248168014835b27e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523910/youtube_no_translation-2.4.40.xpi";
+      sha256 = "5cccd03c9d09a346f1d4f36b6e7f8a7b04ef032c77a60be4fe17ffb0307c0510";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
@@ -14680,10 +14655,10 @@
     };
     "zeroomega" = buildFirefoxXpiAddon {
       pname = "zeroomega";
-      version = "3.4.0";
+      version = "3.4.1";
       addonId = "suziwen1@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4505861/zeroomega-3.4.0.xpi";
-      sha256 = "b056414f58ff82eb6a8da97ae7e0feeeb2a7a04ed92ba027825ba8abd46cd128";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523117/zeroomega-3.4.1.xpi";
+      sha256 = "02f287f1fa9739b4e934f79735ead5c92a89200a2d7908500b04678e06699c92";
       meta = with lib;
       {
         description = "Manage and switch between multiple proxies quickly &amp; easily.";
