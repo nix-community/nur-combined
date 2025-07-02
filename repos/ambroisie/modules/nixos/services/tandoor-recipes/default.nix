@@ -49,8 +49,8 @@ in
 
     systemd.services = {
       tandoor-recipes = {
-        after = [ "postgresql.service" ];
-        requires = [ "postgresql.service" ];
+        after = [ "postgresql.target" ];
+        requires = [ "postgresql.target" ];
 
         serviceConfig = {
           EnvironmentFile = cfg.secretKeyFile;

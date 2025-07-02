@@ -20,7 +20,7 @@
       element-desktop # Matrix client
       jellyfin-media-player # Wraps the webui and mpv together
       pavucontrol # Audio mixer GUI
-      transgui # Transmission remote
+      trgui-ng # Transmission remote
     ];
     # Minimal video player
     mpv.enable = true;

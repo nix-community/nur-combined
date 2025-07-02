@@ -47,6 +47,7 @@ in
       enable = true;
       package = pkgs.transmission_4;
       group = "media";
+      webHome = pkgs.trgui-ng-web;
 
       downloadDirPermissions = "775";
 

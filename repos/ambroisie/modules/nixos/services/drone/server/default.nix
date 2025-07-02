@@ -6,8 +6,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.drone-server = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "postgresql.service" ];
-      requires = [ "postgresql.service" ];
+      after = [ "postgresql.target" ];
+      requires = [ "postgresql.target" ];
       serviceConfig = {
         EnvironmentFile = [
           cfg.secretFile

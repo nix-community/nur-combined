@@ -24,8 +24,8 @@ in
     };
 
     systemd.services.woodpecker-server = {
-      after = [ "postgresql.service" ];
-      requires = [ "postgresql.service" ];
+      after = [ "postgresql.target" ];
+      requires = [ "postgresql.target" ];
 
       serviceConfig = {
         # Set username for DB access
