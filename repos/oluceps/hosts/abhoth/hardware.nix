@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   modulesPath,
   ...
 }:
@@ -12,6 +13,7 @@
     #   (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
     # ];
 
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "audit=0"
       "net.ifnames=0"

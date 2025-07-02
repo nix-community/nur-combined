@@ -141,6 +141,28 @@
                 }
               ],
               "node_wwn": "iqn.1991-05.com.microsoft:win-r21hnbnslpk"
+            },
+            {
+              "attributes": {
+                "authentication": -1,
+                "dataout_timeout": 3,
+                "dataout_timeout_retries": 5,
+                "default_erl": 0,
+                "nopin_response_timeout": 30,
+                "nopin_timeout": 15,
+                "random_datain_pdu_offsets": 0,
+                "random_datain_seq_offsets": 0,
+                "random_r2t_offsets": 0
+              },
+              "mapped_luns": [
+                {
+                  "alias": "a6dae42891",
+                  "index": 0,
+                  "tpg_lun": 0,
+                  "write_protect": false
+                }
+              ],
+              "node_wwn": "iqn.1991-05.com.microsoft:hastur"
             }
           ],
           "parameters": {

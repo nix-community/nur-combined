@@ -20,7 +20,7 @@ reIf {
       }
       global {
           tproxy_port: 12345
-          log_level: info
+          log_level: debug
           # tcp_check_url: 'https://www.apple.com/library/test/success.html'
           tcp_check_url: 'http://cp.cloudflare.com,1.1.1.1,2606:4700:4700::1111'
           udp_check_dns: '8.8.8.8:53,114.114.114.114:53,2001:4860:4860::8888,1.1.1.1:53'
@@ -37,9 +37,12 @@ reIf {
           utls_imitate: chrome_auto
           lan_interface: podman0,podman1
           mptcp: true
+          tls_fragment_length: '50-100'
+          tls_fragment_interval: '10-20'
+          fallback_resolver: '8.8.8.8:53'
       }
       routing {
-          pname(bird, systemd-resolved, systemd-networkd, smartdns,
+          pname(bird, systemd-networkd, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
 
           pname(prometheus) -> direct
