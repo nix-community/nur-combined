@@ -6,6 +6,7 @@
   ninja,
   pkg-config,
   kdePackages,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
@@ -38,6 +39,8 @@ stdenv.mkDerivation {
     kdePackages.libkscreen
     kdePackages.plasma-desktop
   ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     mainProgram = "kiss";

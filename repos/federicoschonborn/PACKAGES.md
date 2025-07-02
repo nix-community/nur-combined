@@ -66,7 +66,7 @@ Tool to generate flags for your CPU.
 Library for parsing CSS using the Rust cssparser crate.
 
 - Name: `cxx-rust-cssparser`
-- Version: `0-unstable-2025-06-25`
+- Version: `0-unstable-2025-07-01`
 - [🌐 Homepage](https://invent.kde.org/libraries/cxx-rust-cssparser)
 - [📦 Source](./pkgs/by-name/cxx-rust-cssparser/package.nix#L57)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
@@ -166,7 +166,7 @@ KDE Initial System Setup.
 - Name: `kiss`
 - Version: `0-unstable-2025-06-30`
 - [🌐 Homepage](https://invent.kde.org/system/kiss)
-- [📦 Source](./pkgs/by-name/kiss/package.nix#L44)
+- [📦 Source](./pkgs/by-name/kiss/package.nix#L47)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html), [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html), [`GNU Library General Public License v2 or later`](https://spdx.org/licenses/LGPL-2.0-or-later.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
 - 🖥️ Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
 
@@ -198,7 +198,7 @@ Interface for porting emulators to
 Highscore.
 
 - Name: `libhighscore`
-- Version: `0-unstable-2025-06-29`
+- Version: `0-unstable-2025-07-01`
 - [🌐 Homepage](https://gitlab.gnome.org/alicem/libhighscore)
 - [📦 Source](./pkgs/by-name/libhighscore/package.nix#L43)
 - 📄 License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
@@ -346,7 +346,7 @@ Virtual Keyboard for Qt based desktops.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `0-unstable-2025-06-24`
+- Version: `0-unstable-2025-07-01`
 - [🌐 Homepage](https://github.com/udem-dlteam/pnut)
 - [📦 Source](./pkgs/by-name/pnut/package.nix#L39)
 - 📄 License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
@@ -438,7 +438,7 @@ Generate a static HTML page from a collection of feeds with a simple CLI tool.
 A Qt style supporting both QtQuick and QtWidgets.
 
 - Name: `union`
-- Version: `0-unstable-2025-06-23`
+- Version: `0-unstable-2025-07-01`
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L60)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)
@@ -449,7 +449,7 @@ A Qt style supporting both QtQuick and QtWidgets.
 A Qt style supporting both QtQuick and QtWidgets.
 
 - Name: `union`
-- Version: `0-unstable-2025-06-23`
+- Version: `0-unstable-2025-07-01`
 - [🌐 Homepage](https://invent.kde.org/plasma/union)
 - [📦 Source](./pkgs/by-name/union/package.nix#L60)
 - 📄 Licenses: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html), [`Creative Commons Zero v1.0 Universal`](https://spdx.org/licenses/CC0-1.0.html), [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html), [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html), [`GNU Lesser General Public License v3.0 only`](https://spdx.org/licenses/LGPL-3.0-only.html)

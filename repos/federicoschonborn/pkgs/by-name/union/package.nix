@@ -13,14 +13,14 @@
 
 stdenv.mkDerivation (_: {
   pname = "union";
-  version = "0-unstable-2025-06-23";
+  version = "0-unstable-2025-07-01";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "plasma";
     repo = "union";
-    rev = "3d564ba83c61474b0e973a60b8c507e039286c33";
-    hash = "sha256-pDu9tcId+26yCRosbJyG9yMnJraK8fLRIJ1UTurClCk=";
+    rev = "9303f3667f25542247a4c3b49988a7d738d3e57d";
+    hash = "sha256-msdUem1Du4YCVNWUGrNfEOyEK/f2/+SWcjfhE0P+JIA=";
   };
 
   nativeBuildInputs = [
