@@ -19,13 +19,13 @@ let
 in
 realStdenv.mkDerivation rec {
   pname = "kame-editor";
-  version = "1.4.1-unstable-2024-11-01";
+  version = "1.4.1-unstable-2025-06-04";
 
   src = fetchFromGitLab {
     owner = "beelzy";
     repo = pname;
-    rev = "1877a832c8c23683a26b3bbd5c7beec8de990714";
-    hash = "sha256-VOqxGuFVFwrf8T6QSXSZV6ZYBh8Bcx8Weit7WBqvclA=";
+    rev = "21a48fc0d09d7b87cac59454d879bc1d54de356e";
+    hash = "sha256-cPGnQHJNh7eavc4xlclAV1b+Ahg3p0Cnj7Sbz3xzj48=";
   };
 
   postPatch = ''
