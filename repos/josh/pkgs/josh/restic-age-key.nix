@@ -7,16 +7,17 @@
   age,
   jq,
   restic,
+  rclone,
   tinyxxd,
 }:
 buildGoModule (finalAttrs: {
   pname = "restic-age-key";
-  version = "0.2.0-unstable-2025-06-29";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "restic-age-key";
-    rev = "021cc60645345db9601b99cc01b23ec05d5e5ada";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Z3nOrYkkVDVShbECNhYoVi2L0QKnB9Nuq44h2SsaZ4k=";
   };
 
@@ -27,7 +28,8 @@ buildGoModule (finalAttrs: {
     "-s"
     "-w"
     "-X main.Version=${finalAttrs.version}"
-    "-X main.AgeBin=${lib.getExe age}"
+    "-X main.AgeProgram=${lib.getExe age}"
+    "-X main.RcloneProgram=${lib.getExe rclone}"
   ];
 
   nativeCheckInputs = [
@@ -37,14 +39,36 @@ buildGoModule (finalAttrs: {
     tinyxxd
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
-  passthru.tests = {
-    help = runCommand "test-restic-age-key-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-      restic-age-key --help
-      touch $out
-    '';
-  };
+  passthru.tests =
+    let
+      restic-age-key = finalAttrs.finalPackage;
+    in
+    {
+      # https://github.com/josh/restic-age-key/issues/22
+      # version = testers.testVersion {
+      #   package = restic-age-key;
+      #   inherit (finalAttrs) version;
+      # };
+
+      help = runCommand "test-restic-age-key-help" { nativeBuildInputs = [ restic-age-key ]; } ''
+        restic-age-key --help
+        touch $out
+      '';
+
+      age-path = runCommand "test-restic-age-key-age-path" { nativeBuildInputs = [ restic-age-key ]; } ''
+        restic-age-key --help | grep "${lib.getExe age}"
+        touch $out
+      '';
+
+      rclone-path =
+        runCommand "test-restic-age-key-rclone-path" { nativeBuildInputs = [ restic-age-key ]; }
+          ''
+            restic-age-key --help | grep "${lib.getExe rclone}"
+            touch $out
+          '';
+    };
 
   meta = {
     description = "Use asymmetric age keys instead of a password on your restic repository";
