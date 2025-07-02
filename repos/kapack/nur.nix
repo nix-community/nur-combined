@@ -40,8 +40,6 @@ rec {
 
   batsky = pkgs.callPackage ./pkgs/batsky { };
 
-  cgvg = pkgs.callPackage ./pkgs/cgvg { };
-
   cpp-driver = pkgs.callPackage ./pkgs/cpp-driver {};
 
   scylladb-cpp-driver = pkgs.callPackage ./pkgs/scylladb-cpp-driver {};
