@@ -10,6 +10,14 @@ fetch.github = "caddy-dns/cloudflare"
 git.date_format = "%Y%m%d%H%M%S%z"
 src.git = "https://github.com/caddy-dns/cloudflare.git"
 
+[catppuccin-kitty]
+fetch.github = "catppuccin/kitty"
+src.git = "https://github.com/catppuccin/kitty.git"
+
+[catppuccin-zsh-fsh]
+fetch.github = "catppuccin/zsh-fsh"
+src.git = "https://github.com/catppuccin/zsh-fsh.git"
+
 ["mholt/caddy-l4"]
 passthru = {moduleName = "github.com/mholt/caddy-l4"}
 fetch.github = "mholt/caddy-l4"

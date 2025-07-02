@@ -77,4 +77,5 @@ rec {
     );
   };
   oli = callPackage ./pkgs/oli { };
+  catppuccin = callPackage ./pkgs/catppuccin { inherit sources; };
 }

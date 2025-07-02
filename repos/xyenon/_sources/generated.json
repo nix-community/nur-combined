@@ -45,6 +45,48 @@
         },
         "version": "35fb8474f57d7476329f75d63eebafb95a93022f"
     },
+    "catppuccin-kitty": {
+        "cargoLocks": null,
+        "date": "2024-11-10",
+        "extract": null,
+        "name": "catppuccin-kitty",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "kitty",
+            "rev": "b14e8385c827f2d41660b71c7fec1e92bdcf2676",
+            "sha256": "sha256-59ON7CzVgfZUo7F81qQZQ1r6kpcjR3OPvTl99gzDP8E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b14e8385c827f2d41660b71c7fec1e92bdcf2676"
+    },
+    "catppuccin-zsh-fsh": {
+        "cargoLocks": null,
+        "date": "2024-07-20",
+        "extract": null,
+        "name": "catppuccin-zsh-fsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "zsh-fsh",
+            "rev": "a9bdf479f8982c4b83b5c5005c8231c6b3352e2a",
+            "sha256": "sha256-WeqvsKXTO3Iham+2dI1QsNZWA8Yv9BHn1BgdlvR8zaw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a9bdf479f8982c4b83b5c5005c8231c6b3352e2a"
+    },
     "mholt/caddy-l4": {
         "cargoLocks": null,
         "date": "20250530094005-0600",
