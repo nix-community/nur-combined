@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-06-30",
+        "date": "2025-07-01",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "f4dc76db44a6a246e62b5a306c22bb33aefecdbc",
-            "sha256": "sha256-zZg5dSFmXSCkajrV44Q5RfIKHISYfB3A6gjrU/ATTl8=",
+            "rev": "2884d33076328155554acfbc959460db82881b66",
+            "sha256": "sha256-49xKeu58cIty3Fw2ulgCnLEIp7coH+8Dq1/H6CwnwoY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f4dc76db44a6a246e62b5a306c22bb33aefecdbc"
+        "version": "2884d33076328155554acfbc959460db82881b66"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -2078,12 +2078,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5788",
-            "sha256": "sha256-+tjR0cr7/EBRtdVcuSSkvl8vwXvvf4GIqXV0D11/Iq8=",
+            "rev": "b5801",
+            "sha256": "sha256-BJfR6NXoH0oUmRz6HXjuCcVtVWtd6ORsLY4wTweUpTU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5788"
+        "version": "b5801"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2582,7 +2582,7 @@
     },
     "openai-edge-tts": {
         "cargoLocks": null,
-        "date": "2025-05-16",
+        "date": "2025-07-01",
         "extract": null,
         "name": "openai-edge-tts",
         "passthru": null,
@@ -2594,12 +2594,12 @@
             "name": null,
             "owner": "travisvn",
             "repo": "openai-edge-tts",
-            "rev": "936cd1ab398209bac122578abc61b8c354ca9c7a",
-            "sha256": "sha256-Xe78N758g5FWuce69klcDiBoFvJeD1Iq+LB1bxoFouY=",
+            "rev": "edaed2afd2cdedcc4648380185d8d7cf7a1eee97",
+            "sha256": "sha256-CAU48qeRffUZLpZXDFaPCK1muB3w38VpDD/yAaGBLes=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "936cd1ab398209bac122578abc61b8c354ca9c7a"
+        "version": "edaed2afd2cdedcc4648380185d8d7cf7a1eee97"
     },
     "opencc-python-reimplemented": {
         "cargoLocks": null,
@@ -3041,7 +3041,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-06-30",
+        "date": "2025-07-01",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3053,12 +3053,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "06a3167754a435bcfa6af366d581703af2104906",
-            "sha256": "sha256-fyiQ0Ilz82Qj8WkRwLvDxcyG4UKxTyE3txrd3gHiByo=",
+            "rev": "8b65328390ceebe9d2346bff686203e2374ff059",
+            "sha256": "sha256-qDe/0oft0oHiXq04I6fqjsYoujyIGOvdCVjGi1kuQWE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "06a3167754a435bcfa6af366d581703af2104906"
+        "version": "8b65328390ceebe9d2346bff686203e2374ff059"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,

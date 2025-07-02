@@ -217,14 +217,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "f4dc76db44a6a246e62b5a306c22bb33aefecdbc";
+    version = "2884d33076328155554acfbc959460db82881b66";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "f4dc76db44a6a246e62b5a306c22bb33aefecdbc";
-      hash = "sha256-zZg5dSFmXSCkajrV44Q5RfIKHISYfB3A6gjrU/ATTl8=";
+      rev = "2884d33076328155554acfbc959460db82881b66";
+      hash = "sha256-49xKeu58cIty3Fw2ulgCnLEIp7coH+8Dq1/H6CwnwoY=";
     };
-    date = "2025-06-30";
+    date = "2025-07-01";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5788";
+    version = "b5801";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5788";
-      hash = "sha256-+tjR0cr7/EBRtdVcuSSkvl8vwXvvf4GIqXV0D11/Iq8=";
+      tag = "b5801";
+      hash = "sha256-BJfR6NXoH0oUmRz6HXjuCcVtVWtd6ORsLY4wTweUpTU=";
     };
   };
   loralib = {
@@ -1327,14 +1327,14 @@
   };
   openai-edge-tts = {
     pname = "openai-edge-tts";
-    version = "936cd1ab398209bac122578abc61b8c354ca9c7a";
+    version = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
     src = fetchFromGitHub {
       owner = "travisvn";
       repo = "openai-edge-tts";
-      rev = "936cd1ab398209bac122578abc61b8c354ca9c7a";
-      hash = "sha256-Xe78N758g5FWuce69klcDiBoFvJeD1Iq+LB1bxoFouY=";
+      rev = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
+      hash = "sha256-CAU48qeRffUZLpZXDFaPCK1muB3w38VpDD/yAaGBLes=";
     };
-    date = "2025-05-16";
+    date = "2025-07-01";
   };
   opencc-python-reimplemented = {
     pname = "opencc-python-reimplemented";
@@ -1555,14 +1555,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "06a3167754a435bcfa6af366d581703af2104906";
+    version = "8b65328390ceebe9d2346bff686203e2374ff059";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "06a3167754a435bcfa6af366d581703af2104906";
-      hash = "sha256-fyiQ0Ilz82Qj8WkRwLvDxcyG4UKxTyE3txrd3gHiByo=";
+      rev = "8b65328390ceebe9d2346bff686203e2374ff059";
+      hash = "sha256-qDe/0oft0oHiXq04I6fqjsYoujyIGOvdCVjGi1kuQWE=";
     };
-    date = "2025-06-30";
+    date = "2025-07-01";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
