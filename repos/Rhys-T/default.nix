@@ -196,7 +196,7 @@ in {
     
     mame = dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {});
     mame-metal = dontUpdate (self.mame.override { darwinMinVersion = "11.0"; });
-    hbmame = callPackage ./pkgs/mame/hbmame.nix {};
+    hbmame = callPackage ./pkgs/mame/hbmame {};
     hbmame-metal = self.hbmame.override { mame = self.mame-metal; };
     
     pacifi3d = callPackage ./pkgs/pacifi3d {};

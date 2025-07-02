@@ -36,14 +36,18 @@
             })
         ];
         outputs = lib.lists.remove "tools" (old.outputs or ["out"]);
-        patches = map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
-            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/83d89a2fadf3ce1f67cfc5e49e62e474df04507b/pkgs/applications/emulators/mame/001-use-absolute-paths.diff";
-            decode = '' sed '/OPTION_INIPATH/ {
-                s@".;ini;ini/presets",@"ini",  @g
-                s@$@  // MESSUI@g
-            }' '';
-            hash = "sha256-mOgS03wKLJEnQM91rjZvsFE5mkafdIZnmk3vp0YgNaU=";
-        } else patch) old.patches;
+        patches = map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then
+            ./patches/001-use-absolute-paths.diff
+        else patch) old.patches;
+        postPatch = builtins.replaceStrings [''
+            substituteInPlace src/emu/emuopts.cpp \
+              --subst-var-by mamePath "$out/opt/mame"
+        ''] [''
+            for file in src/emu/emuopts.cpp src/osd/modules/lib/osdobj_common.cpp; do
+              substituteInPlace "$file" \
+                --subst-var-by mamePath "$out/opt/mame"
+            done
+        ''] old.postPatch;
         makeFlags = map (x: if x == "TOOLS=1" then "TOOLS=0" else x) (old.makeFlags or []) ++ ["TARGET=hbmame"];
         installPhase = let
             installPhaseParts = builtins.match "(.*)install -Dm644 [^ ]* [^ ]*/mame\\.svg(.*)" old.installPhase;
