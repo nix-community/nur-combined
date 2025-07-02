@@ -66,7 +66,6 @@ rec {
       librime-octagram
     ];
   };
-  mq = callPackage ./pkgs/mq { };
   rime-moegirl = callPackage ./pkgs/rime-moegirl { source = sources.rime-moegirl; };
   rime-ice = callPackage ./pkgs/rime-ice { inherit sources; };
   rime-ice-unstable = rime-ice.override { isUnstable = true; };
