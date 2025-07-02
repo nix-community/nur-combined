@@ -27,13 +27,15 @@ stdenv.mkDerivation (final: {
     copyDesktopItems
   ];
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = true;
+  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   postConfigure = ''
     cp .env.example .env
   '';
 
-  postBuild = ''
+  buildPhase = ''
+    runHook preBuild
+
     pnpm build
 
     npm exec electron-builder -- \
@@ -41,13 +43,15 @@ stdenv.mkDerivation (final: {
         --config electron-builder.yml \
         -c.electronDist=${electron.dist} \
         -c.electronVersion=${electron.version}
+
+    runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/share/lib/splayer"
-    cp -Pr --no-preserve=ownership dist/*-unpacked/{locales,resources{,.pak}} $out/share/lib/splayer
+    mkdir -p "$out/share/splayer"
+    cp -Pr --no-preserve=ownership dist/*-unpacked/{locales,resources{,.pak}} $out/share/splayer
 
     _icon_sizes=(16x16 32x32 96x96 192x192 256x256 512x512)
     for _icons in "''${_icon_sizes[@]}";do
@@ -55,8 +59,8 @@ stdenv.mkDerivation (final: {
     done
 
     makeWrapper '${lib.getExe electron}' "$out/bin/splayer" \
-      --add-flags $out/share/lib/splayer/resources/app.asar \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+      --add-flags $out/share/splayer/resources/app.asar \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
