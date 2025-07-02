@@ -1262,10 +1262,10 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.1";
+      version = "4.0.2";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4465785/british_english_dictionary_2-4.0.1.xpi";
-      sha256 = "636a1cba4ac4193e4bbaa93773fa48675b580f9dcf6fa98a0bd685d44e697b1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524177/british_english_dictionary_2-4.0.2.xpi";
+      sha256 = "9fb12b246d84eb1df6d67321fd3d7ca33524ecfd822e5e5d361f91bd9181cc37";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -8235,10 +8235,10 @@
     };
     "nekocap" = buildFirefoxXpiAddon {
       pname = "nekocap";
-      version = "1.16.0";
+      version = "1.17.0";
       addonId = "nekocaption@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4513585/nekocap-1.16.0.xpi";
-      sha256 = "f384325bcf7140da63feebb3ee3c1584f52504f9a33463c773b16af0fa867ec7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524539/nekocap-1.17.0.xpi";
+      sha256 = "11f47488bd9f7757de753ddbde4d2e4f2a1246425244fe185fe7ef9d1141acbf";
       meta = with lib;
       {
         homepage = "https://nekocap.com";
@@ -8261,13 +8261,14 @@
           "https://*.tiktok.com/*"
           "https://*.iq.com/*"
           "https://*.abema.tv/*"
+          "https://*.dailymotion.com/*"
           "https://*.bilibili.tv/*"
           "https://*.nogidoga.com/*"
           "https://*.cu.tbs.co.jp/*"
           "https://*.instagram.com/*"
           "https://*.unext.jp/*"
+          "https://*.lemino.docomo.ne.jp/*"
           "https://*.archive.org/*"
-          "https://*.dailymotion.com/*"
         ];
         platforms = platforms.all;
       };
@@ -8798,10 +8799,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.81.1";
+      version = "8.10.82.29";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4511770/1password_x_password_manager-8.10.81.1.xpi";
-      sha256 = "722a7900d8a54150ae3c9323d13fb8f388f7104aac277542bb3c35aec99bfe46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4520016/1password_x_password_manager-8.10.82.29.xpi";
+      sha256 = "9290fb9ab3a5828ab5b75982a2e78265b5495ec4a5dccfc77672b3513d06431f";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -10597,10 +10598,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.5.18";
+      version = "25.7.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4495758/refined_github-25.5.18.xpi";
-      sha256 = "36c23ff732d3cf221f2764c81883311dae5e23ed2ad352a68d52887d594dab91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524491/refined_github-25.7.1.xpi";
+      sha256 = "966b9cb65e509eb833494cd91a3910aeeb240584d0fd4c490bcbe19b6cc47157";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -11575,10 +11576,10 @@
     };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
-      version = "1.7.15";
+      version = "1.7.16";
       addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4415851/startup_bookmarks-1.7.15.xpi";
-      sha256 = "0be812487cb653ad7cdac746d6f7acc014593b4dd8edc2fe354e7a31ae95414e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524708/startup_bookmarks-1.7.16.xpi";
+      sha256 = "432a5057b1878ae7d1ac9ce8276d7df7b965f1686846fbd515349cbbeb576828";
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/startup-bookmarks";
@@ -14542,10 +14543,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.4.40";
+      version = "2.5.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4523910/youtube_no_translation-2.4.40.xpi";
-      sha256 = "5cccd03c9d09a346f1d4f36b6e7f8a7b04ef032c77a60be4fe17ffb0307c0510";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524495/youtube_no_translation-2.5.0.xpi";
+      sha256 = "e6ecc13c0f1148169dc22382895491ae1f1b473593c37fbd4aee8745ec91be32";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
