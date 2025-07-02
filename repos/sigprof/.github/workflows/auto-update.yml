@@ -39,7 +39,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Setup Cachix
-        uses: cachix/cachix-action@v15
+        uses: cachix/cachix-action@v16
         with:
           name: ${{ env.CACHIX_NAME }}
           extraPullNames: "pre-commit-hooks"
