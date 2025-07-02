@@ -60,9 +60,15 @@ rec {
   xenonrecomp = callPackage ./pkgs/xenonrecomp { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
-    version = "1.39.12";
-    hash = "sha256-DjurJTvLLjVOOJt7ovGqcyxgxL6fEAdAiiIdSd9YkIM=";
+    version = "1.39.13";
+    hash = "sha256-u3AMCXkuzgh3GBoXTBaHOJ09/5PIpfOfgbp1Cb3r7NY=";
   };
+  mediawiki_1_43 = callPackage ./pkgs/mediawiki {
+    version = "1.43.3";
+    hash = "sha256-5AnfQWuk2Z0nBeHrD/gWiGPbKnkcwL56h9s8E9mAGnA=";
+  };
+
+  # EOL packages
   mediawiki_1_40 = callPackage ./pkgs/mediawiki {
     version = "1.40.4";
     hash = "sha256-hUkUPBFma+u4SxT1pTzxMXCwcSEbf86BjNsNoF756J4=";
@@ -71,15 +77,12 @@ rec {
   mediawiki_1_41 = callPackage ./pkgs/mediawiki {
     version = "1.41.5";
     hash = "sha256-Sq2inYfvrlP7OpQjs2lQZz4t0dU7R4EzzPNGpR83HjU=";
-    knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-12-21." ];
+    knownVulnerabilities = [ "MediaWiki 1.41 has been end-of-life since 2024-12-21." ];
   };
   mediawiki_1_42 = callPackage ./pkgs/mediawiki {
-    version = "1.42.6";
-    hash = "sha256-NqoZRCoGhfqqXqOKeoVZ+MjpkovPH3XQioY9kGYRW2A=";
-  };
-  mediawiki_1_43 = callPackage ./pkgs/mediawiki {
-    version = "1.43.1";
-    hash = "sha256-PIWqnEzWw1PGeASjpY57eWFdQUHD1msQHl8660BlPWw=";
+    version = "1.42.7";
+    hash = "sha256-CmBMgUVPt6s+svV6tZcsXqRPxUkkzKCegT48T0gn2ck=";
+    knownVulnerabilities = [ "MediaWiki 1.42 has been end-of-life since 2025-06-30." ];
   };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
