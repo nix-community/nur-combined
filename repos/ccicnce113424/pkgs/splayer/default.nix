@@ -27,10 +27,7 @@ stdenv.mkDerivation (final: {
     copyDesktopItems
   ];
 
-  env = {
-    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-    PNPM_CHILD_CONCURRENCY = "1";
-  };
+  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   postConfigure = ''
     cp .env.example .env

@@ -2,7 +2,7 @@
 
 ## Cache
 
-Use [Garnix](https://garnix.io/docs/caching#caching).
+https://ccicnce113424.cachix.org
 
 ## Usage
 

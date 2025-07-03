@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - and:
           - label=dependencies
-          - check-success=All Garnix checks
+          - check-success=Build
     actions:
       update:
       merge:
