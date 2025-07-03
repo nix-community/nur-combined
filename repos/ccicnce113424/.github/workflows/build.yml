@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch: # allows manual triggering
 
+concurrency:
+  group: build
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -1,5 +1,0 @@
-builds:
-  include:
-    - "packages.*.*"
-  exclude:
-    - "packages.*.wpsoffice-365"
