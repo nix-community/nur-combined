@@ -196,7 +196,7 @@ for appKey in "${!appMajorToVersion[@]}"; do
         this_url="${url}${version}/${filename}"
         this_locale="${filename##*/}"
         this_locale="${this_locale%.xpi}"
-        hash="$(nix hash to-sri --type sha512 "$sha512")"
+        hash="$(nix-hash --to-sri --type sha512 "$sha512")"
         cat >> "$tmpdir/sources.mjson" <<EOF
 {
   "${app}": {
@@ -235,7 +235,7 @@ EOF
             printf '%s  %s\n' "$sha512" "$tmpdir/nar/file.xpi" | \
               sha512sum -c -
             install -m444 "$tmpdir/nar/file.xpi" "$tmpdir/nar/out/${addon_path}"
-            nar_hash="$(nix hash path --sri --type sha512 "$tmpdir/nar/out")"
+            nar_hash="$(nix-hash --sri --type sha512 "$tmpdir/nar/out")"
             cat >> "$tmpdir/sources.mjson" <<EOF
 {
   "${app}": {
