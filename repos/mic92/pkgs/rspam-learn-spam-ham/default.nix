@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildPythonApplication, requests }:
+{ lib, fetchFromGitHub, buildPythonApplication, requests, setuptools }:
 
 buildPythonApplication rec {
   pname = "rspamd-learn-spam-ham";
@@ -11,6 +11,9 @@ buildPythonApplication rec {
     sha256 = "0z9l49r2m7arapps026gz5pkshbfk1npvvmnsc1ig29ff73p63cm";
   };
 
+  pyproject = true;
+  build-system = [ setuptools ];
+  
   propagatedBuildInputs = [ requests ];
 
   meta = with lib; {
