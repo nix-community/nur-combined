@@ -9,6 +9,7 @@ python3Packages.buildPythonPackage rec {
 
   pname = "llm-ttok";
   version = "0.3";
+  pyproject = false;
 
   src = fetchFromGitHub {
     owner = "simonw";
