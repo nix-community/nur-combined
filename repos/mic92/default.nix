@@ -34,8 +34,6 @@ rec {
 
   rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
-
   #peerix = pkgs.python3.pkgs.callPackage ./pkgs/peerix { };
 
   traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
