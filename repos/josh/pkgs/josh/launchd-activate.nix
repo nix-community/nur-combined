@@ -11,13 +11,13 @@
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "launchd-activate";
-  version = "0-unstable-2025-05-31";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "launchd-activate";
-    rev = "8f495c14ae835d3676a33b9bd152d6849c0f9ddd";
-    hash = "sha256-l8iOgeaPC3rqmprDdOsEskiB6waNA2DGUyGBmYSpoZ4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-UgWS+DEw3s4bJm8wcetwQhHLTM1ossPHUbuNXSDOEZU=";
   };
 
   nativeBuildInputs = [
@@ -52,7 +52,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     version = testers.testVersion {
@@ -61,11 +61,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     };
 
     help =
-      runCommand "test-launchd-activate-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-launchd-activate-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           launchd-activate --help
           touch $out
