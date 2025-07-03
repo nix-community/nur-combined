@@ -12,8 +12,7 @@ stdenv.mkDerivation (_final: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    install -Dm755 DanmakuFactory $out/bin/DanmakuFactory
+    install -D DanmakuFactory $out/bin/DanmakuFactory
 
     runHook postInstall
   '';

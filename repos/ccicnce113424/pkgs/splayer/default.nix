@@ -55,7 +55,7 @@ stdenv.mkDerivation (final: {
 
     _icon_sizes=(16x16 32x32 96x96 192x192 256x256 512x512)
     for _icons in "''${_icon_sizes[@]}";do
-      install -Dm644 public/icons/favicon-$_icons.png $out/share/icons/hicolor/$_icons/apps/splayer.png
+      install -D public/icons/favicon-$_icons.png $out/share/icons/hicolor/$_icons/apps/splayer.png
     done
 
     makeWrapper '${lib.getExe electron}' "$out/bin/splayer" \
