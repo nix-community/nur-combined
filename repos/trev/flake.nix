@@ -1,17 +1,29 @@
 {
   description = "Trev's NUR repository";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = {
     self,
     nixpkgs,
+    nur,
   }: let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
     devShells = forAllSystems (
       system: let
-        pkgs = nixpkgs.legacyPackages."${system}";
+        pkgs = import nixpkgs rec {
+          inherit system;
+          overlays = [
+            nur.legacyPackages."${system}".repos.trev.overlays.renovate
+          ];
+        };
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [

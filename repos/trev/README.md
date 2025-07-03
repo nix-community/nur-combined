@@ -6,12 +6,12 @@
 
 ## Packages
 
-- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema ([NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450))
-- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface ([NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495))
+- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
+- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
 
 ## Overlays
 
-- [renovate](https://github.com/renovatebot/renovate) automated dependency update tool
+- [renovate](https://github.com/renovatebot/renovate) - Automated dependency update tool
   - patch: fix flake lock refresh [renovatebot#33991](https://github.com/renovatebot/renovate/pull/33991)
 
 ## Examples
