@@ -1,10 +1,22 @@
 # trev's [nur](https://github.com/nix-community/NUR) repository
 
 [![checks status](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/checks.yaml?logo=github&label=checks&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/checks.yaml)
-[![checks status](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/flake.yaml?logo=nixos&logoColor=%2389dceb&label=flake&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/flake.yaml)
+[![flake status](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/flake.yaml?logo=nixos&logoColor=%2389dceb&label=flake&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/flake.yaml)
 [![cachix](https://img.shields.io/badge/cachix-trevnur-%23313244?logo=nixos&logoColor=%2389dceb&labelColor=%2311111b)](https://trevnur.cachix.org)
 
-### devshell example
+## Packages
+
+- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema ([NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450))
+- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface ([NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495))
+
+## Overlays
+
+- [renovate](https://github.com/renovatebot/renovate) automated dependency update tool
+  - patch: fix flake lock refresh [renovatebot#33991](https://github.com/renovatebot/renovate/pull/33991)
+
+## Examples
+
+### DevShell
 ```nix
 {
   nixConfig = {
@@ -44,4 +56,39 @@
     );
 }
 ```
+### NixOS
+```nix
+{
+  nixConfig = {
+    extra-substituters = [
+      "https://trevnur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+    ];
+  };
 
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, nur }: {
+    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
+      modules = [
+        # Adds the NUR overlay
+        nur.modules.nixos.default
+
+        # Use the NUR overlay
+        ({ pkgs, ... }: {
+          environment.systemPackages = [pkgs.nur.repos.trev.bobgen];
+        })
+      ];
+    };
+  };
+}
+```
