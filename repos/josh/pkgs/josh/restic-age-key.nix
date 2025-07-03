@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nix-update-script,
   runCommand,
+  testers,
   age,
   jq,
   restic,
@@ -12,13 +13,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "restic-age-key";
-  version = "0.2.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "restic-age-key";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Z3nOrYkkVDVShbECNhYoVi2L0QKnB9Nuq44h2SsaZ4k=";
+    hash = "sha256-+luDDyUpqEexkhPz6qDtoJ6ytZA7K0sT2DodtGvatoM=";
   };
 
   vendorHash = "sha256-cKa3ov/6aiAxnnbQgDjqiNi1NwZhUsjLIzdkMVj6teU=";
@@ -46,11 +47,10 @@ buildGoModule (finalAttrs: {
       restic-age-key = finalAttrs.finalPackage;
     in
     {
-      # https://github.com/josh/restic-age-key/issues/22
-      # version = testers.testVersion {
-      #   package = restic-age-key;
-      #   inherit (finalAttrs) version;
-      # };
+      version = testers.testVersion {
+        package = restic-age-key;
+        inherit (finalAttrs) version;
+      };
 
       help = runCommand "test-restic-age-key-help" { nativeBuildInputs = [ restic-age-key ]; } ''
         restic-age-key --help
