@@ -25,5 +25,4 @@
   pw_wp_bluetooth_rpi_speaker =
     pkgs.callPackage ./pkgs/pw_wp_bluetooth_rpi_speaker { };
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
-  unison-gitignore       = pkgs.callPackage ./pkgs/unison-gitignore { };
 }
