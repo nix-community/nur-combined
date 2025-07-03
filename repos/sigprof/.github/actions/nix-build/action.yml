@@ -63,9 +63,22 @@ inputs:
     required: false
     description: 'Override the default cachix installation method'
 
+  maximize-build-space:
+    required: false
+    default: 'true'
+    description: >
+      Maximize the storage space available for the build process by removing
+      unused files from the GitHub Actions runner.  Enabled by default, but can
+      be disabled if unneeded (e.g., if the storage cleanup had been performed
+      during some previous step of the job).
+
 runs:
   using: composite
   steps:
+    - name: Maximize build space for Nix
+      uses: wimpysworld/nothing-but-nix@26234b059dd22b36374427bd3cea6adfe16a809f
+      if: (inputs.maximize-build-space == 'true') && (runner.os == 'Linux')
+
     - name: Install Nix
       uses: cachix/install-nix-action@v31.4.1
       with:
