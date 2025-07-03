@@ -38,6 +38,8 @@ in let
             substituteInPlace neteria/core.py --replace-fail 'is not 0' '!= 0'
         '';
         dependencies = with python3Packages; [rsa];
+        pyproject = true;
+        build-system = with python3Packages; [setuptools];
     };
     pyscroll = python3Packages.buildPythonPackage rec {
         pname = "pyscroll";
@@ -47,6 +49,8 @@ in let
             hash = "sha256-GQIFGyCEN5/I22mfCgDSbV0g5o+Nw8RT316vOSsqbHA=";
         };
         dependencies = with python3Packages; [pygame-ce];
+        pyproject = true;
+        build-system = with python3Packages; [setuptools];
     };
     pygame_menu_ce = python3Packages.buildPythonPackage rec {
         pname = "pygame_menu_ce";
@@ -56,7 +60,10 @@ in let
             hash = "sha256-9Y85GHJjBLoE1mt6k+PbRt2J0jr0aPOfWmjL3QjJPhI=";
         };
         dependencies = with python3Packages; [pygame-ce pyperclip typing-extensions];
+        pyproject = true;
+        build-system = with python3Packages; [setuptools];
     };
+    usingPathlib = lib.versionAtLeast version "0.4.34-unstable-2025-05-29";
     tuxemon = python3Packages.buildPythonApplication {
         pname = "tuxemon";
         inherit version;
@@ -96,7 +103,11 @@ in let
             sed -Ei '
                 s@import logging@&, sys@
                 /mods_folder =/ {
-                    s@os.path.join\(LIBDIR, "\.\.", "mods"\)@os.path.join(os.getenv("NIX_TUXEMON_DIR"), "mods")@
+                    ${if usingPathlib then
+                        ''s@\(LIBDIR\.parent / "mods"\)@(Path(__import__("os").getenv("NIX_TUXEMON_DIR")) / "mods")@''
+                    else
+                        ''s@os.path.join\(LIBDIR, "\.\.", "mods"\)@os.path.join(os.getenv("NIX_TUXEMON_DIR"), "mods")@''
+                    }
                 }
             ' tuxemon/constants/paths.py
         '' + lib.optionalString withLibShake ''
@@ -105,7 +116,11 @@ in let
                     substituteInPlace tuxemon/db.py --replace-fail \
             '        return DatabaseConfig(**data)' \
             '        config = DatabaseConfig(**data);
-                    config.mod_base_path = os.path.join(os.path.dirname(os.path.dirname(config_path)), config.mod_base_path)
+                    config.mod_base_path = ${if usingPathlib then 
+                        ''Path(config_path).parent.parent / config.mod_base_path''
+                    else
+                        ''os.path.join(os.path.dirname(os.path.dirname(config_path)), config.mod_base_path)''
+                    }
                     return config'
         '';
         makeWrapperArgs = ["--set-default NIX_TUXEMON_DIR $out/share/tuxemon"];
