@@ -13,7 +13,7 @@ defaults:
     shell: bash
 
 env:
-  CI_NIX_INSTALL_URL: https://releases.nixos.org/nix/nix-2.18.1/install
+  CI_NIX_INSTALL_URL: '' # https://releases.nixos.org/nix/nix-2.18.1/install
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
 jobs:

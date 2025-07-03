@@ -16,7 +16,7 @@ env:
 
   nur_channels: nixpkgs-unstable nixos-unstable nixos-25.05 nixos-24.11 nixos-24.05
 
-  CI_NIX_INSTALL_URL: https://releases.nixos.org/nix/nix-2.18.1/install
+  CI_NIX_INSTALL_URL: '' # https://releases.nixos.org/nix/nix-2.18.1/install
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
 jobs:
