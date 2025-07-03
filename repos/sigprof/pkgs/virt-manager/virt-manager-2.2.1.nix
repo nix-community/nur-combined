@@ -36,6 +36,12 @@ with lib;
       sha256 = "06ws0agxlip6p6n3n43knsnjyd91gqhh2dadgc33wl9lx1k8vn6g";
     };
 
+    # Since NixOS/nixpkgs#421660 `format = "setuptools"` is no longer assumed
+    # by default.  Adding `pyproject = true; build-system = [ setuptools ];`,
+    # which is recommended, does not work without some more build fixes, so
+    # just set `format = "setuptools"` explicitly for this ancient package.
+    format = "setuptools";
+
     nativeBuildInputs = [
       intltool
       file
