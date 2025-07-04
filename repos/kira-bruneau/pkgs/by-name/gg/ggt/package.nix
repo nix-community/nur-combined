@@ -10,13 +10,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ggt";
-  version = "1.5.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-z8HQRK6WbCVv/uPw0MCSl95UsgI5/bAGAFHBZN3PAeY=";
+    hash = "sha256-rOIqsTmBPXPfsS1JJ5rKbeefc8x1EnNhtdftL1GHbY8=";
   };
 
   strictDeps = true;
