@@ -163,19 +163,18 @@
       enable = true;
       systemdTarget = "niri.service";
       timeouts = [
-        # {
-        #   timeout = 900;
-        #   command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
-        # }
         {
-          timeout = 901;
+          timeout = 900;
           command = "/run/current-system/systemd/bin/loginctl lock-session";
+        }
+        {
+          timeout = 915;
+          command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
         }
       ];
       events = [
         {
           event = "lock";
-          # command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
           command = "${pkgs.swaylock}/bin/swaylock";
         }
         {

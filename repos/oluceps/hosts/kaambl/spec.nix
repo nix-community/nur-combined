@@ -67,6 +67,13 @@
       powerKey = "poweroff"; # it sucks. laptop
       powerKeyLongPress = "poweroff";
     };
+    swayidle.timeouts = lib.mkForce [
+      # override poweroffmonitor
+      {
+        timeout = 900;
+        command = "/run/current-system/systemd/bin/systemctl suspend";
+      }
+    ];
 
     metrics.enable = true;
 

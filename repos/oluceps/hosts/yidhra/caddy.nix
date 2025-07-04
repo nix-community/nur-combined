@@ -74,7 +74,13 @@
                             handle = [
                               {
                                 handler = "reverse_proxy";
-                                upstreams = [ { dial = "[fdcc::3]:8333"; } ];
+                                upstreams = [ { dial = "[fdcc::3]:443"; } ];
+                                transport = {
+                                  protocol = "http";
+                                  tls = {
+                                    server_name = "s3.nyaw.xyz";
+                                  };
+                                };
                               }
                             ];
                           }

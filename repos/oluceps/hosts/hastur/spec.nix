@@ -149,12 +149,6 @@
       # jack.enable = true;
     };
 
-    minio = {
-      enable = true;
-      region = "ap-east-1";
-      rootCredentialsFile = config.vaultix.secrets.minio.path;
-    };
-
   };
   # system.forbiddenDependenciesRegexes = [ "perl" ];
   # environment.etc."resolv.conf".text = ''
@@ -185,7 +179,7 @@
     };
 
     sleep.extraConfig = ''
-      AllowSuspend=no
+      # AllowSuspend=no
       AllowHibernation=no
     '';
   };
