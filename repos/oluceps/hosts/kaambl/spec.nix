@@ -70,7 +70,7 @@
 
     metrics.enable = true;
 
-    sing-box.enable = true;
+    # sing-box.enable = true;
     snapy.instances = [
       {
         name = "persist";

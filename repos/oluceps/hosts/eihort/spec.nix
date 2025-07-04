@@ -54,7 +54,7 @@
   system = {
 
     etc.overlay.enable = true;
-    etc.overlay.mutable = true;
+    etc.overlay.mutable = false;
 
     stateVersion = "25.05";
   };
@@ -104,16 +104,24 @@
     # linkwarden.enable = true;
     userborn-subid.enable = true;
     ollama.enable = true;
+    seaweedfs.enable = true;
 
   };
 
-  systemd.services.minio.serviceConfig.Environment = [
-    "MINIO_BROWSER_REDIRECT_URL=https://${config.networking.fqdn}/minio"
-  ];
+  # systemd.services.minio.serviceConfig.Environment = [
+  #   "MINIO_BROWSER_REDIRECT_URL=https://${config.networking.fqdn}/minio"
+  # ];
   services = {
     rsyncd = {
       enable = true;
       socketActivated = true;
+    };
+    memos = {
+      enable = true;
+      instanceUrl = "https://memos.nyaw.xyz";
+      mode = "dev";
+      port = 5230;
+      environmentFile = config.vaultix.secrets.memos.path;
     };
     target = {
       enable = true;
@@ -169,12 +177,12 @@
       };
     };
 
-    minio = {
-      enable = true;
-      region = "ap-east-1";
-      rootCredentialsFile = config.vaultix.secrets.minio.path;
-      dataDir = [ "/three/bucket" ];
-    };
+    # minio = {
+    #   enable = true;
+    #   region = "ap-east-1";
+    #   rootCredentialsFile = config.vaultix.secrets.minio.path;
+    #   dataDir = [ "/three/bucket" ];
+    # };
 
     snapy.instances = [
       {

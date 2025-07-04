@@ -10,6 +10,9 @@ reIf {
         root_url = "https://${config.networking.fqdn}/grafana";
         serve_from_sub_path = true;
       };
+      auth = {
+        oauth_allow_insecure_email_lookup = true;
+      };
     };
   };
 }

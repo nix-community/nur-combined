@@ -74,7 +74,7 @@
                             handle = [
                               {
                                 handler = "reverse_proxy";
-                                upstreams = [ { dial = "[fdcc::3]:9000"; } ];
+                                upstreams = [ { dial = "[fdcc::3]:8333"; } ];
                               }
                             ];
                           }

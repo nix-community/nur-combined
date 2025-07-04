@@ -19,7 +19,6 @@
   "pam"
   "age"
   "pub"
-  "minio"
   "aws-s3-cred"
   "attic"
 ])

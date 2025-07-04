@@ -9,7 +9,9 @@ let
     "alist.nyaw.xyz"
     "book.nyaw.xyz"
     "scrutiny.nyaw.xyz"
+    "seaweedfs.nyaw.xyz"
     "oidc.nyaw.xyz"
+    "memos.nyaw.xyz"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"

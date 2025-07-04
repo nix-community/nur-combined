@@ -1,4 +1,9 @@
-{config, user, data, ... }:
+{
+  config,
+  user,
+  data,
+  ...
+}:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
@@ -25,6 +30,14 @@ in
         owner = "root";
         group = "root";
         name = "tg-session";
+      };
+      weed-s3 = {
+        file = ../../sec/weed-s3.age;
+        owner = "seaweedfs";
+        group = "seaweedfs";
+      };
+      memos = {
+        file = ../../sec/memos.age;
       };
       tg-env = {
         file = ../../sec/tg-env.age;

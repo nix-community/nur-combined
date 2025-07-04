@@ -6,6 +6,9 @@
       llmnr = "true";
       dnssec = "false";
       fallbackDns = [ "8.8.8.8#dns.google" ];
+      extraConfig = ''
+        Cache=no
+      '';
     };
   };
   networking = {
@@ -75,7 +78,7 @@
       "5-eth0" = {
         matchConfig.Name = "eth0";
         networkConfig = {
-          DHCP = "no";
+          DHCP = "ipv4";
           IPv4Forwarding = true;
           IPv6Forwarding = true;
           IPv6AcceptRA = "yes";
@@ -88,10 +91,6 @@
         # dhcpV4Config.UseDNS = false;
         # dhcpV6Config.UseDNS = false;
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.1.16/24" ];
-        routes = [
-          { Gateway = "192.168.1.1"; }
-        ];
       };
     };
   };

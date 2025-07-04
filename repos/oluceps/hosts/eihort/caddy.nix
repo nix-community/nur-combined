@@ -24,10 +24,28 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:9000"; } ];
+                        upstreams = [ { dial = "localhost:8333"; } ];
                       }
                     ];
                     match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:9333"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "seaweedfs.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:5230"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "memos.nyaw.xyz" ]; } ];
                   }
                   {
                     handle = [
@@ -84,21 +102,21 @@
                     ];
                     match = [ { host = [ "alist.nyaw.xyz" ]; } ];
                   }
-                  {
-                    handle = [
-                      {
-                        handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:9001"; } ];
-                        rewrite.strip_path_prefix = "/minio";
-                      }
-                    ];
-                    match = [
-                      {
-                        host = [ "eihort.nyaw.xyz" ];
-                        path = [ "/minio/*" ];
-                      }
-                    ];
-                  }
+                  # {
+                  #   handle = [
+                  #     {
+                  #       handler = "reverse_proxy";
+                  #       upstreams = [ { dial = "localhost:9001"; } ];
+                  #       rewrite.strip_path_prefix = "/minio";
+                  #     }
+                  #   ];
+                  #   match = [
+                  #     {
+                  #       host = [ "eihort.nyaw.xyz" ];
+                  #       path = [ "/minio/*" ];
+                  #     }
+                  #   ];
+                  # }
                   {
                     handle = [
                       {

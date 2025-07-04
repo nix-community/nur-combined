@@ -30,7 +30,7 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
-      inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch;
+      inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch minio;
 
       tuwunel = inputs'.conduit.packages.default;
 

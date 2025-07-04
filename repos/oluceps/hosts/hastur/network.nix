@@ -7,7 +7,7 @@
       dnssec = "false";
       fallbackDns = [ "8.8.8.8#dns.google" ];
       extraConfig = ''
-        DNSStubListener=no
+        Cache=no
       '';
     };
   };

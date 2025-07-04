@@ -94,6 +94,11 @@ reIf {
           };
           static_configs = [ { targets = targets_notls; } ];
         }
+        {
+          job_name = "seaweedfs_metrics";
+          scheme = "http";
+          static_configs = [ { targets = [ "[fdcc::3]:9768" ]; } ];
+        }
 
         # {
         #   job_name = "bird-metrics";
