@@ -10526,10 +10526,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.17";
+      version = "6.1.20";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405464/reddit_moderator_toolbox-6.1.17.xpi";
-      sha256 = "a0a08eaeabfa6b1f73d1b898e7bf749f671d54a4ced3f318db1e7a001c3eec3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4525917/reddit_moderator_toolbox-6.1.20.xpi";
+      sha256 = "eb7eec409ecaabc8bf54faa638ca34d6766f3f8c51cb22f64b507115d996f974";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -11283,10 +11283,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.2.7";
+      version = "3.2.8";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524839/simplifygmail-3.2.7.xpi";
-      sha256 = "0722cd5c2518bbeb9d9afb599f0ff02c58f34d02fedc5b0deedb5026062a85a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526049/simplifygmail-3.2.8.xpi";
+      sha256 = "67f65ac28ab0fcc6876ed8bab71931506756fd18eddeb27ef7f26214fea293ec";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
