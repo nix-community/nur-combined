@@ -75,6 +75,8 @@ rec {
   iotlabcli = pkgs.callPackage ./pkgs/iotlabcli { };
   iotlabsshcli = pkgs.callPackage ./pkgs/iotlabsshcli { inherit iotlabcli; };
 
+  jFed = pkgs.callPackage ./pkgs/jFed { };
+
   likwid = pkgs.callPackage ./pkgs/likwid { };
 
   melissa = pkgs.callPackage ./pkgs/melissa { };

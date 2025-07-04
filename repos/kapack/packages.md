@@ -17,6 +17,7 @@
 |intervalsetlight|intervalset-1.2.0|C++ library to manage sets of integral closed intervals|
 |iotlabcli|python3.12-iotlabcli-3.3.0||
 |iterators|python3.12-iterators-0.0.2|Provides a wrapper class TimeoutIterator to add timeout feature to normal iterators|
+|jFed|jfed_cli-250213-166447||
 |likwid|likwid-5.2.1|	Likwid is a simple to install and use toolsuite of command line applications and a library for performance oriented programmers. It works for Intel, AMD, ARMv8 and POWER9 processors on the Linux operating system. There is additional support for Nvidia GPUs. There is support for ARMv7 and POWER8 but there is currently no test machine in our hands to test them properly. |
 |loguru|loguru-2.1.0|A header-only C++ logging library|
 |mlxp|python3.12-mlxp-1.0.0|Machine Learning eXperimentalist for Python.|
