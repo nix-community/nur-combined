@@ -6,7 +6,8 @@
 		"automerge": true
 	},
 	"nix": {
-		"enabled": true
+		"enabled": true,
+		"pinDigests": false
 	},
 	"packageRules": [
 		{

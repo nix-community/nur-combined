@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: ["main"]
   workflow_dispatch:
-  
+
 jobs:
   checks:
     strategy:
@@ -19,41 +19,40 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-    - uses: cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba # v31.4.1
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Install nix
+        uses: cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba # v31.4.1
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
-    - name: Setup cachix
-      uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: Setup cachix
+        uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
+        with:
+          name: ${{ matrix.cachixName }}
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
 
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
   trigger:
     needs: checks
     runs-on: ubuntu-latest
     steps:
-    - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=trev"
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=trev"
