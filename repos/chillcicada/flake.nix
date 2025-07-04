@@ -18,7 +18,7 @@
     in
     {
       overlays.default = _final: prev: {
-        nurpkgs = self.packages."${prev.system}";
+        chillcicada = self.packages."${prev.system}";
       };
 
       legacyPackages = forAllSystems (
