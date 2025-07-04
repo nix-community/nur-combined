@@ -1986,8 +1986,8 @@
             "url": "https://github.com/ToyVo/nur-packages"
         },
         "trev": {
-            "rev": "0e9b92af7eef9c7badf14a321edb09bbd861a465",
-            "sha256": "0nigaa21nmclsbsfvwgwjs7bpw0siapxkk01gssnzxv8qa1ryf1q",
+            "rev": "dcefda3b932ec1b81ed2b7a115902e7e799a3e21",
+            "sha256": "11vma30y06gdn72k8l93bkgiv1b7j31gzqij3wvx80c2vrwqlnhd",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
