@@ -58,6 +58,8 @@ rec {
   local-gpss = callPackage ./pkgs/local-gpss { };
   qcma = libsForQt5.callPackage ./pkgs/qcma { };
   xenonrecomp = callPackage ./pkgs/xenonrecomp { };
+  darctool-yls8 = callPackage ./pkgs/darctool-yls8 { };
+  ctr-gputextool = callPackage ./pkgs/ctr-gputextool { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
     version = "1.39.13";
@@ -66,6 +68,10 @@ rec {
   mediawiki_1_43 = callPackage ./pkgs/mediawiki {
     version = "1.43.3";
     hash = "sha256-5AnfQWuk2Z0nBeHrD/gWiGPbKnkcwL56h9s8E9mAGnA=";
+  };
+  mediawiki_1_44 = callPackage ./pkgs/mediawiki {
+    version = "1.44.0";
+    hash = "sha256-eSF3gIw+CDGsy+IF1XtBMzma0UHw0KglRQohskAnWI8=";
   };
 
   # EOL packages
