@@ -18,7 +18,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           
-      - uses: DeterminateSystems/flake-checker-action@0af51e37404acfb298f7e2eec77470be27eb57c5 # v10
+      - uses: DeterminateSystems/flake-checker-action@f6b84c9884c22039e1fc23dadb4a0d0add56c197 # v11
         with:
           send-statistics: false
           fail-mode: true

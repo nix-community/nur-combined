@@ -6,13 +6,16 @@
 		"automerge": true
 	},
 	"nix": {
-		"enabled": true,
-		"pinDigests": false
+		"enabled": true
 	},
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
+		},
+		{
+			"matchManagers": ["nix"],
+			"pinDigests": false
 		}
 	]
 }
