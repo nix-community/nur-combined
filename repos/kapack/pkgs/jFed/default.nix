@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     cp *.jar $out/share/java
     cp -r lib/ $out/share/java/lib
 
-    makeWrapper ${jre}/bin/java $out/bin/jfed_cli \
+    makeWrapper ${jre}/bin/java $out/bin/jfed-experimenter-cli \
       --add-flags "--add-opens java.base/java.net=ALL-UNNAMED -jar $out/share/java/experimenter-cli.jar"
   '';
 }
