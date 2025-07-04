@@ -36,11 +36,9 @@ with lib;
       sha256 = "06ws0agxlip6p6n3n43knsnjyd91gqhh2dadgc33wl9lx1k8vn6g";
     };
 
-    # Since NixOS/nixpkgs#421660 `format = "setuptools"` is no longer assumed
-    # by default.  Adding `pyproject = true; build-system = [ setuptools ];`,
-    # which is recommended, does not work without some more build fixes, so
-    # just set `format = "setuptools"` explicitly for this ancient package.
-    format = "setuptools";
+    # Since NixOS/nixpkgs#421660 the following options are required:
+    pyproject = true;
+    build-system = with python3Packages; [setuptools];
 
     nativeBuildInputs = [
       intltool
@@ -89,7 +87,7 @@ with lib;
       ${python3Packages.python.interpreter} setup.py configure --prefix=$out
     '';
 
-    setupPyGlobalFlags = ["--no-update-icon-cache"];
+    pypaBuildFlags = ["-C--global-option=--no-update-icon-cache"];
 
     preFixup = ''
       gappsWrapperArgs+=(--set PYTHONPATH "$PYTHONPATH")
