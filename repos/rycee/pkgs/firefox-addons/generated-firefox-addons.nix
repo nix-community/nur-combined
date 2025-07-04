@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "2.5";
+      version = "2.6";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4502860/adaptive_tab_bar_colour-2.5.xpi";
-      sha256 = "161696959152166600c00cb6d47a6a9d2025d664359f974d5ea1fdd43811d60d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522899/adaptive_tab_bar_colour-2.6.xpi";
+      sha256 = "0079e2fb6fff95d5c690cbb471feb6a74c7755bbd0ccb5da428d59dbaff953b6";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -8483,6 +8483,20 @@
         platforms = platforms.all;
       };
     };
+    "nixpkgs-pr-tracker" = buildFirefoxXpiAddon {
+      pname = "nixpkgs-pr-tracker";
+      version = "0.1.1";
+      addonId = "nixpkgs-pr-tracker@tahayassine.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526315/nixpkgs_pr_tracker-0.1.1.xpi";
+      sha256 = "ebfe637b6f2f824eed216c0b91fbbedb27218d5dcc03de35a8c8ff712ca0fd9d";
+      meta = with lib;
+      {
+        description = "Shows which branch a Nixpkgs PR is merged into.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "https://github.com/*" ];
+        platforms = platforms.all;
+      };
+    };
     "no-pdf-download" = buildFirefoxXpiAddon {
       pname = "no-pdf-download";
       version = "1.0.6";
@@ -11593,10 +11607,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "2.0.8";
+      version = "3.0.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4462581/statshunters-2.0.8.xpi";
-      sha256 = "7f25247aa8a10ce7e65467dc9bd44eac5433f72d55ef8736526194226cf412da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526319/statshunters-3.0.0.xpi";
+      sha256 = "ed56a3cd14344df54463f0d10cdf01d8f74514c984b0bc37cef9758c5c0c693e";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -11639,6 +11653,8 @@
           "https://www.openrunner.com/*"
           "https://gpx.studio/*"
           "https://veloplanner.com/*"
+          "https://gaiagps.com/map/*"
+          "https://www.gaiagps.com/map/*"
         ];
         platforms = platforms.all;
       };
