@@ -173,11 +173,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Xqm39wgls/s2wtt9td17k5fFGcFzKip4TmbDJi84GDs=",
+            "sha256": "sha256-1cgz/vDqNFr/xjYCNWUgF+NLMSLJ+UfVk1EPaX4fuKU=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.5.3735.41.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.5.3735.44.universal.dmg"
         },
-        "version": "7.5.3735.41"
+        "version": "7.5.3735.44"
     },
     "zen-browser": {
         "cargoLocks": null,
@@ -188,10 +188,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-R1EqnnHDdRGs5ZNsvher7C2hA/w964B1iYJubNjR18A=",
+            "sha256": "sha256-RgkufVzylY+U8fZmVyzjfrkUpNVxLuuag2cUo8jD1SI=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.14.1b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.14.2b/zen.macos-universal.dmg"
         },
-        "version": "1.14.1b"
+        "version": "1.14.2b"
     }
 }
