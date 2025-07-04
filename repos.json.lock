@@ -1981,8 +1981,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "fac33b58eab83d90f567fc0995a73d8cdbb09678",
-            "sha256": "0sp55p7gxc8i7vyzpz5rz8d4idgk9fkyg7hy0nri2id4gsmf6ma0",
+            "rev": "4c5ca63d66eb0b92ddd70fae3eb83d319f7bb941",
+            "sha256": "1gdyrn349rqyyhz5wj8kf7fldx2r5nyg17z8g2gjq3vgz488fdfm",
             "url": "https://github.com/ToyVo/nur-packages"
         },
         "trev": {
