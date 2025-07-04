@@ -162,6 +162,10 @@ rec {
   simgrid = simgrid-400;
   simgrid-light = simgrid-400light;
 
+  ssh-known-hosts-edit = pkgs.callPackage ./pkgs/ssh-known-hosts-edit { };
+  slices-bi-client = pkgs.callPackage ./pkgs/slices-bi-client { };
+  slices-cli = pkgs.callPackage ./pkgs/slices-cli { inherit slices-bi-client ssh-known-hosts-edit; };
+
   # Setting needed for nixos-19.03 and nixos-19.09
   slurm-bsc-simulator =
     if pkgs ? libmysql

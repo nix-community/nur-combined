@@ -45,6 +45,9 @@
 |simgrid-400|simgrid-4.0|Framework for the simulation of distributed applications|
 |simgrid-400light|simgrid-4.0|Framework for the simulation of distributed applications|
 |simgrid-light|simgrid-4.0|Framework for the simulation of distributed applications|
+|slices-bi-client|python3.12-slices-bi-client-3.3.2||
+|slices-cli|python3.12-slices-cli-0.4.0b9||
 |slurm-multiple-slurmd|slurm-24.11.5.1||
+|ssh-known-hosts-edit|python3.12-ssh_known_hosts_edit-0.2.0||
 |starpu|starpu-1.4.8|Run-time system for heterogeneous computing|
 |wait-for-it|wait-for-it-0.0.1||
