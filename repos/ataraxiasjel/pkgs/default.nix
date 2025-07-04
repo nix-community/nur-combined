@@ -30,6 +30,7 @@ let
       kes = final.callPackage ./kes { };
       koboldcpp-rocm = final.callPackage ./koboldcpp-rocm { };
       mpris-ctl = final.callPackage ./mpris-ctl { };
+      nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
       prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
       protonhax = final.callPackage ./protonhax { };
       realrtcw = final.callPackage ./realrtcw { };
