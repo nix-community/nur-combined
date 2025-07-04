@@ -53,8 +53,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    homepage = "https://github.com/chillcicada/ttf-ms-win10-sc-sup";
-    description = "Microsoft Windows 10 TrueType fonts (Simplified Chinese Supplemental fonts)";
+    description = "Mix Microsoft Windows 10 TrueType fonts with WPS Office fonts, avoid conflicts";
     license = lib.licenses.unfree;
     platforms = lib.platforms.all;
   };

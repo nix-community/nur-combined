@@ -1,6 +1,8 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
+
+  inputs = { };
+
   outputs =
     { self, nixpkgs }:
     let
@@ -15,9 +17,20 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
+      overlays.default = _final: prev: {
+        nurpkgs = self.packages."${prev.system}";
+      };
+
       legacyPackages = forAllSystems (
-        system: import ./default.nix { pkgs = import nixpkgs { inherit system; }; }
+        system:
+        import ./default.nix {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        }
       );
+
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
