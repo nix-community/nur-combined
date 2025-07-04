@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, darwin, pkg-config, perl, nixosTests
+{ lib, stdenv, fetchurl, pkg-config, perl, nixosTests, autoreconfHook
 , brotliSupport ? false, brotli
 , c-aresSupport ? false, c-aresMinimal
 , gnutlsSupport ? false, gnutls
@@ -50,14 +50,14 @@ assert !((lib.count (x: x) [ gnutlsSupport opensslSupport wolfsslSupport rustlsS
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "8.12.1";
+  version = "8.14.1";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.xz"
       "https://github.com/curl/curl/releases/download/curl-${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}/curl-${finalAttrs.version}.tar.xz"
     ];
-    hash = "sha256-A0Hx7ZeibIEauuvTfWK4M5VnkrdgfqPxXQAWE8dt4gI=";
+    hash = "sha256-9GGaHiR0xLv+3IinwhkSCcgzS0j6H05T/VhMwS6RIN0=";
   };
 
   # this could be accomplished by updateAutotoolsGnuConfigScriptsHook, but that causes infinite recursion
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_LDFLAGS = "-liconv";
   };
 
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [ pkg-config perl ] ++ lib.optionals stdenv.hostPlatform.isOpenBSD [ autoreconfHook ];
 
   # Zlib and OpenSSL must be propagated because `libcurl.la' contains
   # "-lz -lssl", which aren't necessary direct build inputs of
@@ -102,22 +102,12 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optional wolfsslSupport wolfssl ++
     lib.optional rustlsSupport rustls-ffi ++
     lib.optional zlibSupport zlib ++
-    lib.optional zstdSupport zstd ++
-    lib.optionals stdenv.hostPlatform.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreFoundation
-      CoreServices
-      SystemConfiguration
-    ]);
+    lib.optional zstdSupport zstd;
 
   # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
     sed -e 's|/usr/bin|/no-such-path|g' -i.bak configure
     rm src/tool_hugehelp.c
-  '' + lib.optionalString (pslSupport && stdenv.hostPlatform.isStatic) ''
-    # curl doesn't understand that libpsl2 has deps because it doesn't use
-    # pkg-config.
-    # https://github.com/curl/curl/pull/12919
-    configureFlagsArray+=("LIBS=-lidn2 -lunistring")
   '';
 
   configureFlags = [
@@ -179,6 +169,8 @@ stdenv.mkDerivation (finalAttrs: {
     rm tests/data/test1592
   '';
 
+  __darwinAllowLocalNetworking = true;
+
   postInstall = ''
     moveToOutput bin/curl-config "$dev"
 
@@ -222,7 +214,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ lovek323 ];
     platforms = lib.platforms.all;
     # Fails to link against static brotli or gss
-    broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport || stdenv.hostPlatform.system == "x86_64-darwin");
+    broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
     pkgConfigModules = [ "libcurl" ];
     mainProgram = "curl";
   };

@@ -26,11 +26,11 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.6.21";
+  version = "10.6.22";
 
   src = fetchurl {
     url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
-    sha256 = "sha256-jX+XFps7ogRIWJZbjPwlQ2RADfQ+kFBC+S4kuPp7DZY=";
+    sha256 = "sha256-LKYA3H6F6tHzPCEvnXax8vgS0knIveAuXzjq0Jit5CA=";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -134,7 +134,6 @@ client = stdenv.mkDerivation (common // {
 
   patches = common.patches ++ [
     ./patch/cmake-plugin-includedir.patch
-    ./patch/libressl-3.5-support.patch
   ];
 
   cmakeFlags = common.cmakeFlags ++ [

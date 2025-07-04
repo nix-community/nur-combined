@@ -26,11 +26,11 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.5.28";
+  version = "10.5.29";
 
   src = fetchurl {
     url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
-    sha256 = "sha256-C1BwII2gEWZA8gvQhfETZSf5mMwjJocVvL81Lnt/PME=";
+    sha256 = "sha256-3kntQX9vqQ6P7nKkHlJuCYPcR/OIyv+ecDgDzsJjuCY=";
     name   = "mariadb-${version}.tar.gz";
   };
 
