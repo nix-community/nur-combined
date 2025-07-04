@@ -2,11 +2,10 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  unstableGitUpdater,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dnsmasq-china-list";
-  version = "0-unstable_2025-05-25";
+  version = "main";
 
   src = fetchFromGitHub {
     owner = "felixonmars";
@@ -31,11 +30,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
-
-  passthru.updateScript = unstableGitUpdater {
-    branch = "main";
-    hardcodeZeroVersion = true;
-  };
 
   meta = {
     description = "A lightweight Firefox theme focused on usability, flexibility, and smooth performance";

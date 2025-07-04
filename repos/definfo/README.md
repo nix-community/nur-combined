@@ -44,6 +44,12 @@ inputs.nur-definfo.url = "github:definfo/nur-packages";
 
 - Nix 3 CLI (through Nix registry)
 
-```shell
+Try temporarily:
+
+```bash
+nix run nur-definfo#aya-prover -- -i
+```
+
+```bash
 nix profile nur-definfo#aya-prover
 ```

@@ -39,8 +39,9 @@ in
   aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
   aya-prover-lsp = pkgs.callPackage ./pkgs/aya-prover { mainProgram = "aya-lsp"; };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
-  flexfox-css = pkgs.callPackage ./pkgs/flexfox { };
+  flexfox-css = pkgs.callPackage ./pkgs/flexfox-css { };
   lyricer = pkgs.callPackage ./pkgs/lyricer { };
+  nsub = pkgs.callPackage ./pkgs/nsub { };
   rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
 
