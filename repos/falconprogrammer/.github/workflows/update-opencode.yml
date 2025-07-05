@@ -1,0 +1,226 @@
+name: "Update OpenCode Package"
+
+on:
+  schedule:
+    # Check for updates daily at 3:30 AM UTC
+    - cron: '30 3 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+  metadata: read
+
+jobs:
+  check-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install jq for JSON parsing
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Check for new opencode version
+        id: check_version
+        run: |
+          # Get current version from package
+          CURRENT_VERSION=$(grep 'version = ' pkgs/opencode-sst/default.nix | sed 's/.*version = "\([^"]*\)".*/\1/')
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Get latest version from GitHub API
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/sst/opencode/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          echo "Latest version: $LATEST_VERSION"
+          
+          # Compare versions
+          if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+            echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
+            echo "update_available=true" >> $GITHUB_OUTPUT
+            echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+            echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "No update available"
+            echo "update_available=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update package version and hash
+        if: steps.check_version.outputs.update_available == 'true'
+        id: update_package
+        run: |
+          LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
+          
+          # Update version in default.nix
+          sed -i "s/version = \"[^\"]*\"/version = \"$LATEST_VERSION\"/" pkgs/opencode-sst/default.nix
+          
+          # Calculate new hash using nix-prefetch-url for unpacked archive
+          echo "Calculating hash for new version..."
+          
+          # Use nix-prefetch-url to get the hash for the unpacked zip
+          RAW_HASH=$(nix-prefetch-url --unpack "https://github.com/sst/opencode/releases/download/v${LATEST_VERSION}/opencode-linux-x64.zip" 2>/dev/null || echo "")
+          
+          if [ -z "$RAW_HASH" ]; then
+            echo "Failed to calculate hash"
+            echo "hash_calculated=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          # Convert to SRI format
+          SRI_HASH=$(nix hash to-sri --type sha256 "$RAW_HASH")
+          echo "Raw hash: $RAW_HASH"
+          echo "New SRI hash: $SRI_HASH"
+          
+          # Update hash in default.nix
+          sed -i "s/hash = \"[^\"]*\"/hash = \"$SRI_HASH\"/" pkgs/opencode-sst/default.nix
+          
+          echo "hash_calculated=true" >> $GITHUB_OUTPUT
+          echo "new_hash=$SRI_HASH" >> $GITHUB_OUTPUT
+
+      - name: Test build
+        if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        id: test_build
+        run: |
+          echo "Testing build of updated package..."
+          
+          # Try to build the package
+          if nix build .#opencode-sst --no-link --print-build-logs; then
+            echo "Build successful!"
+            echo "build_success=true" >> $GITHUB_OUTPUT
+          else
+            echo "Build failed!"
+            echo "build_success=false" >> $GITHUB_OUTPUT
+            
+            # Capture build error for PR description
+            BUILD_ERROR=$(nix build .#opencode-sst --no-link 2>&1 || true)
+            echo "build_error<<EOF" >> $GITHUB_OUTPUT
+            echo "$BUILD_ERROR" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create update branch and commit changes
+        if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        id: create_branch
+        run: |
+          LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
+          BRANCH_NAME="update-opencode-$LATEST_VERSION"
+          
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create and switch to new branch
+          git checkout -b "$BRANCH_NAME"
+          
+          # Add and commit changes
+          git add pkgs/opencode-sst/default.nix
+          git commit -m "chore: update opencode to v$LATEST_VERSION"
+          
+          # Push branch
+          git push origin "$BRANCH_NAME"
+          
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Auto-merge successful build
+        if: steps.test_build.outputs.build_success == 'true'
+        run: |
+          BRANCH_NAME="${{ steps.create_branch.outputs.branch_name }}"
+          LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
+          
+          # Create PR body using heredoc
+          cat > pr_body.md << 'EOF'
+          Automated update of opencode package from v${{ steps.check_version.outputs.current_version }} to v$LATEST_VERSION.
+
+          ✅ **Build Status**: Successful
+          🔄 **Auto-merged**: This PR was automatically merged after successful build verification.
+          
+          **Changes:**
+          - Updated version from ${{ steps.check_version.outputs.current_version }} to $LATEST_VERSION
+          - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
+          
+          **Verification:**
+          - Package builds successfully with Nix
+          - All dependencies resolved correctly
+          EOF
+          
+          # Substitute variables in the body
+          sed -i "s/\$LATEST_VERSION/$LATEST_VERSION/g" pr_body.md
+          
+          # Create and immediately merge PR
+          gh pr create \
+            --title "chore: update opencode to v$LATEST_VERSION" \
+            --body-file pr_body.md \
+            --head "$BRANCH_NAME" \
+            --base master
+          
+          # Auto-merge the PR
+          gh pr merge "$BRANCH_NAME" --auto --squash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create draft PR for failed build
+        if: steps.test_build.outputs.build_success == 'false'
+        run: |
+          BRANCH_NAME="${{ steps.create_branch.outputs.branch_name }}"
+          LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
+          
+          # Create PR body for failed build using heredoc
+          cat > pr_body_failed.md << 'EOF'
+          Automated update of opencode package from v${{ steps.check_version.outputs.current_version }} to v$LATEST_VERSION.
+
+          ❌ **Build Status**: Failed
+          🚧 **Draft PR**: This PR requires manual intervention to fix build issues.
+          
+          **Changes:**
+          - Updated version from ${{ steps.check_version.outputs.current_version }} to $LATEST_VERSION  
+          - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
+          
+          **Build Error:**
+          ```
+          ${{ steps.test_build.outputs.build_error }}
+          ```
+          
+          **Next Steps:**
+          1. Review the build error above
+          2. Make necessary fixes to the package definition
+          3. Test the build locally with `nix build .#opencode-sst`
+          4. Convert from draft and merge when ready
+          EOF
+          
+          # Substitute variables in the body
+          sed -i "s/\$LATEST_VERSION/$LATEST_VERSION/g" pr_body_failed.md
+          
+          # Create draft PR with build error details
+          gh pr create \
+            --title "chore: update opencode to v$LATEST_VERSION (BUILD FAILED)" \
+            --body-file pr_body_failed.md \
+            --head "$BRANCH_NAME" \
+            --base master \
+            --draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ steps.check_version.outputs.update_available }}" == "true" ]; then
+            echo "✅ Update check completed"
+            echo "📦 Version: ${{ steps.check_version.outputs.current_version }} → ${{ steps.check_version.outputs.latest_version }}"
+            
+            if [ "${{ steps.test_build.outputs.build_success }}" == "true" ]; then
+              echo "🚀 Build successful - PR auto-merged"
+            else
+              echo "⚠️  Build failed - Draft PR created for manual review"
+            fi
+          else
+            echo "ℹ️  No updates available - opencode is up to date"
+          fi
