@@ -8,5 +8,7 @@ builds:
     - "packages.aarch64-darwin.aya-prover"
     - "packages.x86_64-darwin.aya-prover-lsp"
     - "packages.aarch64-darwin.aya-prover-lsp"
+    - "packages.x86_64-darwin.waylrc"
+    - "packages.aarch64-darwin.waylrc"
   include:
     - "packages.*.*"

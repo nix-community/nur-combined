@@ -9,6 +9,7 @@ let UPDATE_ARGS = {
     aya-prover: ["--version-regex=v(.*)"]
     sjtu-canvas-helper: ["--version-regex=app-v(.*)"]
     smartdns-rs: ["--version-regex=v(.*)"]
+    waylrc: ["--version-regex=v(.*)"]
     # unstable update
     dnsmasq-china-list_smartdns: ["--version=main"]
     nsub: ["--version=main"]

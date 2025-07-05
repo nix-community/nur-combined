@@ -44,6 +44,7 @@ in
   nsub = pkgs.callPackage ./pkgs/nsub { };
   rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
+  waylrc = pkgs.callPackage ./pkgs/waylrc { };
 
   coqPackages = {
     inherit sets fixedpoints monadlib;
