@@ -427,8 +427,8 @@
             "url": "https://github.com/cameronyule/nurpkgs"
         },
         "ccicnce113424": {
-            "rev": "fc494a00f82f01be58da040d45cff1a8a4bf91de",
-            "sha256": "1qcpnjafbcynqh4jvz2l8mbai3vv7j5bpvrjzaxyfbr36glw1v1p",
+            "rev": "8bd8a4ca76ba722410c4d3d656b29120b0cadd76",
+            "sha256": "1cbkavxd1ra2sc2b52bpm8n0xbq9pxcxn5q16pjjm6075fx5sc0l",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -733,8 +733,8 @@
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
         "falconprogrammer": {
-            "rev": "b8ff3fa9a412e07c009377d6b16e325679877c9d",
-            "sha256": "04nih373ddyb5q7dd97avjq1awgqdkn39wy6fhs7qm4qbmaymdbx",
+            "rev": "e155c5e7700c1f18ca2a7bd3223b8e2120908d85",
+            "sha256": "1cs0zz1fgrvpn58hq52acr98gl0lj90505mdwb610vdrcpkqdjia",
             "url": "https://github.com/JonBoyleCoding/falconprogrammer-nur"
         },
         "fanbb2333": {
