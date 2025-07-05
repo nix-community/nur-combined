@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "klassy";
-  version = "6.3.breeze6.3.5";
+  version = "6.4.breeze6.4.0";
 
   src = fetchFromGitHub {
     owner = "paulmcauley";
     repo = pname;
     rev = version;
-    sha256 = "sha256-psXlkTo11e1Yuk85pI1KTRHl0eVdXh0bXcYbnhTa7Qk=";
+    sha256 = "sha256-+bYS2Upr84BS0IdA0HlCK0FF05yIMVbRvB8jlN5EOUM=";
   };
 
   cmakeFlags = [
