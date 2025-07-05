@@ -20,6 +20,7 @@ rustPlatform.buildRustPackage (final: {
   meta = {
     description = "Protocol handler for mpv";
     homepage = "https://github.com/akiirui/mpv-handler";
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
     license = lib.licenses.mit;
   };
 })

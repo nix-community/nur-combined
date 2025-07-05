@@ -21,6 +21,7 @@ stdenv.mkDerivation (_final: {
     description = "支持特殊弹幕的xml转ass格式转换工具";
     homepage = "https://github.com/hihkm/DanmakuFactory";
     license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
     mainProgram = "DanmakuFactory";
   };
 })
