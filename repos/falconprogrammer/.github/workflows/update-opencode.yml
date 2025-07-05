@@ -10,7 +10,6 @@ permissions:
   contents: write
   pull-requests: write
   actions: read
-  metadata: read
 
 jobs:
   check-update:
@@ -60,31 +59,18 @@ jobs:
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
           
-          # Update version in default.nix
-          sed -i "s/version = \"[^\"]*\"/version = \"$LATEST_VERSION\"/" pkgs/opencode-sst/default.nix
+          # Use nix-update to update the package version and hash automatically
+          echo "Updating opencode-sst to version $LATEST_VERSION using nix-update..."
+          nix run nixpkgs#nix-update -- --version="$LATEST_VERSION" --file=pkgs/opencode-sst/default.nix
           
-          # Calculate new hash using nix-prefetch-url for unpacked archive
-          echo "Calculating hash for new version..."
+          # Get the new hash that was set by nix-update
+          NEW_HASH=$(grep 'hash = ' pkgs/opencode-sst/default.nix | sed 's/.*hash = "\([^"]*\)".*/\1/')
           
-          # Use nix-prefetch-url to get the hash for the unpacked zip
-          RAW_HASH=$(nix-prefetch-url --unpack "https://github.com/sst/opencode/releases/download/v${LATEST_VERSION}/opencode-linux-x64.zip" 2>/dev/null || echo "")
-          
-          if [ -z "$RAW_HASH" ]; then
-            echo "Failed to calculate hash"
-            echo "hash_calculated=false" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-          
-          # Convert to SRI format
-          SRI_HASH=$(nix hash to-sri --type sha256 "$RAW_HASH")
-          echo "Raw hash: $RAW_HASH"
-          echo "New SRI hash: $SRI_HASH"
-          
-          # Update hash in default.nix
-          sed -i "s/hash = \"[^\"]*\"/hash = \"$SRI_HASH\"/" pkgs/opencode-sst/default.nix
+          echo "Updated to version: $LATEST_VERSION"
+          echo "New hash: $NEW_HASH"
           
           echo "hash_calculated=true" >> $GITHUB_OUTPUT
-          echo "new_hash=$SRI_HASH" >> $GITHUB_OUTPUT
+          echo "new_hash=$NEW_HASH" >> $GITHUB_OUTPUT
 
       - name: Test build
         if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
@@ -117,6 +103,10 @@ jobs:
           # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Delete existing branch if it exists (locally and remotely)
+          git branch -D "$BRANCH_NAME" 2>/dev/null || true
+          git push origin --delete "$BRANCH_NAME" 2>/dev/null || true
           
           # Create and switch to new branch
           git checkout -b "$BRANCH_NAME"
