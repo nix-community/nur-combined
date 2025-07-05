@@ -53,7 +53,7 @@ in
       #!/usr/bin/env bash
       set -e
       
-      CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/opencode"
+      CACHE_DIR="''${XDG_CACHE_HOME:-\$HOME/.cache}/opencode"
       [[ -d "$CACHE_DIR" ]] || { echo "Cache dir not found: $CACHE_DIR"; exit 1; }
       
       echo "Patching OpenCode cache for NixOS..."
@@ -79,7 +79,7 @@ in
       
       # Patches downloaded binaries to use NixOS dynamic linker
       patch_cache() {
-        local cache_dir="''${XDG_CACHE_HOME:-$HOME/.cache}/opencode"
+        local cache_dir="''${XDG_CACHE_HOME:-\$HOME/.cache}/opencode"
         [[ -d "$cache_dir" ]] || return 0
         
         find "$cache_dir" -type f -executable 2>/dev/null | while read -r file; do
