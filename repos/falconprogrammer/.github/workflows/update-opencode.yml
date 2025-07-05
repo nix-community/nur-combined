@@ -42,15 +42,20 @@ jobs:
           LATEST_VERSION=$(curl -s https://api.github.com/repos/sst/opencode/releases/latest | jq -r '.tag_name' | sed 's/^v//')
           echo "Latest version: $LATEST_VERSION"
           
-          # Compare versions
-          if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+          # Check if there's already a merged commit with this version
+          if git log --oneline --grep="update opencode.*$LATEST_VERSION" --since="30 days ago" | grep -q "update opencode"; then
+            echo "Version $LATEST_VERSION already exists in recent commits"
+            echo "update_available=false" >> $GITHUB_OUTPUT
+            echo "reason=already_updated" >> $GITHUB_OUTPUT
+          elif [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
             echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
             echo "update_available=true" >> $GITHUB_OUTPUT
             echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
             echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
           else
-            echo "No update available"
+            echo "No update available - versions match"
             echo "update_available=false" >> $GITHUB_OUTPUT
+            echo "reason=same_version" >> $GITHUB_OUTPUT
           fi
 
       - name: Update package version and hash
@@ -160,7 +165,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "update-opencode-${{ steps.check_version.outputs.latest_version }}"
-          title: "chore: update opencode to v${{ steps.check_version.outputs.latest_version }}"
+          title: "chore: update opencode v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}"
+          commit-message: |
+            chore: update opencode v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}
+
+            - Updated version from ${{ steps.check_version.outputs.current_version }} to ${{ steps.check_version.outputs.latest_version }}
+            - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
+            - Automated update via GitHub Actions workflow
           body: |
             Automated update of opencode package from v${{ steps.check_version.outputs.current_version }} to v${{ steps.check_version.outputs.latest_version }}.
 
@@ -196,6 +207,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Trigger NUR sync workflow
+        if: steps.test_build.outputs.build_success == 'true' && steps.create_pr.outputs.pull-request-number
+        run: |
+          echo "🔄 Triggering NUR sync workflow after successful merge..."
+          
+          # Wait a moment for the merge to complete
+          sleep 10
+          
+          # Trigger the build workflow (adjust workflow name as needed)
+          if gh workflow list | grep -q "Build and populate cache"; then
+            gh workflow run "build.yml" || gh workflow run "Build and populate cache" || true
+            echo "✅ NUR sync workflow triggered"
+          else
+            echo "ℹ️  NUR sync workflow not found - may trigger automatically on push"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Summary
         if: always()
         run: |
@@ -205,9 +234,12 @@ jobs:
             
             if [ "${{ steps.test_build.outputs.build_success }}" == "true" ]; then
               echo "🚀 Build successful - PR auto-merged"
+              echo "🔄 NUR sync workflow triggered"
             else
               echo "⚠️  Build failed - Draft PR created for manual review"
             fi
+          elif [ "${{ steps.check_version.outputs.reason }}" == "already_updated" ]; then
+            echo "ℹ️  Version ${{ steps.check_version.outputs.latest_version || 'latest' }} already updated recently"
           else
             echo "ℹ️  No updates available - opencode is up to date"
           fi
