@@ -32,8 +32,7 @@ jobs:
           nix flake update
           nix run nixpkgs#nvfetcher
           nix fmt _sources
-          pkgs/splayer/update.sh
-          pkgs/splayer/update-git.sh
+          pkgs/splayer-git/update-git.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7

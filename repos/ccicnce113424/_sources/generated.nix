@@ -41,17 +41,6 @@
       };
     };
   };
-  splayer = {
-    pname = "splayer";
-    version = "v3.0.0-beta.1";
-    src = fetchFromGitHub {
-      owner = "imsyy";
-      repo = "SPlayer";
-      rev = "v3.0.0-beta.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-Sw5L474gowpOVkIc3CHWVEzknMgJvBmtNXRCxzwY8BA=";
-    };
-  };
   splayer-git = {
     pname = "splayer-git";
     version = "bfcd59dacab07fd665e71a311c5fe8c0a3c548a7";

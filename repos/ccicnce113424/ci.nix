@@ -1,7 +1,8 @@
 # Copied from https://github.com/nix-community/nur-packages-template/blob/main/ci.nix
-{
-  pkgs ? import <nixpkgs> { },
-}:
+
+# {
+#   pkgs ? import <nixpkgs> { },
+# }:
 
 with builtins;
 let
@@ -40,7 +41,7 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./pkgs { inherit pkgs; };
+  nurAttrs = (getFlake (toString ./.)).packages.${builtins.currentSystem};
 
   nurPkgs = flattenPkgs (
     listToAttrs (
