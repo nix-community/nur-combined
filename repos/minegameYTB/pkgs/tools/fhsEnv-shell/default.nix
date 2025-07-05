@@ -163,6 +163,7 @@ let
       ### Custom PS1 for the shell environment (NixOS style)
       export PROMPT_COMMAND='PS1="\[\e[1;32m\][fhsEnv-shell:\w]\$\[\e[0m\] "'
 
+      ### Exec bash from Nixpkgs/NixOS
       exec ${bashInteractive}/bin/bash
     '';
   };
