@@ -10,14 +10,18 @@
 
 stdenv.mkDerivation rec {
   pname = "g13";
-  version = "master-2020-09-09";
+  version = "master-2024-12-30";
 
   src = fetchFromGitHub {
     owner = "khampf";
     repo = "g13";
-    rev = "1e80eda4adc4fdd2d7ca1c2a963265ebab39d363";
-    hash = "sha256-bwldZb8HZYvSI0bzl2eM+C+7sp3dUEJ3F6sgqCmFliY=";
+    rev = "acea10b7ae7b673a0b41545c71084c9b9b63d1d7";
+    hash = "sha256-RKqf9CsEEomffcgQj2PTZzWbotGDb21zckbXVUTfEp8=";
   };
+
+  patches = [
+    ./fix-algorithm-include.patch
+  ];
 
   nativeBuildInputs = [
     cmake

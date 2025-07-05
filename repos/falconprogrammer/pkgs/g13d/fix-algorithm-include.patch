@@ -1,0 +1,12 @@
+diff --git a/g13_stick.cpp b/g13_stick.cpp
+index 4c13f83..987cd56 100644
+--- a/g13_stick.cpp
++++ b/g13_stick.cpp
+@@ -2,6 +2,7 @@
+  * This file contains code for managing keys and profiles
+  */
+ #include "g13.hpp"
++#include <algorithm>
+ 
+ namespace G13 {
+ 
