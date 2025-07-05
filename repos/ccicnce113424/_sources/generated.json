@@ -126,5 +126,26 @@
       "type": "github"
     },
     "version": "56dfa82be75267343f394a708c3f1c7d8791cb5c"
+  },
+  "vulkan-hdr-layer-kwin6": {
+    "cargoLocks": null,
+    "date": "2025-05-22",
+    "extract": null,
+    "name": "vulkan-hdr-layer-kwin6",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "Zamundaaa",
+      "repo": "VK_hdr_layer",
+      "rev": "1384036ea24a9bc38a5c684dac5122d5e3431ae6",
+      "sha256": "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "1384036ea24a9bc38a5c684dac5122d5e3431ae6"
   }
 }

@@ -22,3 +22,8 @@ src.github = "Tony15246/uosc_danmaku"
 [uosc-danmaku-git]
 fetch.github = "Tony15246/uosc_danmaku"
 src.git = "https://github.com/Tony15246/uosc_danmaku"
+
+[vulkan-hdr-layer-kwin6]
+fetch.github = "Zamundaaa/VK_hdr_layer"
+git.fetchSubmodules = true
+src.git = "https://github.com/Zamundaaa/VK_hdr_layer"

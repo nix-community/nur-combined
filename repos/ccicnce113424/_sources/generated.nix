@@ -76,4 +76,16 @@
     };
     date = "2025-06-27";
   };
+  vulkan-hdr-layer-kwin6 = {
+    pname = "vulkan-hdr-layer-kwin6";
+    version = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+    src = fetchFromGitHub {
+      owner = "Zamundaaa";
+      repo = "VK_hdr_layer";
+      rev = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+      fetchSubmodules = true;
+      sha256 = "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=";
+    };
+    date = "2025-05-22";
+  };
 }

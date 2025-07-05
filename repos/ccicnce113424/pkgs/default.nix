@@ -45,4 +45,9 @@ rec {
   };
 
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
+
+  vulkan-hdr-layer-kwin6 = pkgs.callPackage ./vulkan-hdr-layer-kwin6 rec {
+    sources = fetchedSrc.vulkan-hdr-layer-kwin6;
+    version = unstableVersion sources;
+  };
 }
