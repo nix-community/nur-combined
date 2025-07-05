@@ -3,10 +3,10 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2807";
+    version = "v2882";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2807/cake-x64-64.tar.gz";
-      sha256 = "sha256-24Ll9qTBJUXOvgl3SC/RvZ42uYhR7zDyehd37tztFpI=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2882/cake-x64-64.tar.gz";
+      sha256 = "sha256-r3YGq4/8eeeVa5Xe6pNab2IuF7oNqLKn9TrJHi6/0Tk=";
     };
   };
   enso = {
