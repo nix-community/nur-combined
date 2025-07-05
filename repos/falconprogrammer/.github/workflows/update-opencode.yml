@@ -115,9 +115,48 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Close existing opencode update PRs
+        if: steps.check_version.outputs.update_available == 'true'
+        run: |
+          echo "Checking for existing opencode update PRs to close..."
+          
+          # Get all open PRs with titles starting with "chore: update opencode"
+          EXISTING_PRS=$(gh pr list --state open --json number,title --jq '.[] | select(.title | startswith("chore: update opencode")) | .number')
+          
+          if [ -n "$EXISTING_PRS" ]; then
+            echo "Found existing opencode update PRs: $EXISTING_PRS"
+            for pr_number in $EXISTING_PRS; do
+              echo "Closing PR #$pr_number..."
+              gh pr close $pr_number --comment "Superseded by newer opencode version update"
+            done
+          else
+            echo "No existing opencode update PRs found"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete existing opencode update branches
+        if: steps.check_version.outputs.update_available == 'true'
+        run: |
+          echo "Checking for existing opencode update branches to delete..."
+          
+          # Get all remote branches starting with "update-opencode-"
+          EXISTING_BRANCHES=$(git branch -r | grep "origin/update-opencode-" | sed 's/origin\///' | xargs)
+          
+          if [ -n "$EXISTING_BRANCHES" ]; then
+            echo "Found existing branches: $EXISTING_BRANCHES"
+            for branch in $EXISTING_BRANCHES; do
+              echo "Deleting branch: $branch"
+              git push origin --delete "$branch" || true
+            done
+          else
+            echo "No existing opencode update branches found"
+          fi
+
       - name: Create Pull Request
         if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
-        uses: peter-evans/create-pull-request@v6
+        id: create_pr
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "update-opencode-${{ steps.check_version.outputs.latest_version }}"
@@ -125,7 +164,7 @@ jobs:
           body: |
             Automated update of opencode package from v${{ steps.check_version.outputs.current_version }} to v${{ steps.check_version.outputs.latest_version }}.
 
-            ${{ steps.test_build.outputs.build_success == 'true' && '✅ **Build Status**: Successful' || '❌ **Build Status**: Failed' }}
+            ${{ steps.test_build.outputs.build_success == 'true' && '✅ **Build Status**: Successful - Will auto-merge' || '❌ **Build Status**: Failed - Requires manual review' }}
             🔄 **Auto-generated**: This PR was created by the automated update workflow.
 
             **Changes:**
@@ -137,6 +176,25 @@ jobs:
             - All dependencies resolved correctly
           draft: ${{ steps.test_build.outputs.build_success == 'false' }}
           delete-branch: true
+
+      - name: Auto-merge successful builds
+        if: steps.test_build.outputs.build_success == 'true' && steps.create_pr.outputs.pull-request-number
+        run: |
+          PR_NUMBER="${{ steps.create_pr.outputs.pull-request-number }}"
+          echo "Attempting to auto-merge PR #$PR_NUMBER..."
+          
+          # Try auto-merge first (for repos with required checks)
+          if gh pr merge $PR_NUMBER --auto --squash 2>/dev/null; then
+            echo "✅ Auto-merge enabled for PR #$PR_NUMBER"
+            echo "PR will be automatically merged when all checks pass"
+          else
+            echo "Auto-merge not available (no required checks), merging directly..."
+            # Direct merge for repos without required status checks
+            gh pr merge $PR_NUMBER --squash
+            echo "✅ PR #$PR_NUMBER merged successfully"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Summary
         if: always()
