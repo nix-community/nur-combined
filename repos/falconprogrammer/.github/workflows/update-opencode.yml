@@ -61,7 +61,7 @@ jobs:
           
           # Use nix-update to update the package version and hash automatically
           echo "Updating opencode-sst to version $LATEST_VERSION using nix-update..."
-          nix run nixpkgs#nix-update -- --version="$LATEST_VERSION" --file=pkgs/opencode-sst/default.nix
+          nix run nixpkgs#nix-update -- --version="$LATEST_VERSION" opencode-sst
           
           # Get the new hash that was set by nix-update
           NEW_HASH=$(grep 'hash = ' pkgs/opencode-sst/default.nix | sed 's/.*hash = "\([^"]*\)".*/\1/')
