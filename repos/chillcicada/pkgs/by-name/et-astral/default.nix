@@ -10,11 +10,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "et-astral";
-  version = "2.1.11";
+  version = "2.1.12";
 
   src = builtins.fetchTarball {
     url = "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    sha256 = "1n3592kr9p98538x1b1l1d3q2xi83z7d5920na0bz1nqzxnsgw3h";
+    sha256 = "1xmdk0f9v1qixwxh375a3zwk3fg30gv5hhfblr7mdhdjggjvdqmh";
   };
 
   stripRoot = false;
