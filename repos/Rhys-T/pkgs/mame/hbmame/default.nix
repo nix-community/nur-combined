@@ -36,9 +36,12 @@
             })
         ];
         outputs = lib.lists.remove "tools" (old.outputs or ["out"]);
-        patches = map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then
-            ./patches/001-use-absolute-paths.diff
-        else patch) old.patches;
+        patches = lib.pipe old.patches [
+            (builtins.filter (patch: !(lib.hasSuffix "13890.patch" (""+patch))))
+            (map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then
+                ./patches/001-use-absolute-paths.diff
+            else patch))
+        ];
         postPatch = builtins.replaceStrings [''
             substituteInPlace src/emu/emuopts.cpp \
               --subst-var-by mamePath "$out/opt/mame"
