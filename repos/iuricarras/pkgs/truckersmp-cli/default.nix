@@ -4,7 +4,8 @@
 , python312Packages
 , SDL2
 , steamcmd
-, pkgsCross}:
+, pkgsCross
+}:
 
 
 let 
@@ -12,6 +13,8 @@ let
 
   pname = "truckersmp-cli";
   version = "0.10.2";
+  pyproject = true;
+  build-system = [ python312Packages.setuptools ];
 
   src = fetchFromGitHub {
     repo = "truckersmp-cli";
