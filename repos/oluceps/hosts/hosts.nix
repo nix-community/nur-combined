@@ -1,17 +1,17 @@
 { lib }:
 let
 
-  srvOnEihort = [
-    "matrix.nyaw.xyz"
-    "photo.nyaw.xyz"
-    "s3.nyaw.xyz"
-    "ms.nyaw.xyz"
-    "alist.nyaw.xyz"
-    "book.nyaw.xyz"
-    "scrutiny.nyaw.xyz"
-    "seaweedfs.nyaw.xyz"
-    "oidc.nyaw.xyz"
-    "memos.nyaw.xyz"
+  srvOnEihort = map (n: n + ".nyaw.xyz") [
+    "matrix"
+    "photo"
+    "s3"
+    "ms"
+    "alist"
+    "book"
+    "scrutiny"
+    "seaweedfs"
+    "oidc"
+    "memos"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"

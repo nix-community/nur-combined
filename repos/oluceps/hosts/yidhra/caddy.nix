@@ -68,26 +68,33 @@
                   {
                     handle = [
                       {
-                        handler = "subroute";
-                        routes = [
-                          {
-                            handle = [
-                              {
-                                handler = "reverse_proxy";
-                                upstreams = [ { dial = "[fdcc::3]:443"; } ];
-                                transport = {
-                                  protocol = "http";
-                                  tls = {
-                                    server_name = "s3.nyaw.xyz";
-                                  };
-                                };
-                              }
-                            ];
-                          }
-                        ];
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "[fdcc::3]:443"; } ];
+                        transport = {
+                          protocol = "http";
+                          tls = {
+                            server_name = "s3.nyaw.xyz";
+                          };
+                        };
                       }
                     ];
                     match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "[fdcc::3]:443"; } ];
+                        transport = {
+                          protocol = "http";
+                          tls = {
+                            server_name = "memos.nyaw.xyz";
+                          };
+                        };
+                      }
+                    ];
+                    match = [ { host = [ "memos.nyaw.xyz" ]; } ];
                     terminal = true;
                   }
                   {

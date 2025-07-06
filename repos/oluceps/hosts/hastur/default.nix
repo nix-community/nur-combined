@@ -29,6 +29,8 @@ withSystem "x86_64-linux" (
             "fcitx5-pinyin-moegirl"
             "steam-unwrapped-1.0.0.81"
             "steam-unwrapped"
+            "wechat-uos"
+            "wechat"
           ];
         permittedInsecurePackages = [
           "olm-3.2.16"
