@@ -9,17 +9,17 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "edgee";
-  version = "1.2.10";
+  version = "1.2.16";
 
   src = fetchFromGitHub {
     owner = "edgee-cloud";
     repo = "edgee";
     tag = "v${version}";
-    hash = "sha256-levxMpElgNIOuHf9nG3D6UWqXqoilhEf8DVeVNUbxog=";
+    hash = "sha256-jFikshUdNVxirOZrc2ksYNfMK2MPRQKS/SZk885T0yk=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-cO5QZdDIR38thYOQh1Xh5it/pwZZGY//0VgKZrXItAA=";
+  cargoHash = "sha256-JYyoSkI2m8kWFUEWeXskfJISqCb9RO2PYQEEy3+YKPI=";
 
   nativeBuildInputs = [
     pkg-config
