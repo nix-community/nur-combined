@@ -48,6 +48,8 @@ python312Packages.buildPythonApplication {
     setuptools
   ];
 
+  pythonRelaxDeps = [ "stravalib" ];
+
   nativeCheckInputs = with python312Packages; [
     pytestCheckHook
     (pytest-mock.overrideAttrs (old: rec {

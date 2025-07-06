@@ -25,6 +25,8 @@ python3Packages.buildPythonApplication rec {
     urwid
   ];
 
+  pythonRelaxDeps = true;
+
   doCheck = false; # MySQL server required
 
   meta = {

@@ -23,6 +23,7 @@ python312Packages.buildPythonApplication rec {
     pyopenssl
     pysocks
     netaddr
+    legacy-cgi
   ];
 
   nativeCheckInputs = with python312Packages; [ pytestCheckHook ];
