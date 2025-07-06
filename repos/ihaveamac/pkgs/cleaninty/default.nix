@@ -6,11 +6,13 @@
   cryptography,
   pycurl,
   defusedxml,
+  setuptools,
 }:
 
 buildPythonApplication rec {
   pname = "cleaninty";
   version = "0.1.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "luigoalma";
@@ -18,6 +20,8 @@ buildPythonApplication rec {
     rev = "v${version}";
     sha256 = "sha256-QVttOy3WPFZXvbNaJUhFSsEWwPDZgkGuDBR7zxlS+w8=";
   };
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     cryptography
