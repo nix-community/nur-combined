@@ -38,9 +38,32 @@ jobs:
           CURRENT_VERSION=$(grep 'version = ' pkgs/opencode-sst/default.nix | sed 's/.*version = "\([^"]*\)".*/\1/')
           echo "Current version: $CURRENT_VERSION"
           
-          # Get latest version from GitHub API
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/sst/opencode/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          # Validate current version
+          if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
+            echo "❌ Failed to extract current version from package file"
+            exit 1
+          fi
+          
+          # Get latest version from GitHub API with error handling
+          echo "Fetching latest version from GitHub API..."
+          API_RESPONSE=$(curl -s https://api.github.com/repos/sst/opencode/releases/latest)
+          
+          # Check if API call was successful
+          if [ -z "$API_RESPONSE" ]; then
+            echo "❌ Failed to fetch data from GitHub API"
+            exit 1
+          fi
+          
+          # Extract version with validation
+          LATEST_VERSION=$(echo "$API_RESPONSE" | jq -r '.tag_name' | sed 's/^v//')
           echo "Latest version: $LATEST_VERSION"
+          
+          # Validate latest version
+          if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
+            echo "❌ Failed to extract latest version from GitHub API response"
+            echo "API Response: $API_RESPONSE"
+            exit 1
+          fi
           
           # Check if there's already a merged commit with this version
           if git log --oneline --grep="update opencode.*$LATEST_VERSION" --since="30 days ago" | grep -q "update opencode"; then
@@ -64,6 +87,12 @@ jobs:
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
           PACKAGE_FILE="pkgs/opencode-sst/default.nix"
+          
+          # Validate version before proceeding
+          if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
+            echo "❌ Invalid version received: '$LATEST_VERSION'"
+            exit 1
+          fi
           
           echo "Updating opencode-sst to version $LATEST_VERSION using lightweight approach..."
           
