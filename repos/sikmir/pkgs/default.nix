@@ -467,14 +467,14 @@ lib.makeScope newScope (
     ### NAKARTE
 
     elevation-server = callPackage ./nakarte/elevation-server { };
-    map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python310Packages; };
+    map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python311Packages; };
     mapillary-render = callPackage ./nakarte/mapillary-render { };
-    maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python310Packages; };
+    maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python311Packages; };
     #nakarte = callPackage ./nakarte/nakarte { };
-    ozi-map = callPackage ./nakarte/ozi-map { python3Packages = pkgs.python310Packages; };
-    pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python310Packages; };
+    ozi-map = callPackage ./nakarte/ozi-map { python3Packages = pkgs.python311Packages; };
+    pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python311Packages; };
     thinplatespline = callPackage ./nakarte/thinplatespline {
-      python3Packages = pkgs.python310Packages;
+      python3Packages = pkgs.python311Packages;
     };
     tracks-storage-server = pkgs.python3Packages.callPackage ./nakarte/tracks-storage-server { };
     westra-passes = callPackage ./nakarte/westra-passes { };

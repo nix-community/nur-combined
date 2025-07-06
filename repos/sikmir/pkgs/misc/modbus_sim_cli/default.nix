@@ -33,6 +33,8 @@ python3Packages.buildPythonApplication {
     pyyaml
   ];
 
+  pythonRelaxDeps = true;
+
   preConfigure = ''
     find modbus_sim -name "*.py" | xargs 2to3 -w
   '';
