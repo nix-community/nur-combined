@@ -2,11 +2,13 @@
   sources,
   lib,
   python3Packages,
-  stdenv,
 }:
 
 python3Packages.buildPythonApplication rec {
   inherit (sources.telegram-send) pname version src;
+
+  pyproject = true;
+  build-system = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     python-telegram-bot

@@ -115,13 +115,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.34-linux-250619T163003Z";
+    version = "lts-v6.12.35-linux-250627T153524Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.34-linux-250619T163003Z";
+      rev = "lts-v6.12.35-linux-250627T153524Z";
       fetchSubmodules = false;
-      sha256 = "sha256-AU6P7dDvkujJl1m86h4H253dMeMNE4dhdP710egXs/A=";
+      sha256 = "sha256-0UT9cmbXcSw1oGSaLoUzbLWfRNBUDeFcvdYmoej/fAE=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -344,17 +344,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
+    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
+      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-CTZoJeTuVr2n3U69p/0V3RvAFzpYGqds7stPGXSTj7s=";
+      sha256 = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
     };
-    date = "2025-06-19";
+    date = "2025-07-06";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -495,23 +495,23 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
+    version = "bbff4efddb95275b8f3898efbd1be98bbef4c7df";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
+      rev = "bbff4efddb95275b8f3898efbd1be98bbef4c7df";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Z9c/5jKxs5ctUuVu7g+BXA1Wy4lyZLpGATtj2jd84jI=";
+      sha256 = "sha256-ohAS0Gg57dPOzMRdx+eILC/NYZhJ1av9xTos72DE8Ck=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-ce1f34d80a7f8b4393a5551ea0535bd8beabb28c/Cargo.lock;
+      lockFile = ./swayosd-bbff4efddb95275b8f3898efbd1be98bbef4c7df/Cargo.lock;
       outputHashes = {
 
       };
     };
-    date = "2025-04-20";
+    date = "2025-07-04";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
