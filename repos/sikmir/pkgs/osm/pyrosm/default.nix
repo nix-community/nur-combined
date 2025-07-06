@@ -10,6 +10,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "pyrosm";
   version = "0.6.2";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
@@ -17,6 +18,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [ cython ];
 

@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication {
   pname = "docx2csv";
   version = "0-unstable-2023-10-11";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ivbeg";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication {
     rev = "f0c0231876e2ab1210865ded80e4d6105816b0a3";
     hash = "sha256-A7Y1zgM+9xIDXsAQN2tGGoWbe8u/kvGch6sBNKz0Nw4=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     click

@@ -9,6 +9,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "localtileserver";
   version = "0.10.6";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "banesullivan";
@@ -16,6 +17,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-09POlT+3gWGoP/tKRur9OaFsfQvC4OwSHE+ssqSQi1Q=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     click

@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "jsonseq";
   version = "1.0.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "sgillies";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = version;
     hash = "sha256-aZu4+MRFrAizskxqMnks9pRXbe/vw4sYt92tRpjfUSg=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

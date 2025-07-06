@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rio-color";
   version = "2.0.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
@@ -15,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     tag = version;
     hash = "sha256-iJ+whIk3ANop8i712dLE0mJyDMHGnE0tic23H6f67Xg=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [ cython ];
 

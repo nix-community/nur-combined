@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "click";
   version = "6.7";
+  pyproject = true;
 
   src = python3Packages.fetchPypi {
     inherit pname version;
@@ -19,6 +20,8 @@ python3Packages.buildPythonPackage rec {
       locale = "${locale}/bin/locale";
     })
   ];
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

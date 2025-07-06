@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "pipfile";
   version = "0.0.2";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pypa";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-GsDhxnvBvjJGQWk25cS9+HqLQ9YVSxujeX2iGivYl6Q=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [ toml ];
 

@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication {
   pname = "modbus_sim_cli";
   version = "0-unstable-2019-02-27";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "dhoomakethu";
@@ -21,6 +22,8 @@ python3Packages.buildPythonApplication {
     substituteInPlace modbus_sim/utils/config_parser.py \
       --replace-fail "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 

@@ -9,6 +9,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "phyghtmap";
   version = "2.23";
+  pyproject = true;
 
   src = fetchurl {
     url = "http://katze.tfiu.de/projects/phyghtmap/phyghtmap_${version}.orig.tar.gz";
@@ -18,6 +19,8 @@ python3Packages.buildPythonApplication rec {
   postPatch = ''
     substituteInPlace phyghtmap/hgt.py --replace-fail "_contour" "contour"
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [ installShellFiles ];
 

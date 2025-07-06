@@ -17,6 +17,7 @@ in
 python3Packages.buildPythonApplication {
   pname = "wiktextract";
   version = "1.99.7";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "tatuylonen";
@@ -29,6 +30,8 @@ python3Packages.buildPythonApplication {
     substituteInPlace setup.py \
       --replace-fail python-Levenshtein Levenshtein
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     levenshtein

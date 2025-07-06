@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "zdict";
   version = "5.0.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "zdict";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication rec {
     tag = version;
     hash = "sha256-vZpxJkKBHo9fO7xNN9Is7BumZhAkepVK0dpk+Y/1YBM=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     beautifulsoup4

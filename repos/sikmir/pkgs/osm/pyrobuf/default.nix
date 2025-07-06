@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage {
   pname = "pyrobuf";
   version = "0.9.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "appnexus";
@@ -19,6 +20,8 @@ python3Packages.buildPythonPackage {
     substituteInPlace setup.py \
       --replace-fail ", 'pytest-runner'" ""
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [
     cython

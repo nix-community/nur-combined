@@ -9,6 +9,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "trackanimation";
   version = "1.0.5";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "JoanMartin";
@@ -16,6 +17,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-fLubRKq+3wQh16xSdqJmNMy4zw83RiSQj8C6jNV4fV8=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     geopy

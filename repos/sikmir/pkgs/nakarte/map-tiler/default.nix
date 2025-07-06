@@ -15,6 +15,7 @@
 python3Packages.buildPythonApplication {
   pname = "map-tiler";
   version = "0-unstable-2022-08-06";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -30,6 +31,8 @@ python3Packages.buildPythonApplication {
       --replace-fail " @ git+https://github.com/wladich/ozi_map.git" "" \
       --replace-fail " @ git+https://github.com/wladich/pyimagequant.git" ""
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [
     gobject-introspection

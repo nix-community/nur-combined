@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "rio-mbtiles";
   version = "1.6.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
@@ -15,6 +16,8 @@ python3Packages.buildPythonApplication rec {
     tag = version;
     hash = "sha256-Kje443Qqs8+Jcv3PnTrMncaoaGDdjrzTcd42NYIenuU=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     click

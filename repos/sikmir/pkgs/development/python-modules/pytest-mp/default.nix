@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage {
   pname = "pytest-mp";
   version = "2019-03-11";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ansible";
@@ -21,6 +22,8 @@ python3Packages.buildPythonPackage {
     # https://github.com/ansible/pytest-mp/issues/8
     substituteInPlace pytest_mp/terminal.py --replace-fail "reporter.writer" "reporter._tw"
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

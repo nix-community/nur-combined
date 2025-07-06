@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "riverrem";
   version = "1.1.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "OpenTopography";
@@ -15,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-pMZahd4CfeGuLz5sd8rT9R0fi2N6hNHe5gBXi1UqYWg=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     cmocean

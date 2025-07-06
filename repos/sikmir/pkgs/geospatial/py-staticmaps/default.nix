@@ -8,6 +8,7 @@
 python312Packages.buildPythonApplication rec {
   pname = "py-staticmaps";
   version = "0.5.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "flopp";
@@ -15,6 +16,8 @@ python312Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-TWLPCM1tsWiRCLDhowC/uQrDUujNO3FuDgnUQXMcTm0=";
   };
+
+  build-system = with python312Packages; [ setuptools ];
 
   dependencies = with python312Packages; [
     appdirs

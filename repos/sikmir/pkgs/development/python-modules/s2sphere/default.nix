@@ -7,6 +7,7 @@
 python312Packages.buildPythonPackage {
   pname = "s2sphere";
   version = "0.2.5";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "sidewalklabs";
@@ -14,6 +15,8 @@ python312Packages.buildPythonPackage {
     rev = "d1d067e8c06e5fbaf0cc0158bade947b4a03a438";
     hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };
+
+  build-system = with python312Packages; [ setuptools ];
 
   dependencies = with python312Packages; [ future ];
 

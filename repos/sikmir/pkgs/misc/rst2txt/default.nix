@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "rst2txt";
   version = "1.1.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "stephenfin";

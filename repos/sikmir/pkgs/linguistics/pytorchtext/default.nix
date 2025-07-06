@@ -11,6 +11,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "pytorchtext";
   version = "0.10.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pytorch";
@@ -19,6 +20,8 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-UCH/12jVeUY+h3Qop/RPtjIeXdddA1upsWIiwAs8+bc=";
     fetchSubmodules = true;
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [
     cmake

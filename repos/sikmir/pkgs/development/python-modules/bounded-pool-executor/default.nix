@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "bounded-pool-executor";
   version = "0.0.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mowshon";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     rev = "24b5a36ec4997c23ef377559ace6b3599af0f018";
     hash = "sha256-83xdIz94C7BjU+2zubt1tcFVnRF0F9DSDrCYzPBLmVk=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   pythonImportsCheck = [ "bounded_pool_executor" ];
 

@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "gt4gd";
   version = "1.3.9";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "xinebf";
@@ -15,6 +16,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [ requests ] ++ lib.optional withUI tkinter;
 

@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage {
   pname = "pyimagequant";
   version = "0-unstable-2022-06-10";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -22,7 +23,9 @@ python3Packages.buildPythonPackage {
     rm BUILD
   '';
 
-  propagatedBuildInputs = with python3Packages; [ cython ];
+  build-system = with python3Packages; [ setuptools ];
+
+  dependencies = with python3Packages; [ cython ];
 
   pythonImportsCheck = [ "imagequant" ];
 

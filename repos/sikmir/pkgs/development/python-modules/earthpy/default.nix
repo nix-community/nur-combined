@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "earthpy";
   version = "0.9.4";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "earthlab";
@@ -15,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-MCyeFXtjOqnVarSUk7Z/+Y5oNhYLlxznjWHQOCgUOIc=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     geopandas

@@ -9,6 +9,7 @@
 python3Packages.buildPythonPackage {
   pname = "ozi-map";
   version = "0-unstable-2022-08-05";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -21,6 +22,8 @@ python3Packages.buildPythonPackage {
     substituteInPlace setup.py \
       --replace-fail " @ git+https://github.com/wladich/maprec.git" ""
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     maprec

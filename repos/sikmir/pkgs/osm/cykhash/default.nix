@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage {
   pname = "cykhash";
   version = "2.0.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "realead";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage {
     rev = "99db6d2075b1f33177ed034e0c873d58190658ae";
     hash = "sha256-R6a19oExRVHSnfeEM5XsD77BPEWpC0BeNdep12YffN8=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [ cython ];
 

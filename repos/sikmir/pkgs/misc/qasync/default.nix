@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "qasync";
   version = "0.22.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "CabbageDevelopment";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-VM4+HNqqiVfGS6FzOjf2LAfcIFA3VuNAhpwkxzOlLOE=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   doCheck = false;
 

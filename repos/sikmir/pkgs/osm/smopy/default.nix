@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "smopy";
   version = "0.0.7";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "rossant";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-ds3BQryv9uwJYfpqbFOT7Cxm2HkHhfVqvu8eeyaAET0=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     numpy

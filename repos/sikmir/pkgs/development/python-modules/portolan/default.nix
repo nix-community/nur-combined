@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "portolan";
   version = "1.0.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "fitnr";

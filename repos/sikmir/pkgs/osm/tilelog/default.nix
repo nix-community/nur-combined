@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "tilelog";
   version = "1.7.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-tSBawN8u3mw6sSVFUMT+qfjbhwPF+x3sYXpO18YUjpw=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [ flake8 ];
 

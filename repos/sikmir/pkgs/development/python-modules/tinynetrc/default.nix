@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "tinynetrc";
   version = "1.3.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "sloria";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = version;
     hash = "sha256-iy0sa1oqJeZxSfXISI7Ypbml8+SGHhRZkznTdbI5yAo=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

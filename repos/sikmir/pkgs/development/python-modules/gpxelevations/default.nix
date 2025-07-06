@@ -11,6 +11,7 @@ in
 python3Packages.buildPythonApplication rec {
   pname = "gpxelevations";
   version = "0.3.7";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "tkrajina";
@@ -24,6 +25,8 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace test.py \
       --replace-fail assertNotEquals assertNotEqual
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     requests

@@ -6,6 +6,7 @@
   msgpack,
   protobuf,
   psycopg2,
+  setuptools,
 }:
 
 let
@@ -24,6 +25,7 @@ in
 buildPythonPackage {
   pname = "tracks-storage-server";
   version = "0-unstable-2024-04-27";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -36,6 +38,8 @@ buildPythonPackage {
     cp ${setupPy} ${setupPy.name}
     substitute config.py.example config.py --replace-fail "'password" "#'password"
   '';
+
+  build-system = [ setuptools ];
 
   dependencies = [
     msgpack

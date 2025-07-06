@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "pmtiles";
   version = "3.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "protomaps";
@@ -16,6 +17,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   sourceRoot = "${src.name}/python";
+
+  build-system = with python3Packages; [ setuptools ];
 
   meta = {
     description = "Library and utilities to write and read PMTiles files - cloud-optimized archives of map tiles";

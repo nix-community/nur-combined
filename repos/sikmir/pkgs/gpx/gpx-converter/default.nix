@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication {
   pname = "gpx-converter";
   version = "0-unstable-2023-04-07";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "nidhaloff";
@@ -19,6 +20,8 @@ python3Packages.buildPythonApplication {
     substituteInPlace setup.py \
       --replace-fail "'pytest-runner'," ""
   '';
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     gpxpy

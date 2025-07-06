@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication {
   pname = "polytiles";
   version = "0-unstable-2017-06-09";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Zverik";
@@ -15,6 +16,8 @@ python3Packages.buildPythonApplication {
     rev = "c0a057594de9041c7b3ac234a3590101e3825f2d";
     hash = "sha256-7rsMx8sQgl8cRiUncP3/mPne6ARj3K2FICU+frUeEUs=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     psycopg2

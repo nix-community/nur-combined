@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication {
   pname = "py-osm-static-maps";
   version = "0-unstable-2024-10-16";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "NHellFire";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication {
     rev = "0ef9cee293f0b1aeb64838da186076f35cebc16d";
     hash = "sha256-5+7hPRzryiH9fC2cY+/IDZAAxGw2wYZvSR9V+EjVN1I=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     flask

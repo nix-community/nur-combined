@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rio-mucho";
   version = "1.0.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
@@ -15,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     tag = version;
     hash = "sha256-yr79Lb02vxp2CN+638S8CFxbtim+zrkjxhjwEkx0XsY=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     click

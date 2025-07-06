@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "fitdecode";
   version = "0.10.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "polyvertex";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-pW1PgJGqFL2reOYYfpGnQ4WoYFKGMNY8iQJzyHYOly8=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

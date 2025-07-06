@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication {
   pname = "gaiagpsclient";
   version = "0-unstable-2023-08-26";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kk7ds";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication {
     rev = "1ba0ea4266260ff979c7df483381d01d29fae25d";
     hash = "sha256-qCpyJfa8TeMfawf1+wCFu04sYHfDejyStNl6Q6XEUeA=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     requests

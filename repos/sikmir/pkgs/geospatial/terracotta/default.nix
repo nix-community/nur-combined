@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "terracotta";
   version = "0.9.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "DHI-GRAS";

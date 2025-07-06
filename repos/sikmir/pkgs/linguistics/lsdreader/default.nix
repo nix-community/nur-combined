@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "lsdreader";
   version = "0.2.15";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "sv99";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-8DYPFUmhgA4mxaliPjbPkywyJUwrl3J034scmFGE9no=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   doCheck = false;
 

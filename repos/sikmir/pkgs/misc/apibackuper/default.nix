@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "apibackuper";
   version = "1.0.6";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ruarxive";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication rec {
     tag = version;
     hash = "sha256-2vNuzQK6Wm6DBWRSLFuy6loCLAbcql3CqSktMjGE8JE=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     bson

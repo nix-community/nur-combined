@@ -8,6 +8,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "cmocean";
   version = "4.0.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "matplotlib";
@@ -15,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-Vi+tK2cAwqkoe2CEFCYEqMp28IgeH1MSJ+u3t6D8Zu8=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     matplotlib

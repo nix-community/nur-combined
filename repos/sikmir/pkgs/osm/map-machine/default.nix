@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
   version = "0.1.9";
+  pyproject = true;
   disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
@@ -16,6 +17,8 @@ python3Packages.buildPythonApplication rec {
     tag = "v${version}";
     hash = "sha256-aOfvVyTgDxh7T2oAc+S1eU9b/JjXAhfc3WfR27ECXcY=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     cairosvg

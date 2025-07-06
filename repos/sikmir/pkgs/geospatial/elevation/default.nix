@@ -15,6 +15,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "elevation";
   version = "1.1.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "bopen";

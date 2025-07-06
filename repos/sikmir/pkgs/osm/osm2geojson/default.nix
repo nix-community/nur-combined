@@ -6,15 +6,18 @@
 
 python3Packages.buildPythonApplication {
   pname = "osm2geojson";
-  version = "0.1.33";
+  version = "0.2.6";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "aspectumapp";
     repo = "osm2geojson";
-    rev = "068b83afe19cff1ae15b9efc2a9ff5a9be8928e7";
-    hash = "sha256-9+xB/fd97HtnzdkJ2BawVW9AqDyArWUv6H1SZ7a8gkw=";
+    rev = "056765567079ee1fff01aded3b66232b436ba1d2";
+    hash = "sha256-Uu4+L5FPhyx5pgmkzly2jtuA4aSkkg9bwcbaP7F25Y8=";
     fetchSubmodules = true;
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     shapely
@@ -28,5 +31,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/aspectumapp/osm2geojson";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "osm2geojson";
   };
 }

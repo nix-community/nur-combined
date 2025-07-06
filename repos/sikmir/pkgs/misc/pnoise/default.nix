@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "pnoise";
   version = "0.2.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "plottertools";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication rec {
     tag = version;
     hash = "sha256-JwWzLvgCNSLRs/ToZNFH6fN6VLEsQTmsgxxkugwjA9k=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [ numpy ];
 

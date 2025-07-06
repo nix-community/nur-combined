@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication {
   pname = "supermercado";
   version = "0.2.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
@@ -14,6 +15,8 @@ python3Packages.buildPythonApplication {
     rev = "44841a07adff32665fae736f9ba7df8c7b24ac44";
     hash = "sha256-k2S1aOHQEJq//4mdWZ5GhJQJjKqJuDbBztoHi373s6w=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     click-plugins

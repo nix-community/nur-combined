@@ -7,6 +7,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "pysheds";
   version = "0.4";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mdbartos";
@@ -14,6 +15,8 @@ python3Packages.buildPythonPackage rec {
     tag = version;
     hash = "sha256-cIx/TPPLYsHEgvHtyZY5psRwqtvKQkJ/SnafT2btLBI=";
   };
+
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     scikitimage
