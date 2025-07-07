@@ -12,6 +12,7 @@
     };
     nativeBuildInputs = [pkg-config];
     buildInputs = [SDL2 SDL2_gfx SDL2_image SDL2_mixer SDL2_ttf];
+    outputs = ["out" "dev"];
     meta = {
         description = "Generic game engine for 2D double-buffering animation";
         # homepage = "http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html";
