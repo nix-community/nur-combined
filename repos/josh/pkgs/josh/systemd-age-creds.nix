@@ -34,15 +34,10 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    version =
-      let
-        version-parts = lib.versions.splitVersion finalAttrs.version;
-        stable-version = "${builtins.elemAt version-parts 0}.${builtins.elemAt version-parts 1}.${builtins.elemAt version-parts 2}";
-      in
-      testers.testVersion {
-        package = finalAttrs.finalPackage;
-        version = stable-version;
-      };
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      inherit (finalAttrs) version;
+    };
 
     help =
       runCommand "test-systemd-age-creds-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
