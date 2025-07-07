@@ -551,6 +551,9 @@
             "file": "nur-everything/default.nix",
             "url": "https://github.com/harukafractus/nix"
         },
+        "henriquekh": {
+            "url": "https://github.com/henriquekirchheck/nur-repo"
+        },
         "heph2": {
             "url": "https://github.com/heph2/nur-packages"
         },
