@@ -11297,10 +11297,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.2.8";
+      version = "3.2.9";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4526049/simplifygmail-3.2.8.xpi";
-      sha256 = "67f65ac28ab0fcc6876ed8bab71931506756fd18eddeb27ef7f26214fea293ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4527879/simplifygmail-3.2.9.xpi";
+      sha256 = "51305401c2c84fe9ab8c7132dbe7d87c64601d03c3d1367ce6a2b734741d4b77";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14561,10 +14561,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.6.0";
+      version = "2.6.1";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4526871/youtube_no_translation-2.6.0.xpi";
-      sha256 = "597d515d0f60219bd9c9d9995c2dce345cbf31b503b927940bb98625eb24d9f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4527921/youtube_no_translation-2.6.1.xpi";
+      sha256 = "14827d749d417d54da7b525303236c461fdf3ec897b9653f03f8f193b9d310ca";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
