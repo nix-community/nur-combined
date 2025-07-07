@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure =
-    ''
-    ''
+    ''''
     +
       # cmake/dependencies/celt.cmake uses configure_file to modify ${CELT_0110_PATH}/libcelt/ecintrin.h.
       # Therefore, CELT_0110_PATH needs to point to a mutable directory.

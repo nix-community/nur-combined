@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  buildInputs = [ lz4 zlib ];
+  buildInputs = [
+    lz4
+    zlib
+  ];
   nativeBuildInputs = [
     autoconf
     automake

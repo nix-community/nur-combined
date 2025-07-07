@@ -20,6 +20,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [cleaninty-0.1.3](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
 | [Corgi3DS-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
 | [ctr-gputextool-0-unstable-2015-11-25](https://github.com/yellows8/ctr-gputextool) | ctr-gputextool | 3DS GPU texture conversion tool. |
+| [ctr-logobuilder-0-unstable-2015-11-25](https://github.com/yellows8/ctr-logobuilder) | ctr-logobuilder | Build 3DS logo files |
 | [ctrtool-1.2.1](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |

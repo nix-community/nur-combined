@@ -15,7 +15,7 @@
 
 let
   realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
-  vgmstream = callPackage ./vgmstream.nix {};
+  vgmstream = callPackage ./vgmstream.nix { };
 in
 realStdenv.mkDerivation rec {
   pname = "kame-editor";

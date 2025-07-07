@@ -61,6 +61,9 @@ rec {
   darctool-yls8 = callPackage ./pkgs/darctool-yls8 { };
   ctr-gputextool = callPackage ./pkgs/ctr-gputextool { };
   switch-tools = callPackage ./pkgs/switch-tools { };
+  ctr-logobuilder = callPackage ./pkgs/ctr-logobuilder { };
+
+  kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
     version = "1.39.13";
@@ -91,10 +94,6 @@ rec {
     hash = "sha256-CmBMgUVPt6s+svV6tZcsXqRPxUkkzKCegT48T0gn2ck=";
     knownVulnerabilities = [ "MediaWiki 1.42 has been end-of-life since 2025-06-30." ];
   };
-
-  kwin-move-window = callPackage ./pkgs/kwin-move-window { };
-  # some-qt5-package = libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 
   # compatibility
   "3dstool" = _3dstool;
