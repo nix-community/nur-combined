@@ -5,7 +5,7 @@ buildPythonPackage rec {
   pname = "fenjing";
   # it takes minutes
   doCheck = false;
-
+  pyproject = true;
   nativeBuildInputs = [ pkgs.installShellFiles ];
 
   build-system = [ setuptools setuptools-scm ];
