@@ -170,6 +170,17 @@ let
       };
     };
 
+    # The same uBlock Origin as from Mozilla site but instead fetched from the
+    # upstream source (GitHub).
+    ublock-origin-upstream = generatedPackages.ublock-origin.overrideAttrs
+      (prev: {
+        src = let version = lib.getVersion prev.name;
+        in prev.src.overrideAttrs {
+          url =
+            "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
+        };
+      });
+
     zotero-connector =
       import ./zotero.nix { inherit buildFirefoxXpiAddon fetchurl lib stdenv; };
 
