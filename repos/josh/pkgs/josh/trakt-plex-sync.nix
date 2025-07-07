@@ -13,8 +13,8 @@ let
     src = fetchFromGitHub {
       owner = "josh";
       repo = "trakt-plex-sync";
-      rev = "0c9d7e5f9b5866421db9344d9e1229e347c5f2d2";
-      hash = "sha256-HY2ZYQo6waHeeQHPy367Fc38m47d+W8FNaYz315S2KI=";
+      rev = "7e40b1ba4e282c9d01e8ea7dd4d54c99d14c0e6f";
+      hash = "sha256-6Ev88qrn0tJcsoj4u5Sl8dvkNV+/lwdrsbWYGz/Ir5I=";
     };
 
     pyproject = true;
