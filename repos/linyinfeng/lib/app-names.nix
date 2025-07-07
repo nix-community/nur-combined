@@ -60,7 +60,6 @@ let
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
     (trivial "ssl-handshake")
-    (trivial "swayosd")
     (trivial "telegram-send")
     (trivial "tg-send")
     (trivial "trojan")

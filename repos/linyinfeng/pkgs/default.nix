@@ -51,7 +51,6 @@ lib.makeScope newScope (
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     ssl-handshake = callPackage ./ssl-handshake { };
-    swayosd = callPackage ./swayosd { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };

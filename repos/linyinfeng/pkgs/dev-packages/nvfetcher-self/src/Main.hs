@@ -53,7 +53,6 @@ packageSet = do
   linuxIntelTts
   mstickereditor
   niriTaskbar
-  swayOsd
   tgSend
   yacd
   zeronsd
@@ -115,16 +114,6 @@ mstickereditor =
     package "mstickereditor"
       `fromGitHub` ("LuckyTurtleDev", "mstickereditor")
       `hasCargoLocks` ["Cargo.lock"]
-
-swayOsd :: PackageSet ()
-swayOsd =
-  define $
-    package "swayosd"
-      `sourceGit` url
-      `fetchGit` url
-      `hasCargoLocks` ["Cargo.lock"]
-  where
-    url = "https://github.com/ErikReider/SwayOSD.git"
 
 tgSend :: PackageSet ()
 tgSend =
