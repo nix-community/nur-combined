@@ -9,16 +9,16 @@
 let
   xpifile = buildNpmPackage (finalAttrs: {
     pname = "steam-database";
-    version = "4.16";
+    version = "4.22";
 
     src = fetchFromGitHub {
       owner = "SteamDatabase";
       repo = "BrowserExtension";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-3KaR05guZGi+P5cgCJDiZP8GpF6N4w68TSaP83KQn+g=";
+      hash = "sha256-YRKC6EAOTH+elKc8Xc1EgWwUuOUzJii7/6i2Uq9pdmM=";
     };
 
-    npmDepsHash = "sha256-wFIwbzsd/i6vHkeM1T9ffkZLzOdY0XVuTEP8KyxSXX4=";
+    npmDepsHash = "sha256-7pTvcEaFxmBFSmv2RJ5jwm5VtDy71emmhYH+WIR+Ods=";
 
     installPhase = ''
       runHook preInstall

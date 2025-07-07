@@ -39,13 +39,13 @@ in
 clangStdenv.mkDerivation {
   # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
-  version = "0-unstable-2025-06-24";
+  version = "0-unstable-2025-07-06";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "b";
-    rev = "3b1c6402901c41aca4e1c6a112ed2b12b974947e";
-    hash = "sha256-QDD3VqCDlBNIh6V5/s74yaoKis9JB2Q+Oi7IxjZkhc4=";
+    rev = "0382f893b431856f0fda781dade9fde45ef5c585";
+    hash = "sha256-lcGffazY482T4r7oLwxLht1AuJ4Y0qpV72ctkBMCJRA=";
   };
 
   nativeBuildInputs = [
