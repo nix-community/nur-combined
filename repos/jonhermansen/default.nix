@@ -17,5 +17,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   hello-jon = pkgs.callPackage ./pkgs/hello-jon { };
-  xlibre = pkgs.callPackage ./pkgs/xlibre { };
+  hello-jon2 = pkgs.callPackage ./pkgs/hello-jon { };
 }
