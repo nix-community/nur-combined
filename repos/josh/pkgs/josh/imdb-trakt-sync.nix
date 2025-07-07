@@ -13,8 +13,8 @@ let
     src = fetchFromGitHub {
       owner = "josh";
       repo = "imdb-trakt-sync";
-      rev = "33ab9337a68fb5831ab70f38507fecdc7a587fed";
-      hash = "sha256-qu/d8FTKncXWbNMHfplfnAIeag6zIn/BJRc8ESsU9nE=";
+      rev = "83cd4fb5738b1b2f2f18a49f0ab026a557e45aab";
+      hash = "sha256-WVPClAXxVJ4Byr2DeBH5YKBFLTHaIL4Shw6B5q3EAag=";
     };
 
     pyproject = true;
