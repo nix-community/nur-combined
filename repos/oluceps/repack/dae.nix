@@ -14,6 +14,7 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
+    package = inputs'.dae.packages.dae-dirty;
     config = ''
       include {
           secret.dae
@@ -22,7 +23,7 @@ reIf {
           tproxy_port: 12345
           log_level: debug
           #tcp_check_url: 'https://www.apple.com/library/test/success.html,2606:4700:4700::1111'
-          udp_check_dns: '8.8.8.8:53,114.114.114.114:53,2001:4860:4860::8888,1.1.1.1:53'
+          udp_check_dns: '8.8.8.8:53,2001:4860:4860::8888,1.1.1.1:53'
           check_interval: 30s
           check_tolerance: 50ms
           wan_interface: auto
@@ -94,7 +95,6 @@ reIf {
           fallback: all
       }
     '';
-    package = inputs'.dae.packages.dae-unstable;
     # package = inputs'.dae.packages.dae-pr-748-fix;
     assetsPath = toString (
       pkgs.symlinkJoin {
