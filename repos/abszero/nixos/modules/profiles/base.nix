@@ -115,13 +115,10 @@ in
       DefaultTimeoutStopSec=10s
     '';
 
-    security = {
-      rtkit.enable = true;
-      sudo-rs = {
-        enable = true;
-        wheelNeedsPassword = mkDefault false;
-        execWheelOnly = true;
-      };
+    security.sudo-rs = {
+      enable = true;
+      wheelNeedsPassword = mkDefault false;
+      execWheelOnly = true;
     };
 
     services = {

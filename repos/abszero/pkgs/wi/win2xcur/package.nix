@@ -13,6 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-B8srOXQBUxK6dZ6GhDA5fYvxUBxHVcrSO/z+UWyF+qI=";
   };
 
+  pyproject = true;
+  build-system = [ python313Packages.setuptools ];
+
   propagatedBuildInputs = with python313Packages; [
     numpy
     wand

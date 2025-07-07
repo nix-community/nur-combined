@@ -21,6 +21,7 @@ in
     abszero = {
       profiles.base.enable = true;
       boot.lanzaboote.enable = true;
+      services.pipewire.enable = true;
     };
 
     boot.kernelPackages = pkgs.linuxPackages_cachyos;
@@ -62,6 +63,8 @@ in
       };
     };
 
+    security.rtkit.enable = true;
+
     services = {
       automatic-timezoned.enable = true;
       libinput = {
@@ -71,14 +74,6 @@ in
           naturalScrolling = true;
           disableWhileTyping = true;
         };
-      };
-      pipewire = {
-        enable = true;
-        alsa = {
-          enable = true;
-          support32Bit = true;
-        };
-        pulse.enable = true;
       };
       resolved = {
         enable = true;

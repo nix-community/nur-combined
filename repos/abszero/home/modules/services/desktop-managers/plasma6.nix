@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     qt = {
-      platformTheme.name = "kde";
+      platformTheme.name = "kde6";
       style.name = null;
     };
     services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
