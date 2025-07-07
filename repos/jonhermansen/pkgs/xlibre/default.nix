@@ -56,14 +56,14 @@
   zlib,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "xlibre";
   version = "25.0.0.4";
 
   src = fetchFromGitHub {
     owner = "X11Libre";
     repo = "xserver";
-    tag = "xlibre-xserver-${finalAttrs.version}";
+    tag = "xlibre-xserver-${version}";
     hash = "sha256-toAAdwX1Y87eLvze+TAiuakN4r3Uj7NQMCYbOCS51ak=";
   };
 
@@ -142,8 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
     xorgproto
     zlib
   ];
-  buildInputs = finalAttrs.nativeBuildInputs; # JAH TODO: Break apart nativeBuildInputs vs buildInputs
-  nativeLibs = finalAttrs.buildInputs; # JAH TODO: Is this still needed?
+  buildInputs = nativeBuildInputs; # JAH TODO: Break apart nativeBuildInputs vs buildInputs
+  nativeLibs = buildInputs; # JAH TODO: Is this still needed?
   mesonFlags =
     let
       inherit (lib.strings) mesonEnable mesonOption;
@@ -182,7 +182,7 @@ stdenv.mkDerivation (finalAttrs: {
   #   # do nothing here
   # '';
   #installCheckPhase = ''
-  #  echo ${finalAttrs}.out
+  #  echo ${out}
   #'';
   meta = {
     license = lib.licenses.mit;
@@ -193,4 +193,4 @@ stdenv.mkDerivation (finalAttrs: {
   #  xorgserver
   #];
   #runScript = "/bin/startxlibre";
-})
+}
