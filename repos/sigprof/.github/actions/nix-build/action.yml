@@ -76,7 +76,7 @@ runs:
   using: composite
   steps:
     - name: Maximize build space for Nix
-      uses: wimpysworld/nothing-but-nix@26234b059dd22b36374427bd3cea6adfe16a809f
+      uses: wimpysworld/nothing-but-nix@bfeb418c0047173b701321078aca83b342e77ec2
       if: (inputs.maximize-build-space == 'true') && (runner.os == 'Linux')
 
     - name: Install Nix
