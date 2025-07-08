@@ -161,10 +161,10 @@
     };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.3.6";
+      version = "2.3.7";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4497443/addy_io-2.3.6.xpi";
-      sha256 = "127fd30724a1fbc7a10f1327d0665e931d145144c00ffe563d7b6e8f3f3beb8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4528774/addy_io-2.3.7.xpi";
+      sha256 = "3cd70a64a529ebe5fe1ebd135c257c154b047899679eedeb368e300761250afc";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -1149,10 +1149,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2025.5.0";
+      version = "2025.6.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4493940/bitwarden_password_manager-2025.5.0.xpi";
-      sha256 = "56e62622b7c322d2c2c4db04ad3eac2e7454bd7eebffebdcf5ca4b728ba09feb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4525374/bitwarden_password_manager-2025.6.1.xpi";
+      sha256 = "f61e604f0b6c13ac734e78cf415ee5e12c96577d6f0382a0853108c60b1b4eb1";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2331,10 +2331,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "141.0.20250707.90559";
+      version = "140.0.20250707.120347";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528509/dansk_da_language_pack-141.0.20250707.90559.xpi";
-      sha256 = "e174e62b3a9caaff3011c1a08c1c366caf61366df4362ad4a625e2a45b35e53b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4528985/dansk_da_language_pack-140.0.20250707.120347.xpi";
+      sha256 = "54f34c62d24eb02ade108e365848b86c5e1960b489f5d78a5c3a516f88d006ea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2528,10 +2528,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "141.0.20250707.90559";
+      version = "140.0.20250707.120347";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528505/deutsch_de_language_pack-141.0.20250707.90559.xpi";
-      sha256 = "b18760227617140866843ad91f8cc8d3985f8c8b5c06e51d60143785a62a26a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4528982/deutsch_de_language_pack-140.0.20250707.120347.xpi";
+      sha256 = "26f99ec9928782c3e9688b8446a034841b093e5e850fc6c10cee3f4471150386";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2564,10 +2564,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.7.0";
+      version = "5.7.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4513687/dictionaries-5.7.0.xpi";
-      sha256 = "29b1c5f3ae23cf34b83747e1455a71b48ea4d151023466541558fcede0a2f1a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4529091/dictionaries-5.7.2.xpi";
+      sha256 = "67aee301ae0f3952e07af00bf6257c87583d4678aae9bca40acf930f28bf842f";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3763,10 +3763,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "141.0.20250707.90559";
+      version = "140.0.20250707.120347";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528461/francais_language_pack-141.0.20250707.90559.xpi";
-      sha256 = "13cb1b2c805516c9c45737e2562c4ee6c51eafa61211464de2cff650b512e0a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4528991/francais_language_pack-140.0.20250707.120347.xpi";
+      sha256 = "751a324be5cbe0c8b5378471873a3d8aa08aa2071b617919e32408ae6df12833";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3800,10 +3800,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "141.0.20250707.90559";
+      version = "140.0.20250707.120347";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528450/gaidhlig_language_pack-141.0.20250707.90559.xpi";
-      sha256 = "ed71e445b6e2a543c67af6bc5353a2c61b9f82452be35b595328b3ea9f3cb493";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4529015/gaidhlig_language_pack-140.0.20250707.120347.xpi";
+      sha256 = "e8e28a68f8601add28d5d97b376bcf9ff92b9d56dc24bb719fca6aedc7756178";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8746,10 +8746,10 @@
     };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "2.0.5";
+      version = "2.0.9";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472856/old_reddit_redirect-2.0.5.xpi";
-      sha256 = "8b67dfe22d2a7dedddc362a0fb14f90176d7afdc7386e17131a17c831eecf3ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526031/old_reddit_redirect-2.0.9.xpi";
+      sha256 = "91e7554b85b79201f72c175f6e5f6f493b3330ee833b8289fb6417d991add50a";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -10724,15 +10724,24 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.1.0";
+      version = "1.10.3";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4433666/rsshub_radar-2.1.0.xpi";
-      sha256 = "2a373e95677e5252f9819e636d955b1ad81e593ac638dbd7db317c4f2889b5b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197124/rsshub_radar-1.10.3.xpi";
+      sha256 = "66a2aec4f67e27dd6a4a768ee8e87b3b321bac5385e3241b1664b95aae25077d";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
         description = "Easily find and subscribe to RSS and RSSHub.";
-        mozPermissions = [ "storage" "tabs" "offscreen" "alarms" "<all_urls>" ];
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "storage"
+          "notifications"
+          "alarms"
+          "idle"
+          "https://*/*"
+          "http://*/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10873,10 +10882,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "141.0.20250707.90559";
+      version = "140.0.20250707.120347";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528474/scots_language_pack-141.0.20250707.90559.xpi";
-      sha256 = "21bbf4453ae084aa93ddbc5663d2eda1dcc80e76b566f20567127d362270af54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4528994/scots_language_pack-140.0.20250707.120347.xpi";
+      sha256 = "0953398dbaa9038a03897af865b15eb42c575a7279a4c690d4104dce63247d31";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
