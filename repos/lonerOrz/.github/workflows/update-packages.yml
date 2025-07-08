@@ -71,7 +71,7 @@ jobs:
           gh pr create \
             --title "Chore: auto update custom packages - $DATE" \
             --body "This PR was created automatically by GitHub Actions." \
-            --base main \
+            --base master \
             --head auto/update-custom-packages-${{ github.run_id }}
 
           gh pr edit auto/update-custom-packages-${{ github.run_id }} \
