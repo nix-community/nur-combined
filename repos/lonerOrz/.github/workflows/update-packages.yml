@@ -79,3 +79,9 @@ jobs:
             --add-label github_actions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: empy commit
+        run: |
+          git commit --allow-empty -m "chore: trigger workflow" && git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
