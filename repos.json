@@ -303,11 +303,6 @@
         "codgician": {
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "file": "integrations/nur/default.nix",
-            "type": "gitea",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "url": "https://github.com/TheColorman/nurpkgs"
         },
