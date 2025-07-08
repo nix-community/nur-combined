@@ -19,7 +19,11 @@
   jq,
   makeWrapper,
   writableTmpDirAsHomeHook,
+  makeDesktopItem,
 }:
+let
+  gappsWrapper = lib.optionalString stdenv.hostPlatform.isLinux "''\${gappsWrapperArgs[@]}";
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bongocat";
   version = "0.6.1";
@@ -76,29 +80,29 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pnpm run build:vite
   '';
 
+  desktopItem = makeDesktopItem {
+    name = "${finalAttrs.pname}";
+    exec = "bongocat";
+    icon = "bongocat";
+    desktopName = "BongoCat";
+    comment = "Desktop mascot app featuring animated cat drummer";
+    categories = [ "Utility" ];
+  };
+
   installPhase = ''
     runHook preInstall
 
     install -Dm755 target/${stdenv.hostPlatform.config}/release/bongo-cat $out/libexec/bongocat
     install -Dm644 src-tauri/icons/32x32.png $out/share/icons/hicolor/32x32/apps/bongocat.png
 
-    cp src-tauri/BongoCat.desktop BongoCat.desktop
-    substituteInPlace BongoCat.desktop \
-      --replace '{{{name}}}' "BongoCat" \
-      --replace '{{{exec}}}' "$out/bin/bongocat" \
-      --replace '{{{icon}}}' "$out/share/icons/hicolor/32x32/apps/bongocat.png" \
-      --replace '{{{categories}}}' "Utility;" \
-      --replace '{{{comment}}}' "Desktop mascot app featuring animated cat drummer"
-
-    install -Dm644 BongoCat.desktop $out/share/applications/BongoCat.desktop
-
-    mkdir -p $out/dist
-    cp -r dist/* $out/dist/
+    mkdir -p $out/share/applications
+    cp -v ${finalAttrs.desktopItem}/share/applications/* $out/share/applications/
 
     mkdir -p $out/usr/lib/BongoCat/assets
     cp -r src-tauri/assets/* $out/usr/lib/BongoCat/assets/
 
     makeWrapper $out/libexec/bongocat $out/bin/bongocat \
+      ${gappsWrapper} \
       --set APPDIR $out \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libayatana-appindicator ]}
 
@@ -111,8 +115,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Desktop mascot app featuring animated cat drummer";
     homepage = "https://github.com/ayangweb/BongoCat";
     mainProgram = "bongocat";
-    binaryNativeCode = true;
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
+    binaryNativeCode = true;
   };
 })
