@@ -1,3 +1,13 @@
+[algermusicplayer-arm]
+fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$ver/AlgerMusicPlayer-$ver-linux-arm64.AppImage"
+src.github = "algerkong/AlgerMusicPlayer"
+src.prefix = "v"
+
+[algermusicplayer-x86]
+fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$ver/AlgerMusicPlayer-$ver-linux-x86_64.AppImage"
+src.github = "algerkong/AlgerMusicPlayer"
+src.prefix = "v"
+
 [danmakufactory]
 fetch.github = "hihkm/DanmakuFactory"
 src.github = "hihkm/DanmakuFactory"

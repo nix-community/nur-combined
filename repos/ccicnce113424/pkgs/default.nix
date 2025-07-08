@@ -8,6 +8,8 @@ let
   unstableVersion = src: "0-unstable-${src.date}";
 in
 rec {
+  algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
+
   danmakufactory = pkgs.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;

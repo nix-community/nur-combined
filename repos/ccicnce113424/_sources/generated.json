@@ -1,4 +1,34 @@
 {
+  "algermusicplayer-arm": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "algermusicplayer-arm",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-V+pCKDC1cCD7wxuQ9wRYFVfVg2Ltevawkgo6dk9jIDE=",
+      "type": "url",
+      "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.8.2/AlgerMusicPlayer-4.8.2-linux-arm64.AppImage"
+    },
+    "version": "4.8.2"
+  },
+  "algermusicplayer-x86": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "algermusicplayer-x86",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-T0G/jc3foW3a/opUKybU4HkGKqPEkxNy8JppC8bwyR4=",
+      "type": "url",
+      "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.8.2/AlgerMusicPlayer-4.8.2-linux-x86_64.AppImage"
+    },
+    "version": "4.8.2"
+  },
   "danmakufactory": {
     "cargoLocks": null,
     "date": null,
