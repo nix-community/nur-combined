@@ -4,9 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    systems.url = "github:nix-systems/default-linux";
   };
 
   nixConfig = {
@@ -25,7 +28,7 @@
     inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       top@{
-        config,
+        lib,
         withSystem,
         moduleWithSystem,
         ...
@@ -37,22 +40,32 @@
         flake = {
           overlays = import ./overlays;
         };
-        systems = inputs.flake-utils.lib.defaultSystems;
+        systems = import inputs.systems;
         perSystem =
           {
-            config,
+            self',
             pkgs,
-            lib,
             system,
             ...
           }:
           {
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
-              config.allowUnfree = true;
+              config = {
+                allowUnfree = true;
+                allowUnsupportedSystem = true;
+              };
             };
-            packages = import ./pkgs { inherit pkgs; };
-          };
+
+            # for nix-fast-build
+            checks =
+              lib.mapAttrs' (name: value: lib.nameValuePair "package-${name}" value)
+                (import ./ci.nix {
+                  inherit pkgs;
+                  nurPkgs = self'.packages;
+                }).cachePackages;
+          }
+          // import ./pkgs.nix { inherit pkgs; };
       }
     );
 }

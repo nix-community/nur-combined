@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
   schedule:
     - cron:  '25 4 * * 6' # Every Saturday at 04:25 UTC
   workflow_dispatch:
@@ -31,9 +30,6 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - fym998-nur
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -41,31 +37,21 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
-          experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v16
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          accept-flake-config = true
+    - name: Show flake metadata
+      run: nix flake metadata --json
     - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+      run: nix eval .#checks --json
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      env:
+        CACHIX_AUTH_TOKEN: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      run: |
+        nix run nixpkgs#nix-fast-build -- \
+        --no-nom \
+        --skip-cached \
+        --cachix-cache ${{ matrix.cachixName }}
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}

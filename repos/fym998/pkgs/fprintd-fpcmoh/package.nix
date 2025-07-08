@@ -2,7 +2,6 @@
   pkgs,
   fprintd,
   fprintd-1_94_4 ? fprintd.overrideAttrs (finalAttrs: {
-    pname = "fprintd-fpcmoh";
     version = "1.94.4";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
@@ -14,4 +13,10 @@
   }),
   libfprint-fpcmoh,
 }:
-fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }
+(fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }).overrideAttrs (finalAttrs: {
+  pname = "fprintd-fpcmoh";
+  meta = {
+    description = "Fingerprint daemon for FPC match on host device";
+    inherit (libfprint-fpcmoh.meta) platforms;
+  };
+})

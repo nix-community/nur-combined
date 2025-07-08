@@ -7,9 +7,8 @@
 #     nix-build -A mypackage
 {
   pkgs ? import <nixpkgs> { },
-  ...
 }:
-import ./pkgs { inherit pkgs; }
+(import ./pkgs.nix { inherit pkgs; }).legacyPackages
 // {
   overlays = import ./overlays;
 }
