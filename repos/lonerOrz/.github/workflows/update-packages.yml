@@ -69,8 +69,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }} # 使用你自己配置的 PAT
         run: |
-          gh auth login --with-token <<< "$GH_TOKEN"  # 登录
-
           DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
           gh pr create \
