@@ -171,8 +171,8 @@
       "description": {
         "path": ".",
         "ref": "master",
-        "resolved-ref": "4d28c7d6dad6c099a44058527ddc65405a94b4d0",
-        "url": "https://github.com/orz12/auto_orientation.git"
+        "resolved-ref": "ca2bb137bd0e4b221df3bc5ba1492d2902c78624",
+        "url": "https://github.com/bggRGjQaUbCoE/auto_orientation.git"
       },
       "source": "git",
       "version": "2.3.1"
@@ -353,11 +353,11 @@
       "description": {
         "path": "packages/chat_bottom_container",
         "ref": "main",
-        "resolved-ref": "475331343d9ae041807d0d862a88fb1d2b7a64a1",
-        "url": "https://github.com/pye52/flutter_chat_packages.git"
+        "resolved-ref": "acccababf698ef1712031c383ea4b7ff54ae630c",
+        "url": "https://github.com/bggRGjQaUbCoE/flutter_chat_packages.git"
       },
       "source": "git",
-      "version": "0.3.0"
+      "version": "0.3.2"
     },
     "checked_yaml": {
       "dependency": "transitive",
@@ -1702,11 +1702,11 @@
       "dependency": "direct main",
       "description": {
         "name": "permission_handler",
-        "sha256": "2d070d8684b68efb580a5997eb62f675e8a885ef0be6e754fb9ef489c177470f",
+        "sha256": "bc917da36261b00137bbc8896bf1482169cd76f866282368948f032c8c1caae1",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "12.0.0+1"
+      "version": "12.0.1"
     },
     "permission_handler_android": {
       "dependency": "transitive",
@@ -1812,11 +1812,11 @@
       "dependency": "transitive",
       "description": {
         "name": "posix",
-        "sha256": "f0d7856b6ca1887cfa6d1d394056a296ae33489db914e365e2044fdada449e62",
+        "sha256": "6323a5b0fa688b6a010df4905a56b00181479e6d10534cecfecede2aa55add61",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "6.0.2"
+      "version": "6.0.3"
     },
     "pretty_qr_code": {
       "dependency": "direct main",
@@ -1992,11 +1992,11 @@
       "dependency": "transitive",
       "description": {
         "name": "sentry",
-        "sha256": "4aee18ffcdb6d92db3a770764fd0034b93f27ae736cf9f39855575a36c04fe91",
+        "sha256": "40583b61f5f4dc0ea7095a34c03cd71e17b43bd8866fba34972398f70806b464",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "9.1.0"
+      "version": "9.2.0"
     },
     "share_plus": {
       "dependency": "direct main",
@@ -2249,11 +2249,11 @@
       "dependency": "direct main",
       "description": {
         "name": "synchronized",
-        "sha256": "0669c70faae6270521ee4f05bffd2919892d42d1276e6c495be80174b6bc0ef6",
+        "sha256": "c254ade258ec8282947a0acbbc90b9575b4f19673533ee46f2f6e9b3aeefd7c0",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "3.3.1"
+      "version": "3.4.0"
     },
     "system_proxy": {
       "dependency": "direct main",
