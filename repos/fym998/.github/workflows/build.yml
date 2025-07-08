@@ -30,7 +30,8 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - fym998-nur
-    runs-on: ubuntu-latest
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -42,13 +43,16 @@ jobs:
           accept-flake-config = true
     - name: Show flake metadata
       run: nix flake metadata --json
+    - name: Show flake attributes
+      run: nix flake show --json
     - name: Check evaluation
-      run: nix eval .#checks --json
-    - name: Build nix packages
+      run: nix eval ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --json
+    - name: Build nix packages and populate cache
       env:
         CACHIX_AUTH_TOKEN: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       run: |
         nix run nixpkgs#nix-fast-build -- \
+        --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" \
         --no-nom \
         --skip-cached \
         --cachix-cache ${{ matrix.cachixName }}
