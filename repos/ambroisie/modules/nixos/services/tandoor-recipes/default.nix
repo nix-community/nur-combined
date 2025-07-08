@@ -26,18 +26,16 @@ in
     services.tandoor-recipes = {
       enable = true;
 
+      database = {
+        createLocally = true;
+      };
+
       port = cfg.port;
       extraConfig =
         let
           tandoorRecipesDomain = "recipes.${config.networking.domain}";
         in
         {
-          # Use PostgreSQL
-          DB_ENGINE = "django.db.backends.postgresql";
-          POSTGRES_HOST = "/run/postgresql";
-          POSTGRES_USER = "tandoor_recipes";
-          POSTGRES_DB = "tandoor_recipes";
-
           # Security settings
           ALLOWED_HOSTS = tandoorRecipesDomain;
           CSRF_TRUSTED_ORIGINS = "https://${tandoorRecipesDomain}";
@@ -49,25 +47,10 @@ in
 
     systemd.services = {
       tandoor-recipes = {
-        after = [ "postgresql.target" ];
-        requires = [ "postgresql.target" ];
-
         serviceConfig = {
           EnvironmentFile = cfg.secretKeyFile;
         };
       };
-    };
-
-    # Set-up database
-    services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "tandoor_recipes" ];
-      ensureUsers = [
-        {
-          name = "tandoor_recipes";
-          ensureDBOwnership = true;
-        }
-      ];
     };
 
     my.services.nginx.virtualHosts = {
