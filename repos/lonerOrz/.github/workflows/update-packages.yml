@@ -66,22 +66,20 @@ jobs:
 
       - name: Create Pull Request via gh
         if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }} # 使用你自己配置的 PAT
         run: |
+          gh auth login --with-token <<< "$GH_TOKEN"  # 登录
+
           DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
           gh pr create \
             --title "Chore: auto update custom packages - $DATE" \
             --body "This PR was created automatically by GitHub Actions." \
             --base master \
             --head auto/update-custom-packages-${{ github.run_id }}
 
-          gh pr edit auto/update-custom-packages-${{ github.run_id }} \
+          PR_URL=$(gh pr view --json url -q .url)
+          gh pr edit "$PR_URL" \
             --add-label auto_update_custom_package \
             --add-label github_actions
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: empy commit
-        run: |
-          git commit --allow-empty -m "chore: trigger workflow" && git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
