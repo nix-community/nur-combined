@@ -20,6 +20,7 @@
   makeWrapper,
   writableTmpDirAsHomeHook,
   makeDesktopItem,
+  copyDesktopItems,
 }:
 let
   gappsWrapper = lib.optionalString stdenv.hostPlatform.isLinux "''\${gappsWrapperArgs[@]}";
@@ -54,6 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       jq
       makeWrapper
       writableTmpDirAsHomeHook
+      copyDesktopItems
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       wrapGAppsHook3
@@ -80,23 +82,22 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pnpm run build:vite
   '';
 
-  desktopItem = makeDesktopItem {
-    name = "${finalAttrs.pname}";
-    exec = "bongocat";
-    icon = "bongocat";
-    desktopName = "BongoCat";
-    comment = "Desktop mascot app featuring animated cat drummer";
-    categories = [ "Utility" ];
-  };
+  desktopItems = [
+    (makeDesktopItem {
+      name = "${finalAttrs.pname}";
+      exec = "bongocat";
+      icon = "bongocat";
+      desktopName = "BongoCat";
+      comment = "Desktop mascot app featuring animated cat drummer";
+      categories = [ "Utility" ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall
 
     install -Dm755 target/${stdenv.hostPlatform.config}/release/bongo-cat $out/libexec/bongocat
     install -Dm644 src-tauri/icons/32x32.png $out/share/icons/hicolor/32x32/apps/bongocat.png
-
-    mkdir -p $out/share/applications
-    cp -v ${finalAttrs.desktopItem}/share/applications/* $out/share/applications/
 
     mkdir -p $out/usr/lib/BongoCat/assets
     cp -r src-tauri/assets/* $out/usr/lib/BongoCat/assets/
