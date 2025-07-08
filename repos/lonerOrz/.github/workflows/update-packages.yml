@@ -77,7 +77,6 @@ jobs:
             --base master \
             --head auto/update-custom-packages-${{ github.run_id }}
 
-          PR_URL=$(gh pr view --json url -q .url)
-          gh pr edit "$PR_URL" \
+          gh pr edit auto/update-custom-packages-${{ github.run_id }} \
             --add-label auto_update_custom_package \
             --add-label github_actions
