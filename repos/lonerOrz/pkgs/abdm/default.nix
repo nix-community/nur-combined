@@ -24,11 +24,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "abdownloadmanager-bin";
-  version = "1.6.4";
+  version = "1.6.6";
 
   src = fetchurl {
     url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/ABDownloadManager_${finalAttrs.version}_linux_x64.tar.gz";
-    sha256 = "sha256-nyYs70Y+uorjpmK20pxIvMj9iTDHItbHN2F/tIEd4os=";
+    sha256 = "sha256-dtuQVbsfxyi7sopf0gUXMKR8uIdT63sxbph6qMU4K/o=";
   };
 
   nativeBuildInputs = [makeWrapper jdk];
