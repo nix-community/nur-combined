@@ -30,7 +30,8 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - fym998-nur
-    runs-on: ubuntu-latest
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -40,6 +41,8 @@ jobs:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           accept-flake-config = true
+    - name: Show current system
+      run: nix eval --raw --impure --expr builtins.currentSystem
     - name: Show flake metadata
       run: nix flake metadata --json
     - name: Show flake attributes
