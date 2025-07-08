@@ -20,6 +20,8 @@ buildPythonPackage rec {
     onnxruntime
   ];
 
+  pythonRelaxDeps = [ "piper-phonemize" ];
+
   # onnxruntime may fail to start on ARM64
   pythonImportsCheck = lib.optionals stdenv.isx86_64 [ "piper" ];
 
