@@ -20,6 +20,8 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
+  patches = [ ./remove-qemu-runner.patch ];
+
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
