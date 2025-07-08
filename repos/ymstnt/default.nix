@@ -18,6 +18,7 @@
   deepdwn = pkgs.callPackage ./pkgs/deepdwn { };
   lifeograph = pkgs.callPackage ./pkgs/lifeograph { };
   lunatask = pkgs.callPackage ./pkgs/lunatask { };
+  minecraft-console-client = pkgs.callPackage ./pkgs/minecraft-console-client { };
   surf = pkgs.callPackage ./pkgs/surf { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

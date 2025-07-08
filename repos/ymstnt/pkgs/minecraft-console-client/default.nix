@@ -25,10 +25,10 @@ buildDotnetModule rec {
   dotnetFlags = [ "-p:RuntimeFrameworkVersion=${dotnet-runtime.version}" ];
 
   meta = {
-    mainProgram = "Minecraft-Console-Client";
+    mainProgram = "MinecraftClient";
     description = "Lightweight console for Minecraft chat and automated scripts";
     homepage = "https://github.com/milutinke/Minecraft-Console-Client";
-    license = lib.licenses.CDDL-1.0;
+    license = lib.licenses.cddl;
   };
 }
 
