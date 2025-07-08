@@ -29,6 +29,7 @@ let
   execApp = lib.concatMapStringsSep " " (i: ''"${i}"'');
 
 in
+# kdl
 ''
   input {
       keyboard {
