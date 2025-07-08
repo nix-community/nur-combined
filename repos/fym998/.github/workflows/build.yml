@@ -39,6 +39,8 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
+            substituters = https://fym998-nur.cachix.org https://pre-commit-hooks.cachix.org https://cache.nixos.org/
+            trusted-public-keys = pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc= fym998-nur.cachix.org-1:lWwztkEXGJsiJHh/5FbA2u95AxJu8/k4udgGqdFLhOU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
       - name: Show nix info
         run: nix --debug --version
