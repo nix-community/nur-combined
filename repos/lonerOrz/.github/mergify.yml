@@ -1,0 +1,22 @@
+pull_request_rules:
+  # for dependabot
+  - name: Auto merge dependabot updates
+    conditions:
+      - and:
+          - author=dependabot[bot]
+          - label=dependencies
+          - label=github_actions
+    actions:
+      update:
+      merge:
+        method: squash
+  # for auto update custom package
+  - name: Auto merge custom package updates
+    conditions:
+      - "title~=^Chore: auto update custom package.*"
+      - label=auto_update_custom_package
+      - label=github_actions
+      - check-success=Build and populate cache
+    actions:
+      merge:
+        method: squash

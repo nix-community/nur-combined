@@ -1,0 +1,80 @@
+name: update custom packages
+
+on:
+  schedule:
+    - cron: "0 20 * * *" # UTC
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Optional: Specific package to update (e.g., mpv-handler)"
+        required: false
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install nix-update environment
+        run: |
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+          nix-channel --update
+          nix-env -iA nixpkgs.nix-update nixpkgs.nix-prefetch-git nixpkgs.jq
+
+      - name: new branch
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+
+          git checkout -b auto/update-custom-packages-${{ github.run_id }}
+
+      - name: Run update script
+        run: |
+          if [[ -n "${{ github.event.inputs.package }}" ]]; then
+            python3 .github/script/update.py --package ${{ github.event.inputs.package }} --commit
+          else
+            python3 .github/script/update.py --commit
+          fi
+
+      - name: Commit and push changes to new branch
+        id: commit
+        run: |
+          git add pkgs/
+          if git diff --staged --quiet -- pkgs/; then
+            echo "No changes to commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Update Custom packages"
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            git push -u origin HEAD
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request via gh
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh pr create \
+            --title "Chore: auto update custom packages - $DATE" \
+            --body "This PR was created automatically by GitHub Actions." \
+            --base main \
+            --head auto/update-custom-packages-${{ github.run_id }}
+
+          gh pr edit auto/update-custom-packages-${{ github.run_id }} \
+            --add-label auto_update_custom_package \
+            --add-label github_actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

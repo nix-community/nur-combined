@@ -6,55 +6,58 @@
   formats,
   theme ? "astronaut",
   themeConfig ? null,
-}: let
-  overwriteConfig = (formats.ini {}).generate "${theme}.conf.user" themeConfig;
+}:
+let
+  overwriteConfig = (formats.ini { }).generate "${theme}.conf.user" themeConfig;
 in
-  stdenvNoCC.mkDerivation rec {
-    name = "astronaut";
-    version = "11c0bf6147bbea466ce2e2b0559e9a9abdbcc7c3";
+stdenvNoCC.mkDerivation rec {
+  name = "astronaut";
+  version = "11c0bf6147bbea466ce2e2b0559e9a9abdbcc7c3";
 
-    src = fetchFromGitHub {
-      owner = "Keyitdev";
-      repo = "sddm-astronaut-theme";
-      rev = version;
-      hash = "sha256-gBSz+k/qgEaIWh1Txdgwlou/Lfrfv3ABzyxYwlrLjDk=";
-    };
+  src = fetchFromGitHub {
+    owner = "Keyitdev";
+    repo = "sddm-astronaut-theme";
+    rev = version;
+    hash = "sha256-gBSz+k/qgEaIWh1Txdgwlou/Lfrfv3ABzyxYwlrLjDk=";
+  };
 
-    propagatedUserEnvPkgs = with qt6; [
-      qtsvg
-      qtvirtualkeyboard
-      qtmultimedia
-    ];
+  passthru.autoUpdate = false;
 
-    dontBuild = true;
+  propagatedUserEnvPkgs = with qt6; [
+    qtsvg
+    qtvirtualkeyboard
+    qtmultimedia
+  ];
 
-    dontWrapQtApps = true;
+  dontBuild = true;
 
-    installPhase = ''
-      themeDir="$out/share/sddm/themes/${name}"
+  dontWrapQtApps = true;
 
-      mkdir -p $themeDir
-      cp -r $src/* $themeDir
+  installPhase = ''
+    themeDir="$out/share/sddm/themes/${name}"
 
-      install -dm755 "$out/share/fonts"
-      cp -r $themeDir/Fonts/* $out/share/fonts/
+    mkdir -p $themeDir
+    cp -r $src/* $themeDir
 
-      # Update metadata.desktop to load the chosen theme.
-      substituteInPlace "$themeDir/metadata.desktop" \
-        --replace-fail "ConfigFile=Themes/astronaut.conf" "ConfigFile=Themes/${theme}.conf"
+    install -dm755 "$out/share/fonts"
+    cp -r $themeDir/Fonts/* $out/share/fonts/
 
-      # Create theme.conf.user of the selected theme. To overwrite its configuration.
-      ${lib.optionalString (lib.isAttrs themeConfig) ''
-        install -dm755 "$themeDir/Themes"
-        cp ${overwriteConfig} $themeDir/Themes/${theme}.conf.user
-      ''}
-    '';
+    # Update metadata.desktop to load the chosen theme.
+    substituteInPlace "$themeDir/metadata.desktop" \
+      --replace-fail "ConfigFile=Themes/astronaut.conf" "ConfigFile=Themes/${theme}.conf"
 
-    meta = {
-      description = "Series of modern looking themes for SDDM";
-      homepage = "https://github.com/Keyitdev/sddm-astronaut-theme";
-      license = lib.licenses.gpl3;
-      platforms = lib.platforms.linux;
-      binaryNativeCode = false;
-    };
-  }
+    # Create theme.conf.user of the selected theme. To overwrite its configuration.
+    ${lib.optionalString (lib.isAttrs themeConfig) ''
+      install -dm755 "$themeDir/Themes"
+      cp ${overwriteConfig} $themeDir/Themes/${theme}.conf.user
+    ''}
+  '';
+
+  meta = {
+    description = "Series of modern looking themes for SDDM";
+    homepage = "https://github.com/Keyitdev/sddm-astronaut-theme";
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.linux;
+    binaryNativeCode = false;
+  };
+}

@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-gRfyhvneHlf0VRZ22PCrPi6ZBER0S1lffMTLngH1HHw=";
   };
 
+  passthru.autoUpdate = false;
+
   nativeBuildInputs = [
     jdk
     makeWrapper
@@ -40,7 +42,12 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,share/java/xdman}
     cp $src $out/share/java/xdman/xdman.jar
 
-    path=${lib.makeBinPath [ffmpeg yt-dlp]}
+    path=${
+      lib.makeBinPath [
+        ffmpeg
+        yt-dlp
+      ]
+    }
 
     makeWrapper ${jdk}/bin/java $out/bin/xdman \
       --set JAVA_HOME ${jdk.home} \

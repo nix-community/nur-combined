@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-FrE1PSRc7GTNUum05jNgKnzpDUc3FiS5CEM18It0lYY=";
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     mkdir -p $out/share/applications
@@ -29,7 +29,12 @@ rustPlatform.buildRustPackage rec {
     cp ${src}/share/linux/config.toml $out/share/
 
     wrapProgram $out/bin/mpv-handler \
-      --prefix PATH : ${lib.makeBinPath [mpv yt-dlp]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          mpv
+          yt-dlp
+        ]
+      }
   '';
 
   meta = {
