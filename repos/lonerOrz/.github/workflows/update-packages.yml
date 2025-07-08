@@ -53,6 +53,7 @@ jobs:
         id: commit
         run: |
           git add pkgs/
+          git status
           if git diff --staged --quiet -- pkgs/; then
             echo "No changes to commit"
             echo "changed=false" >> "$GITHUB_OUTPUT"
