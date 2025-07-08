@@ -3,6 +3,7 @@
   sources,
   buildPythonPackage,
   stdenv,
+  setuptools,
   # Dependencies
   editdistance,
   hydra-core,
@@ -30,6 +31,9 @@
 }:
 buildPythonPackage rec {
   inherit (sources.funasr) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     editdistance

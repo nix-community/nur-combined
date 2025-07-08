@@ -2,12 +2,16 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   torch,
   packaging,
 }:
 buildPythonPackage rec {
   inherit (sources.torch-complex) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     torch

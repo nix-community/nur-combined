@@ -9,6 +9,7 @@
 }:
 buildPythonPackage rec {
   inherit (sources.download-kit) pname version src;
+  pyproject = true;
 
   build-system = [ setuptools ];
   dependencies = [

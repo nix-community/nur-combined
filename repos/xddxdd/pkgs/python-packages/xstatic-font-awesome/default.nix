@@ -2,9 +2,13 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.xstatic-font-awesome) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   pythonImportsCheck = [ "xstatic.pkg.font_awesome" ];
 

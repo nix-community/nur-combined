@@ -8,6 +8,7 @@
 }:
 buildPythonPackage rec {
   inherit (sources.data-recorder) pname version src;
+  pyproject = true;
 
   build-system = [ setuptools ];
   dependencies = [

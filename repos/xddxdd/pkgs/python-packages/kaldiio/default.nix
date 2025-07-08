@@ -2,11 +2,15 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   numpy,
 }:
 buildPythonPackage rec {
   inherit (sources.kaldiio) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy

@@ -2,9 +2,13 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.xstatic-asciinema-player) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   pythonImportsCheck = [ "xstatic.pkg.asciinema_player" ];
 

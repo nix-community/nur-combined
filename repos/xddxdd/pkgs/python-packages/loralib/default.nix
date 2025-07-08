@@ -2,11 +2,15 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   torch,
 }:
 buildPythonPackage rec {
   inherit (sources.loralib) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     torch

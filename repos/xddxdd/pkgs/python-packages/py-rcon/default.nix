@@ -2,11 +2,15 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   tkinter,
 }:
 buildPythonPackage rec {
   inherit (sources.py-rcon) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [ tkinter ];
 

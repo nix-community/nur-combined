@@ -8,6 +8,7 @@
 }:
 buildPythonPackage rec {
   inherit (sources.pysctp) pname version src;
+  pyproject = true;
 
   build-system = [ setuptools ];
   buildInputs = [

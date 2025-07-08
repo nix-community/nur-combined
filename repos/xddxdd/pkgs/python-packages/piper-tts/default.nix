@@ -3,6 +3,7 @@
   piper-tts-native,
   lib,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   piper-phonemize,
   onnxruntime,
@@ -10,6 +11,9 @@
 buildPythonPackage rec {
   inherit (piper-tts-native) pname version src;
   sourceRoot = "source/src/python_run";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     piper-phonemize

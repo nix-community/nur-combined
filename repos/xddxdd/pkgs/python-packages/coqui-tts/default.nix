@@ -2,6 +2,7 @@
   sources,
   lib,
   buildPythonPackage,
+  setuptools,
   numpy,
   cython,
   scipy,
@@ -44,6 +45,9 @@
 }:
 buildPythonPackage rec {
   inherit (sources.coqui-tts) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # From requirements.txt
   propagatedBuildInputs = [

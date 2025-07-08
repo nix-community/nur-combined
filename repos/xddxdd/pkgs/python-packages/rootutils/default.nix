@@ -2,11 +2,15 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   python-dotenv,
 }:
 buildPythonPackage rec {
   inherit (sources.rootutils) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     python-dotenv

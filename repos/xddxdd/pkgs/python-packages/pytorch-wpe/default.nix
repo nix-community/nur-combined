@@ -2,6 +2,7 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   numpy,
   torch,
@@ -9,6 +10,9 @@
 }:
 buildPythonPackage rec {
   inherit (sources.pytorch-wpe) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy

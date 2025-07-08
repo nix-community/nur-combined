@@ -2,12 +2,16 @@
   sources,
   lib,
   buildPythonPackage,
+  setuptools,
   # Dependencies
   httpx,
 }:
 
 buildPythonPackage {
   inherit (sources.xue) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [ httpx ];
 

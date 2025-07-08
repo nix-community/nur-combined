@@ -2,9 +2,13 @@
   lib,
   sources,
   buildPythonPackage,
+  setuptools,
 }:
 buildPythonPackage rec {
   inherit (sources.opencc-python-reimplemented) pname version src;
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   pythonImportsCheck = [ "opencc" ];
 
