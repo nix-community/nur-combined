@@ -63,6 +63,7 @@
                 (import ./ci.nix {
                   inherit pkgs;
                   nurPkgs = self'.packages;
+                  currentSystem = system;
                 }).cachePackages;
           }
           // import ./pkgs.nix { inherit pkgs; };

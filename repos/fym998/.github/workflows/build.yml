@@ -41,8 +41,8 @@ jobs:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           accept-flake-config = true
-    - name: Show current system
-      run: nix eval --raw --impure --expr builtins.currentSystem
+    - name: Show nix info
+      run: nix --debug --version
     - name: Show flake metadata
       run: nix flake metadata --json
     - name: Show flake attributes

@@ -13,6 +13,7 @@
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
   nurPkgs ? (import ./pkgs.nix { inherit pkgs; }).packages,
+  currentSystem ? builtins.currentSystem,
 }:
 
 let
@@ -24,8 +25,9 @@ let
     in
     !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
+  isSupported = p: lib.elem currentSystem (p.meta.platforms or [ ]);
 
 in
 {
-  cachePackages = lib.filterAttrs (name: p: isBuildable p && isCacheable p) nurPkgs;
+  cachePackages = lib.filterAttrs (name: p: isBuildable p && isCacheable p && isSupported p) nurPkgs;
 }
