@@ -13,10 +13,12 @@
   }),
   libfprint-fpcmoh,
 }:
-(fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }).overrideAttrs (finalAttrs: {
-  pname = "fprintd-fpcmoh";
-  meta = {
-    description = "Fingerprint daemon for FPC match on host device";
-    inherit (libfprint-fpcmoh.meta) platforms;
-  };
-})
+(fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }).overrideAttrs (
+  finalAttrs: previousAttrs: {
+    pname = "fprintd-fpcmoh";
+    meta = previousAttrs.meta // {
+      description = "Fingerprint daemon for FPC match on host device";
+      inherit (libfprint-fpcmoh.meta) platforms;
+    };
+  }
+)
