@@ -64,6 +64,7 @@ export def d [
     $nodes | each {|per|
       let per_node_addr = do $get_addr $per;
       let user = do $get_user $per;
+      log info $"deploy ($per) @ ($per_node_addr)"
 
       nixos-rebuild $mode --flake . --target-host $'($user)@($per_node_addr)' --sudo ...($extra_builder_args)
     
