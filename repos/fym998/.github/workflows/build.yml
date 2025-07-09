@@ -9,22 +9,47 @@ on:
     - cron: "25 4 * * 6" # Every Saturday at 04:25 UTC
   workflow_dispatch:
 
+env:
+  cachixName: fym998-nur
+  nurRepo: fym998
+
 jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            accept-flake-config = true
+            substituters = https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - uses: cachix/cachix-action@v16
+        with:
+          name: ${{ env.cachixName }}
+          extraPullNames: pre-commit-hooks,nix-community
+
+      - name: Show nix info
+        run: nix --debug --version
+
+      - name: Show flake metadata
+        run: nix flake metadata --json
+
+      - name: Show flake attributes
+        run: nix flake show --all-systems --json
+
+      - name: Check evaluation
+        run: nix eval .#checks --json
+
   build-and-cache-packages:
+    needs: evaluate
     strategy:
       matrix:
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - fym998-nur
         runner:
           - ubuntu-latest
           - ubuntu-24.04-arm
@@ -39,20 +64,16 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
-            substituters = https://fym998-nur.cachix.org https://pre-commit-hooks.cachix.org https://nix-community.cachix.org https://cache.nixos.org/
-            trusted-public-keys = pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc= fym998-nur.cachix.org-1:lWwztkEXGJsiJHh/5FbA2u95AxJu8/k4udgGqdFLhOU= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            substituters = https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - uses: cachix/cachix-action@v16
+        with:
+          name: ${{ env.cachixName }}
+          extraPullNames: pre-commit-hooks,nix-community
 
       - name: Show nix info
         run: nix --debug --version
-
-      - name: Show flake metadata
-        run: nix flake metadata --json
-
-      - name: Show flake attributes
-        run: nix flake show --json
-
-      - name: Check evaluation
-        run: nix eval ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --json
 
       - name: Build and cache packages
         env:
@@ -62,21 +83,12 @@ jobs:
           --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" \
           --no-nom \
           --skip-cached \
-          --cachix-cache ${{ matrix.cachixName }}
+          --cachix-cache ${{ env.cachixName }}
 
   trigger-nur-update:
     needs: build-and-cache-packages
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - fym998
     steps:
       - name: Trigger NUR update
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        if: ${{ env.nurRepo != '<YOUR_REPO_NAME>' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.nurRepo }}"
