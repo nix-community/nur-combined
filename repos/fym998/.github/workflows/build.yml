@@ -50,7 +50,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: eval_result.json
-          key: eval_result
+          key: eval_result-${{ github.sha }}
+          restore-keys: |
+            eval_result-
 
       - name: Compare evaluation results
         id: compare
@@ -78,7 +80,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: eval_result.json
-          key: eval_result
+          key: eval_result-${{ github.sha }}
+          restore-keys: |
+            eval_result-
 
   build-and-cache-packages:
     needs: check-eval-change
