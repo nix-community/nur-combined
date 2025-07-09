@@ -13,9 +13,9 @@
       formatter = devPartitionName;
     };
   partitions.dev = {
-    extraInputsFlake = ./.;
+    extraInputsFlake = ../../dev;
     module = {
-      imports = [ ./partition-module.nix ];
+      imports = [ ../../dev/partition-module.nix ];
     };
   };
 }
