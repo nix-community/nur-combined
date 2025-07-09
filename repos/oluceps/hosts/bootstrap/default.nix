@@ -32,8 +32,9 @@ withSystem "x86_64-linux" (
     };
     modules = [
       ./configuration.nix
-      ./UEFI
-      # ./BIOS
+      # ./UEFI
+      ./BIOS
+      ./network.nix
       inputs.disko.nixosModules.disko
       {
         nixpkgs = {

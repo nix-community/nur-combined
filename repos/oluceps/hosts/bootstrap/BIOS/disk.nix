@@ -34,6 +34,15 @@
                         "noatime"
                       ];
                     };
+                    "root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "nodev"
+                        "nosuid"
+                      ];
+                    };
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
@@ -66,15 +75,15 @@
           };
         };
       };
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "relatime"
-          "mode=755"
-          "nosuid"
-          "nodev"
-        ];
-      };
+      # nodev."/" = {
+      #   fsType = "tmpfs";
+      #   mountOptions = [
+      #     "relatime"
+      #     "mode=755"
+      #     "nosuid"
+      #     "nodev"
+      #   ];
+      # };
     };
   };
 }

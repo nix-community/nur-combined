@@ -62,15 +62,15 @@ _: {
                         "noatime"
                       ];
                     };
-                    # "root" = {
-                    #   mountpoint = "/";
-                    #   mountOptions = [
-                    #     "compress=zstd"
-                    #     "noatime"
-                    #     "nodev"
-                    #     "nosuid"
-                    #   ];
-                    # };
+                    "root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "nodev"
+                        "nosuid"
+                      ];
+                    };
                   };
                 };
               };
@@ -79,18 +79,18 @@ _: {
         };
       };
 
-      nodev = {
-        "/" = {
-          fsType = "tmpfs";
-          mountOptions = [
-            "relatime"
-            "nosuid"
-            "nodev"
-            "size=2G"
-            "mode=755"
-          ];
-        };
-      };
+      # nodev = {
+      #   "/" = {
+      #     fsType = "tmpfs";
+      #     mountOptions = [
+      #       "relatime"
+      #       "nosuid"
+      #       "nodev"
+      #       "size=2G"
+      #       "mode=755"
+      #     ];
+      #   };
+      # };
     };
   };
 }
