@@ -61,7 +61,9 @@
     kdePackages.okular
     keepassxc
     killall
+    libreoffice
     librespeed-cli
+    localsend
     lsof
     meld
     minicom
@@ -75,7 +77,9 @@
     pciutils
     python3
     qrencode
+    remmina
     rust-petname
+    satty
     scrcpy
     scrcpy-mask
     sops

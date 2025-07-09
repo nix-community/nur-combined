@@ -16,6 +16,7 @@ in
       "audio"
       "dialout"
       "docker"
+      "libvirtd"
       "vboxusers"
       "wheel"
       config.services.syncthing.group

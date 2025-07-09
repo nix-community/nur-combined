@@ -77,7 +77,7 @@
         tooltip = false;
       };
       network = {
-        interface = "enp5s0";
+        interface = "br0";
         format-ethernet = "Ethernet: {bandwidthDownBytes:>}";
         format-disconnected = "Ethernet: Disconnected";
         format-alt = "Ethernet | Interface: {ifname} | IP: {ipaddr}/{cidr}";

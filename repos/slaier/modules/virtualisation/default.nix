@@ -1,11 +1,10 @@
 { pkgs, ... }:
 {
-  virtualisation.virtualbox.host = {
+  virtualisation.libvirtd = {
     enable = true;
-    headless = true;
+    allowedBridges = [ "br0" ];
   };
   environment.systemPackages = with pkgs; [
-    vagrant
+    virt-manager
   ];
-  environment.sessionVariables.VAGRANT_HOME = "~/.cache/.vagrant.d";
 }
