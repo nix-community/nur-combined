@@ -48,8 +48,8 @@ jobs:
       - name: Evaluate
         id: eval
         run: |
-          nix eval .#checks --json | tee eval_result.json
-          printf eval_result=; cat eval_result.json
+          echo eval_result= >> $GITHUB_OUTPUT
+          nix eval .#checks --json | tee -a eval_result.json
 
   check-eval-change:
     runs-on: ubuntu-latest
