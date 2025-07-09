@@ -41,6 +41,8 @@
     subs.enable = true;
   };
   services = {
+    udev.enable = false;
+    lvm.enable = false;
     metrics.enable = true;
     coturn = {
       enable = true;
@@ -49,22 +51,6 @@
       realm = config.networking.fqdn;
     };
 
-    realm = {
-      enable = true;
-      settings = {
-        log.level = "warn";
-        network = {
-          no_tcp = false;
-          use_udp = true;
-        };
-        endpoints = [
-          {
-            listen = "[::]:8776";
-            remote = "[fdcc::3]:8776";
-          }
-        ];
-      };
-    };
     # factorio-manager = {
     #   enable = true;
     #   factorioPackage = pkgs.factorio-headless-experimental.override {

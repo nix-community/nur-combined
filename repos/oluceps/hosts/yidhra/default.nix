@@ -38,6 +38,8 @@ withSystem "x86_64-linux" (
           overlays = lib.hostOverlays { inherit inputs inputs'; };
         };
       }
+      (inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
+      (inputs.nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
 
       ./disk.nix
       ./caddy.nix
