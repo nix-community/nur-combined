@@ -27,7 +27,7 @@
   outputs =
     inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
+      {
         lib,
         withSystem,
         moduleWithSystem,
