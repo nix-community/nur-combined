@@ -16,6 +16,8 @@ env:
 jobs:
   evaluate:
     runs-on: ubuntu-latest
+    outputs:
+      eval_result: ${{ steps.eval.outputs.eval_result }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,11 +45,53 @@ jobs:
       - name: Show flake attributes
         run: nix flake show --all-systems --json
 
-      - name: Check evaluation
-        run: nix eval .#checks --json
+      - name: Evaluate
+        id: eval
+        run: |
+          nix eval .#checks --json | tee eval_result.json
+          printf eval_result=; cat eval_result.json
+
+  check-eval-change:
+    runs-on: ubuntu-latest
+    needs: evaluate
+    outputs:
+      changed: ${{ steps.compare.outputs.changed }}
+    steps:
+      - name: Restore previous eval result
+        id: cache_restore
+        uses: actions/cache@v4
+        with:
+          path: eval_result.json
+          key: eval_result
+
+      - name: Compare evaluation results
+        id: compare
+        run: |
+          CURRENT_RESULT="${{ needs.evaluate.outputs.eval_result }}"
+
+          if [ -f eval_result.json ]; then
+            PREV_RESULT=$(cat eval_result.json)
+          else
+            PREV_RESULT=""
+          fi
+
+          if [ "$CURRENT_RESULT" != "$PREV_RESULT" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "$CURRENT_RESULT" > eval_result.json
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Save new eval result
+        if: steps.compare.outputs.changed == 'true'
+        uses: actions/cache@v4
+        with:
+          path: eval_result.json
+          key: eval_result
 
   build-and-cache-packages:
-    needs: evaluate
+    needs: check-eval-change
+    if: ${{ needs.check-eval-change.outputs.changed == 'true' }} # 仅在评估变化时运行
     strategy:
       matrix:
         runner:
