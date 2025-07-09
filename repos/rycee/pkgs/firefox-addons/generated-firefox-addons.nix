@@ -317,10 +317,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.33";
+      version = "1.0.37";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4507203/angular_devtools-1.0.33.xpi";
-      sha256 = "e3a9f0edd6ace0de652d837098963b1a3c76196a74fdd1d04e2d7b192496f424";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4524699/angular_devtools-1.0.37.xpi";
+      sha256 = "5e2f0d7042573a0907ef65917bb581104df3291bd4635f7c5b75e239b0c47689";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -11622,16 +11622,16 @@
     };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
-      version = "1.7.16";
+      version = "1.7.17";
       addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524708/startup_bookmarks-1.7.16.xpi";
-      sha256 = "432a5057b1878ae7d1ac9ce8276d7df7b965f1686846fbd515349cbbeb576828";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4529812/startup_bookmarks-1.7.17.xpi";
+      sha256 = "cfa5da82770cf4cb5e8281f5882084c8a8c9718fee791c3df4e6cf79a00cadea";
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/webextensions/tree/main/startup-bookmarks";
         description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them";
         license = licenses.bsd2;
-        mozPermissions = [ "tabs" "bookmarks" "storage" ];
+        mozPermissions = [ "bookmarks" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -14592,10 +14592,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.6.1";
+      version = "2.7.1";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4527921/youtube_no_translation-2.6.1.xpi";
-      sha256 = "14827d749d417d54da7b525303236c461fdf3ec897b9653f03f8f193b9d310ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4529979/youtube_no_translation-2.7.1.xpi";
+      sha256 = "1ce2de496b74a61b11fe5dc57024545050aead4db3c81b99065ca79713db1aab";
       meta = with lib;
       {
         homepage = "https://youtube-no-translation.vercel.app/";
