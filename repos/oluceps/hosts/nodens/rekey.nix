@@ -1,10 +1,8 @@
-{ data, ... }:
-
+{ user, data, ... }:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
 {
-
   services.openssh.hostKeys = [
     {
       path = hostPrivKey;
@@ -12,23 +10,15 @@ in
     }
   ];
   vaultix = {
-    settings.hostPubkey = data.keys.nodensHostPubKey;
-
+    settings.hostPubkey = data.keys.yidhraHostPubKey;
     secrets = {
-      factorio-server = {
-        file = ../../sec/factorio-server.age;
-        mode = "640";
-        owner = "factorio";
-        group = "users";
-        name = "factorio-server";
+      wg-yidhra = {
+        file = ../../sec/wg-yidhra.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
       };
-      factorio-admin = {
-        file = ../../sec/factorio-admin.age;
-        mode = "640";
-        owner = "factorio";
-        group = "users";
-        name = "factorio-admin";
-      };
+
       hyst-us = {
         file = ../../sec/hyst-us.age;
         mode = "640";
@@ -36,33 +26,40 @@ in
         group = "users";
         name = "hyst-us.yaml";
       };
-      factorio-manager-bot = {
-        file = ../../sec/factorio-manager-bot.age;
-        mode = "640";
-        owner = "factorio";
-        group = "users";
-        name = "factorio-manager-bot";
-      };
-      tg-session = {
-        file = ../../sec/tg-session.age;
-        mode = "640";
-        owner = "root";
-        group = "root";
-        name = "tg-session";
-      };
-      tg-env = {
-        file = ../../sec/tg-env.age;
-        mode = "640";
-        owner = "root";
-        group = "root";
-        name = "tg-env";
-      };
 
-      wg-nodens = {
-        file = ../../sec/wg-nodens.age;
+      wgy-warp = {
+        file = ../../sec/wgy-warp.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";
+      };
+      # factorio-server = {
+      #   file = ../../sec/factorio-server.age;
+      #   mode = "640";
+      #   owner = "factorio";
+      #   group = "users";
+      #   name = "factorio-server";
+      # };
+      # factorio-admin = {
+      #   file = ../../sec/factorio-admin.age;
+      #   mode = "640";
+      #   owner = "factorio";
+      #   group = "users";
+      #   name = "factorio-admin";
+      # };
+      # factorio-manager-bot = {
+      #   file = ../../sec/factorio-manager-bot.age;
+      #   mode = "640";
+      #   owner = "factorio";
+      #   group = "users";
+      #   name = "factorio-manager-bot";
+      # };
+      subs = {
+        file = ../../sec/subs.age;
+        mode = "740";
+        owner = user;
+        group = "root";
+        name = "subs.ts";
       };
     };
   };

@@ -15,21 +15,6 @@ withSystem "x86_64-linux" (
     inherit (self) lib;
   in
   lib.nixosSystem {
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config = {
-        permittedInsecurePackages = [
-          "cinny-4.2.1"
-          "cinny-unwrapped-4.2.1"
-        ];
-        allowUnfreePredicate =
-          pkg:
-          builtins.elem (lib.getName pkg) [
-            "factorio-headless"
-          ];
-      };
-      overlays = lib.hostOverlays { inherit inputs inputs'; };
-    };
     specialArgs = {
       inherit
         lib
@@ -42,19 +27,29 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      # ../sysvars.nix
-      ./hardware.nix
+      inputs.disko.nixosModules.disko
+      {
+        nixpkgs = {
+          hostPlatform = system;
+          config = {
+            # contentAddressedByDefault = true;
+            allowUnfree = true;
+          };
+          overlays = lib.hostOverlays { inherit inputs inputs'; };
+        };
+      }
+
+      ./disk.nix
+      ./caddy.nix
+      ../persist-base.nix
+      ./boot.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ./caddy.nix
       (lib.iage "cloud")
-      ../../packages.nix
+      # ../../packages.nix
       ../../misc.nix
       ../../users.nix
-
-      inputs.factorio-manager.nixosModules.default
-      inputs.tg-online-keeper.nixosModules.default
     ];
   }
 )

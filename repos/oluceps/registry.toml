@@ -71,3 +71,15 @@ pub_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 # unique_addr = "fdcc::6/128"
 # link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
 # pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
+
+[node.nodens]
+# skywolf
+id = 5
+addr = "103.213.4.159"
+censor = false
+nat = false
+user = "elen"
+
+unique_addr = "fdcc::6/128"
+link_local_addr = "fe80::33ad:dfa0:ff11:9db1"
+pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="

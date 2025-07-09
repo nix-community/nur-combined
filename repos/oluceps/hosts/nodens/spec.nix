@@ -1,14 +1,19 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
   ...
 }:
 {
+  environment.systemPackages = with pkgs; [
+    lsof
+    wireguard-tools
+    tcpdump
+  ];
   system = {
     # server.
-
-    stateVersion = "22.11";
+    stateVersion = "25.11";
     etc.overlay.enable = true;
     etc.overlay.mutable = false;
   };
@@ -26,31 +31,25 @@
     supportedFilesystems = [ "tcp_bbr" ];
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
+
   repack = {
+    plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
-    rustypaste.enable = true;
     sing-server.enable = true;
-    dnsproxy = {
-      enable = true;
-    };
+    rustypaste.enable = true;
+    subs.enable = true;
   };
   services = {
-    # override repack
-    dnsproxy.settings = lib.mkForce {
-      bootstrap = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-      listen-addrs = [ "0.0.0.0" ];
-      listen-ports = [ 53 ];
-      upstream-mode = "parallel";
-      upstream = [
-        "1.1.1.1"
-        "8.8.8.8"
-        "https://dns.google/dns-query"
-      ];
+    metrics.enable = true;
+    srs.enable = true;
+    coturn = {
+      enable = true;
+      # static-auth-secret-file = config.vaultix.secrets.wg.path;
+      no-auth = true;
+      realm = config.networking.fqdn;
     };
+
     realm = {
       enable = true;
       settings = {
@@ -62,14 +61,11 @@
         endpoints = [
           {
             listen = "[::]:8776";
-            remote = "10.0.1.2:8776";
+            remote = "[fdcc::3]:8776";
           }
         ];
       };
     };
-    metrics.enable = true;
-    do-agent.enable = true;
-    # copilot-gpt4.enable = true;
     # factorio-manager = {
     #   enable = true;
     #   factorioPackage = pkgs.factorio-headless-experimental.override {
@@ -82,13 +78,6 @@
     #   ];
     # };
 
-    coturn = {
-      enable = true;
-      # static-auth-secret-file = config.vaultix.secrets.wg.path;
-      no-auth = true;
-      realm = config.networking.fqdn;
-    };
-
     ntfy-sh = {
       enable = true;
       settings = {
@@ -99,42 +88,32 @@
       };
     };
 
-    # juicity.instances = {
-    #   only = {
-    #     enable = true;
-    #     # credentials = [
-    #     #   "key:${config.vaultix.secrets."nyaw.key".path}"
-    #     #   "cert:${config.vaultix.secrets."nyaw.cert".path}"
-    #     # ];
-    #     serve = true;
-    #     openFirewall = 23180;
-    #     configFile = config.vaultix.secrets.juic-san.path;
-    #   };
-    # };
-
+    dnsproxy.settings = lib.mkForce {
+      bootstrap = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      listen-addrs = [ "::" ];
+      listen-ports = [ 53 ];
+      upstream-mode = "parallel";
+      upstream = [
+        "1.1.1.1"
+        "8.8.8.8"
+        "https://dns.google/dns-query"
+      ];
+    };
     hysteria.instances = {
       only = {
         enable = true;
         serve = true;
         openFirewall = 4432;
-        # credentials = [
-        #   "key:${config.vaultix.secrets."nyaw.key".path}"
-        #   "cert:${config.vaultix.secrets."nyaw.cert".path}"
-        # ];
+        credentials = [
+          "key:${config.vaultix.secrets."nyaw.key".path}"
+          "crt:${config.vaultix.secrets."nyaw.cert".path}"
+        ];
         configFile = config.vaultix.secrets.hyst-us.path;
       };
     };
-  };
-
-  programs = {
-    git.enable = true;
-    fish.enable = true;
-  };
-  zramSwap = {
-    enable = true;
-    swapDevices = 1;
-    memoryPercent = 80;
-    algorithm = "zstd";
   };
 
   systemd = {

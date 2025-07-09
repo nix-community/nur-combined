@@ -1,21 +1,16 @@
-_: {
+{ pkgs, modulesPath, ... }:
+{
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
     kernelParams = [
       "audit=0"
       "net.ifnames=0"
-
       "console=ttyS0"
       "earlyprintk=ttyS0"
       "rootdelay=300"
+      "ia32_emulation=0"
     ];
-    loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/efi";
-      };
-      systemd-boot.enable = true;
-      timeout = 3;
-    };
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
       compressor = "zstd";
       compressorArgs = [
@@ -25,10 +20,9 @@ _: {
       systemd.enable = true;
 
       kernelModules = [
-        # "hv_vmbus" # for hyper-V
-        # "hv_netvsc"
-        # "hv_utils"
-        # "hv_storvsc"
+        "hv_netvsc"
+        "hv_utils"
+        "hv_storvsc"
       ];
     };
   };
