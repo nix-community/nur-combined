@@ -75,6 +75,9 @@ jobs:
             PREV_RESULT=""
           fi
 
+          echo -e "Current Result:\n $CURRENT_RESULT"
+          echo -e "Previous Result:\n $PREV_RESULT"
+
           if [ "$CURRENT_RESULT" != "$PREV_RESULT" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "$CURRENT_RESULT" > eval_result.json
