@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "44ba9427f38b61570f08932398acae9e3cea5b9c";
+    version = "98b6e64c0b792b7839957aa4521dde35f15b9269";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "44ba9427f38b61570f08932398acae9e3cea5b9c";
-      hash = "sha256-rbiAnS9WJTTx/lPgw7UoMH6diLDkmX4JPRS7lOR9pSo=";
+      rev = "98b6e64c0b792b7839957aa4521dde35f15b9269";
+      hash = "sha256-rUWsCTRag1mm/vBSnZs/b0Lj059oc/tlkfpT8XV9i7o=";
     };
-    date = "2025-07-06";
+    date = "2025-07-08";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "5cbe7b84657ffd1d0d667b6e9278ed6e2c268f84";
+    version = "ce83553844712b9e7e9959637482b282f6c8aa8e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "5cbe7b84657ffd1d0d667b6e9278ed6e2c268f84";
-      hash = "sha256-C0wA5heae0+0R5m/WmFGD3ZIhxbqPpIytn6J8IHEnZ4=";
+      rev = "ce83553844712b9e7e9959637482b282f6c8aa8e";
+      hash = "sha256-6N+nUyEDXmfwGLUmSsfnWMrR3lSn1LAmUpSksV9xJA4=";
     };
-    date = "2025-07-08";
+    date = "2025-07-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5844";
+    version = "b5853";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5844";
-      hash = "sha256-3C8AYd4SbVBLP854LjSssT9RHF8AH5y4VkaJ373OhRc=";
+      tag = "b5853";
+      hash = "sha256-otXsyHvbW4tugXSBBIJTs/E1Tx5Htuz1mr2VzS1x8oI=";
     };
   };
   loralib = {
@@ -1124,12 +1124,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.27.1";
+    version = "v1.28.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.27.1";
-      hash = "sha256-eaW32++Y9nQEesiW3jrraKjeLlcg1pU0aBFsESlkjC4=";
+      tag = "v1.28.0";
+      hash = "sha256-yevLbRauUa2qoYtmJjqzcuj2qDvs7I1dkH2xoxjmnQ0=";
     };
   };
   mtkclient = {
@@ -1359,14 +1359,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "7adc4f85a1bd6a68df5fe94ad3450dab240bab89";
+    version = "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "7adc4f85a1bd6a68df5fe94ad3450dab240bab89";
-      hash = "sha256-m0ZHh2iPSw2rVSBExhPVRLplRU5jKN9qBjWX1rLLHqk=";
+      rev = "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c";
+      hash = "sha256-X/ybOm6b9xPs8xglXLTHQYaLDc1eKFzP2BF9SO5MKD4=";
     };
-    date = "2025-06-30";
+    date = "2025-07-09";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1741,14 +1741,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "9727df00bb943082613bb36c57650c7a410459db";
+    version = "b14d220e27afa93f35043d0b4921a87243c4c712";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "9727df00bb943082613bb36c57650c7a410459db";
-      hash = "sha256-VetyCaJUk+gyN8uxhQOR08hqOQCLZg4Q08S9g+SDzVg=";
+      rev = "b14d220e27afa93f35043d0b4921a87243c4c712";
+      hash = "sha256-D1Z9hQxtgofAXYuDXZsGpHb4VhyYC93COJj7v2Rxoak=";
     };
-    date = "2025-07-01";
+    date = "2025-07-09";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1961,12 +1961,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v3.8.0";
+    version = "v4.0.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v3.8.0";
-      hash = "sha256-huuibfcvY0Bua0g1desUyFaPyi1y4EyYPWRR+xt/iYA=";
+      tag = "v4.0.0";
+      hash = "sha256-qV91dQlEvSMcw+YbX6TqpDiifK1rP76tvv2B0xFLYUU=";
     };
   };
   soggy = {
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a72394e28a8749b33559f13d4f02f86203f7ec4b";
+    version = "dd6b69dbadd91d4130cba619fe674b035cb5a1e6";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a72394e28a8749b33559f13d4f02f86203f7ec4b";
+      rev = "dd6b69dbadd91d4130cba619fe674b035cb5a1e6";
       fetchSubmodules = true;
-      hash = "sha256-mx9nTT54ccJnRvx4vnhDR4zgSvJRFvnhFQSIrVYvzvQ=";
+      hash = "sha256-CPz3mMM10nOFiFpl39Yim2nmBc7cPnzZH24ioSylcEU=";
     };
-    date = "2025-07-08";
+    date = "2025-07-09";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
