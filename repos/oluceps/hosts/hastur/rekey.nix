@@ -1,10 +1,15 @@
-{ user, data, ... }:
+{
+  config,
+  user,
+  data,
+  ...
+}:
 let
   hostPrivKey = "/persist/keys/ssh_host_ed25519_key";
 in
 {
   vaultix = {
-    settings.hostPubkey = data.keys.hasturHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
     secrets = {
       id = {
         file = ../../sec/id.age;

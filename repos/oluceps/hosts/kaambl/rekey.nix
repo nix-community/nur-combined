@@ -1,10 +1,15 @@
-{ data, user, ... }:
+{
+  config,
+  data,
+  user,
+  ...
+}:
 let
   hostPrivKey = "/persist/keys/ssh_host_ed25519_key";
 in
 {
   vaultix = {
-    settings.hostPubkey = data.keys.kaamblHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
     # beforeUserborn = [ "on-yidong.toml" ];
     secrets = {
       id = {

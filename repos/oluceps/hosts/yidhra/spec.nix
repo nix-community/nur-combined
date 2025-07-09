@@ -13,7 +13,7 @@
   ];
   system = {
     # server.
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     etc.overlay.enable = true;
     etc.overlay.mutable = false;
   };
@@ -42,7 +42,6 @@
   };
   services = {
     metrics.enable = true;
-    srs.enable = true;
     coturn = {
       enable = true;
       # static-auth-secret-file = config.vaultix.secrets.wg.path;
@@ -88,20 +87,6 @@
       };
     };
 
-    dnsproxy.settings = lib.mkForce {
-      bootstrap = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-      listen-addrs = [ "::" ];
-      listen-ports = [ 53 ];
-      upstream-mode = "parallel";
-      upstream = [
-        "1.1.1.1"
-        "8.8.8.8"
-        "https://dns.google/dns-query"
-      ];
-    };
     hysteria.instances = {
       only = {
         enable = true;

@@ -6,6 +6,7 @@ censor = true
 nat = true
 loc = 0
 user = "riro"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g568jdv6aRbhDZ"
 
 unique_addr = "fdcc::1/128"
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
@@ -19,6 +20,7 @@ censor = true
 nat = true
 loc = 0
 user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
 
 unique_addr = "fdcc::2/128"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
@@ -32,6 +34,7 @@ censor = true
 nat = true
 loc = 0
 user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3BKPqrCBdcsch"
 
 unique_addr = "fdcc::3/128"
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
@@ -39,10 +42,11 @@ pub_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 
 [node.yidhra]
 id = 3
-addr = "8.210.47.13"
+addr = "103.213.4.159"
 censor = false
 nat = false
 user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ5hD9HCmL+XLB+dgvyfK4Og8as/mwS5V6VBJDhyFZJX"
 
 unique_addr = "fdcc::4/128"
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
@@ -55,6 +59,7 @@ addr = "172.234.92.148"
 censor = false
 nat = false
 user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK5GIXqK0XUjtZip+GVlWno+Dibf43f9Zpm7ydZAWKh0"
 
 unique_addr = "fdcc::5/128"
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"
@@ -71,15 +76,3 @@ pub_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 # unique_addr = "fdcc::6/128"
 # link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
 # pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
-
-[node.nodens]
-# skywolf
-id = 5
-addr = "103.213.4.159"
-censor = false
-nat = false
-user = "elen"
-
-unique_addr = "fdcc::6/128"
-link_local_addr = "fe80::33ad:dfa0:ff11:9db1"
-pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="

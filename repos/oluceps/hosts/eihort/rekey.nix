@@ -9,7 +9,7 @@ let
 in
 {
   vaultix = {
-    settings.hostPubkey = data.keys.eihortHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
 
     secrets = {
       wg-eihort = {

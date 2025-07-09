@@ -1,4 +1,9 @@
-{ user, data, ... }:
+{
+  config,
+  user,
+  data,
+  ...
+}:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
 in
@@ -10,7 +15,7 @@ in
     }
   ];
   vaultix = {
-    settings.hostPubkey = data.keys.yidhraHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
     secrets = {
       wg-yidhra = {
         file = ../../sec/wg-yidhra.age;

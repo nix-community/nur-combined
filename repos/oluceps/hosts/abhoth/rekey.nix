@@ -1,4 +1,4 @@
-{ data, ... }:
+{ config, data, ... }:
 
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
@@ -12,7 +12,7 @@ in
     }
   ];
   vaultix = {
-    settings.hostPubkey = data.keys.abhothHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
 
     secrets = {
       hyst-us = {

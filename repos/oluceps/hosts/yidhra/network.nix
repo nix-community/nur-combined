@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 {
   imports = [ ./bird.nix ];
   networking = {
@@ -57,6 +57,7 @@
       '';
     };
   };
+
   systemd.network = {
     enable = true;
 
@@ -68,57 +69,30 @@
     };
 
     links."10-eth0" = {
-      matchConfig.MACAddress = "00:16:3e:0c:cd:5d";
+      matchConfig.MACAddress = "00:db:bc:92:a8:5c";
       linkConfig.Name = "eth0";
     };
 
-    # netdevs."20-warp" = {
-    #   netdevConfig = {
-    #     Kind = "wireguard";
-    #     Name = "warp";
-    #     MTUBytes = "1280";
-    #   };
-    #   wireguardConfig = {
-    #     PrivateKeyFile = config.vaultix.secrets.wgy-warp.path;
-    #   };
-    #   wireguardPeers = [
-    #     {
-    #       PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-    #       Endpoint = "162.159.192.1:2408";
-    #       AllowedIPs = [ "::/0" ];
-    #     }
-    #   ];
-    # };
-    networks = {
+    networks."8-eth0" = {
 
-      "20-eth0" = {
-        matchConfig.Name = "eth0";
+      matchConfig.Name = "eth0";
 
-        networkConfig = {
-          DHCP = "yes";
-          IPv4Forwarding = true;
-          IPv6Forwarding = true;
-          IPv6AcceptRA = "yes";
-        };
+      networkConfig = {
+        DHCP = "no";
+        IPv4Forwarding = true;
+        IPv6Forwarding = true;
       };
-      # "15-wireguard-warp" = {
-      #   matchConfig.Name = "warp";
-      #   address = [
-      #     # "2606:4700:110:80ef:47c4:b370:7dbd:2a72/128"
-      #     "2606:4700:110:88f7:7b28:e45:e5d1:9f7b/128"
-      #   ];
-      #   networkConfig = {
-      #     IPMasquerade = "ipv6";
-      #     IPv4Forwarding = true;
-      #   };
 
-      #   routes = [
-      #     {
-      #       Destination = "::/0";
-      #       Gateway = "fe80::1";
-      #     }
-      #   ];
-      # };
+      linkConfig.RequiredForOnline = "routable";
+
+      address = [
+        "103.213.4.159/24"
+        "2401:5a0:1000:96::a/64"
+      ];
+      routes = [
+        { Gateway = "103.213.4.1"; }
+        { Gateway = "2401:5a0:1000::1"; }
+      ];
     };
   };
 }

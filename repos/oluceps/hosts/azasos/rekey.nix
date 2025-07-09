@@ -1,6 +1,6 @@
 {
   data,
-  lib,
+  config,
   self,
   ...
 }:
@@ -15,7 +15,7 @@ in
     }
   ];
   vaultix = {
-    settings.hostPubkey = data.keys.azasosHostPubKey;
+    settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
     secrets = {
       wg-azasos = {
         file = self + "/sec/wg-azasos.age";
