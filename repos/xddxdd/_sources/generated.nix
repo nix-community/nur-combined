@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5853";
+    version = "b5862";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5853";
-      hash = "sha256-otXsyHvbW4tugXSBBIJTs/E1Tx5Htuz1mr2VzS1x8oI=";
+      tag = "b5862";
+      hash = "sha256-wOrj0OGkDvl3f6NwOhMXXxIVBsUOlIiJV4vBSIZjYgI=";
     };
   };
   loralib = {
@@ -2179,13 +2179,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "dd6b69dbadd91d4130cba619fe674b035cb5a1e6";
+    version = "f6bc737906f3190311644dffc0259e10b8a339f8";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "dd6b69dbadd91d4130cba619fe674b035cb5a1e6";
+      rev = "f6bc737906f3190311644dffc0259e10b8a339f8";
       fetchSubmodules = true;
-      hash = "sha256-CPz3mMM10nOFiFpl39Yim2nmBc7cPnzZH24ioSylcEU=";
+      hash = "sha256-i5Ep+y8seCb7hoDbXrGUVdscfpSU28LJJGT7QQ6S6cI=";
     };
     date = "2025-07-09";
   };
