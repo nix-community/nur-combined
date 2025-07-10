@@ -108,9 +108,9 @@ builtins.toJSON (
       };
       modules-center = [
         "group/time"
-        "niri/workspaces"
+        # "niri/workspaces"
         "temperature"
-        "memory"
+        # "memory"
         "battery"
         "pulseaudio"
         "custom/lightctl"

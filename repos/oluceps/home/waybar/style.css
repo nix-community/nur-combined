@@ -24,7 +24,7 @@ window#waybar {
   	margin: 0px 0px 5px 0px;
     border-radius: 0px;
     color: rgba(181, 202, 160, 1);
-    padding: 0px 7px 0px 7px;
+    padding: 0px 8px 0px 8px;
 }
 
 #network {
@@ -36,7 +36,7 @@ window#waybar {
 #temperature {
     margin: 5px 0px 0px 0px;
     border-radius: 0px;
-    color: rgba(250, 150, 110, 0.9);
+    color: rgba(238, 169, 169, 0.9);
     padding: 0px 4px 0px 4px;
 }
 
