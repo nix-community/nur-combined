@@ -2,6 +2,7 @@
   description = "Trev's NUR repository";
 
   inputs = {
+    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur = {
       url = "github:nix-community/NUR";
@@ -18,7 +19,7 @@
   in {
     devShells = forAllSystems (
       system: let
-        pkgs = import nixpkgs rec {
+        pkgs = import nixpkgs {
           inherit system;
           overlays = [
             nur.legacyPackages."${system}".repos.trev.overlays.renovate
@@ -39,6 +40,7 @@
     legacyPackages = forAllSystems (
       system:
         import ./default.nix {
+          inherit system;
           pkgs = nixpkgs.legacyPackages."${system}";
         }
     );

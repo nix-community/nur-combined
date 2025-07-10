@@ -6,8 +6,12 @@
 
 ## Packages
 
-- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
-- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
+- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema 
+  - Pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
+- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface 
+  - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
+- [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
+  - Blocked by [opengrep#341](https://github.com/opengrep/opengrep/pull/341)
 
 ## Overlays
 
