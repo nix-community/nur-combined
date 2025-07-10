@@ -10,6 +10,9 @@ in
 
   config = mkIf cfg.enable {
     home.sessionVariables.CARAPACE_BRIDGES = "zsh,fish,bash,inshellisense";
-    programs.carapace.enable = true;
+    programs.carapace = {
+      enable = true;
+      enableBashIntegration = false; # Conflicts with blesh
+    };
   };
 }

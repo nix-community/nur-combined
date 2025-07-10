@@ -42,10 +42,7 @@ in
       nvl = "lightnovel.sh";
     };
 
-    services = {
-      arrpc.enable = true;
-      wluma.enable = true;
-    };
+    services.wluma.enable = true;
 
     gtk.enable = true;
     qt = {

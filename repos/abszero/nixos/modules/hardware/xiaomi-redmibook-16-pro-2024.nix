@@ -98,8 +98,9 @@ in
       kanata.keyboards.xiaomi-redmibook-16-pro-2024 = keyboardCfg;
       # Increase minimum quantum to fix broken pipe for wine applications due to Meteor Lake controller
       # https://forums.opensuse.org/t/audio-in-games-cuts-out-after-several-seconds/185139
+      # https://docs.pipewire.org/page_man_pipewire_conf_5.html#pipewire_conf__node_rules
       pipewire.extraConfig.pipewire."30-wine-quantum"."node.rules" = singleton {
-        matches = singleton { "application.process.binary" = "wine64-preloader"; };
+        matches = singleton { "application.process.binary" = "~wine(64)?-preloader"; };
         actions.update-props."node.force-quantum" = 512;
       };
     };
