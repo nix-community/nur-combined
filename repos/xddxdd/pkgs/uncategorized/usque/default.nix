@@ -18,21 +18,22 @@ buildGoModule (finalAttrs: {
     "-w"
     "-X github.com/Diniboy1123/usque/cmd.version=${finalAttrs.version}"
   ];
-
-  nativeBuildInputs = [
-    installShellFiles
-  ];
-  postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
+  nativeBuildInputs = [ installShellFiles ];
+  postInstall =
     let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
+      exe =
+        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+          "$out/bin/usque"
+        else
+          lib.getExe buildPackages.usque;
     in
     ''
       installShellCompletion --cmd usque \
-        --bash <(${emulator} $out/bin/usque completion bash) \
-        --fish <(${emulator} $out/bin/usque completion fish) \
-        --zsh <(${emulator} $out/bin/usque completion zsh)
-    ''
-  );
+        --bash <(${exe} completion bash) \
+        --fish <(${exe} completion fish) \
+        --zsh <(${exe} completion zsh)
+    '';
+
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
