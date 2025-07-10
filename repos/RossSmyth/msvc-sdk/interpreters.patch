@@ -1,0 +1,50 @@
+diff --git a/vsdownload.py b/vsdownload.py
+index 3a8b201..725f65d 100755
+--- a/vsdownload.py
++++ b/vsdownload.py
+@@ -660,9 +660,9 @@ def unpackWin10SDK(src, payloads, dest):
+             srcfile = os.path.join(src, name)
+             if sys.platform == "win32":
+                 # The path to TARGETDIR need to be quoted in the case of spaces.
+-                cmd = "msiexec /a \"%s\" /qn TARGETDIR=\"%s\"" % (srcfile, os.path.abspath(dest))
++                cmd = "@MSIEXEC@ /a \"%s\" /qn TARGETDIR=\"%s\"" % (srcfile, os.path.abspath(dest))
+             else:
+-                cmd = ["msiextract", "-C", dest, srcfile]
++                cmd = ["@MSIEXTRACT@", "-C", dest, srcfile]
+             with open(os.path.join(dest, "WinSDK-" + getPayloadName(payload) + "-listing.txt"), "w") as log:
+                 subprocess.check_call(cmd, stdout=log)
+ 
+@@ -677,7 +677,7 @@ def unpackWin10WDK(src, dest):
+ 
+         # Do not try to run msiexec here because TARGETDIR
+         # does not work with WDK installers.
+-        cmd = ["msiextract", "-C", dest, srcfile]
++        cmd = ["@MSIEXTRACT@", "-C", dest, srcfile]
+ 
+         payloadName, _ = os.path.splitext(name)
+         with open(os.path.join(dest, "WDK-" + payloadName + "-listing.txt"), "w") as log:
+@@ -743,9 +743,9 @@ def patchPackages(dest):
+         if op == ".patch":
+             if os.access(os.path.join(dest, f), os.F_OK):
+                 # Check if the patch has already been applied by attempting a reverse application; skip if already applied.
+-                if subprocess.call(["git", "--work-tree=.", "apply", "--quiet", "--reverse", "--check", patch], cwd=dest) != 0:
++                if subprocess.call(["@GIT@", "--work-tree=.", "apply", "--quiet", "--reverse", "--check", patch], cwd=dest) != 0:
+                     print("Patching " + f)
+-                    subprocess.check_call(["git", "--work-tree=.", "apply", patch], cwd=dest)
++                    subprocess.check_call(["@GIT@", "--work-tree=.", "apply", patch], cwd=dest)
+         elif op == ".remove":
+             if os.access(os.path.join(dest, f), os.F_OK):
+                 print("Removing " + f)
+diff --git a/wrappers/wine-msvc.sh b/wrappers/wine-msvc.sh
+index bb08891..1d7d2a2 100755
+--- a/wrappers/wine-msvc.sh
++++ b/wrappers/wine-msvc.sh
+@@ -57,7 +57,7 @@ for a; do
+ 	ARGS+=("$a")
+ done
+ 
+-WINE=$(command -v wine64 || command -v wine || false)
++WINE=@WINE@
+ export WINEDEBUG=${WINEDEBUG:-"-all"}
+ 
+ if [ -n "$WINE_MSVC_RAW_STDOUT" ]; then

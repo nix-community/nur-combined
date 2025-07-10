@@ -1,0 +1,25 @@
+diff --git a/msvcenv-native.sh b/msvcenv-native.sh
+index f3a99f1..8e481de 100755
+--- a/msvcenv-native.sh
++++ b/msvcenv-native.sh
+@@ -25,6 +25,7 @@
+ # without needing to configure paths manually anywhere.
+ # (If linking by invoking clang or clang-cl, instead of directly calling
+ # lld-link, it's recommended to use -fuse-ld=lld.)
++set -euo pipefail
+ 
+ if [ -z "$BIN" ]; then
+     echo Set BIN to point to the directory before launching
+@@ -33,9 +34,9 @@ else
+     if [ ! -f "$ENV" ]; then
+         echo $ENV doesn\'t exist
+     else
+-        export INCLUDE="$(bash -c ". $ENV && /usr/bin/env echo \"\$INCLUDE\"" | sed s/z://g | sed 's/\\/\//g')"
+-        export LIB="$(bash -c ". $ENV && /usr/bin/env echo \"\$LIB\"" | sed s/z://g | sed 's/\\/\//g')"
+-        MSVCARCH="$(bash -c ". $ENV && /usr/bin/env echo \"\$ARCH\"")"
++        export INCLUDE="$(bash -c ". $ENV && echo \"\$INCLUDE\"" | sed s/z://g | sed 's/\\/\//g')"
++        export LIB="$(bash -c ". $ENV && echo \"\$LIB\"" | sed s/z://g | sed 's/\\/\//g')"
++        MSVCARCH="$(bash -c ". $ENV && echo \"\$ARCH\"")"
+         case $MSVCARCH in
+         x86) TARGET_ARCH=i686 ;;
+         x64) TARGET_ARCH=x86_64 ;;
