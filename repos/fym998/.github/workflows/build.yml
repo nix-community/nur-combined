@@ -30,14 +30,11 @@ jobs:
       - name: Show flake metadata
         run: nix flake metadata --json
 
-      - name: Show flake attributes
-        run: nix flake show --all-systems --json
-
       - name: Evaluate
         id: eval
         run: |
           echo -n eval_result= >> $GITHUB_OUTPUT
-          nix eval .#ciPackages --json | tee -a $GITHUB_OUTPUT
+          nix run nixpkgs#nix-eval-jobs -- --flake .#ciPackages --force-recurse | tee -a $GITHUB_OUTPUT
 
   check-eval-change:
     runs-on: ubuntu-latest
