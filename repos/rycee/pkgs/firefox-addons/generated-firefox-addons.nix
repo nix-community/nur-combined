@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.24.0";
+      version = "1.25.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4467030/10ten_ja_reader-1.24.0.xpi";
-      sha256 = "5f35c945be8d96753da5cdcf03d0e9b4b759706f2dd30921f391849c2daa8ef4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526228/10ten_ja_reader-1.25.0.xpi";
+      sha256 = "cf8149c047799dd5dc0f49e4a848e63721c10e45b1c185624bd0dd5969636c4c";
       meta = with lib;
       {
         homepage = "https://10ten.life";
@@ -2331,10 +2331,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "140.0.20250707.120347";
+      version = "141.0.20250709.100959";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528985/dansk_da_language_pack-140.0.20250707.120347.xpi";
-      sha256 = "54f34c62d24eb02ade108e365848b86c5e1960b489f5d78a5c3a516f88d006ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530441/dansk_da_language_pack-141.0.20250709.100959.xpi";
+      sha256 = "3eaf7a95efddd4a9bdc02292e66cf5e8041d1e6197ffc896d86041712a4a23fb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2528,10 +2528,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "140.0.20250707.120347";
+      version = "141.0.20250709.100959";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528982/deutsch_de_language_pack-140.0.20250707.120347.xpi";
-      sha256 = "26f99ec9928782c3e9688b8446a034841b093e5e850fc6c10cee3f4471150386";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530437/deutsch_de_language_pack-141.0.20250709.100959.xpi";
+      sha256 = "30e60e675b7fb0264810ef355ec516d941cbe6e19a50fea136677cf5f60120ec";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3763,10 +3763,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "140.0.20250707.120347";
+      version = "141.0.20250709.100959";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528991/francais_language_pack-140.0.20250707.120347.xpi";
-      sha256 = "751a324be5cbe0c8b5378471873a3d8aa08aa2071b617919e32408ae6df12833";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530493/francais_language_pack-141.0.20250709.100959.xpi";
+      sha256 = "74eafc26bf3674176b9828ea9a5a47ac0da50e666217f1c44b26c3c74f45870e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3800,10 +3800,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "140.0.20250707.120347";
+      version = "141.0.20250709.100959";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4529015/gaidhlig_language_pack-140.0.20250707.120347.xpi";
-      sha256 = "e8e28a68f8601add28d5d97b376bcf9ff92b9d56dc24bb719fca6aedc7756178";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530479/gaidhlig_language_pack-141.0.20250709.100959.xpi";
+      sha256 = "21e3abf303eb6ca26fc37c78bcc990cf4373b5aaf7e90e277bfd0c7f3316c78d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6363,10 +6363,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.9";
+      version = "1.9.9.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4518185/keepassxc_browser-1.9.9.xpi";
-      sha256 = "84bdfd50bf30b1eb494c6e0753eda64a0c6489f557d59f3e8d3dbc878107fcba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526126/keepassxc_browser-1.9.9.1.xpi";
+      sha256 = "d7207953ff4e3670b83ee1e4e0a1080fee1eaf304643d6c85759d381dcab483e";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6379,7 +6379,6 @@
           "cookies"
           "nativeMessaging"
           "notifications"
-          "privacy"
           "storage"
           "tabs"
           "webNavigation"
@@ -8083,10 +8082,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.23.7";
+      version = "2.24.2";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4507332/momentumdash-2.23.7.xpi";
-      sha256 = "2d4740301d2d9b13eadc0fde36a2c114259b17e516f961fe98eaf66d58cc80e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526184/momentumdash-2.24.2.xpi";
+      sha256 = "881b8e840bdf0221f9215edbf6c3ef824086bcb032df35c42f36514e906acc9f";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9934,10 +9933,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.48.0";
+      version = "0.49.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4526823/private_grammar_checker_harper-0.48.0.xpi";
-      sha256 = "88aa64606d17306b5af6c2c7621cda7c86f03cd74e08c485217ac80ffadb84dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530861/private_grammar_checker_harper-0.49.0.xpi";
+      sha256 = "346bfb72df88a2e6ccad3a704c0e7641111b2b17639b3145868f02adf156daad";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -10768,10 +10767,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25179";
+      version = "0.2.0.25186";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522530/ruffle_rs-0.2.0.25179.xpi";
-      sha256 = "87249ef1d26019e39ad1af917fcbd5efa0ae8099381fa31961a186767badf509";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526905/ruffle_rs-0.2.0.25186.xpi";
+      sha256 = "1f9c8bbf5a97fe7bae3781af0d167827112f9666cb32608ba2adbcc357e3ea90";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -10882,10 +10881,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "140.0.20250707.120347";
+      version = "141.0.20250709.100959";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528994/scots_language_pack-140.0.20250707.120347.xpi";
-      sha256 = "0953398dbaa9038a03897af865b15eb42c575a7279a4c690d4104dce63247d31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530468/scots_language_pack-141.0.20250709.100959.xpi";
+      sha256 = "c5a04e0273f4f3b81d53874081f9e8caae59a5b6a85048eb1eb8a6b2b6d6d82d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11581,10 +11580,10 @@
     };
     "spoof-timezone" = buildFirefoxXpiAddon {
       pname = "spoof-timezone";
-      version = "0.4.5";
+      version = "0.4.6";
       addonId = "{55f61747-c3d3-4425-97f9-dfc19a0be23c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524982/spoof_timezone-0.4.5.xpi";
-      sha256 = "af7ca47274faf3f15d64e35af4074bfabd6391217c82190ba825e92b26e37639";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530230/spoof_timezone-0.4.6.xpi";
+      sha256 = "de4a0df1da733a60a3219607210a57651aedfcdb631b4aa49c608e9fab93f030";
       meta = with lib;
       {
         homepage = "https://add0n.com/spoof-timezone.html";
