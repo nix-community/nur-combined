@@ -33,8 +33,9 @@ jobs:
       - name: Evaluate
         id: eval
         run: |
-          echo -n eval_result= >> $GITHUB_OUTPUT
+          echo 'eval_result<<EOF' >> $GITHUB_OUTPUT
           nix run nixpkgs#nix-eval-jobs -- --flake .#ciPackages --force-recurse | tee -a $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   check-eval-change:
     runs-on: ubuntu-latest
