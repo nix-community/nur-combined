@@ -8,7 +8,8 @@
       "console=ttyS0"
       "earlyprintk=ttyS0"
       "rootdelay=300"
-      "ia32_emulation=0"
+      "19200n8"
+      # "ia32_emulation=0"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
@@ -20,9 +21,9 @@
       systemd.enable = true;
 
       kernelModules = [
-        "hv_netvsc"
-        "hv_utils"
-        "hv_storvsc"
+        # "hv_netvsc"
+        # "hv_utils"
+        # "hv_storvsc"
       ];
     };
   };

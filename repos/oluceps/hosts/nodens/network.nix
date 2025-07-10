@@ -91,7 +91,10 @@
       ];
       routes = [
         { Gateway = "103.213.4.1"; }
-        { Gateway = "2401:5a0:1000::1"; }
+        {
+          Gateway = "2401:5a0:1000::1";
+          GatewayOnLink = true;
+        }
       ];
     };
   };

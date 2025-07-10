@@ -38,14 +38,13 @@ withSystem "x86_64-linux" (
           overlays = lib.hostOverlays { inherit inputs inputs'; };
         };
       }
-      (inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
-      (inputs.nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
 
       ./disk.nix
+      ./boot.nix
       ./caddy.nix
       ../persist-base.nix
-      ./boot.nix
       ./network.nix
+      ../sysctl.nix
       ./rekey.nix
       ./spec.nix
       (lib.iage "cloud")
