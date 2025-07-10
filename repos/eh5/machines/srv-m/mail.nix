@@ -47,10 +47,10 @@ in
     mail.certFile = "${certDir}/cert.pem";
     mail.keyFile = "${certDir}/key.pem";
     security.acme.certs.${certName}.reloadServices = [
-      "dovecot2.service"
+      "dovecot.service"
       "postfix.service"
     ];
-    systemd.services.dovecot2.requires = [ "acme-finished-${certName}.target" ];
+    systemd.services.dovecot.requires = [ "acme-finished-${certName}.target" ];
     systemd.services.postfix.requires = [ "acme-finished-${certName}.target" ];
 
     services.dovecot2.createMailUser = false;

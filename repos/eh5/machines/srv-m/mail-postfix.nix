@@ -186,12 +186,12 @@ in
   systemd.services.postfix = {
     requires = [
       "openldap.service"
-      "dovecot2.service"
+      "dovecot.service"
       "rspamd.service"
     ];
     after = [
       "openldap.service"
-      "dovecot2.service"
+      "dovecot.service"
       "rspamd.service"
     ];
   };

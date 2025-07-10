@@ -239,7 +239,7 @@ in
     }
   '';
 
-  systemd.services.dovecot2 = {
+  systemd.services.dovecot = {
     requires = [ "openldap.service" ];
     after = [ "openldap.service" ];
   };

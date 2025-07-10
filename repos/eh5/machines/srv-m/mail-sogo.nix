@@ -105,7 +105,7 @@ in
     let
       services = [
         "openldap.service"
-        "dovecot2.service"
+        "dovecot.service"
         "postgresql.service"
         "memcached.service"
       ];
