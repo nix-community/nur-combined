@@ -20,6 +20,9 @@ builtins.toJSON (
         };
         tooltip = false;
       };
+      exclusive = true;
+      margin = "0";
+      spacing = "0";
       clock = {
         format = "{:%H:%M}";
         format-alt = "{:%a %d %b}";
@@ -60,12 +63,6 @@ builtins.toJSON (
         );
 
       };
-      cpu = {
-        format = "{usage}";
-        min-length = 3;
-        disable-scroll = true;
-        interval = 1;
-      };
       "custom/pipewire" = {
         exec = "${lib.getExe pkgs.pw-volume} status";
         format = "{percentage}";
@@ -101,6 +98,8 @@ builtins.toJSON (
         };
       };
       layer = "top";
+      expand-left = true;
+      expand-right = true;
       memory = {
         format = "{}";
         interval = 1;
@@ -108,12 +107,13 @@ builtins.toJSON (
       };
       modules-center = [
         "group/time"
-        # "niri/workspaces"
         "temperature"
-        # "memory"
         "battery"
         "pulseaudio"
         "custom/lightctl"
+        # 
+        # "niri/workspaces"
+        # "memory"
       ];
       modules-left = [ "custom/niri-controller" ];
       modules-right = [ "custom/niri-controller" ];
@@ -123,9 +123,8 @@ builtins.toJSON (
         interval = 1;
         tooltip = false;
       };
-      position = "right";
+      position = "left";
       reload_style_on_change = true;
-      spacing = 0;
       "sway/mode" = {
         format = " {}";
       };
