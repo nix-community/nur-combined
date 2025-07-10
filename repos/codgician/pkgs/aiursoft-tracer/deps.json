@@ -19,15 +19,15 @@
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "9.0.6",
-    "hash": "sha256-+5blPVnqUMo4B01bxlgXVQxTilvuPfP2FDskJ/rHppY=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket/9.0.6/aiursoft.aiurobserver.websocket.9.0.6.nupkg"
+    "version": "9.0.7",
+    "hash": "sha256-NmK9F8g4twW/SfX4hvYwLai1Wr3cd7NHDT/erlgmGWc=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket/9.0.7/aiursoft.aiurobserver.websocket.9.0.7.nupkg"
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "9.0.6",
-    "hash": "sha256-9Kobsx5mQ0X0RQZJ/KGdESj9hfby9SOFeJCW/MFOAeI=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket.server/9.0.6/aiursoft.aiurobserver.websocket.server.9.0.6.nupkg"
+    "version": "9.0.7",
+    "hash": "sha256-QM/DhlsCmIDFWCvI0t+hCTOw5LPZU5uYtjUTVlzBztY=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket.server/9.0.7/aiursoft.aiurobserver.websocket.server.9.0.7.nupkg"
   },
   {
     "pname": "Aiursoft.CSTools",
@@ -37,9 +37,9 @@
   },
   {
     "pname": "Aiursoft.Scanner",
-    "version": "9.0.7",
-    "hash": "sha256-wyDgZEWjU9OEtg8rQjZ1XHh1xapefgq6f9mFDoNWdho=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.scanner/9.0.7/aiursoft.scanner.9.0.7.nupkg"
+    "version": "9.0.8",
+    "hash": "sha256-gS7V9CoTlKFHipIKR43NGsJQ1PwcPlZdwwl//1eTu5Y=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.scanner/9.0.8/aiursoft.scanner.9.0.8.nupkg"
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
@@ -85,9 +85,9 @@
   },
   {
     "pname": "Microsoft.AspNetCore.Connections.Abstractions",
-    "version": "9.0.6",
-    "hash": "sha256-aoIab0G3+uUGT6jZW3FJ/qN2Mh0qZdAUZ4Dx8hxAiRw=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.aspnetcore.connections.abstractions/9.0.6/microsoft.aspnetcore.connections.abstractions.9.0.6.nupkg"
+    "version": "9.0.7",
+    "hash": "sha256-wOBtopb+0opw+1RNA2CIrKpSVLwrwa/5nFiKcB42iLw=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.aspnetcore.connections.abstractions/9.0.7/microsoft.aspnetcore.connections.abstractions.9.0.7.nupkg"
   },
   {
     "pname": "Microsoft.CodeCoverage",
@@ -97,15 +97,15 @@
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
-    "version": "9.0.6",
-    "hash": "sha256-40rY38OwSqueIWr/KMvJX9u+vipN+AaRQ6eNCZLqrog=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.dependencyinjection.abstractions/9.0.6/microsoft.extensions.dependencyinjection.abstractions.9.0.6.nupkg"
+    "version": "9.0.7",
+    "hash": "sha256-Ltlh01iGj6641DaZSFif/2/2y3y9iFk7GEd+HuRnxPs=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.dependencyinjection.abstractions/9.0.7/microsoft.extensions.dependencyinjection.abstractions.9.0.7.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Features",
-    "version": "9.0.6",
-    "hash": "sha256-BnsHPCuUrjdHnJ8QgpfrUuXeHKDhkFogpJ+9WAkMyBI=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.features/9.0.6/microsoft.extensions.features.9.0.6.nupkg"
+    "version": "9.0.7",
+    "hash": "sha256-WjYoTQB28JNjGVQYN3ohnUlkBvhsl4pSIl7YZcLl7aY=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.features/9.0.7/microsoft.extensions.features.9.0.7.nupkg"
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
