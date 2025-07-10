@@ -1,11 +1,12 @@
 {
+  lib,
   stdenvNoCC,
   fetchMsvcSdk,
   writableTmpDirAsHomeHook,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "msvc-sdk";
-  version = "17.14.5";
+  pname = "msvcSdk";
+  version = "17.14.8";
 
   src = stdenvNoCC.mkDerivation {
     inherit (finalAttrs) version;
@@ -15,12 +16,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     dontBuild = true;
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-SB9SGiNSN+9yZ3pOsGId78o/tq+crelDHgM2dZP7PiU=";
+    outputHash = "sha256-LjB0mgjfB9r0fG4ontrt1NrKOyWBK5Q89GbSYnM/c/w=";
 
     installPhase = ''
       mkdir -p "$out"
 
-      ${fetchMsvcSdk}/vsdownload.py --accept-license --dest "$out"
+      ${lib.getExe fetchMsvcSdk} --msvc-version 17.14 --accept-license --dest "$out"
     '';
   };
 
@@ -36,4 +37,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postInstall = ''
     ${fetchMsvcSdk}/install.sh $out
   '';
+
+  meta = {
+    description = "Windows SDK fixed-up for Linux";
+    homepage = "https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/";
+    license = lib.licenses.unfree // {
+      shortName = "Microsoft Software License";
+    };
+    maintainers = with lib.maintainers; [ RossSmyth ];
+  };
 })

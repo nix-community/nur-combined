@@ -1,11 +1,5 @@
 {
-  outputs =
-    {
-      self,
-    }:
-    {
-      overlays.default = final: _: {
-        inherit (final.callPackage ./. { }) ;
-      };
-    };
+  outputs = _: {
+    overlays.default = final: _: final.callPackage ./. { };
+  };
 }
