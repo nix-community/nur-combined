@@ -22,7 +22,6 @@
       };
       pre-commit.settings.hooks.treefmt = {
         enable = true;
-        packageOverrides.treefmt = config.treefmt.build.wrapper;
       };
       make-shells = {
         default = {
@@ -47,6 +46,7 @@
               nil
               nix-prefetch-git
               nix-fast-build
+              nix-eval-jobs
               ;
           };
         };

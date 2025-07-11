@@ -1,3 +1,3 @@
 {
-  default = import ../overlay.nix;
+  default = _self: super: (import ./pkgs { pkgs = super; }).legacyPackages;
 }
