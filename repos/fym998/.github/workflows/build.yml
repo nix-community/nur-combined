@@ -17,7 +17,7 @@ jobs:
   check-and-evaluate:
     runs-on: ubuntu-latest
     outputs:
-      eval_result: ${{ steps.eval.outputs.eval_result }}
+      eval_hash: ${{ steps.eval.outputs.eval_hash }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,59 +33,59 @@ jobs:
       - name: Check
         run: nix flake check --no-write-lock-file --no-update-lock-file
 
-      - name: Evaluate
+      - name: Evaluate and generate hash
         id: eval
         run: |
-          echo 'eval_result<<EOF' >> $GITHUB_OUTPUT
-          nix run nixpkgs#nix-eval-jobs -- --flake .#ciPackages --force-recurse | tee -a $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+          nix run nixpkgs#nix-eval-jobs -- --flake .#ciPackages --force-recurse | tee eval_output.txt
 
-  check-eval-change:
+          EVAL_HASH=$(sha256sum eval_output.txt | awk '{print $1}')
+          echo "eval_hash=$EVAL_HASH" >> $GITHUB_OUTPUT
+
+  build-control:
     runs-on: ubuntu-latest
     needs: check-and-evaluate
     outputs:
-      changed: ${{ steps.compare.outputs.changed }}
+      should_build: ${{ steps.compare.outputs.changed }}
     steps:
-      - name: Restore previous eval result
-        id: cache_restore
+      - name: Restore previous eval hash
         uses: actions/cache/restore@v4
         with:
-          path: eval_result.json
-          key: eval_result-${{ github.sha }}
+          path: eval_hash.txt
+          key: eval_hash-${{ github.sha }}
           restore-keys: |
-            eval_result-
+            eval_hash-
 
-      - name: Compare evaluation results
+      - name: Compare evaluation hashes
         id: compare
         run: |
-          CURRENT_RESULT="${{ needs.check-and-evaluate.outputs.eval_result }}"
+          CURRENT_HASH="${{ needs.check-and-evaluate.outputs.eval_hash }}"
 
-          if [ -f eval_result.json ]; then
-            PREV_RESULT=$(cat eval_result.json)
+          if [ -f eval_hash.txt ]; then
+            PREV_HASH=$(cat eval_hash.txt)
           else
-            PREV_RESULT=""
+            PREV_HASH=""
           fi
 
-          echo -e "Current Result:\n $CURRENT_RESULT"
-          echo -e "Previous Result:\n $PREV_RESULT"
+          echo "Current hash: $CURRENT_HASH"
+          echo "Previous hash: $PREV_HASH"
 
-          if [ "$CURRENT_RESULT" != "$PREV_RESULT" ]; then
+          if [ "$CURRENT_HASH" != "$PREV_HASH" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "$CURRENT_RESULT" > eval_result.json
+            echo "$CURRENT_HASH" > eval_hash.txt
           else
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Save new eval result
+      - name: Save new eval hash
         if: steps.compare.outputs.changed == 'true'
         uses: actions/cache/save@v4
         with:
-          path: eval_result.json
-          key: eval_result-${{ github.sha }}
+          path: eval_hash.txt
+          key: eval_hash-${{ github.sha }}
 
-  build-and-cache-packages:
-    needs: check-eval-change
-    if: ${{ needs.check-eval-change.outputs.changed == 'true' }} # 仅在评估变化时运行
+  build:
+    needs: build-control
+    if: ${{ needs.build-control.outputs.should_build == 'true' }} # 仅在评估变化时运行
     strategy:
       matrix:
         runner:
@@ -112,7 +112,7 @@ jobs:
           --cachix-cache ${{ env.cachixName }}
 
   trigger-nur-update:
-    needs: build-and-cache-packages
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
