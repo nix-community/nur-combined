@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 env:
-  cachixName: fym998-nur
-  nurRepo: fym998
+  CACHIX_CACHE: fym998-nur
+  NUR_REPO: fym998
 
 jobs:
   check-and-evaluate:
@@ -31,12 +31,12 @@ jobs:
         run: nix flake metadata --json
 
       - name: Check
-        run: nix flake check --no-write-lock-file --no-update-lock-file
+        run: nix build ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).pre-commit"
 
       - name: Evaluate and generate hash
         id: eval
         run: |
-          nix run nixpkgs#nix-eval-jobs -- --flake .#ciPackages --force-recurse | tee eval_output.txt
+          nix run .#_internal.ci.eval | tee eval_output.txt
 
           EVAL_HASH=$(sha256sum eval_output.txt | awk '{print $1}')
           echo "eval_hash=$EVAL_HASH" >> $GITHUB_OUTPUT
@@ -104,17 +104,12 @@ jobs:
       - name: Build and cache packages
         env:
           CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-        run: |
-          nix run nixpkgs#nix-fast-build -- \
-          --flake ".#ciPackages.$(nix eval --raw --impure --expr builtins.currentSystem)" \
-          --no-nom \
-          --skip-cached \
-          --cachix-cache ${{ env.cachixName }}
+        run: nix run .#_internal.ci.build
 
   trigger-nur-update:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
-        if: ${{ env.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.nurRepo }}"
+        if: ${{ env.NUR_REPO != '<YOUR_REPO_NAME>' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.NUR_REPO }}"

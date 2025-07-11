@@ -8,7 +8,7 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-(import ./pkgs.nix { inherit pkgs; }).legacyPackages
+(import ./pkgs { inherit pkgs; }).legacyPackages
 // {
   overlays = import ./overlays;
 }

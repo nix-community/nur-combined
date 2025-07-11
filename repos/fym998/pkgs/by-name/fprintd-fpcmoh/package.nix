@@ -1,9 +1,9 @@
 {
-  pkgs,
+  fetchFromGitLab,
   fprintd,
   fprintd-1_94_4 ? fprintd.overrideAttrs (finalAttrs: {
     version = "1.94.4";
-    src = pkgs.fetchFromGitLab {
+    src = fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "libfprint";
       repo = "fprintd";

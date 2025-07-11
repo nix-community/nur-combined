@@ -58,7 +58,7 @@
               };
             };
           }
-          // import ./pkgs.nix { inherit pkgs; };
+          // import ./pkgs { inherit pkgs; };
       }
     );
 }
