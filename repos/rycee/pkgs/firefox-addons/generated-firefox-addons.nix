@@ -1848,10 +1848,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.30.1";
+      version = "3.31.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528442/click_and_read-3.30.1.xpi";
-      sha256 = "fcd0303452b9055fe0c44ec3c7870ee1a33262b4b87cb088870009b52208cb7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4531017/click_and_read-3.31.0.xpi";
+      sha256 = "d126e86aa9e675d5338f5b46dcbf0cf87ed3631729f6d5bb1eafb3cb965df9dc";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -9933,10 +9933,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.49.0";
+      version = "0.50.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4530861/private_grammar_checker_harper-0.49.0.xpi";
-      sha256 = "346bfb72df88a2e6ccad3a704c0e7641111b2b17639b3145868f02adf156daad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4531521/private_grammar_checker_harper-0.50.0.xpi";
+      sha256 = "45e8b388188508464037984c9e74084e6dc59986e956a6923c1708f931cd64ce";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
