@@ -92,5 +92,6 @@ in
       // {
         description = common.meta.description + " - cli";
         mainProgram = "opengrep";
+        inherit (opengrep-core.meta) platforms;
       };
   }
