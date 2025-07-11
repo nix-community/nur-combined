@@ -1,4 +1,4 @@
-name: "Build and populate cache"
+name: "Check, build and cache"
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ env:
   nurRepo: fym998
 
 jobs:
-  evaluate:
+  check-and-evaluate:
     runs-on: ubuntu-latest
     outputs:
       eval_result: ${{ steps.eval.outputs.eval_result }}
@@ -30,6 +30,9 @@ jobs:
       - name: Show flake metadata
         run: nix flake metadata --json
 
+      - name: Check
+        run: nix flake check --no-write-lock-file --no-update-lock-file
+
       - name: Evaluate
         id: eval
         run: |
@@ -39,7 +42,7 @@ jobs:
 
   check-eval-change:
     runs-on: ubuntu-latest
-    needs: evaluate
+    needs: check-and-evaluate
     outputs:
       changed: ${{ steps.compare.outputs.changed }}
     steps:
@@ -55,7 +58,7 @@ jobs:
       - name: Compare evaluation results
         id: compare
         run: |
-          CURRENT_RESULT="${{ needs.evaluate.outputs.eval_result }}"
+          CURRENT_RESULT="${{ needs.check-and-evaluate.outputs.eval_result }}"
 
           if [ -f eval_result.json ]; then
             PREV_RESULT=$(cat eval_result.json)
