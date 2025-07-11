@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "98b6e64c0b792b7839957aa4521dde35f15b9269";
+    version = "f76b51cf37422c1f5e14e194da2a1e939dd809f8";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "98b6e64c0b792b7839957aa4521dde35f15b9269";
-      hash = "sha256-rUWsCTRag1mm/vBSnZs/b0Lj059oc/tlkfpT8XV9i7o=";
+      rev = "f76b51cf37422c1f5e14e194da2a1e939dd809f8";
+      hash = "sha256-aXEKUPNLBQIZD+CEP6Tv53b5yydhFxeOX7E+6Kcg1lA=";
     };
-    date = "2025-07-08";
+    date = "2025-07-10";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ce83553844712b9e7e9959637482b282f6c8aa8e";
+    version = "4aaee07c957aff4cd6a6e16d0e71217815785a9d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ce83553844712b9e7e9959637482b282f6c8aa8e";
-      hash = "sha256-6N+nUyEDXmfwGLUmSsfnWMrR3lSn1LAmUpSksV9xJA4=";
+      rev = "4aaee07c957aff4cd6a6e16d0e71217815785a9d";
+      hash = "sha256-bXMcvR4HFl8gy9l5CTx/9WW9R+o0Te60rh3vkNIlXw0=";
     };
-    date = "2025-07-09";
+    date = "2025-07-11";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -937,24 +937,24 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.13.0";
+    version = "0.14.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      tag = "0.13.0";
-      hash = "sha256-E3wOiWeQSgWzzu4zoYfLV1kGV3jsFE+XEnUezWSqkcA=";
+      tag = "0.14.0";
+      hash = "sha256-BJgsXbKcQjJFk/A7JvkA0NKztv0BAnkgCAXv/TM2/04=";
     };
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b5d3dac4ebdfbbc5de1f6ab9fc6a94c3fd47d13d";
+    version = "94b421ebb82405c843dba4e9aa521a56ee5a333d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b5d3dac4ebdfbbc5de1f6ab9fc6a94c3fd47d13d";
-      hash = "sha256-uIsVCw62+9eUNTIrFJfD5PN2rJi0m5nA76yVaJVCI0A=";
+      rev = "94b421ebb82405c843dba4e9aa521a56ee5a333d";
+      hash = "sha256-BJgsXbKcQjJFk/A7JvkA0NKztv0BAnkgCAXv/TM2/04=";
     };
-    date = "2025-06-26";
+    date = "2025-07-10";
   };
   libqcef = {
     pname = "libqcef";
@@ -1015,12 +1015,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.15.5-xanmod1";
+    version = "6.15.6-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.15.5-xanmod1";
+      tag = "6.15.6-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-jw5l0nd7ClDwMLI6n3LmJ+0MprcgTlsHQKpsdX6hFZs=";
+      hash = "sha256-ArhRHMHvScV1Xa0lgBbM0hYtCAXujSCHA3aKEZnZSwU=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1045,12 +1045,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.36-xanmod1";
+    version = "6.12.37-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.36-xanmod1";
+      tag = "6.12.37-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-F/vdX8vAKf2/70Kni1UPcx/XBNF1b9tcoyzV4+q2/rY=";
+      hash = "sha256-VH5w802w6ugpMP5YPUuOJtf9TnrLZmFJUrGCQVH4n+s=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5862";
+    version = "b5869";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5862";
-      hash = "sha256-wOrj0OGkDvl3f6NwOhMXXxIVBsUOlIiJV4vBSIZjYgI=";
+      tag = "b5869";
+      hash = "sha256-sQK5OHuzRaT5wiz6+6ZBQxpzCLhYjdWy1ZsPcLrvMe4=";
     };
   };
   loralib = {
@@ -1248,12 +1248,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.0";
+    version = "0.9.1";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.0";
-      hash = "sha256-JqesjoyxJvGu0JJyGKqQx5Mb206oSRXqvuMkoC4YLCM=";
+      tag = "0.9.1";
+      hash = "sha256-AMHxKgvslBhe9TcAxW8IcZhUfweSwWvhQIv4UHMMo8o=";
     };
   };
   ngx_brotli = {
@@ -1741,14 +1741,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "b14d220e27afa93f35043d0b4921a87243c4c712";
+    version = "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "b14d220e27afa93f35043d0b4921a87243c4c712";
-      hash = "sha256-D1Z9hQxtgofAXYuDXZsGpHb4VhyYC93COJj7v2Rxoak=";
+      rev = "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557";
+      hash = "sha256-UrXWCg7vdcOPoOuERc/gCijJD8HJVWByq8ROA+JoDgE=";
     };
-    date = "2025-07-09";
+    date = "2025-07-10";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1834,10 +1834,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250610";
+    version = "20250711";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250610/moegirl.dict.yaml";
-      hash = "sha256-ctAxF/H4gnmAvHyLsC4oUNCdGFbi5X7+Db/Lwmknlsw=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250711/moegirl.dict.yaml";
+      hash = "sha256-gs/JhdSeLFkBKvBdVRxk3RhqlkOhly18w4Pz63GG814=";
     };
   };
   rime-zhwiki = {
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "f6bc737906f3190311644dffc0259e10b8a339f8";
+    version = "991e2d7087b7bd05c332e539e4f889a31e502481";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "f6bc737906f3190311644dffc0259e10b8a339f8";
+      rev = "991e2d7087b7bd05c332e539e4f889a31e502481";
       fetchSubmodules = true;
-      hash = "sha256-i5Ep+y8seCb7hoDbXrGUVdscfpSU28LJJGT7QQ6S6cI=";
+      hash = "sha256-zuYE3sn72i4+oax24uSbqHDwSEUcftGuHWOUmZfNRWw=";
     };
-    date = "2025-07-09";
+    date = "2025-07-10";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
