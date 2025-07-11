@@ -17,6 +17,10 @@ python312Packages.buildPythonApplication rec {
     hash = "sha256-TWLPCM1tsWiRCLDhowC/uQrDUujNO3FuDgnUQXMcTm0=";
   };
 
+  postPatch = ''
+    sed -i '/^slugify/d' requirements.txt
+  '';
+
   build-system = with python312Packages; [ setuptools ];
 
   dependencies = with python312Packages; [
@@ -28,6 +32,7 @@ python312Packages.buildPythonApplication rec {
     requests
     s2sphere
     svgwrite
+    types-requests
   ];
 
   nativeCheckInputs = with python312Packages; [ pytestCheckHook ];

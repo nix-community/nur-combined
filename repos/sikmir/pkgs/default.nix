@@ -437,6 +437,7 @@ lib.makeScope newScope (
     akasa = callPackage ./mqtt/akasa { };
     amqtt = callPackage ./mqtt/amqtt { };
     comqtt = callPackage ./mqtt/comqtt { };
+    go-mosquitto = callPackage ./mqtt/go-mosquitto { };
     go-mqtt-to-influxdb = callPackage ./mqtt/go-mqtt-to-influxdb { };
     hmq = callPackage ./mqtt/hmq { };
     ioxy = callPackage ./mqtt/ioxy { };
