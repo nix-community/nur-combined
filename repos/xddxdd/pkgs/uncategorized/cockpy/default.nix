@@ -9,6 +9,8 @@
 let
   pyenet = python3Packages.buildPythonPackage {
     inherit (sources.cockpy-pyenet) pname version src;
+    pyproject = true;
+    build-system = [ python3Packages.setuptools ];
 
     propagatedBuildInputs = with python3Packages; [ cython ];
 
