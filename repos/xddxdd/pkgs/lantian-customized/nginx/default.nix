@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       pushd bundle/ngx_brotli
       rm -rf deps
       substituteInPlace filter/config \
-        --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
+        --replace-fail '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
       popd
 
       pushd bundle/stream-echo-nginx-module

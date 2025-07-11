@@ -50,7 +50,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace src/utils.py \
-      --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver}/bin/undetected-chromedriver"'
+      --replace-fail 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver}/bin/undetected-chromedriver"'
   '';
 
   installPhase = ''

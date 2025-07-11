@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   prePatch = ''
     # Skip depmod
     substituteInPlace Makefile \
-      --replace "INSTALL_MOD_DIR=updates/" "INSTALL_MOD_PATH=${placeholder "out"}/" \
-      --replace "DEPMOD := depmod -a" "DEPMOD := true"
+      --replace-fail "INSTALL_MOD_DIR=updates/" "INSTALL_MOD_PATH=${placeholder "out"}/" \
+      --replace-fail "DEPMOD := depmod -a" "DEPMOD := true"
   '';
 
   meta = {

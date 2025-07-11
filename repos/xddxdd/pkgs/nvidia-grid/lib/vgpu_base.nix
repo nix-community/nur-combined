@@ -53,7 +53,7 @@ let
 
     postPatch = ''
       substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
-        --replace "no_llseek," "NULL,"
+        --replace-quiet "no_llseek," "NULL,"
     '';
 
     outputs = [

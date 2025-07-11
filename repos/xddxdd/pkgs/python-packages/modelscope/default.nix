@@ -47,10 +47,6 @@ buildPythonPackage rec {
       --replace-fail "return locals()['__version__']" "return '${sources.modelscope.version}'"
   '';
 
-  preInstall = ''
-    pushd package
-  '';
-
   pythonImportsCheck = [ "modelscope" ];
 
   meta = {

@@ -16,12 +16,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ py ];
 
-  postPatch = ''
-    # Fix upstream typo
-    substituteInPlace PROJECT/STMC/*307*.inf \
-      --replace '"STMC Genshin 04 Busy(Elements).ani"' '"STMC Genshin 04 Busy (Elements).ani"'
-  '';
-
   installPhase = ''
     runHook preInstall
 

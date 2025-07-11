@@ -30,8 +30,8 @@ composer2nixOutput.overrideAttrs (old: rec {
 
   postFixup = ''
     substituteInPlace $out/index.php \
-      --replace "\$pathPrefix = ''';" "\$pathPrefix = '$out/';" \
-      --replace \
+      --replace-fail "\$pathPrefix = ''';" "\$pathPrefix = '$out/';" \
+      --replace-fail \
         '$dotenv = Dotenv::createUnsafeImmutable(__DIR__, $envFilename);' \
         '$dotenv = Dotenv::createUnsafeImmutable(dirname($envFilename), basename($envFilename));'
   '';

@@ -72,11 +72,11 @@ stdenv.mkDerivation (finalAttrs: {
   NIX_CFLAGS_COMPILE = "-DHAVE_X11_XLIB_H=1 -lX11 -lcairo -Wno-narrowing";
 
   preConfigure = ''
-    substituteInPlace configure --replace \
+    substituteInPlace configure --replace-fail \
       'SEARCH_INCLUDE=' 'DUMMY_SEARCH_INCLUDE='
-    substituteInPlace configure --replace \
+    substituteInPlace configure --replace-fail \
       'SEARCH_LIB=' 'DUMMY_SEARCH_LIB='
-    substituteInPlace configure --replace \
+    substituteInPlace configure --replace-fail \
       /usr /no-such-path
   '';
 
