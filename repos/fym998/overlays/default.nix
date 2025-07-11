@@ -1,3 +1,3 @@
 {
-  default = _self: super: (import ./pkgs { pkgs = super; }).legacyPackages;
+  default = _self: super: (import ../pkgs { pkgs = super; }).legacyPackages;
 }
