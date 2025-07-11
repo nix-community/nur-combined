@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -76,7 +75,6 @@
   boot = {
     supportedFilesystems = [ "tcp_bbr" ];
   };
-  # environment.systemPackages = with pkgs;[ zfs ];
   repack = {
     plugIn.enable = true;
     openssh.enable = true;
@@ -87,9 +85,6 @@
     scrutiny.enable = true;
     postgresql.enable = true;
 
-    # photoprism.enable = true;
-    # mysql.enable = true;
-
     atuin.enable = true;
     misskey.enable = true;
     meilisearch.enable = true;
@@ -98,13 +93,15 @@
     mautrix-telegram.enable = true;
     calibre.enable = true;
     immich.enable = true;
-    radicle.enable = true;
-    autosign.enable = true;
+    radicle.enable = false;
+    autosign.enable = false;
     aria2.enable = true;
-    # linkwarden.enable = true;
     userborn-subid.enable = true;
     ollama.enable = true;
     seaweedfs.enable = true;
+
+    prometheus.enable = true;
+    grafana.enable = true;
 
   };
 

@@ -18,6 +18,16 @@ in
         group = "root";
         mode = "400";
       };
+      notifychan = {
+        file = ../../sec/notifychan.age;
+        mode = "400";
+      };
+      prom = {
+        file = ../../sec/prom.age;
+        mode = "640";
+        owner = "prometheus";
+        group = "users";
+      };
       id = {
         file = ../../sec/id.age;
         mode = "400";

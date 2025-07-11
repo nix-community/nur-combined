@@ -1,7 +1,7 @@
 * {
     border: none;
     font-family: JetBrainsMonoNL NFM, Font Awesome;
-    border-radius: 4px;
+    border-radius: 0px 4px 4px 0px;
     font-size: 10pt;
     font-weight: bold;
     min-height: 0;
@@ -80,5 +80,5 @@ window#waybar {
 
 #custom-niri-controller {
     background-color: transparent;
-    min-height:  220px;
+    min-height:  280px;
 }

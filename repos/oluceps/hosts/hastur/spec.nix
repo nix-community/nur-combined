@@ -193,7 +193,6 @@
     # atticd.enable = true;
     # photoprism.enable = true;
     # mysql.enable = true;
-    prometheus.enable = true;
     # coredns.enable = true;
     dnsproxy = {
       enable = false;
@@ -203,7 +202,6 @@
       # lazy = true;
     };
     # srs.enable = true;
-    grafana.enable = true;
     # xmrig.enable = true;
 
     # postgresql.enable = true;

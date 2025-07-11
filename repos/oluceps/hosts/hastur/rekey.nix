@@ -30,18 +30,8 @@ in
         group = "users";
         name = "nextchat";
       };
-      prom = {
-        file = ../../sec/prom.age;
-        mode = "640";
-        owner = "prometheus";
-        group = "users";
-      };
       harmonia = {
         file = ../../sec/harmonia.age;
-        mode = "400";
-      };
-      notifychan = {
-        file = ../../sec/notifychan.age;
         mode = "400";
       };
       wg-hastur = {
