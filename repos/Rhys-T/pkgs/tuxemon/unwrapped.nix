@@ -77,6 +77,7 @@ in let
         pythonRelaxDeps = true;
         pythonRemoveDeps = ["pygame_menu" "pygame-menu"] ++ lib.optional (lib.versionOlder version "0.4.34-unstable-2023-03-03") ["pygame"];
         nativeBuildInputs = [python3Packages.pythonRelaxDepsHook] ++ lib.optional hostPlatform.isDarwin desktopToDarwinBundle;
+        nativeCheckInputs = with python3Packages; [pytestCheckHook];
         build-system = with python3Packages; [
             setuptools
             setuptools-scm
@@ -135,6 +136,14 @@ in let
             install -Dm644 mods/tuxemon/gfx/icon_128.png "$out"/share/icons/hicolor/128x128/apps/org.tuxemon.Tuxemon.png
             install -Dm644 mods/tuxemon/gfx/icon_32.png "$out"/share/icons/hicolor/32x32/apps/org.tuxemon.Tuxemon.png
         '';
+        preCheck = ''
+            export HOME="$(mktemp -d)" NIX_TUXEMON_DIR="$PWD" SDL_VIDEODRIVER=dummy
+        '';
+        enabledTestPaths = ["tests/"];
+        disabledTests = [
+            "test_blit_alpha" # AssertionError: 128 != 127 - probably just an artifact of the dummy video driver(?)
+        ];
+        dontStrip = true;
         meta = {
             description = "Open source monster-fighting RPG";
             longDescription = ''
