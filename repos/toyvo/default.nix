@@ -42,6 +42,7 @@
     winDecStyles = [ "classic" ];
   };
   libpcpnatpmp = pkgs.callPackage ./pkgs/libpcpnatpmp.nix { };
+  purpurServers = pkgs.callPackages ./pkgs/purpur { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

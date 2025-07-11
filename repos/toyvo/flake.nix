@@ -59,9 +59,7 @@
             toyvo = config.packages;
           };
           legacyPackages = import ./default.nix { inherit pkgs; };
-          packages = lib.filterAttrs (
-            n: p: !(self'.legacyPackages.lib.isReserved n) && (self'.legacyPackages.lib.forPlatform p)
-          ) self'.legacyPackages;
+          packages = self'.legacyPackages.lib.flakePackages self'.legacyPackages;
           checks = self'.legacyPackages.lib.derivationOutputs self'.packages;
         };
     };

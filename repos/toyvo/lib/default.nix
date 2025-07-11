@@ -3,11 +3,11 @@ with builtins;
 with pkgs.lib;
 rec {
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   forPlatform =
     p:
     (builtins.any (s: s == pkgs.stdenv.system) (p.meta.platforms or [ pkgs.stdenv.system ]))
     && !(builtins.any (s: s == pkgs.stdenv.system) (p.meta.badPlatforms or [ ]));
+  isPackage = n: p: isDerivation p && !(isReserved n) && forPlatform p;
   isBuildable =
     p:
     let
@@ -19,13 +19,6 @@ rec {
     && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
-  nameValuePair = n: v: {
-    name = n;
-    value = v;
-  };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
   flattenPkgs =
     s:
@@ -52,5 +45,22 @@ rec {
       map (n: nameValuePair (strings.removePrefix "/nix/store/" (unsafeDiscardStringContext n)) n) (
         cacheableOutputs ps
       )
+    );
+
+  flakePackages =
+    ps:
+    foldl' mergeAttrs { } (
+      mapAttrsToList (
+        n: p:
+        if isPackage n p then
+          { ${n} = p; }
+        else if shouldRecurseForDerivations p then
+          mapAttrs' (sn: sp: {
+            name = if sn == n then n else "${n}.${sn}";
+            value = sp;
+          }) (filterAttrs (sn: sp: isPackage sn sp) p)
+        else
+          { }
+      ) ps
     );
 }

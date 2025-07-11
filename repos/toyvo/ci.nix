@@ -16,6 +16,7 @@ let
   nurAttrs = import ./default.nix { inherit pkgs; };
   nurPkgs =
     with nurAttrs.lib;
+    with pkgs.lib;
     flattenPkgs (
       listToAttrs (
         map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
