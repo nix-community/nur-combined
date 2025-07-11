@@ -135,14 +135,8 @@ reIf {
                 ]
                 ++ map (pre: "https://${pre}.nyaw.xyz") [
                   "blog"
-                  "ntfy"
-                  "matrix"
                   "pb"
-                  "vault"
                   "status"
-                  "book"
-                  "cache"
-                  "photo"
                 ];
             }
           ];
@@ -209,9 +203,9 @@ reIf {
               {
                 bot_token_file = "/run/credentials/alertmanager.service/notifychan";
                 chat_id = -1002215131569;
-                http_config = {
-                  proxy_url = "http://127.0.0.1:1900";
-                };
+                # http_config = {
+                #   proxy_url = "http://127.0.0.1:1900";
+                # };
               }
             ];
           }

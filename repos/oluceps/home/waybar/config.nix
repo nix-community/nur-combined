@@ -49,7 +49,7 @@ builtins.toJSON (
         scroll-step = 1;
         format = "{volume}";
         format-muted = "=";
-        on-click = lib.getExe (
+        on-double-click = lib.getExe (
           pkgs.nuenv.writeScriptBin {
             name = "switch-mute";
             script =
@@ -80,7 +80,7 @@ builtins.toJSON (
         tooltip = false;
         on-scroll-up = "${lib.getExe pkgs.brightnessctl} set 1%+";
         on-scroll-down = "${lib.getExe pkgs.brightnessctl} set 1%-";
-        on-click = "loginctl lock-session";
+        on-double-click = "loginctl lock-session";
       };
       "group/time" = {
         modules = [

@@ -58,15 +58,16 @@
         '';
       });
       pocket-id = prev.pocket-id.overrideAttrs (old: rec {
-        version = "1.6.0";
+        version = "1.6.2";
 
         src = prev.fetchFromGitHub {
           owner = "pocket-id";
           repo = "pocket-id";
           tag = "v${version}";
 
-          hash = "sha256-3hrulf63TqIu5j+KsaKAB018mrjpka1aewoH4ggJE2I=";
+          hash = "sha256-fg9iT4JGB3CvmPiRaQwfyKxZ5T0mweDQAQYYU/fdb/g=";
         };
+        vendorHash = "sha256-LutjhewhizxGc/YlNHpK81HrX+wSAAJLWtA+skTjn1w=";
         frontend = prev.buildNpmPackage {
           pname = "pocket-id-frontend";
           inherit version src;
@@ -85,7 +86,6 @@
           '';
         };
 
-        vendorHash = "sha256-LutjhewhizxGc/YlNHpK81HrX+wSAAJLWtA+skTjn1w=";
       });
 
       # misskey = prev.misskey.overrideAttrs (old: {
