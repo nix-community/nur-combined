@@ -64,6 +64,8 @@ in let
         build-system = with python3Packages; [setuptools];
     };
     usingPathlib = lib.versionAtLeast version "0.4.34-unstable-2025-05-29";
+    # Work around lack of NixOS/nixpkgs#386513 in Nixpkgs <= 24.11
+    hasEnabledTestPaths = (python3Packages.pytestCheckHook.tests or {})?enabledTestPaths;
     tuxemon = python3Packages.buildPythonApplication {
         pname = "tuxemon";
         inherit version;
@@ -139,9 +141,11 @@ in let
         preCheck = ''
             export HOME="$(mktemp -d)" NIX_TUXEMON_DIR="$PWD" SDL_VIDEODRIVER=dummy
         '';
-        enabledTestPaths = ["tests/"];
+        ${if hasEnabledTestPaths then "enabledTestPaths" else "pytestFlagsArray"} = ["tests/"];
         disabledTests = [
             "test_blit_alpha" # AssertionError: 128 != 127 - probably just an artifact of the dummy video driver(?)
+            "test_constrain_width_single_line" # fails to load Arial font, but only on aarch64-linux for some reason
+            "test_draw_text_right_justify" # ditto
         ];
         dontStrip = true;
         meta = {
