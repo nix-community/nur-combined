@@ -1,11 +1,14 @@
 {pkgs}: {
   mkChecks = builtins.mapAttrs (name: check:
-    pkgs.runCommandLocal name {
+    pkgs.stdenvNoCC.mkDerivation {
+      name = name;
+      src = ./.;
       nativeBuildInputs = check.packages;
-    } ''
-      cd ${./.}
-      HOME=$PWD
-      ${check.script}
-      touch $out
-    '');
+      doCheck = true;
+      checkPhase = check.script;
+      dontBuild = true;
+      installPhase = ''
+        touch $out
+      '';
+    });
 }

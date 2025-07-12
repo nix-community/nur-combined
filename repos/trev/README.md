@@ -18,6 +18,29 @@
 - [renovate](https://github.com/renovatebot/renovate) - Automated dependency update tool
   - patch: fix flake lock refresh [renovatebot#33991](https://github.com/renovatebot/renovate/pull/33991)
 
+## Libs
+
+- mkChecks - Utility function to make flake checks look better:
+
+```nix
+checks = forSystem ({pkgs, ...}:
+  pkgs.nur.repos.trev.lib.mkChecks {
+    lint = {
+      packages = with pkgs; [
+        alejandra
+        revive
+        sqlfluff
+      ];
+
+      script = ''
+        alejandra -c .
+        sqlfluff lint
+        revive -config revive.toml -set_exit_status ./...
+      '';
+    };
+});
+```
+
 ## Examples
 
 ### DevShell
