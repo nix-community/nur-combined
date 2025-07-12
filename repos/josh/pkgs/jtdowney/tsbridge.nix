@@ -8,13 +8,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "tsbridge";
-  version = "0.9.1";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "jtdowney";
     repo = "tsbridge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lS01lBf4W0aVMZjfT0HjUGfQ/81oBErO7ZbxXpixPP4=";
+    hash = "sha256-8eO7L+Z0vCodXxQ1hpCEZiS/u3IESVzoGfeb9SxJuGg=";
   };
 
   vendorHash = "sha256-dIksgE4gBLMs7/kBtr7CwAO9IJftEMPBfTl/YD4CQ1c=";
