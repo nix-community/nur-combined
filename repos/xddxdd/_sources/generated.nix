@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.16.5-2";
+    version = "v1.16.5-3";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-2/bilibili-asar-v1.16.5-2.tar.gz";
-      hash = "sha256-FsT29j1370YdYQdV9YzOzBc8F4pCuH1858/ph5MuTWo=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-3/bilibili-asar-v1.16.5-3.tar.gz";
+      hash = "sha256-HI30uNaRAgjStIyvRYNQ2geAXpK/8HqCbv5aAZBNoPo=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.16.5-2";
+    version = "v1.16.5-3";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.16.5-2";
-      hash = "sha256-gOxeShqi7XtFYqHbV8E98qaukTrCNt4WC5bqPy749Uo=";
+      tag = "v1.16.5-3";
+      hash = "sha256-JJF2j70yULGvS6WdYMcznYKVw4r5iPkkVfw0g7WvSIg=";
     };
   };
   bin-cpuflags-x86 = {
@@ -201,39 +201,39 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.4.1000.42";
+    version = "13.4.1000.61";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_amd64.deb";
-      hash = "sha256-bjOQmRz86AI4xFWDaBEZvsAUVpmotZV30Cc0e43FMYY=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.61-1_amd64.deb";
+      hash = "sha256-xBi/88/bXIXh7CLKP7TqjX2Tiatm+e306n9otTh0+Ug=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.4.1000.42";
+    version = "13.4.1000.61";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.42-1_arm64.deb";
-      hash = "sha256-Lrgb0H1DE3Cr/dY6cpkGI/hz2g+MCCpjwj5Z/2hyAdo=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.61-1_arm64.deb";
+      hash = "sha256-stwvmgoeq0gk+8vZu5/VPTweEpJkTDv2TcuOJAKIC9I=";
     };
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "f76b51cf37422c1f5e14e194da2a1e939dd809f8";
+    version = "51b3a59289a42bc286d9cac2d13bf41971cd3bb9";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "f76b51cf37422c1f5e14e194da2a1e939dd809f8";
-      hash = "sha256-aXEKUPNLBQIZD+CEP6Tv53b5yydhFxeOX7E+6Kcg1lA=";
+      rev = "51b3a59289a42bc286d9cac2d13bf41971cd3bb9";
+      hash = "sha256-NvreQT5GExmoF/l996i85cobXaDLwFGhswpSb+e5Jf8=";
     };
-    date = "2025-07-10";
+    date = "2025-07-11";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "4aaee07c957aff4cd6a6e16d0e71217815785a9d";
+    version = "c4e4f411647148cebe7f0c302abb962cbe70d4eb";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "4aaee07c957aff4cd6a6e16d0e71217815785a9d";
-      hash = "sha256-bXMcvR4HFl8gy9l5CTx/9WW9R+o0Te60rh3vkNIlXw0=";
+      rev = "c4e4f411647148cebe7f0c302abb962cbe70d4eb";
+      hash = "sha256-2h7N/r+CAllN64CMzQcJN+ZczFCdU8qcXpKEz4d/HFM=";
     };
     date = "2025-07-11";
   };
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5869";
+    version = "b5873";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5869";
-      hash = "sha256-sQK5OHuzRaT5wiz6+6ZBQxpzCLhYjdWy1ZsPcLrvMe4=";
+      tag = "b5873";
+      hash = "sha256-NBKcNtJv78fv6HJp1peu3HRwdITUCgZoqKNMpiEnpR0=";
     };
   };
   loralib = {
@@ -1459,10 +1459,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.4.15";
+    version = "8.0.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.4.15/PeerBanHelper_7.4.15.zip";
-      hash = "sha256-LICKttYbqC0Lszt4bOJflcqmLoPWty3DcBxOTwenJ1Y=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.3/PeerBanHelper_8.0.3.zip";
+      hash = "sha256-LYDxXKKUgGXxwMhLjqmGNF/5LREQF7dsbKB8JAtiwU0=";
     };
   };
   phpmyadmin = {
@@ -1485,12 +1485,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.3.39-fix3";
+    version = "1.1.3.40";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.3.39-fix3";
-      hash = "sha256-OIyIhlKjZcAOzNJXuZYxGM/GBfMuhY+kNy81i/kFGfw=";
+      tag = "1.1.3.40";
+      hash = "sha256-9Xvsnjifv/Ivh4y0uzaZDclUOuP09JjY43HtdL+vpW4=";
     };
   };
   plangothic-fonts = {
