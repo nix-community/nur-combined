@@ -508,13 +508,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001726" = {
+    "caniuse-lite-1.0.30001727" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001726";
+      version = "1.0.30001727";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001726.tgz";
-        sha512 = "VQAUIUzBiZ/UnlM28fSp2CRF3ivUn1BWEvxMcVTNwpw91Py1pGbPIyIKtd+tzct9C3ouceCVdGAXxZOpZAsgdw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001727.tgz";
+        sha512 = "pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q==";
       };
     };
     "chalk-5.4.1" = {
@@ -607,13 +607,13 @@ let
         sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.179" = {
+    "electron-to-chromium-1.5.182" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.179";
+      version = "1.5.182";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.179.tgz";
-        sha512 = "UWKi/EbBopgfFsc5k61wFpV7WrnnSlSzW/e2XcBmS6qKYTivZlLtoll5/rdqRTxGglGHkmkW0j0pFNJG10EUIQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
+        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
       };
     };
     "emoji-regex-10.4.0" = {
@@ -1201,13 +1201,13 @@ let
         sha512 = "94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==";
       };
     };
-    "socks-2.8.5" = {
+    "socks-2.8.6" = {
       name = "socks";
       packageName = "socks";
-      version = "2.8.5";
+      version = "2.8.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/socks/-/socks-2.8.5.tgz";
-        sha512 = "iF+tNDQla22geJdTyJB1wM/qrX9DMRwWrciEPwWLPRWAUEM8sQiyxgckLxWT1f7+9VabJS0jTGGr4QgBuvi6Ww==";
+        url = "https://registry.npmjs.org/socks/-/socks-2.8.6.tgz";
+        sha512 = "pe4Y2yzru68lXCb38aAqRf5gvN8YdjP1lok5o0J7BOHljkyCGKVz7H3vpVIXKD27rj2giOJ7DwVyk/GWrPHDWA==";
       };
     };
     "socks-proxy-agent-5.0.1" = {
@@ -1462,7 +1462,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001726"
+      sources."caniuse-lite-1.0.30001727"
       sources."chalk-5.4.1"
       sources."chownr-2.0.0"
       sources."cjs-module-lexer-1.4.3"
@@ -1473,7 +1473,7 @@ let
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.1"
-      sources."electron-to-chromium-1.5.179"
+      sources."electron-to-chromium-1.5.182"
       sources."emoji-regex-10.4.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
@@ -1555,7 +1555,7 @@ let
       sources."semver-6.3.1"
       sources."signal-exit-4.1.0"
       sources."smart-buffer-4.2.0"
-      sources."socks-2.8.5"
+      sources."socks-2.8.6"
       sources."socks-proxy-agent-5.0.1"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.21"

@@ -94,13 +94,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-24.0.10" = {
+    "@types/node-24.0.13" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "24.0.10";
+      version = "24.0.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-24.0.10.tgz";
-        sha512 = "ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==";
+        url = "https://registry.npmjs.org/@types/node/-/node-24.0.13.tgz";
+        sha512 = "Qm9OYVOFHFYg3wJoTSrz80hoec5Lia/dPp84do3X7dZvLikQvM1YpmvTBEdIr/e+U8HTkFjLHLnl78K/qjf+jQ==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -292,6 +292,15 @@ let
         sha512 = "NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==";
       };
     };
+    "acorn-import-phases-1.0.3" = {
+      name = "acorn-import-phases";
+      packageName = "acorn-import-phases";
+      version = "1.0.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/acorn-import-phases/-/acorn-import-phases-1.0.3.tgz";
+        sha512 = "jtKLnfoOzm28PazuQ4dVBcE9Jeo6ha1GAJvq3N0LlNOszmTfx+wSycBehn+FN0RnyeR77IBxN/qVYMw0Rlj0Xw==";
+      };
+    };
     "ajv-8.17.1" = {
       name = "ajv";
       packageName = "ajv";
@@ -337,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001726" = {
+    "caniuse-lite-1.0.30001727" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001726";
+      version = "1.0.30001727";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001726.tgz";
-        sha512 = "VQAUIUzBiZ/UnlM28fSp2CRF3ivUn1BWEvxMcVTNwpw91Py1pGbPIyIKtd+tzct9C3ouceCVdGAXxZOpZAsgdw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001727.tgz";
+        sha512 = "pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -400,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.179" = {
+    "electron-to-chromium-1.5.182" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.179";
+      version = "1.5.182";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.179.tgz";
-        sha512 = "UWKi/EbBopgfFsc5k61wFpV7WrnnSlSzW/e2XcBmS6qKYTivZlLtoll5/rdqRTxGglGHkmkW0j0pFNJG10EUIQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
+        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
       };
     };
     "enhanced-resolve-5.18.2" = {
@@ -1003,13 +1012,13 @@ let
         sha512 = "c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==";
       };
     };
-    "webpack-5.99.9" = {
+    "webpack-5.100.1" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.99.9";
+      version = "5.100.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.99.9.tgz";
-        sha512 = "brOPwM3JnmOa+7kd3NsmOUOwbDAj8FT9xDsG3IW0MgbN9yZV7Oi/s/+MNQ/EcSMqw7qfoRyXPoeEWT8zLVdVGg==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.100.1.tgz";
+        sha512 = "YJB/ESPUe2Locd0NKXmw72Dx8fZQk1gTzI6rc9TAT4+Sypbnhl8jd8RywB1bDsDF9Dy1RUR7gn3q/ZJTd0OZZg==";
       };
     };
     "webpack-cli-6.0.1" = {
@@ -1074,7 +1083,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.8"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-24.0.10"
+      sources."@types/node-24.0.13"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1096,18 +1105,19 @@ let
       sources."@xtuc/ieee754-1.2.0"
       sources."@xtuc/long-4.2.2"
       sources."acorn-8.15.0"
+      sources."acorn-import-phases-1.0.3"
       sources."ajv-8.17.1"
       sources."ajv-formats-2.1.1"
       sources."ajv-keywords-5.1.0"
       sources."browserslist-4.25.1"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001726"
+      sources."caniuse-lite-1.0.30001727"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.179"
+      sources."electron-to-chromium-1.5.182"
       sources."enhanced-resolve-5.18.2"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
@@ -1181,7 +1191,7 @@ let
       sources."undici-types-7.8.0"
       sources."update-browserslist-db-1.1.3"
       sources."watchpack-2.4.4"
-      sources."webpack-5.99.9"
+      sources."webpack-5.100.1"
       sources."webpack-cli-6.0.1"
       sources."webpack-merge-6.0.1"
       sources."webpack-sources-3.3.3"

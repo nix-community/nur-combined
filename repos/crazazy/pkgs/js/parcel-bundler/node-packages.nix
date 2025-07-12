@@ -1678,13 +1678,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001726" = {
+    "caniuse-lite-1.0.30001727" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001726";
+      version = "1.0.30001727";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001726.tgz";
-        sha512 = "VQAUIUzBiZ/UnlM28fSp2CRF3ivUn1BWEvxMcVTNwpw91Py1pGbPIyIKtd+tzct9C3ouceCVdGAXxZOpZAsgdw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001727.tgz";
+        sha512 = "pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q==";
       };
     };
     "caseless-0.12.0" = {
@@ -1948,13 +1948,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.43.0" = {
+    "core-js-compat-3.44.0" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.43.0";
+      version = "3.44.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.43.0.tgz";
-        sha512 = "2GML2ZsCc5LR7hZYz4AXmjQw8zuy2T//2QntwdnpuYI7jteT6GVYJL7F6C2C57R7gSYrcqVW3lAALefdbhBLDA==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.44.0.tgz";
+        sha512 = "JepmAj2zfl6ogy34qfWtcE7nHKAJnKsQFRn++scjVS2bZFllwptzw61BZcZFYBPpUznLfAvh0LGhxKppk04ClA==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2551,13 +2551,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.5.179" = {
+    "electron-to-chromium-1.5.182" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.179";
+      version = "1.5.182";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.179.tgz";
-        sha512 = "UWKi/EbBopgfFsc5k61wFpV7WrnnSlSzW/e2XcBmS6qKYTivZlLtoll5/rdqRTxGglGHkmkW0j0pFNJG10EUIQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
+        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
       };
     };
     "elliptic-6.6.1" = {
@@ -4450,13 +4450,13 @@ let
         sha512 = "6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==";
       };
     };
-    "nan-2.22.2" = {
+    "nan-2.23.0" = {
       name = "nan";
       packageName = "nan";
-      version = "2.22.2";
+      version = "2.23.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nan/-/nan-2.22.2.tgz";
-        sha512 = "DANghxFkS1plDdRsX0X9pm0Z6SJNN6gBdtXfanwoZ8hooC5gosGFSBGRYHUVPz1asKA/kMRqDRdHrluZ61SpBQ==";
+        url = "https://registry.npmjs.org/nan/-/nan-2.23.0.tgz";
+        sha512 = "1UxuyYGdoQHcGg87Lkqm3FzefucTa0NAiOcuRsDmysep3c1LVCRK2krrUDafMWtjSG04htvAmvg96+SDknOmgQ==";
       };
     };
     "nanomatch-1.2.13" = {
@@ -7193,7 +7193,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001726"
+      sources."caniuse-lite-1.0.30001727"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -7228,7 +7228,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      sources."core-js-compat-3.43.0"
+      sources."core-js-compat-3.44.0"
       sources."core-util-is-1.0.3"
       sources."cosmiconfig-5.2.1"
       (sources."create-ecdh-4.0.4" // {
@@ -7328,7 +7328,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.5.179"
+      sources."electron-to-chromium-1.5.182"
       (sources."elliptic-6.6.1" // {
         dependencies = [
           sources."bn.js-4.12.2"
@@ -7589,7 +7589,7 @@ let
       sources."mixin-deep-1.3.2"
       sources."mkdirp-0.5.6"
       sources."ms-2.1.3"
-      sources."nan-2.22.2"
+      sources."nan-2.23.0"
       (sources."nanomatch-1.2.13" // {
         dependencies = [
           sources."extend-shallow-3.0.2"
