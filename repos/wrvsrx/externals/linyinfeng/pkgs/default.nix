@@ -36,7 +36,9 @@ lib.makeScope newScope (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    libva-v4l2 = callPackage ./libva-v4l2 { };
     lpac = callPackage ./lpac { };
+    ly2video = callPackage ./ly2video { };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
@@ -49,13 +51,11 @@ lib.makeScope newScope (
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     ssl-handshake = callPackage ./ssl-handshake { };
-    swayosd = callPackage ./swayosd { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };
-    wemeet = callPackage ./wemeet { };
     yacd = callPackage ./yacd { };
     zeronsd = callPackage ./zeronsd { };
     # keep-sorted end

@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./baibot-v1.7.4/Cargo.lock",
+                "./baibot-v1.7.6/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=",
                     "async-openai-0.28.1": "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw="
@@ -42,12 +42,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.7.4",
-            "sha256": "sha256-G100YemvIiBkbYd8VSTzvh5AOnt2kjsjVKI4N1kFkwY=",
+            "rev": "v1.7.6",
+            "sha256": "sha256-EdFTJBQmKdvOVvr0P6vf+UHtdQAamDeV1jVFOzcPDsY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.7.4"
+        "version": "v1.7.6"
     },
     "cowrie": {
         "cargoLocks": null,
@@ -151,6 +151,26 @@
         },
         "version": "v2.12.28"
     },
+    "libva-v4l2": {
+        "cargoLocks": null,
+        "date": "2024-10-21",
+        "extract": null,
+        "name": "libva-v4l2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "4bcd48cdeae182c7af5d23526068b51338c01b05",
+            "sha256": "sha256-40wAxU7xj9VF4Dk+zrQWn9iiGAzWlhEdN9dQa5ftLLE=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/mxsrc/libva-v4l2.git"
+        },
+        "version": "4bcd48cdeae182c7af5d23526068b51338c01b05"
+    },
     "linux-intel-lts": {
         "cargoLocks": null,
         "date": null,
@@ -165,12 +185,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.32-linux-250611T134648Z",
-            "sha256": "sha256-7RXmlo5dGnKFVDs9zyjEz5AjXkVTJTpjS7Q/MNDySKM=",
+            "rev": "lts-v6.12.36-linux-250706T135608Z",
+            "sha256": "sha256-SDVzTh1qX+0VTsGA8G6tbcH+CqVLIerOEyJ68hdi5Bk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.32-linux-250611T134648Z"
+        "version": "lts-v6.12.36-linux-250706T135608Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -213,6 +233,27 @@
             "type": "github"
         },
         "version": "v2.2.1"
+    },
+    "ly2video": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ly2video",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "aspiers",
+            "repo": "ly2video",
+            "rev": "v0.5.0",
+            "sha256": "sha256-4ARRCmz7uDKWVuY1LG98oAGV/S0BFo4DYyoWw9TlZoo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.5.0"
     },
     "mstickereditor": {
         "cargoLocks": {
@@ -469,7 +510,7 @@
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-04-07",
+        "date": "2025-07-12",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -479,17 +520,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "573bbeb53e53d4331fff5fae151b814c67b8d0cd",
-            "sha256": "sha256-41wZiPH0cAhl3yTCdyx1zLR3OoSxv+GHQ3xvm14mNxc=",
+            "rev": "b3b4a614bde0dddd309200caaa8cb8827a7459e5",
+            "sha256": "sha256-OP3eY7nQcuPuptAORGnv+EYun58+HqTcOocrI88wa0M=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "573bbeb53e53d4331fff5fae151b814c67b8d0cd"
+        "version": "b3b4a614bde0dddd309200caaa8cb8827a7459e5"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-06-16",
+        "date": "2025-07-06",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -499,13 +540,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "eeb559e70b7775d4d0b89003b3c9b896a447092f",
-            "sha256": "sha256-HvjDw2BNvMbu/J0NINN2/+iWCv3pYt+HrtlJPWfhERA=",
+            "rev": "7acdee60d09602383b6299d1bdaaba03f0a57869",
+            "sha256": "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "eeb559e70b7775d4d0b89003b3c9b896a447092f"
+        "version": "7acdee60d09602383b6299d1bdaaba03f0a57869"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -707,31 +748,6 @@
             "type": "github"
         },
         "version": "v1.5.1-signed"
-    },
-    "swayosd": {
-        "cargoLocks": {
-            "Cargo.lock": [
-                "./swayosd-ce1f34d80a7f8b4393a5551ea0535bd8beabb28c/Cargo.lock",
-                {}
-            ]
-        },
-        "date": "2025-04-20",
-        "extract": null,
-        "name": "swayosd",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c",
-            "sha256": "sha256-Z9c/5jKxs5ctUuVu7g+BXA1Wy4lyZLpGATtj2jd84jI=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/ErikReider/SwayOSD.git"
-        },
-        "version": "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,

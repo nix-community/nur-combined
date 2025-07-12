@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.7.4";
+    version = "v1.7.6";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.7.4";
+      rev = "v1.7.6";
       fetchSubmodules = false;
-      sha256 = "sha256-G100YemvIiBkbYd8VSTzvh5AOnt2kjsjVKI4N1kFkwY=";
+      sha256 = "sha256-EdFTJBQmKdvOVvr0P6vf+UHtdQAamDeV1jVFOzcPDsY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./baibot-v1.7.4/Cargo.lock;
+      lockFile = ./baibot-v1.7.6/Cargo.lock;
       outputHashes = {
         "async-openai-0.28.1" = "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw=";
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
@@ -99,15 +99,29 @@
       sha256 = "sha256-lNlzQPDXXVNuacic1BYjWA5sGLRLlcGVRaqHPmZ3ZYs=";
     };
   };
+  libva-v4l2 = {
+    pname = "libva-v4l2";
+    version = "4bcd48cdeae182c7af5d23526068b51338c01b05";
+    src = fetchgit {
+      url = "https://github.com/mxsrc/libva-v4l2.git";
+      rev = "4bcd48cdeae182c7af5d23526068b51338c01b05";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-40wAxU7xj9VF4Dk+zrQWn9iiGAzWlhEdN9dQa5ftLLE=";
+    };
+    date = "2024-10-21";
+  };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.32-linux-250611T134648Z";
+    version = "lts-v6.12.36-linux-250706T135608Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.32-linux-250611T134648Z";
+      rev = "lts-v6.12.36-linux-250706T135608Z";
       fetchSubmodules = false;
-      sha256 = "sha256-7RXmlo5dGnKFVDs9zyjEz5AjXkVTJTpjS7Q/MNDySKM=";
+      sha256 = "sha256-SDVzTh1qX+0VTsGA8G6tbcH+CqVLIerOEyJ68hdi5Bk=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -130,6 +144,17 @@
       rev = "v2.2.1";
       fetchSubmodules = false;
       sha256 = "sha256-dxoYuX3dNj4piXQBqU4w1ICeyOGid35c+6ZITQiN6wA=";
+    };
+  };
+  ly2video = {
+    pname = "ly2video";
+    version = "v0.5.0";
+    src = fetchFromGitHub {
+      owner = "aspiers";
+      repo = "ly2video";
+      rev = "v0.5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-4ARRCmz7uDKWVuY1LG98oAGV/S0BFo4DYyoWw9TlZoo=";
     };
   };
   mstickereditor = {
@@ -305,31 +330,31 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "573bbeb53e53d4331fff5fae151b814c67b8d0cd";
+    version = "b3b4a614bde0dddd309200caaa8cb8827a7459e5";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "573bbeb53e53d4331fff5fae151b814c67b8d0cd";
+      rev = "b3b4a614bde0dddd309200caaa8cb8827a7459e5";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-41wZiPH0cAhl3yTCdyx1zLR3OoSxv+GHQ3xvm14mNxc=";
+      sha256 = "sha256-OP3eY7nQcuPuptAORGnv+EYun58+HqTcOocrI88wa0M=";
     };
-    date = "2025-04-07";
+    date = "2025-07-12";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
+    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "eeb559e70b7775d4d0b89003b3c9b896a447092f";
+      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-HvjDw2BNvMbu/J0NINN2/+iWCv3pYt+HrtlJPWfhERA=";
+      sha256 = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
     };
-    date = "2025-06-16";
+    date = "2025-07-06";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -467,26 +492,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-AF3PxqBW8Piis6jgm/O7PKz0VScOFVy8R+PfjRyDQto=";
     };
-  };
-  swayosd = {
-    pname = "swayosd";
-    version = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
-    src = fetchgit {
-      url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "ce1f34d80a7f8b4393a5551ea0535bd8beabb28c";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-Z9c/5jKxs5ctUuVu7g+BXA1Wy4lyZLpGATtj2jd84jI=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-ce1f34d80a7f8b4393a5551ea0535bd8beabb28c/Cargo.lock;
-      outputHashes = {
-
-      };
-    };
-    date = "2025-04-20";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";

@@ -7,6 +7,9 @@
 python3Packages.buildPythonPackage rec {
   inherit (sources.synapse-s3-storage-provider) pname version src;
 
+  pyproject = true;
+  build-system = with python3Packages; [ setuptools ];
+
   # postPatch = ''
   #   # use latest pyyaml and humanize (used in media-upload)
   #   substituteInPlace setup.py \

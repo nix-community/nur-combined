@@ -9,6 +9,9 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
+  pyproject = true;
+  build-system = with python3Packages; [ setuptools ];
+
   propagatedBuildInputs = with python3Packages; [
     setuptools
     httpsig

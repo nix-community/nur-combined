@@ -20,6 +20,7 @@ let
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
+    (empty "libva-v4l2")
     (empty "niri-taskbar")
     (empty "rimePackages/librime")
     (empty "rimePackages/rime-bopomofo")
@@ -59,7 +60,6 @@ let
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
     (trivial "ssl-handshake")
-    (trivial "swayosd")
     (trivial "telegram-send")
     (trivial "tg-send")
     (trivial "trojan")
@@ -73,6 +73,13 @@ let
     {
       "easylpac" = {
         "EasyLPAC" = "EasyLPAC";
+      };
+    }
+    {
+      "ly2video" = {
+        "ly2video" = "ly2video";
+        "midi-rubato" = "midi-rubato";
+        "xsc2beatmap" = "xsc2beatmap";
       };
     }
     {
@@ -92,12 +99,6 @@ let
     {
       "rcon-cli" = {
         "gorcon" = "gorcon";
-      };
-    }
-    {
-      "wemeet" = {
-        "wemeet" = "wemeetapp";
-        "wemeet-force-x11" = "wemeetapp-force-x11";
       };
     }
     # keep-sorted end

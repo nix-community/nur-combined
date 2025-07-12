@@ -13,6 +13,8 @@ let
   pyPkg = python3Packages.buildPythonPackage {
     inherit pname version;
     src = ./.;
+    pyproject = true;
+    build-system = with python3Packages; [ setuptools ];
     propagatedBuildInputs = with python3Packages; [ pyserial ];
   };
 in
