@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check-and-evaluate
     outputs:
-      should_build: ${{ steps.compare.outputs.changed }}
+      should_build: ${{ steps.compare.outputs.changed || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Restore previous eval hash
         uses: actions/cache/restore@v4
@@ -85,7 +85,7 @@ jobs:
 
   build:
     needs: build-control
-    if: ${{ needs.build-control.outputs.should_build == 'true' }} # 仅在评估变化时运行
+    if: ${{ needs.build-control.outputs.should_build == 'true' }}
     strategy:
       matrix:
         runner:
