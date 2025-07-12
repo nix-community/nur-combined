@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "wd";
-  version = "1.1.0";
+  version = "1.2.0";
   src = fetchzip {
     url = "https://github.com/kakkun61/wd/tarball/${version}";
     sha256 = "sha256-WNwsgSOcYVfXnJ7/DayvlE490Jheum9gCkoEdnGdggM=";
