@@ -17,10 +17,10 @@ buildGoModule (finalAttrs: {
   vendorHash = "sha256-auKQToKsNoCXrBxRK4jaozZTqC8cIsj1TSibvAhH64Q=";
 
   meta = {
-    description = "Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface";
+    description = "Protobuf plugin for generating OpenAPI specs matching the Connect RPC interface";
     mainProgram = "protoc-gen-connect-openapi";
     homepage = "https://github.com/sudorandom/protoc-gen-connect-openapi";
-    changelog = "https://github.com/sudorandom/protoc-gen-connect-openapi/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/sudorandom/protoc-gen-connect-openapi/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
