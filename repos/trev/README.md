@@ -20,19 +20,19 @@
 
 ## Libs
 
-- mkChecks - Utility function to make flake checks look better:
+- mkChecks - Utility function to make creating flake checks easier
 
 ```nix
 checks = forSystem ({pkgs, ...}:
   pkgs.nur.repos.trev.lib.mkChecks {
     lint = {
-      packages = with pkgs; [
+      src = ./.;
+      nativeBuildInputs = with pkgs; [
         alejandra
         revive
         sqlfluff
       ];
-
-      script = ''
+      checkPhase = ''
         alejandra -c .
         sqlfluff lint
         revive -config revive.toml -set_exit_status ./...
