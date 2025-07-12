@@ -1,7 +1,11 @@
-{ pkgs }:
-
-with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+{pkgs}: {
+  mkChecks = builtins.mapAttrs (name: check:
+    pkgs.runCommandLocal name {
+      nativeBuildInputs = check.packages;
+    } ''
+      cd ${./.}
+      HOME=$PWD
+      ${check.script}
+      touch $out
+    '');
 }
