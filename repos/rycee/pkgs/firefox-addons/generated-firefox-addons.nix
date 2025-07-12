@@ -2461,38 +2461,6 @@
         platforms = platforms.all;
       };
     };
-    "dashlane" = buildFirefoxXpiAddon {
-      pname = "dashlane";
-      version = "6.2524.0";
-      addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4509595/dashlane-6.2524.0.xpi";
-      sha256 = "a97773dc39244fa217d4af07d00cfd3475e0cbd3acc5b4adfb4cd8678225a8e7";
-      meta = with lib;
-      {
-        homepage = "https://www.dashlane.com";
-        description = "Dashlane makes the internet easier. Save all your passwords, fill forms fast, and keep your data accessible and safe.";
-        license = {
-          shortName = "dashlane";
-          fullName = "Dashlane Terms of Service";
-          url = "https://www.dashlane.com/terms";
-          free = false;
-        };
-        mozPermissions = [
-          "http://*/*"
-          "https://*/*"
-          "contextMenus"
-          "cookies"
-          "idle"
-          "privacy"
-          "storage"
-          "tabs"
-          "unlimitedStorage"
-          "webRequest"
-          "webRequestBlocking"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
       version = "2.1.4";
