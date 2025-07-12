@@ -330,17 +330,17 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "6025fc7014fb0e7f0c243edca6605e6ca41ee98f";
+    version = "b3b4a614bde0dddd309200caaa8cb8827a7459e5";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "6025fc7014fb0e7f0c243edca6605e6ca41ee98f";
+      rev = "b3b4a614bde0dddd309200caaa8cb8827a7459e5";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-0YpsSbWAdqjjvHGWzdKrZAkL/lKuXtJYUz0h12sv1Iw=";
+      sha256 = "sha256-OP3eY7nQcuPuptAORGnv+EYun58+HqTcOocrI88wa0M=";
     };
-    date = "2025-07-11";
+    date = "2025-07-12";
   };
   rime-ice = {
     pname = "rime-ice";
