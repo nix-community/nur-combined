@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation {
   pname = "turbo";
-  version = "0-unstable-2024-02-05";
+  version = "0-unstable-2025-05-15";
 
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "turbo";
-    rev = "3251358bb06e277309b9ae678f1c88c315c7f856";
-    hash = "sha256-5EdVrzu9MxXTfQSfenjPQJ8pBizRAhhAAxyA3aObCvU=";
+    rev = "b6b19535af7d0d01d77ec0ddcbe731fe8b0ddda7";
+    hash = "sha256-rqRRO3wafpL8ZEzIV8iO4gvdJpjixmb+F7MILJtOjIc=";
   };
 
   nativeBuildInputs = [ cmake ];
