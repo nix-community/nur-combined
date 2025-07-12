@@ -64,6 +64,22 @@
     #     "--server-adminlist=${config.vaultix.secrets.factorio-admin.path}"
     #   ];
     # };
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:8776";
+            remote = "[fdcc::3]:8776";
+          }
+        ];
+      };
+    };
 
     ntfy-sh = {
       enable = true;

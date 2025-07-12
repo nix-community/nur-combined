@@ -93,7 +93,7 @@
     mautrix-telegram.enable = true;
     calibre.enable = true;
     immich.enable = true;
-    radicle.enable = false;
+    radicle.enable = true;
     autosign.enable = false;
     aria2.enable = true;
     userborn-subid.enable = true;
