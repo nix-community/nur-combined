@@ -10677,10 +10677,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.62";
+      version = "4.3.63";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406717/remove_youtube_s_suggestions-4.3.62.xpi";
-      sha256 = "e978bbb663c089a86947780290a1e9ac107a8233dd0943aa8668b15108d4b1a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4532848/remove_youtube_s_suggestions-4.3.63.xpi";
+      sha256 = "241423111f8e02c2aa844616f342a03a5a12590bba0c3e50a30a62321f2410f3";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -14600,7 +14600,6 @@
       sha256 = "1ce2de496b74a61b11fe5dc57024545050aead4db3c81b99065ca79713db1aab";
       meta = with lib;
       {
-        homepage = "https://youtube-no-translation.vercel.app/";
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
         mozPermissions = [
           "storage"
