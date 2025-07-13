@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HI30uNaRAgjStIyvRYNQ2geAXpK/8HqCbv5aAZBNoPo=",
+            "sha256": "sha256-hde/VBav/TGzo1Sui5aELCrkxbIiQ1eKSGUEFgZ78qI=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-3/bilibili-asar-v1.16.5-3.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-4/bilibili-asar-v1.16.5-4.tar.gz"
         },
-        "version": "v1.16.5-3"
+        "version": "v1.16.5-4"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.5-3",
-            "sha256": "sha256-JJF2j70yULGvS6WdYMcznYKVw4r5iPkkVfw0g7WvSIg=",
+            "rev": "v1.16.5-4",
+            "sha256": "sha256-DoDWQ7ixljeNTa1qZMvaPn0XuCHsClnSh12u321M5xI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.5-3"
+        "version": "v1.16.5-4"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -2078,12 +2078,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5873",
-            "sha256": "sha256-NBKcNtJv78fv6HJp1peu3HRwdITUCgZoqKNMpiEnpR0=",
+            "rev": "b5888",
+            "sha256": "sha256-6g8BFnit2vPB4kPSio2WDqoIX5q799fOOw3Pn7pAXFw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5873"
+        "version": "b5888"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2856,11 +2856,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LYDxXKKUgGXxwMhLjqmGNF/5LREQF7dsbKB8JAtiwU0=",
+            "sha256": "sha256-Q3ce+uU/4baAzkBYvGrpjv6t/SvF5aerYj5/7d+efnM=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.3/PeerBanHelper_8.0.3.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.4/PeerBanHelper_8.0.4.zip"
         },
-        "version": "8.0.3"
+        "version": "8.0.4"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -4255,7 +4255,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-07-10",
+        "date": "2025-07-12",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4267,12 +4267,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "991e2d7087b7bd05c332e539e4f889a31e502481",
-            "sha256": "sha256-zuYE3sn72i4+oax24uSbqHDwSEUcftGuHWOUmZfNRWw=",
+            "rev": "dab47ab2080136c5575108a90315d33f98b3c574",
+            "sha256": "sha256-X0NXhPGl9YoOHiXFyRna5fXDuCZ/S3tLpO9gV0kGwSQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "991e2d7087b7bd05c332e539e4f889a31e502481"
+        "version": "dab47ab2080136c5575108a90315d33f98b3c574"
     },
     "unigine-heaven": {
         "cargoLocks": null,
