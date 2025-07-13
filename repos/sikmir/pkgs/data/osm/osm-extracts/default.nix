@@ -5,13 +5,13 @@
   osmium-tool,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osm-extracts";
-  version = "250603";
+  version = "250712";
 
   src = fetchurl {
-    url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-    hash = "sha256-CEXhsdCUfVkPo1lHqiLqEHP21BtyB/e82fsc3colb8U=";
+    url = "https://download.geofabrik.de/russia/northwestern-fed-district-${finalAttrs.version}.osm.pbf";
+    hash = "sha256-0dA528K98ZorXG7nmD5mL8x4yQ7H8vKsjXqoULX8Mm4=";
   };
 
   dontUnpack = true;
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     skip.ci = true;
   };
-}
+})

@@ -18,6 +18,12 @@ python3Packages.buildPythonPackage {
 
   build-system = with python3Packages; [ setuptools ];
 
+  dependencies = with python3Packages; [
+    boto3
+    click
+    requests
+  ];
+
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = {

@@ -19,12 +19,16 @@ python3Packages.buildPythonPackage rec {
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
-    scikitimage
     affine
     geojson
-    rasterio
-    pyproj
+    looseversion
     numba
+    numpy
+    pandas
+    pyproj
+    rasterio
+    scikitimage
+    scipy
   ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];

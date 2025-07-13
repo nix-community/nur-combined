@@ -124,7 +124,7 @@ lib.makeScope newScope (
 
     ### EMBEDDED
 
-    chdk = callPackage ./embedded/chdk { gcc-arm-embedded = pkgs.gcc-arm-embedded-10; };
+    chdk = callPackage ./embedded/chdk { };
     embox-aarch64 = callPackage ./embedded/embox { arch = "aarch64"; };
     embox-arm = callPackage ./embedded/embox { arch = "arm"; };
     embox-ppc = callPackage ./embedded/embox { arch = "ppc"; };
