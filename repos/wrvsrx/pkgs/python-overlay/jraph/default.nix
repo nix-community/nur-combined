@@ -3,13 +3,14 @@
   jax,
   jaxlib,
   numpy,
+  setuptools,
   source,
 }:
 
 buildPythonPackage {
   inherit (source) pname version src;
   pyproject = true;
-  build-system = [ "setuptools" ];
+  nativeBuildInputs = [ setuptools ];
   buildInputs = [ jaxlib ];
   propagatedBuildInputs = [
     jax
