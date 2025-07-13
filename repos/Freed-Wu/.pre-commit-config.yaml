@@ -27,7 +27,7 @@ repos:
     hooks:
       - id: remove-crlf
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.1
     hooks:
       - id: codespell
         additional_dependencies:
@@ -39,7 +39,7 @@ repos:
         args:
           - --msg-filename
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.0.3
+    rev: 3.2.1
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
@@ -47,11 +47,11 @@ repos:
     hooks:
       - id: check-mailmap
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
+    rev: v1.37.1
     hooks:
       - id: yamllint
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.21
+    rev: 0.7.22
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -60,17 +60,13 @@ repos:
           - mdformat-myst
           - mdformat-toc
           - mdformat-deflist
-          - mdformat-beautysh
+          # - mdformat-beautysh
           - mdformat-ruff
           - mdformat-config
           - mdformat-web
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.16.0
+    rev: v0.18.1
     hooks:
       - id: markdownlint-cli2
         additional_dependencies:
           - markdown-it-texmath
-  - repo: https://github.com/NixOS/nixfmt
-    rev: cb92834560306868e4020dd643f09482587c6e7a
-    hooks:
-      - id: nixfmt

@@ -1,14 +1,6 @@
-[windows10-icons]
-src.github = "B00merang-Artwork/Windows-10"
-fetch.github = "B00merang-Artwork/Windows-10"
-
 [windows10-themes]
 src.github = "B00merang-Project/Windows-10"
 fetch.github = "B00merang-Project/Windows-10"
-
-[autopxd]
-src.pypi = "autopxd2"
-fetch.pypi = "autopxd2"
 
 [undollar]
 src.github = "Freed-Wu/undollar"
@@ -20,7 +12,7 @@ fetch.github = "Freed-Wu/manpager"
 
 [translate-shell]
 src.pypi = "translate-shell"
-fetch.pypi = "translate-shell"
+fetch.pypi = "translate_shell"
 
 [lsp-tree-sitter]
 src.pypi = "lsp_tree_sitter"
@@ -74,7 +66,6 @@ fetch.pypi = "tree_sitter_tmux"
 src.pypi = "tree-sitter-zathurarc"
 fetch.pypi = "tree_sitter_zathurarc"
 
-# https://github.com/tree-sitter-grammars/tree-sitter-requirements/issues/5
 [tree-sitter-requirements]
 src.github_tag = "tree-sitter-grammars/tree-sitter-requirements"
 fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
