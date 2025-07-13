@@ -9,7 +9,7 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 
 Refer <https://nur.nix-community.org/documentation>.
 
-Search package [here](https://nur.nix-community.org/repos/freed-wu).
+[Search packages](https://nur.nix-community.org/repos/freed-wu).
 
 Use [`cachix use freed-wu`](https://app.cachix.org/cache/freed-wu) to enable
 cache.
