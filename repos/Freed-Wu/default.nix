@@ -32,13 +32,16 @@ let
     proxychains-symlinks = callPackage ./pkgs/shells/symlinks/proxychains-symlinks { };
 
     rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
-    gdb-prompt = callPackage ./pkgs/development/libraries/gdb-prompt { };
-    tcl-prompt = callPackage ./pkgs/development/libraries/tcl-prompt { };
-    bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
     jq-emojify = callPackage ./pkgs/tools/misc/jq-emojify { };
     tmux-rime = callPackage ./pkgs/tools/misc/tmux-rime { };
+
+    tcl-prompt = callPackage ./pkgs/development/tcl-modules/tcl-prompt { };
+
+    gdb-prompt = callPackage ./pkgs/development/gdb-modules/gdb-prompt { };
+
+    bash-prompt = callPackage ./pkgs/development/bash-modules/bash-prompt { };
 
     lua-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { };
     luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
