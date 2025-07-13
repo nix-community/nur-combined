@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   version = "1.17.0";
   src = fetchzip {
     url = "https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/archive/${version}/luatex-${version}.zip";
-    sha256 = "sha256-k8knJWvo9s2H9dh0Wh+CEFE/UrGc+iaXNvZ2JsQ4Zf8=";
+    sha256 = "sha256-xPrm8BMM9yZwblf7IIO6PesvThKX/9d06wXjy0VoWPo=";
   };
 
   env = {

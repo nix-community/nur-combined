@@ -44,10 +44,22 @@ let
 
     bash-prompt = callPackage ./pkgs/development/bash-modules/bash-prompt { };
 
-    lua-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { };
+    lua51-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
+      luaPackages = pkgs.lua51Packages;
+    };
+    lua52-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
+      luaPackages = pkgs.lua52Packages;
+    };
+    lua53-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
+      luaPackages = pkgs.lua53Packages;
+    };
+    lua54-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
+      luaPackages = pkgs.lua54Packages;
+    };
     luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
       luaPackages = pkgs.luajitPackages;
     };
+
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     stardict-ecdict = callPackage ./pkgs/data/misc/stardict-ecdict { };

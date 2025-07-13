@@ -12,11 +12,11 @@
 with luaPackages;
 buildLuarocksPackage rec {
   pname = "prompt-style";
-  version = "0.0.4";
+  version = "0.0.8";
   knownRockspec =
     (fetchurl {
       url = "mirror://luarocks/prompt-style-${version}-1.rockspec";
-      sha256 = "sha256-m1ObzDS0yZzX9+EXb+CLHF8/T4GlgeurA2N7SuAvv3g=";
+      sha256 = "sha256-ifFcZB+hrTG1rmunLrfozGCo9XLJybVD8S0N+RPYlEc=";
     }).outPath;
   src = fetchFromGitHub {
     owner = "wakatime";
