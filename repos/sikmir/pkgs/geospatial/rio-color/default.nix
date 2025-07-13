@@ -17,6 +17,12 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-iJ+whIk3ANop8i712dLE0mJyDMHGnE0tic23H6f67Xg=";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "numpy==2.0.2" "numpy" \
+      --replace-fail "cython==3.0.11" "cython"
+  '';
+
   build-system = with python3Packages; [
     setuptools
     cython
@@ -28,8 +34,6 @@ python3Packages.buildPythonPackage rec {
     rasterio
     rio-mucho
   ];
-
-  pythonRelaxDeps = true;
 
   doCheck = false;
 

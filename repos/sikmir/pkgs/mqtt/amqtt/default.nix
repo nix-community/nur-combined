@@ -6,36 +6,38 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "amqtt";
-  version = "0.10.1-unstable-2025-01-08";
+  version = "0.11.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Yakifo";
     repo = "amqtt";
-    rev = "440e8ff945bf83c262f3a9d16be2f014fce6265c";
-    hash = "sha256-ZFXIYgjNnYqBLLdYgxDpG9JG7weuY3vlHC4pwZlFsh0=";
+    tag = "v${version}";
+    hash = "sha256-l/YbfrjJsBA5a/IHH2p/B3irZF/z2xzNYxXOMOieV04=";
   };
 
-  build-system = with python3Packages; [ poetry-core ];
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail ', "uv-dynamic-versioning"' ""
+  '';
+
+  build-system = with python3Packages; [ hatchling hatch-vcs ];
 
   dependencies = with python3Packages; [
-    docopt
     passlib
+    psutil
     pyyaml
     transitions
+    typer
     websockets
   ];
 
-  pythonRelaxDeps = [
-    "transitions"
-    "websockets"
-  ];
+  pythonRelaxDeps = true;
 
   doCheck = false;
 
   nativeCheckInputs = with python3Packages; [
     hypothesis
-    psutil
     pytest-asyncio
     pytest-cov-stub
     pytest-logdog

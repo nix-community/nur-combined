@@ -32,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mburakov/mqttfs";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 })

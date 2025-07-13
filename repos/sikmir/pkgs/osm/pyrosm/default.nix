@@ -19,6 +19,10 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml --replace-fail "cykhash==2.0.0" "cykhash"
+  '';
+
   build-system = with python3Packages; [
     setuptools
     cython
@@ -31,8 +35,6 @@ python3Packages.buildPythonPackage rec {
     cykhash
     pyrobuf
   ];
-
-  pythonRelaxDeps = true;
 
   doCheck = false;
 
