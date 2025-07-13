@@ -10,23 +10,15 @@
 
 stdenv.mkDerivation {
   pname = "garminimg";
-  version = "0-unstable-2021-01-07";
+  version = "0-unstable-2024-11-26";
 
   src = fetchFromGitHub {
     owner = "kiozen";
     repo = "GarminImg";
-    rev = "6bfd029e9712b47eeab144bfe150baccd8c879bd";
-    hash = "sha256-6vNN80NJSo2GdGruUKTupMcWOR7E3vo2SD1fAkMCodE=";
+    rev = "0df6d7f5eafaed26054a64a593707297e4f435df";
+    hash = "sha256-QkW3dri3qWMY1iLBH9+woHZ8CB/wD+QcTFw7sEW1b1k=";
   };
 
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail "PROJ4" "PROJ"
-    substituteInPlace srcEncodeImg/CMakeLists.txt \
-      --replace-fail "PROJ4_" "PROJ_"
-    substituteInPlace srcDecodeImg/CMakeLists.txt \
-      --replace-fail "PROJ4_" "PROJ_"
-  '';
 
   nativeBuildInputs = [
     cmake
@@ -50,6 +42,5 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = true; # proj_7 is broken
   };
 }

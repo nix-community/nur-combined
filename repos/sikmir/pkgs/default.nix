@@ -136,7 +136,7 @@ lib.makeScope newScope (
     basecamp = callPackage ./garmin/basecamp { };
     cgpsmapper = callPackage ./garmin/cgpsmapper { };
     garmin-uploader = callPackage ./garmin/garmin-uploader { };
-    garminimg = libsForQt5.callPackage ./garmin/garminimg { proj = pkgs.proj_7; };
+    garminimg = libsForQt5.callPackage ./garmin/garminimg { };
     gimgtools = callPackage ./garmin/gimgtools { };
     gmaptool = callPackage ./garmin/gmaptool { };
     imgdecode = callPackage ./garmin/imgdecode { };

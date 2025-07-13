@@ -36,6 +36,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   postPatch = ''
+    substituteInPlace pyproject.toml --replace-fail "\"setuptools_scm_git_archive\"," ""
     substituteInPlace tests/test_datasource.py --replace-fail "/tmp" "./tmp"
     for f in elevation/datasource.* \
              elevation/util.py \
