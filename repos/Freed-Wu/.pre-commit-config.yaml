@@ -1,5 +1,5 @@
 ---
-exclude: ^_sources/.*
+exclude: ^_sources/.*|\.patch$
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
