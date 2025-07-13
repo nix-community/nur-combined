@@ -8,6 +8,8 @@
 
 buildPythonPackage {
   inherit (source) pname version src;
+  pyproject = true;
+  build-system = [ "setuptools" ];
   buildInputs = [ jaxlib ];
   propagatedBuildInputs = [
     jax
