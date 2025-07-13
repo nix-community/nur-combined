@@ -1,40 +1,40 @@
 diff --git a/website/client/package-lock.json b/website/client/package-lock.json
-index 1f24ea9cbd..89085def41 100644
+index c595d61381..d2821eab66 100644
 --- a/website/client/package-lock.json
 +++ b/website/client/package-lock.json
-@@ -34,6 +34,7 @@
+@@ -30,6 +30,7 @@
          "lodash": "^4.17.21",
+         "markdown-it": "^14.0.0",
          "moment": "^2.29.4",
-         "moment-locales-webpack-plugin": "^1.2.0",
-+        "moment-recur": "^1.0.7",
++        "moment-recur": "git://github.com/HabitRPG/moment-recur.git#d3e8e6da0806f13b74dd2e4d7d9053e6a63db119",
          "nconf": "^0.12.1",
          "sass": "^1.63.4",
-         "sass-loader": "^14.1.1",
-@@ -9606,6 +9607,15 @@
-         "webpack": "^1 || ^2 || ^3 || ^4 || ^5"
+         "sinon": "^17.0.1",
+@@ -6648,6 +6649,15 @@
+         "node": "*"
        }
      },
 +    "node_modules/moment-recur": {
-+      "version": "1.0.7",
-+      "resolved": "https://registry.npmjs.org/moment-recur/-/moment-recur-1.0.7.tgz",
-+      "integrity": "sha512-jpBQn6H62gCnEYjtYdLfK/VdPZHEXo1t8RrVItHVVS67SRvByyJBNBa3WQSGTe+8H0smcYO/79FYTA9LGMVdQw==",
++      "version": "1.0.8",
++      "resolved": "git+ssh://git@github.com/HabitRPG/moment-recur.git#d3e8e6da0806f13b74dd2e4d7d9053e6a63db119",
++      "integrity": "sha512-bfXK7bEGXv7m6XNdpTmNAn6h8hiHhFirX9PaDNkNfyvwxOpLuMHO84WU+sDFiFrEIAT9T7ZJAV6d7zf3FK3QMw==",
 +      "license": "Unlicense",
 +      "dependencies": {
 +        "moment": "<3.0.0"
 +      }
 +    },
      "node_modules/mrmime": {
-       "version": "2.0.0",
-       "resolved": "https://registry.npmjs.org/mrmime/-/mrmime-2.0.0.tgz",
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/mrmime/-/mrmime-2.0.1.tgz",
 diff --git a/website/client/package.json b/website/client/package.json
-index e9b1fe2689..7a5ecaaa3f 100644
+index 62da71d323..7027829ac7 100644
 --- a/website/client/package.json
 +++ b/website/client/package.json
-@@ -35,6 +35,7 @@
-     "jquery": "^3.7.1",
+@@ -34,6 +34,7 @@
      "lodash": "^4.17.21",
+     "markdown-it": "^14.0.0",
      "moment": "^2.29.4",
-+    "moment-recur": "^1.0.7",
-     "moment-locales-webpack-plugin": "^1.2.0",
++    "moment-recur": "git://github.com/HabitRPG/moment-recur.git#d3e8e6da0806f13b74dd2e4d7d9053e6a63db119",
      "nconf": "^0.12.1",
      "sass": "^1.63.4",
+     "sinon": "^17.0.1",
