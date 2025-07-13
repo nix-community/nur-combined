@@ -35,6 +35,8 @@ python3Packages.buildPythonApplication rec {
     geojson
   ];
 
+  pythonRelaxDeps = true;
+
   doCheck = false;
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

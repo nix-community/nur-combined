@@ -26,6 +26,8 @@ python3Packages.buildPythonApplication {
     python-telegram-bot
   ];
 
+  pythonRelaxDeps = true;
+
   doCheck = false;
 
   meta = {

@@ -16,9 +16,10 @@ python3Packages.buildPythonPackage {
     hash = "sha256-R6a19oExRVHSnfeEM5XsD77BPEWpC0BeNdep12YffN8=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
-
-  nativeBuildInputs = with python3Packages; [ cython ];
+  build-system = with python3Packages; [
+    setuptools
+    cython
+  ];
 
   nativeCheckInputs = with python3Packages; [
     numpy

@@ -33,6 +33,7 @@ python3Packages.buildPythonApplication rec {
     cachetools
     click
     click-spinner
+    color-operations
     flask
     flask-cors
     marshmallow

@@ -24,6 +24,8 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
+  pythonRelaxDeps = true;
+
   doCheck = false;
 
   meta = {

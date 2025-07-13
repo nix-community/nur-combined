@@ -19,9 +19,10 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
-
-  nativeBuildInputs = with python3Packages; [ cython ];
+  build-system = with python3Packages; [
+    setuptools
+    cython
+  ];
 
   dependencies = with python3Packages; [
     python-rapidjson
@@ -30,6 +31,8 @@ python3Packages.buildPythonPackage rec {
     cykhash
     pyrobuf
   ];
+
+  pythonRelaxDeps = true;
 
   doCheck = false;
 

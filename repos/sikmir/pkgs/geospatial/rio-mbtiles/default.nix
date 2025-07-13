@@ -29,6 +29,8 @@ python3Packages.buildPythonApplication rec {
     shapely
   ];
 
+  pythonRelaxDeps = true;
+
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
