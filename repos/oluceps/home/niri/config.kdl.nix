@@ -147,7 +147,7 @@ in
    // position x=1080 y=0
   }
 
-  output "PNP(GVT) Kuycon P24U 0x01010101" {
+  output "PNP(GKT) Kuycon P24U Unknown" {
    // off
 
    scale 2.0

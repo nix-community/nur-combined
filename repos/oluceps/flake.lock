@@ -399,11 +399,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1751916775,
-        "narHash": "sha256-UJukXuJnuclxJepp9NJkyNkTzkVDxxlBaCT5dGK77O8=",
+        "lastModified": 1752406524,
+        "narHash": "sha256-NM2oedFcr41tWREcvJXgZaaMOxQ5JYpTrZezLEAd1kE=",
         "owner": "oluceps",
         "repo": "flake.nix",
-        "rev": "6ad944bf767124f84b3dd37318ab165306130102",
+        "rev": "be6265cebb8a66b043d4f651c3298c11aff1b135",
         "type": "github"
       },
       "original": {
@@ -704,6 +704,22 @@
       }
     },
     "flake-compat_13": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_14": {
       "flake": false,
       "locked": {
         "lastModified": 1696426674,
@@ -1510,6 +1526,28 @@
         "nixpkgs": [
           "radicle",
           "git-hooks",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709087332,
+        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
+    "gitignore_8": {
+      "inputs": {
+        "nixpkgs": [
+          "vaultix",
+          "pre-commit-hooks",
           "nixpkgs"
         ]
       },
@@ -2917,6 +2955,29 @@
         "type": "github"
       }
     },
+    "pre-commit-hooks_4": {
+      "inputs": {
+        "flake-compat": "flake-compat_14",
+        "gitignore": "gitignore_8",
+        "nixpkgs": [
+          "vaultix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750779888,
+        "narHash": "sha256-wibppH3g/E2lxU43ZQHC5yA/7kIKLGxVEnsnVK1BtRg=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "16ec914f6fb6f599ce988427d9d94efddf25fe6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
     "preservation": {
       "locked": {
         "lastModified": 1738541138,
@@ -3590,19 +3651,19 @@
         "crane": "crane_5",
         "flake-parts": "flake-parts_11",
         "nixpkgs": "nixpkgs_27",
+        "pre-commit-hooks": "pre-commit-hooks_4",
         "rust-overlay": "rust-overlay_9"
       },
       "locked": {
-        "lastModified": 1750162112,
-        "narHash": "sha256-VhlMFoqeXxkWddcOgPWfiPkDzXEBt7d7Ny+LwsRoMCc=",
+        "lastModified": 1752329017,
+        "narHash": "sha256-BmhVctaWQ7/i3nAkw6vZ05d17WIO6Wsauaw8vxqL+RU=",
         "owner": "milieuim",
         "repo": "vaultix",
-        "rev": "ebf481572b3bbc7e3b925be6c4757452075b710b",
+        "rev": "440498ee609a3b83659b62b924a3c39775aaeaf2",
         "type": "github"
       },
       "original": {
         "owner": "milieuim",
-        "ref": "doc-enh",
         "repo": "vaultix",
         "type": "github"
       }
