@@ -450,6 +450,7 @@ lib.makeScope newScope (
     mqtt-benchmark = callPackage ./mqtt/mqtt-benchmark { };
     mqtt-c = callPackage ./mqtt/mqtt-c { };
     mqtt-cli = callPackage ./mqtt/mqtt-cli { };
+    mqtt-executor = callPackage ./mqtt/mqtt-executor { };
     mqtt-launcher = callPackage ./mqtt/mqtt-launcher { };
     mqtt-logger = callPackage ./mqtt/mqtt-logger { };
     mqtt-proxy = callPackage ./mqtt/mqtt-proxy { };
@@ -458,6 +459,7 @@ lib.makeScope newScope (
     mqtt-stresser = callPackage ./mqtt/mqtt-stresser { };
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
+    mqttfs = callPackage ./mqtt/mqttfs { };
     mqttwarn = callPackage ./mqtt/mqttwarn { };
     nanosdk = callPackage ./mqtt/nanosdk { };
     pytest-mqtt = callPackage ./mqtt/pytest-mqtt { };
