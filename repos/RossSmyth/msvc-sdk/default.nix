@@ -10,7 +10,7 @@ runCommand "msvc-sdk"
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-UxKqx4E6yr1Bjy8uIw+g3+RKijKOQYU5Gf1gUt6qy+E=";
+    outputHash = "sha256-2MfUJDwScir/V9+aCu94RYPexSEKGemn92ZNclfYNIw=";
 
     manifest = ./manifest.json;
   }
@@ -19,8 +19,10 @@ runCommand "msvc-sdk"
     mkdir $out/
     mv xwin-out/splat/* $out/
 
+    echo "Fixing directory names..."
     pushd $out/Windows\ Kits/10/
     mv include Include
     mv lib Lib
     popd
+    echo "Fixed"
   ''
