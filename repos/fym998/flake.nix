@@ -36,7 +36,7 @@
           ./flake-modules/_internal/dev.nix
           ./flake-modules/_internal/ci.nix
         ];
-        flake.overlays.default = import ./overlay.nix;
+        flake.overlays = import ./overlays;
         systems = import inputs.systems;
         perSystem =
           {

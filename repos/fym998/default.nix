@@ -10,5 +10,5 @@
 }:
 (import ./pkgs { inherit pkgs; }).legacyPackages
 // {
-  overlays.default = import ./overlay.nix;
+  overlays = import ./overlays;
 }
