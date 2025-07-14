@@ -10,7 +10,7 @@ root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
 nvfetcher --commit-changes -k ~/.config/nvchecker/keyfile.toml
 
 # Run update scripts
-export NIX_PATH='nixpkgs=flake:nixpkgs'
+export NIX_PATH="${NIX_PATH:-nixpkgs=flake:nixpkgs}"
 nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" --show-trace \
 	--arg include-overlays "[ (import ./overlay.nix) ]" \
