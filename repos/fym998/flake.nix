@@ -35,8 +35,8 @@
         imports = [
           ./flake-modules/_internal/dev.nix
           ./flake-modules/_internal/ci.nix
-          inputs.flake-parts.flakeModules.easyOverlay
         ];
+        flake.overlays.default = import ./overlay.nix;
         systems = import inputs.systems;
         perSystem =
           {
@@ -53,7 +53,6 @@
                 allowUnsupportedSystem = true;
               };
             };
-            overlayAttrs = self'.legacyPackages;
             ciPackages = lib.filterAttrs (name: _p: !lib.hasPrefix "_" name) self'.packages;
           }
           // import ./pkgs { inherit pkgs; };
