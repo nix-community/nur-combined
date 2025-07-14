@@ -1,11 +1,11 @@
 {
   lib,
   stdenvNoCC,
-  makeWrapper,
-  fetchMsvcSdk,
-  msvcSdk,
+  makeBinaryWrapper,
+  llvmPackages,
   clang-cl,
   rustc,
+  msvcSdk,
 }:
 stdenvNoCC.mkDerivation {
   inherit (rustc) version meta;
@@ -14,19 +14,21 @@ stdenvNoCC.mkDerivation {
   dontUnpack = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    rustc
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper ];
 
   installPhase = ''
     mkdir -p "$out/bin"
     makeWrapper ${lib.getExe' rustc "rustc"} "$out/bin/rustc" \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          llvmPackages.bintools-unwrapped
+          clang-cl
+        ]
+      } \
       --set CC ${lib.getExe clang-cl} \
-      --suffix PATH : ${lib.makeBinPath [ clang-cl ]} \
       --add-flag "--target=x86_64-pc-windows-msvc" \
       --add-flag "-Clinker=lld-link" \
-      --run 'BIN="${msvcSdk}/bin/x64" . ${fetchMsvcSdk}/msvcenv-native.sh'
+      --add-flag "-Clink-arg=/winsysroot:${msvcSdk}"
   '';
 
   doInstallCheck = true;

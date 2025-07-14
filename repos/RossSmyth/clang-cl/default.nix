@@ -1,40 +1,33 @@
 {
   lib,
   stdenvNoCC,
-  makeWrapper,
+  makeBinaryWrapper,
   llvmPackages,
-  fetchMsvcSdk,
   msvcSdk,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "clang-cl-wrapped";
   inherit (llvmPackages.clang-unwrapped) version;
 
   dontUnpack = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    llvmPackages.clang-unwrapped
-    llvmPackages.bintools-unwrapped
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper ];
 
   installPhase = ''
     mkdir -p "$out/bin"
-    makeWrapper ${lib.getExe' llvmPackages.clang-unwrapped "clang-cl"} "$out/bin/clang-cl" \
-      --run 'BIN="${msvcSdk}/bin/x64" . ${fetchMsvcSdk}/msvcenv-native.sh'
-
-    makeWrapper ${lib.getExe' llvmPackages.bintools-unwrapped "lld-link"} "$out/bin/lld-link" \
-      --run 'BIN="${msvcSdk}/bin/x64" . ${fetchMsvcSdk}/msvcenv-native.sh'
+    makeWrapper ${lib.getExe' llvmPackages.clang-unwrapped "clang"} "$out/bin/clang-cl" \
+      --inherit-argv0 \
+      --append-flags "--target=x86_64-pc-windows-msvc" \
+      --append-flags "-fuse-ld=lld-link" \
+      --append-flags "/winsysroot ${msvcSdk}" \
+      --prefix PATH : ${lib.makeBinPath [ llvmPackages.bintools-unwrapped ]}
   '';
 
   doInstallCheck = true;
   installCheckPhase = ''
     echo "compiling..."
-    "$out/bin/clang-cl" -Fo"$TMPDIR/" -c ${./hello.c}
-
-    echo "linking..."
-    "$out/bin/lld-link" "$TMPDIR"/*.obj -out:hello.exe
+    "$out/bin/clang-cl" ${./hello.c} -o hello.exe
 
     echo "checking..."
     if [ ! -f hello.exe ]; then
@@ -48,4 +41,4 @@ stdenvNoCC.mkDerivation {
   meta = llvmPackages.clang-unwrapped.meta // {
     mainProgram = "clang-cl";
   };
-}
+})
