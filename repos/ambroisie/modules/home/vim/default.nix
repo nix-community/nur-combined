@@ -80,7 +80,6 @@ in
       nvim-surround # Deal with pairs, now in Lua
       oil-nvim # Better alternative to NetrW
       telescope-fzf-native-nvim # Use 'fzf' fuzzy matching algorithm
-      telescope-lsp-handlers-nvim # Use 'telescope' for various LSP actions
       telescope-nvim # Fuzzy finder interface
       which-key-nvim # Show available mappings
     ];

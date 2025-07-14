@@ -23,7 +23,6 @@ telescope.setup({
 })
 
 telescope.load_extension("fzf")
-telescope.load_extension("lsp_handlers")
 
 local keys = {
     { "<leader>f", group = "Fuzzy finder" },
