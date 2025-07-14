@@ -436,7 +436,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-07-11",
+        "date": "2025-07-14",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "c4e4f411647148cebe7f0c302abb962cbe70d4eb",
-            "sha256": "sha256-2h7N/r+CAllN64CMzQcJN+ZczFCdU8qcXpKEz4d/HFM=",
+            "rev": "e72f3ba5858166d9a93f8e205f723db946a46056",
+            "sha256": "sha256-TH18jAz1XTBXlgpoArPNurotvd0JRYCc/PcjXOqushA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c4e4f411647148cebe7f0c302abb962cbe70d4eb"
+        "version": "e72f3ba5858166d9a93f8e205f723db946a46056"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -748,12 +748,12 @@
             "name": null,
             "owner": "OwO-Network",
             "repo": "DeepLX",
-            "rev": "v1.0.7",
-            "sha256": "sha256-ZGcSh7Iry1j+dpPLxHDKdFFUzp+zp1Lt0FoHefhdCHA=",
+            "rev": "v1.0.8",
+            "sha256": "sha256-MutYqV4K9UNfoLBw7zRQvzIy1mBnPuLE9tP6NzzXVZg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.7"
+        "version": "v1.0.8"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -2078,12 +2078,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5888",
-            "sha256": "sha256-6g8BFnit2vPB4kPSio2WDqoIX5q799fOOw3Pn7pAXFw=",
+            "rev": "b5891",
+            "sha256": "sha256-UeoFLOyPR/Dbj3NOHQzE3/f2ct5HtbIfMq+ZI508IQw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5888"
+        "version": "b5891"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2645,7 +2645,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-07-09",
+        "date": "2025-07-14",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2657,12 +2657,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c",
-            "sha256": "sha256-X/ybOm6b9xPs8xglXLTHQYaLDc1eKFzP2BF9SO5MKD4=",
+            "rev": "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93",
+            "sha256": "sha256-lGILoSMJQcDynd/gTTfITPM/9OkmFqauFUinTs7HQT4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c"
+        "version": "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -2856,11 +2856,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Q3ce+uU/4baAzkBYvGrpjv6t/SvF5aerYj5/7d+efnM=",
+            "sha256": "sha256-xpnbAv+9xQuCLIZYd/lTk74iIzhelobSa02jjdnluqc=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.4/PeerBanHelper_8.0.4.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.5/PeerBanHelper_8.0.5.zip"
         },
-        "version": "8.0.4"
+        "version": "8.0.5"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -3397,7 +3397,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-07-10",
+        "date": "2025-07-14",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3409,12 +3409,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557",
-            "sha256": "sha256-UrXWCg7vdcOPoOuERc/gCijJD8HJVWByq8ROA+JoDgE=",
+            "rev": "f15439421543ea7e5a437a68dfed6cfe347d587d",
+            "sha256": "sha256-Kv5TOCxHq2hFPwE+Zc2TETR6dIktnva0p7ZKeZUIEDg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557"
+        "version": "f15439421543ea7e5a437a68dfed6cfe347d587d"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -4255,7 +4255,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-07-12",
+        "date": "2025-07-13",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4267,12 +4267,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "dab47ab2080136c5575108a90315d33f98b3c574",
-            "sha256": "sha256-X0NXhPGl9YoOHiXFyRna5fXDuCZ/S3tLpO9gV0kGwSQ=",
+            "rev": "affb9e0af4a0b04b6efd6a89217da71b6306bb58",
+            "sha256": "sha256-xcQUGoL4d4BTmSIJEbtlpoycR9Sx/xh9nt6wAtRn6/8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "dab47ab2080136c5575108a90315d33f98b3c574"
+        "version": "affb9e0af4a0b04b6efd6a89217da71b6306bb58"
     },
     "unigine-heaven": {
         "cargoLocks": null,

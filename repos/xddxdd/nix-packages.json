@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
     "pname": "deeplx",
-    "version": "1.0.7"
+    "version": "1.0.8"
   },
   "legacyPackages.x86_64-linux.deprecated.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -852,7 +852,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5888"
+    "version": "5891"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -872,7 +872,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-07-09"
+    "version": "1.27.1.2-unstable-2025-07-14"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
     "description": "Cleanup old profiles on NixOS",
@@ -3817,7 +3817,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "8.0.4"
+    "version": "8.0.5"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4087,7 +4087,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-10"
+    "version": "0-unstable-2025-07-14"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4387,7 +4387,7 @@
   "legacyPackages.x86_64-linux.uncategorized.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
     "pname": "deeplx",
-    "version": "1.0.7"
+    "version": "1.0.8"
   },
   "legacyPackages.x86_64-linux.uncategorized.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
@@ -4717,7 +4717,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "8.0.4"
+    "version": "8.0.5"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4792,7 +4792,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-10"
+    "version": "0-unstable-2025-07-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -4912,7 +4912,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-12"
+    "version": "0-unstable-2025-07-13"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4987,7 +4987,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-12"
+    "version": "0-unstable-2025-07-13"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5242,7 +5242,7 @@
   "packages.x86_64-linux.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
     "pname": "deeplx",
-    "version": "1.0.7"
+    "version": "1.0.8"
   },
   "packages.x86_64-linux.deprecated": {
     "description": "",
@@ -5737,7 +5737,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "8.0.4"
+    "version": "8.0.5"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5847,7 +5847,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-10"
+    "version": "0-unstable-2025-07-14"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6022,7 +6022,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-12"
+    "version": "0-unstable-2025-07-13"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

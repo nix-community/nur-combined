@@ -228,14 +228,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c4e4f411647148cebe7f0c302abb962cbe70d4eb";
+    version = "e72f3ba5858166d9a93f8e205f723db946a46056";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c4e4f411647148cebe7f0c302abb962cbe70d4eb";
-      hash = "sha256-2h7N/r+CAllN64CMzQcJN+ZczFCdU8qcXpKEz4d/HFM=";
+      rev = "e72f3ba5858166d9a93f8e205f723db946a46056";
+      hash = "sha256-TH18jAz1XTBXlgpoArPNurotvd0JRYCc/PcjXOqushA=";
     };
-    date = "2025-07-11";
+    date = "2025-07-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -383,12 +383,12 @@
   };
   deeplx = {
     pname = "deeplx";
-    version = "v1.0.7";
+    version = "v1.0.8";
     src = fetchFromGitHub {
       owner = "OwO-Network";
       repo = "DeepLX";
-      tag = "v1.0.7";
-      hash = "sha256-ZGcSh7Iry1j+dpPLxHDKdFFUzp+zp1Lt0FoHefhdCHA=";
+      tag = "v1.0.8";
+      hash = "sha256-MutYqV4K9UNfoLBw7zRQvzIy1mBnPuLE9tP6NzzXVZg=";
     };
   };
   dingtalk = {
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5888";
+    version = "b5891";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5888";
-      hash = "sha256-6g8BFnit2vPB4kPSio2WDqoIX5q799fOOw3Pn7pAXFw=";
+      tag = "b5891";
+      hash = "sha256-UeoFLOyPR/Dbj3NOHQzE3/f2ct5HtbIfMq+ZI508IQw=";
     };
   };
   loralib = {
@@ -1359,14 +1359,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c";
+    version = "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "e23b18b1a69b29ad0bd7f2fea9254e1ac497e90c";
-      hash = "sha256-X/ybOm6b9xPs8xglXLTHQYaLDc1eKFzP2BF9SO5MKD4=";
+      rev = "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93";
+      hash = "sha256-lGILoSMJQcDynd/gTTfITPM/9OkmFqauFUinTs7HQT4=";
     };
-    date = "2025-07-09";
+    date = "2025-07-14";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1459,10 +1459,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "8.0.4";
+    version = "8.0.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.4/PeerBanHelper_8.0.4.zip";
-      hash = "sha256-Q3ce+uU/4baAzkBYvGrpjv6t/SvF5aerYj5/7d+efnM=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.5/PeerBanHelper_8.0.5.zip";
+      hash = "sha256-xpnbAv+9xQuCLIZYd/lTk74iIzhelobSa02jjdnluqc=";
     };
   };
   phpmyadmin = {
@@ -1741,14 +1741,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557";
+    version = "f15439421543ea7e5a437a68dfed6cfe347d587d";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "5bd5b8e7e93ce8cfb0e93cd6d3d47a4ad8f4d557";
-      hash = "sha256-UrXWCg7vdcOPoOuERc/gCijJD8HJVWByq8ROA+JoDgE=";
+      rev = "f15439421543ea7e5a437a68dfed6cfe347d587d";
+      hash = "sha256-Kv5TOCxHq2hFPwE+Zc2TETR6dIktnva0p7ZKeZUIEDg=";
     };
-    date = "2025-07-10";
+    date = "2025-07-14";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "dab47ab2080136c5575108a90315d33f98b3c574";
+    version = "affb9e0af4a0b04b6efd6a89217da71b6306bb58";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "dab47ab2080136c5575108a90315d33f98b3c574";
+      rev = "affb9e0af4a0b04b6efd6a89217da71b6306bb58";
       fetchSubmodules = true;
-      hash = "sha256-X0NXhPGl9YoOHiXFyRna5fXDuCZ/S3tLpO9gV0kGwSQ=";
+      hash = "sha256-xcQUGoL4d4BTmSIJEbtlpoycR9Sx/xh9nt6wAtRn6/8=";
     };
-    date = "2025-07-12";
+    date = "2025-07-13";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
