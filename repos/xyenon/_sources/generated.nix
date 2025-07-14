@@ -90,34 +90,34 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
+    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "bd514e4e788f216d25fcc74516f7bf4a82e74163";
+      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
       fetchSubmodules = false;
-      sha256 = "sha256-CTZoJeTuVr2n3U69p/0V3RvAFzpYGqds7stPGXSTj7s=";
+      sha256 = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
     };
-    date = "2025-06-19";
+    date = "2025-07-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250610";
+    version = "20250711";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250610/moegirl.dict.yaml";
-      sha256 = "sha256-ctAxF/H4gnmAvHyLsC4oUNCdGFbi5X7+Db/Lwmknlsw=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250711/moegirl.dict.yaml";
+      sha256 = "sha256-gs/JhdSeLFkBKvBdVRxk3RhqlkOhly18w4Pz63GG814=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "2ad42fa7065b4885ff058280b4ab4309c11a5755";
+    version = "b8860253fc44e500edeb7a09db648a829084facd";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "2ad42fa7065b4885ff058280b4ab4309c11a5755";
+      rev = "b8860253fc44e500edeb7a09db648a829084facd";
       fetchSubmodules = false;
-      sha256 = "sha256-+FDiOaEYkA0A8w+Cg2Y/pFZY56lOsWLeKCNwLI0ZKVk=";
+      sha256 = "sha256-29K8PmBoqAMcQhDIfOVnbJt2FU4BR6k23Es9CqyEloo=";
     };
-    date = "2025-06-28";
+    date = "2025-07-06";
   };
 }
