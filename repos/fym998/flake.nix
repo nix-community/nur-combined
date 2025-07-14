@@ -37,10 +37,8 @@
         imports = [
           ./flake-modules/_internal/dev.nix
           ./flake-modules/_internal/ci.nix
+          inputs.flake-parts.flakeModules.easyOverlay
         ];
-        flake = {
-          overlays = import ./overlays;
-        };
         systems = import inputs.systems;
         perSystem =
           {
@@ -57,6 +55,7 @@
                 allowUnsupportedSystem = true;
               };
             };
+            overlayAttrs = self'.legacyPackages;
           }
           // import ./pkgs { inherit pkgs; };
       }
