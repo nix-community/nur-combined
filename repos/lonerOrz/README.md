@@ -1,7 +1,3 @@
-当然可以，以下是你原始内容的**忠实英文翻译版**，没有做任何结构调整或内容删减，仅做语言转换，确保语义与原文一致：
-
----
-
 # 🧃 My NUR Repository
 
 This is my personal [NUR (Nix User Repository)](https://github.com/nix-community/NUR), created for:
