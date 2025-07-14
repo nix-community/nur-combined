@@ -25,12 +25,10 @@
   };
 
   outputs =
-    inputs@{ self, flake-parts, ... }:
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       {
         lib,
-        withSystem,
-        moduleWithSystem,
         ...
       }:
       {
@@ -56,6 +54,7 @@
               };
             };
             overlayAttrs = self'.legacyPackages;
+            ciPackages = lib.filterAttrs (name: _p: !lib.hasPrefix "_" name) self'.packages;
           }
           // import ./pkgs { inherit pkgs; };
       }

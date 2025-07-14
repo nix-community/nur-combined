@@ -31,7 +31,7 @@ jobs:
         run: nix flake metadata --json
 
       - name: Check
-        run: nix build ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).pre-commit"
+        run: nix run .#_internal.ci.check
 
       - name: Evaluate and generate hash
         id: eval

@@ -14,7 +14,7 @@
   libfprint-fpcmoh,
 }:
 (fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }).overrideAttrs (
-  finalAttrs: previousAttrs: {
+  _finalAttrs: previousAttrs: {
     pname = "fprintd-fpcmoh";
     meta = previousAttrs.meta // {
       description = "Fingerprint daemon for FPC match on host device";
