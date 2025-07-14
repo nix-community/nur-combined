@@ -37,7 +37,7 @@
           ./flake-modules/_internal/ci.nix
           inputs.flake-parts.flakeModules.easyOverlay
         ];
-        systems = import inputs.systems ++ [ "i686-linux" ];
+        systems = import inputs.systems;
         perSystem =
           {
             self',
