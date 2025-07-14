@@ -7,6 +7,7 @@
 buildPythonPackage rec {
   pname = "xontrib-readable-traceback";
   version = "0.4.0";
+  format = "setuptools";
   src = fetchFromGitHub {
     owner = "vaaaaanquish";
     repo = "xontrib-readable-traceback";

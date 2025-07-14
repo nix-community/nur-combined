@@ -8,6 +8,7 @@
 buildPythonPackage rec {
   pname = "xontrib-debug-tools";
   version = "0.0.1";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "xonsh";

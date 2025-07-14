@@ -8,6 +8,7 @@
 buildPythonPackage rec {
   pname = "xontrib-xonsh-direnv";
   version = "1.6.3";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "74th";

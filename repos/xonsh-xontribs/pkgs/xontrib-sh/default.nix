@@ -8,6 +8,7 @@
 buildPythonPackage {
   pname = "xontrib-sh";
   version = "0.3.1";
+  format = "setuptools";
   src = fetchFromGitHub {
     owner = "anki-code";
     repo = "xontrib-sh";

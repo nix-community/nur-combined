@@ -9,6 +9,7 @@
 buildPythonPackage rec {
   pname = "xontrib-chatgpt";
   version = "0.2.3";
+  format = "setuptools";
   src = fetchFromGitHub {
     owner = "drmikecrowe";
     repo = "xontrib-chatgpt";

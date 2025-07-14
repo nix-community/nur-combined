@@ -10,6 +10,7 @@
 buildPythonPackage rec {
   pname = "xontrib-vox";
   version = "0.0.1";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "xonsh";

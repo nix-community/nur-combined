@@ -9,6 +9,7 @@
 buildPythonPackage rec {
   pname = "xontrib-fish-completer";
   version = "0.0.1";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "xonsh";

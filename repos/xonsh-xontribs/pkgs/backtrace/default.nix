@@ -8,6 +8,7 @@
 buildPythonPackage rec {
   pname = "backtrace";
   version = "0.2.1+";
+  format = "setuptools";
   src = fetchFromGitHub {
     owner = "nir0s";
     repo = "backtrace";

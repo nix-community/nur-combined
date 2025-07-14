@@ -8,6 +8,7 @@
 buildPythonPackage {
   pname = "xontrib-prompt-starship";
   version = "0.3.6";
+  format = "setuptools";
   src = fetchFromGitHub {
     owner = "anki-code";
     repo = "xontrib-prompt-starship";
