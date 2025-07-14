@@ -12,6 +12,7 @@
   qtmultimedia,
   qtimageformats,
   qtwayland,
+  qthttpserver,
   kio,
   kirigami,
   kirigami-addons,
@@ -57,6 +58,7 @@ stdenv.mkDerivation {
     qtmultimedia
     qtimageformats
     qtwayland
+    qthttpserver
 
     kio
     kirigami
