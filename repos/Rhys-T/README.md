@@ -108,7 +108,7 @@ minivmac37.override {
 
 | Feature                 | Nixpkgs `minivmac`                                                | This `minivmac`                                                                                                                                    |
 | ----------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Built from              | @erichegelson's [fork](https://github.com/erichegelson/minivmac)  | [Upstream from Paul C. Pratt](https://gryphel.com/c/minivmac/), or @egrath's [fork](https://github.com/minivmac/minivmac)                          |
+| Built from              | @erichelgeson's [fork](https://github.com/erichelgeson/minivmac)  | [Upstream from Paul C. Pratt](https://gryphel.com/c/minivmac/), or @egrath's [fork](https://github.com/minivmac/minivmac)                          |
 | Versions                | Forked from 37.03 beta                                            | `minivmac`: 36.04<br>`minivmac-unstable`: 37.03 beta<br>`minivmac-ce`: Forked from 37.03 beta                                                      |
 | Platforms               | <ul><li>`x86_64-linux`</li><li>`aarch64-linux`[^mvarm1]</li></ul> | <ul><li>`x86_64-linux`</li><li>`aarch64-linux`[^mvarm2]</li><li>`i686-linux`</li><li>`x86_64-darwin`</li><li>`aarch64-darwin`[^mvarmmac]</li></ul> |
 | Select emulated machine | ❌ No (always Macintosh Plus)                                     | ✅ Yes                                                                                                                                             |
