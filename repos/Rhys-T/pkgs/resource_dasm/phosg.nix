@@ -3,12 +3,12 @@
     needsFmt = stdenv.cc.isClang && stdenv.cc.libcxx != null && lib.versionOlder (lib.getVersion stdenv.cc.libcxx) "17";
 in stdenv.mkDerivation rec {
     pname = "phosg";
-    version = "0-unstable-2025-07-10";
+    version = "0-unstable-2025-07-14";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = pname;
-        rev = "bed869d7a234d154ea5fda953e7f2080b85abf9d";
-        hash = "sha256-2vF8YdROwcwy9hXXg+T/jRhGD9CVVREv6ao4a/CtLTs=";
+        rev = "dcffc2fe84ff06ec74ba1a75e176665093e5f708";
+        hash = "sha256-sXuuTpYUH/QFucY7DavhehJAsUe3r+PttFtCKyIJPW0=";
     };
     postPatch = ''
         sed -Ei '/set\(CMAKE_OSX_ARCHITECTURES/ s@^@#@' CMakeLists.txt
