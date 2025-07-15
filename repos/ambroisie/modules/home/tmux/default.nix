@@ -48,7 +48,7 @@ in
     keyMode = "vi"; # Home-row keys and other niceties
     clock24 = true; # I'm one of those heathens
     escapeTime = 0; # Let vim do its thing instead
-    historyLimit = 100000; # Bigger buffer
+    historyLimit = 1000000; # Bigger buffer
     mouse = false; # I dislike mouse support
     focusEvents = true; # Report focus events
     terminal = "tmux-256color"; # I want accurate termcap info
