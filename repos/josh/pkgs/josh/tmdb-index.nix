@@ -13,8 +13,8 @@ let
     src = fetchFromGitHub {
       owner = "josh";
       repo = "tmdb-index";
-      rev = "b1591c98a8c2551afc0d3f3c6eb0b74f1d42a9f0";
-      hash = "sha256-FP/S6VB5XstFXj/MhNJVZLyGyYJoAP8xM/7l9T4BtvE=";
+      rev = "088605930b8e7c1b88ddf94c40474bfe91b030e6";
+      hash = "sha256-VKNEJJTZUSPI7jbSbiq4BBVS4pvYo2QEsrsmfzrWj5E=";
     };
 
     pyproject = true;
