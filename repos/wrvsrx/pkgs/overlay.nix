@@ -47,9 +47,6 @@ let
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
-    wechat-uos-bwrapped = callPackage ./wechat-uos-bwrapped {
-      inherit (prev) wechat-uos;
-    };
 
     # my packages
     giraffe-wallpaper = callPackage ./giraffe-wallpaper {
