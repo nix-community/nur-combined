@@ -8,13 +8,13 @@
 let
   kit = python3Packages.buildPythonApplication rec {
     pname = "cased-kit";
-    version = "1.5.0";
+    version = "1.6.0";
 
     src = fetchFromGitHub {
       owner = "cased";
       repo = "kit";
       tag = "v${version}";
-      hash = "sha256-aP+5AP1nBBrlN033A2+3gpmZrNXKywFa5BjKX+IsjRg=";
+      hash = "sha256-MRFYZYRTH9Qc2OZSQ3+vHccx82VGT9sLnIXfSozyfXQ=";
     };
 
     pyproject = true;
