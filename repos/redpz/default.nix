@@ -23,6 +23,7 @@
   operator-mono-lig = pkgs.callPackage ./pkgs/operator-mono-lig { };
   symbols-nerd-font = pkgs.callPackage ./pkgs/symbols-nerd-font { };
   kanagawa-yazi = pkgs.callPackage ./pkgs/kanagawa-yazi { };
+  nora = pkgs.callPackage ./pkgs/nora { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
