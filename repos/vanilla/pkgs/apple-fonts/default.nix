@@ -3,12 +3,12 @@
   SF-Pro = (pkgs.callPackage ./common.nix {
     name = "SF-Pro";
     fontName = "SF Pro Fonts";
-    sha256 = "sha256-IccB0uWWfPCidHYX6sAusuEZX906dVYo8IaqeX7/O88=";
+    sha256 = "sha256-090HwtgILtK/KGoOzcwz1iAtoiShKAVjiNhUDQtO+gQ=";
   });
   SF-Compact = (pkgs.callPackage ./common.nix {
     name = "SF-Compact";
     fontName = "SF Compact Fonts";
-    sha256 = "sha256-PlraM6SwH8sTxnVBo6Lqt9B6tAZDC//VCPwr/PNcnlk=";
+    sha256 = "sha256-z70mts7oFaMTt4q7p6M7PzSw4auOEaiaJPItYqUpN0A=";
   });
   SF-Mono = (pkgs.callPackage ./common.nix {
     name = "SF-Mono";
