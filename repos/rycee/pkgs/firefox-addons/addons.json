@@ -772,6 +772,9 @@
     "pname": "hulu-ad-blocker"
   },
   {
+    "slug": "hyperchat"
+  },
+  {
     "slug": "i-auto-fullscreen"
   },
   {
@@ -1004,6 +1007,13 @@
   },
   {
     "slug": "linkwarden",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Only"
+    }
+  },
+  {
+    "slug": "livetl",
     "license": {
       "tag": "predefined",
       "shortName": "agpl3Only"
@@ -1465,6 +1475,9 @@
   {
     "slug": "reddit_comment_collapser",
     "pname": "reddit-comment-collapser"
+  },
+  {
+    "slug": "redirect-to-wiki-gg"
   },
   {
     "slug": "redirector"
@@ -2132,6 +2145,9 @@
   },
   {
     "slug": "youtube-shorts-block"
+  },
+  {
+    "slug": "ytcfilter"
   },
   {
     "slug": "zeroomega"

@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "2.6";
+      version = "3.0";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522899/adaptive_tab_bar_colour-2.6.xpi";
-      sha256 = "0079e2fb6fff95d5c690cbb471feb6a74c7755bbd0ccb5da428d59dbaff953b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4532473/adaptive_tab_bar_colour-3.0.xpi";
+      sha256 = "871d3b14b866011b2efafc5ac1fbb2f2ae524150de78b1aadb80f7dfa7aeea59";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -5557,6 +5557,28 @@
         platforms = platforms.all;
       };
     };
+    "hyperchat" = buildFirefoxXpiAddon {
+      pname = "hyperchat";
+      version = "3.1.0";
+      addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497726/hyperchat-3.1.0.xpi";
+      sha256 = "c416d0cfa2ef979db3699e25ec6a0334d497dce25d55fbb0d241f4ae51291c14";
+      meta = with lib;
+      {
+        homepage = "https://livetl.app/hyperchat/";
+        description = "Improved YouTube chat with CPU/RAM optimizations, customization options, and cutting-edge features!";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "https://www.youtube.com/live_chat*"
+          "https://www.youtube.com/live_chat_replay*"
+          "https://studio.youtube.com/live_chat*"
+          "https://studio.youtube.com/live_chat_replay*"
+          "https://www.youtube.com/embed/hyperchat_embed?*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "i-auto-fullscreen" = buildFirefoxXpiAddon {
       pname = "i-auto-fullscreen";
       version = "2.0.4";
@@ -7085,6 +7107,34 @@
         platforms = platforms.all;
       };
     };
+    "livetl" = buildFirefoxXpiAddon {
+      pname = "livetl";
+      version = "9.0.7";
+      addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4497725/livetl-9.0.7.xpi";
+      sha256 = "a08de4e22c6fe5d44b573a6b00751f5543fdb8e3387289d642d19efe882b5a22";
+      meta = with lib;
+      {
+        homepage = "https://livetl.app/";
+        description = "Get live translations for YouTube and Twitch streams, crowdsourced from multilingual viewers!";
+        license = licenses.agpl3Only;
+        mozPermissions = [
+          "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "https://www.youtube.com/*?*"
+          "https://www.youtube.com/youtubei/v1/live_chat/get_live_chat/*"
+          "https://www.youtube.com/youtubei/v1/live_chat/get_live_chat_replay/*"
+          "https://www.twitch.tv/*"
+          "https://www.youtube.com/live_chat*"
+          "https://www.youtube.com/live_chat_replay*"
+          "https://studio.youtube.com/live_chat*"
+          "https://studio.youtube.com/live_chat_replay*"
+          "https://www.youtube.com/error*?*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
       version = "2.6.80";
@@ -8117,10 +8167,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.24.2";
+      version = "2.24.5";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4526184/momentumdash-2.24.2.xpi";
-      sha256 = "881b8e840bdf0221f9215edbf6c3ef824086bcb032df35c42f36514e906acc9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4531561/momentumdash-2.24.5.xpi";
+      sha256 = "0f2f965e0e930441115dd642402cefbec9ddd83413e5891e83334dde3aa256e8";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9373,10 +9423,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.61.1";
+      version = "0.61.3";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4523528/polkadot_js_extension-0.61.1.xpi";
-      sha256 = "1a7bb37772b8cc199716b65bee067482fa1781a07860596f5cfcf75fc9fa12fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4534938/polkadot_js_extension-0.61.3.xpi";
+      sha256 = "c77d8ff151c379aa4ae4ea834109d5664afed4193d10501738a647089fb25715";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -10623,6 +10673,218 @@
         platforms = platforms.all;
       };
     };
+    "redirect-to-wiki-gg" = buildFirefoxXpiAddon {
+      pname = "redirect-to-wiki-gg";
+      version = "1.8.0";
+      addonId = "genericredirector@ark.wiki.gg";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4526217/redirect_to_wiki_gg-1.8.0.xpi";
+      sha256 = "ad676cd6f90ee17ea635df5bc1b1edce30e592d05d665b2d0051ab20492037c9";
+      meta = with lib;
+      {
+        homepage = "https://wiki.gg";
+        description = "Redirects all requests from wikis that have moved to wiki.gg from their former host.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "*://*.gamepedia.com/*"
+          "*://*.fandom.com/*"
+          "webNavigation"
+          "https://www.google.ad/search*"
+          "https://www.google.ae/search*"
+          "https://www.google.al/search*"
+          "https://www.google.am/search*"
+          "https://www.google.as/search*"
+          "https://www.google.at/search*"
+          "https://www.google.az/search*"
+          "https://www.google.ba/search*"
+          "https://www.google.be/search*"
+          "https://www.google.bf/search*"
+          "https://www.google.bg/search*"
+          "https://www.google.bi/search*"
+          "https://www.google.bj/search*"
+          "https://www.google.bs/search*"
+          "https://www.google.bt/search*"
+          "https://www.google.by/search*"
+          "https://www.google.ca/search*"
+          "https://www.google.cat/search*"
+          "https://www.google.cd/search*"
+          "https://www.google.cf/search*"
+          "https://www.google.cg/search*"
+          "https://www.google.ch/search*"
+          "https://www.google.ci/search*"
+          "https://www.google.cl/search*"
+          "https://www.google.cm/search*"
+          "https://www.google.cn/search*"
+          "https://www.google.co.ao/search*"
+          "https://www.google.co.bw/search*"
+          "https://www.google.co.ck/search*"
+          "https://www.google.co.cr/search*"
+          "https://www.google.co.id/search*"
+          "https://www.google.co.il/search*"
+          "https://www.google.co.in/search*"
+          "https://www.google.co.jp/search*"
+          "https://www.google.co.ke/search*"
+          "https://www.google.co.kr/search*"
+          "https://www.google.co.ls/search*"
+          "https://www.google.co.ma/search*"
+          "https://www.google.co.mz/search*"
+          "https://www.google.co.nz/search*"
+          "https://www.google.co.th/search*"
+          "https://www.google.co.tz/search*"
+          "https://www.google.co.ug/search*"
+          "https://www.google.co.uk/search*"
+          "https://www.google.co.uz/search*"
+          "https://www.google.co.ve/search*"
+          "https://www.google.co.vi/search*"
+          "https://www.google.co.za/search*"
+          "https://www.google.co.zm/search*"
+          "https://www.google.co.zw/search*"
+          "https://www.google.com.af/search*"
+          "https://www.google.com.ag/search*"
+          "https://www.google.com.ai/search*"
+          "https://www.google.com.ar/search*"
+          "https://www.google.com.au/search*"
+          "https://www.google.com.bd/search*"
+          "https://www.google.com.bh/search*"
+          "https://www.google.com.bn/search*"
+          "https://www.google.com.bo/search*"
+          "https://www.google.com.br/search*"
+          "https://www.google.com.bz/search*"
+          "https://www.google.com.co/search*"
+          "https://www.google.com.cu/search*"
+          "https://www.google.com.cy/search*"
+          "https://www.google.com.do/search*"
+          "https://www.google.com.ec/search*"
+          "https://www.google.com.eg/search*"
+          "https://www.google.com.et/search*"
+          "https://www.google.com.fj/search*"
+          "https://www.google.com.gh/search*"
+          "https://www.google.com.gi/search*"
+          "https://www.google.com.gt/search*"
+          "https://www.google.com.hk/search*"
+          "https://www.google.com.jm/search*"
+          "https://www.google.com.kh/search*"
+          "https://www.google.com.kw/search*"
+          "https://www.google.com.lb/search*"
+          "https://www.google.com.ly/search*"
+          "https://www.google.com.mm/search*"
+          "https://www.google.com.mt/search*"
+          "https://www.google.com.mx/search*"
+          "https://www.google.com.my/search*"
+          "https://www.google.com.na/search*"
+          "https://www.google.com.ng/search*"
+          "https://www.google.com.ni/search*"
+          "https://www.google.com.np/search*"
+          "https://www.google.com.om/search*"
+          "https://www.google.com.pa/search*"
+          "https://www.google.com.pe/search*"
+          "https://www.google.com.pg/search*"
+          "https://www.google.com.ph/search*"
+          "https://www.google.com.pk/search*"
+          "https://www.google.com.pr/search*"
+          "https://www.google.com.py/search*"
+          "https://www.google.com.qa/search*"
+          "https://www.google.com.sa/search*"
+          "https://www.google.com.sb/search*"
+          "https://www.google.com.sg/search*"
+          "https://www.google.com.sl/search*"
+          "https://www.google.com.sv/search*"
+          "https://www.google.com.tj/search*"
+          "https://www.google.com.tr/search*"
+          "https://www.google.com.tw/search*"
+          "https://www.google.com.ua/search*"
+          "https://www.google.com.uy/search*"
+          "https://www.google.com.vc/search*"
+          "https://www.google.com.vn/search*"
+          "https://www.google.com/search*"
+          "https://www.google.cv/search*"
+          "https://www.google.cz/search*"
+          "https://www.google.de/search*"
+          "https://www.google.dj/search*"
+          "https://www.google.dk/search*"
+          "https://www.google.dm/search*"
+          "https://www.google.dz/search*"
+          "https://www.google.ee/search*"
+          "https://www.google.es/search*"
+          "https://www.google.fi/search*"
+          "https://www.google.fm/search*"
+          "https://www.google.fr/search*"
+          "https://www.google.ga/search*"
+          "https://www.google.ge/search*"
+          "https://www.google.gg/search*"
+          "https://www.google.gl/search*"
+          "https://www.google.gm/search*"
+          "https://www.google.gr/search*"
+          "https://www.google.gy/search*"
+          "https://www.google.hn/search*"
+          "https://www.google.hr/search*"
+          "https://www.google.ht/search*"
+          "https://www.google.hu/search*"
+          "https://www.google.ie/search*"
+          "https://www.google.im/search*"
+          "https://www.google.iq/search*"
+          "https://www.google.is/search*"
+          "https://www.google.it/search*"
+          "https://www.google.je/search*"
+          "https://www.google.jo/search*"
+          "https://www.google.kg/search*"
+          "https://www.google.ki/search*"
+          "https://www.google.kz/search*"
+          "https://www.google.la/search*"
+          "https://www.google.li/search*"
+          "https://www.google.lk/search*"
+          "https://www.google.lt/search*"
+          "https://www.google.lu/search*"
+          "https://www.google.lv/search*"
+          "https://www.google.md/search*"
+          "https://www.google.me/search*"
+          "https://www.google.mg/search*"
+          "https://www.google.mk/search*"
+          "https://www.google.ml/search*"
+          "https://www.google.mn/search*"
+          "https://www.google.ms/search*"
+          "https://www.google.mu/search*"
+          "https://www.google.mv/search*"
+          "https://www.google.mw/search*"
+          "https://www.google.ne/search*"
+          "https://www.google.nl/search*"
+          "https://www.google.no/search*"
+          "https://www.google.nr/search*"
+          "https://www.google.nu/search*"
+          "https://www.google.pl/search*"
+          "https://www.google.pn/search*"
+          "https://www.google.ps/search*"
+          "https://www.google.pt/search*"
+          "https://www.google.ro/search*"
+          "https://www.google.rs/search*"
+          "https://www.google.ru/search*"
+          "https://www.google.rw/search*"
+          "https://www.google.sc/search*"
+          "https://www.google.se/search*"
+          "https://www.google.sh/search*"
+          "https://www.google.si/search*"
+          "https://www.google.sk/search*"
+          "https://www.google.sm/search*"
+          "https://www.google.sn/search*"
+          "https://www.google.so/search*"
+          "https://www.google.sr/search*"
+          "https://www.google.st/search*"
+          "https://www.google.td/search*"
+          "https://www.google.tg/search*"
+          "https://www.google.tl/search*"
+          "https://www.google.tm/search*"
+          "https://www.google.tn/search*"
+          "https://www.google.to/search*"
+          "https://www.google.tt/search*"
+          "https://www.google.vg/search*"
+          "https://www.google.vu/search*"
+          "https://www.google.ws/search*"
+          "https://*.duckduckgo.com/*"
+          "https://*.fandom.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "redirector" = buildFirefoxXpiAddon {
       pname = "redirector";
       version = "3.5.3";
@@ -10671,10 +10933,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.7.1";
+      version = "25.7.16";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524491/refined_github-25.7.1.xpi";
-      sha256 = "966b9cb65e509eb833494cd91a3910aeeb240584d0fd4c490bcbe19b6cc47157";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535455/refined_github-25.7.16.xpi";
+      sha256 = "2f6d4089846a2a6f8523df46b78c1aae12167c36539f840bc80fe90a57979b89";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10804,10 +11066,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25191";
+      version = "0.2.0.25196";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4530909/ruffle_rs-0.2.0.25191.xpi";
-      sha256 = "95da07e38599c5430a71ec64a3d53e0d7e29641ee3c9f7ed3fe3dbe046af51b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4534599/ruffle_rs-0.2.0.25196.xpi";
+      sha256 = "97a378450490f8f475723dec45745a62b4283a683ae338c47f046b98022e3b94";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -11596,10 +11858,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.13.2";
+      version = "5.13.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4523436/sponsorblock-5.13.2.xpi";
-      sha256 = "5474885c40991404f1347db69933da631cc24318abe720efe4ba8df5196f0faa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535341/sponsorblock-5.13.3.xpi";
+      sha256 = "700f687e4ad76ef40c28d89450cbd9237887fd18c8e81ff4ea3fe2326e9962c4";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -13834,10 +14096,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.83";
+      version = "6.10.84";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498612/wappalyzer-6.10.83.xpi";
-      sha256 = "aa2332af923a1b0ca98d4f94da33f034aa68b555e97b69d6c566259c13ed12f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4532345/wappalyzer-6.10.84.xpi";
+      sha256 = "b55bb8c2d181fa99dc7760d02fbde335eb3930f38f3fd180bca8a6a6772d4f43";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -14401,10 +14663,10 @@
     };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.13.2";
+      version = "3.4.13.3";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4419399/windscribe-3.4.13.2.xpi";
-      sha256 = "fdedaf8ab891ea46530a83287d601d1dcfa9644ae909daf3931b508eaa2391cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4532322/windscribe-3.4.13.3.xpi";
+      sha256 = "bb6ad07cd6095cef79f3933c237aab20dc07b56051d97807025b6eb8628438ae";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
@@ -14476,10 +14738,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.0.11";
+      version = "1.0.12";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4505711/xkit_rewritten-1.0.11.xpi";
-      sha256 = "2cd46553ec7d76ac73b7f18139c3862409f463f75c8c632551bf8aa302bb8626";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4534936/xkit_rewritten-1.0.12.xpi";
+      sha256 = "3aaaaccabccc2f67e966e76b151ba7a50865abd904fd2bd32c842cb7caef58fd";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -14628,10 +14890,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.8.3";
+      version = "2.9.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4532486/youtube_no_translation-2.8.3.xpi";
-      sha256 = "6af4938b44f5cdf4f3e272e2ca6348606dd0314be62dbcaf1bfd1ccf3b5a5005";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4534349/youtube_no_translation-2.9.0.xpi";
+      sha256 = "03eb0330c327b6681e84f6c171d8e7de806a9eff9805daa843bb567545ebc586";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
@@ -14702,10 +14964,10 @@
     };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.3.0.61";
+      version = "4.4.0";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339643/youtube_screenshot_button-4.3.0.61.xpi";
-      sha256 = "36cc485cb8669d742338cdf970aece2f145c76177fd46926ffc6aafff86e6961";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4531502/youtube_screenshot_button-4.4.0.xpi";
+      sha256 = "9bd3b3bb6a38c2f90c144b6a399dc602d3415cded4ecb124f72168e11deedc5b";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
@@ -14734,6 +14996,28 @@
           "storage"
           "*://*.youtube.com/*"
           "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "ytcfilter" = buildFirefoxXpiAddon {
+      pname = "ytcfilter";
+      version = "3.0.5";
+      addonId = "{20f2dcdf-6f8d-4aeb-862b-b13174475d9c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365656/ytcfilter-3.0.5.xpi";
+      sha256 = "6afdf8869da1e3b08a6d84c55cc71c74b80ab82713dab69080e7dbeadc2dd92a";
+      meta = with lib;
+      {
+        description = "The most powerful and intuitive YouTube chat filter extension.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "unlimitedStorage"
+          "https://www.youtube.com/live_chat*"
+          "https://www.youtube.com/live_chat_replay*"
+          "https://studio.youtube.com/live_chat*"
+          "https://studio.youtube.com/live_chat_replay*"
+          "https://www.youtube.com/embed/ytcfilter_embed?*"
         ];
         platforms = platforms.all;
       };
