@@ -17,6 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   hello-jon = pkgs.callPackage ./pkgs/hello-jon { };
-  jonlinux = pkgs.callPackage ./pkgs/jonlinux { };
+  user-mode-linux = pkgs.callPackage ./pkgs/user-mode-linux { };
   xlibre = pkgs.callPackage ./pkgs/xlibre { };
 }
