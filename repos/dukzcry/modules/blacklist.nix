@@ -79,6 +79,7 @@ in {
       services.tor.settings = {
         ExcludeExitNodes = "{RU}";
         TransPort = [{ addr = cfg.address; port = 9040; }];
+        DNSPort = 9053;
         UseBridges = true;
         ClientTransportPlugin = "snowflake exec ${getExe' pkgs.snowflake "client"}";
         Bridge = [
