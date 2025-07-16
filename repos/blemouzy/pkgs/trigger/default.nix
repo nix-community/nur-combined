@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "Run a user-defined command on file changes";
     homepage = "https://github.com/sharkdp/trigger";
-    license = lib.licenses.mit;
     mainProgram = "trigger";
+    license = lib.licenses.mit;
   };
 }

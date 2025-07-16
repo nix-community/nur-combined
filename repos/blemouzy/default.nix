@@ -14,5 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  cst = pkgs.callPackage ./pkgs/cst { };
   trigger = pkgs.callPackage ./pkgs/trigger { };
 }

@@ -1,0 +1,11 @@
+--- a/src/cmake/compiler_options.cmake
++++ b/src/cmake/compiler_options.cmake
+@@ -4,6 +4,8 @@ add_compile_definitions(
+     VERSION=${PROJECT_VERSION}
+ )
+ 
++add_compile_options(-Wno-unused-result)
++
+ if(${OSTYPE} STREQUAL "linux32")
+     add_compile_options(-m32)
+     add_link_options(-m32)
