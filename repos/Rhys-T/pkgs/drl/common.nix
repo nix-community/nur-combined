@@ -1,4 +1,4 @@
-{lib, maintainers, buildPlatform, hostPlatform}: {
+{lib, maintainers, stdenvNoCC}: {
     meta = {
         description = "Roguelike game based on the FPS Doom";
         longDescription = ''
@@ -15,6 +15,6 @@
         platforms = lib.platforms.linux ++ lib.platforms.darwin;
         maintainers = [maintainers.Rhys-T];
         # makewad tool is run at build-time, and I haven't gotten around to separating it out yet.
-        broken = !(buildPlatform.canExecute hostPlatform);
+        broken = with stdenvNoCC; !(buildPlatform.canExecute hostPlatform);
     };
 }
