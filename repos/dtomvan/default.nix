@@ -9,11 +9,11 @@ let
   };
 in
 myPkgs
-// {
-  tsodingPackages = myPkgs.tsodingPackages // {
-    blangFull = myPkgs.tsodingPackages.blang.override {
-      windowsSupport = true;
-      aarch64Support = true;
-    };
-  };
-}
+# // {
+#   tsodingPackages = myPkgs.tsodingPackages // {
+#     blangFull = myPkgs.tsodingPackages.blang.override {
+#       windowsSupport = true;
+#       aarch64Support = true;
+#     };
+#   };
+# }

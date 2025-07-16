@@ -13,43 +13,33 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-with builtins;
 let
-  flattenPkgs = import lib/flatten.nix { inherit pkgs; };
+  inherit (pkgs.lib)
+    all
+    filterAttrs
+    isList
+    pipe
+    ;
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isBuildable =
-    p:
+    _n: p:
     let
       licenseFromMeta = p.meta.license or [ ];
-      licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
+      licenseList = if isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
     in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
-  isCacheable = p: !(p.preferLocalBuild or false);
-
-  nameValuePair = n: v: {
-    name = n;
-    value = v;
-  };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
-
-  outputsOf = p: map (o: p.${o}) p.outputs;
+    !(p.meta.broken or false) && all (license: license.free or true) licenseList;
+  isCacheable = _n: p: !(p.preferLocalBuild or false);
 
   nurAttrs = import ./default.nix { inherit pkgs; };
+  flattenPkgs = import lib/flatten.nix { inherit pkgs; };
 
-  # TODO: could be more succinct
-  nurPkgs = pkgs.lib.attrsToList (
-    flattenPkgs (
-      listToAttrs (
-        map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
-      )
-    )
-  );
+  nurPkgs = pipe nurAttrs [
+    (filterAttrs (n: _v: !isReserved n))
+    flattenPkgs
+  ];
 in
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
-
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
+  buildPkgs = filterAttrs isBuildable nurPkgs;
+  cachePkgs = filterAttrs isCacheable buildPkgs;
 }

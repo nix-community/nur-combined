@@ -1,4 +1,3 @@
-# TODO: remove me when https://github.com/NixOS/nixpkgs/pull/415884 gets merged
 {
   lib,
   stdenv,
@@ -28,13 +27,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bazaar";
-  version = "0.2.2";
+  version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "kolunmi";
     repo = "bazaar";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9xH6RQx1V/Q79AKKGT7EIX5bmV3sqcVZHFmBTOcPUeA=";
+    hash = "sha256-WMSDpHdW0YrQUmY5fqIN1K9NNj3BJD8ebKwviu89sX0=";
   };
 
   nativeBuildInputs = [

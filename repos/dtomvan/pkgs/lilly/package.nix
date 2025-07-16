@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "tauraamui";
     repo = "lilly";
     rev = "bee9e0159e0342528bc8db737efbe1126b36e5d8";
-    hash = "sha256-oARJ71XVDmJ9mpA/0BNoVs6S++DJytq7T0X0iUl4PZc=";
+    hash = "sha256-wPoNk7P6GFflGbWYRLvoz/Hagg6vozo0XDu0S4k3P0U=";
     leaveDotGit = true;
   };
 
