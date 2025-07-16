@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 exec "\$0_dir/linux" \\
   root=/dev/root \\
   rootfstype=hostfs \\
-  rw \\
+  ro \\
   init=/bin/sh \\
   mem=128M \\
   debug
