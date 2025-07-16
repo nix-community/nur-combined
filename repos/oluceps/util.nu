@@ -50,7 +50,7 @@ export def d [
 ] {
 
   let get_addr = {|x| do $env.get_addr ($env.map) ($x)}
-  let get_user = {|x| do $env.get_user ($env.map) ($x)}
+  # let get_user = {|x| do $env.get_user ($env.map) ($x)}
 
   let machine_spec = "x86_64-linux - - - -"
   let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders $'($builder) ($machine_spec)'] } else {[]}
@@ -63,10 +63,10 @@ export def d [
 
     $nodes | each {|per|
       let per_node_addr = do $get_addr $per;
-      let user = do $get_user $per;
+      # let user = do $get_user $per;
       log info $"deploy ($per) @ ($per_node_addr)"
 
-      nixos-rebuild $mode --flake . --target-host $'($user)@($per_node_addr)' --sudo ...($extra_builder_args)
+      nixos-rebuild $mode --flake . --target-host $'root@($per_node_addr)' --sudo ...($extra_builder_args)
     
     }
   }

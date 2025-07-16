@@ -12,11 +12,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  services.btrfs.autoScrub = {
-    enable = false;
-    interval = "weekly";
-    fileSystems = [ "/persist" ];
-  };
   # hardware.tuxedo-rs = {
   #   enable = true;
   #   tailor-gui.enable = true;

@@ -8,10 +8,6 @@
     color: #b3b3b3;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    box-shadow: none; /* Remove predefined box-shadow */
-    text-shadow: none; /* Remove predefined text-shadow */
-    background: none; /* Remove predefined background color (white) */
-    transition: none; /* Disable predefined animations */
 }
 
 window#waybar {

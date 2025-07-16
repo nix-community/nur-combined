@@ -31,38 +31,43 @@ rec {
         data = { inherit node; };
       };
     };
-    ca = {
-      root = (
-        pkgs.writeText "root.crt" ''
-          -----BEGIN CERTIFICATE-----
-          MIIBZTCCARegAwIBAgIUK5cIP43nYTxkSom4car51xB2fyUwBQYDK2VwMC4xETAP
-          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMCAXDTI1
-          MDEyNjA3MzMxN1oYDzIxMjUwMTAyMDczMzE3WjAuMREwDwYDVQQKDAhNaWxpZXVp
-          bTEZMBcGA1UEAwwQTWlsaWV1aW0gUm9vdCBDQTAqMAUGAytlcAMhAPeokscNudjM
-          ghOCxZMw0lnzVWN73e4XZQObR6Z+jW/Co0UwQzAdBgNVHQ4EFgQU2FgDKiVfEizN
-          YB6Uo8v+JKVo4VUwEgYDVR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYw
-          BQYDK2VwA0EAek7DrIzml/QbQ0pvtKXtIguAu1LkS7dJEH11ywG60ZcNsSaASp4t
-          JnKJ63hPDuCvx1YlB6enilL3BMAs2CX2Dg==
-          -----END CERTIFICATE-----
-        ''
-      );
-      intermediate = (
-        pkgs.writeText "intermediate.crt" ''
-          -----BEGIN CERTIFICATE-----
-          MIIBvTCCAW+gAwIBAgIUAf5RM0UXJbedoKBU9/Y0EVmqSbkwBQYDK2VwMC4xETAP
-          BgNVBAoMCE1pbGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMB4XDTI1
-          MDIwMTE0MjEwMloXDTM1MDEzMDE0MjEwMlowODERMA8GA1UECgwITWlsaWV1aW0x
-          IzAhBgNVBAMMGk1pbGlldWltIEludGVybWVkaWF0ZSBDQSAwMFkwEwYHKoZIzj0C
-          AQYIKoZIzj0DAQcDQgAEOUhNYWn7tf0AeKajjrnbPeUtxy+gPSm6243USRSQ6UNA
-          Wtoqd08YLydE7mWn3GXfQK4kCvuCijHuOSfvPI5D7KNmMGQwHQYDVR0OBBYEFFLg
-          cYw1Qz+gD42r/EC7+Mar3UcEMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/
-          BAQDAgIEMB8GA1UdIwQYMBaAFNhYAyolXxIszWAelKPL/iSlaOFVMAUGAytlcANB
-          AGdqS2Qdxc74lngRWUTm9vzRwvVlIrw90Uas6I25XRlcxfwSp5h+CAizDqtoxEIK
-          4OfM5E+YRurQ9FX7BuVLYwU=
-          -----END CERTIFICATE-----
-        ''
-      );
-    };
+    ca_cert =
+      let
+        allCA = {
+          root = ''
+            -----BEGIN CERTIFICATE-----
+            MIIBpTCCAUugAwIBAgIUfvuy7UCKFt2uZWaU7jbZa5H/S8cwCgYIKoZIzj0EAwIw
+            LjERMA8GA1UECgwITWlsaWV1aW0xGTAXBgNVBAMMEE1pbGlldWltIFJvb3QgQ0Ew
+            IBcNMjUwNzE2MDAxMTU0WhgPMjA1MjEyMDEwMDExNTRaMC4xETAPBgNVBAoMCE1p
+            bGlldWltMRkwFwYDVQQDDBBNaWxpZXVpbSBSb290IENBMFkwEwYHKoZIzj0CAQYI
+            KoZIzj0DAQcDQgAEsoAfEGkLVf7dEc8C5D8x3UOKO9J9PlliK1NMSa5QsPhmghX9
+            PL/b0ZZfsccQG7GRXvB81Mc8OSp9y0m2PM5rnaNFMEMwHQYDVR0OBBYEFHWuexIw
+            qD7YcVwXuHTPzHe02qT7MBIGA1UdEwEB/wQIMAYBAf8CAQEwDgYDVR0PAQH/BAQD
+            AgEGMAoGCCqGSM49BAMCA0gAMEUCIFtRgURKZS4waPg5nI0SkWq80vNkX9Ri6yfk
+            vf7FhcBxAiEAtyb3/swm3it411i/zHYR5ZDLRhYjCYyiJAVp2EdVlm4=
+            -----END CERTIFICATE-----
+          '';
+          intermediate = ''
+            -----BEGIN CERTIFICATE-----
+            MIIBzjCCAXSgAwIBAgIUXSZPhMXV7RmVGTARVoZLhkzqEpAwCgYIKoZIzj0EAwIw
+            LjERMA8GA1UECgwITWlsaWV1aW0xGTAXBgNVBAMMEE1pbGlldWltIFJvb3QgQ0Ew
+            HhcNMjUwNzE2MDAxNDIyWhcNMzUwNzE0MDAxNDIyWjA4MREwDwYDVQQKDAhNaWxp
+            ZXVpbTEjMCEGA1UEAwwaTWlsaWV1aW0gSW50ZXJtZWRpYXRlIENBIDAwWTATBgcq
+            hkjOPQIBBggqhkjOPQMBBwNCAAQ5SE1hafu1/QB4pqOOuds95S3HL6A9KbrbjdRJ
+            FJDpQ0Ba2ip3TxgvJ0TuZafcZd9AriQK+4KKMe45J+88jkPso2YwZDAdBgNVHQ4E
+            FgQUUuBxjDVDP6APjav8QLv4xqvdRwQwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNV
+            HQ8BAf8EBAMCAgQwHwYDVR0jBBgwFoAUda57EjCoPthxXBe4dM/Md7TapPswCgYI
+            KoZIzj0EAwIDSAAwRQIhAPksiWlRMjZEbGSd3cPKrvJ4wt67fA7FLauIkcIW9Eb4
+            AiB83NiNVI34+k2EyE7NhpeY1vIKNCcwzYikxsPzJCooeA==
+            -----END CERTIFICATE-----
+          '';
+        };
+        inherit (inputs.nixpkgs.lib) foldl';
+      in
+      foldl' (
+        acc: name: acc // { "${name}_file" = (pkgs.writeText "${name}.crt" allCA.${name}); }
+      ) allCA (builtins.attrNames allCA);
+
   };
 
   genOverlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i});

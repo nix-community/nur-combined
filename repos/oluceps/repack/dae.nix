@@ -44,7 +44,7 @@ reIf {
           pname(bird, systemd-networkd, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
 
-          pname(prometheus) -> direct
+          pname(prometheus,ssh) -> direct
           pname(chatmcp) -> ai
 
           pname(Misskey, conduit, tuwunel, conduwuit, .mautrix-telegr, arti) -> all

@@ -16,6 +16,7 @@
       "resign"
       "nix-direnv"
       "radicle"
+      "xwayland-satellite"
     ] (n: inputs'.${n}.packages.default)
     # //
     # GUI applications overlay. for stability

@@ -44,12 +44,23 @@
         "caddy"
       ])
       // (userRo [
-        "nyaw.cert"
         "nyaw.key"
         "gh-token"
       ])
       // (sdnet [ "psk" ])
       // (rrr [ "ntfy-token" ])
-      // (if type != "default" then (import ./${type}.nix gener) else { });
+      // (if type != "default" then (import ./${type}.nix gener) else { })
+      // {
+        "nyaw.cert" = {
+          cleanPlaceholder = true;
+          mode = "400";
+          owner = user;
+          insert = {
+            "aa778b04d0a03257ce38ecfc17c225fe019a5369d50b2b51a47af2dcc3b446ef" = {
+              content = lib.data.ca_cert.intermediate;
+            };
+          };
+        };
+      };
   };
 }

@@ -39,9 +39,8 @@ reIf {
       volumes =
         let
           cabundle = pkgs.cacert.override {
-            extraCertificateFiles = with lib.data.ca; [
-              root
-              intermediate
+            extraCertificateFiles = with lib.data.ca_cert; [
+              root_file
             ];
           };
         in

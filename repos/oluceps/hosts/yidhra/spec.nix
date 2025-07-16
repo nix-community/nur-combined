@@ -11,10 +11,16 @@
     nixos.enable = false;
     man.man-db.enable = lib.mkForce false;
   };
+  zramSwap = {
+    enable = true;
+    memoryPercent = 80;
+    algorithm = "zstd";
+  };
   environment.systemPackages = with pkgs; [
     lsof
     wireguard-tools
     tcpdump
+    htop
   ];
   system = {
     # server.

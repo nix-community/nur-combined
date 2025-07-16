@@ -145,7 +145,7 @@ builtins.toJSON (
       };
       temperature = {
         format = "{temperatureC}";
-        hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
+        hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
         interval = 2;
         tooltip = false;
       };
