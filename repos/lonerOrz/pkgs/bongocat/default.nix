@@ -38,6 +38,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   pnpmDeps = pnpm_9.fetchDeps {
     inherit (finalAttrs) pname version src;
+    # error: pnpm.fetchDeps: `fetcherVersion` is not set
+    # see https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion.
+    fetcherVersion = 1;
     hash = "sha256-NI0kyXlARPjpSgmlDq8WiSBdd8WAh0c7TiskHQE1VGI=";
   };
 
