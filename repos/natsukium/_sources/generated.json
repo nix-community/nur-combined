@@ -145,7 +145,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2025-07-13",
+        "date": "2025-07-17",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -157,12 +157,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "1dac3eec07e5edb004be56360546320112ded218",
-            "sha256": "sha256-CjEckt3P+hzRy0XGsEOI7EkeKdQ3m3mbwtgFvyzpkEE=",
+            "rev": "3e7c78c8575745f0c642cd82b11032e3dd0eb5a2",
+            "sha256": "sha256-5CU2jdAreUNBMZpUxXkHKAjk+rtQnrzgQQ96/6CQGCM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1dac3eec07e5edb004be56360546320112ded218"
+        "version": "3e7c78c8575745f0c642cd82b11032e3dd0eb5a2"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
@@ -173,11 +173,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fFjgmJY1fC85O0khOWpbSRxIvBHKuDda824TnBd+CrY=",
+            "sha256": "sha256-49gdZOp+X5lVGGygavPQt4TNyXMf4ndQce91nNjZ/0Q=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.5.3735.47.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.5.3735.54.universal.dmg"
         },
-        "version": "7.5.3735.47"
+        "version": "7.5.3735.54"
     },
     "zen-browser": {
         "cargoLocks": null,
