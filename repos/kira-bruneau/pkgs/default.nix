@@ -95,20 +95,6 @@ in
 // {
   inherit callPackage;
 
-  cec-sync = callPackage ./by-name/ce/cec-sync/package.nix {
-    libcec = libcec.overrideAttrs (
-      finalAttrs: prevAttrs: {
-        version = "6.0.2";
-        src = fetchFromGitHub {
-          owner = "Pulse-Eight";
-          repo = "libcec";
-          rev = "libcec-${finalAttrs.version}";
-          hash = "sha256-OWqCn7Z0KG8sLlfMWd0btJIFJs79ET3Y1AV/y/Kj2TU=";
-        };
-      }
-    );
-  };
-
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake cmake-format;
   };
