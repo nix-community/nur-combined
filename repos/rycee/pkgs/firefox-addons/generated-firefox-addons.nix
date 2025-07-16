@@ -2441,10 +2441,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.106";
+      version = "4.9.108";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4488139/darkreader-4.9.106.xpi";
-      sha256 = "23c94085063aa6b57fae40ca9111ab049fffca5476c29e9990db3aa1a3fe1f10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4525516/darkreader-4.9.108.xpi";
+      sha256 = "ffd38443b15e6501a408bf6ee0d233543e04a189a0961fbc0f36b39ab490cf4c";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -3717,10 +3717,10 @@
     };
     "frankerfacez" = buildFirefoxXpiAddon {
       pname = "frankerfacez";
-      version = "4.77.6.0";
+      version = "4.77.8.5";
       addonId = "frankerfacez@frankerfacez.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4515766/frankerfacez-4.77.6.0.xpi";
-      sha256 = "3d8790a3eaa26190be388ea27dd69465e0fb27ee06690991b13477e1c90555c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4530845/frankerfacez-4.77.8.5.xpi";
+      sha256 = "0c1b742f2235484183bb8a31cd3f0fc38f3286aa550e62ebf02a2e56e60499b9";
       meta = with lib;
       {
         homepage = "https://www.frankerfacez.com";
@@ -4169,10 +4169,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.931.0";
+      version = "8.932.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4487837/grammarly_1-8.931.0.xpi";
-      sha256 = "35f86c6cbb895b7e498a7393c7d25c2c6fee8e032da83ca82027cd96fb0a05a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4529518/grammarly_1-8.932.0.xpi";
+      sha256 = "0c171f55d2831e831b03bef37c7cde5e9c45c7af38145370208f3fbe637f4215";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -9969,10 +9969,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.50.0";
+      version = "0.51.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4531521/private_grammar_checker_harper-0.50.0.xpi";
-      sha256 = "45e8b388188508464037984c9e74084e6dc59986e956a6923c1708f931cd64ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535182/private_grammar_checker_harper-0.51.0.xpi";
+      sha256 = "e2caf6e5c960538758efc7c833ab0284bcd2c4decd59f0496c114d2ca11d75d5";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -10394,10 +10394,10 @@
     };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "6.0.0";
+      version = "6.1.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360002/react_devtools-6.0.0.xpi";
-      sha256 = "ed862b7bc65fc67a2cac53c3e4607ab9e54f4871656b048dcc42f49f613a0664";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4432990/react_devtools-6.1.1.xpi";
+      sha256 = "b2d69e220402bd6b8bc7d833948915b1d6dcabb453a1d50872a3db860fd92c46";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -10407,6 +10407,7 @@
           "scripting"
           "storage"
           "tabs"
+          "clipboardWrite"
           "devtools"
           "<all_urls>"
         ];
