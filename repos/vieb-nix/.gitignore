@@ -1,0 +1,8 @@
+# emacs backup files
+*~
+
+# emacs autosaves
+\#*#
+
+# result symlinks from nix build invocations
+/result*
