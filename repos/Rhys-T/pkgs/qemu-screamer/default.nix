@@ -13,7 +13,7 @@
 , pulseSupport ? !stdenv.isDarwin && !nixosTestRunner, libpulseaudio
 , sdlSupport ? !stdenv.isDarwin && !nixosTestRunner, SDL2, SDL2_image
 , jackSupport ? !stdenv.isDarwin && !nixosTestRunner, libjack2
-, gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner, gtk3, gettext, vte, wrapGAppsHook3, wrapGAppsHook ? wrapGAppsHook
+, gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner, gtk3, gettext, vte, wrapGAppsHook3
 , vncSupport ? !nixosTestRunner, libjpeg, libpng
 , smartcardSupport ? !nixosTestRunner, libcacard
 , spiceSupport ? true && !nixosTestRunner, spice, spice-protocol
@@ -76,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
     # SCREAMER: distutils is gone
     python3Packages.looseversion
   ]
-    ++ lib.optionals gtkSupport [ wrapGAppsHook ]
+    # SCREAMER: update hook name
+    ++ lib.optionals gtkSupport [ wrapGAppsHook3 ]
     # SCREAMER: Remove old frameworks and stubs
     ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
