@@ -50,6 +50,7 @@
           ci = import ./ci.nix {
             pkgs = import nixpkgs {
               inherit system;
+              config.allowAliases = false;
             };
             inherit subsetName cachedBuildFailures;
           };
