@@ -40,6 +40,13 @@
           "DIRECT"
         ],
         "server": "local"
+      },
+      {
+        "geosite": [
+          "geolocation-!cn",
+          "google"
+        ],
+        "server": "google"
       }
     ],
     "final": "local"
@@ -98,12 +105,28 @@
       },
       {
         "geosite": [
+          "github",
+          "google"
+        ],
+        "outbound": "proxy"
+      },
+      {
+        "geosite": [
           "cn"
         ],
         "geoip": [
           "cn"
         ],
         "outbound": "DIRECT"
+      },
+      {
+        "geosite": [
+          "microsoft"
+        ],
+        "domain": [
+          "cache.nixos.org"
+        ],
+        "outbound": "us"
       }
     ],
     "final": "proxy"
