@@ -461,6 +461,7 @@ lib.makeScope newScope (
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
     mqttfs = callPackage ./mqtt/mqttfs { };
     mqttwarn = callPackage ./mqtt/mqttwarn { };
+    mystique = callPackage ./mqtt/mystique { };
     nanosdk = callPackage ./mqtt/nanosdk { };
     pytest-mqtt = callPackage ./mqtt/pytest-mqtt { };
     rmqtt = callPackage ./mqtt/rmqtt { };
