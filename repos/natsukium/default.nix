@@ -29,7 +29,6 @@ rec {
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.qutebrowser;
-  rofi-rbw = pkgs.rofi-rbw;
   sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
   vivaldi = pkgs.vivaldi;
   zen-browser = pkgs.callPackage ./pkgs/zen-browser { source = sources.zen-browser; };
