@@ -64,7 +64,7 @@ jobs:
           nix_path: "${{ matrix.nixPath }}"
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: nix flake check
+      - run: nix flake check -L --accept-flake-config
 
   trigger:
     needs: [packages, flake]
