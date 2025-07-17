@@ -19,19 +19,19 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "bd68ab3ffb0216dc3de845222b76efaf03745fd2";
-    hash = "sha256-BRPjvcGJmLBl5P3KUXG7Ol9S9AKV7o/9eLemX8GDrB8=";
+    rev = "5f421bddd4f40b524bfe994bee21f30ffdb53b8c";
+    hash = "sha256-v2q8A1vOn6Pte2g/fJ1dODhbzonPMp558LU2626qS4M=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.47.5";
+  version = "0.47.6-hotfix1";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     tag = "v${version}";
-    hash = "sha256-u4LgnXaNPMohcu/vw5agzUHh4pRWnruAGZo++J0q/Ww=";
+    hash = "sha256-OvYiPmEzKqlJJCHqNxvIwMGTDTp31jh/m4pnExVmCCQ=";
   };
 
   patches = [
@@ -39,10 +39,10 @@ buildNpmPackage rec {
     ./fix-path-for-asar-unpack.patch
   ];
 
-  npmDepsHash = "sha256-1Tig1ItirOUE2TC/Pw6cGkgMnEWoqQ2kdDJEqtYgBUU=";
+  npmDepsHash = "sha256-Pso0mAyW2Ia8W9GvkD8biG722sdrxB/ji96TwiP5r3Y=";
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.47.5/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.47.5/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.47.6/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.47.6/electron/hook/locale.js
   postUnpack = ''
     expected_middleware_version="v$(cat "$sourceRoot/middleware.version")"
     actual_middleware_version=${lib.escapeShellArg "v${lib.escapeShellArg anytype-heart.version}"}

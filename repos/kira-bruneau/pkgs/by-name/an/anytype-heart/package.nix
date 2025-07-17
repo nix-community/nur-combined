@@ -10,13 +10,13 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.41.2";
+  version = "0.41.3";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${version}";
-    hash = "sha256-upqry+BgILZw9ZeVCmT+AvI2WTFsyC84R19TH3FOZIw=";
+    hash = "sha256-X2mpaYkOEOaPE2ho+obyAIZikzT7XP6IimFdw4uBkFA=";
   };
 
   proxyVendor = true;
@@ -33,7 +33,7 @@ buildGoModule rec {
 
   buildInputs = [ tantivy-go ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.41.2/makefiles/ci-cross-compile-library.mk#L37
+  # https://github.com/anyproto/anytype-heart/blob/v0.41.3/makefiles/ci-cross-compile-library.mk#L37
   tags = [
     "envproduction"
     "nographviz"

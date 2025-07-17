@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "jrouleau";
     repo = "bluetooth-autoconnect";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-qfU7fNPNRQxIxxfKZkGAM6Wd3NMuNI+8DqeUW+LYRUw=";
+    hash = "sha256-qfU7fNPNRQxIxxfKZkGAM6Wd3NMuNI+8DqeUW+LYRUw=";
   };
 
   nativeBuildInputs = [
