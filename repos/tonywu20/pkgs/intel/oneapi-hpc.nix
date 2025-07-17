@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   version = "2025.0.1.46";
   hpc_version = "2025.0.1.47";
   version_dir = "2025.0";
-  name = "intel-oneapi-${version}";
+  name = "intel-oneapi-${hpc_version}";
 
   # For localy downloaded offline installers
   # sourceRoot = "/data/scratch/intel/oneapi_installer";
