@@ -36,6 +36,8 @@ let
       realrtcw = final.callPackage ./realrtcw { };
       reshade-shaders = final.callPackage ./reshade-shaders { };
       seadrive-fuse = final.callPackage ./seadrive-fuse { };
+      sing-box-beta = final.callPackage ./sing-box/beta.nix { };
+      sing-box-extended = final.callPackage ./sing-box/extended.nix { };
       syncyomi = final.callPackage ./syncyomi { };
       waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
       whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
