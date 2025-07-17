@@ -52,3 +52,7 @@ in {
   environment.systemPackages = [ vieb-nix.vieb ];
 }
 ```
+
+## NUR
+
+If you use the [Nix User Repository](https://github.com/nix-community/NUR), then Vieb is available under `repos.vieb-nix.vieb`.
