@@ -40,7 +40,7 @@ let
     licenseFromMeta = p.meta.license or [];
     licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
   in
-    lib.meta.availableOn pkgs.hostPlatform p &&
+    lib.meta.availableOn pkgs.stdenvNoCC.hostPlatform p &&
     !(p.meta.broken or false) &&
     (p._Rhys-T.allowCI or true) &&
     builtins.all (license: license.free or true) licenseList &&
