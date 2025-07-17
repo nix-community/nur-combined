@@ -8,15 +8,17 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
+
 {
   pkgs ? import <nixpkgs> { },
 }:
+
 with builtins;
+with pkgs.lib;
 let
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ../default.nix { inherit pkgs; };
   nurPkgs =
     with nurAttrs.lib;
-    with pkgs.lib;
     flattenPkgs (
       listToAttrs (
         map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
@@ -25,8 +27,9 @@ let
 in
 with nurAttrs.lib;
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
+  buildPkgs = filter (p: isBuildable p && forSystem pkgs.stdenv.system p) nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
+
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
 }

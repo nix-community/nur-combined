@@ -1,0 +1,28 @@
+{% if not setupComplete %}# nur-packages-template
+
+An opinionated template for [NUR](https://github.com/nix-community/NUR) repositories
+
+## Setup
+
+1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) <!-- markdownlint-disable-line MD013 -->
+   to start a repo based on this template. (Do _not_ fork it.)
+2. Add your packages to the [pkgs](./pkgs) directory and to
+   [default.nix](./default.nix)
+   * Remember to mark the broken packages as `broken = true;` in the `meta`
+     attribute, or CI (and consequently caching) will fail!
+   * Library functions, modules and overlays go in the respective directories
+3. Configure: Change your NUR repo name, fill in your GitHub username, and
+   optionally add a cachix name in [config.yml](./config.yml).
+4. Run `nix run .#maintainers.render_templates` to regenerate the README
+5. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository) <!-- markdownlint-disable-line MD013 -->
+
+<!-- markdownlint-disable-next-line MD025 -->{% endif %}
+# nur-packages
+
+My personal [NUR](https://github.com/nix-community/NUR) repository
+
+[Search](https://nur.nix-community.org/repos/{{ githubUser }})
+
+![Build and populate cache](https://github.com/{{ githubUser }}/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+
+[![Cachix Cache](https://img.shields.io/badge/cachix-{{ cachixName }}-blue.svg)](https://{{ cachixName }}.cachix.org)

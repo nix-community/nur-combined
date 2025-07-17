@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
+      - master
   schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron: "30 7 * * *"
   workflow_dispatch:
 permissions:
@@ -44,13 +48,11 @@ jobs:
     needs: Build
     strategy:
       matrix:
-        runner:
-          - ubuntu-latest
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -58,23 +60,40 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Get config.yml
+        id: config
+        shell: python
+        run: |
+          import yaml, os
+
+          with open("config.yml") as f:
+            data = yaml.safe_load(f)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+            out.write(f"cachixName={data.get('cachixName', '')}\n")
+            out.write(f"nurRepo={data.get('nurRepo', '')}\n")
       - name: Show nixpkgs version
         run: NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix
         uses: cachix/cachix-action@v16
+        if: ${{ steps.config.outputs.cachixName != '<YOUR_CACHIX_NAME>' }}
         with:
-          name: toyvo
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ steps.config.outputs.cachixName }}
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - name: Check evaluation
         run: |
           NIX_PATH="${{ matrix.nixPath }}" nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
             -I nixpkgs=$(NIX_PATH="${{ matrix.nixPath }}" nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: NIX_PATH="${{ matrix.nixPath }}" nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: NIX_PATH="${{ matrix.nixPath }}" nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached maintainers/ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=https://github.com/ToyVo/nur-packages"
+        if: ${{ steps.config.outputs.nurRepo != '<YOUR_REPO_NAME>' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
