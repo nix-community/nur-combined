@@ -31,8 +31,6 @@ jobs:
             accept-flake-config = true
             allow-import-from-derivation = false
 
-      - uses: DeterminateSystems/flakehub-cache-action@main
-
       - uses: cachix/cachix-action@v16
         with:
           name: josh
@@ -42,23 +40,3 @@ jobs:
       - name: Check flake
         run: |
           nix flake check --keep-going --print-build-logs github:${{ github.repository }}/${{ github.sha }}
-
-  publish:
-    needs: build
-    runs-on: ubuntu-24.04
-    if: ${{ github.ref == 'refs/heads/main' }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          determinate: true
-
-      - uses: DeterminateSystems/flakehub-cache-action@main
-
-      - uses: DeterminateSystems/flakehub-push@main
-        with:
-          visibility: public
-          include-output-paths: true
-          rolling: true
