@@ -13,12 +13,14 @@ stdenv.mkDerivation {
   pname = "neoforge";
   inherit version;
 
-  src = let
-    build_version = lib.last (lib.strings.split "-" version);
-  in fetchurl {
-    url = "https://maven.neoforged.net/releases/net/neoforged/neoforge/${build_version}/neoforge-${build_version}-installer.jar";
-    sha256 = hash;
-  };
+  src =
+    let
+      build_version = lib.last (lib.strings.split "-" version);
+    in
+    fetchurl {
+      url = "https://maven.neoforged.net/releases/net/neoforged/neoforge/${build_version}/neoforge-${build_version}-installer.jar";
+      sha256 = hash;
+    };
 
   nativeBuildInputs = [ makeWrapper ];
 
