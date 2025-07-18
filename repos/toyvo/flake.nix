@@ -85,7 +85,7 @@
               maintainers = pkgs.callPackage "${self}/maintainers" { };
             };
             packages = flakePackages system ourPackages;
-            overlayAttrs.toyvo = self'.packages;
+            overlayAttrs.toyvo = ourPackages;
             # we get infinite recursion on freebsd with `nix flake show`, not investigating
             checks = lib.mkIf (system != "x86_64-freebsd") (flakeChecks system self'.packages);
 
