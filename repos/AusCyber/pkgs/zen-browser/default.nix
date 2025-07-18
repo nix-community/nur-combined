@@ -8,31 +8,24 @@
   writeText,
   ...
 }:
-let policies = {
-DisableAppUpdate = true;
-DisableTelemetry = true;
-} // config.zen.policies or {};
-policiesJson = writeText "policies.json" (builtins.toJSON { inherit policies;});
-in
+
 stdenvNoCC.mkDerivation {
   inherit (source) pname version src;
   inherit sourceRoot;
-
 
   nativeBuildInputs = [ undmg ];
 
   preferLocalBuild = true;
 
   installPhase = ''
-    runHook preInstall
+        runHook preInstall
 
-    mkdir -p $out/Applications/${sourceRoot}
-    cp -r . $out/Applications/${sourceRoot}
-	mkdir -p "$out/Applications/${sourceRoot}/Contents/Resources/distribution"
-	cp ${policiesJson} "$out/Applications/${sourceRoot}/Contents/Resources/distribution/policies.json"
+        mkdir -p $out/Applications/${sourceRoot}
+        cp -r . $out/Applications/${sourceRoot}
+    	mkdir -p "$out/Applications/${sourceRoot}/Contents/Resources/distribution"
 
 
-    runHook postInstall
+        runHook postInstall
   '';
 
   meta = {
