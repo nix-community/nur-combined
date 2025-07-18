@@ -37,7 +37,7 @@ in
       owner = "opengrep";
       repo = "opengrep";
       tag = "v${common.version}";
-      hash = "sha256-95TZfP4gp+3ESp/negRSHRE3cw68sKuhconTKv3XMPQ=";
+      hash = "sha256-d6j3yLFVJq6dB/+eVytJv0qowsYRRBgit5+LiwbLBcU=";
       fetchSubmodules = true;
     };
 

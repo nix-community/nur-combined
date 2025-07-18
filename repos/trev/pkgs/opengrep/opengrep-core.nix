@@ -9,19 +9,19 @@
   binaries = {
     aarch64-linux = fetchurl {
       url = "https://github.com/spotdemo4/opengrep/releases/download/v${common.version}/opengrep-core_linux_aarch64.tar.gz";
-      hash = "sha256:80d2d31fc894b45aba907b172ac4267ae4e5ee0a994eeda5048e29d8a999fcfa";
+      hash = "sha256-jy+6tpey5+IVRR2GJ9h6QCE7in2e+hGPaEcxH+C1Iz8=";
     };
     x86_64-linux = fetchurl {
       url = "https://github.com/spotdemo4/opengrep/releases/download/v${common.version}/opengrep-core_linux_x86.tar.gz";
-      hash = "sha256-tBQwa2uIEA9xu0kp+Dok8tqdticLrwuRBCDhqvc6cTI=";
+      hash = "sha256-1YVEIPXLpdLg6r8rWMQH7Lp6OTJ22LjpnS6pgOTwS7E=";
     };
     aarch64-darwin = fetchurl {
       url = "https://github.com/spotdemo4/opengrep/releases/download/v${common.version}/opengrep-core_osx_aarch64.tar.gz";
-      hash = "sha256:a64c8da6b0ad0de64e4875abbafb893425f109023de38257de099889fca395d9";
+      hash = "sha256-n5A93MyKpjIzF0ejCZ/oDwn+EKl/oROrt4Fe3CJMwDI=";
     };
     x86_64-darwin = fetchurl {
       url = "https://github.com/spotdemo4/opengrep/releases/download/v${common.version}/opengrep-core_osx_x86.tar.gz";
-      hash = "sha256:1871b6bd609d69a903b04a1b0294d9a6cd96f723f53eaab77bcff19494033b55";
+      hash = "sha256-n6+7wHsgqqhgsQDaWL8umAQ8KJ0AdlvMIfK567lsoHY=";
     };
   };
 in
