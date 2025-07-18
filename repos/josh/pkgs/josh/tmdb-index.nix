@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
   runCommand,
-  nix-update-script,
 }:
 let
   tmdb-index = python3Packages.buildPythonApplication {
@@ -45,7 +44,7 @@ tmdb-index.overrideAttrs (
   in
   {
     passthru = previousAttrs.passthru // {
-      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+      # updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
       tests = {
         help =
