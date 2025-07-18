@@ -122,14 +122,6 @@
       sha256 = "sha256-vRaN/mNfpR+hdv2HVS1bzaW0o+HGjizRFsk3iinICJE=";
     };
   };
-  tree-sitter-make = {
-    pname = "tree-sitter-make";
-    version = "1.1.1";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_make/tree_sitter_make-1.1.1.tar.gz";
-      sha256 = "sha256-7zlGc6uDlW3/s5hlJvTAWQgv8thMh/naGKswAw9WG0w=";
-    };
-  };
   tree-sitter-muttrc = {
     pname = "tree-sitter-muttrc";
     version = "0.0.6";

@@ -36,7 +36,7 @@ let
     manpager = callPackage ./pkgs/tools/misc/manpager { };
     jq-emojify = callPackage ./pkgs/tools/misc/jq-emojify { };
     tmux-rime = callPackage ./pkgs/tools/misc/tmux-rime { };
-    texlua = callPackage ./pkgs/tools/misc/texlua { };
+    luahbtex = callPackage ./pkgs/tools/misc/luahbtex { };
 
     tcl-prompt = callPackage ./pkgs/development/tcl-modules/tcl-prompt { };
 
@@ -77,7 +77,6 @@ let
     tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     tree-sitter-zathurarc = callPackage ./pkgs/development/python-modules/tree-sitter-zathurarc { };
     zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
-    tree-sitter-make = callPackage ./pkgs/development/python-modules/tree-sitter-make { };
     tree-sitter-bash = callPackage ./pkgs/development/python-modules/tree-sitter-bash { };
     tree-sitter-requirements =
       callPackage ./pkgs/development/python-modules/tree-sitter-requirements

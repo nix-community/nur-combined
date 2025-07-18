@@ -75,10 +75,6 @@ fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
 src.github_tag = "tree-sitter/tree-sitter-bash"
 fetch.github = "tree-sitter/tree-sitter-bash"
 
-[tree-sitter-make]
-src.pypi = "tree-sitter-make"
-fetch.pypi = "tree_sitter_make"
-
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"

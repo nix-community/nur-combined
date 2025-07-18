@@ -4,7 +4,7 @@
   fetchzip,
 }:
 stdenv.mkDerivation rec {
-  pname = "texlua";
+  pname = "luahbtex";
   version = "1.17.0";
   src = fetchzip {
     url = "https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/archive/${version}/luatex-${version}.zip";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -D build/texk/web2c/luahbtex $out/bin/texlua
+    install -D build/texk/web2c/luahbtex -t $out/bin
     install -Dm644 source/texk/kpathsea/texmf.cnf -t $out/etc/texmf/web2c
   '';
 
