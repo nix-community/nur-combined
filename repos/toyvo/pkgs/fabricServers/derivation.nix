@@ -14,9 +14,9 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url = "https://api.purpurmc.org/v2/purpur/${
+    url = "https://meta.fabricmc.net/v2/versions/loader/${
       builtins.replaceStrings [ "-" ] [ "/" ] version
-    }/download";
+    }/server/jar";
     sha256 = hash;
   };
 
@@ -42,14 +42,14 @@ stdenv.mkDerivation {
   allowSubstitutes = false;
 
   meta = with lib; {
-    description = "Drop-in replacement for Minecraft Paper servers";
+    description = "Fabric enabled Minecraft server";
     longDescription = ''
-      Purpur is a drop-in replacement for Minecraft Paper servers designed for configurability, new fun and exciting
-      gameplay features, and performance built on top of Airplane.
+      The executable jar is a small launcher that will start the Fabric enabled Minecraft server using the versions specified.
+      There is no need to use an installer when using this method.
     '';
-    homepage = "https://purpurmc.org/";
+    homepage = "https://fabricmc.net/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.mit;
+    license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = [ ];
     mainProgram = "minecraft-server";
