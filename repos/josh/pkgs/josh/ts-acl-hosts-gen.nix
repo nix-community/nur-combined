@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "ts-acl-hosts-gen";
-  version = "0.2.0-unstable-2025-02-21";
+  version = "0.2.0-unstable-2025-07-18";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "ts-acl-hosts-gen";
-    rev = "87c93b613fdbbdc01438d887a2e7113993c60326";
-    hash = "sha256-mdIBkxZTjFUZ/aw3HyolQxtKJ+3BYV51NCE0Rb3L9YU=";
+    rev = "bc01bf9a327bfe6cac4d85d99f2792157a3a8862";
+    hash = "sha256-7WgU4pM8VE30geKL8LHiUjhZxyugpx3AAjg6VC9VK+U=";
   };
 
-  vendorHash = "sha256-YmaWaQ4sOF5bQFOv3MNsUsOFQaBgYhEO0JR/x5R+gf4=";
+  vendorHash = "sha256-ZkjWGoK+1RP1GsBxz2tuLvTUSMYDLF7U+RURmjjPzC0=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
