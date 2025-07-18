@@ -10,13 +10,13 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "fabric";
+  pname = "neoforge";
   inherit version;
 
-  src = fetchurl {
-    url = "https://meta.fabricmc.net/v2/versions/loader/${
-      builtins.replaceStrings [ "-" ] [ "/" ] version
-    }/server/jar";
+  src = let
+    build_version = lib.last (lib.strings.split "-" version);
+  in fetchurl {
+    url = "https://maven.neoforged.net/releases/net/neoforged/neoforge/${build_version}/neoforge-${build_version}-installer.jar";
     sha256 = hash;
   };
 
@@ -42,14 +42,13 @@ stdenv.mkDerivation {
   allowSubstitutes = false;
 
   meta = with lib; {
-    description = "Fabric enabled Minecraft server";
+    description = "Neoforge enabled Minecraft server";
     longDescription = ''
-      The executable jar is a small launcher that will start the Fabric enabled Minecraft server using the versions specified.
-      There is no need to use an installer when using this method.
+      Neoforge is a Minecraft mod loader that provides a more modern and efficient way to run Minecraft servers.
     '';
-    homepage = "https://fabricmc.net/";
+    homepage = "https://neoforged.net/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
+    license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = [ ];
     mainProgram = "minecraft-server";

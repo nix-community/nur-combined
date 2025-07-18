@@ -132,7 +132,11 @@
         "version": "1.21.6-2465"
     },
     "1.21.7": {
-        "hash": "sha256-dkzN0YFqmjcw/m+zRlj3Jy9iiurxauRwvnzAff1zMm0=",
-        "version": "1.21.7-2472"
+        "hash": "sha256-Na0mMuF/HQ54SW5hB0tx4j0xgObrj1w/qXiQm2gcBD4=",
+        "version": "1.21.7-2477"
+    },
+    "1.21.8": {
+        "hash": "sha256-UzO8upDql8v/GPNWpWd4g0A3PJCx/2ZPNaTpG0CzAlg=",
+        "version": "1.21.8-2478"
     }
 }
