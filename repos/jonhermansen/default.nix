@@ -18,5 +18,6 @@
 
   hello-jon = pkgs.callPackage ./pkgs/hello-jon { };
   user-mode-linux = pkgs.callPackage ./pkgs/user-mode-linux { };
+  wayback-x11 = pkgs.callPackage ./pkgs/wayback-x11 { };
   xlibre = pkgs.callPackage ./pkgs/xlibre { };
 }

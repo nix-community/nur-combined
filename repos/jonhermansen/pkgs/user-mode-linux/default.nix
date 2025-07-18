@@ -66,12 +66,13 @@ stdenv.mkDerivation rec {
     reset
     EOF
         chmod +x $out/bin/run-uml
-        substituteInPlace $out/bin/run-uml --replace "\$0_dir" "\$(dirname \$0)"
+        substituteInPlace $out/bin/run-uml --replace-fail "\$0_dir" "\$(dirname \$0)"
   '';
 
   meta = {
     description = "UML Linux kernel ${version} with hostfs support";
     license = lib.licenses.gpl2Only;
     platforms = [ "x86_64-linux" ]; # builds as i686 on x86_64? wtf
+    mainProgram = "run-uml";
   };
 }
