@@ -52,6 +52,9 @@ let
     giraffe-wallpaper = callPackage ./giraffe-wallpaper {
       source = sources.giraffe-wallpaper;
     };
+    claude-code-router = callPackage ./claude-code-router {
+      source = sources.claude-code-router;
+    };
 
     # override packages
     pam_ssh_agent_auth = callPackage ./pam_ssh_agent_auth { inherit (prev) pam_ssh_agent_auth; };

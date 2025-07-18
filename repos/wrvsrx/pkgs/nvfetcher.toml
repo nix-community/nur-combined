@@ -136,3 +136,7 @@ fetch.github = "joelspadin/tree-sitter-devicetree"
 [auto-patchelf]
 src.github_tag = "wrvsrx/auto-patchelf"
 fetch.github = "wrvsrx/auto-patchelf"
+
+[claude-code-router]
+src.git = "https://github.com/musistudio/claude-code-router"
+fetch.github = "musistudio/claude-code-router"
