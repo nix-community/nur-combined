@@ -2441,10 +2441,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.108";
+      version = "4.9.110";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4525516/darkreader-4.9.108.xpi";
-      sha256 = "ffd38443b15e6501a408bf6ee0d233543e04a189a0961fbc0f36b39ab490cf4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535824/darkreader-4.9.110.xpi";
+      sha256 = "846245826470cc1a08597480493b2076fcf03322a1228682b8a85b866fae30dc";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2809,10 +2809,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.62.2";
+      version = "2.62.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4519658/dualsub-2.62.2.xpi";
-      sha256 = "a40676fb260c6da6d4fa5400256de74a2e69dec9478d40c2bafdd5c54d224ba3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4537416/dualsub-2.62.3.xpi";
+      sha256 = "8b1b10810130cf0a612b98d3c24dd90d815a8bfea2c2d91da7894742b59e3132";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6613,10 +6613,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.144.2";
+      version = "4.145.0";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4531462/lastpass_password_manager-4.144.2.xpi";
-      sha256 = "96858d7e0e85b324404103a121e9ac73e50fb16684d3c5a531de3c1c2bb30865";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535188/lastpass_password_manager-4.145.0.xpi";
+      sha256 = "40f66297f20e66c1fbbbc0f9c05744c22080246fba3f2020a81ab37f94dd7517";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -14890,10 +14890,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.9.0";
+      version = "2.10.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4534349/youtube_no_translation-2.9.0.xpi";
-      sha256 = "03eb0330c327b6681e84f6c171d8e7de806a9eff9805daa843bb567545ebc586";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4535542/youtube_no_translation-2.10.0.xpi";
+      sha256 = "f1df1b2980ffbff86681bb66b128deba85a7cee232d1681cab3363dae1e74e4d";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
