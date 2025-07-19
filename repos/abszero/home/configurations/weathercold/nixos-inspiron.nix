@@ -1,3 +1,4 @@
+# WARN: no longer updated as of 2025-07-18
 let
   inherit (builtins) readDir warn;
 

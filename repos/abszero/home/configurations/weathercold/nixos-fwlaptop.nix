@@ -1,4 +1,3 @@
-# WARN: no longer updated as of 2025-07-18
 let
   inherit (builtins) readDir warn;
 
@@ -27,7 +26,10 @@ let
             enable = true;
             wallpaper = "xppen-chan";
           };
-          niri.enable = true;
+          niri = {
+            enable = true;
+            enableCompactLayout = true;
+          };
         };
       };
     };
@@ -37,7 +39,10 @@ let
       gtk.icon.enable = true;
     };
 
-    programs.niri.settings.outputs.eDP-1.variable-refresh-rate = true;
+    programs.niri.settings.outputs.eDP-1 = {
+      scale = 1.25;
+      variable-refresh-rate = true;
+    };
 
     specialisation = {
       # Hint nh to autoswitch to the current specialisation
@@ -54,7 +59,7 @@ in
 {
   imports = [ ../_options.nix ];
 
-  homeConfigurations."weathercold@nixos-redmibook" = {
+  homeConfigurations."weathercold@nixos-fwlaptop" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack

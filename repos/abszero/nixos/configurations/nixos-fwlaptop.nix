@@ -1,4 +1,3 @@
-# WARN: no longer updated as of 2025-07-18
 { inputs, lib, ... }:
 
 let
@@ -24,7 +23,7 @@ let
 
       users.admins = [ "weathercold" ];
 
-      hardware.xiaomi-redmibook-16-pro-2024.enable = true;
+      hardware.framework-12-13th-gen-intel.enable = true;
 
       services = {
         displayManager.tuigreet.enable = true;
@@ -157,10 +156,10 @@ in
 {
   imports = [ ./_options.nix ];
 
-  nixosConfigurations.nixos-redmibook = {
+  nixosConfigurations.nixos-fwlaptop = {
     system = "x86_64-linux";
     modules = [
-      inputs.nixos-hardware.nixosModules.xiaomi-redmibook-16-pro-2024
+      inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
       mainModule
     ];
   };

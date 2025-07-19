@@ -1,4 +1,5 @@
 # NixOS on toshiba-mq04ubb400-22rbt03qt, a portable HDD
+# WARN: no longer updated as of 2025-07-18
 { inputs, lib, ... }:
 
 let
