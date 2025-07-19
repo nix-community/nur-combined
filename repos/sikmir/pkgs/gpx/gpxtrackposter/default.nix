@@ -25,8 +25,15 @@ python312Packages.buildPythonApplication {
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
       --replace-fail "self.translate(\"ATHLETE\")" "\"\""
+
+    # https://github.com/flopp/GpxTrackPoster/issues/115
     substituteInPlace gpxtrackposter/track.py \
       --replace-fail "from stravalib.model import Activity" "from stravalib.model import DetailedActivity"
+
+    # https://github.com/flopp/GpxTrackPoster/issues/102
+    substituteInPlace gpxtrackposter/timezone_adjuster.py \
+      --replace-fail "TimezoneAdjuster._timezonefinder" "cls._timezonefinder"
+
     substituteInPlace gpxtrackposter/cli.py \
       --subst-var out
   '';
@@ -73,5 +80,6 @@ python312Packages.buildPythonApplication {
     homepage = "https://github.com/flopp/GpxTrackPoster";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "create_poster";
   };
 }

@@ -7,18 +7,18 @@
 
 buildGoModule {
   pname = "go-staticmaps";
-  version = "0-unstable-2025-02-06";
+  version = "0-unstable-2025-06-29";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "go-staticmaps";
-    rev = "47d062eaabcee02a9008db85b959e089314bde94";
-    hash = "sha256-jnM2GrN4HyVGarnopH0DCmI+Gfh4DLHWZNqiJu0GrwA=";
+    rev = "973b17999e196be69437fe40897af961b4557602";
+    hash = "sha256-/dF9JW+Gmf3Y7Nr3J4NfjiQucLQC6v/Lzn7F1yQw158=";
   };
 
   patches = [ ./extra-tileproviders.patch ];
 
-  vendorHash = "sha256-NrkwyKcVZ1IJv70CIOXD+GCvFhuKoEPYSi9V4sHrkcs=";
+  vendorHash = "sha256-082d3Ho+kUyvDAE9gRlHdjS3Jy9SSsCn/NZ0HXiKU5g=";
 
   passthru.updateScript = unstableGitUpdater { };
 
