@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "e691849df754984ab7deb31737ee2457d77bd749";
+    version = "72abad2d6e246d8d3a764ff78e4e54b626ec3995";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "e691849df754984ab7deb31737ee2457d77bd749";
-      hash = "sha256-vCTmUrUonNwqqM+ad6bmbr1rPkCCmOethEjhXqPWUG4=";
+      rev = "72abad2d6e246d8d3a764ff78e4e54b626ec3995";
+      hash = "sha256-4C7Y6lC4XQMNueaD3/hSzuCuRxvaCWA9pgtRnnwwABw=";
     };
-    date = "2025-07-14";
+    date = "2025-07-17";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f435ec707555a2d044e8e1a53dac8df89610e06f";
+    version = "723563c04f9b843979d2a3ff5a92335b625b3035";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f435ec707555a2d044e8e1a53dac8df89610e06f";
-      hash = "sha256-OWhXk361D1SxKF2Sd2DuiNI6YhiWax0AZEjxlsJ2Q3s=";
+      rev = "723563c04f9b843979d2a3ff5a92335b625b3035";
+      hash = "sha256-ETWccYsyyuiFrfmzfyavSxarxgB2Y9gRNIZ1SfeLALw=";
     };
-    date = "2025-07-14";
+    date = "2025-07-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -780,14 +780,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "70fc8beeb9e43e056c5e787b1dc1b5c4162c390a";
+    version = "cd7ba37e55145958b9238a5fbc7709686fb60074";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "70fc8beeb9e43e056c5e787b1dc1b5c4162c390a";
-      hash = "sha256-AMwYBAQvY6QYvRQ9aEPqUWhCr38DYgZySopFbDnuqUw=";
+      rev = "cd7ba37e55145958b9238a5fbc7709686fb60074";
+      hash = "sha256-ZyD8rgwFOAWXhShpab6JOH013hpSOm79T2StVyyWGks=";
     };
-    date = "2025-05-19";
+    date = "2025-07-17";
   };
   igsc = {
     pname = "igsc";
@@ -1015,12 +1015,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.15.6-xanmod1";
+    version = "6.15.7-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.15.6-xanmod1";
+      tag = "6.15.7-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-ArhRHMHvScV1Xa0lgBbM0hYtCAXujSCHA3aKEZnZSwU=";
+      hash = "sha256-YMDjtoGz/PQKmbB2umI+5mODP4A1NqzVusc9kg2zGzA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1045,12 +1045,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.37-xanmod1";
+    version = "6.12.39-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.37-xanmod1";
+      tag = "6.12.39-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-VH5w802w6ugpMP5YPUuOJtf9TnrLZmFJUrGCQVH4n+s=";
+      hash = "sha256-yv8CtqqxJiiRjnZJrsqRw/q6B9JnS5nmnYlqTYWN6Kc=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5921";
+    version = "b5937";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5921";
-      hash = "sha256-rVstNHXxhdv7SzwVIcGqxB25JkF4TGgT2kcgBwwSH4Y=";
+      tag = "b5937";
+      hash = "sha256-PZpPxs7bmgSb2mWil1t5R9fXXLihyta8r1TqmuuaTjE=";
     };
   };
   loralib = {
@@ -1237,14 +1237,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "c3823423d9adff33a98d00255a98b27eee082d53";
+    version = "bdb2699d87a84ed593de3ca114290740b530a514";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "c3823423d9adff33a98d00255a98b27eee082d53";
-      hash = "sha256-7g/lBMMG9wUY+S+IuUKi++xGeK7ncJbNOGHyIdrYq0k=";
+      rev = "bdb2699d87a84ed593de3ca114290740b530a514";
+      hash = "sha256-sHINI3AX00XhgPOlVgmve/LJ8/VQJO0o0IQO7Ol0Zpw=";
     };
-    date = "2025-05-24";
+    date = "2025-07-19";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1419,12 +1419,12 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "v0.2.20250523";
+    version = "v0.2.20250718";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      tag = "v0.2.20250523";
-      hash = "sha256-M8rTunf1jSAHnwjHIC73J+noGetTijd0opdbTGynJVg=";
+      tag = "v0.2.20250718";
+      hash = "sha256-y3Ev8ZOHeHarBOGO4FEiHyzf7IO/gXiQ/uW6Hayrrh0=";
     };
   };
   palworld-exporter = {
@@ -1459,10 +1459,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "8.0.7";
+    version = "8.0.8";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.7/PeerBanHelper_8.0.7.zip";
-      hash = "sha256-RO2C9IeFqMSyqlDhkvvep9M6fybo5xLMIOHXGl3XnD4=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.8/PeerBanHelper_8.0.8.zip";
+      hash = "sha256-O58iMurgomXiW5F/I1XG941d/a+t2TKc641LUA1pHT8=";
     };
   };
   phpmyadmin = {
@@ -1741,12 +1741,12 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "ae028d972a18bbca97d5330eefb4237205b0f69b";
+    version = "49b65a6f63af169f1571b025d65a7d88c3231b6f";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "ae028d972a18bbca97d5330eefb4237205b0f69b";
-      hash = "sha256-JdpeRYi7VzdZh9LsJDMEhLHK7LXvV686XiFsFfbW9Zc=";
+      rev = "49b65a6f63af169f1571b025d65a7d88c3231b6f";
+      hash = "sha256-SKwns46TO72JE/wPYZ1TliRxcO8n/MLjF3dYIMM2va8=";
     };
     date = "2025-07-17";
   };
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "24e9664e47fbe5bec5c7795420060f58220e9c1e";
+    version = "2b30ebcd2bf190d0e6ebfbe8748e2fd26cc4201a";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "24e9664e47fbe5bec5c7795420060f58220e9c1e";
+      rev = "2b30ebcd2bf190d0e6ebfbe8748e2fd26cc4201a";
       fetchSubmodules = true;
-      hash = "sha256-RfcfJ/An8uI5+ySlHfb6ExhffacpLfOqpTr9WDJGc0Q=";
+      hash = "sha256-+hvRKKgzgRRGJ1VuhbpdKetD0RNgyFrD1qlQfL+0N/E=";
     };
-    date = "2025-07-16";
+    date = "2025-07-18";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
