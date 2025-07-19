@@ -32,5 +32,6 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tewi";
+    broken = true; # textual is broken
   };
 }

@@ -32,6 +32,7 @@ python312Packages.buildPythonApplication {
 
     # https://github.com/flopp/GpxTrackPoster/issues/102
     substituteInPlace gpxtrackposter/timezone_adjuster.py \
+      --replace-fail "__init__(self)" "__new__(cls)" \
       --replace-fail "TimezoneAdjuster._timezonefinder" "cls._timezonefinder"
 
     substituteInPlace gpxtrackposter/cli.py \
