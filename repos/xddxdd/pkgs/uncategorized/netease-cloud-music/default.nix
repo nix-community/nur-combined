@@ -45,7 +45,7 @@ let
     gdk-pixbuf
     glib
     gnome-themes-extra
-    (gnome2.GConf.override { python3 = python312; })
+    gnome2.GConf
     gtk2
     libjpeg8
     libnetease-patch

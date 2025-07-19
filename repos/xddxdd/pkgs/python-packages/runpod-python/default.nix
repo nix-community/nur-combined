@@ -10,6 +10,7 @@
   click,
   colorama,
   fastapi,
+  filelock,
   inquirerpy,
   paramiko,
   prettytable,
@@ -43,6 +44,7 @@ buildPythonPackage rec {
     click
     colorama
     fastapi
+    filelock
     inquirerpy
     paramiko
     prettytable

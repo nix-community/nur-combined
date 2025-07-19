@@ -1,4 +1,9 @@
-{ lib, coredns, ... }:
+{
+  lib,
+  coredns,
+  unbound,
+  ...
+}:
 (coredns.override {
   externalPlugins = [
     {
@@ -7,15 +12,32 @@
       version = "latest";
     }
     {
+      name = "alias";
+      repo = "github.com/serverwentdown/alias";
+      version = "latest";
+    }
+    {
       name = "meshname";
       repo = "github.com/zhoreeq/coredns-meshname";
       version = "latest";
     }
+    {
+      name = "meship";
+      repo = "github.com/zhoreeq/coredns-meship";
+      version = "latest";
+    }
+    {
+      name = "unbound";
+      repo = "github.com/coredns/unbound";
+      version = "latest";
+    }
   ];
-  vendorHash = "sha256-9ANArRIJR6R2SmVkK8NbPzh4d+2YpLkJ+fB0TfirUIU=";
+  vendorHash = "sha256-BRDfMzHKJCxqEeIdC7ToG3y8NNibnmOc3DskMaCUsy8=";
 }).overrideAttrs
   (old: {
     patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];
+
+    buildInputs = (old.buildInputs or [ ]) ++ [ unbound ];
 
     doCheck = false;
 

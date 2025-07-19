@@ -33,7 +33,7 @@ let
     fontconfig
     gdk-pixbuf
     glib
-    (gnome2.GConf.override { python3 = python312; })
+    gnome2.GConf
     gtk2
     libpulseaudio
     nspr
