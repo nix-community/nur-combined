@@ -55,6 +55,8 @@ python3Packages.buildPythonApplication rec {
     (if opusSupport then opusTools else null)
   ];
 
+  format = "setuptools";
+
   # Remove impure executables.
   patches = [ ./fix-setup.patch ];
 

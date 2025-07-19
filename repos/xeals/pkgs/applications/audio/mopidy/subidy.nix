@@ -18,6 +18,8 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [ mopidy python3Packages.py-sonic ];
 
+  format = "setuptools";
+
   doCheck = false;
 
   meta = with lib; {

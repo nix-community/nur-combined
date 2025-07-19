@@ -20,6 +20,8 @@ python3Packages.buildPythonApplication rec {
     pyyaml
   ];
 
+  format = "setuptools";
+
   patchPhase = ''
     substituteInPlace setup.py \
       --replace PROJECTVERSION "${version}"
