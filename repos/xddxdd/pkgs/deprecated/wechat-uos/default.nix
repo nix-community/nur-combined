@@ -1,7 +1,7 @@
 {
   sources,
   stdenv,
-  buildFHSUserEnvBubblewrap,
+  buildFHSEnvBubblewrap,
   writeShellScript,
   lib,
   makeDesktopItem,
@@ -177,7 +177,7 @@ let
     exec ${resource}/opt/apps/com.tencent.wechat/files/wechat
   '';
 
-  fhs = buildFHSUserEnvBubblewrap {
+  fhs = buildFHSEnvBubblewrap {
     name = "wechat-uos";
     targetPkgs =
       _pkgs:
