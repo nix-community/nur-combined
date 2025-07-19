@@ -43,18 +43,18 @@
   };
   trufflesqueak = {
     pname = "trufflesqueak";
-    version = "24.1.2";
+    version = "24.2.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.1.2/trufflesqueak-24.1.2-linux-amd64.tar.gz";
-      sha256 = "sha256-JvCOoBYrPUsVbkJJ3XwEtHAC8G//UV0F6sGf+iK7lV4=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.2.2/trufflesqueak-24.2.2-linux-amd64.tar.gz";
+      sha256 = "sha256-pBdoqrJx1lqoSAUshp7SeqIubP5L81ZwJSGgr0tQ5eA=";
     };
   };
   trufflesqueak-image = {
     pname = "trufflesqueak-image";
-    version = "24.1.2";
+    version = "24.2.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.1.2/TruffleSqueakImage-24.1.2.zip";
-      sha256 = "sha256-2pBktK/dHyNoNFmnH7468vLg9HbdjrQIQqKN4inutf0=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.2.2/TruffleSqueakImage-24.2.2.zip";
+      sha256 = "sha256-c9dZ6cduH9SaokhENhgdyvmd2VyI+qQyXHTZHTgdSQs=";
     };
   };
   wasmfxtime = {

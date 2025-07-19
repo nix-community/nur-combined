@@ -29,14 +29,14 @@
     "classicube": {
       "flake": false,
       "locked": {
-        "lastModified": 1752272281,
-        "narHash": "sha256-8iiCufsJsiya4okZlWCBZliHWUutokDKWu2IfaK0E00=",
+        "lastModified": 1752885328,
+        "narHash": "sha256-S1WOurduHC0V8Ndduea9XJAdLUM2A/aIAXkB5aMOud8=",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/085d4979ca572308f7cc6f73946c5be9243d4bc4.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/00a1a494054b4740776515d686645750470df6aa.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/085d4979ca572308f7cc6f73946c5be9243d4bc4.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/00a1a494054b4740776515d686645750470df6aa.tar.gz"
       }
     },
     "doom-emacs": {
@@ -79,14 +79,14 @@
         "pyproject-nix": "pyproject-nix"
       },
       "locked": {
-        "lastModified": 1750272463,
-        "narHash": "sha256-udleaLnEHK3A5RZVCEQnE6Zeww6yq03NUcqJ/TcUQVc=",
+        "lastModified": 1752547840,
+        "narHash": "sha256-T6wYez5urMcY8oUetwOIqPcqj77Ey3qka7wQsi6YCd4=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/dream2nix/archive/bd83ed026b859acb34c52c3fdc15631c8766af8e.tar.gz"
+        "url": "https://github.com/nix-community/dream2nix/archive/667ba5ee25c95cf63ace92307db270e235dce66e.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/dream2nix/archive/bd83ed026b859acb34c52c3fdc15631c8766af8e.tar.gz"
+        "url": "https://github.com/nix-community/dream2nix/archive/667ba5ee25c95cf63ace92307db270e235dce66e.tar.gz"
       }
     },
     "efm-langserver": {
@@ -345,14 +345,14 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1752265577,
-        "narHash": "sha256-YhnBM3oknReSFTAuc2SMwekwjl9nDd5PUhcar4DsefM=",
+        "lastModified": 1752814804,
+        "narHash": "sha256-irfg7lnfEpJY+3Cffkluzp2MTVw1Uq9QGxFp6qadcXI=",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/3976e0507edc9a5f332cb2be93fa20e646d22374.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/d0300c8808e41da81d6edfc202f3d3833c157daf.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/3976e0507edc9a5f332cb2be93fa20e646d22374.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/d0300c8808e41da81d6edfc202f3d3833c157daf.tar.gz"
       }
     },
     "impermanence": {
@@ -505,11 +505,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1751792365,
-        "narHash": "sha256-J1kI6oAj25IG4EdVlg2hQz8NZTBNYvIS0l4wpr9KcUo=",
+        "lastModified": 1752480373,
+        "narHash": "sha256-JHQbm+OcGp32wAsXTE/FLYGNpb+4GLi5oTvCxwSoBOA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1fd8bada0b6117e6c7eb54aad5813023eed37ccb",
+        "rev": "62e0f05ede1da0d54515d4ea8ce9c733f12d9f08",
         "type": "github"
       },
       "original": {
@@ -552,23 +552,23 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1751984180,
-        "narHash": "sha256-LwWRsENAZJKUdD3SpLluwDmdXY9F45ZEgCb0X+xgOL0=",
+        "lastModified": 1752687322,
+        "narHash": "sha256-RKwfXA4OZROjBTQAl9WOZQFm7L8Bo93FQwSJpAiSRvo=",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/9807714d6944a957c2e036f84b0ff8caf9930bc0.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/6e987485eb2c77e5dcc5af4e3c70843711ef9251.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/9807714d6944a957c2e036f84b0ff8caf9930bc0.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/6e987485eb2c77e5dcc5af4e3c70843711ef9251.tar.gz"
       }
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1751786137,
-        "narHash": "sha256-lIlUKVGCGsh0Q2EA7/6xRtKUZjaQ/ur8uUyY+MynHXQ=",
+        "lastModified": 1752077645,
+        "narHash": "sha256-HM791ZQtXV93xtCY+ZxG1REzhQenSQO020cu6rHtAPk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ceb24d94c6feaa4e8737a8e2bd3cf71c3a7eaaa0",
+        "rev": "be9e214982e20b8310878ac2baa063a961c1bdf6",
         "type": "github"
       },
       "original": {
@@ -586,14 +586,14 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1752262661,
-        "narHash": "sha256-jPDiaHsKZeFH+zoxRIW0t1T/R+S8cYM3/9YUfMMjUEA=",
+        "lastModified": 1752762787,
+        "narHash": "sha256-WZLSOR2Pei7C4nH/ntKUqOZOAa5rgvc2fVZl4RoEXmw=",
         "type": "tarball",
-        "url": "https://github.com/pta2002/nixvim/archive/658980fb247e2f10fa692bae372ac21389a67c6c.tar.gz"
+        "url": "https://github.com/pta2002/nixvim/archive/bc0555c8694d43fb63ae2c7afec08b6987431a04.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/pta2002/nixvim/archive/658980fb247e2f10fa692bae372ac21389a67c6c.tar.gz"
+        "url": "https://github.com/pta2002/nixvim/archive/bc0555c8694d43fb63ae2c7afec08b6987431a04.tar.gz"
       }
     },
     "nose": {
@@ -739,18 +739,22 @@
       }
     },
     "pyproject-nix": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "dream2nix",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1702448246,
-        "narHash": "sha256-hFg5s/hoJFv7tDpiGvEvXP0UfFvFEDgTdyHIjDVHu1I=",
-        "owner": "davhau",
+        "lastModified": 1752481895,
+        "narHash": "sha256-luVj97hIMpCbwhx3hWiRwjP2YvljWy8FM+4W9njDhLA=",
+        "owner": "pyproject-nix",
         "repo": "pyproject.nix",
-        "rev": "5a06a2697b228c04dd2f35659b4b659ca74f7aeb",
+        "rev": "16ee295c25107a94e59a7fc7f2e5322851781162",
         "type": "github"
       },
       "original": {
-        "owner": "davhau",
-        "ref": "dream2nix",
+        "owner": "pyproject-nix",
         "repo": "pyproject.nix",
         "type": "github"
       }

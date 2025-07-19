@@ -94,13 +94,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-24.0.13" = {
+    "@types/node-24.0.15" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "24.0.13";
+      version = "24.0.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-24.0.13.tgz";
-        sha512 = "Qm9OYVOFHFYg3wJoTSrz80hoec5Lia/dPp84do3X7dZvLikQvM1YpmvTBEdIr/e+U8HTkFjLHLnl78K/qjf+jQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-24.0.15.tgz";
+        sha512 = "oaeTSbCef7U/z7rDeJA138xpG3NuKc64/rZ2qmUFkFJmnMsAPaluIifqyWd8hSSMxyP9oie3dLAqYPblag9KgA==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -292,13 +292,13 @@ let
         sha512 = "NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==";
       };
     };
-    "acorn-import-phases-1.0.3" = {
+    "acorn-import-phases-1.0.4" = {
       name = "acorn-import-phases";
       packageName = "acorn-import-phases";
-      version = "1.0.3";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn-import-phases/-/acorn-import-phases-1.0.3.tgz";
-        sha512 = "jtKLnfoOzm28PazuQ4dVBcE9Jeo6ha1GAJvq3N0LlNOszmTfx+wSycBehn+FN0RnyeR77IBxN/qVYMw0Rlj0Xw==";
+        url = "https://registry.npmjs.org/acorn-import-phases/-/acorn-import-phases-1.0.4.tgz";
+        sha512 = "wKmbr/DDiIXzEOiWrTTUcDm24kQ2vGfZQvM2fwg2vXqR5uW6aapr7ObPtj1th32b9u90/Pf4AItvdTh42fBmVQ==";
       };
     };
     "ajv-8.17.1" = {
@@ -409,13 +409,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.182" = {
+    "electron-to-chromium-1.5.187" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.182";
+      version = "1.5.187";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
-        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.187.tgz";
+        sha512 = "cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==";
       };
     };
     "enhanced-resolve-5.18.2" = {
@@ -1012,13 +1012,13 @@ let
         sha512 = "c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==";
       };
     };
-    "webpack-5.100.1" = {
+    "webpack-5.100.2" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.100.1";
+      version = "5.100.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.100.1.tgz";
-        sha512 = "YJB/ESPUe2Locd0NKXmw72Dx8fZQk1gTzI6rc9TAT4+Sypbnhl8jd8RywB1bDsDF9Dy1RUR7gn3q/ZJTd0OZZg==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.100.2.tgz";
+        sha512 = "QaNKAvGCDRh3wW1dsDjeMdDXwZm2vqq3zn6Pvq4rHOEOGSaUMgOOjG2Y9ZbIGzpfkJk9ZYTHpDqgDfeBDcnLaw==";
       };
     };
     "webpack-cli-6.0.1" = {
@@ -1083,7 +1083,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.8"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-24.0.13"
+      sources."@types/node-24.0.15"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1105,7 +1105,7 @@ let
       sources."@xtuc/ieee754-1.2.0"
       sources."@xtuc/long-4.2.2"
       sources."acorn-8.15.0"
-      sources."acorn-import-phases-1.0.3"
+      sources."acorn-import-phases-1.0.4"
       sources."ajv-8.17.1"
       sources."ajv-formats-2.1.1"
       sources."ajv-keywords-5.1.0"
@@ -1117,7 +1117,7 @@ let
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.182"
+      sources."electron-to-chromium-1.5.187"
       sources."enhanced-resolve-5.18.2"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
@@ -1191,7 +1191,7 @@ let
       sources."undici-types-7.8.0"
       sources."update-browserslist-db-1.1.3"
       sources."watchpack-2.4.4"
-      sources."webpack-5.100.1"
+      sources."webpack-5.100.2"
       sources."webpack-cli-6.0.1"
       sources."webpack-merge-6.0.1"
       sources."webpack-sources-3.3.3"

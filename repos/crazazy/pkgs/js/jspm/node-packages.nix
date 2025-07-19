@@ -265,13 +265,13 @@ let
         sha512 = "mGe7UK5wWyh0bKRfupsUchrQGqvDbZDbKJw+kcRGSmdHVYrv+ltd0pnpDTVpiTqnaBru9iEvA8pz8W46v0Amwg==";
       };
     };
-    "@babel/types-7.28.0" = {
+    "@babel/types-7.28.1" = {
       name = "_at_babel_slash_types";
       packageName = "@babel/types";
-      version = "7.28.0";
+      version = "7.28.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/types/-/types-7.28.0.tgz";
-        sha512 = "jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg==";
+        url = "https://registry.npmjs.org/@babel/types/-/types-7.28.1.tgz";
+        sha512 = "x0LvFTekgSX+83TI28Y9wYPUfzrnl2aT5+5QLnO6v7mSJYtEEevuDRN0F0uSHRk1G1IWZC43o00Y0xDDrpBGPQ==";
       };
     };
     "@gar/promisify-1.1.3" = {
@@ -607,13 +607,13 @@ let
         sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.182" = {
+    "electron-to-chromium-1.5.187" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.182";
+      version = "1.5.187";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
-        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.187.tgz";
+        sha512 = "cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==";
       };
     };
     "emoji-regex-10.4.0" = {
@@ -1426,7 +1426,7 @@ let
       sources."@babel/preset-typescript-7.27.1"
       sources."@babel/template-7.27.2"
       sources."@babel/traverse-7.28.0"
-      sources."@babel/types-7.28.0"
+      sources."@babel/types-7.28.1"
       sources."@gar/promisify-1.1.3"
       sources."@isaacs/balanced-match-4.0.1"
       sources."@isaacs/brace-expansion-5.0.0"
@@ -1473,7 +1473,7 @@ let
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.1"
-      sources."electron-to-chromium-1.5.182"
+      sources."electron-to-chromium-1.5.187"
       sources."emoji-regex-10.4.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"

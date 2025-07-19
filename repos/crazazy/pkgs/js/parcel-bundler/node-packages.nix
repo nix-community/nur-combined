@@ -697,13 +697,13 @@ let
         sha512 = "2KH4LWGSrJIkVf5tSiBFYuXDAoWRq2MMwgivCf+93dd0GQi8RXLjKA/0EvRnVV5G0hrHczsquXuD01L8s6dmBw==";
       };
     };
-    "@babel/plugin-transform-regenerator-7.28.0" = {
+    "@babel/plugin-transform-regenerator-7.28.1" = {
       name = "_at_babel_slash_plugin-transform-regenerator";
       packageName = "@babel/plugin-transform-regenerator";
-      version = "7.28.0";
+      version = "7.28.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-7.28.0.tgz";
-        sha512 = "LOAozRVbqxEVjSKfhGnuLoE4Kz4Oc5UJzuvFUhSsQzdCdaAQu06mG8zDv2GFSerM62nImUZ7K92vxnQcLSDlCQ==";
+        url = "https://registry.npmjs.org/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-7.28.1.tgz";
+        sha512 = "P0QiV/taaa3kXpLY+sXla5zec4E+4t4Aqc9ggHlfZ7a2cp8/x/Gv08jfwEtn9gnnYIMvHx6aoOZ8XJL8eU71Dg==";
       };
     };
     "@babel/plugin-transform-regexp-modifiers-7.27.1" = {
@@ -850,13 +850,13 @@ let
         sha512 = "mGe7UK5wWyh0bKRfupsUchrQGqvDbZDbKJw+kcRGSmdHVYrv+ltd0pnpDTVpiTqnaBru9iEvA8pz8W46v0Amwg==";
       };
     };
-    "@babel/types-7.28.0" = {
+    "@babel/types-7.28.1" = {
       name = "_at_babel_slash_types";
       packageName = "@babel/types";
-      version = "7.28.0";
+      version = "7.28.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/types/-/types-7.28.0.tgz";
-        sha512 = "jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg==";
+        url = "https://registry.npmjs.org/@babel/types/-/types-7.28.1.tgz";
+        sha512 = "x0LvFTekgSX+83TI28Y9wYPUfzrnl2aT5+5QLnO6v7mSJYtEEevuDRN0F0uSHRk1G1IWZC43o00Y0xDDrpBGPQ==";
       };
     };
     "@iarna/toml-2.2.5" = {
@@ -2551,13 +2551,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.5.182" = {
+    "electron-to-chromium-1.5.187" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.182";
+      version = "1.5.187";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.182.tgz";
-        sha512 = "Lv65Btwv9W4J9pyODI6EWpdnhfvrve/us5h1WspW8B2Fb0366REPtY3hX7ounk1CkV/TBjWCEvCBBbYbmV0qCA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.187.tgz";
+        sha512 = "cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==";
       };
     };
     "elliptic-6.6.1" = {
@@ -7044,7 +7044,7 @@ let
       sources."@babel/plugin-transform-private-property-in-object-7.27.1"
       sources."@babel/plugin-transform-property-literals-7.27.1"
       sources."@babel/plugin-transform-react-jsx-7.27.1"
-      sources."@babel/plugin-transform-regenerator-7.28.0"
+      sources."@babel/plugin-transform-regenerator-7.28.1"
       sources."@babel/plugin-transform-regexp-modifiers-7.27.1"
       sources."@babel/plugin-transform-reserved-words-7.27.1"
       sources."@babel/plugin-transform-shorthand-properties-7.27.1"
@@ -7065,7 +7065,7 @@ let
       sources."@babel/runtime-7.27.6"
       sources."@babel/template-7.27.2"
       sources."@babel/traverse-7.28.0"
-      sources."@babel/types-7.28.0"
+      sources."@babel/types-7.28.1"
       sources."@iarna/toml-2.2.5"
       sources."@jridgewell/gen-mapping-0.3.12"
       sources."@jridgewell/resolve-uri-3.1.2"
@@ -7328,7 +7328,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.5.182"
+      sources."electron-to-chromium-1.5.187"
       (sources."elliptic-6.6.1" // {
         dependencies = [
           sources."bn.js-4.12.2"
