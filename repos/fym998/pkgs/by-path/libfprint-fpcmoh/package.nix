@@ -51,6 +51,7 @@ libfprint.overrideAttrs (
       '';
     meta = previousAttrs.meta // {
       description = "libfprint with proprietary FPC match on host device 10a5:9800 driver";
+      homepage = "https://aur.archlinux.org/packages/libfprint-fpcmoh-git";
       platforms = [ "x86_64-linux" ];
       license = lib.licenses.unfreeRedistributableFirmware;
       sourceProvenance = with lib.sourceTypes; [ binaryFirmware ];

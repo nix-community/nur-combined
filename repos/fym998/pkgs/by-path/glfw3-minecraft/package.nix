@@ -20,5 +20,10 @@ glfw3.overrideAttrs (
         "0007-Fix-fullscreen-location.patch"
         "0008-Fix-forge-crash.patch"
       ];
+
+    meta = previousAttrs.meta // {
+      description = previousAttrs.meta.description + " with patches for Minecraft on wayland";
+      homepage = "https://aur.archlinux.org/packages/glfw-wayland-minecraft-cursorfix";
+    };
   }
 )
