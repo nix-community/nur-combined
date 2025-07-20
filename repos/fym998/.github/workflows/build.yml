@@ -107,7 +107,8 @@ jobs:
         run: nix run .#_internal.ci.build
 
   trigger-nur-update:
-    needs: build
+    needs: [check-and-evaluate, build]
+    if: success() || (needs.check-and-evaluate.result == 'success' && needs.build.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
