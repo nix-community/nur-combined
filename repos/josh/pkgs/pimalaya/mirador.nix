@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
-  ] ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
+  ]
+  ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin apple-sdk;
 
@@ -43,27 +44,26 @@ rustPlatform.buildRustPackage rec {
   # unit tests only
   cargoTestFlags = [ "--lib" ];
 
-  postInstall =
-    ''
-      mkdir -p $out/share/{services,completions,man}
-      cp assets/mirador@.service "$out"/share/services/
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/mirador man "$out"/share/man
-    ''
-    + lib.optionalString installManPages ''
-      installManPage "$out"/share/man/*
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/mirador completion bash > "$out"/share/completions/mirador.bash
-      "$out"/bin/mirador completion elvish > "$out"/share/completions/mirador.elvish
-      "$out"/bin/mirador completion fish > "$out"/share/completions/mirador.fish
-      "$out"/bin/mirador completion powershell > "$out"/share/completions/mirador.powershell
-      "$out"/bin/mirador completion zsh > "$out"/share/completions/mirador.zsh
-    ''
-    + lib.optionalString installShellCompletions ''
-      installShellCompletion "$out"/share/completions/mirador.{bash,fish,zsh}
-    '';
+  postInstall = ''
+    mkdir -p $out/share/{services,completions,man}
+    cp assets/mirador@.service "$out"/share/services/
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/mirador man "$out"/share/man
+  ''
+  + lib.optionalString installManPages ''
+    installManPage "$out"/share/man/*
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/mirador completion bash > "$out"/share/completions/mirador.bash
+    "$out"/bin/mirador completion elvish > "$out"/share/completions/mirador.elvish
+    "$out"/bin/mirador completion fish > "$out"/share/completions/mirador.fish
+    "$out"/bin/mirador completion powershell > "$out"/share/completions/mirador.powershell
+    "$out"/bin/mirador completion zsh > "$out"/share/completions/mirador.zsh
+  ''
+  + lib.optionalString installShellCompletions ''
+    installShellCompletion "$out"/share/completions/mirador.{bash,fish,zsh}
+  '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

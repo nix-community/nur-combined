@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
-  ] ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
+  ]
+  ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
 
   buildInputs =
     lib.optional stdenv.hostPlatform.isDarwin apple-sdk
@@ -46,26 +47,25 @@ rustPlatform.buildRustPackage rec {
   # unit tests only
   cargoTestFlags = [ "--lib" ];
 
-  postInstall =
-    ''
-      mkdir -p $out/share/{completions,man}
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/neverest man "$out"/share/man
-    ''
-    + lib.optionalString installManPages ''
-      installManPage "$out"/share/man/*
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/neverest completion bash > "$out"/share/completions/neverest.bash
-      "$out"/bin/neverest completion elvish > "$out"/share/completions/neverest.elvish
-      "$out"/bin/neverest completion fish > "$out"/share/completions/neverest.fish
-      "$out"/bin/neverest completion powershell > "$out"/share/completions/neverest.powershell
-      "$out"/bin/neverest completion zsh > "$out"/share/completions/neverest.zsh
-    ''
-    + lib.optionalString installShellCompletions ''
-      installShellCompletion "$out"/share/completions/neverest.{bash,fish,zsh}
-    '';
+  postInstall = ''
+    mkdir -p $out/share/{completions,man}
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/neverest man "$out"/share/man
+  ''
+  + lib.optionalString installManPages ''
+    installManPage "$out"/share/man/*
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/neverest completion bash > "$out"/share/completions/neverest.bash
+    "$out"/bin/neverest completion elvish > "$out"/share/completions/neverest.elvish
+    "$out"/bin/neverest completion fish > "$out"/share/completions/neverest.fish
+    "$out"/bin/neverest completion powershell > "$out"/share/completions/neverest.powershell
+    "$out"/bin/neverest completion zsh > "$out"/share/completions/neverest.zsh
+  ''
+  + lib.optionalString installShellCompletions ''
+    installShellCompletion "$out"/share/completions/neverest.{bash,fish,zsh}
+  '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

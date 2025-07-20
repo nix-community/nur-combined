@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
-  ] ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
+  ]
+  ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
 
   buildInputs =
     lib.optional stdenv.hostPlatform.isDarwin apple-sdk
@@ -48,27 +49,26 @@ rustPlatform.buildRustPackage rec {
   # unit tests only
   cargoTestFlags = [ "--lib" ];
 
-  postInstall =
-    ''
-      mkdir -p $out/share/{applications,completions,man}
-      cp assets/himalaya.desktop "$out"/share/applications/
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/himalaya man "$out"/share/man
-    ''
-    + lib.optionalString installManPages ''
-      installManPage "$out"/share/man/*
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      "$out"/bin/himalaya completion bash > "$out"/share/completions/himalaya.bash
-      "$out"/bin/himalaya completion elvish > "$out"/share/completions/himalaya.elvish
-      "$out"/bin/himalaya completion fish > "$out"/share/completions/himalaya.fish
-      "$out"/bin/himalaya completion powershell > "$out"/share/completions/himalaya.powershell
-      "$out"/bin/himalaya completion zsh > "$out"/share/completions/himalaya.zsh
-    ''
-    + lib.optionalString installShellCompletions ''
-      installShellCompletion "$out"/share/completions/himalaya.{bash,fish,zsh}
-    '';
+  postInstall = ''
+    mkdir -p $out/share/{applications,completions,man}
+    cp assets/himalaya.desktop "$out"/share/applications/
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/himalaya man "$out"/share/man
+  ''
+  + lib.optionalString installManPages ''
+    installManPage "$out"/share/man/*
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    "$out"/bin/himalaya completion bash > "$out"/share/completions/himalaya.bash
+    "$out"/bin/himalaya completion elvish > "$out"/share/completions/himalaya.elvish
+    "$out"/bin/himalaya completion fish > "$out"/share/completions/himalaya.fish
+    "$out"/bin/himalaya completion powershell > "$out"/share/completions/himalaya.powershell
+    "$out"/bin/himalaya completion zsh > "$out"/share/completions/himalaya.zsh
+  ''
+  + lib.optionalString installShellCompletions ''
+    installShellCompletion "$out"/share/completions/himalaya.{bash,fish,zsh}
+  '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
