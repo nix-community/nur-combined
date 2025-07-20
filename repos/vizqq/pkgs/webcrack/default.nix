@@ -22,13 +22,14 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmWorkspaces = [ workspace ];
 
   pnpmDeps = pnpm.fetchDeps {
+    fetcherVersion = 2;
     inherit (finalAttrs)
-      pname
-      version
       src
+      version
+      pname
       pnpmWorkspaces
       ;
-    hash = "sha256-9dEapxq88DNujaZp7WE5Mw8xgxroRnhjb77U5EPK7Bg=";
+    hash = "sha256-hO4SrU1ZJEFJgl8GKbTs8xd9Xj9FGgRuJDIWzvYywmw=";
   };
 
   nativeInstallCheckInputs = [
