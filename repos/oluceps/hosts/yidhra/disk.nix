@@ -5,18 +5,27 @@ _: {
     devices = {
       disk = {
         main = {
-          device = "/dev/vda";
+          device = "/dev/sda";
           type = "disk";
           content = {
             type = "gpt";
             partitions = {
-              boot = {
-                type = "EF02";
-                label = "BOOT";
-                start = "0";
-                end = "+1M";
+              ESP = {
+                name = "ESP";
+                size = "256M";
+                type = "EF00";
                 priority = 0;
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/efi";
+                  mountOptions = [
+                    "fmask=0077"
+                    "dmask=0077"
+                  ];
+                };
               };
+
               solid = {
                 label = "SOLID";
                 end = "-0";
@@ -27,13 +36,6 @@ _: {
                     "--csum xxhash64"
                   ];
                   subvolumes = {
-                    "boot" = {
-                      mountpoint = "/boot";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
@@ -59,6 +61,15 @@ _: {
                         "noatime"
                       ];
                     };
+                    # "root" = {
+                    #   mountpoint = "/";
+                    #   mountOptions = [
+                    #     "compress=zstd"
+                    #     "noatime"
+                    #     "nodev"
+                    #     "nosuid"
+                    #   ];
+                    # };
                   };
                 };
               };
@@ -66,14 +77,18 @@ _: {
           };
         };
       };
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "relatime"
-          "mode=755"
-          "nosuid"
-          "nodev"
-        ];
+
+      nodev = {
+        "/" = {
+          fsType = "tmpfs";
+          mountOptions = [
+            "relatime"
+            "nosuid"
+            "nodev"
+            "size=2G"
+            "mode=755"
+          ];
+        };
       };
     };
   };

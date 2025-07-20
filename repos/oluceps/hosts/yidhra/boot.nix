@@ -2,6 +2,14 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/efi";
+      };
+      systemd-boot.enable = true;
+      timeout = 1;
+    };
     kernelParams = [
       "audit=0"
       "net.ifnames=0"
@@ -9,7 +17,7 @@
       "earlyprintk=ttyS0"
       "rootdelay=300"
       "19200n8"
-      # "ia32_emulation=0"
+      "ia32_emulation=0"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     initrd = {

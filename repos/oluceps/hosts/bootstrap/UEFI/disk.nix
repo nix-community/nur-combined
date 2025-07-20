@@ -13,7 +13,7 @@ _: {
             partitions = {
               ESP = {
                 name = "ESP";
-                size = "512M";
+                size = "256M";
                 type = "EF00";
                 priority = 0;
                 content = {

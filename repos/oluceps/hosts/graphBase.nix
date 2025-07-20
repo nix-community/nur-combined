@@ -23,8 +23,8 @@
               GenericName[en_GB]=Web Browser
               GenericName[zh_CN]=网页浏览器
               Comment[zh_CN]=访问互联网
-              # Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --enable-zero-copy %U
-              Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --use-gl=angle --use-angle=vulkan --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar,AcceleratedVideoDecodeLinuxGL %U
+              # Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --use-gl=angle --use-angle=vulkan --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar,AcceleratedVideoDecodeLinuxGL %U
+              Exec=${lib.getExe google-chrome-beta} --enable-features=OverlayScrollbar,ParallelDownloading,CanvasOopRasterization,AcceleratedVideoEncoder,AcceleratedVideoDecoder,AcceleratedVideoDecodeLinuxGL,VaapiIgnoreDriverChecks,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=1 --oauth2-client-id=77185425430.apps.googleusercontent.com --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT %U
               StartupNotify=true
               Terminal=false
               Icon=google-chrome
@@ -32,6 +32,27 @@
               Categories=Network;WebBrowser;
               MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
               Actions=new-window;new-private-window;" > $out/share/applications/google-chrome-dev.desktop'')
+
+      (pkgs.runCommand "chromium-entry" { } ''
+        mkdir -p $out/share/applications/
+        echo "[Desktop Entry]
+              StartupWMClass=chromium-browser
+              Version=1.0
+              Name=Chromium
+              # Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
+              # From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
+              GenericName=Web Browser
+              GenericName[en_GB]=Web Browser
+              GenericName[zh_CN]=网页浏览器
+              Comment[zh_CN]=访问互联网
+              Exec=${lib.getExe pkgs.chromium} --enable-features=OverlayScrollbar,ParallelDownloading,CanvasOopRasterization,AcceleratedVideoEncoder,AcceleratedVideoDecoder,AcceleratedVideoDecodeLinuxGL,VaapiIgnoreDriverChecks,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=1 --oauth2-client-id=77185425430.apps.googleusercontent.com --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT %U
+              StartupNotify=true
+              Terminal=false
+              Icon=chromium
+              Type=Application
+              Categories=Network;WebBrowser;
+              MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
+              Actions=new-window;new-private-window;" > $out/share/applications/chromium-browser.desktop'')
 
     ]
     ++ [

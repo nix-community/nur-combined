@@ -45,6 +45,7 @@ withSystem "x86_64-linux" (
       ../persist-base.nix
       ./network.nix
       ../sysctl.nix
+      ../perlless.nix
       ./rekey.nix
       ./spec.nix
       (lib.iage "cloud")

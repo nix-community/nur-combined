@@ -46,7 +46,7 @@ addr = "103.213.4.159"
 censor = false
 nat = false
 user = "elen"
-ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ5hD9HCmL+XLB+dgvyfK4Og8as/mwS5V6VBJDhyFZJX"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDqkU3B6vPZKh1ETslE7GAmSD7exr3Mr7uIVKuAW4pR"
 
 unique_addr = "fdcc::4/128"
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
