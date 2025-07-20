@@ -1101,10 +1101,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.8.5";
+      version = "0.9.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4516211/bilisponsorblock-0.8.5.xpi";
-      sha256 = "eddc356c1f27007a20faf39e0b1ed28e0b44287a581543b8bede420a0e36575a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4537461/bilisponsorblock-0.9.0.xpi";
+      sha256 = "030c6802fc6e9adc75fcee6ce308f872813a9bf7b4ee56c7d0670426da0e674f";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -12576,10 +12576,10 @@
     };
     "theater-mode-for-youtube" = buildFirefoxXpiAddon {
       pname = "theater-mode-for-youtube";
-      version = "0.2.4";
+      version = "0.2.5";
       addonId = "{b8326f03-322f-4112-96bd-e7996548d99f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409152/theater_mode_for_youtube-0.2.4.xpi";
-      sha256 = "4c6f93de2fc6c4346ce0cb88253c17482a56bd5165555c197e4a8e271cea1631";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4537602/theater_mode_for_youtube-0.2.5.xpi";
+      sha256 = "d2524ae3b1ac9e149ccd477616e37c6f95067c0e2f3f45e2016e5179b6ad04fb";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/youtube-tools.html?theater";
@@ -13608,16 +13608,16 @@
     };
     "varia-integrator" = buildFirefoxXpiAddon {
       pname = "varia-integrator";
-      version = "1.2";
+      version = "1.3";
       addonId = "giantpinkrobots@protonmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357790/varia_integrator-1.2.xpi";
-      sha256 = "2522e155ec72fdd199c4c6955a92ba19871ea771864d5990e588072b449a054b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4537567/varia_integrator-1.3.xpi";
+      sha256 = "515a08d9fb82d369bd131c266cb2602aa46a295ee2c7c014f01d1a1bdbbd4542";
       meta = with lib;
       {
         homepage = "https://giantpinkrobots.github.io/varia/";
         description = "Route all downloads to Varia if it's running.";
         license = licenses.mpl20;
-        mozPermissions = [ "downloads" "storage" "<all_urls>" ];
+        mozPermissions = [ "downloads" "storage" "<all_urls>" "tabs" ];
         platforms = platforms.all;
       };
     };
