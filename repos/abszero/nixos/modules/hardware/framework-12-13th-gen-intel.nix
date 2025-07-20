@@ -109,7 +109,6 @@ in
         # Even stable BIOS versions are marked as test versions in LVFS
         # github.com/NixOS/nixos-hardware/blob/master/framework/README.md#updating-firmware
         extraRemotes = [ "lvfs-testing" ];
-        uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
       };
       kanata.keyboards.framework-12-13th-gen-intel = keyboardCfg;
       thermald.enable = true;

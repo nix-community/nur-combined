@@ -42,7 +42,7 @@ in
       nvl = "lightnovel.sh";
     };
 
-    services.wluma.enable = true;
+    services.wluma.enable = mkDefault true;
 
     gtk.enable = true;
     qt = {

@@ -37,10 +37,7 @@ in
           };
         };
 
-        layout = {
-          empty-workspace-above-first = true;
-          always-center-single-column = true;
-        };
+        layout.empty-workspace-above-first = true;
 
         environment.DISPLAY = ":0"; # For XWayland
 
@@ -123,6 +120,12 @@ in
             matches = [
               { title = "KDE Connect"; }
               { app-id = "org\\.gnome\\.Solanum"; }
+            ];
+          }
+          {
+            open-floating = true;
+            matches = [
+              { app-id = "org\\.kde\\.polkit-kde-authentication-agent-1"; }
             ];
           }
           # Overlay

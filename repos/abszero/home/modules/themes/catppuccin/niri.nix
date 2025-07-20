@@ -1,7 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkDefault mkMerge;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkDefault
+    mkMerge
+    ;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
@@ -26,9 +31,11 @@ in
 
       programs.niri.settings = {
         layout = {
+          always-center-single-column = mkDefault true;
+
           tab-indicator = {
             place-within-column = true;
-            gap = 8;
+            gap = mkDefault 8;
             gaps-between-tabs = 4;
             corner-radius = 100;
           };
@@ -74,6 +81,10 @@ in
     }
     (mkIf cfg.niri.enableCompactLayout {
       programs.niri.settings.layout = {
+        always-center-single-column = false; # Looks better docked to the side
+
+        tab-indicator.gap = -8;
+
         gaps = 12;
         struts = rec {
           top = -12; # Subtract gaps from outer margin
