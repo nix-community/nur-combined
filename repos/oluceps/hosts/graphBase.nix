@@ -24,7 +24,7 @@
               GenericName[zh_CN]=网页浏览器
               Comment[zh_CN]=访问互联网
               # Exec=${lib.getExe google-chrome-beta} --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --video-capture-use-gpu-memory-buffer --force-color-profile=display-p3-d65 --use-gl=angle --use-angle=vulkan --enable-zero-copy --enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar,AcceleratedVideoDecodeLinuxGL %U
-              Exec=${lib.getExe google-chrome-beta} --enable-features=OverlayScrollbar,ParallelDownloading,CanvasOopRasterization,AcceleratedVideoEncoder,AcceleratedVideoDecoder,AcceleratedVideoDecodeLinuxGL,VaapiIgnoreDriverChecks,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=1 --oauth2-client-id=77185425430.apps.googleusercontent.com --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT %U
+              Exec=${lib.getExe google-chrome-beta} --enable-features=OverlayScrollbar,ParallelDownloading,CanvasOopRasterization,AcceleratedVideoEncoder,AcceleratedVideoDecoder,AcceleratedVideoDecodeLinuxGL,VaapiIgnoreDriverChecks,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan --ozone-platform-hint=auto --enable-wayland-ime --wayland-text-input-version=3 --oauth2-client-id=77185425430.apps.googleusercontent.com --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT %U
               StartupNotify=true
               Terminal=false
               Icon=google-chrome
