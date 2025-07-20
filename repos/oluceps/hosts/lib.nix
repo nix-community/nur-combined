@@ -33,7 +33,7 @@ rec {
     };
     ca_cert =
       let
-        allCA = {
+        pki = {
           root = ''
             -----BEGIN CERTIFICATE-----
             MIIBpTCCAUugAwIBAgIUfvuy7UCKFt2uZWaU7jbZa5H/S8cwCgYIKoZIzj0EAwIw
@@ -49,24 +49,24 @@ rec {
           '';
           intermediate = ''
             -----BEGIN CERTIFICATE-----
-            MIIBzjCCAXSgAwIBAgIUXSZPhMXV7RmVGTARVoZLhkzqEpAwCgYIKoZIzj0EAwIw
+            MIIBzjCCAXSgAwIBAgIUXSZPhMXV7RmVGTARVoZLhkzqEpEwCgYIKoZIzj0EAwIw
             LjERMA8GA1UECgwITWlsaWV1aW0xGTAXBgNVBAMMEE1pbGlldWltIFJvb3QgQ0Ew
-            HhcNMjUwNzE2MDAxNDIyWhcNMzUwNzE0MDAxNDIyWjA4MREwDwYDVQQKDAhNaWxp
+            HhcNMjUwNzIwMDIzNTQxWhcNMjgwNzE5MDIzNTQxWjA4MREwDwYDVQQKDAhNaWxp
             ZXVpbTEjMCEGA1UEAwwaTWlsaWV1aW0gSW50ZXJtZWRpYXRlIENBIDAwWTATBgcq
             hkjOPQIBBggqhkjOPQMBBwNCAAQ5SE1hafu1/QB4pqOOuds95S3HL6A9KbrbjdRJ
             FJDpQ0Ba2ip3TxgvJ0TuZafcZd9AriQK+4KKMe45J+88jkPso2YwZDAdBgNVHQ4E
             FgQUUuBxjDVDP6APjav8QLv4xqvdRwQwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNV
             HQ8BAf8EBAMCAgQwHwYDVR0jBBgwFoAUda57EjCoPthxXBe4dM/Md7TapPswCgYI
-            KoZIzj0EAwIDSAAwRQIhAPksiWlRMjZEbGSd3cPKrvJ4wt67fA7FLauIkcIW9Eb4
-            AiB83NiNVI34+k2EyE7NhpeY1vIKNCcwzYikxsPzJCooeA==
+            KoZIzj0EAwIDSAAwRQIhAP/ov68sNHVd+G1mghSlLQF7AvlFkeezRXRl3A3LpXig
+            AiAiMKB95uZODsDB9lIaT8nAG7MRpEWSuJxUSw44Vsz9xg==
             -----END CERTIFICATE-----
           '';
         };
         inherit (inputs.nixpkgs.lib) foldl';
       in
-      foldl' (
-        acc: name: acc // { "${name}_file" = (pkgs.writeText "${name}.crt" allCA.${name}); }
-      ) allCA (builtins.attrNames allCA);
+      foldl' (acc: name: acc // { "${name}_file" = (pkgs.writeText "${name}.crt" pki.${name}); }) pki (
+        builtins.attrNames pki
+      );
 
   };
 
