@@ -5,6 +5,9 @@
   ...
 }:
 {
+  environment.systemPackages = [
+    pkgs.nvtopPackages.intel
+  ];
   # systemd.services.systemd-networkd.serviceConfig.Environment = [ "SYSTEMD_LOG_LEVEL=debug" ];
   vaultix.templates = {
     hyst-osa = {

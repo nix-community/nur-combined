@@ -42,10 +42,6 @@
 
     xserver.videoDrivers = [ "amdgpu" ];
 
-    scx = {
-      enable = true;
-      scheduler = "scx_bpfland";
-    };
   };
   disko.devices = {
     disk = {

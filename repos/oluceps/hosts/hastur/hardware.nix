@@ -38,8 +38,13 @@
         "sd_mod"
       ];
     };
-    kernelModules = [ "kvm-amd" ];
-    # extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    kernelModules = [
+      "kvm-amd"
+    ];
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
+    '';
     kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
@@ -183,7 +188,10 @@
 
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [ vpl-gpu-rt ];
+      extraPackages = with pkgs; [
+        vpl-gpu-rt
+        intel-media-driver
+      ];
     };
     bluetooth.enable = true; # enables support for Bluetooth
     bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot

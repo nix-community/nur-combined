@@ -87,7 +87,6 @@ in
 
   environment {
       QT_QPA_PLATFORM "wayland"
-      DISPLAY null
   }
   xwayland-satellite {
       path "${lib.getExe pkgs.xwayland-satellite}"

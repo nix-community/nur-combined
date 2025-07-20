@@ -36,7 +36,7 @@ build-all-host:
     open registry.toml | $in.node | columns
     | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; }
 renc:
-    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
+    RUST_LOG=trace nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
 
 build:
     #!/usr/bin/env nu
