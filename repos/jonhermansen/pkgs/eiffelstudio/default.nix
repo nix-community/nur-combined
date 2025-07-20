@@ -12,7 +12,7 @@
   pkg-config,
 
   # buildInputs
-  adwaita-icon-theme,
+  #adwaita-icon-theme,
   cairo,
   dotnet-runtime,
   gdk-pixbuf,
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional dotnetSupport dotnet-sdk;
 
   buildInputs = [
-    adwaita-icon-theme
+    #adwaita-icon-theme
     cairo
     gdk-pixbuf
     glib
