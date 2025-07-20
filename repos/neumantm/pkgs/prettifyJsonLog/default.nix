@@ -8,7 +8,8 @@ buildPythonPackage rec {
   pname = "prettifyJsonLog";
   version = "1.0.3";
 
-  buildInputs = [ setuptools_scm ];
+  pyproject = true;
+  build-system = [ setuptools_scm ];
 
   src = fetchPypi {
     inherit pname version;

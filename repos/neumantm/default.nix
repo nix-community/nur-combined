@@ -16,9 +16,9 @@
 
   multiEclipse = pkgs.callPackage ./pkgs/multiEclipse { };
   prettifyJsonLog = pkgs.callPackage ./pkgs/prettifyJsonLog {
-    buildPythonPackage = pkgs.python39Packages.buildPythonPackage;
-    fetchPypi = pkgs.python39Packages.fetchPypi;
-    setuptools_scm = pkgs.python39Packages.setuptools_scm;
+    buildPythonPackage = pkgs.python3Packages.buildPythonPackage;
+    fetchPypi = pkgs.python3Packages.fetchPypi;
+    setuptools_scm = pkgs.python3Packages.setuptools_scm;
   };
   startFirefox = pkgs.callPackage ./pkgs/startFirefox { };
 }
