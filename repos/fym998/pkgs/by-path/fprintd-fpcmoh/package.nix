@@ -1,4 +1,5 @@
 {
+  callPackage,
   fetchFromGitLab,
   fprintd,
   fprintd-1_94_4 ? fprintd.overrideAttrs (finalAttrs: {
@@ -11,7 +12,7 @@
       sha256 = "sha256-B2g2d29jSER30OUqCkdk3+Hv5T3DA4SUKoyiqHb8FeU=";
     };
   }),
-  libfprint-fpcmoh,
+  libfprint-fpcmoh ? callPackage ../libfprint-fpcmoh/package.nix { },
 }:
 (fprintd-1_94_4.override { libfprint = libfprint-fpcmoh; }).overrideAttrs (
   _finalAttrs: previousAttrs: {
