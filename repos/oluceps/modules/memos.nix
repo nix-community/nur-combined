@@ -43,7 +43,7 @@ in
 
     systemd.services.memos = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      after = [ "network.target" "postgresql.service"];
       description = "memos daemon";
       serviceConfig = {
         Type = "simple";

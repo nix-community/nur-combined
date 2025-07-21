@@ -202,8 +202,7 @@
       url = "github:atuinsh/atuin";
     };
     conduit = {
-      url = "github:matrix-construct/tuwunel";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:matrix-construct/tuwunel?rev=f2c531429622dcc2f6bf96937e8e1def963cab79";
     };
     nyx = {
       # url = "/home/elen/Src/nyx";

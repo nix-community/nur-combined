@@ -209,7 +209,10 @@
   };
 
   programs = {
-    git.enable = true;
+    git = {
+      enable = true;
+      package = pkgs.gitMinimal;
+    };
     fish.enable = true;
   };
 

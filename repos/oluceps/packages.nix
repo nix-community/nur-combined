@@ -70,7 +70,6 @@ let
       atuin
       minio-client
       # attic
-      deno
       ntfy-sh
       _7zz
       yazi

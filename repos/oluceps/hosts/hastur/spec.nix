@@ -198,7 +198,6 @@
     openssh.enable = true;
     fail2ban.enable = true;
     dae.enable = true;
-    scrutiny.enable = true;
     # ddns-go.enable = true;
     # atticd.enable = true;
     # photoprism.enable = true;
