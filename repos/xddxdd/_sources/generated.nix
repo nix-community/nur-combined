@@ -837,20 +837,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.18.0";
+    version = "3.19.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.18.0";
-      hash = "sha256-556EhLJ+tJCE7ZJWdoe07NmK6beXfN0KN7CI9ZDl3rI=";
+      tag = "3.19.0";
+      hash = "sha256-p2DfcMJ3OTSbO5mNuRnCXLwDN+3G7uj8YxytFKNIwyE=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.18.0";
+    version = "3.19.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.18.0/kata-static-3.18.0-amd64.tar.xz";
-      hash = "sha256-7j39Zl5FihKa+1iScUO2vZrK/EyvTIkjEqK/ASTFeiE=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.19.0/kata-static-3.19.0-amd64.tar.xz";
+      hash = "sha256-8tZ4aLWWbF53BA7U+b0IxKzdn+qVXUN/pAbTp1OiUAY=";
     };
   };
   kikoplay = {
@@ -1823,14 +1823,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
+    version = "55fd158b891d4da8d5eab61e3a2e35722a32eb60";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
-      hash = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
+      rev = "55fd158b891d4da8d5eab61e3a2e35722a32eb60";
+      hash = "sha256-l1buBA51NfC6kqCGjE1T7S5WXiRyaQoKLgymcv4D8RU=";
     };
-    date = "2025-07-06";
+    date = "2025-07-21";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a919e04d1d3dd32e6bc445d5d1a966cf389d8184";
+    version = "e6baf2eaad43f382e6e331ac31f68842b8b8e47c";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a919e04d1d3dd32e6bc445d5d1a966cf389d8184";
+      rev = "e6baf2eaad43f382e6e331ac31f68842b8b8e47c";
       fetchSubmodules = true;
-      hash = "sha256-8Y82I05hWF+3aJ24NmgMIpjs8U40/nDd+JhX1fcDf9U=";
+      hash = "sha256-q0I1f9SUvKPGn/qagIPXHF4pnBXrXpOOVPKOhdslJ/A=";
     };
-    date = "2025-07-19";
+    date = "2025-07-21";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
