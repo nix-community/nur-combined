@@ -1,25 +1,15 @@
 {
-  pkgs,
   lib,
   fetchFromGitHub,
   rustPlatform,
 }: let
   pname = "ark";
-  version = "0.1.185";
+  version = "0.1.197";
   src = fetchFromGitHub {
     owner = "posit-dev";
     repo = pname;
     rev = version;
-    hash = "sha256-4fqz0DpMJlfhehyH7XkVrIipPbJm9raVxqAL0zQq++w=";
-  };
-  rPkg = pkgs.rWrapper.override {
-    packages = with pkgs.rPackages; [
-      R6
-      haven
-      rqdatatable
-      rstudioapi
-      tibble
-    ];
+    hash = "sha256-sLHJIdwubjpOrq9N/IkuVu9AqKnl+tTCSJs6zQZhZf8=";
   };
 in
   rustPlatform.buildRustPackage {
@@ -29,10 +19,8 @@ in
 
     useNextest = true;
 
-    nativeBuildInputs = [rPkg];
-
     useFetchCargoVendor = true;
-    cargoHash = "sha256-URVZPJelZf+ikCAcGmrCq1KfV7xDjW5EZbaaZpWYecA=";
+    cargoHash = "sha256-Fv/9jOu4+UyrK9Me2iCvRkcT4vbzVR6E9K+BbrVb+gM=";
 
     meta = {
       broken = true;

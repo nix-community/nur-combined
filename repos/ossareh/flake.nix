@@ -1,21 +1,37 @@
 {
-  description = "Ossareh's personal NUR repository";
+  description = "Ossareh's NUR Archive";
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-hooks.url = "github:cachix/git-hooks.nix";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    systems,
-  }: let
-    forAllSystems = f: nixpkgs.lib.genAttrs (import systems) (system: f system);
-  in {
-    legacyPackages = forAllSystems (system:
-      import ./default.nix {
-        pkgs = import nixpkgs {inherit system;};
-      });
-    packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-  };
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+
+      src = ./.;
+
+      snowfall = {
+        root = ./nix-config;
+
+        namespace = "nur";
+        meta = {
+          name = "nur";
+          title = "Ossareh's NUR Archive";
+        };
+      };
+
+      channels-config = {
+        allowUnfree = true;
+      };
+
+      outputs-builder = channels: {formatter = channels.nixpkgs.nixfmt-rfc-style;};
+    };
 }
