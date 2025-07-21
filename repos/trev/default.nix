@@ -8,6 +8,7 @@
 
   # packages
   bobgen = pkgs.callPackage ./pkgs/bobgen {};
+  bumper = pkgs.callPackage ./pkgs/bumper {};
   protoc-gen-connect-openapi = pkgs.callPackage ./pkgs/protoc-gen-connect-openapi {};
   opengrep-core = pkgs.callPackage ./pkgs/opengrep/opengrep-core.nix {};
   opengrep = pkgs.python311Packages.callPackage ./pkgs/opengrep {inherit opengrep-core;};
