@@ -17,6 +17,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   eiffelstudio = pkgs.callPackage ./pkgs/eiffelstudio { };
+  flashrom-dasharo = pkgs.callPackage ./pkgs/flashrom-dasharo { };
   fuse-zip = pkgs.callPackage ./pkgs/fuse-zip { };
   hello-jon = pkgs.callPackage ./pkgs/hello-jon { };
   moonring = pkgs.callPackage ./pkgs/moonring { };
