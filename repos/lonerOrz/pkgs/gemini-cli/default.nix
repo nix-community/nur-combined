@@ -9,12 +9,12 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.1.13";
+  version = "0.1.13-fixed";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
-    rev = "${finalAttrs.version}";
+    rev = "5f8fff4db3b88705a261a43f31efe93d2226c07c";
     hash = "sha256-iyIrfsyhCii9Y5IEwj+xmgvqyFjlhDWG2tN6Q1tX/lY=";
   };
 
@@ -23,17 +23,14 @@ buildNpmPackage (finalAttrs: {
     hash = "sha256-Zm3PtIiLNEHqP09YR9+OBp2NdrtU8FxIteEh46zTVuE=";
   };
 
+  passthru.autoUpdate = false;
+
   patches = [ ./gemini.path ];
 
   postPatch = ''
     mkdir -p packages/cli/src/generated
-
     echo "export const GIT_COMMIT_INFO = '${finalAttrs.src.rev}';" > packages/cli/src/generated/git-commit.js
     echo "export const GIT_COMMIT_INFO: string;" > packages/cli/src/generated/git-commit.d.ts
-
-    echo "===== GENERATED FILES ====="
-    ls -l packages/cli/src/generated
-    echo "==========================="
   '';
 
   nativeBuildInputs = [
@@ -41,11 +38,11 @@ buildNpmPackage (finalAttrs: {
     git
   ];
 
+  dontNpmBuild = true;
+
   buildPhase = ''
     npm run build
   '';
-
-  dontNpmBuild = true;
 
   postInstall = ''
     rm -f $out/share/gemini-cli/node_modules/gemini-cli-vscode-ide-companion
@@ -74,13 +71,5 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     binaryNativeCode = true;
-
-    # https://github.com/NixOS/nixpkgs/pull/421992
-    # When attempting to update the package of this project using the Nix package manager, the build fails.
-    # This is because Nix's build process is heavily sandboxed and relies on fixed-output derivations.
-    # It requires the integrity hash to verify package contents and the resolved URL to fetch them deterministically,
-    # disallowing any unexpected network access during the build phase.
-    # The previous package-lock.json was missing these fields for several dependencies since 0.1.7.
-    # broken = true;
   };
 })
