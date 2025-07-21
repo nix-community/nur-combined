@@ -1,0 +1,34 @@
+diff --git a/packages/cli/tsconfig.json b/packages/cli/tsconfig.json
+index c0faa166..66c3c092 100644
+--- a/packages/cli/tsconfig.json
++++ b/packages/cli/tsconfig.json
+@@ -3,6 +3,7 @@
+   "compilerOptions": {
+     "outDir": "dist",
+     "jsx": "react-jsx",
++    "allowJs": true,
+     "lib": ["DOM", "DOM.Iterable", "ES2020"],
+     "types": ["node", "vitest/globals"]
+   },
+diff --git a/scripts/build.js b/scripts/build.js
+index edf0b3f8..ea2725a3 100644
+--- a/scripts/build.js
++++ b/scripts/build.js
+@@ -31,12 +31,12 @@ if (!existsSync(join(root, 'node_modules'))) {
+ }
+ 
+ // build all workspaces/packages
+-execSync('npm run generate', { stdio: 'inherit', cwd: root });
++// execSync('npm run generate', { stdio: 'inherit', cwd: root });
+ execSync('npm run build --workspaces', { stdio: 'inherit', cwd: root });
+-execSync('npx --yes @vscode/vsce package --no-dependencies', {
+-  stdio: 'inherit',
+-  cwd: join(root, 'packages', 'vscode-ide-companion'),
+-});
++// execSync('npx --yes @vscode/vsce package --no-dependencies', {
++//   stdio: 'inherit',
++//   cwd: join(root, 'packages', 'vscode-ide-companion'),
++// });
+ 
+ // also build container image if sandboxing is enabled
+ // skip (-s) npm install + build since we did that above
