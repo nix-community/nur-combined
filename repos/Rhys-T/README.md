@@ -69,6 +69,8 @@ Therefore, I also have an alternative workaround implemented. If you set `conver
 
 You can also set `disableNativeImageLoader` to `"CIImage"` (or use `lix-game-CIImage`) to test out @pedro-w's [CIImage-based loader](https://github.com/liballeg/allegro5/issues/1531#issuecomment-1950198051).
 
+**Update**: Allegro has dropped the macOS native image loader in [liballeg/allegro5#1653](https://github.com/liballeg/allegro5/pull/1653). The workaround will not be applied by default if building with an Allegro release containing that change.
+
 #### SimonN/LixD#128 - NaOH's title screen, include hi-res instead of 640x480
 
 There is a higher-resolution version of Lix's main menu background artwork available, but it hasn't made it into a release yet. Set this to `true` to use it.
