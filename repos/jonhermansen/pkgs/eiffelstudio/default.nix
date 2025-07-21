@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     makeWrapper
     pax
     pkg-config
-  ] ++ lib.optional dotnetSupport dotnet-sdk;
+  ]
+  ++ lib.optional dotnetSupport dotnet-sdk;
 
   buildInputs = [
     #adwaita-icon-theme
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
     pango
     xorg.libX11
     xorg.libXtst
-  ] ++ lib.optional dotnetSupport dotnet-runtime;
+  ]
+  ++ lib.optional dotnetSupport dotnet-runtime;
 
   sourceRoot = "PorterPackage";
   postPatch = ''
@@ -126,7 +128,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2Only;
     homepage = "https://dev.eiffel.com";
-    maintainers = with lib.maintainers; [ jonhermansen ];
+    maintainers = [ lib.maintainers.jonhermansen ];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "estudio";

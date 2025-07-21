@@ -47,4 +47,10 @@ stdenv.mkDerivation {
   #buildPhase = ''
   #  meson install
   #'';
+
+  meta = {
+    description = "experimental X11 compatibility layer";
+    homepage = "https://gitlab.freedesktop.org/wayback/wayback";
+    license = lib.licenses.mit;
+  };
 }

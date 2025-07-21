@@ -104,6 +104,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    description = "Custom version of Spotify";
     license = lib.licenses.unfree;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };

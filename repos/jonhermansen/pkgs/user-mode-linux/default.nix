@@ -50,29 +50,30 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-        mkdir -p $out/bin
-        cp linux $out/bin/
+    mkdir -p $out/bin
+    cp linux $out/bin/
 
-        cat > $out/bin/run-uml <<EOF
-    #!/bin/sh
-    "\$0_dir/linux" \\
-      root=/dev/root \\
-      rootfstype=hostfs \\
-      ro \\
-      init=/bin/sh \\
-      mem=256M \\
-      debug \\
-      $*
-    reset
-    EOF
-        chmod +x $out/bin/run-uml
-        substituteInPlace $out/bin/run-uml --replace-fail "\$0_dir" "\$(dirname \$0)"
+    cat > $out/bin/run-uml <<EOF
+#!/bin/sh
+"\$0_dir/linux" \\
+  root=/dev/root \\
+  rootfstype=hostfs \\
+  ro \\
+  init=/bin/sh \\
+  mem=256M \\
+  debug \\
+  $*
+reset
+EOF
+    chmod +x $out/bin/run-uml
+    substituteInPlace $out/bin/run-uml --replace-fail "\$0_dir" "\$(dirname \$0)"
   '';
 
   meta = {
     description = "UML Linux kernel ${version} with hostfs support";
+    homepage = "https://kernel.org/";
     license = lib.licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ]; # builds as i686 on x86_64? wtf
+    platforms = [ "x86_64-linux" ];
     mainProgram = "run-uml";
   };
 }

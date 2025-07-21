@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sed -i -e 's/Hello, world!/Hello, Jon!/' src/hello.c
   '';
 
-  # fails due to patch
+  # fails due to patch?
   doCheck = false;
 
   doInstallCheck = true;
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/hello/manual/";
     changelog = "https://git.savannah.gnu.org/cgit/hello.git/plain/NEWS?h=v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = [ lib.maintainers.jonhermansen ];
     mainProgram = "hello";
     platforms = lib.platforms.all;
   };
