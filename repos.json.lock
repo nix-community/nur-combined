@@ -1073,8 +1073,8 @@
             "url": "https://gitlab.com/jomik/nur-expressions"
         },
         "jonhermansen": {
-            "rev": "437f62e1dea82d38473f93b8ff8673ce136da31b",
-            "sha256": "0gdn8ypx32igdimlv7wwvcbz91alm1gxrca22a37f305zimr0488",
+            "rev": "f53cf6c5438571d4ba55b74c9a43eb1739b2268d",
+            "sha256": "1jd6wk2v1xxrd873lfqypr1zxs6fa08xvb4bbkwcd4fanggg8f53",
             "url": "https://github.com/jonhermansen/nur-packages"
         },
         "jorsn": {
@@ -1394,8 +1394,8 @@
             "url": "https://github.com/mrVanDalo/nur-packages"
         },
         "mrcpkgs": {
-            "rev": "94ddd35066786c4a21fed95f93695415445eb082",
-            "sha256": "0yd1yl1fckpa605b22pqnwjlqv92w70fsrna40msh0x981ig1v8k",
+            "rev": "ee3c02ba6b4221f55fd60b1adf6617178a75a6d7",
+            "sha256": "14vi3hsjr2w8550mfn7gbpy53ssnfxplrq73q5d6nmx6xbx29psz",
             "url": "https://github.com/mrcjkb/nur-packages"
         },
         "mrene": {
