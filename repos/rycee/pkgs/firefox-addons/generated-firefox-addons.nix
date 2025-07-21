@@ -11625,10 +11625,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.2.9";
+      version = "3.2.10";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4527879/simplifygmail-3.2.9.xpi";
-      sha256 = "51305401c2c84fe9ab8c7132dbe7d87c64601d03c3d1367ce6a2b734741d4b77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4538220/simplifygmail-3.2.10.xpi";
+      sha256 = "7b91d40ff7f5aa34f0b0397abf7175f4dff7da9cbd55b75c4b2718e796610744";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14795,7 +14795,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
-        description = "Powerful and versatile pop-up dictionary for language learning used by 60,000+ language learners.";
+        description = "Powerful and versatile pop-up dictionary for language learning used by 100,000+ language learners.";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
