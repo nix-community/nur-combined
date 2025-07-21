@@ -1,5 +1,6 @@
 {
   copyDesktopItems,
+  fetchurl,
   icoutils,
   imagemagick,
   lib,
@@ -15,11 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "moonring";
   version = "0.0.950";
 
-  src = requireFile {
-    name = "moonring-win.zip"; # Windows build is easiest to extract
-    url = "https://dene.itch.io/moonring#download";
-    # Use `nix --extra-experimental-features nix-command hash file --sri --type sha256` to get the correct hash
-    hash = "sha256-DHTgl5wTv0yM416AzUNOsz0iTcRrcSKUg1lPoojQXLA=";
+  src = fetchurl {
+    name = "moonring-win.zip";
+    url = "https://tinyurl.com/36s4j4re";
+    hash = "sha256-wgbhyAFlACNboNlEhJfMNaZyykq3QWAYV1OgdOL1daQ=";
   };
 
   nativeBuildInputs = [
@@ -88,7 +88,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.unfree;
     homepage = "https://store.steampowered.com/app/2373630/Moonring/";
-    maintainers = [ lib.maintainers.jonhermansen ];
     platforms = love.meta.platforms;
     mainProgram = "moonring";
   };
