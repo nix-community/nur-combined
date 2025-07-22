@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i python3 -p nix-prefetch 'python3.withPackages(ps: with ps; [ requests packaging ])'
+#! nix-shell -i python3 -p 'python3.withPackages(ps: with ps; [ requests packaging ])'
 
 import json
 import subprocess
@@ -34,15 +34,14 @@ def get_hashes_for_version(version_str):
     for nix_arch, url_suffix in ARCHITECTURE_MAP.items():
         print(f"Getting hash for {nix_arch}")
         url = f"https://github.com/owncloud/ocis/releases/download/v{version_str}/ocis-{version_str}-{url_suffix}"
-        derivation = f"""{{ stdenv, fetchurl }}:
-stdenv.mkDerivation rec {{
-  pname = "ocis";
-  version = "{version_str}";
-  src = fetchurl {{ url = "{url}"; }};
-}}"""
         try:
             proc = subprocess.run(
-                ["nix-prefetch", derivation.encode()],
+                ["nix-prefetch-url", url.encode()],
+                capture_output=True,
+                check=True,
+            )
+            proc = subprocess.run(
+                ["nix", "hash", "to-sri", "--type", "sha256", proc.stdout.decode().strip()],
                 capture_output=True,
                 check=True,
             )
@@ -62,7 +61,7 @@ def main():
     if os.path.isfile(CACHE_FILE):
         releases = load_file(CACHE_FILE)
     else:
-        response = requests.get("https://api.github.com/repos/owncloud/ocis/releases?per_page=50")
+        response = requests.get("https://api.github.com/repos/owncloud/ocis/releases?per_page=100")
         response.raise_for_status()
         releases = response.json()
         with open(CACHE_FILE, "w") as f:

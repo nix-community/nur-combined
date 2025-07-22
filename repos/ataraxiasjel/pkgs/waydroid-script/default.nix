@@ -4,13 +4,13 @@
   buildPythonApplication,
   fetchFromGitHub,
   replaceVars,
+  setuptools,
   inquirerpy,
   requests,
   tqdm,
   lzip,
   util-linux,
   nix-update-script,
-  setuptools,
 }:
 let
   pname = "waydroid-script";
@@ -34,18 +34,17 @@ let
 in
 buildPythonApplication rec {
   inherit pname version src;
+  pyproject = true;
 
-  propagatedBuildInputs = [
+  build-system = [ setuptools ];
+
+  dependencies = [
     inquirerpy
+    lzip
     requests
     tqdm
-
-    lzip
     util-linux
   ];
-
-  pyproject = true;
-  build-system = [ setuptools ];
 
   postPatch =
     let

@@ -11,14 +11,14 @@
 
 buildPythonPackage rec {
   pname = "inflate64";
-  version = "1.0.1";
+  version = "1.0.3";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-OxyDwiZRtZQrNYKd9SbolgLklBkr8CHg19C2AOdsQp0=";
+    hash = "sha256-qJ7dQWw27aDDpdMvMf8VVdssWjiEqo35XoZ5+CA+Eu4=";
   };
 
   build-system = [

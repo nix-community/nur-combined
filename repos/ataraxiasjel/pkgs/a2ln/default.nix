@@ -26,12 +26,12 @@ buildPythonApplication rec {
 
   format = "pyproject";
 
-  buildInputs = [
+  build-system = [
     wrapGAppsHook
     setuptools
   ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     pillow
     pygobject3
     pyzmq

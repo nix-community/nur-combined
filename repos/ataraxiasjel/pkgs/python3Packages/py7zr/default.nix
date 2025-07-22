@@ -19,19 +19,21 @@
   pytestCheckHook,
   py-cpuinfo,
   pytest-benchmark,
+  pytest-httpserver,
+  requests,
   nix-update-script,
 }:
 
 buildPythonPackage rec {
   pname = "py7zr";
-  version = "0.22.0";
+  version = "1.0.0";
   pyproject = true;
 
   disabled = pythonOlder "3.9";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-xseupZE1NRhAA7c5OEkPmk2EGFmOUz+cqZHTuORaE54=";
+    hash = "sha256-9r/ugWN8kDL2qfDrBFpL/Hp/9BOL7PxC18uJtU/7/vE=";
   };
 
   build-system = [
@@ -56,6 +58,8 @@ buildPythonPackage rec {
     pytestCheckHook
     py-cpuinfo
     pytest-benchmark
+    pytest-httpserver
+    requests
   ];
 
   disabledTestPaths = [

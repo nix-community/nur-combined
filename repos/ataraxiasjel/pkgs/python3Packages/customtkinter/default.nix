@@ -17,8 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-/Y2zuvqWHJgu5gMNuoC0wuJYWGMHVrUTmG2xkRPY0gc=";
   };
 
-  buildInputs = [ setuptools ];
-  propagatedBuildInputs = [
+  build-system = [ setuptools ];
+
+  dependencies = [
     darkdetect
     packaging
   ];

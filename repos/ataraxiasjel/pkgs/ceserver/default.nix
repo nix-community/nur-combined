@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-EG2d4iXhBGmVougCi27O27SrC+L3P4alrgnUvBsT1Ic=";
   };
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion";
+
   buildPhase = ''
     runHook preBuild
 

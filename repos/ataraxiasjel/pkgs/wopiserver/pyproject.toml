@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools >= 70.0.0"]
+requires = ["setuptools >= 78.1.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,7 @@ version = "@version@"
 license = {file = "LICENSE"}
 requires-python = ">= 3.6"
 dependencies = [
-  "cs3apis>=0.1.dev101",
+  # "cs3apis>=0.1.dev101",
   "cs3client>=1.1",
   "cygrpc",
   "flask",
@@ -20,8 +20,10 @@ dependencies = [
   "pyOpenSSL",
   "requests",
   "waitress",
-  "werkzeug>=3.0.1",
-  "zipp>=3.19.1",
+  # "protobuf>=4.25.8",
+  # "urllib3>=2.5.0",
+  # "werkzeug>=3.0.1",
+  # "zipp>=3.19.1",
 ]
 
 [project.scripts]

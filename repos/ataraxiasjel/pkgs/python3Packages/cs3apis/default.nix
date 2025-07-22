@@ -14,18 +14,19 @@ buildPythonPackage rec {
   version = "0.1.dev105";
 
   disabled = pythonOlder "3.6";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-adtljTXOjNjySHP/AQhDhnB/v4jPzy/LSkccTyauV/U=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
+  build-system = [
     setuptools
+    setuptools-scm
   ];
 
-  propagatedBuildInputs = [ grpcio ];
+  dependencies = [ grpcio ];
 
   # TODO: fix version detection for v2
   # passthru.updateScript = nix-update-script { };

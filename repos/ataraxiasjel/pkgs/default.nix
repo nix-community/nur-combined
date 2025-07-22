@@ -24,11 +24,9 @@ let
       bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
       ceserver = final.callPackage ./ceserver { };
       gamma-launcher = final.python3Packages.callPackage ./gamma-launcher { };
-      gruvbox-plus-icons = final.callPackage ./gruvbox-plus-icons { };
       hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
       json-liquid-rs = final.callPackage ./json-liquid-rs { };
       kes = final.callPackage ./kes { };
-      koboldcpp-rocm = final.callPackage ./koboldcpp-rocm { };
       mpris-ctl = final.callPackage ./mpris-ctl { };
       nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
       prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };

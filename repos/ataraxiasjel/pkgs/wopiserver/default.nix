@@ -2,7 +2,7 @@
   lib,
   buildPythonApplication,
   fetchFromGitHub,
-  substituteAll,
+  replaceVars,
   setuptools,
   cs3apis,
   cs3client,
@@ -22,20 +22,19 @@
 }:
 buildPythonApplication rec {
   pname = "wopiserver";
-  version = "11.0.2";
+  version = "11.0.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cs3org";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-vc+PCxRmH6ruknHExcQ+Hyq7gZDlX+i9ItKjrkvz09U=";
+    hash = "sha256-ffHFbnGTTbNI84lEmmtJhDXQlXHivWI+Yets3aZVQ/8=";
   };
 
   postPatch =
     let
-      pyproject = substituteAll {
-        src = ./pyproject.toml;
+      pyproject = replaceVars ./pyproject.toml {
         inherit version;
       };
     in
@@ -52,7 +51,7 @@ buildPythonApplication rec {
   build-system = [ setuptools ];
 
   dependencies = [
-    cs3apis
+    # cs3apis
     cs3client
     cygrpc
     flask
@@ -64,14 +63,11 @@ buildPythonApplication rec {
     pyopenssl
     requests
     waitress
-    werkzeug
-    zipp
+    # werkzeug
+    # zipp
   ];
 
-  # FIXME: tests
-  # nativeCheckInputs = [
-  #   pytestCheckHook
-  # ];
+  doCheck = false;
 
   preInstall = ''
     mkdir -p $out/etc/wopi

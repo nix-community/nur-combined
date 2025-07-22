@@ -53,9 +53,9 @@ buildPythonApplication rec {
     done
   '';
 
-  buildInputs = [ setuptools ];
+  build-system = [ setuptools ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     beautifulsoup4
     brotli
     cssutils
