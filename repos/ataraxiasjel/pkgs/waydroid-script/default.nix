@@ -10,6 +10,7 @@
   lzip,
   util-linux,
   nix-update-script,
+  setuptools,
 }:
 let
   pname = "waydroid-script";
@@ -42,6 +43,9 @@ buildPythonApplication rec {
     lzip
     util-linux
   ];
+
+  pyproject = true;
+  build-system = [ setuptools ];
 
   postPatch =
     let
