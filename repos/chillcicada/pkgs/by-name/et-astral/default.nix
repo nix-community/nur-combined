@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   desktopItems = [
     (makeDesktopItem {
       name = "astral";
-      exec = "sudo ${finalAttrs.meta.mainProgram} %u";
+      exec = "sudo -E -u $USER ${finalAttrs.meta.mainProgram} %u";
       desktopName = "Astral";
       genericName = "Network Traffic Manager";
       icon = "astral";
