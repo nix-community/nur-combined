@@ -680,13 +680,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "481326053106835a5d73d74b74863cea2ff409f9",
-            "sha256": "sha256-zyhJZ/ALGPOfWH55PVm1z90LqclXjsAKNJ1eJb1548I=",
+            "rev": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a",
+            "sha256": "sha256-DMTVdwjR1Q5wtODrrBTQOWlGokmqhBF+N0yDbYdJERI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
-        "version": "481326053106835a5d73d74b74863cea2ff409f9"
+        "version": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a"
     },
     "rime-wubi": {
         "cargoLocks": null,

@@ -442,15 +442,15 @@
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";
-    version = "481326053106835a5d73d74b74863cea2ff409f9";
+    version = "9e7673360c5dc9d945e2ba3f167833bb9217ca6a";
     src = fetchgit {
       url = "https://github.com/rime/rime-terra-pinyin.git";
-      rev = "481326053106835a5d73d74b74863cea2ff409f9";
+      rev = "9e7673360c5dc9d945e2ba3f167833bb9217ca6a";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-zyhJZ/ALGPOfWH55PVm1z90LqclXjsAKNJ1eJb1548I=";
+      sha256 = "sha256-DMTVdwjR1Q5wtODrrBTQOWlGokmqhBF+N0yDbYdJERI=";
     };
     date = "2025-07-22";
   };
