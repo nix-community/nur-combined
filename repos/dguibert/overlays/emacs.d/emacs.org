@@ -13,6 +13,7 @@
   - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
   - [[#turn-off-some-crufty-defaults][Turn off some crufty defaults]]
   - [[#zooming-inout][Zooming In/Out]]
+  - [[#opening-2-files-side-by-side][Opening 2 files side-by-side]]
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -229,6 +230,22 @@ You can use the bindings CTRL plus =/- for zooming in/out. You can also use CTRL
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 #+end_src
 
+** Opening 2 files side-by-side
+
+https://stackoverflow.com/a/6697992
+#+begin_src emacs-lisp
+(defun 2-windows-vertical-to-horizontal ()
+  (let ((buffers (mapcar 'window-buffer (window-list))))
+    (when (>= 2 (length buffers))
+      (delete-other-windows)
+      (set-window-buffer (split-window-horizontally) (cadr buffers)))))
+#+end_src
+
+To do this automatically on startup, add this function to emacs-startup-hook:
+
+#+begin_src emacs-lisp
+(add-hook 'emacs-startup-hook '2-windows-vertical-to-horizontal)
+#+end_src
 * Org Mode
 ** Enabling Table of Contents
 
@@ -483,13 +500,6 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (global-auto-revert-mode 1)
   ;; revert dired and other buffers
   (setq golbal-auto-revert-non-file-buffers t)
-
-  (use-package nix-mode
-    :ensure t
-    :mode "\\.nix\\'")
-
-  (use-package yaml-mode
-    :ensure t)
 
   (use-package shrface
     :ensure t
@@ -1554,8 +1564,10 @@ Delete the original subtree."
 #+begin_src emacs-lisp
 (use-package cmake-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
-
-
+(use-package haskell-mode :ensure t)
+(use-package nix-mode :ensure t :mode "\\.nix\\'")
+(use-package rust-mode :ensure t)
+(use-package yaml-mode :ensure t)
 #+end_src
 
 * Bibtex
