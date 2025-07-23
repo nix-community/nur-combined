@@ -108,7 +108,7 @@ jobs:
 
   trigger-nur-update:
     needs: [check-and-evaluate, build]
-    if: success() || (needs.check-and-evaluate.result == 'success' && needs.build.result == 'skipped')
+    if: github.event_name != 'pull_request' && success() || (needs.check-and-evaluate.result == 'success' && needs.build.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
