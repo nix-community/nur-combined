@@ -2,6 +2,7 @@
   nix-update,
   fetchFromGitHub,
   nix-update-script,
+  lib,
   ...
 }:
 nix-update.overrideAttrs
@@ -18,9 +19,13 @@ nix-update.overrideAttrs
   passthru =
     prev.passthru
     // {
-      updateScript = nix-update-script {
-        extraArgs = ["--version branch=main"];
-      };
+      updateScript = lib.concatStringsSep " " (nix-update-script {
+        extraArgs = [
+          "--commit"
+          "--version=branch=main"
+          "${final.pname}.unstable"
+        ];
+      });
     };
 
   meta =

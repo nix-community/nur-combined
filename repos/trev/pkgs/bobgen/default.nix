@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   callPackage,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "bobgen";
@@ -28,6 +29,12 @@ buildGoModule (finalAttrs: {
     unstable = callPackage ./unstable.nix {
       bobgen = finalAttrs.finalPackage;
     };
+    updateScript = lib.concatStringsSep " " (nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    });
   };
 
   meta = {

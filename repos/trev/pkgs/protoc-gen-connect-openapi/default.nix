@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "protoc-gen-connect-openapi";
@@ -15,6 +16,15 @@ buildGoModule (finalAttrs: {
   };
 
   vendorHash = "sha256-auKQToKsNoCXrBxRK4jaozZTqC8cIsj1TSibvAhH64Q=";
+
+  passthru = {
+    updateScript = lib.concatStringsSep " " (nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    });
+  };
 
   meta = {
     description = "Protobuf plugin for generating OpenAPI specs matching the Connect RPC interface";

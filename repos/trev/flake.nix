@@ -20,10 +20,14 @@
       system: let
         pkgs = import nixpkgs {
           inherit system;
+          overlays = [nur.overlays.default];
         };
+
+        update = pkgs.callPackage ./update.nix {};
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            update
             git
             nix-update
             alejandra
@@ -31,10 +35,7 @@
             renovate
             action-validator
           ];
-          shellHook = ''
-            echo "nix flake check --accept-flake-config" > .git/hooks/pre-push
-            chmod +x .git/hooks/pre-push
-          '';
+          shellHook = pkgs.nur.repos.trev.shellhook.ref;
         };
       }
     );
