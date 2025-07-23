@@ -66,6 +66,7 @@
       in
       rec {
         imports = [
+          # keep-sorted start
           ./flake-modules/_internal/ci-outputs.nix
           ./flake-modules/_internal/commands.nix
           ./flake-modules/_internal/meta.nix
@@ -74,6 +75,7 @@
           flakeModules.lantian-pre-commit-hooks
           flakeModules.lantian-treefmt
           flakeModules.nixpkgs-options
+          # keep-sorted end
         ];
 
         systems = [
@@ -142,7 +144,7 @@
           inherit flakeModules;
 
           nixosModules = {
-            setupOverlay = _: { nixpkgs.overlays = [ self.overlays.default ]; };
+            # keep-sorted start
             kata-containers = import ./modules/kata-containers.nix;
             lyrica = import ./modules/lyrica.nix;
             nix-cache-attic = import ./modules/nix-cache-attic.nix;
@@ -152,7 +154,9 @@
             openssl-gost-engine = import ./modules/openssl-gost-engine.nix;
             openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
             qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
+            setupOverlay = _: { nixpkgs.overlays = [ self.overlays.default ]; };
             wireguard-remove-lingering-links = import ./modules/wireguard-remove-lingering-links.nix;
+            # keep-sorted end
           };
         };
 

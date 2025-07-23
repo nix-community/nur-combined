@@ -19,8 +19,7 @@
         };
 
         programs = {
-          # # Disabled for not recognizing ARM64 runner
-          # actionlint.enable = true;
+          actionlint.enable = true;
           black.enable = true;
           deadnix = {
             enable = true;
@@ -28,14 +27,16 @@
             no-lambda-pattern-names = true;
           };
           dos2unix.enable = true;
-          # # Disable for build failure
-          # formatjson5.enable = true;
+          formatjson5.enable = true;
           isort.enable = true;
+          keep-sorted.enable = true;
           # # Disable for unable to handle multiple scripts with same name
           # mypy.enable = true;
-          nixfmt.enable = true;
+          # # Inconsistent styling
+          # nixfmt.enable = true;
           shfmt.enable = true;
           statix.enable = true;
+          toml-sort.enable = true;
         };
 
         settings.formatter.dos2unix.excludes = [ "*.reg" ];

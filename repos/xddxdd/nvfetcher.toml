@@ -1,1062 +1,1062 @@
 [acpi-ec]
-src.github = "musikid/acpi_ec"
 fetch.github = "musikid/acpi_ec"
+src.github = "musikid/acpi_ec"
 
 [adspower]
+fetch.url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-$ver-x64.deb"
 src.webpage = "https://www.adspower.com/download"
 src.regex = "\"https://version.adspower.net/software/linux-x64-global/AdsPower-Global-([^\"]+)-x64.deb\""
-fetch.url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-$ver-x64.deb"
 
 [amule-dlp]
-src.git = "https://github.com/persmule/amule-dlp.git"
 fetch.github = "persmule/amule-dlp"
+src.git = "https://github.com/persmule/amule-dlp.git"
 
 [amule-dlp-stable]
+fetch.url = "https://google.com/generate_204"
 src.github_tag = "persmule/amule-dlp"
 src.from_pattern = "^([0-9\\.]+)-.*$"
 src.to_pattern = "\\1"
-fetch.url = "https://google.com/generate_204"
 
 [asterisk-alaw16]
-src.git = "https://github.com/traud/asterisk-alaw16.git"
 fetch.github = "traud/asterisk-alaw16"
+src.git = "https://github.com/traud/asterisk-alaw16.git"
 
 [asterisk-amr]
-src.git = "https://github.com/traud/asterisk-amr.git"
 fetch.github = "traud/asterisk-amr"
+src.git = "https://github.com/traud/asterisk-amr.git"
 
 [asterisk-evs]
-src.git = "https://github.com/traud/asterisk-evs.git"
 fetch.github = "traud/asterisk-evs"
+src.git = "https://github.com/traud/asterisk-evs.git"
 
 [asterisk-g72x]
-src.git = "https://github.com/arkadijs/asterisk-g72x.git"
 fetch.github = "arkadijs/asterisk-g72x"
+src.git = "https://github.com/arkadijs/asterisk-g72x.git"
 
 [asterisk-gsm-efr]
-src.git = "https://github.com/traud/asterisk-gsm-efr.git"
 fetch.github = "traud/asterisk-gsm-efr"
+src.git = "https://github.com/traud/asterisk-gsm-efr.git"
 
 [axiom-syslog-proxy]
-src.github = "axiomhq/axiom-syslog-proxy"
 fetch.github = "axiomhq/axiom-syslog-proxy"
+src.github = "axiomhq/axiom-syslog-proxy"
 
 [baidunetdisk]
+fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetdisk_$ver_amd64.deb"
 src.aur = "baidunetdisk-electron"
 src.from_pattern = "(.+)-(.+)"
 src.to_pattern = "\\1"
-fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetdisk_$ver_amd64.deb"
 
 [baidupcs-go]
-src.git = "https://github.com/qjfoidnh/BaiduPCS-Go.git"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
+src.git = "https://github.com/qjfoidnh/BaiduPCS-Go.git"
 
 [baidupcs-go-stable]
-src.github_tag = "qjfoidnh/BaiduPCS-Go"
 fetch.url = "https://google.com/generate_204"
+src.github_tag = "qjfoidnh/BaiduPCS-Go"
 
 [bepasty]
-src.pypi = "bepasty"
 fetch.pypi = "bepasty"
+src.pypi = "bepasty"
 
 [bergamot-translator]
-src.git = "https://github.com/browsermt/bergamot-translator.git"
 fetch.github = "browsermt/bergamot-translator"
 git.fetchSubmodules = true
+src.git = "https://github.com/browsermt/bergamot-translator.git"
 
 [bilibili]
-src.github = "msojocs/bilibili-linux"
 fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/$ver/bilibili-asar-$ver.tar.gz"
+src.github = "msojocs/bilibili-linux"
 
 [bilibili-src]
-src.github = "msojocs/bilibili-linux"
 fetch.github = "msojocs/bilibili-linux"
+src.github = "msojocs/bilibili-linux"
 
 [bin-cpuflags-x86]
-src.github = "HanabishiRecca/bin-cpuflags-x86"
 fetch.github = "HanabishiRecca/bin-cpuflags-x86"
+src.github = "HanabishiRecca/bin-cpuflags-x86"
 
 [bird-lg-go]
-src.github = "xddxdd/bird-lg-go"
 fetch.github = "xddxdd/bird-lg-go"
+src.github = "xddxdd/bird-lg-go"
 
 [boringssl-oqs]
-src.git = "https://github.com/open-quantum-safe/boringssl.git"
 fetch.github = "open-quantum-safe/boringssl"
+src.git = "https://github.com/open-quantum-safe/boringssl.git"
 
 [browser360-amd64]
-src.aur = "browser360-bin"
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_amd64.deb"
+src.aur = "browser360-bin"
 
 [browser360-arm64]
-src.aur = "browser360-bin"
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_arm64.deb"
+src.aur = "browser360-bin"
 
 [cachyos-kernel]
-src.git = "https://github.com/CachyOS/linux-cachyos.git"
 fetch.github = "CachyOS/linux-cachyos"
+src.git = "https://github.com/CachyOS/linux-cachyos.git"
 
 [cachyos-kernel-patches]
-src.git = "https://github.com/CachyOS/kernel-patches"
 fetch.github = "CachyOS/kernel-patches"
+src.git = "https://github.com/CachyOS/kernel-patches"
 
 [calibre-cops]
-src.github = "mikespub-org/seblucas-cops"
 fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php82.zip"
+src.github = "mikespub-org/seblucas-cops"
 
 [cef-binary]
-src.git = "https://github.com/martyr-deepin/cef-binary.git"
 fetch.github = "martyr-deepin/cef-binary"
+src.git = "https://github.com/martyr-deepin/cef-binary.git"
 
 [click-loglevel]
-src.github = "jwodder/click-loglevel"
 fetch.github = "jwodder/click-loglevel"
+src.github = "jwodder/click-loglevel"
 
 [cockpy]
-src.git = "https://github.com/Hiro420/CockPY.git"
 fetch.github = "Hiro420/CockPY"
+src.git = "https://github.com/Hiro420/CockPY.git"
 
 [cockpy-pyenet]
-src.git = "https://github.com/lilmayofuksu/pyenet.git"
 fetch.github = "lilmayofuksu/pyenet"
 git.fetchSubmodules = true
+src.git = "https://github.com/lilmayofuksu/pyenet.git"
 
 [comp128]
-src.github = "Takuto88/comp128-python"
 fetch.github = "Takuto88/comp128-python"
+src.github = "Takuto88/comp128-python"
 
 [coqui-tts]
-src.github = "coqui-ai/TTS"
 fetch.github = "coqui-ai/TTS"
+src.github = "coqui-ai/TTS"
 
 [coredns-lantian]
-src.git = "https://github.com/xddxdd/coredns.git"
 fetch.github = "xddxdd/coredns"
+src.git = "https://github.com/xddxdd/coredns.git"
 
 [cryptodev-linux]
-src.git = "https://github.com/cryptodev-linux/cryptodev-linux.git"
 fetch.github = "cryptodev-linux/cryptodev-linux"
+src.git = "https://github.com/cryptodev-linux/cryptodev-linux.git"
 
 [cryptodev-linux-stable]
+fetch.url = "https://google.com/generate_204"
 src.github_tag = "cryptodev-linux/cryptodev-linux"
 src.include_regex = "^cryptodev-linux-([0-9\\.]+)"
 src.prefix = "cryptodev-linux-"
-fetch.url = "https://google.com/generate_204"
 
 [data-recorder]
-src.pypi = "DataRecorder"
 fetch.pypi = "DataRecorder"
+src.pypi = "DataRecorder"
 
 [dbip-asn-lite]
+fetch.url = "https://download.db-ip.com/free/dbip-asn-lite-$ver.mmdb.gz"
 src.webpage = "https://db-ip.com/db/download/ip-to-asn-lite"
 src.regex = "https://download.db-ip.com/free/dbip-asn-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
-fetch.url = "https://download.db-ip.com/free/dbip-asn-lite-$ver.mmdb.gz"
 
 [dbip-city-lite]
+fetch.url = "https://download.db-ip.com/free/dbip-city-lite-$ver.mmdb.gz"
 src.webpage = "https://db-ip.com/db/download/ip-to-city-lite"
 src.regex = "https://download.db-ip.com/free/dbip-city-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
-fetch.url = "https://download.db-ip.com/free/dbip-city-lite-$ver.mmdb.gz"
 
 [dbip-country-lite]
+fetch.url = "https://download.db-ip.com/free/dbip-country-lite-$ver.mmdb.gz"
 src.webpage = "https://db-ip.com/db/download/ip-to-country-lite"
 src.regex = "https://download.db-ip.com/free/dbip-country-lite-([0-9]{4}-[0-9]{2}).mmdb.gz"
-fetch.url = "https://download.db-ip.com/free/dbip-country-lite-$ver.mmdb.gz"
 
 [decluttarr]
-src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
+src.github_tag = "ManiMatter/decluttarr"
 
 [deeplx]
-src.github = "OwO-Network/DeepLX"
 fetch.github = "OwO-Network/DeepLX"
+src.github = "OwO-Network/DeepLX"
 
 [dingtalk]
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/$ver_amd64.deb"
 src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
 src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"
-fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/$ver_amd64.deb"
-
-[download-kit]
-src.pypi = "DownloadKit"
-fetch.pypi = "DownloadKit"
-
-[drission-page]
-src.pypi = "DrissionPage"
-fetch.url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-$ver.tar.gz"
 
 [dn42-pingfinder]
-src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 fetch.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
+src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 
 [dn42-pingfinder-stable]
+fetch.url = "https://example.com"
 src.webpage = "https://git.lantian.pub/backup/dn42-pingfinder/raw/branch/master/index.php"
 src.regex = "\\$script_version = '([0-9\\.]+)';"
-fetch.url = "https://example.com"
 
 [douban-openapi-server]
-src.git = "https://github.com/caryyu/douban-openapi-server.git"
 fetch.github = "caryyu/douban-openapi-server"
+src.git = "https://github.com/caryyu/douban-openapi-server.git"
+
+[download-kit]
+fetch.pypi = "DownloadKit"
+src.pypi = "DownloadKit"
 
 [dpdk-kmod]
-src.git = "git://dpdk.org/dpdk-kmods"
 fetch.git = "git://dpdk.org/dpdk-kmods"
+src.git = "git://dpdk.org/dpdk-kmods"
+
+[drission-page]
+fetch.url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-$ver.tar.gz"
+src.pypi = "DrissionPage"
 
 [drone-file-secret]
-src.git = "https://github.com/xddxdd/drone-file-secret.git"
 fetch.github = "xddxdd/drone-file-secret"
+src.git = "https://github.com/xddxdd/drone-file-secret.git"
 
 [drone-vault]
-src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
+src.github_tag = "drone/drone-vault"
 
 [dump978]
-src.github_tag = "flightaware/dump978"
 fetch.github = "flightaware/dump978"
+src.github_tag = "flightaware/dump978"
 
 [edge-tts]
-src.github = "rany2/edge-tts"
 fetch.github = "rany2/edge-tts"
+src.github = "rany2/edge-tts"
 
 [etherguard]
-src.github = "KusakabeShi/EtherGuard-VPN"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
+src.github = "KusakabeShi/EtherGuard-VPN"
 
 [fake-ollama]
-src.git = "https://github.com/spoonnotfound/fake-ollama.git"
 fetch.github = "spoonnotfound/fake-ollama"
+src.git = "https://github.com/spoonnotfound/fake-ollama.git"
 
 [fastapi-dls]
-src.git = "https://github.com/GreenDamTan/fastapi-dls_mirror.git"
 fetch.github = "GreenDamTan/fastapi-dls_mirror"
+src.git = "https://github.com/GreenDamTan/fastapi-dls_mirror.git"
 
 [fastapi-dls-stable]
-src.github_tag = "GreenDamTan/fastapi-dls_mirror"
 fetch.github = "GreenDamTan/fastapi-dls_mirror"
+src.github_tag = "GreenDamTan/fastapi-dls_mirror"
 
 [fcitx5-breeze]
+fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-breeze-v$ver.tar.gz"
 src.webpage = "https://gitlab.com/api/v4/projects/53966606/releases/"
 src.regex = "\"https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v([0-9\\.]+)/fcitx5-breeze-"
-fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-breeze-v$ver.tar.gz"
 
 [fish-speech]
-src.github_tag = "fishaudio/fish-speech"
 fetch.github = "fishaudio/fish-speech"
+src.github_tag = "fishaudio/fish-speech"
 
 [flapalerted]
-src.github = "Kioubit/FlapAlerted"
 fetch.github = "Kioubit/FlapAlerted"
-
-[flasgger]
-src.github = "flasgger/flasgger"
-fetch.github = "flasgger/flasgger"
+src.github = "Kioubit/FlapAlerted"
 
 [flaresolverr-21hsmw]
-src.git = "https://github.com/21hsmw/FlareSolverr.git"
 fetch.github = "21hsmw/FlareSolverr"
+src.git = "https://github.com/21hsmw/FlareSolverr.git"
 
 [flaresolverr-alexfozor]
+fetch.github = "AlexFozor/FlareSolverr"
 src.git = "https://github.com/AlexFozor/FlareSolverr.git"
 src.branch = "drission-page-experimental"
-fetch.github = "AlexFozor/FlareSolverr"
 
-[fr24feed-i386]
-src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/linux-stable/binary-i386/Packages"
-src.regex = "fr24feed_([0-9\\.-]+)_"
-fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_i386.deb"
+[flasgger]
+fetch.github = "flasgger/flasgger"
+src.github = "flasgger/flasgger"
 
 [fr24feed-amd64]
+fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_amd64.deb"
 src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/linux-stable/binary-amd64/Packages"
 src.regex = "fr24feed_([0-9\\.-]+)_"
-fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_amd64.deb"
-
-[fr24feed-armhf]
-src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/raspberrypi-stable/binary-armhf/Packages"
-src.regex = "fr24feed_([0-9\\.-]+)_"
-fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_armhf.deb"
 
 [fr24feed-arm64]
+fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_arm64.deb"
 src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/raspberrypi-stable/binary-arm64/Packages"
 src.regex = "fr24feed_([0-9\\.-]+)_"
-fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_arm64.deb"
+
+[fr24feed-armhf]
+fetch.url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_$ver_armhf.deb"
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/raspberrypi-stable/binary-armhf/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
+
+[fr24feed-i386]
+fetch.url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_$ver_i386.deb"
+src.webpage = "https://repo-feed.flightradar24.com/dists/flightradar24/linux-stable/binary-i386/Packages"
+src.regex = "fr24feed_([0-9\\.-]+)_"
 
 [ftp-proxy]
+fetch.url = "http://www.ftpproxy.org/download/ftpproxy-$ver.tgz"
 src.webpage = "http://www.ftpproxy.org/download/"
 src.regex = "\"ftpproxy-([0-9\\.]+).tgz\""
-fetch.url = "http://www.ftpproxy.org/download/ftpproxy-$ver.tgz"
 
 [funasr]
-src.git = "https://github.com/modelscope/FunASR.git"
 fetch.github = "modelscope/FunASR"
+src.git = "https://github.com/modelscope/FunASR.git"
 
 [geolite2-asn]
-src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-ASN.mmdb"
+src.github = "P3TERX/GeoLite.mmdb"
 
 [geolite2-city]
-src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-City.mmdb"
+src.github = "P3TERX/GeoLite.mmdb"
 
 [geolite2-country]
-src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-Country.mmdb"
+src.github = "P3TERX/GeoLite.mmdb"
 
 [glauth]
-src.manual = "v2.3.2"
 # src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
+src.manual = "v2.3.2"
 
 [google-earth-pro]
-src.aur = "google-earth-pro"
 fetch.url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_$ver-r0_amd64.deb"
+src.aur = "google-earth-pro"
 
 [gopherus]
+fetch.url = "https://gopherus.sourceforge.net/gopherus-$ver.tar.xz"
 src.webpage = "https://gopherus.sourceforge.net/"
 src.regex = "\"gopherus-([0-9\\.]+).tar.xz"
-fetch.url = "https://gopherus.sourceforge.net/gopherus-$ver.tar.xz"
 
 [gost-engine]
-src.github = "gost-engine/engine"
-git.fetchSubmodules = true
 fetch.github = "gost-engine/engine"
+git.fetchSubmodules = true
+src.github = "gost-engine/engine"
 
 [grasscutter]
+fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver/grasscutter-$ver.jar"
 src.github = "Grasscutters/Grasscutter"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
-fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver/grasscutter-$ver.jar"
 
 [grasscutter-resources]
-src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
+src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 
 [gwmp-mux]
-src.github = "helium/gwmp-mux"
 fetch.github = "helium/gwmp-mux"
+src.github = "helium/gwmp-mux"
 
 [helium-gateway-rs]
-src.git = "https://github.com/helium/gateway-rs.git"
 fetch.github = "helium/gateway-rs"
+src.git = "https://github.com/helium/gateway-rs.git"
 
 [helium-gateway-rs-stable]
-src.github = "helium/gateway-rs"
 fetch.url = "https://google.com/generate_204"
+src.github = "helium/gateway-rs"
 
 [hi3-ii-martian-font]
-src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
 fetch.github = "Wenti-D/HI3IIMartianFont"
+src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
 
 [hoyo-glyphs]
-src.github = "SpeedyOrc-C/Hoyo-Glyphs"
 fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/$ver/HoYo-Glyphs-$ver.zip"
+src.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
 [i915-sriov-dkms]
-src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
+src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 
 [igsc]
-src.github = "intel/igsc"
 fetch.github = "intel/igsc"
+src.github = "intel/igsc"
 
 [imewlconverter]
-src.github = "studyzy/imewlconverter"
 fetch.github = "studyzy/imewlconverter"
+src.github = "studyzy/imewlconverter"
 
 [inter-knot]
-src.github = "share121/inter-knot"
 fetch.url = "https://github.com/share121/inter-knot/releases/download/$ver/inter_knot_linux.zip"
+src.github = "share121/inter-knot"
 
 [jproxy]
-src.manual = "v3.4.1"
 fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
+src.manual = "v3.4.1"
 
 [kaldiio]
-src.github = "nttcslab-sp/kaldiio"
 fetch.github = "nttcslab-sp/kaldiio"
+src.github = "nttcslab-sp/kaldiio"
 
 [kata-containers]
+fetch.github = "kata-containers/kata-containers"
 src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
-fetch.github = "kata-containers/kata-containers"
 
 [kata-image]
+fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
 src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
-fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
 
 [kikoplay]
-src.github = "KikoPlayProject/KikoPlay"
 fetch.github = "KikoPlayProject/KikoPlay"
+src.github = "KikoPlayProject/KikoPlay"
 
 [kikoplay-app]
-src.git = "https://github.com/KikoPlayProject/KikoPlayApp.git"
 fetch.github = "KikoPlayProject/KikoPlayApp"
+src.git = "https://github.com/KikoPlayProject/KikoPlayApp.git"
 
 [kikoplay-script]
-src.git = "https://github.com/KikoPlayProject/KikoPlayScript.git"
 fetch.github = "KikoPlayProject/KikoPlayScript"
+src.git = "https://github.com/KikoPlayProject/KikoPlayScript.git"
 
 [konnect]
-src.github_tag = "Kopano-dev/konnect"
 fetch.github = "Kopano-dev/konnect"
+src.github_tag = "Kopano-dev/konnect"
 
 [kui]
-src.github_tag = "abersheeran/kui"
 fetch.github = "abersheeran/kui"
+src.github_tag = "abersheeran/kui"
 
 [ldap-auth-proxy]
-src.git = "https://github.com/pinepain/ldap-auth-proxy.git"
 fetch.github = "pinepain/ldap-auth-proxy"
+src.git = "https://github.com/pinepain/ldap-auth-proxy.git"
 
 [ldap-auth-proxy-stable]
-src.github = "pinepain/ldap-auth-proxy"
 fetch.url = "https://google.com/generate_204"
+src.github = "pinepain/ldap-auth-proxy"
 
 [libltnginx]
-src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"
+src.git = "https://github.com/xddxdd/libltnginx.git"
 
 [liboqs]
-src.github = "open-quantum-safe/liboqs"
 fetch.github = "open-quantum-safe/liboqs"
+src.github = "open-quantum-safe/liboqs"
 
 [liboqs-unstable]
-src.git = "https://github.com/open-quantum-safe/liboqs.git"
 fetch.github = "open-quantum-safe/liboqs"
+src.git = "https://github.com/open-quantum-safe/liboqs.git"
 
 [libqcef]
-src.git = "https://github.com/martyr-deepin/qcef.git"
 fetch.github = "martyr-deepin/qcef"
+src.git = "https://github.com/martyr-deepin/qcef.git"
 
 [librime-charcode]
-src.git = "https://github.com/rime/librime-charcode.git"
 fetch.github = "rime/librime-charcode"
+src.git = "https://github.com/rime/librime-charcode.git"
 
 [librime-proto]
-src.git = "https://github.com/lotem/librime-proto.git"
 fetch.github = "lotem/librime-proto"
+src.git = "https://github.com/lotem/librime-proto.git"
 
 [linguaspark-core]
-src.git = "https://github.com/LinguaSpark/core.git"
 fetch.github = "LinguaSpark/core"
 git.fetchSubmodules = true
+src.git = "https://github.com/LinguaSpark/core.git"
+
+[linguaspark-server]
+fetch.github = "LinguaSpark/server"
+git.fetchSubmodules = true
+src.git = "https://github.com/LinguaSpark/server.git"
 
 [linux-xanmod]
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags"
 src.regex = "\"name\":\"([^\"]+)\","
 src.include_regex = "^[0-9\\.]+-xanmod.*$"
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-
-[linux-xanmod-6_12]
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.12."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.12\\.[0-9]+-xanmod.*$"
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-
-[linux-xanmod-6_6]
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.6."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.6\\.[0-9]+-xanmod.*$"
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-
-[linux-xanmod-6_1]
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.1."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.1\\.[0-9]+-xanmod.*$"
-fetch.git = "https://gitlab.com/xanmod/linux.git"
 
 [linux-xanmod-6_0]
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.0."
 src.regex = "\"name\":\"([^\"]+)\","
 src.include_regex = "^6\\.0\\.[0-9]+-xanmod.*$"
+
+[linux-xanmod-6_1]
 fetch.git = "https://gitlab.com/xanmod/linux.git"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.1."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.1\\.[0-9]+-xanmod.*$"
+
+[linux-xanmod-6_12]
+fetch.git = "https://gitlab.com/xanmod/linux.git"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.12."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.12\\.[0-9]+-xanmod.*$"
+
+[linux-xanmod-6_6]
+fetch.git = "https://gitlab.com/xanmod/linux.git"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.6."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.6\\.[0-9]+-xanmod.*$"
 
 [llama-cpp]
-src.github = "ggerganov/llama.cpp"
 fetch.github = "ggerganov/llama.cpp"
+src.github = "ggerganov/llama.cpp"
 
 [loralib]
-src.git = "https://github.com/microsoft/LoRA.git"
 fetch.github = "microsoft/LoRA"
+src.git = "https://github.com/microsoft/LoRA.git"
 
 [lyrica]
-src.github = "chiyuki0325/lyrica"
 fetch.github = "chiyuki0325/lyrica"
+src.github = "chiyuki0325/lyrica"
 
 [magiskboot]
-src.github = "topjohnwu/Magisk"
 fetch.url = "https://github.com/topjohnwu/Magisk/releases/download/$ver/Magisk-$ver.apk"
+src.github = "topjohnwu/Magisk"
 
 [mautrix-gmessages]
-src.github = "mautrix/gmessages"
 fetch.github = "mautrix/gmessages"
+src.github = "mautrix/gmessages"
 
 [metee]
-src.github = "intel/metee"
 fetch.github = "intel/metee"
+src.github = "intel/metee"
 
 [modelscope]
-src.github = "modelscope/modelscope"
 fetch.github = "modelscope/modelscope"
+src.github = "modelscope/modelscope"
 
 [mtkclient]
-src.github = "bkerler/mtkclient"
 fetch.github = "bkerler/mtkclient"
-
-[linguaspark-server]
-src.git = "https://github.com/LinguaSpark/server.git"
-fetch.github = "LinguaSpark/server"
-git.fetchSubmodules = true
+src.github = "bkerler/mtkclient"
 
 [nbfc-linux-lantian]
-src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
+src.git = "https://github.com/xddxdd/nbfc-linux.git"
 
 [ncmdump-rs]
-src.github = "iqiziqi/ncmdump.rs"
 fetch.github = "iqiziqi/ncmdump.rs"
+src.github = "iqiziqi/ncmdump.rs"
 
 [netboot-xyz-efi]
-src.github = "netbootxyz/netboot.xyz"
 fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.efi"
+src.github = "netbootxyz/netboot.xyz"
 
 [netboot-xyz-lkrn]
-src.github = "netbootxyz/netboot.xyz"
 fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.lkrn"
+src.github = "netbootxyz/netboot.xyz"
 
 [netns-exec]
-src.git = "https://github.com/pekman/netns-exec.git"
 fetch.github = "pekman/netns-exec"
 git.fetchSubmodules = true
+src.git = "https://github.com/pekman/netns-exec.git"
 
 [nft-fullcone]
-src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
+src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 
 [nginx-module-geoip2]
-src.git = "https://github.com/leev/ngx_http_geoip2_module.git"
 fetch.github = "leev/ngx_http_geoip2_module"
+src.git = "https://github.com/leev/ngx_http_geoip2_module.git"
 
 [nginx-module-stream-sts]
-src.git = "https://github.com/vozlt/nginx-module-stream-sts.git"
 fetch.github = "vozlt/nginx-module-stream-sts"
+src.git = "https://github.com/vozlt/nginx-module-stream-sts.git"
 
 [nginx-module-sts]
-src.git = "https://github.com/vozlt/nginx-module-sts.git"
 fetch.github = "vozlt/nginx-module-sts"
+src.git = "https://github.com/vozlt/nginx-module-sts.git"
 
 [nginx-module-vts]
-src.git = "https://github.com/vozlt/nginx-module-vts.git"
 fetch.github = "vozlt/nginx-module-vts"
+src.git = "https://github.com/vozlt/nginx-module-vts.git"
 
 [nginx-njs]
-src.github_tag = "nginx/njs"
 fetch.github = "nginx/njs"
+src.github_tag = "nginx/njs"
 
 [ngx_brotli]
+fetch.github = "u5surf/ngx_brotli"
 # src.git = "https://github.com/google/ngx_brotli.git"
 # fetch.github = "google/ngx_brotli"
 src.git = "https://github.com/u5surf/ngx_brotli.git"
 src.branch = "fix_build_failed"
-fetch.github = "u5surf/ngx_brotli"
 
 [noise-suppression-for-voice]
-src.github = "werman/noise-suppression-for-voice"
 fetch.github = "werman/noise-suppression-for-voice"
+src.github = "werman/noise-suppression-for-voice"
 
 [nullfs]
-src.git = "https://github.com/xrgtn/nullfs.git"
 fetch.github = "xrgtn/nullfs"
+src.git = "https://github.com/xrgtn/nullfs.git"
 
 [nullfsvfs]
-src.github = "abbbi/nullfsvfs"
 fetch.github = "abbbi/nullfsvfs"
+src.github = "abbbi/nullfsvfs"
 
 [oci-arm-host-capacity]
-src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
 fetch.github = "hitrov/oci-arm-host-capacity"
+src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
 
 [one-api-amd64]
-src.github = "songquanpeng/one-api"
 fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api"
+src.github = "songquanpeng/one-api"
 
 [one-api-arm64]
-src.github = "songquanpeng/one-api"
 fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api-arm64"
+src.github = "songquanpeng/one-api"
 
 [openai-edge-tts]
-src.git = "https://github.com/travisvn/openai-edge-tts.git"
 fetch.github = "travisvn/openai-edge-tts"
+src.git = "https://github.com/travisvn/openai-edge-tts.git"
 
 [opencc-python-reimplemented]
-src.git = "https://github.com/yichen0831/opencc-python.git"
 fetch.github = "yichen0831/opencc-python"
+src.git = "https://github.com/yichen0831/opencc-python.git"
 
 [openedai-speech]
-src.github = "matatonic/openedai-speech"
 fetch.github = "matatonic/openedai-speech"
+src.github = "matatonic/openedai-speech"
 
 [openresty]
-src.git = "https://github.com/openresty/openresty.git"
 fetch.github = "openresty/openresty"
+src.git = "https://github.com/openresty/openresty.git"
 
 [openresty-stable]
-src.github_tag = "openresty/openresty"
 fetch.url = "https://google.com/generate_204"
+src.github_tag = "openresty/openresty"
 
 [openssl-ech]
+fetch.github = "sftcd/openssl"
 src.git = "https://github.com/sftcd/openssl.git"
 src.branch = "ECH-draft-13c"
-fetch.github = "sftcd/openssl"
 
 [openssl-oqs-provider]
-src.github = "open-quantum-safe/oqs-provider"
 fetch.github = "open-quantum-safe/oqs-provider"
+src.github = "open-quantum-safe/oqs-provider"
 
 [ormsgpack]
-src.github = "aviramha/ormsgpack"
 fetch.github = "aviramha/ormsgpack"
+src.github = "aviramha/ormsgpack"
 
 [osdlyrics]
-src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
+src.github = "osdlyrics/osdlyrics"
 
 [ovpn-dco]
-src.github_tag = "OpenVPN/ovpn-dco"
 fetch.github = "OpenVPN/ovpn-dco"
+src.github_tag = "OpenVPN/ovpn-dco"
 
 [palworld-exporter]
-src.github_tag = "palworldlol/palworld-exporter"
 fetch.github = "palworldlol/palworld-exporter"
+src.github_tag = "palworldlol/palworld-exporter"
 
 [palworld-worldoptions]
-src.github = "legoduded/palworld-worldoptions"
 fetch.github = "legoduded/palworld-worldoptions"
+src.github = "legoduded/palworld-worldoptions"
 
 [payload-dumper-go]
-src.github = "ssut/payload-dumper-go"
 fetch.github = "ssut/payload-dumper-go"
+src.github = "ssut/payload-dumper-go"
 
 [peerbanhelper]
+fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v$ver/PeerBanHelper_$ver.zip"
 src.github = "Ghost-chu/PeerBanHelper"
 src.prefix = "v"
-fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v$ver/PeerBanHelper_$ver.zip"
 
 [phpmyadmin]
+fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-languages.tar.xz"
 src.github_tag = "phpmyadmin/phpmyadmin"
 src.include_regex = "RELEASE_([0-9_]*)"
 src.from_pattern = "RELEASE_([0-9])_([0-9])_([0-9])"
 src.to_pattern = "\\1.\\2.\\3"
-fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-languages.tar.xz"
 
 [phppgadmin]
-src.github = "ReimuHakurei/phppgadmin"
 fetch.github = "ReimuHakurei/phppgadmin"
+src.github = "ReimuHakurei/phppgadmin"
 
 [piliplus]
-src.github = "bggRGjQaUbCoE/PiliPlus"
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
+src.github = "bggRGjQaUbCoE/PiliPlus"
 
 [plangothic-fonts]
-src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
+src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
 
 [plasma-panel-transparency-toggle]
-src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
 fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
+src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
 
 [plasma-smart-video-wallpaper-reborn]
-src.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
 fetch.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
+src.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
 
 [plasma-yesplaymusic-lyric]
-src.git = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics.git"
 fetch.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
+src.git = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics.git"
 
 [plasma-yesplaymusic-lyric-stable]
-src.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
 fetch.url = "https://google.com/generate_204"
+src.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
 
 [pocl]
-src.github = "pocl/pocl"
 fetch.github = "pocl/pocl"
-
-[uksmd-procps]
-src.archpkg = "procps-ng"
-fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
+src.github = "pocl/pocl"
 
 [pterodactyl-wings]
-src.git = "https://github.com/pterodactyl/wings.git"
 fetch.github = "pterodactyl/wings"
+src.git = "https://github.com/pterodactyl/wings.git"
 
 [pterodactyl-wings-stable]
-src.github = "pterodactyl/wings"
 fetch.github = "pterodactyl/wings"
-
-[pyhss]
-src.git = "https://github.com/nickvsnetworking/pyhss.git"
-src.branch = "DockerFixes"
-fetch.github = "nickvsnetworking/pyhss"
-
-[pyhss-stable]
-src.github = "nickvsnetworking/pyhss"
-fetch.github = "nickvsnetworking/pyhss"
-
-[pyosmocom]
-src.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
-fetch.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
-
-[pysctp]
-src.github = "p1sec/pysctp"
-fetch.github = "p1sec/pysctp"
-
-[pytorch-wpe]
-src.github = "nttcslab-sp/dnn_wpe"
-fetch.github = "nttcslab-sp/dnn_wpe"
+src.github = "pterodactyl/wings"
 
 [py-rcon]
-src.github_tag = "ttk1/py-rcon"
 fetch.github = "ttk1/py-rcon"
+src.github_tag = "ttk1/py-rcon"
+
+[pyhss]
+fetch.github = "nickvsnetworking/pyhss"
+src.git = "https://github.com/nickvsnetworking/pyhss.git"
+src.branch = "DockerFixes"
+
+[pyhss-stable]
+fetch.github = "nickvsnetworking/pyhss"
+src.github = "nickvsnetworking/pyhss"
+
+[pyosmocom]
+fetch.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
+src.git = "https://gitea.osmocom.org/osmocom/pyosmocom.git"
+
+[pysctp]
+fetch.github = "p1sec/pysctp"
+src.github = "p1sec/pysctp"
+
+[pytorch-wpe]
+fetch.github = "nttcslab-sp/dnn_wpe"
+src.github = "nttcslab-sp/dnn_wpe"
 
 [qemu-user-static-amd64]
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_amd64.deb"
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
 src.regex = "href=\"qemu-user_([^\"]+)_amd64.deb\""
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_amd64.deb"
 url.name = "qemu.deb"
 
 [qemu-user-static-arm64]
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_arm64.deb"
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
 src.regex = "href=\"qemu-user_([^\"]+)_arm64.deb\""
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_arm64.deb"
 url.name = "qemu.deb"
 
 [qemu-user-static-armhf]
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_armhf.deb"
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
 src.regex = "href=\"qemu-user_([^\"]+)_armhf.deb\""
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_armhf.deb"
 url.name = "qemu.deb"
 
 [qemu-user-static-i386]
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_i386.deb"
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
 src.regex = "href=\"qemu-user_([^\"]+)_i386.deb\""
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_i386.deb"
 url.name = "qemu.deb"
 
 [qhttpengine]
-src.git = "https://github.com/nitroshare/qhttpengine.git"
 fetch.github = "nitroshare/qhttpengine"
+src.git = "https://github.com/nitroshare/qhttpengine.git"
 
 [qq-amd64]
+fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
 src.regex = "\"https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/([^\"]+_amd64[^\"]*).deb\""
-fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 
 [qq-arm64]
+fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
 src.regex = "\"https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/([^\"]+_arm64[^\"]*).deb\""
-fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"
 
 [qqmusic]
+fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
 src.webpage = "https://y.qq.com/download/download.html"
 src.regex = "\"https://dldir.y.qq.com/music/clntupate/linux/qqmusic_([^\"]+)_amd64.deb\""
-fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
 
 [qqsp]
-src.github_tag = "Sonnix1/Qqsp"
 fetch.github = "Sonnix1/Qqsp"
+src.github_tag = "Sonnix1/Qqsp"
 
 [qsc-key-encoder]
-src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
+src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 
 [qsp]
+fetch.github = "QSPFoundation/qspgui"
 src.git = "https://github.com/QSPFoundation/qspgui.git"
-fetch.github = "QSPFoundation/qspgui"
-
-[qsp-stable]
-src.github = "QSPFoundation/qspgui"
-fetch.github = "QSPFoundation/qspgui"
 
 [qsp-lib]
-src.git = "https://github.com/QSPFoundation/qsp.git"
 fetch.github = "QSPFoundation/qsp"
+src.git = "https://github.com/QSPFoundation/qsp.git"
+
+[qsp-stable]
+fetch.github = "QSPFoundation/qspgui"
+src.github = "QSPFoundation/qspgui"
 
 [qsp-wx]
+fetch.github = "wxWidgets/wxWidgets"
+git.fetchSubmodules = true
 src.webpage = "https://raw.githubusercontent.com/QSPFoundation/qspgui/refs/heads/master/CMakeLists-wxWidgets.txt.in"
 src.regex = "GIT_TAG\\s+([0-9a-f]{40})"
-git.fetchSubmodules = true
-fetch.github = "wxWidgets/wxWidgets"
 
 [r8125]
-src.github_tag = "awesometic/realtek-r8125-dkms"
 fetch.github = "awesometic/realtek-r8125-dkms"
+src.github_tag = "awesometic/realtek-r8125-dkms"
 
 [r8168]
-src.github_tag = "mtorromeo/r8168"
 fetch.github = "mtorromeo/r8168"
+src.github_tag = "mtorromeo/r8168"
 
 [rime-aurora-pinyin]
-src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 fetch.github = "hosxy/rime-aurora-pinyin"
+src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 
 [rime-custom-pinyin-dictionary]
+fetch.url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_$ver.tar.gz"
 src.webpage = "https://github.com/wuhgit/CustomPinyinDictionary/releases/expanded_assets/assets"
 src.regex = "CustomPinyinDictionary_Fcitx_([0-9]+)\\.tar\\.gz"
-fetch.url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_$ver.tar.gz"
 
 [rime-dict]
-src.git = "https://github.com/Iorest/rime-dict.git"
 fetch.github = "Iorest/rime-dict"
+src.git = "https://github.com/Iorest/rime-dict.git"
 
 [rime-ice]
-src.git = "https://github.com/iDvel/rime-ice.git"
 fetch.github = "iDvel/rime-ice"
+src.git = "https://github.com/iDvel/rime-ice.git"
 
 [rime-moegirl]
-src.github = "outloudvi/mw2fcitx"
 fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
+src.github = "outloudvi/mw2fcitx"
 
 [rime-zhwiki]
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-$ver.dict.yaml"
 src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/expanded_assets/0.2.5"
 src.regex = "zhwiki-([0-9]{8})\\.dict\\.yaml"
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-$ver.dict.yaml"
 
 [rootutils]
-src.github = "ashleve/rootutils"
 fetch.github = "ashleve/rootutils"
+src.github = "ashleve/rootutils"
 
 [route-chain]
-src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
+src.git = "https://github.com/xddxdd/route-chain.git"
 
 [rtpengine]
-src.github = "sipwise/rtpengine"
 fetch.github = "sipwise/rtpengine"
-
-[runpodctl]
-src.github = "runpod/runpodctl"
-fetch.github = "runpod/runpodctl"
+src.github = "sipwise/rtpengine"
 
 [runpod-python]
-src.github = "runpod/runpod-python"
 fetch.github = "runpod/runpod-python"
+src.github = "runpod/runpod-python"
+
+[runpodctl]
+fetch.github = "runpod/runpodctl"
+src.github = "runpod/runpodctl"
 
 [sam-toki-mouse-cursors]
-src.github = "SamToki/Sam-Toki-Mouse-Cursors"
 fetch.github = "SamToki/Sam-Toki-Mouse-Cursors"
+src.github = "SamToki/Sam-Toki-Mouse-Cursors"
 
 [sgx-software-enable]
-src.git = "https://github.com/intel/sgx-software-enable.git"
 fetch.github = "intel/sgx-software-enable"
+src.git = "https://github.com/intel/sgx-software-enable.git"
 
 [sgx-software-enable-stable]
-src.github_tag = "intel/sgx-software-enable"
 fetch.url = "https://google.com/generate_204"
+src.github_tag = "intel/sgx-software-enable"
 
 [sidestore-vpn]
-src.git = "https://github.com/xddxdd/sidestore-vpn.git"
 fetch.github = "xddxdd/sidestore-vpn"
+src.git = "https://github.com/xddxdd/sidestore-vpn.git"
 
 [silero-vad]
-src.github = "snakers4/silero-vad"
 fetch.github = "snakers4/silero-vad"
+src.github = "snakers4/silero-vad"
 
 [smartrent_py]
-src.github = "zacherythomas/smartrent-py"
 fetch.github = "zacherythomas/smartrent-py"
+src.github = "zacherythomas/smartrent-py"
 
 [smfc]
-src.github = "petersulyok/smfc"
 fetch.github = "petersulyok/smfc"
+src.github = "petersulyok/smfc"
 
 [soggy]
-src.git = "https://github.com/LDAsuku/soggy.git"
 fetch.github = "LDAsuku/soggy"
+src.git = "https://github.com/LDAsuku/soggy.git"
 
 [stream-echo-nginx-module]
-src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"
-
-[svp]
-src.httpheader = "https://www.svp-team.com/files/svp4-latest.php?linux"
-src.regex = "svp4-linux.([0-9\\.]+).tar.bz2"
-fetch.url = "https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
+src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 
 [suwayomi-server]
-src.github = "Suwayomi/Suwayomi-Server"
 fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver/Suwayomi-Server-$ver.jar"
+src.github = "Suwayomi/Suwayomi-Server"
+
+[svp]
+fetch.url = "https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
+src.httpheader = "https://www.svp-team.com/files/svp4-latest.php?linux"
+src.regex = "svp4-linux.([0-9\\.]+).tar.bz2"
 
 [sx1302-hal]
-src.git = "https://github.com/NebraLtd/sx1302_hal.git"
 fetch.github = "NebraLtd/sx1302_hal"
+src.git = "https://github.com/NebraLtd/sx1302_hal.git"
 
 [sx1302-hal-stable]
+fetch.url = "https://google.com/generate_204"
 src.github_tag = "NebraLtd/sx1302_hal"
 src.include_regex = "^V([0-9\\.]+)$"
 src.from_pattern = "^V([0-9\\.]+)$"
 src.to_pattern = "\\1"
-fetch.url = "https://google.com/generate_204"
 
 [telegram-desktop-patches]
-src.git = "https://github.com/huakim/telegram-desktop-patches.git"
 fetch.github = "huakim/telegram-desktop-patches"
-
-[th-tshyn]
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Tshyn-([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Tshyn-$ver.7z"
+src.git = "https://github.com/huakim/telegram-desktop-patches.git"
 
 [th-hak]
+fetch.url = "http://cheonhyeong.com/File/TH-Hak-$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Hak-([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Hak-$ver.7z"
 
 [th-joeng]
+fetch.url = "http://cheonhyeong.com/File/TH-Joeng-$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Joeng-([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Joeng-$ver.7z"
-
-[th-khaai-t]
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Khaai-T([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Khaai-T$ver.7z"
 
 [th-khaai-p]
+fetch.url = "http://cheonhyeong.com/File/TH-Khaai-P$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Khaai-P([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Khaai-P$ver.7z"
+
+[th-khaai-t]
+fetch.url = "http://cheonhyeong.com/File/TH-Khaai-T$ver.7z"
+src.webpage = "http://cheonhyeong.com/Simplified/download.html"
+src.regex = "File/TH-Khaai-T([0-9.]+).7z"
 
 [th-ming]
+fetch.url = "http://cheonhyeong.com/File/TH-Ming-$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Ming-([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Ming-$ver.7z"
-
-[th-sung-t]
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Sung-T([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Sung-T$ver.7z"
 
 [th-sung-p]
+fetch.url = "http://cheonhyeong.com/File/TH-Sung-P$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Sung-P([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Sung-P$ver.7z"
+
+[th-sung-t]
+fetch.url = "http://cheonhyeong.com/File/TH-Sung-T$ver.7z"
+src.webpage = "http://cheonhyeong.com/Simplified/download.html"
+src.regex = "File/TH-Sung-T([0-9.]+).7z"
 
 [th-sy]
+fetch.url = "http://cheonhyeong.com/File/TH-Sy-$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Sy-([0-9.]+).7z"
-fetch.url = "http://cheonhyeong.com/File/TH-Sy-$ver.7z"
+
+[th-tshyn]
+fetch.url = "http://cheonhyeong.com/File/TH-Tshyn-$ver.7z"
+src.webpage = "http://cheonhyeong.com/Simplified/download.html"
+src.regex = "File/TH-Tshyn-([0-9.]+).7z"
 
 [torch-complex]
-src.pypi = "torch_complex"
 fetch.pypi = "torch_complex"
+src.pypi = "torch_complex"
 
 [tqdm-loggable]
-src.git = "https://github.com/tradingstrategy-ai/tqdm-loggable.git"
 fetch.github = "tradingstrategy-ai/tqdm-loggable"
+src.git = "https://github.com/tradingstrategy-ai/tqdm-loggable.git"
 
 [transmission-web-control]
-src.git = "https://github.com/ronggang/transmission-web-control.git"
 fetch.github = "ronggang/transmission-web-control"
+src.git = "https://github.com/ronggang/transmission-web-control.git"
 
 [uesave]
-src.github = "trumank/uesave-rs"
 fetch.github = "trumank/uesave-rs"
+src.github = "trumank/uesave-rs"
 
 [uesave-0_3_0]
-src.manual = "v0.3.0"
 fetch.github = "trumank/uesave-rs"
+src.manual = "v0.3.0"
 
 [uksmd]
-src.github_tag = "CachyOS/uksmd"
 fetch.github = "CachyOS/uksmd"
+src.github_tag = "CachyOS/uksmd"
+
+[uksmd-procps]
+fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
+src.archpkg = "procps-ng"
 
 [uni-api]
-src.git = "https://github.com/yym68686/uni-api.git"
 fetch.github = "yym68686/uni-api"
 git.fetchSubmodules = true
+src.git = "https://github.com/yym68686/uni-api.git"
 
 [unigine-heaven]
+fetch.url = "https://assets.unigine.com/d/Unigine_Heaven-$ver.run"
 src.webpage = "https://benchmark.unigine.com/heaven"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Heaven-([0-9\\.]+).run\""
-fetch.url = "https://assets.unigine.com/d/Unigine_Heaven-$ver.run"
 
 [unigine-sanctuary]
+fetch.url = "https://assets.unigine.com/d/Unigine_Sanctuary-$ver.run"
 src.webpage = "https://benchmark.unigine.com/sanctuary"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Sanctuary-([0-9\\.]+).run\""
-fetch.url = "https://assets.unigine.com/d/Unigine_Sanctuary-$ver.run"
 
 [unigine-superposition]
+fetch.url = "https://assets.unigine.com/d/Unigine_Superposition-$ver.run"
 src.webpage = "https://benchmark.unigine.com/superposition"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Superposition-([0-9\\.]+).run\""
-fetch.url = "https://assets.unigine.com/d/Unigine_Superposition-$ver.run"
 
 [unigine-tropics]
+fetch.url = "https://assets.unigine.com/d/Unigine_Tropics-$ver.run"
 src.webpage = "https://benchmark.unigine.com/tropics"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Tropics-([0-9\\.]+).run\""
-fetch.url = "https://assets.unigine.com/d/Unigine_Tropics-$ver.run"
 
 [unigine-valley]
+fetch.url = "https://assets.unigine.com/d/Unigine_Valley-$ver.run"
 src.webpage = "https://benchmark.unigine.com/valley"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Valley-([0-9\\.]+).run\""
-fetch.url = "https://assets.unigine.com/d/Unigine_Valley-$ver.run"
 
 [usque]
-src.github = "Diniboy1123/usque"
 fetch.github = "Diniboy1123/usque"
+src.github = "Diniboy1123/usque"
 
 [vbmeta-disable-verification]
-src.github = "libxzr/vbmeta-disable-verification"
 fetch.github = "libxzr/vbmeta-disable-verification"
+src.github = "libxzr/vbmeta-disable-verification"
 
 [vector-quantize-pytorch]
-src.github = "lucidrains/vector-quantize-pytorch"
 fetch.github = "lucidrains/vector-quantize-pytorch"
+src.github = "lucidrains/vector-quantize-pytorch"
 
 [vgpu-unlock-rs]
-src.github_tag = "mbilker/vgpu_unlock-rs"
 fetch.github = "mbilker/vgpu_unlock-rs"
+src.github_tag = "mbilker/vgpu_unlock-rs"
 
 [vk-hdr-layer]
-src.git = "https://github.com/Zamundaaa/VK_hdr_layer.git"
 fetch.github = "Zamundaaa/VK_hdr_layer"
 git.fetchSubmodules = true
+src.git = "https://github.com/Zamundaaa/VK_hdr_layer.git"
 
 [vpp]
+fetch.github = "FDio/vpp"
 src.github_tag = "FDio/vpp"
 src.include_regex = "^v[0-9.]+$"
-fetch.github = "FDio/vpp"
 
 [wechat-uos]
-src.manual = "4.0.0.21"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_$ver_amd64.deb"
-
-[wine-wechat-x86]
-src.github = "tom-snow/wechat-windows-versions-x86"
-src.from_pattern = "v(.*)"
-src.to_pattern = "\\1"
-fetch.url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v$ver/WeChatSetupX86-$ver.exe"
+src.manual = "4.0.0.21"
 
 [wine-wechat-x64]
+fetch.url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v$ver/WeChatSetup-$ver.exe"
 src.github = "tom-snow/wechat-windows-versions"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
-fetch.url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v$ver/WeChatSetup-$ver.exe"
+
+[wine-wechat-x86]
+fetch.url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v$ver/WeChatSetupX86-$ver.exe"
+src.github = "tom-snow/wechat-windows-versions-x86"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
 
 [xstatic-asciinema-player]
-src.pypi = "XStatic-asciinema-player"
 fetch.pypi = "XStatic-asciinema-player"
+src.pypi = "XStatic-asciinema-player"
 
 [xstatic-font-awesome]
+fetch.pypi = "XStatic-Font-Awesome"
 # src.pypi = "XStatic-Font-Awesome"
 src.manual = "4.7.0.0"
-fetch.pypi = "XStatic-Font-Awesome"
 
 [xue]
-src.pypi = "xue"
 fetch.url = "https://pypi.org/packages/source/x/xue/xue-$ver.tar.gz"
+src.pypi = "xue"
 
 [xvcd]
-src.git = "https://github.com/RHSResearchLLC/xvcd.git"
 fetch.github = "RHSResearchLLC/xvcd"
+src.git = "https://github.com/RHSResearchLLC/xvcd.git"
 
 [zstd-nginx-module]
-src.git = "https://github.com/tokers/zstd-nginx-module.git"
 fetch.github = "tokers/zstd-nginx-module"
+src.git = "https://github.com/tokers/zstd-nginx-module.git"
