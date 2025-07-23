@@ -58,8 +58,8 @@ packages = forSystem (
       linux-amd64 = go.moduleToPlatform default "linux" "amd64";
       linux-arm64 = go.moduleToPlatform default "linux" "arm64";
       linux-arm = go.moduleToPlatform default "linux" "arm";
-      darwin-arm64 = goModuleToPlatform default "darwin" "arm64";
-      windows-amd64 = goModuleToPlatform default "windows" "amd64";
+      darwin-arm64 = go.moduleToPlatform default "darwin" "arm64";
+      windows-amd64 = go.moduleToPlatform default "windows" "amd64";
 
       linux-amd64-image = go.moduleToImage linux-amd64;
       linux-arm64-image = go.moduleToImage linux-arm64;
