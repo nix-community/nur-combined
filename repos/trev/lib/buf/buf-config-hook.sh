@@ -17,7 +17,7 @@ bufConfigHook() {
     export HOME=$(mktemp -d)
     export STORE_PATH=$(mktemp -d)
 
-    cp -Tr "$pnpmDeps" "$STORE_PATH"
+    cp -Tr "$bufDeps" "$STORE_PATH"
     chmod -R +w "$STORE_PATH"
 
     export BUF_CACHE_DIR="$STORE_PATH"
