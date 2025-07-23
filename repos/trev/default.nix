@@ -8,6 +8,7 @@
 
   # packages
   bobgen = pkgs.callPackage ./pkgs/bobgen {};
+  buf = pkgs.callPackage ./pkgs/buf {};
   bumper = pkgs.callPackage ./pkgs/bumper {};
   protoc-gen-connect-openapi = pkgs.callPackage ./pkgs/protoc-gen-connect-openapi {};
   opengrep-core = pkgs.callPackage ./pkgs/opengrep/opengrep-core.nix {};
