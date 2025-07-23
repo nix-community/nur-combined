@@ -133,7 +133,7 @@ in
       updateScript = lib.concatStringsSep " " (nix-update-script {
         extraArgs = [
           "--commit"
-          "--subpackage core opengrep"
+          "--subpackage core"
           "${pname}"
         ];
       });
