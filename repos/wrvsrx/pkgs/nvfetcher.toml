@@ -140,3 +140,8 @@ fetch.github = "wrvsrx/auto-patchelf"
 [claude-code-router]
 src.git = "https://github.com/musistudio/claude-code-router"
 fetch.github = "musistudio/claude-code-router"
+
+[rime-ice-modular]
+src.github_tag = "wrvsrx/rime-ice-modular"
+fetch.github = "wrvsrx/rime-ice-modular"
+git.fetchSubmodules = true

@@ -18,5 +18,8 @@ lib.makeScope newScope (
     rime-fcitx5 = callPackage ./rime-fcitx5 { };
     rime-prelude = callPackage ./rime-prelude { source = sources.rime-prelude; };
   }
-  // (import ./rime-ice { source = sources.rime-ice; } self)
+  // (import ./rime-ice-modular {
+    source = sources.rime-ice-modular;
+    inherit (self) callPackage;
+  })
 )

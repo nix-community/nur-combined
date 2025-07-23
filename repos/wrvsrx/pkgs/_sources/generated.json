@@ -462,6 +462,27 @@
         },
         "version": "2025.04.06"
     },
+    "rime-ice-modular": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-ice-modular",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "rime-ice-modular",
+            "rev": "2025.04.06-05",
+            "sha256": "sha256-1GcVdrl04Kuoc0rmzc5H9q15sOXBCXIpsz1ZkvPkuvM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2025.04.06-05"
+    },
     "rime-prelude": {
         "cargoLocks": null,
         "date": "2024-05-19",

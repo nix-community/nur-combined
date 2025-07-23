@@ -1,0 +1,408 @@
+{
+    "all": {
+        "dependencies": [
+            "pinyin",
+            "double-pinyin",
+            "double-pinyin-flypy",
+            "double-pinyin-abc",
+            "double-pinyin-mspy",
+            "double-pinyin-sogou",
+            "double-pinyin-ziguang"
+        ],
+        "inputs": [],
+        "outputs": []
+    },
+    "default-patch": {
+        "dependencies": [
+            "suggestion"
+        ],
+        "inputs": [],
+        "outputs": [
+            "rime_ice_default_patch.yaml"
+        ]
+    },
+    "double-default-patch": {
+        "dependencies": [],
+        "inputs": [],
+        "outputs": [
+            "rime_ice_double_pinyin_default_patch.yaml"
+        ]
+    },
+    "double-pinyin": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin",
+            "radical_pinyin_double_pinyin",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin.schema.yaml",
+            "en_dicts/cn_en_double_pinyin.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin.schema.yaml",
+            "custom_phrase_double_pinyin.txt",
+            "en_dicts/cn_en_double_pinyin.txt"
+        ]
+    },
+    "double-pinyin-abc": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin_abc",
+            "radical_pinyin_double_pinyin_abc",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin_abc.schema.yaml",
+            "en_dicts/cn_en_abc.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin_abc.schema.yaml",
+            "custom_phrase_double_pinyin_abc.txt",
+            "en_dicts/cn_en_abc.txt"
+        ]
+    },
+    "double-pinyin-flypy": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin_flypy",
+            "radical_pinyin_double_pinyin_flypy",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin_flypy.schema.yaml",
+            "en_dicts/cn_en_flypy.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin_flypy.schema.yaml",
+            "custom_phrase_double_pinyin_flypy.txt",
+            "en_dicts/cn_en_flypy.txt"
+        ]
+    },
+    "double-pinyin-mspy": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin_mspy",
+            "radical_pinyin_double_pinyin_mspy",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin_mspy.schema.yaml",
+            "en_dicts/cn_en_mspy.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin_mspy.schema.yaml",
+            "custom_phrase_double_pinyin_mspy.txt",
+            "en_dicts/cn_en_mspy.txt"
+        ]
+    },
+    "double-pinyin-sogou": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin_sogou",
+            "radical_pinyin_double_pinyin_sogou",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin_sogou.schema.yaml",
+            "en_dicts/cn_en_sogou.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin_sogou.schema.yaml",
+            "custom_phrase_double_pinyin_sogou.txt",
+            "en_dicts/cn_en_sogou.txt"
+        ]
+    },
+    "double-pinyin-ziguang": {
+        "dependencies": [
+            "double-default-patch",
+            "pinyin",
+            "melt_eng_double_pinyin_ziguang",
+            "radical_pinyin_double_pinyin_ziguang",
+            "symbols_caps_v"
+        ],
+        "inputs": [
+            "double_pinyin_ziguang.schema.yaml",
+            "en_dicts/cn_en_ziguang.txt"
+        ],
+        "outputs": [
+            "rime_ice_double_pinyin_ziguang.schema.yaml",
+            "custom_phrase_double_pinyin_ziguang.txt",
+            "en_dicts/cn_en_ziguang.txt"
+        ]
+    },
+    "lua": {
+        "dependencies": [],
+        "inputs": [
+            "lua/autocap_filter.lua",
+            "lua/calc_translator.lua",
+            "lua/cn_en_spacer.lua",
+            "lua/cold_word_drop/drop_words.lua",
+            "lua/cold_word_drop/filter.lua",
+            "lua/cold_word_drop/hide_words.lua",
+            "lua/cold_word_drop/logger.lua",
+            "lua/cold_word_drop/metatable.lua",
+            "lua/cold_word_drop/processor.lua",
+            "lua/cold_word_drop/reduce_freq_words.lua",
+            "lua/cold_word_drop/string.lua",
+            "lua/corrector.lua",
+            "lua/date_translator.lua",
+            "lua/debuger.lua",
+            "lua/en_spacer.lua",
+            "lua/force_gc.lua",
+            "lua/is_in_user_dict.lua",
+            "lua/long_word_filter.lua",
+            "lua/lunar.lua",
+            "lua/number_translator.lua",
+            "lua/pin_cand_filter.lua",
+            "lua/reduce_english_filter.lua",
+            "lua/search.lua",
+            "lua/select_character.lua",
+            "lua/t9_preedit.lua",
+            "lua/unicode.lua",
+            "lua/v_filter.lua"
+        ],
+        "outputs": [
+            "lua/autocap_filter.lua",
+            "lua/calc_translator.lua",
+            "lua/cn_en_spacer.lua",
+            "lua/cold_word_drop/drop_words.lua",
+            "lua/cold_word_drop/filter.lua",
+            "lua/cold_word_drop/hide_words.lua",
+            "lua/cold_word_drop/logger.lua",
+            "lua/cold_word_drop/metatable.lua",
+            "lua/cold_word_drop/processor.lua",
+            "lua/cold_word_drop/reduce_freq_words.lua",
+            "lua/cold_word_drop/string.lua",
+            "lua/corrector.lua",
+            "lua/date_translator.lua",
+            "lua/debuger.lua",
+            "lua/en_spacer.lua",
+            "lua/force_gc.lua",
+            "lua/is_in_user_dict.lua",
+            "lua/long_word_filter.lua",
+            "lua/lunar.lua",
+            "lua/number_translator.lua",
+            "lua/pin_cand_filter.lua",
+            "lua/reduce_english_filter.lua",
+            "lua/search.lua",
+            "lua/select_character.lua",
+            "lua/t9_preedit.lua",
+            "lua/unicode.lua",
+            "lua/v_filter.lua"
+        ]
+    },
+    "melt_eng": {
+        "dependencies": [],
+        "inputs": [
+            "melt_eng.dict.yaml",
+            "melt_eng.schema.yaml",
+            "en_dicts/en.dict.yaml",
+            "en_dicts/en_ext.dict.yaml"
+        ],
+        "outputs": [
+            "melt_eng.dict.yaml",
+            "melt_eng.schema.yaml",
+            "en_dicts/en.dict.yaml",
+            "en_dicts/en_ext.dict.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin.schema.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin_abc": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin_abc.schema.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin_flypy": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin_flypy.schema.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin_mspy": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin_mspy.schema.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin_sogou": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin_sogou.schema.yaml"
+        ]
+    },
+    "melt_eng_double_pinyin_ziguang": {
+        "dependencies": [
+            "melt_eng"
+        ],
+        "inputs": [],
+        "outputs": [
+            "melt_eng_double_pinyin_ziguang.schema.yaml"
+        ]
+    },
+    "opencc": {
+        "dependencies": [],
+        "inputs": [
+            "opencc/emoji.json",
+            "opencc/emoji.txt",
+            "opencc/others.txt"
+        ],
+        "outputs": [
+            "opencc/emoji.json",
+            "opencc/emoji.txt",
+            "opencc/others.txt"
+        ]
+    },
+    "pinyin": {
+        "dependencies": [
+            "lua",
+            "default-patch",
+            "opencc",
+            "melt_eng",
+            "radical_pinyin",
+            "symbols_v"
+        ],
+        "inputs": [
+            "rime_ice.schema.yaml",
+            "rime_ice.dict.yaml",
+            "cn_dicts/41448.dict.yaml",
+            "cn_dicts/8105.dict.yaml",
+            "cn_dicts/base.dict.yaml",
+            "cn_dicts/ext.dict.yaml",
+            "cn_dicts/others.dict.yaml",
+            "cn_dicts/tencent.dict.yaml",
+            "custom_phrase.txt",
+            "en_dicts/cn_en.txt"
+        ],
+        "outputs": [
+            "rime_ice.schema.yaml",
+            "rime_ice.dict.yaml",
+            "cn_dicts/41448.dict.yaml",
+            "cn_dicts/8105.dict.yaml",
+            "cn_dicts/base.dict.yaml",
+            "cn_dicts/ext.dict.yaml",
+            "cn_dicts/others.dict.yaml",
+            "cn_dicts/tencent.dict.yaml",
+            "custom_phrase.txt",
+            "en_dicts/cn_en.txt"
+        ]
+    },
+    "radical_pinyin": {
+        "dependencies": [],
+        "inputs": [
+            "radical_pinyin.dict.yaml",
+            "radical_pinyin.schema.yaml"
+        ],
+        "outputs": [
+            "radical_pinyin.dict.yaml",
+            "radical_pinyin.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin_abc": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin_abc.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin_flypy": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin_flypy.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin_mspy": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin_mspy.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin_sogou": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin_sogou.schema.yaml"
+        ]
+    },
+    "radical_pinyin_double_pinyin_ziguang": {
+        "dependencies": [
+            "radical_pinyin"
+        ],
+        "inputs": [],
+        "outputs": [
+            "radical_pinyin_double_pinyin_ziguang.schema.yaml"
+        ]
+    },
+    "suggestion": {
+        "dependencies": [],
+        "inputs": [
+            "default.yaml"
+        ],
+        "outputs": [
+            "rime_ice_suggestion.yaml"
+        ]
+    },
+    "symbols_caps_v": {
+        "dependencies": [],
+        "inputs": [
+            "symbols_caps_v.yaml"
+        ],
+        "outputs": [
+            "symbols_caps_v.yaml"
+        ]
+    },
+    "symbols_v": {
+        "dependencies": [],
+        "inputs": [
+            "symbols_v.yaml"
+        ],
+        "outputs": [
+            "symbols_v.yaml"
+        ]
+    }
+}
