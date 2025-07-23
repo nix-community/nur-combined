@@ -44,7 +44,7 @@
 
               **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-              ![Build and populate cache](https://github.com/fym998/nur-packages/workflows/Check%2C%20build%20and%20cache/badge.svg)
+              [![Check, build and cache](https://github.com/fym998/nur-packages/actions/workflows/build.yml/badge.svg)](https://github.com/fym998/nur-packages/actions/workflows/build.yml)
               [![Cachix Cache](https://img.shields.io/badge/cachix-fym998--nur-blue.svg)](https://fym998-nur.cachix.org)
 
               ## Packages
