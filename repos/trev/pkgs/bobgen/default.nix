@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  callPackage,
 }:
 buildGoModule (finalAttrs: {
   pname = "bobgen";
@@ -22,6 +23,12 @@ buildGoModule (finalAttrs: {
     "gen/bobgen-mysql"
     "gen/bobgen-sqlite"
   ];
+
+  passthru = {
+    unstable = callPackage ./unstable.nix {
+      bobgen = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "SQL query builder and ORM/Factory generator for Go";
