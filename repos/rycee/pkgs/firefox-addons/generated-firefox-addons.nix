@@ -6539,10 +6539,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "1.8.11";
+      version = "1.9.0";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291806/kiss_translator-1.8.11.xpi";
-      sha256 = "89959d5b60cc39dfd8dbc59cfeab25d8e665d4f7a48a04d6da8c34ad136ab626";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4539825/kiss_translator-1.9.0.xpi";
+      sha256 = "c0f94dd081980101c1d8581a9a04245450f97041a5ef13091be4ce3c91264077";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
