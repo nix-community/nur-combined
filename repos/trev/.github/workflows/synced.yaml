@@ -1,0 +1,33 @@
+name: synced
+
+on:
+  push:
+    branches: ['main']
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  synced:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get repos.json
+        run: |
+          curl -o repos.json "https://raw.githubusercontent.com/nix-community/NUR/refs/heads/main/repos.json.lock"
+          echo "REPOS_JSON=$(jq -c . < repos.json)" >> $GITHUB_ENV
+
+      - name: Compare revs
+        run: |
+          NUR_REV='${{ fromJson(env.REPOS_JSON).repos.trev.rev }}'
+          echo "nur rev: ${NUR_REV}"
+
+          GIT_REV=$(git rev-parse HEAD)
+          echo "git rev: ${GIT_REV}"
+
+          if [[ "${NUR_REV}" != "${GIT_REV}" ]]; then
+            echo "nur rev does not match git rev"
+            exit 1
+          fi
