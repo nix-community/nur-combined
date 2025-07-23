@@ -1169,12 +1169,6 @@
             "sha256": "1dsjlslvdl3fx3271yxqfwf44rdf9dkz1w54hlzm41lgcp01akzd",
             "url": "https://github.com/kuflierl/NUR"
         },
-        "kugland": {
-            "rev": "326b00ea80b1d189afc2fa06bb453506864be59c",
-            "sha256": "0x3n5b0lik9ijz16xidkymlhr6jfpf9f3152xgxsi7ixlrj86rvv",
-            "submodules": true,
-            "url": "https://github.com/kugland/nur-packages"
-        },
         "lambdadog": {
             "rev": "222127489b9b2c89d68ca06e2f3c8f8bace0f65e",
             "sha256": "07v9sim0a4xc5m1v6rrh9mzml70ps9cm494asrj80q3bxmyc16ra",

@@ -724,10 +724,6 @@
         "kuflierl": {
             "url": "https://github.com/kuflierl/NUR"
         },
-        "kugland": {
-            "submodules": true,
-            "url": "https://github.com/kugland/nur-packages"
-        },
         "lambdadog": {
             "file": "nur.nix",
             "url": "https://github.com/lambdadog/nix-extra"
