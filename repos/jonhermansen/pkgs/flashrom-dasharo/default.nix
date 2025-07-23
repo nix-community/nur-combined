@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     #owner = "flashrom";
     repo = "flashrom";
     rev = "fd38bcce890838d0156adc1b7d3897901948c58f";
-    hash = "sha256-yQhBrFFvNxnseAETem8+QHVTIVDBZcduylRawa5r5xk=";
+    hash = "sha256-1+HB4ei2gQUqj67Uy4RttQCxiyxYV4ezF0HRcqHszHU=";
     #rev = "546c74e1fc65a009fdfed6d2e2989e8098d49964";
     #hash = "sha256-luksieDM/DzLVlqc7CBKut77Ht/SaiLVbvGJ+tnT/Sk=";
   };
