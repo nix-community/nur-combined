@@ -39,8 +39,8 @@
       }:
       {
         imports = [
-          ./flake-modules/_internal/dev.nix
-          ./flake-modules/_internal/ci.nix
+          ./flake-modules/_internal/dev
+          ./flake-modules/_internal/ci
         ];
         flake.overlays = import ./overlays;
         systems = import inputs.systems;

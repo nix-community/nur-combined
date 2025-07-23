@@ -31,24 +31,18 @@ libfprint.overrideAttrs (
         sha256 = "sha256-+5B5TPrl0ZCuuLvKNsGtpiU0OiJO7+Q/iz1+/2U4Taw=";
       })
     ];
-    postPatch =
-      (previousAttrs.postPatch or "")
-      + ''
-        substituteInPlace meson.build \
-          --replace "find_library('fpcbep', required: true)" "find_library('fpcbep', required: true, dirs: '$out/lib')"
-      '';
+    postPatch = (previousAttrs.postPatch or "") + ''
+      substituteInPlace meson.build \
+        --replace "find_library('fpcbep', required: true)" "find_library('fpcbep', required: true, dirs: '$out/lib')"
+    '';
     buildInputs = previousAttrs.buildInputs or [ ] ++ [ nss ];
-    preConfigure =
-      (previousAttrs.preConfigure or "")
-      + ''
-        install -D "${fpcbep}/FPC_driver_linux_27.26.23.39/install_fpc/libfpcbep.so" "$out/lib/libfpcbep.so"
-      '';
-    postInstall =
-      (previousAttrs.postInstall or "")
-      + ''
-        install -Dm644 "${fpcbep}/FPC_driver_linux_libfprint/install_libfprint/lib/udev/rules.d/60-libfprint-2-device-fpc.rules" "$out/lib/udev/rules.d/60-libfprint-2-device-fpc.rules"
-        substituteInPlace "$out/lib/udev/rules.d/70-libfprint-2.rules" --replace "/bin/sh" "${pkgs.runtimeShell}"
-      '';
+    preConfigure = (previousAttrs.preConfigure or "") + ''
+      install -D "${fpcbep}/FPC_driver_linux_27.26.23.39/install_fpc/libfpcbep.so" "$out/lib/libfpcbep.so"
+    '';
+    postInstall = (previousAttrs.postInstall or "") + ''
+      install -Dm644 "${fpcbep}/FPC_driver_linux_libfprint/install_libfprint/lib/udev/rules.d/60-libfprint-2-device-fpc.rules" "$out/lib/udev/rules.d/60-libfprint-2-device-fpc.rules"
+      substituteInPlace "$out/lib/udev/rules.d/70-libfprint-2.rules" --replace "/bin/sh" "${pkgs.runtimeShell}"
+    '';
     meta = previousAttrs.meta // {
       description = "libfprint with proprietary FPC match on host device 10a5:9800 driver";
       homepage = "https://aur.archlinux.org/packages/libfprint-fpcmoh-git";

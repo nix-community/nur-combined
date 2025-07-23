@@ -64,5 +64,14 @@ in
       in
       filterAttrs (_name: p: isBuildable p && isCacheable p && isSupported p) ciPackages
     ) (mapAttrs (_system: perSystem: perSystem.ciPackages) config.allSystems);
+
+    perSystem =
+      { pkgs, ... }:
+      {
+        legacyPackages._internal.ci = lib.packagesFromDirectoryRecursive {
+          inherit (pkgs) callPackage;
+          directory = ./tools;
+        };
+      };
   };
 }

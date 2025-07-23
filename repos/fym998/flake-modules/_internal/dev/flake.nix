@@ -8,6 +8,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    files.url = "github:mightyiam/files";
+
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
