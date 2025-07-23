@@ -21,7 +21,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    ref = "${pkgs.lib.meta.getExe finalAttrs}";
+    ref = "${pkgs.lib.meta.getExe finalAttrs.finalPackage}";
   };
 
   unpackPhase = ''
@@ -53,7 +53,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "shellHook for devShells";
-    mainProgram = "bumper";
+    mainProgram = "shellhook";
     homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/shellhook/shellhook.sh";
     platforms = lib.platforms.all;
   };
