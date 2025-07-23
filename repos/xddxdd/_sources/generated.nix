@@ -201,41 +201,41 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.4.1000.61";
+    version = "13.4.1000.63";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.61-1_amd64.deb";
-      hash = "sha256-xBi/88/bXIXh7CLKP7TqjX2Tiatm+e306n9otTh0+Ug=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_amd64.deb";
+      hash = "sha256-9ob75CURM2cik8/njsVr92/It4pIrGAwf/quHiEdwSM=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.4.1000.61";
+    version = "13.4.1000.63";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.61-1_arm64.deb";
-      hash = "sha256-stwvmgoeq0gk+8vZu5/VPTweEpJkTDv2TcuOJAKIC9I=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_arm64.deb";
+      hash = "sha256-CLTVo2GMlVEuxB/dmaaWkxRMlEIqniixW1cbwcTHxfU=";
     };
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "72abad2d6e246d8d3a764ff78e4e54b626ec3995";
+    version = "56a7e40e7393cecc497475e70894bf5652340e38";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "72abad2d6e246d8d3a764ff78e4e54b626ec3995";
-      hash = "sha256-4C7Y6lC4XQMNueaD3/hSzuCuRxvaCWA9pgtRnnwwABw=";
+      rev = "56a7e40e7393cecc497475e70894bf5652340e38";
+      hash = "sha256-9G1lzAufjHq3NJFYlq7SXK7r2VEhL580YURVokhaxjc=";
     };
-    date = "2025-07-17";
+    date = "2025-07-22";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "723563c04f9b843979d2a3ff5a92335b625b3035";
+    version = "7d1289f9fc7a20e9e86cfe0b570fa2f21d073262";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "723563c04f9b843979d2a3ff5a92335b625b3035";
-      hash = "sha256-ETWccYsyyuiFrfmzfyavSxarxgB2Y9gRNIZ1SfeLALw=";
+      rev = "7d1289f9fc7a20e9e86cfe0b570fa2f21d073262";
+      hash = "sha256-1HXZdPnaZeZN/dsLT4sDK4zGvokoiSYbb3VqDYRtcpk=";
     };
-    date = "2025-07-17";
+    date = "2025-07-21";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -641,14 +641,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "a750595594321833b48dc19798eed66876a100b4";
+    version = "8316fc41973b89267a70681a7afe4e947e0ba251";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "a750595594321833b48dc19798eed66876a100b4";
-      hash = "sha256-NZFDOR2wAUxOK+7wQS7KMVIXutZ3uS+dBZEOKb6wKq4=";
+      rev = "8316fc41973b89267a70681a7afe4e947e0ba251";
+      hash = "sha256-OjqRs/1ZEG34nFA8F23jx3r5eplphu5R8wLcQ8BYzC0=";
     };
-    date = "2025-07-04";
+    date = "2025-07-23";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -780,14 +780,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "cd7ba37e55145958b9238a5fbc7709686fb60074";
+    version = "dc62d91c79bfbb7178ae2f722be12eeac74e72d1";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "cd7ba37e55145958b9238a5fbc7709686fb60074";
-      hash = "sha256-ZyD8rgwFOAWXhShpab6JOH013hpSOm79T2StVyyWGks=";
+      rev = "dc62d91c79bfbb7178ae2f722be12eeac74e72d1";
+      hash = "sha256-0Fw/mdPft/8W1R3Yy5822XroeYhxx9hdeLWa28QT5kc=";
     };
-    date = "2025-07-17";
+    date = "2025-07-22";
   };
   igsc = {
     pname = "igsc";
@@ -837,20 +837,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.19.0";
+    version = "3.19.1";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.19.0";
-      hash = "sha256-p2DfcMJ3OTSbO5mNuRnCXLwDN+3G7uj8YxytFKNIwyE=";
+      tag = "3.19.1";
+      hash = "sha256-h9Jsto2l1NhQEwIQoecT/D+yt/QbGoqqH/l6NNzJOwk=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.19.0";
+    version = "3.19.1";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.19.0/kata-static-3.19.0-amd64.tar.xz";
-      hash = "sha256-8tZ4aLWWbF53BA7U+b0IxKzdn+qVXUN/pAbTp1OiUAY=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.19.1/kata-static-3.19.1-amd64.tar.xz";
+      hash = "sha256-ruJEib+iM/5+iYfHhK2/FOmtdwfQJKNe4vv6pkaGp7w=";
     };
   };
   kikoplay = {
@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5943";
+    version = "b5968";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5943";
-      hash = "sha256-8bMUsoVnJMj6Z0K/h38DGVW4XIZiCT/aCCmQ+r6cKyU=";
+      tag = "b5968";
+      hash = "sha256-7nN0Caa4lw1vlsuXripMFmfL3RwOm6APAxbjWtuAb+g=";
     };
   };
   loralib = {
@@ -1741,14 +1741,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "49b65a6f63af169f1571b025d65a7d88c3231b6f";
+    version = "ce6d893abdd768bbddce4a80f4640c7b99f5c25f";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "49b65a6f63af169f1571b025d65a7d88c3231b6f";
-      hash = "sha256-SKwns46TO72JE/wPYZ1TliRxcO8n/MLjF3dYIMM2va8=";
+      rev = "ce6d893abdd768bbddce4a80f4640c7b99f5c25f";
+      hash = "sha256-w6tPrPgo78Jk2a5ckVzW49kmRSq16YGxaPeTeaDE4s8=";
     };
-    date = "2025-07-17";
+    date = "2025-07-22";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1823,12 +1823,12 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "55fd158b891d4da8d5eab61e3a2e35722a32eb60";
+    version = "c3eacb31c8debfc1e8a700c5c187a0415cb1a64a";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "55fd158b891d4da8d5eab61e3a2e35722a32eb60";
-      hash = "sha256-l1buBA51NfC6kqCGjE1T7S5WXiRyaQoKLgymcv4D8RU=";
+      rev = "c3eacb31c8debfc1e8a700c5c187a0415cb1a64a";
+      hash = "sha256-bVbvRfrlkdkJe/q9fYqTM4LESwq/7jwrp40j1/LyFnM=";
     };
     date = "2025-07-21";
   };
@@ -2251,12 +2251,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.22.17";
+    version = "1.22.18a";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.22.17";
-      hash = "sha256-khp0o0F2lEDdHiPrZIqxEaGmiGeZ6kbrZuArbOOAoFw=";
+      tag = "1.22.18a";
+      hash = "sha256-PxlGSt4oAuktTMHWIhP8G+vcvHoeD/1M4IpfCzHdA6Y=";
     };
   };
   vgpu-unlock-rs = {
