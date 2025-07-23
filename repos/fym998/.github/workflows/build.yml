@@ -14,78 +14,7 @@ env:
   NUR_REPO: fym998
 
 jobs:
-  check-and-evaluate:
-    runs-on: ubuntu-latest
-    outputs:
-      eval_hash: ${{ steps.eval.outputs.eval_hash }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: ./.github/actions/install-nix
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Show flake metadata
-        run: nix flake metadata --json
-
-      - name: Check
-        run: nix run .#_internal.ci.check
-
-      - name: Evaluate and generate hash
-        id: eval
-        run: |
-          nix run .#_internal.ci.eval | tee eval_output.txt
-
-          EVAL_HASH=$(sha256sum eval_output.txt | awk '{print $1}')
-          echo "eval_hash=$EVAL_HASH" >> $GITHUB_OUTPUT
-
-  build-control:
-    runs-on: ubuntu-latest
-    needs: check-and-evaluate
-    outputs:
-      should_build: ${{ steps.compare.outputs.changed || github.event_name == 'workflow_dispatch' }}
-    steps:
-      - name: Restore previous eval hash
-        uses: actions/cache/restore@v4
-        with:
-          path: eval_hash.txt
-          key: eval_hash-${{ github.sha }}
-          restore-keys: |
-            eval_hash-
-
-      - name: Compare evaluation hashes
-        id: compare
-        run: |
-          CURRENT_HASH="${{ needs.check-and-evaluate.outputs.eval_hash }}"
-
-          if [ -f eval_hash.txt ]; then
-            PREV_HASH=$(cat eval_hash.txt)
-          else
-            PREV_HASH=""
-          fi
-
-          echo "Current hash: $CURRENT_HASH"
-          echo "Previous hash: $PREV_HASH"
-
-          if [ "$CURRENT_HASH" != "$PREV_HASH" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "$CURRENT_HASH" > eval_hash.txt
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Save new eval hash
-        if: steps.compare.outputs.changed == 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: eval_hash.txt
-          key: eval_hash-${{ github.sha }}
-
   build:
-    needs: build-control
-    if: ${{ needs.build-control.outputs.should_build == 'true' }}
     strategy:
       matrix:
         runner:
@@ -101,14 +30,20 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Show flake metadata
+        run: nix flake metadata --json
+
+      - name: Check
+        run: nix run .#_internal.ci.check
+
       - name: Build and cache packages
         env:
           CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_AUTH_TOKEN }}"
         run: nix run .#_internal.ci.build
 
   trigger-nur-update:
-    needs: [check-and-evaluate, build]
-    if: github.event_name != 'pull_request' && success() || (needs.check-and-evaluate.result == 'success' && needs.build.result == 'skipped')
+    needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update

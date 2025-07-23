@@ -6,13 +6,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
-      with:
-        extra_nix_config: |
-          access-tokens = github.com=${{ inputs.github_access_token }}
-          accept-flake-config = true
-
     - name: Cache Nix cache
       uses: actions/cache@v4
       id: nix-cache
@@ -22,6 +15,13 @@ runs:
         key: nix-cache-${{ hashFiles('**/flake.lock') }}
         restore-keys: |
           nix-cache-
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ inputs.github_access_token }}
+          accept-flake-config = true
 
     - name: Show Nix info
       shell: bash
