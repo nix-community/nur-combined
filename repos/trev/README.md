@@ -12,7 +12,8 @@
   - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
 - [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
   - Blocked by [opengrep#347](https://github.com/opengrep/opengrep/pull/347)
-- bumper - Shell script for creating git version bumps (ie. 0.0.1 -> 0.0.2)
+- [bumper](https://github.com/spotdemo4/nur/blob/main/pkgs/bumper/bumper.sh) - Shell script for doing git version bumps (ie. 0.0.1 -> 0.0.2)
+- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh) - Shell script to run when entering a git repo with direnv
 
 ## Overlays
 
