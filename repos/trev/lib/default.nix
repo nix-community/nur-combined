@@ -6,13 +6,20 @@
     pkgs.stdenvNoCC.mkDerivation {
       name = name;
       src = check.src or ./.;
-      doCheck = true;
-      checkPhase = check.checkPhase;
+      dontConfigure = true;
       dontBuild = true;
-      nativeBuildInputs = check.nativeBuildInputs or [];
+      dontFixup = true;
+
+      nativeBuildInputs = check.deps or check.nativeBuildInputs or [];
+
+      doCheck = true;
+      checkPhase = pkgs.lib.strings.concatLines [
+        "export HOME=$(mktemp -d)"
+        check.script or check.checkPhase
+      ];
+
       installPhase = ''
         touch $out
       '';
-    }
-    // check);
+    });
 }
