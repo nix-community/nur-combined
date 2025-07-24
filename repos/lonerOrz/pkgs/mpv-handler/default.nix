@@ -40,6 +40,7 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Play website videos and songs with mpv & yt-dlp.";
     homepage = "https://github.com/akiirui/mpv-handler";
+    mainProgram = "mpv-handler";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     binaryNativeCode = true;
