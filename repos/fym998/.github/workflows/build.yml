@@ -6,11 +6,11 @@ on:
     branches:
       - main
     paths-ignore:
+      - '**.md'
       - .github/**
       - .vscode/**
       - flake-modules/_internal/dev/**
       - LICENSE
-      - '*.md'
       - '*.json'
       - .gitignore
       - .envrc
