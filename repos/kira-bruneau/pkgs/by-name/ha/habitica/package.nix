@@ -26,11 +26,12 @@ let
     LOGGLY_CLIENT_TOKEN = "";
     LOGGLY_SUBDOMAIN = "";
     LOGGLY_TOKEN = "";
-  } // settings;
+  }
+  // settings;
 in
 buildNpmPackage rec {
   pname = "habitica";
-  version = "5.37.1";
+  version = "5.37.2";
 
   outputs = [
     "out"
@@ -42,10 +43,10 @@ buildNpmPackage rec {
     owner = "HabitRPG";
     repo = "habitica";
     tag = "v${version}";
-    hash = "sha256-7zF2INOucg3kAi4CikvSaqdbUhOfS0PaCN+1Nbl7B+M=";
+    hash = "sha256-4vAFmCCftMEI9oUMAjNInVSf2jtm96FgIDw4fQVuZ0I=";
   };
 
-  npmDepsHash = "sha256-wxqAT2AJyQY5fOGXHswLeNi/5AKE5PTzmrJLgnazjCU=";
+  npmDepsHash = "sha256-7RtvaV7/a4I//MVMHFB6Oh7yZ1yLxFHdY/tkXpNqLV8=";
 
   postPatch = ''
     sed -i /postinstall/d package.json

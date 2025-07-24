@@ -34,11 +34,9 @@ habitica.overrideAttrs (attrs: {
   client = habitica.client.overrideAttrs (attrs: {
     pname = "jakirica-client";
 
-    postPatch =
-      (attrs.postPatch or "")
-      + ''
-        chmod +w -R ../common
-        (cd ../..; ${branding})
-      '';
+    postPatch = (attrs.postPatch or "") + ''
+      chmod +w -R ../common
+      (cd ../..; ${branding})
+    '';
   });
 }

@@ -13,7 +13,8 @@ let
     PORT = "/run/habitica/socket";
     NODE_DB_URI = lib.optionalString cfg.mongodb.enable "mongodb://${config.services.mongodb.bind_ip}/${cfg.mongodb.name}?replicaSet=${config.services.mongodb.replSetName}";
     TRUSTED_DOMAINS = "http://${cfg.hostName}";
-  } // cfg.settings;
+  }
+  // cfg.settings;
 
   backendUrl =
     if lib.types.path.check resolvedSettings.PORT then
