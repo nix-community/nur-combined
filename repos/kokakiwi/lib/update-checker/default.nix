@@ -38,7 +38,7 @@
   in lib.filterAttrs (name: drv: let
     failed = map (x: x.message) (lib.filter (x: !(x.check name drv)) checks);
     failedStr = lib.concatMapStringsSep "\n" (msg: "- ${msg}") failed;
-  in if failed == [ ] || lib.hasAttr name sources then true
+  in if failed == [ ] || lib.hasAttr name sources || drv.meta ? updateSource then true
   else lib.trace "warning: ${name}\n${failedStr}" false) packages;
 
   oldVerFile = let
@@ -55,7 +55,7 @@
   in json.generate "oldver.json" data;
 
   mkEntry = name: drv: let
-    inherit (drv) src;
+    src = drv.src or { };
 
     isUnstable = lib.hasInfix "unstable" drv.name;
 
@@ -104,7 +104,8 @@
         use_commit = true;
       }
       else null;
-    in if sources ? ${name} then sources.${name}
+    in if drv.meta ? updateSource then drv.meta.updateSource
+    else if sources ? ${name} then sources.${name}
     else if isUnstable then unstableConfig
     else stableConfig;
 
