@@ -5,6 +5,11 @@
   ...
 }:
 reIf {
+
+  services.prometheus.exporters.postgres = {
+    enable = true;
+    listenAddress = "[::]";
+  };
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16_jit;
@@ -12,17 +17,17 @@ reIf {
     settings = {
       port = 5432;
       max_connections = 100;
-      shared_buffers = "2GB";
-      effective_cache_size = "6GB";
-      maintenance_work_mem = "512MB";
+      shared_buffers = "8GB";
+      effective_cache_size = "24GB";
+      maintenance_work_mem = "2GB";
       checkpoint_completion_target = 0.9;
-      wal_buffers = "16MB";
+      wal_buffers = "-1";
       default_statistics_target = 100;
       random_page_cost = 1.1;
       effective_io_concurrency = 200;
-      work_mem = "5242kB";
-      min_wal_size = "1GB";
-      max_wal_size = "4GB";
+      work_mem = "64MB";
+      min_wal_size = "2GB";
+      max_wal_size = "8GB";
       max_worker_processes = 4;
       max_parallel_workers_per_gather = 2;
       max_parallel_workers = 4;

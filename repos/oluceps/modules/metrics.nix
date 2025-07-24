@@ -13,28 +13,29 @@ in
     enable = lib.mkEnableOption "export server metrics";
   };
   config = lib.mkIf cfg.enable {
-    services.prometheus.exporters.node = {
-      enable = true;
-      listenAddress = "[::]";
-      enabledCollectors = [ "systemd" ];
-      disabledCollectors = [ "arp" ];
-    };
-    services.prometheus.exporters.blackbox = {
-      enable = true;
-      listenAddress = "[::]";
-      configFile = (pkgs.formats.yaml { }).generate "config.yml" {
-        modules = {
-          http_2xx = {
-            prober = "http";
+    services.prometheus.exporters = {
+      node = {
+        enable = true;
+        listenAddress = "[::]";
+        enabledCollectors = [ "systemd" ];
+        disabledCollectors = [ "arp" ];
+      };
+      blackbox = {
+        enable = true;
+        listenAddress = "[::]";
+        configFile = (pkgs.formats.yaml { }).generate "config.yml" {
+          modules = {
+            http_2xx = {
+              prober = "http";
+            };
           };
         };
       };
+      chrony = {
+        enable=true;
+        listenAddress="[::]";
+      };
     };
-
-    # services.prometheus.exporters.bird = {
-    #   enable = true;
-    #   listenAddress = "[::]";
-    # };
 
     repack.caddy.enable = true;
     repack.caddy.settings.apps.http.servers.srv0.routes = [

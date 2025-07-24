@@ -6,18 +6,7 @@
   ...
 }:
 let
-  targets = map (n: "${n}.nyaw.xyz") [
-    # "nodens"
-    "yidhra"
-    "hastur"
-    "eihort"
-    "abhoth"
-  ];
-  targets_notls = map (n: "${n}.nyaw.xyz") [
-    # "kaambl"
-    # "yidhra"
-    # "azasos"
-  ];
+  targets = map (n: "${n}.nyaw.xyz") (builtins.attrNames lib.data.node);
   relabel_configs = [
     {
       source_labels = [ "__address__" ];
@@ -86,20 +75,48 @@ reIf {
           static_configs = [ { inherit targets; } ];
         }
         {
-          job_name = "metrics-notls";
-          scheme = "http";
-          basic_auth = {
-            username = "prometheus";
-            password_file = secPath;
-          };
-          static_configs = [ { targets = targets_notls; } ];
-        }
-        {
           job_name = "seaweedfs_metrics";
           scheme = "http";
           static_configs = [ { targets = [ "[fdcc::3]:9768" ]; } ];
         }
-
+        {
+          job_name = "centre_psql_metrics";
+          scheme = "http";
+          static_configs = [ { targets = [ "[fdcc::3]:9187" ]; } ];
+        }
+        {
+          job_name = "chrony_metrics";
+          scheme = "http";
+          static_configs = [
+            {
+              targets = [
+                "[fdcc::3]:9123"
+                "[fdcc::2]:9123"
+                "[fdcc::1]:9123"
+              ];
+            }
+          ];
+          relabel_configs = [
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::1\\]:9123";
+              target_label = "instance";
+              replacement = "hastur.nyaw.xyz";
+            }
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::2\\]:9123";
+              target_label = "instance";
+              replacement = "kaambl.nyaw.xyz";
+            }
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::3\\]:9123";
+              target_label = "instance";
+              replacement = "eihort.nyaw.xyz";
+            }
+          ];
+        }
         {
           job_name = "http";
           scheme = "http";
@@ -131,7 +148,8 @@ reIf {
             rules = [
               {
                 alert = "NodeDown";
-                expr = ''up == 0'';
+                expr = ''up{instance != "kaambl.nyaw.xyz"} == 0'';
+                for = "5m";
               }
               {
                 alert = "OOM";
@@ -148,6 +166,21 @@ reIf {
               {
                 alert = "BtrfsDevErr";
                 expr = ''sum(rate(node_btrfs_device_errors_total[2m])) > 0'';
+              }
+            ];
+          }
+          {
+            name = "chrony";
+            rules = [
+              {
+                record = "instance:chrony_clock_error_seconds:abs";
+                expr = ''
+                  abs(chrony_tracking_last_offset_seconds)
+                  +
+                  chrony_tracking_root_dispersion_seconds
+                  +
+                  (0.5 * chrony_tracking_root_delay_seconds)
+                '';
               }
             ];
           }
