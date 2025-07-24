@@ -5,6 +5,7 @@
   fetchPypi,
   setuptools,
   zstd-c,
+  typing-extensions,
   pytestCheckHook,
   nix-update-script,
 }:
@@ -33,6 +34,7 @@ buildPythonPackage rec {
   ];
 
   dependencies = [
+    typing-extensions
     zstd-c
   ];
 
