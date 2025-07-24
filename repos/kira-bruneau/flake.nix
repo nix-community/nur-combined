@@ -87,7 +87,7 @@
               };
             };
 
-            nixfmt-rfc-style.paths = paths.nix;
+            nixfmt.paths = paths.nix;
 
             prettier.paths = paths.markdown;
           };
