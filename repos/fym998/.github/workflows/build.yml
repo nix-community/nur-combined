@@ -5,6 +5,15 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - .github/**
+      - .vscode/**
+      - flake-modules/_internal/dev/**
+      - LICENSE
+      - '*.md'
+      - '*.json'
+      - .gitignore
+      - .envrc
   schedule:
     - cron: "25 4 * * 6" # Every Saturday at 04:25 UTC
   workflow_dispatch:

@@ -11,6 +11,7 @@ in
     devShells = devPartitionName;
     checks = devPartitionName;
     formatter = devPartitionName;
+    files = devPartitionName;
   };
   partitions.${devPartitionName} = {
     extraInputsFlake = ./.;

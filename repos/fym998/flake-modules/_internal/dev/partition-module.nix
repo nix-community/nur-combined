@@ -15,6 +15,7 @@
       config,
       pkgs,
       lib,
+      system,
       ...
     }:
     {
@@ -43,7 +44,7 @@
             {
               enable = true;
               package = writerPkg;
-              entry = "${writerPkg}/bin/${writerCfg.exeFilename}";
+              entry = "nix run .#files.${system}.writer.drv";
             };
         };
       };
