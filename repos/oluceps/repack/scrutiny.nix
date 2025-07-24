@@ -1,5 +1,6 @@
 { reIf, ... }:
 reIf {
+  systemd.services.scrutiny.after = [ "bird.service" ];
   services.scrutiny = {
     enable = true;
     collector = {

@@ -23,7 +23,7 @@
 
   users.mutableUsers = false;
   users.users.root = {
-    hashedPassword = data.keys.hashedPasswd;
+    # hashedPassword = data.keys.hashedPasswd;
     openssh.authorizedKeys.keys = [
       data.keys.sshPubKey
       data.keys.skSshPubKey

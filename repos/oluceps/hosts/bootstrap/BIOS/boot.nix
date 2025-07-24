@@ -1,5 +1,15 @@
 _: {
   boot = {
+    loader = {
+      timeout = 3;
+      grub.enable = false;
+      limine = {
+        enable = true;
+        efiSupport = false;
+        biosSupport = true;
+        biosDevice = "/dev/vda";
+      };
+    };
     kernelParams = [
       "audit=0"
       "net.ifnames=0"
@@ -7,7 +17,7 @@ _: {
       "earlyprintk=ttyS0"
       "rootdelay=300"
       "19200n8"
-      # "ia32_emulation=0"
+      "ia32_emulation=0"
     ];
     initrd = {
       compressor = "zstd";
@@ -18,9 +28,9 @@ _: {
       systemd.enable = true;
 
       kernelModules = [
-        "hv_netvsc"
-        "hv_utils"
-        "hv_storvsc"
+        # "hv_netvsc"
+        # "hv_utils"
+        # "hv_storvsc"
       ];
     };
   };

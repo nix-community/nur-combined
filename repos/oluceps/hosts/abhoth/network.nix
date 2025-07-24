@@ -50,13 +50,13 @@
             iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
           }
         }
-        table ip6 nat {
-          chain postrouting {
-            type nat hook postrouting priority srcnat; policy accept;
-            iifname { hts-yidhra, hts-kaambl } oifname eth0 ip6 saddr fdcc::/16 snat to 2400:8905::f03c:95ff:fe50:a173
-          }
-        }
       '';
+      # table ip6 nat {
+      #   chain postrouting {
+      #     type nat hook postrouting priority srcnat; policy accept;
+      #     iifname { hts-yidhra, hts-kaambl } oifname eth0 ip6 saddr fdcc::/16 snat to 2400:8905::f03c:95ff:fe50:a173
+      #   }
+      # }
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
@@ -73,20 +73,20 @@
     };
 
     links."10-eth0" = {
-      matchConfig.MACAddress = "f2:3c:95:50:77:31";
+      matchConfig.MACAddress = "36:3b:65:1b:7a:0f";
       linkConfig.Name = "eth0";
     };
 
-    networks."20-eth0" = {
+    networks."8-eth0" = {
       matchConfig.Name = "eth0";
-
       networkConfig = {
         DHCP = "ipv4";
         IPv4Forwarding = true;
         IPv6Forwarding = true;
-        IPv6AcceptRA = "yes";
+        IPv6AcceptRA = true;
       };
-    };
 
+      linkConfig.RequiredForOnline = "routable";
+    };
   };
 }

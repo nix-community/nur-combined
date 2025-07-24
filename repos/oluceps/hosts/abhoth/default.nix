@@ -35,10 +35,12 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
+      ./disk.nix
       ./hardware.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
+      ../perlless.nix
       (lib.iage "cloud")
       ./caddy.nix
       # ../../packages.nix

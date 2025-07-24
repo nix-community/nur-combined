@@ -14,8 +14,8 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
-    package = inputs'.dae.packages.dae-dirty;
-    # package = inputs'.dae.packages.dae;
+    # package = inputs'.dae.packages.dae-dirty;
+    package = inputs'.dae.packages.dae-unstable;
     config = ''
       include {
           secret.dae
@@ -59,7 +59,7 @@ reIf {
 
           domain(suffix:migadu.com) -> all
           dport(465) -> all
-          domain(geosite:google-gemini,openai,geosite:category-ai-chat-!cn,cloudflare) -> ai
+          domain(geosite:google-gemini,google,openai,geosite:category-ai-chat-!cn,cloudflare) -> ai
           domain(suffix: copilot.microsoft.com,
               suffix: gateway-copilot.bingviz.microsoftapp.net,
               suffix: mobile.events.data.microsoft.com,
@@ -76,7 +76,20 @@ reIf {
               suffix: apple-relay.cloudflare.com,
               suffix: apple-relay.fastly-edge.com,
               suffix: cp4.cloudflare.com,
-              suffix: apple-relay.apple.com) -> ai
+              suffix: apple-relay.apple.com,
+              domain: ai.google.dev,
+              domain: alkalimakersuite-pa.clients6.google.com,
+              domain: makersuite.google.com,
+              domain: bard.google.com,
+              domain: deepmind.com,
+              domain: deepmind.google,
+              domain: gemini.google.com,
+              domain: generativeai.google,
+              domain: proactivebackend-pa.googleapis.com,
+              domain: apis.google.com,
+              domain: colab,
+              domain: developerprofiles,
+              domain: generativelanguage) -> ai
 
           domain(${
             lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)

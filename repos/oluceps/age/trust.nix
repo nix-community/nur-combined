@@ -28,12 +28,12 @@
   "dae"
 ])
 // {
-  hyst-osa-cli = {
+  hyst-tyo-cli = {
     file = ../sec/hyst-cli.age;
     cleanPlaceholder = true;
     insert = {
       "f3c4e59bfb78c6a26564724aaadda3ac3250d73ee903b17e3803785335bd082c" = {
-        content = "172.234.92.148";
+        content = "154.31.114.112";
         order = 0;
       };
       "b1ca20eb6f34aa70cc00682636eb3582d592727923789fed0eeb56fa567d5c01" = {

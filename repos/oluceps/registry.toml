@@ -53,13 +53,13 @@ link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 pub_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 
 [node.abhoth]
-# linode
+# dmit
 id = 4
-addr = "172.234.92.148"
+addr = "154.31.114.112"
 censor = false
 nat = false
 user = "elen"
-ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK5GIXqK0XUjtZip+GVlWno+Dibf43f9Zpm7ydZAWKh0"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRMxm3SFj1DwUjCTF4ByMVYQNMOPzi/Kqff5fTEvtG9"
 
 unique_addr = "fdcc::5/128"
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"

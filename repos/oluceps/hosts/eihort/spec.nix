@@ -7,9 +7,9 @@
 
 {
   vaultix.templates = {
-    hyst-osa = {
+    hyst-tyo = {
       content =
-        config.vaultix.placeholder.hyst-osa-cli
+        config.vaultix.placeholder.hyst-tyo-cli
         + (
           let
             port = toString (lib.conn { }).${config.networking.hostName}.abhoth;
@@ -25,7 +25,7 @@
         );
       owner = "root";
       group = "users";
-      name = "osa.yaml";
+      name = "tyo.yaml";
       trim = false;
     };
     hyst-hk = {
@@ -166,7 +166,7 @@
     hysteria.instances = {
       abhoth = {
         enable = true;
-        configFile = config.vaultix.templates.hyst-osa.path;
+        configFile = config.vaultix.templates.hyst-tyo.path;
       };
       yidhra = {
         enable = true;
