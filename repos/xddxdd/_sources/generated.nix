@@ -1065,12 +1065,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5968";
+    version = "b5976";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5968";
-      hash = "sha256-7nN0Caa4lw1vlsuXripMFmfL3RwOm6APAxbjWtuAb+g=";
+      tag = "b5976";
+      hash = "sha256-M3PrrFxGaNHGSYnTpJQ2hocvEfVWTwe7d9um/Ps/KW8=";
     };
   };
   loralib = {
@@ -1741,14 +1741,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "ce6d893abdd768bbddce4a80f4640c7b99f5c25f";
+    version = "997be0ea89a01f21a3517745518198126e716e7f";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "ce6d893abdd768bbddce4a80f4640c7b99f5c25f";
-      hash = "sha256-w6tPrPgo78Jk2a5ckVzW49kmRSq16YGxaPeTeaDE4s8=";
+      rev = "997be0ea89a01f21a3517745518198126e716e7f";
+      hash = "sha256-Me5yxKOuRKJfqK1KMruKFngE2LnSLyoGb1lqPKZBrWs=";
     };
-    date = "2025-07-22";
+    date = "2025-07-23";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2179,15 +2179,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "e6baf2eaad43f382e6e331ac31f68842b8b8e47c";
+    version = "cee13bc203437f8792c05dd7350bf65d8108bbd2";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "e6baf2eaad43f382e6e331ac31f68842b8b8e47c";
+      rev = "cee13bc203437f8792c05dd7350bf65d8108bbd2";
       fetchSubmodules = true;
-      hash = "sha256-q0I1f9SUvKPGn/qagIPXHF4pnBXrXpOOVPKOhdslJ/A=";
+      hash = "sha256-2DLl7cOdKS+VY64V9cTtALx6KUt/k3rDYoNNG0O+2Rg=";
     };
-    date = "2025-07-21";
+    date = "2025-07-24";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

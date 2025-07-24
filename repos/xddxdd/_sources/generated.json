@@ -2078,12 +2078,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b5968",
-            "sha256": "sha256-7nN0Caa4lw1vlsuXripMFmfL3RwOm6APAxbjWtuAb+g=",
+            "rev": "b5976",
+            "sha256": "sha256-M3PrrFxGaNHGSYnTpJQ2hocvEfVWTwe7d9um/Ps/KW8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5968"
+        "version": "b5976"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3397,7 +3397,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-07-22",
+        "date": "2025-07-23",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3409,12 +3409,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "ce6d893abdd768bbddce4a80f4640c7b99f5c25f",
-            "sha256": "sha256-w6tPrPgo78Jk2a5ckVzW49kmRSq16YGxaPeTeaDE4s8=",
+            "rev": "997be0ea89a01f21a3517745518198126e716e7f",
+            "sha256": "sha256-Me5yxKOuRKJfqK1KMruKFngE2LnSLyoGb1lqPKZBrWs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ce6d893abdd768bbddce4a80f4640c7b99f5c25f"
+        "version": "997be0ea89a01f21a3517745518198126e716e7f"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -4255,7 +4255,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-07-21",
+        "date": "2025-07-24",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4267,12 +4267,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "e6baf2eaad43f382e6e331ac31f68842b8b8e47c",
-            "sha256": "sha256-q0I1f9SUvKPGn/qagIPXHF4pnBXrXpOOVPKOhdslJ/A=",
+            "rev": "cee13bc203437f8792c05dd7350bf65d8108bbd2",
+            "sha256": "sha256-2DLl7cOdKS+VY64V9cTtALx6KUt/k3rDYoNNG0O+2Rg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e6baf2eaad43f382e6e331ac31f68842b8b8e47c"
+        "version": "cee13bc203437f8792c05dd7350bf65d8108bbd2"
     },
     "unigine-heaven": {
         "cargoLocks": null,

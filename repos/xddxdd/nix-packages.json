@@ -852,7 +852,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "5968"
+    "version": "5976"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3429,6 +3429,11 @@
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "18_36_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u462-b08_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u312_b07": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
@@ -3508,6 +3513,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "8u452-b09_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u462_b08": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u462-b08_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3719,6 +3729,11 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "18.0.2_9_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u462-b08_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u312_b07": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
@@ -3798,6 +3813,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u452-b09_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u462_b08": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u462-b08_adopt"
   },
   "legacyPackages.x86_64-linux.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
@@ -4117,7 +4137,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-22"
+    "version": "0-unstable-2025-07-23"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4822,7 +4842,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-22"
+    "version": "0-unstable-2025-07-23"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
@@ -4942,7 +4962,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-21"
+    "version": "0-unstable-2025-07-24"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5017,7 +5037,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-21"
+    "version": "0-unstable-2025-07-24"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5877,7 +5897,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-07-22"
+    "version": "0-unstable-2025-07-23"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6052,7 +6072,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2025-07-21"
+    "version": "0-unstable-2025-07-24"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
