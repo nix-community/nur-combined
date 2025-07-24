@@ -2366,10 +2366,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "142.0.20250721.191825";
+      version = "142.0.20250723.90536";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539132/dansk_da_language_pack-142.0.20250721.191825.xpi";
-      sha256 = "d586430d62b5b56be77dec1410478556e406a9bfc241d3736da6c86086f66e08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540534/dansk_da_language_pack-142.0.20250723.90536.xpi";
+      sha256 = "db7bdccaff437c474ac1326f4c7a967202524a4f7c431ed3c3daeea8b7745601";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2483,10 +2483,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2524.0";
+      version = "6.2530.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4509595/dashlane-6.2524.0.xpi";
-      sha256 = "a97773dc39244fa217d4af07d00cfd3475e0cbd3acc5b4adfb4cd8678225a8e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4539924/dashlane-6.2530.1.xpi";
+      sha256 = "fd5f26b86bf8a6ddc07e24a765e1e9336c06c62f018726e58135b41d2614356b";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2507,6 +2507,7 @@
           "storage"
           "tabs"
           "unlimitedStorage"
+          "scripting"
           "webRequest"
           "webRequestBlocking"
         ];
@@ -2563,10 +2564,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "142.0.20250721.191825";
+      version = "142.0.20250723.90536";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539125/deutsch_de_language_pack-142.0.20250721.191825.xpi";
-      sha256 = "8a12762254cf9ec84f43fd53bfa5194535316fbcb1dce457e30e68412aaccd2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540533/deutsch_de_language_pack-142.0.20250723.90536.xpi";
+      sha256 = "078072660f00dbb6ee45172d2fdcf0ffa41a73f3109dd7103e99c2cd51af9394";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3180,10 +3181,10 @@
     };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
-      version = "2.0.1";
+      version = "3.0.4";
       addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4512534/fakespot_fake_reviews_amazon-2.0.1.xpi";
-      sha256 = "3a0edcab0048260c45f5261ccfe2656236d6c27fc7883711b1168d5ce125412e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4539639/fakespot_fake_reviews_amazon-3.0.4.xpi";
+      sha256 = "47514f51d6a1d40636bb357426aea46e7386275ca2d81860c66008defd4fe2bd";
       meta = with lib;
       {
         homepage = "https://fakespot.com";
@@ -3196,39 +3197,10 @@
         };
         mozPermissions = [
           "identity"
-          "unlimitedStorage"
           "http://*/*"
           "https://*/*"
           "activeTab"
-          "tabs"
           "storage"
-          "cookies"
-          "*://*.fakespot.com/*"
-          "*://*.fakespot.local/*"
-          "*://*.amazon.com.au/*"
-          "*://*.amazon.co.uk/*"
-          "*://*.amazon.ca/*"
-          "*://*.amazon.us/*"
-          "*://*.amazon.com/*"
-          "*://*.amazon.in/*"
-          "*://*.amazon.de/*"
-          "*://*.amazon.fr/*"
-          "*://*.amazon.it/*"
-          "*://*.amazon.es/*"
-          "*://*.amazon.co.jp/*"
-          "*://*.ebay.com/*"
-          "*://*.ebay.co.uk/*"
-          "*://*.ebay.com.au/*"
-          "*://*.ebay.us/*"
-          "*://*.ebay.ca/*"
-          "*://*.walmart.com/*"
-          "*://*.google.com/search*"
-          "*://*.bestbuy.com/*"
-          "*://*.sephora.com/*"
-          "*://*.flipkart.com/*"
-          "*://*.flipkart.in/*"
-          "*://*.homedepot.com/*"
-          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -3798,10 +3770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "142.0.20250721.191825";
+      version = "142.0.20250723.90536";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539133/francais_language_pack-142.0.20250721.191825.xpi";
-      sha256 = "82a482f4c8d26bbeb3dc9e4340fd4ebcfd051b131005f93bb2682d562de6163a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540495/francais_language_pack-142.0.20250723.90536.xpi";
+      sha256 = "dd7cf2c7ea148f3282d326f8586656e1ba94e7144e26281c033c1de8e075d008";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3835,10 +3807,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "142.0.20250721.191825";
+      version = "142.0.20250723.90536";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539119/gaidhlig_language_pack-142.0.20250721.191825.xpi";
-      sha256 = "80864097acc3ba4020cbee3161143e8fed5e510493c61490c0452123a27b6688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540469/gaidhlig_language_pack-142.0.20250723.90536.xpi";
+      sha256 = "431646034bc00e9b7b6024ad575177997c5091fbb1ecd798e5ec801139538705";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6539,10 +6511,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "1.9.0";
+      version = "1.9.1";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539825/kiss_translator-1.9.0.xpi";
-      sha256 = "c0f94dd081980101c1d8581a9a04245450f97041a5ef13091be4ce3c91264077";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540691/kiss_translator-1.9.1.xpi";
+      sha256 = "0de0bfdacb60134550ea4997b9e7afcad1882c52b3da8bbcc53c711a9f478102";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -10291,10 +10263,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.14.1";
+      version = "2.15.0";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4437768/pwas_for_firefox-2.14.1.xpi";
-      sha256 = "f8e9ba0ae3a728084d746d11598f6840acbbda45bdc2e9e52b74bd1b95ec5d1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4537285/pwas_for_firefox-2.15.0.xpi";
+      sha256 = "75dda1bfd5b4737210c7bec1949de939e1c8f3f5d0ac4f196c0d8fd24d9657ce";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -10507,10 +10479,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.4.5";
+      version = "2.4.6";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4496963/readeck-2.4.5.xpi";
-      sha256 = "47f6a1c305fca3402d64fb1902f8742112377d23052be2c6f767333cce641ad5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540262/readeck-2.4.6.xpi";
+      sha256 = "a3bdb73bb296341c6d80a3e15bdd43f7589505ded3ce0b346a505f6835618648";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -11200,10 +11172,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "142.0.20250721.191825";
+      version = "142.0.20250723.90536";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539162/scots_language_pack-142.0.20250721.191825.xpi";
-      sha256 = "81a7b7ab84601f19233a7aba1c4b0a3278efb7adf1829339db3c83bec9911ee6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4540562/scots_language_pack-142.0.20250723.90536.xpi";
+      sha256 = "875e39141f30bfb3340d41f4f742857fcb582065d513400910f23fb7c612fa7d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
