@@ -214,6 +214,7 @@
     # srs.enable = true;
     # xmrig.enable = true;
 
+    userborn-subid.enable = true;
     # postgresql.enable = true;
     # misskey.enable = true;
     # vaultwarden.enable = true;

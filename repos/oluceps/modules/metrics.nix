@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 # metrics for exposed machine
@@ -19,17 +18,6 @@ in
         listenAddress = "[::]";
         enabledCollectors = [ "systemd" ];
         disabledCollectors = [ "arp" ];
-      };
-      blackbox = {
-        enable = true;
-        listenAddress = "[::]";
-        configFile = (pkgs.formats.yaml { }).generate "config.yml" {
-          modules = {
-            http_2xx = {
-              prober = "http";
-            };
-          };
-        };
       };
       chrony = {
         enable=true;

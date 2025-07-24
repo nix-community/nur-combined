@@ -50,7 +50,7 @@ reIf {
           "${cabundle}/etc/ssl/certs/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt"
         ];
       # pull = "always";
-      image = "misskey/misskey:2025.6.3";
+      image = "misskey/misskey:2025.7.0";
       ports = [
         "3012:3012"
       ];
