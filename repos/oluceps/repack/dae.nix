@@ -86,10 +86,7 @@ reIf {
               domain: gemini.google.com,
               domain: generativeai.google,
               domain: proactivebackend-pa.googleapis.com,
-              domain: apis.google.com,
-              domain: colab,
-              domain: developerprofiles,
-              domain: generativelanguage) -> ai
+              domain: apis.google.com) -> ai
 
           domain(${
             lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)

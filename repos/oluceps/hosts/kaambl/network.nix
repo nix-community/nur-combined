@@ -90,7 +90,10 @@
       };
       "40-wlan" = {
         matchConfig.Driver = "ath11k_pci";
-        linkConfig.Name = "wlan0";
+        linkConfig = {
+          Name = "wlan0";
+          WakeOnLan = "magic";
+        };
       };
     };
 
