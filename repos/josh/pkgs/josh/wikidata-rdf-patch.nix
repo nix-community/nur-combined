@@ -4,18 +4,18 @@
   python3Packages,
   runCommand,
   testers,
-  nix-update-script,
+# nix-update-script,
 }:
 let
   wikidata-rdf-patch = python3Packages.buildPythonApplication rec {
     pname = "wikidata-rdf-patch";
-    version = "0.1.2";
+    version = "1.0.0";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "wikidata-rdf-patch";
       tag = "v${version}";
-      hash = "sha256-dAiMab3yzMiI/dacDn+wXjkUEU3oeYRczkgYjQJFZAE=";
+      hash = "sha256-Asoylv5gPJLfiKu617rKrv6wT8AJxQB1pf/uoEr9T84=";
     };
 
     pyproject = true;
@@ -37,6 +37,8 @@ let
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
       mainProgram = "wikidata-rdf-patch";
+      # FIXME: Broken on nixos-25.05
+      broken = python3Packages.click.version == "8.1.8";
     };
   };
 in
@@ -47,7 +49,7 @@ wikidata-rdf-patch.overrideAttrs (
   in
   {
     passthru = previousAttrs.passthru // {
-      updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+      # updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
       tests = {
         version = testers.testVersion {
