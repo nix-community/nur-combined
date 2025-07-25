@@ -2,7 +2,10 @@
     pname = "konify";
     version = "0-unstable-2011-12-09";
     src = fetchurl {
-        url = "https://xyne.dev/scripts/graphics/konify/konify.pl";
+        urls = [
+            "https://xyne.dev/scripts/graphics/konify/konify.pl"
+            "https://web.archive.org/web/20250725000221id_/https://xyne.dev/scripts/graphics/konify/konify.pl"
+        ];
         hash = "sha256-YHXAEkVByTcfRmY1rGW7Bu3EekUkZ3cbi/G5681etH0=";
     };
     nativeBuildInputs = [makeBinaryWrapper];
