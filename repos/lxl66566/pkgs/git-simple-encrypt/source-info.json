@@ -1,0 +1,13 @@
+{
+  "hashes": {
+    "aarch64-linux": {
+      "gnu": { "sha256": "0kkn9537smvg6ja5xdzmm661fw0r2pmswl20q1wcfb8xnyk16wyy", "targetSystem": "aarch64-unknown-linux-gnu" },
+      "musl": { "sha256": "14lfj15mn9mfzia2g1zv4rkdbkvx7ysd8lxwjp6zjk38m3hlg654", "targetSystem": "aarch64-unknown-linux-musl" }
+    },
+    "x86_64-linux": {
+      "gnu": { "sha256": "0ilbh02ylqrz6qhplx8wkr0fi1427vj33q88y99933vbsykj4w8r", "targetSystem": "x86_64-unknown-linux-gnu" },
+      "musl": { "sha256": "0n2zkn63dyw9yg5snqfr5ki52wrb4x7lwgvds3q5c8d792lsi0ix", "targetSystem": "x86_64-unknown-linux-musl" }
+    }
+  },
+  "version": "v1.5.0"
+}

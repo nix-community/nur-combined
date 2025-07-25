@@ -1,0 +1,9 @@
+[project]
+name = "MyNURmanager"
+version = "0.1.0"
+description = "Manage Nix packages from lxl66566's NUR, including init & update."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.12.14",
+]

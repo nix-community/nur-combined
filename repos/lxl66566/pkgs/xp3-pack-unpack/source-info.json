@@ -1,0 +1,17 @@
+{
+  "version": "v0.1.0",
+  "hashes": {
+    "x86_64-linux": {
+      "musl": {
+        "sha256": "1474284b488add4ae78518ebb8a25c64f2d38cb5e47b70a78c6824040a062a01",
+        "targetSystem": "x86_64-unknown-linux-musl"
+      }
+    },
+    "aarch64-linux": {
+      "musl": {
+        "sha256": "2580af29de8b577f20894fc35a495a2e17d4b4f5d7226d99db401add35536d90",
+        "targetSystem": "aarch64-unknown-linux-musl"
+      }
+    }
+  }
+}
