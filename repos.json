@@ -84,6 +84,9 @@
         "ProducerMatt": {
             "url": "https://github.com/ProducerMatt/my-nur-pkgs"
         },
+        "Red-Flake": {
+            "url": "https://github.com/Red-Flake/packages"
+        },
         "Redrield": {
             "url": "https://github.com/Redrield/nurpkgs"
         },
@@ -335,9 +338,6 @@
         "cwyc": {
             "submodules": true,
             "url": "https://github.com/cwyc/nur-packages"
-        },
-        "cyberleagueaustria": {
-            "url": "https://github.com/CyberLeagueAustria/nur-packages"
         },
         "dagger": {
             "url": "https://github.com/dagger/nix"
@@ -759,6 +759,9 @@
         "lunik1": {
             "url": "https://github.com/lunik1/nur-packages"
         },
+        "lxl66566": {
+            "url": "https://github.com/lxl66566/NUR"
+        },
         "lykos153": {
             "url": "https://github.com/Lykos153/nur-packages"
         },
@@ -930,6 +933,9 @@
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
+        "nodezeroat": {
+            "url": "https://github.com/nodezeroat/nur-packages"
+        },
         "nolith": {
             "url": "https://github.com/nolith/nur-packages"
         },
@@ -1086,6 +1092,9 @@
         },
         "robinovitch61": {
             "url": "https://github.com/robinovitch61/nur-packages"
+        },
+        "rogreat": {
+            "url": "https://github.com/RoGreat/nur-packages"
         },
         "rseops": {
             "url": "https://github.com/rse-ops/nix"
