@@ -1,13 +1,22 @@
 { lib, stdenv, ... }:
 
 let
-  github = { slug, useTag ? false, restUrl, src ? { } }: {
-    fetch.url = "https://github.com/${slug}/releases/download/${restUrl}";
-    src = lib.recursiveUpdate
-      ({ "github${if useTag then "_tag" else ""}" = slug; }
-        // lib.optionalAttrs useTag { use_latest_release = true; })
-      src;
-  };
+  github =
+    {
+      slug,
+      useTag ? false,
+      restUrl,
+      src ? { },
+    }:
+    {
+      fetch.url = "https://github.com/${slug}/releases/download/${restUrl}";
+      src = lib.recursiveUpdate (
+        {
+          "github${if useTag then "_tag" else ""}" = slug;
+        }
+        // lib.optionalAttrs useTag { use_latest_release = true; }
+      ) src;
+    };
 
   cabal-docspec = github {
     slug = "phadej/cabal-extras";

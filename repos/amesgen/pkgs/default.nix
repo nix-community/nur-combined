@@ -12,15 +12,19 @@ let
 in
 lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
   ormolu =
-    { lib
-    , stdenv
-    , installShellFiles
-    , unzip
+    {
+      lib,
+      stdenv,
+      installShellFiles,
+      unzip,
     }:
     stdenv.mkDerivation rec {
       inherit (nv.ormolu) pname version src;
       dontUnpack = true;
-      nativeBuildInputs = [ installShellFiles unzip ];
+      nativeBuildInputs = [
+        installShellFiles
+        unzip
+      ];
       installPhase = ''
         mkdir -p $out/bin
         BIN=$out/bin/${pname}
@@ -39,9 +43,10 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   cabal-docspec =
-    { lib
-    , stdenv
-    , installShellFiles
+    {
+      lib,
+      stdenv,
+      installShellFiles,
     }:
     stdenv.mkDerivation rec {
       inherit (nv.cabal-docspec) pname version src;
@@ -66,16 +71,20 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   hlint =
-    { lib
-    , stdenv
-    , autoPatchelfHook
-    , gmp
-    , ncurses5
+    {
+      lib,
+      stdenv,
+      autoPatchelfHook,
+      gmp,
+      ncurses5,
     }:
     stdenv.mkDerivation rec {
       inherit (nv.hlint) pname version src;
       nativeBuildInputs = [ autoPatchelfHook ];
-      buildInputs = [ gmp ncurses5 ];
+      buildInputs = [
+        gmp
+        ncurses5
+      ];
       installPhase = ''
         mkdir -p $out/bin
         install -m755 -D hlint $out/bin/hlint
@@ -91,10 +100,12 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   cabal-plan =
-    { lib
-    , stdenv
-    , installShellFiles
-    }: stdenv.mkDerivation rec {
+    {
+      lib,
+      stdenv,
+      installShellFiles,
+    }:
+    stdenv.mkDerivation rec {
       inherit (nv.cabal-plan) pname version src;
       dontUnpack = true;
       nativeBuildInputs = [ installShellFiles ];
@@ -109,24 +120,31 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
       meta = {
         description = "Library and utility for processing cabal's plan.json file";
         homepage = "https://github.com/haskell-hvr/cabal-plan";
-        licenses = [ lib.licenses.gpl2Only lib.licenses.gpl3Only ];
+        licenses = [
+          lib.licenses.gpl2Only
+          lib.licenses.gpl3Only
+        ];
         sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };
     };
 
   fourmolu =
-    { lib
-    , stdenv
-    , autoPatchelfHook
-    , installShellFiles
-    , gmp
+    {
+      lib,
+      stdenv,
+      autoPatchelfHook,
+      installShellFiles,
+      gmp,
     }:
     stdenv.mkDerivation rec {
       inherit (nv.fourmolu) pname version src;
       dontUnpack = true;
       dontStrip = true;
-      nativeBuildInputs = [ autoPatchelfHook installShellFiles ];
+      nativeBuildInputs = [
+        autoPatchelfHook
+        installShellFiles
+      ];
       buildInputs = [ gmp ];
       installPhase = ''
         mkdir -p $out/bin
@@ -146,10 +164,11 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   cabal-gild =
-    { lib
-    , stdenv
-    , autoPatchelfHook
-    , gmp
+    {
+      lib,
+      stdenv,
+      autoPatchelfHook,
+      gmp,
     }:
     stdenv.mkDerivation rec {
       inherit (nv.cabal-gild) pname version src;
@@ -173,19 +192,25 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   hell =
-    { lib
-    , stdenv
-    , installShellFiles
-    , unzip
+    {
+      lib,
+      stdenv,
+      installShellFiles,
+      unzip,
     }:
 
-    let inherit (nv.hell) pname version src; in
+    let
+      inherit (nv.hell) pname version src;
+    in
 
     stdenv.mkDerivation {
       inherit pname src;
       version = "unstable-${version}";
       dontUnpack = true;
-      nativeBuildInputs = [ installShellFiles unzip ];
+      nativeBuildInputs = [
+        installShellFiles
+        unzip
+      ];
       installPhase = ''
         mkdir -p $out/bin
         BIN=$out/bin/${pname}
@@ -203,17 +228,23 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     };
 
   pandoc =
-    { lib
-    , stdenv
-    , installShellFiles
-    , unzip
+    {
+      lib,
+      stdenv,
+      installShellFiles,
+      unzip,
     }:
 
-    let inherit (nv.pandoc) pname version src; in
+    let
+      inherit (nv.pandoc) pname version src;
+    in
 
     stdenv.mkDerivation {
       inherit pname src version;
-      nativeBuildInputs = [ installShellFiles unzip ];
+      nativeBuildInputs = [
+        installShellFiles
+        unzip
+      ];
       installPhase = ''
         mkdir -p $out/bin
         BIN=$out/bin/${pname}
