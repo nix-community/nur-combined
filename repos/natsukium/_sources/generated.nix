@@ -43,15 +43,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "e47ca19eddb1cb6000415a6a61db7255162f4cdb";
+    version = "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "e47ca19eddb1cb6000415a6a61db7255162f4cdb";
+      rev = "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470";
       fetchSubmodules = false;
-      sha256 = "sha256-QHEhH+Gya8KzLKH17DMDqwXu7rnUzQ5JYTF8q2RzyYE=";
+      sha256 = "sha256-YBwa8tmo8hTpuZLFJ8JjAzkNF9+4xGSBuE3ziuHVg74=";
     };
-    date = "2025-05-18";
+    date = "2025-07-25";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -83,15 +83,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "3e7c78c8575745f0c642cd82b11032e3dd0eb5a2";
+    version = "4412cfb90cd4dab8c03d8df88660f857fad370c2";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "3e7c78c8575745f0c642cd82b11032e3dd0eb5a2";
+      rev = "4412cfb90cd4dab8c03d8df88660f857fad370c2";
       fetchSubmodules = false;
-      sha256 = "sha256-5CU2jdAreUNBMZpUxXkHKAjk+rtQnrzgQQ96/6CQGCM=";
+      sha256 = "sha256-qPV/MsDrTMzcJNilSFRNqmu1VZnGLaRliheeZitZ/eo=";
     };
-    date = "2025-07-17";
+    date = "2025-07-25";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
@@ -103,10 +103,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.14.5b";
+    version = "1.14.7b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.14.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-FAGfVV3CL5bFgGzDeSDIIunJ7NLtS0vbQ/dAJeHD3xs=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.14.7b/zen.macos-universal.dmg";
+      sha256 = "sha256-uu8BPOcYPZBrAzHrl0VriVeilgJ9y9AXT/Xaar6S/fc=";
     };
   };
 }
