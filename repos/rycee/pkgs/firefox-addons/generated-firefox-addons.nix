@@ -6573,10 +6573,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.19.4";
+      version = "9.0.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4470413/languagetool-8.19.4.xpi";
-      sha256 = "d204409d361eca1f53def970de08b1d1ce747d5e44a79c416d267549f41a2d43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4538560/languagetool-9.0.1.xpi";
+      sha256 = "c3dffe8754fe377a641fd54ed5858246efc0358212356a20b1dcfca14530fa95";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
