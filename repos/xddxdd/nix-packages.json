@@ -1301,7 +1301,7 @@
   },
   "legacyPackages.x86_64-linux.libcrystalhd": {
     "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
-    "pname": "crystalhd",
+    "pname": "libcrystalhd",
     "version": "0-unstable-2021-01-26"
   },
   "legacyPackages.x86_64-linux.libnftnl-fullcone": {
@@ -4636,7 +4636,7 @@
   },
   "legacyPackages.x86_64-linux.uncategorized.libcrystalhd": {
     "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
-    "pname": "crystalhd",
+    "pname": "libcrystalhd",
     "version": "0-unstable-2021-01-26"
   },
   "legacyPackages.x86_64-linux.uncategorized.libnftnl-fullcone": {
@@ -5611,7 +5611,7 @@
   },
   "packages.x86_64-linux.libcrystalhd": {
     "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
-    "pname": "crystalhd",
+    "pname": "libcrystalhd",
     "version": "0-unstable-2021-01-26"
   },
   "packages.x86_64-linux.libnftnl-fullcone": {

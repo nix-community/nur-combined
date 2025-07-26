@@ -4,7 +4,8 @@
   sources,
 }:
 stdenv.mkDerivation rec {
-  inherit (sources.crystalhd) pname version src;
+  pname = "libcrystalhd";
+  inherit (sources.crystalhd) version src;
   sourceRoot = "source/linux_lib/libcrystalhd";
 
   postPatch = ''
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library";
-    homepage = "https://github.com/dbason/crystalhd";
+    homepage = "https://launchpad.net/ubuntu/+source/crystalhd";
     license = lib.licenses.unfreeRedistributable;
   };
 }
