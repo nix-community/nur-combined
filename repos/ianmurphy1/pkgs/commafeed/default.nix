@@ -12,7 +12,8 @@
   glibc,
 }:
 let
-  version = "5.10.0";
+  binaryVersion = "5.10.0";
+  version = "4ff45a65c3dcd74486e4bcb18d953101b6fa2cda";
   db = "h2";
 
   graalVM = graalvmCEPackages.graalvm-ce;
@@ -21,7 +22,7 @@ let
     owner = "Athou";
     repo = "commafeed";
     rev = version;
-    hash = "sha256-O1lNIwwoWIf72RweuSfQzEGuUl6xAEnjuoJQKf+Emm0=";
+    hash = "sha256-AO2q3C2bBsbZaEi3/JkJF1uddp9MDCpTkrEOhKojmv4=";
   };
 
   frontend = buildNpmPackage {
@@ -30,7 +31,7 @@ let
 
     sourceRoot = "${src.name}/commafeed-client";
 
-    npmDepsHash = "sha256-uHutIgub83S52VV9Ta4Hqo7W/uRPEB3XLyzZ1UQTqR8=";
+    npmDepsHash = "sha256-122GULvfHz1qKqUO1x9ZYBvAZ2Zu7b3JVCbcohPuqRU=";
 
     nativeBuildInputs = [ biome ];
 
@@ -57,7 +58,7 @@ maven.buildMavenPackage {
   pname = "commafeed";
 
   mvnJdk = graalVM;
-  mvnHash = "sha256-lR3uXbXYU9yPFxfDTHh46dKRAACwNoHT3Ga4esfScwk=";
+  mvnHash = "sha256-sUy/CH6XP1+nBHl8mjeU085Ti5nZYIfZJBftqjVOMPI=";
 
   mvnParameters = lib.escapeShellArgs [
     "-Pnative"
@@ -90,7 +91,7 @@ maven.buildMavenPackage {
     cp commafeed-server/target/quarkus-generated-doc/application.properties \
       $out/share/application.properties
 
-    install -Dm755 commafeed-server/target/commafeed-${version}-${db}-linux-x86_64-runner \
+    install -Dm755 commafeed-server/target/commafeed-${binaryVersion}-${db}-linux-x86_64-runner \
       $out/bin/commafeed
 
     wrapProgram $out/bin/commafeed --prefix PATH : ${lib.makeBinPath [ glibc ]}
