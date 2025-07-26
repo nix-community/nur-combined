@@ -1,4 +1,4 @@
-{ lib, pythonPackages, buildPythonPackage, fetchPypi }:
+{ lib, python, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
     pname = "pmlb";
@@ -10,9 +10,12 @@ buildPythonPackage rec {
       sha256 = "1awlhyrkvdgf9br71dq53h5pn9yqhiw2lsa8ydknjp9rakimwsrl";
     };
 
-    buildInputs = with pythonPackages; [ pandas requests pyyaml scikitlearn ];
+    buildInputs = with python.pkgs; [ pandas requests pyyaml scikitlearn ];
 
     doCheck = false;
+
+    pyproject = true;
+    build-system = with python.pkgs; [ setuptools ];
 
     meta = with lib; {
       homepage = "https://github.com/EpistasisLab/penn-ml-benchmarks";

@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/accosmin-org/libnano";
     license = licenses.mit;
     platforms = platforms.all;
+    broken = true;
     #maintainers = with maintainers; [ foolnotion ];
   };
 }

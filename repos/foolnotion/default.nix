@@ -28,6 +28,8 @@
 
   byte-lite = pkgs.callPackage ./pkgs/byte-lite { };
 
+  beman-optional = pkgs.callPackage ./pkgs/beman-optional { stdenv = pkgs.gcc14Stdenv; };
+
   cmake-init = pkgs.python3Packages.callPackage ./pkgs/cmake-init { };
 
   cmake-utils = pkgs.callPackage ./pkgs/cmake-utils { };
