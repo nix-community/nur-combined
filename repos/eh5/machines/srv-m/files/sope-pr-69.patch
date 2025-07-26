@@ -1,0 +1,140 @@
+From 280104e45c20519ac4849ebf8bca114d91383543 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20B=C3=BChler?= <source@stbuehler.de>
+Date: Sun, 29 Jun 2025 10:21:32 +0200
+Subject: [PATCH] NGHashMap: keep root->last consistent to fix segfault adding
+ duplicate key after copy
+
+segfault because root->last is NULL:
+    #0 -[NGMutableHashMap addObjects:count:forKey:]
+    #1 -[NGMutableHashMap addObject:forKey:]
+    #2 -[NGHttpRequest(WOSupport) _decodeFormContentURLParameters:]
+    #3 -[NGHttpRequest(WOSupport) formParameters]
+
+when POST and GET set the same parameter; trigger like this:
+
+    curl -d 'x=' 'https://.../SOGo/?x='
+---
+ sope-core/NGExtensions/NGHashMap.m | 33 ++++++++++++++++++++++--------
+ 1 file changed, 25 insertions(+), 8 deletions(-)
+
+diff --git a/sope-core/NGExtensions/NGHashMap.m b/sope-core/NGExtensions/NGHashMap.m
+index 8b05ebb34..f8df7224e 100644
+--- a/sope-core/NGExtensions/NGHashMap.m
++++ b/sope-core/NGExtensions/NGHashMap.m
+@@ -216,6 +216,7 @@ - (id)initWithHashMap:(NGHashMap *)_hashMap {
+   NSEnumerator *keys    = nil;
+   id            key     = nil;
+   LList *list    = NULL;
++  LList *root    = NULL;
+   LList *newList = NULL;
+   LList *oldList = NULL;
+ 
+@@ -223,7 +224,7 @@ - (id)initWithHashMap:(NGHashMap *)_hashMap {
+     keys  = [_hashMap keyEnumerator];
+     while ((key = [keys nextObject])) {
+       list           = [_hashMap __structForKey:key];
+-      newList        = initLListElement(list->object,NULL);
++      root = newList = initLListElement(list->object,NULL);
+       newList->count = list->count;
+       NSMapInsert(self->table,key,newList);
+       while (list->next) {
+@@ -232,6 +233,7 @@ - (id)initWithHashMap:(NGHashMap *)_hashMap {
+         newList       = initLListElement(list->object,NULL);
+         oldList->next = newList;
+       }
++      root->last = newList;
+     }
+   }
+   return self;
+@@ -257,6 +259,7 @@ - (id)initWithObjects:(NSArray *)_objects forKey:(id)_key {
+       pred       = element;
+     }
+     root->count = i;
++    root->last  = pred;
+     NSMapInsert(self->table,_key, root);
+   }
+   NSAssert(self->table, @"missing table for hashmap ..");
+@@ -712,6 +715,7 @@ - (void)insertObjects:(id*)_objects count:(NSUInteger)_count
+ {
+   id            object  = nil;
+   LList *root    = NULL;
++  LList *insert  = NULL;
+   LList *element = NULL;
+   unsigned i = 0;
+   
+@@ -728,10 +732,13 @@ - (void)insertObjects:(id*)_objects count:(NSUInteger)_count
+     }
+ 
+     root        = initLListElement(_objects[0], NULL);
++    insert = root;
+     root->count = _count;
++    // set root->last to last inserted element later
+     NSMapInsert(self->table, _key, root);
+   }
+   else {
++    insert = root;
+     if (!(_index < root->count)) {
+       [NSException raise:NSRangeException
+                   format:@"index %"PRIuPTR" out of range in map 0x%p length %d",
+@@ -741,30 +748,38 @@ - (void)insertObjects:(id*)_objects count:(NSUInteger)_count
+     
+     root->count += _count;
+     if (_index == 0) {
++      // move current data at pos 0 to new element (prepending
++      // a new element would require replacing entry in NSMapTable)
+       element         = initLListElement(_objects[0],NULL);
+       object          = element->object;
+       element->next   = root->next;
+       element->object = root->object;      
+       root->object    = object;
+       root->next      = element;
++      if (root->last == root)
++        root->last = element; // inserted at pos 0 before the only item
+     }
+     else {
+       while (--_index)
+-        root = root->next;
++        insert = insert->next;
++      if (root->last == insert)
++        root->last = NULL; // set to last inserted element later
+ 
+       element       = initLListElement(_objects[0], NULL);
+-      element->next = root->next;
+-      root->next    = element;
+-      root          = root->next;
++      element->next = insert->next;
++      insert->next    = element;
++      insert          = insert->next;
+     }
+   }
+   for (i = 1; i < _count; i++) {
+     checkForAddErrorMessage(self, _objects[i], _key);
+     element       = initLListElement(_objects[i], NULL);
+-    element->next = root->next;
+-    root->next    = element;
+-    root          = element;
++    element->next = insert->next;
++    insert->next    = element;
++    insert          = element;
+   }
++  if (root->last == NULL)
++    root->last = insert;
+ }
+ 
+ /* adding objects */
+@@ -864,6 +879,7 @@ - (void)removeAllObjects:(id)_object forKey:(id)_key {
+       root->next   = list->next;
+       root->object = list->object;
+       root->count--;
++      // cleanup root->last (could be list!) after loop below
+       if (list) free(list);
+       list = NULL;
+     }
+@@ -880,6 +896,7 @@ - (void)removeAllObjects:(id)_object forKey:(id)_key {
+         list = oldList;
+       }
+     }
++    root->last = list; // list->next is NULL, i.e. it is the last
+     root->count -= cnt;
+   }
+ }

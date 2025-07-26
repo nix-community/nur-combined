@@ -60,7 +60,10 @@ in
     };
   };
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "22.05";
+  nixpkgs.config.permittedInsecurePackages = [
+    "sope-5.12.2"
+  ];
+  system.stateVersion = "25.11";
 
   networking.hostName = "srv-m";
   networking.hosts = {

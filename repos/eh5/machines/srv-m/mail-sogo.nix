@@ -10,31 +10,27 @@ in
 {
   nixpkgs.overlays = [
     (final: prev: {
-      # sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (_: attrs: rec {
-      #   version = assert attrs.version == "5.7.0"; "5.8.0";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "inverse-inc";
-      #     repo = attrs.pname;
-      #     rev = "SOGo-${version}";
-      #     hash = "sha256-GCgnguNZ02HyRZoy8Rivl+LSxe6HCqv/Wqyj4oYST4U=";
-      #   };
-      #   # patches = attrs.patches ++ [
-      #   #   (pkgs.fetchurl {
-      #   #     url = "https://github.com/Alinto/sogo/compare/SOGo-5.8.0...<git-hash>.diff";
-      #   #     sha256 = "";
-      #   #   })
-      #   # ];
-      # });
+      sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (
+        _: attrs: rec {
+          version =
+            assert attrs.version == "5.12.1";
+            "5.12.3";
+          src = pkgs.fetchFromGitHub {
+            owner = "inverse-inc";
+            repo = attrs.pname;
+            rev = "SOGo-${version}";
+            hash = "sha256-HTfe/ZiipqS6QdKQK0wf4Xl6xCTNw5fEdXfRFbBMWMY=";
+          };
+        }
+      );
       sope = prev.sope.overrideAttrs (
         _: attrs:
         assert attrs.version == "5.12.2";
         {
           patches = [
-            (pkgs.fetchurl {
-              url = "https://github.com/Alinto/sope/pull/69.patch";
-              sha256 = "sha256-XbH98pYEYGq3PxGdmvbToo5lvUo0qQTysAHKuPL/Js0=";
-            })
+            ./files/sope-pr-69.patch
           ];
+          nativeBuildInputs = [ prev.libpq.pg_config ];
           meta = builtins.removeAttrs attrs.meta [ "knownVulnerabilities" ];
         }
       );
@@ -127,6 +123,7 @@ in
       after = lib.mkForce services;
     };
 
+  # comment before upgrading postgresql
   systemd.services.postgresql.postStart = lib.mkAfter ''
     createuser sogo || true
     createdb -O sogo sogo || true
