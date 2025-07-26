@@ -11,6 +11,7 @@
           "sources\\.json"
           ".*\\.patch"
           "README\\.md"
+          ".envrc"
         ];
         hooks = {
           check-added-large-files.enable = true;

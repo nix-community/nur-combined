@@ -1033,6 +1033,10 @@ fetch.github = "FDio/vpp"
 src.github_tag = "FDio/vpp"
 src.include_regex = "^v[0-9.]+$"
 
+[vuetorrent-backend]
+fetch.github = "VueTorrent/vuetorrent-backend"
+src.github = "VueTorrent/vuetorrent-backend"
+
 [wechat-uos]
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_$ver_amd64.deb"
 src.manual = "4.0.0.21"

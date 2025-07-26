@@ -2313,6 +2313,16 @@
       hash = "sha256-BuHKPQA4qHoADqBg2IztlzUMpbvYKK5uH7ktChSW5vk=";
     };
   };
+  vuetorrent-backend = {
+    pname = "vuetorrent-backend";
+    version = "v2.5.2";
+    src = fetchFromGitHub {
+      owner = "VueTorrent";
+      repo = "vuetorrent-backend";
+      tag = "v2.5.2";
+      hash = "sha256-EsFHXN1qst8UvhjXAzsbDdh8E46IQ/z80IX7gnFmdSQ=";
+    };
+  };
   wechat-uos = {
     pname = "wechat-uos";
     version = "4.0.0.21";
