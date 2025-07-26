@@ -653,6 +653,27 @@
         },
         "version": "1.14"
     },
+    "crystalhd": {
+        "cargoLocks": null,
+        "date": "2021-01-26",
+        "extract": null,
+        "name": "crystalhd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dbason",
+            "repo": "crystalhd",
+            "rev": "af931d9ae5a63adfefe398defb99f225ae181c24",
+            "sha256": "sha256-5fsezV8OQjCKSr3m4jgEVMQhOfvfryBazWHeTcaUzUE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "af931d9ae5a63adfefe398defb99f225ae181c24"
+    },
     "data-recorder": {
         "cargoLocks": null,
         "date": null,

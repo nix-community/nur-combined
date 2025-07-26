@@ -339,6 +339,17 @@
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  crystalhd = {
+    pname = "crystalhd";
+    version = "af931d9ae5a63adfefe398defb99f225ae181c24";
+    src = fetchFromGitHub {
+      owner = "dbason";
+      repo = "crystalhd";
+      rev = "af931d9ae5a63adfefe398defb99f225ae181c24";
+      hash = "sha256-5fsezV8OQjCKSr3m4jgEVMQhOfvfryBazWHeTcaUzUE=";
+    };
+    date = "2021-01-26";
+  };
   data-recorder = {
     pname = "data-recorder";
     version = "3.6.2";

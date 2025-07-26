@@ -1,0 +1,129 @@
+diff --git a/driver/linux/crystalhd_lnx.c b/driver/linux/crystalhd_lnx.c
+index aebfa0b..1a2bb34 100644
+--- a/driver/linux/crystalhd_lnx.c
++++ b/driver/linux/crystalhd_lnx.c
+@@ -450,7 +450,7 @@ static int __init chd_dec_init_chdev(struct crystalhd_adp *adp)
+ 	}
+ 
+ 	/* register crystalhd class */
+-	crystalhd_class = class_create(THIS_MODULE, "crystalhd");
++	crystalhd_class = class_create("crystalhd");
+ 	if (IS_ERR(crystalhd_class)) {
+ 		dev_err(xdev, "failed to create class\n");
+ 		goto fail;
+@@ -667,11 +667,11 @@ static int __init chd_dec_pci_probe(struct pci_dev *pdev,
+ 	}
+ 
+ 	/* Set dma mask... */
+-	if (!pci_set_dma_mask(pdev, DMA_BIT_MASK(64))) {
+-		pci_set_consistent_dma_mask(pdev, DMA_BIT_MASK(64));
++	if (!dma_set_mask(&pdev->dev, DMA_BIT_MASK(64))) {
++		dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(64));
+ 		pinfo->dmabits = 64;
+-	} else if (!pci_set_dma_mask(pdev, DMA_BIT_MASK(32))) {
+-		pci_set_consistent_dma_mask(pdev, DMA_BIT_MASK(32));
++	} else if (!dma_set_mask(&pdev->dev, DMA_BIT_MASK(32))) {
++		dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
+ 		pinfo->dmabits = 32;
+ 	} else {
+ 		dev_err(dev, "%s: Unabled to setup DMA %d\n", __func__, rc);
+diff --git a/driver/linux/crystalhd_lnx.h b/driver/linux/crystalhd_lnx.h
+index 1ebad99..3b56c52 100644
+--- a/driver/linux/crystalhd_lnx.h
++++ b/driver/linux/crystalhd_lnx.h
+@@ -83,7 +83,7 @@ struct crystalhd_adp {
+ 	struct crystalhd_cmd	cmds;
+ 
+ 	struct crystalhd_dio_req	*ua_map_free_head;
+-	struct pci_pool		*fill_byte_pool;
++	struct dma_pool		*fill_byte_pool;
+ };
+ 
+ 
+diff --git a/driver/linux/crystalhd_misc.c b/driver/linux/crystalhd_misc.c
+index 02ab78f..6330b10 100644
+--- a/driver/linux/crystalhd_misc.c
++++ b/driver/linux/crystalhd_misc.c
+@@ -242,7 +242,7 @@ void *bc_kern_dma_alloc(struct crystalhd_adp *adp, uint32_t sz,
+ 		return temp;
+ 	}
+ 
+-	temp = pci_alloc_consistent(adp->pdev, sz, phy_addr);
++	temp = dma_alloc_coherent(&adp->pdev->dev, sz, phy_addr, GFP_KERNEL);
+ 	if (temp)
+ 		memset(temp, 0, sz);
+ 
+@@ -268,7 +268,7 @@ void bc_kern_dma_free(struct crystalhd_adp *adp, uint32_t sz, void *ka,
+ 		return;
+ 	}
+ 
+-	pci_free_consistent(adp->pdev, sz, ka, phy_addr);
++	dma_free_coherent(&adp->pdev->dev, sz, ka, phy_addr);
+ }
+ 
+ /**
+@@ -661,7 +661,7 @@ BC_STATUS crystalhd_map_dio(struct crystalhd_adp *adp, void *ubuff,
+ 
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,9,0)
+ 	res = get_user_pages(uaddr, nr_pages, rw == READ ? FOLL_WRITE : 0,
+-			     dio->pages, NULL);
++			     dio->pages);
+ #elif LINUX_VERSION_CODE >= KERNEL_VERSION(4,6,0)
+ 	res = get_user_pages_remote(current, current->mm, uaddr, nr_pages, rw == READ,
+ 			     0, dio->pages, NULL);
+@@ -721,7 +721,7 @@ BC_STATUS crystalhd_map_dio(struct crystalhd_adp *adp, void *ubuff,
+ #endif
+ #endif
+ 	}
+-	dio->sg_cnt = pci_map_sg(adp->pdev, dio->sg,
++	dio->sg_cnt = dma_map_sg(&adp->pdev->dev, dio->sg,
+ 				 dio->page_cnt, dio->direction);
+ 	if (dio->sg_cnt <= 0) {
+ 		dev_err(dev, "sg map %d-%d\n", dio->sg_cnt, dio->page_cnt);
+@@ -780,7 +780,7 @@ BC_STATUS crystalhd_unmap_dio(struct crystalhd_adp *adp, struct crystalhd_dio_re
+ 		}
+ 	}
+ 	if (dio->sig == crystalhd_dio_sg_mapped)
+-		pci_unmap_sg(adp->pdev, dio->sg, dio->page_cnt, dio->direction);
++		dma_unmap_sg(&adp->pdev->dev, dio->sg, dio->page_cnt, dio->direction);
+ 
+ 	crystalhd_free_dio(adp, dio);
+ 
+@@ -813,8 +813,8 @@ int crystalhd_create_dio_pool(struct crystalhd_adp *adp, uint32_t max_pages)
+ 	dev = &adp->pdev->dev;
+ 
+ 	/* Get dma memory for fill byte handling..*/
+-	adp->fill_byte_pool = pci_pool_create("crystalhd_fbyte",
+-					      adp->pdev, 8, 8, 0);
++	adp->fill_byte_pool = dma_pool_create("crystalhd_fbyte",
++					      &adp->pdev->dev, 8, 8, 0);
+ 	if (!adp->fill_byte_pool) {
+ 		dev_err(dev, "failed to create fill byte pool\n");
+ 		return -ENOMEM;
+@@ -840,7 +840,7 @@ int crystalhd_create_dio_pool(struct crystalhd_adp *adp, uint32_t max_pages)
+ 		temp += (sizeof(*dio->pages) * max_pages);
+ 		dio->sg = (struct scatterlist *)temp;
+ 		dio->max_pages = max_pages;
+-		dio->fb_va = pci_pool_alloc(adp->fill_byte_pool, GFP_KERNEL,
++		dio->fb_va = dma_pool_alloc(adp->fill_byte_pool, GFP_KERNEL,
+ 					    &dio->fb_pa);
+ 		if (!dio->fb_va) {
+ 			dev_err(dev, "fill byte alloc failed.\n");
+@@ -876,7 +876,7 @@ void crystalhd_destroy_dio_pool(struct crystalhd_adp *adp)
+ 		dio = crystalhd_alloc_dio(adp);
+ 		if (dio) {
+ 			if (dio->fb_va)
+-				pci_pool_free(adp->fill_byte_pool,
++				dma_pool_free(adp->fill_byte_pool,
+ 					      dio->fb_va, dio->fb_pa);
+ 			count++;
+ 			kfree(dio);
+@@ -884,7 +884,7 @@ void crystalhd_destroy_dio_pool(struct crystalhd_adp *adp)
+ 	} while (dio);
+ 
+ 	if (adp->fill_byte_pool) {
+-		pci_pool_destroy(adp->fill_byte_pool);
++		dma_pool_destroy(adp->fill_byte_pool);
+ 		adp->fill_byte_pool = NULL;
+ 	}
+ 

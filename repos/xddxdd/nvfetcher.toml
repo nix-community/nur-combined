@@ -143,6 +143,10 @@ src.github_tag = "cryptodev-linux/cryptodev-linux"
 src.include_regex = "^cryptodev-linux-([0-9\\.]+)"
 src.prefix = "cryptodev-linux-"
 
+[crystalhd]
+fetch.github = "dbason/crystalhd"
+src.git = "https://github.com/dbason/crystalhd.git"
+
 [data-recorder]
 fetch.pypi = "DataRecorder"
 src.pypi = "DataRecorder"

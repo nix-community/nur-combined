@@ -474,6 +474,11 @@
     "pname": "cryptodev-linux",
     "version": "1.14-unstable-2025-06-24"
   },
+  "legacyPackages.x86_64-linux.crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
+  },
   "legacyPackages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
     "pname": "python3.13-data-recorder",
@@ -768,6 +773,11 @@
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux",
     "version": "1.14-unstable-2025-06-24"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
   },
   "legacyPackages.x86_64-linux.kernel-modules.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
@@ -1283,6 +1293,11 @@
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy",
     "version": "0.2.0-unstable-2020-07-29"
+  },
+  "legacyPackages.x86_64-linux.libcrystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
   },
   "legacyPackages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
@@ -4609,6 +4624,11 @@
     "pname": "ldap-auth-proxy",
     "version": "0.2.0-unstable-2020-07-29"
   },
+  "legacyPackages.x86_64-linux.uncategorized.libcrystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
+  },
   "legacyPackages.x86_64-linux.uncategorized.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
@@ -5274,6 +5294,11 @@
     "pname": "cryptodev-linux",
     "version": "1.14-unstable-2025-06-24"
   },
+  "packages.x86_64-linux.crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
+  },
   "packages.x86_64-linux.data-recorder": {
     "description": "Python-based toolkit to record data into files",
     "pname": "python3.13-data-recorder",
@@ -5568,6 +5593,11 @@
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy",
     "version": "0.2.0-unstable-2020-07-29"
+  },
+  "packages.x86_64-linux.libcrystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library",
+    "pname": "crystalhd",
+    "version": "0-unstable-2021-01-26"
   },
   "packages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
