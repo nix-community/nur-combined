@@ -1570,6 +1570,30 @@
         platforms = platforms.all;
       };
     };
+    "chameleon-ext" = buildFirefoxXpiAddon {
+      pname = "chameleon-ext";
+      version = "0.22.74.1";
+      addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523255/chameleon_ext-0.22.74.1.xpi";
+      sha256 = "31cdca3e43cbe583b913dcd58d63bb3c660b0e64c78400fd7e567650d634b4aa";
+      meta = with lib;
+      {
+        homepage = "https://sereneblue.github.io/chameleon";
+        description = "Spoof your browser profile. Includes a few privacy enhancing options.\n\nA WebExtension port of Random Agent Spoofer.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "<all_urls>"
+          "alarms"
+          "contextMenus"
+          "notifications"
+          "storage"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
       version = "2.5.8";
@@ -2310,6 +2334,27 @@
           "contextMenus"
           "storage"
           "scripting"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "cssviewer-quantum" = buildFirefoxXpiAddon {
+      pname = "cssviewer-quantum";
+      version = "1.2resigned1";
+      addonId = "CSSViewer@quantum";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4275453/cssviewer_quantum-1.2resigned1.xpi";
+      sha256 = "62eb243533215e4205fbdbadd6fe67fed1964d3a9b07bbc022aa9e6f02e11fa5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mohsenkhanpour/CSSViewer";
+        description = "A simple yet powerful CSS property viewer. For Firefox Quantum";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "tabs"
+          "http://*/*"
+          "https://*/*"
+          "file://*/*"
+          "contextMenus"
         ];
         platforms = platforms.all;
       };
@@ -8319,6 +8364,26 @@
         platforms = platforms.all;
       };
     };
+    "muzli" = buildFirefoxXpiAddon {
+      pname = "muzli";
+      version = "31.0.40";
+      addonId = "firefox@muz.li";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4348703/muzli_design_inspiration_hub-31.0.40.xpi";
+      sha256 = "e2e27cedb9ec5da9cca55d96deeb9d776ed7e9326d924bf0cd56d0f33b1a27c7";
+      meta = with lib;
+      {
+        homepage = "https://muz.li";
+        description = "Your daily dose of design with industry news, tools, and inspiration - all in one place.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [ "storage" "alarms" ];
+        platforms = platforms.all;
+      };
+    };
     "native-mathml" = buildFirefoxXpiAddon {
       pname = "native-mathml";
       version = "1.9.6";
@@ -14001,6 +14066,21 @@
           "contextMenus"
           "cookies"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "visbug" = buildFirefoxXpiAddon {
+      pname = "visbug";
+      version = "0.4.6";
+      addonId = "{50864413-c4c8-43b0-80b8-982c4a368ac9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310221/visbug-0.4.6.xpi";
+      sha256 = "cf337509cdc613b51e124b8db4989a5d1bf55c108d38ec57c3d1af82cc9ce3dc";
+      meta = with lib;
+      {
+        homepage = "https://visbug.web.app";
+        description = "Open source browser design tools";
+        license = licenses.asl20;
+        mozPermissions = [ "activeTab" "contextMenus" "scripting" "storage" ];
         platforms = platforms.all;
       };
     };

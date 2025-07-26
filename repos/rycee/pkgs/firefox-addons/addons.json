@@ -224,6 +224,9 @@
     "slug": "censor-tracker"
   },
   {
+    "slug": "chameleon-ext"
+  },
+  {
     "slug": "chatgptbox"
   },
   {
@@ -310,6 +313,9 @@
   },
   {
     "slug": "copy-selection-as-markdown"
+  },
+  {
+    "slug": "cssviewer-quantum"
   },
   {
     "slug": "ctrl-number-to-switch-tabs"
@@ -1110,6 +1116,16 @@
   },
   {
     "slug": "musescore-downloader"
+  },
+  {
+    "slug": "muzli",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "native-mathml"
@@ -1975,6 +1991,13 @@
   },
   {
     "slug": "violentmonkey"
+  },
+  {
+    "slug": "visbug",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "vue-js-devtools"
