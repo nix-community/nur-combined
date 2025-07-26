@@ -5,13 +5,13 @@
   unzip,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "maptourist";
-  version = "2024-11-10";
+  version = "2025-07-25";
 
   src = fetchurl {
-    url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-Russia-gmapsupp-RU_${version}.zip";
-    hash = "sha256-Lrnqa3RCCo2A6/tLfb3gxqTjTFTY4DP6ZBv8wgBrUew=";
+    url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-Caucasus-gmapsupp-RU_${finalAttrs.version}.zip";
+    hash = "sha256-8/BYU9PtpmP03z3dUUKC3PKXQP1x5d3z1sOAQuiynhc=";
   };
 
   sourceRoot = ".";
@@ -30,4 +30,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.all;
     skip.ci = true;
   };
-}
+})

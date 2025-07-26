@@ -43,9 +43,9 @@ let
   ];
   tatoeba = builtins.fromJSON (builtins.readFile ./tatoeba.json);
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tatoeba";
-  version = "2025-07-19";
+  version = "2025-07-26";
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 
@@ -55,9 +55,9 @@ stdenvNoCC.mkDerivation rec {
     ''
     + lib.concatMapStringsSep "\n" (src: ''
       bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
-      jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${version} 00:00:00"}' versions.json | \
+      jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${finalAttrs.version} 00:00:00"}' versions.json | \
         sponge versions.json
-    '') srcs;
+    '') finalAttrs.srcs;
 
   nativeBuildInputs = [
     dict
@@ -94,4 +94,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.all;
     skip.ci = true;
   };
-}
+})
