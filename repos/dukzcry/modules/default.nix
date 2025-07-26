@@ -12,8 +12,6 @@ rec {
   monitor = ./monitor.nix;
   headless = ./headless.nix;
   regdomain = ./regdomain.nix;
-  blacklist = ./blacklist.nix;
-  tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;
