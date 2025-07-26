@@ -9,21 +9,19 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.1.13-fixed";
+  version = "0.1.14";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
-    rev = "5f8fff4db3b88705a261a43f31efe93d2226c07c";
-    hash = "sha256-iyIrfsyhCii9Y5IEwj+xmgvqyFjlhDWG2tN6Q1tX/lY=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-u73aqh7WnfetHj/64/HyzSR6aJXRKt0OXg3bddhhQq8=";
   };
 
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) src;
-    hash = "sha256-Zm3PtIiLNEHqP09YR9+OBp2NdrtU8FxIteEh46zTVuE=";
+    hash = "sha256-9T31QlffPP6+ryRVN/7t0iMo+2AgwPb6l6CkYh6839U=";
   };
-
-  passthru.autoUpdate = false;
 
   patches = [ ./gemini.path ];
 
