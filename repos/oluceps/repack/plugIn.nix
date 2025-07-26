@@ -26,7 +26,7 @@ let
   trustedInterfaces = map (n: "hts-" + n) (attrNames thisConn);
   thisNode = node.${hostName};
 
-  ifNeed =
+  ifAble2Connect =
     peerNode: prod:
     optionalAttrs (
       !(
@@ -44,7 +44,7 @@ let
       peerNode = node.${peerName};
       directConnect = ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
     in
-    ifNeed peerNode {
+    ifAble2Connect peerNode {
       networks."10-wireguard-hts-${peerName}" = {
         matchConfig.Name = "hts-${peerName}";
         addresses = [
@@ -81,7 +81,7 @@ let
           });
         wireguardPeers = singleton (
           {
-            PublicKey = peerNode.pub_key;
+            PublicKey = peerNode.wg_key;
             AllowedIPs = [
               "::/0"
               "0.0.0.0/0"
