@@ -39,52 +39,7 @@
                 }
                 {
                   handle = [
-                    {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:3002"; } ];
-                            }
-                          ];
-                          match = [
-                            {
-                              path = [
-                                "/grafana/*"
-                                "/grafana"
-                              ];
-                            }
-                          ];
-                        }
-                        {
-                          handle = [
-                            {
-                              handler = "authentication";
-                              providers.http_basic.accounts = [
-                                {
-                                  username = "prometheus";
-                                  password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
-                                }
-                              ];
-                            }
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:9090"; } ];
-                            }
-                          ];
-                          match = [
-                            {
-                              path = [
-                                "/prom/*"
-                                "/prom"
-                              ];
-                            }
-                          ];
-                        }
-                      ];
-                    }
+
                   ];
                   match = [ { host = [ config.networking.fqdn ]; } ];
                 }

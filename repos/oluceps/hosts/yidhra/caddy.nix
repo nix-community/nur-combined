@@ -284,6 +284,16 @@
                     match = [ { host = [ "seed.nyaw.xyz" ]; } ];
                     terminal = true;
                   }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:3002"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "gf.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
                 ];
               }
             ];

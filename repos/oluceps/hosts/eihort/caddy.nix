@@ -28,27 +28,11 @@
                           {
                             handle = [
                               {
-                                handler = "reverse_proxy";
-                                upstreams = [ { dial = "localhost:3002"; } ];
-                              }
-                            ];
-                            match = [
-                              {
-                                path = [
-                                  "/grafana/*"
-                                  "/grafana"
-                                ];
-                              }
-                            ];
-                          }
-                          {
-                            handle = [
-                              {
                                 handler = "authentication";
                                 providers.http_basic.accounts = [
                                   {
                                     username = "prometheus";
-                                    password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
+                                    password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
                                   }
                                 ];
                               }
@@ -185,6 +169,16 @@
                       }
                     ];
                     match = [ { host = [ "book.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:3002"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "gf.nyaw.xyz" ]; } ];
                     terminal = true;
                   }
                   (import ../caddy-matrix.nix {

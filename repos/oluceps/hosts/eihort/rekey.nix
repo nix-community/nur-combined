@@ -12,77 +12,61 @@ in
     settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
 
     secrets = {
+      grafana = { };
       wg-eihort = {
-        file = ../../sec/wg-eihort.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";
       };
       notifychan = {
-        file = ../../sec/notifychan.age;
         mode = "400";
       };
       prom = {
-        file = ../../sec/prom.age;
         mode = "640";
         owner = "prometheus";
         group = "users";
       };
       id = {
-        file = ../../sec/id.age;
         mode = "400";
         owner = user;
         group = "users";
       };
       tg-session = {
-        file = ../../sec/tg-session.age;
         mode = "640";
         owner = "root";
         group = "root";
         name = "tg-session";
       };
       weed-s3 = {
-        file = ../../sec/weed-s3.age;
         owner = "seaweedfs";
         group = "seaweedfs";
       };
-      memos = {
-        file = ../../sec/memos.age;
-      };
+      memos = { };
       tg-env = {
-        file = ../../sec/tg-env.age;
         mode = "640";
         owner = "root";
         group = "root";
         name = "tg-env";
       };
       meilisearch = {
-        file = ../../sec/meilisearch.age;
         mode = "444";
       };
       autosign = {
-        file = ../../sec/autosign.age;
         mode = "400";
         owner = user;
       };
       misskey = {
-        file = ../../sec/misskey.age;
         mode = "444";
         owner = "misskey";
       };
-
       pocketid = {
-        file = ../../sec/pocketid.age;
         mode = "400";
         owner = config.services.pocket-id.user;
       };
-
-      vault.file = ../../sec/vault.age;
-      linkwarden.file = ../../sec/linkwarden.age;
-
-      mautrix-tg.file = ../../sec/mautrix-tg.age;
-
-      immich.file = ../../sec/immich.age;
+      vault = { };
+      linkwarden = { };
+      mautrix-tg = { };
+      immich = { };
     };
   };
 

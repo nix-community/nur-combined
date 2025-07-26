@@ -3,6 +3,7 @@ let
 
   srvOnEihort = map (n: n + ".nyaw.xyz") [
     "matrix"
+    "gf"
     "photo"
     "s3"
     "ms"

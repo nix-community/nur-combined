@@ -149,10 +149,10 @@
       environmentFile = config.vaultix.secrets.pocketid.path;
     };
 
-    online-keeper.instances.sec = {
-      sessionFile = config.vaultix.secrets.tg-session.path;
-      environmentFile = config.vaultix.secrets.tg-env.path;
-    };
+    # online-keeper.instances.sec = {
+    #   sessionFile = config.vaultix.secrets.tg-session.path;
+    #   environmentFile = config.vaultix.secrets.tg-env.path;
+    # };
 
     btrfs.autoScrub = {
       enable = true;
