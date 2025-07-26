@@ -16,7 +16,12 @@
         lib.mapAttrsToList (n: v: ''
           Host ${n}
               HostName ${
-                if config.networking.hostName == "kaambl" then lib.getAddrFromCIDR v.unique_addr else v.addr
+                if config.networking.hostName == "kaambl" then
+                  lib.getAddrFromCIDR v.unique_addr
+                else if v ? addrs then
+                  lib.elemAt v.addrs 0
+                else
+                  (lib.elemAt v.identifiers 0).name
               }
               User ${v.user}
               AddKeysToAgent yes
@@ -225,6 +230,7 @@
               vhdl-ls
               delve
               # python311Packages.python-lsp-server
+              taplo
               tinymist
             ]
           ];

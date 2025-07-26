@@ -1,67 +1,61 @@
+prefix = "fdcc::"
+
 [node.hastur]
 # homeserver censored
-id = 0 # ro, for Cantor Pair Function
-addr = "hastur.local"
+id = 0                                                                                       # ro, for Cantor Pair Function
 censor = true
 nat = true
-loc = 0
+region = 0
 user = "riro"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g568jdv6aRbhDZ"
-
-unique_addr = "fdcc::1/128"
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
 pub_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
+identifiers = [{ name = "hastur.local", type = "mdns" }]
 
 [node.kaambl]
 # laptop
 id = 1
-addr = "kaambl.local"
 censor = true
 nat = true
-loc = 0
+region = 0
 user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
-
-unique_addr = "fdcc::2/128"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
 pub_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
+identifiers = [{ name = "kaambl.local", type = "mdns" }]
 
 [node.eihort]
 # nas
 id = 2
-addr = "eihort.local"
 censor = true
 nat = true
-loc = 0
+region = 0
 user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3BKPqrCBdcsch"
-
-unique_addr = "fdcc::3/128"
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
 pub_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 
+identifiers = [{ name = "eihort.local", type = "mdns" }]
+
+
 [node.yidhra]
 id = 3
-addr = "103.213.4.159"
+addrs = ["103.213.4.159", "2401:5a0:1000:96::a"]
 censor = false
 nat = false
 user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDqkU3B6vPZKh1ETslE7GAmSD7exr3Mr7uIVKuAW4pR"
-
-unique_addr = "fdcc::4/128"
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 pub_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 
 [node.abhoth]
 # dmit
 id = 4
-addr = "154.31.114.112"
+addrs = ["154.31.114.112", "2403:18c0:1000:13a:343b:65ff:fe1b:7a0f"]
 censor = false
 nat = false
 user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRMxm3SFj1DwUjCTF4ByMVYQNMOPzi/Kqff5fTEvtG9"
-
-unique_addr = "fdcc::5/128"
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"
 pub_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 

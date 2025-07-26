@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 export-env {
-  $env.get_addr = { |map, per| $map | get $per | $in.addr }
+  $env.get_addr = { |map, per| $map | get $per | $in.addrs.0 }
   $env.get_user = { |map, per| $map | get $per | $in.user }
   $env.map = open ./registry.toml | $in.node
 }

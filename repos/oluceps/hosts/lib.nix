@@ -24,7 +24,14 @@ rec {
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
       skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
     };
-    inherit (fromTOML (builtins.readFile ../registry.toml)) node;
+    node =
+      let
+        registry = (fromTOML (builtins.readFile ../registry.toml));
+        inherit (registry) prefix node;
+        mask = "/128";
+      in
+      pkgs.lib.mapAttrs (_: v: v // { unique_addr = prefix + toString (v.id + 1) + mask; }) node;
+
     hosts = import ./hosts.nix {
       lib = (inputs.nixpkgs).lib // {
         inherit getAddrFromCIDR;

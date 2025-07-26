@@ -200,7 +200,7 @@ reIf {
               };
             }
             {
-              targets = [ "154.31.114.112" ];
+              targets = [ "2403:18c0:1000:13a:343b:65ff:fe1b:7a0f" ];
               labels = {
                 name = "JP1";
                 city = "Tokyo";
@@ -222,7 +222,7 @@ reIf {
             rules = [
               {
                 alert = "NodeDown";
-                expr = ''up{instance != "kaambl.nyaw.xyz"} == 0'';
+                expr = ''up{instance !~ "kaambl.nyaw.xyz|hastur.nyaw.xyz"} == 0''; # suspend or reboot to win
                 for = "5m";
               }
               {
