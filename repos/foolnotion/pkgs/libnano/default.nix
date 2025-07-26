@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "accosmin-org";
     repo = "libnano";
-    rev = "c93a223209089a35fca99bc39ef4fc9cc7e40a3c";
-    sha256 = "sha256-P2JLLjuVl0QFEVzqykPlLFJ8pIcECX5HTBqyf69Mls0=";
+    rev = "b3c2f3bd6c4bae79177df9b7cf220556d1c9de7e";
+    sha256 = "sha256-hoGX3x+/0RnWGQxkF9fFCtbKl1r9DeyvVffi3QQ+XKo=";
   };
 
   nativeBuildInputs = [
