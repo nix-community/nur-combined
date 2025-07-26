@@ -23,8 +23,6 @@ buildNpmPackage (finalAttrs: {
     hash = "sha256-9T31QlffPP6+ryRVN/7t0iMo+2AgwPb6l6CkYh6839U=";
   };
 
-  patches = [ ./gemini.path ];
-
   postPatch = ''
     mkdir -p packages/cli/src/generated
     echo "export const GIT_COMMIT_INFO = '${finalAttrs.src.rev}';" > packages/cli/src/generated/git-commit.js
