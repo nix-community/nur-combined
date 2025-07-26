@@ -32,7 +32,7 @@
   jaraco-text,
 }: let
   pname = "opengrep";
-  version = "1.8.1";
+  version = "1.8.2";
 
   binaries = {
     aarch64-linux = fetchurl {
@@ -41,7 +41,7 @@
     };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
-      hash = "sha256-MP0r8MtkUEyNBxyiIVBvObPb6iih+Lbk5Xx+TRco38U=";
+      hash = "sha256-9LWfO4owQffGBkxlWfa0e36KIwM5t+xs/w1lOGM/2D8=";
     };
     aarch64-darwin = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
@@ -79,7 +79,7 @@ in
       owner = "opengrep";
       repo = "opengrep";
       tag = "v${version}";
-      hash = "sha256-4WsoiTt3sN9UzC7M+ARqS8c8+NWEb79v9SQ08kmlGZQ=";
+      hash = "sha256-INi84Z5y3TY+p4w3zmf04LjlnCXe0/8ClFjUBbT3HU0=";
       fetchSubmodules = true;
     };
 

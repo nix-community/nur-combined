@@ -7,13 +7,13 @@
 }:
 nix-update.overrideAttrs
 (final: prev: {
-  version = "1.11.0-unstable-2025-07-24";
+  version = "1.11.0-unstable-2025-07-25";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "nix-update";
-    rev = "65663d259920796fc6845d700cc44afa23a697ec";
-    hash = "sha256-xQp4aaSLuk0RNbEo5xriA1r9/QzGxoZzvX2ggDWjgPU=";
+    rev = "5fce80c5e40a029269cd515ebd9ed3ebcf5d2701";
+    hash = "sha256-LrjF/8LDsZF3Xh1R4u6xfBEMwz0TZMyU82VUJvwD4/c=";
   };
 
   passthru =
