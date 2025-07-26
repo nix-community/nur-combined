@@ -350,6 +350,17 @@
     };
     date = "2021-01-26";
   };
+  crystalhd-ubuntu = {
+    pname = "crystalhd-ubuntu";
+    version = "72237253de7901c70aa666b3e022289f1ebae0ac";
+    src = fetchgit {
+      url = "https://git.launchpad.net/ubuntu/+source/crystalhd";
+      rev = "72237253de7901c70aa666b3e022289f1ebae0ac";
+      fetchSubmodules = false;
+      hash = "sha256-84eztV9ExTP9a/L1qpp8uyQJgF6aFVRe52bCje18JOY=";
+    };
+    date = "2020-03-22";
+  };
   data-recorder = {
     pname = "data-recorder";
     version = "3.6.2";

@@ -147,6 +147,11 @@ src.prefix = "cryptodev-linux-"
 fetch.github = "dbason/crystalhd"
 src.git = "https://github.com/dbason/crystalhd.git"
 
+[crystalhd-ubuntu]
+fetch.git = "https://git.launchpad.net/ubuntu/+source/crystalhd"
+src.git = "https://git.launchpad.net/ubuntu/+source/crystalhd"
+src.branch = "applied/ubuntu/jammy"
+
 [data-recorder]
 fetch.pypi = "DataRecorder"
 src.pypi = "DataRecorder"

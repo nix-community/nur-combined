@@ -674,6 +674,26 @@
         },
         "version": "af931d9ae5a63adfefe398defb99f225ae181c24"
     },
+    "crystalhd-ubuntu": {
+        "cargoLocks": null,
+        "date": "2020-03-22",
+        "extract": null,
+        "name": "crystalhd-ubuntu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "72237253de7901c70aa666b3e022289f1ebae0ac",
+            "sha256": "sha256-84eztV9ExTP9a/L1qpp8uyQJgF6aFVRe52bCje18JOY=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://git.launchpad.net/ubuntu/+source/crystalhd"
+        },
+        "version": "72237253de7901c70aa666b3e022289f1ebae0ac"
+    },
     "data-recorder": {
         "cargoLocks": null,
         "date": null,

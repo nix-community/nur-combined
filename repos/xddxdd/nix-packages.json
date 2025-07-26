@@ -684,6 +684,11 @@
     "pname": "grasscutter",
     "version": "1.7.4"
   },
+  "legacyPackages.x86_64-linux.gst-plugin-crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin",
+    "pname": "gst-plugin-crystalhd",
+    "version": "0-unstable-2020-03-22"
+  },
   "legacyPackages.x86_64-linux.gwmp-mux": {
     "description": "Multiplexer for Semtech's GWMP over UDP",
     "pname": "gwmp-mux",
@@ -4559,6 +4564,11 @@
     "pname": "grasscutter",
     "version": "1.7.4"
   },
+  "legacyPackages.x86_64-linux.uncategorized.gst-plugin-crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin",
+    "pname": "gst-plugin-crystalhd",
+    "version": "0-unstable-2020-03-22"
+  },
   "legacyPackages.x86_64-linux.uncategorized.gwmp-mux": {
     "description": "Multiplexer for Semtech's GWMP over UDP",
     "pname": "gwmp-mux",
@@ -5463,6 +5473,11 @@
     "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
     "version": "1.7.4"
+  },
+  "packages.x86_64-linux.gst-plugin-crystalhd": {
+    "description": "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin",
+    "pname": "gst-plugin-crystalhd",
+    "version": "0-unstable-2020-03-22"
   },
   "packages.x86_64-linux.gwmp-mux": {
     "description": "Multiplexer for Semtech's GWMP over UDP",

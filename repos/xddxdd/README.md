@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (193 packages)</summary>
+<summary>Package set: (Uncategorized) (194 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -140,6 +140,7 @@ Or, use variables from this repository in case I change them:
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
+|  | `gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
@@ -1086,7 +1087,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (139 packages)</summary>
+<summary>Package set: uncategorized (140 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1129,6 +1130,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `uncategorized.grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
+|  | `uncategorized.gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `uncategorized.gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `uncategorized.hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `uncategorized.helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
