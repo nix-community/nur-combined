@@ -5,12 +5,9 @@
 }:
 stdenv.mkDerivation rec {
   inherit (sources.crystalhd) pname version src;
-
-  # patches = [ ./fix.patch ];
+  sourceRoot = "source/linux_lib/libcrystalhd";
 
   postPatch = ''
-    cd linux_lib/libcrystalhd
-
     substituteInPlace Makefile \
       --replace-fail '$(DESTDIR)/usr/' '$(DESTDIR)/'
   '';
