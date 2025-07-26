@@ -111,8 +111,6 @@ in
 
   jakirica-client = jakirica.client;
 
-  krane = callPackage ./applications/networking/cluster/krane { };
-
   linuxPackages = recurseIntoAttrs (
     linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages
   );

@@ -64,7 +64,6 @@
             path:
             (builtins.all (ignore: !(lib.hasSuffix ignore path)) [
               "gemset.nix"
-              "pkgs/applications/audio/zynaddsubfx/default.nix"
             ])
           ) (flake-linter-lib.walkFlake ./.)
         );
