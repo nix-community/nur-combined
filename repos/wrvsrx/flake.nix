@@ -30,7 +30,7 @@
               config.allowUnfree = true;
             };
             packages = inputs.flake-utils.lib.flattenTree (import ./. { inherit pkgs; });
-            formatter = pkgs.nixfmt-rfc-style;
+            formatter = pkgs.nixfmt;
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
                 nvfetcher
