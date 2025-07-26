@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+version=$1
+
+function get_hash() {
+	nix hash convert --hash-algo sha256 $(nix-prefetch-url https://github.com/dagger/container-use/releases/download/v${version}/container-use_v${version}_${1}.tar.gz)
+}
+
+cat <<EOF
+  shaMap = {
+    x86_64-linux = "$(get_hash linux_amd64)";
+    aarch64-linux = "$(get_hash linux_arm64)";
+    x86_64-darwin = "$(get_hash darwin_amd64)";
+    aarch64-darwin = "$(get_hash darwin_arm64)";
+  };
+
+  urlMap = {
+    x86_64-linux = "https://github.com/dagger/container-use/releases/download/v${version}/container-use_v${version}_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/dagger/container-use/releases/download/v${version}/container-use_v${version}_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/dagger/container-use/releases/download/v${version}/container-use_v${version}_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/dagger/container-use/releases/download/v${version}/container-use_v${version}_darwin_arm64.tar.gz";
+  };
+EOF

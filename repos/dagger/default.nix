@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   dagger = pkgs.callPackage ./pkgs/dagger { };
+  container-use = pkgs.callPackage ./pkgs/container-use { };
 }
