@@ -123,7 +123,7 @@ buildNpmPackage rec {
   # single stable release.
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";
-    allowedVersions = "^([0-9]+\\.[0-9]+\\.[0-9]+)$";
+    ignoredVersions = "(alpha|beta|rc|primitives|migration)";
   };
 
   meta = with lib; {
