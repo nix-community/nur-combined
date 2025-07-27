@@ -1,5 +1,6 @@
 {
   lib,
+  substitute,
   writeText,
   writeShellApplication,
   packages,
@@ -12,6 +13,15 @@
 }:
 
 let
+  updateScript = substitute {
+    src = "${nixpkgs}/maintainers/scripts/update.py";
+    substitutions = [
+      "--replace"
+      ''nixpkgs_root + "/shell.nix"''
+      ''"${(nixpkgs + "/shell.nix")}"''
+    ];
+  };
+
   dedupe =
     packages:
     builtins.attrValues (
@@ -41,19 +51,20 @@ in
 writeShellApplication {
   name = "update";
   text = ''
-    echo "" | ${coreutils}/bin/env -i \
+    ${coreutils}/bin/env -i \
       HOME="$HOME" \
       PATH=${
         lib.makeBinPath [
-          bash
           coreutils
           git
           nix
         ]
       } \
       NIX_PATH=nixpkgs=${nixpkgs} \
-      ${python3.interpreter} ${
-        nixpkgs + "/maintainers/scripts/update.py"
-      } ${packagesJson} --keep-going --commit "$@"
+      ${python3.interpreter} ${updateScript} ${packagesJson} \
+        --keep-going \
+        --commit \
+        --skip-prompt \
+        "$@"
   '';
 }
