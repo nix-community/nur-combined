@@ -5,7 +5,6 @@
   writeShellApplication,
   packages,
   coreutils,
-  bash,
   git,
   nix,
   nixpkgs,
@@ -18,7 +17,7 @@ let
     substitutions = [
       "--replace"
       ''nixpkgs_root + "/shell.nix"''
-      ''"${(nixpkgs + "/shell.nix")}"''
+      ''"${nixpkgs}/shell.nix"''
     ];
   };
 
@@ -50,9 +49,11 @@ let
 in
 writeShellApplication {
   name = "update";
+  runtimeInputs = [ coreutils ];
   text = ''
-    ${coreutils}/bin/env -i \
-      HOME="$HOME" \
+    temp_home="$(mktemp -d)"
+    env -i \
+      HOME="$temp_home"
       PATH=${
         lib.makeBinPath [
           coreutils
@@ -66,5 +67,6 @@ writeShellApplication {
         --commit \
         --skip-prompt \
         "$@"
+    rm -rf "$temp_home"
   '';
 }
