@@ -41,7 +41,6 @@ in
         new_tongwentang
         offline-qr-code-generator
         rsshub-radar
-        ublacklist
         violentmonkey
       ] ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
         imagus
@@ -226,14 +225,19 @@ in
         };
         force = true;
       };
+      containersForce = true;
+      containers = {
+        work = {
+          id = 2;
+          icon = "briefcase";
+          color = "orange";
+        };
+      };
     };
   };
   home.file."${profilesPath}/default/chrome" = {
     source = pkgs.wavefox;
     recursive = true;
     force = true;
-  };
-  home.file.".mozilla/native-messaging-hosts/passff.json" = {
-    source = "${pkgs.passff-host}/lib/mozilla/native-messaging-hosts/passff.json";
   };
 }

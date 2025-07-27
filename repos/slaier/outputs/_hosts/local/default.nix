@@ -67,6 +67,7 @@
     lsof
     meld
     minicom
+    mtr
     nali
     neovim
     nix-tree
@@ -81,7 +82,6 @@
     rust-petname
     satty
     scrcpy
-    scrcpy-mask
     sops
     tdesktop
     unrar

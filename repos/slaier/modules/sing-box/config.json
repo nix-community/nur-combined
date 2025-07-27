@@ -112,6 +112,12 @@
       },
       {
         "geosite": [
+          "reddit"
+        ],
+        "outbound": "reddit"
+      },
+      {
+        "geosite": [
           "cn"
         ],
         "geoip": [

@@ -1,6 +1,113 @@
 { pkgs, lib, ... }:
 let
   getName = x: x.meta.mainProgram or (lib.getName x);
+  profileCommon = {
+    extensions = (
+      with pkgs.vscode-extensions; [
+        eamodio.gitlens
+        file-icons.file-icons
+        github.copilot
+        github.copilot-chat
+        llvm-vs-code-extensions.vscode-clangd
+        mesonbuild.mesonbuild
+        mkhl.direnv
+        ms-python.black-formatter
+        ms-python.python
+        ms-python.vscode-pylance
+        ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
+        redhat.vscode-yaml
+        shardulm94.trailing-spaces
+        shd101wyy.markdown-preview-enhanced
+        tamasfe.even-better-toml
+        timonwong.shellcheck
+        tyriar.sort-lines
+        yzhang.markdown-all-in-one
+      ]
+    );
+    keybindings = [
+      {
+        "key" = "ctrl+q";
+        "command" = "-workbench.action.quit";
+      }
+      {
+        "key" = "ctrl+q";
+        "command" = "workbench.action.remote.close";
+        "when" = "resourceScheme == 'vscode-remote'";
+      }
+      {
+        "key" = "ctrl+q";
+        "command" = "workbench.action.closeFolder";
+        "when" = "resourceScheme != 'vscode-remote' && workbenchState != 'empty'";
+      }
+      {
+        "key" = "ctrl+q";
+        "command" = "workbench.action.closeWindow";
+        "when" = "resourceScheme != 'vscode-remote' && workbenchState == 'empty'";
+      }
+      {
+        key = "ctrl+enter";
+        command = "-github.copilot.generate";
+      }
+      {
+        key = "alt+\\";
+        command = "github.copilot.generate";
+        when = "editorTextFocus && github.copilot.activated && !commentEditorFocused && !inInteractiveInput && !interactiveEditorFocused";
+      }
+    ];
+    userSettings = {
+      "diffEditor.ignoreTrimWhitespace" = false;
+      "editor.bracketPairColorization.enabled" = true;
+      "editor.guides.bracketPairs" = "active";
+      "editor.inlayHints.enabled" = "off";
+      "editor.minimap.enabled" = false;
+      "editor.renderWhitespace" = "all";
+      "editor.rulers" = [ 80 120 ];
+      "extensions.autoCheckUpdates" = false;
+      "extensions.autoUpdate" = false;
+      "files.insertFinalNewline" = true;
+      "files.trimFinalNewlines" = true;
+      "files.trimTrailingWhitespace" = true;
+      "search.collapseResults" = "auto";
+      "telemetry.telemetryLevel" = "off";
+      "terminal.integrated.automationProfile.linux" = {
+        "path" = "bash";
+        "icon" = "terminal-bash";
+      };
+      "terminal.integrated.copyOnSelection" = true;
+      "terminal.integrated.defaultProfile.linux" = "fish";
+      "terminal.integrated.profiles.linux" = {
+        "fish" = {
+          "path" = "env";
+          "args" = [
+            "fish"
+          ];
+        };
+        "ash" = null;
+        "sh" = null;
+      };
+      "update.mode" = "none";
+      "workbench.colorTheme" = "Monokai";
+      "workbench.commandPalette.preserveInput" = true;
+      "workbench.editor.enablePreviewFromCodeNavigation" = true;
+      "workbench.iconTheme" = "file-icons";
+
+      "dev.containers.defaultExtensions" = [
+        "Tyriar.sort-lines"
+        "eamodio.gitlens"
+        "shardulm94.trailing-spaces"
+      ];
+      "dev.containers.dockerComposePath" = getName pkgs.podman-compose;
+      "dev.containers.dockerPath" = getName pkgs.podman;
+      "direnv.restart.automatic" = true;
+      "markdown-preview-enhanced.previewTheme" = "monokai.css";
+      "mesonbuild.buildFolder" = "build";
+      "mesonbuild.downloadLanguageServer" = false;
+      "mesonbuild.formatting.enabled" = true;
+      "mesonbuild.linter.muon.enabled" = true;
+      "redhat.telemetry.enabled" = false;
+    };
+  };
 in
 {
   home.sessionVariables.EDITOR = "code -w";
@@ -26,128 +133,38 @@ in
         )
       '';
     });
-    profiles.default = {
-      extensions = (
-        with pkgs.vscode-extensions; [
+    profiles.default = lib.mkMerge [
+      profileCommon
+      {
+        extensions = with pkgs.vscode-extensions; [
           Wokwi.wokwi-vscode
-          eamodio.gitlens
-          file-icons.file-icons
-          github.copilot
-          github.copilot-chat
           jnoortheen.nix-ide
-          llvm-vs-code-extensions.vscode-clangd
-          mesonbuild.mesonbuild
-          mkhl.direnv
-          ms-python.black-formatter
-          ms-python.python
-          ms-python.vscode-pylance
-          ms-vscode-remote.remote-containers
-          ms-vscode-remote.remote-ssh
           ms-vscode.cpptools
           platformio.platformio-vscode-ide
-          redhat.vscode-yaml
-          shardulm94.trailing-spaces
-          shd101wyy.markdown-preview-enhanced
           skellock.just
-          tamasfe.even-better-toml
-          timonwong.shellcheck
-          tyriar.sort-lines
-          yzhang.markdown-all-in-one
-        ]
-      );
-      keybindings = [
-        {
-          "key" = "ctrl+q";
-          "command" = "-workbench.action.quit";
-        }
-        {
-          "key" = "ctrl+q";
-          "command" = "workbench.action.remote.close";
-          "when" = "resourceScheme == 'vscode-remote'";
-        }
-        {
-          "key" = "ctrl+q";
-          "command" = "workbench.action.closeFolder";
-          "when" = "resourceScheme != 'vscode-remote' && workbenchState != 'empty'";
-        }
-        {
-          "key" = "ctrl+q";
-          "command" = "workbench.action.closeWindow";
-          "when" = "resourceScheme != 'vscode-remote' && workbenchState == 'empty'";
-        }
-        {
-          key = "ctrl+enter";
-          command = "-github.copilot.generate";
-        }
-        {
-          key = "alt+\\";
-          command = "github.copilot.generate";
-          when = "editorTextFocus && github.copilot.activated && !commentEditorFocused && !inInteractiveInput && !interactiveEditorFocused";
-        }
-      ];
-      userSettings = {
-        "diffEditor.ignoreTrimWhitespace" = false;
-        "editor.bracketPairColorization.enabled" = true;
-        "editor.guides.bracketPairs" = "active";
-        "editor.inlayHints.enabled" = "off";
-        "editor.minimap.enabled" = false;
-        "editor.renderWhitespace" = "all";
-        "editor.rulers" = [ 80 120 ];
-        "extensions.autoCheckUpdates" = false;
-        "extensions.autoUpdate" = false;
-        "files.insertFinalNewline" = true;
-        "files.trimFinalNewlines" = true;
-        "files.trimTrailingWhitespace" = true;
-        "search.collapseResults" = "auto";
-        "telemetry.telemetryLevel" = "off";
-        "terminal.integrated.automationProfile.linux" = {
-          "path" = "bash";
-          "icon" = "terminal-bash";
-        };
-        "terminal.integrated.copyOnSelection" = true;
-        "terminal.integrated.defaultProfile.linux" = "fish";
-        "terminal.integrated.profiles.linux" = {
-          "fish" = {
-            "path" = "env";
-            "args" = [
-              "fish"
-            ];
-          };
-          "ash" = null;
-          "sh" = null;
-        };
-        "update.mode" = "none";
-        "workbench.colorTheme" = "Monokai";
-        "workbench.commandPalette.preserveInput" = true;
-        "workbench.editor.enablePreviewFromCodeNavigation" = true;
-        "workbench.iconTheme" = "file-icons";
-
-        "dev.containers.defaultExtensions" = [
-          "Tyriar.sort-lines"
-          "eamodio.gitlens"
-          "shardulm94.trailing-spaces"
         ];
-        "dev.containers.dockerComposePath" = getName pkgs.podman-compose;
-        "dev.containers.dockerPath" = getName pkgs.podman;
-        "direnv.restart.automatic" = true;
-        "markdown-preview-enhanced.previewTheme" = "monokai.css";
-        "mesonbuild.buildFolder" = "build";
-        "mesonbuild.downloadLanguageServer" = false;
-        "mesonbuild.formatting.enabled" = true;
-        "mesonbuild.linter.muon.enabled" = true;
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "${lib.getExe pkgs.nil}";
-        "nix.serverSettings" = {
-          nil.formatting.command = [ (lib.getExe pkgs.nixpkgs-fmt) ];
-          nix = {
-            autoEvalInputs = true;
-            nixpkgsInputName = "nixpkgs";
+        userSettings = {
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "${lib.getExe pkgs.nil}";
+          "nix.serverSettings" = {
+            nil.formatting.command = [ (lib.getExe pkgs.nixpkgs-fmt) ];
+            nix = {
+              autoEvalInputs = true;
+              nixpkgsInputName = "nixpkgs";
+            };
           };
+          "platformio-ide.customPyPiIndexUrl" = "https://mirror.nju.edu.cn/pypi/web/simple";
         };
-        "platformio-ide.customPyPiIndexUrl" = "https://mirror.nju.edu.cn/pypi/web/simple";
-        "redhat.telemetry.enabled" = false;
-      };
-    };
+      }
+    ];
+    profiles.work = lib.mkMerge [
+      profileCommon
+      {
+        userSettings = {
+          "git.alwaysSignOff" = true;
+        };
+      }
+    ];
   };
   home.file.".vscode/argv.json".text = builtins.toJSON {
     password-store = "gnome-libsecret";

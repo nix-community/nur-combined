@@ -1,7 +1,15 @@
 { config, pkgs, nixosConfig, ... }:
+let
+  workDir = "${config.home.homeDirectory}/repos/work";
+in
 {
   sops.secrets.github_token = {
     path = "${config.xdg.configHome}/git/credentials";
+  };
+  sops.secrets.gitconfig = {
+    format = "binary";
+    sopsFile = ../../secrets/gitconfig;
+    path = "${workDir}/.gitconfig";
   };
 
   programs.git = {
@@ -23,6 +31,13 @@
       user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
       commit.gpgsign = true;
     };
+
+    includes = [
+      {
+        path = config.sops.secrets.gitconfig.path;
+        condition = "gitdir:${workDir}/";
+      }
+    ];
 
     ignores = [
       ".cache"
