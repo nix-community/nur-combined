@@ -41,7 +41,14 @@
 
     pgp-sig2dot = {
       url = "github:Cryolitia/pgp-sig2dot";
+      # For build to cachix
       # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    pgp-sig2dot-beta = {
+      url = "github:Cryolitia/pgp-sig2dot";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
   };
@@ -53,6 +60,7 @@
       rust-overlay,
       gpd-fan-driver,
       pgp-sig2dot,
+      pgp-sig2dot-beta,
       ...
     }:
     let
@@ -108,6 +116,23 @@
                 { }
             )
             // pgp-sig2dot.packages.${system}
+            // (
+              (nixpkgs.lib.attrsets.mapAttrs' (
+                name: value:
+                nixpkgs.lib.attrsets.nameValuePair (name + "-testing") (
+                  if (value ? rustPlatform) then
+                    value.override {
+                      rustPlatform = pkgs.makeRustPlatform {
+                        cargo = pkgs.rust-bin.stable.latest.minimal;
+                        rustc = pkgs.rust-bin.stable.latest.minimal;
+                      };
+                    }
+                  else
+                    value
+                )
+              ))
+              pgp-sig2dot-beta.packages.${system}
+            )
           )
         )
       );
@@ -160,10 +185,34 @@
             rust-overlay = true;
           }
         );
-      } // (nixpkgs.lib.attrsets.genAttrs systems (name: (lib.filterNurAttrs name packages."${name}")));
+      }
+      // (nixpkgs.lib.attrsets.genAttrs systems (name: (lib.filterNurAttrs name packages."${name}")));
 
       hydraJobs = {
         cuda = ciJobs.cuda;
       };
+
+      formatter = forAllSystems (
+        system:
+        with {
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        };
+        (pkgs.treefmt.withConfig {
+          runtimeInputs = [ pkgs.nixfmt-rfc-style ];
+
+          settings = {
+            # Log level for files treefmt won't format
+            on-unmatched = "info";
+
+            # Configure nixfmt for .nix files
+            formatter.nixfmt = {
+              command = "nixfmt";
+              includes = [ "*.nix" ];
+            };
+          };
+        })
+      );
     };
 }

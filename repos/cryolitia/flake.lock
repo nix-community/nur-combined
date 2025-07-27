@@ -108,12 +108,36 @@
         "type": "github"
       }
     },
+    "pgp-sig2dot-beta": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753608898,
+        "narHash": "sha256-ujkflWjUQ9+KjNd0i2/6bQfmqYyvZMCz1LHrPjMHKKI=",
+        "owner": "Cryolitia",
+        "repo": "pgp-sig2dot",
+        "rev": "d127b7c85649f34d311fdf4076e81c4a66aeec3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cryolitia",
+        "repo": "pgp-sig2dot",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "gpd-fan-driver": "gpd-fan-driver",
         "gpd-linuxcontrols": "gpd-linuxcontrols",
         "nixpkgs": "nixpkgs_2",
         "pgp-sig2dot": "pgp-sig2dot",
+        "pgp-sig2dot-beta": "pgp-sig2dot-beta",
         "rust-overlay": "rust-overlay_2"
       }
     },

@@ -13,14 +13,13 @@ let
 
 in
 vscode.overrideAttrs (oldAttrs: {
-  postPatch =
-    ''
-      echo ".editor-group-watermark > .letterpress{
-        background-image: url(${logo-url}) !important;
-        opacity: .75;
-      }" >> ${path}
-    ''
-    + oldAttrs.postPatch;
+  postPatch = ''
+    echo ".editor-group-watermark > .letterpress{
+      background-image: url(${logo-url}) !important;
+      opacity: .75;
+    }" >> ${path}
+  ''
+  + oldAttrs.postPatch;
 
   meta = oldAttrs.meta // {
     description = "VSCode with github.com/Aikoyori/ProgrammingVTuberLogos LOGO";
