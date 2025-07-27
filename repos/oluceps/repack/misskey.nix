@@ -55,8 +55,8 @@ reIf {
         "3012:3012"
       ];
       networks = [
-        # "pasta:-T,5432,-T,6379,-T,7700,-T,443"
-        "host"
+        "pasta:-T,5432,-T,6379,-T,7700,-T,443"
+        # "host"
       ];
       # extraOptions = [ "--add-host=s3.nyaw.xyz:127.0.0.1" ];
       podman = {

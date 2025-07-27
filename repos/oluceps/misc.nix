@@ -61,6 +61,9 @@
           rp = "rustplayer";
           y = "yazi";
           i = "kitty +kitten icat";
+          sc = "systemctl";
+          scs = "systemctl status";
+          scr = "systemctl restart";
           ".." = "cd ..";
           "。。" = "cd ..";
           "..." = "cd ../..";
@@ -283,6 +286,7 @@
     settings = {
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
+      fsync-store-paths = true;
       keep-outputs = true;
       keep-derivations = true;
       trusted-public-keys = [

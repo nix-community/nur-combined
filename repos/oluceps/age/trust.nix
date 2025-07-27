@@ -33,7 +33,7 @@
     cleanPlaceholder = true;
     insert = {
       "f3c4e59bfb78c6a26564724aaadda3ac3250d73ee903b17e3803785335bd082c" = {
-        content = "154.31.114.112";
+        content = "[" + (lib.elemAt lib.data.node.abhoth.addrs 1) + "]"; # IPv6, straight
         order = 0;
       };
       "b1ca20eb6f34aa70cc00682636eb3582d592727923789fed0eeb56fa567d5c01" = {
@@ -47,7 +47,7 @@
     cleanPlaceholder = true;
     insert = {
       "f3c4e59bfb78c6a26564724aaadda3ac3250d73ee903b17e3803785335bd082c" = {
-        content = "103.213.4.159";
+        content = "[" + (lib.elemAt lib.data.node.yidhra.addrs 1) + "]"; # IPv6, straight
         order = 0;
       };
       "b1ca20eb6f34aa70cc00682636eb3582d592727923789fed0eeb56fa567d5c01" = {

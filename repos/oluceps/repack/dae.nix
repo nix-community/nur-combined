@@ -14,8 +14,8 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
-    # package = inputs'.dae.packages.dae-dirty;
-    package = inputs'.dae.packages.dae-unstable;
+    package = inputs'.dae.packages.dae-dirty;
+    # package = inputs'.dae.packages.dae-unstable;
     config = ''
       include {
           secret.dae

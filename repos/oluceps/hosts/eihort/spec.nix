@@ -135,7 +135,7 @@
       location = "/three/storage/Downloads";
     };
     # bpftune.enable = true;
-    # sing-box.enable = true;
+    sing-box.enable = true;
     metrics.enable = true;
 
     pocket-id = {
