@@ -674,26 +674,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.07.07";
+    version = "2025.07.26";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-hwBxeh0isWQynX0bjnJLrtuULtandH4NH92/D5fC3R0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-ASN.mmdb";
+      hash = "sha256-h1IuagV4C6ScatFhRQV69B7rnp5uXxREVPclUfUZ5kg=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.07.07";
+    version = "2025.07.26";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.07/GeoLite2-City.mmdb";
-      hash = "sha256-1WvrBFTH032kNeqwBj/Fv+K1GicqekH6ngOib+PHmxc=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-City.mmdb";
+      hash = "sha256-cku6wJuHJ7k59NhPSQVs9sGvK0E9DbAWvMnDYe6qXgI=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.07.07";
+    version = "2025.07.26";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.07/GeoLite2-Country.mmdb";
-      hash = "sha256-laNLUo1RYWF77OSjwMYasGn33WZKw6fft6AmYQhD5cg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-Country.mmdb";
+      hash = "sha256-AowVChOlO55r5a4nhcDtkFlFjGUg1jRfwz1sZskqRJY=";
     };
   };
   glauth = {
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b5995";
+    version = "b6000";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b5995";
-      hash = "sha256-pvWOVlz/yRxW7ZloqJryFH+ORi/ulK+1A0aZ3pJNkdg=";
+      tag = "b6000";
+      hash = "sha256-AEriCrEhSHV3PSTLoJdOVOF0tGxTDJrhJRrx+556wLI=";
     };
   };
   loralib = {
@@ -1763,12 +1763,12 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "f4a08505d8b8edce27b4b23678d637f4b8a3901a";
+    version = "023c24478d9f42a73ec7504ddf01c67dc69527ea";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "f4a08505d8b8edce27b4b23678d637f4b8a3901a";
-      hash = "sha256-/+tTKBZLlTATOQhpe7jgtVV2sqzGNDvUra47ubFL79U=";
+      rev = "023c24478d9f42a73ec7504ddf01c67dc69527ea";
+      hash = "sha256-UluO5jyvrh22cJdrL+acOMK2AHf6smY3Cypr2ZUIovs=";
     };
     date = "2025-07-26";
   };
