@@ -1572,10 +1572,10 @@
     };
     "chameleon-ext" = buildFirefoxXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.74.1";
+      version = "0.22.75.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4523255/chameleon_ext-0.22.74.1.xpi";
-      sha256 = "31cdca3e43cbe583b913dcd58d63bb3c660b0e64c78400fd7e567650d634b4aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4542999/chameleon_ext-0.22.75.1.xpi";
+      sha256 = "ec06648a996db26a602b54c95522ed27062fa182f43533c48ebb5cffba2cde96";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -1596,10 +1596,10 @@
     };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
-      version = "2.5.8";
+      version = "2.5.9";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333480/chatgptbox-2.5.8.xpi";
-      sha256 = "fd7060017764d342622316c371cbcf77ee2f9c2446416c1bbb0e215dbb499205";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4542740/chatgptbox-2.5.9.xpi";
+      sha256 = "21af9e7b4f12090b8265fcb3aea324480a7420ee8ad997bfb7106efb1f6d04e0";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -15025,15 +15025,20 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.8.4";
+      version = "3.9.0";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4518114/youtube_redux-3.8.4.xpi";
-      sha256 = "092eeb4c641eb0765720c478a404f5cd76e7d4d1278f18ab644cbde2e5ae0b59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4542760/youtube_redux-3.9.0.xpi";
+      sha256 = "0c5e0943f88e4bcc38819026245179915e642fc8596e90f67e88cb9e3aab6781";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
         license = licenses.mit;
-        mozPermissions = [ "activeTab" "storage" "*://*.youtube.com/*" ];
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "downloads"
+          "*://*.youtube.com/*"
+        ];
         platforms = platforms.all;
       };
     };
