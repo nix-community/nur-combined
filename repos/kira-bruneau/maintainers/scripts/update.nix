@@ -53,7 +53,7 @@ writeShellApplication {
   text = ''
     temp_home="$(mktemp -d)"
     env -i \
-      HOME="$temp_home"
+      HOME="$temp_home" \
       PATH=${
         lib.makeBinPath [
           coreutils

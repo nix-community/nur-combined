@@ -54,6 +54,13 @@
               ];
           };
 
+          # Prefer lix over nix
+          overlays = [
+            (final: prev: {
+              nix = final.lix;
+            })
+          ];
+
           inherit system;
         };
 
