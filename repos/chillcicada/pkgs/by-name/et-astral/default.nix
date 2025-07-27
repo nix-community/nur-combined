@@ -10,11 +10,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "et-astral";
-  version = "2.1.22";
+  version = "2.1.27";
 
   src = builtins.fetchTarball {
     url = "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    sha256 = "09p3v9ykjylrnrimfiwzi6r8klln3wa4s2a6l8kwqh9gvcdw3ylp";
+    sha256 = "051wwvzxq3ghhdsrcnbshw3drpjy0j00qpkbcqh1fcc9l07g5c4r";
   };
 
   stripRoot = false;
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   desktopItems = [
     (makeDesktopItem {
       name = "astral";
-      exec = "sudo -E ${finalAttrs.meta.mainProgram} %u";
+      exec = "sudo ${finalAttrs.meta.mainProgram} %u";
       desktopName = "Astral";
       genericName = "Network Traffic Manager";
       icon = "astral";
