@@ -1,13 +1,13 @@
-{ callPackage, pkgs }:
-
 {
-  aws-cdk-local = callPackage ./aws-cdk-local { };
+  lib,
+  callPackage,
+  pkgs,
+}:
 
-  awscli-local = callPackage ./awscli-local { };
-
-  python-barbicanclient = pkgs.python3Packages.callPackage ./python-barbicanclient { };
-
-  python-designateclient = pkgs.python3Packages.callPackage ./python-designateclient { };
+lib.filesystem.packagesFromDirectoryRecursive {
+  inherit callPackage;
+  directory = ./.;
+} // {
 
   shadow-prod = callPackage ./shadow-client {
     channel = "prod";
@@ -26,6 +26,4 @@
     enableDiagnostics = true;
     enableDesktopLauncher = true;
   };
-
-  terraform-local = callPackage ./terraform-local { };
 }
