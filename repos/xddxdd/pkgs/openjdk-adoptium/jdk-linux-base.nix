@@ -11,6 +11,7 @@
   fontconfig,
   freetype,
   libffi,
+  openssl,
   xorg,
   zlib,
   # runtime dependencies
@@ -42,6 +43,7 @@ let
       alsa-lib # libasound.so wanted by lib/libjsound.so
       fontconfig
       freetype
+      openssl
       stdenv.cc.cc.lib # libstdc++.so.6
       xorg.libX11
       xorg.libXext
