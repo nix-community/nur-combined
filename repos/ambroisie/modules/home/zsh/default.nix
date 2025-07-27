@@ -1,14 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.my.home.zsh;
-
-  # Have a nice relative path for XDG_CONFIG_HOME, without leading `/`
-  relativeXdgConfig =
-    let
-      noHome = lib.removePrefix config.home.homeDirectory;
-      noSlash = lib.removePrefix "/";
-    in
-    noSlash (noHome config.xdg.configHome);
 in
 {
   options.my.home.zsh = with lib; {
@@ -57,7 +49,7 @@ in
 
       programs.zsh = {
         enable = true;
-        dotDir = "${relativeXdgConfig}/zsh"; # Don't clutter $HOME
+        dotDir = "${config.xdg.configHome}/zsh"; # Don't clutter $HOME
         enableCompletion = true;
 
         history = {
