@@ -32,13 +32,21 @@ if [ -d ".git" ]; then
         printinfo " ${url}"
     fi
 
-    # check for remote updates
+    # get remote updates
     git fetch --quiet "${remote}" "${branch}"
-    if ! git diff --quiet HEAD "${remote}"/"${branch}"; then
+
+    # check current git status
+    local_hash=$(git rev-parse "${branch}")
+    remote_hash=$(git rev-parse "${remote}"/"${branch}")
+    base_hash=$(git merge-base "${branch}" "${remote}"/"${branch}")
+    if [ "${local_hash}" = "${remote_hash}" ]; then
+        printinfo " up-to-date"
+    elif [ "${local_hash}" = "${base_hash}" ]; then
         printwarn " there are remote changes"
-        git status --short
+    elif [ "${remote_hash}" = "${base_hash}" ]; then
+        printwarn " there are local changes"
     else
-        printinfo " no remote changes"
+        printwarn " diverged"
     fi
 
     # show flake info
