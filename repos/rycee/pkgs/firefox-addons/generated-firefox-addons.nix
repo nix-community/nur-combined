@@ -1101,10 +1101,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.9.1";
+      version = "0.9.2";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4542287/bilisponsorblock-0.9.1.xpi";
-      sha256 = "4ac6cbf2ee86fbdca6ce21e57e2e300de2b6de201805db6a1d2b958be810159c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4543625/bilisponsorblock-0.9.2.xpi";
+      sha256 = "c2f5e6c9587031d2aa06844dce5939a7f9dc658c274698ebd98739458a82637f";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -8121,10 +8121,10 @@
     };
     "metager-suche" = buildFirefoxXpiAddon {
       pname = "metager-suche";
-      version = "1.16";
+      version = "1.17";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4542270/metager_suche-1.16.xpi";
-      sha256 = "07ea39595af4baa9951a8a18f7789c171bb9e02e75c05dbbd5097743a6671299";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4543349/metager_suche-1.17.xpi";
+      sha256 = "c6b14f6ed5c9e6c660ced761f6fb285a08dde99a409f9a13bb39cf4289c6d3bd";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -15025,20 +15025,15 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.9.0";
+      version = "3.8.4";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4542760/youtube_redux-3.9.0.xpi";
-      sha256 = "0c5e0943f88e4bcc38819026245179915e642fc8596e90f67e88cb9e3aab6781";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4518114/youtube_redux-3.8.4.xpi";
+      sha256 = "092eeb4c641eb0765720c478a404f5cd76e7d4d1278f18ab644cbde2e5ae0b59";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
         license = licenses.mit;
-        mozPermissions = [
-          "activeTab"
-          "storage"
-          "downloads"
-          "*://*.youtube.com/*"
-        ];
+        mozPermissions = [ "activeTab" "storage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
       };
     };
