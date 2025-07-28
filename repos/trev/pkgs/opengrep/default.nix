@@ -1,34 +1,11 @@
 {
-  lib,
-  fetchFromGitHub,
-  buildPythonApplication,
-  setuptools,
-  fetchurl,
-  stdenv,
   autoPatchelfHook,
+  fetchFromGitHub,
+  fetchurl,
+  lib,
   nix-update-script,
-  # python packages
-  attrs,
-  boltons,
-  click,
-  click-option-group,
-  colorama,
-  defusedxml,
-  exceptiongroup,
-  glom,
-  jsonschema,
-  packaging,
-  peewee,
-  requests,
-  rich,
-  ruamel-yaml,
-  tomli,
-  tqdm,
-  typing-extensions,
-  urllib3,
-  wcmatch,
-  protobuf,
-  jaraco-text,
+  python3Packages,
+  stdenv,
 }: let
   pname = "opengrep";
   version = "1.8.2";
@@ -36,7 +13,7 @@
   binaries = {
     # aarch64-linux = fetchurl {
     #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_aarch64.tar.gz";
-    #   hash = "sha256-xTk2I7omfN7nUlTHOQBAClF1CTjedUUGJt/75VYWp2E=";
+    #   hash = "sha256-H09X7sEsL+1DXPT03jqUYv9I0GrlcO5XvKNPCAUyiJE=";
     # };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
@@ -44,11 +21,11 @@
     };
     # aarch64-darwin = fetchurl {
     #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
-    #   hash = "sha256-pvdbaT0zumGl6JYxuDvqyC7CGnVAdHrUToX+K97zNT8=";
+    #   hash = "sha256-CCzprXv74B98oxz8SiLkN/Hs2WWLsUXmEVHTEjfc9cs=";
     # };
     # x86_64-darwin = fetchurl {
     #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_x86.tar.gz";
-    #   hash = "sha256-uWY5gZtKO1DSaNaX0ydEhbu/4XWU1OzrdIPVT6mOQbE=";
+    #   hash = "sha256-GsqPGONZ8BEuEYS3tsndltDO741SklrLwZtGKId15VM=";
     # };
   };
 
@@ -71,8 +48,9 @@
     '';
   };
 in
-  buildPythonApplication {
+  python3Packages.buildPythonApplication {
     inherit core pname version;
+    pyproject = true;
 
     src = fetchFromGitHub {
       owner = "opengrep";
@@ -82,12 +60,9 @@ in
       fetchSubmodules = true;
     };
 
-    postPatch = ''
-      cd cli
-    '';
-
-    pyproject = true;
-    build-system = [setuptools];
+    build-system = with python3Packages; [
+      setuptools
+    ];
 
     pythonRelaxDeps = [
       "boltons"
@@ -99,8 +74,7 @@ in
       "wcmatch"
     ];
 
-    # coupling: anything added to the pysemgrep setup.py should be added here
-    propagatedBuildInputs = [
+    dependencies = with python3Packages; [
       attrs
       boltons
       click
@@ -109,9 +83,11 @@ in
       defusedxml
       exceptiongroup
       glom
+      jaraco-text
       jsonschema
       packaging
       peewee
+      protobuf
       requests
       rich
       ruamel-yaml
@@ -120,9 +96,11 @@ in
       typing-extensions
       urllib3
       wcmatch
-      protobuf
-      jaraco-text
     ];
+
+    postPatch = ''
+      cd cli
+    '';
 
     preFixup = ''
       makeWrapperArgs+=(--prefix PATH : ${core}/bin)
@@ -142,7 +120,7 @@ in
       homepage = "https://github.com/opengrep/opengrep";
       mainProgram = "opengrep";
       changelog = "https://github.com/opengrep/opengrep/releases/tag/v${version}";
-      description = "Static code analysis engine to find security issues in code.";
+      description = "Static code analysis engine to find security issues in code";
       license = lib.licenses.lgpl21Plus;
       platforms = lib.attrNames binaries;
     };

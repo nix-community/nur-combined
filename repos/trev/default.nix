@@ -11,6 +11,6 @@
   bumper = pkgs.callPackage ./pkgs/bumper {};
   nix-update = pkgs.callPackage ./pkgs/nix-update {};
   protoc-gen-connect-openapi = pkgs.callPackage ./pkgs/protoc-gen-connect-openapi {};
-  opengrep = pkgs.python311Packages.callPackage ./pkgs/opengrep {};
+  opengrep = pkgs.callPackage ./pkgs/opengrep {};
   shellhook = pkgs.callPackage ./pkgs/shellhook {};
 }
