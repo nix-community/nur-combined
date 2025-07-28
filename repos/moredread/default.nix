@@ -14,20 +14,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  old = {
-    airnef = pkgs.callPackage ./pkgs/airnef {
-      pythonPackages = pkgs.python3Packages;
-      buildPythonApplication = pkgs.python3Packages.buildPythonApplication;
-    };
-    cc-tool = pkgs.callPackage ./pkgs/cc-tool {};
-    dump1090-hptoa = pkgs.callPackage ./pkgs/dump1090-hptoa {};
-    extplane-panel = pkgs.libsForQt5.callPackage ./pkgs/extplane-panel {};
-    ipbt = pkgs.callPackage ./pkgs/ipbt {};
-    airscan = pkgs.callPackage ./pkgs/airscan {};
-    nix-search = pkgs.callPackage ./pkgs/nix-search {};
-    sc3-plugins = pkgs.callPackage ./pkgs/sc3-plugins {};
-  };
-
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   joplin-desktop = pkgs.callPackage ./pkgs/joplin-desktop { };
   hxcfloppyemulator = pkgs.callPackage ./pkgs/hxcfloppyemulator { };
