@@ -10,13 +10,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "systemd-age-creds";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "systemd-age-creds";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LPWiN5X4ou1pE10e4g8Xk6a4OAJ/N/3IT5WNW+fawi8=";
+    hash = "sha256-+pgTuWzfFGnwL58htlyN13nccffqiSAQlTjhIP+M6UA=";
   };
 
   vendorHash = null;
@@ -30,6 +30,11 @@ buildGoModule (finalAttrs: {
   ];
 
   nativeBuildInputs = [ age ];
+
+  postInstall = ''
+    substituteInPlace ./systemd/*.service --replace-fail /usr/sbin/systemd-age-creds $out/bin/systemd-age-creds
+    install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
+  '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
