@@ -13,31 +13,31 @@ stdenv.mkDerivation rec {
   patches = [ ./pc.patch ];
   version = lib.removePrefix "v" source.version;
 
-  nativeBuildInputs =
-    [
-      cmake
-      eigen
-      catch2_3
-    ]
-    ++ (
-      if python3 != null then
-        [
-          (python3.withPackages (
-            ps: with ps; [
-              setuptools
-              pybind11
-            ]
-          ))
-        ]
-      else
-        [ ]
-    );
+  nativeBuildInputs = [
+    cmake
+    eigen
+    catch2_3
+  ]
+  ++ (
+    if python3 != null then
+      [
+        (python3.withPackages (
+          ps: with ps; [
+            setuptools
+            pybind11
+          ]
+        ))
+      ]
+    else
+      [ ]
+  );
 
   # Building the tests currently fails on AArch64 due to internal compiler
   # errors (with GCC 9.2):
   cmakeFlags = [
     "-DRANGES_ENABLE_WERROR=OFF"
-  ] ++ (if python3 != null then [ ] else [ "-DAUTODIFF_BUILD_PYTHON=OFF" ]);
+  ]
+  ++ (if python3 != null then [ ] else [ "-DAUTODIFF_BUILD_PYTHON=OFF" ]);
 
   # checkTarget = "test";
 
