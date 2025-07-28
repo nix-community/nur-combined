@@ -228,14 +228,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "5226fc9a9e65629885db2f1e323dd1d1f589e8e9";
+    version = "ac7091bd94a39e183b5fae2a1d5acb490a2c0dac";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "5226fc9a9e65629885db2f1e323dd1d1f589e8e9";
-      hash = "sha256-6uieSI90jWyH/A2a9jCfAAC2EhugZHbZm0t4PZHOG3g=";
+      rev = "ac7091bd94a39e183b5fae2a1d5acb490a2c0dac";
+      hash = "sha256-YtYKIdnA6mYxR4AXYLxMtqUsSQNvW8h6sAW+iRTzj3o=";
     };
-    date = "2025-07-25";
+    date = "2025-07-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -674,25 +674,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.07.26";
+    version = "2025.07.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-ASN.mmdb";
-      hash = "sha256-h1IuagV4C6ScatFhRQV69B7rnp5uXxREVPclUfUZ5kg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.28/GeoLite2-ASN.mmdb";
+      hash = "sha256-3c8ub9sHa0VQCNZXtyW+pzdyW881o2pU+nbVae1Vlzw=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.07.26";
+    version = "2025.07.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.28/GeoLite2-City.mmdb";
       hash = "sha256-cku6wJuHJ7k59NhPSQVs9sGvK0E9DbAWvMnDYe6qXgI=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.07.26";
+    version = "2025.07.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.26/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.28/GeoLite2-Country.mmdb";
       hash = "sha256-AowVChOlO55r5a4nhcDtkFlFjGUg1jRfwz1sZskqRJY=";
     };
   };
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6000";
+    version = "b6002";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6000";
-      hash = "sha256-AEriCrEhSHV3PSTLoJdOVOF0tGxTDJrhJRrx+556wLI=";
+      tag = "b6002";
+      hash = "sha256-BmccUjalqYYLVmHLx6snbv2RljGY9DudyzucWDmeRdE=";
     };
   };
   loralib = {
@@ -1481,10 +1481,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "8.0.8";
+    version = "8.0.9";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.8/PeerBanHelper_8.0.8.zip";
-      hash = "sha256-O58iMurgomXiW5F/I1XG941d/a+t2TKc641LUA1pHT8=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v8.0.9/PeerBanHelper_8.0.9.zip";
+      hash = "sha256-mJ8P/NtgsNsZo/cRXmQkfDPfOatEXRNMVcU0LjXpDpo=";
     };
   };
   phpmyadmin = {
@@ -1763,14 +1763,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "023c24478d9f42a73ec7504ddf01c67dc69527ea";
+    version = "9e996fd993f79ba4f47ee3009b20e499cd19b6f7";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "023c24478d9f42a73ec7504ddf01c67dc69527ea";
-      hash = "sha256-UluO5jyvrh22cJdrL+acOMK2AHf6smY3Cypr2ZUIovs=";
+      rev = "9e996fd993f79ba4f47ee3009b20e499cd19b6f7";
+      hash = "sha256-eZv2WTEU1w7gHonZppNnFImAbs038wpsPSDh7RD4f+8=";
     };
-    date = "2025-07-26";
+    date = "2025-07-28";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2315,12 +2315,12 @@
   };
   vuetorrent-backend = {
     pname = "vuetorrent-backend";
-    version = "v2.5.2";
+    version = "v2.6.0";
     src = fetchFromGitHub {
       owner = "VueTorrent";
       repo = "vuetorrent-backend";
-      tag = "v2.5.2";
-      hash = "sha256-EsFHXN1qst8UvhjXAzsbDdh8E46IQ/z80IX7gnFmdSQ=";
+      tag = "v2.6.0";
+      hash = "sha256-A2b9xjEHWqHBFpARCkIFw+woQ5Un7xlD308EllWFZTI=";
     };
   };
   wechat-uos = {
