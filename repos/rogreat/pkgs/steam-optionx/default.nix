@@ -17,16 +17,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "steam-optionx";
-  version = "0.6.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "RoGreat";
     repo = "steam-optionx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1rglQDXM14xUvFdJAlwU+S3sOq0zi0nTt4CxqU+TipI=";
+    hash = "sha256-ityxGEmsmqfkufAj8ISe2BoVmOoSZf4SyxF7HjVwgrc=";
   };
 
-  cargoHash = "sha256-Va3oU9Vx8GIYvNWZ8Sooz62DziHc+VXzvd9I5CkO1r4=";
+  cargoHash = "sha256-A6Eq3aAvSmg51s1jk/9nSg9QauV/ripHH2eoaDomsnk=";
 
   nativeBuildInputs = [
     autoPatchelfHook
