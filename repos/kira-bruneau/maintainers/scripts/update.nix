@@ -54,6 +54,7 @@ writeShellApplication {
     temp_home="$(mktemp -d)"
     env -i \
       HOME="$temp_home" \
+      GIT_CONFIG_GLOBAL="$HOME/.config/git/config" \
       PATH=${
         lib.makeBinPath [
           coreutils
