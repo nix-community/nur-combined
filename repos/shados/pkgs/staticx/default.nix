@@ -1,10 +1,11 @@
 { lib, buildPythonApplication, runCommand, writeBash
 , pins
-, scons, muslCross, python3
+, scons, musl, stdenvNoLibc, python
 , setuptools, pyelftools
 , makeWrapper, glibc, binutils, patchelf
 }:
 let
+  muslCross = musl.override { stdenv = stdenvNoLibc; };
   # A hack to work-around the fact that staticx doesn't ensure its temporary
   # copies of the executables/shared objects are actually *writeable* before
   # attempting to patchelf them.
@@ -37,7 +38,7 @@ buildPythonApplication rec {
   nativeBuildInputs = [
     scons
     muslCross
-    python3
+    python
 
     makeWrapper
   ];

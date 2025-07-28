@@ -16,7 +16,6 @@ let repo = rec {
   };
 
   arcconf = pkgs.callPackage ./pkgs/arcconf {
-    inherit pins;
   };
 
   bootloadhid = pkgs.callPackage ./pkgs/bootloadhid {

@@ -1,11 +1,4 @@
 {
-    "arcconf": {
-        "builtin": false,
-        "sha256": "0r65hspzs25lnca10810m7mjxzfzwdnm6gikxc8d98zsckz50aig",
-        "type": "file",
-        "url": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip",
-        "url_template": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip"
-    },
     "audio-async-loopback": {
         "branch": "main",
         "builtin": false,
