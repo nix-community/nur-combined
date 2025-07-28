@@ -7,6 +7,7 @@
   nodejs,
   pnpm_9,
   pkg-config,
+  systemd,
   libayatana-appindicator,
   glib,
   gtk3,
@@ -27,13 +28,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bongocat";
-  version = "0.6.2";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "ayangweb";
     repo = "BongoCat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-k9RHO0t81AUV5I18EGfAUY7G/MgYyWHjoJVm+Of0oMc=";
+    hash = "sha256-RJSwyP1e1wJdYl5sds5tsWvfYiciLYObVLJm5fLNCoY=";
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
@@ -44,25 +45,24 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-NI0kyXlARPjpSgmlDq8WiSBdd8WAh0c7TiskHQE1VGI=";
   };
 
-  cargoHash = "sha256-8vU70ZIMTaypNhomest8u8wWBexXslF1lITY3bmPjTM=";
+  cargoHash = "sha256-rq/xfmZwCTp0q8YWCNq9FhTTgWnxk0ho9UreHsGM5Cc=";
 
   buildAndTestSubdir = "src-tauri";
 
-  nativeBuildInputs =
-    [
-      cargo-tauri.hook
-      nodejs
-      pnpm_9.configHook
-      pkg-config
-      xdg-utils
-      jq
-      makeWrapper
-      writableTmpDirAsHomeHook
-      copyDesktopItems
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      wrapGAppsHook3
-    ];
+  nativeBuildInputs = [
+    cargo-tauri.hook
+    nodejs
+    pnpm_9.configHook
+    pkg-config
+    xdg-utils
+    jq
+    makeWrapper
+    writableTmpDirAsHomeHook
+    copyDesktopItems
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    wrapGAppsHook3
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glib-networking
@@ -72,6 +72,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libayatana-appindicator
     cacert
     libXtst
+    systemd
   ];
 
   postPatch = ''
