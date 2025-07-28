@@ -9,11 +9,11 @@ let
   };
 in appimageTools.wrapType2 rec {
   pname = "joplin-desktop";
-  version = "3.3.13";
+  version = "3.4.3";
 
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
-    hash = "sha256-Iv+Qs4RuLSybJyLTJf/6hHdeNir5pFZ6n6hnLifFpb0=";
+    hash = "sha256-lXXNp2RwKxlHpRugwlYoyo+CidRVU96FjCAuGhqp/2Y=";
   };
 
   profile = ''
