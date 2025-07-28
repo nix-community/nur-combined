@@ -1,5 +1,4 @@
 {
-  system,
   lib,
   fetchFromGitHub,
   buildPythonApplication,
@@ -35,29 +34,29 @@
   version = "1.8.2";
 
   binaries = {
-    aarch64-linux = fetchurl {
-      url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_aarch64.tar.gz";
-      hash = "sha256-xTk2I7omfN7nUlTHOQBAClF1CTjedUUGJt/75VYWp2E=";
-    };
+    # aarch64-linux = fetchurl {
+    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_aarch64.tar.gz";
+    #   hash = "sha256-xTk2I7omfN7nUlTHOQBAClF1CTjedUUGJt/75VYWp2E=";
+    # };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
       hash = "sha256-9LWfO4owQffGBkxlWfa0e36KIwM5t+xs/w1lOGM/2D8=";
     };
-    aarch64-darwin = fetchurl {
-      url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
-      hash = "sha256-pvdbaT0zumGl6JYxuDvqyC7CGnVAdHrUToX+K97zNT8=";
-    };
-    x86_64-darwin = fetchurl {
-      url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_x86.tar.gz";
-      hash = "sha256-uWY5gZtKO1DSaNaX0ydEhbu/4XWU1OzrdIPVT6mOQbE=";
-    };
+    # aarch64-darwin = fetchurl {
+    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
+    #   hash = "sha256-pvdbaT0zumGl6JYxuDvqyC7CGnVAdHrUToX+K97zNT8=";
+    # };
+    # x86_64-darwin = fetchurl {
+    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_x86.tar.gz";
+    #   hash = "sha256-uWY5gZtKO1DSaNaX0ydEhbu/4XWU1OzrdIPVT6mOQbE=";
+    # };
   };
 
   core = stdenv.mkDerivation {
     pname = "${pname}-core";
     inherit version;
 
-    src = binaries."${system}";
+    src = binaries."${stdenv.hostPlatform.system}" or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
     nativeBuildInputs = [
       autoPatchelfHook
