@@ -1,0 +1,21 @@
+name: "Update Nix flake lock"
+
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: "5 5 * * 1,4" # runs every Monday and Thursday at 05:05 UTC
+
+jobs:
+  nix-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: fym998/update-flake-lock@main

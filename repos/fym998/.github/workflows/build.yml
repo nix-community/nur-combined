@@ -7,15 +7,11 @@ on:
       - main
     paths-ignore:
       - '**.md'
-      - .github/**
-      - .vscode/**
       - flake-modules/_internal/dev/**
       - LICENSE
       - '*.json'
       - .gitignore
       - .envrc
-  schedule:
-    - cron: "25 4 * * 6" # Every Saturday at 04:25 UTC
   workflow_dispatch:
 
 env:
