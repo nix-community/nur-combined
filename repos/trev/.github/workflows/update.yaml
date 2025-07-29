@@ -17,7 +17,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31.5.2
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          nix_path: nixpkgs=channel:nixpkgs-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
@@ -60,7 +60,6 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31.5.2
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
