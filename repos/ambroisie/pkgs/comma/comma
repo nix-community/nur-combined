@@ -12,7 +12,7 @@ usage() {
 
 find_program() {
     local CANDIDATE
-    CANDIDATE="$(nix-locate --top-level --minimal --at-root --whole-name "/bin/$1")"
+    CANDIDATE="$(nix-locate --minimal --at-root --whole-name "/bin/$1")"
     if [ "$(printf '%s\n' "$CANDIDATE" | wc -l)" -gt 1 ]; then
         CANDIDATE="$(printf '%s' "$CANDIDATE" | fzf-tmux)"
     fi
