@@ -11,15 +11,11 @@
   - Pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
 - [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
   - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
+- [renovate](https://github.com/renovatebot/renovate) - Cross-platform dependency automation
+  - Patched with [renovate#33991](https://github.com/renovatebot/renovate/pull/33991) to fix flake.lock refreshes
 - [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
-  - Blocked by [opengrep#347](https://github.com/opengrep/opengrep/pull/347)
 - [bumper](https://github.com/spotdemo4/nur/blob/main/pkgs/bumper/bumper.sh) - Shell script for doing git version bumps (ie. 0.0.1 -> 0.0.2)
 - [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh) - Shell script to run when entering a git repo with direnv
-
-## Overlays
-
-- [renovate](https://github.com/renovatebot/renovate) - Automated dependency update tool
-  - patch: fix flake lock refresh [renovatebot#33991](https://github.com/renovatebot/renovate/pull/33991)
 
 ## Libs
 

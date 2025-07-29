@@ -1,3 +1,2 @@
 {
-  renovate = import ./renovate;
 }
