@@ -6,20 +6,20 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nata-sans";
-  version = "2.1";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "dnlzqn";
     repo = "nata-sans";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zvwHOtD96EIy6GtN+uva64WmZgPUhsxGr8xBdSayR1Q=";
+    hash = "sha256-wgeZCLm18yE0bNuIUO3FOxBeYudilOZSLBLMoBVDSu0=";
   };
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/share/fonts/truetype
-    install -D fonts/variable/*.ttf $out/share/fonts/truetype/
+    install -D *.ttf $out/share/fonts/truetype/
 
     runHook postInstall
   '';
