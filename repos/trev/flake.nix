@@ -13,7 +13,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur = {
-      url = "github:nix-community/NUR";
+      url = "github:nix-community/NUR/835af09a822591ccaa54a889de7d5bc90c8ac968";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
