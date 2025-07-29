@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "bobgen";
-  version = "0.38.0";
+  version = "0.39.0";
 
   src = fetchFromGitHub {
     owner = "stephenafamo";
     repo = "bob";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pIw+fFnkkYJMYoftxSBwBZzJkhYBLjknOENDibVjJk4=";
+    hash = "sha256-hTf0w0rng2wIFdPDaym3zXnAsDBgM9Bkzipd7HUhF7Q=";
   };
 
-  vendorHash = "sha256-iVYzRKIUrjR/pzlpUMtgaFBn5idd/TBsSZxh/SQGT0M=";
+  vendorHash = "sha256-3K5ByPBrZRsLcmp0JMNLCcLqQdQizTdxN1Q7B4xe9vc=";
 
   subPackages = [
     "gen/bobgen-sql"
