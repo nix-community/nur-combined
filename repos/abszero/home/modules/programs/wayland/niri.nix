@@ -122,8 +122,10 @@ in
               { app-id = "org\\.gnome\\.Solanum"; }
             ];
           }
+          # Important modal
           {
             open-floating = true;
+            baba-is-float = true;
             matches = [
               { app-id = "org\\.kde\\.polkit-kde-authentication-agent-1"; }
             ];
@@ -134,9 +136,7 @@ in
             focus-ring.enable = false;
             shadow.enable = false;
             matches = [
-              {
-                title = "AIRI";
-              }
+              { title = "AIRI"; }
             ];
           }
           # Fix to bottom right

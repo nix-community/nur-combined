@@ -66,7 +66,7 @@ in
           # For some reason this is required to get gtk apps to automatically switch themes.
           # See https://github.com/ghostty-org/ghostty/discussions/6017#discussioncomment-12357838
           inputs.niri.homeModules.niri
-          inputs.nix-index-database.hmModules.nix-index
+          inputs.nix-index-database.homeModules.nix-index
           inputs.catppuccin.homeModules.catppuccin
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)

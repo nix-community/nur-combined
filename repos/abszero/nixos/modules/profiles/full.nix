@@ -36,7 +36,7 @@ in
         };
       };
       programs = {
-        pot.enable = true;
+        # pot.enable = true;
         steam.enable = true;
         wireshark.enable = true;
       };
