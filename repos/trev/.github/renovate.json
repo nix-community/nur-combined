@@ -14,15 +14,6 @@
 			"automerge": true
 		},
 		{
-			"matchManagers": ["nix"],
-			"enabled": false
-		},
-		{
-			"matchManagers": ["nix"],
-			"matchUpdateTypes": ["lockFileMaintenance"],
-			"enabled": true
-		},
-		{
 			"matchManagers": ["github-actions"],
 			"matchPackageNames": ["*"],
 			"groupName": "GitHub Actions"
