@@ -17,6 +17,7 @@
 
   charm = pkgs.callPackage ./pkgs/charm { };
   confettysh = pkgs.callPackage ./pkgs/confettysh { };
+  crush = pkgs.callPackage ./pkgs/crush { };
   freeze = pkgs.callPackage ./pkgs/freeze { };
   glow = pkgs.callPackage ./pkgs/glow { };
   gum = pkgs.callPackage ./pkgs/gum { };
