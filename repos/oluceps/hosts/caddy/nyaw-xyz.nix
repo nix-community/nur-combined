@@ -178,7 +178,7 @@
     handle = [
       {
         handler = "reverse_proxy";
-        upstreams = [ { dial = "localhost:3002"; } ];
+        upstreams = [ { dial = "[fdcc::3]:3002"; } ];
       }
     ];
     match = [ { host = [ "gf.nyaw.xyz" ]; } ];

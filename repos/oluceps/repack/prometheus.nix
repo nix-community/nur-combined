@@ -223,7 +223,7 @@ reIf {
               {
                 alert = "NodeDown";
                 expr = ''up{instance !~ "kaambl.nyaw.xyz|hastur.nyaw.xyz"} == 0''; # suspend or reboot to win
-                for = "5m";
+                for = "2m";
               }
               {
                 alert = "OOM";
