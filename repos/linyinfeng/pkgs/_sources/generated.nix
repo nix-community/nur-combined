@@ -260,17 +260,17 @@
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
-    version = "c7618f4f5728e1634417e9d02ea50d82b71956ab";
+    version = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
-      rev = "c7618f4f5728e1634417e9d02ea50d82b71956ab";
+      rev = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=";
+      sha256 = "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=";
     };
-    date = "2021-01-31";
+    date = "2025-07-29";
   };
   rime-cangjie = {
     pname = "rime-cangjie";

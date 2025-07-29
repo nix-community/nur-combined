@@ -410,7 +410,7 @@
     },
     "rime-bopomofo": {
         "cargoLocks": null,
-        "date": "2021-01-31",
+        "date": "2025-07-29",
         "extract": null,
         "name": "rime-bopomofo",
         "passthru": null,
@@ -420,13 +420,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c7618f4f5728e1634417e9d02ea50d82b71956ab",
-            "sha256": "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=",
+            "rev": "1859af68a927ba3cd5afb8c47feedcecf874dab2",
+            "sha256": "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-bopomofo.git"
         },
-        "version": "c7618f4f5728e1634417e9d02ea50d82b71956ab"
+        "version": "1859af68a927ba3cd5afb8c47feedcecf874dab2"
     },
     "rime-cangjie": {
         "cargoLocks": null,
