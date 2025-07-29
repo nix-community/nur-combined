@@ -24,7 +24,3 @@ jobs:
           flakes: |
             .
             flake-modules/_internal/dev
-      - name: Enable Pull Request Automerge
-        run: gh pr merge --rebase --auto ${{ steps.update-flake-lock.outputs.pull-request-number }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
