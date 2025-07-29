@@ -8,93 +8,79 @@
 
   repack.caddy = {
     enable = true;
-    public = true;
-    settings.apps.http.servers = {
-      srv0 = {
-        routes = [
-          {
-            handle = [
-              {
-                handler = "subroute";
-                routes = [
-                  (import ../caddy-matrix.nix {
-                    inherit pkgs;
-                    matrix-upstream = "[fdcc::3]:6167";
-                  })
-                ];
-              }
-            ];
-            match = [ { host = [ "*.nyaw.xyz" ]; } ];
-          }
+    expose = true;
+    settings.apps = {
+      http.servers = {
+        srv0 = {
+          routes = [
+            {
+              handle = [
+                {
+                  handler = "subroute";
+                  routes = import ../caddy/nyaw-xyz.nix { inherit pkgs; } ++ [
+                  ];
+                }
+              ];
+              match = [ { host = [ "*.nyaw.xyz" ]; } ];
+            }
 
-          {
-            handle = [
-              {
-                handler = "subroute";
-                routes = [
-                  {
-                    handle = [
-                      {
-                        handler = "headers";
-                        response = {
-                          set = {
-                            Access-Control-Allow-Origin = [ "*" ];
-                          };
-                        };
-                      }
-                    ];
-                    match = [ { path = [ "/.well-known/matrix/*" ]; } ];
-                  }
-                  {
-                    handle = [
-                      {
-                        body = builtins.toJSON { "m.server" = "matrix.nyaw.xyz:443"; };
-                        handler = "static_response";
-                      }
-                    ];
-                    match = [ { path = [ "/.well-known/matrix/server" ]; } ];
-                  }
-                  {
-                    handle = [
-                      {
-                        body = builtins.toJSON {
-                          "m.server" = {
-                            base_url = "https://matrix.nyaw.xyz";
-                          };
-                          "m.homeserver" = {
-                            base_url = "https://matrix.nyaw.xyz";
-                          };
-                          "org.matrix.msc3575.proxy" = {
-                            url = "https://matrix.nyaw.xyz";
-                          };
-                        };
-                        handler = "static_response";
-                      }
-                    ];
-                    match = [ { path = [ "/.well-known/matrix/client" ]; } ];
-                  }
-                  {
-                    handle = [
-                      {
-                        handler = "reverse_proxy";
-                        transport = {
-                          protocol = "http";
-                          tls = {
-                            server_name = "nyaw.xyz";
-                          };
-                        };
-                        upstreams = [ { dial = "[fdcc::3]:443"; } ];
-                      }
-                    ];
-                  }
+            {
+              handle = [
+                {
+                  handler = "reverse_proxy";
+                  upstreams = [ { dial = "[fdcc::3]:8888"; } ];
+                }
+              ];
+              match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
+              terminal = true;
+            }
+            (import ../caddy/nyaw-xyz-zone-apex.nix)
+          ];
+
+          tls_connection_policies = [
+            {
+              match = {
+                sni = [
+                  "*.*.nyaw.xyz"
+                  "*.nyaw.xyz"
+                  "nyaw.xyz"
                 ];
-              }
-            ];
-            match = [ { host = [ "nyaw.xyz" ]; } ];
-            terminal = true;
-          }
-        ];
+              };
+              protocol_min = "tls1.3";
+            }
+          ];
+        };
       };
+
+      tls =
+        let
+          dns = {
+            name = "cloudflare";
+            api_token = "{env.CF_API_TOKEN}";
+            zone_token = "{env.CF_ZONE_TOKEN}";
+          };
+        in
+        {
+          inherit dns;
+          automation.policies = [
+            {
+              issuers = [
+                {
+                  module = "acme";
+                  email = "mn1.674927211@gmail.com";
+                  challenges.dns.provider = dns;
+                  preferred_chains.smallest = true;
+                }
+              ];
+              key_type = "p256";
+            }
+          ];
+          encrypted_client_hello.configs = [
+            {
+              public_name = "nyaw.xyz";
+            }
+          ];
+        };
     };
   };
 }

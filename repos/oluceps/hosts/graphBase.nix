@@ -283,38 +283,35 @@
         fira-sans
       ]
       ++ (with pkgs; [
-        glowsans-j
-        glowsans-tc
-        glowsans-sc
-      ])
-      ++ (with pkgs; [
         plangothic
         maoken-tangyuan
         lxgw-neo-xihei
       ]);
     #"HarmonyOS Sans SC" "HarmonyOS Sans TC"
     fontconfig = {
-      subpixel.rgba = "none";
+      subpixel = {
+        rgba = "none";
+        lcdfilter = "none";
+      };
       antialias = true;
       hinting.enable = false;
       defaultFonts = lib.mkForce {
         serif = [
-          "Glow Sans SC"
-          "Glow Sans TC"
-          "Glow Sans J"
-          "Noto Serif"
           "Noto Serif CJK SC"
           "Noto Serif CJK TC"
           "Noto Serif CJK JP"
+          "Noto Serif CJK HK"
           "LXGW Neo XiHei"
         ];
         monospace = [
-          # "Monaspace Neon"
           "Maple Mono NF CN"
         ];
         sansSerif = [
+          "Noto Sans CJK SC"
+          "Noto Sans CJK TC"
+          "Noto Sans CJK JP"
+          "Noto Sans CJK HK"
           "Hanken Grotesk"
-          "Glow Sans SC"
           "LXGW Neo XiHei"
         ];
         emoji = [

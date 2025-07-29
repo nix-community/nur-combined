@@ -18,16 +18,15 @@ in
       # moved to upper module
       # enable = lib.mkEnableOption "caddy api gateway";
       # mkPackageOption not work here
-      public = lib.mkEnableOption "shared certificate storage, and API env";
+      expose = lib.mkEnableOption "API env";
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.caddy.withPlugins {
           plugins = [
             "github.com/caddy-dns/cloudflare@v0.0.0-20250506153119-35fb8474f57d"
             "github.com/mholt/caddy-ratelimit@v0.1.0"
-            "github.com/ss098/certmagic-s3@v0.0.0-20240919074713-f227064b6744"
           ];
-          hash = "sha256-lq9zGQE3nk4sXpH2mfKt5FqIS2R0K3DwSQjES+2lpQ0=";
+          hash = "sha256-//+3DBHFH353OnHtLmeqVMg81cX4SlxJ029aGaqpByE=";
         };
       };
       settings = lib.mkOption {
@@ -42,12 +41,7 @@ in
       admin = {
         config.persist = false;
       };
-      logging.logs.debug.level = "debug";
-      storage = mkIf cfg.public {
-        module = "s3";
-        prefix = "ssl";
-        insecure = false;
-      };
+      # logging.logs.debug.level = "debug";
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {
@@ -106,7 +100,13 @@ in
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           Environment = [ "XDG_DATA_HOME=%S" ];
           Restart = "always";
-          EnvironmentFile = lib.mkIf cfg.public config.vaultix.secrets.caddy.path;
+          EnvironmentFile = mkIf cfg.expose config.vaultix.secrets.caddy.path;
+          LoadCredential = mkIf (!cfg.expose) (
+            (map (lib.genCredPath config)) [
+              "nyaw.cert"
+              "nyaw.key"
+            ]
+          );
           RestartSec = 1;
         };
       wantedBy = [ "multi-user.target" ];

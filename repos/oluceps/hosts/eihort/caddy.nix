@@ -5,10 +5,6 @@
   ...
 }:
 {
-  systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-    "nyaw.cert"
-    "nyaw.key"
-  ];
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "misskey" ];
   repack.caddy = {
     enable = true;
@@ -181,7 +177,7 @@
                     match = [ { host = [ "gf.nyaw.xyz" ]; } ];
                     terminal = true;
                   }
-                  (import ../caddy-matrix.nix {
+                  (import ../caddy/matrix.nix {
                     inherit pkgs;
                     matrix-upstream = "localhost:6167";
                   })

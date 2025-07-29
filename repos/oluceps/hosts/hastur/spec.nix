@@ -122,7 +122,7 @@
       openFirewall = true;
     };
 
-    # sing-box.enable = true;
+    sing-box.enable = true;
 
     hysteria.instances = {
       # nodens = {
