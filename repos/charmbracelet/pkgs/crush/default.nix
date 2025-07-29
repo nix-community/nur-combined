@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -vr ./crush $out/bin/crush
-    installManPage ./manpages/crush.1.gz.
+    installManPage ./manpages/crush.1.gz
     installShellCompletion ./completions/*
   '';
 
