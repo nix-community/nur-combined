@@ -8,13 +8,13 @@
   wrapGAppsHook3,
   enchant,
   gtkmm3,
-  libchamplain,
+  libchamplain_libsoup3,
   libgcrypt,
   shared-mime-info,
 }:
 
 stdenv.mkDerivation rec {
-  pname = "lifeograph";
+  pname = "lifeograph_2";
   version = "2.0.3";
 
   src = fetchgit {
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libgcrypt
     enchant
     gtkmm3
-    libchamplain
+    libchamplain_libsoup3
   ];
 
   postInstall = ''
