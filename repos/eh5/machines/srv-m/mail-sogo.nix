@@ -10,19 +10,19 @@ in
 {
   nixpkgs.overlays = [
     (final: prev: {
-      sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (
-        _: attrs: rec {
-          version =
-            assert attrs.version == "5.12.1";
-            "5.12.3";
-          src = pkgs.fetchFromGitHub {
-            owner = "inverse-inc";
-            repo = attrs.pname;
-            rev = "SOGo-${version}";
-            hash = "sha256-HTfe/ZiipqS6QdKQK0wf4Xl6xCTNw5fEdXfRFbBMWMY=";
-          };
-        }
-      );
+      # sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (
+      #   _: attrs: rec {
+      #     version =
+      #       assert attrs.version == "5.12.1";
+      #       "5.12.3";
+      #     src = pkgs.fetchFromGitHub {
+      #       owner = "inverse-inc";
+      #       repo = attrs.pname;
+      #       rev = "SOGo-${version}";
+      #       hash = "sha256-HTfe/ZiipqS6QdKQK0wf4Xl6xCTNw5fEdXfRFbBMWMY=";
+      #     };
+      #   }
+      # );
       sope = prev.sope.overrideAttrs (
         _: attrs:
         assert attrs.version == "5.12.2";
