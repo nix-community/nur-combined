@@ -25,11 +25,11 @@ let
 
   sha256 =
     {
-      x86_64-linux = "01vznbycgpa0zq26vd23ihh03sg83dzvdcqs7cwi77xawbs44cim";
-      x86_64-darwin = "0x4gp8394dbqrmbx24c0l4ki3vcanzn2qw70rgyb23n1pg932yhh";
-      aarch64-linux = "0abg6z102qgiwvk06y3dxzwzb1f3dj1if1b6vv5n8ffb11cf12k1";
-      aarch64-darwin = "10j11ms5mw4ninj3gsmjm99ayyl5c2kxhcps9lv2n7g62dsw6l7g";
-      armv7l-linux = "049nddnzjvf7zlj4c3lh9jsy1nnbv04n6idr4cg2a08zz3a0r522";
+      x86_64-linux = "11b99y4hg1bvbn24q1xacwdyiza7xqcy7dj9sz4r704b4c5fzxxy";
+      x86_64-darwin = "1plmrlsylskxzh9m5z1vyhsvg8gzd2jasj86fa1lq5wgwki5gdrn";
+      aarch64-linux = "1zv02d05cqpg0qrhx1xh58irysrc0qpjmbkcygmk44l2lfrj9i96";
+      aarch64-darwin = "1waqfs9hfwh6q91bn3ha6va7jzz983ay8aybx5birdnkkvkpcva2";
+      armv7l-linux = "104h464adf8h7r8l0i2sf8fbbipkykdxskhn0p84m9c5gqn88a9c";
     }
     .${system} or throwSystem;
 
@@ -37,7 +37,7 @@ let
 in
 
 callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
-  version = "1.103.04951-insider";
+  version = "1.103.05053-insider";
   pname = "vscodium-insiders";
   updateScript = ./update.sh;
 
