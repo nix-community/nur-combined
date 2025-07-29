@@ -1,6 +1,15 @@
 {
   description = "Trev's NUR repository";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://trevnur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nur = {
@@ -32,8 +41,8 @@
             nix-update
             alejandra
             prettier
-            renovate
             action-validator
+            pkgs.nur.repos.trev.renovate
           ];
           shellHook = pkgs.nur.repos.trev.shellhook.ref;
         };
@@ -49,13 +58,13 @@
       pkgs.nur.repos.trev.lib.mkChecks {
         lint = {
           src = ./.;
-          nativeBuildInputs = with pkgs; [
+          deps = with pkgs; [
             alejandra
             prettier
-            renovate
+            pkgs.nur.repos.trev.renovate
             action-validator
           ];
-          checkPhase = ''
+          script = ''
             alejandra -c .
             prettier --check .
             renovate-config-validator
