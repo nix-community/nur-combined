@@ -140,14 +140,14 @@ let
     '';
   };
   pkg-name = "wemeet-bin";
-  pkg-ver = "3.19.0.401";
-  wemeet-src = stdenv.mkDerivation rec {
+  pkg-ver = "3.19.2.400";
+  wemeet-src = stdenv.mkDerivation {
     name = "${pkg-name}";
     version = "${pkg-ver}";
 
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
-      hash = "sha256-VN/rNn2zA21l6BSzLpQ5Bl9XB2hrMFIa0o0cy2vdLx8=";
+      url = "https://updatecdn.meeting.qq.com/cos/fb7464ffb18b94a06868265bed984007/TencentMeeting_0300000000_3.19.2.400_x86_64_default.publish.officialwebsite.deb";
+      hash = "sha256-PSGc4urZnoBxtk1cwwz/oeXMwnI02Mv1pN2e9eEf5kE=";
     };
 
     nativeBuildInputs = [
@@ -224,7 +224,7 @@ stdenv.mkDerivation rec {
   desktopItems = [
     (makeDesktopItem {
       name = "${pkg-name}";
-      desktopName = "Tencent Meeting";
+      desktopName = "Wemeet";
       exec = "${pname} %U";
       terminal = false;
       icon = "${pkg-name}";
