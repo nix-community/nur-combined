@@ -7,6 +7,7 @@
   ninja,
   wayland-scanner,
   libffi,
+  expat,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -34,7 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
   mesonFlags = [
     (lib.mesonBool "documentation" false)
     (lib.mesonBool "tests" false)
-    (lib.mesonBool "scanner" false) # wayland-scanner is a separate derivation
     (lib.mesonBool "dtd_validation" false)
   ];
 
@@ -47,12 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
       meson
       pkg-config
       ninja
-      wayland-scanner
     ];
 
   buildInputs =
     [
       libffi
+      expat
     ];
 
   meta = with lib; {
