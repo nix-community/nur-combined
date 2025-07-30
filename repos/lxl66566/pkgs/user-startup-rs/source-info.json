@@ -1,0 +1,29 @@
+{
+  "version": "v0.3.0",
+  "hashes": {
+    "x86_64-linux": {
+      "gnu": {
+        "sha256": "e9233d7a01d75fe013265b8cbaab4c455690345455dbd65b1bee64eea404d16d",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__bname__-x86_64-unknown-linux-gnu.tar.gz",
+        "targetSystem": "x86_64-unknown-linux-gnu"
+      },
+      "musl": {
+        "sha256": "4e6cc7aa642b94376b08f1f4ee08996fee26f2f19de3e9fb3f1b7c4bbd805f3d",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__bname__-x86_64-unknown-linux-musl.tar.gz",
+        "targetSystem": "x86_64-unknown-linux-musl"
+      }
+    },
+    "aarch64-linux": {
+      "gnu": {
+        "sha256": "da4d9885d6837e695e11fdb008c5da9d49cd7430f56cbcdb1f47d2fbcd5607ba",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__bname__-aarch64-unknown-linux-gnu.tar.gz",
+        "targetSystem": "aarch64-unknown-linux-gnu"
+      },
+      "musl": {
+        "sha256": "618c15397d78c8000ff7d4579971fc3359d20b58f87d0f4048ad1a8a501683fa",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__bname__-aarch64-unknown-linux-musl.tar.gz",
+        "targetSystem": "aarch64-unknown-linux-musl"
+      }
+    }
+  }
+}

@@ -24,4 +24,6 @@ in
   };
   git-sync-backup = pkgs.callPackage ./pkgs/git-sync-backup { inherit mylib; };
   xp3-pack-unpack = pkgs.callPackage ./pkgs/xp3-pack-unpack { inherit mylib; };
+  openppp2 = pkgs.callPackage ./pkgs/openppp2 { inherit mylib; };
+  user-startup-rs = pkgs.callPackage ./pkgs/user-startup-rs { inherit mylib; };
 }

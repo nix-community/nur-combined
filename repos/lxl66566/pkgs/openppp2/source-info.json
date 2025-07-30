@@ -1,0 +1,19 @@
+{
+  "version": "v1.0.0.25226",
+  "hashes": {
+    "x86_64-linux": {
+      "io_uring_simd": {
+        "sha256": "0a3xbrrffw0ryb2cayyfgwgn5pkp355xnq77rn5n1pv3sfbvzj76",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-amd64-io-uring-simd.zip",
+        "targetSystem": "x86_64-unknown-linux-gnu"
+      }
+    },
+    "aarch64-linux": {
+      "io_uring_simd": {
+        "sha256": "1rsgjsjb3nj4nn1pad10jb8fbwm7cg35vjrkwd3rgw861rxqmmyi",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-aarch64-io-uring.zip",
+        "targetSystem": "aarch64-unknown-linux-gnu"
+      }
+    }
+  }
+}

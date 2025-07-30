@@ -87,6 +87,7 @@ async def process_single_package(package_name, binary_name=None):
             return
 
         # 如果是 update 命令，检查版本是否已是最新
+        current_info = {}
         if source_info_path.exists():
             try:
                 with open(source_info_path, "r") as f:
@@ -109,7 +110,28 @@ async def process_single_package(package_name, binary_name=None):
         tasks = []
         for arch_os, libc in TARGET_PLATFORMS:
             target_system = f"{arch_os.replace('-linux', '')}-unknown-linux-{libc}"
-            url = f"https://github.com/{REPO_OWNER}/{package_name}/releases/download/{latest_version}/{binary_name or package_name}-{target_system}.tar.gz"
+
+            # 检查是否存在自定义模板
+            template_url = (
+                current_info.get("hashes", {})
+                .get(arch_os, {})
+                .get(libc, {})
+                .get("template")
+            )
+
+            if template_url:
+                # 使用模板替换占位符
+                url = (
+                    template_url.replace("__pname__", package_name)
+                    .replace("__bname__", binary_name or package_name)
+                    .replace("__version__", latest_version)
+                    .replace("__targetSystem__", target_system)
+                )
+                print(f"    [*] 使用自定义模板下载: {url}")
+            else:
+                # 使用默认 GitHub URL
+                url = f"https://github.com/{REPO_OWNER}/{package_name}/releases/download/{latest_version}/{binary_name or package_name}-{target_system}.tar.gz"
+
             tasks.append(asyncio.create_task(calculate_sha256_from_url(session, url)))
 
         hashes_results = await asyncio.gather(*tasks)

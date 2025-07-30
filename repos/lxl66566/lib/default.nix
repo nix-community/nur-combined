@@ -21,21 +21,44 @@ with pkgs.lib;
     let
       hashInfo = hashes.${nixSystem}.${libc};
       currentStdenv = if overrideStdenv == null then stdenv else overrideStdenv;
-      nbname = if bname == null then pname else bname; # new binary name
+      nbname = if bname == null then pname else bname;
+
+      # download url calculation
+      urlTemplate = hashInfo.template or null;
+      defaultUrl = "https://github.com/lxl66566/${pname}/releases/download/${version}/${pname}-${hashInfo.targetSystem}.tar.gz";
+      finalUrl =
+        if urlTemplate != null then
+          lib.replaceStrings
+            [ "__pname__" "__bname__" "__version__" "__targetSystem__" ]
+            [ pname nbname version hashInfo.targetSystem ]
+            urlTemplate
+        else
+          defaultUrl;
+
     in
     currentStdenv.mkDerivation {
       inherit pname version;
 
       src = fetchurl {
-        url = "https://github.com/lxl66566/${pname}/releases/download/${version}/${pname}-${hashInfo.targetSystem}.tar.gz";
+        url = finalUrl;
         sha256 = hashInfo.sha256;
       };
       dontConfigure = true;
       dontBuild = true;
       dontCheck = true;
 
+      nativeBuildInputs = lib.optional (lib.hasSuffix ".zip" finalUrl) pkgs.unzip;
+
       unpackPhase = ''
-        tar -xzf $src
+        runHook preUnpack
+
+        if [[ $src == *.zip ]]; then
+          unzip $src
+        else
+          tar -xzf $src
+        fi
+
+        runHook postUnpack
       '';
 
       installPhase = ''
