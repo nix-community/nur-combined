@@ -14,7 +14,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-5LttOvm3tFiMxvaOh1418OkwbOZUERPpKT4GwGyrnHU=";
+      sha256 = "sha256-j5ReZ33bIZqukVsbj7xgXXBzmR9rYBss7wgDRc57YWM=";
     };
   };
   zen-browser = {
@@ -30,7 +30,7 @@
     version = "1.14.9b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-rUGOEyK7bGcP7eqA7rIuEsvPwurECE1G6j+lZazKmKM=";
+      sha256 = "sha256-VwEHetBkLyF3RS+VlKlKrjG9pMYkn7jYwKSxGnnTT/U=";
     };
   };
 }
