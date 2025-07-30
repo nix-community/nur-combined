@@ -11,7 +11,6 @@
   nixosTests,
   nix-update-script,
   yq-go,
-  fetchpatch,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
@@ -25,10 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    (fetchpatch {
-      url = "https://github.com/renovatebot/renovate/compare/main...spotdemo4:renovate:nix.diff";
-      hash = "sha256-k5TGfap8+s426he3H98CvPl9hdLi/19KfWAeaBMgn3U=";
-    })
+    ./37222.diff
   ];
 
   postPatch = ''
