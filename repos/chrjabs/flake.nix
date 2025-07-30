@@ -8,26 +8,63 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } (_: {
-      imports = [ inputs.treefmt-nix.flakeModule ];
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+        inputs.treefmt-nix.flakeModule
+      ];
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
+
       perSystem =
-        { pkgs, ... }:
+        {
+          pkgs,
+          config,
+          ...
+        }:
         let
-          legacyPackages = import ./default.nix { inherit pkgs; };
+          legacyPackages =
+            builtins.removeAttrs
+              (import ./default.nix {
+                inherit pkgs;
+                inherit (inputs) rust-overlay;
+              })
+              [
+                "lib"
+                "overlays"
+                "modules"
+              ];
         in
         {
           inherit legacyPackages;
           packages = pkgs.lib.filterAttrs (_: v: pkgs.lib.isDerivation v) legacyPackages;
+
+          # Default overlay, making all packages available
+          # For some reason this doesn't work by setting `overlayAttrs = config.packages`
+          overlayAttrs = {
+            inherit (config.packages)
+              gbd
+              gbdc
+              gbdc-tool
+              kani
+              pboxide
+              python-mip
+              veripb
+              ;
+          };
 
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [ cachix ];

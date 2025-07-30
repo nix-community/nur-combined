@@ -7,12 +7,15 @@
 #     nix-build -A mypackage
 {
   pkgs ? import <nixpkgs> { },
+  rust-overlay ? null,
 }:
 rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+
+  # NOTE: when adding a package here, make sure to also add it in the flake overlay
 
   # VeriPB proof checker
   veripb = pkgs.python3Packages.callPackage ./pkgs/veripb { };
@@ -26,4 +29,10 @@ rec {
 
   # Python MIP
   python-mip = pkgs.python311Packages.callPackage ./pkgs/python-mip { };
+}
+// pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
+  # Kani - Rust model checker
+  kani = pkgs.callPackage ./pkgs/kani {
+    inherit rust-overlay;
+  };
 }

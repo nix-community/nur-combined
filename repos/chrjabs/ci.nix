@@ -50,7 +50,16 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./default.nix {
+    inherit pkgs;
+    # Ideally this should be kept in sync with the flake input
+    rust-overlay = pkgs.fetchFromGitHub {
+      owner = "oxalica";
+      repo = "rust-overlay";
+      rev = "01ac47d86311fb030023f1dfc5f6bc368b9c6cee";
+      hash = "sha256-a0Aab7Zst68GqvNAMh9Ejwnp8gawGnruOMtEWZ0HHjM=";
+    };
+  };
 
   nurPkgs = flattenPkgs (
     listToAttrs (

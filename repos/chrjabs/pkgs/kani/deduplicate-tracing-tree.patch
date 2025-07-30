@@ -1,0 +1,63 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 75760f964..fbf824195 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -326,7 +326,7 @@ dependencies = [
+  "toml",
+  "tracing",
+  "tracing-subscriber",
+- "tracing-tree 0.4.0 (git+https://github.com/Nadrieril/tracing-tree)",
++ "tracing-tree",
+  "which 7.0.3",
+ ]
+ 
+@@ -1106,7 +1106,7 @@ dependencies = [
+  "syn",
+  "tracing",
+  "tracing-subscriber",
+- "tracing-tree 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
++ "tracing-tree",
+ ]
+ 
+ [[package]]
+@@ -2318,18 +2318,6 @@ dependencies = [
+  "tracing-serde",
+ ]
+ 
+-[[package]]
+-name = "tracing-tree"
+-version = "0.4.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f459ca79f1b0d5f71c54ddfde6debfc59c8b6eeb46808ae492077f739dc7b49c"
+-dependencies = [
+- "nu-ansi-term 0.50.1",
+- "tracing-core",
+- "tracing-log",
+- "tracing-subscriber",
+-]
+-
+ [[package]]
+ name = "tracing-tree"
+ version = "0.4.0"
+diff --git a/kani-compiler/Cargo.toml b/kani-compiler/Cargo.toml
+index b2975aeda..93be3f6fe 100644
+--- a/kani-compiler/Cargo.toml
++++ b/kani-compiler/Cargo.toml
+@@ -10,7 +10,7 @@ publish = false
+ 
+ [dependencies]
+ cbmc = { path = "../cprover_bindings", package = "cprover_bindings", optional = true }
+-charon = { path = "../charon/charon", optional = true, default-features = false } 
++charon = { path = "../charon/charon", optional = true, default-features = false }
+ clap = { version = "4.4.11", features = ["derive", "cargo"] }
+ fxhash = "0.2.1"
+ itertools = "0.14"
+@@ -26,7 +26,7 @@ strum_macros = "0.27.1"
+ syn = { version = "2.0.72", features = ["parsing", "extra-traits"] }
+ tracing = {version = "0.1", features = ["max_level_trace", "release_max_level_debug"]}
+ tracing-subscriber = {version = "0.3.8", features = ["env-filter", "json", "fmt"]}
+-tracing-tree = "0.4.0"
++tracing-tree = { git = "https://github.com/Nadrieril/tracing-tree" }
+ 
+ # Future proofing: enable backend dependencies using feature.
+ [features]
