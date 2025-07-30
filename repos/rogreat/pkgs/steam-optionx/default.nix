@@ -67,7 +67,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Configure Steam apps launch options";
+    description = "Modify Steam launch options";
+    longDescription = ''
+      An egui application to modify app launch options in Steam's config file.
+    '';
     homepage = "https://github.com/RoGreat/steam-optionx";
     changelog = "https://github.com/RoGreat/steam-optionx/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
