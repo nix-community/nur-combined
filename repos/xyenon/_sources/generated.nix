@@ -16,16 +16,16 @@
   };
   "caddy-dns/cloudflare" = {
     pname = "caddy-dns/cloudflare";
-    version = "35fb8474f57d7476329f75d63eebafb95a93022f";
+    version = "f589a18c0f5d2ce871cc907c0567b2f8ef20c4c0";
     src = fetchFromGitHub {
       owner = "caddy-dns";
       repo = "cloudflare";
-      rev = "35fb8474f57d7476329f75d63eebafb95a93022f";
+      rev = "f589a18c0f5d2ce871cc907c0567b2f8ef20c4c0";
       fetchSubmodules = false;
-      sha256 = "sha256-6Od+Ho2Tpn8dsm6fH5SxrGBND9Hfly2uZkTltgXzPE8=";
+      sha256 = "sha256-ZepM8ACTkRvvNyF3FzfsnkxEREaGspZUFjlnFg44qM8=";
     };
     moduleName = "github.com/caddy-dns/cloudflare";
-    date = "20250506093119-0600";
+    date = "20250724163520-0600";
   };
   catppuccin-kitty = {
     pname = "catppuccin-kitty";
@@ -90,15 +90,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
+    version = "74fc9c59935ba834bb0df0aa28a0036234f8e9f1";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
+      rev = "74fc9c59935ba834bb0df0aa28a0036234f8e9f1";
       fetchSubmodules = false;
-      sha256 = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
+      sha256 = "sha256-DN0YjnTifHG3/Dnfm1OW0VHN4fkqdAKK0vowN3jD1wg=";
     };
-    date = "2025-07-06";
+    date = "2025-07-24";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -110,14 +110,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "b8860253fc44e500edeb7a09db648a829084facd";
+    version = "de53d90cb2740f84ae595f93d0c4c23f8618a9e4";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "b8860253fc44e500edeb7a09db648a829084facd";
+      rev = "de53d90cb2740f84ae595f93d0c4c23f8618a9e4";
       fetchSubmodules = false;
-      sha256 = "sha256-29K8PmBoqAMcQhDIfOVnbJt2FU4BR6k23Es9CqyEloo=";
+      sha256 = "sha256-ixZKOtLOwLHLeSoEkk07TB3N57DXoVEyImR3qzGUzxQ=";
     };
-    date = "2025-07-06";
+    date = "2025-07-23";
   };
 }
