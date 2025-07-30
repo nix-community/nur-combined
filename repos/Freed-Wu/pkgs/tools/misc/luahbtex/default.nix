@@ -5,10 +5,10 @@
 }:
 stdenv.mkDerivation rec {
   pname = "luahbtex";
-  version = "1.17.0";
+  version = "1.23.3";
   src = fetchzip {
     url = "https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/archive/${version}/luatex-${version}.zip";
-    sha256 = "sha256-xPrm8BMM9yZwblf7IIO6PesvThKX/9d06wXjy0VoWPo=";
+    sha256 = "sha256-FmC00uXFqb/YZHkoyO1Z2z6u/tvEn2Xorg33e9q5zUI=";
   };
 
   env = {
