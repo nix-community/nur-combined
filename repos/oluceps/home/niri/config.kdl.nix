@@ -246,12 +246,6 @@ in
   spawn-at-startup ${execApp [ "foot" ]}
   spawn-at-startup ${
     execApp [
-      "fcitx5"
-      "-dr"
-    ]
-  } 
-  spawn-at-startup ${
-    execApp [
       "${pkgs.gtk3}/bin/gtk-launch"
       "google-chrome-dev.desktop"
     ]

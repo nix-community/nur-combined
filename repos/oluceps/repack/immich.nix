@@ -6,7 +6,13 @@ reIf {
       host = "::";
       secretsFile = config.vaultix.secrets.immich.path;
       database.createDB = false;
-      machine-learning.enable = true;
+      machine-learning = {
+        enable = true;
+        environment = {
+          HF_XET_CACHE = "/var/cache/immich/huggingface-xet";
+          MPLCONFIGDIR = "/var/tmp/immich/mplconfig";
+        };
+      };
       redis.enable = true;
       settings = null;
     };

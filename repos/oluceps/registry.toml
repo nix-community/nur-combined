@@ -51,7 +51,7 @@ wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 [node.abhoth]
 # dmit
 id = 4
-addrs = ["154.31.114.112", "2403:18c0:1000:13a:343b:65ff:fe1b:7a0f"]
+addrs = ["2403:18c0:1000:13a:343b:65ff:fe1b:7a0f", "154.31.114.112"]
 censor = false
 nat = false
 user = "elen"
