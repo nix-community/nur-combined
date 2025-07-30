@@ -83,6 +83,7 @@ let
       gettext
       texinfo
       gnum4
+      zlib.dev
 
       ### Additional package
       autoconf
