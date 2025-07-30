@@ -16,12 +16,17 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur-pinned = {
+      url = "github:nix-community/NUR/3fbe860b7fef1063e585d17e1788248f160658d8";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     nur,
+    ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in rec {
