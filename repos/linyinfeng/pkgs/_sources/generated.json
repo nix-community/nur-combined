@@ -530,7 +530,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-07-24",
+        "date": "2025-07-30",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -540,13 +540,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "74fc9c59935ba834bb0df0aa28a0036234f8e9f1",
-            "sha256": "sha256-DN0YjnTifHG3/Dnfm1OW0VHN4fkqdAKK0vowN3jD1wg=",
+            "rev": "add77328136fbdcd3ded4e9e9c5a6d3e2b253e25",
+            "sha256": "sha256-mLOrX+kFdJreheVEgNszkakrq6BpSdf/BIWMFVeHCHU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "74fc9c59935ba834bb0df0aa28a0036234f8e9f1"
+        "version": "add77328136fbdcd3ded4e9e9c5a6d3e2b253e25"
     },
     "rime-loengfan": {
         "cargoLocks": null,
