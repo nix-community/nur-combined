@@ -12,12 +12,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    outdated-nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur-pinned = {
-      url = "github:nix-community/NUR/1254903a78a677708307885dfb8c1f682f1e891c";
+      url = "github:nix-community/NUR/3fbe860b7fef1063e585d17e1788248f160658d8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
