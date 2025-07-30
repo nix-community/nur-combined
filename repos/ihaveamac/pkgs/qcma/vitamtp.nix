@@ -1,16 +1,19 @@
 {
   lib,
   stdenv,
+  callPackage,
   fetchFromGitHub,
   libtool,
   autoconf,
   automake,
   pkg-config,
-  gettext,
   libusb1,
   libxml2,
 }:
 
+let
+  gettext = callPackage ./gettext-0.22.5 {};
+in
 stdenv.mkDerivation rec {
   pname = "vitamtp";
   version = "2.5.9";

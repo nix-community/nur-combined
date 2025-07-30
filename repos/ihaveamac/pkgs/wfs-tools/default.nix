@@ -2,8 +2,6 @@
 {
   lib,
   stdenv,
-  clang19Stdenv,
-  gcc14Stdenv,
   callPackage,
   fetchFromGitHub,
   pkg-config,
@@ -15,7 +13,6 @@
 }:
 
 let
-  realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
   realCryptopp =
     if stdenv.hostPlatform.isWindows then
       (cryptopp.overrideAttrs (
@@ -32,7 +29,7 @@ let
     else
       cryptopp;
 in
-realStdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "wfs-tools";
   version = "1.2.3-unstable-2025-03-19";
 
@@ -62,7 +59,7 @@ realStdenv.mkDerivation rec {
   '';
 
   cmakeFlags = lib.optionals withFUSE (
-    if realStdenv.isDarwin then
+    if stdenv.isDarwin then
       [
         (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
         (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")

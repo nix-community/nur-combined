@@ -2,13 +2,16 @@
   lib,
   fetchpatch,
   fetchFromGitHub,
+  callPackage,
   buildPythonApplication,
-  cryptography,
   pycurl,
   defusedxml,
   setuptools,
 }:
 
+let
+  cryptography = callPackage ./python-cryptography-43.0.3 {};
+in
 buildPythonApplication rec {
   pname = "cleaninty";
   version = "0.1.3";

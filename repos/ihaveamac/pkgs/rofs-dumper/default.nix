@@ -1,15 +1,10 @@
 {
   lib,
   stdenv,
-  clang19Stdenv,
-  gcc14Stdenv,
   fetchFromGitHub,
 }:
 
-let
-  realStdenv = if stdenv.cc.isClang then clang19Stdenv else gcc14Stdenv;
-in
-realStdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "rofs-dumper";
   version = "1.0";
 
@@ -21,7 +16,7 @@ realStdenv.mkDerivation rec {
   };
 
   buildPhase = ''
-    ${realStdenv.cc.targetPrefix}c++ -std=c++20 main.cpp -o rofs_dump
+    ${stdenv.cc.targetPrefix}c++ -std=c++20 main.cpp -o rofs_dump
   '';
 
   installPhase = ''
