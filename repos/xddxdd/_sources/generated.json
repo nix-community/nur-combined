@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "0b0b6c729581850dd652b28c4ba3f8822015890a",
-            "sha256": "sha256-kmJXXcMK3ozQjl4lqVJx62GDjwLuMLtmOcIOZVki2Cs=",
+            "rev": "2da5dafac29b3565143978f0a5b131f83bd6d615",
+            "sha256": "sha256-TboCBmELikGdWfmORoWDNuh2KjT3j9zoaIu7EACu4pc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0b0b6c729581850dd652b28c4ba3f8822015890a"
+        "version": "2da5dafac29b3565143978f0a5b131f83bd6d615"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1135,12 +1135,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "v3.14.2",
-            "sha256": "sha256-XJ2gD9dKfAm5LlT/nZeLlAzBTF2+RoVKoorXh3Jrq8U=",
+            "rev": "v3.14.3",
+            "sha256": "sha256-H6I989zQKSo/6oQ5XBvGOA2mAvnoObl4i8CTYDy6rrM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.14.2"
+        "version": "v3.14.3"
     },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
@@ -1881,7 +1881,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-07-14",
+        "date": "2025-07-29",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1893,12 +1893,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "78e23891802a8bc058ad435491f1b5aefcef092a",
-            "sha256": "sha256-TEpmqoHwbHdekpFXqUDNmEvkRPfD3ZYvsOxyUp3TKJo=",
+            "rev": "01de36c1ec5e8ca1aee324fd2af79a408727833e",
+            "sha256": "sha256-pf6/FXB7Z48eMPI+Bdrg9vlOzdogvdA61MSR9nx35b8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "78e23891802a8bc058ad435491f1b5aefcef092a"
+        "version": "01de36c1ec5e8ca1aee324fd2af79a408727833e"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6020",
-            "sha256": "sha256-lWYCoPuTKAjb2MTHar4A03ql6vU1C0EuWxKOFTZWdAA=",
+            "rev": "b6029",
+            "sha256": "sha256-qc8cxvVGBDv0NKuD0S3LYKvvKx9VJYtuh0BnhQ2Wg7c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6020"
+        "version": "b6029"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2755,12 +2755,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "0.9.0",
-            "sha256": "sha256-R9rau/Q+KSkr0hNxpvc3ub9eLQqS1kIONoOEw8zFUBk=",
+            "rev": "0.10.0",
+            "sha256": "sha256-/FdVcFNrRWJmEmO1B+LybL+MH4N7LdwvHaOpQi6vCTU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.9.0"
+        "version": "0.10.0"
     },
     "ormsgpack": {
         "cargoLocks": null,
@@ -3082,7 +3082,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-07-01",
+        "date": "2025-07-29",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3094,12 +3094,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "8b65328390ceebe9d2346bff686203e2374ff059",
-            "sha256": "sha256-qDe/0oft0oHiXq04I6fqjsYoujyIGOvdCVjGi1kuQWE=",
+            "rev": "798cbe567d88f525c6429b9dccbd8a3ec94c69e7",
+            "sha256": "sha256-WnV9xChkSPO4VPustxtvechosm649JHe6vQ2RZWRxCU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8b65328390ceebe9d2346bff686203e2374ff059"
+        "version": "798cbe567d88f525c6429b9dccbd8a3ec94c69e7"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -4308,12 +4308,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "67ff877f4b80978ae99ef877a8e6ac081308533f",
-            "sha256": "sha256-cgCTurHHp4IVLVnbZ8MjaVK71RaJOX8L3xih7V81c08=",
+            "rev": "8335719004727b06b743dcbcf4aa4e6a76bf71c5",
+            "sha256": "sha256-LBpPlnTS6SbjfOmDYveoU/spsOyb/PuzrUJii2X8fag=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "67ff877f4b80978ae99ef877a8e6ac081308533f"
+        "version": "8335719004727b06b743dcbcf4aa4e6a76bf71c5"
     },
     "unigine-heaven": {
         "cargoLocks": null,

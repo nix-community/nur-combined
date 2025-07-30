@@ -217,12 +217,12 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "0b0b6c729581850dd652b28c4ba3f8822015890a";
+    version = "2da5dafac29b3565143978f0a5b131f83bd6d615";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "0b0b6c729581850dd652b28c4ba3f8822015890a";
-      hash = "sha256-kmJXXcMK3ozQjl4lqVJx62GDjwLuMLtmOcIOZVki2Cs=";
+      rev = "2da5dafac29b3565143978f0a5b131f83bd6d615";
+      hash = "sha256-TboCBmELikGdWfmORoWDNuh2KjT3j9zoaIu7EACu4pc=";
     };
     date = "2025-07-29";
   };
@@ -581,12 +581,12 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "v3.14.2";
+    version = "v3.14.3";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      tag = "v3.14.2";
-      hash = "sha256-XJ2gD9dKfAm5LlT/nZeLlAzBTF2+RoVKoorXh3Jrq8U=";
+      tag = "v3.14.3";
+      hash = "sha256-H6I989zQKSo/6oQ5XBvGOA2mAvnoObl4i8CTYDy6rrM=";
     };
   };
   flaresolverr-21hsmw = {
@@ -969,14 +969,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "78e23891802a8bc058ad435491f1b5aefcef092a";
+    version = "01de36c1ec5e8ca1aee324fd2af79a408727833e";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "78e23891802a8bc058ad435491f1b5aefcef092a";
-      hash = "sha256-TEpmqoHwbHdekpFXqUDNmEvkRPfD3ZYvsOxyUp3TKJo=";
+      rev = "01de36c1ec5e8ca1aee324fd2af79a408727833e";
+      hash = "sha256-pf6/FXB7Z48eMPI+Bdrg9vlOzdogvdA61MSR9nx35b8=";
     };
-    date = "2025-07-14";
+    date = "2025-07-29";
   };
   libqcef = {
     pname = "libqcef";
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6020";
+    version = "b6029";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6020";
-      hash = "sha256-lWYCoPuTKAjb2MTHar4A03ql6vU1C0EuWxKOFTZWdAA=";
+      tag = "b6029";
+      hash = "sha256-qc8cxvVGBDv0NKuD0S3LYKvvKx9VJYtuh0BnhQ2Wg7c=";
     };
   };
   loralib = {
@@ -1411,12 +1411,12 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "0.9.0";
+    version = "0.10.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      tag = "0.9.0";
-      hash = "sha256-R9rau/Q+KSkr0hNxpvc3ub9eLQqS1kIONoOEw8zFUBk=";
+      tag = "0.10.0";
+      hash = "sha256-/FdVcFNrRWJmEmO1B+LybL+MH4N7LdwvHaOpQi6vCTU=";
     };
   };
   ormsgpack = {
@@ -1577,14 +1577,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "8b65328390ceebe9d2346bff686203e2374ff059";
+    version = "798cbe567d88f525c6429b9dccbd8a3ec94c69e7";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "8b65328390ceebe9d2346bff686203e2374ff059";
-      hash = "sha256-qDe/0oft0oHiXq04I6fqjsYoujyIGOvdCVjGi1kuQWE=";
+      rev = "798cbe567d88f525c6429b9dccbd8a3ec94c69e7";
+      hash = "sha256-WnV9xChkSPO4VPustxtvechosm649JHe6vQ2RZWRxCU=";
     };
-    date = "2025-07-01";
+    date = "2025-07-29";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2201,13 +2201,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "67ff877f4b80978ae99ef877a8e6ac081308533f";
+    version = "8335719004727b06b743dcbcf4aa4e6a76bf71c5";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "67ff877f4b80978ae99ef877a8e6ac081308533f";
+      rev = "8335719004727b06b743dcbcf4aa4e6a76bf71c5";
       fetchSubmodules = true;
-      hash = "sha256-cgCTurHHp4IVLVnbZ8MjaVK71RaJOX8L3xih7V81c08=";
+      hash = "sha256-LBpPlnTS6SbjfOmDYveoU/spsOyb/PuzrUJii2X8fag=";
     };
     date = "2025-07-29";
   };
