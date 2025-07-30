@@ -29,6 +29,13 @@
           inherit legacyPackages;
           packages = pkgs.lib.filterAttrs (_: v: pkgs.lib.isDerivation v) legacyPackages;
 
+          devShells.default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [ cachix ];
+            shellHook = ''
+              export CACHIX_AUTH_TOKEN=$(pass cachix-token)
+            '';
+          };
+
           treefmt = {
             settings.global.on-unmatched = "error";
             programs = {

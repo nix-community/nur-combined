@@ -7,19 +7,25 @@
   cadical,
   python3,
 }:
-stdenv.mkDerivation (
-  (import ./shared.nix {
+let
+  shared = import ./shared.nix {
     inherit lib;
     inherit fetchFromGitHub;
     inherit libarchive;
     inherit cadical;
-  })
+  };
+in
+stdenv.mkDerivation (
+  shared
   // {
     nativeBuildInputs = [
       cmake
       (python3.withPackages (python-pkgs: with python-pkgs; [ pybind11 ]))
     ];
 
-    meta.mainProgram = "gbdc";
+    meta = shared.meta // {
+      mainProgram = "gbdc";
+      description = "Instance Identification, Feature Extraction, and Problem Transformation. The executable tool only.";
+    };
   }
 )
