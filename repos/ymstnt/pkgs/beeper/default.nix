@@ -3,13 +3,16 @@
   fetchurl,
   appimageTools,
   makeWrapper,
+  writeShellApplication,
+  curl,
+  common-updater-scripts,
 }:
 let
   pname = "beeper";
-  version = "4.1.20";
+  version = "4.1.36";
   src = fetchurl {
     url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}.AppImage";
-    hash = "sha256-4sJ61j9/DdZM9mn3JqrvjlWPDb6nN4A4wzQR5lXthxU=";
+    hash = "sha256-Lw4bGsAQKMLkHx/vNUyNQi0JFBevaJKfNEuf9UbqBQI=";
   };
 
   appimageContents = appimageTools.extract {
@@ -37,10 +40,8 @@ appimageTools.wrapAppImage {
   extraPkgs = pkgs: [ pkgs.libsecret ];
 
   extraInstallCommands = ''
-    mkdir -p $out/share/icons/hicolor
-    cp -a ${appimageContents}/usr/share/icons/hicolor/512x512 $out/share/icons/hicolor/512x512
+    install -Dm 644 ${appimageContents}/beepertexts.png $out/share/icons/hicolor/512x512/apps/beepertexts.png
     install -Dm 644 ${appimageContents}/beepertexts.desktop -t $out/share/applications/
-
     substituteInPlace $out/share/applications/beepertexts.desktop --replace-fail "AppRun" "beeper"
 
     . ${makeWrapper}/nix-support/setup-hook
@@ -48,6 +49,25 @@ appimageTools.wrapAppImage {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}} --no-update" \
       --set APPIMAGE beeper
   '';
+
+  passthru = {
+    updateScript = lib.getExe (writeShellApplication {
+      name = "update-beeper";
+      runtimeInputs = [
+        curl
+        common-updater-scripts
+      ];
+      text = ''
+        set -o errexit
+        latestLinux="$(curl --silent --output /dev/null --write-out "%{redirect_url}\n" https://api.beeper.com/desktop/download/linux/x64/stable/com.automattic.beeper.desktop)"
+        version="$(echo "$latestLinux" | grep --only-matching --extended-regexp '[0-9]+\.[0-9]+\.[0-9]+')"
+        update-source-version beeper "$version"
+      '';
+    });
+
+    # needed for nix-update
+    inherit src;
+  };
 
   meta ={
     description = "Universal chat app";

@@ -14,7 +14,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "lifeograph_2";
+  pname = "lifeograph";
   version = "2.0.3";
 
   src = fetchgit {
