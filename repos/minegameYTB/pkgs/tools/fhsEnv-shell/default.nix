@@ -69,7 +69,6 @@ let
       ### Network and cryptography
       rsync
       wget
-      wget2 ### In case of wget is aliases to wget2
       openssl
 
       ### Programming language
@@ -114,7 +113,6 @@ let
       flex
       bison
       gawk
-      gettext
       texinfo
 
       ### Buildroot dependancies in additions to other tools
@@ -169,8 +167,7 @@ let
   };
 in stdenvNoCC.mkDerivation {
   pname = "fhsEnv-shell";
-  ### Use clang version for fhsEnv-shell version
-  version = clang.version;
+  version = "1.0.0";
 
   ### stdenv options
   dontUnpack = true;
