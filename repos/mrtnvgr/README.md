@@ -20,10 +20,19 @@
 
 ### Audio
 
-- [reaper-sws-extension](https://www.sws-extension.org)
+#### Plugins
+
+- [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
+
+#### Utilities
+
 - [artworks](https://github.com/mrtnvgr/artworks)
 - [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
+
+#### Other
+
+- [reaper-sws-extension](https://www.sws-extension.org)
 
 ### Fetchers
 

@@ -48,6 +48,7 @@ in rec {
   fetchurl-gz = p ./pkgs/fetchers/fetchurl-gz { };
 
   # Audio
+  TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
   reaper-sws-extension = p ./pkgs/audio/reaper-sws-extension { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
   artworks = p ./pkgs/audio/artworks { };
