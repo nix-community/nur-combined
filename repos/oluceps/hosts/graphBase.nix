@@ -68,6 +68,12 @@
       pkgs.porsmo
     ];
   xdg = {
+    terminal-exec = {
+      enable = true;
+      settings = {
+        default = [ "foot.desktop" ];
+      };
+    };
     mime = {
       enable = true;
       defaultApplications =
@@ -78,6 +84,7 @@
           "ppt/pptx" = [ "wps-office-wpp.desktop" ];
           "doc/docx" = [ "wps-office-wps.desktop" ];
           "xls/xlsx" = [ "wps-office-et.desktop" ];
+          "application/epub+zip" = [ "com.github.johnfactotum.Foliate.desktop" ];
         }
         //
           lib.genAttrs
@@ -96,11 +103,20 @@
           "image/webp"
           "image/png"
           "image/jpeg"
+          "image/bmp"
         ] (_: "org.gnome.Loupe.desktop")
         // lib.genAttrs [
           "inode/directory"
           "inode/mount-point"
-        ] (_: "org.gnome.Nautilus.desktop");
+        ] (_: "org.gnome.Nautilus.desktop")
+        // lib.genAttrs [
+          "text/plain"
+          "application/toml"
+          "application/json"
+          "text/css"
+          "text/csv"
+
+        ] (_: "Helix.desktop");
     };
     portal = {
       enable = true;
