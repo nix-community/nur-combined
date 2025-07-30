@@ -1,0 +1,10 @@
+diff --git a/apps/dumb-init/CMakeLists.txt b/apps/dumb-init/CMakeLists.txt
+index 1edc4980..93a25f40 100644
+--- a/apps/dumb-init/CMakeLists.txt
++++ b/apps/dumb-init/CMakeLists.txt
+@@ -14,5 +14,3 @@ pfl_add_executable(
+ set(DUMB_INIT_TARGET)
+ 
+ get_real_target_name(DUMB_INIT_TARGET linglong::dumb-init)
+-
+-target_link_options(${DUMB_INIT_TARGET} PRIVATE -static)

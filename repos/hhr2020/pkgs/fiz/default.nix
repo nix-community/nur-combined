@@ -27,7 +27,6 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-8Fyvy52KQyG8+kf9BGUQ2zyM6+iUFKaOfL9h15QBKOk=";
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-1ERKMENPMTn5CPK4d5uTZ18ONMrCEY2PIK1GqSGHnSg=";
 
   npmDeps = fetchNpmDeps {
@@ -49,12 +48,13 @@ rustPlatform.buildRustPackage rec {
     moreutils
   ];
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      glib-networking
-      webkitgtk_4_1
-    ];
+  buildInputs = [
+    openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    glib-networking
+    webkitgtk_4_1
+  ];
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = cargoRoot;

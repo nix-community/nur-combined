@@ -1,0 +1,218 @@
+diff --git a/libs/linglong/src/linglong/builder/linglong_builder.cpp b/libs/linglong/src/linglong/builder/linglong_builder.cpp
+index 8eb81e7b..c0af6034 100644
+--- a/libs/linglong/src/linglong/builder/linglong_builder.cpp
++++ b/libs/linglong/src/linglong/builder/linglong_builder.cpp
+@@ -1103,7 +1103,7 @@ utils::error::Result<void> Builder::generateAppConf() noexcept
+         QFile::copy(":/scripts/app-conf-generator", scriptFile);
+     }
+     auto output = utils::command::Exec(
+-      "bash",
++      "@bash@",
+       QStringList() << "-e" << scriptFile << QString::fromStdString(this->project.package.id)
+                     << buildOutput.path());
+ 
+@@ -1755,7 +1755,7 @@ utils::error::Result<void> Builder::extractLayer(const QString &layerPath,
+         return LINGLONG_ERR(layerDir);
+     }
+ 
+-    auto output = utils::command::Exec("cp",
++    auto output = utils::command::Exec("@cp@",
+                                        QStringList() << "-r" << layerDir->absolutePath()
+                                                      << destDir.absolutePath());
+     if (!output) {
+diff --git a/libs/linglong/src/linglong/builder/source_fetcher.cpp b/libs/linglong/src/linglong/builder/source_fetcher.cpp
+index 6828bb5e..25bdc25f 100644
+--- a/libs/linglong/src/linglong/builder/source_fetcher.cpp
++++ b/libs/linglong/src/linglong/builder/source_fetcher.cpp
+@@ -55,7 +55,7 @@ auto SourceFetcher::fetch(QDir destination) noexcept -> utils::error::Result<voi
+         QFile::copy(":/scripts/" + scriptName, scriptFile);
+     }
+     auto output = utils::command::Exec(
+-      "sh",
++      "@sh@",
+       {
+         scriptFile,
+         destination.absoluteFilePath(getSourceName()),
+diff --git a/libs/linglong/src/linglong/package/layer_packager.cpp b/libs/linglong/src/linglong/package/layer_packager.cpp
+index b36fa76a..fd89d80d 100644
+--- a/libs/linglong/src/linglong/package/layer_packager.cpp
++++ b/libs/linglong/src/linglong/package/layer_packager.cpp
+@@ -97,14 +97,14 @@ LayerPackager::pack(const LayerDir &dir, const QString &layerFilePath) const
+     // 使用-b统一指定block size为4096(2^12), 避免不同系统的兼容问题
+     // loongarch64默认使用(16384)2^14, 在x86和arm64不受支持, 会导致无法推包
+     auto ret = utils::command::Exec(
+-      "mkfs.erofs",
++      "@mkfs_erofs@",
+       { "-z" + compressor, "-b4096", compressedFilePath, ignoreRegex, dir.absolutePath() });
+     if (!ret) {
+         return LINGLONG_ERR(ret);
+     }
+ 
+     ret = utils::command::Exec(
+-      "sh",
++      "@sh@",
+       { "-c", QString("cat %1 >> %2").arg(compressedFilePath, layerFilePath) });
+     if (!ret) {
+         LINGLONG_ERR(ret);
+@@ -129,7 +129,7 @@ utils::error::Result<LayerDir> LayerPackager::unpack(LayerFile &file)
+     }
+ 
+     auto ret =
+-      utils::command::Exec("erofsfuse",
++      utils::command::Exec("@erofsfuse@",
+                            { QString("--offset=%1").arg(*offset),
+                              QString{ "/proc/%1/fd/%2" }.arg(::getpid()).arg(file.handle()),
+                              unpackDir.absolutePath() });
+diff --git a/libs/linglong/src/linglong/package/uab_file.cpp b/libs/linglong/src/linglong/package/uab_file.cpp
+index 78abe521..40d63652 100644
+--- a/libs/linglong/src/linglong/package/uab_file.cpp
++++ b/libs/linglong/src/linglong/package/uab_file.cpp
+@@ -61,7 +61,7 @@ utils::error::Result<std::shared_ptr<UABFile>> UABFile::loadFromFile(int fd) noe
+ UABFile::~UABFile()
+ {
+     if (!mountPoint.empty()) {
+-        auto ret = utils::command::Exec("fusermount", { "-z", "-u", mountPoint.c_str() });
++        auto ret = utils::command::Exec("@fusermount@", { "-z", "-u", mountPoint.c_str() });
+         if (!ret) {
+             qCritical() << "failed to umount " << mountPoint.c_str()
+                         << ", please umount it manually";
+@@ -217,7 +217,7 @@ utils::error::Result<std::filesystem::path> UABFile::mountUab() noexcept
+     }
+ 
+     auto ret =
+-      utils::command::Exec("erofsfuse",
++      utils::command::Exec("@erofsfuse@",
+                            QStringList{ QString{ "--offset=%1" }.arg(bundleOffset),
+                                         QString{ "/proc/%1/fd/%2" }.arg(::getpid()).arg(handle()),
+                                         uabDir.c_str() });
+@@ -335,7 +335,7 @@ utils::error::Result<std::filesystem::path> UABFile::extractSignData() noexcept
+     tarFd = -1;
+ 
+     auto ret =
+-      utils::command::Exec("tar", QStringList{ "-xf", tarFile.c_str(), "-C", destination.c_str() });
++      utils::command::Exec("@tar@", QStringList{ "-xf", tarFile.c_str(), "-C", destination.c_str() });
+     if (!ret) {
+         return LINGLONG_ERR(ret);
+     }
+diff --git a/libs/linglong/src/linglong/package/uab_packager.cpp b/libs/linglong/src/linglong/package/uab_packager.cpp
+index d8dbae96..0e49beb1 100644
+--- a/libs/linglong/src/linglong/package/uab_packager.cpp
++++ b/libs/linglong/src/linglong/package/uab_packager.cpp
+@@ -114,7 +114,7 @@ utils::error::Result<void> elfHelper::addNewSection(const QByteArray &sectionNam
+     }
+ 
+     args.append({ this->elfPath(), this->elfPath() });
+-    auto ret = utils::command::Exec("objcopy", args);
++    auto ret = utils::command::Exec("@objcopy@", args);
+     if (!ret) {
+         return LINGLONG_ERR(ret.error());
+     }
+@@ -278,7 +278,7 @@ utils::error::Result<void> UABPackager::packIcon() noexcept
+     LINGLONG_TRACE("add icon to uab")
+ 
+     auto iconAchieve = this->uab.parentDir().absoluteFilePath("icon.a");
+-    if (auto ret = utils::command::Exec("ar", { "q", iconAchieve, icon->absoluteFilePath() });
++    if (auto ret = utils::command::Exec("@ar@", { "q", iconAchieve, icon->absoluteFilePath() });
+         !ret) {
+         return LINGLONG_ERR(ret);
+     }
+@@ -787,7 +787,7 @@ utils::error::Result<void> UABPackager::packBundle(bool onlyApp) noexcept
+         } else {
+             // https://github.com/erofs/erofs-utils/blob/b526c0d7da46b14f1328594cf1d1b2401770f59b/README#L171-L183
+             if (auto ret =
+-                  utils::command::Exec("mkfs.erofs",
++                  utils::command::Exec("@mkfs_erofs@",
+                                        { "-z" + compressor,
+                                          "-Efragments,dedupe,ztailpacking",
+                                          "-C1048576",
+diff --git a/libs/linglong/src/linglong/package_manager/package_manager.cpp b/libs/linglong/src/linglong/package_manager/package_manager.cpp
+index d1aa412f..1cdf286c 100644
+--- a/libs/linglong/src/linglong/package_manager/package_manager.cpp
++++ b/libs/linglong/src/linglong/package_manager/package_manager.cpp
+@@ -661,7 +661,7 @@ QVariantMap PackageManager::installFromLayer(const QDBusUnixFileDescriptor &fd,
+ 
+           auto unmountLayer = utils::finally::finally([mountPoint = layerDir->absolutePath()] {
+               if (QFileInfo::exists(mountPoint)) {
+-                  auto ret = utils::command::Exec("fusermount", { "-z", "-u", mountPoint });
++                  auto ret = utils::command::Exec("@fusermount@", { "-z", "-u", mountPoint });
+                   if (!ret) {
+                       qCritical() << "failed to umount " << mountPoint
+                                   << ", please umount it manually";
+diff --git a/libs/linglong/src/linglong/repo/ostree_repo.cpp b/libs/linglong/src/linglong/repo/ostree_repo.cpp
+index 829b423a..8018f71a 100644
+--- a/libs/linglong/src/linglong/repo/ostree_repo.cpp
++++ b/libs/linglong/src/linglong/repo/ostree_repo.cpp
+@@ -1134,7 +1134,7 @@ utils::error::Result<void> OSTreeRepo::pushToRemote(const std::string &remoteRep
+     const QString tarFileName = QString("%1.tgz").arg(reference.id);
+     const QString tarFilePath = QDir::cleanPath(tmpDir.filePath(tarFileName));
+     QStringList args = { "-zcf", tarFilePath, "-C", layerDir->absolutePath(), "." };
+-    auto tarStdout = utils::command::Exec("tar", args);
++    auto tarStdout = utils::command::Exec("@tar@", args);
+     if (!tarStdout) {
+         return LINGLONG_ERR(tarStdout);
+     }
+@@ -2298,7 +2298,7 @@ void OSTreeRepo::updateSharedInfo() noexcept
+ 
+     // 更新 desktop database
+     if (!desktopDirs.empty()) {
+-        auto ret = utils::command::Exec("update-desktop-database", desktopDirs);
++        auto ret = utils::command::Exec("@update-desktop-database@", desktopDirs);
+         if (!ret) {
+             qWarning() << "warning: failed to update desktop database in " + desktopDirs.join(" ")
+                 + ": " + ret.error().message();
+@@ -2307,7 +2307,7 @@ void OSTreeRepo::updateSharedInfo() noexcept
+ 
+     // 更新 mime type database
+     if (mimeDataDir.exists()) {
+-        auto ret = utils::command::Exec("update-mime-database", { mimeDataDir.absolutePath() });
++        auto ret = utils::command::Exec("@update-mime-database@", { mimeDataDir.absolutePath() });
+         if (!ret) {
+             qWarning() << "warning: failed to update mime type database in "
+                 + mimeDataDir.absolutePath() + ": " + ret.error().message();
+@@ -2316,7 +2316,7 @@ void OSTreeRepo::updateSharedInfo() noexcept
+ 
+     // 更新 glib-2.0/schemas
+     if (glibSchemasDir.exists()) {
+-        auto ret = utils::command::Exec("glib-compile-schemas", { glibSchemasDir.absolutePath() });
++        auto ret = utils::command::Exec("@glib-compile-schemas@", { glibSchemasDir.absolutePath() });
+         if (!ret) {
+             qWarning() << "warning: failed to update schemas in " + glibSchemasDir.absolutePath()
+                 + ": " + ret.error().message();
+diff --git a/libs/utils/src/linglong/utils/overlayfs.cpp b/libs/utils/src/linglong/utils/overlayfs.cpp
+index 3a9d5a98..8647ee6b 100644
+--- a/libs/utils/src/linglong/utils/overlayfs.cpp
++++ b/libs/utils/src/linglong/utils/overlayfs.cpp
+@@ -20,7 +20,7 @@ OverlayFS::OverlayFS(QString lowerdir, QString upperdir, QString workdir, QStrin
+ 
+ OverlayFS::~OverlayFS()
+ {
+-    auto res = utils::command::Exec("fusermount", { "-z", "-u", merged_ });
++    auto res = utils::command::Exec("@fusermount@", { "-z", "-u", merged_ });
+     if (!res) {
+         qWarning() << QString("failed to umount %1 ").arg(merged_) << res.error();
+     }
+@@ -43,12 +43,11 @@ bool OverlayFS::mount()
+         return false;
+     }
+ 
+-    utils::command::Exec("fusermount", { "-z", "-u", merged_ });
++    utils::command::Exec("@fusermount@", { "-z", "-u", merged_ });
+ 
+     auto ret = utils::command::Exec(
+-      "fuse-overlayfs",
+-      { "fuse-overlayfs",
+-        "-o",
++      "@fuse-overlayfs@",
++      { "-o",
+         QString("lowerdir=%1,upperdir=%2,workdir=%3").arg(lowerdir_, upperdir_, workdir_),
+         merged_ });
+     if (!ret) {
+@@ -60,7 +59,7 @@ bool OverlayFS::mount()
+ 
+ void OverlayFS::unmount(bool clean)
+ {
+-    auto res = utils::command::Exec("fusermount", { "-z", "-u", merged_ });
++    auto res = utils::command::Exec("@fusermount@", { "-z", "-u", merged_ });
+     if (!res) {
+         qWarning() << QString("failed to umount %1 ").arg(merged_) << res.error();
+     }

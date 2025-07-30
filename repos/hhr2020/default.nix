@@ -10,7 +10,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./nixosModules; # NixOS modules
@@ -18,6 +18,10 @@
   hmModules = import ./homeModules; # Home Manager modules
 
   fiz = pkgs.callPackage ./pkgs/fiz { };
+  linyaps = pkgs.kdePackages.callPackage ./pkgs/linyaps {
+    inherit linyaps-box;
+  };
+  linyaps-box = pkgs.callPackage ./pkgs/linyaps-box { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };
