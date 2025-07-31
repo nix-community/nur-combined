@@ -1,1 +1,1 @@
-{ writeShellScriptBin }: writeShellScriptBin "check" "nix flake check --all-systems"
+{ writeShellScriptBin }: writeShellScriptBin "check" "nix flake check"
