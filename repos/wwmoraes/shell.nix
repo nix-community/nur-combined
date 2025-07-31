@@ -19,7 +19,6 @@ in mkShell {
 		pkgs.eclint
 		pkgs.editorconfig-checker
 		pkgs.git
-		pkgs.go-commitlint
 		pkgs.go-task
 		pkgs.lefthook
 		pkgs.markdownlint-cli

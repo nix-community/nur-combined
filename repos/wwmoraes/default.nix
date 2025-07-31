@@ -18,10 +18,8 @@
 			modules = import ./nix-darwin/modules;
 		};
 
-		asyncapi = callPackage ./pkgs/asyncapi.nix { };
 		codecov-cli-bin = callPackage ./pkgs/codecov-cli-bin.nix { };
-		ejson = callPackage ./pkgs/ejson.nix { };
-		go-commitlint = callPackage ./pkgs/go-commitlint.nix { };
+		git-credential-azure = callPackage ./pkgs/git-credential-azure.nix { };
 		gopium = callPackage ./pkgs/gopium.nix { };
 		goutline = callPackage ./pkgs/goutline { };
 		kroki = callPackage ./pkgs/kroki.nix { };
