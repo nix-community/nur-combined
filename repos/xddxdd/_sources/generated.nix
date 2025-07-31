@@ -1439,16 +1439,6 @@
       hash = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
   };
-  ovpn-dco = {
-    pname = "ovpn-dco";
-    version = "v0.2.20250728";
-    src = fetchFromGitHub {
-      owner = "OpenVPN";
-      repo = "ovpn-dco";
-      tag = "v0.2.20250728";
-      hash = "sha256-wImtZ+STpsGyrhsqEpFMw4BDl+I5KLFClMhUgksqAqg=";
-    };
-  };
   palworld-exporter = {
     pname = "palworld-exporter";
     version = "v1.3.1";

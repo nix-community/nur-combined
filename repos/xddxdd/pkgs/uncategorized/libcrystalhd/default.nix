@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace-fail '$(DESTDIR)/usr/' '$(DESTDIR)/'
+      --replace-fail '$(DESTDIR)/usr/' '$(DESTDIR)/' \
+      --replace-fail "-msse2" ""
   '';
 
   makeFlags = [

@@ -628,10 +628,6 @@ src.github = "aviramha/ormsgpack"
 fetch.github = "osdlyrics/osdlyrics"
 src.github = "osdlyrics/osdlyrics"
 
-[ovpn-dco]
-fetch.github = "OpenVPN/ovpn-dco"
-src.github_tag = "OpenVPN/ovpn-dco"
-
 [palworld-exporter]
 fetch.github = "palworldlol/palworld-exporter"
 src.github_tag = "palworldlol/palworld-exporter"

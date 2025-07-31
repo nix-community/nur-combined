@@ -2804,27 +2804,6 @@
         },
         "version": "0.5.15"
     },
-    "ovpn-dco": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "ovpn-dco",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "OpenVPN",
-            "repo": "ovpn-dco",
-            "rev": "v0.2.20250728",
-            "sha256": "sha256-wImtZ+STpsGyrhsqEpFMw4BDl+I5KLFClMhUgksqAqg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.2.20250728"
-    },
     "palworld-exporter": {
         "cargoLocks": null,
         "date": null,
