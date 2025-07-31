@@ -104,6 +104,7 @@
           "image/png"
           "image/jpeg"
           "image/bmp"
+          "image/svg+xml"
         ] (_: "org.gnome.Loupe.desktop")
         // lib.genAttrs [
           "inode/directory"

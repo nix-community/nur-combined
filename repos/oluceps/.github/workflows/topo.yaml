@@ -26,7 +26,6 @@ jobs:
         with:
           extra-conf: |
             experimental-features = nix-command flakes auto-allocate-uids cgroups recursive-nix ca-derivations pipe-operators
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Build Graph
         run: |
           nix build .#topology.x86_64-linux.config.output
