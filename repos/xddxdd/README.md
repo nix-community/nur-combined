@@ -119,7 +119,7 @@ Or, use variables from this repository in case I change them:
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | 0-unstable-2024-11-20 | DPDK kernel modules or add-ons |
-|  | `drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.0.18 | Python based web automation tool. Powerful and elegant |
+|  | `drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.2 | Python based web automation tool. Powerful and elegant |
 |  | `drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable |
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
@@ -135,7 +135,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.51-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-07-23 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.31 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -222,9 +222,9 @@ Or, use variables from this repository in case I change them:
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
 |  | `rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20250101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2020-12-26 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-07-24 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-07-30 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20250711 | RIME dictionary file for entries from zh.moegirl.org.cn |
-|  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250526 | RIME dictionary file for entries from zh.wikipedia.org |
+|  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250731 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
 |  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.3.1.4 | Sipwise media proxy for Kamailio |
@@ -407,7 +407,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.12.2 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.14.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 6029 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 6040 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.16.4.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1047,7 +1047,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `python3Packages.data-recorder` | [data-recorder](https://github.com/g1879/DataRecorder) | 3.6.2 | Python-based toolkit to record data into files |
 |  | `python3Packages.download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
-|  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.0.18 | Python based web automation tool. Powerful and elegant |
+|  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.2 | Python based web automation tool. Powerful and elegant |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.0.2 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
 |  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-07-23 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
@@ -1132,7 +1132,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.51-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.07.31 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10201 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -1203,9 +1203,9 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
 |  | `uncategorized.rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20250101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `uncategorized.rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2020-12-26 | RIME 词库增强 |
-|  | `uncategorized.rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-07-24 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
+|  | `uncategorized.rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2025-07-30 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
 |  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20250711 | RIME dictionary file for entries from zh.moegirl.org.cn |
-|  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250526 | RIME dictionary file for entries from zh.wikipedia.org |
+|  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250731 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
 |  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.3.1.4 | Sipwise media proxy for Kamailio |
 |  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.4 | RunPod CLI for pod management |
