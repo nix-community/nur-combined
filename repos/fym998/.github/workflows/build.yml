@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - '**.md'
       - '.github/**'
-      - flake-modules/_internal/dev/**
+      - flake-modules/_internal/**
       - LICENSE
       - '*.json'
       - .gitignore
