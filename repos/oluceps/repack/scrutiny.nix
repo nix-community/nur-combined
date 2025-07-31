@@ -16,9 +16,9 @@ reIf {
 
       openFirewall = true;
 
-      notify = {
-        urls = [ "ntfy://ntfy.nyaw.xyz/crit?auth=QmVhcmVyIHRrXzFkZTlmYXdic3g1NGFweWVmbDZ3OWFtOGg5Mmpn" ];
-      };
+      # notify = {
+      #   urls = [ "ntfy://ntfy.nyaw.xyz/critical?auth=QmVhcmVyIHRrXzFkZTlmYXdic3g1NGFweWVmbDZ3OWFtOGg5Mmpn" ];
+      # };
     };
   };
 }
