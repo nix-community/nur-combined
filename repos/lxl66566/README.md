@@ -4,6 +4,28 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 
 **All packages here are pre-built binaries.**
 
+## How to use
+
+1. Add the following to your flake inputs:
+   ```nix
+   nur = {
+     url = "github:nix-community/NUR";
+     inputs.nixpkgs.follows = "nixpkgs";
+   };
+   ```
+2. Add the following to your `configuration.nix`:
+   ```nix
+   nixpkgs.overlays = [ nur.overlays.default ];
+   ```
+3. use packages in your config:
+   ```nix
+   {
+     environment.systemPackages = with pkgs; [
+       nur.repos.lxl66566.git-simple-encrypt
+     ];
+   }
+   ```
+
 ## packages
 
 <!-- prettier-ignore -->
