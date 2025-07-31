@@ -6,7 +6,7 @@ let
   page = { name
            , protocol ? "http"
            , host ? "127.0.0.1"
-           , port ? ""
+           , port ? 80
            , attrs ? {}
            , hasWidget ? true
            , hasSiteMonitor ? false
@@ -31,7 +31,7 @@ let
   nginx = { name
             , protocol ? "http"
             , host ? "127.0.0.1"
-            , port ? ""
+            , port ? 80
             , websockets ? false
             , ...
           }:
