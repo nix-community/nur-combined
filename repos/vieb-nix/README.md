@@ -2,6 +2,10 @@ Nix packaging for [Vieb](https://github.com/Jelmerro/Vieb).
 
 It is provided here since Vieb was rejected from nixpkgs due to security concerns about an electron based browser, and special rules in nixpkgs policy regarding browsers.
 
+# Security Warning!
+
+Versions of vieb prior to 12.4.0 (which is now packaged in this repository) are vulnerable to [remote code execution](https://github.com/Jelmerro/Vieb/security/advisories/GHSA-h2fq-667q-7gpm)! Upgrade as soon as possible.
+
 # Installation
 
 ## Flake
