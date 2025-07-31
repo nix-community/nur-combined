@@ -56,6 +56,10 @@ in {
         shikane # output autoconfig
         swaybg
         zotero
+
+        grim
+        wl-clipboard
+        slurp
         ;
 
       inherit
@@ -97,6 +101,7 @@ in {
         };
         bars = [];
 
+        workspaceAutoBackAndForth = true;
         bindkeysToCode = true;
         keybindings = mkOptionDefault {
           "Mod4+Shift+a" = "exec shikanectl reload";
