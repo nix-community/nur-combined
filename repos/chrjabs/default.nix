@@ -29,6 +29,9 @@ rec {
 
   # Python MIP
   python-mip = pkgs.python311Packages.callPackage ./pkgs/python-mip { };
+
+  # DBLP tools
+  dblp-tools = pkgs.callPackage ./pkgs/dblp-tools { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
