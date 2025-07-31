@@ -72,6 +72,7 @@
           '';
         };
       }
+      // packages."${system}"
       // {
         shell = devShells."${system}".default;
       });
