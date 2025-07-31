@@ -21,6 +21,7 @@ buildGoModule rec {
 		description = "CLI for Kroki, the plain text to diagram generator";
 		homepage = "https://github.com/yuzutech/kroki-cli";
 		license = licenses.mit;
+		mainProgram = "kroki";
 		maintainers = with maintainers; [ wwmoraes ];
 	};
 }

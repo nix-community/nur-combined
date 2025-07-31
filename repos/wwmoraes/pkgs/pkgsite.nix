@@ -20,7 +20,8 @@ buildGoModule {
 		description = "a site for discovering Go packages";
 		homepage = "https://cs.opensource.google/go/x/pkgsite";
 		license = licenses.bsd3;
-		platforms = platforms.all;
+		mainProgram = "pkgsite";
 		maintainers = with maintainers; [ wwmoraes ];
+		platforms = platforms.all;
 	};
 }

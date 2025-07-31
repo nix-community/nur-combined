@@ -19,6 +19,7 @@ buildGoModule rec {
 		description = "Go AST Declaration Extractor";
 		homepage = "https://github.com/1pkg/goutline";
 		license = licenses.mit;
+		mainProgram = "goutline";
 		maintainers = with maintainers; [ wwmoraes ];
 	};
 }

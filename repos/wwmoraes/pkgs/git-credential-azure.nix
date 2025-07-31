@@ -22,7 +22,8 @@ buildGoModule rec {
 		description = "A Git credential helper for Azure Repos";
 		homepage = "https://github.com/hickford/git-credential-azure";
 		license = licenses.asl20;
-		platforms = platforms.all;
+		mainProgram = "git-credential-azure";
 		maintainers = with maintainers; [ wwmoraes ];
+		platforms = platforms.all;
 	};
 }

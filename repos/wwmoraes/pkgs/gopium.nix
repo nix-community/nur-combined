@@ -20,6 +20,7 @@ buildGoModule rec {
 		description = "Smart Go Structures Optimizer and Manager";
 		homepage = "https://github.com/1pkg/gopium";
 		license = licenses.mit;
+		mainProgram = "gopium";
 		maintainers = with maintainers; [ wwmoraes ];
 	};
 }
