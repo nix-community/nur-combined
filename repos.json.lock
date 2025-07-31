@@ -216,8 +216,8 @@
             "url": "https://github.com/adam-gaia/nur-packages"
         },
         "alarsyo": {
-            "rev": "2562a3467c5a9ed174074681e2eb5aba094ef26d",
-            "sha256": "0jv66wdjhs2fpp8b3bbghlz2k3chakpkdck6mxir9nw844jhnayk",
+            "rev": "0f6f89fb181dc82c289d5e54bd9d9b2d951a8daa",
+            "sha256": "1kmqs87k1dmg4dw7za6hn95p8w0bfdaafs7f93ls457yh1dh5kzw",
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "aleksana": {
@@ -447,8 +447,8 @@
             "url": "https://github.com/chap9/chap9-nur"
         },
         "charmbracelet": {
-            "rev": "108df69e46dae4ba514b2de2223ea3aa94d96bd3",
-            "sha256": "1gb7y9jzsywl5lkrnf2ppighhnzb7l349kimw5y2j2k7zfmpvwh7",
+            "rev": "6e8ee848992c405fb5f44726c271533b837eb609",
+            "sha256": "0ikqqqlqr724xz2a0az2605pvjj7n3mgd68bmnbvj8dn6alac966",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chen": {
