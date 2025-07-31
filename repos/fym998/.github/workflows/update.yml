@@ -18,7 +18,7 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: fym998/update-flake-lock@dogfood
+      - uses: fym998/update-flake-lock@multi-flake
         id: update-flake-lock
         with:
           flakes: |
