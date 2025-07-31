@@ -821,10 +821,6 @@
         "mikilio": {
             "url": "https://github.com/Mikilio/nur-packages"
         },
-        "milahu": {
-            "submodules": true,
-            "url": "https://github.com/milahu/nur-packages"
-        },
         "minegameYTB": {
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
         },
