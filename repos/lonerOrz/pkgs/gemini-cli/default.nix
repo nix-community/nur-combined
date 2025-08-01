@@ -12,7 +12,7 @@ let
   pname = "gemini-cli";
   version = "0.1.15";
   srcHash = "sha256-J9pDSMsSh7FVPD61FFV2Aes3G/Vj1j5ULn9dOr+sglQ=";
-  npmDepsHsh = "sha256-pfQ02b7j8BQzPOVk64nqpVH2ofkaR3iFDlqo+XiAN4A=";
+  npmDepsHash = "sha256-pfQ02b7j8BQzPOVk64nqpVH2ofkaR3iFDlqo+XiAN4A=";
 
   srcOrig = fetchFromGitHub {
     owner = "google-gemini";
@@ -36,7 +36,7 @@ buildNpmPackage (finallAttrs: {
 
   npmDeps = fetchNpmDeps {
     inherit src;
-    hash = "${npmDepsHsh}";
+    hash = "${npmDepsHash}";
   };
 
   passthru.updateScript = ./update.sh;

@@ -67,21 +67,17 @@ cp "$TEMP_DIR/package-lock.fixed.json" "$PACKAGE_LOCK_FILE"
 echo >> "$PACKAGE_LOCK_FILE"  # 添加末尾换行
 rm -rf "$TEMP_DIR"
 
-# 更新 default.nix 中 version 和 hash，只在 gemini-cli block 内
-sed -i -E \
-  -e "s@(version = \")[^\"]*(\";)@\\1$LATEST_VERSION\\2@" \
-  -e "s@(srcHash = \")[^\"]*(\";)@\\1$SOURCE_HASH\\2@" \
-  "$PKG_FILE"
-
 # 使用 prefetch-npm-deps 获取 npmDepsHash
-NPM_DEPS_HASH=$(prefetch-npm-deps -- pkgs/gemini-cli/package-lock.fixed.json)
+NPM_DEPS_HASH=$(prefetch-npm-deps $PACKAGE_LOCK_FILE)
 if [ -z "$NPM_DEPS_HASH" ]; then
   echo "❌ Failed to fetch npmDepsHash using prefetch-npm-deps."
   exit 1
 fi
 
-# 更新 npmDepsHash
+# 更新 default.nix 中 version srcHash npmDepsHash
 sed -i -E \
+  -e "s@(version = \")[^\"]*(\";)@\\1$LATEST_VERSION\\2@" \
+  -e "s@(srcHash = \")[^\"]*(\";)@\\1$SOURCE_HASH\\2@" \
   -e "s@(npmDepsHash = \")[^\"]*(\";)@\\1$NPM_DEPS_HASH\\2@" \
   "$PKG_FILE"
 
