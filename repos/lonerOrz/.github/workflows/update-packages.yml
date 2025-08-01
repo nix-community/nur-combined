@@ -32,7 +32,7 @@ jobs:
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
-          nix-env -iA nixpkgs.nix-update nixpkgs.nix-prefetch-git nixpkgs.jq nixpkgs.nodejs
+          nix-env -iA nixpkgs.nix-update nixpkgs.nix-prefetch-git nixpkgs.prefetch-npm-deps nixpkgs.jq nixpkgs.nodejs
 
       - name: new branch
         run: |

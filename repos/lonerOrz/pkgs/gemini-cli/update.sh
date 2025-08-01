@@ -71,31 +71,18 @@ rm -rf "$TEMP_DIR"
 sed -i -E \
   -e "s@(version = \")[^\"]*(\";)@\\1$LATEST_VERSION\\2@" \
   -e "s@(srcHash = \")[^\"]*(\";)@\\1$SOURCE_HASH\\2@" \
-  -e "s@(npmDepsHsh = \")[^\"]*(\";)@\\1\\2@" \
   "$PKG_FILE"
 
-echo "替新version和 hash 更新 default.nix 和 package-lock.fixed.json !!!!"
-cat $PKG_FILE
+# 使用 prefetch-npm-deps 获取 npmDepsHash
+NPM_DEPS_HASH=$(prefetch-npm-deps -- pkgs/gemini-cli/package-lock.fixed.json)
+if [ -z "$NPM_DEPS_HASH" ]; then
+  echo "❌ Failed to fetch npmDepsHash using prefetch-npm-deps."
+  exit 1
+fi
 
-# 执行一次构建以触发 npmDepsHash 获取
-NIX_BUILD_LOG=$(mktemp)
-
-set +e
-set +o pipefail
-# 使用子shell确保管道退出码不影响脚本
-(nix build .#gemini-cli --print-build-logs 2>&1 || true) | (tee "$NIX_BUILD_LOG" || true)
-set -o pipefail
-set -e
-
-# 提取 npmDepsHash
-NPM_DEPS_HASH=$(grep "got: sha256-" "$NIX_BUILD_LOG" | sed -E 's/.*got: (sha256-[^ ]+).*/\1/' | head -n1)
-rm -f "$NIX_BUILD_LOG"
-
-[ -z "$NPM_DEPS_HASH" ] && { echo "❌ Failed to extract npmDepsHash."; exit 1; }
-
-# 更新 npmDeps hash
+# 更新 npmDepsHash
 sed -i -E \
-  -e "s@(npmDepsHsh = \")[^\"]*(\";)@\\1$NPM_DEPS_HASH\\2@" \
+  -e "s@(npmDepsHash = \")[^\"]*(\";)@\\1$NPM_DEPS_HASH\\2@" \
   "$PKG_FILE"
 
 # 完成信息
