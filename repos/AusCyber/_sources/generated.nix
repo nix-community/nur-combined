@@ -14,7 +14,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-1032QAZQFO710wE7GT8LvYSZv9iNSNYIt+tYrIvX3gM=";
+      sha256 = "sha256-fXIdmabpjmkM2WA3U9ygLBQp3mDZh7ni+RgE6ho266s=";
     };
   };
   zen-browser = {

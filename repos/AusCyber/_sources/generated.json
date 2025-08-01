@@ -23,7 +23,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1032QAZQFO710wE7GT8LvYSZv9iNSNYIt+tYrIvX3gM=",
+            "sha256": "sha256-fXIdmabpjmkM2WA3U9ygLBQp3mDZh7ni+RgE6ho266s=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
