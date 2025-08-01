@@ -51,7 +51,7 @@ git clone --depth 1 --branch "$LATEST_RELEASE" "https://github.com/$OWNER/$REPO.
 }
 
 cp "$FIX_SCRIPT" "$TEMP_DIR/fix.js"
-if ! nix-shell -p nodejs --run "cd $TEMP_DIR && node fix.js"; then
+if ! (cd "$TEMP_DIR" && node fix.js); then
   echo "❌ Failed to run fix.js"
   rm -rf "$TEMP_DIR"
   exit 1
