@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       				ln -s $folder $vim/$(basename "$folder")
       			done
       		'';
-
+  preferLocalBuild = false;
   meta = {
     description = "Fast, native, feature-rich terminal emulator pushing modern features";
     longDescription = ''
