@@ -718,11 +718,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/KpdRJnlycjOE+4WLtcLfMi7Uy/F9f4XrOfniJLPmmQ=",
+            "sha256": "sha256-YgKOUsMv1ua/z20FlsXDQoS9qoKSq3UHJG5gTJmuCoI=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-asn-lite-2025-07.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-asn-lite-2025-08.mmdb.gz"
         },
-        "version": "2025-07"
+        "version": "2025-08"
     },
     "dbip-city-lite": {
         "cargoLocks": null,
@@ -733,11 +733,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1xKZZ8ZKg6UFbJ+WcjjQudsW7T7MhhxdG1wDWKtrD7w=",
+            "sha256": "sha256-iwAosu4Z6PfLnB2f+/zZYm/fwappfGRq1yBF3jCBj6Q=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-city-lite-2025-07.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-city-lite-2025-08.mmdb.gz"
         },
-        "version": "2025-07"
+        "version": "2025-08"
     },
     "dbip-country-lite": {
         "cargoLocks": null,
@@ -748,11 +748,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-h7iZrIY/AJoFpQcsD3g7VhraBDoCL6M5EPouWzJiE+8=",
+            "sha256": "sha256-X9AD1UAQhP57XI6XvpwK0ltSH9vkowKvyo0JRqF0aJc=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-country-lite-2025-07.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-country-lite-2025-08.mmdb.gz"
         },
-        "version": "2025-07"
+        "version": "2025-08"
     },
     "decluttarr": {
         "cargoLocks": null,
@@ -1310,11 +1310,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FC591vBddIrjhG1EuSDTYDKsuQWkBnh4WPMQLSD0rv8=",
+            "sha256": "sha256-Jt1/RRfrnpZaKoWk7oEJWeLpp3g68YFIc0/mEMXDovs=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.07.31"
+        "version": "2025.08.01"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1327,9 +1327,9 @@
             "name": null,
             "sha256": "sha256-ySSaAopUfWx4M9Sns2Ah9ELesk/hY+DTQn93S3FaBzw=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-City.mmdb"
         },
-        "version": "2025.07.31"
+        "version": "2025.08.01"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1342,9 +1342,9 @@
             "name": null,
             "sha256": "sha256-/hAnv+sB+g+4DIss1nlsJkUPIBSlxOVxUWh6z5Va/hQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-Country.mmdb"
         },
-        "version": "2025.07.31"
+        "version": "2025.08.01"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6040",
-            "sha256": "sha256-muRuuLFC4aY+C0t/45s7iksESW7BVzzPE6EUnzVcipw=",
+            "rev": "b6056",
+            "sha256": "sha256-oN1/zCrjwBheosFtZl+8SIyNSADyT1nlV1YjdlqmK/k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6040"
+        "version": "b6056"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3925,11 +3925,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+nq9/uQ/3Xjyj8oKiXrTF34y7Ig/I95spRWjwPP7+Uw=",
+            "sha256": "sha256-UeMHwlgeThoAKZGrPjp3UDyLB0xCaVmHqYSnOC0Kxa8=",
             "type": "url",
-            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.0.1727/Suwayomi-Server-v2.0.1727.jar"
+            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.1.1867/Suwayomi-Server-v2.1.1867.jar"
         },
-        "version": "v2.0.1727"
+        "version": "v2.1.1867"
     },
     "svp": {
         "cargoLocks": null,
@@ -4455,7 +4455,7 @@
     },
     "vk-hdr-layer": {
         "cargoLocks": null,
-        "date": "2025-05-22",
+        "date": "2025-07-31",
         "extract": null,
         "name": "vk-hdr-layer",
         "passthru": null,
@@ -4467,12 +4467,12 @@
             "name": null,
             "owner": "Zamundaaa",
             "repo": "VK_hdr_layer",
-            "rev": "1384036ea24a9bc38a5c684dac5122d5e3431ae6",
-            "sha256": "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=",
+            "rev": "303e0c69e1d33acd95158d92b1fc652fb5b85399",
+            "sha256": "sha256-NsC44Ifl/fAHvFqP7NLrVZ71Y+x5mBEkv+r43HN5yn4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1384036ea24a9bc38a5c684dac5122d5e3431ae6"
+        "version": "303e0c69e1d33acd95158d92b1fc652fb5b85399"
     },
     "vpp": {
         "cargoLocks": null,
@@ -4509,12 +4509,12 @@
             "name": null,
             "owner": "VueTorrent",
             "repo": "vuetorrent-backend",
-            "rev": "v2.6.0",
-            "sha256": "sha256-A2b9xjEHWqHBFpARCkIFw+woQ5Un7xlD308EllWFZTI=",
+            "rev": "v2.7.0",
+            "sha256": "sha256-sMt13zYiVE3NXvCf+sY8fzmB/puxlvNUg3RdwWuifMc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.0"
+        "version": "v2.7.0"
     },
     "wechat-uos": {
         "cargoLocks": null,

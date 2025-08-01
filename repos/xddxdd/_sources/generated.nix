@@ -371,26 +371,26 @@
   };
   dbip-asn-lite = {
     pname = "dbip-asn-lite";
-    version = "2025-07";
+    version = "2025-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-asn-lite-2025-07.mmdb.gz";
-      hash = "sha256-/KpdRJnlycjOE+4WLtcLfMi7Uy/F9f4XrOfniJLPmmQ=";
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2025-08.mmdb.gz";
+      hash = "sha256-YgKOUsMv1ua/z20FlsXDQoS9qoKSq3UHJG5gTJmuCoI=";
     };
   };
   dbip-city-lite = {
     pname = "dbip-city-lite";
-    version = "2025-07";
+    version = "2025-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-city-lite-2025-07.mmdb.gz";
-      hash = "sha256-1xKZZ8ZKg6UFbJ+WcjjQudsW7T7MhhxdG1wDWKtrD7w=";
+      url = "https://download.db-ip.com/free/dbip-city-lite-2025-08.mmdb.gz";
+      hash = "sha256-iwAosu4Z6PfLnB2f+/zZYm/fwappfGRq1yBF3jCBj6Q=";
     };
   };
   dbip-country-lite = {
     pname = "dbip-country-lite";
-    version = "2025-07";
+    version = "2025-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-country-lite-2025-07.mmdb.gz";
-      hash = "sha256-h7iZrIY/AJoFpQcsD3g7VhraBDoCL6M5EPouWzJiE+8=";
+      url = "https://download.db-ip.com/free/dbip-country-lite-2025-08.mmdb.gz";
+      hash = "sha256-X9AD1UAQhP57XI6XvpwK0ltSH9vkowKvyo0JRqF0aJc=";
     };
   };
   decluttarr = {
@@ -674,25 +674,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.07.31";
+    version = "2025.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-ASN.mmdb";
-      hash = "sha256-FC591vBddIrjhG1EuSDTYDKsuQWkBnh4WPMQLSD0rv8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-ASN.mmdb";
+      hash = "sha256-Jt1/RRfrnpZaKoWk7oEJWeLpp3g68YFIc0/mEMXDovs=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.07.31";
+    version = "2025.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-City.mmdb";
       hash = "sha256-ySSaAopUfWx4M9Sns2Ah9ELesk/hY+DTQn93S3FaBzw=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.07.31";
+    version = "2025.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.07.31/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.01/GeoLite2-Country.mmdb";
       hash = "sha256-/hAnv+sB+g+4DIss1nlsJkUPIBSlxOVxUWh6z5Va/hQ=";
     };
   };
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6040";
+    version = "b6056";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6040";
-      hash = "sha256-muRuuLFC4aY+C0t/45s7iksESW7BVzzPE6EUnzVcipw=";
+      tag = "b6056";
+      hash = "sha256-oN1/zCrjwBheosFtZl+8SIyNSADyT1nlV1YjdlqmK/k=";
     };
   };
   loralib = {
@@ -2005,10 +2005,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v2.0.1727";
+    version = "v2.1.1867";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.0.1727/Suwayomi-Server-v2.0.1727.jar";
-      hash = "sha256-+nq9/uQ/3Xjyj8oKiXrTF34y7Ig/I95spRWjwPP7+Uw=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.1.1867/Suwayomi-Server-v2.1.1867.jar";
+      hash = "sha256-UeMHwlgeThoAKZGrPjp3UDyLB0xCaVmHqYSnOC0Kxa8=";
     };
   };
   svp = {
@@ -2283,15 +2283,15 @@
   };
   vk-hdr-layer = {
     pname = "vk-hdr-layer";
-    version = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+    version = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+      rev = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
       fetchSubmodules = true;
-      hash = "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=";
+      hash = "sha256-NsC44Ifl/fAHvFqP7NLrVZ71Y+x5mBEkv+r43HN5yn4=";
     };
-    date = "2025-05-22";
+    date = "2025-07-31";
   };
   vpp = {
     pname = "vpp";
@@ -2305,12 +2305,12 @@
   };
   vuetorrent-backend = {
     pname = "vuetorrent-backend";
-    version = "v2.6.0";
+    version = "v2.7.0";
     src = fetchFromGitHub {
       owner = "VueTorrent";
       repo = "vuetorrent-backend";
-      tag = "v2.6.0";
-      hash = "sha256-A2b9xjEHWqHBFpARCkIFw+woQ5Un7xlD308EllWFZTI=";
+      tag = "v2.7.0";
+      hash = "sha256-sMt13zYiVE3NXvCf+sY8fzmB/puxlvNUg3RdwWuifMc=";
     };
   };
   wechat-uos = {

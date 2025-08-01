@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-07"
+    "version": "2025-08"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -657,7 +657,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.07.31"
+    "version": "2025.08.01"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -862,7 +862,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6040"
+    "version": "6056"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4307,7 +4307,7 @@
   "legacyPackages.x86_64-linux.suwayomi-server": {
     "description": "Rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
-    "version": "2.0.1727"
+    "version": "2.1.1867"
   },
   "legacyPackages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
@@ -4477,7 +4477,7 @@
   "legacyPackages.x86_64-linux.uncategorized.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-07"
+    "version": "2025-08"
   },
   "legacyPackages.x86_64-linux.uncategorized.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -4572,7 +4572,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.07.31"
+    "version": "2025.08.01"
   },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4987,7 +4987,7 @@
   "legacyPackages.x86_64-linux.uncategorized.suwayomi-server": {
     "description": "Rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
-    "version": "2.0.1727"
+    "version": "2.1.1867"
   },
   "legacyPackages.x86_64-linux.uncategorized.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
@@ -5067,7 +5067,7 @@
   "legacyPackages.x86_64-linux.uncategorized.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-05-22"
+    "version": "0-unstable-2025-07-31"
   },
   "legacyPackages.x86_64-linux.uncategorized.vpp": {
     "description": "Vector Packet Processing",
@@ -5077,7 +5077,7 @@
   "legacyPackages.x86_64-linux.uncategorized.vuetorrent-backend": {
     "description": "FSimple backend service to store configuration server-side",
     "pname": "vuetorrent-backend",
-    "version": "2.6.0"
+    "version": "2.7.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
@@ -5152,7 +5152,7 @@
   "legacyPackages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-05-22"
+    "version": "0-unstable-2025-07-31"
   },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -5162,7 +5162,7 @@
   "legacyPackages.x86_64-linux.vuetorrent-backend": {
     "description": "FSimple backend service to store configuration server-side",
     "pname": "vuetorrent-backend",
-    "version": "2.6.0"
+    "version": "2.7.0"
   },
   "legacyPackages.x86_64-linux.wechat-uos": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
@@ -5357,7 +5357,7 @@
   "packages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-07"
+    "version": "2025-08"
   },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -5487,7 +5487,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.07.31"
+    "version": "2025.08.01"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -6097,7 +6097,7 @@
   "packages.x86_64-linux.suwayomi-server": {
     "description": "Rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
-    "version": "2.0.1727"
+    "version": "2.1.1867"
   },
   "packages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
@@ -6202,7 +6202,7 @@
   "packages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
-    "version": "0-unstable-2025-05-22"
+    "version": "0-unstable-2025-07-31"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -6212,7 +6212,7 @@
   "packages.x86_64-linux.vuetorrent-backend": {
     "description": "FSimple backend service to store configuration server-side",
     "pname": "vuetorrent-backend",
-    "version": "2.6.0"
+    "version": "2.7.0"
   },
   "packages.x86_64-linux.wechat-uos": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
