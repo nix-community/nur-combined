@@ -56,6 +56,7 @@
           # For some reason this doesn't work by setting `overlayAttrs = config.packages`
           overlayAttrs = {
             inherit (config.packages)
+              dblp-tools
               gbd
               gbdc
               gbdc-tool
