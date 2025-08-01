@@ -15,7 +15,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-bl9CF/w6A1Ugz8t+8WimMNOGzysL4eiiu07d2+KND8k=";
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-pCLcCoVLnu4i0yO57T8V3D4WMKfSu3wgPKchx3jhviU=";
 
   # TODO use system provided sqlite and zstd

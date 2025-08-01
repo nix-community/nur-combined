@@ -24,7 +24,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # no GPU found during test
   doCheck = false;
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-Ib8JYu4+64THsK0Wxb9gPkvBh1xiKaYZraJRKKzpNTs=";
 
   meta = {

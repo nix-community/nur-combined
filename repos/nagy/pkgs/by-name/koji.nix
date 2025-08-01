@@ -22,7 +22,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-+xtq4btFbOfiyFMDHXo6riSBMhAwTLQFuE91MUHtg5Q=";
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-WiFXDXLJc2ictv29UoRFRpIpAqeJlEBEOvThXhLXLJA=";
 
   nativeBuildInputs = [ pkg-config ];
@@ -31,7 +30,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libgit2
     openssl
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ]
+  ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   env = {
     OPENSSL_NO_VENDOR = true;

@@ -1,4 +1,9 @@
-{ quake3wrapper, stdenvNoCC, requireFile, quake3pointrelease }:
+{
+  quake3wrapper,
+  stdenvNoCC,
+  requireFile,
+  quake3pointrelease,
+}:
 
 let
   quake3_pak0 = stdenvNoCC.mkDerivation {
@@ -18,6 +23,9 @@ let
   };
 in
 quake3wrapper {
-  name = "quake3-arena";
-  paks = [ quake3pointrelease quake3_pak0 ];
+  pname = "quake3-arena";
+  paks = [
+    quake3pointrelease
+    quake3_pak0
+  ];
 }

@@ -12,10 +12,29 @@ rec {
     }:
     lib.pipe src [
       builtins.readFile
-      emacsParsePackagesFromPackageRequires
+      (
+        x:
+        (emacsParsePackagesFromPackageRequires x)
+        ++ [
+          "general"
+          # "nagy-use-package" # this causes infinite recursion
+        ]
+        ++ (
+          let
+            prefix = ";; NIX-EMACS-PACKAGE: ";
+            lines = (lib.splitString "\n" x);
+            filtered = (lib.filter (y: lib.hasPrefix prefix y)) lines;
+            mapped = map (z: lib.removePrefix prefix z) filtered;
+          in
+          mapped
+        )
+      )
+      # lib.lists.unique
       # This step reduces the closure size of the derivation, because
       # it removes the emacs package itself.
       (x: lib.lists.remove "emacs" x)
+      # also remove the "use-package" package because it is built into emacs
+      (x: lib.lists.remove "use-package" x)
       (x: map (name: epkgs.${name}) x)
     ]
   # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src))
@@ -36,8 +55,7 @@ rec {
         src
         packageRequires
         ;
-      # turnCompilationWarningToError = true;
-      # ignoreCompilationError = false;
+      turnCompilationWarningToError = true;
       preferLocalBuild = true;
       allowSubstitutes = false;
     }).overrideAttrs
@@ -50,6 +68,25 @@ rec {
           nativeBuildInputs = nativeBuildInputs ++ [ pkgs.git ];
         }
       );
+
+  emacsMakeDirectoryScope =
+    {
+      path,
+      epkgs ? pkgs.emacs.pkgs,
+    }:
+    let
+      elFiles = lib.filter (x: lib.hasSuffix ".el" x) (lib.filesystem.listFilesRecursive path);
+      final = lib.listToAttrs (
+        map (filepath: {
+          name = lib.removeSuffix ".el" (builtins.baseNameOf filepath);
+          value = emacsMakeSingleFilePackage {
+            src = (path + "/${(builtins.baseNameOf filepath)}");
+            epkgs = epkgs.overrideScope (_self: _super: final);
+          };
+        }) elFiles
+      );
+    in
+    final;
 
   # copied from https://github.com/nix-community/emacs-overlay/blob/master/parse.nix
   emacsParsePackagesFromPackageRequires =

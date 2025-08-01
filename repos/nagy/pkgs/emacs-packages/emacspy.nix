@@ -17,8 +17,8 @@ melpaBuild {
   src = fetchFromGitHub {
     owner = "nagy";
     repo = "emacspy";
-    rev = "16022c23cd83459b2396b3339e6e9848587e9fc8";
-    hash = "sha256-aXtSlpzVXNBJiQDuEl8v2dibrSJfg3ihbiRGLYzqt40=";
+    rev = "4ca5c169df7c4ddc1ff6cbe4ec3e13227a4abcf9";
+    hash = "sha256-r4o8aBr0j2DsUxXQZkZyDMlDGcrG1cpG0AWVCSWegVQ=";
   };
 
   preBuild = ''
