@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nohang";
-  version = "v0.2.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "hakavlad";
     repo = "nohang";
-    tag = finalAttrs.version;
+    tag = "v${finalAttrs.version}";
     hash = "sha256-aRiBGnJHdtQ5euvJ4DSuCZO5i5OJVRiCesaatrIARmg=";
   };
 
@@ -44,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hakavlad/nohang";
     description = "A sophisticated low memory handler for Linux.";
     license = with lib.licenses; [mit];
+    mainProgram = "nohang";
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [];
   };
