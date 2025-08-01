@@ -68,8 +68,12 @@ stdenv.mkDerivation {
     pushd out
       install -Dm755 Quasar $out/bin/Quasar
       install -Dm644 Quasar.vst2.so $out/lib/vst/Quasar.so
-      install -Dm644 -r Quasar.lv2  $out/lib/lv2/Quasar.lv2
-      install -Dm644 -r Quasar.vst3 $out/lib/vst3/Quasar.vst3
+
+      mkdir -p $out/lib/lv2
+      cp -r Quasar.lv2 $out/lib/lv2/Quasar.lv2
+
+      mkdir -p $out/lib/vst3
+      cp -r Quasar.vst3 $out/lib/vst3/Quasar.vst3
     popd
 
     runHook postInstall
