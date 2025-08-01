@@ -77,16 +77,9 @@ sed -i -E \
 echo "替新version和 hash 更新 default.nix 和 package-lock.fixed.json !!!!"
 cat $PKG_FILE
 
-# 清空 npmDeps 的 hash，让 nix 自动提示新 hash
-# sed -i -E "/fetchNpmDeps/,/};/ s|hash = \"[^\"]*\";|hash = \"\";|" "$PKG_FILE"
-
 # 执行一次构建以触发 npmDepsHash 获取
 NIX_BUILD_LOG=$(mktemp)
-if nix build .#gemini-cli --print-build-logs 2>&1 | tee "$NIX_BUILD_LOG"; then
-  echo "❌ Build unexpectedly succeeded with empty npmDeps hash."
-  rm -f "$NIX_BUILD_LOG"
-  exit 1
-fi
+(nix build .#gemini-cli --print-build-logs 2>&1 | tee "$NIX_BUILD_LOG") || true
 
 # 提取 npmDepsHash
 NPM_DEPS_HASH=$(grep "got: sha256-" "$NIX_BUILD_LOG" | sed -E 's/.*got: (sha256-[^ ]+).*/\1/' | head -n1)
