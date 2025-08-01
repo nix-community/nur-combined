@@ -80,13 +80,12 @@ cat $PKG_FILE
 # 执行一次构建以触发 npmDepsHash 获取
 NIX_BUILD_LOG=$(mktemp)
 
+set +e
 set +o pipefail
-# 使用子shell并重定向到文件，确保日志捕获
-(
-  nix build .#gemini-cli --print-build-logs 2>&1 || true
-) | tee "$NIX_BUILD_LOG" || true
-BUILD_EXIT_CODE=$?
+# 使用子shell确保管道退出码不影响脚本
+(nix build .#gemini-cli --print-build-logs 2>&1 || true) | (tee "$NIX_BUILD_LOG" || true)
 set -o pipefail
+set -e
 
 # 提取 npmDepsHash
 NPM_DEPS_HASH=$(grep "got: sha256-" "$NIX_BUILD_LOG" | sed -E 's/.*got: (sha256-[^ ]+).*/\1/' | head -n1)
