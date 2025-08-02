@@ -55,9 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
       fuse-zip is a tool allowing to open, explore and extract ZIP archives.
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [
-      jonhermansen
-    ];
     platforms = lib.platforms.linux;
     mainProgram = "fuse-zip";
   };

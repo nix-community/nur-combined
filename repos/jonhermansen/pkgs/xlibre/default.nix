@@ -199,7 +199,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freelists.org/list/xlibre";
     changelog = "https://github.com/X11Libre/xserver/commits/xlibre-xserver-25.0.0.4/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jonhermansen ];
     mainProgram = "Xorg";
     platforms = lib.platforms.linux;
   };

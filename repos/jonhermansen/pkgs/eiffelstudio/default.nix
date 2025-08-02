@@ -128,7 +128,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2Only;
     homepage = "https://dev.eiffel.com";
-    maintainers = [ lib.maintainers.jonhermansen ];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "estudio";

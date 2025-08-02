@@ -25,5 +25,5 @@
   user-mode-linux = pkgs.callPackage ./pkgs/user-mode-linux { };
   vfio-isolate = pkgs.callPackage ./pkgs/vfio-isolate { };
   wayback-x11 = pkgs.callPackage ./pkgs/wayback-x11 { };
-  xlibre = pkgs.callPackage ./pkgs/xlibre { };
+  #xlibre = pkgs.callPackage ./pkgs/xlibre { };
 }
