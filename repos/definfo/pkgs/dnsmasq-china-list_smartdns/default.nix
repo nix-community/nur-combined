@@ -5,13 +5,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dnsmasq-china-list";
-  version = "main";
+  version = "0-unstable-2025-07-05";
 
   src = fetchFromGitHub {
     owner = "felixonmars";
     repo = finalAttrs.pname;
-    rev = "54fdadf38bac16650d3be9d6bc4b075d814e2091";
-    hash = "sha256-f3/L4m/rulctFtOvZ6vi9Wm8LBQquY/4KdQNh0k+yPc=";
+    rev = "4ee73734f4cf54c4f4773f60d19025c380866e12";
+    hash = "sha256-fap15DemMKUSNsDGYEtJHtAPpsdZafFEXlsdPsb0f5U=";
   };
 
   buildPhase = ''

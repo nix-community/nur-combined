@@ -2,8 +2,8 @@ name: "Update package metadata"
 on:
   workflow_dispatch:
   schedule:
-    # update everyday at 3:00
-    - cron: "0 3 * * *"
+    # update every Monday at 3:00
+    - cron: "0 3 * * 1"
 
 permissions: {}
 

@@ -1,14 +1,9 @@
 builds:
-  exclude:
-    - "packages.x86_64-darwin.sjtu-canvas-helper"
-    - "packages.aarch64-darwin.sjtu-canvas-helper"
-    - "packages.x86_64-darwin.lyricer"
-    - "packages.aarch64-darwin.lyricer"
-    - "packages.x86_64-darwin.aya-prover"
-    - "packages.aarch64-darwin.aya-prover"
-    - "packages.x86_64-darwin.aya-prover-lsp"
-    - "packages.aarch64-darwin.aya-prover-lsp"
-    - "packages.x86_64-darwin.waylrc"
-    - "packages.aarch64-darwin.waylrc"
-  include:
-    - "packages.*.*"
+  - exclude:
+      - "packages.*.sjtu-canvas-helper" # insecure
+      - "packages.x86_64-darwin.aya-prover"
+      - "packages.aarch64-darwin.aya-prover" # FIXME
+      - "packages.x86_64-darwin.waylrc"
+      - "packages.aarch64-darwin.waylrc"
+  - include:
+      - "packages.*.*"

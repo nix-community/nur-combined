@@ -11,42 +11,32 @@
 }:
 
 let
-  /*
-    source = (import ./_sources/generated.nix) {
-      inherit (pkgs)
-        fetchgit
-        fetchurl
-        fetchFromGitHub
-        dockerTools
-        ;
-    }; # nvfetcher
-  */
   callCoqPackage = pkgs.coqPackages_8_15.callPackage;
-  sets = callCoqPackage ./pkgs/coqPackages/sets { };
-  fixedpoints = (callCoqPackage ./pkgs/coqPackages/fixedpoints) {
-    inherit sets;
-  };
-  monadlib = (callCoqPackage ./pkgs/coqPackages/monadlib) {
-    inherit sets fixedpoints;
-  };
 in
-{
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
-  aya-prover-lsp = pkgs.callPackage ./pkgs/aya-prover { mainProgram = "aya-lsp"; };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
   flexfox-css = pkgs.callPackage ./pkgs/flexfox-css { };
-  lyricer = pkgs.callPackage ./pkgs/lyricer { };
+  isla-sail = pkgs.ocamlPackages.callPackage ./pkgs/isla-sail {
+    inherit sail;
+  };
   nsub = pkgs.callPackage ./pkgs/nsub { };
-  rime-ice = pkgs.callPackage ./pkgs/rime-ice { };
+  sail = pkgs.ocamlPackages.callPackage ./pkgs/sail { };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
   waylrc = pkgs.callPackage ./pkgs/waylrc { };
 
   coqPackages = {
-    inherit sets fixedpoints monadlib;
+    sets = callCoqPackage ./pkgs/coqPackages/sets { };
+    fixedpoints = (callCoqPackage ./pkgs/coqPackages/fixedpoints) {
+      inherit (coqPackages) sets;
+    };
+    monadlib = (callCoqPackage ./pkgs/coqPackages/monadlib) {
+      inherit (coqPackages) sets fixedpoints;
+    };
   };
 }

@@ -2,8 +2,8 @@ name: "Update flake.lock"
 on:
   workflow_dispatch:
   schedule:
-    # update everyday at 2:00
-    - cron: "0 2 * * *"
+    # update every Monday at 2:00
+    - cron: "0 2 * * 1"
 
 permissions: {}
 

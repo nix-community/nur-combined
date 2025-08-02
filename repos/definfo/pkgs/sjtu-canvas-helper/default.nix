@@ -27,7 +27,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-C0LMeXkwHduTDYHjC6077mPBFERaS65rM+ikEsupVwE=";
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-j86GBAjVJJ+wqqqtWMJIrAmP4wvcgsen70C7D1A5IXU=";
 
   yarnOfflineCache = fetchYarnDeps {
@@ -51,15 +50,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     desktop-file-utils
   ];
 
-  buildInputs =
-    [
-      openssl
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      glib-networking # Most Tauri apps need networking
-      libsoup_2_4
-      webkitgtk_4_0
-    ];
+  buildInputs = [
+    openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    glib-networking # Most Tauri apps need networking
+    libsoup_2_4
+    webkitgtk_4_0
+  ];
 
   env.OPENSSL_NO_VENDOR = 1;
 

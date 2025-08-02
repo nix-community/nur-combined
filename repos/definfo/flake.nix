@@ -7,8 +7,14 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -58,7 +64,6 @@
 
           # https://flake.parts/options/git-hooks-nix.html
           # Example: https://github.com/cachix/git-hooks.nix/blob/master/template/flake.nix
-          pre-commit.settings.addGcRoot = true;
           pre-commit.settings.hooks = {
             commitizen.enable = true;
             eclint.enable = true;
@@ -83,11 +88,5 @@
             packages = [ pkgs.nushell ];
           };
         };
-
-      flake.updateArgs = {
-        aya-prover = "--version-regex 'v(.*)'";
-        sjtu-canvas-helper = "--version-regex 'app-v(.*)'";
-        smartdns-rs = "--version-regex 'v(.*)'";
-      };
     };
 }

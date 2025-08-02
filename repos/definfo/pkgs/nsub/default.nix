@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "nsub";
-  version = "main";
+  version = "0-unstable-2024-07-06";
 
   src = fetchFromGitHub {
     owner = "nikiroo";
