@@ -508,13 +508,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001727" = {
+    "caniuse-lite-1.0.30001731" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001727";
+      version = "1.0.30001731";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001727.tgz";
-        sha512 = "pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001731.tgz";
+        sha512 = "lDdp2/wrOmTRWuoB5DpfNkC0rJDU8DqRa6nYL6HK6sytw70QMopt/NIc/9SM7ylItlBWfACXk0tEn37UWM/+mg==";
       };
     };
     "chalk-5.4.1" = {
@@ -607,13 +607,13 @@ let
         sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.191" = {
+    "electron-to-chromium-1.5.194" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.191";
+      version = "1.5.194";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.191.tgz";
-        sha512 = "xcwe9ELcuxYLUFqZZxL19Z6HVKcvNkIwhbHUz7L3us6u12yR+7uY89dSl570f/IqNthx8dAw3tojG7i4Ni4tDA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.194.tgz";
+        sha512 = "SdnWJwSUot04UR51I2oPD8kuP2VI37/CADR1OHsFOUzZIvfWJBO6q11k5P/uKNyTT3cdOsnyjkrZ+DDShqYqJA==";
       };
     };
     "emoji-regex-10.4.0" = {
@@ -1394,8 +1394,8 @@ let
   args = {
     name = "jspm";
     packageName = "jspm";
-    version = "4.0.3";
-    src = fetchurl { url = "https://registry.npmjs.org/jspm/-/jspm-4.0.3.tgz"; sha1 = "713b63fa53ea9a22bdb17801bc8ec0c1087f6939"; };
+    version = "4.1.0";
+    src = fetchurl { url = "https://registry.npmjs.org/jspm/-/jspm-4.1.0.tgz"; sha1 = "a6de38ca3d10ebf7f94f8c7a5d66d28679f4ef68"; };
     dependencies = [
       sources."@ampproject/remapping-2.3.0"
       sources."@babel/code-frame-7.27.1"
@@ -1462,7 +1462,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001727"
+      sources."caniuse-lite-1.0.30001731"
       sources."chalk-5.4.1"
       sources."chownr-2.0.0"
       sources."cjs-module-lexer-1.4.3"
@@ -1473,7 +1473,7 @@ let
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.1"
-      sources."electron-to-chromium-1.5.191"
+      sources."electron-to-chromium-1.5.194"
       sources."emoji-regex-10.4.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"

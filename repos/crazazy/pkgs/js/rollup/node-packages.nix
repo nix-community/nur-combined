@@ -17,8 +17,8 @@ let
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "4.45.1";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-4.45.1.tgz"; sha1 = "d0ef72a8d0a9210d832f9c3c5f3b6a2aa4b0ba64"; };
+    version = "4.46.2";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-4.46.2.tgz"; sha1 = "09b1a45d811e26d09bed63dc3ecfb6831c16ce32"; };
     dependencies = [
       sources."@types/estree-1.0.8"
     ];
