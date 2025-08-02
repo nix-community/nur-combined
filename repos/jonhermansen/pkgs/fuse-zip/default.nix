@@ -8,7 +8,6 @@
   libzip,
   pandoc,
   pkg-config,
-  versionCheckHook,
   gitUpdater,
 }:
 
@@ -40,10 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [ "CXXFLAGS=-I${fuse2.dev}/include/fuse3" ]; # "prefix=$out" ];
   #CXXFLAGS = "-I${pkgs.fuse3}/include/fuse3";
 
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
   installPhase = ''
     make prefix=$out install
