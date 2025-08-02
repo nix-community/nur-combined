@@ -23,7 +23,6 @@
 #### Plugins
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
-- [quasar](https://github.com/DarkRTA/quasar)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 
 #### Utilities
