@@ -17,7 +17,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/rust";
 
-  useFetchCargoVendor = true;
   cargoPatches = [ ./Cargo.lock.patch ];
   cargoHash = "sha256-CF1UKff+u26pwZHOiuzzWSaqA1vK7Sup3aXxFK08Vvk=";
 
