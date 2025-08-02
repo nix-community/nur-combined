@@ -1,7 +1,12 @@
 # A module for configuring Emacs Notmuch to use the Home Manager email
 # accounts.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,20 +18,21 @@ let
 
   notmuchAccounts = filter (a: a.notmuch.enable) (attrValues cfgEmail.accounts);
 
-  notmuchFccDir = account:
+  notmuchFccDir =
+    account:
     let
       mkLine = address: ''
         ("${address}" . "\"${account.maildir.path}/${account.folders.sent}\"")
       '';
-    in concatMapStrings mkLine ([ account.address ] ++ account.aliases);
+    in
+    concatMapStrings mkLine ([ account.address ] ++ account.aliases);
 
   notmuchFccDirs = "'(${concatMapStrings notmuchFccDir notmuchAccounts})";
 
   # Enable prompting for sender if multiple accounts are defined.
   notmuchPromptFrom = if length notmuchAccounts > 1 then "'t" else "nil";
 
-  elispFromAddress =
-    ''(nth 1 (mail-extract-address-components (message-field-value "From")))'';
+  elispFromAddress = ''(nth 1 (mail-extract-address-components (message-field-value "From")))'';
 
   # The host part of the `from` variable.
   elispFromHost = ''(nth 1 (split-string from "@"))'';
@@ -41,25 +47,30 @@ let
 
   # Advice the notmuch-draft-save function to save if the correct
   # draft folder and with the correct FQDN in Message-ID.
-  notmuchDraftSaveAdviceFunction = let
-    mkAddressEntry = maildir: folders: address: ''
-      ((string-equal from "${address}") "${maildir.path}/${folders.drafts}")
+  notmuchDraftSaveAdviceFunction =
+    let
+      mkAddressEntry = maildir: folders: address: ''
+        ((string-equal from "${address}") "${maildir.path}/${folders.drafts}")
+      '';
+
+      mkAccountEntries =
+        account:
+        concatMapStrings (mkAddressEntry account.maildir account.folders) (
+          [ account.address ] ++ account.aliases
+        );
+    in
+    ''
+      (defun hm--notmuch-draft-folder (from)
+        (cond ${concatMapStrings mkAccountEntries notmuchAccounts}))
+      (defun hm--notmuch-draft-save (orig-fun &rest args)
+        (let* ((from ${elispFromAddress})
+               (notmuch-draft-folder (hm--notmuch-draft-folder from))
+               (message-user-fqdn ${elispFromHost}))
+          (apply orig-fun args)))
     '';
 
-    mkAccountEntries = account:
-      concatMapStrings (mkAddressEntry account.maildir account.folders)
-      ([ account.address ] ++ account.aliases);
-  in ''
-    (defun hm--notmuch-draft-folder (from)
-      (cond ${concatMapStrings mkAccountEntries notmuchAccounts}))
-    (defun hm--notmuch-draft-save (orig-fun &rest args)
-      (let* ((from ${elispFromAddress})
-             (notmuch-draft-folder (hm--notmuch-draft-folder from))
-             (message-user-fqdn ${elispFromHost}))
-        (apply orig-fun args)))
-  '';
-
-in {
+in
+{
   meta.maintainers = [ maintainers.rycee ];
 
   config = mkIf (cfgEmail.accounts != { } && cfgNotmuch.enable) {

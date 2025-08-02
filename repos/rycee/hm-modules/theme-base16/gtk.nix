@@ -1,15 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
-  inherit (lib) mkDefault mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkIf
+    mkOption
+    types
+    ;
 
   configBase16 = config.theme.base16;
 
-  themePkg =
-    pkgs.callPackage ../../pkgs/materia-theme { inherit configBase16; };
+  themePkg = pkgs.callPackage ../../pkgs/materia-theme { inherit configBase16; };
 
-in {
+in
+{
   options.gtk.enableBase16Theme = mkOption {
     type = types.bool;
     default = true;

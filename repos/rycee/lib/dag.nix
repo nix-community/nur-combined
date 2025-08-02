@@ -15,9 +15,12 @@ rec {
 
   emptyDag = { };
 
-  isDag = dag:
-    let isEntry = e: (e ? data) && (e ? after) && (e ? before);
-    in builtins.isAttrs dag && all (x: x) (mapAttrsToList (n: isEntry) dag);
+  isDag =
+    dag:
+    let
+      isEntry = e: (e ? data) && (e ? after) && (e ? before);
+    in
+    builtins.isAttrs dag && all (x: x) (mapAttrsToList (n: isEntry) dag);
 
   # Takes an attribute set containing entries built by
   # dagEntryAnywhere, dagEntryAfter, and dagEntryBefore to a
@@ -75,11 +78,11 @@ rec {
   #                ];
   #              } == {}
   #    true
-  dagTopoSort = dag:
+  dagTopoSort =
+    dag:
     let
-      dagBefore = dag: name:
-        mapAttrsToList (n: v: n)
-        (filterAttrs (n: v: any (a: a == name) v.before) dag);
+      dagBefore =
+        dag: name: mapAttrsToList (n: v: n) (filterAttrs (n: v: any (a: a == name) v.before) dag);
       normalizedDag = mapAttrs (n: v: {
         name = n;
         data = v.data;
@@ -87,9 +90,12 @@ rec {
       }) dag;
       before = a: b: any (c: a.name == c) b.after;
       sorted = toposort before (mapAttrsToList (n: v: v) normalizedDag);
-    in if sorted ? result then {
-      result = map (v: { inherit (v) name data; }) sorted.result;
-    } else
+    in
+    if sorted ? result then
+      {
+        result = map (v: { inherit (v) name data; }) sorted.result;
+      }
+    else
       sorted;
 
   # Applies a function to each element of the given DAG.

@@ -1,10 +1,24 @@
-{ fetchFromSourcehut, mkDerivation, aeson, async-pool, base, directory, hnix
-, http-client, lib, microlens-aeson, microlens-platform, relude, wreq }:
+{
+  fetchFromSourcehut,
+  mkDerivation,
+  aeson,
+  async-pool,
+  base,
+  directory,
+  hnix,
+  http-client,
+  lib,
+  microlens-aeson,
+  microlens-platform,
+  relude,
+  wreq,
+}:
 
 let
   pname = "mozilla-addons-to-nix";
   version = "0.12.0";
-in mkDerivation {
+in
+mkDerivation {
   inherit pname version;
   src = fetchFromSourcehut {
     owner = "~rycee";

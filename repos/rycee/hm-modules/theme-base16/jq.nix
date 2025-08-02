@@ -2,11 +2,17 @@
 
 let
 
-  inherit (lib) mkDefault mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkIf
+    mkOption
+    types
+    ;
 
   colors = config.theme.base16.colors;
 
-in {
+in
+{
   options.programs.jq.enableBase16Theme = mkOption {
     type = types.bool;
     default = true;

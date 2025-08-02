@@ -16,13 +16,15 @@ let
   #
   # Also disable checking since we'll be referring to undefined options.
   setupModule = {
-    imports = [{
-      _module.args = {
-        pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
-        pkgs_i686 = lib.mkForce { };
-      };
-      _module.check = false;
-    }];
+    imports = [
+      {
+        _module.args = {
+          pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+          pkgs_i686 = lib.mkForce { };
+        };
+        _module.check = false;
+      }
+    ];
   };
 
   hmModulesDocs = nmd.buildModulesDocs {
@@ -33,9 +35,9 @@ let
       setupModule
     ];
     moduleRootPaths = [ ../hm-modules ];
-    mkModuleUrl = path:
-      "https://gitlab.com/rycee/nur-expressions/blob/master"
-      + "/hm-modules/${path}#blob-content-holder";
+    mkModuleUrl =
+      path:
+      "https://gitlab.com/rycee/nur-expressions/blob/master" + "/hm-modules/${path}#blob-content-holder";
     channelName = "nur-rycee";
     docBook = {
       id = "nur-rycee-hm-options";
@@ -44,11 +46,14 @@ let
   };
 
   nixosModulesDocs = nmd.buildModulesDocs {
-    modules = [ ../modules/containers-docker-support.nix setupModule ];
+    modules = [
+      ../modules/containers-docker-support.nix
+      setupModule
+    ];
     moduleRootPaths = [ ../modules ];
-    mkModuleUrl = path:
-      "https://gitlab.com/rycee/nur-expressions/blob/master"
-      + "/modules/${path}#blob-content-holder";
+    mkModuleUrl =
+      path:
+      "https://gitlab.com/rycee/nur-expressions/blob/master" + "/modules/${path}#blob-content-holder";
     channelName = "nur-rycee";
     docBook = {
       id = "nur-rycee-nixos-options";
@@ -58,7 +63,10 @@ let
 
   docs = nmd.buildDocBookDocs {
     pathName = "nur-rycee";
-    modulesDocs = [ hmModulesDocs nixosModulesDocs ];
+    modulesDocs = [
+      hmModulesDocs
+      nixosModulesDocs
+    ];
     documentsDirectory = ./.;
     chunkToc = ''
       <toc>
@@ -70,7 +78,8 @@ let
     '';
   };
 
-in {
+in
+{
   options = {
     json = pkgs.symlinkJoin {
       name = "nur-rycee-options-json";
@@ -88,5 +97,7 @@ in {
 
   manPages = docs.manPages;
 
-  manual = { inherit (docs) html htmlOpenTool; };
+  manual = {
+    inherit (docs) html htmlOpenTool;
+  };
 }

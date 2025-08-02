@@ -1,10 +1,17 @@
 # A collection of "uncontroversial" configurations for selected packages.
 
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   programs.emacs.init.usePackage = {
-    all-the-icons = { extraPackages = [ pkgs.emacs-all-the-icons-fonts ]; };
+    all-the-icons = {
+      extraPackages = [ pkgs.emacs-all-the-icons-fonts ];
+    };
 
     cmake-mode.mode = [
       ''"\\.cmake\\'"'' # \
@@ -46,12 +53,12 @@
     };
 
     cue-mode = {
-      package = epkgs:
+      package =
+        epkgs:
         epkgs.trivialBuild {
           pname = "cue-mode.el";
           src = pkgs.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/russell/cue-mode/9c803ee8fa4a6e99c7dc9ae373c6178569583b7a/cue-mode.el";
+            url = "https://raw.githubusercontent.com/russell/cue-mode/9c803ee8fa4a6e99c7dc9ae373c6178569583b7a/cue-mode.el";
             sha256 = "0swhpknkg1vwbchblzrwynixf5grg95jy1bkc8w92yfpb1jch7m7";
           };
           version = "0.1.0";
@@ -141,9 +148,7 @@
 
     lsp-cmake = {
       config = ''
-        (setq lsp-cmake-server-command "${
-          lib.getExe pkgs.cmake-language-server
-        }")
+        (setq lsp-cmake-server-command "${lib.getExe pkgs.cmake-language-server}")
       '';
     };
 
@@ -175,7 +180,11 @@
     };
 
     markdown-mode = {
-      mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
+      mode = [
+        ''"\\.mdwn\\'"''
+        ''"\\.markdown\\'"''
+        ''"\\.md\\'"''
+      ];
     };
 
     nix-mode.mode = [ ''"\\.nix\\'"'' ];

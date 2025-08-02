@@ -1,13 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
-  inherit (lib) mkDefault mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkIf
+    mkOption
+    types
+    ;
 
   colors = config.theme.base16.colors;
 
-  toRgbStr = color:
-    "${toString color.dec.r}, ${toString color.dec.g}, ${toString color.dec.b}";
+  toRgbStr = color: "${toString color.dec.r}, ${toString color.dec.g}, ${toString color.dec.b}";
 
   rofiThemeFile = pkgs.writeText "hm-base16.rasi" ''
     /**
@@ -183,7 +192,8 @@ let
     }
   '';
 
-in {
+in
+{
   options.programs.rofi.enableBase16Theme = mkOption {
     type = types.bool;
     default = true;

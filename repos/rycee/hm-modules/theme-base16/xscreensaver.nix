@@ -2,12 +2,18 @@
 
 let
 
-  inherit (lib) mkDefault mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkIf
+    mkOption
+    types
+    ;
 
   colors = config.theme.base16.colors;
   rgb = base: "#" + base.hex.rgb;
 
-in {
+in
+{
   options.services.xscreensaver.enableBase16Theme = mkOption {
     type = types.bool;
     default = true;
