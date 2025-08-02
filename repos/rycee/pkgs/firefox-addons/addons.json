@@ -248,6 +248,9 @@
     "slug": "close-other-windows"
   },
   {
+    "slug": "close-tabs-shortcuts"
+  },
+  {
     "slug": "codecov",
     "license": {
       "tag": "predefined",
@@ -315,6 +318,12 @@
     "slug": "copy-selection-as-markdown"
   },
   {
+    "slug": "csgo-trader-steam-trading"
+  },
+  {
+    "slug": "csgofloat"
+  },
+  {
     "slug": "cssviewer-quantum"
   },
   {
@@ -336,6 +345,9 @@
       "tag": "predefined",
       "shortName": "isc"
     }
+  },
+  {
+    "slug": "cyberfeeder"
   },
   {
     "slug": "dansk-da-language-pack",
