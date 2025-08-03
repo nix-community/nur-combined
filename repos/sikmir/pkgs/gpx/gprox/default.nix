@@ -17,7 +17,6 @@ rustPlatform.buildRustPackage {
   };
 
   cargoPatches = [ ./cargo-lock.patch ];
-  useFetchCargoVendor = true;
   cargoHash = "sha256-PRpRZWxIMEikMDrS+jW/Uecha9Onuq6mn9CaK+i7GJs=";
 
   meta = {

@@ -42,7 +42,7 @@ lib.makeScope newScope (
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     sequel-ace = callPackage ./darwin/sequel-ace { };
-    zed = callPackage ./darwin/zed { };
+    zed-preview = callPackage ./darwin/zed { };
 
     ### DATA
 
