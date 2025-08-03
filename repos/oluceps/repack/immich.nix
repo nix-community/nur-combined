@@ -15,7 +15,7 @@ reIf {
       };
       redis.enable = true;
       settings = null;
-      environment.IMMICH_LOG_LEVEL = "verbose";
+      # environment.IMMICH_LOG_LEVEL = "verbose";
     };
     immich-public-proxy = {
       enable = true;

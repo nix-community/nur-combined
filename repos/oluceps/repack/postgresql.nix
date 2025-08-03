@@ -17,7 +17,6 @@ reIf {
     extensions = ps: [
       ps.pgvector
       ps.vectorchord
-      inputs'.pgvectors-nixpkgs.legacyPackages.postgresql17Packages.pgvecto-rs
     ];
     enableTCPIP = true;
     settings = {
@@ -52,7 +51,6 @@ reIf {
 
       shared_preload_libraries = [
         "vchord.so"
-        "vectors.so"
       ];
 
       search_path = "\"$user\", public, vectors";
