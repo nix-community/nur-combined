@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hde/VBav/TGzo1Sui5aELCrkxbIiQ1eKSGUEFgZ78qI=",
+            "sha256": "sha256-GEuyZg3rBwkE+/FtEnpFelAwRap1aTMSuKtqOPEsgeE=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-4/bilibili-asar-v1.16.5-4.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-5/bilibili-asar-v1.16.5-5.tar.gz"
         },
-        "version": "v1.16.5-4"
+        "version": "v1.16.5-5"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.5-4",
-            "sha256": "sha256-DoDWQ7ixljeNTa1qZMvaPn0XuCHsClnSh12u321M5xI=",
+            "rev": "v1.16.5-5",
+            "sha256": "sha256-bbLRg2+jWiD+FDXgpo0c7avhIIHULmcmmkk03Nnj24I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.5-4"
+        "version": "v1.16.5-5"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-07-31",
+        "date": "2025-08-02",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,16 +427,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "796bca2192568189afe4cd48aed693e3ffd9f414",
-            "sha256": "sha256-mr/qWSauR8rOaV6F96arAK7s7r3lA8uanOpBAvX6QGw=",
+            "rev": "406a2341b8600036ed5b87b7a886a8fbfe106fec",
+            "sha256": "sha256-zV5+r7O+Z9SiDJwQoBy81sbRtXhADZe5lv5mCWxKDBw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "796bca2192568189afe4cd48aed693e3ffd9f414"
+        "version": "406a2341b8600036ed5b87b7a886a8fbfe106fec"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-07-31",
+        "date": "2025-08-02",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "67ccfdfcc745d0ecb257f60c4c3f6787d91c4119",
-            "sha256": "sha256-1F/HJf5Xmilq4AJ8F2KPhYuZFk8IxI2rd3omaWl58Go=",
+            "rev": "476c1b87e2e92c1fa02a14f2a22cd94d2ecd4183",
+            "sha256": "sha256-IaBEvdlA1C3jp1n6gwXJFSukd2BTw5IwGor2QkuzMdg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "67ccfdfcc745d0ecb257f60c4c3f6787d91c4119"
+        "version": "476c1b87e2e92c1fa02a14f2a22cd94d2ecd4183"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6064",
-            "sha256": "sha256-SlKnXxnviaD/qF03ReRiHydzxp52HgG4RvBK3gtSST0=",
+            "rev": "b6075",
+            "sha256": "sha256-fPb2qZL/8fsHh0mUdKpTQjUwD68ZRrBBnI+8odIW7mw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6064"
+        "version": "b6075"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3235,11 +3235,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-sbKUC+nZKQeMsJ93E2/vTN4g5hNOPlpH8I2eGH+rX3U=",
+            "sha256": "sha256-n7wOMXIak4g9X5Zj1ckcI2IeHOIKTw2yktSZ4nNKDZY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.2+ds-2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_amd64.deb"
         },
-        "version": "10.0.2+ds-2"
+        "version": "10.1.0~rc1+ds-3"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3250,11 +3250,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-xZ5YHc06l99Frx/y7YT1mX2EaCkkFnOTqwQkqQiRMrg=",
+            "sha256": "sha256-c0IJh3TjNdlYBfL15+6AhwJGMbiGpdgcdc19tONwXZI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.2+ds-2_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_arm64.deb"
         },
-        "version": "10.0.2+ds-2"
+        "version": "10.1.0~rc1+ds-3"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3265,11 +3265,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-2lT8HQbY27z3Hq3lgp4YXPpUG5mWN7cF+4xia/twi5o=",
+            "sha256": "sha256-hjNJHtHF+e13sO+ZFFyx++Z2NimqdTn+NcEcli+kgF4=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.2+ds-2_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_armhf.deb"
         },
-        "version": "10.0.2+ds-2"
+        "version": "10.1.0~rc1+ds-3"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3280,11 +3280,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-dhyn+c8gplPZAP+ecujbZt01RZY+8NXvZ2zPiKuo5iI=",
+            "sha256": "sha256-5aq7hz0JQWac6KjonvkRE+/06tt5XXt56TScmj7GlU8=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.2+ds-2_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_i386.deb"
         },
-        "version": "10.0.2+ds-2"
+        "version": "10.1.0~rc1+ds-3"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -3579,7 +3579,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-08-01",
+        "date": "2025-08-03",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3591,12 +3591,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "fd5a346d438537a350d956117b90871a087d8fd4",
-            "sha256": "sha256-r9fCfHVYcofTQV+/L994Efz4J/mUrAHDzKZOu2SX0B4=",
+            "rev": "fb6ebdae7166a60c9215e3ed17c3d8e76cf9deb5",
+            "sha256": "sha256-FiQ4xhQzHSFw38xD+Cv560QsmLsqZvH9iM+xX4Nrf1o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fd5a346d438537a350d956117b90871a087d8fd4"
+        "version": "fb6ebdae7166a60c9215e3ed17c3d8e76cf9deb5"
     },
     "rime-moegirl": {
         "cargoLocks": null,
