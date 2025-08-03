@@ -32,7 +32,6 @@
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
       inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch minio;
-
       tuwunel = inputs'.conduit.packages.default;
 
       sing-box = prev.sing-box.overrideAttrs (old: rec {

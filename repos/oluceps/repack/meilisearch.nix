@@ -9,8 +9,8 @@ reIf {
   services.meilisearch = {
     enable = true;
     listenAddress = "::";
-    environment = "production";
+    settings.env = "production";
     # environment = "development";
-    masterKeyEnvironmentFile = config.vaultix.secrets.meilisearch.path;
+    masterKeyFile = config.vaultix.secrets.meilisearch.path;
   };
 }

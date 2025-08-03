@@ -2,6 +2,7 @@
   reIf,
   lib,
   pkgs,
+  inputs',
   ...
 }:
 reIf {
@@ -12,26 +13,49 @@ reIf {
   };
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_16_jit;
+    package = pkgs.postgresql_17_jit;
+    extensions = ps: [
+      ps.pgvector
+      ps.vectorchord
+      inputs'.pgvectors-nixpkgs.legacyPackages.postgresql17Packages.pgvecto-rs
+    ];
     enableTCPIP = true;
     settings = {
+      allow_alter_system = false;
       port = 5432;
+
+      # https://pgtune.leopard.in.ua/
+      # DB Version: 17
+      # OS Type: linux
+      # DB Type: mixed
+      # Total Memory (RAM): 32 GB
+      # CPUs num: 8
+      # Data Storage: ssd
+
+      wal_buffers = "16MB";
+      work_mem = "38836kB";
+      huge_pages = "try";
+      max_worker_processes = 8;
+      max_parallel_workers_per_gather = 4;
+      max_parallel_workers = 8;
+      max_parallel_maintenance_workers = 4;
       max_connections = 100;
       shared_buffers = "8GB";
       effective_cache_size = "24GB";
       maintenance_work_mem = "2GB";
       checkpoint_completion_target = 0.9;
-      wal_buffers = "-1";
       default_statistics_target = 100;
       random_page_cost = 1.1;
       effective_io_concurrency = 200;
-      work_mem = "64MB";
       min_wal_size = "2GB";
       max_wal_size = "8GB";
-      max_worker_processes = 4;
-      max_parallel_workers_per_gather = 2;
-      max_parallel_workers = 4;
-      max_parallel_maintenance_workers = 2;
+
+      shared_preload_libraries = [
+        "vchord.so"
+        "vectors.so"
+      ];
+
+      search_path = "\"$user\", public, vectors";
     };
 
     authentication = lib.mkOverride 10 ''

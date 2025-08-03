@@ -183,9 +183,9 @@
   '';
   systemd = {
     enableEmergencyMode = false;
-    watchdog = {
-      runtimeTime = "20s";
-      rebootTime = "30s";
+    settings.Manager = {
+      RebootWatchdogSec = "20s";
+      RuntimeWatchdogSec = "30s";
     };
 
     sleep.extraConfig = ''

@@ -327,6 +327,7 @@
       min-free = lib.mkDefault (128 * 1000 * 1000);
       builders-use-substitutes = true;
       allow-import-from-derivation = true;
+      download-buffer-size = 524288000;
     };
 
     daemonCPUSchedPolicy = lib.mkDefault "batch";

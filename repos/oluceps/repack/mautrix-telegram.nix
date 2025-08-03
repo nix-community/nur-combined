@@ -15,10 +15,10 @@ reIf {
         domain = config.services.tuwunel.settings.global.server_name;
       };
       appservice = {
-        address = "http://127.0.0.1:6169";
+        address = "http://127.0.0.1:29317";
         database = "postgres:///mautrix-telegram?host=/run/postgresql";
         hostname = "127.0.0.1";
-        port = 6169;
+        port = 29317;
         provisioning.enabled = false;
       };
       bridge = {

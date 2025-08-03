@@ -5,7 +5,7 @@ reIf {
       enable = true;
       host = "::";
       secretsFile = config.vaultix.secrets.immich.path;
-      database.createDB = false;
+      database.enable = false;
       machine-learning = {
         enable = true;
         environment = {
@@ -15,6 +15,7 @@ reIf {
       };
       redis.enable = true;
       settings = null;
+      environment.IMMICH_LOG_LEVEL = "verbose";
     };
     immich-public-proxy = {
       enable = true;

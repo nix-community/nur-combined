@@ -256,5 +256,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     devenv.url = "github:cachix/devenv";
+    pgvectors-nixpkgs.url = "github:NixOS/nixpkgs?rev=b468a08276b1e2709168a4d8f04c63360c2140a9";
   };
 }
