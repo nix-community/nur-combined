@@ -52,7 +52,6 @@ rustPlatform.buildRustPackage rec {
     '';
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
 
   # Necessary for cross compiled build scripts, otherwise it will build as ELF format

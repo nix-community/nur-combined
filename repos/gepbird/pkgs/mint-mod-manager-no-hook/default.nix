@@ -40,7 +40,6 @@ rustPlatform.buildRustPackage rec {
     echo "Using mint_lib GIT_VERSION: $BUILT_OVERRIDE_mint_lib_GIT_VERSION"
   '';
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
 
   buildNoDefaultFeatures = true;
