@@ -30,8 +30,7 @@ let
         hash = bitwigHash;
       };
 
-      dontBuild = false;
-      buildPhase = ''
+      preInstall = ''
         ${lib.optionalString (customJar != null) ''
           cp ${customJar} opt/bitwig-studio/bin/bitwig.jar
         ''}
