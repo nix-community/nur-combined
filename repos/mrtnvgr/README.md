@@ -20,6 +20,10 @@
 
 ### Audio
 
+#### DAWs
+
+- [bitwig-custom](https://bitwig.com) - patchable Bitwig Studio
+
 #### Plugins
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
