@@ -8,23 +8,30 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-github-exporter";
-  version = "1.0.0";
+  version = "1.0.0-unstable-2025-08-04";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "github_exporter";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-o53yNnUOSNR7yz16a7V1yF+ZaBrtmHXfCyNVQNC4dow=";
+    rev = "4de664ea49c0ba8847bee51d2fd943f6e9eaa9eb";
+    hash = "sha256-89WavbUJwFWW+f0buUvFQzp4HRSOFCa0sO8AXAl0ILI=";
   };
 
-  vendorHash = "sha256-XoPS4oYYPxgbO7a54xH3gdG11adWlYmKe8IuGPtQdHc=";
+  vendorHash = "sha256-6JOi1tu9IZhwEikgdSdLvbl9awmYTxqlcSVWHfs7Sqg=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
     "-s"
     "-w"
+    "-X main.Version=${finalAttrs.version}"
   ];
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  postInstall = ''
+    substituteInPlace ./systemd/*.service --replace-fail /usr/bin/github_exporter $out/bin/github_exporter
+    install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
+  '';
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
     version = testers.testVersion {
