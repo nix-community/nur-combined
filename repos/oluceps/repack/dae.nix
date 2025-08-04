@@ -77,6 +77,7 @@ reIf {
               suffix: apple-relay.fastly-edge.com,
               suffix: cp4.cloudflare.com,
               suffix: apple-relay.apple.com,
+              suffix: google.com,
               domain: ai.google.dev,
               domain: alkalimakersuite-pa.clients6.google.com,
               domain: makersuite.google.com,

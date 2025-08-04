@@ -2,7 +2,6 @@
   reIf,
   lib,
   pkgs,
-  inputs',
   ...
 }:
 reIf {
