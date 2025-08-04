@@ -30,7 +30,8 @@ let
         hash = bitwigHash;
       };
 
-      postFetch = ''
+      dontBuild = false;
+      buildPhase = ''
         ${lib.optionalString (customJar != null) ''
           cp ${customJar} opt/bitwig-studio/bin/bitwig.jar
         ''}
