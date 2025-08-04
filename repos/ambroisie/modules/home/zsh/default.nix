@@ -14,10 +14,12 @@ in
       exclude = mkOption {
         type = with types; listOf str;
         default = [
+          "bat"
           "delta"
           "direnv reload"
           "fg"
           "git (?!push|pull|fetch)"
+          "home-manager (?!switch|build|news)"
           "htop"
           "less"
           "man"
