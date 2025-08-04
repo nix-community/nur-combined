@@ -1,7 +1,7 @@
 {
   "beta": {
-    "version": "5.22.0-beta.2",
-    "hash": "sha256-OfJjtv0q0SPP2nQpf+5zZD0wBaDXnQ6MVIFf2PGV2zQ="
+    "version": "5.22.0",
+    "hash": "sha256-hGxGRM/m29aMBeZVqFh2Raxc/WVRzSnOquPw9CEVcgI="
   },
   "maa-cli": {
     "name": "0.5.7",
