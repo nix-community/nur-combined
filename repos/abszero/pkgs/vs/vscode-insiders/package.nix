@@ -25,11 +25,11 @@ let
 
   sha256 =
     {
-      x86_64-linux = "09b41yr2rkyz7z8l23pcxlgsn57ycjz36r3phixwwrwgxvihwvbr";
-      x86_64-darwin = "1hjjj1394v05xrnc9m90npra87f4hgw951ylbvgfn76cj7a34his";
-      aarch64-linux = "1f0snvndzndk6mirdf5y70qidli0zcg5w1z3p36v11r6k0zqk3n1";
-      aarch64-darwin = "045wsacb5cyzw8ngm6jvlxbkbv8v3akim76xy5xjg2qmsj4cg0cq";
-      armv7l-linux = "0rnq5m1wnr6wgs14fz4fnajglhsmmb4dgrzgxizl6zjgzvvp83gg";
+      x86_64-linux = "0lfdrsbibf2nfw113c88vmp27fyrc9i6g0a7wkdsbfrj6090f0cm";
+      x86_64-darwin = "1w01n33rkj71rdkfk28vib4cdl3p0yc22619pxg67l7bkjirxh5c";
+      aarch64-linux = "1z0pcqp065qa0ki3dyjx32zjy41jnpvykxrd22a4hdacz1bl15ks";
+      aarch64-darwin = "0zfnpwdm8z2lx2c1df4rrqlqwyf4drcv413db9kqrzhxjndsfn58";
+      armv7l-linux = "1wwq3rd46p0i3m6448jgd5fn7p5i3sq3wb75ydarpzpbkq90402g";
     }
     .${system} or throwSystem;
 in
