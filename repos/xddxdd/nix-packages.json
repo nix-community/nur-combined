@@ -652,7 +652,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-07-23"
+    "version": "0-unstable-2025-08-05"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -862,7 +862,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6082"
+    "version": "6089"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -872,7 +872,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
     "pname": "materialgram",
-    "version": "5.16.4.1"
+    "version": "6.0.0.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
-    "version": "5.16.4"
+    "version": "6.0.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
@@ -1322,12 +1322,12 @@
   "legacyPackages.x86_64-linux.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
@@ -1372,7 +1372,7 @@
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -3967,7 +3967,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-01"
+    "version": "1.11.13-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4037,7 +4037,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-07-23"
+    "version": "0-unstable-2025-08-05"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4692,12 +4692,12 @@
   "legacyPackages.x86_64-linux.uncategorized.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
@@ -4727,7 +4727,7 @@
   "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -4867,7 +4867,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-01"
+    "version": "1.11.13-unstable-2025-08-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
@@ -5482,7 +5482,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-07-23"
+    "version": "0-unstable-2025-08-05"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -5677,12 +5677,12 @@
   "packages.x86_64-linux.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "packages.x86_64-linux.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "packages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
@@ -5727,7 +5727,7 @@
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2025-04-22"
+    "version": "0-unstable-2025-08-04"
   },
   "packages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -5917,7 +5917,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-01"
+    "version": "1.11.13-unstable-2025-08-04"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",

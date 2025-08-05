@@ -663,14 +663,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "8316fc41973b89267a70681a7afe4e947e0ba251";
+    version = "b3fb4c0acd5f52a313f024b6f69b8f025c6eddfe";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "8316fc41973b89267a70681a7afe4e947e0ba251";
-      hash = "sha256-OjqRs/1ZEG34nFA8F23jx3r5eplphu5R8wLcQ8BYzC0=";
+      rev = "b3fb4c0acd5f52a313f024b6f69b8f025c6eddfe";
+      hash = "sha256-NzqogdsLLFSYcGZwOgpU069bi+TEdCf21hrhpJFjxRo=";
     };
-    date = "2025-07-23";
+    date = "2025-08-05";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1025,15 +1025,15 @@
   };
   linguaspark-server = {
     pname = "linguaspark-server";
-    version = "f94b45925e130c08fa976a0ed370079a588578ae";
+    version = "81e1e461855401c753b7486bd4138342612fe117";
     src = fetchFromGitHub {
       owner = "LinguaSpark";
       repo = "server";
-      rev = "f94b45925e130c08fa976a0ed370079a588578ae";
+      rev = "81e1e461855401c753b7486bd4138342612fe117";
       fetchSubmodules = true;
-      hash = "sha256-W6fwr/psngL4luyC3oD/VwopVEweCwaRN92RBLg/TBY=";
+      hash = "sha256-VdoiAd1CjRjGKiaDCOYXXxRNICHa4o+dd5ZctZycFdE=";
     };
-    date = "2025-04-22";
+    date = "2025-08-04";
   };
   linux-xanmod = {
     pname = "linux-xanmod";
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6082";
+    version = "b6089";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6082";
-      hash = "sha256-L+C2teXzSeoBEJ75fMX6VujxMex14l8eExgw2R+alb4=";
+      tag = "b6089";
+      hash = "sha256-rNJpXydIdOtVdbtN0A8XCgcR2+s8JP5IznEp34gy68s=";
     };
   };
   loralib = {
@@ -1567,14 +1567,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "0d9b0863f9582a49c2b2094c8529c72c99fc25d8";
+    version = "e76dc74ddbfbf14b63016f19c4d8b44ffcd728d6";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "0d9b0863f9582a49c2b2094c8529c72c99fc25d8";
-      hash = "sha256-KL4z70In0kyQsqwWzxkao5EScX/ZnU+FQn25H9D7j3s=";
+      rev = "e76dc74ddbfbf14b63016f19c4d8b44ffcd728d6";
+      hash = "sha256-slW5Fz1KhoJX7dZ4RRDg+ffw/RfvbZX/4Lv07mVkFoc=";
     };
-    date = "2025-08-01";
+    date = "2025-08-04";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
