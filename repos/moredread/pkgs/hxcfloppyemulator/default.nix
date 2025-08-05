@@ -11,12 +11,12 @@
 
 stdenv.mkDerivation rec {
   pname = "hxcfloppyemulator";
-  version = "unstable-2025-01-22";
+  version = "unstable-2025-07-13";
 
   src = fetchFromGitHub {
     owner = "jfdelnero";
     repo = "HxCFloppyEmulator";
-    rev = "0ae0cb26a4c8f18a16b1dddbde9135bb5b45a83b";
+    rev = "0ae0cb26f51d5af1a9fe16236b47639c95d1d1fa";
     sha256 = "sha256-EOrJJjjfVXG5Axo2a0yGHyvErLwOqegZzd45+CFLf14=";
   };
 
