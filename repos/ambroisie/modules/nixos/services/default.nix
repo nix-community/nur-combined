@@ -38,6 +38,7 @@
     ./servarr
     ./ssh-server
     ./tandoor-recipes
+    ./thelounge
     ./tlp
     ./transmission
     ./vikunja
