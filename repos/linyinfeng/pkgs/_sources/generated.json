@@ -728,6 +728,32 @@
         },
         "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
     },
+    "rlt": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./rlt-v0.1.6/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "rlt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kaichaosun",
+            "repo": "rlt",
+            "rev": "v0.1.6",
+            "sha256": "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.6"
+    },
     "secureboot_objects": {
         "cargoLocks": null,
         "date": null,

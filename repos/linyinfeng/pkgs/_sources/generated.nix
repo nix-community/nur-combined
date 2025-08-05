@@ -482,6 +482,23 @@
     };
     date = "2019-01-20";
   };
+  rlt = {
+    pname = "rlt";
+    version = "v0.1.6";
+    src = fetchFromGitHub {
+      owner = "kaichaosun";
+      repo = "rlt";
+      rev = "v0.1.6";
+      fetchSubmodules = false;
+      sha256 = "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./rlt-v0.1.6/Cargo.lock;
+      outputHashes = {
+
+      };
+    };
+  };
   secureboot_objects = {
     pname = "secureboot_objects";
     version = "v1.5.1-signed";
