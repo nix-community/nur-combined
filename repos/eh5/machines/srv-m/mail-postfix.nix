@@ -43,8 +43,6 @@ in
 {
   services.postfix = {
     enable = true;
-    hostname = cfg.fqdn;
-    networksStyle = "host";
     enableSubmission = true;
     enableSubmissions = true;
     submissionOptions = submissionOptions;
@@ -54,8 +52,10 @@ in
     };
   };
 
-  services.postfix.config = {
-    mydestination = "";
+  services.postfix.settings.main = {
+    myhostname = cfg.fqdn;
+    mynetworks_style = "host";
+    mydestination = [ ];
     recipient_delimiter = "+";
     disable_vrfy_command = true;
     # Dovecot does not support SMTPUTF8, disable for interoperability
@@ -125,7 +125,7 @@ in
     milter_default_action = "accept";
   };
 
-  services.postfix.masterConfig = {
+  services.postfix.settings.master = {
     "lmtp" = {
       args = [ "flags=O" ];
     };
@@ -169,7 +169,7 @@ in
       args = [
         "-o"
         "smtpd_upstream_proxy_protocol=haproxy"
-      ] ++ postfixCfg.masterConfig.submission.args;
+      ] ++ postfixCfg.settings.master.submission.args;
     };
     "10465" = {
       type = "inet";
@@ -179,7 +179,7 @@ in
       args = [
         "-o"
         "smtpd_upstream_proxy_protocol=haproxy"
-      ] ++ postfixCfg.masterConfig.submissions.args;
+      ] ++ postfixCfg.settings.master.submissions.args;
     };
   };
 
