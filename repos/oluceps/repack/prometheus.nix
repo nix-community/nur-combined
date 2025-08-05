@@ -135,15 +135,14 @@ reIf {
           };
           static_configs = [
             {
-              targets =
-                [
-                  "https://nyaw.xyz"
-                ]
-                ++ map (pre: "https://${pre}.nyaw.xyz") [
-                  "blog"
-                  "status"
-                  "abhoth"
-                ];
+              targets = [
+                "https://nyaw.xyz"
+              ]
+              ++ map (pre: "https://${pre}.nyaw.xyz") [
+                "blog"
+                "status"
+                "abhoth"
+              ];
             }
           ];
           relabel_configs = gen_relabel_configs (
@@ -218,6 +217,26 @@ reIf {
                 ip = "IPv6";
               };
             }
+            #### DEPRECATE AT 21/09/2025, 12:51:31
+            {
+              targets = [ "45.95.212.129" ];
+              labels = {
+                name = "JP2";
+                city = "Tokyo";
+                code = "NRT";
+                ip = "IPv4";
+              };
+            }
+            {
+              targets = [ "2405:84c0:8011:3200::" ];
+              labels = {
+                name = "JP2";
+                city = "Tokyo";
+                code = "NRT";
+                ip = "IPv6";
+              };
+            }
+            #### DEPRECATE AT 21/09/2025, 12:51:31
           ];
           relabel_configs = gen_relabel_configs (
             with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"

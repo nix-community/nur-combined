@@ -37,7 +37,7 @@ in
             interface "anchor-*";
           };
 
-          protocol static {
+          protocol static guard {
             ipv6;
             route HORTUS_PREFIX reject;
           }
@@ -54,6 +54,9 @@ in
           filter to_kernel {
             case source {
               RTS_STATIC: {
+
+                if proto = "guard" then reject;
+
                 krt_prefsrc = HORTUS_OWNIP;
                 krt_metric = 512;
                 accept;

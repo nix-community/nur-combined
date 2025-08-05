@@ -24,6 +24,7 @@ with pkgs;
   # factorio
   loupe
   geo
+  fractal-next
   gedit
   # logseq
   # jetbrains.pycharm-professional
@@ -76,7 +77,7 @@ with pkgs;
   ccid
 
   yubikey-manager
-  canokey-manager
+  # canokey-manager
 
   xdeltaUnstable
 
