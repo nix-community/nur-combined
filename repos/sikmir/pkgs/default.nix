@@ -83,10 +83,8 @@ lib.makeScope newScope (
     iso15765-canbus = callPackage ./development/libraries/iso15765-canbus { };
     isotp-c = callPackage ./development/libraries/isotp-c { };
     jsontoolkit = callPackage ./development/libraries/jsontoolkit { };
-    libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
     libsockcanpp = callPackage ./development/libraries/libsockcanpp { };
-    lunasvg = callPackage ./development/libraries/lunasvg { };
     microjson = callPackage ./development/libraries/microjson { };
     plutosvg = callPackage ./development/libraries/plutosvg { };
 
@@ -178,7 +176,6 @@ lib.makeScope newScope (
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gplaces = callPackage ./gemini/gplaces { };
-    gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
     kineto = callPackage ./gemini/kineto { };
     mdtohtml = callPackage ./gemini/mdtohtml { };
@@ -203,9 +200,6 @@ lib.makeScope newScope (
     deegree = callPackage ./geospatial/deegree { };
     elevation = callPackage ./geospatial/elevation { click = click-6-7; };
     garmindev = callPackage ./geospatial/qlandkartegt/garmindev.nix { };
-    geoarrow-c = callPackage ./geospatial/geoarrow-c { };
-    geoarrow-pandas = callPackage ./geospatial/geoarrow-pandas { };
-    geoarrow-pyarrow = callPackage ./geospatial/geoarrow-pyarrow { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
@@ -282,7 +276,6 @@ lib.makeScope newScope (
     geojson2dm = callPackage ./gpx/geojson2dm { };
     gprox = callPackage ./gpx/gprox { };
     gps-whatsnew = callPackage ./gpx/gps-whatsnew { };
-    gpx-animator = callPackage ./gpx/gpx-animator { };
     gpx-cmd-tools = callPackage ./gpx/gpx-cmd-tools { };
     gpx-converter = callPackage ./gpx/gpx-converter { };
     gpx-interpolate = callPackage ./gpx/gpx-interpolate { };
@@ -396,7 +389,6 @@ lib.makeScope newScope (
     plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
-    qasync = callPackage ./misc/qasync { };
     qdia = callPackage ./misc/qdia { };
     qoiview = callPackage ./misc/qoiview { };
     qstudio = callPackage ./misc/qstudio { };
@@ -533,11 +525,9 @@ lib.makeScope newScope (
     aprsc = callPackage ./radio/aprsc { };
     dump1090_rs = callPackage ./radio/dump1090_rs { };
     dumphfdl = callPackage ./radio/dumphfdl { };
-    dumpvdl2 = callPackage ./radio/dumpvdl2 { };
     fmreceiver = libsForQt5.callPackage ./radio/fmreceiver { };
     goestools = callPackage ./radio/goestools { };
     gqrx-scanner = callPackage ./radio/gqrx-scanner { };
-    libacars = callPackage ./radio/libacars { };
     linrad = callPackage ./radio/linrad { };
     radiolib = callPackage ./radio/radiolib { };
     rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
