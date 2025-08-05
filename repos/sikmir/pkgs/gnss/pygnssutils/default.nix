@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   python3Packages,
+  pysbf2,
   pyspartn,
   pyubx2,
   pyubxutils,
@@ -9,14 +10,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pygnssutils";
-  version = "1.1.13";
+  version = "1.1.16";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
     tag = "v${version}";
-    hash = "sha256-9jWq2F8RrRKZfa6DwnVzRYe+t0U1kPI68wTqJd20eIc=";
+    hash = "sha256-zDPkVZ1lDQCWVNcHLW+E31H4Xe266mCHiILgJVyYrk8=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -24,6 +25,7 @@ python3Packages.buildPythonPackage rec {
   dependencies = with python3Packages; [
     certifi
     paho-mqtt
+    pysbf2
     pyserial
     pyspartn
     pyubx2

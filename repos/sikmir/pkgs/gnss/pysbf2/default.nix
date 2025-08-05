@@ -6,31 +6,29 @@
 }:
 
 python3Packages.buildPythonPackage rec {
-  pname = "pyubx2";
-  version = "1.2.55";
+  pname = "pysbf2";
+  version = "1.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
-    repo = "pyubx2";
+    repo = "pysbf2";
     tag = "v${version}";
-    hash = "sha256-pwIdQMuqu6/IQ7wh/fI5fxAg4bRZGYssKsatTaN8lwM=";
+    hash = "sha256-3Iez0VwHgNh17zcPUQtpqN7klr9HT6p3dEMQGrn7sCk=";
   };
 
   build-system = with python3Packages; [ setuptools ];
-
-  pythonRelaxDeps = [ "pynmeagps" ];
 
   dependencies = with python3Packages; [
     pynmeagps
     pyrtcm
   ];
 
-  pythonImportsCheck = [ "pyubx2" ];
+  pythonImportsCheck = [ "pysbf2" ];
 
   meta = {
-    description = "UBX protocol parser and generator";
-    homepage = "https://github.com/semuconsulting/pyubx2";
+    description = "SBF protocol parser and generator";
+    homepage = "https://github.com/semuconsulting/pysbf2";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

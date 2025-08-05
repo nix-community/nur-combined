@@ -17,10 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-nQiz1vrZz0sOoZFQaN9ZtzfDY3zn3Gk0jMdqORDDW3w=";
   };
 
-  pythonRelaxDeps = [
-    "requests"
-    "types-requests"
-  ];
+  pythonRelaxDeps = true;
 
   build-system = with python3Packages; [ flit ];
 

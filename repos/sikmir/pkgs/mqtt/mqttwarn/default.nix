@@ -44,11 +44,7 @@ python312Packages.buildPythonApplication rec {
     six
   ];
 
-  pythonRelaxDeps = [
-    "attrs"
-    "future"
-    "paho-mqtt"
-  ];
+  pythonRelaxDeps = true;
 
   optional-dependencies = with python312Packages; {
     apprise = [ apprise ];

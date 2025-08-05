@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk";
-  version = "14.3.0";
+  version = "14.6.1";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7dD9GDW/1j2f0Tzetr6Fmbnkl1WDnX82eiaZpO8ngd8=";
+    hash = "sha256-JdRCfrlF1WkuacDrly2zJ9pihKOAZws6wVf8tzdW/HM=";
   };
 
   patches = [

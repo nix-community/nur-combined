@@ -7,30 +7,22 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";
-  version = "1.13.1";
+  version = "1.13.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     tag = version;
-    hash = "sha256-Xl20jXDLQdlQy/dKYxIBus7i03D3InbYtvQj6mIUBGk=";
+    hash = "sha256-nxTfMTKj0pXAzQPYRdh08Qi0u+WY865s3JtvdNy2eIQ=";
   };
 
-  pythonRelaxDeps = [
-    "bottle"
-    "certifi"
-    "cryptography"
-    "pillow"
-    "pyproj"
-    "webob"
-  ];
+  pythonRelaxDeps = true;
 
   patches = [ ./set-tmpl-path.patch ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"" "" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," ""
   '';

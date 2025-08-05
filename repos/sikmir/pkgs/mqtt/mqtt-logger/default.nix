@@ -16,10 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-AG8L2CD+YN6gWswDtsUtUMOA3xC2ro1f1YKYgc4jwXE=";
   };
 
-  pythonRelaxDeps = [
-    "paho-mqtt"
-    "rich"
-  ];
+  pythonRelaxDeps = true;
 
   build-system = with python3Packages; [ poetry-core ];
 

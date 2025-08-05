@@ -261,6 +261,7 @@ lib.makeScope newScope (
     pygnssutils = callPackage ./gnss/pygnssutils { };
     pygpsclient = callPackage ./gnss/pygpsclient { };
     pyrtcm = callPackage ./gnss/pyrtcm { };
+    pysbf2 = callPackage ./gnss/pysbf2 { };
     pyspartn = callPackage ./gnss/pyspartn { };
     pyubx2 = callPackage ./gnss/pyubx2 { };
     pyubxutils = callPackage ./gnss/pyubxutils { };
@@ -479,6 +480,7 @@ lib.makeScope newScope (
     ### OSM
 
     abstreet = callPackage ./osm/abstreet { };
+    arnis = callPackage ./osm/arnis { };
     cykhash = callPackage ./osm/cykhash { };
     gcgn-converter = callPackage ./osm/gcgn-converter { };
     level0 = callPackage ./osm/level0 { };
