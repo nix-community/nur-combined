@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tuiview";
-  version = "1.3.0";
+  version = "1.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "tuiview";
     tag = "tuiview-${version}";
-    hash = "sha256-DVVJcimEY3m7VkA5XYsJXwE113xhFy4uy7JeIFywfIA=";
+    hash = "sha256-e3tpkQlfdmbzwZVp9Hl1p505uaFa0umNyzlOwfHOMCo=";
   };
 
   build-system = with python3Packages; [
