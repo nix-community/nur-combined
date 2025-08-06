@@ -1,34 +1,42 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, pkg-config
 , callPackage
+, which
 , ...
 }:
 
 let
-  deps = source: builtins.mapAttrs (name: value: callPackage value { }) (import "${source}/nix/packages.nix");
+  deps = stdenv.mkDerivation rec {
+    pname = "emmylua-analyzer-rust";
+    version = "0.10.0";
+    name = "deps";
+    src = fetchFromGitHub {
+      owner = "EmmyLuaLs";
+      repo = "${pname}";
+      rev = "${version}";
+      sha256 = "sha256-Fvg3G0C/YECDEWZ4mDC5b8qocWvyDJ9KdLYNtwIu0+I=";
+    };
+    propagatedBuildInputs = builtins.attrValues (builtins.mapAttrs
+      (name: value: callPackage value { })
+      (import "${src}/nix/packages.nix")
+    );
+  };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "emmylua-analyzer-rust";
   version = "0.10.0";
 
-  src = fetchFromGitHub {
-    owner = "EmmyLuaLs";
-    repo = "${pname}";
-    rev = "${version}";
-    sha256 = "sha256-Fvg3G0C/YECDEWZ4mDC5b8qocWvyDJ9KdLYNtwIu0+I=";
-  };
+  buildInputs = [ which ];
+  propagatedBuildInputs = [ deps ];
 
   buildPhase = ''
     mkdir -p $out/bin
-    cp ${(deps src).emmylua_ls}/bin/emmylua_ls $out/bin/
-    cp ${(deps src).emmylua_check}/bin/emmylua_check $out/bin/
-    cp ${(deps src).emmylua_doc_cli}/bin/emmylua_doc_cli $out/bin/
+    ln -s $(which emmylua_ls) $out/bin/
+    ln -s $(which emmylua_check) $out/bin/
+    ln -s $(which emmylua_doc_cli) $out/bin/
   '';
-
-  buildInputs = [ pkg-config ];
 
   meta = with lib; {
     description = "EmmyLua Language Server";
