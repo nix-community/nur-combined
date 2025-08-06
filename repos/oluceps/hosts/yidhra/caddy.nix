@@ -155,7 +155,6 @@
           dns = {
             name = "cloudflare";
             api_token = "{env.CF_API_TOKEN}";
-            zone_token = "{env.CF_ZONE_TOKEN}";
           };
         in
         {

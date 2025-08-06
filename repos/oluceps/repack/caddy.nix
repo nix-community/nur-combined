@@ -23,10 +23,11 @@ in
         type = lib.types.package;
         default = pkgs.caddy.withPlugins {
           plugins = [
-            "github.com/caddy-dns/cloudflare@v0.0.0-20250506153119-35fb8474f57d"
+            "github.com/caddy-dns/cloudflare@v0.0.0-20250724223520-f589a18c0f5d"
             "github.com/mholt/caddy-ratelimit@v0.1.0"
+            "github.com/ss098/certmagic-s3@v0.0.0-20250607141218-0c4ff782fbd0"
           ];
-          hash = "sha256-//+3DBHFH353OnHtLmeqVMg81cX4SlxJ029aGaqpByE=";
+          hash = "sha256-ZJppQxTns3w+QIdVzNFXbmZ+QQsy8tr6YMsx+9eNMf4=";
         };
       };
       settings = lib.mkOption {
@@ -41,7 +42,12 @@ in
       admin = {
         config.persist = false;
       };
-      # logging.logs.debug.level = "debug";
+      logging.logs.debug.level = "debug";
+      storage = mkIf cfg.expose {
+        module = "s3";
+        prefix = "ssl";
+        insecure = false;
+      };
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {
