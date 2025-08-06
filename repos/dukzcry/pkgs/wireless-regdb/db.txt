@@ -1,7 +1,0 @@
-# net/wireless/reg.c: freq_in_rule_band
-# frequency rule should not be part of a frequency's band if the start freq or end freq are off by more than 2 GHz for the 2.4 and 5 GHz bands
-
-country 00:
-    (2000 - 4000 @ 2000), (655)
-    (4000 - 6000 @ 2000), (655)
-    (6000 - 8000 @ 2000), (655)
