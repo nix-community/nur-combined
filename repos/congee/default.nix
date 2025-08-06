@@ -15,11 +15,13 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pinentry-touchid = pkgs.callPackage ./pkgs/pinentry-touchid { };
-  sncli = pkgs.callPackage ./pkgs/sncli { };
+  # sncli = pkgs.callPackage ./pkgs/sncli { };
   ory.hydra = pkgs.callPackage ./pkgs/ory/hydra { };
   whereami = pkgs.callPackage ./pkgs/whereami { };
   openssl-tpm2-engine = pkgs.callPackage ./pkgs/openssl-tpm2-engine { };
   ibmtss = pkgs.callPackage ./pkgs/ibmtss { };
-  rusmux = pkgs.callPackage ./pkgs/rusmux { };
+  # rusmux = pkgs.callPackage ./pkgs/rusmux { };
   wikit = pkgs.callPackage ./pkgs/wikit { };
+  some-sass-language-server = pkgs.callPackage ./pkgs/some-sass-language-server { };
+  # emmylua-analyzer-rust = pkgs.callPackage ./pkgs/emmylua-analyzer-rust { };
 }
