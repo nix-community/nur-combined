@@ -6,7 +6,7 @@ let
   pre-commit-check = git-hooks.run {
     src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
     hooks = {
-      nixfmt-rfc-style.enable = true;
+      nixfmt-rfc-style.enable = false;
 
       format-addons-json = {
         enable = true;

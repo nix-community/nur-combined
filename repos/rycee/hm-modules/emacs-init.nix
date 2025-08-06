@@ -312,14 +312,13 @@ let
       type = types.bool;
       default = false;
       example = true;
-      description =
-        ''
-          Whether to enable recommended ${type} settings.
-        ''
-        + optionalString (extraDescription != "") ''
-          </para><para>
-          ${extraDescription}
-        '';
+      description = ''
+        Whether to enable recommended ${type} settings.
+      ''
+      + optionalString (extraDescription != "") ''
+        </para><para>
+        ${extraDescription}
+      '';
     };
 
   # Recommended GC settings.
@@ -368,30 +367,29 @@ let
   # Whether the configuration makes use of `:chords`.
   hasChords = any (p: p.chords != { }) (attrValues cfg.usePackage);
 
-  usePackageSetup =
-    ''
-      (eval-when-compile
-        (require 'use-package)
-        ;; To help fixing issues during startup.
-        (setq use-package-verbose ${if cfg.usePackageVerbose then "t" else "nil"}))
+  usePackageSetup = ''
+    (eval-when-compile
+      (require 'use-package)
+      ;; To help fixing issues during startup.
+      (setq use-package-verbose ${if cfg.usePackageVerbose then "t" else "nil"}))
 
-    ''
-    + optionalString hasDiminish ''
-      ;; For :diminish in (use-package).
-      (require 'diminish)
-    ''
-    + optionalString hasBind ''
-      ;; For :bind in (use-package).
-      (require 'bind-key)
+  ''
+  + optionalString hasDiminish ''
+    ;; For :diminish in (use-package).
+    (require 'diminish)
+  ''
+  + optionalString hasBind ''
+    ;; For :bind in (use-package).
+    (require 'bind-key)
 
-      ;; Fixes "Symbol’s function definition is void: use-package-autoload-keymap".
-      (autoload #'use-package-autoload-keymap "use-package-bind-key")
-    ''
-    + optionalString hasChords ''
-      ;; For :chords in (use-package).
-      (use-package use-package-chords
-        :config (key-chord-mode 1))
-    '';
+    ;; Fixes "Symbol’s function definition is void: use-package-autoload-keymap".
+    (autoload #'use-package-autoload-keymap "use-package-bind-key")
+  ''
+  + optionalString hasChords ''
+    ;; For :chords in (use-package).
+    (use-package use-package-chords
+      :config (key-chord-mode 1))
+  '';
 
   earlyInitFile = ''
     ;;; hm-early-init.el --- Emacs configuration à la Home Manager -*- lexical-binding: t; -*-
@@ -408,40 +406,39 @@ let
     ;; hm-early-init.el ends here
   '';
 
-  initFile =
-    ''
-      ;;; hm-init.el --- Emacs configuration à la Home Manager -*- lexical-binding: t; -*-
-      ;;
-      ;;; Commentary:
-      ;;
-      ;; A configuration generated from a Nix based configuration by
-      ;; Home Manager.
-      ;;
-      ;;; Code:
+  initFile = ''
+    ;;; hm-init.el --- Emacs configuration à la Home Manager -*- lexical-binding: t; -*-
+    ;;
+    ;;; Commentary:
+    ;;
+    ;; A configuration generated from a Nix based configuration by
+    ;; Home Manager.
+    ;;
+    ;;; Code:
 
-      ${optionalString cfg.startupTimer ''
-        (defun hm/print-startup-stats ()
-          "Prints some basic startup statistics."
-          (let ((elapsed (float-time (time-subtract after-init-time
-                                                    before-init-time))))
-            (message "Startup took %.2fs with %d GCs" elapsed gcs-done)))
-        (add-hook 'emacs-startup-hook #'hm/print-startup-stats)
-      ''}
+    ${optionalString cfg.startupTimer ''
+      (defun hm/print-startup-stats ()
+        "Prints some basic startup statistics."
+        (let ((elapsed (float-time (time-subtract after-init-time
+                                                  before-init-time))))
+          (message "Startup took %.2fs with %d GCs" elapsed gcs-done)))
+      (add-hook 'emacs-startup-hook #'hm/print-startup-stats)
+    ''}
 
-      ${cfg.prelude}
+    ${cfg.prelude}
 
-      ${usePackageSetup}
-    ''
-    + concatStringsSep "\n\n" (
-      map (getAttr "assembly") (filter (getAttr "enable") (attrValues cfg.usePackage))
-    )
-    + ''
+    ${usePackageSetup}
+  ''
+  + concatStringsSep "\n\n" (
+    map (getAttr "assembly") (filter (getAttr "enable") (attrValues cfg.usePackage))
+  )
+  + ''
 
-      ${cfg.postlude}
+    ${cfg.postlude}
 
-      (provide 'hm-init)
-      ;; hm-init.el ends here
-    '';
+    (provide 'hm-init)
+    ;; hm-init.el ends here
+  '';
 
 in
 {
@@ -580,12 +577,13 @@ in
           pname = "hm-init";
           src = pkgs.writeText "hm-init.el" initFile;
           version = "0.1.0";
-          packageRequires =
-            [ epkgs.use-package ]
-            ++ packages
-            ++ optional hasBind epkgs.bind-key
-            ++ optional hasDiminish epkgs.diminish
-            ++ optional hasChords epkgs.use-package-chords;
+          packageRequires = [
+            epkgs.use-package
+          ]
+          ++ packages
+          ++ optional hasBind epkgs.bind-key
+          ++ optional hasDiminish epkgs.diminish
+          ++ optional hasChords epkgs.use-package-chords;
           preferLocalBuild = true;
           allowSubstitutes = false;
           preBuild = ''

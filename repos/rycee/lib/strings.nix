@@ -16,7 +16,10 @@ with lib;
         "_"
         "?"
         "="
-      ] ++ lowerChars ++ upperChars ++ stringToCharacters "0123456789";
+      ]
+      ++ lowerChars
+      ++ upperChars
+      ++ stringToCharacters "0123456789";
 
       empties = l: genList (x: "") (length l);
 
