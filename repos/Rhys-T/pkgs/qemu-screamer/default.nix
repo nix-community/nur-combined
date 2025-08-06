@@ -306,7 +306,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     # SCREAMER: updated homepage and description, and added longDescription
     homepage = "https://github.com/mcayland/qemu/tree/screamer";
-    description = "Generic and open source machine emulator and virtualizer (mcayland's 'screamer' fork)";
+    description = "mcayland's 'screamer' fork of QEMU, with PPC Mac audio support";
     longDescription = ''
       This is mcayland's 'screamer' fork of QEMU, with flaky-but-functional support 
       for the Screamer audio chip used in PowerPC Macintoshes. By default it will 
