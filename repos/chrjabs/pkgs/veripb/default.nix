@@ -17,6 +17,10 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-yJOr+dWG0mwu+FjZZol68axmrnVXrluRTHGVTGSsTB0=";
   };
 
+  postPatch = ''
+    substituteInPlace setup.py --replace-fail "setuptools-git-versioning<2" "setuptools-git-versioning"
+  '';
+
   build-system = [
     python.pkgs.setuptools
     python.pkgs.wheel
