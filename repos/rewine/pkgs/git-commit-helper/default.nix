@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "git-commit-helper";
-  version = "0.5.0-unstable-2025-06-16";
+  version = "0.7.0-unstable-2025-08-06";
 
   src = fetchFromGitHub {
-    owner = "zccrs";
+    owner = "wineee"; #"zccrs";
     repo = "git-commit-helper";
-    rev = "de6297cd3669204cb5fa80f0f834147e03cf60bc";
-    hash = "sha256-3nHPFejX6pdA8RBpBCZxq1pFDJrDvb7HKvVyPMboLpQ=";
+    rev = "2d2775b26e645c15aa540b8130c5c9256c7a7563";
+    hash = "sha256-Bxx/N2F0T0qZmCRhWxPCVKohqSq6A24kXZnAvxi73Rw=";
   };
 
-  cargoHash = "sha256-4FNWsPKGfeQAJ21aOtGcaEwarPLwv+0oEyTvcjIzHq8=";
+  cargoHash = "sha256-EkbjMT2Uy5/fG5gOWDncvU0Y4T8GcJTYTOV7FKpDT2c=";
 
   nativeBuildInputs = [
     pkg-config
