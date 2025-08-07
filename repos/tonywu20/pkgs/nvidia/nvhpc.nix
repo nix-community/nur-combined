@@ -1,10 +1,22 @@
 { stdenv
+, openssl
 , lib
 , autoPatchelfHook
 , glibc
 , glib
 , mpi
 , autoAddDriverRunpath
+, libxml2
+, ncurses
+, gmp
+, python312
+, python311
+, python310
+, libibmad
+, libibumad
+, mesa
+, wayland
+, libxcb
 }:
 stdenv.mkDerivation rec {
   name = "nvidia-hpc-sdk-${version}";
@@ -24,6 +36,18 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc.lib
     glibc
     glib
+    gmp
+    python312
+    python311
+    python310
+    libxml2
+    ncurses
+    openssl
+    libibmad
+    libibumad
+    wayland
+    mesa
+    libxcb
   ];
   # propagatedBuildInputs = [ glibc glib fftw fftwQuad fftwFloat fftwLongDouble fftwMpi openssl ];
   dontConfigure = true;
@@ -35,6 +59,22 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc.lib
     glibc
     glib
+    gmp
+    ncurses
+    python312
+    python311
+    python310
+    libxml2
+    openssl
+    libibmad
+    libibumad
+  ];
+  autoPatchelfIgnoreMissingDeps = [
+    "libpython3.9.so.1.0"
+    "libpython3.8.so.1.0"
+    "libibverbs.so.1"
+    "libcrypto.so.1"
+    "*"
   ];
 
   patchPhase = ''
@@ -58,12 +98,13 @@ stdenv.mkDerivation rec {
 
   fixupPhase = ''
     # Patch ELF binaries
-    find $out -type f \( -executable -o -name "*.so*" \) -print0 | while IFS= read -r -d $'\0' file; do
-      if isELF "$file"; then
-        echo "Patching $file"
-        patchelf --add-rpath "${libPath}:$out/${platform}/${version}/cuda/12.9/targets/x86_64-linux/lib/" "$file">/dev/null || true
-      fi
-    done
+    autoPatchelf $out
+    # find $out -type f \( -executable -o -name "*.so*" \) -print0 | while IFS= read -r -d $'\0' file; do
+    #   if isELF "$file"; then
+    #     echo "Patching $file"
+    #     patchelf --add-rpath "${libPath}:$out/${platform}/${version}/cuda/12.9/targets/x86_64-linux/lib/" "$file">/dev/null || true
+    #   fi
+    # done
     patchShebangs --host $out/${platform}/${version}/compilers/bin/makelocalrc
   '';
 
