@@ -15,14 +15,14 @@
   nixConfig = {
     allow-import-from-derivation = false;
 
-    substituters = [
+    extra-substituters = [
       "https://fym998-nur.cachix.org"
       "https://pre-commit-hooks.cachix.org"
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
     ];
 
-    trusted-public-keys = [
+    extra-trusted-public-keys = [
       "fym998-nur.cachix.org-1:lWwztkEXGJsiJHh/5FbA2u95AxJu8/k4udgGqdFLhOU="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
