@@ -46,7 +46,7 @@ in
         Type = "simple";
         User = "root";
         ExecStart = "${lib.getExe pkgs.nushell} ${../script/wg-refresh.nu} ${../registry.toml}";
-        Restart = "on-failure";
+        Restart = "no";
       };
     };
   };
