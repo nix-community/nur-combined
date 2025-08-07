@@ -63,6 +63,7 @@ stdenv.mkDerivation rec {
         patchelf --add-rpath "${libPath}" "$file">/dev/null || true
       fi
     done
+    patchShebangs --host $out/${platform}/${version}/compilers/bin/makelocalrc
   '';
 
   meta = with lib;{
