@@ -4,6 +4,7 @@
 , glibc
 , glib
 , mpi
+, autoAddDriverRunpath
 }:
 stdenv.mkDerivation rec {
   name = "nvidia-hpc-sdk-${version}";
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dil5mp28igirjq2zqzbww5jsmsppq1dfpfqch5zmksk7ci1fxn5";
   });
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [ autoPatchelfHook autoAddDriverRunpath ];
 
   buildInputs = [
     mpi
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
     find $out -type f \( -executable -o -name "*.so*" \) -print0 | while IFS= read -r -d $'\0' file; do
       if isELF "$file"; then
         echo "Patching $file"
-        patchelf --add-rpath "${libPath}" "$file">/dev/null || true
+        patchelf --add-rpath "${libPath}:$out/${platform}/${version}/cuda/12.9/targets/x86_64-linux/lib/" "$file">/dev/null || true
       fi
     done
     patchShebangs --host $out/${platform}/${version}/compilers/bin/makelocalrc
