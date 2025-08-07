@@ -9,6 +9,14 @@
     lsof
     wireguard-tools
     tcpdump
+    (curlECH.override {
+      ldapSupport = true;
+      gsaslSupport = true;
+      rtmpSupport = true;
+      pslSupport = true;
+      websocketSupport = true;
+      echSupport = true;
+    })
   ];
   system = {
     stateVersion = "25.05";

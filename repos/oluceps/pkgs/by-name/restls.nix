@@ -16,7 +16,6 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-hub64iZNVw/BJjibtDnJ3boIU27DEbYSlMLhFFVJ9ps=";
-  useFetchCargoVendor = true;
 
   meta = with lib; {
     homepage = "https://github.com/3andne/restls";

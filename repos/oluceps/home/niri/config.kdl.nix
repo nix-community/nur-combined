@@ -115,6 +115,7 @@ in
   window-rule {
       match at-startup=true app-id=r#"^firefox$"#
       match at-startup=true app-id=r#"^google-chrome"#
+      match at-startup=true app-id=r#"^chromium-browser"#
       open-on-workspace "surf"
   }
 
@@ -132,6 +133,7 @@ in
   window-rule {
       match title="Firefox"
       match app-id=r#"^google-chrome"#
+      match app-id=r#"^chromium-browser"#
       match app-id="thunderbird"
       open-maximized true
   }
@@ -247,7 +249,7 @@ in
   spawn-at-startup ${
     execApp [
       "${pkgs.gtk3}/bin/gtk-launch"
-      "google-chrome-dev.desktop"
+      "chromium-browser.desktop"
     ]
   }
   spawn-at-startup ${execApp [ "telegram-desktop" ]}

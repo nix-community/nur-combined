@@ -68,6 +68,10 @@
     userborn.enable = true;
 
     smartd.notifications.systembus-notify.enable = true;
+    wg-refresh = {
+      enable = true;
+      calendar = "hourly";
+    };
 
     # ktistec.enable = true;
     # radicle.enable = true;

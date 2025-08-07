@@ -3,7 +3,7 @@
   pkgs,
   user,
   ...
-}:
+}: # nu
 ''
   # Specifies how environment variables are:
   # - converted from a string to a value on Nushell startup (from_string)

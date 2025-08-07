@@ -46,7 +46,7 @@ with pkgs;
   # photoprism
 
   virt-manager
-  xdg-utils
+  # xdg-utils
   hyfetch
 
   # microsoft-edge

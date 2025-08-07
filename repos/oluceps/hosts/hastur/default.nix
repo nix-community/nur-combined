@@ -20,18 +20,21 @@ withSystem "x86_64-linux" (
       inherit system;
       config = {
         allowUnsupportedSystem = true;
-        allowUnfreePredicate =
-          pkg:
-          builtins.elem (lib.getName pkg) [
-            "code"
-            "vscode"
-            "steam"
-            "fcitx5-pinyin-moegirl"
-            "steam-unwrapped-1.0.0.81"
-            "steam-unwrapped"
-            "wechat-uos"
-            "wechat"
-          ];
+        allowUnfree = true;
+        # allowUnfreePredicate =
+        #   pkg:
+        #   builtins.elem (lib.getName pkg) [
+        #     "code"
+        #     "vscode"
+        #     "steam"
+        #     "fcitx5-pinyin-moegirl"
+        #     "steam-unwrapped-1.0.0.81"
+        #     "steam-unwrapped"
+        #     "wechat-uos"
+        #     "wechat"
+        #     "chromium"
+        #     "chromium-unwrapped"
+        #   ];
         permittedInsecurePackages = [
           "olm-3.2.16"
         ];
