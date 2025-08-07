@@ -23,6 +23,8 @@ rec {
 
   amd-aocl = pkgs.callPackage ./pkgs/amd/aocl.nix { };
 
+  nvidia-hpcsdk = pkgs.callPackage ./pkgs/nvidia/nvhpc.nix { };
+
   lammps-impi = pkgs.callPackage ./pkgs/lammps {
     withMPI = true;
     withOneAPI = true;
