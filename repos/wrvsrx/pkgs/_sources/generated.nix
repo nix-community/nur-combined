@@ -338,6 +338,17 @@
     };
     date = "2025-07-01";
   };
+  time-hook = {
+    pname = "time-hook";
+    version = "0.0.1";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "time-hook";
+      rev = "0.0.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-vcMYBZ8NCeIuqYMnHn4t677AlEo6Bgc/MT7qU8CIWQk=";
+    };
+  };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";
     version = "v0.11.1";

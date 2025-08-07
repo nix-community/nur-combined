@@ -609,6 +609,27 @@
         },
         "version": "f257b44ec4dc91031b8f0af12448e4c913f3afa5"
     },
+    "time-hook": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "time-hook",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "time-hook",
+            "rev": "0.0.1",
+            "sha256": "sha256-vcMYBZ8NCeIuqYMnHn4t677AlEo6Bgc/MT7qU8CIWQk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.0.1"
+    },
     "tree-sitter-devicetree": {
         "cargoLocks": null,
         "date": null,

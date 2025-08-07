@@ -47,13 +47,16 @@ let
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
+    claude-code-router = callPackage ./claude-code-router {
+      source = sources.claude-code-router;
+    };
 
     # my packages
     giraffe-wallpaper = callPackage ./giraffe-wallpaper {
       source = sources.giraffe-wallpaper;
     };
-    claude-code-router = callPackage ./claude-code-router {
-      source = sources.claude-code-router;
+    time-hook = callPackage ./time-hook {
+      source = sources.time-hook;
     };
 
     # override packages

@@ -145,3 +145,7 @@ fetch.github = "musistudio/claude-code-router"
 src.github_tag = "wrvsrx/rime-ice-modular"
 fetch.github = "wrvsrx/rime-ice-modular"
 git.fetchSubmodules = true
+
+[time-hook]
+src.github_tag = "wrvsrx/time-hook"
+fetch.github = "wrvsrx/time-hook"
