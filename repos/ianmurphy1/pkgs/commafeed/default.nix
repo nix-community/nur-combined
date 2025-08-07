@@ -12,8 +12,8 @@
   glibc,
 }:
 let
-  binaryVersion = "5.10.0";
-  version = "8eb34c7539036cacd3974f9f8e0ea077e3358fd0";
+  binaryVersion = "5.11.0";
+  version = binaryVersion;
   db = "h2";
 
   graalVM = graalvmCEPackages.graalvm-ce;
@@ -22,7 +22,7 @@ let
     owner = "Athou";
     repo = "commafeed";
     rev = version;
-    hash = "sha256-nYoPcC1e4yj8LJ9l4Eeay92mvjufpCym4VfkTF4w/E8=";
+    hash = "sha256-9gc/+B95RCKdGrMV82oAkVKjuad+YQDyZ7h6u0PGtGw=";
   };
 
   frontend = buildNpmPackage {
@@ -31,7 +31,7 @@ let
 
     sourceRoot = "${src.name}/commafeed-client";
 
-    npmDepsHash = "sha256-Hu6QQtZyConefA0G8Ng68QK+ztqKPDLtASGeVrL9sUg=";
+    npmDepsHash = "sha256-X8ZyqnLy5aa8E9BAc2Vqny1QTZlT/r9z02QNM4N9fbQ=";
 
     nativeBuildInputs = [ biome ];
 
