@@ -9,10 +9,10 @@
     pname = "xscorch";
     version = "0.2.1";
     src = fetchurl {
-        name = "${pname}-${version}.tar.gz";
+        name = "xscorch-${version}.tar.gz";
         urls = [
-            "mirror://debian/pool/main/${builtins.substring 0 1 pname}/${pname}/${pname}_${version}.orig.tar.gz"
-            "http://www.xscorch.org/releases/${pname}-${version}.tar.gz"
+            "mirror://debian/pool/main/x/xscorch/xscorch_${version}.orig.tar.gz"
+            "http://www.xscorch.org/releases/xscorch-${version}.tar.gz"
         ];
         hash = "sha256-oxX3ABoCDGuPZE2xwdxWzPu54+/L8SxBrJ605edctfc=";
     };
@@ -26,7 +26,7 @@
     # - gdk-include: Avoid implicit declaration of functions leading to pointer truncation.
     # - gcc10: Fix FTBFS with GCC 10
     debian = fetchurl {
-        url = "mirror://debian/pool/main/${builtins.substring 0 1 pname}/${pname}/${pname}_${version}-1+nmu6.debian.tar.xz";
+        url = "mirror://debian/pool/main/x/xscorch/xscorch_${version}-1+nmu6.debian.tar.xz";
         hash = "sha256-swlptLX8X/P0Kr3L+vJU/Dd6dbUBx/u1fhB8YzGg0Qw=";
     };
     prePatch = ''

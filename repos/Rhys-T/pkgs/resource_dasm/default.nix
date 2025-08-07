@@ -6,7 +6,7 @@ in stdenv.mkDerivation rec {
     version = "0-unstable-2025-08-04";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
-        repo = pname;
+        repo = "resource_dasm";
         rev = "c47e43a487b3a19a88b572d75f5d83f171baf693";
         hash = "sha256-JV/s0Cpd/TZc3pnwrmbGOuB/ivfgwi/S3ZcVQ9qNNIs=";
     };

@@ -2,7 +2,7 @@
     pname = "xinvaders3d";
     version = "1.9.0";
     src = fetchurl {
-        url = "https://github.com/JoesCat/${pname}/releases/download/${version}/${pname}-dist-${version}.tar.gz";
+        url = "https://github.com/JoesCat/xinvaders3d/releases/download/${version}/xinvaders3d-dist-${version}.tar.gz";
         hash = "sha256-L7QeFyWZSkGCP3ZmgFAPtzWUEOkHITava2iIpIYkxcM=";
     };
     buildInputs = with xorg; [libX11 xtrans];

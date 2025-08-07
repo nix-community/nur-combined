@@ -12,10 +12,10 @@ stdenv.mkDerivation rec {
   srcs = [
     # Actual source
     (fetchurl {
-      name = "${pname}-${baseversion}.tar.gz";
+      name = "hfsutils-${baseversion}.tar.gz";
       urls = [
-        "ftp://ftp.mars.org/pub/hfs/${pname}-${baseversion}.tar.gz"
-        "http://deb.debian.org/debian/pool/main/h/${pname}/${pname}_${baseversion}.orig.tar.gz"
+        "ftp://ftp.mars.org/pub/hfs/hfsutils-${baseversion}.tar.gz"
+        "http://deb.debian.org/debian/pool/main/h/hfsutils/hfsutils_${baseversion}.orig.tar.gz"
       ];
       hash = "sha256-vJ0i1tJSuSDsnN8Y4At2VaYYmz809C5Y1bsVKVcomEA=";
     })
@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     # Debian packaging files, for the patches
     (fetchurl {
       name = "patches-${baseversion}.tar.xz";
-      url = "http://deb.debian.org/debian/pool/main/h/${pname}/${pname}_${version}.debian.tar.xz";
+      url = "http://deb.debian.org/debian/pool/main/h/hfsutils/hfsutils_${version}.debian.tar.xz";
       hash = "sha256-hVy9rU/q0OPjeplNSiuC+HLtpP5e13A9mj4d45jbx6w=";
     })
   ];
 
-  sourceRoot = "${pname}-${baseversion}";
+  sourceRoot = "hfsutils-${baseversion}";
 
   # Apply patches from debian
   prePatch = ''

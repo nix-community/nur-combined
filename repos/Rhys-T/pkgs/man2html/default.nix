@@ -4,7 +4,7 @@
     src = let
         shortDate = lib.concatStrings (lib.lists.drop 4 (builtins.splitVersion version));
     in fetchurl {
-        url = "https://invisible-island.net/archives/${pname}/${pname}-${shortDate}.tgz";
+        url = "https://invisible-island.net/archives/man2html/man2html-${shortDate}.tgz";
         hash = "sha256-qtc069gmJeh84zR0iVUvV4D6ZTnf7aq2dv/5V+wZFVs=";
     };
     nativeBuildInputs = [perl];

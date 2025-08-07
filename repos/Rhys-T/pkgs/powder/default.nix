@@ -2,11 +2,11 @@
     pname = "powder";
     version = "118";
     src = fetchurl {
-        url = "http://zincland.com/powder/release/${pname}${version}_src.tar.gz";
+        url = "http://zincland.com/powder/release/powder${version}_src.tar.gz";
         hash = "sha256-ToEvOXLH3R/yQDVX0c2JGphHD1nM8JvAPOedr9EY89c=";
     };
     debian = fetchurl {
-        url = "mirror://debian/pool/non-free/${builtins.substring 0 1 pname}/${pname}/${pname}_${version}+dfsg1-4.debian.tar.xz";
+        url = "mirror://debian/pool/non-free/p/powder/powder_${version}+dfsg1-4.debian.tar.xz";
         hash = "sha256-ugBPgfJP8LbyCi10CI0Eisx0KJfwg5l0cCXWN6vikfk=";
     };
     buildInputs = [SDL_compat];

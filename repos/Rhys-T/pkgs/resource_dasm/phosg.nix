@@ -6,7 +6,7 @@ in stdenv.mkDerivation rec {
     version = "0-unstable-2025-07-20";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
-        repo = pname;
+        repo = "phosg";
         rev = "223a1f1ea338ae80296f7d96b329a376c792cd66";
         hash = "sha256-pbr57qSoswSb0r4C2VIwS++UgYByA6wpQKcSK197VbM=";
     };

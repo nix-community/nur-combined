@@ -54,11 +54,11 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
     pname = "bubbros";
     version = "1.6.2";
     src = fetchurl {
-        url = "mirror://sourceforge/bub-n-bros/${self.pname}-${self.version}.tar.gz";
+        url = "mirror://sourceforge/bub-n-bros/bubbros-${self.version}.tar.gz";
         hash = "sha256-CtijWcRjIHGpyFwmhLrjKqD6J4YyxJ8JLcQHjPuYWMQ=";
     };
     debian = fetchurl {
-        url = "mirror://debian/pool/main/${builtins.substring 0 1 self.pname}/${self.pname}/${self.pname}_${self.version}-1.debian.tar.xz";
+        url = "mirror://debian/pool/main/b/bubbros/bubbros_${self.version}-1.debian.tar.xz";
         hash = "sha256-SqPwFWNJF3+hbbcgApQRKugwMUvAFZk036dV9x9EjV0=";
     };
     prePatch = ''
@@ -120,7 +120,7 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
         '';
         homepage = "https://bub-n-bros.sourceforge.net/";
         knownVulnerabilities = [''
-            ${self.pname} depends on python27 (EOL) and is unmaintained.
+            bubbros depends on python27 (EOL) and is unmaintained.
             Avoid exposing its server or client to untrusted networks.
         ''];
         license = with lib.licenses; [mit artistic2];
