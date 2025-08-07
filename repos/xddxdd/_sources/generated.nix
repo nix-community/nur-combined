@@ -511,12 +511,12 @@
   };
   edge-tts = {
     pname = "edge-tts";
-    version = "7.0.2";
+    version = "7.2.0";
     src = fetchFromGitHub {
       owner = "rany2";
       repo = "edge-tts";
-      tag = "7.0.2";
-      hash = "sha256-ZSao6DvCEJAJmxBB5UjvPikcsj9olTQLmrWVX6O+c4g=";
+      tag = "7.2.0";
+      hash = "sha256-HnMMh3N9mUF8ALRpgx1wjrF2RL2ntRyVOOz4RcJyRMI=";
     };
   };
   etherguard = {
@@ -674,26 +674,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.08.04";
+    version = "2025.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-iE0c3UhDpuYpstha6eS2T8tkaxVlpnAbG694bhvP1EQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-wocPme/p2sQUk8Qo/JGK3Q7/d/lWNS1iH98MCFSj9h0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.08.04";
+    version = "2025.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.04/GeoLite2-City.mmdb";
-      hash = "sha256-4PI3A8gmYTd6bhbXY6WntYDdNLYXIZcF80+G0Ho8frE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-City.mmdb";
+      hash = "sha256-8P4I0V8QufqGwHcBWMQMSJVNX7JWH9ds1YG2b4v1hPk=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.08.04";
+    version = "2025.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.04/GeoLite2-Country.mmdb";
-      hash = "sha256-sk+P5LgQDJMy1uYghvtuIsXUdRw55ce10WEwONskOyY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-Country.mmdb";
+      hash = "sha256-kLjvCryJDpIfa8StGsDw7y5/fS1FIte+9L7qzvji8PE=";
     };
   };
   glauth = {
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6089";
+    version = "b6109";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6089";
-      hash = "sha256-rNJpXydIdOtVdbtN0A8XCgcR2+s8JP5IznEp34gy68s=";
+      tag = "b6109";
+      hash = "sha256-/as3Yz8nMFx1+EsP6UWnpoXFhsVuNjejNC6qrF/LJ8U=";
     };
   };
   loralib = {
@@ -1146,12 +1146,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.28.1";
+    version = "v1.28.2";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.28.1";
-      hash = "sha256-KPA5oTzoTmNr2qB2H/wNXubNjyfAGY4zw70n1uJU1iA=";
+      tag = "v1.28.2";
+      hash = "sha256-26WBhq/95kvAJjV/XE5cHFSwPP+ppBgNmqHTFttVtDo=";
     };
   };
   mtkclient = {
@@ -1650,38 +1650,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.0~rc1+ds-3";
+    version = "10.1.0~rc2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc2+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-n7wOMXIak4g9X5Zj1ckcI2IeHOIKTw2yktSZ4nNKDZY=";
+      hash = "sha256-A92WjdANM17N4jdSvt/CTY1KPNNZijewokdiomm1L1A=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.0~rc1+ds-3";
+    version = "10.1.0~rc2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc2+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-c0IJh3TjNdlYBfL15+6AhwJGMbiGpdgcdc19tONwXZI=";
+      hash = "sha256-BaNRa/bgUcSKVio0JiBBypDIse1iHW3jWV+QCnT7ZfA=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.0~rc1+ds-3";
+    version = "10.1.0~rc2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc2+ds-1_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-hjNJHtHF+e13sO+ZFFyx++Z2NimqdTn+NcEcli+kgF4=";
+      hash = "sha256-llDOyjYJ1REIlBSWiKajPlPWaBAAVSrOcsmqMWfHfGk=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.0~rc1+ds-3";
+    version = "10.1.0~rc2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc1+ds-3_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0~rc2+ds-1_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-5aq7hz0JQWac6KjonvkRE+/06tt5XXt56TScmj7GlU8=";
+      hash = "sha256-sxn0edqJAcsWFS+z04gzvYh/WKgvJtsPTCWXRyif3Yk=";
     };
   };
   qhttpengine = {
@@ -1785,12 +1785,12 @@
   };
   r8125 = {
     pname = "r8125";
-    version = "9.015.00-1";
+    version = "9.016.00-1";
     src = fetchFromGitHub {
       owner = "awesometic";
       repo = "realtek-r8125-dkms";
-      tag = "9.015.00-1";
-      hash = "sha256-fMnxnJ8AvsGixsXvJlCGGtgr84Iu0rbdd4Iy9pJH1KY=";
+      tag = "9.016.00-1";
+      hash = "sha256-OxIUAygHDj16mf7SPC9/CJGXafxQh6P91OJWcYvCMck=";
     };
   };
   r8168 = {
@@ -1835,14 +1835,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "292ea3b4b8bf4b5a65a5239d6005783bfb5cd98b";
+    version = "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "292ea3b4b8bf4b5a65a5239d6005783bfb5cd98b";
-      hash = "sha256-B7SjpdMcwGBPb4dfgWP09+XtgDRf/aRUOR7Fv7KNBZc=";
+      rev = "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327";
+      hash = "sha256-iL5QMWxc93Avy/MuZ+MgT5GCbuGyv8s0rKD7U9eTGX8=";
     };
-    date = "2025-08-04";
+    date = "2025-08-07";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2191,15 +2191,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "abae8d3076c4a415ddc7cc50164b320189585037";
+    version = "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "abae8d3076c4a415ddc7cc50164b320189585037";
+      rev = "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c";
       fetchSubmodules = true;
-      hash = "sha256-DW8A/gZIeXe23Uo8erhNV2RigdqUFf9hpVME4DlweqU=";
+      hash = "sha256-R07U8VhkhSQ5UF3njYFsIFFRtsPcEVlV0xgaVl5YkLI=";
     };
-    date = "2025-08-01";
+    date = "2025-08-07";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
