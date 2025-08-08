@@ -1,10 +1,20 @@
 {
   autoPatchelfHook,
+  coreutils,
   fetchFromGitHub,
+  fontconfig,
   fpc,
+  gnugrep,
+  gnused,
+  iproute2,
+  kmod,
   lazarus-qt6,
   lib,
+  libnotify,
+  mangohud,
   nix-update-script,
+  pciutils,
+  polkit,
   qt6Packages,
   stdenv,
   vulkan-tools,
@@ -46,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-    HOME=$(mktemp -d) lazbuild --lazarusdir=${lazarus-qt6}/share/lazarus -B goverlay.lpi
+    HOME=$(mktemp -d) lazbuild --lazarusdir=${lazarus-qt6}/share/lazarus -B goverlay.lpi --bm=Release
     runHook postBuild
   '';
 
@@ -54,6 +64,16 @@ stdenv.mkDerivation (finalAttrs: {
     qtWrapperArgs+=(
       --suffix PATH : ${
         lib.makeBinPath [
+          coreutils
+          fontconfig
+          gnugrep
+          gnused
+          iproute2
+          kmod
+          libnotify
+          mangohud
+          pciutils
+          polkit
           vulkan-tools
         ]
       })
