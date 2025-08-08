@@ -1210,8 +1210,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lonerOrz": {
-            "rev": "61f032c9b303b9511c2811b5471c85c677ddc9f7",
-            "sha256": "0r6d4xxdqa4qrgicq251rbwpp92di62vaawbg556mlca3xz9l6fg",
+            "rev": "18a67310c77a3ed0033832c9bb3a085e9fab2a49",
+            "sha256": "0xrkxznb7db2fhyyb79ljpc4szyhdk9zxx25276rjj8q8l04rw2a",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
