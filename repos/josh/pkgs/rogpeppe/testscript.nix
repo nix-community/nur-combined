@@ -12,10 +12,10 @@ buildGoModule (finalAttrs: {
     owner = "rogpeppe";
     repo = "go-internal";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-fD4n3XVDNHL7hfUXK9qi31LpBVzWnRK/7LNc3BmPtnU=";
+    hash = "sha256-6NzhXCCD1Qhj05WHbCDxH5hwfNM6psoAk7uIxm7N55E=";
   };
 
-  vendorHash = "sha256-rX2xcv409FoC9vO65iLj7w+S8ykBG+6aE3ooD0h1Abg=";
+  vendorHash = "sha256-WoRmZbYYpwVVetlxJDjUu9jGgwLXUD3/PnUF6ksUT70=";
 
   subPackages = [
     "cmd/testscript"
