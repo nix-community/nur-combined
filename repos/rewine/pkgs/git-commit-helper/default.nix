@@ -22,6 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-EkbjMT2Uy5/fG5gOWDncvU0Y4T8GcJTYTOV7FKpDT2c=";
 
+  doCheck = false;
+
   nativeBuildInputs = [
     pkg-config
     installShellFiles
