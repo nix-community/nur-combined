@@ -36,6 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
+  postPatch = ''
+    substituteInPlace data/goverlay.sh.in --replace-fail 'mangohud' "${lib.getExe' mangohud "mangohud"}"
+  '';
+
   nativeBuildInputs = [
     autoPatchelfHook
     fpc
