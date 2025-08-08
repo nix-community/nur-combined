@@ -540,13 +540,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "474591fd195239835fa44b758d4e7176fb908adc",
-            "sha256": "sha256-rN+F6Bs8+RCbVACr/S3uLETD8SEG0KacE3u5yvcJR1s=",
+            "rev": "5725c4cd295797fcd92a80c7892000dcf0e30710",
+            "sha256": "sha256-nPkwX5ruvCkQZ4yKNVuh72RmbLiEs/lkjb7mPQURVWw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "474591fd195239835fa44b758d4e7176fb908adc"
+        "version": "5725c4cd295797fcd92a80c7892000dcf0e30710"
     },
     "rime-loengfan": {
         "cargoLocks": null,
