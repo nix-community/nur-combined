@@ -392,11 +392,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9ob75CURM2cik8/njsVr92/It4pIrGAwf/quHiEdwSM=",
+            "sha256": "sha256-BDFEBCN/gNqj8Ilu9W8CluOWVvSve+lOXWcxjM0Wi1w=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.77-1_amd64.deb"
         },
-        "version": "13.4.1000.63"
+        "version": "13.4.1000.77"
     },
     "browser360-arm64": {
         "cargoLocks": null,
@@ -407,11 +407,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CLTVo2GMlVEuxB/dmaaWkxRMlEIqniixW1cbwcTHxfU=",
+            "sha256": "sha256-tUCD7iCx16jLCM2BvV03tgfi1COPY40SMUYPJtVKYWQ=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.77-1_arm64.deb"
         },
-        "version": "13.4.1000.63"
+        "version": "13.4.1000.77"
     },
     "cachyos-kernel": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6109",
-            "sha256": "sha256-/as3Yz8nMFx1+EsP6UWnpoXFhsVuNjejNC6qrF/LJ8U=",
+            "rev": "b6117",
+            "sha256": "sha256-oxShU92lmUX4KE9EhlZw2/apuOqK2l+2QZvzxiSYxaQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6109"
+        "version": "b6117"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3579,7 +3579,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-08-07",
+        "date": "2025-08-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3591,12 +3591,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327",
-            "sha256": "sha256-iL5QMWxc93Avy/MuZ+MgT5GCbuGyv8s0rKD7U9eTGX8=",
+            "rev": "474591fd195239835fa44b758d4e7176fb908adc",
+            "sha256": "sha256-rN+F6Bs8+RCbVACr/S3uLETD8SEG0KacE3u5yvcJR1s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327"
+        "version": "474591fd195239835fa44b758d4e7176fb908adc"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -4275,7 +4275,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-08-07",
+        "date": "2025-08-08",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4287,12 +4287,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c",
-            "sha256": "sha256-R07U8VhkhSQ5UF3njYFsIFFRtsPcEVlV0xgaVl5YkLI=",
+            "rev": "017c63d819eaf237db79d704b4ea878cc226bf91",
+            "sha256": "sha256-5G6NoGoqhhuq6IhiEHac6TwQLc41Awi+plBJlqykcWw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c"
+        "version": "017c63d819eaf237db79d704b4ea878cc226bf91"
     },
     "unigine-heaven": {
         "cargoLocks": null,

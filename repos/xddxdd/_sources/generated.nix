@@ -201,18 +201,18 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.4.1000.63";
+    version = "13.4.1000.77";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_amd64.deb";
-      hash = "sha256-9ob75CURM2cik8/njsVr92/It4pIrGAwf/quHiEdwSM=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.77-1_amd64.deb";
+      hash = "sha256-BDFEBCN/gNqj8Ilu9W8CluOWVvSve+lOXWcxjM0Wi1w=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.4.1000.63";
+    version = "13.4.1000.77";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.63-1_arm64.deb";
-      hash = "sha256-CLTVo2GMlVEuxB/dmaaWkxRMlEIqniixW1cbwcTHxfU=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1000.77-1_arm64.deb";
+      hash = "sha256-tUCD7iCx16jLCM2BvV03tgfi1COPY40SMUYPJtVKYWQ=";
     };
   };
   cachyos-kernel = {
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6109";
+    version = "b6117";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6109";
-      hash = "sha256-/as3Yz8nMFx1+EsP6UWnpoXFhsVuNjejNC6qrF/LJ8U=";
+      tag = "b6117";
+      hash = "sha256-oxShU92lmUX4KE9EhlZw2/apuOqK2l+2QZvzxiSYxaQ=";
     };
   };
   loralib = {
@@ -1835,14 +1835,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327";
+    version = "474591fd195239835fa44b758d4e7176fb908adc";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "28b452ca1b2a9d4e33b9ea2f3f16c19ded1dc327";
-      hash = "sha256-iL5QMWxc93Avy/MuZ+MgT5GCbuGyv8s0rKD7U9eTGX8=";
+      rev = "474591fd195239835fa44b758d4e7176fb908adc";
+      hash = "sha256-rN+F6Bs8+RCbVACr/S3uLETD8SEG0KacE3u5yvcJR1s=";
     };
-    date = "2025-08-07";
+    date = "2025-08-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2191,15 +2191,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c";
+    version = "017c63d819eaf237db79d704b4ea878cc226bf91";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "bfc008401e46f9e9d9ba0accf4184ed9f8a28d0c";
+      rev = "017c63d819eaf237db79d704b4ea878cc226bf91";
       fetchSubmodules = true;
-      hash = "sha256-R07U8VhkhSQ5UF3njYFsIFFRtsPcEVlV0xgaVl5YkLI=";
+      hash = "sha256-5G6NoGoqhhuq6IhiEHac6TwQLc41Awi+plBJlqykcWw=";
     };
-    date = "2025-08-07";
+    date = "2025-08-08";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
