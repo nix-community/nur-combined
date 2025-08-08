@@ -12,7 +12,7 @@ let
     in
     {
       exifaudio = callPackage ./exifaudio.nix { };
-      fg = callPackage ./fg.nix { };
+      fg = callPackage ./fg { };
       ouch = callPackage ./ouch.nix { };
       yazi-rs = callPackage ./yazi-rs { source = sources.yazi-rs-plugins; };
     };

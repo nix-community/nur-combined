@@ -9,7 +9,7 @@
 let
   caddy = callPackage ./package.nix {
     inherit caddy;
-    buildGoModule = buildGoModule;
+    inherit buildGoModule;
   };
   pluginRepos = [
     "WeidiDeng/caddy-cloudflare-ip"
