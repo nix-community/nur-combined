@@ -142,7 +142,7 @@ in
           locations = {
             # Or do a redirect instead of the 404, or whatever is appropriate
             # for you. But do not put a Matrix Web client here! See the
-            # Element web section below.
+            # Element web section above.
             "/".return = "404";
 
             "/_matrix".proxyPass = "http://[::1]:${toString cfg.port}";
@@ -168,7 +168,7 @@ in
       };
     };
 
-    # Those are too complicated to use my wrapper...
+    # Setup well-known locations
     services.nginx.virtualHosts = {
       "${domain}" = {
         forceSSL = true;
