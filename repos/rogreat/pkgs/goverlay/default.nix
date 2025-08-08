@@ -7,6 +7,7 @@
   nix-update-script,
   qt6Packages,
   stdenv,
+  vulkan-tools,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -47,6 +48,15 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
     HOME=$(mktemp -d) lazbuild --lazarusdir=${lazarus-qt6}/share/lazarus -B goverlay.lpi
     runHook postBuild
+  '';
+
+  preFixup = ''
+    qtWrapperArgs+=(
+      --suffix PATH : ${
+        lib.makeBinPath [
+          vulkan-tools
+        ]
+      })
   '';
 
   passthru.updateScript = nix-update-script { };
