@@ -35,7 +35,7 @@ in
         Description = "Steam Screenshot Symlinking Service";
       };
       Service = {
-        ExecStart = "${lnshot}/bin/lnshot daemon -p ${escapeShellArg cfg.picturesName}";
+        ExecStart = "${lnshot}/bin/lnshot -p ${escapeShellArg cfg.picturesName} daemon";
         Restart = "always";
       };
       Install = {
