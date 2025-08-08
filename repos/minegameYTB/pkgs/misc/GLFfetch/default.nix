@@ -36,8 +36,8 @@ stdenvNoCC.mkDerivation rec {
   outputs = [ "out" "assets" ];
   outputsToInstall = outputs;
 
-  buildInputs = [ fastfetch bash coreutils gawk ];
   nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ fastfetch bash.out coreutils gawk ];
 
   postPatch = ''
     ### Patch path in upstream archive
@@ -48,26 +48,26 @@ stdenvNoCC.mkDerivation rec {
       --replace-warn "~/.config/fastfetch/GLFfetch/GLF.png" "$assets/share/${pname}/${glfIcon}.png" \
       --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}" \
       --replace-warn "󰣇" "" \
-      --replace-warn "/bin/bash" "${bash}/bin/bash"
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash"
 
     substituteInPlace scripts/challenge.sh \
-      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash" \
       --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
 
     substituteInPlace scripts/completion.sh \
-      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash" \
       --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
 
     substituteInPlace scripts/icon.sh \
-      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash" \
       --replace-warn '"$HOME"/.config/fastfetch/GLFfetch' "$assets/share/${pname}"
 
     substituteInPlace scripts/install_date.sh \
-      --replace-warn "/bin/bash" "${bash}/bin/bash" \
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash" \
       --replace-warn "~/.config/fastfetch/GLFfetch" "$assets/share/${pname}"
 
     ### Add path to vars.sh
-    sed -i '1a PATH="${coreutils}/bin:${gawk}/bin:"' scripts/vars.sh
+    sed -i '1a PATH="${coreutils}/bin:${gawk}/bin"' scripts/vars.sh
 
     substituteInPlace scripts/vars.sh \
       --replace-warn "/bin/bash" "${bash}/bin/bash"
