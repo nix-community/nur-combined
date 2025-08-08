@@ -374,52 +374,6 @@
         },
         "version": "d97a4dc917ef4c5f598b62d08aebad343b5d5003"
     },
-    "noto-fonts-cjk-sans-fix-weight": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "noto-fonts-cjk-sans-fix-weight",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "notofonts",
-            "repo": "noto-cjk",
-            "rev": "Sans2.004",
-            "sha256": "sha256-GXULnRPsIJRdiL3LdFtHbqTqSvegY2zodBxFm4P55to=",
-            "sparseCheckout": [
-                "Sans/OTC"
-            ],
-            "type": "github"
-        },
-        "version": "Sans2.004"
-    },
-    "noto-fonts-cjk-serif-fix-weight": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "noto-fonts-cjk-serif-fix-weight",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "notofonts",
-            "repo": "noto-cjk",
-            "rev": "Serif2.003",
-            "sha256": "sha256-mfbBSdJrUCZiUUmsmndtEW6H3z6KfBn+dEftBySf2j4=",
-            "sparseCheckout": [
-                "Serif/OTC"
-            ],
-            "type": "github"
-        },
-        "version": "Serif2.003"
-    },
     "osc52": {
         "cargoLocks": null,
         "date": "2025-05-16",
@@ -440,6 +394,27 @@
             "type": "github"
         },
         "version": "49fbbb3d297dc8c50f8c35cb4402502713494573"
+    },
+    "ptrace-time-hook": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ptrace-time-hook",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "ptrace-time-hook",
+            "rev": "0.1.0",
+            "sha256": "sha256-NGf+t8OU4dkznxSGU6bRsPKRffhR9Dyb3ygjNqxWYQI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.1.0"
     },
     "rime-ice": {
         "cargoLocks": null,
@@ -608,27 +583,6 @@
             "type": "github"
         },
         "version": "f257b44ec4dc91031b8f0af12448e4c913f3afa5"
-    },
-    "time-hook": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "time-hook",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "time-hook",
-            "rev": "0.0.1",
-            "sha256": "sha256-vcMYBZ8NCeIuqYMnHn4t677AlEo6Bgc/MT7qU8CIWQk=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.0.1"
     },
     "tree-sitter-devicetree": {
         "cargoLocks": null,

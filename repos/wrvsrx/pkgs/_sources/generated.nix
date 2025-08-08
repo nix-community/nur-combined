@@ -207,34 +207,6 @@
     };
     date = "2025-02-28";
   };
-  noto-fonts-cjk-sans-fix-weight = {
-    pname = "noto-fonts-cjk-sans-fix-weight";
-    version = "Sans2.004";
-    src = fetchFromGitHub {
-      owner = "notofonts";
-      repo = "noto-cjk";
-      rev = "Sans2.004";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ "Sans/OTC" ];
-      sha256 = "sha256-GXULnRPsIJRdiL3LdFtHbqTqSvegY2zodBxFm4P55to=";
-    };
-  };
-  noto-fonts-cjk-serif-fix-weight = {
-    pname = "noto-fonts-cjk-serif-fix-weight";
-    version = "Serif2.003";
-    src = fetchFromGitHub {
-      owner = "notofonts";
-      repo = "noto-cjk";
-      rev = "Serif2.003";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ "Serif/OTC" ];
-      sha256 = "sha256-mfbBSdJrUCZiUUmsmndtEW6H3z6KfBn+dEftBySf2j4=";
-    };
-  };
   osc52 = {
     pname = "osc52";
     version = "49fbbb3d297dc8c50f8c35cb4402502713494573";
@@ -246,6 +218,17 @@
       sha256 = "sha256-XCCEAcBn/48uJrBopwCnh/rwSg8Wt2ZAt76A0u6kG6w=";
     };
     date = "2025-05-16";
+  };
+  ptrace-time-hook = {
+    pname = "ptrace-time-hook";
+    version = "0.1.0";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "ptrace-time-hook";
+      rev = "0.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-NGf+t8OU4dkznxSGU6bRsPKRffhR9Dyb3ygjNqxWYQI=";
+    };
   };
   rime-ice = {
     pname = "rime-ice";
@@ -337,17 +320,6 @@
       sha256 = "sha256-MKqY0Bp00pFr/mkTsfqsDJ+Tsz9w0WolYEg4ob8iHkQ=";
     };
     date = "2025-07-01";
-  };
-  time-hook = {
-    pname = "time-hook";
-    version = "0.0.1";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "time-hook";
-      rev = "0.0.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-vcMYBZ8NCeIuqYMnHn4t677AlEo6Bgc/MT7qU8CIWQk=";
-    };
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";

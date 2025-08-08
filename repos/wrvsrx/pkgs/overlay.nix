@@ -2,31 +2,10 @@ final: prev:
 let
   inherit (final) callPackage;
   sources = callPackage ./_sources/generated.nix { };
-  mkNotoCJK =
-    { source }:
-    let
-      ver = source.version;
-      typeface = builtins.substring 0 (builtins.stringLength ver - 5) ver;
-      version = builtins.substring (builtins.stringLength ver - 5) 5 ver;
-      pkg = prev."noto-fonts-cjk-${prev.lib.strings.toLower typeface}";
-    in
-    pkg.overrideAttrs {
-      inherit (source) src;
-      inherit version;
-      installPhase = ''
-        install -m444 -Dt $out/share/fonts/opentype/noto-cjk ${typeface}/OTC/*.ttc
-      '';
-    };
   toplevelPackages = {
     # toplevel packages
     goauthing = callPackage ./goauthing { };
     autodiff = callPackage ./autodiff { source = sources.autodiff; };
-    noto-fonts-cjk-sans-fix-weight = mkNotoCJK {
-      source = sources.noto-fonts-cjk-sans-fix-weight;
-    };
-    noto-fonts-cjk-serif-fix-weight = mkNotoCJK {
-      source = sources.noto-fonts-cjk-serif-fix-weight;
-    };
     cyCodeBase = callPackage ./cyCodeBase { source = sources.cyCodeBase; };
     hougeo = callPackage ./hougeo { source = sources.hougeo; };
     happly = callPackage ./happly { source = sources.happly; };
@@ -55,8 +34,8 @@ let
     giraffe-wallpaper = callPackage ./giraffe-wallpaper {
       source = sources.giraffe-wallpaper;
     };
-    time-hook = callPackage ./time-hook {
-      source = sources.time-hook;
+    ptrace-time-hook = callPackage ./ptrace-time-hook {
+      source = sources.ptrace-time-hook;
     };
 
     # override packages

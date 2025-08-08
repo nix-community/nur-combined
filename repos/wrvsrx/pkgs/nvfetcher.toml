@@ -83,16 +83,6 @@ fetch.github = "kamchatka-volcano/cmdlime"
 src.git = "https://github.com/gabime/spdlog"
 fetch.github = "gabime/spdlog"
 
-[noto-fonts-cjk-sans-fix-weight]
-src.manual = "Sans2.004"
-fetch.github = "notofonts/noto-cjk"
-git.sparseCheckout = ["Sans/OTC"]
-
-[noto-fonts-cjk-serif-fix-weight]
-src.manual = "Serif2.003"
-fetch.github = "notofonts/noto-cjk"
-git.sparseCheckout = ["Serif/OTC"]
-
 [coc-markdown]
 src.git = "https://github.com/wrvsrx/coc-markdown"
 fetch.github = "wrvsrx/coc-markdown"
@@ -146,6 +136,6 @@ src.github_tag = "wrvsrx/rime-ice-modular"
 fetch.github = "wrvsrx/rime-ice-modular"
 git.fetchSubmodules = true
 
-[time-hook]
-src.github_tag = "wrvsrx/time-hook"
-fetch.github = "wrvsrx/time-hook"
+[ptrace-time-hook]
+src.github_tag = "wrvsrx/ptrace-time-hook"
+fetch.github = "wrvsrx/ptrace-time-hook"

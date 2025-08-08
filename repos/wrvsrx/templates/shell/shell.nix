@@ -1,1 +1,1 @@
-{ mkShell }: mkShell { buildInputs = [ ]; }
+{ mkShell }: mkShell { nativeBuildInputs = [ ]; }
