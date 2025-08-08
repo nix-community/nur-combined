@@ -1088,8 +1088,8 @@
             "url": "https://github.com/jorsn/nur-packages"
         },
         "josh": {
-            "rev": "5cd6d7b503bca01ed664799601f014443fadf518",
-            "sha256": "0mm5q4pjzviagg2fb6hw0winc323cir7f8g9p8lamqq9bin1dv9j",
+            "rev": "5396a5948b66aacda4e08edc67105c453ec44359",
+            "sha256": "0kn7iicg03dd20b1mkk56vfnn1r4r0mbw7f3pnn8hlc41920dv4d",
             "url": "https://github.com/josh/nurpkgs"
         },
         "jpts": {
@@ -1200,8 +1200,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "6daddc5543b1f8c2dd49e9595f6d11358bdc07fb",
-            "sha256": "1c0ai3903xmz13786glxxpbgzgmnq35pshfhid9cdgfc9jgh9f4x",
+            "rev": "af0629d9586d078d63d2061f52b6ab380f27eb6b",
+            "sha256": "1b09ivrk5yh7hj0hanaidi4z3xfkm6vpmmprljj3am51nqx53sbp",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
