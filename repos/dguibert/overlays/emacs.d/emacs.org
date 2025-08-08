@@ -1459,10 +1459,13 @@ For integration with org-capture, the user must first add the relevant template.
 
 Denote can optionally integrate with Org mode’s “dynamic blocks” facility. Start by loading the relevant library:
 
+The [[https://github.com/protesilaos/denote-org][denote-org]] package contains extra features that better integrate Denote with Org mode. These used to be available as part of the main denote package in a file called denote-org-extras.el, but now live in this standalone package to main things easier to maintain and understand.
+
 #+begin_src emacs-lisp
 ;; Register Denote's Org dynamic blocks
-(require 'denote-org-extras)
+(use-package denote-org)
 #+end_src
+
 
 These two types of blocks are named denote-links and denote-backlinks respectively. The latter does not accept any parameters, while the former does, which we explain below by also demonstrating how dynamic blocks are written.
 
