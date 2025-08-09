@@ -1,1 +1,1 @@
-_self: super: (import ./pkgs { pkgs = super; }).legacyPackages
+(import ./overlays).default
