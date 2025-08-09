@@ -39,12 +39,12 @@ let
     (batch {
       prefix = "lts";
       inherit (linux_6_12) version src;
-      configVariant = "linux-cachyos";
+      configVariant = "linux-cachyos-lts";
     })
     (batch {
       prefix = "v6_12";
       inherit (linux_6_12) version src;
-      configVariant = "linux-cachyos";
+      configVariant = "linux-cachyos-lts";
     })
   ];
 
