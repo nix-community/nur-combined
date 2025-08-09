@@ -30,8 +30,8 @@
                       p.meta.position
                   })"
                 ))
-                (nameMkContentPair "Description" (p: p.meta.description or ""))
                 (nameMkContentPair "Version" (p: p.version or ""))
+                (nameMkContentPair "Description" (p: p.meta.description or ""))
                 (nameMkContentPair "Homepage" (p: if p ? meta.homepage then "[Link](${p.meta.homepage})" else ""))
               ];
 
