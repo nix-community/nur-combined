@@ -4,6 +4,7 @@
   fetchFromGitHub,
   fetchpatch,
   autoreconfHook,
+  makeWrapper,
   pkg-config,
   cairo,
   librsvg,
@@ -23,13 +24,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/rahra/smrender/pull/16/commits/367fe9a14ce3f683a61de79b24f5025ab7f19253.patch";
+      url = "https://github.com/rahra/smrender/commit/367fe9a14ce3f683a61de79b24f5025ab7f19253.patch";
       hash = "sha256-Bn02ayB4qo3BXbF8hLa0NvGXcMAs1mZWgt6JsdVFAKE=";
     })
   ];
 
   nativeBuildInputs = [
     autoreconfHook
+    makeWrapper
     pkg-config
   ];
 
@@ -37,6 +39,12 @@ stdenv.mkDerivation (finalAttrs: {
     cairo
     librsvg
   ];
+
+  postInstall = ''
+    wrapProgram $out/bin/smrender \
+      --prefix DYLD_LIBRARY_PATH : $out/lib/smrender \
+      --prefix LD_LIBRARY_PATH : $out/lib/smrender
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
