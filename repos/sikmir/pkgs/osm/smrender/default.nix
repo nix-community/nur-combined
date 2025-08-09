@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   autoreconfHook,
   makeWrapper,
   pkg-config,
@@ -20,6 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-iQSOYiRf4A6HqNmW4oWXIsGIaSHuSvE9wuIiE7JUI8w=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/rahra/smrender/pull/17/commits/bdd7c69e685ef585022fac94ef75d0d7747b042d.patch";
+      hash = "sha256-zj9gMgmcYHfhRt8HV7BjL9qC+XwtlwUzxrD6MO3lWDg=";
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook
