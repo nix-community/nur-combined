@@ -285,6 +285,7 @@ lib.makeScope newScope (
     gpx2yaml = callPackage ./gpx/gpx2yaml { };
     gpxchart = callPackage ./gpx/gpxchart { };
     gpxeditor = callPackage ./gpx/gpxeditor { };
+    gpxgo = callPackage ./gpx/gpxgo { };
     gpxlib = callPackage ./gpx/gpxlib { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };

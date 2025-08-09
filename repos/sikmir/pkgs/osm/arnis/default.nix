@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   fetchFromGitHub,
 }:
@@ -22,5 +23,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/louis-e/arnis";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.hostPlatform.isLinux;
   };
 })
