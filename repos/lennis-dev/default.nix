@@ -16,9 +16,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  dev-lennis-email-obfuscater = pkgs.callPackage ./pkgs/dev-lennis-email-obfuscater { };
-  dev-lennis-hackit = pkgs.callPackage ./pkgs/dev-lennis-hackit { };
   dev-lennis-www = pkgs.callPackage ./pkgs/dev-lennis-www { };
+  email-obfuscater = pkgs.callPackage ./pkgs/email-obfuscater { };
+  hackit = pkgs.callPackage ./pkgs/hackit { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

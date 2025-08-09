@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation rec {
   name = "dev-lennis-email-obfuscater-${version}";
-  version = "3ac40a4";
+  version = "115ed59";
   src = fetchFromGitHub {
     owner = "lennis-dev";
     repo = "email-obfuscater";
-    rev = "3ac40a4d90f453342a9f2d6b89b2ddc22591fa4a";
-    hash = "sha256-pJ6HkvUzC4SxUgxlCl3AFqmOkqmaUVeEtvikzHKQ4Lg=";
+    rev = "115ed594ea157447d8141d9f53e1ad9ed51db538";
+    hash = "sha256-iAJOqDyG4y9UIJ3cGSWI61cKC0nawfbEPASRXkLgJ7o=";
   };
 
   installPhase = ''
@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Lennis.dev website";
+    description = "Obfuscate email addresses, only with JavaScript";
     license = licenses.mit;
-    homepage = "https://www.lennis.dev/";
+    homepage = "https://email-obfuscater.lennis.dev/";
   };
 }
