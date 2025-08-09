@@ -1,4 +1,5 @@
 {
+  lib,
   proton ? proton-ge-bin,
   proton-ge-bin,
   umu-launcher,
@@ -24,5 +25,6 @@ writeShellApplication {
 
   meta = {
     description = "Wrapper for umu-launcher with `PROTONPATH` set to run Proton games";
+    platforms = lib.intersectLists umu-launcher.meta.platforms proton.meta.platforms;
   };
 }
