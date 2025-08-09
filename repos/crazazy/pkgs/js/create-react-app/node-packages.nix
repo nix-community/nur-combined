@@ -499,13 +499,13 @@ let
         sha512 = "RkK/CCESdTKQZHdmKICijdKKsCRVHs5KsLZ6pACAmF/1GPUQhonHSXWNERctxEp7RmvjdNbZTL5z9V7nSCXKcg==";
       };
     };
-    "tmp-0.2.3" = {
+    "tmp-0.2.5" = {
       name = "tmp";
       packageName = "tmp";
-      version = "0.2.3";
+      version = "0.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tmp/-/tmp-0.2.3.tgz";
-        sha512 = "nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==";
+        url = "https://registry.npmjs.org/tmp/-/tmp-0.2.5.tgz";
+        sha512 = "voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==";
       };
     };
     "uid-number-0.0.6" = {
@@ -639,7 +639,7 @@ let
           sources."readable-stream-1.0.34"
         ];
       })
-      sources."tmp-0.2.3"
+      sources."tmp-0.2.5"
       sources."uid-number-0.0.6"
       sources."universalify-2.0.1"
       sources."util-deprecate-1.0.2"
