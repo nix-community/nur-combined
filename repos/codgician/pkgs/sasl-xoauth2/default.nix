@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/tarickb/sasl-xoauth2";
     description = "SASL plugin for XOAUTH2";
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     license = licenses.apsl20;
     maintainers = with lib.maintainers; [ codgician ];
   };
