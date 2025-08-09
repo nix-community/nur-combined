@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GEuyZg3rBwkE+/FtEnpFelAwRap1aTMSuKtqOPEsgeE=",
+            "sha256": "sha256-hCI/8HoH6WolCg2EVgpEpS9WhD6RCeRKk+hiJ6uX+8A=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.5-5/bilibili-asar-v1.16.5-5.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-1/bilibili-asar-v1.17.0-1.tar.gz"
         },
-        "version": "v1.16.5-5"
+        "version": "v1.17.0-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.16.5-5",
-            "sha256": "sha256-bbLRg2+jWiD+FDXgpo0c7avhIIHULmcmmkk03Nnj24I=",
+            "rev": "v1.17.0-1",
+            "sha256": "sha256-QudLBmdKujA7oBBprBA46wi0go1gBIIelnv+4ocgquQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.5-5"
+        "version": "v1.17.0-1"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-08-03",
+        "date": "2025-08-08",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "deb9a00348df87aa69b2d18bc391a2c6d075ef25",
-            "sha256": "sha256-xw2uDlGtZbY4PCAFSq8Ixdqv+hgPWFYGhhwbb35QW/8=",
+            "rev": "043728238bfc25f8a69a18639d8f2a2536486803",
+            "sha256": "sha256-hATDpk8K9may+tFhFnEBAtGLZSELALfdoe+q8eqgV94=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "deb9a00348df87aa69b2d18bc391a2c6d075ef25"
+        "version": "043728238bfc25f8a69a18639d8f2a2536486803"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1794,12 +1794,12 @@
             "name": null,
             "owner": "abersheeran",
             "repo": "kui",
-            "rev": "v1.9.2",
-            "sha256": "sha256-x4I4nonziW2KjtdjA/VSidAG1dSE/SV9D/lMyL/yH1k=",
+            "rev": "v1.10.0",
+            "sha256": "sha256-UOVaexJn5fTa058wM44MQhkV0AvuELh1FmSWKGBxXfs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.2"
+        "version": "v1.10.0"
     },
     "ldap-auth-proxy": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6117",
-            "sha256": "sha256-oxShU92lmUX4KE9EhlZw2/apuOqK2l+2QZvzxiSYxaQ=",
+            "rev": "b6121",
+            "sha256": "sha256-tMiBWXbjcyE12T1ABWK+uOoszfEVPrhzEt/EcXtK3vg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6117"
+        "version": "b6121"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2318,11 +2318,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8kd17ChqLuVH5/OdPc2rVDKEDWHl9ZWLh8k+EBrCGH8=",
+            "sha256": "sha256-ipbZJ0mPCuwzb/TDtXXUBTuWOcSsKGAJ1GEGIgB2G7E=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.88/netboot.xyz.efi"
         },
-        "version": "2.0.87"
+        "version": "2.0.88"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -2333,11 +2333,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/qY3NdRC0SghQ4kamrkm9EFumrKlirqDCJ+XY+jHWLA=",
+            "sha256": "sha256-igy3O30noS25dU7ZnHuKrWqLLkjjd/L46IdCTd038dI=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.87/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.88/netboot.xyz.lkrn"
         },
-        "version": "2.0.87"
+        "version": "2.0.88"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -3591,12 +3591,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "474591fd195239835fa44b758d4e7176fb908adc",
-            "sha256": "sha256-rN+F6Bs8+RCbVACr/S3uLETD8SEG0KacE3u5yvcJR1s=",
+            "rev": "5725c4cd295797fcd92a80c7892000dcf0e30710",
+            "sha256": "sha256-nPkwX5ruvCkQZ4yKNVuh72RmbLiEs/lkjb7mPQURVWw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "474591fd195239835fa44b758d4e7176fb908adc"
+        "version": "5725c4cd295797fcd92a80c7892000dcf0e30710"
     },
     "rime-moegirl": {
         "cargoLocks": null,
