@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   autoreconfHook,
   makeWrapper,
   pkg-config,
@@ -13,21 +12,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "smrender";
-  version = "4.4.2";
+  version = "4.5.0";
 
   src = fetchFromGitHub {
     owner = "rahra";
     repo = "smrender";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-u+zZUqWWFn1AjuiYGhh8ZfRSI/4GS9ThVH1KHtbROE8=";
+    hash = "sha256-iQSOYiRf4A6HqNmW4oWXIsGIaSHuSvE9wuIiE7JUI8w=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/rahra/smrender/commit/367fe9a14ce3f683a61de79b24f5025ab7f19253.patch";
-      hash = "sha256-Bn02ayB4qo3BXbF8hLa0NvGXcMAs1mZWgt6JsdVFAKE=";
-    })
-  ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -39,6 +31,16 @@ stdenv.mkDerivation (finalAttrs: {
     cairo
     librsvg
   ];
+
+  configureFlags = [
+    (lib.enableFeature true "threads")
+    (lib.withFeature true "cairo")
+    (lib.withFeature true "fontconfig")
+    (lib.withFeature true "libjpeg")
+    (lib.withFeature true "librsvg")
+  ];
+
+  enableParallelBuilding = true;
 
   postInstall = ''
     wrapProgram $out/bin/smrender \
