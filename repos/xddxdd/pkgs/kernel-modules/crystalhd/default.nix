@@ -37,5 +37,6 @@ stdenv.mkDerivation rec {
     description = "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver";
     homepage = "https://github.com/dbason/crystalhd";
     license = lib.licenses.unfreeRedistributable;
+    platforms = [ "x86_64-linux" ];
   };
 }
