@@ -23,7 +23,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DwIk5PRkX6Jy92OqLvHCj34YUOzhkx/sC+YeamjNhMU=",
+            "sha256": "sha256-nhW4kMAj28W6htrTrzqHIbnltMGeEzB7X2o7Z7Dyycw=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
@@ -53,7 +53,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ku6OBHl2u5ZtzyKHzuxVwR79gm2iGfrZ56qK2tWE2To=",
+            "sha256": "sha256-OBM6nb8YCyJNlnUSD1DxxoHUaRa66RIunhDyYcoIVsQ=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
