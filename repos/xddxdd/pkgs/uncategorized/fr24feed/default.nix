@@ -1,20 +1,20 @@
 {
   sources,
   lib,
-  stdenv,
+  stdenvNoCC,
   buildFHSEnv,
   runCommand,
   dpkg,
 }:
 let
   source =
-    if stdenv.isx86_64 then
+    if stdenvNoCC.isx86_64 then
       sources.fr24feed-amd64
-    else if stdenv.isi686 then
+    else if stdenvNoCC.isi686 then
       sources.fr24feed-i386
-    else if stdenv.isAarch32 then
+    else if stdenvNoCC.isAarch32 then
       sources.fr24feed-armhf
-    else if stdenv.isAarch64 then
+    else if stdenvNoCC.isAarch64 then
       sources.fr24feed-arm64
     else
       throw "Unsupported architecture";
@@ -61,7 +61,7 @@ let
     }
   );
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fr24feed";
   inherit (source) version;
   dontUnpack = true;
