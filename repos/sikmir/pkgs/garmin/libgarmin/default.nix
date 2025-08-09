@@ -37,5 +37,6 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }

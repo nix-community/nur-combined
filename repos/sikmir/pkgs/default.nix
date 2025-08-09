@@ -138,7 +138,7 @@ lib.makeScope newScope (
     gimgtools = callPackage ./garmin/gimgtools { };
     gmaptool = callPackage ./garmin/gmaptool { };
     imgdecode = callPackage ./garmin/imgdecode { };
-    libgarmin = callPackage ./garmin/libgarmin { automake = pkgs.automake111x; };
+    libgarmin = callPackage ./garmin/libgarmin { };
     ocad2img = perlPackages.callPackage ./garmin/ocad2img {
       inherit cgpsmapper ocad2mp fetchwebarchive;
     };
