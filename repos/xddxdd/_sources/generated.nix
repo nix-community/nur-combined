@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.0-1";
+    version = "v1.17.0-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-1/bilibili-asar-v1.17.0-1.tar.gz";
-      hash = "sha256-hCI/8HoH6WolCg2EVgpEpS9WhD6RCeRKk+hiJ6uX+8A=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-2/bilibili-asar-v1.17.0-2.tar.gz";
+      hash = "sha256-lsMlvamxj4YSzpUcWRqC8xC2aHrIv5XxJFHwk26qAa0=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.0-1";
+    version = "v1.17.0-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.0-1";
-      hash = "sha256-QudLBmdKujA7oBBprBA46wi0go1gBIIelnv+4ocgquQ=";
+      tag = "v1.17.0-2";
+      hash = "sha256-0HQ1eStKywN4k4jJG4E4fYPILgmJdM7YPdSvXN/aexA=";
     };
   };
   bin-cpuflags-x86 = {
@@ -217,14 +217,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "043728238bfc25f8a69a18639d8f2a2536486803";
+    version = "6a2bdfffcb169ff3887d12acd4fe94d28bd53858";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "043728238bfc25f8a69a18639d8f2a2536486803";
-      hash = "sha256-hATDpk8K9may+tFhFnEBAtGLZSELALfdoe+q8eqgV94=";
+      rev = "6a2bdfffcb169ff3887d12acd4fe94d28bd53858";
+      hash = "sha256-vZx+JgRPPC2635Drin8yXo3Au9tRJmZZcW7UewAeMxI=";
     };
-    date = "2025-08-08";
+    date = "2025-08-09";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -674,26 +674,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.08.07";
+    version = "2025.08.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-wocPme/p2sQUk8Qo/JGK3Q7/d/lWNS1iH98MCFSj9h0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-ASN.mmdb";
+      hash = "sha256-2T0QiL25DSm9SMgu2NCusAWnqiS1roghToFDIHYfvm0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.08.07";
+    version = "2025.08.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-City.mmdb";
-      hash = "sha256-8P4I0V8QufqGwHcBWMQMSJVNX7JWH9ds1YG2b4v1hPk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-City.mmdb";
+      hash = "sha256-+ssf2UOHdsshFAnKPAMTqVfif7gzv+bULk08SOY2sYQ=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.08.07";
+    version = "2025.08.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-Country.mmdb";
-      hash = "sha256-kLjvCryJDpIfa8StGsDw7y5/fS1FIte+9L7qzvji8PE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-Country.mmdb";
+      hash = "sha256-E0vMgdUyW1tZzlncc9K21u9StD7dfb34bRRwNg8WkAc=";
     };
   };
   glauth = {
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6121";
+    version = "b6123";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6121";
-      hash = "sha256-tMiBWXbjcyE12T1ABWK+uOoszfEVPrhzEt/EcXtK3vg=";
+      tag = "b6123";
+      hash = "sha256-LKESRUckFe9adcMeAdkVJDljnsdPM99nIzkeRMFYdQU=";
     };
   };
   loralib = {
@@ -1753,14 +1753,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "9e45fbebd73bbc93c61a3436d9af4ed22522785d";
+    version = "00c5db512c356e7963cab94593eacc9c979e052b";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "9e45fbebd73bbc93c61a3436d9af4ed22522785d";
-      hash = "sha256-En49DR/Q8TQqGCxvrVHY1uixpRKudlEjUyzqM205Cxw=";
+      rev = "00c5db512c356e7963cab94593eacc9c979e052b";
+      hash = "sha256-/6IkuUiJPTUbbG4WlUfBdc8y5HQS+ENnGwkqnkgHpmU=";
     };
-    date = "2025-07-29";
+    date = "2025-08-10";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1846,10 +1846,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20250711";
+    version = "20250810";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250711/moegirl.dict.yaml";
-      hash = "sha256-gs/JhdSeLFkBKvBdVRxk3RhqlkOhly18w4Pz63GG814=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20250810/moegirl.dict.yaml";
+      hash = "sha256-/Yv/2kigtpNvnWlHYTJBMUlMV5i5toteaLiDJ0kDoZg=";
     };
   };
   rime-zhwiki = {

@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hCI/8HoH6WolCg2EVgpEpS9WhD6RCeRKk+hiJ6uX+8A=",
+            "sha256": "sha256-lsMlvamxj4YSzpUcWRqC8xC2aHrIv5XxJFHwk26qAa0=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-1/bilibili-asar-v1.17.0-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-2/bilibili-asar-v1.17.0-2.tar.gz"
         },
-        "version": "v1.17.0-1"
+        "version": "v1.17.0-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.0-1",
-            "sha256": "sha256-QudLBmdKujA7oBBprBA46wi0go1gBIIelnv+4ocgquQ=",
+            "rev": "v1.17.0-2",
+            "sha256": "sha256-0HQ1eStKywN4k4jJG4E4fYPILgmJdM7YPdSvXN/aexA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.0-1"
+        "version": "v1.17.0-2"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-08-08",
+        "date": "2025-08-09",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "043728238bfc25f8a69a18639d8f2a2536486803",
-            "sha256": "sha256-hATDpk8K9may+tFhFnEBAtGLZSELALfdoe+q8eqgV94=",
+            "rev": "6a2bdfffcb169ff3887d12acd4fe94d28bd53858",
+            "sha256": "sha256-vZx+JgRPPC2635Drin8yXo3Au9tRJmZZcW7UewAeMxI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "043728238bfc25f8a69a18639d8f2a2536486803"
+        "version": "6a2bdfffcb169ff3887d12acd4fe94d28bd53858"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1310,11 +1310,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wocPme/p2sQUk8Qo/JGK3Q7/d/lWNS1iH98MCFSj9h0=",
+            "sha256": "sha256-2T0QiL25DSm9SMgu2NCusAWnqiS1roghToFDIHYfvm0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.08.07"
+        "version": "2025.08.10"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1325,11 +1325,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8P4I0V8QufqGwHcBWMQMSJVNX7JWH9ds1YG2b4v1hPk=",
+            "sha256": "sha256-+ssf2UOHdsshFAnKPAMTqVfif7gzv+bULk08SOY2sYQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-City.mmdb"
         },
-        "version": "2025.08.07"
+        "version": "2025.08.10"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1340,11 +1340,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kLjvCryJDpIfa8StGsDw7y5/fS1FIte+9L7qzvji8PE=",
+            "sha256": "sha256-E0vMgdUyW1tZzlncc9K21u9StD7dfb34bRRwNg8WkAc=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.08.10/GeoLite2-Country.mmdb"
         },
-        "version": "2025.08.07"
+        "version": "2025.08.10"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6121",
-            "sha256": "sha256-tMiBWXbjcyE12T1ABWK+uOoszfEVPrhzEt/EcXtK3vg=",
+            "rev": "b6123",
+            "sha256": "sha256-LKESRUckFe9adcMeAdkVJDljnsdPM99nIzkeRMFYdQU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6121"
+        "version": "b6123"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3417,7 +3417,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-07-29",
+        "date": "2025-08-10",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3429,12 +3429,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "9e45fbebd73bbc93c61a3436d9af4ed22522785d",
-            "sha256": "sha256-En49DR/Q8TQqGCxvrVHY1uixpRKudlEjUyzqM205Cxw=",
+            "rev": "00c5db512c356e7963cab94593eacc9c979e052b",
+            "sha256": "sha256-/6IkuUiJPTUbbG4WlUfBdc8y5HQS+ENnGwkqnkgHpmU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9e45fbebd73bbc93c61a3436d9af4ed22522785d"
+        "version": "00c5db512c356e7963cab94593eacc9c979e052b"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -3607,11 +3607,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gs/JhdSeLFkBKvBdVRxk3RhqlkOhly18w4Pz63GG814=",
+            "sha256": "sha256-/Yv/2kigtpNvnWlHYTJBMUlMV5i5toteaLiDJ0kDoZg=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250711/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250810/moegirl.dict.yaml"
         },
-        "version": "20250711"
+        "version": "20250810"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
