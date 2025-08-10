@@ -51,8 +51,10 @@ in rec {
   bitwig-custom = p ./pkgs/audio/bitwig-custom/default.nix { };
 
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
-  reaper-sws-extension = p ./pkgs/audio/reaper-sws-extension { };
+  TyrellN6 = p ./pkgs/audio/tyrelln6 { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
+
+  reaper-sws-extension = p ./pkgs/audio/reaper-sws-extension { };
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 }
