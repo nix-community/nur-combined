@@ -1,0 +1,10 @@
+--- a/report.d/flatpak
++++ b/report.d/flatpak
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-if [ -f /usr/bin/flatpak ]
++if [ -f /usr/bin/flatpak ] || [ -e /run/current-system/sw/bin/flatpak ]
+ then
+     flatpak list > $1
+ else
