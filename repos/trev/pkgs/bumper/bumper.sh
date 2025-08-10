@@ -24,23 +24,26 @@ git stash push
 if [ -f package.json ]; then
     echo "bumping package.json"
     cd "${git_root}"
-    npm version "${next_version}" --no-git-tag-version
-    git add package.json
-    git add package-lock.json
+    if npm version "${next_version}" --no-git-tag-version; then
+        git add package.json
+        git add package-lock.json
+    fi
 fi
 
 if [ -f flake.nix ]; then
     echo "bumping flake.nix"
     cd "${git_root}"
-    nix-update --flake --version "${next_version}" default
-    git add flake.nix
+    if nix-update --flake --version "${next_version}" default; then
+        git add flake.nix
+    fi
 fi
 
 if [ -f openapi.yaml ]; then
     echo "bumping openapi"
     cd "${git_root}"
-    sed -i -e "s/${version}/${next_version}/g" openapi.yaml
-    git add openapi.yaml
+    if sed -i -e "s/${version}/${next_version}/g" openapi.yaml; then
+        git add openapi.yaml
+    fi
 fi
 
 echo "committing"

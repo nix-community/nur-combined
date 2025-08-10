@@ -83,6 +83,11 @@ function nixconfig {
     return 0
 }
 
+# set TERM to dumb if not set
+if [ -z "$TERM" ]; then
+    export TERM=dumb
+fi
+
 gitconfig
 gitconfig_status=$?
 
