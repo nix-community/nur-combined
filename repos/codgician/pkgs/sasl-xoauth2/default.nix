@@ -30,6 +30,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UYxVhKMH7JyGJ49rgEWptFsz8fGbA4DGjZeLgKnCXT4=";
   };
 
+  # Let sasl-xoauth2 find configuration files in /etc
+  postPatch = ''
+    substituteInPlace scripts/sasl-xoauth2-tool.in \
+      --replace-fail "\''${CMAKE_INSTALL_FULL_SYSCONFDIR}" '/etc'
+  '';
+
   nativeBuildInputs = [
     cmake
     curl
