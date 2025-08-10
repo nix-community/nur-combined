@@ -16,6 +16,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  davinci-resolve-studio = pkgs.callPackage ./pkgs/davinci-resolve-studio { };
   eiffelstudio = pkgs.callPackage ./pkgs/eiffelstudio { };
   #flashrom-dasharo = pkgs.callPackage ./pkgs/flashrom-dasharo { };
   #fuse-zip = pkgs.callPackage ./pkgs/fuse-zip { };
