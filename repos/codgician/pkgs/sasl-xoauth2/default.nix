@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   # Let sasl-xoauth2 find configuration files in /etc
   postPatch = ''
-    substituteInPlace scripts/sasl-xoauth2-tool.in \
+    substituteInPlace src/CMakeLists.txt scripts/sasl-xoauth2-tool.in \
       --replace-fail "\''${CMAKE_INSTALL_FULL_SYSCONFDIR}" '/etc'
   '';
 
