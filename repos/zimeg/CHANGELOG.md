@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- build(ci): practice best recommendations of permission and versions 2025-08-10
 - feat(pkgs/quill): package notarization software matching goreleaser 2025-08-09
 - feat(pkgs/jtt-nvim): package a plugin to jump to tests for upstream 2025-05-24
 - feat(pkgs/newsflash-nvim): open the selected files front and center 2025-04-03
