@@ -46,8 +46,8 @@
             "url": "https://github.com/AsterisMono/nur-packages"
         },
         "AusCyber": {
-            "rev": "8ac71a3c737f70451b5ff5adf397fd2d5036a99d",
-            "sha256": "05h4yk6bi9haxgjrp9pixp6agsg5mmw1npmc5yv0pfzy76q1cscj",
+            "rev": "218febe54225a55fd34017bd30fd86137742cf9f",
+            "sha256": "1gxzdz8z6kfkq6k99pz00lb9ks0zp4z4fzs1xyz1fxwv5dqndmqm",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -532,8 +532,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "cb3b4853269482af29d5d8d0b08e8ce391056ab6",
-            "sha256": "1cgyb44nmgr4rg081qbr3s67b95x8lxd9gjckwjx78lcgpqxirdi",
+            "rev": "016a354af777ee9f9ce95d1a284d2e8c1e98a163",
+            "sha256": "14w443cgrp43q6zgv1aidmvpwc5fgyv63hhb2vk6ylbz4xjf5sc9",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -2194,8 +2194,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zimeg": {
-            "rev": "6a67aecd9b0e35d799252a4c1652d2a9aaba6b63",
-            "sha256": "1r7q50fh0sskjf2ghqcpwy9jywnw5j5ihixl1gpqp5wk7sc0h36n",
+            "rev": "a05908bb020b56c3731121868e7a280172d96212",
+            "sha256": "08b515zgr0n50mkbw0vcxwdzjgb8k5hw7nj35d8mwcyjkyslmd87",
             "url": "https://github.com/zimeg/nur-packages"
         },
         "zjm54321": {
