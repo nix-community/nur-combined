@@ -11,6 +11,7 @@ let
 in
 (maa-assistant-arknights.overrideAttrs (oldAttrs: {
   pname = "maa-assistant-arknights";
+  inherit (sources.beta) version;
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
