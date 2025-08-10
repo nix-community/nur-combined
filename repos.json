@@ -759,6 +759,9 @@
             "file": "nur.nix",
             "url": "https://github.com/lucasew/nixcfg"
         },
+        "lucasfa": {
+            "url": "https://github.com/lucasfa/nur-packages"
+        },
         "lunik1": {
             "url": "https://github.com/lunik1/nur-packages"
         },

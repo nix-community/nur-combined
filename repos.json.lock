@@ -1224,6 +1224,11 @@
             "sha256": "0z0p539q0ysd3wsmlkm08zhy0i9qsw98v6jyn6swkld7lrga6mnk",
             "url": "https://github.com/lucasew/nixcfg"
         },
+        "lucasfa": {
+            "rev": "04f0dc214fb101630d4b40d12a69d4913a2bfbd8",
+            "sha256": "1g1n5jbljxic3fvz6kf8jjh3ic54ww0br24q5idg3qj2anwdkq4c",
+            "url": "https://github.com/lucasfa/nur-packages"
+        },
         "lunik1": {
             "rev": "e07177e76be081d6b199a3f59de982791cd89e95",
             "sha256": "1nk147j8x3daqknsi7v7xrriqipd60505hd3xzdm846pkf63iwkn",
