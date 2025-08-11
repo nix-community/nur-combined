@@ -1,3 +1,19 @@
+diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
+index e9e05bd6023a19..1ab4d5951cc71b 100644
+--- a/lib/modules/manager/nix/artifacts.ts
++++ b/lib/modules/manager/nix/artifacts.ts
+@@ -41,9 +41,9 @@ export async function updateArtifacts({
+     const inputs = updatedDeps
+       .map(({ depName }) => depName)
+       .filter(is.nonEmptyStringAndNotWhitespace)
+-      .map((depName) => `--update-input ${quote(depName)}`)
++      .map((depName) => quote(depName))
+       .join(' ');
+-    cmd += `flake lock ${inputs}`;
++    cmd += `flake update ${inputs}`;
+   }
+   const execOptions: ExecOptions = {
+     cwdFile: packageFileName,
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
 index 798a160d157ff6..d675a1f1b3419a 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
@@ -482,10 +498,10 @@ index 798a160d157ff6..d675a1f1b3419a 100644
        ],
      });
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 9acb65ae5eec36..bf0fca4b669768 100644
+index 9acb65ae5eec36..d5dfc29fc88e4b 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
-@@ -6,17 +6,23 @@ import { id as nixpkgsVersioning } from '../../versioning/nixpkgs';
+@@ -6,41 +6,39 @@ import { id as nixpkgsVersioning } from '../../versioning/nixpkgs';
  import type { PackageDependency, PackageFileContent } from '../types';
  import { NixFlakeLock } from './schema';
  
@@ -506,15 +522,23 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 +
  export async function extractPackageFile(
 -  content: string,
+-  packageFile: string,
 +  _content: string,
-   packageFile: string,
++  flakeFile: string,
 +  config?: Record<string, any>,
  ): Promise<PackageFileContent | null> {
-   const packageLockFile = getSiblingFileName(packageFile, 'flake.lock');
-   const lockContents = await readLocalFile(packageLockFile, 'utf8');
-@@ -25,18 +31,6 @@ export async function extractPackageFile(
+-  const packageLockFile = getSiblingFileName(packageFile, 'flake.lock');
+-  const lockContents = await readLocalFile(packageLockFile, 'utf8');
++  // flake.lock
++  const flakeLockFile = getSiblingFileName(flakeFile, 'flake.lock');
++  const flakeLockContents = await readLocalFile(flakeLockFile, 'utf8');
  
-   const deps: PackageDependency[] = [];
+-  logger.trace(`nix.extractPackageFile(${packageLockFile})`);
++  // flake.nix
++  const flakeContents = await readLocalFile(flakeFile, 'utf8');
+ 
+-  const deps: PackageDependency[] = [];
++  logger.trace(`nix.extractPackageFile(${flakeLockContents})`);
  
 -  const match = nixpkgsRegex.exec(content);
 -  if (match?.groups) {
@@ -527,11 +551,27 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 -      versioning: nixpkgsVersioning,
 -    });
 -  }
--
-   const flakeLockParsed = NixFlakeLock.safeParse(lockContents);
++  const deps: PackageDependency[] = [];
+ 
+-  const flakeLockParsed = NixFlakeLock.safeParse(lockContents);
++  const flakeLockParsed = NixFlakeLock.safeParse(flakeLockContents);
    if (!flakeLockParsed.success) {
      logger.debug(
-@@ -72,7 +66,9 @@ export async function extractPackageFile(
+-      { packageLockFile, error: flakeLockParsed.error },
++      { flakeLockFile, error: flakeLockParsed.error },
+       `invalid flake.lock file`,
+     );
+     return null;
+@@ -51,7 +49,7 @@ export async function extractPackageFile(
+ 
+   if (!rootInputs) {
+     logger.debug(
+-      { packageLockFile, error: flakeLockParsed.error },
++      { flakeLockFile, error: flakeLockParsed.error },
+       `flake.lock is missing "root" node`,
+     );
+ 
+@@ -72,29 +70,75 @@ export async function extractPackageFile(
        continue;
      }
  
@@ -541,7 +581,18 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
      const flakeOriginal = flakeInput.original;
  
      // istanbul ignore if: if we are not in a root node then original and locked always exist which cannot be easily expressed in the type
-@@ -89,12 +85,53 @@ export async function extractPackageFile(
+     if (flakeLocked === undefined || flakeOriginal === undefined) {
+       logger.debug(
+-        { packageLockFile, flakeInput },
++        { flakeLockFile, flakeInput },
+         `Found empty flake input, skipping`,
+       );
+       continue;
+     }
+ 
+-    // indirect inputs cannot be reliable updated because they depend on the flake registry
++    // indirect inputs cannot be reliably updated because they depend on the flake registry
+     if (flakeOriginal.type === 'indirect') {
        continue;
      }
  
@@ -553,14 +604,15 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 +      continue;
 +    }
 +
-+    // if there's a new digest, pretend we updated it so confirmations pass
++    // istanbul ignore if: if there's a new digest, set the corresponding digest in the lockfile so confirmations pass
 +    const currentDigest = config?.currentDigest;
 +    const newDigest = config?.newDigest;
 +    if (
 +      currentDigest &&
 +      newDigest &&
 +      flakeOriginal.rev &&
-+      flakeOriginal.rev === currentDigest
++      flakeOriginal.rev === currentDigest && // currentDigest is the old digest
++      flakeContents?.includes(newDigest) // flake.nix contains the new digest
 +    ) {
 +      flakeOriginal.rev = newDigest;
 +    }
@@ -575,6 +627,7 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 +        depName: 'nixpkgs',
 +        currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +        currentDigest: flakeOriginal.rev,
++        replaceString: flakeOriginal.rev,
 +        lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
 +        datasource: GitRefsDatasource.id,
 +        packageName: 'https://github.com/NixOS/nixpkgs',
@@ -584,7 +637,7 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 +    }
 +
 +    // if the input contains a digest as rev, we can update it
-+    // otherwise set lockedVersion so it is at least updated during lock file maintenance
++    // otherwise set lockedVersion so it is updated during lock file maintenance
      switch (flakeLocked.type) {
        case 'github':
          deps.push({
@@ -593,11 +646,12 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 -          currentDigest: flakeLocked.rev,
 +          currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +          currentDigest: flakeOriginal.rev,
++          replaceString: flakeOriginal.rev,
 +          lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
            datasource: GitRefsDatasource.id,
            packageName: `https://${flakeOriginal.host ?? 'github.com'}/${flakeOriginal.owner}/${flakeOriginal.repo}`,
          });
-@@ -102,8 +139,9 @@ export async function extractPackageFile(
+@@ -102,8 +146,10 @@ export async function extractPackageFile(
        case 'gitlab':
          deps.push({
            depName,
@@ -605,11 +659,12 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 -          currentDigest: flakeLocked.rev,
 +          currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +          currentDigest: flakeOriginal.rev,
++          replaceString: flakeOriginal.rev,
 +          lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
            datasource: GitRefsDatasource.id,
            packageName: `https://${flakeOriginal.host ?? 'gitlab.com'}/${decodeURIComponent(flakeOriginal.owner!)}/${flakeOriginal.repo}`,
          });
-@@ -111,8 +149,9 @@ export async function extractPackageFile(
+@@ -111,8 +157,10 @@ export async function extractPackageFile(
        case 'git':
          deps.push({
            depName,
@@ -617,11 +672,12 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 -          currentDigest: flakeLocked.rev,
 +          currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +          currentDigest: flakeOriginal.rev,
++          replaceString: flakeOriginal.rev,
 +          lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
            datasource: GitRefsDatasource.id,
            packageName: flakeOriginal.url,
          });
-@@ -120,24 +159,44 @@ export async function extractPackageFile(
+@@ -120,29 +168,51 @@ export async function extractPackageFile(
        case 'sourcehut':
          deps.push({
            depName,
@@ -629,6 +685,7 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 -          currentDigest: flakeLocked.rev,
 +          currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +          currentDigest: flakeOriginal.rev,
++          replaceString: flakeOriginal.rev,
 +          lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
            datasource: GitRefsDatasource.id,
            packageName: `https://${flakeOriginal.host ?? 'git.sr.ht'}/${flakeOriginal.owner}/${flakeOriginal.repo}`,
@@ -667,6 +724,7 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
 +            depName,
 +            currentValue: flakeOriginal.rev ? flakeOriginal.ref : undefined,
 +            currentDigest: flakeOriginal.rev,
++            replaceString: flakeOriginal.rev,
 +            lockedVersion: flakeOriginal.rev ? undefined : flakeLocked.rev,
 +            datasource: GitRefsDatasource.id,
 +            // type tarball always contains this link
@@ -679,6 +737,12 @@ index 9acb65ae5eec36..bf0fca4b669768 100644
          break;
        // istanbul ignore next: just a safeguard
        default:
+         logger.debug(
+-          { packageLockFile },
++          { flakeLockFile },
+           `Unknown flake.lock type "${flakeLocked.type}", skipping`,
+         );
+         break;
 diff --git a/lib/modules/manager/nix/index.ts b/lib/modules/manager/nix/index.ts
 index 53b444df254bd4..57976429ef98d0 100644
 --- a/lib/modules/manager/nix/index.ts
