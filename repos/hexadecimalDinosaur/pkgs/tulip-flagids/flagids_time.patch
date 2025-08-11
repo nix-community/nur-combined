@@ -1,0 +1,13 @@
+diff --git a/services/flagids/flagids.py b/services/flagids/flagids.py
+index b548823..aa92e07 100755
+--- a/services/flagids/flagids.py
++++ b/services/flagids/flagids.py
+@@ -8,7 +8,7 @@ import requests
+ 
+ DELAY = 5  # DELAY from start of tick
+ tick_length = int(os.getenv("TICK_LENGTH", 10 * 1000)) // 1000
+-start_date = os.getenv("TICK_START", "2018-06-27T13:00+02:00")
++start_date = os.getenv("TICK_START", "2018-06-27T13:00:00+0200")
+ team_id = os.getenv("TEAM_ID", "10.10.3.1")
+ team_id_is_digit = team_id.isdigit()
+ team_id_int = int(team_id) if team_id_is_digit else None
