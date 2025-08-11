@@ -36,7 +36,7 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p $out/bin
     cp -r bundle/* $out/
-    substituteInPlace $out/gemini.js --replace '/usr/bin/env node' "$(type -p node)"
+    patchShebangs $out
     ln -s $out/gemini.js $out/bin/qwen
 
     runHook postInstall
