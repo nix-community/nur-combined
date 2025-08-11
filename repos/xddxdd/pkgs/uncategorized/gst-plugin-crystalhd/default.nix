@@ -33,5 +33,6 @@ stdenv.mkDerivation rec {
     description = "Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin";
     homepage = "https://launchpad.net/ubuntu/+source/crystalhd";
     license = lib.licenses.unfreeRedistributable;
+    platforms = [ "x86_64-linux" ];
   };
 }

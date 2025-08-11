@@ -140,7 +140,7 @@ Or, use variables from this repository in case I change them:
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
-|  | `gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
+| `x86_64-linux` | `gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
@@ -156,7 +156,7 @@ Or, use variables from this repository in case I change them:
 |  | `kikoplay` | [kikoplay](https://kikoplay.fun) | 1.0.3 | More than a Full-Featured Danmu Player |
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
-|  | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
+| `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.9 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.14.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-07-29 | C library for prototyping and experimenting with quantum-resistant cryptography |
@@ -1141,7 +1141,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `uncategorized.grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
-|  | `uncategorized.gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
+| `x86_64-linux` | `uncategorized.gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `uncategorized.gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `uncategorized.hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `uncategorized.helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
@@ -1155,7 +1155,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.kikoplay` | [kikoplay](https://kikoplay.fun) | 1.0.3 | More than a Full-Featured Danmu Player |
 |  | `uncategorized.konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `uncategorized.ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
-|  | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
+| `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.9 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.14.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-07-29 | C library for prototyping and experimenting with quantum-resistant cryptography |
