@@ -61,8 +61,8 @@ in
       pain-control
       # Better session management
       sessionist
+      # X clipboard integration
       {
-        # X clipboard integration
         plugin = yank;
         extraConfig = ''
           # Use 'clipboard' because of misbehaving apps (e.g: firefox)
@@ -71,8 +71,8 @@ in
           set -g @yank_action 'copy-pipe'
         '';
       }
+      # Show when prefix has been pressed
       {
-        # Show when prefix has been pressed
         plugin = prefix-highlight;
         extraConfig = ''
           # Also show when I'm in copy or sync mode

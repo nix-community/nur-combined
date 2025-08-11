@@ -56,4 +56,7 @@ in
     XCOMPOSECACHE = "${dataHome}/X11/xcompose";
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java";
   };
+
+  # Some modules *optionally* use `XDG_*_HOME` when told to
+  config.home.preferXdgDirectories = lib.mkIf cfg.enable true;
 }
