@@ -1213,6 +1213,9 @@
             "submodules": true,
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
+        "thk": {
+            "url": "https://github.com/thkoch2001/nur-packages"
+        },
         "tilpner": {
             "url": "https://github.com/tilpner/nur-packages"
         },
