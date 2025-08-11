@@ -155,7 +155,7 @@
     version = "v1.17.0-2";
     src = fetchurl {
       url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.0-2/bilibili-asar-v1.17.0-2.tar.gz";
-      hash = "sha256-lsMlvamxj4YSzpUcWRqC8xC2aHrIv5XxJFHwk26qAa0=";
+      hash = "sha256-PukwZdkJeN3OcyKKONUzQOM3Jm58kmhX/RkcDIMyzso=";
     };
   };
   bilibili-src = {
@@ -165,7 +165,7 @@
       owner = "msojocs";
       repo = "bilibili-linux";
       tag = "v1.17.0-2";
-      hash = "sha256-0HQ1eStKywN4k4jJG4E4fYPILgmJdM7YPdSvXN/aexA=";
+      hash = "sha256-j6lf7gnZqnIRfL1pCdTpCtsxqEruO1CQGchNYz+0MWo=";
     };
   };
   bin-cpuflags-x86 = {

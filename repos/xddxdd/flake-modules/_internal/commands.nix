@@ -24,7 +24,7 @@
           TRY_NUM=$(( TRY_NUM + 1 ))
 
           echo "::group::Try $TRY_NUM: Building packages with nix-fast-build"
-          ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#${pkgsAttr}.$1 --skip-cached --no-nom -j1 2>&1 | tee $NIX_LOGFILE && exit 0
+          ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#${pkgsAttr}.$1 --skip-cached --no-nom -j1 >$NIX_LOGFILE 2>&1 && exit 0
           echo "::endgroup::"
 
           echo "::group::Try $TRY_NUM: Error log from nix-fast-build"
@@ -52,9 +52,10 @@
               done
             fi
           fi
-          rm -f $NIX_LOGFILE
         done
 
+        cat $NIX_LOGFILE
+        rm -f $NIX_LOGFILE
         exit 1
       '';
     in
