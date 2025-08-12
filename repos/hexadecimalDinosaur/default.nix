@@ -8,16 +8,25 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  p311 = pkgs.python311.pkgs;
+  p312 = pkgs.python312.pkgs;
+  p313 = pkgs.python313.pkgs;
+  p3 = pkgs.python3.pkgs;
+
+  pythonPackages = p: pkgs.recurseIntoAttrs ((import ./python.nix) p p);
+in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  android-unpinner = pkgs.python3.pkgs.callPackage ./pkgs/android-unpinner { };
+  android-unpinner = p3.callPackage ./pkgs/android-unpinner { };
   fzf-tab-completion = pkgs.callPackage ./pkgs/fzf-tab-completion { };
   harmonoid = pkgs.callPackage ./pkgs/harmonoid { };
   jetbrains-fleet = pkgs.callPackage ./pkgs/jetbrains-fleet { };
+
   tulip = pkgs.callPackage ./pkgs/tulip {
     inherit tulip-api tulip-assembler tulip-enricher tulip-flagids tulip-frontend;
   };
@@ -26,4 +35,8 @@ rec {
   tulip-enricher = pkgs.callPackage ./pkgs/tulip-enricher { };
   tulip-flagids = pkgs.callPackage ./pkgs/tulip-flagids { };
   tulip-frontend = pkgs.callPackage ./pkgs/tulip-frontend { };
+
+  python311Packages = pythonPackages p311;
+  python312Packages = pythonPackages p312;
+  python313Packages = pythonPackages p313;
 }
