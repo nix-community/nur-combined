@@ -33,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [makeWrapper jdk];
 
+  passthru.autoUpdate = false;
+
   buildInputs = [
     glibc
     # glib
