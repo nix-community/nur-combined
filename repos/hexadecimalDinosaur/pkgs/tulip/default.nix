@@ -6,8 +6,8 @@
   tulip-flagids,
   tulip-frontend
 }:
-buildEnv {
-  name = "tulip";
+buildEnv rec {
+  name = "${pname}-${version}";
   pname = "tulip";
   version = "1.0.1-2025.07.03.unstable";
   paths = [
