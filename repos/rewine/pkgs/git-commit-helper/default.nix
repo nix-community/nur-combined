@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "zccrs";
     repo = "git-commit-helper";
-    rev = "2d2775b26e645c15aa540b8130c5c9256c7a7563";
-    hash = "sha256-Bxx/N2F0T0qZmCRhWxPCVKohqSq6A24kXZnAvxi73Rw=";
+    rev = "f6b186f8f9d5abd73da78364dc028439d06c123c";
+    hash = "";
   };
 
   cargoHash = "sha256-EkbjMT2Uy5/fG5gOWDncvU0Y4T8GcJTYTOV7FKpDT2c=";
