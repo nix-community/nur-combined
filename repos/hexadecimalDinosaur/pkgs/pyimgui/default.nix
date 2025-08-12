@@ -2,6 +2,7 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+  pythonAtLeast,
   setuptools,
   cython_0,
   pyopengl,
@@ -29,6 +30,8 @@ buildPythonPackage rec {
     fetchSubmodules = true;
     hash = "sha256-sw/bLTdrnPhBhrnk5yyXCbEK4kMo+PdEvoMJ9aaZbsE=";
   };
+
+  disabled = pythonAtLeast "3.13";
 
   dependencies = [
     cython_0

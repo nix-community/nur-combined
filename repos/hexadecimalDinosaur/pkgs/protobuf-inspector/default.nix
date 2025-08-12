@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   dependencies = [];
 
-  format = "setuptools";
+  pyproject = true;
   build-system = [
     setuptools
   ];

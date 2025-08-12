@@ -9,12 +9,12 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  p311 = pkgs.python311.pkgs;
-  p312 = pkgs.python312.pkgs;
-  p313 = pkgs.python313.pkgs;
+  p311 = pkgs.python311;
+  p312 = pkgs.python312;
+  p313 = pkgs.python313;
   p3 = pkgs.python3.pkgs;
 
-  pythonPackages = p: pkgs.recurseIntoAttrs ((import ./python.nix) p p);
+  pythonPackages = p: pkgs.recurseIntoAttrs ((import ./python.nix { lib = pkgs.lib; }) p.version p.pkgs p.pkgs);
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special

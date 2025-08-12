@@ -12,7 +12,6 @@
 buildPythonPackage rec {
   pname = "flask-apscheduler";
   version = "1.13.1";
-  format = "setuptools";
 
   disabled = pythonOlder "3.8";
 
@@ -23,7 +22,8 @@ buildPythonPackage rec {
     hash = "sha256-0gZueUuBBpKGWE6OCJiJL/EEIMqCVc3hgLKwIWFuSZI=";
   };
 
-  propagatedBuildInputs = [
+  pyproject = true;
+  build-system = [
     setuptools
   ];
 

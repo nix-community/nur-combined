@@ -33,6 +33,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
+  pyproject = true;
   build-system = [
     setuptools
     wheel

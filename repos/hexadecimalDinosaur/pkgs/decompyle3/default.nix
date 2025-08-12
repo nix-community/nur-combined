@@ -3,6 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
+  setuptools,
+  pythonRelaxDepsHook,
   xdis,
   click,
   configobj,
@@ -20,14 +22,25 @@ buildPythonPackage rec {
     hash = "sha256-F/Wb8Nua8EInp4Pb5puDSqipfDjHJahm7S+tbAKKWIQ=";
   };
 
-  format = "setuptools";
+  pyproject = true;
+  build-system = [
+    setuptools
+  ];
   disabled = pythonOlder "3.7";
 
-  propagatedBuildInputs = [
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+  ];
+
+  dependencies = [
     xdis
     click
     configobj
     spark-parser
+  ];
+
+  pythonRelaxDeps = [
+    "spark-parser"
   ];
 
   pythonImportsCheck = [ "decompyle3" ];
