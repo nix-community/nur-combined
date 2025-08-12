@@ -1213,6 +1213,9 @@
             "submodules": true,
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
+        "the-code-fixer-23-nur": {
+            "url": "https://github.com/louiss0/the-code-fixer-23-nur"
+        },
         "thk": {
             "url": "https://github.com/thkoch2001/nur-packages"
         },
