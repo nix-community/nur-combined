@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-search-tv";
-  version = "2.1.7";
+  version = "2.1.8";
 
   src = fetchFromGitHub {
     owner = "3timeslazy";
     repo = "nix-search-tv";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-TyniXPYrSy7m3+WxHKN/pXWVpG4UqwwC/RUMSLaQYRU=";
+    sha256 = "sha256-WcA8j+qY9A3aLcaD7PYPb7AJ4wtKgogIZWqhIK3VFgM=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
