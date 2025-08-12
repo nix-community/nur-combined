@@ -34,7 +34,7 @@ let
         if stdenv.isDarwin && stdenv.isAarch64 then
           "sha256-2rfhOV+2RQr3A4dcvQkzgTVT8uXIW4l80XYZdPt/WDA=" # Darwin/aarch64
         else
-          "sha256-A+wqAr43hHWcoCIz8ClLHkIfM8/AVTnvybosCmTPGMY="; # Linux/x86_64
+          "sha256-vHv8t1nJqCGFbP7NGBRv2SmdVfl3wlYe0JwpwZqQ6rU="; # Linux/x86_64
     };
 
     nativeBuildInputs = [

@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     owner = "serpent213";
     repo = "pushlog";
     # tag = "v${version}";
-    tag = "3588e69c5dab897c84c91023dd88469426dfaca3";
+    rev = "3588e69c5dab897c84c91023dd88469426dfaca3";
     sha256 = "sha256-QHf2n29AbUSt9YULzXImM3ow8puFU7UzGM5amz1hiuY=";
   };
 
