@@ -235,12 +235,12 @@ in {
         inherit (pkgs) lib fetchFromGitHub;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "25.7.29";
+            version = "25.8.11-unstable-2025-08-11";
             src = fetchFromGitHub {
                 owner = "picolisp";
                 repo = "pil21";
-                rev = "7f504e653f7376cc932cceb1dcbea7f40c7ecf09";
-                hash = "sha256-qKMLLE3/jUw1MLw8gph2KhpNronTG1UrP/RzP8y9NzA=";
+                rev = "596904a03411a164e45a86a5c911b9eaaf18dc20";
+                hash = "sha256-BSZU134O1oFr+0oMTk06dJsSsvtkDt2OH1T7/nH8w8Q=";
             };
             sourceRoot = null;
             passthru = (old.passthru or {}) // {
