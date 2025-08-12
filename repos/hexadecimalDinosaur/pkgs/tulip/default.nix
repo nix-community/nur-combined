@@ -1,4 +1,5 @@
 {
+  lib,
   buildEnv,
   tulip-api,
   tulip-assembler,
@@ -17,4 +18,12 @@ buildEnv rec {
     tulip-flagids
     tulip-frontend
   ];
+
+  meta = {
+    description = "Network analysis tool for Attack Defence CTF";
+    homepage = "https://github.com/OpenAttackDefenseTools/tulip/";
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ ivyfanchiang ];
+    mainProgram = "tulip-api";
+  };
 }
