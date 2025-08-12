@@ -14,7 +14,7 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
-    package = inputs'.dae.packages.dae-dirty;
+    package = inputs'.dae.packages.dae-next;
     # package = inputs'.dae.packages.dae-unstable;
     config = ''
       include {
@@ -27,7 +27,8 @@ reIf {
           check_tolerance: 50ms
           wan_interface: auto
           allow_insecure: false
-          dial_mode: domain++
+          sniff_verify_mode: strict
+          reroute_mode: force
           disable_waiting_network: false
           auto_config_kernel_parameter: true
           enable_local_tcp_fast_redirect: true

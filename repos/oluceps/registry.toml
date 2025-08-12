@@ -47,6 +47,7 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDqkU3B6vPZKh1ETslE7GAmSD7exr3Mr7uIVKuAW4pR"
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
+iata = "HKG"
 
 [node.abhoth]
 # dmit
@@ -58,6 +59,7 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRMxm3SFj1DwUjCTF4ByMVYQNMOPzi/Kqff5fTEvtG9"
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"
 wg_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
+iata = "NRT"
 
 # [node.azasos]
 # # tencent cloud | censored

@@ -150,6 +150,31 @@ reIf {
           );
         }
         {
+          job_name = "tcp";
+          scheme = "http";
+          metrics_path = "/probe";
+          params = {
+            module = [ "tcp_connect" ];
+          };
+          static_configs = [
+            {
+              targets = [
+                "[2001:4860:4860::8888]:53" # google
+                "103.213.4.159:80" # hk1
+                "[2401:5a0:1000:96::a]:80"
+
+                "154.31.114.112:80" # jp1
+                "[2403:18c0:1000:13a:343b:65ff:fe1b:7a0f]:80"
+
+                "45.95.212.129:80" # jp2
+              ];
+            }
+          ];
+          relabel_configs = gen_relabel_configs (
+            with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
+          );
+        }
+        {
           job_name = "ping";
           scheme = "http";
           metrics_path = "/probe";
@@ -315,6 +340,10 @@ reIf {
             };
             icmp = {
               prober = "icmp";
+            };
+            tcp_connect = {
+              prober = "tcp";
+              timeout = "5s";
             };
           };
         };

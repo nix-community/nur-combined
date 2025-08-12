@@ -16,7 +16,9 @@ reIf {
           root_url = "https://gf.nyaw.xyz/";
           serve_from_sub_path = false;
         };
-        auth.oauth_allow_insecure_email_lookup = true;
+        auth = {
+          oauth_allow_insecure_email_lookup = true;
+        };
       };
     };
   };

@@ -401,16 +401,16 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1753599661,
-        "narHash": "sha256-pVAkv3vBp54S5A2/ynEIf0m8kXnWkm+qd0CYsdorkBE=",
+        "lastModified": 1755013406,
+        "narHash": "sha256-jWt217efJF3a4vMbn4LY4/Arx1hIBvuvNThrSAqUvaA=",
         "owner": "oluceps",
         "repo": "flake.nix",
-        "rev": "1fc24d4fb52eee983747d3d8f040d077560f41c4",
+        "rev": "572ffbbcfd41ff36c837d5c5fa32935c4a0dc32b",
         "type": "github"
       },
       "original": {
         "owner": "oluceps",
-        "ref": "dirty",
+        "ref": "next",
         "repo": "flake.nix",
         "type": "github"
       }

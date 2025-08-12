@@ -9,13 +9,12 @@ with pkgs;
   amberol
   nix-weather
   mako
-  xwayland-satellite
   # qq
   # chromium
   # apotris
   # celeste
   stellarium
-  celluloid
+  # celluloid
   # thiefmd
   # wpsoffice
   # fractal
@@ -45,7 +44,7 @@ with pkgs;
   # yuzu-mainline
   # photoprism
 
-  virt-manager
+  # virt-manager
   # xdg-utils
   hyfetch
 
@@ -88,11 +87,11 @@ with pkgs;
   # feeluown-qqmusic
 
   # chntpw
-  libnotify
+  # libnotify
 
   # Perf
-  stress
-  s-tui
+  # stress
+  # s-tui
 
   # reader
   calibre
@@ -108,7 +107,7 @@ with pkgs;
   lapce
   # cinnamon.nemo
   nautilus
-  gnome-boxes
+  # gnome-boxes
   evince
   # zathura
 
