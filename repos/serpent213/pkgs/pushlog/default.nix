@@ -11,8 +11,9 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "serpent213";
     repo = "pushlog";
-    tag = "v${version}";
-    sha256 = "sha256-xlzEBSV6AKj24E/RZKksBnYQtNAaHZaff9p0K6Lxvco=";
+    # tag = "v${version}";
+    tag = "3588e69c5dab897c84c91023dd88469426dfaca3";
+    sha256 = "sha256-QHf2n29AbUSt9YULzXImM3ow8puFU7UzGM5amz1hiuY=";
   };
 
   nativeBuildInputs = with python3Packages; [
