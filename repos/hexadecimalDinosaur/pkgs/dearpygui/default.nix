@@ -39,10 +39,8 @@ buildPythonPackage rec {
     cmake
   ];
 
-  nativeCheckInputs = [
-  ];
-
   pythonImportsCheck = [
+    "dearpygui.dearpygui"
   ];
 
    meta = {
