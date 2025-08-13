@@ -12,7 +12,11 @@ version: pyfinal: pyprev: (rec {
     patches = [
       ./pkgs/xdis/xdis.patch
     ];
-  })) else pyfinal.xdis;
+  })) else (if pyprev.xdis.version == "6.1.5" then (pyprev.xdis.overrideAttrs (final: old: {
+    patches = [
+      ./pkgs/xdis/xdis615.patch
+    ];
+  })) else pyfinal.xdis);
   x-python = pyfinal.callPackage ./pkgs/x-python/default.nix { inherit xdis; };
 } //
 (if ((version == null) || ((lib.toInt (lib.versions.minor version)) < 13)) then {
