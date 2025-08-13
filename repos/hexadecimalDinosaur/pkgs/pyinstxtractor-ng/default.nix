@@ -27,6 +27,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [
     "pycryptodome"
+    "xdis"
   ];
   dependencies = [
     xdis
