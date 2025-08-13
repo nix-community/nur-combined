@@ -27,9 +27,9 @@ function error {
 }
 
 path=$(dirname "${1:-.}")
-if [ ! -d "$path" ]; then
+if [[ ! -d "$path" ]]; then
     error "directory $path does not exist"
-elif [ ! -f "$path/flake.nix" ]; then
+elif [[ ! -f "$path/flake.nix" ]]; then
     error "file $path/flake.nix does not exist"
 fi
 

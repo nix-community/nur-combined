@@ -14,7 +14,7 @@ npm_icon="\ued0e"
 go_icon="\ue7ef"
 
 if colors=$(tput colors 2> /dev/null); then
-    if [ "$colors" -ge 256 ]; then
+    if [[ "$colors" -ge 256 ]]; then
         reset_color=$(tput sgr0)
         info_color=$(tput setaf 189)
         warn_color=$(tput setaf 216)
@@ -35,7 +35,7 @@ if colors=$(tput colors 2> /dev/null); then
 fi
 
 function info {
-    if [ -n "${2-}" ]; then # icon
+    if [[ -n "${2-}" ]]; then # icon
         printf "%s %s%s%s\n" "$1" "${info_color}" "$2" "$reset_color"
     else
         printf "%s%s%s\n" "${info_color}" "$1" "$reset_color"
@@ -43,7 +43,7 @@ function info {
 }
 
 function warn {
-    if [ -n "${2-}" ]; then # icon
+    if [[ -n "${2-}" ]]; then # icon
         printf "%s %s%s%s\n" "$1" "${warn_color}" "$2" "$reset_color"
     else
         printf "%s%s%s\n" "${warn_color}" "$1" "$reset_color"
@@ -51,7 +51,7 @@ function warn {
 }
 
 function success {
-    if [ -n "${2-}" ]; then # icon
+    if [[ -n "${2-}" ]]; then # icon
         printf "%s %s%s%s\n" "$1" "${success_color}" "$2" "$reset_color"
     else
         printf "%s%s%s\n" "${success_color}" "$1" "$reset_color"
@@ -59,7 +59,7 @@ function success {
 }
 
 function git_info {
-    if [ ! -d ".git" ]; then
+    if [[ ! -d ".git" ]]; then
         warn "$git_icon" "not a git repository"
         return 1
     fi
@@ -69,20 +69,17 @@ function git_info {
         return 1
     fi
 
-    branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-    if [ -z "${branch}" ]; then
+    if ! branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null); then
         warn "$git_icon" "not on a branch"
         return 1
     fi
 
-    remote=$(git config --get branch."${branch}".remote 2> /dev/null)
-    if [ -z "${remote}" ]; then
+    if ! remote=$(git config --get branch."${branch}".remote 2> /dev/null); then
         warn "$git_icon" "branch ${branch} does not have a remote set"
         return 1
     fi
 
-    url=$(git config --get remote."${remote}".url 2> /dev/null)
-    if [ -z "${url}" ]; then
+    if ! url=$(git config --get remote."${remote}".url 2> /dev/null); then
         warn "$git_icon" "remote ${remote} does not have a URL set"
         return 1
     fi
@@ -110,11 +107,11 @@ function git_info {
     local_hash=$(git rev-parse "${branch}")
     remote_hash=$(git rev-parse "${remote}"/"${branch}")
     base_hash=$(git merge-base "${branch}" "${remote}"/"${branch}")
-    if [ "${local_hash}" = "${remote_hash}" ]; then
+    if [[ "${local_hash}" = "${remote_hash}" ]]; then
         info "$git_icon" "up-to-date"
-    elif [ "${local_hash}" = "${base_hash}" ]; then
+    elif [[ "${local_hash}" = "${base_hash}" ]]; then
         warn "$git_icon" "there are remote changes"
-    elif [ "${remote_hash}" = "${base_hash}" ]; then
+    elif [[ "${remote_hash}" = "${base_hash}" ]]; then
         warn "$git_icon" "there are local changes"
     else
         warn "$git_icon" "diverged"
@@ -124,7 +121,7 @@ function git_info {
 }
 
 function nix_info {
-    if [ ! -f "flake.nix" ]; then
+    if [[ ! -f "flake.nix" ]]; then
         return 1
     fi
 
@@ -144,9 +141,9 @@ function nix_info {
     lastModified=$(echo "$metadata" | jq ".lastModified")
     timeSince=$(( $(date +%s) - lastModified ))
     daysSince=$(( timeSince / 86400 ))
-    if [ "$daysSince" -eq 0 ]; then
+    if [[ "$daysSince" -eq 0 ]]; then
         info "$nix_icon" "last modified today"
-    elif [ "$daysSince" -eq 1 ]; then
+    elif [[ "$daysSince" -eq 1 ]]; then
         info "$nix_icon" "last modified 1 day ago"
     else
         info "$nix_icon" "last modified ${daysSince} days ago"
@@ -156,7 +153,7 @@ function nix_info {
 }
 
 function npm_info {
-    if [ ! -f "package.json" ]; then
+    if [[ ! -f "package.json" ]]; then
         return 1
     fi
 
@@ -189,7 +186,7 @@ function npm_info {
 }
 
 function go_info {
-    if [ ! -f "go.mod" ]; then
+    if [[ ! -f "go.mod" ]]; then
         return 1
     fi
 
@@ -203,8 +200,7 @@ function go_info {
         return 1
     fi
 
-    version=$(echo "$modules" | jq 'select(has("Main"))' | jq -r ".GoVersion")
-    if [ -n "$version" ]; then
+    if version=$(echo "$modules" | jq 'select(has("Main"))' | jq -r ".GoVersion"); then
         info "$go_icon" "version ${version}"
     fi
 
@@ -213,7 +209,7 @@ function go_info {
     info "$go_icon" "$deps_count dependencies"
 
     outdated_count=$(echo "$deps" | jq 'select(has("Update"))' | jq -s "length")
-    if [ "$outdated_count" -eq 0 ]; then
+    if [[ "$outdated_count" -eq 0 ]]; then
         info "$go_icon" "up-to-date"
     else
         warn "$go_icon" "$outdated_count outdated"
@@ -242,13 +238,10 @@ for key in "${!pids[@]}"; do
     pids["${key}"]=$?
 done
 
-if [ "${pids["git"]}" -eq 0 ] && [ "${pids["nix"]}" -eq 0 ]; then
-    if [ ! -f ".git/hooks/pre-push" ]; then
-        info " creating git pre-push hook"
+if [[ "${pids["git"]}" -eq 0 ]] && [[ "${pids["nix"]}" -eq 0 ]]; then
+    if [[ ! -f ".git/hooks/pre-push" ]]; then
+        info "$git_icon" "creating git pre-push hook"
         echo "nix flake check --accept-flake-config" > .git/hooks/pre-push
         chmod +x .git/hooks/pre-push
     fi
 fi
-
-echo
-success "loaded"
