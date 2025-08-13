@@ -50,6 +50,7 @@ lib.makeScope newScope (
     rcon-cli = callPackage ./rcon-cli { };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
+    rlt = callPackage ./rlt { };
     ssl-handshake = callPackage ./ssl-handshake { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };

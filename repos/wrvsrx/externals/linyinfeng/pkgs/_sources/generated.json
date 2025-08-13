@@ -185,12 +185,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.36-linux-250706T135608Z",
-            "sha256": "sha256-SDVzTh1qX+0VTsGA8G6tbcH+CqVLIerOEyJ68hdi5Bk=",
+            "rev": "lts-v6.12.40-linux-250728T040815Z",
+            "sha256": "sha256-+udikt+eNIj3gud3lyAnUyGWUpX10wyH6+ONSCUn6sg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.36-linux-250706T135608Z"
+        "version": "lts-v6.12.40-linux-250728T040815Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -410,7 +410,7 @@
     },
     "rime-bopomofo": {
         "cargoLocks": null,
-        "date": "2021-01-31",
+        "date": "2025-07-29",
         "extract": null,
         "name": "rime-bopomofo",
         "passthru": null,
@@ -420,13 +420,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c7618f4f5728e1634417e9d02ea50d82b71956ab",
-            "sha256": "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=",
+            "rev": "1859af68a927ba3cd5afb8c47feedcecf874dab2",
+            "sha256": "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-bopomofo.git"
         },
-        "version": "c7618f4f5728e1634417e9d02ea50d82b71956ab"
+        "version": "1859af68a927ba3cd5afb8c47feedcecf874dab2"
     },
     "rime-cangjie": {
         "cargoLocks": null,
@@ -530,7 +530,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-07-06",
+        "date": "2025-08-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -540,13 +540,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7acdee60d09602383b6299d1bdaaba03f0a57869",
-            "sha256": "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=",
+            "rev": "5725c4cd295797fcd92a80c7892000dcf0e30710",
+            "sha256": "sha256-nPkwX5ruvCkQZ4yKNVuh72RmbLiEs/lkjb7mPQURVWw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "7acdee60d09602383b6299d1bdaaba03f0a57869"
+        "version": "5725c4cd295797fcd92a80c7892000dcf0e30710"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -570,7 +570,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2025-04-20",
+        "date": "2025-08-05",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -580,13 +580,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9593090080294a7dfc3c864c087e4070459c0168",
-            "sha256": "sha256-Qu7el4IvmeyUx7Zap7yRlpwxBkEBEhis+KO27qanGjg=",
+            "rev": "46acf03142c12b5aeed7002675046bf7255eed35",
+            "sha256": "sha256-gwqThVCjEZnIWI+WVgRPxVBUN0bp52QoL9LHONSlDw4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "9593090080294a7dfc3c864c087e4070459c0168"
+        "version": "46acf03142c12b5aeed7002675046bf7255eed35"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
@@ -670,7 +670,7 @@
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
-        "date": "2024-12-25",
+        "date": "2025-07-22",
         "extract": null,
         "name": "rime-terra-pinyin",
         "passthru": null,
@@ -680,13 +680,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "333ec4128fa1f93924a0707da3c623ccd92a73f0",
-            "sha256": "sha256-yc/2InxVG1daKSNoLZOuvrR/6BqiHmawg6HpGVMgPgI=",
+            "rev": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a",
+            "sha256": "sha256-DMTVdwjR1Q5wtODrrBTQOWlGokmqhBF+N0yDbYdJERI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
-        "version": "333ec4128fa1f93924a0707da3c623ccd92a73f0"
+        "version": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a"
     },
     "rime-wubi": {
         "cargoLocks": null,
@@ -727,6 +727,32 @@
             "url": "https://github.com/rime/rime-wugniu.git"
         },
         "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
+    },
+    "rlt": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./rlt-v0.1.6/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "rlt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kaichaosun",
+            "repo": "rlt",
+            "rev": "v0.1.6",
+            "sha256": "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.6"
     },
     "secureboot_objects": {
         "cargoLocks": null,

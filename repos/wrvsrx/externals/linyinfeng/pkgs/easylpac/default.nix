@@ -38,7 +38,8 @@ buildGoModule rec {
     gtk3
     libglvnd
     xorg.libXxf86vm
-  ] ++ glfw.buildInputs;
+  ]
+  ++ glfw.buildInputs;
 
   postInstall = ''
     ln -s "${lpac}/bin/lpac" "$out/bin/lpac"

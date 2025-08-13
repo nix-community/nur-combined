@@ -101,6 +101,11 @@ let
         "gorcon" = "gorcon";
       };
     }
+    {
+      "rlt" = {
+        "localtunnel" = "localtunnel";
+      };
+    }
     # keep-sorted end
   ];
 in

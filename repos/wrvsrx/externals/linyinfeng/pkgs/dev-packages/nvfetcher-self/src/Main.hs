@@ -53,6 +53,7 @@ packageSet = do
   linuxIntelTts
   mstickereditor
   niriTaskbar
+  rlt
   tgSend
   yacd
   zeronsd
@@ -153,4 +154,11 @@ niriTaskbar =
   define $
     package "niri-taskbar"
       `fromGitHubTag` ("LawnGnome", "niri-taskbar", id)
+      `hasCargoLocks` ["Cargo.lock"]
+
+rlt :: PackageSet ()
+rlt =
+  define $
+    package "rlt"
+      `fromGitHubTag` ("kaichaosun", "rlt", id)
       `hasCargoLocks` ["Cargo.lock"]

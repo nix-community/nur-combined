@@ -23,8 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.LPAC_VERSION = finalAttrs.src.rev;
 
   cmakeFlags =
-    optional drivers "-DLPAC_DYNAMIC_DRIVERS=on"
-    ++ optional libeuicc "-DLPAC_DYNAMIC_LIBEUICC=on";
+    optional drivers "-DLPAC_DYNAMIC_DRIVERS=on" ++ optional libeuicc "-DLPAC_DYNAMIC_LIBEUICC=on";
 
   nativeBuildInputs = [
     cmake

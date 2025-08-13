@@ -115,13 +115,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.36-linux-250706T135608Z";
+    version = "lts-v6.12.40-linux-250728T040815Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.36-linux-250706T135608Z";
+      rev = "lts-v6.12.40-linux-250728T040815Z";
       fetchSubmodules = false;
-      sha256 = "sha256-SDVzTh1qX+0VTsGA8G6tbcH+CqVLIerOEyJ68hdi5Bk=";
+      sha256 = "sha256-+udikt+eNIj3gud3lyAnUyGWUpX10wyH6+ONSCUn6sg=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -260,17 +260,17 @@
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
-    version = "c7618f4f5728e1634417e9d02ea50d82b71956ab";
+    version = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
-      rev = "c7618f4f5728e1634417e9d02ea50d82b71956ab";
+      rev = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=";
+      sha256 = "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=";
     };
-    date = "2021-01-31";
+    date = "2025-07-29";
   };
   rime-cangjie = {
     pname = "rime-cangjie";
@@ -344,17 +344,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7acdee60d09602383b6299d1bdaaba03f0a57869";
+    version = "5725c4cd295797fcd92a80c7892000dcf0e30710";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
+      rev = "5725c4cd295797fcd92a80c7892000dcf0e30710";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
+      sha256 = "sha256-nPkwX5ruvCkQZ4yKNVuh72RmbLiEs/lkjb7mPQURVWw=";
     };
-    date = "2025-07-06";
+    date = "2025-08-08";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -372,17 +372,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "9593090080294a7dfc3c864c087e4070459c0168";
+    version = "46acf03142c12b5aeed7002675046bf7255eed35";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "9593090080294a7dfc3c864c087e4070459c0168";
+      rev = "46acf03142c12b5aeed7002675046bf7255eed35";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Qu7el4IvmeyUx7Zap7yRlpwxBkEBEhis+KO27qanGjg=";
+      sha256 = "sha256-gwqThVCjEZnIWI+WVgRPxVBUN0bp52QoL9LHONSlDw4=";
     };
-    date = "2025-04-20";
+    date = "2025-08-05";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
@@ -442,17 +442,17 @@
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";
-    version = "333ec4128fa1f93924a0707da3c623ccd92a73f0";
+    version = "9e7673360c5dc9d945e2ba3f167833bb9217ca6a";
     src = fetchgit {
       url = "https://github.com/rime/rime-terra-pinyin.git";
-      rev = "333ec4128fa1f93924a0707da3c623ccd92a73f0";
+      rev = "9e7673360c5dc9d945e2ba3f167833bb9217ca6a";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yc/2InxVG1daKSNoLZOuvrR/6BqiHmawg6HpGVMgPgI=";
+      sha256 = "sha256-DMTVdwjR1Q5wtODrrBTQOWlGokmqhBF+N0yDbYdJERI=";
     };
-    date = "2024-12-25";
+    date = "2025-07-22";
   };
   rime-wubi = {
     pname = "rime-wubi";
@@ -481,6 +481,23 @@
       sha256 = "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=";
     };
     date = "2019-01-20";
+  };
+  rlt = {
+    pname = "rlt";
+    version = "v0.1.6";
+    src = fetchFromGitHub {
+      owner = "kaichaosun";
+      repo = "rlt";
+      rev = "v0.1.6";
+      fetchSubmodules = false;
+      sha256 = "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./rlt-v0.1.6/Cargo.lock;
+      outputHashes = {
+
+      };
+    };
   };
   secureboot_objects = {
     pname = "secureboot_objects";
