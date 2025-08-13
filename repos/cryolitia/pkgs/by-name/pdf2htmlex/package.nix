@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    (lib.cmakeFeature "CMAKE_INSTALL_RPATH" lib.makeLibraryPath [ freetype ])
+    (lib.cmakeFeature "CMAKE_INSTALL_RPATH" (lib.makeLibraryPath [ freetype ]))
   ];
 
   meta = {
