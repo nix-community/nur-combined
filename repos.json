@@ -133,6 +133,9 @@
         "agaia": {
             "url": "https://github.com/adam-gaia/nur-packages"
         },
+        "akinokaede": {
+            "url": "https://github.com/AkinoKaede/nur-packages"
+        },
         "alarsyo": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
