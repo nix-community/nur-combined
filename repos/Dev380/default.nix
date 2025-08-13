@@ -17,4 +17,5 @@
   wisdom-tree = pkgs.callPackage ./pkgs/wisdom-tree { };
   nohang = pkgs.callPackage ./pkgs/nohang { };
   blue-screen-of-life-grub = pkgs.callPackage ./pkgs/blue-screen-of-life-grub { };
+  rbonsai = pkgs.callPackage ./pkgs/rbonsai { };
 }
