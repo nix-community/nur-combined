@@ -1,0 +1,3 @@
+{
+  nixos = import ./nixos;
+}
