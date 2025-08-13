@@ -16,7 +16,7 @@ in
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
     rev = "v${sources.beta.version}";
-    sha256 = sources.beta.hash;
+    hash = sources.beta.hash;
   };
 
   passthru.updateScript = ./update.sh;

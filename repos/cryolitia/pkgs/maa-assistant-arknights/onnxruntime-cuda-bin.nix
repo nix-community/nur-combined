@@ -17,7 +17,7 @@ let
 
   src2 = fetchzip {
     url = "https://github.com/microsoft/onnxruntime/archive/refs/tags/v${ver}.zip";
-    sha256 = "sha256-KZWIAYrwSznIKOvh1rcYJQQ2Q6a/DuWmt4NxM2ztxkM=";
+    hash = "sha256-KZWIAYrwSznIKOvh1rcYJQQ2Q6a/DuWmt4NxM2ztxkM=";
   };
 in
 stdenvNoCC.mkDerivation rec {
@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/microsoft/onnxruntime/releases/download/v${version}/onnxruntime-linux-x64-gpu-${version}.tgz";
-    sha256 = "sha256-6riROTAl7dWBjRqiakKGDlc5/MSePKP4dhEOyHNv5/E=";
+    hash = "sha256-6riROTAl7dWBjRqiakKGDlc5/MSePKP4dhEOyHNv5/E=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];

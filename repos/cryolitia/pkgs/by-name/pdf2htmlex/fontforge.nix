@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "fontforge";
     repo = "fontforge";
     tag = finalAttrs.version;
-    sha256 = "sha256-QygbZVJLel+QKTdJSO2hIzA1JgcUDsOOF67O35t4uxw=";
+    hash = "sha256-QygbZVJLel+QKTdJSO2hIzA1JgcUDsOOF67O35t4uxw=";
   };
 
   patches = [
@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       name = "fontforge-cmake-set-rpath-to-the-configure-time-CMAKE_INSTALL_PREFIX";
       url = "https://github.com/fontforge/fontforge/commit/297ee9b5d6db5970ca17ebe5305189e79a1520a1.patch";
-      sha256 = "14qfp8pwh0vzzib4hq2nc6xhn8lc1cal1sb0lqwb2q5dijqx5kqk";
+      hash = "14qfp8pwh0vzzib4hq2nc6xhn8lc1cal1sb0lqwb2q5dijqx5kqk";
     })
   ];
 

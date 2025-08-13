@@ -24,7 +24,7 @@ let
     owner = "poppler";
     repo = "poppler-data";
     tag = "POPPLER_DATA_0_4_9";
-    sha256 = "sha256-sNvIgxXXLuTe7JWs67Z+fv4r4smLPKpDu83fvRYoasQ=";
+    hash = "sha256-sNvIgxXXLuTe7JWs67Z+fv4r4smLPKpDu83fvRYoasQ=";
   };
   fontforge = callPackage ./fontforge.nix { };
 in
@@ -37,6 +37,11 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-ylLDLheRUy1hAxVneF1HQwDnGTWko0SE3G1M9SFCr9w=";
   };
+
+  patches = [
+    ./0001-fix-apple-sdk-iconv.patch
+    ./0002-include-glib.patch
+  ];
 
   # The pdf2htmlEX needs lots of private headers from poppler and fontforge,
   # it also needs the static libraries.
@@ -58,8 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dvm644 -t ./fontforge/inc/ ${fontforge.src}/inc/*.h
     install -Dvm644 -t ./fontforge/fontforge/ ${fontforge.src}/fontforge/*.h
     install -Dvm644 -t ./fontforge/build/lib/ ${fontforge}/lib/libfontforge.a
-
-    sed -i '8i include_directories("${glib.out}/lib/glib-2.0/include" "${glib.dev}/include/glib-2.0")' pdf2htmlEX/CMakeLists.txt
 
     popd
   '';
@@ -84,6 +87,10 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     jdk17
     pkg-config
+  ];
+
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_INSTALL_RPATH" lib.makeLibraryPath [ freetype ])
   ];
 
   meta = {

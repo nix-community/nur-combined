@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/MaaAssistantArknights/MaaX/releases/download/v2.0.0-beta.14/maa-x-linux-x64-2.0.0-beta.14.zip";
-    sha256 = "sha256-FU/1CPxgi8GK1oZna+LZMc3J04Wn7Fph0c7CIqx1tIE=";
+    hash = "sha256-FU/1CPxgi8GK1oZna+LZMc3J04Wn7Fph0c7CIqx1tIE=";
   };
 
   nativeBuildInputs = [

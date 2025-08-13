@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation {
     owner = "shenlebantongying";
     repo = "rime_latex";
     rev = "fb32dc50c19b3913023199ceaae22168cd5a7db7";
-    sha256 = "sha256-ZSnfkHc0yyXZTVZBjPI8mcjR9CRyKy8qpQFww2VF3QI=";
+    hash = "sha256-ZSnfkHc0yyXZTVZBjPI8mcjR9CRyKy8qpQFww2VF3QI=";
   };
 
   installPhase = ''

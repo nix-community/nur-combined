@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "poppler";
     repo = "poppler";
     tag = "poppler-${finalAttrs.version}";
-    sha256 = "sha256-I6hapmimQSueU+mcaH/RBtWENPqNeM9cMSZ139Q4j70=";
+    hash = "sha256-I6hapmimQSueU+mcaH/RBtWENPqNeM9cMSZ139Q4j70=";
   };
 
   patches = [
