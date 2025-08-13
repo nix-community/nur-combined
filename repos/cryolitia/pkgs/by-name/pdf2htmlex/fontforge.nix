@@ -13,6 +13,7 @@
   uthash,
   zeromq,
   zlib,
+  fontforge,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -98,14 +99,9 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dvm644 -t $out/include/ ./inc/*.h
   '';
 
-  meta = {
-    description = "Font editor";
-    homepage = "https://fontforge.github.io";
-    platforms = lib.platforms.all;
-    license = lib.licenses.bsd3;
+  meta = fontforge.meta // {
     maintainers = with lib.maintainers; [
-      philiptaron
-      ulysseszhan
+      Cryolitia
     ];
   };
 })

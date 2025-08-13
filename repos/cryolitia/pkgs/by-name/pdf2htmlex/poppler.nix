@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = poppler.meta // {
     maintainers = with lib.maintainers; [
-      cryolitia
+      Cryolitia
     ];
   };
 })
