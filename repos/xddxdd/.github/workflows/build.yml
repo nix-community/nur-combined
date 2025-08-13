@@ -33,7 +33,7 @@ jobs:
           remove-docker-images: 'true'
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.AUTOMERGE_TOKEN }}
 
@@ -99,7 +99,7 @@ jobs:
       GIT_SSL_NO_VERIFY: 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v3
@@ -124,7 +124,7 @@ jobs:
       GIT_SSL_NO_VERIFY: 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v3
@@ -163,7 +163,7 @@ jobs:
   #     id-token: 'write'
   #     contents: 'read'
   #   steps:
-  #     - uses: 'actions/checkout@v4'
+  #     - uses: 'actions/checkout@v5'
   #     - uses: 'DeterminateSystems/nix-installer-action@main'
   #     - uses: 'DeterminateSystems/flakehub-push@main'
   #       with:
