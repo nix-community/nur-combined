@@ -32,6 +32,9 @@ rec {
 
   # DBLP tools
   dblp-tools = pkgs.callPackage ./pkgs/dblp-tools { };
+
+  # Gimsatul SAT sollver
+  gimsatul = pkgs.callPackage ./pkgs/gimsatul { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
