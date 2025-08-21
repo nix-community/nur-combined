@@ -29,32 +29,14 @@
         "AsterisMono": {
             "url": "https://github.com/AsterisMono/nur-packages"
         },
-        "AusCyber": {
-            "url": "https://github.com/Auscyber/nur-packages"
-        },
         "DanNixon": {
             "url": "https://github.com/DanNixon/nur-packages"
-        },
-        "Dev380": {
-            "url": "https://github.com/Dev380/nur-repo"
-        },
-        "DimitarNestorov": {
-            "url": "https://github.com/DimitarNestorov/Nix-user-repository-packages"
         },
         "Educorreia932": {
             "url": "https://github.com/Educorreia932/nur-packages"
         },
-        "Emin017": {
-            "url": "https://github.com/Emin017/nur-packages"
-        },
         "Ex-32": {
             "url": "https://github.com/Ex-32/nur-packages"
-        },
-        "Freed-Wu": {
-            "url": "https://github.com/Freed-Wu/nur-packages"
-        },
-        "GNUqb114514": {
-            "url": "https://github.com/GNUqb114514/nur-packages"
         },
         "HeyImKyu": {
             "url": "https://github.com/HeyImKyu/nur-packages"
@@ -90,26 +72,17 @@
         "Redrield": {
             "url": "https://github.com/Redrield/nurpkgs"
         },
-        "Rhys-T": {
-            "url": "https://github.com/Rhys-T/nur-packages"
-        },
         "RossSmyth": {
             "url": "https://github.com/RossSmyth/nur"
         },
         "Samuel-Martineau": {
             "url": "https://github.com/Samuel-Martineau/nur-packages"
         },
-        "Sittymin": {
-            "url": "https://github.com/Sittymin/NUR"
-        },
         "SuperKenVery": {
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
         "Vortriz": {
             "url": "https://github.com/Vortriz/nur-packages"
-        },
-        "YisuiMilena": {
-            "url": "https://github.com/YisuiDenghua/nur-apps"
         },
         "Ziyoid": {
             "url": "https://github.com/Ziyoid/nurpkgs"
@@ -122,10 +95,6 @@
         },
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
-        },
-        "abszero": {
-            "file": "nur.nix",
-            "url": "https://github.com/Weathercold/nixfiles"
         },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
@@ -148,13 +117,6 @@
         },
         "alwinb": {
             "url": "https://gitlab.com/AlwinB/nur-packages"
-        },
-        "ambroisie": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/ambroisie/nix-config"
-        },
-        "amesgen": {
-            "url": "https://github.com/amesgen/nur-packages"
         },
         "andreasrid": {
             "url": "https://github.com/andreasrid/nur-packages"
@@ -184,10 +146,6 @@
         },
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
-        },
-        "ataraxiasjel": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
             "url": "https://github.com/avrahambenaram/nur-packages"
@@ -250,9 +208,6 @@
         "blemouzy": {
             "url": "https://github.com/blemouzy/nur-packages"
         },
-        "bot-wxt1221": {
-            "url": "https://github.com/Bot-wxt1221/Bot-wxt1221-nur"
-        },
         "breakingtv": {
             "url": "https://github.com/BreakingTV/nur-packages"
         },
@@ -266,9 +221,6 @@
             "file": "nur.nix",
             "url": "https://github.com/c2vi/nixos"
         },
-        "caarlos0": {
-            "url": "https://github.com/caarlos0/nur"
-        },
         "cameronyule": {
             "url": "https://github.com/cameronyule/nurpkgs"
         },
@@ -279,12 +231,6 @@
         "chagra": {
             "url": "https://github.com/ihebchagra/nur-packages"
         },
-        "chap9": {
-            "url": "https://github.com/chap9/chap9-nur"
-        },
-        "charmbracelet": {
-            "url": "https://github.com/charmbracelet/nur"
-        },
         "chen": {
             "url": "https://github.com/cu1ch3n/nur-packages"
         },
@@ -293,9 +239,6 @@
         },
         "chigyutendies": {
             "url": "https://github.com/pillowtrucker/tooo000oooot"
-        },
-        "chillcicada": {
-            "url": "https://github.com/chillcicada/nurpkgs"
         },
         "chisui": {
             "url": "https://github.com/chisui/nur-pkgs"
@@ -306,15 +249,6 @@
         "chrisoboe": {
             "url": "https://github.com/ChrisOboe/nurrepo"
         },
-        "chrjabs": {
-            "url": "https://github.com/chrjabs/nur-packages"
-        },
-        "clefru": {
-            "url": "https://github.com/clefru/nur-packages"
-        },
-        "codgician": {
-            "url": "https://github.com/codgician/nur-packages"
-        },
         "colorman": {
             "url": "https://github.com/TheColorman/nurpkgs"
         },
@@ -324,10 +258,6 @@
         "cransom": {
             "url": "https://github.com/cransom/nur-packages"
         },
-        "crazazy": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/crazazy/nixos-config"
-        },
         "crazedprogrammer": {
             "file": "pkgs/nur-packages.nix",
             "url": "https://github.com/CrazedProgrammer/nix"
@@ -335,18 +265,12 @@
         "crtified": {
             "url": "https://github.com/CRTified/nur-packages"
         },
-        "cryolitia": {
-            "url": "https://github.com/Cryolitia/nur-packages"
-        },
         "cvtx": {
             "url": "https://github.com/Cvtx/nur-packages"
         },
         "cwyc": {
             "submodules": true,
             "url": "https://github.com/cwyc/nur-packages"
-        },
-        "dagger": {
-            "url": "https://github.com/dagger/nix"
         },
         "dan4ik605743": {
             "url": "https://github.com/dan4ik605743/nur"
@@ -360,14 +284,8 @@
         "dawidsowa": {
             "url": "https://github.com/dawidsowa/nur-packages"
         },
-        "dcsunset": {
-            "url": "https://github.com/DCsunset/nur-packages"
-        },
         "deeunderscore": {
             "url": "https://github.com/DeeUnderscore/nur-packages"
-        },
-        "definfo": {
-            "url": "https://github.com/definfo/nur-packages"
         },
         "demivan": {
             "url": "https://github.com/demivan/nur-packages"
@@ -437,9 +355,6 @@
         "eggflaw": {
             "url": "https://github.com/Eggflaw/nur-packages"
         },
-        "eh5": {
-            "url": "https://github.com/EHfive/flakes"
-        },
         "emiller88": {
             "url": "https://github.com/emiller88/nur-packages"
         },
@@ -457,9 +372,6 @@
         },
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
-        },
-        "falconprogrammer": {
-            "url": "https://github.com/JonBoyleCoding/falconprogrammer-nur"
         },
         "fanbb2333": {
             "url": "https://github.com/FanBB2333/nur-packages"
@@ -482,9 +394,6 @@
         "fooker": {
             "url": "https://github.com/fooker/nur-packages"
         },
-        "foolnotion": {
-            "url": "https://github.com/foolnotion/nur-pkg"
-        },
         "foresense": {
             "url": "https://github.com/foresense/nur-packages"
         },
@@ -497,17 +406,11 @@
         "friedow": {
             "url": "https://github.com/friedow/nur-packages"
         },
-        "friendsofshopware": {
-            "url": "https://github.com/FriendsOfShopware/nur-packages/"
-        },
         "ftbwiki": {
             "url": "https://github.com/tomodachi94/nur-ftbwiki"
         },
         "fuyu-no-nur": {
             "url": "https://github.com/TahlonBrahic/fuyu-no-nur"
-        },
-        "fym998": {
-            "url": "https://github.com/fym998/nur-packages"
         },
         "gabr1sr": {
             "url": "https://github.com/gabr1sr/nur-packages"
@@ -520,9 +423,6 @@
         },
         "geonix": {
             "url": "https://github.com/imincik/geonix"
-        },
-        "gepbird": {
-            "url": "https://github.com/gepbird/nur-packages"
         },
         "ggemre": {
             "url": "https://github.com/ggemre/nur-packages"
@@ -561,20 +461,11 @@
         "heph2": {
             "url": "https://github.com/heph2/nur-packages"
         },
-        "hexadecimalDinosaur": {
-            "url": "https://github.com/hexadecimalDinosaur/nur"
-        },
-        "hhr2020": {
-            "url": "https://github.com/hhr2020/nur-packages"
-        },
         "htr": {
             "url": "https://github.com/htr/nur-packages"
         },
         "hujw77": {
             "url": "https://github.com/hujw77/nur-packages"
-        },
-        "humxc": {
-            "url": "https://github.com/HumXC/nur-packages"
         },
         "hutzdog": {
             "type": "sourcehut",
@@ -584,14 +475,8 @@
             "file": "nur.nix",
             "url": "https://github.com/iagocq/nix"
         },
-        "ianmurphy1": {
-            "url": "https://github.com/ianmurphy1/nurpkgs"
-        },
         "ifd3f": {
             "url": "https://github.com/ifd3f/nur-packages"
-        },
-        "ihaveamac": {
-            "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
             "url": "https://github.com/ijohanne/nur-packages"
@@ -610,9 +495,6 @@
         },
         "iopq": {
             "url": "https://github.com/iopq/nur-packages"
-        },
-        "iuricarras": {
-            "url": "https://github.com/iuricarras/nur-packages"
         },
         "ivar": {
             "url": "https://github.com/IvarWithoutBones/NUR"
@@ -637,9 +519,6 @@
         },
         "jbarthelmes": {
             "url": "https://github.com/jbarthelmes/nur-packages"
-        },
-        "jcs090218": {
-            "url": "https://github.com/jcs090218/nur"
         },
         "jdpkgs": {
             "url": "https://github.com/jdev082/jdpkgs"
@@ -679,9 +558,6 @@
         "jorsn": {
             "url": "https://github.com/jorsn/nur-packages"
         },
-        "josh": {
-            "url": "https://github.com/josh/nurpkgs"
-        },
         "jpts": {
             "url": "https://github.com/jpts/nur"
         },
@@ -690,9 +566,6 @@
         },
         "k0ral": {
             "url": "https://github.com/k0ral/nur-packages"
-        },
-        "k3a": {
-            "url": "https://github.com/k3a/nurpkgs"
         },
         "kakkun61": {
             "url": "https://github.com/kakkun61/nur-packages"
@@ -709,12 +582,6 @@
         },
         "kinzokudev": {
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
-        },
-        "kira-bruneau": {
-            "url": "https://gitlab.com/kira-bruneau/nur-packages"
-        },
-        "kokakiwi": {
-            "url": "https://github.com/KokaKiwi/nur-packages"
         },
         "kolloch": {
             "url": "https://github.com/kolloch/nur-packages"
@@ -740,36 +607,18 @@
         "lcx12901": {
             "url": "https://github.com/lcx12901/nur-nixpkgs"
         },
-        "lennis-dev": {
-            "url": "https://github.com/lennis-dev/nur-packages"
-        },
         "lheckemann": {
             "url": "https://github.com/lheckemann/nixwip"
         },
         "lightquantum": {
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
-        "linyinfeng": {
-            "url": "https://github.com/linyinfeng/nur-packages"
-        },
         "liyangau": {
             "url": "https://github.com/liyangau/nur-packages"
-        },
-        "lmdevv": {
-            "url": "https://github.com/lmdevv/nur-packages"
-        },
-        "lonerOrz": {
-            "url": "https://github.com/lonerOrz/loneros-nur"
-        },
-        "lschuermann": {
-            "url": "https://github.com/lschuermann/nur-packages"
         },
         "lucasew": {
             "file": "nur.nix",
             "url": "https://github.com/lucasew/nixcfg"
-        },
-        "lucasfa": {
-            "url": "https://github.com/lucasfa/nur-packages"
         },
         "lunik1": {
             "url": "https://github.com/lunik1/nur-packages"
@@ -809,9 +658,6 @@
         "mcaju": {
             "url": "https://github.com/CajuM/nur-packages"
         },
-        "meain": {
-            "url": "https://github.com/meain/nur-packages"
-        },
         "mgord9518": {
             "url": "https://github.com/mgord9518/nur"
         },
@@ -829,12 +675,6 @@
         },
         "mikaelfangel-nur": {
             "url": "https://github.com/MikaelFangel/NUR"
-        },
-        "mikidep": {
-            "url": "https://github.com/mikidep/nur-packages"
-        },
-        "mikilio": {
-            "url": "https://github.com/Mikilio/nur-packages"
         },
         "minegameYTB": {
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
@@ -864,9 +704,6 @@
         "moredhel": {
             "url": "https://github.com/moredhel/nur-packages"
         },
-        "moredread": {
-            "url": "https://github.com/Moredread/nur-packages"
-        },
         "mozilla": {
             "file": "package-set.nix",
             "url": "https://github.com/mozilla/nixpkgs-mozilla"
@@ -877,12 +714,6 @@
         },
         "mrVanDalo": {
             "url": "https://github.com/mrVanDalo/nur-packages"
-        },
-        "mrcpkgs": {
-            "url": "https://github.com/mrcjkb/nur-packages"
-        },
-        "mrene": {
-            "url": "https://github.com/mrene/nur-packages"
         },
         "mrtnvgr": {
             "url": "https://github.com/mrtnvgr/nurpkgs"
@@ -904,9 +735,6 @@
         },
         "nasirhm": {
             "url": "https://github.com/nasirhm/nasirhmpkgs"
-        },
-        "natsukium": {
-            "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
             "url": "https://github.com/Nelonn/nur-packages"
@@ -962,9 +790,6 @@
         "novafacing": {
             "url": "https://github.com/novafacing/nur-packages"
         },
-        "novel2430": {
-            "url": "https://github.com/novel2430/MyNUR"
-        },
         "npkgs": {
             "url": "https://github.com/nerdypepper/npkgs"
         },
@@ -982,9 +807,6 @@
         },
         "ohheyrj": {
             "url": "https://github.com/ohheyrj/nur"
-        },
-        "oluceps": {
-            "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
             "url": "https://github.com/ondt/nur-packages"
@@ -1006,9 +828,6 @@
         },
         "p3psi": {
             "url": "https://github.com/p3psi-boo/p3psi-nur"
-        },
-        "pandapip1": {
-            "url": "https://github.com/Pandapip1/nur-packages"
         },
         "pascalthesing": {
             "url": "https://github.com/PascalThesing/NUR"
@@ -1082,18 +901,12 @@
         "rconan": {
             "url": "https://gitlab.com/rconan/nix-packages"
         },
-        "redpz": {
-            "url": "https://github.com/reDpz/nur-packages"
-        },
         "reedrw": {
             "url": "https://github.com/reedrw/nur-packages"
         },
         "rencire": {
             "submodules": true,
             "url": "https://github.com/rencire/nur-packages"
-        },
-        "renesat": {
-            "url": "https://github.com/renesat/nur-renesat"
         },
         "reward": {
             "url": "https://github.com/rewardenv/nur"
@@ -1107,14 +920,8 @@
         "robinovitch61": {
             "url": "https://github.com/robinovitch61/nur-packages"
         },
-        "rogreat": {
-            "url": "https://github.com/RoGreat/nur-packages"
-        },
         "rseops": {
             "url": "https://github.com/rse-ops/nix"
-        },
-        "ruixi-rebirth": {
-            "url": "https://github.com/Ruixi-rebirth/nur-packages"
         },
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
@@ -1128,9 +935,6 @@
         "ryan4yin": {
             "url": "https://github.com/ryan4yin/nur-packages"
         },
-        "rycee": {
-            "url": "https://gitlab.com/rycee/nur-expressions"
-        },
         "sagikazarmark": {
             "url": "https://github.com/sagikazarmark/nur-packages"
         },
@@ -1142,9 +946,6 @@
         },
         "sehqlr": {
             "url": "https://github.com/sehqlr/nur-packages"
-        },
-        "serpent213": {
-            "url": "https://github.com/serpent213/nur-packages"
         },
         "setser": {
             "url": "https://github.com/SeTSeR/nur-packages"
@@ -1164,20 +965,11 @@
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
-        "sigprof": {
-            "url": "https://github.com/sigprof/nur-packages"
-        },
-        "sikmir": {
-            "url": "https://github.com/sikmir/nur-packages"
-        },
         "skiletro": {
             "url": "https://github.com/skiletro/nur-repo"
         },
         "sky": {
             "url": "https://github.com/SkyLeite/nix-repository"
-        },
-        "slaier": {
-            "url": "https://github.com/slaier/nixos-config"
         },
         "smaret": {
             "url": "https://github.com/smaret/nur-packages"
@@ -1209,21 +1001,12 @@
         "syberant": {
             "url": "https://github.com/syberant/nur-packages"
         },
-        "tarantoj": {
-            "url": "https://github.com/tarantoj/nur-packages"
-        },
         "tehplague": {
             "url": "https://github.com/tehplague/NUR"
         },
         "thaumy": {
             "submodules": true,
             "url": "https://github.com/Thaumy/nur-pkgs"
-        },
-        "the-code-fixer-23-nur": {
-            "url": "https://github.com/louiss0/the-code-fixer-23-nur"
-        },
-        "thk": {
-            "url": "https://github.com/thkoch2001/nur-packages"
         },
         "tilpner": {
             "url": "https://github.com/tilpner/nur-packages"
@@ -1248,12 +1031,6 @@
         },
         "tox": {
             "url": "https://github.com/tox-rs/nur-tox"
-        },
-        "toyvo": {
-            "url": "https://github.com/ToyVo/nur-packages"
-        },
-        "trev": {
-            "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
@@ -1286,9 +1063,6 @@
         "vieb-nix": {
             "url": "https://github.com/tejing1/vieb-nix"
         },
-        "vizqq": {
-            "url": "https://github.com/ViZiD/nur-vizqq"
-        },
         "vojtechstep": {
             "url": "https://github.com/VojtechStep/vspkgs"
         },
@@ -1319,17 +1093,11 @@
         "wingej0": {
             "url": "https://github.com/wingej0/nur-packages"
         },
-        "wrvsrx": {
-            "url": "https://github.com/wrvsrx/nur-packages"
-        },
         "wwmoraes": {
             "url": "https://github.com/wwmoraes/nurpkgs"
         },
         "wyzdwdz": {
             "url": "https://github.com/wyzdwdz/nur-pkgs"
-        },
-        "xddxdd": {
-            "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
             "url": "https://github.com/Xe/xepkgs"
@@ -1343,17 +1111,11 @@
         "xonsh-xontribs": {
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
-        "xyenon": {
-            "url": "https://github.com/XYenon/nur-packages"
-        },
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
         "yes": {
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
-        },
-        "ymstnt": {
-            "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
             "url": "https://github.com/ysndr/nur-packages"
