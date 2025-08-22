@@ -917,11 +917,6 @@
             "sha256": "11i973a2blha8kg0wz71ggw99d9jb2ixbkglwypriialf0sxjnfj",
             "url": "https://github.com/k0ral/nur-packages"
         },
-        "kakkun61": {
-            "rev": "9fdcbd2e5f3ebfa213598d8463ccca9cff8ee44f",
-            "sha256": "04dd7585pxj411xagkippidmwlqbyw9c4ghbbm9gc457j1fsswgz",
-            "url": "https://github.com/kakkun61/nur-packages"
-        },
         "kalbasit": {
             "rev": "a7abffcc570d8587714ca746ed38437c40bc9dca",
             "sha256": "1nyrgp1ckg2z6p9p1cxnqq24dzglmb8v93ixsb4wxpjvv8gfzmda",
