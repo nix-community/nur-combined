@@ -492,11 +492,6 @@
             "sha256": "0x9q6zdw56sldffqhyvwdx64bjzw5yb6idag4ggrf6ivisrvyszy",
             "url": "https://github.com/dezgeg/nur-packages"
         },
-        "dguibert": {
-            "rev": "bc8114c0f8e5bb857c37a0b32a87e36f0f61c454",
-            "sha256": "1a7qdlw2wrg1giygq7mir957af6zhnv71rl6m6xvkv5nbj7vdv0w",
-            "url": "https://github.com/dguibert/nur-packages"
-        },
         "divanorama": {
             "rev": "fa84dfcd2f76840409a4ac6f1854900afe862dec",
             "sha256": "1mw4an6gr4pxlkprd0qd9np1nbkdi76aah2bphdsjvykf01jknws",
