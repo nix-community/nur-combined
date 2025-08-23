@@ -483,9 +483,6 @@
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
-        "ionutnechita": {
-            "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
-        },
         "iopq": {
             "url": "https://github.com/iopq/nur-packages"
         },
