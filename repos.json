@@ -105,10 +105,6 @@
         "akinokaede": {
             "url": "https://github.com/AkinoKaede/nur-packages"
         },
-        "alarsyo": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/alarsyo/nixos-config"
-        },
         "aleksana": {
             "url": "https://github.com/Aleksanaa/NUR-Aleksana"
         },

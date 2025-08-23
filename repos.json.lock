@@ -170,11 +170,6 @@
             "sha256": "1nj0h50w15adzrciwbpjpqc7gnzk6mvqbn0k1jq1a0lh5zcgl86j",
             "url": "https://github.com/AkinoKaede/nur-packages"
         },
-        "alarsyo": {
-            "rev": "0f6f89fb181dc82c289d5e54bd9d9b2d951a8daa",
-            "sha256": "1kmqs87k1dmg4dw7za6hn95p8w0bfdaafs7f93ls457yh1dh5kzw",
-            "url": "https://github.com/alarsyo/nixos-config"
-        },
         "aleksana": {
             "rev": "bf6167576099ddd86ae0d3a372e6eda60009959b",
             "sha256": "1qmcmff928pirn6kgarjl6xcbv8qxvmy2z7fbvpb0jrj1h563z5j",
