@@ -1587,11 +1587,6 @@
             "sha256": "1cdqmc0plh66s9sgsxlbbra8p74d0iayah8vb6i9hiliiviq9kkg",
             "url": "https://github.com/Stupremee/nur-packages"
         },
-        "suhr": {
-            "rev": "cb48a2faaa3736314ff1198c7ef8cb693e35d049",
-            "sha256": "00gxdnyymd442gdqhr5xzajn84cfg4ylpy65f5270vp29hsk7hml",
-            "url": "https://github.com/suhr/nur-packages"
-        },
         "syberant": {
             "rev": "c0b1a823454b9858b890e7ab25301cbc4f447305",
             "sha256": "0na9nzbx31kgcqv138xfcc1ivwmq9223s2bd926dg256yhd8kp2m",
