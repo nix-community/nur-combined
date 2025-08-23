@@ -1537,11 +1537,6 @@
             "sha256": "0lfl7d26vwgppd0cmghs2y6mp2cib3w693ab1m871frlwgd8ix58",
             "url": "https://github.com/Shados/nur-packages"
         },
-        "shadowrz": {
-            "rev": "4ed2f1f1ad5a07a621f94d5b7a4a2eed50131559",
-            "sha256": "0j9q60bgj2qpfq5pj6kp80klacfp9h31i6nnz8fkabdywx7psbcx",
-            "url": "https://github.com/ShadowRZ/nur-packages"
-        },
         "shamilton": {
             "rev": "b1231dc016cee963b4cb90a0d37e08f6842891be",
             "sha256": "072hz91fyw7g0f2lawf5rp7kzjzfq0ivs711imk60qr6slnixgms",
