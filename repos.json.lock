@@ -522,11 +522,6 @@
             "sha256": "19bwzhsxr2nymbx9v704l2k6ww7sshv7rg575xjfdcfnfnwxzah7",
             "url": "https://github.com/dtn7/nur-packages"
         },
-        "dtomvan": {
-            "rev": "98b84b54330ef70d0625cdc20b4fd8543e9dc01b",
-            "sha256": "061x3d3r1mhyd905cnbilcg50f2jdwq2f6wrim5l5cysc82s3byp",
-            "url": "https://github.com/dtomvan/nur-packages"
-        },
         "dtz": {
             "rev": "0567c3a569ed2fb37ec7a066675e5ba72a3db188",
             "sha256": "1rb5l0lsm6g8r3mmfb5191pb6in5bs0dsn2n9zip4bynn45faizg",
