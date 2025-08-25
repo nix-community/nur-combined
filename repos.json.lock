@@ -1527,11 +1527,6 @@
             "sha256": "072hz91fyw7g0f2lawf5rp7kzjzfq0ivs711imk60qr6slnixgms",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
-        "skiletro": {
-            "rev": "3ab3fe331c49b06c7ac8cb1adb25431490b6d903",
-            "sha256": "0dp1n7hrm6bwf78g2s9cb20f6g400m7wmvnjfp1s3rn1fgzmhviq",
-            "url": "https://github.com/skiletro/nur-repo"
-        },
         "sky": {
             "rev": "9aaf7d1f8115915ec113e0bda84b81792cd2319b",
             "sha256": "0bknfmfwiz8dh0n27nqgs4kwqvr1irppks7aj95vay644vp7l357",
