@@ -539,9 +539,6 @@
         "jomik": {
             "url": "https://gitlab.com/jomik/nur-expressions"
         },
-        "jonhermansen": {
-            "url": "https://github.com/jonhermansen/nur-packages"
-        },
         "jorsn": {
             "url": "https://github.com/jorsn/nur-packages"
         },
@@ -632,9 +629,6 @@
         },
         "marzipankaiser": {
             "url": "https://github.com/marzipankaiser/nur-packages"
-        },
-        "materus": {
-            "url": "https://github.com/materusPL/Nixerus"
         },
         "matthewbauer": {
             "url": "https://github.com/matthewbauer/nur-packages"

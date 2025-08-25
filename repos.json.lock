@@ -872,11 +872,6 @@
             "sha256": "0v7ccwjkg5psx62n3f9xm7n1h9pjc766yjl1gzhivvkbrxx808j4",
             "url": "https://gitlab.com/jomik/nur-expressions"
         },
-        "jonhermansen": {
-            "rev": "4a3eb0fd23db142e4c085ebf310773781eb73910",
-            "sha256": "0glhb4xsymgsr5awkqjgn99560lagsxcmkdkdgl77ijymzdyv45k",
-            "url": "https://github.com/jonhermansen/nur-packages"
-        },
         "jorsn": {
             "rev": "b3f507e6c44d692454230415ded11d6cd0f89445",
             "sha256": "11kzjadiwihimxpynlkxir4y4p041dri52s3h3znkm11q5rb4yii",
@@ -1019,11 +1014,6 @@
             "rev": "635bb8f9bddf6ed0a89907b0ab2b054c89853ce3",
             "sha256": "0j142j4lrv3sf0pzajyixvhyg5xcyrh7h4nkvfw8pip2f5fpwjpp",
             "url": "https://github.com/marzipankaiser/nur-packages"
-        },
-        "materus": {
-            "rev": "4519d5dc831eb1acf63e891d9474ce01ed617136",
-            "sha256": "1a4f9izg5lcvx0bycrpdlg3n36l1jhwycjplxg5c9nhhj87jbqcj",
-            "url": "https://github.com/materusPL/Nixerus"
         },
         "matthewbauer": {
             "rev": "21b678d31d567730921dd932fef6682694715b65",
