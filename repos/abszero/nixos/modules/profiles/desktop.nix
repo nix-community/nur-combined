@@ -54,7 +54,7 @@ in
         settings = {
           General = {
             EnableNetworkConfiguration = true;
-            AddressRandomization = "network";
+            AddressRandomization = "once"; # Randomize a single time when iwd starts
             DisableANQP = false; # Use Hotspot 2.0
           };
           Network.NameResolvingService = "systemd"; # Use resolved

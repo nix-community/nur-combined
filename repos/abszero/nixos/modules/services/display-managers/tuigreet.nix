@@ -15,7 +15,6 @@ in
 
   config.services.greetd = mkIf cfg.enable {
     enable = true;
-    vt = 2;
     settings.default_session.command = ''
       ${getExe pkgs.greetd.tuigreet} \
         -rt --asterisks \

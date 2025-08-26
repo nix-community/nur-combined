@@ -44,15 +44,6 @@ in
         "Mod+Ctrl+period".action = spawn "smile";
       };
 
-      window-rules = [
-        {
-          open-floating = true;
-          matches = [
-            { app-id = "it\\.mijorus\\.smile"; }
-          ];
-        }
-      ];
-
       spawn-at-startup = [
         { command = [ "albert" ]; }
       ];

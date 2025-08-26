@@ -111,9 +111,7 @@ in
     };
 
     # Certain services freeze on stop which prevents shutdown.
-    systemd.extraConfig = ''
-      DefaultTimeoutStopSec=10s
-    '';
+    systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
 
     security.sudo-rs = {
       enable = true;
