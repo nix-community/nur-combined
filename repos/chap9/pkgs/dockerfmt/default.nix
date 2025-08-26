@@ -1,6 +1,6 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGo124Module, fetchFromGitHub }:
 
-buildGoModule {
+buildGo124Module {
   name = "dockerfmt";
   version = "v0.3.7";
 
