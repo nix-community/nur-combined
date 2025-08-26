@@ -1,10 +1,13 @@
-{ lib, pins, buildPythonPackage}:
+{ lib, pins, buildPythonPackage, setuptools }:
 
 buildPythonPackage rec {
   pname = "usb-resetter";
   version = "1.3.0";
 
   src = pins.usb-resetter.outPath;
+
+  pyproject = true;
+  build-system = [ setuptools ];
 
   doCheck = false;
 
