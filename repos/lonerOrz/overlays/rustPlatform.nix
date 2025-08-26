@@ -1,9 +1,12 @@
-self: super: let
-  rustBin = self.rust-bin.selectLatestNightlyWith (toolchain:
+self: super:
+let
+  rustBin = self.rust-bin.selectLatestNightlyWith (
+    toolchain:
     toolchain.default.override {
-      extensions = ["rust-src"];
-      targets = ["arm-unknown-linux-gnueabihf"];
-    });
+      extensions = [ "rust-src" ];
+      targets = [ "arm-unknown-linux-gnueabihf" ];
+    }
+  );
 
   rustPlatform = super.makeRustPlatform {
     cargo = rustBin;
@@ -21,7 +24,6 @@ self: super: let
       sha256 = "";
     };
 
-    useFetchCargoVendor = true;
     cargoHash = "";
 
     meta = with super.lib; {
@@ -30,7 +32,8 @@ self: super: let
       license = licenses.mit;
     };
   });
-in {
+in
+{
   rustPlatform =
     super.makeRustPlatform {
       cargo = rustBin;

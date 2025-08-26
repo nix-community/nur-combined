@@ -24,16 +24,17 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "abdownloadmanager-bin";
-  version = "1.6.8";
+  version = "1.6.10";
 
   src = fetchurl {
     url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/ABDownloadManager_${finalAttrs.version}_linux_x64.tar.gz";
-    sha256 = "sha256-NVvkksoKS4UtoGGXglkMY1n/EkaG+yd6XDDERSybJyU=";
+    sha256 = "sha256-D0ZwRwdXr+Y+xnC2ZWjSTSHeUAkmgM3mOCRWcZOc7Is=";
   };
 
-  nativeBuildInputs = [makeWrapper jdk];
-
-  passthru.autoUpdate = false;
+  nativeBuildInputs = [
+    makeWrapper
+    jdk
+  ];
 
   buildInputs = [
     glibc
@@ -73,25 +74,25 @@ stdenv.mkDerivation (finalAttrs: {
       --set JAVA_LIBRARY_PATH \$JAVA_HOME/lib/server \
       --prefix PATH : \$JAVA_HOME/bin \
       --prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        glib
-        libXext
-        libX11
-        libXtst
-        libXrender
-        fontconfig
-        freetype
-        libXi
-        zlib
-        alsa-lib
-        libglvnd
-        gtk3
-        libxkbcommon
-        libXrandr
-        cairo
-        pango
-      ]
-    }
+        lib.makeLibraryPath [
+          glib
+          libXext
+          libX11
+          libXtst
+          libXrender
+          fontconfig
+          freetype
+          libXi
+          zlib
+          alsa-lib
+          libglvnd
+          gtk3
+          libxkbcommon
+          libXrandr
+          cairo
+          pango
+        ]
+      }
 
     install -Dm644 $out/opt/ABDownloadManager/lib/ABDownloadManager.png \
       $out/share/pixmaps/ABDownloadManager.png

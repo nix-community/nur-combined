@@ -82,6 +82,7 @@ The build logic and repository scripts are released under the [MIT License](./LI
 
 **My personal Cachix Cache**
 
-![Build and populate cache](https://github.com/lonerOrz/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+- substituter: `https://loneros.cachix.org`
+- public-key: `loneros.cachix.org-1:dVCECfW25sOY3PBHGBUwmQYrhRRK2+p37fVtycnedDU=`
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-loneros-blue.svg)](https://loneros.cachix.org)
