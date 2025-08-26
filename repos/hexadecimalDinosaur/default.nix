@@ -14,7 +14,7 @@ let
   p313 = pkgs.python313;
   p3 = pkgs.python3.pkgs;
 
-  pythonPackages = p: pkgs.recurseIntoAttrs ((import ./python.nix { lib = pkgs.lib; }) p.version p.pkgs p.pkgs);
+  pythonPackages = p: pkgs.recurseIntoAttrs ((import ./python.nix { inherit pkgs; lib = pkgs.lib; }) p.version p.pkgs p.pkgs);
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -26,6 +26,7 @@ rec {
   fzf-tab-completion = pkgs.callPackage ./pkgs/fzf-tab-completion { };
   harmonoid = pkgs.callPackage ./pkgs/harmonoid { };
   jetbrains-fleet = pkgs.callPackage ./pkgs/jetbrains-fleet { };
+  ttf-ms-win11 = pkgs.recurseIntoAttrs ( import ./pkgs/ttf-ms-win11 { inherit pkgs; } );
 
   tulip = pkgs.callPackage ./pkgs/tulip {
     inherit tulip-api tulip-assembler tulip-enricher tulip-flagids tulip-frontend;

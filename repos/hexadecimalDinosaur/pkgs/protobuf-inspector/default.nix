@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Tool to reverse-engineer Protocol Buffers with unknown definition";
-    homepage = "Tool to reverse-engineer Protocol Buffers with unknown definition";
+    homepage = "https://github.com/mildsunrise/protobuf-inspector";
     changelog = "https://github.com/mildsunrise/protobuf-inspector/releases/tag/v${version}";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ ivyfanchiang ];

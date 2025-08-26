@@ -1,0 +1,289 @@
+{
+  "Arial": [
+    "arial.ttf",
+    "arialbd.ttf",
+    "ariali.ttf",
+    "arialbi.ttf"
+  ],
+  "Arial Black": [
+    "ariblk.ttf"
+  ],
+  "Bahnschrift": [
+    "bahnschrift.ttf"
+  ],
+  "Calibri": [
+    "calibri.ttf",
+    "calibrib.ttf",
+    "calibrii.ttf",
+    "calibriz.ttf"
+  ],
+  "Calibri Light": [
+    "calibril.ttf",
+    "calibrili.ttf"
+  ],
+  "Cambria": [
+    "cambria.ttc",
+    "cambriab.ttf",
+    "cambriai.ttf",
+    "cambriaz.ttf"
+  ],
+  "Candara": [
+    "Candara.ttf",
+    "Candarab.ttf",
+    "Candarai.ttf",
+    "Candaraz.ttf"
+  ],
+  "Candara Light": [
+    "Candaral.ttf",
+    "Candarali.ttf"
+  ],
+  "Comic Sans MS": [
+    "comic.ttf",
+    "comicbd.ttf",
+    "comici.ttf",
+    "comicz.ttf"
+  ],
+  "Consolas": [
+    "consola.ttf",
+    "consolab.ttf",
+    "consolai.ttf",
+    "consolaz.ttf"
+  ],
+  "Constantia": [
+    "constan.ttf",
+    "constanb.ttf",
+    "constani.ttf",
+    "constanz.ttf"
+  ],
+  "Corbel": [
+    "corbel.ttf",
+    "corbelb.ttf",
+    "corbeli.ttf",
+    "corbelz.ttf"
+  ],
+  "Corbel Light": [
+    "corbell.ttf",
+    "corbelli.ttf"
+  ],
+  "Courier New": [
+    "cour.ttf",
+    "courbd.ttf",
+    "couri.ttf",
+    "courbi.ttf"
+  ],
+  "Franklin Gothic Medium": [
+    "framd.ttf",
+    "framdit.ttf"
+  ],
+  "Gabriola": [
+    "Gabriola.ttf"
+  ],
+  "Georgia": [
+    "georgia.ttf",
+    "georgiab.ttf",
+    "georgiai.ttf",
+    "georgiaz.ttf"
+  ],
+  "Impact": [
+    "impact.ttf"
+  ],
+  "Ink Free": [
+    "Inkfree.ttf"
+  ],
+  "Lucida Sans Unicode": [
+    "l_10646.ttf"
+  ],
+  "Lucida Console": [
+    "lucon.ttf"
+  ],
+  "Marlett": [
+    "marlett.ttf"
+  ],
+  "Microsoft Sans Serifc": [
+    "micross.ttf"
+  ],
+  "Palatino Linotype": [
+    "pala.ttf",
+    "palab.ttf",
+    "palai.ttf",
+    "palabi.ttf"
+  ],
+  "Segoe MDL2 Assets": [
+    "segmdl2.ttf"
+  ],
+  "Segoe Fluent Icons": [
+    "SegoeIcons.ttf"
+  ],
+  "Segoe Print": [
+    "segoepr.ttf",
+    "segoeprb.ttf"
+  ],
+  "Segoe Script": [
+    "segoesc.ttf",
+    "segoescb.ttf"
+  ],
+  "Segoe UI": [
+    "segoeui.ttf",
+    "segoeuib.ttf",
+    "segoeuii.ttf",
+    "segoeuiz.ttf"
+  ],
+  "Segoe UI Light": [
+    "segoeuil.ttf",
+    "seguili.ttf"
+  ],
+  "Segoe UI Semilight": [
+    "segoeuisl.ttf",
+    "seguisli.ttf"
+  ],
+  "Segoe UI Black": [
+    "seguibl.ttf",
+    "seguibli.ttf"
+  ],
+  "Segoe UI Emoji": [
+    "seguiemj.ttf"
+  ],
+  "Segoe UI Historic": [
+    "seguihis.ttf"
+  ],
+  "Segoe UI Semibold": [
+    "seguisb.ttf",
+    "seguisbi.ttf"
+  ],
+  "Segoe UI Symbol": [
+    "seguisym.ttf"
+  ],
+  "Segoe UI Variable": [
+    "SegUIVar.ttf"
+  ],
+  "Sitka": [
+    "SitkaVF.ttf",
+    "SitkaVF-Italic.ttf"
+  ],
+  "Sylfaen": [
+    "sylfaen.ttf"
+  ],
+  "Symbol": [
+    "symbol.ttf"
+  ],
+  "Tahoma": [
+    "tahoma.ttf",
+    "tahomabd.ttf"
+  ],
+  "Times New Roman": [
+    "times.ttf",
+    "timesbd.ttf",
+    "timesi.ttf",
+    "timesbi.ttf"
+  ],
+  "Trebuchet MS": [
+    "trebuc.ttf",
+    "trebucbd.ttf",
+    "trebucit.ttf",
+    "trebucbi.ttf"
+  ],
+  "Verdana": [
+    "verdana.ttf",
+    "verdanab.ttf",
+    "verdanai.ttf",
+    "verdanaz.ttf"
+  ],
+  "Webdings": [
+    "webdings.ttf"
+  ],
+  "Wingdings": [
+    "wingding.ttf"
+  ],
+  "MS Gothic": [
+    "msgothic.ttc"
+  ],
+  "Yu Gothic": [
+    "YuGothR.ttc",
+    "YuGothB.ttc"
+  ],
+  "Yu Gothic Medium": [
+    "YuGothM.ttc"
+  ],
+  "Yu Gothic Light": [
+    "YuGothL.ttc"
+  ],
+  "Malgun Gothic": [
+    "malgun.ttf",
+    "malgunbd.ttf"
+  ],
+  "Malgun Gothic Semilight": [
+    "malgunsl.ttf"
+  ],
+  "Javanese Text": [
+    "javatext.ttf"
+  ],
+  "Microsoft Himalaya": [
+    "himalaya.ttf"
+  ],
+  "Microsoft New Tai Lue": [
+    "ntailu.ttf",
+    "ntailub.ttf"
+  ],
+  "Microsoft PhagsPa": [
+    "phagspa.ttf",
+    "phagspab.ttf"
+  ],
+  "Microsoft Tai Le": [
+    "taile.ttf",
+    "taileb.ttf"
+  ],
+  "Microsoft Yi Baiti": [
+    "msyi.ttf"
+  ],
+  "Mongolian Baiti": [
+    "monbaiti.ttf"
+  ],
+  "Myanmar Text": [
+    "mmrtext.ttf",
+    "mmrtextb.ttf"
+  ],
+  "Nirmala UI": [
+    "Nirmala.ttc"
+  ],
+  "Leelawadee UI": [
+    "LeelawUI.ttf",
+    "LeelaUIb.ttf"
+  ],
+  "Leelawadee UI Semilight": [
+    "LeelUIsl.ttf"
+  ],
+  "NSimSun": [
+    "simsun.ttc"
+  ],
+  "SimSun-ExtB": [
+    "simsunb.ttf"
+  ],
+  "Microsoft YaHei": [
+    "msyh.ttc",
+    "msyhbd.ttc"
+  ],
+  "Microsoft YaHei Light": [
+    "msyhl.ttc"
+  ],
+  "Microsoft JhengHei": [
+    "msjh.ttc",
+    "msjhbd.ttc"
+  ],
+  "Microsoft JhengHei Light": [
+    "msjhl.ttc"
+  ],
+  "MingLiU_HKSCS-ExtB": [
+    "mingliub.ttc"
+  ],
+  "Ebrima": [
+    "ebrima.ttf",
+    "ebrimabd.ttf"
+  ],
+  "Gadugi": [
+    "gadugi.ttf",
+    "gadugib.ttf"
+  ],
+  "MV Boli": [
+    "mvboli.ttf"
+  ]
+}

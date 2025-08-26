@@ -37,8 +37,9 @@ buildPythonPackage rec {
   build-system = [
     setuptools
     wheel
-    cmake
   ];
+
+  nativeBuildInputs = [ cmake ];
 
   pythonImportsCheck = [
     "dearpygui.dearpygui"
