@@ -13,6 +13,8 @@ let
     "seaweedfs"
     "oidc"
     "memos"
+    "rqbit"
+    "seed"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"
@@ -29,6 +31,7 @@ let
     {
       "fdcc::3" = srvOnEihort;
       "fdcc::1" = srvOnHastur;
+      "127.0.0.1" = [ "sync.nyaw.xyz" ];
     }
   ];
 in

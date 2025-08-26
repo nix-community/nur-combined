@@ -50,6 +50,16 @@
     terminal = true;
   }
   {
+    handle = [
+      {
+        handler = "reverse_proxy";
+        upstreams = [ { dial = "[fdcc::3]:8084"; } ];
+      }
+    ];
+    match = [ { host = [ "seed.nyaw.xyz" ]; } ];
+    terminal = true;
+  }
+  {
     match = [ { host = [ "oidc.nyaw.xyz" ]; } ];
     handle = [
       {
@@ -134,7 +144,7 @@
   }
   (import ./matrix.nix {
     inherit pkgs;
-    matrix-upstream = "[fdcc::3]:6167";
+    matrix-upstream = "[fdcc::3]:8196";
   })
   {
     handle = [

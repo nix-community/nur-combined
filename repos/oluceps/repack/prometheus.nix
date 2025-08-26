@@ -30,10 +30,12 @@ reIf {
     ];
     prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
       "prom"
+      "syncthing-hastur-api"
     ];
   };
   services.prometheus = {
     enable = true;
+    checkConfig = "syntax-only"; # stat unexist file
     webExternalUrl = "https://${config.networking.fqdn}/prom";
     listenAddress = "127.0.0.1";
     webConfigFile = (pkgs.formats.yaml { }).generate "web.yaml" {
@@ -87,6 +89,12 @@ reIf {
           scheme = "http";
           static_configs = [ { targets = [ "[fdcc::4]:9090" ]; } ];
         }
+        {
+          job_name = "synapse_metrics";
+          scheme = "http";
+          metrics_path = "/_synapse/metrics";
+          static_configs = [ { targets = [ "localhost:9031" ]; } ];
+        }
         # {
         #   job_name = "mautrix_tg_metrics";
         #   scheme = "http";
@@ -95,7 +103,8 @@ reIf {
         {
           job_name = "chrony_metrics";
           scheme = "http";
-          scrape_timeout = "30s";
+          scrape_interval = "60s";
+          scrape_timeout = "20s";
           static_configs = [
             {
               targets = [
@@ -123,6 +132,54 @@ reIf {
               regex = "\\[fdcc::3\\]:9123";
               target_label = "instance";
               replacement = "eihort.nyaw.xyz";
+            }
+          ];
+        }
+        {
+          job_name = "syncthing_metrics";
+          scheme = "http";
+          static_configs = [
+            {
+              targets = [
+                "[fdcc::1]:8384"
+              ];
+            }
+          ];
+          relabel_configs = [
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::1\\]:8384";
+              target_label = "instance";
+              replacement = "hastur.nyaw.xyz";
+            }
+          ];
+
+          authorization.credentials_file = "/run/credentials/prometheus.service/syncthing-hastur-api";
+
+        }
+        {
+          job_name = "garage_metrics";
+          scheme = "http";
+          static_configs = [
+            {
+              targets = [
+                "[fdcc::1]:3903"
+                "[fdcc::2]:3903"
+              ];
+            }
+          ];
+          relabel_configs = [
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::1\\]:3903";
+              target_label = "instance";
+              replacement = "hastur.nyaw.xyz";
+            }
+            {
+              source_labels = [ "__address__" ];
+              regex = "\\[fdcc::2\\]:3903";
+              target_label = "instance";
+              replacement = "kaambl.nyaw.xyz";
             }
           ];
         }

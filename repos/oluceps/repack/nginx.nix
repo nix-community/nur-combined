@@ -4,17 +4,6 @@ reIf {
     enable = true;
     clientMaxBodySize = "4G";
     virtualHosts = {
-      "attic.nyaw.xyz" = {
-        forceSSL = true;
-        sslCertificate = "/run/credentials/nginx.service/nyaw.cert";
-        sslCertificateKey = "/run/credentials/nginx.service/nyaw.key";
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:8083";
-          };
-        };
-      };
-
       "s3.nyaw.xyz" = {
         forceSSL = true;
         sslCertificate = "/run/credentials/nginx.service/nyaw.cert";

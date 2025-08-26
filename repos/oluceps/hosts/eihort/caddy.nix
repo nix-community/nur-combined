@@ -64,10 +64,21 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "[fdcc::3]:8084"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "seed.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "localhost:9333"; } ];
                       }
                     ];
                     match = [ { host = [ "seaweedfs.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
                   {
                     handle = [
@@ -77,6 +88,7 @@
                       }
                     ];
                     match = [ { host = [ "memos.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
                   {
                     handle = [
@@ -86,6 +98,17 @@
                       }
                     ];
                     match = [ { host = [ "photo.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:3030"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "rqbit.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
                   {
                     handle = [
@@ -95,16 +118,8 @@
                       }
                     ];
                     match = [ { host = [ "ms.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
-                  # {
-                  #   handle = [
-                  #     {
-                  #       handler = "reverse_proxy";
-                  #       upstreams = [ { dial = "localhost:3004"; } ];
-                  #     }
-                  #   ];
-                  #   match = [ { host = [ "linkwarden.nyaw.xyz" ]; } ];
-                  # }
                   {
                     handle = [
                       {
@@ -113,6 +128,7 @@
                       }
                     ];
                     match = [ { host = [ "scrutiny.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
                   {
                     handle = [
@@ -123,6 +139,7 @@
                       }
                     ];
                     match = [ { host = [ "oidc.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
                   {
                     handle = [
@@ -132,22 +149,8 @@
                       }
                     ];
                     match = [ { host = [ "alist.nyaw.xyz" ]; } ];
+                    terminal = true;
                   }
-                  # {
-                  #   handle = [
-                  #     {
-                  #       handler = "reverse_proxy";
-                  #       upstreams = [ { dial = "localhost:9001"; } ];
-                  #       rewrite.strip_path_prefix = "/minio";
-                  #     }
-                  #   ];
-                  #   match = [
-                  #     {
-                  #       host = [ "eihort.nyaw.xyz" ];
-                  #       path = [ "/minio/*" ];
-                  #     }
-                  #   ];
-                  # }
                   {
                     handle = [
                       {
@@ -179,7 +182,7 @@
                   }
                   (import ../caddy/matrix.nix {
                     inherit pkgs;
-                    matrix-upstream = "localhost:6167";
+                    matrix-upstream = "localhost:8196";
                   })
                 ];
               }

@@ -17,9 +17,8 @@
     timeServers = [
       "ntp1.aliyun.com"
       "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
-      "2001:da8:9000::81"
       "edu.ntp.org.cn"
-      "2001:250:380A:5::10"
+      "2001:250:380a:5::10"
     ];
     firewall = {
       checkReversePath = false;

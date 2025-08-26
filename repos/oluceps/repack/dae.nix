@@ -27,12 +27,14 @@ reIf {
           check_tolerance: 50ms
           wan_interface: auto
           allow_insecure: false
+          # metrics_addr: '[::]:8087'
+          pprof_port: 9901
           sniff_verify_mode: strict
           reroute_mode: force
           disable_waiting_network: false
           auto_config_kernel_parameter: true
           enable_local_tcp_fast_redirect: true
-          sniffing_timeout: 50ms
+          # sniffing_timeout: 50ms
           tls_implementation: utls
           utls_imitate: chrome_auto
           lan_interface: podman0,podman1
@@ -53,10 +55,6 @@ reIf {
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
           dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8') -> direct
 
-          # k is the machine, use dae, and use v6 static route forward
-          ipversion(6) && !dip(geoip:CN) -> ${
-            if config.networking.hostName == "kaambl" then "direct" else "v6"
-          }
 
           domain(suffix:migadu.com) -> all
           dport(465) -> all
@@ -90,6 +88,10 @@ reIf {
               domain: proactivebackend-pa.googleapis.com,
               domain: apis.google.com) -> ai
 
+          # k is the machine, use dae, and use v6 static route forward
+          ipversion(6) && !dip(geoip:CN) -> ${
+            if config.networking.hostName == "kaambl" then "direct" else "v6"
+          }
           domain(${
             lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)
           }) -> direct
@@ -100,8 +102,6 @@ reIf {
 
           domain(suffix: '4.ip.skk.moe') -> all
           domain(suffix: '2.ip.skk.moe') -> direct
-
-          domain(geosite:github) -> rand
 
           fallback: all
       }

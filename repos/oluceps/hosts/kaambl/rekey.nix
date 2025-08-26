@@ -10,7 +10,6 @@ in
 {
   vaultix = {
     settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
-    # beforeUserborn = [ "on-yidong.toml" ];
     secrets = {
       id = {
         # file = ../../sec/id.age;
@@ -18,21 +17,13 @@ in
         owner = user;
         group = "users";
       };
-      "on-yidong.toml" = {
-        file = ../../sec/on-yidong.toml.age;
-      };
       id_sk = {
         file = ../../sec/id_sk.age;
         mode = "400";
         owner = user;
         group = "users";
       };
-      rclone-conf = {
-        file = ../../sec/rclone.age;
-      };
-      garage = {
-        file = ../../sec/garage.age;
-      };
+      garage = { };
       wg-kaambl = {
         file = ../../sec/wg-kaambl.age;
         owner = "systemd-network";

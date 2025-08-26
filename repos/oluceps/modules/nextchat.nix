@@ -22,7 +22,7 @@ in
     };
     environmentFile = mkOption {
       type = types.str;
-      default = config.vaultix.secrets.nextchat.path;
+      default = "";
     };
   };
   config = mkIf cfg.enable {

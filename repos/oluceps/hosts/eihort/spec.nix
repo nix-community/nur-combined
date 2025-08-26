@@ -89,15 +89,15 @@
     misskey.enable = true;
     meilisearch.enable = true;
     vaultwarden.enable = true;
-    tuwunel.enable = true;
+    # tuwunel.enable = true;
     mautrix-telegram.enable = true;
+    synapse.enable = true;
     calibre.enable = true;
     immich.enable = true;
     radicle.enable = true;
-    autosign.enable = false;
     aria2.enable = true;
     userborn-subid.enable = true;
-    ollama.enable = true;
+    # ollama.enable = true;
     seaweedfs.enable = true;
 
     prometheus.enable = true;
@@ -138,6 +138,10 @@
     sing-box.enable = true;
     metrics.enable = true;
 
+    wg-refresh = {
+      enable = true;
+      calendar = "hourly";
+    };
     pocket-id = {
       enable = true;
       settings = {

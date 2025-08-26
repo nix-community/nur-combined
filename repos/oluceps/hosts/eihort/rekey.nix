@@ -18,6 +18,11 @@ in
         group = "root";
         mode = "400";
       };
+      syncthing-hastur-api = { };
+      synapse-s3 = { };
+      synapse-oidc = {
+        owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+      };
       notifychan = {
         mode = "400";
       };
@@ -51,10 +56,6 @@ in
       meilisearch = {
         mode = "444";
       };
-      autosign = {
-        mode = "400";
-        owner = user;
-      };
       misskey = {
         mode = "444";
         owner = "misskey";
@@ -64,7 +65,6 @@ in
         owner = config.services.pocket-id.user;
       };
       vault = { };
-      linkwarden = { };
       mautrix-tg = { };
       immich = { };
     };

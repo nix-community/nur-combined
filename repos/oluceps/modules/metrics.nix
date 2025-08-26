@@ -20,8 +20,8 @@ in
         disabledCollectors = [ "arp" ];
       };
       chrony = {
-        enable=true;
-        listenAddress="[::]";
+        enable = true;
+        listenAddress = "[::]";
       };
     };
 

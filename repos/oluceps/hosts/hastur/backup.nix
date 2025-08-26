@@ -11,9 +11,6 @@
         '';
       };
     };
-    # "on-kaambl.toml" = {
-    #   file = ../../sec/on-kaambl.toml.age;
-    # };
   };
   systemd.services.postgresqlBackup.onSuccess = [ "rustic-backups-critic.service" ];
   services.rustic = {

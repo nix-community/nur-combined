@@ -1,0 +1,3 @@
+[submodule "sec"]
+	path = sec
+	url = git@github.com:oluceps/secs.git

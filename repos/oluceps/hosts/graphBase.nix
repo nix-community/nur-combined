@@ -340,12 +340,9 @@
         plasma6Support = true;
         waylandFrontend = true;
         addons = with pkgs; [
-          qt6Packages.fcitx5-chinese-addons
           fcitx5-mozc
           fcitx5-rime
-          fcitx5-configtool
-          fcitx5-pinyin-zhwiki
-          fcitx5-pinyin-moegirl
+          (fcitx5-configtool.override { kcmSupport = false; })
         ];
       };
     };

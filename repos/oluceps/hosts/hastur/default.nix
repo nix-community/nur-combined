@@ -71,7 +71,7 @@ withSystem "x86_64-linux" (
         ../graphBase.nix
         (lib.iage "trust")
 
-        ../sysctl.nix
+        ../sysctl-boost.nix
         ../pam.nix
         ../virt.nix
 

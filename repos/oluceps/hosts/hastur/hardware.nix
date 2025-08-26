@@ -22,7 +22,7 @@
     scheduler = "scx_bpfland";
   };
   boot = {
-    tmp.useTmpfs = false;
+    tmp.useTmpfs = true;
     loader.efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/efi";
@@ -139,16 +139,16 @@
                         "space_cache=v2"
                       ];
                     };
-                    "persist/tmp" = {
-                      mountpoint = "/tmp";
-                      mountOptions = [
-                        "relatime"
-                        "nodev"
-                        "nosuid"
-                        "discard=async"
-                        "space_cache=v2"
-                      ];
-                    };
+                    # "persist/tmp" = {
+                    #   mountpoint = "/tmp";
+                    #   mountOptions = [
+                    #     "relatime"
+                    #     "nodev"
+                    #     "nosuid"
+                    #     "discard=async"
+                    #     "space_cache=v2"
+                    #   ];
+                    # };
                   };
                 };
               };

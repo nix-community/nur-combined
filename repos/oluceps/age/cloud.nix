@@ -6,4 +6,4 @@
   # rrr,
   ...
 }:
-(hard [ "juic-san" ])
+(hard [ ])

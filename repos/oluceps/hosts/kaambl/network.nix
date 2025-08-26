@@ -16,15 +16,14 @@
     timeServers = [
       "ntp1.aliyun.com"
       "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
-      "2001:da8:9000::81"
       "edu.ntp.org.cn"
-      "2001:250:380A:5::10"
+      "2001:250:380a:5::10"
     ];
     usePredictableInterfaceNames = false;
     hosts = lib.data.hosts.${config.networking.hostName};
     nameservers = [
-      "223.5.5.5#dns.alidns.com"
       "120.53.53.53#dot.pub"
+      "119.29.29.29"
     ];
     # resolvconf.useLocalResolver = lib.mkForce true;
     # resolvconf.enable = false;

@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  utils,
   ...
 }@args:
 let
@@ -19,7 +20,7 @@ in
     import ./${n}.nix (
       args
       // {
-        inherit pkgs;
+        inherit pkgs utils;
         reIf = genReIf n;
       }
     )

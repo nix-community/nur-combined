@@ -18,7 +18,7 @@ in
   options.repack.autosign = {
     environmentFile = mkOption {
       type = types.nullOr types.str;
-      default = config.vaultix.secrets.autosign.path;
+      default = null;
     };
   };
   config = mkIf cfg.enable {

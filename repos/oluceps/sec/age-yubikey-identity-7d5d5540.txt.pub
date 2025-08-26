@@ -1,7 +1,0 @@
-#       Serial: 20625748, Slot: 1
-#         Name: a627e010
-#      Created: Fri, 21 Apr 2023 05:18:59 +0000
-#   PIN policy: Once   (A PIN is required once per session, if set)
-# Touch policy: Never  (A physical touch is NOT required to decrypt)
-#    Recipient: age1yubikey1q2aucts9c72rmvnysgczu2zuvtvysmg2hkpvqld9qt5kyvyj6dd8gaujk62
-AGE-PLUGIN-YUBIKEY-12JUN5QVZ04W42SQH6TRUQ

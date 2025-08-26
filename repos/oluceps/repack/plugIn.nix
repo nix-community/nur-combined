@@ -69,16 +69,15 @@ let
         netdevConfig = {
           Kind = "wireguard";
           Name = "hts-${peerName}";
-          MTUBytes = if directConnect then 1420 else 1380;
+          MTUBytes = if directConnect then 1400 else 1350; # 1500 - quic 38bytes - hy2 24bytes - wg 32bytes
         };
-        wireguardConfig =
-          {
-            PrivateKeyFile = config.vaultix.secrets."wg-${hostName}".path;
-            RouteTable = false;
-          }
-          // (optionalAttrs ((thisNode.nat -> peerNode.nat) && (thisNode.censor -> peerNode.censor)) {
-            ListenPort = port;
-          });
+        wireguardConfig = {
+          PrivateKeyFile = config.vaultix.secrets."wg-${hostName}".path;
+          RouteTable = false;
+        }
+        // (optionalAttrs ((thisNode.nat -> peerNode.nat) && (thisNode.censor -> peerNode.censor)) {
+          ListenPort = port;
+        });
         wireguardPeers = singleton (
           {
             PublicKey = peerNode.wg_key;
@@ -137,5 +136,29 @@ in
         address = singleton thisNode.unique_addr;
       };
     };
+
+    # https://www.procustodibus.com/blog/2021/11/wireguard-nftables/
+    networking.nftables.ruleset = # nft
+      ''
+        table inet filter {
+          set wg_interfaces {
+              type ifname
+              flags dynamic # Allows adding/removing elements from the command line
+              elements = { ${lib.concatMapStringsSep "," (n: "\"hts-${n}\"") (attrNames thisConn)} }
+          }
+        	chain forward {
+        		type filter hook forward priority filter; policy drop;
+
+        		ct state { established, related } accept
+
+        		ct state invalid drop
+
+        		oifname @wg_interfaces tcp flags syn / syn,rst tcp option maxseg size set rt mtu log prefix "[NFTABLES MSS_CLAMP] " level info
+
+        		iifname @wg_interfaces accept
+        		oifname @wg_interfaces accept
+        	}
+        }
+      '';
   };
 }

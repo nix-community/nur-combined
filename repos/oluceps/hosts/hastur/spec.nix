@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  user,
   ...
 }:
 {
@@ -67,6 +68,13 @@
   services = {
     userborn.enable = true;
 
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      inherit user;
+      extraFlags = [ "--no-default-folder" ];
+      guiAddress = "[::]:8384";
+    };
     smartd.notifications.systembus-notify.enable = true;
     wg-refresh = {
       enable = true;
@@ -217,6 +225,7 @@
     };
     # srs.enable = true;
     # xmrig.enable = true;
+    garage.enable = true;
 
     userborn-subid.enable = true;
     # postgresql.enable = true;
@@ -225,5 +234,6 @@
     # conduwuit.enable = true;
     # mautrix-telegram.enable = true;
     # calibre.enable = true;
+    ipex.enable = true;
   };
 }

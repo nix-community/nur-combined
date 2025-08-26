@@ -84,16 +84,6 @@
                   {
                     handle = [
                       {
-                        handler = "reverse_proxy";
-                        upstreams = [ { dial = "[fdcc::3]:8084"; } ];
-                      }
-                    ];
-                    match = [ { host = [ "seed.nyaw.xyz" ]; } ];
-                    terminal = true;
-                  }
-                  {
-                    handle = [
-                      {
                         handler = "rate_limit";
                         rate_limits = {
                           static = {

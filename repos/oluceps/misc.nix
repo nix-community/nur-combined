@@ -37,49 +37,48 @@
     };
     fish = {
       enable = true;
-      shellAliases =
-        {
-          j = "just";
-          ls = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
-          la = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -la";
-          l = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -lh";
-          nd = "cd /home/${user}/Src/nixos";
-          bl = "cd /home/${user}/Src/blog.nyaw.xyz";
-          swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
-          #--log-format internal-json -v 2>&1 | nom --json";
-          daso = "sudo";
-          daos = "sudo";
-          off = "poweroff";
-          mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
-          kls = "lsd --icon never --hyperlink auto";
-          lks = "lsd --icon never --hyperlink auto";
-          g = "lazygit";
-          "cd.." = "cd ..";
-          up = "nix flake update --commit-lock-file /etc/nixos && swc";
-          fp = "fish --private";
-          e = "exit";
-          rp = "rustplayer";
-          y = "yazi";
-          i = "kitty +kitten icat";
-          sc = "systemctl";
-          scs = "systemctl status";
-          scr = "systemctl restart";
-          ".." = "cd ..";
-          "。。" = "cd ..";
-          "..." = "cd ../..";
-          "。。。" = "cd ../..";
-          "...." = "cd ../../..";
-          "。。。。" = "cd ../../..";
-        }
-        // lib.genAttrs [
-          "rha"
-          "lsa"
-          "tcs"
-          "ubt"
-          "rka"
-          "dgs"
-          "rt"
-        ] (n: "ssh ${n} -t fish");
+      shellAliases = {
+        j = "just";
+        ls = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
+        la = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -la";
+        l = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -lh";
+        nd = "cd /home/${user}/Src/nixos";
+        bl = "cd /home/${user}/Src/blog.nyaw.xyz";
+        swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
+        #--log-format internal-json -v 2>&1 | nom --json";
+        daso = "sudo";
+        daos = "sudo";
+        off = "poweroff";
+        mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
+        kls = "lsd --icon never --hyperlink auto";
+        lks = "lsd --icon never --hyperlink auto";
+        g = "lazygit";
+        "cd.." = "cd ..";
+        up = "nix flake update --commit-lock-file /etc/nixos && swc";
+        fp = "fish --private";
+        e = "exit";
+        rp = "rustplayer";
+        y = "yazi";
+        i = "kitty +kitten icat";
+        sc = "systemctl";
+        scs = "systemctl status";
+        scr = "systemctl restart";
+        ".." = "cd ..";
+        "。。" = "cd ..";
+        "..." = "cd ../..";
+        "。。。" = "cd ../..";
+        "...." = "cd ../../..";
+        "。。。。" = "cd ../../..";
+      }
+      // lib.genAttrs [
+        "rha"
+        "lsa"
+        "tcs"
+        "ubt"
+        "rka"
+        "dgs"
+        "rt"
+      ] (n: "ssh ${n} -t fish");
 
       shellInit = ''
         fish_vi_key_bindings
@@ -275,6 +274,7 @@
     # LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
+  boot.tmp.useTmpfs = true;
 
   # powerManagement.powertop.enable = true;
 
@@ -297,14 +297,13 @@
         # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       ];
-      extra-substituters =
-        [
-          "https://cache.lix.systems"
-        ]
-        ++ (map (n: "https://${n}.cachix.org") [
-          "nix-community"
-          "nixpkgs-wayland"
-        ]);
+      extra-substituters = [
+        "https://cache.lix.systems"
+      ]
+      ++ (map (n: "https://${n}.cachix.org") [
+        "nix-community"
+        "nixpkgs-wayland"
+      ]);
       substituters = [
         # "https://cache.garnix.io"
       ];
@@ -318,6 +317,7 @@
         "ca-derivations"
         # "pipe-operator"
         "pipe-operators"
+        "blake3-hashes"
       ];
       auto-allocate-uids = true;
       use-cgroups = true;

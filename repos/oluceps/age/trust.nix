@@ -9,18 +9,13 @@
 }:
 (hard [
   "general.toml"
-  "jc-do"
   "ss-az"
-  "naive"
 ])
 // (userRo [
   "atuin"
   "atuin_key"
   "pam"
   "age"
-  "pub"
-  "aws-s3-cred"
-  "attic"
 ])
 // (rootRo [
   "db.key"

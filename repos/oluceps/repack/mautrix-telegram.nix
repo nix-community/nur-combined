@@ -8,11 +8,11 @@ reIf {
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.vaultix.secrets.mautrix-tg.path;
-    serviceDependencies = [ "tuwunel.service" ];
+    serviceDependencies = [ "matrix-synapse.service" ];
     settings = {
       homeserver = {
-        address = "http://127.0.0.1:${toString config.services.tuwunel.settings.global.port}";
-        domain = config.services.tuwunel.settings.global.server_name;
+        address = "http://127.0.0.1:8196";
+        domain = "nyaw.xyz";
       };
       appservice = {
         address = "http://127.0.0.1:29317";

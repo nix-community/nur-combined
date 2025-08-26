@@ -166,7 +166,7 @@
       url = "github:nix-community/browser-previews";
     };
     vaultix.url = "github:milieuim/vaultix";
-    # vaultix.url = "/home/elen/Src/vaultix";
+    # vaultix.url = "/home/riro/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";

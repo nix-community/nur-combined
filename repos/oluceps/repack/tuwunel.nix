@@ -7,6 +7,7 @@
 reIf {
   systemd.services.tuwunel.serviceConfig = {
     ReadWritePaths = [ "/var/lib/backup/tuwunel" ];
+    Environment = [ "TUWUNEL_LOG=info" ];
   };
   services.tuwunel = {
     enable = true;

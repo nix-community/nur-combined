@@ -13,7 +13,10 @@
           ];
           match = [
             {
-              path = [ "/_matrix/*" ];
+              path = [
+                "/_matrix/*"
+                "/_synapse/*"
+              ];
             }
           ];
           terminal = true;

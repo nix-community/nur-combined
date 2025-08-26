@@ -91,7 +91,6 @@ in
   }
 
   environment {
-      QT_QPA_PLATFORM "wayland"
   }
   xwayland-satellite {
       path "${lib.getExe pkgs.xwayland-satellite}"

@@ -10,6 +10,22 @@
           servers = {
             srv0 = {
               routes = [
+                {
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
+                      headers = {
+                        request = {
+                          set = {
+                            Host = [ "{http.reverse_proxy.upstream.hostport}" ];
+                          };
+                        };
+                      };
+                      upstreams = [ { dial = "localhost:8384"; } ];
+                    }
+                  ];
+                  match = [ { host = [ "sync.nyaw.xyz" ]; } ];
+                }
               ];
               tls_connection_policies = [
                 {
