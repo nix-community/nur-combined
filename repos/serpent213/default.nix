@@ -16,8 +16,4 @@
 
   pushlog = pkgs.callPackage ./pkgs/pushlog { };
   remark42 = pkgs.callPackage ./pkgs/remark42 { };
-
-  # example-package = pkgs.callPackage ./pkgs/example-package {};
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
