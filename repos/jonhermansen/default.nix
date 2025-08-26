@@ -16,13 +16,14 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bork = pkgs.callPackage ./pkgs/bork { };
   davinci-resolve-studio = pkgs.callPackage ./pkgs/davinci-resolve-studio { };
   eiffelstudio = pkgs.callPackage ./pkgs/eiffelstudio { };
   #flashrom-dasharo = pkgs.callPackage ./pkgs/flashrom-dasharo { };
   #fuse-zip = pkgs.callPackage ./pkgs/fuse-zip { };
   hello-jon = pkgs.callPackage ./pkgs/hello-jon { };
   moonring = pkgs.callPackage ./pkgs/moonring { };
-  #spotx = pkgs.callPackage ./pkgs/spotx { };
+  spotx = pkgs.callPackage ./pkgs/spotx { };
   user-mode-linux = pkgs.callPackage ./pkgs/user-mode-linux { };
   vfio-isolate = pkgs.callPackage ./pkgs/vfio-isolate { };
   #wayback-x11 = pkgs.callPackage ./pkgs/wayback-x11 { };
