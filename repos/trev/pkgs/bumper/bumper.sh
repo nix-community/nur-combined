@@ -2,15 +2,22 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 git_branch=$(git rev-parse --abbrev-ref HEAD)
 git_root=$(git rev-parse --show-toplevel)
-git_version=$(git describe --tags --abbrev=0)
+git_version=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 version=${git_version#v}
 
 major=$(echo "${version}" | cut -d . -f1)
 minor=$(echo "${version}" | cut -d . -f2)
 patch=$(echo "${version}" | cut -d . -f3)
 case "${1-patch}" in
-    major) major=$((major + 1)) ;;
-    minor) minor=$((minor + 1)) ;;
+    major) 
+        major=$((major + 1))
+        minor=0
+        patch=0
+        ;;
+    minor) 
+        minor=$((minor + 1))
+        patch=0
+        ;;
     patch) patch=$((patch + 1)) ;;
     *) echo "usage: bumper (major | minor | patch)" && exit ;;
 esac
@@ -24,7 +31,7 @@ git stash push
 if [ -f package.json ]; then
     echo "bumping package.json"
     cd "${git_root}"
-    if npm version "${next_version}" --no-git-tag-version; then
+    if npm version "${next_version}" --no-git-tag-version > /dev/null; then
         git add package.json
         git add package-lock.json
     fi
@@ -33,7 +40,7 @@ fi
 if [ -f flake.nix ]; then
     echo "bumping flake.nix"
     cd "${git_root}"
-    if nix-update --flake --version "${next_version}" default; then
+    if nix-update --flake --version "${next_version}" default > /dev/null; then
         git add flake.nix
     fi
 fi
@@ -41,7 +48,7 @@ fi
 if [ -f openapi.yaml ]; then
     echo "bumping openapi"
     cd "${git_root}"
-    if sed -i -e "s/${version}/${next_version}/g" openapi.yaml; then
+    if sed -i -e "s/${version}/${next_version}/g" openapi.yaml > /dev/null; then
         git add openapi.yaml
     fi
 fi
