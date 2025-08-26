@@ -17,7 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   olympus = pkgs.callPackage ./pkgs/olympus { };
-  apostrophe-2-6-3 = pkgs.callPackage ./pkgs/apostrophe { };
   reqable = pkgs.callPackage ./pkgs/reqable { };
   sysmon = pkgs.callPackage ./pkgs/sysmon { };
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
