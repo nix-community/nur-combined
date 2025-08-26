@@ -9,6 +9,5 @@ eachDefaultSystems (pkgs:
   modules) //
 (collectYield (v: v ? packages)
   (path: v: flattenPackageSet (last path) (pkgs.callPackage v.packages { }))
-  modules) //
-super.installer
+  modules)
 )

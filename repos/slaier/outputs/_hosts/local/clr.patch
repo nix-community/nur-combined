@@ -1,0 +1,14 @@
+diff --git a/rocclr/device/device.hpp b/rocclr/device/device.hpp
+index 78bacf9..ff4add3 100644
+--- a/rocclr/device/device.hpp
++++ b/rocclr/device/device.hpp
+@@ -1436,9 +1436,6 @@ class Isa {
+ 
+   /// @returns If the ROCm runtime supports the ISA.
+   bool runtimeRocSupported() const {
+-    if (!IS_HIP && (versionMajor_ == 8)) {
+-      return false;
+-    }
+     return runtimeRocSupported_;
+   }
+ 

@@ -41,6 +41,8 @@
   };
   services.earlyoom.enable = true;
 
+  services.speechd.enable = false;
+
   programs.nix-ld.enable = true;
   environment.systemPackages = with pkgs; [
     alacritty
@@ -49,19 +51,16 @@
     bottom
     curl
     doggo
+    filezilla
     gdu
     geo
     git
-    gocryptfs
     hydra-check
     hyperfine
     ianny
     iotop
     just
-    kdePackages.okular
-    keepassxc
     killall
-    libreoffice
     librespeed-cli
     localsend
     lsof
@@ -72,18 +71,19 @@
     neovim
     nix-tree
     nixpkgs-fmt
-    nvfetcher
+    nomacs
     p7zip
     pavucontrol
     pciutils
     python3
+    qalculate-qt
+    qpdfview
     qrencode
     remmina
     rust-petname
     satty
     scrcpy
     sops
-    tdesktop
     unrar
     unzip
     usbutils
@@ -91,6 +91,7 @@
     xdg-utils
     yt-dlp
     zip
+    (makeElectronWrapper teams-for-linux)
   ] ++ (map makeNoProxyWrapper [
     ydict
     kodi-wayland

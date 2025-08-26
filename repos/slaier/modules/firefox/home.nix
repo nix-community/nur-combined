@@ -10,8 +10,8 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-      extraPolicies = {
+    package = pkgs.firefox.override (prev: {
+      extraPolicies = (prev.extraPolicies or { }) // {
         CaptivePortal = false;
         DisableFirefoxStudies = true;
         DisablePocket = true;
@@ -26,7 +26,11 @@ in
           SkipOnboarding = true;
         };
       };
-    };
+      extraPrefsFiles = (prev.extraPrefsFiles or [ ]) ++ [
+        "${pkgs.arkenfox-userjs}/user.cfg"
+        "${./overlay.js}"
+      ];
+    });
     profiles.default = {
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         adnauseam
@@ -34,17 +38,34 @@ in
         bitwarden
         buster-captcha-solver
         clearurls
-        copy-link-text
         history-cleaner
         i-dont-care-about-cookies
+        imagus
         localcdn
         new_tongwentang
         offline-qr-code-generator
         rsshub-radar
         violentmonkey
-      ] ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
-        imagus
-      ]);
+        (buildFirefoxXpiAddon {
+          pname = "copy-link-text-sytelix";
+          version = "1.5.0";
+          addonId = "{7f069302-8ecc-45b1-84be-745f021d040e}";
+          url = "https://addons.mozilla.org/firefox/downloads/file/4397391/copy_link_text_sytelix-1.5.0.xpi";
+          sha256 = "0aff955e12ae8b99d207bbbe7d945b24c0cb50de450095ffd212842ede86d830";
+          meta = with lib;
+            {
+              description = "The only extension that lets you effortlessly copy link text on both desktop and mobile—via right-click, Alt+C shortcut, or Copy Mode activation.";
+              license = licenses.mpl20;
+              mozPermissions = [
+                "activeTab"
+                "clipboardWrite"
+                "contextMenus"
+                "<all_urls>"
+              ];
+              platforms = platforms.all;
+            };
+        })
+      ];
       bookmarks = {
         force = true;
         settings = [
@@ -161,14 +182,6 @@ in
         "userChrome.Menu.Size.Compact.Enabled" = true;
         "userChrome.Menu.Icons.Regular.Enabled" = true;
       };
-      extraConfig =
-        let
-          src = lib.sourceFilesBySuffices ./. [ ".js" ];
-        in
-        ''
-          ${fileContents "${pkgs.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
-          ${fileContents "${src}/overlay.js"}
-        '';
       search = {
         default = "Google NCR";
         engines = {

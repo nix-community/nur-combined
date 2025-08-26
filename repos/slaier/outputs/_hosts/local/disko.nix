@@ -16,14 +16,6 @@
                 mountpoint = "/boot";
               };
             }; # ESP
-            MSR = {
-              size = "16M";
-              type = "0C01";
-            }; # Microsoft Reserved Partition
-            windows = {
-              size = "500G";
-              type = "0700";
-            }; # windows
             nixvar = {
               size = "500M";
               content = {

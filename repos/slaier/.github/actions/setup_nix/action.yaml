@@ -43,7 +43,7 @@ runs:
         echo "TMPDIR=/tmp" >> "$GITHUB_ENV"
         echo "::endgroup::"
 
-    - uses: cachix/install-nix-action@V27
+    - uses: cachix/install-nix-action@v31.5.2
       with:
         nix_path: nixpkgs=channel:${{ inputs.channel }}
 

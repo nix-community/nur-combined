@@ -77,7 +77,7 @@
         tooltip = false;
       };
       network = {
-        interface = "br0";
+        interface = "enp5s0";
         format-ethernet = "Ethernet: {bandwidthDownBytes:>}";
         format-disconnected = "Ethernet: Disconnected";
         format-alt = "Ethernet | Interface: {ifname} | IP: {ipaddr}/{cidr}";
@@ -92,7 +92,8 @@
       };
       temperature = {
         format = "GPU {temperatureC}°C";
-        hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
+        hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:03.1/0000:07:00.0/hwmon";
+        input-filename = "temp1_input";
         critical-threshold = 70;
         tooltip = false;
       };

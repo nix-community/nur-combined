@@ -17,7 +17,7 @@ in
     serviceConfig = {
       Type = "notify";
       PrivateTmp = true;
-      ExecStart = "${lib.getExe' pkgs.openfortivpn "openfortivpn"} -c ${conf} --pppd-accept-remote";
+      ExecStart = "${lib.getExe' pkgs.openfortivpn "openfortivpn"} -c ${conf} --pppd-accept-remote --no-dns";
       Restart = "on-failure";
       OOMScoreAdjust = -100;
     };

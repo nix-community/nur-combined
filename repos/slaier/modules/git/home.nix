@@ -25,6 +25,8 @@ in
       merge.conflictstyle = "diff3";
       merge.ff = "only";
       pull.rebase = true;
+      rebase.autoSquash = true;
+      rebase.autoStash = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = ''${pkgs.writeText "allowedSigners.txt"
           ''${config.programs.git.userEmail} ${nixosConfig.programs.ssh.knownHosts."local.lan".publicKey}''}'';

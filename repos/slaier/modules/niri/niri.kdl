@@ -43,6 +43,8 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Super+Alt+L { spawn "swaylock"; }
 
+    Mod+O repeat=false { toggle-overview; }
+
     Mod+Q { close-window; }
 
     Mod+Left  { focus-column-left; }

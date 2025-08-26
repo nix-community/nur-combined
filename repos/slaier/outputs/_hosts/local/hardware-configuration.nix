@@ -1,11 +1,10 @@
 _:
 { config, lib, modulesPath, pkgs, ... }:
-
 {
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
-      ./disko.nix
+      ./filesystem.nix
     ];
 
   boot.tmp.cleanOnBoot = true;
@@ -22,59 +21,14 @@ _:
     "zswap.enabled=1"
   ];
 
-  fileSystems."/data" =
-    {
-      device = "/dev/disk/by-uuid/13ad50f4-8269-43a5-9fb9-adb1919a5f3c";
-      fsType = "btrfs";
-    };
-
   services.fstrim.enable = true;
-
-  swapDevices = [ ];
-
-  fileSystems."/persist".neededForBoot = true;
-  fileSystems."/etc/ssh" = {
-    depends = [ "/persist" ];
-    neededForBoot = true;
-  };
-  environment.persistence."/persist" = {
-    directories = [
-      "/etc/ssh"
-      "/var"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
-    users.nixos = {
-      directories = [
-        ".arduino15"
-        ".arduinoIDE"
-        ".cache"
-        ".cmake"
-        ".config"
-        ".local"
-        ".mozilla"
-        ".nali"
-        ".pki"
-        ".platformio"
-        ".ssh"
-        ".wokwi"
-        "repos"
-      ];
-    };
-  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = false;
-  networking.interfaces.br0.useDHCP = lib.mkDefault true;
-  networking.bridges = {
-    br0 = {
-      interfaces = [ "enp5s0" ];
-    };
-  };
+  networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
@@ -83,42 +37,32 @@ _:
     enableGraphical = true;
   };
 
-  environment.variables = {
-    ROC_ENABLE_PRE_VEGA = "1";
-  };
+  nixpkgs.overlays = [
+    (_final: prev: {
+      rocmPackages = prev.rocmPackages.overrideScope (
+        _final: prev: {
+          clr = (prev.clr.override {
+            localGpuTargets = [ "gfx803" ];
+          }).overrideAttrs (prev: {
+            patches = prev.patches ++ [ ./clr.patch ];
+          });
+        }
+      );
+    })
+  ];
+
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;
     extraPackages = with pkgs; [
       amdvlk
-      rocmPackages_5.clr.icd
-      rocmPackages_5.clr
-      rocmPackages_5.rocminfo
-      rocmPackages_5.rocm-runtime
-    ];
-    extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
+      rocmPackages.clr.icd
     ];
   };
 
   environment.systemPackages = with pkgs; [
+    amdgpu_top
     clinfo
   ];
-
-  systemd.tmpfiles.rules =
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-        paths = with pkgs.rocmPackages_5; [
-          rocblas
-          hipblas
-          clr
-        ];
-      };
-    in
-    [
-      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-    ];
 
   hardware.fancontrol =
     let

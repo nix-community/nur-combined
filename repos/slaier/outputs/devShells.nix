@@ -2,6 +2,7 @@
 super.lib.eachDefaultSystems (pkgs: with pkgs; {
   default = mkShell {
     packages = [
+      disko
       just
       nixos-rebuild
       sops
