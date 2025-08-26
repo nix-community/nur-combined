@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/rahra/smrender/pull/17/commits/bdd7c69e685ef585022fac94ef75d0d7747b042d.patch";
+      url = "https://github.com/rahra/smrender/commit/bdd7c69e685ef585022fac94ef75d0d7747b042d.patch";
       hash = "sha256-zj9gMgmcYHfhRt8HV7BjL9qC+XwtlwUzxrD6MO3lWDg=";
     })
   ];

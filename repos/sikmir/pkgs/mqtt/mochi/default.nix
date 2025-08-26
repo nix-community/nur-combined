@@ -22,6 +22,8 @@ buildGoModule (finalAttrs: {
     mv $out/bin/{docker,mochi-docker}
   '';
 
+  doCheck = false; # listen tcp :22222: bind: address already in use
+
   __darwinAllowLocalNetworking = true;
 
   meta = {
