@@ -60,11 +60,6 @@
             "sha256": "165453dq6xxyyrhjq8dxcs6g3f9c9m2ypma61j3nwz430v3hm24m",
             "url": "https://github.com/Ex-32/nur-packages"
         },
-        "HeyImKyu": {
-            "rev": "3bd872c56aa2f3d01dc26e1077a7d1eb02ad0709",
-            "sha256": "14kf78i9axii6kjl87mq4dy1wfdgiqbvj2cdixsrzhp5jrlbvin5",
-            "url": "https://github.com/HeyImKyu/nur-packages"
-        },
         "INFO4-19": {
             "rev": "8e7468efbb7fc13e0c4ccf7e2fd64f5106012301",
             "sha256": "082k3j383zl7vp8fmbwjdh9wmnhv776i6in3pjf3g06ijb4cwcg1",
