@@ -14,10 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  hyfetch = pkgs.callPackage ./pkgs/hyfetch { };
+  # hyfetch = pkgs.callPackage ./pkgs/hyfetch { }; Nixpkgs 有了
   
-  hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { };
-  devtools-riscv64 = pkgs.callPackage ./pkgs/devtools-riscv64 { };
+  # hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { }; Nixpkgs 也有了
+  MoeKoeMusic = pkgs.callPackage ./pkgs/MoeKoeMusic { };
+  # devtools-riscv64 = pkgs.callPackage ./pkgs/devtools-riscv64 { }; 坏了
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

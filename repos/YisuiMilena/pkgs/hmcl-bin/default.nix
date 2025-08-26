@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hmcl-bin";
-  version = "3.5.4.234";
+  version = "3.6.15";
 
   src = fetchurl {
     url = "https://github.com/huanghongxun/HMCL/releases/download/v${version}/HMCL-${version}.jar";
