@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1cdbv7ff0wdknc06avimv107w1b4qziygwbx53zcjsvmxiaa966j";
-    aarch64-linux = "05vclzb8zi81cjphsg4vq01wkdw16jrzw3ws0301gcfhj213i6mc";
-    x86_64-darwin = "152j85ynzyjk57xhbr0grh2afbrrznv5mbwiz696baicmi43z673";
-    aarch64-darwin = "0af5vfn5mxq4krf18zidlwaq0z27xiaj73lv8427nzg1yvc6bm1a";
+    x86_64-linux = "16s07maikk08zxgzw4f2m2yg9zbi4vs7qvxqwhmysjmf6dc2p99z";
+    aarch64-linux = "056arnrsj9x2zxlk2ds59y30jsm308ld0nq6hggp7i8i2706pnwn";
+    x86_64-darwin = "06w2fx8rmzcn5rka3hmsdzazghghakc99f7gfmkasg8x9ihyzpvv";
+    aarch64-darwin = "1yzginb5xv2fp0czpbbxmywx2lyhsh27f0as1rwdksb4mlzcmqls";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/dagger/container-use/releases/download/v0.4.1/container-use_v0.4.1_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/dagger/container-use/releases/download/v0.4.1/container-use_v0.4.1_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/dagger/container-use/releases/download/v0.4.1/container-use_v0.4.1_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/dagger/container-use/releases/download/v0.4.1/container-use_v0.4.1_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/dagger/container-use/releases/download/v0.4.2/container-use_v0.4.2_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/dagger/container-use/releases/download/v0.4.2/container-use_v0.4.2_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/dagger/container-use/releases/download/v0.4.2/container-use_v0.4.2_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/dagger/container-use/releases/download/v0.4.2/container-use_v0.4.2_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "container-use";
-  version = "0.4.1";
+  version = "0.4.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
