@@ -1502,11 +1502,6 @@
             "sha256": "08h39hmjsvd2whxy5xfgi3c6m5l7bynhqlw2xgmy06105qlkx51m",
             "url": "https://github.com/shackra/nur"
         },
-        "shados": {
-            "rev": "241c47507596f282b2eeed7044285f744eb24518",
-            "sha256": "0lfl7d26vwgppd0cmghs2y6mp2cib3w693ab1m871frlwgd8ix58",
-            "url": "https://github.com/Shados/nur-packages"
-        },
         "shamilton": {
             "rev": "b1231dc016cee963b4cb90a0d37e08f6842891be",
             "sha256": "072hz91fyw7g0f2lawf5rp7kzjzfq0ivs711imk60qr6slnixgms",
