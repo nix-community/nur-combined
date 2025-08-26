@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     lz4
     realOpencv
-  ] ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
+  ]
+  ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   installPhase = ''
     mkdir -p $out/bin

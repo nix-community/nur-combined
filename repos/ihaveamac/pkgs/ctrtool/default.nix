@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
 }:
 
 let
@@ -35,7 +36,13 @@ stdenv.mkDerivation rec {
       --replace-warn Windows.h windows.h
   '';
 
-  patches = [ ./libtoolchain-include-limits.patch ];
+  patches = [
+    ./libtoolchain-include-limits.patch
+    (fetchpatch {
+      url = "https://github.com/3DSGuy/Project_CTR/commit/bca09927428c35253888efda8eb6e8a2150a6c08.patch";
+      hash = "sha256-w2+Gk2LiR20TzK5o6u8YE+lxQp1I+7lJnG2jEMYSzwM=";
+    })
+  ];
 
   preBuild = ''
     cd ctrtool
@@ -45,7 +52,8 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${cc}"
     "CXX=${cxx}"
-  ] ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
+  ]
+  ++ (lib.optional stdenv.hostPlatform.isWindows "ARCHFLAGS=-municode");
   enableParallelBuilding = true;
 
   # workaround for https://github.com/3DSGuy/Project_CTR/issues/145

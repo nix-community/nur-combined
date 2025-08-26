@@ -12,7 +12,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 
 | Name | Attr | Description |
 | --- | --- | --- |
-| [3beans-0-unstable-2025-07-01](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
+| [3beans-0-unstable-2025-08-19](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
 | [3dslink-0.6.3](https://github.com/devkitPro/3dslink) | \_3dslink | Send 3DSX files to the Homebrew Launcher on 3DS |
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
@@ -25,13 +25,13 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
-| [DiscordWikiBot-0-unstable-2025-03-12](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [DiscordWikiBot-0-unstable-2025-08-04](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |
 | [kwin-move-window-1.1.1](https://github.com/Merrit/kwin-move-window) | kwin-move-window | KWin script that adds shortcuts to move the active window with the keyboard |
 | [lnshot-0.1.3](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
-| [local-gpss-1.0.0](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
+| [local-gpss-1.0.3](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | [mediawiki-1.39.13](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
@@ -50,6 +50,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [sdFormatLinux-0.2.0](https://github.com/profi200/sdFormatLinux) | sd-format-linux | Properly format SD cards under Linux. |
 | [switch-tools-1.13.1](https://github.com/switchbrew/switch-tools) | switch-tools | Various Nintendo Switch homebrew tools |
 | [themethod3-2024-04-20](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
+| [TinyWiiBackupManager-1.4.3](https://github.com/mq1/TinyWiiBackupManager) | tiny-wii-backup-manager | Tool for decrypting all mogg files used by the Rock Band series |
 | [unxip-3.0](https://github.com/saagarjha/unxip) | unxip | A fast Xcode unarchiver |
 | [wfs-tools-1.2.3-unstable-2025-03-19](https://github.com/koolkdev/wfs-tools) | wfs-tools | WFS (WiiU File System) Tools |
 | [wifiboot-host-unstable-2023-07-02](https://github.com/danny8376/wifiboot-host) | wifiboot-host | command line version uploader for https://problemkaputt.de/wifiboot.htm |

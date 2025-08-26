@@ -15,12 +15,11 @@ with pkgs.lib;
       dontBuild = true;
       dontFixup = true;
 
-      installPhase =
-        ''
-          mkdir $out
-        ''
-        + concatStringsSep "\n" (
-          mapAttrsToList (k: v: "ln -s ${info "evaluating ${k}" v} $out/${k}") links
-        );
+      installPhase = ''
+        mkdir $out
+      ''
+      + concatStringsSep "\n" (
+        mapAttrsToList (k: v: "ln -s ${info "evaluating ${k}" v} $out/${k}") links
+      );
     };
 }

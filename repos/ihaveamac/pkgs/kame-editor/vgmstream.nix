@@ -82,17 +82,16 @@ stdenv.mkDerivation rec {
         chmod -R +w dependencies/celt-0.11.0/
       '';
 
-  cmakeFlags =
-    [
-      "-DATRAC9_PATH=${atrac9-src}"
-      "-DBUILD_AUDACIOUS=OFF"
-    ]
-    # Only supported on x86_64-linux
-    ++ lib.optionals (stdenv.system == "x86_64-linux") [
-      "-DCELT_0061_PATH=${celt-0_6_1-src}"
-      "-DCELT_0110_PATH=../dependencies/celt-0.11.0"
-      # libg719_decode omitted because it doesn't have a free software license
-    ];
+  cmakeFlags = [
+    "-DATRAC9_PATH=${atrac9-src}"
+    "-DBUILD_AUDACIOUS=OFF"
+  ]
+  # Only supported on x86_64-linux
+  ++ lib.optionals (stdenv.system == "x86_64-linux") [
+    "-DCELT_0061_PATH=${celt-0_6_1-src}"
+    "-DCELT_0110_PATH=../dependencies/celt-0.11.0"
+    # libg719_decode omitted because it doesn't have a free software license
+  ];
 
   meta = with lib; {
     description = "Library for playback of various streamed audio formats used in video games";

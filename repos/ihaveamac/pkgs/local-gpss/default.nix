@@ -8,13 +8,13 @@
 
 buildDotnetModule rec {
   pname = "local-gpss";
-  version = "1.0.0";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "FlagBrew";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-tXdfMdrsUjnDr43dyLz6S53hcq/mmCtjBvxGl+GzIYI=";
+    hash = "sha256-kMTJoPcVQEQxoB0HpiIVGheLweFQLVyjwH9yYie2gUc=";
   };
 
   projectFile = "local-gpss.csproj";

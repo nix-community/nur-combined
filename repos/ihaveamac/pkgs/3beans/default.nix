@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "0-unstable-2025-07-01";
+  version = "0-unstable-2025-08-19";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "366d92cf4a45974db7544b7576892cf8db9f8697";
-    hash = "sha256-iazclwObVBJMZeGLkdYcSnPaAoMTTo7s7PE+/HWgmHw=";
+    rev = "9c98b86e365f11260179a27a65d1ecf10739afb5";
+    hash = "sha256-ubLakXZrz7Pu+qZJbFtdxs6UqToiLUU76gTefAdTxTw=";
   };
 
   buildInputs = [
@@ -35,27 +35,26 @@ stdenv.mkDerivation rec {
 
   # The Darwin-specific phase kind works like mac-bundle.sh in the 3Beans repo
   # but is done manually since I don't need to bundle libraries in the app bundle
-  installPhase =
-    ''
-      mkdir -p $out/bin
-    ''
-    + (
-      if stdenv.isDarwin then
-        ''
-          contents=$out/Applications/3Beans.app/Contents
-          mkdir -p $contents
-          cp Info.plist $contents
-          mkdir $contents/MacOS
-          cp 3beans $contents/MacOS/3beans
-          ln -s $contents/MacOS/3beans $out/bin/3beans
-        ''
-      else
-        ''
-          mkdir -p $out/share/applications
-          cp 3beans $out/bin
-          cp com.hydra.threebeans.desktop $out/share/applications
-        ''
-    );
+  installPhase = ''
+    mkdir -p $out/bin
+  ''
+  + (
+    if stdenv.isDarwin then
+      ''
+        contents=$out/Applications/3Beans.app/Contents
+        mkdir -p $contents
+        cp Info.plist $contents
+        mkdir $contents/MacOS
+        cp 3beans $contents/MacOS/3beans
+        ln -s $contents/MacOS/3beans $out/bin/3beans
+      ''
+    else
+      ''
+        mkdir -p $out/share/applications
+        cp 3beans $out/bin
+        cp com.hydra.threebeans.desktop $out/share/applications
+      ''
+  );
 
   meta = with lib; {
     license = licenses.gpl3;

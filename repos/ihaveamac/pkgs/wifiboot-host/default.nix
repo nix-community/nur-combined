@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     "CXX=${stdenv.cc.targetPrefix}c++"
     "AR=${stdenv.cc.targetPrefix}ar"
     "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
-  ] ++ (lib.optional stdenv.hostPlatform.isMinGW "PLATFORM_LIBS=-lws2_32");
+  ]
+  ++ (lib.optional stdenv.hostPlatform.isMinGW "PLATFORM_LIBS=-lws2_32");
 
   installPhase = ''
     mkdir -p $out/bin

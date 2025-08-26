@@ -18,12 +18,10 @@ let
       (cryptopp.overrideAttrs (
         final: prev:
         lib.warn "overriding" {
-          postPatch =
-            prev.postPatch
-            + ''
-              substituteInPlace GNUmakefile \
-                --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
-            '';
+          postPatch = prev.postPatch + ''
+            substituteInPlace GNUmakefile \
+              --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
+          '';
         }
       ))
     else
@@ -50,7 +48,8 @@ stdenv.mkDerivation rec {
   patches = [
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
-  ] ++ lib.optional (!withFUSE) ./remove-wfs-fuse.patch;
+  ]
+  ++ lib.optional (!withFUSE) ./remove-wfs-fuse.patch;
 
   prePatch = ''
     rmdir wfslib
@@ -81,7 +80,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     boost
     realCryptopp
-  ] ++ lib.optional withFUSE fuse;
+  ]
+  ++ lib.optional withFUSE fuse;
 
   nativeBuildInputs = [
     cmake

@@ -62,6 +62,7 @@ rec {
   ctr-gputextool = callPackage ./pkgs/ctr-gputextool { };
   switch-tools = callPackage ./pkgs/switch-tools { };
   ctr-logobuilder = callPackage ./pkgs/ctr-logobuilder { };
+  tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 

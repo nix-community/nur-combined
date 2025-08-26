@@ -12,7 +12,7 @@
 }:
 
 let
-  gettext = callPackage ./gettext-0.22.5 {};
+  gettext = callPackage ./gettext-0.22.5 { };
 in
 stdenv.mkDerivation rec {
   pname = "vitamtp";

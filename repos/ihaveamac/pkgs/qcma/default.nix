@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     vitamtp
     libnotify
     qtbase
-  ] ++ (lib.optional withFFmpeg ffmpeg_4);
+  ]
+  ++ (lib.optional withFFmpeg ffmpeg_4);
 
   nativeBuildInputs = [
     git
