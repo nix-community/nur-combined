@@ -1,0 +1,28 @@
+From efd1b17cfb7610c85dc5680cc7e2b57a562f9a63 Mon Sep 17 00:00:00 2001
+From: XYenon <i@xyenon.bid>
+Date: Wed, 20 Aug 2025 15:14:39 +0800
+Subject: [PATCH] quote file url
+
+---
+ main.lua | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/main.lua b/main.lua
+index 5afc24f..2cfc1eb 100644
+--- a/main.lua
++++ b/main.lua
+@@ -226,9 +226,9 @@ function M:entry(job)
+ 	end
+ 
+ 	if (default_action == "nvim" or get_option() == "nvim" ) and args[1] ~= "fzf" then
+-		os.execute("nvim +"..line_number.." -n "..file_url)
++		os.execute("nvim +"..line_number.." -n "..string.format("%q", file_url))
+ 	elseif (default_action == "helix" or get_option() == "helix" ) and args[1] ~= "fzf" then
+-		os.execute("hx +"..line_number.." "..file_url)
++		os.execute("hx +"..line_number.." "..string.format("%q", file_url))
+ 	elseif (default_action == "jump" or get_option() == "jump" or args[1] == "fzf") and file_url ~= ""  then
+ 		ya.mgr_emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
+ 	else
+-- 
+2.50.1
+

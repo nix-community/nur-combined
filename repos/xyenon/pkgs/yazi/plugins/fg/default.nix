@@ -16,7 +16,10 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-PNZngyiWuzw2bmJ4v66er9HEAcD5z0Dr6iKYwcxJwf0=";
   };
 
-  patches = [ ./0001-Revert-fix-helix-open.patch ];
+  patches = [
+    ./0001-Revert-fix-helix-open.patch
+    ./0002-quote-file-url.patch
+  ];
 
   dontBuild = true;
 

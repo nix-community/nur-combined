@@ -1,6 +1,6 @@
 {
   callPackage,
-  buildGoModule,
+  buildGo125Module,
   lib,
   sources,
   go,
@@ -9,7 +9,7 @@
 let
   caddy = callPackage ./package.nix {
     inherit caddy;
-    inherit buildGoModule;
+    inherit buildGo125Module;
   };
   pluginRepos = [
     "WeidiDeng/caddy-cloudflare-ip"
@@ -25,20 +25,39 @@ let
       _n: v:
       let
         goDate =
-          if hasInfix "+" v.date then
+          if hasInfix "+" v.date || hasInfix "-" v.date then
             let
-              splitedDate = splitString "+" v.date;
-              date = elemAt splitedDate 0;
+              splitedDate = splitString (if hasInfix "+" v.date then "+" else "-") v.date;
+              datetime = elemAt splitedDate 0;
               timezone = elemAt splitedDate 1;
+              date = substring 0 8 datetime;
+              time = substring 8 14 datetime;
+              calculateUtc =
+                timeStr: tzStr:
+                let
+                  time = toIntBase10 timeStr;
+                  tz = (toIntBase10 tzStr) * 100;
+                in
+                if hasInfix "+" v.date then time - tz else time + tz;
+              utcTime = calculateUtc time timezone;
+              realDateTime =
+                if utcTime < 0 then
+                  {
+                    date = date - 1;
+                    time = utcTime + 240000;
+                  }
+                else if utcTime > 240000 then
+                  {
+                    date = date + 1;
+                    time = utcTime - 240000;
+                  }
+                else
+                  {
+                    inherit date;
+                    time = utcTime;
+                  };
             in
-            toString ((toIntBase10 date) - ((toIntBase10 timezone) * 100))
-          else if hasInfix "-" v.date then
-            let
-              splitedDate = splitString "-" v.date;
-              date = elemAt splitedDate 0;
-              timezone = elemAt splitedDate 1;
-            in
-            toString ((toIntBase10 date) + ((toIntBase10 timezone) * 100))
+            "${fixedWidthNumber 8 realDateTime.date}${fixedWidthNumber 6 realDateTime.time}"
           else
             v.date;
       in
@@ -47,5 +66,5 @@ let
 in
 (caddy.withPlugins.override { inherit go; }) {
   inherit plugins;
-  hash = "sha256-PZ1In1iY6jCsvsu8aBWh5UBISrSQNykbB9CETEFt/cg=";
+  hash = "sha256-04HXRJJbAknk4gbSvGfW5dy/UlsMn++e8EA95rkOves=";
 }

@@ -89,7 +89,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLocks": null,
-        "date": "20250530094005-0600",
+        "date": "20250822142841-0600",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -103,12 +103,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "4d3c80e89c5f80438a3e048a410d5543ff5fb9f4",
-            "sha256": "sha256-JhxoJYatDgOfYO3TJXQdg16RNWualZ1IsIiNEYEjwbA=",
+            "rev": "d6199b698240eb9b8d663659c65899ff72466b7d",
+            "sha256": "sha256-A693Z2eid1y547u2kwDgFKPUjqCP2IIDiBxHqPpYiJI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4d3c80e89c5f80438a3e048a410d5543ff5fb9f4"
+        "version": "d6199b698240eb9b8d663659c65899ff72466b7d"
     },
     "mholt/caddy-webdav": {
         "cargoLocks": null,
@@ -156,7 +156,7 @@
     },
     "rime-ice-unstable": {
         "cargoLocks": null,
-        "date": "2025-08-04",
+        "date": "2025-08-16",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -168,12 +168,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "292ea3b4b8bf4b5a65a5239d6005783bfb5cd98b",
-            "sha256": "sha256-B7SjpdMcwGBPb4dfgWP09+XtgDRf/aRUOR7Fv7KNBZc=",
+            "rev": "39b04584c216fec7cdc30270fc9b6f054423e202",
+            "sha256": "sha256-AP2T4G/KDVOLzzRXHrO2c33bV/HxSOhu8QCeiUP/IzI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "292ea3b4b8bf4b5a65a5239d6005783bfb5cd98b"
+        "version": "39b04584c216fec7cdc30270fc9b6f054423e202"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -184,15 +184,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gs/JhdSeLFkBKvBdVRxk3RhqlkOhly18w4Pz63GG814=",
+            "sha256": "sha256-/Yv/2kigtpNvnWlHYTJBMUlMV5i5toteaLiDJ0kDoZg=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250711/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250810/moegirl.dict.yaml"
         },
-        "version": "20250711"
+        "version": "20250810"
     },
     "yazi-rs-plugins": {
         "cargoLocks": null,
-        "date": "2025-07-23",
+        "date": "2025-08-23",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -204,11 +204,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "de53d90cb2740f84ae595f93d0c4c23f8618a9e4",
-            "sha256": "sha256-ixZKOtLOwLHLeSoEkk07TB3N57DXoVEyImR3qzGUzxQ=",
+            "rev": "d7588f6d29b5998733d5a71ec312c7248ba14555",
+            "sha256": "sha256-9+58QhdM4HVOAfEC224TrPEx1N7F2VLGMxKVLAM4nJw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "de53d90cb2740f84ae595f93d0c4c23f8618a9e4"
+        "version": "d7588f6d29b5998733d5a71ec312c7248ba14555"
     }
 }
