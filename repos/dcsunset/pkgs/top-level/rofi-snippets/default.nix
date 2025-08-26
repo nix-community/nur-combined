@@ -29,7 +29,6 @@ rustPlatform.buildRustPackage rec {
     [ glib cairo pango libxkbcommon ]
     ++ lib.optionals (builtins.elem "x11" features) [ xdotool ];
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-O6/M+H8Btj3P7Svr409KCA9BCXYj+BVzFL9IJ+pmLdA=";
 
   buildNoDefaultFeatures = true;
