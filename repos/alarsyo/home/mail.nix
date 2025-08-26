@@ -117,7 +117,7 @@ in {
           userName = "amartin";
           realName = myName;
           flavor = "plain"; # default setting
-          passwordCommand = "${pkgs.rbw}/bin/rbw get lrde.epita.fr amartin";
+          passwordCommand = "${pkgs.rbw}/bin/rbw get lre.epita.fr amartin";
           mbsync = {
             enable = true;
             create = "both";

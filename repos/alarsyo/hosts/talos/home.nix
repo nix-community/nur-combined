@@ -48,7 +48,7 @@ in {
     home.packages = builtins.attrValues {
       inherit
         (pkgs)
-        ansel
+        #ansel
         chromium # some websites only work there :(
         font-awesome # for pretty icons
         gnome-solanum
