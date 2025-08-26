@@ -185,12 +185,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.40-linux-250728T040815Z",
-            "sha256": "sha256-+udikt+eNIj3gud3lyAnUyGWUpX10wyH6+ONSCUn6sg=",
+            "rev": "lts-v6.12.41-linux-250811T220439Z",
+            "sha256": "sha256-UMgy0mCxko1GU+DfXerpxMNFyMRRycWPTOSgVnyHg34=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.40-linux-250728T040815Z"
+        "version": "lts-v6.12.41-linux-250811T220439Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -227,12 +227,12 @@
             "name": null,
             "owner": "estkme-group",
             "repo": "lpac",
-            "rev": "v2.2.1",
-            "sha256": "sha256-dxoYuX3dNj4piXQBqU4w1ICeyOGid35c+6ZITQiN6wA=",
+            "rev": "v2.3.0",
+            "sha256": "sha256-ALne5sHB6ff7cHAWe0rFwpP/Yz4EhZBiOrgdM2B8+OE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.2.1"
+        "version": "v2.3.0"
     },
     "ly2video": {
         "cargoLocks": null,
@@ -254,6 +254,21 @@
             "type": "github"
         },
         "version": "v0.5.0"
+    },
+    "moe-koe-music": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "moe-koe-music",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UPNiA/jEbN/Hlx0W9Dnst78J4VOSRk/H0EAlBeJ92yk=",
+            "type": "url",
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.0/MoeKoe_Music_v1.5.0.AppImage"
+        },
+        "version": "v1.5.0"
     },
     "mstickereditor": {
         "cargoLocks": {
@@ -510,7 +525,7 @@
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-07-12",
+        "date": "2025-08-20",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -520,17 +535,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b3b4a614bde0dddd309200caaa8cb8827a7459e5",
-            "sha256": "sha256-OP3eY7nQcuPuptAORGnv+EYun58+HqTcOocrI88wa0M=",
+            "rev": "0766c929ec3e578c2c80861e988decd3703a1c3d",
+            "sha256": "sha256-4WwxKSy7z89e7r4yxhqULEV+lADlVfSoskx7dYEluvM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "b3b4a614bde0dddd309200caaa8cb8827a7459e5"
+        "version": "0766c929ec3e578c2c80861e988decd3703a1c3d"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-08-08",
+        "date": "2025-08-16",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -540,13 +555,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5725c4cd295797fcd92a80c7892000dcf0e30710",
-            "sha256": "sha256-nPkwX5ruvCkQZ4yKNVuh72RmbLiEs/lkjb7mPQURVWw=",
+            "rev": "39b04584c216fec7cdc30270fc9b6f054423e202",
+            "sha256": "sha256-AP2T4G/KDVOLzzRXHrO2c33bV/HxSOhu8QCeiUP/IzI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "5725c4cd295797fcd92a80c7892000dcf0e30710"
+        "version": "39b04584c216fec7cdc30270fc9b6f054423e202"
     },
     "rime-loengfan": {
         "cargoLocks": null,

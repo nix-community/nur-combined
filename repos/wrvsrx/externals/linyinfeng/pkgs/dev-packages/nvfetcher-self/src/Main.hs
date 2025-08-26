@@ -51,6 +51,7 @@ packageSet = do
   icalinguaPlusPlus
   linuxIntelMainlineTracking
   linuxIntelTts
+  moeKoeMusic
   mstickereditor
   niriTaskbar
   rlt
@@ -134,6 +135,15 @@ yacd =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/haishanh/yacd/releases/download/" <> v <> "/yacd.tar.xz"
+
+moeKoeMusic :: PackageSet ()
+moeKoeMusic =
+  define $
+    package "moe-koe-music"
+      `sourceGitHub` ("iAJue", "MoeKoeMusic")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/iAJue/MoeKoeMusic/releases/download/" <> v <> "/MoeKoe_Music_" <> v <> ".AppImage"
 
 zeronsd :: PackageSet ()
 zeronsd =
