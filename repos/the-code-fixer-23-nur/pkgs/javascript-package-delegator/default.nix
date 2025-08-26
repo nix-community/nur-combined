@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1gw29l8pxvh154mk57dsngwd2vpj8wnfzmmfsqfymwfvsrjfpy6f";
-    aarch64-linux = "0jdqyzvns5wrcqcll49q23p848dld8mw6w2hl3c1nhk8bwldc677";
-    x86_64-darwin = "11fnylpv9yp0vdr8ar80sjqxsgqqbkjb1ihipqrfm4mcyi09lahq";
-    aarch64-darwin = "1iaa7c5innjdyix6qm2q8hg6bim4lzdlrngbmjprcx0wq8d32i57";
+    x86_64-linux = "0qk8sbjdaq7ppqlv811rxv3576wl9slmd4830nwfiny1lp73damx";
+    aarch64-linux = "08pgjssv9vi2jwjiaicn7639p3vkcfm1fk5ljsmmfx18bglmz4y1";
+    x86_64-darwin = "0ynr78301wm3f02sf27xcsgaa47by3c1yrcjd5ybkwnmh2sg5vz9";
+    aarch64-darwin = "1gqa03965rjpckm6x81r3c9ryp7j1a29jh9qr1yfk533awfl4g83";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.0.3/javascript-package-delegator_1.0.3_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.0.3/javascript-package-delegator_1.0.3_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.0.3/javascript-package-delegator_1.0.3_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.0.3/javascript-package-delegator_1.0.3_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.2.2/javascript-package-delegator_1.2.2_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.2.2/javascript-package-delegator_1.2.2_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.2.2/javascript-package-delegator_1.2.2_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v1.2.2/javascript-package-delegator_1.2.2_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "javascript-package-delegator";
-  version = "1.0.3";
+  version = "1.2.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
   system = system;
 
   meta = {
-    description = "A CLI for executing Javascript Package Manager Commands based on lock files. Supported's deno,bun, and all node package managers";
+    description = "A CLI for executing JavaScript package manager commands based on lock files. Supports npm, yarn, pnpm, bun, and deno.";
     homepage = "https://github.com/louiss0/javascript-package-delegator";
     license = lib.licenses.mit;
 
