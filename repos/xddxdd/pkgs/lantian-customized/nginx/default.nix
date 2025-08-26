@@ -107,6 +107,10 @@ stdenv.mkDerivation rec {
       ${patch ./patches/stream-echo-nginx-module.patch}
       popd
 
+      pushd bundle/zstd-nginx-module
+      ${patch ./patches/zstd-static-sync-gzip-static.patch}
+      popd
+
       # pushd bundle/nginx-njs
       # sed -i "s#-lquickjs.lto#-lqjs#g" nginx/config
       # popd

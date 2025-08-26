@@ -24,11 +24,9 @@ stdenv.mkDerivation rec {
       --replace-fail "depmod -a" "# depmod -a"
   '';
 
-  makeFlags =
-    (if lib.hasAttr "moduleMakeFlags" kernel then kernel.moduleMakeFlags else kernel.makeFlags)
-    ++ [
-      "DESTDIR=${placeholder "out"}"
-    ];
+  makeFlags = (kernel.commonMakeFlags or kernel.makeFlags) ++ [
+    "DESTDIR=${placeholder "out"}"
+  ];
 
   meta = {
     changelog = "https://github.com/sipwise/rtpengine/releases/tag/v${version}";

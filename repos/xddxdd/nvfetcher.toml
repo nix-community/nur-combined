@@ -1067,5 +1067,5 @@ fetch.github = "RHSResearchLLC/xvcd"
 src.git = "https://github.com/RHSResearchLLC/xvcd.git"
 
 [zstd-nginx-module]
-fetch.github = "tokers/zstd-nginx-module"
-src.git = "https://github.com/tokers/zstd-nginx-module.git"
+fetch.github = "HanadaLee/ngx_http_zstd_module"
+src.git = "https://github.com/HanadaLee/ngx_http_zstd_module.git"

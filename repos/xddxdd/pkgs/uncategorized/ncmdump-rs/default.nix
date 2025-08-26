@@ -7,7 +7,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.ncmdump-rs) pname version src;
 
   cargoHash = "sha256-7Mqa0aa3Uv8JnviowmLJ6HgAQw+TmnW72CmDa1HyFZM=";
-  useFetchCargoVendor = true;
 
   meta = {
     changelog = "https://github.com/iqiziqi/ncmdump.rs/releases/tag/${finalAttrs.version}";

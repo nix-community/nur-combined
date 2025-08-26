@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./nullfsvfs-change-reported-free-space.patch ];
 
-  makeFlags =
-    if lib.hasAttr "moduleMakeFlags" kernel then kernel.moduleMakeFlags else kernel.makeFlags;
+  makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';

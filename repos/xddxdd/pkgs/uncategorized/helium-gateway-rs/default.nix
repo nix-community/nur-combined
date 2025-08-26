@@ -15,7 +15,6 @@ rustPlatform.buildRustPackage {
   PROTOC = "${protobuf}/bin/protoc";
 
   cargoHash = "sha256-CvjbgGfphDk61BnKkKWOUXL8pbofz/EDsABaW+QUWec=";
-  useFetchCargoVendor = true;
 
   meta = {
     mainProgram = "helium_gateway";

@@ -4830,5 +4830,109 @@
             "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_aarch64_linux_23_37_openj9-0.47.0.tar.gz",
             "sha256": "df011058dbfbe58ed7cbd96ce9123ca13cedec3d3ffd106f4051fd8b6dbcf489"
         }
+    },
+    "jdk-bin-24": {
+        "x86_64": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_x64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "480845cb69ef0d7a33ff70e28bbdf882c27f764bd76bc905f5fa40934d5a0c06"
+        },
+        "s390x": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_s390x_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "ab97b68a71998516cb6ba334e54d121f70e15b2eda662404fddb198dcd396f39"
+        },
+        "ppc64le": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_ppc64le_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "dbebbd5d4dd78260307ee3dcc3196c3803d46d9cd7d119ef4740272d6f534d98"
+        },
+        "aarch64": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_aarch64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "0a6cc2d6c240375bd2614b78bfd0361f9f4ff1303be9c1f71109e1c3764c28da"
+        }
+    },
+    "jre-bin-24": {
+        "x86_64": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_x64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "ef433a588d348f14ea9bb29a4bc3042db8dabf6f8bf7f46ff2d9dfd48d89a0ca"
+        },
+        "s390x": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_s390x_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "2b5d3e51eb1b9273df6c1142a6a52e31540a1da31cd87c82661340d7cc023808"
+        },
+        "ppc64le": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_ppc64le_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "94bc64417befbf28a5d60593c3a3d101272d956f3e87e7fcaa62c10417ef4d9f"
+        },
+        "aarch64": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_aarch64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "590d70bcd1d7a029a78ddcad3a36ee5ca2277fa2bdaf9b1585caef627b45e4ed"
+        }
+    },
+    "jdk-bin-24_0_2_0": {
+        "x86_64": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_x64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "480845cb69ef0d7a33ff70e28bbdf882c27f764bd76bc905f5fa40934d5a0c06"
+        },
+        "s390x": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_s390x_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "ab97b68a71998516cb6ba334e54d121f70e15b2eda662404fddb198dcd396f39"
+        },
+        "ppc64le": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_ppc64le_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "dbebbd5d4dd78260307ee3dcc3196c3803d46d9cd7d119ef4740272d6f534d98"
+        },
+        "aarch64": {
+            "version": "24.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_aarch64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "0a6cc2d6c240375bd2614b78bfd0361f9f4ff1303be9c1f71109e1c3764c28da"
+        }
+    },
+    "jre-bin-24_0_2_0": {
+        "x86_64": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_x64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "ef433a588d348f14ea9bb29a4bc3042db8dabf6f8bf7f46ff2d9dfd48d89a0ca"
+        },
+        "s390x": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_s390x_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "2b5d3e51eb1b9273df6c1142a6a52e31540a1da31cd87c82661340d7cc023808"
+        },
+        "ppc64le": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_ppc64le_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "94bc64417befbf28a5d60593c3a3d101272d956f3e87e7fcaa62c10417ef4d9f"
+        },
+        "aarch64": {
+            "version": "24.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jre_aarch64_linux_24.0.2_12_openj9-0.54.0.tar.gz",
+            "sha256": "590d70bcd1d7a029a78ddcad3a36ee5ca2277fa2bdaf9b1585caef627b45e4ed"
+        }
     }
 }

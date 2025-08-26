@@ -1,0 +1,26 @@
+diff --git a/static/ngx_http_zstd_static_module.c b/static/ngx_http_zstd_static_module.c
+index 3b247e9..52c8c76 100644
+--- a/static/ngx_http_zstd_static_module.c
++++ b/static/ngx_http_zstd_static_module.c
+@@ -241,10 +241,13 @@ ngx_http_zstd_static_handler(ngx_http_request_t *r)
+     }
+ 
+     h->hash = 1;
++    h->next = NULL;
+     ngx_str_set(&h->key, "Content-Encoding");
+     ngx_str_set(&h->value, "zstd");
+     r->headers_out.content_encoding = h;
+ 
++    r->allow_ranges = 1;
++
+     b = ngx_calloc_buf(r->pool);
+     if (b == NULL) {
+         return NGX_HTTP_INTERNAL_SERVER_ERROR;
+@@ -267,6 +270,7 @@ ngx_http_zstd_static_handler(ngx_http_request_t *r)
+     b->in_file = b->file_last ? 1 : 0;
+     b->last_buf = (r == r->main) ? 1 : 0;
+     b->last_in_chain = 1;
++    b->sync = (b->last_buf || b->in_file) ? 0 : 1;
+ 
+     b->file->fd = of.fd;
+     b->file->name = path;

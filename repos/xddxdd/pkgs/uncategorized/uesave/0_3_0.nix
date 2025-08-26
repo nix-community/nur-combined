@@ -9,7 +9,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.uesave-0_3_0) version src;
 
   cargoHash = "sha256-sdXr+z8wxEB3qqRB+d9uFbEyX6LEYoHANxrzfdfC3+0=";
-  useFetchCargoVendor = true;
 
   nativeInstallCheckInputs = [
     versionCheckHook

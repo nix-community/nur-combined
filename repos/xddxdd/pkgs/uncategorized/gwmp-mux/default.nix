@@ -7,7 +7,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.gwmp-mux) pname version src;
 
   cargoHash = "sha256-0PsG81CuQcpzjJR3lhtCjE4tlD8tpyuzqIaRVS8U8cI=";
-  useFetchCargoVendor = true;
 
   meta = {
     changelog = "https://github.com/helium/gwmp-mux/releases/tag/v${finalAttrs.version}";
