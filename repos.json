@@ -578,9 +578,6 @@
             "submodules": true,
             "url": "https://github.com/kreisys/nur-packages"
         },
-        "kuflierl": {
-            "url": "https://github.com/kuflierl/NUR"
-        },
         "lambdadog": {
             "file": "nur.nix",
             "url": "https://github.com/lambdadog/nix-extra"

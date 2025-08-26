@@ -934,11 +934,6 @@
             "submodules": true,
             "url": "https://github.com/kreisys/nur-packages"
         },
-        "kuflierl": {
-            "rev": "db5c1b19cc80da117b42bee4925af99840869bba",
-            "sha256": "1pcn8nxhnsll8kgwqlg9pa7iddz0xqkz6y6m6zqhm5g1apfgxfq3",
-            "url": "https://github.com/kuflierl/NUR"
-        },
         "lambdadog": {
             "rev": "222127489b9b2c89d68ca06e2f3c8f8bace0f65e",
             "sha256": "07v9sim0a4xc5m1v6rrh9mzml70ps9cm494asrj80q3bxmyc16ra",
