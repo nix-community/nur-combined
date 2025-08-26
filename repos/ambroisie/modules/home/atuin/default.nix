@@ -6,7 +6,6 @@ in
   options.my.home.atuin = with lib; {
     enable = my.mkDisableOption "atuin configuration";
 
-    # I want the full experience by default
     package = mkPackageOption pkgs "atuin" { };
 
     daemon = {

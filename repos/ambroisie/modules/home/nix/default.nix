@@ -69,7 +69,7 @@ in
         automatic = true;
 
         # Every week, with some wiggle room
-        frequency = "weekly";
+        dates = "weekly";
         randomizedDelaySec = "10min";
 
         # Use a persistent timer for e.g: laptops
