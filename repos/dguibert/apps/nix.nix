@@ -12,7 +12,8 @@
     ...
   }: let
     drv = let
-      name = "nix-${builtins.replaceStrings ["/"] ["-"] pkgs.nixStore}";
+      name = "nix-${builtins.replaceStrings ["/"] ["-"] nixStore}";
+      nixStore = builtins.dirOf builtins.storeDir;
     in
       pkgs.writeScriptBin name (with pkgs; let
         NIX_CONF_DIR = let
