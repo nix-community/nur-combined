@@ -10,8 +10,6 @@ rustPlatform.buildRustPackage {
 
   version = lib.replaceStrings [ "v" ] [ "" ] source.version;
 
-  useFetchCargoVendor = true;
-
   cargoHash = "sha256-YZGrEO6SOS0Kir+1d8shf54420cYjvcfKYS+T2NlEug=";
 
   buildInputs = [ pcsclite.dev ];
