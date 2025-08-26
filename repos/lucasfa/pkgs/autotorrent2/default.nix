@@ -61,7 +61,7 @@ python3Packages.buildPythonPackage rec {
     description = "Match torrents and data, remove torrents based on data, cleanup your disk for unseeded files. Autotorrent2 does everything you currently miss in your flow.";
     homepage = "https://github.com/JohnDoee/autotorrent2";
     license = licenses.mit;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "at2";
   };
 }
