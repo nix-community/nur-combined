@@ -258,7 +258,7 @@ jobs:
         nix flake lock "$tempFlake"
         nix shell github:Mic92/nix-fast-build 'nixpkgs#ansifilter' -c bash -c '
           set -o pipefail
-          nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom 2>&1 | \
+          nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
             tee >(ansifilter > /tmp/build-uncached.log)
         '
     - name: Upload build logs
@@ -268,6 +268,7 @@ jobs:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
           /tmp/tempFlake
+          /tmp/build-status.json
           /tmp/build-uncached.log
           /nix/var/log
           !/nix/var/log/nix/drvs/*/*user-environment*

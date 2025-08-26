@@ -69,6 +69,9 @@ in let
     tuxemon = python3Packages.buildPythonApplication {
         pname = "tuxemon";
         inherit version;
+        env = lib.optionalAttrs (lib.hasInfix "-unstable-" version) {
+            SETUPTOOLS_SCM_PRETEND_VERSION = "${builtins.replaceStrings ["-unstable-" "-"] [".1.dev" ""] version}+g${builtins.substring 0 8 rev}";
+        };
         src = fetchFromGitHub {
             owner = "Tuxemon";
             repo = "Tuxemon";
