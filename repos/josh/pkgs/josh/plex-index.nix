@@ -6,15 +6,15 @@
   nix-update-script,
 }:
 let
-  tmdb-index = python3Packages.buildPythonApplication {
-    pname = "tmdb-index";
-    version = "1.0.0-unstable-2025-08-25";
+  plex-index = python3Packages.buildPythonApplication {
+    pname = "plex-index";
+    version = "0-unstable-2025-08-25";
 
     src = fetchFromGitHub {
       owner = "josh";
-      repo = "tmdb-index";
-      rev = "935ab426e3c6e375ebc547b7b5e98e5f7058bb97";
-      hash = "sha256-I712AQqkszn96a6piEab3you+LjyRkcwZgrDac3plwQ=";
+      repo = "plex-index";
+      rev = "740d78090757557405a9c0baff59c43e53a317d8";
+      hash = "sha256-/9jjwTRICP9LWXTUwUpPFQa3Azy/Rlvc2qZkdeDat7s=";
     };
 
     pyproject = true;
@@ -30,20 +30,20 @@ let
     ];
 
     meta = {
-      description = "Compact TMDB external ID index";
-      homepage = "https://github.com/josh/tmdb-index";
+      description = "Compact Plex external ID index";
+      homepage = "https://github.com/josh/plex-index";
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
-      mainProgram = "tmdb-index";
+      mainProgram = "plex-index";
       # FIXME: Broken on nixos-25.05
       broken = python3Packages.polars.version == "1.27.1";
     };
   };
 in
-tmdb-index.overrideAttrs (
+plex-index.overrideAttrs (
   finalAttrs: previousAttrs:
   let
-    tmdb-index = finalAttrs.finalPackage;
+    plex-index = finalAttrs.finalPackage;
   in
   {
     passthru = previousAttrs.passthru // {
@@ -51,13 +51,13 @@ tmdb-index.overrideAttrs (
 
       tests = {
         help =
-          runCommand "test-tmdb-index-help"
+          runCommand "test-plex-index-help"
             {
               __structuredAttrs = true;
-              nativeBuildInputs = [ tmdb-index ];
+              nativeBuildInputs = [ plex-index ];
             }
             ''
-              tmdb-index --help
+              plex-index --help
               touch $out
             '';
       };

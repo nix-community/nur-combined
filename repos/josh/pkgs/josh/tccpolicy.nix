@@ -20,13 +20,13 @@ let
 in
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "tccpolicy";
-  version = "0.1.0-unstable-2025-05-14";
+  version = "0.1.0-unstable-2025-08-18";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tccpolicy";
-    rev = "0e5b63be1501391d8db755d5ce28240fc322ded3";
-    hash = "sha256-N6qeHgw+QHV7rVvdiafGVP3uhKJHZE9FbeUhMfdrsHE=";
+    rev = "298cd6da21fad1de86af922abc10902e9d6c3f63";
+    hash = "sha256-C2Lqjaj41I2DdnmW7a0APMrZOuwyT7KWbvAp9R059Mk=";
   };
 
   nativeBuildInputs = [
