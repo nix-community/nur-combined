@@ -35,6 +35,9 @@ rec {
 
   # Gimsatul SAT sollver
   gimsatul = pkgs.callPackage ./pkgs/gimsatul { };
+
+  # Coveralls reporting tool
+  coveralls = pkgs.callPackage ./pkgs/coveralls { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker

@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm0755 gimsatul "$out/bin/kilssat"
-    mkdir -p "$out/share/doc/kissat/"
-    install -Dm0644 {LICEN?E,README*,VERSION} "$out/share/doc/kissat/"
+    install -Dm0755 gimsatul "$out/bin/gimsatul"
+    mkdir -p "$out/share/doc/gimsatul/"
+    install -Dm0644 {LICEN?E,README*,VERSION} "$out/share/doc/gimsatul/"
 
     runHook postInstall
   '';
