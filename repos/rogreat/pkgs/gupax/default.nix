@@ -1,10 +1,12 @@
 {
   autoPatchelfHook,
+  copyDesktopItems,
   fetchFromGitHub,
   git,
   lib,
   libGL,
   libxkbcommon,
+  makeDesktopItem,
   nix-update-script,
   openssl,
   pkg-config,
@@ -23,25 +25,27 @@ rustPlatform.buildRustPackage (finalAttrs: {
     repo = "gupax";
     rev = "v${finalAttrs.version}";
     hash = "sha256-IOONLurL6DjSqlej5qzpgxsVJZE/zYojPTO+AKuzSoQ=";
-    leaveDotGit = true; # git command in build.rs
+    leaveDotGit = true; # build.rs uses git
   };
 
   cargoHash = "sha256-PILtRjQ8Vt20ObFhsb4qBoC8VEqHPshZvjLxqtfpj9Y=";
 
   checkFlags = [
-    # requires filesystem write
+    # Test requires filesystem write outside of sandbox.
     "--skip disk::test::create_and_serde_gupax_p2pool_api"
   ];
 
   nativeBuildInputs = [
     autoPatchelfHook
+    copyDesktopItems
     git
     pkg-config
   ];
 
   buildInputs = [
     openssl
-    stdenv.cc.cc.libgcc or null # libgcc_s.so
+    # https://github.com/NixOS/nixpkgs/issues/225963
+    stdenv.cc.cc.libgcc or null
   ];
 
   runtimeDependencies = [
@@ -52,6 +56,25 @@ rustPlatform.buildRustPackage (finalAttrs: {
     xorg.libXcursor
     xorg.libXi
     xorg.libXrandr
+  ];
+
+  postInstall = ''
+    install -m 444 -D "images/icons/icon.png" "$out/share/icons/hicolor/256x256/apps/gupax.png"
+    install -m 444 -D "images/icons/icon@2x.png" "$out/share/icons/hicolor/1024x1024/apps/gupax.png"
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "gupax";
+      desktopName = "Gupax";
+      icon = "gupax";
+      exec = finalAttrs.meta.mainProgram;
+      comment = finalAttrs.meta.description;
+      categories = [
+        "Network"
+        "Utility"
+      ];
+    })
   ];
 
   # Needed to get openssl-sys to use pkg-config.
