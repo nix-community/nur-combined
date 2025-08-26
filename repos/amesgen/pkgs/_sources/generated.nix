@@ -35,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.18.0.0";
+    version = "0.19.0.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.18.0.0/fourmolu-0.18.0.0-linux-x86_64";
-      sha256 = "sha256-Dh9nzAzC8/WZ/Pdi7spv4vvQLps28Otgm4/sixhVoKI=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.19.0.0/fourmolu-0.19.0.0-linux-x86_64";
+      sha256 = "sha256-8GCf+lig0/Ef6a2EetwHeurKMrxgozZsjcxyY+OA0fw=";
     };
   };
   hell = {
