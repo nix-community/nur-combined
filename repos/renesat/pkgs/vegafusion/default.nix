@@ -20,10 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-C0PInGAutgCcjaKFiUI5ClMTR6/uvhcMZCtILWBwSF0=";
   };
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-v8NApZw0LYyThuOO++HdbR0eUMJgDR/SeNWAZVKSQfQ=";
+    hash = "sha256-w7rvnnfGukMqdwHaycp3rJ2R2HTvhD3D/608MjJ1oCY=";
   };
 
   buildAndTestSubdir = "vegafusion-python";
@@ -36,15 +36,7 @@ buildPythonPackage rec {
   ];
 
   dependencies = [
-    (narwhals.overrideAttrs (_: rec {
-      version = "1.16.0";
-      src = fetchFromGitHub {
-        owner = "narwhals-dev";
-        repo = "narwhals";
-        tag = "v${version}";
-        hash = "sha256-72hwVALYTFNhAnvk9aKxwzP9D5lwk4B9cvan+JIvX/c=";
-      };
-    }))
+    narwhals
     arro3-core
   ];
 

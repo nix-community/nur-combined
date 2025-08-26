@@ -5,18 +5,18 @@
 }:
 buildGoModule rec {
   pname = "age-edit";
-  version = "0.6.2";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "dbohdan";
     repo = "age-edit";
-    rev = "v${version}";
-    hash = "sha256-4lafZiqUlxHPhuFkTMbVdbk/IhhqjpeaquJekOWqZ1g=";
+    tag = "v${version}";
+    hash = "sha256-/tXw0WZRJuBl6Mpyhjatt1khQ432KAP0YYJxu104ui4=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-BqQu4VDDcL5clnPyyb8NC0W7ty9vfoIppfr9tz4h1vE=";
+  vendorHash = "sha256-ZxAUl5ZncNdBzxqiavrFY4T21uYWDViPFa2Sn9TiI1c=";
 
   meta = {
     description = "Edit files encrypted with age";

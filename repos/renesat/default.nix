@@ -6,31 +6,45 @@
       overlays = import ./overlays.nix;
     },
 }: let
+  inherit (builtins) warn;
+  lazyPackageWarn = msg: pkg:
+    pkg.overrideAttrs (prev: {
+      installPhase = warn msg (prev.installPhase or "");
+    });
+  supportedSystem = _: pkg: builtins.elem system pkg.meta.platforms;
   aliases = {
-    autorestic = throw "Use `pkgs.autorestic` instead";
-    datalad = throw "Use `pkgs.datalad` instead";
-    warpd = throw "Use `pkgs.warpd` instead";
-    taskwarrior3 = throw "Use `pkgs.taskwarrior` instead";
-    "1fps" = throw "Use `pkgs._1fps` instead";
-    puffin = throw "Use `pkgs.puffin` instead";
-    math-preview = throw "Use `pkgs.math-preview` instead";
-    activitywatch-bin = throw "Use `pkgs.activitywatch` instead";
-    daqp-python = throw "Use `pkgs.python3Packages.daqp` instead";
-    drawille = throw "Use `pkgs.python3Packages.drawille` instead";
-    drawilleplot = throw "Use `pkgs.python3Packages.drawilleplot` instead";
-    hledger-utils = throw "Use `pkgs.hledger-utils` instead";
-    normcap = throw "Use `pkgs.normcap` instead";
-    qpsolvers = throw "Use `pkgs.python3Packages.qpsolvers` instead";
-    questdb = throw "Use `pkgs.questdb` instead";
+    autorestic = lazyPackageWarn "Please use `autorestic` from nixpkgs: `pkgs.autorestic`" pkgs.autorestic;
+    datalad = lazyPackageWarn "Please use `datalad` from nixpkgs: `pkgs.datalad`" pkgs.datalad;
+    warpd = lazyPackageWarn "Please use `warpd` from nixpkgs: `pkgs.warpd`" pkgs.warpd;
+    taskwarrior3 = lazyPackageWarn "Please use `taskwarrior3` from nixpkgs: `pkgs.taskwarrior3`" pkgs.taskwarrior3;
+    "1fps" = lazyPackageWarn "Please use `1fps` from nixpkgs: `pkgs._1fps`" pkgs._1fps;
+    puffin = lazyPackageWarn "Please use `puffin` from nixpkgs: `pkgs.puffin`" pkgs.puffin;
+    math-preview = lazyPackageWarn "Please use `math-preview` from nixpkgs: `pkgs.math-preview`" pkgs.math-preview;
+    activitywatch-bin = lazyPackageWarn "Please use `activitywatch-bin` from nixpkgs: `pkgs.activitywatch`" pkgs.activitywatch;
+    daqp-python = lazyPackageWarn "Please use `daqp-python` from nixpkgs: `pkgs.python3Packages.daqp`" pkgs.python3Packages.daqp;
+    drawille = lazyPackageWarn "Please use `drawille` from nixpkgs: `pkgs.python3Packages.drawille`" pkgs.python3Packages.drawille;
+    drawilleplot = lazyPackageWarn "Please use `drawilleplot` from nixpkgs: `pkgs.python3Packages.drawilleplot`" pkgs.python3Packages.drawilleplot;
+    hledger-utils = lazyPackageWarn "Please use `hledger-utils` from nixpkgs: `pkgs.hledger-utils`" pkgs.hledger-utils;
+    normcap = lazyPackageWarn "Please use `normcap` from nixpkgs: `pkgs.normcap`" pkgs.normcap;
+    qpsolvers = lazyPackageWarn "Please use `qpsolvers` from nixpkgs: `pkgs.python3Packages.qpsolvers`" pkgs.python3Packages.qpsolvers;
+    questdb = lazyPackageWarn "Please use `questdb` from nixpkgs: `pkgs.questdb`" pkgs.questdb;
   };
   packages = rec {
+    yamusic-tui = pkgs.callPackage ./pkgs/yamusic-tui {};
+    wwan-utils = pkgs.callPackage ./pkgs/wwan-utils {};
+    voyage = pkgs.callPackage ./pkgs/voyage {};
     toutui = pkgs.callPackage ./pkgs/toutui {};
     daqp = pkgs.callPackage ./pkgs/daqp {};
     imap-backup = pkgs.callPackage ./pkgs/imap-backup {};
     vl-convert = pkgs.callPackage ./pkgs/vl-convert {};
     dedoc = pkgs.callPackage ./pkgs/dedoc {};
     age-edit = pkgs.callPackage ./pkgs/age-edit {};
+    mal-cli = pkgs.callPackage ./pkgs/mal-cli {};
+    gosuki = pkgs.callPackage ./pkgs/gosuki {};
+    tukai = pkgs.callPackage ./pkgs/tukai {};
 
+    tubefeed = pkgs.python3Packages.callPackage ./pkgs/tubefeed {};
+    typy = pkgs.python3Packages.callPackage ./pkgs/typy {};
     flatlatex = pkgs.python3Packages.callPackage ./pkgs/flatlatex {};
     sixelcrop = pkgs.python3Packages.callPackage ./pkgs/sixelcrop {};
     timg = pkgs.python3Packages.callPackage ./pkgs/timg {};
@@ -43,6 +57,5 @@
       inherit vl-convert;
     };
   };
-  supportedSystem = _: pkg: builtins.elem system pkg.meta.platforms;
 in
-  (pkgs.lib.filterAttrs supportedSystem packages) // aliases
+  pkgs.lib.filterAttrs supportedSystem (packages // aliases)

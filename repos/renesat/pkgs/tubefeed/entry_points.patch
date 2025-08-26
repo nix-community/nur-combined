@@ -1,0 +1,16 @@
+diff --git a/setup.py b/setup.py
+index 21a1585..52c5e09 100644
+--- a/setup.py
++++ b/setup.py
+@@ -32,6 +32,11 @@ setup(
+         'Operating System :: OS Independent',
+     ],
+     package_dir={'': 'src'},
++    entry_points={
++        "console_scripts": [
++            "tubefeed=tubefeed.app.__main__:main"
++        ]
++    },
+     packages=find_packages(where='src'),
+     python_requires='>=3.10',
+     install_requires=requirements

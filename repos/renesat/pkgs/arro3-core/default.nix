@@ -7,20 +7,20 @@
 }:
 buildPythonPackage rec {
   pname = "arro3-core";
-  version = "0.4.5";
+  version = "0.5.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "kylebarron";
     repo = "arro3";
     rev = "py-v${version}";
-    hash = "sha256-3hqVvb6MAr1Iqtb1kPAuahdmu7pbyLJSb/dtjkcgJbg=";
+    hash = "sha256-RTr+mf5slfxxvXp9cwPuy08AZUswPtIIRz+vngdg/k0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-MYpTT5PqpjBConlOa797wDnAipCYsXpJf8eRdh/c0pI=";
+    hash = "sha256-YQA8Z86Ul8yAHncMgYrGmNe10KSpubHjaokCjaqTAxo=";
   };
 
   buildAndTestSubdir = "arro3-core";

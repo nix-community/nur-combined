@@ -1,0 +1,17 @@
+diff --git a/src/tubefeed/ytapi/Playlist.py b/src/tubefeed/ytapi/Playlist.py
+index d8a325a..ec77ab8 100644
+--- a/src/tubefeed/ytapi/Playlist.py
++++ b/src/tubefeed/ytapi/Playlist.py
+@@ -17,11 +17,7 @@ class Playlist:
+         self.title: str = item['snippet']['title']
+         self.description: str = item['snippet']['description']
+         self.thumbnails: list[Thumbnail] = [Thumbnail(n, t) for n, t in item['snippet']['thumbnails'].items()]
+-
+-        try:
+-            self.published: datetime = datetime.strptime(item['snippet']['publishedAt'], "%Y-%m-%dT%H:%M:%S.%fZ")
+-        except ValueError:
+-            self.published: datetime = datetime.strptime(item['snippet']['publishedAt'], "%Y-%m-%dT%H:%M:%SZ")
++        self.published: datetime = datetime.fromisoformat(item['snippet']['publishedAt'])
+ 
+     @staticmethod
+     def from_id(yt: YouTube, id: str) -> 'Playlist':

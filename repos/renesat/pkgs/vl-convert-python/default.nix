@@ -15,10 +15,10 @@ buildPythonPackage rec {
 
   buildAndTestSubdir = "vl-convert-python";
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-23t2aauiLBiFY6zENrqHJNr57H43H2/TtLLajqCvtXY=";
+    hash = "sha256-t952WH6zq7POVvdX3fI7kXXfPiaAXjfsvoqI/aq5Fn0=";
   };
 
   buildInputs = [protobuf];

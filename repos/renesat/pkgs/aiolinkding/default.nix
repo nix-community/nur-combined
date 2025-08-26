@@ -16,25 +16,29 @@
 }:
 buildPythonPackage rec {
   pname = "aiolinkding";
-  version = "2023.12.0";
+  version = "2025.02.0";
   format = "pyproject";
 
-  disabled = pythonOlder "3.10";
+  disabled = pythonOlder "3.11";
 
   src = fetchFromGitHub {
     owner = "bachya";
     repo = "aiolinkding";
-    rev = version;
-    hash = "sha256-1or6sh8mKIBxnRCuxfnslmKyQPCzqURqPgg9NFi1tRI=";
+    tag = version;
+    hash = "sha256-6ITeZJf5PlaF41ZrdHHFxhFFLCncbdRL6EfjiZuc3H4=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "poetry>=0.12" "poetry-core>=0.12" \
-      --replace-fail "packaging = \"^23.0\"" "packaging = \"^24.0\""
+      --replace-fail "poetry-core==2.0.1" "poetry-core>=2.0.1"
   '';
 
   build-system = [poetry-core setuptools];
+
+  pythonRelaxDeps = [
+    "frozenlist"
+    "packaging"
+  ];
 
   dependencies = [
     aiohttp
