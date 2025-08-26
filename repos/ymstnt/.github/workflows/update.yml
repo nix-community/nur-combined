@@ -1,0 +1,25 @@
+name: "Update Flake Packages ❄️"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "25 11 * * *"
+  # these allow the workflow to show up when it's not on main yet
+  pull_request:
+  push:
+    branches:
+      - '**'
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.5.2
+      - name: Update flake packages
+        uses: gepbird/nix-update-action@v2
+        with:
+          packages : "equicord"

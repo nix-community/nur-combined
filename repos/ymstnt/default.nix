@@ -16,6 +16,7 @@
 
   beeper = pkgs.callPackage ./pkgs/beeper { };
   deepdwn = pkgs.callPackage ./pkgs/deepdwn { };
+  equicord = pkgs.callPackage ./pkgs/equicord { };
   lifeograph = pkgs.callPackage ./pkgs/lifeograph { };
   lunatask = pkgs.callPackage ./pkgs/lunatask { };
   minecraft-console-client = pkgs.callPackage ./pkgs/minecraft-console-client { };

@@ -11,13 +11,11 @@ let
   source = lib.importJSON ./source.json;
 
   # As per Deta Surf's Terms of Service (https://deta.surf/terms), the binary is non-distributable.
-  # Thus, the user needs to sign up for an invite for the closed alpha on https://deta.surf/ with their email.
-  # After receiving an invite, the user should download the .AppImage file from the download link provided in the email,
-  # then it should be added into the nix store
+  # You have to download it from the website and add it into the nix store
   src = requireFile {
     name = "Surf-${version}.x86_64.AppImage";
     hash = source.hash;
-    url = "https://deta.surf/";
+    url = "https://deta.surf/releases/alpha/latest";
   };
 
   appimageContents = appimageTools.extractType2 {
