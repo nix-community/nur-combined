@@ -56,6 +56,7 @@ let
     (trivial "lpac")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
+    (trivial "moe-koe-music")
     (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
