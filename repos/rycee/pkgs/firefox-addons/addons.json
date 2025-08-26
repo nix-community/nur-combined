@@ -823,6 +823,9 @@
   },
   {
     "slug": "immersive-translate",
+    "knownVulnerabilities": [
+      "Information leakage, see https://www.binance.com/en/square/post/28079094872802"
+    ],
     "license": {
       "tag": "custom",
       "shortName": "immersive-translate",

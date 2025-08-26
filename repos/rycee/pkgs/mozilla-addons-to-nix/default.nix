@@ -16,7 +16,7 @@
 
 let
   pname = "mozilla-addons-to-nix";
-  version = "0.12.0";
+  version = "0.13.0";
 in
 mkDerivation {
   inherit pname version;
@@ -24,7 +24,7 @@ mkDerivation {
     owner = "~rycee";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-+3IaEnhhefaj5zoNPkvAx8MM95O930d7sooAmtVuIME=";
+    hash = "sha256-axePwQLOAOT8Jt0kcznYtle7wKzdWuqnzg5WvKHZdjI=";
   };
   isLibrary = false;
   isExecutable = true;

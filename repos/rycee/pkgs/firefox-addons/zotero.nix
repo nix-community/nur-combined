@@ -1,16 +1,12 @@
-{
-  buildFirefoxXpiAddon,
-  fetchurl,
-  lib,
-  stdenv,
-}:
+{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
 
 buildFirefoxXpiAddon {
   pname = "zotero-connector";
-  version = "5.0.174";
+  version = "5.0.181";
   addonId = "zotero@chnm.gmu.edu";
-  url = "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.174.xpi";
-  sha256 = "f10d345c758f0f449c41cf3e0ee49dc6ccb120e21c300801b39ccfd5f2a23dc5";
+  url =
+    "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.181.xpi";
+  sha256 = "ca2e5d80ce21e34e03827f5fcde993737c2a8fbabf1266107d06253bbf11f7fa";
   mozPermissions = [
     "http://*/*"
     "https://*/*"
