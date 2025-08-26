@@ -1783,11 +1783,6 @@
             "sha256": "0dk2w8yjpfklqkrs9r217p4p0vwisr2907rrkv2q9g5jipjypbdl",
             "url": "https://github.com/zimeg/nur-packages"
         },
-        "zjm54321": {
-            "rev": "04c774bad2e83016083f68f4c4140550bce15c52",
-            "sha256": "1fhjfw4np3fji68w9khgbcfwp6xif7pzp70wppby4f6l0zidinjx",
-            "url": "https://github.com/zjm54321/NUR"
-        },
         "zsien": {
             "rev": "6bf17b0f56cc5c198203b59ab886f11042296c68",
             "sha256": "0jd0p6ckwdbb1hfgi9fg41adc7xjf8hr61dii0nsqxwd66fwm4l7",
