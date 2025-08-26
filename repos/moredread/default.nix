@@ -18,4 +18,5 @@ rec {
   joplin-desktop = pkgs.callPackage ./pkgs/joplin-desktop { };
   hxcfloppyemulator = pkgs.callPackage ./pkgs/hxcfloppyemulator { };
   greaseweazel = pkgs.callPackage ./pkgs/greaseweazel { };
+  mididings = pkgs.python3Packages.callPackage ./pkgs/mididings { };
 }
