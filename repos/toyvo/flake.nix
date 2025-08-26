@@ -102,18 +102,17 @@
                 enable = true;
                 pre-commit.text = ''
                   echo "Stashing unstaged changes..."
-                  git commit --no-verify -m 'Save index'
-                  old_stash=$(git rev-parse -q --verify refs/stash)
-                  git stash push -m 'Unstaged changes'
-                  new_stash=$(git rev-parse -q --verify refs/stash)
+                  git commit --allow-empty --no-verify --message 'Save index'
+                  stash_output=$(git stash push --include-untracked --message 'Unstaged changes')
+                  echo $stash_output
                   git reset --soft HEAD^
 
                   echo "Formatting..."
                   nix fmt
 
-                  git add -u
+                  git add --all
 
-                  if [ "$old_stash" != "$new_stash" ]; then
+                  if [ -n "$stash_output" ] && [ "$stash_output" != "No local changes to save" ]; then
                       echo "Restoring unstaged changes..."
                       git stash pop
                   else
