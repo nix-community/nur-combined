@@ -24,6 +24,7 @@
   symbols-nerd-font = pkgs.callPackage ./pkgs/symbols-nerd-font { };
   kanagawa-yazi = pkgs.callPackage ./pkgs/kanagawa-yazi { };
   nora = pkgs.callPackage ./pkgs/nora { };
+  harmonoid = pkgs.callPackage ./pkgs/harmonoid { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
