@@ -27,12 +27,12 @@ in
   gh-issues-to-rss = pkgs.callPackage ./pkgs/gh-issues-to-rss { };
   tojson = pkgs.callPackage ./pkgs/tojson { };
   toffee = pkgs.callPackage ./pkgs/toffee { };
-  quickserve = pkgs.callPackage ./pkgs/quickserve { };
   gloc = pkgs.callPackage ./pkgs/gloc { };
   nn = pkgs.callPackage ./pkgs/nn { };
   sirus = pkgs.callPackage ./pkgs/sirus { };
-  mmm = pkgs.callPackage ./pkgs/mmm { };
+  # mmm = pkgs.callPackage ./pkgs/mmm { };
   chainlink = pkgs.callPackage ./pkgs/chainlink { };
+  esa = pkgs.callPackage ./pkgs/esa { };
 
   ## external
   # fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
@@ -52,15 +52,14 @@ in
   # chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   # logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
   # fabric = pkgs.callPackage ./pkgs/fabric { };
-  aider-chat = pkgs.callPackage ./pkgs/aider { };
   prr = pkgs.callPackage ./pkgs/prr { };
   html-to-markdown = pkgs.callPackage ./pkgs/html-to-markdown { };
+  probe = pkgs.callPackage ./pkgs/probe { };
 
   # Run nvfetcher in the haskellPackages directory to update sources
   # haskellPackages = callPackages ./pkgs/haskellPackages;
 
   ## programming
-  # buf = pkgs.callPackage ./pkgs/buf {};
   # grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
   # golang-migrate::tags: postgres mysql redshift cassandra spanner cockroachdb clickhouse file go_bindata github aws_s3 google_cloud_storage godoc_vfs gitlab
   # golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
