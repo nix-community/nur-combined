@@ -1,0 +1,69 @@
+name: update NUR packages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-pkgs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate default.nix
+        run: |
+          cat <<'EOF' > default.nix
+          # This file is generated DO NOT EDIT!
+          #
+          # This file describes your repository contents.
+          # It should return a set of nix derivations
+          # and optionally the special attributes `lib`, `modules` and `overlays`.
+          # It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
+          # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
+          # commands such as:
+          #     nix-build -A mypackage
+
+          {
+            pkgs ? import <nixpkgs> { },
+          }:
+          {
+            # The `lib`, `modules`, and `overlay` names are special
+            lib = import ./lib { inherit pkgs; }; # functions
+            modules = import ./modules; # NixOS modules
+            overlays = import ./overlays; # nixpkgs overlays
+
+          EOF
+
+          for pkg in pkgs/*; do
+            if [ -d "$pkg" ]; then
+              echo "Checking $pkg"
+              if [ ! -f "$pkg/default.nix" ]; then
+                echo "No default.nix found in $pkg, skipping"
+                continue
+              fi
+              echo "Importing $pkg"
+              echo "  ${pkg##*/} = pkgs.callPackage ./$pkg { };" >> default.nix
+            fi
+          done
+
+          echo "}" >> default.nix
+          echo "default.nix generated successfully"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Update NUR packages"
+          title: "Update NUR packages"
+          body: "This PR updates the NUR packages in the repository."
+          branch: "update-nur-packages"
+          base: "master"
+          paths: "default.nix"
