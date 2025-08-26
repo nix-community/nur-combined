@@ -7,7 +7,6 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
-
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -26,12 +25,13 @@
   zzz = pkgs.callPackage ./pkgs/zzz { };
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
-  shotcut = pkgs.callPackage ./pkgs/shotcut { };
   vita3k = pkgs.callPackage ./pkgs/vita3k { };
   gedit = pkgs.callPackage ./pkgs/gedit { };
   zen-browser-bin = pkgs.callPackage ./pkgs/zen-browser { };
   wechat-appimage = pkgs.callPackage ./pkgs/wechat-appimage { };
+  dingtalk = pkgs.callPackage ./pkgs/dingtalk {};
+  baidunetdisk = pkgs.callPackage ./pkgs/baidunetdisk {
+    electron_11 = pkgs.callPackage ./pkgs/baidunetdisk/electron_11.nix {};
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
-  # ...
 }

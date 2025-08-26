@@ -1,6 +1,7 @@
 {
   lib,
   SDL2,
+  sdl3,
   cmake,
   copyDesktopItems,
   fetchFromGitHub,
@@ -19,6 +20,21 @@
   gcc,
   which,
   xorg,
+  wayland,
+  libxkbcommon,
+  mesa,
+  alsa-lib,
+  jack2,
+  pipewire,
+  pulseaudio,
+  sndio,
+  libdrm,
+  libunwind,
+  libusb1,
+  libglvnd,
+  xdg-desktop-portal,
+
+  boost,
 }:
 let
   vita3k-ffmpeg = fetchurl {
@@ -27,24 +43,40 @@ let
   };
   libs = [
     SDL2
+    sdl3
     zlib
     openssl
     dbus
     curl
     vulkan-loader
     xorg.libX11
+    xorg.libXext
+    wayland
+    libxkbcommon
+    mesa
+    libglvnd
+    alsa-lib
+    jack2
+    pipewire
+    pulseaudio
+    sndio
+    libdrm
+    libunwind
+    libusb1
+    xdg-desktop-portal
+    boost
   ];
 in
 stdenv.mkDerivation {
   pname = "vita3k";
-  version = "0.2.0";
+  version = "r3806.cf3d62732";
 
   src = fetchFromGitHub {
     owner = "Vita3k";
     repo = "Vita3k";
-    rev = "e70f38e0129c4b48b12a7aefee4121652d7315b2";
+    rev = "4e526f0c8057e4eae0e00a323d7d4c58cdee8813";
     fetchSubmodules = true;
-    hash = "sha256-GIObVkW/vmP7nBUZ7dzL3GWnGQif4SR5aSPuHzuwGas=";
+    hash = "sha256-etqsjZLua0E2w7KR+Ox+kYyGgYBAMyKUe2I3iF4gWE0=";
   };
 
   nativeBuildInputs = [
@@ -64,12 +96,29 @@ stdenv.mkDerivation {
     mkdir -p build/linux-ninja-gnu/external 
     cp ${vita3k-ffmpeg} build/linux-ninja-gnu/external/ffmpeg.zip
     substituteInPlace external/boost/tools/build/src/engine/build.sh --replace-fail '#!/usr/bin/env sh' '#!/bin/sh'
+    # Use system boost
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "set(Boost_USE_STATIC_LIBS ON)" "set(Boost_USE_STATIC_LIBS OFF)"
+
   '';
 
+  configurePhase = ''
+    cmake --preset linux-ninja-gnu \
+      -DUSE_DISCORD_RICH_PRESENCE=OFF \
+      -DUSE_VITA3K_UPDATE=OFF \
+      -DBUILD_APPIMAGE=OFF \
+      -DUSE_LTO=NEVER \
+      -DVITA3K_FORCE_SYSTEM_BOOST=ON \
+      -DVITA3K_FORCE_CUSTOM_BOOST=OFF 
+  '';
+  #
   dontUseCmakeConfigure = true;
+
   buildPhase = ''
-    cmake --preset linux-ninja-gnu
-    cmake --build build/linux-ninja-gnu --preset linux-ninja-gnu-relwithdebinfo
+    runHook preBuild
+    NINJA_STATUS="[%f/%t] " \
+      cmake --build build/linux-ninja-gnu --preset linux-ninja-gnu-relwithdebinfo -- -v
+    runHook postBuild
   '';
 
   desktopItems = [

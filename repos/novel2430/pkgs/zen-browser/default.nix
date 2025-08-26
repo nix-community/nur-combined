@@ -31,13 +31,13 @@
 }:
 let
   pname = "zen-browser-bin";
-  version = "1.12.9b";
+  version = "1.14.11b";
 
   _pname = "zen-browser";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz";
-    hash = "sha256-GpaksWLiuFH05Jl0msxMmztwgWSySUukX9R4ij2YTH4=";
+    hash = "sha256-stxuPHxOH38oYoqdfFHyHvEAE/4RFSyHFxqc1fnuZ3g=";
   };
 
   libs = [
@@ -125,7 +125,10 @@ stdenv.mkDerivation{
 
     # wrapper
     makeWrapper $out/opt/zen/zen-bin $out/bin/${_pname} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs};
+      --set MOZ_LEGACY_PROFILES 1 \
+      --run "mkdir -p \$HOME/.config/zen-browser" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs} \
+      --add-flags "-profile \$HOME/.config/zen-browser";
 
     runHook postInstall
   '';
