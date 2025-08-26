@@ -15,4 +15,5 @@
 #  overlays = import ./overlays; # nixpkgs overlays
 
   ydl-podcast = pkgs.callPackage ./pkgs/ydl-podcast { };
+  yt2feed = pkgs.callPackage ./pkgs/yt2feed { };
 }
