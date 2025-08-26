@@ -11,10 +11,10 @@
   };
   enso = {
     pname = "enso";
-    version = "2025.1.3";
+    version = "2025.2.1";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2025.1.3/enso-linux-x86_64-2025.1.3.AppImage";
-      sha256 = "sha256-dE6r8Ow2hjdmn9qcFR0fiRGIjNm/7zMPp7Z2CtH/Pw8=";
+      url = "https://github.com/enso-org/enso/releases/download/2025.2.1/enso-linux-x86_64-2025.2.1.AppImage";
+      sha256 = "sha256-JiYcUKeAhZBbIRSmDJhNH27WWF+gB7Y4VUFE8MMLSs0=";
     };
   };
   guile-config = {

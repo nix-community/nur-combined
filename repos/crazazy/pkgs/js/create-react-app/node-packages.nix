@@ -265,13 +265,13 @@ let
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
-    "jsonfile-6.1.0" = {
+    "jsonfile-6.2.0" = {
       name = "jsonfile";
       packageName = "jsonfile";
-      version = "6.1.0";
+      version = "6.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz";
-        sha512 = "5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==";
+        url = "https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz";
+        sha512 = "FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==";
       };
     };
     "kleur-3.0.3" = {
@@ -606,7 +606,7 @@ let
       sources."inherits-2.0.4"
       sources."isarray-0.0.1"
       sources."isexe-2.0.0"
-      sources."jsonfile-6.1.0"
+      sources."jsonfile-6.2.0"
       sources."kleur-3.0.3"
       sources."minimatch-3.1.2"
       sources."minimist-1.2.8"

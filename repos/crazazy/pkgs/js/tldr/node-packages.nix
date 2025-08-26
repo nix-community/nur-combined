@@ -508,13 +508,13 @@ let
         sha512 = "qtYiSSFlwot9XHtF9bD9c7rwKjr+RecWT//ZnPvSmEjpV5mmPOCN4j8UjY5hbjNkOwZ/jQv3J6R1/pL7RwgMsg==";
       };
     };
-    "jsonfile-6.1.0" = {
+    "jsonfile-6.2.0" = {
       name = "jsonfile";
       packageName = "jsonfile";
-      version = "6.1.0";
+      version = "6.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz";
-        sha512 = "5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==";
+        url = "https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz";
+        sha512 = "FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==";
       };
     };
     "jsonify-0.0.1" = {
@@ -868,7 +868,7 @@ let
       sources."is-unicode-supported-0.1.0"
       sources."isarray-2.0.5"
       sources."json-stable-stringify-1.3.0"
-      sources."jsonfile-6.1.0"
+      sources."jsonfile-6.2.0"
       sources."jsonify-0.0.1"
       sources."lodash-4.17.21"
       sources."log-symbols-4.1.0"
