@@ -77,8 +77,8 @@ jobs:
       - name: Run update script for ${{ matrix.package }}
         id: run_update_script
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
 
           # Run update script
           if nix-shell tasks/update.nix --argstr package "${{ matrix.package }}" --argstr commit true --argstr skip-prompt true; then
