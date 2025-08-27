@@ -1,6 +1,6 @@
 { lib, python, fetchFromGitHub, boost, alsa-lib, jack2, pkg-config, meson, ninja, tkinter, scdoc }:
 
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonPackage rec {
   pname = "mididings";
   version = "unstable-20250818";
   pyproject = true;
@@ -63,7 +63,7 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "A MIDI router and processor based on Python, supporting ALSA and JACK MIDI";
     homepage = "https://github.com/mididings/mididings";
-    license = licenses.gpl2Only;
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };
