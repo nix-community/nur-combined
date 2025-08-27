@@ -25,6 +25,6 @@ writeShellApplication {
 
   meta = {
     description = "Wrapper for umu-launcher with `PROTONPATH` set to run Windows games";
-    platforms = lib.intersectLists umu-launcher.meta.platforms proton.meta.platforms;
+    platforms = lib.intersectLists lib.platforms.x86 lib.platforms.linux;
   };
 }

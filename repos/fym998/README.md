@@ -10,6 +10,7 @@
 | Name | Version | Description | Homepage |
 | --- | --- | --- | --- |
 | [bitsrun-rs](pkgs/by-path/bitsrun-rs/package.nix#L35) | 0.5.0 | A headless login / logout CLI for gateway (10.0.0.55) at BIT, now in Rust. 北京理工大学 10.0.0.55 校园网登录登出的 Rust 实现 | [Link](https://github.com/spencerwooo/bitsrun-rs) |
+| [bt-dualboot](pkgs/by-path/bt-dualboot/package.nix#L24) | 2023-01-27 | User-friendly tool making your bluetooth devices working both in Windows and Linux without re-pairing chore | [Link](https://github.com/x2es/bt-dualboot) |
 | [fprintd-fpcmoh](pkgs/by-path/fprintd-fpcmoh/package.nix#L21) | 1.94.4 | Fingerprint daemon for FPC match on host device | [Link](https://fprint.freedesktop.org/) |
 | [glfw3-minecraft](pkgs/by-path/glfw3-minecraft/package.nix#L25) | 3.4 | Multi-platform library for creating OpenGL contexts and managing input, including keyboard, mouse, joystick and time with patches for Minecraft on wayland | [Link](https://aur.archlinux.org/packages/glfw-wayland-minecraft-cursorfix) |
 | [libfprint-fpcmoh](pkgs/by-path/libfprint-fpcmoh/package.nix#L47) | 1.94.6 | libfprint with proprietary FPC match on host device 10a5:9800 driver | [Link](https://aur.archlinux.org/packages/libfprint-fpcmoh-git) |

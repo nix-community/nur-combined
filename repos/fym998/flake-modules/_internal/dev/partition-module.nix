@@ -68,7 +68,10 @@
         nativeBuildInputs = builtins.attrValues {
           inherit (pkgs)
             nil
+
+            nix-init
             nix-prefetch-git
+
             nix-fast-build
             nix-eval-jobs
 
