@@ -1,26 +1,34 @@
-{ lib, gcc12Stdenv, fetchFromGitHub
-, nodejs, python3
+{ lib, stdenv, fetchFromGitHub
+, nodejs, python3, ninja, writeShellScript
 }:
 
-gcc12Stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "ueforth";
   ## https://github.com/flagxor/ueforth/commit/8e46c227aca17f4d0d0eb5ab71af6c88298e35cd
-  version = "7.0.7.15-pre";
+  version = "7.0.7.21";
   src = fetchFromGitHub {
     owner = "flagxor";
     repo = "eforth";
-    rev = "fa56ecf59d991a279d4a0987db51a1f56f44415b";
-    sha256 = "sha256-XL+GhjKOwC580AE66NVGbNw1jpiMaOSCWPWJxJ8014I=";
+    rev = "19593ee4ad4274a76f9dbee369da87a557c90382";
+    sha256 = "sha256-O2xsmZ8p5no4UpOTkhE90UdFx7MTv0kTeb465z5fMPM=";
   };
 
+  nativeBuildInputs = [
+    python3 ninja nodejs
+  ];
+
   postPatch = ''
-    sed -i 's_/usr/bin/nodejs_${nodejs}/bin/node_' Makefile
-    sed -i 's_/usr/bin/env nodejs_${nodejs}/bin/node_' **/*.js
-    sed -i 's_/usr/bin/env python_${python3}/bin/python_' **/*.py
+    patchShebangs .
+    mkdir -p out/gen
+    echo '${src.rev}' > out/gen/REVISION
+    echo '${builtins.substring 0 6 src.rev}' > out/gen/REVSHORT
+    ln -sf ${writeShellScript "true" ""} tools/revstamp.py
+    sed -i "s/'-ffreestanding',//" configure.py
   '';
 
   buildPhase = ''
-    make "REVISION=${src.rev}" out/posix/ueforth
+    ./configure.py
+    ninja posix
   '';
 
   installPhase = ''
