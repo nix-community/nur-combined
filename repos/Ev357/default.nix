@@ -11,6 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
   hayase = pkgs.callPackage ./pkgs/hayase {};
