@@ -5,14 +5,14 @@
   stdenv,
   darwin,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bitsrun-rs";
   version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "spencerwooo";
     repo = "bitsrun-rs";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-ga32t5D0DnlhVfSUGj73ZpVG+MsPPgbWLJOqa73wo9s=";
   };
 
@@ -37,4 +37,4 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.mit;
     mainProgram = "bitsrun";
   };
-}
+})
