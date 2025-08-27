@@ -2523,10 +2523,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "143.0.20250825.91315";
+      version = "142.0.20250827.4350";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564265/dansk_da_language_pack-143.0.20250825.91315.xpi";
-      sha256 = "728fb41fd1219e14467280d562ea32c777e0890dd0b403dc189614453d798cab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565618/dansk_da_language_pack-142.0.20250827.4350.xpi";
+      sha256 = "bda7ea0ba8de5b2ee983e91df55525ecfe2f698b0672ac70faa0977a69891c84";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2721,10 +2721,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "143.0.20250825.91315";
+      version = "142.0.20250827.4350";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564266/deutsch_de_language_pack-143.0.20250825.91315.xpi";
-      sha256 = "3ef57dd9a3de0aebad1c33e69f1db7f9ab40bc710eaeda8e62808d3895436c81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565619/deutsch_de_language_pack-142.0.20250827.4350.xpi";
+      sha256 = "9a15a1149edc731e411b0fd71b24cc504a6340811eb85fdc047a09a2b1a52297";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3206,10 +3206,10 @@
     };
     "enhancer-for-nebula" = buildFirefoxXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.1";
+      version = "1.7.2";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4558483/enhancer_for_nebula-1.7.1.xpi";
-      sha256 = "1d36d35ac080fa1d42ae949d44b8efed81dd28ad6cd60bf446776e30294f94a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565344/enhancer_for_nebula-1.7.2.xpi";
+      sha256 = "ed5b38b6e415d435cfc654df74aa480d221cb3563ddd91c025571bfbead2814b";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -3926,10 +3926,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "143.0.20250825.91315";
+      version = "142.0.20250827.4350";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564282/francais_language_pack-143.0.20250825.91315.xpi";
-      sha256 = "2a99d90b61a7aed23243ab35cef1901d3728dd757a169e970831bda6cc980803";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565573/francais_language_pack-142.0.20250827.4350.xpi";
+      sha256 = "1d9344dd370197a93d3a21e35c39c5352b85585caea0a34296e78d133f515f06";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3963,10 +3963,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "143.0.20250825.91315";
+      version = "142.0.20250827.4350";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564326/gaidhlig_language_pack-143.0.20250825.91315.xpi";
-      sha256 = "eab89f73ed2bb4bcd60adb1696dacb90d09ba07ce03483d1c6d78d5df8318541";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565635/gaidhlig_language_pack-142.0.20250827.4350.xpi";
+      sha256 = "2495f8909a6ee0a43fe898e55e8b2202065cec5de1e2bdcaaf65c928c2a93ccd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8219,10 +8219,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.27";
+      version = "1.0.29";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4492103/mergify-1.0.27.xpi";
-      sha256 = "564f0703b1c7d5afdbc4a41722bd92b247f8812ba852ee3c86766128ac431232";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565179/mergify-1.0.29.xpi";
+      sha256 = "f183caf9e339f232dffe951009d7819820a9f35f6d372f5e26978848d846ae11";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -11336,10 +11336,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "143.0.20250825.91315";
+      version = "142.0.20250827.4350";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564225/scots_language_pack-143.0.20250825.91315.xpi";
-      sha256 = "c47c3d760a54503dff0a6628745a6b4d4147cb84435d69d62cbb39d1c7c6a914";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565567/scots_language_pack-142.0.20250827.4350.xpi";
+      sha256 = "48c8d8fd770b7c8df35a9825600494c6be627d7fd536b0a8f3a4527fc7913e50";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14920,10 +14920,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "1.0.7";
+      version = "1.0.8";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4563764/yang_addon-1.0.7.xpi";
-      sha256 = "cc721ffe10e9813055e6623dc9c00e36b046479d4e60c49d2494c41b41c4a837";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4565284/yang_addon-1.0.8.xpi";
+      sha256 = "90d099323b746002bd9c3ab16b05a1c25aa33d72d65b4aeefcd46bbc818bf18d";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
