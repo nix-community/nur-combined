@@ -15,15 +15,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     _7zz
     makeBinaryWrapper
   ];
+  unpackPhase = lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
+    runHook preUnpack
+    7zz -snld x $src
+    runHook postUnpack
+  '';
 
-  installPhase = ''
-    		runHook preInstall
+  postInstall = ''
 
     		mkdir -p $out/Applications
     		mv Ghostty.app $out/Applications/
     		makeWrapper $out/Applications/Ghostty.app/Contents/MacOS/ghostty $out/bin/ghostty
 
-    		runHook postInstall
     	'';
 
   outputs = [
@@ -33,28 +36,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "terminfo"
     "vim"
   ];
+  resourceDir = "${placeholder "out"}/Applications/Ghostty.app/Contents/Resources";
+  postFixup = ''
+    mkdir -p $terminfo/share
+    cp -r $resourceDir/terminfo $terminfo/share/terminfo
 
-  postFixup =
-    let
-      resources = "$out/Applications/Ghostty.app/Contents/Resources";
-    in
-    ''
-      			mkdir -p $man/share
-      			ln -s ${resources}/man $man/share/man
+    cp -r $resourceDir/ghostty/shell-integration $shell_integration
 
-      			mkdir -p $terminfo/share
-      			ln -s ${resources}/terminfo $terminfo/share/terminfo
+    cp -r $resourceDir/vim/vimfiles $vim
+  '';
 
-      			mkdir -p $shell_integration
-      			for folder in "${resources}/ghostty/shell-integration"/*; do
-      				ln -s $folder $shell_integration/$(basename "$folder")
-      			done
+  # Usually the multiple-outputs hook would take care of this, but
+  # our manpages are in the .app bundle
+  preFixup = ''
+    mkdir -p $man/share
+    cp -r $resourceDir/man $man/share/man
+  '';
 
-      			mkdir -p $vim
-      			for folder in "${resources}/vim/vimfiles"/*; do
-      				ln -s $folder $vim/$(basename "$folder")
-      			done
-      		'';
   preferLocalBuild = false;
   meta = {
     description = "Fast, native, feature-rich terminal emulator pushing modern features";
@@ -75,6 +73,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "man"
       "shell_integration"
       "terminfo"
+      "vim"
     ];
     platforms = lib.platforms.darwin;
   };
