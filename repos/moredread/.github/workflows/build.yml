@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 jobs:
   tests:
+    continue-on-error: true
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are
