@@ -22,7 +22,7 @@ glfw3.overrideAttrs (
       ];
 
     meta = previousAttrs.meta // {
-      description = previousAttrs.meta.description + " with patches for Minecraft on wayland";
+      description = "GLFW 3 with patches for Minecraft on wayland";
       homepage = "https://aur.archlinux.org/packages/glfw-wayland-minecraft-cursorfix";
     };
   }
