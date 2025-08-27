@@ -195,18 +195,6 @@
       sha256 = "sha256-obsWbu5MEZVx1Za+2WkKCABYwmYAyAFnC2d4GZN0rVo=";
     };
   };
-  lyra = {
-    pname = "lyra";
-    version = "d97a4dc917ef4c5f598b62d08aebad343b5d5003";
-    src = fetchFromGitHub {
-      owner = "bfgroup";
-      repo = "Lyra";
-      rev = "d97a4dc917ef4c5f598b62d08aebad343b5d5003";
-      fetchSubmodules = false;
-      sha256 = "sha256-jLB7IkAAoh8g8P/+k45h6PhpaaYn9aMONSW3PShPGLA=";
-    };
-    date = "2025-02-28";
-  };
   osc52 = {
     pname = "osc52";
     version = "49fbbb3d297dc8c50f8c35cb4402502713494573";

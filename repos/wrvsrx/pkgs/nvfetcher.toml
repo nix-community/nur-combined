@@ -35,10 +35,6 @@ fetch.github = "wrvsrx/coc-zk"
 src.git = "https://github.com/cemyuksel/cyCodeBase"
 fetch.github = "cemyuksel/cyCodeBase"
 
-[lyra]
-src.git = "https://github.com/bfgroup/Lyra"
-fetch.github = "bfgroup/Lyra"
-
 [hougeo]
 src.git = "https://github.com/nyue/hougeo"
 fetch.github = "nyue/hougeo"
