@@ -1121,7 +1121,7 @@
       "version": "1.5.0"
     },
     "http2": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "http2",
         "sha256": "382d3aefc5bd6dc68c6b892d7664f29b5beb3251611ae946a98d35158a82bbfa",
@@ -1526,7 +1526,7 @@
       "description": {
         "path": "media_kit_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "69fbf92def88d4304fc177fa4dd14664c0c2d8d5",
+        "resolved-ref": "4785f3223ff04d86b1644ab114e3960723ddf7cd",
         "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
@@ -1746,11 +1746,11 @@
       "dependency": "transitive",
       "description": {
         "name": "petitparser",
-        "sha256": "07c8f0b1913bcde1ff0d26e57ace2f3012ccbf2b204e070290dad3bb22797646",
+        "sha256": "1a97266a94f7350d30ae522c0af07890c70b8e62c71e8e3920d1db4d23c057d1",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "6.1.0"
+      "version": "7.0.1"
     },
     "platform": {
       "dependency": "transitive",
@@ -1896,21 +1896,21 @@
       "dependency": "direct main",
       "description": {
         "name": "screen_brightness",
-        "sha256": "b6cb9381b83fef7be74187ea043d54598b9a265b4ef6e40b69345ae28699b13e",
+        "sha256": "5f70754028f169f059fdc61112a19dcbee152f8b293c42c848317854d650cba3",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "2.1.6"
+      "version": "2.1.7"
     },
     "screen_brightness_android": {
       "dependency": "transitive",
       "description": {
         "name": "screen_brightness_android",
-        "sha256": "fb5fa43cb89d0c9b8534556c427db1e97e46594ac5d66ebdcf16063b773d54ed",
+        "sha256": "d34f5321abd03bc3474f4c381f53d189117eba0b039eac1916aa92cca5fd0a96",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "2.1.2"
+      "version": "2.1.3"
     },
     "screen_brightness_ios": {
       "dependency": "transitive",
@@ -1936,11 +1936,11 @@
       "dependency": "transitive",
       "description": {
         "name": "screen_brightness_ohos",
-        "sha256": "af2680660f7df785bcd2b1bef9b9f3c172191166dd27098f2dfe020c50c3dea4",
+        "sha256": "a93a263dcd39b5c56e589eb495bcd001ce65cdd96ff12ab1350683559d5c5bb7",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "2.1.1"
+      "version": "2.1.2"
     },
     "screen_brightness_platform_interface": {
       "dependency": "transitive",
@@ -2432,11 +2432,11 @@
       "dependency": "transitive",
       "description": {
         "name": "vector_graphics_compiler",
-        "sha256": "ca81fdfaf62a5ab45d7296614aea108d2c7d0efca8393e96174bf4d51e6725b0",
+        "sha256": "d354a7ec6931e6047785f4db12a1f61ec3d43b207fc0790f863818543f8ff0dc",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "1.1.18"
+      "version": "1.1.19"
     },
     "vector_math": {
       "dependency": "direct main",
@@ -2502,11 +2502,11 @@
       "dependency": "transitive",
       "description": {
         "name": "watcher",
-        "sha256": "0b7fd4a0bbc4b92641dbf20adfd7e3fd1398fe17102d94b674234563e110088a",
+        "sha256": "5bf046f41320ac97a469d506261797f35254fa61c641741ef32dacda98b7d39c",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "1.1.2"
+      "version": "1.1.3"
     },
     "waterfall_flow": {
       "dependency": "direct main",
@@ -2593,11 +2593,11 @@
       "dependency": "transitive",
       "description": {
         "name": "xml",
-        "sha256": "b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226",
+        "sha256": "971043b3a0d3da28727e40ed3e0b5d18b742fa5a68665cca88e74b7876d5e025",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "6.5.0"
+      "version": "6.6.1"
     },
     "yaml": {
       "dependency": "transitive",
@@ -2612,6 +2612,6 @@
   },
   "sdks": {
     "dart": ">=3.9.0 <4.0.0",
-    "flutter": ">=3.35.1"
+    "flutter": ">=3.35.2"
   }
 }
