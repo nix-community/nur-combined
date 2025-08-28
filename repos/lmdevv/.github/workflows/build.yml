@@ -11,8 +11,14 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Update cursor-agent package"]
+    types: [completed]
+    branches: [main, master]
 jobs:
   tests:
+    # Only run when update workflow succeeds, or for other trigger types
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are

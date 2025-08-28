@@ -22,13 +22,6 @@ jobs:
           set -euxo pipefail
           bash scripts/update-cursor-agent.sh
 
-      - name: Build cursor-agent (linux)
-        env:
-          NIXPKGS_ALLOW_UNFREE: "1"
-        run: |
-          set -euxo pipefail
-          nix build --impure -L .#cursor-agent
-
       - name: Commit and push if changed
         run: |
           set -euxo pipefail
