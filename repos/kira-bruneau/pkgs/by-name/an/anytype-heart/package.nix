@@ -10,18 +10,18 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.42.4";
+  version = "0.43.0-rc02";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${version}";
-    hash = "sha256-8RGDuRlM6hvMCEs1KszvenAsJiKxN/OhA2D5vzgFj5Y=";
+    hash = "sha256-hqDwzW1Tl44ipL1EAwlXUoKaQ0Wvfa2rtZMQy4pgQ8k=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-Snmx6SylNrw31TWteYrzEcJFeo+sXN+6tfu+a8ncGhk=";
+  vendorHash = "sha256-Rs+CusvMksyXUplGk09J4CiFgl/D4KtsI9C15dSCjOI=";
 
   subPackages = [ "cmd/grpcserver" ];
 
@@ -33,8 +33,8 @@ buildGoModule rec {
 
   buildInputs = [ tantivy-go ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.42.4/makefiles/ci-cross-compile-library.mk#L1
-  # https://github.com/anyproto/anytype-heart/blob/v0.42.4/makefiles/ci-cross-compile-library.mk#L37
+  # https://github.com/anyproto/anytype-heart/blob/v0.43.0-rc02/makefiles/ci-cross-compile-library.mk#L1
+  # https://github.com/anyproto/anytype-heart/blob/v0.43.0-rc02/makefiles/ci-cross-compile-library.mk#L37
   tags = [
     "envproduction"
     "nographviz"
