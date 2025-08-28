@@ -12,7 +12,7 @@
   electron,
   libGL,
   makeDesktopItem,
-  gitUpdater,
+  writeScript,
 }:
 
 let
@@ -121,10 +121,24 @@ buildNpmPackage rec {
   # Prefer gitUpdater over nix-update-script, since nix-update can
   # only query the latest 10 releases and often doesn't include a
   # single stable release.
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-    ignoredVersions = "(alpha|beta|rc|primitives|migration)";
-  };
+  passthru.updateScript = writeScript "update-anytype" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p common-updater-scripts coreutils curl jq
+
+    old_version=$(nix-instantiate --eval --strict --json -A anytype.version | jq --raw-output)
+    new_version=$(curl --silent "https://api.github.com/repos/anyproto/anytype-ts/releases" | jq --raw-output 'map(select((.prerelease == false) and (.tag_name | test("alpha|beta") | not))) | first | .tag_name')
+
+    if [ "$old_version" = "$new_version" ]; then
+      exit
+    fi
+
+    middleware_version=$(curl --silent "https://raw.githubusercontent.com/anyproto/anytype-ts/refs/tags/$new_version/middleware.version")
+    tantivy_go_version=$(curl --silent "https://raw.githubusercontent.com/anyproto/anytype-heart/refs/tags/v$middleware_version/go.mod" | grep github.com/anyproto/tantivy-go | cut --delimiter=' ' --fields=2)
+
+    update-source-version anytype "''${new_version//v}"
+    update-source-version anytype-heart "$middleware_version"
+    update-source-version tantivy-go "''${tantivy_go_version//v}"
+  '';
 
   meta = with lib; {
     description = "Official Anytype client";
