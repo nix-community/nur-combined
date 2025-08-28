@@ -68,7 +68,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: |
-        nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs || nix log /nix/store/dakhn9220v157qxhvlgar2062n6h2p3x-commafeed-frontend-d22ef12adf14c2d253c1ac9652a63f2808a80de2.drv
+        nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
