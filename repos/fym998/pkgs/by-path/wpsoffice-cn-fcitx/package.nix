@@ -13,6 +13,7 @@ stdenv.mkDerivation {
     mkdir -p $out/share
     ln -s ${wpsoffice-cn}/share/* -t $out/share
     rm $out/share/applications
+    cp -r ${wpsoffice-cn}/share/applications -t $out/share
     for desktop in $out/share/applications/*;do
       substituteInPlace $desktop \
         --replace-fail ${wpsoffice-cn}/bin $out/bin
