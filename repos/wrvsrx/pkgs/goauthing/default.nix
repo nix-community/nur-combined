@@ -20,5 +20,6 @@ buildGoModule rec {
     description = "Authentication utility for srun4000 (auth.tsinghua.edu.cn / net.tsinghua.edu.cn / Tsinghua-IPv4)";
     homepage = "https://github.com/z4yx/GoAuthing";
     license = licenses.gpl3Only;
+    mainProgram = "auth-thu";
   };
 }
