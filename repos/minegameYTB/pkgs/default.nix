@@ -1,13 +1,13 @@
 { lib, callPackage, pkgs }:
 
-{
+rec {
  ### Utilities
  sshrm = callPackage ./tools/sshrm {}; 
  GLFfetch = callPackage ./misc/GLFfetch {};
- GLFfetch-glfos = callPackage ./misc/GLFfetch { glfIcon = "GLFos"; };
+ GLFfetch-glfos = GLFfetch.override { glfIcon = "GLFos"; };
 
  ### Editor set
- editor = {
+ editor = rec {
    msedit-bin = callPackage ./editor/msedit-bin {};
    msedit = callPackage ./editor/msedit {};
    
@@ -28,35 +28,35 @@
  };
 
  ### dev set
- dev = {
+ dev = rec {
    ### Without option (with clang variant)
    fhsEnv-shell = callPackage ./tools/fhsEnv-shell {};
-   fhsEnv-shell-clang = callPackage ./tools/fhsEnv-shell { useClang = true; };
+   fhsEnv-shell-clang = fhsEnv-shell.override { useClang = true; };
 
    ### With kernel-tools
-   fhsEnv-shell-krnl = callPackage ./tools/fhsEnv-shell { kernel-tools = true; };
+   fhsEnv-shell-krnl = fhsEnv-shell.override{ kernel-tools = true; };
    
    ### With buildroot-tools
-   fhsEnv-shell-buildroot = callPackage ./tools/fhsEnv-shell { buildroot-tools = true; };
+   fhsEnv-shell-buildroot = fhsEnv-shell.override { buildroot-tools = true; };
    
    ### With debian-tools
-   fhsEnv-shell-deb-tools = callPackage ./tools/fhsEnv-shell { debian-tools = true; };
-   fhsEnv-shell-deb-tools-clang = callPackage ./toolsfhsEnv-shell { debian-tools = true; useClang = true; };
-   fhsEnv-shell-deb-tools-krnl = callPackage ./tools/fhsEnv-shell { debian-tools = true; kernel-tools = true; };
+   fhsEnv-shell-deb-tools = fhsEnv-shell.override { debian-tools = true; };
+   fhsEnv-shell-deb-tools-clang = fhsEnv-shell.override { debian-tools = true; useClang = true; };
+   fhsEnv-shell-deb-tools-krnl = fhsEnv-shell.override { debian-tools = true; kernel-tools = true; };
    
    ### With redhat-tools
-   fhsEnv-shell-rh-tools = callPackage ./tools/fhsEnv-shell { redhat-tools = true; };
-   fhsEnv-shell-rh-tools-clang = callPackage ./tools/fhsEnv-shell { redhat-tools = true; useClang = true; };
-   fhsEnv-shell-rh-tools-krnl = callPackage ./tools/fhsEnv-shell { redhat-tools = true; kernel-tools = true; };
+   fhsEnv-shell-rh-tools = fhsEnv-shell.override { redhat-tools = true; };
+   fhsEnv-shell-rh-tools-clang = fhsEnv-shell.override { redhat-tools = true; useClang = true; };
+   fhsEnv-shell-rh-tools-krnl = fhsEnv-shell.override { redhat-tools = true; kernel-tools = true; };
    
    ### All configuration (With or without clang)
-   fhsEnv-shell-all = callPackage ./tools/fhsEnv-shell { kernel-tools = true; buildroot-tools = true; };
-   fhsEnv-shell-all-specific = callPackage ./tools/fhsEnv-shell { redhat-tools = true; debian-tools = true; kernel-tools = true; buildroot-tools = true; };
-   fhsEnv-shell-all-specific-nokrnl = callPackage ./tools/fhsEnv-shell { redhat-tools = true; debian-tools = true; buildroot-tools = true; useClang = true;};
+   fhsEnv-shell-all = fhsEnv-shell.override { kernel-tools = true; buildroot-tools = true; };
+   fhsEnv-shell-all-specific = fhsEnv-shell.override { redhat-tools = true; debian-tools = true; kernel-tools = true; buildroot-tools = true; };
+   fhsEnv-shell-all-specific-nokrnl = fhsEnv-shell.override { redhat-tools = true; debian-tools = true; buildroot-tools = true; useClang = true;};
  };
 
  ### Theme sets
- theme = {
+ theme = rec {
    marble-shell-filled = callPackage ./theme/marble-shell-filled {};
    
    ### marble-shell to marble-shell-filled with warning when this attribute is called
