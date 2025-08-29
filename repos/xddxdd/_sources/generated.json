@@ -214,7 +214,7 @@
     },
     "baidupcs-go": {
         "cargoLocks": null,
-        "date": "2025-08-26",
+        "date": "2025-08-29",
         "extract": null,
         "name": "baidupcs-go",
         "passthru": null,
@@ -226,12 +226,12 @@
             "name": null,
             "owner": "qjfoidnh",
             "repo": "BaiduPCS-Go",
-            "rev": "76186b39350500f2dfb421e3d2a5ad2bd0b93d15",
-            "sha256": "sha256-HeNdRY/jz6kFoMqdrl8A+r4Qr99lgBOI8kMHoUyEQ8s=",
+            "rev": "4ae261b57da1046d3b008b7541669ea4006ee6c5",
+            "sha256": "sha256-Ui0sI5VwpCkldx6xMt2YkkBiymmV0NIHSMEvH6VsPT4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "76186b39350500f2dfb421e3d2a5ad2bd0b93d15"
+        "version": "4ae261b57da1046d3b008b7541669ea4006ee6c5"
     },
     "baidupcs-go-stable": {
         "cargoLocks": null,
@@ -246,7 +246,7 @@
             "type": "url",
             "url": "https://google.com/generate_204"
         },
-        "version": "v3.9.7"
+        "version": "v3.9.8"
     },
     "bepasty": {
         "cargoLocks": null,
@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-08-26",
+        "date": "2025-08-28",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,16 +427,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "d23f5a464093be9d11e858184cf5a289b9aacdee",
-            "sha256": "sha256-I7MTaP5Sy8AuGyHPEe4dbKsElGMulUMQYWFpvsd9Fic=",
+            "rev": "5bd608d0adf9d3d98f9e10e190ce643f4f4d2ff1",
+            "sha256": "sha256-JFqqOibygbjJjCeWz+c/ebI/OTQ/g8sXColhHw/8T4M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d23f5a464093be9d11e858184cf5a289b9aacdee"
+        "version": "5bd608d0adf9d3d98f9e10e190ce643f4f4d2ff1"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-08-27",
+        "date": "2025-08-28",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "098a30c4b1619da1666d020d0afead874fc7449f",
-            "sha256": "sha256-/fSzZpJXjKELkh2ewMO1osi8vzxFuXVDvDdidIs0n7k=",
+            "rev": "ef8f496b033b044a0c2a29db290f87067885325e",
+            "sha256": "sha256-3xAkCTmF+xheMFixe76kB0F7aNxic/wpEimkqbwgZgk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "098a30c4b1619da1666d020d0afead874fc7449f"
+        "version": "ef8f496b033b044a0c2a29db290f87067885325e"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -994,12 +994,12 @@
             "name": null,
             "owner": "rany2",
             "repo": "edge-tts",
-            "rev": "7.2.1",
-            "sha256": "sha256-Q1mtdvX79yRhpmTXU398kw6dM4M3D1tQE78Bh7+p/uY=",
+            "rev": "7.2.3",
+            "sha256": "sha256-JnwfvSa60oEbSEyD6q88Ey6IyGOwVWO0T75VrUKZmos=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7.2.1"
+        "version": "7.2.3"
     },
     "etherguard": {
         "cargoLocks": null,
@@ -2017,13 +2017,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.16.3-xanmod1",
-            "sha256": "sha256-DQaMKGRTzRexK15//ZdTKYO+haPKPbLNb6LRUZWKjJg=",
+            "rev": "6.16.4-xanmod1",
+            "sha256": "sha256-CWsGKAID9j24H5oDqlKPToKzl+1Y43F2DmGkc7b2YIg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.16.3-xanmod1"
+        "version": "6.16.4-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -2077,13 +2077,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.43-xanmod1",
-            "sha256": "sha256-Jc3VKpUaIc1nBbbCZ/jAx/kteuQBQBO6TEPlaNq8Jrk=",
+            "rev": "6.12.44-xanmod1",
+            "sha256": "sha256-wyT7vXrXVKYISDpm2QLKdmGCx2zQWUusYT6WzGgiiHw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.43-xanmod1"
+        "version": "6.12.44-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6305",
-            "sha256": "sha256-b/mKmfUYObuYr0MG+WOnF26lMx40nQvqXifPMZ9Ul/U=",
+            "rev": "b6316",
+            "sha256": "sha256-S8gfX4uV8lPhIe0o2Ny0Jwx0SSiUj0UXczYxC0oX1qM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6305"
+        "version": "b6316"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2932,12 +2932,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.4.2",
-            "sha256": "sha256-zRkj61ODyuUQ8A6TmJPmyu/1D3CUMbCvvDxosOtxHzI=",
+            "rev": "1.1.4.3",
+            "sha256": "sha256-jlbMKFShqrdGlVAutRSUVY+rGP/Sy7e454jahRRHkJk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.4.2"
+        "version": "1.1.4.3"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -3061,7 +3061,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-08-27",
+        "date": "2025-08-28",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3073,12 +3073,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "7bb76963074e293772efdbf2f8bdc87282ea6fa9",
-            "sha256": "sha256-JQ+dxDqNWobSsaY6O/8KwuBM8FmtlTwPEivHU6jhv0A=",
+            "rev": "ee922588e0e27ac1a66270b01aaf46e256a5b91e",
+            "sha256": "sha256-x101ejKfpE6f9lszNXeb+/WpM1coPrHgy/9IQXAEZOs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7bb76963074e293772efdbf2f8bdc87282ea6fa9"
+        "version": "ee922588e0e27ac1a66270b01aaf46e256a5b91e"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -3396,7 +3396,7 @@
     },
     "qsp": {
         "cargoLocks": null,
-        "date": "2025-08-26",
+        "date": "2025-08-28",
         "extract": null,
         "name": "qsp",
         "passthru": null,
@@ -3408,16 +3408,16 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "b61922665f2cf6bc77a0287120bf0a7dea409cac",
-            "sha256": "sha256-QrBak3EkGpqZlrplER7xaOYw3Aay7WwEz1IIxbeVQ54=",
+            "rev": "23f3040a0c4efef353772d095b681dcf70d00824",
+            "sha256": "sha256-P5/O17qsh89xGIT7iCE5X6l5FzKD7MyEC4uV3gbF1J0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b61922665f2cf6bc77a0287120bf0a7dea409cac"
+        "version": "23f3040a0c4efef353772d095b681dcf70d00824"
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-08-27",
+        "date": "2025-08-28",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3429,12 +3429,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "7e1cecc839d2a25762e05cc2463be7628f0f064b",
-            "sha256": "sha256-bXJv1uyw061nuD+LrHiJ/pr2x8VXGTvttauq/kumFLk=",
+            "rev": "9c78da701ea1dac1a02974d46112db3e4255ac42",
+            "sha256": "sha256-zqhAkKJ4EGl6rg5UVYdwXoNErp1/lPVlanjqR1lWTdo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7e1cecc839d2a25762e05cc2463be7628f0f064b"
+        "version": "9c78da701ea1dac1a02974d46112db3e4255ac42"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -4287,12 +4287,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "8883d79a3ea335ab4e883234544a54798c7283ab",
-            "sha256": "sha256-THnT2CGwF1Y9tZyE41gEzKO+lC5xUeRohWGiM0K/CnM=",
+            "rev": "c50cc6a46f43a6284125b68b8cc8796f2d122480",
+            "sha256": "sha256-CLlRxcwnXIHmc+FD9TXjYCtRjSi3uuRA6hdVU3KF5kQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8883d79a3ea335ab4e883234544a54798c7283ab"
+        "version": "c50cc6a46f43a6284125b68b8cc8796f2d122480"
     },
     "unigine-heaven": {
         "cargoLocks": null,
