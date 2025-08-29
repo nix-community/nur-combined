@@ -1,7 +1,7 @@
 name: "Update source and create PR"
 on:
   schedule:
-    - cron:  '0 19 * * *'
+    - cron:  '0 3,15 * * *'
   workflow_dispatch:
 jobs:
   updates:
