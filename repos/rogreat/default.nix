@@ -20,5 +20,4 @@
   goverlay = pkgs.callPackage ./pkgs/goverlay { };
   gupax = pkgs.callPackage ./pkgs/gupax { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
-  vulkan-tools = pkgs.callPackage ./pkgs/vulkan-tools { };
 }
