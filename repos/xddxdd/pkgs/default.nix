@@ -43,7 +43,6 @@ let
     lantianLinuxCachyOSPackages = ifNotNUR (ifNotCI ./lantian-linux-cachyos/packages.nix);
     lantianLinuxXanmod = ifNotCI ./lantian-linux-xanmod;
     lantianLinuxXanmodPackages = ifNotCI ./lantian-linux-xanmod/packages.nix;
-    lantianPersonal = ifNotCI ./lantian-personal;
     nvidia-grid = ifNotCI ./nvidia-grid;
     openj9-ibm-semeru = ifNotCI ./openj9-ibm-semeru;
     openjdk-adoptium = ifNotCI ./openjdk-adoptium;

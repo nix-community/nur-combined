@@ -6,7 +6,7 @@
 
 ## Warning
 
-This NUR contains packages customized for my own use. These packages reside in `lantianCustomized`, `lantianLinuxXanmod` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
+This NUR contains packages customized for my own use. These packages reside categories starting with `lantian`. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
 
 Packages in all other categories are for public use. I will try my best to minimize changes/customizations on them, and accept issues and pull requests for them.
 
@@ -526,14 +526,6 @@ Or, use variables from this repository in case I change them:
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
 
-</details>
-
-<details>
-<summary>Package set: lantianPersonal (1 packages)</summary>
-
-| State | Path | Name | Version | Description |
-| ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianPersonal.libltnginx` | [libltnginx](https://github.com/xddxdd/libltnginx) | 0-unstable-2021-10-02 | Libltnginx |
 </details>
 
 <details>

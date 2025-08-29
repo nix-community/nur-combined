@@ -1304,11 +1304,6 @@
     "pname": "linux-config",
     "version": "6.6.72-xanmod1"
   },
-  "legacyPackages.x86_64-linux.lantianPersonal.libltnginx": {
-    "description": "Libltnginx",
-    "pname": "libltnginx",
-    "version": "0-unstable-2021-10-02"
-  },
   "legacyPackages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy",
@@ -5685,11 +5680,6 @@
     "version": ""
   },
   "packages.x86_64-linux.lantianLinuxXanmodPackages": {
-    "description": "",
-    "pname": "merged-packages",
-    "version": ""
-  },
-  "packages.x86_64-linux.lantianPersonal": {
     "description": "",
     "pname": "merged-packages",
     "version": ""
