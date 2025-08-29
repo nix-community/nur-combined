@@ -1886,10 +1886,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.32.0";
+      version = "3.33.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4560753/click_and_read-3.32.0.xpi";
-      sha256 = "135a0151dcfc09e8ac29e1b76f9e83724df59c110fd6ddff0317036f50884a16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566737/click_and_read-3.33.0.xpi";
+      sha256 = "b892e4653d7708a3a0c338ff318a55c95850f47045bf1cdb265c2b4162047ffc";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2757,10 +2757,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.7.2";
+      version = "5.8.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4529091/dictionaries-5.7.2.xpi";
-      sha256 = "67aee301ae0f3952e07af00bf6257c87583d4678aae9bca40acf930f28bf842f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566960/dictionaries-5.8.0.xpi";
+      sha256 = "8d6edd17ccf5bb6c1c57a7205325c25b8d342b2d4611c8211bd2f97d8fc009b5";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -4164,10 +4164,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.4.2";
+      version = "2.4.3";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4551107/gitpod-2.4.2.xpi";
-      sha256 = "2c6c943200d09870e869d94c4e257d87d1fd4ea620feb3946cc962af26077bd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566604/gitpod-2.4.3.xpi";
+      sha256 = "2a72ec4f5047d6dc476de388cb723bcc4b13e813e51554fa246ee3628585c357";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -6768,10 +6768,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.145.0";
+      version = "4.146.5";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4535188/lastpass_password_manager-4.145.0.xpi";
-      sha256 = "40f66297f20e66c1fbbbc0f9c05744c22080246fba3f2020a81ab37f94dd7517";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4562628/lastpass_password_manager-4.146.5.xpi";
+      sha256 = "50adb4bdf672352ddfe837e06d0ae229c1fa499bde865230ba7f168da893413d";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -6787,6 +6787,7 @@
           "idle"
           "notifications"
           "contextMenus"
+          "scripting"
           "storage"
           "nativeMessaging"
           "privacy"
@@ -10175,10 +10176,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.59.0";
+      version = "0.60.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561899/private_grammar_checker_harper-0.59.0.xpi";
-      sha256 = "27f93cb384d52239d25d64f566d0ec12a7a53d2e57dff802fcd6e896c2455929";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566850/private_grammar_checker_harper-0.60.0.xpi";
+      sha256 = "5503b867ef425b6fa5d00e1ff90030ec85124a23efe66e8a810af40afa8dc3b9";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12858,10 +12859,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.18.0";
+      version = "3.19.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4550436/toolkit_for_ynab-3.18.0.xpi";
-      sha256 = "9388410bc6e4eac01b3b2dfa80187bf6cb07c471fafc66b1b9001de5bfe299af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567104/toolkit_for_ynab-3.19.0.xpi";
+      sha256 = "57115834bd79650cace95dfffc26ee9540dcccb1e81189b42f95a2655bfe4efd";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -13222,10 +13223,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.81.0";
+      version = "3.82.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4520743/tweaks_for_youtube-3.81.0.xpi";
-      sha256 = "9d2cdaf28928cb57aeb5041efb3cacabb423d37751ba58561c8cef0a57bd779d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566823/tweaks_for_youtube-3.82.0.xpi";
+      sha256 = "50ac423ee91e8251c2dfa473347bd96b9b4cca09f5782656cedc7bddc999800f";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
