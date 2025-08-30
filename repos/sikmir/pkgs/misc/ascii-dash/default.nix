@@ -57,6 +57,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     mainProgram = "ascii-dash";
-    broken = stdenv.isDarwin; # SDL_compat
   };
 })

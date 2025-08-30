@@ -49,6 +49,5 @@ stdenv.mkDerivation {
     license = lib.licenses.publicDomain;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = stdenv.isDarwin; # SDL_compat
   };
 }

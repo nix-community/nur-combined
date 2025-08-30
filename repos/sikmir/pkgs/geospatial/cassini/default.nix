@@ -79,5 +79,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://cassini-map.com";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.hostPlatform.isLinux;
   };
 })

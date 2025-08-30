@@ -3,6 +3,8 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  pkg-config,
+  openssl,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -17,6 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-ouKVdE7wJ2jFM3oGo8wHZxpgZF6zj114mvuYPC2LBe8=";
+
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs = [ openssl ];
 
   meta = {
     description = "An egui browser for Gemini Text";
