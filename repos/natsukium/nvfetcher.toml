@@ -1,3 +1,8 @@
+[claudecode-nvim]
+src.git = "https://github.com/coder/claudecode.nvim"
+src.branch = "main"
+fetch.github = "coder/claudecode.nvim"
+
 [copyq-darwin]
 src.github = "hluk/CopyQ"
 src.prefix = "v"
