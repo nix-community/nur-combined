@@ -42,7 +42,7 @@ in
         let next_completer = {|spans: list<string>|
           let expansion = scope aliases
           | where name == $spans.0
-          | get -i 0.expansion
+          | get -o 0.expansion
           | default $spans.0
           | split row " "
 

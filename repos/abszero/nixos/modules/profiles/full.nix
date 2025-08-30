@@ -83,7 +83,7 @@ in
         libreoffice-qt
         lutris
         nudoku
-        obsidian-ime
+        obsidian
         osu-lazer-bin
         proton-pass
         protonvpn-gui

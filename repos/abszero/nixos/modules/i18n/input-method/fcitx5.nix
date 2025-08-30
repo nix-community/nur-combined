@@ -25,7 +25,6 @@ in
       type = "fcitx5";
       fcitx5 = {
         waylandFrontend = true; # Do not set `GTK_IM_MODULE` and `QT_IM_MODULE`
-        plasma6Support = true; # Use Qt6 versions of fcitx5 packages
         addons = with pkgs; [
           fcitx5-gtk
           fcitx5-mozc-ut # Mozc with UT dictionaries

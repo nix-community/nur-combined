@@ -63,6 +63,7 @@ let
                 "nodev" # block device files for security
                 "nofail"
                 "nosuid" # block suid and sgid bits for security
+                "umask=0077" # rwx------
                 "x-systemd.automount"
                 "x-systemd.idle-timeout=10min"
               ];
