@@ -26,7 +26,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - ubuntu-latest-arm
+          - ubuntu-24.04-arm
           - macos-latest
     runs-on: ${{ matrix.os }}
     permissions:
@@ -73,7 +73,7 @@ jobs:
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L --keep-going' ./nix/ci_darwin.nix
 
     - name: Build aarch64-linux nix packages
-      if: ${{ matrix.os == 'ubuntu-latest-arm'}}
+      if: ${{ matrix.os == 'ubuntu-24.04-arm'}}
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L --keep-going' ./nix/ci_aarch64.nix
   
   trigger:
