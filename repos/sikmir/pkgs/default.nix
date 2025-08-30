@@ -86,7 +86,6 @@ lib.makeScope newScope (
     libshell = callPackage ./development/libraries/libshell { };
     libsockcanpp = callPackage ./development/libraries/libsockcanpp { };
     microjson = callPackage ./development/libraries/microjson { };
-    plutosvg = callPackage ./development/libraries/plutosvg { };
 
     ### DEVELOPMENT / PERL MODULES
 
