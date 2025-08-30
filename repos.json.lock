@@ -1467,8 +1467,8 @@
             "url": "https://github.com/nasirhm/nasirhmpkgs"
         },
         "natsukium": {
-            "rev": "65033eb74d347ba57591c0ebc40db1331df5a578",
-            "sha256": "05an2d937iln65p6kiln63ybmvm3268xkzzdxpm5ldwbyp2ldpln",
+            "rev": "88bf7a1708312959b05300d13698046e3b815efb",
+            "sha256": "0n5sv2fvi92s347d1a2k2b8cs2c4h9cdww35y2m0lgn9731pyg77",
             "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
