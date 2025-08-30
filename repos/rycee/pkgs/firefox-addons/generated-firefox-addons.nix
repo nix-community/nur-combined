@@ -317,10 +317,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.37";
+      version = "1.0.44";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524699/angular_devtools-1.0.37.xpi";
-      sha256 = "5e2f0d7042573a0907ef65917bb581104df3291bd4635f7c5b75e239b0c47689";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566934/angular_devtools-1.0.44.xpi";
+      sha256 = "b0e7ca2e2b69b084782d60923f82eea44061083f4d6a8308227e0fa3e06c949a";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -328,6 +328,7 @@
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
+          "storage"
           "http://*/*"
           "https://*/*"
           "file:///*"
@@ -2523,10 +2524,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "143.0.20250827.90822";
+      version = "143.0.20250829.90521";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566004/dansk_da_language_pack-143.0.20250827.90822.xpi";
-      sha256 = "0443f2cfb725c53c17d153b2f6cb5911762b7557dd575beca0692cc97e275b03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567464/dansk_da_language_pack-143.0.20250829.90521.xpi";
+      sha256 = "7f7642ed421ebcf5ed8239a36fb017639fec6cca8b6ac9af9845f226bb725905";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2721,10 +2722,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "143.0.20250827.90822";
+      version = "143.0.20250829.90521";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566013/deutsch_de_language_pack-143.0.20250827.90822.xpi";
-      sha256 = "46bd605b0b372265f1d91dbc71b4d8726e66a49c0007712b84ae8576cc396165";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567465/deutsch_de_language_pack-143.0.20250829.90521.xpi";
+      sha256 = "4dc57d0f5da45ef213dc917b11e851b0ea6bc2706a06dc09d3dd45f56ef1c8ae";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3384,10 +3385,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.53";
+      version = "1.3.54";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561783/faststream-1.3.53.xpi";
-      sha256 = "c99424062f6d2440f10dce2c7ac00b490a31a7717651fe439dd61a01596065f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567206/faststream-1.3.54.xpi";
+      sha256 = "618189f38943d7ec928ee425e5c38045c126ea43d98b6bb77d7d2882912a62c3";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3926,10 +3927,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "143.0.20250827.90822";
+      version = "143.0.20250829.90521";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566025/francais_language_pack-143.0.20250827.90822.xpi";
-      sha256 = "4735adc9c98306e4639d7a3da219c3bf1247797f8812a90dfe0f21109f2ed4ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567495/francais_language_pack-143.0.20250829.90521.xpi";
+      sha256 = "5cef6fd41ecdbd0bc95c4c904f525f79556b488806e24534842bf9cf7b314122";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3963,10 +3964,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "143.0.20250827.90822";
+      version = "143.0.20250829.90521";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566007/gaidhlig_language_pack-143.0.20250827.90822.xpi";
-      sha256 = "dfa9132dc299dff92aa1082a45342e50b609e42d0622d993d38d95d64e84d07b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567463/gaidhlig_language_pack-143.0.20250829.90521.xpi";
+      sha256 = "c7befda211cd4084e2d9ffec1b986930dff1dd7ef8f4d590b92341b09e6f831f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5875,10 +5876,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.18.1";
+      version = "1.20.8";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4512210/immersive_translate-1.18.1.xpi";
-      sha256 = "bd777e1123ce8829656519bd0de52056cf9bf9df5faccbfc6839ced33689eee5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4561385/immersive_translate-1.20.8.xpi";
+      sha256 = "f90e346418bc5e836fbc4240570fc76a9dab6383207cf26cfa339d5efd163b1b";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -11337,10 +11338,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "143.0.20250827.90822";
+      version = "143.0.20250829.90521";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4565952/scots_language_pack-143.0.20250827.90822.xpi";
-      sha256 = "b4a959fd43e21488af28644d8741c473817154fc511c129b74810123206e0ee7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567470/scots_language_pack-143.0.20250829.90521.xpi";
+      sha256 = "20857610275a3daafac563fc623bd490c6225bc0db0a1af7db9c10f9e189a43e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13223,10 +13224,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.82.0";
+      version = "3.82.1";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566823/tweaks_for_youtube-3.82.0.xpi";
-      sha256 = "50ac423ee91e8251c2dfa473347bd96b9b4cca09f5782656cedc7bddc999800f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567351/tweaks_for_youtube-3.82.1.xpi";
+      sha256 = "1e470232cd45a8f64fcc0ce69e5b22acb69941ff1065ed5e1f9ece9f27766dfe";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -14831,10 +14832,10 @@
     };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.13.3";
+      version = "3.4.14.0";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4532322/windscribe-3.4.13.3.xpi";
-      sha256 = "bb6ad07cd6095cef79f3933c237aab20dc07b56051d97807025b6eb8628438ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4562825/windscribe-3.4.14.0.xpi";
+      sha256 = "e2f9422e4e53ca414ec3ac3fdfbaecb295a158e57f77745ce89d0667baaa39db";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
@@ -15058,10 +15059,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.11.0";
+      version = "2.12.3";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561536/youtube_no_translation-2.11.0.xpi";
-      sha256 = "f15a685036ef6597f4a181921e75c48980e37dc3e342ab5b0dac69e6774027de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567277/youtube_no_translation-2.12.3.xpi";
+      sha256 = "577ce6e21a18208c28db5d2222af78af44d9bfd68cad17f9e48c214c70eb89f1";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
