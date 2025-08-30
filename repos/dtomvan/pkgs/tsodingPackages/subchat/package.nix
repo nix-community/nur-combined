@@ -22,8 +22,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "dtomvan";
     repo = "SubChat";
-    rev = "565eab28d1ea7f19d7b99e23f1cfbaac4aa26874";
-    hash = "sha256-G5F7bZM5yB1ac3M9OUa/vdPW54Wh1LhJnOhqGNLr3ps=";
+    rev = "fee833a5eda57d270c87e51a77a7cc9483c0e9b5";
+    hash = "sha256-dUYFuRBXAVxI68Uy2LaWCv6tCpN5VncTdc0S4p4UcjU=";
     fetchSubmodules = true;
   };
 
@@ -38,7 +38,8 @@ stdenv.mkDerivation {
     cmake
     pkg-config
     makeWrapper
-  ] ++ lib.optional guiSupport wayland-scanner;
+  ]
+  ++ lib.optional guiSupport wayland-scanner;
 
   buildInputs = lib.optionals guiSupport [
     glfw
