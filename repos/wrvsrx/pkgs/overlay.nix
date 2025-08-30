@@ -51,8 +51,6 @@ let
     };
     p7zip = prev.p7zip.override { enableUnfree = true; };
     remmina = prev.remmina.override { withKf5Wallet = false; };
-    qt5ct = prev.libsForQt5.callPackage ./qt5ct { };
-    qt6ct = prev.kdePackages.callPackage ./qt6ct { };
     niri = callPackage ./niri { inherit (prev) niri; };
   };
   python-overlay = import ./python-overlay { inherit sources; };
@@ -63,6 +61,26 @@ let
   vim-plugins-overlay = import ./vim-plugins-overlay {
     inherit sources callPackage;
     inherit (prev.vimUtils) buildVimPlugin;
+  };
+  qt5-overlay = qfinal: qprev: {
+    qt5ct = qprev.callPackage ./qt5ct {
+      inherit (qprev)
+        qt5ct
+        kconfig
+        kconfigwidgets
+        kiconthemes
+        ;
+    };
+  };
+  kde-overlay = kfinal: kprev: {
+    qt6ct = kprev.callPackage ./qt6ct {
+      inherit (kprev)
+        qt6ct
+        kcolorscheme
+        kconfig
+        kiconthemes
+        ;
+    };
   };
   lib-overlay = import ./lib-overlay final prev;
   rimePackages = callPackage ./rime-packages {
@@ -76,8 +94,11 @@ toplevelPackages
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [ python-overlay ];
   haskellPackages = prev.haskellPackages.extend haskell-overlay;
   vimPlugins = prev.vimPlugins.extend vim-plugins-overlay;
+  libsForQt5 = prev.libsForQt5.overrideScope qt5-overlay;
+  kdePackages = prev.kdePackages.overrideScope kde-overlay;
   lib = prev.lib.extend lib-overlay;
   inherit rimePackages;
+
   nur-wrvsrx._packageNames = {
     _packageNames = builtins.attrNames toplevelPackages;
     python3Packages._packageNames = builtins.attrNames (
@@ -90,5 +111,7 @@ toplevelPackages
       vim-plugins-overlay prev.vimUtils.vimPlugins prev.vimUtils.vimPlugins
     );
     rimePackages._packageNames = builtins.attrNames rimePackages;
+    kdePackages._packageNames = builtins.attrNames (kde-overlay prev.kdePackages prev.kdePackages);
+    libsForQt5._packageNames = builtins.attrNames (qt5-overlay prev.libsForQt5 prev.libsForQt5);
   };
 }
