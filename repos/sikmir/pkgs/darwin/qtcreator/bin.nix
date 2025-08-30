@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qtcreator-bin";
-  version = "16.0.2";
+  version = "17.0.1";
 
   src = fetchfromgh {
     owner = "qt-creator";
     repo = "qt-creator";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-puLKIAj54ah7M1aCtOq9cDb6IAur9o5kA2/cRa8tiWI=";
+    hash = "sha256-Nyz69Uuc5NKTD1rm7XN6xaibGqXpRoA3N2/6kVyNQb8=";
     name = "qtcreator-macos-universal-${finalAttrs.version}.7z";
   };
 
