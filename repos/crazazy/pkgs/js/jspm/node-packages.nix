@@ -355,22 +355,22 @@ let
         sha512 = "3sRl+pkyFY/kLmHl0cgHiFp2xEqErA8N3ECjMs7serSUBmoJ70lBa0PG5t0IM6WJgdZNyyI0R8YFfi5wM8+mzg==";
       };
     };
-    "@jspm/generator-2.6.3" = {
+    "@jspm/generator-2.6.4" = {
       name = "_at_jspm_slash_generator";
       packageName = "@jspm/generator";
-      version = "2.6.3";
+      version = "2.6.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@jspm/generator/-/generator-2.6.3.tgz";
-        sha512 = "D1mDAZeX/8Yjul1gORbzX7OwvGZ6yCGF3NzO9Or6b7dcBUJQGEWGNyJ86pea9fl+E3FmfPb/DPl/+Ib5djd8wQ==";
+        url = "https://registry.npmjs.org/@jspm/generator/-/generator-2.6.4.tgz";
+        sha512 = "/nqYzvy0Sz8yPtYdR+cNKZD7IwaBBEFEe5JuxetZWWP9lKScaEFXkDktMhwIZZn4pGZ5rhFwpWAgsPklrqi4uw==";
       };
     };
-    "@jspm/import-map-1.2.0" = {
+    "@jspm/import-map-1.2.1" = {
       name = "_at_jspm_slash_import-map";
       packageName = "@jspm/import-map";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@jspm/import-map/-/import-map-1.2.0.tgz";
-        sha512 = "FCYQTdZ3qrVSWNTV4cQkR1LfBaszqbWp3UIOd4J/ckyMmNxLDna16n0BBjS7YAqpUfy+e4xDWdPZNwWts8NDOQ==";
+        url = "https://registry.npmjs.org/@jspm/import-map/-/import-map-1.2.1.tgz";
+        sha512 = "R7NxtOzblCkZL9aAUZCrMij1jeynfMUFJswPR/x/RJNOJ4F7zwCh4XApnNKeB9MVfyk+hDC7GK5NahcG1xelxA==";
       };
     };
     "@jspm/plugin-rollup-1.2.4" = {
@@ -481,13 +481,13 @@ let
         sha512 = "9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==";
       };
     };
-    "browserslist-4.25.3" = {
+    "browserslist-4.25.4" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.25.3";
+      version = "4.25.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.25.3.tgz";
-        sha512 = "cDGv1kkDI4/0e5yON9yM5G/0A5u8sf5TnmdX5C9qHzI9PPu++sQ9zjm1k9NiOrf3riY4OkK0zSGqfvJyJsgCBQ==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.25.4.tgz";
+        sha512 = "4jYpcjabC606xJ3kw2QwGEZKX0Aw7sgQdZCvIK9dhVSPh76BKo+C+btT1RRofH7B+8iNpEbgGNVWiLki5q93yg==";
       };
     };
     "buffer-from-1.1.2" = {
@@ -607,22 +607,22 @@ let
         sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
       };
     };
-    "electron-to-chromium-1.5.208" = {
+    "electron-to-chromium-1.5.211" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.208";
+      version = "1.5.211";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.208.tgz";
-        sha512 = "ozZyibehoe7tOhNaf16lKmljVf+3npZcJIEbJRVftVsmAg5TeA1mGS9dVCZzOwr2xT7xK15V0p7+GZqSPgkuPg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.211.tgz";
+        sha512 = "IGBvimJkotaLzFnwIVgW9/UD/AOJ2tByUmeOrtqBfACSbAw5b1G0XpvdaieKyc7ULmbwXVx+4e4Be8pOPBrYkw==";
       };
     };
-    "emoji-regex-10.4.0" = {
+    "emoji-regex-10.5.0" = {
       name = "emoji-regex";
       packageName = "emoji-regex";
-      version = "10.4.0";
+      version = "10.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emoji-regex/-/emoji-regex-10.4.0.tgz";
-        sha512 = "EC+0oUMY1Rqm4O6LLrgjtYDvcVYTy7chDnM4Q7030tP4Kwj3u/pR6gP9ygnp2CJMK5Gq+9Q2oqmrFJAz01DXjw==";
+        url = "https://registry.npmjs.org/emoji-regex/-/emoji-regex-10.5.0.tgz";
+        sha512 = "lb49vf1Xzfx080OKA0o6l8DQQpV+6Vg95zyCJX9VB/BqKYlhG7N4wgROUUHRA+ZPUefLnteQOad7z1kT2bV7bg==";
       };
     };
     "encoding-0.1.13" = {
@@ -1376,8 +1376,8 @@ let
   args = {
     name = "jspm";
     packageName = "jspm";
-    version = "4.1.1";
-    src = fetchurl { url = "https://registry.npmjs.org/jspm/-/jspm-4.1.1.tgz"; sha1 = "ca1f2b737c598a428df7be0c01864a1cb4153ae0"; };
+    version = "4.1.2";
+    src = fetchurl { url = "https://registry.npmjs.org/jspm/-/jspm-4.1.2.tgz"; sha1 = "ed5300bccfac753127e6cbc038061b58756a36bd"; };
     dependencies = [
       sources."@ampproject/remapping-2.3.0"
       sources."@babel/code-frame-7.27.1"
@@ -1418,8 +1418,8 @@ let
       sources."@jridgewell/sourcemap-codec-1.5.5"
       sources."@jridgewell/trace-mapping-0.3.30"
       sources."@jspm/core-2.1.0"
-      sources."@jspm/generator-2.6.3"
-      sources."@jspm/import-map-1.2.0"
+      sources."@jspm/generator-2.6.4"
+      sources."@jspm/import-map-1.2.1"
       sources."@jspm/plugin-rollup-1.2.4"
       (sources."@npmcli/fs-1.1.1" // {
         dependencies = [
@@ -1436,7 +1436,7 @@ let
       sources."b4a-1.6.7"
       sources."balanced-match-1.0.2"
       sources."brace-expansion-1.1.12"
-      sources."browserslist-4.25.3"
+      sources."browserslist-4.25.4"
       sources."buffer-from-1.1.2"
       (sources."cacache-15.3.0" // {
         dependencies = [
@@ -1455,8 +1455,8 @@ let
       sources."concat-map-0.0.1"
       sources."convert-source-map-2.0.0"
       sources."debug-4.4.1"
-      sources."electron-to-chromium-1.5.208"
-      sources."emoji-regex-10.4.0"
+      sources."electron-to-chromium-1.5.211"
+      sources."emoji-regex-10.5.0"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.7.0"
