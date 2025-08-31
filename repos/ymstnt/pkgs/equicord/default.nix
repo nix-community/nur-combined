@@ -57,12 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "^(\\d{4}-\\d{2}-\\d{2})$"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Other cutest Discord client mod";
