@@ -2,7 +2,9 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[CI](https://git.xeals.me/xeals/nur-packages/actions) [![Cachix Cache](https://img.shields.io/badge/cachix-xeals-blue.svg)](https://xeals.cachix.org)
+[![Gitea Action](https://git.xeal.me/xeals/nur-packages/actions/workflows/build.yml/badge.svg)](https://git.xeals.me/xeals/nur-packages/actions)
+[![Cachix Cache](https://img.shields.io/badge/cachix-xeals-blue.svg)](https://xeals.cachix.org)
+
 
 ## Using
 

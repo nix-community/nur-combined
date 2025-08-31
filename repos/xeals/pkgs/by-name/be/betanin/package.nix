@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , python3
 , beets
+, wrapGAppsHook
 }:
 
 let
@@ -45,6 +46,9 @@ python3.pkgs.buildPythonApplication {
     # pythonRelaxDepsHook doesn't work
     sed -i 's/Flask <3.0.0/Flask/' pyproject.toml
   '';
+
+  # required for apprise
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   build-system = with python3.pkgs; [ setuptools ];
 
