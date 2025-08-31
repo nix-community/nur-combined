@@ -73,6 +73,7 @@ table inet filter {
 table ip nat {
   chain prerouting {
     type nat hook prerouting priority -100; policy accept;
+    iifname intern0 ip daddr $chn_ns tcp dport 53 redirect
     iifname intern0 ip daddr $chn_ns udp dport 53 redirect
   }
 

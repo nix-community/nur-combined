@@ -23,17 +23,17 @@ in
       #     };
       #   }
       # );
-      sope = prev.sope.overrideAttrs (
-        _: attrs:
-        assert attrs.version == "5.12.2";
-        {
-          patches = [
-            ./files/sope-pr-69.patch
-          ];
-          nativeBuildInputs = [ prev.libpq.pg_config ];
-          meta = builtins.removeAttrs attrs.meta [ "knownVulnerabilities" ];
-        }
-      );
+      # sope = prev.sope.overrideAttrs (
+      #   _: attrs:
+      #   assert attrs.version == "5.12.2";
+      #   {
+      #     patches = [
+      #       ./files/sope-pr-69.patch
+      #     ];
+      #     nativeBuildInputs = [ prev.libpq.pg_config ];
+      #     meta = builtins.removeAttrs attrs.meta [ "knownVulnerabilities" ];
+      #   }
+      # );
     })
   ];
 

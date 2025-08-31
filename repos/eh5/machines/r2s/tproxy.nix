@@ -40,8 +40,9 @@ in
       dns = {
         servers = [
           {
-            address = "udp://127.0.0.1:5333";
-            detour = "direct";
+            type = "tcp";
+            server = "127.0.0.1";
+            server_port = 5333;
           }
         ];
         strategy = "ipv4_only";

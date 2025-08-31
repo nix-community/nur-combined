@@ -10,7 +10,7 @@
     defaultSopsFile = ./secrets/secrets.sops.yaml;
     secrets = {
       "sb-config.json" = {
-        mode = "0400";
+        owner = "sing-box";
       };
       "mosdns.yaml" = { };
       "tproxy.nft" = { };
