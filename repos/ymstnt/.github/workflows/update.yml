@@ -24,4 +24,4 @@ jobs:
       - name: Update flake packages
         uses: gepbird/nix-update-action@v2
         with:
-          packages : "equicord"
+          packages : "beeper,equicord,lunatask"
