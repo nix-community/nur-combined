@@ -2,7 +2,6 @@
   mySources,
   python3,
   lib,
-  lsp-tree-sitter,
   tree-sitter-zathurarc,
 }:
 

@@ -70,7 +70,6 @@ let
     windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
 
     pyrime = callPackage ./pkgs/development/python-modules/pyrime { };
-    lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     tree-sitter-tmux = callPackage ./pkgs/development/python-modules/tree-sitter-tmux { };
@@ -85,9 +84,6 @@ let
       callPackage ./pkgs/development/python-modules/requirements-language-server
         { };
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
-    autotools-language-server =
-      callPackage ./pkgs/development/python-modules/autotools-language-server
-        { };
 
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
     sublime-syntax-language-server =
