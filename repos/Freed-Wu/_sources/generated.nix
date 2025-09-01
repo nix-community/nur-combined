@@ -30,10 +30,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.0.17";
+    version = "0.0.18";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.0.17.tar.gz";
-      sha256 = "sha256-ujUhnuOKXC4tPhV8fl39NKbtw1H0fl7nC9qZVbJXx/4=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.0.18.tar.gz";
+      sha256 = "sha256-4N3xXKFayXRZsmHdaY/Sy40PBEbVQhZx7DgKlYPGUos=";
     };
   };
   manpager = {
@@ -65,10 +65,10 @@
   };
   pyrime = {
     pname = "pyrime";
-    version = "0.0.10";
+    version = "0.0.11";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.0.10.tar.gz";
-      sha256 = "sha256-4C1cwOByCgqA9dxr2I/eff2VKjURi3d9aRjFvazMGI0=";
+      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.0.11.tar.gz";
+      sha256 = "sha256-tj7X3P3D9DiIozfioX6s3H7aBqRdRYZmvpBi/caJh30=";
     };
   };
   requirements-language-server = {
