@@ -17,6 +17,8 @@ buildPythonPackage {
   inherit (source) pname src;
   pyproject = true;
 
+  patches = [ ./tree-sitter.patch ];
+
   version = lib.removePrefix "v" source.version;
 
   nativeBuildInputs = [
