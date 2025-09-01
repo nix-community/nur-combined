@@ -1279,10 +1279,10 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.2";
+      version = "4.0.3";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524177/british_english_dictionary_2-4.0.2.xpi";
-      sha256 = "9fb12b246d84eb1df6d67321fd3d7ca33524ecfd822e5e5d361f91bd9181cc37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4568898/british_english_dictionary_2-4.0.3.xpi";
+      sha256 = "362d45508eaa92f1addf1e91624106f16383bd9791d8864433dd2d13d25141c1";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -12881,10 +12881,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.43";
+      version = "0.2.44";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389714/torrent_control-0.2.43.xpi";
-      sha256 = "dc6055966ee40ca1b3ac8d4856b9952e13fbe696fe0040fdc3d7022e6455e549";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4568486/torrent_control-0.2.44.xpi";
+      sha256 = "411ffcc018d0d6158c5cb6f2ba782d95da04106d695c0c29cf20d14ed712f2d6";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
