@@ -26,6 +26,8 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # want to make scrypted available to me
+    nixpkgs-scrypted.url = "github:nixos/nixpkgs?ref=pull/404971/head";
   };
   outputs =
     inputs@{
@@ -34,6 +36,7 @@
       nixpkgs,
       treefmt-nix,
       self,
+      nixpkgs-scrypted,
       ...
     }:
     let
@@ -83,6 +86,7 @@
             legacyPackages = ourPackages // {
               inherit (self) lib overlays modules;
               maintainers = pkgs.callPackage "${self}/maintainers" { };
+              inherit (nixpkgs-scrypted.legacyPackages.${system}) scrypted;
             };
             packages = flakePackages system ourPackages;
             overlayAttrs.toyvo = ourPackages;
