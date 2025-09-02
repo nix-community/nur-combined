@@ -50,8 +50,8 @@ in
       "dovecot.service"
       "postfix.service"
     ];
-    systemd.services.dovecot.requires = [ "acme-finished-${certName}.target" ];
-    systemd.services.postfix.requires = [ "acme-finished-${certName}.target" ];
+    systemd.services.dovecot.requires = [ "acme-order-renew-${certName}.service" ];
+    systemd.services.postfix.requires = [ "acme-order-renew-${certName}.service" ];
 
     services.dovecot2.createMailUser = false;
     users.groups.${cfg.vmailGroup} = {
