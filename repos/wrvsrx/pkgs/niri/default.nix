@@ -10,8 +10,8 @@ niri.overrideAttrs (
         hash = "sha256-8PHqgjc1Iva/8i2E0sNAFU5VMV+2inAphy1cRV5mYGs=";
       })
       (fetchpatch {
-        url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing~17..tag_support-shm-sharing.patch";
-        hash = "sha256-aqsbn8iHtepiyG6dPVFvUt8qWWbvU+sZ6AGhQ8RYSko=";
+        url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_1~18..tag_support-shm-sharing_1.patch";
+        hash = "sha256-dbxN3aZ2fyokQ5L2v4CO8nt+RbVAY0CArzRMwpybvhk=";
       })
     ];
   }
