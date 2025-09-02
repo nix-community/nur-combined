@@ -12,6 +12,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     cd driver/linux
+
+    substituteInPlace Makefile.in \
+      --replace-fail "-Werror" ""
   '';
 
   hardeningDisable = [
@@ -19,8 +22,6 @@ stdenv.mkDerivation rec {
     "format"
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies ++ [ autoreconfHook ];
-
-  env.NIX_CFLAGS_COMPILE = "-Wno-missing-prototypes -Wno-missing-declarations";
 
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   INSTALL_MOD_PATH = placeholder "out";

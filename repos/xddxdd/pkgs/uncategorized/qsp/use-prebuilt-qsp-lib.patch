@@ -27,7 +27,7 @@ index 1f24b0b..689bd5f 100644
 -)
  
  if (USE_INSTALLED_WX)
- 	find_package(wxWidgets REQUIRED base core adv aui html)
+ 	find_package(wxWidgets REQUIRED base core adv aui html net)
 @@ -177,10 +167,10 @@ else()
  endif()
  
@@ -36,7 +36,7 @@ index 1f24b0b..689bd5f 100644
 +target_include_directories(qspgui PRIVATE ${qsp_INCLUDE_DIRS})
  target_compile_options(qspgui PRIVATE ${PROJECT_COMPILER_FLAGS})
  target_link_options(qspgui PRIVATE ${PROJECT_LINKER_FLAGS})
--target_link_libraries(qspgui PRIVATE qsp wxbase wxcore wxadv wxaui wxhtml)
+-target_link_libraries(qspgui PRIVATE qsp wxbase wxcore wxadv wxaui wxnet wxhtml)
 +target_link_libraries(qspgui PRIVATE ${qsp_LIBRARIES} ${wxWidgets_LIBRARIES})
  
  # Installation
