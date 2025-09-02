@@ -32,13 +32,16 @@ jobs:
         # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
+        system:
+          - macos-latest
+          - ubuntu-latest
         cachixName:
           - auscyber
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
-    runs-on: macos-latest
+    runs-on:  ${{ matrix.system }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
