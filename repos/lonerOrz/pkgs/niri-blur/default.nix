@@ -9,7 +9,6 @@
   libinput,
   libxkbcommon,
   libgbm,
-  nix-update-script,
   pango,
   pipewire,
   pkg-config,
@@ -24,7 +23,7 @@
   withSystemd ? true,
 }:
 let
-  raw-version = "25.5.1";
+  raw-version = "25.8.0";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-blur";
@@ -34,10 +33,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "visualglitch91";
     repo = "niri";
     rev = "feat/blur";
-    hash = "sha256-kUilQO6iw5pnXAuUdRxa/hVO3b3CYBIdYwovGXej8Jc=";
+    hash = "sha256-1XIhLlAc/x9K6LXRK8yMD8G3RiHPOiVRHmWNgIFGVi0=";
   };
 
-  cargoHash = "sha256-A4IWr1ggOd6Ur0pKsqRWs2xMwHGjkbNnR4WZQEV9Now=";
+  cargoHash = "sha256-lR0emU2sOnlncN00z6DwDIE2ljI+D2xoKqG3rS45xG0=";
 
   outputs = [
     "out"
@@ -130,10 +129,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=::egl"
   ];
 
-  passthru = {
-    providedSessions = [ "niri" ];
-    updateScript = nix-update-script { };
-  };
+  passthru.providedSessions = [ "niri" ];
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "Scrollable-tiling Wayland compositor";

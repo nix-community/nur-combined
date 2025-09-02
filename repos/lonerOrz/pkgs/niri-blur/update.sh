@@ -52,7 +52,7 @@ dummy_cargo="sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
 sed -i "s|cargoHash = \".*\"|cargoHash = \"$dummy_cargo\"|" "$package_file"
 
 echo "Building to get Cargo hash..."
-output=$(nix build "$script_dir/../.."#$pname 2>&1 || true)
+output=$(NIX_BUILD_CORES=1 nix build "$script_dir/../.."#$pname 2>&1 || true)
 
 cargo_hash=$(echo "$output" | grep -oP 'got:\s*\Ksha256-[a-zA-Z0-9+/=]+' | head -n1)
 if [ -z "$cargo_hash" ]; then
