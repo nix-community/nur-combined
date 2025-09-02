@@ -38,6 +38,7 @@
     ./ssh
     ./terminal
     ./tmux
+    ./trgui
     ./udiskie
     ./vim
     ./wget
