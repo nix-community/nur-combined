@@ -34,7 +34,6 @@ let
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm"
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm-terminal"
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/lsp-bridge"
-      "pkgs/applications/networking/cluster/krane"
       "pkgs/applications/version-management/git-review"
       "pkgs/development/python-modules/debugpy"
       "pkgs/development/python-modules/pygls"
