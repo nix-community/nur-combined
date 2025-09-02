@@ -12,6 +12,8 @@ from typing import List, Optional
 import toml
 
 SKIP_CHECK = [
+    "_meta",
+    "deprecated",
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
@@ -19,6 +21,8 @@ SKIP_CHECK = [
 ]
 
 SKIP_BUILD = [
+    "_meta",
+    "deprecated",
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
@@ -29,47 +33,106 @@ def build_package(package_path: str, output: str = "result"):
     subprocess.run(["nix", "build", f".#{package_path}", "-o", output], check=True)
 
 
-def verify_package_info(package_path: str, package_info: dict) -> bool:
-    # Skip special packages
-    package_name = package_path.split(".")[2]
-    if package_name in SKIP_CHECK:
-        return True
+class Check:
+    def __init__(
+        self, package_path: str, meta: dict, package_info: Optional[dict] = None
+    ):
+        self.package_path = package_path
+        self.package_name = package_path.split(".")[2]
+        self.meta = meta
+        self.package_info = package_info
+        self.valid = True
 
-    valid = True
+    def fail(self, message: str):
+        print(f"{self.package_path}: {message}")
+        self.valid = False
 
-    version = package_info.get("version", "")
+    def verify(self) -> bool:
+        raise NotImplementedError
 
-    if version.startswith("v"):
-        print(f"{package_path}: version should not start with v")
-        valid = False
 
-    if re.match(r"[0-9a-f]{40}", version):
-        print(
-            f'{package_path}: should use date for version similar to "unstable-2020-01-01"'
-        )
-        valid = False
+class DescriptionCheck(Check):
+    def verify(self) -> bool:
+        description: Optional[str] = self.meta.get("description")
+        package_name = self.package_path.split(".")[2]
 
-    for phase in ["unpack", "patch", "configure", "build", "install", "fixup"]:
-        if f"{phase}Phase" in package_info:
-            command = package_info[f"{phase}Phase"]
-            if not command:
-                continue
+        if not description:
+            self.fail("no description set")
+            return self.valid
+        elif description.startswith(" ") or description.endswith(" "):
+            self.fail("description has space at beginning or end")
+        elif re.match(r"^(a|an|the) ", description.lower(), re.IGNORECASE):
+            self.fail("description has article at beginning")
+        elif re.match(r"^[a-z]", description):
+            self.fail("description starts with lower case letter")
+        elif description.endswith("."):
+            self.fail("description has period at end")
 
-            if f"runHook pre{phase.capitalize()}" not in command:
-                print(
-                    f"{package_path}: runHook pre{phase.capitalize()} not in build script"
-                )
-                valid = False
-            if f"runHook post{phase.capitalize()}" not in command:
-                print(
-                    f"{package_path}: runHook post{phase.capitalize()} not in build script"
-                )
-                valid = False
-            if "\\\n\n" in command:
-                print(f"{package_path}: extra backslash in command")
-                valid = False
+        # New checks for description
+        if len(description.split(". ")) > 1:
+            self.fail("description should be short, just one sentence")
+        if description.lower().startswith(package_name.lower()):
+            self.fail("description should not start with the package name")
 
-    return valid
+        return self.valid
+
+
+class LicenseCheck(Check):
+    def verify(self) -> bool:
+        license_attr = self.meta.get("license")
+
+        if not license_attr:
+            self.fail("meta.license must be set")
+            return self.valid
+
+        return self.valid
+
+
+class MaintainersCheck(Check):
+    def verify(self) -> bool:
+        maintainers = self.meta.get("maintainers")
+
+        if not maintainers:
+            self.fail("meta.maintainers must be set for new packages")
+        if not isinstance(maintainers, list) or not maintainers:
+            self.fail("meta.maintainers must be a non-empty list")
+        if not any([m.get("github") == "xddxdd" for m in (maintainers or [])]):
+            self.fail("xddxdd not in maintainers")
+        return self.valid
+
+
+class PackageInfoCheck(Check):
+    def verify(self) -> bool:
+        # Skip special packages
+        if self.package_name in SKIP_CHECK:
+            return True
+
+        if self.package_info is None:
+            self.fail("package_info is None, cannot perform checks")
+            return self.valid
+
+        version = self.package_info.get("version", "")
+
+        if version.startswith("v"):
+            self.fail("version should not start with v")
+
+        if re.match(r"[0-9a-f]{40}", version):
+            self.fail('should use date for version similar to "unstable-2020-01-01"')
+
+        for phase in ["unpack", "patch", "configure", "build", "install", "fixup"]:
+            if f"{phase}Phase" in self.package_info:
+                command = self.package_info[f"{phase}Phase"]
+                if not command:
+                    continue
+
+                if f"runHook pre{phase.capitalize()}" not in command:
+                    self.fail(f"runHook pre{phase.capitalize()} not in build script")
+                if f"runHook post{phase.capitalize()}" not in command:
+                    self.fail(f"runHook post{phase.capitalize()} not in build script")
+                if "\\\n\n" in command:
+                    self.fail("extra backslash in command")
+
+        return self.valid
 
 
 def format_with_nixfmt(nix_file: str) -> str:
@@ -84,6 +147,9 @@ def apply_package_meta_change(meta: dict, statement: str):
         return
 
     match = re.search(r"/(pkgs/.+\.nix):", meta["position"], re.IGNORECASE)
+    if not match:
+        print(f"Cannot find nix file for {meta['position']}")
+        return
     nix_file = match[1]
 
     try:
@@ -108,6 +174,13 @@ def apply_package_meta_change(meta: dict, statement: str):
         f.write(new_nix_str)
 
     print(f"Applied meta change to {nix_file}")
+
+
+class HomepageCheck(Check):
+    def verify(self) -> bool:
+        if not self.meta.get("homepage"):
+            self.fail("no homepage set")
+        return self.valid
 
 
 def autocorrect_package_meta(
@@ -144,9 +217,10 @@ def autocorrect_package_meta(
         apply_package_meta_change(meta, statement)
 
 
-def verify_package_meta(
+def verify_package(
     package_path: str,
-    meta: dict,
+    package_meta: dict,
+    package_info: dict,
 ) -> bool:
     # Skip special packages
     package_name = package_path.split(".")[2]
@@ -155,34 +229,17 @@ def verify_package_meta(
 
     valid = True
 
-    description: Optional[str] = meta.get("description")
-    if not description:
-        print(f"{package_path}: no description set")
-        valid = False
-    elif description.startswith(" ") or description.endswith(" "):
-        print(f"{package_path}: description has space at beginning or end")
-        valid = False
-    elif re.match(r"^(a|an|the) ", description.lower(), re.IGNORECASE):
-        print(f"{package_path}: description has article at beginning")
-        valid = False
-    elif re.match(r"^[a-z]", description):
-        print(f"{package_path}: description starts with lower case letter")
-        valid = False
-    elif description.endswith("."):
-        print(f"{package_path}: description has period at end")
-        valid = False
+    checks: List[Check] = [
+        DescriptionCheck(package_path, package_meta),
+        LicenseCheck(package_path, package_meta),
+        MaintainersCheck(package_path, package_meta),
+        PackageInfoCheck(package_path, package_meta, package_info["env"]),
+        HomepageCheck(package_path, package_meta),
+    ]
 
-    if not meta.get("homepage"):
-        print(f"{package_path}: no homepage set")
-        valid = False
-
-    if not meta.get("license"):
-        print(f"{package_path}: no license set")
-        valid = False
-
-    if not any([m.get("github") == "xddxdd" for m in meta.get("maintainers", [])]):
-        print(f"{package_path}: xddxdd not in maintainers")
-        valid = False
+    for check in checks:
+        if not check.verify():
+            valid = False
 
     return valid
 
@@ -314,10 +371,7 @@ def check_package(args) -> bool:
         package_path, package_meta, nvfetcher_config, nvfetcher_generated
     )
 
-    if not verify_package_info(package_path, package_info["env"]):
-        valid = False
-
-    if not verify_package_meta(package_path, package_meta):
+    if not verify_package(package_path, package_meta, package_info):
         valid = False
 
     if build:

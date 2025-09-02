@@ -86,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "QQ for Linux";
+    description = "Desktop client for QQ on Linux";
     homepage = "https://im.qq.com/linuxqq/index.html";
     platforms = [
       "x86_64-linux"

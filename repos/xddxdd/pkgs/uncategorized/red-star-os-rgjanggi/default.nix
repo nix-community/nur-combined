@@ -13,7 +13,7 @@ let
   version = "3.0";
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk";
+    description = "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk";
     homepage = "https://archive.org/details/RedStarOS";
     license = lib.licenses.unfree;
     platforms = [

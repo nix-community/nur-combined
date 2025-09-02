@@ -239,9 +239,27 @@ def nixpkgs_test_build(nixpkgs_path: str, package_name: str):
     )
 
 
+def _get_current_branch_name(nixpkgs_path: str) -> str:
+    return subprocess.run(
+        ["git", "-C", nixpkgs_path, "rev-parse", "--abbrev-ref", "HEAD"],
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    ).stdout.strip()
+
+
 def nixpkgs_push(nixpkgs_path: str, package_name: str):
     subprocess.run(
-        ["git", "-C", nixpkgs_path, "push", "-u", "origin", package_name, "--force"],
+        [
+            "git",
+            "-C",
+            nixpkgs_path,
+            "push",
+            "-u",
+            "origin",
+            _get_current_branch_name(nixpkgs_path),
+            "--force",
+        ],
         check=True,
     )
 

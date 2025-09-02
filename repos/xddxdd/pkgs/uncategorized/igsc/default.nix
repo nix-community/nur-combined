@@ -30,5 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/intel/igsc";
     license = lib.licenses.asl20;
     changelog = "https://github.com/intel/igsc/releases/tag/V${finalAttrs.version}";
+    platforms = lib.platforms.linux;
   };
 })

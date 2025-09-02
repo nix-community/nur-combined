@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Python based web automation tool. Powerful and elegant";
+    description = "Python based web automation tool";
     homepage = "https://github.com/g1879/DrissionPage";
     license = with lib.licenses; [ unfreeRedistributable ];
   };

@@ -46,7 +46,7 @@ stdenv.mkDerivation {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "QSP is an Interactive Fiction development platform (GUI application)";
+    description = "Interactive Fiction development platform (GUI application)";
     homepage = "https://github.com/QSPFoundation/qspgui";
     license = lib.licenses.gpl2Only;
     mainProgram = "qspgui";

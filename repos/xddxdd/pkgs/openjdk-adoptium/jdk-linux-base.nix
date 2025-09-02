@@ -116,7 +116,7 @@ let
 
     meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
-      license = lib.licenses.gpl2Classpath;
+      license = lib.licenses.gpl2Only;
       description = "OpenJDK binaries built by Eclipse Adoptium";
       homepage = "https://adoptium.net/";
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sources; # some inherit jre.meta.platforms

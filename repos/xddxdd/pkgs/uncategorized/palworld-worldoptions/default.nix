@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     changelog = "https://github.com/legoduded/palworld-worldoptions/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers";
+    description = "Tool for managing Palworld dedicated server settings";
     homepage = "https://github.com/legoduded/palworld-worldoptions";
     # Unspecified license
     license = lib.licenses.unfree;

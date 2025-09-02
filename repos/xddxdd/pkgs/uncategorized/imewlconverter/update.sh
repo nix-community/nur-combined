@@ -4,4 +4,4 @@ TMPFILE=$(mktemp -u)
 
 rm -f "$SCRIPT_DIR/deps.nix"
 nix build .#imewlconverter.fetch-deps -o "$TMPFILE"
-yes | bash "$TMPFILE" "$SCRIPT_DIR/deps.nix"
+yes | bash "$TMPFILE" "$SCRIPT_DIR/deps.json"

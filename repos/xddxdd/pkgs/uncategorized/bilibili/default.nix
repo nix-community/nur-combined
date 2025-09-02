@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     changelog = "https://github.com/msojocs/bilibili-linux/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Bilibili desktop client";
+    description = "Desktop client for Bilibili";
     homepage = "https://app.bilibili.com/";
     license = lib.licenses.unfreeRedistributable;
     mainProgram = "bilibili";

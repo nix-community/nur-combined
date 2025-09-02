@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     mainProgram = "lora_pkt_fwd";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)";
+    description = "SX1302/SX1303 Hardware Abstraction Layer and tools";
     homepage = "https://github.com/NebraLtd/sx1302_hal";
     license = lib.licenses.unfreeRedistributable;
   };

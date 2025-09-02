@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     changelog = "https://github.com/mikespub-org/seblucas-cops/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)";
+    description = "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks";
     homepage = "http://blog.slucas.fr/en/oss/calibre-opds-php-server";
     license = lib.licenses.gpl2Only;
   };

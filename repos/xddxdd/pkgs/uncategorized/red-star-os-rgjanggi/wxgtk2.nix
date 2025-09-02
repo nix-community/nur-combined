@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
       multithreading, image loading and saving in a variety of popular formats,
       database support, HTML viewing and printing, and much more.
     '';
-    license = lib.licenses.wxWindows;
+    license = lib.licenses.free;
     maintainers = with lib.maintainers; [ xddxdd ];
     platforms = lib.platforms.linux;
   };

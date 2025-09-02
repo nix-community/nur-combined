@@ -285,7 +285,7 @@ stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
     knownVulnerabilities = [
-      "wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package."
+      "wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package."
     ];
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace";
+    description = "Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace";
     homepage = "http://gopherus.sourceforge.net/";
     license = with lib.licenses; [ bsd2 ];
     mainProgram = "gopherus";

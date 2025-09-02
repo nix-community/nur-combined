@@ -31,7 +31,7 @@ let
 
       meta = {
         maintainers = with lib.maintainers; [ xddxdd ];
-        description = "Asterisk ${asterisk_version} ${name} Codec by Digium";
+        description = "Asterisk ${name} Codec by Digium";
         homepage = "https://downloads.digium.com/pub/telephony/codec_${name}/";
         license = lib.licenses.unfree;
         platforms = [

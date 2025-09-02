@@ -116,7 +116,7 @@ let
 
     meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
-      license = lib.licenses.gpl2Classpath;
+      license = lib.licenses.gpl2Only;
       description = "OpenJ9 binaries built by IBM Semeru";
       homepage = "https://developer.ibm.com/languages/java/semeru-runtimes/";
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sources; # some inherit jre.meta.platforms

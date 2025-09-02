@@ -18,5 +18,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/intel/metee";
     license = lib.licenses.asl20;
     changelog = "https://github.com/intel/metee/releases/tag/${finalAttrs.version}";
+    platforms = lib.platforms.linux;
   };
 })
