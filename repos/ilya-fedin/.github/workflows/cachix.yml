@@ -11,13 +11,13 @@ jobs:
     outputs:
       cache-key: ${{ steps.cache-key.outputs.cache-key }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v22
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31
     - run: nix flake update
-      if: ${{ github.ref_name == github.event.repository.default_branch }}
-    - run: echo "::set-output name=cache-key::${{ hashFiles('flake.lock') }}"
+      if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    - run: echo "cache-key=${{ hashFiles('flake.lock') }}" >> $GITHUB_OUTPUT
       id: cache-key
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: flake.lock
         key: flake-lock-${{ steps.cache-key.outputs.cache-key }}
@@ -26,16 +26,16 @@ jobs:
     needs: update-flake
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
+    - uses: actions/checkout@v5
+    - uses: actions/cache@v4
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}
-    - uses: cachix/install-nix-action@v22
-    - uses: cachix/cachix-action@v12
+    - uses: cachix/install-nix-action@v31
+    - uses: cachix/cachix-action@v16
       with:
         name: ilya-fedin
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -47,8 +47,8 @@ jobs:
     needs: [update-flake, tests]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
+    - uses: actions/checkout@v5
+    - uses: actions/cache@v4
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}

@@ -9,80 +9,29 @@ in with pkgs; rec {
 
   overlays = import ./overlays;
 
-  ayatana-indicator-keyboard = callPackage ./pkgs/ayatana-indicator-keyboard {
-    inherit cmake-extras libayatana-common;
-  };
-
-  ayatana-indicator-power = callPackage ./pkgs/ayatana-indicator-power {
-    inherit cmake-extras libayatana-common;
-  };
-
   cascadia-code-powerline = runCommand "cascadia-code-powerline" {} ''
     install -m644 --target $out/share/fonts/opentype -D ${cascadia-code}/share/fonts/opentype/CascadiaCodePL-*.otf
     install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePL-*.ttf
   '';
 
-  cmake-extras = callPackage ./pkgs/cmake-extras {};
+  exo2 = google-fonts.override { fonts = [ "Exo2" ]; };
 
-  exo2 = callPackage ./pkgs/exo2 {};
+  hplipWithPlugin = if stdenv.hostPlatform.isLinux then pkgs.hplipWithPlugin else null;
 
-  gtk-layer-background = callPackage ./pkgs/gtk-layer-background {};
-
-  hplipWithPlugin = if stdenv.isLinux then pkgs.hplipWithPlugin else null;
-
-  kotatogram-desktop = qt6.callPackage ./pkgs/kotatogram-desktop {
-    inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreFoundation CoreServices CoreText CoreGraphics
-      CoreMedia OpenGL AudioUnit ApplicationServices Foundation AGL Security SystemConfiguration
-      Carbon AudioToolbox VideoToolbox VideoDecodeAcceleration AVFoundation CoreAudio CoreVideo
-      CoreMediaIO QuartzCore AppKit CoreWLAN WebKit IOKit GSS MediaPlayer IOSurface Metal MetalKit;
-
-    stdenv = if stdenv.isDarwin
-      then darwin.apple_sdk_11_0.stdenv
-      else stdenv;
-
-    # tdesktop has random crashes when jemalloc is built with gcc.
-    # Apparently, it triggers some bug due to usage of gcc's builtin
-    # functions like __builtin_ffsl by jemalloc when it's built with gcc.
-    jemalloc = (jemalloc.override { stdenv = clangStdenv; }).overrideAttrs(_: {
-      doCheck = false;
-    });
-  };
-
-  kotatogram-desktop-with-webkit = callPackage ./pkgs/kotatogram-desktop/with-webkit.nix {
-    inherit kotatogram-desktop;
-  };
-
-  libayatana-common = callPackage ./pkgs/libayatana-common {
-    inherit cmake-extras;
-  };
-
-  mir = callPackage ./pkgs/mir {};
-
-  mirco = callPackage ./pkgs/mirco {
-    inherit mir;
-  };
-
-  nerd-fonts-symbols = callPackage ./pkgs/nerd-fonts-symbols {};
+  nerd-fonts-symbols = nerd-fonts.symbols-only;
 
   nixos-collect-garbage = writeShellScriptBin "nixos-collect-garbage" ''
     ${nix}/bin/nix-collect-garbage "$@"
     /run/current-system/bin/switch-to-configuration boot
   '';
 
-  qt5ct = import ./pkgs/qt5ct pkgs;
-
-  qtgreet = libsForQt5.callPackage ./pkgs/qtgreet {
-    inherit wlrootsqt;
-  };
+  qt6ct = import ./pkgs/qt6ct pkgs;
 
   silver = callPackage ./pkgs/silver {};
 
-  virtualboxWithExtpack = virtualbox.override {
-    enableHardening = true;
-    extensionPack = virtualboxExtpack;
-  };
+  termbin = writeShellScriptBin "tb" ''
+    exec ${netcat}/bin/nc termbin.com 9999
+  '';
 
-  #wlcs = callPackage ./pkgs/wlcs {};
-
-  wlrootsqt = libsForQt5.callPackage ./pkgs/wlrootsqt {};
+  ttf-croscore = google-fonts.override { fonts = [ "Arimo" "Cousine" "Tinos" ]; };
 }) { inherit pkgs; }

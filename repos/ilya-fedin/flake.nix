@@ -1,7 +1,6 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixpkgs-croscore.url = "github:NixOS/nixpkgs/a6ab4bfac4447bd550a5d20da282881136c31c4a";
 
   inputs.flake-compat = {
     url = "github:edolstra/flake-compat";
@@ -9,8 +8,8 @@
   };
 
   outputs = { nixpkgs, ... }: let
-    lib = import (nixpkgs + "/lib");
-    forAllSystems = f: lib.genAttrs lib.systems.flakeExposed (system: f system);
+    inherit (nixpkgs) lib;
+    forAllSystems = f: lib.genAttrs lib.systems.flakeExposed f;
   in {
     packages = forAllSystems (system:
       lib.filterAttrs
@@ -29,8 +28,12 @@
   };
 
   nixConfig = {
-    substituters = [ "https://ilya-fedin.cachix.org" ];
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://ilya-fedin.cachix.org"
+    ];
     trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "ilya-fedin.cachix.org-1:QveU24a5ePPMh82mAFSxLk1P+w97pRxqe9rh+MJqlag="
     ];
   };

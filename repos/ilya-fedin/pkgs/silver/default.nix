@@ -8,14 +8,14 @@ rustPlatform.buildRustPackage rec {
     owner = "reujab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1p9c7l2bcc9pv5v9bgk01wrqdbcpvc3clf1sv0lw7ydq44ihqm08";
+    hash = "sha256-CFQMIyG4+cMp2Do4ygbbl62GMw9gvpV22TcxtgQ9LN0=";
   };
 
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ openssl_1_1 ];
 
-  cargoSha256 = "1whzqf4nw47dm1sppqsv429j4nfg5g891g03l266ba57k3lfl1ib";
+  cargoHash = "sha256-bWe5p+z5JUia0dIvFzCcH5xReu3nCrMwJtE+YfovuI4=";
 
   meta = with lib; {
     description = "A cross-shell customizable powerline-like prompt with icons";

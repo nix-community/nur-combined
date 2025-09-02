@@ -213,7 +213,7 @@ in {
   };
 
   config = mkIf cfg.useNotoCjk {
-    fonts.fonts = [ pkgs.noto-fonts-cjk ];
+    fonts.packages = [ pkgs.noto-fonts-cjk ];
     fonts.fontconfig.confPackages = [ confPkg ];
   };
 }
