@@ -32,7 +32,7 @@
   "legacyPackages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2024-10-12"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.asteriskDigiumCodecs.10.g729a": {
     "description": "Asterisk g729a Codec by Digium",
@@ -882,7 +882,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6340"
+    "version": "6356"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1377,7 +1377,7 @@
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.29.1"
+    "version": "1.29.2"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -4112,7 +4112,7 @@
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.29.1"
+    "version": "1.29.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -4242,7 +4242,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4462,7 +4462,7 @@
   "legacyPackages.x86_64-linux.uncategorized.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2024-10-12"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.axiom-syslog-proxy": {
     "description": "Syslog push interface to Axiom",
@@ -4952,7 +4952,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5072,7 +5072,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-08-28"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5152,7 +5152,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-08-28"
+    "version": "0-unstable-2025-09-01"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5297,7 +5297,7 @@
   "packages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2024-10-12"
+    "version": "0-unstable-2025-09-01"
   },
   "packages.x86_64-linux.asteriskDigiumCodecs": {
     "description": "",
@@ -5757,7 +5757,7 @@
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.29.1"
+    "version": "1.29.2"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -6017,7 +6017,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-01"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6192,7 +6192,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-08-28"
+    "version": "0-unstable-2025-09-01"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

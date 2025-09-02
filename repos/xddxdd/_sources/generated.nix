@@ -73,14 +73,14 @@
   };
   asterisk-g72x = {
     pname = "asterisk-g72x";
-    version = "19103066c460de6cb2d8257c558401607a9d7208";
+    version = "5024cb422cf58dbf0ae6e00f18092680e33391de";
     src = fetchFromGitHub {
       owner = "arkadijs";
       repo = "asterisk-g72x";
-      rev = "19103066c460de6cb2d8257c558401607a9d7208";
-      hash = "sha256-cjzX+QFp0KZEdtVznjqkhORd6JfeLYpxP9L0NTzhu90=";
+      rev = "5024cb422cf58dbf0ae6e00f18092680e33391de";
+      hash = "sha256-/0b9GEgBbUdkGIr6gbPuXDA06hw5bFv2eOembRzS2k8=";
     };
-    date = "2024-10-12";
+    date = "2025-09-01";
   };
   asterisk-gsm-efr = {
     pname = "asterisk-gsm-efr";
@@ -217,23 +217,23 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "31dcaa942221f6ff643cdf81bdf32110d7523a00";
+    version = "22b8d614e8e99418b6c133fa0ac6c350f7440a90";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "31dcaa942221f6ff643cdf81bdf32110d7523a00";
-      hash = "sha256-EAQkI9IlwfLazWruKqaVEwlF/rvS1db8O7DqdVUcA/0=";
+      rev = "22b8d614e8e99418b6c133fa0ac6c350f7440a90";
+      hash = "sha256-LSZCoaTFf1OI2lyjPOrc6sTmgeHfovHQu3RQvRH0FHo=";
     };
     date = "2025-09-01";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "0befc0c424ef82a383a7a70ae866e78b48040d6d";
+    version = "c5ff86f886c87c3de2382882699003181558c447";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "0befc0c424ef82a383a7a70ae866e78b48040d6d";
-      hash = "sha256-r81pQ+Q83eILCZ8a/yAdbc++Ao/iFe2U9ByneKnFznU=";
+      rev = "c5ff86f886c87c3de2382882699003181558c447";
+      hash = "sha256-zz1J1JpvgJFwQSAGM7tYeC1E+oDWkYXBOtAsII2kKUI=";
     };
     date = "2025-09-01";
   };
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6340";
+    version = "b6356";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6340";
-      hash = "sha256-ErVdpBQq7LaV2UDF1Uv4CFx0Ww9XS3Lnk37EpZGxNiE=";
+      tag = "b6356";
+      hash = "sha256-/Jh+r7OtfU1XEEGwgStV/NKsXnh54K+LZ0QDlWzd/gs=";
     };
   };
   loralib = {
@@ -1146,12 +1146,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.29.1";
+    version = "v1.29.2";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.29.1";
-      hash = "sha256-xNM1yvU7PIX1uTxzaiFIF4v8RoZffusrwj/Mq4nBQBI=";
+      tag = "v1.29.2";
+      hash = "sha256-sdVsn7kcZGIqHgf4I1hT6vAQXMkhEQCrVBUlyspMgA4=";
     };
   };
   mtkclient = {
@@ -1753,14 +1753,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "0724fcc93723ab18b5a101ead84d9a717bed5f01";
+    version = "ad56cb1b241ef33cdff6549430ed12d3ea2cc916";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "0724fcc93723ab18b5a101ead84d9a717bed5f01";
-      hash = "sha256-bHP32LQgPQt+symRAb+oAgnah3yHgSjWT7CaEaNtNNc=";
+      rev = "ad56cb1b241ef33cdff6549430ed12d3ea2cc916";
+      hash = "sha256-Tmq5lBOjWewsxn+vnPAzgEPL6mGG2pSEAz3nXYxoi9E=";
     };
-    date = "2025-08-29";
+    date = "2025-09-01";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2191,15 +2191,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "c50cc6a46f43a6284125b68b8cc8796f2d122480";
+    version = "38132e7cd04e2dd19ea3fc0033579f438a717a8f";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "c50cc6a46f43a6284125b68b8cc8796f2d122480";
+      rev = "38132e7cd04e2dd19ea3fc0033579f438a717a8f";
       fetchSubmodules = true;
-      hash = "sha256-CLlRxcwnXIHmc+FD9TXjYCtRjSi3uuRA6hdVU3KF5kQ=";
+      hash = "sha256-ufnM+Nt+2tbEHro6IFu7lvnO00ND2wN621VgSTBdBkQ=";
     };
-    date = "2025-08-28";
+    date = "2025-09-01";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
