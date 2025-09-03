@@ -1201,10 +1201,10 @@
     };
     "bonjourr-startpage" = buildFirefoxXpiAddon {
       pname = "bonjourr-startpage";
-      version = "21.1.0";
+      version = "21.2.0";
       addonId = "{4f391a9e-8717-4ba6-a5b1-488a34931fcb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4558633/bonjourr_startpage-21.1.0.xpi";
-      sha256 = "ee8d9c231820dd6a836b99c857fef21c52412250cf9639ff88bf16272366c6cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4569844/bonjourr_startpage-21.2.0.xpi";
+      sha256 = "4468bfe0785059811c72b5e92cb321e32f42c5e8763e1eee88f3c4e7962cb926";
       meta = with lib;
       {
         homepage = "https://bonjourr.fr";
@@ -2641,10 +2641,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2534.1";
+      version = "6.2536.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4559038/dashlane-6.2534.1.xpi";
-      sha256 = "a7958519f91a66af5770116c5205d9f7d2ae758bf297b766a724f318504e92b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4569190/dashlane-6.2536.0.xpi";
+      sha256 = "3edb05e30355fdfdee2f5547a9c8e420d4f5ae987d96c22f784af644c2656be7";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3385,10 +3385,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.54";
+      version = "1.3.55";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567206/faststream-1.3.54.xpi";
-      sha256 = "618189f38943d7ec928ee425e5c38045c126ea43d98b6bb77d7d2882912a62c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4570267/faststream-1.3.55.xpi";
+      sha256 = "e290737cb5e0b6f33601b012f6309720f54f1c0333c714d64ce96daed730c370";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4163,38 +4163,6 @@
         platforms = platforms.all;
       };
     };
-    "gitpod" = buildFirefoxXpiAddon {
-      pname = "gitpod";
-      version = "2.4.3";
-      addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566604/gitpod-2.4.3.xpi";
-      sha256 = "2a72ec4f5047d6dc476de388cb723bcc4b13e813e51554fa246ee3628585c357";
-      meta = with lib;
-      {
-        homepage = "http://www.gitpod.io";
-        description = "Gitpod streamlines developer workflows by providing ready-to-code development environments in your browser - powered by VS Code.";
-        license = {
-          shortName = "allrightsreserved";
-          fullName = "All Rights Reserved";
-          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
-          free = false;
-        };
-        mozPermissions = [
-          "storage"
-          "scripting"
-          "contextMenus"
-          "activeTab"
-          "https://gitpod.io/*"
-          "https://app.gitpod.io/*"
-          "https://*.gitpod.cloud/*"
-          "https://github.com/*"
-          "https://gitlab.com/*"
-          "https://bitbucket.org/*"
-          "https://dev.azure.com/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
       version = "10.0.15";
@@ -4597,10 +4565,10 @@
     };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
-      version = "4.1.1";
+      version = "5.2.3";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3472456/header_editor-4.1.1.xpi";
-      sha256 = "389fba1a1a08b97f8b4bf0ed9c21ac2e966093ec43cecb80fc574997a0a99766";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4566775/header_editor-5.2.3.xpi";
+      sha256 = "03886a61dc6fd931a278b5fac6ae1f87e73913a16e661c57b25e8ebd872ca0a1";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -4608,13 +4576,12 @@
         license = licenses.gpl2;
         mozPermissions = [
           "tabs"
+          "storage"
+          "unlimitedStorage"
           "webRequest"
           "webRequestBlocking"
-          "contextMenus"
-          "storage"
-          "downloads"
+          "declarativeNetRequest"
           "*://*/*"
-          "unlimitedStorage"
         ];
         platforms = platforms.all;
       };
@@ -10177,10 +10144,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.60.0";
+      version = "0.61.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566850/private_grammar_checker_harper-0.60.0.xpi";
-      sha256 = "5503b867ef425b6fa5d00e1ff90030ec85124a23efe66e8a810af40afa8dc3b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4570404/private_grammar_checker_harper-0.61.0.xpi";
+      sha256 = "7fdcbe98860036dd3e78c59470ca842992b3283d958a23f9718475a34a78d285";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -10645,10 +10612,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.4.6";
+      version = "2.4.7";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4540262/readeck-2.4.6.xpi";
-      sha256 = "a3bdb73bb296341c6d80a3e15bdd43f7589505ded3ce0b346a505f6835618648";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4569906/readeck-2.4.7.xpi";
+      sha256 = "3be38de31df798c5d837af4c983e9e6dbb9962e43fd7159e998141baecf091a0";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
