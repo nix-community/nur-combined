@@ -3,29 +3,28 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  qtbase,
+  qt6,
   wrapQtAppsHook,
-  qttools,
   dbus,
 }:
 stdenv.mkDerivation rec {
   pname = "mcontrolcenter";
-  version = "0.4.1";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "dmitry-s93";
     repo = pname;
     rev = version;
-    sha256 = "sha256-SV78OVRGzy2zFLT3xqeUtbjlh81Z97PVao18P3h/8dI=";
+    sha256 = "sha256-uWxEWLb2QOZlJ1d3LbORCc81kILB9N+0bzr+xzHAa7Y=";
   };
 
   buildInputs = [
     dbus
-    qtbase
-    qttools
+    qt6.qtbase
+    qt6.qttools
   ];
   nativeBuildInputs = [
-    wrapQtAppsHook
+    qt6.wrapQtAppsHook
     cmake
   ];
 

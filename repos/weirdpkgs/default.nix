@@ -16,6 +16,7 @@
 
   MControlCenter = pkgs.libsForQt5.callPackage ./pkgs/MControlCenter { };
   ficsit-cli = pkgs.callPackage ./pkgs/ficsit-cli { };
+ 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
