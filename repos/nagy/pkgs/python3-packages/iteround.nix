@@ -1,10 +1,12 @@
 {
   lib,
-  python3,
+  buildPythonApplication,
   fetchFromGitHub,
+  setuptools,
+  wheel,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "iteround";
   version = "1.0.4";
   pyproject = true;
@@ -17,8 +19,8 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+    setuptools
+    wheel
   ];
 
   pythonImportsCheck = [ "iteround" ];

@@ -2,7 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  testers,
+  versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -21,9 +21,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # panics with "CLI not built. Run `cargo build` to build the hledger-fmt debug executable!"
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "An opinionated hledger's journal files formatter";

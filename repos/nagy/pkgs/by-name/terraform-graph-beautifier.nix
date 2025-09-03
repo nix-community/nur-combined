@@ -2,7 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  testers,
+  versionCheckHook,
 }:
 
 buildGoModule (finalAttrs: {
@@ -24,10 +24,9 @@ buildGoModule (finalAttrs: {
     "-X main.version=${finalAttrs.version}"
   ];
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    command = "terraform-graph-beautifier -v";
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "-v";
+  doInstallCheck = true;
 
   meta = {
     description = "Terraform graph beautifier";

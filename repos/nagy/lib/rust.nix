@@ -3,8 +3,8 @@
 rec {
   cargoCratesIoRegistryGit = pkgs.fetchgit {
     url = "https://github.com/rust-lang/crates.io-index";
-    rev = "0c42b451acc49c280588f01dd599af738f485664";
-    hash = "sha256-eedG6VoOzcsRVvoLfGrTD8vDjseOxouw56iKUY2FDNk=";
+    rev = "6e9be72216a51bf674a572b050082beca073a5cf";
+    hash = "sha256-hpfJBtN6qMW9m4C7fQ+w3pEfgoLPedFJ4J84wzKPkhI=";
   };
 
   cargoConfigWithLocalRegistry =

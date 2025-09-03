@@ -27,5 +27,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/segmentio/ksuid";
     license = lib.licenses.mit;
     mainProgram = "ksuid";
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })

@@ -23,6 +23,7 @@
       nix-update
       nix-output-monitor
       # nix-eval-jobs
+      nixpkgs-review
 
       nickel
       nls
@@ -38,6 +39,7 @@
           "recursive-nix"
           "impure-derivations"
           "ca-derivations"
+          # "pipe-operators"
         ];
         sandbox = true;
         auto-optimise-store = true;
@@ -96,7 +98,6 @@
           '';
     };
     nagy.shortcommands.commands = {
-      # nix
       b = [ "nix-build" ];
       i = [ "nix-instantiate" ];
       "b." = [

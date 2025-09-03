@@ -2,7 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  testers,
+  versionCheckHook,
 }:
 
 buildGoModule (finalAttrs: {
@@ -24,11 +24,9 @@ buildGoModule (finalAttrs: {
     "-X github.com/mroach/rom64/version.Version=${finalAttrs.version}"
   ];
 
-  passthru.tests = testers.testVersion {
-    inherit (finalAttrs) version;
-    package = finalAttrs.finalPackage;
-    command = "rom64 version";
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "version";
+  doInstallCheck = true;
 
   meta = {
     description = "N64 ROM utility";

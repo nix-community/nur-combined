@@ -25,6 +25,7 @@ in
       pkgs.rust-analyzer
       pkgs.rust-script
       pkgs.cargo-modules
+      pkgs.cargo-cache
 
       # convenience
       pkgs.cargo-watch

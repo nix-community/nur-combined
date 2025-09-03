@@ -8,7 +8,7 @@
   zlib,
   stdenv,
   darwin,
-  testers,
+  versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -38,7 +38,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   doCheck = false;
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "An interactive CLI for creating conventional commits";
