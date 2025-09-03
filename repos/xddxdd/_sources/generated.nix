@@ -113,14 +113,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "2f02701e8228d3304af46fdfab5805157b608830";
+    version = "f4c2138fe283e329e5a7d97754767ed4ea5796ef";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "2f02701e8228d3304af46fdfab5805157b608830";
-      hash = "sha256-J4evL1P/GwyyfBTdBuVkXJBOYQn6SRAmjixn7RyxYvA=";
+      rev = "f4c2138fe283e329e5a7d97754767ed4ea5796ef";
+      hash = "sha256-kapG5yaj+bY8XOgNRa9eV9XKLYt1YE+bSxET5w0orCg=";
     };
-    date = "2025-08-30";
+    date = "2025-09-02";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "22b8d614e8e99418b6c133fa0ac6c350f7440a90";
+    version = "81740c62e9bdcf04e292cd6e5631e239872f0ffd";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "22b8d614e8e99418b6c133fa0ac6c350f7440a90";
-      hash = "sha256-LSZCoaTFf1OI2lyjPOrc6sTmgeHfovHQu3RQvRH0FHo=";
+      rev = "81740c62e9bdcf04e292cd6e5631e239872f0ffd";
+      hash = "sha256-Gb1BCHgGKR5b2HycAM4P6SvDFntlgOJSIEyAPnolg6o=";
     };
-    date = "2025-09-01";
+    date = "2025-09-02";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c5ff86f886c87c3de2382882699003181558c447";
+    version = "08e253f56e55a60efc684bc817ab9a158e51b98e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c5ff86f886c87c3de2382882699003181558c447";
-      hash = "sha256-zz1J1JpvgJFwQSAGM7tYeC1E+oDWkYXBOtAsII2kKUI=";
+      rev = "08e253f56e55a60efc684bc817ab9a158e51b98e";
+      hash = "sha256-zLFtfA7gWOAgc9Nj80Ba1GcogxFixz0YKCF9qBO9+FE=";
     };
-    date = "2025-09-01";
+    date = "2025-09-02";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1087,12 +1087,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6356";
+    version = "b6365";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6356";
-      hash = "sha256-/Jh+r7OtfU1XEEGwgStV/NKsXnh54K+LZ0QDlWzd/gs=";
+      tag = "b6365";
+      hash = "sha256-7TPRHQQUA7BfdPf/bhMSM5HRCws8wU2cvnrYnKwsniM=";
     };
   };
   loralib = {
