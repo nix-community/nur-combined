@@ -8,43 +8,54 @@ This is my personal [NUR (Nix User Repository)](https://github.com/nix-community
 
 ---
 
+## 📦 Packages
+
+This repository contains subjective package selections that I personally use. These include:
+
+- Communication software (QQ, WeChat, etc.)
+- Development tools (Qwen-code, etc.)
+- Multimedia applications (MPV Handler, Linux Wallpaper Engine, etc.)
+- Various utilities and other applications
+
+For a complete list of available packages, please browse the [pkgs/](./pkgs) directory.
+
+---
+
 ## 🛠 Usage (via the official NUR repository)
 
-If you have enabled the [official NUR repository](https://github.com/nix-community/NUR), you can access packages from this repo via `nur.legacyPackages."${system}".repos.lonerOrz`.
+If you have enabled the [official NUR repository](https://github.com/nix-community/NUR), you can access packages from this repo via `nur.repos.lonerOrz`.
 
 ### Flake Example
 
 ```nix
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, nixpkgs, nur }: {
+    # Use packages directly
+    packages.x86_64-linux.qq = nur.repos.lonerOrz.qq;
+    packages.x86_64-linux.wechat = nur.repos.lonerOrz.wechat;
+    
+    # Or in a NixOS configuration
     nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
-      # ...
       modules = [
-        # Adds the NUR overlay
-        nur.modules.nixos.default
-        # NUR modules to import
-        nur.legacyPackages."${system}".repos.iopq.modules.xraya
-        # This adds the NUR nixpkgs overlay.
-        # Example:
-        # ({ pkgs, ... }: {
-        #   environment.systemPackages = [ pkgs.nur.repos.mic92.hello-nur ];
-        # })
+        ({ pkgs, ... }: {
+          environment.systemPackages = with nur.repos.lonerOrz; [ 
+            qq
+            wechat
+            mpv-handler
+          ];
+        })
       ];
     };
   };
 }
 ```
 
-If you haven’t enabled NUR yet, please refer to the setup guide:
+If you haven't enabled NUR yet, please refer to the setup guide:
 [https://github.com/nix-community/NUR#using-the-repository](https://github.com/nix-community/NUR#using-the-repository)
 
 ---
@@ -56,6 +67,12 @@ This repository is automatically updated on a daily basis using GitHub Actions:
 - Fetches the latest source code of packages every day;
 - Automatically builds and pushes results to the [Cachix](https://loneros.cachix.org) cache;
 - Build status is publicly visible for easy debugging.
+
+The update process is handled by custom update scripts for each package, which can fetch the latest versions from various sources including:
+- NPM registries
+- GitHub releases
+- Official download pages
+- CDN sources
 
 ---
 
