@@ -7,18 +7,12 @@
       addons = with pkgs; [
         fcitx5-gtk
         (fcitx5-rime.override {
-          rimeDataPkgs = with nur.repos.xddxdd; [
-            rime-aurora-pinyin
-            rime-custom-pinyin-dictionary
+          rimeDataPkgs = [
             rime-data
-            rime-dict
-            rime-ice
-            rime-moegirl
-            rime-zhwiki
+            rime-wanxiang
           ];
         })
       ];
-      ignoreUserConfig = true;
       settings = {
         inputMethod = {
           GroupOrder."0" = "Default";

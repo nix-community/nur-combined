@@ -20,6 +20,7 @@ flip concatMapAttrs super.hosts (hostName: host:
         nixpkgs.overlays = [
           super.overlay
           bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
+          inputs.nix-vscode-extensions.overlays.default
         ];
 
         home-manager = {

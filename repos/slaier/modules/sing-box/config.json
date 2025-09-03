@@ -21,7 +21,7 @@
       },
       {
         "tag": "google",
-        "address": "tcp://8.8.8.8",
+        "address": "tls://8.8.8.8",
         "detour": "proxy"
       }
     ],
@@ -114,7 +114,10 @@
         "geosite": [
           "reddit"
         ],
-        "outbound": "reddit"
+        "domain": [
+          "nixos.wiki"
+        ],
+        "outbound": "clean"
       },
       {
         "geosite": [

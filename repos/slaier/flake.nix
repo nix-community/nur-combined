@@ -36,6 +36,9 @@
       url = "github:slaier/bluetooth-player";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, haumea, ... } @inputs:

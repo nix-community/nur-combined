@@ -3,7 +3,6 @@ let
   profileCommon = {
     extensions = (
       with pkgs.vscode-extensions; [
-        Continue.continue
         eamodio.gitlens
         file-icons.file-icons
         llvm-vs-code-extensions.vscode-clangd
@@ -53,6 +52,7 @@ let
       }
     ];
     userSettings = {
+      "diffEditor.codeLens" = true;
       "diffEditor.ignoreTrimWhitespace" = false;
       "editor.bracketPairColorization.enabled" = true;
       "editor.guides.bracketPairs" = "active";
@@ -96,11 +96,6 @@ let
       "mesonbuild.formatting.enabled" = true;
       "mesonbuild.linter.muon.enabled" = true;
       "redhat.telemetry.enabled" = false;
-      "yaml.schemas" = {
-        "file://${config.home.homeDirectory}/.vscode/extensions/Continue.continue/config-yaml-schema.json" = [
-          ".continue/**/*.yaml"
-        ];
-      };
     };
   };
 in
@@ -133,13 +128,32 @@ in
       profileCommon
       {
         extensions = with pkgs.vscode-extensions; [
-          Wokwi.wokwi-vscode
           jnoortheen.nix-ide
           ms-vscode.cpptools
           platformio.platformio-vscode-ide
           skellock.just
-        ];
+        ] ++ (with pkgs.vscode-marketplace; [
+          google.geminicodeassist
+          wokwi.wokwi-vscode
+        ]);
         userSettings = {
+          "geminicodeassist.enableTelemetry" = false;
+          "geminicodeassist.customCommands" = {
+            "git-commit" = builtins.concatStringsSep " " [
+              "You will act as a git commit message generator."
+              "You will ONLY output the commit message itself, nothing else."
+              "No explanations, no questions, no additional comments."
+              "Commits should follow the Conventional Commits specification."
+              "To get the changes, you can use `git diff HEAD`."
+              "Write your output to .git/COMMIT_EDITMSG."
+              "50 is the maximum number of characters of the commit title."
+              "72 is the maximum character length of the commit body."
+            ];
+          };
+          "geminicodeassist.rules" = ''
+            Never ask "Would you like me to make this change for you?" Just do it.
+          '';
+          "geminicodeassist.inlineSuggestions.enableAuto" = false;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "${lib.getExe pkgs.nil}";
           "nix.serverSettings" = {
@@ -156,8 +170,17 @@ in
     profiles.work = lib.mkMerge [
       profileCommon
       {
+        extensions = with pkgs.vscode-marketplace; [
+          continue.continue
+        ];
         userSettings = {
           "git.alwaysSignOff" = true;
+
+          "yaml.schemas" = {
+            "file://${config.home.homeDirectory}/.vscode/extensions/continue.continue/config-yaml-schema.json" = [
+              ".continue/**/*.yaml"
+            ];
+          };
         };
       }
     ];
