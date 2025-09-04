@@ -1,0 +1,40 @@
+name: "Update source and create PR"
+on:
+  schedule:
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+jobs:
+  updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.1.1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
+      - name: Install nix
+        uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31.5.2
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Update sources
+        run: nix run nixpkgs#nvfetcher
+      - name: Update firefox addons
+        run: nix run git+https://git.sr.ht/~rycee/mozilla-addons-to-nix pkgs/firefox-addons/{addons.json,default.nix}
+      - name: Update readme
+        run: nix develop -c update-readme
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          commit-message: "update source"
+          title: "update source"
+          branch: update-nvfetcher
+          sign-commits: true

@@ -1,0 +1,38 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # rebuild everyday at 9:51
+    - cron: "51 9 * * *"
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macos-latest # M1
+          - macos-13 # Intel
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Install nix
+        uses: cachix/install-nix-action@fc6e360bedc9ee72d75e701397f0bb30dce77568 # v31.5.2
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup cachix
+        uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
+        with:
+          name: doomhammer
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          pushFilter: "-source$"
+      - name: Build nix packages
+        run: nix shell --impure nixpkgs#nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=doomhammer"

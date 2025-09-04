@@ -1,0 +1,12 @@
+[powershell-beautifier]
+src.github_tag = "DTW-DanWard/PowerShell-Beautifier"
+fetch.github = "DTW-DanWard/PowerShell-Beautifier"
+
+[hammerspoon]
+src.github = "Hammerspoon/hammerspoon"
+fetch.url = "https://github.com/Hammerspoon/hammerspoon/releases/download/$ver/Hammerspoon-$ver.zip"
+
+[paperwm-spoon]
+src.git = "https://github.com/mogenson/PaperWM.spoon"
+src.branch = "main"
+fetch.github = "mogenson/PaperWM.spoon"

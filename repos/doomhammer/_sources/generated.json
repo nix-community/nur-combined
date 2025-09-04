@@ -1,0 +1,74 @@
+{
+    "hammerspoon": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hammerspoon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XbcCtV2kfcMG6PWUjZHvhb69MV3fopQoMioK9+1+an4=",
+            "type": "url",
+            "url": "https://github.com/Hammerspoon/hammerspoon/releases/download/1.0.0/Hammerspoon-1.0.0.zip"
+        },
+        "version": "1.0.0"
+    },
+    "paperwm-spoon": {
+        "cargoLocks": null,
+        "date": "2025-07-25",
+        "extract": null,
+        "name": "paperwm-spoon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mogenson",
+            "repo": "PaperWM.spoon",
+            "rev": "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470",
+            "sha256": "sha256-YBwa8tmo8hTpuZLFJ8JjAzkNF9+4xGSBuE3ziuHVg74=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470"
+    },
+    "powershell-beautifier": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "powershell-beautifier",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "DTW-DanWard",
+            "repo": "PowerShell-Beautifier",
+            "rev": "V1.2.5",
+            "sha256": "sha256-N/Wz2TDgQFEW//QR5SwzFFJAiRx8+RoMS842m27mYjM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "V1.2.5"
+    },
+    "zen-browser": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "zen-browser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-I/YrxBeJJqPpg1nCRvXqB4frB6vpC0nxclgbVzSLEUw=",
+            "type": "url",
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.15.3b/zen.macos-universal.dmg"
+        },
+        "version": "1.15.3b"
+    }
+}
