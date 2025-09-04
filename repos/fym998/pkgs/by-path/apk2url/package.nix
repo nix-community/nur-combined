@@ -20,7 +20,7 @@ writeShellApplication {
     bash
     jadx
   ];
-  text = "bash ${src}/apk2url.sh";
+  text = "bash ${src}/apk2url.sh \"$@\"";
   derivationArgs = {
     version = "unstable-2024-02-24";
     preferLocalBuild = true;
