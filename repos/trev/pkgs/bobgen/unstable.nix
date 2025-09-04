@@ -7,16 +7,16 @@
 }:
 bobgen.overrideAttrs
 (final: prev: {
-  version = "0.40.2-unstable-2025-08-16";
+  version = "0.41.1-unstable-2025-09-02";
 
   src = fetchFromGitHub {
     owner = "stephenafamo";
     repo = "bob";
-    rev = "028664aed3dbc9a73fb2028b4c224f915456cadc";
-    hash = "sha256-NqCLy74y7IG8YTb4VbJUrVG7iITyNK3a1S9gENBOVbk=";
+    rev = "10b9d8cfbc4b534386f6db8ed02ea61d1fc34726";
+    hash = "sha256-HaWeiC1sxJz2wWYsvopD8ufFZlpMiA1GkfzrnDvP1XM=";
   };
 
-  vendorHash = "sha256-3K5ByPBrZRsLcmp0JMNLCcLqQdQizTdxN1Q7B4xe9vc=";
+  vendorHash = "sha256-Jqlah37+tfNqsgeL/MnbVUmSfU2JWMJDb9AQrEqXnXU=";
 
   passthru = {
     updateScript = lib.concatStringsSep " " (nix-update-script {
