@@ -9,6 +9,7 @@
 
 | Name | Version | Description | Homepage |
 | --- | --- | --- | --- |
+| [apk2url](pkgs/by-path/apk2url/package.nix#L29) | unstable-2024-02-24 | An OSINT tool to quickly extract IP and URL endpoints from APKs by disassembling and decompiling | [Link](https://github.com/n0mi1k/apk2url) |
 | [bitsrun-rs](pkgs/by-path/bitsrun-rs/package.nix#L35) | 0.5.0 | A headless login / logout CLI for gateway (10.0.0.55) at BIT, now in Rust. 北京理工大学 10.0.0.55 校园网登录登出的 Rust 实现 | [Link](https://github.com/spencerwooo/bitsrun-rs) |
 | [bt-dualboot](pkgs/by-path/bt-dualboot/package.nix#L24) | unstable-2023-01-27 | User-friendly tool making your bluetooth devices working both in Windows and Linux without re-pairing chore | [Link](https://github.com/x2es/bt-dualboot) |
 | [fprintd-fpcmoh](pkgs/by-path/fprintd-fpcmoh/package.nix#L21) | 1.94.4 | Fingerprint daemon for FPC match on host device | [Link](https://fprint.freedesktop.org/) |
