@@ -4,7 +4,7 @@ It is provided here since Vieb was rejected from nixpkgs due to security concern
 
 # Security Warning!
 
-Versions of vieb prior to 12.4.0 (which is now packaged in this repository) are vulnerable to [remote code execution](https://github.com/Jelmerro/Vieb/security/advisories/GHSA-h2fq-667q-7gpm)! Upgrade as soon as possible.
+Versions of vieb prior to 12.4.0 are vulnerable to [remote code execution](https://github.com/Jelmerro/Vieb/security/advisories/GHSA-h2fq-667q-7gpm)! Upgrade as soon as possible.
 
 # Installation
 
@@ -45,13 +45,7 @@ This repo's `default.nix` accepts a named argument `pkgs` and returns an attrset
 { pkgs, ... }:
 let
   # This is not reproducible! Consider pinning methods.
-  vieb-nix = import (
-    builtins.fetchTree {
-      type = "github";
-      owner = "tejing1";
-      repo = "nixos-config";
-    }
-  ) { inherit pkgs; };
+  vieb-nix = import (builtins.fetchTarball "https://github.com/tejing1/vieb-nix/archive/refs/heads/master.tar.gz") { inherit pkgs; };
 in {
   environment.systemPackages = [ vieb-nix.vieb ];
 }
