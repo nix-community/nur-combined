@@ -9,10 +9,10 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "0ghabzdj2nbjnri1zykplpzrmln46dqn5nwms42av5820nvb2pwg";
-    aarch64-linux = "0sm67s87lnahf7n73jg2yj05mjh80bxqd1gx22ykyi29wns5cvjj";
-    x86_64-darwin = "1fd6cfy2qi2kczwahjzkd798731jvx0861hcj1xvhlq8xybmylmw";
-    aarch64-darwin = "09infmgnlfbzi4qs098wycl5vc7c0grq2fq8j32vckmi3y67q65d";
+    x86_64-linux = "10frkyyrzq3giyplf84yb7kh2wyrj0y1gnnw7yciz812sn0ypl77";
+    aarch64-linux = "0j3674r1wj2v5f57y5j02dvz2kljy9ifdiv4kaidbcaz524sjll7";
+    x86_64-darwin = "0m28lpfamvijdajxzasnajlniniff1bfh1irvkk0b62j2rk2fry3";
+    aarch64-darwin = "0qb1q2znd0zxwgjhdmbrrwxv6vcimg1a6mz8rrksckggh71q2305";
   };
 
   urlMap = {
