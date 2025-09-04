@@ -9,7 +9,7 @@
     ]);
 
   home-manager.users.nixos.imports = map (x: x.home or { }) (lib.attrValues modules) ++ [
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
     ({ lib, ... }: {
       xdg.configFile."pip/pip.conf".text = lib.generators.toINI { } {
         global = {

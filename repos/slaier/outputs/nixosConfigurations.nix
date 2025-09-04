@@ -21,6 +21,9 @@ flip concatMapAttrs super.hosts (hostName: host:
           super.overlay
           bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
           inputs.nix-vscode-extensions.overlays.default
+          (final: _prev: {
+            niriswitcher = final.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ni/niriswitcher/package.nix" {};
+          })
         ];
 
         home-manager = {
