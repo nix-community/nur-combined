@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  fetchurl,
   fetchFromGitHub,
   wrapGAppsHook4,
   nix-update-script,
@@ -27,13 +28,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bazaar";
-  version = "0.2.3";
+  version = "0.4.5";
 
   src = fetchFromGitHub {
     owner = "kolunmi";
     repo = "bazaar";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WMSDpHdW0YrQUmY5fqIN1K9NNj3BJD8ebKwviu89sX0=";
+    hash = "sha256-4nJwwH2BHry4LsV89ZqhmFafwKt+VpaeRpD97Ywtyig=";
   };
 
   nativeBuildInputs = [
@@ -51,7 +52,13 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4
     json-glib
     libadwaita
-    libdex
+    (libdex.overrideAttrs {
+      version = "0.11.1";
+      src = fetchurl {
+        url = "mirror://gnome/sources/libdex/0.11/libdex-0.11.1.tar.xz";
+        hash = "sha256-lCUKLYPm9z06yJcvGkOAFSNqRltWywBeDmv7nUlIc58=";
+      };
+    })
     (libglycin.overrideAttrs (
       _final: prev: {
         patches = (if prev ? patches then prev.patches else [ ]) ++ [
@@ -67,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ bubblewrap ]}"
+      --prefix PATH : "$out/bin:${lib.makeBinPath [ bubblewrap ]}"
       --prefix XDG_DATA_DIRS : "${glycin-loaders}/share"
     )
   '';
