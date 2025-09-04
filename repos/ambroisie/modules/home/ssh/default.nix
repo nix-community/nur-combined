@@ -17,6 +17,7 @@ in
     {
       programs.ssh = {
         enable = true;
+        enableDefaultConfig = false;
 
         includes = [
           # Local configuration, not-versioned
@@ -53,11 +54,12 @@ in
             identityFile = "~/.ssh/shared_rsa";
             user = "ambroisie";
           };
-        };
 
-        extraConfig = ''
-          AddKeysToAgent yes
-        '';
+          # `*` is automatically made the last match block by the module
+          "*" = {
+            addKeysToAgent = "yes";
+          };
+        };
       };
     }
 
