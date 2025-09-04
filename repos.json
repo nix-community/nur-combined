@@ -399,6 +399,9 @@
         "dmayle": {
             "url": "https://github.com/dmayle/nur-packages"
         },
+        "doomhammer": {
+            "url": "https://github.com/doomhammer/nur-packages"
+        },
         "draftea": {
             "url": "https://github.com/Drafteame/nur-packages"
         },
@@ -432,6 +435,9 @@
         },
         "dywedir": {
             "url": "https://github.com/dywedir/nur-packages"
+        },
+        "eerieaerial": {
+            "url": "https://github.com/eerieaerial/nur-packages"
         },
         "eeva": {
             "type": "gitea",
@@ -570,6 +576,9 @@
         "hhr2020": {
             "url": "https://github.com/hhr2020/nur-packages"
         },
+        "hilorioze": {
+            "url": "https://github.com/hilorioze/nur-packages"
+        },
         "htr": {
             "url": "https://github.com/htr/nur-packages"
         },
@@ -696,6 +705,9 @@
         },
         "k3a": {
             "url": "https://github.com/k3a/nurpkgs"
+        },
+        "kagura": {
+            "url": "https://github.com/icewithcola/nur-packages"
         },
         "kakkun61": {
             "url": "https://github.com/kakkun61/nur-packages"
@@ -1167,6 +1179,9 @@
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shirok1": {
+            "url": "https://github.com/shirok1/nur-packages"
+        },
         "shymega": {
             "url": "https://github.com/shymega/nixfigs-nur"
         },
@@ -1297,6 +1312,9 @@
         },
         "vizqq": {
             "url": "https://github.com/ViZiD/nur-vizqq"
+        },
+        "vladexa": {
+            "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
             "url": "https://github.com/VojtechStep/vspkgs"
