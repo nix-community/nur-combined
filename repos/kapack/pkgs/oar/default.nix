@@ -9,8 +9,8 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "oar-team";
     repo = "oar3";
-    rev = "8a5ef9c238dc28f184cf8f6e06bca3b62188347d";
-    sha256 = "sha256-dijc5YMU7bTT9Vt1dQ6QuwAgn2OjVaiO7AdUj4kAaY8=";
+    rev = "d65cf99c78e9afba4e747e6f9d7ee2fa30bb9b8d";
+    sha256 = "sha256-etsLfpySv1plgMV7chnMib0xPiLRbvt2CCWCTvFg6Xg=";
   };
 
   nativeBuildInputs = [
@@ -19,6 +19,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python3Packages; [
+    setuptools
     poetry-core
     pyzmq
     requests

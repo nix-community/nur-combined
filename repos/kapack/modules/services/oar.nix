@@ -372,8 +372,8 @@ in
           isSystemUser = true;
           home = cfg.oarHomeDir;
           shell = "${oarTools}/bin/oarsh_shell";
-          createHome = true; #
-          homeMode = "700";  #
+          createHome = true;
+          homeMode = "755";
           group = "oar";
           uid = 745;
         };
