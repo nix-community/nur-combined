@@ -1,4 +1,9 @@
 
+# don't run in CI
+if [[ -n "${CI-}" ]]; then
+    exit 0
+fi
+
 reset_color=""
 info_color=""
 warn_color=""
