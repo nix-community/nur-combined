@@ -22,43 +22,37 @@ fi
 function bold {
     printf "\n%s%s%s\n" "${bold_color}" "$1" "${reset_color}"
 }
-
 function info {
     printf "%s%s%s\n" "${info_color}" "$1" "${reset_color}"
 }
-
 function dialog {
     printf "%s%s%s\n" "${dialog_color}" "$1" "${reset_color}"
 }
-
 function warn {
     printf "%s%s%s\n" "${warn_color}" "$1" "${reset_color}"
 }
-
 function success {
     printf "%s%s%s\n" "${success_color}" "$1" "${reset_color}"
 }
 
+# git info
 if ! git diff --staged --quiet || ! git diff --quiet; then
     warn "please commit or stash changes before running bumper"
     exit 1
 fi
-
-# git info
 if ! git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
     warn "not a git repository"
     exit 1
 fi
-
 if ! git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); then
     warn "not on a branch"
     exit 1
 fi
-
 if ! git_version=$(git describe --tags "$(git rev-list --tags --max-count=1 2>/dev/null)" 2>/dev/null); then
     warn "no git tags found, please create a tag first"
     exit 1
 fi
+cd "${git_root}"
 
 # get next version
 version=${git_version#v}
@@ -87,9 +81,7 @@ next_version="${major}.${minor}.${patch}"
 bold "$(info "${version} -> ${next_version}")"
 
 # perform bumps
-cd "${git_root}"
 readarray -t files < <(git ls-files)
-
 for file in "${files[@]}"; do
     case "${file}" in
         "package.json" | "package-lock.json")
