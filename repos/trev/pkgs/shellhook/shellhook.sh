@@ -167,24 +167,18 @@ function npm_info {
         return 1
     fi
 
-    if ! deps=$(npm ls --json 2> /dev/null); then
-        warn "$npm_icon" "failed to run npm ls"
-        return 1
+    if deps=$(npm ls --json 2> /dev/null); then
+        deps_count=$(echo "$deps" | jq ".dependencies | length")
+        info "$npm_icon" "$deps_count dependencies"
+    else
+        warn "$npm_icon" "node_modules is outdated (run npm install)"
     fi
 
-    deps_count=$(echo "$deps" | jq ".dependencies | length")
-    info "$npm_icon" "$deps_count dependencies"
-
-    if ! outdated=$(npm outdated --json 2> /dev/null); then
-        warn "$npm_icon" "failed to run npm outdated"
-        return 1
-    fi
-
-    outdated_count=$(echo "$outdated" | jq "length")
-    if [ "$outdated_count" -eq 0 ]; then
+    if outdated=$(npm outdated --json 2> /dev/null); then
         info "$npm_icon" "up-to-date"
     else
-        warn "$npm_icon" "$outdated_count outdated"
+        outdated_count=$(echo "$outdated" | jq "length")
+        warn "$npm_icon" "$outdated_count outdated dependencies"
     fi
 
     return 0
