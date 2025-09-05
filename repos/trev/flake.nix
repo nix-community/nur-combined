@@ -1,5 +1,5 @@
 {
-  description = "Trev's NUR repository";
+  description = "Trev's NUR";
 
   nixConfig = {
     extra-substituters = [
@@ -12,16 +12,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
-    nur,
   }: let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in rec {
@@ -29,22 +24,21 @@
       system: let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [nur.overlays.default];
         };
-
         update = pkgs.callPackage ./update.nix {};
+        patched-renovate = pkgs.callPackage ./pkgs/renovate {};
+        shellhook = pkgs.callPackage ./pkgs/shellhook {};
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
             update
-            git
-            nix-update
             alejandra
+            flake-checker
             prettier
             action-validator
-            pkgs.nur.repos.trev.renovate
+            patched-renovate
           ];
-          shellHook = pkgs.nur.repos.trev.shellhook.ref;
+          shellHook = shellhook.ref;
         };
       }
     );
@@ -52,23 +46,24 @@
     checks = forAllSystems (system: let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [nur.overlays.default];
       };
+      lib = import ./lib {inherit pkgs;};
+      patched-renovate = pkgs.callPackage ./pkgs/renovate {};
     in
-      pkgs.nur.repos.trev.lib.mkChecks {
+      lib.mkChecks {
         lint = {
           src = ./.;
           deps = with pkgs; [
             alejandra
             prettier
-            pkgs.nur.repos.trev.renovate
             action-validator
+            patched-renovate
           ];
           script = ''
             alejandra -c .
             prettier --check .
-            renovate-config-validator
-            action-validator .github/workflows/*
+            action-validator .github/**/*.yaml
+            renovate-config-validator .github/renovate*.json
           '';
         };
       }

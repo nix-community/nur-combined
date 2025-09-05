@@ -1,8 +1,8 @@
-name: flake
+name: vulnerable
 
 on:
   schedule:
-    - cron: '5 4 * * *'
+    - cron: '9 9 * * *'
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: DeterminateSystems/flake-checker-action@3164002371bc90729c68af0e24d5aacf20d7c9f6 # v12
-        with:
-          send-statistics: false
-          fail-mode: true
+      - uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+
+      - run: flake-checker -f
