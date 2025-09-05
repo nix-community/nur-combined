@@ -25,8 +25,8 @@ let
 
   sha256 =
     {
-      x86_64-linux = "0z6xxp8kn32p7rfznf5xan0rdli2rjqakcz3y7cp97pqycp6yjpg";
-      x86_64-darwin = "17xysclg5jwln266mksyrak98bz85ncd3bq3bn6287dp0rgx67gk";
+      x86_64-linux = "11ls0dq25spwpdkw2nz4jpr12x6dndpq7kcnx2q42jjhn5q8lvvb";
+      x86_64-darwin = "14l4jmc373jx355wvw0hnpa19pc0jmq86q8l947iw8sz6i6yxgh2";
       aarch64-linux = "0h35kf5ka6c1jds1dlsj83c1503k4bv0mwm74gb57hmb8387xiqd";
       aarch64-darwin = "0qrrbdfsar7m1cg52n8pv5635vyi7209sg1ak2m09zy8pif4g6j5";
       armv7l-linux = "16rknqiikqkkr2f65zs9m9dg4nr28yskim5bwic4ldgvzyffha8l";
