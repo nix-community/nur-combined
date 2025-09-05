@@ -34,6 +34,10 @@ in
     source = sources.zen-browser-twilight;
     sourceRoot = "Twilight.app";
   };
+  bartender-alpha = pkgs.callPackage ./pkgs/bartender/default.nix {
+    source = sources.bartender-alpha;
+    sourceRoot = ".";
+  };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
