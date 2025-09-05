@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CIN8MK2T511djYQ+n+Q382o/yEC9q4a0BCaA4ZLPfEc=",
+            "sha256": "sha256-X3EoVXj/RkE9gjbehq2xA33zp5l7Mj3wn5kvif7rlpY=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-3/bilibili-asar-v1.17.1-3.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-5/bilibili-asar-v1.17.1-5.tar.gz"
         },
-        "version": "v1.17.1-3"
+        "version": "v1.17.1-5"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.1-3",
-            "sha256": "sha256-kuZ/dfMXUhRnLDH1S/g65QT8sWmsL6WRcQC5Ecc9tIA=",
+            "rev": "v1.17.1-5",
+            "sha256": "sha256-1Tr7HJTiz4BI905lzyMT0Xq15FfQIKVUN3kx8WQqfZQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.1-3"
+        "version": "v1.17.1-5"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -1310,11 +1310,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-a6h2E5kTEz8mIJbz+WFDP+oLGWsxVOBWBbw7thrB7uY=",
+            "sha256": "sha256-wFB8+wkfQqxSX064oAUaeJf1+scuhSeZ4BCWWDVmAzs=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.09.01"
+        "version": "2025.09.04"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1325,11 +1325,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3QqZsTpJGkJ+akdcMJ+sAnEDRSUzWzfqNSX2WPgiD/Y=",
+            "sha256": "sha256-Jkt40L2qsn5/w3Dy+T2hSFKxXESHjTC+U63J04LxCG4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.04/GeoLite2-City.mmdb"
         },
-        "version": "2025.09.01"
+        "version": "2025.09.04"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1340,11 +1340,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1c4GCKB3KGxhJVTYlfREQy9IuSj3TD3t+qbObVkEAj0=",
+            "sha256": "sha256-jQf3qMqdlrng3Y+m0IaD80+8jsrb11mQtGW21NFg060=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.04/GeoLite2-Country.mmdb"
         },
-        "version": "2025.09.01"
+        "version": "2025.09.04"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1881,7 +1881,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-08-27",
+        "date": "2025-09-04",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1893,12 +1893,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "68b0d172d79059cc1658496f97ad8d66e58a442a",
-            "sha256": "sha256-cAYEw7w0+S2XUIFx8pZMp092lbiQu06qFS6x2Wo1WdI=",
+            "rev": "d566dd236ae73ba285e23982699c67b1a2a147c2",
+            "sha256": "sha256-r1wEfMybChk3UXOicg8LJ438M01rupv9xrzjh5Zp6/0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "68b0d172d79059cc1658496f97ad8d66e58a442a"
+        "version": "d566dd236ae73ba285e23982699c67b1a2a147c2"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2017,13 +2017,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.16.4-xanmod2",
-            "sha256": "sha256-xyrIUlF+22qjPAEHzH/yrBChHuPr+O/C9nH/FzTl7nU=",
+            "rev": "6.16.5-xanmod1",
+            "sha256": "sha256-XQ1blzX1sR7et0qKu+voKDKefjYLYZwHPFo7RbFYekg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.16.4-xanmod2"
+        "version": "6.16.5-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -2077,13 +2077,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.44-xanmod2",
-            "sha256": "sha256-YyJZPfFtJWqFo2cANsWP+VX1cYYGaxgtH8lLbGw04oI=",
+            "rev": "6.12.45-xanmod1",
+            "sha256": "sha256-JyRmRdSkskD3LHvaCUNZJOKEXNML4WRbUDN3+dVn4Kk=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.44-xanmod2"
+        "version": "6.12.45-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -2119,12 +2119,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6365",
-            "sha256": "sha256-7TPRHQQUA7BfdPf/bhMSM5HRCws8wU2cvnrYnKwsniM=",
+            "rev": "b6389",
+            "sha256": "sha256-ANceHPRZbs7T3VPmiJN0Z2gMqDGfeztgu7UxK1/4NSA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6365"
+        "version": "b6389"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4275,7 +4275,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-09-01",
+        "date": "2025-09-05",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4287,12 +4287,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "38132e7cd04e2dd19ea3fc0033579f438a717a8f",
-            "sha256": "sha256-ufnM+Nt+2tbEHro6IFu7lvnO00ND2wN621VgSTBdBkQ=",
+            "rev": "28e6fb4c2edf6e1d516b518f3a28302f96a14157",
+            "sha256": "sha256-2JNvB7OR5Q5Jbss2S1Y2K97h+mzbUl50Nt4SPrr53+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "38132e7cd04e2dd19ea3fc0033579f438a717a8f"
+        "version": "28e6fb4c2edf6e1d516b518f3a28302f96a14157"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4540,11 +4540,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2ex3Yo/Cr1Mcsryqo1+Cfx+0warumKHE8LsyLTzOVT8=",
+            "sha256": "sha256-wp/AVjDPyV72SD9rW1Kqv+dCZbsmDiEOeK5DfTBdiZA=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.55/WeChatSetup-3.9.12.55.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.57/WeChatSetup-3.9.12.57.exe"
         },
-        "version": "3.9.12.55"
+        "version": "3.9.12.57"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -4555,11 +4555,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ir5wIc2ktNiOAQ1Hq9b2liyLfOuTbTSdXEVnXaynFag=",
+            "sha256": "sha256-luFiOhyEkCy/MxOKliV2xOjMxrq/kmWceiY/cDmo76k=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.12.54/WeChatSetupX86-3.9.12.54.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.12.56/WeChatSetupX86-3.9.12.56.exe"
         },
-        "version": "3.9.12.54"
+        "version": "3.9.12.56"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
