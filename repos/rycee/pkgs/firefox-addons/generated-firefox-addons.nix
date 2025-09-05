@@ -1887,10 +1887,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.33.0";
+      version = "3.34.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566737/click_and_read-3.33.0.xpi";
-      sha256 = "b892e4653d7708a3a0c338ff318a55c95850f47045bf1cdb265c2b4162047ffc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4571647/click_and_read-3.34.0.xpi";
+      sha256 = "e27070e8285c239369099c7fd79549949b7eae50c2073ad1c218100a1e5e11be";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
