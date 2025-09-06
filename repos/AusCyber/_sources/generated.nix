@@ -39,7 +39,7 @@
     version = "1.15.4b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-9QQinuysHy4UgerAL07sFAVKWXpVkAJj2Th42k7zMaI=";
+      sha256 = "sha256-aNOlh3tLP6aJ46owK+PLQ6++gSfGYsYiioqWCWTM38M=";
     };
   };
 }
