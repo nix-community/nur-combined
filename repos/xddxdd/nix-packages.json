@@ -882,7 +882,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6389"
+    "version": "6397"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4257,12 +4257,12 @@
   "legacyPackages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-08-29"
+    "version": "5.9.3-b1-unstable-2025-09-06"
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-09-06"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4967,12 +4967,12 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-08-29"
+    "version": "5.9.3-b1-unstable-2025-09-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-09-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -6032,12 +6032,12 @@
   "packages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.3-b1-unstable-2025-08-29"
+    "version": "5.9.3-b1-unstable-2025-09-06"
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-09-06"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
