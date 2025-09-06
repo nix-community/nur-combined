@@ -3,11 +3,11 @@
 {
   bartender-alpha = {
     pname = "bartender-alpha";
-    version = "9";
+    version = "10";
     src = fetchurl {
-      url = "https://macbartender.com/updates/b6/Bartender%206-9.zip";
-      name = "Bartender6-9.zip";
-      sha256 = "sha256-lVNJKsXdNZNCqxyi3vKBF7N93fEtCOmCF0fjRAOnwDc=";
+      url = "https://macbartender.com/updates/b6/Bartender%206-10.zip";
+      name = "Bartender6-10.zip";
+      sha256 = "sha256-qPkmsaQX0nNg6Gkyx5P0GcjiJ6E7U3v1yshHEKEvW8E=";
     };
   };
   ghostty = {
@@ -23,20 +23,20 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-UktIrl6b1W633Ko4bP9xU6341iEVSSW8cPWftpspgfA=";
+      sha256 = "sha256-9yhYSOB82Ou/lHgkOaUO7GIOazuQH4gErLZDkFEZ6/g=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.15.3b";
+    version = "1.15.4b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.15.3b/zen.macos-universal.dmg";
-      sha256 = "sha256-JtDvDM39J6puMHMMrlmzS6pJwA6+Bbh7kh4f8KMCchA=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.15.4b/zen.macos-universal.dmg";
+      sha256 = "sha256-gWEVXL3b/s0j9R0wLqMWEt7K2lFw7lgBNIlImHZewAs=";
     };
   };
   zen-browser-twilight = {
     pname = "zen-browser-twilight";
-    version = "1.15.3b";
+    version = "1.15.4b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
       sha256 = "sha256-9QQinuysHy4UgerAL07sFAVKWXpVkAJj2Th42k7zMaI=";
