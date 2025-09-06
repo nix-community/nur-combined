@@ -1,17 +1,17 @@
-{stdenv, lib, zlib, cmake, memorymappingHook ? {}.memorymappingHook, fmt, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, unstableGitUpdater, maintainers}: let
+{stdenv, lib, zlib, cmake, memorymappingHook ? {}.memorymappingHook, fmt, phosg, netpbm, sdl3, fetchFromGitHub, useNetpbm?false, useSDL?true, ripgrep, makeBinaryWrapper, unstableGitUpdater, maintainers}: let
     needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
     needsFmt = stdenv.cc.isClang && stdenv.cc.libcxx != null && lib.versionOlder (lib.getVersion stdenv.cc.libcxx) "17";
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2025-09-02";
+    version = "0-unstable-2025-09-05";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "14db6eada3aeb0b6c6732277a36fde5b30eeaf4d";
-        hash = "sha256-rkXuXH+JENEULqkRXCOvMnV/21k67PRXoNnyawPoGxY=";
+        rev = "29142bd7f9f01c496625c844bb1a29d66477d2a6";
+        hash = "sha256-Qpffx1KT59u2neSqZ+4P54jsJKwfK0MFZhT2BfVRut4=";
     };
     nativeBuildInputs = [cmake] ++ lib.optionals useNetpbm [makeBinaryWrapper];
-    buildInputs = [phosg zlib] ++ lib.optionals needsMemorymapping [memorymappingHook] ++ lib.optionals needsFmt [fmt];
+    buildInputs = [phosg zlib] ++ lib.optionals useSDL [sdl3] ++ lib.optionals needsMemorymapping [memorymappingHook] ++ lib.optionals needsFmt [fmt];
     # The CMakeLists.txt file provided doesn't install all the executables. Patch it to include the rest:
     postPatch = ''
         allExes=($(sed -En '
@@ -28,6 +28,7 @@ in stdenv.mkDerivation rec {
             installLine="install(TARGETS $exeToInstall DESTINATION bin)"
             ${lib.getExe ripgrep} -Fq "$installLine" CMakeLists.txt || echo "$installLine" >> CMakeLists.txt
         done
+        substituteInPlace CMakeLists.txt --replace-fail 'pop2_render' '''
     '' + lib.optionalString needsFmt ''
         shopt -s globstar
         for file in src/**/*.{cc,hh}; do
