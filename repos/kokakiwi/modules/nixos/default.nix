@@ -11,7 +11,6 @@ let
       linx-server = ./services/linx-server.nix;
       ots = ./services/ots.nix;
       pueue = ./services/pueue.nix;
-      qbittorrent = ./services/qbittorrent.nix;
       safetwitch = ./services/safetwitch.nix;
       sccache = ./services/sccache.nix;
       vanta-agent = ./services/vanta-agent.nix;

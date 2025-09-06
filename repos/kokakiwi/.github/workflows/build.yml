@@ -1,51 +1,53 @@
-name: 'Build and populate cache'
+name: "Build and populate cache"
 on:
   pull_request:
   push:
     branches:
       - main
+      - master
   schedule:
-    - cron: '5 3 * * *'  # Rebuild every day at 03:05
+    # rebuild everyday at 04:13
+    - cron:  '13 4 * * *'
+  workflow_dispatch:
 jobs:
-  build:
+  tests:
     strategy:
       matrix:
+        nurRepo:
+          - kokakiwi
         nixPath:
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixos-25.05
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup nix
-        uses: cachix/install-nix-action@v26
-        with:
-          nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Setup Attic cache
-        uses: ryanccn/attic-action@v0
-        with:
-          endpoint: https://attic.bismuth.it
-          cache: kokakiwi
-          token: ${{ secrets.ATTIC_TOKEN }}
-      - name: Check evaluation
-        run: |
-          nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-  trigger-nur:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Trigger NUR update
-        run: curl -X POST 'https://nur-update.nix-community.org/update?repo=kokakiwi'
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup Attic cache
+      uses: ryanccn/attic-action@v0
+      with:
+        endpoint: https://attic.bismuth.it
+        cache: kokakiwi
+        token: '${{ secrets.ATTIC_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

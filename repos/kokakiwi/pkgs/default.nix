@@ -33,9 +33,6 @@ let
     aura = { };
     asncounter = { };
     enquirer = { };
-    ferdium = {
-      pnpm = pkgs.pnpm_9;
-    };
     fw-ectool = { };
     go-mod-upgrade = { };
     hl = { };
