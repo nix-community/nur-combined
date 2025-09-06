@@ -34,4 +34,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  meta = {
+    platforms = [ "aarch64-darwin" ];
+    license = lib.licenses.asl20;
+  };
 }

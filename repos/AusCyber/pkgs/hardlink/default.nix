@@ -31,4 +31,9 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  meta = {
+
+    platforms = [ "aarch64-darwin" ];
+  };
+
 }
