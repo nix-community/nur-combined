@@ -17,3 +17,4 @@ src.webpage = "https://macbartender.com/Bartender6/alpha.html"
 src.regex = 'Bartender 6 Alpha (\d+)'
 fetch.url = "https://macbartender.com/updates/b6/Bartender%206-$ver.zip"
 url.name = "Bartender6-$ver.zip"
+

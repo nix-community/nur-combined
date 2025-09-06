@@ -30,8 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   unpackPhase = ''
         unzip $src
-    	cp -r Bartender6-${finalAttrs.version}/* .
-
+    	cp -r 'Bartender 6-${finalAttrs.version}/${finalAttrs.pname}.app' .
 
   '';
 
