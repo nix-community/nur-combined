@@ -38,5 +38,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/chrieke/prettymapp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # osmnx
   };
 }

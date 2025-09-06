@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "geotiler";
-  version = "0.15.0";
+  version = "0.15.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wrobell";
     repo = "geotiler";
     tag = "geotiler-${version}";
-    hash = "sha256-xqAsjuUMODZvkSMyGXpP1/FTyqNKPfa8l4Zr2CUHaDY=";
+    hash = "sha256-fiY5cJIus4eLzSfqVjZfmco4pFABYWNPVUOXGGYPEso=";
   };
 
   dependencies = with python3Packages; [
@@ -26,6 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
+    pytest-asyncio
     pytest-cov
   ];
 

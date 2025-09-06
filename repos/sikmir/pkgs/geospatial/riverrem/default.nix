@@ -36,6 +36,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/OpenTopography/RiverREM";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
-    inherit (cmocean.meta) broken;
+    broken = true; # osmnx, cmocean
   };
 }
