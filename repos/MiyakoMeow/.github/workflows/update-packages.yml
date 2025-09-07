@@ -1,0 +1,422 @@
+name: Update Packages via "updateScript"
+on:
+  schedule:
+    - cron: "0 12 * * *" # 每天 UTC 中午12点运行
+  workflow_dispatch: # 允许手动触发
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      package_list: ${{ steps.package-list.outputs.package_list }}
+      package_count: ${{ steps.package-list.outputs.package_count }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
+            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: Install dependencies
+        run: |
+          # 安装必要工具
+          nix profile install nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#nix-update
+
+      - name: Find packages with updateScript
+        id: package-list
+        shell: bash
+        run: |
+          # 使用Nix内置方法检测updateScript
+          export NIXPKGS_ALLOW_UNFREE=1
+          # 传入绝对 flake 引用，避免内置 '.' 被拒绝
+          export FLAKE_REF="path:${GITHUB_WORKSPACE:-$PWD}"
+
+          # 递归收集 legacyPackages 下具有 updateScript 的派生（含 groups）
+          nix eval --impure --json --expr "
+            let
+              f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
+              sys = \"x86_64-linux\";
+              lp = builtins.getAttr sys f.legacyPackages;
+              pkgsN = import <nixpkgs> {};
+              lib = pkgsN.lib;
+              hasUS = pkg: (pkg ? passthru && pkg.passthru ? updateScript) || (pkg ? updateScript);
+              collect = attrs: path:
+                lib.concatMap (name:
+                  let v = attrs.\${name}; p = path ++ [ name ]; in
+                  if lib.isDerivation v then
+                    if hasUS v then [ (lib.concatStringsSep \".\" p) ] else []
+                  else if lib.isAttrs v then collect v p
+                  else []
+                ) (builtins.attrNames attrs);
+            in collect lp []
+          " | jq -r '.[]' > all-packages.txt
+
+          # 创建空包列表文件
+          : > package-list.txt
+
+          # 用于去重：优先基于 group；缺省回退到 command 指纹
+          declare -A unique_groups
+          declare -A unique_commands
+
+          # 过滤出有updateScript的包，并进行命令去重
+          while IFS= read -r pkg; do
+            # 尝试获取updateScript
+            set +e
+            script_output=$(nix eval --impure --json --expr "
+              let
+                f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
+                sys = \"x86_64-linux\";
+                lp = builtins.getAttr sys f.legacyPackages;
+                pkgsN = import <nixpkgs> {};
+                lib = pkgsN.lib;
+                path = lib.strings.splitString \".\" \"${pkg}\";
+                pkg = lib.attrsets.attrByPath path null lp;
+              in
+                if pkg == null then throw \"no pkg\"
+                else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
+                else if (pkg ? updateScript) then pkg.updateScript
+                else throw \"no updateScript\"
+            " 2>/tmp/error.log)
+            ret=$?
+            set -e
+
+            if [ $ret -ne 0 ]; then
+              continue
+            fi
+
+            # 检查输出类型并标准化为命令数组
+            script_type=$(echo "$script_output" | jq -r 'type')
+            group_name=""
+            command_fingerprint=""
+
+            case "$script_type" in
+              "array")
+                # 数组类型：直接排序
+                command_fingerprint=$(echo "$script_output" | jq -c 'sort')
+                ;;
+              "string")
+                # 字符串类型：转换为单元素数组
+                command_fingerprint=$(echo "$script_output" | jq -c '[.] | sort')
+                ;;
+              "object")
+                # 读取 group；与 nixpkgs 一致：存在则优先按组去重
+                if echo "$script_output" | jq -e 'has("group")' >/dev/null; then
+                  group_name=$(echo "$script_output" | jq -r '.group')
+                fi
+                # 当未提供 group 时，回退为属性路径的上级前缀（去掉最后一段）
+                if [ -z "$group_name" ]; then
+                  if [[ "$pkg" == *.* ]]; then
+                    group_name=${pkg%.*}
+                  fi
+                fi
+                if echo "$script_output" | jq -e 'has("command")' >/dev/null; then
+                  command_type=$(echo "$script_output" | jq -r '.command | type')
+                  if [ "$command_type" = "array" ]; then
+                    # 提取command数组并排序
+                    command_fingerprint=$(echo "$script_output" | jq -c '.command | sort')
+                  elif [ "$command_type" = "string" ]; then
+                    # 字符串command转换为单元素数组
+                    command_fingerprint=$(echo "$script_output" | jq -c '.command | [.] | sort')
+                  fi
+                fi
+                ;;
+            esac
+
+            # 既无 group 也无可识别 command 时跳过
+            if [ -z "$group_name" ] && [ -z "$command_fingerprint" ]; then
+              echo "跳过包 $pkg (不支持的updateScript格式: $script_type)"
+              continue
+            fi
+
+            if [ -n "$group_name" ]; then
+              # 基于 group 去重，同组只执行一次
+              if [[ -z "${unique_groups[$group_name]}" ]]; then
+                unique_groups["$group_name"]=1
+                echo "$pkg" >> package-list.txt
+              else
+                echo "跳过包 $pkg (同组已收录: $group_name)"
+              fi
+            else
+              # 基于 command 指纹去重
+              if [[ -z "${unique_commands[$command_fingerprint]}" ]]; then
+                unique_commands["$command_fingerprint"]=1
+                echo "$pkg" >> package-list.txt
+              else
+                echo "跳过包 $pkg (重复命令: ${command_fingerprint})"
+              fi
+            fi
+          done < all-packages.txt
+
+          echo "找到 $(wc -l < package-list.txt) 个需要更新的条目:"
+          cat package-list.txt
+
+          # 设置输出变量
+          echo "package_list=$(cat package-list.txt | jq -R -s -c 'split("\n") | map(select(. != ""))')" >> $GITHUB_OUTPUT
+          echo "package_count=$(wc -l < package-list.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+
+  update-package:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.prepare.outputs.package_list) }}
+    outputs:
+      pr_data: ${{ steps.create-pull-request.outputs.pr_data }}
+      has_update: ${{ steps.update.outputs.has_update }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
+            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: Install required tools
+        run: |
+          # 安装通用工具（包括git用于提交）
+          nix profile install nixpkgs#git nixpkgs#python313 nixpkgs#python313Packages.requests nixpkgs#python313Packages.beautifulsoup4 nixpkgs#nix-update nixpkgs#bash nixpkgs#gh
+
+      - name: Update package
+        id: update
+        shell: bash
+        run: |
+          # 设置 Git 用户信息
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          # 传入绝对 flake 引用，避免内置 '.' 被拒绝
+          export FLAKE_REF="path:${GITHUB_WORKSPACE:-$PWD}"
+
+          # 准备执行环境变量（兼容不同脚本类型）
+          export NIXPKGS_ALLOW_UNFREE=1
+          export NIXPKGS_ALLOW_BROKEN=1
+          export NIXPKGS_ALLOW_INSECURE=1
+
+          echo "NIX_PATH=$NIX_PATH"
+
+          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
+          timestamp=$(date +%s)
+          branch_name="update/${{ matrix.package }}-$timestamp"
+          echo "分支名称: $branch_name"
+
+          # 使用临时HOME目录以防脚本写入HOME
+          export ORI_HOME="$HOME"
+          export HOME=$(mktemp -d)
+
+          echo "获取包 ${{ matrix.package }} 的updateScript"
+          script_json=$(nix eval --impure --json --expr "
+            let
+              f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
+              sys = \"x86_64-linux\";
+              lp = builtins.getAttr sys f.legacyPackages;
+              pkgsN = import <nixpkgs> {};
+              lib = pkgsN.lib;
+              path = lib.strings.splitString \".\" \"${{ matrix.package }}\";
+              pkg = lib.attrsets.attrByPath path null lp;
+            in
+              if pkg == null then throw \"no pkg\"
+              else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
+              else if (pkg ? updateScript) then pkg.updateScript
+              else throw \"no updateScript\"
+          ")
+          script_type=$(echo "$script_json" | jq -r 'type')
+
+          # 将命令数组重写为使用完整属性路径的 nix-update，并保留标志参数
+          execute_command_array() {
+            local script_array=("$@")
+            local cmd="${script_array[0]}"
+
+            # 将 store 路径的 nix-update 规范化为 "nix-update"
+            if [[ "$cmd" =~ ^/nix/store/.*/bin/nix-update$ ]]; then
+              cmd="nix-update"
+              script_array[0]="nix-update"
+            fi
+
+            if [[ "$cmd" == "nix-update" ]]; then
+              local new_command=("nix-update")
+              local has_flake=0
+
+              # 保留所有以 - 开头或包含 = 的标志参数；丢弃位置参数，最后追加完整属性路径
+              for ((i=1; i<${#script_array[@]}; i++)); do
+                arg="${script_array[$i]}"
+                if [[ "$arg" == "--flake" ]]; then
+                  has_flake=1
+                fi
+                if [[ "$arg" == -* || "$arg" == *=* ]]; then
+                  new_command+=("$arg")
+                fi
+              done
+
+              if [[ $has_flake -eq 0 ]]; then
+                new_command+=("--flake")
+              fi
+
+              new_command+=("${{ matrix.package }}")
+
+              echo "替换后的命令: ${new_command[@]}"
+              "${new_command[@]}"
+            else
+              # 非 nix-update 命令按原样执行
+              echo "执行更新命令(数组): ${script_array[@]}"
+              "${script_array[@]}"
+            fi
+          }
+
+          case "$script_type" in
+            "array")
+              mapfile -t script_array < <(echo "$script_json" | jq -r '.[]')
+              execute_command_array "${script_array[@]}"
+              ;;
+            "string")
+              command_str=$(echo "$script_json" | jq -r '.')
+              # 将字符串拆分为数组以便重写
+              read -r -a script_array <<< "$command_str"
+              execute_command_array "${script_array[@]}"
+              ;;
+            "object")
+              if echo "$script_json" | jq -e 'has("command")' >/dev/null; then
+                command_type=$(echo "$script_json" | jq -r '.command | type')
+                if [ "$command_type" = "array" ]; then
+                  mapfile -t script_array < <(echo "$script_json" | jq -r '.command[]')
+                  execute_command_array "${script_array[@]}"
+                elif [ "$command_type" = "string" ]; then
+                  command_str=$(echo "$script_json" | jq -r '.command')
+                  read -r -a script_array <<< "$command_str"
+                  execute_command_array "${script_array[@]}"
+                else
+                  echo "错误：不支持的command类型: $command_type"
+                  exit 1
+                fi
+              else
+                echo "错误：属性集缺少command字段"
+                exit 1
+              fi
+              ;;
+            *)
+              echo "错误：未知的updateScript类型: $script_type"
+              exit 1
+              ;;
+          esac
+
+          # 恢复原始HOME并清理临时目录
+          export TEMP_HOME="$HOME"
+          export HOME="$ORI_HOME"
+          rm -rf "$TEMP_HOME"
+
+          # 检查是否有需要提交的更改（不在此处提交，交由后续PR步骤）
+          if [ -n "$(git status --porcelain)" ]; then
+              echo "has_update=true" >> $GITHUB_OUTPUT
+              echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+              echo "更新完成: ${{ matrix.package }}"
+          else
+              echo "has_update=false" >> $GITHUB_OUTPUT
+              echo "没有更新: ${{ matrix.package }}"
+          fi
+
+      - name: Create Pull Request
+        if: steps.update.outputs.has_update == 'true'
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: ${{ steps.update.outputs.branch_name }}
+          base: main
+          commit-message: "updateScript: 自动更新包 ${{ matrix.package }}"
+          title: "Auto Update(updateScript): ${{ matrix.package }}"
+          body: |
+            由GitHub Actions自动更新包 ${{ matrix.package }}
+
+            此更新由包的updateScript自动生成
+          labels: automated, dependencies
+          delete-branch: true
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
+          # Act like github-actions
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
+      - name: Collect PR data
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          echo "pr_data={\"number\": \"${{ steps.create-pull-request.outputs.pull-request-number }}\", \"package\": \"${{ matrix.package }}\"}" >> $GITHUB_OUTPUT
+        id: collect-pr
+
+      - name: Wait for CI completion
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          PACKAGE='${{ matrix.package }}'
+
+          echo "等待PR #$PR_NUMBER ($PACKAGE) 的CI完成"
+
+          # 等待CI完成
+          MAX_WAIT=1800  # 30分钟超时
+          WAIT_TIME=0
+
+          while [ $WAIT_TIME -lt $MAX_WAIT ]; do
+            # 获取PR的提交SHA
+            HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+            
+            # 获取该提交的所有检查
+            CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/$HEAD_SHA/check-runs" --jq '.check_runs')
+            
+            # 检查状态
+            TOTAL_CHECKS=$(echo "$CHECK_RUNS" | jq length)
+            COMPLETED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.status == "completed")] | length')
+            FAILED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out")] | length')
+            
+            echo "检查状态: $COMPLETED_CHECKS/$TOTAL_CHECKS 已完成"
+            
+            # 如果有失败的检查，退出
+            if [ "$FAILED_CHECKS" -gt 0 ]; then
+              echo "发现失败的检查，停止等待"
+              FAILED_NAMES=$(echo "$CHECK_RUNS" | jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out") | .name')
+              echo "失败的检查: $FAILED_NAMES"
+              exit 1
+            fi
+            
+            # 如果所有检查都完成，退出循环
+            if [ "$COMPLETED_CHECKS" -eq "$TOTAL_CHECKS" ] && [ "$TOTAL_CHECKS" -gt 0 ]; then
+              echo "所有CI检查已完成"
+              break
+            fi
+            
+            echo "等待CI完成... (已等待 ${WAIT_TIME}s)"
+            sleep 30
+            WAIT_TIME=$((WAIT_TIME + 30))
+          done
+          
+          if [ $WAIT_TIME -ge $MAX_WAIT ]; then
+            echo "等待CI超时"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          PACKAGE='${{ matrix.package }}'
+          echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
+          gh pr merge "$PR_NUMBER" --auto --merge
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}

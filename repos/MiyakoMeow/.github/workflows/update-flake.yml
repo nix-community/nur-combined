@@ -1,0 +1,111 @@
+name: "Update flake.lock"
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: "0 0 * * 1,4" # Run twice a week
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    outputs:
+      pr_number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+      pr_operation: ${{ steps.create-pull-request.outputs.pull-request-operation }}
+      pr_branch: ${{ steps.create-pull-request.outputs.pull-request-branch }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+
+      - name: Update flake.lock
+        if: ${{ github.event_name != 'pull_request' }}
+        id: create-pull-request
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "Auto Update(flake.lock)" # Title of PR to be created
+          pr-labels: | # Labels to be set on the PR
+            dependencies
+            automated
+          path-to-flake-dir: "."
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          git-author-name: MiyakoMeow Bot Author
+          git-author-email: github-actions[bot]@users.noreply.github.com
+          git-committer-name: MiyakoMeow Bot Committer
+          git-committer-email: github-actions[bot]@users.noreply.github.com
+
+  build-and-merge:
+    needs: lockfile
+    if: needs.lockfile.outputs.pr_operation == 'created'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.lockfile.outputs.pr_branch }}
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-platforms = aarch64-linux
+
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@v16
+        if: ${{ 'miyakomeow' != '<YOUR_CACHIX_NAME>' }}
+        with:
+          name: miyakomeow
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
+      - name: Enable Pull Request Automerge
+        if: success()
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
+          pull-request-number: ${{ needs.lockfile.outputs.pr_number }}
+          merge-method: merge
+
+      - name: Delete source branch after merge
+        if: success()
+        run: |
+          # 等待一段时间让PR合并完成
+          sleep 10
+
+          # 检查PR是否已合并
+          PR_STATUS=$(gh api "repos/${{ github.repository }}/pulls/${{ needs.lockfile.outputs.pr_number }}" --jq '.merged')
+
+          if [ "$PR_STATUS" = "true" ]; then
+            echo "PR已合并，开始删除源分支"
+            BRANCH_NAME="${{ needs.lockfile.outputs.pr_branch }}"
+
+            # 删除分支
+            gh api \
+              --method DELETE \
+              "repos/${{ github.repository }}/git/refs/heads/$BRANCH_NAME" \
+              -H "Accept: application/vnd.github.v3+json" \
+              || echo "分支 $BRANCH_NAME 删除失败或已不存在"
+
+            echo "✅ 分支 $BRANCH_NAME 删除完成"
+          else
+            echo "PR尚未合并，跳过分支删除"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
