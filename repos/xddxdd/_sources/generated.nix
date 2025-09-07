@@ -839,6 +839,17 @@
       hash = "sha256-0+rYXM7kS1iHcc/NpHEFKtYDoLKET5XWhmA7Keh71lk=";
     };
   };
+  ja4-nginx-module = {
+    pname = "ja4-nginx-module";
+    version = "1724cca11e3ae400a56605d40bc26e6b7f08aaed";
+    src = fetchFromGitHub {
+      owner = "FoxIO-LLC";
+      repo = "ja4-nginx-module";
+      rev = "1724cca11e3ae400a56605d40bc26e6b7f08aaed";
+      hash = "sha256-eRRlNQmxkKIYNe34/CyzSaipaqeF1mH2wm115VoqBVI=";
+    };
+    date = "2025-08-14";
+  };
   jproxy = {
     pname = "jproxy";
     version = "v3.4.1";

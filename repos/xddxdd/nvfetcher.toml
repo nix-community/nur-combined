@@ -373,6 +373,10 @@ src.github = "studyzy/imewlconverter"
 fetch.url = "https://github.com/share121/inter-knot/releases/download/$ver/inter_knot_linux.zip"
 src.github = "share121/inter-knot"
 
+[ja4-nginx-module]
+fetch.github = "FoxIO-LLC/ja4-nginx-module"
+src.git = "https://github.com/FoxIO-LLC/ja4-nginx-module.git"
+
 [jproxy]
 fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
 src.manual = "v3.4.1"
