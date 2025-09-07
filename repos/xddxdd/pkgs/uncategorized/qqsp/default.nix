@@ -25,6 +25,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     sed -i "s|/usr/bin/||g" Qqsp.desktop
+    sed -i 's/;\s*$//g' Qqsp.desktop
   '';
 
   installPhase = ''
