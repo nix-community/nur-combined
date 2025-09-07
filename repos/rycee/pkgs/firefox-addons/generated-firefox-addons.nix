@@ -1102,10 +1102,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.9.8";
+      version = "0.9.9";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564460/bilisponsorblock-0.9.8.xpi";
-      sha256 = "b7f8ec4ca482b92314a2488e9fd26855053ca0b6f344de8e882d2128b85576f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573185/bilisponsorblock-0.9.9.xpi";
+      sha256 = "ba49f5a5edc95ab826cf1eeebf09b032a94c4aaf4e68c4b09060d0e2792dc080";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -12254,10 +12254,10 @@
     };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.17.5";
+      version = "1.17.11";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4394007/surfingkeys_ff-1.17.5.xpi";
-      sha256 = "ca29f9edc16167f6234ebd22eb159e1e4640634142e34bdd27019b590b270a49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573120/surfingkeys_ff-1.17.11.xpi";
+      sha256 = "f044e5a5df1fcba1b617da078d5bfa3f0d6a321e8796d00b04e97f1efe7da8f8";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -13191,10 +13191,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.82.1";
+      version = "3.83.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567351/tweaks_for_youtube-3.82.1.xpi";
-      sha256 = "1e470232cd45a8f64fcc0ce69e5b22acb69941ff1065ed5e1f9ece9f27766dfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573246/tweaks_for_youtube-3.83.0.xpi";
+      sha256 = "4f48b27e3679501c3ad934ba1bd19870f402ab52616ad792d268b1be58081beb";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
