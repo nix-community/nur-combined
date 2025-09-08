@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.1-5";
+    version = "v1.17.1-6";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-5/bilibili-asar-v1.17.1-5.tar.gz";
-      hash = "sha256-X3EoVXj/RkE9gjbehq2xA33zp5l7Mj3wn5kvif7rlpY=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-6/bilibili-asar-v1.17.1-6.tar.gz";
+      hash = "sha256-OQkzdZvDbWf6yZCCZ2lRwZrRAA9Rw+qq6smBnypy1ME=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.1-5";
+    version = "v1.17.1-6";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.1-5";
-      hash = "sha256-1Tr7HJTiz4BI905lzyMT0Xq15FfQIKVUN3kx8WQqfZQ=";
+      tag = "v1.17.1-6";
+      hash = "sha256-Vw/xsE/35R91POnN5oO4wT2QwtP5m8nUeKUaoigs9Ns=";
     };
   };
   bin-cpuflags-x86 = {
@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6403";
+    version = "b6412";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6403";
-      hash = "sha256-O2eumxklpdrXKQjH5lu3mnpNPt/rSmpMOq2Xnc+J74E=";
+      tag = "b6412";
+      hash = "sha256-OIwb6qx6fjAOen9JTOZV4IBXcsvoNmVKCMNWi0PpApM=";
     };
   };
   loralib = {
@@ -1846,14 +1846,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b9befa0788e142e0841eb3f5bbb1ba60850ad5f1";
+    version = "b713aedbcd73fda9a6e56c104a67a0ab0321ec12";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b9befa0788e142e0841eb3f5bbb1ba60850ad5f1";
-      hash = "sha256-ma8Z6Ar4n2D//hsloZrOy7rnQT4mivvQckWAPz2p8GM=";
+      rev = "b713aedbcd73fda9a6e56c104a67a0ab0321ec12";
+      hash = "sha256-5w5/eB26EtsCwlhSh8XZVPsR0F4QbbRRHaElMlnDt84=";
     };
-    date = "2025-08-29";
+    date = "2025-09-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

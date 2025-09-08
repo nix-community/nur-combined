@@ -432,7 +432,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.1-5"
+    "version": "1.17.1-6"
   },
   "legacyPackages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -857,12 +857,12 @@
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
     "description": "Asterisk with Lan Tian modifications",
     "pname": "asterisk",
-    "version": "20.15.1"
+    "version": "20.15.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
     "pname": "attic",
-    "version": "0-unstable-2025-08-16"
+    "version": "0-unstable-2025-08-28"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.coredns": {
     "description": "CoreDNS with Lan Tian's modifications",
@@ -882,7 +882,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6403"
+    "version": "6412"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4302,7 +4302,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-08"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4502,7 +4502,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.1-5"
+    "version": "1.17.1-6"
   },
   "legacyPackages.x86_64-linux.uncategorized.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -5002,7 +5002,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-08"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -5347,7 +5347,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.1-5"
+    "version": "1.17.1-6"
   },
   "packages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -6077,7 +6077,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-08-29"
+    "version": "0-unstable-2025-09-08"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",

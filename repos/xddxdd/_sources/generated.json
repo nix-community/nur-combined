@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-X3EoVXj/RkE9gjbehq2xA33zp5l7Mj3wn5kvif7rlpY=",
+            "sha256": "sha256-OQkzdZvDbWf6yZCCZ2lRwZrRAA9Rw+qq6smBnypy1ME=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-5/bilibili-asar-v1.17.1-5.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-6/bilibili-asar-v1.17.1-6.tar.gz"
         },
-        "version": "v1.17.1-5"
+        "version": "v1.17.1-6"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.1-5",
-            "sha256": "sha256-1Tr7HJTiz4BI905lzyMT0Xq15FfQIKVUN3kx8WQqfZQ=",
+            "rev": "v1.17.1-6",
+            "sha256": "sha256-Vw/xsE/35R91POnN5oO4wT2QwtP5m8nUeKUaoigs9Ns=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.1-5"
+        "version": "v1.17.1-6"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -2140,12 +2140,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6403",
-            "sha256": "sha256-O2eumxklpdrXKQjH5lu3mnpNPt/rSmpMOq2Xnc+J74E=",
+            "rev": "b6412",
+            "sha256": "sha256-OIwb6qx6fjAOen9JTOZV4IBXcsvoNmVKCMNWi0PpApM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6403"
+        "version": "b6412"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3600,7 +3600,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-08-29",
+        "date": "2025-09-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3612,12 +3612,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "b9befa0788e142e0841eb3f5bbb1ba60850ad5f1",
-            "sha256": "sha256-ma8Z6Ar4n2D//hsloZrOy7rnQT4mivvQckWAPz2p8GM=",
+            "rev": "b713aedbcd73fda9a6e56c104a67a0ab0321ec12",
+            "sha256": "sha256-5w5/eB26EtsCwlhSh8XZVPsR0F4QbbRRHaElMlnDt84=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9befa0788e142e0841eb3f5bbb1ba60850ad5f1"
+        "version": "b713aedbcd73fda9a6e56c104a67a0ab0321ec12"
     },
     "rime-moegirl": {
         "cargoLocks": null,
