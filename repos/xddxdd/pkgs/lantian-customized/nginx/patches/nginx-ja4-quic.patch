@@ -1,8 +1,18 @@
 diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
-index 8d1f5695c..39ab172bc 100644
+index 8d1f5695c..cd9c397f8 100644
 --- a/src/event/ngx_event_openssl.c
 +++ b/src/event/ngx_event_openssl.c
-@@ -1793,6 +1793,222 @@ ngx_ssl_set_session(ngx_connection_t *c, ngx_ssl_session_t *session)
+@@ -1751,6 +1751,9 @@ ngx_ssl_create_connection(ngx_ssl_t *ssl, ngx_connection_t *c, ngx_uint_t flags)
+ 
+     c->ssl = sc;
+ 
++    // client hello callback function on the session context, ja4 extensions
++    SSL_CTX_set_client_hello_cb(sc->session_ctx, ngx_SSL_early_cb_fn, c);
++
+     return NGX_OK;
+ }
+ 
+@@ -1793,6 +1796,222 @@ ngx_ssl_set_session(ngx_connection_t *c, ngx_ssl_session_t *session)
      return NGX_OK;
  }
  
@@ -225,25 +235,15 @@ index 8d1f5695c..39ab172bc 100644
  
  ngx_int_t
  ngx_ssl_handshake(ngx_connection_t *c)
-@@ -1813,12 +2029,16 @@ ngx_ssl_handshake(ngx_connection_t *c)
+@@ -1818,6 +2037,8 @@ ngx_ssl_handshake(ngx_connection_t *c)
+     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
  
-     ngx_ssl_clear_error(c->log);
- 
-+    // client hello callback function on the session context, ja4 extensions
-+    SSL_CTX_set_client_hello_cb(c->ssl->session_ctx, ngx_SSL_early_cb_fn, c);
-+
-     n = SSL_do_handshake(c->ssl->connection);
- 
--    ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
- 
-+    ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
      if (n == 1) {
--
 +        // ja4 cipher suites
 +        ngx_SSL_client_features(c);
+ 
          if (ngx_handle_read_event(c->read, 0) != NGX_OK) {
              return NGX_ERROR;
-         }
 diff --git a/src/event/ngx_event_openssl.h b/src/event/ngx_event_openssl.h
 index ebb2c35bf..bcf35ed14 100644
 --- a/src/event/ngx_event_openssl.h
@@ -285,20 +285,10 @@ index ebb2c35bf..bcf35ed14 100644
  ngx_int_t ngx_ssl_handshake(ngx_connection_t *c);
  #if (NGX_DEBUG)
 diff --git a/src/event/quic/ngx_event_quic_ssl.c b/src/event/quic/ngx_event_quic_ssl.c
-index ba0b5929f..781f308bd 100644
+index ba0b5929f..b9cf1c128 100644
 --- a/src/event/quic/ngx_event_quic_ssl.c
 +++ b/src/event/quic/ngx_event_quic_ssl.c
-@@ -414,6 +414,9 @@ ngx_quic_crypto_input(ngx_connection_t *c, ngx_chain_t *data,
-         }
-     }
- 
-+    // client hello callback function on the session context, ja4 extensions
-+    SSL_CTX_set_client_hello_cb(c->ssl->session_ctx, ngx_SSL_early_cb_fn, c);
-+
-     n = SSL_do_handshake(ssl_conn);
- 
-     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
-@@ -450,6 +453,9 @@ ngx_quic_crypto_input(ngx_connection_t *c, ngx_chain_t *data,
+@@ -450,6 +450,9 @@ ngx_quic_crypto_input(ngx_connection_t *c, ngx_chain_t *data,
          return NGX_OK;
      }
  
