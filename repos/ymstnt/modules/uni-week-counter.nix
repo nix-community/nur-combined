@@ -25,7 +25,7 @@ in
     enable = mkEnableOption "Enable the Uni Week Counter service";
     package = mkOption {
       type = package;
-      default = pkgs.uni-week-counter;
+      default = pkgs.callPackage ../pkgs/uni-week-counter { };
     };
     group = mkOption {
       type = str;
