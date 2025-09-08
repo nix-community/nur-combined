@@ -18,9 +18,9 @@ update() {
   hash=$(nix --extra-experimental-features nix-command hash convert --to sri --hash-algo sha256 "$(nix-prefetch-url --type sha256 "$source_url")")
 
   local path
-  path=$(dirname $0)
+  path=`realpath $(dirname $0)`
 
-  if [ -f "${path}/default.nix " ]; then
+  if [ -f "${path}/default.nix" ]; then
     #   version = "2.36.0.624";
     # source = {
     #   url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/90a3aed2a9526055a607eaddf1e59a7a/yuanbao_2.36.0.624_universal.dmg";
@@ -28,7 +28,8 @@ update() {
     #  };
 
     sed -i "s|version = \".*\";|version = \"$version\";|" "${path}/default.nix"
-    sed -i "s|source = {|source = { url = \"$source_url\"; hash = \"$dlhash\"; |" "${path}/default.nix"
+    sed -i "s|url = \".*\";|url = \"$source_url\";|" "${path}/default.nix"
+    sed -i "s|hash = \".*\";|hash = \"$hash\";|" "${path}/default.nix"
   fi
 }
 
