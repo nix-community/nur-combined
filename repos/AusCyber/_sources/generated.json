@@ -38,7 +38,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-40MBT1A0t2JvMQSCjMlwOBLOXKYzz+IAAfcjyx6Zi8g=",
+            "sha256": "sha256-B8wtUVlHPd+XZNV7wxlhMOlEJaIEIrVc2svtwsU9KS8=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
@@ -53,11 +53,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gWEVXL3b/s0j9R0wLqMWEt7K2lFw7lgBNIlImHZewAs=",
+            "sha256": "sha256-vzkXKvfUQKXL4L/+Vo3yZLbQ4fbJbfObGC6JM4HN+6w=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.15.4b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.15.5b/zen.macos-universal.dmg"
         },
-        "version": "1.15.4b"
+        "version": "1.15.5b"
     },
     "zen-browser-twilight": {
         "cargoLocks": null,
@@ -72,6 +72,6 @@
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
-        "version": "1.15.4b"
+        "version": "1.15.5b"
     }
 }
