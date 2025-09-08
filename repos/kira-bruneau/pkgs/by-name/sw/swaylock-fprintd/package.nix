@@ -9,13 +9,13 @@
 
 swaylock.overrideAttrs (attrs: {
   pname = "swaylock-fprintd";
-  version = "0-unstable-2023-01-30";
+  version = "0-unstable-2025-09-05";
 
   src = fetchFromGitHub {
     owner = "SL-RU";
     repo = "swaylock-fprintd";
-    rev = "ffd639a785df0b9f39e9a4d77b7c0d7ba0b8ef79";
-    hash = "sha256-2VklrbolUV00djPt+ngUyU+YMnJLAHhD+CLZD1wH4ww=";
+    rev = "536d9dff795eb85720fc942da13e93bebea9f5fa";
+    hash = "sha256-M19RR1+5oMTdPbC/GwqjpKnnNl30MLDlCkaRY/WMHx4=";
   };
 
   patches = [

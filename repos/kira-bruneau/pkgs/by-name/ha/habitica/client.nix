@@ -48,7 +48,7 @@ buildNpmPackage {
     ./add-implied-client-dependencies.patch
   ];
 
-  npmDepsHash = "sha256-XxAyHALMTwm5NFFGM5ISDw73CnkOWKW58BEKy9OnHq0=";
+  npmDepsHash = "sha256-X6xn92/A5E5knvTH8KENOeGdkMXlpQi2RhxrVdNT01c=";
 
   makeCacheWritable = true;
   npmFlags = [ "--legacy-peer-deps" ];

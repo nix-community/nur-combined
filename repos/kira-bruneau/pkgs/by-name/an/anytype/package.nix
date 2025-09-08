@@ -12,17 +12,8 @@
   electron,
   libGL,
   makeDesktopItem,
-  writeScript,
 }:
 
-let
-  l10n-anytype-ts = fetchFromGitHub {
-    owner = "anyproto";
-    repo = "l10n-anytype-ts";
-    rev = "873b42df7320ebbbc80d7e2477914dac70363ef7";
-    hash = "sha256-Mr0KfXn9NO86QqgBhVjSs2przN/GtjuhJHJ9djo8Feg=";
-  };
-in
 buildNpmPackage rec {
   pname = "anytype";
   version = "0.49.2";
@@ -32,6 +23,13 @@ buildNpmPackage rec {
     repo = "anytype-ts";
     tag = "v${version}";
     hash = "sha256-8+x2FmyR5x9Zrm3t71RSyxAKcJCvnR98+fqHXjBE7aU=";
+  };
+
+  locales = fetchFromGitHub {
+    owner = "anyproto";
+    repo = "l10n-anytype-ts";
+    rev = "873b42df7320ebbbc80d7e2477914dac70363ef7";
+    hash = "sha256-Mr0KfXn9NO86QqgBhVjSs2przN/GtjuhJHJ9djo8Feg=";
   };
 
   patches = [
@@ -57,7 +55,7 @@ buildNpmPackage rec {
     ln -s ${anytype-nmh}/bin/* "$sourceRoot/dist"
 
     while IFS= read -r lang; do
-      ln -s "${l10n-anytype-ts}/locales/$lang.json" "$sourceRoot/dist/lib/json/lang"
+      ln -s "$locales/locales/$lang.json" "$sourceRoot/dist/lib/json/lang"
     done < <(jq -r '.enabledLangs | .[]'  "$sourceRoot/electron/json/constant.json")
   '';
 
@@ -118,27 +116,7 @@ buildNpmPackage rec {
     })
   ];
 
-  # Prefer gitUpdater over nix-update-script, since nix-update can
-  # only query the latest 10 releases and often doesn't include a
-  # single stable release.
-  passthru.updateScript = writeScript "update-anytype" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p common-updater-scripts coreutils curl jq
-
-    old_version=$(nix-instantiate --eval --strict --json -A anytype.version | jq --raw-output)
-    new_version=$(curl --silent "https://api.github.com/repos/anyproto/anytype-ts/releases" | jq --raw-output 'map(select((.prerelease == false) and (.tag_name | test("alpha|beta") | not))) | first | .tag_name')
-
-    if [ "$old_version" = "$new_version" ]; then
-      exit
-    fi
-
-    middleware_version=$(curl --silent "https://raw.githubusercontent.com/anyproto/anytype-ts/refs/tags/$new_version/middleware.version")
-    tantivy_go_version=$(curl --silent "https://raw.githubusercontent.com/anyproto/anytype-heart/refs/tags/v$middleware_version/go.mod" | grep github.com/anyproto/tantivy-go | cut --delimiter=' ' --fields=2)
-
-    update-source-version anytype "''${new_version//v}"
-    update-source-version anytype-heart "$middleware_version"
-    update-source-version tantivy-go "''${tantivy_go_version//v}"
-  '';
+  passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "Official Anytype client";
