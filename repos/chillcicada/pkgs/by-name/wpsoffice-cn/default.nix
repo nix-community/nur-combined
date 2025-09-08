@@ -5,6 +5,7 @@
   autoPatchelfHook,
   alsa-lib,
   at-spi2-core,
+  bzip2,
   libtool,
   libxkbcommon,
   nspr,
@@ -13,6 +14,7 @@
   udev,
   gtk3,
   libsForQt5,
+  libmysqlclient,
   xorg,
   cups,
   pango,
@@ -24,9 +26,9 @@
   libusb1,
 }:
 let
-  pkgVersion = "12.1.0.17900";
-  url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/${lib.last (lib.splitVersion pkgVersion)}/wps-office_${pkgVersion}_amd64.deb";
-  hash = "sha256-i2EVCmDLE2gx7l2aAo+fW8onP/z+xlPIbQYwKhQ46+o=";
+  pkgVersion = "12.1.2.22571";
+  url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/${lib.last (lib.splitVersion pkgVersion)}/wps-office_${pkgVersion}.AK.preread.sw_480057_amd64.deb";
+  hash = "sha256-oppJqiUEe/0xEWxgKVMPMFngjQ0e5xaac6HuFVIBh8I=";
   uri = builtins.replaceStrings [ "https://wps-linux-personal.wpscdn.cn" ] [ "" ] url;
   securityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
 in
@@ -35,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = pkgVersion;
 
   src =
-    runCommandLocal "wps-office_${finalAttrs.version}_amd64.deb"
+    runCommandLocal "wps-office_${finalAttrs.version}.AK.preread.sw_480057_amd64.deb"
       {
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
@@ -53,10 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
         timestamp10=$(date '+%s')
         md5hash=($(echo -n "${securityKey}${uri}$timestamp10" | md5sum))
 
-        curl \
-        --retry 3 --retry-delay 3 \
-        "${url}?t=$timestamp10&k=$md5hash" \
-        > $out
+        curl --retry 3 --retry-delay 3 "${url}?t=$timestamp10&k=$md5hash" > $out
       '';
 
   unpackCmd = "dpkg -x $src .";
@@ -70,6 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     alsa-lib
     at-spi2-core
+    bzip2
     libtool
     libjpeg
     libxkbcommon
@@ -80,6 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     gtk3
     libusb1
     libsForQt5.qtbase
+    libmysqlclient
     xorg.libXdamage
     xorg.libXtst
     xorg.libXv
@@ -93,7 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   autoPatchelfIgnoreMissingDeps = [
-    "libuof.so"
+    "libpeony.so.3"
+    "libmysqlclient.so.18"
   ];
 
   installPhase = ''
@@ -101,21 +103,25 @@ stdenv.mkDerivation (finalAttrs: {
     prefix=$out/opt/kingsoft/wps-office
     mkdir -p $out
     cp -r opt $out
-    cp -r usr/* $out
+    cp -r usr/{bin,share} $out
     for i in wps wpp et wpspdf; do
-      substituteInPlace $out/bin/$i \
-        --replace /opt/kingsoft/wps-office $prefix
+      substituteInPlace $out/bin/$i --replace-quiet /opt/kingsoft/wps-office $prefix
     done
-    for i in $out/share/applications/*;do
-      substituteInPlace $i \
-        --replace /usr/bin $out/bin
+    for i in $out/share/applications/*; do
+      substituteInPlace $i --replace-quiet /usr/bin $out/bin
     done
     runHook postInstall
   '';
 
   preFixup = ''
+    # fix libbz2 dangling symlink
+    ln -sf ${bzip2.out}/lib/libbz2.so $out/opt/kingsoft/wps-office/office6/libbz2.so
+    # remove libmysqlclient dependency
+    # patchelf --remove-needed libmysqlclient.so.18 $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
     # dlopen dependency
     patchelf --add-needed libudev.so.1 $out/opt/kingsoft/wps-office/office6/addons/cef/libcef.so
+    # remove UKUI dependency
+    # patchelf --remove-needed libpeony.so.3 $out/opt/kingsoft/wps-office/office6/libpeony-wpsprint-menu-plugin.so
   '';
 
   meta = with lib; {
@@ -123,13 +129,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.wps.com";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    hydraPlatforms = [ ];
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [
-      mlatus
-      th0rgal
-      rewine
-      pokon548
-    ];
   };
 })
