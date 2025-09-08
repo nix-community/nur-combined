@@ -124,6 +124,10 @@ stdenv.mkDerivation rec {
       # pushd bundle/nginx-njs
       # sed -i "s#-lquickjs.lto#-lqjs#g" nginx/config
       # popd
+
+      pushd bundle/ja4-nginx-module
+      ${patch ./patches/ja4-module-fix-uninitialized-mem.patch}
+      popd
     '';
 
   configureFlags = [
