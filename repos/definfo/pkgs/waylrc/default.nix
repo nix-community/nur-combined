@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "waylrc";
-  version = "2.2.3-6";
+  version = "2.2.4";
 
   src = fetchFromGitHub {
     owner = "hafeoz";
     repo = "waylrc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-n9ExJei3cgrlINWhDCQP5KxTjanMkqLWP9SC8I5gKmY=";
+    hash = "sha256-lDuTyeGViaT7dcxJXh9Lip9GIG78sWgNb6Eiddsxbr0=";
   };
 
-  cargoHash = "sha256-zYtRQ7KhG7z+FOaeT7juvgtsLCNlXW9GGXfgh4PXSHo=";
+  cargoHash = "sha256-sZA/t5MLxXxfG+3c6IdJTfBSNZx7iRViUgTQbKeSCwM=";
 
   RUSTC_BOOTSTRAP = 1; # waylrc requires nightly feature
 
