@@ -1658,7 +1658,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
-        description = "Clear browser cache with a single click or via the F9 key.\n\nF9 Fever! ;)";
+        description = "Advanced cache clearing with time periods, current tab filter, and smart notifications. Perfect for developers and power users. F9 shortcut included!";
         license = licenses.mpl20;
         mozPermissions = [ "browsingData" "notifications" "storage" ];
         platforms = platforms.all;
