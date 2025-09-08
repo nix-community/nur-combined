@@ -29,7 +29,7 @@ let
   }
   // settings;
 in
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "habitica";
   version = "5.40.1";
 
@@ -42,7 +42,7 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "HabitRPG";
     repo = "habitica";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BvM2IqX7heO05PFoPpEHfFXf0E+LPuZBQhv5QQ5fcfE=";
   };
 
@@ -128,4 +128,4 @@ buildNpmPackage rec {
     mainProgram = "habitica";
     platforms = lib.platforms.all;
   };
-}
+})
