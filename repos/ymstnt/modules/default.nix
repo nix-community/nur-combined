@@ -1,5 +1,5 @@
 {
   # Add your NixOS modules here
   #
-  # my-module = ./my-module;
+  uni-week-counter = ./uni-week-counter.nix;
 }

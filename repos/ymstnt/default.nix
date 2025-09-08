@@ -21,6 +21,7 @@
   lunatask = pkgs.callPackage ./pkgs/lunatask { };
   minecraft-console-client = pkgs.callPackage ./pkgs/minecraft-console-client { };
   surf = pkgs.callPackage ./pkgs/surf { };
+  uni-week-counter = pkgs.callPackage ./pkgs/uni-week-counter { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
