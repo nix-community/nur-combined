@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       ${patch ./patches/nginx-plain-proxy.patch}
       ${patch ./patches/nix-etag-1.15.4.patch}
       ${patch ./patches/nix-skip-check-logs-path.patch}
-      ${patch (sources.ja4-nginx-module.src + "/patches/nginx.patch")}
+      ${patch ./patches/nginx-ja4-quic.patch}
       ${patch patchUring}
       sed -i 's#"/usr/include/libxml2"#"${libxml2.dev}/include/libxml2"#g' auto/lib/libxslt/conf
       substituteInPlace src/http/ngx_http_core_module.c \
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
       # popd
 
       pushd bundle/ja4-nginx-module
-      ${patch ./patches/ja4-module-fix-uninitialized-mem.patch}
+      ${patch ./patches/ja4-module.patch}
       popd
     '';
 
