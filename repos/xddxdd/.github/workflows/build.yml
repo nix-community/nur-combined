@@ -153,20 +153,20 @@ jobs:
       - name: Trigger NUR update
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=xddxdd"
 
-  # update-flakehub:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - build-packages
-  #     - test-nur-eval
-  #     - check-package-meta
-  #   permissions:
-  #     id-token: 'write'
-  #     contents: 'read'
-  #   steps:
-  #     - uses: 'actions/checkout@v5'
-  #     - uses: 'DeterminateSystems/nix-installer-action@main'
-  #     - uses: 'DeterminateSystems/flakehub-push@main'
-  #       with:
-  #         name: 'xddxdd/nur-packages'
-  #         rolling: true
-  #         visibility: 'public'
+  update-flakehub:
+    runs-on: ubuntu-latest
+    needs:
+      - build-packages
+      - test-nur-eval
+      - check-package-meta
+    permissions:
+      id-token: 'write'
+      contents: 'read'
+    steps:
+      - uses: 'actions/checkout@v5'
+      - uses: 'DeterminateSystems/nix-installer-action@main'
+      - uses: 'DeterminateSystems/flakehub-push@main'
+        with:
+          name: 'xddxdd/nur-packages'
+          rolling: true
+          visibility: 'public'
