@@ -9,6 +9,7 @@ let
         applyMacDataPathPatch ? false,
         targetCode ? null,
         buildPackages,
+        updateScript ? null,
         callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, xorg, alsa-lib, maintainers, ...
     }@args:
         let targetCode' = targetCode; in
@@ -120,6 +121,8 @@ let
                 ];
                 mainProgram = pname;
             };
+            pos = builtins.unsafeGetAttrPos "version" args;
+            passthru = lib.optionalAttrs (updateScript != null) { inherit updateScript; };
         })
     ;
 in minivmacFunc

@@ -1,4 +1,4 @@
-{ callPackage, fetchFromGitHub, ... }@args: let
+{ callPackage, fetchFromGitHub, unstableGitUpdater, writeShellScript, ... }@args: let
     version = "37.03-ce-unstable-2025-05-21";
     hash = "sha256-FNGlHOEbJhgPOCQkzTYFd604Ypk+8F8SyHPsCY/nVt0=";
     options = callPackage ./options.nix {};
@@ -16,6 +16,11 @@
                 "/src"
             ];
             inherit hash;
+        };
+        updateScript = unstableGitUpdater {
+            tagConverter = writeShellScript "minivmac-ce-tag-converter" ''
+                sed -E 's/$/-ce/'
+            '';
         };
     });
 in minivmac
