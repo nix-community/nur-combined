@@ -11,15 +11,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470";
+    version = "bc8291448d8b3e977a097b33b0626f43c16bd3b3";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "5bc47411eaf4dbbfb950d23d1ec7daf3a0427470";
+      rev = "bc8291448d8b3e977a097b33b0626f43c16bd3b3";
       fetchSubmodules = false;
-      sha256 = "sha256-YBwa8tmo8hTpuZLFJ8JjAzkNF9+4xGSBuE3ziuHVg74=";
+      sha256 = "sha256-/YGzldTfWWuKRZcvQHp+2p+hxtQk90midKQJ2SvPKZQ=";
     };
-    date = "2025-07-25";
+    date = "2025-09-08";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
@@ -30,14 +30,6 @@
       rev = "V1.2.5";
       fetchSubmodules = false;
       sha256 = "sha256-N/Wz2TDgQFEW//QR5SwzFFJAiRx8+RoMS842m27mYjM=";
-    };
-  };
-  zen-browser = {
-    pname = "zen-browser";
-    version = "1.15.3b";
-    src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.15.3b/zen.macos-universal.dmg";
-      sha256 = "sha256-I/YrxBeJJqPpg1nCRvXqB4frB6vpC0nxclgbVzSLEUw=";
     };
   };
 }
