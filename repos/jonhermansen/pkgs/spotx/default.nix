@@ -2,7 +2,6 @@
   alsa-lib,
   autoPatchelfHook,
   cairo,
-  cef-binary,
   coreutils,
   cups,
   curl,
@@ -68,7 +67,6 @@ stdenv.mkDerivation rec {
   buildInputs = [
     alsa-lib
     cairo
-    cef-binary
     cups
     gdk-pixbuf
     glib
