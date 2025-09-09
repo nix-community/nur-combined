@@ -41,7 +41,7 @@ jobs:
             echo "trigger_build=0" >> $GITHUB_OUTPUT
           fi
       - name: Trigger build
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         if: steps.push.outputs.trigger_build == '1'
         with:
           script: |
