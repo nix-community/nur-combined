@@ -10,9 +10,9 @@
   libxkbcommon,
   nspr,
   libgbm,
-  libtiff,
   udev,
   gtk3,
+  libusb1,
   libsForQt5,
   libmysqlclient,
   xorg,
@@ -22,13 +22,11 @@
   curl,
   coreutils,
   cacert,
-  libjpeg,
-  libusb1,
 }:
 let
   pkgVersion = "12.1.2.22571";
-  pkgSuffix = "AK.preread.sw_480057_amd64.deb";
-  url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/${lib.last (lib.splitVersion pkgVersion)}/wps-office_${pkgVersion}.${pkgSuffix}";
+  pkgSuffix = ".AK.preread.sw_480057_amd64.deb";
+  url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/${lib.last (lib.splitVersion pkgVersion)}/wps-office_${pkgVersion}${pkgSuffix}";
   hash = "sha256-oppJqiUEe/0xEWxgKVMPMFngjQ0e5xaac6HuFVIBh8I=";
   uri = builtins.replaceStrings [ "https://wps-linux-personal.wpscdn.cn" ] [ "" ] url;
   securityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
@@ -38,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = pkgVersion;
 
   src =
-    runCommandLocal "wps-office_${finalAttrs.version}.${pkgSuffix}"
+    runCommandLocal "wps-office_${finalAttrs.version}${pkgSuffix}"
       {
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
@@ -70,18 +68,14 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     alsa-lib
     at-spi2-core
-    bzip2
     libtool
-    libjpeg
     libxkbcommon
     nspr
     libgbm
-    libtiff
     udev
     gtk3
     libusb1
     libsForQt5.qtbase
-    libmysqlclient
     xorg.libXdamage
     xorg.libXtst
     xorg.libXv
@@ -96,33 +90,33 @@ stdenv.mkDerivation (finalAttrs: {
 
   autoPatchelfIgnoreMissingDeps = [
     "libpeony.so.3"
-    "libmysqlclient.so.18"
   ];
 
   installPhase = ''
     runHook preInstall
-    prefix=$out/opt/kingsoft/wps-office
+
     mkdir -p $out
+
     cp -r opt $out
     cp -r usr/{bin,share} $out
+
     for i in wps wpp et wpspdf; do
-      substituteInPlace $out/bin/$i --replace-quiet /opt/kingsoft/wps-office $prefix
+      substituteInPlace $out/bin/$i --replace-quiet /opt/kingsoft/wps-office $out/opt/kingsoft/wps-office
     done
+
     for i in $out/share/applications/*; do
       substituteInPlace $i --replace-quiet /usr/bin $out/bin
     done
+
     runHook postInstall
   '';
 
   preFixup = ''
     # fix libbz2 dangling symlink
     ln -sf ${bzip2.out}/lib/libbz2.so $out/opt/kingsoft/wps-office/office6/libbz2.so
-    # remove libmysqlclient dependency
-    # patchelf --remove-needed libmysqlclient.so.18 $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
-    # dlopen dependency
-    patchelf --add-needed libudev.so.1 $out/opt/kingsoft/wps-office/office6/addons/cef/libcef.so
-    # remove UKUI dependency
-    # patchelf --remove-needed libpeony.so.3 $out/opt/kingsoft/wps-office/office6/libpeony-wpsprint-menu-plugin.so
+    # fix libmysqlclient dependency
+    patchelf --replace-needed libmysqlclient.so.18 libmysqlclient.so $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
+    patchelf --add-rpath ${libmysqlclient}/lib/mariadb $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
   '';
 
   meta = with lib; {
