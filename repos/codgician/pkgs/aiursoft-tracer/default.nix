@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   buildDotnetModule,
   dotnetCorePackages,
   buildNpmPackage,
@@ -43,8 +42,6 @@ buildDotnetModule {
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
   nugetDeps = ./deps.json;
-
-  nativeBuildInputs = with pkgs; [ patchelf ];
 
   projectFile = "Aiursoft.Tracer.sln";
 
