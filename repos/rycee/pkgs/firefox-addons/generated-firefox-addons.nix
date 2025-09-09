@@ -2524,10 +2524,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "143.0.20250905.90623";
+      version = "143.0.20250908.174027";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4572543/dansk_da_language_pack-143.0.20250905.90623.xpi";
-      sha256 = "0288b6e6a00e06f3a8ef603b8c0e9811b128bfb7b0beb424b27c0363d0059192";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574732/dansk_da_language_pack-143.0.20250908.174027.xpi";
+      sha256 = "d649ef103dab156831e8ee6c09f4e25a84392321fcb262eb931cf8b8957e06be";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2722,10 +2722,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "143.0.20250905.90623";
+      version = "143.0.20250908.174027";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4572539/deutsch_de_language_pack-143.0.20250905.90623.xpi";
-      sha256 = "c758a037972c80769f6f250d3cb7f73ae9185f28a49fa7e919d0a667c31344ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574733/deutsch_de_language_pack-143.0.20250908.174027.xpi";
+      sha256 = "7a7ee3719cc1c8f107553c80283d27a2f2afc40a1e30a7524ca58a8f398165ec";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3385,10 +3385,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.55";
+      version = "1.3.56";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4570267/faststream-1.3.55.xpi";
-      sha256 = "e290737cb5e0b6f33601b012f6309720f54f1c0333c714d64ce96daed730c370";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574989/faststream-1.3.56.xpi";
+      sha256 = "1bf56ffc54d8528288a23c1326cc45f59a8f1665f1141ca554473078a76b8726";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3927,10 +3927,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "143.0.20250905.90623";
+      version = "143.0.20250908.174027";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4572526/francais_language_pack-143.0.20250905.90623.xpi";
-      sha256 = "9538a0d9163db56787c787378657de5cedf1e73efccbaab73343d1a98f8bec78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574679/francais_language_pack-143.0.20250908.174027.xpi";
+      sha256 = "ff71c76bf01a61eaf96ec4e368abed6ebe227f11e3fa3c94dfd004eecd57dd91";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3964,10 +3964,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "143.0.20250905.90623";
+      version = "143.0.20250908.174027";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4572544/gaidhlig_language_pack-143.0.20250905.90623.xpi";
-      sha256 = "872f772ceb44c7cbd786b37ee80f5ba22fffddef67035567018a82da64e814bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574674/gaidhlig_language_pack-143.0.20250908.174027.xpi";
+      sha256 = "20fbfbc473931301577ab75ff969be572920174117c127dd99d36394bbb069aa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10144,10 +10144,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.61.0";
+      version = "0.62.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4570404/private_grammar_checker_harper-0.61.0.xpi";
-      sha256 = "7fdcbe98860036dd3e78c59470ca842992b3283d958a23f9718475a34a78d285";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574749/private_grammar_checker_harper-0.62.0.xpi";
+      sha256 = "cae13556bc0dc183db420e763492e4e46327a7894742a79815cc4554ca70d67f";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11305,10 +11305,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "143.0.20250905.90623";
+      version = "143.0.20250908.174027";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4572476/scots_language_pack-143.0.20250905.90623.xpi";
-      sha256 = "3550fb9e433ea0fa3ad5c107afa92af3b9ed4469ddbcd496d7121b4c00fcf8e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574710/scots_language_pack-143.0.20250908.174027.xpi";
+      sha256 = "bb4d724896753628d966935dd00707cffa7a9e7b4c3542c49b00d8651fb5bee6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
