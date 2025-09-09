@@ -12597,6 +12597,31 @@
         platforms = platforms.all;
       };
     };
+    "temporary-containers-plus" = buildFirefoxXpiAddon {
+      pname = "temporary-containers-plus";
+      version = "1.0.3";
+      addonId = "{1ea2fa75-677e-4702-b06a-50fc7d06fe7e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4463876/temporary_containers_plus-1.0.3.xpi";
+      sha256 = "a73181e75b955ca4ac5e40322d13cbaa0b15e5bd5a4cf3c2393c53258d4e3f54";
+      meta = with lib;
+      {
+        homepage = "https://github.com/GodKratos/temporary-containers";
+        description = "Open tabs, websites, and links in automatically managed disposable containers. Containers isolate the data websites store (cookies, cache, and more) from each other, further enhancing your privacy while you browse.";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "contextMenus"
+          "contextualIdentities"
+          "cookies"
+          "management"
+          "storage"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
       version = "5.1.1";
@@ -13143,10 +13168,10 @@
     };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.4.1";
+      version = "0.4.2";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4453321/tubearchivist_companion-0.4.1.xpi";
-      sha256 = "23c7df357e37cab69b37a54a80dac0fff29e4f2e44c851e2720fcf547a38eb0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575122/tubearchivist_companion-0.4.2.xpi";
+      sha256 = "aee6d7f41bf0f9f4aad83b2675b7b568aa5ba5f6c1ca6ea09d770c867ae2b81c";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
