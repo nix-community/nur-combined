@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "993d05055acf1b4b308b67b0ea79baa0636456d2";
+    version = "a1f8cea3ca5d2121e37373dfc19bd9a51e3b5c08";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "993d05055acf1b4b308b67b0ea79baa0636456d2";
-      hash = "sha256-D6ODDIrx/xM4OtfJwWmGcovLxs1Ustql6WQ3zFZ4hao=";
+      rev = "a1f8cea3ca5d2121e37373dfc19bd9a51e3b5c08";
+      hash = "sha256-JXthP/Gwlesa69jjBkmTaxuIwllj/lG9yOYplP2qGN8=";
     };
-    date = "2025-09-05";
+    date = "2025-09-08";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "aa347eb03f9d5309ffe25a5ff7d54213607ec436";
+    version = "d62cdf178f5b80aac3281bcd93d5632db637446f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "aa347eb03f9d5309ffe25a5ff7d54213607ec436";
-      hash = "sha256-D6f50DMQabw1w1uV98jNoXMQcxS3rp9SBp6ihcW90RE=";
+      rev = "d62cdf178f5b80aac3281bcd93d5632db637446f";
+      hash = "sha256-DYhu/aFSDim6Nu5QbJUoJHqoYNowZ1JdAcs3nC/rKyU=";
     };
-    date = "2025-09-05";
+    date = "2025-09-08";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -639,10 +639,10 @@
   };
   fr24feed-armhf = {
     pname = "fr24feed-armhf";
-    version = "1.0.52-0";
+    version = "1.0.53-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.52-0_armhf.deb";
-      hash = "sha256-zB+nkW0qi96+w0VYNkIJdjXTW/izdYAJuyxO+EiQZ5c=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.53-0_armhf.deb";
+      hash = "sha256-us8YBKB1r14y2WNifr5NhLvTojG0YIBZyaJlHjohUcQ=";
     };
   };
   fr24feed-i386 = {
@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6412";
+    version = "b6428";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6412";
-      hash = "sha256-OIwb6qx6fjAOen9JTOZV4IBXcsvoNmVKCMNWi0PpApM=";
+      tag = "b6428";
+      hash = "sha256-yVwTq69akOsdDir96xAUzpnaXp5AqleLhSYIZ6zLj3c=";
     };
   };
   loralib = {
@@ -1764,14 +1764,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "e4933916f52b3a68fbfb22c0c0e7bf0b5039e0cb";
+    version = "a1eb8b46ba877a975e065a6094c5c95d9bfc26a4";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "e4933916f52b3a68fbfb22c0c0e7bf0b5039e0cb";
-      hash = "sha256-j/D5NDQompvO4QRnwQOvbTR4ScvXlfjdDg80rxrGyoI=";
+      rev = "a1eb8b46ba877a975e065a6094c5c95d9bfc26a4";
+      hash = "sha256-08dV7brGNGw2kGI49Gm8vuoqkzoaShr8/AErjo7hvTs=";
     };
-    date = "2025-09-07";
+    date = "2025-09-08";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1924,12 +1924,12 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v9.03";
+    version = "v9.04";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "Sam-Toki-Mouse-Cursors";
-      tag = "v9.03";
-      hash = "sha256-aQSyAvc00ACtgmjJTBivP4LyNrMqa0CQE1pRE1Fnzu0=";
+      tag = "v9.04";
+      hash = "sha256-PuGHd4YbLWoVgDTZ1aqSnlnVEzCEw4NM6UXMEC3R7SQ=";
     };
   };
   sgx-software-enable = {
