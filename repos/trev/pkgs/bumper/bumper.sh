@@ -104,7 +104,7 @@ for file in "${files[@]}"; do
             ;;
 
         *)
-            readarray -t lines < <(grep "${version}" "${file}")
+            readarray -t lines < <(grep -F "${version}" "${file}")
             if [[ ${#lines[@]} -eq 0 ]]; then
                 continue
             fi
@@ -116,7 +116,7 @@ for file in "${files[@]}"; do
                 info "${trim}"
             done
 
-            read -r -n 1 -p "$(dialog "replace? [Y/n] ")" reply
+            read -r -p "$(dialog "replace? [Y/n] ")" reply
             if [[ "${reply}" =~ ^[Nn]$ ]]; then
                 continue
             fi
