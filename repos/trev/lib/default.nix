@@ -1,7 +1,4 @@
-{
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> {inherit system;},
-}: {
+{pkgs}: {
   buf = import ./buf {inherit pkgs;};
   go = import ./go {inherit pkgs;};
 
