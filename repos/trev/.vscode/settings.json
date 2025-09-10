@@ -1,11 +1,15 @@
 {
-	"editor.formatOnSave": true,
+  "editor.formatOnSave": true,
 
-	// Nix
-	"nix.enableLanguageServer": true,
-	"nix.serverPath": "nixd",
-	"nix.formatterPath": "alejandra",
+  // Nix
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.formatterPath": "alejandra",
 
-	// Prettier
-	"editor.defaultFormatter": "esbenp.prettier-vscode"
+  // Prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "files.associations": {
+    "renovate.json": "jsonc"
+  }
 }

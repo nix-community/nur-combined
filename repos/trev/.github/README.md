@@ -12,10 +12,14 @@
 - [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
   - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
 - [renovate](https://github.com/renovatebot/renovate) - Cross-platform dependency automation
-  - Patched with [renovate#37222](https://github.com/renovatebot/renovate/pull/37222) to fix flake.lock refreshes
+  - Patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake.lock refreshes
+- [nix-update](https://github.com/Mic92/nix-update) - Swiss-knife for updating nix packages.
+  - Following branch main (unstable)
+  - Patched with [nix-update#433](https://github.com/Mic92/nix-update/pull/433) to fix pnpm updates
 - [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
-- [bumper](https://github.com/spotdemo4/nur/blob/main/pkgs/bumper/bumper.sh) - Shell script for doing git version bumps (ie. 0.0.1 -> 0.0.2)
-- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh) - Shell script to run when entering a git repo with direnv
+- [bumper](https://github.com/spotdemo4/nur/blob/main/pkgs/bumper/bumper.sh) - Git version bumper (ie. 0.0.1 -> 0.0.2)
+- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh) - Shell hook for getting info when entering git repos
+- [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash) - Fixes incorrect nix package hashes
 
 ## Libs
 
@@ -66,7 +70,7 @@ packages = forSystem (
 );
 ```
 
-- buf.fetchDeps & buf.configHook - Creates a fixed-output derivation containing buf dependencies
+- buf.fetchDeps & buf.configHook - Creates a fixed-output derivation containing [buf](https://buf.build/) dependencies
 
 ```nix
 pkgs.stdenv.mkDerivation (finalAttrs: {

@@ -2,7 +2,7 @@ name: vulnerable
 
 on:
   schedule:
-    - cron: '9 9 * * *'
+    - cron: "9 9 * * *"
   workflow_dispatch:
 
 jobs:

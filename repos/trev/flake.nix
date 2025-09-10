@@ -24,9 +24,16 @@
       system: let
         pkgs = import nixpkgs {
           inherit system;
+          overlays = [
+            (final: prev: {
+              renovate = pkgs.callPackage ./pkgs/renovate {};
+              nix-update-script = pkgs.callPackage ./pkgs/nix-update-script {
+                nix-update = pkgs.callPackage ./pkgs/nix-update {};
+              };
+            })
+          ];
         };
         update = pkgs.callPackage ./update.nix {};
-        patched-renovate = pkgs.callPackage ./pkgs/renovate {};
         shellhook = pkgs.callPackage ./pkgs/shellhook {};
       in {
         default = pkgs.mkShell {
@@ -36,7 +43,7 @@
             flake-checker
             prettier
             action-validator
-            patched-renovate
+            renovate
           ];
           shellHook = shellhook.ref;
         };
@@ -46,9 +53,9 @@
     checks = forAllSystems (system: let
       pkgs = import nixpkgs {
         inherit system;
+        renovate = pkgs.callPackage ./pkgs/renovate {};
       };
       lib = import ./lib {inherit pkgs;};
-      patched-renovate = pkgs.callPackage ./pkgs/renovate {};
     in
       lib.mkChecks {
         lint = {
@@ -57,7 +64,7 @@
             alejandra
             prettier
             action-validator
-            patched-renovate
+            renovate
           ];
           script = ''
             alejandra -c .
@@ -71,6 +78,8 @@
       // {
         shell = devShells."${system}".default;
       });
+
+    overlays.default = import ./overlay.nix;
 
     legacyPackages = forAllSystems (
       system:

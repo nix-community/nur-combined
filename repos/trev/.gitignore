@@ -1,3 +1,5 @@
-result
-result-*
-.direnv
+.env*
+
+# nix
+result*
+/.direnv/

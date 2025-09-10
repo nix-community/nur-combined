@@ -2,9 +2,9 @@ name: checks
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
   pull_request:
-    branches: ['main']
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@7be5dee1421f63d07e71ce6e0a9f8a4b07c2a487 # v31.6.1
         with:
-          nix_path: '${{ matrix.nixPath }}'
+          nix_path: "${{ matrix.nixPath }}"
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show nixpkgs version
@@ -35,7 +35,7 @@ jobs:
         uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
         with:
           name: ${{ matrix.cachixName }}
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Check evaluation
         run: |
@@ -65,7 +65,7 @@ jobs:
         uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
         with:
           name: trevnur
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - run: nix flake check -L --accept-flake-config
 
