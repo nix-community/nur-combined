@@ -2,45 +2,45 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2023.9.2";
+      version = "2025.8.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180072/bitwarden_password_manager-2023.9.2.xpi";
-      sha256 = "e76cc68f7f194b52f615ec9df80f82308cd55e6234afff5fb41ee7de9f7a27f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4567044/bitwarden_password_manager-2025.8.2.xpi";
+      sha256 = "0a6d986010d4845454083e2a02f81667b43dd7e4901693f4a7d0e7c67d9f7ffb";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
-        description = "A secure and free password manager for all of your devices.";
+        description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
         license = licenses.gpl3;
         platforms = platforms.all;
-        };
       };
+    };
     "feedbroreader" = buildFirefoxXpiAddon {
       pname = "feedbroreader";
-      version = "4.15.9";
+      version = "4.16.3";
       addonId = "{a9c2ad37-e940-4892-8dce-cd73c6cbbc0c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134561/feedbroreader-4.15.9.xpi";
-      sha256 = "330323ed10094530a7faf9d8d6352bb5ca194641b77befeaa959f3abed566fff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254656/feedbroreader-4.16.3.xpi";
+      sha256 = "1d588e721f68bdc965fb44d29376485502c622d5f26de33ca9312328530ade11";
       meta = with lib;
       {
         homepage = "http://nodetics.com/feedbro";
         description = "Advanced Feed Reader - Read news &amp; blogs or any RSS/Atom/RDF source.";
         platforms = platforms.all;
-        };
       };
+    };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.1";
+      version = "3.2.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178347/libredirect-2.8.1.xpi";
-      sha256 = "c91f19377b07b119eec4d53c28c45cdb5d0755287a79b715328654adb5c7ddfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4522826/libredirect-3.2.0.xpi";
+      sha256 = "ba4cf8fe97275d7082fea085a09796481122845455df1af524a7210fff3ecf3c";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
         description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.";
         license = licenses.gpl3;
         platforms = platforms.all;
-        };
       };
+    };
     "soundcloud-mp3-downloader" = buildFirefoxXpiAddon {
       pname = "soundcloud-mp3-downloader";
       version = "0.3.1";
@@ -52,8 +52,8 @@
         description = "Add download link to all SoundClould tracks";
         license = licenses.mpl20;
         platforms = platforms.all;
-        };
       };
+    };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
       version = "2.6.0";
@@ -66,22 +66,22 @@
         description = "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions.";
         license = licenses.gpl3;
         platforms = platforms.all;
-        };
       };
+    };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.52.2";
+      version = "1.65.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi";
-      sha256 = "e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4531307/ublock_origin-1.65.0.xpi";
+      sha256 = "3e73c96a29a933866065f0756fe032984bf5b254af8dd1afd7a7f7e0668a33cf";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
         description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
         license = licenses.gpl3;
         platforms = platforms.all;
-        };
       };
+    };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
       version = "1.2.3";
@@ -94,8 +94,8 @@
         description = "Accelerates your web browsing with Vim power!!";
         license = licenses.mit;
         platforms = platforms.all;
-        };
       };
+    };
     "youtube_downloader_webx" = buildFirefoxXpiAddon {
       pname = "youtube_downloader_webx";
       version = "1.2.1";
@@ -108,6 +108,6 @@
         description = "Download YouTube videos in all available formats and extract the original audio files";
         license = licenses.mpl20;
         platforms = platforms.all;
-        };
       };
-    }
+    };
+  }
