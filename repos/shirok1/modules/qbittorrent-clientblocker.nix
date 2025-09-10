@@ -8,6 +8,7 @@
 let
   cfg = config.services.qbittorrent-clientblocker;
   myLib = import ../lib { inherit pkgs; };
+  settingsFormat = pkgs.formats.json { };
   defaultConfig = myLib.fromJSON5File "${cfg.package}/share/doc/${cfg.package.pname}/config.example.json";
   sharePrefix = "${cfg.package}/share/${cfg.package.pname}";
   shareConfig =
@@ -16,21 +17,13 @@ let
       k: (map (x: "${sharePrefix}/${x}")) defaultConfig.${k}
     ));
   finalConfig = lib.recursiveUpdate shareConfig cfg.settings;
-  configFile = pkgs.writeText "config.json" (builtins.toJSON finalConfig);
-  # settingsFormat = pkgs.formats.json {};
-  # configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.settings);
-  binPath = "${cfg.package}/bin/${cfg.package.meta.mainProgram}";
 in
 {
   options.services.qbittorrent-clientblocker = {
     enable = lib.mkEnableOption "Enable qBittorrent Client Blocker";
 
     settings = lib.mkOption {
-      type = lib.types.submodule {
-        # freeformType = lib.types.attrs; # or lib.types.attrsOf lib.types.anything
-        # freeformType = settingsFormat.type;
-        freeformType = lib.types.attrsOf lib.types.anything;
-      };
+      type = settingsFormat.type;
       default = shareConfig;
       description = "JSON settings to write into the configuration file.";
       example = {
@@ -70,18 +63,18 @@ in
       restartIfChanged = true;
 
       serviceConfig = rec {
-        # ExecStart = "${binPath} --nochdir --config /etc/qbittorrent-clientblocker.json";
-        ExecStart = "${binPath} --nochdir --config ${configFile}";
+        ExecStart = "${lib.getExe cfg.package} --nochdir --config /etc/qbittorrent-clientblocker.json";
         StateDirectory = "qbittorrent-clientblocker";
         WorkingDirectory = "/var/lib/${StateDirectory}";
         Restart = "on-failure";
-        # User = "nobody"; # or better: use DynamicUser=yes + CapabilityBoundingSet= if needed
+        DynamicUser = true;
       };
     };
 
     environment = {
       systemPackages = [ cfg.package ];
-      # etc."qbittorrent-clientblocker.json".source = configFile;
+      etc."qbittorrent-clientblocker.json".source =
+        settingsFormat.generate "qbittorrent-clientblocker.json" finalConfig;
     };
   };
 }

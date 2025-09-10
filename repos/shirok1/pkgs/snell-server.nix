@@ -41,12 +41,7 @@ in
 buildFHSEnv {
   inherit pname version;
 
-  runScript = "${src}/snell-server";
-
-  installPhase = ''
-    mkdir -p $out/bin
-    install -Dm755 $src/$pname $out/bin/$pname
-  '';
+  runScript = "${src}/${pname}";
 
   meta = with lib; {
     description = "Snell is a lean encrypted proxy protocol developed by Surge team";
