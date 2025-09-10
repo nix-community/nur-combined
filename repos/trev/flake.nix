@@ -81,6 +81,8 @@
 
     overlays.default = import ./overlay.nix;
 
+    lib = import ./lib;
+
     legacyPackages = forAllSystems (
       system:
         import ./default.nix {
