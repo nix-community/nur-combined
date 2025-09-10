@@ -13,9 +13,9 @@ fetch.url = "https://github.com/zen-browser/desktop/releases/download/$ver/zen.m
 src.github = "zen-browser/desktop"
 fetch.url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
 [bartender-alpha]
-#src.webpage = "https://macbartender.com/Bartender6/alpha.html"
-#src.regex = 'Bartender 6 Beta (\w+)'
-src.manual = 'B2'
+src.webpage = "https://macbartender.com/Bartender6/alpha.html"
+src.regex = 'Bartender6-(B\d+)'
+#src.manual = 'B2'
 fetch.url = "https://macbartender.com/updates/b6/Bartender6-$ver.zip"
 url.name = "Bartender6-$ver.zip"
 
