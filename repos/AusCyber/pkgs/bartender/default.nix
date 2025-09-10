@@ -29,15 +29,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   unpackPhase = ''
-        unzip $src
-    	cp -r 'Bartender 6-${finalAttrs.version}/${finalAttrs.pname}.app' .
+    unzip $src
 
   '';
 
   postInstall = ''
 
       	mkdir -p $out/Applications
-    	mv "Bartender 6.app" $out/Applications
+    	mv "Bartender6-${finalAttrs.version}/Bartender 6.app" $out/Applications
   '';
 
   meta = {

@@ -3,11 +3,11 @@
 {
   bartender-alpha = {
     pname = "bartender-alpha";
-    version = "10";
+    version = "B2";
     src = fetchurl {
-      url = "https://macbartender.com/updates/b6/Bartender%206-10.zip";
-      name = "Bartender6-10.zip";
-      sha256 = "sha256-qPkmsaQX0nNg6Gkyx5P0GcjiJ6E7U3v1yshHEKEvW8E=";
+      url = "https://macbartender.com/updates/b6/Bartender6-B2.zip";
+      name = "Bartender6-B2.zip";
+      sha256 = "sha256-csLtmla6L6I6dxVrcy/qD/DfmabSaWohmc5tGIVDto8=";
     };
   };
   ghostty = {
