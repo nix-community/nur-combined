@@ -1102,10 +1102,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.9.9";
+      version = "0.10.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4573185/bilisponsorblock-0.9.9.xpi";
-      sha256 = "ba49f5a5edc95ab826cf1eeebf09b032a94c4aaf4e68c4b09060d0e2792dc080";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575331/bilisponsorblock-0.10.0.xpi";
+      sha256 = "6143f023a5507a121f70e266483c23bd2fd5377083e46030687a97d401389b92";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1201,10 +1201,10 @@
     };
     "bonjourr-startpage" = buildFirefoxXpiAddon {
       pname = "bonjourr-startpage";
-      version = "21.2.0";
+      version = "21.2.1";
       addonId = "{4f391a9e-8717-4ba6-a5b1-488a34931fcb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569844/bonjourr_startpage-21.2.0.xpi";
-      sha256 = "4468bfe0785059811c72b5e92cb321e32f42c5e8763e1eee88f3c4e7962cb926";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575253/bonjourr_startpage-21.2.1.xpi";
+      sha256 = "f694c2fa42d60c806af9aa1560dc8dd1debd5b3cf1ee52651ab777d2e51ba772";
       meta = with lib;
       {
         homepage = "https://bonjourr.fr";
