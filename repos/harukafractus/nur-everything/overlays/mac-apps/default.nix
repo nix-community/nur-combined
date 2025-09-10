@@ -67,4 +67,20 @@ final: prev: {
     sourceRoot = "Telegram.app";
     nativeBuildInputs = [ prev.pkgs.undmg ];
   };
+
+  ungoogled-chromium = final.extraApplications rec {
+    pname = "ungoogled-chromium";
+    sourceRoot = "Chromium.app";
+    upstream-name = if prev.pkgs.system == "x86_64-darwin" then
+      "ungoogled-chromium-x64"
+    else
+      "ungoogled-chromium-arm64";
+    nativeBuildInputs = [ prev.pkgs.undmg ];
+  };
+
+  bambu-studio = final.extraApplications rec {
+    pname = "bambu-studio";
+    sourceRoot = "BambuStudio.app";
+    nativeBuildInputs = [ prev.pkgs.undmg ];
+  };
 }
