@@ -81,6 +81,8 @@
 
     overlays.default = import ./overlay.nix;
 
+    trevpkgs = ./default.nix;
+
     legacyPackages = forAllSystems (
       system:
         import ./default.nix {
