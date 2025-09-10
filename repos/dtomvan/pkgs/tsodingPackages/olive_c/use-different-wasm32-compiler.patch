@@ -1,13 +1,13 @@
-diff --git i/nob.c w/nob.c
-index bb6a33a..3f1eacd 100644
---- i/nob.c
-+++ w/nob.c
-@@ -57,7 +57,7 @@ bool build_tests(Cmd *cmd)
- 
- void build_wasm_demo(Cmd *cmd, Procs *procs, const char *name)
+diff --git a/nob.c b/nob.c
+index 437c3e4d39..7f2d399e49 100644
+--- a/nob.c
++++ b/nob.c
+@@ -58,7 +58,7 @@
+
+ bool build_wasm_demo(Cmd *cmd, Procs *procs, const char *name)
  {
 -    cmd_append(cmd, "clang", COMMON_CFLAGS, "-O2", "-fno-builtin", "--target=wasm32", "--no-standard-libraries", "-Wl,--no-entry", "-Wl,--export=vc_render", "-Wl,--export=__heap_base", "-Wl,--allow-undefined", "-o", temp_sprintf("./build/demos/%s.wasm", name), "-DVC_PLATFORM=VC_WASM_PLATFORM", temp_sprintf("./demos/%s.c", name));
 +    cmd_append(cmd, "@CLANG_WASM@", COMMON_CFLAGS, "-I@GLIBC@/include", "-I@CLANG@/lib/clang/19/include", "-I@NOB_H@/include", "-O2", "-fno-builtin", "--target=wasm32", "--no-standard-libraries", "-Wl,--no-entry", "-Wl,--export=vc_render", "-Wl,--export=__heap_base", "-Wl,--allow-undefined", "-o", temp_sprintf("./build/demos/%s.wasm", name), "-DVC_PLATFORM=VC_WASM_PLATFORM", temp_sprintf("./demos/%s.c", name));
-     da_append(procs, cmd_run_async_and_reset(cmd));
+     return cmd_run(cmd, .async = procs);
  }
- 
+

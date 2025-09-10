@@ -1,11 +1,11 @@
-diff --git i/nob.c w/nob.c
-index b7842fc..b2ea61f 100644
---- i/nob.c
-+++ w/nob.c
-@@ -1,12 +1,12 @@
- #define NOB_IMPLEMENTATION
+diff --git a/nob.c b/nob.c
+index 6fa1656d6c..bfce1c3f3a 100644
+--- a/nob.c
++++ b/nob.c
+@@ -2,12 +2,12 @@
  #define NOB_STRIP_PREFIX
- #define NOB_EXPERIMENTAL_DELETE_OLD
+ // #define NOB_EXPERIMENTAL_DELETE_OLD // Doesn't work on Windows
+ // #define NOB_WARN_DEPRECATED
 -#include "./thirdparty/nob.h"
 +#include "nob.h"
  #include "./src_build/configurer.c"
@@ -15,49 +15,49 @@ index b7842fc..b2ea61f 100644
 -    NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "./thirdparty/nob.h", "./src_build/configurer.c");
 +    NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "@NOB_H@", "./src_build/configurer.c");
  
-     const char *program = nob_shift_args(&argc, &argv);
+     const char *program = shift_args(&argc, &argv);
  
-@@ -66,6 +66,7 @@ int main(int argc, char **argv)
-     Nob_Cmd cmd = {0};
+@@ -67,6 +67,7 @@
+     Cmd cmd = {0};
      const char *stage2_binary = "build/nob_stage2";
-     nob_cmd_append(&cmd, NOB_REBUILD_URSELF(stage2_binary, "./src_build/nob_stage2.c"));
-+    nob_cmd_append(&cmd, "-I@NOB_H@/include");
-     if (!nob_cmd_run_sync(cmd)) return 1;
+     cmd_append(&cmd, NOB_REBUILD_URSELF(stage2_binary, "./src_build/nob_stage2.c"));
++    cmd_append(&cmd, "-I@NOB_H@/include");
+     if (!cmd_run(&cmd)) return 1;
  
-     cmd.count = 0;
-diff --git i/src/plug.c w/src/plug.c
-index 9890cc9..07d054f 100644
---- i/src/plug.c
-+++ w/src/plug.c
-@@ -11,7 +11,7 @@
- #include "ffmpeg.h"
+     cmd_append(&cmd, stage2_binary);
+diff --git a/src/plug.c b/src/plug.c
+index 84d0ef244a..be7dbf228c 100644
+--- a/src/plug.c
++++ b/src/plug.c
+@@ -12,7 +12,7 @@
  #define NOB_IMPLEMENTATION
  #define NOB_STRIP_PREFIX
+ // #define NOB_WARN_DEPRECATED
 -#include "thirdparty/nob.h"
 +#include "nob.h"
  #include "thirdparty/tinyfiledialogs.h"
  
  #include <raylib.h>
-diff --git i/src_build/nob_linux.c w/src_build/nob_linux.c
-index 8f7040c..486b86d 100644
---- i/src_build/nob_linux.c
-+++ w/src_build/nob_linux.c
-@@ -42,6 +42,7 @@ bool build_musializer(void)
+diff --git a/src_build/nob_linux.c b/src_build/nob_linux.c
+index d7c19633fa..b707737f7b 100644
+--- a/src_build/nob_linux.c
++++ b/src_build/nob_linux.c
+@@ -41,6 +41,7 @@
+         "-Wall", "-Wextra", "-ggdb",
          "-I.",
-         "-I@RAYLIB_SRC@/src",
-         "-I@RAYLIB@/include",
+         "-I"RAYLIB_SRC_FOLDER,
 +        "-I@NOB_H@/include",
          "-o", "./build/musializer",
          "./src/plug.c", "./src/ffmpeg_posix.c", "./src/musializer.c", "./thirdparty/tinyfiledialogs.c",
-         "-lraylib",
-diff --git i/src_build/nob_stage2.c w/src_build/nob_stage2.c
-index db297ba..862e11c 100644
---- i/src_build/nob_stage2.c
-+++ w/src_build/nob_stage2.c
-@@ -2,7 +2,7 @@
- 
+         temp_sprintf("-L./build/raylib/%s", MUSIALIZER_TARGET_NAME), "-l:libraylib.a",
+diff --git a/src_build/nob_stage2.c b/src_build/nob_stage2.c
+index 16700e2b5f..3553cb8a14 100644
+--- a/src_build/nob_stage2.c
++++ b/src_build/nob_stage2.c
+@@ -3,7 +3,7 @@
  #define NOB_IMPLEMENTATION
  #define NOB_STRIP_PREFIX
+ // #define NOB_WARN_DEPRECATED
 -#include "../thirdparty/nob.h"
 +#include "nob.h"
  #include "../build/config.h"

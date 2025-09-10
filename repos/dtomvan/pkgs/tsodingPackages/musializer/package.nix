@@ -15,13 +15,13 @@
 }:
 (buildNobPackage rec {
   pname = "musializer";
-  version = "alpha2-unstable-2025-05-16";
+  version = "alpha2-unstable-2025-08-23";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "musializer";
-    rev = "332a173d3010c5e6bb0c883cd32bc0b6e5c3451f";
-    hash = "sha256-UI5jkiBDeYgYwsDdnE5xg17N4FLjL7o8CeGtypXL/98=";
+    rev = "8e2c1b7e6f3a7a50648cdf2f469ee9951eee33df";
+    hash = "sha256-jeLZ0Wm0scKPLVE5ocPVqFTvndHChsSajGqPUorGfWI=";
   };
 
   desktopItems = [
@@ -37,14 +37,13 @@
 
   # 2nd patch depends on the first one, hence sharing vars, idk what to do about that
   patches = [
-    (replaceVars ./use-nix-raylib.patch {
-      RAYLIB = raylib;
-      RAYLIB_SRC = raylib.src;
-    })
     (replaceVars ./use-nix-nob.patch {
+      NOB_H = nob_h;
+    })
+    (replaceVars ./use-nix-raylib.patch {
+      NOB_H = nob_h;
       RAYLIB = raylib;
       RAYLIB_SRC = raylib.src;
-      NOB_H = nob_h;
     })
   ];
 

@@ -17,13 +17,13 @@ let
 in
 (buildNobPackage.override { inherit (llvmPackages_19) stdenv; }) {
   pname = "olive.c";
-  version = "0-unstable-2025-03-03";
+  version = "0-unstable-2025-08-28";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "olive.c";
-    rev = "d770d9c995010dbb1dbbce262d01502076c63814";
-    hash = "sha256-cH7e2fXhUQU27pp2iCMmWtsQk7mrMkI5MTrin/pYL34=";
+    rev = "2e20ec191cb92f65e3054a5f5e1eee2599ecb33c";
+    hash = "sha256-NTKRpsGrhKTOXWhbHoJ6ezHtLhQDjLQJVsX6TWd7lO8=";
   };
 
   buildInputs = lib.optional sdlSupport SDL2;

@@ -4,20 +4,20 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rwds-cli";
-  version = "0-unstable-2025-04-29";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "dtomvan";
     repo = "rusty-words";
-    rev = "b21a88079a869a8a3b7fe36a45c4665f7b38a097";
-    hash = "sha256-fkjcUz54knC3WY/ub05GRAM3pGqyZHe65eyUbTaYknQ=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-AbZOSUka5z1mCA/RecW0ghmmb5O+C1LpFGyBWVpVSz4=";
   };
 
   cargoHash = "sha256-/hbRzl8dh6r1mRbW1RZ2idhOJDP7HJQX6R7LpSn1xIw=";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Practice your flashcards like in Quizlet, but for the TUI";
@@ -26,4 +26,4 @@ rustPlatform.buildRustPackage {
     maintainers = with lib.maintainers; [ dtomvan ];
     mainProgram = "rwds-cli";
   };
-}
+})

@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lilly";
-  version = "0-unstable-2025-06-20";
+  version = "0-unstable-2025-08-21";
 
   src = fetchFromGitHub {
     owner = "tauraamui";
     repo = "lilly";
-    rev = "bee9e0159e0342528bc8db737efbe1126b36e5d8";
-    hash = "sha256-wPoNk7P6GFflGbWYRLvoz/Hagg6vozo0XDu0S4k3P0U=";
+    rev = "1a8b8ea61ddfeb9cb02099ce10cc1fdf1029ff25";
+    hash = "sha256-mJUKae4fgBYa0ZMBpFq2rx3GhnpZaKV6GlPo/czenPc=";
     leaveDotGit = true;
   };
 

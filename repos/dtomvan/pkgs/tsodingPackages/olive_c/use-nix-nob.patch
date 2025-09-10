@@ -1,13 +1,12 @@
-diff --git i/nob.c w/nob.c
-index 8d0470c..bb6a33a 100644
---- i/nob.c
-+++ w/nob.c
-@@ -1,7 +1,7 @@
- #define NOB_IMPLEMENTATION
+diff --git a/nob.c b/nob.c
+index 437c3e4d39..c7664f5b6d 100644
+--- a/nob.c
++++ b/nob.c
+@@ -2,7 +2,7 @@
  #define NOB_STRIP_PREFIX
  #define NOB_EXPERIMENTAL_DELETE_OLD
+ #define NOB_WARN_DEPRECATED
 -#include "./dev-deps/nob.h"
 +#include "nob.h"
- 
+
  #define COMMON_CFLAGS "-Wall", "-Wextra", "-pedantic", "-ggdb", "-I.", "-I./build/", "-I./dev-deps/"
- 

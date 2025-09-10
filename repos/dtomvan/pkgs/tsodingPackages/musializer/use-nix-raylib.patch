@@ -1,28 +1,29 @@
-diff --git i/src_build/nob_linux.c w/src_build/nob_linux.c
-index 1d4f789..0a14f18 100644
---- i/src_build/nob_linux.c
-+++ w/src_build/nob_linux.c
-@@ -40,10 +40,11 @@ bool build_musializer(void)
-     nob_cmd_append(&cmd, "cc",
+diff --git a/src_build/nob_linux.c b/src_build/nob_linux.c
+index b707737f7b..7097babd0c 100644
+--- a/src_build/nob_linux.c
++++ b/src_build/nob_linux.c
+@@ -40,11 +40,12 @@
+     cmd_append(&cmd, "cc",
          "-Wall", "-Wextra", "-ggdb",
          "-I.",
 -        "-I"RAYLIB_SRC_FOLDER,
 +        "-I@RAYLIB_SRC@/src",
 +        "-I@RAYLIB@/include",
+         "-I@NOB_H@/include",
          "-o", "./build/musializer",
          "./src/plug.c", "./src/ffmpeg_posix.c", "./src/musializer.c", "./thirdparty/tinyfiledialogs.c",
--        nob_temp_sprintf("-L./build/raylib/%s", MUSIALIZER_TARGET_NAME), "-l:libraylib.a",
+-        temp_sprintf("-L./build/raylib/%s", MUSIALIZER_TARGET_NAME), "-l:libraylib.a",
 +        "-lraylib",
          "-O3", "-march=native", "-ffast-math",
          "-lm", "-ldl", "-flto=auto", "-lpthread");
-     if (!nob_cmd_run_sync_and_reset(&cmd)) nob_return_defer(false);
-diff --git i/src_build/nob_stage2.c w/src_build/nob_stage2.c
-index 648c2a7..db297ba 100644
---- i/src_build/nob_stage2.c
-+++ w/src_build/nob_stage2.c
-@@ -146,7 +146,6 @@ int main(int argc, char **argv)
+     if (!cmd_run(&cmd)) return_defer(false);
+diff --git a/src_build/nob_stage2.c b/src_build/nob_stage2.c
+index 3553cb8a14..c6f2153869 100644
+--- a/src_build/nob_stage2.c
++++ b/src_build/nob_stage2.c
+@@ -147,7 +147,6 @@
      }
- 
+
      if (strcmp(subcommand, "build") == 0) {
 -        if (!build_raylib()) return 1;
  #ifndef MUSIALIZER_UNBUNDLE
