@@ -20,7 +20,6 @@ layout {
 spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "niriswitcher"
-spawn-at-startup "wayland-pipewire-idle-inhibit"
 
 window-rule {
     match app-id=r#"^scrcpy-mask$"#
