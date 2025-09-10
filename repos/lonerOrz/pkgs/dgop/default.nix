@@ -6,13 +6,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "dgop";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
     repo = "dgop";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-TIeTDwDIH6g974NCX2K0Vmzxb0ZPnPo5CdYcEgvyYJw=";
+    sha256 = "sha256-SrQO2Ir3E0+NcFLhlHm++9nmTVgzTkhQrgUFFEU12D4=";
   };
 
   vendorHash = "sha256-+3o/Kg5ROSgp8IZfvU71JvbEgaiLasx5IAkjq27faLQ=";

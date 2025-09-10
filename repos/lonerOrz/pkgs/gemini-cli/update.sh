@@ -1,78 +1,89 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 工具检测
-command -v nix-prefetch-url >/dev/null || { echo >&2 "请先安装 nix-prefetch-url"; exit 1; }
-command -v prefetch-npm-deps >/dev/null || { echo >&2 "请先安装 prefetch-npm-deps"; exit 1; }
-command -v jq >/dev/null || { echo >&2 "请先安装 jq"; exit 1; }
+cd "$(dirname "$0")/../.."
 
-# 获取脚本所在目录
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-package_file="$script_dir/default.nix"
-lock_file="$script_dir/package-lock.json"
+OWNER="google-gemini"
+REPO="gemini-cli"
+PKG_FILE="pkgs/gemini-cli/default.nix"
+PACKAGE_LOCK_FILE="pkgs/gemini-cli/package-lock.fixed.json"
+FIX_SCRIPT="pkgs/gemini-cli/fix.js"
 
-cleanup() {
-  if [ -n "${tmp_dir:-}" ] && [ -d "$tmp_dir" ]; then
-    rm -rf "$tmp_dir"
-  fi
-}
-trap cleanup EXIT
+# 获取当前 default.nix 中的版本（取 pname 区块附近的第一个 version）
+CURRENT_VERSION=$(awk '/pname *= *"gemini-cli"/, /^}/' "$PKG_FILE" \
+  | grep 'version = "' | head -n1 | sed -E 's/.*version = "([^"]+)";/\1/')
 
-echo "Fetching latest version..."
-latest_version=$(npm view @google/gemini-cli version)
-echo "Latest version: $latest_version"
+# 获取最新 release tag
+LATEST_RELEASE=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/releases/latest" | jq -r .tag_name)
+[ -z "$LATEST_RELEASE" ] && { echo "❌ Failed to fetch latest release tag."; exit 1; }
 
-current_version=$(nix eval .#gemini-cli.version --raw)
-echo "Current version: $current_version"
+# 去掉 v 前缀
+LATEST_VERSION="${LATEST_RELEASE#v}"
 
-if [ "$latest_version" = "$current_version" ] && [ "${FORCE_UPDATE:-}" != "true" ]; then
-  echo "Package is already up to date!"
-  echo "Use FORCE_UPDATE=true to force hash updates"
+# 版本未变则退出
+if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+  echo "✅ No update needed. Current version: $CURRENT_VERSION"
   exit 0
 fi
 
-if [ "$latest_version" = "$current_version" ]; then
-  echo "Forcing hash update for version $current_version"
-else
-  echo "Update available: $current_version -> $latest_version"
+echo "🔄 New version detected: $LATEST_VERSION"
+
+# 获取 git 源码哈希（适用于 fetchgit）
+RAW_HASH=$(nix-prefetch-git \
+  --url "https://github.com/$OWNER/$REPO.git" \
+  --rev "$LATEST_RELEASE" \
+  --fetch-submodules | jq -r .sha256)
+
+[ -z "$RAW_HASH" ] && { echo "❌ Failed to fetch source hash from nix-prefetch-git."; exit 1; }
+
+# 转换为 base64 表达形式（fetchgit 支持）
+SOURCE_HASH=$(nix hash to-base64 "sha256:$RAW_HASH")
+SOURCE_HASH="sha256-$SOURCE_HASH"
+
+# 克隆仓库并运行 fix.js 修复 package-lock.json
+TEMP_DIR=$(mktemp -d)
+git clone --depth 1 --branch "$LATEST_RELEASE" "https://github.com/$OWNER/$REPO.git" "$TEMP_DIR"
+
+[ ! -f "$TEMP_DIR/package-lock.json" ] && {
+  echo "❌ package-lock.json not found in cloned repo."
+  rm -rf "$TEMP_DIR"
+  exit 1
+}
+
+cp "$FIX_SCRIPT" "$TEMP_DIR/fix.js"
+if ! (cd "$TEMP_DIR" && node fix.js); then
+  echo "❌ Failed to run fix.js"
+  rm -rf "$TEMP_DIR"
+  exit 1
 fi
 
-# 下载并生成 package-lock.json
-echo "Downloading npm package and generating package-lock.json..."
-tmp_dir=$(mktemp -d)
-cd "$tmp_dir"
-npm pack "@google/gemini-cli@$latest_version" >/dev/null 2>&1
-tarball_name="google-gemini-cli-${latest_version}.tgz"
-tar -xzf "$tarball_name"
+[ ! -f "$TEMP_DIR/package-lock.fixed.json" ] && {
+  echo "❌ fix.js did not generate package-lock.fixed.json"
+  rm -rf "$TEMP_DIR"
+  exit 1
+}
 
-cd package
-npm install --package-lock-only --ignore-scripts >/dev/null 2>&1
-cp package-lock.json "$lock_file"
+cp "$TEMP_DIR/package-lock.fixed.json" "$PACKAGE_LOCK_FILE"
+echo >> "$PACKAGE_LOCK_FILE"  # 添加末尾换行
+rm -rf "$TEMP_DIR"
 
-cd "$script_dir"
-
-# 计算 tarball URL 和 hash
-tarball_url="https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-${latest_version}.tgz"
-echo "Fetching tarball hash from nix-prefetch-url..."
-raw_hash=$(nix-prefetch-url "$tarball_url")
-tarball_hash=$(nix hash to-base64 "sha256:$raw_hash")
-echo "Tarball hash: sha256-$tarball_hash"
-
-# 获取 npmDeps hash
-echo "Fetching npmDeps hash via prefetch-npm-deps..."
-npmdeps_hash=$(prefetch-npm-deps "$lock_file")
-echo "npmDeps hash: $npmdeps_hash"
-
-# Updating default.nix
-echo "Updating default.nix..."
-sed -i "s|version = \".*\";|version = \"$latest_version\";|" "$package_file"
-sed -i -E "s|url = \".*\";|url = \"$tarball_url\";|" "$package_file"
-sed -i -E "s|srcHash = \"sha256-[^\"]+\";|srcHash = \"sha256-$tarball_hash\";|" "$package_file"
-sed -i -E "s|npmDepsHash = \"sha256-[^\"]+\";|npmDepsHash = \"$npmdeps_hash\";|" "$package_file"
-
-echo "✅ Update completed successfully!"
-if [ "$latest_version" = "$current_version" ]; then
-  echo "✅ Hashes have been updated for gemini-cli $current_version"
-else
-  echo "✅ gemini-cli has been updated from $current_version to $latest_version"
+# 使用 prefetch-npm-deps 获取 npmDepsHash
+NPM_DEPS_HASH=$(prefetch-npm-deps $PACKAGE_LOCK_FILE)
+if [ -z "$NPM_DEPS_HASH" ]; then
+  echo "❌ Failed to fetch npmDepsHash using prefetch-npm-deps."
+  exit 1
 fi
+
+# 更新 default.nix 中 version srcHash npmDepsHash
+sed -i -E \
+  -e "s@(version = \")[^\"]*(\";)@\\1$LATEST_VERSION\\2@" \
+  -e "s@(srcHash = \")[^\"]*(\";)@\\1$SOURCE_HASH\\2@" \
+  -e "s@(npmDepsHash = \")[^\"]*(\";)@\\1$NPM_DEPS_HASH\\2@" \
+  "$PKG_FILE"
+
+# 完成信息
+echo "✅ Updated $PKG_FILE:"
+echo "  version      = $LATEST_VERSION"
+echo "  source hash  = $SOURCE_HASH"
+echo "  npmDepsHash  = $NPM_DEPS_HASH"
+echo "✅ Updated $PACKAGE_LOCK_FILE using fix.js"

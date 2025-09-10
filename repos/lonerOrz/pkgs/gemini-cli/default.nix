@@ -1,43 +1,96 @@
 {
   lib,
-  nodejs_20,
-  fetchurl,
+  jq,
+  git,
+  nodejs,
+  ripgrep,
   buildNpmPackage,
+  fetchFromGitHub,
   fetchNpmDeps,
   runCommand,
   ...
 }:
 let
   pname = "gemini-cli";
-  version = "0.2.2";
-  srcHash = "sha256-XLoviMM/gJ383D5GSQ2gWsp8P9EhxjQLbgQDmNr9FhI=";
-  npmDepsHash = "sha256-B/Bs6w+MJYZ+9EqSCqu9IXxyu7rpBctLNBqSGPSGhdE=";
+  version = "0.6.0-nightly.20250910.a31830a3";
+  srcHash = "sha256-k74R4hRbNNuTC0OzgQWkMzW9J1614P5lEFFkxdhyvmU=";
+  npmDepsHash = "sha256-XHGY3aje8G4hv7ZiTkSiFBdPJr7XJgmXmRh+8Qg/uj8=";
 
-  src = runCommand "gemini-cli-src-with-lock" { } ''
+  srcOrig = fetchFromGitHub {
+    owner = "google-gemini";
+    repo = "gemini-cli";
+    rev = "v${version}";
+    hash = "${srcHash}";
+  };
+
+  packageLockFixed = ./package-lock.fixed.json;
+
+  src = runCommand "src-fixed" { nativeBuildInputs = [ jq ]; } ''
     mkdir -p $out
-    tar -xzf ${
-      fetchurl {
-        url = "https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.2.2.tgz";
-        hash = "${srcHash}";
-      }
-    } -C $out --strip-components=1
-    cp ${./package-lock.json} $out/package-lock.json
+    chmod -R u+w $out
+    cp -r ${srcOrig}/* $out/
+    rm -f $out/package-lock.json
+    cp ${packageLockFixed} $out/package-lock.json
   '';
 in
-buildNpmPackage (finallAttrs: {
+buildNpmPackage (finalAttrs: {
   inherit pname version src;
 
   npmDeps = fetchNpmDeps {
     inherit src;
     hash = "${npmDepsHash}";
+    forceGitDeps = false;
   };
 
-  # The package from npm is already built
+  passthru.updateScript = ./update.sh;
+
+  postPatch = ''
+    mkdir -p packages/cli/src/generated
+    echo "export const GIT_COMMIT_INFO = 'v${finalAttrs.version}';" > packages/cli/src/generated/git-commit.js
+    echo "export const GIT_COMMIT_INFO: string;" > packages/cli/src/generated/git-commit.d.ts
+  '';
+
+  nativeBuildInputs = [
+    nodejs
+    git
+  ];
+
   dontNpmBuild = true;
 
-  nodejs = nodejs_20;
+  npmFlags = [ "--ignore-scripts" ];
 
-  passthru.updateScript = ./update.sh;
+  postInstall = ''
+    mkdir -p $out/lib/node_modules/${pname}/node_modules/@lvce-editor/ripgrep/bin
+    ln -s ${ripgrep}/bin/rg $out/lib/node_modules/${pname}/node_modules/@lvce-editor/ripgrep/bin/rg
+    rm -rf $out/share/gemini-cli/node_modules/@google/gemini-cli-test-utils
+    rm -rf $out/share/gemini-cli/node_modules/@google/gemini-cli-a2a-server
+  '';
+
+  buildPhase = ''
+    npm run build
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/{bin,share/gemini-cli}
+
+    cp -r node_modules $out/share/gemini-cli/
+    rm -f $out/share/gemini-cli/node_modules/@google/gemini-cli
+    rm -f $out/share/gemini-cli/node_modules/@google/gemini-cli-core
+    rm -f $out/share/gemini-cli/node_modules/gemini-cli-vscode-ide-companion
+    cp -r packages/cli $out/share/gemini-cli/node_modules/@google/gemini-cli
+    cp -r packages/core $out/share/gemini-cli/node_modules/@google/gemini-cli-core
+
+    mkdir -p $out/share/gemini-cli/node_modules/@google/gemini-cli/dist/src/generated
+    cp packages/cli/src/generated/git-commit.js $out/share/gemini-cli/node_modules/@google/gemini-cli/dist/src/generated/
+    cp packages/cli/src/generated/git-commit.d.ts $out/share/gemini-cli/node_modules/@google/gemini-cli/dist/src/generated/
+
+    ln -s $out/share/gemini-cli/node_modules/@google/gemini-cli/dist/index.js $out/bin/gemini
+    chmod +x $out/bin/gemini
+
+    runHook postInstall
+  '';
 
   meta = {
     description = "AI agent that brings the power of Gemini directly into your terminal";
