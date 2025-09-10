@@ -110,7 +110,7 @@
         fi
         export LESSHISTFILE=-
         setopt interactivecomments
-        HISTORY_IGNORE='(less *|reboot|exit|git rebase*|git log*|git add*|git commit*)'
+        HISTORY_IGNORE='(less *|reboot|exit|git rebase*|git log*|git add*|git commit*|git push*)'
         fortune-kind | cowsay -f koala
       '';
       shellAliases = {
