@@ -2,7 +2,7 @@
     inherit stdenv lib ncurses maintainers;
     version = "0.2.2";
     src = fetchurl {
-        url = "https://web.archive.org/web/20200807032528/http://jwm-art.net/art/archive/XorCurses-${version}.tar.bz2";
+        url = "https://web.archive.org/web/20200807032528id_/http://jwm-art.net/art/archive/XorCurses-${version}.tar.bz2";
         hash = "sha256-Us4oxOtNEP1RZo0I4X6eKlTVIPHYZLsrZZ28+OAYeWk=";
     };
     patches = [(fetchpatch {

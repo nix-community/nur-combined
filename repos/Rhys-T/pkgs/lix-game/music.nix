@@ -9,7 +9,7 @@
     # See also: https://github.com/SimonN/LixD/issues/457
     urls = [
         "https://media.githubusercontent.com/media/Rhys-T/nur-packages/78d0c2965aeefcdf611c56624698ecb512245e4f/lix-music-${version}.zip"
-        "https://web.archive.org/web/20240902001641/https://www.lixgame.com/dow/lix-music.zip"
+        "https://web.archive.org/web/20240902001641id_/https://www.lixgame.com/dow/lix-music.zip"
         # If all else fails, extract it from the binary release of the game and fix it up in postFetch:
         "https://github.com/SimonN/LixD/releases/download/v${common.version}/lix-${common.version}-linux64.zip"
     ];

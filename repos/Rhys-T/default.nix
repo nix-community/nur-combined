@@ -194,6 +194,8 @@ in {
     minivmac-ii-unstable = self.minivmac-unstable.override { macModel = "II"; };
     minivmac-ii-ce = self.minivmac-ce.override { macModel = "II"; };
     
+    dc2dsk = callPackage ./pkgs/dc2dsk {};
+    
     mame = dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {});
     mame-metal = dontUpdate (self.mame.override { darwinMinVersion = "11.0"; });
     hbmame = callPackage ./pkgs/mame/hbmame {};
