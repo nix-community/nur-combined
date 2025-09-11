@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     description = "Ai git commit helper";
     homepage = "https://github.com/zccrs/git-commit-helper";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     mainProgram = "git-commit-helper";
   };
 }

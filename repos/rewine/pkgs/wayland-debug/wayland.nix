@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://wayland.freedesktop.org/";
     license = licenses.mit; # Expat version
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [ wineee ];
   };
 })
 

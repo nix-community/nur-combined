@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Command line tool to help debug Wayland clients and servers";
     homepage = "https://github.com/wmww/wayland-debug";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     mainProgram = "wayland-debug";
   };
 }

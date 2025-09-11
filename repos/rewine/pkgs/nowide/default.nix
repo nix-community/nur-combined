@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Boost.Nowide - Standard library functions with UTF-8 API on Windows";
     homepage = "https://github.com/boostorg/nowide";
     license = licenses.boost;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [ wineee ];
   };
 }

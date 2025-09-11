@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitee.com/openkylin/kylin-wayland-compositor";
     license = lib.licenses.gpl1Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
   };
 }

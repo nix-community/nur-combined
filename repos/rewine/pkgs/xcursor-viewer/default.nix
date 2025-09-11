@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "xcursor viewer";
     homepage = "https://github.com/drizt/xcursor-viewer";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [ wineee ];
     mainProgram = "xcursor-viewer";
     platforms = platforms.all;
   };

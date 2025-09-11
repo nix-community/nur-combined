@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     # upstream (http://gladman.plushost.co.uk/oldsite/AES/index.php) is not accessible
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [ wineee ];
   };
 }
 

@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "UNOFFICIAL client for music.163.com. Powered by Electron and Vue
 ";
     homepage = "https://ncm-releases.herokuapp.com";
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };

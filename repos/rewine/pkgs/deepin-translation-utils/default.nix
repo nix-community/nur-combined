@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "A commandline tool to help you work with translation files and Transifex configurations that are used in deepin's workflow";
     homepage = "https://github.com/linuxdeepin/deepin-translation-utils.git";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     mainProgram = "deepin-translation-utils";
   };
 }

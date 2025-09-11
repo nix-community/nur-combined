@@ -1,0 +1,40 @@
+{
+  lib,
+  python3,
+  fetchFromSourcehut,
+}:
+
+python3.pkgs.buildPythonApplication rec {
+  pname = "python-wayland";
+  version = "1.0.0";
+  pyproject = true;
+
+  src = fetchFromSourcehut {
+    owner = "~gk";
+    repo = "python-wayland";
+    rev = "v${version}";
+    hash = "sha256-C2o7Y7M5ebAmI6Qi7vN6uf4Aifhxh/l71K/YjZj6/f8=";
+  };
+
+  build-system = [
+    python3.pkgs.hatchling
+  ];
+
+  optional-dependencies = with python3.pkgs; {
+    dev = [
+      opencv-python
+      textual
+    ];
+  };
+
+  pythonImportsCheck = [
+    "wayland"
+  ];
+
+  meta = {
+    description = "Implementation of the Wayland protocol from scratch";
+    homepage = "https://git.sr.ht/~gk/python-wayland";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ wineee ];
+  };
+}

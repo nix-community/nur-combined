@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Virtual keyboard based on fcitx5 InputMethod Framework";
     homepage = "https://gitee.com/openkylin/kylin-virtual-keyboard";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     platforms = lib.platforms.linux;
     mainProgram = "kylin-virtual-keyboard";
   };

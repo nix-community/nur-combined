@@ -104,6 +104,6 @@ stdenv.mkDerivation rec {
     homepage    = "https://mogan.app";
     license     = lib.licenses.gpl3Plus;
     platforms   = lib.platforms.all;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
   };
 }

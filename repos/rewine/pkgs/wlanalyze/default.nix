@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Qt UI to analyze WAYLAND_DEBUG output";
     homepage = "https://github.com/rgriebl/wlanalyze.git";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [ wineee ];
     mainProgram = "wlanalyze";
     platforms = lib.platforms.all;
   };
