@@ -190,14 +190,14 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "8ed7d2c54a14a152c7a85a29effc1fe29985fd63";
+    version = "8fdf0d6ee0c88e69d03eb35eec3e4162fef490bc";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "8ed7d2c54a14a152c7a85a29effc1fe29985fd63";
-      hash = "sha256-LaJDjveLJ2vNSzsreyepVDf4nlX7zntfT6grtAC/1Fs=";
+      rev = "8fdf0d6ee0c88e69d03eb35eec3e4162fef490bc";
+      hash = "sha256-z2aSi0XuUEwxrAkQrkXP0AbZ3n0O99/AYyycNBkn6XA=";
     };
-    date = "2025-05-20";
+    date = "2025-09-10";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -217,14 +217,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "6d2e1307c21e0a6ffaebe0de8d7dfabe7703dd7e";
+    version = "c1e88bf0c3e87216b73772c7413866efc7477098";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "6d2e1307c21e0a6ffaebe0de8d7dfabe7703dd7e";
-      hash = "sha256-5MPUGxhtBRw2Cb/GeDtCc/LThmXmlDDW2HjMDqnt/04=";
+      rev = "c1e88bf0c3e87216b73772c7413866efc7477098";
+      hash = "sha256-6neemSaU+5lmB+Pn5w/imaBfKUt5rSWRyUlkH3P8UCI=";
     };
-    date = "2025-09-09";
+    date = "2025-09-10";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6435";
+    version = "b6445";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6435";
-      hash = "sha256-Blvb01S0ZFqAR/sWeZ0trr396/Y4lrPKnjB7qmgcbyE=";
+      tag = "b6445";
+      hash = "sha256-Xs77d0cBhrsBoC4aXyMBZzbxaYyDD7oC8+nO676sMUo=";
     };
   };
   loralib = {
@@ -1661,38 +1661,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.0+ds-2";
+    version = "10.1.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-2_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-AM4F/YWgvKCR2N5Vcbwp4IGT4MQl4MMFMWnsg1q2jys=";
+      hash = "sha256-MfOxr2bKPmzohwaUQOAtJYn156UqC4Z3u1vP6bBqGW8=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.0+ds-2";
+    version = "10.1.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-2_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-cNyhxBr1hFJPoj7YCYXkYNTby2WOEdiWNCch9Sld5oo=";
+      hash = "sha256-hEis7/SRuZFmCev/Nq0icf7DuoYlJcfuiz0SxlVpKus=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.0+ds-2";
+    version = "10.1.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-2_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-/A3XFaKCwfr7jw6EueqiKS9DvMWD5xuEuCTsaq/eSuE=";
+      hash = "sha256-sHdh9rzyMCsNLz3BGeEzQz1UMDxWNqQsjyEFalefY+0=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.0+ds-2";
+    version = "10.1.0+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-2_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-ZZg9kj37BXR3zmQL2lncfvL6KpNflY6EgvOfAacEFLs=";
+      hash = "sha256-mlrCg8swWdS1WebqrSmz2xOKPKuMBlLuDYKdCWADGEA=";
     };
   };
   qhttpengine = {
@@ -1764,14 +1764,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "a1eb8b46ba877a975e065a6094c5c95d9bfc26a4";
+    version = "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "a1eb8b46ba877a975e065a6094c5c95d9bfc26a4";
-      hash = "sha256-08dV7brGNGw2kGI49Gm8vuoqkzoaShr8/AErjo7hvTs=";
+      rev = "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9";
+      hash = "sha256-esFlkScrR4t6nTFWHHDQ+KCNpzccC1zFigV9PEwbRcM=";
     };
-    date = "2025-09-08";
+    date = "2025-09-11";
   };
   qsp-stable = {
     pname = "qsp-stable";
