@@ -23,13 +23,13 @@
 
 buildGoModule (finalAttrs: rec {
   pname = "lampghost-dev";
-  version = "0.3.1-unstable-2025-09-10";
+  version = "0.3.1-unstable-2025-09-11";
 
   src = fetchFromGitHub {
     owner = "Catizard";
     repo = "lampghost";
-    rev = "c831a34bad3e4743f88a2e87ffee39614731107f";
-    hash = "sha256-Ok4dP4I1UJrJNcc+iMt58r4xpV5siH5b1aEcgVZ/beY=";
+    rev = "1949f0635c3a4bcf1d5455301b7279fd34e80f7f";
+    hash = "sha256-9PqlH0TZH5qaAGAY8C+ncBS9A/RL0UDAoZ/+DpoLrBo=";
   };
 
   vendorHash = "sha256-b2nWUsZjdNR2lmY9PPEhba/NsOn1K4nLDZhv71zxAK8=";
