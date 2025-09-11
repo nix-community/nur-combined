@@ -32,7 +32,7 @@ in
       restartIfChanged = true;
 
       serviceConfig = {
-        ExecStart = "${lib.getExe cfg.package} -c /etc/snell/snell-server.conf";
+        ExecStart = "${lib.getExe cfg.package} -c ${settingsFormat.generate "snell-server.conf" cfg.settings}";
         Restart = "on-failure";
         DynamicUser = true;
         LimitNOFILE = 32768;
@@ -41,7 +41,7 @@ in
 
     environment = {
       systemPackages = [ cfg.package ];
-      etc."snell/snell-server.conf".source = settingsFormat.generate "snell-server.conf" cfg.settings;
+      #etc."snell/snell-server.conf".source = settingsFormat.generate "snell-server.conf" cfg.settings;
     };
   };
 }

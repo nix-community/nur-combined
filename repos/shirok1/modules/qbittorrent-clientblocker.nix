@@ -63,7 +63,7 @@ in
       restartIfChanged = true;
 
       serviceConfig = rec {
-        ExecStart = "${lib.getExe cfg.package} --nochdir --config /etc/qbittorrent-clientblocker.json";
+        ExecStart = "${lib.getExe cfg.package} --nochdir --config ${settingsFormat.generate "qbittorrent-clientblocker.json" finalConfig}";
         StateDirectory = "qbittorrent-clientblocker";
         WorkingDirectory = "/var/lib/${StateDirectory}";
         Restart = "on-failure";
@@ -73,8 +73,6 @@ in
 
     environment = {
       systemPackages = [ cfg.package ];
-      etc."qbittorrent-clientblocker.json".source =
-        settingsFormat.generate "qbittorrent-clientblocker.json" finalConfig;
     };
   };
 }

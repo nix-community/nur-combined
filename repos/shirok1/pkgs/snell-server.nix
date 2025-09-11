@@ -43,6 +43,13 @@ buildFHSEnv {
 
   runScript = "${src}/${pname}";
 
+  #extraBwrapArgs = [
+  #  "--ro-bind /etc/snell /etc/snell"
+  #];
+  #extraBindMounts = [
+  #  { hostPath = "/etc/snell"; mountPoint = "/etc/snell"; isReadOnly = true; }
+  #];
+
   meta = with lib; {
     description = "Snell is a lean encrypted proxy protocol developed by Surge team";
     homepage = "https://kb.nssurge.com/surge-knowledge-base/release-notes/snell";
