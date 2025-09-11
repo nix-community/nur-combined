@@ -100,8 +100,8 @@ This section is auto-generated. Do not edit manually.
 | `fcitx5-pinyin-zhwiki` | [0.2.5](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fc/fcitx5-pinyin-zhwiki/package.nix) | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org (auto update) |
 | `free-download-manager` | [6.29.0.6379](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fr/free-download-manager/package.nix) | FDM is a powerful modern download accelerator and organizer. |
 | `hn-linux-client` | [V2-64](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/hn/hn-linux-client/package.nix) | HN Linux Client, for net interface of China Telecom in HUNAN University |
-| `lampghost` | [0.3.0](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
-| `lampghost-dev` | [0.3.0-unstable-2025-09-09](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost-dev/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
+| `lampghost` | [0.3.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
+| `lampghost-dev` | [0.3.1-unstable-2025-09-10](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost-dev/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
 | `mbmconfig` | [3.24.0824.0](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmconfig/package.nix) | mBMconfig - GUI configuration tool for mBMplay (runs via Wine) |
 | `mbmplayer` | [3.24.0824.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmplayer/package.nix) | mBMplay - BMS 播放器 (通过 Wine 运行) |
 | `pbmsc` | [3.5.5.16](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/pb/pbmsc/package.nix) | pBMSC (iBMSC Windows build) packaged to run with Wine |
