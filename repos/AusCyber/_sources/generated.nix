@@ -3,11 +3,11 @@
 {
   bartender-alpha = {
     pname = "bartender-alpha";
-    version = "B2";
+    version = "B3";
     src = fetchurl {
-      url = "https://macbartender.com/updates/b6/Bartender6-B2.zip";
-      name = "Bartender6-B2.zip";
-      sha256 = "sha256-csLtmla6L6I6dxVrcy/qD/DfmabSaWohmc5tGIVDto8=";
+      url = "https://macbartender.com/updates/b6/Bartender6-B3.zip";
+      name = "Bartender6-B3.zip";
+      sha256 = "sha256-l92dqp6n1FCNMZLkdwy5xx88xJbY65ndYzwR9ojV5XU=";
     };
   };
   ghostty = {
@@ -23,7 +23,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-0BS4DRgXq2ON57f5xK6oNADl9gZ+6YltDQyccZTgsSU=";
+      sha256 = "sha256-ooU6pZQnLXIEiYIFwqahK0B8OHIlkwhtIOkKA+bjWjI=";
     };
   };
   zen-browser = {
@@ -39,7 +39,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=";
+      sha256 = "sha256-BErijCycYG/etRGO/ImBBL7FxlXIhY1egUoDkVHNgQc=";
     };
   };
 }
