@@ -407,6 +407,21 @@
         platforms = platforms.all;
       };
     };
+    "are-na" = buildFirefoxXpiAddon {
+      pname = "are-na";
+      version = "2.12.0";
+      addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574392/are_na-2.12.0.xpi";
+      sha256 = "a3575ac6500799fbc074e1609c44be95840cbaa9d471c8cce735dbe483d94566";
+      meta = with lib;
+      {
+        homepage = "https://www.are.na";
+        description = "Assemble and connect information.";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "contextMenus" "storage" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "aria2-integration" = buildFirefoxXpiAddon {
       pname = "aria2-integration";
       version = "0.4.5";
