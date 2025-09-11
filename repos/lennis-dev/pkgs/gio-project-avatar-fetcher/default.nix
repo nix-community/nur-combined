@@ -5,7 +5,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "gio-project-avatar-fetcher-${version}";
+  name = "dev-lennis-gio-project-avatar-fetcher-${version}";
   version = "4faa096";
   src = fetchgit {
     url = "https://gist.github.com/738dc8e374cfef1c050fe6b3cca45f59.git";
