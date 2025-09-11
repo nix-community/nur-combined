@@ -7,13 +7,13 @@
 
 buildGoModule {
   pname = "uni-week-counter";
-  version = "0-unstable-2025-08-31";
+  version = "0-unstable-2025-09-11";
 
   src = fetchFromGitHub {
     owner = "ymstnt";
     repo =  "uni-week-counter";
-    rev = "d0e78c666e411f8326f9698e0681334e54a3c3c5";
-    hash = "sha256-ZVAyARDxAR1hqPI5yajKOaZJ1KMVxpWQrWN3nOKNUOA=";
+    rev = "1b22b991580f4c951ceb28ac855574d6bd3b537b";
+    hash = "sha256-R27t1X41pLtjNjbt9LO3vJMg37/4GQwM0aWsqmWs3Xw=";
   };
 
   vendorHash = null;
