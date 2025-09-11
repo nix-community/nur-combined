@@ -1256,6 +1256,27 @@
         platforms = platforms.all;
       };
     };
+    "bookmarkhub" = buildFirefoxXpiAddon {
+      pname = "bookmarkhub";
+      version = "0.0.4";
+      addonId = "{9c37f9a3-ea04-4a2b-9fcc-c7a814c14311}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815080/bookmarkhub-0.0.4.xpi";
+      sha256 = "15132a6223fd79141b65bb41e8289946ef36eb26cb1cb2cdfa6aadb54cb1e3ae";
+      meta = with lib;
+      {
+        homepage = "https://www.github.com/dudor/BookmarkHub";
+        description = "BookmarkHub,sync bookmarks across different browsers";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "bookmarks"
+          "storage"
+          "notifications"
+          "https://*.github.com/"
+          "https://*.githubusercontent.com/"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "boring-rss" = buildFirefoxXpiAddon {
       pname = "boring-rss";
       version = "0.5";

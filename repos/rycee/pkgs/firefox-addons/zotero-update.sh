@@ -38,14 +38,17 @@ PERMISSIONS="$(jq .permissions[] "$ZOTERO_MANIFEST" | sed 's/^/    /')"
 OPTIONAL_PERMISSIONS="$(jq .optional_permissions[] "$ZOTERO_MANIFEST" | sed 's/^/    /')"
 
 cat << EOF > "$OUT_PATH"
-{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
+{
+  buildFirefoxXpiAddon,
+  lib,
+  ...
+}:
 
 buildFirefoxXpiAddon {
   pname = "zotero-connector";
   version = "$VERSION";
   addonId = "zotero@chnm.gmu.edu";
-  url =
-    "$URL";
+  url = "$URL";
   sha256 = "${HASH}";
   mozPermissions = [
 ${PERMISSIONS}
