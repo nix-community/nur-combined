@@ -1,7 +1,6 @@
 {
   buildNpmPackage,
   cairo,
-  fetchFromGitHub,
   giflib,
   lib,
   libjpeg,
@@ -11,20 +10,14 @@
   pixman,
   pkg-config,
   typescript,
+  version,
+  src,
   ...
 }:
 buildNpmPackage (finalAttrs: {
-  inherit nodejs;
+  inherit nodejs src version;
 
   pname = "bgutil-ytdlp-pot-provider";
-  version = "1.2.2";
-
-  src = fetchFromGitHub {
-    owner = "Brainicism";
-    repo = "bgutil-ytdlp-pot-provider";
-    rev = finalAttrs.version;
-    hash = "sha256-KKImGxFGjClM2wAk/L8nwauOkM/gEwRVMZhTP62ETqY=";
-  };
 
   sourceRoot = "${finalAttrs.src.name}/server";
 
@@ -65,4 +58,19 @@ buildNpmPackage (finalAttrs: {
 
     runHook postInstall
   '';
+
+  meta = {
+    description = "Proof-of-origin token provider plugin for yt-dlp";
+    homepage = "https://github.com/Brainicism/bgutil-ytdlp-pot-provider";
+    license = lib.licenses.gpl3Plus;
+    mainProgram = "bgutil-ytdlp-pot-provider";
+    maintainers = [
+      {
+        email = "vgrechannik@gmail.com";
+        name = "Vladislav Grechannik";
+        github = "VlaDexa";
+        githubId = 52157081;
+      }
+    ];
+  };
 })
