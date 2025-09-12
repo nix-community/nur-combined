@@ -74,6 +74,6 @@ jobs:
 
       - name: Renovate
         env:
-          RENOVATE_CONFIG_FILE: .github/renovate-global.json
+          RENOVATE_CONFIG_FILE: .github/renovate.json
           RENOVATE_TOKEN: ${{ steps.token.outputs.token }}
         run: nix develop --accept-flake-config --command renovate
