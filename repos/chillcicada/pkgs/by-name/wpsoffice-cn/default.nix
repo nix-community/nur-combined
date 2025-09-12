@@ -7,6 +7,7 @@
   libtool,
   libxkbcommon,
   nspr,
+  udev,
   libgbm,
   gtk3,
   libusb1,
@@ -70,6 +71,7 @@ stdenv.mkDerivation {
     libtool
     libxkbcommon
     nspr
+    udev
     libgbm
     gtk3
     libusb1
@@ -112,9 +114,11 @@ stdenv.mkDerivation {
   '';
 
   preFixup = ''
-    # fix libbz2 dangling symlink
+    # libbz2 dangling symlink
     ln -sf ${bzip2.out}/lib/libbz2.so $out/opt/kingsoft/wps-office/office6/libbz2.so
-    # fix libmysqlclient dependency
+    # dlopen dependency
+    patchelf --add-needed libudev.so.1 $out/opt/kingsoft/wps-office/office6/addons/cef/libcef.so
+    # libmysqlclient dependency
     patchelf --replace-needed libmysqlclient.so.18 libmysqlclient.so $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
     patchelf --add-rpath ${libmysqlclient}/lib/mariadb $out/opt/kingsoft/wps-office/office6/libFontWatermark.so
   '';
