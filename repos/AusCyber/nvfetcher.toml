@@ -18,4 +18,6 @@ src.regex = 'Bartender6-(B\d+)'
 #src.manual = 'B2'
 fetch.url = "https://macbartender.com/updates/b6/Bartender6-$ver.zip"
 url.name = "Bartender6-$ver.zip"
-
+[yabai]
+src.github = "koekeishiya/yabai"
+fetch.github = "koekeishiya/yabai"

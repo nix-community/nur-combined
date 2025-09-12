@@ -44,6 +44,27 @@
         },
         "version": "tip"
     },
+    "yabai": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "yabai",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "koekeishiya",
+            "repo": "yabai",
+            "rev": "v7.1.15",
+            "sha256": "sha256-HvaMPmXNlFVOezqWxqXaAUq8E8O2ZkXMQPwkKXCAOcY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v7.1.15"
+    },
     "zen-browser": {
         "cargoLocks": null,
         "date": null,
@@ -68,7 +89,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xboZHdJstkQI1CaaGD768H7qOwIFf16z/6GQ7xvbbP4=",
+            "sha256": "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },

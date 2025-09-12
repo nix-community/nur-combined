@@ -26,6 +26,17 @@
       sha256 = "sha256-ccXZCYCutQY+dVhkrzMCHh8ftyDYQnUIcKSJ8J450kY=";
     };
   };
+  yabai = {
+    pname = "yabai";
+    version = "v7.1.15";
+    src = fetchFromGitHub {
+      owner = "koekeishiya";
+      repo = "yabai";
+      rev = "v7.1.15";
+      fetchSubmodules = false;
+      sha256 = "sha256-HvaMPmXNlFVOezqWxqXaAUq8E8O2ZkXMQPwkKXCAOcY=";
+    };
+  };
   zen-browser = {
     pname = "zen-browser";
     version = "1.15.5b";
@@ -39,7 +50,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-xboZHdJstkQI1CaaGD768H7qOwIFf16z/6GQ7xvbbP4=";
+      sha256 = "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=";
     };
   };
 }
