@@ -5,7 +5,8 @@
   ...
 }:
 buildGoModule (finalAttrs: {
-  name = "h3get";
+  pname = "h3get";
+  version = "0-unstable-2024-01-04";
 
   src = fetchFromGitHub {
     owner = "nixigaj";
