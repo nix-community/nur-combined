@@ -13,8 +13,8 @@ rustPlatform.buildRustPackage rec {
     rev = "227c3741fe3a968273176a68cdb1884ef4b1d93c";
     hash = "sha256-J/Pwh7Qy0JEvCcpKYwnoDOXCCAczUR3t6jAQObesWVY=";
   };
-  buildInputs = with pkgs; [openssl];
-  nativeBuildInputs = with pkgs; [pkg-config];
+  buildInputs = with pkgs; [ openssl ];
+  nativeBuildInputs = with pkgs; [ pkg-config ];
   cargoHash = "sha256-6GYEz6wAedIfqD2fL4d4dfhXWTSJ8uhx7v4jID6FhK0=";
   meta = {
     description = "CLI tool for interacting directly with the e-z.host API.";

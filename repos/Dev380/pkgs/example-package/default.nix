@@ -1,4 +1,5 @@
-{stdenv}:
+{ stdenv }:
+
 stdenv.mkDerivation rec {
   name = "example-package-${version}";
   version = "1.0";

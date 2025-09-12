@@ -5,16 +5,17 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: {
+{
+  pkgs ? import <nixpkgs> { },
+}:
+{
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib {inherit pkgs;}; # functions
+  lib = import ./lib { inherit pkgs; }; # functions
 
-  example-package = pkgs.callPackage ./pkgs/example-package {};
-  ez = pkgs.callPackage ./pkgs/ez {};
-  wisdom-tree = pkgs.callPackage ./pkgs/wisdom-tree {};
-  nohang = pkgs.callPackage ./pkgs/nohang {};
-  blue-screen-of-life-grub = pkgs.callPackage ./pkgs/blue-screen-of-life-grub {};
-  rbonsai = pkgs.callPackage ./pkgs/rbonsai {};
-  noto-fonts-emoji-blob-bin = pkgs.callPackage ./pkgs/blobmoji {};
-  clockface-font = pkgs.callPackage ./pkgs/clockface-font {};
+  example-package = pkgs.callPackage ./pkgs/example-package { };
+  ez = pkgs.callPackage ./pkgs/ez { };
+  wisdom-tree = pkgs.callPackage ./pkgs/wisdom-tree { };
+  nohang = pkgs.callPackage ./pkgs/nohang { };
+  blue-screen-of-life-grub = pkgs.callPackage ./pkgs/blue-screen-of-life-grub { };
+  redlib = pkgs.callPackage ./pkgs/redlib { };
 }
