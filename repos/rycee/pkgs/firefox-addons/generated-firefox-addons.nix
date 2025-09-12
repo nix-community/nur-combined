@@ -3902,10 +3902,10 @@
     };
     "frankerfacez" = buildFirefoxXpiAddon {
       pname = "frankerfacez";
-      version = "4.77.11.2";
+      version = "4.78.0.1";
       addonId = "frankerfacez@frankerfacez.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4538929/frankerfacez-4.77.11.2.xpi";
-      sha256 = "f3b04d81b767f220d1793ce3394da725462ed47a4d43ae17837ae60d3e44df91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4570394/frankerfacez-4.78.0.1.xpi";
+      sha256 = "0261d8dc78d8ac979751e5d05d3dc6a3631b2bfe86e99b4c029b6d77d015c5a6";
       meta = with lib;
       {
         homepage = "https://www.frankerfacez.com";
@@ -11977,10 +11977,10 @@
     };
     "sonarr-radarr-lidarr-search" = buildFirefoxXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "2.11.0.0";
+      version = "2.12.0.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4452289/sonarr_radarr_lidarr_search-2.11.0.0.xpi";
-      sha256 = "02530101d65e2cd781f933841578f4e8a919c99b765fabfe8efe2d0b3dfa1bce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4576658/sonarr_radarr_lidarr_search-2.12.0.0.xpi";
+      sha256 = "04ea5a6712cf1a4f6535ac7877d7f7a0f6c3c45fc561579d93f705e4f0381761";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
