@@ -2140,12 +2140,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6445",
-            "sha256": "sha256-Xs77d0cBhrsBoC4aXyMBZzbxaYyDD7oC8+nO676sMUo=",
+            "rev": "b6451",
+            "sha256": "sha256-hDSX483hLxtbZsdCWsTzFq88rkHmxYR8M5MGwETY1ak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6445"
+        "version": "b6451"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2239,12 +2239,12 @@
             "name": null,
             "owner": "intel",
             "repo": "metee",
-            "rev": "6.0.1",
-            "sha256": "sha256-PwIadjg1D7WumqVgkpfnXkdUzIOjzA+b3Jjk30epAE8=",
+            "rev": "6.0.2",
+            "sha256": "sha256-eQpw0VdO+JGtgW4FGduoxY0Gji4hFPSONcEzDRcgWGU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.0.1"
+        "version": "6.0.2"
     },
     "modelscope": {
         "cargoLocks": null,
@@ -2707,7 +2707,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-07-14",
+        "date": "2025-09-12",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2719,12 +2719,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93",
-            "sha256": "sha256-lGILoSMJQcDynd/gTTfITPM/9OkmFqauFUinTs7HQT4=",
+            "rev": "084d0931a3cc63ab8a551b3f30040a5061920e8c",
+            "sha256": "sha256-GzL8i7DAQ5OSLL2cr1rxph2ciH+C5hIzV8llRllQrcw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93"
+        "version": "084d0931a3cc63ab8a551b3f30040a5061920e8c"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -2974,12 +2974,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic_Project",
-            "rev": "V2.9.5779",
-            "sha256": "sha256-j2jA16ScXa2U7xKaI5Rrb/ywOzwY9zNg8aUG2jJWp1c=",
+            "rev": "V2.9.5787",
+            "sha256": "sha256-uVUg0ELH7qltv9COP6ePSKuVOMSjuSrteZA0ZwI30fc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5779"
+        "version": "V2.9.5787"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
@@ -3256,11 +3256,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-MfOxr2bKPmzohwaUQOAtJYn156UqC4Z3u1vP6bBqGW8=",
+            "sha256": "sha256-cSE2crIwItNsO99Lf/bvrk3EvDmFuCGlEcj5GapAXuY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_amd64.deb"
         },
-        "version": "10.1.0+ds-3"
+        "version": "10.1.0+ds-4"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3271,11 +3271,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-hEis7/SRuZFmCev/Nq0icf7DuoYlJcfuiz0SxlVpKus=",
+            "sha256": "sha256-v+mDE1uSz8BYfXBE7F7jEjRKhQLYLd+CwGCzNt+NgbI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_arm64.deb"
         },
-        "version": "10.1.0+ds-3"
+        "version": "10.1.0+ds-4"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3286,11 +3286,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-sHdh9rzyMCsNLz3BGeEzQz1UMDxWNqQsjyEFalefY+0=",
+            "sha256": "sha256-tIbZSt03CEtBMzL4Bc0SpFp1bnN88eo8NhvS5EBAryI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_armhf.deb"
         },
-        "version": "10.1.0+ds-3"
+        "version": "10.1.0+ds-4"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3301,11 +3301,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-mlrCg8swWdS1WebqrSmz2xOKPKuMBlLuDYKdCWADGEA=",
+            "sha256": "sha256-+zvALZPlsxlx59LdJzaQm+Qf6FAAO9+vF91+J0ZsJnQ=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_i386.deb"
         },
-        "version": "10.1.0+ds-3"
+        "version": "10.1.0+ds-4"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -3450,12 +3450,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9",
-            "sha256": "sha256-esFlkScrR4t6nTFWHHDQ+KCNpzccC1zFigV9PEwbRcM=",
+            "rev": "81bc4c22acca6b84994143c50bce8390023a8edb",
+            "sha256": "sha256-Bqx2qkeLvPuFKc7v9ufB95odK1TTSH6/2XJV3Xv88s8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9"
+        "version": "81bc4c22acca6b84994143c50bce8390023a8edb"
     },
     "qsp-stable": {
         "cargoLocks": null,

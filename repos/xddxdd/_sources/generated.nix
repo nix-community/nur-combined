@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6445";
+    version = "b6451";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6445";
-      hash = "sha256-Xs77d0cBhrsBoC4aXyMBZzbxaYyDD7oC8+nO676sMUo=";
+      tag = "b6451";
+      hash = "sha256-hDSX483hLxtbZsdCWsTzFq88rkHmxYR8M5MGwETY1ak=";
     };
   };
   loralib = {
@@ -1147,12 +1147,12 @@
   };
   metee = {
     pname = "metee";
-    version = "6.0.1";
+    version = "6.0.2";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "metee";
-      tag = "6.0.1";
-      hash = "sha256-PwIadjg1D7WumqVgkpfnXkdUzIOjzA+b3Jjk30epAE8=";
+      tag = "6.0.2";
+      hash = "sha256-eQpw0VdO+JGtgW4FGduoxY0Gji4hFPSONcEzDRcgWGU=";
     };
   };
   modelscope = {
@@ -1392,14 +1392,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93";
+    version = "084d0931a3cc63ab8a551b3f30040a5061920e8c";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "1f3a05a9d48fc3f4e8a1918394bc7063e8d54a93";
-      hash = "sha256-lGILoSMJQcDynd/gTTfITPM/9OkmFqauFUinTs7HQT4=";
+      rev = "084d0931a3cc63ab8a551b3f30040a5061920e8c";
+      hash = "sha256-GzL8i7DAQ5OSLL2cr1rxph2ciH+C5hIzV8llRllQrcw=";
     };
-    date = "2025-07-14";
+    date = "2025-09-12";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1518,12 +1518,12 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V2.9.5779";
+    version = "V2.9.5787";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic_Project";
-      tag = "V2.9.5779";
-      hash = "sha256-j2jA16ScXa2U7xKaI5Rrb/ywOzwY9zNg8aUG2jJWp1c=";
+      tag = "V2.9.5787";
+      hash = "sha256-uVUg0ELH7qltv9COP6ePSKuVOMSjuSrteZA0ZwI30fc=";
     };
   };
   plasma-panel-transparency-toggle = {
@@ -1661,38 +1661,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.0+ds-3";
+    version = "10.1.0+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-MfOxr2bKPmzohwaUQOAtJYn156UqC4Z3u1vP6bBqGW8=";
+      hash = "sha256-cSE2crIwItNsO99Lf/bvrk3EvDmFuCGlEcj5GapAXuY=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.0+ds-3";
+    version = "10.1.0+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-hEis7/SRuZFmCev/Nq0icf7DuoYlJcfuiz0SxlVpKus=";
+      hash = "sha256-v+mDE1uSz8BYfXBE7F7jEjRKhQLYLd+CwGCzNt+NgbI=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.0+ds-3";
+    version = "10.1.0+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-sHdh9rzyMCsNLz3BGeEzQz1UMDxWNqQsjyEFalefY+0=";
+      hash = "sha256-tIbZSt03CEtBMzL4Bc0SpFp1bnN88eo8NhvS5EBAryI=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.0+ds-3";
+    version = "10.1.0+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-3_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-mlrCg8swWdS1WebqrSmz2xOKPKuMBlLuDYKdCWADGEA=";
+      hash = "sha256-+zvALZPlsxlx59LdJzaQm+Qf6FAAO9+vF91+J0ZsJnQ=";
     };
   };
   qhttpengine = {
@@ -1764,12 +1764,12 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9";
+    version = "81bc4c22acca6b84994143c50bce8390023a8edb";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "e6eb3e3f9138b370f83a7dce2ef401ff33d340b9";
-      hash = "sha256-esFlkScrR4t6nTFWHHDQ+KCNpzccC1zFigV9PEwbRcM=";
+      rev = "81bc4c22acca6b84994143c50bce8390023a8edb";
+      hash = "sha256-Bqx2qkeLvPuFKc7v9ufB95odK1TTSH6/2XJV3Xv88s8=";
     };
     date = "2025-09-11";
   };

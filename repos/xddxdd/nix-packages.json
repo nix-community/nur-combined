@@ -882,7 +882,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6445"
+    "version": "6451"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -902,7 +902,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian",
-    "version": "1.27.1.2-unstable-2025-07-14"
+    "version": "1.27.1.2-unstable-2025-09-12"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nixos-cleanup": {
     "description": "Cleanup old profiles on NixOS",
@@ -1372,7 +1372,7 @@
   "legacyPackages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "6.0.1"
+    "version": "6.0.2"
   },
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
@@ -4017,7 +4017,7 @@
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5779"
+    "version": "2.9.5787"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of Panel Transparency Button for Plasma 6",
@@ -4237,7 +4237,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.0+ds-3"
+    "version": "10.1.0+ds-4"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -4792,7 +4792,7 @@
   "legacyPackages.x86_64-linux.uncategorized.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "6.0.1"
+    "version": "6.0.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -4917,7 +4917,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5779"
+    "version": "2.9.5787"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
     "description": "Rewrite of Panel Transparency Button for Plasma 6",
@@ -4947,7 +4947,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.0+ds-3"
+    "version": "10.1.0+ds-4"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -5772,7 +5772,7 @@
   "packages.x86_64-linux.metee": {
     "description": "C library to access CSE/CSME/GSC firmware via a MEI interface",
     "pname": "metee",
-    "version": "6.0.1"
+    "version": "6.0.2"
   },
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
@@ -5952,7 +5952,7 @@
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
-    "version": "2.9.5779"
+    "version": "2.9.5787"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of Panel Transparency Button for Plasma 6",
@@ -6012,7 +6012,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.0+ds-3"
+    "version": "10.1.0+ds-4"
   },
   "packages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
