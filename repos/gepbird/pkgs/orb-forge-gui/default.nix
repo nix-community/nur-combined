@@ -4,19 +4,16 @@
   fetchurl,
   autoPatchelfHook,
   webkitgtk_4_1,
-
-  version ? "0-unstable-2025-07-26",
-  # URL is unstable, expect hash mismatches
-  url ? "https://pkgs.orb.net/earlyaccess/linux/orb-desktop",
-  hash ? "sha256-kyGrEsjMxU2ucKHqYMIyjqZvghqkQcPBhdzk5SN/ITM=",
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "orb-forge-gui";
-  inherit version;
+  version = "0-unstable-2025-09-13";
 
   src = fetchurl {
-    inherit url hash;
+    # to update, archive this page: https://orb.net/the-forge/early-access/orb-beta-for-linux-(gui)
+    url = "https://web.archive.org/web/20250710224801if_/https://pkgs.orb.net/earlyaccess/linux/orb-desktop";
+    hash = "sha256-skMG4J3yV9klW+pX9GivamHTupRJ8JlqBueTzMAYB8o=";
   };
 
   dontUnpack = true;
