@@ -38,7 +38,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/dHgdawiyUzMJONp9MYcwPVw20GDVHBhk6FvjxhpltU=",
+            "sha256": "sha256-ccXZCYCutQY+dVhkrzMCHh8ftyDYQnUIcKSJ8J450kY=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
