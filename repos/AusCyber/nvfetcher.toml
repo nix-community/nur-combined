@@ -21,3 +21,8 @@ url.name = "Bartender6-$ver.zip"
 [yabai]
 src.github = "koekeishiya/yabai"
 fetch.github = "koekeishiya/yabai"
+[yabai-tahoe]
+src.git = "https://github.com/tbiehn/yabai-tahoe"
+src.branch = "TahoeBeta2Dock"
+fetch.github = "tbiehn/yabai-tahoe"
+

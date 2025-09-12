@@ -41,7 +41,7 @@ in
   hardlink = pkgs.callPackage ./pkgs/hardlink {
   };
   yabai = pkgs.callPackage ./pkgs/yabai {
-    source = sources.yabai;
+    source = sources.yabai-tahoe;
 
   };
   desktoppr = pkgs.callPackage ./pkgs/desktoppr {

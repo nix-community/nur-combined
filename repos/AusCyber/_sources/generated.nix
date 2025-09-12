@@ -37,6 +37,18 @@
       sha256 = "sha256-HvaMPmXNlFVOezqWxqXaAUq8E8O2ZkXMQPwkKXCAOcY=";
     };
   };
+  yabai-tahoe = {
+    pname = "yabai-tahoe";
+    version = "66690749e820d06a7a0c8ba152b3872640163dd3";
+    src = fetchFromGitHub {
+      owner = "tbiehn";
+      repo = "yabai-tahoe";
+      rev = "66690749e820d06a7a0c8ba152b3872640163dd3";
+      fetchSubmodules = false;
+      sha256 = "sha256-hpZJFz7bP9nKcYEj+zOMHolIQWOFG1mblc3iuEOTOKE=";
+    };
+    date = "2025-09-04";
+  };
   zen-browser = {
     pname = "zen-browser";
     version = "1.15.5b";
