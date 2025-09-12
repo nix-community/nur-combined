@@ -467,8 +467,8 @@
             "url": "https://github.com/chap9/chap9-nur"
         },
         "charmbracelet": {
-            "rev": "e61c681d8d800213ed3fc55bfc75ff4136ecd04d",
-            "sha256": "08zh9n38bvzlgdn3az9jj9n4842c8whn4vn1abs91iccqhir1xv5",
+            "rev": "3acbe2619c6e1849615828d8743cee89d0e6ed32",
+            "sha256": "06bh086m9qgdckf2m8ml8m9f1msklvjryxrgqrcyrmbfj4pifwkf",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chen": {
