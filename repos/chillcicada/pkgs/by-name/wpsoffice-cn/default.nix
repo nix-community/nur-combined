@@ -4,25 +4,24 @@
   dpkg,
   autoPatchelfHook,
   alsa-lib,
-  at-spi2-core,
-  bzip2,
   libtool,
   libxkbcommon,
   nspr,
   libgbm,
-  udev,
   gtk3,
   libusb1,
   libsForQt5,
-  libmysqlclient,
   xorg,
   cups,
   pango,
+  bzip2,
+  libmysqlclient,
   runCommandLocal,
   curl,
   coreutils,
   cacert,
 }:
+
 let
   pkgVersion = "12.1.2.22571";
   pkgSuffix = ".AK.preread.sw_480057_amd64.deb";
@@ -31,12 +30,13 @@ let
   uri = builtins.replaceStrings [ "https://wps-linux-personal.wpscdn.cn" ] [ "" ] url;
   securityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
 in
-stdenv.mkDerivation (finalAttrs: {
+
+stdenv.mkDerivation {
   pname = "wpsoffice-cn";
   version = pkgVersion;
 
   src =
-    runCommandLocal "wps-office_${finalAttrs.version}${pkgSuffix}"
+    runCommandLocal "wps-office_${pkgVersion}${pkgSuffix}"
       {
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       }
       ''
         timestamp10=$(date '+%s')
-        md5hash=($(echo -n "${securityKey}${uri}$timestamp10" | md5sum))
+        md5hash=($(printf '%s' "${securityKey}${uri}$timestamp10" | md5sum))
 
         curl --retry 3 --retry-delay 3 "${url}?t=$timestamp10&k=$md5hash" > $out
       '';
@@ -67,12 +67,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     alsa-lib
-    at-spi2-core
     libtool
     libxkbcommon
     nspr
     libgbm
-    udev
     gtk3
     libusb1
     libsForQt5.qtbase
@@ -100,12 +98,14 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r opt $out
     cp -r usr/{bin,share} $out
 
-    for i in wps wpp et wpspdf; do
-      substituteInPlace $out/bin/$i --replace-quiet /opt/kingsoft/wps-office $out/opt/kingsoft/wps-office
+    for i in $out/bin/*; do
+      substituteInPlace $i \
+        --replace-quiet /opt/kingsoft/wps-office $out/opt/kingsoft/wps-office
     done
 
     for i in $out/share/applications/*; do
-      substituteInPlace $i --replace-quiet /usr/bin $out/bin
+      substituteInPlace $i \
+        --replace-quiet /usr/bin $out/bin
     done
 
     runHook postInstall
@@ -124,6 +124,13 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.wps.com";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfreeRedistributable;
+    hydraPlatforms = [ ];
+    license = licenses.unfree;
+    maintainers = with maintainers; [
+      mlatus
+      th0rgal
+      wineee
+      pokon548
+    ];
   };
-})
+}
