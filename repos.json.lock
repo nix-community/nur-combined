@@ -868,8 +868,8 @@
             "url": "https://github.com/imincik/geonix"
         },
         "gepbird": {
-            "rev": "0344c186a048a7bd740959cc29b60da2434ef179",
-            "sha256": "1chmciqf90fzd3cb51rqax9vnhhn2i368v3xsb7x8rdrrv7mn7nk",
+            "rev": "c1f8c2650d8aeceddb31a52ab8f2c14f4d3a14c5",
+            "sha256": "1k5yb22a11396cbf64gr515k1npp8rnf8kgnqdr6663sq5h857ii",
             "url": "https://github.com/gepbird/nur-packages"
         },
         "ggemre": {
