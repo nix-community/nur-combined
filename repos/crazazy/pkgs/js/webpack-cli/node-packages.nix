@@ -49,13 +49,13 @@ let
         sha512 = "cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==";
       };
     };
-    "@jridgewell/trace-mapping-0.3.30" = {
+    "@jridgewell/trace-mapping-0.3.31" = {
       name = "_at_jridgewell_slash_trace-mapping";
       packageName = "@jridgewell/trace-mapping";
-      version = "0.3.30";
+      version = "0.3.31";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.30.tgz";
-        sha512 = "GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==";
+        url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz";
+        sha512 = "zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==";
       };
     };
     "@types/eslint-9.6.1" = {
@@ -94,13 +94,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-24.3.1" = {
+    "@types/node-24.3.3" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "24.3.1";
+      version = "24.3.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-24.3.1.tgz";
-        sha512 = "3vXmQDXy+woz+gnrTvuvNrPzekOi+Ds0ReMxw0LzBiK3a+1k0kQn9f2NWk+lgD4rJehFUmYy2gMhJ2ZI+7YP9g==";
+        url = "https://registry.npmjs.org/@types/node/-/node-24.3.3.tgz";
+        sha512 = "GKBNHjoNw3Kra1Qg5UXttsY5kiWMEfoHq2TmXb+b1rcm6N7B3wTrFYIf/oSZ1xNQ+hVVijgLkiDZh7jRRsh+Gw==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -328,13 +328,22 @@ let
         sha512 = "YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==";
       };
     };
-    "browserslist-4.25.4" = {
+    "baseline-browser-mapping-2.8.2" = {
+      name = "baseline-browser-mapping";
+      packageName = "baseline-browser-mapping";
+      version = "2.8.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.2.tgz";
+        sha512 = "NvcIedLxrs9llVpX7wI+Jz4Hn9vJQkCPKrTaHIE0sW/Rj1iq6Fzby4NbyTZjQJNoypBXNaG7tEHkTgONZpwgxQ==";
+      };
+    };
+    "browserslist-4.26.0" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.25.4";
+      version = "4.26.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.25.4.tgz";
-        sha512 = "4jYpcjabC606xJ3kw2QwGEZKX0Aw7sgQdZCvIK9dhVSPh76BKo+C+btT1RRofH7B+8iNpEbgGNVWiLki5q93yg==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.26.0.tgz";
+        sha512 = "P9go2WrP9FiPwLv3zqRD/Uoxo0RSHjzFCiQz7d4vbmwNqQFo9T9WCeP/Qn5EbcKQY6DBbkxEXNcpJOmncNrb7A==";
       };
     };
     "buffer-from-1.1.2" = {
@@ -409,13 +418,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.214" = {
+    "electron-to-chromium-1.5.218" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.214";
+      version = "1.5.218";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.214.tgz";
-        sha512 = "TpvUNdha+X3ybfU78NoQatKvQEm1oq3lf2QbnmCEdw+Bd9RuIAY+hJTvq1avzHM0f7EJfnH3vbCnbzKzisc/9Q==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.218.tgz";
+        sha512 = "uwwdN0TUHs8u6iRgN8vKeWZMRll4gBkz+QMqdS7DDe49uiK68/UX92lFb61oiFPrpYZNeZIqa4bA7O6Aiasnzg==";
       };
     };
     "enhanced-resolve-5.18.3" = {
@@ -733,13 +742,13 @@ let
         sha512 = "Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==";
       };
     };
-    "node-releases-2.0.20" = {
+    "node-releases-2.0.21" = {
       name = "node-releases";
       packageName = "node-releases";
-      version = "2.0.20";
+      version = "2.0.21";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.20.tgz";
-        sha512 = "7gK6zSXEH6neM212JgfYFXe+GmZQM+fia5SsusuBIUgnPheLFBmIPhtFoAQRj8/7wASYQnbDlHPVwY0BefoFgA==";
+        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.21.tgz";
+        sha512 = "5b0pgg78U3hwXkCM8Z9b2FJdPZlr9Psr9V2gQPESdGHqbntyFJKFW4r5TeWGFzafGY3hzs1JC62VEQMbl1JFkw==";
       };
     };
     "p-limit-2.3.0" = {
@@ -1078,12 +1087,12 @@ let
       sources."@jridgewell/resolve-uri-3.1.2"
       sources."@jridgewell/source-map-0.3.11"
       sources."@jridgewell/sourcemap-codec-1.5.5"
-      sources."@jridgewell/trace-mapping-0.3.30"
+      sources."@jridgewell/trace-mapping-0.3.31"
       sources."@types/eslint-9.6.1"
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.8"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-24.3.1"
+      sources."@types/node-24.3.3"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1109,7 +1118,8 @@ let
       sources."ajv-8.17.1"
       sources."ajv-formats-2.1.1"
       sources."ajv-keywords-5.1.0"
-      sources."browserslist-4.25.4"
+      sources."baseline-browser-mapping-2.8.2"
+      sources."browserslist-4.26.0"
       sources."buffer-from-1.1.2"
       sources."caniuse-lite-1.0.30001741"
       sources."chrome-trace-event-1.0.4"
@@ -1117,7 +1127,7 @@ let
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.214"
+      sources."electron-to-chromium-1.5.218"
       sources."enhanced-resolve-5.18.3"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
@@ -1156,7 +1166,7 @@ let
       sources."mime-db-1.52.0"
       sources."mime-types-2.1.35"
       sources."neo-async-2.6.2"
-      sources."node-releases-2.0.20"
+      sources."node-releases-2.0.21"
       sources."p-limit-2.3.0"
       sources."p-locate-4.1.0"
       sources."p-try-2.2.0"
