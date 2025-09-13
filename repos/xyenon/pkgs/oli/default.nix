@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oli";
-  version = "0.54.0";
+  version = "0.54.1";
 
   # Cannot use `fetchFromGitHub` because `bin` is marked as `export-ignore`.
   src = fetchgit {
     url = "https://github.com/apache/opendal.git";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-H+yMEbszuW0J5KlqQd2mHlXYUoyDjGwNkF48JHf4uDU=";
+    hash = "sha256-NaKUIL6TUZc3HjYNNEofmmydgDT8yjIczgtzBd23Ku4=";
   };
   sourceRoot = "${finalAttrs.src.name}/bin/oli";
 
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-6H0tZ4n1Ft90RtqqM3aj6Id163iij1SSR7wD2hNagb8=";
+  cargoHash = "sha256-zJYMZ1hsiN4TOuRZAlgzm7NHBYRmfCqr8jlpfW/CROU=";
 
   checkFlags = [
     "--skip=edit::test_edit_file_content_replacement"
