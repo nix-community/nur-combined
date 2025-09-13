@@ -19,7 +19,7 @@ let
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
-    mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo123Module; };
+    mosdns = callPackage ./mosdns { };
     # end of service
     #netease-cloud-music = callPackage ./netease-cloud-music { };
 
