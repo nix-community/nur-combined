@@ -217,14 +217,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "c1e88bf0c3e87216b73772c7413866efc7477098";
+    version = "d592004feaae12b13a1311b922b2936278c83e66";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "c1e88bf0c3e87216b73772c7413866efc7477098";
-      hash = "sha256-6neemSaU+5lmB+Pn5w/imaBfKUt5rSWRyUlkH3P8UCI=";
+      rev = "d592004feaae12b13a1311b922b2936278c83e66";
+      hash = "sha256-VK880L4z0reoii0RNCH8tqUyfBl+LSz06OmKSjbcfJ4=";
     };
-    date = "2025-09-10";
+    date = "2025-09-12";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -674,26 +674,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.09.10";
+    version = "2025.09.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-51fA3IteTZaQ+0UIuQiybTEm8i8gYiGNcq7QXTr1+OY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.13/GeoLite2-ASN.mmdb";
+      hash = "sha256-yVkDlLFHKqtixxdRpOiS6EmBmZM4NwfUSuZRm34hnNY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.09.10";
+    version = "2025.09.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.10/GeoLite2-City.mmdb";
-      hash = "sha256-8KNluVAXNUCqG1Ia1v42QpXa3dnNWbtm+x1sHPOvj5o=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.13/GeoLite2-City.mmdb";
+      hash = "sha256-b9IhwKmT2kRy7YhD18LtzKc2okuv5YYsPvqJoLfA03M=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.09.10";
+    version = "2025.09.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.10/GeoLite2-Country.mmdb";
-      hash = "sha256-gz6G1qOx4r3H56tZu1ALs2mgjuNTfYYgEDp3dNjQGgQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.09.13/GeoLite2-Country.mmdb";
+      hash = "sha256-Selq9nqC3eIBDvtFM6r6pLIMXVvtzTZ0uF6BVnV9HVU=";
     };
   };
   glauth = {
@@ -1048,12 +1048,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.16.6-xanmod1";
+    version = "6.16.7-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.16.6-xanmod1";
+      tag = "6.16.7-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-ayNw64Wkg4HKnxEuvmGmgkJB3wLKqKAkK70mgX3eJJ8=";
+      hash = "sha256-/CFSGaDbK0pZgGGOOxixwOQgeD1OsbUhtRss4VbXHxE=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1078,12 +1078,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.46-xanmod1";
+    version = "6.12.47-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.46-xanmod1";
+      tag = "6.12.47-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-F3a13wXACJrKHLbEcq+Z+cw08/8Ttqut76osvZ9qdTY=";
+      hash = "sha256-jR1VqFE1jF5mTRAp+Xxswmh9bMIolJtCk4QgMHzIhao=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1764,14 +1764,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "81bc4c22acca6b84994143c50bce8390023a8edb";
+    version = "06f7162859dea358462bf15aee21b6f05da196cc";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "81bc4c22acca6b84994143c50bce8390023a8edb";
-      hash = "sha256-Bqx2qkeLvPuFKc7v9ufB95odK1TTSH6/2XJV3Xv88s8=";
+      rev = "06f7162859dea358462bf15aee21b6f05da196cc";
+      hash = "sha256-aUniMLaGmOuQ1JZOBto8BM8zxzPHtNVZOv15ynEqyTI=";
     };
-    date = "2025-09-11";
+    date = "2025-09-13";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1914,12 +1914,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v1.14.4";
+    version = "v1.14.11";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v1.14.4";
-      hash = "sha256-QU2gujECzT5mPkZi6siMO7IZRXNZHS0TchYxnG4Snj8=";
+      tag = "v1.14.11";
+      hash = "sha256-RXI1NAdEg5QypRDXg0NCpHLDrxcRCCS22KGnZyotXrI=";
     };
   };
   sam-toki-mouse-cursors = {
