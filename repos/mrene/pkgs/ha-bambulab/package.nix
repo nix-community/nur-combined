@@ -1,6 +1,7 @@
 {
   lib,
   buildHomeAssistantComponent,
+  runCommand,
   fetchFromGitHub,
   home-assistant,
 }:
@@ -21,7 +22,16 @@ buildHomeAssistantComponent rec {
 
   dependencies = with home-assistant.python.pkgs; [
     beautifulsoup4
+    cloudscraper
   ];
+
+  passthru.cards = runCommand "ha-bambulab-cards" {
+    pname = "ha-bambulab-cards";
+    inherit version;
+  } ''
+    mkdir $out
+    cp ${src}/custom_components/bambu_lab/frontend/ha-bambulab-cards.js $out/
+  '';
 
   meta = {
     description = "A Home Assistant Integration for Bambu Lab Printers";
