@@ -23,7 +23,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-9lhnEoAjR07uL+sUtM13zIRbn5r112IRAel4ycZ422c=";
+      sha256 = "sha256-neMmwFwywJPK76n9U5tmnweAbDjQqHRW7l0l3Kzz6EU=";
     };
   };
   yabai = {
@@ -62,7 +62,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-I7IHofUPpsUg/Bs8zsY/NvVmNzZ16CyUX9rDJs0ltDs=";
+      sha256 = "sha256-iUYUkjTEztF1Wm0gTlYpX+mvTuVvixDpnb+ElEfvCag=";
     };
   };
 }
