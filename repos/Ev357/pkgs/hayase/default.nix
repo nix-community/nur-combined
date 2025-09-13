@@ -12,6 +12,10 @@ pkgs.appimageTools.wrapType2 rec {
     hash = "sha256-w/+asNfLGZEyg+nI3aFjrCphLGkaXEHuobg6Se1jHR8=";
   };
 
+  nativeBuildInputs = with pkgs; [
+    makeWrapper
+  ];
+
   extraInstallCommands = let
     contents = pkgs.appimageTools.extractType2 {inherit pname version src;};
   in ''
@@ -20,7 +24,8 @@ pkgs.appimageTools.wrapType2 rec {
     cp -r ${contents}/{locales,resources} "$out/share/lib/hayase"
     cp -r ${contents}/usr/share/* "$out/share"
     cp "${contents}/${pname}.desktop" "$out/share/applications/"
-    substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+    wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
+    substituteInPlace $out/share/applications/${pname}.desktop --replace 'Exec=AppRun' 'Exec=${meta.mainProgram}'
   '';
 
   meta = {
