@@ -3,12 +3,12 @@
     needsFmt = stdenv.cc.isClang && stdenv.cc.libcxx != null && lib.versionOlder (lib.getVersion stdenv.cc.libcxx) "17";
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2025-09-06";
+    version = "0-unstable-2025-09-12";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "7a777e2c05e8b98d6e08401f86ccf6db810ba5ff";
-        hash = "sha256-csEGt8HBcbDHdRh4FZu77SzF5cpemteaz7toHVNYzKU=";
+        rev = "2124a6372745c3e07a023af5067c47ab17f931f8";
+        hash = "sha256-oLZRGsWHJBVKq+jCwafd5hiO3Y7xtuPEEGALZBKo5mE=";
     };
     nativeBuildInputs = [cmake] ++ lib.optionals useNetpbm [makeBinaryWrapper];
     buildInputs = [phosg zlib] ++ lib.optionals useSDL [sdl3] ++ lib.optionals needsMemorymapping [memorymappingHook] ++ lib.optionals needsFmt [fmt];
