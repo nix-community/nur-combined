@@ -40,7 +40,6 @@ let
     lddtree = { };
     ots-cli = {
       _common = "ots";
-      buildGoModule = pkgs.buildGo123Module;
     };
     safetwitch-frontend = {
       _path = ./servers/safetwitch/frontend.nix;
@@ -63,7 +62,6 @@ let
     iocaine = { };
     ots = {
       _common = "ots";
-      buildGoModule = pkgs.buildGo123Module;
     };
     safetwitch = { };
   };
