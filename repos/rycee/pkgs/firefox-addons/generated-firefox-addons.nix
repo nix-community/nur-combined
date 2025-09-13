@@ -117,10 +117,10 @@
     };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.41";
+      version = "3.8.42";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4559043/adblocker_ultimate-3.8.41.xpi";
-      sha256 = "74f7c8726796fd1c63ee4f5636a78c36c899066700cac0d938ad0e1b253aaacd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4571893/adblocker_ultimate-3.8.42.xpi";
+      sha256 = "a9941d65a0e68714c688b0dc46d0fd1f822eb3fdafb5b162c556667e29519d1b";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -1687,16 +1687,22 @@
     };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
-      version = "4.2";
+      version = "4.4";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406192/clearcache-4.2.xpi";
-      sha256 = "e4639caf1b0c2a65d5f97df2b711ed11b853f8fc9278feeda94b7b1c601b4052";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573847/clearcache-4.4.xpi";
+      sha256 = "0fd80a9e8efbb66df4cfb59e556ed03da10eb1b1b638ea653cbdee793aa19f36";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
         description = "Advanced cache clearing with time periods, current tab filter, and smart notifications. Perfect for developers and power users. F9 shortcut included!";
         license = licenses.mpl20;
-        mozPermissions = [ "browsingData" "notifications" "storage" ];
+        mozPermissions = [
+          "browsingData"
+          "contextMenus"
+          "notifications"
+          "storage"
+          "tabs"
+        ];
         platforms = platforms.all;
       };
     };
@@ -2270,10 +2276,10 @@
     };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
-      version = "0.8";
+      version = "0.9";
       addonId = "{12cf650b-1822-40aa-bff0-996df6948878}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4451023/cookies_txt-0.8.xpi";
-      sha256 = "0cfa85e4f1defc0f0e72c4b7a26372d7890d52780e555b868ef4a3759d7bc3ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573893/cookies_txt-0.9.xpi";
+      sha256 = "a734a72d34dbeea1c0a2035c3fa3eb3e9119918b0249b5722ab1d89b142f42a0";
       meta = with lib;
       {
         description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
@@ -3421,10 +3427,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.56";
+      version = "1.3.57";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4574989/faststream-1.3.56.xpi";
-      sha256 = "1bf56ffc54d8528288a23c1326cc45f59a8f1665f1141ca554473078a76b8726";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4576959/faststream-1.3.57.xpi";
+      sha256 = "889f2944f981910b1b4d0c830db781f4948c972a220d57b89507ae4bdd2516b8";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4064,10 +4070,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.6";
+      version = "10.5.9";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4562168/ghostery-10.5.6.xpi";
-      sha256 = "0fceeeca2990e93eb227d54e4b7d55085ac4b376ff7bd8a43b566d4428308401";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575148/ghostery-10.5.9.xpi";
+      sha256 = "a026a1700d1ac674f2e427ad395928868d26c3d540678dc8a76142c515a81e82";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -4601,10 +4607,10 @@
     };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
-      version = "5.2.3";
+      version = "5.2.4";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566775/header_editor-5.2.3.xpi";
-      sha256 = "03886a61dc6fd931a278b5fac6ae1f87e73913a16e661c57b25e8ebd872ca0a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574370/header_editor-5.2.4.xpi";
+      sha256 = "793dea2f3ccc25978152da8d2db71bc732b2da1dcb2dc1f9707519ccb5fdd518";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -6578,10 +6584,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.9.5";
+      version = "1.9.9.6";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4570842/keepassxc_browser-1.9.9.5.xpi";
-      sha256 = "469fde3170dacfdf153b033c712e8b6ae310ba85473bc16676655b668a563556";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575368/keepassxc_browser-1.9.9.6.xpi";
+      sha256 = "72e6b7d55dcd6596e0dbdcf2e245b74560a3517701c64ac3aef0d1b9634dbef2";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6609,10 +6615,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.2.1";
+      version = "17.2.3.1";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567014/keeper_password_manager-17.2.1_uC35wPV.xpi";
-      sha256 = "6d57975a6ef6a820642e04a6a3bf2216eebed00acd888a0ffb5e3a85a7bf9430";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4576703/keeper_password_manager-17.2.3.1.xpi";
+      sha256 = "ac7609d24bb7b2ed9899a95b6192925ed3a0edd2df4608f1570d9c16fdae13f9";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -10180,10 +10186,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.62.0";
+      version = "0.63.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4574749/private_grammar_checker_harper-0.62.0.xpi";
-      sha256 = "cae13556bc0dc183db420e763492e4e46327a7894742a79815cc4554ca70d67f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4577341/private_grammar_checker_harper-0.63.0.xpi";
+      sha256 = "b84583737a94997576369f19b20180a1b7154b4f351bd6878fbb239e73c74f69";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -13318,10 +13324,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "9.1.0";
+      version = "9.2.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4548513/ublacklist-9.1.0.xpi";
-      sha256 = "10f069d877221c6af630284fc46b8c1ebc26b70d61638029a323edcc8ae91e4d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573663/ublacklist-9.2.0.xpi";
+      sha256 = "68d55ac6ee51667b4230e80088fc36a6ec22d44ea864bbeefa97838335f695f5";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -13534,10 +13540,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.65.0";
+      version = "1.66.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4531307/ublock_origin-1.65.0.xpi";
-      sha256 = "3e73c96a29a933866065f0756fe032984bf5b254af8dd1afd7a7f7e0668a33cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573289/ublock_origin-1.66.0.xpi";
+      sha256 = "155820bace5bf7c8ba547e27678a4a25251131c54904f02f5bf340996f6fdbdc";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -14935,10 +14941,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.0.14";
+      version = "1.0.15";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4555615/xkit_rewritten-1.0.14.xpi";
-      sha256 = "6b5728b3d9d8faa9ed9fe35f12ad90928556800a5361802985e55c966c7f185e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4572690/xkit_rewritten-1.0.15.xpi";
+      sha256 = "ee462ef02155fe86cf265924516d3d746058e08e477e010f9a3cfd4e65eb6ebd";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -14950,10 +14956,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "1.0.8";
+      version = "1.0.9";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4565284/yang_addon-1.0.8.xpi";
-      sha256 = "90d099323b746002bd9c3ab16b05a1c25aa33d72d65b4aeefcd46bbc818bf18d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4577063/yang_addon-1.0.9.xpi";
+      sha256 = "86b68639ada48962856c0c7f06bd6a109c2d0b761d703b59a2d12e907eb323cb";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
@@ -15087,10 +15093,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.12.3";
+      version = "2.13.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567277/youtube_no_translation-2.12.3.xpi";
-      sha256 = "577ce6e21a18208c28db5d2222af78af44d9bfd68cad17f9e48c214c70eb89f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4573407/youtube_no_translation-2.13.0.xpi";
+      sha256 = "aa7fdda8f373bf25ec393381dc56531dc24067ab15bdddb141e9d1f05561eb9c";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
