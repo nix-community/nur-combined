@@ -25,7 +25,7 @@ pkgs.appimageTools.wrapType2 rec {
     cp -r ${contents}/usr/share/* "$out/share"
     cp "${contents}/${pname}.desktop" "$out/share/applications/"
     wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
-    substituteInPlace $out/share/applications/${pname}.desktop --replace 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+    substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
   '';
 
   meta = {
