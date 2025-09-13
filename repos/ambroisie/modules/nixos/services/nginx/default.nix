@@ -444,7 +444,7 @@ in
         };
     };
 
-    systemd.services."acme-${domain}" = {
+    systemd.services."acme-order-renew-${domain}" = {
       serviceConfig = {
         Environment = [
           # Since I do a "weird" setup with a wildcard CNAME
