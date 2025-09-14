@@ -8,13 +8,25 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  sunlightKernels = pkgs.callPackage ./pkgs/sunlight-kernels;
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  linux_sunlight = pkgs.callPackage ./pkgs/sunlight-kernels {
+  linux_sunlight = sunlightKernels {
+    variant = "mainline";
+    kernelPatches = [
+      pkgs.kernelPatches.bridge_stp_helper
+      pkgs.kernelPatches.request_key_helper
+    ];
+  };
+
+  linux_sunlight_stable = sunlightKernels {
+    variant = "stable";
     kernelPatches = [
       pkgs.kernelPatches.bridge_stp_helper
       pkgs.kernelPatches.request_key_helper
