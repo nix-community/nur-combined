@@ -2707,7 +2707,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2025-09-12",
+        "date": "2025-09-13",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -2719,12 +2719,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "084d0931a3cc63ab8a551b3f30040a5061920e8c",
-            "sha256": "sha256-GzL8i7DAQ5OSLL2cr1rxph2ciH+C5hIzV8llRllQrcw=",
+            "rev": "7c7c28567126fcbb64130f8665c19111efb91f96",
+            "sha256": "sha256-LoU4rdajL+/jWOc7AZyHEMlNSgMCfdurSHOF15I1oKs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "084d0931a3cc63ab8a551b3f30040a5061920e8c"
+        "version": "7c7c28567126fcbb64130f8665c19111efb91f96"
     },
     "openresty-stable": {
         "cargoLocks": null,
@@ -3256,11 +3256,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-cSE2crIwItNsO99Lf/bvrk3EvDmFuCGlEcj5GapAXuY=",
+            "sha256": "sha256-/fUVRb5hRVa/oUb95dvcd0eiC9V/D3ozHX6Cr8xZ3vs=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_amd64.deb"
         },
-        "version": "10.1.0+ds-4"
+        "version": "10.1.0+ds-5"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3271,11 +3271,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-v+mDE1uSz8BYfXBE7F7jEjRKhQLYLd+CwGCzNt+NgbI=",
+            "sha256": "sha256-sdPT71bmY7K1IG2dUjnxKhRUgZPa/E21IAKdwwTRdXw=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_arm64.deb"
         },
-        "version": "10.1.0+ds-4"
+        "version": "10.1.0+ds-5"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3286,11 +3286,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-tIbZSt03CEtBMzL4Bc0SpFp1bnN88eo8NhvS5EBAryI=",
+            "sha256": "sha256-6M6q9GwehjAsEWPzjOXaAqcfiw7Pn4wgnkWchN9osK4=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_armhf.deb"
         },
-        "version": "10.1.0+ds-4"
+        "version": "10.1.0+ds-5"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3301,11 +3301,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-+zvALZPlsxlx59LdJzaQm+Qf6FAAO9+vF91+J0ZsJnQ=",
+            "sha256": "sha256-2IxoTs2aK41JiisEj7i/VzR+BUtDbaY25923MJLfA94=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_i386.deb"
         },
-        "version": "10.1.0+ds-4"
+        "version": "10.1.0+ds-5"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -3438,7 +3438,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-09-13",
+        "date": "2025-09-14",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3450,12 +3450,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "06f7162859dea358462bf15aee21b6f05da196cc",
-            "sha256": "sha256-aUniMLaGmOuQ1JZOBto8BM8zxzPHtNVZOv15ynEqyTI=",
+            "rev": "1eb03af18f5be1af12cef03b01d8460ec3756cdd",
+            "sha256": "sha256-PA4Fws+CY4Lyi1QKPRoN6XVoNia8zANX7UKSkIefaBs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "06f7162859dea358462bf15aee21b6f05da196cc"
+        "version": "1eb03af18f5be1af12cef03b01d8460ec3756cdd"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -4296,7 +4296,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-09-10",
+        "date": "2025-09-14",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4308,12 +4308,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "0fb4f43538369ae2801e2ff0d5048798b333a957",
-            "sha256": "sha256-KDyMOPswcXwq9Otqyy4kXaCSUqKP0qDkeQHsPNiQbX0=",
+            "rev": "77407e958245e1406673cdb5e9d909cd107b23d6",
+            "sha256": "sha256-fOo11rrBxWSYxKycdZ4PumLnbLP7IYNywtqHOh0rYV8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0fb4f43538369ae2801e2ff0d5048798b333a957"
+        "version": "77407e958245e1406673cdb5e9d909cd107b23d6"
     },
     "unigine-heaven": {
         "cargoLocks": null,

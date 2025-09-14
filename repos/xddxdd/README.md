@@ -208,12 +208,12 @@ Or, use variables from this repository in case I change them:
 |  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2025-06-04 | Python implementation of key Osmocom protocols/interfaces |
 |  | `pysctp` | [pysctp](https://github.com/p1sec/pysctp) | 0.7.2 | SCTP stack for Python |
 |  | `pytorch-wpe` | [pytorch-wpe](https://github.com/nttcslab-sp/dnn_wpe) | 0.0.1 | WPE implementation using PyTorch |
-|  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.1.0+ds-4 | Generic and open source machine emulator and virtualizer |
+|  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.1.0+ds-5 | Generic and open source machine emulator and virtualizer |
 |  | `qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.18 | Desktop client for QQ on Linux |
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.3-b1-unstable-2025-09-06 | Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-13 | Interactive fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-14 | Interactive fiction development platform (Game Library) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.055.00 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
@@ -245,7 +245,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.2 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-09-10 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-09-14 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -415,7 +415,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.1.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
-|  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-09-12 | OpenResty with Lan Tian modifications |
+|  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.2-unstable-2025-09-13 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.nixos-cleanup` | [nixos-cleanup](https://github.com/xddxdd/nur-packages) | 1.0 | Cleanup old profiles on NixOS |
 |  | `lantianCustomized.telegram-desktop` | [telegram-desktop](https://desktop.telegram.org/) | 6.1.3 | Telegram Desktop messaging app (Without anti-features) |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](https://www.transmissionbt.com/) | 4.0.6 | Fast, easy and free BitTorrent client |
@@ -1199,12 +1199,12 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
 |  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-08-28 | Server control plane for Pterodactyl Panel |
 |  | `uncategorized.pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
-|  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.1.0+ds-4 | Generic and open source machine emulator and virtualizer |
+|  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.1.0+ds-5 | Generic and open source machine emulator and virtualizer |
 |  | `uncategorized.qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.18 | Desktop client for QQ on Linux |
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `uncategorized.qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.3-b1-unstable-2025-09-06 | Interactive Fiction development platform (GUI application) |
-|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-13 | Interactive fiction development platform (Game Library) |
+|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-14 | Interactive fiction development platform (Game Library) |
 | `x86_64-linux` | `uncategorized.red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
 |  | `uncategorized.red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
 |  | `uncategorized.rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
@@ -1227,7 +1227,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.6.2 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
 |  | `uncategorized.uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-09-10 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2025-09-14 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |

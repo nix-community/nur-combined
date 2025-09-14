@@ -1392,14 +1392,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "084d0931a3cc63ab8a551b3f30040a5061920e8c";
+    version = "7c7c28567126fcbb64130f8665c19111efb91f96";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "084d0931a3cc63ab8a551b3f30040a5061920e8c";
-      hash = "sha256-GzL8i7DAQ5OSLL2cr1rxph2ciH+C5hIzV8llRllQrcw=";
+      rev = "7c7c28567126fcbb64130f8665c19111efb91f96";
+      hash = "sha256-LoU4rdajL+/jWOc7AZyHEMlNSgMCfdurSHOF15I1oKs=";
     };
-    date = "2025-09-12";
+    date = "2025-09-13";
   };
   openresty-stable = {
     pname = "openresty-stable";
@@ -1661,38 +1661,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.0+ds-4";
+    version = "10.1.0+ds-5";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-cSE2crIwItNsO99Lf/bvrk3EvDmFuCGlEcj5GapAXuY=";
+      hash = "sha256-/fUVRb5hRVa/oUb95dvcd0eiC9V/D3ozHX6Cr8xZ3vs=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.0+ds-4";
+    version = "10.1.0+ds-5";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-v+mDE1uSz8BYfXBE7F7jEjRKhQLYLd+CwGCzNt+NgbI=";
+      hash = "sha256-sdPT71bmY7K1IG2dUjnxKhRUgZPa/E21IAKdwwTRdXw=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.0+ds-4";
+    version = "10.1.0+ds-5";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-tIbZSt03CEtBMzL4Bc0SpFp1bnN88eo8NhvS5EBAryI=";
+      hash = "sha256-6M6q9GwehjAsEWPzjOXaAqcfiw7Pn4wgnkWchN9osK4=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.0+ds-4";
+    version = "10.1.0+ds-5";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-4_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.0+ds-5_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-+zvALZPlsxlx59LdJzaQm+Qf6FAAO9+vF91+J0ZsJnQ=";
+      hash = "sha256-2IxoTs2aK41JiisEj7i/VzR+BUtDbaY25923MJLfA94=";
     };
   };
   qhttpengine = {
@@ -1764,14 +1764,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "06f7162859dea358462bf15aee21b6f05da196cc";
+    version = "1eb03af18f5be1af12cef03b01d8460ec3756cdd";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "06f7162859dea358462bf15aee21b6f05da196cc";
-      hash = "sha256-aUniMLaGmOuQ1JZOBto8BM8zxzPHtNVZOv15ynEqyTI=";
+      rev = "1eb03af18f5be1af12cef03b01d8460ec3756cdd";
+      hash = "sha256-PA4Fws+CY4Lyi1QKPRoN6XVoNia8zANX7UKSkIefaBs=";
     };
-    date = "2025-09-13";
+    date = "2025-09-14";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2202,15 +2202,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "0fb4f43538369ae2801e2ff0d5048798b333a957";
+    version = "77407e958245e1406673cdb5e9d909cd107b23d6";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "0fb4f43538369ae2801e2ff0d5048798b333a957";
+      rev = "77407e958245e1406673cdb5e9d909cd107b23d6";
       fetchSubmodules = true;
-      hash = "sha256-KDyMOPswcXwq9Otqyy4kXaCSUqKP0qDkeQHsPNiQbX0=";
+      hash = "sha256-fOo11rrBxWSYxKycdZ4PumLnbLP7IYNywtqHOh0rYV8=";
     };
-    date = "2025-09-10";
+    date = "2025-09-14";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
