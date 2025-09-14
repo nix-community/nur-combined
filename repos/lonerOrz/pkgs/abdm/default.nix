@@ -24,11 +24,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "abdownloadmanager-bin";
-  version = "1.6.12";
+  version = "dev-fix-access-denied-error-1";
 
   src = fetchurl {
-    url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/ABDownloadManager_${finalAttrs.version}_linux_x64.tar.gz";
-    sha256 = "sha256-F1iZqm1PpfP5k4cwW7l/w8zaXoll175zeMAY42/eh5k=";
+    # 暂时更改为固定的 URL 和 SHA256，直到上游发布新版本
+    # url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/ABDownloadManager_${finalAttrs.version}_linux_x64.tar.gz";
+    url = "https://github.com/amir1376/ab-download-manager/releases/download/dev-fix-access-denied-error-1/ABDownloadManager_1.0.0-fix-access-denied-error-snapshot_linux_x64.tar.gz";
+    sha256 = "sha256-RcUl4H4nO5r6GQxZ0xoVP3e45CInZS+0JS7QdbMK9xc=";
   };
 
   nativeBuildInputs = [
