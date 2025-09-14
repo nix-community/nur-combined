@@ -11,7 +11,7 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
 jobs:
-  tests:
+  kernel-stable:
     strategy:
       matrix:
         nurRepo:
@@ -21,11 +21,35 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixos-unstable-small
-    #runs-on: ubuntu-22.04
-    runs-on: windows-2025
+    runs-on: ubuntu-22.04
+    env:
+      KERNEL_VARIANT: stable
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
+    - name: Free disk space
+      run: |
+        df -h
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt-get autoremove -y >/dev/null 2>&1
+        sudo apt-get autoclean -y >/dev/null 2>&1
+        sudo apt-get clean -y >/dev/null 2>&1
+        sudo apt-get purge default-jre \
+                           default-jdk \
+                           *jre* \
+                           *jdk* \
+                           *ruby* \
+                           *rake* \
+                           *dotnet* \
+                           *rust* \
+                           *cargo* \
+                           *php* \
+                           *android* \
+                           -y >/dev/null 2>&1
+        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
+        docker rmi $(docker image ls -aq) >/dev/null 2>&1
+        df -h
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
@@ -51,8 +75,78 @@ jobs:
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Build stable kernel package
+      run: nix-build -A linux_sunlight_stable
+    - name: Trigger NUR update
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+
+  kernel-mainline:
+    strategy:
+      matrix:
+        nurRepo:
+          - ionutnechita
+        cachixName:
+          - ionutnechita
+        nixPath:
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-unstable-small
+    runs-on: ubuntu-22.04
+    env:
+      KERNEL_VARIANT: mainline
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Free disk space
+      run: |
+        df -h
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt-get autoremove -y >/dev/null 2>&1
+        sudo apt-get autoclean -y >/dev/null 2>&1
+        sudo apt-get clean -y >/dev/null 2>&1
+        sudo apt-get purge default-jre \
+                           default-jdk \
+                           *jre* \
+                           *jdk* \
+                           *ruby* \
+                           *rake* \
+                           *dotnet* \
+                           *rust* \
+                           *cargo* \
+                           *php* \
+                           *android* \
+                           -y >/dev/null 2>&1
+        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
+        docker rmi $(docker image ls -aq) >/dev/null 2>&1
+        df -h
+    - name: Install nix
+      uses: cachix/install-nix-action@v30
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v15
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build mainline kernel package
+      run: nix-build -A linux_sunlight
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
