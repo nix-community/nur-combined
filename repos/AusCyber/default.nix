@@ -34,8 +34,8 @@ in
     source = sources.zen-browser-twilight;
     sourceRoot = "Twilight.app";
   };
-  bartender-alpha = pkgs.callPackage ./pkgs/bartender {
-    source = sources.bartender-alpha;
+  bartender = pkgs.callPackage ./pkgs/bartender {
+    source = sources.bartender-6;
     sourceRoot = ".";
   };
   hardlink = pkgs.callPackage ./pkgs/hardlink {
