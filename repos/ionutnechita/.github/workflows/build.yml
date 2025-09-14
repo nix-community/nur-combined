@@ -21,33 +21,11 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixos-unstable-small
-    runs-on: ubuntu-22.04
+    #runs-on: ubuntu-22.04
+    runs-on: windows-2025
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
-    - name: Free disk space
-      run: |
-        df -h
-        sudo swapoff -a
-        sudo rm -f /swapfile
-        sudo apt-get autoremove -y >/dev/null 2>&1
-        sudo apt-get autoclean -y >/dev/null 2>&1
-        sudo apt-get clean -y >/dev/null 2>&1
-        sudo apt-get purge default-jre \
-                           default-jdk \
-                           *jre* \
-                           *jdk* \
-                           *ruby* \
-                           *rake* \
-                           *dotnet* \
-                           *rust* \
-                           *cargo* \
-                           *php* \
-                           *android* \
-                           -y >/dev/null 2>&1
-        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
-        docker rmi $(docker image ls -aq) >/dev/null 2>&1
-        df -h
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
