@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Oliper202020";
     repo = "ninvaders-workman";
-    rev = "v${version}";
-    sha256 = "sha256-D73T33HdKwE9Wk2mvuSazx8jkV0BaIJJ4UUzZHT1ErM=";
+    rev = "0709480a57271be23c32753a6cf0544751b72c55";
+    hash = "sha256-D73T33HdKwE9Wk2mvuSazx8jkV0BaIJJ4UUzZHT1ErM=";
   };
 
   nativeBuildInputs = [ cmake ];

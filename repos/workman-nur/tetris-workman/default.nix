@@ -31,7 +31,7 @@ haskell.lib.compose.justStaticExecutables (
       src = fetchFromGitHub {
         repo = "tetris-workman";
         owner = "Oliper202020";
-        tag = "v${version}";
+        rev = "e0396811791278bca8d0b0a036da7b7287281fa5";
         hash = "sha256-b8sqIab9+2WHjyJJxJsDKWpdrpG8witl4QkTdEHwkaU=";
       };
       libraryHaskellDepends = [
