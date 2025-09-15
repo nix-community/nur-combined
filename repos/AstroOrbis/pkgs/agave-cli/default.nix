@@ -60,22 +60,9 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgram = "${placeholder "out"}/bin/solana";
   versionCheckProgramArg = "--version";
 
-  # Some of this breaks? There's a bunch of issues but this is the first time I get the rest compiling so I'm
-  # removing this for now to keep me sane :>
-  #
-  # postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-  #   installShellCompletion --cmd solana \
-  #     --bash <($out/bin/solana completion --shell bash) \
-  #     --fish <($out/bin/solana completion --shell fish)
-  #   find sdk
-  #   mkdir -p $out/bin/sdk/bpf
-  #   cp -a ./sdk/bpf/* $out/bin/sdk/bpf/
-  #   mkdir -p $out/bin/sdk/sbf
-  #   cp -a ./sdk/sbf/* $out/bin/sdk/sbf
-  #   mkdir -p $out/bin/deps
-  #   find . -name libsolana_program.dylib -exec cp {} $out/bin/deps \;
-  #   find . -name libsolana_program.rlib -exec cp {} $out/bin/deps \;
-  # '';
+  postInstall = ''
+  cp -ar ./platform-tools-sdk $out/bin/platform-tools-sdk
+  '';
 
   # Used by build.rs in the rocksdb-sys crate. If we don't set these, it would
   # try to build RocksDB from source.
