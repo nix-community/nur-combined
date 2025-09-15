@@ -12,7 +12,7 @@ let
   pname = "gemini-cli";
   version = "0.4.1";
   srcHash = "sha256-QmSvUv9BCEDoEJLeE++7ALP/1e71VJkZwVn60dOS2QY=";
-  npmDepsHash = "sha256-iKVI4qx3SdTYrYtrNPb2gBCB0g1kVza4EKrAZE9/zhA=";
+  npmDepsHash = "sha256-gMQcyzhR5hE6264cDq5agufFj6ykBGEt0q3TjN4PTgM=";
 
   src = runCommand "gemini-cli-src-with-lock" { } ''
     mkdir -p $out
