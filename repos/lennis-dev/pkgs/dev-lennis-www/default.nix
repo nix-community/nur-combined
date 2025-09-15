@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation rec {
   name = "dev-lennis-www-${version}";
-  version = "1125fc5";
+  version = "772ad14";
   src = fetchFromGitHub {
     owner = "lennis-dev";
     repo = "lennis.dev";
-    rev = "1125fc59b79ed663ad805838520b4a4384c08096";
-    hash = "sha256-PNMJZIrBcWPlfKxhBl93FqIgqQJIGVa2CC2DhPFuKVo=";
+    rev = "772ad145334b4a03cef3fadccf9ccbe048f99208";
+    hash = "sha256-ShxPtE5xED/PU2lV3EDznX3Lmi33Ge0m2+kukJahHoI=";
   };
 
   installPhase = ''
