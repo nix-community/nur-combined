@@ -33,6 +33,8 @@
   fftw,
   file,
   kissfftFloat,
+  gmp,
+  gmpxx,
 }:
 let
   cef = cef-binary.overrideAttrs (oldAttrs: {
@@ -51,13 +53,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wallpaperengine";
-  version = "0-unstable-2025-09-14";
+  version = "0-unstable-2025-09-15";
 
   src = fetchFromGitHub {
     owner = "Almamu";
     repo = "linux-wallpaperengine";
-    rev = "be0fc25e72203310f268221a132c5d765874b02c";
-    hash = "sha256-Wkxt6c5aSMJnQPx/n8MeNKLQ8YmdFilzhJ1wQooKprI=";
+    rev = "d55e58c151e270391e71d7dfb6cc61940c3375e6";
+    hash = "sha256-kGxo8KWap9L322HOB4cCEQ38GehSBiIhU/GXN0grjSg=";
     fetchSubmodules = true;
   };
 
@@ -97,6 +99,8 @@ stdenv.mkDerivation (finalAttrs: {
     libXrandr
     fftw
     kissfftFloat
+    gmp
+    gmpxx
   ];
 
   cmakeFlags = [
