@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
   dontPatchElf = true;
 
   ### Only link ssh utils used by the derivation
-  nativeBuildInputs = [ openssh ];
+  buildInputs = [ openssh ];
 
   installPhase = ''
     mkdir -p $out/bin

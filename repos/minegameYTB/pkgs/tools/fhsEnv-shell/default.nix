@@ -1,15 +1,19 @@
 {
- stdenvNoCC,
+ ### Tools
+ stdenv,
  buildFHSEnv,
  lib,
  libsForQt5,
+ clang,
  zlib,
  elfutils,
  pkgs,
- clang,
  ncurses,
  bashInteractive,
  writeScript,
+ inetutils,
+
+ ### Options
  kernel-tools ? false,  ### Option to enable kernel development tools
  buildroot-tools ? false,  ### Option to enable Buildroot-specific tools
  useClang ? false, ### Enable this to use clang instead of gcc
@@ -19,14 +23,25 @@
 
 let
   ### System configuration (host platform)
-  system = lib.systems.elaborate stdenvNoCC.hostPlatform;
+  system = lib.systems.elaborate stdenv.hostPlatform;
+in 
+stdenv.mkDerivation rec {
+  pname = "fhsEnv-shell";
+  version = "1.1.0";
 
+  ### stdenv options
+  dontUnpack = true;
+  dontBuild = true;
+  dontConfigure = true;
+  dontPatchElf = true;
+  
+  ### fhsEnv software
   fhsEnv = buildFHSEnv {
     name = "fhsEnv-shell";
     targetPkgs = pkgs: with pkgs; [
       ### Core compilation tools (always included)
       ### Compiler and tools
-      (if useClang then clang else gcc)
+      (if useClang then clang else stdenv.cc)
       pkg-config
       gnumake
       gnupatch
@@ -70,6 +85,12 @@ let
       rsync
       wget
       openssl
+      # For ftp binary
+      (pkgs.writeShellScriptBin "ftp" ''
+        ### Use inetutils to use only the ftp command (eventually other tools with this function to isolate software)
+        export PATH=${lib.getBin inetutils}
+        exec -a "$0" ${inetutils}/bin/ftp "$@"
+      '')
 
       ### Programming language
       python3
@@ -97,8 +118,8 @@ let
       pciutils
 
       ### Rust tools
-      rustc
-      rust-bindgen
+      #rustc
+      #rust-bindgen
       
       ### Headers
       openssl.dev
@@ -166,24 +187,16 @@ let
       exec ${bashInteractive}/bin/bash
     '';
   };
-in stdenvNoCC.mkDerivation {
-  pname = "fhsEnv-shell";
-  version = "1.0.0";
-
-  ### stdenv options
-  dontUnpack = true;
-  dontBuild = true;
-  dontConfigure = true;
-  dontPatchElf = true;
-
+  
   installPhase = ''
     mkdir $out
     ln -s ${fhsEnv}/bin $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A multi-platform, multi-distribution development environment for Linux kernel and Buildroot tooling.";
-    license = licenses.gpl3;
+    license = lib.licenses.gpl3;
+    maintainers = with lib.maintainers; [ minegameYTB ];
     mainProgram = "fhsEnv-shell";
   };
 }
