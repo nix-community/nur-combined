@@ -2208,6 +2208,11 @@
             "sha256": "0cycij8g117iajdkmgib0413gqslq3zv6pcq9yb4wpkcb8sjwhsw",
             "url": "https://github.com/wingej0/nur-packages"
         },
+        "workman-nur": {
+            "rev": "531dfd14e5f059ffa670b1ca4974b53e40825734",
+            "sha256": "0ir2i55n4mjm3gq9d7b8q3gglki4ax2h5ix2r7j4bfk2jv979gdl",
+            "url": "https://github.com/Oliper202020/workman-nur"
+        },
         "wrvsrx": {
             "rev": "75ca417955c44ec8d31b50f3929d61e9703e7804",
             "sha256": "12nfm8qsq5i2jpjdxhfdndrj74z1vaamhh9mjxshpi3r1nkzpdm8",
