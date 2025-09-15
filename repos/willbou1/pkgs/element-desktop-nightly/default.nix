@@ -1,12 +1,12 @@
 { stdenv, fetchurl, dpkg, lib, makeWrapper, symlinkJoin,
-alsa-lib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome, gnome-keyring, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core }:
+alsa-lib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome, gnome-keyring, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core, libgbm }:
 
 ################################################################################
 # Based on element-desktop-nightly package from AUR:
 # https://aur.archlinux.org/packages/element-desktop-nightly-bin
 ################################################################################
 let
-    version = "2025011701";
+    version = "2025091301";
 
     rpath = lib.makeLibraryPath [
         alsa-lib
@@ -26,6 +26,7 @@ let
         libsecret
         libuuid
         mesa
+        libgbm
         sqlcipher
 
         gnome2.GConf
@@ -65,12 +66,12 @@ let
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_amd64.deb";
-           sha256 = "1c88945c4a5e22b623bcc3b0b8799e82243d122cb4e750c00b639e79e40d7233"; 
+           sha256 = "9eea2bef7403e8c3f4364c54a2672daedf83da70233c7236be11fdc663cae5d8"; 
         }
     else if stdenv.hostPlatform.system == "aarch64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_arm64.deb";
-           sha256 = "0ce3fc2aa2e67cb6972c3226cc20817ae39a4d6942ed27dd0816b721022f7e13"; 
+           sha256 = "7a2e9965ffce253817a8406eaa5872975e06fd95769e6cc422520a5578ad623f"; 
         }
     else
         throw "element-desktop-nightly is not supported on ${stdenv.hostPlatform.system}";
@@ -121,7 +122,8 @@ in symlinkJoin {
     postBuild = ''
         # Fix for wayland and LTS nixpkgs
         wrapProgram $out/bin/element-desktop-nightly --add-flags --ozone-platform=wayland \
-            --add-flags --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer
+            --add-flags --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer \
+            --add-flags --password-store=gnome-libsecret
     '';
     meta = with lib; {
         description = "A feature-rich client for Matrix.org (nightly unstable build)";
