@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "d592004feaae12b13a1311b922b2936278c83e66";
+    version = "d7c553d822d9ce8e64c18411add1a57befe5f3ea";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "d592004feaae12b13a1311b922b2936278c83e66";
-      hash = "sha256-VK880L4z0reoii0RNCH8tqUyfBl+LSz06OmKSjbcfJ4=";
+      rev = "d7c553d822d9ce8e64c18411add1a57befe5f3ea";
+      hash = "sha256-YW1XPnYwQHiaaCByD5abEGRot29UptAwjfodteA2dbs=";
     };
-    date = "2025-09-12";
+    date = "2025-09-15";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "a6659635a7ec2426b8f7ef280e9a405a2325f556";
+    version = "9da77ca21d0a3f010e1e028361f0e5e64dd1a975";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "a6659635a7ec2426b8f7ef280e9a405a2325f556";
-      hash = "sha256-ufBmabLtq3gSt0cPzHZ0pVm6O9G7GIQU1LUci/2yZ6M=";
+      rev = "9da77ca21d0a3f010e1e028361f0e5e64dd1a975";
+      hash = "sha256-Ios8QKToGOp5gOIHGvuDDyjQnzgwuDtQ7lyBr0uuI64=";
     };
-    date = "2025-09-09";
+    date = "2025-09-15";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6451";
+    version = "b6476";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6451";
-      hash = "sha256-hDSX483hLxtbZsdCWsTzFq88rkHmxYR8M5MGwETY1ak=";
+      tag = "b6476";
+      hash = "sha256-RsX2ZyFVfNDKgWmZo7iA3KUp2Tdn1+cq74To86Biq18=";
     };
   };
   loralib = {
@@ -1846,14 +1846,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "dd050e4c00c5f0aab43fab0ee6541e51a42f1494";
+    version = "5c0a97530eb572cc0ef067dc6f25a54b3472fa2a";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "dd050e4c00c5f0aab43fab0ee6541e51a42f1494";
-      hash = "sha256-V/4/T04a/Q234RoodGCopfbFoiHsS9fIkblz3q3YkBw=";
+      rev = "5c0a97530eb572cc0ef067dc6f25a54b3472fa2a";
+      hash = "sha256-G0MdMdW2h08xBVhkpTs/pKX2QSSSVZG58mtDYV0Ae34=";
     };
-    date = "2025-09-10";
+    date = "2025-09-15";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2202,15 +2202,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "77407e958245e1406673cdb5e9d909cd107b23d6";
+    version = "72040423da45094779bb427121110a057bd5c3bd";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "77407e958245e1406673cdb5e9d909cd107b23d6";
+      rev = "72040423da45094779bb427121110a057bd5c3bd";
       fetchSubmodules = true;
-      hash = "sha256-fOo11rrBxWSYxKycdZ4PumLnbLP7IYNywtqHOh0rYV8=";
+      hash = "sha256-RWPqgljKwgOMxai+zPZxWaNDlXYeFHtxXI55XIGg1yQ=";
     };
-    date = "2025-09-14";
+    date = "2025-09-15";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
