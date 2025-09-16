@@ -9,8 +9,8 @@
   libxkbcommon,
   nspr,
   udev,
-  libgbm,
   gtk3,
+  libgbm,
   libusb1,
   libsForQt5,
   xorg,
@@ -25,6 +25,7 @@
 }:
 
 let
+  pname = "wpsoffice-cn";
   sources = import ./sources.nix;
   version = sources.version;
 
@@ -65,8 +66,7 @@ let
 in
 
 stdenv.mkDerivation {
-  pname = "wpsoffice-cn";
-  inherit src version;
+  inherit pname src version;
 
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";
@@ -83,8 +83,8 @@ stdenv.mkDerivation {
     libxkbcommon
     nspr
     udev
-    libgbm
     gtk3
+    libgbm
     libusb1
     libsForQt5.qtbase
     xorg.libXdamage
@@ -93,6 +93,8 @@ stdenv.mkDerivation {
   ];
 
   dontWrapQtApps = true;
+
+  stripAllList = [ "opt" ];
 
   runtimeDependencies = map lib.getLib [
     cups
