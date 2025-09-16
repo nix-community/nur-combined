@@ -43,7 +43,7 @@ in
     };
 
     nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-qt5-1.1.05"
+      "ventoy-qt5-1.1.07"
     ];
 
     virtualisation.waydroid.enable = true;
