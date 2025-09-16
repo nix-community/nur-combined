@@ -22,6 +22,7 @@ stdenv.mkDerivation {
     mkdir -p $out
       cp -R ./Applications ./Library $out
   '';
+  dontFixup = true;
 
   meta = {
 
