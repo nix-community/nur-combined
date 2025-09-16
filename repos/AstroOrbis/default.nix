@@ -12,4 +12,5 @@ rec {
   agave-cli = pkgs.callPackage ./pkgs/agave-cli { inherit agave-platform-tools-bin; };
   agave-platform-tools-bin = pkgs.callPackage ./pkgs/agave-platform-tools-bin { };
   mtgatool-desktop = pkgs.callPackage ./pkgs/mtgatool-desktop { };
+  hayase = pkgs.callPackage ./pkgs/hayase { };
 }
