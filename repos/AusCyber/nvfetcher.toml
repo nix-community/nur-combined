@@ -21,8 +21,8 @@ url.name = "Bartender6.dmg"
 [yabai]
 src.github = "koekeishiya/yabai"
 fetch.github = "koekeishiya/yabai"
-[yabai-tahoe]
-src.git = "https://github.com/tbiehn/yabai-tahoe"
-src.branch = "TahoeBeta2Dock"
-fetch.github = "tbiehn/yabai-tahoe"
 
+[karabiner-dk]
+src.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
+src.prefix = "v"
+fetch.url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/download/v$ver/Karabiner-DriverKit-VirtualHIDDevice-$ver.pkg"

@@ -41,10 +41,13 @@ in
   hardlink = pkgs.callPackage ./pkgs/hardlink {
   };
   yabai = pkgs.callPackage ./pkgs/yabai {
-    source = sources.yabai-tahoe;
+    source = sources.yabai;
 
   };
   desktoppr = pkgs.callPackage ./pkgs/desktoppr {
+  };
+  karabiner-dk = pkgs.callPackage ./pkgs/karabiner-dk {
+    source = sources.karabiner-dk;
   };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

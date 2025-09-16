@@ -12,10 +12,10 @@
   };
   ghostty = {
     pname = "ghostty";
-    version = "1.1.3";
+    version = "1.2.0";
     src = fetchurl {
-      url = "https://release.files.ghostty.org/1.1.3/Ghostty.dmg";
-      sha256 = "sha256-ZOUUGI9UlZjxZtbctvjfKfMz6VTigXKikB6piKFPJkc=";
+      url = "https://release.files.ghostty.org/1.2.0/Ghostty.dmg";
+      sha256 = "sha256-QyHKQ00iRxWS6GwPfRAi9RDSlgX/50N0+MASmnPGAo4=";
     };
   };
   ghostty-nightly = {
@@ -23,7 +23,15 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-Kd+xDWK+JSnGz4P8ckxzdaPu7RnvT6g+KFcE7f1d1mI=";
+      sha256 = "sha256-xMjoD/tDTIcgKKqKRrKTnR43UJAXJslpCsRFwHnwKXQ=";
+    };
+  };
+  karabiner-dk = {
+    pname = "karabiner-dk";
+    version = "6.2.0";
+    src = fetchurl {
+      url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/download/v6.2.0/Karabiner-DriverKit-VirtualHIDDevice-6.2.0.pkg";
+      sha256 = "sha256-noxGI58HSBYSQeQkRIV5ASJOXIL1tYoXMd9McL8HNqg=";
     };
   };
   yabai = {
@@ -36,18 +44,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-HvaMPmXNlFVOezqWxqXaAUq8E8O2ZkXMQPwkKXCAOcY=";
     };
-  };
-  yabai-tahoe = {
-    pname = "yabai-tahoe";
-    version = "66690749e820d06a7a0c8ba152b3872640163dd3";
-    src = fetchFromGitHub {
-      owner = "tbiehn";
-      repo = "yabai-tahoe";
-      rev = "66690749e820d06a7a0c8ba152b3872640163dd3";
-      fetchSubmodules = false;
-      sha256 = "sha256-hpZJFz7bP9nKcYEj+zOMHolIQWOFG1mblc3iuEOTOKE=";
-    };
-    date = "2025-09-04";
   };
   zen-browser = {
     pname = "zen-browser";
@@ -62,7 +58,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-5cr2dAG563t5DrRrsXi9TLt8MNyKz5eO+QdxhfNiu/g=";
+      sha256 = "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=";
     };
   };
 }

@@ -23,11 +23,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZOUUGI9UlZjxZtbctvjfKfMz6VTigXKikB6piKFPJkc=",
+            "sha256": "sha256-QyHKQ00iRxWS6GwPfRAi9RDSlgX/50N0+MASmnPGAo4=",
             "type": "url",
-            "url": "https://release.files.ghostty.org/1.1.3/Ghostty.dmg"
+            "url": "https://release.files.ghostty.org/1.2.0/Ghostty.dmg"
         },
-        "version": "1.1.3"
+        "version": "1.2.0"
     },
     "ghostty-nightly": {
         "cargoLocks": null,
@@ -38,11 +38,26 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Kd+xDWK+JSnGz4P8ckxzdaPu7RnvT6g+KFcE7f1d1mI=",
+            "sha256": "sha256-xMjoD/tDTIcgKKqKRrKTnR43UJAXJslpCsRFwHnwKXQ=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
         "version": "tip"
+    },
+    "karabiner-dk": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "karabiner-dk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-noxGI58HSBYSQeQkRIV5ASJOXIL1tYoXMd9McL8HNqg=",
+            "type": "url",
+            "url": "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/download/v6.2.0/Karabiner-DriverKit-VirtualHIDDevice-6.2.0.pkg"
+        },
+        "version": "6.2.0"
     },
     "yabai": {
         "cargoLocks": null,
@@ -64,27 +79,6 @@
             "type": "github"
         },
         "version": "v7.1.15"
-    },
-    "yabai-tahoe": {
-        "cargoLocks": null,
-        "date": "2025-09-04",
-        "extract": null,
-        "name": "yabai-tahoe",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "tbiehn",
-            "repo": "yabai-tahoe",
-            "rev": "66690749e820d06a7a0c8ba152b3872640163dd3",
-            "sha256": "sha256-hpZJFz7bP9nKcYEj+zOMHolIQWOFG1mblc3iuEOTOKE=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "66690749e820d06a7a0c8ba152b3872640163dd3"
     },
     "zen-browser": {
         "cargoLocks": null,
@@ -110,7 +104,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-5cr2dAG563t5DrRrsXi9TLt8MNyKz5eO+QdxhfNiu/g=",
+            "sha256": "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
