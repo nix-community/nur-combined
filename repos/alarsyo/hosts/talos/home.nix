@@ -56,7 +56,6 @@ in {
         shikane # output autoconfig
         swaybg
         zotero
-
         grim
         wl-clipboard
         slurp
