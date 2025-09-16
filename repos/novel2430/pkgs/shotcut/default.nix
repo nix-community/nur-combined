@@ -22,6 +22,7 @@
 , x264
 , movit
 , opencv
+, libxkbcommon
 }:
 let
   pname = "shotcut-bin";
@@ -57,6 +58,7 @@ let
     lame
     movit
     opencv
+    libxkbcommon
     # Qt6
     qtbase
     qttools
@@ -103,8 +105,10 @@ stdenv.mkDerivation{
     # wrapper
     mkdir -p $out/bin
     makeWrapper $out/opt/${_pname}/shotcut $out/bin/shotcut \
+      --set XKB_CONFIG_ROOT "/run/current-system/sw/share/X11/xkb" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs}
     makeWrapper $out/opt/${_pname}/glaxnimate $out/bin/glaxnimate \
+      --set XKB_CONFIG_ROOT "/run/current-system/sw/share/X11/xkb" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs}
 
     runHook postInstall
