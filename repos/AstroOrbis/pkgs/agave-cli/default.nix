@@ -11,6 +11,7 @@
   openssl,
   nix-update-script,
   versionCheckHook,
+  agave-platform-tools-bin,
   solanaPkgs ? [
     "cargo-build-sbf"
     "cargo-test-sbf"
@@ -61,7 +62,9 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
 
   postInstall = ''
-  cp -ar ./platform-tools-sdk $out/bin/platform-tools-sdk
+    cp -ar ./platform-tools-sdk $out/bin/platform-tools-sdk
+    mkdir -p $out/bin/platform-tools-sdk/sbf/dependencies/platform-tools/
+    cp -ar ${agave-platform-tools-bin}/* $out/bin/platform-tools-sdk/sbf/dependencies/platform-tools/
   '';
 
   # Used by build.rs in the rocksdb-sys crate. If we don't set these, it would

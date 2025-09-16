@@ -1,6 +1,7 @@
-{ lib
-, pkgs
-, ...
+{
+  lib,
+  pkgs,
+  ...
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "mtgatool-desktop";
