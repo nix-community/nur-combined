@@ -14,13 +14,16 @@ stdenv.mkDerivation {
     xar
   ];
   unpackPhase = ''
-    	  xar -xf $src
-          zcat Payload | cpio -i
+      runHook preUnpack
+        	  xar -xf $src
+              zcat Payload | cpio -i
+    		  runHook postUnpack
   '';
 
   installPhase = ''
-    mkdir -p $out
-      cp -R ./Applications ./Library $out
+            mkdir -p $out
+              cp -R ./Applications ./Library $out
+    		  find $out -name '._embedded.provisionprofile' | xargs rm
   '';
   dontFixup = true;
 
