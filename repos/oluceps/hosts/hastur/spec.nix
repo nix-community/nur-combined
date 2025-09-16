@@ -72,14 +72,13 @@
       enable = true;
       openDefaultPorts = true;
       inherit user;
-      extraFlags = [ "--no-default-folder" ];
       guiAddress = "[::]:8384";
     };
     smartd.notifications.systembus-notify.enable = true;
-    wg-refresh = {
-      enable = true;
-      calendar = "hourly";
-    };
+    # wg-refresh = {
+    #   enable = true;
+    #   calendar = "hourly";
+    # };
 
     # ktistec.enable = true;
     # radicle.enable = true;

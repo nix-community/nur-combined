@@ -10,7 +10,8 @@ user = "riro"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g568jdv6aRbhDZ"
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
 wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
-identifiers = [{ name = "hastur.local", type = "mdns" }]
+# identifiers = [{ name = "hastur.local", type = "mdns" }]
+addrs = ["192.168.1.2"]
 
 [node.kaambl]
 # laptop
@@ -22,7 +23,8 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
 wg_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
-identifiers = [{ name = "kaambl.local", type = "mdns" }]
+addrs = ["192.168.1.186"]
+# identifiers = [{ name = "kaambl.local", type = "mdns" }]
 
 [node.eihort]
 # nas
@@ -35,7 +37,8 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3B
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
 wg_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 
-identifiers = [{ name = "eihort.local", type = "mdns" }]
+addrs = ["192.168.1.110"]
+# identifiers = [{ name = "eihort.local", type = "mdns" }]
 
 
 [node.yidhra]

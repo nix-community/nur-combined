@@ -74,15 +74,15 @@
     sudo-rs = {
       enable = true;
       extraRules = [
-        {
-          users = [ "${user}" ];
-          commands = [
-            {
-              command = "ALL";
-              options = [ "NOPASSWD" ];
-            }
-          ];
-        }
+        # {
+        #   users = [ "${user}" ];
+        #   commands = [
+        #     {
+        #       command = "ALL";
+        #       options = [ "NOPASSWD" ];
+        #     }
+        #   ];
+        # }
       ];
     };
   };

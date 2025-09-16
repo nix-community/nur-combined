@@ -1,4 +1,4 @@
-theme = "catppuccin-latte" # it works, be without heading
+theme = "rose-pine-dawn" # it works, be without heading
 use-fork = true
 confirm-before-quit = false
 padding-x = 8

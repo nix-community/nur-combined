@@ -77,15 +77,14 @@
 
     metrics.enable = true;
 
-    wg-refresh = {
-      enable = true;
-      calendar = "hourly";
-    };
+    # wg-refresh = {
+    #   enable = true;
+    #   calendar = "hourly";
+    # };
     syncthing = {
       enable = true;
       inherit user;
       openDefaultPorts = true;
-      extraFlags = [ "--no-default-folder" ];
     };
     # sing-box.enable = true;
     snapy.instances = [

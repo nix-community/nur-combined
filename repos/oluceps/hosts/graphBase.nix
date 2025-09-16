@@ -337,7 +337,6 @@
       type = "fcitx5";
       enable = true;
       fcitx5 = {
-        plasma6Support = true;
         waylandFrontend = true;
         addons = with pkgs; [
           fcitx5-mozc

@@ -17,6 +17,7 @@ let
   cfg = config.services.memos;
 in
 {
+  disabledModules = [ "services/misc/memos.nix" ];
   options.services.memos = {
     enable = mkEnableOption "memos service";
     package = mkPackageOption pkgs "memos" { };
@@ -43,7 +44,10 @@ in
 
     systemd.services.memos = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "postgresql.service"];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       description = "memos daemon";
       serviceConfig = {
         Type = "simple";
