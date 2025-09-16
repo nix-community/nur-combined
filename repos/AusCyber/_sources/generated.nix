@@ -23,7 +23,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-xMjoD/tDTIcgKKqKRrKTnR43UJAXJslpCsRFwHnwKXQ=";
+      sha256 = "sha256-TS3J/OlCiwq10p+35TCmDphoEsIgpgLZA2PxCdoJMcQ=";
     };
   };
   karabiner-dk = {
@@ -58,7 +58,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=";
+      sha256 = "sha256-2xnptwoYmcgq/aaZZJXbMeulen3rgMFjMDPqChjE30c=";
     };
   };
 }
