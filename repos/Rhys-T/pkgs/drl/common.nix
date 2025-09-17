@@ -1,4 +1,4 @@
-{lib, maintainers, stdenvNoCC}: {
+{lib, maintainers, stdenvNoCC, buildPackages}: {
     meta = {
         description = "Roguelike game based on the FPS Doom";
         longDescription = ''
@@ -14,7 +14,11 @@
         ];
         platforms = lib.platforms.linux ++ lib.platforms.darwin;
         maintainers = [maintainers.Rhys-T];
-        # makewad tool is run at build-time, and I haven't gotten around to separating it out yet.
-        broken = with stdenvNoCC; !(buildPlatform.canExecute hostPlatform);
+        broken =
+            # makewad tool is run at build-time, and I haven't gotten around to separating it out yet.
+            (with stdenvNoCC; !(buildPlatform.canExecute hostPlatform)) ||
+            # FPC needs LLVM/Clang downgraded to 17, and Nixpkgs is dropping that
+            buildPackages.fpc.meta.broken
+        ;
     };
 }

@@ -369,7 +369,7 @@ in {
     fpc = let
         inherit (pkgs) lib;
         fpcOrig = pkgs.fpc;
-        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18";
+        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18" && pkgs?llvmPackages_17;
         fpc = if needsOldClang then fpcOrig.override {
             inherit (pkgs.llvmPackages_17) stdenv;
         } else fpcOrig;
@@ -378,7 +378,7 @@ in {
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
     in dontUpdate (myLib.addMetaAttrsDeep ({
-        description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build)";
+        description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build; dead since LLVM 17 removed from Nixpkgs)";
         position = myPos "fpc";
     }) (if needsFix then fpc.overrideAttrs (old: {
         preConfigure = ''
