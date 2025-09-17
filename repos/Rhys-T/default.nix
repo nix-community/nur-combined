@@ -369,7 +369,7 @@ in {
     fpc = let
         inherit (pkgs) lib;
         fpcOrig = pkgs.fpc;
-        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18" && pkgs?llvmPackages_17;
+        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18" && pkgs?llvmPackages_17 && (builtins.tryEval pkgs.llvmPackages_17).success;
         fpc = if needsOldClang then fpcOrig.override {
             inherit (pkgs.llvmPackages_17) stdenv;
         } else fpcOrig;
