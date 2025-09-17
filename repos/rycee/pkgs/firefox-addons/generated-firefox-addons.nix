@@ -2445,10 +2445,10 @@
     };
     "csgofloat" = buildFirefoxXpiAddon {
       pname = "csgofloat";
-      version = "5.7.0";
+      version = "5.8.1";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4542398/csgofloat-5.7.0.xpi";
-      sha256 = "31cc5ef0ab8176414f7c8e0e672501d15a2ef119ff4e090f8031b4b026f29878";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4575548/csgofloat-5.8.1.xpi";
+      sha256 = "6bfcfb61d0a0b026fcf75cc55ccd13904dd421a32bc3f158e4414a9be7b65013";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -4645,10 +4645,10 @@
     };
     "historyblock" = buildFirefoxXpiAddon {
       pname = "historyblock";
-      version = "2.1resigned1";
+      version = "2.2";
       addonId = "historyblock@kain";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4270263/historyblock-2.1resigned1.xpi";
-      sha256 = "cd80c7ee6e7b1470c5dc6f8c492f694f355feb667fb69c13b2120a20ce091d67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4579697/historyblock-2.2.xpi";
+      sha256 = "66bb3778b63adc8e4695b69cb54c063dc8ae3ea7f24ed17c0b44955b1135a407";
       meta = with lib;
       {
         homepage = "https://github.com/kainsavage/HistoryBlock";
@@ -5885,10 +5885,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.20.8";
+      version = "1.20.13";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561385/immersive_translate-1.20.8.xpi";
-      sha256 = "f90e346418bc5e836fbc4240570fc76a9dab6383207cf26cfa339d5efd163b1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4574984/immersive_translate-1.20.13.xpi";
+      sha256 = "5097d0b8a7c87b49dd140f1c4e81b4dd2e2123b09833a4ca0a2b72bcb3a3c787";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -11983,10 +11983,10 @@
     };
     "sonarr-radarr-lidarr-search" = buildFirefoxXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "2.12.0.0";
+      version = "2.13.0.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4576658/sonarr_radarr_lidarr_search-2.12.0.0.xpi";
-      sha256 = "04ea5a6712cf1a4f6535ac7877d7f7a0f6c3c45fc561579d93f705e4f0381761";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4579460/sonarr_radarr_lidarr_search-2.13.0.0.xpi";
+      sha256 = "406e66845d07b4ac2cc82552fd72852148a4fbfd59a4a1fa1f406e10da878653";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
