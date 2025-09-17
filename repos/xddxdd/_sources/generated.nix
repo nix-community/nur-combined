@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.1-6";
+    version = "v1.17.1-7";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-6/bilibili-asar-v1.17.1-6.tar.gz";
-      hash = "sha256-OQkzdZvDbWf6yZCCZ2lRwZrRAA9Rw+qq6smBnypy1ME=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.1-7/bilibili-asar-v1.17.1-7.tar.gz";
+      hash = "sha256-Gk32m5TfO7Pxy55KOKSiiOqZpcdKnkiaYPHVM9Mf964=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.1-6";
+    version = "v1.17.1-7";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.1-6";
-      hash = "sha256-Vw/xsE/35R91POnN5oO4wT2QwtP5m8nUeKUaoigs9Ns=";
+      tag = "v1.17.1-7";
+      hash = "sha256-gjBUKGz8A6tlALOkpDZt/fzA2Ap6JWm+teIyWQycpNU=";
     };
   };
   bin-cpuflags-x86 = {
@@ -1098,12 +1098,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6484";
+    version = "b6497";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6484";
-      hash = "sha256-tTcWzd6E/ckaeTSJYQoK4zcdKuHy7HfYK0akfRUG6GY=";
+      tag = "b6497";
+      hash = "sha256-7mYM0i957E3Y7sQxA2MES+yXgys4C1PK45EVDVHbWKA=";
     };
   };
   loralib = {
@@ -1137,12 +1137,12 @@
   };
   mautrix-gmessages = {
     pname = "mautrix-gmessages";
-    version = "v0.6.5";
+    version = "v0.7.0";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      tag = "v0.6.5";
-      hash = "sha256-AIw7Grh4BEDT33N4004XjOtIepguO2SbdUmTHGJ1A2M=";
+      tag = "v0.7.0";
+      hash = "sha256-mcWvNRHRdgcw6ualaaJmUjHOrbOJfufyaHfdp20eoaY=";
     };
   };
   metee = {
@@ -1856,14 +1856,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "04dd8b83cdcb72c409fe76dd4fa7f5162f7f0e07";
+    version = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "04dd8b83cdcb72c409fe76dd4fa7f5162f7f0e07";
-      hash = "sha256-Sr4PO0hZDpN25zK7aAht3vnQt2mg+cWjTdnGhHJDFd8=";
+      rev = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
+      hash = "sha256-Bfp02YJHqotT4OtLxYFcfivFGRvEKuEk9w5eiTnLSMo=";
     };
-    date = "2025-09-16";
+    date = "2025-09-17";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2212,15 +2212,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "18289e507d9ba8d44be4a4e56476c289c55f4c8e";
+    version = "2f72f009f3a4d4af6288e394d758102ec3ef6f8d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "18289e507d9ba8d44be4a4e56476c289c55f4c8e";
+      rev = "2f72f009f3a4d4af6288e394d758102ec3ef6f8d";
       fetchSubmodules = true;
-      hash = "sha256-K+sqvS53UobOS2DxKn8z09ZDGbSV2o2rDhP2JFmrjUM=";
+      hash = "sha256-PvSDGs1bSrx2tpUBBm7hdMvvsqlPvoXkoqVejO7scr4=";
     };
-    date = "2025-09-15";
+    date = "2025-09-17";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
