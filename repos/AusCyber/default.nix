@@ -49,6 +49,9 @@ in
   karabiner-dk = pkgs.callPackage ./pkgs/karabiner-dk {
     source = sources.karabiner-dk;
   };
+  kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
+    source = sources.kanata-vk-agent;
+  };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

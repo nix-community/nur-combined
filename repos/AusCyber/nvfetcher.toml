@@ -26,3 +26,7 @@ fetch.github = "koekeishiya/yabai"
 src.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
 src.prefix = "v"
 fetch.url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/download/v$ver/Karabiner-DriverKit-VirtualHIDDevice-$ver.pkg"
+
+[kanata-vk-agent]
+src.git = "https://github.com/devsunb/kanata-vk-agent"
+fetch.github = 'devsunb/kanata-vk-agent'

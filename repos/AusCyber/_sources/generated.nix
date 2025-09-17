@@ -26,6 +26,18 @@
       sha256 = "sha256-NkEwfNlzO7qNzIHR7dHUFnPbrx4hhDOA3+duDytaza0=";
     };
   };
+  kanata-vk-agent = {
+    pname = "kanata-vk-agent";
+    version = "63622d603651edf741c60c465209751e32c91261";
+    src = fetchFromGitHub {
+      owner = "devsunb";
+      repo = "kanata-vk-agent";
+      rev = "63622d603651edf741c60c465209751e32c91261";
+      fetchSubmodules = false;
+      sha256 = "sha256-Yxf24imM9d9z17h6mZaTz2XhlNzgFbRqqKiBAmo/Skg=";
+    };
+    date = "2025-02-15";
+  };
   karabiner-dk = {
     pname = "karabiner-dk";
     version = "6.2.0";
@@ -58,7 +70,7 @@
     version = "1.15.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-SVE+ojKNJYHhsHiHMUk9HHWw1ieH93TB4TtApJL60ys=";
+      sha256 = "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=";
     };
   };
 }
