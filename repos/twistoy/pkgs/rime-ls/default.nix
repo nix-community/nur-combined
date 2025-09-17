@@ -2,45 +2,32 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  stdenv,
-  darwin,
   librime,
 }:
 rustPlatform.buildRustPackage {
   pname = "rime-ls";
-  version = "v0.4.0";
+  version = "v0.4.3";
 
   src = fetchFromGitHub {
     owner = "wlh320";
     repo = "rime-ls";
-    rev = "v0.4.0";
-    sha256 = "sha256-ZqoRFIF3ehfEeTN+ZU+/PAzA4JyS1403+sqZdzwJHA8=";
+    rev = "v0.4.3";
+    sha256 = "sha256-jDn41hSDcQQO1d4G0XV6B/JZkryHtuoHUOYpmdE1Kxo=";
   };
 
   nativeBuildInputs = [
-    librime
     rustPlatform.bindgenHook
   ];
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "librime-sys-0.1.0" = "sha256-zJShR0uaKH42RYjTfrBFLM19Jaz2r/4rNn9QIumwTfA=";
-    };
-  };
+  buildInputs = [
+    librime
+  ];
 
-  cargoHash = lib.fakeHash;
-
-  C_INCLUDE_PATH = "${librime}/include";
-  LIBRARY_PATH = "${librime}/lib";
-
-  buildInputs =
-    [
-      librime
-    ]
-    ++ lib.optional stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
+  cargoHash = "sha256-lmvIH6ssEqbkcDETzHL+Spd04B576o8dijigUR88l9c=";
 
   doCheck = false;
+
+  useFetchCargoVendor = true;
 
   meta = with lib; {
     description = "A language server for Rime input method engine";
