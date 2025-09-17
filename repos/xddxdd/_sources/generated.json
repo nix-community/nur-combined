@@ -2642,6 +2642,27 @@
         },
         "version": "v0.6.10"
     },
+    "open-webui-kb-manager": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "open-webui-kb-manager",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dubh3124",
+            "repo": "OpenWebUI-KB-Manager",
+            "rev": "v0.2.0",
+            "sha256": "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.0"
+    },
     "openai-edge-tts": {
         "cargoLocks": null,
         "date": "2025-07-01",

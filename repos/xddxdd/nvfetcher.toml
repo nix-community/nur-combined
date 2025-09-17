@@ -595,6 +595,10 @@ src.github = "songquanpeng/one-api"
 fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api-arm64"
 src.github = "songquanpeng/one-api"
 
+[open-webui-kb-manager]
+fetch.github = "dubh3124/OpenWebUI-KB-Manager"
+src.github = "dubh3124/OpenWebUI-KB-Manager"
+
 [openai-edge-tts]
 fetch.github = "travisvn/openai-edge-tts"
 src.git = "https://github.com/travisvn/openai-edge-tts.git"

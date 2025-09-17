@@ -2374,6 +2374,11 @@
     "pname": "one-api",
     "version": "0.6.10"
   },
+  "legacyPackages.x86_64-linux.open-webui-kb-manager": {
+    "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
+    "pname": "python3.13-open-webui-kb-manager",
+    "version": "0.2.0"
+  },
   "legacyPackages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
     "pname": "openai-edge-tts",
@@ -4139,6 +4144,11 @@
     "pname": "python3.13-mtkclient",
     "version": "2.0.1.freeze"
   },
+  "legacyPackages.x86_64-linux.python3Packages.open-webui-kb-manager": {
+    "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
+    "pname": "python3.13-open-webui-kb-manager",
+    "version": "0.2.0"
+  },
   "legacyPackages.x86_64-linux.python3Packages.opencc-python-reimplemented": {
     "description": "OpenCC made with Python",
     "pname": "python3.13-opencc-python-reimplemented",
@@ -5858,6 +5868,11 @@
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
     "version": "0.6.10"
+  },
+  "packages.x86_64-linux.open-webui-kb-manager": {
+    "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
+    "pname": "python3.13-open-webui-kb-manager",
+    "version": "0.2.0"
   },
   "packages.x86_64-linux.openai-edge-tts": {
     "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",

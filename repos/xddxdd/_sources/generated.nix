@@ -1358,6 +1358,16 @@
       hash = "sha256-5E9njP0VdY2dYfN7OuXeZiF/TLilUYI8PIZ8c7CodjM=";
     };
   };
+  open-webui-kb-manager = {
+    pname = "open-webui-kb-manager";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "dubh3124";
+      repo = "OpenWebUI-KB-Manager";
+      tag = "v0.2.0";
+      hash = "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=";
+    };
+  };
   openai-edge-tts = {
     pname = "openai-edge-tts";
     version = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
