@@ -15,6 +15,7 @@ buildPythonPackage {
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
     librime
+    # getch
     colorama
     ptpython
     platformdirs
