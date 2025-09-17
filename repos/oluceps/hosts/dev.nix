@@ -149,7 +149,7 @@
             # nodejs_latest
             qemu-utils
             # rustup
-            linuxPackages_latest.perf
+            perf
             strace
             gitoxide
             gitui

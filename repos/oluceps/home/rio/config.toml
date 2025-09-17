@@ -1,4 +1,4 @@
-theme = "rose-pine-dawn" # it works, be without heading
+theme = "rose-pine-dawn.toml" # it works, be without heading
 use-fork = true
 confirm-before-quit = false
 padding-x = 8
@@ -51,6 +51,6 @@ multiplier = 5.0
 divider = 1.0
 
 [window]
-opacity = 0.9
+# opacity = 0.9
+# blur = true
 decorations = "Disabled"
-blur = true
