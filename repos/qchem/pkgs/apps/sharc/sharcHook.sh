@@ -1,1 +1,0 @@
-export SHARC=@out@/bin
