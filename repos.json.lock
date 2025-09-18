@@ -1592,8 +1592,8 @@
             "url": "https://github.com/novafacing/nur-packages"
         },
         "novel2430": {
-            "rev": "b43ec11e7b8a9fb8d275686b661d8151da69160c",
-            "sha256": "1abyn1q48mknhqh0khxiy4sz68vn2b81mbljmfnajjfyzwa6x2dh",
+            "rev": "5ca9c9a6e288ce2a654aa1101e2bfd73896e63c6",
+            "sha256": "1hfzphzxmyvjnvka2c89iizjmdrjql3adv8x67gn0xq7vchrv0q5",
             "url": "https://github.com/novel2430/MyNUR"
         },
         "npkgs": {
