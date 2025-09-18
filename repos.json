@@ -974,9 +974,6 @@
         "nodezeroat": {
             "url": "https://github.com/nodezeroat/nur-packages"
         },
-        "nolith": {
-            "url": "https://github.com/nolith/nur-packages"
-        },
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
         },
@@ -1089,10 +1086,6 @@
         },
         "ptival": {
             "url": "https://github.com/Ptival/nur-packages"
-        },
-        "qchem": {
-            "file": "nur.nix",
-            "url": "https://github.com/markuskowa/NixOS-QChem"
         },
         "qenya": {
             "url": "https://github.com/qenya/nur-packages"
