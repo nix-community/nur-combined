@@ -9,4 +9,7 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
+  meta = {
+    platforms = ["aarch64-darwin" "x86_64-darwin"];
+ };
 }
