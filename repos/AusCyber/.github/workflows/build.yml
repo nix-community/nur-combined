@@ -40,7 +40,7 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on:  ${{ matrix.system }}
     steps:
     - name: Checkout repository
@@ -68,6 +68,7 @@ jobs:
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
+          --option download-buffer-size 624288000 \
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
