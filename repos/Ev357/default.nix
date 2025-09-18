@@ -15,6 +15,7 @@
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
   folder-notes = pkgs.callPackage ./pkgs/folder-notes {};
   hayase = pkgs.callPackage ./pkgs/hayase {};
+  helium = pkgs.callPackage ./pkgs/helium {};
   hyprshot = pkgs.callPackage ./pkgs/hyprshot {};
   obsidian-excalidraw-plugin = pkgs.callPackage ./pkgs/obsidian-excalidraw-plugin {};
   obsidian-git = pkgs.callPackage ./pkgs/obsidian-git {};
