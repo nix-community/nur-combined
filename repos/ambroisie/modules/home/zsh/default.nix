@@ -19,7 +19,7 @@ in
           "direnv reload"
           "fg"
           "git (?!push|pull|fetch)"
-          "home-manager (?!switch|build|news)"
+          "home-manager (?!switch|build)"
           "htop"
           "less"
           "man"
