@@ -9,7 +9,7 @@ let
   owner = "QwenLM";
   repo = "qwen-code";
   asset = "gemini.js";
-  version = "0.0.12-nightly.0";
+  version = "0.0.12-nightly.1";
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "qwen-code-bin";
@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://github.com/${owner}/${repo}/releases/download/v${version}/${asset}";
-    hash = "sha256-AYlo/6aGBg3zcrRWUU3vxiQIErK4hTxfeWAcFY73YR4=";
+    hash = "sha256-cMJYyvEFMlDd8ItfKbqCiL5QGsxH2HxuTLjQC+E4h/s=";
   };
 
   phases = [
