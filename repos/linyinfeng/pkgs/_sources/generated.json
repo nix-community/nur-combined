@@ -185,12 +185,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.45-linux-250908T050356Z",
-            "sha256": "sha256-DNk/LhITC/zsFOsGelgkBBzGmmVcD1X+KpYkEykXh4E=",
+            "rev": "lts-v6.12.47-linux-250915T033524Z",
+            "sha256": "sha256-jssJBjid3OKOQYIZeKNVzz6ReTAuSQLV3QXbBkqKWXg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.45-linux-250908T050356Z"
+        "version": "lts-v6.12.47-linux-250915T033524Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
