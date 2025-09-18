@@ -34,5 +34,6 @@
     electron_11 = pkgs.callPackage ./pkgs/baidunetdisk/electron_11.nix {};
   };
   shotcut-bin = pkgs.callPackage ./pkgs/shotcut {};
+  hmcl = pkgs.callPackage ./pkgs/hmcl {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
