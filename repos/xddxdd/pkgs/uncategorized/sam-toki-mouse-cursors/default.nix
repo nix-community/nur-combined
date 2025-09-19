@@ -16,11 +16,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ py ];
 
-  postPatch = ''
-    substituteInPlace "PROJECT/STMC/~ 右键安装 Right click to install STMCS 302 Genshin (Elements).inf" \
-      --replace-fail "STMC Genshin 13 Move.cur" "STMC Common 13 Hand.cur"
-  '';
-
   installPhase = ''
     runHook preInstall
 
