@@ -233,6 +233,9 @@
     "slug": "chameleon-ext"
   },
   {
+    "slug": "change-timezone-time-shift"
+  },
+  {
     "slug": "chatgptbox"
   },
   {
@@ -1604,6 +1607,9 @@
   {
     "slug": "shiori_ext",
     "pname": "shiori"
+  },
+  {
+    "slug": "shortkeys"
   },
   {
     "slug": "side-view"

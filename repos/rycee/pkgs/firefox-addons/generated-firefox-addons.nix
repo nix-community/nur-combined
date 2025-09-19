@@ -1630,6 +1630,27 @@
         platforms = platforms.all;
       };
     };
+    "change-timezone-time-shift" = buildFirefoxXpiAddon {
+      pname = "change-timezone-time-shift";
+      version = "0.1.8";
+      addonId = "{acf99872-d701-4863-adc2-cdda1163aa34}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490488/change_timezone_time_shift-0.1.8.xpi";
+      sha256 = "3095f0f75aac7dcac45ec148c7c883691036da8c26854e5d2d1db7c3d9de912c";
+      meta = with lib;
+      {
+        homepage = "https://mybrowseraddon.com/change-timezone.html";
+        description = "Easily change your timezone to a desired value and protect your privacy.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "scripting"
+          "contextMenus"
+          "webNavigation"
+          "https://webbrowsertools.com/timezone*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
       version = "2.5.9";
@@ -2566,10 +2587,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "143.0.20250918.214338";
+      version = "144.0.20250919.90601";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581120/dansk_da_language_pack-143.0.20250918.214338.xpi";
-      sha256 = "7b302d2059b3f0e102113f2a7f02223b7c38eb5dc14c5a8d116a1371bf3e5eed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581537/dansk_da_language_pack-144.0.20250919.90601.xpi";
+      sha256 = "f2715a973659f1c9131649a4262b16248ee7eaff73be1d98b883813160ed5877";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2764,10 +2785,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "143.0.20250918.214338";
+      version = "144.0.20250919.90601";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581141/deutsch_de_language_pack-143.0.20250918.214338.xpi";
-      sha256 = "7fa9e5adbe8177b7ff80da322fef401b485a84eba4ec48a2ede8287106abe1a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581531/deutsch_de_language_pack-144.0.20250919.90601.xpi";
+      sha256 = "40e166deae4b9db54dfcb103e636a054fafca59fe3b899471ca49884f85a420b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3969,10 +3990,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "143.0.20250918.214338";
+      version = "144.0.20250919.90601";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581207/francais_language_pack-143.0.20250918.214338.xpi";
-      sha256 = "fce9e0fddc44c8aa453d3861322a40f7effe1b202ded78c4d221de2a7fb65625";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581576/francais_language_pack-144.0.20250919.90601.xpi";
+      sha256 = "794f6d899590291b8ba9b4732751edbd0c8e575f54600b112b6e05cc859ab17c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4006,10 +4027,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "143.0.20250918.214338";
+      version = "144.0.20250919.90601";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581151/gaidhlig_language_pack-143.0.20250918.214338.xpi";
-      sha256 = "e336aa4b23b848c0e623a81d9a4fa4e60eabc3a87dee37f3e47de8c5256ea956";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581513/gaidhlig_language_pack-144.0.20250919.90601.xpi";
+      sha256 = "171e56e461cdfad92217a45b33c7b3200e95f8dfaa6190b79edde5782f8a6a97";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9275,10 +9296,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2025.8.1";
+      version = "2025.9.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4548035/pakkujs-2025.8.1.xpi";
-      sha256 = "77d9df2bbf24903391688fde3668b4c96366e3ec996b3be86bf2939c6c61516c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581737/pakkujs-2025.9.1.xpi";
+      sha256 = "89b39b3769af7451fdcffb5b449702f321b8e4f42dc469d7609de84e7e9336cb";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -9327,10 +9348,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "5.4.1";
+      version = "5.5.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4559020/passbolt-5.4.1.xpi";
-      sha256 = "b6145b90fdcc4ca884614240185412522186b12589e6d0c9cee8b09a582c7877";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578858/passbolt-5.5.1.xpi";
+      sha256 = "159762abfb6b61f24e6aa01f3538ee3e3a11ba49ed3100bd221ca1b32400f7ba";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -11347,10 +11368,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "143.0.20250918.214338";
+      version = "144.0.20250919.90601";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581126/scots_language_pack-143.0.20250918.214338.xpi";
-      sha256 = "20d5e978aa67497640bfe5eaad4eedc14d78be8904c47a5f7f896f881abf1f61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581536/scots_language_pack-144.0.20250919.90601.xpi";
+      sha256 = "aec23927f23ca0819c286d188ca61314b8bc1d8f4034f8f4c57c3869c78d2f03";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11616,6 +11637,31 @@
           "bookmarks"
           "scripting"
           "activeTab"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "shortkeys" = buildFirefoxXpiAddon {
+      pname = "shortkeys";
+      version = "4.0.2";
+      addonId = "Shortkeys@Shortkeys.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3673761/shortkeys-4.0.2.xpi";
+      sha256 = "c6fe12efdd7a871787ac4526eea79ecc1acda8a99724aa2a2a55c88a9acf467c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mikecrittenden/shortkeys";
+        description = "Easily customizable custom keyboard shortcuts for Firefox. To configure this addon go to Addons (ctrl+shift+a) -&gt;Shortkeys -&gt;Options. Report issues here (please specify that the issue is found in Firefox): https://github.com/mikecrittenden/shortkeys";
+        license = licenses.mit;
+        mozPermissions = [
+          "downloads"
+          "tabs"
+          "clipboardWrite"
+          "browsingData"
+          "storage"
+          "bookmarks"
+          "sessions"
+          "management"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -15093,10 +15139,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.13.0";
+      version = "2.14.1";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4573407/youtube_no_translation-2.13.0.xpi";
-      sha256 = "aa7fdda8f373bf25ec393381dc56531dc24067ab15bdddb141e9d1f05561eb9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4581352/youtube_no_translation-2.14.1.xpi";
+      sha256 = "90aea03f06683e89d1b4aec46725af0536cc133a6d4ed9807d1c4864b693f334";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
