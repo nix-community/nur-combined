@@ -98,7 +98,7 @@ This section is auto-generated. Do not edit manually.
 | `clang-minimal` | [19.1.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | C language family frontend for LLVM (wrapper script) |
 | `fcitx5-pinyin-moegirl` | [20250309](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fc/fcitx5-pinyin-moegirl/package.nix) | Fcitx 5 pinyin dictionary generator for MediaWiki instances. Releases for dict of zh.moegirl.org.cn. (auto update) |
 | `fcitx5-pinyin-zhwiki` | [0.2.5](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fc/fcitx5-pinyin-zhwiki/package.nix) | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org (auto update) |
-| `free-download-manager` | [6.29.0.6379](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fr/free-download-manager/package.nix) | FDM is a powerful modern download accelerator and organizer. |
+| `free-download-manager` | [6.30.0.6459](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fr/free-download-manager/package.nix) | FDM is a powerful modern download accelerator and organizer. |
 | `hn-linux-client` | [V2-64](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/hn/hn-linux-client/package.nix) | HN Linux Client, for net interface of China Telecom in HUNAN University |
 | `lampghost` | [0.3.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
 | `lampghost-dev` | [0.3.1-unstable-2025-09-12](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/la/lampghost-dev/package.nix) | Offline & Cross-platform beatoraja lamp viewer and more |
