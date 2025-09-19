@@ -21,14 +21,14 @@ jobs:
           private_key: ${{ secrets.APP_PEM }}
     
       - name: Checkout
-        uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
+        uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
         with:
-          extra-conf: |
-            experimental-features = nix-command flakes auto-allocate-uids cgroups recursive-nix ca-derivations pipe-operators
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: "experimental-features = nix-command flakes auto-allocate-uids cgroups recursive-nix ca-derivations pipe-operators"
       - name: Build Graph
         run: |
-          nix build .#topology.x86_64-linux.config.output
+          nix build path://${PWD}#topology.x86_64-linux.config.output
           echo "GRAPH=$(realpath ./result)/main.svg" >> $GITHUB_ENV
       - name: Checkout Graph Branch
         run: |

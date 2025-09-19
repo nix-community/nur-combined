@@ -11,6 +11,8 @@ reIf {
     enable = true;
     args = [
       "server"
+      "-ip"
+      "fdcc::3"
       "-s3"
       "-s3.config=${config.vaultix.secrets.weed-s3.path}"
       "-s3.allowEmptyFolder=false"

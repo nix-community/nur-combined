@@ -78,7 +78,7 @@ reIf (
             resources = [ ];
           }
           {
-            bind_addresses = [ "::" ];
+            bind_addresses = [ "fdcc::3" ];
             port = 8196;
             tls = false;
             type = "http";

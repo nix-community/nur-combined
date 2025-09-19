@@ -149,7 +149,7 @@
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
     nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
 
-    nix-topology.url = "github:oluceps/nix-topology/dev";
+    nix-topology.url = "github:oddlama/nix-topology";
     niri = {
       url = "github:YaLTeR/niri";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -257,5 +257,9 @@
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     devenv.url = "github:cachix/devenv";
     pgvectors-nixpkgs.url = "github:NixOS/nixpkgs?rev=b468a08276b1e2709168a4d8f04c63360c2140a9";
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

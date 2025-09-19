@@ -71,7 +71,6 @@
         "wg0"
       ];
     };
-
     links."10-eth0" = {
       matchConfig.MACAddress = "36:3b:65:1b:7a:0f";
       linkConfig.Name = "eth0";

@@ -34,7 +34,7 @@
                               }
                               {
                                 handler = "reverse_proxy";
-                                upstreams = [ { dial = "localhost:9090"; } ];
+                                upstreams = [ { dial = "[fdcc::3]:9090"; } ];
                               }
                             ];
                             match = [
@@ -55,7 +55,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:8333"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:8333"; } ];
                       }
                     ];
                     match = [ { host = [ "s3.nyaw.xyz" ]; } ];
@@ -74,7 +74,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:9333"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:9333"; } ];
                       }
                     ];
                     match = [ { host = [ "seaweedfs.nyaw.xyz" ]; } ];
@@ -84,7 +84,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:5230"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:5230"; } ];
                       }
                     ];
                     match = [ { host = [ "memos.nyaw.xyz" ]; } ];
@@ -94,7 +94,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:2283"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:2283"; } ];
                       }
                     ];
                     match = [ { host = [ "photo.nyaw.xyz" ]; } ];
@@ -104,7 +104,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:3030"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:3030"; } ];
                       }
                     ];
                     match = [ { host = [ "rqbit.nyaw.xyz" ]; } ];
@@ -114,7 +114,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:7700"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:7700"; } ];
                       }
                     ];
                     match = [ { host = [ "ms.nyaw.xyz" ]; } ];
@@ -124,7 +124,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:8090"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:8090"; } ];
                       }
                     ];
                     match = [ { host = [ "scrutiny.nyaw.xyz" ]; } ];
@@ -134,7 +134,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:1411"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:1411"; } ];
                         response_buffers = 2097152;
                       }
                     ];
@@ -145,7 +145,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:5244"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:5244"; } ];
                       }
                     ];
                     match = [ { host = [ "alist.nyaw.xyz" ]; } ];
@@ -174,7 +174,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "localhost:3002"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:3002"; } ];
                       }
                     ];
                     match = [ { host = [ "gf.nyaw.xyz" ]; } ];
@@ -182,7 +182,7 @@
                   }
                   (import ../caddy/matrix.nix {
                     inherit pkgs;
-                    matrix-upstream = "localhost:8196";
+                    matrix-upstream = "[fdcc::3]:8196";
                   })
                 ];
               }

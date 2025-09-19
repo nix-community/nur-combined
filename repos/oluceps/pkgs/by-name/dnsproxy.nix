@@ -1,10 +1,10 @@
 {
   lib,
-  buildGo123Module,
+  buildGoModule,
   fetchFromGitHub,
 }:
 
-buildGo123Module rec {
+buildGoModule rec {
   pname = "dnsproxy";
   version = "0.73.2";
 

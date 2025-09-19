@@ -19,7 +19,7 @@ reIf {
     calibre-web = {
       enable = true;
       group = "calibre";
-      listen.ip = "::";
+      listen.ip = "fdcc::3";
       options = {
         calibreLibrary = "/var/lib/calibre";
         enableBookUploading = true;

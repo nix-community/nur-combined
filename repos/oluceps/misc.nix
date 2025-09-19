@@ -296,6 +296,7 @@
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
       ];
       extra-substituters = [
         "https://cache.lix.systems"
@@ -303,6 +304,7 @@
       ++ (map (n: "https://${n}.cachix.org") [
         "nix-community"
         "nixpkgs-wayland"
+        "microvm"
       ]);
       substituters = [
         # "https://cache.garnix.io"

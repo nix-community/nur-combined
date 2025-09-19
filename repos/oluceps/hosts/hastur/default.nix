@@ -78,6 +78,7 @@ withSystem "x86_64-linux" (
         ../../users.nix
 
         ../dev.nix
+        ../../vms/sep.nix
       ]
       ++ (with inputs; [
         # aagl.nixosModules.default

@@ -10,7 +10,7 @@ reIf {
 
       settings = {
         server = {
-          http_addr = "::";
+          http_addr = "fdcc::3";
           http_port = 3002;
           domain = "gf.nyaw.xyz";
           root_url = "https://gf.nyaw.xyz/";

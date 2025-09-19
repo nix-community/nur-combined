@@ -3,7 +3,7 @@ reIf {
   services = {
     immich = {
       enable = true;
-      host = "::";
+      host = "fdcc::3";
       secretsFile = config.vaultix.secrets.immich.path;
       database.enable = false;
       machine-learning = {

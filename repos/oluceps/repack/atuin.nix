@@ -5,7 +5,7 @@
 reIf {
   services.atuin = {
     enable = true;
-    host = "::";
+    host = "fdcc::3";
     port = 8888;
     openFirewall = true;
     openRegistration = false;
