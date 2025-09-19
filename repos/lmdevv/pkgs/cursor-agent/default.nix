@@ -6,7 +6,7 @@
 
 let
   # Upstream version tag. Override to update.
-  version = "2025.09.17-25b418f";
+  version = "2025.09.18-7ae6800";
 
   # Map platform to upstream's OS/ARCH path segments.
   os =
@@ -29,10 +29,10 @@ let
       throw "cursor-agent: unsupported arch ${stdenv.hostPlatform.system}";
 
   sha256BySystem = {
-    "x86_64-linux" = "sha256-pu9hJ0ghXH2r5uVyGMTFeozfqNbsSQlfJqi8PFpCv0k=";
-    "aarch64-linux" = "sha256-/3GOYLwgInu13Aj4Wh5GRPBJ2E8EE9LOLil+G31Wrwg=";
-    "x86_64-darwin" = "sha256-dAFrWVOBsPRzLp0MqUlPRsJRQ1w5SkYNw/oP9dEiJ3w=";
-    "aarch64-darwin" = "sha256-B5VuE4FJW20zHyaouNMCVpb02MQ1DIBT4lIT8AbdLKY=";
+    "x86_64-linux" = "sha256-t+p5+vfLdwww6CBo2FbH/4u19TG7mxU5Ob2+lcceek0=";
+    "aarch64-linux" = "sha256-tHn9Aoco2eoFeJweZGElNn+PVfpWLpK0eR3mtWcmRBM=";
+    "x86_64-darwin" = "sha256-n8NG6bhLN9ftJP5E3LZWeqvSMocRIAxShevLs03Mawg=";
+    "aarch64-darwin" = "sha256-53gNQu6g83Grvg9da9Z/eqQVt9BL7QOBErglUcGZn58=";
   };
 
   srcUrl = "https://downloads.cursor.com/lab/${version}/${os}/${arch}/agent-cli-package.tar.gz";
