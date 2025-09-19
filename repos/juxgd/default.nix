@@ -6,8 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ inputs ? builtins.getFlake ./., pkgs ? import <nixpkgs> { } }:
 
-{
-  noriskclient-launcher = pkgs.callPackage ./pkgs/noriskclient-launcher { };
+rec {
+  noriskclient-launcher-unwrapped = pkgs.callPackage ./pkgs/noriskclient-launcher-unwrapped { inputs = inputs; };
+  noriskclient-launcher = pkgs.callPackage ./pkgs/noriskclient-launcher { noriskclient-launcher-unwrapped = noriskclient-launcher-unwrapped; };
 }

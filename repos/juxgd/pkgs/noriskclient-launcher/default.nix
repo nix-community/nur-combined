@@ -1,99 +1,75 @@
 {
+  addDriverRunpath,
+  alsa-lib,
+  callPackage,
+  glfw3-minecraft,
   lib,
+  libGL,
+  libX11,
+  libXcursor,
+  libXext,
+  libXrandr,
+  libXrender,
+  libXxf86vm,
+  libjack2,
+  libpulseaudio,
+  mesa-demos,
+  noriskclient-launcher-unwrapped,
+  openal,
+  pciutils,
+  pipewire,
   stdenv,
-  rustPlatform,
-  fetchYarnDeps,
-  cargo-tauri,
-  jq,
-  moreutils,
-  glib-networking,
-  nodejs,
-  yarnConfigHook,
-  openssl,
-  pkg-config,
-  webkitgtk_4_1,
-  wrapGAppsHook,
-  fetchFromGitHub,
-  temurin-bin,
-  temurin-bin-8,
-  temurin-bin-17,
-  libayatana-appindicator,
-  pciutils
+  symlinkJoin,
+  udev,
+  vulkan-loader,
+  makeWrapper,
+  xrandr,
+
+  additionalLibs ? [ ],
+  additionalPrograms ? [ ],
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "noriskclient-launcher";
-  version = "0.6.8";
-  src = fetchFromGitHub {
-    owner = "NoRiskClient";
-    repo = "noriskclient-launcher";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-T33y9I6FXmrleLDBxTVMIQK35fZAgDgrKcb02ABAt+E=";
-    fetchSubmodules = true;
-  };
+let
+  noriskclient-launcher' = noriskclient-launcher-unwrapped;
+in
+symlinkJoin {
+  name = "noriskclient-launcher-${noriskclient-launcher'.version}";
 
-  cargoHash = "sha256-0vVN2vJW+hrjQeTEw3L8JKa4/C83sCtxNJEaTkwwbT8=";
+  paths = [ noriskclient-launcher' ];
 
-  yarnOfflineCache = fetchYarnDeps {
-    yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-MEdT/1jPtt9PIMGzBaiji67UUqwDi+vF//w9cAvtOBk=";
-  };
+  postPatch =
+    let # i did not shamelessly copy this from the prismlauncher package declaration idk what you're talking about
+      runtimeLibs = [
+        glfw3-minecraft
+        openal
 
-  nativeBuildInputs = [
-    cargo-tauri.hook
-    jq
-    moreutils
-    nodejs
-    yarnConfigHook
-    pkg-config
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook ];
+        alsa-lib
+        libjack2
+        libpulseaudio
+        pipewire
 
-  buildInputs = [
-    temurin-bin
-    temurin-bin-8
-    temurin-bin-17
-    pciutils
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    glib-networking
-    openssl
-    webkitgtk_4_1
-    libayatana-appindicator
-  ];
+        libGL
+        libX11
+        libXcursor
+        libXext
+        libXrandr
+        libXrender
+        libXxf86vm
 
-  cargoRoot = "src-tauri";
-  buildAndTestSubdir = finalAttrs.cargoRoot;
+        udev
 
-  # thank you to whoever wrote https://github.com/NixOS/nixpkgs/blob/04e40bca2a68d7ca85f1c47f00598abb062a8b12/pkgs/by-name/ca/cargo-tauri/test-app.nix#L23-L26
-  # thank you donovanglover your code in that pull request you made to nixpkgs was very useful
-  postPatch = ''
-    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
-      --replace "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
-    jq \
-      '.plugins.updater.endpoints = [ ]
-      | .bundle.createUpdaterArtifacts = false' \
-      src-tauri/tauri.conf.json \
-      | sponge src-tauri/tauri.conf.json
-  '';
+        vulkan-loader
+      ] ++ additionalLibs;
 
-  meta = {
-    description = "Launcher for the NoRiskClient PvP client for Minecraft";
-    branch = "v3";
-    homepage = "https://norisk.gg/";
-    downloadPage = "https://github.com/";
-    maintainers = [
-      {
-        name = "JuxGD";
-	email = "jak@e.email";
-	github = "JuxGD";
-	githubId = 117054307;
-      }
-    ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
-    license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
-    mainProgram = "noriskclient-launcher-v3";
-    broken = true; # set as broken since it can't actually launch Minecraft
-  };
-})
+      runtimePrograms = [
+        mesa-demos
+        pciutils
+        xrandr
+      ] ++ additionalPrograms;
+    in
+    (noriskclient-launcher'.postPatch or "") + ''
+      wrapProgram $out/bin/noriskclient-launcher-v3 --set PATH ${lib.makeBinPath runtimePrograms} --set LD_LIBRARY_PATH ${lib.makeLibraryPath runtimeLibs}
+    '';
+
+  inherit (noriskclient-launcher') meta;
+}
