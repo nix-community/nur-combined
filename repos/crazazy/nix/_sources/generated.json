@@ -22,11 +22,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-J5sWyGwkhW22oGjhzhF53rHrdrBYJWnTGn9T/l+8ViY=",
+            "sha256": "sha256-Cq4YuYT2V6+58AoOfm7n4UYk4yZUlfnWSuJLeWVuUhw=",
             "type": "url",
-            "url": "https://github.com/enso-org/enso/releases/download/2025.2.2/enso-linux-x86_64-2025.2.2.AppImage"
+            "url": "https://github.com/enso-org/enso/releases/download/2025.2.3/enso-linux-x86_64-2025.2.3.AppImage"
         },
-        "version": "2025.2.2"
+        "version": "2025.2.3"
     },
     "guile-config": {
         "cargoLocks": null,

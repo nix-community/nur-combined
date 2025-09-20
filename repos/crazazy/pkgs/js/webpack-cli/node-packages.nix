@@ -94,13 +94,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-24.3.3" = {
+    "@types/node-24.5.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "24.3.3";
+      version = "24.5.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-24.3.3.tgz";
-        sha512 = "GKBNHjoNw3Kra1Qg5UXttsY5kiWMEfoHq2TmXb+b1rcm6N7B3wTrFYIf/oSZ1xNQ+hVVijgLkiDZh7jRRsh+Gw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-24.5.2.tgz";
+        sha512 = "FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -328,22 +328,22 @@ let
         sha512 = "YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==";
       };
     };
-    "baseline-browser-mapping-2.8.2" = {
+    "baseline-browser-mapping-2.8.6" = {
       name = "baseline-browser-mapping";
       packageName = "baseline-browser-mapping";
-      version = "2.8.2";
+      version = "2.8.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.2.tgz";
-        sha512 = "NvcIedLxrs9llVpX7wI+Jz4Hn9vJQkCPKrTaHIE0sW/Rj1iq6Fzby4NbyTZjQJNoypBXNaG7tEHkTgONZpwgxQ==";
+        url = "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.6.tgz";
+        sha512 = "wrH5NNqren/QMtKUEEJf7z86YjfqW/2uw3IL3/xpqZUC95SSVIFXYQeeGjL6FT/X68IROu6RMehZQS5foy2BXw==";
       };
     };
-    "browserslist-4.26.0" = {
+    "browserslist-4.26.2" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.26.0";
+      version = "4.26.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.26.0.tgz";
-        sha512 = "P9go2WrP9FiPwLv3zqRD/Uoxo0RSHjzFCiQz7d4vbmwNqQFo9T9WCeP/Qn5EbcKQY6DBbkxEXNcpJOmncNrb7A==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.26.2.tgz";
+        sha512 = "ECFzp6uFOSB+dcZ5BK/IBaGWssbSYBHvuMeMt3MMFyhI0Z8SqGgEkBLARgpRH3hutIgPVsALcMwbDrJqPxQ65A==";
       };
     };
     "buffer-from-1.1.2" = {
@@ -355,13 +355,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001741" = {
+    "caniuse-lite-1.0.30001743" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001741";
+      version = "1.0.30001743";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001741.tgz";
-        sha512 = "QGUGitqsc8ARjLdgAfxETDhRbJ0REsP6O3I96TAth/mVjh2cYzN2u+3AzPP3aVSm2FehEItaJw1xd+IGBXWeSw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001743.tgz";
+        sha512 = "e6Ojr7RV14Un7dz6ASD0aZDmQPT/A+eZU+nuTNfjqmRrmkmQlnTNWH0SKmqagx9PeW87UVqapSurtAXifmtdmw==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -418,13 +418,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.218" = {
+    "electron-to-chromium-1.5.222" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.218";
+      version = "1.5.222";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.218.tgz";
-        sha512 = "uwwdN0TUHs8u6iRgN8vKeWZMRll4gBkz+QMqdS7DDe49uiK68/UX92lFb61oiFPrpYZNeZIqa4bA7O6Aiasnzg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.222.tgz";
+        sha512 = "gA7psSwSwQRE60CEoLz6JBCQPIxNeuzB2nL8vE03GK/OHxlvykbLyeiumQy1iH5C2f3YbRAZpGCMT12a/9ih9w==";
       };
     };
     "enhanced-resolve-5.18.3" = {
@@ -994,13 +994,13 @@ let
         sha512 = "vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==";
       };
     };
-    "undici-types-7.10.0" = {
+    "undici-types-7.12.0" = {
       name = "undici-types";
       packageName = "undici-types";
-      version = "7.10.0";
+      version = "7.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/undici-types/-/undici-types-7.10.0.tgz";
-        sha512 = "t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==";
+        url = "https://registry.npmjs.org/undici-types/-/undici-types-7.12.0.tgz";
+        sha512 = "goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==";
       };
     };
     "update-browserslist-db-1.1.3" = {
@@ -1092,7 +1092,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.8"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-24.3.3"
+      sources."@types/node-24.5.2"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1118,16 +1118,16 @@ let
       sources."ajv-8.17.1"
       sources."ajv-formats-2.1.1"
       sources."ajv-keywords-5.1.0"
-      sources."baseline-browser-mapping-2.8.2"
-      sources."browserslist-4.26.0"
+      sources."baseline-browser-mapping-2.8.6"
+      sources."browserslist-4.26.2"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001741"
+      sources."caniuse-lite-1.0.30001743"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-12.1.0"
       sources."cross-spawn-7.0.6"
-      sources."electron-to-chromium-1.5.218"
+      sources."electron-to-chromium-1.5.222"
       sources."enhanced-resolve-5.18.3"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.7.0"
@@ -1198,7 +1198,7 @@ let
         ];
       })
       sources."terser-webpack-plugin-5.3.14"
-      sources."undici-types-7.10.0"
+      sources."undici-types-7.12.0"
       sources."update-browserslist-db-1.1.3"
       sources."watchpack-2.4.4"
       sources."webpack-5.101.3"

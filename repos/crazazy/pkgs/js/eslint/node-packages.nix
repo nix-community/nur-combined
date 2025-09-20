@@ -58,13 +58,13 @@ let
         sha512 = "gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==";
       };
     };
-    "@eslint/js-9.35.0" = {
+    "@eslint/js-9.36.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "9.35.0";
+      version = "9.36.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-9.35.0.tgz";
-        sha512 = "30iXE9whjlILfWobBkNerJo+TXYsgVM5ERQwMcMKCHckHflCmf7wXDAHlARoWnh0s1U72WqlbeyE7iAcCzuCPw==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-9.36.0.tgz";
+        sha512 = "uhCbYtYynH30iZErszX78U+nR3pJU3RHGQ57NXy5QupD4SBVwDeU8TNBy+MjMngc1UyIW9noKqsRqfjQTBU2dw==";
       };
     };
     "@eslint/object-schema-2.1.6" = {
@@ -256,13 +256,13 @@ let
         sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "debug-4.4.1" = {
+    "debug-4.4.3" = {
       name = "debug";
       packageName = "debug";
-      version = "4.4.1";
+      version = "4.4.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.4.1.tgz";
-        sha512 = "KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz";
+        sha512 = "RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==";
       };
     };
     "deep-is-0.1.4" = {
@@ -283,13 +283,13 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-9.35.0" = {
+    "eslint-9.36.0" = {
       name = "eslint";
       packageName = "eslint";
-      version = "9.35.0";
+      version = "9.36.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-9.35.0.tgz";
-        sha512 = "QePbBFMJFjgmlE+cXAlbHZbHpdFVS2E/6vzCy7aKlebddvl1vadiC4JFV5u/wqTkNUwEV8WrQi257jf5f06hrg==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-9.36.0.tgz";
+        sha512 = "hB4FIzXovouYzwzECDcUkJ4OcfOEkXTv2zRY6B9bkwjx/cprAq0uvm1nl7zvQ0/TsUk0zQiN4uPfJpB9m+rPMQ==";
       };
     };
     "eslint-scope-8.4.0" = {
@@ -782,8 +782,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "9.35.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.35.0.tgz"; sha1 = "7a89054b7b9ee1dfd1b62035d8ce75547773f47e"; };
+    version = "9.36.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.36.0.tgz"; sha1 = "9cc5cbbfb9c01070425d9bfed81b4e79a1c09088"; };
     dependencies = [
       (sources."@eslint-community/eslint-utils-4.9.0" // {
         dependencies = [
@@ -795,7 +795,7 @@ let
       sources."@eslint/config-helpers-0.3.1"
       sources."@eslint/core-0.15.2"
       sources."@eslint/eslintrc-3.3.1"
-      sources."@eslint/js-9.35.0"
+      sources."@eslint/js-9.36.0"
       sources."@eslint/object-schema-2.1.6"
       sources."@eslint/plugin-kit-0.3.5"
       sources."@humanfs/core-0.19.1"
@@ -817,10 +817,10 @@ let
       sources."color-name-1.1.4"
       sources."concat-map-0.0.1"
       sources."cross-spawn-7.0.6"
-      sources."debug-4.4.1"
+      sources."debug-4.4.3"
       sources."deep-is-0.1.4"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-9.35.0"
+      sources."eslint-9.36.0"
       sources."eslint-scope-8.4.0"
       sources."eslint-visitor-keys-4.2.1"
       sources."espree-10.4.0"
