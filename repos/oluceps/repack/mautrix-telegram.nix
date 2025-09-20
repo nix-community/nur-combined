@@ -11,7 +11,7 @@ reIf {
     serviceDependencies = [ "matrix-synapse.service" ];
     settings = {
       homeserver = {
-        address = "http://127.0.0.1:8196";
+        address = "http://[fdcc::3]:8196";
         domain = "nyaw.xyz";
       };
       appservice = {
