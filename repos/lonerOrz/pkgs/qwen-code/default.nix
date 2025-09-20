@@ -5,13 +5,12 @@
   fetchurl,
   fetchNpmDeps,
   runCommand,
-  nix-update-script,
 }:
 let
   pname = "qwen-code";
-  version = "0.0.11";
-  srcHash = "sha256-iKVh5Ygnk8UuxuaUbrc2tBhQHKy+zrRxIM4l+H2yKJQ=";
-  npmDepsHash = "sha256-nwle3tY5YT/t9SDbt4egGEJR/MFVeX5x6Gs1d6GbT2s=";
+  version = "0.0.12";
+  srcHash = "sha256-Q5/dNbwvfgzCzHog+SeoGEuYMZ5XBJEo8/5LhinGt5I=";
+  npmDepsHash = "sha256-DmgNQLOXsOJkYw9EH8QzhMF5uzny/4dhRTJehOnVvRI=";
 
   src = runCommand "gemini-cli-src-with-lock" { } ''
     mkdir -p $out
@@ -36,6 +35,8 @@ buildNpmPackage (finalAttrs: {
   dontNpmBuild = true;
 
   nodejs = nodejs_20;
+
+  npmFlags = [ "--ignore-scripts" ];
 
   passthru.updateScript = ./update.sh;
 
