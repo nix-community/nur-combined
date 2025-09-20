@@ -25,11 +25,11 @@
 in
   stdenv.mkDerivation rec {
     pname = "opencode";
-    version = "0.10.0";
+    version = "0.10.3";
 
     src = fetchzip {
       url = "https://github.com/sst/opencode/releases/download/v${version}/opencode-${arch_string stdenv.hostPlatform.system}.zip";
-      hash = "sha256-dhrJ/gBYL842nqkifJlGErjNkpxuLE67WYVdcU8NEr0=";
+      hash = "sha256-qN3Xolaf146HIa0sC4h0tDvg5R0+HZUn9/HRHaVtaOo=";
     };
 
     dontBuild = true;  # Pre-compiled binary, no build step needed
