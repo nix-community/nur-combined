@@ -13,9 +13,8 @@ fetch.url = "https://github.com/zen-browser/desktop/releases/download/$ver/zen.m
 src.github = "zen-browser/desktop"
 fetch.url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
 [bartender-6]
-src.webpage = "https://macbartender.com/Bartender6/alpha.html"
-src.regex = '6-\d+-\d+'
 #src.manual = 'B2'
+src.manual = "6-0-0"
 fetch.url = "https://macbartender.com/B2/updates/$ver/Bartender%206.dmg"
 url.name = "Bartender6.dmg"
 [yabai]

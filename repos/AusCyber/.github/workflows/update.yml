@@ -25,6 +25,8 @@ jobs:
           experimental-features = nix-command flakes
     - name: Update sources
       run: nix run nixpkgs#nvfetcher
+    - name: update docs
+      run: nix run .#docs
     - name: Create Pull Request
       id: cpr
       uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
