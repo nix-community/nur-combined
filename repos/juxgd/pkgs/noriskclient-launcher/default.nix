@@ -96,6 +96,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "noriskclient-launcher-v3";
-    # broken = true; # it *should* be able to launch minecraft, but i'm not sure
+    broken = true;
   };
 })
