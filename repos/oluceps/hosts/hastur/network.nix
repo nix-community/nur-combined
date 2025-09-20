@@ -71,17 +71,17 @@
         "wg0"
       ];
     };
-    netdevs.bond0 = {
-      netdevConfig = {
-        Kind = "bond";
-        Name = "bond0";
-      };
-      bondConfig = {
-        Mode = "active-backup";
-        PrimaryReselectPolicy = "always";
-        MIIMonitorSec = "1s";
-      };
-    };
+    # netdevs.bond0 = {
+    #   netdevConfig = {
+    #     Kind = "bond";
+    #     Name = "bond0";
+    #   };
+    #   bondConfig = {
+    #     Mode = "active-backup";
+    #     PrimaryReselectPolicy = "always";
+    #     MIIMonitorSec = "1s";
+    #   };
+    # };
     links = {
       "10-eth0" = {
         matchConfig.MACAddress = "3c:7c:3f:22:49:80";
@@ -110,23 +110,23 @@
       };
     };
     networks = {
-      "20-wired" = {
+      # "20-wired" = {
+      #   matchConfig.Name = "eth0";
+      #   networkConfig = {
+      #     Bond = "bond0";
+      #     PrimarySlave = true;
+      #   };
+      # };
+
+      # "40-wireless" = {
+      #   matchConfig.Name = "wlan0";
+      #   networkConfig = {
+      #     Bond = "bond0";
+      #   };
+      # };
+
+      "8-eth0" = {
         matchConfig.Name = "eth0";
-        networkConfig = {
-          Bond = "bond0";
-          PrimarySlave = true;
-        };
-      };
-
-      "40-wireless" = {
-        matchConfig.Name = "wlan0";
-        networkConfig = {
-          Bond = "bond0";
-        };
-      };
-
-      "8-bond0" = {
-        matchConfig.Name = "bond0";
         networkConfig = {
           DHCP = "no";
           IPv4Forwarding = true;

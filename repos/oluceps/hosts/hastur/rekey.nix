@@ -18,12 +18,6 @@ in
         group = "users";
       };
       garage = { };
-      id_sk = {
-        file = ../../sec/id_sk.age;
-        mode = "400";
-        owner = user;
-        group = "users";
-      };
       harmonia = {
         file = ../../sec/harmonia.age;
         mode = "400";

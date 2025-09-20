@@ -116,7 +116,7 @@
 
 
         if test -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR"
-          set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent"
+          set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
         end
       '';
       interactiveShellInit = ''

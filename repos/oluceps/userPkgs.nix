@@ -129,7 +129,7 @@ with pkgs;
 
   # ffmpeg_7-full
 
-  foot
+  # foot
 
   brightnessctl
 

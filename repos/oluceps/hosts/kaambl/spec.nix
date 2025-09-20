@@ -224,7 +224,7 @@
       script = ''
         eval `${pkgs.openssh}/bin/ssh-agent -s`
         export SSH_ASKPASS_REQUIRE="prefer"
-        ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
+        ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id_sk.path}
       '';
       wantedBy = [ "default.target" ];
     };

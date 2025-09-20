@@ -154,7 +154,7 @@
       agent = {
         enable = false;
         pinentryPackage = pkgs.wayprompt;
-        enableSSHSupport = true;
+        # enableSSHSupport = true;
       };
     };
   };
@@ -241,7 +241,7 @@
         disallow-generic-driver-for-switch-rules
       ];
     };
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true;
 
     flatpak.enable = true;
     pcscd.enable = true;

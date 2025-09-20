@@ -16,6 +16,7 @@
   "atuin_key"
   "pam"
   "age"
+  "id_sk"
 ])
 // (rootRo [
   "db.key"

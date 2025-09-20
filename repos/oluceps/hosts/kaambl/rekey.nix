@@ -17,12 +17,6 @@ in
         owner = user;
         group = "users";
       };
-      id_sk = {
-        file = ../../sec/id_sk.age;
-        mode = "400";
-        owner = user;
-        group = "users";
-      };
       garage = { };
       wg-kaambl = {
         file = ../../sec/wg-kaambl.age;

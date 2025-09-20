@@ -15,6 +15,8 @@ _: {
       #"net.core.netdev_max_backlog" = 4096;
       # max backlog
       #
+      #
+      "net.ipv4.conf.all.arp_accept" = 1;
 
       "net.ipv6.conf.all.accept_ra" = 2;
       "net.ipv6.conf.all.forwarding" = 1;

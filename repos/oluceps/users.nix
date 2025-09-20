@@ -6,65 +6,65 @@
   ...
 }:
 {
-  users = {
-    users = {
-      nixosvmtest = {
-        group = "nixosvmtest";
-        isSystemUser = true;
-        initialPassword = "test";
-      };
+  users =
+    let
+      authSSHKeys = with data.keys; [
+        sshPubKey2
+        skSshPubKey
+        skSshPubKey2
+      ];
+    in
+    {
+      users = {
+        nixosvmtest = {
+          group = "nixosvmtest";
+          isSystemUser = true;
+          initialPassword = "test";
+        };
 
-      root = {
-        initialHashedPassword = lib.mkForce data.keys.hashedPasswd;
-        openssh.authorizedKeys.keys = with data.keys; [
-          sshPubKey
-          skSshPubKey
-          skSshPubKey2
-        ];
-      };
+        root = {
+          initialHashedPassword = lib.mkForce data.keys.hashedPasswd;
+          openssh.authorizedKeys.keys = authSSHKeys;
+        };
 
-      ${user} = {
-        linger = true;
-        initialHashedPassword = lib.mkDefault data.keys.hashedPasswd;
-        # home = "/home/${user}";
-        # group = user;
-        isNormalUser = true;
-        # isSystemUser = true;
-        uid = 1000;
-        subUidRanges = [
-          {
-            count = 65536;
-            startUid = 2147483646;
-          }
-        ];
-        subGidRanges = [
-          {
-            count = 65536;
-            startGid = 2147483647;
-          }
-        ];
-        extraGroups = [
-          "wheel"
-          "kvm"
-          "adbusers"
-          "docker"
-          "wireshark"
-          "tss"
-          "podman"
-        ];
-        shell = pkgs.fish;
+        ${user} = {
+          linger = true;
+          initialHashedPassword = lib.mkDefault data.keys.hashedPasswd;
+          # home = "/home/${user}";
+          # group = user;
+          isNormalUser = true;
+          # isSystemUser = true;
+          uid = 1000;
+          subUidRanges = [
+            {
+              count = 65536;
+              startUid = 2147483646;
+            }
+          ];
+          subGidRanges = [
+            {
+              count = 65536;
+              startGid = 2147483647;
+            }
+          ];
+          extraGroups = [
+            "wheel"
+            "kvm"
+            "adbusers"
+            "docker"
+            "wireshark"
+            "tss"
+            "podman"
+          ];
+          shell = pkgs.fish;
 
-        openssh.authorizedKeys.keys = with data.keys; [
-          sshPubKey
-          skSshPubKey
-          skSshPubKey2
-        ];
+          openssh.authorizedKeys.keys = authSSHKeys;
+        };
+        root.shell = pkgs.fish;
       };
-      root.shell = pkgs.fish;
+      groups.nixosvmtest = { };
+      groups.${user} = { };
     };
-    groups.nixosvmtest = { };
-    groups.${user} = { };
-  };
 
   security = {
     doas = {

@@ -3,6 +3,9 @@ reIf {
   services.alloy = {
     enable = true;
   };
+  systemd.services.alloy.serviceConfig = {
+    ReadOnlyPaths = [ "/var/log/zeek" ];
+  };
   environment.etc."alloy/config.alloy".text = ''
     livedebugging {
       enabled = true
@@ -57,6 +60,19 @@ reIf {
       }
 
       forward_to = [loki.write.default.receiver]
+    }
+    local.file_match "zeek_logs" {
+      path_targets = [
+        { "__path__" = "/var/log/zeek/dns.log" },
+        { "__path__" = "/var/log/zeek/ssl.log" },
+      ]
+      sync_period = "5s"
+    }
+
+    loki.source.file "zeek_logs" {
+      targets    = local.file_match.zeek_logs.targets
+      forward_to = [loki.write.default.receiver]
+      tail_from_end = true
     }
 
     loki.write "default" {
