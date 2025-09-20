@@ -41,7 +41,6 @@ in
 
     environment = {
       systemPackages = [ cfg.package ];
-      #etc."snell/snell-server.conf".source = settingsFormat.generate "snell-server.conf" cfg.settings;
     };
   };
 }
