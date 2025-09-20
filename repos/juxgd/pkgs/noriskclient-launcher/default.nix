@@ -1,4 +1,7 @@
+# i know this is technically not a wrapper but idc
 {
+  maintainers-list,
+
   addDriverRunpath,
   alsa-lib,
   callPackage,
@@ -25,51 +28,74 @@
   makeWrapper,
   xrandr,
 
+  rustPlatform,
+
   additionalLibs ? [ ],
   additionalPrograms ? [ ],
 }:
 
 let
   noriskclient-launcher' = noriskclient-launcher-unwrapped;
+
+  # i did not shamelessly copy this from the prismlauncher package declaration idk what you're talking about
+  runtimeLibs = [
+    glfw3-minecraft
+    openal
+
+    alsa-lib
+    libjack2
+    libpulseaudio
+    pipewire
+
+    libGL
+    libX11
+    libXcursor
+    libXext
+    libXrandr
+    libXrender
+    libXxf86vm
+
+    udev
+
+    vulkan-loader
+  ] ++ additionalLibs;
+
+  runtimePrograms = [
+    mesa-demos
+    pciutils
+    xrandr
+  ] ++ additionalPrograms;
 in
-symlinkJoin {
-  name = "noriskclient-launcher-${noriskclient-launcher'.version}";
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "noriskclient-launcher";
+  inherit (noriskclient-launcher') version;
+  inherit (noriskclient-launcher') src;
 
-  paths = [ noriskclient-launcher' ];
+  inherit (noriskclient-launcher') cargoHash;
 
-  postPatch =
-    let # i did not shamelessly copy this from the prismlauncher package declaration idk what you're talking about
-      runtimeLibs = [
-        glfw3-minecraft
-        openal
+  inherit (noriskclient-launcher') yarnOfflineCache;
 
-        alsa-lib
-        libjack2
-        libpulseaudio
-        pipewire
+  nativeBuildInputs = [] ++ noriskclient-launcher'.nativeBuildInputs;
 
-        libGL
-        libX11
-        libXcursor
-        libXext
-        libXrandr
-        libXrender
-        libXxf86vm
+  buildInputs = [] ++ noriskclient-launcher'.buildInputs ++ runtimeLibs ++ runtimePrograms;
 
-        udev
+  inherit (noriskclient-launcher') cargoRoot;
+  inherit (noriskclient-launcher') buildAndTestSubdir;
 
-        vulkan-loader
-      ] ++ additionalLibs;
+  inherit (noriskclient-launcher') postPatch;
 
-      runtimePrograms = [
-        mesa-demos
-        pciutils
-        xrandr
-      ] ++ additionalPrograms;
-    in
-    (noriskclient-launcher'.postPatch or "") + ''
-      wrapProgram $out/bin/noriskclient-launcher-v3 --set PATH ${lib.makeBinPath runtimePrograms} --set LD_LIBRARY_PATH ${lib.makeLibraryPath runtimeLibs}
-    '';
-
-  inherit (noriskclient-launcher') meta;
-}
+  meta = {
+    description = "Launcher for the NoRiskClient PvP client for Minecraft";
+    branch = "v3";
+    homepage = "https://norisk.gg/";
+    downloadPage = "https://github.com/";
+    maintainers = [
+      maintainers-list.JuxGD
+    ];
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    mainProgram = "noriskclient-launcher-v3";
+    # broken = true; # it *should* be able to launch minecraft, but i'm not sure
+  };
+})

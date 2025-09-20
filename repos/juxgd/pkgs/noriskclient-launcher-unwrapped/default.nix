@@ -1,5 +1,5 @@
 {
-  inputs,
+  maintainers-list,
 
   lib,
   stdenv,
@@ -75,7 +75,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://norisk.gg/";
     downloadPage = "https://github.com/";
     maintainers = [
-      inputs.jux-is-a-nix-maintainer-apparently.maintainers-list.JuxGD
+      maintainers-list.JuxGD
     ];
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     license = lib.licenses.gpl3Only;

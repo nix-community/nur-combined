@@ -6,9 +6,21 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ inputs ? builtins.getFlake ./., pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { } }:
 
+
+let
+  maintainers-list = {
+    JuxGD = {
+      # FINE i give up i'll just do it here. god
+      name = "JuxGD";
+      email = "jak@e.email";
+      github = "JuxGD";
+      githubId = 117054307;
+    };
+  };
+in
 rec {
-  noriskclient-launcher-unwrapped = pkgs.callPackage ./pkgs/noriskclient-launcher-unwrapped { inputs = inputs; };
-  noriskclient-launcher = pkgs.callPackage ./pkgs/noriskclient-launcher { noriskclient-launcher-unwrapped = noriskclient-launcher-unwrapped; };
+  noriskclient-launcher-unwrapped = pkgs.callPackage ./pkgs/noriskclient-launcher-unwrapped { inherit maintainers-list; };
+  noriskclient-launcher = pkgs.callPackage ./pkgs/noriskclient-launcher { noriskclient-launcher-unwrapped = noriskclient-launcher-unwrapped; inherit maintainers-list; };
 }

@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "jux-is-a-nix-maintainer-apparently": {
-      "locked": {
-        "lastModified": 1758213542,
-        "narHash": "sha256-ONAKBE8jzmQao9NvuPtjuo4lvaCr/djtNT1NoQIw0rc=",
-        "ref": "main",
-        "rev": "c808e0d4cbb3d66a774ec61ad264eb55a5294d27",
-        "revCount": 2,
-        "type": "git",
-        "url": "https://codeberg.org/JuxGD/jux-is-a-nix-maintainer-apparently"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "https://codeberg.org/JuxGD/jux-is-a-nix-maintainer-apparently"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1757873102,
@@ -34,7 +18,6 @@
     },
     "root": {
       "inputs": {
-        "jux-is-a-nix-maintainer-apparently": "jux-is-a-nix-maintainer-apparently",
         "nixpkgs": "nixpkgs"
       }
     }
