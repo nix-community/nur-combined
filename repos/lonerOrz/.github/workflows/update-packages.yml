@@ -58,7 +58,7 @@ jobs:
             echo "No changes to commit"
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Update Custom packages"
+            bash .github/script/commit.sh
             git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git push -u origin HEAD
             echo "changed=true" >> "$GITHUB_OUTPUT"
