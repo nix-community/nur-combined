@@ -44,13 +44,13 @@ reIf
           enable = true;
           internalIPs = [ "10.255.0.0/24" ];
           # the interface with upstream Internet access, TODO: change with host
-          externalInterface = "bond0";
+          externalInterface = "eth0";
         };
         nftables.ruleset = ''
           table inet filter {
           	chain forward {
               type filter hook forward priority filter; policy drop;
-              iifname "vm1" oifname "bond0" ct state new log prefix "[NFT_VM_FORWARD_LOG] " accept
+              iifname "vm1" oifname "eth0" ct state new log prefix "[NFT_VM_FORWARD_LOG] " accept
           	}
           }
         '';
