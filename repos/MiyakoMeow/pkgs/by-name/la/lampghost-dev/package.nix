@@ -47,7 +47,6 @@ buildGoModule (finalAttrs: {
     wails
     pkg-config
     copyDesktopItems
-    glib-networking
     gsettings-desktop-schemas
     # Hooks
     autoPatchelfHook
@@ -58,6 +57,7 @@ buildGoModule (finalAttrs: {
     webkitgtk_4_1
     gtk4
     libsoup_3
+    glib-networking
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     xorg.libX11
@@ -74,15 +74,19 @@ buildGoModule (finalAttrs: {
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
     export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules/"
 
-    wails build -m -trimpath -devtools -tags webkit2_41 -o lampghost-dev
+    mkdir -p $out/share/gsettings-schemas/${finalAttrs.pname}-${finalAttrs.version}
+    cp -r ${gsettings-desktop-schemas}/share/gsettings-schemas/* $out/share/gsettings-schemas/${finalAttrs.pname}-${finalAttrs.version}/
+    glib-compile-schemas $out/share/gsettings-schemas/${finalAttrs.pname}-${finalAttrs.version}
+
+    wails build -m -trimpath -devtools -tags webkit2_41 -o ${finalAttrs.pname}
 
     runHook postBuild
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "lampghost-dev";
-      exec = "lampghost-dev";
+      name = finalAttrs.pname;
+      exec = finalAttrs.pname;
       desktopName = "LampGhost (Dev Version)";
       comment = "Offline & Cross-platform beatoraja lamp viewer and more";
       categories = [ "Game" ];
@@ -94,7 +98,7 @@ buildGoModule (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm0755 build/bin/lampghost-dev $out/bin/lampghost-dev
+    install -Dm0755 build/bin/${finalAttrs.pname} $out/bin/${finalAttrs.pname}
 
     runHook postInstall
   '';
@@ -112,7 +116,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/Catizard/lampghost";
     changelog = "https://github.com/Catizard/lampghost/commits/main";
     license = lib.licenses.asl20;
-    mainProgram = "lampghost-dev";
+    mainProgram = finalAttrs.pname;
     maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
