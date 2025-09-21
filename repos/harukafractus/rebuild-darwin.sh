@@ -1,1 +1,5 @@
+#!/bin/bash
+trap "echo; exit" INT
+set -e
+
 sudo nix run --extra-experimental-features "nix-command flakes" nix-darwin -- switch --flake .#$HOST

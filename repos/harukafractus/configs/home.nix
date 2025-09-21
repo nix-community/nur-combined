@@ -27,7 +27,8 @@
     eza
     bat
     imagemagick
-    python3Full
+    python313Packages.python
+    nix-search-cli
     htop
     wget
     unar
@@ -51,6 +52,7 @@
     iina
     utm
     bambu-studio
+    coreutils
   ]);
 
   home.file = {
@@ -110,18 +112,20 @@
         fi
         export LESSHISTFILE=-
         setopt interactivecomments
-        HISTORY_IGNORE='(less *|reboot|exit|git rebase*|git log*|git add*|git commit*|git push*)'
+        HISTORY_IGNORE='(less *|ls|la|which *|reboot|exit|git rebase*|git log*|git add*|git commit*|git push*)'
+        ns() {pkgs=(); for x in "$@"; do pkgs+=("nixpkgs#$x"); done; nix shell "''${pkgs[@]}" }
         fortune-kind | cowsay -f koala
       '';
       shellAliases = {
         cat = "bat --paging=never";
         less = "bat";
-        ls = "eza -lh --octal-permissions --no-permissions --group  -F";
-        la = "eza -lh --octal-permissions --no-permissions --group  -F -la";
+        ls = "eza -lh --octal-permissions --no-permissions -F";
+        la = "eza -lah --octal-permissions --no-permissions --group -F";
         gc = "sudo nix-collect-garbage -d";
         fix-rsa = "chmod 600 ~/.ssh/id_rsa";
         fix-lauchpad = "sudo find 2>/dev/null /private/var/folders/ -type d -name com.apple.dock.launchpad -exec rm -rf {} +; killall Dock";
         fix-ds_store = "chflags nouchg .DS_Store; rm -rf .DS_Store; pkill Finder; touch .DS_Store; chflags uchg .DS_Store";
+        "\!np" = "nix-search";
       };
     };
   };
