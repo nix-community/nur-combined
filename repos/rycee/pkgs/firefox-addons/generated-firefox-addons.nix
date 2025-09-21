@@ -15087,7 +15087,7 @@
       sha256 = "b084a37c2f9fa125ed088a88796af3101462399f03968df0678c72fbdf803498";
       meta = with lib;
       {
-        homepage = "https://github.com/willswats/youtube-alternative-switch";
+        homepage = "https://codeberg.org/willswats/youtube-alternative-switch";
         description = "Quickly switch videos between YouTube, Piped, Invidious and Chat Replay.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "contextMenus" "storage" ];
