@@ -1,0 +1,2 @@
+# https://wiki.radxa.com/Rock/flash_the_image
+SUBSYSTEM=="usb", ATTR{idVendor}=="2207", MODE="0666", GROUP="plugdev"

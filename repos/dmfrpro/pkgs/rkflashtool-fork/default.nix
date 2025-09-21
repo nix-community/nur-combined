@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   meta = {
     license = lib.licenses.bsd2;
-    homepage = "https://github.com/rockchip-linux/rkflashtool";
+    homepage = "https://github.com/linux-rockchip/rkflashtool";
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     description = "Tools for flashing Rockchip devices";
     maintainers = with lib.maintainers; [ "dmfrpro" ];

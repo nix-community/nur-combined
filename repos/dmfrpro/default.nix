@@ -20,6 +20,7 @@
 
   rkflashtool-fork = pkgs.callPackage ./pkgs/rkflashtool-fork { };
   upgrade_tool = pkgs.callPackage ./pkgs/upgrade_tool { };
+  rkflashtool-udev-rules = pkgs.callPackage ./pkgs/rkflashtool-udev-rules { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
