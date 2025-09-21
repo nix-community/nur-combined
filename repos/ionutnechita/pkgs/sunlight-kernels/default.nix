@@ -10,14 +10,14 @@
 let
   variants = {
     stable = {
-      version = "6.16.7";
+      version = "6.16.8";
       suffix = "lowlatency-sunlight1";
-      hash = "sha256-2cs4G3fM+PxZjv2CTAN1WdIrJ4PxN/UWunoNYs+u5QQ=";
+      hash = "sha256-GsMnYH3oj1W9Z6TUPKvoohb0w5Q8fCR7uIDl1VYr3rM=";
     };
     mainline = {
       version = "6.17.0-rc6";
       suffix = "lowlatency-sunlight1";
-      hash = "sha256-19jrJSSaa2xjdy16hXqjLJS3xMMtlCfvHIKsJm81kys=";
+      hash = "sha256-wqkaa0VIuTtb9VNFRYSzBhKdiaRrGlK2VOYMoR5bVD8=";
     };
   };
 
