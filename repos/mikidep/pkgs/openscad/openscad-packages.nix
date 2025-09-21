@@ -25,4 +25,10 @@ in
       hash = "sha256-DYqpqExrRtV41Q3xQ/tAtv1JdUTapamhLsTiaU5RqYw=";
     };
     fastvoronoi = ./fastvoronoi;
+    nopscadlib = fetchFromGitHub {
+      owner = "nophead";
+      repo = "NopSCADlib";
+      rev = "cae9cdd";
+      hash = "sha256-7dCbQV6rwgH1n4KBcB04FEYSIW5rdLLPNKF7wKgZ8zg=";
+    };
   }
