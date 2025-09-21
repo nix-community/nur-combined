@@ -18,11 +18,11 @@ in
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  ghostty = pkgs.callPackage ./pkgs/ghostty {
+  ghostty-bin = pkgs.callPackage ./pkgs/ghostty {
     source = sources.ghostty;
     sourceRoot = ".";
   };
-  ghostty-nightly = pkgs.callPackage ./pkgs/ghostty {
+  ghostty-nightly-bin = pkgs.callPackage ./pkgs/ghostty {
     source = sources.ghostty-nightly;
     sourceRoot = ".";
   };
