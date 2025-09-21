@@ -85,7 +85,7 @@ dotTar =
     package "dot-tar"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/dot-tar.git"
 
@@ -115,7 +115,7 @@ mstickereditor =
   define $
     package "mstickereditor"
       `fromGitHub` ("LuckyTurtleDev", "mstickereditor")
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
 
 tgSend :: PackageSet ()
 tgSend =
@@ -123,7 +123,7 @@ tgSend =
     package "tg-send"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/tg-send.git"
 
@@ -150,25 +150,25 @@ zeronsd =
   define $
     package "zeronsd"
       `fromGitHub` ("zerotier", "zeronsd")
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
 
 baibot :: PackageSet ()
 baibot =
   define $
     package "baibot"
       `fromGitHubTag` ("etkecc", "baibot", id)
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
 
 niriTaskbar :: PackageSet ()
 niriTaskbar =
   define $
     package "niri-taskbar"
       `fromGitHubTag` ("LawnGnome", "niri-taskbar", id)
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
 
 rlt :: PackageSet ()
 rlt =
   define $
     package "rlt"
       `fromGitHubTag` ("kaichaosun", "rlt", id)
-      `hasCargoLock` ["Cargo.lock"]
+      `hasCargoLocks` ["Cargo.lock"]
