@@ -19,10 +19,17 @@ reIf {
         auth = {
           oauth_allow_insecure_email_lookup = true;
         };
+        # "auth.anonymous" = {
+        #   org_name = "Main Org.";
+        #   org_role = "Viewer";
+        #   hide_version = true;
+        #   device_limit = 1;
+        # };
       };
     };
   };
   systemd.services.grafana.serviceConfig = {
     EnvironmentFile = config.vaultix.secrets.grafana.path;
+    # Environment = [ "GF_AUTH_ANONYMOUS_ENABLED=true" ];
   };
 }

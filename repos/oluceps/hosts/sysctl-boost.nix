@@ -14,6 +14,8 @@ _: {
       "net.core.netdev_tstamp_prequeue" = 0;
       "net.core.dev_weight" = 256;
 
+      "net.ipv6.conf.eth0.accept_ra" = 2;
+
       # Ignore bad ICMP errors
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       # Reverse-path filter for spoof protection

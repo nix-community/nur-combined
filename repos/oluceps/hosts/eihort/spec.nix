@@ -50,6 +50,7 @@
       trim = false;
     };
   };
+  security.auditd.enable = true;
   system = {
 
     etc.overlay.enable = true;
@@ -130,10 +131,10 @@
     #   discoverPortal = "ip:3260";
     #   name = "iqn.2005-10.org.nixos.ctl:ntfs-games";
     # };
-    rqbit = {
-      enable = true;
-      location = "/three/storage/Downloads";
-    };
+    # rqbit = {
+    #   enable = true;
+    #   location = "/three/storage/Downloads";
+    # };
     # bpftune.enable = true;
     sing-box.enable = true;
     metrics.enable = true;

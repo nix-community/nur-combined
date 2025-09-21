@@ -19,7 +19,7 @@
       "edu.ntp.org.cn"
       "2001:250:380a:5::10"
     ];
-    usePredictableInterfaceNames = false;
+    usePredictableInterfaceNames = true;
     hosts = lib.data.hosts.${config.networking.hostName};
     nameservers = [
       "120.53.53.53#dot.pub"

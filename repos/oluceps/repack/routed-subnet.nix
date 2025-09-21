@@ -50,7 +50,7 @@ reIf
           table inet filter {
           	chain forward {
               type filter hook forward priority filter; policy drop;
-              iifname "vm1" oifname "eth0" ct state new log prefix "[NFT_VM_FORWARD_LOG] " accept
+              iifname "vm1" oifname "eth0" ct state new accept
           	}
           }
         '';

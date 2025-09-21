@@ -14,6 +14,7 @@
   networking = {
     # resolvconf.useLocalResolver = true;
     hosts = lib.data.hosts.${config.networking.hostName};
+    usePredictableInterfaceNames = false;
     timeServers = [
       "ntp1.aliyun.com"
       "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
@@ -64,39 +65,40 @@
       ];
     };
 
-    links."eth0" = {
+    links."eno1" = {
       matchConfig.MACAddress = "ac:1f:6b:e5:fe:3a";
       linkConfig = {
-        Name = "eth0";
+        Name = "eno1";
         WakeOnLan = "magic";
       };
     };
 
-    links."eth1" = {
+    links."eno2" = {
       matchConfig.MACAddress = "ac:1f:6b:e5:fe:3b";
       linkConfig = {
-        Name = "eth1";
+        Name = "eno2";
         WakeOnLan = "magic";
       };
     };
 
     networks = {
-      "5-eth0" = {
-        matchConfig.Name = "eth0";
+      "5-eno1" = {
+        matchConfig.Name = "eno1";
         networkConfig = {
-          DHCP = "ipv4";
+          DHCP = "no";
           IPv4Forwarding = true;
           IPv6Forwarding = true;
-          IPv6AcceptRA = "yes";
+          IPv6AcceptRA = true;
           MulticastDNS = true;
         };
         ipv6AcceptRAConfig = {
           DHCPv6Client = false;
-          # UseDNS = false;
         };
-        # dhcpV4Config.UseDNS = false;
-        # dhcpV6Config.UseDNS = false;
         linkConfig.RequiredForOnline = "routable";
+        address = [ "192.168.1.110/24" ];
+        routes = [
+          { Gateway = "192.168.1.1"; }
+        ];
       };
     };
   };

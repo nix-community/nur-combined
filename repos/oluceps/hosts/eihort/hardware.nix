@@ -8,7 +8,7 @@
 }:
 
 {
-  facter.reportPath = ./facter.json;
+  # facter.reportPath = ./facter.json;
 
   # zramSwap = {
   #   enable = true;
@@ -27,8 +27,8 @@
     };
 
     kernelParams = [
-      "audit=0"
-      "net.ifnames=0"
+      # "audit=0"
+      # "net.ifnames=0"
       "ia32_emulation=0"
       "zswap.enabled=1"
       "zswap.compressor=zstd"
@@ -42,6 +42,11 @@
         "-T0"
       ];
       systemd.enable = true;
+
+      availableKernelModules = [
+        "usb_storage"
+        "mpt3sas"
+      ];
     };
 
     kernelPackages = pkgs.linuxPackages_latest;

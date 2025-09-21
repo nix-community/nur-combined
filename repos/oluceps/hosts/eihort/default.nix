@@ -56,7 +56,7 @@ withSystem "x86_64-linux" (
       ../../users.nix
 
       inputs.disko.nixosModules.default
-      inputs.nixos-facter-modules.nixosModules.facter
+      # inputs.nixos-facter-modules.nixosModules.facter
       inputs.tg-online-keeper.nixosModules.default
     ];
   }
