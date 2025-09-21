@@ -1,13 +1,15 @@
 ["WeidiDeng/caddy-cloudflare-ip"]
 passthru = {moduleName = "github.com/WeidiDeng/caddy-cloudflare-ip"}
 fetch.github = "WeidiDeng/caddy-cloudflare-ip"
-git.date_format = "%Y%m%d%H%M%S%z"
+git.date_format = "%Y%m%d%H%M%S"
+git.date_tz = "UTC0"
 src.git = "https://github.com/WeidiDeng/caddy-cloudflare-ip.git"
 
 ["caddy-dns/cloudflare"]
 passthru = {moduleName = "github.com/caddy-dns/cloudflare"}
 fetch.github = "caddy-dns/cloudflare"
-git.date_format = "%Y%m%d%H%M%S%z"
+git.date_format = "%Y%m%d%H%M%S"
+git.date_tz = "UTC0"
 src.git = "https://github.com/caddy-dns/cloudflare.git"
 
 [catppuccin-kitty]
@@ -21,13 +23,15 @@ src.git = "https://github.com/catppuccin/zsh-fsh.git"
 ["mholt/caddy-l4"]
 passthru = {moduleName = "github.com/mholt/caddy-l4"}
 fetch.github = "mholt/caddy-l4"
-git.date_format = "%Y%m%d%H%M%S%z"
+git.date_format = "%Y%m%d%H%M%S"
+git.date_tz = "UTC0"
 src.git = "https://github.com/mholt/caddy-l4.git"
 
 ["mholt/caddy-webdav"]
 passthru = {moduleName = "github.com/mholt/caddy-webdav"}
 fetch.github = "mholt/caddy-webdav"
-git.date_format = "%Y%m%d%H%M%S%z"
+git.date_format = "%Y%m%d%H%M%S"
+git.date_tz = "UTC0"
 src.git = "https://github.com/mholt/caddy-webdav.git"
 
 [rime-ice]
