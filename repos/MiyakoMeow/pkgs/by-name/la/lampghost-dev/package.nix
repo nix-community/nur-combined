@@ -46,16 +46,12 @@ buildGoModule (finalAttrs: {
   nativeBuildInputs = [
     wails
     pkg-config
-    autoPatchelfHook
-    nodejs
-    npmHooks.npmConfigHook
     copyDesktopItems
-    # Ensure pkg-config in strict deps setups finds webkit2gtk-4.1.pc
-    webkitgtk_4_1
-    gtk4
-    libsoup_3
     glib-networking
     gsettings-desktop-schemas
+    # Hooks
+    autoPatchelfHook
+    npmHooks.npmConfigHook
   ];
 
   buildInputs = [
@@ -74,21 +70,6 @@ buildGoModule (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-
-    export PKG_CONFIG_LIBDIR="${
-      lib.makeSearchPath "lib/pkgconfig" [
-        webkitgtk_4_1.dev
-        gtk4.dev
-        libsoup_3.dev
-      ]
-    }:${
-      lib.makeSearchPath "share/pkgconfig" [
-        webkitgtk_4_1.dev
-        gtk4.dev
-        libsoup_3.dev
-      ]
-    }"
-    export PKG_CONFIG_PATH="$PKG_CONFIG_LIBDIR:$PKG_CONFIG_PATH"
 
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
     export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules/"
