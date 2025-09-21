@@ -1220,6 +1220,9 @@
         "sondr3": {
             "url": "https://github.com/sondr3/nix-expressions"
         },
+        "sorz": {
+            "url": "https://github.com/sorz/nur-packages"
+        },
         "souxd": {
             "url": "https://github.com/souxd/souxd-nur"
         },
