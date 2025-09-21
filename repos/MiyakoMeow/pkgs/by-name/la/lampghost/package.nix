@@ -20,8 +20,7 @@
   glib-networking,
   gsettings-desktop-schemas,
 }:
-
-buildGoModule (finalAttrs: rec {
+buildGoModule (finalAttrs: {
   pname = "lampghost";
   version = "0.3.1";
 
@@ -52,26 +51,18 @@ buildGoModule (finalAttrs: rec {
     copyDesktopItems
     # Ensure pkg-config in strict deps setups finds webkit2gtk-4.1.pc
     webkitgtk_4_1
-    webkitgtk_4_1.dev
     gtk4
-    gtk4.dev
     libsoup_3
-    libsoup_3.dev
-    gtk3
-    gtk3.dev
     glib-networking
     gsettings-desktop-schemas
   ];
 
   buildInputs = [
     webkitgtk_4_1
-    webkitgtk_4_1.dev
     gtk4
-    gtk4.dev
     libsoup_3
-    libsoup_3.dev
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     xorg.libX11
     xorg.libXcursor
     xorg.libXrandr
@@ -101,15 +92,15 @@ buildGoModule (finalAttrs: rec {
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
     export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules/"
 
-    wails build -m -trimpath -devtools -tags webkit2_41 -o ${pname}
+    wails build -m -trimpath -devtools -tags webkit2_41 -o lampghost
 
     runHook postBuild
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "${pname}";
-      exec = "${pname}";
+      name = "lampghost";
+      exec = "lampghost";
       desktopName = "LampGhost";
       comment = "Offline & Cross-platform beatoraja lamp viewer and more";
       categories = [ "Game" ];
@@ -121,17 +112,13 @@ buildGoModule (finalAttrs: rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm0755 build/bin/${pname} $out/bin/${pname}
+    install -Dm0755 build/bin/lampghost $out/bin/lampghost
 
     runHook postInstall
   '';
 
   passthru = {
-    updateScript = nix-update-script {
-      attrPath = "${pname}";
-      extraArgs = [
-      ];
-    };
+    updateScript = nix-update-script { };
   };
 
   meta = {
@@ -139,7 +126,7 @@ buildGoModule (finalAttrs: rec {
     homepage = "https://github.com/Catizard/lampghost";
     changelog = "https://github.com/Catizard/lampghost/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    mainProgram = "${pname}";
+    mainProgram = "lampghost";
     maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
