@@ -408,8 +408,8 @@ reIf {
     };
     alertmanager = {
       enable = true;
-      webExternalUrl = "https://${config.networking.fqdn}/alert";
-      listenAddress = "127.0.0.1";
+      webExternalUrl = "https://alert.nyaw.xyz";
+      listenAddress = "[fdcc::3]";
       port = 9093;
       logLevel = "info";
       extraFlags = [ ''--cluster.listen-address=""'' ];

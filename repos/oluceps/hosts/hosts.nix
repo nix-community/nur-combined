@@ -15,6 +15,7 @@ let
     "memos"
     "rqbit"
     "seed"
+    "alert"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"

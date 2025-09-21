@@ -46,6 +46,7 @@
                               }
                             ];
                           }
+
                         ];
                       }
                     ];
@@ -59,6 +60,15 @@
                       }
                     ];
                     match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "[fdcc::3]:9093"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "alert.nyaw.xyz" ]; } ];
                   }
                   {
                     handle = [

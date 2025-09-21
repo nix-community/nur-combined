@@ -57,7 +57,6 @@
     kernelParams = [
       "amd_pstate=active"
       "amd_iommu=on"
-      "net.ifnames=0"
       "random.trust_cpu=off"
       "zswap.enabled=1"
       "zswap.compressor=zstd"

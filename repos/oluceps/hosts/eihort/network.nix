@@ -15,6 +15,10 @@
     # resolvconf.useLocalResolver = true;
     hosts = lib.data.hosts.${config.networking.hostName};
     usePredictableInterfaceNames = false;
+    nameservers = [
+      "120.53.53.53#dot.pub"
+      "119.29.29.29"
+    ];
     timeServers = [
       "ntp1.aliyun.com"
       "240e:982:13a3:f700:70c6:e4fd:a208:19d3"

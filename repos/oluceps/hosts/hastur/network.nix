@@ -83,9 +83,9 @@
     #   };
     # };
     links = {
-      "10-eth0" = {
+      "10-eno1" = {
         matchConfig.MACAddress = "3c:7c:3f:22:49:80";
-        linkConfig.Name = "eth0";
+        linkConfig.Name = "eno1";
       };
 
       "40-wlan0" = {
@@ -111,7 +111,7 @@
     };
     networks = {
       # "20-wired" = {
-      #   matchConfig.Name = "eth0";
+      #   matchConfig.Name = "eno1";
       #   networkConfig = {
       #     Bond = "bond0";
       #     PrimarySlave = true;
@@ -125,8 +125,8 @@
       #   };
       # };
 
-      "8-eth0" = {
-        matchConfig.Name = "eth0";
+      "8-eno1" = {
+        matchConfig.Name = "eno1";
         networkConfig = {
           DHCP = "no";
           IPv4Forwarding = true;
