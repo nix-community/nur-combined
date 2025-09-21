@@ -37,13 +37,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.6.1";
+    version = "v2.7.0";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.6.1";
+      rev = "v2.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-owYce/gt8nyyl3K1PZ9PNAVFo5UZ3jE9JkONiQFOgDI=";
+      sha256 = "sha256-4BAyH7GPBTqbS7GKPhS1gqjW+H1d3pzDGXwCa7fty58=";
     };
   };
   dot-tar = {
@@ -436,17 +436,17 @@
   };
   rime-stroke = {
     pname = "rime-stroke";
-    version = "7c9874c6b2e0b94947653e9a7de6f99623ff27e4";
+    version = "a4dc0423c578bf5e15bea66103e082ee187a8737";
     src = fetchgit {
       url = "https://github.com/rime/rime-stroke.git";
-      rev = "7c9874c6b2e0b94947653e9a7de6f99623ff27e4";
+      rev = "a4dc0423c578bf5e15bea66103e082ee187a8737";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-YtvNSby7NmjTdGwk9aNT44SUitKfEbAg3QSwX9g7QtA=";
+      sha256 = "sha256-rNKPHz6eLgAYTdpWwxk7GE3APZXJ0Oc1lzHhRDDvRg0=";
     };
-    date = "2025-01-18";
+    date = "2025-09-20";
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";

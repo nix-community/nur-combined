@@ -63,12 +63,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.6.1",
-            "sha256": "sha256-owYce/gt8nyyl3K1PZ9PNAVFo5UZ3jE9JkONiQFOgDI=",
+            "rev": "v2.7.0",
+            "sha256": "sha256-4BAyH7GPBTqbS7GKPhS1gqjW+H1d3pzDGXwCa7fty58=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.1"
+        "version": "v2.7.0"
     },
     "dot-tar": {
         "cargoLocks": {
@@ -665,7 +665,7 @@
     },
     "rime-stroke": {
         "cargoLocks": null,
-        "date": "2025-01-18",
+        "date": "2025-09-20",
         "extract": null,
         "name": "rime-stroke",
         "passthru": null,
@@ -675,13 +675,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7c9874c6b2e0b94947653e9a7de6f99623ff27e4",
-            "sha256": "sha256-YtvNSby7NmjTdGwk9aNT44SUitKfEbAg3QSwX9g7QtA=",
+            "rev": "a4dc0423c578bf5e15bea66103e082ee187a8737",
+            "sha256": "sha256-rNKPHz6eLgAYTdpWwxk7GE3APZXJ0Oc1lzHhRDDvRg0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-stroke.git"
         },
-        "version": "7c9874c6b2e0b94947653e9a7de6f99623ff27e4"
+        "version": "a4dc0423c578bf5e15bea66103e082ee187a8737"
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
