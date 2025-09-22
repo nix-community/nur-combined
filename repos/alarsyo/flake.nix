@@ -50,11 +50,6 @@
       ref = "master";
     };
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     jujutsu = {
       type = "github";
       owner = "jj-vcs";
@@ -70,7 +65,6 @@
     home-manager,
     agenix,
     disko,
-    lix-module,
     ...
   } @ inputs:
     {
@@ -112,7 +106,6 @@
           [
             agenix.nixosModules.default
             home-manager.nixosModules.default
-            lix-module.nixosModules.default
             {
               nixpkgs = {
                 overlays = shared_overlays;

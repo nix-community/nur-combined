@@ -2,7 +2,7 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = {
-    package = pkgs.nixStable;
+    package = pkgs.lixPackageSets.latest.lix;
 
     gc = {
       automatic = true;
