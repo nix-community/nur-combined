@@ -38,6 +38,9 @@ rec {
 
   # Coveralls reporting tool
   coveralls = pkgs.callPackage ./pkgs/coveralls { };
+
+  # Cargo AFL fuzz helper
+  cargo-afl = pkgs.callPackage ./pkgs/cargo-afl { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker

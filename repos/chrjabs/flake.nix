@@ -66,6 +66,7 @@
               veripb
               gimsatul
               coveralls
+              cargo-afl
               ;
           };
 
