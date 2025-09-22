@@ -28,13 +28,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bongocat";
-  version = "0.7.1";
+  version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "ayangweb";
     repo = "BongoCat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LjI2xqtGyOYKgeJYHImTQMyQK22mGqmgqyjuA3+qs2A=";
+    hash = "sha256-UdiYws1Rsqs4SghfvYPazNwFc/K2XY0l9S94mDuY+a4=";
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
@@ -42,10 +42,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # error: pnpm.fetchDeps: `fetcherVersion` is not set
     # see https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion.
     fetcherVersion = 1;
-    hash = "sha256-NI0kyXlARPjpSgmlDq8WiSBdd8WAh0c7TiskHQE1VGI=";
+    hash = "sha256-klmImDr+/attLgspqsKeupCAbhiMlDNkJCJ6NwNYgfQ=";
   };
 
-  cargoHash = "sha256-fQUkCeF25SEQbjiDiaWZEYEWSJQwi0jSwpHVhtUEYQA=";
+  cargoHash = "sha256-+I28zr8VX2G5ZWKn/0fijzsyYR+2o6SYVD3P1pi9fU8=";
 
   buildAndTestSubdir = "src-tauri";
 
