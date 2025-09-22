@@ -58,8 +58,6 @@ rustPlatform.buildRustPackage rec {
     license = with licenses; [
       asl20
     ];
-    maintainers = with maintainers; [
-      chrjabs
-    ];
+    maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
   };
 }
