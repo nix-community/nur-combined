@@ -5,6 +5,85 @@
 [![nur sync](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/synced.yaml?logo=nixos&logoColor=%2389dceb&label=synced&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/synced.yaml)
 [![cachix](https://img.shields.io/badge/cachix-trevnur-%23313244?logo=nixos&logoColor=%2389dceb&labelColor=%2311111b)](https://trevnur.cachix.org)
 
+## Install
+
+### DevShell
+
+```nix
+{
+  nixConfig = {
+    extra-substituters = [
+      "https://trevnur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+    ];
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = {
+    nixpkgs,
+    flake-utils,
+    nur,
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [nur.overlays.default]; # Add the NUR overlay
+        };
+      in {
+        devShells.default = pkgs.mkShell {
+          packages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
+        };
+      }
+    );
+}
+```
+
+### NixOS
+
+```nix
+{
+  nixConfig = {
+    extra-substituters = [
+      "https://trevnur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+    ];
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, nur }: {
+    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
+      modules = [
+        nur.modules.nixos.default # Add the NUR overlay
+
+        ({ pkgs, ... }: {
+          environment.systemPackages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
+        })
+      ];
+    };
+  };
+}
+```
+
 ## Packages
 
 - [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema
@@ -92,83 +171,4 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
     buf lint
   '';
 });
-```
-
-## Install
-
-### DevShell
-
-```nix
-{
-  nixConfig = {
-    extra-substituters = [
-      "https://trevnur.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
-    ];
-  };
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = {
-    nixpkgs,
-    flake-utils,
-    nur,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [nur.overlays.default]; # Add the NUR overlay
-        };
-      in {
-        devShells.default = pkgs.mkShell {
-          packages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
-        };
-      }
-    );
-}
-```
-
-### NixOS
-
-```nix
-{
-  nixConfig = {
-    extra-substituters = [
-      "https://trevnur.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
-    ];
-  };
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = { self, nixpkgs, nur }: {
-    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
-      modules = [
-        nur.modules.nixos.default # Add the NUR overlay
-
-        ({ pkgs, ... }: {
-          environment.systemPackages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
-        })
-      ];
-    };
-  };
-}
 ```
