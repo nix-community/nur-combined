@@ -12,8 +12,8 @@ nix-update.overrideAttrs
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "nix-update";
-    rev = "4f23e1b2735ec226343ca1c3db91748e88440167";
-    hash = "sha256-Zity8xKhlZmUw+Jf6ZA61bxNvhXQK1issriH01dXqqM=";
+    rev = "2caf62304f843987b44b2084aa855d1423e8a715";
+    hash = "sha256-RDBz4j9x10Tv2CFcb0YTwk5m+K1aXIaUQj3qdlL8OPo=";
   };
 
   passthru =

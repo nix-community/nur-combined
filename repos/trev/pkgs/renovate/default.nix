@@ -11,17 +11,16 @@
   nixosTests,
   nix-update-script,
   yq-go,
-  writeShellScript,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "41.123.0";
+  version = "41.125.0";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-kNK1Z5gctoXLUKTFGhzc0I4EOScv22tCfmj41gf5VmE=";
+    hash = "sha256-Ye1ZfrODPCdxeAuJY1TX9TTufHEjRxdPdJPllUPkSek=";
   };
 
   patches = [
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 2;
-    hash = "sha256-XnCawzNBUTxoFWQPy2GKSRDshkOBUWpJUJch9h5P9E0=";
+    hash = "sha256-nzVFZPixwml47ehN+Gr6Sp0oxkJzTSC9FEIXqOzC3wo=";
   };
 
   env.COREPACK_ENABLE_STRICT = 0;
@@ -100,12 +99,14 @@ stdenv.mkDerivation (finalAttrs: {
       vm-test = nixosTests.renovate;
     };
     updateScript = ''
+      wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/37899.diff -O ./pkgs/renovate/37899.diff
+
       ${lib.concatStringsSep " " (nix-update-script {
         extraArgs = [
           "--commit"
           "${finalAttrs.pname}"
         ];
-      })} && ${writeShellScript "update" ./update.sh}
+      })}
     '';
   };
 
