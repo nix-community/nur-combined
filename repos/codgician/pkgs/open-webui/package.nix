@@ -5,7 +5,7 @@
   python3Packages,
   nixosTests,
   fetchurl,
-  ffmpeg-headless
+  ffmpeg-headless,
 }:
 let
   pname = "open-webui";
