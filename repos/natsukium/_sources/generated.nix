@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "bc8291448d8b3e977a097b33b0626f43c16bd3b3";
+    version = "b0a610b82051c72161c73c4423c5faeb92c075fa";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "bc8291448d8b3e977a097b33b0626f43c16bd3b3";
+      rev = "b0a610b82051c72161c73c4423c5faeb92c075fa";
       fetchSubmodules = false;
-      sha256 = "sha256-/YGzldTfWWuKRZcvQHp+2p+hxtQk90midKQJ2SvPKZQ=";
+      sha256 = "sha256-AlE/r4IPvJp9DKhQSChnus7xQJG6lWcqUCE+xe90JTA=";
     };
-    date = "2025-09-08";
+    date = "2025-09-21";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -107,18 +107,18 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.6.3797.52";
+    version = "7.6.3797.55";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.52.universal.dmg";
-      sha256 = "sha256-somicbns6rqEvHm9uUbfnAEK1vLxFu6UZqpV0E5yyNc=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.55.universal.dmg";
+      sha256 = "sha256-3Es/AMJd954fu0XP8OwHLGaCCCeZevFnbKoB4JnxTjM=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.15.5b";
+    version = "1.16b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.15.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-vzkXKvfUQKXL4L/+Vo3yZLbQ4fbJbfObGC6JM4HN+6w=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.16b/zen.macos-universal.dmg";
+      sha256 = "sha256-iXgp27DORYM2XBXEb7/Mydi76u5voC5enRfSzLd/ZqI=";
     };
   };
 }

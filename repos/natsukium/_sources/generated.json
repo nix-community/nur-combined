@@ -94,7 +94,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-09-08",
+        "date": "2025-09-21",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "bc8291448d8b3e977a097b33b0626f43c16bd3b3",
-            "sha256": "sha256-/YGzldTfWWuKRZcvQHp+2p+hxtQk90midKQJ2SvPKZQ=",
+            "rev": "b0a610b82051c72161c73c4423c5faeb92c075fa",
+            "sha256": "sha256-AlE/r4IPvJp9DKhQSChnus7xQJG6lWcqUCE+xe90JTA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bc8291448d8b3e977a097b33b0626f43c16bd3b3"
+        "version": "b0a610b82051c72161c73c4423c5faeb92c075fa"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-somicbns6rqEvHm9uUbfnAEK1vLxFu6UZqpV0E5yyNc=",
+            "sha256": "sha256-3Es/AMJd954fu0XP8OwHLGaCCCeZevFnbKoB4JnxTjM=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.52.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.55.universal.dmg"
         },
-        "version": "7.6.3797.52"
+        "version": "7.6.3797.55"
     },
     "zen-browser": {
         "cargoLocks": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vzkXKvfUQKXL4L/+Vo3yZLbQ4fbJbfObGC6JM4HN+6w=",
+            "sha256": "sha256-iXgp27DORYM2XBXEb7/Mydi76u5voC5enRfSzLd/ZqI=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.15.5b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.16b/zen.macos-universal.dmg"
         },
-        "version": "1.15.5b"
+        "version": "1.16b"
     }
 }
