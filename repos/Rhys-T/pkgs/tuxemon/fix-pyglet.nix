@@ -1,5 +1,8 @@
 # Workaround for <https://github.com/NixOS/nixpkgs/issues/368061>
-{stdenv, pyglet'}: if stdenv.hostPlatform.isDarwin then (pyglet'.override {
+# Not needed after <https://github.com/NixOS/nixpkgs/pull/418779>
+{stdenv, lib, pyglet'}: let
+    pr418779Merged = (lib.functionArgs pyglet'.override)?apple-sdk;
+in if stdenv.hostPlatform.isDarwin && !pr418779Merged then (pyglet'.override {
     glibc = "<dummy>";
     libGL = "<dummy>";
     libGLU = "<dummy>";
