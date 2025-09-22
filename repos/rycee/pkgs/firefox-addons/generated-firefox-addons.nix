@@ -3448,10 +3448,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.59";
+      version = "1.3.60";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4580555/faststream-1.3.59.xpi";
-      sha256 = "6643f631b2d52523085897e48feb235a9475febfdafaf092d1200d7900f38317";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4582954/faststream-1.3.60.xpi";
+      sha256 = "102d42329e4764adbb966577b6567e7e654dd832aa3e80667685ee76a44b14df";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -11933,10 +11933,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.7.1";
+      version = "1.8";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4509430/smartproxy-1.7.1.xpi";
-      sha256 = "6c6c86dcc3b68f115d13336055a361b3b217e521246f988386414bd210f4d1cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4582982/smartproxy-1.8.xpi";
+      sha256 = "cc8f2e6f3f6af1ecc67af8f6c2ae5f966862db118be962b823858a43e7a940d1";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
