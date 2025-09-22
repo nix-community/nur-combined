@@ -1,0 +1,1333 @@
+diff --git a/lib/modules/manager/nix/artifacts.spec.ts b/lib/modules/manager/nix/artifacts.spec.ts
+index 1c4f618874c..fc0f49063c9 100644
+--- a/lib/modules/manager/nix/artifacts.spec.ts
++++ b/lib/modules/manager/nix/artifacts.spec.ts
+@@ -31,11 +31,11 @@ const config: UpdateArtifactsConfig = {};
+ const lockMaintenanceConfig = { ...config, isLockFileMaintenance: true };
+ const updateInputCmd = `nix \
+ --extra-experimental-features 'nix-command flakes' \
+-flake lock --update-input nixpkgs`;
++flake update nixpkgs`;
+ const updateInputTokenCmd = `nix \
+ --extra-experimental-features 'nix-command flakes' \
+ --extra-access-tokens github.com=token \
+-flake lock --update-input nixpkgs`;
++flake update nixpkgs`;
+ const lockfileMaintenanceCmd = `nix \
+ --extra-experimental-features 'nix-command flakes' \
+ flake update`;
+diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
+index e9e05bd6023..1ab4d5951cc 100644
+--- a/lib/modules/manager/nix/artifacts.ts
++++ b/lib/modules/manager/nix/artifacts.ts
+@@ -41,9 +41,9 @@ export async function updateArtifacts({
+     const inputs = updatedDeps
+       .map(({ depName }) => depName)
+       .filter(is.nonEmptyStringAndNotWhitespace)
+-      .map((depName) => `--update-input ${quote(depName)}`)
++      .map((depName) => quote(depName))
+       .join(' ');
+-    cmd += `flake lock ${inputs}`;
++    cmd += `flake update ${inputs}`;
+   }
+   const execOptions: ExecOptions = {
+     cwdFile: packageFileName,
+diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
+index 020bbcbc562..23521855009 100644
+--- a/lib/modules/manager/nix/extract.spec.ts
++++ b/lib/modules/manager/nix/extract.spec.ts
+@@ -7,84 +7,210 @@ import { fs } from '~test/util';
+ vi.mock('../../../util/fs');
+ 
+ describe('modules/manager/nix/extract', () => {
+-  const flake1Lock = codeBlock`{
+-    "nodes": {
+-      "root": {}
+-    },
+-    "root": "root",
+-    "version": 7
+-  }`;
+-
+   it('returns null when no nixpkgs input exists', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
+     const flakeNix = codeBlock`{
+       inputs = {};
+     }`;
+-    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
+     expect(await extractPackageFile(flakeNix, 'flake.nix')).toBeNull();
+   });
+ 
+-  it('match nixpkgs input', async () => {
++  it('does not include nixpkgs input with no explicit ref', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
+     const flakeNix = codeBlock`{
+       inputs = {
+-        nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
++        nixpkgs.url = "github:NixOS/nixpkgs";
+       };
+     }`;
+-    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
+-    expect(await extractPackageFile(flakeNix, 'flake.nix')).toEqual({
+-      deps: [
+-        {
+-          depName: 'nixpkgs',
+-          currentValue: 'nixos-21.11',
+-          datasource: GitRefsDatasource.id,
+-          packageName: 'https://github.com/NixOS/nixpkgs',
+-          versioning: nixpkgsVersioning,
+-        },
+-      ],
+-    });
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile(flakeNix, 'flake.nix')).toBeNull();
+   });
+ 
+-  it('match nixpkgs input case insensitive', async () => {
++  it('includes nixpkgs input with only ref', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
+     const flakeNix = codeBlock`{
+       inputs = {
+-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
++        nixpkgs-lib.url = "https://github.com/NixOS/nixpkgs/archive/072a6db25e947df2f31aab9eccd0ab75d5b2da11.tar.gz";
+       };
+     }`;
+-    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
+-    expect(await extractPackageFile(flakeNix, 'flake.nix')).toEqual({
+-      deps: [
+-        {
+-          depName: 'nixpkgs',
+-          currentValue: 'nixos-21.11',
+-          datasource: GitRefsDatasource.id,
+-          packageName: 'https://github.com/NixOS/nixpkgs',
+-          versioning: nixpkgsVersioning,
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile(flakeNix, 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when no inputs', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when inputs are missing locked', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "type": "github"
++          }
+         },
+-      ],
+-    });
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
+   });
+ 
+-  it('includes nixpkgs input with no explicit ref', async () => {
+-    const flakeNix = codeBlock`{
+-      inputs = {
+-        nixpkgs.url = "github:NixOS/nixpkgs";
+-      };
++  it('returns null when inputs are missing original', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1720031269,
++            "narHash": "sha256-rwz8NJZV+387rnWpTYcXaRNvzUSnnF9aHONoJIYmiUQ=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
+     }`;
+-    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
+-    expect(await extractPackageFile(flakeNix, 'flake.nix')).toEqual({
+-      deps: [
+-        {
+-          currentValue: undefined,
+-          datasource: 'git-refs',
+-          depName: 'nixpkgs',
+-          packageName: 'https://github.com/NixOS/nixpkgs',
+-          versioning: 'nixpkgs',
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when original inputs are from local path', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1720031269,
++            "narHash": "sha256-rwz8NJZV+387rnWpTYcXaRNvzUSnnF9aHONoJIYmiUQ=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
++            "type": "github"
++          },
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "type": "path"
++          }
+         },
+-      ],
+-    });
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
+   });
+ 
+-  it('returns null when no inputs', async () => {
+-    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
++  it('returns null when locked inputs are indirect', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1720031269,
++            "narHash": "sha256-rwz8NJZV+387rnWpTYcXaRNvzUSnnF9aHONoJIYmiUQ=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
++            "type": "indirect"
++          },
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when locked inputs are from local path', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1720031269,
++            "narHash": "sha256-rwz8NJZV+387rnWpTYcXaRNvzUSnnF9aHONoJIYmiUQ=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
++            "type": "path"
++          },
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
+     expect(await extractPackageFile('', 'flake.nix')).toBeNull();
+   });
+ 
+@@ -120,11 +246,12 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toEqual({
+       deps: [
+         {
+-          depName: 'nixpkgs',
+-          currentDigest: '9f4128e00b0ae8ec65918efeba59db998750ead6',
+           currentValue: 'nixos-unstable',
++          depName: 'nixpkgs',
+           datasource: GitRefsDatasource.id,
+           packageName: 'https://github.com/NixOS/nixpkgs',
++          versioning: nixpkgsVersioning,
++          lockedVersion: '9f4128e00b0ae8ec65918efeba59db998750ead6',
+         },
+       ],
+     });
+@@ -161,10 +288,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '612ee628421ba2c1abca4c99684862f76cb3b089',
+           datasource: 'git-refs',
+           depName: 'nixpkgs',
+           packageName: 'https://github.com/NixOS/nixpkgs',
++          lockedVersion: '612ee628421ba2c1abca4c99684862f76cb3b089',
+         },
+       ],
+     });
+@@ -219,10 +346,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: 'a0f54334df36770b335c051e540ba40afcbf8378',
+           datasource: 'git-refs',
+           depName: 'patchelf',
+           packageName: 'https://github.com/NixOS/patchelf.git',
++          lockedVersion: 'a0f54334df36770b335c051e540ba40afcbf8378',
+         },
+       ],
+     });
+@@ -260,10 +387,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '88f0d9ae98942bf49cba302c42b2a0f6e05f9b58',
+           datasource: 'git-refs',
+           depName: 'ijq',
+           packageName: 'https://git.sr.ht/~gpanders/ijq',
++          lockedVersion: '88f0d9ae98942bf49cba302c42b2a0f6e05f9b58',
+         },
+       ],
+     });
+@@ -301,10 +428,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '65ae9c147349829d3df0222151f53f79821c5134',
+           datasource: 'git-refs',
+           depName: 'home-manager',
+           packageName: 'https://gitlab.com/rycee/home-manager',
++          lockedVersion: '65ae9c147349829d3df0222151f53f79821c5134',
+         },
+       ],
+     });
+@@ -355,10 +482,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '5633bcff0c6162b9e4b5f1264264611e950c8ec7',
+           datasource: 'git-refs',
+           depName: 'nixpkgs',
+           packageName: 'https://github.com/NixOS/nixpkgs',
++          lockedVersion: '5633bcff0c6162b9e4b5f1264264611e950c8ec7',
+         },
+       ],
+     });
+@@ -509,11 +636,11 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '6bf2706348447df6f8b86b1c3e54f87b0afda84f',
+           datasource: 'git-refs',
+           depName: 'nixpkgs-extra-pkgs',
+           packageName:
+             'https://github.corp.example.com/my-org/nixpkgs-extra-pkgs',
++          lockedVersion: '6bf2706348447df6f8b86b1c3e54f87b0afda84f',
+         },
+       ],
+     });
+@@ -611,10 +738,10 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: 'c7e39452affcc0f89e023091524e38b3aaf109e9',
+           datasource: 'git-refs',
+           depName: 'data-mesher',
+           packageName: 'https://git.clan.lol/clan/data-mesher',
++          lockedVersion: 'c7e39452affcc0f89e023091524e38b3aaf109e9',
+         },
+       ],
+     });
+@@ -651,15 +778,573 @@ describe('modules/manager/nix/extract', () => {
+     expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
+       deps: [
+         {
+-          currentDigest: '24b560624f154c9e962d146217b2a964faaf2055',
+           datasource: 'git-refs',
+           depName: 'subgroup-project',
+           packageName: 'https://gitlab.com/group/sub-group/subgroup-project',
++          lockedVersion: '24b560624f154c9e962d146217b2a964faaf2055',
+         },
+       ],
+     });
+   });
+ 
++  it('includes flake with only tarball type', async () => {
++    const flakeLock = codeBlock`{
++    "nodes": {
++      "nixpkgs-lib": {
++        "locked": {
++          "lastModified": 1738452942,
++          "narHash": "sha256-vJzFZGaCpnmo7I6i416HaBLpC+hvcURh/BQwROcGIp8=",
++          "type": "tarball",
++          "url": "https://github.com/NixOS/nixpkgs/archive/072a6db25e947df2f31aab9eccd0ab75d5b2da11.tar.gz"
++        },
++        "original": {
++          "type": "tarball",
++          "url": "https://github.com/NixOS/nixpkgs/archive/072a6db25e947df2f31aab9eccd0ab75d5b2da11.tar.gz"
++        }
++      },
++      "root": {
++        "inputs": {
++          "nixpkgs-lib": "nixpkgs-lib"
++        }
++      }
++    },
++    "root": "root",
++    "version": 7
++  }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('includes flake with nixpkgs-lib as tarball type', async () => {
++    const flakeLock = codeBlock`{
++    "nodes": {
++      "flake-parts": {
++        "inputs": {
++          "nixpkgs-lib": "nixpkgs-lib"
++        },
++        "locked": {
++          "lastModified": 1733312601,
++          "narHash": "sha256-4pDvzqnegAfRkPwO3wmwBhVi/Sye1mzps0zHWYnP88c=",
++          "owner": "hercules-ci",
++          "repo": "flake-parts",
++          "rev": "205b12d8b7cd4802fbcb8e8ef6a0f1408781a4f9",
++          "type": "github"
++        },
++        "original": {
++          "owner": "hercules-ci",
++          "repo": "flake-parts",
++          "type": "github"
++        }
++      },
++      "nixpkgs": {
++        "locked": {
++          "lastModified": 1734649271,
++          "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
++          "owner": "nixos",
++          "repo": "nixpkgs",
++          "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
++          "type": "github"
++        },
++        "original": {
++          "owner": "nixos",
++          "ref": "nixos-unstable",
++          "repo": "nixpkgs",
++          "type": "github"
++        }
++      },
++      "nixpkgs-lib": {
++        "locked": {
++          "lastModified": 1733096140,
++          "narHash": "sha256-1qRH7uAUsyQI7R1Uwl4T+XvdNv778H0Nb5njNrqvylY=",
++          "type": "tarball",
++          "url": "https://github.com/NixOS/nixpkgs/archive/5487e69da40cbd611ab2cadee0b4637225f7cfae.tar.gz"
++        },
++        "original": {
++          "type": "tarball",
++          "url": "https://github.com/NixOS/nixpkgs/archive/5487e69da40cbd611ab2cadee0b4637225f7cfae.tar.gz"
++        }
++      },
++      "root": {
++        "inputs": {
++          "flake-parts": "flake-parts",
++          "nixpkgs": "nixpkgs"
++        }
++      }
++    },
++    "root": "root",
++    "version": 7
++  }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          datasource: 'git-refs',
++          depName: 'flake-parts',
++          packageName: 'https://github.com/hercules-ci/flake-parts',
++          lockedVersion: '205b12d8b7cd4802fbcb8e8ef6a0f1408781a4f9',
++        },
++        {
++          currentValue: 'nixos-unstable',
++          datasource: 'git-refs',
++          depName: 'nixpkgs',
++          packageName: 'https://github.com/NixOS/nixpkgs',
++          lockedVersion: 'd70bd19e0a38ad4790d3913bf08fcbfc9eeca507',
++        },
++      ],
++    });
++  });
++
++  it('includes flake with nixpkgs channel as tarball type', async () => {
++    const flakeLock = codeBlock`{
++    "nodes": {
++      "nixpkgs": {
++        "locked": {
++          "lastModified": 1756904031,
++          "narHash": "sha256-V29Bu1nR6Ayt+uUhf/6L43DSxb66BQ+8E2wH1GHa5IA=",
++          "rev": "0e6684e6c5755325f801bda1751a8a4038145d7d",
++          "type": "tarball",
++          "url": "https://releases.nixos.org/nixos/25.05/nixos-25.05.809350.0e6684e6c575/nixexprs.tar.xz"
++        },
++        "original": {
++          "type": "tarball",
++          "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
++        }
++      },
++      "root": {
++        "inputs": {
++          "nixpkgs": "nixpkgs"
++        }
++      }
++    },
++    "root": "root",
++    "version": 7
++  }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          currentValue: 'nixpkgs-unstable',
++          datasource: 'git-refs',
++          depName: 'nixpkgs',
++          packageName: 'https://github.com/NixOS/nixpkgs',
++          lockedVersion: '0e6684e6c5755325f801bda1751a8a4038145d7d',
++          versioning: 'nixpkgs',
++        },
++      ],
++    });
++  });
++
++  it('finds currentDigest correctly when input sha is pinned', async () => {
++    const flakeNix = codeBlock`{
++      inputs = {
++        disko.url = "github:nix-community/disko/76c0a6dba345490508f36c1aa3c7ba5b6b460989";
++      };
++    }`;
++    const flakeLock = codeBlock`{
++    "nodes": {
++      "disko": {
++        "locked": {
++          "lastModified": 1744145203,
++          "narHash": "sha256-I2oILRiJ6G+BOSjY+0dGrTPe080L3pbKpc+gCV3Nmyk=",
++          "owner": "nix-community",
++          "repo": "disko",
++          "rev": "76c0a6dba345490508f36c1aa3c7ba5b6b460989",
++          "type": "github"
++        },
++        "original": {
++          "owner": "nix-community",
++          "repo": "disko",
++          "rev": "76c0a6dba345490508f36c1aa3c7ba5b6b460989",
++          "type": "github"
++        }
++      },
++      "root": {
++        "inputs": {
++          "disko": "disko"
++        }
++      }
++    },
++    "root": "root",
++    "version": 7
++  }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile(flakeNix, 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          currentDigest: '76c0a6dba345490508f36c1aa3c7ba5b6b460989',
++          datasource: 'git-refs',
++          depName: 'disko',
++          packageName: 'https://github.com/nix-community/disko',
++        },
++      ],
++    });
++  });
++
++  it('does not duplicate nixpkgs dependency', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1756904031,
++            "narHash": "sha256-V29Bu1nR6Ayt+uUhf/6L43DSxb66BQ+8E2wH1GHa5IA=",
++            "rev": "0e6684e6c5755325f801bda1751a8a4038145d7d",
++            "type": "tarball",
++            "url": "https://releases.nixos.org/nixos/25.05/nixos-25.05.809350.0e6684e6c575/nixexprs.tar.xz"
++          },
++          "original": {
++            "type": "tarball",
++            "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    const flakeNix = codeBlock`{
++      inputs = {
++        nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
++      };
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile(flakeNix, 'flake.nix')).toEqual({
++      deps: [
++        {
++          currentValue: 'nixpkgs-unstable',
++          datasource: 'git-refs',
++          depName: 'nixpkgs',
++          packageName: 'https://github.com/NixOS/nixpkgs',
++          lockedVersion: '0e6684e6c5755325f801bda1751a8a4038145d7d',
++          versioning: 'nixpkgs',
++        },
++      ],
++    });
++  });
++
++  it('returns null when flake.lock file cannot be read', async () => {
++    fs.readLocalFile.mockResolvedValueOnce(null);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when flake.nix file cannot be read', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    fs.readLocalFile.mockResolvedValueOnce(null);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns null when flake.lock has invalid JSON', async () => {
++    fs.readLocalFile.mockResolvedValueOnce('{ invalid json');
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
++  it('returns deps when no root inputs but deps exist', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "root": {}
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++
++    const result = await extractPackageFile('', 'flake.nix');
++    expect(result).toBeNull();
++  });
++
++  it('handles currentDigest replacement when config provided', async () => {
++    const flakeNix = codeBlock`{
++      inputs = {
++        disko.url = "github:nix-community/disko/newdigest123";
++      };
++    }`;
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "disko": {
++          "locked": {
++            "lastModified": 1744145203,
++            "narHash": "sha256-I2oILRiJ6G+BOSjY+0dGrTPe080L3pbKpc+gCV3Nmyk=",
++            "owner": "nix-community",
++            "repo": "disko",
++            "rev": "76c0a6dba345490508f36c1aa3c7ba5b6b460989",
++            "type": "github"
++          },
++          "original": {
++            "owner": "nix-community",
++            "repo": "disko",
++            "rev": "olddigest123",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "disko": "disko"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    const config = {
++      currentDigest: 'olddigest123',
++      newDigest: 'newdigest123',
++    };
++
++    const result = await extractPackageFile(flakeNix, 'flake.nix', config);
++    expect(result?.deps[0]).toMatchObject({
++      currentDigest: 'newdigest123',
++      depName: 'disko',
++      packageName: 'https://github.com/nix-community/disko',
++    });
++  });
++
++  it('includes nixpkgs with ref when original has rev', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1720031269,
++            "narHash": "sha256-rwz8NJZV+387rnWpTYcXaRNvzUSnnF9aHONoJIYmiUQ=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
++            "type": "github"
++          },
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "rev": "specific-commit-hash",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": "nixpkgs"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          currentValue: 'nixos-unstable',
++          currentDigest: 'specific-commit-hash',
++          depName: 'nixpkgs',
++          packageName: 'https://github.com/NixOS/nixpkgs',
++        },
++      ],
++    });
++  });
++
++  it('includes github flake with ref when original has rev', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "flake-utils": {
++          "locked": {
++            "lastModified": 1726560853,
++            "narHash": "sha256-X6rJYSESBVr3hBoH0WbKE5KvhPU5bloyZ2L4K60/fPQ=",
++            "owner": "numtide",
++            "repo": "flake-utils",
++            "rev": "c1dfcf08411b08f6b8615f7d8971a2bfa81d5e8a",
++            "type": "github"
++          },
++          "original": {
++            "owner": "numtide",
++            "repo": "flake-utils",
++            "ref": "main",
++            "rev": "specific-commit-hash",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "flake-utils": "flake-utils"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          currentValue: 'main',
++          currentDigest: 'specific-commit-hash',
++          depName: 'flake-utils',
++          packageName: 'https://github.com/numtide/flake-utils',
++        },
++      ],
++    });
++  });
++
++  it('includes gitlab flake with custom host', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "custom-project": {
++          "locked": {
++            "lastModified": 1728650932,
++            "narHash": "sha256-mGKzqdsRyLnGNl6WjEr7+sghGgBtYHhJQ4mjpgRTCsU=",
++            "owner": "group",
++            "repo": "project",
++            "rev": "65ae9c147349829d3df0222151f53f79821c5134",
++            "type": "gitlab",
++            "host": "gitlab.example.com"
++          },
++          "original": {
++            "owner": "group",
++            "repo": "project",
++            "type": "gitlab",
++            "host": "gitlab.example.com"
++          }
++        },
++        "root": {
++          "inputs": {
++            "custom-project": "custom-project"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          datasource: 'git-refs',
++          depName: 'custom-project',
++          packageName: 'https://gitlab.example.com/group/project',
++          lockedVersion: '65ae9c147349829d3df0222151f53f79821c5134',
++        },
++      ],
++    });
++  });
++
++  it('includes sourcehut flake with custom host', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "custom-project": {
++          "locked": {
++            "lastModified": 1723569650,
++            "narHash": "sha256-Ho/sAhEUeSug52JALgjrKVUPCBe8+PovbJj/lniKxp8=",
++            "owner": "~user",
++            "repo": "project",
++            "rev": "88f0d9ae98942bf49cba302c42b2a0f6e05f9b58",
++            "type": "sourcehut",
++            "host": "git.custom.org"
++          },
++          "original": {
++            "owner": "~user",
++            "repo": "project",
++            "type": "sourcehut",
++            "host": "git.custom.org"
++          }
++        },
++        "root": {
++          "inputs": {
++            "custom-project": "custom-project"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          datasource: 'git-refs',
++          depName: 'custom-project',
++          packageName: 'https://git.custom.org/~user/project',
++          lockedVersion: '88f0d9ae98942bf49cba302c42b2a0f6e05f9b58',
++        },
++      ],
++    });
++  });
++
++  it('includes tarball flake with ref when original has rev', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "data-mesher": {
++          "locked": {
++            "lastModified": 1727355895,
++            "narHash": "sha256-grZIaLgk5GgoDuTt49RTCLBh458H4YJdIAU4B3onXRw=",
++            "rev": "c7e39452affcc0f89e023091524e38b3aaf109e9",
++            "type": "tarball",
++            "url": "https://git.clan.lol/api/v1/repos/clan/data-mesher/archive/c7e39452affcc0f89e023091524e38b3aaf109e9.tar.gz"
++          },
++          "original": {
++            "type": "tarball",
++            "url": "https://git.clan.lol/clan/data-mesher/archive/main.tar.gz",
++            "ref": "main",
++            "rev": "specific-commit-hash"
++          }
++        },
++        "root": {
++          "inputs": {
++            "data-mesher": "data-mesher"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toMatchObject({
++      deps: [
++        {
++          currentValue: 'main',
++          currentDigest: 'specific-commit-hash',
++          datasource: 'git-refs',
++          depName: 'data-mesher',
++          packageName: 'https://git.clan.lol/clan/data-mesher',
++        },
++      ],
++    });
++  });
++
++  it('handles unknown flake lock type', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "unknown-flake": {
++          "locked": {
++            "lastModified": 1727355895,
++            "narHash": "sha256-grZIaLgk5GgoDuTt49RTCLBh458H4YJdIAU4B3onXRw=",
++            "rev": "c7e39452affcc0f89e023091524e38b3aaf109e9",
++            "type": "unknown-type"
++          },
++          "original": {
++            "type": "unknown-type"
++          }
++        },
++        "root": {
++          "inputs": {
++            "unknown-flake": "unknown-flake"
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
++
+   it('ignores unsupported file type and still extracts other inputs', async () => {
+     const flakeLock = codeBlock`{
+       "nodes": {
+diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
+index 9acb65ae5ee..6404e030a8e 100644
+--- a/lib/modules/manager/nix/extract.ts
++++ b/lib/modules/manager/nix/extract.ts
+@@ -2,45 +2,41 @@ import { logger } from '../../../logger';
+ import { getSiblingFileName, readLocalFile } from '../../../util/fs';
+ import { regEx } from '../../../util/regex';
+ import { GitRefsDatasource } from '../../datasource/git-refs';
++import { id as gitRefVersioning } from '../../versioning/git';
+ import { id as nixpkgsVersioning } from '../../versioning/nixpkgs';
+-import type { PackageDependency, PackageFileContent } from '../types';
++import type {
++  ExtractConfig,
++  PackageDependency,
++  PackageFileContent,
++} from '../types';
+ import { NixFlakeLock } from './schema';
+ 
+-const nixpkgsRegex = regEx(/"github:nixos\/nixpkgs(\/(?<ref>[a-z0-9-.]+))?"/i);
+-
+ // as documented upstream
+ // https://github.com/NixOS/nix/blob/master/doc/manual/source/protocols/tarball-fetcher.md#gitea-and-forgejo-support
+ const lockableHTTPTarballProtocol = regEx(
+   '^https://(?<domain>[^/]+)/(?<owner>[^/]+)/(?<repo>[^/]+)/archive/(?<rev>.+).tar.gz$',
+ );
+ 
++const lockableChannelOriginalUrl = regEx(
++  '^https://(?:channels\\.nixos\\.org|nixos\\.org/channels)/(?<channel>[^/]+)/nixexprs\\.tar\\.xz$',
++);
++
+ export async function extractPackageFile(
+   content: string,
+   packageFile: string,
++  config?: ExtractConfig,
+ ): Promise<PackageFileContent | null> {
+-  const packageLockFile = getSiblingFileName(packageFile, 'flake.lock');
+-  const lockContents = await readLocalFile(packageLockFile, 'utf8');
++  const flakeLockFile = getSiblingFileName(packageFile, 'flake.lock');
++  const flakeLockContents = await readLocalFile(flakeLockFile, 'utf8');
+ 
+-  logger.trace(`nix.extractPackageFile(${packageLockFile})`);
++  logger.trace(`nix.extractPackageFile(${flakeLockFile})`);
+ 
+   const deps: PackageDependency[] = [];
+ 
+-  const match = nixpkgsRegex.exec(content);
+-  if (match?.groups) {
+-    const { ref } = match.groups;
+-    deps.push({
+-      depName: 'nixpkgs',
+-      currentValue: ref,
+-      datasource: GitRefsDatasource.id,
+-      packageName: 'https://github.com/NixOS/nixpkgs',
+-      versioning: nixpkgsVersioning,
+-    });
+-  }
+-
+-  const flakeLockParsed = NixFlakeLock.safeParse(lockContents);
++  const flakeLockParsed = NixFlakeLock.safeParse(flakeLockContents);
+   if (!flakeLockParsed.success) {
+     logger.debug(
+-      { packageLockFile, error: flakeLockParsed.error },
++      { flakeLockFile, error: flakeLockParsed.error },
+       `invalid flake.lock file`,
+     );
+     return null;
+@@ -51,13 +47,9 @@ export async function extractPackageFile(
+ 
+   if (!rootInputs) {
+     logger.debug(
+-      { packageLockFile, error: flakeLockParsed.error },
++      { flakeLockFile, error: flakeLockParsed.error },
+       `flake.lock is missing "root" node`,
+     );
+-
+-    if (deps.length) {
+-      return { deps };
+-    }
+     return null;
+   }
+ 
+@@ -72,81 +64,138 @@ export async function extractPackageFile(
+       continue;
+     }
+ 
++    // flakeLocked example: { rev: '56a49ffef2908dad1e9a8adef1f18802bc760962', type: 'github' }
+     const flakeLocked = flakeInput.locked;
++    // flakeOriginal example: { owner: 'NuschtOS', repo: 'search', type: 'github' }
+     const flakeOriginal = flakeInput.original;
+ 
+-    // istanbul ignore if: if we are not in a root node then original and locked always exist which cannot be easily expressed in the type
+-    if (flakeLocked === undefined || flakeOriginal === undefined) {
++    if (flakeLocked === undefined) {
++      logger.debug(
++        { flakeLockFile, flakeInput },
++        `input is missing locked, skipping`,
++      );
++      continue;
++    }
++
++    if (flakeOriginal === undefined) {
++      logger.debug(
++        { flakeLockFile, flakeInput },
++        `input is missing original, skipping`,
++      );
++      continue;
++    }
++
++    // indirect inputs cannot be reliably updated because they depend on the flake registry
++    if (flakeOriginal.type === 'indirect' || flakeLocked.type === 'indirect') {
++      logger.debug(
++        { flakeLockFile, flakeInput },
++        `input is type indirect, skipping`,
++      );
++      continue;
++    }
++
++    // cannot update local path inputs
++    if (flakeOriginal.type === 'path' || flakeLocked.type === 'path') {
+       logger.debug(
+-        { packageLockFile, flakeInput },
+-        `Found empty flake input, skipping`,
++        { flakeLockFile, flakeInput },
++        `input is type path, skipping`,
+       );
+       continue;
+     }
+ 
+-    // indirect inputs cannot be reliable updated because they depend on the flake registry
+-    if (flakeOriginal.type === 'indirect') {
++    // if no rev is being tracked, we cannot update this input
++    if (flakeLocked.rev === undefined) {
++      logger.debug(
++        { flakeLockFile, flakeInput },
++        `locked input is not tracking a rev, skipping`,
++      );
+       continue;
+     }
+ 
++    // if there's a new digest, set the corresponding digest in the lockfile so confirmations pass
++    const currentDigest = config?.currentDigest;
++    const newDigest = config?.newDigest;
++    if (
++      currentDigest &&
++      newDigest &&
++      flakeOriginal.rev &&
++      flakeOriginal.rev === currentDigest && // currentDigest is the old digest
++      content.includes(newDigest) // flake.nix contains the new digest
++    ) {
++      logger.debug(
++        { flakeLockFile, flakeInput },
++        `overriding rev ${flakeOriginal.rev} with new digest ${newDigest}`,
++      );
++      flakeOriginal.rev = newDigest;
++    }
++
++    const dep: PackageDependency = {
++      depName,
++      datasource: GitRefsDatasource.id,
++      versioning: gitRefVersioning,
++    };
++
++    // if rev is set, the flake contains a digest and can be updated directly
++    // otherwise set lockedVersion so it is updated during lock file maintenance
++    if (flakeOriginal.rev) {
++      dep.currentValue = flakeOriginal.ref;
++      dep.currentDigest = flakeOriginal.rev;
++      dep.replaceString = flakeOriginal.rev;
++    } else {
++      dep.lockedVersion = flakeLocked.rev;
++    }
++
+     switch (flakeLocked.type) {
+       case 'github':
+-        deps.push({
+-          depName,
+-          currentValue: flakeOriginal.ref,
+-          currentDigest: flakeLocked.rev,
+-          datasource: GitRefsDatasource.id,
+-          packageName: `https://${flakeOriginal.host ?? 'github.com'}/${flakeOriginal.owner}/${flakeOriginal.repo}`,
+-        });
++        // set to nixpkgs if it is a nixpkgs reference
++        if (
++          flakeOriginal.owner?.toLowerCase() === 'nixos' &&
++          flakeOriginal.repo?.toLowerCase() === 'nixpkgs'
++        ) {
++          dep.packageName = 'https://github.com/NixOS/nixpkgs';
++          dep.currentValue = flakeOriginal.ref;
++          dep.versioning = nixpkgsVersioning;
++          break;
++        }
++
++        dep.packageName = `https://${flakeOriginal.host ?? 'github.com'}/${flakeOriginal.owner}/${flakeOriginal.repo}`;
+         break;
++
+       case 'gitlab':
+-        deps.push({
+-          depName,
+-          currentValue: flakeOriginal.ref,
+-          currentDigest: flakeLocked.rev,
+-          datasource: GitRefsDatasource.id,
+-          packageName: `https://${flakeOriginal.host ?? 'gitlab.com'}/${decodeURIComponent(flakeOriginal.owner!)}/${flakeOriginal.repo}`,
+-        });
++        dep.packageName = `https://${flakeOriginal.host ?? 'gitlab.com'}/${decodeURIComponent(flakeOriginal.owner!)}/${flakeOriginal.repo}`;
+         break;
++
+       case 'git':
+-        deps.push({
+-          depName,
+-          currentValue: flakeOriginal.ref,
+-          currentDigest: flakeLocked.rev,
+-          datasource: GitRefsDatasource.id,
+-          packageName: flakeOriginal.url,
+-        });
++        dep.packageName = flakeOriginal.url;
+         break;
++
+       case 'sourcehut':
+-        deps.push({
+-          depName,
+-          currentValue: flakeOriginal.ref,
+-          currentDigest: flakeLocked.rev,
+-          datasource: GitRefsDatasource.id,
+-          packageName: `https://${flakeOriginal.host ?? 'git.sr.ht'}/${flakeOriginal.owner}/${flakeOriginal.repo}`,
+-        });
++        dep.packageName = `https://${flakeOriginal.host ?? 'git.sr.ht'}/${flakeOriginal.owner}/${flakeOriginal.repo}`;
+         break;
++
+       case 'tarball':
+-        deps.push({
+-          depName,
+-          currentValue: flakeLocked.ref,
+-          currentDigest: flakeLocked.rev,
+-          datasource: GitRefsDatasource.id,
+-          // type tarball always contains this link
+-          packageName: flakeOriginal.url!.replace(
+-            lockableHTTPTarballProtocol,
+-            'https://$<domain>/$<owner>/$<repo>',
+-          ),
+-        });
+-        break;
+-      // istanbul ignore next: just a safeguard
+-      default:
+-        logger.debug(
+-          { packageLockFile },
+-          `Unknown flake.lock type "${flakeLocked.type}", skipping`,
++        // set to nixpkgs if it is a lockable channel URL
++        if (
++          flakeOriginal.url &&
++          lockableChannelOriginalUrl.test(flakeOriginal.url)
++        ) {
++          dep.packageName = 'https://github.com/NixOS/nixpkgs';
++          dep.currentValue = flakeOriginal.url.replace(
++            lockableChannelOriginalUrl,
++            '$<channel>',
++          );
++          dep.versioning = nixpkgsVersioning;
++          break;
++        }
++
++        dep.packageName = flakeOriginal.url!.replace(
++          lockableHTTPTarballProtocol,
++          'https://$<domain>/$<owner>/$<repo>',
+         );
+         break;
+     }
++
++    deps.push(dep);
+   }
+ 
+   if (deps.length) {
+diff --git a/lib/modules/manager/nix/index.ts b/lib/modules/manager/nix/index.ts
+index 53b444df254..57976429ef9 100644
+--- a/lib/modules/manager/nix/index.ts
++++ b/lib/modules/manager/nix/index.ts
+@@ -2,6 +2,7 @@ import { GitRefsDatasource } from '../../datasource/git-refs';
+ 
+ export { extractPackageFile } from './extract';
+ export { updateArtifacts } from './artifacts';
++export { getRangeStrategy } from './range';
+ 
+ export const supportsLockFileMaintenance = true;
+ 
+diff --git a/lib/modules/manager/nix/range.spec.ts b/lib/modules/manager/nix/range.spec.ts
+new file mode 100644
+index 00000000000..3c43e9f6e45
+--- /dev/null
++++ b/lib/modules/manager/nix/range.spec.ts
+@@ -0,0 +1,17 @@
++import type { RangeConfig } from '../types';
++import { getRangeStrategy } from '.';
++
++describe('modules/manager/nix/range', () => {
++  it('returns replace if currentValue not null', () => {
++    const config: RangeConfig = {
++      rangeStrategy: 'auto',
++      currentValue: '1.0.0',
++    };
++    expect(getRangeStrategy(config)).toBe('replace');
++  });
++
++  it('defaults to update-lockfile', () => {
++    const config: RangeConfig = { rangeStrategy: 'auto', depType: 'require' };
++    expect(getRangeStrategy(config)).toBe('update-lockfile');
++  });
++});
+diff --git a/lib/modules/manager/nix/range.ts b/lib/modules/manager/nix/range.ts
+new file mode 100644
+index 00000000000..c77153c626e
+--- /dev/null
++++ b/lib/modules/manager/nix/range.ts
+@@ -0,0 +1,10 @@
++import type { RangeStrategy } from '../../../types';
++import type { RangeConfig } from '../types';
++
++export function getRangeStrategy({ currentValue }: RangeConfig): RangeStrategy {
++  if (currentValue) {
++    return 'replace';
++  }
++
++  return 'update-lockfile';
++}
+diff --git a/lib/modules/manager/nix/schema.ts b/lib/modules/manager/nix/schema.ts
+index f5398e3abc0..01b3da431a4 100644
+--- a/lib/modules/manager/nix/schema.ts
++++ b/lib/modules/manager/nix/schema.ts
+@@ -16,6 +16,7 @@ const LockedInput = z.object({
+   ref: z.string().optional(),
+   rev: z.string().optional(),
+   type: InputType,
++  url: z.string().optional(),
+ });
+ 
+ const OriginalInput = z.object({
+@@ -23,6 +24,7 @@ const OriginalInput = z.object({
+   owner: z.string().optional(),
+   repo: z.string().optional(),
+   ref: z.string().optional(),
++  rev: z.string().optional(),
+   type: InputType,
+   url: z.string().optional(),
+ });
+diff --git a/lib/modules/manager/types.ts b/lib/modules/manager/types.ts
+index 2171a10c338..fcccfba64d7 100644
+--- a/lib/modules/manager/types.ts
++++ b/lib/modules/manager/types.ts
+@@ -28,6 +28,8 @@ export interface ExtractConfig extends CustomExtractConfig {
+   npmrcMerge?: boolean;
+   skipInstalls?: boolean | null;
+   repository?: string;
++  currentDigest?: string;
++  newDigest?: string;
+ }
+ 
+ export interface UpdateArtifactsConfig {
