@@ -12,7 +12,7 @@
 - [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
   - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
 - [renovate](https://github.com/renovatebot/renovate) - Cross-platform dependency automation
-  - Patched with [renovate#37222](https://github.com/renovatebot/renovate/pull/37222) to fix flake.lock refreshes
+  - Patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake.lock refreshes
 - [nix-update](https://github.com/Mic92/nix-update) - Swiss-knife for updating nix packages.
   - Following branch main (unstable)
 - [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
