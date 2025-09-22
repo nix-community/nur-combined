@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (194 packages)</summary>
+<summary>Package set: (Uncategorized) (193 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -198,7 +198,6 @@ Or, use variables from this repository in case I change them:
 |  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 8.0.12 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.2 | Web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
-|  | `piper-tts` | [piper-tts](https://github.com/OHF-Voice/piper1-gpl) | 1.3.0 | Python component for piper-tts |
 |  | `plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5787 | Plangothic Project |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
 |  | `plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.3.2 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
@@ -1047,7 +1046,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: python3Packages (34 packages)</summary>
+<summary>Package set: python3Packages (33 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1066,7 +1065,6 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.open-webui-kb-manager` | [open-webui-kb-manager](https://github.com/dubh3124/OpenWebUI-KB-Manager) | 0.2.0 | Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI |
 |  | `python3Packages.opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `python3Packages.ormsgpack` | [ormsgpack](https://github.com/aviramha/ormsgpack) | 1.10.0 | Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack |
-|  | `python3Packages.piper-tts` | [piper-tts](https://github.com/OHF-Voice/piper1-gpl) | 1.3.0 | Python component for piper-tts |
 |  | `python3Packages.py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `python3Packages.pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2025-06-04 | Python implementation of key Osmocom protocols/interfaces |
 |  | `python3Packages.pysctp` | [pysctp](https://github.com/p1sec/pysctp) | 0.7.2 | SCTP stack for Python |

@@ -11,7 +11,6 @@ let
   packages = loadPackages ./. { };
 
   self = packages // {
-    piper-tts = callPackage ./piper-tts { piper-tts-native = pkgs.piper-tts; };
   };
 in
 self
