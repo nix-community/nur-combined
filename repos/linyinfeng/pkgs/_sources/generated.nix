@@ -436,17 +436,17 @@
   };
   rime-stroke = {
     pname = "rime-stroke";
-    version = "a4dc0423c578bf5e15bea66103e082ee187a8737";
+    version = "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c";
     src = fetchgit {
       url = "https://github.com/rime/rime-stroke.git";
-      rev = "a4dc0423c578bf5e15bea66103e082ee187a8737";
+      rev = "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-rNKPHz6eLgAYTdpWwxk7GE3APZXJ0Oc1lzHhRDDvRg0=";
+      sha256 = "sha256-l2YRET+aywThX+iBTYKqtBESs6ozJn5Du5IewwMhhmM=";
     };
-    date = "2025-09-20";
+    date = "2025-09-23";
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";

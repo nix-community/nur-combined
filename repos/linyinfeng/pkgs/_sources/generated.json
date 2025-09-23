@@ -665,7 +665,7 @@
     },
     "rime-stroke": {
         "cargoLocks": null,
-        "date": "2025-09-20",
+        "date": "2025-09-23",
         "extract": null,
         "name": "rime-stroke",
         "passthru": null,
@@ -675,13 +675,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a4dc0423c578bf5e15bea66103e082ee187a8737",
-            "sha256": "sha256-rNKPHz6eLgAYTdpWwxk7GE3APZXJ0Oc1lzHhRDDvRg0=",
+            "rev": "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c",
+            "sha256": "sha256-l2YRET+aywThX+iBTYKqtBESs6ozJn5Du5IewwMhhmM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-stroke.git"
         },
-        "version": "a4dc0423c578bf5e15bea66103e082ee187a8737"
+        "version": "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c"
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
