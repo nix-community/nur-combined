@@ -8,7 +8,7 @@
 
 buildHomeAssistantComponent rec {
   pname = "ha-bambulab";
-  version = "2.2.1";
+  version = "2.2.2";
 
   owner = "greghesp";
   domain = "bambu_lab";
@@ -17,7 +17,7 @@ buildHomeAssistantComponent rec {
     owner = "greghesp";
     repo = "ha-bambulab";
     rev = "v${version}";
-    hash = "sha256-D/HAjVTpdoh9jWT8LOm5d/e6OSR5to/oW9YKNOu60ms=";
+    hash = "sha256-CiQ1JOs3vxaF8Yy2Ym13srSLS5+NZDkkhTwDnKZP9CM=";
   };
 
   dependencies = with home-assistant.python.pkgs; [
