@@ -485,7 +485,7 @@
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
-        "date": "2019-01-20",
+        "date": "2025-09-24",
         "extract": null,
         "name": "rime-double-pinyin",
         "passthru": null,
@@ -495,13 +495,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea",
-            "sha256": "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=",
+            "rev": "01a13287cbd27819be1c34fa1ddc1b3643d5001b",
+            "sha256": "sha256-iHaGHKwmhyciU6zKJRLyRETRR15QSHZ7ML1l4iAV6eM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-double-pinyin.git"
         },
-        "version": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea"
+        "version": "01a13287cbd27819be1c34fa1ddc1b3643d5001b"
     },
     "rime-emoji": {
         "cargoLocks": null,

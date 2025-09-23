@@ -310,17 +310,17 @@
   };
   rime-double-pinyin = {
     pname = "rime-double-pinyin";
-    version = "69bf85d4dfe8bac139c36abbd68d530b8b6622ea";
+    version = "01a13287cbd27819be1c34fa1ddc1b3643d5001b";
     src = fetchgit {
       url = "https://github.com/rime/rime-double-pinyin.git";
-      rev = "69bf85d4dfe8bac139c36abbd68d530b8b6622ea";
+      rev = "01a13287cbd27819be1c34fa1ddc1b3643d5001b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=";
+      sha256 = "sha256-iHaGHKwmhyciU6zKJRLyRETRR15QSHZ7ML1l4iAV6eM=";
     };
-    date = "2019-01-20";
+    date = "2025-09-24";
   };
   rime-emoji = {
     pname = "rime-emoji";
