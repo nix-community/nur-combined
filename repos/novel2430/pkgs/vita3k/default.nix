@@ -69,14 +69,14 @@ let
 in
 stdenv.mkDerivation {
   pname = "vita3k";
-  version = "r3806.cf3d62732";
+  version = "r3808.f787cf0";
 
   src = fetchFromGitHub {
     owner = "Vita3k";
     repo = "Vita3k";
-    rev = "4e526f0c8057e4eae0e00a323d7d4c58cdee8813";
+    rev = "f787cf09c3c9404f6799abea565cf13586e74e09";
     fetchSubmodules = true;
-    hash = "sha256-etqsjZLua0E2w7KR+Ox+kYyGgYBAMyKUe2I3iF4gWE0=";
+    hash = "sha256-S1xKOSmDlDb/VZpOk9Em/ssV7K2Lfu0/utEbXE4gRGU=";
   };
 
   nativeBuildInputs = [
