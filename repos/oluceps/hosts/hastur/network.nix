@@ -5,7 +5,6 @@
     resolved = {
       llmnr = "true";
       dnssec = "false";
-      fallbackDns = [ "8.8.8.8#dns.google" ];
       extraConfig = ''
         Cache=no
       '';
@@ -19,12 +18,6 @@
       "2001:250:380a:5::10"
     ];
     usePredictableInterfaceNames = true;
-    # resolvconf.useLocalResolver = true;
-    nameservers = [
-      "120.53.53.53#dot.pub"
-      "119.29.29.29"
-    ];
-    # useHostResolvConf = true;
     hosts = lib.data.hosts.${config.networking.hostName};
 
     hostName = "hastur"; # Define your hostname.
@@ -140,6 +133,7 @@
 
         linkConfig.RequiredForOnline = "routable";
         address = [ "192.168.1.2/24" ];
+        dns = [ "192.168.1.1" ];
         routes = [
           { Gateway = "192.168.1.1"; }
         ];

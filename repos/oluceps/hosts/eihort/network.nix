@@ -15,10 +15,6 @@
     # resolvconf.useLocalResolver = true;
     hosts = lib.data.hosts.${config.networking.hostName};
     usePredictableInterfaceNames = false;
-    nameservers = [
-      "120.53.53.53#dot.pub"
-      "119.29.29.29"
-    ];
     timeServers = [
       "ntp1.aliyun.com"
       "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
@@ -100,6 +96,7 @@
         };
         linkConfig.RequiredForOnline = "routable";
         address = [ "192.168.1.110/24" ];
+        dns = [ "192.168.1.1" ];
         routes = [
           { Gateway = "192.168.1.1"; }
         ];

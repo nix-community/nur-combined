@@ -222,8 +222,6 @@ reIf {
 
                 "154.31.114.112:80" # jp1
                 "[2403:18c0:1000:13a:343b:65ff:fe1b:7a0f]:80"
-
-                "45.95.212.129:80" # jp2
               ];
             }
           ];
@@ -299,26 +297,6 @@ reIf {
                 ip = "IPv6";
               };
             }
-            #### DEPRECATE AT 21/09/2025, 12:51:31
-            {
-              targets = [ "45.95.212.129" ];
-              labels = {
-                name = "JP2";
-                city = "Tokyo";
-                code = "NRT";
-                ip = "IPv4";
-              };
-            }
-            {
-              targets = [ "2405:84c0:8011:3200::" ];
-              labels = {
-                name = "JP2";
-                city = "Tokyo";
-                code = "NRT";
-                ip = "IPv6";
-              };
-            }
-            #### DEPRECATE AT 21/09/2025, 12:51:31
           ];
           relabel_configs = gen_relabel_configs (
             with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
