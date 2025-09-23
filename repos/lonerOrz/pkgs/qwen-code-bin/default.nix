@@ -5,38 +5,31 @@
   stdenvNoCC,
   makeWrapper,
 }:
-let
-  owner = "QwenLM";
-  repo = "qwen-code";
-  asset = "gemini.js";
-  version = "0.0.13-nightly.0";
-in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "qwen-code-bin";
-  inherit version;
+  version = "0.0.13-nightly.3";
 
   src = fetchurl {
-    url = "https://github.com/${owner}/${repo}/releases/download/v${version}/${asset}";
-    hash = "sha256-FH1CSFmSo+2b7Z5+SKrhvl1jjQ3W7P5H6moboJldU6Q=";
+    url = "https://github.com/QwenLM/qwen-code/releases/download/v${finalAttrs.version}/gemini.js";
+    hash = "sha256-6mD5ym9hIdTTo7f7I+XVrq4Cit6iMZ0Hax8XCo89Z1c=";
   };
 
-  phases = [
-    "installPhase"
-    "fixupPhase"
-  ];
-
-  # Only allow explicitly listed dependencies to be used during the build phase
+  dontUnpack = true;
   strictDeps = true;
+
+  nativeBuildInputs = [
+    makeWrapper
+  ];
 
   buildInputs = [
     nodejs
-    makeWrapper
   ];
 
   installPhase = ''
     runHook preInstall
 
-    install -D "$src" "$out/bin/qwen"
+    cp "$src" ./qwen
+    install -D "qwen" "$out/bin/qwen"
     # Suppress deprecation warnings
     wrapProgram "$out/bin/qwen" \
       --set NODE_OPTIONS "--no-deprecation"

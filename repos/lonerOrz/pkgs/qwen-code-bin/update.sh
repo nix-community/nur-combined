@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq nix-prefetch-url
+#!nix-shell -i bash --pure --keep GITHUB_TOKEN -p curl jq cacert nix
 
 set -euo pipefail
 
