@@ -34,7 +34,6 @@ let
     asncounter = { };
     enquirer = { };
     fw-ectool = { };
-    go-mod-upgrade = { };
     hl = { };
     imhex = { };
     lddtree = { };
