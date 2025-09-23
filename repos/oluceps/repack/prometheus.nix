@@ -207,6 +207,24 @@ reIf {
           );
         }
         {
+          job_name = "bridge_alive";
+          scheme = "http";
+          metrics_path = "/probe";
+          params = {
+            module = [ "http_with_proxy_to_ext" ];
+          };
+          static_configs = [
+            {
+              targets = [
+                "http://connectivitycheck.gstatic.com"
+              ];
+            }
+          ];
+          relabel_configs = gen_relabel_configs (
+            with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
+          );
+        }
+        {
           job_name = "tcp";
           scheme = "http";
           metrics_path = "/probe";
@@ -373,6 +391,14 @@ reIf {
             http_2xx = {
               prober = "http";
             };
+            http_with_proxy_to_ext = {
+              prober = "http";
+              http = {
+                proxy_url = "http://[fdcc::1]:1701";
+                skip_resolve_phase_with_proxy = true;
+                valid_status_codes = [ 404 ];
+              };
+            };
             icmp = {
               prober = "icmp";
             };
@@ -392,6 +418,9 @@ reIf {
       logLevel = "info";
       extraFlags = [ ''--cluster.listen-address=""'' ];
       configuration = {
+        global = {
+          resolve_timeout = "2m";
+        };
         receivers = [
           {
             name = "telegram";

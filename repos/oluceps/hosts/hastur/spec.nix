@@ -90,7 +90,7 @@
       signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
     };
     realm = {
-      enable = false;
+      enable = true;
       settings = {
         log.level = "warn";
         network = {
@@ -99,8 +99,8 @@
         };
         endpoints = [
           {
-            listen = "[::]:2222";
-            remote = "127.0.0.1:3001";
+            listen = "[fdcc::1]:1701";
+            remote = "10.255.0.1:8080";
           }
         ];
       };
