@@ -1,25 +1,25 @@
 {
   lib,
+  stdenv,
+  nodejs,
+  gtk3,
+  webkitgtk_4_1,
+  pkg-config,
+  libsoup_3,
+  glib-networking,
+  gsettings-desktop-schemas,
+  xorg,
+  at-spi2-core,
+  wails,
   buildGoModule,
   fetchFromGitHub,
   fetchNpmDeps,
   npmHooks,
-  nodejs,
-  wails,
-  webkitgtk_4_1,
-  pkg-config,
   copyDesktopItems,
   makeDesktopItem,
   autoPatchelfHook,
+  wrapGAppsHook,
   nix-update-script,
-  xorg,
-  stdenv,
-  gtk4,
-  libsoup_3,
-  gtk3,
-  glib-networking,
-  gsettings-desktop-schemas,
-  wrapGAppsHook4,
 }:
 buildGoModule (finalAttrs: {
   pname = "lampghost";
@@ -51,12 +51,12 @@ buildGoModule (finalAttrs: {
     # Hooks
     autoPatchelfHook
     npmHooks.npmConfigHook
-    wrapGAppsHook4
+    wrapGAppsHook
   ];
 
   buildInputs = [
     webkitgtk_4_1
-    gtk4
+    gtk3
     libsoup_3
     glib-networking
   ]
@@ -75,6 +75,11 @@ buildGoModule (finalAttrs: {
     xorg.libXcomposite # X11 composite extension for window composition
     xorg.libXdamage # X11 damage extension for window damage tracking
     xorg.libXrender # X11 rendering extension for 2D graphics
+
+    # Additional Linux dependencies
+    xorg.xvfb # X Virtual Framebuffer for headless testing
+    xorg.xorgserver # X11 server utilities
+    at-spi2-core # AT-SPI core for accessibility
   ];
 
   buildPhase = ''
