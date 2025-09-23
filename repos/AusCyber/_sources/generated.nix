@@ -23,7 +23,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-Ss4iNTOiPZ1hhhwlWMf5EBlBBH6PShFtgSmakLeF9n0=";
+      sha256 = "sha256-Fab9ai+zkfh/ZsWhLU6M6Pn4S0GneNAb6turTzM8Zjs=";
     };
   };
   kanata-vk-agent = {
@@ -59,18 +59,18 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.15.5b";
+    version = "1.16b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.15.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-vzkXKvfUQKXL4L/+Vo3yZLbQ4fbJbfObGC6JM4HN+6w=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.16b/zen.macos-universal.dmg";
+      sha256 = "sha256-iXgp27DORYM2XBXEb7/Mydi76u5voC5enRfSzLd/ZqI=";
     };
   };
   zen-browser-twilight = {
     pname = "zen-browser-twilight";
-    version = "1.15.5b";
+    version = "1.16b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-ouOEvYM2Ka+0Fd0aBG91SyOIV9u+AS3/EPR2yBOZKHg=";
+      sha256 = "sha256-yrWiAp2/hjHAK3IVCPFD9qiFCXipGQrDbxNGOYLSqsY=";
     };
   };
 }
