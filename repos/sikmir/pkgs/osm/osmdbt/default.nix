@@ -9,20 +9,20 @@
   expat,
   libosmium,
   libpqxx,
-  libyamlcpp,
   protozero,
+  yaml-cpp,
   zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osmdbt";
-  version = "0.6";
+  version = "0.9";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "osmdbt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hXwWOOfvBrJqjMXsG/59J83PHwZqIKm+2B00QYoJD80=";
+    hash = "sha256-boc6LYSAt1txSeMQPuEGpBoivQCQbc9XqlfFJbWctDc=";
   };
 
   nativeBuildInputs = [
@@ -36,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     expat
     libosmium
     libpqxx
-    libyamlcpp
     protozero
+    yaml-cpp
     zlib
   ];
 

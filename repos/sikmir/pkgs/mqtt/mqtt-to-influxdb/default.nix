@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   spdlog,
-  libyamlcpp,
+  yaml-cpp,
   libcpr_1_10_5,
   cxxopts,
   nlohmann_json,
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     spdlog
-    libyamlcpp
+    yaml-cpp
     libcpr_1_10_5
     cxxopts
     nlohmann_json
