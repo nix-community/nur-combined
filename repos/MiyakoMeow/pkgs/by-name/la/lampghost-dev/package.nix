@@ -18,7 +18,7 @@
   copyDesktopItems,
   makeDesktopItem,
   autoPatchelfHook,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   nix-update-script,
 }:
 
@@ -52,7 +52,7 @@ buildGoModule (finalAttrs: {
     # Hooks
     autoPatchelfHook
     npmHooks.npmConfigHook
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
