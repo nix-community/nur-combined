@@ -42,18 +42,18 @@ in
       ];
       search = [ "~." ]; # Always use global name servers (shouldn't affect VPNs)
       dhcpcd.enable = false;
-      # networkmanager = {
-      #   enable = true;
-      #   wifi = {
-      #     backend = "iwd";
-      #     macAddress = "random";
-      #   };
-      # };
+      networkmanager = {
+        enable = true;
+        wifi = {
+          backend = "iwd";
+          macAddress = "random";
+        };
+      };
       wireless.iwd = {
         enable = true;
         settings = {
           General = {
-            EnableNetworkConfiguration = true;
+            # EnableNetworkConfiguration = true;
             AddressRandomization = "once"; # Randomize a single time when iwd starts
             DisableANQP = false; # Use Hotspot 2.0
           };
