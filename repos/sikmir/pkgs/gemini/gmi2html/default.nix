@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-  zig,
+  zig_0_14,
   scdoc,
   installShellFiles,
 }:
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    zig.hook
+    zig_0_14.hook
     scdoc
     installShellFiles
   ];
