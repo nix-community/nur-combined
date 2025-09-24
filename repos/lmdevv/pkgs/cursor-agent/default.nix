@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchurl,
+  autoPatchelfHook,
+  gcc,
 }:
 
 let
@@ -54,6 +56,14 @@ stdenv.mkDerivation {
 
   # This package is prebuilt and self-contained (bundles its own node, rg, sqlite3 binding, etc.)
   dontBuild = true;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    gcc.cc.lib
+  ];
 
   installPhase = ''
     runHook preInstall
