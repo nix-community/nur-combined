@@ -59,10 +59,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.8.0.1";
+    version = "0.8.0.2";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.8.0.1/ormolu-x86_64-linux.zip";
-      sha256 = "sha256-n/8JuxJNKpwEXFp8nlhhLNK/9gIj1bmuBW0GmESRs7Q=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.8.0.2/ormolu-x86_64-linux.zip";
+      sha256 = "sha256-9zexGDVTfQINg6SXkDo5LxnUlDrqA7dfdvHFcZ1w+fg=";
     };
   };
   pandoc = {

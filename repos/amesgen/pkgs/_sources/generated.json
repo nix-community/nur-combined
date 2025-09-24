@@ -113,11 +113,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n/8JuxJNKpwEXFp8nlhhLNK/9gIj1bmuBW0GmESRs7Q=",
+            "sha256": "sha256-9zexGDVTfQINg6SXkDo5LxnUlDrqA7dfdvHFcZ1w+fg=",
             "type": "url",
-            "url": "https://github.com/tweag/ormolu/releases/download/0.8.0.1/ormolu-x86_64-linux.zip"
+            "url": "https://github.com/tweag/ormolu/releases/download/0.8.0.2/ormolu-x86_64-linux.zip"
         },
-        "version": "0.8.0.1"
+        "version": "0.8.0.2"
     },
     "pandoc": {
         "cargoLocks": null,
