@@ -95,22 +95,22 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "42b7b62062e5eb4ba157b9e8d12a104777bbd9b3";
+    version = "fff5e390d3f39d715b70fc6062802e0bed47dc6e";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "42b7b62062e5eb4ba157b9e8d12a104777bbd9b3";
+      rev = "fff5e390d3f39d715b70fc6062802e0bed47dc6e";
       fetchSubmodules = false;
-      sha256 = "sha256-FqGK4IgD75etYRpdr4NaBHQvlBL5Cx9q0SOy+IoUXoU=";
+      sha256 = "sha256-n5hR4acqKTy5Ipx3FoWNtL3zQJ8FCz8cUhW4srKVrWU=";
     };
-    date = "2025-09-07";
+    date = "2025-09-24";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.6.3797.55";
+    version = "7.6.3797.56";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.55.universal.dmg";
-      sha256 = "sha256-3Es/AMJd954fu0XP8OwHLGaCCCeZevFnbKoB4JnxTjM=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.56.universal.dmg";
+      sha256 = "sha256-hl4ctBCHwEkTwLF2RcMMrC9In1+Vh+IPHom8kOuv0mY=";
     };
   };
   zen-browser = {
