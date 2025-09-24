@@ -418,9 +418,9 @@ reIf {
       logLevel = "info";
       extraFlags = [ ''--cluster.listen-address=""'' ];
       configuration = {
-        global = {
-          resolve_timeout = "2m";
-        };
+        # global = {
+        #   resolve_timeout = "2m";
+        # };
         receivers = [
           {
             name = "telegram";

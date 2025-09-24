@@ -149,11 +149,11 @@
                 "fec0::${lib.toHexString index}/128"
               ];
               routes = [
-                {
-                  # route to the host
-                  Destination = "10.255.0.0/32";
-                  GatewayOnLink = true;
-                }
+                # {
+                #   # route to the host
+                #   Destination = "10.255.0.0/32";
+                #   GatewayOnLink = true;
+                # }
                 {
                   # Default route
                   Destination = "0.0.0.0/0";
