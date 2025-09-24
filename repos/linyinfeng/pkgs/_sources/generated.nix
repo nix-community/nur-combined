@@ -296,15 +296,15 @@
   };
   rime-cantonese = {
     pname = "rime-cantonese";
-    version = "dc17381c16e227274139c4f5b830b834e086f70e";
+    version = "fa0db4d2014abdbf0e1b8eab2131cb89715c1aa9";
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
-      rev = "dc17381c16e227274139c4f5b830b834e086f70e";
+      rev = "fa0db4d2014abdbf0e1b8eab2131cb89715c1aa9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-cZEk4Abp+uulpQ77Qr1XdDa6Iec0H0st9JONmmGtph0=";
+      sha256 = "sha256-ZNuS5kp6Om8TQfkGD53S8j3IDC2uUv3ofRTRWVbr9cc=";
     };
     date = "2025-09-24";
   };
@@ -352,17 +352,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
+    version = "f0cd71cbe511026b4961f2febd03afb350a07aa4";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
+      rev = "f0cd71cbe511026b4961f2febd03afb350a07aa4";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Bfp02YJHqotT4OtLxYFcfivFGRvEKuEk9w5eiTnLSMo=";
+      sha256 = "sha256-/BiVpDEPqH0C40SZZr3HCazNcJG05FWlSLZxPbGO4SM=";
     };
-    date = "2025-09-17";
+    date = "2025-09-24";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
