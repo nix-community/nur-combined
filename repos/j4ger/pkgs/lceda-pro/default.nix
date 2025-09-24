@@ -1,6 +1,12 @@
-{ stdenv, fetchzip, lib, makeDesktopItem, makeWrapper, copyDesktopItems
-  , xdg-utils
-  , electron_29
+{
+  stdenv,
+  fetchzip,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  copyDesktopItems,
+  xdg-utils,
+  electron,
 }:
 
 let
@@ -14,21 +20,24 @@ let
       "Name[zh_CN]" = "立创EDA专业版";
     };
   };
-  electron = electron_29;
+  electron_runtime = electron;
 in
 stdenv.mkDerivation rec {
   pname = "lceda-pro";
-  version = "2.2.26.6";
+  version = "2.2.40.8";
   src = fetchzip {
     url = "https://image.lceda.cn/files/lceda-pro-linux-x64-${version}.zip";
-    hash = "sha256-ItlvRewQfO4pvdlqHNPWlWrndqJpR+aOFCswqIh1F7o=";
+    hash = "sha256-6HEkuyCDXnhcYlvvs5M+MyIrHpdfrAsXiuDmPxlEI+c=";
     stripRoot = false;
   };
 
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -36,13 +45,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin $TEMPDIR/lceda-pro
     cp -rf lceda-pro $out/lceda-pro
     mv $out/lceda-pro/resources/app/assets/db/lceda-std.elib $TEMPDIR/lceda-pro/db.elib
-    ln -s $TEMPDIR/lceda-pro/db.elib $out/lceda-pro/resources/app/assets/db/lceda-std.elib
 
-    makeWrapper ${electron}/bin/electron $out/bin/lceda-pro \
+    makeWrapper ${electron_runtime}/bin/electron $out/bin/lceda-pro \
       --add-flags $out/lceda-pro/resources/app/ \
-      --add-flags "--ozone-platform-hint=auto --enable-wayland-ime" \
+      --add-flags "--gtk4 --enable-wayland-ime" \
       --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}" \
-      --set PATH "${lib.makeBinPath [xdg-utils]}"
+      --set PATH "${lib.makeBinPath [ xdg-utils ]}"
 
     mkdir -p $out/share/icons/hicolor/512x512/apps
     install -Dm444 $out/lceda-pro/icon/icon_512x512.png $out/share/icons/lceda.png
