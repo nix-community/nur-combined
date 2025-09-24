@@ -13,9 +13,12 @@ words:
   - kwaa
   - libgcc
   - moeru
+  - naiveproxy
+  - nixos
   - nixpkgs
   - passthru
   - patchelf
+  - pkgs
   - pname
   - stdenv
 ignoreWords: []

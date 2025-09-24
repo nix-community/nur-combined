@@ -7,22 +7,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "naiveproxy";
-  version = "130.0.6723.40-5";
+  version = "140.0.7339.123-1";
   preferLocalBuild = true;
 
-  src =
-    fetchurl
-      {
-        aarch64-linux = {
-          url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
-          hash = "sha256-4ajrs0bThy4tIoVGBH0bsjKzlAfpIyz/Cg9sGIRxZNo=";
-        };
-        x86_64-linux = {
-          url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
-          hash = "sha256-cAQL0/fwhYrO7lbiKsLlpvCQRY63NFPPSUCPKeM+D4o=";
-        };
-      }
-      .${stdenv.system} or (throw "naiveproxy-bin: ${stdenv.system} is unsupported.");
+  src = fetchurl {
+    url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
+    hash = "sha256-MqrBW3/v+t27/1DHNBzBzCOjW5I6d/F0w+ugcLh3wK0=";
+  };
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [ stdenv.cc.cc.libgcc ];
@@ -50,6 +41,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     mainProgram = "naiveproxy";
     maintainers = with lib.maintainers; [ kwaa ];
-    platforms = lib.platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 }
