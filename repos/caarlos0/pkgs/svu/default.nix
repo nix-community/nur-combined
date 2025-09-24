@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "00jc8ywbcpaj7ikb65n5k92n46iag3jl5qmqxw9a55sxk8mxn295";
-    aarch64-linux = "0ax7i9424cnz9asv8ssm97kvijyfq7843ck8q5wqr44kd13rsj15";
-    x86_64-darwin = "0illbj25nivjlx90sayl5yvwnn3rfpqwzk4cl9yns6mf1qmd8qiy";
-    aarch64-darwin = "0illbj25nivjlx90sayl5yvwnn3rfpqwzk4cl9yns6mf1qmd8qiy";
+    x86_64-linux = "00ppi0y5hr388p09h984kdvn1j200bn2faggf895dj2nh9jvv849";
+    aarch64-linux = "0iddn748fnxvysa0b9hdvkp3cw9l8qgcmm51jwxibfv53vjp7far";
+    x86_64-darwin = "13h89y03saa9sfm5zdjswqqbvw467qlgamnlicsrcrhwwi6lnrp5";
+    aarch64-darwin = "13h89y03saa9sfm5zdjswqqbvw467qlgamnlicsrcrhwwi6lnrp5";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/caarlos0/svu/releases/download/v3.2.3/svu_3.2.3_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/caarlos0/svu/releases/download/v3.2.3/svu_3.2.3_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/caarlos0/svu/releases/download/v3.2.3/svu_3.2.3_darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/caarlos0/svu/releases/download/v3.2.3/svu_3.2.3_darwin_all.tar.gz";
+    x86_64-linux = "https://github.com/caarlos0/svu/releases/download/v3.2.4/svu_3.2.4_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/caarlos0/svu/releases/download/v3.2.4/svu_3.2.4_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/caarlos0/svu/releases/download/v3.2.4/svu_3.2.4_darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/caarlos0/svu/releases/download/v3.2.4/svu_3.2.4_darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "svu";
-  version = "3.2.3";
+  version = "3.2.4";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
