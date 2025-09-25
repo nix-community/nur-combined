@@ -57,11 +57,11 @@ stdenv.mkDerivation {
   # This package is prebuilt and self-contained (bundles its own node, rg, sqlite3 binding, etc.)
   dontBuild = true;
 
-  nativeBuildInputs = [
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     gcc.cc.lib
   ];
 
