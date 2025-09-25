@@ -10,10 +10,10 @@
     inputs.microvm.nixosModules.host
   ];
   microvm.autostart = [
-    "sep-microvm"
+    "sept"
   ];
   microvm.vms = {
-    sep-microvm =
+    sept =
       let
         index = 1;
         mac = "00:00:00:00:00:01";
@@ -28,7 +28,7 @@
           imports = [
             ../modules/hysteria.nix
           ];
-          networking.hostName = "sep-microvm";
+          networking.hostName = "sept";
           networking.useNetworkd = true;
           system.stateVersion = "25.11";
 
@@ -68,50 +68,14 @@
             }
           ];
           boot.kernel.sysctl = {
-            "net.ipv4.conf.default.rp_filter" = 0;
-            "net.ipv6.conf.all.forwarding" = 1;
-            "net.ipv6.conf.all.accept_redirects" = 0;
-            "net.ipv4.conf.all.forwarding" = 1;
-            "net.ipv4.conf.all.rp_filter" = 0;
-
-            # Protect against tcp time-wait assassination hazards
             "net.ipv4.tcp_rfc1337" = 1;
-            # TCP Fast Open (TFO)
             "net.ipv4.tcp_fastopen" = 0;
-            # Bufferbloat mitigations
-            # Requires >= 4.9 & kernel module
             "net.ipv4.tcp_congestion_control" = "bbr";
-            # Requires >= 4.19
             "net.core.default_qdisc" = "cake";
-
             "net.ipv4.tcp_rmem" = "4096 87380 2500000";
             "net.ipv4.tcp_wmem" = "4096 65536 2500000";
             "net.core.rmem_max" = 16777216;
             "net.core.wmem_max" = 16777216;
-            "net.ipv4.conf.all.send_redirects" = 0;
-
-            "net.ipv4.tcp_tw_recycle" = 0;
-            "net.ipv4.tcp_tw_reuse" = 1;
-            "net.ipv4.tcp_no_metrics_save" = 1;
-
-            # hardend
-            "net.ipv4.tcp_sack" = 1;
-            "net.ipv4.tcp_dsack" = 0;
-            "net.ipv4.tcp_fack" = 0;
-
-            "kernel.yama.ptrace_scope" = 2;
-            "vm.mmap_rnd_bits" = 32;
-            "vm.mmap_rnd_compat_bits" = 16;
-
-            "fs.protected_symlinks" = 1;
-            "fs.protected_hardlinks" = 1;
-
-            "fs.protected_fifos" = 2;
-            "fs.protected_regular" = 2;
-
-            "net.ipv4.tcp_slow_start_after_idle" = 0;
-            "vm.max_map_count" = 2147483642;
-            "net.ipv4.tcp_ecn" = 1;
           };
           systemd.network = {
 
@@ -184,16 +148,14 @@
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDcYqby4TnhKV6xGyuZUtxOmTtXjKYp8r+uCxbGph65"
             ];
           };
-          # attack test
           environment.systemPackages = [
             pkgs.wireguard-tools
             pkgs.tcpdump
             pkgs.nmap
-            pkgs.metasploit
             pkgs.mtr
             pkgs.traceroute
             pkgs.nftables
-
+            pkgs.htop
           ];
           services.hysteria.instances = {
             ext = {

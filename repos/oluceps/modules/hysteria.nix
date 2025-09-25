@@ -106,6 +106,8 @@ in
             LimitNOFILE = "infinity";
             Restart = "always";
             RestartSec = 1;
+            CPUSchedulingPolicy = "rr";
+            CPUSchedulingPriority = 99;
           };
       }
     ) (lib.filterAttrs (_: v: v.enable) cfg.instances);
