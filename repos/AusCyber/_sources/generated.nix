@@ -23,7 +23,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg";
-      sha256 = "sha256-NuIsD0YX7t5nUFjU/1ZugVwH17srSQPP+2qXFVx64P0=";
+      sha256 = "sha256-12tO2rHLPEIoKEgMS2mTV8ehByJqhKeisubL0mNCIi8=";
     };
   };
   kanata-vk-agent = {
@@ -70,7 +70,7 @@
     version = "1.16b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-RQOi0DdYWARgL2qv150/6Z0CmJJTkmzkhJOUvIyEyjo=";
+      sha256 = "sha256-HLWoQf2timvcAxbIfygJ/DoIa/QWObZ0lHhPNcZpOmk=";
     };
   };
 }
