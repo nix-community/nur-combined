@@ -9,26 +9,35 @@ jobs:
   pkgs:
     runs-on: ubuntu-latest
     steps:
-      - uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize nix
+        uses: spotdemo4/nur/.github/actions/init@main
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
 
-      - uses: spotdemo4/setup-git-app-user@51cf8f3366b74a6b7e830d1cfc63b3526a036925 # v2
+      - name: Setup environment
+        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+        with:
+          arguments: "--accept-flake-config"
+
+      - name: Create github token
+        uses: spotdemo4/setup-git-app-user@51cf8f3366b74a6b7e830d1cfc63b3526a036925 # v2
         id: app-user
         with:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
 
-      - run: nix develop --accept-flake-config --command update
+      - name: Update packages
+        run: update
 
-      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         id: cpr
         with:
           token: ${{ steps.app-user.outputs.token }}
           title: package updates
           body: updated some packages
 
-      - name: Enable Automerge
+      - name: Enable automerge
         if: ${{ steps.cpr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ steps.app-user.outputs.token }}
@@ -41,11 +50,18 @@ jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize nix
+        uses: spotdemo4/nur/.github/actions/init@main
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
 
-      - uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
+      - name: Setup environment
+        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+        with:
+          arguments: "--accept-flake-config"
+
+      - name: Create github token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
         id: token
         with:
           app-id: ${{ vars.CLIENT_ID }}
@@ -55,4 +71,4 @@ jobs:
         env:
           RENOVATE_CONFIG_FILE: .github/renovate.json
           RENOVATE_TOKEN: ${{ steps.token.outputs.token }}
-        run: nix develop --accept-flake-config --command renovate
+        run: renovate

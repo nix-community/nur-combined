@@ -9,12 +9,15 @@ jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize nix
+        uses: spotdemo4/nur/.github/actions/init@main
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
 
-      - uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+      - name: Setup environment
+        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
         with:
           arguments: "--accept-flake-config"
 
-      - run: flake-checker -f
+      - name: Check flake
+        run: flake-checker -f
