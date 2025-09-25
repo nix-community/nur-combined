@@ -26,6 +26,13 @@
           initialHashedPassword = lib.mkForce data.keys.hashedPasswd;
           openssh.authorizedKeys.keys = authSSHKeys;
         };
+        remotebuild = {
+          isNormalUser = true;
+          createHome = false;
+          group = "remotebuild";
+
+          openssh.authorizedKeys.keys = [ data.keys.rBuildSshPubKey ];
+        };
 
         ${user} = {
           linger = true;
@@ -64,6 +71,7 @@
       };
       groups.nixosvmtest = { };
       groups.${user} = { };
+      groups.remotebuild = { };
     };
 
   security = {

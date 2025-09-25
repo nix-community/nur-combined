@@ -6,8 +6,10 @@
         hostName = "hastur";
         system = "x86_64-linux";
         protocol = "ssh-ng";
-        maxJobs = 4;
-        speedFactor = 3;
+        maxJobs = 12;
+        speedFactor = 4;
+        sshUser = "remotebuild";
+        sshKey = "/persist/keys/remotebuild";
         supportedFeatures = [
           "nixos-test"
           "benchmark"
@@ -21,7 +23,9 @@
         system = "x86_64-linux";
         protocol = "ssh-ng";
         maxJobs = 4;
-        speedFactor = 3;
+        speedFactor = 2;
+        sshUser = "remotebuild";
+        sshKey = "/persist/keys/remotebuild";
         supportedFeatures = [
           "nixos-test"
           "benchmark"

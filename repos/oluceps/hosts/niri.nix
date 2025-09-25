@@ -21,6 +21,11 @@
       default_session = initial_session;
     };
   };
+  security.pam.services = {
+    greetd.enableGnomeKeyring = true;
+    login.enableGnomeKeyring = true;
+  };
+  services.gnome.gcr-ssh-agent.enable = true;
 
   systemd.user = {
     services = {

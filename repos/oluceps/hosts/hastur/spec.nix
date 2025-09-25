@@ -193,11 +193,10 @@
 
     # user.services.add-ssh-keys = {
     #   script = ''
-    #     eval `${pkgs.openssh}/bin/ssh-agent -s`
-    #     export SSH_ASKPASS_REQUIRE="prefer"
-    #     ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id_sk.path}
+    #     ${pkgs.openssh}/bin/ssh-add <>
     #   '';
     #   wantedBy = [ "default.target" ];
+    #   after = [ "gcr-ssh-agent.service" ];
     # };
     enableEmergencyMode = false;
     settings.Manager = {

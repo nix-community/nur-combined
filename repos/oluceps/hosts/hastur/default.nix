@@ -79,6 +79,7 @@ withSystem "x86_64-linux" (
 
         ../dev.nix
         ../../vms/sep.nix
+        ../distributed-build.nix
       ]
       ++ (with inputs; [
         # aagl.nixosModules.default

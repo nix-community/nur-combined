@@ -17,7 +17,20 @@
     disableInstallerTools = true;
     tools.nixos-rebuild.enable = false;
   };
-  systemd.services.systemd-networkd.serviceConfig.TimeoutStopSec = "10s";
+  systemd.services = {
+    systemd-networkd.serviceConfig.TimeoutStopSec = "10s";
+    nix-daemon.serviceConfig = {
+      MemoryAccounting = true;
+      MemoryMax = "90%";
+      OOMScoreAdjust = 500;
+    };
+
+    nix-daemon.serviceConfig = {
+      # WARNING: THIS makes nix-daemon build extremely slow
+      # LimitNOFILE = lib.mkForce 500000000;
+      Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
+    };
+  };
   virtualisation.oci-containers.backend = "podman";
   programs = {
     less.lessopen = null;
@@ -115,9 +128,9 @@
         set fish_cursor_replace_one underscore blink
 
 
-        if test -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR"
-          set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
-        end
+        # if test -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR"
+        #   set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
+        # end
       '';
       interactiveShellInit = ''
         # Need to declare here, since something buggy.
@@ -268,12 +281,6 @@
     nixos.enable = false;
     man.man-db.enable = true;
   };
-
-  systemd.services.nix-daemon.serviceConfig = {
-    # WARNING: THIS makes nix-daemon build extremely slow
-    # LimitNOFILE = lib.mkForce 500000000;
-    Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
-  };
   boot.tmp.useTmpfs = true;
 
   # powerManagement.powertop.enable = true;
@@ -289,6 +296,7 @@
       fsync-store-paths = true;
       keep-outputs = true;
       keep-derivations = true;
+      trusted-users = [ "remotebuild" ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -327,6 +335,8 @@
       # Avoid disk full
       max-free = lib.mkDefault (1000 * 1000 * 1000);
       min-free = lib.mkDefault (128 * 1000 * 1000);
+      max-jobs = "auto";
+      cores = 0;
       builders-use-substitutes = true;
       allow-import-from-derivation = true;
       download-buffer-size = 524288000;

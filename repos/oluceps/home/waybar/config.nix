@@ -36,14 +36,16 @@ builtins.toJSON (
         interval = 1;
         timezone = "Asia/Shanghai";
         tooltip = true;
-      } // niriCtlArg;
+      }
+      // niriCtlArg;
       "clock#2" = {
         format = "{:%M}";
         tooltip-format = "{:%a}";
         interval = 1;
         timezone = "Asia/Shanghai";
         tooltip = true;
-      } // niriCtlArg;
+      }
+      // niriCtlArg;
       pulseaudio = {
         tooltip = false;
         scroll-step = 1;
@@ -74,13 +76,15 @@ builtins.toJSON (
         format = " ";
         tooltip = false;
         interval = "once";
-      } // niriCtlArg;
+      }
+      // niriCtlArg;
       "custom/lightctl" = {
         format = "";
         tooltip = false;
         on-scroll-up = "${lib.getExe pkgs.brightnessctl} set 1%+";
         on-scroll-down = "${lib.getExe pkgs.brightnessctl} set 1%-";
         on-double-click = "loginctl lock-session";
+        on-double-click-right = "${pkgs.fuzzel}/bin/fuzzel -I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono NF CN:style=Regular:size=15' -P 10 -B 7";
       };
       "group/time" = {
         modules = [
@@ -111,7 +115,7 @@ builtins.toJSON (
         "battery"
         "pulseaudio"
         "custom/lightctl"
-        # 
+        #
         # "niri/workspaces"
         # "memory"
       ];
