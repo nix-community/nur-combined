@@ -475,13 +475,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fa0db4d2014abdbf0e1b8eab2131cb89715c1aa9",
-            "sha256": "sha256-ZNuS5kp6Om8TQfkGD53S8j3IDC2uUv3ofRTRWVbr9cc=",
+            "rev": "41816434b0b2457c772eae5e7dfd85054e8f5e24",
+            "sha256": "sha256-oe35CuCGQekCAkpGaCLzXRDcAVuwlmxkQZswFJwPf1Y=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "fa0db4d2014abdbf0e1b8eab2131cb89715c1aa9"
+        "version": "41816434b0b2457c772eae5e7dfd85054e8f5e24"
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
