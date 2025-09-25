@@ -1,0 +1,28 @@
+name: "init"
+description: "initialize nix"
+inputs:
+  attic_token:
+    description: "attic token"
+    required: true
+  nix_path:
+    description: "nix path"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+    - uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31.6.2
+      with:
+        nix_path: ${{ inputs.nix_path }}
+
+    - uses: ryanccn/attic-action@7fbafba3978e86e585cb68a82c08b30f3672b62d # v0.4.0
+      with:
+        endpoint: https://cache.trev.zip/
+        cache: nur
+        token: ${{ inputs.attic_token }}

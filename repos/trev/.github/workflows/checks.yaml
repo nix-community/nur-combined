@@ -19,23 +19,13 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
-      - name: Install nix
-        uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31.6.2
+      - uses: spotdemo4/nur/.github/actions/init@main
         with:
-          nix_path: "${{ matrix.nixPath }}"
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          nix_path: ${{ matrix.nixPath }}
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
-        with:
-          name: ${{ matrix.cachixName }}
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Check evaluation
         run: |
@@ -53,21 +43,11 @@ jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
-      - name: Install nix
-        uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31.6.2
+      - uses: spotdemo4/nur/.github/actions/init@main
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
 
-      - name: Setup cachix
-        uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
-        with:
-          name: trevnur
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - run: nix flake check -L --accept-flake-config
+      - run: nix flake check --accept-flake-config
 
   trigger:
     needs: [packages, flake]

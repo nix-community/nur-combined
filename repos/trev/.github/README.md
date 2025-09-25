@@ -3,7 +3,6 @@
 [![checks](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/checks.yaml?branch=main&logo=nixos&logoColor=%2389dceb&label=checks&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/checks.yaml)
 [![vulnerable](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/vulnerable.yaml?branch=main&logo=nixos&logoColor=%2389dceb&label=vulnerable&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml)
 [![nur sync](https://img.shields.io/github/actions/workflow/status/spotdemo4/nur/synced.yaml?logo=nixos&logoColor=%2389dceb&label=synced&labelColor=%2311111b)](https://github.com/spotdemo4/nur/actions/workflows/synced.yaml)
-[![cachix](https://img.shields.io/badge/cachix-trevnur-%23313244?logo=nixos&logoColor=%2389dceb&labelColor=%2311111b)](https://trevnur.cachix.org)
 
 ## Install
 
@@ -13,10 +12,10 @@
 {
   nixConfig = {
     extra-substituters = [
-      "https://trevnur.cachix.org"
+      "https://cache.trev.zip/nur"
     ];
     extra-trusted-public-keys = [
-      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+      "nur:DoXGy0SJ+5udhvZgtzwEXhQMuOCFN7FSXRmtiZhF1Vw="
     ];
   };
 
@@ -55,10 +54,10 @@
 {
   nixConfig = {
     extra-substituters = [
-      "https://trevnur.cachix.org"
+      "https://cache.trev.zip/nur"
     ];
     extra-trusted-public-keys = [
-      "trevnur.cachix.org-1:hBd15IdszwT52aOxdKs5vNTbq36emvEeGqpb25Bkq6o="
+      "nur:DoXGy0SJ+5udhvZgtzwEXhQMuOCFN7FSXRmtiZhF1Vw="
     ];
   };
 

@@ -9,14 +9,12 @@ jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
-      - name: Install nix
-        uses: cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce # v31.6.2
+      - uses: spotdemo4/nur/.github/actions/init@main
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
 
       - uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+        with:
+          arguments: "--accept-flake-config"
 
       - run: flake-checker -f
