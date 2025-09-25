@@ -3,15 +3,21 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - appindicator
   - arpk
   - cachix
+  - dont
+  - dpkg
+  - fastfetch
   - fetchurl
   - fetchzip
   - gltf
   - hatsu
   - importantimport
   - kwaa
+  - libayatana
   - libgcc
+  - libsoup
   - moeru
   - naiveproxy
   - nixos
@@ -21,5 +27,6 @@ words:
   - pkgs
   - pname
   - stdenv
+  - webkitgtk
 ignoreWords: []
 import: []
