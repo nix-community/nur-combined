@@ -1772,6 +1772,9 @@
     }
   },
   {
+    "slug": "tasks-for-canvas"
+  },
+  {
     "slug": "temporary-containers"
   },
   {
@@ -2198,6 +2201,9 @@
   },
   {
     "slug": "youtube-shorts-block"
+  },
+  {
+    "slug": "youtube-subscription-groups"
   },
   {
     "slug": "ytcfilter"

@@ -317,10 +317,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.44";
+      version = "1.2.1";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566934/angular_devtools-1.0.44.xpi";
-      sha256 = "b0e7ca2e2b69b084782d60923f82eea44061083f4d6a8308227e0fa3e06c949a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4580458/angular_devtools-1.2.1.xpi";
+      sha256 = "86177e2d190224fdc6e98386ba889bf286935c7c3046282202211d29338122e6";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1196,10 +1196,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.5";
+      version = "0.4.6";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401602/blocktube-0.4.5.xpi";
-      sha256 = "79cf81b8dbdeb6a01e6839c80cf0898707cd2ae26146e2ac9a5203f14f2f61c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578806/blocktube-0.4.6.xpi";
+      sha256 = "67ea8463b6ff9ed9737cf17ab0a89339f66b54a721741f3073d2c34591ae51d1";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -2417,10 +2417,10 @@
     };
     "csgo-trader-steam-trading" = buildFirefoxXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.4";
+      version = "3.4.2";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4539625/csgo_trader_steam_trading-3.4.xpi";
-      sha256 = "3661c83d7b64f5190d66daaf345bbfda2377a9af68172c0cdc17615c8aa99a6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578256/csgo_trader_steam_trading-3.4.2.xpi";
+      sha256 = "593ac26167275ff9f5925dc6c9b797acd6ad92401911347523a9f97a95807d4b";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -2587,10 +2587,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "144.0.20250922.90526";
+      version = "144.0.20250924.90918";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583316/dansk_da_language_pack-144.0.20250922.90526.xpi";
-      sha256 = "23b2e8a96b55c554ba6fc55777489cfddc0b7440ddb526e3a76dd14828c4fbc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584771/dansk_da_language_pack-144.0.20250924.90918.xpi";
+      sha256 = "c2bbf8e8d3a0e0c818aa38435b9114aef9d108183df415a96eae5148d93050e8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2737,10 +2737,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.1.8";
+      version = "2.1.10";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4566992/dearrow-2.1.8.xpi";
-      sha256 = "ddd13a9edad6fd508f00ad9c0c49a9a7f5af10fe6224924dfed2cbd94f6581aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4579362/dearrow-2.1.10.xpi";
+      sha256 = "43b136b006dc7af78d25008f01f99cbc3cb44d38227cb10db3541465ddf4f358";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2785,10 +2785,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "144.0.20250922.90526";
+      version = "144.0.20250924.90918";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583317/deutsch_de_language_pack-144.0.20250922.90526.xpi";
-      sha256 = "8320b2a69e0efa6cde24a7028eb5f6cfeb6632eb617e9b2e8d533ec0df9c3907";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584774/deutsch_de_language_pack-144.0.20250924.90918.xpi";
+      sha256 = "afaf8d26e19897d1baf39b0a79a22ec6c5f550d6e35adff546208a2a739ee38e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3448,10 +3448,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.60";
+      version = "1.3.61";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4582954/faststream-1.3.60.xpi";
-      sha256 = "102d42329e4764adbb966577b6567e7e654dd832aa3e80667685ee76a44b14df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584386/faststream-1.3.61.xpi";
+      sha256 = "adbd9eaca737555f88b2f9254b4ddd8a95e30ffeccc33038cd29705f0b128f87";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3990,10 +3990,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "144.0.20250922.90526";
+      version = "144.0.20250924.90918";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583267/francais_language_pack-144.0.20250922.90526.xpi";
-      sha256 = "48f086a52bb5a51f775203ff53a0d76b2e261eea2ff33a2d441de1113dbfd5cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584724/francais_language_pack-144.0.20250924.90918.xpi";
+      sha256 = "f4c11d99c3ee33acf192009ddd5babe240647e54bc3c3d5a7915f3f01e06b74d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4027,10 +4027,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "144.0.20250922.90526";
+      version = "144.0.20250924.90918";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583271/gaidhlig_language_pack-144.0.20250922.90526.xpi";
-      sha256 = "327df96eba6ded5c5a47177a1e646b70d672db60fed43670c7d1ddf5d056373f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584753/gaidhlig_language_pack-144.0.20250924.90918.xpi";
+      sha256 = "bb3af74408e78d63c963bddad41c0f815209607843adce8ade77ffaee8332ff1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4091,10 +4091,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.9";
+      version = "10.5.11";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575148/ghostery-10.5.9.xpi";
-      sha256 = "a026a1700d1ac674f2e427ad395928868d26c3d540678dc8a76142c515a81e82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4580774/ghostery-10.5.11.xpi";
+      sha256 = "9b0cf288b7c0c6608290b07acf5ce0f69e10db56142cfdf63a73e2d1b14ce409";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8268,10 +8268,10 @@
     };
     "metager-suche" = buildFirefoxXpiAddon {
       pname = "metager-suche";
-      version = "1.20";
+      version = "1.21";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4562210/metager_suche-1.20.xpi";
-      sha256 = "8286cc66dce9ef28a0bfc61def6910df29161a343fa59f193b1f11c0d111484e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584036/metager_suche-1.21.xpi";
+      sha256 = "5ec8eb7609a09f28af508c081eb7b49c0acb55a3ec7c925ad4626659757c5ef8";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -8355,10 +8355,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.24.8";
+      version = "2.25.1";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561259/momentumdash-2.24.8.xpi";
-      sha256 = "b99badaf26d2e1d882a3ba4d98ddd83abb483951eefa1ceddaf8983d99abe208";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578983/momentumdash-2.25.1.xpi";
+      sha256 = "d8f744c41be0cc091b5f184fce7263ec60f9978ea4c59f3a2745263bbf3184d6";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9296,10 +9296,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2025.9.1";
+      version = "2025.9.2";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581737/pakkujs-2025.9.1.xpi";
-      sha256 = "89b39b3769af7451fdcffb5b449702f321b8e4f42dc469d7609de84e7e9336cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584135/pakkujs-2025.9.2.xpi";
+      sha256 = "6ad8de86c433ed39bcefc7f03014db8aa118502de7b8ed96429498d62268e572";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -10327,10 +10327,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.32.5";
+      version = "1.32.7";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567405/proton_pass-1.32.5.xpi";
-      sha256 = "86b59b2815bf6945ddd8b09770d54a6a66286019413cc0d5c27822f38b1b94b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4580681/proton_pass-1.32.7.xpi";
+      sha256 = "c875e7402cc098a62e9ccc7d2b888c69f1257393d72bcc1692b2b73bc781c9aa";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -11368,10 +11368,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "144.0.20250922.90526";
+      version = "144.0.20250924.90918";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583314/scots_language_pack-144.0.20250922.90526.xpi";
-      sha256 = "89f2d4db8218ad61738df34c85deca9f3aa0007c65e6807913d6df6bea7f2798";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584815/scots_language_pack-144.0.20250924.90918.xpi";
+      sha256 = "f7941c45027fa1fdf2171903e16a8e7f374cc024ebf83909be592e98740b803c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12029,22 +12029,39 @@
     };
     "sonarr-radarr-lidarr-search" = buildFirefoxXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "2.13.0.0";
+      version = "3.0.0.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4579460/sonarr_radarr_lidarr_search-2.13.0.0.xpi";
-      sha256 = "406e66845d07b4ac2cc82552fd72852148a4fbfd59a4a1fa1f406e10da878653";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4584709/sonarr_radarr_lidarr_search-3.0.0.0.xpi";
+      sha256 = "94fe09ecc84ffd1b9084cb014e2c62d6d5b24bb742adb9dd1476f2a674410385";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
         description = "Exposes a context menu that enables direct searching for tv shows, movies or artists in Sonarr, Radarr &amp; Lidarr.\n\nSee description for a list of integrated sites.";
         license = licenses.mpl20;
         mozPermissions = [
-          "<all_urls>"
+          "*://*.allocine.fr/*"
+          "*://*.betaseries.com/*"
+          "*://*.imdb.com/*"
+          "*://*.iptorrents/*"
+          "*://*.last.fm/*"
+          "*://*.letterboxd.com/*"
+          "*://*.metacritic.com/*"
+          "*://*.musicbrainz.org/*"
+          "*://*.myanimelist.net/*"
+          "*://*.primevideo.com/*"
+          "*://*.rateyourmusic.com/*"
+          "*://*.rottentomatoes.com/*"
+          "*://*.senscritique.com/*"
+          "*://*.simkl.com/*"
+          "*://*.themoviedb.org/*"
+          "*://*.thetvdb.com/*"
+          "*://*.trakt.tv/*"
+          "*://*.pogdesign.co.uk/*"
+          "*://*.tvmaze.com/*"
           "storage"
           "activeTab"
+          "tabs"
           "contextMenus"
-          "*://*/*"
-          "file://*/*"
         ];
         platforms = platforms.all;
       };
@@ -12657,6 +12674,21 @@
           "downloads"
           "<all_urls>"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "tasks-for-canvas" = buildFirefoxXpiAddon {
+      pname = "tasks-for-canvas";
+      version = "1.5.2";
+      addonId = "tasksforcanvas@jtchengdev.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4462622/tasks_for_canvas-1.5.2.xpi";
+      sha256 = "3868f668c1107eaa908a5b316254e91a0aa5790b213649929e9489b51210c74f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/jtcheng26/canvas-task-extension";
+        description = "A better to-do list sidebar for Canvas. The Tasks browser extension for Canvas™ updates the Canvas dashboard sidebar to show all of your weekly assignments and track your progress throughout the week.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "https://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -15037,10 +15069,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.8.27.0";
+      version = "25.9.16.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569735/yomitan-25.8.27.0.xpi";
-      sha256 = "4b0d5b71c7bf193917709cd3ada4950b9a3ae6daf13ab7b6dad366d596411cf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4583946/yomitan-25.9.16.0.xpi";
+      sha256 = "67d86b7013fa7e7912bc7b803a13acd32064f75b6cc992397a52e10617035514";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -15245,6 +15277,29 @@
           "storage"
           "*://*.youtube.com/*"
           "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-subscription-groups" = buildFirefoxXpiAddon {
+      pname = "youtube-subscription-groups";
+      version = "17.6.12";
+      addonId = "danabok16@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578674/youtube_subscription_groups-17.6.12.xpi";
+      sha256 = "f5d6f868e1091cd3db3d1bf4f71ff8863d2ddfa715c66086a51d149691fb94d9";
+      meta = with lib;
+      {
+        homepage = "https://pockettube.io";
+        description = "The best way to group your subscriptions\r\nUsing this simple extension you can create collections that seamlessly fit into YouTube's layout.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "alarms"
+          "storage"
+          "unlimitedStorage"
+          "identity"
+          "contextMenus"
+          "https://*.youtube.com/*"
+          "webRequest"
         ];
         platforms = platforms.all;
       };
