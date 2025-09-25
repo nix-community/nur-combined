@@ -46,6 +46,7 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [
     wails
+    nodejs
     pkg-config
     copyDesktopItems
     gsettings-desktop-schemas
@@ -86,7 +87,7 @@ buildGoModule (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    wails build -m -trimpath -devtools -tags webkit2_41 -o ${finalAttrs.pname}
+    wails build -m -tags webkit2_41 -o ${finalAttrs.pname}
 
     runHook postBuild
   '';
