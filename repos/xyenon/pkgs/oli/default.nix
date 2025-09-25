@@ -22,7 +22,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace tests/integration/edit.rs --replace-warn '#!/bin/bash' '#!${runtimeShell}'
   '';
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-zJYMZ1hsiN4TOuRZAlgzm7NHBYRmfCqr8jlpfW/CROU=";
 
   checkFlags = [

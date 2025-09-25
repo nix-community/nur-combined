@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "Preview audio files metadata on yazi";
-    homepage = "https://github.com/Sonico98/exifaudio.yazii";
+    homepage = "https://github.com/Sonico98/exifaudio.yazi";
     license = licenses.mit;
     maintainers = with maintainers; [ xyenon ];
   };
