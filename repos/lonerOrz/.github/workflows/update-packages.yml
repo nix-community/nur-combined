@@ -44,9 +44,9 @@ jobs:
       - name: Run update script
         run: |
           if [[ -n "${{ github.event.inputs.package }}" ]]; then
-            python3 .github/script/update.py --package ${{ github.event.inputs.package }} --commit
+            python3 .github/script/update-nix.py --package ${{ github.event.inputs.package }}
           else
-            python3 .github/script/update.py --commit
+            python3 .github/script/update-nix.py
           fi
 
       - name: Commit and push changes to new branch

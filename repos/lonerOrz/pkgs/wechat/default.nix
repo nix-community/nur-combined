@@ -114,6 +114,8 @@ stdenvNoCC.mkDerivation rec {
       --run 'exec $1 "$@"'
   '';
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
     description = "WeChat for Linux";
     homepage = "https://linux.weixin.qq.com";

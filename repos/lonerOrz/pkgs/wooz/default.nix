@@ -11,7 +11,7 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  name = "wooz";
+  pname = "wooz";
   version = "0.1.0";
 
   src = fetchFromGitHub {
