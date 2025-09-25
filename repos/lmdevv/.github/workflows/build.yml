@@ -12,7 +12,7 @@ on:
     - cron:  '51 2 * * *'
   workflow_dispatch:
   workflow_run:
-    workflows: ["Update cursor-agent package"]
+    workflows: ["Update cursor-agent package", "Update code-cursor package"]
     types: [completed]
     branches: [main, master]
 jobs:
