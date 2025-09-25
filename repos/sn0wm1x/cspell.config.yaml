@@ -22,11 +22,13 @@ words:
   - naiveproxy
   - nixos
   - nixpkgs
+  - omarchy
   - passthru
   - patchelf
   - pkgs
   - pname
   - stdenv
   - webkitgtk
+  - wmtheme
 ignoreWords: []
 import: []
