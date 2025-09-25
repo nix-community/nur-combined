@@ -21,16 +21,16 @@
   };
   "caddy-dns/cloudflare" = {
     pname = "caddy-dns/cloudflare";
-    version = "f589a18c0f5d2ce871cc907c0567b2f8ef20c4c0";
+    version = "a14840b68f2669721e7a0c24d37903b0eb0083f3";
     src = fetchFromGitHub {
       owner = "caddy-dns";
       repo = "cloudflare";
-      rev = "f589a18c0f5d2ce871cc907c0567b2f8ef20c4c0";
+      rev = "a14840b68f2669721e7a0c24d37903b0eb0083f3";
       fetchSubmodules = false;
-      sha256 = "sha256-ZepM8ACTkRvvNyF3FzfsnkxEREaGspZUFjlnFg44qM8=";
+      sha256 = "sha256-TNUMn69eglmyA5NTt1J3ohofIdiIbuNHYs/IpNUEnAE=";
     };
     moduleName = "github.com/caddy-dns/cloudflare";
-    date = "20250724223520";
+    date = "20250923141955";
   };
   catppuccin-kitty = {
     pname = "catppuccin-kitty";
@@ -95,15 +95,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
+    version = "f0cd71cbe511026b4961f2febd03afb350a07aa4";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2a25d90f1b3b2142d0b2e8d23a0a752ce32b55d3";
+      rev = "f0cd71cbe511026b4961f2febd03afb350a07aa4";
       fetchSubmodules = false;
-      sha256 = "sha256-Bfp02YJHqotT4OtLxYFcfivFGRvEKuEk9w5eiTnLSMo=";
+      sha256 = "sha256-/BiVpDEPqH0C40SZZr3HCazNcJG05FWlSLZxPbGO4SM=";
     };
-    date = "2025-09-17";
+    date = "2025-09-24";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
