@@ -7,6 +7,7 @@
   commandLineArgs ? "",
   useVSCodeRipgrep ? stdenv.hostPlatform.isDarwin,
   pkgs,
+  steam-run,
 }:
 
 let
@@ -93,6 +94,20 @@ in
   (oldAttrs: {
     nativeBuildInputs =
       (oldAttrs.nativeBuildInputs or [ ]) ++ lib.optionals hostPlatform.isDarwin [ undmg ];
+
+    # Wrap the cursor binary with steam-run for FHS compatibility on Linux
+    postFixup = lib.optionalString hostPlatform.isLinux ''
+      # Create a wrapper script that uses steam-run for FHS compatibility
+      makeWrapper ${steam-run}/bin/steam-run $out/bin/cursor-wrapped \
+        --add-flags "$out/bin/cursor-original" \
+        --add-flags "$finalCommandLineArgs"
+      
+      # Replace the original cursor binary with our wrapper
+      mv $out/bin/cursor $out/bin/cursor-original
+      mv $out/bin/cursor-wrapped $out/bin/cursor
+    '';
+
+    buildInputs = (oldAttrs.buildInputs or [ ]) ++ lib.optionals hostPlatform.isLinux [ steam-run ];
 
     passthru = (oldAttrs.passthru or { }) // {
       inherit sources;

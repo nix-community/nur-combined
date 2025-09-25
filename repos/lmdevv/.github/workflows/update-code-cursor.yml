@@ -1,10 +1,8 @@
 name: Update code-cursor package
-
 on:
   schedule:
-    - cron: '0 1 * * *'  # Run at 1 AM daily (1 hour after cursor-agent)
+    - cron: '0 1 * * *' # Run at 1 AM daily
   workflow_dispatch: {}
-
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -13,16 +11,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
       - name: Set up Nix
         uses: DeterminateSystems/nix-installer-action@v19
-
       - name: Run updater
         run: |
           set -euxo pipefail
           cd pkgs/code-cursor
           bash update.sh
-
       - name: Commit and push if changed
         run: |
           set -euxo pipefail
