@@ -55,7 +55,7 @@ jobs:
       if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
       run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
     - name: Install devenv
-      run: nix profile install nixpkgs#devenv
+      run: nix profile add nixpkgs#devenv
     - name: Install and setup direnv
       run: |
         curl -sfL https://direnv.net/install.sh | bash

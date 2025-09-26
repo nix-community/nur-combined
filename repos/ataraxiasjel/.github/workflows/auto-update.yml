@@ -26,7 +26,7 @@ jobs:
       with:
         name: devenv
     - name: Install devenv
-      run: nix profile install nixpkgs#devenv
+      run: nix profile add nixpkgs#devenv
     - name: Install and setup direnv
       run: |
         curl -sfL https://direnv.net/install.sh | bash
@@ -53,7 +53,7 @@ jobs:
         # shellcheck disable=SC2155
         export NIX_PATH="nixpkgs=$(nix flake metadata --json --inputs-from . nixpkgs | jq -r .path)"
         pkgsNames=$(nix eval --json --impure --expr "(import ./ci.nix {}).updatablePkgsNames" | jq -r ".[]")
-        echo "$pkgsNames" | while read -r pkg; do nix-update --use-update-script --commit --flake "$pkg"; done
+        echo "$pkgsNames" | while read -r pkg; do nix-update --use-update-script --commit --flake "$pkg" || true; done
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
