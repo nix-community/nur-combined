@@ -12,6 +12,7 @@ main = runNvFetcher packageSet
 packageSet :: PackageSet ()
 packageSet = do
   -- keep-sorted start
+  define $ package "mediawiki-auth-manager-oauth" `fromGitHub` ("mohe2015", "AuthManagerOAuth")
   ghPkg "Wind4" "vlmcsd"
   ghPkg "aspiers" "ly2video"
   ghPkg "awslabs" "aws-sigv4-proxy"

@@ -255,6 +255,27 @@
         },
         "version": "v0.5.0"
     },
+    "mediawiki-auth-manager-oauth": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mediawiki-auth-manager-oauth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mohe2015",
+            "repo": "AuthManagerOAuth",
+            "rev": "v0.3.3",
+            "sha256": "sha256-//AMeRJNx5M2n5WUOOVRz5ZdIBDezYMsaICxnzE6KSg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.3.3"
+    },
     "moe-koe-music": {
         "cargoLocks": null,
         "date": null,

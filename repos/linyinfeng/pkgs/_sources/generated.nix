@@ -157,6 +157,17 @@
       sha256 = "sha256-4ARRCmz7uDKWVuY1LG98oAGV/S0BFo4DYyoWw9TlZoo=";
     };
   };
+  mediawiki-auth-manager-oauth = {
+    pname = "mediawiki-auth-manager-oauth";
+    version = "v0.3.3";
+    src = fetchFromGitHub {
+      owner = "mohe2015";
+      repo = "AuthManagerOAuth";
+      rev = "v0.3.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-//AMeRJNx5M2n5WUOOVRz5ZdIBDezYMsaICxnzE6KSg=";
+    };
+  };
   moe-koe-music = {
     pname = "moe-koe-music";
     version = "v1.5.1";
