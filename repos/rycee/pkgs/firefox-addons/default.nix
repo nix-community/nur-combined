@@ -13,7 +13,8 @@ let
       pname,
       version,
       addonId,
-      url,
+      url ? "",
+      urls ? [ ], # Alternative for 'url' a list of URLs to try in specified order.
       sha256,
       meta,
       ...
@@ -23,7 +24,7 @@ let
 
       inherit meta;
 
-      src = fetchurl { inherit url sha256; };
+      src = fetchurl { inherit url urls sha256; };
 
       preferLocalBuild = true;
       allowSubstitutes = true;
@@ -73,6 +74,39 @@ let
           platforms = platforms.all;
         };
       };
+
+    enhancer-for-youtube = buildFirefoxXpiAddon {
+      pname = "enhancer-for-youtube";
+      version = "2.0.130.1";
+      addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
+      urls = [
+        "https://addons.mozilla.org/firefox/downloads/file/4393561/enhancer_for_youtube-2.0.130.1.xpi"
+        "https://www.mrfdev.com/downloads/enhancer_for_youtube-2.0.130.1.xpi"
+        "https://github.com/PerchunPak/storage/raw/ae69d69b3323ea56b86c7ec2c07f3ece677dfb20/firefox/enhancer_for_youtube-2.0.130.1.xpi"
+      ];
+      sha256 = "6d84dcba9b197840f485d66d3fd435279d6e1bcd2155d28389999e87ea01312c";
+      meta = with lib;
+      {
+        homepage = "https://www.mrfdev.com/enhancer-for-youtube";
+        description = "Take control of YouTube and boost your user experience!";
+        license = {
+          shortName = "enhancer-for-youtube";
+          fullName = "Custom License for Enhancer for YouTube™";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "cookies"
+          "storage"
+          "*://www.youtube.com/*"
+          "*://www.youtube.com/embed/*"
+          "*://www.youtube.com/live_chat*"
+          "*://www.youtube.com/pop-up-player/*"
+          "*://www.youtube.com/shorts/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
 
     fx_cast =
       let

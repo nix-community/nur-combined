@@ -1523,10 +1523,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.13.0";
+      version = "7.14.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4498122/castkodi-7.13.0.xpi";
-      sha256 = "397e43f54226f2b04aef621701eda2c6c5508b34e5da728d02ab88f68f241203";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4585613/castkodi-7.14.0.xpi";
+      sha256 = "0975a6c35f49ceb780666fd8e22f338a5141ee81b1c46ed73d72ae15065de05e";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -8947,10 +8947,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "8.1.3";
+      version = "8.1.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490734/octotree-8.1.3.xpi";
-      sha256 = "05f97b5b4a81c0af48d25cf8a3ef516206e9801e8082603d2fcc6cc842235bba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4585588/octotree-8.1.4.xpi";
+      sha256 = "5afc56a3696279277d59f6a1a14bcdfae5a3e832abb627ada2726a61ef05bb36";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -14404,10 +14404,10 @@
     };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "4.7.1";
+      version = "5.0.0";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4432290/watchmarker_for_youtube-4.7.1.xpi";
-      sha256 = "08e89ca94f2f172e4d28632657b178468c4005ba7725a812e821a19a0e8ef4e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4585946/watchmarker_for_youtube-5.0.0.xpi";
+      sha256 = "4b386aabf370499c5e1dfc133ac55b9f5ddeec52196124c89cf09d78c754e2b7";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
@@ -14415,14 +14415,14 @@
         license = licenses.gpl3;
         mozPermissions = [
           "alarms"
+          "cookies"
+          "declarativeNetRequest"
+          "declarativeNetRequestWithHostAccess"
           "downloads"
           "history"
+          "scripting"
+          "storage"
           "tabs"
-          "cookies"
-          "webRequest"
-          "webRequestBlocking"
-          "https://www.youtube.com/*"
-          "https://m.youtube.com/*"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
         ];
