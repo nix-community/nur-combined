@@ -10,17 +10,17 @@
 }:
 let
   xpifile = buildNpmPackage (finalAttrs: {
-    pname = "obsidian-web-clipper.zip";
-    version = "0.11.10";
+    pname = "obsidian-web-clipper";
+    version = "0.12.0";
 
     src = fetchFromGitHub {
       owner = "obsidianmd";
       repo = "obsidian-clipper";
       rev = finalAttrs.version;
-      hash = "sha256-ZR5BYxkG9eiA9L/pVQF7k/W9Fx+nir82Yr1/dFSSsmU=";
+      hash = "sha256-4hinwUzP6+G7cCkmf3RgEks95ioEGrz/A3KpjEtvG6I=";
     };
 
-    npmDepsHash = "sha256-dzyOWAIRNKYX761SpGKyazwR26A41UN+Eqkp4NhAPqY=";
+    npmDepsHash = "sha256-UXdy2ITteLy1tfiEvdlGpAHocxb8j7qRw2F8ljQnZJY=";
     npmBuildScript = "build:firefox";
 
     installPhase = ''
@@ -35,11 +35,10 @@ let
   });
 in
 buildFirefoxXpiAddon {
-  pname = "obsidian-web-clipper";
-  version = xpifile.version;
+  inherit (xpifile) pname version;
+  src = xpifile;
   addonId = "clipper@obsidian.md";
 
-  src = xpifile;
   meta = with lib; {
     homepage = "https://obsidian.md/clipper";
     description = "Highlight and capture the web in your favorite browser. The official Web Clipper extension for Obsidian.";

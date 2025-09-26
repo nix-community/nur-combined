@@ -15,8 +15,13 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "tauraamui";
     repo = "lilly";
     rev = "1a8b8ea61ddfeb9cb02099ce10cc1fdf1029ff25";
-    hash = "sha256-mJUKae4fgBYa0ZMBpFq2rx3GhnpZaKV6GlPo/czenPc=";
+    hash = "sha256-yo1BrrROIl6AIVDCeMQoM+bWLWleZWGJfqI1/ujQBV0=";
     leaveDotGit = true;
+    postFetch = ''
+      cd $out
+      git describe --always --long > src/.githash
+      rm -rf .git
+    '';
   };
 
   nativeBuildInputs = [

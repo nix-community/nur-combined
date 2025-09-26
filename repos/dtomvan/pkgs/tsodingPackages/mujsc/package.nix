@@ -7,13 +7,13 @@
 
 buildNobPackage {
   pname = "mujsc";
-  version = "0-unstable-2025-09-09";
+  version = "0-unstable-2025-09-20";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "mujsc";
-    rev = "8afb8a505d25900b013747302c55c5d88de91315";
-    hash = "sha256-5LvGDMQJEipjnKu0viDwNKvFUO1SmXIQ3VcKFK5W+vo=";
+    rev = "809be5ed478730e8b3a3a25cc793346a6c4edbbf";
+    hash = "sha256-U1FiT7SoBF5HHl2NM4z4cdSVN1rJ96e6w3LwvA1vxwE=";
   };
 
   postPatch = ''
