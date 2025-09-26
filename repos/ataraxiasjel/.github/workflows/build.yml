@@ -25,9 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    defaults:
-      run:
-        shell: devenv shell bash -- -e {0}
     steps:
     - name: Free disk space
       uses: jlumbroso/free-disk-space@v1.3.1
@@ -56,18 +53,22 @@ jobs:
         extraPullNames: 'devenv'
     - name: Override nixpkgs in flake to latest stable
       if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
-      shell: bash
       run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
     - name: Install devenv
-      shell: bash
       run: nix profile install nixpkgs#devenv
+    - name: Install and setup direnv
+      run: |
+        curl -sfL https://direnv.net/install.sh | bash
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        direnv allow .
+        direnv export gha >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)
+      run: ./ci.sh --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)"
     - name: Build nix packages
       continue-on-error: true
       id: build-cache
@@ -76,7 +77,8 @@ jobs:
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       run: |
         nix-fast-build --option accept-flake-config true --skip-cached --no-nom \
-          --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem) --result-file build.json --result-format json
+          --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)" \
+          --result-file build.json --result-format json
     - name: Print failed builds
       if: steps.build-cache.outcome == 'failure'
       run: jq '.results[] | select(.success != true)' build.json
