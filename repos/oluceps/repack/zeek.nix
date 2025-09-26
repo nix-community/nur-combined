@@ -12,7 +12,7 @@ reIf {
       "network.target"
     ];
     requires = [
-      "microvm@sep-microvm.service"
+      "microvm@sept.service"
     ];
     serviceConfig = {
       ExecStart = "${lib.getExe pkgs.zeek} -i vm1 ${pkgs.writeText "zeekcfg" ''
