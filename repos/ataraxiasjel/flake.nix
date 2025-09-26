@@ -35,12 +35,29 @@
             inherit system;
             config.allowUnfree = true;
           };
-          # legacyPackages = import ./pkgs/default.nix { inherit pkgs; };
-          # Currently does not populate derivations from recurseIntoAttrs
+          legacyPackages = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            # overlays = [ (import ./overlay.nix) ];
+            overlays = [
+              (
+                _: prev:
+                (
+                  let
+                    ci = import ./ci.nix {
+                      pkgs = prev;
+                      inherit lib system;
+                    };
+                  in
+                  ci.notReserved
+                )
+              )
+            ];
+          };
           # packages = lib.filterAttrs (_: v: lib.isDerivation v) legacyPackages;
           # Get all packages from ci.nix
-          packages = (import ./ci.nix { inherit pkgs; }).buildPkgs;
-          checks = (import ./ci.nix { inherit pkgs; }).cachePkgs;
+          packages = (import ./ci.nix { inherit pkgs lib system; }).buildPkgs;
+          checks = (import ./ci.nix { inherit pkgs lib system; }).cachePkgs;
           devenv.shells = rec {
             dev = {
               devenv.root =
@@ -59,7 +76,7 @@
               containers = lib.mkForce { };
             };
             default = lib.recursiveUpdate dev {
-              pre-commit.hooks = {
+              git-hooks.hooks = {
                 actionlint.enable = true;
                 deadnix.enable = true;
                 flake-checker.enable = true;

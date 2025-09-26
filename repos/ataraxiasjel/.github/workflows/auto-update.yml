@@ -9,6 +9,9 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    defaults:
+      run:
+        shell: devenv shell bash -- -e {0}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
@@ -21,6 +24,13 @@ jobs:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup magic nix cache
       uses: DeterminateSystems/flakehub-cache-action@main
+    - name: Setup cachix devenv repo
+      uses: cachix/cachix-action@v16
+      with:
+        name: devenv
+    - name: Install devenv
+      shell: bash
+      run: nix profile install nixpkgs#devenv
     - name: Show nixpkgs version
       run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
     - name: Update packages
@@ -36,16 +46,14 @@ jobs:
       timeout-minutes: 30
       continue-on-error: true
       run: |
-        ./enter-dev-shell.sh \
-          "export NIX_PATH='nixpkgs=$(nix flake metadata --json --inputs-from . nixpkgs | jq .path)' \
-          && nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' \
-          | jq '.[]' \
+        export NIX_PATH='nixpkgs=$(nix flake metadata --json --inputs-from . nixpkgs | jq -r .path)'
+        nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' \
           | xargs -L1 nix-update --use-update-script --commit --flake"
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./enter-dev-shell.sh "./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
+      run: ./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)
     - name: Submit auto-update PR
       uses: peter-evans/create-pull-request@v7
       with:

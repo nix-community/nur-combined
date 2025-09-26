@@ -11,10 +11,12 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
+  system ? pkgs.system,
 }:
 
 let
-  inherit (pkgs.lib) filterAttrs;
+  inherit (lib) filterAttrs;
   inherit (builtins) attrNames isAttrs;
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
@@ -47,9 +49,9 @@ let
         in
         acc // x;
     in
-    pkgs.lib.foldl' op { } (pkgs.lib.attrNames attrs);
+    lib.foldl' op { } (lib.attrNames attrs);
 
-  nurAttrs = import ./pkgs/default.nix { inherit pkgs; };
+  nurAttrs = import ./pkgs/default.nix { inherit pkgs lib system; };
   nurPkgs = flattenAttrs isDerivation nurAttrs;
 in
 rec {

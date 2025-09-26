@@ -25,6 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    defaults:
+      run:
+        shell: devenv shell bash -- -e {0}
     steps:
     - name: Free disk space
       uses: jlumbroso/free-disk-space@v1.3.1
@@ -50,16 +53,21 @@ jobs:
         name: '${{ matrix.cachixName }}'
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        extraPullNames: 'devenv'
     - name: Override nixpkgs in flake to latest stable
       if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
+      shell: bash
       run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
+    - name: Install devenv
+      shell: bash
+      run: nix profile install nixpkgs#devenv
     - name: Show nixpkgs version
       run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./enter-dev-shell.sh "./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
+      run: ./ci.sh --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem)
     - name: Build nix packages
       continue-on-error: true
       id: build-cache
@@ -67,11 +75,11 @@ jobs:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       run: |
-        ./enter-dev-shell.sh "nix-fast-build --option accept-flake-config true --skip-cached --no-nom \
-          --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem) --result-file build.json --result-format json"
+        nix-fast-build --option accept-flake-config true --skip-cached --no-nom \
+          --flake .#checks.$(nix eval --raw --impure --expr builtins.currentSystem) --result-file build.json --result-format json
     - name: Print failed builds
       if: steps.build-cache.outcome == 'failure'
-      run: ./enter-dev-shell.sh "jq '.results[] | select(.success != true)' build.json"
+      run: jq '.results[] | select(.success != true)' build.json
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

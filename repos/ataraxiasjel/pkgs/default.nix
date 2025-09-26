@@ -1,10 +1,11 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
+  system ? pkgs.system,
 }:
 let
   pkgsWithNur = import pkgs.path {
-    inherit (pkgs) system;
+    inherit system;
     config = pkgs.config // {
       allowUnfree = true;
     };
