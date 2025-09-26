@@ -85,8 +85,7 @@ let
         "https://github.com/PerchunPak/storage/raw/ae69d69b3323ea56b86c7ec2c07f3ece677dfb20/firefox/enhancer_for_youtube-2.0.130.1.xpi"
       ];
       sha256 = "6d84dcba9b197840f485d66d3fd435279d6e1bcd2155d28389999e87ea01312c";
-      meta = with lib;
-      {
+      meta = with lib; {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
         description = "Take control of YouTube and boost your user experience!";
         license = {

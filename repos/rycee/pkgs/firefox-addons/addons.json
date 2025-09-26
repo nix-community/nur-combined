@@ -1500,6 +1500,16 @@
     "slug": "readeck"
   },
   {
+    "slug": "readwise-highlighter",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "recap-195534",
     "pname": "recap"
   },

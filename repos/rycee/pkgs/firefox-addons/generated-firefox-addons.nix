@@ -10688,6 +10688,35 @@
         platforms = platforms.all;
       };
     };
+    "readwise-highlighter" = buildFirefoxXpiAddon {
+      pname = "readwise-highlighter";
+      version = "0.15.25";
+      addonId = "team@readwise.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4579487/readwise_highlighter-0.15.25.xpi";
+      sha256 = "ece9919236ac1873a176dac09d45903cca7113584a3f7c3da9dc76eef114b836";
+      meta = with lib;
+      {
+        homepage = "https://read.readwise.io";
+        description = "The Readwise Highlighter is the official browser extension made by and maintained by the Readwise team that saves articles to your Reader account and enables you to optionally highlight the open web.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "<all_urls>"
+          "activeTab"
+          "background"
+          "contextMenus"
+          "notifications"
+          "storage"
+          "tabs"
+          "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "recap" = buildFirefoxXpiAddon {
       pname = "recap";
       version = "2.8.5";
