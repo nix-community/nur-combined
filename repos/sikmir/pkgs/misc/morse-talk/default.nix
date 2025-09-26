@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication {
   pname = "morse-talk";
-  version = "2016-12-25";
+  version = "2021-06-27";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "morse-talk";
     repo = "morse-talk";
-    rev = "71e09ace0aa554d28cada5ee658e43758305b8fa";
-    hash = "sha256-fvQCETz0Lv0hyfKG7HC2Whm+xoZ9233hF/1ogsfZ10o=";
+    rev = "9f3bce0fa1d30b58095a979ed20c55c0767d9993";
+    hash = "sha256-ls6xipRrBKtoNV/Zmmn793fUgsuiXEDxk1+Um9mzAmY=";
   };
 
   build-system = with python3Packages; [ setuptools ];
