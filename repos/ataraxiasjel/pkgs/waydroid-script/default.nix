@@ -14,12 +14,12 @@
 }:
 let
   pname = "waydroid-script";
-  version = "0-unstable-2024-01-20";
+  version = "0-unstable-2025-08-31";
   src = fetchFromGitHub {
     repo = "waydroid_script";
     owner = "casualsnek";
-    rev = "1a2d3ad643206ad5f040e0155bb7ab86c0430365";
-    hash = "sha256-OiZO62cvsFyCUPGpWjhxVm8fZlulhccKylOCX/nEyJU=";
+    rev = "fcb15624db0811615ea9800837a836c4777674bf";
+    hash = "sha256-Epvl6thT6mJqurZV1FV6Zdd6Kn13ZAC/BUaywVLpOIc=";
   };
 
   resetprop = stdenv.mkDerivation {

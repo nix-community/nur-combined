@@ -10,16 +10,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "sing-box";
-  version = "1.12.0-beta.33";
+  version = "1.13.0-alpha.18";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+5VmVfcO2mTA0BQuPZRQZTgt7ujYpwynB2gO6OB0ilI=";
+    hash = "sha256-4njtNjiQ9rjbF2iyiIGTxWqrdg+l+OBzuFOvygfNvgE=";
   };
 
-  vendorHash = "sha256-BNRAAfXUFV0CwRXvVu0Ix1yX9ISALsdrfJ0neM+ML9M=";
+  vendorHash = "sha256-UC0RV5qj0OvGg4DinLq5a/P1B0xRgFJEt62xr24aKKo=";
 
   tags = [
     "with_quic"
@@ -60,7 +60,7 @@ buildGoModule (finalAttrs: {
         "--version"
         "unstable"
         "--version-regex"
-        "v(.*beta.*)"
+        "v(.*-(?:alpha|beta|rc).*)"
       ];
     };
     tests = { inherit (nixosTests) sing-box; };
