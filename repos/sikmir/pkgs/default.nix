@@ -393,6 +393,7 @@ lib.makeScope newScope (
     plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
+    px = callPackage ./misc/px { };
     qdia = callPackage ./misc/qdia { };
     qoiview = callPackage ./misc/qoiview { };
     qstudio = callPackage ./misc/qstudio { };
