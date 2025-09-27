@@ -12,7 +12,6 @@ main = runNvFetcher packageSet
 packageSet :: PackageSet ()
 packageSet = do
   -- keep-sorted start
-  define $ package "mediawiki-auth-manager-oauth" `fromGitHub` ("mohe2015", "AuthManagerOAuth")
   ghPkg "Wind4" "vlmcsd"
   ghPkg "aspiers" "ly2video"
   ghPkg "awslabs" "aws-sigv4-proxy"
@@ -52,6 +51,7 @@ packageSet = do
   icalinguaPlusPlus
   linuxIntelMainlineTracking
   linuxIntelTts
+  mediawikiAuthManagerOAuth
   moeKoeMusic
   mstickereditor
   niriTaskbar
@@ -173,3 +173,12 @@ rlt =
     package "rlt"
       `fromGitHubTag` ("kaichaosun", "rlt", id)
       `hasCargoLocks` ["Cargo.lock"]
+
+mediawikiAuthManagerOAuth :: PackageSet ()
+mediawikiAuthManagerOAuth =
+  define $
+    package "mediawiki-auth-manager-oauth"
+      `sourceGitHub` ("mohe2015", "AuthManagerOAuth")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth.zip"

@@ -263,16 +263,10 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
             "name": null,
-            "owner": "mohe2015",
-            "repo": "AuthManagerOAuth",
-            "rev": "v0.3.3",
-            "sha256": "sha256-//AMeRJNx5M2n5WUOOVRz5ZdIBDezYMsaICxnzE6KSg=",
-            "sparseCheckout": [],
-            "type": "github"
+            "sha256": "sha256-smLFY4EQrjbKBNiy2hpY6oB2bdOPwlmhMuHUuXqS2sE=",
+            "type": "url",
+            "url": "https://github.com/mohe2015/AuthManagerOAuth/releases/download/v0.3.3/AuthManagerOAuth.zip"
         },
         "version": "v0.3.3"
     },
