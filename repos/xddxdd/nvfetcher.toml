@@ -764,9 +764,10 @@ src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
 src.regex = "\"https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/([^\"]+_arm64[^\"]*).deb\""
 
 [qqmusic]
-fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
-src.webpage = "https://y.qq.com/download/download.html"
-src.regex = "\"https://dldir.y.qq.com/music/clntupate/linux/qqmusic_([^\"]+)_amd64.deb\""
+fetch.url = "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2Fqqmusic_1.1.8_amd64.deb&sign=1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c"
+# Need manual update from https://y.qq.com/download/download.html
+src.manual = "1.1.8"
+url.name = "qqmusic.deb"
 
 [qqsp]
 fetch.github = "Sonnix1/Qqsp"

@@ -4,27 +4,6 @@
   lib,
   cmake,
   pkg-config,
-  alsa-lib,
-  # Dependencies
-  at-spi2-core,
-  curl,
-  dbus,
-  freetype,
-  gtk3-x11,
-  libdatrie,
-  libepoxy,
-  libpsl,
-  libselinux,
-  libsepol,
-  libsysprof-capture,
-  libthai,
-  libxkbcommon,
-  pcre,
-  sqlite,
-  util-linux,
-  vtk,
-  webkitgtk_4_0,
-  xorg,
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.noise-suppression-for-voice) pname version src;
@@ -32,34 +11,17 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    alsa-lib
-    at-spi2-core
-    curl
-    dbus
-    freetype
-    gtk3-x11
-    libdatrie
-    libepoxy
-    libpsl
-    libselinux
-    libsepol
-    libsysprof-capture
-    libthai
-    libxkbcommon
-    pcre
-    sqlite
-    util-linux
-    vtk
-    webkitgtk_4_0
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXdmcp
-    xorg.libXext
-    xorg.libXinerama
-    xorg.libXrandr
-    xorg.libXtst
-  ];
+
+  cmakeFlags = [
+    "-DUSE_SYSTEM_JUCE=ON"
+    "-DBUILD_FOR_RELEASE=ON"
+    "-DBUILD_VST_PLUGIN=OFF"
+    "-DBUILD_VST3_PLUGIN=OFF"
+    "-DBUILD_LV2_PLUGIN=OFF"
+    "-DBUILD_AU_PLUGIN=OFF"
+    "-DBUILD_AUV3_PLUGIN=OFF"
+  ]
+  ++ lib.optionals stdenv.isx86_64 [ "-DBUILD_RTCD=ON" ];
 
   meta = {
     changelog = "https://github.com/werman/noise-suppression-for-voice/releases/tag/v${finalAttrs.version}";

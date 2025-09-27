@@ -3,7 +3,6 @@
   lib,
   sources,
   python3,
-  python3Packages,
   piper-tts,
   makeWrapper,
   ffmpeg,
@@ -70,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend";
     homepage = "https://github.com/matatonic/openedai-speech";
     license = with lib.licenses; [ agpl3Only ];
-    inherit (piper-tts.meta) broken;
+    broken = stdenv.isAarch64;
   };
 })

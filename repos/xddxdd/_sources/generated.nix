@@ -1734,10 +1734,11 @@
   };
   qqmusic = {
     pname = "qqmusic";
-    version = "1.1.7";
+    version = "1.1.8";
     src = fetchurl {
-      url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_1.1.7_amd64.deb";
-      hash = "sha256-NPJHH7VwTzdNY87jFh28GaPjT7kRMweGI/XTOBAzM5E=";
+      url = "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2Fqqmusic_1.1.8_amd64.deb&sign=1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c";
+      name = "qqmusic.deb";
+      hash = "sha256-QtGNaow8F0FOW228DDrIk7slQMHFwJzpDSQYQ8xZN4g=";
     };
   };
   qqsp = {

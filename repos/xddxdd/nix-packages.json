@@ -4247,7 +4247,7 @@
   "legacyPackages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
-    "version": "1.1.7"
+    "version": "1.1.8"
   },
   "legacyPackages.x86_64-linux.qqsp": {
     "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
@@ -4957,7 +4957,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qqmusic": {
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
-    "version": "1.1.7"
+    "version": "1.1.8"
   },
   "legacyPackages.x86_64-linux.uncategorized.qqsp": {
     "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
@@ -6022,7 +6022,7 @@
   "packages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
-    "version": "1.1.7"
+    "version": "1.1.8"
   },
   "packages.x86_64-linux.qqsp": {
     "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
