@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "b0a610b82051c72161c73c4423c5faeb92c075fa";
+    version = "c7247801b2a3f4aac63f475ef677b367a310b8fd";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "b0a610b82051c72161c73c4423c5faeb92c075fa";
+      rev = "c7247801b2a3f4aac63f475ef677b367a310b8fd";
       fetchSubmodules = false;
-      sha256 = "sha256-AlE/r4IPvJp9DKhQSChnus7xQJG6lWcqUCE+xe90JTA=";
+      sha256 = "sha256-or92pm1rEzg0iTwTpqpzSjStO/TgSDa3n9B+earlGrA=";
     };
-    date = "2025-09-21";
+    date = "2025-09-26";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -95,15 +95,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "fff5e390d3f39d715b70fc6062802e0bed47dc6e";
+    version = "8fa36fc8065d600706d5edeeb1008a5233eb1d51";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "fff5e390d3f39d715b70fc6062802e0bed47dc6e";
+      rev = "8fa36fc8065d600706d5edeeb1008a5233eb1d51";
       fetchSubmodules = false;
-      sha256 = "sha256-n5hR4acqKTy5Ipx3FoWNtL3zQJ8FCz8cUhW4srKVrWU=";
+      sha256 = "sha256-WC5dBRQstelX5o9oz7Lc23hTbZkYYpiEd+1Qs1sjRYY=";
     };
-    date = "2025-09-24";
+    date = "2025-09-27";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";

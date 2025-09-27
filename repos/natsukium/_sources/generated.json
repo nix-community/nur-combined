@@ -94,7 +94,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-09-21",
+        "date": "2025-09-26",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "b0a610b82051c72161c73c4423c5faeb92c075fa",
-            "sha256": "sha256-AlE/r4IPvJp9DKhQSChnus7xQJG6lWcqUCE+xe90JTA=",
+            "rev": "c7247801b2a3f4aac63f475ef677b367a310b8fd",
+            "sha256": "sha256-or92pm1rEzg0iTwTpqpzSjStO/TgSDa3n9B+earlGrA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b0a610b82051c72161c73c4423c5faeb92c075fa"
+        "version": "c7247801b2a3f4aac63f475ef677b367a310b8fd"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -166,7 +166,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2025-09-24",
+        "date": "2025-09-27",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "fff5e390d3f39d715b70fc6062802e0bed47dc6e",
-            "sha256": "sha256-n5hR4acqKTy5Ipx3FoWNtL3zQJ8FCz8cUhW4srKVrWU=",
+            "rev": "8fa36fc8065d600706d5edeeb1008a5233eb1d51",
+            "sha256": "sha256-WC5dBRQstelX5o9oz7Lc23hTbZkYYpiEd+1Qs1sjRYY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fff5e390d3f39d715b70fc6062802e0bed47dc6e"
+        "version": "8fa36fc8065d600706d5edeeb1008a5233eb1d51"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
