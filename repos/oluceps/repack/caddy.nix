@@ -42,7 +42,7 @@ in
       admin = {
         config.persist = false;
       };
-      logging.logs.debug.level = "debug";
+      # logging.logs.debug.level = "debug";
       storage = mkIf cfg.expose {
         module = "s3";
         prefix = "ssl";

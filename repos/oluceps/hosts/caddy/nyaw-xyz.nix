@@ -60,6 +60,24 @@
     terminal = true;
   }
   {
+    handle = [
+      {
+        handler = "authentication";
+        providers.http_basic.accounts = [
+          {
+            username = "prometheus";
+            password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
+          }
+        ];
+      }
+      {
+        handler = "reverse_proxy";
+        upstreams = [ { dial = "[fdcc::3]:9093"; } ];
+      }
+    ];
+    match = [ { host = [ "alert.nyaw.xyz" ]; } ];
+  }
+  {
     match = [ { host = [ "oidc.nyaw.xyz" ]; } ];
     handle = [
       {
