@@ -126,8 +126,6 @@ def main() -> None:
             if not build_and_fix_hashes(full_attr_path, logger):
                 error_flag = True
 
-    subprocess.run(["rm", "-rf"] + glob.glob("result*"), check=False)
-
     sys.exit(1 if error_flag else 0)
 
 
