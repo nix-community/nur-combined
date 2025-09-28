@@ -20,6 +20,7 @@
   gnome2,
   gtk3,
   libdrm,
+  libgbm,
   libGLU,
   libglvnd,
   libva,
@@ -48,6 +49,7 @@ let
     gnome2.gtkglext
     gtk3
     libdrm
+    libgbm
     libGLU
     libglvnd
     libva

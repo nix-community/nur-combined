@@ -10,6 +10,7 @@
   # BaiduNetdisk dependencies
   libappindicator,
   libdbusmenu,
+  libgbm,
   libglvnd,
 }:
 ################################################################################
@@ -21,6 +22,7 @@ let
     stdenv.cc.cc.lib
     libappindicator
     libdbusmenu
+    libgbm
     libglvnd
   ];
 
