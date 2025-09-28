@@ -174,7 +174,7 @@
                             };
                           };
                         };
-                        upstreams = [ { dial = "[::1]:8083"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:8083"; } ];
                       }
                     ];
                     match = [ { host = [ "book.nyaw.xyz" ]; } ];

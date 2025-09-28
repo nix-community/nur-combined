@@ -493,5 +493,6 @@ in
 
       // Override the DRM device that niri will use for all rendering.
       // render-drm-device "/dev/dri/renderD129"
+      keep-max-bpc-unchanged
   }
 ''

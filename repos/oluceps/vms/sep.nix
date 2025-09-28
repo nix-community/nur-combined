@@ -9,6 +9,9 @@
   imports = [
     inputs.microvm.nixosModules.host
   ];
+  networking.firewall.extraInputRules = ''
+    iifname "vm1" ip saddr 10.255.0.1 ip daddr 10.255.0.0 tcp dport 3030 accept
+  '';
   microvm.autostart = [
     "sept"
   ];
@@ -43,7 +46,7 @@
             table inet nat {
               chain postrouting {
                 type nat hook postrouting priority srcnat; policy accept;
-                iifname { wg-ext } oifname enp0s4 ip saddr 10.10.10.2 snat to 10.255.0.1
+                iifname "wg-ext" oifname "enp0s4" ip saddr 10.10.10.0/24 masquerade
               }
             }
             table inet filter {
@@ -76,6 +79,7 @@
             "net.ipv4.tcp_wmem" = "4096 65536 2500000";
             "net.core.rmem_max" = 16777216;
             "net.core.wmem_max" = 16777216;
+            "net.ipv4.conf.all.forwarding" = 1;
           };
           systemd.network = {
 
@@ -113,11 +117,6 @@
                 "fec0::${lib.toHexString index}/128"
               ];
               routes = [
-                # {
-                #   # route to the host
-                #   Destination = "10.255.0.0/32";
-                #   GatewayOnLink = true;
-                # }
                 {
                   # Default route
                   Destination = "0.0.0.0/0";
@@ -183,6 +182,35 @@
               ClientAliveCountMax 720
             '';
           };
+          services.alloy.enable = true;
+          environment.etc."alloy/config.alloy".text = # alloy
+            ''
+              livedebugging {
+                enabled = true
+              }
+              discovery.relabel "journal" {
+              	targets = []
+              	rule {
+              		source_labels = ["__journal__systemd_unit"]
+              		target_label  = "unit"
+              	}
+              }
+              loki.source.journal "journal" {
+                  max_age       = "12h0m0s"
+                  relabel_rules = discovery.relabel.journal.rules
+                  forward_to    = [loki.write.default.receiver]
+                  labels        = {
+                      host = "sept",
+                      job  = "systemd-journal",
+                  }
+              }
+              loki.write "default" {
+              	endpoint {
+              		url = "http://10.255.0.0:3030/loki/api/v1/push"
+              	}
+              	external_labels = {}
+              }
+            '';
           microvm = {
             interfaces = [
               {

@@ -263,6 +263,7 @@
             simple-net-speed
             paperwm
           ];
+          term = [ foot ]; # for spawn new
 
           virt = [
             # virt-manager

@@ -197,7 +197,6 @@ reIf {
               ]
               ++ map (pre: "https://${pre}.nyaw.xyz") [
                 "blog"
-                "status"
                 "abhoth"
               ];
             }
