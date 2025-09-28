@@ -8,55 +8,7 @@
     }:
     let
       mkCICommand = pkgsAttr: ''
-        set -euo pipefail
-        if [ "$1" == "" ]; then
-          echo "Usage: ci <system>";
-          exit 1;
-        fi
-
-        NIX_LOGFILE=nix-build-uncached.log
-
-        # Workaround https://github.com/NixOS/nix/issues/6572
-        SUBSTITUTED=1
-        TRY_NUM=0
-        while [ "$SUBSTITUTED" -eq 1 ]; do
-          SUBSTITUTED=0
-          TRY_NUM=$(( TRY_NUM + 1 ))
-
-          echo "::group::Try $TRY_NUM: Building packages with nix-fast-build"
-          ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#${pkgsAttr}.$1 --skip-cached --no-nom -j1 >$NIX_LOGFILE 2>&1 && exit 0
-          echo "::endgroup::"
-
-          echo "::group::Try $TRY_NUM: Error log from nix-fast-build"
-          grep "ERROR:nix_fast_build" $NIX_LOGFILE || true
-          echo "::endgroup::"
-
-          if grep -q "specified:" $NIX_LOGFILE; then
-            if grep -q "got:" $NIX_LOGFILE; then
-              SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
-              GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
-
-              for (( i=0; i<''${#SPECIFIED_HASH[@]}; i++ )); do
-                SUBSTITUTED=1
-
-                echo "::group::Auto replace ''${SPECIFIED_HASH[@]:$i:1} with ''${GOT_HASH[@]:$i:1}"
-                echo "Auto replace ''${SPECIFIED_HASH[@]:$i:1} with ''${GOT_HASH[@]:$i:1}"
-                sed -i "s#''${SPECIFIED_HASH[@]:$i:1}#''${GOT_HASH[@]:$i:1}#g" $(find pkgs/ -name \*.nix) || true
-                echo "::endgroup::"
-
-                SPECIFIED_HASH_OLD=$(nix hash convert --to nix32 "''${SPECIFIED_HASH[@]:$i:1}" || nix hash to-base32 "''${SPECIFIED_HASH[@]:$i:1}")
-                echo "::group::Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[@]:$i:1}"
-                echo "Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[@]:$i:1}"
-                sed -i "s#''${SPECIFIED_HASH_OLD}#''${GOT_HASH[@]:$i:1}#g" $(find pkgs/ -name \*.nix) || true
-                echo "::endgroup::"
-              done
-            fi
-          fi
-        done
-
-        cat $NIX_LOGFILE
-        rm -f $NIX_LOGFILE
-        exit 1
+        tools/auto_build.py ${pkgsAttr} "$@"
       '';
     in
     {

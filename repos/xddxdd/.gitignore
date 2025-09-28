@@ -1,5 +1,5 @@
 result
-result-*
+result*
 trace.txt*
 .gcroots
 .vscode
