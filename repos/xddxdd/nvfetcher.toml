@@ -391,7 +391,7 @@ src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
 
 [kata-image]
-fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
+fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.zst"
 src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
 

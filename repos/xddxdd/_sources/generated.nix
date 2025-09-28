@@ -870,20 +870,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.20.0";
+    version = "3.21.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.20.0";
-      hash = "sha256-9HnT13f0aC713z9JOn3lsXicljrEIc5zxicTz2COJdM=";
+      tag = "3.21.0";
+      hash = "sha256-gOPabvimKzP7U1/BRzjKPDKE0MHnhKI4j0WZPM6ZTSA=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.20.0";
+    version = "3.21.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.20.0/kata-static-3.20.0-amd64.tar.xz";
-      hash = "sha256-vGvEKcvygZkZPP9d6kSZkRU4Qpcb6KuV8HuVTkuuzvU=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.21.0/kata-static-3.21.0-amd64.tar.zst";
+      hash = "sha256-A8qH1gKcuzoQPWqnTzsg6zn4qLF5Xk4bLY0u4gsr4Ag=";
     };
   };
   kikoplay = {

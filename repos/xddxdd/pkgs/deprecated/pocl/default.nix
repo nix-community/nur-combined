@@ -5,7 +5,7 @@
   cmake,
   pkg-config,
   hwloc,
-  llvmPackages_17,
+  llvmPackages,
   lttng-ust,
   ocl-icd,
   python3,
@@ -14,7 +14,6 @@
 }:
 # Modified from https://github.com/NixOS/nixpkgs/pull/261736
 let
-  llvmPackages = llvmPackages_17;
   clang = llvmPackages.clangUseLLVM;
   clangWrapped = runCommand "clang-pocl" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin

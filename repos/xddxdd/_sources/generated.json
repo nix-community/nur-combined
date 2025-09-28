@@ -1695,12 +1695,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.20.0",
-            "sha256": "sha256-9HnT13f0aC713z9JOn3lsXicljrEIc5zxicTz2COJdM=",
+            "rev": "3.21.0",
+            "sha256": "sha256-gOPabvimKzP7U1/BRzjKPDKE0MHnhKI4j0WZPM6ZTSA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.20.0"
+        "version": "3.21.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1711,11 +1711,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vGvEKcvygZkZPP9d6kSZkRU4Qpcb6KuV8HuVTkuuzvU=",
+            "sha256": "sha256-A8qH1gKcuzoQPWqnTzsg6zn4qLF5Xk4bLY0u4gsr4Ag=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.20.0/kata-static-3.20.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.21.0/kata-static-3.21.0-amd64.tar.zst"
         },
-        "version": "3.20.0"
+        "version": "3.21.0"
     },
     "kikoplay": {
         "cargoLocks": null,
