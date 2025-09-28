@@ -11,6 +11,8 @@ stdenv.mkDerivation {
 
   prePatch = ''
     install -Dm644 ${./QspConfig.cmake.in} QspConfig.cmake.in
+    substituteInPlace CMakeLists.txt \
+      --replace-fail " onig " " "
   '';
 
   nativeBuildInputs = [

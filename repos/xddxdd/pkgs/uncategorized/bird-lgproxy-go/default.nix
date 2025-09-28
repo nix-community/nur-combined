@@ -6,7 +6,7 @@
 buildGoModule (finalAttrs: {
   pname = "bird-lgproxy-go";
   inherit (sources.bird-lg-go) version src;
-  vendorHash = "sha256-MAR+4o+BKd24uOpgcwsfMWoKWbRYxrCG6tMCrH8LS7Y=";
+  vendorHash = "sha256-iosWHHeJyqMPF+Y01+mj70HDKWw0FAZKDpEESAwS/i4=";
 
   modRoot = "proxy";
 
