@@ -37,17 +37,15 @@ let
     homepage = "https://github.com/electron/electron";
     license = lib.licenses.mit;
     mainProgram = "electron";
-    platforms =
-      [
-        "x86_64-darwin"
-        "x86_64-linux"
-        "armv7l-linux"
-        "aarch64-linux"
-      ]
-      ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
-      ++ lib.optionals (lib.versionOlder version "19.0.0") [ "i686-linux" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "armv7l-linux"
+      "aarch64-linux"
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
+    ++ lib.optionals (lib.versionOlder version "19.0.0") [ "i686-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    knownVulnerabilities = lib.optional (lib.versionOlder version "27.0.0") "Electron version ${version} is EOL";
   };
 
   fetcher =
@@ -64,15 +62,14 @@ let
       sha256 = hash;
     };
 
-  tags =
-    {
-      x86_64-linux = "linux-x64";
-      armv7l-linux = "linux-armv7l";
-      aarch64-linux = "linux-arm64";
-      x86_64-darwin = "darwin-x64";
-    }
-    // lib.optionalAttrs (lib.versionAtLeast version "11.0.0") { aarch64-darwin = "darwin-arm64"; }
-    // lib.optionalAttrs (lib.versionOlder version "19.0.0") { i686-linux = "linux-ia32"; };
+  tags = {
+    x86_64-linux = "linux-x64";
+    armv7l-linux = "linux-armv7l";
+    aarch64-linux = "linux-arm64";
+    x86_64-darwin = "darwin-x64";
+  }
+  // lib.optionalAttrs (lib.versionAtLeast version "11.0.0") { aarch64-darwin = "darwin-arm64"; }
+  // lib.optionalAttrs (lib.versionOlder version "19.0.0") { i686-linux = "linux-ia32"; };
 
   get = as: platform: as.${platform.system} or (throw "Unsupported system: ${platform.system}");
 

@@ -165,59 +165,62 @@ try:
 except Exception:
     result = {}
 
-for version in get_available_versions():
-    if version not in result.keys():
-        download_link, patches, host_version, guest_version = (
-            get_download_link_for_version(version)
-        )
-        if not download_link:
-            continue
-        urls = [download_link]
+try:
+    for version in get_available_versions():
+        if version not in result.keys():
+            download_link, patches, host_version, guest_version = (
+                get_download_link_for_version(version)
+            )
+            if not download_link:
+                continue
+            urls = [download_link]
 
-        # hash = nix_prefetch_url(url)
-        host_persistenced_version = match_latest_version_str(
-            nvidia_persistenced_versions, parse_nvidia_version(host_version)
-        )
-        host_settings_version = match_latest_version_str(
-            nvidia_settings_versions, parse_nvidia_version(host_version)
-        )
-        guest_persistenced_version = match_latest_version_str(
-            nvidia_persistenced_versions, parse_nvidia_version(guest_version)
-        )
-        guest_settings_version = match_latest_version_str(
-            nvidia_settings_versions, parse_nvidia_version(guest_version)
-        )
-        result[version] = {
-            "urls": {url: nix_prefetch_url(url) for url in urls},
-            "patches": {url: nix_prefetch_url(url) for url in patches},
-            "host": {
-                "version": host_version,
-                "persistenced_version": host_persistenced_version,
-                "persistenced_hash": nix_prefetch_git(
-                    "https://github.com/NVIDIA/nvidia-persistenced.git",
-                    host_persistenced_version,
-                ),
-                "settings_version": host_settings_version,
-                "settings_hash": nix_prefetch_git(
-                    "https://github.com/NVIDIA/nvidia-settings.git",
-                    host_settings_version,
-                ),
-            },
-            "guest": {
-                "version": guest_version,
-                "persistenced_version": guest_persistenced_version,
-                "persistenced_hash": nix_prefetch_git(
-                    "https://github.com/NVIDIA/nvidia-persistenced.git",
-                    guest_persistenced_version,
-                ),
-                "settings_version": guest_settings_version,
-                "settings_hash": nix_prefetch_git(
-                    "https://github.com/NVIDIA/nvidia-settings.git",
-                    guest_settings_version,
-                ),
-            },
-        }
+            # hash = nix_prefetch_url(url)
+            host_persistenced_version = match_latest_version_str(
+                nvidia_persistenced_versions, parse_nvidia_version(host_version)
+            )
+            host_settings_version = match_latest_version_str(
+                nvidia_settings_versions, parse_nvidia_version(host_version)
+            )
+            guest_persistenced_version = match_latest_version_str(
+                nvidia_persistenced_versions, parse_nvidia_version(guest_version)
+            )
+            guest_settings_version = match_latest_version_str(
+                nvidia_settings_versions, parse_nvidia_version(guest_version)
+            )
+            result[version] = {
+                "urls": {url: nix_prefetch_url(url) for url in urls},
+                "patches": {url: nix_prefetch_url(url) for url in patches},
+                "host": {
+                    "version": host_version,
+                    "persistenced_version": host_persistenced_version,
+                    "persistenced_hash": nix_prefetch_git(
+                        "https://github.com/NVIDIA/nvidia-persistenced.git",
+                        host_persistenced_version,
+                    ),
+                    "settings_version": host_settings_version,
+                    "settings_hash": nix_prefetch_git(
+                        "https://github.com/NVIDIA/nvidia-settings.git",
+                        host_settings_version,
+                    ),
+                },
+                "guest": {
+                    "version": guest_version,
+                    "persistenced_version": guest_persistenced_version,
+                    "persistenced_hash": nix_prefetch_git(
+                        "https://github.com/NVIDIA/nvidia-persistenced.git",
+                        guest_persistenced_version,
+                    ),
+                    "settings_version": guest_settings_version,
+                    "settings_hash": nix_prefetch_git(
+                        "https://github.com/NVIDIA/nvidia-settings.git",
+                        guest_settings_version,
+                    ),
+                },
+            }
 
-        # Write as json on every update to retain data on interruption
-        with open(get_script_path() + "/sources.json", "w") as f:
-            f.write(json.dumps(result, indent=4))
+            # Write as json on every update to retain data on interruption
+            with open(get_script_path() + "/sources.json", "w") as f:
+                f.write(json.dumps(result, indent=4))
+except Exception as e:
+    print(f"Exception occurred: {e}")
