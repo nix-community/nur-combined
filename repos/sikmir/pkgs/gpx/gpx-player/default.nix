@@ -36,6 +36,5 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gpx-player";
-    broken = true; # folium
   };
 }

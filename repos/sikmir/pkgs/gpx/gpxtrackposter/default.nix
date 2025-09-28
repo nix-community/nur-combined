@@ -82,6 +82,5 @@ python312Packages.buildPythonApplication {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "create_poster";
-    broken = true; # timezonefinder
   };
 }

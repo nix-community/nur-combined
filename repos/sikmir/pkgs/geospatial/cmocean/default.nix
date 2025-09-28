@@ -24,6 +24,8 @@ python3Packages.buildPythonPackage rec {
     numpy
   ];
 
+  doCheck = !stdenv.isDarwin;
+
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = {
@@ -31,6 +33,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/matplotlib/cmocean";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isDarwin;
   };
 }

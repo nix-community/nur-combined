@@ -39,6 +39,5 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://codeberg.org/jeang3nie/eva";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = stdenv.isDarwin; # gupnp-1.6.8
   };
 })

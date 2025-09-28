@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "riverrem";
-  version = "1.1.0";
+  version = "1.1.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "OpenTopography";
     repo = "RiverREM";
     tag = "v${version}";
-    hash = "sha256-pMZahd4CfeGuLz5sd8rT9R0fi2N6hNHe5gBXi1UqYWg=";
+    hash = "sha256-/HutRO6GBrTAE4KNGU+JrFQpfP+Bf+FjdHVaucEkKe0=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -36,6 +36,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/OpenTopography/RiverREM";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # osmnx, cmocean
   };
 }
