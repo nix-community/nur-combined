@@ -192,8 +192,9 @@ lib.makeScope newScope (
 
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     bbox = callPackage ./geospatial/bbox { };
-    cassini = callPackage ./geospatial/cassini { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
+    cassini = callPackage ./geospatial/cassini { };
+    city2graph = callPackage ./geospatial/city2graph { };
     cmocean = callPackage ./geospatial/cmocean { };
     cogdumper = callPackage ./geospatial/cogdumper { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
