@@ -59,5 +59,7 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
+    # Code base uses let chains, which requires rust 1.88
+    broken = !versionAtLeast rustPlatform.rust.rustc.version "1.88";
   };
 }
