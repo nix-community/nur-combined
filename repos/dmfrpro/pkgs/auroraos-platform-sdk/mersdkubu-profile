@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source ${HOME}/.hadk.env
+ 
+# Minimalistic direnv hook (load_envrc is sourced from ~/.hw.profile)
+load_envrc
+ 
+export PS1="HABUILDSDK [${DEVICE}]\u@\H \W: \$ "

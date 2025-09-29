@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+load_envrc() {
+    local dir="${PWD}"
+
+    while [ "${dir}" != "/" ]; do
+        if [ -f "${dir}/.envrc" ]; then
+            source "${dir}/.envrc"
+            echo -e "\033[0;32mSourced .envrc from ${dir}\033[0m"
+            return
+        fi
+        dir=$(dirname "${dir}")
+    done
+}
+ 
+source ${HOME}/.hadk.env
+
+# Minimalistic direnv hook
+load_envrc
+
+export PS1="AuroraPSDK [${DEVICE}, \$(sb2-config showtarget | sed 's/\.default//')] \u@\H \W: \$ "
