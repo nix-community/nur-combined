@@ -3,22 +3,22 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "2e6ea6f2a63cdf4fd3c05e6a054151d46848d319";
+    version = "ac2baef386d8078ef2a0aaa98580d25ec178f40a";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "2e6ea6f2a63cdf4fd3c05e6a054151d46848d319";
+      rev = "ac2baef386d8078ef2a0aaa98580d25ec178f40a";
       fetchSubmodules = false;
-      sha256 = "sha256-sOBY2y/buInf+SxLwz6uYlUouDULwebY/nmDlbFbGa8=";
+      sha256 = "sha256-RnMcLYjffkK4ImJ1eKrVzNRUQKD9uo0o84Tf+/LxFbM=";
     };
-    date = "2025-09-15";
+    date = "2025-09-29";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
-    version = "11.0.0";
+    version = "12.0.0";
     src = fetchurl {
-      url = "https://github.com/hluk/CopyQ/releases/download/v11.0.0/CopyQ-macos-12-m1.dmg.zip";
-      sha256 = "sha256-NHHGu6+vCOcggS3SAFTDtGsvG2ZKjd64eWMVfmTu7iY=";
+      url = "https://github.com/hluk/CopyQ/releases/download/v12.0.0/CopyQ-macos-12-m1.dmg.zip";
+      sha256 = "sha256-DAwAYE8XPxCo7il4L6h5Fhh6yoH3rREkiKEAwPYZNhs=";
     };
   };
   emacs-plus = {
