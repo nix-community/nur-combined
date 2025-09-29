@@ -882,7 +882,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6615"
+    "version": "6627"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4032,7 +4032,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.5"
+    "version": "1.1.4.6"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4932,7 +4932,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.5"
+    "version": "1.1.4.6"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -5112,7 +5112,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-09-26"
+    "version": "0-unstable-2025-09-28"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5192,7 +5192,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-09-26"
+    "version": "0-unstable-2025-09-28"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5967,7 +5967,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.5"
+    "version": "1.1.4.6"
   },
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -6232,7 +6232,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-09-26"
+    "version": "0-unstable-2025-09-28"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

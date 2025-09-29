@@ -1103,12 +1103,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6615";
+    version = "b6627";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6615";
-      hash = "sha256-ajN2UyYrAjuiYA4WRiMI9aawxrtwnjk2rY2axOd30Y0=";
+      tag = "b6627";
+      hash = "sha256-Cr0045+hNrWeFbKjq2kdrVIsjv51AlWUkcOVlh5gDr4=";
     };
   };
   loralib = {
@@ -1523,12 +1523,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.4.5";
+    version = "1.1.4.6";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.4.5";
-      hash = "sha256-dvkP1bTvAe2ty6tVPTGFEYgEbt427ihwEhFkTtrYLHI=";
+      tag = "1.1.4.6";
+      hash = "sha256-oHNXDK4IM9okJVuM7qbLMVgsHobKJsOPk0ybokpc+IQ=";
     };
   };
   plangothic-fonts = {
@@ -2218,15 +2218,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "9efeb587265f5b2d62d246d1456487ebf9c795e1";
+    version = "e6b9cdf4afd899e15231d661d2c9b7ff8790bace";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "9efeb587265f5b2d62d246d1456487ebf9c795e1";
+      rev = "e6b9cdf4afd899e15231d661d2c9b7ff8790bace";
       fetchSubmodules = true;
-      hash = "sha256-OBFfu3Me7f3a+flZ3ksbaD3KIr9xL5fm6aBc5lrhgH8=";
+      hash = "sha256-UEk6GbFqwLTM5jcxCqu4n9iJLGr7OgLdEnG9ouSVujs=";
     };
-    date = "2025-09-26";
+    date = "2025-09-28";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

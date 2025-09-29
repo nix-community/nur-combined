@@ -628,7 +628,7 @@
       "description": {
         "path": ".",
         "ref": "mod",
-        "resolved-ref": "07dbeaa6f4352cd605e2292f073eca3538635ef3",
+        "resolved-ref": "4bb4e827628b3b7ccc88a4b98ef76a036a5a51ac",
         "url": "https://github.com/bggRGjQaUbCoE/extended_nested_scroll_view.git"
       },
       "source": "git",
@@ -794,12 +794,11 @@
     "flutter_inappwebview": {
       "dependency": "direct main",
       "description": {
-        "path": "flutter_inappwebview",
-        "ref": "version_6.1.5",
-        "resolved-ref": "bef2e3cb123ad4f6533a6371594ea3e21f36eeb2",
-        "url": "https://github.com/bggRGjQaUbCoE/flutter_inappwebview.git"
+        "name": "flutter_inappwebview",
+        "sha256": "80092d13d3e29b6227e25b67973c67c7210bd5e35c4b747ca908e31eb71a46d5",
+        "url": "https://pub.dev"
       },
-      "source": "git",
+      "source": "hosted",
       "version": "6.1.5"
     },
     "flutter_inappwebview_android": {
@@ -851,6 +850,26 @@
       },
       "source": "hosted",
       "version": "1.3.0+1"
+    },
+    "flutter_inappwebview_web": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_inappwebview_web",
+        "sha256": "55f89c83b0a0d3b7893306b3bb545ba4770a4df018204917148ebb42dc14a598",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "1.1.2"
+    },
+    "flutter_inappwebview_windows": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_inappwebview_windows",
+        "sha256": "8b4d3a46078a2cdc636c4a3d10d10f2a16882f6be607962dbfff8874d1642055",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "0.6.0"
     },
     "flutter_launcher_icons": {
       "dependency": "direct dev",
@@ -1417,8 +1436,8 @@
       "description": {
         "path": "libs/android/media_kit_libs_android_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "f89452bc27af26324a83961c8286d4f41432a5f9",
-        "url": "https://github.com/My-Responsitories/media-kit.git"
+        "resolved-ref": "902e962556c0bde4d384cd8f72b814598e5dfcf2",
+        "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
       "version": "1.3.7"
