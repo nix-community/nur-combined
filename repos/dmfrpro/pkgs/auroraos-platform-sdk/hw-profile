@@ -6,7 +6,7 @@ load_envrc() {
     while [ "${dir}" != "/" ]; do
         if [ -f "${dir}/.envrc" ]; then
             source "${dir}/.envrc"
-            echo -e "\033[0;32mSourced .envrc from ${dir}\033[0m"
+            echo -e "\033[0;32m[*] Sourced .envrc from ${dir}\033[0m"
             return
         fi
         dir=$(dirname "${dir}")
@@ -18,4 +18,17 @@ source ${HOME}/.hadk.env
 # Minimalistic direnv hook
 load_envrc
 
-export PS1="AuroraPSDK [${DEVICE}, \$(sb2-config showtarget | sed 's/\.default//')] \u@\H \W: \$ "
+# Hide mb2 --target "..."
+alias mb2="mb2 -t \$(sb2-config showtarget | sed 's/\.default//')"
+    
+# Simplify target selection
+alias sb2-select-armv7hl="sb2-config -d \$(sb2-config -l | grep -E 'armv7hl.default$')"
+alias sb2-select-aarch64="sb2-config -d \$(sb2-config -l | grep -E 'aarch64.default$')"
+alias sb2-select-x86_64="sb2-config -d \$(sb2-config -l | grep -E 'x86_64.default$')"
+    
+# Simplify build commands
+alias mb2-full-build="mb2 build-init && mb2 prepare && mb2 build"
+alias mb2-clean-build="git clean -fdx && mb2-full-build"
+
+export PROMPT_COMMAND='PS1_CMD1=$(echo $DEVICE); PS1_CMD2=$(sb2-config showtarget | sed '"'"'s/\.default//'"'"'); PS1_CMD3=$(git branch --show-current 2>/dev/null)'
+export PS1='\[\e[38;5;33;1m\][$?]\[\e[0;38;5;161m\][${PS1_CMD1}]\[\e[38;5;163m\][\[\e[38;5;164m\]${PS1_CMD2}\[\e[38;5;163m\]]\[\e[0m\] \[\e[38;5;40m\]\w\[\e[0m\] \[\e[38;5;220m\]<${PS1_CMD3}>\[\e[0m\] \[\e[1m\]\$\[\e[0m\] '

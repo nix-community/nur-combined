@@ -26,7 +26,7 @@ let
   mersdkubu-profile = ./mersdkubu-profile;
 in
 stdenv.mkDerivation {
-  pname = "auroraos-platform-sdk-base";
+  pname = "auroraos-platform-sdk";
   version = "${fullVersionPostfix}";
 
   nativeBuildInputs = with pkgs; [
@@ -35,7 +35,6 @@ stdenv.mkDerivation {
     gnused
     su
     sudo
-    whoami
     bash
   ];
 
@@ -47,6 +46,8 @@ stdenv.mkDerivation {
     cat > $out/bin/aurora_psdk << 'EOF'
     #!${pkgs.runtimeShell}
     set -e
+
+    user=$(whoami)
 
     # Use XDG_DATA_HOME or fallback to ~/.local/share
     PSDK_BASE_DIR=''${AURORA_PSDK_DATA_DIR:-''${XDG_DATA_HOME:-$HOME/.local/share}/aurora_psdk}
@@ -71,28 +72,18 @@ stdenv.mkDerivation {
 
       # Add user hooks
       echo -e "\n[*] Setting .hw.profile, .hadk.env, .mersdkubu.profile in $HOME"
-      sudo install -Dm0755 ${hadk-env} $HOME/.hadk.env
-      sudo install -Dm0755 ${hw-profile} $HOME/.hw.profile
-      sudo install -Dm0755 ${mersdkubu-profile} $HOME/.mersdkubu.profile
+      sudo install -o $user -Dm0755 ${hadk-env} $HOME/.hadk.env
+      sudo install -o $user -Dm0755 ${hw-profile} $HOME/.hw.profile
+      sudo install -o $user -Dm0755 ${mersdkubu-profile} $HOME/.mersdkubu.profile
 
       touch $PSDK_BASE_DIR/.initialized
       echo "[*] AuroraPSDK setup complete."
     fi
 
-    # Run phase
-    # . $PSDK_CHROOT_DIR/etc/bash_completion.d/sb2.bash
-    # . $PSDK_CHROOT_DIR/etc/bash_completion.d/zypper.sh
-    # . $HOME/.hw.profile
-
-    # bash_cmd=". /etc/bash_completion.d/sb2.bash; . /etc/bash_completion.d/zypper.sh; . $HOME/.hw.profile; if [ $# -eq 0 ]; then exec bash; else exec \"$@\"; fi"
-
-    # $PSDK_CHROOT_DIR/sdk-chroot "$@"
-
     ${pkgs.bash}/bin/bash $PSDK_CHROOT_DIR/sdk-chroot /bin/bash -c "
-    . /etc/bash_completion.d/sb2.bash
-    . /etc/bash_completion.d/zypper.sh
-    . \$HOME/.hw.profile
-    test \$# -eq 0 && exec bash || exec \"\$@\"
+    source /etc/bash_completion.d/sb2.bash
+    source /etc/bash_completion.d/zypper.sh
+    test \$# -eq 0 && exec bash --init-file \$HOME/.hw.profile || exec bash --init-file \$HOME/.hw.profile -c \"\$@\"
     " -- "$@"
 
     EOF

@@ -5,4 +5,5 @@ source ${HOME}/.hadk.env
 # Minimalistic direnv hook (load_envrc is sourced from ~/.hw.profile)
 load_envrc
  
-export PS1="HABUILDSDK [${DEVICE}]\u@\H \W: \$ "
+export PROMPT_COMMAND='PS1_CMD1=$(echo $DEVICE); PS1_CMD2=$(git branch --show-current 2>/dev/null)'
+export PS1='\[\e[38;5;33;1m\][$?]\[\e[0;38;5;161m\][${PS1_CMD1}]\[\e[0m\] \[\e[38;5;40m\]\w\[\e[0m\] \[\e[38;5;220m\]<${PS1_CMD2}>\[\e[0m\] \[\e[1m\]\$\[\e[0m\] '
