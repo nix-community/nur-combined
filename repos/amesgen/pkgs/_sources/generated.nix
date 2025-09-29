@@ -35,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.19.0.0";
+    version = "0.19.0.1";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.19.0.0/fourmolu-0.19.0.0-linux-x86_64";
-      sha256 = "sha256-8GCf+lig0/Ef6a2EetwHeurKMrxgozZsjcxyY+OA0fw=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.19.0.1/fourmolu-0.19.0.1-linux-x86_64";
+      sha256 = "sha256-LFzNS+Uecty9CUaNbmIIL8Okf1+r3YxpeXKRKbyB51U=";
     };
   };
   hell = {
@@ -67,10 +67,10 @@
   };
   pandoc = {
     pname = "pandoc";
-    version = "3.8";
+    version = "3.8.1";
     src = fetchurl {
-      url = "https://github.com/jgm/pandoc/releases/download/3.8/pandoc-3.8-linux-amd64.tar.gz";
-      sha256 = "sha256-GgNcH30pXDU/YURh+kvBPXA8DoZTh9RDQdFVbXA95Zo=";
+      url = "https://github.com/jgm/pandoc/releases/download/3.8.1/pandoc-3.8.1-linux-amd64.tar.gz";
+      sha256 = "sha256-LZCGotAeeId5fgzE8HqPpgCLNPiWEt2SFBksAAirWKs=";
     };
   };
 }
