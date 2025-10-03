@@ -2,67 +2,81 @@
   stdenv,
   sources,
   lib,
-  callPackage,
-  libsForQt5,
   makeWrapper,
-  qt5,
+  cmake,
+  qt6,
+  pkg-config,
   mpv,
   lua5_3_compat,
+  onnxruntime,
+  ela-widget-tools,
+  qtwebapp,
 }:
-let
-  qhttpengine = callPackage ./qhttpengine.nix { inherit sources; };
-in
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.kikoplay) pname version src;
 
   nativeBuildInputs = [
-    libsForQt5.qmake
+    cmake
     makeWrapper
-    qt5.qtwebsockets
-    qt5.wrapQtAppsHook
+    pkg-config
+    qt6.qmake
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
+    ela-widget-tools
+    lua5_3_compat
     mpv
-    qhttpengine
-    qt5.qtbase
-    qt5.qtwebsockets
+    onnxruntime
+    qt6.qmake
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtpositioning
+    qt6.qtwayland
+    qt6.qtwebengine
+    qt6.qtwebsockets
+    qtwebapp
   ];
 
-  strictDeps = true;
-
-  patches = [ ./change-install-path.patch ];
+  patches = [
+    ./change-install-path.patch
+    ./fix-mpv-dup-initialization.patch
+  ];
 
   postPatch = ''
     substituteInPlace KikoPlay.pro \
       --replace-fail "OUTPATH" "$out" \
-      --replace-fail "liblua53.a" "${lua5_3_compat}/lib/liblua.so.5.3"
+      --replace-fail "liblua53.a" "liblua.so.5.3" \
+      --replace-fail "DEFINES += KSERVICE" ""
 
-    substituteInPlace kikoplay.desktop \
-      --replace-fail "/usr/share/pixmaps/kikoplay.png" "$out/share/pixmaps/kikoplay.png"
-
-    for F in Extension/App/appmanager.cpp Extension/Script/scriptmanager.cpp LANServer/router.cpp; do
+    for F in Extension/App/appmanager.cpp Extension/Script/scriptmanager.cpp LANServer/router.cpp Play/Subtitle/subtitlerecognizer.cpp; do
       substituteInPlace "$F" --replace-fail "/usr/share/kikoplay/" "$out/share/kikoplay/"
     done
+
+    rm -rf lib/
   '';
 
+  dontUseCmakeConfigure = true;
   qmakeFlags = [ "KikoPlay.pro" ];
   hardeningDisable = [ "format" ];
 
-  # We will append QT wrapper args to our own wrapper
-  dontWrapQtApps = true;
+  qtWrapperArgs = [
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    "${lua5_3_compat}/lib:/run/opengl-driver/lib"
+  ];
 
   postFixup = ''
     mkdir -p $out/share/kikoplay/extension/script
     cp -r ${sources.kikoplay-script.src}/{bgm_calendar,danmu,library,resource} $out/share/kikoplay/extension/script/
     mkdir -p $out/share/kikoplay/extension/app
     cp -r ${sources.kikoplay-app.src}/app/* $out/share/kikoplay/extension/app/
-
-    wrapProgram $out/bin/KikoPlay \
-      "''${qtWrapperArgs[@]}" \
-      --set QT_QPA_PLATFORM xcb \
-      --set XDG_SESSION_TYPE x11
   '';
+
+  passthru = {
+    inherit ela-widget-tools qtwebapp;
+  };
 
   meta = {
     changelog = "https://github.com/KikoPlayProject/KikoPlay/releases/tag/${finalAttrs.version}";

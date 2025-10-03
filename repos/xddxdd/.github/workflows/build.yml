@@ -68,6 +68,26 @@ jobs:
           cache: lantian
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      - name: Setup Nix Remote Build
+        run: |
+          mkdir -p "$HOME"/.ssh
+          echo "${{ secrets.NIX_REMOTE_BUILD_KEY }}" > "$HOME"/.ssh/id_ed25519
+
+          cat > "$HOME"/.ssh/config <<EOF
+          StrictHostKeyChecking no
+          Host nix-builder
+            HostName xddxdd.duckdns.org
+            User nix-builder
+            Port 2223
+          EOF
+          sudo cp "$HOME"/.ssh/config /etc/ssh/ssh_config
+
+          chmod -R 500 "$HOME"/.ssh
+
+          cat <<EOF | sudo tee /etc/nix/machines
+          ssh-ng://nix-builder x86_64-linux $HOME/.ssh/id_ed25519 64 64 benchmark,big-parallel - -
+          EOF
+
       - name: Set nix daemon tmpdir path
         run: |
           sudo mkdir -p /nix/tmpdir

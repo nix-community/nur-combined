@@ -775,11 +775,11 @@
       "dependency": "direct main",
       "description": {
         "name": "flutter_displaymode",
-        "sha256": "42c5e9abd13d28ed74f701b60529d7f8416947e58256e6659c5550db719c57ef",
+        "sha256": "ecd44b1e902b0073b42ff5b55bf283f38e088270724cdbb7f7065ccf54aa60a8",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "0.6.0"
+      "version": "0.7.0"
     },
     "flutter_html": {
       "dependency": "direct main",
@@ -1284,11 +1284,11 @@
       "dependency": "transitive",
       "description": {
         "name": "js",
-        "sha256": "f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3",
+        "sha256": "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "0.6.7"
+      "version": "0.7.2"
     },
     "json_annotation": {
       "dependency": "direct main",
@@ -1424,11 +1424,12 @@
     "media_kit": {
       "dependency": "direct main",
       "description": {
-        "name": "media_kit",
-        "sha256": "1f1deee148533d75129a6f38251ff8388e33ee05fc2d20a6a80e57d6051b7b62",
-        "url": "https://pub.dev"
+        "path": "media_kit",
+        "ref": "version_1.2.5",
+        "resolved-ref": "43aee19d9b2b0e33e0c9dd922b36ca6ace56de29",
+        "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
-      "source": "hosted",
+      "source": "git",
       "version": "1.1.11"
     },
     "media_kit_libs_android_video": {
@@ -1436,7 +1437,7 @@
       "description": {
         "path": "libs/android/media_kit_libs_android_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "902e962556c0bde4d384cd8f72b814598e5dfcf2",
+        "resolved-ref": "43aee19d9b2b0e33e0c9dd922b36ca6ace56de29",
         "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
@@ -1475,31 +1476,34 @@
     "media_kit_libs_video": {
       "dependency": "direct main",
       "description": {
-        "name": "media_kit_libs_video",
-        "sha256": "20bb4aefa8fece282b59580e1cd8528117297083a6640c98c2e98cfc96b93288",
-        "url": "https://pub.dev"
+        "path": "libs/universal/media_kit_libs_video",
+        "ref": "version_1.2.5",
+        "resolved-ref": "4d68e69281b44f2c8e3c444cca3d8d8dc6dcff88",
+        "url": "https://github.com/My-Responsitories/media-kit.git"
       },
-      "source": "hosted",
+      "source": "git",
       "version": "1.0.5"
     },
     "media_kit_libs_windows_video": {
-      "dependency": "transitive",
+      "dependency": "direct overridden",
       "description": {
-        "name": "media_kit_libs_windows_video",
-        "sha256": "dff76da2778729ab650229e6b4ec6ec111eb5151431002cbd7ea304ff1f112ab",
-        "url": "https://pub.dev"
+        "path": "libs/windows/media_kit_libs_windows_video",
+        "ref": "version_1.2.5",
+        "resolved-ref": "43aee19d9b2b0e33e0c9dd922b36ca6ace56de29",
+        "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
-      "source": "hosted",
-      "version": "1.0.11"
+      "source": "git",
+      "version": "1.0.10"
     },
     "media_kit_native_event_loop": {
       "dependency": "direct overridden",
       "description": {
-        "name": "media_kit_native_event_loop",
-        "sha256": "7d82e3b3e9ded5c35c3146c5ba1da3118d1dd8ac3435bac7f29f458181471b40",
-        "url": "https://pub.dev"
+        "path": "media_kit_native_event_loop",
+        "ref": "version_1.2.5",
+        "resolved-ref": "4d68e69281b44f2c8e3c444cca3d8d8dc6dcff88",
+        "url": "https://github.com/My-Responsitories/media-kit.git"
       },
-      "source": "hosted",
+      "source": "git",
       "version": "1.0.9"
     },
     "media_kit_video": {
@@ -1507,7 +1511,7 @@
       "description": {
         "path": "media_kit_video",
         "ref": "version_1.2.5",
-        "resolved-ref": "902e962556c0bde4d384cd8f72b814598e5dfcf2",
+        "resolved-ref": "43aee19d9b2b0e33e0c9dd922b36ca6ace56de29",
         "url": "https://github.com/bggRGjQaUbCoE/media-kit.git"
       },
       "source": "git",
@@ -1777,11 +1781,11 @@
       "dependency": "direct main",
       "description": {
         "name": "protobuf",
-        "sha256": "de9c9eb2c33f8e933a42932fe1dc504800ca45ebc3d673e6ed7f39754ee4053e",
+        "sha256": "826d6a306be26f29e5cd9faeb0c97aad5897270341dab6dbd7b8acd675937006",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "4.2.0"
+      "version": "5.0.0"
     },
     "pub_semver": {
       "dependency": "transitive",
@@ -1837,11 +1841,11 @@
       "dependency": "transitive",
       "description": {
         "name": "safe_local_storage",
-        "sha256": "ede4eb6cb7d88a116b3d3bf1df70790b9e2038bc37cb19112e381217c74d9440",
+        "sha256": "e9a21b6fec7a8aa62cc2585ff4c1b127df42f3185adbd2aca66b47abe2e80236",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "1.0.2"
+      "version": "2.0.1"
     },
     "saver_gallery": {
       "dependency": "direct main",
@@ -1884,7 +1888,7 @@
       "version": "2.1.0"
     },
     "screen_retriever": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "screen_retriever",
         "sha256": "570dbc8e4f70bac451e0efc9c9bb19fa2d6799a11e6ef04f946d7886d2e23d0c",
@@ -2290,25 +2294,15 @@
       "source": "hosted",
       "version": "2.2.2"
     },
-    "universal_platform": {
-      "dependency": "direct main",
-      "description": {
-        "name": "universal_platform",
-        "sha256": "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "1.1.0"
-    },
     "uri_parser": {
       "dependency": "transitive",
       "description": {
         "name": "uri_parser",
-        "sha256": "6543c9fd86d2862fac55d800a43e67c0dcd1a41677cb69c2f8edfe73bbcf1835",
+        "sha256": "ff4d2c720aca3f4f7d5445e23b11b2d15ef8af5ddce5164643f38ff962dcb270",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "2.0.2"
+      "version": "3.0.0"
     },
     "url_launcher": {
       "dependency": "direct main",
@@ -2564,11 +2558,12 @@
     "window_manager": {
       "dependency": "direct main",
       "description": {
-        "name": "window_manager",
-        "sha256": "7eb6d6c4164ec08e1bf978d6e733f3cebe792e2a23fb07cbca25c2872bfdbdcd",
-        "url": "https://pub.dev"
+        "path": "packages/window_manager",
+        "ref": "main",
+        "resolved-ref": "974ab0a71d37cfca9d9bd5b295d7bd1df80b790b",
+        "url": "https://github.com/bggRGjQaUbCoE/window_manager.git"
       },
-      "source": "hosted",
+      "source": "git",
       "version": "0.5.1"
     },
     "xdg_directories": {
@@ -2604,6 +2599,6 @@
   },
   "sdks": {
     "dart": ">=3.9.0 <4.0.0",
-    "flutter": ">=3.35.4"
+    "flutter": ">=3.35.5"
   }
 }

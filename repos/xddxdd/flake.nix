@@ -2,7 +2,6 @@
   description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-24_05.url = "github:NixOS/nixpkgs/nixos-24.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     devshell = {
@@ -32,7 +31,6 @@
       {
         flake-parts-lib,
         lib,
-        config,
         ...
       }:
       let
@@ -53,16 +51,6 @@
           lantian-treefmt = importApply ./flake-modules/lantian-treefmt.nix { inherit (inputs) treefmt-nix; };
           nixpkgs-options = ./flake-modules/nixpkgs-options.nix;
         };
-
-        pkgsForSystem-24_05 =
-          system:
-          import inputs.nixpkgs-24_05 {
-            inherit system;
-            config = {
-              inherit (config.nixpkgs-options) allowUnfree;
-              inherit (config.nixpkgs-options) permittedInsecurePackages;
-            };
-          };
       in
       rec {
         imports = [
@@ -85,61 +73,57 @@
 
         flake = {
           overlay = self.overlays.default;
-          overlays =
-            {
-              default =
-                final: prev:
-                let
-                  _packages = import ./pkgs null {
-                    pkgs = prev;
-                    pkgs-24_05 = pkgsForSystem-24_05 final.system;
-                    inherit inputs;
-                  };
-                  _legacyPackages = import ./pkgs "legacy" {
-                    pkgs = prev;
-                    pkgs-24_05 = pkgsForSystem-24_05 final.system;
-                    inherit inputs;
-                  };
-                in
-                _packages
-                // rec {
-                  # Integrate to nixpkgs python3Packages
-                  python = prev.python.override {
-                    packageOverrides = final: prev: _legacyPackages.python3Packages;
-                  };
-                  python3 = prev.python3.override {
-                    packageOverrides = final: prev: _legacyPackages.python3Packages;
-                  };
-                  python3Packages = python3.pkgs;
-                };
-              inSubTree = final: prev: {
-                nur-xddxdd = import ./pkgs null {
+          overlays = {
+            default =
+              final: prev:
+              let
+                _packages = import ./pkgs null {
                   pkgs = prev;
-                  pkgs-24_05 = pkgsForSystem-24_05 final.system;
                   inherit inputs;
                 };
+                _legacyPackages = import ./pkgs "legacy" {
+                  pkgs = prev;
+                  inherit inputs;
+                };
+              in
+              _packages
+              // rec {
+                # Integrate to nixpkgs python3Packages
+                python = prev.python.override {
+                  packageOverrides = final: prev: _legacyPackages.python3Packages;
+                };
+                python3 = prev.python3.override {
+                  packageOverrides = final: prev: _legacyPackages.python3Packages;
+                };
+                python3Packages = python3.pkgs;
               };
-              inSubTree-pinnedNixpkgs = final: prev: {
-                nur-xddxdd = self.legacyPackages.${final.system};
+            inSubTree = final: prev: {
+              nur-xddxdd = import ./pkgs null {
+                pkgs = prev;
+                inherit inputs;
               };
-              inSubTree-pinnedNixpkgsWithCuda = final: prev: {
-                nur-xddxdd = self.legacyPackagesWithCuda.${final.system};
-              };
-            }
-            // (builtins.listToAttrs (
-              lib.flatten (
-                builtins.map (s: [
-                  {
-                    name = "pinnedNixpkgs-${s}";
-                    value = final: prev: self.legacyPackages.${s};
-                  }
-                  {
-                    name = "pinnedNixpkgsWithCuda-${s}";
-                    value = final: prev: self.legacyPackagesWithCuda.${s};
-                  }
-                ]) systems
-              )
-            ));
+            };
+            inSubTree-pinnedNixpkgs = final: prev: {
+              nur-xddxdd = self.legacyPackages.${final.system};
+            };
+            inSubTree-pinnedNixpkgsWithCuda = final: prev: {
+              nur-xddxdd = self.legacyPackagesWithCuda.${final.system};
+            };
+          }
+          // (builtins.listToAttrs (
+            lib.flatten (
+              builtins.map (s: [
+                {
+                  name = "pinnedNixpkgs-${s}";
+                  value = final: prev: self.legacyPackages.${s};
+                }
+                {
+                  name = "pinnedNixpkgsWithCuda-${s}";
+                  value = final: prev: self.legacyPackagesWithCuda.${s};
+                }
+              ]) systems
+            )
+          ));
 
           inherit flakeModules;
 
@@ -164,7 +148,6 @@
           {
             pkgs,
             pkgsWithCuda,
-            system,
             ...
           }:
           {
@@ -182,21 +165,17 @@
 
             packages = import ./pkgs null {
               inherit inputs pkgs;
-              pkgs-24_05 = pkgsForSystem-24_05 system;
             };
             packagesWithCuda = import ./pkgs null {
               inherit inputs;
               pkgs = pkgsWithCuda;
-              pkgs-24_05 = pkgsForSystem-24_05 system;
             };
             legacyPackages = import ./pkgs "legacy" {
               inherit inputs pkgs;
-              pkgs-24_05 = pkgsForSystem-24_05 system;
             };
             legacyPackagesWithCuda = import ./pkgs "legacy" {
               inherit inputs;
               pkgs = pkgsWithCuda;
-              pkgs-24_05 = pkgsForSystem-24_05 system;
             };
 
             devshells.default = {

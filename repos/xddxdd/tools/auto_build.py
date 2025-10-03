@@ -82,7 +82,6 @@ def main() -> None:
             f".#{package_set}.{architecture}",
             "--skip-cached",
             "--no-nom",
-            "--no-link",
             f"-j{multiprocessing.cpu_count()}",
             "--result-file",
             result_file_path,
@@ -135,7 +134,7 @@ def build_and_fix_hashes(attr_path: str, logger: logging.Logger) -> bool:
         logger.info(f"Attempt {attempt}: Building {attr_path}")
 
         returncode, stderr_content = run_process_with_live_output(
-            ["nix", "build", "--no-link", f".#{attr_path}"], logger
+            ["nix", "build", f".#{attr_path}"], logger
         )
 
         if returncode == 0:

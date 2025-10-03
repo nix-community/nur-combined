@@ -1,0 +1,247 @@
+diff --git a/libavformat/Makefile b/libavformat/Makefile
+index 7ca68a7036..06dfd4ea36 100644
+--- a/libavformat/Makefile
++++ b/libavformat/Makefile
+@@ -660,6 +660,8 @@ OBJS-$(CONFIG_LIBMODPLUG_DEMUXER)        += libmodplug.o
+ OBJS-$(CONFIG_LIBOPENMPT_DEMUXER)        += libopenmpt.o
+ OBJS-$(CONFIG_VAPOURSYNTH_DEMUXER)       += vapoursynth.o
+ 
++OBJS                                     += av3a.o
++
+ # protocols I/O
+ OBJS-$(CONFIG_ANDROID_CONTENT_PROTOCOL)  += file.o
+ OBJS-$(CONFIG_ASYNC_PROTOCOL)            += async.o
+diff --git a/libavformat/av3a.c b/libavformat/av3a.c
+new file mode 100644
+index 0000000000..848b33d655
+--- /dev/null
++++ b/libavformat/av3a.c
+@@ -0,0 +1,53 @@
++/*
++ * AVS3 Audio/Audio Vivid Codec common code
++ *
++ * This file is part of FFmpeg.
++ *
++ * FFmpeg is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * FFmpeg is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with FFmpeg; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ */
++#include <stdio.h>
++#include "av3a.h"
++
++const int av3a_samplingrate_table[AV3A_SIZE_FS_TABLE] = {
++        192000, 96000, 48000, 44100, 32000, 24000, 22050, 16000, 8000};
++
++const AV3AChannelLayout av3a_channel_layout_table[AV3A_CHANNEL_LAYOUT] = {
++        {"Mono",    1,  0},
++        {"Stereo",  2,  0},
++        {"5.1",     6,  0},
++        {"7.1",     8,  0},
++        {"10.2",    12, 0},
++        {"22.2",    24, 0},
++        {"4.0",     4,  0},
++        {"5.1.2",   8,  0},
++        {"5.1.4",   10, 0},
++        {"7.1.2",   10, 0},
++        {"7.1.4",   12, 0},
++        {"Unknown", 0,  0},
++};
++
++int av3a_get_sampling_rate(const int sr_idx){
++    if(sr_idx < 0 || sr_idx >= AV3A_SIZE_FS_TABLE)
++        return av3a_samplingrate_table[0];
++    
++    return av3a_samplingrate_table[sr_idx];
++}
++
++AV3AChannelLayout av3a_get_channel_layout(const int ch_idx){
++    if(ch_idx < 0 || ch_idx >= AV3A_CHANNEL_LAYOUT)
++        return av3a_channel_layout_table[AV3A_CHANNEL_LAYOUT - 1];
++    
++    return av3a_channel_layout_table[ch_idx];
++}
+\ No newline at end of file
+diff --git a/libavformat/av3a.h b/libavformat/av3a.h
+new file mode 100644
+index 0000000000..52307ba4b7
+--- /dev/null
++++ b/libavformat/av3a.h
+@@ -0,0 +1,44 @@
++/*
++ * AVS3 Audio/Audio Vivid Codec common code
++ *
++ * This file is part of FFmpeg.
++ *
++ * FFmpeg is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * FFmpeg is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with FFmpeg; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ */
++#ifndef AVFORMAT_AV3A_H
++#define AVFORMAT_AV3A_H
++
++#include <stdint.h>
++
++/* AATF header */
++#define AV3A_MAX_NBYTES_HEADER    9
++#define AV3A_AUDIO_SYNC_WORD      0xFFF
++#define AV3A_AUDIO_FRAME_SIZE     1024
++#define AV3A_SIZE_BITRATE_TABLE   16
++#define AV3A_SIZE_FS_TABLE        9
++#define AV3A_MC_CONFIG_TABLE_SIZE 10
++#define AV3A_CHANNEL_LAYOUT       12
++
++typedef struct {
++    const char *tag;
++    uint8_t channels;
++    uint64_t channel_layout;
++} AV3AChannelLayout;
++
++extern int av3a_get_sampling_rate(const int sr_idx);
++
++extern AV3AChannelLayout av3a_get_channel_layout(const int ch_idx);
++
++#endif /* AVFORMAT_AV3A_H */
+\ No newline at end of file
+diff --git a/libavformat/mov.c b/libavformat/mov.c
+index 41ca280c8a..38959e858c 100644
+--- a/libavformat/mov.c
++++ b/libavformat/mov.c
+@@ -68,6 +68,7 @@
+ #include "id3v1.h"
+ #include "mov_chan.h"
+ #include "replaygain.h"
++#include "av3a.h"
+ 
+ #if CONFIG_ZLIB
+ #include <zlib.h>
+@@ -9081,6 +9082,102 @@ fail:
+     return ret;
+ }
+ 
++static int mov_read_dca3(MOVContext *c, AVIOContext *pb, MOVAtom atom)
++{
++    /* N3311 AVS3-P6 WD 1.0: CA3SpecificBox extends Box('dca3') */
++    AVStream *st;
++    uint8_t buff[7];
++    uint8_t codec_id, sr_idx, nn_type, content_type, ch_idx, num_objects;
++    uint8_t reserved;
++    uint8_t hoa_order;
++    uint16_t brt_kbps;
++    uint8_t resolution, resolution_idx;
++    uint8_t res_map[] = {8, 16, 24};
++    AV3AChannelLayout chan_map;
++    int ret = 0;
++
++    GetBitContext gb;
++    init_get_bits8(&gb, buff, sizeof(buff));
++
++    if (c->fc->nb_streams < 1)
++        return 0;
++    st = c->fc->streams[c->fc->nb_streams - 1];
++    st->codecpar->frame_size = 1024;
++
++    ret = avio_read(pb, buff, sizeof(buff));
++    if (ret < 0)
++        return ret;
++
++    codec_id = get_bits(&gb, 4); /* audio codec id */
++    if (codec_id != 2) {
++        av_log(c->fc, AV_LOG_ERROR, "Not support codec id value %d\n", codec_id);
++        return AVERROR_INVALIDDATA;
++    }
++
++    sr_idx = get_bits(&gb, 4);      /* sampling_frequenct_index*/
++    nn_type = get_bits(&gb, 3);     /* nn_type*/
++    reserved = get_bits(&gb, 1);    /* reserved */
++    content_type = get_bits(&gb, 4); /* content_type*/
++
++    if (content_type == 0) {
++        ch_idx = get_bits(&gb, 7);
++        reserved = get_bits(&gb, 1);
++    } else if (content_type == 1) {
++        num_objects = get_bits(&gb, 7);
++        reserved = get_bits(&gb, 1);
++    } else if (content_type == 2) {
++        ch_idx = get_bits(&gb, 7);
++        reserved = get_bits(&gb, 1);
++        num_objects = get_bits(&gb, 7);
++        reserved = get_bits(&gb, 1);
++    } else if (content_type == 3) {
++        hoa_order = get_bits(&gb, 4);
++    } else {
++        av_log(c->fc, AV_LOG_ERROR, "Not support content type value %d\n", content_type);
++        return AVERROR_INVALIDDATA;
++    }
++
++    brt_kbps = get_bits(&gb, 16);
++    resolution_idx = get_bits(&gb, 2);
++
++    /* initial configuration */
++    resolution = res_map[resolution_idx];
++    st->codecpar->frame_size = 1024; // fixed frame size
++    st->codecpar->sample_rate = av3a_get_sampling_rate((int)(sr_idx));
++    st->codecpar->bit_rate = brt_kbps * 1000;
++
++    switch (content_type) {
++        case 0:
++            chan_map = av3a_get_channel_layout((int)(ch_idx));
++            av_log(c->fc, AV_LOG_INFO,
++                   "Output Stream AVS3P3/Audio Vivid: %d Hz, nn type(%d), %s(%d channels), s%d, %d kbps \n",
++                   st->codecpar->sample_rate, nn_type, chan_map.tag, chan_map.channels, resolution, brt_kbps);
++            break;
++        case 1:
++            av_log(c->fc, AV_LOG_INFO,
++                   "Output Stream AVS3P3/Audio Vivid: %d Hz, nn type(%d), %d objects, s%d, %d kbps \n",
++                   st->codecpar->sample_rate, nn_type, num_objects, resolution, brt_kbps);
++            break;
++        case 2:
++            chan_map = av3a_get_channel_layout((int)(ch_idx));
++            av_log(c->fc, AV_LOG_INFO,
++                   "Output Stream AVS3P3/Audio Vivid: %d Hz, nn type(%d), "
++                   "%s + %d objects (%d channels), s%d, %d kbps \n",
++                   st->codecpar->sample_rate, nn_type, chan_map.tag, num_objects, chan_map.channels + num_objects,
++                   resolution, brt_kbps);
++            break;
++        case 3:
++            av_log(c->fc, AV_LOG_INFO,
++                   "Output Stream AVS3P3/Audio Vivid: %d Hz, nn type(%d), "
++                   "%drd order Ambisonics (%d channels), s%d, %d kbps \n",
++                   st->codecpar->sample_rate, nn_type, hoa_order, (hoa_order + 1) * (hoa_order + 1), resolution,
++                   brt_kbps);
++            break;
++    }
++
++    return 0;
++}
++
+ static const MOVParseTableEntry mov_default_parse_table[] = {
+ { MKTAG('A','C','L','R'), mov_read_aclr },
+ { MKTAG('A','P','R','G'), mov_read_avid },
+@@ -9186,6 +9283,7 @@ static const MOVParseTableEntry mov_default_parse_table[] = {
+ { MKTAG('d','v','c','C'), mov_read_dvcc_dvvc },
+ { MKTAG('d','v','v','C'), mov_read_dvcc_dvvc },
+ { MKTAG('d','v','w','C'), mov_read_dvcc_dvvc },
++{ MKTAG('d','c','a','3'), mov_read_dca3 },
+ { MKTAG('k','i','n','d'), mov_read_kind },
+ { MKTAG('S','A','3','D'), mov_read_SA3D }, /* ambisonic audio box */
+ { MKTAG('S','A','N','D'), mov_read_SAND }, /* non diegetic audio box */

@@ -507,7 +507,7 @@
   "legacyPackages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-09"
+    "version": "2025-10"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -614,6 +614,11 @@
     "pname": "python3.13-edge-tts",
     "version": "7.2.3"
   },
+  "legacyPackages.x86_64-linux.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-09-29"
+  },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
     "pname": "electron",
@@ -672,12 +677,12 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-09-20"
+    "version": "0-unstable-2025-10-01"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.09.28"
+    "version": "2025.10.01"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -842,7 +847,7 @@
   "legacyPackages.x86_64-linux.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
-    "version": "1.0.3"
+    "version": "2.0.0"
   },
   "legacyPackages.x86_64-linux.konnect": {
     "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
@@ -862,12 +867,17 @@
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
     "pname": "attic",
-    "version": "0-unstable-2025-09-12"
+    "version": "0-unstable-2025-09-24"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.coredns": {
     "description": "CoreDNS with Lan Tian's modifications",
     "pname": "coredns",
     "version": "1.12.2"
+  },
+  "legacyPackages.x86_64-linux.lantianCustomized.ffmpeg": {
+    "description": "FFmpeg with Lan Tian modifications",
+    "pname": "ffmpeg",
+    "version": "7.1.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.firefox-icon-mikozilla-fireyae": {
     "description": "Custom icon \"Mikozilla Fireyae\" for Firefox",
@@ -882,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6627"
+    "version": "6676"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1327,7 +1337,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-09-24"
+    "version": "0-unstable-2025-10-02"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1549,6 +1559,11 @@
     "pname": "nvidia-x11",
     "version": "535.261.03-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.16_12": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.274.02-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1649,6 +1664,11 @@
     "pname": "nvidia-x11",
     "version": "570.172.08-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.18_5": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.195.03-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.19_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1658,6 +1678,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "580.82.07-6.12.49"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.19_2": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "580.95.05-6.12.49"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1779,6 +1804,11 @@
     "pname": "nvidia-x11",
     "version": "535.261.03-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.16_12": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.274.02-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1879,6 +1909,11 @@
     "pname": "nvidia-x11",
     "version": "570.172.08-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.18_5": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.195.03-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.19_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1888,6 +1923,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "580.82.07-6.12.49"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.19_2": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "580.95.05-6.12.49"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -2009,6 +2049,11 @@
     "pname": "nvidia-x11",
     "version": "535.261.04-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.16_12": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.274.03-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -2109,6 +2154,11 @@
     "pname": "nvidia-x11",
     "version": "570.172.07-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.18_5": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.195.02-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.19_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -2118,6 +2168,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "580.82.02-6.12.49"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.19_2": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "580.95.02-6.12.49"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -2239,6 +2294,11 @@
     "pname": "nvidia-x11",
     "version": "535.261.04-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_12": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.274.03-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -2339,6 +2399,11 @@
     "pname": "nvidia-x11",
     "version": "570.172.07-6.12.49"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_5": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "570.195.02-6.12.49"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -2348,6 +2413,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "580.82.02-6.12.49"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_2": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "580.95.02-6.12.49"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -4017,7 +4087,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.4"
+    "version": "9.0.7"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4032,7 +4102,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.6"
+    "version": "1.1.4.7"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4062,7 +4132,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-28"
+    "version": "1.11.13-unstable-2025-10-01"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4132,7 +4202,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-09-20"
+    "version": "0-unstable-2025-10-01"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -4217,7 +4287,7 @@
   "legacyPackages.x86_64-linux.python3Packages.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.0"
+    "version": "4.1.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
@@ -4282,7 +4352,12 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-21"
+    "version": "0-unstable-2025-10-03"
+  },
+  "legacyPackages.x86_64-linux.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.1"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4387,7 +4462,7 @@
   "legacyPackages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.0"
+    "version": "4.1.1"
   },
   "legacyPackages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
@@ -4567,7 +4642,7 @@
   "legacyPackages.x86_64-linux.uncategorized.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-09"
+    "version": "2025-10"
   },
   "legacyPackages.x86_64-linux.uncategorized.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -4608,6 +4683,11 @@
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
     "version": "10.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-09-29"
   },
   "legacyPackages.x86_64-linux.uncategorized.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -4662,7 +4742,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.09.28"
+    "version": "2025.10.01"
   },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4742,7 +4822,7 @@
   "legacyPackages.x86_64-linux.uncategorized.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
-    "version": "1.0.3"
+    "version": "2.0.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.konnect": {
     "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
@@ -4772,7 +4852,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-09-24"
+    "version": "0-unstable-2025-10-02"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4917,7 +4997,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.4"
+    "version": "9.0.7"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4932,7 +5012,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.6"
+    "version": "1.1.4.7"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4957,7 +5037,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-28"
+    "version": "1.11.13-unstable-2025-10-01"
   },
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
@@ -4992,7 +5072,12 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-21"
+    "version": "0-unstable-2025-10-03"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5442,7 +5527,7 @@
   "packages.x86_64-linux.dbip-lite": {
     "description": "DBIP's Lite GeoIP Country, City, and ASN databases",
     "pname": "dbip-lite",
-    "version": "2025-09"
+    "version": "2025-10"
   },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -5509,6 +5594,11 @@
     "pname": "python3.13-edge-tts",
     "version": "7.2.3"
   },
+  "packages.x86_64-linux.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-09-29"
+  },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
     "pname": "electron",
@@ -5567,12 +5657,12 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-09-20"
+    "version": "0-unstable-2025-10-01"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.09.28"
+    "version": "2025.10.01"
   },
   "packages.x86_64-linux.glauth": {
     "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
@@ -5687,7 +5777,7 @@
   "packages.x86_64-linux.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
-    "version": "1.0.3"
+    "version": "2.0.0"
   },
   "packages.x86_64-linux.konnect": {
     "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
@@ -5747,7 +5837,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-09-24"
+    "version": "0-unstable-2025-10-02"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5952,7 +6042,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.4"
+    "version": "9.0.7"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5967,7 +6057,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.6"
+    "version": "1.1.4.7"
   },
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -5997,7 +6087,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.11.13-unstable-2025-08-28"
+    "version": "1.11.13-unstable-2025-10-01"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -6057,7 +6147,12 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-09-21"
+    "version": "0-unstable-2025-10-03"
+  },
+  "packages.x86_64-linux.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.1"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6162,7 +6257,7 @@
   "packages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.0"
+    "version": "4.1.1"
   },
   "packages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",

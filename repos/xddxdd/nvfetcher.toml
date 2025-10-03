@@ -225,6 +225,10 @@ src.github_tag = "flightaware/dump978"
 fetch.github = "rany2/edge-tts"
 src.github = "rany2/edge-tts"
 
+[ela-widget-tools]
+fetch.github = "Liniyous/ElaWidgetTools"
+src.git = "https://github.com/Liniyous/ElaWidgetTools.git"
+
 [etherguard]
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 src.github = "KusakabeShi/EtherGuard-VPN"
@@ -748,10 +752,6 @@ fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_$ver_i386.d
 src.webpage = "http://ftp.debian.org/debian/pool/main/q/qemu"
 src.regex = "href=\"qemu-user_([^\"]+)_i386.deb\""
 url.name = "qemu.deb"
-
-[qhttpengine]
-fetch.github = "nitroshare/qhttpengine"
-src.git = "https://github.com/nitroshare/qhttpengine.git"
 
 [qq-amd64]
 fetch.url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/$ver.deb"

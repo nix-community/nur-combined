@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (193 packages)</summary>
+<summary>Package set: (Uncategorized) (195 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -111,7 +111,7 @@ Or, use variables from this repository in case I change them:
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-06-24 | Device that allows access to Linux kernel cryptographic drivers |
 | `x86_64-linux` | `crystalhd` | [crystalhd](https://github.com/dbason/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver |
 |  | `data-recorder` | [data-recorder](https://github.com/g1879/DataRecorder) | 3.6.2 | Python-based toolkit to record data into files |
-|  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-09 | DBIP's Lite GeoIP Country, City, and ASN databases |
+|  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-10 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `deeplx` | [deeplx](https://deeplx.owo.network) | 1.0.8 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
@@ -123,6 +123,7 @@ Or, use variables from this repository in case I change them:
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
 |  | `edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.3 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
+|  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-09-29 | Fluent-UI For QT-Widget |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
 |  | `fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
@@ -133,8 +134,8 @@ Or, use variables from this repository in case I change them:
 |  | `flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-09-20 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.09.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-10-01 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.10.01 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -152,13 +153,13 @@ Or, use variables from this repository in case I change them:
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
-|  | `kikoplay` | [kikoplay](https://kikoplay.fun) | 1.0.3 | More than a Full-Featured Danmu Player |
+|  | `kikoplay` | [kikoplay](https://kikoplay.fun) | 2.0.0 | More than a Full-Featured Danmu Player |
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.0 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.14.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-09-24 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-10-02 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2025-08-14 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2025-08-14 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
@@ -195,14 +196,14 @@ Or, use variables from this repository in case I change them:
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
-|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.4 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
+|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.7 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.2 | Web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5787 | Plangothic Project |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
 |  | `plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.3.2 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-08-28 | Server control plane for Pterodactyl Panel |
+|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-10-01 | Server control plane for Pterodactyl Panel |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2025-06-04 | Python implementation of key Osmocom protocols/interfaces |
@@ -213,7 +214,8 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.8 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.4-b1-unstable-2025-09-22 | Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-21 | Interactive fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-10-03 | Interactive fiction development platform (Game Library) |
+|  | `qtwebapp` | [qtwebapp](https://stefanfrings.de/qtwebapp/index-en.html) | 1.9.1 | HTTP server library in C++, inspired by Java Servlets |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.055.00 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
@@ -234,7 +236,7 @@ Or, use variables from this repository in case I change them:
 |  | `sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2025-06-27 | Allow SideStore to work across all iOS devices on your local network |
 |  | `silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.0 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.0 | Api for SmartRent locks, thermostats, moisture sensors and switches |
-|  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 4.1.0 | Super Micro Fan Control |
+|  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 4.1.1 | Super Micro Fan Control |
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
 |  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.1.1867 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.6.263 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
@@ -276,7 +278,7 @@ Or, use variables from this repository in case I change them:
 | `Deprecated` | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.21.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
 | `Broken` | `kui` | [kui](https://kui.aber.sh/) | 1.13.0 | Easy-to-use web framework |
 | `Deprecated` | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.3.0 | (DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go |
-| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.4.6 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.4.7 | Third party Bilibili client built with Flutter |
 | `Deprecated` `x86_64-linux` | `pocl` | [pocl](http://portablecl.org) | 7.0 | (DEPRECATED: pocl is available in nixpkgs) Portable OpenCL standard implementation |
 | `Broken` | `soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 | `Deprecated` `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
@@ -402,16 +404,17 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (14 packages)</summary>
+<summary>Package set: lantianCustomized (15 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
 | `x86_64-linux` | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 20.15.2 | Asterisk with Lan Tian modifications |
-|  | `lantianCustomized.attic-telnyx-compatible` | [attic](https://github.com/zhaofengli/attic) | 0-unstable-2025-09-12 | Multi-tenant Nix Binary Cache |
+|  | `lantianCustomized.attic-telnyx-compatible` | [attic](https://github.com/zhaofengli/attic) | 0-unstable-2025-09-24 | Multi-tenant Nix Binary Cache |
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.12.2 | CoreDNS with Lan Tian's modifications |
+|  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 7.1.1 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.14.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 6627 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 6676 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.1.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -529,7 +532,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: nvidia-grid (184 packages)</summary>
+<summary>Package set: nvidia-grid (196 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -556,6 +559,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.grid.16_1` | [nvidia-x11-535.104.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.16_10` | [nvidia-x11-535.247.01-6.12.49](https://www.nvidia.com/object/unix.html) | 535.247.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.16_11` | [nvidia-x11-535.261.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.261.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.16_12` | [nvidia-x11-535.274.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.274.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.16_2` | [nvidia-x11-535.129.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.16_3` | [nvidia-x11-535.154.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.16_4` | [nvidia-x11-535.161.07-6.12.49](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
@@ -576,8 +580,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.grid.18_2` | [nvidia-x11-570.148.08-6.12.49](https://www.nvidia.com/object/unix.html) | 570.148.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.18_3` | [nvidia-x11-570.158.01-6.12.49](https://www.nvidia.com/object/unix.html) | 570.158.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.18_4` | [nvidia-x11-570.172.08-6.12.49](https://www.nvidia.com/object/unix.html) | 570.172.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.18_5` | [nvidia-x11-570.195.03-6.12.49](https://www.nvidia.com/object/unix.html) | 570.195.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.19_0` | [nvidia-x11-580.65.06-6.12.49](https://www.nvidia.com/object/unix.html) | 580.65.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.19_1` | [nvidia-x11-580.82.07-6.12.49](https://www.nvidia.com/object/unix.html) | 580.82.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.grid.19_2` | [nvidia-x11-580.95.05-6.12.49](https://www.nvidia.com/object/unix.html) | 580.95.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.9_2` | [nvidia-x11-430.63-6.12.49](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.11_8` | [nvidia-x11-450.191.01-6.12.49](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.12_4` | [nvidia-x11-460.106.00-6.12.49](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
@@ -602,6 +608,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.guest.16_1` | [nvidia-x11-535.104.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.104.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.16_10` | [nvidia-x11-535.247.01-6.12.49](https://www.nvidia.com/object/unix.html) | 535.247.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.16_11` | [nvidia-x11-535.261.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.261.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.16_12` | [nvidia-x11-535.274.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.274.02 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.16_2` | [nvidia-x11-535.129.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.16_3` | [nvidia-x11-535.154.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.154.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.16_4` | [nvidia-x11-535.161.07-6.12.49](https://www.nvidia.com/object/unix.html) | 535.161.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
@@ -622,8 +629,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.guest.18_2` | [nvidia-x11-570.148.08-6.12.49](https://www.nvidia.com/object/unix.html) | 570.148.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.18_3` | [nvidia-x11-570.158.01-6.12.49](https://www.nvidia.com/object/unix.html) | 570.158.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.18_4` | [nvidia-x11-570.172.08-6.12.49](https://www.nvidia.com/object/unix.html) | 570.172.08 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.18_5` | [nvidia-x11-570.195.03-6.12.49](https://www.nvidia.com/object/unix.html) | 570.195.03 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.19_0` | [nvidia-x11-580.65.06-6.12.49](https://www.nvidia.com/object/unix.html) | 580.65.06 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.19_1` | [nvidia-x11-580.82.07-6.12.49](https://www.nvidia.com/object/unix.html) | 580.82.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.guest.19_2` | [nvidia-x11-580.95.05-6.12.49](https://www.nvidia.com/object/unix.html) | 580.95.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.9_2` | [nvidia-x11-430.63-6.12.49](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.11_8` | [nvidia-x11-450.191-6.12.49](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.12_4` | [nvidia-x11-460.107-6.12.49](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -648,6 +657,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.host.16_1` | [nvidia-x11-535.104.06-6.12.49](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.16_10` | [nvidia-x11-535.247.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.247.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.16_11` | [nvidia-x11-535.261.04-6.12.49](https://www.nvidia.com/object/unix.html) | 535.261.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.16_12` | [nvidia-x11-535.274.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.274.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.16_2` | [nvidia-x11-535.129.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.16_3` | [nvidia-x11-535.154.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.16_4` | [nvidia-x11-535.161.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -668,8 +678,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.host.18_2` | [nvidia-x11-570.148.06-6.12.49](https://www.nvidia.com/object/unix.html) | 570.148.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.18_3` | [nvidia-x11-570.158.02-6.12.49](https://www.nvidia.com/object/unix.html) | 570.158.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.18_4` | [nvidia-x11-570.172.07-6.12.49](https://www.nvidia.com/object/unix.html) | 570.172.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.18_5` | [nvidia-x11-570.195.02-6.12.49](https://www.nvidia.com/object/unix.html) | 570.195.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.19_0` | [nvidia-x11-580.65.05-6.12.49](https://www.nvidia.com/object/unix.html) | 580.65.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.19_1` | [nvidia-x11-580.82.02-6.12.49](https://www.nvidia.com/object/unix.html) | 580.82.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.host.19_2` | [nvidia-x11-580.95.02-6.12.49](https://www.nvidia.com/object/unix.html) | 580.95.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.9_2` | [nvidia-x11-430.67-6.12.49](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.11_8` | [nvidia-x11-450.191-6.12.49](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.12_4` | [nvidia-x11-460.107-6.12.49](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -694,6 +706,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.vgpu.16_1` | [nvidia-x11-535.104.06-6.12.49](https://www.nvidia.com/object/unix.html) | 535.104.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.16_10` | [nvidia-x11-535.247.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.247.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.16_11` | [nvidia-x11-535.261.04-6.12.49](https://www.nvidia.com/object/unix.html) | 535.261.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.16_12` | [nvidia-x11-535.274.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.274.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.16_2` | [nvidia-x11-535.129.03-6.12.49](https://www.nvidia.com/object/unix.html) | 535.129.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.16_3` | [nvidia-x11-535.154.02-6.12.49](https://www.nvidia.com/object/unix.html) | 535.154.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.16_4` | [nvidia-x11-535.161.05-6.12.49](https://www.nvidia.com/object/unix.html) | 535.161.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -714,8 +727,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.vgpu.18_2` | [nvidia-x11-570.148.06-6.12.49](https://www.nvidia.com/object/unix.html) | 570.148.06 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.18_3` | [nvidia-x11-570.158.02-6.12.49](https://www.nvidia.com/object/unix.html) | 570.158.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.18_4` | [nvidia-x11-570.172.07-6.12.49](https://www.nvidia.com/object/unix.html) | 570.172.07 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.18_5` | [nvidia-x11-570.195.02-6.12.49](https://www.nvidia.com/object/unix.html) | 570.195.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.19_0` | [nvidia-x11-580.65.05-6.12.49](https://www.nvidia.com/object/unix.html) | 580.65.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.19_1` | [nvidia-x11-580.82.02-6.12.49](https://www.nvidia.com/object/unix.html) | 580.82.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+| `x86_64-linux` | `nvidia-grid.vgpu.19_2` | [nvidia-x11-580.95.02-6.12.49](https://www.nvidia.com/object/unix.html) | 580.95.02 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.9_2` | [nvidia-x11-430.67-6.12.49](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 </details>
 
@@ -1061,7 +1076,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
 |  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.2 | Python based web automation tool |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.3 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-09-20 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-10-01 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
 |  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.30.0 | Bring the notion of Model-as-a-Service to life |
@@ -1077,7 +1092,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.7.13 | Python library for RunPod API and serverless worker SDK |
 |  | `python3Packages.silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.0 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `python3Packages.smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.0 | Api for SmartRent locks, thermostats, moisture sensors and switches |
-|  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 4.1.0 | Super Micro Fan Control |
+|  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 4.1.1 | Super Micro Fan Control |
 |  | `python3Packages.torch-complex` | [torch-complex](https://pypi.org/project/torch-complex) | 0.4.4 | Temporal python class for PyTorch-ComplexTensor |
 |  | `python3Packages.tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2024-10-10 | TQDM progress bar helpers for logging and other headless application |
 |  | `python3Packages.vector-quantize-pytorch` | [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) | 1.23.2 | Vector (and Scalar) Quantization, in Pytorch |
@@ -1106,7 +1121,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (140 packages)</summary>
+<summary>Package set: uncategorized (142 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1125,7 +1140,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1000.77 | Browser from 360 |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.7.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
-|  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-09 | DBIP's Lite GeoIP Country, City, and ASN databases |
+|  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-10 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.0.8 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `uncategorized.dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
@@ -1133,6 +1148,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `uncategorized.dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
+|  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-09-29 | Fluent-UI For QT-Widget |
 |  | `uncategorized.electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `uncategorized.etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
 |  | `uncategorized.fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
@@ -1143,7 +1159,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.09.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.10.01 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -1159,13 +1175,13 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.2.0 | FOSS program for converting IME dictionaries |
 |  | `uncategorized.jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `uncategorized.kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
-|  | `uncategorized.kikoplay` | [kikoplay](https://kikoplay.fun) | 1.0.3 | More than a Full-Featured Danmu Player |
+|  | `uncategorized.kikoplay` | [kikoplay](https://kikoplay.fun) | 2.0.0 | More than a Full-Featured Danmu Player |
 |  | `uncategorized.konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `uncategorized.ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.0 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.14.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-09-24 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-10-02 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `uncategorized.libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2025-08-14 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2025-08-14 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
@@ -1194,21 +1210,22 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
-|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.4 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
+|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.7 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `uncategorized.phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.2 | Web interface for MySQL and MariaDB |
 |  | `uncategorized.phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `uncategorized.plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5787 | Plangothic Project |
 |  | `uncategorized.plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
 |  | `uncategorized.plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.3.2 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `uncategorized.plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-08-28 | Server control plane for Pterodactyl Panel |
+|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-10-01 | Server control plane for Pterodactyl Panel |
 |  | `uncategorized.pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.1.0+ds-5 | Generic and open source machine emulator and virtualizer |
 |  | `uncategorized.qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.18 | Desktop client for QQ on Linux |
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.8 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `uncategorized.qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.4-b1-unstable-2025-09-22 | Interactive Fiction development platform (GUI application) |
-|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-09-21 | Interactive fiction development platform (Game Library) |
+|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2025-10-03 | Interactive fiction development platform (Game Library) |
+|  | `uncategorized.qtwebapp` | [qtwebapp](https://stefanfrings.de/qtwebapp/index-en.html) | 1.9.1 | HTTP server library in C++, inspired by Java Servlets |
 | `x86_64-linux` | `uncategorized.red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
 |  | `uncategorized.red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
 |  | `uncategorized.rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
@@ -1248,7 +1265,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `uncategorized.xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
 | `Broken` | `uncategorized.douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
-| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.4.6 | Third party Bilibili client built with Flutter |
+| `Broken` `x86_64-linux` | `uncategorized.piliplus` | [piliplus](https://github.com/bggRGjQaUbCoE/PiliPlus) | 1.1.4.7 | Third party Bilibili client built with Flutter |
 | `Broken` | `uncategorized.soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 </details>
 
