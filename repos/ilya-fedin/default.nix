@@ -27,6 +27,8 @@ in with pkgs; rec {
 
   qt6ct = import ./pkgs/qt6ct pkgs;
 
+  sambaWithMDNS = samba.override { enableMDNS = true; };
+
   silver = callPackage ./pkgs/silver {};
 
   termbin = writeShellScriptBin "tb" ''
