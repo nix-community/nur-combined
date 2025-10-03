@@ -8,6 +8,9 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  potracer = pkgs.python3Packages.callPackage ./pkgs/potracer { };
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -15,5 +18,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cst = pkgs.callPackage ./pkgs/cst { };
+  inherit potracer;
+  supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
   trigger = pkgs.callPackage ./pkgs/trigger { };
 }
