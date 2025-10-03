@@ -13,6 +13,16 @@
           pkgs = import nixpkgs { inherit system; };
         }
       );
+
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.mkShell {
+          packages = with nixpkgs.legacyPackages.${system}; [
+            nil
+            nixd
+          ];
+        };
+      });
+
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );

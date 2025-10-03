@@ -6,13 +6,15 @@
 
 stdenv.mkDerivation rec {
   name = "dev-lennis-www-${version}";
-  version = "772ad14";
+  version = "77e7d3f";
   src = fetchFromGitHub {
     owner = "lennis-dev";
     repo = "lennis.dev";
-    rev = "772ad145334b4a03cef3fadccf9ccbe048f99208";
-    hash = "sha256-ShxPtE5xED/PU2lV3EDznX3Lmi33Ge0m2+kukJahHoI=";
+    rev = "77e7d3fafccd37dba425446b441541f7a5d9454d";
+    hash = "sha256-UsOFAdDTfn7ED4LqjJ/cpRUD7R/kCQHoX//NpRklUYQ=";
   };
+
+  update-my-nur = true;
 
   installPhase = ''
     mkdir -p $out/www

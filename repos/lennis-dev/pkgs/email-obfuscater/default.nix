@@ -14,6 +14,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-N07WX2NO2zg2UT/pDlYpDKrcQmHzSa0liE4G6JH2mzc=";
   };
 
+  update-my-nur = true;
+
   installPhase = ''
     mkdir -p $out/www
     shopt -s dotglob
