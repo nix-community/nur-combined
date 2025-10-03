@@ -30,7 +30,7 @@ extraLibs:
                 map (n: {
                   name = "internet-${n}";
                   value = mkInternet {
-                    connections = mkConnection n "eth0";
+                    connections = mkConnection n "eno1";
                   };
                 }) ((builtins.attrNames (lib.filterAttrs (_: v: !v.nat) extraLibs.data.node)) ++ [ "router" ])
               ))

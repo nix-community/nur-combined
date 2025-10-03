@@ -56,6 +56,7 @@ in
               RTS_STATIC: {
 
                 if proto = "guard" then reject;
+                if proto = "vm" then accept;
 
                 krt_prefsrc = HORTUS_OWNIP;
                 krt_metric = 512;

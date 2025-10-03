@@ -393,7 +393,7 @@ reIf {
             http_with_proxy_to_ext = {
               prober = "http";
               http = {
-                proxy_url = "http://[fdcc::1]:1701";
+                proxy_url = "http://[fec0::1]:8080";
                 skip_resolve_phase_with_proxy = true;
                 valid_status_codes = [ 404 ];
               };

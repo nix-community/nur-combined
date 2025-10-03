@@ -22,7 +22,7 @@ reIf {
       }
       global {
           tproxy_port: 12345
-          log_level: debug
+          log_level: info
           check_interval: 30s
           check_tolerance: 50ms
           wan_interface: auto
