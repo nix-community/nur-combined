@@ -16,4 +16,5 @@
 
   cursor-agent = pkgs.callPackage ./pkgs/cursor-agent { };
   code-cursor = pkgs.callPackage ./pkgs/code-cursor { };
+  commiter = pkgs.callPackage ./pkgs/commiter { };
 }
