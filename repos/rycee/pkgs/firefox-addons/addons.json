@@ -934,6 +934,16 @@
     "pname": "kagi-search"
   },
   {
+    "slug": "kagi-translate",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "karakeep",
     "license": {
       "tag": "predefined",
