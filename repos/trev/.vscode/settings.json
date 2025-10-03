@@ -1,12 +1,21 @@
 {
   "editor.formatOnSave": true,
 
-  // Nix
+  // nix
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
-  "nix.formatterPath": "alejandra",
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": ["alejandra"]
+      }
+    }
+  },
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  },
 
-  // Prettier
+  // prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "files.associations": {

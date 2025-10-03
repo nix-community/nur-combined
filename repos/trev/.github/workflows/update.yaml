@@ -13,6 +13,7 @@ jobs:
         uses: spotdemo4/nur/.github/actions/init@main
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
 
       - name: Setup environment
         uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
