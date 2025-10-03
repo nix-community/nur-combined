@@ -4,6 +4,7 @@
   melpaBuild,
   fetchFromGitHub,
   replaceVars,
+  fetchpatch2,
   acm,
   markdown-mode,
   basedpyright,
@@ -32,13 +33,13 @@ let
 in
 melpaBuild {
   pname = "lsp-bridge";
-  version = "0-unstable-2025-09-23";
+  version = "0-unstable-2025-10-01";
 
   src = fetchFromGitHub {
     owner = "manateelazycat";
     repo = "lsp-bridge";
-    rev = "13a7b5b47ef12dd39a2bce587adda45c2622aaaf";
-    hash = "sha256-DGkCSWyUd/OY4KsKKX7yioHFs7ZMTuSJCXlcm+MAPr0=";
+    rev = "dd931a465053607af10c0d77a57cf42fe6b208f7";
+    hash = "sha256-uQuB72yza2/hn5f3+LgHwpI/kak4Z/ywCBShM8uQd60=";
   };
 
   patches = [
@@ -46,6 +47,13 @@ melpaBuild {
     # don't have to modify their global environment
     (replaceVars ./hardcode-dependencies.patch {
       python = python.interpreter;
+    })
+
+    # Revert using quelpa repo to get check inputs
+    (fetchpatch2 {
+      url = "https://github.com/manateelazycat/lsp-bridge/commit/a999c8432817a806ed9ad74b5e918ab9612bd09b.patch";
+      revert = true;
+      hash = "sha256-NK6hooWn78Hk26tcQbIwUiiJuQ/hhlbLK+pgiZT//fI=";
     })
   ];
 
