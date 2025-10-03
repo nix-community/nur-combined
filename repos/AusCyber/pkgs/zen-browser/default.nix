@@ -6,12 +6,13 @@
   config,
   sourceRoot,
   writeText,
+  applicationName,
   ...
 }:
 
 stdenvNoCC.mkDerivation {
   inherit (source) pname version src;
-  inherit sourceRoot;
+  inherit sourceRoot applicationName;
 
   nativeBuildInputs = [ undmg ];
 

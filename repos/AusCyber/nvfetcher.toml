@@ -29,3 +29,11 @@ fetch.url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/re
 [kanata-vk-agent]
 src.git = "https://github.com/devsunb/kanata-vk-agent"
 fetch.github = 'devsunb/kanata-vk-agent'
+
+[helium-macos]
+src.github_tag = "imputnet/helium-macos"
+fetch.url = "https://github.com/imputnet/helium-macos/releases/download/$ver/helium_$ver_arm64-macos.dmg"
+[helium-linux]
+src.github_tag = "imputnet/helium-linux"
+fetch.github = "imputnet/helium-linux"
+

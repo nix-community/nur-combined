@@ -38,11 +38,47 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VEaNiJdbJL6ig8c5p2JSN4xOnB/PywVroSL2qFTe2EE=",
+            "sha256": "sha256-sdwvw/fg7Uy0VR0EBYcOccDpxIoFizuzJU8BAPKgRSk=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
         },
         "version": "tip"
+    },
+    "helium-linux": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "helium-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "imputnet",
+            "repo": "helium-linux",
+            "rev": "0.4.12.1",
+            "sha256": "sha256-9+hhI45aEMS2HYX8QLWJvx7ll2XiwcVowTX0qRXOc8o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.4.12.1"
+    },
+    "helium-macos": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "helium-macos",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-3j4souWY+4EGPSQR6uURjyqu3bkB5G9xuJbvOk9cZd8=",
+            "type": "url",
+            "url": "https://github.com/imputnet/helium-macos/releases/download/0.4.13.1/helium_0.4.13.1_arm64-macos.dmg"
+        },
+        "version": "0.4.13.1"
     },
     "kanata-vk-agent": {
         "cargoLocks": null,
@@ -110,11 +146,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kfZlzyTbh38n/h6RRntQnAsH1u+J5/fapYbXs1Mzd5Y=",
+            "sha256": "sha256-qOZbjbS8MePEwtXsLSK2L2ygAYn0zbrnhZfSMMELesM=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.16.1b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.16.2b/zen.macos-universal.dmg"
         },
-        "version": "1.16.1b"
+        "version": "1.16.2b"
     },
     "zen-browser-twilight": {
         "cargoLocks": null,
@@ -125,10 +161,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-t0xtIF1ljct7XZdLPkYHBohfkDRX8VHy5+dO0MWfh9w=",
+            "sha256": "sha256-tR8XqcxF0dDQWKWU7FW5vzfYTvGALKcYG7Jz5wjX46I=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
-        "version": "1.16.1b"
+        "version": "1.16.2b"
     }
 }
