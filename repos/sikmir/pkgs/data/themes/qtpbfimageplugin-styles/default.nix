@@ -6,18 +6,18 @@
 
 stdenv.mkDerivation {
   pname = "qtpbfimageplugin-styles";
-  version = "2022-06-08";
+  version = "2025-10-04";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "qtpbfimageplugin-styles";
-    rev = "5b7d248d064b9c9dd9dbb51ebbb0ff9b259045e3";
-    hash = "sha256-BbkDHZ/rNbXz7raeQnNiJ4HnhyH5Y/pISYZuk3BYYss=";
+    rev = "c8ea3f84d5cfd1fb69632cdaca1f87c7c3d12303";
+    hash = "sha256-0j89KF56G1je8xy0sTE4FzvUXDUxgE7BFb0hxNdqsJc=";
   };
 
   installPhase = ''
     install -dm755 $out
-    cp -r Esri Mapbox OpenMapTiles OrdnanceSurvey Tilezen $out
+    cp -r * $out
   '';
 
   meta = {
