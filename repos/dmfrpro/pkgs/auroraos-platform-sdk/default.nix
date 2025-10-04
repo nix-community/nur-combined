@@ -7,18 +7,26 @@
 }:
 
 let
-  major = "5.1.5";
-  minor = "105";
+  major = "5.2.0";
+  minor = "45";
   postfix = "release";
   fullVersion = "${major}.${minor}";
   fullVersionPostfix = "${fullVersion}-${postfix}";
 
   repo = "https://sdk-repo.omprussia.ru/sdk/installers/${major}/${fullVersionPostfix}/AuroraPSDK";
-  chrootB = "Aurora_OS-${fullVersion}-MB2-Aurora_Platform_SDK_Chroot-x86_64.tar.bz2";
+  chrootB = "Aurora_OS-${fullVersion}-Aurora_Platform_SDK_Chroot-x86_64.tar.bz2";
 
   chroot = fetchurl {
     url = "${repo}/${chrootB}";
-    sha256 = "sha256-X27z+QPNGH9zFm7p3SCxCUgVnqO6eMuqL1qSRBwr7dI=";
+    sha256 = "sha256-v7QobO8jvrc9xFK5h8jpx2x3DvW8uyAyUHkmfTO4HyU=";
+  };
+
+  ubu-chroot = pkgs.dockerTools.pullImage {
+    imageName = "dmfrpro/ubuntu-trusty-android-rootfs";
+    imageDigest = "sha256:9cd74477a5a2110e1f69ba40b5f1debe946e2b3b39cb1fc1ee324b69ec41812b";
+    hash = "sha256-599BGTxZmGgrogj939O68tJn5ZCNOZio+Pq09nvmSmI=";
+    finalImageName = "dmfrpro/ubuntu-trusty-android-rootfs";
+    finalImageTag = "latest";
   };
 
   hadk-env = ./hadk-env;
@@ -52,6 +60,7 @@ stdenv.mkDerivation {
     # Use XDG_DATA_HOME or fallback to ~/.local/share
     PSDK_BASE_DIR=''${AURORA_PSDK_DATA_DIR:-''${XDG_DATA_HOME:-$HOME/.local/share}/aurora_psdk}
     PSDK_CHROOT_DIR=$PSDK_BASE_DIR/sdks/aurora_psdk
+    PSDK_UBUCHROOT_DIR=$PSDK_CHROOT_DIR/srv/mer/ubu-chroot
 
     # Initialize on first run
     if [ ! -f $PSDK_BASE_DIR/.initialized ]; then
@@ -66,6 +75,17 @@ stdenv.mkDerivation {
         --exclude='dev/*' \
         --checkpoint=.1000 \
         --directory $PSDK_CHROOT_DIR
+      
+      echo -e "\n[*] Setting up AuroraPSDK ubu-chroot in $PSDK_UBUCHROOT_DIR..."
+      sudo mkdir -p $PSDK_UBUCHROOT_DIR
+      sudo tar --numeric-owner \
+        --preserve-permissions \
+        --extract \
+        --auto-compress \
+        --file ${ubu-chroot} \
+        --exclude='dev/*' \
+        --checkpoint=.1000 \
+        --directory $PSDK_UBUCHROOT_DIR
             
       # Fix bash prompt for Nix systems
       sudo sed -i "s|#!/bin/bash|#!${pkgs.runtimeShell}|" $PSDK_CHROOT_DIR/sdk-chroot
@@ -93,7 +113,7 @@ stdenv.mkDerivation {
 
   meta = {
     license = lib.licenses.unfree;
-    homepage = "https://developer.auroraos.ru/downloads/p_sdk/${fullVersion}";
+    homepage = "https://developer.auroraos.ru/downloads/archive/p_sdk";
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     description = "Aurora OS Platform SDK";
     platforms = [ "x86_64-linux" ];

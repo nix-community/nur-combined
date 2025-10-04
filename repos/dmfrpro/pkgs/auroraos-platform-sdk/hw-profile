@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-load_envrc() {
+_load_envrc() {
     local dir="${PWD}"
 
     while [ "${dir}" != "/" ]; do
@@ -16,7 +16,9 @@ load_envrc() {
 source ${HOME}/.hadk.env
 
 # Minimalistic direnv hook
-load_envrc
+_load_envrc
+
+alias habusdk="ubu-chroot -r /srv/mer/ubu-chroot"
 
 # Hide mb2 --target "..."
 alias mb2="mb2 -t \$(sb2-config showtarget | sed 's/\.default//')"
