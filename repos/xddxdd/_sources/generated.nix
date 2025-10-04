@@ -222,25 +222,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "fbdf6af997ae3c956b9622bf5c9b8999dda4ab14";
+    version = "709f0cf3d9be2d3007d6a0d807d80eb304a203ad";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "fbdf6af997ae3c956b9622bf5c9b8999dda4ab14";
-      hash = "sha256-9dsQZGT6IVlP3VA021ba2dygzqDnFMXaGv/5kijlscw=";
+      rev = "709f0cf3d9be2d3007d6a0d807d80eb304a203ad";
+      hash = "sha256-uf+/VY101+bruYYCE2CzaPPJs+vCk1FIZhPE5pZyBz4=";
     };
-    date = "2025-09-30";
+    date = "2025-10-03";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e950918b1a37f055fbfe891ac3d4bb94f1db5c44";
+    version = "d99ad9a54bdea6733d18ce041694e350354cb428";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e950918b1a37f055fbfe891ac3d4bb94f1db5c44";
-      hash = "sha256-8QhNq6a0ffZ/lyzBRPpQgJ9gSb19Efu3mLRiQBJOrQQ=";
+      rev = "d99ad9a54bdea6733d18ce041694e350354cb428";
+      hash = "sha256-JIf7Q7pqEIdzwlD8GgDRS6KOyKlXjQKM7ywZmmm/RV0=";
     };
-    date = "2025-10-01";
+    date = "2025-10-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -410,12 +410,12 @@
   };
   deeplx = {
     pname = "deeplx";
-    version = "v1.0.8";
+    version = "v1.0.9";
     src = fetchFromGitHub {
       owner = "OwO-Network";
       repo = "DeepLX";
-      tag = "v1.0.8";
-      hash = "sha256-MutYqV4K9UNfoLBw7zRQvzIy1mBnPuLE9tP6NzzXVZg=";
+      tag = "v1.0.9";
+      hash = "sha256-aJZ6DLq/1XsGevVlKowf1cFhq5cIKLUVNt9XTEx5++Q=";
     };
   };
   dingtalk = {
@@ -690,26 +690,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.10.01";
+    version = "2025.10.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.01/GeoLite2-ASN.mmdb";
-      hash = "sha256-2BnSnv5/uPn0Zo7QMXMxlkEjrr7MVPpcUFT9nqn7TUM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.04/GeoLite2-ASN.mmdb";
+      hash = "sha256-/D1D7huCJOpRsp2i0p2fS6dCunQfZf09pGWCmGLyC1w=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.10.01";
+    version = "2025.10.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.01/GeoLite2-City.mmdb";
-      hash = "sha256-LwbfHPUKUYNx8iJLnxdHeuOj/lWiBFa92nij3B1IUk8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.04/GeoLite2-City.mmdb";
+      hash = "sha256-R4ZlP8kUwxN+pihCED8LMO9YqJmpnbQ5IE8vbK/Kx1o=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.10.01";
+    version = "2025.10.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.01/GeoLite2-Country.mmdb";
-      hash = "sha256-W4nSaEjTe/LL+FmJF8EQ9J03Wz1e7mwA6G7xtQ82pOA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.04/GeoLite2-Country.mmdb";
+      hash = "sha256-eL7k4ZrSavcPMUgJ8fUyvrcQ0UQ0QZtQz/nfk0H8zf4=";
     };
   };
   glauth = {
@@ -857,14 +857,14 @@
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
-    version = "1724cca11e3ae400a56605d40bc26e6b7f08aaed";
+    version = "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb";
     src = fetchFromGitHub {
       owner = "FoxIO-LLC";
       repo = "ja4-nginx-module";
-      rev = "1724cca11e3ae400a56605d40bc26e6b7f08aaed";
-      hash = "sha256-eRRlNQmxkKIYNe34/CyzSaipaqeF1mH2wm115VoqBVI=";
+      rev = "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb";
+      hash = "sha256-q+RyC14kboiNgRbtmh9Or7gh8JVXcGSHHWRCNUU+53E=";
     };
-    date = "2025-08-14";
+    date = "2025-10-03";
   };
   jproxy = {
     pname = "jproxy";
@@ -996,14 +996,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "21add4acef046f493c99936b9b59f624f73b09ff";
+    version = "9a61d90c68de022372bae3a9d4fcc1629fa59f24";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "21add4acef046f493c99936b9b59f624f73b09ff";
-      hash = "sha256-v7jovJFaPtUagt3o5tBvCDxIAwOFGUfjLcvPEnvV8cE=";
+      rev = "9a61d90c68de022372bae3a9d4fcc1629fa59f24";
+      hash = "sha256-mUCW68OjkkPVp4jtvlLJmBPi816cXkLB6ZOQ+xdxP0g=";
     };
-    date = "2025-10-02";
+    date = "2025-10-03";
   };
   libqcef = {
     pname = "libqcef";
@@ -1064,12 +1064,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.16.9-xanmod1";
+    version = "6.16.10-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.16.9-xanmod1";
+      tag = "6.16.10-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-Qu7P5l9Wz0gpptdloDUZRgOVeqXTJWq4q2AXNls6nBY=";
+      hash = "sha256-TCMx1Sx/9o8oGOLVfsIvYZoe+FHs5zL+n/tGYevObI0=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1094,12 +1094,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.49-xanmod1";
+    version = "6.12.50-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.49-xanmod1";
+      tag = "6.12.50-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-j7sVP+Aqiwz8cBZZ95NL5FNVT8NizCox1JiibSmfsIo=";
+      hash = "sha256-I3D862tWW+MYDTd5C6iGB8ZLH8nDOsXzlrOYch55K2g=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1114,12 +1114,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6676";
+    version = "b6687";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6676";
-      hash = "sha256-KASbEkqqy2ybfWYZ3yP014+6Hw3fGi7AnZ9VtFWDM98=";
+      tag = "b6687";
+      hash = "sha256-23O0DDxtXBdkfkrHjyzORtdX90hVMI0104+U+pIFFvM=";
     };
   };
   loralib = {
@@ -1769,23 +1769,23 @@
   };
   qsp = {
     pname = "qsp";
-    version = "6b2403cbd0adca99eb4ea1e90680bfd892ea6495";
+    version = "8e2da353c2966dab63d1c70aafc0d0b02e018753";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "6b2403cbd0adca99eb4ea1e90680bfd892ea6495";
-      hash = "sha256-OkebYD5asCduRNTWImY1pzbD2ZUFCmtoZj2cneGVTIE=";
+      rev = "8e2da353c2966dab63d1c70aafc0d0b02e018753";
+      hash = "sha256-2cCsamEHuw9IBqOpE44NOYJs8TfZvJ8PBuEl6bGPo5k=";
     };
-    date = "2025-09-22";
+    date = "2025-10-03";
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "ab2df27699357b344a9f9e66cffd05650de0e2fa";
+    version = "774c83597e05da1c22422ea24fa1d9c66891e6ff";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "ab2df27699357b344a9f9e66cffd05650de0e2fa";
-      hash = "sha256-SiKm01JvPZxWKaUApdMcJGe8yUswe7+ARG9ZCFrq6rM=";
+      rev = "774c83597e05da1c22422ea24fa1d9c66891e6ff";
+      hash = "sha256-RmHrn39Rwza0J43EzgernSueyueWfBHoPiKeOenbCMo=";
     };
     date = "2025-10-03";
   };
