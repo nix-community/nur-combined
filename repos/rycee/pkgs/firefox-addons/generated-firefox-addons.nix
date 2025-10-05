@@ -1630,10 +1630,10 @@
     };
     "chameleon-ext" = buildFirefoxXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.76.1";
+      version = "0.22.77.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561366/chameleon_ext-0.22.76.1.xpi";
-      sha256 = "b55fc2d63ede87dfb40ea759acda25631d3978c6f626f63e5564e7f71f79f022";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4591578/chameleon_ext-0.22.77.1.xpi";
+      sha256 = "47668f11e43d751474f4ff14d291a5566ff789ac139e140192fbcad167e0517d";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.62.3";
+      version = "2.63.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4537416/dualsub-2.62.3.xpi";
-      sha256 = "8b1b10810130cf0a612b98d3c24dd90d815a8bfea2c2d91da7894742b59e3132";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4591482/dualsub-2.63.0.xpi";
+      sha256 = "f72a21e0211004db40b8bc437c3b06473949137e1e0e3e71225a32e91709d1ab";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3146,7 +3146,6 @@
           "https://www.youku.tv/*"
           "https://www.zdf.de/*"
           "https://wetv.vip/*"
-          "https://*.dualsub.xyz/*"
         ];
         platforms = platforms.all;
       };
@@ -9540,10 +9539,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.22.1";
+      version = "1.23";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4477908/passff-1.22.1.xpi";
-      sha256 = "6e3d6d18a9d36a4a7948ceb947c3211f37079e0c552373d411fc9c3826554769";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4591422/passff-1.23.xpi";
+      sha256 = "696d3d99735dabce398f025d1531f42bcddb86f81c29f4bc7b242697915501db";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
