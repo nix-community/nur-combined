@@ -1,11 +1,9 @@
 {
   lib,
   stdenv,
-  dpkg,
   autoPatchelfHook,
+  # wpsoffice dependencies
   alsa-lib,
-  at-spi2-core,
-  libjpeg,
   libtool,
   libxkbcommon,
   bzip2,
@@ -19,6 +17,7 @@
   cups,
   pango,
   libmysqlclient,
+  # wpsoffice build dependencies
   runCommandLocal,
   curl,
   coreutils,
@@ -69,18 +68,10 @@ in
 stdenv.mkDerivation {
   inherit pname src version;
 
-  unpackCmd = "dpkg -x $src .";
-  sourceRoot = ".";
-
-  nativeBuildInputs = [
-    dpkg
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
     alsa-lib
-    at-spi2-core
-    libjpeg
     libtool
     libxkbcommon
     bzip2
@@ -104,14 +95,21 @@ stdenv.mkDerivation {
     pango
   ];
 
+  unpackPhase = ''
+    # Unpack the .deb file
+    ar x $src
+    tar -xf data.tar.xz
+
+    # Remove unneeded files
+    rm -f usr/bin/misc
+    rm -rf opt/kingsoft/wps-office/{desktops,INSTALL}
+    rm -f opt/kingsoft/wps-office/office6/{libpeony-wpsprint-menu-plugin.so,libbz2.so}
+  '';
+
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out
-
-    rm usr/bin/misc
-    rm opt/kingsoft/wps-office/{desktops,INSTALL} -r
-    rm opt/kingsoft/wps-office/office6/{libpeony-wpsprint-menu-plugin.so,libbz2.so}
 
     cp -r opt $out
     cp -r usr/{bin,share} $out
