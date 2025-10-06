@@ -15,15 +15,15 @@ builtins.trace "「我书写，则为我命令。我陈述，则为我规定。�
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
 
-  maa-assistant-arknights-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights { };
+  # maa-assistant-arknights-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights { };
 
-  onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/maa-assistant-arknights/onnxruntime-cuda-bin.nix { };
+  # onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/maa-assistant-arknights/onnxruntime-cuda-bin.nix { };
 
-  maa-x = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-x.nix { };
+  # maa-x = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-x.nix { };
 
-  maa-cli-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-cli.nix {
-    maa-cli' = pkgs.maa-cli.override { maa-assistant-arknights = maa-assistant-arknights-nightly; };
-  };
+  # maa-cli-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-cli.nix {
+  #   maa-cli' = pkgs.maa-cli.override { maa-assistant-arknights = maa-assistant-arknights-nightly; };
+  # };
 
   pkgsStatic = {
 
