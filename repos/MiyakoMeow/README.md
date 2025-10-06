@@ -94,6 +94,7 @@ This section is auto-generated. Do not edit manually.
 
 | useable-path | version | description |
 | --- | --- | --- |
+| `baidunetdisk` | [4.17.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/ba/baidunetdisk/package.nix) | [🏠Homepage](https://pan.baidu.com/) 百度网盘 Linux 客户端 |
 | `beatoraja` | [0.8.8](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/be/beatoraja/package.nix) | [🏠Homepage](https://www.mocha-repository.info/download.php) A modern BMS Player |
 | `clang-minimal` | [19.1.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
 | `continue-cli` | [1.4.45](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/co/continue-cli/package.nix) | [🏠Homepage](https://continue.dev) Continue CLI |
