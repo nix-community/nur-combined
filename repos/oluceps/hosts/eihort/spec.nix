@@ -95,7 +95,7 @@
     synapse.enable = true;
     calibre.enable = true;
     immich.enable = true;
-    radicle.enable = true;
+    # radicle.enable = true;
     aria2.enable = true;
     userborn-subid.enable = true;
     # ollama.enable = true;

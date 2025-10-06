@@ -17,6 +17,7 @@
       "nix-direnv"
       "radicle"
       "xwayland-satellite"
+      "atuin"
     ] (n: inputs'.${n}.packages.default)
     # //
     # GUI applications overlay. for stability
@@ -56,36 +57,6 @@
         postfixup = ''
           install -Dm444 release/config/sing-box-split-dns.xml -t $out/share/dbus-1/system.d/sing-box-split-dns.conf
         '';
-      });
-      pocket-id = prev.pocket-id.overrideAttrs (old: rec {
-        version = "1.6.2";
-
-        src = prev.fetchFromGitHub {
-          owner = "pocket-id";
-          repo = "pocket-id";
-          tag = "v${version}";
-
-          hash = "sha256-fg9iT4JGB3CvmPiRaQwfyKxZ5T0mweDQAQYYU/fdb/g=";
-        };
-        vendorHash = "sha256-LutjhewhizxGc/YlNHpK81HrX+wSAAJLWtA+skTjn1w=";
-        frontend = prev.buildNpmPackage {
-          pname = "pocket-id-frontend";
-          inherit version src;
-
-          sourceRoot = "${src.name}/frontend";
-
-          npmDepsHash = "sha256-AZ8je9uaJ1h9wxfs2RtPr2Ki0QNYD0nDd2BZDj6/sl8=";
-          npmFlags = [ "--legacy-peer-deps" ];
-
-          env.BUILD_OUTPUT_PATH = "dist";
-          installPhase = ''
-            runHook preInstall
-            mkdir -p $out/lib/pocket-id-frontend
-            cp -r dist $out/lib/pocket-id-frontend/dist
-            runHook postInstall
-          '';
-        };
-
       });
 
       # misskey = prev.misskey.overrideAttrs (old: {

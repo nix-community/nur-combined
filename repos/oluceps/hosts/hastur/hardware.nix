@@ -45,7 +45,7 @@
     extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
     '';
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [
@@ -183,6 +183,7 @@
     # gcc.arch = "znver3";
     # gcc.tune = "znver3";
   };
+  services.xserver.videoDrivers = [ "modesetting" ];
   hardware = {
 
     graphics = {

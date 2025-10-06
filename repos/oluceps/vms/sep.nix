@@ -34,13 +34,16 @@
           networking.hostName = "sept";
           networking.useNetworkd = true;
           system.stateVersion = "25.11";
+          networking.firewall = {
 
-          # forbid access to RFC1918 addr scope & IPv6
-          networking.firewall.enable = true;
-          networking.firewall.allowedTCPPorts = [
-            1095
-            8080
-          ];
+            # forbid access to RFC1918 addr scope & IPv6
+            enable = true;
+            allowedTCPPorts = [
+              1095
+              8080
+            ];
+            allowedUDPPorts = [ 53 ];
+          };
           networking.nftables.enable = true;
           networking.nftables.ruleset = ''
             table inet nat {
@@ -56,6 +59,7 @@
                 ct state established,related accept
 
                 iifname "wg-ext" ip daddr 10.255.0.0 reject with icmp admin-prohibited
+                iifname "wg-ext" ip6 daddr fec0::/128 reject with icmpv6 admin-prohibited
 
                 iifname "wg-ext" oifname "enp0s4" accept
               }
@@ -70,6 +74,9 @@
               type = "ed25519";
             }
           ];
+          services.resolved.extraConfig = ''
+            DNSStubListenerExtra=10.10.10.1
+          '';
           boot.kernel.sysctl = {
             "net.ipv4.tcp_rfc1337" = 1;
             "net.ipv4.tcp_fastopen" = 0;

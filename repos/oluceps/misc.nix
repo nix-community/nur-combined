@@ -126,24 +126,6 @@
         set fish_cursor_default block blink
         set fish_cursor_insert line blink
         set fish_cursor_replace_one underscore blink
-
-
-        # if test -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR"
-        #   set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"
-        # end
-      '';
-      interactiveShellInit = ''
-        # Need to declare here, since something buggy.
-        # For foot `jump between prompt` function
-        function mark_prompt_start --on-event fish_prompt
-            echo -en "\e]133;A\e\\"
-        end
-
-        function fish_user_key_bindings
-            for mode in insert default visual
-              bind -M $mode \cf forward-char
-            end
-        end
       '';
     };
 
