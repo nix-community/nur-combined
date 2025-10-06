@@ -1,0 +1,42 @@
+{
+  "de-ru": {
+    "version": "2025-10-03",
+    "hash": "sha256-cjWnwepKAhRhdWqK3X93BXuycs9gIy+22Y0jq8m40jE="
+  },
+  "en-ru": {
+    "version": "2025-10-01",
+    "hash": "sha256-f1CN6SeRujK2rtF4aBaCp4bGFhOwx+5xv9MkvUAStmY="
+  },
+  "fi-ru": {
+    "version": "2025-10-06",
+    "hash": "sha256-Hce5wSp18n+QeYNjOVuxjo5WiGTlpNiRAnS1COONDgI="
+  },
+  "ru-be": {
+    "version": "2025-09-07",
+    "hash": "sha256-uZzx9yG+8LpWMsTg+TdqTiJtD4dpVUEsqiWqVpUGOK4="
+  },
+  "ru-de": {
+    "version": "2025-09-07",
+    "hash": "sha256-RxMHEyhz1RttspSej6kUoZfBKoGl8UmTkWZajXPitRQ="
+  },
+  "ru-en": {
+    "version": "2025-09-07",
+    "hash": "sha256-uPm2MC+8SaNXaB6MpRs63gvQN5++oKgUS4wzK+ntM5s="
+  },
+  "ru-eo": {
+    "version": "2025-09-07",
+    "hash": "sha256-KLFow7o8x+kMLnYdmFHq53ueiC5aa/JccRvExJhdIM0="
+  },
+  "ru-fi": {
+    "version": "2025-09-07",
+    "hash": "sha256-q7M3PC1VdqlDstMkZEygjjO/oC1HJcx1/fdhquKkY9c="
+  },
+  "ru-sv": {
+    "version": "2025-09-07",
+    "hash": "sha256-anUnzeNph5b8hqsPz1HLTBf6yYJ+ij/drlG0PWHLnX4="
+  },
+  "ru-uk": {
+    "version": "2025-09-07",
+    "hash": "sha256-MFFt+zX3flt4wKfyKg4GJCwH8ri7s51vlPgsaZLi3Lc="
+  }
+}

@@ -27,7 +27,7 @@ lib.makeScope newScope (
   // {
     # VSCODE EXTENSIONS
 
-    vscode-extensions = recurseIntoAttrs (callPackage ./vscode-extensions { });
+    vscode-extensions = recurseIntoAttrs (callPackage ./vscode-extensions.nix { });
 
     ### BUILD SUPPORT
 
@@ -41,14 +41,11 @@ lib.makeScope newScope (
     dadako = callPackage ./data/dicts/dadako { };
     freedict = callPackage ./data/dicts/freedict { };
     huzheng = callPackage ./data/dicts/huzheng { };
-    libredict = callPackage ./data/dicts/libredict { };
 
     dem = callPackage ./data/maps/dem { };
     freizeitkarte-osm = callPackage ./data/maps/freizeitkarte-osm { };
     vlasenko-maps = callPackage ./data/maps/vlasenko-maps { };
-    maptourist = callPackage ./data/maps/maptourist { };
     meridian = callPackage ./data/maps/meridian { };
-    mtk-suomi = callPackage ./data/maps/mtk-suomi { };
     uralla = callPackage ./data/maps/uralla { };
 
     poi = callPackage ./data/misc/poi { };
@@ -96,22 +93,6 @@ lib.makeScope newScope (
     embox-ppc = callPackage ./embedded/embox { arch = "ppc"; };
     embox-riscv64 = callPackage ./embedded/embox { arch = "riscv64"; };
     embox-x86 = callPackage ./embedded/embox { stdenv = pkgs.gccMultiStdenv; };
-
-    ### GARMIN
-
-    ocad2img = perlPackages.callPackage ./garmin/ocad2img {
-      inherit cgpsmapper ocad2mp fetchwebarchive;
-    };
-    openmtbmap = callPackage ./garmin/openmtbmap { };
-    osm2mp = perlPackages.callPackage ./garmin/osm2mp {
-      inherit (perlPackages)
-        GeoOpenstreetmapParser
-        MatchSimple
-        MathPolygon
-        MathPolygonTree
-        TreeR
-        ;
-    };
 
     ### GEOSPATIAL
 

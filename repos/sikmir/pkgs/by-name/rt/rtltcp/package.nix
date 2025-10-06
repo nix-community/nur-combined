@@ -10,17 +10,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rtltcp";
-  version = "0.1.1";
+  version = "0.1.1-unstable-2025-01-11";
 
   src = fetchFromGitHub {
     owner = "niclashoyer";
     repo = "rtltcp";
-    tag = finalAttrs.version;
-    hash = "sha256-mGBU4O4RMTZPoxfg1zr2WeiZsfnIba6VHYX3FYTY+OY=";
+    rev = "1a9ae7f59fd1d6eac13a445a8661bc67a9457da6";
+    hash = "sha256-HbO4vlv2KkJNap+gTS9Pw8QbObBfiYc4nWDNRXwgvmA=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-Zvf/cglQ4SmeMru9rMYBSkbT0Rx91vLrLOO0VCwHcwk=";
+  cargoHash = "sha256-ZFAE+W911GpDFocO2Z3h4GksnJIVbSPsMuawbHhKtdI=";
 
   nativeBuildInputs = [ pkg-config ];
 

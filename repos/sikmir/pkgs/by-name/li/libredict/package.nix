@@ -15,7 +15,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "libredict";
-  version = "2023-05-20";
+  version = "2025-09-07";
 
   srcs = lib.attrValues dicts;
   sourceRoot = ".";

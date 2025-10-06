@@ -7,19 +7,20 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rumqtt";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "bytebeamio";
     repo = "rumqtt";
     tag = "rumqttd-${finalAttrs.version}";
-    hash = "sha256-3rDnJ1VsyGBDhjOq0Rd55WI1EbIo+17tcFZCoeJB3Kc=";
+    hash = "sha256-WFhVSFAp5ZIqranLpU86L7keQaReEUXxxGhvikF+TBw=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-/OUSTfpjqTily2b2RNZEfmHdKHSQo7lQsGwqW08vPnc=";
+  cargoHash = "sha256-UP1uhG+Ow/jN/B8i//vujP7vpoQ5PjYGCrXs0b1bym4=";
 
   nativeBuildInputs = [ cmake ];
+
+  __darwinAllowLocalNetworking = true;
 
   meta = {
     description = "The MQTT ecosystem in rust";

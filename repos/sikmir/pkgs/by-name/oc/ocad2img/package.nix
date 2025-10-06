@@ -1,17 +1,15 @@
 {
   lib,
   stdenv,
-  buildPerlPackage,
+  perlPackages,
   fetchwebarchive,
   unzip,
   dos2unix,
   cgpsmapper,
   ocad2mp,
-  ModulePluggable,
-  Tk,
 }:
 
-buildPerlPackage {
+perlPackages.buildPerlPackage {
   pname = "ocad2img";
   version = "2009-10-11";
 
@@ -30,7 +28,7 @@ buildPerlPackage {
     dos2unix
   ];
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with perlPackages; [
     ModulePluggable
     Tk
   ];

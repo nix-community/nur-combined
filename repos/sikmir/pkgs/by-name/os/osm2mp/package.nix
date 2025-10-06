@@ -1,26 +1,12 @@
 {
   lib,
   stdenv,
-  buildPerlPackage,
+  perlPackages,
   shortenPerlShebang,
   fetchFromGitHub,
-  ConfigStd,
-  EncodeLocale,
-  FileSlurp,
-  GeoOpenstreetmapParser,
-  JSON,
-  ListMoreUtils,
-  LWPProtocolHttps,
-  MatchSimple,
-  MathPolygon,
-  MathPolygonTree,
-  TemplateToolkit,
-  TextUnidecode,
-  TreeR,
-  YAML,
 }:
 
-buildPerlPackage {
+perlPackages.buildPerlPackage {
   pname = "osm2mp";
   version = "0-unstable-2018-08-31";
 
@@ -35,7 +21,7 @@ buildPerlPackage {
 
   nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with perlPackages; [
     ConfigStd
     EncodeLocale
     FileSlurp
