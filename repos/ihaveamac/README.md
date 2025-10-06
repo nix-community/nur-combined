@@ -12,7 +12,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 
 | Name | Attr | Description |
 | --- | --- | --- |
-| [3beans-0-unstable-2025-08-19](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
+| [3beans-release-unstable-2025-10-05](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
 | [3dslink-0.6.3](https://github.com/devkitPro/3dslink) | \_3dslink | Send 3DSX files to the Homebrew Launcher on 3DS |
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
@@ -34,12 +34,12 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [local-gpss-1.0.3](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
-| [mediawiki-1.39.13](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.39.15](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
 | ~~[mediawiki-1.40.4](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_40~~ | ~~The collaborative editing software that runs Wikipedia~~ |
 | ~~[mediawiki-1.41.5](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_41~~ | ~~The collaborative editing software that runs Wikipedia~~ |
 | ~~[mediawiki-1.42.7](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_42~~ | ~~The collaborative editing software that runs Wikipedia~~ |
-| [mediawiki-1.43.3](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-1.44.0](https://www.mediawiki.org/) | mediawiki\_1\_44 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.43.5](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.44.2](https://www.mediawiki.org/) | mediawiki\_1\_44 | The collaborative editing software that runs Wikipedia |
 | [mrpack-install-0.16.10-unstable-2024-11-24](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
 | [otptool-1.0](https://github.com/SciresM/otptool) | otptool | view and extract data from a 3DS OTP |
 | [qcma-0.4.2](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
@@ -50,7 +50,6 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [sdFormatLinux-0.2.0](https://github.com/profi200/sdFormatLinux) | sd-format-linux | Properly format SD cards under Linux. |
 | [switch-tools-1.13.1](https://github.com/switchbrew/switch-tools) | switch-tools | Various Nintendo Switch homebrew tools |
 | [themethod3-2024-04-20](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
-| [TinyWiiBackupManager-1.4.3](https://github.com/mq1/TinyWiiBackupManager) | tiny-wii-backup-manager | Tool for decrypting all mogg files used by the Rock Band series |
 | [unxip-3.0](https://github.com/saagarjha/unxip) | unxip | A fast Xcode unarchiver |
 | [wfs-tools-1.2.3-unstable-2025-03-19](https://github.com/koolkdev/wfs-tools) | wfs-tools | WFS (WiiU File System) Tools |
 | [wifiboot-host-unstable-2023-07-02](https://github.com/danny8376/wifiboot-host) | wifiboot-host | command line version uploader for https://problemkaputt.de/wifiboot.htm |

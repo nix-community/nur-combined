@@ -62,21 +62,21 @@ rec {
   ctr-gputextool = callPackage ./pkgs/ctr-gputextool { };
   switch-tools = callPackage ./pkgs/switch-tools { };
   ctr-logobuilder = callPackage ./pkgs/ctr-logobuilder { };
-  tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
+  #tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
-    version = "1.39.13";
-    hash = "sha256-u3AMCXkuzgh3GBoXTBaHOJ09/5PIpfOfgbp1Cb3r7NY=";
+    version = "1.39.15";
+    hash = "sha256-iHcTQ2PnlCvTtC7os6uOloYQHk6pk/h5X7zrvSG++rM=";
   };
   mediawiki_1_43 = callPackage ./pkgs/mediawiki {
-    version = "1.43.3";
-    hash = "sha256-5AnfQWuk2Z0nBeHrD/gWiGPbKnkcwL56h9s8E9mAGnA=";
+    version = "1.43.5";
+    hash = "sha256-T6USBd6Y8FTKJku9S2fewDxYQt4m+v3mAm/Ikb35UDQ=";
   };
   mediawiki_1_44 = callPackage ./pkgs/mediawiki {
-    version = "1.44.0";
-    hash = "sha256-eSF3gIw+CDGsy+IF1XtBMzma0UHw0KglRQohskAnWI8=";
+    version = "1.44.2";
+    hash = "sha256-59cCZpeWcfr9A3BeF6IfGFvRsoP/hD7XL+KQ6G+sQzE=";
   };
 
   # EOL packages

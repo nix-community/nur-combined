@@ -20,26 +20,22 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "TinyWiiBackupManager";
-  version = "1.4.3";
+  version = "2.5.2";
 
   src = fetchFromGitHub {
     owner = "mq1";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-MoPGGp5Zx92ybE518KPLfzaBPBXjZDwmbCRjrOU5JUA=";
+    rev = version;
+    sha256 = "sha256-Y+roYFiT/xIb2nf6GgkpsHclxzv8NCUpuITL3UVLsuQ=";
+    fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-2x0QrxbnoMM+5Nnia+p0O0afGENHm68kekNSpMICyAI=";
+  cargoHash = "sha256-E0PPg9/8XT+D/OF18EzUKUekVyakdPeKfDfrIewYDLk=";
 
   postInstall =
     if stdenv.isDarwin then
       ''
-        appContents=$out/Applications/TinyWiiBackupManager.app/Contents
-        mkdir -p $appContents/MacOS $appContents/Resources
-        ln -s $out/bin/${name} $appContents/MacOS/
-        cp ${./Info.plist} $appContents/Info.plist
-        cp ${src}/assets/macos/${name}.icns $appContents/Resources
-        substituteInPlace $appContents/Info.plist --replace-fail VERSION ${version}
+        # ???
       ''
     else
       ''
@@ -55,5 +51,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl2Only;
     platforms = platforms.all;
     mainProgram = name;
+    broken = stdenv.isDarwin;
   };
 }
