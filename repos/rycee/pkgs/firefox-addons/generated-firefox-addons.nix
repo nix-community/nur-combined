@@ -14601,10 +14601,10 @@
     };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "5.0.2";
+      version = "5.0.3";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589880/watchmarker_for_youtube-5.0.2.xpi";
-      sha256 = "39c55d3e35638fe430baaf03abd4fd96b5c08fe51b40acf9bf3cd26b209c29db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4591615/watchmarker_for_youtube-5.0.3.xpi";
+      sha256 = "c3a1f0fe9731542bf79957350cf9cb61fd6b73c3356c516cd593ad1498c152a1";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
