@@ -6,7 +6,6 @@
   alsa-lib,
   libtool,
   libxkbcommon,
-  bzip2,
   nspr,
   udev,
   gtk3,
@@ -74,7 +73,6 @@ stdenv.mkDerivation {
     alsa-lib
     libtool
     libxkbcommon
-    bzip2
     nspr
     udev
     gtk3
