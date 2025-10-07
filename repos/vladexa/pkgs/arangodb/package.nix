@@ -78,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # avoid reading /proc/cpuinfo for feature detection
     "-DTARGET_ARCHITECTURE=${targetArch}"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ]
   ++ lib.optionals asmOptimizations [
     "-DASM_OPTIMIZATIONS=ON"
