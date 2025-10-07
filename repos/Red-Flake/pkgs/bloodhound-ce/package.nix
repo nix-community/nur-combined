@@ -48,8 +48,11 @@ let
 
     # https://nixos.org/manual/nixpkgs/unstable/#javascript-fetchYarnBerryDeps
     # https://nixos.org/manual/nixpkgs/unstable/#javascript-yarnBerry-missing-hashes
+    # copy the yarn.lock from the upstream BloodHound repo next to this package.nix file
+    # then replace all occurences of git@github.com with https://github.com in the yarn.lock file to avoid ssh usage since nix builds have no ssh
+    # => run: `sed -i.bak 's|git@github.com:\(.*\)\.git|https://github.com/\1.git|g' yarn.lock`
     offlineCache = yarn-berry_3.fetchYarnBerryDeps {
-      yarnLock = "${finalAttrs.src}/yarn.lock";
+      yarnLock = ./yarn.lock;
 
       ###
       # Prefetch with yarn-berry-fetcher;
@@ -63,7 +66,7 @@ let
       # run: `nix run nixpkgs#yarn-berry_3.yarn-berry-fetcher prefetch yarn.lock missing-hashes.json`
       # use the same yarn.lock file from the upstream bloodhound repo as before
       # the copy the resulting hash here:
-      hash = "sha256-+BX7YPx3puC4iBc3ABYp/yH4qxNu1pKzolmdZxITs7w=";
+      hash = "sha256-Mt2Z8HTFwl4W2H4xsvrOcD5Kxr8SvKEUo07+hU1No5E=";
     };
 
     nativeBuildInputs = [
@@ -82,23 +85,9 @@ let
 
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-    configurePhase = ''
-      runHook preConfigure
+    strictDeps = true;
 
-      export HOME=$(mktemp -d)
-
-      configureDependencies () {
-        yarn config --offline set yarn-offline-mirror $1
-        fixup-yarn-lock "$2/yarn.lock"
-        yarn install --offline --cwd "$2" --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive
-
-        patchShebangs "$2/node_modules/"
-      }
-
-      configureDependencies ${finalAttrs.offlineCache} "."
-
-      runHook postConfigure
-    '';
+    dontConfigure = true;
 
     buildPhase = ''
       runHook preBuild
