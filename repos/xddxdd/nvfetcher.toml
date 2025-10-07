@@ -345,6 +345,14 @@ src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 fetch.github = "helium/gwmp-mux"
 src.github = "helium/gwmp-mux"
 
+[hack3ric-flow]
+fetch.github = "hack3ric/flow"
+src.git = "https://github.com/hack3ric/flow.git"
+
+[hack3ric-flow-stable]
+fetch.github = "hack3ric/flow"
+src.github = "hack3ric/flow"
+
 [helium-gateway-rs]
 fetch.github = "helium/gateway-rs"
 src.git = "https://github.com/helium/gateway-rs.git"

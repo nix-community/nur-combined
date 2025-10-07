@@ -719,6 +719,11 @@
     "pname": "gwmp-mux",
     "version": "0.11.0"
   },
+  "legacyPackages.x86_64-linux.hack3ric-flow": {
+    "description": "BGP flowspec executor",
+    "pname": "hack3ric-flow",
+    "version": "0.2.0-unstable-2025-09-28"
+  },
   "legacyPackages.x86_64-linux.hath": {
     "description": "Hentai@Home",
     "pname": "hath",
@@ -4774,6 +4779,11 @@
     "pname": "gwmp-mux",
     "version": "0.11.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.hack3ric-flow": {
+    "description": "BGP flowspec executor",
+    "pname": "hack3ric-flow",
+    "version": "0.2.0-unstable-2025-09-28"
+  },
   "legacyPackages.x86_64-linux.uncategorized.hath": {
     "description": "Hentai@Home",
     "pname": "hath",
@@ -5698,6 +5708,11 @@
     "description": "Multiplexer for Semtech's GWMP over UDP",
     "pname": "gwmp-mux",
     "version": "0.11.0"
+  },
+  "packages.x86_64-linux.hack3ric-flow": {
+    "description": "BGP flowspec executor",
+    "pname": "hack3ric-flow",
+    "version": "0.2.0-unstable-2025-09-28"
   },
   "packages.x86_64-linux.hath": {
     "description": "Hentai@Home",

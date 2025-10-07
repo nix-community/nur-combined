@@ -778,6 +778,27 @@
       hash = "sha256-xSdheb7Io0b+CognG1SKF2GH8RaEsSdSjI2IkjiGSes=";
     };
   };
+  hack3ric-flow = {
+    pname = "hack3ric-flow";
+    version = "fd5a3199f4849548106f288966a4a77b05b9cad0";
+    src = fetchFromGitHub {
+      owner = "hack3ric";
+      repo = "flow";
+      rev = "fd5a3199f4849548106f288966a4a77b05b9cad0";
+      hash = "sha256-RnyUxDE36YMX/MHrvMv2lDMqKvjSvyvQBraYwyplOjw=";
+    };
+    date = "2025-09-28";
+  };
+  hack3ric-flow-stable = {
+    pname = "hack3ric-flow-stable";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "hack3ric";
+      repo = "flow";
+      tag = "v0.2.0";
+      hash = "sha256-TzhgI+AsJrhnHhxTOraSY47XO8pDoWGrc8eZKCNx75E=";
+    };
+  };
   helium-gateway-rs = {
     pname = "helium-gateway-rs";
     version = "b736b006af618d67433e0d4c19d626260fad6dcb";

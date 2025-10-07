@@ -1495,6 +1495,48 @@
         },
         "version": "v0.11.0"
     },
+    "hack3ric-flow": {
+        "cargoLock": null,
+        "date": "2025-09-28",
+        "extract": null,
+        "name": "hack3ric-flow",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hack3ric",
+            "repo": "flow",
+            "rev": "fd5a3199f4849548106f288966a4a77b05b9cad0",
+            "sha256": "sha256-RnyUxDE36YMX/MHrvMv2lDMqKvjSvyvQBraYwyplOjw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fd5a3199f4849548106f288966a4a77b05b9cad0"
+    },
+    "hack3ric-flow-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hack3ric-flow-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hack3ric",
+            "repo": "flow",
+            "rev": "v0.2.0",
+            "sha256": "sha256-TzhgI+AsJrhnHhxTOraSY47XO8pDoWGrc8eZKCNx75E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.0"
+    },
     "helium-gateway-rs": {
         "cargoLock": null,
         "date": "2025-04-11",

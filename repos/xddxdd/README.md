@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (195 packages)</summary>
+<summary>Package set: (Uncategorized) (196 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -142,6 +142,7 @@ Or, use variables from this repository in case I change them:
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
 | `x86_64-linux` | `gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
+|  | `hack3ric-flow` | [hack3ric-flow](https://github.com/hack3ric/flow) | 0.2.0-unstable-2025-09-28 | BGP flowspec executor |
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
@@ -1121,7 +1122,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (142 packages)</summary>
+<summary>Package set: uncategorized (143 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1166,6 +1167,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
 | `x86_64-linux` | `uncategorized.gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `uncategorized.gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
+|  | `uncategorized.hack3ric-flow` | [hack3ric-flow](https://github.com/hack3ric/flow) | 0.2.0-unstable-2025-09-28 | BGP flowspec executor |
 |  | `uncategorized.hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `uncategorized.helium-gateway-rs` | [helium-gateway-rs](https://github.com/helium/gateway-rs) | 1.3.0-unstable-2025-04-11 | Helium Gateway |
 |  | `uncategorized.hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
