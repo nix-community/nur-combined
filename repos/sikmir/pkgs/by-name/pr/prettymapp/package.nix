@@ -21,6 +21,8 @@ python3Packages.buildPythonPackage rec {
 
   dependencies = with python3Packages; [ osmnx ];
 
+  pythonRelaxDeps = true;
+
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     mock
@@ -38,6 +40,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/chrieke/prettymapp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # osmnx
   };
 }

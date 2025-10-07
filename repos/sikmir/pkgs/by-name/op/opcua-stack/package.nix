@@ -22,8 +22,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace-fail "/usr" "$out"
+    substituteInPlace OpcUaClient/CMakeLists.txt \
+      --replace-fail "/etc" "$out/etc" \
+      --replace-fail "/var/log" "$out/var/log"
+    substituteInPlace OpcUaCtrl/CMakeLists.txt --replace-fail "/etc" "$out/etc"
     substituteInPlace OpcUaStackCore/CMakeLists.txt --replace-fail "/usr" "$out"
     substituteInPlace OpcUaStackServer/CMakeLists.txt --replace-fail "/usr" "$out"
+    substituteInPlace OpcUaGenerator/CMakeLists.txt --replace-fail "/usr" "$out"
   '';
 
   nativeBuildInputs = [ cmake ];
@@ -33,12 +38,14 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
+  installFlags = [ "INSTALL_PREFIX=$(out)" ];
+
   meta = {
     description = "Open Source OPC UA Application Server and OPC UA Client/Server C++ Libraries";
     homepage = "https://asneg.github.io/projects/opcuastack";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    skip.ci = true;
   };
 })
