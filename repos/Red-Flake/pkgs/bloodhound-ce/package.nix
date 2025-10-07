@@ -5,6 +5,7 @@
   fetchFromGitHub,
   buildGoModule,
   yarn-berry_3,
+  fixup-yarn-lock,
   nodejs,
   nodePackages,
   fetchurl,
@@ -48,7 +49,7 @@ let
     # https://nixos.org/manual/nixpkgs/unstable/#javascript-fetchYarnBerryDeps
     # https://nixos.org/manual/nixpkgs/unstable/#javascript-yarnBerry-missing-hashes
     offlineCache = yarn-berry_3.fetchYarnBerryDeps {
-      yarnLock = src + "/yarn.lock";
+      yarnLock = "${finalAttrs.src}/yarn.lock";
 
       ###
       # Prefetch with yarn-berry-fetcher;
@@ -69,6 +70,7 @@ let
       nodejs
       yarn-berry_3
       yarn-berry_3.yarnBerryConfigHook # Installs deps from offlineCache to node_modules (hoists workspace:*)
+      fixup-yarn-lock
     ];
 
     # Native toolchain for tree-sitter bindings (YAML/JSON grammars in UI for SharpHound JSON preview pre-ingest)
@@ -78,11 +80,22 @@ let
       pkgs.pkg-config
     ];
 
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+
     configurePhase = ''
       runHook preConfigure
 
-      # Ensure writable node_modules for Vite/esbuild (Berry hoists to .yarn/cache, but symlinks need chmod for builds)
-      chmod -R +w node_modules .yarn
+      export HOME=$(mktemp -d)
+
+      configureDependencies () {
+        yarn config --offline set yarn-offline-mirror $1
+        fixup-yarn-lock "$2/yarn.lock"
+        yarn install --offline --cwd "$2" --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive
+
+        patchShebangs "$2/node_modules/"
+      }
+
+      configureDependencies ${finalAttrs.offlineCache} "."
 
       runHook postConfigure
     '';
@@ -94,7 +107,12 @@ let
       yarn workspaces focus --production bloodhound-ui  # Hoists @bloodhound/types for type-safe Cypher risk calcs (e.g., GenericAll edges for delegation exploits)
 
       cd cmd/ui
-      yarn build  # Vite bundles dist/ (hashed JS/CSS ~2MB; Sigma 2.4 renders weighted paths like ResourceBasedConstrainedDelegation → DCSync RCE)
+
+      # Vite bundles dist/ (hashed JS/CSS ~2MB; Sigma 2.4 renders weighted paths like ResourceBasedConstrainedDelegation → DCSync RCE)
+      yarn --offline run generate
+      yarn --offline run build:release \
+      --dir \
+      --config.npmRebuild=false
 
       runHook postBuild
     '';
