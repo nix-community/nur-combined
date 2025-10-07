@@ -6,6 +6,7 @@
   buildGoModule,
   yarn-berry_3,
   fixup-yarn-lock,
+  typescript,
   nodejs,
   nodePackages,
   fetchurl,
@@ -74,6 +75,7 @@ let
       yarn-berry_3
       yarn-berry_3.yarnBerryConfigHook # Installs deps from offlineCache to node_modules (hoists workspace:*)
       fixup-yarn-lock
+      typescript
     ];
 
     # Native toolchain for tree-sitter bindings (YAML/JSON grammars in UI for SharpHound JSON preview pre-ingest)
@@ -90,6 +92,9 @@ let
     dontConfigure = true;
 
     buildPhase = ''
+      # this line removes a bug where value of $HOME is set to a non-writable /homeless-shelter dir
+      export HOME=$(pwd)
+
       runHook preBuild
 
       # Focus on UI workspace + transitives (prunes unrelated cmd/go tooling; ~150MB vs full 500MB monorepo)
@@ -98,10 +103,7 @@ let
       cd cmd/ui
 
       # Vite bundles dist/ (hashed JS/CSS ~2MB; Sigma 2.4 renders weighted paths like ResourceBasedConstrainedDelegation → DCSync RCE)
-      yarn --offline run generate
-      yarn --offline run build:release \
-      --dir \
-      --config.npmRebuild=false
+      yarn build
 
       runHook postBuild
     '';
