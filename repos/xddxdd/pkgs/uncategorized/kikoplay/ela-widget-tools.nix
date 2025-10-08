@@ -9,7 +9,7 @@
 stdenv.mkDerivation {
   inherit (sources.ela-widget-tools) pname version src;
 
-  patches = [ ./fix-install-path.patch ];
+  patches = [ ./ela-widget-tools-fix-install-path.patch ];
 
   nativeBuildInputs = [
     cmake

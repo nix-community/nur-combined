@@ -3562,6 +3562,27 @@
         },
         "version": "ace3d4d936115f4b34a0d8c240a29f5cd7c23743"
     },
+    "qtwebapp": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qtwebapp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fffaraz",
+            "repo": "QtWebApp",
+            "rev": "v1.9.0",
+            "sha256": "sha256-L6/M8klo7bDKKwKC2tCc9IqN0nYy+x2c5Es51LHD7z4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.9.0"
+    },
     "r8125": {
         "cargoLock": null,
         "date": null,

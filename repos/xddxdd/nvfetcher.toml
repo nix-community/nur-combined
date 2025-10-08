@@ -803,6 +803,10 @@ git.fetchSubmodules = true
 src.webpage = "https://raw.githubusercontent.com/QSPFoundation/qspgui/refs/heads/master/CMakeLists-wxWidgets.txt.in"
 src.regex = "GIT_TAG\\s+([0-9a-f]{40})"
 
+[qtwebapp]
+fetch.github = "fffaraz/QtWebApp"
+src.github = "fffaraz/QtWebApp"
+
 [r8125]
 fetch.github = "awesometic/realtek-r8125-dkms"
 src.github_tag = "awesometic/realtek-r8125-dkms"

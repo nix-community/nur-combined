@@ -1831,6 +1831,16 @@
       hash = "sha256-XeHZ3iLzCvhukXYuFyRiXaZWxpAuPkWV/h4Mzaj9ZR0=";
     };
   };
+  qtwebapp = {
+    pname = "qtwebapp";
+    version = "v1.9.0";
+    src = fetchFromGitHub {
+      owner = "fffaraz";
+      repo = "QtWebApp";
+      tag = "v1.9.0";
+      hash = "sha256-L6/M8klo7bDKKwKC2tCc9IqN0nYy+x2c5Es51LHD7z4=";
+    };
+  };
   r8125 = {
     pname = "r8125";
     version = "9.016.01-1";
