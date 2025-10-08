@@ -37,7 +37,7 @@ let
       uri,
       hash,
     }:
-    runCommandLocal "wpsoffice-cn-${version}-src"
+    runCommandLocal "wpsoffice-cn-${version}.deb"
       {
         outputHashAlgo = "sha256";
         outputHash = hash;
