@@ -1,0 +1,32 @@
+name: "Build & Push to Cachix"
+on:
+  push:
+    branches:
+    - master
+  schedule:
+    # build every Monday at 2:30
+    - cron: "30 2 * * 1"
+
+permissions: {}
+
+jobs:
+  update-flake-lock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install nix
+        uses: nixbuild/nix-quick-install-action@63ca48f939ee3b8d835f4126562537df0fee5b91 # v32
+      - name: Run cachix
+        uses: cachix/cachix-action@ee79db531bfb851a7cf47035057b7cca88d26449 # 2025-08-15
+        with:
+          name: definfo
+          # If you chose signing key for write access
+          # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          # If you chose API tokens for write access OR if you have a private cache
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'

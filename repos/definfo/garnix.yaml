@@ -1,9 +1,6 @@
 builds:
   - exclude:
-      - "packages.*.sjtu-canvas-helper" # insecure
       - "packages.x86_64-darwin.aya-prover"
       - "packages.aarch64-darwin.aya-prover" # FIXME
       - "packages.x86_64-darwin.waylrc"
       - "packages.aarch64-darwin.waylrc"
-  - include:
-      - "packages.*.*"

@@ -2,7 +2,7 @@
 
 let SYSTEM = (nix eval --impure --raw --expr 'builtins.currentSystem')
 let PKGS = (nix eval --raw $".#packages.($SYSTEM)" --apply 'attrs: builtins.toString (builtins.attrNames attrs)' | split row ' ')
-let EXCLUDED_PKGS = [ lyricer sjtu-canvas-helper ]
+let EXCLUDED_PKGS = [ sarasa-term-sc-nerd sjtu-canvas-helper ]
 
 let UPDATE_ARGS = {
     # custom version format

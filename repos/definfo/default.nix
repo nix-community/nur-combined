@@ -22,11 +22,11 @@ rec {
   aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
   flexfox-css = pkgs.callPackage ./pkgs/flexfox-css { };
-  isla-sail = pkgs.ocamlPackages.callPackage ./pkgs/isla-sail {
-    inherit sail;
-  };
   nsub = pkgs.callPackage ./pkgs/nsub { };
-  sail = pkgs.ocamlPackages.callPackage ./pkgs/sail { };
+  sarasa-term-sc-nerd = pkgs.callPackage ./pkgs/sarasa-term-sc-nerd { };
+  sarasa-term-sc-nerd-unhinted = pkgs.callPackage ./pkgs/sarasa-term-sc-nerd {
+    variance = "unhinted";
+  };
   sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
   waylrc = pkgs.callPackage ./pkgs/waylrc { };
 
