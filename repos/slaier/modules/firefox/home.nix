@@ -34,7 +34,6 @@ in
     profiles.default = {
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         adnauseam
-        aria2-integration
         bitwarden
         buster-captcha-solver
         clearurls
@@ -248,9 +247,18 @@ in
       };
     };
   };
-  home.file."${profilesPath}/default/chrome" = {
-    source = pkgs.wavefox;
-    recursive = true;
-    force = true;
-  };
+  home.file."${profilesPath}/default/chrome" =
+    let
+      theme = pkgs.fetchFromGitHub {
+        owner = "akkva";
+        repo = "gwfox";
+        rev = "2.12";
+        sha256 = "sha256-JYXudeVi6hv9VnJ6LSnZpBTa6HZs3G9Awo6bO0vds18=";
+      };
+    in
+    {
+      source = "${theme}/chrome";
+      recursive = true;
+      force = true;
+    };
 }

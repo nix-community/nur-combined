@@ -41,7 +41,6 @@ jobs:
       - name: Update inputs
         if: steps.first_week.outputs.is_first_week == 'true'
         run: |
-          nix develop .#update --command just update
           nix flake update
           git diff | tee ${{ runner.temp }}/update.patch
       - name: Upload patch

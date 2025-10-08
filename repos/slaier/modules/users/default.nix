@@ -17,7 +17,9 @@ in
       "dialout"
       "docker"
       "libvirtd"
+      "render"
       "vboxusers"
+      "video"
       "wheel"
       config.services.syncthing.group
       config.users.groups.keys.name

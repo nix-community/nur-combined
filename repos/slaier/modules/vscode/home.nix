@@ -141,20 +141,19 @@ in
           "geminicodeassist.customCommands" = {
             "git-commit" = builtins.concatStringsSep " " [
               "You will act as a git commit message generator."
-              "You will ONLY output the commit message itself, nothing else."
-              "No explanations, no questions, no additional comments."
               "Commits should follow the Conventional Commits specification."
-              "To get the changes, you can use `git diff --cached`."
-              "Write your output to .git/COMMIT_EDITMSG."
+              "Changes have been staged."
+              "You can run `git diff --cached` to get the changes."
+              "Write your output to file `.git/COMMIT_EDITMSG`."
               "50 is the maximum number of characters of the commit title."
               "72 is the maximum character length of the commit body."
-              "Lines starting with `#` are comments and should not be modified."
             ];
           };
           "geminicodeassist.rules" = ''
             Never ask "Would you like me to make this change for you?" Just do it.
           '';
           "geminicodeassist.inlineSuggestions.enableAuto" = false;
+          "geminicodeassist.inlineSuggestions.nextEditPredictions" = false;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "${lib.getExe pkgs.nil}";
           "nix.serverSettings" = {

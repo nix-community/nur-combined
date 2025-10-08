@@ -18,7 +18,6 @@ layout {
 }
 
 spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "niriswitcher"
 
 window-rule {
