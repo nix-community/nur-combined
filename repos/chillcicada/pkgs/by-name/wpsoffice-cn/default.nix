@@ -4,8 +4,10 @@
   autoPatchelfHook,
   # wpsoffice dependencies
   alsa-lib,
+  libjpeg,
   libtool,
   libxkbcommon,
+  nss,
   nspr,
   udev,
   gtk3,
@@ -15,6 +17,7 @@
   xorg,
   cups,
   pango,
+  unixODBC,
   libmysqlclient,
   # wpsoffice build dependencies
   runCommandLocal,
@@ -71,13 +74,16 @@ stdenv.mkDerivation {
 
   buildInputs = [
     alsa-lib
+    libjpeg
     libtool
     libxkbcommon
+    nss
     nspr
     udev
     gtk3
     libgbm
     libusb1
+    unixODBC
     libsForQt5.qtbase
     xorg.libXdamage
     xorg.libXtst
@@ -101,7 +107,7 @@ stdenv.mkDerivation {
     # Remove unneeded files
     rm -f usr/bin/misc
     rm -rf opt/kingsoft/wps-office/{desktops,INSTALL}
-    rm -f opt/kingsoft/wps-office/office6/{libpeony-wpsprint-menu-plugin.so,libbz2.so}
+    rm -f opt/kingsoft/wps-office/office6/{libpeony-wpsprint-menu-plugin.so,libbz2.so,libjpeg.so*,libstdc++.so*,libgcc_s.so*,libodbc*.so*,libnss*.so*}
   '';
 
   installPhase = ''
