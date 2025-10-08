@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "benjamimgois";
     repo = "goverlay";
     tag = finalAttrs.version;
-    sha256 = "sha256-jYmI58dKZ+d9LEWp5WN31kSOj+MVTY1fs2sWFsyDnGc=";
+    sha256 = "sha256-Sf6kgk+RWdOYzMXqc+8aKCUWY3FCDMvIGM9auDqQqUc=";
   };
 
   outputs = [
