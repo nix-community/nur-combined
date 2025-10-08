@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ];
-  cmakeFlags = [ "-DUSE_DEP=OFF" ];
+  cmakeFlags = [
+    (lib.cmakeFeature "USE_DEP" "OFF")
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
+  ];
   enableParallelBuilding = true;
 
   # fixes building on linux aarch64 (or anything non-x86_64 probably)
