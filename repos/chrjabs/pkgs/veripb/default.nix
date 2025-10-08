@@ -1,49 +1,29 @@
 {
   lib,
-  python,
+  rustPlatform,
   fetchFromGitLab,
-  gmp,
-  zlib,
 }:
-python.pkgs.buildPythonApplication rec {
+rustPlatform.buildRustPackage rec {
   pname = "veripb";
-  version = "2.3.0";
-  pyproject = true;
+  version = "3.0.0";
 
   src = fetchFromGitLab {
     owner = "MIAOresearch";
-    repo = "VeriPB";
+    repo = "software/VeriPB";
     rev = version;
-    hash = "sha256-yJOr+dWG0mwu+FjZZol68axmrnVXrluRTHGVTGSsTB0=";
+    hash = "sha256-FLgCMK16XQ0Q5xUmc5vOCV9HvjkIOcK5rNu9RTws2wU=";
   };
 
-  postPatch = ''
-    substituteInPlace setup.py --replace-fail "setuptools-git-versioning<2" "setuptools-git-versioning"
-  '';
-
-  build-system = [
-    python.pkgs.setuptools
-    python.pkgs.wheel
-  ];
-
-  propagatedBuildInputs = with python.pkgs; [
-    cython
-    pybind11
-    setuptools-git-versioning
-  ];
-
-  buildInputs = [
-    gmp
-    zlib
-  ];
-
-  pythonImportsCheck = [ "veripb" ];
+  cargoHash = "sha256-LhPtR8Re4+m+rMYs/A9Hc3/S0sDJDGtRn7BWbGfKruk=";
 
   meta = {
-    description = "Proof checker for proof logging method using pseudo-Boolean reasoning for various combinatorial solving and optimization algorithms";
-    homepage = "https://gitlab.com/MIAOresearch/VeriPB";
-    changelog = "https://gitlab.com/MIAOresearch/VeriPB/-/blob/${src.rev}/CHANGELOG.md";
-    license = lib.licenses.mit;
+    description = "VeriPB is a proof checker for verifying pseudo-Boolean certificates of satisfiability, unsatisfiability, and optimality bounds";
+    homepage = "https://gitlab.com/MIAOresearch/software/VeriPB";
+    changelog = "https://gitlab.com/MIAOresearch/software/VeriPB/-/blob/${src.rev}/CHANGELOG.md";
+    license = with lib.licenses; [
+      mit
+      asl20
+    ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     mainProgram = "veripb";
   };

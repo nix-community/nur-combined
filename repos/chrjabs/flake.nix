@@ -61,7 +61,6 @@
               gbdc
               gbdc-tool
               kani
-              pboxide
               python-mip
               veripb
               gimsatul

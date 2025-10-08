@@ -19,7 +19,6 @@ rec {
 
   # VeriPB proof checker
   veripb = pkgs.python3Packages.callPackage ./pkgs/veripb { };
-  pboxide = pkgs.callPackage ./pkgs/pboxide { };
 
   # GBD benchmark database
   gbd = pkgs.python3Packages.callPackage ./pkgs/gbd { inherit gbdc; };

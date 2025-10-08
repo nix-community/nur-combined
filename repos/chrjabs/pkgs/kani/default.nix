@@ -13,12 +13,12 @@
   autoPatchelfHook,
 }:
 let
-  version = "0.64.0";
+  version = "0.65.0";
 
   rustPkgs = extend (import rust-overlay);
 
   # Rust toolchain as specified in `$KANI_HOME/rust-toolchain-version`
-  rustHome = rustPkgs.rust-bin.nightly."2025-07-02".default.override {
+  rustHome = rustPkgs.rust-bin.nightly."2025-08-06".default.override {
     extensions = [
       "rustc-dev"
       "rust-src"
@@ -35,19 +35,19 @@ let
   releases = {
     x86_64-linux = fetchurl {
       url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256-6oeBKPgcmdclQ3N531MgUUgY6ZO/JLTqF4AJlYK9E74=";
+      sha256 = "sha256-+49bW2gT6cnl8EBS+NcKIAM0DIKTRLPP5vLkdhTGmrg=";
     };
     aarch64-linux = fetchurl {
       url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256-lE6tiCaR4eh+p7gpuDiGfERKPhaoH74X4GDI6aEMjO0=";
+      sha256 = "sha256-/W3tw2+YP1qtZfK70toX4fljF7x2NX7c+/ZyGZA8qrA=";
     };
     x86_64-darwin = fetchurl {
       url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-x86_64-apple-darwin.tar.gz";
-      sha256 = "sha256-KRpmLG/yYl1kXgaVUS8N7M97eouODPCx8zjmw8/AOpw=";
+      sha256 = "sha256-IbsMvDkyqYroSJv8UKOjRhkfXjgnLyjs1yhkEwyZdhw=";
     };
     aarch64-darwin = fetchurl {
       url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-aarch64-apple-darwin.tar.gz";
-      sha256 = "sha256-tU2BWiE74gNmuda9EZNhhyB8WPB4aZUUL8UP9zOlKSg=";
+      sha256 = "sha256-R5sj7gT1BxIkLhNj9ZUIm1WDciUXzfi42kjbhANt+ac=";
     };
   };
 
@@ -84,7 +84,7 @@ rustPlatform.buildRustPackage {
     owner = "model-checking";
     repo = "kani";
     rev = "kani-${version}";
-    hash = "sha256-8UyAO9eTwcUtOktSJ9QdYpccgDRefWDTIewjAwvkhdA=";
+    hash = "sha256-xle2JCn0HjrWrIkaWbm5mGm0+hPGClMzt3PEO7OgAqg=";
     fetchSubmodules = true;
   };
 
@@ -106,7 +106,7 @@ rustPlatform.buildRustPackage {
     wrapProgram $out/bin/cargo-kani --set KANI_HOME $out/lib/
   '';
 
-  cargoHash = "sha256-YFPkV3cptOnkT5+emOARFS+gEvCjAtAj/Fzhn9xj2ww=";
+  cargoHash = "sha256-XQKzjggT611dPb4tDYIHPuOQ/jo4W5hdc75omIaEggQ=";
 
   env = {
     RUSTUP_HOME = "${rustHome}";
