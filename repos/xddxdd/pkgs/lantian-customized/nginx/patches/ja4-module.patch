@@ -1,5 +1,5 @@
 diff --git a/src/ngx_http_ssl_ja4_module.c b/src/ngx_http_ssl_ja4_module.c
-index d070290..f2de361 100644
+index 4df4461..f2de361 100644
 --- a/src/ngx_http_ssl_ja4_module.c
 +++ b/src/ngx_http_ssl_ja4_module.c
 @@ -104,6 +104,12 @@ int ngx_ssl_ja4(ngx_connection_t *c, ngx_pool_t *pool, ngx_ssl_ja4_t *ja4)
@@ -15,49 +15,7 @@ index d070290..f2de361 100644
      // TODO: verify this
      // 2. Determine if SNI is present or not:
      const char *sni_name = SSL_get_servername(ssl, TLSEXT_NAMETYPE_host_name);
-@@ -229,6 +235,13 @@ int ngx_ssl_ja4(ngx_connection_t *c, ngx_pool_t *pool, ngx_ssl_ja4_t *ja4)
-         ngx_memcpy(ja4->cipher_hash_truncated, ja4->cipher_hash, 12);
-         ja4->cipher_hash_truncated[12] = '\0'; // Null-terminate the truncated hex string
-     }
-+    else
-+    {
-+        ngx_memset(ja4->cipher_hash, '0', 2 * SHA256_DIGEST_LENGTH);
-+        ja4->cipher_hash[2 * SHA256_DIGEST_LENGTH] = '\0';
-+        ngx_memset(ja4->cipher_hash_truncated, '0', 12);
-+        ja4->cipher_hash_truncated[12] = '\0'; // Null-terminate the truncated hex string
-+    }
- 
-     /* Extensions */
-     ja4->extensions = NULL;
-@@ -399,6 +412,13 @@ int ngx_ssl_ja4(ngx_connection_t *c, ngx_pool_t *pool, ngx_ssl_ja4_t *ja4)
-         ngx_memcpy(ja4->extension_hash_truncated, hex_hash_truncated, 12);
-         ja4->extension_hash_truncated[12] = '\0';
-     }
-+    else
-+    {
-+        ngx_memset(ja4->extension_hash, '0', 2 * SHA256_DIGEST_LENGTH);
-+        ja4->extension_hash[2 * SHA256_DIGEST_LENGTH] = '\0';
-+        ngx_memset(ja4->extension_hash_truncated, '0', 12);
-+        ja4->extension_hash_truncated[12] = '\0'; // Null-terminate the truncated hex string
-+    }
- 
-     // generate hash for extensions_no_psk
-     // also doesn't include signature algorithms
-@@ -442,6 +462,13 @@ int ngx_ssl_ja4(ngx_connection_t *c, ngx_pool_t *pool, ngx_ssl_ja4_t *ja4)
-         ngx_memcpy(ja4->extension_hash_no_psk_truncated, hex_hash_truncated, 12);
-         ja4->extension_hash_no_psk_truncated[12] = '\0';
-     }
-+    else
-+    {
-+        ngx_memset(ja4->extension_hash_no_psk, '0', 2 * SHA256_DIGEST_LENGTH);
-+        ja4->extension_hash_no_psk[2 * SHA256_DIGEST_LENGTH] = '\0';
-+        ngx_memset(ja4->extension_hash_no_psk_truncated, '0', 12);
-+        ja4->extension_hash_no_psk_truncated[12] = '\0'; // Null-terminate the truncated hex string
-+    }
-     return NGX_OK;
- }
- void ngx_ssl_ja4_fp(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
-@@ -461,10 +488,7 @@ void ngx_ssl_ja4_fp(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
+@@ -482,10 +488,7 @@ void ngx_ssl_ja4_fp(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
      size_t cur = 0;
  
      // q for QUIC or t for TCP
@@ -69,7 +27,7 @@ index d070290..f2de361 100644
  
      // 2 character TLS version
      memcpy(out->data + cur, ja4->version, 2);
-@@ -617,7 +641,7 @@ void ngx_ssl_ja4_fp_string(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
+@@ -638,7 +641,7 @@ void ngx_ssl_ja4_fp_string(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
      size_t cur = 0;
  
      // t for TCP
@@ -78,7 +36,7 @@ index d070290..f2de361 100644
  
      // 2 character TLS version
      if (ja4->version == NULL)
-@@ -779,10 +803,7 @@ void ngx_ssl_ja4one_fp(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
+@@ -800,10 +803,7 @@ void ngx_ssl_ja4one_fp(ngx_pool_t *pool, ngx_ssl_ja4_t *ja4, ngx_str_t *out)
      size_t cur = 0;
  
      // q for QUIC or t for TCP
