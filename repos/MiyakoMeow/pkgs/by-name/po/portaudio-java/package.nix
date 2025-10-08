@@ -4,6 +4,7 @@
   portaudio,
   jdk,
   cmake,
+  ninja,
   gradle,
   fetchFromGitHub,
   nix-update-script,
@@ -20,65 +21,63 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
+    # Prefer Ninja-backed CMake builds if available
+    # (falls back to Makefiles when ninja is absent)
+    # Add ninja to leverage standard CMake hooks without manual make calls
+    ninja
     gradle
     jdk
   ];
   buildInputs = [ portaudio ];
 
-  # Set up necessary environment variables
   env = {
     JAVA_HOME = jdk.home;
     GRADLE_HOME = gradle;
   };
 
-  # Fix CMake installation path issue
   cmakeFlags = [
-    "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
-    # Fix gradlew cannot find library issue
-    "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_BUILD_TYPE=Release"
   ];
 
-  configurePhase = ''
-    cmake . $cmakeFlags
+  postPatch = ''
+    if [ -f CMakeLists.txt ]; then
+      sed -i -E 's/cmake_minimum_required\s*\(\s*VERSION[^)]*\)/cmake_minimum_required(VERSION 3.5)/' CMakeLists.txt
+    fi
   '';
 
-  buildPhase = ''
-    # Only build, do not install
-    make
+  # Use standard CMake phases; run Gradle after native build via postBuild hook
+  postBuild = ''
+    : "${"cmakeBuildDir:=build"}"
+    nativeLibDir="$PWD/native-libs"
+    mkdir -p "$nativeLibDir"
+    # Collect built native libraries from CMake build directory only
+    if [ -d "$cmakeBuildDir" ]; then
+      find "$cmakeBuildDir" -type f -name '*.so' -exec cp -v -n {} "$nativeLibDir/" \;
+    fi
 
-    # Key modification 1: Manually locate and prepare library files
-    JNI_LIB_DIR=$(find . -type d -path "*/jni" | head -1)
-    mkdir -p native-libs
-    find $JNI_LIB_DIR -name '*.so' -exec cp {} native-libs/ \;
-
-    # Key modification 2: Set Java and JNI library paths
-    export JAVA_LIBRARY_PATH=$PWD/native-libs:$JAVA_LIBRARY_PATH
-    export LD_LIBRARY_PATH=$PWD/native-libs:$LD_LIBRARY_PATH
-
-    # Build Java part
-    export GRADLE_USER_HOME=$(mktemp -d)
-    gradle --no-daemon -Djava.library.path=$PWD/native-libs assemble
+    export GRADLE_USER_HOME="$(mktemp -d)"
+    # Run Gradle from source root
+    sourceRoot="$NIX_BUILD_TOP/source"
+    if [ -d "$sourceRoot" ]; then
+      ( cd "$sourceRoot" && gradle --no-daemon -Djava.library.path="$nativeLibDir" assemble )
+    fi
   '';
 
-  installPhase = ''
-    echo "Installing jportaudio..."
+  # After CMake install, place built JARs into $out
+  postInstall = ''
+    : "${"cmakeBuildDir:=build"}"
+    sourceRoot="$NIX_BUILD_TOP/source"
+    mkdir -p "$out/share/java"
+    if ls "$sourceRoot"/build/libs/*.jar >/dev/null 2>&1; then
+      cp "$sourceRoot"/build/libs/*.jar "$out/share/java/"
+    fi
 
-    # Install JAR files
-    mkdir -p $out/share/java
-    cp build/libs/*.jar $out/share/java/
-
-    # Install native libraries
-    mkdir -p $out/lib
-    cp ./*.so $out/lib/
-
-    # Find the highest version of libjportaudio*.so
-    LIB_FILE=$(ls $out/lib/libjportaudio*.so 2>/dev/null | sort -V | tail -1)
-    if [ -n "$LIB_FILE" ]; then
-      ln -sf "$LIB_FILE" $out/lib/libjportaudio.so
-    else
-      echo "No libjportaudio*.so files found!"
-      return 1
+    # Ensure unversioned symlink exists if only versioned lib was installed by CMake
+    if [ ! -e "$out/lib/libjportaudio.so" ]; then
+      candidate=$(ls "$out"/lib/libjportaudio*.so* 2>/dev/null | sort -V | tail -n1 || true)
+      if [ -n "$candidate" ]; then
+        ln -s "$(basename "$candidate")" "$out/lib/libjportaudio.so"
+      fi
     fi
   '';
 

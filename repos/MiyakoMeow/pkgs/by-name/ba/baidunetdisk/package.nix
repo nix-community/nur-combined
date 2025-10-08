@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     atk
     cairo
     gdk-pixbuf
-    
+
     # X11 相关
     xorg.libX11
     xorg.libXext
@@ -72,16 +72,16 @@ stdenv.mkDerivation rec {
     xorg.xcbutilkeysyms
     xorg.xcbutilrenderutil
     xorg.xcbutilwm
-    
+
     # 网络和加密
     openssl
     curl
     nss
     nspr
-    
+
     # 多媒体
     ffmpeg
-    
+
     # 系统库
     zlib
     libuuid
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     libsepol
     libcap
     systemd
-    
+
     # 桌面集成
     xdg-utils
   ];
