@@ -10,7 +10,11 @@ on:
 permissions: {}
 
 jobs:
-  update-flake-lock:
+  tests:
+    strategy:
+      matrix:
+        nurRepo:
+          - definfo
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,3 +34,9 @@ jobs:
           # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
           # If you chose API tokens for write access OR if you have a private cache
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Trigger NUR update
+        # Don't replace <YOUR_REPO_NAME> here!
+        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
