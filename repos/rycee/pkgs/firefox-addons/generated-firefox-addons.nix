@@ -2690,10 +2690,10 @@
     };
     "dark-mode-webextension" = buildFirefoxXpiAddon {
       pname = "dark-mode-webextension";
-      version = "0.5.3";
+      version = "0.5.4";
       addonId = "{174b2d58-b983-4501-ab4b-07e71203cb43}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4367168/dark_mode_webextension-0.5.3.xpi";
-      sha256 = "9c87edea2289025d0a60197227f1a4dbee9ab7b067a27e22431f2b8e69eb0691";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4587807/dark_mode_webextension-0.5.4.xpi";
+      sha256 = "1b614c05c713d5f27ca738b8a260095b1ee982fe6f20994b26ae74af14ae9d9d";
       meta = with lib;
       {
         homepage = "https://mybrowseraddon.com/dark-mode.html";
@@ -3788,10 +3788,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.90";
+      version = "6.1.91";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567995/flagfox-6.1.90.xpi";
-      sha256 = "1e7577be44f3cba468bf13bbdc225add5abaf56b65b617d91f5005f4c582e47a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4588494/flagfox-6.1.91.xpi";
+      sha256 = "477abdf4c57a85f58a47b66574c4696124a3a4f505d7a650439b3079f0021d3d";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4730,10 +4730,10 @@
     };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
-      version = "5.2.5";
+      version = "5.2.7";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4578062/header_editor-5.2.5.xpi";
-      sha256 = "67cca456f9ebf32385e1d59bc3654d6092d7264972e3433dc22e8b1dc45c8a18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4589105/header_editor-5.2.7.xpi";
+      sha256 = "7edc8aa17e79dc3271fa3ece87b9c4f1ad1cc2ac68574723d565c764048fbdc1";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -8997,10 +8997,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.1";
+      version = "13.2.1";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591504/noscript-13.1.xpi";
-      sha256 = "4d8f02b67b00f9a9432a13fd7a7c83daf288a23b3fd77f59bb9957263d0cbc0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4593796/noscript-13.2.1.xpi";
+      sha256 = "190297f3d1e55db0c65f9bc00460bea9b753939d428ea593d6cef27fde1ce69a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9816,10 +9816,10 @@
     };
     "print-friendly-pdf" = buildFirefoxXpiAddon {
       pname = "print-friendly-pdf";
-      version = "5.3.0";
+      version = "6.6.3";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954760/print_friendly_pdf-5.3.0.xpi";
-      sha256 = "b132b82ecbf41c11156bd8f92bcd401d40d85b347241522b85e09f3486b7546f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4588195/print_friendly_pdf-6.6.3.xpi";
+      sha256 = "ca51fdd920f030726b8b5b8a2a8d53b2af0976f581a62233e7d1e4ca945984b7";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -9830,7 +9830,13 @@
           url = "https://addons.mozilla.org/en-US/firefox/addon/print-friendly-pdf/license/";
           free = false;
         };
-        mozPermissions = [ "storage" "activeTab" "contextMenus" ];
+        mozPermissions = [
+          "activeTab"
+          "contextMenus"
+          "scripting"
+          "storage"
+          "unlimitedStorage"
+        ];
         platforms = platforms.all;
       };
     };
@@ -14559,16 +14565,16 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.17.0";
+      version = "1.19.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253375/wallabagger-1.17.0.xpi";
-      sha256 = "c029d76eb2b30bd55d570bffa0e0dea9913ba6965ea278b94220762755ebb3b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4594079/wallabagger-1.19.0.xpi";
+      sha256 = "f224a944e0eb96da678e85b9e49f9ac6395f1a0e6e4ad76b8504376e4b1942cd";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
         description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\r\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
-        mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
+        mozPermissions = [ "storage" "contextMenus" "activeTab" "scripting" ];
         platforms = platforms.all;
       };
     };
