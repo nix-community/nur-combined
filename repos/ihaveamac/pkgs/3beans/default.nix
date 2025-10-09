@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "8d6a307cf04fa685f37f8c19dd49eda28e5dd549";
-    hash = "sha256-xxyqWmjHirHwkZm8oGxoAwJNa0KdeDZdGcHTSuQiS/M=";
+    rev = "7b4542f4c8d91770e3b4e2a16905c39e37c14e7b";
+    hash = "sha256-BkLfVyALpYelkf5LDV98XaWONKf35XGUtyDlqLfvbwA=";
   };
 
   buildInputs = [
