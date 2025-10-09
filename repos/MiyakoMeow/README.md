@@ -96,7 +96,7 @@ This section is auto-generated. Do not edit manually.
 | --- | --- | --- |
 | `baidunetdisk` | [4.17.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/ba/baidunetdisk/package.nix) | [🏠Homepage](https://pan.baidu.com/) 百度网盘 Linux 客户端 |
 | `beatoraja` | [0.8.8](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/be/beatoraja/package.nix) | [🏠Homepage](https://www.mocha-repository.info/download.php) A modern BMS Player |
-| `clang-minimal` | [19.1.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
+| `clang-minimal` | [21.1.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
 | `continue-cli` | [1.4.45](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/co/continue-cli/package.nix) | [🏠Homepage](https://continue.dev) Continue CLI |
 | `fcitx5-pinyin-moegirl` | [20250309](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fc/fcitx5-pinyin-moegirl/package.nix) | [🏠Homepage](https://github.com/outloudvi/mw2fcitx) Fcitx 5 pinyin dictionary generator for MediaWiki instances. Releases for dict of zh.moegirl.org.cn. (auto update) |
 | `fcitx5-pinyin-zhwiki` | [0.2.5](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fc/fcitx5-pinyin-zhwiki/package.nix) | [🏠Homepage](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) Fcitx 5 Pinyin Dictionary from zh.wikipedia.org (auto update) |
