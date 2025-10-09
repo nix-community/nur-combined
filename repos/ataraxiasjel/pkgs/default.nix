@@ -24,6 +24,7 @@ let
       arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
       bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
       ceserver = final.callPackage ./ceserver { };
+      feishin = final.callPackage ./feishin { };
       gamma-launcher = final.python3Packages.callPackage ./gamma-launcher { };
       hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
       json-liquid-rs = final.callPackage ./json-liquid-rs { };
