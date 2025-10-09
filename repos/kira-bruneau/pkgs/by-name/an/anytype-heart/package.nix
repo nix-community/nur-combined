@@ -10,13 +10,13 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.44.3";
+  version = "0.44.5";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${version}";
-    hash = "sha256-seGjGokKZz4oP+jgWF+IVKMLJLQM+aU5CqS7moKpoUs=";
+    hash = "sha256-wSZcDcGPKbtUWf7hYXiQrS8a4sgnbItW7bu4hxQ2yFM=";
   };
 
   proxyVendor = true;
