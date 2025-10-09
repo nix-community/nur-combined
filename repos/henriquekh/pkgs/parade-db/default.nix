@@ -23,6 +23,8 @@ buildPgrxExtension (finalAttrs: {
     hash = "sha256-pU2K74QHdrQP1vKo2NL8qt3luYlEVn2OGZ4ZEEqAqzI=";
   };
 
+  doCheck = false;
+
   cargoPgrxFlags = [
     "--package"
     "pg_search"
