@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gimsatul";
-  version = "1.1.2";
+  version = "1.1.3";
 
   src = fetchFromGitHub {
     owner = "arminbiere";
     repo = "gimsatul";
-    rev = "rel-${version}";
-    sha256 = "sha256-Tm7IzUo9cCBKUqqRVKjNRO4KrXZTtfDsOXJR4WyS0Hc=";
+    rev = "4664fd74c97f87e30e7f907181707679b6fa49f2";
+    sha256 = "sha256-6er1d2geg7vevjhp207a2zZem+LFf3EDjiRhFC75HYU=";
   };
 
   doCheck = true;
