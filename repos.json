@@ -548,6 +548,9 @@
         "gigamonster256": {
             "url": "https://github.com/gigamonster256/nur-packages"
         },
+        "glieske": {
+            "url": "https://github.com/glieske/nix-nur"
+        },
         "glostis": {
             "url": "https://github.com/glostis/nur-packages"
         },
