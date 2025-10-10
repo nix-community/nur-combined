@@ -54,11 +54,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-      aaronjanse
-      neonfuz
-      MayNiklas
-    ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "minecraft-server";
   };
 })
