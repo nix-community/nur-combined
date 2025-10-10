@@ -23,16 +23,20 @@
 , movit
 , opencv
 , libxkbcommon
+, e2fsprogs
+, libtiff
+, libnsl
+, libtirpc
 }:
 let
   pname = "shotcut-bin";
-  version = "25.08.16";
+  version = "25.10.9";
 
   _pname = "Shotcut";
 
   src = fetchurl {
-    url = "https://github.com/mltframework/shotcut/releases/download/v${version}/shotcut-linux-x86_64-${builtins.replaceStrings [ "." ] [ "" ] version}.txz";
-    hash = "sha256-elaJrcmnZLdJXQnoXi6WV8hTGgh4X7BNzmQfi8b97aM=";
+    url = "https://github.com/mltframework/shotcut/releases/download/v${version}/shotcut-linux-x86_64-${version}.txz";
+    hash = "sha256-HXbgN+sGGo+OcG6jHKmllUgOAPp+lfoN5wLYQE44gIw=";
   };
 
   libs = with qt6; [
@@ -59,6 +63,10 @@ let
     movit
     opencv
     libxkbcommon
+    e2fsprogs
+    libtiff
+    libnsl
+    libtirpc
     # Qt6
     qtbase
     qttools
@@ -114,9 +122,11 @@ stdenv.mkDerivation{
     runHook postInstall
   '';
   preFixup = ''
-    patchelf --replace-needed libedit.so.2 libedit.so $out/opt/Shotcut/lib/libLLVM-12.so.1
-    patchelf --replace-needed libmpdec.so.2 libmpdec.so $out/opt/Shotcut/lib/python3.8/lib-dynload/_decimal.cpython-38-x86_64-linux-gnu.so
-    patchelf --replace-needed libssl.so.1.1 libssl.so $out/opt/Shotcut/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+    patchelf --replace-needed libedit.so.2 libedit.so $out/opt/Shotcut/lib/libLLVM-15.so.1
+    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/Shotcut/bin/cwebp
+    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/Shotcut/bin/img2webp
+    patchelf --replace-needed libmpdec.so.3 libmpdec.so $out/opt/Shotcut/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+    patchelf --replace-needed libnsl.so.2 libnsl.so $out/opt/Shotcut/lib/python3.10/lib-dynload/nis.cpython-310-x86_64-linux-gnu.so
   '';
 
   desktopItems = [
