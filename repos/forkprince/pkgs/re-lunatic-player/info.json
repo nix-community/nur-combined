@@ -1,0 +1,10 @@
+{
+  "name": "re-lunatic-player",
+  "update_type": "github",
+  "repo": "Prince527GitHub/Re-Lunatic-Player",
+  "query": ".[0].tag_name",
+  "version": "1.1.0",
+  "hash": "sha256-2bHlFtjz3SIL68fxqrAFRWScVHzExW1tTh9c12BjsWo=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/re-lunatic-player-linux-x64-{version_clean}.tar.gz",
+  "unpack": true
+}

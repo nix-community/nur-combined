@@ -1,0 +1,46 @@
+name: "Update packages"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Nix
+        uses: nixbuild/nix-quick-install-action@v34
+
+      - name: Update packages
+        run: |
+          ./.github/update.sh ./pkgs/abdm/info.json
+          ./.github/update.sh ./pkgs/osu-tachyon/info.json
+          ./.github/update.sh ./pkgs/beeper-nightly/info.json
+          ./.github/update.sh ./pkgs/re-lunatic-player/info.json
+
+          ./.github/update.sh ./pkgs/boxtron-bin/info.json
+          ./.github/update.sh ./pkgs/proton-em-bin/info.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push
+        run: |
+          git config user.name actions[bot]
+          git config user.email actions@serversmp.xyz
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Update packages"
+            git push
+          else
+            echo "No changes to commit."
+          fi

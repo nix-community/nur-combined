@@ -1,0 +1,10 @@
+{
+  "name": "boxtron",
+  "update_type": "github",
+  "repo": "dreamer/boxtron",
+  "query": ".[0].tag_name",
+  "version": "0.5.4",
+  "hash": "sha256-knkwNLourEp309zOmgorsdYj8lneoDSTMwsI0KCoRas=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/boxtron.tar.xz",
+  "unpack": true
+}

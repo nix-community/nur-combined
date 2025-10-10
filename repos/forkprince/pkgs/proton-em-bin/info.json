@@ -1,0 +1,10 @@
+{
+  "name": "proton-em",
+  "update_type": "github",
+  "repo": "Etaash-mathamsetty/Proton",
+  "query": ".[0].tag_name",
+  "version": "EM-10.0-30",
+  "hash": "sha256-OfXi4DDKfJdjTK5xe1c3n1smKVmvFkjvJy2x0vPEs9g=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/proton-{version}.tar.xz",
+  "unpack": true
+}

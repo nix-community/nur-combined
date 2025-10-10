@@ -1,0 +1,61 @@
+diff --git a/src/window.cpp b/src/window.cpp
+index 408db9c..e37a9ad 100644
+--- a/src/window.cpp
++++ b/src/window.cpp
+@@ -9,6 +9,36 @@
+ #include <glibmm/main.h>
+ #include <ctime>
+ 
++#include <nlohmann/json.hpp>
++#include <cstdio>
++#include <sstream>
++
++std::string get_primary_monitor_connector() {
++	std::string output;
++	char buffer[128];
++	FILE* pipe = popen("wlr-randr --json", "r");
++	if (!pipe) return "";
++
++	while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
++		output += buffer;
++	}
++	pclose(pipe);
++
++	try {
++		auto json = nlohmann::json::parse(output);
++		for (auto& monitor : json["outputs"]) {
++			if (monitor["enabled"] && monitor["make"] != nullptr) {
++				// Pick the first enabled monitor
++				return monitor["name"];
++			}
++		}
++	} catch (...) {
++		return "";
++	}
++
++	return "";
++}
++
+ syslock::syslock(const std::map<std::string, std::map<std::string, std::string>>& cfg) {
+ 	config_main = cfg;
+ 
+@@ -199,6 +229,9 @@ void syslock::on_monitors_changed(guint position, guint removed, guint added) {
+ 		if (monitor_windows.find(conn_str) == monitor_windows.end()) {			
+ 			Gtk::Window* window;
+ 			std::string main_monitor = config_main["main"]["main-monitor"];
++			if (main_monitor.empty()) {
++				main_monitor = get_primary_monitor_connector();
++			}
+ 
+ 			if (main_monitor == conn_str || (main_monitor == "" && i == 0)) {
+ 				window = create_main_window(monitor);
+@@ -242,6 +275,9 @@ void syslock::handle_monitors_initial() {
+ 	guint n_monitors = monitor_list->get_n_items();
+ 
+ 	std::string main_monitor = config_main["main"]["main-monitor"];
++	if (main_monitor.empty()) {
++		main_monitor = get_primary_monitor_connector();
++	}
+ 	for (guint i = 0; i < n_monitors; ++i) {
+ 		GObject* raw = static_cast<GObject*>(g_list_model_get_item(monitor_list->gobj(), i));
+ 		auto monitor = GDK_MONITOR(raw);

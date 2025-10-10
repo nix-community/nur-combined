@@ -1,0 +1,10 @@
+{
+  "name": "AB Download Manager",
+  "update_type": "github",
+  "repo": "amir1376/ab-download-manager",
+  "query": ".[0].tag_name",
+  "version": "1.6.14",
+  "hash": "sha256-xNn359E41NlIiUojpTvXOvbUBt+erBKz0ufJhyRrgCI=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/ABDownloadManager_{version_clean}_linux_x64.tar.gz",
+  "unpack": false
+}

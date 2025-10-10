@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index ed803c1..4cbb7bf 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@ DATADIR ?= $(PREFIX)/share
+ BUILDDIR = build
+ 
+ PROTOS = ext-session-lock-v1
+-PROTO_DIR = /usr/share/wayland-protocols/staging/ext-session-lock
++PROTO_DIR ?= $(WAYLAND_PROTOCOLS_DIR)/staging/ext-session-lock
+ 
+ PROTO_HDRS = $(addprefix src/, $(addsuffix .h, $(notdir $(PROTOS))))
+ PROTO_SRCS = $(addprefix src/, $(addsuffix .c, $(notdir $(PROTOS))))
