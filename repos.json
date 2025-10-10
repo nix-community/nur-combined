@@ -136,6 +136,9 @@
             "file": "nur.nix",
             "url": "https://github.com/Weathercold/nixfiles"
         },
+        "adam0": {
+            "url": "https://github.com/adam01110/nur"
+        },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
@@ -281,6 +284,9 @@
         "cameronyule": {
             "url": "https://github.com/cameronyule/nurpkgs"
         },
+        "cawilliamson": {
+            "url": "https://github.com/cawilliamson/nur-packages"
+        },
         "ccicnce113424": {
             "file": "pkgs",
             "url": "https://github.com/ccicnce113424/nix-packages"
@@ -317,6 +323,9 @@
         },
         "chrjabs": {
             "url": "https://github.com/chrjabs/nur-packages"
+        },
+        "cinqwqeggs": {
+            "url": "https://github.com/CinQwQeggs01/nur-packages-template"
         },
         "clefru": {
             "url": "https://github.com/clefru/nur-packages"
@@ -505,6 +514,9 @@
         },
         "foresense": {
             "url": "https://github.com/foresense/nur-packages"
+        },
+        "forkprince": {
+            "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
             "url": "https://github.com/fortuneteller2k/nur"
@@ -847,6 +859,9 @@
         },
         "meain": {
             "url": "https://github.com/meain/nur-packages"
+        },
+        "merrkry": {
+            "url": "https://github.com/merrkry/nur-packages"
         },
         "mgord9518": {
             "url": "https://github.com/mgord9518/nur"
