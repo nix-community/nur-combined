@@ -16,8 +16,8 @@ let
     };
     mainline = {
       version = "6.17.0";
-      suffix = "lowlatency-sunlight2";
-      hash = "sha256-e7Jyn6WSi6sUGVzebXwykaYkz8he1Cqx6SAkpD35H3k=";
+      suffix = "lowlatency-sunlight3";
+      hash = "sha256-DJfmn7QLpK5GApmerNdW8Xrb7mkM7tQ4Ke8A9WVu5Vw=";
     };
   };
 
