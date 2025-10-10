@@ -77,4 +77,7 @@ rec {
   };
   oli = callPackage ./pkgs/oli { };
   catppuccin = callPackage ./pkgs/catppuccin { inherit sources; };
+  nix-package-versions = callPackage ./pkgs/nix-package-versions {
+    source = sources.nix-package-versions;
+  };
 }

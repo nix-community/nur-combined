@@ -34,6 +34,11 @@ git.date_format = "%Y%m%d%H%M%S"
 git.date_tz = "UTC0"
 src.git = "https://github.com/mholt/caddy-webdav.git"
 
+[nix-package-versions]
+fetch.github = "lazamar/nix-package-versions"
+git.date_tz = "UTC0"
+src.git = "https://github.com/lazamar/nix-package-versions.git"
+
 [rime-ice]
 fetch.github = "iDvel/rime-ice"
 src.github_tag = "iDvel/rime-ice"

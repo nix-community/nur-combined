@@ -82,6 +82,18 @@
     moduleName = "github.com/mholt/caddy-webdav";
     date = "20250805175825";
   };
+  nix-package-versions = {
+    pname = "nix-package-versions";
+    version = "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe";
+    src = fetchFromGitHub {
+      owner = "lazamar";
+      repo = "nix-package-versions";
+      rev = "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe";
+      fetchSubmodules = false;
+      sha256 = "sha256-M5/gLq+DhZIA1sBDmYY42XhV/l3tMHI2JcIkhWsRcx8=";
+    };
+    date = "2025-06-19";
+  };
   rime-ice = {
     pname = "rime-ice";
     version = "2025.04.06";

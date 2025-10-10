@@ -133,6 +133,27 @@
         },
         "version": "7a5c90d8bf90ca97fc5ac11ff764533de5e05bd7"
     },
+    "nix-package-versions": {
+        "cargoLock": null,
+        "date": "2025-06-19",
+        "extract": null,
+        "name": "nix-package-versions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lazamar",
+            "repo": "nix-package-versions",
+            "rev": "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe",
+            "sha256": "sha256-M5/gLq+DhZIA1sBDmYY42XhV/l3tMHI2JcIkhWsRcx8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe"
+    },
     "rime-ice": {
         "cargoLock": null,
         "date": null,
