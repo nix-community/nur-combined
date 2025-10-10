@@ -138,7 +138,9 @@ in
     inherit winetricks yad;
   };
 
-  sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
+  sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix {
+    fmt = fmt_10;
+  };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };

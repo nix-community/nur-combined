@@ -66,6 +66,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ pciutils ];
 
+  env.CMAKE_POLICY_VERSION_MINIMUM = "3.5";
+
   buildAndTestSubdir = "backend";
 
   cargoBuildType = "release";
