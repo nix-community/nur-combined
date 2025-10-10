@@ -1,8 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gnumake
-, perl
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gnumake,
+  perl,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -16,7 +17,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-6EjQErdBOd5hqcrdaf88E1UZVYIc3FOfv34hvUwOWdA=";
   };
 
-  nativeBuildInputs = [ gnumake perl ];
+  nativeBuildInputs = [
+    gnumake
+    perl
+  ];
 
   preBuild = ''
     substituteInPlace emojitrans2.pl \

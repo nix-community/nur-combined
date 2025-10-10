@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, boost
-, cmake
-, nasm
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  nasm,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,13 +19,19 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   buildInputs = [ boost ];
 
   cmakeDir = "../src";
 
-  cmakeFlags = [ "-DECT_FOLDER_SUPPORT=ON" ];
+  cmakeFlags = [
+    "-DECT_FOLDER_SUPPORT=ON"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
 
   meta = with lib; {
     description = "Fast and effective C++ file optimizer";

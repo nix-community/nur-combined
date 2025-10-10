@@ -1,4 +1,9 @@
-{ lib, iosevka, fetchFromGitHub, buildNpmPackage }:
+{
+  lib,
+  iosevka,
+  fetchFromGitHub,
+  buildNpmPackage,
+}:
 
 let
   plans = rec {
@@ -123,40 +128,49 @@ let
         w = "straight-flat-top-serifed";
         long-s = "flat-hook-bottom-serifed";
       };
-      italic = { f = "flat-hook-tailed"; };
+      italic = {
+        f = "flat-hook-tailed";
+      };
       derivingVariants.mathtt = mono.variants;
     };
   };
 
-  makeIosevkaFont = set: privateBuildPlan:
-    let superBuildNpmPackage = buildNpmPackage; in
+  makeIosevkaFont =
+    set: privateBuildPlan:
+    let
+      superBuildNpmPackage = buildNpmPackage;
+    in
     iosevka.override {
       inherit set privateBuildPlan;
-      buildNpmPackage = args: superBuildNpmPackage
-        (args // rec {
-          pname = "myosevka-${set}";
-          version = "33.3.1";
-          src = fetchFromGitHub {
-            owner = "be5invis";
-            repo = "iosevka";
-            rev = "v${version}";
-            hash = "sha256-qbC1FVhnkVlsT+lOSeM6wDbKV2c5iTHgBxZENGEBnUI=";
-          };
+      buildNpmPackage =
+        args:
+        superBuildNpmPackage (
+          args
+          // rec {
+            pname = "myosevka-${set}";
+            version = "33.3.1";
+            src = fetchFromGitHub {
+              owner = "be5invis";
+              repo = "iosevka";
+              rev = "v${version}";
+              hash = "sha256-qbC1FVhnkVlsT+lOSeM6wDbKV2c5iTHgBxZENGEBnUI=";
+            };
 
-          buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
+            buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
 
-          npmDepsHash = "sha256-/HxMh5v3CfCpPCF8cf8Z2NXDBovJFvMaQfYFZvuyNX0=";
+            npmDepsHash = "sha256-/HxMh5v3CfCpPCF8cf8Z2NXDBovJFvMaQfYFZvuyNX0=";
 
-          meta = with lib; {
-            inherit (src.meta) homepage;
-            description = ''
-              My custom build of iosevka.
-            '';
-            license = licenses.ofl;
-            inherit (iosevka.meta) platforms;
-            maintainers = [ maintainers.lunik1 ];
-          };
-        });
+            meta = with lib; {
+              inherit (src.meta) homepage;
+              description = ''
+                My custom build of iosevka.
+              '';
+              license = licenses.ofl;
+              inherit (iosevka.meta) platforms;
+              maintainers = [ maintainers.lunik1 ];
+            };
+          }
+        );
     };
 in
 lib.mapAttrs (name: value: makeIosevkaFont name value) plans
