@@ -136,6 +136,10 @@
             "file": "nur.nix",
             "url": "https://github.com/Weathercold/nixfiles"
         },
+        "aciceri": {
+            "file": "_nur.nix",
+            "url": "https://github.com/aciceri/nur"
+        },
         "adam0": {
             "url": "https://github.com/adam01110/nur"
         },
