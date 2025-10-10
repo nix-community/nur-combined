@@ -205,11 +205,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wsxtiTOg9/yzdkhTuLwdfLev0MAzXWID96bq1AyJN6k=",
+            "sha256": "sha256-8WmfnkfTg8zdMKvn3I+Ag5KYjdbUpeWhgeSEEc/WUss=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20250909/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20251009/moegirl.dict.yaml"
         },
-        "version": "20250909"
+        "version": "20251009"
     },
     "yazi-rs-plugins": {
         "cargoLock": null,

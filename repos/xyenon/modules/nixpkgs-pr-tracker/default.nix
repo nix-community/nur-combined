@@ -23,7 +23,7 @@ in
     group = lib.mkOption {
       type = lib.types.nonEmptyStr;
       default = "nixpkgs-pr-tracker";
-      description = "Group account under which nixpkgs pr-tracker runs.";
+      description = "Group under which nixpkgs pr-tracker runs.";
     };
 
     nixpkgsPath = lib.mkOption {
@@ -35,7 +35,10 @@ in
     nixpkgsUpdateOnCalendar = lib.mkOption {
       type = lib.types.nonEmptyStr;
       default = "hourly";
-      description = "Calendar time to update the nixpkgs repository.  See {manpage}`systemd.time(7)` for details.";
+      description = ''
+        Calendar time to update the nixpkgs repository.
+        See {manpage}`systemd.time(7)` for details.
+      '';
     };
 
     args = lib.mkOption {
@@ -88,9 +91,10 @@ in
             Group = cfg.group;
           };
         };
-        fetch-nixpkgs = {
+        nixpkgs-pr-tracker-fetch = {
           description = "Fetch nixpkgs repository";
           after = [ "network-online.target" ];
+          requires = [ "network-online.target" ];
           path = with pkgs; [ git ];
           serviceConfig = {
             ExecStart = "${lib.getExe pkgs.git} fetch --all";
@@ -111,7 +115,7 @@ in
         wantedBy = [ "sockets.target" ];
       };
 
-      timers.fetch-nixpkgs = {
+      timers.nixpkgs-pr-tracker-fetch = {
         description = "Fetch nixpkgs repository";
         timerConfig = {
           OnCalendar = cfg.nixpkgsUpdateOnCalendar;

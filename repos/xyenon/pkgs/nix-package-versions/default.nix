@@ -1,4 +1,4 @@
-{ source, haskellPackages }:
+{ haskellPackages, source }:
 
 (haskellPackages.callPackage ./cabal2nix.nix { }).overrideAttrs (
   _finalAttrs: prevAttrs: {
