@@ -17,7 +17,7 @@ let
     mainline = {
       version = "6.17.0";
       suffix = "lowlatency-sunlight3";
-      hash = "sha256-DJfmn7QLpK5GApmerNdW8Xrb7mkM7tQ4Ke8A9WVu5Vw=";
+      hash = "sha256-IZf4Q1INhQmOWjFnuosR80Io3FfB/v6m9voKjbjIVRc=";
     };
   };
 
