@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -14,7 +19,8 @@ in
   boot.extraModulePackages = [ aic8800 ];
 
   boot.kernelModules = [
-    "bmi260_core"
-    "bmi260_i2c"
+    "aic8800_fdrv"
+    "aic_btusb"
+    "aic_load_fw"
   ];
 }

@@ -7,9 +7,10 @@
   dpkg,
 #  aic8800-firmware,
 }:
-let 
+let
   aic8800-firmware = pkgs.callPackage ../../by-name/aic8800-firmware/package.nix { };
-in stdenv.mkDerivation (finalAttr: {
+in
+stdenv.mkDerivation (finalAttr: {
   name = "aic8800";
   version = aic8800-firmware.version;
   src = aic8800-firmware.src;
