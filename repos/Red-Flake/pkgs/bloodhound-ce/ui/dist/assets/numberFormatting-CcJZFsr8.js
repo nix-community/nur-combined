@@ -1,0 +1,1 @@
+const b=(t,r=1)=>{if(t<1e3)return t.toString();const a=["","K","M","B","T"],e=Math.floor(Math.log10(Math.abs(t))/3);return(t/Math.pow(1e3,e)).toFixed(r)+a[e]},n=t=>new Intl.NumberFormat("en-US").format(t);export{b as a,n as c};

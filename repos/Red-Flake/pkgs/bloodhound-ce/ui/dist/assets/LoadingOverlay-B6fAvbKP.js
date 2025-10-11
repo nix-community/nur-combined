@@ -1,0 +1,1 @@
+import{aa as r,bL as o,bM as e}from"./index-DV5vAjQm.js";const a=({loading:t})=>t?r.jsx(o,{position:"absolute",top:"0",left:"0",right:"0",bottom:"0",bgcolor:"rgba(0, 0, 0, 0.2)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1e3,children:r.jsx(e,{color:"primary"})}):null;export{a as L};

@@ -1,0 +1,25 @@
+{
+  "name": "dagre",
+  "version": "1.0.1-pre",
+  "main": [
+    "dist/dagre.core.js"
+  ],
+  "ignore": [
+    ".*",
+    "README.md",
+    "CHANGELOG.md",
+    "Makefile",
+    "browser.js",
+    "dist/dagre.js",
+    "dist/dagre.min.js",
+    "index.js",
+    "karma*",
+    "lib/**",
+    "package.json",
+    "src/**",
+    "test/**"
+  ],
+  "dependencies": {
+    "@dagrejs/graphlib": "2.1.12"
+  }
+}
