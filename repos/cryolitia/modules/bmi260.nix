@@ -13,7 +13,8 @@ in
 
   boot.extraModulePackages = [ bmi260 ];
   boot.kernelModules = [
-    "bmi260_core"
-    "bmi260_i2c"
+    "aic8800_fdrv"
+    "aic_btusb"
+    "aic_load_fw"
   ];
 }
