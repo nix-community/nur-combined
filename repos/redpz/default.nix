@@ -25,6 +25,7 @@
   kanagawa-yazi = pkgs.callPackage ./pkgs/kanagawa-yazi { };
   nora = pkgs.callPackage ./pkgs/nora { };
   harmonoid = pkgs.callPackage ./pkgs/harmonoid { };
+  adwaita-cross-icon-theme = pkgs.callPackage ./pkgs/adwaita-cross-icon-theme { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
