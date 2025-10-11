@@ -9,7 +9,6 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  p311 = pkgs.python311;
   p312 = pkgs.python312;
   p313 = pkgs.python313;
   p3 = pkgs.python3.pkgs;
@@ -37,7 +36,6 @@ rec {
   tulip-flagids = pkgs.callPackage ./pkgs/tulip-flagids { };
   tulip-frontend = pkgs.callPackage ./pkgs/tulip-frontend { };
 
-  python311Packages = pythonPackages p311;
   python312Packages = pythonPackages p312;
   python313Packages = pythonPackages p313;
 }
