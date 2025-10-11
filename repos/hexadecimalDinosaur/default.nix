@@ -23,7 +23,6 @@ rec {
 
   android-unpinner = p3.callPackage ./pkgs/android-unpinner { };
   fzf-tab-completion = pkgs.callPackage ./pkgs/fzf-tab-completion { };
-  harmonoid = pkgs.callPackage ./pkgs/harmonoid { };
   jetbrains-fleet = pkgs.callPackage ./pkgs/jetbrains-fleet { };
   ttf-ms-win11 = pkgs.recurseIntoAttrs ( import ./pkgs/ttf-ms-win11 { inherit pkgs; } );
 
