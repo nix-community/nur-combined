@@ -34,6 +34,12 @@ let
     sha256 = "sha256-oLWZsHxod2mAmilDpnfucaX9wwBZg8sdXDKGYDg8bZ8=";
   };
 
+  # Keep upstream's version flags
+  parts = lib.splitString "." version;
+  major = lib.elemAt parts 0;
+  minor = lib.elemAt parts 1;
+  patch = lib.elemAt parts 2;
+
   # ─────────────────────────────────────────────────────────────────────────────
   # Vendored UI assets:
   #
@@ -65,10 +71,11 @@ buildGoModule {
   # Statically linked build (as upstream does)
   env.CGO_ENABLED = 0;
 
-  # Keep upstream’s version flags
+  # Keep upstream's version flags
   ldFlags = lib.concatStringsSep " " [
-    "-X github.com/specterops/bloodhound/cmd/api/src/version.majorVersion=${lib.elemAt (lib.splitString "." version) 0}"
-    "-X github.com/specterops/bloodhound/cmd/api/src/version.minorVersion=${lib.elemAt (lib.splitString "." version) 1}"
+    "-X github.com/specterops/bloodhound/cmd/api/src/version.majorVersion=${major}"
+    "-X github.com/specterops/bloodhound/cmd/api/src/version.minorVersion=${minor}"
+    "-X github.com/specterops/bloodhound/cmd/api/src/version.patchVersion=${patch}"
   ];
 
   # Before building Go, stage the prebuilt UI under the API’s static dir
@@ -85,50 +92,62 @@ buildGoModule {
   '';
 
   installPhase = ''
-        mkdir -p $out/bin $out/share/bloodhound $out/share/doc/bloodhound $out/etc $out/libexec/bloodhound
+      mkdir -p $out/bin $out/libexec/bloodhound $out/share/bloodhound $out/etc
 
-        # Install the real server binary somewhere stable
-        install -Dm755 $GOPATH/bin/bhapi $out/libexec/bloodhound/bloodhound-real
+      # Real server
+      install -Dm755 $GOPATH/bin/bhapi $out/libexec/bloodhound/bloodhound-real
 
-        # Install collectors & UI
-        cp -r collectors $out/share/bloodhound/
-        cp -r ${uiDist} $out/share/bloodhound/assets
+      # Ship collectors & UI
+      cp -r collectors $out/share/bloodhound/
+      cp -r ${uiDist} $out/share/bloodhound/assets
 
-        # Example upstream config for users
-        install -Dm644 ${src}/dockerfiles/configs/bloodhound.config.json \
-          $out/share/doc/bloodhound/bloodhound.config.json
+      # Example config
+      install -Dm644 ${src}/dockerfiles/configs/bloodhound.config.json \
+        $out/share/doc/bloodhound/bloodhound.config.json
 
-        # Create a wrapper script WITHOUT any dollars (we'll substitute @TOKENS@ after)
-        cat > $out/bin/bloodhound <<'SH'
+      # Wrapper WITHOUT any dollar expansions seen by Nix
+      cat > $out/bin/bloodhound <<'SH'
     #!/bin/sh
-    # Default collectors path
-    if [ -z "$bhe_collectors_base_path" ]; then
-      bhe_collectors_base_path='@COLLECTORS@'
+    set -e
+
+    # Resolve prefix (…/nix/store/<drv>)
+    self="$(readlink -f "$0")"
+    prefix_dir="$(cd "$(dirname "$self")/.." && pwd)"
+    real="$prefix_dir/libexec/bloodhound/bloodhound-real"
+
+    # Allow reading possibly-unset vars without tripping -u
+    set +u
+
+    # Default collectors path if not set or empty
+    if [ -z "$bhe_collectors_base_path:-" ]; then
+      bhe_collectors_base_path="$prefix_dir/share/bloodhound/collectors"
     fi
 
-    # Default work dir: prefer /var/lib/bloodhound-ce if writable; otherwise user state dir
-    if [ -z "$bhe_work_dir" ]; then
+    # Default work dir
+    if [ -z "$bhe_work_dir:-" ]; then
       if [ -d /var/lib/bloodhound-ce ] && [ -w /var/lib/bloodhound-ce ]; then
         bhe_work_dir=/var/lib/bloodhound-ce/work
       else
-        if [ -z "$XDG_STATE_HOME" ]; then
-          XDG_STATE_HOME="$HOME/.local/state"
+        if [ -z "$XDG_STATE_HOME:-" ]; then
+          if [ -n "$HOME:-" ]; then
+            XDG_STATE_HOME="$HOME/.local/state"
+          else
+            XDG_STATE_HOME="/tmp/.local/state"
+          fi
         fi
         bhe_work_dir="$XDG_STATE_HOME/bloodhound/work"
       fi
     fi
 
+    # Back to strict mode
+    set -u
+
     export bhe_collectors_base_path
     export bhe_work_dir
 
-    exec '@REAL@' "$@"
+    exec -a "$0" "$real" "$@"
     SH
       chmod +x $out/bin/bloodhound
-
-      # Inject store paths into the wrapper (no Nix dollars here)
-      substituteInPlace $out/bin/bloodhound \
-        --subst-var-by REAL "$out/libexec/bloodhound/bloodhound-real" \
-        --subst-var-by COLLECTORS "$out/share/bloodhound/collectors"
   '';
 
   doCheck = false;
