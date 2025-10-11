@@ -72,10 +72,10 @@ buildGoModule {
   env.CGO_ENABLED = 0;
 
   # Keep upstream's version flags
-  ldFlags = lib.concatStringsSep " " [
-    "-X github.com/specterops/bloodhound/cmd/api/src/version.majorVersion=${major}"
-    "-X github.com/specterops/bloodhound/cmd/api/src/version.minorVersion=${minor}"
-    "-X github.com/specterops/bloodhound/cmd/api/src/version.patchVersion=${patch}"
+  ldflags = [
+    "-X=github.com/specterops/bloodhound/cmd/api/src/version.majorVersion=${major}"
+    "-X=github.com/specterops/bloodhound/cmd/api/src/version.minorVersion=${minor}"
+    "-X=github.com/specterops/bloodhound/cmd/api/src/version.patchVersion=${patch}"
   ];
 
   # Before building Go, stage the prebuilt UI under the API’s static dir
