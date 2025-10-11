@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@rollup/wasm-node": "^4.52.4"
+  }
+}
