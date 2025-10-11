@@ -4,6 +4,7 @@
   buildGoModule,
   fetchurl,
   hash,
+  makeWrapper,
 }:
 
 let
@@ -58,7 +59,7 @@ buildGoModule {
   vendorHash = "sha256-Lm6g0pxGVIuns6mUwnkbnBQQQp1V0TvEakX5fAo8qMo=";
 
   # No Node/Yarn: we don’t build frontend here.
-  nativeBuildInputs = [ ];
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ ];
 
   # Statically linked build (as upstream does)
@@ -84,18 +85,50 @@ buildGoModule {
   '';
 
   installPhase = ''
-    mkdir -p $out/bin $out/share/bloodhound $out/etc
+        mkdir -p $out/bin $out/share/bloodhound $out/share/doc/bloodhound $out/etc $out/libexec/bloodhound
 
-    # Install server
-    cp $GOPATH/bin/bhapi $out/bin/bloodhound
+        # Install the real server binary somewhere stable
+        install -Dm755 $GOPATH/bin/bhapi $out/libexec/bloodhound/bloodhound-real
 
-    # Install collectors & UI assets for convenience
-    cp -r collectors $out/share/bloodhound/
-    cp -r ${uiDist} $out/share/bloodhound/assets
+        # Install collectors & UI
+        cp -r collectors $out/share/bloodhound/
+        cp -r ${uiDist} $out/share/bloodhound/assets
 
-    # Default config
-    cp ${src}/dockerfiles/configs/bloodhound.config.json \
-       $out/etc/bloodhound.config.json
+        # Example upstream config for users
+        install -Dm644 ${src}/dockerfiles/configs/bloodhound.config.json \
+          $out/share/doc/bloodhound/bloodhound.config.json
+
+        # Create a wrapper script WITHOUT any dollars (we'll substitute @TOKENS@ after)
+        cat > $out/bin/bloodhound <<'SH'
+    #!/bin/sh
+    # Default collectors path
+    if [ -z "$bhe_collectors_base_path" ]; then
+      bhe_collectors_base_path='@COLLECTORS@'
+    fi
+
+    # Default work dir: prefer /var/lib/bloodhound-ce if writable; otherwise user state dir
+    if [ -z "$bhe_work_dir" ]; then
+      if [ -d /var/lib/bloodhound-ce ] && [ -w /var/lib/bloodhound-ce ]; then
+        bhe_work_dir=/var/lib/bloodhound-ce/work
+      else
+        if [ -z "$XDG_STATE_HOME" ]; then
+          XDG_STATE_HOME="$HOME/.local/state"
+        fi
+        bhe_work_dir="$XDG_STATE_HOME/bloodhound/work"
+      fi
+    fi
+
+    export bhe_collectors_base_path
+    export bhe_work_dir
+
+    exec '@REAL@' "$@"
+    SH
+      chmod +x $out/bin/bloodhound
+
+      # Inject store paths into the wrapper (no Nix dollars here)
+      substituteInPlace $out/bin/bloodhound \
+        --subst-var-by REAL "$out/libexec/bloodhound/bloodhound-real" \
+        --subst-var-by COLLECTORS "$out/share/bloodhound/collectors"
   '';
 
   doCheck = false;
