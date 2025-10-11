@@ -19,14 +19,14 @@
 }:
 buildPythonApplication rec {
   pname = "wopiserver";
-  version = "11.1.1";
+  version = "11.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cs3org";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-EG2nPf+fjtPVqisEPn1Fe05DXPI0KcJMMq0cr3lE/yw=";
+    hash = "sha256-ANbgJeq48/M3dJPGMGZ2Fn+cCuLEbKEv7Z+94G6xONo=";
   };
 
   postPatch =
