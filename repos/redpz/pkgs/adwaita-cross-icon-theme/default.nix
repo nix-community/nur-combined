@@ -14,7 +14,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "adwaita-icon-theme";
+  pname = "adwaita-cross-icon-theme";
   version = "48.0";
 
   src = fetchurl {
@@ -53,9 +53,10 @@ stdenv.mkDerivation rec {
     rm $out/share/icons/Adwaita-cross/cursors/arrow
     ln -s $out/share/icons/Adwaita-cross/cursors/crosshair $out/share/icons/Adwaita-cross/cursors/arrow
     sed -i '0,/Adwaita/{s/Adwaita/Adwaita-cross/}' $out/share/icons/Adwaita-cross/index.theme
+    gtk-update-icon-cache -f $out/share/icons/Adwaita-cross
   '';
 
-  dontDropIconThemeCache = true;
+  dontDropIconThemeCache = false;
 
   passthru = {
     updateScript = gnome.updateScript {
