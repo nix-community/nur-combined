@@ -1709,10 +1709,10 @@
     };
     "chrome-mask" = buildFirefoxXpiAddon {
       pname = "chrome-mask";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4564577/chrome_mask-7.0.0.xpi";
-      sha256 = "3ff0667ded16953fd5eb609cc60a88f7b8141c5328e31209fb4b856083fd1344";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4589979/chrome_mask-7.0.1.xpi";
+      sha256 = "52c83e0a08c2a8b46cc50609646cf92160ad971ebffaccc9193a7cba637eb99f";
       meta = with lib;
       {
         homepage = "https://github.com/denschub/chrome-mask";
@@ -2614,10 +2614,10 @@
     };
     "cyberfeeder" = buildFirefoxXpiAddon {
       pname = "cyberfeeder";
-      version = "4.8.6";
+      version = "5.0.1";
       addonId = "{fa19efb8-df2c-4f6a-ae08-6796a25ccdd6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591111/cyberfeeder-4.8.6.xpi";
-      sha256 = "5697cc8cb9d6d91ada8def5f1cfa60087fc3aa220a01290cce1773e2adfa052e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595507/cyberfeeder-5.0.1.xpi";
+      sha256 = "cc6579c23a89e3be5dd3a58a481b7d322282b260bcb24b6e221407a9217380ee";
       meta = with lib;
       {
         description = "UI/UX improvements for jinteki.net.";
@@ -2888,10 +2888,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.0.0";
+      version = "6.1.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592244/dictionaries-6.0.0.xpi";
-      sha256 = "867ab24ffe737f3df7f89f8f35ecf3f0b886d27032bc156d637dced199a22774";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595692/dictionaries-6.1.0.xpi";
+      sha256 = "9681b6e70cb835ae3a559746d053cc71cc38b320e3c1c32d6cbd7793d611d89f";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.64.0";
+      version = "2.64.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4595135/dualsub-2.64.0.xpi";
-      sha256 = "af302fc82e20ff7a7c979e1d3066c2305501c0208f4e2b5547e5ba910c04be31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595821/dualsub-2.64.1.xpi";
+      sha256 = "10adcf21acc8122df75334c2f6c7665a090b33b91aac562bc87eb5832f5dc867";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3241,10 +3241,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "6.0.0";
+      version = "6.2.0";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4519632/ecosia_the_green_search-6.0.0.xpi";
-      sha256 = "467702cb7eaf8a543c7cb64df137aea76db42d9fb350c25c49e8ebf4d0e5afbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4589297/ecosia_the_green_search-6.2.0.xpi";
+      sha256 = "83fd5a5a71692283a3e75a6eb01157eb2281c01f000fd94193074d02db9cd230";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3550,10 +3550,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.62";
+      version = "1.3.63";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4588956/faststream-1.3.62.xpi";
-      sha256 = "19c3e69c5ea8050235a40e19bef4c61afa6250e806d643493347c7a291f80d32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595639/faststream-1.3.63.xpi";
+      sha256 = "173f6e4a9767371892696e0918942e0586b04e999223bd5591073af5818fc172";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -14565,16 +14565,16 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.19.1";
+      version = "1.19.2";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4594945/wallabagger-1.19.1.xpi";
-      sha256 = "e17ee5814643990035600c62ced5f3f30924114be1ccf30d7ec715f1d094374a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595455/wallabagger-1.19.2.xpi";
+      sha256 = "ff0d5799bec2c95fe5ec0584e1ecef1d1c031b429fc36cd48a906b8ac5b932bd";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
         description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\r\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
-        mozPermissions = [ "storage" "contextMenus" "activeTab" "scripting" ];
+        mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
         platforms = platforms.all;
       };
     };
@@ -15454,10 +15454,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.9.3";
+      version = "3.9.4";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4552460/youtube_redux-3.9.3.xpi";
-      sha256 = "e34d46db1c720b5ac1acd3fdbcc2cc370e982797d52662ab2681e23dec9bc8db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4595773/youtube_redux-3.9.4.xpi";
+      sha256 = "6e8889f9b4d48880bf8d1c56abe0e4dfafc1bf86431d0a859c343bb7418957cd";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
