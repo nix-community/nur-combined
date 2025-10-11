@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://asneg.github.io/projects/opcuastack";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
     skip.ci = true;
   };
 })

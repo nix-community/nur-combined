@@ -45,6 +45,5 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/a-b-street/abstreet";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true;
   };
 })
