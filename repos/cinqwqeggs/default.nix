@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   algermusicplayer = pkgs.callPackage ./pkgs/algermusicplayer { };
+  go-cqhttp = pkgs.callPackage ./pkgs/go-cqhttp/default.nix {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
