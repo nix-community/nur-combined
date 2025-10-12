@@ -50,8 +50,10 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mv $out/share/icons/Adwaita $out/share/icons/Adwaita-cross
-    rm $out/share/icons/Adwaita-cross/cursors/arrow
-    ln -s $out/share/icons/Adwaita-cross/cursors/crosshair $out/share/icons/Adwaita-cross/cursors/arrow
+    for cursor in arrow left_ptr; do
+      rm $out/share/icons/Adwaita-cross/cursors/$cursor
+      ln -s $out/share/icons/Adwaita-cross/cursors/crosshair $out/share/icons/Adwaita-cross/cursors/$cursor
+    done
     sed -i '0,/Adwaita/{s/Adwaita/Adwaita-cross/}' $out/share/icons/Adwaita-cross/index.theme
     gtk-update-icon-cache -f $out/share/icons/Adwaita-cross
   '';
