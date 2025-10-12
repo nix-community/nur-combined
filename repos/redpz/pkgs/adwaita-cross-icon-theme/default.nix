@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mv $out/share/icons/Adwaita $out/share/icons/Adwaita-cross
-    for cursor in arrow left_ptr; do
+    for cursor in default arrow left_ptr dnd-move top_left_arrow; do
       rm $out/share/icons/Adwaita-cross/cursors/$cursor
       ln -s $out/share/icons/Adwaita-cross/cursors/crosshair $out/share/icons/Adwaita-cross/cursors/$cursor
     done
