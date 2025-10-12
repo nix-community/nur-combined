@@ -1,6 +1,7 @@
 {
   appimageTools,
   fetchurl,
+  lib,
 }:
 let
   version = "0.1.5.3";
@@ -28,4 +29,12 @@ appimageTools.wrapType2 {
     install -Dm444 ${appimageContents}/${id}.desktop -t $out/share/applications
     install -Dm444 ${appimageContents}/${id}.png -t $out/share/pixmaps
   '';
+
+  meta = {
+    description = "A modlist installation and configuration tool for Wabbajack modlists on Linux";
+    homepage = "https://github.com/Omni-guides/Jackify";
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ merrkry ];
+    platforms = lib.platforms.linux;
+  };
 }
