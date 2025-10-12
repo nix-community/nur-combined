@@ -40,9 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    if [ -f CMakeLists.txt ]; then
-      sed -i -E 's/cmake_minimum_required\s*\(\s*VERSION[^)]*\)/cmake_minimum_required(VERSION 3.5)/' CMakeLists.txt
-    fi
+    sed -i -E 's/cmake_minimum_required\s*\(\s*VERSION[^)]*\)/cmake_minimum_required(VERSION 3.10)/' CMakeLists.txt
   '';
 
   # Use standard CMake phases; run Gradle after native build via postBuild hook
@@ -58,9 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     export GRADLE_USER_HOME="$(mktemp -d)"
     # Run Gradle from source root
     sourceRoot="$NIX_BUILD_TOP/source"
-    if [ -d "$sourceRoot" ]; then
-      ( cd "$sourceRoot" && gradle --no-daemon -Djava.library.path="$nativeLibDir" assemble )
-    fi
+    ( cd "$sourceRoot" && gradle --no-daemon -Djava.library.path="$nativeLibDir" assemble )
   '';
 
   # After CMake install, place built JARs into $out
@@ -75,9 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Ensure unversioned symlink exists if only versioned lib was installed by CMake
     if [ ! -e "$out/lib/libjportaudio.so" ]; then
       candidate=$(ls "$out"/lib/libjportaudio*.so* 2>/dev/null | sort -V | tail -n1 || true)
-      if [ -n "$candidate" ]; then
-        ln -s "$(basename "$candidate")" "$out/lib/libjportaudio.so"
-      fi
+      ln -s "$(basename "$candidate")" "$out/lib/libjportaudio.so"
     fi
   '';
 
