@@ -31,19 +31,15 @@ appimageTools.wrapType2 rec {
   extraInstallCommands =
     let
       appimageContents = appimageTools.extract { inherit pname version src; };
-    in ''
-      
-      mkdir -p $out/share/pixmaps
-      cp -L ${appimageContents}/algermusicplayer.png $out/share/pixmaps/algermusicplayer.png
-
-      
-      mkdir -p $out/share/applications
+    in
+    ''
       install -D ${appimageContents}/algermusicplayer.desktop $out/share/applications/algermusicplayer.desktop
-
-      
       substituteInPlace $out/share/applications/algermusicplayer.desktop \
-        --replace-fail 'Exec=AppRun' 'Exec=algermusicplayer' \
-        --replace-fail 'Icon=AppRun' 'Icon=/run/current-system/sw/share/pixmaps/algermusicplayer.png'
+        --replace-fail 'Exec=AppRun' 'Exec=algermusicplayer'
+
+      mkdir -p $out/share/pixmaps
+
+      cp -L ${appimageContents}/algermusicplayer.png $out/share/pixmaps/algermusicplayer.png
     '';
 
   meta = {
