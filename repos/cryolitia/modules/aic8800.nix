@@ -16,6 +16,8 @@ in
 {
   meta.maintainers = [ maintainers.Cryolitia ];
 
+  hardware.firmware = [ aic8800-firmware ];
+
   boot.extraModulePackages = [ aic8800 ];
 
   boot.kernelModules = [
