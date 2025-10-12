@@ -13,6 +13,8 @@
   pkg-config,
   typescript,
   version,
+  bun,
+  withBun ? false,
   ...
 }:
 buildNpmPackage (finalAttrs: {
@@ -63,7 +65,7 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p $out/bin
     cp -r build $out/build
-    sed -i "1i\#!${lib.getExe finalAttrs.nodejs}" $out/build/main.js
+    sed -i "1i\#!${lib.getExe (if withBun then bun else finalAttrs.nodejs)}" $out/build/main.js
     cp -r node_modules $out/node_modules
     ln -s $out/build/main.js $out/bin/bgutil-ytdlp-pot-provider
     chmod +x $out/bin/bgutil-ytdlp-pot-provider
