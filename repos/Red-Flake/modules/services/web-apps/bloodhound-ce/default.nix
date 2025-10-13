@@ -148,7 +148,7 @@ in
     };
 
     # Which graph driver to use (BloodHound supports neo4j; keep default)
-    # We need to use the Neo4j LTS version 4.4.42 because In Neo4j 5.x the legacy procedure CALL db.indexes() was removed (replaced by SHOW INDEXES). BloodHound CE 8 still calls db.indexes, so it expects Neo4j 4.4.x.
+    # We need to use the Neo4j LTS version 4.4.x because In Neo4j 5.x the legacy procedure CALL db.indexes() was removed (replaced by SHOW INDEXES). BloodHound CE 8 still calls db.indexes, so it expects Neo4j 4.4.x.
     # See: https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
     graphDriver = mkOption {
       type = types.enum [ "neo4j" ];
