@@ -148,6 +148,8 @@ in
     };
 
     # Which graph driver to use (BloodHound supports neo4j; keep default)
+    # We need to use the Neo4j LTS version 4.4.42 because In Neo4j 5.x the legacy procedure CALL db.indexes() was removed (replaced by SHOW INDEXES). BloodHound CE 8 still calls db.indexes, so it expects Neo4j 4.4.x.
+    # See: https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
     graphDriver = mkOption {
       type = types.enum [ "neo4j" ];
       default = "neo4j";
@@ -210,69 +212,71 @@ in
             envFiles =
               lib.optional (cfg.database.passwordFile != null) cfg.database.passwordFile
               ++ lib.optional (cfg.neo4j.passwordFile != null) cfg.neo4j.passwordFile;
-          in [
-          {
-            User = cfg.user;
-            Group = cfg.group;
+          in
+          [
+            {
+              User = cfg.user;
+              Group = cfg.group;
 
-            # Creates /var/lib/bloodhound-ce and ensures ownership
-            StateDirectory = [
-              "bloodhound-ce"
-              "bloodhound-ce/work"
-            ];
-            StateDirectoryMode = "0700";
-            WorkingDirectory = "/var/lib/bloodhound-ce";
+              # Creates /var/lib/bloodhound-ce and ensures ownership
+              StateDirectory = [
+                "bloodhound-ce"
+                "bloodhound-ce/work"
+              ];
+              StateDirectoryMode = "0700";
+              WorkingDirectory = "/var/lib/bloodhound-ce";
 
-            ExecStart =
-              let
-                args = [
-                  (lib.getExe cfg.package)
-                  "-configfile"
-                  "/etc/bloodhound/bloodhound.config.json"
-                ];
-              in
-              utils.escapeSystemdExecArgs args;
+              ExecStart =
+                let
+                  args = [
+                    (lib.getExe cfg.package)
+                    "-configfile"
+                    "/etc/bloodhound/bloodhound.config.json"
+                  ];
+                in
+                utils.escapeSystemdExecArgs args;
 
-            Environment = [
-              "bhe_work_dir=/var/lib/bloodhound-ce/work"
-              "bhe_collectors_base_path=${cfg.package}/share/bloodhound/collectors"
-            ]
-            # supply the DB secrets as env the app understands:
-            ++ lib.optional (cfg.database.password != null) "bhe_database_secret=${cfg.database.password}"
-            ++ lib.optional (cfg.neo4j.password != null) "bhe_neo4j_secret=${cfg.neo4j.password}";
+              Environment = [
+                "bhe_work_dir=/var/lib/bloodhound-ce/work"
+                "bhe_collectors_base_path=${cfg.package}/share/bloodhound/collectors"
+              ]
+              # supply the DB secrets as env the app understands:
+              ++ lib.optional (cfg.database.password != null) "bhe_database_secret=${cfg.database.password}"
+              ++ lib.optional (cfg.neo4j.password != null) "bhe_neo4j_secret=${cfg.neo4j.password}";
 
-            # reasonable default hardening settings
-            NoNewPrivileges = true;
-            PrivateDevices = true;
-            ProtectKernelTunables = true;
-            ProtectKernelModules = true;
-            ProtectControlGroups = true;
-            MemoryDenyWriteExecute = true;
-            LockPersonality = true;
-            RestrictAddressFamilies = [
-              "AF_UNIX"
-              "AF_INET"
-              "AF_INET6"
-            ];
-            DevicePolicy = "closed";
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
+              # reasonable default hardening settings
+              NoNewPrivileges = true;
+              PrivateDevices = true;
+              ProtectKernelTunables = true;
+              ProtectKernelModules = true;
+              ProtectControlGroups = true;
+              MemoryDenyWriteExecute = true;
+              LockPersonality = true;
+              RestrictAddressFamilies = [
+                "AF_UNIX"
+                "AF_INET"
+                "AF_INET6"
+              ];
+              DevicePolicy = "closed";
+              RestrictNamespaces = true;
+              RestrictRealtime = true;
+              RestrictSUIDSGID = true;
 
-            # keep logs/private files private by default
-            UMask = "0077";
+              # keep logs/private files private by default
+              UMask = "0077";
 
-            # nice-to-have
-            Restart = "on-failure";
-            RestartSec = "5s";
-          }
+              # nice-to-have
+              Restart = "on-failure";
+              RestartSec = "5s";
+            }
 
-          # Conditionally add EnvironmentFile when provided
-          (mkIf (envFiles != []) {
-            # Allow providing one or more EnvironmentFile(s)
-            EnvironmentFile = envFiles;
-          })
-        ];
+            # Conditionally add EnvironmentFile when provided
+            (mkIf (envFiles != [ ]) {
+              # Allow providing one or more EnvironmentFile(s)
+              EnvironmentFile = envFiles;
+            })
+          ]
+        );
       };
 
       # System user/group (only if using defaults)
