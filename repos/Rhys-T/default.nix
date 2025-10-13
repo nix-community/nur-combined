@@ -418,6 +418,7 @@ in {
     }));
     fetchzipRhys-T = pkgs.fetchzip.override { fetchurl = self.fetchurlRhys-T; };
     
+    fuzziqersoftwareFmtPatchHook = callPackage ./pkgs/resource_dasm/fmt-patch-hook {};
     phosg = callPackage ./pkgs/resource_dasm/phosg.nix {};
     resource_dasm = callPackage ./pkgs/resource_dasm {};
     
