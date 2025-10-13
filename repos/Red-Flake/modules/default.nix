@@ -1,5 +1,4 @@
+{ ... }:
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  bloodhound-ce = import ./services/web-apps/bloodhound-ce.nix;
 }
