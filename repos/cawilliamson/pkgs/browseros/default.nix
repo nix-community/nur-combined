@@ -8,7 +8,7 @@
 
 let
   pname = "browseros";
-  version = "0.26.1";
+  version = "0.27.0";
 
   desktopItem = makeDesktopItem {
     name = "${pname}";
@@ -24,7 +24,7 @@ let
 
   src = fetchurl {
     name = "browseros.AppImage";
-    sha256 = "sha256-D7TGAusSrYyCcuLIlYONrd0v+hCekzaaPI2og2Y9DkY=";
+    sha256 = "";
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
   };
 
