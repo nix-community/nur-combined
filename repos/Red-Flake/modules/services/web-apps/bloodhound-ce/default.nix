@@ -105,53 +105,106 @@ in
         description = "Environment file with PGPASSWORD=... (preferred over `password`).";
       };
     };
+
+    # Graph DB (Neo4j) params
+    neo4j = {
+      host = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        description = "Neo4j host (or host:port).";
+      };
+      port = mkOption {
+        type = types.port;
+        default = 7687;
+        description = "Neo4j Bolt port.";
+      };
+      database = mkOption {
+        type = types.str;
+        default = "neo4j";
+        description = "Neo4j database name.";
+      };
+      user = mkOption {
+        type = types.str;
+        default = "neo4j";
+        description = "Neo4j username.";
+      };
+      password = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = "supersecret";
+        description = "Neo4j password (prefer passwordFile for secrets).";
+      };
+      passwordFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        example = "/run/secrets/bh-neo4j.env"; # contains: bhe_neo4j_secret=...
+        description = "Environment file with bhe_neo4j_secret=... (preferred).";
+      };
+    };
+
+    # Which graph driver to use (BloodHound supports neo4j; keep default)
+    graphDriver = mkOption {
+      type = types.enum [ "neo4j" ];
+      default = "neo4j";
+      description = "Graph driver to use.";
+    };
   };
 
   ###### implementation ########################################################
   config = lib.mkMerge [
 
     (lib.mkIf cfg.enable {
-
+      # Compose host:port unless host already contains a colon (host:port / socket path)
+      # lib.strings.hasInfix is available in nixpkgs' lib
+      # Fallback: if your lib is older, replace with a simple regex match.
+      let
+        mkAddr = host: port:
+          if lib.strings.hasInfix ":" host then host else "${host}:${toString port}";
+      in
       # Put our generated config where the binary expects it by default
       environment.etc."bloodhound/bloodhound.config.json".source =
-        json.generate "bloodhound.config.json" {
-          version = 2;
-          bind_addr = "${cfg.settings.server.host}:${toString cfg.settings.server.port}";
-          work_dir = "/var/lib/bloodhound-ce/work";
-          log_level = cfg.settings.logLevel;               # "info" is fine; upstream examples use "INFO"
-          log_path  = cfg.settings.logPath;
-          collectors_base_path = "${cfg.package}/share/bloodhound/collectors";
+        json.generate "bloodhound.config.json"
+          {
+            version = 2;
+            bind_addr = "${cfg.settings.server.host}:${toString cfg.settings.server.port}";
+            work_dir = "/var/lib/bloodhound-ce/work";
+            log_level = cfg.settings.logLevel; # "info" is fine; upstream examples use "INFO"
+            log_path = cfg.settings.logPath;
+            collectors_base_path = "${cfg.package}/share/bloodhound/collectors";
 
-          # --- PostgreSQL (the API DB) ---
-          database = {
-            # you can also set a full "connection" string instead of these four
-            addr     = cfg.database.host;     # "/run/postgresql" or "127.0.0.1:5432"
-            database = cfg.database.name;     # "bloodhound"
-            username = cfg.database.user;     # "bloodhound"
-            # DO NOT put "secret" (password) here; provide it via env (below)
+            # --- PostgreSQL (the API DB) ---
+            database = {
+              # you can also set a full "connection" string instead of these four
+              addr     = mkAddr cfg.database.host cfg.database.port; # "/run/postgresql" or "127.0.0.1:5432"
+              database = cfg.database.name; # "bloodhound"
+              username = cfg.database.user; # "bloodhound"
+              # password via env: bhe_database_secret
+            };
+
+            # --- Neo4J (the Graph DB) ---
+            graph_driver = cfg.graphDriver;
+            neo4j = {
+              addr     = mkAddr cfg.neo4j.host cfg.neo4j.port;
+              database = cfg.neo4j.database;
+              username = cfg.neo4j.user;
+              # password via env: bhe_neo4j_secret
+            };
           };
-
-          # leave neo4j defaults unless you need to configure it here:
-          # graph_driver = "neo4j";
-          # neo4j = {
-          #   addr = "localhost:7687";
-          #   database = "neo4j";
-          #   username = "neo4j";
-          #   # password via env: bhe_neo4j_secret
-          # };
-        };
-      };
 
       systemd.services.bloodhound-ce = {
         description = "BloodHound Community Edition API";
         wantedBy = [ "multi-user.target" ];
 
         # if you rely on a local postgres, leave postgresql.service here
-        after = [
-          "network-online.target"
-          "postgresql.service"
-        ];
-        wants = [ "network-online.target" ];
+        after =
+          [ "network-online.target" ]
+          ++ lib.optionals (config.services.postgresql.enable or false) [ "postgresql.service" ]
+          ++ lib.optionals (config.services.neo4j.enable or false) [ "neo4j.service" ];
+
+        wants =
+          [ "network-online.target" ]
+          ++ lib.optionals (config.services.postgresql.enable or false) [ "postgresql.service" ]
+          ++ lib.optionals (config.services.neo4j.enable or false) [ "neo4j.service" ];
 
         serviceConfig = lib.mkMerge [
           {
@@ -180,9 +233,9 @@ in
               "bhe_work_dir=/var/lib/bloodhound-ce/work"
               "bhe_collectors_base_path=${cfg.package}/share/bloodhound/collectors"
             ]
-            # supply the DB password as env the app understands:
-            ++ lib.optional (cfg.database.password != null)
-              "bhe_database_secret=${cfg.database.password}";
+            # supply the DB secrets as env the app understands:
+            ++ lib.optional (cfg.database.password != null) "bhe_database_secret=${cfg.database.password}"
+            ++ lib.optional (cfg.neo4j.password != null) "bhe_neo4j_secret=${cfg.neo4j.password}";
 
             # Hardening (reasonable baseline)
             NoNewPrivileges = true;
@@ -211,8 +264,11 @@ in
           }
 
           # Conditionally add EnvironmentFile when provided
-          (lib.mkIf (cfg.database.passwordFile != null) {
-            EnvironmentFile = cfg.database.passwordFile;
+          (lib.mkIf (cfg.database.passwordFile != null || cfg.neo4j.passwordFile != null) {
+            EnvironmentFile = lib.concatStringsSep " " (lib.filter (x: x != null) [
+              cfg.database.passwordFile
+              cfg.neo4j.passwordFile
+            ]);
           })
         ];
       };
