@@ -59,7 +59,7 @@ jobs:
             
             [
               "base",
-              "mame",
+              # "mame",
               "hbmame",
               "qemu-screamer",
             empty] as $subsets |

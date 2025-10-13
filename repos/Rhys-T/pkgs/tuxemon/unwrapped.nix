@@ -64,6 +64,7 @@ in let
         build-system = with python3Packages; [setuptools];
     };
     usingPathlib = lib.versionAtLeast version "0.4.34-unstable-2025-05-29";
+    has3179 = lib.versionAtLeast version "0.4.34-unstable-2025-10-11";
     # Work around lack of NixOS/nixpkgs#386513 in Nixpkgs <= 24.11
     hasEnabledTestPaths = (python3Packages.pytestCheckHook.tests or {})?enabledTestPaths;
     tuxemon = python3Packages.buildPythonApplication {
@@ -119,7 +120,7 @@ in let
         '' + lib.optionalString withLibShake ''
             sed -Ei 's@locations = \[.*\]@locations = ["${lib.getLib libShake}/lib/libShake${hostPlatform.extensions.sharedLibrary}"]@' tuxemon/rumble/__init__.py
         '' + lib.optionalString (lib.versionAtLeast version "0.4.34-unstable-2025-03-14") ''
-                    substituteInPlace tuxemon/db.py --replace-fail \
+                    substituteInPlace tuxemon/${if has3179 then "database/utils" else "db"}.py --replace-fail \
             '        return DatabaseConfig(**data)' \
             '        config = DatabaseConfig(**data);
                     config.mod_base_path = ${if usingPathlib then 
@@ -127,7 +128,9 @@ in let
                     else
                         ''os.path.join(os.path.dirname(os.path.dirname(config_path)), config.mod_base_path)''
                     }
-                    return config'
+                    return config'${if has3179 then '' \
+                        --replace-fail 'def load_config' $'from pathlib import Path\ndef load_config'
+                    '' else ""}
         '';
         makeWrapperArgs = ["--set-default NIX_TUXEMON_DIR $out/share/tuxemon"];
         postInstall = ''
@@ -180,7 +183,7 @@ in let
                 mit # for tuxemon/lib/bresenham.py
             ];
             maintainers = [maintainers.Rhys-T];
-            broken = !(lib.meta.availableOn hostPlatform python3Packages.pygame-ce);
+            broken = !(lib.meta.availableOn hostPlatform python3Packages.pygame-ce) || has3179;
         };
         pos = _pos;
         passthru.updateScript = let
