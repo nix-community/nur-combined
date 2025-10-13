@@ -17,19 +17,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "feishin";
-  version = "0.20.1";
+  version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "jeffvli";
     repo = "feishin";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-WJMaLMrv6LSw/wxn7EZOSYqwAlgW3UkeYvxV4vEkCfM=";
+    hash = "sha256-RjIXgSggFpaQhGRi4Oj2lIerhiX1TpRiGy5r5qMcWjY=";
   };
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 1;
-    hash = "sha256-toVWebJoh2PB4mWTulEs1iVrzEtnWtbBd6Ga2uTxU8k=";
+    hash = "sha256-tn0YzBgNUSsROgTpEjZ/EjK6FDyIFWslhFyCY7QEWko=";
   };
 
   nativeBuildInputs = [
