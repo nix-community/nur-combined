@@ -77,6 +77,11 @@ in
         default = "/run/postgresql";
         description = "PostgreSQL host (socket dir or hostname).";
       };
+      port = mkOption {
+        type = types.str;
+        default = "5432";
+        description = "PostgreSQL port.";
+      };
       name = mkOption {
         type = types.str;
         default = "bloodhound";
@@ -154,11 +159,11 @@ in
             Environment = [
               "bhe_work_dir=/var/lib/bloodhound-ce/work"
               "bhe_collectors_base_path=${cfg.package}/share/bloodhound/collectors"
-              "PGHOST=${cfg.database.host}"
-              "PGDATABASE=${cfg.database.name}"
-              "PGUSER=${cfg.database.user}"
+              "BH_POSTGRES_PORT=${cfg.database.host}:${cfg.database.port}"
+              "BH_POSTGRES_DB=${cfg.database.name}"
+              "BH_POSTGRES_USER=${cfg.database.user}"
             ]
-            ++ lib.optional (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}";
+            ++ lib.optional (cfg.database.password != null) "BH_POSTGRES_PASSWORD=${cfg.database.password}";
 
             # Hardening (reasonable baseline)
             NoNewPrivileges = true;
