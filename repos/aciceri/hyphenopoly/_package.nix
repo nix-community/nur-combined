@@ -2,7 +2,8 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  nix-update-script,
+  writeShellScript,
+  nix-update,
 }:
 
 buildNpmPackage rec {
@@ -47,7 +48,7 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeShellScript "update-script.sh" "${lib.getExe nix-update} --flake hyphenopoly";
 
   meta = with lib; {
     description = "Hyphenation for node and Polyfill for client-side hyphenation";

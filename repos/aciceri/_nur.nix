@@ -2,6 +2,7 @@
 { pkgs ? import <nixpkgs> { } }: {
   asciinema-player = pkgs.callPackage ./asciinema-player/_package.nix { };
   claude-desktop-toggle = pkgs.callPackage ./claude-desktop-toggle/_package.nix { };
+  helix-master = pkgs.callPackage ./helix-master/_package.nix { };
   hyphenopoly = pkgs.callPackage ./hyphenopoly/_package.nix { };
   mirror-checks = pkgs.callPackage ./mirror-checks/_package.nix { };
   yt-dlp-master = pkgs.callPackage ./yt-dlp-master/_package.nix { };
