@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "aic8800-firmware";
-  version = "4.0+git20250410.b99ca8b6-2";
+  version = "4.0+git20250410.b99ca8b6-3";
 
   src = fetchFromGitHub {
     owner = "radxa-pkg";
     repo = "aic8800";
     tag = finalAttrs.version;
-    hash = "sha256-ol3FwwzUS3x8YQp8xYZJHqQO8nPmZmJN/TjmqcA9G6g=";
+    hash = "sha256-yrCeOejZf+Dy7ue0Y/sST/cT+YBlOLTOVMQzzPOy7SQ=";
   };
 
   dontBuild = true;
