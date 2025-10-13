@@ -17,18 +17,17 @@
   polkit,
   qt6Packages,
   stdenv,
-  vulkan-tools,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "goverlay";
-  version = "nightly";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = "goverlay";
-    tag = finalAttrs.version;
-    sha256 = "sha256-Viw9Vp6BU3f+2+kpvEkQ2XhzznkW/eA7kxzRf4T8AmY=";
+    tag = "v${finalAttrs.version}";
+    sha256 = "sha256-dXbqFCBydbd5Nm7G4BzJYlDAF0F9Tf86zPWNtYHkpMY=";
   };
 
   outputs = [
@@ -78,7 +77,6 @@ stdenv.mkDerivation (finalAttrs: {
           mangohud
           pciutils
           polkit
-          vulkan-tools
         ]
       })
   '';
@@ -88,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Opensource project that aims to create a Graphical UI to help manage Linux overlays";
     homepage = "https://github.com/benjamimgois/goverlay";
-    changelog = "https://github.com/benjamimgois/goverlay/releases/tag/${finalAttrs.version}";
+    changelog = "https://github.com/benjamimgois/goverlay/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "goverlay";
