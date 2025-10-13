@@ -24,7 +24,7 @@ let
 
   src = fetchurl {
     name = "browseros.AppImage";
-    sha256 = "";
+    sha256 = "sha256-lLUUqizlQOsyDp2jkN05yLD0g0revSwGbO0MVGD21t8=";
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
   };
 
