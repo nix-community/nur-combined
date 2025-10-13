@@ -32,6 +32,8 @@
       nixosModules = import ./modules;
 
       # Overlays (not per-system). At minimum export a `default` overlay function.
-      #overlays = [ (import ./overlays) ];
+      overlays = {
+        default = import ./overlays/default.nix;
+      };
     };
 }
