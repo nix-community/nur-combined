@@ -195,13 +195,13 @@ in
 
       # System user/group (only if using defaults)
       users.users = mkIf (cfg.user == "bloodhound") {
-        bloodhound-ce = {
+        bloodhound = {
           isSystemUser = true;
           group = cfg.group;
         };
       };
       users.groups = mkIf (cfg.group == "bloodhound") {
-        bloodhound-ce = { };
+        bloodhound = { };
       };
 
       # Open firewall if requested
