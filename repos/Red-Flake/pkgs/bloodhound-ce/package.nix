@@ -157,5 +157,6 @@ buildGoModule {
     homepage = "https://github.com/SpecterOps/BloodHound";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
+    mainProgram = "bloodhound";
   };
 }
