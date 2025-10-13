@@ -1,4 +1,3 @@
-{ ... }:
 {
-  bloodhound-ce = import ./services/web-apps/bloodhound-ce.nix;
+  bloodhound-ce = ./services/web-apps/bloodhound-ce;
 }

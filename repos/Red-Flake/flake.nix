@@ -29,10 +29,7 @@
       );
 
       # NixOS modules (not per-system)
-      nixosModules = {
-        # expose a bundle if your ./modules/default.nix aggregates modules
-        default = import ./modules;
-      };
+      nixosModules = import ./modules;
 
       # Overlays (not per-system). At minimum export a `default` overlay function.
       #overlays = [ (import ./overlays) ];
