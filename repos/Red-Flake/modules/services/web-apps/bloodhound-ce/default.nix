@@ -113,13 +113,33 @@ in
     (lib.mkIf cfg.enable {
 
       # Put our generated config where the binary expects it by default
-      environment.etc."bhapi/bhapi.json".source = json.generate "bhapi.json" {
-        Server = {
-          Host = cfg.settings.server.host;
-          Port = cfg.settings.server.port;
+      environment.etc."bloodhound/bloodhound.config.json".source =
+        json.generate "bloodhound.config.json" {
+          version = 2;
+          bind_addr = "${cfg.settings.server.host}:${toString cfg.settings.server.port}";
+          work_dir = "/var/lib/bloodhound-ce/work";
+          log_level = cfg.settings.logLevel;               # "info" is fine; upstream examples use "INFO"
+          log_path  = cfg.settings.logPath;
+          collectors_base_path = "${cfg.package}/share/bloodhound/collectors";
+
+          # --- PostgreSQL (the API DB) ---
+          database = {
+            # you can also set a full "connection" string instead of these four
+            addr     = cfg.database.host;     # "/run/postgresql" or "127.0.0.1:5432"
+            database = cfg.database.name;     # "bloodhound"
+            username = cfg.database.user;     # "bloodhound"
+            # DO NOT put "secret" (password) here; provide it via env (below)
+          };
+
+          # leave neo4j defaults unless you need to configure it here:
+          # graph_driver = "neo4j";
+          # neo4j = {
+          #   addr = "localhost:7687";
+          #   database = "neo4j";
+          #   username = "neo4j";
+          #   # password via env: bhe_neo4j_secret
+          # };
         };
-        LogLevel = cfg.settings.logLevel;
-        LogPath = cfg.settings.logPath;
       };
 
       systemd.services.bloodhound-ce = {
@@ -151,7 +171,7 @@ in
                 args = [
                   (lib.getExe cfg.package)
                   "-configfile"
-                  "/etc/bhapi/bhapi.json"
+                  "/etc/bloodhound/bloodhound.config.json"
                 ];
               in
               utils.escapeSystemdExecArgs args;
@@ -159,11 +179,10 @@ in
             Environment = [
               "bhe_work_dir=/var/lib/bloodhound-ce/work"
               "bhe_collectors_base_path=${cfg.package}/share/bloodhound/collectors"
-              "BH_POSTGRES_PORT=${cfg.database.host}:${cfg.database.port}"
-              "BH_POSTGRES_DB=${cfg.database.name}"
-              "BH_POSTGRES_USER=${cfg.database.user}"
             ]
-            ++ lib.optional (cfg.database.password != null) "BH_POSTGRES_PASSWORD=${cfg.database.password}";
+            # supply the DB password as env the app understands:
+            ++ lib.optional (cfg.database.password != null)
+              "bhe_database_secret=${cfg.database.password}";
 
             # Hardening (reasonable baseline)
             NoNewPrivileges = true;
