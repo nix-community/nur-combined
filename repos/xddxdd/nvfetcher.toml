@@ -800,7 +800,7 @@ src.github = "QSPFoundation/qspgui"
 [qsp-wx]
 fetch.github = "wxWidgets/wxWidgets"
 git.fetchSubmodules = true
-src.webpage = "https://raw.githubusercontent.com/QSPFoundation/qspgui/refs/heads/master/CMakeLists-wxWidgets.txt.in"
+src.webpage = "https://github.com/QSPFoundation/qspgui/raw/refs/heads/master/CMakeLists.txt"
 src.regex = "GIT_TAG\\s+([0-9a-f]{40})"
 
 [qtwebapp]
