@@ -44,7 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
     HOME=$(mktemp -d) lazbuild \
       --lazarusdir=${lazarus-qt6}/share/lazarus \
-      --primary-config-path=$out \
       --widgetset=qt6 \
       pascube.lpi
     runHook postBuild
