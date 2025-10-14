@@ -3,7 +3,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  p7zip,
+  _7zz,
   variance ? "hinted",
 }:
 
@@ -32,12 +32,12 @@ stdenvNoCC.mkDerivation {
 
   src = source.${variance};
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [ _7zz ];
 
   unpackPhase = ''
     runHook preUnpack
 
-    7z x $src
+    ${_7zz}/bin/7zz x $src
 
     runHook postUnpack
   '';
