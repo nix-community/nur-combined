@@ -33,6 +33,7 @@ let
       nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
       prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
       protonhax = final.callPackage ./protonhax { };
+      prts-cursor = final.callPackage ./prts-cursor { };
       realrtcw = final.callPackage ./realrtcw { };
       reshade-shaders = final.callPackage ./reshade-shaders { };
       seadrive-fuse = final.callPackage ./seadrive-fuse { };
