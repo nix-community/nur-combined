@@ -69,6 +69,36 @@ in
             default = "";
             description = "Optional path to a log file (empty = stdout only).";
           };
+          recreateDefaultAdmin = mkOption {
+            type = types.bool;
+            default = false;
+            description = "If true, BloodHound will recreate the default admin user on startup.";
+          };
+          defaultAdmin = mkOption {
+            type = types.submodule {
+              options = {
+                principalName = mkOption {
+                  type = types.str;
+                  default = "admin";
+                  description = "Default admin principal/user name.";
+                };
+                # Prefer passwordFile; 'password' will be embedded if you use it (not recommended).
+                password = mkOption {
+                  type = types.str;
+                  default = "";
+                  description = "Default admin password (discouraged: ends up in Nix store). Prefer passwordFile.";
+                };
+                passwordFile = mkOption {
+                  type = types.path;
+                  default = "";
+                  example = "/run/secrets/bh-admin.pass";
+                  description = "File containing the default admin password (recommended).";
+                };
+              };
+            };
+            default = { };
+            description = "Default admin configuration.";
+          };
         };
       };
       default = { };
@@ -171,6 +201,15 @@ in
             log_level = cfg.settings.logLevel; # "info" is fine; upstream examples use "INFO"
             log_path = cfg.settings.logPath;
             collectors_base_path = "${cfg.package}/share/bloodhound/collectors";
+
+            # Set default admin credentials
+            default_admin = {
+              principal_name = cfg.settings.defaultAdmin.principalName;
+              password = cfg.settings.defaultAdmin.password;
+            };
+
+            # Upstream often treats this as a string; we’ll mirror that:
+            recreatedefaultadmin = if cfg.settings.recreateDefaultAdmin then "true" else "false";
 
             # --- PostgreSQL (the API DB) ---
             database = {
