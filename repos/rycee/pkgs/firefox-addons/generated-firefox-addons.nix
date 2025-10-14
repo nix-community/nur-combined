@@ -3695,6 +3695,21 @@
         platforms = platforms.all;
       };
     };
+    "finicky" = buildFirefoxXpiAddon {
+      pname = "finicky";
+      version = "0.2.0";
+      addonId = "{294f2459-f2cf-4ab1-a822-342896cf0326}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4504197/finicky-0.2.0.xpi";
+      sha256 = "22de0a386d92c9a69d45ad4338ef82d54c9cbc3cdfb416044f5e7ed5d3838e37";
+      meta = with lib;
+      {
+        homepage = "https://github.com/johnste/finicky";
+        description = "The Official Finicky Browser Extension. Requires Finicky (macOS only). Opens links in other applications by right clicking them or clicking them while pressing alt.";
+        license = licenses.mit;
+        mozPermissions = [ "contextMenus" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
       version = "2.1.7";
@@ -13189,6 +13204,33 @@
           "https://*.ynab.com/*"
           "http://*.ynab.com/*"
           "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "topcashback-cashback-coupons" = buildFirefoxXpiAddon {
+      pname = "topcashback-cashback-coupons";
+      version = "6.14.2.0";
+      addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4589191/topcashback_cashback_coupons-6.14.2.0.xpi";
+      sha256 = "137dccdcb71ee249707bd59f31d97f8ebc8afaac30715b737cdced9d0c9299b0";
+      meta = with lib;
+      {
+        homepage = "https://www.topcashback.com";
+        description = "Join over 15m members worldwide and earn cashback when you shop online at over 4,000 online stores with the highest cashback rates.";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "storage"
+          "unlimitedStorage"
+          "cookies"
+          "alarms"
+          "nativeMessaging"
+          "scripting"
+          "webNavigation"
+          "webRequest"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
