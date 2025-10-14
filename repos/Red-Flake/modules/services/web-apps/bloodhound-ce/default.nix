@@ -27,10 +27,28 @@ let
   # SQL for the feature flag (table/columns follow upstream appcfg feature-flag schema)
   # If your schema uses a different table/column naming, tweak here:
   darkSQL = ''
-    -- enable/disable dark mode feature flag
-    INSERT INTO appcfg_feature_flags (flag, enabled)
-    VALUES ('dark_mode', ${if cfg.featureFlags.darkMode then "TRUE" else "FALSE"})
-    ON CONFLICT (flag) DO UPDATE SET enabled = EXCLUDED.enabled;
+    UPDATE feature_flags
+    SET enabled = ${if cfg.featureFlags.darkMode then "TRUE" else "FALSE"}
+    WHERE key = 'dark_mode';
+  '';
+
+  # A tiny script to (upsert) the dark_mode flag after the API starts
+  setDarkFlagScript = pkgs.writeShellScript "bh-set-dark-flag.sh" ''
+    set -euo pipefail
+    for i in $(seq 1 20); do
+      if ${lib.getExe' pkgs.postgresql "psql"} \
+           -v ON_ERROR_STOP=1 \
+           -h ${utils.escapeSystemdExecArg cfg.database.host} \
+           -p ${utils.escapeSystemdExecArg cfg.database.port} \
+           -U ${utils.escapeSystemdExecArg cfg.database.user} \
+           -d ${utils.escapeSystemdExecArg cfg.database.name} \
+           -c ${lib.escapeShellArg darkSQL}; then
+        exit 0
+      fi
+      sleep 1
+    done
+    echo "Failed to set dark_mode feature flag after retries" >&2
+    exit 1
   '';
 
 in
@@ -308,24 +326,8 @@ in
                 in
                 utils.escapeSystemdExecArgs args;
 
-              ExecStartPost = ''
-                set -eu
-                # small retry loop in case API opens the DB a tick later
-                for i in $(seq 1 30); do
-                  if ${lib.getExe' pkgs.postgresql "psql"} \
-                       -v ON_ERROR_STOP=1 \
-                       -h ${utils.escapeSystemdExecArg cfg.database.host} \
-                       -p ${utils.escapeSystemdExecArg cfg.database.port} \
-                       -U ${utils.escapeSystemdExecArg cfg.database.user} \
-                       -d ${utils.escapeSystemdExecArg cfg.database.name} \
-                       -c "${lib.strings.escapeShellArg darkSQL}"; then
-                    exit 0
-                  fi
-                  sleep 1
-                done
-                echo "Failed to set dark_mode feature flag after retries" >&2
-                exit 1
-              '';
+              # run post-start script via an actual executable file to set dark mode
+              ExecStartPost = setDarkFlagScript;
 
               Environment = [
                 "bhe_work_dir=/var/lib/bloodhound-ce/work"
