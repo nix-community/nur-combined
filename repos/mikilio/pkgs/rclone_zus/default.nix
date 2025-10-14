@@ -1,8 +1,9 @@
 {
+  lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-  makeWrapper,
 }:
 buildGoModule rec {
   pname = "rclone_zus";
@@ -24,16 +25,9 @@ buildGoModule rec {
     "bn256"
   ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/0chain/rclone_zus/fs.Version=${src.tag}"
-  ];
-
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  postInstall = ''
+    mv $out/bin/rclone_zus $out/bin/rclone
+  '';
 
   meta = {
     description = "Command line program to sync files and directories to and from Züs storage";
