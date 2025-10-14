@@ -208,8 +208,8 @@ in
               password = cfg.settings.defaultAdmin.password;
             };
 
-            # Upstream often treats this as a string; we’ll mirror that:
-            recreatedefaultadmin = if cfg.settings.recreateDefaultAdmin then "true" else "false";
+            # Re-create default admin user on startup
+            recreate_default_admin = cfg.settings.recreateDefaultAdmin;
 
             # --- PostgreSQL (the API DB) ---
             database = {
