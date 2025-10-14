@@ -37,6 +37,10 @@ stdenv.mkDerivation (finalAttr: {
     # Apply all patches in debian/patches
     dpkg-source --before-build .
 
+    find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST ?= n/CONFIG_USE_FW_REQUEST ?= y/g' {} \;
+    find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST = n/CONFIG_USE_FW_REQUEST = y/g' {} \;
+    sed -i 's|fw_patch_table_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_table_8800d80_u02.bin/g'
+
     runHook postPatch
   '';
 
