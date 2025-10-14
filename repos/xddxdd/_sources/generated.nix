@@ -442,7 +442,7 @@
     version = "1.2.1";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
+      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
     };
   };
   douban-openapi-server = {
@@ -930,7 +930,7 @@
       owner = "KikoPlayProject";
       repo = "KikoPlay";
       tag = "2.0.0";
-      hash = "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=";
+      hash = "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=";
     };
   };
   kikoplay-app = {
@@ -1893,14 +1893,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "11fa56f4f4568198ab40847b2ec470bde91c864b";
+    version = "cf5cca2feb763845765b231688c38a2ba8fea3c7";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "11fa56f4f4568198ab40847b2ec470bde91c864b";
-      hash = "sha256-bZ4ojoC2uL8MR5IO7TaAkwQKplRU/poAaHouY5Ruq5Q=";
+      rev = "cf5cca2feb763845765b231688c38a2ba8fea3c7";
+      hash = "sha256-rZsmlOwokB3Sf+Z/aP19r08v93MDlcFHLHxq2Q8En98=";
     };
-    date = "2025-10-06";
+    date = "2025-10-14";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

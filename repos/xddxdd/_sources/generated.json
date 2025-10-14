@@ -840,7 +840,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
+            "sha256": "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=",
             "type": "url",
             "url": "https://example.com"
         },
@@ -1795,7 +1795,7 @@
             "owner": "KikoPlayProject",
             "repo": "KikoPlay",
             "rev": "2.0.0",
-            "sha256": "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=",
+            "sha256": "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -3684,7 +3684,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2025-10-06",
+        "date": "2025-10-14",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3696,12 +3696,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "11fa56f4f4568198ab40847b2ec470bde91c864b",
-            "sha256": "sha256-bZ4ojoC2uL8MR5IO7TaAkwQKplRU/poAaHouY5Ruq5Q=",
+            "rev": "cf5cca2feb763845765b231688c38a2ba8fea3c7",
+            "sha256": "sha256-rZsmlOwokB3Sf+Z/aP19r08v93MDlcFHLHxq2Q8En98=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "11fa56f4f4568198ab40847b2ec470bde91c864b"
+        "version": "cf5cca2feb763845765b231688c38a2ba8fea3c7"
     },
     "rime-moegirl": {
         "cargoLock": null,
