@@ -44,7 +44,7 @@ jobs:
           git pull
           git stash pop
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v7
         continue-on-error: true
         with:
           commit_message: |
@@ -74,7 +74,7 @@ jobs:
         if: steps.check-branch.outputs.exists == '1'
         run: git merge --squash origin/$BRANCH
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v7
         if: steps.check-branch.outputs.exists == '1'
         with:
           commit_message: |
