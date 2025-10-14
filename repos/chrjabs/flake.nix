@@ -66,6 +66,8 @@
               gimsatul
               coveralls
               cargo-afl
+              janus-swi
+              pyclingo
               ;
           };
 

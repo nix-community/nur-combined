@@ -40,6 +40,12 @@ rec {
 
   # Cargo AFL fuzz helper
   cargo-afl = pkgs.callPackage ./pkgs/cargo-afl { };
+
+  # Janus-SWI python prolog interface
+  janus-swi = pkgs.python3Packages.callPackage ./pkgs/janus-swi { };
+
+  # Clingo python API
+  pyclingo = pkgs.python3Packages.callPackage ./pkgs/clingo { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
