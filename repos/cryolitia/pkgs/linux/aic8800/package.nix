@@ -39,7 +39,13 @@ stdenv.mkDerivation (finalAttr: {
 
     find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST ?= n/CONFIG_USE_FW_REQUEST ?= y/g' {} \;
     find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST = n/CONFIG_USE_FW_REQUEST = y/g' {} \;
-    sed -i 's|fw_patch_table_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_table_8800d80_u02.bin/g'
+    sed -i 's|fw_patch_table_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_table_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    sed -i 's|fw_adid_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_adid_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    sed -i 's|fw_patch_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    sed -i 's|fw_patch_8800d80_u02_ext|aic8800_fw/USB/aic8800D80/fw_patch_8800d80_u02_ext|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    sed -i 's|fmacfw_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fmacfw_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    sed -i 's|aic_userconfig_8800d80.txt|aic8800_fw/USB/aic8800D80/aic_userconfig_8800d80.txt|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
+    
 
     runHook postPatch
   '';
