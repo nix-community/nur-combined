@@ -14,11 +14,10 @@ To use cached binaries with Cachix refer to [NixOS Wiki](https://nixos.wiki/wiki
 
 | Name                       | Description                                                  |
 |----------------------------|--------------------------------------------------------------|
-| `xwaylandvideobridge`      | Utility to allow streaming Wayland windows to X applications |
-| `xwaylandvideobridge-hypr` | `xwaylandvideobridge` with patches for Hyprland |
+| `rclone_zus`               | Rclone utility for Züs storage
 | `ttf-ms-fonts`             | Microsoft Core Webfonts |
 | `xdg-terminal-exec`        | Experimental XDG specification for applications running on a terminal emulator |
-| `xmclib`                 | The XMC Peripheral Library (XMCLib) consists of low-level drivers for the XMC product family peripherals. |
+| `xmclib`                   | The XMC Peripheral Library (XMCLib) consists of low-level drivers for the XMC product family peripherals. |
 
 ## Overlays
 
