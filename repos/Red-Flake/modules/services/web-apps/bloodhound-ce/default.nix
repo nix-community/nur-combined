@@ -69,11 +69,6 @@ in
             default = "";
             description = "Optional path to a log file (empty = stdout only).";
           };
-          recreateDefaultAdmin = mkOption {
-            type = types.bool;
-            default = false;
-            description = "If true, BloodHound will recreate the default admin user on startup.";
-          };
           defaultAdmin = mkOption {
             type = types.submodule {
               options = {
@@ -94,10 +89,20 @@ in
                   example = "/run/secrets/bh-admin.pass";
                   description = "File containing the default admin password (recommended).";
                 };
+                expireNow = lib.mkOption {
+                  type = lib.types.bool;
+                  default = false;
+                  description = "Force immediate password change for the default admin.";
+                };
               };
             };
             default = { };
             description = "Default admin configuration.";
+          };
+          recreateDefaultAdmin = mkOption {
+            type = types.bool;
+            default = false;
+            description = "If true, BloodHound will recreate the default admin user on startup.";
           };
         };
       };
@@ -206,6 +211,7 @@ in
             default_admin = {
               principal_name = cfg.settings.defaultAdmin.principalName;
               password = cfg.settings.defaultAdmin.password;
+              expire_now = cfg.settings.defaultAdmin.expireNow;
             };
 
             # Re-create default admin user on startup
