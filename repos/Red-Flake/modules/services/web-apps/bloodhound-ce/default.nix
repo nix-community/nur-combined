@@ -20,6 +20,19 @@ let
   # Compose host:port unless host already includes a colon (e.g. "host:port" or a path-like socket)
   mkAddr = host: port: if lib.hasInfix ":" host then host else "${host}:${toString port}";
 
+  # Pick host/port flags for psql (host can be a socket path like /run/postgresql)
+  psqlHost = cfg.database.host;
+  psqlPort = cfg.database.port;
+
+  # SQL for the feature flag (table/columns follow upstream appcfg feature-flag schema)
+  # If your schema uses a different table/column naming, tweak here:
+  darkSQL = ''
+    -- enable/disable dark mode feature flag
+    INSERT INTO appcfg_feature_flags (flag, enabled)
+    VALUES ('dark_mode', ${if cfg.featureFlags.darkMode then "TRUE" else "FALSE"})
+    ON CONFLICT (flag) DO UPDATE SET enabled = EXCLUDED.enabled;
+  '';
+
 in
 {
   ###### options ###############################################################
@@ -42,7 +55,7 @@ in
 
     openFirewall = mkEnableOption "opening firewall ports for BloodHound CE";
 
-    # Minimal server config written to /etc/bhapi/bhapi.json
+    # server config written to /etc/bhapi/bhapi.json
     settings = mkOption {
       type = types.submodule {
         freeformType = json.type;
@@ -108,6 +121,20 @@ in
       };
       default = { };
       description = "BloodHound CE server configuration (subset).";
+    };
+
+    featureFlags = lib.mkOption {
+      type = types.submodule {
+        options = {
+          darkMode = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Enable BloodHound UI dark mode via the server-side feature flag.";
+          };
+        };
+      };
+      default = { };
+      description = "Server-side feature flags managed in the API database.";
     };
 
     # PostgreSQL (API DB)
@@ -280,6 +307,25 @@ in
                   ];
                 in
                 utils.escapeSystemdExecArgs args;
+
+              ExecStartPost = ''
+                set -eu
+                # small retry loop in case API opens the DB a tick later
+                for i in $(seq 1 30); do
+                  if ${lib.getExe' pkgs.postgresql "psql"} \
+                       -v ON_ERROR_STOP=1 \
+                       -h ${utils.escapeSystemdExecArg cfg.database.host} \
+                       -p ${utils.escapeSystemdExecArg cfg.database.port} \
+                       -U ${utils.escapeSystemdExecArg cfg.database.user} \
+                       -d ${utils.escapeSystemdExecArg cfg.database.name} \
+                       -c "${lib.strings.escapeShellArg darkSQL}"; then
+                    exit 0
+                  fi
+                  sleep 1
+                done
+                echo "Failed to set dark_mode feature flag after retries" >&2
+                exit 1
+              '';
 
               Environment = [
                 "bhe_work_dir=/var/lib/bloodhound-ce/work"
