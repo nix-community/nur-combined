@@ -108,7 +108,7 @@ jobs:
           env TMPDIR=/nix/tmpdir nix run .#${{ matrix.ci-command }} -- "$(nix-instantiate --eval -E 'builtins.currentSystem')"
 
       - name: Commit back to repository
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         if: ${{ success() || failure() }}
         with:
           commit_message: 'auto: update package hashes'
