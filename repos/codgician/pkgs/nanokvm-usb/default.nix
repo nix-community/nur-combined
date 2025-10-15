@@ -91,16 +91,14 @@ stdenv.mkDerivation {
       resourcesDir="$appContents/Resources"
 
       # Remove default Electron app and prepare for our app
-      rm -rf "$resourcesDir/default_app.asar" "$resourcesDir/app"
+      rm -rf "$resourcesDir/default_app.asar" "$resourcesDir/electron.icns" "$resourcesDir/app"
       mkdir -p "$resourcesDir/app"
 
       # Copy our application files
       cp -r out node_modules package.json "$resourcesDir/app/"
 
-      # Copy update configuration if it exists (to silence warnings)
-      if [ -f dev-app-update.yml ]; then
-        cp dev-app-update.yml "$resourcesDir/app/"
-      fi
+      # Copy update configuration
+      cp dev-app-update.yml "$resourcesDir/app-update.yml"
 
       # Patch Info.plist to reflect new app identity
       infoPlist="$appContents/Info.plist"
@@ -111,12 +109,10 @@ stdenv.mkDerivation {
       # Rename the executable to match CFBundleExecutable in Info.plist
       mv "$appContents/MacOS/Electron" "$appContents/MacOS/NanoKVM-USB"
 
-      # Add icon if available
-      if [ -f build/icon.icns ]; then
-        cp build/icon.icns "$resourcesDir/NanoKVM-USB.icns"
+      # Add icon
+      cp build/icon.icns "$resourcesDir/NanoKVM-USB.icns"
         substituteInPlace "$infoPlist" \
           --replace-fail "electron.icns" "NanoKVM-USB.icns"
-      fi
 
       # Provide CLI launcher
       mkdir -p $out/bin
@@ -128,7 +124,7 @@ stdenv.mkDerivation {
       # Linux installation: copy payload and wrap electron
       mkdir -p $out/opt/${pname}
       cp -r out node_modules package.json $out/opt/${pname}/
-      
+
       mkdir -p $out/bin
       makeWrapper ${electron}/bin/electron $out/bin/${pname} \
         --add-flags "$out/opt/${pname}/out/main/index.js" \
