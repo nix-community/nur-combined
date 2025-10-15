@@ -6478,10 +6478,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.25";
+      version = "2.27";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569514/ipvfoo-2.25.xpi";
-      sha256 = "dee26634fb9e49419196e0df81b73b91112bd59f89cb9db045d3294f0e252aba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598160/ipvfoo-2.27.xpi";
+      sha256 = "93fceeecfc0c04de41a558940972bb652c0cd2c99993b365ef27f4ef03ce9c90";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "1.9.2";
+      version = "2.0.0";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4553890/kiss_translator-1.9.2.xpi";
-      sha256 = "82d5b17e46f1000ff9c9f505865392fbf01b6db0be2a429fd2711d52da784916";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4597866/kiss_translator-2.0.0.xpi";
+      sha256 = "7cbd9392964b933da6ad5bb48a6581051b2e610e4d27ac082540b7f8d03ff900";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -6894,6 +6894,7 @@
           "contextMenus"
           "scripting"
           "declarativeNetRequest"
+          "file://*/*"
         ];
         platforms = platforms.all;
       };
@@ -9501,10 +9502,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.71";
+      version = "1.0.85";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4423399/paperpile_addon-1.0.71.xpi";
-      sha256 = "f2af0b2e2212b6a4279120952510d8f731c64e1c1045644d2bcb3ebef5f635d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4593252/paperpile_addon-1.0.85.xpi";
+      sha256 = "21f3bbe476e11ba67ab5d58cbd64311a6b9a8efe00c2dc719270875c9fc775af";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -12861,10 +12862,10 @@
     };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "5.3.3";
+      version = "5.4.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405733/tampermonkey-5.3.3.xpi";
-      sha256 = "1eb5ddffb3b93c0258ef0458658436563772d21bf5dffa334bb8a49cca8f0fff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4578764/tampermonkey-5.4.0.xpi";
+      sha256 = "20159d57c510cd0df9ad3992f818042b54d9b52e500fc384fc697314047fdf11";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
