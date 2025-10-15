@@ -123,15 +123,15 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1758352462,
-        "narHash": "sha256-WsQb7grsm5IlPPGftzlaM41QtGRo/8NU53n9OwJMxdo=",
-        "owner": "berberman",
+        "lastModified": 1760516348,
+        "narHash": "sha256-nIsrxp6n1nQ63n1JTDaO/18RjvYbW9GVkanTP4G6Y18=",
+        "owner": "auscyber",
         "repo": "nvfetcher",
-        "rev": "c0b235b4476c968c3683485610e1ea7f024cef9e",
+        "rev": "546d277920282989fe592f9a2a8de39349a8502a",
         "type": "github"
       },
       "original": {
-        "owner": "berberman",
+        "owner": "auscyber",
         "repo": "nvfetcher",
         "type": "github"
       }
