@@ -4,12 +4,14 @@ src.prefix = "v"
 fetch.url = "https://release.files.ghostty.org/$ver/Ghostty.dmg"
 [ghostty-nightly]
 src.manual = "tip"
-fetch.url = "https://github.com/ghostty-org/ghostty/releases/download/tip/Ghostty.dmg"
+fetch.url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip"
 fetch.force = true
-[zen-browser]
+url.name = "Ghostty.zip"
+extract = ["**/*"]
+[zen]
 src.github = "zen-browser/desktop"
 fetch.url = "https://github.com/zen-browser/desktop/releases/download/$ver/zen.macos-universal.dmg"
-[zen-browser-twilight]
+[zen-twilight]
 src.github = "zen-browser/desktop"
 fetch.url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
 [bartender-6]
@@ -23,9 +25,13 @@ fetch.github = "koekeishiya/yabai"
 
 [karabiner-dk]
 src.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
-src.prefix = "v"
-fetch.url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/download/v$ver/Karabiner-DriverKit-VirtualHIDDevice-$ver.pkg"
+fetch.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
 
+[kanata]
+src.github_tag = "jtroo/kanata"
+src.sort_version_key = "awesomeversion"
+fetch.github = "jtroo/kanata"
+cargo_lock = ["Cargo.lock"]
 [kanata-vk-agent]
 src.git = "https://github.com/devsunb/kanata-vk-agent"
 fetch.github = 'devsunb/kanata-vk-agent'
@@ -36,4 +42,11 @@ fetch.url = "https://github.com/imputnet/helium-macos/releases/download/$ver/hel
 [helium-linux]
 src.github_tag = "imputnet/helium-linux"
 fetch.github = "imputnet/helium-linux"
-
+[flake-compat]
+src.manual = "flake-compat"
+fetch.tarball = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz"
+extract = ["default.nix"]
+[nixpkgs-master]
+src.manual = "nixpkgs-master"
+fetch.tarball = "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
+extract = ["pkgs/by-name/ka/kanata/**", "pkgs/by-name/ka/karabiner-dk/**"]

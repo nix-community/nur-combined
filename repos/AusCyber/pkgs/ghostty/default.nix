@@ -5,6 +5,8 @@
   sourceRoot,
   makeBinaryWrapper,
   source,
+  rsync,
+  isNightly ? false,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -14,19 +16,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     _7zz
     makeBinaryWrapper
+    rsync
   ];
-  unpackPhase = lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-    runHook preUnpack
-    7zz -snld x $src
-    runHook postUnpack
-  '';
+  unpackPhase =
+    if isNightly then
+      ''
+                        		rsync -a --chmod=ugo=rwX $src/ Ghostty.app
+        						chmod +x ./Ghostty.app/Contents/MacOS/ghostty
+                				runHook postUnpack
+      ''
+    else
+      ''
+        runHook preUnpack
+        7zz -snld x $src
+        runHook postUnpack
+      '';
 
   postInstall = ''
-
     		mkdir -p $out/Applications
     		mv Ghostty.app $out/Applications/
-    		makeWrapper $out/Applications/Ghostty.app/Contents/MacOS/ghostty $out/bin/ghostty
-
+    		makeWrapper "$out/Applications/Ghostty.app/Contents/MacOS/ghostty" "$out/bin/ghostty"
     	'';
 
   outputs = [
@@ -53,7 +62,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp -r $resourceDir/man $man/share/man
   '';
 
-  preferLocalBuild = false;
+  preferLocalBuild = true;
   meta = {
     description = "Fast, native, feature-rich terminal emulator pushing modern features";
     longDescription = ''

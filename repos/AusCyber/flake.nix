@@ -1,23 +1,31 @@
 {
   description = "My personal NUR repository";
+  inputs.nvfetcher.url = "github:auscyber/nvfetcher";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs-master.url = "github:NixOS/nixpkgs";
+  inputs.fenix.url = "github:nix-community/fenix";
   outputs =
-    { self, nixpkgs }:
+    inputs@{ self, nixpkgs, ... }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
     {
       legacyPackages = forAllSystems (
         system:
-        import ./default.nix {
+        import ./packages.nix {
+          inherit inputs;
           pkgs = import nixpkgs { inherit system; };
         }
       );
-      overlays.default = import ./overlay.nix;
+      overlays.default = import ./overlay.nix inputs;
       packages = forAllSystems (
         system: (nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system})
       );
       apps = forAllSystems (system: {
+        nvfetcher = {
+          type = "app";
+          program = "${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher";
+        };
         docs = {
           type = "app";
           program = builtins.toString (
