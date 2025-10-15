@@ -45,14 +45,14 @@ in stdenv.mkDerivation rec {
     meta = {
         description = "Classic Mac OS resource fork and application disassembler, with reverse-engineering tools for specific applications";
         longDescription = ''
-            This project contains multiple tools for reverse-engineering classic Mac OS applications and games.
+            This project contains multiple tools for reverse-engineering applications and games. Most of these tools are targeted at classic Mac OS (pre-OSX); a few are targeted at Nintendo GameCube games.
             
             The tools in this project are:
             * General tools
                 * **resource_dasm**: A utility for working with classic Mac OS resources. It can read resources from classic Mac OS resource forks, AppleSingle/AppleDouble files, MacBinary files, Mohawk archives, or HIRF/RMF/IREZ/HSB archives, and convert the resources to modern formats and/or export them verbatim. It can also create and modify resource forks.
                 * **libresource_file**: A library implementing most of resource_dasm's functionality.
                 * **m68kdasm**: A 68K, PowerPC, x86, and SH-4 binary assembler and disassembler. m68kdasm can also disassemble some common executable formats.
-                * **m68kexec**: A 68K, PowerPC, and x86 CPU emulator and debugger.
+                * **m68kexec**: A 68K, PowerPC, x86, and SH-4 CPU emulator and debugger.
                 * **render_bits**: Renders raw data in a variety of color formats, including indexed formats. Useful for finding embedded images or understanding 2-dimensional arrays in unknown file formats.
                 * **replace_clut**: Remaps an existing image from one indexed color space to another.
                 * **assemble_images**: Combines multiple images into one. Useful for dealing with games that split large images into multiple smaller images due to format restrictions.
@@ -60,9 +60,17 @@ in stdenv.mkDerivation rec {
             * Tools for specific formats
                 * **render_text**: Renders text using bitmap fonts from FONT or NFNT resources.
                 * **hypercard_dasm**: Disassembles HyperCard stacks and draws card images.
-                * **decode_data**: Decodes some custom compression formats (see README).
-                * **render_sprite**: Renders sprites from a variety of custom formats (see README).
-                * **icon_dearchiver**: Exports icons from an Icon Archiver archive to .icns (see README).
+                * **decode_data**: Decodes some custom compression formats (see below).
+                * **render_sprite**: Renders sprites from a variety of custom formats (see below).
+                * **icon_unarchiver**: Exports icons from an Icon Archiver archive to .icns (see below).
+                * **vrfsdump**: Extracts the contents of VRFS archives from Blobbo.
+                * **gcmdump**: Extracts all files in a GCM file (GameCube disc image) or TGC file (embedded GameCube disc image).
+                * **gcmasm**: Generates a GCM image from a directory tree.
+                * **gvmdump**: Extracts all files in a GVM archive (from Phantasy Star Online) to the current directory, and converts the GVR textures to Windows BMP files. Also can decode individual GVR files outside of a GVM archive.
+                * **rcfdump**: Extracts all files in a RCF archive (from The Simpsons: Hit and Run) to the current directory.
+                * **smsdumpbanks**: Extracts the contents of JAudio instrument and waveform banks in AAF, BX, or BAA format (from Super Mario Sunshine, Luigi's Mansion, Pikmin, and other games). See "Using smssynth" for more information.
+                * **smssynth**: Synthesizes and debugs music sequences in BMS format (from Super Mario Sunshine, Luigi's Mansion, Pikmin, and other games) or MIDI format (from classic Macintosh games). See "Using smssynth" for more information.
+                * **modsynth**: Synthesizes and debugs music sequences in Protracker/Soundtracker MOD format.
             * Game map generators
                 * **blobbo_render**: Generates maps from Blobbo levels.
                 * **bugs_bannis_render**: Generates maps from Bugs Bannis levels.
@@ -84,15 +92,18 @@ in stdenv.mkDerivation rec {
     passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
     passthru._Rhys-T.flakeApps = rdName: resource_dasm: let
         lines = lib.splitString "\n" resource_dasm.meta.longDescription;
-        matchInfo = map (builtins.match "    \\* \\*\\*([^*]+)\\*\\*.*") lines;
-        actualMatches = builtins.filter (x: x != null) matchInfo;
-        appNames = lib.lists.remove "libresource_file" (map (x: builtins.elemAt x 0) actualMatches) ++ ["vrfs_dump"];
-        flakeApps = builtins.listToAttrs (map (name: {
+        matchInfo = map (builtins.match "    \\* \\*\\*([^*]+)\\*\\*: (.*)") lines;
+        actualMatches = builtins.filter (x: x != null && builtins.elemAt x 0 != "libresource_file") matchInfo;
+        flakeApps = builtins.listToAttrs (map (appInfo: let
+            name = builtins.elemAt appInfo 0;
+            description = builtins.elemAt appInfo 1;
+        in {
             inherit name;
             value = {
                 type = "app";
                 program = lib.getExe' resource_dasm name;
+                meta = { inherit description; };
             };
-        }) appNames);
+        }) actualMatches);
     in flakeApps;
 }
