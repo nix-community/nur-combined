@@ -1042,6 +1042,15 @@ fetch.github = "Zamundaaa/VK_hdr_layer"
 git.fetchSubmodules = true
 src.git = "https://github.com/Zamundaaa/VK_hdr_layer.git"
 
+[vlmcsd]
+fetch.github = "Wind4/vlmcsd"
+src.git = "https://github.com/Wind4/vlmcsd.git"
+
+[vlmcsd-stable]
+fetch.url = "https://example.com"
+src.github = "Wind4/vlmcsd"
+src.prefix = "svn"
+
 [vpp]
 fetch.github = "FDio/vpp"
 src.github_tag = "FDio/vpp"

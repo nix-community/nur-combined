@@ -5234,6 +5234,11 @@
     "pname": "vk-hdr-layer",
     "version": "0-unstable-2025-07-31"
   },
+  "legacyPackages.x86_64-linux.uncategorized.vlmcsd": {
+    "description": "KMS Emulator in C",
+    "pname": "vlmcsd",
+    "version": "1113-unstable-2023-07-28"
+  },
   "legacyPackages.x86_64-linux.uncategorized.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
@@ -5318,6 +5323,11 @@
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
     "version": "0-unstable-2025-07-31"
+  },
+  "legacyPackages.x86_64-linux.vlmcsd": {
+    "description": "KMS Emulator in C",
+    "pname": "vlmcsd",
+    "version": "1113-unstable-2023-07-28"
   },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -6363,6 +6373,11 @@
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
     "pname": "vk-hdr-layer",
     "version": "0-unstable-2025-07-31"
+  },
+  "packages.x86_64-linux.vlmcsd": {
+    "description": "KMS Emulator in C",
+    "pname": "vlmcsd",
+    "version": "1113-unstable-2023-07-28"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",

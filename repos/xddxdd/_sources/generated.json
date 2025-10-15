@@ -4558,6 +4558,42 @@
         },
         "version": "303e0c69e1d33acd95158d92b1fc652fb5b85399"
     },
+    "vlmcsd": {
+        "cargoLock": null,
+        "date": "2023-07-28",
+        "extract": null,
+        "name": "vlmcsd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Wind4",
+            "repo": "vlmcsd",
+            "rev": "70e03572b254688b8c3557f898e7ebd765d29ae1",
+            "sha256": "sha256-BEi47U0rdkO+AlQRpntsaTgm5A4CSwS6LuffAl2kIaw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "70e03572b254688b8c3557f898e7ebd765d29ae1"
+    },
+    "vlmcsd-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vlmcsd-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
+            "type": "url",
+            "url": "https://example.com"
+        },
+        "version": "1113"
+    },
     "vpp": {
         "cargoLock": null,
         "date": null,

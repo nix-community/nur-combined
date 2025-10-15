@@ -2340,6 +2340,25 @@
     };
     date = "2025-07-31";
   };
+  vlmcsd = {
+    pname = "vlmcsd";
+    version = "70e03572b254688b8c3557f898e7ebd765d29ae1";
+    src = fetchFromGitHub {
+      owner = "Wind4";
+      repo = "vlmcsd";
+      rev = "70e03572b254688b8c3557f898e7ebd765d29ae1";
+      hash = "sha256-BEi47U0rdkO+AlQRpntsaTgm5A4CSwS6LuffAl2kIaw=";
+    };
+    date = "2023-07-28";
+  };
+  vlmcsd-stable = {
+    pname = "vlmcsd-stable";
+    version = "1113";
+    src = fetchurl {
+      url = "https://example.com";
+      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
+    };
+  };
   vpp = {
     pname = "vpp";
     version = "v25.06";
