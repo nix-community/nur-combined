@@ -20,6 +20,9 @@
   atk,
   cairo,
   gdk-pixbuf,
+  # Qt6 依赖
+  qt6,
+  qt6Packages,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -34,6 +37,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
@@ -65,6 +69,17 @@ stdenv.mkDerivation rec {
     atk # Provides libatk-1.0
     cairo # Provides libcairo-gobject, libcairo
     gdk-pixbuf # Provides libgdk_pixbuf-2.0
+
+    # Qt6 依赖
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtsvg
+    qt6.qtwayland
+    qt6.qtmultimedia
+    qt6.qt5compat
+
+    # 额外库依赖
+    qt6Packages.quazip
   ];
 
   runtimeDependencies = [
@@ -80,6 +95,29 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ''
     dpkg-deb -x $src .
+
+    # 删除有问题的 Mimer SQL 插件（缺少 libmimerapi.so 依赖）
+    # nixpkgs 中没有这个库
+    rm -f opt/freedownloadmanager/plugins/sqldrivers/libqsqlmimer.so
+
+    # 只保留 FDM 专有库，让 autoPatchelf 处理其他库
+    mkdir -p temp_libs
+    
+    # 保存 FDM 专有库（这些库不在 Nixpkgs 中提供）
+    cp opt/freedownloadmanager/lib/libvmsclshared.so* temp_libs/ 2>/dev/null || true
+    cp opt/freedownloadmanager/lib/liblogger.so* temp_libs/ 2>/dev/null || true
+    cp opt/freedownloadmanager/lib/libdownloads*.so* temp_libs/ 2>/dev/null || true
+    
+    # 保存 quazip 库（版本不匹配，FDM 需要特定版本）
+    cp opt/freedownloadmanager/lib/libquazip.so* temp_libs/ 2>/dev/null || true
+    
+    # 删除原始 lib 目录
+    rm -rf opt/freedownloadmanager/lib
+    
+    # 恢复保存的专有库文件
+    mkdir -p opt/freedownloadmanager/lib
+    cp temp_libs/* opt/freedownloadmanager/lib/ 2>/dev/null || true
+    rm -rf temp_libs
   '';
 
   installPhase = ''
@@ -108,19 +146,6 @@ stdenv.mkDerivation rec {
     ln -sf "$out/opt/freedownloadmanager/fdm" "$out/bin/fdm"
 
     runHook postInstall
-  '';
-
-  # 手动修补特殊依赖
-  preFixup = ''
-    # 排除无法满足的MimerSQL依赖
-    patchelf --remove-needed libmimerapi.so $out/opt/freedownloadmanager/plugins/sqldrivers/libqsqlmimer.so
-
-    # 指定ODBC库路径
-    patchelf --add-needed libodbc.so.2 $out/opt/freedownloadmanager/plugins/sqldrivers/libqsqlodbc.so
-
-    # 手动添加XCB ICCCM依赖路径
-    find $out/opt/freedownloadmanager -type f -executable \
-      -exec patchelf --add-needed libxcb-icccm.so.4 {} \;
   '';
 
   meta = with lib; {
