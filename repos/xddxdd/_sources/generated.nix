@@ -442,7 +442,7 @@
     version = "1.2.1";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
+      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
     };
   };
   douban-openapi-server = {
@@ -930,7 +930,7 @@
       owner = "KikoPlayProject";
       repo = "KikoPlay";
       tag = "2.0.0";
-      hash = "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=";
+      hash = "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=";
     };
   };
   kikoplay-app = {
@@ -1439,21 +1439,10 @@
   };
   openresty = {
     pname = "openresty";
-    version = "d08b0f1f4456b732e85a0af5ccbf5ec8510b7b90";
-    src = fetchFromGitHub {
-      owner = "openresty";
-      repo = "openresty";
-      rev = "d08b0f1f4456b732e85a0af5ccbf5ec8510b7b90";
-      hash = "sha256-7aseaGCDWaCoFmdCCQXVJ5rZWb11/u+MJMSTnWYoAi0=";
-    };
-    date = "2025-10-14";
-  };
-  openresty-stable = {
-    pname = "openresty-stable";
-    version = "v1.27.1.2";
+    version = "1.27.1.2";
     src = fetchurl {
-      url = "https://google.com/generate_204";
-      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+      url = "https://github.com/openresty/openresty/releases/download/v1.27.1.2/openresty-1.27.1.2.tar.gz";
+      hash = "sha256-dPB29+NksqmabF+btTHCdhDHiYWr6Va0QrGSoilfdUg=";
     };
   };
   openssl-ech = {

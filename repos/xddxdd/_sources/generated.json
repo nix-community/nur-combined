@@ -840,7 +840,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=",
+            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
             "type": "url",
             "url": "https://example.com"
         },
@@ -1795,7 +1795,7 @@
             "owner": "KikoPlayProject",
             "repo": "KikoPlay",
             "rev": "2.0.0",
-            "sha256": "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=",
+            "sha256": "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -2791,39 +2791,18 @@
     },
     "openresty": {
         "cargoLock": null,
-        "date": "2025-10-14",
+        "date": null,
         "extract": null,
         "name": "openresty",
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
             "name": null,
-            "owner": "openresty",
-            "repo": "openresty",
-            "rev": "d08b0f1f4456b732e85a0af5ccbf5ec8510b7b90",
-            "sha256": "sha256-7aseaGCDWaCoFmdCCQXVJ5rZWb11/u+MJMSTnWYoAi0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "d08b0f1f4456b732e85a0af5ccbf5ec8510b7b90"
-    },
-    "openresty-stable": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "openresty-stable",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+            "sha256": "sha256-dPB29+NksqmabF+btTHCdhDHiYWr6Va0QrGSoilfdUg=",
             "type": "url",
-            "url": "https://google.com/generate_204"
+            "url": "https://github.com/openresty/openresty/releases/download/v1.27.1.2/openresty-1.27.1.2.tar.gz"
         },
-        "version": "v1.27.1.2"
+        "version": "1.27.1.2"
     },
     "openssl-ech": {
         "cargoLock": null,

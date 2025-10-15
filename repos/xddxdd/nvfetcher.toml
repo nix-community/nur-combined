@@ -624,12 +624,9 @@ fetch.github = "matatonic/openedai-speech"
 src.github = "matatonic/openedai-speech"
 
 [openresty]
-fetch.github = "openresty/openresty"
-src.git = "https://github.com/openresty/openresty.git"
-
-[openresty-stable]
-fetch.url = "https://google.com/generate_204"
+fetch.url = "https://github.com/openresty/openresty/releases/download/v$ver/openresty-$ver.tar.gz"
 src.github_tag = "openresty/openresty"
+src.prefix = "v"
 
 [openssl-ech]
 fetch.github = "sftcd/openssl"
@@ -654,7 +651,7 @@ src.github_tag = "palworldlol/palworld-exporter"
 
 [palworld-worldoptions]
 fetch.github = "legoduded/palworld-worldoptions"
-src.github = "legoduded/palworld-worldoptions"
+src.github = "legoduded/palworld-world`options"
 
 [payload-dumper-go]
 fetch.github = "ssut/payload-dumper-go"

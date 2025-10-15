@@ -44,8 +44,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "nginx-lantian";
-  inherit (sources.openresty) version;
-  src = callPackage ./src.nix { inherit sources; };
+  inherit (sources.openresty) version src;
 
   enableParallelBuilding = true;
 

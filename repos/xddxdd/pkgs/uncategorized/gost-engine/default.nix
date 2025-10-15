@@ -11,7 +11,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl ];
 
-  cmakeFlags = [ "-DOPENSSL_ENGINES_DIR=${placeholder "out"}/lib/ossl-engine" ];
+  cmakeFlags = [
+    "-DOPENSSL_ENGINES_DIR=${placeholder "out"}/lib/ossl-engine"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
 
   meta = {
     changelog = "https://github.com/gost-engine/engine/releases/tag/v${finalAttrs.version}";
