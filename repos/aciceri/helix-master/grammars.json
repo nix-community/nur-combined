@@ -2,10 +2,10 @@
   "rust": {
     "nurl": {
       "args": {
-        "hash": "sha256-HV7zMwO3ZMaHqX5cV43iwuC+QM7ecApZ2U/hbXuM34c=",
+        "hash": "sha256-i6OrbcHNkrsAW5cpYOI7r0F6xn94KZWB9ZJMUH+k2ds=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-rust",
-        "rev": "1f63b33efee17e833e0ea29266dd3d713e27e321"
+        "rev": "261b20226c04ef601adbdf185a800512a5f66291"
       },
       "fetcher": "fetchFromGitHub"
     },
