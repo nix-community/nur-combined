@@ -33,15 +33,15 @@
 
 stdenv.mkDerivation {
   pname = "kazv";
-  version = "0.6.0-unstable-2025-08-24";
+  version = "0.6.0-unstable-2025-10-15";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "00916a6f481494dd615885746019db5670c49772";
-    hash = "sha256-n/yq89RghiFKXpU+aRqPCF0OTfXpjZRDtExh8mEA1Ac=";
+    rev = "df06f29d6d857e11a542e2bfc5f33ec5d4f130cb";
+    hash = "sha256-5HhC3GSTvubmu+bZ7yFpClJSPXqpDQojdafE4eOTsBY=";
   };
 
   nativeBuildInputs = [

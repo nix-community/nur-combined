@@ -1,5 +1,5 @@
 {
-  fetchFromGitLab,
+  fetchgit,
   rustPlatform,
   perl,
   nix-update-script,
@@ -8,20 +8,18 @@
 
 rustPlatform.buildRustPackage {
   pname = "vodozemac-bindings-kazv";
-  version = "0.2.0-unstable-2024-11-17";
+  version = "0.2.0-unstable-2025-10-07";
 
-  src = fetchFromGitLab {
-    domain = "lily-is.land";
-    owner = "kazv";
-    repo = "vodozemac-bindings";
-    rev = "73c6527f3ae698bd74698152cd640840aaa64220";
-    hash = "sha256-DOc5GxMgpecJeQtkDSwvGD+bOyCZ8XRQ/uC/RAnKQv4=";
+  src = fetchgit{
+    url = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings.git";
+    rev = "0de85a7b18499baca101a2eabf80697e49f46aa7";
+    hash = "sha256-TAif6Pex0uA45EuYoI9ozProi8vnPZw/dXjdivzD9U4=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "vodozemac-0.7.0" = "sha256-MkPtoEMT0KQQlmx00WcnpoEtgN/tmSNwZYPXUBqv454=";
+      "vodozemac-0.9.0" = "sha256-2wJbIJd4Qa+EdVwVlmenjKq4gtqmz04EcHk7Van5Xhs=";
     };
   };
 
@@ -43,7 +41,7 @@ rustPlatform.buildRustPackage {
 
   meta = with lib; {
     description = "Language bindings for vodozemac";
-    homepage = "https://lily-is.land/kazv/vodozemac-bindings";
+    homepage = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings";
     license = licenses.asl20;
     maintainers = with maintainers; [ xyenon ];
   };
