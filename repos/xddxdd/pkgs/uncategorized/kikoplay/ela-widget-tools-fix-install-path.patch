@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6f048c5..428fab0 100644
+index d04794e..b686747 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -10,11 +10,6 @@ set(CMAKE_CXX_STANDARD 17)
@@ -15,10 +15,10 @@ index 6f048c5..428fab0 100644
  list(APPEND CMAKE_PREFIX_PATH ${QT_SDK_DIR})
  
 diff --git a/ElaWidgetTools/CMakeLists.txt b/ElaWidgetTools/CMakeLists.txt
-index acfdce5..a0a591a 100644
+index 0f61edd..7b075f1 100644
 --- a/ElaWidgetTools/CMakeLists.txt
 +++ b/ElaWidgetTools/CMakeLists.txt
-@@ -51,9 +51,9 @@ if (MSVC)
+@@ -46,9 +46,9 @@ if (MSVC)
      set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
  endif ()
  
@@ -28,10 +28,10 @@ index acfdce5..a0a591a 100644
 +set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 +set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 +set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
- if (WIN32)
-     target_link_libraries(${PROJECT_NAME} PUBLIC
-         Qt${QT_VERSION_MAJOR}::Widgets
-@@ -70,13 +70,6 @@ endif ()
+ target_link_libraries(${PROJECT_NAME} PUBLIC
+     Qt${QT_VERSION_MAJOR}::Widgets
+ )
+@@ -63,13 +63,6 @@ endif ()
  install(
      TARGETS ${PROJECT_NAME}
      EXPORT ${PROJECT_NAME}
@@ -45,7 +45,7 @@ index acfdce5..a0a591a 100644
  )
  if (MSVC AND NOT LIB_TYPE STREQUAL "STATIC")
      install(
-@@ -93,7 +86,7 @@ set(LIB_DIR lib)
+@@ -87,7 +80,7 @@ set(LIB_DIR lib)
  install(
      EXPORT ${PROJECT_NAME}
      FILE ${PROJECT_NAME}Targets.cmake
@@ -54,7 +54,7 @@ index acfdce5..a0a591a 100644
  )
  
  include(CMakePackageConfigHelpers)
-@@ -108,7 +101,6 @@ configure_package_config_file(
+@@ -102,7 +95,6 @@ configure_package_config_file(
      ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
      INSTALL_DESTINATION lib/cmake
      PATH_VARS INCLUDE_DIRS LIBRARIES LIB_DIR
@@ -63,7 +63,7 @@ index acfdce5..a0a591a 100644
  
  install(
 diff --git a/ElaWidgetToolsExample/CMakeLists.txt b/ElaWidgetToolsExample/CMakeLists.txt
-index 39e116c..538ec27 100644
+index 7330ed1..3cd0cc7 100644
 --- a/ElaWidgetToolsExample/CMakeLists.txt
 +++ b/ElaWidgetToolsExample/CMakeLists.txt
 @@ -41,9 +41,9 @@ else ()
