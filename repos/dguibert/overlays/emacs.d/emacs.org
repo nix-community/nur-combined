@@ -381,16 +381,17 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   ;        (assq-delete-all (car (rassoc 'git-rebase-mode auto-mode-alist))
   ;                         auto-mode-alist)))
 
-  ;(use-package tramp
+  (use-package tramp
   ;  :ensure t
+    :defer t
   ;  :demand t
-  ;  :init
+    :init
     (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt")
-  ;  :config
+    :config
   ;  ;;(setq tramp-verbose 6)
-  (setq tramp-default-method "sshx")
+    (tramp-default-method "sshx")
   ;;
-    (setq vc-ignore-dir-regexp
+    (vc-ignore-dir-regexp
           (format "\\(%s\\)\\|\\(%s\\)"
             vc-ignore-dir-regexp
             tramp-file-name-regexp))
@@ -398,14 +399,14 @@ Org-tempo is not a separate package but a module within org that can be enabled.
     ;; Honor remote PATH.
     ; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
-    (setq tramp-completion-reread-directory-timeout nil)
-    (setq tramp-default-remote-shell "/bin/bash")
-    (setq tramp-encoding-shell "/bin/bash")
+    (tramp-completion-reread-directory-timeout nil)
+    (tramp-default-remote-shell "/bin/bash")
+    (tramp-encoding-shell "/bin/bash")
   ;  ;; Allow ssh connections to persist.
   ;  ;;
   ;  ;; This seems to maybe cause tramp to hang a lot.
   ;  (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
-  ;  )
+  )
 
   ;(require 'tramp)
 

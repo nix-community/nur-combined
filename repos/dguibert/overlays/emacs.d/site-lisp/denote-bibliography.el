@@ -12,19 +12,13 @@ entered by the user."
   (let* ((bibtex (namilus-denote-bibtex-prompt))
          (title (denote-title-prompt (namilus-denote-bibtex-title bibtex)))
          (keywords (append (denote-keywords-prompt) (namilus-denote-biblio-keywords bibtex)))
-         (front-matter (denote--format-front-matter
-                        title (denote--date nil 'org) keywords
-                        (format-time-string denote-id-format nil) 'org)))
+         (date (current-time))
+         (front-matter (denote--format-front-matter title date keywords (format-time-string denote-id-format date) "" 'org)))
     (setq denote-last-path
-          (denote-format-file-name
-                        (file-name-as-directory (denote-directory))
-                        (format-time-string denote-id-format)
-                        keywords
-                        title
-                        ".org" nil))
-          ;(denote--path title keywords
-          ;              (file-name-as-directory (denote-directory))
-          ;              (format-time-string denote-id-format) 'org))
+          (denote-format-file-name (file-name-as-directory (denote-directory))
+                                   (format-time-string denote-id-format)
+                                   keywords title ".org" nil))
+
     (denote--keywords-add-to-history keywords)
     (concat front-matter (namilus-denote-bibtex-org-block bibtex))))
 
