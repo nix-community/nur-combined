@@ -19,6 +19,7 @@ let
     };
 
     nativeBuildInputs = [ cmake ];
+    cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
 
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zycore-config.cmake.in
@@ -38,7 +39,10 @@ let
     nativeBuildInputs = [ cmake ];
     buildInputs = [ zycoreOld ];
 
-    cmakeFlags = [ "-DZYDIS_SYSTEM_ZYCORE=ON" ];
+    cmakeFlags = [
+      "-DZYDIS_SYSTEM_ZYCORE=ON"
+      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+    ];
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zydis-config.cmake.in
     '';
@@ -64,6 +68,7 @@ let
     cmakeFlags = [
       "-DLIEF_PYTHON_API=OFF"
       "-DLIEF_EXAMPLES=OFF"
+      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
     ];
 
     # https://github.com/lief-project/LIEF/issues/770
@@ -104,6 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"
     "-DLIEF_INCLUDE_DIRS=${liefOld}/include"
     "-DLIEF_LIBRARIES=${liefOld}/lib/libLIEF.a"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
   meta = {

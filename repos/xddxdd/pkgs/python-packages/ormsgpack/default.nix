@@ -10,7 +10,7 @@ buildPythonPackage rec {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
-    hash = "sha256-um6PzwL0M5lz4gDkTO/lvWJ0wwuCneNKRW8qysKMmM0=";
+    hash = "sha256-RpfrR9dkdaaPCMt6vUuJjSSaEv6zH/UjbKfaavV8Ypg=";
   };
 
   # Enable nightly features for Rust compiler

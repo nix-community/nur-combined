@@ -68,7 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
     qt5.qtx11extras
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
 
   env.CFLAGS = "-Wno-error=template-id-cdtor";
   env.CXXFLAGS = "-Wno-error=template-id-cdtor";
