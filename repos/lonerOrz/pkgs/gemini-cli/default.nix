@@ -12,9 +12,9 @@
 }:
 let
   pname = "gemini-cli";
-  version = "0.10.0-preview.0";
-  srcHash = "sha256-XkeiIwGyKiMR4osHimMCkZbR5kwQ8KMU0oV5VCg2dvw=";
-  npmDepsHash = "sha256-z4ZCrnzNSlSaGJc9S3q4aGqYxlDujkt4JSkWiEM1sP4=";
+  version = "0.10.0-nightly.20251015.996c9f59";
+  srcHash = "sha256-6sSPqYcTXHxkfJMXrBAftH+gPtkvKPomew0dAkgb3rs=";
+  npmDepsHash = "sha256-/hqkF7m8kQnHf3kq6EMzmIiayxJnADvbLE/hwEq7uOc=";
 
   srcOrig = fetchFromGitHub {
     owner = "google-gemini";
