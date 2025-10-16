@@ -32,6 +32,7 @@ let
     hbmame = p: lib.hasInfix "hbmame" (p.name or "");
     mame = p: lib.hasInfix "mame" (p.name or "") && !(subsets.hbmame p);
     qemu-screamer = p: lib.hasInfix "qemu" (p.name or "") && lib.hasInfix "screamer" (p.name or "");
+    big-electron = p: lib.hasInfix "shapez" (p.name or "") && (lib.systems.elaborate p.system).isDarwin;
   };
   subset = subsets.${subsetName};
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
