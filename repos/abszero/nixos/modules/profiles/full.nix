@@ -67,6 +67,7 @@ in
       systemPackages = with pkgs; [
         anki-wayland
         aseprite
+        ayugram-desktop
         collector
         ffmpeg-full
         gh
