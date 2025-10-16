@@ -176,10 +176,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.25.8";
+      version = "3.26.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569515/adnauseam-3.25.8.xpi";
-      sha256 = "656c3a091f1fbcb7d0aae8b394aaac554782570ada48965e166933621f2155c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4592803/adnauseam-3.26.0.xpi";
+      sha256 = "9897fd5c29b535092ef61210bf9579fa5a1b073d298e403a35e1bf2c0b35c70f";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -2654,10 +2654,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "145.0.20251013.115716";
+      version = "145.0.20251015.90420";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597057/dansk_da_language_pack-145.0.20251013.115716.xpi";
-      sha256 = "862e603290df4666c17bc0f5887a67a4f0403ef81f91199273b4e79e29e82d25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598556/dansk_da_language_pack-145.0.20251015.90420.xpi";
+      sha256 = "e1157fa72471897c596eca25fef5f529b6a1790ab4979d48816773716d230de2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2852,10 +2852,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "145.0.20251013.115716";
+      version = "145.0.20251015.90420";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597090/deutsch_de_language_pack-145.0.20251013.115716.xpi";
-      sha256 = "c3c0b1a791f260d966004b2f614a35cbcb02dbbbb5d8415c7d9ef05ec6f7082a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598560/deutsch_de_language_pack-145.0.20251015.90420.xpi";
+      sha256 = "6475c973ca9e9791ef7d1670e0393ad3d0c50ff66b8e8700b9d09de7e69f1436";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.64.4";
+      version = "2.64.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597608/dualsub-2.64.4.xpi";
-      sha256 = "6bcf1d44a3bc44fc87d4565f8d88ed38a064b759282da8be9a733882e9e29588";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599137/dualsub-2.64.5.xpi";
+      sha256 = "58274512ceef15ed7af09fc6e9e1d3122af8d48e0dc51c87b343ef649b50f229";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4107,10 +4107,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "145.0.20251013.115716";
+      version = "145.0.20251015.90420";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597113/francais_language_pack-145.0.20251013.115716.xpi";
-      sha256 = "0d06568a8aa9a09683dccaafcdec2ac94faf8a47184a21dc3f5507f33f5f7d57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598619/francais_language_pack-145.0.20251015.90420.xpi";
+      sha256 = "6babc25b566a81493a7761cd63d15d8a940c19a81ed31f3ccb8f970307dc2e6e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4144,10 +4144,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "145.0.20251013.115716";
+      version = "145.0.20251015.90420";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597065/gaidhlig_language_pack-145.0.20251013.115716.xpi";
-      sha256 = "85c981106dbd606f3804df68e99a54ff3474e7280738c916871b1b3cc62c8a47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598611/gaidhlig_language_pack-145.0.20251015.90420.xpi";
+      sha256 = "bc42ea1c751a51125a7418d885a25e22e8e4f27f6dbd45e587287812e8d92b4a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6779,10 +6779,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.9.6";
+      version = "1.9.10";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575368/keepassxc_browser-1.9.9.6.xpi";
-      sha256 = "72e6b7d55dcd6596e0dbdcf2e245b74560a3517701c64ac3aef0d1b9634dbef2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4592023/keepassxc_browser-1.9.10.xpi";
+      sha256 = "38926e2225ba92da0962e6675a90e1e9bf1e3b280b88014c27f3aa727f212542";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597866/kiss_translator-2.0.0.xpi";
-      sha256 = "7cbd9392964b933da6ad5bb48a6581051b2e610e4d27ac082540b7f8d03ff900";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598927/kiss_translator-2.0.1.xpi";
+      sha256 = "e65213be8ce4e41798239a5c73e3dad42e0c67de6a7a13b7e68e963943e23ec5";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -9531,10 +9531,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "5.5.1";
+      version = "5.6.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4578858/passbolt-5.5.1.xpi";
-      sha256 = "159762abfb6b61f24e6aa01f3538ee3e3a11ba49ed3100bd221ca1b32400f7ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4594043/passbolt-5.6.0.xpi";
+      sha256 = "9a11a3f6fd353b3fbed89f564c3c9d629182ca31d57b7898a2e2b7d91951d209";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10396,10 +10396,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.67.0";
+      version = "0.68.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592946/private_grammar_checker_harper-0.67.0.xpi";
-      sha256 = "8ea8fa763e0093861f18d4691dadfdb0c46b837bb2290a870f36439bc23d7195";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599050/private_grammar_checker_harper-0.68.0.xpi";
+      sha256 = "8473869d4109861e7979419d209148008cebfc3e24b2e54c0bb9dc8452b8b6b0";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11586,10 +11586,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "145.0.20251013.115716";
+      version = "145.0.20251015.90420";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597161/scots_language_pack-145.0.20251013.115716.xpi";
-      sha256 = "20459019fcff5c696b652ef8bc387b255d261a82b82b52ea50bbf43e63d21935";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598565/scots_language_pack-145.0.20251015.90420.xpi";
+      sha256 = "c8b7750b8e48661eefe84717e5899274534a16f1ae4d35533162e1f894d14746";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13902,16 +13902,16 @@
     };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
-      version = "1.0.2";
+      version = "1.1.0";
       addonId = "uBO-Scope@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4563675/ubo_scope-1.0.2.xpi";
-      sha256 = "9019362ccdaa61391b458e5c24e9c4529a95eabbce1969c47762754c59e41963";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598871/ubo_scope-1.1.0.xpi";
+      sha256 = "eb1dede45459c4f0446c245186fd275ea067c792c42cee99c99b75e0a7ce325a";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBO-Scope";
         description = "A tool to measure your 3rd-party exposure score for web sites you visit.";
         license = licenses.gpl3;
-        mozPermissions = [ "activeTab" "storage" "webRequest" ];
+        mozPermissions = [ "activeTab" "storage" "webNavigation" "webRequest" ];
         platforms = platforms.all;
       };
     };
@@ -14071,10 +14071,10 @@
     };
     "user-agent-string-switcher" = buildFirefoxXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.6.5.1";
+      version = "0.6.6";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4497925/user_agent_string_switcher-0.6.5.1.xpi";
-      sha256 = "aaaf7cfc3434b42836fd0c152a218dbf5e405f65095a8d8f431578461a34c171";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4593736/user_agent_string_switcher-0.6.6.xpi";
+      sha256 = "9c1fee29bd89a721f7af8d76a997aacad027d4f2b141cdb043ee9027b8967599";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
@@ -15313,10 +15313,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.9.16.0";
+      version = "25.9.29.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583946/yomitan-25.9.16.0.xpi";
-      sha256 = "67d86b7013fa7e7912bc7b803a13acd32064f75b6cc992397a52e10617035514";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4593417/yomitan-25.9.29.0.xpi";
+      sha256 = "8e761b7ea64a46e295ccc0b273bc6b8cca6403e2d4d6412f23420dc9d923640c";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
