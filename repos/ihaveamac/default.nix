@@ -63,6 +63,7 @@ rec {
   switch-tools = callPackage ./pkgs/switch-tools { };
   ctr-logobuilder = callPackage ./pkgs/ctr-logobuilder { };
   #tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
+  twlnandtool = callPackage ./pkgs/twlnandtool { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 
