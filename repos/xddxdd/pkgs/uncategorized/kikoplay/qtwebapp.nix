@@ -5,7 +5,7 @@
   qt6,
   ...
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.qtwebapp) pname version src;
   sourceRoot = "source/QtWebApp";
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation {
     homepage = "https://stefanfrings.de/qtwebapp/index-en.html";
     license = lib.licenses.lgpl3Plus;
   };
-}
+})

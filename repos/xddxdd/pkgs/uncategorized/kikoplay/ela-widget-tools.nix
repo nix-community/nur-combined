@@ -6,7 +6,7 @@
   qt6,
   ...
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   inherit (sources.ela-widget-tools) pname version src;
 
   patches = [ ./ela-widget-tools-fix-install-path.patch ];
@@ -32,4 +32,4 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Liniyous/ElaWidgetTools";
     license = lib.licenses.mit;
   };
-}
+})
