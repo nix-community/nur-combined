@@ -64,6 +64,7 @@ rec {
   ctr-logobuilder = callPackage ./pkgs/ctr-logobuilder { };
   #tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
   twlnandtool = callPackage ./pkgs/twlnandtool { };
+  roadgeek-fonts = callPackage ./pkgs/roadgeek-fonts { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 
