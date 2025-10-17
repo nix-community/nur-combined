@@ -1,5 +1,5 @@
 diff --git a/lib/modules/manager/nix/artifacts.spec.ts b/lib/modules/manager/nix/artifacts.spec.ts
-index 1c4f618874c..33b5ced4aa9 100644
+index 1c4f618874c..bc1204acf23 100644
 --- a/lib/modules/manager/nix/artifacts.spec.ts
 +++ b/lib/modules/manager/nix/artifacts.spec.ts
 @@ -29,16 +29,9 @@ process.env.CONTAINERBASE = 'true';
@@ -49,7 +49,7 @@ index 1c4f618874c..33b5ced4aa9 100644
            path: 'flake.lock',
            type: 'addition',
          },
-@@ -219,8 +218,41 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -219,8 +218,44 @@ describe('modules/manager/nix/artifacts', () => {
      ]);
    });
  
@@ -81,7 +81,10 @@ index 1c4f618874c..33b5ced4aa9 100644
 +      },
 +    ]);
 +
-+    expect(fs.writeLocalFile).toHaveBeenCalledWith('flake.nix', newContent);
++    expect(fs.writeLocalFile).toHaveBeenCalledExactlyOnceWith(
++      'flake.nix',
++      newContent,
++    );
 +    expect(execSnapshots).toMatchObject([{ cmd: updateInputCmd }]);
 +  });
 +
@@ -91,7 +94,7 @@ index 1c4f618874c..33b5ced4aa9 100644
      const execSnapshots = mockExecAll();
      git.getRepoStatus.mockResolvedValue(
        partial<StatusResult>({
-@@ -239,6 +271,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -239,6 +274,7 @@ describe('modules/manager/nix/artifacts', () => {
      expect(res).toEqual([
        {
          file: {
@@ -99,7 +102,7 @@ index 1c4f618874c..33b5ced4aa9 100644
            path: 'flake.lock',
            type: 'addition',
          },
-@@ -303,6 +336,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -303,6 +339,7 @@ describe('modules/manager/nix/artifacts', () => {
  
    it('uses nix from config', async () => {
      GlobalConfig.set(dockerAdminConfig);
@@ -107,7 +110,7 @@ index 1c4f618874c..33b5ced4aa9 100644
      const execSnapshots = mockExecAll();
      git.getRepoStatus.mockResolvedValue(
        partial<StatusResult>({
-@@ -324,6 +358,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -324,6 +361,7 @@ describe('modules/manager/nix/artifacts', () => {
      expect(res).toEqual([
        {
          file: {
@@ -179,7 +182,7 @@ index e9e05bd6023..529b5159bd5 100644
        {
          toolName: 'nix',
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
-index 020bbcbc562..f6bbe19abcc 100644
+index 020bbcbc562..07d7c3bc39b 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
 +++ b/lib/modules/manager/nix/extract.spec.ts
 @@ -1,115 +1,69 @@
@@ -258,7 +261,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 +  it('returns null when flake.lock cannot be parsed', async () => {
 +    fs.readLocalFile.mockResolvedValueOnce('{ invalid json');
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      { flakeLockFile: 'flake.lock', error: expect.any(ZodError) },
 +      'invalid flake.lock file',
 +    );
@@ -293,7 +296,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -    fs.readLocalFile.mockResolvedValueOnce(flake1Lock);
 +    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
      expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      { flakeLockFile: 'flake.lock' },
 +      'flake.lock is missing "root" node',
 +    );
@@ -379,7 +382,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -          depName: 'nixpkgs',
 -          packageName: 'https://github.com/NixOS/nixpkgs',
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -456,7 +459,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -          depName: 'patchelf',
 -          packageName: 'https://github.com/NixOS/patchelf.git',
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -522,7 +525,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -          depName: 'ijq',
 -          packageName: 'https://git.sr.ht/~gpanders/ijq',
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -594,7 +597,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -          depName: 'home-manager',
 -          packageName: 'https://gitlab.com/rycee/home-manager',
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -670,7 +673,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 -          depName: 'nixpkgs',
 -          packageName: 'https://github.com/NixOS/nixpkgs',
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -728,7 +731,7 @@ index 020bbcbc562..f6bbe19abcc 100644
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
      expect(await extractPackageFile('', 'flake.nix')).toBeNull();
-+    expect(logger.logger.debug).toHaveBeenCalledWith(
++    expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +      {
 +        flakeLockFile: 'flake.lock',
 +        flakeInput: {
@@ -779,7 +782,7 @@ index 020bbcbc562..f6bbe19abcc 100644
            }
          }
        },
-@@ -420,227 +371,715 @@ describe('modules/manager/nix/extract', () => {
+@@ -420,227 +371,721 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -864,6 +867,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
 +            packageName: 'https://github.com/cachix/cachix.git',
++            sourceUrl: 'https://github.com/cachix/cachix',
            },
 -          "original": {
 -            "owner": "NixOS",
@@ -918,6 +922,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
 +            packageName: 'https://github.com/cachix/cachix.git',
++            sourceUrl: 'https://github.com/cachix/cachix',
            },
 -          "locked": {
 -            "host": "github.corp.example.com",
@@ -981,6 +986,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
 +            packageName: 'git@github.com:cachix/cachix.git',
++            sourceUrl: 'https://github.com/cachix/cachix',
 +          },
 +        ],
 +      });
@@ -1033,6 +1039,7 @@ index 020bbcbc562..f6bbe19abcc 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
 +            packageName: 'https://github.com/cachix/cachix.git',
++            sourceUrl: 'https://github.com/cachix/cachix',
            },
 -          "original": {
 -            "owner": "nix-systems",
@@ -1115,12 +1122,14 @@ index 020bbcbc562..f6bbe19abcc 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs-https',
 +            packageName: 'https://github.com/NixOS/nixpkgs.git',
++            sourceUrl: 'https://github.com/NixOS/nixpkgs',
 +          },
 +          {
 +            currentDigest: '64334fda8d632bec7c80c9bef668ad9633a8dd64',
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs-ssh',
 +            packageName: 'git@github.com:NixOS/nixpkgs.git',
++            sourceUrl: 'https://github.com/NixOS/nixpkgs',
 +          },
 +        ],
 +      });
@@ -1667,7 +1676,7 @@ index 020bbcbc562..f6bbe19abcc 100644
            }
          }
        },
-@@ -648,16 +1087,7 @@ describe('modules/manager/nix/extract', () => {
+@@ -648,16 +1093,7 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -1686,13 +1695,13 @@ index 020bbcbc562..f6bbe19abcc 100644
  
    it('ignores unsupported file type and still extracts other inputs', async () => {
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 9acb65ae5ee..0b8998ecfee 100644
+index 9acb65ae5ee..14270029cfe 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
-@@ -1,157 +1,174 @@
+@@ -1,157 +1,175 @@
  import { logger } from '../../../logger';
  import { getSiblingFileName, readLocalFile } from '../../../util/fs';
-+import { parseGitUrl } from '../../../util/git/url';
++import { getHttpUrl, parseGitUrl } from '../../../util/git/url';
  import { regEx } from '../../../util/regex';
  import { GitRefsDatasource } from '../../datasource/git-refs';
  import { id as nixpkgsVersioning } from '../../versioning/nixpkgs';
@@ -1852,6 +1861,7 @@ index 9acb65ae5ee..0b8998ecfee 100644
      switch (flakeLocked.type) {
 +      case 'git':
 +        dep.packageName = parseGitUrl(flakeOriginal.url!).toString();
++        dep.sourceUrl = getHttpUrl(flakeOriginal.url!).replace(/\.git$/, '');
 +        break;
 +
        case 'github':
@@ -2004,10 +2014,10 @@ index f5398e3abc0..01b3da431a4 100644
  });
 diff --git a/lib/modules/manager/nix/update.spec.ts b/lib/modules/manager/nix/update.spec.ts
 new file mode 100644
-index 00000000000..7ae1d85a1db
+index 00000000000..475dc9e94c8
 --- /dev/null
 +++ b/lib/modules/manager/nix/update.spec.ts
-@@ -0,0 +1,445 @@
+@@ -0,0 +1,449 @@
 +import { codeBlock } from 'common-tags';
 +import { updateDependency } from './update';
 +import { logger } from '~test/util';
@@ -2024,7 +2034,9 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBeNull();
-+      expect(logger.logger.debug).toHaveBeenCalledWith('No depName provided');
++      expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
++        'No depName provided',
++      );
 +    });
 +
 +    it('returns null if dependency not found', () => {
@@ -2044,7 +2056,7 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBeNull();
-+      expect(logger.logger.debug).toHaveBeenCalledWith(
++      expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +        'Could not find URL for dependency nonexistent',
 +      );
 +    });
@@ -2064,7 +2076,7 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBeNull();
-+      expect(logger.logger.debug).toHaveBeenCalledWith(
++      expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +        'Could not parse URL for dependency nixpkgs: derp',
 +      );
 +    });
@@ -2308,7 +2320,8 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBeNull();
-+      expect(logger.logger.trace).toHaveBeenCalledWith(
++      expect(logger.logger.trace).toHaveBeenNthCalledWith(
++        3,
 +        {
 +          depName: 'mypackage',
 +          url: 'git+ssh://git@example.com/org/repo?ref=refs/tags/1.0.0',
@@ -2372,7 +2385,7 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBe(fileContent);
-+      expect(logger.logger.debug).toHaveBeenCalledWith(
++      expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
 +        {
 +          depName: 'nixpkgs-tar',
 +          currentDigest: '58dcbf1ec551914c3756c267b8b9c8c86baa1b2f',
@@ -2443,7 +2456,8 @@ index 00000000000..7ae1d85a1db
 +        },
 +      });
 +      expect(result).toBeNull();
-+      expect(logger.logger.trace).toHaveBeenCalledWith(
++      expect(logger.logger.trace).toHaveBeenNthCalledWith(
++        3,
 +        {
 +          depName: 'nixpkgs-tar',
 +          url: 'https://nixos.org/channels/nixpkgs-unstable/nixexprs.tar.xz',
