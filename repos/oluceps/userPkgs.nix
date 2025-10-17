@@ -8,7 +8,7 @@ with pkgs;
   thunderbird
   amberol
   nix-weather
-  mako
+  # mako
   # qq
   # chromium
   # apotris

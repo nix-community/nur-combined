@@ -318,6 +318,7 @@ in
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }
       Mod+T { toggle-overview; }
+      Mod+P { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
 
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }

@@ -8,7 +8,7 @@
 reIf {
   services.radicle = {
     enable = true;
-    package = inputs'.radicle.packages.default;
+    # package = pkgs.radicle;
     httpd = {
       enable = true;
       listenPort = 8084;

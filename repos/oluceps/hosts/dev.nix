@@ -303,6 +303,7 @@
             numbat
             fend
             rustic
+            systemctl-tui
 
           ];
           info = [

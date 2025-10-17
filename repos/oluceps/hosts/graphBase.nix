@@ -107,11 +107,16 @@
         "text/css"
         "text/csv"
 
-      ] (_: "Helix.desktop");
+      ] (_: "Helix.desktop")
+      // lib.genAttrs [
+        "video/mp4"
+        "video/mkv"
+      ] (_: "vlc.desktop");
     };
     portal = {
       enable = true;
-      xdgOpenUsePortal = true;
+      # WARNING: this broken xdg-open
+      # xdgOpenUsePortal = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-gnome
@@ -205,7 +210,7 @@
       events = [
         {
           event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock";
+          command = "${inputs'.noctalia.packages.default}/bin/noctalia-shell ipc call lockScreen toggle";
         }
         {
           event = "before-sleep";

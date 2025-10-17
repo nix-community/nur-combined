@@ -11,26 +11,28 @@ reIf {
       livedebugging {
         enabled = false
       }
-      // discovery.relabel "journal" {
-      // 	targets = []
-      // 	rule {
-      // 		source_labels = ["__journal__systemd_unit"]
-      // 		target_label  = "unit"
-      // 	}
-      // }
-      // loki.source.journal "journal" {
-      //     max_age       = "12h0m0s"
-      //     relabel_rules = discovery.relabel.journal.rules
-      //     forward_to    = [loki.write.default.receiver]
-      //     labels        = {
-      //         host = "hastur",
-      //         job  = "systemd-journal",
-      //     }
-      // }
+      discovery.relabel "journal" {
+      	targets = []
+      	rule {
+      		source_labels = ["__journal__systemd_unit"]
+      		target_label  = "unit"
+      	}
+      }
+      loki.source.journal "journal" {
+          max_age       = "12h0m0s"
+          relabel_rules = discovery.relabel.journal.rules
+          forward_to    = [loki.write.default.receiver]
+          labels        = {
+              host = "hastur",
+              job  = "systemd-journal",
+          }
+      }
       local.file_match "zeek_logs" {
         path_targets = [
-          { "__path__" = "/var/log/zeek/dns.log" },
-          { "__path__" = "/var/log/zeek/ssl.log" },
+          { "__path__" = "/var/log/zeek/vm1/dns.log" },
+          { "__path__" = "/var/log/zeek/vm1/ssl.log" },
+          { "__path__" = "/var/log/zeek/eno1/dns.log" },
+          { "__path__" = "/var/log/zeek/eno1/ssl.log" },
         ]
         sync_period = "5s"
       }
@@ -43,7 +45,8 @@ reIf {
 
       local.file_match "zeek_conns" {
         path_targets = [
-          { "__path__" = "/var/log/zeek/conn.log" },
+          { "__path__" = "/var/log/zeek/vm1/conn.log" },
+          { "__path__" = "/var/log/zeek/eno1/conn.log" },
         ]
         sync_period = "5s"
       }

@@ -70,6 +70,7 @@
         up = "nix flake update --commit-lock-file /etc/nixos && swc";
         fp = "fish --private";
         e = "exit";
+        st = "sudo systemctl-tui";
         rp = "rustplayer";
         y = "yazi";
         i = "kitty +kitten icat";

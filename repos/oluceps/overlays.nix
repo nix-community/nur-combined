@@ -15,7 +15,7 @@
       "prismlauncher"
       "resign"
       "nix-direnv"
-      "radicle"
+      # "radicle"
       "xwayland-satellite"
       "atuin"
     ] (n: inputs'.${n}.packages.default)
@@ -33,6 +33,7 @@
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
       inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch minio;
+      # inherit (inputs'.nixpkgs-master.legacyPackages) linuxPackages_latest;
       tuwunel = inputs'.conduit.packages.default;
 
       sing-box = prev.sing-box.overrideAttrs (old: rec {
