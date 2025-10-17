@@ -48,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     libva
     libvdpau
     vulkan-loader
+    stdenv.cc.cc.lib
   ];
 
   runtimeDependencies = [
