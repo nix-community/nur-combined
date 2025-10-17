@@ -5,21 +5,21 @@
 }:
 
 buildGoModule rec {
-  pname = "commiter";
-  version = "0.2.2";
+  pname = "committer";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "lmdevv";
-    repo = "commiter";
-    rev = "6c48577e31080317159e012910f203ea1844788a";
-    sha256 = "0i48xlxk20w3bdfkdb32fj4mmh1hxfd6c9gr9d75ggpyckj85kkk";
+    repo = "committer";
+    rev = "e058f5a33deaab37d1d83cda25c17aec684abab4";
+    sha256 = "0q2nnk0g6r5074qk5zzxhfw9j24avm01m9n5l1ryvxsg3k04m68h";
   };
 
   vendorHash = null;
 
   meta = with lib; {
     description = "CLI tool for generating AI-powered commit messages";
-    homepage = "https://github.com/lmdevv/commiter";
+    homepage = "https://github.com/lmdevv/committer";
     license = licenses.mit;
     maintainers = [ "lmdevv" ];
   };
