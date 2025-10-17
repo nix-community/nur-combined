@@ -318,10 +318,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.2.1";
+      version = "1.4.1";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4580458/angular_devtools-1.2.1.xpi";
-      sha256 = "86177e2d190224fdc6e98386ba889bf286935c7c3046282202211d29338122e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598947/angular_devtools-1.4.1.xpi";
+      sha256 = "4a2cf078e6a41eb67121efc867e6f350e050dad97ece520b9b2b707f41741543";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -2771,10 +2771,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2539.0";
+      version = "6.2542.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583138/dashlane-6.2539.0.xpi";
-      sha256 = "da7ed3c686d4701aee724ae74eb0643b2b5c5d4cc2228f8a57807066cc82be94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598943/dashlane-6.2542.1.xpi";
+      sha256 = "1567fda7b316c1246c775f6359c6ce8e9d660dfa2fb9781718b9d408e527c444";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598927/kiss_translator-2.0.1.xpi";
-      sha256 = "e65213be8ce4e41798239a5c73e3dad42e0c67de6a7a13b7e68e963943e23ec5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599865/kiss_translator-2.0.2.xpi";
+      sha256 = "c9b3a89f389e0275243faedc13462c22e57d6a1f4b877248c08715bdf434f381";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -11646,10 +11646,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.2.4";
+      version = "8.3.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4560207/search_by_image-8.2.4.xpi";
-      sha256 = "ed935d559f720304ed7851e2aafefbe80e7501216b5ad21b33fe801ecabf8b84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4591110/search_by_image-8.3.0.xpi";
+      sha256 = "c437ead18bc2ca71d05fa4254dafc354be976ebffe95526271d5faeb61326939";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -11666,6 +11666,7 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
+          "scripting"
           "http://*/*"
           "https://*/*"
           "file:///*"
@@ -12199,10 +12200,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.9.6";
+      version = "0.9.7";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4584953/torproject_snowflake-0.9.6.xpi";
-      sha256 = "91bb9096b2515edfe8f15c2e8e654638f52d6349b221d5b06d9f7f37a02e7578";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4594619/torproject_snowflake-0.9.7.xpi";
+      sha256 = "021fe23d13d4295aefbfa9c851ae0738568eef5f12dc796d0c31e7885c2ca9af";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -12247,10 +12248,10 @@
     };
     "sonarr-radarr-lidarr-search" = buildFirefoxXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "3.0.0.0";
+      version = "3.0.1.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4584709/sonarr_radarr_lidarr_search-3.0.0.0.xpi";
-      sha256 = "94fe09ecc84ffd1b9084cb014e2c62d6d5b24bb742adb9dd1476f2a674410385";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599655/sonarr_radarr_lidarr_search-3.0.1.0.xpi";
+      sha256 = "e2bb1ff7a6a7863743731e8a33a14385d65ebb7d297535c11287b9df0044f9fd";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
@@ -15263,10 +15264,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.0.16";
+      version = "1.1.0";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583260/xkit_rewritten-1.0.16.xpi";
-      sha256 = "813efcbb8c2c3f96f141fbe494becda6cadc158b1a406ce4180a0a1d304456e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4594566/xkit_rewritten-1.1.0.xpi";
+      sha256 = "8648b31f7106d3f3b982107ccf73ccdc7df10a9e75f47c8d8c60817127f5f178";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -15587,6 +15588,29 @@
           "https://studio.youtube.com/live_chat*"
           "https://studio.youtube.com/live_chat_replay*"
           "https://www.youtube.com/embed/ytcfilter_embed?*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "zeroomega" = buildFirefoxXpiAddon {
+      pname = "zeroomega";
+      version = "3.4.5";
+      addonId = "suziwen1@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4593637/zeroomega-3.4.5.xpi";
+      sha256 = "c053548a8b5dbf135f573af8ef8e63a6833607ce476c1dfdfe8495ad6edc4009";
+      meta = with lib;
+      {
+        description = "Manage and switch between multiple proxies quickly &amp; easily.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "proxy"
+          "tabs"
+          "alarms"
+          "storage"
+          "unlimitedStorage"
+          "webRequest"
+          "webRequestBlocking"
+          "contextMenus"
         ];
         platforms = platforms.all;
       };
