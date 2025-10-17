@@ -4,9 +4,9 @@
   "api_url": "https://api.beeper.com/desktop/update-feed.json?bundleID=com.automattic.beeper.desktop&platform=linux&arch=x64&channel=nightly",
   "version_path": ".version",
   "url_path": ".url",
-  "version": "4.1.292",
+  "version": "4.1.294",
   "src": {
-    "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.1.292-x86_64.AppImage",
-    "hash": "sha256-mLZE9J9uTR78gF++jDIvLL3eqwNdG1s0y1SaBG2pD2U="
+    "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.1.294-x86_64.AppImage",
+    "hash": "sha256-yQIwCtBVxds+H+rA1MZsi4heVyyo8cQtDlFvynAAZo8="
   }
 }
