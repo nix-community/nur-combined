@@ -11,8 +11,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "lmdevv";
     repo = "commiter";
-    rev = "2b5a65d4934e40d289c1156b9b7e7288d2501140";
-    sha256 = "1c3j9s366b766pbzglp02r05axfd086d2vn7jra28kzjmfd5aygg";
+    rev = "6c48577e31080317159e012910f203ea1844788a";
+    sha256 = "0i48xlxk20w3bdfkdb32fj4mmh1hxfd6c9gr9d75ggpyckj85kkk";
   };
 
   vendorHash = null;
