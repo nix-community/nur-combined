@@ -49,10 +49,10 @@
   };
   pyrime = {
     pname = "pyrime";
-    version = "0.1.0";
+    version = "0.1.1";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.1.0.tar.gz";
-      sha256 = "sha256-ikUwxzgXseJ9Gr+ZK7LXnO2wg7ww/xZOxk9uW/WkHrE=";
+      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.1.1.tar.gz";
+      sha256 = "sha256-764o/vkU/MXQZ4nKYTsw+zemEdZMzRYGIP5LGB/vVts=";
     };
   };
   requirements-language-server = {
@@ -89,10 +89,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.53";
+    version = "0.0.57";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate_shell/translate_shell-0.0.53.tar.gz";
-      sha256 = "sha256-a4DCzchW8WAe6GScLkSiCq5s040mdh+AuXXhR2zSZ2k=";
+      url = "https://pypi.org/packages/source/t/translate_shell/translate_shell-0.0.57.tar.gz";
+      sha256 = "sha256-Xf3ladDGy5oAeFmNwuwRCPDkNyjhU8xv9T3YxWIrlic=";
     };
   };
   tree-sitter-bash = {
