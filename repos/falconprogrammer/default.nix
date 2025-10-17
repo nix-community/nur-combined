@@ -30,6 +30,7 @@ in
 	python-jwt_311 = p_311.callPackage pkgs/python-jwt {python-ver = 311;};
 	python-jwt_312 = p_312.callPackage pkgs/python-jwt {python-ver = 312;};
 	python-jwt_313 = p_313.callPackage pkgs/python-jwt {python-ver = 313;};
+	spec-kit = p_312.callPackage pkgs/spec-kit {};
 	timew-sync-client = p_312.callPackage pkgs/timew-sync-client {};
 	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
 	xgen = pkgs.callPackage pkgs/xgen {};
