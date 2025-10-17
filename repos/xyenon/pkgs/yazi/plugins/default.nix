@@ -14,6 +14,7 @@ let
       exifaudio = callPackage ./exifaudio.nix { };
       clipboard = callPackage ./clipboard.nix { };
       fg = callPackage ./fg { };
+      yafg = callPackage ./yafg.nix { };
       ouch = callPackage ./ouch.nix { };
       yazi-rs = callPackage ./yazi-rs { source = sources.yazi-rs-plugins; };
     };
