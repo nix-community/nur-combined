@@ -1,6 +1,5 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
@@ -10,7 +9,7 @@ let
 in
 {
   options.programs.quickshell = {
-    _class = "home-manager";
+    _class = "homeManager";
     enable = lib.mkEnableOption "quickshell";
     package = lib.mkPackageOption "quickshell" {
       nullable = false;

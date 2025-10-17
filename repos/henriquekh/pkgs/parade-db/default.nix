@@ -95,6 +95,8 @@ buildPgrxExtension (finalAttrs: {
 
   cargoHash = "sha256-M6Kyk6vdiq9W6GQ21JwGzd/hmWnLmXWnF7o+Rhg2PnU=";
 
+  preferLocalBuild = true;
+
   meta = {
     description = "The transactional Elasticsearch alternative built on Postgres";
     homepage = "https://github.com/paradedb/paradedb/";
