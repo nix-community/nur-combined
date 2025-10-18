@@ -1,15 +1,12 @@
-alias check := default
+default: check build-test
 
-default: check-flake check-nur-eval check-formatting build-test
+check: check-flake check-nur-eval
 
 check-flake:
     nix flake check -L
 
 check-nur-eval:
     nix run .#check-nur-eval
-
-check-formatting:
-    nix fmt -- --ci
 
 build-test:
     #!/usr/bin/env bash
@@ -22,10 +19,11 @@ build-test:
 build:
     nom-build ci.nix -A buildPkgs --keep-going -j 2
 
-push:
+push +WHAT='updates':
     jj git push -c @-
     gh pr create \
         -B master \
         -H "$(jj show -r 'closest_bookmark(@)' -T 'bookmarks.map(|b| b.name())' --no-patch | tr ' ' '\n' | sort | head -n1)" \
-        -t "updates $(date -I)" \
-        -F <(git log --oneline master..HEAD | sed 's|^|- |')
+        -t "{{WHAT}} $(date -I)" \
+        -F <(git log --oneline master..HEAD | sed 's|^|- |') \
+        -r dtomvan

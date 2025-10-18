@@ -1,0 +1,38 @@
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 3"
+
+jobs:
+  update-ublock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global push.default simple
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: update ublock sources
+        run: |
+          for p in uAssets uProd; do
+            nix develop -c "nix-update --commit -u ublock-origin.$p"
+          done
+
+      - name: push
+        run: nix develop -c "just push ublock-origin asset updates"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
