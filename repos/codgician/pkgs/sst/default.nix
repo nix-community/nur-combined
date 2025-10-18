@@ -7,13 +7,13 @@
   unzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sst";
   version = "2.5";
 
   src =
     let
-      ver = builtins.concatStringsSep "-" (builtins.splitVersion version);
+      ver = builtins.concatStringsSep "-" (builtins.splitVersion finalAttrs.version);
     in
     fetchurl {
       url = "https://sdmsdfwdriver.blob.core.windows.net/files/kba-gcc/drivers-downloads/ka-00085/sst--${ver}/sst-cli-linux-deb--${ver}.zip";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
           "i386";
     in
     ''
-      unzip -o $curSrc "sst_${version}*_${pkgArch}.deb"
+      unzip -o $curSrc "sst_${finalAttrs.version}*_${pkgArch}.deb"
       dpkg -x *.deb source
     '';
 
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ codgician ];
     mainProgram = "sst";
   };
-}
+})

@@ -5,12 +5,12 @@
   autoPatchelfHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "samsung-dc-toolkit";
   version = "3.0";
 
   src = fetchurl {
-    url = "https://download.semiconductor.samsung.com/resources/software-resources/Samsung_SSD_DC_Toolkit_Brand_for_Linux_V${version}";
+    url = "https://download.semiconductor.samsung.com/resources/software-resources/Samsung_SSD_DC_Toolkit_Brand_for_Linux_V${finalAttrs.version}";
     hash = "sha256-Hdcy9VHgU8hDE2E1u7puN/fkh5wjchDl7Ssrtyu8lig=";
   };
 
@@ -34,6 +34,6 @@ and data center usage.";
     homepage = "https://semiconductor.samsung.com/consumer-storage/support/tools/";
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ codgician ];
-    mainProgram = "Samsung_SSD_DC_Toolkit_V${version}";
+    mainProgram = "Samsung_SSD_DC_Toolkit_V${finalAttrs.version}";
   };
-}
+})

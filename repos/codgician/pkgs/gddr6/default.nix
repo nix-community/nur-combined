@@ -7,13 +7,13 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (_: {
   pname = "gddr6";
   version = "0-unstable-2025-04-21";
 
   src = fetchFromGitHub {
     owner = "olealgoritme";
-    repo = pname;
+    repo = "gddr6";
     rev = "bac2c5e30123a9ed4c0a91072abbdb025bbd9bd3";
     hash = "sha256-cs2vNKSb6BRBtJezn1jqm5JIPZwfHNybRpouAqshEWs=";
   };
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/olealgoritme/gddr6";
     maintainers = with lib.maintainers; [ codgician ];
   };
-}
+})

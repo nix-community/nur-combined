@@ -9,10 +9,13 @@
   libusb1,
   udev,
   makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  writeShellScriptBin,
   nix-update-script,
 }:
 
-let
+stdenv.mkDerivation (finalAttrs: {
   pname = "nanokvm-usb";
   version = "1.0.1";
 
@@ -23,11 +26,25 @@ let
     hash = "sha256-z0Sk7kTYTu7qP4j/7DJ1lFvGry/eH4bAfLH/u1RHSTE=";
   };
 
-  sourceRoot = "${src.name}/desktop";
+  sourceRoot = "${finalAttrs.src.name}/desktop";
 
-  # pnpm store (vendor) for fully offline install.
+  nativeBuildInputs = [
+    pnpm
+    pnpm.configHook
+    nodejs
+    pkg-config
+    makeWrapper
+  ]
+  ++ lib.optionals stdenv.isLinux [
+    copyDesktopItems
+  ]
+  ++ lib.optionals stdenv.isDarwin [
+    # mock codesign
+    (writeShellScriptBin "codesign" "true")
+  ];
+
   pnpmDeps = pnpm.fetchDeps {
-    inherit
+    inherit (finalAttrs)
       pname
       version
       src
@@ -37,104 +54,91 @@ let
     hash = "sha256-IdWAenyo4CKTv+q/Aqp3QrbElU8D1iOA7bJE9GC0CqA=";
   };
 
-in
-stdenv.mkDerivation {
-  inherit
-    pname
-    version
-    src
-    sourceRoot
-    ;
-
-  nativeBuildInputs = [
-    pnpm
-    nodejs
-    pkg-config
-    makeWrapper
-  ];
-
   buildInputs = lib.optionals stdenv.isLinux [
     libusb1
     udev
   ];
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    CSC_IDENTITY_AUTO_DISCOVERY = "false";
+  };
 
-  # Build the frontend / electron main bundle (electron-vite).
   buildPhase = ''
     runHook preBuild
-    export HOME=$TMPDIR
-    pnpm config set store-dir "${pnpmDeps}"
-    pnpm install --frozen-lockfile --offline
+
+    cp -r ${electron.dist} electron-dist
+    chmod -R u+w electron-dist
+
+    ${lib.optionalString stdenv.isDarwin ''
+      # Remove problematic macOS-specific build configs
+      substituteInPlace electron-builder.yml \
+        --replace-fail 'afterSign: "./notarize.js"' ""
+    ''}
+
     pnpm run build
+
+    pnpm exec electron-builder \
+      --dir \
+      -c.electronDist=electron-dist \
+      -c.electronVersion=${electron.version} \
+      ${lib.optionalString stdenv.isDarwin "-c.mac.notarize=false"}
+
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
-    # Verify build output exists
-    if [ ! -d out ]; then
-      echo "ERROR: expected build output directory 'out' not found"
-      exit 1
-    fi
+    ${lib.optionalString stdenv.isLinux ''
+      # Install application files
+      mkdir -p $out/opt/${finalAttrs.pname}
+      cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/opt/${finalAttrs.pname}/
 
-    ${lib.optionalString stdenv.isDarwin ''
-      # Create macOS .app bundle by reusing packaged Electron.
-      mkdir -p $out/Applications
-      cp -R ${electron}/Applications/Electron.app $out/Applications/NanoKVM-USB.app
+      # Install icon
+      install -Dm644 build/icons/512x512.png $out/share/icons/hicolor/512x512/apps/${finalAttrs.pname}.png
 
-      # Make the copied files writable since they come from read-only Nix store
-      chmod -R u+w $out/Applications/NanoKVM-USB.app
-
-      appContents="$out/Applications/NanoKVM-USB.app/Contents"
-      resourcesDir="$appContents/Resources"
-
-      # Remove default Electron app and prepare for our app
-      rm -rf "$resourcesDir/default_app.asar" "$resourcesDir/electron.icns" "$resourcesDir/app"
-      mkdir -p "$resourcesDir/app"
-
-      # Copy our application files
-      cp -r out node_modules package.json "$resourcesDir/app/"
-
-      # Copy update configuration
-      cp dev-app-update.yml "$resourcesDir/app-update.yml"
-
-      # Patch Info.plist to reflect new app identity
-      infoPlist="$appContents/Info.plist"
-      substituteInPlace "$infoPlist" \
-        --replace-fail "<string>Electron</string>" "<string>NanoKVM-USB</string>" \
-        --replace-fail "<string>com.github.Electron</string>" "<string>org.sipeed.nanokvm-usb</string>"
-
-      # Rename the executable to match CFBundleExecutable in Info.plist
-      mv "$appContents/MacOS/Electron" "$appContents/MacOS/NanoKVM-USB"
-
-      # Add icon
-      cp build/icon.icns "$resourcesDir/NanoKVM-USB.icns"
-        substituteInPlace "$infoPlist" \
-          --replace-fail "electron.icns" "NanoKVM-USB.icns"
-
-      # Provide CLI launcher
+      # Create wrapper
       mkdir -p $out/bin
-      makeWrapper "$appContents/MacOS/NanoKVM-USB" "$out/bin/${pname}" \
-        --set ELECTRON_DISABLE_SECURITY_WARNINGS "true"
+      makeWrapper ${lib.getExe electron} $out/bin/${finalAttrs.pname} \
+        --add-flags $out/opt/${finalAttrs.pname}/resources/app.asar \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+        --inherit-argv0
     ''}
 
-    ${lib.optionalString stdenv.isLinux ''
-      # Linux installation: copy payload and wrap electron
-      mkdir -p $out/opt/${pname}
-      cp -r out node_modules package.json $out/opt/${pname}/
+    ${lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      cp -r dist/mac*/NanoKVM-USB.app $out/Applications
+
+      # Copy app-update.yml for electron-updater
+      cp dev-app-update.yml $out/Applications/NanoKVM-USB.app/Contents/Resources/app-update.yml
 
       mkdir -p $out/bin
-      makeWrapper ${electron}/bin/electron $out/bin/${pname} \
-        --add-flags "$out/opt/${pname}/out/main/index.js" \
-        --set ELECTRON_DISABLE_SECURITY_WARNINGS "true"
+      makeWrapper $out/Applications/NanoKVM-USB.app/Contents/MacOS/NanoKVM-USB $out/bin/${finalAttrs.pname}
     ''}
 
     runHook postInstall
   '';
 
-  propagatedBuildInputs = [ electron ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = finalAttrs.pname;
+      exec = finalAttrs.pname;
+      icon = finalAttrs.pname;
+      desktopName = "NanoKVM-USB";
+      comment = finalAttrs.meta.description;
+      categories = [
+        "System"
+        "RemoteAccess"
+      ];
+      keywords = [
+        "KVM"
+        "Remote"
+        "USB"
+        "NanoKVM"
+      ];
+    })
+  ];
 
   passthru.updateScript = nix-update-script { };
 
@@ -143,7 +147,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/sipeed/NanoKVM-USB";
     license = licenses.gpl3Only;
     platforms = platforms.linux ++ platforms.darwin;
-    mainProgram = pname;
+    mainProgram = finalAttrs.pname;
     maintainers = [ maintainers.codgician ];
   };
-}
+})
