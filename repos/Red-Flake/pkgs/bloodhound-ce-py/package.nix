@@ -52,7 +52,6 @@ pkgsP.buildPythonApplication rec {
     # "Installed launcher: $out/bin/bloodhound-ce.py"
     # Let's also add some aliases
     ln -s "$out/bin/bloodhound-ce.py" "$out/bin/bloodhound-ce-py"
-    ln -s "$out/bin/bloodhound-ce.py" "$out/bin/bloodhound-ce-python"
     ln -s "$out/bin/bloodhound-ce.py" "$out/bin/bhce.py"
   '';
 
