@@ -2654,10 +2654,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "145.0.20251015.90420";
+      version = "145.0.20251017.90617";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598556/dansk_da_language_pack-145.0.20251015.90420.xpi";
-      sha256 = "e1157fa72471897c596eca25fef5f529b6a1790ab4979d48816773716d230de2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600218/dansk_da_language_pack-145.0.20251017.90617.xpi";
+      sha256 = "3411c15ef9aae7081cfd84fe551a13de9b0559a51d763c8e21415a42f2c22f4e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2852,10 +2852,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "145.0.20251015.90420";
+      version = "145.0.20251017.90617";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598560/deutsch_de_language_pack-145.0.20251015.90420.xpi";
-      sha256 = "6475c973ca9e9791ef7d1670e0393ad3d0c50ff66b8e8700b9d09de7e69f1436";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600219/deutsch_de_language_pack-145.0.20251017.90617.xpi";
+      sha256 = "1d4a71ce177432533954b93f6a26ae58f7e2d39fb456e44452878f9a1487b681";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.64.5";
+      version = "2.64.6";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4599137/dualsub-2.64.5.xpi";
-      sha256 = "58274512ceef15ed7af09fc6e9e1d3122af8d48e0dc51c87b343ef649b50f229";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599956/dualsub-2.64.6.xpi";
+      sha256 = "2cc38867f58f8ddcc8a92e92c49088d29077d063da86ab650e4f42ae858e50a9";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4107,10 +4107,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "145.0.20251015.90420";
+      version = "145.0.20251017.90617";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598619/francais_language_pack-145.0.20251015.90420.xpi";
-      sha256 = "6babc25b566a81493a7761cd63d15d8a940c19a81ed31f3ccb8f970307dc2e6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600168/francais_language_pack-145.0.20251017.90617.xpi";
+      sha256 = "5c3bbc320b47118ad9dbd982836225e938c56d1970cbaf65f9d914bfbdc7aa73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4144,10 +4144,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "145.0.20251015.90420";
+      version = "145.0.20251017.90617";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598611/gaidhlig_language_pack-145.0.20251015.90420.xpi";
-      sha256 = "bc42ea1c751a51125a7418d885a25e22e8e4f27f6dbd45e587287812e8d92b4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600174/gaidhlig_language_pack-145.0.20251017.90617.xpi";
+      sha256 = "073bd09104728cce97a6ae10a64522667845f98b8bfd5d29650258d4e76ec56e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8536,10 +8536,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.25.1";
+      version = "2.25.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4578983/momentumdash-2.25.1.xpi";
-      sha256 = "d8f744c41be0cc091b5f184fce7263ec60f9978ea4c59f3a2745263bbf3184d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4594753/momentumdash-2.25.3.xpi";
+      sha256 = "3d5547b99b595ce8e3840766f45328980097fc1697e6b4f4c30cc45a596f3690";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8612,10 +8612,10 @@
     };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.3.0";
+      version = "8.3.1";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494279/multi_account_containers-8.3.0.xpi";
-      sha256 = "cf7888e9c05713256ea457a4250bf6da0e484e49f7e658703ad7232f8c138230";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4597341/multi_account_containers-8.3.1.xpi";
+      sha256 = "cfb4c48c2be496c41ae4ed0faaa9323b174c31ca9fcbd2ab141bce6e777863c7";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -11586,10 +11586,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "145.0.20251015.90420";
+      version = "145.0.20251017.90617";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598565/scots_language_pack-145.0.20251015.90420.xpi";
-      sha256 = "c8b7750b8e48661eefe84717e5899274534a16f1ae4d35533162e1f894d14746";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600260/scots_language_pack-145.0.20251017.90617.xpi";
+      sha256 = "24a535b083a3fe21e3e88f95fcdf5d54da2a8cf5af93274bac02961ef3d4da44";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12898,16 +12898,21 @@
     };
     "tasks-for-canvas" = buildFirefoxXpiAddon {
       pname = "tasks-for-canvas";
-      version = "1.5.2";
+      version = "1.3.2";
       addonId = "tasksforcanvas@jtchengdev.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4462622/tasks_for_canvas-1.5.2.xpi";
-      sha256 = "3868f668c1107eaa908a5b316254e91a0aa5790b213649929e9489b51210c74f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180681/tasks_for_canvas-1.3.2.xpi";
+      sha256 = "37b29242329754a9c937c02a979e79ec995b9ecd44c41bdeb176e69bb023686e";
       meta = with lib;
       {
         homepage = "https://github.com/jtcheng26/canvas-task-extension";
         description = "A better to-do list sidebar for Canvas. The Tasks browser extension for Canvas™ updates the Canvas dashboard sidebar to show all of your weekly assignments and track your progress throughout the week.";
         license = licenses.mit;
-        mozPermissions = [ "storage" "https://*/*" ];
+        mozPermissions = [
+          "storage"
+          "https://tasksforcanvas.onrender.com/*"
+          "https://canvas-task-static.onrender.com/*"
+          "https://*/*"
+        ];
         platforms = platforms.all;
       };
     };
