@@ -325,7 +325,7 @@ jobs:
     uses: ./.github/workflows/ci-per-system.yml
     with:
       system: x86_64-darwin
-      runs-on: macos-13
+      runs-on: macos-15-intel
       flake-jobs: ${{ toJSON(fromJSON(needs.setup_flake.outputs.flake_jobs).x86_64-darwin.flake) }}
       nur-jobs: ${{ toJSON(fromJSON(needs.setup_nur.outputs.nur_jobs || '{}').x86_64-darwin.nur) }}
       nix-install-url: ${{ needs.setup_flake.outputs.nix_install_url }}
