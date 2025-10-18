@@ -14,7 +14,7 @@ check-formatting:
 build-test:
     #!/usr/bin/env bash
     if [ -z "$CI" ]; then
-        nix shell nixpkgs#nix-output-monitor --command nom-build ci.nix -A buildPkgs
+        nom-build ci.nix -A buildPkgs
     else
         nix-build ci.nix -A buildPkgs
     fi
