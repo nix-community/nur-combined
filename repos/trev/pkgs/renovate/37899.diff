@@ -182,7 +182,7 @@ index e9e05bd6023..529b5159bd5 100644
        {
          toolName: 'nix',
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
-index 020bbcbc562..07d7c3bc39b 100644
+index 020bbcbc562..b882d80e0a2 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
 +++ b/lib/modules/manager/nix/extract.spec.ts
 @@ -1,115 +1,69 @@
@@ -782,7 +782,7 @@ index 020bbcbc562..07d7c3bc39b 100644
            }
          }
        },
-@@ -420,227 +371,721 @@ describe('modules/manager/nix/extract', () => {
+@@ -420,227 +371,729 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -1192,6 +1192,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'flake-parts',
 +            packageName: 'https://github.com/hercules-ci/flake-parts',
++            sourceUrl: 'https://github.com/hercules-ci/flake-parts',
            },
 -          "original": {
 -            "type": "tarball",
@@ -1246,6 +1247,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'flake-parts',
 +            packageName: 'https://github.com/hercules-ci/flake-parts',
++            sourceUrl: 'https://github.com/hercules-ci/flake-parts',
            },
 -          "locked": {
 -            "lastModified": 1726153070,
@@ -1312,6 +1314,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs',
 +            packageName: 'https://github.com/NixOS/nixpkgs',
++            sourceUrl: 'https://github.com/NixOS/nixpkgs',
 +            versioning: nixpkgsVersioning,
            },
 -          "original": {
@@ -1366,6 +1369,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs',
 +            packageName: 'https://github.com/NixOS/nixpkgs',
++            sourceUrl: 'https://github.com/NixOS/nixpkgs',
 +            versioning: 'nixpkgs',
 +          },
 +        ],
@@ -1422,6 +1426,8 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs-extra-pkgs',
 +            packageName:
++              'https://github.corp.example.com/my-org/nixpkgs-extra-pkgs',
++            sourceUrl:
 +              'https://github.corp.example.com/my-org/nixpkgs-extra-pkgs',
            },
 -          "locked": {
@@ -1495,6 +1501,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'home-manager',
 +            packageName: 'https://gitlab.com/rycee/home-manager',
++            sourceUrl: 'https://gitlab.com/rycee/home-manager',
 +          },
 +        ],
 +      });
@@ -1545,6 +1552,7 @@ index 020bbcbc562..07d7c3bc39b 100644
 +            datasource: GitRefsDatasource.id,
 +            depName: 'firefox-addons',
 +            packageName: 'https://git.sr.ht/~rycee/nur-expressions',
++            sourceUrl: 'https://git.sr.ht/~rycee/nur-expressions',
 +          },
 +        ],
 +      });
@@ -1676,7 +1684,7 @@ index 020bbcbc562..07d7c3bc39b 100644
            }
          }
        },
-@@ -648,16 +1093,7 @@ describe('modules/manager/nix/extract', () => {
+@@ -648,16 +1101,7 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -1695,10 +1703,10 @@ index 020bbcbc562..07d7c3bc39b 100644
  
    it('ignores unsupported file type and still extracts other inputs', async () => {
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 9acb65ae5ee..14270029cfe 100644
+index 9acb65ae5ee..5184501c223 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
-@@ -1,157 +1,175 @@
+@@ -1,157 +1,178 @@
  import { logger } from '../../../logger';
  import { getSiblingFileName, readLocalFile } from '../../../util/fs';
 +import { getHttpUrl, parseGitUrl } from '../../../util/git/url';
@@ -1861,7 +1869,6 @@ index 9acb65ae5ee..14270029cfe 100644
      switch (flakeLocked.type) {
 +      case 'git':
 +        dep.packageName = parseGitUrl(flakeOriginal.url!).toString();
-+        dep.sourceUrl = getHttpUrl(flakeOriginal.url!).replace(/\.git$/, '');
 +        break;
 +
        case 'github':
@@ -1954,6 +1961,10 @@ index 9acb65ae5ee..14270029cfe 100644
          );
          break;
      }
++
++    if (flakeLocked.type !== 'tarball') {
++      dep.sourceUrl = getHttpUrl(dep.packageName!).replace(/\.git$/, '');
++    }
 +
 +    deps.push(dep);
    }
