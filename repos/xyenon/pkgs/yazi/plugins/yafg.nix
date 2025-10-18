@@ -12,8 +12,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "yafg.yazi";
-    rev = "76fb63d9f29e3a4e9248535fb26c6321f65acdfe";
-    hash = "sha256-GgOTTpo0KMffX2vkmEXhXNExFqZzDu0bfTkUL53pIUY=";
+    rev = "6034c67ebefa7c0fd749f68b8200660c17481e3b";
+    hash = "sha256-seRvfkD/jC4LJJUqgkBeIAd8BGBka+s5z4XWSaxhCvE=";
   };
 
   dontBuild = true;
