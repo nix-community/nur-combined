@@ -2,7 +2,7 @@
   description = "Packages from my personal dotfiles";
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
     nixpkgs-unfree.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";

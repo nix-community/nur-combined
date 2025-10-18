@@ -1,5 +1,3 @@
-# WARNING: if you want to use an addon that was packaged from source, you need
-# FF dev edition or it won't work as it's unsigned.
 {
   fetchFromGitHub,
   lib,
@@ -39,11 +37,12 @@ buildFirefoxXpiAddon {
   src = xpifile;
   addonId = "clipper@obsidian.md";
 
-  meta = with lib; {
+  meta = {
     homepage = "https://obsidian.md/clipper";
+    downloadPage = "https://github.com/obsidianmd/obsidian-clipper/";
     description = "Highlight and capture the web in your favorite browser. The official Web Clipper extension for Obsidian.";
     maintainers = with lib.maintainers; [ dtomvan ];
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mozPermissions = [
       "activeTab"
       "clipboardWrite"
@@ -56,5 +55,3 @@ buildFirefoxXpiAddon {
     ];
   };
 }
-
-# vim:sw=2 ts=2 sts=2
