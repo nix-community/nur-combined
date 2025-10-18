@@ -41,17 +41,19 @@ pkgsP.buildPythonApplication rec {
   # Create a guaranteed launcher, independent of setuptools’ console_scripts
   postInstall = ''
     mkdir -p "$out/bin"
-    cat > "$out/bin/bloodhound-ce-py" <<'SH'
+    cat > "$out/bin/bloodhound.py" <<'SH'
     #!${py.interpreter}
     import runpy, sys
     if __name__ == "__main__":
         sys.exit(runpy.run_module("bloodhound", run_name="__main__", alter_sys=True))
     SH
-    chmod +x "$out/bin/bloodhound-ce-py"
+    chmod +x "$out/bin/bloodhound.py"
 
-    # If upstream also installed a script, it’ll be alongside ours; that’s fine.
-    echo "Installed launcher: $out/bin/bloodhound-ce-py"
-    ls -l "$out/bin" || true
+    # "Installed launcher: $out/bin/bloodhound.py"
+    # Let's also add some aliases
+    ln -s "$out/bin/bloodhound.py" "$out/bin/bloodhound-ce.py"
+    ln -s "$out/bin/bloodhound.py" "$out/bin/bloodhound-ce-py"
+    ln -s "$out/bin/bloodhound.py" "$out/bin/bhce.py"
   '';
 
   meta = with lib; {
