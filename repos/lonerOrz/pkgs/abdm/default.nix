@@ -24,7 +24,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "abdownloadmanager-bin";
-  version = "1.7.0";
+  version = "1.7.1";
 
   src = fetchurl {
     # 暂时更改为固定的 URL 和 SHA256，直到上游发布新版本
