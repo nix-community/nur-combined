@@ -15,6 +15,7 @@
   xdg-utils,
   libuuid,
   at-spi2-core,
+  wayland,
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
@@ -62,6 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     alsa-lib
     libuuid
     at-spi2-core
+    wayland
   ]
   ++ (with xorg; [
     libX11
@@ -103,21 +105,21 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/lib/$pname
-      cp -r dist/* $out/lib/$pname/
-      cp -r node_modules $out/lib/$pname/
+      mkdir -p $out/lib/${finalAttrs.pname}
+      cp -r dist/* $out/lib/${finalAttrs.pname}/
+      cp -r node_modules $out/lib/${finalAttrs.pname}/
 
        makeWrapper ${lib.getExe electron} $out/bin/$pname \
           --add-flags $out/lib/$pname/main/index.js \
           --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-wayland-ime=true --wayland-text-input-version=3}}" \
           --add-flags ${lib.escapeShellArg commandLineArgs}
 
-      install -Dm644 license "$out/share/licenses/$pname/LICENSE"
+      install -Dm644 license "$out/share/licenses/${finalAttrs.pname}/LICENSE"
 
     ${lib.concatStringsSep "\n" (
       map (i: ''
         install -Dm644 assets/generated/icons/png/${i}x${i}.png \
-          $out/share/icons/hicolor/${i}x${i}/apps/$pname.png
+          $out/share/icons/hicolor/${i}x${i}/apps/${finalAttrs.pname}.png
       '') icons
     )}
 
