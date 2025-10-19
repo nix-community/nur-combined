@@ -19,6 +19,7 @@
   faugus-launcher = pkgs.callPackage ./pkgs/faugus-launcher { };
   goverlay = pkgs.callPackage ./pkgs/goverlay { };
   gupax = pkgs.callPackage ./pkgs/gupax { };
+  lenspect = pkgs.callPackage ./pkgs/lenspect { };
   pascube = pkgs.callPackage ./pkgs/pascube { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
 }
