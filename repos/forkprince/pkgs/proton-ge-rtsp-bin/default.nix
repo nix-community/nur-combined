@@ -11,7 +11,7 @@ in
     inherit (info) version;
 
     src = fetchzip {
-      url = "https://github.com/Etaash-mathamsetty/Proton/releases/download/${version}/${version}.tar.gz";
+      url = "https://github.com/${info.repo}/releases/download/${version}/${version}.tar.gz";
       inherit (info) hash;
     };
 
@@ -46,7 +46,7 @@ in
 
     meta = {
       description = ''
-        A Development Oriented Compatibility tool for Steam Play based on Wine and additional components
+        Compatibility tool for Steam Play based on Wine and additional components
 
         (This is intended for use in the `programs.steam.extraCompatPackages` option only.)
       '';

@@ -22,7 +22,7 @@ in
     ];
 
     src = fetchzip {
-      url = "https://github.com/dreamer/boxtron/releases/download/v${version}/boxtron.tar.xz";
+      url = "https://github.com/${info.repo}/releases/download/v${version}/boxtron.tar.xz";
       inherit (info) hash;
     };
 
