@@ -651,7 +651,7 @@ src.github_tag = "palworldlol/palworld-exporter"
 
 [palworld-worldoptions]
 fetch.github = "legoduded/palworld-worldoptions"
-src.github = "legoduded/palworld-world`options"
+src.github = "legoduded/palworld-worldoptions"
 
 [payload-dumper-go]
 fetch.github = "ssut/payload-dumper-go"
