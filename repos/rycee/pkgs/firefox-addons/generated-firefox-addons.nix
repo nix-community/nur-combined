@@ -13351,6 +13351,20 @@
         platforms = platforms.all;
       };
     };
+    "transparent-zen" = buildFirefoxXpiAddon {
+      pname = "transparent-zen";
+      version = "0.6.0";
+      addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4515420/transparent_zen-0.6.0.xpi";
+      sha256 = "3863f54aedb8dc6358025b995a1f2d66d7e149ff8720559af4fa0b3397e48990";
+      meta = with lib;
+      {
+        description = "Applies custom styles to make your favorite websites transparent.";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "storage" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
       version = "4.2.6";
