@@ -1,28 +1,17 @@
 {
-  steamDisplayName ? "Boxtron",
-  soundfont-fluid,
-  dosbox-staging,
-  inotify-tools,
+  steamDisplayName ? "Proton-GE-RTSP",
   stdenvNoCC,
   fetchzip,
-  timidity,
   lib,
 }: let
   info = builtins.fromJSON (builtins.readFile ./info.json);
 in
   stdenvNoCC.mkDerivation rec {
-    pname = "boxtron-bin";
+    pname = "proton-ge-rtsp-bin";
     inherit (info) version;
 
-    nativeBuildInputs = [
-      soundfont-fluid
-      dosbox-staging
-      inotify-tools
-      timidity
-    ];
-
     src = fetchzip {
-      url = "https://github.com/dreamer/boxtron/releases/download/v${version}/boxtron.tar.xz";
+      url = "https://github.com/Etaash-mathamsetty/Proton/releases/download/${version}/${version}.tar.gz";
       inherit (info) hash;
     };
 
@@ -57,15 +46,14 @@ in
 
     meta = {
       description = ''
-        Steam Play compatibility tool to run DOS games using native Linux DOSBox
+        A Development Oriented Compatibility tool for Steam Play based on Wine and additional components
 
         (This is intended for use in the `programs.steam.extraCompatPackages` option only.)
       '';
-      homepage = "https://github.com/dreamer/boxtron";
-      license = lib.licenses.gpl2Only;
+      homepage = "https://github.com/SpookySkeletons/proton-ge-rtsp";
+      license = lib.licenses.bsd3;
       maintainers = ["Prinky"];
       platforms = ["x86_64-linux"];
-      broken = true;
       sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     };
   }

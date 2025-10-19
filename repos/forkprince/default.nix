@@ -20,6 +20,7 @@
   nirius = pkgs.callPackage ./pkgs/nirius {};
   osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
   proton-em-bin = pkgs.callPackage ./pkgs/proton-em-bin {};
+  proton-ge-rtsp-bin = pkgs.callPackage ./pkgs/proton-ge-rtsp-bin {};
   re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
   syslock = pkgs.callPackage ./pkgs/syslock {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

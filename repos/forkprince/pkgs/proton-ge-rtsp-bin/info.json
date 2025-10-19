@@ -1,0 +1,10 @@
+{
+  "name": "proton-ge-rtsp",
+  "update_type": "github",
+  "repo": "SpookySkeletons/proton-ge-rtsp",
+  "query": ".[0].tag_name",
+  "version": "GE-Proton10-20-rtsp19",
+  "hash": "sha256-VzUzZjILqndtqi/nLGAXrup2lKoZ7RxGXGoPLo2voHQ=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/{version}.tar.gz",
+  "unpack": true
+}

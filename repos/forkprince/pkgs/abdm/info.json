@@ -3,8 +3,8 @@
   "update_type": "github",
   "repo": "amir1376/ab-download-manager",
   "query": ".[0].tag_name",
-  "version": "1.7.0",
-  "hash": "sha256-qnaFp3RGlOlNiUy2JzzRlZTiVggrIgLfmEEMI60/Plc=",
+  "version": "1.7.1",
+  "hash": "sha256-JTW5wTGzfSHAnpi3h21Q485I7noaKjwrY4M8HgDkhTQ=",
   "url_template": "https://github.com/{repo}/releases/download/{version}/ABDownloadManager_{version_clean}_linux_x64.tar.gz",
   "unpack": false
 }
