@@ -1381,12 +1381,12 @@
             "name": null,
             "owner": "glauth",
             "repo": "glauth",
-            "rev": "v2.3.2",
-            "sha256": "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=",
+            "rev": "v2.4.0",
+            "sha256": "sha256-UUTL+ZnHRSYuD/TUYpsuo+Nu90kpA8ZL4XaGz6in3ME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.3.2"
+        "version": "v2.4.0"
     },
     "google-earth-pro": {
         "cargoLock": null,

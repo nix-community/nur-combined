@@ -714,12 +714,12 @@
   };
   glauth = {
     pname = "glauth";
-    version = "v2.3.2";
+    version = "v2.4.0";
     src = fetchFromGitHub {
       owner = "glauth";
       repo = "glauth";
-      tag = "v2.3.2";
-      hash = "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=";
+      tag = "v2.4.0";
+      hash = "sha256-UUTL+ZnHRSYuD/TUYpsuo+Nu90kpA8ZL4XaGz6in3ME=";
     };
   };
   google-earth-pro = {

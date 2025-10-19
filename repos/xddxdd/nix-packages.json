@@ -519,11 +519,6 @@
     "pname": "deeplx",
     "version": "1.0.9"
   },
-  "legacyPackages.x86_64-linux.deprecated.glauth": {
-    "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
-    "pname": "glauth",
-    "version": "2.3.2"
-  },
   "legacyPackages.x86_64-linux.deprecated.inter-knot": {
     "description": "(DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台",
     "pname": "inter-knot",
@@ -680,9 +675,9 @@
     "version": "2025.10.13"
   },
   "legacyPackages.x86_64-linux.glauth": {
-    "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
+    "description": "Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
-    "version": "2.3.2"
+    "version": "2.4.0"
   },
   "legacyPackages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
@@ -4734,6 +4729,11 @@
     "pname": "geolite2",
     "version": "2025.10.13"
   },
+  "legacyPackages.x86_64-linux.uncategorized.glauth": {
+    "description": "Lightweight LDAP server for development, home use, or CI",
+    "pname": "glauth",
+    "version": "2.4.0"
+  },
   "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
     "description": "World sphere viewer",
     "pname": "google-earth-pro",
@@ -5660,9 +5660,9 @@
     "version": "2025.10.13"
   },
   "packages.x86_64-linux.glauth": {
-    "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
+    "description": "Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
-    "version": "2.3.2"
+    "version": "2.4.0"
   },
   "packages.x86_64-linux.google-earth-pro": {
     "description": "World sphere viewer",
