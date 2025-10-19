@@ -1,5 +1,9 @@
-{ lib, pins, buildPythonPackage
-, antlr4-python3-runtime, multimethod
+{
+  lib,
+  pins,
+  buildPythonPackage,
+  antlr4-python3-runtime,
+  multimethod,
 }:
 
 buildPythonPackage rec {
@@ -9,7 +13,8 @@ buildPythonPackage rec {
   src = pins.py-lua-parser.outPath;
 
   propagatedBuildInputs = [
-    antlr4-python3-runtime multimethod
+    antlr4-python3-runtime
+    multimethod
   ];
 
   meta = with lib; {
@@ -19,4 +24,3 @@ buildPythonPackage rec {
     maintainer = with maintainers; [ arobyn ];
   };
 }
-

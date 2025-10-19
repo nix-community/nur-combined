@@ -1,6 +1,8 @@
-final: prev: let
+final: prev:
+let
   pins = import ../../nix/sources.nix prev.path prev.targetPlatform.system;
-in {
+in
+{
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyfinal: pyprev: {
       factorio-sat = pyfinal.callPackage ./factorio-sat.nix { inherit pins; };

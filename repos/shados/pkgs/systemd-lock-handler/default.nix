@@ -1,4 +1,7 @@
-{ lib, buildGoModule, fetchurl
+{
+  lib,
+  buildGoModule,
+  fetchurl,
 }:
 buildGoModule rec {
   pname = "systemd-lock-handler";
@@ -39,9 +42,9 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Translates systemd-system lock/sleep signals into systemd-user target activations";
-    homepage    = https://git.sr.ht/~whynothugo/systemd-lock-handler;
+    homepage = "https://git.sr.ht/~whynothugo/systemd-lock-handler";
     maintainers = with maintainers; [ arobyn ];
-    platforms   = with platforms; linux;
-    license     = licenses.isc;
+    platforms = with platforms; linux;
+    license = licenses.isc;
   };
 }

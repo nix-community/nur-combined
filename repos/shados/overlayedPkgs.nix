@@ -1,4 +1,6 @@
-{ nixpkgs ? import <nixpkgs> { } }:
+{
+  nixpkgs ? import <nixpkgs> { },
+}:
 let
   lib = import (nixpkgs.path + "/lib") { };
   nurOverlays = (import ./default.nix { }).overlays;
@@ -11,4 +13,5 @@ let
     oldflash
     dochelpers
   ];
-in import nixpkgs.path { inherit overlays; }
+in
+import nixpkgs.path { inherit overlays; }

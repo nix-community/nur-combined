@@ -1,4 +1,9 @@
-{ lib, stdenv, moonscript, buildLuarocksPackage, pins
+{
+  lib,
+  stdenv,
+  moonscript,
+  buildLuarocksPackage,
+  pins,
 }:
 
 buildLuarocksPackage rec {
@@ -15,10 +20,9 @@ buildLuarocksPackage rec {
 
   meta = with lib; {
     description = "A collection of MoonScript libraries I had a need for";
-    homepage = https://github.com/Shados/earthshine;
+    homepage = "https://github.com/Shados/earthshine";
     hydraPlatforms = platforms.linux;
     maintainers = with maintainers; [ arobyn ];
     license = licenses.bsd2;
   };
 }
-

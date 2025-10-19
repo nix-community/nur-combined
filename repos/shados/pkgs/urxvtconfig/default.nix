@@ -1,5 +1,13 @@
-{ lib, stdenv, mkDerivation, qmake, pins
-, qtbase, imagemagick, fontconfig, libXft
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  qmake,
+  pins,
+  qtbase,
+  imagemagick,
+  fontconfig,
+  libXft,
 }:
 
 mkDerivation rec {
@@ -12,7 +20,10 @@ mkDerivation rec {
     qmake
   ];
   buildInputs = [
-    qtbase imagemagick fontconfig libXft
+    qtbase
+    imagemagick
+    fontconfig
+    libXft
   ];
 
   qmakeFlags = [

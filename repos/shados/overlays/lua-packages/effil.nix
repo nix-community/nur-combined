@@ -1,5 +1,9 @@
-{ lib, stdenv, buildLuarocksPackage, fetchFromGitHub
-, gcc9
+{
+  lib,
+  stdenv,
+  buildLuarocksPackage,
+  fetchFromGitHub,
+  gcc9,
 }:
 
 buildLuarocksPackage rec {
@@ -8,7 +12,8 @@ buildLuarocksPackage rec {
 
   # version = "unstable-2018-11-14";
   src = fetchFromGitHub {
-    owner = pname; repo = pname;
+    owner = pname;
+    repo = pname;
     rev = "v${version}";
     sha256 = "0rij3ms8glzmr8j7b5607qwyhbcjy66i8wrw85bshixb32cn06wz";
     # Need the below for the 'sol' submodule especially; might want to look
@@ -34,7 +39,7 @@ buildLuarocksPackage rec {
 
   meta = with lib; {
     description = "Effil is a lua module for multithreading support, it allows you to spawn native threads and perform safe data exchange between them";
-    homepage = https://github.com/effil/effil;
+    homepage = "https://github.com/effil/effil";
     hydraPlatforms = platforms.linux;
     maintainers = with maintainers; [ arobyn ];
     license = with licenses; mit;

@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, pins
-, numpy, python-sat, luaparser, pygame, pillow, pyopengl, graphviz, ffmpeg-python
-, factorio
+{
+  lib,
+  buildPythonPackage,
+  pins,
+  numpy,
+  python-sat,
+  luaparser,
+  pygame,
+  pillow,
+  pyopengl,
+  graphviz,
+  ffmpeg-python,
+  factorio,
 }:
 
 buildPythonPackage rec {
@@ -10,7 +20,14 @@ buildPythonPackage rec {
   src = pins.factorio-sat.outPath;
 
   propagatedBuildInputs = [
-    numpy python-sat luaparser pygame pillow pyopengl graphviz ffmpeg-python
+    numpy
+    python-sat
+    luaparser
+    pygame
+    pillow
+    pyopengl
+    graphviz
+    ffmpeg-python
   ];
 
   postInstall = ''
@@ -19,8 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Produce belt balancer designs using SAT solvers";
-    homepage    = "https://github.com/R-O-C-K-E-T/Factorio-SAT";
+    homepage = "https://github.com/R-O-C-K-E-T/Factorio-SAT";
     maintainers = with maintainers; [ arobyn ];
-    license     = licenses.gpl3;
+    license = licenses.gpl3;
   };
 }

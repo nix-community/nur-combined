@@ -1,5 +1,8 @@
-{ lib, stdenv, pins
-, python3
+{
+  lib,
+  stdenv,
+  pins,
+  python3,
 }:
 stdenv.mkDerivation rec {
   pname = "switch-dbibackend";
@@ -8,9 +11,12 @@ stdenv.mkDerivation rec {
   src = pins.switch-dbibackend.outPath;
 
   buildInputs = [
-    (python3.withPackages(ps: with ps; [
-      pyusb tkinter
-    ]))
+    (python3.withPackages (
+      ps: with ps; [
+        pyusb
+        tkinter
+      ]
+    ))
   ];
 
   installPhase = ''
@@ -32,8 +38,8 @@ stdenv.mkDerivation rec {
       move, delete files and folders, create folders). Work with saves
       (including backup and restore) and much more.
     '';
-    homepage = https://github.com/rashevskyv/dbi;
+    homepage = "https://github.com/rashevskyv/dbi";
     maintainers = with maintainers; [ arobyn ];
-    platforms   =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
   };
 }

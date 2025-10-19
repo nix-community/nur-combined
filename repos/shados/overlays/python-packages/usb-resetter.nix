@@ -1,4 +1,9 @@
-{ lib, pins, buildPythonPackage, setuptools }:
+{
+  lib,
+  pins,
+  buildPythonPackage,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "usb-resetter";

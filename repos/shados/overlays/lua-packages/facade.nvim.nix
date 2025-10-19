@@ -1,5 +1,10 @@
-{ lib, stdenv, moonscript, buildLuarocksPackage, pins
-, earthshine
+{
+  lib,
+  stdenv,
+  moonscript,
+  buildLuarocksPackage,
+  pins,
+  earthshine,
 }:
 
 buildLuarocksPackage rec {
@@ -16,11 +21,9 @@ buildLuarocksPackage rec {
 
   meta = with lib; {
     description = "A MoonScript wrapper around Neovim's Lua API";
-    homepage = https://github.com/Shados/facade.nvim;
+    homepage = "https://github.com/Shados/facade.nvim";
     hydraPlatforms = platforms.linux;
     maintainers = with maintainers; [ arobyn ];
     license = licenses.mit;
   };
 }
-
-

@@ -1,4 +1,7 @@
-{ lib, stdenv, fetchzip
+{
+  lib,
+  stdenv,
+  fetchzip,
 }:
 stdenv.mkDerivation {
   pname = "arcconf";
@@ -22,10 +25,10 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Microsemi Adaptec ARCCONF command line interface utility";
-    homepage    = https://storage.microsemi.com/en-us/speed/raid/storage_manager/arcconf_v4_01_24763_zip.php;
+    homepage = "https://storage.microsemi.com/en-us/speed/raid/storage_manager/arcconf_v4_01_24763_zip.php";
     maintainers = with maintainers; [ arobyn ];
-    platforms   = [ "x86_64-linux" ];
-    license     = {
+    platforms = [ "x86_64-linux" ];
+    license = {
       fullName = "Microsemi License for arcconf_4_01_247632.zip";
       url = "https://storage.microsemi.com/en-us/support/_eula/license.php?arcconf_4_01_247632.zip";
       free = false;

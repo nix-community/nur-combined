@@ -1,6 +1,10 @@
-{ lib, stdenv, pins
-, pkg-config
-, dbus, hidapi
+{
+  lib,
+  stdenv,
+  pins,
+  pkg-config,
+  dbus,
+  hidapi,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,15 +23,16 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    dbus hidapi
+    dbus
+    hidapi
   ];
 
   installFlags = [ "DESTDIR=$(out)" ];
 
   meta = with lib; {
     description = "Linux tool for controlling PS5 DualSense controller";
-    homepage    = "https://github.com/nowrep/dualsensectl";
+    homepage = "https://github.com/nowrep/dualsensectl";
     maintainers = with maintainers; [ arobyn ];
-    license     = licenses.gpl2;
+    license = licenses.gpl2;
   };
 }

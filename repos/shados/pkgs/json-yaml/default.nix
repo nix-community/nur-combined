@@ -1,5 +1,9 @@
-{ lib, stdenv, pins
-, libyaml, yajl
+{
+  lib,
+  stdenv,
+  pins,
+  libyaml,
+  yajl,
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +13,8 @@ stdenv.mkDerivation rec {
   src = pins.json-yaml.outPath;
 
   buildInputs = [
-    libyaml yajl
+    libyaml
+    yajl
   ];
 
   installFlags = [
@@ -20,8 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Converts JSON to YAML and back";
-    homepage    = "https://github.com/sjmulder/json-yaml";
+    homepage = "https://github.com/sjmulder/json-yaml";
     maintainers = with maintainers; [ arobyn ];
-    license     = licenses.bsd2;
+    license = licenses.bsd2;
   };
 }

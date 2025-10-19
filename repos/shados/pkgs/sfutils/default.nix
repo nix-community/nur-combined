@@ -1,5 +1,10 @@
-{ lib, stdenv, pins
-, unzip, rpmextract, perl
+{
+  lib,
+  stdenv,
+  pins,
+  unzip,
+  rpmextract,
+  perl,
 }:
 stdenv.mkDerivation rec {
   pname = "sfutils";
@@ -37,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Solarflare Utilities for updating firmware, configuring boot ROMs, managing license keys, and configuring driver/hardware parameters";
-    homepage    = https://www.xilinx.com/support/download/nic-software-and-drivers.html;
+    homepage = "https://www.xilinx.com/support/download/nic-software-and-drivers.html";
     maintainers = with maintainers; [ arobyn ];
-    platforms   = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     license = {
       fullName = "Xilinx license for ${pname} ${version}";
       free = false;

@@ -1,7 +1,14 @@
-{ lib, stdenv
-, fetchpatch
-, cmake, pkg-config, pins
-, ffmpeg, libebur128, taglib, zlib
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  pins,
+  ffmpeg,
+  libebur128,
+  taglib,
+  zlib,
 }:
 stdenv.mkDerivation rec {
   pname = "loudgain";
@@ -30,19 +37,31 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  # CMake 2.8 is deprecated and is no longer supported by CMake > 4
+  # https://github.com/NixOS/nixpkgs/issues/445447
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace-fail \
+      "CMAKE_MINIMUM_REQUIRED(VERSION 2.8)" \
+      "CMAKE_MINIMUM_REQUIRED(VERSION 3.10)"
+  '';
+
   nativeBuildInputs = [
-    cmake pkg-config
+    cmake
+    pkg-config
   ];
 
   buildInputs = [
-    ffmpeg libebur128 taglib zlib
+    ffmpeg
+    libebur128
+    taglib
+    zlib
   ];
 
   meta = with lib; {
     description = "ReplayGain 2.0 loudness normalizer based on the EBU R128/ITU BS.1770 standard";
-    homepage    = https://github.com/Moonbase59/loudgain;
+    homepage = "https://github.com/Moonbase59/loudgain";
     maintainers = with maintainers; [ arobyn ];
-    platforms   =  [ "x86_64-linux" ];
-    license     = licenses.bsd2;
+    platforms = [ "x86_64-linux" ];
+    license = licenses.bsd2;
   };
 }

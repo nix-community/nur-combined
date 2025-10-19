@@ -1,6 +1,12 @@
-{ lib, stdenv, moonscript, buildLuarocksPackage, pins
-, moonpick
-, isLua51, isLuaJIT
+{
+  lib,
+  stdenv,
+  moonscript,
+  buildLuarocksPackage,
+  pins,
+  moonpick,
+  isLua51,
+  isLuaJIT,
 }:
 buildLuarocksPackage rec {
   pname = "moonpick-vim";
@@ -19,7 +25,7 @@ buildLuarocksPackage rec {
 
   meta = with lib; {
     description = "ALE-based vim integration for moonpick";
-    homepage = https://github.com/Shados/moonpick-vim;
+    homepage = "https://github.com/Shados/moonpick-vim";
     hydraPlatforms = platforms.linux;
     maintainers = with maintainers; [ arobyn ];
     license = licenses.mit;

@@ -1,6 +1,9 @@
-{ lib, stdenv, pins
-, buildGoModule
-, buildNpmPackage
+{
+  lib,
+  stdenv,
+  pins,
+  buildGoModule,
+  buildNpmPackage,
 }:
 let
   pname = "broadcast-box";
@@ -8,10 +11,10 @@ let
   src = pins.broadcast-box.outPath;
   meta = with lib; {
     description = "WebRTC broadcast server";
-    homepage = https://github.com/Glimesh/broadcast-box;
+    homepage = "https://github.com/Glimesh/broadcast-box";
     maintainers = with maintainers; [ arobyn ];
-    platforms   = [ "x86_64-linux" ];
-    license     = licenses.mit;
+    platforms = [ "x86_64-linux" ];
+    license = licenses.mit;
   };
 
   web = buildNpmPackage {

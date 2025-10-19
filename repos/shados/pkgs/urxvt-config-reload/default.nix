@@ -1,7 +1,15 @@
-{ lib, stdenv
-, xrdb
-, AnyEvent, LinuxFD, CommonSense, pins , SubExporter, DataOptList, ParamsUtil
-, SubInstall
+{
+  lib,
+  stdenv,
+  xrdb,
+  AnyEvent,
+  LinuxFD,
+  CommonSense,
+  pins,
+  SubExporter,
+  DataOptList,
+  ParamsUtil,
+  SubInstall,
 }:
 stdenv.mkDerivation {
   pname = "urxvt-config-reload";
@@ -10,12 +18,17 @@ stdenv.mkDerivation {
   src = pins.urxvt-config-reload.outPath;
 
   passthru.perlPackages = [
-    AnyEvent LinuxFD CommonSense SubExporter
+    AnyEvent
+    LinuxFD
+    CommonSense
+    SubExporter
     # Not sure why the following are required, they're not on
     # propagatedBuildInputs of any of the deps...
     # TODO figure out a better way to handle this -- to determine and inject
     # runtime Perl dependency tree into calling urxvt
-    DataOptList ParamsUtil SubInstall
+    DataOptList
+    ParamsUtil
+    SubInstall
   ];
 
   postPatch = ''
@@ -29,11 +42,11 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description     = ''
+    description = ''
       A urxvt extension that allows reloading urxvt configuration at runtime by
       sending SIGHUP to the urxvt process.
     '';
-    homepage        = "https://github.com/regnarg/urxvt-config-reload";
-    maintainers     = with lib.maintainers; [ arobyn ];
+    homepage = "https://github.com/regnarg/urxvt-config-reload";
+    maintainers = with lib.maintainers; [ arobyn ];
   };
 }

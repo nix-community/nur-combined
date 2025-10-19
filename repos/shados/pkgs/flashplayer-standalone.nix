@@ -1,52 +1,53 @@
-{ stdenv
-, lib
-, fetchurl
-, alsa-lib
-, atk
-, bzip2
-, cairo
-, curl
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, glibc
-, graphite2
-, gtk2
-, harfbuzz
-, libICE
-, libSM
-, libX11
-, libXau
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXdmcp
-, libXext
-, libXfixes
-, libXi
-, libXinerama
-, libXrandr
-, libXrender
-, libXt
-, libXxf86vm
-, libdrm
-, libffi
-, libglvnd
-, libpng
-, libvdpau
-, libxcb
-, libxshmfence
-, libGL
-, nspr
-, nss
-, pango
-, pcre
-, pixman
-, zlib
-, unzip
-, debug ? false
+{
+  stdenv,
+  lib,
+  fetchurl,
+  alsa-lib,
+  atk,
+  bzip2,
+  cairo,
+  curl,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  graphite2,
+  gtk2,
+  harfbuzz,
+  libICE,
+  libSM,
+  libX11,
+  libXau,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXdmcp,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libXt,
+  libXxf86vm,
+  libdrm,
+  libffi,
+  libglvnd,
+  libpng,
+  libvdpau,
+  libxcb,
+  libxshmfence,
+  libGL,
+  nspr,
+  nss,
+  pango,
+  pcre,
+  pixman,
+  zlib,
+  unzip,
+  debug ? false,
 }:
 
 stdenv.mkDerivation {
@@ -85,15 +86,53 @@ stdenv.mkDerivation {
       $out/bin/flashplayer${lib.optionalString debug "debugger"}
   '';
 
-  rpath = lib.makeLibraryPath
-    [ stdenv.cc.cc
-      alsa-lib atk bzip2 cairo curl expat fontconfig freetype gdk-pixbuf glib
-      glibc graphite2 gtk2 harfbuzz libICE libSM libX11 libXau libXcomposite
-      libXcursor libXdamage libXdmcp libXext libXfixes libXi libXinerama
-      libXrandr libXrender libXt libXxf86vm libdrm libffi libglvnd libpng
-      libvdpau libxcb libxshmfence nspr nss pango pcre pixman zlib
-			libGL
-    ];
+  rpath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    alsa-lib
+    atk
+    bzip2
+    cairo
+    curl
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    glibc
+    graphite2
+    gtk2
+    harfbuzz
+    libICE
+    libSM
+    libX11
+    libXau
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXdmcp
+    libXext
+    libXfixes
+    libXi
+    libXinerama
+    libXrandr
+    libXrender
+    libXt
+    libXxf86vm
+    libdrm
+    libffi
+    libglvnd
+    libpng
+    libvdpau
+    libxcb
+    libxshmfence
+    nspr
+    nss
+    pango
+    pcre
+    pixman
+    zlib
+    libGL
+  ];
 
   meta = {
     description = "Adobe Flash Player standalone executable";

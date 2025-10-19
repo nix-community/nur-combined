@@ -1,4 +1,8 @@
-{ lib, stdenv, pins }:
+{
+  lib,
+  stdenv,
+  pins,
+}:
 stdenv.mkDerivation rec {
   pname = "yuescript";
   version = pins.yuescript.rev;
@@ -15,7 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    homepage = https://yuescript.org/;
+    homepage = "https://yuescript.org/";
     description = "";
     license = licenses.mit;
     maintainers = with maintainers; [ arobyn ];

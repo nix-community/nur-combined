@@ -1,4 +1,7 @@
-{ lib, pins, buildGoModule
+{
+  lib,
+  pins,
+  buildGoModule,
 }:
 buildGoModule rec {
   pname = "firefox-history-merger";
@@ -10,9 +13,9 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Merge Firefox history and repair missing favicons with ease";
-    homepage    = https://github.com/crazy-max/firefox-history-merger;
+    homepage = "https://github.com/crazy-max/firefox-history-merger";
     maintainers = with maintainers; [ arobyn ];
-    platforms   = with platforms; linux ++ darwin;
-    license     = licenses.mit;
+    platforms = with platforms; linux ++ darwin;
+    license = licenses.mit;
   };
 }

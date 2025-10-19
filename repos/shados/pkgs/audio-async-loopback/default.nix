@@ -1,5 +1,10 @@
-{ lib, stdenv, pins
-, libsamplerate, pulseaudio, ffmpeg_6
+{
+  lib,
+  stdenv,
+  pins,
+  libsamplerate,
+  pulseaudio,
+  ffmpeg_6,
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +14,9 @@ stdenv.mkDerivation rec {
   src = pins.audio-async-loopback.outPath;
 
   buildInputs = [
-    libsamplerate pulseaudio ffmpeg_6
+    libsamplerate
+    pulseaudio
+    ffmpeg_6
   ];
 
   buildPhase = ''
@@ -26,8 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Real-time S/PDIF PCM/AC3 capture and playback";
-    homepage    = "https://github.com/jakemoroni/audio_async_loopback";
+    homepage = "https://github.com/jakemoroni/audio_async_loopback";
     maintainers = with maintainers; [ arobyn ];
-    license     = licenses.gpl3;
+    license = licenses.gpl3;
   };
 }

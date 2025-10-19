@@ -1,6 +1,9 @@
-{ lib, buildLuaPackage, fetchgit
-, pkg-config
-, gcc-lua
+{
+  lib,
+  buildLuaPackage,
+  fetchgit,
+  pkg-config,
+  gcc-lua,
 }:
 buildLuaPackage rec {
   pname = "gcc-lua-cdecl";
@@ -25,8 +28,8 @@ buildLuaPackage rec {
 
   meta = with lib; {
     description = "C declaration composer for the GNU Compiler Collection";
-    homepage    = "https://git.colberg.org/peter/gcc-lua-cdecl";
+    homepage = "https://git.colberg.org/peter/gcc-lua-cdecl";
     maintainers = [ maintainers.arobyn ];
-    license     = licenses.mit;
+    license = licenses.mit;
   };
 }

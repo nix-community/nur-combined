@@ -1,7 +1,17 @@
-{ lib, stdenv, lua, buildLuarocksPackage
-, fetchgit, writeText
-, luarocks, shim-getpw
-, moonscript, etlua, loadkit, luafilesystem, lua-discount
+{
+  lib,
+  stdenv,
+  lua,
+  buildLuarocksPackage,
+  fetchgit,
+  writeText,
+  luarocks,
+  shim-getpw,
+  moonscript,
+  etlua,
+  loadkit,
+  luafilesystem,
+  lua-discount,
 }:
 let
   rockspecName = "lunadoc-scm-1.rockspec";
@@ -149,21 +159,27 @@ buildLuarocksPackage rec {
     luarocks
   ];
   propagatedBuildInputs = [
-    lua-discount etlua loadkit moonscript luafilesystem
+    lua-discount
+    etlua
+    loadkit
+    moonscript
+    luafilesystem
   ];
 
-  buildPhase = let
-    getpw-preload = "${shim-getpw}/lib/libshim-getpw.so";
-  in ''
-    # Configure shim-getpw to prevent spurious luarocks warning, and point it to
-    # the right home directory
-    export LD_PRELOAD="${getpw-preload}''${LD_PRELOAD:+ ''${LD_PRELOAD}}"
-    export HOME=$(pwd)
-    export SHIM_HOME=$HOME
-    export USER=$(id -un)
-    export SHIM_USER=$USER
-    export SHIM_UID=$UID
-  '';
+  buildPhase =
+    let
+      getpw-preload = "${shim-getpw}/lib/libshim-getpw.so";
+    in
+    ''
+      # Configure shim-getpw to prevent spurious luarocks warning, and point it to
+      # the right home directory
+      export LD_PRELOAD="${getpw-preload}''${LD_PRELOAD:+ ''${LD_PRELOAD}}"
+      export HOME=$(pwd)
+      export SHIM_HOME=$HOME
+      export USER=$(id -un)
+      export SHIM_USER=$USER
+      export SHIM_UID=$UID
+    '';
   installPhase = ''
     cp ${rockspec} ${rockspecName}
     # Tell luarocks to install to $out
@@ -172,7 +188,7 @@ buildLuarocksPackage rec {
 
   meta = with lib; {
     description = "A better documentation generator for Moonscript";
-    homepage = https://gitlab.com/nonchip/lunadoc;
+    homepage = "https://gitlab.com/nonchip/lunadoc";
     hydraPlatforms = platforms.linux;
     maintainers = with maintainers; [ arobyn ];
     license = licenses.isc;

@@ -1,7 +1,9 @@
-{ lib, stdenv
-, fetchurl
-, libusb-compat-0_1
-, libusb1
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libusb-compat-0_1,
+  libusb1,
 }:
 stdenv.mkDerivation rec {
   pname = "bootloadHID";
@@ -29,10 +31,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tool for flashing devices using bootloadHID firmware";
-    homepage    = https://www.obdev.at/products/vusb/bootloadhid.html;
+    homepage = "https://www.obdev.at/products/vusb/bootloadhid.html";
     maintainers = with maintainers; [ arobyn ];
-    platforms   =  [ "x86_64-linux" ];
-    license     = licenses.gpl2;
+    platforms = [ "x86_64-linux" ];
+    license = licenses.gpl2;
   };
 }
-

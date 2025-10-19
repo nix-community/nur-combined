@@ -1,15 +1,30 @@
-{ lib, stdenv, autoreconfHook, pkg-config, pins
-, glib, fuse, libdbi, libdbiDrivers, sqlite, libextractor
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  pins,
+  glib,
+  fuse,
+  libdbi,
+  libdbiDrivers,
+  sqlite,
+  libextractor,
 }:
 stdenv.mkDerivation {
   pname = "tagsistant";
   version = "unstable-2017-02-12";
   src = pins.tagsistant.outPath;
   nativeBuildInputs = [
-    autoreconfHook pkg-config
+    autoreconfHook
+    pkg-config
   ];
   buildInputs = [
-    glib fuse libdbi libdbiDrivers libextractor
+    glib
+    fuse
+    libdbi
+    libdbiDrivers
+    libextractor
   ];
   CFLAGS = [
     # -fnocommon being default in GCC 10+ causes tagsistant build to break with
@@ -39,9 +54,9 @@ stdenv.mkDerivation {
       with that of directory. So within Tagsistant a tag is a directory
       and a directory is a tag.
     '';
-    homepage    = https://tagsistant.net/;
+    homepage = "https://tagsistant.net/";
     maintainers = with maintainers; [ arobyn ];
-    platforms   =  [ "x86_64-linux" ];
-    license     = licenses.gpl2;
+    platforms = [ "x86_64-linux" ];
+    license = licenses.gpl2;
   };
 }

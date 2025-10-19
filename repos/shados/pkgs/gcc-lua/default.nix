@@ -1,10 +1,16 @@
-{ lib, stdenv, fetchgit
-, pkg-config
-, gmp, lua, gcc
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  gmp,
+  lua,
+  gcc,
 }:
 let
   gccPluginPath = "/lib/gcc/${stdenv.targetPlatform.config}/${gcc.cc.version}/plugin";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "gcc-lua";
   version = "unstable-2023-07-17";
 
@@ -18,7 +24,9 @@ in stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gmp lua gcc
+    gmp
+    lua
+    gcc
   ];
 
   preInstall = ''
@@ -35,9 +43,9 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Extends the GNU Compiler Collection with the ability to run Lua scripts";
-    homepage    = https://peter.colberg.org/gcc-lua;
+    homepage = "https://peter.colberg.org/gcc-lua";
     maintainers = with maintainers; [ arobyn ];
-    platforms   =  [ "x86_64-linux" ];
-    license     = licenses.mit;
+    platforms = [ "x86_64-linux" ];
+    license = licenses.mit;
   };
 }

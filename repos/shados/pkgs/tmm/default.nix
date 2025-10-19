@@ -1,8 +1,16 @@
-{ lib, stdenv, fetchurl
-, writeScript, makeWrapper
-, gnugrep, gnused
-, libmediainfo, libzen, jre
-, yj, jq
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeScript,
+  makeWrapper,
+  gnugrep,
+  gnused,
+  libmediainfo,
+  libzen,
+  jre,
+  yj,
+  jq,
 }:
 stdenv.mkDerivation rec {
   pname = "tinymediamanager";
@@ -15,14 +23,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     makeWrapper
-    gnugrep gnused
+    gnugrep
+    gnused
   ];
 
   nativeDeps = [
-    libmediainfo libzen
+    libmediainfo
+    libzen
   ];
   binDeps = [
-    yj jq
+    yj
+    jq
   ];
 
   installPhase = ''
@@ -74,10 +85,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "tinyMediaManager is a media management tool written in Java, designed to provide metadata for the Kodi Media Center, MediaPortal and Plex media server";
-    homepage = https://www.tinymediamanager.org/;
+    homepage = "https://www.tinymediamanager.org/";
     maintainers = with maintainers; [ arobyn ];
     platforms = platforms.linux;
     license = licenses.asl20;
   };
 }
-
