@@ -118,14 +118,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "f4c2138fe283e329e5a7d97754767ed4ea5796ef";
+    version = "d48f40c4e4ac4d63d08c9e6e0494310ce2678806";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "f4c2138fe283e329e5a7d97754767ed4ea5796ef";
-      hash = "sha256-kapG5yaj+bY8XOgNRa9eV9XKLYt1YE+bSxET5w0orCg=";
+      rev = "d48f40c4e4ac4d63d08c9e6e0494310ce2678806";
+      hash = "sha256-1betzuwDG7wPjeo8uK2ZyItrA4hgfK2IsSYjiVJxImo=";
     };
-    date = "2025-09-02";
+    date = "2025-10-17";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -222,25 +222,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "7fa1fd2aaada6242466d8ad1205d0a6e0e98f16c";
+    version = "a9ac8c0e4f7b59df5d87d2e7928af20f8bf7988f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "7fa1fd2aaada6242466d8ad1205d0a6e0e98f16c";
-      hash = "sha256-wjRocNYjgYHZD4uH+rQitoe7dz5MfZnSwrsgcUaTnPA=";
+      rev = "a9ac8c0e4f7b59df5d87d2e7928af20f8bf7988f";
+      hash = "sha256-tKZdAw5+XzAbd8tRdm0wL8uZNUmMfjDukabSVatTXKQ=";
     };
-    date = "2025-10-07";
+    date = "2025-10-17";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "4015bbcac0d77539d867f069d777b223dcb21a33";
+    version = "bfcf34bd22aa1fa740c5d60a8f126919cfdacfdf";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "4015bbcac0d77539d867f069d777b223dcb21a33";
-      hash = "sha256-fXYlyc4Sl6Bdz8Ad7qqBUmFTklVhBIHwfh+gd7ByHNs=";
+      rev = "bfcf34bd22aa1fa740c5d60a8f126919cfdacfdf";
+      hash = "sha256-YdhrS8JBGnM4BvdkG0MbO8I4dJLmF+RyP7VCRCf7LVQ=";
     };
-    date = "2025-10-13";
+    date = "2025-10-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -442,7 +442,7 @@
     version = "1.2.1";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
+      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
     };
   };
   douban-openapi-server = {
@@ -690,26 +690,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.10.13";
+    version = "2025.10.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.13/GeoLite2-ASN.mmdb";
-      hash = "sha256-Z+zfSvOvFNt8H+bA7WqujgvXs4HqV+4STuBZhycuHBY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-ASN.mmdb";
+      hash = "sha256-rnCkJClPjBXeMmpaIgoJ5QXSFnsUdbrVKFcTWgZmWKY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.10.13";
+    version = "2025.10.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.13/GeoLite2-City.mmdb";
-      hash = "sha256-V6aDcmsU/q8zNo3tahgknL7nb/jivRDqMivPI8ubVUQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-City.mmdb";
+      hash = "sha256-QkJ/sjMBEF+3tvmloBywdZfnMBEsmXG3rGms9rCX670=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.10.13";
+    version = "2025.10.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.13/GeoLite2-Country.mmdb";
-      hash = "sha256-RMYNN1v8eX0VdS0AbotGLnLgJ9CQgQ9xV12p+f9EDDg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-Country.mmdb";
+      hash = "sha256-45ZJPIkqrONEJxCuP/lGVNRX+z/CnAu673qK6FpG2Js=";
     };
   };
   glauth = {
@@ -839,14 +839,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "5a85415d616e7ed50d42e296e7cf533ca46909ed";
+    version = "f5c4963ee739abfb6671e984b71e99ca2e599478";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "5a85415d616e7ed50d42e296e7cf533ca46909ed";
-      hash = "sha256-fmikdLRf53d0uHpn2pHYeefg9wv2/ttKSDuvNbskpkg=";
+      rev = "f5c4963ee739abfb6671e984b71e99ca2e599478";
+      hash = "sha256-THKoJTLff7Oc8r4/G8rmfWs+yc5Ap0c0K9ZROvZI62U=";
     };
-    date = "2025-10-13";
+    date = "2025-10-15";
   };
   igsc = {
     pname = "igsc";
@@ -930,7 +930,7 @@
       owner = "KikoPlayProject";
       repo = "KikoPlay";
       tag = "2.0.0";
-      hash = "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=";
+      hash = "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=";
     };
   };
   kikoplay-app = {
@@ -1017,14 +1017,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b02d0c9a30b2e60f8374a92928c9426d1256bf03";
+    version = "52169a1edfaf8b5f1593ef3a002e2553f33271a0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b02d0c9a30b2e60f8374a92928c9426d1256bf03";
-      hash = "sha256-cuqjVoljIwKDyQSdyLU7h56ze6pSxYyppoi4zmn1Afk=";
+      rev = "52169a1edfaf8b5f1593ef3a002e2553f33271a0";
+      hash = "sha256-xFdAcuPbGOdD3dsCOS3+CepSbRE3EVwaIQ+3/oLo0X4=";
     };
-    date = "2025-10-08";
+    date = "2025-10-14";
   };
   libqcef = {
     pname = "libqcef";
@@ -1085,12 +1085,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.17.2-xanmod1";
+    version = "6.17.3-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.17.2-xanmod1";
+      tag = "6.17.3-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-PgncIfr4c9TpfeJVpq/iumiOz7SOA8czV21OBYQ2ZKc=";
+      hash = "sha256-VL1SCMB89P0UcCbtPdkjxcCZqQZpnSTlzzf9e8uzkyA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -1115,12 +1115,12 @@
   };
   linux-xanmod-6_12 = {
     pname = "linux-xanmod-6_12";
-    version = "6.12.52-xanmod1";
+    version = "6.12.53-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.52-xanmod1";
+      tag = "6.12.53-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-r9FntI8F0ri01lnFH7VYdQj8xR5gT+iInuDWv16oXJA=";
+      hash = "sha256-BhaWUdfCgIvD0LA69I1NVIW0rv6JWQs+7HNLxOkrmGc=";
     };
   };
   linux-xanmod-6_6 = {
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6756";
+    version = "b6795";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6756";
-      hash = "sha256-AZBsyYlfJEiwc87m/niNLnmBJBBQzHjvCZkwQkt6umY=";
+      tag = "b6795";
+      hash = "sha256-I/A8/tBvHiALvoZ+yPNdzm/88qN18H1FCbuM9/9lRwY=";
     };
   };
   loralib = {
@@ -1174,12 +1174,12 @@
   };
   mautrix-gmessages = {
     pname = "mautrix-gmessages";
-    version = "v0.7.0";
+    version = "v0.2510.0";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      tag = "v0.7.0";
-      hash = "sha256-mcWvNRHRdgcw6ualaaJmUjHOrbOJfufyaHfdp20eoaY=";
+      tag = "v0.2510.0";
+      hash = "sha256-6E2mB9EUED5qD65RS78HQ7krJKyQqryKxVPjUMVRytU=";
     };
   };
   metee = {
@@ -1194,12 +1194,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.30.0";
+    version = "v1.31.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.30.0";
-      hash = "sha256-Pi4h6cRb6NjOncpiwa+hJ4fk81HFT4SVxOmBVAPzpIU=";
+      tag = "v1.31.0";
+      hash = "sha256-3o3iI4LGDSsF36jnrUTN3bBaM8XGCw+msIPS3WauMNQ=";
     };
   };
   mtkclient = {
@@ -1360,12 +1360,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.20";
+    version = "v0.21";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.20";
-      hash = "sha256-JFqZHS1SR4vf724UWYtNZLhSsl6+/5MBkI/PgrLzSLA=";
+      tag = "v0.21";
+      hash = "sha256-csEfgXOXrFgWcyKmxEPKi33M7nVVI2hE+YGXMe4vdFE=";
     };
   };
   oci-arm-host-capacity = {
@@ -1544,12 +1544,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.4.10";
+    version = "1.1.4.13";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.4.10";
-      hash = "sha256-sToT5saB/cPSvyrOG4XfMianXXLfg3iQlvJvwtAf6b8=";
+      tag = "1.1.4.13";
+      hash = "sha256-f1XkVessxxbCaNuP4gQkRCJT8EZyV4b+urEOwtrZqhw=";
     };
   };
   plangothic-fonts = {
@@ -1790,14 +1790,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "4ee23b5934cd5a4e2347bf880415c09165a37d8d";
+    version = "f55a8459387392cc170ff8f4a6466e0ef865053d";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "4ee23b5934cd5a4e2347bf880415c09165a37d8d";
-      hash = "sha256-srroZfjoTZA7/OsJg6d51OlaUEJ8S1cfsLi0MEMSU+8=";
+      rev = "f55a8459387392cc170ff8f4a6466e0ef865053d";
+      hash = "sha256-VfPM9cHdPze0VY3q3+TNt/lXDMoTDsUHy6nC4mdqd/8=";
     };
-    date = "2025-10-09";
+    date = "2025-10-19";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2310,12 +2310,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.23.2";
+    version = "1.23.5";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.23.2";
-      hash = "sha256-V5MPHDj2DQHRc6qfK/6tjE0NXWSpzMsxK29kB3k65eM=";
+      tag = "1.23.5";
+      hash = "sha256-+/l/ExJr9xWqyVKB9iJG74sdgK0CUJ2kAL6k/sZZsUA=";
     };
   };
   vgpu-unlock-rs = {
@@ -2356,7 +2356,7 @@
     version = "1113";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
+      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
     };
   };
   vpp = {
