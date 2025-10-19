@@ -12384,10 +12384,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4557780/statshunters-3.1.0.xpi";
-      sha256 = "eee22cbc1b4a952115884b70b7638d7600627be135cde444f12e0413e9de1c1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600824/statshunters-3.2.0.xpi";
+      sha256 = "0e41aa0e040c198f1a9a8360ed2b4a9f43b6ff3528f09381d788df3f60a17db2";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -12427,6 +12427,8 @@
           "https://alltrails.com/explore/map/*"
           "https://www.alltrails.com/explore/map/*"
           "https://www.alltrails.com/*/explore/map/*"
+          "https://www.alltrails.com/explore/*"
+          "https://www.alltrails.com/members/*"
           "https://openrunner.com/*"
           "https://www.openrunner.com/*"
           "https://gpx.studio/*"
