@@ -1,7 +1,7 @@
 {
     "claudecode-nvim": {
         "cargoLocks": null,
-        "date": "2025-10-16",
+        "date": "2025-10-19",
         "extract": null,
         "name": "claudecode-nvim",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "coder",
             "repo": "claudecode.nvim",
-            "rev": "0de96a855a095ed4595bbd3a50ba7f49d694f2b6",
-            "sha256": "sha256-ZG/B3GrAeBWvT4RuIiRl8hwWOBH7J8KwBlwZvZS+kSE=",
+            "rev": "1552086ebcce9f4a2ea3b9793018a884d6b60169",
+            "sha256": "sha256-XYmf1RQ2bVK6spINZW4rg6OQQ5CWWcR0Tw4QX8ZDjgs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0de96a855a095ed4595bbd3a50ba7f49d694f2b6"
+        "version": "1552086ebcce9f4a2ea3b9793018a884d6b60169"
     },
     "copyq-darwin": {
         "cargoLocks": null,
@@ -166,7 +166,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2025-09-27",
+        "date": "2025-10-19",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "8fa36fc8065d600706d5edeeb1008a5233eb1d51",
-            "sha256": "sha256-WC5dBRQstelX5o9oz7Lc23hTbZkYYpiEd+1Qs1sjRYY=",
+            "rev": "0c67893ffe0448666ec76283bc0a9685ac31fba9",
+            "sha256": "sha256-6YRhQUANiYoSF5t4rV7kwU8essmUBNdejLumqR+tyTI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8fa36fc8065d600706d5edeeb1008a5233eb1d51"
+        "version": "0c67893ffe0448666ec76283bc0a9685ac31fba9"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,

@@ -3,15 +3,15 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "0de96a855a095ed4595bbd3a50ba7f49d694f2b6";
+    version = "1552086ebcce9f4a2ea3b9793018a884d6b60169";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "0de96a855a095ed4595bbd3a50ba7f49d694f2b6";
+      rev = "1552086ebcce9f4a2ea3b9793018a884d6b60169";
       fetchSubmodules = false;
-      sha256 = "sha256-ZG/B3GrAeBWvT4RuIiRl8hwWOBH7J8KwBlwZvZS+kSE=";
+      sha256 = "sha256-XYmf1RQ2bVK6spINZW4rg6OQQ5CWWcR0Tw4QX8ZDjgs=";
     };
-    date = "2025-10-16";
+    date = "2025-10-19";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
@@ -95,15 +95,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "8fa36fc8065d600706d5edeeb1008a5233eb1d51";
+    version = "0c67893ffe0448666ec76283bc0a9685ac31fba9";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "8fa36fc8065d600706d5edeeb1008a5233eb1d51";
+      rev = "0c67893ffe0448666ec76283bc0a9685ac31fba9";
       fetchSubmodules = false;
-      sha256 = "sha256-WC5dBRQstelX5o9oz7Lc23hTbZkYYpiEd+1Qs1sjRYY=";
+      sha256 = "sha256-6YRhQUANiYoSF5t4rV7kwU8essmUBNdejLumqR+tyTI=";
     };
-    date = "2025-09-27";
+    date = "2025-10-19";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
