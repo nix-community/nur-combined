@@ -52,7 +52,6 @@ rec {
   mrpack-install = callPackage ./pkgs/mrpack-install { };
   _3dstools = callPackage ./pkgs/3dstools { };
   cxitool = callPackage ./pkgs/cxitool { };
-  xiv-on-mac = callPackage ./pkgs/xiv-on-mac { };
   rofs-dumper = callPackage ./pkgs/rofs-dumper { };
   _3beans = callPackage ./pkgs/3beans { };
   local-gpss = callPackage ./pkgs/local-gpss { };
@@ -65,6 +64,7 @@ rec {
   #tiny-wii-backup-manager = callPackage ./pkgs/tiny-wii-backup-manager { };
   twlnandtool = callPackage ./pkgs/twlnandtool { };
   roadgeek-fonts = callPackage ./pkgs/roadgeek-fonts { };
+  retro-aim-server = callPackage ./pkgs/retro-aim-server { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 

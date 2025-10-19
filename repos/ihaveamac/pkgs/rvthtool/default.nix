@@ -2,7 +2,7 @@
   lib,
   stdenv,
   pkgsBuildBuild,
-  fetchFromGitHub,
+  fetchFromGitea,
   cmake,
   nettle,
 }:
@@ -11,10 +11,11 @@ stdenv.mkDerivation rec {
   pname = "rvthtool";
   version = "1.1.1-unstable-2025-02-01";
 
-  src = fetchFromGitHub {
-    owner = "GerbilSoft";
+  src = fetchFromGitea {
+    domain = "codeberg.org";
+    owner = "ihaveahax";
     repo = pname;
-    rev = "3c240dde95538b8906a2541b99046afdd75578ae";
+    rev = "b5ff48f8e0e72be5f7d4481d3150b8d0a8231584";
     hash = "sha256-nzX+AAEY0z3rrPyU0Y/49c2f7nc0nG4gn7B7NnEKSKo=";
   };
 
@@ -37,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open-source tool for managing RVT-H Reader consoles";
-    homepage = "https://github.com/GerbilSoft/rvthtool";
+    homepage = "https://codeberg.org/ihaveahax/rvthtool";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isWindows;

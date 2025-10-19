@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "themethod3";
-  version = "2024-04-20";
+  version = "0-unstable-2025-05-26";
 
   src = fetchFromGitHub {
     owner = "DarkRTA";
     repo = pname;
-    rev = "4609b3c0944576faea96413199f48afa67307354";
-    sha256 = "sha256-pS0m5Z/GPiXZjHPLjDUJQ6aRMaogTWR8eYpib5OelKM=";
+    rev = "90385dec5034bf3ae341b01c2930548d1acb7095";
+    sha256 = "sha256-MK3jb5NmMmqdCIvbNYUusVfdYu7QWHBeNHk/rzw9kho=";
   };
 
   cargoPatches = [

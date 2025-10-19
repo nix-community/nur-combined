@@ -8,13 +8,13 @@
 # this project only officially supports clang
 clangStdenv.mkDerivation rec {
   pname = "xenonrecomp";
-  version = "0-unstable-2025-02-26";
+  version = "0-unstable-2025-08-04";
 
   src = fetchFromGitHub {
     owner = "hedge-dev";
     repo = "XenonRecomp";
-    rev = "04e716178b397d11b7eb52be4cd27b0e99cd559d";
-    hash = "sha256-pjpvK7vWCm0MwYKWiKhGWqRAIGfNPOerpvOnzm+e1hw=";
+    rev = "ddd128bcca99fe8bfbb99bea583c972351fa6ace";
+    hash = "sha256-suzrnFuHlDrrUWx70jJBNOJwgLpWasBrdqeth//PfWc=";
     fetchSubmodules = true;
   };
 
