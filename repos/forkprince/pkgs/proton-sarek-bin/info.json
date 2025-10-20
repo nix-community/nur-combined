@@ -1,0 +1,10 @@
+{
+  "name": "proton-sarek",
+  "update_type": "github",
+  "repo": "pythonlover02/Proton-Sarek",
+  "query": ".[0].tag_name",
+  "version": "Proton-Sarek10-17",
+  "hash": "sha256-7KsF6viIdbFP9n/cTDDeMEKXnK+OD01vLkk81A4/CiA=",
+  "url_template": "https://github.com/{repo}/releases/download/{version}/{version}.tar.gz",
+  "unpack": true
+}
