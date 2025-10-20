@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.my.home.delta;
-
-  configFormat = pkgs.formats.gitIni { };
-  configPath = "${config.xdg.configHome}/delta/config";
 in
 {
   options.my.home.delta = with lib; {
@@ -17,28 +14,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        # For its configuration
-        assertion = cfg.enable -> cfg.git.enable;
-        message = ''
-          `config.my.home.delta` must enable `config.my.home.delta.git` to be
-          properly configured.
-        '';
-      }
-      {
-        assertion = cfg.enable -> config.programs.git.enable;
-        message = ''
-          `config.my.home.delta` relies on `config.programs.git` to be
-          enabled.
-        '';
-      }
-    ];
+    programs.delta = {
+      enable = true;
 
-    home.packages = [ cfg.package ];
+      inherit (cfg) package;
 
-    xdg.configFile."delta/config".source = configFormat.generate "delta-config" {
-      delta = {
+      enableGitIntegration = cfg.git.enable;
+
+      options = {
         features = "diff-highlight decorations";
 
         # Less jarring style for `diff-highlight` emulation
@@ -61,19 +44,6 @@ in
           paging = "always";
         };
       };
-    };
-
-    programs.git = lib.mkIf cfg.git.enable {
-      delta = {
-        enable = true;
-        inherit (cfg) package;
-      };
-
-      includes = [
-        {
-          path = configPath;
-        }
-      ];
     };
   };
 }

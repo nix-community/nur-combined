@@ -21,29 +21,31 @@ in
   config.programs.git = lib.mkIf cfg.enable {
     enable = true;
 
-    # Who am I?
-    userEmail = mkMailAddress "bruno" "belanyi.fr";
-    userName = "Bruno BELANYI";
-
     inherit (cfg) package;
-
-    aliases = {
-      git = "!git";
-      lol = "log --graph --decorate --pretty=oneline --abbrev-commit --topo-order";
-      lola = "lol --all";
-      assume = "update-index --assume-unchanged";
-      unassume = "update-index --no-assume-unchanged";
-      assumed = "!git ls-files -v | grep ^h | cut -c 3-";
-      pick = "log -p -G";
-      push-new = "!git push -u origin "
-        + ''"$(git branch | grep '^* ' | cut -f2- -d' ')"'';
-      root = "git rev-parse --show-toplevel";
-    };
 
     lfs.enable = true;
 
     # There's more
-    extraConfig = {
+    settings = {
+      # Who am I?
+      user = {
+        email = mkMailAddress "bruno" "belanyi.fr";
+        name = "Bruno BELANYI";
+      };
+
+      alias = {
+        git = "!git";
+        lol = "log --graph --decorate --pretty=oneline --abbrev-commit --topo-order";
+        lola = "lol --all";
+        assume = "update-index --assume-unchanged";
+        unassume = "update-index --no-assume-unchanged";
+        assumed = "!git ls-files -v | grep ^h | cut -c 3-";
+        pick = "log -p -G";
+        push-new = "!git push -u origin "
+          + ''"$(git branch | grep '^* ' | cut -f2- -d' ')"'';
+        root = "git rev-parse --show-toplevel";
+      };
+
       # Makes it a bit more readable
       blame = {
         coloring = "repeatedLines";
