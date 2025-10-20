@@ -857,7 +857,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
     "description": "Asterisk with Lan Tian modifications",
     "pname": "asterisk",
-    "version": "20.15.2"
+    "version": "20.16.0"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6795"
+    "version": "6804"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4347,7 +4347,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-19"
+    "version": "0-unstable-2025-10-20"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4387,7 +4387,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-20"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -5067,7 +5067,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-19"
+    "version": "0-unstable-2025-10-20"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5097,7 +5097,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-20"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -6147,7 +6147,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-19"
+    "version": "0-unstable-2025-10-20"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6187,7 +6187,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-20"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
