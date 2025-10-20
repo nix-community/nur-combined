@@ -34,6 +34,17 @@ overlays = pkgs'.lib.optional (with pkgs'; (
     SDL_compat = super.SDL_compat.overrideAttrs (old: {
         buildInputs = builtins.filter (p: p != null) old.buildInputs;
     });
+}) ++ pkgs'.lib.optional (with pkgs';
+    stdenv.cc.isClang &&
+    lib.versionAtLeast stdenv.cc.version "19" &&
+    !(lib.any (patch: lib.hasSuffix "3.0-mr5531-backport.patch" (""+patch)) (gtk3.patches or []))
+) (self: super: {
+    gtk3 = super.gtk3.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [(pkgs'.fetchurl {
+            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/4cd527d969eef3d54e8814582249f6aa1c3a0a6e/pkgs/development/libraries/gtk/patches/3.0-mr5531-backport.patch";
+            hash = "sha256-uKzaqQRi6nnOH7sDla8o7gd++3L9iT8Xiwampf+NIR0=";
+        })];
+    });
 });
 pkgs = if builtins.length overlays > 0 then pkgs'.appendOverlays overlays else pkgs'; in
 
