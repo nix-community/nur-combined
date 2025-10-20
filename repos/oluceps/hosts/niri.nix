@@ -27,6 +27,7 @@
     login.enableGnomeKeyring = true;
   };
   services.gnome.gcr-ssh-agent.enable = true;
+  environment.systemPackages = [ pkgs.app2unit ];
 
   # systemd.user = {
   #   services = {

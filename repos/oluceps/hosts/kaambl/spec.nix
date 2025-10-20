@@ -63,9 +63,9 @@
   services = {
     userborn.enable = true;
     logind = {
-      lidSwitch = "suspend";
-      powerKey = "poweroff"; # it sucks. laptop
-      powerKeyLongPress = "poweroff";
+      settings.Login.HandleLidSwitch = "suspend";
+      settings.Login.HandlePowerKey = "poweroff"; # it sucks. laptop
+      settings.Login.HandlePowerKeyLongPress = "poweroff";
     };
     swayidle.timeouts = lib.mkForce [
       # override poweroffmonitor

@@ -7,6 +7,10 @@
 }:
 {
   imports = [ ./niri.nix ];
+
+  environment.sessionVariables = {
+    QS_ICON_THEME = "Fluent";
+  };
   environment.systemPackages =
     with inputs'.browser-previews.packages;
     (

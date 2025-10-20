@@ -159,7 +159,7 @@ with pkgs;
   # bluedevil
   prismlauncher
 ]
-# ++ (with pkgs; [ fluent-icon-theme ])
+++ (with pkgs; [ fluent-icon-theme ])
 ++ [
   (writeTextFile {
     name = "index.theme";

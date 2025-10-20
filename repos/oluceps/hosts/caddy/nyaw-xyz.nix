@@ -133,31 +133,93 @@
   {
     handle = [
       {
-        handler = "rate_limit";
-        rate_limits = {
-          dynamic = {
-            key = "{http.request.remote.host}";
-            window = "5s";
-            max_events = 50;
-          };
-        };
-        log_key = true;
-      }
-      {
-        handler = "reverse_proxy";
-        headers = {
-          request = {
-            set = {
-              "X-Scheme" = [
-                "https"
-              ];
-            };
-          };
-        };
-        upstreams = [ { dial = "[fdcc::3]:8083"; } ];
+        handler = "subroute";
+        routes = [
+          {
+            handle = [
+              {
+                handler = "subroute";
+                routes = [
+                  {
+                    handle = [
+                      {
+                        handler = "subroute";
+                        routes = [
+                          {
+                            handle = [
+                              {
+                                handler = "authenticator";
+                                portal_name = "myportal";
+                                route_matcher = "*";
+                              }
+                            ];
+                          }
+                        ];
+                      }
+                    ];
+                    match = [
+                      {
+                        path = [ "*" ];
+                      }
+                    ];
+                  }
+                ];
+              }
+            ];
+            match = [
+              {
+                path = [ "/caddy-security/*" ];
+              }
+            ];
+          }
+          {
+            handle = [
+              {
+                handler = "subroute";
+                routes = [
+                  {
+                    handle = [
+                      {
+                        handler = "authentication";
+                        providers = {
+                          authorizer = {
+                            gatekeeper_name = "mypolicy";
+                            route_matcher = "*";
+                          };
+                        };
+                      }
+                      {
+                        headers = {
+                          request = {
+                            set = {
+                              "X-Scheme" = [
+                                "https"
+                              ];
+                            };
+                          };
+                        };
+                        upstreams = [ { dial = "[fdcc::3]:8083"; } ];
+                        handler = "reverse_proxy";
+                      }
+                    ];
+                  }
+                ];
+              }
+            ];
+            match = [
+              {
+                path = [ "/*" ];
+              }
+            ];
+          }
+        ];
       }
     ];
-    match = [ { host = [ "book.nyaw.xyz" ]; } ];
+    match = [
+      {
+        host = [ "book.nyaw.xyz" ];
+      }
+    ];
     terminal = true;
   }
   (import ./matrix.nix {

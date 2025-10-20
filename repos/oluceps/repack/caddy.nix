@@ -26,8 +26,9 @@ in
             "github.com/caddy-dns/cloudflare@v0.0.0-20250724223520-f589a18c0f5d"
             "github.com/mholt/caddy-ratelimit@v0.1.0"
             "github.com/ss098/certmagic-s3@v0.0.0-20250607141218-0c4ff782fbd0"
+            "github.com/greenpau/caddy-security@v1.1.31"
           ];
-          hash = "sha256-/HyaYO6Tslp4OVMjnb0ucA9FFtWethcnBqiQlMOEqWU=";
+          hash = "sha256-Ije0XHoJBIpZd7YODFYIlwLHphfw88buNKkInafNAs0=";
         };
       };
       settings = lib.mkOption {
@@ -80,6 +81,77 @@ in
             }
           ];
           metrics = { };
+        };
+
+        security = {
+          config = {
+            authentication_portals = [
+              {
+                api = {
+                  profile_enabled = true;
+                };
+                cookie_config = { };
+                crypto_key_store_config = {
+                  token_lifetime = 3600;
+                };
+                identity_providers = [ "generic" ];
+                name = "myportal";
+                portal_admin_roles = {
+                  "authp/admin" = true;
+                };
+                portal_guest_roles = {
+                  "authp/guest" = true;
+                };
+                portal_user_roles = {
+                  "authp/user" = true;
+                };
+                token_grantor_options = { };
+                token_validator_options = { };
+                ui = { };
+                user_transformer_configs = [
+                  {
+                    actions = [ "action add role user" ];
+                    matchers = [ "exact match realm generic" ];
+                  }
+                ];
+              }
+            ];
+            authorization_policies = [
+              {
+                access_list_rules = [
+                  {
+                    action = "allow log debug";
+                    conditions = [ "match roles user" ];
+                  }
+                ];
+                auth_redirect_query_param = "redirect_url";
+                auth_redirect_status_code = 302;
+                auth_url_path = "/caddy-security/oauth2/generic";
+                name = "mypolicy";
+                pass_claims_with_headers = true;
+              }
+            ];
+            identity_providers = [
+              {
+                kind = "oauth";
+                name = "generic";
+                params = {
+                  base_auth_url = "http://oidc.nyaw.xyz";
+                  delay_start = 3;
+                  client_id = "";
+                  client_secret = "";
+                  driver = "generic";
+                  metadata_url = "http://oidc.nyaw.xyz/.well-known/openid-configuration";
+                  realm = "generic";
+                  scopes = [
+                    "openid"
+                    "email"
+                    "profile"
+                  ];
+                };
+              }
+            ];
+          };
         };
       };
     };

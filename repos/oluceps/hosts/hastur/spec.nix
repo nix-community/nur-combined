@@ -228,5 +228,6 @@
     loki.enable = true;
     alloy.enable = true;
     zeek.enable = true;
+    earlyoom.enable = true;
   };
 }
