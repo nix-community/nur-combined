@@ -7,6 +7,7 @@
   libjpeg,
   libtool,
   libxkbcommon,
+  icu69,
   nss,
   nspr,
   udev,
@@ -77,6 +78,7 @@ stdenv.mkDerivation {
     libjpeg
     libtool
     libxkbcommon
+    icu69
     nss
     nspr
     udev
@@ -107,7 +109,7 @@ stdenv.mkDerivation {
     # Remove unneeded files
     rm -f usr/bin/misc
     rm -rf opt/kingsoft/wps-office/{desktops,INSTALL}
-    rm -f opt/kingsoft/wps-office/office6/{libpeony-wpsprint-menu-plugin.so,libbz2.so,libjpeg.so*,libstdc++.so*,libgcc_s.so*,libodbc*.so*,libnss*.so*}
+    rm -f opt/kingsoft/wps-office/office6/lib{peony-wpsprint-menu-plugin,bz2,jpeg,stdc++,gcc_s,odbc*,nss*,icu*,dbus-1}.so*
   '';
 
   installPhase = ''
