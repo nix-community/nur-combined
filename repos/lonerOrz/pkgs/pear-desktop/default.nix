@@ -109,8 +109,20 @@ stdenv.mkDerivation (finalAttrs: {
       cp -r dist/* $out/lib/${finalAttrs.pname}/
       cp -r node_modules $out/lib/${finalAttrs.pname}/
 
+      mkdir -p $out/lib/${finalAttrs.pname}/assets
+      cp assets/youtube-music-tray.png $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png
+
+      # mkdir -p $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets
+      # cp $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png \
+      #    $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets/youtube-music-tray.png
+
+      tray_js="$out/lib/${finalAttrs.pname}/main/youtube-music-tray--ObgfMm0.js"
+      sed -i "s|join(import.meta.dirname, \"../../assets/youtube-music-tray.png\").replace(\"app.asar\", \"app.asar.unpacked\")|\"$out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png\"|g" "$tray_js"
+
        makeWrapper ${lib.getExe electron} $out/bin/$pname \
+          --set ELECTRON_RESOURCES_PATH $out/lib/${finalAttrs.pname} \
           --add-flags $out/lib/$pname/main/index.js \
+          --add-flags "--disable-gpu --use-gl=swiftshader --enable-unsafe-swiftshader" \
           --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-wayland-ime=true --wayland-text-input-version=3}}" \
           --add-flags ${lib.escapeShellArg commandLineArgs}
 
