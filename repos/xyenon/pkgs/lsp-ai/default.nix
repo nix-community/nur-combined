@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "lsp-ai";
-    rev = "ac3ef8f3fb7c849f53403c0cfe163d49df930da4";
-    hash = "sha256-qL3sWQlWsGpUhYWEVc9a3nC9wOSt31zdYyxraiTrpyo=";
+    rev = "bdc0645990ec716f2b8d3b1b01ebedb6f04153fc";
+    hash = "sha256-VFMhz//4x2wiPvcIp09Kvhqpz1BI3ZNPrJkDe/XxsCs=";
   };
 
   checkFlags = [
