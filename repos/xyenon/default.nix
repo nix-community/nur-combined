@@ -80,4 +80,5 @@ rec {
   nix-package-versions = callPackage ./pkgs/nix-package-versions {
     source = sources.nix-package-versions;
   };
+  lsp-ai = callPackage ./pkgs/lsp-ai { };
 }
