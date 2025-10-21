@@ -19,7 +19,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
+  # FIXME: wait for JDK25 fix
+  # aya-prover = pkgs.callPackage ./pkgs/aya-prover { };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
   flexfox-css = pkgs.callPackage ./pkgs/flexfox-css { };
   nsub = pkgs.callPackage ./pkgs/nsub { };

@@ -1,22 +1,27 @@
 {
   stdenv,
   fetchFromGitHub,
-  gradle,
   makeWrapper,
   lib,
-  jdk24,
+  gradle_9,
+  jdk25,
   mainProgram ? "aya",
 }:
 
+let
+  gradle = gradle_9;
+  jdk = jdk25;
+in
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "aya-prover";
-  version = "0.38";
+  version = "0.39";
 
   src = fetchFromGitHub {
     owner = finalAttrs.pname;
     repo = "aya-dev";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-nHd5y6+2YjfbPup5qibkyVkYAxJuHVV2OPQDON17Fk0=";
+    hash = "sha256-nl1ctsz1uRig+3L+Zbjle6eNZSiWOPxDCQshJh0zMW4=";
     leaveDotGit = true;
     # Only keep HEAD, because leaveDotGit is non-deterministic:
     # https://github.com/NixOS/nixpkgs/issues/8567
@@ -51,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   gradleFlags = [
-    "-Dorg.gradle.java.home=${jdk24}"
+    "-Dorg.gradle.java.home=${jdk}"
     "--debug"
     "--stacktrace"
   ];
@@ -70,9 +75,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp cli-console/build/libs/cli-console-${finalAttrs.version}.0-fat.jar $out/share/aya/cli-fatjar.jar
     cp ide-lsp/build/libs/ide-lsp-${finalAttrs.version}.0-fat.jar $out/share/aya-lsp/lsp-fatjar.jar
 
-    makeWrapper ${lib.getExe jdk24} $out/bin/aya \
+    makeWrapper ${lib.getExe jdk} $out/bin/aya \
       --add-flags "--enable-preview -jar $out/share/aya/cli-fatjar.jar"
-    makeWrapper ${lib.getExe jdk24} $out/bin/aya-lsp \
+    makeWrapper ${lib.getExe jdk} $out/bin/aya-lsp \
       --add-flags "--enable-preview -jar $out/share/aya-lsp/lsp-fatjar.jar"
 
     runHook postInstall
