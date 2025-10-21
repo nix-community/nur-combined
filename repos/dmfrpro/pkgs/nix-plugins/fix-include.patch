@@ -1,0 +1,25 @@
+From 5308080dc8e58f3a917e9999ebb04bfd2fb514aa Mon Sep 17 00:00:00 2001
+From: dmfrpro <dmfr2021y@gmail.com>
+Date: Sun, 19 Oct 2025 04:25:34 +0300
+Subject: extra-builtins: fix include
+
+Signed-off-by: dmfrpro <dmfr2021y@gmail.com>
+---
+ extra-builtins.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/extra-builtins.cc b/extra-builtins.cc
+index 028f400..b9e0206 100644
+--- a/extra-builtins.cc
++++ b/extra-builtins.cc
+@@ -3,6 +3,7 @@
+ #include <nix/expr/primops.hh>
+ #include <nix/fetchers/filtering-source-accessor.hh>
+ #include <nix/store/globals.hh>
++#include <nix/util/configuration.hh>
+ #include <nix/util/config-global.hh>
+ 
+ 
+-- 
+2.51.0
+

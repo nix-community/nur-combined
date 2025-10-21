@@ -25,6 +25,8 @@
   auroraos-asbt-apptool = pkgs.callPackage ./pkgs/auroraos-asbt-apptool { };
   auroraos-platform-sdk = pkgs.callPackage ./pkgs/auroraos-platform-sdk { };
 
+  nix-plugins = pkgs.callPackage ./pkgs/nix-plugins { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
