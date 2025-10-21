@@ -5,7 +5,7 @@
   fetchFromGitea,
   fetchgdrive,
   unzip,
-  wine,
+  wineWow64Packages,
   makeWrapper,
   withMaps ? false,
   withExtremum ? false,
@@ -27,14 +27,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet";
-  version = "250404";
+  version = "250505";
 
   src = fetchfromgh {
     owner = "sasgis";
     repo = "sas.planet.src";
     tag = "v.${finalAttrs.version}";
-    hash = "sha256-2h0mVH1IDtfHbXsjqdbxwPxQHWAEA+B9LCiBIv8zUo8=";
-    name = "SAS.Planet.Release.${finalAttrs.version}.zip";
+    hash = "sha256-FEQf3SmgV/sszDJreU2+2iHEFRbFpQw3/pcelad4cKA=";
+    name = "SAS.Planet.Release.${finalAttrs.version}.x64.zip";
   };
 
   sourceRoot = ".";
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $out/opt/sasplanet
       cp -r . $out/opt/sasplanet
 
-      makeWrapper ${wine}/bin/wine $out/bin/sasplanet \
+      makeWrapper ${wineWow64Packages.stable}/bin/wine $out/bin/sasplanet \
         --run "[ -d \$HOME/.sasplanet ] || { cp -r $out/opt/sasplanet \$HOME/.sasplanet && chmod -R +w \$HOME/.sasplanet; }" \
         --add-flags "\$HOME/.sasplanet/SASPlanet.exe"
     ''

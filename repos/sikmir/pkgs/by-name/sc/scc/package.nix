@@ -2,29 +2,32 @@
   lib,
   stdenv,
   fetchgit,
+  ed,
   qbe,
 }:
 
 stdenv.mkDerivation {
   pname = "scc";
-  version = "0-unstable-2024-02-11";
+  version = "0-unstable-2025-10-17";
 
   src = fetchgit {
     url = "git://git.simple-cc.org/scc";
-    rev = "527601ad4c29e586f0ce307353583c5c09f3c321";
-    sha256 = "sha256-tog3LCUQwjNb8ZIoztmnKNL8mo/9ik9NXNJLQmAPltA=";
-    fetchSubmodules = true;
+    rev = "e19109cd35b8d64480c74389b8faaedf5af9b0ed";
+    hash = "sha256-YTHPCslPoI70z92JuPzGRQQyk0GVixPAvqPbAaiJNb4=";
   };
 
   postPatch = ''
-    substituteInPlace src/cmd/Makefile \
-      --replace-fail "git submodule" "#git submodule"
+    substituteInPlace scripts/build/tool/gnu.mk \
+      --replace-fail "TOOL_LDFLAGS" "#TOOL_LDFLAGS"
+    substituteInPlace scripts/rules.mk \
+      --replace-fail "PREFIX = /usr/local" "PREFIX = $out"
+    substituteInPlace scripts/config \
+      --replace-fail "PREFIX:=/usr/local" "PREFIX:=$out"
   '';
 
-  #buildInputs = [ qbe ];
+  nativeBuildInputs = [ ed qbe ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
+  buildFlags = [
     "AR:=$(AR)"
     "AS:=$(AS)"
     "CC:=$(CC)"
@@ -32,7 +35,7 @@ stdenv.mkDerivation {
     "HOSTCC=${stdenv.cc.targetPrefix}cc"
   ];
 
-  #doCheck = true;
+  doCheck = true;
   checkTarget = "tests";
 
   meta = {
