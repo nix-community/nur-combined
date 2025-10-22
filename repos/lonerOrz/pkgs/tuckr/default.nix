@@ -19,6 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # test result: FAILED. 5 passed; 3 failed;
 
+  passthru.autoUpdate = false;
+
   meta = with lib; {
     description = "Super powered replacement for GNU Stow";
     homepage = "https://github.com/RaphGL/Tuckr";

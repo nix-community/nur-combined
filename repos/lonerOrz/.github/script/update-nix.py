@@ -76,12 +76,20 @@ def get_update_script(pkg_name):
         return None
 
 
-def run_update_script(script, pkg_dir: Path):
+def run_update_script(script, pkg_dir: Path, pkg_name: str):
     """
     执行 updateScript。
-    这里假定 script 是文件路径（字符串）或保留字典/序列形式以便将来扩展。
+    如果是 nix-update 可执行文件，自动加上软件名作为参数
     """
     if isinstance(script, str):
+        # 如果是 nix-update 直接加上软件名
+        if "nix-update" in script:
+            cmd = [script, pkg_name]
+            print(f"[RUN CMD] {' '.join(cmd)}")
+            subprocess.run(cmd, check=True, cwd=pkg_dir)
+            return
+
+        # 其他脚本路径
         update_file = Path(script)
         if not update_file.is_absolute():
             update_file = pkg_dir / update_file
@@ -90,12 +98,11 @@ def run_update_script(script, pkg_dir: Path):
             return
         print(f"[RUN UPDATE SCRIPT] {update_file}")
         subprocess.run([str(update_file)], check=True, cwd=pkg_dir)
+
     elif isinstance(script, list):
-        # 递归执行 list 中的每个元素
         for step in script:
-            run_update_script(step, pkg_dir)
+            run_update_script(step, pkg_dir, pkg_name)
     elif isinstance(script, dict):
-        # 保留扩展空间：未来可以添加更多类型
         if "command" in script:
             print(f"[RUN CMD] {script['command']} (dictionary command format)")
             subprocess.run(script["command"], check=True, cwd=pkg_dir)
@@ -119,7 +126,7 @@ def update_package(pkg_name, extra_args=None):
     if update_script:
         print(f"[UPDATE SCRIPT] Running {pkg_name}'s updateScript...")
         try:
-            run_update_script(update_script, pkg_dir)
+            run_update_script(update_script, pkg_dir, pkg_name)
             print(f"[OK] {pkg_name} updated via updateScript")
         except subprocess.CalledProcessError as e:
             print(f"[FAIL] {pkg_name} updateScript failed: {e}")
@@ -127,9 +134,7 @@ def update_package(pkg_name, extra_args=None):
 
     # fallback: nix-update
     if not shutil.which("nix-update"):
-        print(
-            f"[ERROR] nix-update not found. Install it or run in nix-shell -p nix-update"
-        )
+        print("[ERROR] nix-update not found. Install it or run in nix-shell -p nix-update")
         return
 
     cmd = ["nix-update", pkg_name, "-f", ROOT_NIX_FILE] + extra_args
