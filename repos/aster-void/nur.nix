@@ -1,5 +1,8 @@
 {pkgs ? import <nixpkgs> {}}: let
-  mkNixosModule = path: args: (import path args) // {_class = "nixos";};
+  mkNixosModule = path: {
+    _class = "nixos";
+    imports = [path];
+  };
 in {
   cargo-compete = pkgs.callPackage ./packages/cargo-compete {};
   fcitx5-hazkey = pkgs.callPackage ./packages/fcitx5-hazkey {};
