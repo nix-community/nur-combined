@@ -1,4 +1,4 @@
-# Fcitx5 Hazkey
+# Fcitx5 Hazkey (v0.0.9)
 
 The main repo is at <https://github.com/7ka-Hiira/fcitx5-hazkey>.
 
@@ -6,12 +6,12 @@ The main repo is at <https://github.com/7ka-Hiira/fcitx5-hazkey>.
 
 There are two parts to be set up for fcitx5-hazkey to work:
 
-a. `/usr/share/hazkey`
-b. fcitx5 addon
+- a. `/usr/share/hazkey` that contains zenzai and dictionary data
+- b. fcitx5 addon
 
 ### a. `/usr/share/hazkey`
 
-This module sets this up automatically.
+this flake provides an automatic setup.
 
 ```nix
 # NixOS module
@@ -28,7 +28,7 @@ This module sets this up automatically.
 
 ### b. fcitx5 addon
 
-This module does NOT set this up.
+the module above does NOT set this up, therefore you need to manage it yourself.
 
 ```nix
 # either NixOS module or Home-Manager module
