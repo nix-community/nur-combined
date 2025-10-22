@@ -1,0 +1,34 @@
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+excludes = []
+includes = ["*.nix"]
+options = []
+
+[formatter.prettier]
+command = "prettier"
+excludes = []
+includes = [
+  "*.cjs",
+  "*.css",
+  "*.html",
+  "*.js",
+  "*.json",
+  "*.json5",
+  "*.jsx",
+  "*.md",
+  "*.mdx",
+  "*.mjs",
+  "*.scss",
+  "*.ts",
+  "*.tsx",
+  "*.vue",
+  "*.yaml",
+  "*.yml",
+]
+options = ["--write"]
+
+[formatter.taplo]
+command = "taplo"
+excludes = []
+includes = ["*.toml"]
+options = ["format"]
