@@ -2614,10 +2614,10 @@
     };
     "cyberfeeder" = buildFirefoxXpiAddon {
       pname = "cyberfeeder";
-      version = "5.0.1";
+      version = "5.1.1";
       addonId = "{fa19efb8-df2c-4f6a-ae08-6796a25ccdd6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4595507/cyberfeeder-5.0.1.xpi";
-      sha256 = "cc6579c23a89e3be5dd3a58a481b7d322282b260bcb24b6e221407a9217380ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4603134/cyberfeeder-5.1.1.xpi";
+      sha256 = "150014758e70c60023257265f39b15083b7e92ae2e15f02daa2c223bd70bd911";
       meta = with lib;
       {
         description = "UI/UX improvements for jinteki.net.";
@@ -2749,10 +2749,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.110";
+      version = "4.9.112";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4535824/darkreader-4.9.110.xpi";
-      sha256 = "846245826470cc1a08597480493b2076fcf03322a1228682b8a85b866fae30dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598977/darkreader-4.9.112.xpi";
+      sha256 = "dc1fc27b5e61662f1e1e8a60cbf8e11a77443888e40603f88db7c6b9e4ecb437";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2804,10 +2804,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.1.10";
+      version = "2.1.11";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4579362/dearrow-2.1.10.xpi";
-      sha256 = "43b136b006dc7af78d25008f01f99cbc3cb44d38227cb10db3541465ddf4f358";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4597677/dearrow-2.1.11.xpi";
+      sha256 = "a9f386c3d8ef128a571ede229a0d2f14bedb1c8ad646f43fb82282ae92992242";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -3281,10 +3281,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.8.0";
+      version = "1.9.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4518164/elasticvue-1.8.0.xpi";
-      sha256 = "248621bf0822782f7953fc31f13a0c3b2b39aae80b6414a34745c35d3da47d54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602969/elasticvue-1.9.0.xpi";
+      sha256 = "a78a1d700c8de3d6b3637429e7fdef727babaae4813ed1d9ac8cdda62d1e421a";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -3550,10 +3550,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.64";
+      version = "1.3.65";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597278/faststream-1.3.64.xpi";
-      sha256 = "1d4d9988b09b1a2bdff565f7ad011ab0ebe703e678a9eea4ca27e099de18d1a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602583/faststream-1.3.65.xpi";
+      sha256 = "e2be03ed8ac3a6d1e758ed4749dd457751be30f54af9185d02edbddd298b676d";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -6498,10 +6498,10 @@
     };
     "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
       pname = "istilldontcareaboutcookies";
-      version = "1.1.4";
+      version = "1.1.5";
       addonId = "idcac-pub@guus.ninja";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216095/istilldontcareaboutcookies-1.1.4.xpi";
-      sha256 = "cadeb24622d3b9a2b82bf4308242fd802546b126bb9dd14e1ea66f2aa2066795";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599774/istilldontcareaboutcookies-1.1.5.xpi";
+      sha256 = "adf58328227a0362df046876d07d83838d5c05f3ff2130b3fe0e7b0d53903647";
       meta = with lib;
       {
         homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
@@ -10518,10 +10518,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.32.9";
+      version = "1.32.10";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4586457/proton_pass-1.32.9.xpi";
-      sha256 = "5dbcd9df01edd67cda55c100f410e73c0581f5b96f3d90480686f7415465e6aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4598004/proton_pass-1.32.10.xpi";
+      sha256 = "1769547fccc2d75fe2f0ac8d7914f62f759073ee562de0f8c9efcd79c16ffbe6";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -11381,10 +11381,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.63";
+      version = "4.3.64";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4532848/remove_youtube_s_suggestions-4.3.63.xpi";
-      sha256 = "241423111f8e02c2aa844616f342a03a5a12590bba0c3e50a30a62321f2410f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4603192/remove_youtube_s_suggestions-4.3.64.xpi";
+      sha256 = "088e0fcb424bbcdecf2b0500e0566e1a85666e51a6b04c3f9fff1a27193406d6";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -14754,10 +14754,10 @@
     };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "7.0.3";
+      version = "7.1.0";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561741/view_page_archive-7.0.3.xpi";
-      sha256 = "c810917ebf9add5c8aeace18419c3d98d31cf7f0cf6a52ed1d2f3aa9084f7d5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4596314/view_page_archive-7.1.0.xpi";
+      sha256 = "063e259e6d86278b2d9ee7c7af6244195bc115a589492aa0e8402fea53167e5d";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
