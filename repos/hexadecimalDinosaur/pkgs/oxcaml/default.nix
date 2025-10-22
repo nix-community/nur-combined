@@ -4,8 +4,8 @@
   lib
 }:
 ocaml.overrideAttrs (finalAttrs: prevAttrs: {
-  pname = "oxcaml";
-  version = "5.3.0+ox";
+  pname = "ocaml+ox";
+  version = "5.3.0";
 
   src = fetchFromGitHub {
     owner = "oxcaml";
