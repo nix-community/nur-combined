@@ -149,6 +149,9 @@
         "agaia": {
             "url": "https://github.com/adam-gaia/nur-packages"
         },
+        "ahi6": {
+            "url": "https://github.com/ahi6/nurpkgs"
+        },
         "akinokaede": {
             "url": "https://github.com/AkinoKaede/nur-packages"
         },
@@ -200,6 +203,10 @@
         },
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
+        },
+        "aster-void": {
+            "file": "nur.nix",
+            "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
             "file": "pkgs/default.nix",
@@ -900,9 +907,15 @@
         "minion3665": {
             "url": "https://github.com/minion3665/nurpkgs"
         },
+        "mio": {
+            "url": "https://github.com/mio-19/nurpkgs"
+        },
         "misterio": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~misterio/nix-config"
+        },
+        "misuzu": {
+            "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
             "url": "https://github.com/MartinLoeper/nur"
@@ -1010,6 +1023,9 @@
         },
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
+        },
+        "nooneknowspeter": {
+            "url": "https://github.com/nooneknowspeter/nurpkgs"
         },
         "nousefreak": {
             "url": "https://github.com/NoUseFreak/nix-packages"
@@ -1438,6 +1454,9 @@
         },
         "zeratax": {
             "url": "https://github.com/ZerataX/nur-packages"
+        },
+        "zerozawa": {
+            "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
             "url": "https://github.com/zimeg/nur-packages"
