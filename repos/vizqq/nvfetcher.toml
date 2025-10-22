@@ -2,10 +2,6 @@
 src.github = "j4k0xb/webcrack"
 fetch.github = "j4k0xb/webcrack"
 
-[age-plugin-openpgp-card]
-src.github_tag = "wiktor-k/age-plugin-openpgp-card"
-fetch.github = "wiktor-k/age-plugin-openpgp-card"
-
 [huawei-password-tool]
 src.github = "0xuserpag3/HuaweiPasswordTool"
 fetch.github = "0xuserpag3/HuaweiPasswordTool"

@@ -27,9 +27,7 @@ in
   };
 
   webcrack = pkgs.callPackage ./pkgs/webcrack { source = sources.webcrack; };
-  age-plugin-openpgp-card = pkgs.callPackage ./pkgs/age-plugin-openpgp-card {
-    source = sources.age-plugin-openpgp-card;
-  };
+
   pa = pkgs.callPackage ./pkgs/pa { source = sources.pa; };
 
   sway-disable-titlebar = import ./pkgs/sway-disable-titlebar { inherit pkgs; };

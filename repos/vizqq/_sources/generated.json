@@ -1,24 +1,4 @@
 {
-    "age-plugin-openpgp-card": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "age-plugin-openpgp-card",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wiktor-k",
-            "repo": "age-plugin-openpgp-card",
-            "rev": "v0.1.1",
-            "sha256": "sha256-uJmYtc+GxJZtCjLQla/h9vpTzPcsL+zbM2uvAQsfwIY=",
-            "type": "github"
-        },
-        "version": "v0.1.1"
-    },
     "huawei-password-tool": {
         "cargoLocks": null,
         "date": null,
@@ -35,13 +15,14 @@
             "repo": "HuaweiPasswordTool",
             "rev": "v1.0.0",
             "sha256": "sha256-uvLY+/XAE62Ft+bEm2t5SNhXb5nrWPQouJEdAkrguYg=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.0.0"
     },
     "pa": {
         "cargoLocks": null,
-        "date": "2025-03-08",
+        "date": "2025-10-16",
         "extract": null,
         "name": "pa",
         "passthru": null,
@@ -53,11 +34,12 @@
             "name": null,
             "owner": "biox",
             "repo": "pa",
-            "rev": "27f5563bee452c9b9986c4724c556d51d6484e6a",
-            "sha256": "sha256-5TYyewtng4AEqJ9EvqFXDkcRtruUPRP/CcEoT+p94Ps=",
+            "rev": "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c",
+            "sha256": "sha256-44CWFTZmTyeu52TXQQBG0od8RfXjlqF9kTkIgVcf9BY=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "27f5563bee452c9b9986c4724c556d51d6484e6a"
+        "version": "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c"
     },
     "thinkpad-uefi-sign": {
         "cargoLocks": null,
@@ -75,6 +57,7 @@
             "repo": "thinkpad-uefi-sign",
             "rev": "b502420583b8a38d4b3e706b20a51a435740f749",
             "sha256": "sha256-FqyrTZQWSKcDLLrG6jfrrW+vtAOUgE65C5jP3v3To8U=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "b502420583b8a38d4b3e706b20a51a435740f749"
@@ -95,6 +78,7 @@
             "repo": "webcrack",
             "rev": "v2.15.1",
             "sha256": "sha256-9xCndYtGXnVGV6gXdqjLM4ruSIHi7JRXPHRBom7K7Ds=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v2.15.1"
