@@ -1,0 +1,38 @@
+From 05eeae040ade11abf0b8c669d2d47ed0dab99a07 Mon Sep 17 00:00:00 2001
+From: Mio <mio@mio19.uk>
+Date: Tue, 14 Oct 2025 23:52:51 +1100
+Subject: [PATCH] remove_qtwebengine_install_hack
+
+---
+ main/CMakeLists.txt | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/main/CMakeLists.txt b/main/CMakeLists.txt
+index b53aef7..7d3c517 100644
+--- a/main/CMakeLists.txt
++++ b/main/CMakeLists.txt
+@@ -228,21 +228,6 @@ if (MINGW)
+ else (MINGW)
+ 
+    if ( NOT MSVC )
+-      ## install qwebengine core
+-      if (NOT APPLE)
+-         install(PROGRAMS
+-            ${QT_INSTALL_LIBEXECS}/QtWebEngineProcess
+-            DESTINATION bin
+-            )
+-         install(DIRECTORY
+-            ${QT_INSTALL_DATA}/resources
+-            DESTINATION lib/qt5
+-            )
+-         install(DIRECTORY
+-            ${QT_INSTALL_TRANSLATIONS}/qtwebengine_locales
+-            DESTINATION lib/qt5/translations
+-            )
+-      endif(NOT APPLE)
+ 
+       set_target_properties (
+          mscore
+-- 
+2.51.0
+

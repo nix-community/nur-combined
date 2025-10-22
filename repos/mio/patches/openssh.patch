@@ -1,0 +1,13 @@
+diff --git a/readconf.h b/readconf.h
+index ded13c9..94f489e 100644
+--- a/readconf.h
++++ b/readconf.h
+@@ -203,7 +203,7 @@ typedef struct {
+ #define SESSION_TYPE_SUBSYSTEM	1
+ #define SESSION_TYPE_DEFAULT	2
+ 
+-#define SSHCONF_CHECKPERM	1  /* check permissions on config file */
++#define SSHCONF_CHECKPERM	0  /* check permissions on config file */
+ #define SSHCONF_USERCONF	2  /* user provided config file not system */
+ #define SSHCONF_FINAL		4  /* Final pass over config, after canon. */
+ #define SSHCONF_NEVERMATCH	8  /* Match/Host never matches; internal only */

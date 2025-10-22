@@ -1,0 +1,71 @@
+diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
+index 656301e..2bf1ebb 100644
+--- a/util/grub.d/30_os-prober.in
++++ b/util/grub.d/30_os-prober.in
+@@ -55,7 +55,7 @@ osx_entry() {
+     # TRANSLATORS: it refers on the OS residing on device %s
+     onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+         cat << EOF
+-menuentry '$(echo "${LONGNAME} $bitstr $onstr" | grub_quote)' --class osx --class darwin --class os \$menuentry_id_option 'osprober-xnu-$2-$(grub_get_device_id "${DEVICE}")'  {
++menuentry '$(echo "${LONGNAME} $bitstr" | grub_quote)' --class osx --class darwin --class os \$menuentry_id_option 'osprober-xnu-$2-$(grub_get_device_id "${DEVICE}")'  {
+ EOF
+ 	save_default_entry | grub_add_tab
+ 	prepare_grub_to_access_device ${DEVICE} | grub_add_tab
+@@ -155,7 +155,7 @@ for OS in ${OSPROBED} ; do
+ 
+ 	  onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+       cat << EOF
+-menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-chain-$(grub_get_device_id "${DEVICE}")' {
++menuentry '$(echo "${LONGNAME}" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-chain-$(grub_get_device_id "${DEVICE}")' {
+ EOF
+       save_default_entry | grub_add_tab
+       prepare_grub_to_access_device ${DEVICE} | grub_add_tab
+@@ -187,7 +187,7 @@ EOF
+ 	DEVICE=${DEVICE%@*}
+ 	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+       cat << EOF
+-menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
++menuentry '$(echo "${LONGNAME}" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
+ EOF
+       save_default_entry | sed -e "s/^/\t/"
+       prepare_grub_to_access_device ${DEVICE} | sed -e "s/^/\t/"
+@@ -251,7 +251,7 @@ EOF
+ 
+ 	if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xtrue ]; then
+             cat << EOF
+-menuentry '$(echo "$OS $onstr" | grub_quote)' $CLASS --class gnu-linux --class gnu --class os \$menuentry_id_option 'osprober-gnulinux-simple-$boot_device_id' {
++menuentry '$(echo "$OS" | grub_quote)' $CLASS --class gnu-linux --class gnu --class os \$menuentry_id_option 'osprober-gnulinux-simple-$boot_device_id' {
+ EOF
+ 	    save_default_entry | grub_add_tab
+ 	    printf '%s\n' "${prepare_boot_cache}"
+@@ -266,10 +266,10 @@ EOF
+         cat << EOF
+ }
+ EOF
+-	    echo "submenu '$(gettext_printf "Advanced options for %s" "${OS} $onstr" | grub_quote)' \$menuentry_id_option 'osprober-gnulinux-advanced-$boot_device_id' {"
++	    echo "submenu '$(gettext_printf "Advanced options for %s" "${OS}" | grub_quote)' \$menuentry_id_option 'osprober-gnulinux-advanced-$boot_device_id' {"
+ 	    is_top_level=false
+ 	fi
+-	title="${LLABEL} $onstr"
++	title="${LLABEL}"
+         cat << EOF
+ 	menuentry '$(echo "$title" | grub_quote)' --class gnu-linux --class gnu --class os \$menuentry_id_option 'osprober-gnulinux-$LKERNEL-${recovery_params}-$boot_device_id' {
+ EOF
+@@ -287,7 +287,7 @@ EOF
+ 	}
+ EOF
+ 	if [ x"$title" = x"$GRUB_ACTUAL_DEFAULT" ] || [ x"Previous Linux versions>$title" = x"$GRUB_ACTUAL_DEFAULT" ]; then
+-	    replacement_title="$(echo "Advanced options for ${OS} $onstr" | sed 's,>,>>,g')>$(echo "$title" | sed 's,>,>>,g')"
++	    replacement_title="$(echo "Advanced options for ${OS}" | sed 's,>,>>,g')>$(echo "$title" | sed 's,>,>>,g')"
+ 	    quoted="$(echo "$GRUB_ACTUAL_DEFAULT" | grub_quote)"
+ 	    title_correction_code="${title_correction_code}if [ \"x\$default\" = '$quoted' ]; then default='$(echo "$replacement_title" | grub_quote)'; fi;"
+ 	    grub_warn "$(gettext_printf "Please don't use old title \`%s' for GRUB_DEFAULT, use \`%s' (for versions before 2.00) or \`%s' (for 2.00 or later)" "$GRUB_ACTUAL_DEFAULT" "$replacement_title" "gnulinux-advanced-$boot_device_id>gnulinux-$version-$type-$boot_device_id")"
+@@ -308,7 +308,7 @@ EOF
+     hurd)
+       onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+       cat << EOF
+-menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' --class hurd --class gnu --class os \$menuentry_id_option 'osprober-gnuhurd-/boot/gnumach.gz-false-$(grub_get_device_id "${DEVICE}")' {
++menuentry '$(echo "${LONGNAME}" | grub_quote)' --class hurd --class gnu --class os \$menuentry_id_option 'osprober-gnuhurd-/boot/gnumach.gz-false-$(grub_get_device_id "${DEVICE}")' {
+ EOF
+       save_default_entry | grub_add_tab
+       prepare_grub_to_access_device ${DEVICE} | grub_add_tab

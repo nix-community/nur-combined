@@ -1,0 +1,25 @@
+From a7faf0576e541f9647ba417ae96c734519e79056 Mon Sep 17 00:00:00 2001
+From: Mio <mio@mio19.uk>
+Date: Sun, 12 Oct 2025 22:44:29 +1100
+Subject: [PATCH] upper_bound lower_bound patch
+
+---
+ src/client/sound/sound_data.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/client/sound/sound_data.cpp b/src/client/sound/sound_data.cpp
+index f0cbc6dbf..9c69b037d 100644
+--- a/src/client/sound/sound_data.cpp
++++ b/src/client/sound/sound_data.cpp
+@@ -23,7 +23,7 @@ with this program; ifnot, write to the Free Software Foundation, Inc.,
+ */
+ 
+ #include "sound_data.h"
+-
++#include <algorithm>
+ #include "sound_constants.h"
+ 
+ namespace sound {
+-- 
+2.51.0
+
