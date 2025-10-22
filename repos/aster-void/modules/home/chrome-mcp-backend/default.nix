@@ -1,3 +1,10 @@
+# RECOMMENDATION:
+# Since this constantly runs a chromium instance in the background,
+# it is more battery-friendly to use nixosModules.chrome-devtools-mcp instead of this.
+#
+# only use this if you either:
+# - cannot access system config / don't have nixos
+# - need a long-running browser session that outlives MCP server for some reason
 {
   pkgs,
   config,

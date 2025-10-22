@@ -12,8 +12,10 @@
       pkg-config
     ];
 
-    src = pkgs.fetchzip {
-      url = "https://github.com/qryxip/cargo-compete/archive/refs/tags/v${version}.tar.gz";
+    src = pkgs.fetchFromGitHub {
+      owner = "qryxip";
+      repo = "cargo-compete";
+      tag = "v${version}";
       hash = "sha256-qlRVHSUVOqdTx4H3pE19Fy634742veTisHm6IqfKBUQ=";
     };
 
