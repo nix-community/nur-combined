@@ -27,6 +27,10 @@ stdenv.mkDerivation {
     libftdi1
   ];
 
+  cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
+
   installPhase = ''
     runHook preInstall
 
