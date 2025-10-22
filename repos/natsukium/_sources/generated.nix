@@ -15,10 +15,10 @@
   };
   copyq-darwin = {
     pname = "copyq-darwin";
-    version = "12.0.1";
+    version = "13.0.0";
     src = fetchurl {
-      url = "https://github.com/hluk/CopyQ/releases/download/v12.0.1/CopyQ-macos-12-m1.dmg.zip";
-      sha256 = "sha256-DKY1zt1A5B2/KGneqhZCmgq6wvYWznlQlywYIBJSWqE=";
+      url = "https://github.com/hluk/CopyQ/releases/download/v13.0.0/CopyQ-macos-12-m1.dmg.zip";
+      sha256 = "sha256-LrdDzFepf95scdbsBYdAiuK+tBk5aZEX0yt05oiC534=";
     };
   };
   emacs-plus = {
@@ -115,10 +115,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.16.4b";
+    version = "1.17b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.16.4b/zen.macos-universal.dmg";
-      sha256 = "sha256-jGOyE26JntBMQBu7w+pwHpKMFCd+lx6SyjapX0KCQUc=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.17b/zen.macos-universal.dmg";
+      sha256 = "sha256-tglODvKvjQ0Bnj1ZzEKT4WmvILrhCxdyMfApgqUIoi0=";
     };
   };
 }
