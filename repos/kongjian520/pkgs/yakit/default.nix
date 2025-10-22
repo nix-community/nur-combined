@@ -5,30 +5,35 @@
   lib,
   appimageTools,
   fetchurl,
-  writeText, # AppImage 打包通常需要 writeText 来生成 .desktop 文件，在此处也显式列出
+  writeText, # 用于生成 .desktop 文件
 }:
 let
   # 软件版本号
   version = "1.4.4-1017";
   # 软件包名称
   pname = "yakit";
+  
   # 从远程下载 AppImage 文件
   src = fetchurl {
-    # 构造下载 URL，从 Yakit 的 GitHub Releases 下载 AppImage
     url = "https://github.com/yaklang/yakit/releases/download/v${version}/Yakit-${version}-linux-amd64.AppImage";
-    # 文件的 SHA256 完整性校验哈希
     hash = "sha256-mk++yUjbSDGXRe3AUUUYVPOunBm38Wt6uvZz8Rj9Q2Y=";
   };
 
-  # 创建一个 .desktop 文件用于应用程序启动器和菜单集成
-  # 这个文件将通过 yakitDesktop 属性被 appimageTools.wrapType2 自动安装。
+  yakitIcon = fetchurl {
+    url = "https://raw.githubusercontent.com/yaklang/yakit/f55d9005ab853ebc84403f1cda7f38a271f5c9b6/app/assets/yakitlogo.png";
+    hash = "sha256-Q+onckCEc79efrtoycqmYA5YhH9ZR0/N+Leg2+S8VnU="; 
+    name = "${pname}.png";
+  };
+  # ^^^^ 新增：下载 Logo 文件 ^^^^
+
+  # 创建一个 .desktop 文件内容的 derivation
   yakitDesktop = writeText "${pname}.desktop" ''
     [Desktop Entry]
     # 应用程序名称
     Name=Yakit
     # 应用程序描述/注释
     Comment=实战化攻防安全测试平台
-    # 执行命令，这里使用 pname，它会被 appimageTools.wrapType2 替换为实际的启动脚本
+    # Exec 引用的是 $out/bin 目录下的启动脚本
     Exec=${pname}
     # 是否在终端中运行
     Terminal=false
@@ -36,39 +41,41 @@ let
     Type=Application
     # 应用程序分类
     Categories=Development;Security;
-    # 应用程序图标名称，它会指向安装目录下的图标文件
+    # 应用程序图标名称，这里引用的是 $out/share/icons/hicolor/256x256/apps/yakit.png
+    # 或者 $out/share/pixmaps/yakit.png (此处我们采用 $pname 约定)
     Icon=${pname}
   '';
 in
 # 使用 appimageTools.wrapType2 函数来封装 AppImage 文件
 appimageTools.wrapType2 rec {
   # 继承 let 块中定义的属性
-  inherit pname version src yakitDesktop;
+  inherit pname version src;
+
   # 完整的包名，包含版本号
   name = "${pname}-${version}";
 
-  # 额外的安装命令：
-  # 移除之前导致构建失败的 substituteInPlace 命令，因为它试图修改一个不存在的文件。
-  # 你的自定义 yakitDesktop 文件应该已经被 appimageTools 自动安装到 $out/share/applications/。
-  extraInstallCommands = "";
+  extraInstallCommands = ''
+    mkdir -p $out/share/applications
+    cp ${yakitDesktop} $out/share/applications/
+    
+    # VVVV 新增：手动安装 Icon 文件 VVVV
+    # 2. 将图标安装到 $out/share/pixmaps/，这是传统的 Linux 图标位置，
+    # 并且与 .desktop 文件中的 Icon=${pname} 匹配
+    mkdir -p $out/share/pixmaps
+    cp ${yakitIcon} $out/share/pixmaps/${pname}.png 
+
+    ln -sf $out/bin/${pname}-${version} $out/bin/${pname}
+  '';
 
   # 软件包的元数据
   meta = {
-    # 简短描述
     description = "一款实战化攻防安全测试平台，专注于应用层协议安全、Web安全和通用漏洞检测";
-    # 软件主页
     homepage = "https://www.yaklang.cn/";
-    # 软件下载页面（通常是 Releases 页面）
     downloadPage = "https://github.com/yaklang/yakit/releases";
-    # 许可证信息。这里暂定为 AGPLv3。
     license = lib.licenses.agpl3Only;
-    # 源代码的来源，此处表明它是包含原生二进制代码的预编译二进制文件。
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    # 维护者列表，当前为空
-    maintainers = [ ];
-    # 支持的平台，此处仅支持 64 位 Linux
+    maintainers = [ "KongJian520" ];
     platforms = [ "x86_64-linux" ];
-    # 最终安装到环境中的主程序名称
     mainProgram = "yakit";
   };
 }
