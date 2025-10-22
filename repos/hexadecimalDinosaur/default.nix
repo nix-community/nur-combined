@@ -24,6 +24,7 @@ rec {
   android-unpinner = p3.callPackage ./pkgs/android-unpinner { };
   fzf-tab-completion = pkgs.callPackage ./pkgs/fzf-tab-completion { };
   jetbrains-fleet = pkgs.callPackage ./pkgs/jetbrains-fleet { };
+  oxcaml = pkgs.callPackage ./pkgs/oxcaml { };
   ttf-ms-win11 = pkgs.recurseIntoAttrs ( import ./pkgs/ttf-ms-win11 { inherit pkgs; } );
 
   tulip = pkgs.callPackage ./pkgs/tulip {
