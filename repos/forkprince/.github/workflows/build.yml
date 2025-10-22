@@ -8,6 +8,8 @@ on:
 
 jobs:
   update:
+    if: github.event_name != 'push'
+
     permissions:
       contents: write
 
@@ -43,6 +45,8 @@ jobs:
 
   tests:
     needs: update
+    if: always()
+
     strategy:
       matrix:
         nixPath:
@@ -88,6 +92,8 @@ jobs:
 
   nur:
     needs: tests
+    if: always()
+
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update

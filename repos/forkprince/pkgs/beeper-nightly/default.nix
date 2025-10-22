@@ -8,8 +8,8 @@
   inherit (info) version;
   src = fetchurl {inherit (info.src) url hash;};
 in
-  beeper.overrideAttrs {
+  beeper.overrideAttrs (old: {
     pname = "beeper-nightly";
 
     inherit version src;
-  }
+  })
