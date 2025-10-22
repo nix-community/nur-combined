@@ -1,0 +1,5 @@
+result
+result-*
+tmp
+log
+.pre-commit-config.yaml

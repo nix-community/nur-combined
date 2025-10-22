@@ -1,0 +1,21 @@
+{
+  "cSpell.enabled": false,
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": ["alejandra"]
+      },
+      "nix": {
+        "binary": "nix",
+        "maxMemoryMB": 4096,
+        "flake": {
+          "autoArchive": true,
+          "autoEvalInputs": true,
+          "nixpkgsInputName": "nixpkgs"
+        }
+      }
+    }
+  }
+}
