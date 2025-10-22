@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "1a1c3c9bed1430bb42a4930a10acb3e1e00cf56b",
-            "sha256": "sha256-JGlMrki5KPxQdKf/gLvkiFWzTBWOaILe8AJ9IoHdk24=",
+            "rev": "c68f31af0bd7526d3c1f2b70d4f059ae4ad64c52",
+            "sha256": "sha256-9kY0aZTTDh8NKDEIajhrE2P4auf5NZCWFRpPYWG6w2I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1a1c3c9bed1430bb42a4930a10acb3e1e00cf56b"
+        "version": "c68f31af0bd7526d3c1f2b70d4f059ae4ad64c52"
     },
     "cachyos-kernel-patches": {
         "cargoLock": null,
@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rnCkJClPjBXeMmpaIgoJ5QXSFnsUdbrVKFcTWgZmWKY=",
+            "sha256": "sha256-eH9E7ikrfEEGePGPtIz6xoOkfTq764WO6bfKLQeB6yw=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.10.19"
+        "version": "2025.10.22"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QkJ/sjMBEF+3tvmloBywdZfnMBEsmXG3rGms9rCX670=",
+            "sha256": "sha256-InYlTMJrogzslv4HfzNYur6cEw0xbviS/a+5UISX9Sc=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-City.mmdb"
         },
-        "version": "2025.10.19"
+        "version": "2025.10.22"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-45ZJPIkqrONEJxCuP/lGVNRX+z/CnAu673qK6FpG2Js=",
+            "sha256": "sha256-2zkAtwEmdiUfMBdccTIInhZuIKApVJR7+AEMNiDNbtA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-Country.mmdb"
         },
-        "version": "2025.10.19"
+        "version": "2025.10.22"
     },
     "glauth": {
         "cargoLock": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6814",
-            "sha256": "sha256-JvCUInGG4hTI6CSdx1JwWukOAqTsqpwByHekhYYvA84=",
+            "rev": "b6817",
+            "sha256": "sha256-GdWFAUanT1jTFMa2Su3s6xmoSe9+nd5B4+FFWkID310=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6814"
+        "version": "b6817"
     },
     "loralib": {
         "cargoLock": null,
@@ -3016,12 +3016,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.4.13",
-            "sha256": "sha256-f1XkVessxxbCaNuP4gQkRCJT8EZyV4b+urEOwtrZqhw=",
+            "rev": "1.1.4.14",
+            "sha256": "sha256-1AF7blBInc/OhDWUEeJpm+/MzxqdbYnbUA8CCSsIG3c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.4.13"
+        "version": "1.1.4.14"
     },
     "plangothic-fonts": {
         "cargoLock": null,
@@ -3250,7 +3250,7 @@
     },
     "pyosmocom": {
         "cargoLock": null,
-        "date": "2025-06-04",
+        "date": "2025-08-13",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3260,13 +3260,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0171b3f5ef9420fab88cc47814acd860af8a8d5d",
-            "sha256": "sha256-AkV6Qf0oc7/FaZvqjvqKwbpLMw2y0RmcVC+24kGeAPY=",
+            "rev": "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0",
+            "sha256": "sha256-AihiWtp81t3AJu/FpXfetnH6TNBIHC2sKHeWGDYY4fA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "0171b3f5ef9420fab88cc47814acd860af8a8d5d"
+        "version": "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0"
     },
     "pysctp": {
         "cargoLock": null,

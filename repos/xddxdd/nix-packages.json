@@ -672,7 +672,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.10.19"
+    "version": "2025.10.22"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6814"
+    "version": "6817"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4097,7 +4097,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.13"
+    "version": "1.1.4.14"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4142,7 +4142,7 @@
   "legacyPackages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-06-04"
+    "version": "0-unstable-2025-08-13"
   },
   "legacyPackages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
@@ -4247,7 +4247,7 @@
   "legacyPackages.x86_64-linux.python3Packages.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-06-04"
+    "version": "0-unstable-2025-08-13"
   },
   "legacyPackages.x86_64-linux.python3Packages.pysctp": {
     "description": "SCTP stack for Python",
@@ -4727,7 +4727,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.10.19"
+    "version": "2025.10.22"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5007,7 +5007,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.13"
+    "version": "1.1.4.14"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -5657,7 +5657,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.10.19"
+    "version": "2025.10.22"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6057,7 +6057,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.13"
+    "version": "1.1.4.14"
   },
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -6102,7 +6102,7 @@
   "packages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-06-04"
+    "version": "0-unstable-2025-08-13"
   },
   "packages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",

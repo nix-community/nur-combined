@@ -222,12 +222,12 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "1a1c3c9bed1430bb42a4930a10acb3e1e00cf56b";
+    version = "c68f31af0bd7526d3c1f2b70d4f059ae4ad64c52";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "1a1c3c9bed1430bb42a4930a10acb3e1e00cf56b";
-      hash = "sha256-JGlMrki5KPxQdKf/gLvkiFWzTBWOaILe8AJ9IoHdk24=";
+      rev = "c68f31af0bd7526d3c1f2b70d4f059ae4ad64c52";
+      hash = "sha256-9kY0aZTTDh8NKDEIajhrE2P4auf5NZCWFRpPYWG6w2I=";
     };
     date = "2025-10-21";
   };
@@ -690,26 +690,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.10.19";
+    version = "2025.10.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-ASN.mmdb";
-      hash = "sha256-rnCkJClPjBXeMmpaIgoJ5QXSFnsUdbrVKFcTWgZmWKY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-ASN.mmdb";
+      hash = "sha256-eH9E7ikrfEEGePGPtIz6xoOkfTq764WO6bfKLQeB6yw=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.10.19";
+    version = "2025.10.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-City.mmdb";
-      hash = "sha256-QkJ/sjMBEF+3tvmloBywdZfnMBEsmXG3rGms9rCX670=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-City.mmdb";
+      hash = "sha256-InYlTMJrogzslv4HfzNYur6cEw0xbviS/a+5UISX9Sc=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.10.19";
+    version = "2025.10.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.19/GeoLite2-Country.mmdb";
-      hash = "sha256-45ZJPIkqrONEJxCuP/lGVNRX+z/CnAu673qK6FpG2Js=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.22/GeoLite2-Country.mmdb";
+      hash = "sha256-2zkAtwEmdiUfMBdccTIInhZuIKApVJR7+AEMNiDNbtA=";
     };
   };
   glauth = {
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6814";
+    version = "b6817";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6814";
-      hash = "sha256-JvCUInGG4hTI6CSdx1JwWukOAqTsqpwByHekhYYvA84=";
+      tag = "b6817";
+      hash = "sha256-GdWFAUanT1jTFMa2Su3s6xmoSe9+nd5B4+FFWkID310=";
     };
   };
   loralib = {
@@ -1544,12 +1544,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.4.13";
+    version = "1.1.4.14";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.4.13";
-      hash = "sha256-f1XkVessxxbCaNuP4gQkRCJT8EZyV4b+urEOwtrZqhw=";
+      tag = "1.1.4.14";
+      hash = "sha256-1AF7blBInc/OhDWUEeJpm+/MzxqdbYnbUA8CCSsIG3c=";
     };
   };
   plangothic-fonts = {
@@ -1666,14 +1666,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "0171b3f5ef9420fab88cc47814acd860af8a8d5d";
+    version = "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "0171b3f5ef9420fab88cc47814acd860af8a8d5d";
+      rev = "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0";
       fetchSubmodules = false;
-      hash = "sha256-AkV6Qf0oc7/FaZvqjvqKwbpLMw2y0RmcVC+24kGeAPY=";
+      hash = "sha256-AihiWtp81t3AJu/FpXfetnH6TNBIHC2sKHeWGDYY4fA=";
     };
-    date = "2025-06-04";
+    date = "2025-08-13";
   };
   pysctp = {
     pname = "pysctp";
