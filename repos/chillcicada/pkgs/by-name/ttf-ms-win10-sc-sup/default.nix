@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/share/fonts/truetype
-    install -D *.{ttf,TTF} $out/share/fonts/truetype/
+    install -D *.ttf $out/share/fonts/truetype/
 
     runHook postInstall
   '';
