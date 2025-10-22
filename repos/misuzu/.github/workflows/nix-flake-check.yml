@@ -1,0 +1,42 @@
+name: "nix flake check"
+on:
+  pull_request:
+    branches-ignore:
+      - 'dependabot/github_actions/**'
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    steps:
+    - name: Tailscale
+      uses: tailscale/github-action@v4
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:gh-actions
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=flake:nixpkgs
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set nixpkgs flake reference
+      run: |
+        nix registry add nixpkgs github:NixOS/nixpkgs/nixos-unstable-small
+    - name: Setup Attic cache
+      uses: ryanccn/attic-action@v0
+      with:
+        inputs-from: nixpkgs
+        endpoint: ${{ secrets.ATTIC_ENDPOINT }}
+        cache: ${{ secrets.ATTIC_CACHE }}
+        token: ${{ secrets.ATTIC_TOKEN }}
+    - name: nix flake check
+      run: |
+        nix flake check

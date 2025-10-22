@@ -1,0 +1,67 @@
+name: "nix-update"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * *' # https://crontab.guru/#0_16_*_*_*
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  get-packages:
+    name: Find packages for update
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.get-packages.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=flake:nixpkgs
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set nixpkgs flake reference
+        run: |
+          nix registry add nixpkgs github:NixOS/nixpkgs/nixos-unstable-small
+      - name: Get packages
+        id: get-packages
+        run: |
+          JSON=$(nix flake show --json | nix run nixpkgs#jq -- -cM '.packages."x86_64-linux"|keys')
+          echo "matrix=$(echo "$JSON")" >> $GITHUB_OUTPUT
+  update-package:
+    name: Run nix-update for ${{ matrix.package }}
+    needs: get-packages
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        package: ${{ fromJson(needs.get-packages.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=flake:nixpkgs
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set nixpkgs flake reference
+        run: |
+          nix registry add nixpkgs github:NixOS/nixpkgs/nixos-unstable-small
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+      - name: Update flake packages
+        id: update
+        uses: winapps-org/nix-update-action@v1.4.0
+        with:
+          branch: "nix-update/${{ matrix.package }}"
+          packages: ${{ matrix.package }}
+          pr-labels: auto-merge
+          pr-title: "Packages: update ${{ matrix.package }}"
+          token: ${{ steps.app-token.outputs.token }}
+          extra-args: --use-update-script
+      - name: Print PR number
+        run: echo Pull request number is ${{ steps.update.outputs.pull-request-number }}.

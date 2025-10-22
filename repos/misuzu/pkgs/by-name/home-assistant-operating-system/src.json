@@ -1,0 +1,13 @@
+{
+  "platforms": {
+    "aarch64-linux": {
+      "url": "https://github.com/home-assistant/operating-system/releases/download/16.2/haos_generic-aarch64-16.2.qcow2.xz",
+      "sha256": "862e78ad3da09e25e70232653c24002a467cfab4f0f0dd80ae24aee1943a7dba"
+    },
+    "x86_64-linux": {
+      "url": "https://github.com/home-assistant/operating-system/releases/download/16.2/haos_ova-16.2.qcow2.xz",
+      "sha256": "a53922b862d4dcf8d96e7e0860db7f07cfaee21f415772c00b28caaf0ce1534c"
+    }
+  },
+  "version": "16.2"
+}
