@@ -1,11 +1,17 @@
 # Chrome Devtools MCP
 
+## Package (`packages.chrome-devtools-mcp`)
+
+A simple wrapper of npm:chrome-devtools-mcp
+
+## NixOS Module (`nixosModules.chrome-devtools-mcp`)
+
 This module, if enabled, does these:
 
 - creates a soft symlink at `/opt/google/chrome/chrome` that points to chrome executable.
 - installs `chrome-devtools-mcp` to systems PATH
 
-## Configuration
+### Configuration
 
 ```nix
 {
