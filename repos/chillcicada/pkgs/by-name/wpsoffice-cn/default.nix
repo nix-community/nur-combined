@@ -108,6 +108,7 @@ stdenv.mkDerivation {
 
     # Remove unneeded files
     rm -f usr/bin/misc
+    rm -rf usr/share/{fonts,locale}
     rm -rf opt/kingsoft/wps-office/{desktops,INSTALL}
     rm -f opt/kingsoft/wps-office/office6/lib{peony-wpsprint-menu-plugin,bz2,jpeg,stdc++,gcc_s,odbc*,nss*,icu*,dbus-1}.so*
   '';
@@ -145,7 +146,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Office suite, formerly Kingsoft Office";
-    homepage = "https://www.wps.com";
+    homepage = "https://www.wps.cn";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     hydraPlatforms = [ ];
