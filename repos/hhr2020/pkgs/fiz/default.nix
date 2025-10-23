@@ -19,12 +19,12 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fiz";
-  version = "0.3.5";
+  version = "0.3.6";
   src = fetchFromGitHub {
     owner = "CrazySpottedDove";
     repo = "fiz";
     rev = "app-v${version}";
-    hash = "sha256-8Fyvy52KQyG8+kf9BGUQ2zyM6+iUFKaOfL9h15QBKOk=";
+    hash = "sha256-08GpdpRCSSCwKsIe0rKwogxvF6mUuSG18yHR1w9cHi4=";
   };
 
   cargoHash = "sha256-1ERKMENPMTn5CPK4d5uTZ18ONMrCEY2PIK1GqSGHnSg=";
