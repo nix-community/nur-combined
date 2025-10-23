@@ -24,6 +24,7 @@
   proton-sarek-bin = pkgs.callPackage ./pkgs/proton-sarek-bin {};
   re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
   syslock = pkgs.callPackage ./pkgs/syslock {};
+  waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
