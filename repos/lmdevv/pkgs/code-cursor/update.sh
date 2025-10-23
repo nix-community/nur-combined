@@ -4,9 +4,10 @@ set -eu -o pipefail
 
 currentVersion=$(grep -E '^\s*version\s*=' default.nix | sed 's/.*version\s*=\s*"\([^"]*\)".*/\1/')
 
-declare -A platforms=([x86_64-linux]='linux-x64' [aarch64-linux]='linux-arm64' [x86_64-darwin]='darwin-x64' [aarch64-darwin]='darwin-arm64')
+declare -A platforms=([x86_64-linux]='linux-x64' [x86_64-darwin]='darwin-x64' [aarch64-darwin]='darwin-arm64')
 declare -A updates=()
 first_version=""
+failed_platforms=()
 
 for platform in ${!platforms[@]}; do
   api_platform=${platforms[$platform]}
@@ -24,10 +25,24 @@ for platform in ${!platforms[@]}; do
     exit 1
   fi
   url=$(echo $result | jq -r '.downloadUrl')
-  # Exits with code 22 if not downloadable
-  curl --output /dev/null --silent --head --fail "$url"
+  # Check if URL is downloadable
+  if ! curl --output /dev/null --silent --head --fail "$url"; then
+    echo "Warning: URL for $platform is not accessible: $url"
+    failed_platforms+=("$platform")
+    continue
+  fi
   updates+=([$platform]="$result")
 done
+
+if [[ ${#failed_platforms[@]} -gt 0 ]]; then
+  echo "The following platforms failed URL validation: ${failed_platforms[*]}"
+  echo "Continuing with available platforms only..."
+fi
+
+if [[ ${#updates[@]} -eq 0 ]]; then
+  echo "No platforms have valid URLs. Cannot update."
+  exit 1
+fi
 
 echo "Updating from $currentVersion to $first_version"
 
@@ -50,12 +65,6 @@ for platform in ${!updates[@]}; do
   case $platform in
     "x86_64-linux")
       sed -i "/x86_64-linux = fetchurl {/,/};/{
-        s|url = \"https://downloads.cursor.com/production/[^\"]*\"|url = \"$url\"|
-        s|hash = \"sha256-[^\"]*\"|hash = \"$hash\"|
-      }" default.nix
-      ;;
-    "aarch64-linux")
-      sed -i "/aarch64-linux = fetchurl {/,/};/{
         s|url = \"https://downloads.cursor.com/production/[^\"]*\"|url = \"$url\"|
         s|hash = \"sha256-[^\"]*\"|hash = \"$hash\"|
       }" default.nix
