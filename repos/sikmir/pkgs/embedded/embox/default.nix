@@ -5,6 +5,7 @@
   fetchurl,
   makeWrapper,
   pkgsCross,
+  bash,
   cpio,
   gcc-arm-embedded,
   python3,
@@ -29,18 +30,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.6.7";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-u9aMFFgscXHfS8pxh+H0n4j82xkwkQQi/OPwhmcpZxw=";
+    hash = "sha256-S9ziXX0DGrrH3Lame2yfMYSYRcCp8jQ3l+yeqGlSJ0g=";
   };
 
   patches = [ ./0001-fix-build.patch ];
 
   postPatch = ''
+    substituteInPlace mk/extbld/compiler_start.sh \
+      --replace "/usr/bin/env bash" "${lib.getExe bash}"
     substituteInPlace templates/aarch64/qemu/build.conf \
       --replace-fail "aarch64-elf" "aarch64-none-elf"
     substituteInPlace templates/ppc/qemu/build.conf \

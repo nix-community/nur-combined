@@ -1,11 +1,11 @@
-diff --git i/mk/flags.mk w/mk/flags.mk
-index 522274885..35745d98c 100644
---- i/mk/flags.mk
-+++ w/mk/flags.mk
-@@ -13,14 +13,14 @@ BUILD_DEPS_CPPFLAGS_AFTER ?=
- BUILD_DEPS_LDFLAGS ?=
- 
+diff --git c/mk/flags.mk i/mk/flags.mk
+index cc977f7a07..acc4ce050a 100644
+--- c/mk/flags.mk
++++ i/mk/flags.mk
+@@ -23,14 +23,14 @@ MODULE_CPPFLAGS ?=
+ COMPILER ?= gcc
  CROSS_COMPILE ?=
+ 
 -CXX     ?= $(CROSS_COMPILE)g++
 -AR      ?= $(CROSS_COMPILE)ar
 -AS      ?= $(CROSS_COMPILE)as
@@ -25,7 +25,7 @@ index 522274885..35745d98c 100644
  
  ifeq ($(COMPILER),clang)
  CC      := clang
-@@ -29,7 +29,7 @@ else
+@@ -39,7 +39,7 @@ else
  CC      := $(CROSS_COMPILE)gcc
  LIBGCC_FINDER=$(CC) $(CFLAGS)
  endif
