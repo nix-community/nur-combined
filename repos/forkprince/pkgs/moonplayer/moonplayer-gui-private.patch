@@ -1,22 +1,25 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6e8d2d4..f03a9c1 100644
+index ab6b8eb..75be387 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -45,7 +45,7 @@ fix_project_version()
+@@ -40,7 +40,7 @@ add_definitions(-DQT_NO_CAST_FROM_ASCII)
+ # Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
+ fix_project_version()
  
 -find_package(Qt6 REQUIRED COMPONENTS Gui Qml Quick OpenGL Network LinguistTools)
-+find_package(Qt6 REQUIRED COMPONENTS Gui GuiPrivate Qml Quick OpenGL Network LinguistTools)
++find_package(Qt6 REQUIRED COMPONENTS GuiPrivate  Gui Qml Quick OpenGL Network LinguistTools)
  find_package(Qt6Gui REQUIRED)
  find_package(MPV REQUIRED)
  
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 9d345a2..72ef8b4 100644
+index 307b695..75f7c4e 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -100,6 +100,7 @@ target_link_libraries(moonplayer
+@@ -152,6 +152,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
      Qt6::Quick
-     Qt6::OpenGL
+     Qt6::Gui
      Qt6::Network
 +    Qt6::GuiPrivate
-     MPV::MPV
- )
+     Qt6::OpenGL
+     ${MPV_LIBRARY}
+     Danmaku2AssCPP)
