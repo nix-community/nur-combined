@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6817";
+    version = "b6824";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6817";
-      hash = "sha256-GdWFAUanT1jTFMa2Su3s6xmoSe9+nd5B4+FFWkID310=";
+      tag = "b6824";
+      hash = "sha256-CdF4NBse6Kj9G4zK0S4u3IfIXWO+dRPnXxyRk9LoZ9M=";
     };
   };
   loralib = {
@@ -1790,14 +1790,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "6445565dae105738d99d05ad478c33212b42a69d";
+    version = "26d680c370cedfc02411b7027a2d011378d11cda";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "6445565dae105738d99d05ad478c33212b42a69d";
-      hash = "sha256-9QWhLJJFUw3kQw0GDvmuGNdcJ0d5aKV26KB9WD9RZZE=";
+      rev = "26d680c370cedfc02411b7027a2d011378d11cda";
+      hash = "sha256-JfxyMpBTttwnxHLc/M4Li4L626t8ol7822mBQczKh0c=";
     };
-    date = "2025-10-21";
+    date = "2025-10-22";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1882,14 +1882,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a3287c4fc1123ed4ad124f87edb3fcc0922fe8d6";
+    version = "49e5ed738f849279c7033221b6227c295f0e05f5";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a3287c4fc1123ed4ad124f87edb3fcc0922fe8d6";
-      hash = "sha256-OZBxLZeyCHMt3X5fQxQylHadlsSqe2rEdwFYgS0em74=";
+      rev = "49e5ed738f849279c7033221b6227c295f0e05f5";
+      hash = "sha256-NuqUBZJiPAidwBEIq36H8YstutCOUJdxvJGdFAVJ2YU=";
     };
-    date = "2025-10-20";
+    date = "2025-10-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
