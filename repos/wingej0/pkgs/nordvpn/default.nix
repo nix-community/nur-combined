@@ -17,12 +17,13 @@
   libcap, 
   libcap_ng,
   zlib,
+  sqlite,
   wireguard-tools,
 }:
 
 let
   pname = "nordvpn";
-  version = "3.20.3";
+  version = "4.2.0";
   wingej0 = {
     name = "Jeff Winget";
     email = "wingej0@gmail.com";
@@ -37,7 +38,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-5cmCNuHaHPHjDqOnLC/8wxo4+3O4uBRBLytbIRP8dWE=";
+      hash = "sha256-NIaZuM1gy2PoqmJYzluFwSzsXvaPZZ2dnh2uF003H+o=";
     };
 
     buildInputs = [
@@ -46,6 +47,7 @@ let
       libnl
       libcap
       libcap_ng
+      sqlite
     ];
 
     nativeBuildInputs = [
@@ -91,6 +93,7 @@ let
         libidn2
         zlib
         wireguard-tools
+        sqlite
       ];
   };
 
