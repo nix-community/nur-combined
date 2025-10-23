@@ -27,6 +27,17 @@ in
       autoPatchelfHook
     ];
 
+    patchPhase = ''
+      runHook prePatch
+
+      # fcitx5 does not search under /lib/x86_64-linux-gnu/
+      # therefore it must be flattened to /lib/
+      mv ./lib/x86_64-linux-gnu/* ./lib
+      rmdir ./lib/x86_64-linux-gnu
+
+      runHook postPatch
+    '';
+
     installPhase = ''
       runHook preInstall
 
