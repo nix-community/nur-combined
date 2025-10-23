@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "zotero-connector";
-  version = "5.0.185";
+  version = "5.0.186";
   addonId = "zotero@chnm.gmu.edu";
-  url = "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.185.xpi";
-  sha256 = "064ed203b928a2acd5d4256d0db7831f5d6cc8dbe0a2363dd1ffef9a2d0a95a9";
+  url = "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.186.xpi";
+  sha256 = "cc8d75af6caa9c59ec1ddc585fc9d646864d35dcf5548d2b94bbdb149e1545d1";
   mozPermissions = [
     "http://*/*"
     "https://*/*"
