@@ -15,7 +15,6 @@
 
 - [celeste](https://www.celestegame.com)
 
-- [celeste-classic](https://celesteclassic.github.io)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
 
 ### Audio

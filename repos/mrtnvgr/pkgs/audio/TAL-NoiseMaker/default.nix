@@ -1,6 +1,10 @@
 {
   stdenv,
   fetchzip,
+  autoPatchelfHook,
+  freetype,
+  alsa-lib,
+  libatomic_ops,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +17,16 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  dontBuild = true;
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    freetype
+    alsa-lib
+    libatomic_ops
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     runHook preInstall
