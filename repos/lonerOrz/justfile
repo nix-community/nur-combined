@@ -9,3 +9,6 @@
 
 @commit:
     bash .github/script/commit.sh
+
+@cachix target:
+  nix run nixpkgs#cachix -- push loneros $(nix path-info .#{{ target }})

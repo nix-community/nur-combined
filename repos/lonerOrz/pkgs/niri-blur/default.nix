@@ -23,7 +23,7 @@
   withSystemd ? true,
 }:
 let
-  raw-version = "25.8.0";
+  raw-version = "1b8f467fa26014cf846c1960d93995b73f24e1e4";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-blur";
@@ -33,10 +33,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "visualglitch91";
     repo = "niri";
     rev = "feat/blur";
-    hash = "sha256-1XIhLlAc/x9K6LXRK8yMD8G3RiHPOiVRHmWNgIFGVi0=";
+    hash = "sha256-sNAJQBP2rVL5OM6Lnblmy7EWYRsrZnmuQnnip4mX8mQ=";
   };
 
-  cargoHash = "sha256-lR0emU2sOnlncN00z6DwDIE2ljI+D2xoKqG3rS45xG0=";
+  cargoHash = "sha256-3A37vUNv37IKAm9MdlfVMkuTd/HZSkPO+gv1m23qJvo=";
 
   outputs = [
     "out"
