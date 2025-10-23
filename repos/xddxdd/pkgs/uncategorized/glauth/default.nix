@@ -10,7 +10,7 @@ buildGoModule (finalAttrs: {
 
   postPatch = ''
     substituteInPlace v2/internal/version/const.go \
-      --replace-fail '"v2.3.1"' '"${finalAttrs.version}"'
+      --replace-fail '"v2.3.1"' '"v${finalAttrs.version}"'
   '';
 
   overrideModAttrs = _: {
