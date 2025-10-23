@@ -92,7 +92,7 @@ jobs:
 
   nur:
     needs: tests
-    if: always()
+    if: ${{ needs.tests.result == 'success' }}
 
     runs-on: ubuntu-latest
     steps:

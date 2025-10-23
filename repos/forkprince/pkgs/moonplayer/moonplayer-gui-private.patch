@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6e8d2d4..f03a9c1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -45,7 +45,7 @@ fix_project_version()
+ 
+-find_package(Qt6 REQUIRED COMPONENTS Gui Qml Quick OpenGL Network LinguistTools)
++find_package(Qt6 REQUIRED COMPONENTS Gui GuiPrivate Qml Quick OpenGL Network LinguistTools)
+ find_package(Qt6Gui REQUIRED)
+ find_package(MPV REQUIRED)
+ 
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 9d345a2..72ef8b4 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -100,6 +100,7 @@ target_link_libraries(moonplayer
+     Qt6::Quick
+     Qt6::OpenGL
+     Qt6::Network
++    Qt6::GuiPrivate
+     MPV::MPV
+ )

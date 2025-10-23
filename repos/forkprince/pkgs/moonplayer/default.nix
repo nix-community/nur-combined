@@ -22,6 +22,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  patches = [./moonplayer-gui-private.patch];
+
   nativeBuildInputs = [
     qt6.wrapQtAppsHook
     cmake
