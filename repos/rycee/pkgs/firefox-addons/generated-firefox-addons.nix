@@ -997,10 +997,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.15";
+      version = "7.6.17";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567241/betterttv-7.6.15.xpi";
-      sha256 = "d4d470ea74778abc4f381b57b354c4eb266e2845c7ed9fb4db059006c189c34e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4600550/betterttv-7.6.17.xpi";
+      sha256 = "2943e58714c7521b3ae466ce68f3cd73a82bd0c1c98aae0088e463c774b7fa1e";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1187,10 +1187,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2025.9.0";
+      version = "2025.10.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4580978/bitwarden_password_manager-2025.9.0.xpi";
-      sha256 = "601b6e38ddcdde8f42fc48c7c978e3ad5a69ae5c082312932b7998c824bf9343";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599707/bitwarden_password_manager-2025.10.0.xpi";
+      sha256 = "31b88743f36032fa3cfb78e0582fb732ef00a3c5915182ba37fd08b04aac1d3b";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -4046,10 +4046,10 @@
     };
     "frankerfacez" = buildFirefoxXpiAddon {
       pname = "frankerfacez";
-      version = "4.78.0.1";
+      version = "4.79.1.0";
       addonId = "frankerfacez@frankerfacez.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4570394/frankerfacez-4.78.0.1.xpi";
-      sha256 = "0261d8dc78d8ac979751e5d05d3dc6a3631b2bfe86e99b4c029b6d77d015c5a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4599743/frankerfacez-4.79.1.0.xpi";
+      sha256 = "6787c1093ce4d840cb2ba5fed670a10d5385274775fb8cf0f46d6232aae8ae8e";
       meta = with lib;
       {
         homepage = "https://www.frankerfacez.com";
@@ -4060,7 +4060,7 @@
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
         };
-        mozPermissions = [ "*://*.twitch.tv/*" ];
+        mozPermissions = [ "storage" "unlimitedStorage" "*://*.twitch.tv/*" ];
         platforms = platforms.all;
       };
     };
@@ -6048,10 +6048,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.21.7";
+      version = "1.22.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4582985/immersive_translate-1.21.7.xpi";
-      sha256 = "eddacb8e40783b364812d5978afd0dcfecf899ef41c917c464e8053855d012ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4601644/immersive_translate-1.22.4.xpi";
+      sha256 = "d859e1299f354748963e043424d1d32c7a0158a0e063bd3bfe2a9649a2394ead";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -8449,10 +8449,10 @@
     };
     "metager-suche" = buildFirefoxXpiAddon {
       pname = "metager-suche";
-      version = "1.21";
+      version = "1.22";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4584036/metager_suche-1.21.xpi";
-      sha256 = "5ec8eb7609a09f28af508c081eb7b49c0acb55a3ec7c925ad4626659757c5ef8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604176/metager_suche-1.22.xpi";
+      sha256 = "10dbb162df42484de05fb3e2c5a1daebbd1bdcc1a204b4d1ca2de1d6a5dc17d5";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -8515,10 +8515,10 @@
     };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.7.2";
+      version = "1.7.3";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490896/modrinthify-1.7.2.xpi";
-      sha256 = "fd1144e343f57bdcf436dae26f66850e5b50e2bc90481203473570d40cc5dd77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604284/modrinthify-1.7.3.xpi";
+      sha256 = "e28bfa56acc18c438dbe802b30e1d6f0d94a2d5dbba39a9c61eb417b20f54bd7";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -11055,10 +11055,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.20";
+      version = "6.1.21";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4525917/reddit_moderator_toolbox-6.1.20.xpi";
-      sha256 = "eb7eec409ecaabc8bf54faa638ca34d6766f3f8c51cb22f64b507115d996f974";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604584/reddit_moderator_toolbox-6.1.21.xpi";
+      sha256 = "400be5053c40acd9d3cff1b86b1a488b6a03fa2deb2b220063213ba8a47bfb98";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
