@@ -17,20 +17,20 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2cOfVv/snhluazyjwDuHEbbMq3cK+bsKYnnRmby0JDo=";
   };
 
+  build-system = with python3Packages; [ setuptools ];
+
   dependencies = with python3Packages; [
     requests
     readchar
   ];
 
-  nativeBuildInputs =
-    with python3Packages;
-    [
-      setuptoolsBuildHook
-      wheel
-    ]
-    ++ [
-      gh
-    ];
+  makeWrapperArgs = [
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        gh
+      ]
+    }"
+  ];
 
   meta = {
     description = "A neofetch-style CLI tool for git provider statistics";
