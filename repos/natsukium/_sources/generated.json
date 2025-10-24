@@ -137,11 +137,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sUB4ECoMn6jSFJD4+QLY7khrn7PgOMUrUPQvca88Gxo=",
+            "sha256": "sha256-n4GpuZwZkW3Uk4ckQ/lFcyOM1WG3zG//7WU3Tl7UlGg=",
             "type": "url",
-            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.5.1/qutebrowser-3.5.1-arm64.dmg"
+            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.0/qutebrowser-3.6.0-arm64.dmg"
         },
-        "version": "3.5.1"
+        "version": "3.6.0"
     },
     "sbarlua": {
         "cargoLocks": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "51a75abc99415fe6330e07d98fb13cf2b8d94550",
-            "sha256": "sha256-UOjL2LU2LzhoMlmlmkSPpPCve0tTkgbIYvvwsEffgNY=",
+            "rev": "e441c18f963c6b414aa1f6edcd6cc9917f8d6dc0",
+            "sha256": "sha256-eDVrZvrpiflq+M7Ppk9BFars222GhDacF630ktum+ww=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "51a75abc99415fe6330e07d98fb13cf2b8d94550"
+        "version": "e441c18f963c6b414aa1f6edcd6cc9917f8d6dc0"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-U/MLG1hxHle3ugKKOI01u/s9fvtrckLfEvOX7ldioxc=",
+            "sha256": "sha256-wD/avS3bff14U2ditbJ+CBIetgclL3/zBESiOwe+Dbs=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.17.1b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.17.2b/zen.macos-universal.dmg"
         },
-        "version": "1.17.1b"
+        "version": "1.17.2b"
     }
 }

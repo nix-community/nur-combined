@@ -75,10 +75,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.5.1";
+    version = "3.6.0";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.5.1/qutebrowser-3.5.1-arm64.dmg";
-      sha256 = "sha256-sUB4ECoMn6jSFJD4+QLY7khrn7PgOMUrUPQvca88Gxo=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.0/qutebrowser-3.6.0-arm64.dmg";
+      sha256 = "sha256-n4GpuZwZkW3Uk4ckQ/lFcyOM1WG3zG//7WU3Tl7UlGg=";
     };
   };
   sbarlua = {
@@ -95,13 +95,13 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "51a75abc99415fe6330e07d98fb13cf2b8d94550";
+    version = "e441c18f963c6b414aa1f6edcd6cc9917f8d6dc0";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "51a75abc99415fe6330e07d98fb13cf2b8d94550";
+      rev = "e441c18f963c6b414aa1f6edcd6cc9917f8d6dc0";
       fetchSubmodules = false;
-      sha256 = "sha256-UOjL2LU2LzhoMlmlmkSPpPCve0tTkgbIYvvwsEffgNY=";
+      sha256 = "sha256-eDVrZvrpiflq+M7Ppk9BFars222GhDacF630ktum+ww=";
     };
     date = "2025-10-24";
   };
@@ -115,10 +115,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.17.1b";
+    version = "1.17.2b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.17.1b/zen.macos-universal.dmg";
-      sha256 = "sha256-U/MLG1hxHle3ugKKOI01u/s9fvtrckLfEvOX7ldioxc=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.17.2b/zen.macos-universal.dmg";
+      sha256 = "sha256-wD/avS3bff14U2ditbJ+CBIetgclL3/zBESiOwe+Dbs=";
     };
   };
 }
