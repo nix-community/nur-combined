@@ -1,13 +1,13 @@
 {pkgs}:
 pkgs.mkShell {
-  # Add build dependencies
-  packages = [];
+  packages = [
+    pkgs.lefthook
 
-  # Add environment variables
-  env = {};
-
-  # Load custom bash code
+    # formatter
+    pkgs.alejandra
+    pkgs.prettier
+  ];
   shellHook = ''
-
+    lefthook install
   '';
 }

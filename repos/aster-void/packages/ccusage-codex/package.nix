@@ -46,10 +46,10 @@ in
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out $out/app $out/bin
+      mkdir -p $out $out/share/ccusage-codex $out/bin
 
-      cp build/index.js $out/app/
-      makeWrapper ${lib.getExe bun} $out/bin/ccusage-codex --add-flags "$out/app/index.js"
+      cp build/index.js $out/share/ccusage-codex/app.js
+      makeWrapper ${lib.getExe bun} $out/bin/ccusage-codex --add-flags "$out/share/ccusage-codex/app.js"
 
       runHook postInstall
     '';

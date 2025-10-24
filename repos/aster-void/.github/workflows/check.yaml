@@ -3,10 +3,11 @@ on: push
 
 jobs:
   format:
-    name: Alejandra (nix fmt)
+    name: Format (alejandra + prettier)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
-      - run: nix fmt -- . --check
+      - run: nix develop .#default --command prettier . --check
+      - run: nix develop .#default --command alejandra . --check

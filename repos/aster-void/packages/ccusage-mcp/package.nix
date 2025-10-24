@@ -45,10 +45,10 @@ in
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out $out/bin $out/app
+      mkdir -p $out $out/bin $out/share/ccusage-mcp
 
-      cp ./build/index.js $out/app/
-      makeWrapper ${lib.getExe nodejs} $out/bin/ccusage-mcp --add-flags "$out/app/index.js"
+      cp ./build/index.js $out/share/ccusage-mcp/app.js
+      makeWrapper ${lib.getExe nodejs} $out/bin/ccusage-mcp --add-flags "$out/share/ccusage-mcp/app.js"
 
       runHook postInstall
     '';

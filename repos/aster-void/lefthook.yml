@@ -1,0 +1,10 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: alejandra
+      run: alejandra {staged_files}
+      glob: "*.nix"
+      stage_fixed: true
+    - name: prettier
+      run: prettier . --write
+      stage_fixed: true
