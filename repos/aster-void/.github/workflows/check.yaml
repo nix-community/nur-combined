@@ -1,0 +1,12 @@
+name: Checks
+on: push
+
+jobs:
+  format:
+    name: Alejandra (nix fmt)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - run: nix fmt -- . --check

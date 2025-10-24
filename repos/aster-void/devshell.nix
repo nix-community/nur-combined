@@ -1,10 +1,10 @@
-{ pkgs }:
+{pkgs}:
 pkgs.mkShell {
   # Add build dependencies
-  packages = [ ];
+  packages = [];
 
   # Add environment variables
-  env = { };
+  env = {};
 
   # Load custom bash code
   shellHook = ''

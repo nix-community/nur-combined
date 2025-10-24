@@ -7,6 +7,8 @@
   source = import ./source.nix {inherit pkgs;};
   cfg = config.programs.vscode-remote-wsl-nixos;
 in {
+  _class = "home-manager";
+
   options.programs.vscode-remote-wsl-nixos = {
     enable = lib.mkEnableOption "vscode remote wsl nixos patch";
     non-flakes = lib.mkEnableOption "non-flake support";

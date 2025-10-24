@@ -7,6 +7,8 @@
   cfg = config.programs.hazkey;
   fcitx5-hazkey = import ../../../packages/fcitx5-hazkey {inherit pkgs;};
 in {
+  _class = "nixos";
+
   options.programs.hazkey = {
     enable = lib.mkEnableOption "hazkey";
     package = lib.mkOption {
