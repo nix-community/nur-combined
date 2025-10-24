@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, nettle, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  nettle,
+  gmp,
+}:
 
 let
   fatfs = fetchFromGitHub {
@@ -25,15 +33,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-6utNsihYD5YPyq4UiD7ZiChPnqt7e5g4lFHmO2S6zwA=";
   };
 
-  buildInputs = [ nettle gmp ];
+  buildInputs = [
+    nettle
+    gmp
+  ];
 
-  cmakeFlags = if stdenv.hostPlatform.isWindows then [
-    "-DNettle_INCLUDE_DIR=${nettle.dev}/include"
-    "-DNettle_LIBRARY=${nettle}/lib${stdenv.hostPlatform.extensions.sharedLibrary}"
-  ] else [];
+  cmakeFlags =
+    if stdenv.hostPlatform.isWindows then
+      [
+        "-DNettle_INCLUDE_DIR=${nettle.dev}/include"
+        "-DNettle_LIBRARY=${nettle}/lib${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ]
+    else
+      [ ];
 
   # don't think pkg-config is really required
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   postPatch = ''
     cp -r --no-preserve=mode ${fatfspp} fatfspp
