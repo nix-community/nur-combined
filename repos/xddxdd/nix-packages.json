@@ -742,7 +742,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-10-15"
+    "version": "0-unstable-2025-10-24"
   },
   "legacyPackages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -812,7 +812,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-10-15"
+    "version": "0-unstable-2025-10-24"
   },
   "legacyPackages.x86_64-linux.kernel-modules.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6824"
+    "version": "6829"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1332,7 +1332,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3527,7 +3527,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "17.0.16_8_adopt"
+    "version": "17.0.17_10_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3563,6 +3563,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "17.0.16_8_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_17_10": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "17.0.17_10_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3618,11 +3623,6 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "17.0.9_9_adopt"
-  },
-  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_35": {
-    "description": "OpenJDK binaries built by Eclipse Adoptium",
-    "pname": "openjdk-adoptium-jdk-bin",
-    "version": "17_35_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-18": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3837,7 +3837,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "17.0.16_8_adopt"
+    "version": "17.0.17_10_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3873,6 +3873,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "17.0.16_8_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_17_10": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "17.0.17_10_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -4097,7 +4102,7 @@
   "legacyPackages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.14"
+    "version": "1.1.4.15"
   },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -4142,7 +4147,7 @@
   "legacyPackages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-08-13"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
@@ -4247,7 +4252,7 @@
   "legacyPackages.x86_64-linux.python3Packages.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-08-13"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.python3Packages.pysctp": {
     "description": "SCTP stack for Python",
@@ -4347,7 +4352,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-22"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4472,7 +4477,7 @@
   "legacyPackages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.6.263"
+    "version": "4.7.305"
   },
   "legacyPackages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
@@ -4847,7 +4852,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5007,7 +5012,7 @@
   "legacyPackages.x86_64-linux.uncategorized.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.14"
+    "version": "1.1.4.15"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -5067,7 +5072,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-22"
+    "version": "0-unstable-2025-10-23"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5157,7 +5162,7 @@
   "legacyPackages.x86_64-linux.uncategorized.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.6.263"
+    "version": "4.7.305"
   },
   "legacyPackages.x86_64-linux.uncategorized.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
@@ -5727,7 +5732,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-10-15"
+    "version": "0-unstable-2025-10-24"
   },
   "packages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -5837,7 +5842,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-14"
+    "version": "0-unstable-2025-10-23"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -6057,7 +6062,7 @@
   "packages.x86_64-linux.piliplus": {
     "description": "Third party Bilibili client built with Flutter",
     "pname": "piliplus",
-    "version": "1.1.4.14"
+    "version": "1.1.4.15"
   },
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -6102,7 +6107,7 @@
   "packages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-08-13"
+    "version": "0-unstable-2025-10-23"
   },
   "packages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
@@ -6147,7 +6152,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-10-22"
+    "version": "0-unstable-2025-10-23"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6272,7 +6277,7 @@
   "packages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.6.263"
+    "version": "4.7.305"
   },
   "packages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",

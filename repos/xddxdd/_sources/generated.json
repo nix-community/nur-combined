@@ -436,7 +436,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLock": null,
-        "date": "2025-10-21",
+        "date": "2025-10-24",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "000995d912232aa2658d55e34be5e53978aad847",
-            "sha256": "sha256-m4Ic1UZp0erNpioDB00iVbLPt5jocCY6bCWvFbPbb6M=",
+            "rev": "719c67f34bbfcaca5df640aea7078419f6010510",
+            "sha256": "sha256-JtFidipg6Yqxqeb765ZWd5uT55m6PjJ41y+pY/SxtCE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "000995d912232aa2658d55e34be5e53978aad847"
+        "version": "719c67f34bbfcaca5df640aea7078419f6010510"
     },
     "calibre-cops": {
         "cargoLock": null,
@@ -1611,7 +1611,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2025-10-15",
+        "date": "2025-10-24",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1623,12 +1623,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "f5c4963ee739abfb6671e984b71e99ca2e599478",
-            "sha256": "sha256-THKoJTLff7Oc8r4/G8rmfWs+yc5Ap0c0K9ZROvZI62U=",
+            "rev": "da6135ca62235d5ac765799d6239c77e773df8f9",
+            "sha256": "sha256-HAN9pzDRnZCNzxVtrh7/8NS2pg7TutgmGYRuHo9sbSw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f5c4963ee739abfb6671e984b71e99ca2e599478"
+        "version": "da6135ca62235d5ac765799d6239c77e773df8f9"
     },
     "igsc": {
         "cargoLock": null,
@@ -1965,7 +1965,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2025-10-14",
+        "date": "2025-10-23",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1977,12 +1977,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "52169a1edfaf8b5f1593ef3a002e2553f33271a0",
-            "sha256": "sha256-xFdAcuPbGOdD3dsCOS3+CepSbRE3EVwaIQ+3/oLo0X4=",
+            "rev": "ed5c2ccff15e878cca7c04890f59c7d1771933fc",
+            "sha256": "sha256-iXHOEkseRz+1dd2jQiIqIoZd+JmEz6OjTpAuDyC6E3Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "52169a1edfaf8b5f1593ef3a002e2553f33271a0"
+        "version": "ed5c2ccff15e878cca7c04890f59c7d1771933fc"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6824",
-            "sha256": "sha256-CdF4NBse6Kj9G4zK0S4u3IfIXWO+dRPnXxyRk9LoZ9M=",
+            "rev": "b6829",
+            "sha256": "sha256-+cK37gDW7FSU4DfKZ/NWEWcNgV/pDpi/DjG8fzSs/uo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6824"
+        "version": "b6829"
     },
     "loralib": {
         "cargoLock": null,
@@ -3016,12 +3016,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "1.1.4.14",
-            "sha256": "sha256-1AF7blBInc/OhDWUEeJpm+/MzxqdbYnbUA8CCSsIG3c=",
+            "rev": "1.1.4.15",
+            "sha256": "sha256-MJs8ZbnMKL+A2s6sB3mMLeEFWkJYbzOqKtiXbtbuPJE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.1.4.14"
+        "version": "1.1.4.15"
     },
     "plangothic-fonts": {
         "cargoLock": null,
@@ -3250,7 +3250,7 @@
     },
     "pyosmocom": {
         "cargoLock": null,
-        "date": "2025-08-13",
+        "date": "2025-10-23",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3260,13 +3260,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0",
-            "sha256": "sha256-AihiWtp81t3AJu/FpXfetnH6TNBIHC2sKHeWGDYY4fA=",
+            "rev": "d3142a2c839504e355afd6bf99e34709e9c94e5e",
+            "sha256": "sha256-FKxFHU0xPPgk5jmzbJFw1iB71YuaVJ9PShhAGCixvhg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0"
+        "version": "d3142a2c839504e355afd6bf99e34709e9c94e5e"
     },
     "pysctp": {
         "cargoLock": null,
@@ -3480,7 +3480,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2025-10-22",
+        "date": "2025-10-23",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3492,12 +3492,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "26d680c370cedfc02411b7027a2d011378d11cda",
-            "sha256": "sha256-JfxyMpBTttwnxHLc/M4Li4L626t8ol7822mBQczKh0c=",
+            "rev": "4db84da6e97f1ffc0812f343ecc36c1f737154a2",
+            "sha256": "sha256-mcMm27CUpYlaN094qc0x47uDczeqKZ8+WJ4xA5vjPfw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "26d680c370cedfc02411b7027a2d011378d11cda"
+        "version": "4db84da6e97f1ffc0812f343ecc36c1f737154a2"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -4024,11 +4024,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
+            "sha256": "sha256-PWAcm/hIA4JH2QtJPP+gSJdJLRdfdbZXIVdWELazbxQ=",
             "type": "url",
-            "url": "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
+            "url": "https://www.svp-team.com/files/svp4-linux.4.7.305.tar.bz2"
         },
-        "version": "4.6.263"
+        "version": "4.7.305"
     },
     "sx1302-hal": {
         "cargoLock": null,

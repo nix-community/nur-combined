@@ -233,14 +233,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "000995d912232aa2658d55e34be5e53978aad847";
+    version = "719c67f34bbfcaca5df640aea7078419f6010510";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "000995d912232aa2658d55e34be5e53978aad847";
-      hash = "sha256-m4Ic1UZp0erNpioDB00iVbLPt5jocCY6bCWvFbPbb6M=";
+      rev = "719c67f34bbfcaca5df640aea7078419f6010510";
+      hash = "sha256-JtFidipg6Yqxqeb765ZWd5uT55m6PjJ41y+pY/SxtCE=";
     };
-    date = "2025-10-21";
+    date = "2025-10-24";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -839,14 +839,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "f5c4963ee739abfb6671e984b71e99ca2e599478";
+    version = "da6135ca62235d5ac765799d6239c77e773df8f9";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "f5c4963ee739abfb6671e984b71e99ca2e599478";
-      hash = "sha256-THKoJTLff7Oc8r4/G8rmfWs+yc5Ap0c0K9ZROvZI62U=";
+      rev = "da6135ca62235d5ac765799d6239c77e773df8f9";
+      hash = "sha256-HAN9pzDRnZCNzxVtrh7/8NS2pg7TutgmGYRuHo9sbSw=";
     };
-    date = "2025-10-15";
+    date = "2025-10-24";
   };
   igsc = {
     pname = "igsc";
@@ -1017,14 +1017,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "52169a1edfaf8b5f1593ef3a002e2553f33271a0";
+    version = "ed5c2ccff15e878cca7c04890f59c7d1771933fc";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "52169a1edfaf8b5f1593ef3a002e2553f33271a0";
-      hash = "sha256-xFdAcuPbGOdD3dsCOS3+CepSbRE3EVwaIQ+3/oLo0X4=";
+      rev = "ed5c2ccff15e878cca7c04890f59c7d1771933fc";
+      hash = "sha256-iXHOEkseRz+1dd2jQiIqIoZd+JmEz6OjTpAuDyC6E3Q=";
     };
-    date = "2025-10-14";
+    date = "2025-10-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6824";
+    version = "b6829";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6824";
-      hash = "sha256-CdF4NBse6Kj9G4zK0S4u3IfIXWO+dRPnXxyRk9LoZ9M=";
+      tag = "b6829";
+      hash = "sha256-+cK37gDW7FSU4DfKZ/NWEWcNgV/pDpi/DjG8fzSs/uo=";
     };
   };
   loralib = {
@@ -1544,12 +1544,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.4.14";
+    version = "1.1.4.15";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.4.14";
-      hash = "sha256-1AF7blBInc/OhDWUEeJpm+/MzxqdbYnbUA8CCSsIG3c=";
+      tag = "1.1.4.15";
+      hash = "sha256-MJs8ZbnMKL+A2s6sB3mMLeEFWkJYbzOqKtiXbtbuPJE=";
     };
   };
   plangothic-fonts = {
@@ -1666,14 +1666,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0";
+    version = "d3142a2c839504e355afd6bf99e34709e9c94e5e";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "0eb6b23b6511a3fa1ddcd6cea601b6899d3c8bc0";
+      rev = "d3142a2c839504e355afd6bf99e34709e9c94e5e";
       fetchSubmodules = false;
-      hash = "sha256-AihiWtp81t3AJu/FpXfetnH6TNBIHC2sKHeWGDYY4fA=";
+      hash = "sha256-FKxFHU0xPPgk5jmzbJFw1iB71YuaVJ9PShhAGCixvhg=";
     };
-    date = "2025-08-13";
+    date = "2025-10-23";
   };
   pysctp = {
     pname = "pysctp";
@@ -1790,14 +1790,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "26d680c370cedfc02411b7027a2d011378d11cda";
+    version = "4db84da6e97f1ffc0812f343ecc36c1f737154a2";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "26d680c370cedfc02411b7027a2d011378d11cda";
-      hash = "sha256-JfxyMpBTttwnxHLc/M4Li4L626t8ol7822mBQczKh0c=";
+      rev = "4db84da6e97f1ffc0812f343ecc36c1f737154a2";
+      hash = "sha256-mcMm27CUpYlaN094qc0x47uDczeqKZ8+WJ4xA5vjPfw=";
     };
-    date = "2025-10-22";
+    date = "2025-10-23";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2060,10 +2060,10 @@
   };
   svp = {
     pname = "svp";
-    version = "4.6.263";
+    version = "4.7.305";
     src = fetchurl {
-      url = "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
-      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
+      url = "https://www.svp-team.com/files/svp4-linux.4.7.305.tar.bz2";
+      hash = "sha256-PWAcm/hIA4JH2QtJPP+gSJdJLRdfdbZXIVdWELazbxQ=";
     };
   };
   sx1302-hal = {
