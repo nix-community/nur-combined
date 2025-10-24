@@ -10,7 +10,7 @@
   nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "portaudio-java";
+  pname = "jportaudio";
   version = "0-unstable-2023-07-04";
   src = fetchFromGitHub {
     owner = "philburk";

@@ -102,18 +102,18 @@ stdenv.mkDerivation rec {
 
     # 只保留 FDM 专有库，让 autoPatchelf 处理其他库
     mkdir -p temp_libs
-    
+
     # 保存 FDM 专有库（这些库不在 Nixpkgs 中提供）
     cp opt/freedownloadmanager/lib/libvmsclshared.so* temp_libs/ 2>/dev/null || true
     cp opt/freedownloadmanager/lib/liblogger.so* temp_libs/ 2>/dev/null || true
     cp opt/freedownloadmanager/lib/libdownloads*.so* temp_libs/ 2>/dev/null || true
-    
+
     # 保存 quazip 库（版本不匹配，FDM 需要特定版本）
     cp opt/freedownloadmanager/lib/libquazip.so* temp_libs/ 2>/dev/null || true
-    
+
     # 删除原始 lib 目录
     rm -rf opt/freedownloadmanager/lib
-    
+
     # 恢复保存的专有库文件
     mkdir -p opt/freedownloadmanager/lib
     cp temp_libs/* opt/freedownloadmanager/lib/ 2>/dev/null || true

@@ -32,7 +32,7 @@
       enableJavaFX = true;
     }
   ),
-  portaudioJava ? pkgs.callPackage ../../../po/portaudio-java/package.nix { },
+  portaudioJava ? pkgs.callPackage ../../../jp/jportaudio/package.nix { },
   useOBSVkCapture ? true,
 }:
 let
