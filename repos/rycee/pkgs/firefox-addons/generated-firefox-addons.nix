@@ -15659,6 +15659,21 @@
         platforms = platforms.all;
       };
     };
+    "zhongwen" = buildFirefoxXpiAddon {
+      pname = "zhongwen";
+      version = "5.16.0";
+      addonId = "{dedb3663-6f13-4c6c-bf0f-5bd111cb2c79}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4482184/zhongwen-5.16.0.xpi";
+      sha256 = "98645c53837a419fecfbaf335df80b366e6b6d274bb2a41711c8e3d760756574";
+      meta = with lib;
+      {
+        homepage = "https://github.com/cschiller/zhongwen";
+        description = "Official Firefox port of the Zhongwen Chrome extension (http://github.com/cschiller/zhongwen). Translate Chinese characters by hovering over them with the mouse. Includes internal word list, links to Chinese Grammar Wiki, tone colors, and more.";
+        license = licenses.gpl2;
+        mozPermissions = [ "contextMenus" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "zoom-image" = buildFirefoxXpiAddon {
       pname = "zoom-image";
       version = "2.7.1";
