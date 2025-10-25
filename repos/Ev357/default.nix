@@ -25,4 +25,5 @@
   obsidian-style-settings = pkgs.callPackage ./pkgs/obsidian-style-settings {};
   obsidian-vim-yank-highlight = pkgs.callPackage ./pkgs/obsidian-vim-yank-highlight {};
   obsidian-vimrc-support = pkgs.callPackage ./pkgs/obsidian-vimrc-support {};
+  shiru = pkgs.callPackage ./pkgs/shiru {};
 }
