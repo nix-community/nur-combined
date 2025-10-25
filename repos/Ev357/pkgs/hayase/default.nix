@@ -34,5 +34,6 @@ pkgs.appimageTools.wrapType2 rec {
     changelog = "https://hayase.watch/changelog";
     license = lib.licenses.bsl11;
     mainProgram = "hayase";
+    broken = true;
   };
 }
