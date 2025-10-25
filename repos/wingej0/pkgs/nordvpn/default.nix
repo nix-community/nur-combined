@@ -14,7 +14,7 @@
   libxml2,
   libidn2,
   libnl,
-  libcap, 
+  libcap,
   libcap_ng,
   zlib,
   sqlite,
@@ -33,6 +33,16 @@ let
   buildEnv =
     if builtins.typeOf buildFHSEnvChroot == "set" then buildFHSEnvChroot else buildFHSUserEnv;
 
+  # FIX 1: Moved libxml2_13 definition up
+  libxml2_13 = libxml2.overrideAttrs rec {
+    version = "2.13.8";
+    src = fetchurl {
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
+      hash = "sha256-J3KUyzMRmrcbK8gfL0Rem8lDW4k60VuyzSsOhZoO6Eo=";
+    };
+    patches = []; # FIX 2: Added to stop patchPhase failure
+  };
+
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
 
@@ -42,7 +52,7 @@ let
     };
 
     buildInputs = [
-      libxml2_13 
+      libxml2_13 # Correctly uses the overridden version
       libidn2
       libnl
       libcap
@@ -54,7 +64,7 @@ let
       dpkg
       autoPatchelfHook
       stdenv.cc.cc.lib
-      libxml2
+      libxml2 # This is fine, it's for the build tools
     ];
 
     dontConfigure = true;
@@ -89,20 +99,12 @@ let
         iproute2
         procps
         cacert
-        libxml2
+        libxml2_13 # FIX 3: Changed from libxml2 to match nordVPNBase
         libidn2
         zlib
         wireguard-tools
         sqlite
       ];
-  };
-
-  libxml2_13 = libxml2.overrideAttrs rec {
-    version = "2.13.8";
-    src = fetchurl {
-      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
-      hash = "sha256-J3KUyzMRmrcbK8gfL0Rem8lDW4k60VuyzSsOhZoO6Eo=";
-    };
   };
 
 in
