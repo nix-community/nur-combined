@@ -24,6 +24,11 @@
       "automerge": true
     },
     {
+      "groupName": "Nix Inputs",
+      "matchManagers": ["nix"],
+      "matchPackageNames": ["*"]
+    },
+    {
       "matchManagers": ["github-actions"],
       "matchPackageNames": ["*"],
       "groupName": "GitHub Actions"

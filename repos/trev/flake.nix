@@ -6,7 +6,7 @@
       "https://cache.trev.zip/nur"
     ];
     extra-trusted-public-keys = [
-      "nur:DoXGy0SJ+5udhvZgtzwEXhQMuOCFN7FSXRmtiZhF1Vw="
+      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
     ];
   };
 
