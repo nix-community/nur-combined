@@ -20,7 +20,6 @@ jobs:
           - ubuntu-24.04
           - ubuntu-22.04-arm
           - macos-15
-          - macos-15-intel
         # Set this to notify the global nur package registry that changes are
         # available.
         #
