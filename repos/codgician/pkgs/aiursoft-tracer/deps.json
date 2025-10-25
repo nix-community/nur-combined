@@ -19,15 +19,15 @@
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "9.0.9",
-    "hash": "sha256-Chh5QF/+EqPcUSKzUgnGm6hn2Oi2knWuyrNS2j/GGIg=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket/9.0.9/aiursoft.aiurobserver.websocket.9.0.9.nupkg"
+    "version": "9.0.10",
+    "hash": "sha256-oMNc7D80jNY0AJyon/AWPAnv8DfYtQSQbn9nGF9YCXg=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket/9.0.10/aiursoft.aiurobserver.websocket.9.0.10.nupkg"
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "9.0.9",
-    "hash": "sha256-RzsucE0lyXzybrL16kFxZeoPFdTcGdNORpIVcAkFK3o=",
-    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket.server/9.0.9/aiursoft.aiurobserver.websocket.server.9.0.9.nupkg"
+    "version": "9.0.10",
+    "hash": "sha256-POJ1YerE47CK5mzy0Su3tteRSpXVVenF58aeLaL+Pm0=",
+    "url": "https://nuget.aiursoft.cn/v3/package/aiursoft.aiurobserver.websocket.server/9.0.10/aiursoft.aiurobserver.websocket.server.9.0.10.nupkg"
   },
   {
     "pname": "Aiursoft.CSTools",
@@ -85,9 +85,9 @@
   },
   {
     "pname": "Microsoft.AspNetCore.Connections.Abstractions",
-    "version": "9.0.9",
-    "hash": "sha256-Dc5lw7IE5/66yd1hCNiVOrxbQR0xZJjmvGyIMqBVpM0=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.aspnetcore.connections.abstractions/9.0.9/microsoft.aspnetcore.connections.abstractions.9.0.9.nupkg"
+    "version": "9.0.10",
+    "hash": "sha256-w2tDobldb+kxZpJf2SwLYkvkgysgyo8jnZRzhAyW2FY=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.aspnetcore.connections.abstractions/9.0.10/microsoft.aspnetcore.connections.abstractions.9.0.10.nupkg"
   },
   {
     "pname": "Microsoft.CodeCoverage",
@@ -103,9 +103,9 @@
   },
   {
     "pname": "Microsoft.Extensions.Features",
-    "version": "9.0.9",
-    "hash": "sha256-98kMQ1vmKpFb9rRqbYO5Q8PBNetDEpbEXc40GV1K9IU=",
-    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.features/9.0.9/microsoft.extensions.features.9.0.9.nupkg"
+    "version": "9.0.10",
+    "hash": "sha256-SVtG0MpqgdSRU4hLOe7uDY/MYo8o/70ZCEhCTjwMDCs=",
+    "url": "https://nuget.aiursoft.cn/v3/package/microsoft.extensions.features/9.0.10/microsoft.extensions.features.9.0.10.nupkg"
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
