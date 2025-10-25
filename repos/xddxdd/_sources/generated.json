@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6836",
-            "sha256": "sha256-GlIWpwxxMfOnnSZpNUsjrYwyaTFL/qWmylZWSRjC9WU=",
+            "rev": "b6837",
+            "sha256": "sha256-0cc1kCp93HgFw53kdH37GIotHiKK8Ky5F2bzbVW0IP4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6836"
+        "version": "b6837"
     },
     "loralib": {
         "cargoLock": null,
@@ -4024,7 +4024,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-NyhRstYHlpvqanTSOsqRzLF2SRMSdOaZ3/sqYh7FwzI=",
+            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
             "type": "url",
             "url": "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },

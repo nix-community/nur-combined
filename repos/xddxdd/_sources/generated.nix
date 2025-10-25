@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6836";
+    version = "b6837";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6836";
-      hash = "sha256-GlIWpwxxMfOnnSZpNUsjrYwyaTFL/qWmylZWSRjC9WU=";
+      tag = "b6837";
+      hash = "sha256-0cc1kCp93HgFw53kdH37GIotHiKK8Ky5F2bzbVW0IP4=";
     };
   };
   loralib = {
@@ -2063,7 +2063,7 @@
     version = "4.6.263";
     src = fetchurl {
       url = "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
-      hash = "sha256-NyhRstYHlpvqanTSOsqRzLF2SRMSdOaZ3/sqYh7FwzI=";
+      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
     };
   };
   sx1302-hal = {
