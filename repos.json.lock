@@ -326,8 +326,8 @@
             "url": "https://github.com/Artturin/artturin-nur"
         },
         "aster-void": {
-            "rev": "d9e23a0357e431f8e2a4c04f61669194ec67a45d",
-            "sha256": "10kmfzbrj6jgr8nvhswjklwia8yi9yrcpgki3q508z5xmp8q08qc",
+            "rev": "3caab43873b4ad96967e21de87367097c1039f27",
+            "sha256": "0ssd6v9vprw9fzbxwlvaj9igz6i08mldfadgqvazry4gcn8ay4h4",
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
