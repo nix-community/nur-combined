@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     owner = "vmkspv";
     repo = "lenspect";
     tag = "v${version}";
-    sha256 = "sha256-p0QVQK4uengvqq/iyanqN9WT/zkgyL/q/gV4K91VA48=";
+    hash = "sha256-p0QVQK4uengvqq/iyanqN9WT/zkgyL/q/gV4K91VA48=";
   };
 
   nativeBuildInputs = [

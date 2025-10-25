@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "benjamimgois";
     repo = "pascube";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-djkrMgX3RTTXSLISYpBfdyCIh3/WWODxd473M53iFKE=";
+    hash = "sha256-djkrMgX3RTTXSLISYpBfdyCIh3/WWODxd473M53iFKE=";
   };
 
   nativeBuildInputs = [
