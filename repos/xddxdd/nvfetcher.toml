@@ -189,7 +189,7 @@ fetch.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 
 [dn42-pingfinder-stable]
-fetch.url = "https://example.com"
+fetch.url = "https://www.google.com/generate_204"
 src.webpage = "https://git.lantian.pub/backup/dn42-pingfinder/raw/branch/master/index.php"
 src.regex = "\\$script_version = '([0-9\\.]+)';"
 
@@ -898,7 +898,7 @@ fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver/
 src.github = "Suwayomi/Suwayomi-Server"
 
 [svp]
-fetch.url = "https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
+fetch.url = "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
 # Pin at last free version
 src.manual = "4.6.263"
 
@@ -1046,7 +1046,7 @@ fetch.github = "Wind4/vlmcsd"
 src.git = "https://github.com/Wind4/vlmcsd.git"
 
 [vlmcsd-stable]
-fetch.url = "https://example.com"
+fetch.url = "https://www.google.com/generate_204"
 src.github = "Wind4/vlmcsd"
 src.prefix = "svn"
 
