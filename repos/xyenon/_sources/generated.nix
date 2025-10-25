@@ -21,16 +21,16 @@
   };
   "caddy-dns/cloudflare" = {
     pname = "caddy-dns/cloudflare";
-    version = "a14840b68f2669721e7a0c24d37903b0eb0083f3";
+    version = "2fc25ee62f40fe21b240f83ab2fb6e2be6dbb953";
     src = fetchFromGitHub {
       owner = "caddy-dns";
       repo = "cloudflare";
-      rev = "a14840b68f2669721e7a0c24d37903b0eb0083f3";
+      rev = "2fc25ee62f40fe21b240f83ab2fb6e2be6dbb953";
       fetchSubmodules = false;
-      sha256 = "sha256-TNUMn69eglmyA5NTt1J3ohofIdiIbuNHYs/IpNUEnAE=";
+      sha256 = "sha256-EMRdRwQLHJXVvnLe1v6WrC9BU2Aawu8mQUpz4NPm1F0=";
     };
     moduleName = "github.com/caddy-dns/cloudflare";
-    date = "20250923141955";
+    date = "20251022184029";
   };
   catppuccin-kitty = {
     pname = "catppuccin-kitty";
@@ -107,15 +107,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "a3287c4fc1123ed4ad124f87edb3fcc0922fe8d6";
+    version = "49e5ed738f849279c7033221b6227c295f0e05f5";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a3287c4fc1123ed4ad124f87edb3fcc0922fe8d6";
+      rev = "49e5ed738f849279c7033221b6227c295f0e05f5";
       fetchSubmodules = false;
-      sha256 = "sha256-OZBxLZeyCHMt3X5fQxQylHadlsSqe2rEdwFYgS0em74=";
+      sha256 = "sha256-NuqUBZJiPAidwBEIq36H8YstutCOUJdxvJGdFAVJ2YU=";
     };
-    date = "2025-10-20";
+    date = "2025-10-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -127,14 +127,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "9a52857eac61ede58d11c06ca813c3fa63fe3609";
+    version = "8f1d9711bcd0e48af1fcb4153c16d24da76e732d";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "9a52857eac61ede58d11c06ca813c3fa63fe3609";
+      rev = "8f1d9711bcd0e48af1fcb4153c16d24da76e732d";
       fetchSubmodules = false;
-      sha256 = "sha256-YM53SsE10wtMqI1JGa4CqZbAgr7h62MZ5skEdAavOVA=";
+      sha256 = "sha256-7vsqHvdNimH/YVWegfAo7DfJ+InDr3a1aNU0f+gjcdw=";
     };
-    date = "2025-10-13";
+    date = "2025-10-22";
   };
 }
