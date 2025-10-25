@@ -4477,7 +4477,7 @@
   "legacyPackages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.7.305"
+    "version": "4.6.263"
   },
   "legacyPackages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
@@ -5162,7 +5162,7 @@
   "legacyPackages.x86_64-linux.uncategorized.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.7.305"
+    "version": "4.6.263"
   },
   "legacyPackages.x86_64-linux.uncategorized.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
@@ -6277,7 +6277,7 @@
   "packages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
-    "version": "4.7.305"
+    "version": "4.6.263"
   },
   "packages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",

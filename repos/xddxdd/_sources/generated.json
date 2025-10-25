@@ -840,7 +840,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=",
+            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
             "type": "url",
             "url": "https://example.com"
         },
@@ -1795,7 +1795,7 @@
             "owner": "KikoPlayProject",
             "repo": "KikoPlay",
             "rev": "2.0.0",
-            "sha256": "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=",
+            "sha256": "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -4024,11 +4024,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PWAcm/hIA4JH2QtJPP+gSJdJLRdfdbZXIVdWELazbxQ=",
+            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
             "type": "url",
-            "url": "https://www.svp-team.com/files/svp4-linux.4.7.305.tar.bz2"
+            "url": "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },
-        "version": "4.7.305"
+        "version": "4.6.263"
     },
     "sx1302-hal": {
         "cargoLock": null,
@@ -4588,7 +4588,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=",
+            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
             "type": "url",
             "url": "https://example.com"
         },

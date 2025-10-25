@@ -442,7 +442,7 @@
     version = "1.2.1";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
+      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
     };
   };
   douban-openapi-server = {
@@ -930,7 +930,7 @@
       owner = "KikoPlayProject";
       repo = "KikoPlay";
       tag = "2.0.0";
-      hash = "sha256-Rj+U7hs6PGq3BwLUoCRxbTl3lOVd8S5F5Lwb0tG67oM=";
+      hash = "sha256-o6bHZ3Hg3JZm1nYXZTFKyTr+Jx4slYAt9iW4dgyEqTU=";
     };
   };
   kikoplay-app = {
@@ -2060,10 +2060,10 @@
   };
   svp = {
     pname = "svp";
-    version = "4.7.305";
+    version = "4.6.263";
     src = fetchurl {
-      url = "https://www.svp-team.com/files/svp4-linux.4.7.305.tar.bz2";
-      hash = "sha256-PWAcm/hIA4JH2QtJPP+gSJdJLRdfdbZXIVdWELazbxQ=";
+      url = "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
+      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
     };
   };
   sx1302-hal = {
@@ -2356,7 +2356,7 @@
     version = "1113";
     src = fetchurl {
       url = "https://example.com";
-      hash = "sha256-b1Y1A182rVALT8S7eBa7cu9VlOG8rkT6B0xemI/EwP4=";
+      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
     };
   };
   vpp = {
