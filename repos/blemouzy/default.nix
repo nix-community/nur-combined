@@ -17,6 +17,8 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bb-imager = pkgs.callPackage ./pkgs/bb-imager-rs { withGui = true; };
+  bb-imager-cli = pkgs.callPackage ./pkgs/bb-imager-rs { withGui = false; };
   cst = pkgs.callPackage ./pkgs/cst { };
   inherit potracer;
   supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
