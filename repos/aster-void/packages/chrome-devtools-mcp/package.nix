@@ -36,8 +36,21 @@
       license = lib.licenses.asl20;
       maintainers = [];
       platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      mainProgram = "chrome-devtools-mcp";
     };
   };
+  bwrapFlags = lib.lists.flatten [
+    ["--ro-bind" "/" "/"]
+    ["--dev-bind" "/dev" "/dev"]
+    ["--proc" "/proc"]
+    ["--bind" "/tmp" "/tmp"]
+    ["--bind" "$HOME" "$HOME"]
+    ["--tmpfs" "/opt"]
+    ["--dir" "/opt/google/chrome"]
+    ["--symlink" "${lib.getExe chromium}" "opt/google/chrome/chrome"]
+    ["--"]
+    (lib.getExe unwrapped)
+  ];
 in
   runCommand "chrome-devtools-mcp-${version}" {
     nativeBuildInputs = [makeWrapper];
@@ -49,15 +62,8 @@ in
       };
   } ''
     mkdir -p $out/bin
-    makeWrapper ${lib.getExe bubblewrap} $out/bin/chrome-devtools-mcp \
-      --add-flags "--ro-bind / /" \
-      --add-flags "--dev-bind /dev /dev" \
-      --add-flags "--proc /proc" \
-      --add-flags "--bind /tmp /tmp" \
-      --add-flags "--bind \$HOME \$HOME" \
-      --add-flags "--tmpfs /opt" \
-      --add-flags "--dir /opt/google/chrome" \
-      --add-flags "--symlink ${lib.getExe chromium} /opt/google/chrome/chrome" \
-      --add-flags "--" \
-      --add-flags "${lib.getExe' unwrapped "chrome-devtools-mcp"}"
+    makeWrapper ${lib.getExe bubblewrap} $out/bin/chrome-devtools-mcp --add-flags ${
+      lib.escapeShellArg
+      (lib.concatStringsSep " " bwrapFlags)
+    }
   ''

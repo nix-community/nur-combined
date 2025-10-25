@@ -3,7 +3,7 @@
   nodejs,
   fetchFromGitHub,
   pnpm,
-  makeWrapper,
+  makeBinaryWrapper,
   lib,
   bun,
 }: let
@@ -30,7 +30,7 @@ in
       nodejs
       pnpm.configHook
       bun
-      makeWrapper
+      makeBinaryWrapper
     ];
 
     pnpmInstallFlags = ["--ignore-scripts"];

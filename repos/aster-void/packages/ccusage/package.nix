@@ -4,7 +4,7 @@
   fetchFromGitHub,
   pnpm,
   bun,
-  makeWrapper,
+  makeBinaryWrapper,
   lib,
 }: let
   version = "17.1.3";
@@ -30,7 +30,7 @@ in
       nodejs
       pnpm.configHook
       bun
-      makeWrapper
+      makeBinaryWrapper
     ];
 
     pnpmInstallFlags = ["--ignore-scripts"];

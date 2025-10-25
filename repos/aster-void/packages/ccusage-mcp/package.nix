@@ -3,7 +3,7 @@
   nodejs,
   fetchFromGitHub,
   pnpm,
-  makeWrapper,
+  makeBinaryWrapper,
   lib,
   bun,
 }: let
@@ -30,14 +30,14 @@ in
       nodejs
       pnpm.configHook
       bun
-      makeWrapper
+      makeBinaryWrapper
     ];
     pnpmInstallFlags = ["--ignore-scripts"];
 
     buildPhase = ''
       runHook preBuild
 
-      bun build apps/mcp/src/index.ts --outfile build/index.js --target bun --minify
+      bun build apps/mcp/src/index.ts --outfile build/index.js --target bun
 
       runHook postBuild
     '';
