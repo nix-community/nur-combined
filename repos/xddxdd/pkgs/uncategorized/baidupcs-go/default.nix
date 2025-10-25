@@ -6,7 +6,7 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.baidupcs-go) pname version src;
-  vendorHash = "sha256-hW+IrzS5+DublQUIIcecL08xoauTjba9qnAtpzNeDXw=";
+  vendorHash = "sha256-oOZeBCHpAasi9K77xA+8HxZErGWKwb4OaWzWhHagtQE=";
   doCheck = false;
 
   ldflags = [
