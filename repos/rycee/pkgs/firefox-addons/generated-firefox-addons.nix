@@ -2654,10 +2654,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "145.0.20251022.93404";
+      version = "145.0.20251024.94404";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603493/dansk_da_language_pack-145.0.20251022.93404.xpi";
-      sha256 = "07eccc1badbe3ef30d6e81d45f78ba69e5e799aee4f9ab09dc13345e1d48dc78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605027/dansk_da_language_pack-145.0.20251024.94404.xpi";
+      sha256 = "41bc86a7bd71dfb3e7c146c2b68f2a90f897a9d69ea12a08209fa9a1c73235b0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2852,10 +2852,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "145.0.20251022.93404";
+      version = "145.0.20251024.94404";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603485/deutsch_de_language_pack-145.0.20251022.93404.xpi";
-      sha256 = "74d1c6b0d3a0f7343a4e509b68e4dda19d22978b763e5dc60a4b3d610e4dd3a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605000/deutsch_de_language_pack-145.0.20251024.94404.xpi";
+      sha256 = "94a4bf95308a3416f58b7136c6b1b9e5dd03c32360e46b1fda080925c5b27bc8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4107,10 +4107,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "145.0.20251022.93404";
+      version = "145.0.20251024.94404";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603516/francais_language_pack-145.0.20251022.93404.xpi";
-      sha256 = "0242193fdfcc5291525f5e8c800f25e61c273de47ed13f3d96e0f46ae3b82fbc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605023/francais_language_pack-145.0.20251024.94404.xpi";
+      sha256 = "fb518e39c2fef0dbaab7f47b764371b35841b39707f459cb6a1d214b3707aa46";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4144,10 +4144,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "145.0.20251022.93404";
+      version = "145.0.20251024.94404";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603472/gaidhlig_language_pack-145.0.20251022.93404.xpi";
-      sha256 = "46d9c6458e51415ee885fe96442354546413cad69790a70567cf3e84d80de79c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604962/gaidhlig_language_pack-145.0.20251024.94404.xpi";
+      sha256 = "4e4f794910d432d337905b092fda1629e0fd518d65b87f8e2c20f8b8a3f82a57";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7013,10 +7013,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.7";
+      version = "1.7.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4507296/leechblock_ng-1.7.xpi";
-      sha256 = "59451d1e8027ca0c6c68e0d3c85019978d38445b26a65e850aaf42bc4f4cd533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4601510/leechblock_ng-1.7.1.xpi";
+      sha256 = "e24b5d92d1b23ed23223a2283e29de125905313004ebf598012c37ea92a4e81c";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -10866,16 +10866,22 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.4.7";
+      version = "2.5.3";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569906/readeck-2.4.7.xpi";
-      sha256 = "3be38de31df798c5d837af4c983e9e6dbb9962e43fd7159e998141baecf091a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605294/readeck-2.5.3.xpi";
+      sha256 = "7424730c20845b5f1c1536fdb82bb06619a4d9f490405e2875cf75632000080c";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
         description = "Readeck companion browser extension";
         license = licenses.lgpl3;
-        mozPermissions = [ "activeTab" "contextMenus" "scripting" "storage" ];
+        mozPermissions = [
+          "activeTab"
+          "contextMenus"
+          "scripting"
+          "storage"
+          "webRequest"
+        ];
         platforms = platforms.all;
       };
     };
@@ -11055,10 +11061,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.21";
+      version = "6.1.22";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4604584/reddit_moderator_toolbox-6.1.21.xpi";
-      sha256 = "400be5053c40acd9d3cff1b86b1a488b6a03fa2deb2b220063213ba8a47bfb98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605370/reddit_moderator_toolbox-6.1.22.xpi";
+      sha256 = "dcb8a339660303634d66427f597a8a970a76da2a8e442c65cd52a655a6f6d794";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -11588,10 +11594,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "145.0.20251022.93404";
+      version = "145.0.20251024.94404";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603555/scots_language_pack-145.0.20251022.93404.xpi";
-      sha256 = "47a8a479e23784d7b25648183e0067044f90e21a43135c4209f7bcf78ec32aec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604943/scots_language_pack-145.0.20251024.94404.xpi";
+      sha256 = "5d1df8a21b5e5b2153eb29168fd86136da012c1f2a354a82a68d87587d50a331";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15572,10 +15578,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "17.8.7";
+      version = "17.8.10";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4599227/youtube_subscription_groups-17.8.7.xpi";
-      sha256 = "1548db17c8c1e63107229055ac97f6e464a68fbd92d8760930c1847e3b63e695";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604905/youtube_subscription_groups-17.8.10.xpi";
+      sha256 = "c438eec4e08f64e3db48fcc061f9d38f307bdf1da734c3426e11b83087db4fdd";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
