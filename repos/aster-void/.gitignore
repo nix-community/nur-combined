@@ -1,6 +1,9 @@
 # direnv
 .direnv/
+# lefthook
+.githooks
 
 # nix
 result
 result-*
+
