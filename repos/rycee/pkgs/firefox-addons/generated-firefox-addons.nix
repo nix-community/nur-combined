@@ -2614,10 +2614,10 @@
     };
     "cyberfeeder" = buildFirefoxXpiAddon {
       pname = "cyberfeeder";
-      version = "5.1.1";
+      version = "5.1.2";
       addonId = "{fa19efb8-df2c-4f6a-ae08-6796a25ccdd6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603134/cyberfeeder-5.1.1.xpi";
-      sha256 = "150014758e70c60023257265f39b15083b7e92ae2e15f02daa2c223bd70bd911";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605816/cyberfeeder-5.1.2.xpi";
+      sha256 = "6121443869ce9818960aab30b0920725bdcf84818d66924e80c255e3429b7e97";
       meta = with lib;
       {
         description = "UI/UX improvements for jinteki.net.";
@@ -10866,10 +10866,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.5.3";
+      version = "2.5.4";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4605294/readeck-2.5.3.xpi";
-      sha256 = "7424730c20845b5f1c1536fdb82bb06619a4d9f490405e2875cf75632000080c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605482/readeck-2.5.4.xpi";
+      sha256 = "c6f3d38c927d3d5f61ec3b50ed2177c1b6da527f49ee3c7b4d340a8985ed0c29";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
