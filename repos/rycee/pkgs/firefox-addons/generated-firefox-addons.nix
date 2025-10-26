@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.64.6";
+      version = "2.65.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4599956/dualsub-2.64.6.xpi";
-      sha256 = "2cc38867f58f8ddcc8a92e92c49088d29077d063da86ab650e4f42ae858e50a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605985/dualsub-2.65.0.xpi";
+      sha256 = "5cffbc2cc2fc585cf32242d1ff008033dd419cb590a376bcdb061f39d8136830";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -13106,6 +13106,34 @@
         homepage = "https://github.com/ChristosBouronikos/Nord-Polar-Night-Theme";
         description = "https://paypal.me/christosbouronikos";
         mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "themesong-for-youtube-music" = buildFirefoxXpiAddon {
+      pname = "themesong-for-youtube-music";
+      version = "1.3.0";
+      addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605253/themesong_for_youtube_music-1.3.0.xpi";
+      sha256 = "edca74009cf6cedbab9c15dfda71e9a7a8ea215223a080fc8c7ae3bcba61b5e6";
+      meta = with lib;
+      {
+        homepage = "https://www.themesong.app";
+        description = "Enhancer for YouTube Music™. Dynamic Themes, Visualizers, Lyrics, Sleep Timer, and more!";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "https://music.youtube.com/*"
+          "https://*.googleusercontent.com/*"
+          "https://*.ytimg.com/*"
+          "storage"
+          "notifications"
+          "scripting"
+          "search"
+        ];
         platforms = platforms.all;
       };
     };
