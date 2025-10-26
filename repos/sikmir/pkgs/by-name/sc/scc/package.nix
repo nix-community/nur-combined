@@ -4,6 +4,7 @@
   fetchgit,
   ed,
   qbe,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation {
@@ -25,7 +26,11 @@ stdenv.mkDerivation {
       --replace-fail "PREFIX:=/usr/local" "PREFIX:=$out"
   '';
 
-  nativeBuildInputs = [ ed qbe ];
+  nativeBuildInputs = [
+    ed
+    qbe
+    makeWrapper
+  ];
 
   buildFlags = [
     "AR:=$(AR)"
@@ -37,6 +42,17 @@ stdenv.mkDerivation {
 
   doCheck = true;
   checkTarget = "tests";
+
+  postInstall = ''
+    for i in $out/bin/*; do
+      wrapProgram $i --prefix PATH : ${
+        lib.makeBinPath [
+          "$out"
+          qbe
+        ]
+      }
+    done
+  '';
 
   meta = {
     description = "Simple c99 compiler";
