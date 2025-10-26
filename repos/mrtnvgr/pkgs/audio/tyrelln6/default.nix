@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchurl {
     url = "https://dl.u-he.com/releases/TyrellN6_300_public_beta_16976_Linux.tar.xz";
-    hash = "sha256-c6xy/unbMjD+mgoNfqtxnYSQ+w6edcqIHmCAStLsZPI=";
+    hash = "sha256-TXpOvRJNwvNB2fU7xYWwylCIBqzMMkab/hha6ZukyRY=";
   };
 
   nativeBuildInputs = [
