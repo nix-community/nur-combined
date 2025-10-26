@@ -60,6 +60,7 @@ in
 buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.65";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "danielgatis";

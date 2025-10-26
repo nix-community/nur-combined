@@ -96,7 +96,7 @@ stdenv.mkDerivation {
         postFetch = ''
           find -not -regex ".*/rfc95[0-9][0-9][0-9]\\.txt" -delete
         '';
-        hash = "sha256-Tl0wy7cYk5KhwCxGMOtA0vLvLdIgtzrBqkKlU+h7htA=";
+        hash = "sha256-Yu1pwSJKp2PB38xVXrxlcbm5eS9zf0Fj/ZUVONef2tY=";
       })
     ];
   };

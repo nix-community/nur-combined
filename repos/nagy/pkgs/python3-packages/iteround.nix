@@ -1,12 +1,12 @@
 {
   lib,
-  buildPythonApplication,
+  buildPythonPackage,
   fetchFromGitHub,
   setuptools,
   wheel,
 }:
 
-buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "iteround";
   version = "1.0.4";
   pyproject = true;

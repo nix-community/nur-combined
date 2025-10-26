@@ -76,4 +76,15 @@
         git -C $out fetch $url $rev
         git -C $out update-ref HEAD $(git -C $out rev-list -n 1 FETCH_HEAD)
       '';
+
+  mkGitRepoFromBundleFile =
+    {
+      bundlefile,
+      git ? pkgs.git,
+    }:
+    pkgs.runCommandLocal "source" { nativeBuildInputs = [ git ]; } ''
+      git clone ${bundlefile} $out
+      cd $out
+      mkdir -p .git/info && echo '*.json -filter' > .git/info/attributes
+    '';
 }
