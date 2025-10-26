@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-fhFQBb8ez+zcmmFfI6IDGshEfPGe9lZacCzgyuiHjFc=";
   };
 
-  cargoHash = "sha256-IP7xBMpebpqcmAmw3pAHqQ3bZPo9HTin52P4BvoZZ34=";
+  cargoHash = "sha256-R/iNFG9zIoc7j9qeG9glU36DY++s0+elnHNoCoSL5DQ=";
 
   meta = with lib; {
     description = "Embed album covers to audio files";
