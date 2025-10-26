@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   patchPhase = ''
-    substituteInPlace misc/cmake/tlx.pc --replace "includedir=\''${prefix}" "includedir="
-    substituteInPlace misc/cmake/tlx.pc --replace "libdir=\''${exec_prefix}" "libdir="
+    substituteInPlace misc/cmake/tlx.pc --replace-fail "includedir=\''${prefix}" "includedir="
+    substituteInPlace misc/cmake/tlx.pc --replace-fail "libdir=\''${exec_prefix}" "libdir="
+    substituteInPlace CMakeLists.txt --replace-fail "VERSION 2.8.12" "VERSION 3.15"
   '';
 
   nativeBuildInputs = [ cmake ];
