@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  cfg = config.services.pdns-recursor;
+in
 {
   services.pdns-recursor = {
     # exportHosts = true;
@@ -27,8 +30,8 @@
     };
   };
 
-  networking.nameservers = lib.mkIf config.services.pdns-recursor.enable [ "127.0.0.1" ];
+  networking.nameservers = lib.mkIf cfg.enable [ "127.0.0.1" ];
 
   # TODO PR this upstream
-  environment.systemPackages = lib.mkIf config.services.pdns-recursor.enable [ pkgs.pdns-recursor ];
+  environment.systemPackages = lib.mkIf cfg.enable [ pkgs.pdns-recursor ];
 }
