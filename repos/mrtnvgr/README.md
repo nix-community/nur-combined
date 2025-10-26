@@ -34,10 +34,6 @@
 - [artworks](https://github.com/mrtnvgr/artworks)
 - [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
 
-#### Other
-
-- [reaper-sws-extension](https://www.sws-extension.org)
-
 ### Fetchers
 
 - **fetchurl-gz** - `fetchurl` but with decompression support
