@@ -315,10 +315,10 @@
   "javascript": {
     "nurl": {
       "args": {
-        "hash": "sha256-rfOAn5S8E2RunlRyY1aTs7j0r6UGKH+732xdpk/5524=",
+        "hash": "sha256-apgWWYD0XOvH5c3BY7kAF7UYtwPJaEvJzC5aWvJ9YQ8=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-javascript",
-        "rev": "f772967f7b7bc7c28f845be2420a38472b16a8ee"
+        "rev": "3a837b6f3658ca3618f2022f8707e29739c91364"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -327,10 +327,10 @@
   "typescript": {
     "nurl": {
       "args": {
-        "hash": "sha256-oZKit8kScXcOptmT2ckywL5JlAVe+wuwhuj6ThEI5OQ=",
+        "hash": "sha256-A0M6IBoY87ekSV4DfGHDU5zzFWdLjGqSyVr6VENgA+s=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-typescript",
-        "rev": "b1bf4825d9eaa0f3bdeb1e52f099533328acfbdf"
+        "rev": "75b3874edb2dc714fb1fd77a32013d0f8699989f"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -351,10 +351,10 @@
   "tsx": {
     "nurl": {
       "args": {
-        "hash": "sha256-oZKit8kScXcOptmT2ckywL5JlAVe+wuwhuj6ThEI5OQ=",
+        "hash": "sha256-A0M6IBoY87ekSV4DfGHDU5zzFWdLjGqSyVr6VENgA+s=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-typescript",
-        "rev": "b1bf4825d9eaa0f3bdeb1e52f099533328acfbdf"
+        "rev": "75b3874edb2dc714fb1fd77a32013d0f8699989f"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2657,10 +2657,10 @@
   "pest": {
     "nurl": {
       "args": {
-        "hash": "sha256-Jpp14NLungcVHvl7wyp6Egrc/ToNrZzwDSkXKD+Z3Uo=",
+        "hash": "sha256-S5qg/LLPlMmNtRTTi7vW8y/c+zcId7ADmMqIt0gqJBo=",
         "owner": "pest-parser",
         "repo": "tree-sitter-pest",
-        "rev": "a8a98a824452b1ec4da7f508386a187a2f234b85"
+        "rev": "c19629a0c50e6ca2485c3b154b1dde841a08d169"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2673,6 +2673,30 @@
         "owner": "Wilfred",
         "repo": "tree-sitter-elisp",
         "rev": "e5524fdccf8c22fc726474a910e4ade976dfc7bb"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "glimmer-javascript": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-4MSBaGdX5lvhvz2LyQb+NuQY9Vc5CFL0C6S3sO3Tz2U=",
+        "owner": "ember-tooling",
+        "repo": "tree-sitter-glimmer-javascript",
+        "rev": "5cc865a2a0a77cbfaf5062c8fcf2a9919bd54f87"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "glimmer-typescript": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-3cJI6vcbU62kUIhphprNeAl9RyY9TThrzVeArdLfxnI=",
+        "owner": "ember-tooling",
+        "repo": "tree-sitter-glimmer-typescript",
+        "rev": "12d98944c1d5077b957cbdb90d663a7c4d50118c"
       },
       "fetcher": "fetchFromGitHub"
     },

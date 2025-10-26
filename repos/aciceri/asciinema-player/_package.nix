@@ -4,13 +4,29 @@
   fetchFromGitHub,
   rustPlatform,
   lld,
-  wasm-bindgen-cli_0_2_92,
   cargo,
+  buildWasmBindgenCli,
+  fetchCrate,
   makeWrapper,
   writeShellScript,
   nix-update,
 }:
+let
+  wasm-bindgen-cli_0_2_92 = buildWasmBindgenCli rec {
+    src = fetchCrate {
+      pname = "wasm-bindgen-cli";
+      version = "0.2.92";
+      hash = "sha256-1VwY8vQy7soKEgbki4LD+v259751kKxSxmo/gqE6yV0=";
+    };
 
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit src;
+      inherit (src) pname version;
+      hash = "sha256-81vQkKubMWaX0M3KAwpYgMA1zUQuImFGvh5yTW+rIAs=";
+    };
+  };
+
+in
 buildNpmPackage rec {
   pname = "asciinema-player";
   version = "3.12.1";
