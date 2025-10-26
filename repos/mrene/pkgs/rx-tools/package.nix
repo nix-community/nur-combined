@@ -24,6 +24,10 @@ stdenv.mkDerivation rec {
     soapysdr-with-plugins
   ];
 
+  cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
+
   meta = with lib; {
     description = "Rx_fm, rx_power, and rx_sdr tools for receiving data from SDRs, based on rtl_fm, rtl_power, and rtl_sdr from librtlsdr, but using the SoapySDR vendor-neutral SDR support library instead, intended to support a wider range of devices than RTL-SDR";
     homepage = "https://github.com/rxseger/rx_tools";

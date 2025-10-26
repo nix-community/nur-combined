@@ -5,5 +5,7 @@ openrgb.overrideAttrs (old: {
   buildInputs = old.buildInputs ++ [systemd];
   meta = old.meta // {
     description = "OpenRGB is a utility designed to manage RGB lighting for devices supporting the OpenRGB SDK (with systemd SD_NOTIFY patch)";
+    # Broken due to upstream OpenRGB Qt 6 API compatibility issues in nixpkgs
+    broken = true;
   };
 })

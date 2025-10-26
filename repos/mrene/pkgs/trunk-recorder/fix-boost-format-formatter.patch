@@ -1,0 +1,13 @@
+diff --git a/lib/op25_repeater/include/op25_repeater/iqfile_source.h b/lib/op25_repeater/include/op25_repeater/iqfile_source.h
+index 1234567..abcdefg 100644
+--- a/lib/op25_repeater/include/op25_repeater/iqfile_source.h
++++ b/lib/op25_repeater/include/op25_repeater/iqfile_source.h
+@@ -34,7 +34,7 @@ template <>
+ struct fmt::formatter<boost::format> : fmt::detail::native_formatter<fmt::string_view, char, fmt::detail::type::string_type>
+ {
+     template <typename FormatContext>
+-    auto format(const boost::format& bfmt, FormatContext& ctx)
++    auto format(const boost::format& bfmt, FormatContext& ctx) const
+     {
+         return fmt::detail::native_formatter<fmt::string_view, char, fmt::detail::type::string_type>::format(bfmt.str(), ctx);
+     }

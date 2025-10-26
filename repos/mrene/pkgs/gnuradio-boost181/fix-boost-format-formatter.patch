@@ -1,0 +1,13 @@
+diff --git a/gnuradio-runtime/include/gnuradio/logger.h b/gnuradio-runtime/include/gnuradio/logger.h
+index 1234567..abcdefg 100644
+--- a/gnuradio-runtime/include/gnuradio/logger.h
++++ b/gnuradio-runtime/include/gnuradio/logger.h
+@@ -320,7 +320,7 @@ template <>
+ struct fmt::formatter<boost::format> : formatter<string_view> {
+     // parse is inherited from formatter<string_view>.
+     template <typename FormatContext>
+-    auto format(const boost::format& bfmt, FormatContext& ctx)
++    auto format(const boost::format& bfmt, FormatContext& ctx) const
+         -> decltype(formatter<string_view>::format(bfmt.str(), ctx))
+     {
+         return formatter<string_view>::format(bfmt.str(), ctx);
