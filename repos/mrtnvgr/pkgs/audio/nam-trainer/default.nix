@@ -1,5 +1,7 @@
 { lib, fetchFromGitHub, fetchPypi, python3Packages }:
 let
+  inherit (python3Packages) setuptools;
+
   wavio = python3Packages.buildPythonPackage rec {
     pname = "wavio";
     version = "0.0.8";
@@ -10,6 +12,9 @@ let
     };
 
     dependencies = with python3Packages; [ numpy ];
+
+    pyproject = true;
+    build-system = [ setuptools ];
   };
 
   auraloss = python3Packages.buildPythonPackage rec {
@@ -25,10 +30,13 @@ let
     patchPhase = "rm pyproject.toml";
 
     dependencies = with python3Packages; [ numpy torch scipy matplotlib ];
+
+    pyproject = true;
+    build-system = [ setuptools ];
   };
 in
 python3Packages.buildPythonApplication rec {
-  pname = "neural-amp-modeler";
+  pname = "nam-trainer";
   version = "0.9.0";
 
   src = fetchFromGitHub {
@@ -39,6 +47,9 @@ python3Packages.buildPythonApplication rec {
   };
 
   dependencies = with python3Packages; [ numpy torch wavio transformers sounddevice scipy pytorch-lightning pydantic onnxruntime onnx matplotlib auraloss pytest ];
+
+  pyproject = true;
+  build-system = [ setuptools ];
 
   meta = with lib; {
     description = "Neural network emulator for guitar amplifiers";
