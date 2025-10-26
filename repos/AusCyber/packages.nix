@@ -60,26 +60,16 @@ lib.fix (self: {
   };
   desktoppr = builtins.trace "desktoppr is now in nixpkgs" pkgs.callPackage ./pkgs/desktoppr {
   };
-  kanata = (
-    (pkgs.callPackage sources.nixpkgs-master.extract."pkgs/by-name/ka/kanata/package.nix" {
+  kanata = pkgs.kanata.overrideAttrs (oldAttrs: {
 
-      inherit (self) karabiner-dk;
-      inherit lib;
-    }).overrideAttrs
-      (oldAttrs: {
-
-        inherit (sources.kanata) src version;
-        passthru = oldAttrs.passthru // {
-          darwinDriverVersion = "6.2.0";
-        };
-        doInstallCheck = false;
-        cargoDeps = pkgs.rustPlatform.importCargoLock sources.kanata.cargoLock."Cargo.lock";
-      })
-  );
-  karabiner-dk =
-    pkgs.callPackage sources.nixpkgs-master.extract."pkgs/by-name/ka/karabiner-dk/package.nix"
-      { inherit lib; };
-
+    inherit (sources.kanata) src version;
+    passthru = oldAttrs.passthru // {
+      darwinDriverVersion = "6.2.0";
+    };
+    doInstallCheck = false;
+    cargoDeps = pkgs.rustPlatform.importCargoLock sources.kanata.cargoLock."Cargo.lock";
+  });
+  karabiner-dk = builtins.trace "karabiner-dk is now in nixpkgs" pkgs.karabiner-dk;
   kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
     source = sources.kanata-vk-agent;
   };

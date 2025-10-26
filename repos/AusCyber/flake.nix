@@ -1,8 +1,7 @@
 {
   description = "My personal NUR repository";
-  inputs.nvfetcher.url = "github:auscyber/nvfetcher";
+  inputs.nvfetcher.url = "github:berberman/nvfetcher";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixpkgs-master.url = "github:NixOS/nixpkgs";
   inputs.fenix.url = "github:nix-community/fenix";
   outputs =
     inputs@{ self, nixpkgs, ... }:

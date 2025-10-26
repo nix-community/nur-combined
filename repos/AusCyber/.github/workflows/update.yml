@@ -23,8 +23,16 @@ jobs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
+    - name: Setup cachix
+      uses: cachix/cachix-action@v15
+      # Don't replace <YOUR_CACHIX_NAME> here!
+      with:
+        name: 'auscyber'
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
     - name: Update sources
-      run: nix run .#nvfetcher -I nixpkgs=$(nix-instantiate --find-file nixpkgs)
+      run: nix run github:berberman/nvfetcher
     - name: update docs
       run: nix run .#docs
     - name: Create Pull Request

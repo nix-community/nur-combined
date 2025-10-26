@@ -45,8 +45,6 @@ fetch.github = "imputnet/helium-linux"
 [flake-compat]
 src.manual = "flake-compat"
 fetch.tarball = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz"
+tarball.name = "flake-compat.tar.gz"
 extract = ["default.nix"]
-[nixpkgs-master]
-src.manual = "nixpkgs-master"
-fetch.tarball = "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
-extract = ["pkgs/by-name/ka/kanata/**", "pkgs/by-name/ka/karabiner-dk/**"]
+
