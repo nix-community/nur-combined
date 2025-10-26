@@ -1,49 +1,59 @@
 {
   lib,
   stdenv,
+  buildNpmPackage,
   fetchFromGitHub,
-  electron_37,
-  typescript,
-  nodejs,
-  pnpm,
+  electron_36,
+  dart-sass,
+  pnpm_10,
   darwin,
   copyDesktopItems,
   makeDesktopItem,
-  makeWrapper,
   nix-update-script,
 }:
 let
-  electron = electron_37;
-in
-stdenv.mkDerivation (finalAttrs: {
   pname = "feishin";
   version = "0.21.2";
 
   src = fetchFromGitHub {
     owner = "jeffvli";
     repo = "feishin";
-    rev = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-F5m0hsN1BLfiUcl2Go54bpFnN8ktn6Rqa/df1xxoCA4=";
   };
 
+  electron = electron_36;
+  pnpm = pnpm_10;
+in
+buildNpmPackage {
+  inherit pname version;
+
+  inherit src;
+
+  npmConfigHook = pnpm.configHook;
+
+  npmDeps = null;
   pnpmDeps = pnpm.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    fetcherVersion = 1;
-    hash = "sha256-tn0YzBgNUSsROgTpEjZ/EjK6FDyIFWslhFyCY7QEWko=";
+    inherit
+      pname
+      version
+      src
+      ;
+    fetcherVersion = 2;
+    hash = "sha256-5jEXdQMZ6a0JuhjPS1eZOIGsIGQHd6nKPI02eeR35pg=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    typescript
-    nodejs
-    pnpm.configHook
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ copyDesktopItems ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.autoSignDarwinBinariesHook ];
+  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
+  nativeBuildInputs =
+    lib.optionals (stdenv.hostPlatform.isLinux) [ copyDesktopItems ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.autoSignDarwinBinariesHook ];
 
   postPatch = ''
+    # release/app dependencies are installed on preConfigure
+    substituteInPlace package.json \
+      --replace-fail '"postinstall": "electron-builder install-app-deps",' ""
+
     # Don't check for updates.
     substituteInPlace src/main/index.ts \
       --replace-fail "autoUpdater.checkForUpdatesAndNotify();" ""
@@ -54,46 +64,48 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "process.resourcesPath" "'$out/share/feishin/resources'"
   '';
 
-  postBuild = ''
-    pnpm run build
-  ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # electron-builder appears to build directly on top of Electron.app, by overwriting the files in the bundle.
-    cp -r ${electron.dist}/Electron.app ./
-    find ./Electron.app -name 'Info.plist' | xargs -d '\n' chmod +rw
+  preBuild = ''
+    rm -r node_modules/.pnpm/sass-embedded-*
 
-    # Disable code signing during build on macOS.
-    # https://github.com/electron-userland/electron-builder/blob/fa6fc16/docs/code-signing.md#how-to-disable-code-signing-during-the-build-process-on-macos
-    export CSC_IDENTITY_AUTO_DISCOVERY=false
-    sed -i "/afterSign/d" package.json
-  ''
-  + ''
-    ./node_modules/.bin/electron-builder \
-    --publish always --linux \
-    --dir \
-      -c.electronDist=${if stdenv.hostPlatform.isDarwin then "./" else electron.dist} \
-      -c.electronVersion=${electron.version} \
-      -c.npmRebuild=false
+    test -d node_modules/.pnpm/sass-embedded@*
+    dir="$(echo node_modules/.pnpm/sass-embedded@*)/node_modules/sass-embedded/dist/lib/src/vendor/dart-sass"
+    mkdir -p "$dir"
+    ln -s ${dart-sass}/bin/dart-sass "$dir"/sass
   '';
+
+  postBuild =
+    lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # electron-builder appears to build directly on top of Electron.app, by overwriting the files in the bundle.
+      cp -r ${electron.dist}/Electron.app ./
+      find ./Electron.app -name 'Info.plist' | xargs -d '\n' chmod +rw
+
+      # Disable code signing during build on macOS.
+      # https://github.com/electron-userland/electron-builder/blob/fa6fc16/docs/code-signing.md#how-to-disable-code-signing-during-the-build-process-on-macos
+      export CSC_IDENTITY_AUTO_DISCOVERY=false
+      sed -i "/afterSign/d" package.json
+    ''
+    + ''
+      npm exec electron-builder -- \
+        --dir \
+        -c.electronDist=${if stdenv.hostPlatform.isDarwin then "./" else electron.dist} \
+        -c.electronVersion=${electron.version} \
+        -c.npmRebuild=false
+    '';
 
   installPhase = ''
     runHook preInstall
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/{Applications,bin}
-    cp -r release/build/**/Feishin.app $out/Applications/
+    cp -r dist/**/Feishin.app $out/Applications/
     makeWrapper $out/Applications/Feishin.app/Contents/MacOS/Feishin $out/bin/feishin
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/share/feishin
-    cp -r dist/linux-unpacked/locales dist/linux-unpacked/resources dist/linux-unpacked/resources.pak $out/share/feishin
 
-    for size in 32 64 128 256 512 1024; do
-      mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      ln -s \
-        $out/share/feishin/resources/assets/icons/"$size"x"$size".png \
-        $out/share/icons/hicolor/"$size"x"$size"/apps/feishin.png
-    done
+    pushd dist/*-unpacked/
+    cp -r locales resources{,.pak} $out/share/feishin
+    popd
 
     # Code relies on checking app.isPackaged, which returns false if the executable is electron.
     # Set ELECTRON_FORCE_IS_PACKAGED=1.
@@ -103,6 +115,13 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
       --set ELECTRON_FORCE_IS_PACKAGED=1 \
       --inherit-argv0
+
+    for size in 32 64 128 256 512 1024; do
+      mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
+      ln -s \
+        $out/share/feishin/resources/assets/icons/"$size"x"$size".png \
+        $out/share/icons/hicolor/"$size"x"$size"/apps/feishin.png
+    done
   ''
   + ''
     runHook postInstall
@@ -128,7 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Full-featured Subsonic/Jellyfin compatible desktop music player";
     homepage = "https://github.com/jeffvli/feishin";
-    changelog = "https://github.com/jeffvli/feishin/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/jeffvli/feishin/releases/tag/v${version}";
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
@@ -136,7 +155,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       onny
       jlbribeiro
-      ataraxiasjel
     ];
   };
-})
+}
