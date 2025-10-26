@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "seq";
-  version = "1.1.0";
+  version = "2.0";
 
   src = fetchFromGitHub {
     owner = "Thermadiag";
     repo = "seq";
-    rev = "dadbf3f6002acd89719c3110cf7441a71e0fc5b4";
-    sha256 = "sha256-MKm1koQ9FRvfjB32UpWP3eZtVI5Idwm77JaBNUW32H0=";
+    rev = "v${version}";
+    sha256 = "sha256-42srgHQY7A74iw1Rsn88cxAxa5QlZWPGis+xJswp6RI=";
   };
 
   nativeBuildInputs = [ cmake ];

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ned14-outcome";
-  version = "2.2.11";
+  version = "2.2.13";
 
   src = fetchFromGitHub {
     owner = "ned14";
     repo = "outcome";
-    rev = "0a91b4ef5c0ee391172998586761f306ce82ae52";
-    hash = "sha256-Shjw+2AJYbC25kOJEaeTmqZzd5nQhz0Fe+lxCmR9mcg=";
+    rev = "744da6b7536f2850df972ab01504e3c4d9530149";
+    hash = "sha256-YNA9te9eWIAdclembi4WPEjHGpRh6TPZS8UsCDky+/M=";
   };
 
   nativeBuildInputs = [ cmake git byte-lite quickcpplib status-code span-lite ];
@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_DISABLE_FIND_PACKAGE_Git=ON"
   ];
 
-  patches = [ ./fix-status-code-include.patch ];
-
   preConfigure = ''
     substituteInPlace CMakeLists.txt --replace-fail find_dependency find_package
+    mkdir -p include/outcome/experimental/status-code
+    cp -r ${status-code}/* include/outcome/experimental/status-code/
   '';
 
   meta = with lib; {
