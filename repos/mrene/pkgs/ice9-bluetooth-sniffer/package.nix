@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation {
   pname = "ice9-bluetooth-sniffer";
-  version = "unstable-2023-10-04";
+  version = "23.06.0";
 
   src = fetchFromGitHub {
     owner = "mikeryan";

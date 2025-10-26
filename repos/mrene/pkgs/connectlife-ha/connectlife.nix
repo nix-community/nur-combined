@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "connectlife";
-  version = "unstable-2024-08-14";
+  version = "0.5.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "oyvindwe";
     repo = "connectlife";
-    rev = "7cef61203742cf07987d2754a3eb3c5cfab4ec58";
-    hash = "sha256-2CDq3Vw+Wst2kVc7fI8RY58z0vTA/3+vnX0/CduiPck=";
+    rev = "v${version}";
+    hash = "sha256-KZOOLAg6Uq8E7oqArTvw4O1vfZO08bRnODH+UZLubGU=";
   };
 
   build-system = [

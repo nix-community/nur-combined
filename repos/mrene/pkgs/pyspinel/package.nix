@@ -5,7 +5,7 @@
 
 python3.pkgs.buildPythonApplication {
   pname = "pyspinel";
-  version = "unstable-2023-09-21";
+  version = "1.0.3";
   pyproject = true;
 
   src = fetchFromGitHub {

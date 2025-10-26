@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation rec {
   pname = "rx-tools";
-  version = "unstable-2019-03-31";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "rxseger";

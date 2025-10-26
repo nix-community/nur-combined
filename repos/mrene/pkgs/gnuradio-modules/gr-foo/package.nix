@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-foo";
-  version = "unstable-2023-07-28";
+  version = "deprecated_next_branch";
 
   src = fetchFromGitHub {
     owner = "bastibl";

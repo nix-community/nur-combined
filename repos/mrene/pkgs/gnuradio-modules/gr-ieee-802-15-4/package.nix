@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-ieee802-15-4";
-  version = "unstable-2023-07-28";
+  version = "3.6";
 
   src = fetchFromGitHub {
     owner = "bastibl";

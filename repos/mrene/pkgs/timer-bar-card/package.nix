@@ -7,7 +7,7 @@
 
 buildNpmPackage rec {
   pname = "timer-bar-card";
-  version = "unstable-2024-05-05";
+  version = "1.31.1";
 
   src = fetchFromGitHub {
     owner = "rianadon";

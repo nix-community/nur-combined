@@ -6,16 +6,16 @@
 
 buildNpmPackage rec {
   pname = "lovelace-auto-entities";
-  version = "1.13.0";
+  version = "1.16.1";
 
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-auto-entities";
     rev = "v${version}";
-    hash = "sha256-ls8Jqt5SdiY5ROhtaSS4ZvoY+nHv6UB1RYApOJzC1VQ=";
+    hash = "sha256-yMqf4LA/fBTIrrYwacUTb2fL758ZB1k471vdsHAiOj8=";
   };
   
-  npmDepsHash = "sha256-9z4YzLNxNh7I4yFxuPT3/erZO4itAiqyxL1a0pUTFRs=";
+  npmDepsHash = "sha256-XLhTLK08zW1BFj/PI8/61FWzoyvWi5X5sEkGlF1IuZU=";
 
   installPhase = ''
     runHook preInstall

@@ -6,7 +6,7 @@
 
 buildNpmPackage rec {
   pname = "lovelace-slider-entity-row";
-  version = "17.4.1";
+  version = "17.5.0";
 
   src = fetchFromGitHub {
     owner = "thomasloven";

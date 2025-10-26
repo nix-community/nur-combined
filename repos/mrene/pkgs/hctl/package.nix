@@ -7,7 +7,7 @@
 
 buildGoModule rec {
   pname = "hctl";
-  version = "0.5-unstable-2024-10-27";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "xx4h";

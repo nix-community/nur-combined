@@ -7,7 +7,7 @@
 
 buildHomeAssistantComponent rec {
   pname = "openrgb-ha";
-  version = "2-unstable-2024-10-2";
+  version = "2.4";
 
   owner = "koying";
   domain = "openrgb";

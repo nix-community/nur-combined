@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-pdu-utils";
-  version = "unstable-2022-11-28";
+  version = "1.2";
 
   # src = ./gr-pdu_utils;
   src = fetchFromGitHub {

@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-timing-utils";
-  version = "unstable-2023-02-15";
+  version = "1.2";
 
   src = fetchFromGitHub {
     owner = "sandialabs";

@@ -8,18 +8,18 @@
 
 maven.buildMavenPackage rec {
   pname = "irp-transmogrifier";
-  version = "1.2.13";
+  version = "1.2.14";
 
   src = fetchFromGitHub {
     owner = "bengtmartensson";
     repo = "IrpTransmogrifier";
     rev = "Version-${version}";
-    hash = "sha256-95zLjKNx0SqvMM8r7kx49OOPcjrM3RrOKmlfwUa0IJQ=";
+    hash = "sha256-nG5TMtdUoiJQ+SXlCbxfhU5WVpgLwV3vFDxj4yeGKYI=";
   };
 
   nativeBuildInputs = [ libxslt jre makeWrapper ];
 
-  mvnHash = "sha256-NZdKuhuI7eAxLweMqTiyVwElLcB3BQAL5YCw7qGtNtU=";
+  mvnHash = "sha256-kifaJzPCheWAoiv7XUT96v8xuid8gJqAD26RaaJEXs8=";
   mvnParameters = "-Dmaven.gitcommitid.skip=true -Dgit.commit.id=${src.rev}";
 
   makeFlags = [

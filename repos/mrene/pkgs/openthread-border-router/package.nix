@@ -16,7 +16,7 @@
 }:
 let
   pname = "ot-br-posix";
-  version = "unstable-2024-09-27";
+  version = "thread-reference-20250612";
 
   src = fetchFromGitHub {
       owner = "openthread";

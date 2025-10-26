@@ -12,7 +12,7 @@
 }:
 buildGoModule rec {
   pname = "jira-cli-go";
-  version = "1.5.1";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "ankitpokhrel";

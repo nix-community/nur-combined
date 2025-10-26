@@ -20,14 +20,14 @@
 
 stdenv.mkDerivation rec {
   pname = "trunk-recorder";
-  version = "5.0.0";
+  version = "5.1.0";
 
   # src = ./trunk-recorder;
   src = fetchFromGitHub {
     owner = "robotastic";
     repo = "trunk-recorder";
     rev = "v${version}";
-    hash = "sha256-KcLHE+3NLhEKMJ8y74l384lhoOMG9oy7F+iXpV+y5+Y=";
+    hash = "sha256-Bta/NP+ApWTZat0IwUd4TXdajWDUZ9Be7TFRs6Q3u90=";
   };
 
   nativeBuildInputs = [
