@@ -1003,7 +1003,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2025-10-11",
+        "date": "2025-10-25",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1015,12 +1015,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "27ce9e529a79e48af1d20acff6b60820126cc28c",
-            "sha256": "sha256-fxXY9ONvZEW3G839BdFNeRHRAYeQg3Dl8XNQjvB34Dk=",
+            "rev": "db548d90b36bcd9c09edfe367e81a2c366a95105",
+            "sha256": "sha256-lncL6BQtaHISywBTFWIAGd1zsj1LGbC834Wsq27vBMo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "27ce9e529a79e48af1d20acff6b60820126cc28c"
+        "version": "db548d90b36bcd9c09edfe367e81a2c366a95105"
     },
     "etherguard": {
         "cargoLock": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6837",
-            "sha256": "sha256-0cc1kCp93HgFw53kdH37GIotHiKK8Ky5F2bzbVW0IP4=",
+            "rev": "b6840",
+            "sha256": "sha256-pWvV7AXYFvSYmOODWPOmq0akYh/DKwkYbMZhjSzOPzE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6837"
+        "version": "b6840"
     },
     "loralib": {
         "cargoLock": null,
@@ -3480,7 +3480,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2025-10-23",
+        "date": "2025-10-26",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3492,12 +3492,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "4db84da6e97f1ffc0812f343ecc36c1f737154a2",
-            "sha256": "sha256-mcMm27CUpYlaN094qc0x47uDczeqKZ8+WJ4xA5vjPfw=",
+            "rev": "001d9d929c60d906bcfeecf185662445b8e685f0",
+            "sha256": "sha256-oyIKxXBXd3Jj8fhfGZ91nQuDhTvDhuBR9R62fCtADmQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4db84da6e97f1ffc0812f343ecc36c1f737154a2"
+        "version": "001d9d929c60d906bcfeecf185662445b8e685f0"
     },
     "qsp-stable": {
         "cargoLock": null,

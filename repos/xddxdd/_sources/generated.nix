@@ -526,14 +526,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "27ce9e529a79e48af1d20acff6b60820126cc28c";
+    version = "db548d90b36bcd9c09edfe367e81a2c366a95105";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "27ce9e529a79e48af1d20acff6b60820126cc28c";
-      hash = "sha256-fxXY9ONvZEW3G839BdFNeRHRAYeQg3Dl8XNQjvB34Dk=";
+      rev = "db548d90b36bcd9c09edfe367e81a2c366a95105";
+      hash = "sha256-lncL6BQtaHISywBTFWIAGd1zsj1LGbC834Wsq27vBMo=";
     };
-    date = "2025-10-11";
+    date = "2025-10-25";
   };
   etherguard = {
     pname = "etherguard";
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6837";
+    version = "b6840";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6837";
-      hash = "sha256-0cc1kCp93HgFw53kdH37GIotHiKK8Ky5F2bzbVW0IP4=";
+      tag = "b6840";
+      hash = "sha256-pWvV7AXYFvSYmOODWPOmq0akYh/DKwkYbMZhjSzOPzE=";
     };
   };
   loralib = {
@@ -1790,14 +1790,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "4db84da6e97f1ffc0812f343ecc36c1f737154a2";
+    version = "001d9d929c60d906bcfeecf185662445b8e685f0";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "4db84da6e97f1ffc0812f343ecc36c1f737154a2";
-      hash = "sha256-mcMm27CUpYlaN094qc0x47uDczeqKZ8+WJ4xA5vjPfw=";
+      rev = "001d9d929c60d906bcfeecf185662445b8e685f0";
+      hash = "sha256-oyIKxXBXd3Jj8fhfGZ91nQuDhTvDhuBR9R62fCtADmQ=";
     };
-    date = "2025-10-23";
+    date = "2025-10-26";
   };
   qsp-stable = {
     pname = "qsp-stable";
