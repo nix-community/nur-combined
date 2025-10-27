@@ -17,4 +17,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   yakit = pkgs.callPackage ./pkgs/yakit { };
+  sliver = pkgs.callPackage ./pkgs/sliver { };
 }
