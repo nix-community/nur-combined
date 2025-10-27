@@ -422,7 +422,7 @@
   "legacyPackages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "3.9.9-unstable-2025-10-17"
+    "version": "3.9.9-unstable-2025-10-26"
   },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6840"
+    "version": "6853"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4077,7 +4077,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.9"
+    "version": "9.0.10"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4277,7 +4277,7 @@
   "legacyPackages.x86_64-linux.python3Packages.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.1"
+    "version": "4.2.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
@@ -4447,7 +4447,7 @@
   "legacyPackages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.1"
+    "version": "4.2.1"
   },
   "legacyPackages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
@@ -4577,7 +4577,7 @@
   "legacyPackages.x86_64-linux.uncategorized.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "3.9.9-unstable-2025-10-17"
+    "version": "3.9.9-unstable-2025-10-26"
   },
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
@@ -4987,7 +4987,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.9"
+    "version": "9.0.10"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5437,7 +5437,7 @@
   "packages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "3.9.9-unstable-2025-10-17"
+    "version": "3.9.9-unstable-2025-10-26"
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -6037,7 +6037,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.9"
+    "version": "9.0.10"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -6247,7 +6247,7 @@
   "packages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
     "pname": "python3.13-smfc",
-    "version": "4.1.1"
+    "version": "4.2.1"
   },
   "packages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",

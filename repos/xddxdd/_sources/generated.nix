@@ -118,14 +118,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "d48f40c4e4ac4d63d08c9e6e0494310ce2678806";
+    version = "f023c763f8e9bb094d208f3580c7d7755667e841";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "d48f40c4e4ac4d63d08c9e6e0494310ce2678806";
-      hash = "sha256-1betzuwDG7wPjeo8uK2ZyItrA4hgfK2IsSYjiVJxImo=";
+      rev = "f023c763f8e9bb094d208f3580c7d7755667e841";
+      hash = "sha256-XiCjwSNQwWDylahPR5v3Wbp+R8ntI3LatT8ZGYVAXic=";
     };
-    date = "2025-10-17";
+    date = "2025-10-26";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -222,25 +222,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "3df891a2a165109bddcc57d4e4d04ee70ada8d42";
+    version = "b9130f1575ea562a5596c05ef613dd8b0eeae2da";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "3df891a2a165109bddcc57d4e4d04ee70ada8d42";
-      hash = "sha256-wwecdta2xjRzWIDZbgigZdSIQRC9jdNNa5Va1uX+3zc=";
+      rev = "b9130f1575ea562a5596c05ef613dd8b0eeae2da";
+      hash = "sha256-bQ6jwh4cpdO+SiYWHSSJJvyKGwwwQbMLdJKOs5XaWzY=";
     };
-    date = "2025-10-25";
+    date = "2025-10-27";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "b6045ec5a50b75b2553f65314a651a2aa953dc13";
+    version = "157f3bc43ef0f448bc094e04c8fe062fe291467e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "b6045ec5a50b75b2553f65314a651a2aa953dc13";
-      hash = "sha256-ANmrchsVt435Z01AymbIeiSxdCFrQaTMOWVmcFUNd/A=";
+      rev = "157f3bc43ef0f448bc094e04c8fe062fe291467e";
+      hash = "sha256-JIBj0Fji4fDUSql110UltYk/EV6dO75mNixCI6Wr/+Q=";
     };
-    date = "2025-10-25";
+    date = "2025-10-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6840";
+    version = "b6853";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6840";
-      hash = "sha256-pWvV7AXYFvSYmOODWPOmq0akYh/DKwkYbMZhjSzOPzE=";
+      tag = "b6853";
+      hash = "sha256-YNIFaDFM5j+AXGPWqsk2piY12bekNI1X+mZxObKKsCw=";
     };
   };
   loralib = {
@@ -1518,10 +1518,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.0.9";
+    version = "9.0.10";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.0.9/PeerBanHelper_9.0.9.zip";
-      hash = "sha256-ZxijayRx7pJTiq1q8syEBmRds4HVxIE6QHxFaR8mrdY=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.0.10/PeerBanHelper_9.0.10.zip";
+      hash = "sha256-Bwm0rICeDeH4Mi1P/M+Qc5Rmdr3u/bRx4vsAJHsOYaI=";
     };
   };
   phpmyadmin = {
@@ -2020,12 +2020,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v4.1.1";
+    version = "v4.2.1";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v4.1.1";
-      hash = "sha256-kJaaFqpNin1pmyMbS1EEZA5iv8S1vb89Yv627cfuKP8=";
+      tag = "v4.2.1";
+      hash = "sha256-z5SYjo6c8gXaG4Ez/Fd6RzTnGj5EloRa3NbFfKh8+qw=";
     };
   };
   soggy = {
