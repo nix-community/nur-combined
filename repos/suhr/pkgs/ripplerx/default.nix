@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     install -Dm755 {RipplerX_artefacts/Release/Standalone,$out/bin}/RipplerX
-    mkdir -p $out/lib/vst3
+    mkdir -p $out/lib/vst3 $out/lib/lv2/RipplerX.lv2
     mv RipplerX_artefacts/Release/VST3/* $out/lib/vst3
     mv RipplerX_artefacts/Release/LV2/* $out/lib/lv2/RipplerX.lv2
   '';
