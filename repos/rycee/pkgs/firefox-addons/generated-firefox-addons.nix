@@ -2070,10 +2070,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.62.0";
+      version = "2.63.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4553538/competitive_companion-2.62.0.xpi";
-      sha256 = "0e41ef1293f128ab8ef34f1f5ed49340507b7410c08b3bb337b9f5806047b2a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606404/competitive_companion-2.63.0.xpi";
+      sha256 = "ec81a3680dc6528cb9687f1195983247600ba9e07395fe3afdd3c97b48b013db";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.3";
+      version = "2.0.4";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603740/kiss_translator-2.0.3.xpi";
-      sha256 = "a76a77e354464d64d039388dbf3d8533bc6f908180e86fff368c64307a6ffa23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606126/kiss_translator-2.0.4.xpi";
+      sha256 = "6b644e8eb1c4cd9ea84efb66fc2f8d352e0e416ba41e6bb3a39588839532f89f";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -7224,18 +7224,16 @@
     };
     "linkding-injector" = buildFirefoxXpiAddon {
       pname = "linkding-injector";
-      version = "1.3.5";
+      version = "1.3.6";
       addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4490938/linkding_injector-1.3.5.xpi";
-      sha256 = "b3dd1ce98c2b0e60b4a99f61ec435de456e2d2c4f3ab3c31cd7af56eb47dad61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606187/linkding_injector-1.3.6.xpi";
+      sha256 = "32bb0e9560fa07a6dccdd8dcbfec687bdd3545e1a4ee5e078d41e785575545dd";
       meta = with lib;
       {
         homepage = "https://github.com/Fivefold/linkding-injector";
         description = "Injects search results from the linkding bookmark service into search pages like google and duckduckgo";
         license = licenses.mit;
         mozPermissions = [
-          "https://*/*"
-          "http://*/*"
           "storage"
           "*://duckduckgo.com/*"
           "*://search.brave.com/*"
@@ -15554,10 +15552,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.9.4";
+      version = "3.10.0";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4595773/youtube_redux-3.9.4.xpi";
-      sha256 = "6e8889f9b4d48880bf8d1c56abe0e4dfafc1bf86431d0a859c343bb7418957cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606400/youtube_redux-3.10.0.xpi";
+      sha256 = "fc90e5b9792e49e1a5796ec2039ee83e7773ea94d5a95b89c6383b973aef1879";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
