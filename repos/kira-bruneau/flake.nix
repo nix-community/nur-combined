@@ -118,7 +118,10 @@
                 package = flatNurPkgs.${name};
                 attrPath = builtins.replaceStrings [ "/" ] [ "." ] name;
               in
-              if package ? updateScript then [ { inherit package attrPath; } ] else [ ]
+              if package ? updateScript && !(package.skipBulkUpdate or false) then
+                [ { inherit package attrPath; } ]
+              else
+                [ ]
             ) (builtins.attrNames flatNurPkgs);
 
             inherit nixpkgs;

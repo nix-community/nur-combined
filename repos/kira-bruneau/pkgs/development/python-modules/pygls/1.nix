@@ -19,7 +19,6 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = "pygls";
@@ -59,6 +58,8 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck = [ "pygls" ];
+
+  passthru.skipBulkUpdate = true;
 
   meta = {
     description = "Pythonic generic implementation of the Language Server Protocol";
