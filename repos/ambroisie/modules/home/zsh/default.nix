@@ -8,6 +8,10 @@ in
 
     launchTmux = mkEnableOption "auto launch tmux at shell start";
 
+    completionSync = {
+      enable = mkEnableOption "zsh-completion-sync plugin";
+    };
+
     notify = {
       enable = mkEnableOption "zsh-done notification";
 
@@ -117,6 +121,18 @@ in
         enableVteIntegration = true;
       };
     }
+
+    (lib.mkIf cfg.completionSync.enable {
+      programs.zsh = {
+        plugins = [
+          {
+            name = "zsh-completion-sync";
+            file = "share/zsh-completion-sync/zsh-completion-sync.plugin.zsh";
+            src = pkgs.zsh-completion-sync;
+          }
+        ];
+      };
+    })
 
     (lib.mkIf cfg.notify.enable {
       programs.zsh = {
