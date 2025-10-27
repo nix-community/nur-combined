@@ -13,4 +13,5 @@ rec {
   iosevka-term = pkgs.callPackage ./pkgs/iosevka/term.nix { };
   # why3 = pkgs.callPackage ./pkgs/why3 { };
   pianoteq-stage = pkgs.callPackage ./pkgs/pianoteq-stage { };
+  ripplerx = pkgs.callPackage ./pkgs/ripplerx { };
 }
