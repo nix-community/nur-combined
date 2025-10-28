@@ -39,10 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_BUILD_TYPE=Release"
   ];
 
-  postPatch = ''
-    sed -i -E 's/cmake_minimum_required\s*\(\s*VERSION[^)]*\)/cmake_minimum_required(VERSION 3.10)/' CMakeLists.txt
-  '';
-
   # Use standard CMake phases; run Gradle after native build via postBuild hook
   postBuild = ''
     : "${"cmakeBuildDir:=build"}"
