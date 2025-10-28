@@ -6,7 +6,7 @@ on:
       - main
       - master
   schedule:
-    - cron:  '33 * * * *'
+    - cron:  '11 */6 * * *'
   workflow_dispatch:
 jobs:
   tests:
