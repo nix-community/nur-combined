@@ -1,0 +1,97 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b2f6089..491a257 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -16,14 +16,6 @@ if (NANOBENCH_STANDALONE_PROJECT)
+     set(CMAKE_CXX_STANDARD_REQUIRED ON)
+     set(CMAKE_CXX_EXTENSIONS OFF)
+ 
+-    # configuration see .clang-tidy
+-    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+-        find_program(CLANG_TIDY_PROGRAM NAMES clang-tidy)
+-        if(CLANG_TIDY_PROGRAM)
+-            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_PROGRAM}")
+-        endif()
+-    endif()
+-
+     find_program(CCACHE_PROGRAM ccache)
+     if(CCACHE_PROGRAM)
+         SET(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+@@ -32,6 +24,14 @@ if (NANOBENCH_STANDALONE_PROJECT)
+     add_executable(nb "")
+ 
+     if (NB_sanitizer)
++        # configuration see .clang-tidy
++        if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
++            find_program(CLANG_TIDY_PROGRAM NAMES clang-tidy)
++            if(CLANG_TIDY_PROGRAM)
++                set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_PROGRAM}")
++            endif()
++        endif()
++
+         if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+             # see https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html#silencing-unsigned-integer-overflow
+             # Compile with -g and -fno-omit-frame-pointer to get proper debug information in your binary
+diff --git a/src/cmake/CMakeLists.txt b/src/cmake/CMakeLists.txt
+index 707d33e..4cdc924 100644
+--- a/src/cmake/CMakeLists.txt
++++ b/src/cmake/CMakeLists.txt
+@@ -37,7 +37,7 @@ function(add_compile_flags_target target)
+             target_compile_options(${target} PRIVATE -fdiagnostics-color)
+             target_compile_options(${target} PRIVATE -Wno-zero-as-null-pointer-constant) # doesn't work with spaceship operator
+         endif()
+-        target_compile_options(${target} PRIVATE -Werror)
++        # target_compile_options(${target} PRIVATE -Werror)
+         target_compile_options(${target} PRIVATE -pedantic)
+         target_compile_options(${target} PRIVATE -pedantic-errors)
+         target_compile_options(${target} PRIVATE -fvisibility=hidden)
+@@ -123,18 +123,18 @@ function(add_compile_flags_target target)
+         target_compile_options(${target} PRIVATE /permissive-)   # force standard conformance - this is the better flag than /Za
+         target_compile_options(${target} PRIVATE /W4)
+         # target_compile_options(${target} PRIVATE /Wall) # turns on warnings from levels 1 through 4 which are off by default - https://msdn.microsoft.com/en-us/library/23k5d385.aspx
+-        
++
+         add_definitions(/MP) # parallel builds
+ 
+-        target_compile_options(${target} PRIVATE 
++        target_compile_options(${target} PRIVATE
+             /wd4514 # unreferenced inline function has been removed
+             /wd4571 # SEH related
+             /wd4710 # function not inlined
+             /wd4711 # function 'x' selected for automatic inline expansion
+-            
++
+             /wd4616 # invalid compiler warnings - https://msdn.microsoft.com/en-us/library/t7ab6xtd.aspx
+             /wd4619 # invalid compiler warnings - https://msdn.microsoft.com/en-us/library/tacee08d.aspx
+-            
++
+             /wd4820 # padding in structs
+             /wd4625 # copy constructor was implicitly defined as deleted
+             /wd4626 # assignment operator was implicitly defined as deleted
+diff --git a/src/test/tutorial_context.cpp b/src/test/tutorial_context.cpp
+index 42907cc..a3fa766 100644
+--- a/src/test/tutorial_context.cpp
++++ b/src/test/tutorial_context.cpp
+@@ -7,7 +7,7 @@
+ namespace {
+ 
+ template <typename T>
+-void fma() {
++void fmaa() {
+     T x(1);
+     T y(2);
+     T z(3);
+@@ -39,11 +39,11 @@ TEST_CASE("tutorial_context") {
+     bench.context("scalar", "f32")
+         .context("foo", "bar")
+         .run("+=", plus_eq<float>)
+-        .run("fma", fma<float>);
++        .run("fma", fmaa<float>);
+     bench.context("scalar", "f64")
+         .context("foo", "baz")
+         .run("+=", plus_eq<double>)
+-        .run("fma", fma<double>);
++        .run("fma", fmaa<double>);
+     bench.render(csv(), std::cout);
+     // Changing the title resets the results, but not the context:
+     bench.title("New Title");

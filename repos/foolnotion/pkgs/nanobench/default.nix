@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  patches = [ ./fix_errors.patch ];
+
   cmakeFlags = [ "-DNB_sanitizer=OFF" ];
 
   meta = with lib; {
