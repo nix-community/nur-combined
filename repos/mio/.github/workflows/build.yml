@@ -43,7 +43,6 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable-small.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/staging-next.tar.gz
-          - nixpkgs=https://codeload.github.com/NixOS/nixpkgs/tar.gz/2fbfb821ecd9b238477e64fb8bc3724112f4e7b3
     runs-on: "${{ matrix.os }}"
     steps:
     - name: Maximize build space
