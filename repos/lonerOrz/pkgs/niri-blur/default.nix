@@ -24,7 +24,7 @@
   withSystemd ? true,
 }:
 let
-  raw-version = "1b8f467fa26014cf846c1960d93995b73f24e1e4";
+  raw-version = "25.8.0";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-blur";
