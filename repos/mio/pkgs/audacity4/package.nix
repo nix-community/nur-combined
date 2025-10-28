@@ -63,13 +63,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "audacity";
-  version = "4-unstable-20251018";
+  version = "4-unstable-20251028";
 
   src = fetchFromGitHub {
     owner = "audacity";
     repo = "audacity";
-    rev = "539764f311eb727b43096dee8180d5a8379517ae";
-    hash = "sha256-z+EBYfqq9wrStUm4HpiOsoLQ7P8h7FHdZtQ1yqWqyQc=";
+    # https://github.com/audacity/audacity/commits/master/
+    rev = "2e0abc1670d5528df58fff5a4affd0ccd51a3500";
+    hash = "sha256-QxNAjiyLkSUWkFpoCsEMEtpba1LpvPGy4nv46tZ9A20=";
     fetchSubmodules = true;
   };
 
@@ -92,6 +93,9 @@ stdenv.mkDerivation (finalAttrs: {
         
         # Add system library setup to SetupDependencies.cmake
         cat >> buildscripts/cmake/SetupDependencies.cmake << 'EOF'
+
+    # Find Qt6 GuiPrivate for KDDockWidgets
+    find_package(Qt6 REQUIRED COMPONENTS GuiPrivate)
 
     # Use system wxWidgets instead of populate
     find_package(wxWidgets REQUIRED COMPONENTS net base core adv html qa xml aui ribbon propgrid stc)
@@ -326,6 +330,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtshadertools # Qt Shader Tools
     qt6.qtscxml # Qt State Machines
     qt6.qttools # Includes LinguistTools
+    qt6.qtdeclarative # Provides Qt6::Gui and Qt6::GuiPrivate
     rapidjson
     serd
     sord
@@ -392,6 +397,11 @@ stdenv.mkDerivation (finalAttrs: {
     # Fix duplicate store paths
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
+
+  preConfigure = ''
+    # Add Qt6 private headers to include path
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${qt6.qtbase}/include/QtCore/${qt6.qtbase.version}/QtCore -I${qt6.qtbase}/include/QtGui/${qt6.qtbase.version}/QtGui"
+  '';
 
   # [ 57%] Generating LightThemeAsCeeCode.h...
   # ../../utils/image-compiler: error while loading shared libraries:

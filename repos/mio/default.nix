@@ -142,8 +142,6 @@ rec {
       (prev: {
         stdenv = v3Optimizations prev.stdenv;
       });
-  audacity4 = (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { }).override (prev: {
-    stdenv = v3Optimizations prev.stdenv;
-  });
+  audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
 }
