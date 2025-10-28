@@ -79,7 +79,7 @@ rec {
       });
   wireguird = (pkgs.callPackage ./pkgs/wireguird { }).overrideAttrs (
     finalAttrs: previousAttrs: {
-      GOAMD64 = "v3";
+      GOAMD64 = if pkgs.stdenv.hostPlatform.isx86_64 then "v3" else null;
     }
   );
   example-package = pkgs.callPackage ./pkgs/example-package { };
