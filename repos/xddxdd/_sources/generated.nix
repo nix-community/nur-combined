@@ -410,12 +410,12 @@
   };
   deeplx = {
     pname = "deeplx";
-    version = "v1.0.9";
+    version = "v1.1.0";
     src = fetchFromGitHub {
       owner = "OwO-Network";
       repo = "DeepLX";
-      tag = "v1.0.9";
-      hash = "sha256-aJZ6DLq/1XsGevVlKowf1cFhq5cIKLUVNt9XTEx5++Q=";
+      tag = "v1.1.0";
+      hash = "sha256-LJC9iSH9XrX87hqhZVLgmSml7wLj6G0H6RE6kxKVyFg=";
     };
   };
   dingtalk = {
@@ -526,14 +526,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "db548d90b36bcd9c09edfe367e81a2c366a95105";
+    version = "c745c72103067308fc1a39799731e52f4353477c";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "db548d90b36bcd9c09edfe367e81a2c366a95105";
-      hash = "sha256-lncL6BQtaHISywBTFWIAGd1zsj1LGbC834Wsq27vBMo=";
+      rev = "c745c72103067308fc1a39799731e52f4353477c";
+      hash = "sha256-CTY3juqaNWhJ/sec+rOxUtoOkTYGKByyHBDw9uw1vLc=";
     };
-    date = "2025-10-25";
+    date = "2025-10-28";
   };
   etherguard = {
     pname = "etherguard";
@@ -690,25 +690,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.10.25";
+    version = "2025.10.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.25/GeoLite2-ASN.mmdb";
-      hash = "sha256-rYU0zM8leRh9+ZduaLKnwKuwtfNMxzrqCGw30lvEUUg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.28/GeoLite2-ASN.mmdb";
+      hash = "sha256-MdnQhf10JV80PUhh6YX0p274GGbyEehuoQNCac24Fm8=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.10.25";
+    version = "2025.10.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.25/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.28/GeoLite2-City.mmdb";
       hash = "sha256-IL9q6lymDMMdAZnlMtk8Dw80fA0/DI6zdykr4ZEWSTs=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.10.25";
+    version = "2025.10.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.25/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.10.28/GeoLite2-Country.mmdb";
       hash = "sha256-Mj0G9lu/8GJULOPXSyadurJEcwc7eCAtHawUBm/f+lI=";
     };
   };
@@ -1017,14 +1017,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "ed5c2ccff15e878cca7c04890f59c7d1771933fc";
+    version = "46e2719ab0affc6b68577639657880cc882dab59";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "ed5c2ccff15e878cca7c04890f59c7d1771933fc";
-      hash = "sha256-iXHOEkseRz+1dd2jQiIqIoZd+JmEz6OjTpAuDyC6E3Q=";
+      rev = "46e2719ab0affc6b68577639657880cc882dab59";
+      hash = "sha256-lI4s51uF7Q6JdMOAE2cn0+XPqBG5HYNltNIqbFOCgW0=";
     };
-    date = "2025-10-23";
+    date = "2025-10-27";
   };
   libqcef = {
     pname = "libqcef";
@@ -1135,12 +1135,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6853";
+    version = "b6863";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6853";
-      hash = "sha256-YNIFaDFM5j+AXGPWqsk2piY12bekNI1X+mZxObKKsCw=";
+      tag = "b6863";
+      hash = "sha256-eyLK362v0TZv8ljjAimswqrNPmhe7b/XdZr4LZKsaQc=";
     };
   };
   loralib = {
@@ -1544,12 +1544,12 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.4.15";
+    version = "1.1.4.16";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      tag = "1.1.4.15";
-      hash = "sha256-MJs8ZbnMKL+A2s6sB3mMLeEFWkJYbzOqKtiXbtbuPJE=";
+      tag = "1.1.4.16";
+      hash = "sha256-zQVDjcCaaqJ15Z7AJ7Hth1eJGzlgkHfOXW8vUAeqd+U=";
     };
   };
   plangothic-fonts = {
@@ -1790,14 +1790,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "001d9d929c60d906bcfeecf185662445b8e685f0";
+    version = "b9a7621f6b7bc39cfa75c6b21e6554410a868d87";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "001d9d929c60d906bcfeecf185662445b8e685f0";
-      hash = "sha256-oyIKxXBXd3Jj8fhfGZ91nQuDhTvDhuBR9R62fCtADmQ=";
+      rev = "b9a7621f6b7bc39cfa75c6b21e6554410a868d87";
+      hash = "sha256-Z2vW0CpnAFL7SWMbuUsuIEWtxXWtUed8XQe92IitOOI=";
     };
-    date = "2025-10-26";
+    date = "2025-10-28";
   };
   qsp-stable = {
     pname = "qsp-stable";
