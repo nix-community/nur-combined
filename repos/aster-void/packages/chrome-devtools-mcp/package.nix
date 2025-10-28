@@ -7,15 +7,15 @@
   makeWrapper,
   runCommand,
 }: let
-  version = "0.8.1";
+  tag = "chrome-devtools-mcp-v0.9.0";
   unwrapped = buildNpmPackage {
     pname = "chrome-devtools-mcp-unwrapped";
-    inherit version;
+    version = tag;
     src = fetchFromGitHub {
       owner = "ChromeDevTools";
       repo = "chrome-devtools-mcp";
-      tag = "chrome-devtools-mcp-v${version}";
-      hash = "sha256-ziypJXtcHv66uvDyIiCyUuufzkmJhBtPDidJQJwTgGE=";
+      inherit tag;
+      hash = "sha256-VHKyQFZGoINdiZjb+4VKu0cOp0Klgg/1Tnc9b1jH5Z4=";
     };
     env = {
       PUPPETEER_SKIP_DOWNLOAD = "true";
@@ -28,7 +28,7 @@
       runHook postBuild
     '';
 
-    npmDepsHash = "sha256-qR7PbVXXSuZXnOJOKvGeowaLHs88kK7MEPaMdnTpBPc=";
+    npmDepsHash = "sha256-fUnjN6xSVndJ2O9u8Suc2sogPwTEL8JFgp0HfzvcHjs=";
 
     meta = {
       description = "Chrome DevTools for coding agents";
@@ -52,7 +52,7 @@
     (lib.getExe unwrapped)
   ];
 in
-  runCommand "chrome-devtools-mcp-${version}" {
+  runCommand "${tag}" {
     nativeBuildInputs = [makeWrapper];
     passthru = {inherit unwrapped;};
     meta =

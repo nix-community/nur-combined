@@ -1,0 +1,21 @@
+name: Auto Update
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - run: git -C "$root" config user.name "github-actions[bot]"
+      - run: git -C "$root" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: nix deveelop -c ./update.sh
+      - run: git push
