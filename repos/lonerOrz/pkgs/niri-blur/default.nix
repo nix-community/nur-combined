@@ -5,7 +5,8 @@
   fetchFromGitHub,
   installShellFiles,
   libdisplay-info,
-  libglvnd,
+  cairo,
+  libGL,
   libinput,
   libxkbcommon,
   libgbm,
@@ -58,14 +59,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    cairo
+    dbus
+    libGL
     libdisplay-info
-    libglvnd # 用于 libEGL
     libinput
+    seatd
     libxkbcommon
     libgbm
     pango
-    seatd
-    wayland # 用于 libwayland-client
+    wayland
   ]
   ++ lib.optional (withDbus || withScreencastSupport || withSystemd) dbus
   ++ lib.optional withScreencastSupport pipewire
