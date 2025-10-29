@@ -182,10 +182,10 @@
   "c": {
     "nurl": {
       "args": {
-        "hash": "sha256-G9kVqX8walvpI7gPvPzS8g7X8RVM9y5wJHGOcyjJA/A=",
+        "hash": "sha256-gmzbdwvrKSo6C1fqTJFGxy8x0+T+vUTswm7F5sojzKc=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-c",
-        "rev": "7175a6dd5fc1cee660dce6fe23f6043d75af424a"
+        "rev": "7fa1be1b694b6e763686793d97da01f36a0e5c12"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3214,6 +3214,30 @@
         "owner": "mi2ebi",
         "repo": "tree-sitter-nearley",
         "rev": "12d01113e194c8e83f6341aab8c2a5f21db9cac9"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "kcl": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-aHrJtLBefP76dXPUSxm9qX7rQrgXs/Gt4c7fRRunl68=",
+        "owner": "KittyCAD",
+        "repo": "tree-sitter-kcl",
+        "rev": "8905e0bdbf5870b50bc3f24345f1af27746f42e8"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "bovex": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-PAGuW+e6/4+IrsDDUkx/Tj5pS/cMAM8ojscMNWxKtX4=",
+        "owner": "mi2ebi",
+        "repo": "tree-sitter-bovex",
+        "rev": "de7657a9cc3525b9b77c6d268da09dad5b1346b0"
       },
       "fetcher": "fetchFromGitHub"
     },
