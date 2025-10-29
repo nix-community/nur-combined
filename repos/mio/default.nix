@@ -83,30 +83,22 @@ rec {
     }
   );
   example-package = pkgs.callPackage ./pkgs/example-package { };
-  lmms = (pkgs.callPackage ./pkgs/lmms/package.nix { withOptionals = true; }).override (prev: {
-    stdenv = v3Optimizations prev.stdenv;
-  });
-  minetest591 =
-    (pkgs.callPackage ./pkgs/minetest591 {
-    }).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
+  lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
+    withOptionals = true;
+    stdenv = v3Optimizations pkgs.stdenv;
+  };
+  minetest591 = pkgs.callPackage ./pkgs/minetest591 {
+    stdenv = v3Optimizations pkgs.stdenv;
+  };
   minetest591client = minetest591.override { buildServer = false; };
   minetest591server = minetest591.override { buildClient = false; };
-  irrlichtmt =
-    (pkgs.callPackage ./pkgs/irrlichtmt {
-    }).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
-  minetest580 =
-    (pkgs.callPackage ./pkgs/minetest580 {
-      irrlichtmt = irrlichtmt;
-    }).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
+  irrlichtmt = pkgs.callPackage ./pkgs/irrlichtmt {
+    stdenv = v3Optimizations pkgs.stdenv;
+  };
+  minetest580 = pkgs.callPackage ./pkgs/minetest580 {
+    irrlichtmt = irrlichtmt;
+    stdenv = v3Optimizations pkgs.stdenv;
+  };
   minetest580client = minetest580.override { buildServer = false; };
   minetest580-touch = minetest580.override {
     buildServer = false;
