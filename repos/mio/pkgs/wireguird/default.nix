@@ -13,6 +13,23 @@
   wireguard-tools,
   openresolv,
 }:
+let
+  # Build fileb0x separately so we can use it to regenerate static/ab0x.go
+  fileb0x = buildGoModule {
+    pname = "fileb0x";
+    version = "1.1.4";
+    src = fetchFromGitHub {
+      owner = "UnnoTed";
+      repo = "fileb0x";
+      rev = "v1.1.4";
+      sha256 = "sha256-/g4Im1R4VKVyl0qN3FYcvKTBHhiIKll4civs987Mo64=";
+    };
+    vendorHash = "sha256-56A+xFvgJLS8xWodcSzMuN0fB+vXb4Qm8OwbAig2KSM=";
+
+    # Tests fail in sandbox (try to access /dev/tty)
+    doCheck = false;
+  };
+in
 buildGoModule {
   pname = "wireguird";
   version = "unstable-2025-09-04";
@@ -30,6 +47,7 @@ buildGoModule {
   nativeBuildInputs = [
     pkg-config
     makeWrapper
+    fileb0x
   ];
 
   buildInputs = [
@@ -45,13 +63,24 @@ buildGoModule {
   ];
 
   postPatch = ''
-    go version
+    # Patch all hardcoded icon paths
     substituteInPlace gui/gui.go \
       --replace-fail 'IconPath    = "/opt/wireguird/Icon/"' \
-                     'IconPath    = "/run/current-system/sw/share/wireguird/Icon/"'
+                     'IconPath    = "${placeholder "out"}/share/wireguird/Icon/"'
+
+    substituteInPlace main.go \
+      --replace-fail 'indicator.SetIconThemePath("/opt/wireguird/Icon")' \
+                     'indicator.SetIconThemePath("${placeholder "out"}/share/wireguird/Icon")'
+
     substituteInPlace wireguird.glade \
       --replace-fail '/opt/wireguird/Icon/' \
-                     '/run/current-system/sw/share/wireguird/Icon/'
+                     '${placeholder "out"}/share/wireguird/Icon/'
+  '';
+
+  preBuild = ''
+    # Regenerate the embedded static file with our patched wireguird.glade
+    rm -f static/ab0x.go
+    fileb0x fileb0x.toml
   '';
 
   postInstall = ''
@@ -69,6 +98,21 @@ buildGoModule {
       install -Dm644 Icon/wireguard.svg \
         "$out/share/icons/hicolor/scalable/apps/wireguird.svg"
     fi
+
+    # Rename the binary and create a wrapper that ensures /etc/wireguard exists
+    mv "$out/bin/wireguird" "$out/bin/.wireguird-wrapped"
+
+    cat > "$out/bin/wireguird" <<'WRAPPER'
+    #!/bin/sh
+    # Ensure /etc/wireguard directory exists
+    mkdir -p /etc/wireguard 2>/dev/null || true
+    exec "$out/bin/.wireguird-wrapped" "$@"
+    WRAPPER
+
+    chmod +x "$out/bin/wireguird"
+
+    substituteInPlace "$out/bin/wireguird" \
+      --replace-warn '$out' "$out"
 
     # Desktop entry
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
@@ -104,7 +148,7 @@ buildGoModule {
     EOF
 
     # Ensure wg/wg-quick & resolvconf are available at runtime.
-    wrapProgram "$out/bin/wireguird" \
+    wrapProgram "$out/bin/.wireguird-wrapped" \
       --prefix PATH : ${
         lib.makeBinPath [
           wireguard-tools
