@@ -40,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     export LIBOQS_SRC_DIR=${sources.liboqs.src}
     sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
+    sed -i "s/enable_kem: false/enable_kem: true/g" oqs-template/generate.yml
+    sed -i "s/enable_tls: false/enable_tls: true/g" oqs-template/generate.yml
     python3 oqs-template/generate.py
   '';
 
