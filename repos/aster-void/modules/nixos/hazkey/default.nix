@@ -20,7 +20,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
-      "L+ /usr/share/hazkey - - - - ${cfg.package}/share/hazkey"
+      "d /usr/share/hazkey 0555 root root -"
     ];
+    fileSystems."/usr/share/hazkey" = {
+      device = "${cfg.package}/share/hazkey";
+      fsType = "none";
+      options = ["bind" "ro" "x-systemd.automount" "x-systemd.idle-timeout=1min"];
+    };
   };
 }
