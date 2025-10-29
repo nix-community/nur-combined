@@ -1,5 +1,4 @@
 {
-  mode ? null,
   pkgs,
   stdenv,
   lib,
@@ -78,17 +77,6 @@ rec {
     };
   };
 
-  contentAddressedFlag =
-    # CI will fail with error: path '/0dwk1vcafg052kwvf2pd0l2rfm6bms0v91gi3nlx82r061vs2vbp' is not in the Nix store
-    if mode == "nur" || mode == "ci" then
-      { }
-    else
-      {
-        __contentAddressed = true;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      };
-
   # From nixpkgs pkgs/os-specific/linux/kernel/manual-config.nix
   readStructuredConfig =
     configfile:
@@ -142,29 +130,25 @@ rec {
       ver0 = builtins.elemAt splitted 0;
       major = lib.versions.pad 2 ver0;
 
-      patches =
-        [
-          pkgs.kernelPatches.bridge_stp_helper
-          pkgs.kernelPatches.request_key_helper
-        ]
-        ++ (getPatches version)
-        ++ extraPatches;
+      patches = [
+        pkgs.kernelPatches.bridge_stp_helper
+        pkgs.kernelPatches.request_key_helper
+      ]
+      ++ (getPatches version)
+      ++ extraPatches;
 
-      patchedSrc = stdenv.mkDerivation (
-        {
-          name = "linux-src";
-          inherit src;
-          patches = builtins.map (p: p.patch) patches;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
-          installPhase = ''
-            mkdir -p $out
-            cp -r * $out/
-          '';
-        }
-        // contentAddressedFlag
-      );
+      patchedSrc = stdenv.mkDerivation {
+        name = "linux-src";
+        inherit src;
+        patches = builtins.map (p: p.patch) patches;
+        dontConfigure = true;
+        dontBuild = true;
+        dontFixup = true;
+        installPhase = ''
+          mkdir -p $out
+          cp -r * $out/
+        '';
+      };
 
       _structuredConfig =
         if structuredExtraConfig == null then

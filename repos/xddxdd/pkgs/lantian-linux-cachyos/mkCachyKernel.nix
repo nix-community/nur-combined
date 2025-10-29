@@ -1,5 +1,4 @@
 {
-  mode ? null,
   sources,
   lib,
   callPackage,
@@ -7,7 +6,7 @@
 }@importArgs:
 args:
 let
-  helpers = callPackage ../../helpers/kernel { inherit mode; };
+  helpers = callPackage ../../helpers/kernel { };
   inherit (helpers) mkKernel readStructuredConfig;
 
   splitted = lib.splitString "-" args.version;

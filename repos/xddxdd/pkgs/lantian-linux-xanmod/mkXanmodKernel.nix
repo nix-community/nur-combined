@@ -1,5 +1,4 @@
 {
-  mode ? null,
   callPackage,
   lib,
   sources,
@@ -8,8 +7,8 @@
 }:
 args:
 let
-  helpers = callPackage ../../helpers/kernel { inherit mode; };
-  inherit (helpers) contentAddressedFlag mkKernel;
+  helpers = callPackage ../../helpers/kernel { };
+  inherit (helpers) mkKernel;
 
   splitted = lib.splitString "-" args.version;
   ver0 = builtins.elemAt splitted 0;
@@ -22,7 +21,7 @@ let
     in
     rec {
       name = "cachyos-patches-combined.patch";
-      patch = runCommandNoCC name contentAddressedFlag (
+      patch = runCommandNoCC name { } (
         ''
           for F in ${cachyDir}/*.patch; do
             case "$F" in
@@ -58,7 +57,8 @@ let
       modDirSuffix = "-lantian-${ver1}";
       extraPatches = [
         combinedPatchFromCachyOS
-      ] ++ (args.extraPatches or [ ]);
+      ]
+      ++ (args.extraPatches or [ ]);
       extraArgs = lib.recursiveUpdate {
         extraMeta = {
           description =
