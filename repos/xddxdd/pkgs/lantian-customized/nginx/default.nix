@@ -3,7 +3,6 @@
   sources,
   stdenv,
   fetchurl,
-  callPackage,
   # nginx dependencies
   brotli,
   gd,
@@ -13,8 +12,10 @@
   libxcrypt,
   libxml2,
   libxslt,
+  openssl-oqs-provider,
   pcre,
   perl,
+  python3,
   quickjs-ng,
   quictls,
   which,
@@ -24,6 +25,8 @@
   modules ? [ ],
 }:
 let
+  oqs-lookup = import ./oqs-lookup.nix { inherit openssl-oqs-provider python3; };
+
   patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
@@ -86,9 +89,7 @@ stdenv.mkDerivation rec {
       patch = p: "echo ${p} && patch -p1 < ${p}";
     in
     ''
-      ${builtins.concatStringsSep "\n" (
-        builtins.map (k: "cp -r ${sources."${k}".src} bundle/${k}") extraSrcs
-      )}
+      ${lib.concatMapStringsSep "\n" (k: "cp -r ${sources."${k}".src} bundle/${k}") extraSrcs}
       chmod -R 755 .
       patchShebangs .
 
@@ -99,8 +100,14 @@ stdenv.mkDerivation rec {
       ${patch ./patches/nix-etag-1.15.4.patch}
       ${patch ./patches/nix-skip-check-logs-path.patch}
       ${patch ./patches/nginx-ja4-quic.patch}
+      ${patch ./patches/nginx-oqs-curves.patch}
       ${patch patchUring}
-      sed -i 's#"/usr/include/libxml2"#"${libxml2.dev}/include/libxml2"#g' auto/lib/libxslt/conf
+
+      install -Dm644 ${oqs-lookup}/oqs_lookup.c src/event/ngx_event_openssl_oqs_lookup.c
+
+      substituteInPlace auto/lib/libxslt/conf \
+        --replace-fail '"/usr/include/libxml2"' '"${libxml2.dev}/include/libxml2"'
+
       substituteInPlace src/http/ngx_http_core_module.c \
         --replace-fail '@nixStoreDir@' "$NIX_STORE" \
         --replace-fail '@nixStoreDirLen@' "''${#NIX_STORE}"
@@ -188,7 +195,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    inherit modules;
+    inherit modules oqs-lookup;
     openssl = openssl';
   };
 

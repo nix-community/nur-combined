@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
-  preConfigure = ''
+  postPatch = ''
     cp -r ${sources.qsc-key-encoder.src} qsc-key-encoder
     chmod -R 755 qsc-key-encoder
 

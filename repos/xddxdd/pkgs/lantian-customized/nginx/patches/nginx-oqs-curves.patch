@@ -1,0 +1,63 @@
+diff --git a/auto/modules b/auto/modules
+index 648d3b54e..326ed5343 100644
+--- a/auto/modules
++++ b/auto/modules
+@@ -1323,6 +1323,7 @@ if [ $USE_OPENSSL = YES ]; then
+     ngx_module_incs=
+     ngx_module_deps=src/event/ngx_event_openssl.h
+     ngx_module_srcs="src/event/ngx_event_openssl.c
++                     src/event/ngx_event_openssl_oqs_lookup.c
+                      src/event/ngx_event_openssl_stapling.c"
+     ngx_module_libs=
+     ngx_module_link=YES
+diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
+index 8d1f5695c..1874d0d42 100644
+--- a/src/event/ngx_event_openssl.c
++++ b/src/event/ngx_event_openssl.c
+@@ -89,6 +89,9 @@ static void *ngx_openssl_create_conf(ngx_cycle_t *cycle);
+ static char *ngx_openssl_engine(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
+ static void ngx_openssl_exit(ngx_cycle_t *cycle);
+ 
++/* Open Quantum Safe NID lookup function */
++const char* oqs_nid_lookup(int nid);
++
+ 
+ static ngx_command_t  ngx_openssl_commands[] = {
+ 
+@@ -5144,6 +5147,12 @@ ngx_ssl_get_curve(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+     nid = SSL_get_negotiated_group(c->ssl->connection);
+ 
+     if (nid != NID_undef) {
++        char * oqsname = oqs_nid_lookup(nid & 0xffff);
++        if (oqsname != NULL) {
++            s->len = ngx_strlen(oqsname);
++            s->data = (u_char *) oqsname;
++            return NGX_OK;
++        }
+ 
+         if ((nid & TLSEXT_nid_unknown) == 0) {
+             s->len = ngx_strlen(OBJ_nid2sn(nid));
+@@ -5197,6 +5206,11 @@ ngx_ssl_get_curves(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+     for (i = 0; i < n; i++) {
+         nid = curves[i];
+ 
++        char * oqsname = oqs_nid_lookup(nid & 0xffff);
++        if (oqsname != NULL) {
++            len += ngx_strlen(oqsname);
++        }
++        else
+         if (nid & TLSEXT_nid_unknown) {
+             len += sizeof("0x0000") - 1;
+ 
+@@ -5217,6 +5231,11 @@ ngx_ssl_get_curves(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+     for (i = 0; i < n; i++) {
+         nid = curves[i];
+ 
++        char * oqsname = oqs_nid_lookup(nid & 0xffff);
++        if (oqsname != NULL) {
++            p = ngx_sprintf(p, "%s", oqsname);
++        }
++        else
+         if (nid & TLSEXT_nid_unknown) {
+             p = ngx_sprintf(p, "0x%04xd", nid & 0xffff);
+ 
