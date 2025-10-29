@@ -61,6 +61,9 @@ mkDerivation rec {
     # Rename binary from mscore to mscore3
     mv $out/bin/mscore $out/bin/mscore3
 
+    # Update the musescore symlink to point to mscore3
+    ln -sf mscore3 $out/bin/musescore
+
     # Update desktop file to use mscore3
     substituteInPlace $out/share/applications/mscore.desktop \
       --replace-fail "Exec=mscore" "Exec=mscore3"

@@ -39,10 +39,13 @@ let
     if pkgs.stdenv.hostPlatform.isx86_64 then
       x:
       x.override (prev: {
-        stdenv = v3Optimizations prev.stdenv;
+        stdenv = v3Optimizations pkgs.clangStdenv;
       })
     else
-      x: x;
+      x:
+      x.override (prev: {
+        stdenv = v3Optimizations pkgs.clangStdenv;
+      });
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -95,19 +98,19 @@ rec {
   example-package = pkgs.callPackage ./pkgs/example-package { };
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
-    stdenv = v3Optimizations pkgs.stdenv;
+    stdenv = v3Optimizations pkgs.clangStdenv;
   };
   minetest591 = pkgs.callPackage ./pkgs/minetest591 {
-    stdenv = v3Optimizations pkgs.stdenv;
+    stdenv = v3Optimizations pkgs.clangStdenv;
   };
   minetest591client = minetest591.override { buildServer = false; };
   minetest591server = minetest591.override { buildClient = false; };
   irrlichtmt = pkgs.callPackage ./pkgs/irrlichtmt {
-    stdenv = v3Optimizations pkgs.stdenv;
+    stdenv = v3Optimizations pkgs.clangStdenv;
   };
   minetest580 = pkgs.callPackage ./pkgs/minetest580 {
     irrlichtmt = irrlichtmt;
-    stdenv = v3Optimizations pkgs.stdenv;
+    stdenv = v3Optimizations pkgs.clangStdenv;
   };
   minetest580client = minetest580.override { buildServer = false; };
   minetest580-touch = minetest580.override {
@@ -142,7 +145,7 @@ rec {
       ];
     })).override
       (prev: {
-        stdenv = v3Optimizations prev.stdenv;
+        stdenv = v3Optimizations pkgs.clangStdenv;
       });
   audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
