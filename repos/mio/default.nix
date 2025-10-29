@@ -44,8 +44,16 @@ let
     else
       x:
       x.override (prev: {
-        stdenv = v3Optimizations pkgs.clangStdenv;
+        stdenv = pkgs.clangStdenv;
       });
+  v3overridegcc =
+    if pkgs.stdenv.hostPlatform.isx86_64 then
+      x:
+      x.override (prev: {
+        stdenv = v3Optimizations prev.stdenv;
+      })
+    else
+      x: x;
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -54,7 +62,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   telegram-desktop = pkgs.telegram-desktop.overrideAttrs (old: {
-    unwrapped = v3override (
+    unwrapped = v3overridegcc (
       old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
         patches = (pkgs.telegram-desktop.unwrapped.patches or [ ]) ++ [
@@ -64,7 +72,7 @@ rec {
     );
   });
   materialgram = pkgs.materialgram.overrideAttrs (old: {
-    unwrapped = v3override (
+    unwrapped = v3overridegcc (
       old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
         patches = (pkgs.materialgram.unwrapped.patches or [ ]) ++ [
