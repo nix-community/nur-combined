@@ -1139,10 +1139,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.10.0";
+      version = "0.10.2";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575331/bilisponsorblock-0.10.0.xpi";
-      sha256 = "6143f023a5507a121f70e266483c23bd2fd5377083e46030687a97d401389b92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4608129/bilisponsorblock-0.10.2.xpi";
+      sha256 = "2d44d1b850a6df6ffb78d175396503e211e892ad8a105ac1210a22cd7ad012b5";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -4208,10 +4208,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.11";
+      version = "10.5.16";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4580774/ghostery-10.5.11.xpi";
-      sha256 = "9b0cf288b7c0c6608290b07acf5ce0f69e10db56142cfdf63a73e2d1b14ce409";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606960/ghostery-10.5.16.xpi";
+      sha256 = "ad2dbd7d9985f8e707f6ca52706ce9f9b4d00d8b85aef693a187363398b737df";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6810,10 +6810,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.3.0";
+      version = "17.3.1";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598916/keeper_password_manager-17.3.0_NFxaSRD.xpi";
-      sha256 = "0f5748df4454dc60759d01ddcfe728c90e4a2ed66cf5a560c0b7c33c8cd1d87f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4603743/keeper_password_manager-17.3.1_QL4elsD.xpi";
+      sha256 = "5cd5d84b6dc580154b4786ebc53f868b72bd881508b27e6ec95c2c47f6062245";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -6974,10 +6974,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.146.9";
+      version = "4.147.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4581070/lastpass_password_manager-4.146.9.xpi";
-      sha256 = "d4ce9d25a75ef9ad482040f22cc63dcd9b3ed39d5b0ee5290ccd60e444be3fbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602959/lastpass_password_manager-4.147.2.xpi";
+      sha256 = "bb779789289e7fc39f1590d933bc6b1ac59e096ae537a55bb1ae4947f196cea0";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -9282,10 +9282,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.11.14.24";
+      version = "8.11.15.5";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597332/1password_x_password_manager-8.11.14.24.xpi";
-      sha256 = "79c76d821e4cd96c6795dc6587c4063b871fb9b35a619eb11c09583899ab934a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602298/1password_x_password_manager-8.11.15.5.xpi";
+      sha256 = "c2a491c4d7b3b4bc99629b3219ac1db5efe3de2edd2c867da8a02b639be47e2b";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -11478,10 +11478,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25287";
+      version = "0.2.0.25294";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4597555/ruffle_rs-0.2.0.25287.xpi";
-      sha256 = "edf153f6f3cb66ba16742f167edb2a04a711abda9f99729aa37181bf9f3bf2a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602498/ruffle_rs-0.2.0.25294.xpi";
+      sha256 = "dd8543243fd578a322423e5e3430b72d7d214a9ab2542743beae04dbd1637d4f";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -13179,10 +13179,10 @@
     };
     "toggl-button-time-tracker" = buildFirefoxXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.4";
+      version = "4.11.5";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4584104/toggl_button_time_tracker-4.11.4.xpi";
-      sha256 = "4bc6526225ece7a4bd7ac130831a917e6bc3786fecdfd80c5513089707813df7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604153/toggl_button_time_tracker-4.11.5.xpi";
+      sha256 = "db66d448c78c0cad647c752a7facbb7e2d9495c002d71305ab1f26541becc7e1";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -13401,10 +13401,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.2.6";
+      version = "4.2.7";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583182/tree_style_tab-4.2.6.xpi";
-      sha256 = "3f989eecd7e26db9266f24d1c38fcddd87c4a40417a449ffd2686bddc4ef51f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602712/tree_style_tab-4.2.7.xpi";
+      sha256 = "098fa380635788ab25968ce25bd2911b3d03c41f99bcd3d3ca65572d9a37021b";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -13703,10 +13703,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "9.2.0";
+      version = "9.3.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4573663/ublacklist-9.2.0.xpi";
-      sha256 = "68d55ac6ee51667b4230e80088fc36a6ec22d44ea864bbeefa97838335f695f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602896/ublacklist-9.3.0.xpi";
+      sha256 = "518047625c826aba2ababb480deb9e147c9f242c49a63415e050aeccb145f5c6";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -15369,10 +15369,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.9.29.0";
+      version = "25.10.13.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4593417/yomitan-25.9.29.0.xpi";
-      sha256 = "8e761b7ea64a46e295ccc0b273bc6b8cca6403e2d4d6412f23420dc9d923640c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4602541/yomitan-25.10.13.0.xpi";
+      sha256 = "35e5b0f74b4c067306eb3cda014f41e548a082d8f9892a5c6b39c06c73742799";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
