@@ -3,21 +3,21 @@
   "update_type": "github",
   "repo": "ppy/osu",
   "query": "first | .tag_name",
-  "version": "2025.1025.1-tachyon",
+  "version": "2025.1029.0-tachyon",
   "platforms": {
     "x86_64-linux": {
       "file": "osu.AppImage",
-      "hash": "sha256-/cTpWKP0iwItNbdtuBQITgQHk7genpanOs7W/NpkBCs=",
+      "hash": "sha256-16K1s0j/EbeI8YhLc89wL4vHvldjguvGGRtjwtf53oo=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "osu.app.Apple.Silicon.zip",
-      "hash": "sha256-ngjKcdalh0BuYLkkCQmrkfiTLmrBogHztcuszb1qxu8=",
+      "hash": "sha256-UjtgY3EqM0ihSA7WhkVM0/FQ8XYvQe8TTodA0JA8DgE=",
       "unpack": true
     },
     "x86_64-darwin": {
       "file": "osu.app.Intel.zip",
-      "hash": "sha256-/24DB+eZl5KDvfyrjDcNTRvI/o4gyzU8gK6UjFl9gKY=",
+      "hash": "sha256-kp3+qePb7LSBAXOAu5o93HrswX9VzTLFW/5+X+rrXUw=",
       "unpack": true
     }
   }
