@@ -28,13 +28,13 @@
 
 mkDerivation rec {
   pname = "musescore";
-  version = "3.7.0-unstable-2025-10-11"; # version = "3.6.2";
+  version = "3.6.2-unstable-2025-10-29"; # version = "3.6.2";
 
   src = fetchFromGitHub {
     owner = "Jojo-Schmitz"; # owner = "musescore";
     repo = "MuseScore";
-    rev = "1f2b0a281b6ad186341dc07ef53d9caf6c6e6df0"; # rev = "v${version}"; # 3.6.2
-    hash = "sha256-awXpPFLWzsA+Sj0p7329e94kopKTTtvc/2DddY4ZXdU="; # sha256 = "sha256-GBGAD/qdOhoNfDzI+O0EiKgeb86GFJxpci35T6tZ+2s=";
+    rev = "6d355e10220270102f54a328c39fd754f04e51b8"; # rev = "v${version}"; # 3.6.2
+    hash = "sha256-AaUT3YaF1iS6Bm/z3gn4ulZU5xHDj24LQ9gqQb2ZkU4="; # sha256 = "sha256-GBGAD/qdOhoNfDzI+O0EiKgeb86GFJxpci35T6tZ+2s=";
   };
 
   patches = [
@@ -56,6 +56,15 @@ mkDerivation rec {
     # https://musescore.org/en/node/321936
     "--set-default QT_QPA_PLATFORM xcb"
   ];
+
+  postInstall = ''
+    # Rename binary from mscore to mscore3
+    mv $out/bin/mscore $out/bin/mscore3
+
+    # Update desktop file to use mscore3
+    substituteInPlace $out/share/applications/mscore.desktop \
+      --replace-fail "Exec=mscore" "Exec=mscore3"
+  '';
 
   nativeBuildInputs = [
     cmake
