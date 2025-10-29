@@ -93,7 +93,7 @@ rec {
       #doCheck = false;
     })
   );
-  grub2 = v3override (
+  grub2 = v3overridegcc (
     pkgs.grub2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
       #doCheck = false;
