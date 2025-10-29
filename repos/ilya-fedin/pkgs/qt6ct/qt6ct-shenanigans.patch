@@ -194,7 +194,7 @@ index f3e9ef6..a05a9b7 100644
  
  OTHER_FILES += qt6ct.json
 diff --git a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
-index 569b13f..4f7a10c 100644
+index 569b13f..5497ea9 100644
 --- a/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 +++ b/src/qt6ct-qtplugin/qt6ctplatformtheme.cpp
 @@ -41,38 +41,59 @@
@@ -261,7 +261,7 @@ index 569b13f..4f7a10c 100644
  }
  
  Qt6CTPlatformTheme::~Qt6CTPlatformTheme()
-@@ -90,10 +111,31 @@ QPlatformDialogHelper *Qt6CTPlatformTheme::createPlatformDialogHelper(DialogType
+@@ -90,10 +111,33 @@ QPlatformDialogHelper *Qt6CTPlatformTheme::createPlatformDialogHelper(DialogType
                       QGenericUnixTheme::createPlatformDialogHelper(type);
  }
  
@@ -270,19 +270,21 @@ index 569b13f..4f7a10c 100644
 +{
 +    //m_inColorScheme prevents QPlatformTheme::palette -> QPlatformThemePrivate::initializeSystemPalette
 +    //-> qt_fusionPalette -> Qt6CTPlatformTheme::colorScheme infinite recursion
-+    if (m_isIgnored || m_inColorScheme)
++    if(m_isIgnored || m_inColorScheme)
 +        return QGenericUnixTheme::colorScheme();
 +
 +    m_inColorScheme = true;
 +    const QPalette *palette = this->palette();
 +    m_inColorScheme = false;
 +
-+    if (!palette)
++    if(!palette)
 +        return QGenericUnixTheme::colorScheme();
 +
 +    return palette->windowText().color().lightness() > palette->window().color().lightness()
 +        ? Qt::ColorScheme::Dark
-+        : Qt::ColorScheme::Light;
++        : palette->windowText().color().lightness() < palette->window().color().lightness()
++        ? Qt::ColorScheme::Light
++        : QGenericUnixTheme::colorScheme();
 +}
 +#endif
 +
@@ -295,7 +297,7 @@ index 569b13f..4f7a10c 100644
      return QGenericUnixTheme::palette(type);
  }
  
-@@ -148,6 +190,13 @@ QIcon Qt6CTPlatformTheme::fileIcon(const QFileInfo &fileInfo, QPlatformTheme::Ic
+@@ -148,6 +192,13 @@ QIcon Qt6CTPlatformTheme::fileIcon(const QFileInfo &fileInfo, QPlatformTheme::Ic
      return QIcon::fromTheme(type.iconName());
  }
  
@@ -309,7 +311,7 @@ index 569b13f..4f7a10c 100644
  void Qt6CTPlatformTheme::applySettings()
  {
      if(!QGuiApplication::desktopSettingsAware() || m_isIgnored)
-@@ -156,18 +205,18 @@ void Qt6CTPlatformTheme::applySettings()
+@@ -156,18 +207,18 @@ void Qt6CTPlatformTheme::applySettings()
          return;
      }
  
@@ -334,7 +336,7 @@ index 569b13f..4f7a10c 100644
              Qt6CT::reloadStyleInstanceSettings();
          }
  
-@@ -193,25 +242,26 @@ void Qt6CTPlatformTheme::applySettings()
+@@ -193,25 +244,26 @@ void Qt6CTPlatformTheme::applySettings()
  
      if(m_update)
      {
@@ -369,7 +371,7 @@ index 569b13f..4f7a10c 100644
  void Qt6CTPlatformTheme::createFSWatcher()
  {
      QFileSystemWatcher *watcher = new QFileSystemWatcher(this);
-@@ -230,7 +280,6 @@ void Qt6CTPlatformTheme::updateSettings()
+@@ -230,7 +282,6 @@ void Qt6CTPlatformTheme::updateSettings()
      readSettings();
      applySettings();
  }
@@ -377,7 +379,7 @@ index 569b13f..4f7a10c 100644
  
  void Qt6CTPlatformTheme::readSettings()
  {
-@@ -238,13 +287,10 @@ void Qt6CTPlatformTheme::readSettings()
+@@ -238,13 +289,10 @@ void Qt6CTPlatformTheme::readSettings()
  
      settings.beginGroup("Appearance"_L1);
      m_style = settings.value("style"_L1, u"Fusion"_s).toString();
@@ -395,7 +397,7 @@ index 569b13f..4f7a10c 100644
      m_iconTheme = settings.value("icon_theme"_L1).toString();
      //load dialogs
      if(!m_update)
-@@ -262,10 +308,10 @@ void Qt6CTPlatformTheme::readSettings()
+@@ -262,10 +310,10 @@ void Qt6CTPlatformTheme::readSettings()
      settings.endGroup();
  
      settings.beginGroup("Fonts"_L1);
@@ -410,7 +412,7 @@ index 569b13f..4f7a10c 100644
      settings.endGroup();
  
      settings.beginGroup("Interface"_L1);
-@@ -354,3 +400,17 @@ QString Qt6CTPlatformTheme::loadStyleSheets(const QStringList &paths)
+@@ -354,3 +402,17 @@ QString Qt6CTPlatformTheme::loadStyleSheets(const QStringList &paths)
      content.replace(regExp, u"\n"_s);
      return content;
  }
