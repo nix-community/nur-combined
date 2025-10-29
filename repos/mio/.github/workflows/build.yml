@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 jobs:
   tests:
-    timeout-minutes: 3600
     strategy:
       fail-fast: false
       matrix:
