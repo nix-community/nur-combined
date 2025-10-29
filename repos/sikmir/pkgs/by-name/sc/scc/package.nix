@@ -5,16 +5,17 @@
   ed,
   qbe,
   makeWrapper,
+  buildPackages,
 }:
 
 stdenv.mkDerivation {
   pname = "scc";
-  version = "0-unstable-2025-10-17";
+  version = "0-unstable-2025-10-29";
 
   src = fetchgit {
     url = "git://git.simple-cc.org/scc";
-    rev = "e19109cd35b8d64480c74389b8faaedf5af9b0ed";
-    hash = "sha256-YTHPCslPoI70z92JuPzGRQQyk0GVixPAvqPbAaiJNb4=";
+    rev = "1ed0ff0000999561feee336c289252faf2502a7e";
+    hash = "sha256-BVs+ypb6/aE2BsCsDMLZa2ppK6ypjLZQumUgzIehg/k=";
   };
 
   postPatch = ''
@@ -24,6 +25,10 @@ stdenv.mkDerivation {
       --replace-fail "PREFIX = /usr/local" "PREFIX = $out"
     substituteInPlace scripts/config \
       --replace-fail "PREFIX:=/usr/local" "PREFIX:=$out"
+    substituteInPlace tests/Makefile \
+      --replace-fail "libc/execute" "" \
+      --replace-fail "cc/execute" "" \
+      --replace-fail "make/execute" ""
   '';
 
   nativeBuildInputs = [
@@ -32,12 +37,13 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildFlags = [
-    "AR:=$(AR)"
-    "AS:=$(AS)"
-    "CC:=$(CC)"
-    "RANLIB:=$(RANLIB)"
-    "HOSTCC=${stdenv.cc.targetPrefix}cc"
+  makeFlags = [
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "AS=${stdenv.cc.targetPrefix}as"
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "LD=${stdenv.cc.targetPrefix}ld"
+    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+    "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
   ];
 
   doCheck = true;

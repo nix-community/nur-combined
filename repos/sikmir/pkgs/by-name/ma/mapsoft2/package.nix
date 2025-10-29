@@ -32,19 +32,19 @@ let
   libs = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2-libs";
-    rev = "31e4c004b2c00369f534c2629b9df6f40682125a";
-    hash = "sha256-Tw76Ql2twogpCGZo2wyfvPIf1eRe4s2LZvrgJCUVfUs=";
+    rev = "a33c77c793f3f46b61d9129f91e2441316059fdc";
+    hash = "sha256-ecbxB8gMZen1kZTku8U45amOH4DP3B+uedK6rG2R8xc=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.10-alt1";
+  version = "2.10-alt1-unstable-2025-09-28";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
-    tag = finalAttrs.version;
-    hash = "sha256-lDicw224Sid6ir1VWeo1MPXHQHUyvlEm2Fz2BN1OuR4=";
+    rev = "e217d77bce2c0a3e64ca96156efdf20533b656ad";
+    hash = "sha256-/sWScmKxeVEI1+vEyZEXwqgEk99SS5CBOGeyENylSNw=";
   };
 
   prePatch = ''

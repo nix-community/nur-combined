@@ -1,5 +1,5 @@
 diff --git i/docs/man/ms2render.htm w/docs/man/ms2render.htm
-index 62972dc..0195402 100644
+index 0664e9f..6cdbfa0 100644
 --- i/docs/man/ms2render.htm
 +++ w/docs/man/ms2render.htm
 @@ -493,7 +493,7 @@
@@ -11,7 +11,7 @@ index 62972dc..0195402 100644
  
  </dd>
  <dt id="q---quite-arg"><b>-q, --quite &lt;arg&gt;</b></dt>
-@@ -559,7 +559,7 @@
+@@ -553,7 +553,7 @@
  <dt id="c---config-arg"><b>-c, --config &lt;arg&gt;</b></dt>
  <dd>
  
@@ -47,7 +47,7 @@ index 5469cac..c165c1a 100644
  Some tips about viewer structure can be also find there.
  B<$HOME/.mapsoft2/mapsoft2.css> -- user-specific file.
 diff --git i/docs/man/ms2vmap.htm w/docs/man/ms2vmap.htm
-index 901374e..6dce51b 100644
+index 69fbda3..1fdfd43 100644
 --- i/docs/man/ms2vmap.htm
 +++ w/docs/man/ms2vmap.htm
 @@ -64,7 +64,7 @@ ms2vmap &lt;file&gt; ... -o &lt;out file&gt; [&lt;options&gt;]</code></pre>
@@ -60,10 +60,10 @@ index 901374e..6dce51b 100644
  </dd>
  <dt id="D---define-arg"><b>-D, --define &lt;arg&gt;</b></dt>
 diff --git i/docs/man/ms2vmapdb.htm w/docs/man/ms2vmapdb.htm
-index 2b06fe4..2018bc6 100644
+index 8bdb701..c05835a 100644
 --- i/docs/man/ms2vmapdb.htm
 +++ w/docs/man/ms2vmapdb.htm
-@@ -238,7 +238,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+@@ -230,7 +230,7 @@ ms2vmapdb export -- export vector map to a different format</code></pre>
  <dt id="t---types-arg"><b>-t, --types &lt;arg&gt;</b></dt>
  <dd>
  
@@ -72,7 +72,7 @@ index 2b06fe4..2018bc6 100644
  
  </dd>
  <dt id="D---define-arg"><b>-D, --define &lt;arg&gt;</b></dt>
-@@ -302,7 +302,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+@@ -294,7 +294,7 @@ ms2vmapdb export -- export vector map to a different format</code></pre>
  <dt id="t---types-arg1"><b>-t, --types &lt;arg&gt;</b></dt>
  <dd>
  
@@ -81,7 +81,7 @@ index 2b06fe4..2018bc6 100644
  
  </dd>
  <dt id="D---define-arg1"><b>-D, --define &lt;arg&gt;</b></dt>
-@@ -436,7 +436,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+@@ -418,7 +418,7 @@ ms2vmapdb export -- export vector map to a different format</code></pre>
  <dt id="t---types-arg2"><b>-t, --types &lt;arg&gt;</b></dt>
  <dd>
  
@@ -90,15 +90,6 @@ index 2b06fe4..2018bc6 100644
  
  </dd>
  <dt id="D---define-arg2"><b>-D, --define &lt;arg&gt;</b></dt>
-@@ -652,7 +652,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
- <dt id="t---types-arg3"><b>-t, --types &lt;arg&gt;</b></dt>
- <dd>
- 
--<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
-+<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
- 
- </dd>
- <dt id="D---define-arg3"><b>-D, --define &lt;arg&gt;</b></dt>
 Submodule modules contains modified content
 diff --git i/modules/mapview/action_manager.cpp w/modules/mapview/action_manager.cpp
 index ab16dae..272b454 100644
@@ -127,7 +118,7 @@ index 997c127..43928bf 100644
        css_provider->load_from_path(css_glo)){
        auto screen = get_screen();
 diff --git i/modules/vmap2/vmap2gobj.cpp w/modules/vmap2/vmap2gobj.cpp
-index 4b48cf8..724e444 100644
+index 6583699..5e6a6af 100644
 --- i/modules/vmap2/vmap2gobj.cpp
 +++ w/modules/vmap2/vmap2gobj.cpp
 @@ -22,7 +22,7 @@ using namespace std;
@@ -149,10 +140,10 @@ index 4b48cf8..724e444 100644
  }
  
 diff --git i/modules/vmap2/vmap2types.cpp w/modules/vmap2/vmap2types.cpp
-index 6688736..ec77637 100644
+index 3a7ee9b..c904529 100644
 --- i/modules/vmap2/vmap2types.cpp
 +++ w/modules/vmap2/vmap2types.cpp
-@@ -7,12 +7,12 @@
+@@ -8,12 +8,12 @@
  void
  ms2opt_add_vmap2t(GetOptSet & opts){
    const char *g = "VMAP2";
@@ -167,8 +158,21 @@ index 6688736..ec77637 100644
    if (file == "") return;
    read_words_defs defs(o.get("define", Opt()));
    load(file, defs);
+diff --git i/programs/Makefile w/programs/Makefile
+index c81d62e..f7d5c7d 100644
+--- i/programs/Makefile
++++ w/programs/Makefile
+@@ -18,7 +18,7 @@ bindir  ?= $(prefix)/bin
+ datadir ?= $(prefix)/share
+ 
+ all:
+-	sh -e -c 'for i in $(PROGRAMS); do make -C $$i; done'
++	sh -e -c 'for i in $(PROGRAMS); do make -C $$i notests; done'
+ 
+ install:
+ 	sh -e -c 'for i in $(PROGRAMS); do install -D -m755 $$i/$$i $(bindir)/$$i; done'
 diff --git i/vmap_data/scripts/vmaps.sh w/vmap_data/scripts/vmaps.sh
-index 460533a..7591f33 100644
+index 97ebf17..d0ca927 100644
 --- i/vmap_data/scripts/vmaps.sh
 +++ w/vmap_data/scripts/vmaps.sh
 @@ -16,8 +16,8 @@ MAP_ATTR="mapsoft"
@@ -231,7 +235,7 @@ index 1e0599c..84413bb 100755
  # read local configuration
  . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_in w/vmap_data/scripts/vmaps_in
-index 4381dd7..cf9d9d9 100755
+index 48da7ff..70203bc 100755
 --- i/vmap_data/scripts/vmaps_in
 +++ w/vmap_data/scripts/vmaps_in
 @@ -9,7 +9,7 @@
@@ -257,7 +261,7 @@ index ae225ec..e59c592 100755
  # read local configuration
  . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_out w/vmap_data/scripts/vmaps_out
-index d1d7903..d4d5318 100755
+index 8996a29..914546b 100755
 --- i/vmap_data/scripts/vmaps_out
 +++ w/vmap_data/scripts/vmaps_out
 @@ -18,7 +18,7 @@
@@ -270,7 +274,7 @@ index d1d7903..d4d5318 100755
  # read local configuration
  . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_pack_img w/vmap_data/scripts/vmaps_pack_img
-index a91fc99..a692600 100755
+index f8ebf4f..c101941 100755
 --- i/vmap_data/scripts/vmaps_pack_img
 +++ w/vmap_data/scripts/vmaps_pack_img
 @@ -5,7 +5,7 @@
@@ -374,10 +378,10 @@ index 6aff657..1b7df8c 100755
  # read local configuration
  . ./vmaps.conf ||:
 diff --git i/vmap_data/scripts/vmaps_wp_update w/vmap_data/scripts/vmaps_wp_update
-index 24df3c1..5252dd0 100755
+index 0c3ec89..e235642 100755
 --- i/vmap_data/scripts/vmaps_wp_update
 +++ w/vmap_data/scripts/vmaps_wp_update
-@@ -25,7 +25,7 @@
+@@ -26,7 +26,7 @@
  ##################################################
  
  # read global configuration and functions
