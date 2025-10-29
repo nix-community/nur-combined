@@ -1,4 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cpptrace, magic-enum, zstd, libdwarf }:
+{ lib, pkgs, stdenv, fetchFromGitHub, cmake, cpptrace, magic-enum, zstd, libdwarf, enableTesting ? true }:
+let
+  magic-enum = pkgs.magic-enum.overrideAttrs (old: { cmakeFlags = old.cmakeFlags ++ (if !enableTesting then [ "-DMAGIC_ENUM_OPT_BUILD_TESTS=0" "-DMAGIC_ENUM_OPT_BUILD_EXAMPLES=0" ] else [ ]); });
+in
 stdenv.mkDerivation rec {
   pname = "libassert";
   version = "2.2.1";

@@ -74,7 +74,7 @@
 
   cpptrace = pkgs.callPackage ./pkgs/cpptrace { libdwarf = libdwarf; };
 
-  libassert = pkgs.callPackage ./pkgs/libassert { libdwarf = libdwarf; cpptrace = cpptrace; };
+  libassert = pkgs.callPackage ./pkgs/libassert { libdwarf = libdwarf; cpptrace = cpptrace; enableTesting = false; };
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
@@ -163,7 +163,7 @@
   ned14-outcome = pkgs.callPackage ./pkgs/ned14-outcome {
     quickcpplib = ned14-quickcpplib;
     status-code = ned14-status-code;
-    byte-lite = byte-lite; 
+    byte-lite = byte-lite;
     span-lite = span-lite;
   };
 
