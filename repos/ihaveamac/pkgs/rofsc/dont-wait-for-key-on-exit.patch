@@ -1,0 +1,20 @@
+diff --git a/rofsc/Program.cs b/rofsc/Program.cs
+index b0dde93..2502cb6 100644
+--- a/rofsc/Program.cs
++++ b/rofsc/Program.cs
+@@ -117,8 +117,6 @@ namespace rofsc
+ 
+         static void Exit()
+         {
+-            Console.WriteLine("Press any key to exit...");
+-            Console.ReadKey();
+             Environment.Exit(0);
+         }
+ 
+@@ -254,4 +252,4 @@ namespace rofsc
+             this.id = id;
+         }
+     }
+-}
+\ No newline at end of file
++}

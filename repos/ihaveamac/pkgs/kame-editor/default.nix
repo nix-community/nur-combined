@@ -64,6 +64,8 @@ stdenv.mkDerivation rec {
     homepage = "https://beelzy.gitlab.io/kame-editor/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
+    # qt6 wants wayland???
+    broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "kame-editor";
   };
 }
