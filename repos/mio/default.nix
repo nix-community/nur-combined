@@ -13,75 +13,85 @@
     ];
   },
 }:
-
+let
+  v3Optimizations =
+    if pkgs.stdenv.hostPlatform.isx86_64 then
+      pkgs.stdenvAdapters.withCFlags [ "-march=x86-64-v3" ]
+    else
+      stdenv: stdenv;
+  v3overrideAttrs =
+    if pkgs.stdenv.hostPlatform.isx86_64 then
+      x:
+      x.overrideAttrs (old: {
+        env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3";
+      })
+    else
+      x: x;
+  goV3OverrideAttrs =
+    if pkgs.stdenv.hostPlatform.isx86_64 then
+      x:
+      x.overrideAttrs (old: {
+        GOAMD64 = "v3";
+      })
+    else
+      x: x;
+  v3override =
+    if pkgs.stdenv.hostPlatform.isx86_64 then
+      x:
+      x.override (prev: {
+        stdenv = v3Optimizations prev.stdenv;
+      })
+    else
+      x: x;
+in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  v3Optimizations =
-    if pkgs.stdenv.hostPlatform.isx86_64 then
-      pkgs.stdenvAdapters.withCFlags [ "-march=x86-64-v3" ]
-    else
-      stdenv: stdenv;
-
   telegram-desktop = pkgs.telegram-desktop.overrideAttrs (old: {
-    unwrapped =
-      (old.unwrapped.overrideAttrs (old2: {
+    unwrapped = v3override (
+      old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
         patches = (pkgs.telegram-desktop.unwrapped.patches or [ ]) ++ [
           ./patches/0001-telegramPatches.patch
         ];
-      })).override
-        (prev: {
-          stdenv = v3Optimizations prev.stdenv;
-        });
+      })
+    );
   });
   materialgram = pkgs.materialgram.overrideAttrs (old: {
-    unwrapped =
-      (old.unwrapped.overrideAttrs (old2: {
+    unwrapped = v3override (
+      old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
         patches = (pkgs.materialgram.unwrapped.patches or [ ]) ++ [
           ./patches/0001-materialgramPatches.patch
         ];
-      })).override
-        (prev: {
-          stdenv = v3Optimizations prev.stdenv;
-        });
+      })
+    );
   });
-  openssh =
-    (pkgs.openssh.overrideAttrs (old: {
+  openssh = v3override (
+    pkgs.openssh.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
       #doCheck = false;
-    })).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
-  openssh_hpn =
-    (pkgs.openssh_hpn.overrideAttrs (old: {
+    })
+  );
+  openssh_hpn = v3override (
+    pkgs.openssh_hpn.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
       #doCheck = false;
-    })).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
-  grub2 =
-    (pkgs.grub2.overrideAttrs (old: {
+    })
+  );
+  grub2 = v3override (
+    pkgs.grub2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
       #doCheck = false;
       meta = old.meta // {
         broken = pkgs.stdenv.hostPlatform.isDarwin;
       };
-    })).override
-      (prev: {
-        stdenv = v3Optimizations prev.stdenv;
-      });
-  wireguird = (pkgs.callPackage ./pkgs/wireguird { }).overrideAttrs (
-    finalAttrs: previousAttrs: {
-      GOAMD64 = if pkgs.stdenv.hostPlatform.isx86_64 then "v3" else null;
-    }
+    })
   );
+  wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   example-package = pkgs.callPackage ./pkgs/example-package { };
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
@@ -109,7 +119,7 @@ rec {
     if pkgs.stdenv.isDarwin then
       pkgs.callPackage ./pkgs/musescore3/darwin.nix { }
     else
-      pkgs.libsForQt5.callPackage ./pkgs/musescore3 { };
+      v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
   zen-browser = pkgs.callPackage ./pkgs/zen-browser/package.nix { };
   tuxguitar = pkgs.tuxguitar.overrideAttrs (old: rec {
     version = "2.0.0beta4";
