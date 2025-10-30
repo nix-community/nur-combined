@@ -1,4 +1,2 @@
 {pkgs}:
-pkgs.callPackage ./package.nix {
-  system = "aarch-darwin";
-}
+pkgs.callPackage ./package.nix {}
