@@ -64,9 +64,17 @@ mkDerivation rec {
     ln -s mscore3 $out/bin/musescore3
     rm $out/bin/musescore
 
+    # Rename icon files from mscore to mscore3
+    for icon in $out/share/icons/hicolor/*/apps/mscore.png $out/share/icons/hicolor/*/apps/mscore.svg; do
+      if [ -e "$icon" ]; then
+        mv "$icon" "''${icon/mscore/mscore3}"
+      fi
+    done
+
     # Update desktop file to use mscore3
     substituteInPlace $out/share/applications/mscore.desktop \
-      --replace-fail "Exec=mscore" "Exec=mscore3"
+      --replace-fail "Exec=mscore" "Exec=mscore3" \
+      --replace-fail "Icon=mscore" "Icon=mscore3"
   '';
 
   nativeBuildInputs = [
