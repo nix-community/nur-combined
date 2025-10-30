@@ -54,6 +54,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
 
+  patches = [
+    # https://github.com/rust-lang/rust/issues/51114
+    ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
+    # TODO: remove after migrating to 2024 edition
+    ./0002-Drop-usage-of-unstable-let_chains-feature.patch
+  ];
+
   # Necessary for cross compiled build scripts, otherwise it will build as ELF format
   # https://docs.rs/cc/latest/cc/#external-configuration-via-environment-variables
   CC_x86_64_pc_windows_gnu = "${mingwCompiler}/bin/${mingwCompiler.targetPrefix}cc";

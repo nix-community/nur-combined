@@ -1,0 +1,154 @@
+From b56b609c2367645fd63df54dde53a831173a9e61 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
+Date: Sun, 23 Mar 2025 13:00:41 +0100
+Subject: [PATCH 1/4] Drop usage of unstable if_let_guard feature
+
+---
+ src/gui/message.rs | 64 +++++++++++++++++++++++++++-------------------
+ src/lib.rs         | 34 ++++++++++++++----------
+ 2 files changed, 58 insertions(+), 40 deletions(-)
+
+diff --git a/src/gui/message.rs b/src/gui/message.rs
+index df50d66..a92302f 100644
+--- a/src/gui/message.rs
++++ b/src/gui/message.rs
+@@ -214,19 +214,25 @@ impl Integrate {
+                     info!("integration complete");
+                     app.last_action = Some(LastAction::success("integration complete".to_string()));
+                 }
+-                Err(ref e)
+-                    if let IntegrationError::ProviderError { ref source } = e
+-                        && let ProviderError::NoProvider { url: _, factory } = source =>
+-                {
+-                    app.window_provider_parameters =
+-                        Some(WindowProviderParameters::new(factory, &app.state));
+-                    app.last_action = Some(LastAction::failure("no provider".to_string()));
+-                }
+-                Err(e) => {
+-                    error!("{}", e);
+-                    app.problematic_mod_id = e.opt_mod_id();
+-                    app.last_action = Some(LastAction::failure(e.to_string()));
+-                }
++                Err(ref e) => match e {
++                    IntegrationError::ProviderError { ref source } => match source {
++                        ProviderError::NoProvider { url: _, factory } => {
++                            app.window_provider_parameters =
++                                Some(WindowProviderParameters::new(factory, &app.state));
++                            app.last_action = Some(LastAction::failure("no provider".to_string()));
++                        }
++                        _ => {
++                            error!("{}", e);
++                            app.problematic_mod_id = e.opt_mod_id();
++                            app.last_action = Some(LastAction::failure(e.to_string()));
++                        }
++                    },
++                    _ => {
++                        error!("{}", e);
++                        app.problematic_mod_id = e.opt_mod_id();
++                        app.last_action = Some(LastAction::failure(e.to_string()));
++                    }
++                },
+             }
+             app.integrate_rid = None;
+         }
+@@ -475,19 +481,25 @@ impl LintMods {
+                     app.last_action =
+                         Some(LastAction::success("lint mod report complete".to_string()));
+                 }
+-                Err(ref e)
+-                    if let IntegrationError::ProviderError { ref source } = e
+-                        && let ProviderError::NoProvider { url: _, factory } = source =>
+-                {
+-                    app.window_provider_parameters =
+-                        Some(WindowProviderParameters::new(factory, &app.state));
+-                    app.last_action = Some(LastAction::failure("no provider".to_string()));
+-                }
+-                Err(e) => {
+-                    error!("{}", e);
+-                    app.problematic_mod_id = e.opt_mod_id();
+-                    app.last_action = Some(LastAction::failure(e.to_string()));
+-                }
++                Err(ref e) => match e {
++                    IntegrationError::ProviderError { ref source } => match source {
++                        ProviderError::NoProvider { url: _, factory } => {
++                            app.window_provider_parameters =
++                                Some(WindowProviderParameters::new(factory, &app.state));
++                            app.last_action = Some(LastAction::failure("no provider".to_string()));
++                        }
++                        _ => {
++                            error!("{}", e);
++                            app.problematic_mod_id = e.opt_mod_id();
++                            app.last_action = Some(LastAction::failure(e.to_string()));
++                        }
++                    },
++                    _ => {
++                        error!("{}", e);
++                        app.problematic_mod_id = e.opt_mod_id();
++                        app.last_action = Some(LastAction::failure(e.to_string()));
++                    }
++                },
+             }
+             app.integrate_rid = None;
+         }
+diff --git a/src/lib.rs b/src/lib.rs
+index 9bdf780..a91fe47 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -1,5 +1,6 @@
+ #![feature(let_chains)]
+-#![feature(if_let_guard)]
++// TODO: enable when stabilized: https://github.com/rust-lang/rust/issues/51114
++//#![feature(if_let_guard)]
+ 
+ pub mod gui;
+ pub mod integrate;
+@@ -212,13 +213,15 @@ where
+     loop {
+         match resolve_unordered_and_integrate(&game_path, state, mod_specs, update).await {
+             Ok(()) => return Ok(()),
+-            Err(ref e)
+-                if let IntegrationError::ProviderError { ref source } = e
+-                    && let ProviderError::NoProvider { ref url, factory } = source =>
+-            {
+-                init(state, url.clone(), factory)?
++            Err(e) => {
++                if let IntegrationError::ProviderError { ref source } = e {
++                    if let ProviderError::NoProvider { ref url, factory } = source {
++                        init(state, url.clone(), factory)?;
++                        continue;
++                    }
++                }
++                Err(e)?;
+             }
+-            Err(e) => Err(e)?,
+         }
+     }
+ }
+@@ -235,14 +238,17 @@ where
+     loop {
+         match resolve_ordered(state, mod_specs).await {
+             Ok(mod_paths) => return Ok(mod_paths),
+-            Err(ref e)
+-                if let MintError::IntegrationError { ref source } = e
+-                    && let IntegrationError::ProviderError { ref source } = source
+-                    && let ProviderError::NoProvider { ref url, factory } = source =>
+-            {
+-                init(state, url.clone(), factory)?
++            Err(e) => {
++                if let MintError::IntegrationError { ref source } = e {
++                    if let IntegrationError::ProviderError { ref source } = source {
++                        if let ProviderError::NoProvider { ref url, factory } = source {
++                            init(state, url.clone(), factory)?;
++                            continue;
++                        }
++                    }
++                }
++                Err(e)?
+             }
+-            Err(e) => Err(e)?,
+         }
+     }
+ }
+-- 
+2.49.0
+

@@ -1,0 +1,643 @@
+From d3dd89b13387dc53dac74c0f90852de50911adac Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gutyina=20Gerg=C5=91?= <gutyina.gergo.2@gmail.com>
+Date: Sun, 23 Mar 2025 13:14:07 +0100
+Subject: [PATCH 2/4] Drop usage of unstable let_chains feature
+
+---
+ src/gui/message.rs                  |  25 +++--
+ src/gui/mod.rs                      | 164 +++++++++++++++-------------
+ src/integrate.rs                    |  29 ++---
+ src/lib.rs                          |   3 +-
+ src/mod_lints/asset_register_bin.rs |  18 +--
+ src/mod_lints/mod.rs                |  36 +++---
+ src/providers/cache.rs              |  38 ++++---
+ src/providers/http.rs               |  20 ++--
+ src/providers/modio.rs              |  18 +--
+ 9 files changed, 187 insertions(+), 164 deletions(-)
+
+diff --git a/src/gui/message.rs b/src/gui/message.rs
+index a92302f..8fc4037 100644
+--- a/src/gui/message.rs
++++ b/src/gui/message.rs
+@@ -248,10 +248,10 @@ pub struct FetchModProgress {
+ 
+ impl FetchModProgress {
+     fn receive(self, app: &mut App) {
+-        if let Some(MessageHandle { rid, state, .. }) = &mut app.integrate_rid
+-            && *rid == self.rid
+-        {
+-            state.insert(self.spec, self.progress);
++        if let Some(MessageHandle { rid, state, .. }) = &mut app.integrate_rid {
++            if *rid == self.rid {
++                state.insert(self.spec, self.progress);
++            }
+         }
+     }
+ }
+@@ -345,10 +345,11 @@ impl CheckUpdates {
+                             .tag_name
+                             .strip_prefix('v')
+                             .map(semver::Version::parse),
+-                    ) && release_version > version
+-                    {
+-                        app.available_update = Some(release);
+-                        app.show_update_time = Some(SystemTime::now());
++                    ) {
++                        if release_version > version {
++                            app.available_update = Some(release);
++                            app.show_update_time = Some(SystemTime::now());
++                        }
+                     }
+                 }
+                 Err(e) => tracing::warn!("failed to fetch update {e}"),
+@@ -605,10 +606,10 @@ pub struct FetchSelfUpdateProgress {
+ 
+ impl FetchSelfUpdateProgress {
+     fn receive(self, app: &mut App) {
+-        if let Some(MessageHandle { rid, state, .. }) = &mut app.self_update_rid
+-            && *rid == self.rid
+-        {
+-            *state = self.progress;
++        if let Some(MessageHandle { rid, state, .. }) = &mut app.self_update_rid {
++            if *rid == self.rid {
++                *state = self.progress;
++            }
+         }
+     }
+ }
+diff --git a/src/gui/mod.rs b/src/gui/mod.rs
+index 22b4859..e29849f 100644
+--- a/src/gui/mod.rs
++++ b/src/gui/mod.rs
+@@ -447,31 +447,32 @@ impl App {
+ 
+                 let info = self.state.store.get_mod_info(&mc.spec);
+ 
+-                if let Some(ref info) = info
+-                    && let Some(modio_id) = info.modio_id
+-                    && self.problematic_mod_id.is_some_and(|id| id == modio_id)
+-                {
+-                    let icon = egui::Button::new(RichText::new("❌").color(Color32::WHITE))
+-                        .fill(Color32::RED);
+-                    ui.add_enabled(false, icon);
++                if let Some(ref info) = info {
++                    if let Some(modio_id) = info.modio_id {
++                        if self.problematic_mod_id.is_some_and(|id| id == modio_id) {
++                            let icon = egui::Button::new(RichText::new("❌").color(Color32::WHITE))
++                                .fill(Color32::RED);
++                            ui.add_enabled(false, icon);
++                        }
++                    }
+                 }
+ 
+-                if mc.enabled
+-                    && let Some(req) = &self.integrate_rid
+-                {
+-                    match req.state.get(&mc.spec) {
+-                        Some(SpecFetchProgress::Progress { progress, size }) => {
+-                            ui.add(
+-                                egui::ProgressBar::new(*progress as f32 / *size as f32)
+-                                    .show_percentage()
+-                                    .desired_width(100.0),
+-                            );
+-                        }
+-                        Some(SpecFetchProgress::Complete) => {
+-                            ui.add(egui::ProgressBar::new(1.0).desired_width(100.0));
+-                        }
+-                        None => {
+-                            ui.spinner();
++                if mc.enabled {
++                    if let Some(req) = &self.integrate_rid {
++                        match req.state.get(&mc.spec) {
++                            Some(SpecFetchProgress::Progress { progress, size }) => {
++                                ui.add(
++                                    egui::ProgressBar::new(*progress as f32 / *size as f32)
++                                        .show_percentage()
++                                        .desired_width(100.0),
++                                );
++                            }
++                            Some(SpecFetchProgress::Complete) => {
++                                ui.add(egui::ProgressBar::new(1.0).desired_width(100.0));
++                            }
++                            None => {
++                                ui.spinner();
++                            }
+                         }
+                     }
+                 }
+@@ -1033,14 +1034,15 @@ impl App {
+                             if is_committed(&res) {
+                                 try_save = true;
+                             }
+-                            if ui.button("browse").clicked()
+-                                && let Some(fsd_pak) = rfd::FileDialog::new()
++                            if ui.button("browse").clicked() {
++                                if let Some(fsd_pak) = rfd::FileDialog::new()
+                                     .add_filter("DRG Pak", &["pak"])
+                                     .pick_file()
+                                 {
+                                     window.drg_pak_path = fsd_pak.to_string_lossy().to_string();
+                                     window.drg_pak_path_err = None;
+                                 }
++                            }
+                         });
+                         ui.end_row();
+ 
+@@ -1286,8 +1288,8 @@ impl App {
+                             .show(ui, |ui| {
+                                 const AMBER: Color32 = Color32::from_rgb(255, 191, 0);
+ 
+-                                if let Some(conflicting_mods) = &report.conflicting_mods
+-                                    && !conflicting_mods.is_empty() {
++                                if let Some(conflicting_mods) = &report.conflicting_mods {
++                                    if !conflicting_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new("⚠ Mods(s) with conflicting asset modifications detected")
+                                                 .color(AMBER),
+@@ -1312,9 +1314,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(asset_register_bin_mods) = &report.asset_register_bin_mods
+-                                    && !asset_register_bin_mods.is_empty() {
++                                if let Some(asset_register_bin_mods) = &report.asset_register_bin_mods {
++                                    if !asset_register_bin_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new("ℹ Mod(s) with `AssetRegistry.bin` included detected")
+                                                 .color(Color32::LIGHT_BLUE),
+@@ -1339,9 +1342,10 @@ impl App {
+                                             );
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(shader_file_mods) = &report.shader_file_mods
+-                                    && !shader_file_mods.is_empty() {
++                                if let Some(shader_file_mods) = &report.shader_file_mods {
++                                    if !shader_file_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mods(s) with shader files included detected",
+@@ -1368,9 +1372,10 @@ impl App {
+                                             );
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(outdated_pak_version_mods) = &report.outdated_pak_version_mods
+-                                    && !outdated_pak_version_mods.is_empty() {
++                                if let Some(outdated_pak_version_mods) = &report.outdated_pak_version_mods {
++                                    if !outdated_pak_version_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with outdated pak version detected",
+@@ -1392,9 +1397,10 @@ impl App {
+                                             );
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(empty_archive_mods) = &report.empty_archive_mods
+-                                    && !empty_archive_mods.is_empty() {
++                                if let Some(empty_archive_mods) = &report.empty_archive_mods {
++                                    if !empty_archive_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with empty archives detected",
+@@ -1414,9 +1420,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(archive_with_only_non_pak_files_mods) = &report.archive_with_only_non_pak_files_mods
+-                                    && !archive_with_only_non_pak_files_mods.is_empty() {
++                                if let Some(archive_with_only_non_pak_files_mods) = &report.archive_with_only_non_pak_files_mods {
++                                    if !archive_with_only_non_pak_files_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with only non-`.pak` files detected",
+@@ -1436,9 +1443,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(archive_with_multiple_paks_mods) = &report.archive_with_multiple_paks_mods
+-                                    && !archive_with_multiple_paks_mods.is_empty() {
++                                if let Some(archive_with_multiple_paks_mods) = &report.archive_with_multiple_paks_mods {
++                                    if !archive_with_multiple_paks_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with multiple `.pak`s detected",
+@@ -1456,9 +1464,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(non_asset_file_mods) = &report.non_asset_file_mods
+-                                    && !non_asset_file_mods.is_empty() {
++                                if let Some(non_asset_file_mods) = &report.non_asset_file_mods {
++                                    if !non_asset_file_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with non-asset files detected",
+@@ -1483,9 +1492,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(split_asset_pairs_mods) = &report.split_asset_pairs_mods
+-                                    && !split_asset_pairs_mods.is_empty() {
++                                if let Some(split_asset_pairs_mods) = &report.split_asset_pairs_mods {
++                                    if !split_asset_pairs_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with split {uexp, uasset} pairs detected",
+@@ -1517,9 +1527,10 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+ 
+-                                if let Some(unmodified_game_assets_mods) = &report.unmodified_game_assets_mods
+-                                    && !unmodified_game_assets_mods.is_empty() {
++                                if let Some(unmodified_game_assets_mods) = &report.unmodified_game_assets_mods {
++                                    if !unmodified_game_assets_mods.is_empty() {
+                                         CollapsingHeader::new(
+                                             RichText::new(
+                                                 "⚠ Mod(s) with unmodified game assets detected",
+@@ -1544,6 +1555,7 @@ impl App {
+                                             });
+                                         });
+                                     }
++                                }
+                             });
+                     } else {
+                         ui.spinner();
+@@ -1680,19 +1692,17 @@ struct WindowLintsToggle;
+ 
+ impl eframe::App for App {
+     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+-        if self.needs_restart
+-            && let Some(original_exe_path) = &self.original_exe_path
+-        {
+-            debug!("needs restart");
+-            self.needs_restart = false;
+-
+-            debug!("restarting...");
+-            let _child = std::process::Command::new(original_exe_path)
+-                .spawn()
+-                .unwrap();
+-            debug!("created child process");
+-
+-            std::process::exit(0);
++        if self.needs_restart {
++            if let Some(original_exe_path) = &self.original_exe_path {
++                debug!("needs restart");
++                self.needs_restart = false;
++                debug!("restarting...");
++                let _child = std::process::Command::new(original_exe_path)
++                    .spawn()
++                    .unwrap();
++                debug!("created child process");
++                std::process::exit(0);
++            }
+         }
+ 
+         // do some init things that depend on ctx so cannot be done earlier
+@@ -1728,8 +1738,8 @@ impl eframe::App for App {
+                         && self.self_update_rid.is_none()
+                         && self.state.config.drg_pak_path.is_some(),
+                     |ui| {
+-                        if let Some(args) = &self.args
+-                            && ui
++                        if let Some(args) = &self.args {
++                            if ui
+                                 .button("Launch game")
+                                 .on_hover_ui(|ui| {
+                                     for arg in args {
+@@ -1737,17 +1747,18 @@ impl eframe::App for App {
+                                     }
+                                 })
+                                 .clicked()
+-                        {
+-                            let args = args.clone();
+-                            std::thread::spawn(move || {
+-                                let mut iter = args.iter();
+-                                std::process::Command::new(iter.next().unwrap())
+-                                    .args(iter)
+-                                    .spawn()
+-                                    .unwrap()
+-                                    .wait()
+-                                    .unwrap();
+-                            });
++                            {
++                                let args = args.clone();
++                                std::thread::spawn(move || {
++                                    let mut iter = args.iter();
++                                    std::process::Command::new(iter.next().unwrap())
++                                        .args(iter)
++                                        .spawn()
++                                        .unwrap()
++                                        .wait()
++                                        .unwrap();
++                                });
++                            }
+                         }
+ 
+                         ui.add_enabled_ui(self.state.config.drg_pak_path.is_some(), |ui| {
+@@ -1861,17 +1872,18 @@ impl eframe::App for App {
+                 if ui.button("⚙").on_hover_text("Open settings").clicked() {
+                     self.settings_window = Some(WindowSettings::new(&self.state));
+                 }
+-                if let Some(available_update) = &self.available_update
+-                    && ui
++                if let Some(available_update) = &self.available_update {
++                    if ui
+                         .button(egui::RichText::new("\u{26A0}").color(ui.visuals().warn_fg_color))
+                         .on_hover_text(format!(
+                             "Update available: {}\n{}",
+                             available_update.tag_name, available_update.html_url
+                         ))
+                         .clicked()
+-                {
+-                    ui.ctx()
+-                        .open_url(egui::OpenUrl::new_tab(&available_update.html_url));
++                    {
++                        ui.ctx()
++                            .open_url(egui::OpenUrl::new_tab(&available_update.html_url));
++                    }
+                 }
+                 ui.with_layout(egui::Layout::left_to_right(Align::TOP), |ui| {
+                     if let Some(last_action) = &self.last_action {
+diff --git a/src/integrate.rs b/src/integrate.rs
+index fe9ea0d..d338fe8 100644
+--- a/src/integrate.rs
++++ b/src/integrate.rs
+@@ -854,13 +854,14 @@ fn hook_pcb<R: Read + Seek>(asset: &mut Asset<R>) {
+         .iter_mut()
+         .enumerate()
+         .find_map(|(i, e)| {
+-            if let unreal_asset::exports::Export::FunctionExport(func) = e
+-                && func
++            if let unreal_asset::exports::Export::FunctionExport(func) = e {
++                if func
+                     .get_base_export()
+                     .object_name
+                     .get_content(|n| n == "ReceiveBeginPlay")
+-            {
+-                return Some((PackageIndex::from_export(i as i32).unwrap(), func));
++                {
++                    return Some((PackageIndex::from_export(i as i32).unwrap(), func));
++                }
+             }
+             None
+         })
+@@ -1064,10 +1065,10 @@ fn patch<C: Seek + Read>(asset: &mut Asset<C>) -> Result<(), IntegrationError> {
+         mut statement: TrackedStatement,
+     ) -> Option<TrackedStatement> {
+         walk(&mut statement.ex, &|ex| {
+-            if let KismetExpression::ExCallMath(f) = ex
+-                && (Some(f.stack_node) == is_modded || Some(f.stack_node) == is_modded_sandbox)
+-            {
+-                *ex = ExFalse::default().into()
++            if let KismetExpression::ExCallMath(f) = ex {
++                if Some(f.stack_node) == is_modded || Some(f.stack_node) == is_modded_sandbox {
++                    *ex = ExFalse::default().into()
++                }
+             }
+         });
+         Some(statement)
+@@ -1093,12 +1094,12 @@ fn patch_modding_tab<C: Seek + Read>(asset: &mut Asset<C>) -> Result<(), Integra
+     for (_pi, statements) in statements.iter_mut() {
+         for statement in statements {
+             walk(&mut statement.ex, &|ex| {
+-                if let KismetExpression::ExSetArray(arr) = ex
+-                    && arr.elements.len() == 2
+-                {
+-                    arr.elements.retain(|e| !matches!(e, KismetExpression::ExInstanceVariable(v) if v.variable.new.as_ref().unwrap().path.last().unwrap().get_content(|c| c == "BTN_Modding")));
+-                    if arr.elements.len() != 2 {
+-                        info!("patched modding tab visibility");
++                if let KismetExpression::ExSetArray(arr) = ex {
++                    if arr.elements.len() == 2 {
++                        arr.elements.retain(|e| !matches!(e, KismetExpression::ExInstanceVariable(v) if v.variable.new.as_ref().unwrap().path.last().unwrap().get_content(|c| c == "BTN_Modding")));
++                        if arr.elements.len() != 2 {
++                            info!("patched modding tab visibility");
++                        }
+                     }
+                 }
+             });
+diff --git a/src/lib.rs b/src/lib.rs
+index a91fe47..d08d99b 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -1,4 +1,5 @@
+-#![feature(let_chains)]
++// TODO: enable when stabilized: https://github.com/rust-lang/rust/issues/53667
++//#![feature(let_chains)]
+ // TODO: enable when stabilized: https://github.com/rust-lang/rust/issues/51114
+ //#![feature(if_let_guard)]
+ 
+diff --git a/src/mod_lints/asset_register_bin.rs b/src/mod_lints/asset_register_bin.rs
+index eb222f8..07927e2 100644
+--- a/src/mod_lints/asset_register_bin.rs
++++ b/src/mod_lints/asset_register_bin.rs
+@@ -14,15 +14,15 @@ impl Lint for AssetRegisterBinLint {
+         let mut asset_register_bin_mods = BTreeMap::new();
+ 
+         lcx.for_each_mod_file(|mod_spec, _, _, raw_path, normalized_path| {
+-            if let Some(filename) = raw_path.file_name()
+-                && filename == "AssetRegistry.bin"
+-            {
+-                asset_register_bin_mods
+-                    .entry(mod_spec.clone())
+-                    .and_modify(|paths: &mut BTreeSet<String>| {
+-                        paths.insert(normalized_path.clone());
+-                    })
+-                    .or_insert_with(|| [normalized_path.clone()].into());
++            if let Some(filename) = raw_path.file_name() {
++                if filename == "AssetRegistry.bin" {
++                    asset_register_bin_mods
++                        .entry(mod_spec.clone())
++                        .and_modify(|paths: &mut BTreeSet<String>| {
++                            paths.insert(normalized_path.clone());
++                        })
++                        .or_insert_with(|| [normalized_path.clone()].into());
++                }
+             }
+ 
+             Ok(())
+diff --git a/src/mod_lints/mod.rs b/src/mod_lints/mod.rs
+index e8243b7..ece0f92 100644
+--- a/src/mod_lints/mod.rs
++++ b/src/mod_lints/mod.rs
+@@ -106,10 +106,10 @@ impl LintCtxt {
+                 })
+                 .collect::<Vec<_>>();
+ 
+-            if individual_pak_readers.len() > 1
+-                && let Some(ref mut handler) = multiple_pak_files_handler
+-            {
+-                handler(mod_spec.clone());
++            if individual_pak_readers.len() > 1 {
++                if let Some(ref mut handler) = multiple_pak_files_handler {
++                    handler(mod_spec.clone());
++                }
+             }
+ 
+             let mut first_pak_read_seek = individual_pak_readers.remove(0);
+@@ -173,20 +173,20 @@ pub(crate) fn lint_get_all_files_from_data(
+                 .by_index(i)
+                 .map_err(|_| LintError::ZipArchiveError)?;
+ 
+-            if let Some(p) = file.enclosed_name().as_deref().map(Path::to_path_buf)
+-                && file.is_file()
+-            {
+-                if p.extension().filter(|e| e == &"pak").is_some() {
+-                    let mut buf = vec![];
+-                    file.read_to_end(&mut buf)?;
+-                    files.push((
+-                        p.to_path_buf(),
+-                        PakOrNotPak::Pak(Box::new(Cursor::new(buf))),
+-                    ));
+-                } else {
+-                    let mut buf = vec![];
+-                    file.read_to_end(&mut buf)?;
+-                    files.push((p.to_path_buf(), PakOrNotPak::NotPak));
++            if let Some(p) = file.enclosed_name().as_deref().map(Path::to_path_buf) {
++                if file.is_file() {
++                    if p.extension().filter(|e| e == &"pak").is_some() {
++                        let mut buf = vec![];
++                        file.read_to_end(&mut buf)?;
++                        files.push((
++                            p.to_path_buf(),
++                            PakOrNotPak::Pak(Box::new(Cursor::new(buf))),
++                        ));
++                    } else {
++                        let mut buf = vec![];
++                        file.read_to_end(&mut buf)?;
++                        files.push((p.to_path_buf(), PakOrNotPak::NotPak));
++                    }
+                 }
+             }
+         }
+diff --git a/src/providers/cache.rs b/src/providers/cache.rs
+index d7e1079..5dd81f5 100644
+--- a/src/providers/cache.rs
++++ b/src/providers/cache.rs
+@@ -139,24 +139,32 @@ pub(crate) fn read_cache_metadata_or_default(
+                 });
+             };
+             let version = obj_map.remove("version");
+-            if let Some(v) = version
+-                && let serde_json::Value::String(vs) = v
+-            {
+-                match vs.as_str() {
+-                    "0.0.0" => {
+-                        // HACK: workaround a serde issue relating to flattening with tags
+-                        // involving numeric keys in hashmaps, see
+-                        // <https://github.com/serde-rs/serde/issues/1183>.
+-                        match serde_json::from_slice::<Cache!["0.0.0"]>(&buf) {
+-                            Ok(c) => {
+-                                MaybeVersionedCache::Versioned(VersionAnnotatedCache::V0_0_0(c))
++            if let Some(v) = version {
++                if let serde_json::Value::String(vs) = v {
++                    match vs.as_str() {
++                        "0.0.0" => {
++                            // HACK: workaround a serde issue relating to flattening with tags
++                            // involving numeric keys in hashmaps, see
++                            // <https://github.com/serde-rs/serde/issues/1183>.
++                            match serde_json::from_slice::<Cache!["0.0.0"]>(&buf) {
++                                Ok(c) => {
++                                    MaybeVersionedCache::Versioned(VersionAnnotatedCache::V0_0_0(c))
++                                }
++                                Err(e) => Err(e).context(DeserializeVersionedCacheFailedSnafu {
++                                    version: "v0.0.0",
++                                })?,
+                             }
+-                            Err(e) => Err(e).context(DeserializeVersionedCacheFailedSnafu {
+-                                version: "v0.0.0",
+-                            })?,
+                         }
++                        _ => unimplemented!(),
++                    }
++                } else {
++                    // HACK: workaround a serde issue relating to flattening with tags involving
++                    // numeric keys in hashmaps, see <https://github.com/serde-rs/serde/issues/1183>.
++                    match serde_json::from_slice::<HashMap<String, Box<dyn ModProviderCache>>>(&buf)
++                    {
++                        Ok(c) => MaybeVersionedCache::Legacy(Cache_v0_0_0 { cache: c }),
++                        Err(e) => Err(e).context(DeserializeLegacyCacheFailedSnafu)?,
+                     }
+-                    _ => unimplemented!(),
+                 }
+             } else {
+                 // HACK: workaround a serde issue relating to flattening with tags involving
+diff --git a/src/providers/http.rs b/src/providers/http.rs
+index d46bd5b..7d5642d 100644
+--- a/src/providers/http.rs
++++ b/src/providers/http.rs
+@@ -171,16 +171,16 @@ impl ModProvider for HttpProvider {
+                         .with_context(|_| BufferIoSnafu {
+                             url: url.0.to_string(),
+                         })?;
+-                    if let Some(size) = size
+-                        && let Some(tx) = &tx
+-                    {
+-                        tx.send(FetchProgress::Progress {
+-                            resolution: res.clone(),
+-                            progress: cursor.get_ref().len() as u64,
+-                            size,
+-                        })
+-                        .await
+-                        .unwrap();
++                    if let Some(size) = size {
++                        if let Some(tx) = &tx {
++                            tx.send(FetchProgress::Progress {
++                                resolution: res.clone(),
++                                progress: cursor.get_ref().len() as u64,
++                                size,
++                            })
++                            .await
++                            .unwrap();
++                        }
+                     }
+                 }
+ 
+diff --git a/src/providers/modio.rs b/src/providers/modio.rs
+index 2cd638b..204e4f8 100644
+--- a/src/providers/modio.rs
++++ b/src/providers/modio.rs
+@@ -190,15 +190,15 @@ impl Middleware for LoggingMiddleware {
+                 req.url().path()
+             );
+             let res = next.clone().run(req.try_clone().unwrap(), extensions).await;
+-            if let Ok(res) = &res
+-                && let Some(retry) = res.headers().get("retry-after")
+-            {
+-                info!("retrying after: {}...", retry.to_str().unwrap());
+-                tokio::time::sleep(tokio::time::Duration::from_secs(
+-                    retry.to_str().unwrap().parse::<u64>().unwrap(),
+-                ))
+-                .await;
+-                continue;
++            if let Ok(res) = &res {
++                if let Some(retry) = res.headers().get("retry-after") {
++                    info!("retrying after: {}...", retry.to_str().unwrap());
++                    tokio::time::sleep(tokio::time::Duration::from_secs(
++                        retry.to_str().unwrap().parse::<u64>().unwrap(),
++                    ))
++                    .await;
++                    continue;
++                }
+             }
+             return res;
+         }
+-- 
+2.49.0
+
