@@ -41,6 +41,7 @@ mkDerivation rec {
     #./remove_qtwebengine_install_hack.patch # for musescore/MuseScore
     #./dtl-gcc14-fix.patch # for musescore/MuseScore
     ./Jojo-Schmitz-remove_qtwebengine_install_hack.patch
+    ./Jojo-Schmitz-happily-no-QtWebEngine.patch
   ];
 
   cmakeFlags = [
@@ -117,7 +118,7 @@ mkDerivation rec {
     qtscript
     qtsvg
     qttools
-    qtwebengine
+    #qtwebengine # not needed with Jojo-Schmitz-happily-no-QtWebEngine.patch
     qtxmlpatterns
   ];
 

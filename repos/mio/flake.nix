@@ -12,9 +12,9 @@
         import ./default.nix {
           pkgs = import nixpkgs {
             inherit system;
-            config.permittedInsecurePackages = [
-              "qtwebengine-5.15.19"
-            ];
+            #config.permittedInsecurePackages = [
+            #  "qtwebengine-5.15.19"
+            #];
           };
         }
       );

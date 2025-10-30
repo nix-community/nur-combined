@@ -11,9 +11,9 @@
 
 {
   pkgs ? import <nixpkgs> {
-    config.permittedInsecurePackages = [
-      "qtwebengine-5.15.19"
-    ];
+    #config.permittedInsecurePackages = [
+    #  "qtwebengine-5.15.19"
+    #];
   },
 }:
 
