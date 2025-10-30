@@ -135,7 +135,19 @@ rec {
       pkgs.callPackage ./pkgs/musescore3/darwin.nix { }
     else
       v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
-  musescore = v3override (pkgs.callPackage ./pkgs/musescore/package.nix { });
+  # https://github.com/musescore/MuseScore/pull/21874
+  # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
+  musescore = v3override (
+    pkgs.musescore.overrideAttrs (old: {
+      version = "4.4.0-piano_keyboard_playing_notes";
+      src = pkgs.fetchFromGitHub {
+        owner = "adazem009";
+        repo = "MuseScore";
+        rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
+        hash = "sha256-WLzt/Ox6GrfWD0/l8/Ksc2ptg5LZSOXXnlsSnenfZtI=";
+      };
+    })
+  );
   zen-browser = pkgs.callPackage ./pkgs/zen-browser/package.nix { };
   tuxguitar = pkgs.tuxguitar.overrideAttrs (old: rec {
     version = "2.0.0beta4";
