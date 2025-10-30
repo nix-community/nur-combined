@@ -19,6 +19,19 @@ buildGoModule (finalAttrs: {
   buildInputs = lib.optional (!withGoolm) olm;
   tags = lib.optional withGoolm "goolm";
 
+  preBuild = ''
+    export MAUTRIX_VERSION=$(cat go.mod | grep 'maunium.net/go/mautrix ' | awk '{ print $2 }')
+    ldflags=("''$ldflags[@]" "-X maunium.net/go/mautrix.GoModVersion=$MAUTRIX_VERSION")
+  '';
+
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Tag=v${finalAttrs.version}"
+    "-X main.Commit=0000000000000000000000000000000000000000"
+    "-X main.BuildTime=0"
+  ];
+
   meta = {
     changelog = "https://github.com/mautrix/gmessages/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/mautrix/gmessages";
