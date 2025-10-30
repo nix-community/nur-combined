@@ -36,32 +36,18 @@
 
 let
   winePackage = if lib.isDerivation wineWowPackages then wineWowPackages else wineWowPackages.minimal;
-
-  wineSrc = fetchFromGitHub {
-    owner = "tresf";
-    repo = "wine";
-    rev = "1f8bb63e75baa5c9f901c8f50b4ea9dd69e0baa0";
-    hash = "sha256-x5+uYG6V0v/zHPO33YvT6Q47JQV7CQdnRbVEOa+tLBA=";
-  };
 in
 stdenv.mkDerivation {
   pname = "lmms";
-  version = "1.3.0-alpha.1-unstable-2025-10-12";
+  version = "1.2.2-unstable-2025-10-30";
 
   src = fetchFromGitHub {
     owner = "LMMS";
     repo = "lmms";
-    rev = "807751dc4dce53583ecf4140b67a5dc343c789a7";
-    hash = "sha256-hXkH1e8C85JgZLoxDrHhwPBMzHtQt1IwTmb01S0cCAc=";
+    rev = "0fe697c4e568f19d3b11f9a3a55d2fa959edd225";
+    hash = "sha256-GelHVWMaQRLAVoTZpki1Rq4DvDgARE/pJrUdHkmUGw0=";
     fetchSubmodules = true;
   };
-
-  # see https://github.com/LMMS/lmms/blob/807751dc4dce53583ecf4140b67a5dc343c789a7/plugins/VstBase/CMakeLists.txt#L55
-  postUnpack = ''
-    mkdir $sourceRoot/plugins/VstBase/wine
-    cp -r ${wineSrc}/* $sourceRoot/plugins/VstBase/wine/
-    chmod -R a+rw $sourceRoot/plugins/VstBase/wine
-  '';
 
   nativeBuildInputs = [
     cmake
@@ -103,7 +89,6 @@ stdenv.mkDerivation {
   ];
 
   patches = lib.optionals withOptionals [
-    ./0001-wine-path-patch.patch
     (substitute {
       src = ./0001-fix-add-unique-string-to-FindWine-for-replacement-in.patch;
       substitutions = [
