@@ -16,7 +16,7 @@
   pango,
   pcre,
   pcre2,
-  utillinux,
+  util-linux,
   wayland,
   wayland-protocols,
   wayland-scanner,
@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttre: {
     wayland-scanner
     libXdmcp
     libxkbcommon
-    utillinux
+    util-linux
   ];
 
   outputs = [
