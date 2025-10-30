@@ -27,7 +27,7 @@
       isMacOS = true;
     };
   };
-  platform = platforms.${system} or (throw "[nix-repository:lotion-bin] system not supported: ${system}");
+  platform = platforms.${toString system} or (throw "[nix-repository:lotion-bin] system not supported: ${toString system}");
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "lotion";
