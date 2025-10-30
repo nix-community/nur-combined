@@ -45,7 +45,7 @@ jobs:
           git diff | tee ${{ runner.temp }}/update.patch
       - name: Upload patch
         if: steps.first_week.outputs.is_first_week == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: nix-update-patch
           path: ${{ runner.temp }}/update.patch
