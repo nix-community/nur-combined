@@ -102,6 +102,10 @@ rec {
       };
     })
   );
+  # https://github.com/NixOS/nixpkgs/issues/456347
+  sbcl = pkgs.sbcl.overrideAttrs (old: {
+    doCheck = false;
+  });
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   example-package = pkgs.callPackage ./pkgs/example-package { };
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
