@@ -7,6 +7,7 @@
   overlays = import ./overlays;
 
   deeplx = pkgs.callPackage ./pkgs/deeplx.nix { };
-  jackify = pkgs.callPackage ./pkgs/jackify.nix { };
+  handy-bin = pkgs.callPackage ./pkgs/handy-bin.nix { };
+  jackify-bin = pkgs.callPackage ./pkgs/jackify-bin.nix { };
   kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
 }
