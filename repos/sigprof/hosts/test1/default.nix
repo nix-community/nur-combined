@@ -35,7 +35,7 @@ in
           self.packages.${system}.firefox-langpack-ru
           self.packages.${system}.thunderbird-langpack-ru
 
-          unstable.tdesktop
+          unstable.telegram-desktop
           unstable.vial
         ];
 
