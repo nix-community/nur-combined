@@ -28,7 +28,7 @@
       sha256 = "sha256-qWJ4Z/ixqUq4rN06vq6JM+lJSovoh9DP1wB37C08Vt0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./baibot-v1.8.1/Cargo.lock;
+      lockFile = ./. + "/sha256-qWJ4Z_ixqUq4rN06vq6JM+lJSovoh9DP1wB37C08Vt0=/Cargo.lock";
       outputHashes = {
         "async-openai-0.28.1" = "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw=";
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
@@ -59,7 +59,7 @@
       sha256 = "sha256-M5Qw/aUX7zwq15bpe+Ix1t7kfkFF/JIC1ngOwAtx7Tg=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./dot-tar-b5f1f3f37abd9f65dd75cc5e74d32e6356090534/Cargo.lock;
+      lockFile = ./. + "/sha256-M5Qw_aUX7zwq15bpe+Ix1t7kfkFF_JIC1ngOwAtx7Tg=/Cargo.lock";
       outputHashes = {
 
       };
@@ -167,10 +167,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.5.1";
+    version = "v1.5.2";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.1/MoeKoe_Music_v1.5.1.AppImage";
-      sha256 = "sha256-7mLSt78xOb5GrP2v3GyZ1k6FCVS5Pi/NE3B+bmfuEe4=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.2/MoeKoe_Music_v1.5.2.AppImage";
+      sha256 = "sha256-eM6wqJ6X3ImxCJ00fyO7OxHkj2PHq2DfYVKc/9gu5w4=";
     };
   };
   mstickereditor = {
@@ -184,7 +184,7 @@
       sha256 = "sha256-yLelr190my12Ff5JbJXV5fh7VgeqGu0VYe/Mw0mLoNo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./mstickereditor-v0.3.7/Cargo.lock;
+      lockFile = ./. + "/sha256-yLelr190my12Ff5JbJXV5fh7VgeqGu0VYe_Mw0mLoNo=/Cargo.lock";
       outputHashes = {
 
       };
@@ -215,7 +215,7 @@
       sha256 = "sha256-Gbzh4OTkvtP9F/bfDUyA14NH2DMDdr3i6oFoFwinEAg=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./niri-taskbar-v0.3.0+niri.25.08/Cargo.lock;
+      lockFile = ./. + "/sha256-Gbzh4OTkvtP9F_bfDUyA14NH2DMDdr3i6oFoFwinEAg=/Cargo.lock";
       outputHashes = {
 
       };
@@ -509,7 +509,7 @@
       sha256 = "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./rlt-v0.1.6/Cargo.lock;
+      lockFile = ./. + "/sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=/Cargo.lock";
       outputHashes = {
 
       };
@@ -524,17 +524,6 @@
       rev = "v1.6.1-signed";
       fetchSubmodules = false;
       sha256 = "sha256-EFy4XsUi7f1BZHT95HPX2wp+B2q6WqlVmT6pME72kfA=";
-    };
-  };
-  synapse-s3-storage-provider = {
-    pname = "synapse-s3-storage-provider";
-    version = "v1.6.0";
-    src = fetchFromGitHub {
-      owner = "matrix-org";
-      repo = "synapse-s3-storage-provider";
-      rev = "v1.6.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-aeacw6Fpv4zFhZI4LdsJiV2pcOAMv3aV5CicnwYRxw8=";
     };
   };
   telegram-send = {
@@ -564,7 +553,7 @@
       sha256 = "sha256-I1saekIoRV/as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./tg-send-d3aea3f2dc37c39521ce59c5fb156427764ad68f/Cargo.lock;
+      lockFile = ./. + "/sha256-I1saekIoRV_as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=/Cargo.lock";
       outputHashes = {
 
       };
@@ -612,7 +601,7 @@
       sha256 = "sha256-TL0bgzQgge6j1SpZCdxv/s4pBMSg4/3U5QisjkVE6BE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./zeronsd-v0.5.2/Cargo.lock;
+      lockFile = ./. + "/sha256-TL0bgzQgge6j1SpZCdxv_s4pBMSg4_3U5QisjkVE6BE=/Cargo.lock";
       outputHashes = {
 
       };

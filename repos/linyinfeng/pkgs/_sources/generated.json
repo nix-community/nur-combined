@@ -1,6 +1,6 @@
 {
     "aws-sigv4-proxy": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "aws-sigv4-proxy",
@@ -21,9 +21,9 @@
         "version": "v1.10"
     },
     "baibot": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./baibot-v1.8.1/Cargo.lock",
+                "sha256-qWJ4Z_ixqUq4rN06vq6JM+lJSovoh9DP1wB37C08Vt0=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=",
                     "async-openai-0.28.1": "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw="
@@ -50,7 +50,7 @@
         "version": "v1.8.1"
     },
     "cowrie": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "cowrie",
@@ -71,9 +71,9 @@
         "version": "v2.8.1"
     },
     "dot-tar": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./dot-tar-b5f1f3f37abd9f65dd75cc5e74d32e6356090534/Cargo.lock",
+                "sha256-M5Qw_aUX7zwq15bpe+Ix1t7kfkFF_JIC1ngOwAtx7Tg=/Cargo.lock",
                 {}
             ]
         },
@@ -96,7 +96,7 @@
         "version": "b5f1f3f37abd9f65dd75cc5e74d32e6356090534"
     },
     "dpt-rp1-py": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "dpt-rp1-py",
@@ -117,7 +117,7 @@
         "version": "v0.1.18"
     },
     "gnome-shell-mobile-shell": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-06-05",
         "extract": null,
         "name": "gnome-shell-mobile-shell",
@@ -137,7 +137,7 @@
         "version": "9b7df11f136da27633c8d30cd419dcc7906c8b4d"
     },
     "icalingua-plus-plus": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "icalingua-plus-plus",
@@ -152,7 +152,7 @@
         "version": "v2.12.28"
     },
     "libva-v4l2": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-10-21",
         "extract": null,
         "name": "libva-v4l2",
@@ -172,7 +172,7 @@
         "version": "4bcd48cdeae182c7af5d23526068b51338c01b05"
     },
     "linux-intel-lts": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "linux-intel-lts",
@@ -193,7 +193,7 @@
         "version": "lts-v6.12.55-linux-251024T074402Z"
     },
     "linux-intel-mainline-tracking": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "linux-intel-mainline-tracking",
@@ -214,7 +214,7 @@
         "version": "mainline-tracking-v6.11.10-linux-241202T040109Z"
     },
     "lpac": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "lpac",
@@ -235,7 +235,7 @@
         "version": "v2.3.0"
     },
     "ly2video": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "ly2video",
@@ -256,7 +256,7 @@
         "version": "v0.5.0"
     },
     "mediawiki-auth-manager-oauth": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "mediawiki-auth-manager-oauth",
@@ -271,7 +271,7 @@
         "version": "v0.3.3"
     },
     "moe-koe-music": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "moe-koe-music",
@@ -279,16 +279,16 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7mLSt78xOb5GrP2v3GyZ1k6FCVS5Pi/NE3B+bmfuEe4=",
+            "sha256": "sha256-eM6wqJ6X3ImxCJ00fyO7OxHkj2PHq2DfYVKc/9gu5w4=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.1/MoeKoe_Music_v1.5.1.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.2/MoeKoe_Music_v1.5.2.AppImage"
         },
-        "version": "v1.5.1"
+        "version": "v1.5.2"
     },
     "mstickereditor": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./mstickereditor-v0.3.7/Cargo.lock",
+                "sha256-yLelr190my12Ff5JbJXV5fh7VgeqGu0VYe_Mw0mLoNo=/Cargo.lock",
                 {}
             ]
         },
@@ -312,7 +312,7 @@
         "version": "v0.3.7"
     },
     "mutter-mobile-shell": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-06-04",
         "extract": null,
         "name": "mutter-mobile-shell",
@@ -332,9 +332,9 @@
         "version": "5e72de83dbf48991d8d60913c8396a0d7f86990c"
     },
     "niri-taskbar": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./niri-taskbar-v0.3.0+niri.25.08/Cargo.lock",
+                "sha256-Gbzh4OTkvtP9F_bfDUyA14NH2DMDdr3i6oFoFwinEAg=/Cargo.lock",
                 {}
             ]
         },
@@ -358,7 +358,7 @@
         "version": "v0.3.0+niri.25.08"
     },
     "plugin-bang-bang": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-07-23",
         "extract": null,
         "name": "plugin-bang-bang",
@@ -378,7 +378,7 @@
         "version": "ec991b80ba7d4dda7a962167b036efc5c2d79419"
     },
     "plugin-git": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-03-28",
         "extract": null,
         "name": "plugin-git",
@@ -398,7 +398,7 @@
         "version": "d6950214b6b2392d3dbb2cb670f2a5f240090038"
     },
     "pyim-greatdict": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2019-07-19",
         "extract": null,
         "name": "pyim-greatdict",
@@ -418,7 +418,7 @@
         "version": "87594b2a4d6391cf69475257b286d3b844791571"
     },
     "replay-fish": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "replay-fish",
@@ -439,7 +439,7 @@
         "version": "1.2.1"
     },
     "rime-bopomofo": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-07-29",
         "extract": null,
         "name": "rime-bopomofo",
@@ -459,7 +459,7 @@
         "version": "1859af68a927ba3cd5afb8c47feedcecf874dab2"
     },
     "rime-cangjie": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-03-25",
         "extract": null,
         "name": "rime-cangjie",
@@ -479,7 +479,7 @@
         "version": "0ac8452eeb4abbcd8dd1f9e7314012310743285f"
     },
     "rime-cantonese": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-24",
         "extract": null,
         "name": "rime-cantonese",
@@ -499,7 +499,7 @@
         "version": "41816434b0b2457c772eae5e7dfd85054e8f5e24"
     },
     "rime-double-pinyin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-24",
         "extract": null,
         "name": "rime-double-pinyin",
@@ -519,7 +519,7 @@
         "version": "01a13287cbd27819be1c34fa1ddc1b3643d5001b"
     },
     "rime-emoji": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-03-31",
         "extract": null,
         "name": "rime-emoji",
@@ -539,7 +539,7 @@
         "version": "3dd83a264b4686b56abddedecbde75360cbbbfab"
     },
     "rime-essay": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-10-24",
         "extract": null,
         "name": "rime-essay",
@@ -559,7 +559,7 @@
         "version": "943c7bff037c163a80c452bd7ac80cd2b01975e6"
     },
     "rime-ice": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-10-23",
         "extract": null,
         "name": "rime-ice",
@@ -579,7 +579,7 @@
         "version": "49e5ed738f849279c7033221b6227c295f0e05f5"
     },
     "rime-loengfan": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-03-03",
         "extract": null,
         "name": "rime-loengfan",
@@ -599,7 +599,7 @@
         "version": "987ac95b02f957e8764a2f45222a4006c188ed50"
     },
     "rime-luna-pinyin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-08-05",
         "extract": null,
         "name": "rime-luna-pinyin",
@@ -619,7 +619,7 @@
         "version": "46acf03142c12b5aeed7002675046bf7255eed35"
     },
     "rime-pinyin-simp": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-12-29",
         "extract": null,
         "name": "rime-pinyin-simp",
@@ -639,7 +639,7 @@
         "version": "0c6861ef7420ee780270ca6d993d18d4101049d0"
     },
     "rime-prelude": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-04-20",
         "extract": null,
         "name": "rime-prelude",
@@ -659,7 +659,7 @@
         "version": "3c602fdb0dcca7825103e281efc50ef7580f99ec"
     },
     "rime-quick": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2019-01-20",
         "extract": null,
         "name": "rime-quick",
@@ -679,7 +679,7 @@
         "version": "3fe5911ba608cb2df1b6301b76ad1573bd482a76"
     },
     "rime-stroke": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-23",
         "extract": null,
         "name": "rime-stroke",
@@ -699,7 +699,7 @@
         "version": "3a4b0f4013e2b4c14b1e80c92b1d4723eb65f39c"
     },
     "rime-terra-pinyin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-10-09",
         "extract": null,
         "name": "rime-terra-pinyin",
@@ -719,7 +719,7 @@
         "version": "11878613ea12c2199b3aa71e320491f468e1fc7d"
     },
     "rime-wubi": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-10-25",
         "extract": null,
         "name": "rime-wubi",
@@ -739,7 +739,7 @@
         "version": "152a0d3f3efe40cae216d1e3b338242446848d07"
     },
     "rime-wugniu": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2019-01-20",
         "extract": null,
         "name": "rime-wugniu",
@@ -759,9 +759,9 @@
         "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
     },
     "rlt": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./rlt-v0.1.6/Cargo.lock",
+                "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=/Cargo.lock",
                 {}
             ]
         },
@@ -785,7 +785,7 @@
         "version": "v0.1.6"
     },
     "secureboot_objects": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "secureboot_objects",
@@ -805,29 +805,8 @@
         },
         "version": "v1.6.1-signed"
     },
-    "synapse-s3-storage-provider": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "synapse-s3-storage-provider",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "matrix-org",
-            "repo": "synapse-s3-storage-provider",
-            "rev": "v1.6.0",
-            "sha256": "sha256-aeacw6Fpv4zFhZI4LdsJiV2pcOAMv3aV5CicnwYRxw8=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.6.0"
-    },
     "telegram-send": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-10-07",
         "extract": null,
         "name": "telegram-send",
@@ -847,9 +826,9 @@
         "version": "38cd39fb0eac6c58e886c11706ae39f58991af55"
     },
     "tg-send": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./tg-send-d3aea3f2dc37c39521ce59c5fb156427764ad68f/Cargo.lock",
+                "sha256-I1saekIoRV_as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=/Cargo.lock",
                 {}
             ]
         },
@@ -872,7 +851,7 @@
         "version": "d3aea3f2dc37c39521ce59c5fb156427764ad68f"
     },
     "trojan": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "trojan",
@@ -893,7 +872,7 @@
         "version": "v1.16.0"
     },
     "vlmcsd": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "vlmcsd",
@@ -914,7 +893,7 @@
         "version": "svn1113"
     },
     "yacd": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "yacd",
@@ -929,9 +908,9 @@
         "version": "v0.3.8"
     },
     "zeronsd": {
-        "cargoLocks": {
+        "cargoLock": {
             "Cargo.lock": [
-                "./zeronsd-v0.5.2/Cargo.lock",
+                "sha256-TL0bgzQgge6j1SpZCdxv_s4pBMSg4_3U5QisjkVE6BE=/Cargo.lock",
                 {}
             ]
         },
