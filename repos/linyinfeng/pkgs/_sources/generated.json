@@ -63,12 +63,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.7.0",
-            "sha256": "sha256-4BAyH7GPBTqbS7GKPhS1gqjW+H1d3pzDGXwCa7fty58=",
+            "rev": "v2.8.1",
+            "sha256": "sha256-/8yJaBAlHZMu7YUgtu2GCkMplF8Ln/hZGVqCiCfT4CY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.0"
+        "version": "v2.8.1"
     },
     "dot-tar": {
         "cargoLocks": {
@@ -109,12 +109,12 @@
             "name": null,
             "owner": "janten",
             "repo": "dpt-rp1-py",
-            "rev": "v0.1.16",
-            "sha256": "sha256-cq9yHBQyqzlEb1Dvpx90MIixT8PxB8TBKv3+nFYCbn8=",
+            "rev": "v0.1.18",
+            "sha256": "sha256-5Ny62Kp1GHH9vmPSZ6smNqyEt9PZYPHAiungHZQMB/A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.16"
+        "version": "v0.1.18"
     },
     "gnome-shell-mobile-shell": {
         "cargoLocks": null,
@@ -185,12 +185,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.48-linux-250924T142248Z",
-            "sha256": "sha256-479uMPFKkgNnyg/3/ByOvYP4mcFQa9Iz//6djWvBLLY=",
+            "rev": "lts-v6.12.55-linux-251024T074402Z",
+            "sha256": "sha256-GSnK/uzQSOQo64episCJNJcPRm0UAhLX4QldRJFYqPg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.48-linux-250924T142248Z"
+        "version": "lts-v6.12.55-linux-251024T074402Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -540,7 +540,7 @@
     },
     "rime-essay": {
         "cargoLocks": null,
-        "date": "2025-09-05",
+        "date": "2025-10-24",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -550,17 +550,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "15cf21fb3a0113c981ed2e45fdc479a622ae8480",
-            "sha256": "sha256-/6f9iTdUNOni3cEygwrwjabpi1/2xM0WWL7lMROdwuU=",
+            "rev": "943c7bff037c163a80c452bd7ac80cd2b01975e6",
+            "sha256": "sha256-xn5xh6Txfz73tM9HJMS7kuKw0iTqeHeajWEsuggeZok=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "15cf21fb3a0113c981ed2e45fdc479a622ae8480"
+        "version": "943c7bff037c163a80c452bd7ac80cd2b01975e6"
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-10-06",
+        "date": "2025-10-23",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -570,13 +570,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "11fa56f4f4568198ab40847b2ec470bde91c864b",
-            "sha256": "sha256-bZ4ojoC2uL8MR5IO7TaAkwQKplRU/poAaHouY5Ruq5Q=",
+            "rev": "49e5ed738f849279c7033221b6227c295f0e05f5",
+            "sha256": "sha256-NuqUBZJiPAidwBEIq36H8YstutCOUJdxvJGdFAVJ2YU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "11fa56f4f4568198ab40847b2ec470bde91c864b"
+        "version": "49e5ed738f849279c7033221b6227c295f0e05f5"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -700,7 +700,7 @@
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
-        "date": "2025-07-22",
+        "date": "2025-10-09",
         "extract": null,
         "name": "rime-terra-pinyin",
         "passthru": null,
@@ -710,13 +710,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a",
-            "sha256": "sha256-DMTVdwjR1Q5wtODrrBTQOWlGokmqhBF+N0yDbYdJERI=",
+            "rev": "11878613ea12c2199b3aa71e320491f468e1fc7d",
+            "sha256": "sha256-Tluiw/VEnPmjZ3OaqvZqeG+TwLr5txN0iuoOBoFzTj0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
-        "version": "9e7673360c5dc9d945e2ba3f167833bb9217ca6a"
+        "version": "11878613ea12c2199b3aa71e320491f468e1fc7d"
     },
     "rime-wubi": {
         "cargoLocks": null,
@@ -798,12 +798,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.5.1-signed",
-            "sha256": "sha256-AF3PxqBW8Piis6jgm/O7PKz0VScOFVy8R+PfjRyDQto=",
+            "rev": "v1.6.1-signed",
+            "sha256": "sha256-EFy4XsUi7f1BZHT95HPX2wp+B2q6WqlVmT6pME72kfA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.1-signed"
+        "version": "v1.6.1-signed"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
@@ -819,12 +819,12 @@
             "name": null,
             "owner": "matrix-org",
             "repo": "synapse-s3-storage-provider",
-            "rev": "v1.5.0",
-            "sha256": "sha256-Nv8NkzOcUDX17N7Lyx/NT1vXztiRNaTYIAWNPHxgxJ4=",
+            "rev": "v1.6.0",
+            "sha256": "sha256-aeacw6Fpv4zFhZI4LdsJiV2pcOAMv3aV5CicnwYRxw8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.0"
+        "version": "v1.6.0"
     },
     "telegram-send": {
         "cargoLocks": null,

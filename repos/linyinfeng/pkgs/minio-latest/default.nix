@@ -7,14 +7,14 @@
 minio.overrideAttrs (
   final: prev: rec {
     pname = "minio-latest";
-    version = "2025-09-07T16-13-09Z";
+    version = "2025-10-15T17-29-55Z";
     src = fetchFromGitHub {
       owner = "minio";
       repo = "minio";
       rev = "RELEASE.${version}";
-      sha256 = "sha256-0IVxxeM+h3josP+wnS3q4Nrmd3fT9V+KlHxlwz3QyIQ=";
+      sha256 = "sha256-HbjmCJYkWyRRHKriLP6QohaXYLk3QEVfi32Krq3ujjo=";
     };
-    vendorHash = "sha256-JrDLUVGtwYqwwB+Suutewi6snHyIpG3DOnDn5O0C+L0=";
+    vendorHash = "sha256-BFnTJE9QFWmPsx90hDTG8MusdnwaBPYJxM5bCFk3hew=";
     passthru = prev.passthru // {
       updateScriptEnabled = true;
       updateScript = nix-update-script { attrPath = final.pname; } ++ [

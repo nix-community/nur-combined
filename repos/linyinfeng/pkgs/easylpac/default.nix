@@ -8,7 +8,7 @@
   xorg,
   libglvnd,
   glfw,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   lpac,
   lib,
 }:
@@ -32,7 +32,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
   buildInputs = [
     gtk3

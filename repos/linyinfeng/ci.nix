@@ -15,6 +15,10 @@
 
 with builtins;
 let
+  inherit (pkgs) lib;
+  denyList = [
+    "nvfetcher-self"
+  ];
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable =
@@ -23,7 +27,9 @@ let
       licenseFromMeta = p.meta.license or [ ];
       licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
     in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
+    !(p.meta.broken or false)
+    && builtins.all (license: license.free or true) licenseList
+    && !(lib.elem (p.pname or null) denyList);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 

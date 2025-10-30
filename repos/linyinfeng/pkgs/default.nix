@@ -30,7 +30,7 @@ lib.makeScope newScope (
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     easylpac = callPackage ./easylpac { };
     emacsPackages = lib.recurseIntoAttrs (
-      callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacsPackages; }
+      callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacs.pkgs; }
     );
     fishPlugins = lib.recurseIntoAttrs (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
@@ -53,7 +53,6 @@ lib.makeScope newScope (
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     rlt = callPackage ./rlt { };
     ssl-handshake = callPackage ./ssl-handshake { };
-    synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
     trojan = callPackage ./trojan { };

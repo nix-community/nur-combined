@@ -15,8 +15,7 @@
     flake-compat.flake = false;
 
     # tools
-    # TODO upgrade to master
-    nvfetcher.url = "github:berberman/nvfetcher/0.7.0";
+    nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
     nvfetcher.inputs.flake-utils.follows = "flake-utils";
     nvfetcher.inputs.flake-compat.follows = "flake-compat";
