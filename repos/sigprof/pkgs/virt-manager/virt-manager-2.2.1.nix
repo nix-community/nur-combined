@@ -5,7 +5,7 @@
   python3Packages,
   intltool,
   file,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   gtk-vnc,
   vte,
   avahi,
@@ -48,7 +48,7 @@ with lib;
 
     buildInputs =
       [
-        wrapGAppsHook
+        wrapGAppsHook3
         libvirt-glib
         vte
         dconf
