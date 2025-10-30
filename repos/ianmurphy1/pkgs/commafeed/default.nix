@@ -6,7 +6,7 @@
   maven,
   nixosTests,
   writeText,
-  graalvmCEPackages,
+  graalvmPackages,
   removeReferencesTo,
   makeWrapper,
   glibc,
@@ -16,7 +16,7 @@ let
   version = "ccbc07d7d8a9ad90ddb0ef9f2c89a4f471ddae44";
   db = "h2";
 
-  graalVM = graalvmCEPackages.graalvm-ce;
+  graalVM = graalvmPackages.graalvm-ce;
 
   src = fetchFromGitHub {
     owner = "Athou";
