@@ -136,7 +136,7 @@ rec {
       v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
   # https://github.com/musescore/MuseScore/pull/21874
   # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
-  musescore-adazem009 = v3override (
+  musescore-adazem009 =  (
     pkgs.musescore.overrideAttrs (old: {
       version = "4.4.0-piano_keyboard_playing_notes";
       src = pkgs.fetchFromGitHub {
@@ -145,10 +145,7 @@ rec {
         rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
         hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
       };
-      patches = [ ];
-      meta = old.meta // {
-        broken = true;
-      };
+      patches = [ ./piano_keyboard_playing_notes.patch ];
     })
   );
   # https://github.com/musescore/MuseScore/pull/28073

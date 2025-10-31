@@ -1,0 +1,52 @@
+diff --git a/buildscripts/cmake/FindQt6.cmake b/buildscripts/cmake/FindQt6.cmake
+index a22ccb49d..8630056ab 100644
+--- a/buildscripts/cmake/FindQt6.cmake
++++ b/buildscripts/cmake/FindQt6.cmake
+@@ -10,8 +10,11 @@ set(CMAKE_AUTORCC ON)
+ 
+ set(_components
+     Core
++    CorePrivate
+     Gui
++    GuiPrivate
+     Widgets
++    WidgetsPrivate
+     Network
+     NetworkAuth
+     Qml
+diff --git a/src/appshell/CMakeLists.txt b/src/appshell/CMakeLists.txt
+index a3d7363e1..6da773af0 100644
+--- a/src/appshell/CMakeLists.txt
++++ b/src/appshell/CMakeLists.txt
+@@ -144,6 +144,7 @@ if (NOT OS_IS_MAC)
+ 
+     # we use QKeyMapper to fix https://github.com/musescore/MuseScore/issues/10181
+     set(MODULE_INCLUDE ${Qt6Gui_PRIVATE_INCLUDE_DIRS} )
++    set(MODULE_LINK ${MODULE_LINK} Qt6::GuiPrivate)
+ endif(NOT OS_IS_MAC)
+ 
+ setup_module()
+diff --git a/src/framework/accessibility/CMakeLists.txt b/src/framework/accessibility/CMakeLists.txt
+index 98f4f4d9e..3b10b50d0 100644
+--- a/src/framework/accessibility/CMakeLists.txt
++++ b/src/framework/accessibility/CMakeLists.txt
+@@ -49,6 +49,7 @@ set(MODULE_SRC
+ if (OS_IS_LIN)
+     # it needed to send a spontaneous event by activating navigation
+     set(MODULE_INCLUDE ${Qt6Core_PRIVATE_INCLUDE_DIRS} )
++    set(MODULE_LINK Qt6::CorePrivate)
+ endif()
+ 
+ 
+diff --git a/src/framework/dockwindow/thirdparty/KDDockWidgets/CMakeLists.txt b/src/framework/dockwindow/thirdparty/KDDockWidgets/CMakeLists.txt
+index aa3083c79..c1c113dd5 100644
+--- a/src/framework/dockwindow/thirdparty/KDDockWidgets/CMakeLists.txt
++++ b/src/framework/dockwindow/thirdparty/KDDockWidgets/CMakeLists.txt
+@@ -129,6 +129,7 @@ if(${PROJECT_NAME}_QT6)
+   set(QT_MIN_VERSION "6.0.0")
+   find_package(Qt6Widgets ${QT_MIN_VERSION} REQUIRED)
+   find_package(Qt6Test ${QT_MIN_VERSION} REQUIRED)
++  find_package(Qt6Gui ${QT_MIN_VERSION} REQUIRED)
+   set(${PROJECT_NAME}_LIBRARY_QTID "-qt6")
+ else()
+   set(Qt_VERSION_MAJOR 5)
