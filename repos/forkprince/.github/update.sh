@@ -131,6 +131,8 @@ update_github_multiplatform() {
       exit 1
     fi
 
+    file="${file//\{version\}/$version}"
+
     url="https://github.com/${repo}/releases/download/${rawVersion}/${file}"
     echo "⬇️ Fetching $platform: $url"
 

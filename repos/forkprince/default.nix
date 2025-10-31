@@ -25,6 +25,7 @@
   re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
   syslock = pkgs.callPackage ./pkgs/syslock {};
   waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
+  helium-nightly = pkgs.callPackage ./pkgs/helium-nightly {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

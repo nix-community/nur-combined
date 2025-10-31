@@ -1,0 +1,17 @@
+{
+  "name": "Helium Nightly",
+  "update_type": "github",
+  "repo": "imputnet/helium-linux",
+  "query": "first | .tag_name",
+  "version": "0.6.1.1",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "helium-{version}-x86_64.AppImage",
+      "hash": "sha256-cWm+FbFxrdrwpNdD6HSzsowrSalFKFczWlItgup2Gn4="
+    },
+    "aarch64-linux": {
+      "file": "helium-{version}-arm64.AppImage",
+      "hash": "sha256-VjU5fFoQPL9h8hhaJbA1ZWocIIM8Us5P3iojg7/sN+8="
+    }
+  }
+}
