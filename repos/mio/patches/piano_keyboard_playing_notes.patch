@@ -14,6 +14,20 @@ index a22ccb49d..8630056ab 100644
      Network
      NetworkAuth
      Qml
+diff --git a/buildscripts/cmake/SetupBuildEnvironment.cmake b/buildscripts/cmake/SetupBuildEnvironment.cmake
+index 2435d2926..53cd8f856 100644
+--- a/buildscripts/cmake/SetupBuildEnvironment.cmake
++++ b/buildscripts/cmake/SetupBuildEnvironment.cmake
+@@ -125,7 +125,7 @@ endif()
+ 
+ # APPLE specific
+ if (OS_IS_MAC)
+-    set(MACOSX_DEPLOYMENT_TARGET 10.14)
+-    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.14)
++    set(MACOSX_DEPLOYMENT_TARGET 10.15)
++    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+ endif(OS_IS_MAC)
+ 
 diff --git a/src/appshell/CMakeLists.txt b/src/appshell/CMakeLists.txt
 index a3d7363e1..6da773af0 100644
 --- a/src/appshell/CMakeLists.txt
@@ -80,6 +94,19 @@ index aa3083c79..c1c113dd5 100644
    set(${PROJECT_NAME}_LIBRARY_QTID "-qt6")
  else()
    set(Qt_VERSION_MAJOR 5)
+diff --git a/src/framework/shortcuts/CMakeLists.txt b/src/framework/shortcuts/CMakeLists.txt
+index 0dff63cc8..acc620217 100644
+--- a/src/framework/shortcuts/CMakeLists.txt
++++ b/src/framework/shortcuts/CMakeLists.txt
+@@ -78,6 +78,8 @@ if (OS_IS_MAC)
+         ${CARBON_LIBRARY}
+         ${Qt6Gui_PRIVATE_INCLUDE_DIRS}
+     )
++
++    set(MODULE_LINK ${MODULE_LINK} Qt6::GuiPrivate)
+ endif(OS_IS_MAC)
+ 
+ setup_module()
 diff --git a/src/importexport/bww/internal/bww/lexer.cpp b/src/importexport/bww/internal/bww/lexer.cpp
 index 84bc924b7..da7bff612 100644
 --- a/src/importexport/bww/internal/bww/lexer.cpp

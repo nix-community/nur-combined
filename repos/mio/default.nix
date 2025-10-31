@@ -58,9 +58,10 @@ let
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = pkgs.lib; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+  stdenv = pkgs.stdenv;
 
   telegram-desktop = pkgs.telegram-desktop.overrideAttrs (old: {
     unwrapped = v3overridegcc (
@@ -146,9 +147,9 @@ rec {
         rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
         hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
       };
-      patches = [ ./piano_keyboard_playing_notes.patch ];
+      patches = [ ./patches/piano_keyboard_playing_notes.patch ];
       meta = old.meta // {
-        broken = pkgs.stdenv.hostPlatform.isDarwin; # TODO: fix build on darwin
+        broken = stdenv.hostPlatform.isDarwin; # TODO: fix build on darwin
       };
     })
   );
