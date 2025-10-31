@@ -148,9 +148,6 @@ rec {
         hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
       };
       patches = [ ./patches/piano_keyboard_playing_notes.patch ];
-      meta = old.meta // {
-        broken = stdenv.hostPlatform.isDarwin; # TODO: fix build on darwin
-      };
     })
   );
   # https://github.com/musescore/MuseScore/pull/28073

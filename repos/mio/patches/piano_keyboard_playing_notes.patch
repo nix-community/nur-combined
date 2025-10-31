@@ -107,6 +107,33 @@ index 0dff63cc8..acc620217 100644
  endif(OS_IS_MAC)
  
  setup_module()
+diff --git a/src/framework/shortcuts/internal/platform/macos/macosshortcutsinstancemodel.mm b/src/framework/shortcuts/internal/platform/macos/macosshortcutsinstancemodel.mm
+index 0048c3bc2..1d881ee3b 100644
+--- a/src/framework/shortcuts/internal/platform/macos/macosshortcutsinstancemodel.mm
++++ b/src/framework/shortcuts/internal/platform/macos/macosshortcutsinstancemodel.mm
+@@ -27,6 +27,7 @@
+ #include <QKeyEvent>
+ 
+ #include <private/qguiapplication_p.h>
++#include <private/qkeymapper_p.h>
+ #include <qpa/qplatformintegration.h>
+ 
+ #include "log.h"
+@@ -320,11 +321,11 @@ QSet<QKeyCombination> possibleKeys(const QKeySequence& sequence)
+     modifiers = qtModifiers(keyNativeModifiers);
+ 
+     QKeyEvent fakeKey(QKeyEvent::None, keyCombination.toCombined(), modifiers, keyNativeCode, keyNativeCode, keyNativeModifiers);
+-    QList<int> keys = QGuiApplicationPrivate::platformIntegration()->possibleKeys(&fakeKey);
++    QList<QKeyCombination> keys = QKeyMapper::possibleKeys(&fakeKey);
+ 
+     QSet<QKeyCombination> result;
+-    for (int key : keys) {
+-        QKeyCombination combination = QKeyCombination::fromCombined(key);
++    for (const QKeyCombination& key : keys) {
++        QKeyCombination combination = key;
+         if (modifiers != Qt::NoModifier) {
+             if (combination.keyboardModifiers() == Qt::NoModifier) {
+                 combination = QKeyCombination(modifiers, combination.key());
 diff --git a/src/importexport/bww/internal/bww/lexer.cpp b/src/importexport/bww/internal/bww/lexer.cpp
 index 84bc924b7..da7bff612 100644
 --- a/src/importexport/bww/internal/bww/lexer.cpp
