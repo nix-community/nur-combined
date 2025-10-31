@@ -17,6 +17,7 @@ with pkgs.lib;
       description ? "",
       license ? licenses.mit,
       overrideStdenv ? null,
+      owner ? "lxl66566",
     }:
     let
       hashInfo = hashes.${nixSystem}.${libc};
@@ -25,12 +26,12 @@ with pkgs.lib;
 
       # download url calculation
       urlTemplate = hashInfo.template or null;
-      defaultUrl = "https://github.com/lxl66566/${pname}/releases/download/${version}/${pname}-${hashInfo.targetSystem}.tar.gz";
+      defaultUrl = "https://github.com/${owner}/${pname}/releases/download/${version}/${pname}-${hashInfo.targetSystem}.tar.gz";
       finalUrl =
         if urlTemplate != null then
           lib.replaceStrings
-            [ "__pname__" "__bname__" "__version__" "__targetSystem__" ]
-            [ pname nbname version hashInfo.targetSystem ]
+            [ "__pname__" "__bname__" "__version__" "__targetSystem__" "__owner__" ]
+            [ pname nbname version hashInfo.targetSystem owner ]
             urlTemplate
         else
           defaultUrl;
@@ -70,7 +71,7 @@ with pkgs.lib;
 
       meta = with lib; {
         inherit description license;
-        homepage = "https://github.com/lxl66566/${pname}";
+        homepage = "https://github.com/${owner}/${pname}";
         platforms = [ nixSystem ];
         maintainers = with maintainers; [ "lxl66566" ];
         mainProgram = nbname;

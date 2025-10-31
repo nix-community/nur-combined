@@ -1,0 +1,20 @@
+{
+  "owner": "enbop",
+  "version": "v0.4.0",
+  "hashes": {
+    "x86_64-linux": {
+      "linux": {
+        "sha256": "53c47f3a5fe1799fe1d4f72d65fd28bb3660aca76274c2bd0e00957d3078d4f0",
+        "targetSystem": "x86_64-unknown-linux-gnu",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/__pname__-cli-linux-x86_64.tar.gz"
+      }
+    },
+    "aarch64-linux": {
+      "linux": {
+        "sha256": "41f75226fc9527ea1ee4219f0f462b757e13333d6b241c95f5e3b6a4108c4763",
+        "targetSystem": "aarch64-unknown-linux-gnu",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/__pname__-cli-linux-aarch64.tar.gz"
+      }
+    }
+  }
+}

@@ -26,4 +26,5 @@ in
   xp3-pack-unpack = pkgs.callPackage ./pkgs/xp3-pack-unpack { inherit mylib; };
   openppp2 = pkgs.callPackage ./pkgs/openppp2 { inherit mylib; };
   user-startup-rs = pkgs.callPackage ./pkgs/user-startup-rs { inherit mylib; };
+  fungi = pkgs.callPackage ./pkgs/fungi { inherit mylib; };
 }
