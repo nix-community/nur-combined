@@ -28,10 +28,10 @@
 }:
 let
   pname = "wechat";
-  version = "4.1.0.10";
+  version = "4.1.0.13";
   src = fetchurl {
     url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
-    hash = "sha256-hpqBVjGOInUjfCgKY3y4bOe9Qn3blYZGmbIcfzzmSik=";
+    hash = "sha256-OYWMSEZj93ObszGswFul2KbrQIEyOvEppqJ4Ff08CqU=";
   };
   inputs = [
     glib.out
