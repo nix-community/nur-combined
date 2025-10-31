@@ -1,6 +1,7 @@
 {
   appimageTools,
   fetchurl,
+  pkgs,
   lib,
   ...
 }: let
@@ -8,7 +9,7 @@
 
   inherit (info) version;
 
-  platform = lib.getAttr builtins.currentSystem info.platforms;
+  platform = lib.getAttr pkgs.system info.platforms;
 
   filename = lib.replaceStrings ["{version}"] [version] platform.file;
 in
