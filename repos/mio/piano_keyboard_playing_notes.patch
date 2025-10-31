@@ -109,3 +109,16 @@ index 729e928a0..c5645941b 100644
  
                  for (int j: tiedTuplet.tiedNoteIndexes) {
                      midiChord.notes[j].tuplet = it;
+diff --git a/src/palette/view/widgets/specialcharactersdialog.cpp b/src/palette/view/widgets/specialcharactersdialog.cpp
+index 781c54890..e92806dc2 100644
+--- a/src/palette/view/widgets/specialcharactersdialog.cpp
++++ b/src/palette/view/widgets/specialcharactersdialog.cpp
+@@ -712,7 +712,7 @@ void SpecialCharactersDialog::populateUnicode()
+         std::shared_ptr<FSymbol> fs = std::make_shared<FSymbol>(gpaletteScore->dummy());
+         fs->setCode(code);
+         fs->setFont(m_font);
+-        m_pUnicode->appendElement(fs, QString("0x%1").arg(code, 5, 16, QLatin1Char('0')));
++        m_pUnicode->appendElement(fs, QString("0x%1").arg(static_cast<uint>(code), 5, 16, QLatin1Char('0')));
+     }
+ }
+ 

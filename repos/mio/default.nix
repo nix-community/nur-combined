@@ -14,6 +14,7 @@
   },
 }:
 let
+  # TODO: consider -flto , linux only, breaks on darwin
   v3Optimizations =
     if pkgs.stdenv.hostPlatform.isx86_64 then
       pkgs.stdenvAdapters.withCFlags [ "-march=x86-64-v3" ]
@@ -136,7 +137,7 @@ rec {
       v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
   # https://github.com/musescore/MuseScore/pull/21874
   # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
-  musescore-adazem009 =  (
+  musescore-adazem009 = v3override (
     pkgs.musescore.overrideAttrs (old: {
       version = "4.4.0-piano_keyboard_playing_notes";
       src = pkgs.fetchFromGitHub {
