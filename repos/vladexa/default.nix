@@ -21,6 +21,7 @@
   arangodb = pkgs.callPackage ./pkgs/arangodb/package.nix {
     stdenv = pkgs.overrideCC pkgs.stdenv pkgs.gcc13;
   };
+  avm = pkgs.callPackage ./pkgs/avm/package.nix { };
   SteamTokenDumper = pkgs.callPackage ./pkgs/SteamTokenDumper/package.nix { };
   h3get = pkgs.callPackage ./pkgs/h3get/package.nix { };
   bgutil-ytdlp-pot-provider = import ./pkgs/bgutil-ytdlp-pot-provider { inherit pkgs; };
