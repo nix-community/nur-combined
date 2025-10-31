@@ -1,0 +1,32 @@
+name: "Update flake inputs"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "32 5 * * 1" # weekly at 07:32 on Monday
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  nix-flake-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: navikt/github-app-token-generator@v1
+        id: get-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/update-flake-lock@main
+        id: update
+        with:
+          pr-assignees: AtaraxiaSjel
+          commit-msg: "chore(flake): bump inputs"
+          pr-title: "chore(flake): bump inputs"
+          token: ${{ steps.get-token.outputs.token }}
+      - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
