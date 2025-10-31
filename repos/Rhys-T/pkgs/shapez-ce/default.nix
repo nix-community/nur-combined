@@ -11,12 +11,12 @@
     electron = electron_37;
 in {
     pname = "shapez-ce";
-    version = "0-unstable-2025-09-11";
+    version = "0-unstable-2025-10-11";
     src = fetchFromGitHub {
         owner = "tobspr-games";
         repo = "shapez-community-edition";
-        rev = "4a3c5e237f3ff7a8b0ae1de4b601f68b2dbcbdb9";
-        hash = "sha256-wzuyJIax0rtjcnX3viqn7LLyaPqdw4jg3OAMUo1zIQU=";
+        rev = "9676c8e28cd5a79cbd7adfab52867152446cb9f3";
+        hash = "sha256-wq5brNoB8SNzpAWm4FSw0I/IWMpIRWdPtTKP5H168+8=";
     };
     texturePacker = fetchurl {
         url = "https://web.archive.org/web/20241202185338id_/https://libgdx-nightlies.s3.amazonaws.com/libgdx-runnables/runnable-texturepacker.jar";
@@ -29,7 +29,7 @@ in {
         name = "${finalAttrs.finalPackage.name}-electron-npm-deps";
         inherit (finalAttrs) src;
         sourceRoot = "source/electron";
-        hash = "sha256-K7weaeYq1rXNMW7ppwh65MAT0NxxOxZRMye6VZTpKLs=";
+        hash = "sha256-Z4NU/jpcsJa2HlmCd/kj0QMAAAI7Y/Zs8Jirh6zTqHc=";
     };
     postPatch = ''
         sed -Ei '
