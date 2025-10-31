@@ -843,10 +843,10 @@
     };
     "aws-extend-switch-roles3" = buildFirefoxXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.0.0";
+      version = "6.0.1";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4424241/aws_extend_switch_roles3-6.0.0.xpi";
-      sha256 = "28e1cd5ee59dbd40b294f3f1ce25dc3b325c6d1b6e93af640f4478878eaa5945";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609208/aws_extend_switch_roles3-6.0.1.xpi";
+      sha256 = "627a37d531f3849b090d8865a82fd4b29c15203bb321e981c73f8a7a91302b8b";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -6478,10 +6478,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.27";
+      version = "2.29";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598160/ipvfoo-2.27.xpi";
-      sha256 = "93fceeecfc0c04de41a558940972bb652c0cd2c99993b365ef27f4ef03ce9c90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609505/ipvfoo-2.29.xpi";
+      sha256 = "35b7c9802dca0931e0e107c6d50e6786c7dfe3cc8c31c8b1d4a8018f32bf33b8";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -6498,10 +6498,10 @@
     };
     "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
       pname = "istilldontcareaboutcookies";
-      version = "1.1.5";
+      version = "1.1.7";
       addonId = "idcac-pub@guus.ninja";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4599774/istilldontcareaboutcookies-1.1.5.xpi";
-      sha256 = "adf58328227a0362df046876d07d83838d5c05f3ff2130b3fe0e7b0d53903647";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606669/istilldontcareaboutcookies-1.1.7.xpi";
+      sha256 = "159754a3dea6538e0433db5b06bdafdf1d86d6df93ed01f21a9b1da200c8e1a9";
       meta = with lib;
       {
         homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
@@ -8595,10 +8595,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.0";
+      version = "1.9.1";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4515731/mtab-1.9.0.xpi";
-      sha256 = "adec1f5f0999a983abafb32e2fdec93e9d7f5bf0619280981cfce98238de219f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4608985/mtab-1.9.1.xpi";
+      sha256 = "6e1503d467b95006d8284641c7b8bbe8b2e112329aed253690abd899bca920c5";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -13253,14 +13253,14 @@
     };
     "topcashback-cashback-coupons" = buildFirefoxXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.0.2.0";
+      version = "7.1.0.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4601930/topcashback_cashback_coupons-7.0.2.0.xpi";
-      sha256 = "f5d20efd6f37073bd09970453de5868521e52a2e06663fed3f8c23d544698fa1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609058/topcashback_cashback_coupons-7.1.0.0.xpi";
+      sha256 = "1e2ed1cfebcddf1c2cf423f14321331fcda3265204c8d157fbe8ad555d85067e";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
-        description = "Join over 15m members worldwide and earn cashback when you shop online at over 4,000 online stores with the highest cashback rates.";
+        description = "Join over 25m members worldwide and earn cashback when you shop online at over 4,000 online stores with the highest cashback rates.";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -15319,10 +15319,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.1.0";
+      version = "1.1.1";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4594566/xkit_rewritten-1.1.0.xpi";
-      sha256 = "8648b31f7106d3f3b982107ccf73ccdc7df10a9e75f47c8d8c60817127f5f178";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4604823/xkit_rewritten-1.1.1.xpi";
+      sha256 = "89b934a4e4598b106ad825f030871721854bcbfabb66f2923c1445d845860df0";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -15334,10 +15334,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4601826/yang_addon-1.0.10.xpi";
-      sha256 = "a9ca393d544885234e79ba041b8084490808adf8595c838d723419efdc3fad89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609186/yang_addon-1.0.11.xpi";
+      sha256 = "6658d0671df0c9cf63926ae3e0cd0c0e54587d1be0ff93bf7bf26d39609e3b73";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
