@@ -3,10 +3,11 @@ on:
   push:
     paths:
     - .github/workflows/integration.yaml
-    - Taskfile.yaml
+    - Makefile
     - default.nix
+    - flake.lock
+    - flake.nix
     - modules/*
-    - nix-darwin/*
     - pkgs/*
     - shell.nix
 concurrency:
@@ -25,13 +26,13 @@ jobs:
         cache-store: false
     - name: configure nix cache
       run: cachix use wwmoraes
-    - name: pre-commit
-      run: lefthook run pre-commit --all-files --force --no-tty
-    - name: pre-push
-      run: lefthook run pre-push --all-files --force --no-tty
+    - name: run checks
+      run: remake check
+    - name: run tests
+      run: remake test
     - name: update cache
-      run: task push
+      run: remake push
       env:
         CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
     - name: queue NUR update
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ github.repository_owner }}"
+      run: remake queue-refresh

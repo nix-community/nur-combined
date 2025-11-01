@@ -6,7 +6,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/wwmoraes/nurpkgs.svg)](https://github.com/wwmoraes/nurpkgs/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
----
+______________________________________________________________________
 
 ## 📝 Table of Contents
 
@@ -26,8 +26,9 @@ They also deserve some love ❤️
 
 ## 🏁 Getting Started
 
-Clone this repository then use `nix-shell --command 'task build'` to build all
-packages locally. Check the `Taskfile.yaml` or use `task -l` for more commands.
+Clone this repository then use `nix-shell --command 'make all'` to build all
+packages locally. Check the `Makefile` or use `remake --tasks` for more
+commands.
 
 ## 🎈 Usage
 
@@ -47,6 +48,7 @@ let
 	nurpkgs = import (builtins.fetchTarball "https://github.com/wwmoraes/nurpkgs/archive/master.tar.gz") { inherit pkgs; };
 in { ... }
 ```
+
 Use `nurpkgs.<package-name>` to reference a package from this repository.
 
 ### Through NUR
@@ -62,6 +64,7 @@ let
 	};
 in { ... }
 ```
+
 Then use `nur.repos.wwmoraes.<package-name>` to install a package from this
 repository. Check <https://github.com/nix-community/NUR> for more details.
 

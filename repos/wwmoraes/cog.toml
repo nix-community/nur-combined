@@ -1,0 +1,37 @@
+#:schema https://raw.githubusercontent.com/cocogitto/cocogitto/refs/heads/main/website/public/cog-schema.json
+
+branch_whitelist = ["main"]
+from_latest_tag = true
+post_bump_hooks = [
+  "git push",
+  "git push origin {{version}}",
+]
+pre_bump_hooks = [
+  "make check",
+  "nix fmt",
+]
+tag_prefix = "v"
+
+[git_hooks.commit-msg]
+script = """#!/usr/bin/env sh
+grep -q "^fixup! " "$1" || cog verify --file "$1"
+git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "$1"
+"""
+
+[git_hooks.post-checkout]
+script = "make configure"
+
+[git_hooks.pre-commit]
+script = "make check"
+
+[git_hooks.pre-push]
+script = "make all test"
+
+[changelog]
+authors = [{ signature = "William Artero", username = "wwmoraes" }]
+owner = "wwmoraes"
+package_template = "package_remote"
+path = "CHANGELOG.md"
+remote = "github.com"
+repository = "nurpkgs"
+template = "remote"

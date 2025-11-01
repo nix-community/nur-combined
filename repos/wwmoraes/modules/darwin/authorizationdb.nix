@@ -1,6 +1,7 @@
-{ config
-, lib
-, ...
+{
+  config,
+  lib,
+  ...
 }:
 with lib;
 let
@@ -9,9 +10,10 @@ let
     echo -n "${key} => ${value}: "
     security authorizationdb write ${key} ${value}
   '';
-  authorizationDBToList = attrs:
-    mapAttrsToList writeAuthorizationDB (filterAttrs (n: v: v != null) attrs);
-in {
+  authorizationDBToList =
+    attrs: mapAttrsToList writeAuthorizationDB (filterAttrs (n: v: v != null) attrs);
+in
+{
   meta.maintainers = [
     maintainers.wwmoraes or "wwmoraes"
   ];
@@ -20,7 +22,9 @@ in {
     system.authorizationDB = mkOption {
       type = types.attrsOf types.str;
       default = { };
-      example = { "system.privilege.taskport" = "authenticate-developer"; };
+      example = {
+        "system.privilege.taskport" = "authenticate-developer";
+      };
       description = ''
         A set of MacOS Authorization DB rights and rules to apply.
 
