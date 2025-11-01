@@ -4,6 +4,7 @@
     fetchFromGitHub, fetchurl,
     electron_37,
     ffmpeg, jre, zip,
+    rsync,
     removeReferencesTo, buildPackages, makeBinaryWrapper,
     copyDesktopItems, makeDesktopItem, iconConvTools,
     maintainers,
@@ -46,7 +47,11 @@ in {
                 '"G_BUILD_TIME": new Date().getTime().toString()' \
                 '"G_BUILD_TIME": new Date(process.env["SOURCE_DATE_EPOCH"]*1000).getTime().toString()'
     '';
-    nativeBuildInputs = [jre ffmpeg zip removeReferencesTo makeBinaryWrapper] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [copyDesktopItems iconConvTools];
+    nativeBuildInputs =
+        [jre ffmpeg zip removeReferencesTo makeBinaryWrapper]
+        ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [copyDesktopItems iconConvTools]
+        ++ lib.optionals (stdenv.hostPlatform.isDarwin) [rsync]
+    ;
     postConfigure = ''
         cp src/js/core/config.local.template.js src/js/core/config.local.js
         ln -s "$texturePacker" gulp/runnable-texturepacker.jar
@@ -95,9 +100,15 @@ in {
         runHook preInstall
         ${if stdenv.hostPlatform.isDarwin then ''
             mkdir -p "$out/Applications" "$out/bin"
-            cp -R build_output/standalone/shapez-*/shapez.app "$out/Applications/shapez.app"
-            
-            makeBinaryWrapper "$out/Applications/shapez.app/Contents/MacOS/shapezio" "$out/bin/shapez-ce"
+            rsync -a \
+                --exclude='**/Frameworks' \
+                --exclude='**/MacOS/*' \
+                build_output/standalone/shapez-*/shapez.app/ "$out/Applications/shapez.app"
+            makeBinaryWrapper ${lib.getExe electron} "$out/Applications/shapez.app/Contents/MacOS/shapezio" \
+                --add-flags "$out/Applications/shapez.app/Contents/Resources/app.asar" \
+                --set ELECTRON_FORCE_IS_PACKAGED 1 \
+                --inherit-argv0
+            ln -s "$out/Applications/shapez.app/Contents/MacOS/shapezio" "$out/bin/shapez-ce"
         '' else ''
             mkdir -p "$out/share/shapez-ce" "$out/bin"
             cp -R build_output/standalone/shapez-*/{locales,resources{,.pak}} "$out/share/shapez-ce"
@@ -108,6 +119,7 @@ in {
             makeBinaryWrapper ${lib.getExe electron} "$out/bin/shapez-ce" \
                 --add-flags "$out/share/shapez-ce/resources/app.asar" \
                 --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+                --set ELECTRON_FORCE_IS_PACKAGED 1 \
                 --inherit-argv0
         ''}
         mkdir -p "$out/share/licenses/shapez-ce"
