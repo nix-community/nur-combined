@@ -4003,9 +4003,9 @@
         "pinned": false,
         "src": {
             "name": "svp4-linux.tar.bz2",
-            "sha256": "sha256-Ud0qJm2mc9dGHMpNCKngmzwPdzV3WPJT3pbY8EC19aQ=",
+            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
             "type": "url",
-            "url": "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
+            "url": "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },
         "version": "4.6.263"
     },
