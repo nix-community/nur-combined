@@ -8,12 +8,12 @@
 yt-dlp.overrideAttrs (
   finalAttrs: previousAttrs: {
     pname = "yt-dlp-master";
-    version = "2025.10.22-unstable-2025-10-28";
+    version = "2025.10.22-unstable-2025-11-01";
     src = fetchFromGitHub {
       owner = "yt-dlp";
       repo = "yt-dlp";
-      rev = "6d05cee4df30774ddce5c5c751fd2118f40c24fe";
-      hash = "sha256-PMz8yQOaiW9jTw3agAUpemMBYAQdDafQ7FxZK4jkJ6s=";
+      rev = "ee98be4ad767b77e4d8dd9bfd3c7d10f2e8397ff";
+      hash = "sha256-EWU4xEs0KVihQlMiEM/KyJGb0WMqFAQfh79aFYHOYs4=";
     };
     passthru = previousAttrs.passthru // {
       updateScript = writeShellScript "update-script.sh" "${lib.getExe nix-update} --flake yt-dlp-master --version=branch";
