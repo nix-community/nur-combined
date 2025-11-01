@@ -48,8 +48,6 @@
 
   dynamic-bitset = pkgs.callPackage ./pkgs/dynamic-bitset { };
 
-  eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
-
   eve = pkgs.callPackage ./pkgs/eve { };
 
   expected-lite = pkgs.callPackage ./pkgs/expected-lite { };

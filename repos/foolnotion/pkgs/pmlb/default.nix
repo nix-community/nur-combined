@@ -10,7 +10,7 @@ buildPythonPackage rec {
       sha256 = "1awlhyrkvdgf9br71dq53h5pn9yqhiw2lsa8ydknjp9rakimwsrl";
     };
 
-    buildInputs = with python.pkgs; [ pandas requests pyyaml scikitlearn ];
+    buildInputs = with python.pkgs; [ pandas requests pyyaml scikit-learn ];
 
     doCheck = false;
 
