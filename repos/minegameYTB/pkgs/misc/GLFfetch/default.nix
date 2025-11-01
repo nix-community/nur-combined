@@ -12,25 +12,18 @@
   glfIcon ? "GLF" ### Use GLF icon or GLFos icon (to change icon) (How to create an overlay with this expression ?)
 }:
 
-let
-  ### Use this variable to set version
-  srcUrl = "https://codeberg.org/Gaming-Linux-FR/GLFfetch/archive/3e1827f73f193302675a662c606daa4041bd3f9e.tar.gz";
-  rev = builtins.match ".*/([a-f0-9]{40})\\.tar\\.gz" srcUrl;
-  shortRev = if rev != null then builtins.substring 0 8 (builtins.elemAt rev 0) else "unknown";
-in
-
 ### sets the option to two choices (otherwise, throw error)
 assert lib.elem glfIcon [ "GLF" "GLFos" ]
   || throw "glfIcon must be either \"GLF\" or \"GLFos\" (got: ${glfIcon})";
 
 stdenvNoCC.mkDerivation rec {
   pname = "GLFfetch";
-  version = "git-${shortRev}"; ### To update version number
+  version = "0-unstable-2025-09-01"; # Last commit date
 
   src = fetchurl {
     ### Use srcUrl as a url
-    url = srcUrl;
-    sha256 = "sha256-ZSRSDq2iIYxGKgmBQyz9BEa6izTJEHKx21odNejEcWk=";
+    url = "https://framagit.org/gaming-linux-fr/glf-os/app-glf-os/glffetch/-/archive/aa53e020d0da6a67662c62d564240dacf819e189/glffetch-aa53e020d0da6a67662c62d564240dacf819e189.tar.gz";
+    sha256 = "sha256-AgUQ4tmH4Wta+HuIvFZc89UHEdZcDiQdZiHsASCgDlE=";
   };
 
   outputs = [ "out" "assets" ];
@@ -70,7 +63,7 @@ stdenvNoCC.mkDerivation rec {
     sed -i '1a PATH="${coreutils}/bin:${gawk}/bin"' scripts/vars.sh
 
     substituteInPlace scripts/vars.sh \
-      --replace-warn "/bin/bash" "${bash}/bin/bash"
+      --replace-warn "/bin/bash" "${bash.out}/bin/bash"
   '';
 
   installPhase = ''
@@ -102,7 +95,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     description = "A customized neofetch config file built for the GLF Linux challenges (github.com/minegameYTB/GLFfetch-nixos is it's fork)";
-    homepage = "https://codeberg.org/Gaming-Linux-FR/GLFfetch";
+    homepage = "https://framagit.org/gaming-linux-fr/glf-os";
     license = lib.licenses.mit;
     mainProgram = "GLFfetch";
   };
