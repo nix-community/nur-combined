@@ -986,10 +986,6 @@ src.manual = "v0.3.0"
 fetch.github = "CachyOS/uksmd"
 src.github_tag = "CachyOS/uksmd"
 
-[uksmd-procps]
-fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
-src.archpkg = "procps-ng"
-
 [uni-api]
 fetch.github = "yym68686/uni-api"
 git.fetchSubmodules = true

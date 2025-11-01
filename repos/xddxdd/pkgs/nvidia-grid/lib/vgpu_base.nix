@@ -54,6 +54,8 @@ let
     postPatch = ''
       substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
         --replace-quiet "no_llseek," "NULL,"
+      substituteInPlace kernel/nvidia-vgpu-vfio/vgpu-ctldev.c \
+        --replace-quiet "void nv_free_vgpu_type_info()" "void nv_free_vgpu_type_info(void)"
     '';
 
     outputs = [

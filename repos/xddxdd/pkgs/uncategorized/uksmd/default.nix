@@ -2,17 +2,14 @@
   stdenv,
   sources,
   lib,
-  callPackage,
   meson,
   cmake,
   pkg-config,
   libcap_ng,
   systemd,
   ninja,
+  procps,
 }:
-let
-  procps = callPackage ./procps.nix { inherit sources; };
-in
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.uksmd) pname version src;
   nativeBuildInputs = [
@@ -35,13 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "s#/usr/bin#$out/bin#g" uksmd.service
   '';
 
-  passthru = { inherit procps; };
-
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Userspace KSM helper daemon";
     homepage = "https://github.com/CachyOS/uksmd";
     license = lib.licenses.gpl3Only;
     mainProgram = "uksmd";
+    broken = true;
   };
 })
