@@ -1,8 +1,9 @@
 {
     pkgs ? import <nixpkgs> {},
+    path ? null,
     ...
-}@args: (import (pkgs.path + "/maintainers/scripts/update.nix") (removeAttrs args ["pkgs"] // {
-    path = "Rhys-T";
+}@args: (import (pkgs.path + "/maintainers/scripts/update.nix") (removeAttrs args ["pkgs" "path"] // {
+    path = "Rhys-T" + pkgs.lib.optionalString (path != null) ".${path}";
     include-overlays = [(self: super: {
         Rhys-T = import ./. { pkgs = self; };
     })];
