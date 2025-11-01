@@ -3002,27 +3002,6 @@
         },
         "version": "v7.14.7-mod"
     },
-    "piliplus": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "piliplus",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "bggRGjQaUbCoE",
-            "repo": "PiliPlus",
-            "rev": "1.1.4.17",
-            "sha256": "sha256-H8PGiX5mmTH3xXkjSUAF+ITTvysVOgRoiQ73eWrmTgo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "1.1.4.17"
-    },
     "plangothic-fonts": {
         "cargoLocks": null,
         "date": null,
@@ -4023,8 +4002,8 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": null,
-            "sha256": "sha256-NyhRstYHlpvqanTSOsqRzLF2SRMSdOaZ3/sqYh7FwzI=",
+            "name": "svp4-linux.tar.bz2",
+            "sha256": "sha256-Ud0qJm2mc9dGHMpNCKngmzwPdzV3WPJT3pbY8EC19aQ=",
             "type": "url",
             "url": "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },

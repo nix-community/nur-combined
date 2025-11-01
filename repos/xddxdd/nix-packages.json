@@ -4089,11 +4089,6 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
-  "legacyPackages.x86_64-linux.piliplus": {
-    "description": "Third party Bilibili client built with Flutter",
-    "pname": "piliplus",
-    "version": "1.1.4.17"
-  },
   "legacyPackages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",
     "pname": "plangothic-fonts",
@@ -4998,11 +4993,6 @@
     "description": "Premier web-based administration tool for PostgreSQL",
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
-  },
-  "legacyPackages.x86_64-linux.uncategorized.piliplus": {
-    "description": "Third party Bilibili client built with Flutter",
-    "pname": "piliplus",
-    "version": "1.1.4.17"
   },
   "legacyPackages.x86_64-linux.uncategorized.plangothic-fonts": {
     "description": "Plangothic Project",
@@ -6048,11 +6038,6 @@
     "description": "Premier web-based administration tool for PostgreSQL",
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
-  },
-  "packages.x86_64-linux.piliplus": {
-    "description": "Third party Bilibili client built with Flutter",
-    "pname": "piliplus",
-    "version": "1.1.4.17"
   },
   "packages.x86_64-linux.plangothic-fonts": {
     "description": "Plangothic Project",

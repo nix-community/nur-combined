@@ -1537,16 +1537,6 @@
       hash = "sha256-cp3O520KFO3FEpcBqDfv4B48pz0hEGeFgVAAdyICTHg=";
     };
   };
-  piliplus = {
-    pname = "piliplus";
-    version = "1.1.4.17";
-    src = fetchFromGitHub {
-      owner = "bggRGjQaUbCoE";
-      repo = "PiliPlus";
-      tag = "1.1.4.17";
-      hash = "sha256-H8PGiX5mmTH3xXkjSUAF+ITTvysVOgRoiQ73eWrmTgo=";
-    };
-  };
   plangothic-fonts = {
     pname = "plangothic-fonts";
     version = "V2.9.5787";
@@ -2058,7 +2048,8 @@
     version = "4.6.263";
     src = fetchurl {
       url = "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
-      hash = "sha256-NyhRstYHlpvqanTSOsqRzLF2SRMSdOaZ3/sqYh7FwzI=";
+      name = "svp4-linux.tar.bz2";
+      hash = "sha256-Ud0qJm2mc9dGHMpNCKngmzwPdzV3WPJT3pbY8EC19aQ=";
     };
   };
   sx1302-hal = {

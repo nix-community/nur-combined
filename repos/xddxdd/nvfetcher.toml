@@ -672,10 +672,6 @@ src.to_pattern = "\\1.\\2.\\3"
 fetch.github = "ReimuHakurei/phppgadmin"
 src.github = "ReimuHakurei/phppgadmin"
 
-[piliplus]
-fetch.github = "bggRGjQaUbCoE/PiliPlus"
-src.github = "bggRGjQaUbCoE/PiliPlus"
-
 [plangothic-fonts]
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
 src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project"
@@ -901,6 +897,7 @@ src.github = "Suwayomi/Suwayomi-Server"
 fetch.url = "https://web.archive.org/web/20250904130553/https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
 # Pin at last free version
 src.manual = "4.6.263"
+url.name = "svp4-linux.tar.bz2"
 
 [sx1302-hal]
 fetch.github = "NebraLtd/sx1302_hal"
