@@ -35,11 +35,11 @@
       };
     };
 
-  qemuImages = pkgs.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
+  qemuImages = lib.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
   python3Packages = lib.makeScope pkgs.python3Packages.newScope (
     self:
-    pkgs.recurseIntoAttrs (
+    lib.recurseIntoAttrs (
       (lib.packagesFromDirectoryRecursive {
         directory = ./pkgs/python3-packages;
         callPackage = self.callPackage;
@@ -47,14 +47,14 @@
     )
   );
 
-  lispPackages = pkgs.recurseIntoAttrs (
+  lispPackages = lib.recurseIntoAttrs (
     lib.packagesFromDirectoryRecursive {
       directory = ./pkgs/lisp-packages;
       callPackage = callPackage;
     }
   );
 
-  emacsPackages = pkgs.recurseIntoAttrs (
+  emacsPackages = lib.recurseIntoAttrs (
     lib.packagesFromDirectoryRecursive {
       directory = ./pkgs/emacs-packages;
       callPackage = pkgs.emacs.pkgs.callPackage;
