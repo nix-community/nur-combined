@@ -17,6 +17,7 @@
   # Alphabetical sorting
   amdgpu-clocks          = pkgs.callPackage ./pkgs/amdgpu-clocks { };
   avahi2dns              = pkgs.callPackage ./pkgs/avahi2dns { };
+  cockpit-podman         = pkgs.callPackage ./pkgs/cockpit-podman { };
   inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers { };
   libva-v4l2-request     = pkgs.callPackage ./pkgs/libva-v4l2-request { };
   netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
