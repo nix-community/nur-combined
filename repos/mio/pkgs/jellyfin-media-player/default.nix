@@ -16,6 +16,8 @@
   python3,
   qtbase,
   qt5compat,
+  qtdeclarative,
+  qtpositioning,
   qtwayland,
   qtwebchannel,
   qtwebengine,
@@ -48,6 +50,8 @@ stdenv.mkDerivation rec {
     mpv
     qtbase
     qt5compat
+    qtdeclarative
+    qtpositioning
     qtwebchannel
     qtwebengine
   ]
@@ -60,6 +64,8 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     python3
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
     wrapQtAppsHook
   ];
 
@@ -69,20 +75,68 @@ stdenv.mkDerivation rec {
   ]
   ++ lib.optionals (!withDbus) [
     "-DLINUX_X11POWER=ON"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # Prevent CMake from deploying Qt frameworks into the app bundle
+    "-DQT_DEPLOY_SUPPORT=OFF"
+    "-DCMAKE_SKIP_INSTALL_RPATH=ON"
   ];
 
-  # Prevent Qt wrapper from creating broken executable stubs for libraries on Darwin
+  # On Darwin, we handle Qt environment setup manually to avoid broken library wrapping
   dontWrapQtApps = stdenv.hostPlatform.isDarwin;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p $out/bin $out/Applications
-    mv "$out/Jellyfin Media Player.app" $out/Applications
+        mkdir -p $out/bin $out/Applications
+        mv "$out/Jellyfin Media Player.app" $out/Applications
+        
+        # Remove any Qt frameworks that were copied into the bundle
+        # We want to use Qt from the Nix store instead
+        rm -rf "$out/Applications/Jellyfin Media Player.app/Contents/Frameworks/Qt"*.framework || true
+        
+        # Create a wrapper script that sets Qt environment variables
+        cat > "$out/bin/jellyfinmediaplayer" << 'EOF'
+    #!/bin/sh
+    export QT_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}"
+    export QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}/platforms"
+    export QML2_IMPORT_PATH="${qtbase}/${qtbase.qtQmlPrefix}"
+    exec "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player" "$@"
+    EOF
+        
+        # Substitute the actual paths
+        substituteInPlace "$out/bin/jellyfinmediaplayer" \
+          --replace-fail '$out' "$out" \
+          --replace-fail '${qtbase}' "${qtbase}"
+        
+        chmod +x "$out/bin/jellyfinmediaplayer"
+  '';
 
-    # Manually wrap the app since we disabled dontWrapQtApps
-    # Set up Qt plugin path and QML import path
-    wrapQtApp "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player"
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    # Fix all Qt framework references to point to Nix store instead of app bundle
+    binary="$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player"
 
-    ln -s "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player" $out/bin/jellyfinmediaplayer
+    # Change Qt framework paths from @executable_path to Nix store
+    for framework in QtCore QtGui QtWidgets QtNetwork QtQml QtQuick QtWebChannel QtWebEngineCore QtWebEngineQuick QtCore5Compat QtOpenGL QtPositioning QtQmlModels QtQmlWorkerScript QtWebChannelQuick QtDBus QtXml QtQmlMeta; do
+      old_path="@executable_path/../Frameworks/$framework.framework/Versions/A/$framework"
+      # Find the framework in our dependencies
+      if [ "$framework" = "QtCore5Compat" ]; then
+        new_path="${qt5compat}/lib/$framework.framework/Versions/A/$framework"
+      elif [ "$framework" = "QtWebEngineCore" ] || [ "$framework" = "QtWebEngineQuick" ]; then
+        new_path="${qtwebengine}/lib/$framework.framework/Versions/A/$framework"
+      elif [ "$framework" = "QtWebChannel" ] || [ "$framework" = "QtWebChannelQuick" ]; then
+        new_path="${qtwebchannel}/lib/$framework.framework/Versions/A/$framework"
+      elif [ "$framework" = "QtQml" ] || [ "$framework" = "QtQuick" ] || [ "$framework" = "QtQmlModels" ] || [ "$framework" = "QtQmlWorkerScript" ] || [ "$framework" = "QtQmlMeta" ]; then
+        new_path="${qtdeclarative}/lib/$framework.framework/Versions/A/$framework"
+      elif [ "$framework" = "QtPositioning" ]; then
+        new_path="${qtpositioning}/lib/$framework.framework/Versions/A/$framework"
+      else
+        new_path="${qtbase}/lib/$framework.framework/Versions/A/$framework"
+      fi
+      
+      # Only change if the framework exists in the target
+      if [ -f "$new_path" ]; then
+        install_name_tool -change "$old_path" "$new_path" "$binary" 2>/dev/null || true
+      fi
+    done
   '';
 
   meta = with lib; {
