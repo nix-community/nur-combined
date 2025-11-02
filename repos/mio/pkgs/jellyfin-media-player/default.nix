@@ -86,28 +86,33 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = stdenv.hostPlatform.isDarwin;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-        mkdir -p $out/bin $out/Applications
-        mv "$out/Jellyfin Media Player.app" $out/Applications
-        
-        # Remove any Qt frameworks that were copied into the bundle
-        # We want to use Qt from the Nix store instead
-        rm -rf "$out/Applications/Jellyfin Media Player.app/Contents/Frameworks/Qt"*.framework || true
-        
-        # Create a wrapper script that sets Qt environment variables
-        cat > "$out/bin/jellyfinmediaplayer" << 'EOF'
+    mkdir -p $out/bin $out/Applications
+    mv "$out/Jellyfin Media Player.app" $out/Applications
+
+    # Remove any Qt frameworks that were copied into the bundle
+    # We want to use Qt from the Nix store instead
+    rm -rf "$out/Applications/Jellyfin Media Player.app/Contents/Frameworks/Qt"*.framework || true
+
+    # Create a wrapper script that sets Qt environment variables
+    cat > "$out/bin/jellyfinmediaplayer" << 'EOF'
     #!/bin/sh
-    export QT_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}"
+    export QT_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}:${qtwebengine}/${qtbase.qtPluginPrefix}"
     export QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}/platforms"
-    export QML2_IMPORT_PATH="${qtbase}/${qtbase.qtQmlPrefix}"
+    export QML2_IMPORT_PATH="${qtbase}/${qtbase.qtQmlPrefix}:${qtdeclarative}/${qtbase.qtQmlPrefix}:${qtwebchannel}/${qtbase.qtQmlPrefix}:${qtwebengine}/${qtbase.qtQmlPrefix}"
+    export QTWEBENGINE_RESOURCES_PATH="${qtwebengine}/lib/QtWebEngineCore.framework/Versions/A/Resources"
+    export QTWEBENGINEPROCESS_PATH="${qtwebengine}/lib/QtWebEngineCore.framework/Versions/A/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess"
     exec "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player" "$@"
     EOF
-        
-        # Substitute the actual paths
-        substituteInPlace "$out/bin/jellyfinmediaplayer" \
-          --replace-fail '$out' "$out" \
-          --replace-fail '${qtbase}' "${qtbase}"
-        
-        chmod +x "$out/bin/jellyfinmediaplayer"
+
+    # Substitute the actual paths
+    substituteInPlace "$out/bin/jellyfinmediaplayer" \
+      --replace-fail '$out' "$out" \
+      --replace-fail '${qtbase}' "${qtbase}" \
+      --replace-fail '${qtdeclarative}' "${qtdeclarative}" \
+      --replace-fail '${qtwebchannel}' "${qtwebchannel}" \
+      --replace-fail '${qtwebengine}' "${qtwebengine}"
+
+    chmod +x "$out/bin/jellyfinmediaplayer"
   '';
 
   postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
