@@ -41,6 +41,14 @@ stdenvNoCC.mkDerivation rec {
     # build hyprcursors
     bash hyprcursor-build.sh
 
+    # Ensure manifest names match the hyprcursor pack directories
+    for manifest in bin/*-hyprcursor/manifest.hl; do
+      if [ -f "$manifest" ]; then
+        pack_name=$(basename "$(dirname "$manifest")")
+        sed -i "s/^name = .*/name = ''${pack_name}/" "$manifest"
+      fi
+    done
+
     runHook postBuild
   '';
 
