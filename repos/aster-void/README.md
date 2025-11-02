@@ -2,20 +2,22 @@
 
 ## Cachix
 
-To use the binary cache:
+To use the binary cache, add to your flake:
 
 ```nix
-nix.settings = {
-  substituters = ["https://nix-repository--aster-void.cachix.org"];
-  trusted-public-keys = ["nix-repository--aster-void.cachix.org-1:A+IaiSvtaGcenevi21IvvODJoO61MtVbLFApMDXQ1Zs="];
-};
+{
+  nixConfig = {
+    extra-substituters = ["https://nix-repository--aster-void.cachix.org"];
+    extra-trusted-public-keys = ["nix-repository--aster-void.cachix.org-1:A+IaiSvtaGcenevi21IvvODJoO61MtVbLFApMDXQ1Zs="];
+  };
+}
 ```
 
 Or for one-off use:
 
 ```bash
-nix build --option extra-substituters https://nix-repository--aster-void.cachix.org \
-          --option extra-trusted-public-keys nix-repository--aster-void.cachix.org-1:A+IaiSvtaGcenevi21IvvODJoO61MtVbLFApMDXQ1Zs=
+nix build --extra-substituters https://nix-repository--aster-void.cachix.org \
+          --extra-trusted-public-keys nix-repository--aster-void.cachix.org-1:A+IaiSvtaGcenevi21IvvODJoO61MtVbLFApMDXQ1Zs=
 ```
 
 ## Maintenance Level

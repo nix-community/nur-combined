@@ -3,14 +3,13 @@ on: push
 
 jobs:
   format:
-    name: Format (alejandra + prettier)
+    name: Format
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
-      - run: nix develop .#default --command prettier . --check
-      - run: nix develop .#default --command alejandra . --check
+      - run: nix fmt -- --fail-on-change
   # fails for out of storage error
   # flake-check:
   #   name: Flake check

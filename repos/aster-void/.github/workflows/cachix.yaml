@@ -2,9 +2,9 @@ name: Build and Cache
 on:
   push:
     paths:
-      - 'packages/**'
-      - 'flake.nix'
-      - 'flake.lock'
+      - "packages/**"
+      - "flake.nix"
+      - "flake.lock"
   workflow_dispatch:
 
 jobs:
