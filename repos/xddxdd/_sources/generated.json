@@ -768,12 +768,12 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.50.2",
-            "sha256": "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=",
+            "rev": "v2.0.0",
+            "sha256": "sha256-3mB5+ao3w+CkyTS/o1O9/7UXOoGkA/mTpJNEQxUTa9Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.50.2"
+        "version": "v2.0.0"
     },
     "deeplx": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6910",
-            "sha256": "sha256-YLIsyHmh084qhgwSoHkTtbhcUQ7unbhep75IECdvqG8=",
+            "rev": "b6923",
+            "sha256": "sha256-6jpsz+qAxUH5qTrKEvPQErUBAZsqYllzHoKQFalZ8a8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6910"
+        "version": "b6923"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3124,7 +3124,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-10-01",
+        "date": "2025-11-01",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3136,12 +3136,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "149b7968491f8d003c781821d688126a88b52e15",
-            "sha256": "sha256-jDAG0JFPt2+f7iDGZoAAAfGybWMpKp6H7YXSL2Mdlgo=",
+            "rev": "ae6c62905bd1dcffd3d73c571efba2d53667317a",
+            "sha256": "sha256-6Wh9lCJ6Oz+GMUck5V1l0CGdj2N59oPDzQVFVKiySak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "149b7968491f8d003c781821d688126a88b52e15"
+        "version": "ae6c62905bd1dcffd3d73c571efba2d53667317a"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,
@@ -3642,7 +3642,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-11-01",
+        "date": "2025-11-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3654,12 +3654,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0d85dd53f833f885480eb3dbf5f14368985e29dc",
-            "sha256": "sha256-U5Eh3o0m5Inuk/plGrOD2qdE9KYAWG2kRi8nIVpmw4s=",
+            "rev": "8d77ca6337a499e02c07bf596333c6966f6396ee",
+            "sha256": "sha256-gTj60ezUFbtZV1K2hCFuvfyXrG0sTcoKiUe4MxefT3c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0d85dd53f833f885480eb3dbf5f14368985e29dc"
+        "version": "8d77ca6337a499e02c07bf596333c6966f6396ee"
     },
     "rime-moegirl": {
         "cargoLocks": null,

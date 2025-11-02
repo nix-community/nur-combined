@@ -395,12 +395,12 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.50.2";
+    version = "v2.0.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      tag = "v1.50.2";
-      hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
+      tag = "v2.0.0";
+      hash = "sha256-3mB5+ao3w+CkyTS/o1O9/7UXOoGkA/mTpJNEQxUTa9Q=";
     };
   };
   deeplx = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6910";
+    version = "b6923";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6910";
-      hash = "sha256-YLIsyHmh084qhgwSoHkTtbhcUQ7unbhep75IECdvqG8=";
+      tag = "b6923";
+      hash = "sha256-6jpsz+qAxUH5qTrKEvPQErUBAZsqYllzHoKQFalZ8a8=";
     };
   };
   loralib = {
@@ -1599,14 +1599,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "149b7968491f8d003c781821d688126a88b52e15";
+    version = "ae6c62905bd1dcffd3d73c571efba2d53667317a";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "149b7968491f8d003c781821d688126a88b52e15";
-      hash = "sha256-jDAG0JFPt2+f7iDGZoAAAfGybWMpKp6H7YXSL2Mdlgo=";
+      rev = "ae6c62905bd1dcffd3d73c571efba2d53667317a";
+      hash = "sha256-6Wh9lCJ6Oz+GMUck5V1l0CGdj2N59oPDzQVFVKiySak=";
     };
-    date = "2025-10-01";
+    date = "2025-11-01";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -1867,14 +1867,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0d85dd53f833f885480eb3dbf5f14368985e29dc";
+    version = "8d77ca6337a499e02c07bf596333c6966f6396ee";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0d85dd53f833f885480eb3dbf5f14368985e29dc";
-      hash = "sha256-U5Eh3o0m5Inuk/plGrOD2qdE9KYAWG2kRi8nIVpmw4s=";
+      rev = "8d77ca6337a499e02c07bf596333c6966f6396ee";
+      hash = "sha256-gTj60ezUFbtZV1K2hCFuvfyXrG0sTcoKiUe4MxefT3c=";
     };
-    date = "2025-11-01";
+    date = "2025-11-02";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
