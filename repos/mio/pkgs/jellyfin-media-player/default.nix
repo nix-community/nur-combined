@@ -6,6 +6,7 @@
   SDL2,
   cmake,
   libGL,
+  libiconv,
   libX11,
   libXrandr,
   libvdpau,
@@ -70,9 +71,17 @@ stdenv.mkDerivation rec {
     "-DLINUX_X11POWER=ON"
   ];
 
+  # Prevent Qt wrapper from creating broken executable stubs for libraries on Darwin
+  dontWrapQtApps = stdenv.hostPlatform.isDarwin;
+
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/bin $out/Applications
     mv "$out/Jellyfin Media Player.app" $out/Applications
+
+    # Manually wrap the app since we disabled dontWrapQtApps
+    # Set up Qt plugin path and QML import path
+    wrapQtApp "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player"
+
     ln -s "$out/Applications/Jellyfin Media Player.app/Contents/MacOS/Jellyfin Media Player" $out/bin/jellyfinmediaplayer
   '';
 
