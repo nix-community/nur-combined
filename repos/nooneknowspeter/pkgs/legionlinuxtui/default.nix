@@ -23,7 +23,7 @@ buildGoModule rec {
     go build -o build/
   '';
 
-  installPhase = ''install -Dm755 build/legionlinuxtui $out'';
+  installPhase = ''install -Dm755 build/legionlinuxtui $out/bin/legionlinuxtui'';
 
   doCheck = false;
 
