@@ -111,18 +111,9 @@ with final; {
     ];
   };
 
-  fetchannex = final.callPackage ./pkgs/build-support/fetchannex {git-annex = prev.gitAndTools.git-annex;};
+  fetchannex = final.callPackage ./pkgs/build-support/fetchannex {git-annex = prev.git-annex;};
   # throw "use gitAndTools.hub instead"
-  gitAndTools =
-    (removeAttrs prev.gitAndTools ["hubUnstable"])
-    // {
-      git-credential-password-store = final.callPackage ./pkgs/git-credential-password-store {};
-      #git-crypt = prev.gitAndTools.git-crypt.overrideAttrs (o: {
-      #  patches = (o.patches or []) ++ [
-      #    ./pkgs/git-crypt-pr-222.patch # seems not fully working (further testing required)
-      #  ];
-      #});
-    };
+  git-credential-password-store = final.callPackage ./pkgs/git-credential-password-store {};
 
   jobs = final.callPackage ./pkgs/jobs {
     inherit final prev;
