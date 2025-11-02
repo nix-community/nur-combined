@@ -26,6 +26,7 @@ let
       x:
       x.overrideAttrs (old: {
         env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3";
+        env.RUSTFLAGS = "-C target_cpu=x86-64-v3";
       })
     else
       x: x;
@@ -56,6 +57,60 @@ let
       })
     else
       x: x;
+  nodarwin =
+    x:
+    x.overrideAttrs (old: {
+      meta = old.meta // {
+        broken = pkgs.stdenv.hostPlatform.isDarwin;
+      };
+    });
+  wip =
+    x:
+    x.overrideAttrs (old: {
+      meta = old.meta // {
+        broken = true;
+      };
+    });
+  #  from chaotic-nyx
+  nyxUtils = import ./shared/utils.nix {
+    lib = pkgs.lib;
+    nyxOverlay = null;
+  };
+  #  from chaotic-nyx
+  callOverride =
+    path: attrs:
+    with pkgs;
+    import path (
+      {
+        final = pkgs;
+        prev = pkgs;
+        inherit
+          flakes
+          nyxUtils
+          gitOverride
+          rustPlatform_latest
+          ;
+      }
+      // attrs
+    );
+
+  #  from chaotic-nyx
+  gitOverride =
+    with pkgs;
+    import ./shared/git-override.nix {
+      inherit (pkgs)
+        lib
+        callPackage
+        fetchFromGitHub
+        fetchFromGitLab
+        fetchFromGitea
+        ;
+      inherit (pkgs.rustPlatform) fetchCargoVendor;
+      nyx = ./.;
+      fetchRevFromGitHub = pkgs.callPackage ./shared/github-rev-fetcher.nix { };
+      fetchRevFromGitLab = pkgs.callPackage ./shared/gitlab-rev-fetcher.nix { };
+      fetchRevFromGitea = pkgs.callPackage ./shared/gitea-rev-fetcher.nix { };
+    };
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -92,17 +147,14 @@ rec {
   openssh_hpn = v3override (
     pkgs.openssh_hpn.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
-      #doCheck = false;
     })
   );
-  grub2 = v3overridegcc (
-    pkgs.grub2.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
-      #doCheck = false;
-      meta = old.meta // {
-        broken = pkgs.stdenv.hostPlatform.isDarwin;
-      };
-    })
+  grub2 = nodarwin (
+    v3overridegcc (
+      pkgs.grub2.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
+      })
+    )
   );
   # https://github.com/NixOS/nixpkgs/issues/456347
   sbcl = pkgs.sbcl.overrideAttrs (old: {
@@ -188,4 +240,21 @@ rec {
   audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
+  /*
+    firefox-unwrapped_nightly = nodarwin (
+      v3override (
+        v3overrideAttrs (
+          pkgs.callPackage ./pkgs/firefox-nightly {
+            nss_git = nss_git;
+            nyxUtils = nyxUtils;
+          }
+        )
+      )
+    );
+    firefox_nightly = nodarwin (pkgs.wrapFirefox firefox-unwrapped_nightly { });
+    nss_git = callOverride ./pkgs/nss-git { };
+
+    betterbird-unwrapped = wip (pkgs.callPackage ./pkgs/betterbird { });
+    betterbird = wip (pkgs.wrapThunderbird betterbird-unwrapped { });
+  */
 }

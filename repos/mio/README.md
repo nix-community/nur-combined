@@ -13,6 +13,8 @@ see all packages: <https://nur.nix-community.org/repos/mio/>
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
 + jellyfin-media-player copy from nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
++ firefox_nightly, nss_git, shared folder <https://github.com/chaotic-cx/nyx>
++ betterbird parent of <https://github.com/NixOS/nixpkgs/commit/544076a4a1e72d9267b1ff7601ada5e714cdf101> <https://github.com/NixOS/nixpkgs/raw/7eabf557d4fd5e7195cb3e372304ffdeb04170a9/pkgs/applications/networking/mailreaders/betterbird/default.nix>
 
 ## cache
 
