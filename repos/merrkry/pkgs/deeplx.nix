@@ -5,16 +5,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "deeplx";
-  version = "1.0.9";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "OwO-Network";
     repo = "DeepLX";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aJZ6DLq/1XsGevVlKowf1cFhq5cIKLUVNt9XTEx5++Q=";
+    hash = "sha256-LJC9iSH9XrX87hqhZVLgmSml7wLj6G0H6RE6kxKVyFg=";
   };
 
-  vendorHash = "sha256-7RXyLo0eqtTzJPabp0Miwaw6mseGSYhcfRFyWyUCAYE=";
+  vendorHash = "sha256-HkLlgspXrUHfBGcIsFLDXB4aJzPp6D/MR1/UrY+C7i8=";
 
   meta = {
     description = "A powerful free deepL API, no token required";
