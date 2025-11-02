@@ -174,8 +174,8 @@ rec {
       broken = pkgs.stdenv.hostPlatform.isDarwin || pkgs.stdenv.targetPlatform.isAarch64;
     };
   });
-  aria2 =
-    (pkgs.aria2.overrideAttrs (old: {
+  aria2 = v3override (
+    pkgs.aria2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [
         (pkgs.fetchpatch {
           name = "fix patch aria2 fast.patch";
@@ -183,10 +183,8 @@ rec {
           sha256 = "sha256-bLGaVJoHuQk9vCbBg2BOG79swJhU/qHgdkmYJNr7rIQ=";
         })
       ];
-    })).override
-      (prev: {
-        stdenv = v3Optimizations pkgs.clangStdenv;
-      });
+    })
+  );
   audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
