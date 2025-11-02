@@ -16,6 +16,7 @@ see all packages: <https://nur.nix-community.org/repos/mio/>
 + firefox_nightly, nss_git, shared folder <https://github.com/chaotic-cx/nyx>
 + betterbird parent of <https://github.com/NixOS/nixpkgs/commit/544076a4a1e72d9267b1ff7601ada5e714cdf101> <https://github.com/NixOS/nixpkgs/raw/7eabf557d4fd5e7195cb3e372304ffdeb04170a9/pkgs/applications/networking/mailreaders/betterbird/default.nix>
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
++ cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
 
 ## cache
 

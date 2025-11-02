@@ -240,7 +240,10 @@ rec {
   audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
-  beammp-launcher = nodarwin (pkgs.callPackage ./pkgs/beammp-launcher/package.nix { });
+  cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
+  beammp-launcher = nodarwin (
+    pkgs.callPackage ./pkgs/beammp-launcher/package.nix { cacert_3108 = cacert_3108; }
+  );
   /*
     firefox-unwrapped_nightly = nodarwin (
       v3override (
