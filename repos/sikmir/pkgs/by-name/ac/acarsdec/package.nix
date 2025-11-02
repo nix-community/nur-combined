@@ -4,6 +4,7 @@
   fetchFromGitHub,
   cmake,
   pkg-config,
+  cjson,
   libacars,
   libsndfile,
   paho-mqtt-c,
@@ -12,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "acarsdec";
-  version = "3.7";
+  version = "4.3.1-unstable-2025-11-02";
 
   src = fetchFromGitHub {
-    owner = "TLeconte";
+    owner = "f00b4r0";
     repo = "acarsdec";
-    tag = "acarsdec-${finalAttrs.version}";
-    hash = "sha256-MBy9Xq5ufusqSKGe40JxgnFeo4wnabThbDpGEE6u1so=";
+    rev = "4360dee11600bd6821883c1755fb156328976830";
+    hash = "sha256-jb8YCtOVCkKwtzm6y/wQjYlkekD+ZUGkPb2T3DgoSW8=";
   };
 
   nativeBuildInputs = [
@@ -27,24 +28,18 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
+    cjson
     libacars
     libsndfile
     paho-mqtt-c
     rtl-sdr
   ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "rtl" true)
-    (lib.cmakeBool "airspy" false)
-    (lib.cmakeBool "sdrplay" false)
-  ];
-
   meta = {
     description = "ACARS SDR decoder";
-    homepage = "https://github.com/TLeconte/acarsdec";
-    license = lib.licenses.gpl2;
+    homepage = "https://github.com/f00b4r0/acarsdec";
+    license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
-    platforms = lib.platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    platforms = lib.platforms.unix;
   };
 })
