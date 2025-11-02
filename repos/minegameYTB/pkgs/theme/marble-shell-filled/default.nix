@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, fetchurl }:
+{ stdenvNoCC, lib, fetchurl, unzip }:
 
 let
   baseName = "Marble-shell";
@@ -9,12 +9,15 @@ stdenvNoCC.mkDerivation rec {
   pname = themeName;
   version = "48.3.2";
   src = fetchurl {
-    url = "https://github.com/imarkoff/${baseName}-theme/releases/download/${version}/${pname}.tar.xz";
-    hash = "sha256-fvu3+Rx5n3VY7AtMDSX6dnG4i//daA22UFIZZwotCT8=";
+    url = "https://github.com/imarkoff/${baseName}-theme/releases/download/${version}/${themeName}.zip";
+    hash = "sha256-EEjSzHOfyia3tDoD43HBBIzuulUhrrckt9ZN+tz9Cws=";
   };
   
   sourceRoot = ".";
   
+  ### To unpack zip archive
+  nativeBuildInputs = [ unzip ];
+
   installPhase = ''
     mkdir -p $out/share/themes
     
