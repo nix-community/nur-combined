@@ -34,7 +34,7 @@ in
         ...
       }:
       {
-        _file = ./ci.nix;
+        _file = ./default.nix;
         options = {
           ciPackages = mkOption {
             type = types.lazyAttrsOf types.package;
@@ -68,7 +68,7 @@ in
     perSystem =
       { pkgs, ... }:
       {
-        legacyPackages._internal.ci = lib.packagesFromDirectoryRecursive {
+        legacyPackages._ci = lib.packagesFromDirectoryRecursive {
           inherit (pkgs) callPackage;
           directory = ./tools;
         };

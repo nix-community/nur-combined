@@ -22,7 +22,7 @@
       treefmt = {
         programs = {
           nixfmt.enable = true;
-          deadnix.enable = true;
+          # deadnix.enable = true;
           statix.enable = true;
           yamlfmt = {
             enable = true;
@@ -74,6 +74,9 @@
 
             nix-fast-build
             nix-eval-jobs
+
+            python3
+            ruff
 
             yaml2json
             jq

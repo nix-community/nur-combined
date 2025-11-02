@@ -7,7 +7,7 @@
 }:
 python313Packages.buildPythonApplication {
   pname = "bt-dualboot";
-  version = "unstable-2023-01-27";
+  version = "1.0.1";
   pyproject = true;
 
   build-system = [ python313Packages.poetry-core ];

@@ -41,6 +41,7 @@
         imports = [
           ./flake-modules/_internal/dev
           ./flake-modules/_internal/ci
+          ./flake-modules/_internal/update
         ];
         flake.overlays = import ./overlays;
         systems = import inputs.systems;
@@ -59,9 +60,33 @@
                 allowUnsupportedSystem = true;
               };
             };
-            ciPackages = lib.filterAttrs (name: _p: !lib.hasPrefix "_" name) self'.packages;
-          }
-          // import ./pkgs { inherit pkgs; };
+
+            legacyPackages = import ./pkgs { inherit pkgs; };
+
+            packages =
+              let
+                # from https://github.com/drupol/pkgs-by-name-for-flake-parts/blob/main/flake-module.nix
+                flattenPkgs =
+                  separator: path: value:
+                  if lib.isDerivation value then
+                    {
+                      ${lib.concatStringsSep separator path} = value;
+                    }
+                  else if lib.isAttrs value then
+                    lib.concatMapAttrs (
+                      # skip private attributes starting with "_"
+                      name: if lib.hasPrefix "_" name then _: { } else flattenPkgs separator (path ++ [ name ])
+                    ) value
+                  else
+                    # Ignore the functions which makeScope returns
+                    { };
+              in
+              flattenPkgs "." [ ] self'.legacyPackages;
+
+            ciPackages = self'.packages;
+
+            update.packages = self'.packages;
+          };
       }
     );
 }

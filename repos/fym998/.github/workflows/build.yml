@@ -40,12 +40,12 @@ jobs:
         run: nix flake metadata --json
 
       - name: Check
-        run: nix run .#_internal.ci.check
+        run: nix run .#_ci.check
 
       - name: Build and cache packages
         env:
           CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-        run: nix run .#_internal.ci.build
+        run: nix run .#_ci.build
 
   trigger-update:
     needs: build
