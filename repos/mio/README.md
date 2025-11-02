@@ -12,6 +12,7 @@ see all packages: <https://nur.nix-community.org/repos/mio/>
 + minetest591 - from nixos-24.11 commit 50ab793786d9de88ee30ec4e4c24fb4236fc2674 <https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/games/minetest/default.nix>
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
++ jellyfin-media-player copy from nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 
 ## cache
 
