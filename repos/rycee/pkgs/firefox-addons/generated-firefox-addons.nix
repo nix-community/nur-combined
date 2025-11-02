@@ -11917,34 +11917,6 @@
         platforms = platforms.all;
       };
     };
-    "sidebartabs" = buildFirefoxXpiAddon {
-      pname = "sidebartabs";
-      version = "16.0.5";
-      addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4555521/sidebartabs-16.0.5.xpi";
-      sha256 = "9e1a550aee0c020c738b382ddda5320c0e60a91a58f751e800bb12e442daac3a";
-      meta = with lib;
-      {
-        homepage = "https://github.com/asamuzaK/sidebarTabs";
-        description = "Emulate tabs in sidebar and display tabs vertically. In addition, group tabs and collapse / expand them.";
-        license = licenses.mpl20;
-        mozPermissions = [
-          "activeTab"
-          "bookmarks"
-          "contextualIdentities"
-          "cookies"
-          "management"
-          "menus"
-          "menus.overrideContext"
-          "search"
-          "sessions"
-          "storage"
-          "tabs"
-          "theme"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
       version = "5.3.3";
