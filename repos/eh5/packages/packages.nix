@@ -18,7 +18,7 @@ let
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };
-    libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
+    #libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { };
     # end of service
     #netease-cloud-music = callPackage ./netease-cloud-music { };

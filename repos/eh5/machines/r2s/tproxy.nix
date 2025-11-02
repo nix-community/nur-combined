@@ -40,6 +40,7 @@ in
       dns = {
         servers = [
           {
+            tag = "local";
             type = "tcp";
             server = "127.0.0.1";
             server_port = 5333;
@@ -48,6 +49,7 @@ in
         strategy = "ipv4_only";
       };
       route = {
+        default_domain_resolver = "local";
         default_interface = "extern0";
         default_mark = 255;
       };
