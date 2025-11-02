@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   python3Packages,
-  wrapGAppsHook
+  wrapGAppsHook3
 }:
 python3Packages.buildPythonApplication rec {
   pname = "pw_wp_bluetooth_rpi_speaker";
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
   ]);
 
   nativeBuildInputs = [
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   dontUnpack = true;
