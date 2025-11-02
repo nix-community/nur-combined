@@ -17,4 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   legionlinuxtui = pkgs.callPackage ./pkgs/legionlinuxtui { };
+
+  legionlinuxtui-git = pkgs.callPackage ./pkgs/legionlinuxtui-git { };
 }
