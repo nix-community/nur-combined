@@ -216,7 +216,9 @@ rec {
       patches = [ ];
     })
   );
-  tuxguitar = pkgs.callPackage ./pkgs/tuxguitar { };
+  # tuxguitar and swt are wip for darwin
+  swt = nodarwin (pkgs.callPackage ./pkgs/swt/package.nix { });
+  tuxguitar = nodarwin (pkgs.callPackage ./pkgs/tuxguitar { swt = swt; });
   aria2 = v3override (
     pkgs.aria2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [
