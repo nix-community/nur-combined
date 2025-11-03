@@ -12,20 +12,20 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "vieb";
-  version = "12.5.0";
+  version = "12.6.0";
 
   src = fetchFromGitHub {
     owner = "Jelmerro";
     repo = "vieb";
     rev = finalAttrs.version;
-    hash = "sha256-5Fr7/LoKYJVQHL/tv5OkOPhuQJUgGHa7rtVkdVXpk6Q=";
+    hash = "sha256-YYYetJCj1gi156weGZ5tT+3qUyt7KHeO95v9gahjZ+I=";
   };
 
   postPatch = ''
     sed -i '/"electron"/d' package.json
   '';
 
-  npmDepsHash = "sha256-A32UKFT3CPM503aLQnJ3NKRMnsr8wReWmSh+7sUe5yQ=";
+  npmDepsHash = "sha256-I093KXcTz9KhcN01GjDIT9LFUYwRh4GuQjYSovzmcZE=";
   makeCacheWritable = true;
   dontNpmBuild = true;
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
