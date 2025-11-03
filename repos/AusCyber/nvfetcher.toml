@@ -33,8 +33,8 @@ src.sort_version_key = "awesomeversion"
 fetch.github = "jtroo/kanata"
 cargo_lock = ["Cargo.lock"]
 [kanata-vk-agent]
-src.git = "https://github.com/devsunb/kanata-vk-agent"
-fetch.github = 'devsunb/kanata-vk-agent'
+src.git = "https://github.com/auscyber/kanata-vk-agent"
+fetch.github = 'auscyber/kanata-vk-agent'
 
 [helium-macos]
 src.github_tag = "imputnet/helium-macos"
