@@ -12,14 +12,14 @@
 }:
 let
   pkgname = "wechat-appimage";
-  pkgver = "4.0.1";
+  pkgver = "4.0.13";
   wechat-src = appimageTools.wrapType2 {
     pname = "${pkgname}";
     version = "${pkgver}";
 
     src = fetchurl {
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-      hash = "sha256-gBWcNQ1o1AZfNsmu1Vi1Kilqv3YbR+wqOod4XYAeVKo=";
+      hash = "sha256-+r5Ebu40GVGG2m2lmCFQ/JkiDsN/u7XEtnLrB98602w=";
     };
   };
   appimageContent = appimageTools.extractType1 {
@@ -28,7 +28,7 @@ let
 
     src = fetchurl {
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-      hash = "sha256-gBWcNQ1o1AZfNsmu1Vi1Kilqv3YbR+wqOod4XYAeVKo=";
+      hash = "sha256-+r5Ebu40GVGG2m2lmCFQ/JkiDsN/u7XEtnLrB98602w=";
     };
 
   };

@@ -46,6 +46,7 @@
 , buildFHSEnvBubblewrap
 , xhost
 , xdg-user-dirs
+, krb5
 
 , makeWrapper
 , copyDesktopItems
@@ -113,13 +114,14 @@ let
     pulseaudio
     qt6.qt5compat
     bzip2
+    krb5
   ];
 
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
   xdg-dir = "${xdg-user-dirs}/bin";
   # ver = "4.0.0.23";
-  ver = "4.0.1.11";
+  ver = "4.0.1.13";
   
   # zerocallusedregs hardening breaks WeChat
   glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
@@ -160,7 +162,7 @@ let
       # url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
       # hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
-      hash = "sha256-FkEODKeJXlqjdSgt5eSLLV/LlYsGPeay3P0CvtGQzAE=";
+      hash = "sha256-OYWMSEZj93ObszGswFul2KbrQIEyOvEppqJ4Ff08CqU=";
     };
     
     nativeBuildInputs = [
