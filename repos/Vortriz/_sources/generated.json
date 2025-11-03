@@ -1,0 +1,42 @@
+{
+    "dunefetch": {
+        "cargoLocks": null,
+        "date": "2025-08-12",
+        "extract": null,
+        "name": "dunefetch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "7adfd33406a556b7d096f11dc446570c81b17675",
+            "sha256": "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/datavorous/dunefetch"
+        },
+        "version": "7adfd33406a556b7d096f11dc446570c81b17675"
+    },
+    "xdg-desktop-portal-termfilechooser": {
+        "cargoLocks": null,
+        "date": "2025-09-20",
+        "extract": null,
+        "name": "xdg-desktop-portal-termfilechooser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "a0291aab4e026f575e5e8927e65f07d3c95dc16c",
+            "sha256": "sha256-H7z+wvA9uXlP1fbTwdJJqscIkXMXuYePJou81jbJKt0=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
+        },
+        "version": "a0291aab4e026f575e5e8927e65f07d3c95dc16c"
+    }
+}

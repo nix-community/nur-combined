@@ -3,12 +3,10 @@
 
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
         pre-commit-hooks = {
             url = "github:cachix/git-hooks.nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
         treefmt-nix = {
             url = "github:numtide/treefmt-nix";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +27,7 @@
                 pkgs = import nixpkgs {inherit system;};
             });
 
-        formatter = forAllPkgs (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+        formatter = forAllPkgs (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
 
         checks = forAllSystems (system: {
             pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
@@ -50,8 +48,6 @@
 
         packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
-        homeManagerModules = import ./modules/home-manager;
-
         devShells = forAllSystems (system: let
             pkgs = nixpkgs.legacyPackages.${system};
         in {
@@ -63,15 +59,11 @@
                     treefmtEval.${system}.config.build.wrapper
                 ];
 
-                packages =
-                    (with pkgs; [
-                        alejandra
-                        just
-                        nvfetcher
-                    ])
-                    ++ (with self.packages.${system}; [
-                        niriswitcher
-                    ]);
+                packages = with pkgs; [
+                    alejandra
+                    just
+                    nvfetcher
+                ];
             };
         });
     };

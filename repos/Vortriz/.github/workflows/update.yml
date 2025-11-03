@@ -1,0 +1,32 @@
+name: Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+            nix_path: nixpkgs=channel:nixpkgs-unstable
+            extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Update lockfile
+        run: nix flake update
+
+      - name: Update with nvfetcher
+        run: nix run github:berberman/nvfetcher
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: update"

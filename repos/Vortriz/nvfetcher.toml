@@ -1,0 +1,7 @@
+[dunefetch]
+fetch.git = "https://github.com/datavorous/dunefetch"
+src.git = "https://github.com/datavorous/dunefetch"
+
+[xdg-desktop-portal-termfilechooser]
+fetch.git = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
+src.git = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
