@@ -14,7 +14,9 @@
   glib,
   libjpeg,
   libpng,
+  libsysprof-capture,
   libxml2,
+  pcre2,
   xorg,
 }:
 let
@@ -79,7 +81,9 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     libjpeg
     libpng
+    libsysprof-capture
     libxml2
+    pcre2
     xorg.libXdmcp
   ];
 
