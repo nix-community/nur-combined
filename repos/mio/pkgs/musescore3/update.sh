@@ -24,7 +24,7 @@ LATEST_DATE=$(curl -s "${TOKEN_ARGS[@]}" "https://api.github.com/repos/$OWNER/$R
 LATEST_DATE_SHORT=$(echo "$LATEST_DATE" | cut -d'T' -f1)
 
 # Get current commit from default.nix
-CURRENT_COMMIT=$(grep -oP '(?<=rev = ")[^"]*' default.nix)
+CURRENT_COMMIT=$(grep -oP '(?<=rev = ")[^"]*' default.nix | head -1)
 
 if [ "$CURRENT_COMMIT" = "$LATEST_COMMIT" ]; then
     echo "Already up to date at commit $LATEST_COMMIT"
