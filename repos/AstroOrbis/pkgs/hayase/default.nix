@@ -1,4 +1,4 @@
-# Thanks Ev357 for this, i stole it and updated it :> 
+# Thanks Ev357 for this, i stole it and updated it :>
 {
   lib,
   pkgs,
@@ -17,16 +17,18 @@ pkgs.appimageTools.wrapType2 rec {
     makeWrapper
   ];
 
-  extraInstallCommands = let
-    contents = pkgs.appimageTools.extractType2 {inherit pname version src;};
-  in ''
-    mkdir -p "$out/share/applications" "$out/share/lib/hayase"
-    cp -r ${contents}/{locales,resources} "$out/share/lib/hayase"
-    cp -r ${contents}/usr/share/* "$out/share"
-    cp "${contents}/${pname}.desktop" "$out/share/applications/"
-    wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
-    substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
-  '';
+  extraInstallCommands =
+    let
+      contents = pkgs.appimageTools.extractType2 { inherit pname version src; };
+    in
+    ''
+      mkdir -p "$out/share/applications" "$out/share/lib/hayase"
+      cp -r ${contents}/{locales,resources} "$out/share/lib/hayase"
+      cp -r ${contents}/usr/share/* "$out/share"
+      cp "${contents}/${pname}.desktop" "$out/share/applications/"
+      wrapProgram $out/bin/hayase --add-flags "--ozone-platform=wayland"
+      substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+    '';
 
   meta = {
     description = "Hayase - Torrent streaming made simple";

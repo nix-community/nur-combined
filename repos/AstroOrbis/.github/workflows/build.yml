@@ -33,6 +33,10 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup nix cache for action
+      uses: DeterminateSystems/magic-nix-cache-action@main
+      with:
+        upstream-cache: https://${{matrix.cachixName}}.cachix.org
     - name: Setup cachix
       uses: cachix/cachix-action@v16
       with:
@@ -44,6 +48,7 @@ jobs:
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
+          --option allowed-uris "https://github.com" \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
