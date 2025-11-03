@@ -73,6 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     (cmakeBool "WITH_TIFF" false)
     (cmakeBool "WITH_NSS3" false)
     (cmakeBool "WITH_Cairo" true)
+    (cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
   ];
 
   postInstall = ''
