@@ -652,15 +652,15 @@
   };
   kanata-vk-agent = {
     pname = "kanata-vk-agent";
-    version = "63622d603651edf741c60c465209751e32c91261";
+    version = "8ce982af6a308788070c076619554d05375b6521";
     src = fetchFromGitHub {
-      owner = "devsunb";
+      owner = "auscyber";
       repo = "kanata-vk-agent";
-      rev = "63622d603651edf741c60c465209751e32c91261";
+      rev = "8ce982af6a308788070c076619554d05375b6521";
       fetchSubmodules = false;
-      sha256 = "sha256-Yxf24imM9d9z17h6mZaTz2XhlNzgFbRqqKiBAmo/Skg=";
+      sha256 = "sha256-hLRJcyaBNTl0dSPuoE7owwFqCcSrwqYo9yaF1O4wxk0=";
     };
-    date = "2025-02-15";
+    date = "2025-11-03";
   };
   karabiner-dk = {
     pname = "karabiner-dk";

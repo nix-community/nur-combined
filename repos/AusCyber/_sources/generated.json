@@ -694,7 +694,7 @@
     },
     "kanata-vk-agent": {
         "cargoLock": null,
-        "date": "2025-02-15",
+        "date": "2025-11-03",
         "extract": null,
         "name": "kanata-vk-agent",
         "passthru": null,
@@ -704,14 +704,14 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "devsunb",
+            "owner": "auscyber",
             "repo": "kanata-vk-agent",
-            "rev": "63622d603651edf741c60c465209751e32c91261",
-            "sha256": "sha256-Yxf24imM9d9z17h6mZaTz2XhlNzgFbRqqKiBAmo/Skg=",
+            "rev": "8ce982af6a308788070c076619554d05375b6521",
+            "sha256": "sha256-hLRJcyaBNTl0dSPuoE7owwFqCcSrwqYo9yaF1O4wxk0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "63622d603651edf741c60c465209751e32c91261"
+        "version": "8ce982af6a308788070c076619554d05375b6521"
     },
     "karabiner-dk": {
         "cargoLock": null,
