@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         nurRepo:
-          - nur
+          - astroorbis 
         cachixName:
           - totallyccache
         nixPath:
@@ -48,7 +48,6 @@ jobs:
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
-          --option allowed-uris "https://github.com" \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
