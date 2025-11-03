@@ -1,6 +1,6 @@
 {
     "dunefetch": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-08-12",
         "extract": null,
         "name": "dunefetch",
@@ -20,7 +20,7 @@
         "version": "7adfd33406a556b7d096f11dc446570c81b17675"
     },
     "xdg-desktop-portal-termfilechooser": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-20",
         "extract": null,
         "name": "xdg-desktop-portal-termfilechooser",
