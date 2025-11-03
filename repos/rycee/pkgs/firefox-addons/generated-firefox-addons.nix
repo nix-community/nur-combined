@@ -3550,10 +3550,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.65";
+      version = "1.3.66";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602583/faststream-1.3.65.xpi";
-      sha256 = "e2be03ed8ac3a6d1e758ed4749dd457751be30f54af9185d02edbddd298b676d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4611224/faststream-1.3.66.xpi";
+      sha256 = "8ded7ff0536f41bcea46fa3d7b5df887ca96f9b2a69a298589f0fa69570d9261";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -13275,10 +13275,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.9.1";
+      version = "3.10.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4553938/tournesol_extension-3.9.1.xpi";
-      sha256 = "c640a45b99c58f2719b81a47554fa3e7475db1d8d7fae874aca35dab01db9a0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4611011/tournesol_extension-3.10.0.xpi";
+      sha256 = "1538c5550fd491931029de99df81ad233abcfac275b1c187bcc19700e6b97c73";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
