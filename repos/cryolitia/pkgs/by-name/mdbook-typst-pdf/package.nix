@@ -5,7 +5,6 @@
   stdenv,
   openssl,
   pkg-config,
-  darwin,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-typst-pdf";
@@ -20,14 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin (
-    with darwin.apple_sdk.frameworks;
-    [
-      Security
-      SystemConfiguration
-    ]
-  );
+  ];
 
   nativeBuildInputs = [
     pkg-config
