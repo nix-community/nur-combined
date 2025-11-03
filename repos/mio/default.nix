@@ -241,6 +241,7 @@ rec {
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
   cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
+  mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   beammp-launcher = nodarwin (
     pkgs.callPackage ./pkgs/beammp-launcher/package.nix { cacert_3108 = cacert_3108; }
   );
