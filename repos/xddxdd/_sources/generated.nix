@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "256b83010f390fd58dcb873b7ad6eb519c4ff26a";
+    version = "b04b19dc41e073b0ab08b6979bde45c5a12e99ef";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "256b83010f390fd58dcb873b7ad6eb519c4ff26a";
-      hash = "sha256-iPoKq94jUCzBQdQGvLpy6j2gP/2awa2yIYOUKpfh0WQ=";
+      rev = "b04b19dc41e073b0ab08b6979bde45c5a12e99ef";
+      hash = "sha256-swOKDr3D9TSgl6k3GH1VSf3hXTJi95WwYJDssfIZNrE=";
     };
-    date = "2025-10-31";
+    date = "2025-11-02";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "bf949895d340b38d731a347a79b6eaacd7abd533";
+    version = "68c97a9b9a905ccde6df984fccb31e7ffa28716f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "bf949895d340b38d731a347a79b6eaacd7abd533";
-      hash = "sha256-dGgZEhOKnejQdD/3h5+ZUMB5GrFARbfOAQhiziTGpGY=";
+      rev = "68c97a9b9a905ccde6df984fccb31e7ffa28716f";
+      hash = "sha256-JptTAmz3WM+HamvObxZUcfgwHPOyDsOrai1LhP0+qRg=";
     };
-    date = "2025-10-31";
+    date = "2025-11-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6923";
+    version = "b6933";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6923";
-      hash = "sha256-6jpsz+qAxUH5qTrKEvPQErUBAZsqYllzHoKQFalZ8a8=";
+      tag = "b6933";
+      hash = "sha256-mnm8w7kg1VY6TcSGDgpoI4J8fQJNbpgHf0f34u+r8qQ=";
     };
   };
   loralib = {
@@ -2288,12 +2288,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.24.1";
+    version = "1.24.2";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.24.1";
-      hash = "sha256-6bV2LhJHW/T3ya0vRQyjx8RDk2/zhetODPnu+v5z8xs=";
+      tag = "1.24.2";
+      hash = "sha256-2+F5CbA+3LLhyYL0uuJyjGPxCBT4eqawzMJ8m2KkXh4=";
     };
   };
   vgpu-unlock-rs = {
