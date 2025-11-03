@@ -9,7 +9,7 @@
   hmModules = import ./hm-modules; # Home Manager modules.
   ndModules = import ./nd-modules; # nix-darwin modules.
 
-  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+  firefox-addons = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
 
   materia-theme = pkgs.callPackage ./pkgs/materia-theme { };
 
