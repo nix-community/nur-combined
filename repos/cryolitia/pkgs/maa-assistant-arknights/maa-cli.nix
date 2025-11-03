@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage {
   passthru.updateScript = ./update.sh;
 
   meta = maa-cli'.meta // {
-    broken = stdenv.buildPlatform != stdenv.hostPlatform;
+    broken = true;
   };
 }

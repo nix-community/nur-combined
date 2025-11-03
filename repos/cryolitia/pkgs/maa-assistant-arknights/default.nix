@@ -23,6 +23,6 @@ in
 
   meta = oldAttrs.meta // {
     # https://github.com/NixOS/nixpkgs/issues/306042
-    broken = stdenv.buildPlatform != stdenv.hostPlatform;
+    broken = true;
   };
 }))
