@@ -13107,6 +13107,21 @@
         platforms = platforms.all;
       };
     };
+    "time-zone-converter-savvy-time" = buildFirefoxXpiAddon {
+      pname = "time-zone-converter-savvy-time";
+      version = "1.10";
+      addonId = "yuriy@savvytime.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4596710/time_zone_converter_savvy_time-1.10.xpi";
+      sha256 = "ccf05c8bbecb184fa56cdcdd12f3456e7f69e1327427fa3ef1d837dad16d3f1b";
+      meta = with lib;
+      {
+        homepage = "https://savvytime.com/converter";
+        description = "Time zone and local time converter. Compare and convert time between many locations at a time.";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
       version = "0.9.3";
