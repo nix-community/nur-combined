@@ -768,12 +768,12 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v2.0.0",
-            "sha256": "sha256-3mB5+ao3w+CkyTS/o1O9/7UXOoGkA/mTpJNEQxUTa9Q=",
+            "rev": "v1.50.2",
+            "sha256": "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.0"
+        "version": "v1.50.2"
     },
     "deeplx": {
         "cargoLocks": null,

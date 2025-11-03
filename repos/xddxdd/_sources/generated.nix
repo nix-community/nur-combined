@@ -395,12 +395,12 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v2.0.0";
+    version = "v1.50.2";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      tag = "v2.0.0";
-      hash = "sha256-3mB5+ao3w+CkyTS/o1O9/7UXOoGkA/mTpJNEQxUTa9Q=";
+      tag = "v1.50.2";
+      hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
     };
   };
   deeplx = {

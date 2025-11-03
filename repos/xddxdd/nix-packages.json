@@ -512,7 +512,7 @@
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
-    "version": "2.0.0"
+    "version": "1.50.2"
   },
   "legacyPackages.x86_64-linux.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
@@ -4697,7 +4697,7 @@
   "legacyPackages.x86_64-linux.uncategorized.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
-    "version": "2.0.0"
+    "version": "1.50.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
@@ -5587,7 +5587,7 @@
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
-    "version": "2.0.0"
+    "version": "1.50.2"
   },
   "packages.x86_64-linux.deeplx": {
     "description": "Powerful Free DeepL API, No Token Required",
