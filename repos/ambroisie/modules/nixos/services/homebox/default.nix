@@ -39,7 +39,7 @@ in
 
     my.services.backup = {
       paths = [
-        config.services.homebox.settings.HBOX_STORAGE_DATA
+        (lib.removePrefix "file://" config.services.homebox.settings.HBOX_STORAGE_CONN_STRING)
       ];
     };
 
