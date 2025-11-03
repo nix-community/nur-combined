@@ -242,9 +242,9 @@ rec {
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
   cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
-  beammp-launcher = nodarwin (
-    pkgs.callPackage ./pkgs/beammp-launcher/package.nix { cacert_3108 = cacert_3108; }
-  );
+  beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
+    cacert_3108 = cacert_3108;
+  };
   caddy = (goV3OverrideAttrs pkgs.caddy).withPlugins {
     # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
     # https://github.com/NixOS/nixpkgs/pull/358586

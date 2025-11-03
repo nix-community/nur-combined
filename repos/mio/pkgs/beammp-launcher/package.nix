@@ -19,23 +19,38 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "beammp-launcher";
-  version = "2.7.0";
+  version = if stdenv.isDarwin then "2.4.0-unstable-20250211" else "2.7.0";
 
-  src = fetchFromGitHub {
-    owner = "BeamMP";
-    repo = "BeamMP-Launcher";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-+qdDGOLds2j00BRijFAZ8DMrnjvigs+z+w9+wbitJno=";
-  };
+  src = fetchFromGitHub (
+    if stdenv.isDarwin then
+      {
+        # Darwin support from https://github.com/BeamMP/BeamMP-Launcher/pull/147
+        owner = "enzofrnt";
+        repo = "BeamMP-Launcher";
+        rev = "c927ded1f701ecf1e3039970237e401334b12f9c";
+        hash = "sha256-9ysJ0g3Akjjs4W6RQSAZVdzjQBlfZnNj2cZmll2I534=";
+        fetchSubmodules = true;
+      }
+    else
+      {
+        owner = "BeamMP";
+        repo = "BeamMP-Launcher";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-+qdDGOLds2j00BRijFAZ8DMrnjvigs+z+w9+wbitJno=";
+      }
+  );
 
   strictDeps = true;
 
   nativeBuildInputs = [
+    cmake
+  ]
+  ++ lib.optionals (!stdenv.isDarwin) [
     copyDesktopItems
     installShellFiles
+  ]
+  ++ [
     makeWrapper
-
-    cmake
   ];
 
   buildInputs = [
@@ -45,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
-  desktopItems = [
+  desktopItems = lib.optionals (!stdenv.isDarwin) [
     (makeDesktopItem {
       categories = [ "Game" ];
       comment = "Launcher for the BeamMP mod for BeamNG.drive";
@@ -58,15 +73,53 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    installBin "BeamMP-Launcher"
-    copyDesktopItems
+  ''
+  + (
+    if stdenv.isDarwin then
+      ''
+        mkdir -p $out/Applications/BeamMP-Launcher.app/Contents/{MacOS,Resources}
+        cp BeamMP-Launcher $out/Applications/BeamMP-Launcher.app/Contents/MacOS/
+
+        # Create Info.plist
+        cat > $out/Applications/BeamMP-Launcher.app/Contents/Info.plist <<EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+          <key>CFBundleExecutable</key>
+          <string>BeamMP-Launcher</string>
+          <key>CFBundleIdentifier</key>
+          <string>com.beammp.launcher</string>
+          <key>CFBundleName</key>
+          <string>BeamMP-Launcher</string>
+          <key>CFBundlePackageType</key>
+          <string>APPL</string>
+          <key>CFBundleVersion</key>
+          <string>${finalAttrs.version}</string>
+        </dict>
+        </plist>
+        EOF
+      ''
+    else
+      ''
+        installBin "BeamMP-Launcher"
+        copyDesktopItems
+      ''
+  )
+  + ''
     runHook postInstall
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/BeamMP-Launcher \
-      --set SSL_CERT_FILE "${cacert_3108}/etc/ssl/certs/ca-bundle.crt"
-  '';
+  postFixup =
+    lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/bin
+      makeWrapper $out/Applications/BeamMP-Launcher.app/Contents/MacOS/BeamMP-Launcher $out/bin/BeamMP-Launcher \
+        --set SSL_CERT_FILE "${cacert_3108}/etc/ssl/certs/ca-bundle.crt"
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
+      wrapProgram $out/bin/BeamMP-Launcher \
+        --set SSL_CERT_FILE "${cacert_3108}/etc/ssl/certs/ca-bundle.crt"
+    '';
 
   meta = {
     description = "Launcher for the BeamMP mod for BeamNG.drive";
@@ -77,6 +130,6 @@ stdenv.mkDerivation (finalAttrs: {
       Andy3153
       mochienya
     ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })
