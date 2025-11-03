@@ -2,9 +2,12 @@ diff --git a/pdf2htmlEX/CMakeLists.txt b/pdf2htmlEX/CMakeLists.txt
 index b5cb520..dad760e 100644
 --- a/pdf2htmlEX/CMakeLists.txt
 +++ b/pdf2htmlEX/CMakeLists.txt
-@@ -227,6 +227,11 @@ set(PDF2HTMLEX_SRC ${PDF2HTMLEX_SRC}
+@@ -225,8 +225,13 @@ set(PDF2HTMLEX_SRC ${PDF2HTMLEX_SRC}
+     )
+ 
  add_executable(pdf2htmlEX ${PDF2HTMLEX_SRC})
- target_link_libraries(pdf2htmlEX ${PDF2HTMLEX_LIBS})
+-target_link_libraries(pdf2htmlEX ${PDF2HTMLEX_LIBS})
++target_link_libraries(pdf2htmlEX PRIVATE ${PDF2HTMLEX_LIBS})
  
 +if(APPLE)
 +  target_link_libraries(pdf2htmlEX PRIVATE iconv)
