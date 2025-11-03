@@ -10,6 +10,9 @@ in
       gtk-enable-animations = false;
       gtk-im-module = "xim";
       gtk-overlay-scrolling = false;
+      gtk-cursor-blink = false;
+      gtk-button-images = 0;
+      gtk-menu-images = 0;
 
       # This could also be set in fonts.nix with the fontconfig.defaultFonts.sansSerif option.
       # but it seems that the default is already taken from fontconfig.
@@ -44,6 +47,9 @@ in
       gtk-enable-animations = false;
       gtk-im-module = "xim";
       gtk-overlay-scrolling = false;
+      gtk-cursor-blink = false;
+      gtk-button-images = 0;
+      gtk-menu-images = 0;
     };
   };
 

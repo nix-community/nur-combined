@@ -8,7 +8,7 @@
     pkgs.luaformatter
     pkgs.lua-language-server
 
-    pkgs.fennel
+    pkgs.lua5_4.pkgs.fennel
   ];
 
   boot.binfmt.registrations.lua = {

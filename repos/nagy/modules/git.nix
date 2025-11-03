@@ -11,6 +11,11 @@ in
 {
   imports = [ ./shortcommands.nix ];
 
+  environment.sessionVariables = {
+    # cleaner git repos without the hooks
+    GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+  };
+
   programs.git = {
     config = {
       alias = {
@@ -106,15 +111,15 @@ in
           clean = "${pkgs.jq}/bin/jq --sort-keys";
         };
         # without this, restic snapshots output is not deterministic
-        jq-restic = {
-          clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
-        };
-        taplo-fmt = {
-          clean = "${pkgs.taplo}/bin/taplo fmt -";
-        };
-        ruff-format = {
-          clean = "ruff format -";
-        };
+        # jq-restic = {
+        #   clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
+        # };
+        # taplo-fmt = {
+        #   clean = "${pkgs.taplo}/bin/taplo fmt -";
+        # };
+        # ruff-format = {
+        #   clean = "ruff format -";
+        # };
       };
       diff = {
         pdf = {
@@ -210,6 +215,11 @@ in
       "git"
       "clone"
       "--depth=1"
+    ];
+    gcl2 = [
+      "git"
+      "clone"
+      "--depth=2"
     ];
     gf = [
       "git"

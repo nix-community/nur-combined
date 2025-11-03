@@ -52,7 +52,7 @@
         warn-dirty = false;
         # eval-cache = false;
         # Build logs are backed up. Backup mechanism itself takes care of the compression already.
-        compress-build-log = false;
+        # compress-build-log = false; maybe enable after all. backups need to be thought of differently.
         # this reduces memory usage at the expense of performance
         # cores = 1;
         # this keeps build logs clean at the expense of performance

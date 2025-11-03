@@ -1,15 +1,29 @@
-{ pkgs, lib, ... }:
+{ pkgs, nur, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    (python3.withPackages (ps: [
+  environment.systemPackages = [
+    (pkgs.python3.withPackages (ps: [
+      # Ergonomic
       ps.hy
       ps.hyrule
       ps.addict
+
+      # Numbers
+      ps.numpy
+      ps.pandas
+      ps.pyyaml
+      ps.base58
+      ps.pyarrow
+
+      # Banking
+      ps.schwifty
     ]))
-    black
-    isort
-    ruff
-    pyright
+    pkgs.black
+    pkgs.isort
+    pkgs.pyright
+
+    pkgs.uv
+    pkgs.ruff
+    pkgs.ty
   ];
 }
