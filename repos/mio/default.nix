@@ -217,10 +217,10 @@ rec {
     })
   );
   tuxguitar = pkgs.tuxguitar.overrideAttrs (old: rec {
-    version = "2.0.0beta4";
+    version = "2.0.0";
     src = pkgs.fetchurl {
       url = "https://github.com/helge17/tuxguitar/releases/download/${version}/tuxguitar-${version}-linux-swt-amd64.tar.gz";
-      hash = "sha256-QJ8SRY7UBtkICe312O6n8KgbF2MmLpdk2qBseaEUTIc=";
+      hash = "sha256-N1UCDAByzFoNlXE0iqccLKg+WHP13GEaObM0LVtz/oY=";
     };
     meta = old.meta // {
       broken = pkgs.stdenv.hostPlatform.isDarwin || pkgs.stdenv.targetPlatform.isAarch64;
