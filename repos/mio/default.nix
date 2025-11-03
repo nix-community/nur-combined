@@ -216,16 +216,7 @@ rec {
       patches = [ ];
     })
   );
-  tuxguitar = pkgs.tuxguitar.overrideAttrs (old: rec {
-    version = "2.0.0";
-    src = pkgs.fetchurl {
-      url = "https://github.com/helge17/tuxguitar/releases/download/${version}/tuxguitar-${version}-linux-swt-amd64.tar.gz";
-      hash = "sha256-N1UCDAByzFoNlXE0iqccLKg+WHP13GEaObM0LVtz/oY=";
-    };
-    meta = old.meta // {
-      broken = pkgs.stdenv.hostPlatform.isDarwin || pkgs.stdenv.targetPlatform.isAarch64;
-    };
-  });
+  tuxguitar = pkgs.callPackage ./pkgs/tuxguitar { };
   aria2 = v3override (
     pkgs.aria2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [
