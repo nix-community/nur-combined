@@ -245,6 +245,30 @@ rec {
   beammp-launcher = nodarwin (
     pkgs.callPackage ./pkgs/beammp-launcher/package.nix { cacert_3108 = cacert_3108; }
   );
+  caddy =
+    let
+      # Map of base caddy hash to withPlugins hash
+      # Update this when nixpkgs updates caddy
+      pluginHashes = {
+        # caddy 2.10.2 20251103 nixos-unstable
+        "sha256-wjcmWKVmLBAybILUi8tKEDnFbhtybf042ODH7jEq6r8=" =
+          "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
+      };
+      baseHash = pkgs.caddy.goModules.outputHash;
+      pluginHash =
+        pluginHashes.${baseHash}
+          or (throw "Unknown caddy hash: ${baseHash}. Please update pluginHashes in default.nix");
+    in
+    (goV3OverrideAttrs pkgs.caddy).withPlugins {
+      # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
+      # https://github.com/NixOS/nixpkgs/pull/358586
+      plugins = [
+        "github.com/caddy-dns/cloudflare@v0.2.2"
+        "github.com/porech/caddy-maxmind-geolocation@v1.0.1"
+        # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
+      ];
+      hash = pluginHash;
+    };
   /*
     firefox-unwrapped_nightly = nodarwin (
       v3override (
