@@ -30,13 +30,13 @@
 }:
 let
   pname = "shotcut-bin";
-  version = "25.10.9";
+  version = "25.11.2";
 
   _pname = "Shotcut";
 
   src = fetchurl {
-    url = "https://github.com/mltframework/shotcut/releases/download/v${version}/shotcut-linux-x86_64-${version}.txz";
-    hash = "sha256-HXbgN+sGGo+OcG6jHKmllUgOAPp+lfoN5wLYQE44gIw=";
+    url = "https://github.com/mltframework/shotcut/releases/download/v25.10.31/shotcut-linux-x86_64-${version}.txz";
+    hash = "sha256-2dbGvD61Gq7Fn9GF/HNMWrQ9pdJnMSlLhBme2/LTAwo=";
   };
 
   libs = with qt6; [
@@ -103,7 +103,7 @@ stdenv.mkDerivation{
     runHook preInstall
 
     mkdir -p $out/opt/${_pname}
-    cp -r Shotcut.app/* $out/opt/${_pname}
+    cp -r ./* $out/opt/${_pname}
     rm $out/opt/Shotcut/lib/qt6/egldeviceintegrations/libqeglfs-kms-integration.so
     # Icon
     mkdir -p $out/share/icons
