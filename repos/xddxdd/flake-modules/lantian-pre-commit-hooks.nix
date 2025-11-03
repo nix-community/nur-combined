@@ -12,6 +12,7 @@
           ".*\\.patch"
           "README\\.md"
           ".envrc"
+          ".*\\.age"
         ];
         hooks = {
           check-added-large-files.enable = true;

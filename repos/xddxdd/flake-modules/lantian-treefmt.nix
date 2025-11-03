@@ -15,6 +15,7 @@
             "**/_sources/**"
             "_sources/**"
             "**/deps.nix"
+            "*.age"
           ];
         };
 
@@ -24,7 +25,6 @@
           deadnix = {
             enable = true;
             no-lambda-arg = true;
-            no-lambda-pattern-names = true;
           };
           dos2unix.enable = true;
           formatjson5.enable = true;

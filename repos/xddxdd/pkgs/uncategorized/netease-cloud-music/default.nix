@@ -29,7 +29,6 @@
   taglib_1,
   udev,
   xorg,
-  python312,
 }:
 # Modified from:
 # - https://github.com/NixOS-CN/flakes/blob/main/packages/netease-cloud-music/default.nix

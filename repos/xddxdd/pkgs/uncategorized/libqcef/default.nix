@@ -19,7 +19,6 @@
   nspr,
   nss,
   pango,
-  python312,
   qt5,
   xorg,
 }:
