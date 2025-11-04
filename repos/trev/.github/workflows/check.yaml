@@ -1,0 +1,62 @@
+name: checks
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  packages:
+    strategy:
+      matrix:
+        nix_path:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize
+        uses: spotdemo4/nix-init@448722165938617ea8b814719c33d73122390c9a # v1.2.0
+        with:
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          attic_cache: nur
+
+      - name: Set nix path
+        run: echo "NIX_PATH="${{ matrix.nix_path }}"" >> "${GITHUB_ENV}"
+
+      - name: Get nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ./utils/build -A cacheOutputs
+
+  flake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize
+        uses: spotdemo4/nix-init@448722165938617ea8b814719c33d73122390c9a # v1.2.0
+        with:
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          attic_cache: nur
+
+      - name: Run flake checks
+        run: nix flake check
+
+  trigger:
+    needs: [packages, flake]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=trev"

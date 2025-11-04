@@ -1,0 +1,6 @@
+# for direnv (https://direnv.net/)
+# create a .envrc symlink to this file or copy its contents to .envrc
+# then run `direnv allow` to enable
+
+use flake
+dotenv_if_exists

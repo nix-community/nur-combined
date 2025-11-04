@@ -8,7 +8,7 @@
   "repositories": ["spotdemo4/nur"],
 
   // repository
-  "extends": ["config:recommended", "group:allDigest"],
+  "extends": ["config:recommended"],
   "branchPrefix": "renovate/",
   "dependencyDashboardTitle": "Dependency Dashboard",
   "lockFileMaintenance": {
@@ -29,9 +29,9 @@
       "matchPackageNames": ["*"]
     },
     {
+      "groupName": "GitHub Actions",
       "matchManagers": ["github-actions"],
-      "matchPackageNames": ["*"],
-      "groupName": "GitHub Actions"
+      "matchPackageNames": ["*"]
     }
   ]
 }

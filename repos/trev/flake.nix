@@ -1,5 +1,5 @@
 {
-  description = "Trev's NUR";
+  description = "trev's nix user repository (NUR)";
 
   nixConfig = {
     extra-substituters = [
@@ -10,42 +10,72 @@
     ];
   };
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs = {
-    self,
-    nixpkgs,
-  }: let
+  outputs = {nixpkgs, ...}: let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in rec {
+    packages = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+        import ./packages {
+          inherit system pkgs;
+        }
+    );
+
+    bundlers = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+        import ./bundlers {
+          inherit system pkgs;
+        }
+    );
+
+    # the entire attribute set
+    legacyPackages = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+        import ./. {
+          inherit system pkgs;
+        }
+    );
+
+    overlays = import ./overlays;
+
     devShells = forAllSystems (
       system: let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [
-            (final: prev: {
-              renovate = pkgs.callPackage ./pkgs/renovate {};
-              nix-update-script = pkgs.callPackage ./pkgs/nix-update-script {
-                nix-update = pkgs.callPackage ./pkgs/nix-update {};
-              };
-            })
-          ];
         };
-        update = pkgs.callPackage ./update.nix {};
-        shellhook = pkgs.callPackage ./pkgs/shellhook {};
+        trenovate = pkgs.callPackage ./packages/renovate {};
+        update = pkgs.callPackage ./utils/update {};
+        shellhook = pkgs.callPackage ./packages/shellhook {};
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
             update
             alejandra
-            flake-checker
             prettier
             action-validator
-            renovate
           ];
           shellHook = shellhook.ref;
+        };
+
+        ci = pkgs.mkShell {
+          packages = with pkgs; [
+            update
+            trenovate
+            flake-checker
+          ];
         };
       }
     );
@@ -53,18 +83,20 @@
     checks = forAllSystems (system: let
       pkgs = import nixpkgs {
         inherit system;
-        renovate = pkgs.callPackage ./pkgs/renovate {};
       };
-      lib = import ./lib {inherit pkgs;};
+      libs = import ./libs {
+        inherit system pkgs;
+      };
+      trenovate = pkgs.callPackage ./packages/renovate {};
     in
-      lib.mkChecks {
+      libs.mkChecks {
         lint = {
           src = ./.;
           deps = with pkgs; [
+            trenovate
             alejandra
             prettier
             action-validator
-            renovate
           ];
           script = ''
             alejandra -c .
@@ -74,24 +106,6 @@
           '';
         };
       }
-      // packages."${system}"
-      // {
-        shell = devShells."${system}".default;
-      });
-
-    overlays.default = import ./overlay.nix;
-
-    legacyPackages = forAllSystems (
-      system:
-        import ./default.nix {
-          inherit system;
-          pkgs = nixpkgs.legacyPackages."${system}";
-        }
-    );
-
-    packages = forAllSystems (
-      system:
-        nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
-    );
+      // packages."${system}");
   };
 }

@@ -2,30 +2,22 @@ name: update
 
 on:
   schedule:
-    - cron: "9 9 * * *"
+    - cron: "0 9 * * *" # every day at 09:00 UTC
   workflow_dispatch:
 
 jobs:
   pkgs:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize nix
-        uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize
+        id: init
+        uses: spotdemo4/nix-init@448722165938617ea8b814719c33d73122390c9a # v1.2.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
-          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-
-      - name: Setup environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: "--accept-flake-config"
-
-      - name: Create github token
-        uses: spotdemo4/setup-git-app-user@51cf8f3366b74a6b7e830d1cfc63b3526a036925 # v2
-        id: app-user
-        with:
-          app-id: ${{ vars.CLIENT_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          attic_cache: nur
+          app_id: ${{ vars.CLIENT_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+          shell: ci
 
       - name: Update packages
         run: update
@@ -34,14 +26,14 @@ jobs:
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         id: cpr
         with:
-          token: ${{ steps.app-user.outputs.token }}
+          token: ${{ steps.init.outputs.token }}
           title: package updates
           body: updated some packages
 
       - name: Enable automerge
         if: ${{ steps.cpr.outputs.pull-request-number }}
         env:
-          GH_TOKEN: ${{ steps.app-user.outputs.token }}
+          GH_TOKEN: ${{ steps.init.outputs.token }}
         run: >
           gh pr merge
           --rebase
@@ -51,25 +43,18 @@ jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize nix
-        uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize
+        id: init
+        uses: spotdemo4/nix-init@448722165938617ea8b814719c33d73122390c9a # v1.2.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
-
-      - name: Setup environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: "--accept-flake-config"
-
-      - name: Create github token
-        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
-        id: token
-        with:
-          app-id: ${{ vars.CLIENT_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          attic_cache: nur
+          app_id: ${{ vars.CLIENT_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+          shell: ci
 
       - name: Renovate
         env:
           RENOVATE_CONFIG_FILE: .github/renovate.json
-          RENOVATE_TOKEN: ${{ steps.token.outputs.token }}
+          RENOVATE_TOKEN: ${{ steps.init.outputs.token }}
         run: renovate

@@ -2,22 +2,20 @@ name: vulnerable
 
 on:
   schedule:
-    - cron: "9 9 * * *"
+    - cron: "0 9 * * *" # every day at 09:00 UTC
   workflow_dispatch:
 
 jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize nix
-        uses: spotdemo4/nur/.github/actions/init@main
+      - name: Initialize
+        id: init
+        uses: spotdemo4/nix-init@448722165938617ea8b814719c33d73122390c9a # v1.2.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
-
-      - name: Setup environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: "--accept-flake-config"
+          attic_cache: nur
+          shell: ci
 
       - name: Check flake
         run: flake-checker -f
