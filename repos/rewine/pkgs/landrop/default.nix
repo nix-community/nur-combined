@@ -1,13 +1,13 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libsForQt515
+, libsForQt5
 , pkg-config
 , libsodium
 }:
 let
-  qmake = libsForQt515.qmake;
-  wrapQtAppsHook = libsForQt515.qt5.wrapQtAppsHook;
+  qmake = libsForQt5.qmake;
+  wrapQtAppsHook = libsForQt5.qt5.wrapQtAppsHook;
 in
 stdenv.mkDerivation {
   pname = "LANDrop";
