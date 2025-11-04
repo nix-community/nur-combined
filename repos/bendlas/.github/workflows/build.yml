@@ -10,6 +10,7 @@ on:
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
+  workflow_dispatch:
 jobs:
   tests:
     strategy:
@@ -34,15 +35,15 @@ jobs:
         cachixName:
           - bendlas
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          # - nixpkgs=channel:nixpkgs-unstable
-          # - nixpkgs=channel:nixos-23.05
+          # - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          # - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Install nix
-      uses: cachix/install-nix-action@v25
+      uses: cachix/install-nix-action@v31
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -51,7 +52,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v16
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:

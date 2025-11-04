@@ -1,20 +1,20 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{ lib, rustPlatform, fetchFromGitHub, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lsd";
-  version = "1.0.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "lsd-rs";
     repo = "lsd";
     rev = "v${version}";
-    sha256 = "sha256-syT+1LNdigUWkfJ/wkbY/kny2uW6qfpl7KmW1FjZKR8=";
+    sha256 = "sha256-BDwptBRGy2IGc3FrgFZ1rt/e1bpKs1Y0C3H4JfqRqHc=";
   };
 
-  cargoSha256 = "sha256-viLr76Bq9OkPMp+BoprQusMDgx59nbevVi4uxjZ+eZg=";
+  cargoHash = "sha256-TcC8ZY8Xv0076bLrprXGPh5nyGnR2NRnGeuTSEK4+Gg=";
 
-  ## FIXME error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
-  doCheck = false;
+  ## for checkPhase
+  nativeBuildInputs = [ git ];
 
   meta = with lib; {
     description = "The next gen ls command";
