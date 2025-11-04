@@ -7,6 +7,11 @@
 nix run github:szanko/nur#bsa-browser-cli
 ```
 
+### glojure
+```shell
+nix run github:szanko/nur#glojure
+```
+
 ### samloader
 ```shell
 nix run github:szanko/nur#samloader
@@ -24,7 +29,7 @@ nix run github:szanko/nur#gogextract
 
 ### rgsstool
 ```shell
-nix run github:szanko/nur#gogextract
+nix run github:szanko/nur#rgsstool
 ```
 
 ### deflix-streamio

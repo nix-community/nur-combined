@@ -20,6 +20,7 @@ pkgs ? import <nixpkgs> { }
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+
   samloader = pkgs.callPackage ./pkgs/samloader { };
   gogextract = pkgs.callPackage ./pkgs/gogextract { };
   mmio = pkgs.callPackage ./pkgs/mmio { };
@@ -33,7 +34,9 @@ pkgs ? import <nixpkgs> { }
   #nexus-autodl = pkgs2505.callPackage ./pkgs/nexus-autodl { };
   bsa-browser-cli = pkgs.callPackage ./pkgs/bsa-browser-cli { };
   deflix-stremio = pkgs.callPackage ./pkgs/deflix-stremio { };
+  archive-org-downloader = pkgs.callPackage ./pkgs/archive.org-downloader { };
+  #glojure = pkgs.callPackage ./pkgs/glojure { };
+  salmagundi = pkgs.callPackage ./pkgs/salmagundi { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
