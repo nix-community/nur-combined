@@ -1162,6 +1162,9 @@
         "renesat": {
             "url": "https://github.com/renesat/nur-renesat"
         },
+        "ressu": {
+            "url": "https://github.com/ressu/nur-packages"
+        },
         "reward": {
             "url": "https://github.com/rewardenv/nur"
         },
@@ -1284,6 +1287,9 @@
         },
         "syberant": {
             "url": "https://github.com/syberant/nur-packages"
+        },
+        "szanko": {
+            "url": "https://github.com/SZanko/nur-packages"
         },
         "tarantoj": {
             "url": "https://github.com/tarantoj/nur-packages"
@@ -1415,6 +1421,9 @@
         },
         "wyzdwdz": {
             "url": "https://github.com/wyzdwdz/nur-pkgs"
+        },
+        "x71c9": {
+            "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
             "url": "https://github.com/xddxdd/nur-packages"
