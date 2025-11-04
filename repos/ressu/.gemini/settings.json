@@ -1,0 +1,15 @@
+{
+  "tools": {
+    "allowed": [
+      "run_shell_command(bd)"
+    ]
+  },
+  "mcpServers": {
+    "beads": {
+      "command": "beads-mcp"
+    }
+  },
+  "context": {
+    "fileName": "AGENTS.md"
+  }
+}
