@@ -18,4 +18,7 @@
 
   yakit = pkgs.callPackage ./pkgs/yakit { };
   sliver = pkgs.callPackage ./pkgs/sliver { };
+  trzsz-ssh = pkgs.callPackage ./pkgs/trzsz-ssh { };
+  aforg = pkgs.callPackage ./pkgs/aforg { };
+  trzsz = pkgs.callPackage ./pkgs/trzsz { };
 }
