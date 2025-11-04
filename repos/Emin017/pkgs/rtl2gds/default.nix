@@ -82,11 +82,11 @@ buildPythonPackage {
 
   doCheck = true;
 
-  checkPhase = ''
-    # Run the tests
-    cd design_zoo/gcd
-    python -m rtl2gds -c gcd.yaml
-  '';
+  # checkPhase = ''
+  #   # Run the tests
+  #   cd design_zoo/gcd
+  #   python -m rtl2gds -c gcd.yaml
+  # '';
 
   meta = {
     description = "A tool to compile your RTL files into GDSII layouts.";

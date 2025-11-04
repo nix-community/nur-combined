@@ -1,0 +1,93 @@
+diff --git a/src/database/manager/parser/liberty/CMakeLists.txt b/src/database/manager/parser/liberty/CMakeLists.txt
+index b2aa075fb..44f6575ba 100644
+--- a/src/database/manager/parser/liberty/CMakeLists.txt
++++ b/src/database/manager/parser/liberty/CMakeLists.txt
+@@ -22,9 +22,7 @@ endif()
+ 
+ message(STATUS "liberty parser rust lib path ${RUST_LIB_PATH}")
+ 
+-ADD_EXTERNAL_PROJ(liberty)
+-
+-target_link_libraries(liberty str sta-solver log ${RUST_LIB_PATH} dl)
++target_link_libraries(liberty str sta-solver log liberty_parser dl)
+ 
+ target_include_directories(liberty PUBLIC 
+     ${CMAKE_CURRENT_SOURCE_DIR} 
+@@ -34,5 +32,3 @@ add_executable(test_lib ${CMAKE_CURRENT_SOURCE_DIR}/lib-rust/liberty-parser/test
+ target_link_libraries(test_lib liberty)
+ target_include_directories(test_lib PUBLIC 
+     ${CMAKE_CURRENT_SOURCE_DIR})
+-
+-install(TARGETS test_lib DESTINATION /home/taosimin/bin/iEDA_bin)
+\ No newline at end of file
+diff --git a/src/database/manager/parser/spef/CMakeLists.txt b/src/database/manager/parser/spef/CMakeLists.txt
+index 322eb159f..3ab980114 100644
+--- a/src/database/manager/parser/spef/CMakeLists.txt
++++ b/src/database/manager/parser/spef/CMakeLists.txt
+@@ -22,9 +22,7 @@ endif()
+ 
+ message(STATUS "spef parser rust lib path ${RUST_LIB_PATH}")
+ 
+-ADD_EXTERNAL_PROJ(spef)
+-
+-target_link_libraries(spef log ${RUST_LIB_PATH} dl)
++target_link_libraries(spef log spef_parser dl)
+ target_include_directories(spef PUBLIC 
+     ${CMAKE_CURRENT_SOURCE_DIR})
+ 
+diff --git a/src/database/manager/parser/vcd/CMakeLists.txt b/src/database/manager/parser/vcd/CMakeLists.txt
+index 7e2df5262..e2ff508ce 100644
+--- a/src/database/manager/parser/vcd/CMakeLists.txt
++++ b/src/database/manager/parser/vcd/CMakeLists.txt
+@@ -21,9 +21,7 @@ endif()
+ 
+ message(STATUS "vcd parser rust lib path ${RUST_LIB_PATH}")
+ 
+-ADD_EXTERNAL_PROJ(vcd)
+-
+-target_link_libraries(vcd ${RUST_LIB_PATH} dl)
++target_link_libraries(vcd vcd_parser dl)
+ target_include_directories(vcd PUBLIC 
+     ${CMAKE_CURRENT_SOURCE_DIR})
+ 
+diff --git a/src/database/manager/parser/verilog/CMakeLists.txt b/src/database/manager/parser/verilog/CMakeLists.txt
+index 1ceaee3fc..a318da4bc 100644
+--- a/src/database/manager/parser/verilog/CMakeLists.txt
++++ b/src/database/manager/parser/verilog/CMakeLists.txt
+@@ -43,9 +43,7 @@ endif()
+ 
+ message(STATUS "verilog parser rust lib path ${RUST_LIB_PATH}")
+ 
+-ADD_EXTERNAL_PROJ(verilog)
+-
+-target_link_libraries(verilog str log ${ZLIB_LIBRARIES} ${RUST_LIB_PATH} dl) 
++target_link_libraries(verilog str log ${ZLIB_LIBRARIES} verilog_parser dl)
+ 
+ target_include_directories(verilog
+     PUBLIC
+diff --git a/src/operation/iIR/source/iir-rust/CMakeLists.txt b/src/operation/iIR/source/iir-rust/CMakeLists.txt
+index e601b1129..48159894f 100644
+--- a/src/operation/iIR/source/iir-rust/CMakeLists.txt
++++ b/src/operation/iIR/source/iir-rust/CMakeLists.txt
+@@ -24,6 +24,4 @@ endif()
+ 
+ message(STATUS "iIR rust lib path ${RUST_LIB_PATH}")
+ 
+-ADD_EXTERNAL_PROJ(iir)
+-
+-target_link_libraries(iIR-Rust PRIVATE ${RUST_LIB_PATH} dl)
+\ No newline at end of file
++target_link_libraries(iIR-Rust PRIVATE iir dl)
+diff --git a/src/operation/iSTA/CMakeLists.txt b/src/operation/iSTA/CMakeLists.txt
+index d5648c2c6..721b50803 100644
+--- a/src/operation/iSTA/CMakeLists.txt
++++ b/src/operation/iSTA/CMakeLists.txt
+@@ -24,7 +24,7 @@ include_directories(${HOME_THIRDPARTY}/yaml-cpp/include)
+ include(${HOME_CMAKE}/operation/idb.cmake)
+ 
+ link_directories(${CMAKE_BINARY_DIR}/lib)
+-link_directories(${HOME_THIRDPARTY}/onnxruntime/)
++link_libraries(onnxruntime)
+ 
+ find_package(Eigen3 REQUIRED)
+ 
