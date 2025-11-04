@@ -75,10 +75,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.6.0";
+    version = "3.6.1";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.0/qutebrowser-3.6.0-arm64.dmg";
-      sha256 = "sha256-n4GpuZwZkW3Uk4ckQ/lFcyOM1WG3zG//7WU3Tl7UlGg=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.1/qutebrowser-3.6.1-arm64.dmg";
+      sha256 = "sha256-2jk1nSq2O7z6tsVX7/ypvu2ipQh1mb8/Dz/n9KnqvAM=";
     };
   };
   sbarlua = {
@@ -115,10 +115,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.17.4b";
+    version = "1.17.5b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.17.4b/zen.macos-universal.dmg";
-      sha256 = "sha256-1dl02r/4TirEZm+OJCJSr8uW5vhpFlNavdHnlmxG6Ts=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.17.5b/zen.macos-universal.dmg";
+      sha256 = "sha256-MuodIf87z8KEpMm95oT0vydXPDT6D5wrtpeoW1AY9pM=";
     };
   };
 }
