@@ -1,0 +1,316 @@
+#compdef ghostty
+
+_fonts () {
+  local font_list=$(ghostty +list-fonts | grep -Z '^[A-Z]')
+  local fonts=(${(f)font_list})
+  _describe -t fonts 'fonts' fonts
+}
+
+_themes() {
+  local theme_list=$(ghostty +list-themes | sed -E 's/^(.*) \(.*$/\1/')
+  local themes=(${(f)theme_list})
+  _describe -t themes 'themes' themes
+}
+_config() {
+  _arguments \
+    "--help" \
+    "--version" \
+    "--font-family=-:::_fonts" \
+    "--font-family-bold=-:::_fonts" \
+    "--font-family-italic=-:::_fonts" \
+    "--font-family-bold-italic=-:::_fonts" \
+    "--font-style=-:::( )" \
+    "--font-style-bold=-:::( )" \
+    "--font-style-italic=-:::( )" \
+    "--font-style-bold-italic=-:::( )" \
+    "--font-synthetic-style=-:::(bold no-bold italic no-italic bold-italic no-bold-italic)" \
+    "--font-feature=-:::( )" \
+    "--font-size=-:::( )" \
+    "--font-variation=-:::( )" \
+    "--font-variation-bold=-:::( )" \
+    "--font-variation-italic=-:::( )" \
+    "--font-variation-bold-italic=-:::( )" \
+    "--font-codepoint-map=-:::( )" \
+    "--font-thicken" \
+    "--font-thicken-strength=-:::( )" \
+    "--font-shaping-break=-:::(cursor no-cursor)" \
+    "--alpha-blending=-:::(native linear linear-corrected)" \
+    "--adjust-cell-width=-:::( )" \
+    "--adjust-cell-height=-:::( )" \
+    "--adjust-font-baseline=-:::( )" \
+    "--adjust-underline-position=-:::( )" \
+    "--adjust-underline-thickness=-:::( )" \
+    "--adjust-strikethrough-position=-:::( )" \
+    "--adjust-strikethrough-thickness=-:::( )" \
+    "--adjust-overline-position=-:::( )" \
+    "--adjust-overline-thickness=-:::( )" \
+    "--adjust-cursor-thickness=-:::( )" \
+    "--adjust-cursor-height=-:::( )" \
+    "--adjust-box-thickness=-:::( )" \
+    "--adjust-icon-height=-:::( )" \
+    "--grapheme-width-method=-:::(legacy unicode)" \
+    "--freetype-load-flags=-:::(hinting no-hinting force-autohint no-force-autohint monochrome no-monochrome autohint no-autohint light no-light)" \
+    "--theme=-:::_themes" \
+    "--background=-:::( )" \
+    "--foreground=-:::( )" \
+    "--background-image=-:::( )" \
+    "--background-image-opacity=-:::( )" \
+    "--background-image-position=-:::(top-left top-center top-right center-left center-center center-right bottom-left bottom-center bottom-right center)" \
+    "--background-image-fit=-:::(contain cover stretch none)" \
+    "--background-image-repeat" \
+    "--selection-foreground=-:::( )" \
+    "--selection-background=-:::( )" \
+    "--selection-clear-on-typing" \
+    "--selection-clear-on-copy" \
+    "--minimum-contrast=-:::( )" \
+    "--palette=-:::( )" \
+    "--cursor-color=-:::( )" \
+    "--cursor-opacity=-:::( )" \
+    "--cursor-style=-:::(bar block underline block_hollow)" \
+    "--cursor-style-blink=-:::( )" \
+    "--cursor-text=-:::( )" \
+    "--cursor-click-to-move" \
+    "--mouse-hide-while-typing" \
+    "--scroll-to-bottom=-:::(keystroke no-keystroke output no-output)" \
+    "--mouse-shift-capture=-:::(false true always never)" \
+    "--mouse-reporting" \
+    "--mouse-scroll-multiplier=-:::( )" \
+    "--background-opacity=-:::( )" \
+    "--background-opacity-cells" \
+    "--background-blur=-:::( )" \
+    "--unfocused-split-opacity=-:::( )" \
+    "--unfocused-split-fill=-:::( )" \
+    "--split-divider-color=-:::( )" \
+    "--command=-:::( )" \
+    "--initial-command=-:::( )" \
+    "--notify-on-command-finish=-:::(never unfocused always)" \
+    "--notify-on-command-finish-action=-:::(bell no-bell notify no-notify)" \
+    "--notify-on-command-finish-after=-:::( )" \
+    "--env=-:::( )" \
+    "--input=-:::( )" \
+    "--wait-after-command" \
+    "--abnormal-command-exit-runtime=-:::( )" \
+    "--scrollback-limit=-:::( )" \
+    "--scrollbar=-:::(system never)" \
+    "--link=-:::( )" \
+    "--link-url" \
+    "--link-previews=-:::(false true osc8)" \
+    "--maximize" \
+    "--fullscreen" \
+    "--title=-:::( )" \
+    "--class=-:::( )" \
+    "--x11-instance-name=-:::( )" \
+    "--working-directory=-:::{_files -/}" \
+    "--keybind=-:::( )" \
+    "--window-padding-x=-:::( )" \
+    "--window-padding-y=-:::( )" \
+    "--window-padding-balance" \
+    "--window-padding-color=-:::(background extend extend-always)" \
+    "--window-vsync" \
+    "--window-inherit-working-directory" \
+    "--window-inherit-font-size" \
+    "--window-decoration=-:::(auto client server none)" \
+    "--window-title-font-family=-:::( )" \
+    "--window-subtitle=-:::(false working-directory)" \
+    "--window-theme=-:::(auto system light dark ghostty)" \
+    "--window-colorspace=-:::(srgb display-p3)" \
+    "--window-height=-:::( )" \
+    "--window-width=-:::( )" \
+    "--window-position-x=-:::( )" \
+    "--window-position-y=-:::( )" \
+    "--window-save-state=-:::(default never always)" \
+    "--window-step-resize" \
+    "--window-new-tab-position=-:::(current end)" \
+    "--window-show-tab-bar=-:::(always auto never)" \
+    "--window-titlebar-background=-:::( )" \
+    "--window-titlebar-foreground=-:::( )" \
+    "--resize-overlay=-:::(always never after-first)" \
+    "--resize-overlay-position=-:::(center top-left top-center top-right bottom-left bottom-center bottom-right)" \
+    "--resize-overlay-duration=-:::( )" \
+    "--focus-follows-mouse" \
+    "--clipboard-read=-:::(allow deny ask)" \
+    "--clipboard-write=-:::(allow deny ask)" \
+    "--clipboard-trim-trailing-spaces" \
+    "--clipboard-paste-protection" \
+    "--clipboard-paste-bracketed-safe" \
+    "--title-report" \
+    "--image-storage-limit=-:::( )" \
+    "--copy-on-select=-:::(false true clipboard)" \
+    "--right-click-action=-:::(ignore paste copy copy-or-paste context-menu)" \
+    "--click-repeat-interval=-:::( )" \
+    "--config-file=-:::_files" \
+    "--config-default-files" \
+    "--confirm-close-surface=-:::(false true always)" \
+    "--quit-after-last-window-closed" \
+    "--quit-after-last-window-closed-delay=-:::( )" \
+    "--initial-window" \
+    "--undo-timeout=-:::( )" \
+    "--quick-terminal-position=-:::(top bottom left right center)" \
+    "--quick-terminal-size=-:::( )" \
+    "--gtk-quick-terminal-layer=-:::(overlay top bottom background)" \
+    "--gtk-quick-terminal-namespace=-:::( )" \
+    "--quick-terminal-screen=-:::(main mouse macos-menu-bar)" \
+    "--quick-terminal-animation-duration=-:::( )" \
+    "--quick-terminal-autohide" \
+    "--quick-terminal-space-behavior=-:::(remain move)" \
+    "--quick-terminal-keyboard-interactivity=-:::(none on-demand exclusive)" \
+    "--shell-integration=-:::(none detect bash elvish fish zsh)" \
+    "--shell-integration-features=-:::(cursor no-cursor sudo no-sudo title no-title ssh-env no-ssh-env ssh-terminfo no-ssh-terminfo path no-path)" \
+    "--command-palette-entry=-:::( )" \
+    "--osc-color-report-format=-:::(none 8-bit 16-bit)" \
+    "--vt-kam-allowed" \
+    "--custom-shader=-:::_files" \
+    "--custom-shader-animation=-:::(false true always)" \
+    "--bell-features=-:::(system no-system audio no-audio attention no-attention title no-title border no-border)" \
+    "--bell-audio-path=-:::( )" \
+    "--bell-audio-volume=-:::( )" \
+    "--app-notifications=-:::(clipboard-copy no-clipboard-copy config-reload no-config-reload)" \
+    "--macos-non-native-fullscreen=-:::(false true visible-menu padded-notch)" \
+    "--macos-window-buttons=-:::(visible hidden)" \
+    "--macos-titlebar-style=-:::(native transparent tabs hidden)" \
+    "--macos-titlebar-proxy-icon=-:::(visible hidden)" \
+    "--macos-dock-drop-behavior=-:::(new-tab window)" \
+    "--macos-option-as-alt=-:::( )" \
+    "--macos-window-shadow" \
+    "--macos-hidden=-:::(never always)" \
+    "--macos-auto-secure-input" \
+    "--macos-secure-input-indication" \
+    "--macos-icon=-:::(official blueprint chalkboard microchip glass holographic paper retro xray custom custom-style)" \
+    "--macos-custom-icon=-:::( )" \
+    "--macos-icon-frame=-:::(aluminum beige plastic chrome)" \
+    "--macos-icon-ghost-color=-:::( )" \
+    "--macos-icon-screen-color=-:::( )" \
+    "--macos-shortcuts=-:::(allow deny ask)" \
+    "--linux-cgroup=-:::(never always single-instance)" \
+    "--linux-cgroup-memory-limit=-:::( )" \
+    "--linux-cgroup-processes-limit=-:::( )" \
+    "--linux-cgroup-hard-fail" \
+    "--gtk-opengl-debug" \
+    "--gtk-single-instance=-:::(false true detect)" \
+    "--gtk-titlebar" \
+    "--gtk-tabs-location=-:::(top bottom)" \
+    "--gtk-titlebar-hide-when-maximized" \
+    "--gtk-toolbar-style=-:::(flat raised raised-border)" \
+    "--gtk-titlebar-style=-:::(native tabs)" \
+    "--gtk-wide-tabs" \
+    "--gtk-custom-css=-:::_files" \
+    "--desktop-notifications" \
+    "--bold-color=-:::( )" \
+    "--faint-opacity=-:::( )" \
+    "--term=-:::( )" \
+    "--enquiry-response=-:::( )" \
+    "--async-backend=-:::(auto epoll io_uring)" \
+    "--auto-update=-:::( )" \
+    "--auto-update-channel=-:::( )" \
+
+}
+
+_ghostty() {
+  typeset -A opt_args
+  local context state line
+  local opt=('-e' '--help' '--version')
+
+  _arguments -C \
+    '1:actions:->actions' \
+    '*:: :->rest' \
+
+  if [[ "$line[1]" == "--help" || "$line[1]" == "--version" || "$line[1]" == "-e" ]]; then
+    return
+  fi
+
+  if [[ "$line[1]" == -* ]]; then
+    _config
+    return
+  fi
+
+  case "$state" in
+    (actions)
+      local actions; actions=(
+        '+list-fonts'
+        '+list-keybinds'
+        '+list-themes'
+        '+list-colors'
+        '+list-actions'
+        '+ssh-cache'
+        '+edit-config'
+        '+show-config'
+        '+validate-config'
+        '+show-face'
+        '+crash-report'
+        '+boo'
+        '+new-window'
+      )
+      _describe '' opt
+      _describe -t action 'action' actions
+    ;;
+    (rest)
+      if [[ "$line[2]" == "--help" ]]; then
+        return
+      fi
+
+      local help=('--help')
+      _describe '' help
+
+      case $line[1] in
+        (+list-fonts)
+          _arguments \
+            '--family=-:::( )' \
+            '--style=-:::( )' \
+            '--bold' \
+            '--italic' \
+        ;;
+        (+list-keybinds)
+          _arguments \
+            '--default' \
+            '--docs' \
+            '--plain' \
+        ;;
+        (+list-themes)
+          _arguments \
+            '--path' \
+            '--plain' \
+            '--color=-:::(all dark light)' \
+        ;;
+        (+list-colors)
+          _arguments \
+            '--plain' \
+        ;;
+        (+list-actions)
+          _arguments \
+            '--docs' \
+        ;;
+        (+ssh-cache)
+          _arguments \
+            '--clear' \
+            '--add=-:::( )' \
+            '--remove=-:::( )' \
+            '--host=-:::( )' \
+            '--expire-days=-:::( )' \
+        ;;
+        (+show-config)
+          _arguments \
+            '--default' \
+            '--changes-only' \
+            '--docs' \
+        ;;
+        (+validate-config)
+          _arguments \
+            '--config-file=-:::_files' \
+        ;;
+        (+show-face)
+          _arguments \
+            '--cp=-:::( )' \
+            '--string=-:::( )' \
+            '--style=-:::(regular bold italic bold_italic)' \
+            '--presentation=-:::(text emoji)' \
+        ;;
+        (+new-window)
+          _arguments \
+            '--class=-:::( )' \
+        ;;
+      esac
+    ;;
+  esac
+}
+
+_ghostty "$@"
