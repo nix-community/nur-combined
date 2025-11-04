@@ -4,12 +4,11 @@
   lib,
 }:
 let
-  version = "0.5.3";
+  version = "0.5.5";
   pname = "Handy";
 
   src = fetchurl {
-    url = "https://github.com/cjpais/Handy:q
-    /releases/download/v${version}/${pname}.AppImage";
+    url = "https://github.com/cjpais/Handy/releases/download/v${version}/${pname}.AppImage";
     hash = "sha256-UVmLVIYcEbIuhPI94eQ9gbG/yra6WviJAOGFtE7hq90=";
   };
 
@@ -31,9 +30,9 @@ appimageTools.wrapType2 {
   '';
 
   meta = {
-    description = "A modlist installation and configuration tool for Wabbajack modlists on Linux";
-    homepage = "https://github.com/Omni-guides/Jackify";
-    license = lib.licenses.gpl3Plus;
+    description = "A free, open source, and extensible speech-to-text application that works completely offline.";
+    homepage = "https://github.com/cjpais/Handy";
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ merrkry ];
     platforms = lib.platforms.linux;
   };
