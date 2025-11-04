@@ -93,7 +93,7 @@ in
       # https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2022-09-07/2022-09-06-raspios-buster-armhf-lite.img.xz.sha256
       sha256 = "9a38607cee9ca6844ee26c1e12fb9d029b567c8235e8b9f78f382a19e6078720";
     };
-    buster-lite-qcow2 = selflib.makeCompressedQcow2 buster-lite;
+    buster-lite-qcow2 = selflib.makeCompressedQcow2 { image = buster-lite; };
     buster-lite-script = makeExpectScript buster-lite-qcow2;
     buster-lite-newimage = pkgs.runCommandLocal "newimage.qcow2" {
       env = {

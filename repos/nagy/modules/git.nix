@@ -164,7 +164,6 @@ in
 
   environment.etc.gitattributes = lib.mkIf cfg.enable {
     text = ''
-      *.wasm diff=wasm
       *.pdf diff=pdf
       *.png diff=exif
       *.jpg diff=exif

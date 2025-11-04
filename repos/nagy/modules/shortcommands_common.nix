@@ -108,11 +108,5 @@
     fd2d = [ "fd" "-j2" "-td" ];
     fdf = [ "fd" "-tf" ];
     fdd = [ "fd" "-td" ];
-
-    digs = [ "dig" "+short" ];
-    dig6 = [ "dig" "AAAA" ];
-    dig6s = [ "dig" "AAAA" "+short" ];
-    digt = [ "dig" "TXT" ];
-    digts = [ "dig" "TXT" "+short" ];
   };
 }

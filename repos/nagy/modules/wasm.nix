@@ -41,5 +41,11 @@ in
         };
       };
     };
+
+    environment.etc.gitattributes = {
+      text = lib.mkAfter ''
+        *.wasm diff=wasm
+      '';
+    };
   };
 }
