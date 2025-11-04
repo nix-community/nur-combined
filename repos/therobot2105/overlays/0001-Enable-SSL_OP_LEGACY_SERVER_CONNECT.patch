@@ -1,0 +1,27 @@
+From c275f8b4ef79f49fec42dfe8ec67eedc2d69ae75 Mon Sep 17 00:00:00 2001
+From: Leon Schuermann <leon@is.currently.online>
+Date: Sun, 6 Aug 2023 10:43:13 -0400
+Subject: [PATCH] Enable SSL_OP_LEGACY_SERVER_CONNECT
+
+---
+ src/crypto/tls_openssl.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/crypto/tls_openssl.c b/src/crypto/tls_openssl.c
+index fe38fa754..46b0d08bd 100644
+--- a/src/crypto/tls_openssl.c
++++ b/src/crypto/tls_openssl.c
+@@ -1084,6 +1084,8 @@ void * tls_init(const struct tls_config *conf)
+ 	SSL_CTX_set_options(ssl, SSL_OP_NO_SSLv2);
+ 	SSL_CTX_set_options(ssl, SSL_OP_NO_SSLv3);
+ 
++	SSL_CTX_set_options(ssl, SSL_OP_LEGACY_SERVER_CONNECT);
++
+ 	SSL_CTX_set_mode(ssl, SSL_MODE_AUTO_RETRY);
+ 
+ #ifdef SSL_MODE_NO_AUTO_CHAIN
+
+base-commit: faee8b99e9287af510f9bbedbe17d8c422330bc7
+-- 
+2.40.1
+
