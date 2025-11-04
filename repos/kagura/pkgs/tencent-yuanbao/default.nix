@@ -6,12 +6,12 @@
   _7zz,
 }:
 let
-  version = "2.41.10.627";
+  version = "2.43.0.622";
 
   # https://yuanbao.tencent.com/api/info/public/general
   source = {
-    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/7c70406e8ccc7c8ca02a4667c4a3669e/yuanbao_2.41.10.627_universal.dmg";
-    hash = "sha256-JmIrXus0VIftC0TiYEdcAzcU1zBCe2eX4Mq1gOlltk8=";
+    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/0db3fe3a263234980c6b2c4d46a3ea1d/yuanbao_2.43.0.622_universal.dmg";
+    hash = "sha256-s4LEl5xvaLIMhf3hSfev8GIyITfRjT+9gRMwr9y/oso=";
   };
   pkgName = "腾讯元宝";
 in
