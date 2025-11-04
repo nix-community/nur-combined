@@ -22,6 +22,7 @@ jobs:
       - uses: fym998/update-flake-lock@dogfood
         id: update-flake-lock
         with:
+          pr-title: "[Automated] Update Packages & Nix flake lock"
           flakes: |
             flake-modules/_internal/dev
             .
