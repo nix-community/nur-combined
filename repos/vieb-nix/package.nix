@@ -40,7 +40,7 @@ buildNpmPackage (finalAttrs: {
       name = "vieb";
       exec = "vieb %U";
       icon = "vieb";
-      desktopName = "Web Browser";
+      desktopName = "Vieb";
       genericName = "Web Browser";
       categories = [ "Network" "WebBrowser" ];
       mimeTypes = [
