@@ -1,0 +1,10 @@
+diff --git a/desktop/TuxGuitar-AudioUnit/jni/Makefile b/desktop/TuxGuitar-AudioUnit/jni/Makefile
+index 9c4768e..901d11c 100644
+--- a/desktop/TuxGuitar-AudioUnit/jni/Makefile
++++ b/desktop/TuxGuitar-AudioUnit/jni/Makefile
+@@ -1,4 +1,4 @@
+-CXX = g++
++CXX ?= c++
+ 
+ INCLUDES = -I ../../build-scripts/native-modules/common-include/
+ 
