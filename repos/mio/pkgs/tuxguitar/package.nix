@@ -249,11 +249,18 @@ stdenv.mkDerivation (finalAttrs: {
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash =
-        if stdenv.hostPlatform.isDarwin then
-          "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio="
-        else
-          "sha256-azHdca4BgoiIryh4whh+tuLnFsX4uVfllKaVGqE8X+A=";
+      outputHash = (
+        let
+          inherit (stdenv.hostPlatform) system;
+          selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
+        in
+        (selectSystem {
+          x86_64-linux = "sha256-azHdca4BgoiIryh4whh+tuLnFsX4uVfllKaVGqE8X+A=";
+          aarch64-linux = "sha256-gXSUYNv7BheIgpbY3cXKj+isaMzuS+Gf4cKBzXuOVZw=";
+          x86_64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
+          aarch64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
+        })
+      );
     };
   };
 
