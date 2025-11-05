@@ -36,9 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./fix-lv2-include.patch
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ./fix-include.patch
     ./fix-audiounit-makefile.patch
   ];
 
@@ -82,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  dontWrapGApps = stdenv.hostPlatform.isLinux;
+  dontWrapGApps = true;
 
   buildPhase = ''
     runHook preBuild
@@ -198,7 +196,7 @@ stdenv.mkDerivation (finalAttrs: {
       name = "${finalAttrs.finalPackage.pname}-${finalAttrs.finalPackage.version}-maven-deps";
       inherit (finalAttrs.finalPackage) src;
       patches = [
-        ./fix-lv2-include.patch
+        ./fix-include.patch
       ];
       nativeBuildInputs = [
         maven
