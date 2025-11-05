@@ -41,16 +41,16 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (srcMetadata) hash;
       stripRoot = false;
       postFetch =
+        # On Darwin, copy the prebuilt swt.jar before processing sources and
+        # save it with a different name so it doesn't get removed.
         if stdenv.hostPlatform.isDarwin then
           ''
-            # On Darwin, copy the prebuilt swt.jar before processing sources
-            # Save it with a different name so it doesn't get removed
             cp "$out/swt.jar" "$out/swt-prebuilt.jar" || echo "Warning: swt.jar not found"
             ls -la "$out/"
           ''
         else
+          # On Linux, extract and use only the sources from src.zip
           ''
-            # On Linux, extract and use only the sources from src.zip
             mkdir "$unpackDir"
             cd "$unpackDir"
 
