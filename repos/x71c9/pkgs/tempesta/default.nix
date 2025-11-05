@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   # Cargo dependency vendor hash (computed by Nix)
-  cargoHash = "sha256-mpCkuHKU8cF+j9eTjahTrzDy4ETs9iO5oMdO/jFxE8I=";
+  cargoHash = "sha256-lnPNcPRc2mvANeSvrJKPIxy7/9c1LkhWElmbNcSFioU=";
 
   # Enable when you have tests (recommended)
   doCheck = false;
