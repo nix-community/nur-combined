@@ -50,7 +50,8 @@
         "benchmark"
         "big-parallel"
         "kvm"
-      ] ++ [ "gccarch-znver3" ];
+      ]
+      ++ [ "gccarch-znver3" ];
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
       keep-outputs = true;
@@ -62,15 +63,14 @@
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
-      extra-substituters =
-        [
-          "https://cache.lix.systems"
-        ]
-        ++ (map (n: "https://${n}.cachix.org") [
-          "nix-community"
-          "helix"
-          "nixpkgs-wayland"
-        ]);
+      extra-substituters = [
+        "https://cache.lix.systems"
+      ]
+      ++ (map (n: "https://${n}.cachix.org") [
+        "nix-community"
+        "helix"
+        "nixpkgs-wayland"
+      ]);
       substituters = [
         "https://cache.nixos.org"
         "https://cache.garnix.io"

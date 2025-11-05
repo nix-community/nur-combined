@@ -49,7 +49,8 @@ let
     only_admins_can_pause_the_game = true;
     autosave_only_on_server = true;
     non_blocking_saving = cfg.nonBlockingSaving;
-  } // cfg.extraSettings;
+  }
+  // cfg.extraSettings;
   serverSettingsFile =
     if cfg.serverSettingsFile != "" then
       cfg.serverSettingsFile

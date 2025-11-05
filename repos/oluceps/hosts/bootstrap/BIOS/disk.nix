@@ -35,15 +35,15 @@
                     "--csum xxhash64"
                   ];
                   subvolumes = {
-                    "root" = {
-                      mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                        "nodev"
-                        "nosuid"
-                      ];
-                    };
+                    # "root" = {
+                    #   mountpoint = "/";
+                    #   mountOptions = [
+                    #     "compress=zstd"
+                    #     "noatime"
+                    #     "nodev"
+                    #     "nosuid"
+                    #   ];
+                    # };
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
@@ -76,18 +76,18 @@
           };
         };
       };
-      # nodev = {
-      #   "/" = {
-      #     fsType = "tmpfs";
-      #     mountOptions = [
-      #       "relatime"
-      #       "nosuid"
-      #       "nodev"
-      #       "size=2G"
-      #       "mode=755"
-      #     ];
-      #   };
-      # };
+      nodev = {
+        "/" = {
+          fsType = "tmpfs";
+          mountOptions = [
+            "relatime"
+            "nosuid"
+            "nodev"
+            "size=2G"
+            "mode=755"
+          ];
+        };
+      };
     };
   };
 }

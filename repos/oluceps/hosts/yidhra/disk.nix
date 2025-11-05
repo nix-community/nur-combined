@@ -1,31 +1,30 @@
-_: {
-
+{
   fileSystems."/persist".neededForBoot = true;
   disko = {
+
     devices = {
       disk = {
         main = {
-          device = "/dev/sda";
+          imageSize = "2G";
           type = "disk";
+          device = "/dev/sda";
           content = {
             type = "gpt";
             partitions = {
-              ESP = {
-                name = "ESP";
-                size = "256M";
-                type = "EF00";
+              boot = {
+                size = "1M";
                 priority = 0;
+                type = "EF02";
+              };
+              ESP = {
+                size = "256M";
                 content = {
                   type = "filesystem";
                   format = "vfat";
-                  mountpoint = "/efi";
-                  mountOptions = [
-                    "fmask=0077"
-                    "dmask=0077"
-                  ];
+                  mountpoint = "/boot";
+                  mountOptions = [ "umask=0077" ];
                 };
               };
-
               solid = {
                 label = "SOLID";
                 end = "-0";
@@ -36,6 +35,15 @@ _: {
                     "--csum xxhash64"
                   ];
                   subvolumes = {
+                    # "root" = {
+                    #   mountpoint = "/";
+                    #   mountOptions = [
+                    #     "compress=zstd"
+                    #     "noatime"
+                    #     "nodev"
+                    #     "nosuid"
+                    #   ];
+                    # };
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
@@ -61,15 +69,6 @@ _: {
                         "noatime"
                       ];
                     };
-                    # "root" = {
-                    #   mountpoint = "/";
-                    #   mountOptions = [
-                    #     "compress=zstd"
-                    #     "noatime"
-                    #     "nodev"
-                    #     "nosuid"
-                    #   ];
-                    # };
                   };
                 };
               };
@@ -77,7 +76,6 @@ _: {
           };
         };
       };
-
       nodev = {
         "/" = {
           fsType = "tmpfs";

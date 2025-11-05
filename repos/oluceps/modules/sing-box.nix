@@ -65,33 +65,32 @@ in
 
     services.dbus.packages = [ cfg.package ];
 
-    systemd.services.sing-box =
-      {
-        # unitConfig.Conflicts = [ "dnsproxy.service" ];
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        description = "sing-box Daemon";
-        serviceConfig = {
-          User = "sing-box";
-          ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
-          LoadCredential = [ ("config.json:" + cfg.configFile) ];
-          StateDirectory = "sing";
-          CapabilityBoundingSet = [
-            "CAP_NET_RAW"
-            "CAP_NET_ADMIN"
-            "CAP_NET_BIND_SERVICE"
-          ];
-          AmbientCapabilities = [
-            "CAP_NET_RAW"
-            "CAP_NET_ADMIN"
-            "CAP_NET_BIND_SERVICE"
-          ];
-          Restart = "on-failure";
-        };
-      }
-      // lib.optionalAttrs cfg.webPanel.enable {
-        preStart = "ln -sfT ${cfg.webPanel.package} $STATE_DIRECTORY/web";
+    systemd.services.sing-box = {
+      # unitConfig.Conflicts = [ "dnsproxy.service" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      description = "sing-box Daemon";
+      serviceConfig = {
+        User = "sing-box";
+        ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
+        LoadCredential = [ ("config.json:" + cfg.configFile) ];
+        StateDirectory = "sing";
+        CapabilityBoundingSet = [
+          "CAP_NET_RAW"
+          "CAP_NET_ADMIN"
+          "CAP_NET_BIND_SERVICE"
+        ];
+        AmbientCapabilities = [
+          "CAP_NET_RAW"
+          "CAP_NET_ADMIN"
+          "CAP_NET_BIND_SERVICE"
+        ];
+        Restart = "on-failure";
       };
+    }
+    // lib.optionalAttrs cfg.webPanel.enable {
+      preStart = "ln -sfT ${cfg.webPanel.package} $STATE_DIRECTORY/web";
+    };
   };
 }

@@ -43,14 +43,14 @@ addrs = ["192.168.1.110"]
 
 [node.yidhra]
 id = 3
-addrs = ["103.213.4.159", "2401:5a0:1000:96::a"]
+addrs = ["205.198.76.6", "2404:c140:2000:2::32:1d9f"]
 censor = false
 nat = false
 user = "elen"
-ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDqkU3B6vPZKh1ETslE7GAmSD7exr3Mr7uIVKuAW4pR"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfA9a0Uetc/vt0rHTulnQNHZPqJNy9ZyLvmP5GDnaoc"
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
-iata = "HKG"
+iata = "NRT"
 
 [node.abhoth]
 # dmit

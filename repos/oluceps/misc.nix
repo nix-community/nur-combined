@@ -77,6 +77,7 @@
         sc = "systemctl";
         scs = "systemctl status";
         scr = "systemctl restart";
+        jc = "journalctl";
         ".." = "cd ..";
         "。。" = "cd ..";
         "..." = "cd ../..";

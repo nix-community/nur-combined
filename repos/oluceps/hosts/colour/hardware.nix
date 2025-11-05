@@ -61,30 +61,30 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  fileSystems =
-    {
-      "/efi" = {
-        device = "/dev/sda2";
-        fsType = "vfat";
-        options = [
-          "fmask=0077"
-          "dmask=0077"
-        ];
-      };
+  fileSystems = {
+    "/efi" = {
+      device = "/dev/sda2";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
 
-      "/" = {
-        device = "/dev/sda3";
-        fsType = "btrfs";
-        options = [
-          "subvol=/root"
-          "compress-force=zstd:1"
-          "noatime"
-          "discard=async"
-          "space_cache=v2"
-        ];
-      };
-    }
-    // lib.genAttrs
+    "/" = {
+      device = "/dev/sda3";
+      fsType = "btrfs";
+      options = [
+        "subvol=/root"
+        "compress-force=zstd:1"
+        "noatime"
+        "discard=async"
+        "space_cache=v2"
+      ];
+    };
+  }
+  //
+    lib.genAttrs
       [
         "/home"
         "/nix"

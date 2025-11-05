@@ -25,7 +25,7 @@
   users.users.root = {
     # hashedPassword = data.keys.hashedPasswd;
     openssh.authorizedKeys.keys = [
-      data.keys.sshPubKey
+      data.keys.sshPubKey2
       data.keys.skSshPubKey
     ];
   };

@@ -133,86 +133,17 @@
   {
     handle = [
       {
-        handler = "subroute";
-        routes = [
-          {
-            handle = [
-              {
-                handler = "subroute";
-                routes = [
-                  {
-                    handle = [
-                      {
-                        handler = "subroute";
-                        routes = [
-                          {
-                            handle = [
-                              {
-                                handler = "authenticator";
-                                portal_name = "myportal";
-                                route_matcher = "*";
-                              }
-                            ];
-                          }
-                        ];
-                      }
-                    ];
-                    match = [
-                      {
-                        path = [ "*" ];
-                      }
-                    ];
-                  }
-                ];
-              }
-            ];
-            match = [
-              {
-                path = [ "/caddy-security/*" ];
-              }
-            ];
-          }
-          {
-            handle = [
-              {
-                handler = "subroute";
-                routes = [
-                  {
-                    handle = [
-                      {
-                        handler = "authentication";
-                        providers = {
-                          authorizer = {
-                            gatekeeper_name = "mypolicy";
-                            route_matcher = "*";
-                          };
-                        };
-                      }
-                      {
-                        headers = {
-                          request = {
-                            set = {
-                              "X-Scheme" = [
-                                "https"
-                              ];
-                            };
-                          };
-                        };
-                        upstreams = [ { dial = "[fdcc::3]:8083"; } ];
-                        handler = "reverse_proxy";
-                      }
-                    ];
-                  }
-                ];
-              }
-            ];
-            match = [
-              {
-                path = [ "/*" ];
-              }
-            ];
-          }
-        ];
+        headers = {
+          request = {
+            set = {
+              "X-Scheme" = [
+                "https"
+              ];
+            };
+          };
+        };
+        upstreams = [ { dial = "[fdcc::3]:8083"; } ];
+        handler = "reverse_proxy";
       }
     ];
     match = [

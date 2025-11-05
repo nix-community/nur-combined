@@ -32,7 +32,8 @@ in
         "--cache"
         "--cache-optimistic"
         "--edns"
-      ] ++ cfg.extraFlags;
+      ]
+      ++ cfg.extraFlags;
       settings = {
         bootstrap = [
           "8.8.8.8"

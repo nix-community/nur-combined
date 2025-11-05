@@ -131,6 +131,19 @@
             ${pamixer} --get-mute | str trim | if $in == "false" { ${pamixer} -m } else { ${pamixer} -u }
           '';
       };
+      show-current-ws = final.nuenv.writeScriptBin {
+        name = "show-current-ws";
+        script = ''
+          let windows = ${prev.niri}/bin/niri msg -j windows | from json | reverse;
+          let focused = $windows | where is_focused | first;
+          let focused_ws = $focused | $in.workspace_id;
+          let focused_id = $focused | $in.id;
+          $windows | where workspace_id == $focused_ws | each {
+            let info = $in.app_id + " | " + $in.title;
+            if $in.id == $focused_id { "> " + $info } else { "  " + $info }
+          } | str join (char newline)
+        '';
+      };
 
       systemd-run-app = prev.writeShellApplication {
         name = "systemd-run-app";

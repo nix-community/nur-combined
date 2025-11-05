@@ -84,11 +84,11 @@ reIf {
           scheme = "http";
           static_configs = [ { targets = [ "[fdcc::3]:9187" ]; } ];
         }
-        {
-          job_name = "ntfy_metrics";
-          scheme = "http";
-          static_configs = [ { targets = [ "[fdcc::4]:9090" ]; } ];
-        }
+        # {
+        #   job_name = "ntfy_metrics";
+        #   scheme = "http";
+        #   static_configs = [ { targets = [ "[fdcc::4]:9090" ]; } ];
+        # }
         {
           job_name = "synapse_metrics";
           scheme = "http";

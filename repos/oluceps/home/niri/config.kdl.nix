@@ -253,26 +253,6 @@ in
   spawn-at-startup ${execDesktop "chromium-browser"}
   spawn-at-startup ${execDesktop "org.telegram.desktop.desktop"}
   spawn-at-startup ${execDesktop "thunderbird"}
-  spawn-at-startup ${
-    execApp [
-      "${wl-paste}"
-      "--type"
-      "text"
-      "--watch"
-      "${deps.cliphist}"
-      "store"
-    ]
-  }
-  spawn-at-startup ${
-    execApp [
-      "${wl-paste}"
-      "--type"
-      "image"
-      "--watch"
-      "${deps.cliphist}"
-      "store"
-    ]
-  }
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.

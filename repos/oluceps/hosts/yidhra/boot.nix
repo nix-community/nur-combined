@@ -3,12 +3,14 @@
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/efi";
+      timeout = 3;
+      grub.enable = false;
+      limine = {
+        enable = true;
+        efiSupport = false;
+        biosSupport = true;
+        biosDevice = "/dev/vda";
       };
-      systemd-boot.enable = true;
-      timeout = 1;
     };
     kernelParams = [
       "audit=0"
@@ -19,7 +21,6 @@
       "19200n8"
       "ia32_emulation=0"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
       compressor = "zstd";
       compressorArgs = [

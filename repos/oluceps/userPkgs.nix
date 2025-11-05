@@ -4,6 +4,7 @@ with pkgs;
   turbo
   eva
   paperback
+  termusic
   chatmcp
   thunderbird
   amberol
@@ -13,6 +14,7 @@ with pkgs;
   # chromium
   # apotris
   # celeste
+  obsidian
   stellarium
   # celluloid
   # thiefmd

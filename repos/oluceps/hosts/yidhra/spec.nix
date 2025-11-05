@@ -57,6 +57,7 @@
     sing-server.enable = true;
     rustypaste.enable = true;
     subs.enable = true;
+    ntfy.enable = true;
   };
   services = {
     metrics.enable = true;
@@ -92,26 +93,6 @@
             remote = "[fdcc::3]:8776";
           }
         ];
-      };
-    };
-
-    ntfy-sh = {
-      enable = true;
-      settings = {
-        listen-http = ":2586";
-        behind-proxy = true;
-        auth-default-access = "deny-all";
-        base-url = "http://ntfy.nyaw.xyz";
-        enable-metrics = true;
-        metrics-listen-http = "[fdcc::4]:9090";
-        auth-users = [
-          "lyo:$2a$12$O8gSrfED8kHXOvdovr7lOew/gMfawvBKJdRUvaAiuR3vQOrm2aus2:admin"
-        ];
-        auth-access = [
-          "*:broadcast:ro"
-          "*:up*:write-only" # https://docs.ntfy.sh/config/?h=default+tier#example-unifiedpush
-        ];
-
       };
     };
 

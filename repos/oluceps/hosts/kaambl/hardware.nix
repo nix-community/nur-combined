@@ -13,6 +13,7 @@
 
 {
   services.pulseaudio.enable = false;
+  services.upower.enable = true;
   hardware = {
 
     graphics = {
