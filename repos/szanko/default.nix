@@ -12,6 +12,7 @@ pkgs ? import <nixpkgs> { }
 , pkgs2411 ? pkgs
 , pkgs2505 ? pkgs
 , pkgsUnstable ? pkgs
+, stardropPkgs ? null
 }:
 
 {
@@ -40,4 +41,5 @@ pkgs ? import <nixpkgs> { }
   chadstr = pkgs.callPackage ./pkgs/chadstr { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  stardrop = if stardropPkgs != null then stardropPkgs.default else null;
 }

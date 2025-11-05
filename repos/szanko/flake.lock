@@ -86,7 +86,29 @@
         "nixpkgs-2311": "nixpkgs-2311",
         "nixpkgs-2411": "nixpkgs-2411",
         "nixpkgs-2505": "nixpkgs-2505",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "stardrop": "stardrop"
+      }
+    },
+    "stardrop": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758334572,
+        "narHash": "sha256-rKeIhyCRq2FZiN3CDoYYdiWpNuB4nHlVRSHjPpraIpE=",
+        "owner": "SZanko",
+        "repo": "Stardrop",
+        "rev": "cbe07f90d852607d2ce19d3dd586ce3cb9464482",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SZanko",
+        "ref": "nix-packaging",
+        "repo": "Stardrop",
+        "type": "github"
       }
     }
   },

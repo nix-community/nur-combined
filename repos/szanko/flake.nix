@@ -7,8 +7,13 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # Currently not a maintainer in 25.05 but in 25.11
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    stardrop = {
+      url = "github:SZanko/Stardrop/nix-packaging";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505 }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505, stardrop }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
@@ -28,11 +33,8 @@
           pkgs2505 = import nixpkgs-2505 { inherit system; };
         in
           import ./default.nix {
-            inherit pkgs;
-            pkgs2311 = pkgs2311;
-            pkgs2411 = pkgs2411;
-            pkgs2505 = pkgs2505;
-            pkgsUnstable = pkgsUnstable;
+            inherit pkgs pkgs2311 pkgs2411 pkgs2505 pkgsUnstable;
+            stardropPkgs = stardrop.packages.${system};
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
       checks = forAllSystems (system: self.packages.${system});
