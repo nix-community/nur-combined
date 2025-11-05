@@ -37,6 +37,7 @@ pkgs ? import <nixpkgs> { }
   archive-org-downloader = pkgs.callPackage ./pkgs/archive.org-downloader { };
   #glojure = pkgs.callPackage ./pkgs/glojure { };
   salmagundi = pkgs.callPackage ./pkgs/salmagundi { };
+  chadstr = pkgs.callPackage ./pkgs/chadstr { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
