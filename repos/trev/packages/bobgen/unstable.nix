@@ -23,7 +23,7 @@ bobgen.overrideAttrs
       extraArgs = [
         "--commit"
         "--version=branch=main"
-        "packages.${final.pname}.unstable"
+        "${final.pname}.unstable"
       ];
     });
   };

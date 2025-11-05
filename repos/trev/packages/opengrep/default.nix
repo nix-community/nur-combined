@@ -111,7 +111,7 @@ in
         extraArgs = [
           "--commit"
           "--subpackage core"
-          "packages.${pname}"
+          "${pname}"
         ];
       });
     };

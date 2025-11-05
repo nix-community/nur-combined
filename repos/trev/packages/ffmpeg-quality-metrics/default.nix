@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     updateScript = lib.concatStringsSep " " (nix-update-script {
       extraArgs = [
         "--commit"
-        "packages.${pname}"
+        "${pname}"
       ];
     });
   };
