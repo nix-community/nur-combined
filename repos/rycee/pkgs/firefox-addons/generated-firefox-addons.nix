@@ -2533,10 +2533,10 @@
     };
     "csgofloat" = buildFirefoxXpiAddon {
       pname = "csgofloat";
-      version = "5.8.1";
+      version = "5.9.0";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575548/csgofloat-5.8.1.xpi";
-      sha256 = "6bfcfb61d0a0b026fcf75cc55ccd13904dd421a32bc3f158e4414a9be7b65013";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4605795/csgofloat-5.9.0.xpi";
+      sha256 = "e5936bc6ce150435a21e58e156529d8040f547e0581705f146658add06b19717";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.5";
+      version = "2.0.6";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4610158/kiss_translator-2.0.5.xpi";
-      sha256 = "9b69f81424492813bace4344fba9c275ebbc503d6f0a3e4fff5772eb2ddac17a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4612662/kiss_translator-2.0.6.xpi";
+      sha256 = "84037013cb3309b14312b30af8812a6e30b2f0ed3851265a1f0609fe511abdfa";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -9282,10 +9282,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.11.15.5";
+      version = "8.11.16.35";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602298/1password_x_password_manager-8.11.15.5.xpi";
-      sha256 = "c2a491c4d7b3b4bc99629b3219ac1db5efe3de2edd2c867da8a02b639be47e2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4607619/1password_x_password_manager-8.11.16.35.xpi";
+      sha256 = "9b2853a5719d8c9e5f1b36b98b1ffd907e6caae87ba45712aa5ca7830da820fe";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9502,10 +9502,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.85";
+      version = "1.0.91";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4593252/paperpile_addon-1.0.85.xpi";
-      sha256 = "21f3bbe476e11ba67ab5d58cbd64311a6b9a8efe00c2dc719270875c9fc775af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4607614/paperpile_addon-1.0.91.xpi";
+      sha256 = "8b4749740c367e193d25c437954fea5bec569f35164563814c0eca38e63bfa91";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -10648,10 +10648,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.16.0";
+      version = "2.17.2";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4577733/pwas_for_firefox-2.16.0.xpi";
-      sha256 = "241a538c93dc5e1eb3b5982c44df546a8755f315a6338bf2a68cf4cfc30915e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4606235/pwas_for_firefox-2.17.2.xpi";
+      sha256 = "08ef4240f769f10f81bc846128032b435666ee8b6bcf62f2c736e25ea22dcf05";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -11345,10 +11345,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.10.2";
+      version = "25.11.4";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4590019/refined_github-25.10.2.xpi";
-      sha256 = "bb53d3d1f0b003a5ae705c79402d537141c191f76934bf7aec02b8e891bd16f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4612464/refined_github-25.11.4.xpi";
+      sha256 = "240ccda8bd39c1e0d2d0eb4113825856cf7f2bdabd6b323ee164f02ca11a7dea";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -12285,10 +12285,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "6.0.3";
+      version = "6.1.0";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598130/sponsorblock-6.0.3.xpi";
-      sha256 = "accbfb3bb634834a16685cbc66c1a8e5e8ae51c075c7c86d4b7141c67ad4c88b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4608179/sponsorblock-6.1.0.xpi";
+      sha256 = "48f412540ad0217c52caece0eb84186041b28241b24457aaa8c256565f050844";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -15479,10 +15479,10 @@
     };
     "youtube-no-translation" = buildFirefoxXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.17.1";
+      version = "2.17.2";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4601783/youtube_no_translation-2.17.1.xpi";
-      sha256 = "5cb74598b95d2d3a2d74ebb6d6c0b5072f4c699880c70fd0d361347963323699";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609263/youtube_no_translation-2.17.2.xpi";
+      sha256 = "87ef145bb490c68e0ccc4e7d1483bd010e70209245dc2941227709607ea311b9";
       meta = with lib;
       {
         description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
@@ -15591,10 +15591,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "17.8.10";
+      version = "17.8.14";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4604905/youtube_subscription_groups-17.8.10.xpi";
-      sha256 = "c438eec4e08f64e3db48fcc061f9d38f307bdf1da734c3426e11b83087db4fdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4610914/youtube_subscription_groups-17.8.14.xpi";
+      sha256 = "b5ee5135fac7658fe140f2cc7e402acc91cf34442fd7dda3db3e5f662a5d5f54";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
