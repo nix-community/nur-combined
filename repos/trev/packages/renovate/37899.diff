@@ -1,5 +1,5 @@
 diff --git a/lib/modules/manager/nix/artifacts.spec.ts b/lib/modules/manager/nix/artifacts.spec.ts
-index fc0f49063c..bc1204acf2 100644
+index fc0f49063c9..bc1204acf23 100644
 --- a/lib/modules/manager/nix/artifacts.spec.ts
 +++ b/lib/modules/manager/nix/artifacts.spec.ts
 @@ -29,16 +29,9 @@ process.env.CONTAINERBASE = 'true';
@@ -119,7 +119,7 @@ index fc0f49063c..bc1204acf2 100644
            type: 'addition',
          },
 diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
-index 1ab4d5951c..529b5159bd 100644
+index 1ab4d5951cc..529b5159bd5 100644
 --- a/lib/modules/manager/nix/artifacts.ts
 +++ b/lib/modules/manager/nix/artifacts.ts
 @@ -4,24 +4,35 @@ import { logger } from '../../../logger';
@@ -174,7 +174,7 @@ index 1ab4d5951c..529b5159bd 100644
        {
          toolName: 'nix',
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
-index 2352185500..b882d80e0a 100644
+index 23521855009..b882d80e0a2 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
 +++ b/lib/modules/manager/nix/extract.spec.ts
 @@ -1,87 +1,69 @@
@@ -2217,7 +2217,7 @@ index 2352185500..b882d80e0a 100644
        "nodes": {
          "unknown-flake": {
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 6404e030a8..5184501c22 100644
+index 6404e030a8e..5184501c223 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
 @@ -1,20 +1,16 @@
@@ -2438,7 +2438,7 @@ index 6404e030a8..5184501c22 100644
 +  return { deps };
  }
 diff --git a/lib/modules/manager/nix/index.ts b/lib/modules/manager/nix/index.ts
-index 57976429ef..ca58e35aa6 100644
+index 57976429ef9..ca58e35aa6c 100644
 --- a/lib/modules/manager/nix/index.ts
 +++ b/lib/modules/manager/nix/index.ts
 @@ -1,18 +1,14 @@
@@ -2465,7 +2465,7 @@ index 57976429ef..ca58e35aa6 100644
 -export const supportedDatasources = [GitRefsDatasource.id];
 diff --git a/lib/modules/manager/nix/range.spec.ts b/lib/modules/manager/nix/range.spec.ts
 deleted file mode 100644
-index 3c43e9f6e4..0000000000
+index 3c43e9f6e45..00000000000
 --- a/lib/modules/manager/nix/range.spec.ts
 +++ /dev/null
 @@ -1,17 +0,0 @@
@@ -2488,7 +2488,7 @@ index 3c43e9f6e4..0000000000
 -});
 diff --git a/lib/modules/manager/nix/update.spec.ts b/lib/modules/manager/nix/update.spec.ts
 new file mode 100644
-index 0000000000..475dc9e94c
+index 00000000000..475dc9e94c8
 --- /dev/null
 +++ b/lib/modules/manager/nix/update.spec.ts
 @@ -0,0 +1,449 @@
@@ -2943,7 +2943,7 @@ index 0000000000..475dc9e94c
 +});
 diff --git a/lib/modules/manager/nix/update.ts b/lib/modules/manager/nix/update.ts
 new file mode 100644
-index 0000000000..c31494aa97
+index 00000000000..c31494aa97c
 --- /dev/null
 +++ b/lib/modules/manager/nix/update.ts
 @@ -0,0 +1,150 @@
@@ -3098,7 +3098,7 @@ index 0000000000..c31494aa97
 +  return updatedContent;
 +}
 diff --git a/lib/workers/repository/update/branch/get-updated.spec.ts b/lib/workers/repository/update/branch/get-updated.spec.ts
-index 4d55c0669c..49ca9c21b5 100644
+index 4d55c0669ca..49ca9c21b52 100644
 --- a/lib/workers/repository/update/branch/get-updated.spec.ts
 +++ b/lib/workers/repository/update/branch/get-updated.spec.ts
 @@ -7,6 +7,7 @@ import * as _composer from '../../../../modules/manager/composer';
@@ -3200,7 +3200,7 @@ index 4d55c0669c..49ca9c21b5 100644
       * The pip-compile manager uses lock files, the regex manager does not.
       * Verify pip-compile updates the lock files even if the same dependency
 diff --git a/lib/workers/repository/update/branch/get-updated.ts b/lib/workers/repository/update/branch/get-updated.ts
-index e234c33332..2be90bb9e0 100644
+index e234c333327..2be90bb9e07 100644
 --- a/lib/workers/repository/update/branch/get-updated.ts
 +++ b/lib/workers/repository/update/branch/get-updated.ts
 @@ -103,6 +103,7 @@ export async function getUpdatedPackageFiles(
