@@ -48,12 +48,8 @@ src.git = "https://github.com/rogersce/cnpy"
 fetch.github = "rogersce/cnpy"
 
 [amgcl]
-src.github_tag = "ddemidov/amgcl"
+src.git = "https://github.com/ddemidov/amgcl"
 fetch.github = "ddemidov/amgcl"
-
-[yalantinglibs]
-src.github_tag = "alibaba/yalantinglibs"
-fetch.github = "alibaba/yalantinglibs"
 
 [structopt]
 src.github_tag = "p-ranav/structopt"
@@ -74,10 +70,6 @@ fetch.github = "kamchatka-volcano/sfun"
 [cmdlime]
 src.github = "kamchatka-volcano/cmdlime"
 fetch.github = "kamchatka-volcano/cmdlime"
-
-[spdlog]
-src.git = "https://github.com/gabime/spdlog"
-fetch.github = "gabime/spdlog"
 
 [coc-markdown]
 src.git = "https://github.com/wrvsrx/coc-markdown"
@@ -118,14 +110,6 @@ fetch.pypi = "keymap_drawer"
 [tree-sitter-devicetree]
 src.github = "joelspadin/tree-sitter-devicetree"
 fetch.github = "joelspadin/tree-sitter-devicetree"
-
-[auto-patchelf]
-src.github_tag = "wrvsrx/auto-patchelf"
-fetch.github = "wrvsrx/auto-patchelf"
-
-[claude-code-router]
-src.git = "https://github.com/musistudio/claude-code-router"
-fetch.github = "musistudio/claude-code-router"
 
 [rime-ice-modular]
 src.github_tag = "wrvsrx/rime-ice-modular"

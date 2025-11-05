@@ -1,7 +1,7 @@
 {
     "amgcl": {
         "cargoLocks": null,
-        "date": null,
+        "date": "2025-08-27",
         "extract": null,
         "name": "amgcl",
         "passthru": null,
@@ -13,33 +13,12 @@
             "name": null,
             "owner": "ddemidov",
             "repo": "amgcl",
-            "rev": "1.4.4",
-            "sha256": "sha256-PSIWbOyBtJTVslp3tP5YX81YzTQC5DCfs4WhwwmwFew=",
+            "rev": "93827a00fc926d951c75f08fdb1d491912ff7065",
+            "sha256": "sha256-KXv3Jn70hhKkcVrqoS9gCaoZi9qSOScfKUxiRIWQ6Hs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.4.4"
-    },
-    "auto-patchelf": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "auto-patchelf",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "auto-patchelf",
-            "rev": "0.1.0",
-            "sha256": "sha256-BSAzGXWy13jdi5w5il0treXPsGcUDlTautCrH05H2o4=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.1.0"
+        "version": "93827a00fc926d951c75f08fdb1d491912ff7065"
     },
     "autobean-format": {
         "cargoLocks": null,
@@ -103,27 +82,6 @@
             "type": "github"
         },
         "version": "v1.0.3"
-    },
-    "claude-code-router": {
-        "cargoLocks": null,
-        "date": "2025-07-17",
-        "extract": null,
-        "name": "claude-code-router",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "musistudio",
-            "repo": "claude-code-router",
-            "rev": "174c9a740fe4129ce7ae4d1d1fbaf6d4a17867f6",
-            "sha256": "sha256-cIGH9iLxw6MQ00F94H4bezXLGvg+8nqWLQY33Jk0H7c=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "174c9a740fe4129ce7ae4d1d1fbaf6d4a17867f6"
     },
     "cmdlime": {
         "cargoLocks": null,
@@ -500,27 +458,6 @@
         },
         "version": "v5.1.0"
     },
-    "spdlog": {
-        "cargoLocks": null,
-        "date": "2024-01-16",
-        "extract": null,
-        "name": "spdlog",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "gabime",
-            "repo": "spdlog",
-            "rev": "696db97f672e9082e50e50af315d0f4234c82397",
-            "sha256": "sha256-17k5di2NLwrkCBHa6esYV3703e+DQhj0NjOgQ5pnI/Q=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "696db97f672e9082e50e50af315d0f4234c82397"
-    },
     "structopt": {
         "cargoLocks": null,
         "date": null,
@@ -544,7 +481,7 @@
     },
     "task-utils": {
         "cargoLocks": null,
-        "date": "2025-07-01",
+        "date": "2025-09-24",
         "extract": null,
         "name": "task-utils",
         "passthru": null,
@@ -556,12 +493,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "task-utils",
-            "rev": "f257b44ec4dc91031b8f0af12448e4c913f3afa5",
-            "sha256": "sha256-MKqY0Bp00pFr/mkTsfqsDJ+Tsz9w0WolYEg4ob8iHkQ=",
+            "rev": "ac7b285b52385aaf5d45dc832b990060cdcdce90",
+            "sha256": "sha256-LVrILRMrEhBRdeakpi7mHqOETmiu0lWojqVx0EbjKh0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f257b44ec4dc91031b8f0af12448e4c913f3afa5"
+        "version": "ac7b285b52385aaf5d45dc832b990060cdcdce90"
     },
     "tree-sitter-devicetree": {
         "cargoLocks": null,
@@ -614,11 +551,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iWYUhaChIMjaCTsaKHBQlIbHmbcQPDSFVZlin5PAvlE=",
+            "sha256": "sha256-fai84ghAXZbEIYlaGwEN9UGZIY1NFt9JSgYDL5AmbbA=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202508242213/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202510282213/geoip.dat"
         },
-        "version": "202508242213"
+        "version": "202510282213"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -629,11 +566,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/2pFdpQZ7/TIGxt/f0tD4lhkxW+3qjiQAqk9kLfvZh0=",
+            "sha256": "sha256-SS4tHcjivi2iLiSn028XfGbd+VhodBuTzAX2AIJuXJo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202508242213/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202510282213/geosite.dat"
         },
-        "version": "202508242213"
+        "version": "202510282213"
     },
     "xclip": {
         "cargoLocks": null,
@@ -655,26 +592,5 @@
             "type": "github"
         },
         "version": "b372f73579d30f9ba998ffd0a73694e7abe2c313"
-    },
-    "yalantinglibs": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "yalantinglibs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "alibaba",
-            "repo": "yalantinglibs",
-            "rev": "v0.3.0",
-            "sha256": "sha256-Su3mnC7hsw0T0u6HfsnYAwXml2T7CABySv7a18+KnK0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.3.0"
     }
 }

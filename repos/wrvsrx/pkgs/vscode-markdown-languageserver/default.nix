@@ -6,14 +6,14 @@
 }:
 buildNpmPackage rec {
   pname = "vscode-markdown-languageserver";
-  version = "0.5.0-alpha.7";
+  version = "0.5.0-alpha.12";
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode-markdown-languageserver";
     tag = "v${version}";
-    sha256 = "sha256-qBXpBGdh8ehk/94nbE5Y9ispEz/d5DMXl1OVEH8AmCU=";
+    sha256 = "sha256-3EIk+IXfV8GiLaTUpAataKtycQzsjAY4wP4vhd/4qcw=";
   };
-  npmDepsHash = "sha256-mkM30n3ieOI/E4lRGQxCao5fPf13RnXJz5QzmEc4KPE=";
+  npmDepsHash = "sha256-X+i/s9X6CDAvNYXnCfb+BDYOYHDni+3pvCodyEEJmi0=";
   buildPhase = "npm run dist";
   installPhase = ''
     mkdir -p $out/bin

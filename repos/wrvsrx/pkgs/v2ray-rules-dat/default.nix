@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation {
   inherit (v2ray-rules-dat-geoip) version;
   unpackPhase = "true";
   installPhase = ''
-    mkdir -p $out/share/$pname
-    cp ${v2ray-rules-dat-geoip.src} $out/share/v2ray-rules-dat/geoip.dat
-    cp ${v2ray-rules-dat-geosite.src} $out/share/v2ray-rules-dat/geosite.dat
+    install -D -m 644 ${v2ray-rules-dat-geoip.src} $out/share/v2ray-rules-dat/geoip.dat
+    install -D -m 644 ${v2ray-rules-dat-geosite.src} $out/share/v2ray-rules-dat/geosite.dat
   '';
 }

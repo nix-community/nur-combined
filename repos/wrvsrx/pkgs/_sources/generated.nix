@@ -3,25 +3,15 @@
 {
   amgcl = {
     pname = "amgcl";
-    version = "1.4.4";
+    version = "93827a00fc926d951c75f08fdb1d491912ff7065";
     src = fetchFromGitHub {
       owner = "ddemidov";
       repo = "amgcl";
-      rev = "1.4.4";
+      rev = "93827a00fc926d951c75f08fdb1d491912ff7065";
       fetchSubmodules = false;
-      sha256 = "sha256-PSIWbOyBtJTVslp3tP5YX81YzTQC5DCfs4WhwwmwFew=";
+      sha256 = "sha256-KXv3Jn70hhKkcVrqoS9gCaoZi9qSOScfKUxiRIWQ6Hs=";
     };
-  };
-  auto-patchelf = {
-    pname = "auto-patchelf";
-    version = "0.1.0";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "auto-patchelf";
-      rev = "0.1.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-BSAzGXWy13jdi5w5il0treXPsGcUDlTautCrH05H2o4=";
-    };
+    date = "2025-08-27";
   };
   autobean-format = {
     pname = "autobean-format";
@@ -55,18 +45,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-hdIbEIZrxA5EA3XY4MIazRv3DazUjpuDJRCgq8+kJQg=";
     };
-  };
-  claude-code-router = {
-    pname = "claude-code-router";
-    version = "174c9a740fe4129ce7ae4d1d1fbaf6d4a17867f6";
-    src = fetchFromGitHub {
-      owner = "musistudio";
-      repo = "claude-code-router";
-      rev = "174c9a740fe4129ce7ae4d1d1fbaf6d4a17867f6";
-      fetchSubmodules = false;
-      sha256 = "sha256-cIGH9iLxw6MQ00F94H4bezXLGvg+8nqWLQY33Jk0H7c=";
-    };
-    date = "2025-07-17";
   };
   cmdlime = {
     pname = "cmdlime";
@@ -274,18 +252,6 @@
       sha256 = "sha256-/8HCmoKFyLrFPADzFRCUnx4bvGjrUx9IsdAit6uZhkg=";
     };
   };
-  spdlog = {
-    pname = "spdlog";
-    version = "696db97f672e9082e50e50af315d0f4234c82397";
-    src = fetchFromGitHub {
-      owner = "gabime";
-      repo = "spdlog";
-      rev = "696db97f672e9082e50e50af315d0f4234c82397";
-      fetchSubmodules = false;
-      sha256 = "sha256-17k5di2NLwrkCBHa6esYV3703e+DQhj0NjOgQ5pnI/Q=";
-    };
-    date = "2024-01-16";
-  };
   structopt = {
     pname = "structopt";
     version = "v0.1.3";
@@ -299,15 +265,15 @@
   };
   task-utils = {
     pname = "task-utils";
-    version = "f257b44ec4dc91031b8f0af12448e4c913f3afa5";
+    version = "ac7b285b52385aaf5d45dc832b990060cdcdce90";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "task-utils";
-      rev = "f257b44ec4dc91031b8f0af12448e4c913f3afa5";
+      rev = "ac7b285b52385aaf5d45dc832b990060cdcdce90";
       fetchSubmodules = false;
-      sha256 = "sha256-MKqY0Bp00pFr/mkTsfqsDJ+Tsz9w0WolYEg4ob8iHkQ=";
+      sha256 = "sha256-LVrILRMrEhBRdeakpi7mHqOETmiu0lWojqVx0EbjKh0=";
     };
-    date = "2025-07-01";
+    date = "2025-09-24";
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";
@@ -333,18 +299,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202508242213";
+    version = "202510282213";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202508242213/geoip.dat";
-      sha256 = "sha256-iWYUhaChIMjaCTsaKHBQlIbHmbcQPDSFVZlin5PAvlE=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202510282213/geoip.dat";
+      sha256 = "sha256-fai84ghAXZbEIYlaGwEN9UGZIY1NFt9JSgYDL5AmbbA=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202508242213";
+    version = "202510282213";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202508242213/geosite.dat";
-      sha256 = "sha256-/2pFdpQZ7/TIGxt/f0tD4lhkxW+3qjiQAqk9kLfvZh0=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202510282213/geosite.dat";
+      sha256 = "sha256-SS4tHcjivi2iLiSn028XfGbd+VhodBuTzAX2AIJuXJo=";
     };
   };
   xclip = {
@@ -358,16 +324,5 @@
       sha256 = "sha256-pBGRV2h7JiNZ4Im3NySEq1UGNW65MpvTjpTxy0m8jc4=";
     };
     date = "2022-01-29";
-  };
-  yalantinglibs = {
-    pname = "yalantinglibs";
-    version = "v0.3.0";
-    src = fetchFromGitHub {
-      owner = "alibaba";
-      repo = "yalantinglibs";
-      rev = "v0.3.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-Su3mnC7hsw0T0u6HfsnYAwXml2T7CABySv7a18+KnK0=";
-    };
   };
 }

@@ -1,37 +1,24 @@
 {
   qt6ct,
-  cmake,
-  fetchFromGitHub,
   qtdeclarative,
   kconfig,
   kcolorscheme,
   kiconthemes,
-  wrapQtAppsHook,
-  qttools,
-  qtbase,
+  fetchpatch,
 }:
-qt6ct.overrideAttrs (oldAttrs: {
-  src = fetchFromGitHub {
-    owner = "ilya-fedin";
-    repo = "qt6ct";
-    tag = oldAttrs.version;
-    sha256 = "sha256-ePY+BEpEcAq11+pUMjQ4XG358x3bXFQWwI1UAi+KmLo=";
-  };
 
-  buildInputs = oldAttrs.buildInputs ++ [
+qt6ct.overrideAttrs (oldAttrs: {
+  buildInputs = oldAttrs.buildInputs ++ ([
     qtdeclarative
     kconfig
     kcolorscheme
     kiconthemes
-  ];
+  ]);
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-    qttools
-  ];
-
-  cmakeFlags = [
-    "-DPLUGINDIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
+  patches = [
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/ilya-fedin/nur-repository/38a6ad7f0a671fc14dc2776631ef17c85a2d6221/pkgs/qt6ct/qt6ct-shenanigans.patch";
+      hash = "sha256-quoWSRoTnsmiSXS/iOeGEAQUfg7G6chl+K45rkN0bsE=";
+    })
   ];
 })
