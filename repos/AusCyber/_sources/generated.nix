@@ -650,6 +650,17 @@
       };
     };
   };
+  kanata-tray = {
+    pname = "kanata-tray";
+    version = "v0.7.1";
+    src = fetchFromGitHub {
+      owner = "rszyma";
+      repo = "kanata-tray";
+      rev = "v0.7.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-IR8mWt8pLBZ24+6xY8OBFRYAYLwcRKfbGTAE0bOcLuk=";
+    };
+  };
   kanata-vk-agent = {
     pname = "kanata-vk-agent";
     version = "8ce982af6a308788070c076619554d05375b6521";
@@ -697,7 +708,7 @@
     version = "1.17.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-CBHFcwMkpWK6RK+s+Fuck9Hfb5cnSXIqDdaXz8TI7Aw=";
+      sha256 = "sha256-DrtQ4ReiHWgL00x1Y9UDg9tVJC6yzH49lkxxbT+h+jM=";
     };
   };
 }

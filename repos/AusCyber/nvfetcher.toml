@@ -47,4 +47,6 @@ src.manual = "flake-compat"
 fetch.tarball = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz"
 tarball.name = "flake-compat.tar.gz"
 extract = ["default.nix"]
-
+[kanata-tray]
+src.github = "rszyma/kanata-tray"
+fetch.github = "rszyma/kanata-tray"

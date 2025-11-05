@@ -692,6 +692,27 @@
         },
         "version": "v1.10.0-prerelease-3"
     },
+    "kanata-tray": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kanata-tray",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rszyma",
+            "repo": "kanata-tray",
+            "rev": "v0.7.1",
+            "sha256": "sha256-IR8mWt8pLBZ24+6xY8OBFRYAYLwcRKfbGTAE0bOcLuk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.1"
+    },
     "kanata-vk-agent": {
         "cargoLock": null,
         "date": "2025-11-03",
@@ -779,7 +800,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CBHFcwMkpWK6RK+s+Fuck9Hfb5cnSXIqDdaXz8TI7Aw=",
+            "sha256": "sha256-DrtQ4ReiHWgL00x1Y9UDg9tVJC6yzH49lkxxbT+h+jM=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },

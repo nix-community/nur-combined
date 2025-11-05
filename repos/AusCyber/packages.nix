@@ -73,6 +73,9 @@ lib.fix (self: {
   kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
     source = sources.kanata-vk-agent;
   };
+  kanata-tray = pkgs.callPackage ./pkgs/kanata-tray {
+    source = sources.kanata-tray;
+  };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
