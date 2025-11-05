@@ -124,6 +124,8 @@
 
   tlfloat = pkgs.callPackage ./pkgs/tlfloat { };
 
+  tl-expected = pkgs.callPackage ./pkgs/tl-expected { };
+
   sleef = pkgs.callPackage ./pkgs/sleef { tlfloat = tlfloat; };
 
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
