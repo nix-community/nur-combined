@@ -39,6 +39,7 @@ pkgs ? import <nixpkgs> { }
   #glojure = pkgs.callPackage ./pkgs/glojure { };
   salmagundi = pkgs.callPackage ./pkgs/salmagundi { };
   chadstr = pkgs.callPackage ./pkgs/chadstr { };
+  radontea = pkgs.callPackage ./pkgs/radontea { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;
