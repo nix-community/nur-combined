@@ -21,7 +21,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - <YOUR_REPO_NAME>
+          - zerozawa
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #

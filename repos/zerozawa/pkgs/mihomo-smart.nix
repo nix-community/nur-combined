@@ -3,20 +3,20 @@
   fetchFromGitHub,
   buildGoModule,
 }: let
-  rev = "be4113a445b648c07a9cb5087b4e7dcde9eb92fd";
+  rev = "211858122ad3154dede8fef61a7f0f13502a1802";
 in
   buildGoModule rec {
     pname = "mihomo-smart";
-    version = "2025.10.15-${builtins.substring 0 7 rev}";
+    version = "0-unstable-${builtins.substring 0 7 rev}";
 
     src = fetchFromGitHub {
       owner = "vernesong";
       repo = "mihomo";
       inherit rev;
-      hash = "sha256-Tamsr5/QssDIK+84GFxK57wK9FbC8+DKV7SdVlp180k=";
+      hash = "sha256-4xB+vJlVZQhjj39pCa4iT2Fi7MvfB48Qwj3LPCGEHNQ=";
     };
 
-    vendorHash = "sha256-wO7yCXAOYsFIskJo58xv/s5U4QiLi6iJItXoQOHhXjQ=";
+    vendorHash = "sha256-ONucZMQgOwQ8iiHOlfgdppdPKxY3CdkbUnavkiCnYi0=";
 
     excludedPackages = ["./test"];
 
