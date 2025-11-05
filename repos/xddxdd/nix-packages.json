@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6942"
+    "version": "6953"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1332,7 +1332,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-27"
+    "version": "0-unstable-2025-11-04"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4122,7 +4122,7 @@
   "legacyPackages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
     "pname": "python3.13-ormsgpack",
-    "version": "1.11.0"
+    "version": "1.12.0"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -4297,7 +4297,7 @@
   "legacyPackages.x86_64-linux.python3Packages.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
     "pname": "python3.13-ormsgpack",
-    "version": "1.11.0"
+    "version": "1.12.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4332,7 +4332,7 @@
   "legacyPackages.x86_64-linux.python3Packages.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.0"
+    "version": "6.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -4382,7 +4382,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-1"
+    "version": "10.1.2+ds-2"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -4502,7 +4502,7 @@
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.0"
+    "version": "6.1"
   },
   "legacyPackages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -4907,7 +4907,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-27"
+    "version": "0-unstable-2025-11-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5097,7 +5097,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-1"
+    "version": "10.1.2+ds-2"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -5242,7 +5242,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-11-01"
+    "version": "0-unstable-2025-11-04"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5327,7 +5327,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-11-01"
+    "version": "0-unstable-2025-11-04"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5892,7 +5892,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-10-27"
+    "version": "0-unstable-2025-11-04"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -6072,7 +6072,7 @@
   "packages.x86_64-linux.ormsgpack": {
     "description": "Msgpack serialization/deserialization library for Python, written in Rust using PyO3 and rust-msgpack",
     "pname": "python3.13-ormsgpack",
-    "version": "1.11.0"
+    "version": "1.12.0"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -6172,7 +6172,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-1"
+    "version": "10.1.2+ds-2"
   },
   "packages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -6292,7 +6292,7 @@
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.0"
+    "version": "6.1"
   },
   "packages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -6372,7 +6372,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-11-01"
+    "version": "0-unstable-2025-11-04"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

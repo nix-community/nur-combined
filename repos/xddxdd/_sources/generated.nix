@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "e963a9c7e3463a29200514d264c1d4c19f740b53";
+    version = "0d483f164b78ce05d4a3a7326b3aae2d747304be";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "e963a9c7e3463a29200514d264c1d4c19f740b53";
-      hash = "sha256-LxdoDZwCXBTaiWgQ0jhf7yiF5byaftK8iLRaJe7EDhE=";
+      rev = "0d483f164b78ce05d4a3a7326b3aae2d747304be";
+      hash = "sha256-quvn1ONV5syySlfbEQYk6UEAF+JhJXX9MPwjt9Bl+9g=";
     };
-    date = "2025-11-03";
+    date = "2025-11-04";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "68c97a9b9a905ccde6df984fccb31e7ffa28716f";
+    version = "dc374b650086c7e80acacd3a0ca1c316bdcaa2a7";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "68c97a9b9a905ccde6df984fccb31e7ffa28716f";
-      hash = "sha256-JptTAmz3WM+HamvObxZUcfgwHPOyDsOrai1LhP0+qRg=";
+      rev = "dc374b650086c7e80acacd3a0ca1c316bdcaa2a7";
+      hash = "sha256-gQ/1HygerPUgNm7c5iqiTxwK8Ovg+A9zBA3wJjBWpX0=";
     };
-    date = "2025-11-03";
+    date = "2025-11-04";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -930,14 +930,14 @@
   };
   kikoplay-app = {
     pname = "kikoplay-app";
-    version = "3d164f77c87c38392462a5c3e5df32dc6c0a194a";
+    version = "62082956bbb0719c4a3a544be6d26e84162370de";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayApp";
-      rev = "3d164f77c87c38392462a5c3e5df32dc6c0a194a";
-      hash = "sha256-+e0XYSLmj46BQXWOsyOUeV0IhBC3Iqc4JCcJrDLlK2o=";
+      rev = "62082956bbb0719c4a3a544be6d26e84162370de";
+      hash = "sha256-/BuEyOwZvm1LRU0UQ/xqxOqouGB06p72WYFcSSdjqiw=";
     };
-    date = "2025-11-04";
+    date = "2025-11-05";
   };
   kikoplay-script = {
     pname = "kikoplay-script";
@@ -1012,14 +1012,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "46e2719ab0affc6b68577639657880cc882dab59";
+    version = "87683393af386a65571de3437fe96838f2725991";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "46e2719ab0affc6b68577639657880cc882dab59";
-      hash = "sha256-lI4s51uF7Q6JdMOAE2cn0+XPqBG5HYNltNIqbFOCgW0=";
+      rev = "87683393af386a65571de3437fe96838f2725991";
+      hash = "sha256-uTgfiBSjCsXotaBOidBsPMDxTghBJ9SnJfU5RysrbDM=";
     };
-    date = "2025-10-27";
+    date = "2025-11-04";
   };
   libqcef = {
     pname = "libqcef";
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6942";
+    version = "b6953";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6942";
-      hash = "sha256-nEQP4X+NrcqHJONqW1WyHoVnnSC+4jDe23lHyQRGCLg=";
+      tag = "b6953";
+      hash = "sha256-O6No5HmHOsaXh8uk/4oQ2+PU/oLAB9w7b/c8rD+WC2U=";
     };
   };
   loralib = {
@@ -1463,12 +1463,12 @@
   };
   ormsgpack = {
     pname = "ormsgpack";
-    version = "1.11.0";
+    version = "1.12.0";
     src = fetchFromGitHub {
       owner = "aviramha";
       repo = "ormsgpack";
-      tag = "1.11.0";
-      hash = "sha256-fEmAKo68BRHAsYkLp+aYVMG97fdb7YaApKTo0w9Nfzc=";
+      tag = "1.12.0";
+      hash = "sha256-kCISXmj2dDDMb7iuY/eY4W/dmyNziQwtIQX6qNvEJa4=";
     };
   };
   osdlyrics = {
@@ -1682,38 +1682,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.2+ds-1";
+    version = "10.1.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-2_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-QBz803XNqoMT0gUxW6gKSuvOFZN/g7QR5RutF+2csWU=";
+      hash = "sha256-EugKM9W4stMbqw8o/xSEkAy2VHkwUTuoZuYsUf8q9fg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.2+ds-1";
+    version = "10.1.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-2_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-nLYclD21uh1WIX91qqMbJEFLtPUqkZFMfV/qfTHGIKg=";
+      hash = "sha256-XSyZ77KhfPAmzOWRCHmTXYXQQFR7WiPKEmjxgCYOlF0=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.2+ds-1";
+    version = "10.1.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-2_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-i6Yprd+lLgY6xUbZcHha922fCuRQzUF4b8oqer3ECqk=";
+      hash = "sha256-b9k310kG2l1lD0ALqHUpl36Q1FkEE87w4uOYRPW66TM=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.2+ds-1";
+    version = "10.1.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-2_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-++oLXeTSPXMBYTuDdCffb1r39OUyq78Y2NhoN5Fwx20=";
+      hash = "sha256-avNfmDE1P5C0IHzl64G6LQc8Z37qVI80BNWybWGZ1sQ=";
     };
   };
   qq-amd64 = {
@@ -1985,12 +1985,12 @@
   };
   silero-vad = {
     pname = "silero-vad";
-    version = "v6.0";
+    version = "v6.1";
     src = fetchFromGitHub {
       owner = "snakers4";
       repo = "silero-vad";
-      tag = "v6.0";
-      hash = "sha256-Nf/bntm9JaMUSdZliO4XSW7UQyMTa+X0nVDtrrWh1cQ=";
+      tag = "v6.1";
+      hash = "sha256-8izvgilmRkVN6C7oLlU2FblZ722ycLEZ5+FknDq4PqI=";
     };
   };
   smartrent_py = {
@@ -2216,15 +2216,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "090a0d09cf021e04da550cdd3b4cacfc784c6304";
+    version = "f1452606ab3d83394c646cf3a6e1e40a68af3256";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "090a0d09cf021e04da550cdd3b4cacfc784c6304";
+      rev = "f1452606ab3d83394c646cf3a6e1e40a68af3256";
       fetchSubmodules = true;
-      hash = "sha256-1SFEfvyqEf8pym/cLnwj2T7awKLGA0HEG2yGFmf1WQw=";
+      hash = "sha256-kcV8gDLWLG/Eqf0MwGYteMj0kyhmTV4EsUtmB+YfTws=";
     };
-    date = "2025-11-01";
+    date = "2025-11-04";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
