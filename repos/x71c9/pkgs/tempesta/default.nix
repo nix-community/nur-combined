@@ -2,14 +2,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "tempesta";
-  version = "0.1.5"; # without "v"
+  version = "0.1.7"; # without "v"
 
   # Pin the source to an immutable tag/commit
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "tempesta";
     rev = "v${version}";
-    hash = "sha256-HVj7ZsLHKSpvfaB6gBPRrZwiuowZDp3dt8lHxR1742o=";
+    hash = "sha256-UhvfJxpgqSs39/3Aq7P8tPAyjCaxRPDyG2mfF+5rBUc=";
   };
 
   # Cargo dependency vendor hash (computed by Nix)
