@@ -35,7 +35,7 @@ in
           };
         };
       };
-      hyst-hk-cli = {
+      hyst-yi-cli = {
         file = self + "/sec/hyst-cli.age";
         cleanPlaceholder = true;
         insert = {

@@ -40,9 +40,9 @@
       name = "osa.yaml";
       trim = false;
     };
-    hyst-hk = {
+    hyst-yi = {
       content =
-        config.vaultix.placeholder.hyst-hk-cli
+        config.vaultix.placeholder.hyst-yi-cli
         + (
           let
             port = toString (lib.conn { }).${config.networking.hostName}.yidhra;
@@ -127,7 +127,7 @@
       };
       yidhra = {
         enable = true;
-        configFile = config.vaultix.templates.hyst-hk.path;
+        configFile = config.vaultix.templates.hyst-yi.path;
       };
     };
   };
