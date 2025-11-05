@@ -26,8 +26,6 @@ rec {
     '';
   });
 
-  haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
-
   # Need to switch from 'buildGoPackage' to 'buildGoModule'
   #batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
@@ -48,13 +46,6 @@ rec {
 
   alumet = pkgs.callPackage ./pkgs/alumet { };
     
-  colmet = pkgs.callPackage ./pkgs/colmet { };
-
-  # TODO to remove when alumet package is finalized
-  colmet-rs = pkgs.callPackage ./pkgs/colmet-rs { };
-
-  colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
-
   #dcdb = pkgs.callPackage ./pkgs/dcdb { inherit scylladb-cpp-driver bacnet-stack mosquitto-dcdb; };
 
   dispath = pkgs.callPackage ./pkgs/dispath { };
@@ -122,8 +113,6 @@ rec {
   redox = pkgs.callPackage ./pkgs/redox { };
 
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
-
-  rt-tests = pkgs.callPackage ./pkgs/rt-tests { };
 
   cigri = pkgs.callPackage ./pkgs/cigri { };
 
@@ -199,8 +188,6 @@ rec {
   python-grid5000 = pkgs.callPackage ./pkgs/python-grid5000 { };
 
   starpu = pkgs.callPackage ./pkgs/starpu { };
-
-  wait-for-it = pkgs.callPackage ./pkgs/wait-for-it { };
 
   # Need to switch from 'buildGoPackage' to 'buildGoModule'
   #yamldiff = pkgs.callPackage ./pkgs/yamldiff { };

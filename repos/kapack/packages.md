@@ -3,8 +3,6 @@
 |alumet|alumet-0.8.4|ALUMET: Unified and Modular Measurement Framework|
 |batsky|batsky-0.1.0||
 |cigri|cigri-3.2.2|CiGri: a Lightweight Grid Middleware|
-|colmet|colmet-0.6.10.dev0|Collecting metrics about process running in cpuset and in a distributed environnement|
-|colmet-collector|colmet-collector-0.0.1|Metrics collector for Rust version of Colmet (colmet-rs)|
 |dispath|dispath-0.1.0|Display PATH-like environment variables, one entry per line.|
 |distem|python3.12-distem-0.0.5||
 |enoslib|python3.12-enoslib-10.1.0||
@@ -51,4 +49,3 @@
 |slurm-multiple-slurmd|slurm-24.11.5.1||
 |ssh-known-hosts-edit|python3.12-ssh_known_hosts_edit-0.2.0||
 |starpu|starpu-1.4.8|Run-time system for heterogeneous computing|
-|wait-for-it|wait-for-it-0.0.1||
