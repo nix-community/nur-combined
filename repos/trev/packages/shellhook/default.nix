@@ -37,7 +37,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
       "pipefail"
     ]}" >> shellhook
     echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> shellhook
-    cat shellhook.sh >> shellhook
+    tail -n +2 shellhook.sh >> shellhook
     chmod +x shellhook
   '';
 
