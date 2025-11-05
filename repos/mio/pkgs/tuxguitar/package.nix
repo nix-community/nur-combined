@@ -253,7 +253,7 @@ stdenv.mkDerivation (finalAttrs: {
         if stdenv.hostPlatform.isDarwin then
           "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio="
         else
-          "sha256-p0YVx0ZvFaJ9kWu9oIP+uxk4AWzcTAUgBPMsmgounkQ=";
+          "sha256-azHdca4BgoiIryh4whh+tuLnFsX4uVfllKaVGqE8X+A=";
     };
   };
 
