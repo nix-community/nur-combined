@@ -18,7 +18,7 @@
   xorg,
   glib,
   libGL,
-  glfw,
+  glfw-wayland-minecraft ? callPackage ../glfw3-minecraft/package.nix { },
   openal,
   libglvnd,
   alsa-lib,
@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       libpath = lib.makeLibraryPath (
         [
           libGL
-          glfw
+          glfw-wayland-minecraft
           glib
           openal
           libglvnd
