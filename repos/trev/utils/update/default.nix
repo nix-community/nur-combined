@@ -9,10 +9,9 @@
     dontUnpack = true;
   };
 
-  attrs =
-    (import ../.. {
-      inherit system pkgs;
-    }).packages;
+  attrs = import ../../packages {
+    inherit system pkgs;
+  };
 
   # Get valid top-level derivations for updating
   topDerivations =
