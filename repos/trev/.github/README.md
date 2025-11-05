@@ -1,26 +1,50 @@
-# trev's nix package repository
+# trev's nix repository
 
 ![check](https://github.com/spotdemo4/nur/actions/workflows/check.yaml/badge.svg)
 ![vulnerable](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml/badge.svg)
 ![synced](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)
 
+Extra packages, bundlers and libs for nix
+
 ## Packages
 
-- [bobgen](https://github.com/stephenafamo/bob) - Generates an ORM for Go based on a database schema
+- [bobgen](https://github.com/stephenafamo/bob)
   - Pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
-- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi) - Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
+- [bumper](https://github.com/spotdemo4/bumper)
+- [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
+- [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
+- [opengrep](https://github.com/opengrep/opengrep)
+- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi)
   - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
-- [renovate](https://github.com/renovatebot/renovate) - Cross-platform dependency automation
-  - Patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake.lock refreshes
-  - Following branch main (unstable)
-- [opengrep](https://github.com/opengrep/opengrep) - Static code analysis engine to find security issues in code
-- [bumper](https://github.com/spotdemo4/bumper) - Git version bumper (ie. 0.0.1 -> 0.0.2)
-- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh) - Shell hook for getting info when entering git repos
-- [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash) - Fixes incorrect nix package hashes
+- [qsvenc](https://github.com/rigaya/QSVEnc)
+- [renovate](https://github.com/renovatebot/renovate)
+  - Patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake updates
+- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh)
+
+## Bundlers
+
+### toDockerStream
+
+An alternative to `github:NixOS/bundlers#toDockerImage` that uses `streamLayeredImage` rather than `buildLayeredImage`
+
+```console
+$ nix bundle --bundler github:spotdemo4/nur#toDockerImage
+```
+
+### goTo[GOOS][GOARCH]
+
+Builds a go package using the GOOS and GOARCH values supplied
+
+```console
+$ nix bundle -o binary --bundler github:spotdemo4/nur#goToLinuxAmd64
+$ nix bundle -o binary.exe --bundler github:spotdemo4/nur#goToWindowsAmd64
+```
 
 ## Libs
 
-- mkChecks - Utility function to make creating flake checks easier
+### mkChecks
+
+Utility function to make creating flake checks easier
 
 ```nix
 checks = forSystem ({pkgs, ...}:
@@ -41,8 +65,9 @@ checks = forSystem ({pkgs, ...}:
 });
 ```
 
-- go.moduleToPlatform - Changes the goos & goarch values of a buildGoModule derivation
-- go.moduleToImage - Turns a buildGoModule derivation into a docker image
+### go.moduleToPlatform & go.moduleToImage
+
+Changes the goos & goarch values of a buildGoModule derivation, and turns a buildGoModule derivation into a docker image
 
 ```nix
 packages = forSystem (
@@ -67,7 +92,9 @@ packages = forSystem (
 );
 ```
 
-- buf.fetchDeps & buf.configHook - Creates a fixed-output derivation containing [buf](https://buf.build/) dependencies
+### buf.fetchDeps & buf.configHook
+
+Creates a fixed-output derivation for [buf](https://buf.build/) dependencies
 
 ```nix
 pkgs.stdenv.mkDerivation (finalAttrs: {
@@ -103,7 +130,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
       "https://cache.trev.zip/nur"
     ];
     extra-trusted-public-keys = [
-      "nur:DoXGy0SJ+5udhvZgtzwEXhQMuOCFN7FSXRmtiZhF1Vw="
+      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
     ];
   };
 
@@ -145,7 +172,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
       "https://cache.trev.zip/nur"
     ];
     extra-trusted-public-keys = [
-      "nur:DoXGy0SJ+5udhvZgtzwEXhQMuOCFN7FSXRmtiZhF1Vw="
+      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
     ];
   };
 
