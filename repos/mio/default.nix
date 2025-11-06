@@ -271,7 +271,8 @@ rec {
         "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=" =
           "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
         # nixos 25.05 20250611
-        "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=" = "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
+        "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=" =
+          "sha256-lraVVvjqWpQJmlHhpfWZwC9S0Gvx7nQR6Nzmt0oEOLw=";
       };
       srcHash = pkgs.caddy.src.outputHash or "";
       pluginsHash =
