@@ -27,7 +27,6 @@ reIf (
         public_baseurl = "https://matrix.nyaw.xyz";
         enable_authenticated_media = true;
         enable_metrics = true;
-
         dynamic_thumbnails = true;
         allow_public_rooms_over_federation = true;
 
