@@ -149,7 +149,7 @@ rec {
     );
   });
   openssh = v3override (
-    pkgs.openssh.overrideAttrs (old: {
+    (pkgs.openssh_10_2 or pkgs.openssh).overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
       #doCheck = false;
     })
