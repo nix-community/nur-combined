@@ -166,10 +166,7 @@ rec {
       })
     )
   );
-  # https://github.com/NixOS/nixpkgs/issues/456347
-  sbcl = pkgs.sbcl.overrideAttrs (old: {
-    doCheck = false;
-  });
+  bees = v3overridegcc pkgs.bees;
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
