@@ -15,7 +15,7 @@
       flake = false;
     };
     deploy-rs = {
-      url = "github:XYenon/deploy-rs/fix/nix-2-32";
+      url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";

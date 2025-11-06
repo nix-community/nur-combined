@@ -13,16 +13,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1760869783,
+        "lastModified": 1762286984,
         "narHash": "sha256-9I2H9x5We6Pl+DBYHjR1s3UT8wgwcpAH03kn9CqtdQc=",
-        "owner": "XYenon",
+        "owner": "serokell",
         "repo": "deploy-rs",
-        "rev": "b1b25be706f1441a9463ffbaf5a2d181591f7a68",
+        "rev": "9c870f63e28ec1e83305f7f6cb73c941e699f74f",
         "type": "github"
       },
       "original": {
-        "owner": "XYenon",
-        "ref": "fix/nix-2-32",
+        "owner": "serokell",
         "repo": "deploy-rs",
         "type": "github"
       }
@@ -68,11 +67,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762266885,
-        "narHash": "sha256-THnfl16UGSjMXdDQZwIuFuDJj+tYjUHAl9w/DNpkuAw=",
+        "lastModified": 1762367206,
+        "narHash": "sha256-c/164YOPkV09BH8KIUdvVvJs3VF2LNIbE2piKGgXPxk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c39c07bf31dc080851377c04352fa06f197f0c1c",
+        "rev": "af119feb17cb242398e0fb97f92b867d25882522",
         "type": "github"
       },
       "original": {
