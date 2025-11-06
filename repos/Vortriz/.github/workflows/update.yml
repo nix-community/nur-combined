@@ -9,28 +9,29 @@ permissions:
     contents: write
 
 jobs:
-    update:
+    nix-flake-update:
+        name: Update flake.lock
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
-
-            - name: Install nix
-              uses: cachix/install-nix-action@v31
-              with:
-                  nix_path: nixpkgs=channel:nixpkgs-unstable
-                  extra_nix_config: experimental-features = nix-command flakes
+            - uses: DeterminateSystems/nix-installer-action@main
 
             - name: Update lockfile
               run: nix flake update
 
+    update-packages:
+        name: Update packages and README
+        runs-on: ubuntu-latest
+        needs: nix-flake-update
+        steps:
+            - uses: actions/checkout@v5
+            - uses: DeterminateSystems/nix-installer-action@main
             - uses: nicknovitski/nix-develop@v1.2.1
+
             - name: Fetch packages and update README
               run: |
                   nvfetcher
                   uv run update-readme.py
-
-            - name: Format
-              run: nix fmt
 
             - name: Commit and push
               uses: EndBug/add-and-commit@v9
