@@ -37,7 +37,7 @@ drv.overrideAttrs (finalAttrs: previousAttrs: {
 
     mv "''${FILE}" "''${TMP_FILE}"
     rm -rf "''${out}"
-    upx --best --lzma "''${TMP_FILE}"
+    upx --best --lzma "''${TMP_FILE}" || true
 
     cat "''${TMP_FILE}" > "''${out}"
     chmod +x "''${out}"
