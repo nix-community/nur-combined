@@ -14,7 +14,7 @@
   openssl,
   pkg-config,
   webkitgtk_4_1,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   fetchFromGitHub,
   libayatana-appindicator
 }:
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     yarnConfigHook
     pkg-config
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook3 ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glib-networking
