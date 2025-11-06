@@ -20,7 +20,7 @@ let
     if pkgs.stdenv.hostPlatform.isx86_64 then
       pkgs.stdenvAdapters.withCFlags [
         "-march=x86-64-v3"
-        "-mtune=x86-64-v3"
+        "-mtune=raptorlake"
       ]
     else
       stdenv: stdenv;
@@ -28,7 +28,7 @@ let
     if pkgs.stdenv.hostPlatform.isx86_64 then
       x:
       x.overrideAttrs (old: {
-        env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=x86-64-v3";
+        env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=raptorlake";
         env.RUSTFLAGS = "-C target_cpu=x86-64-v3";
       })
     else
