@@ -64,6 +64,13 @@ let
         broken = pkgs.stdenv.hostPlatform.isDarwin;
       };
     });
+  x8664linux =
+    x:
+    x.overrideAttrs (old: {
+      meta = old.meta // {
+        broken = !pkgs.stdenv.hostPlatform.isLinux || !pkgs.stdenv.hostPlatform.isx86_64;
+      };
+    });
   wip =
     x:
     x.overrideAttrs (old: {
@@ -237,12 +244,27 @@ rec {
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
     cacert_3108 = cacert_3108;
   };
+  linux_6_12_hardened_v3 = x8664linux (
+    pkgs.linux_6_12_hardened.override (prev: {
+      structuredExtraConfig =
+        with pkgs.lib.kernel;
+        # https://github.com/archlinuxcn/repo/blob/d086be11babd471267b0a7af37d1218ddff82cf6/archlinuxcn/linux-cachyos/PKGBUILD#L305-L306
+        {
+          GENERIC_CPU = yes;
+          MZEN4 = no;
+          X86_NATIVE_CPU = no;
+          X86_64_VERSION.freeform = "3";
+        }
+        // prev.structuredExtraConfig;
+    })
+  );
   caddy =
     let
       # Table mapping caddy source hash to plugins hash
       caddyPluginsHashTable = {
         # nixpkgs-unstable 'github:NixOS/nixpkgs/12c1f0253aa9a54fdf8ec8aecaafada64a111e24?narHash=sha256-OD5HsZ%2BsN7VvNucbrjiCz7CHF5zf9gP51YVJvPwYIH8%3D' (2025-11-04)
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=" = "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
+        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=" =
+          "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
       };
       srcHash = pkgs.caddy.src.outputHash or "";
       pluginsHash =
