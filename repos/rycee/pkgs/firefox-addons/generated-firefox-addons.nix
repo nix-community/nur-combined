@@ -843,10 +843,10 @@
     };
     "aws-extend-switch-roles3" = buildFirefoxXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.0.1";
+      version = "6.0.2";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609208/aws_extend_switch_roles3-6.0.1.xpi";
-      sha256 = "627a37d531f3849b090d8865a82fd4b29c15203bb321e981c73f8a7a91302b8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4613250/aws_extend_switch_roles3-6.0.2.xpi";
+      sha256 = "a96ac8a35aaf8766782a0af7713ed23cc785b0fdac6755e6537607bc71ee37a2";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -1139,10 +1139,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.10.2";
+      version = "0.11.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4608129/bilisponsorblock-0.10.2.xpi";
-      sha256 = "2d44d1b850a6df6ffb78d175396503e211e892ad8a105ac1210a22cd7ad012b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4613229/bilisponsorblock-0.11.1.xpi";
+      sha256 = "395b5ca0a576a502ce518ac3b4b2b2144dff10bb4ff88fcc4ee5e34210917962";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.65.2";
+      version = "2.65.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4610346/dualsub-2.65.2.xpi";
-      sha256 = "cb7115b5e7ca7c62af666338bd1e114652e902a7ad785445d7c76a122e5b937d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4613387/dualsub-2.65.3.xpi";
+      sha256 = "bddbf899a8357e5f901dd92fb8bace9e83807af1b54db20c16f253e55c187aad";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6879,10 +6879,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.6";
+      version = "2.0.7";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4612662/kiss_translator-2.0.6.xpi";
-      sha256 = "84037013cb3309b14312b30af8812a6e30b2f0ed3851265a1f0609fe511abdfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4613329/kiss_translator-2.0.7.xpi";
+      sha256 = "68eb1479dff59d5ec4ce1c063bf85195cbe456db3d62ff25e03f51cea16d44e4";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -9831,10 +9831,10 @@
     };
     "print-friendly-pdf" = buildFirefoxXpiAddon {
       pname = "print-friendly-pdf";
-      version = "6.6.3";
+      version = "6.7.6";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4588195/print_friendly_pdf-6.6.3.xpi";
-      sha256 = "ca51fdd920f030726b8b5b8a2a8d53b2af0976f581a62233e7d1e4ca945984b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4608688/print_friendly_pdf-6.7.6.xpi";
+      sha256 = "0852232ad17b2bb0d33a401b6b664882d24ba11faddde5e967ad92ebd75ca877";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11478,10 +11478,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25294";
+      version = "0.2.0.25302";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602498/ruffle_rs-0.2.0.25294.xpi";
-      sha256 = "dd8543243fd578a322423e5e3430b72d7d214a9ab2542743beae04dbd1637d4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4608080/ruffle_rs-0.2.0.25302.xpi";
+      sha256 = "2b448beab76defe5991d10412bba9544da1ad5a98309242a1745de7f47bca36b";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -12063,10 +12063,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.81";
+      version = "1.22.86";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4465739/single_file-1.22.81.xpi";
-      sha256 = "acc27ee2319e66192a8081cab771ecd1e99a0ea04c29262e595a43ddc92e05a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4611307/single_file-1.22.86.xpi";
+      sha256 = "2007414362bed77c7985c958c3110fdd1d3fbc51fb2955ca65bf3dd129fb754a";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -12079,7 +12079,6 @@
           "storage"
           "tabs"
           "<all_urls>"
-          "devtools"
         ];
         platforms = platforms.all;
       };
@@ -14692,10 +14691,10 @@
     };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "5.0.3";
+      version = "5.0.4";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591615/watchmarker_for_youtube-5.0.3.xpi";
-      sha256 = "c3a1f0fe9731542bf79957350cf9cb61fd6b73c3356c516cd593ad1498c152a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4612992/watchmarker_for_youtube-5.0.4.xpi";
+      sha256 = "4a3d76199e0c086a45550b1d9e6f90ec04a7ed090f5f86dc11de102396d3fa7d";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
