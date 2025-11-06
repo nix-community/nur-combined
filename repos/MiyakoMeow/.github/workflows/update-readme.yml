@@ -118,7 +118,7 @@ jobs:
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
           echo "启用 PR #$PR_NUMBER 的自动合并"
-          gh pr merge "$PR_NUMBER" --auto --merge
+          gh pr merge "$PR_NUMBER" --auto --squash
         env:
           GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
 

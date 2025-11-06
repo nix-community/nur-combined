@@ -81,7 +81,7 @@ jobs:
         with:
           token: ${{ secrets.AUTOMERGE_TOKEN }}
           pull-request-number: ${{ needs.lockfile.outputs.pr_number }}
-          merge-method: merge
+          merge-method: squash
 
       - name: Delete source branch after merge
         if: success()

@@ -417,6 +417,6 @@ jobs:
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
           PACKAGE='${{ matrix.package }}'
           echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
-          gh pr merge "$PR_NUMBER" --auto --merge
+          gh pr merge "$PR_NUMBER" --auto --squash
         env:
           GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
