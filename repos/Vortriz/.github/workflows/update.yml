@@ -13,18 +13,21 @@ jobs:
         name: Update flake.lock, fetch packages, and update README
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-            - uses: DeterminateSystems/nix-installer-action@main
+            - uses: actions/checkout@v5
+            - uses: cachix/install-nix-action@v31
+              with:
+                  nix_path: nixpkgs=channel:nixpkgs-unstable
+                  extra_nix_config: experimental-features = nix-command flakes
 
             - name: Update lockfile
-              run: nix flake update --commit-lock-file
+              run: nix flake update
 
             - name: Fetch packages and update README
               run: |
                   export LANG=en_US.UTF-8
                   export LC_ALL=en_US.UTF-8
-                  nix develop --command nvfetcher
-                  nix develop --command uv run update-readme.py
+                  nix develop --command bash -c "nvfetcher"
+                  nix develop --command bash -c "uv run update-readme.py"
 
             - name: Commit and push
               uses: EndBug/add-and-commit@v9
