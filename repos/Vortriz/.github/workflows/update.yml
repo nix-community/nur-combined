@@ -1,35 +1,52 @@
-name: Update packages
+# SPDX-FileCopyrightText: 2023 Sefa Eyeoglu <contact@scrumplex.net>
+#
+# SPDX-License-Identifier: MIT
+
+name: Update lockfiles
 
 on:
-    workflow_dispatch:
     schedule:
         - cron: "0 0 * * *"
-
-permissions:
-    contents: write
+    workflow_dispatch:
 
 jobs:
-    update:
-        name: Update flake.lock, fetch packages, and update README
-        runs-on: ubuntu-latest
+    update-locks:
+        runs-on: ubuntu-24.04
+
         steps:
             - uses: actions/checkout@v5
             - uses: cachix/install-nix-action@v31
               with:
-                  nix_path: nixpkgs=channel:nixpkgs-unstable
-                  extra_nix_config: experimental-features = nix-command flakes
+                  nix_path: nixpkgs=channel:nixos-unstable
 
-            - name: Update lockfile
-              run: nix flake update
-
-            - name: Fetch packages and update README
+            - name: Set Git user info
               run: |
-                  export LANG=en_US.UTF-8
-                  export LC_ALL=en_US.UTF-8
-                  nix develop --command bash -c "nvfetcher"
-                  nix develop --command bash -c "uv run update-readme.py"
+                  git config user.name 'github-actions[bot]'
+                  git config user.email 'github-actions[bot]@users.noreply.github.com'
+                  # See https://github.com/berberman/nvfetcher/issues/133
+                  export LANG=C.UTF-8
 
-            - name: Commit and push
-              uses: EndBug/add-and-commit@v9
+            - name: Update flake inputs
+              run: |
+                  nix flake update --commit-lock-file
+
+            - name: Update upstream sources
+              run: |
+                  nix develop --accept-flake-config -c nvfetcher --commit-changes
+
+            - name: Create PR
+              id: cpr
+              uses: peter-evans/create-pull-request@v7
               with:
-                  message: "chore: update"
+                  base: "main"
+                  branch: "update-locks"
+                  delete-branch: true
+                  title: "chore: update locks"
+                  body: "Automated pull request to update flake.lock and nvfetcher sources"
+
+            - name: Enable Pull Request Automerge
+              if: steps.cpr.outputs.pull-request-operation == 'created'
+              uses: peter-evans/enable-pull-request-automerge@v3
+              with:
+                  pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+                  merge-method: merge
