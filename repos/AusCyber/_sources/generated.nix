@@ -700,7 +700,7 @@
     version = "1.17.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/1.17.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-MuodIf87z8KEpMm95oT0vydXPDT6D5wrtpeoW1AY9pM=";
+      sha256 = "sha256-ovChi4lJRh3Gh8G/iy3Wkd1iZYzxzkCBfT0Hj/A7LFQ=";
     };
   };
   zen-twilight = {
@@ -708,7 +708,7 @@
     version = "1.17.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-DrtQ4ReiHWgL00x1Y9UDg9tVJC6yzH49lkxxbT+h+jM=";
+      sha256 = "sha256-CBHFcwMkpWK6RK+s+Fuck9Hfb5cnSXIqDdaXz8TI7Aw=";
     };
   };
 }
