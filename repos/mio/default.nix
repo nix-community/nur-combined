@@ -18,14 +18,17 @@ let
   # TODO: consider -flto , linux only, breaks on darwin
   v3Optimizations =
     if pkgs.stdenv.hostPlatform.isx86_64 then
-      pkgs.stdenvAdapters.withCFlags [ "-march=x86-64-v3" ]
+      pkgs.stdenvAdapters.withCFlags [
+        "-march=x86-64-v3"
+        "-mtune=x86-64-v3"
+      ]
     else
       stdenv: stdenv;
   v3overrideAttrs =
     if pkgs.stdenv.hostPlatform.isx86_64 then
       x:
       x.overrideAttrs (old: {
-        env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3";
+        env.NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=x86-64-v3";
         env.RUSTFLAGS = "-C target_cpu=x86-64-v3";
       })
     else
