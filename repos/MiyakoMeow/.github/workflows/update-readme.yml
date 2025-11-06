@@ -120,4 +120,45 @@ jobs:
           echo "启用 PR #$PR_NUMBER 的自动合并"
           gh pr merge "$PR_NUMBER" --auto --merge
         env:
-          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
+
+      - name: Wait for PR merge and delete branch
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          BRANCH_NAME='${{ steps.update.outputs.branch_name }}'
+          
+          echo "等待 PR #$PR_NUMBER 合并完成"
+          
+          # 等待PR合并完成
+          MAX_WAIT=1800  # 30分钟超时
+          WAIT_TIME=0
+          
+          while [ $WAIT_TIME -lt $MAX_WAIT ]; do
+            PR_STATUS=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.merged')
+            
+            if [ "$PR_STATUS" = "true" ]; then
+              echo "PR #$PR_NUMBER 已合并，开始删除源分支"
+              
+              # 删除分支
+              gh api \
+                --method DELETE \
+                "repos/${{ github.repository }}/git/refs/heads/$BRANCH_NAME" \
+                -H "Accept: application/vnd.github.v3+json" \
+                || echo "分支 $BRANCH_NAME 删除失败或已不存在"
+              
+              echo "✅ 分支 $BRANCH_NAME 删除完成"
+              break
+            fi
+            
+            echo "等待 PR 合并... (已等待 ${WAIT_TIME}s)"
+            sleep 30
+            WAIT_TIME=$((WAIT_TIME + 30))
+          done
+          
+          if [ $WAIT_TIME -ge $MAX_WAIT ]; then
+            echo "等待 PR 合并超时"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}

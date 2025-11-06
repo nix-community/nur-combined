@@ -27,8 +27,7 @@
   },
   ReplacingJarSource ? null,
   javaPackageWithJavaFX ? (
-    pkgs.jdk.override {
-      headless = false;
+    pkgs.zulu.override {
       enableJavaFX = true;
     }
   ),
