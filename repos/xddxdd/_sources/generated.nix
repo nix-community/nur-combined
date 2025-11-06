@@ -152,30 +152,30 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.2-2";
+    version = "v1.17.3-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.2-2/bilibili-asar-v1.17.2-2.tar.gz";
-      hash = "sha256-4o2ji4Q8Km+D9JK5DZ3tvEiqtMeWFIgoLxE9v66y6Xw=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.3-1/bilibili-asar-v1.17.3-1.tar.gz";
+      hash = "sha256-GSi+pO18HBd2Xv50KaO/yKszNdoRULzLjNij1JXCLPA=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.2-2";
+    version = "v1.17.3-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.2-2";
-      hash = "sha256-QOWA4iJtFsKgJ9LNBZ0H9WODf8qvdwzJnUYnwxw3D7g=";
+      tag = "v1.17.3-1";
+      hash = "sha256-Y2KWbTx4S1gqNfXxELM49K7S0mkA1cnoZpmTwo13mvg=";
     };
   };
   bin-cpuflags-x86 = {
     pname = "bin-cpuflags-x86";
-    version = "1.0.3";
+    version = "1.0.4";
     src = fetchFromGitHub {
       owner = "HanabishiRecca";
       repo = "bin-cpuflags-x86";
-      tag = "1.0.3";
-      hash = "sha256-N+B9z5BZw8mF9TAja0Dq6tH0msIyRsrLZB2+AqDclL4=";
+      tag = "1.0.4";
+      hash = "sha256-o3S7vJSBeuABcy5W71hfqjh/4Mg+nypW3to93EruqiI=";
     };
   };
   bird-lg-go = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6953";
+    version = "b6963";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6953";
-      hash = "sha256-O6No5HmHOsaXh8uk/4oQ2+PU/oLAB9w7b/c8rD+WC2U=";
+      tag = "b6963";
+      hash = "sha256-URDvr35uLjfLEh/N+pUr72ZXs8U+OUdpuVMUu638ACk=";
     };
   };
   loralib = {
@@ -1775,14 +1775,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "92bc7a672b77f0ef8f9c643747123ec2f166ac85";
+    version = "654206fcb214cfdf83f4c56d32538773cc5227f1";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "92bc7a672b77f0ef8f9c643747123ec2f166ac85";
-      hash = "sha256-PT8XXvhHfRpg4nKkGNnc3PiXgbk2gy+FOmju3A3bNtk=";
+      rev = "654206fcb214cfdf83f4c56d32538773cc5227f1";
+      hash = "sha256-muU4TwvMvUGoHLHlPAV4kNlJxqqpFWQWTfjv60SiXsQ=";
     };
-    date = "2025-11-04";
+    date = "2025-11-05";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1985,12 +1985,12 @@
   };
   silero-vad = {
     pname = "silero-vad";
-    version = "v6.1";
+    version = "v6.2";
     src = fetchFromGitHub {
       owner = "snakers4";
       repo = "silero-vad";
-      tag = "v6.1";
-      hash = "sha256-8izvgilmRkVN6C7oLlU2FblZ722ycLEZ5+FknDq4PqI=";
+      tag = "v6.2";
+      hash = "sha256-UOkmXMnbKBSiey5Gf46mgGxBfLGTh0SgblZ7iGQgjRc=";
     };
   };
   smartrent_py = {
@@ -2288,12 +2288,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.24.2";
+    version = "1.25.0";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.24.2";
-      hash = "sha256-2+F5CbA+3LLhyYL0uuJyjGPxCBT4eqawzMJ8m2KkXh4=";
+      tag = "1.25.0";
+      hash = "sha256-1jHB38JPUXWbDX3OBUMlC7N5+PGyljfGHlVfqOrTyKs=";
     };
   };
   vgpu-unlock-rs = {

@@ -432,12 +432,12 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.2-2"
+    "version": "1.17.3-1"
   },
   "legacyPackages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.3"
+    "version": "1.0.4"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6953"
+    "version": "6963"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4332,7 +4332,7 @@
   "legacyPackages.x86_64-linux.python3Packages.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.1"
+    "version": "6.2"
   },
   "legacyPackages.x86_64-linux.python3Packages.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -4357,7 +4357,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.24.2"
+    "version": "1.25.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -4407,7 +4407,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-05"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4502,7 +4502,7 @@
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.1"
+    "version": "6.2"
   },
   "legacyPackages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -4647,12 +4647,12 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.2-2"
+    "version": "1.17.3-1"
   },
   "legacyPackages.x86_64-linux.uncategorized.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.3"
+    "version": "1.0.4"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -5122,7 +5122,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-05"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5307,7 +5307,7 @@
   "legacyPackages.x86_64-linux.uncategorized.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.12"
+    "version": "4.1.0.12"
   },
   "legacyPackages.x86_64-linux.uncategorized.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -5367,7 +5367,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.24.2"
+    "version": "1.25.0"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -5407,7 +5407,7 @@
   "legacyPackages.x86_64-linux.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.12"
+    "version": "4.1.0.12"
   },
   "legacyPackages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
@@ -5507,12 +5507,12 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.2-2"
+    "version": "1.17.3-1"
   },
   "packages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.3"
+    "version": "1.0.4"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -6197,7 +6197,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-05"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -6292,7 +6292,7 @@
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
     "pname": "python3.13-silero-vad",
-    "version": "6.1"
+    "version": "6.2"
   },
   "packages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -6412,7 +6412,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.24.2"
+    "version": "1.25.0"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -6452,7 +6452,7 @@
   "packages.x86_64-linux.wechat-uos-sandboxed": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.1.12"
+    "version": "4.1.0.12"
   },
   "packages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "(DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",

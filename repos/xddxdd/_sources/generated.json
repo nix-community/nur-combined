@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4o2ji4Q8Km+D9JK5DZ3tvEiqtMeWFIgoLxE9v66y6Xw=",
+            "sha256": "sha256-GSi+pO18HBd2Xv50KaO/yKszNdoRULzLjNij1JXCLPA=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.2-2/bilibili-asar-v1.17.2-2.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.3-1/bilibili-asar-v1.17.3-1.tar.gz"
         },
-        "version": "v1.17.2-2"
+        "version": "v1.17.3-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.2-2",
-            "sha256": "sha256-QOWA4iJtFsKgJ9LNBZ0H9WODf8qvdwzJnUYnwxw3D7g=",
+            "rev": "v1.17.3-1",
+            "sha256": "sha256-Y2KWbTx4S1gqNfXxELM49K7S0mkA1cnoZpmTwo13mvg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.2-2"
+        "version": "v1.17.3-1"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -334,12 +334,12 @@
             "name": null,
             "owner": "HanabishiRecca",
             "repo": "bin-cpuflags-x86",
-            "rev": "1.0.3",
-            "sha256": "sha256-N+B9z5BZw8mF9TAja0Dq6tH0msIyRsrLZB2+AqDclL4=",
+            "rev": "1.0.4",
+            "sha256": "sha256-o3S7vJSBeuABcy5W71hfqjh/4Mg+nypW3to93EruqiI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.0.3"
+        "version": "1.0.4"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6953",
-            "sha256": "sha256-O6No5HmHOsaXh8uk/4oQ2+PU/oLAB9w7b/c8rD+WC2U=",
+            "rev": "b6963",
+            "sha256": "sha256-URDvr35uLjfLEh/N+pUr72ZXs8U+OUdpuVMUu638ACk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6953"
+        "version": "b6963"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3459,7 +3459,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-11-04",
+        "date": "2025-11-05",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3471,12 +3471,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "92bc7a672b77f0ef8f9c643747123ec2f166ac85",
-            "sha256": "sha256-PT8XXvhHfRpg4nKkGNnc3PiXgbk2gy+FOmju3A3bNtk=",
+            "rev": "654206fcb214cfdf83f4c56d32538773cc5227f1",
+            "sha256": "sha256-muU4TwvMvUGoHLHlPAV4kNlJxqqpFWQWTfjv60SiXsQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "92bc7a672b77f0ef8f9c643747123ec2f166ac85"
+        "version": "654206fcb214cfdf83f4c56d32538773cc5227f1"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -3888,12 +3888,12 @@
             "name": null,
             "owner": "snakers4",
             "repo": "silero-vad",
-            "rev": "v6.1",
-            "sha256": "sha256-8izvgilmRkVN6C7oLlU2FblZ722ycLEZ5+FknDq4PqI=",
+            "rev": "v6.2",
+            "sha256": "sha256-UOkmXMnbKBSiey5Gf46mgGxBfLGTh0SgblZ7iGQgjRc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.1"
+        "version": "v6.2"
     },
     "smartrent_py": {
         "cargoLocks": null,
@@ -4473,12 +4473,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.24.2",
-            "sha256": "sha256-2+F5CbA+3LLhyYL0uuJyjGPxCBT4eqawzMJ8m2KkXh4=",
+            "rev": "1.25.0",
+            "sha256": "sha256-1jHB38JPUXWbDX3OBUMlC7N5+PGyljfGHlVfqOrTyKs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.24.2"
+        "version": "1.25.0"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
