@@ -27,6 +27,11 @@
   users.mutableUsers = false;
   services.userborn.enable = true;
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 80;
+    algorithm = "zstd";
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
