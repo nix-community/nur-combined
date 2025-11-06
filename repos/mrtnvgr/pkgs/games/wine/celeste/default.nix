@@ -1,4 +1,4 @@
-{ lib, fetchzip, wrapWine, unzip, stdenvNoCC, requireFile, everestSupport ? false, everestMods ? [ ], ... } @ args:
+{ lib, fetchzip, wrapWine, requireFile, everestSupport ? false, everestMods ? [ ], ... } @ args:
 let
   inherit (lib) optionalString;
   inherit (builtins) hasAttr;
