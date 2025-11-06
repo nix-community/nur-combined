@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, lib, ... }:
 let
   default-overlays = import "${self}/overlays";
 
@@ -8,7 +8,7 @@ let
 
     # Expose my custom packages
     pkgs = _final: prev: {
-      ambroisie = prev.recurseIntoAttrs (import "${self}/pkgs" { pkgs = prev; });
+      ambroisie = lib.recurseIntoAttrs (import "${self}/pkgs" { pkgs = prev; });
     };
   };
 in

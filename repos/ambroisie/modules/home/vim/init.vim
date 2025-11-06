@@ -81,9 +81,6 @@ set updatetime=250
 " Disable all mouse integrations
 set mouse=
 
-" Set dark mode by default
-set background=dark
-
 " Setup some overrides for gruvbox
 lua << EOF
 local gruvbox = require("gruvbox")
