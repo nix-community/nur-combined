@@ -237,16 +237,28 @@ rec {
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
     cacert_3108 = cacert_3108;
   };
-  caddy = (goV3OverrideAttrs pkgs.caddy).withPlugins {
-    # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
-    # https://github.com/NixOS/nixpkgs/pull/358586
-    plugins = [
-      "github.com/caddy-dns/cloudflare@v0.2.2"
-      "github.com/porech/caddy-maxmind-geolocation@v1.0.1"
-      # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
-    ];
-    hash = "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
-  };
+  caddy =
+    let
+      # Table mapping caddy source hash to plugins hash
+      caddyPluginsHashTable = {
+        # nixpkgs-unstable 'github:NixOS/nixpkgs/12c1f0253aa9a54fdf8ec8aecaafada64a111e24?narHash=sha256-OD5HsZ%2BsN7VvNucbrjiCz7CHF5zf9gP51YVJvPwYIH8%3D' (2025-11-04)
+        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=" = "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
+      };
+      srcHash = pkgs.caddy.src.outputHash or "";
+      pluginsHash =
+        caddyPluginsHashTable.${srcHash}
+          or (throw "Unknown caddy source hash: ${srcHash}. Please update caddyPluginsHashTable in default.nix");
+    in
+    (goV3OverrideAttrs pkgs.caddy).withPlugins {
+      # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
+      # https://github.com/NixOS/nixpkgs/pull/358586
+      plugins = [
+        "github.com/caddy-dns/cloudflare@v0.2.2"
+        "github.com/porech/caddy-maxmind-geolocation@v1.0.1"
+        # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
+      ];
+      hash = pluginsHash;
+    };
   /*
     firefox-unwrapped_nightly = nodarwin (
       v3override (
