@@ -26,12 +26,11 @@ jobs:
         steps:
             - uses: actions/checkout@v5
             - uses: DeterminateSystems/nix-installer-action@main
-            - uses: nicknovitski/nix-develop@v1.2.1
 
             - name: Fetch packages and update README
               run: |
-                  nvfetcher
-                  uv run update-readme.py
+                  nix develop --command nvfetcher
+                  nix develop --command uv run update-readme.py
 
             - name: Commit and push
               uses: EndBug/add-and-commit@v9
