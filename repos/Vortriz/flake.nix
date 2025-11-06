@@ -60,8 +60,8 @@
                 ];
 
                 packages = with pkgs; [
-                    alejandra
                     just
+                    nix-init
                     nvfetcher
                 ];
             };

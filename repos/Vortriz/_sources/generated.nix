@@ -9,27 +9,41 @@
   dunefetch = {
     pname = "dunefetch";
     version = "7adfd33406a556b7d096f11dc446570c81b17675";
-    src = fetchgit {
-      url = "https://github.com/datavorous/dunefetch";
+    src = fetchFromGitHub {
+      owner = "datavorous";
+      repo = "dunefetch";
       rev = "7adfd33406a556b7d096f11dc446570c81b17675";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
       sha256 = "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=";
     };
     date = "2025-08-12";
   };
+  goldfish = {
+    pname = "goldfish";
+    version = "4eb6d6964ef1c48fdfda87590c1041f71b58d36b";
+    src = fetchFromGitHub {
+      owner = "sameoldlab";
+      repo = "goldfish";
+      rev = "4eb6d6964ef1c48fdfda87590c1041f71b58d36b";
+      fetchSubmodules = false;
+      sha256 = "sha256-+FlRwwtLFlzxcgtkdD47G/yrqYKgzo0pWKH1RIBli8A=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./goldfish-4eb6d6964ef1c48fdfda87590c1041f71b58d36b/Cargo.lock;
+      outputHashes = {
+        
+      };
+    };
+    date = "2025-11-02";
+  };
   xdg-desktop-portal-termfilechooser = {
     pname = "xdg-desktop-portal-termfilechooser";
     version = "a0291aab4e026f575e5e8927e65f07d3c95dc16c";
-    src = fetchgit {
-      url = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser";
+    src = fetchFromGitHub {
+      owner = "hunkyburrito";
+      repo = "xdg-desktop-portal-termfilechooser";
       rev = "a0291aab4e026f575e5e8927e65f07d3c95dc16c";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
       sha256 = "sha256-H7z+wvA9uXlP1fbTwdJJqscIkXMXuYePJou81jbJKt0=";
     };
     date = "2025-09-20";

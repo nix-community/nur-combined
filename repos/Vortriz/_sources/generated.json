@@ -1,6 +1,6 @@
 {
     "dunefetch": {
-        "cargoLock": null,
+        "cargoLocks": null,
         "date": "2025-08-12",
         "extract": null,
         "name": "dunefetch",
@@ -11,16 +11,43 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
+            "owner": "datavorous",
+            "repo": "dunefetch",
             "rev": "7adfd33406a556b7d096f11dc446570c81b17675",
             "sha256": "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=",
             "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/datavorous/dunefetch"
+            "type": "github"
         },
         "version": "7adfd33406a556b7d096f11dc446570c81b17675"
     },
+    "goldfish": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./goldfish-4eb6d6964ef1c48fdfda87590c1041f71b58d36b/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2025-11-02",
+        "extract": null,
+        "name": "goldfish",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sameoldlab",
+            "repo": "goldfish",
+            "rev": "4eb6d6964ef1c48fdfda87590c1041f71b58d36b",
+            "sha256": "sha256-+FlRwwtLFlzxcgtkdD47G/yrqYKgzo0pWKH1RIBli8A=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "4eb6d6964ef1c48fdfda87590c1041f71b58d36b"
+    },
     "xdg-desktop-portal-termfilechooser": {
-        "cargoLock": null,
+        "cargoLocks": null,
         "date": "2025-09-20",
         "extract": null,
         "name": "xdg-desktop-portal-termfilechooser",
@@ -31,11 +58,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
+            "owner": "hunkyburrito",
+            "repo": "xdg-desktop-portal-termfilechooser",
             "rev": "a0291aab4e026f575e5e8927e65f07d3c95dc16c",
             "sha256": "sha256-H7z+wvA9uXlP1fbTwdJJqscIkXMXuYePJou81jbJKt0=",
             "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
+            "type": "github"
         },
         "version": "a0291aab4e026f575e5e8927e65f07d3c95dc16c"
     }

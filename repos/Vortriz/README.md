@@ -5,6 +5,7 @@
 | Package                            | Auto-update status |
 | ---------------------------------- | ------------------ |
 | dunefetch                          | ✅                 |
+| goldfish                           | ✅                 |
 | xdg-desktop-portal-termfilechooser | ✅                 |
 | HelveticaNeueCyr                   |                    |
 | SFMono                             |                    |

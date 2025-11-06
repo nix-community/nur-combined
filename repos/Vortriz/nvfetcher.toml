@@ -1,7 +1,12 @@
 [dunefetch]
-fetch.git = "https://github.com/datavorous/dunefetch"
+fetch.github = "datavorous/dunefetch"
 src.git = "https://github.com/datavorous/dunefetch"
 
+[goldfish]
+cargo_locks = ["Cargo.lock"]
+fetch.github = "sameoldlab/goldfish"
+src.git = "https://github.com/sameoldlab/goldfish"
+
 [xdg-desktop-portal-termfilechooser]
-fetch.git = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
+fetch.github = "hunkyburrito/xdg-desktop-portal-termfilechooser"
 src.git = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser"
