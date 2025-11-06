@@ -1,4 +1,48 @@
 {
+    "HelveticaNeueCyr": {
+        "cargoLocks": null,
+        "date": "2025-11-06",
+        "extract": null,
+        "name": "HelveticaNeueCyr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Vortriz",
+            "repo": "fonts",
+            "rev": "54136ddb5b5d5ec19304c49cbd18dada96ab505b",
+            "sha256": "sha256-o1hyAerKyUQsifVls22UkwyV8ZfXAATIUkXkLxsIEHc=",
+            "sparseCheckout": [
+                "HelveticaNeueCyr.tar.gz"
+            ],
+            "type": "github"
+        },
+        "version": "54136ddb5b5d5ec19304c49cbd18dada96ab505b"
+    },
+    "SFMono-Nerd-Font-Ligaturized": {
+        "cargoLocks": null,
+        "date": "2023-07-01",
+        "extract": null,
+        "name": "SFMono-Nerd-Font-Ligaturized",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "shaunsingh",
+            "repo": "SFMono-Nerd-Font-Ligaturized",
+            "rev": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea",
+            "sha256": "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea"
+    },
     "dunefetch": {
         "cargoLocks": null,
         "date": "2025-08-12",
