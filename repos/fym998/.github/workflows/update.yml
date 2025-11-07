@@ -18,7 +18,7 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix run .#_update
+      - run: nix run .#_update -- --commit --skip-prompt
       - uses: fym998/update-flake-lock@dogfood
         id: update-flake-lock
         with:
