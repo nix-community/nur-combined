@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   buildPhase = ''
-    ${stdenv.cc.targetPrefix}c++ -std=c++20 main.cpp -o rofs_dump
+    ${stdenv.cc.targetPrefix}c++ -std=c++20 main.cpp -o rofs_dump ${lib.optionalString stdenv.hostPlatform.isDarwin "-mmacosx-version-min=13.3"}
   '';
 
   installPhase = ''

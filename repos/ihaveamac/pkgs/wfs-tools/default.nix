@@ -1,4 +1,3 @@
-# TODO: remove stdenv override when 24.11 goes eol
 {
   lib,
   stdenv,
@@ -9,6 +8,7 @@
   boost,
   cryptopp,
   fuse,
+  darwinMinVersionHook,
   withFUSE ? !stdenv.hostPlatform.isWindows,
 }:
 
@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
     boost
     realCryptopp
   ]
-  ++ lib.optional withFUSE fuse;
+  ++ lib.optional withFUSE fuse
+  ++ lib.optional stdenv.hostPlatform.isDarwin (darwinMinVersionHook "13.3");
 
   nativeBuildInputs = [
     cmake
