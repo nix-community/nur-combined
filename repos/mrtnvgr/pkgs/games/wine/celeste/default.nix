@@ -1,4 +1,4 @@
-{ lib, fetchzip, wrapWine, requireFile, everestSupport ? false, everestMods ? [ ], ... } @ args:
+{ lib, fetchzip, mkWineApp, requireFile, everestSupport ? false, everestMods ? [ ], ... } @ args:
 let
   inherit (lib) optionalString;
   inherit (builtins) hasAttr;
@@ -27,7 +27,7 @@ let
     wine MiniInstaller.exe
     wineserver -w
   '';
-in wrapWine {
+in mkWineApp {
   inherit name;
 
   workdir = "$WINEPREFIX/drive_c/celeste";

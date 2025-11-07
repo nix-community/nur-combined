@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchurl }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "soundfont-touhou";
   version = "1.0";
 

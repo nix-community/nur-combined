@@ -18,13 +18,17 @@ in rec {
   # Soundfonts
   soundfont-touhou = p ./pkgs/soundfonts/touhou { };
 
-  # Games (Native)
+  # Games (native)
   celeste-classic-2 = p ./pkgs/games/native/celeste-classic-2 { };
 
-  # Games (Wine)
-  wrapWine = p ./pkgs/wrapWine.nix { };
+  # Heavily modified version of @lucasew's `wrapWine` package.
+  # https://github.com/lucasew/nixcfg/blob/047c4913e9dceedd4957fb097bbf4803e5278563/nix/pkgs/wrapWine.nix
+  mkWineEnv = p ./pkgs/wine-nixified/mkWineEnv.nix { };
+  mkWineApp = p ./pkgs/wine-nixified/mkWineApp.nix { inherit mkWineEnv; };
+  wrapWine = throw "wrapWine has been deprecated, please use mkWineApp or mkWineEnv";
 
-  celeste = p ./pkgs/games/wine/celeste { inherit wrapWine; };
+  # Games (wine)
+  celeste = p ./pkgs/games/wine/celeste { inherit mkWineApp; };
   celesteMods = p ./pkgs/games/wine/celeste/mods.nix { };
 
   # Overrides
