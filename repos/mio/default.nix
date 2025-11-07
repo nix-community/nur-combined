@@ -252,19 +252,27 @@ rec {
   };
   caddy =
     let
-      # Table mapping caddy source hash to plugins hash
+      # Table mapping caddy source hash + Go version to plugins hash
+      # Key format: "<srcHash>:<goVersion>"
+      # To check current key: nix eval --impure --expr 'let pkgs = import <nixpkgs> {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
+      # From local nixpkgs repo: nix eval --impure --expr 'let pkgs = import ./. {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
       caddyPluginsHashTable = {
-        # nixpkgs-unstable 'github:NixOS/nixpkgs/12c1f0253aa9a54fdf8ec8aecaafada64a111e24?narHash=sha256-OD5HsZ%2BsN7VvNucbrjiCz7CHF5zf9gP51YVJvPwYIH8%3D' (2025-11-04)
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=" =
+        # nixpkgs-unstable 2025-11-04
+        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.2" =
           "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
-        # nixos 25.05 20250611
-        "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=" =
+        # staging-next 20251107
+        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.3" =
+          "sha256-hfIP97+TKcQkGg6s19VQcz9bS1wqzSBtqVTbtDc4HSQ=";
+        # release-25.05 20251107
+        "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=:1.24.9" =
           "sha256-lraVVvjqWpQJmlHhpfWZwC9S0Gvx7nQR6Nzmt0oEOLw=";
       };
-      srcHash = pkgs.caddy.src.outputHash or "";
+      srcHash = pkgs.caddy.src.outputHash;
+      goVersion = pkgs.caddy.passthru.go.version;
+      lookupKey = "${srcHash}:${goVersion}";
       pluginsHash =
-        caddyPluginsHashTable.${srcHash}
-          or (throw "Unknown caddy source hash: ${srcHash}. Please update caddyPluginsHashTable in default.nix");
+        caddyPluginsHashTable.${lookupKey}
+          or (throw "Unknown caddy source hash + Go version: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
     in
     (goV3OverrideAttrs pkgs.caddy).withPlugins {
       # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
