@@ -11,34 +11,38 @@ in
 
 , setupScript ? ""
 
+, postScript ? ""
+
 , wine ? wine-staging
 
 , fsync ? false
 , esync ? false
 
+, allowSubstitutes ? false
+
 , ...
 }:
 let
   tricksHook = optionalString ((length tricks) > 0) /* bash */ ''
-    pushd $(mktemp -d)
+    pushd "$(mktemp -d)"
       ${winetricks}/bin/winetricks ${optionalString silent "-q"} ${concatStringsSep " " tricks}
     popd
   '';
 
   boolToInt = x: if x then "1" else "0";
-in writeShellApplication {
+in (writeShellApplication {
   inherit name;
 
   runtimeInputs = [ wine cabextract ];
 
   text = /* bash */ ''
-    WINEARCH=win${if is64bits then "64" else "32"}
+    export WINEARCH=win${if is64bits then "64" else "32"}
 
-    WINEFSYNC=${boolToInt fsync}
-    WINEESYNC=${boolToInt esync}
+    export WINEFSYNC=${boolToInt fsync}
+    export WINEESYNC=${boolToInt esync}
 
-    WINE_NIX="$HOME/.wine-nix"
-    WINEPREFIX="$WINE_NIX/${name}"
+    export WINE_NIX="$HOME/.wine-nix"
+    export WINEPREFIX="$WINE_NIX/${name}"
     mkdir -p "$WINE_NIX"
 
     if [ ! -d "$WINEPREFIX" ]; then
@@ -50,5 +54,10 @@ in writeShellApplication {
 
       ${setupScript}
     fi
+
+    ${postScript}
   '';
+}).overrideAttrs {
+  # TODO: https://github.com/NixOS/nixpkgs/issues/344414
+  inherit allowSubstitutes;
 }

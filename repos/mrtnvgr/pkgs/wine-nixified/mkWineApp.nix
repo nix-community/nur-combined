@@ -13,6 +13,8 @@
 
 , meta ? { }
 
+, allowSubstitutes ? false
+
 , ...
 } @ envArgs:
 
@@ -20,14 +22,15 @@ let
   inherit (lib) optionalString;
 
   env = mkWineEnv (envArgs // {
-    inherit name;
+    inherit name allowSubstitutes;
   });
 in
-writeShellApplication {
+(writeShellApplication {
   inherit name meta;
 
   text = /* bash */ ''
-    . ${env}/bin/${name}
+    # shellcheck disable=SC1091
+    source "${env}/bin/${name}"
 
     # $REPL is defined => start a shell in the env
     if [ ! "$REPL" == "" ]; then
@@ -44,4 +47,7 @@ writeShellApplication {
 
     ${postScript}
   '';
+}).overrideAttrs {
+  # TODO: https://github.com/NixOS/nixpkgs/issues/344414
+  inherit allowSubstitutes;
 }
