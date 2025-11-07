@@ -672,7 +672,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.04"
+    "version": "2025.11.07"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -887,7 +887,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6963"
+    "version": "6970"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4172,7 +4172,7 @@
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.4.0"
+    "version": "2.5.1"
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -4407,7 +4407,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-05"
+    "version": "0-unstable-2025-11-06"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4787,7 +4787,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.04"
+    "version": "2025.11.07"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5077,7 +5077,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.4.0"
+    "version": "2.5.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -5122,7 +5122,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-05"
+    "version": "0-unstable-2025-11-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5712,7 +5712,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.04"
+    "version": "2025.11.07"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6122,7 +6122,7 @@
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.4.0"
+    "version": "2.5.1"
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -6197,7 +6197,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2025-11-05"
+    "version": "0-unstable-2025-11-06"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",

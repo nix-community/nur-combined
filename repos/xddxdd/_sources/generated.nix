@@ -217,14 +217,14 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "0d483f164b78ce05d4a3a7326b3aae2d747304be";
+    version = "5473cc4ac430086ccd800e52808a7dafe2963712";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "0d483f164b78ce05d4a3a7326b3aae2d747304be";
-      hash = "sha256-quvn1ONV5syySlfbEQYk6UEAF+JhJXX9MPwjt9Bl+9g=";
+      rev = "5473cc4ac430086ccd800e52808a7dafe2963712";
+      hash = "sha256-aSmqS24of/5q1tr/R9D6LRP1gZSUe0Q13zF94yCnBNw=";
     };
-    date = "2025-11-04";
+    date = "2025-11-07";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
@@ -685,26 +685,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.11.04";
+    version = "2025.11.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-nJKLmzC6SB5LFYDAwDEGS2tPpTAaJtuFQeAPBXgE9r4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-J2r6eJIdXcaTWRIOmJjvMTwYypUTvWn1oqrDN+coPeI=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.11.04";
+    version = "2025.11.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-City.mmdb";
-      hash = "sha256-JdHOqGtcheE08FGXIA9aMeq6whCVDcruSc9FAW4JT2U=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-City.mmdb";
+      hash = "sha256-uTbKJR87ipPeca1YFDzcxGKxJcP8vCAtlNhcfjbpqoY=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.11.04";
+    version = "2025.11.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-Country.mmdb";
-      hash = "sha256-pMfAVFYxtEO1i7gfQ6Sroa3RxZCZCNnimC1SlNPWvKg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-Country.mmdb";
+      hash = "sha256-Yr3TSudioAyYzj8yFGVh4D/HFAvNH2Vxhr/Iu7O7HDU=";
     };
   };
   glauth = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6963";
+    version = "b6970";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6963";
-      hash = "sha256-URDvr35uLjfLEh/N+pUr72ZXs8U+OUdpuVMUu638ACk=";
+      tag = "b6970";
+      hash = "sha256-RRloaQrYmq3vqV3EOVLFsTBYt3atTCnQu6KNnt3RYes=";
     };
   };
   loralib = {
@@ -1560,12 +1560,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.4.0";
+    version = "v2.5.1";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.4.0";
-      hash = "sha256-jmmYMFQCmYO3UNO6NbopPQGrrtB3Fx6RJWUmOJbUkkY=";
+      tag = "v2.5.1";
+      hash = "sha256-V85nlWFlow9Bpq7kq6hsrlfsjsudPTsoQ4ABSnu/PFU=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1775,14 +1775,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "654206fcb214cfdf83f4c56d32538773cc5227f1";
+    version = "e32aea76bd5ed32819b5989240170c9b9fb98684";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "654206fcb214cfdf83f4c56d32538773cc5227f1";
-      hash = "sha256-muU4TwvMvUGoHLHlPAV4kNlJxqqpFWQWTfjv60SiXsQ=";
+      rev = "e32aea76bd5ed32819b5989240170c9b9fb98684";
+      hash = "sha256-xfrjKuSU41DIKdgqx6GSNEM16y6HUVlO7+OEqR4kPzg=";
     };
-    date = "2025-11-05";
+    date = "2025-11-06";
   };
   qsp-stable = {
     pname = "qsp-stable";

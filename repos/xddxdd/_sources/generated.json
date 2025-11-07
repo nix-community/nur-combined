@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-11-04",
+        "date": "2025-11-07",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,12 +427,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "0d483f164b78ce05d4a3a7326b3aae2d747304be",
-            "sha256": "sha256-quvn1ONV5syySlfbEQYk6UEAF+JhJXX9MPwjt9Bl+9g=",
+            "rev": "5473cc4ac430086ccd800e52808a7dafe2963712",
+            "sha256": "sha256-aSmqS24of/5q1tr/R9D6LRP1gZSUe0Q13zF94yCnBNw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0d483f164b78ce05d4a3a7326b3aae2d747304be"
+        "version": "5473cc4ac430086ccd800e52808a7dafe2963712"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nJKLmzC6SB5LFYDAwDEGS2tPpTAaJtuFQeAPBXgE9r4=",
+            "sha256": "sha256-J2r6eJIdXcaTWRIOmJjvMTwYypUTvWn1oqrDN+coPeI=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.11.04"
+        "version": "2025.11.07"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JdHOqGtcheE08FGXIA9aMeq6whCVDcruSc9FAW4JT2U=",
+            "sha256": "sha256-uTbKJR87ipPeca1YFDzcxGKxJcP8vCAtlNhcfjbpqoY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-City.mmdb"
         },
-        "version": "2025.11.04"
+        "version": "2025.11.07"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pMfAVFYxtEO1i7gfQ6Sroa3RxZCZCNnimC1SlNPWvKg=",
+            "sha256": "sha256-Yr3TSudioAyYzj8yFGVh4D/HFAvNH2Vxhr/Iu7O7HDU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.04/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.07/GeoLite2-Country.mmdb"
         },
-        "version": "2025.11.04"
+        "version": "2025.11.07"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b6963",
-            "sha256": "sha256-URDvr35uLjfLEh/N+pUr72ZXs8U+OUdpuVMUu638ACk=",
+            "rev": "b6970",
+            "sha256": "sha256-RRloaQrYmq3vqV3EOVLFsTBYt3atTCnQu6KNnt3RYes=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6963"
+        "version": "b6970"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3058,12 +3058,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.4.0",
-            "sha256": "sha256-jmmYMFQCmYO3UNO6NbopPQGrrtB3Fx6RJWUmOJbUkkY=",
+            "rev": "v2.5.1",
+            "sha256": "sha256-V85nlWFlow9Bpq7kq6hsrlfsjsudPTsoQ4ABSnu/PFU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.4.0"
+        "version": "v2.5.1"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,
@@ -3459,7 +3459,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2025-11-05",
+        "date": "2025-11-06",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3471,12 +3471,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "654206fcb214cfdf83f4c56d32538773cc5227f1",
-            "sha256": "sha256-muU4TwvMvUGoHLHlPAV4kNlJxqqpFWQWTfjv60SiXsQ=",
+            "rev": "e32aea76bd5ed32819b5989240170c9b9fb98684",
+            "sha256": "sha256-xfrjKuSU41DIKdgqx6GSNEM16y6HUVlO7+OEqR4kPzg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "654206fcb214cfdf83f4c56d32538773cc5227f1"
+        "version": "e32aea76bd5ed32819b5989240170c9b9fb98684"
     },
     "qsp-stable": {
         "cargoLocks": null,
