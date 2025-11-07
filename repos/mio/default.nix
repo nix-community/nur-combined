@@ -236,6 +236,12 @@ rec {
       ];
     })
   );
+  aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
+    ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k "$@"
+  '';
+  #aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
+  #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
+  #'';
   audacity4 = pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { };
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
