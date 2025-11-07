@@ -175,10 +175,6 @@ in
       *.tar.bz2 diff=tar-bz2
       *.tar.xz diff=tar-xz
       *.tar.zst diff=tar-zstd
-      *.json filter=jq
-      *.restic.json filter=jq-restic
-      # *.toml filter=taplo-fmt
-      # *.py filter=ruff-format
       *.org  diff=orgmode
       *.hy   diff=lisp
       *.el   diff=lisp

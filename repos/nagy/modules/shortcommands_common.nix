@@ -43,22 +43,17 @@
     scUlmj = [ "systemctl" "--user" "list-machines" "--output=json" ];
     scUluj = [ "systemctl" "--user" "list-units" "--output=json" ];
     scUlfj = [ "systemctl" "--user" "list-unit-files" "--output=json" ];
-    JF = [ "journalctl" "-f" ];
-    # JJf = [ "journalctl" "-f" ];
+    juf = [ "journalctl" "-f" ];
 
     # misc
     j = [ "jq" "--monochrome-output" "--sort-keys" ];
     jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
-    js = [ "jq" "--slurp" ];
-    jl = [ "jq" "length" ];
+    js = [ "jq" "--monochrome-output" "--slurp" ];
+    jl = [ "jq" "--monochrome-output" "length" ];
 
     jcP = [ "jc" "--pretty" ];
 
-    Y = [ "yq" "--prettyPrint" "--no-colors" ];
-    yqP = [ "yq" "--prettyPrint" ];
-    yqPM = [ "yq" "--prettyPrint" "--no-colors" ];
-    yqMP = [ "yq" "--no-colors" "--prettyPrint" ];
-    yqM = [ "yq" "--no-colors" ];
+    y = [ "yq" "--prettyPrint" "--no-colors" ];
     cpa = [ "cp" "--archive" ];
     rmf = [ "rm" "--force" ];
     i4 = [ "ip" "-4" ];
