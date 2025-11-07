@@ -6,13 +6,13 @@
 }:
 pkgs.stdenv.mkDerivation (finalAttrs: {
   pname = "bumper";
-  version = "0.2.3";
+  version = "0.2.4";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HV11n0JraCMld078GB1r7bWeF1d5TH1DJm4edY6aPzQ=";
+    hash = "sha256-mk7a4DtpSmFTvHD36dwk/lF8qURxejz9zZVQTW3mmqk=";
   };
 
   nativeBuildInputs = with pkgs; [
