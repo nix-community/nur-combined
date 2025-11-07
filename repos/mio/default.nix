@@ -166,7 +166,7 @@ rec {
       })
     )
   );
-  bees = v3overridegcc pkgs.bees;
+  bees = nodarwin (v3overridegcc pkgs.bees);
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
