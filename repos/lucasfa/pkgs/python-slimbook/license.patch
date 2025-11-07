@@ -1,0 +1,14 @@
+diff --git a/setup.py b/setup.py
+index e5ef81b..a1e4ccd 100644
+--- a/setup.py
++++ b/setup.py
+@@ -11,7 +11,8 @@ if __name__ == '__main__':
+         author_email='dev@slimbook.es',
+         keywords=['software',''],
+         url='https://github.com/Slimbook-Team/python-slimbook',
+-        license='GPL',
++        license='LGPL-3.0-or-later',
++        classifiers = [ "License :: OSI Approved :: GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later)" ],
+         platforms='UNIX',
+         packages = find_packages()
+     )

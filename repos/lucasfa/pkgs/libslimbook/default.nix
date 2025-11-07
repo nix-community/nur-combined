@@ -2,7 +2,7 @@
   stdenv,
   lib,
   pkgs,
-  fetchFromGitHub,
+ fetchFromGitHub,
   gcc,
   pkg-config,
   meson,
@@ -21,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libslimbook";
-  version = "1.18.2";
+  version = "1.18.4";
 
   src = fetchFromGitHub {
     owner = "Slimbook-Team";
     repo = pname;
-    rev = "${version}";
-    sha256 = "sha256-T3nV7FcG5lqpONON43T+g8hfXx9cWk2nNRdCjmS9kwo=";
+    tag = version;
+    hash = "sha256-mGEGFrdu2DXQ8fykOQrY/AhInbY1+2L8CvWFICm5Lkg=";
   };
   enableParallelBuilding = true;
 
@@ -83,11 +83,11 @@ stdenv.mkDerivation rec {
         --replace-fail "lsusb" "${pkgs.usbutils}/bin/lsusb"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "";
     homepage = "https://github.com/Slimbook-Team/${pname}";
-    license = licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Plus;
     mainProgram = "slimbookctl";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }
