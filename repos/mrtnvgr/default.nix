@@ -25,7 +25,6 @@ in rec {
   # https://github.com/lucasew/nixcfg/blob/047c4913e9dceedd4957fb097bbf4803e5278563/nix/pkgs/wrapWine.nix
   mkWineEnv = p ./pkgs/wine-nixified/mkWineEnv.nix { };
   mkWineApp = p ./pkgs/wine-nixified/mkWineApp.nix { inherit mkWineEnv; };
-  wrapWine = throw "wrapWine has been deprecated, please use mkWineApp or mkWineEnv";
 
   # Games (wine)
   celeste = p ./pkgs/games/wine/celeste { inherit mkWineApp; };
