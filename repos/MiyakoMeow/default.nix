@@ -10,17 +10,23 @@
 }:
 let
   # 特殊属性（需保留）
+  # 先加载 overlays 集合并把它们应用到传入的 `pkgs`，以便后续导入包时可以访问 overlays 暴露的包（例如本 repo 的 personal overlay）
+  overlaysSet = import ./overlays;
+  allOverlays = pkgs.lib.composeManyExtensions (builtins.attrValues overlaysSet);
+  pkgsWithOverlays = pkgs.extend allOverlays;
+
   specialAttrs = {
     # The `lib`, `modules`, and `overlays` names are special
-    lib = import ./lib { inherit pkgs; }; # functions
+    # 为了让导入的函数库和包发现逻辑使用带 overlays 的 pkgs，这里把 pkgsWithOverlays 传入 lib
+    lib = import ./lib { pkgs = pkgsWithOverlays; }; # functions
     modules = import ./modules; # NixOS modules
-    overlays = import ./overlays; # nixpkgs overlays
+    overlays = overlaysSet; # nixpkgs overlays
   };
 
   # 导入单个包或包集合（返回原始结果）
   importPackage =
     path:
-    pkgs.callPackage path {
+    pkgsWithOverlays.callPackage path {
     };
 
   # 安全导入：失败时仅告警并返回 null，不中断其它包解析
@@ -34,8 +40,8 @@ let
     else
       builtins.trace "WARNING: Failed to import package at ${toString path}; skipping." null;
 
-  # 基础库
-  lib = pkgs.lib;
+  # 基础库（使用已应用 overlays 的 pkgs）
+  lib = pkgsWithOverlays.lib;
 
   # === 统一的包发现逻辑 ===
   # 判断目录是否包含直接包文件

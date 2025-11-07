@@ -1,5 +1,4 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  # 个人使用的 overlay
+  personal = import ./personal.nix;
 }

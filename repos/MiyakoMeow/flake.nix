@@ -21,8 +21,16 @@
 
       legacyPackages = forAllSystems (
         system:
+        let
+          basePkgs = import nixpkgs { inherit system; };
+          # 从 overlays/default.nix 导入所有 overlays（自动应用所有定义的 overlay）
+          overlaysSet = import ./overlays/default.nix;
+          # 合并所有 overlays（自动应用所有在 overlays/default.nix 中定义的 overlay）
+          allOverlays = nixpkgs.lib.composeManyExtensions (builtins.attrValues overlaysSet);
+          pkgsWithOverlay = basePkgs.extend allOverlays;
+        in
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = pkgsWithOverlay;
         }
       );
 
