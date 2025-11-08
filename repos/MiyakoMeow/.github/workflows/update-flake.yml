@@ -2,21 +2,23 @@ name: "Update flake.lock"
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: "0 0 * * 1,4" # Run twice a week
+    - cron: "0 11 */3 * *" # Run at 11:00 (UTC) every 3 days. It will run on 1,4,7,10,13,16,19,22,25,28,31 every month
 
 jobs:
-  lockfile:
+  update-lockfile:
     runs-on: ubuntu-latest
-    outputs:
-      pr_number: ${{ steps.create-pull-request.outputs.pull-request-number }}
-      pr_operation: ${{ steps.create-pull-request.outputs.pull-request-operation }}
-      pr_branch: ${{ steps.create-pull-request.outputs.pull-request-branch }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
+            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
       - name: Update flake.lock
         if: ${{ github.event_name != 'pull_request' }}
@@ -34,49 +36,50 @@ jobs:
           git-committer-name: MiyakoMeow Bot Committer
           git-committer-email: github-actions[bot]@users.noreply.github.com
 
-  build-and-merge:
-    needs: lockfile
-    if: needs.lockfile.outputs.pr_operation == 'created'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          ref: ${{ needs.lockfile.outputs.pr_branch }}
-
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            extra-platforms = aarch64-linux
-
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v16
-        if: ${{ 'miyakomeow' != '<YOUR_CACHIX_NAME>' }}
-        with:
-          name: miyakomeow
-          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - name: Check evaluation
+      - name: Wait for CI completion
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         run: |
-          nix-env -f . -qa \* --meta --xml \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          echo "等待 PR #$PR_NUMBER 的 CI 完成"
 
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+          MAX_WAIT=1800
+          WAIT_TIME=0
+
+          while [ $WAIT_TIME -lt $MAX_WAIT ]; do
+            HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+            CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/$HEAD_SHA/check-runs" --jq '.check_runs')
+            TOTAL_CHECKS=$(echo "$CHECK_RUNS" | jq length)
+            COMPLETED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.status == "completed")] | length')
+            FAILED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out")] | length')
+
+            echo "检查状态: $COMPLETED_CHECKS/$TOTAL_CHECKS 已完成"
+
+            if [ "$FAILED_CHECKS" -gt 0 ]; then
+              echo "发现失败的检查，停止等待"
+              FAILED_NAMES=$(echo "$CHECK_RUNS" | jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out") | .name')
+              echo "失败的检查: $FAILED_NAMES"
+              exit 1
+            fi
+
+            if [ "$COMPLETED_CHECKS" -eq "$TOTAL_CHECKS" ] && [ "$TOTAL_CHECKS" -gt 0 ]; then
+              echo "所有 CI 检查已完成"
+              break
+            fi
+
+            echo "等待 CI 完成... (已等待 ${WAIT_TIME}s)"
+            sleep 30
+            WAIT_TIME=$((WAIT_TIME + 30))
+          done
+
+          if [ $WAIT_TIME -ge $MAX_WAIT ]; then
+            echo "等待 CI 超时"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable Pull Request Automerge
-        if: success()
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.AUTOMERGE_TOKEN }}
