@@ -339,7 +339,6 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: ${{ steps.update.outputs.branch_name }}
-          base: main
           commit-message: "updateScript: 自动更新包 ${{ matrix.package }}"
           title: "Auto Update(updateScript): ${{ matrix.package }}"
           body: |
@@ -363,50 +362,7 @@ jobs:
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
           PACKAGE='${{ matrix.package }}'
-
-          echo "等待PR #$PR_NUMBER ($PACKAGE) 的CI完成"
-
-          # 等待CI完成
-          MAX_WAIT=1800  # 30分钟超时
-          WAIT_TIME=0
-
-          while [ $WAIT_TIME -lt $MAX_WAIT ]; do
-            # 获取PR的提交SHA
-            HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
-
-            # 获取该提交的所有检查
-            CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/$HEAD_SHA/check-runs" --jq '.check_runs')
-
-            # 检查状态
-            TOTAL_CHECKS=$(echo "$CHECK_RUNS" | jq length)
-            COMPLETED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.status == "completed")] | length')
-            FAILED_CHECKS=$(echo "$CHECK_RUNS" | jq '[.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out")] | length')
-
-            echo "检查状态: $COMPLETED_CHECKS/$TOTAL_CHECKS 已完成"
-
-            # 如果有失败的检查，退出
-            if [ "$FAILED_CHECKS" -gt 0 ]; then
-              echo "发现失败的检查，停止等待"
-              FAILED_NAMES=$(echo "$CHECK_RUNS" | jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out") | .name')
-              echo "失败的检查: $FAILED_NAMES"
-              exit 1
-            fi
-
-            # 如果所有检查都完成，退出循环
-            if [ "$COMPLETED_CHECKS" -eq "$TOTAL_CHECKS" ] && [ "$TOTAL_CHECKS" -gt 0 ]; then
-              echo "所有CI检查已完成"
-              break
-            fi
-
-            echo "等待CI完成... (已等待 ${WAIT_TIME}s)"
-            sleep 30
-            WAIT_TIME=$((WAIT_TIME + 30))
-          done
-
-          if [ $WAIT_TIME -ge $MAX_WAIT ]; then
-            echo "等待CI超时"
-            exit 1
-          fi
+          scripts/ci/wait-for-actions.sh "$PR_NUMBER" "$PACKAGE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

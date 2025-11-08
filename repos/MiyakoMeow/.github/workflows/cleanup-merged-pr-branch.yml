@@ -1,4 +1,4 @@
-name: Cleanup merged event branches
+name: Cleanup merged pull request branches
 
 on:
   pull_request:
@@ -9,12 +9,11 @@ permissions:
 
 jobs:
   delete-branch:
-    name: Delete merged chore/update-* branch
+    name: Delete merged PR head branch
     runs-on: ubuntu-latest
     if: >-
       ${{ github.event.pull_request.merged == true &&
-          github.event.pull_request.head.repo.full_name == github.repository &&
-          startsWith(github.event.pull_request.head.ref, 'chore/update-') }}
+          github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - name: Delete merged branch
         run: |
