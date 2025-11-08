@@ -62,6 +62,16 @@ in
         # Allow using the push service without hard-coding my IP in the configuration
         bendDomainToLocalhost = true;
       };
+
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps)
+          calendar
+          contacts
+          deck
+          tasks
+          ;
+        # notify_push is automatically installed by the module
+      };
     };
 
     # The service above configures the domain, no need for my wrapper

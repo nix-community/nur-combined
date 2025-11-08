@@ -16,6 +16,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.nextcloud = {
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) richdocuments;
+      };
+    };
+
     services.collabora-online = {
       enable = true;
       inherit (cfg) port;
