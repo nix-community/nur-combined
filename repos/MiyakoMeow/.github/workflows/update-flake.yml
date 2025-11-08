@@ -29,7 +29,7 @@ jobs:
         id: create-pull-request
         uses: DeterminateSystems/update-flake-lock@main
         with:
-          pr-title: "Auto Update(flake.lock)" # Title of PR to be created
+          pr-title: "flake.lock: update" # Title of PR to be created
           pr-labels: | # Labels to be set on the PR
             dependencies
             automated
@@ -44,7 +44,7 @@ jobs:
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
-          scripts/ci/wait-for-actions.sh "$PR_NUMBER"
+          scripts/actions/wait-for-actions.sh "$PR_NUMBER"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -61,7 +61,7 @@ jobs:
         with:
           branch: ${{ steps.update.outputs.branch_name }}
           commit-message: "docs(readme): update package list"
-          title: "Docs: Update README package list"
+          title: "README: Update package list"
           body: |
             由 GitHub Actions 自动更新 README 的 Package List
           labels: automated, documentation
@@ -73,7 +73,7 @@ jobs:
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
-          scripts/ci/wait-for-actions.sh "$PR_NUMBER"
+          scripts/actions/wait-for-actions.sh "$PR_NUMBER"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

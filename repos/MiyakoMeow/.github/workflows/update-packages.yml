@@ -38,133 +38,7 @@ jobs:
         id: package-list
         shell: bash
         run: |
-          # 使用Nix内置方法检测updateScript
-          export NIXPKGS_ALLOW_UNFREE=1
-          # 传入绝对 flake 引用，避免内置 '.' 被拒绝
-          export FLAKE_REF="path:${GITHUB_WORKSPACE:-$PWD}"
-
-          # 递归收集 legacyPackages 下具有 updateScript 的派生（含 groups）
-          nix eval --impure --json --expr "
-            let
-              f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
-              sys = \"x86_64-linux\";
-              lp = builtins.getAttr sys f.legacyPackages;
-              pkgsN = import <nixpkgs> {};
-              lib = pkgsN.lib;
-              hasUS = pkg: (pkg ? passthru && pkg.passthru ? updateScript) || (pkg ? updateScript);
-              collect = attrs: path:
-                lib.concatMap (name:
-                  let v = attrs.\${name}; p = path ++ [ name ]; in
-                  if lib.isDerivation v then
-                    if hasUS v then [ (lib.concatStringsSep \".\" p) ] else []
-                  else if lib.isAttrs v then collect v p
-                  else []
-                ) (builtins.attrNames attrs);
-            in collect lp []
-          " | jq -r '.[]' > all-packages.txt
-
-          # 创建空包列表文件
-          : > package-list.txt
-
-          # 用于去重：优先基于 group；缺省回退到 command 指纹
-          declare -A unique_groups
-          declare -A unique_commands
-
-          # 过滤出有updateScript的包，并进行命令去重
-          while IFS= read -r pkg; do
-            # 尝试获取updateScript
-            set +e
-            script_output=$(nix eval --impure --json --expr "
-              let
-                f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
-                sys = \"x86_64-linux\";
-                lp = builtins.getAttr sys f.legacyPackages;
-                pkgsN = import <nixpkgs> {};
-                lib = pkgsN.lib;
-                path = lib.strings.splitString \".\" \"${pkg}\";
-                pkg = lib.attrsets.attrByPath path null lp;
-              in
-                if pkg == null then throw \"no pkg\"
-                else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
-                else if (pkg ? updateScript) then pkg.updateScript
-                else throw \"no updateScript\"
-            " 2>/tmp/error.log)
-            ret=$?
-            set -e
-
-            if [ $ret -ne 0 ]; then
-              continue
-            fi
-
-            # 检查输出类型并标准化为命令数组
-            script_type=$(echo "$script_output" | jq -r 'type')
-            group_name=""
-            command_fingerprint=""
-
-            case "$script_type" in
-              "array")
-                # 数组类型：直接排序
-                command_fingerprint=$(echo "$script_output" | jq -c 'sort')
-                ;;
-              "string")
-                # 字符串类型：转换为单元素数组
-                command_fingerprint=$(echo "$script_output" | jq -c '[.] | sort')
-                ;;
-              "object")
-                # 读取 group；与 nixpkgs 一致：存在则优先按组去重
-                if echo "$script_output" | jq -e 'has("group")' >/dev/null; then
-                  group_name=$(echo "$script_output" | jq -r '.group')
-                fi
-                # 当未提供 group 时，回退为属性路径的上级前缀（去掉最后一段）
-                if [ -z "$group_name" ]; then
-                  if [[ "$pkg" == *.* ]]; then
-                    group_name=${pkg%.*}
-                  fi
-                fi
-                if echo "$script_output" | jq -e 'has("command")' >/dev/null; then
-                  command_type=$(echo "$script_output" | jq -r '.command | type')
-                  if [ "$command_type" = "array" ]; then
-                    # 提取command数组并排序
-                    command_fingerprint=$(echo "$script_output" | jq -c '.command | sort')
-                  elif [ "$command_type" = "string" ]; then
-                    # 字符串command转换为单元素数组
-                    command_fingerprint=$(echo "$script_output" | jq -c '.command | [.] | sort')
-                  fi
-                fi
-                ;;
-            esac
-
-            # 既无 group 也无可识别 command 时跳过
-            if [ -z "$group_name" ] && [ -z "$command_fingerprint" ]; then
-              echo "跳过包 $pkg (不支持的updateScript格式: $script_type)"
-              continue
-            fi
-
-            if [ -n "$group_name" ]; then
-              # 基于 group 去重，同组只执行一次
-              if [[ -z "${unique_groups[$group_name]}" ]]; then
-                unique_groups["$group_name"]=1
-                echo "$pkg" >> package-list.txt
-              else
-                echo "跳过包 $pkg (同组已收录: $group_name)"
-              fi
-            else
-              # 基于 command 指纹去重
-              if [[ -z "${unique_commands[$command_fingerprint]}" ]]; then
-                unique_commands["$command_fingerprint"]=1
-                echo "$pkg" >> package-list.txt
-              else
-                echo "跳过包 $pkg (重复命令: ${command_fingerprint})"
-              fi
-            fi
-          done < all-packages.txt
-
-          echo "找到 $(wc -l < package-list.txt) 个需要更新的条目:"
-          cat package-list.txt
-
-          # 设置输出变量
-          echo "package_list=$(cat package-list.txt | jq -R -s -c 'split("\n") | map(select(. != ""))')" >> $GITHUB_OUTPUT
-          echo "package_count=$(wc -l < package-list.txt | awk '{print $1}')" >> $GITHUB_OUTPUT
+          bash scripts/update-packages/find-packages-with-update-script.sh
 
   update-package:
     needs: prepare
@@ -339,7 +213,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: ${{ steps.update.outputs.branch_name }}
-          commit-message: "updateScript: 自动更新包 ${{ matrix.package }}"
+          commit-message: "${{ matrix.package }}: auto-update by updateScript"
           title: "Auto Update(updateScript): ${{ matrix.package }}"
           body: |
             由GitHub Actions自动更新包 ${{ matrix.package }}
@@ -362,7 +236,7 @@ jobs:
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
           PACKAGE='${{ matrix.package }}'
-          scripts/ci/wait-for-actions.sh "$PR_NUMBER" "$PACKAGE"
+          scripts/actions/wait-for-actions.sh "$PR_NUMBER" "$PACKAGE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
