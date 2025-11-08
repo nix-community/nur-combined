@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "yt2feed";
-  version = "0.2.1";
+  version = "0.3";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "thkoch2001";
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-uspZY42IREiELap0Aht39R3fgFxFi1mQsF4XpPqBTdk=";
+    hash = "sha256-LTqMvTBoCf05x8sSsdCepzXtXNyX4FEyREb7wRV5o6Q=";
   };
 
   buildInputs = with python3Packages; [
