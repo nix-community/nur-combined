@@ -276,10 +276,24 @@ stdenv.mkDerivation (finalAttrs: {
         sed -i '/effects_lv2/d' src/app/CMakeLists.txt
         sed -i '/effects_vst/d' src/app/CMakeLists.txt
         
+        # Make sure effects_base is linked (it contains AbstractViewLauncher needed by effects_builtin)
+        # Add it to the target_link_libraries if not already there
+        if ! grep -q "effects_base" src/app/CMakeLists.txt; then
+            sed -i '/target_link_libraries.*audacity/a\    effects_base' src/app/CMakeLists.txt
+        fi
+        
         # Remove disabled libraries from au3wrap link lists
         sed -i '/set(AU3_LINK.*lv2sdk)/d' src/au3wrap/CMakeLists.txt
         sed -i '/set(AU3_LINK.*vst_sdk_3)/d' src/au3wrap/CMakeLists.txt
         sed -i '/portmixer/d' src/au3wrap/au3defs.cmake
+        
+        # Comment out LV2 and VST module initialization in main.cpp since we disabled them
+        sed -i 's/\(.*Lv2EffectsModule.*\)/\/\/ \1 \/\/ Disabled by Nix build/g' src/app/main.cpp
+        sed -i 's/\(.*VstEffectsModule.*\)/\/\/ \1 \/\/ Disabled by Nix build/g' src/app/main.cpp
+        
+        # Also comment out includes for these modules
+        sed -i 's/\(#include.*lv2.*effectsmodule.*\)/\/\/ \1 \/\/ Disabled by Nix build/gi' src/app/main.cpp
+        sed -i 's/\(#include.*vst.*effectsmodule.*\)/\/\/ \1 \/\/ Disabled by Nix build/gi' src/app/main.cpp
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace au3/libraries/lib-files/FileNames.cpp \
@@ -373,6 +387,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-Daudacity_has_vst3=Off"
     "-Daudacity_has_crashreports=Off"
 
+    # Fix linker issues with circular dependencies between static libraries
+    "-DCMAKE_EXE_LINKER_FLAGS=-Wl,--start-group"
+    "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--start-group"
+
     # Disable all tests since they depend on disabled libraries (portmixer, lv2sdk, vst3)
     "-DAU_BUILD_CONTEXT_TESTS=OFF"
     "-DAU_BUILD_EFFECTS_BUILTIN_TESTS=OFF"
@@ -400,7 +418,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = ''
     # Add Qt6 private headers to include path
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${qt6.qtbase}/include/QtCore/${qt6.qtbase.version}/QtCore -I${qt6.qtbase}/include/QtGui/${qt6.qtbase.version}/QtGui"
+    # Private headers are in QtCore/6.x.x/QtCore/private/, and they include each other as QtCore/private/...
+    # So we need both QtCore/6.x.x/ (for QtCore/private/...) and QtCore/6.x.x/QtCore (for private/...)
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${qt6.qtbase}/include/QtCore/${qt6.qtbase.version} -I${qt6.qtbase}/include/QtCore/${qt6.qtbase.version}/QtCore -I${qt6.qtbase}/include/QtGui/${qt6.qtbase.version} -I${qt6.qtbase}/include/QtGui/${qt6.qtbase.version}/QtGui"
   '';
 
   # [ 57%] Generating LightThemeAsCeeCode.h...
@@ -429,7 +449,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   meta = {
-    broken = true;
     description = "Sound editor with graphical UI";
     mainProgram = "audacity";
     homepage = "https://www.audacityteam.org";
