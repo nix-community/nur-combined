@@ -1,10 +1,14 @@
-name: "Update Spec-Kit Package"
+name: "Auto-Update Packages"
 
 on:
   schedule:
-    # Check for updates daily at 3:30 AM UTC
-    - cron: '30 3 * * *'
-  workflow_dispatch: # Allow manual triggering
+    - cron: '30 3 * * *'  # Daily at 3:30 AM UTC
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Specific package to update (leave empty for all)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -12,11 +16,26 @@ permissions:
   actions: read
 
 jobs:
-  check-update:
+  update-packages:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false  # Continue updating other packages even if one fails
+      matrix:
+        package:
+          - name: opencode-sst
+            owner: sst
+            repo: opencode
+          - name: spec-kit
+            owner: github
+            repo: spec-kit
+          # Add more packages here as they get auto-update support
+
+    # Skip if manual run specified a different package
+    if: ${{ github.event_name == 'schedule' || inputs.package == '' || inputs.package == matrix.package.name }}
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -31,42 +50,35 @@ jobs:
       - name: Install jq for JSON parsing
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Check for new spec-kit version
+      - name: Check for new ${{ matrix.package.name }} version
         id: check_version
         run: |
-          # Get current version from package
-          CURRENT_VERSION=$(grep 'version = ' pkgs/spec-kit/default.nix | sed 's/.*version = "\([^"]*\)".*/\1/')
+          CURRENT_VERSION=$(grep 'version = ' pkgs/${{ matrix.package.name }}/default.nix | sed 's/.*version = "\([^"]*\)".*/\1/')
           echo "Current version: $CURRENT_VERSION"
 
-          # Validate current version
           if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
             echo "❌ Failed to extract current version from package file"
             exit 1
           fi
 
-          # Get latest version from GitHub API with error handling
           echo "Fetching latest version from GitHub API..."
-          API_RESPONSE=$(curl -s https://api.github.com/repos/github/spec-kit/releases/latest)
+          API_RESPONSE=$(curl -s https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
 
-          # Check if API call was successful
           if [ -z "$API_RESPONSE" ]; then
             echo "❌ Failed to fetch data from GitHub API"
             exit 1
           fi
 
-          # Extract version with validation
           LATEST_VERSION=$(echo "$API_RESPONSE" | jq -r '.tag_name' | sed 's/^v//')
           echo "Latest version: $LATEST_VERSION"
 
-          # Validate latest version
           if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
             echo "❌ Failed to extract latest version from GitHub API response"
             echo "API Response: $API_RESPONSE"
             exit 1
           fi
 
-          # Check if there's already a merged commit with this version
-          if git log --oneline --grep="update spec-kit.*$LATEST_VERSION" --since="30 days ago" | grep -q "update spec-kit"; then
+          if git log --oneline --grep="update ${{ matrix.package.name }}.*$LATEST_VERSION" --since="30 days ago" | grep -q "update ${{ matrix.package.name }}"; then
             echo "Version $LATEST_VERSION already exists in recent commits"
             echo "update_available=false" >> $GITHUB_OUTPUT
             echo "reason=already_updated" >> $GITHUB_OUTPUT
@@ -86,30 +98,20 @@ jobs:
         id: update_package
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
-          PACKAGE_FILE="pkgs/spec-kit/default.nix"
+          PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
 
-          # Validate version before proceeding
           if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
             echo "❌ Invalid version received: '$LATEST_VERSION'"
             exit 1
           fi
 
-          echo "Updating spec-kit to version $LATEST_VERSION using lightweight approach..."
+          echo "Updating ${{ matrix.package.name }} to version $LATEST_VERSION..."
 
-          # Step 1: Update the version string
           sed -i "s|version = \"[^\"]*\"|version = \"$LATEST_VERSION\"|" "$PACKAGE_FILE"
-
-          # Step 2: Calculate new hash using Nix's error message approach
-          echo "Calculating hash for new version..."
-
-          # First, set a dummy hash to trigger Nix to tell us the correct one
           sed -i "s|hash = \"[^\"]*\"|hash = \"sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"|" "$PACKAGE_FILE"
 
-          # Try to build and capture the error message with the correct hash
           echo "Getting correct hash from Nix..."
-          BUILD_OUTPUT=$(nix build .#spec-kit --no-link 2>&1 || true)
-
-          # Extract the correct hash from the error message
+          BUILD_OUTPUT=$(nix build .#${{ matrix.package.name }} --no-link 2>&1 || true)
           NEW_HASH=$(echo "$BUILD_OUTPUT" | grep "got:" | grep -o "sha256-[A-Za-z0-9+/=]*")
 
           if [ -z "$NEW_HASH" ]; then
@@ -119,7 +121,6 @@ jobs:
             exit 1
           fi
 
-          # Step 3: Update the hash in the file
           sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
 
           echo "Updated to version: $LATEST_VERSION"
@@ -128,14 +129,13 @@ jobs:
           echo "hash_calculated=true" >> $GITHUB_OUTPUT
           echo "new_hash=$NEW_HASH" >> $GITHUB_OUTPUT
 
-      - name: Test build (optional verification)
+      - name: Test build
         if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
         id: test_build
         run: |
           echo "Testing build of updated package..."
 
-          # Try to build the package (for verification only)
-          if nix build .#spec-kit --no-link --print-build-logs; then
+          if nix build .#${{ matrix.package.name }} --no-link --print-build-logs; then
             echo "Build successful!"
             echo "build_success=true" >> $GITHUB_OUTPUT
           else
@@ -143,39 +143,37 @@ jobs:
             echo "build_success=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Configure git for PR creation
+      - name: Configure git
         if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Close existing spec-kit update PRs
+      - name: Close existing update PRs
         if: steps.check_version.outputs.update_available == 'true'
         run: |
-          echo "Checking for existing spec-kit update PRs to close..."
+          echo "Checking for existing ${{ matrix.package.name }} update PRs to close..."
 
-          # Get all open PRs with titles starting with "chore: update spec-kit"
-          EXISTING_PRS=$(gh pr list --state open --json number,title --jq '.[] | select(.title | startswith("chore: update spec-kit")) | .number')
+          EXISTING_PRS=$(gh pr list --state open --json number,title --jq '.[] | select(.title | startswith("chore: update ${{ matrix.package.name }}")) | .number')
 
           if [ -n "$EXISTING_PRS" ]; then
-            echo "Found existing spec-kit update PRs: $EXISTING_PRS"
+            echo "Found existing PRs: $EXISTING_PRS"
             for pr_number in $EXISTING_PRS; do
               echo "Closing PR #$pr_number..."
-              gh pr close $pr_number --comment "Superseded by newer spec-kit version update"
+              gh pr close $pr_number --comment "Superseded by newer version update"
             done
           else
-            echo "No existing spec-kit update PRs found"
+            echo "No existing update PRs found"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Delete existing spec-kit update branches
+      - name: Delete existing update branches
         if: steps.check_version.outputs.update_available == 'true'
         run: |
-          echo "Checking for existing spec-kit update branches to delete..."
+          echo "Checking for existing ${{ matrix.package.name }} update branches..."
 
-          # Get all remote branches starting with "update-spec-kit-"
-          EXISTING_BRANCHES=$(git branch -r | grep "origin/update-spec-kit-" | sed 's/origin\///' | xargs)
+          EXISTING_BRANCHES=$(git branch -r | grep "origin/update-${{ matrix.package.name }}-" | sed 's/origin\///' | xargs)
 
           if [ -n "$EXISTING_BRANCHES" ]; then
             echo "Found existing branches: $EXISTING_BRANCHES"
@@ -184,7 +182,7 @@ jobs:
               git push origin --delete "$branch" || true
             done
           else
-            echo "No existing spec-kit update branches found"
+            echo "No existing update branches found"
           fi
 
       - name: Create Pull Request
@@ -193,16 +191,16 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "update-spec-kit-${{ steps.check_version.outputs.latest_version }}"
-          title: "chore: update spec-kit v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}"
+          branch: "update-${{ matrix.package.name }}-${{ steps.check_version.outputs.latest_version }}"
+          title: "chore: update ${{ matrix.package.name }} v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}"
           commit-message: |
-            chore: update spec-kit v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}
+            chore: update ${{ matrix.package.name }} v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}
 
             - Updated version from ${{ steps.check_version.outputs.current_version }} to ${{ steps.check_version.outputs.latest_version }}
             - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
             - Automated update via GitHub Actions workflow
           body: |
-            Automated update of spec-kit package from v${{ steps.check_version.outputs.current_version }} to v${{ steps.check_version.outputs.latest_version }}.
+            Automated update of ${{ matrix.package.name }} package from v${{ steps.check_version.outputs.current_version }} to v${{ steps.check_version.outputs.latest_version }}.
 
             ${{ steps.test_build.outputs.build_success == 'true' && '✅ **Build Status**: Successful - Will auto-merge' || '❌ **Build Status**: Failed - Requires manual review' }}
             🔄 **Auto-generated**: This PR was created by the automated update workflow.
@@ -223,28 +221,50 @@ jobs:
           PR_NUMBER="${{ steps.create_pr.outputs.pull-request-number }}"
           echo "Attempting to auto-merge PR #$PR_NUMBER..."
 
-          # Try auto-merge first (for repos with required checks)
           if gh pr merge $PR_NUMBER --auto --squash 2>/dev/null; then
             echo "✅ Auto-merge enabled for PR #$PR_NUMBER"
             echo "PR will be automatically merged when all checks pass"
           else
-            echo "Auto-merge not available (no required checks), merging directly..."
-            # Direct merge for repos without required status checks
+            echo "Auto-merge not available, merging directly..."
             gh pr merge $PR_NUMBER --squash
             echo "✅ PR #$PR_NUMBER merged successfully"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger NUR sync workflow
-        if: steps.test_build.outputs.build_success == 'true' && steps.create_pr.outputs.pull-request-number
+      - name: Summary
+        if: always()
         run: |
-          echo "🔄 Triggering NUR sync workflow after successful merge..."
+          echo "### ${{ matrix.package.name }} Update Summary" >> $GITHUB_STEP_SUMMARY
 
-          # Wait a moment for the merge to complete
+          if [ "${{ steps.check_version.outputs.update_available }}" == "true" ]; then
+            echo "✅ Update check completed" >> $GITHUB_STEP_SUMMARY
+            echo "📦 Version: ${{ steps.check_version.outputs.current_version }} → ${{ steps.check_version.outputs.latest_version }}" >> $GITHUB_STEP_SUMMARY
+
+            if [ "${{ steps.test_build.outputs.build_success }}" == "true" ]; then
+              echo "🚀 Build successful - PR auto-merged" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "⚠️  Build failed - Draft PR created for manual review" >> $GITHUB_STEP_SUMMARY
+            fi
+          elif [ "${{ steps.check_version.outputs.reason }}" == "already_updated" ]; then
+            echo "ℹ️  Already up to date (recently updated)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️  No updates available" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  trigger-nur-sync:
+    needs: update-packages
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger NUR sync
+        run: |
+          echo "🔄 Triggering NUR sync workflow..."
           sleep 10
 
-          # Trigger the build workflow (adjust workflow name as needed)
           if gh workflow list | grep -q "Build and populate cache"; then
             gh workflow run "build.yml" || gh workflow run "Build and populate cache" || true
             echo "✅ NUR sync workflow triggered"
@@ -253,22 +273,3 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Summary
-        if: always()
-        run: |
-          if [ "${{ steps.check_version.outputs.update_available }}" == "true" ]; then
-            echo "✅ Update check completed"
-            echo "📦 Version: ${{ steps.check_version.outputs.current_version }} → ${{ steps.check_version.outputs.latest_version }}"
-
-            if [ "${{ steps.test_build.outputs.build_success }}" == "true" ]; then
-              echo "🚀 Build successful - PR auto-merged"
-              echo "🔄 NUR sync workflow triggered"
-            else
-              echo "⚠️  Build failed - Draft PR created for manual review"
-            fi
-          elif [ "${{ steps.check_version.outputs.reason }}" == "already_updated" ]; then
-            echo "ℹ️  Version ${{ steps.check_version.outputs.latest_version || 'latest' }} already updated recently"
-          else
-            echo "ℹ️  No updates available - spec-kit is up to date"
-          fi
