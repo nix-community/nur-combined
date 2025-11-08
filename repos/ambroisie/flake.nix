@@ -54,7 +54,7 @@
       type = "github";
       owner = "nix-community";
       repo = "NUR";
-      ref = "master";
+      ref = "main";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
