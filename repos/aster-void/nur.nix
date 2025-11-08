@@ -9,6 +9,7 @@
   ccusage-mcp = import ./packages/ccusage-mcp {inherit pkgs;};
   claude-code-usage-monitor = import ./packages/claude-code-usage-monitor {inherit pkgs;};
   helix-gj1118-bin = import ./packages/helix-gj1118-bin {inherit pkgs;};
+  kiri = import ./packages/kiri {inherit pkgs;};
 
   modules = {
     hazkey = ./modules/nixos/hazkey;
