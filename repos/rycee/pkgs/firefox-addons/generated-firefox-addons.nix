@@ -3657,10 +3657,10 @@
     };
     "ficlab" = buildFirefoxXpiAddon {
       pname = "ficlab";
-      version = "1.0.111";
+      version = "1.0.112";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4414535/ficlab-1.0.111.xpi";
-      sha256 = "b00599ecf7ec30d43ada122c8d17de224eab508cee8732ddfbb8e1b1d6e0c95c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615111/ficlab-1.0.112.xpi";
+      sha256 = "c38e1f8a64e8047e0ca4ffe84a18455c3a19d263de2c7dfee1b41b5cb5252fbb";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -4205,10 +4205,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.16";
+      version = "10.5.17";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4606960/ghostery-10.5.16.xpi";
-      sha256 = "ad2dbd7d9985f8e707f6ca52706ce9f9b4d00d8b85aef693a187363398b737df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4611564/ghostery-10.5.17.xpi";
+      sha256 = "73438ee454a12a8a23aeb9f79de58c10d42c011afa4556ee24c4070efe50a560";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6475,10 +6475,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.29";
+      version = "2.30";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609505/ipvfoo-2.29.xpi";
-      sha256 = "35b7c9802dca0931e0e107c6d50e6786c7dfe3cc8c31c8b1d4a8018f32bf33b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615137/ipvfoo-2.30.xpi";
+      sha256 = "97f53dd4df9b4f7f7bf94e7d9da4740b41b0a72e140373497a5535f401f0914c";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -6495,10 +6495,10 @@
     };
     "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
       pname = "istilldontcareaboutcookies";
-      version = "1.1.7";
+      version = "1.1.8";
       addonId = "idcac-pub@guus.ninja";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4606669/istilldontcareaboutcookies-1.1.7.xpi";
-      sha256 = "159754a3dea6538e0433db5b06bdafdf1d86d6df93ed01f21a9b1da200c8e1a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4613590/istilldontcareaboutcookies-1.1.8.xpi";
+      sha256 = "3a0fe9eb2a72e725b0f799b0be4a86afb9b4a11291480c5a5c1b70d5730ba0c7";
       meta = with lib;
       {
         homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
@@ -12513,10 +12513,10 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "2.3.16";
+      version = "2.3.17";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4554444/styl_us-2.3.16.xpi";
-      sha256 = "2cda3445f1e5e5aa95b8b814cc395079185216e10ec42d20811b0350f4c378a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4611621/styl_us-2.3.17.xpi";
+      sha256 = "ad952d5fc19bd36d0fd2aecc7d4b4ebf7add538faecab79ad96e1db631857667";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
