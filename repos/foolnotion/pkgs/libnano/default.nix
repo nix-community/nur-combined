@@ -20,10 +20,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ eigen ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-march=x86-64-v3"
     "-DNANO_BUILD_CMD_APP=OFF"
     "-DNANO_BUILD_TESTS=OFF"
-  ];
+  ] ++ lib.optionals stdenv.isx86_64 [ "-DCMAKE_CXX_FLAGS=-march=x86-64-v3" ];
 
   meta = with lib; {
     description = "Extensive collection of numerical optimization algorithms in C++";
