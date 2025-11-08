@@ -74,147 +74,35 @@ jobs:
         id: update
         shell: bash
         run: |
-          # 设置 Git 用户信息
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
+          bash scripts/update-packages/execute-update-script.sh "${{ matrix.package }}"
 
-          # 传入绝对 flake 引用，避免内置 '.' 被拒绝
-          export FLAKE_REF="path:${GITHUB_WORKSPACE:-$PWD}"
-
-          # 准备执行环境变量（兼容不同脚本类型）
-          export NIXPKGS_ALLOW_UNFREE=1
-          export NIXPKGS_ALLOW_BROKEN=1
-          export NIXPKGS_ALLOW_INSECURE=1
-
-          echo "NIX_PATH=$NIX_PATH"
-
-          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
-          timestamp=$(date +%s)
-          branch_name="update/${{ matrix.package }}-$timestamp"
-          echo "分支名称: $branch_name"
-
-          # 使用临时HOME目录以防脚本写入HOME
-          export ORI_HOME="$HOME"
-          export HOME=$(mktemp -d)
-
-          echo "获取包 ${{ matrix.package }} 的updateScript"
-          script_json=$(nix eval --impure --json --expr "
-            let
-              f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
-              sys = \"x86_64-linux\";
-              lp = builtins.getAttr sys f.legacyPackages;
-              pkgsN = import <nixpkgs> {};
-              lib = pkgsN.lib;
-              path = lib.strings.splitString \".\" \"${{ matrix.package }}\";
-              pkg = lib.attrsets.attrByPath path null lp;
-            in
-              if pkg == null then throw \"no pkg\"
-              else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
-              else if (pkg ? updateScript) then pkg.updateScript
-              else throw \"no updateScript\"
-          ")
-          script_type=$(echo "$script_json" | jq -r 'type')
-
-          # 将命令数组重写为使用完整属性路径的 nix-update，并保留标志参数
-          execute_command_array() {
-            local script_array=("$@")
-            local cmd="${script_array[0]}"
-
-            # 将 store 路径的 nix-update 规范化为 "nix-update"
-            if [[ "$cmd" =~ ^/nix/store/.*/bin/nix-update$ ]]; then
-              cmd="nix-update"
-              script_array[0]="nix-update"
-            fi
-
-            if [[ "$cmd" == "nix-update" ]]; then
-              local new_command=("nix-update")
-              local has_flake=0
-
-              # 保留所有以 - 开头或包含 = 的标志参数；丢弃位置参数，最后追加完整属性路径
-              for ((i=1; i<${#script_array[@]}; i++)); do
-                arg="${script_array[$i]}"
-                if [[ "$arg" == "--flake" ]]; then
-                  has_flake=1
-                fi
-                if [[ "$arg" == -* || "$arg" == *=* ]]; then
-                  new_command+=("$arg")
-                fi
-              done
-
-              if [[ $has_flake -eq 0 ]]; then
-                new_command+=("--flake")
-              fi
-
-              new_command+=("${{ matrix.package }}")
-
-              echo "替换后的命令: ${new_command[@]}"
-              "${new_command[@]}"
+      - name: Generate branch name
+        id: gen-branch-name
+        shell: bash
+        run: |
+          # Helper: 向 GitHub Actions 的 $GITHUB_OUTPUT 追加输出（本地调试时退回到 stdout）
+          append_github_output() {
+            # $1 = key, $2 = value
+            if [ -n "${GITHUB_OUTPUT:-}" ]; then
+              printf '%s=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
             else
-              # 非 nix-update 命令按原样执行
-              echo "执行更新命令(数组): ${script_array[@]}"
-              "${script_array[@]}"
+              printf '%s=%s\n' "$1" "$2"
             fi
           }
-
-          case "$script_type" in
-            "array")
-              mapfile -t script_array < <(echo "$script_json" | jq -r '.[]')
-              execute_command_array "${script_array[@]}"
-              ;;
-            "string")
-              command_str=$(echo "$script_json" | jq -r '.')
-              # 将字符串拆分为数组以便重写
-              read -r -a script_array <<< "$command_str"
-              execute_command_array "${script_array[@]}"
-              ;;
-            "object")
-              if echo "$script_json" | jq -e 'has("command")' >/dev/null; then
-                command_type=$(echo "$script_json" | jq -r '.command | type')
-                if [ "$command_type" = "array" ]; then
-                  mapfile -t script_array < <(echo "$script_json" | jq -r '.command[]')
-                  execute_command_array "${script_array[@]}"
-                elif [ "$command_type" = "string" ]; then
-                  command_str=$(echo "$script_json" | jq -r '.command')
-                  read -r -a script_array <<< "$command_str"
-                  execute_command_array "${script_array[@]}"
-                else
-                  echo "错误：不支持的command类型: $command_type"
-                  exit 1
-                fi
-              else
-                echo "错误：属性集缺少command字段"
-                exit 1
-              fi
-              ;;
-            *)
-              echo "错误：未知的updateScript类型: $script_type"
-              exit 1
-              ;;
-          esac
-
-          # 恢复原始HOME并清理临时目录
-          export TEMP_HOME="$HOME"
-          export HOME="$ORI_HOME"
-          rm -rf "$TEMP_HOME"
-
-          # 检查是否有需要提交的更改（不在此处提交，交由后续PR步骤）
-          if [ -n "$(git status --porcelain)" ]; then
-              echo "has_update=true" >> $GITHUB_OUTPUT
-              echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
-              echo "更新完成: ${{ matrix.package }}"
-          else
-              echo "has_update=false" >> $GITHUB_OUTPUT
-              echo "没有更新: ${{ matrix.package }}"
-          fi
+          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
+          timestamp=$(date +%s)
+          branch_name="update/$PACKAGE-$timestamp"
+          append_github_output "branch_name" "$branch_name"
+          echo "分支名称: $branch_name"
 
       - name: Create Pull Request
         if: steps.update.outputs.has_update == 'true'
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: ${{ steps.update.outputs.branch_name }}
+          branch: ${{ steps.gen-branch-name.outputs.branch_name }}
           commit-message: "${{ matrix.package }}: auto-update by updateScript"
-          title: "Auto Update(updateScript): ${{ matrix.package }}"
+          title: "${{ matrix.package }}: auto-update by updateScript"
           body: |
             由GitHub Actions自动更新包 ${{ matrix.package }}
 
