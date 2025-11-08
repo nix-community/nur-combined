@@ -58,6 +58,14 @@
     };
     date = "2025-11-02";
   };
+  libfprint-focaltech-2808-a658 = {
+    pname = "libfprint-focaltech-2808-a658";
+    version = "1.94.4";
+    src = fetchurl {
+      url = "https://github.com/Varrkan82/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658/raw/b040ccd953c27e26c1285c456b4264e70b36bc3f/libfprint-2-2-1.94.4+tod1-FT9366_20240627.x86_64.rpm";
+      sha256 = "sha256-MRWHwBievAfTfQqjs1WGKBnht9cIDj9aYiT3YJ0/CUM=";
+    };
+  };
   xdg-desktop-portal-termfilechooser = {
     pname = "xdg-desktop-portal-termfilechooser";
     version = "a0291aab4e026f575e5e8927e65f07d3c95dc16c";
