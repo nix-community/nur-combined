@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "accosmin-org";
     repo = "libnano";
-    rev = "b3c2f3bd6c4bae79177df9b7cf220556d1c9de7e";
-    sha256 = "sha256-hoGX3x+/0RnWGQxkF9fFCtbKl1r9DeyvVffi3QQ+XKo=";
+    rev = "61dbcac8c3d029f7c464d0a45224dbd71882f612";
+    sha256 = "sha256-sOKlBC9eTZOIarMVN6CBbEXQ0J9u/ZS5b7rKc4JbFoA=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/accosmin-org/libnano";
     license = licenses.mit;
     platforms = platforms.all;
-    broken = true;
     #maintainers = with maintainers; [ foolnotion ];
   };
 }
