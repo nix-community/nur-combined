@@ -11539,6 +11539,44 @@
         platforms = platforms.all;
       };
     };
+    "salesforce-inspector-reloaded" = buildFirefoxXpiAddon {
+      pname = "salesforce-inspector-reloaded";
+      version = "1.260";
+      addonId = "salesforceinspector@reloaded";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4523587/salesforce_inspector_reloaded-1.260.xpi";
+      sha256 = "49c386bbfb58ded1d2548bc19adf7514e8800fd1ad26dc99a02ef24b7a5829dd";
+      meta = with lib;
+      {
+        homepage = "https://tprouvot.github.io/Salesforce-Inspector-reloaded/";
+        description = "Productivity tools for Salesforce administrators and developers to inspect data and metadata directly from the Salesforce UI.";
+        license = licenses.mit;
+        mozPermissions = [
+          "https://*.salesforce.com/*"
+          "https://*.salesforce-setup.com/*"
+          "https://*.force.com/*"
+          "https://*.cloudforce.com/*"
+          "https://*.visualforce.com/*"
+          "https://*.sfcrmapps.cn/*"
+          "https://*.sfcrmproducts.cn/*"
+          "https://*.salesforce.mil/*"
+          "https://*.force.mil/*"
+          "https://*.cloudforce.mil/*"
+          "https://*.visualforce.mil/*"
+          "https://*.crmforce.mil/*"
+          "https://*.force.com.mcas.ms/*"
+          "cookies"
+          "https://*.visual.force.com/*"
+          "https://*.vf.force.com/*"
+          "https://*.lightning.force.com/*"
+          "https://*.visual.force.mil/*"
+          "https://*.vf.force.mil/*"
+          "https://*.lightning.force.mil/*"
+          "https://*.lightning.force.com.mcas.ms/*"
+          "https://*.builder.salesforce-experience.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "save-all-images-webextension" = buildFirefoxXpiAddon {
       pname = "save-all-images-webextension";
       version = "0.8.4";
@@ -15317,10 +15355,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "1.0.11";
+      version = "2.0.0";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609186/yang_addon-1.0.11.xpi";
-      sha256 = "6658d0671df0c9cf63926ae3e0cd0c0e54587d1be0ff93bf7bf26d39609e3b73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615332/yang_addon-2.0.0.xpi";
+      sha256 = "2d3957b6b42873895d163515fa881e5b96de0485571687c26766228792ec11d9";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
