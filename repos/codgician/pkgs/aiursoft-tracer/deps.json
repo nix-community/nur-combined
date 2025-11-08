@@ -49,9 +49,9 @@
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "9.0.9",
-    "hash": "sha256-Z4OPwAQN9A2HLgyYnCrgS5AxpjJoKYukgUM3F/l4R08=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/9.0.9/aiursoft.webtools.9.0.9.nupkg"
+    "version": "9.0.10",
+    "hash": "sha256-DbkIc9EC2BOkZY1ksfT/TfTQEDcIKyx0v/a+Fq2QIKc=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/9.0.10/aiursoft.webtools.9.0.10.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
