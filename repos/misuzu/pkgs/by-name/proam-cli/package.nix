@@ -4,11 +4,12 @@
   rustPlatform,
   dbus,
   pkg-config,
+  unstableGitUpdater,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "proam-cli";
-  version = "unstable-2024-06-08";
+  version = "0-unstable-2024-06-08";
 
   src = fetchFromGitHub {
     owner = "ilya-zlobintsev";
@@ -21,6 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dbus ];
+
+  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
 
   meta = {
     description = "CLI and Prometheus exporter for Ugreen PowerRoam portable power stations";
