@@ -179,5 +179,8 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
     maintainers = with maintainers; [ kira-bruneau ];
+
+    # /build/source/src/sudachi/qt_common.cpp:12:10: fatal error: qpa/qplatformnativeinterface.h: No such file or directory
+    broken = true;
   };
 })

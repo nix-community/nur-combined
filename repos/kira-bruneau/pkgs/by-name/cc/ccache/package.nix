@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    patchShebangs test/fake-compilers
+    patchShebangs --build test/fake-compilers
   '';
 
   strictDeps = true;

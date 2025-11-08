@@ -111,7 +111,7 @@ in
 // {
   inherit callPackage;
 
-  emacsPackages = recurseIntoAttrs (
+  emacsPackages = lib.recurseIntoAttrs (
     emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages
   );
 
@@ -121,7 +121,7 @@ in
 
   jakirica-client = jakirica.client;
 
-  linuxPackages = recurseIntoAttrs (
+  linuxPackages = lib.recurseIntoAttrs (
     linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages
   );
 
