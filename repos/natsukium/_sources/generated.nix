@@ -118,7 +118,7 @@
     version = "1.17.6b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/1.17.6b/zen.macos-universal.dmg";
-      sha256 = "sha256-g6yVVGGGyeMHywiEh2KFXQ6Zmvvqjdv1mc7zGhAFL3k=";
+      sha256 = "sha256-+iBl8d/fI3gUKndeSkQMw+6jUaZdsSL78MGwvNkLcVY=";
     };
   };
 }
