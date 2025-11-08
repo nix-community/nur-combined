@@ -411,10 +411,10 @@
   "python": {
     "nurl": {
       "args": {
-        "hash": "sha256-hXNxa895SyNOG7PH2vAIkWbcMjZDjWYDsCafBZuvnT0=",
+        "hash": "sha256-F5XH21PjPpbwYylgKdwD3MZ5o0amDt4xf/e5UikPcxY=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-python",
-        "rev": "4bfdd9033a2225cc95032ce77066b7aeca9e2efc"
+        "rev": "293fdc02038ee2bf0e2e206711b69c90ac0d413f"
       },
       "fetcher": "fetchFromGitHub"
     },
