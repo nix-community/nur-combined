@@ -8,8 +8,6 @@
 
 {
   pkgs ? import <nixpkgs> { },
-#config,
-#kernel ? config.boot.kernelPackages.kernel,
 }:
 
 let

@@ -4,7 +4,7 @@ let
 in
 {
   linuxKernel = prev.linuxKernel // {
-    # don't update by default since most of these packages are from a different repo (i.e. nixpkgs).
+    # don't update since most of these come from  nixpkgs
     updateWithSuper = false;
 
     packagesFor =
@@ -18,6 +18,7 @@ in
       );
   };
 
+  # Bring up the packages to the top-level
   inherit
     (lib.filesystem.packagesFromDirectoryRecursive {
       inherit (final) callPackage;
