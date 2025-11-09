@@ -2,7 +2,7 @@
   stdenv,
   lib,
   pkgs,
- fetchFromGitHub,
+  fetchFromGitHub,
   gcc,
   pkg-config,
   meson,

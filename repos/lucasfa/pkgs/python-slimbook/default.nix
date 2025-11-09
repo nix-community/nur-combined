@@ -22,13 +22,13 @@ python3Packages.buildPythonPackage rec {
   };
 
   postPatch = ''
-substituteInPlace \
-  slimbook/info/__init__.py \
-  slimbook/config/__init__.py \
-  slimbook/kbd/__init__.py \
-  slimbook/smbios/__init__.py \
-  slimbook/qc71/__init__.py \
-    --replace-fail '_libslimbook = ctypes.CDLL("libslimbook.so.1")' '_libslimbook = ctypes.CDLL("${libslimbook}/lib/slimbook.so.1")'
+    substituteInPlace \
+      slimbook/info/__init__.py \
+      slimbook/config/__init__.py \
+      slimbook/kbd/__init__.py \
+      slimbook/smbios/__init__.py \
+      slimbook/qc71/__init__.py \
+        --replace-fail '_libslimbook = ctypes.CDLL("libslimbook.so.1")' '_libslimbook = ctypes.CDLL("${libslimbook}/lib/slimbook.so.1")'
   '';
 
   build-system = [
@@ -44,8 +44,7 @@ substituteInPlace \
   ];
   postInstall = ''
     find $out -name "__pycache__" -type d | xargs rm -rv
-'';
-
+  '';
 
   meta = {
     # broken = true;
