@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "511b94fd492a2ea1ae2907864b88c2dbc85608d1";
+    version = "19b1f036b3f2464f9debb3a5429337572f385f14";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "511b94fd492a2ea1ae2907864b88c2dbc85608d1";
+      rev = "19b1f036b3f2464f9debb3a5429337572f385f14";
       fetchSubmodules = false;
-      sha256 = "sha256-s2IwtYkcf+rPfEA6XhyohsRZQNW8OYl4m9tlBuepvpI=";
+      sha256 = "sha256-+YGbBqHFSuizz0yd20NWjyeOOz3AjpLox9MkLbCUE7I=";
     };
-    date = "2025-10-28";
+    date = "2025-11-08";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -118,7 +118,7 @@
     version = "1.17.6b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/1.17.6b/zen.macos-universal.dmg";
-      sha256 = "sha256-+iBl8d/fI3gUKndeSkQMw+6jUaZdsSL78MGwvNkLcVY=";
+      sha256 = "sha256-qhVnXyRM54pEZ1oCb7wtWstRsp/Bt6b1XRf6iOp6yqA=";
     };
   };
 }
