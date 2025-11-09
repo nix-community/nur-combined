@@ -33,6 +33,15 @@ in
             and should return true for packages that should be updated.
           '';
         };
+
+        nixpkgsPath = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            NIX_PATH entry for nixpkgs to be used by the update script.
+            If null, the system's nixpkgs will be used.
+          '';
+        };
       };
 
       config.legacyPackages._update =
@@ -141,6 +150,13 @@ in
         in
         pkgs.writeShellApplication {
           name = "update";
+          runtimeEnv =
+            if cfg.nixpkgsPath == null then
+              { }
+            else
+              {
+                NIX_PATH = "nixpkgs=${cfg.nixpkgsPath}";
+              };
           runtimeInputs = [
             pkgs.python3
             pkgs.git
