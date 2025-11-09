@@ -154,11 +154,6 @@ in
           continue
         fi
 
-        # failed to apply. thunderbird-patches/140/bugs/*
-        if [[ $patch == 1976738-font-colour-plaintext.patch || $patch == 1976738-font-colour-plaintext-take2.patch ]]; then
-          continue
-        fi
-
         echo Applying patch $patch.
         if [[ $patch == *-moz.patch ]]; then
           git apply -p1 -v --allow-empty < $patches/$patch
