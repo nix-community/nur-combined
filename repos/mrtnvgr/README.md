@@ -28,6 +28,11 @@
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [Tyrell N6](https://u-he.com/products/tyrelln6/)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
+- [distrho-ports-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
+- [vitalium-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
+- [TAL-plugins-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
+- [luftikus-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
+- [LUFSMeter-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
 
 #### Utilities
 

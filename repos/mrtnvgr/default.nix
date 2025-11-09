@@ -46,6 +46,28 @@ in rec {
   TyrellN6 = p ./pkgs/audio/tyrelln6 { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
 
+  distrho-ports-vst3 = pkgs.distrho-ports.override {
+    # TODO: waiting for the change to arrive in `nixos-unstable`
+    # buildLV2 = false;
+    # buildVST2 = false;
+  };
+
+  vitalium-vst3 = distrho-ports-vst3.override {
+    plugins = [ "vitalium" ];
+  };
+
+  TAL-plugins-vst3 = distrho-ports-vst3.override {
+    plugins = [ "tal-reverb" "tal-reverb-2" "tal-reverb-3" "tal-filter-2" "tal-dub-3" "tal-vocoder-2" ];
+  };
+
+  luftikus-vst3 = distrho-ports-vst3.override {
+    plugins = [ "luftikus" ];
+  };
+
+  LUFSMeter-vst3 = distrho-ports-vst3.override {
+    plugins = [ "LUFSMeter" ];
+  };
+
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 
