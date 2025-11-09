@@ -59,5 +59,6 @@ in mkWineApp {
     homepage = "https://www.celestegame.com";
     license = licenses.unfree;
     mainProgram = name;
+    allowSubstitutes = false;
   };
 }

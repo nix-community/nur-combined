@@ -15,7 +15,7 @@ let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false);
-  isCacheable = p: !(p.preferLocalBuild or false);
+  isCacheable = p: !((p.preferLocalBuild or false) || !(p.allowSubstitutes or true));
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };
