@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: cachix/install-nix-action@v31
+      - uses: ./.github/actions/install-nix
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix run .#_update -- --commit --skip-prompt
+      - run: nix run .#_update -- --commit --skip-prompt --keep-going
       - uses: fym998/update-flake-lock@dogfood
         id: update-flake-lock
         with:
