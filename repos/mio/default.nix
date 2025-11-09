@@ -299,5 +299,10 @@ rec {
       nss_git = callOverride ./pkgs/nss-git { };
   */
   betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
-  betterbird = (pkgs.wrapThunderbird betterbird-unwrapped { });
+  betterbird = (
+    pkgs.wrapThunderbird betterbird-unwrapped {
+      applicationName = "betterbird";
+      libName = "betterbird";
+    }
+  );
 }
