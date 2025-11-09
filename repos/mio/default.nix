@@ -301,7 +301,7 @@ rec {
   betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
   betterbird = (
     pkgs.wrapThunderbird betterbird-unwrapped {
-      applicationName = "Betterbird";
+      applicationName = "betterbird";
       libName = "betterbird";
     }
   );
