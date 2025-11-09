@@ -18,5 +18,5 @@
 | [libfprint-fpcmoh](pkgs/by-path/libfprint-fpcmoh/package.nix#L47) | 1.94.6 | libfprint with proprietary FPC match on host device 10a5:9800 driver | [Link](https://aur.archlinux.org/packages/libfprint-fpcmoh-git) |
 | [obfuscator-io-deobfuscator](pkgs/by-path/obfuscator-io-deobfuscator/package.nix#L23) | unstable-2025-03-27 | Obfuscator.io deobfuscator | [Link](https://github.com/ben-sb/obfuscator-io-deobfuscator) |
 | [umu-launcher-wrapper](pkgs/by-path/umu-launcher-wrapper/package.nix#L27) |  | Wrapper for umu-launcher with `PROTONPATH` set to run Windows games |  |
-| [wpsoffice-cn-fcitx](pkgs/by-path/wpsoffice-cn-fcitx/package.nix#L36) |  | WPS Office CN wrapper with Fcitx support | [Link](https://www.wps.com) |
+| [wpsoffice-cn-fcitx](pkgs/by-path/wpsoffice-cn-fcitx/package.nix#L43) |  | WPS Office CN wrapper with Fcitx support | [Link](https://www.wps.com) |
 
