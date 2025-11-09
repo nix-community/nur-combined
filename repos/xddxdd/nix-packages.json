@@ -422,7 +422,7 @@
   "legacyPackages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "4.0.0-unstable-2025-10-29"
+    "version": "4.0.0-unstable-2025-11-08"
   },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6970"
+    "version": "6996"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1337,7 +1337,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1407,7 +1407,7 @@
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Network-based bootable operating system installer based on iPXE",
     "pname": "netboot-xyz",
-    "version": "2.0.88"
+    "version": "2.0.89"
   },
   "legacyPackages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -4202,7 +4202,7 @@
   "legacyPackages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-10-23"
+    "version": "0-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
@@ -4302,7 +4302,7 @@
   "legacyPackages.x86_64-linux.python3Packages.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-10-23"
+    "version": "0-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.python3Packages.pysctp": {
     "description": "SCTP stack for Python",
@@ -4397,7 +4397,7 @@
   "legacyPackages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-10-21"
+    "version": "5.9.4-b1-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
@@ -4637,7 +4637,7 @@
   "legacyPackages.x86_64-linux.uncategorized.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "4.0.0-unstable-2025-10-29"
+    "version": "4.0.0-unstable-2025-11-08"
   },
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
@@ -4902,7 +4902,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4957,7 +4957,7 @@
   "legacyPackages.x86_64-linux.uncategorized.netboot-xyz": {
     "description": "Network-based bootable operating system installer based on iPXE",
     "pname": "netboot-xyz",
-    "version": "2.0.88"
+    "version": "2.0.89"
   },
   "legacyPackages.x86_64-linux.uncategorized.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -5112,7 +5112,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-10-21"
+    "version": "5.9.4-b1-unstable-2025-11-07"
   },
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
@@ -5487,7 +5487,7 @@
   "packages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
-    "version": "4.0.0-unstable-2025-10-29"
+    "version": "4.0.0-unstable-2025-11-08"
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -5882,7 +5882,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-07"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5952,7 +5952,7 @@
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Network-based bootable operating system installer based on iPXE",
     "pname": "netboot-xyz",
-    "version": "2.0.88"
+    "version": "2.0.89"
   },
   "packages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -6137,7 +6137,7 @@
   "packages.x86_64-linux.pyosmocom": {
     "description": "Python implementation of key Osmocom protocols/interfaces",
     "pname": "python3.13-pyosmocom",
-    "version": "0-unstable-2025-10-23"
+    "version": "0-unstable-2025-11-07"
   },
   "packages.x86_64-linux.pysctp": {
     "description": "SCTP stack for Python",
@@ -6177,7 +6177,7 @@
   "packages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-10-21"
+    "version": "5.9.4-b1-unstable-2025-11-07"
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",

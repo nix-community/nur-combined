@@ -113,14 +113,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "d827497caf359671eb4d21fac07ec3ac09d889e0";
+    version = "73a184a9af84aca5e0ec1c030f60802212ceac5e";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "d827497caf359671eb4d21fac07ec3ac09d889e0";
-      hash = "sha256-synfJtYZmIiK2SoTG0rt+qZ0ixXIXDXnrNL2s5eDtQY=";
+      rev = "73a184a9af84aca5e0ec1c030f60802212ceac5e";
+      hash = "sha256-2opFaywzCQNum378TMgXDdezcbw7ZzBkxvF18H4HlpU=";
     };
-    date = "2025-10-29";
+    date = "2025-11-08";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -1012,14 +1012,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "87683393af386a65571de3437fe96838f2725991";
+    version = "08d56e98f3696f58aafb591813b2520ec1d5c8b6";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "87683393af386a65571de3437fe96838f2725991";
-      hash = "sha256-uTgfiBSjCsXotaBOidBsPMDxTghBJ9SnJfU5RysrbDM=";
+      rev = "08d56e98f3696f58aafb591813b2520ec1d5c8b6";
+      hash = "sha256-z7IQzLJFVZdo3Rlt5t3RAttg4AVoHbbJPFyOpl95c+A=";
     };
-    date = "2025-11-04";
+    date = "2025-11-07";
   };
   libqcef = {
     pname = "libqcef";
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b6970";
+    version = "b6996";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b6970";
-      hash = "sha256-RRloaQrYmq3vqV3EOVLFsTBYt3atTCnQu6KNnt3RYes=";
+      tag = "b6996";
+      hash = "sha256-k94jrhdVpqHhP4p15ad284quUHTdvlsVIenWSPnqJ6s=";
     };
   };
   loralib = {
@@ -1230,18 +1230,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.88";
+    version = "2.0.89";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.88/netboot.xyz.efi";
-      hash = "sha256-ipbZJ0mPCuwzb/TDtXXUBTuWOcSsKGAJ1GEGIgB2G7E=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.89/netboot.xyz.efi";
+      hash = "sha256-rmMU/OTOh7zId+zwQCXHt2SJyBAtLNfCOZhDyrkBKjw=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.88";
+    version = "2.0.89";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.88/netboot.xyz.lkrn";
-      hash = "sha256-igy3O30noS25dU7ZnHuKrWqLLkjjd/L46IdCTd038dI=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.89/netboot.xyz.lkrn";
+      hash = "sha256-y0yibC3UeJUHslFBeMPVm2yEwxQqvL7/+BYMD5xDMm4=";
     };
   };
   netns-exec = {
@@ -1651,14 +1651,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "d3142a2c839504e355afd6bf99e34709e9c94e5e";
+    version = "35c5fe29807a45d8cd75e85846d4caccdd96f6d6";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "d3142a2c839504e355afd6bf99e34709e9c94e5e";
+      rev = "35c5fe29807a45d8cd75e85846d4caccdd96f6d6";
       fetchSubmodules = false;
-      hash = "sha256-FKxFHU0xPPgk5jmzbJFw1iB71YuaVJ9PShhAGCixvhg=";
+      hash = "sha256-AUeUOck9NVi+xXn7boXdCtjKM6WAapWZMg8s8YGpGJM=";
     };
-    date = "2025-10-23";
+    date = "2025-11-07";
   };
   pysctp = {
     pname = "pysctp";
@@ -1764,14 +1764,14 @@
   };
   qsp = {
     pname = "qsp";
-    version = "76d22c0b683ad7155a081408c06aaa0f8e98cba6";
+    version = "e19ed6c0d617f82ca72ed37495e72c0b27c677e1";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "76d22c0b683ad7155a081408c06aaa0f8e98cba6";
-      hash = "sha256-JRh+ZHmEn5jSEvTlBXT4KbifXFglWGezOcj7A2IXEv0=";
+      rev = "e19ed6c0d617f82ca72ed37495e72c0b27c677e1";
+      hash = "sha256-1fERLU780X6TmtSxAI7nCL4ool6rBw648gops3UhBB4=";
     };
-    date = "2025-10-21";
+    date = "2025-11-07";
   };
   qsp-lib = {
     pname = "qsp-lib";
