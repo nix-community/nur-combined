@@ -150,6 +150,9 @@ in
           text = ''
             python3 ${./update.py} ${packagesJson} "$@"
           '';
+          meta = {
+            inherit (pkgs.python3.meta) platforms;
+          };
         };
     }
   );

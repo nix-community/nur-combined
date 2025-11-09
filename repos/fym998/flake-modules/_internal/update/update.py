@@ -364,7 +364,7 @@ async def check_changes(
             obtain_new_version_output = await check_subprocess_output(
                 "nix",
                 "eval",
-                f".#{attr_path}.version",
+                f".?shallow=1#{attr_path}.version",
                 "--json",
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
