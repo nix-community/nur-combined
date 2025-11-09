@@ -9,13 +9,13 @@
 let
   python = python3.withPackages (
     p: with p; [
-      cryptography
-      dateutils
       (lib.hiPrio fastapi)
+      cryptography
       httpx
       markdown
       pycryptodome
       pytest
+      python-dateutils
       python-dotenv
       python-jose
       sqlalchemy

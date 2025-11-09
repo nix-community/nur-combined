@@ -11,7 +11,7 @@
   fontconfig,
   freetype,
   glib,
-  glxinfo,
+  mesa-demos,
   libglvnd,
   openal,
   xorg,
@@ -66,7 +66,7 @@ let
     fontconfig
     freetype
     glib
-    glxinfo
+    mesa-demos
     libglvnd
     openal
     stdenv.cc.cc.lib

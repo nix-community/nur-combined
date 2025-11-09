@@ -8,11 +8,11 @@
 let
   py = python3.withPackages (
     p: with p; [
-      requests
-      dateutil
-      verboselogs
       pytest
       pytest-asyncio
+      python-dateutil
+      requests
+      verboselogs
     ]
   );
 in

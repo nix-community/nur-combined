@@ -16,7 +16,7 @@ sha256:
   libXxf86vm,
   libvdpau,
   librsvg,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   nvidia_x11,
   withGtk2 ? false,
   withGtk3 ? true,
@@ -104,7 +104,7 @@ stdenv.mkDerivation {
     ++ lib.optionals withGtk3 [
       gtk3
       librsvg
-      wrapGAppsHook
+      wrapGAppsHook3
     ];
 
   installFlags = [ "PREFIX=$(out)" ];

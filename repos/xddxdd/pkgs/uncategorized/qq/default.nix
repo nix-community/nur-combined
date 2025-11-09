@@ -2,7 +2,7 @@
   stdenv,
   sources,
   autoPatchelfHook,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   makeWrapper,
   lib,
   # Dependencies
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    wrapGAppsHook
+    wrapGAppsHook3
     makeWrapper
   ];
   buildInputs = libraries;

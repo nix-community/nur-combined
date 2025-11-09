@@ -18,7 +18,7 @@
   pynacl,
   requests,
   setuptools,
-  setuptools_scm,
+  setuptools-scm,
   tomli,
   tomlkit,
   tqdm-loggable,
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     pynacl
     requests
     setuptools
-    setuptools_scm
+    setuptools-scm
     tomli
     tomlkit
     tqdm-loggable

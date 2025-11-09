@@ -4,7 +4,7 @@
   sources,
   cmake,
   liboqs,
-  openssl_3_0,
+  openssl_3,
   python3,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     liboqs
-    openssl_3_0
+    openssl_3
   ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];

@@ -80,5 +80,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://wiki.fd.io/view/VPP/What_is_VPP%3F";
     license = lib.licenses.asl20;
     mainProgram = "vppctl";
+    broken = true;
+    knownVulnerabilities = [
+      "${finalAttrs.pname} is available in nixpkgs"
+    ];
   };
 })
