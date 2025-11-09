@@ -1,17 +1,20 @@
 {
   lib,
   stdenvNoCC,
-  fetchurl,
+  fetchfromgh,
   _7zz,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed-preview";
-  version = "0.211.0-pre";
+  version = "0.212.2-pre";
 
-  src = fetchurl {
-    url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed-x86_64.dmg";
-    hash = "sha256-rD0bXn7SmJ9VGkJ2BLMC50iEGCtz+nm7Fz/VHmVLIyY=";
+  src = fetchfromgh {
+    owner = "zed-industries";
+    repo = "zed";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-gc1IG3Eg06pm9RvQUJfIfR+iH8UeRdFheHYf721qNzA=";
+    name = "Zed-x86_64.dmg";
   };
 
   sourceRoot = ".";
