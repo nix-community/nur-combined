@@ -51,7 +51,6 @@ let
       "pkgs/by-name/cm/cmake-language-server"
       "pkgs/by-name/ga/gamemode"
       "pkgs/by-name/gi/git-review"
-      "pkgs/by-name/kr/krane"
       "pkgs/by-name/ma/mangohud"
       "pkgs/by-name/mo/mozlz4a"
       "pkgs/by-name/ne/newsflash"
