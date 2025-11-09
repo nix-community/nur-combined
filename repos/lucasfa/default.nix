@@ -8,6 +8,8 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  #config,
+  #kernel ? config.boot.kernelPackages.kernel,
 }:
 
 let
@@ -21,8 +23,10 @@ in
 
   libslimbook = libslimbook;
   python-slimbook = pkgs.callPackage ./pkgs/python-slimbook { inherit libslimbook; };
-  #qc71_slimbook_laptop = pkgs.callPackage ./pkgs/qc71_slimbook_laptop.nix {
-  # Make sure the module targets the same kernel as your system is using.
-  # kernel = config.boot.kernelPackages.kernel;
+  # qc71_slimbook_laptop is available under the overlay
+  #qc71_slimbook_laptop = pkgs.callPackage ./pkgs/os-specific/linux/qc71_slimbook_laptop {
+    # Make sure the module targets the same kernel as your system is using.
+    #inherit kernel;
+    #kernel = kernel ? config.boot.kernelPackages.kernel;
   #};
 }
