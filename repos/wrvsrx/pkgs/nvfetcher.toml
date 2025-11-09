@@ -119,3 +119,7 @@ git.fetchSubmodules = true
 [ptrace-time-hook]
 src.github_tag = "wrvsrx/ptrace-time-hook"
 fetch.github = "wrvsrx/ptrace-time-hook"
+
+[noctalia-shell]
+src.github_tag = "noctalia-dev/noctalia-shell"
+fetch.github = "noctalia-dev/noctalia-shell"

@@ -173,6 +173,17 @@
       sha256 = "sha256-DPkQbw5tpEMJuVqa2IiD9W5Fn9hxQZKHygu3x7oEobo=";
     };
   };
+  noctalia-shell = {
+    pname = "noctalia-shell";
+    version = "v3.0.2";
+    src = fetchFromGitHub {
+      owner = "noctalia-dev";
+      repo = "noctalia-shell";
+      rev = "v3.0.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-pc8VA6D5xI7slCJUc90AwhJdFpF4iNOYnKohLwzbuBg=";
+    };
+  };
   osc52 = {
     pname = "osc52";
     version = "49fbbb3d297dc8c50f8c35cb4402502713494573";

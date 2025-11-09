@@ -22,6 +22,7 @@ let
     v2ray-rules-dat = callPackage ./v2ray-rules-dat {
       inherit (sources) v2ray-rules-dat-geoip v2ray-rules-dat-geosite;
     };
+    noctalia-shell = callPackage ./noctalia-shell { source = sources.noctalia-shell; };
 
     # my packages
     giraffe-wallpaper = callPackage ./giraffe-wallpaper { source = sources.giraffe-wallpaper; };
