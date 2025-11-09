@@ -203,12 +203,17 @@ in
     geolocationSupport = false;
     webrtcSupport = false;
 
-    pgoSupport = false; # console.warn: feeds: "downloadFeed: network connection unavailable"
+    pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
 
     inherit (thunderbird-unwrapped.passthru) icu73;
   }
 ).overrideAttrs
   (oldAttrs: {
+    # Remove wasi-sysroot flag - not available in Betterbird/Thunderbird 140 configuration
+    configureFlags = lib.filter (
+      flag: !lib.hasPrefix "--with-wasi-sysroot=" flag
+    ) oldAttrs.configureFlags;
+
     # Environment variables from official build
     preConfigure = (oldAttrs.preConfigure or "") + ''
       export MOZ_APP_REMOTINGNAME=eu.betterbird.Betterbird
