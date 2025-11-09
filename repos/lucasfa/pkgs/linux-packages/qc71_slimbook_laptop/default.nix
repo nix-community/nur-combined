@@ -7,14 +7,6 @@
   nix-update-script,
 }:
 
-let
-    linuxKernel = prev.linuxKernel // {
-      packagesFor = kernel:
-	(prev.linuxKernel.packagesFor kernel).extend (
-          final': prev': {
-            qc71_laptop = final'.callPackage ../
-    }
-in
 stdenv.mkDerivation rec {
   pname = "qc71_slimbook_laptop";
   version = "0-unstable-2024-12-18";
