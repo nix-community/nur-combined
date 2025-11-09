@@ -24,7 +24,7 @@ in
     };
     boot.lanzaboote = {
       enable = true;
-      mode = "uki";
+      # mode = "uki";
       configurationLimit = 5;
       pkiBundle = ./pki;
     };

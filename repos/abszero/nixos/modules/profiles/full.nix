@@ -82,13 +82,13 @@ in
         jq
         kooha
         libreoffice-qt
-        lutris
+        # lutris
         nudoku
         obsidian
         osu-lazer-bin
         proton-pass
         protonvpn-gui
-        taisei
+        # taisei
         tenacity
         unzip
         ventoy-full-qt

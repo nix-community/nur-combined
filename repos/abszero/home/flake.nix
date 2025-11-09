@@ -5,7 +5,7 @@
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     niri = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:sodiboo/niri-flake/27e012b";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";

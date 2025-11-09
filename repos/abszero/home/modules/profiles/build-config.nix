@@ -1,4 +1,5 @@
 {
+  options,
   config,
   pkgs,
   lib,
@@ -21,7 +22,10 @@ in
     abszero.profiles.base.enable = true;
 
     programs = builtins.mapAttrs (
-      _: v: optionalAttrs (v ? package) { package = pkgs.emptyDirectory; }
-    ) config.programs;
+      _: v:
+      optionalAttrs (v ? package && !(v ? package.readOnly && v.package.readOnly)) {
+        package = pkgs.emptyDirectory;
+      }
+    ) options.programs;
   };
 }

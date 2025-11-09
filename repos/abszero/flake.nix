@@ -12,7 +12,7 @@
       };
     };
     niri = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:sodiboo/niri-flake/27e012b";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
@@ -55,8 +55,9 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote = {
-      # Fork that adds an UKI mode
-      url = "github:linyinfeng/lanzaboote/uki";
+      # # Fork that adds an UKI mode
+      # url = "github:linyinfeng/lanzaboote/uki";
+      url = "github:nix-community/lanzaboote";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";

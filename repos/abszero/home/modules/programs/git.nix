@@ -14,21 +14,23 @@ in
   config.programs = mkIf cfg.enable {
     git = {
       enable = true;
-      userName = mkDefault primaryEmail.realName;
-      userEmail = mkDefault primaryEmail.address;
       signing = {
         signByDefault = true;
         format = "openpgp";
         key = null;
       };
-      extraConfig = {
+      settings = {
+        user = {
+          name = mkDefault primaryEmail.realName;
+          email = mkDefault primaryEmail.address;
+        };
         pull.ff = "only";
       };
+    };
 
-      difftastic = {
-        enable = true;
-        enableAsDifftool = true;
-      };
+    difftastic = {
+      enable = true;
+      git.enable = true;
     };
 
     mergiraf.enable = true;
