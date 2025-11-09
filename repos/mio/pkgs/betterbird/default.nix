@@ -33,10 +33,10 @@ let
       # Create directories for external patches
       mkdir -p external
 
-      # Download external patches for Mozilla repo (series-M-C)
-      if [ -f series-M-C ]; then
-        echo "Processing series-M-C for Mozilla external patches"
-        grep " # " series-M-C | grep -v "^#" | while read line || [[ -n $line ]]; do
+      # Download external patches for Mozilla repo (series-moz)
+      if [ -f series-moz ]; then
+        echo "Processing series-moz for Mozilla external patches"
+        grep " # " series-moz | grep -v "^#" | while read line || [[ -n $line ]]; do
           patch=$(echo "$line" | cut -f1 -d'#' | sed 's/ *$//')
           url=$(echo "$line" | cut -f2 -d'#' | sed 's/^ *//')
           if [[ -n "''${patch// }" ]] && [[ -n "''${url// }" ]]; then
@@ -61,7 +61,7 @@ let
         done
       fi
     '';
-    hash = "sha256-jAZGcR8ri1jXaRjgVN5q3zxOrVR7OB+tnJNGwjfctWc=";
+    hash = "sha256-b7N+r7ZUk2WdUC3KWyCnLQy9Jg9p4740WpizbvlWVeM=";
   };
   # Fetch and extract comm subdirectory
   # https://github.com/Betterbird/thunderbird-patches/blob/main/140/140.sh
@@ -150,7 +150,7 @@ in
 
         # requires vendored icu, fails to link with our icu
         # feature-506064 depends on those icu patches
-        if [[ $patch == 14-feature-regexp-searchterm.patch || $patch == 14-feature-regexp-searchterm-m-c.patch || $patch == feature-506064-match-diacritics.patch || $patch == feature-506064-match-diacritics-m-c.patch ]]; then
+        if [[ $patch == 14-feature-regexp-searchterm.patch || $patch == 14-feature-regexp-searchterm-moz.patch || $patch == feature-506064-match-diacritics.patch || $patch == feature-506064-match-diacritics-moz.patch ]]; then
           continue
         fi
 
@@ -160,18 +160,30 @@ in
         fi
 
         echo Applying patch $patch.
-        if [[ $patch == *-m-c.patch ]]; then
+        if [[ $patch == *-moz.patch ]]; then
           git apply -p1 -v --allow-empty < $patches/$patch
         else
           cd comm
           git apply -p1 -v --allow-empty < $patches/$patch
           cd ..
         fi
-      done < <(cat $patches/series $patches/series-M-C)
+      done < <(cat $patches/series $patches/series-moz)
     '';
 
     extraBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin && libdbusmenu-gtk3 != null) [
       libdbusmenu-gtk3
+    ];
+
+    # Additional mozconfig options from official Betterbird build
+    extraConfigureFlags = [
+      "--with-unsigned-addon-scopes=app,system"
+      "--allow-addon-sideload"
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+      "--enable-default-toolkit=cairo-gtk3-wayland"
+    ]
+    ++ [
+      "--without-wasm-sandboxed-libraries"
     ];
 
     meta = with lib; {
@@ -197,6 +209,13 @@ in
   }
 ).overrideAttrs
   (oldAttrs: {
+    # Environment variables from official build
+    preConfigure = (oldAttrs.preConfigure or "") + ''
+      export MOZ_APP_REMOTINGNAME=eu.betterbird.Betterbird
+      export MOZ_REQUIRE_SIGNING=
+      export MOZ_REQUIRE_ADDON_SIGNING=0
+    '';
+
     postInstall =
       oldAttrs.postInstall or ""
       + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
