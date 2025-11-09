@@ -14,7 +14,7 @@
 | [bt-dualboot](pkgs/by-path/bt-dualboot/package.nix#L24) | 1.0.1 | User-friendly tool making your bluetooth devices working both in Windows and Linux without re-pairing chore | [Link](https://github.com/x2es/bt-dualboot) |
 | [fprintd-fpcmoh](pkgs/by-path/fprintd-fpcmoh/package.nix#L21) | 1.94.4 | Fingerprint daemon for FPC match on host device | [Link](https://fprint.freedesktop.org/) |
 | [glfw3-minecraft](pkgs/by-path/glfw3-minecraft/package.nix#L25) | 3.4 | GLFW 3 with patches for Minecraft on wayland | [Link](https://aur.archlinux.org/packages/glfw-wayland-minecraft-cursorfix) |
-| [hmcl](pkgs/by-path/hmcl/package.nix#L126) | 3.7.3 | Minecraft Launcher which is multi-functional, cross-platform and popular | [Link](https://hmcl.huangyuhui.net) |
+| [hmcl](pkgs/by-path/hmcl/package.nix#L125) | 3.7.3 | Minecraft Launcher which is multi-functional, cross-platform and popular | [Link](https://hmcl.huangyuhui.net) |
 | [libfprint-fpcmoh](pkgs/by-path/libfprint-fpcmoh/package.nix#L47) | 1.94.6 | libfprint with proprietary FPC match on host device 10a5:9800 driver | [Link](https://aur.archlinux.org/packages/libfprint-fpcmoh-git) |
 | [obfuscator-io-deobfuscator](pkgs/by-path/obfuscator-io-deobfuscator/package.nix#L23) | unstable-2025-03-27 | Obfuscator.io deobfuscator | [Link](https://github.com/ben-sb/obfuscator-io-deobfuscator) |
 | [umu-launcher-wrapper](pkgs/by-path/umu-launcher-wrapper/package.nix#L27) |  | Wrapper for umu-launcher with `PROTONPATH` set to run Windows games |  |

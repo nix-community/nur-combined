@@ -27,6 +27,7 @@
   libpulseaudio,
   gobject-introspection,
   callPackage,
+  unzip,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -38,11 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     # See https://github.com/HMCL-dev/HMCL/blob/refs/tags/release-3.6.12/.github/workflows/gradle.yml#L26-L28
     url = "https://github.com/HMCL-dev/HMCL/releases/download/v${finalAttrs.version}/HMCL-${finalAttrs.version}.jar";
     hash = "sha256-VE/83KD1xIrkD6BGBK0rJpbKuNPOpmNSC/RHjhRsGco=";
-  };
-
-  icon = fetchurl {
-    url = "https://github.com/HMCL-dev/HMCL/raw/release-${finalAttrs.version}/HMCL/src/main/resources/assets/img/icon@8x.png";
-    hash = "sha256-1OVq4ujA2ZHboB7zEk7004kYgl9YcoM4qLq154MZMGo=";
   };
 
   dontUnpack = true;
@@ -65,6 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
     copyDesktopItems
     imagemagick
+    unzip
   ];
 
   installPhase = ''
@@ -73,11 +70,13 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,lib/hmcl}
     cp $src $out/lib/hmcl/hmcl.jar
 
+    unzip $src assets/img/icon@8x.png
+
     for n in 16 32 48 64 96 128 256
     do
       size=$n"x"$n
       mkdir -p $out/share/icons/hicolor/$size/apps
-      magick ${finalAttrs.icon} -resize $size $out/share/icons/hicolor/$size/apps/hmcl.png
+      magick assets/img/icon@8x.png -resize $size $out/share/icons/hicolor/$size/apps/hmcl.png
     done
 
     runHook postInstall

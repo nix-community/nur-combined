@@ -90,7 +90,6 @@
               nixpkgsPath = inputs.nixpkgs.outPath;
             };
           };
-        debug = true;
       }
     );
 }
