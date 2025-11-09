@@ -20,7 +20,6 @@ jobs:
       - uses: ./.github/actions/install-nix
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix run .#_update -- --commit --skip-prompt --keep-going
       - uses: fym998/update-flake-lock@dogfood
         id: update-flake-lock
         with:
@@ -28,3 +27,4 @@ jobs:
           flakes: |
             flake-modules/_internal/dev
             .
+      - run: nix run .#_update -- --commit --skip-prompt --keep-going
