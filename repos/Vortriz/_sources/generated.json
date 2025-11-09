@@ -90,11 +90,11 @@
         },
         "version": "4eb6d6964ef1c48fdfda87590c1041f71b58d36b"
     },
-    "libfprint-focaltech-2808-a658": {
+    "libfprint-focaltech-2808-a658-alt": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "libfprint-focaltech-2808-a658",
+        "name": "libfprint-focaltech-2808-a658-alt",
         "passthru": null,
         "pinned": false,
         "src": {

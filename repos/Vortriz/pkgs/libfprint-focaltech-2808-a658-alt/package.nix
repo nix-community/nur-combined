@@ -19,7 +19,7 @@
 }: let
     # The provided `.so`'s name in the binary package we fetch and unpack
     libso = "libfprint-2.so.2.0.0";
-    inherit (sources.libfprint-focaltech-2808-a658) src pname version;
+    inherit (sources.libfprint-focaltech-2808-a658-alt) src pname version;
 in
     stdenv.mkDerivation rec {
         # https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/413#note_2476573
