@@ -15,7 +15,7 @@ let
       markdown
       pycryptodome
       pytest
-      python-dateutils
+      python-dateutil
       python-dotenv
       python-jose
       sqlalchemy
