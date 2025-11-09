@@ -1,19 +1,8 @@
-# from colinsane/nur-packages
-# modified to be a standard overlay
-
 final: prev:
 let
-  lib = prev.lib; #pkgs.lib;
-  sane-additional = with final; # (
-    # lib.filesystem.packagesFromDirectoryRecursive {
-      # inherit callPackage;
-      # directory = ./by-name;
-    # }
-   { # ) //
-    ### nix expressions / helpers
-    # sane-data = import ../modules/data { inherit lib sane-lib; };
-    # sane-lib = import ../modules/lib final';
-
+  lib = prev.lib;
+  sane-additional = with final;
+   { 
     ### KERNEL PACKAGES
     # build like `nix-build -A linuxPackages.rk818-charger`
     #   or `nix-build -A hosts.moby.config.boot.kernelPackages.rk818-charger`
@@ -52,5 +41,17 @@ let
       sane-additional
     )
   ;
-in sane-overlay 
+in
+{
+  linuxKernel = prev.linuxKernel // {
+    updateWithSuper = false;
+    packagesFor = kernel:
+      (prev.linuxKernel.packagesFor kernel).extend (_final: _prev:
+        lib.filesystem.packagesFromDirectoryRecursive {
+          inherit (final) callPackage;
+          directory = ../pkgs/linux-packages;
+        }
+      );
+  };
+}# sane-overlay 
 
