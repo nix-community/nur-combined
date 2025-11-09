@@ -1139,10 +1139,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.11.1";
+      version = "0.11.2";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4613229/bilisponsorblock-0.11.1.xpi";
-      sha256 = "395b5ca0a576a502ce518ac3b4b2b2144dff10bb4ff88fcc4ee5e34210917962";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615668/bilisponsorblock-0.11.2.xpi";
+      sha256 = "002992425b1b541dfdf8d180298fce4bb9afa6fdc38fd802880a91910904cbfa";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1545,10 +1545,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.14.0";
+      version = "7.15.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4585613/castkodi-7.14.0.xpi";
-      sha256 = "0975a6c35f49ceb780666fd8e22f338a5141ee81b1c46ed73d72ae15065de05e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615404/castkodi-7.15.0.xpi";
+      sha256 = "141a9275ae8d58722b08c020128c0a70afa3e6238e4744b46dc779fce3f18c26";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.66.0";
+      version = "2.66.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614291/dualsub-2.66.0.xpi";
-      sha256 = "c982c558d5e7ba9881a2c2539e3f4ea9255d8f93743c73b2178cf5bb2b20dabb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615637/dualsub-2.66.1.xpi";
+      sha256 = "16f177f9db4e387a00335d0d645af4d9ff44771c29d5498e5dc2368c57c24797";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -10430,21 +10430,6 @@
         platforms = platforms.all;
       };
     };
-    "profile-switcher" = buildFirefoxXpiAddon {
-      pname = "profile-switcher";
-      version = "1.3.1";
-      addonId = "profile-switcher-ff@nd.ax";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3945999/profile_switcher-1.3.1.xpi";
-      sha256 = "80ca410ad883a0a2a2dc50cb1f74474dd829223ce106a5911120461c30e4e64f";
-      meta = with lib;
-      {
-        homepage = "https://github.com/null-dev/firefox-profile-switcher";
-        description = "Create, manage and switch between browser profiles seamlessly.";
-        license = licenses.gpl3;
-        mozPermissions = [ "storage" "nativeMessaging" "tabs" ];
-        platforms = platforms.all;
-      };
-    };
     "prometheus-formatter" = buildFirefoxXpiAddon {
       pname = "prometheus-formatter";
       version = "3.2.0";
@@ -15355,10 +15340,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "2.0.0";
+      version = "2.0.4";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615332/yang_addon-2.0.0.xpi";
-      sha256 = "2d3957b6b42873895d163515fa881e5b96de0485571687c26766228792ec11d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615594/yang_addon-2.0.4.xpi";
+      sha256 = "7f658f508c6b77ae09473842643ea64e26f32d36ac879c2a0ce8d9c863cb5880";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
