@@ -197,13 +197,23 @@ in
   }
 ).overrideAttrs
   (oldAttrs: {
-    postInstall = oldAttrs.postInstall or "" + ''
-      mkdir -p $out/lib/betterbird
-      mv $out/lib/thunderbird/* $out/lib/betterbird/
-      rmdir $out/lib/thunderbird
-      rm $out/bin/thunderbird
-      ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-    '';
+    postInstall =
+      oldAttrs.postInstall or ""
+      + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+        mkdir -p $out/lib/betterbird
+        mv $out/lib/thunderbird/* $out/lib/betterbird/
+        rmdir $out/lib/thunderbird
+        rm $out/bin/thunderbird
+        ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # On macOS, the build creates Betterbird.app because applicationName = "Betterbird"
+        # The wrapper will look for it at Applications/Betterbird.app
+        # No need to rename since it's already correctly named
+        # Just ensure the binary symlink exists (may already be created by buildMozillaMach)
+        mkdir -p $out/bin
+        ln -sf $out/Applications/Betterbird.app/Contents/MacOS/betterbird $out/bin/betterbird
+      '';
 
     doInstallCheck = false;
 
