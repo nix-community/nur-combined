@@ -45,7 +45,6 @@ stdenv.mkDerivation rec {
     ++ lib.optional usbutilsSupport usbutils
     ++ lib.optional pciutilsSupport pciutils
     ++ lib.optional flatpakSupport flatpak;
-  # lib.optional qc71_slimbook_laptopSupport qc71_slimbook_laptop
 
   patches = [
     ./flatpak.diff
