@@ -1,8 +1,8 @@
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index e53d74ae..d5f8743f 100644
+index cec1adb9c..9f0d17806 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
-@@ -143,14 +143,14 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+@@ -156,13 +156,14 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
  		})
  
  		var (
@@ -16,12 +16,11 @@ index e53d74ae..d5f8743f 100644
  
  		for {
 -			ret, err = proxy.Connect(ctx, state, opts)
--
 +			ret, records, err = proxy.Connect(ctx, state, opts)
- 			if err == ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
+ 
+ 			if err == proxyPkg.ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
  				continue
- 			}
-@@ -184,6 +184,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+@@ -197,6 +198,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
  			break
  		}
  
@@ -48,10 +47,10 @@ index e53d74ae..d5f8743f 100644
  		if !state.Match(ret) {
  			debug.Hexdumpf(ret, "Wrong reply for id: %d, %s %d", ret.Id, state.QName(), state.QType())
 diff --git a/plugin/pkg/proxy/connect.go b/plugin/pkg/proxy/connect.go
-index 27385a46..429853a8 100644
+index 8445d18a7..54ca07a50 100644
 --- a/plugin/pkg/proxy/connect.go
 +++ b/plugin/pkg/proxy/connect.go
-@@ -74,7 +74,7 @@ func (t *Transport) Dial(proto string) (*persistConn, bool, error) {
+@@ -104,7 +104,7 @@ func (t *Transport) Dial(proto string) (*persistConn, bool, error) {
  }
  
  // Connect selects an upstream, sends the request and waits for a response.
@@ -59,8 +58,8 @@ index 27385a46..429853a8 100644
 +func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options) (*dns.Msg, []dns.RR, error) {
  	start := time.Now()
  
- 	proto := ""
-@@ -89,7 +89,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+ 	var proto string
+@@ -119,12 +119,61 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
  
  	pc, cached, err := p.transport.Dial(proto)
  	if err != nil {
@@ -69,9 +68,7 @@ index 27385a46..429853a8 100644
  	}
  
  	// Set buffer size correctly for this client.
-@@ -98,6 +98,55 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
- 		pc.c.UDPSize = 512
- 	}
+ 	pc.c.UDPSize = max(uint16(state.Size()), 512)
  
 +	var retRRs []dns.RR
 +	var ret *dns.Msg
@@ -125,7 +122,7 @@ index 27385a46..429853a8 100644
  	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
  	// records the origin Id before upstream.
  	originId := state.Req.Id
-@@ -109,12 +158,11 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -136,12 +185,11 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
  	if err := pc.c.WriteMsg(state.Req); err != nil {
  		pc.c.Close() // not giving it back
  		if err == io.EOF && cached {
@@ -140,7 +137,7 @@ index 27385a46..429853a8 100644
  	pc.c.SetReadDeadline(time.Now().Add(p.readTimeout))
  	for {
  		ret, err = pc.c.ReadMsg()
-@@ -133,13 +181,13 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -160,13 +208,13 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
  
  			pc.c.Close() // not giving it back
  			if err == io.EOF && cached {
@@ -156,7 +153,7 @@ index 27385a46..429853a8 100644
  		}
  		// drop out-of-order responses
  		if state.Req.Id == ret.Id {
-@@ -158,7 +206,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -185,7 +233,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
  
  	requestDuration.WithLabelValues(p.proxyName, p.addr, rc).Observe(time.Since(start).Seconds())
  
@@ -166,7 +163,7 @@ index 27385a46..429853a8 100644
  
  const cumulativeAvgWeight = 4
 diff --git a/plugin/pkg/proxy/proxy_test.go b/plugin/pkg/proxy/proxy_test.go
-index 03d10ce5..c23f0f7b 100644
+index 03d10ce5f..c23f0f7b2 100644
 --- a/plugin/pkg/proxy/proxy_test.go
 +++ b/plugin/pkg/proxy/proxy_test.go
 @@ -35,7 +35,7 @@ func TestProxy(t *testing.T) {

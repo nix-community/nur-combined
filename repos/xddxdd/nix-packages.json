@@ -872,7 +872,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.coredns": {
     "description": "CoreDNS with Lan Tian's modifications",
     "pname": "coredns",
-    "version": "1.12.2"
+    "version": "1.13.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ffmpeg": {
     "description": "FFmpeg with Lan Tian modifications",
