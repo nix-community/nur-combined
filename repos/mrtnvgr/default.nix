@@ -30,14 +30,6 @@ in rec {
   celeste = p ./pkgs/games/wine/celeste { inherit mkWineApp; };
   celesteMods = p ./pkgs/games/wine/celeste/mods.nix { };
 
-  # Overrides
-  obs-wayland = (pkgs.wrapOBS {
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-pipewire-audio-capture
-    ];
-  });
-
   # Fetchers
   # note: zip suffix doesn't mean that only zip archives are supported,
   #       so that's why gz here is like an generic term for compression algorithms
@@ -56,4 +48,15 @@ in rec {
 
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
+
+  # Media
+  obs-studio-plus = (pkgs.wrapOBS {
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi
+      obs-vkcapture
+    ];
+  });
 }
