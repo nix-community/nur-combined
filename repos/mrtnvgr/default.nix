@@ -68,6 +68,12 @@ in rec {
     plugins = [ "LUFSMeter" ];
   };
 
+  surge-XT-vst3 = pkgs.surge-XT.override {
+    buildLV2 = false;
+    buildCLAP = false;
+    buildStandalone = false;
+  };
+
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 

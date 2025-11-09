@@ -33,6 +33,7 @@
 - [TAL-plugins-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
 - [luftikus-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
 - [LUFSMeter-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
+- [surge-XT-vst3](https://github.com/surge-synthesizer/surge)
 
 #### Utilities
 
