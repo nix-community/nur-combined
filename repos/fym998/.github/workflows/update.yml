@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
       - uses: ./.github/actions/install-nix
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
