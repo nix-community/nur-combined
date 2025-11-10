@@ -49,13 +49,13 @@ stdenv.mkDerivation rec {
     protobuf
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A lower level daemon that retrieves Visual Voicemail";
     homepage = "https://gitlab.com/kop316/vvmd";
     changelog = "https://gitlab.com/kop316/vvmd/-/blob/${src.rev}/ChangeLog";
-    license = licenses.gpl2;
-    #maintainers = with maintainers; [ mich-adams ];
+    license = lib.licenses.gpl2;
+    maintainers = [];
     mainProgram = "vvmd";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }

@@ -84,10 +84,11 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Recoloring of the Afterglow Cursors x-cursor theme";
     homepage = "https://github.com/TeddyBearKilla/Afterglow-Cursors-Recolored";
-    platforms = platforms.all;
-    license = licenses.gpl3Plus;
+    platforms = lib.platforms.all;
+    license = lib.licenses.gpl3Plus;
+	maintainers = [];
   };
 }
