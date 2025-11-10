@@ -8,25 +8,25 @@
   features ? null,
   kernelPatches ? null,
   randstructSeed ? "",
-}@args:
+}:
 
 let
   pmaports = fetchFromGitLab {
     domain = "gitlab.postmarketos.org";
     owner = "postmarketOS";
     repo = "pmaports";
-    rev = "b80d00118d5094e2ad0318866ded8d7907ec363d";
-    hash = "sha256-v6/s0JhFFCEqQkhg5xTWGCx+7Z1UvPjtJi0/otZIObg=";
+    rev = "63cd5bebb91fc46e1bf4d3b9fa6457cd66483e11";
+    hash = "sha256-CS2jZRQaXMiG1CSvCN32aobb6aR0NuRhq/dw4JNPW0Y=";
   };
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "megi";
     repo = "linux";
-    rev = "c0c8fa8103dfc8577711f70cc4434773c33c2970";
-    hash = "sha256-d+89Lu4stkLnI/W/07VEVFPUhG0fXgSDBwvJKiFmPvM=";
+    rev = "orange-pi-6.17-20251026-1441";
+    hash = "sha256-SoHvTjmdZb2m3tY5pK60d64d35wc5apOiYzzep3X7wM=";
   };
-  version = "6.15.6";
-  modDirVersion = "6.15.6";
+  version = "6.17.5";
+  modDirVersion = "6.17.5";
   pmPatch = name: {
     inherit name;
     patch = "${pmaports}/device/community/linux-postmarketos-allwinner/${name}.patch";
@@ -47,7 +47,6 @@ let
 
 in
 (linuxManualConfig {
-  allowImportFromDerivation = true;
   inherit
     src
     version

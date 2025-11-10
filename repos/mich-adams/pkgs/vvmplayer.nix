@@ -14,7 +14,7 @@
   callaudiod,
   desktop-file-utils,
   gsettings-desktop-schemas,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     callaudiod
     desktop-file-utils
     gsettings-desktop-schemas
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
