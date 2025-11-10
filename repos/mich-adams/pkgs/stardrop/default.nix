@@ -62,6 +62,7 @@ buildDotnetModule rec {
 			'';
 
     meta = {
+	mainProgram = "Stardrop";
 	description = "Open-source, cross-platform mod manager for the game Stardew Valley";
 	homepage = "https://github.com/SZanko/Stardrop";
 	license = lib.licenses.gpl3Only;
