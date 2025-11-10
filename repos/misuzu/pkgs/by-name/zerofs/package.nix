@@ -6,18 +6,18 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "zerofs";
-  version = "0.16.4";
+  version = "0.16.5";
 
   src = fetchFromGitHub {
     owner = "Barre";
     repo = "ZeroFS";
     tag = "v${version}";
-    hash = "sha256-eV35c8T3QI92PwC1rx/KHfZsqTc81vfiqOHnLcNmvDk=";
+    hash = "sha256-yIy+tqUKSZY9CIQYDUNnFGrWDzxd5LUMCFzzm6SFTRA=";
   };
 
   sourceRoot = "${src.name}/zerofs";
 
-  cargoHash = "sha256-DLZcQDNESFeZDWJclO3nvyf9+Z0q2aJTHGblbggiscU=";
+  cargoHash = "sha256-wwXdkmwKo/PatE21zEHKBgvDf2n1haiBpDj0BDmz3wM=";
 
   meta = {
     description = "The Filesystem That Makes S3 your Primary Storage. ZeroFS is 9P/NFS/NBD on top of S3.";
