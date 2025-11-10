@@ -2,6 +2,7 @@
   fetchurl,
   appimageTools,
   lib,
+  extraPkgs ? [],
   ...
 }: let
   pname = "Fladder";
@@ -18,12 +19,13 @@ in
     inherit pname version;
     src = appimageContents;
     extraPkgs = pkgs:
-      with pkgs; [
+      (with pkgs; [
         mpv
         libepoxy
         libva
         mesa
-      ];
+      ])
+      ++ extraPkgs;
 
     extraInstallCommands = ''
       mkdir -p $out/share/applications
