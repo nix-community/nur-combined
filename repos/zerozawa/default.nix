@@ -19,4 +19,5 @@
   zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix {};
   waybar-vd = pkgs.callPackage ./pkgs/waybar-vd {};
   mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix {};
+  Fladder = pkgs.callPackage ./pkgs/Fladder.nix {};
 }
