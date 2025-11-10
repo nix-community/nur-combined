@@ -2888,14 +2888,14 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.1.0";
+      version = "6.2.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4595692/dictionaries-6.1.0.xpi";
-      sha256 = "9681b6e70cb835ae3a559746d053cc71cc38b320e3c1c32d6cbd7793d611d89f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615928/dictionaries-6.2.0.xpi";
+      sha256 = "4f74542d15868574a2b94c95e923339be90c9e707529466b302d0972857cee1e";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
-        description = "Dictionariez: This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
+        description = "A customizable dictionary extension that supports double-click lookups in 20+ languages, hundreds of dictionaries, and anki integration.";
         license = licenses.gpl2;
         mozPermissions = [
           "activeTab"
@@ -6704,10 +6704,10 @@
     };
     "karakeep" = buildFirefoxXpiAddon {
       pname = "karakeep";
-      version = "1.2.6";
+      version = "1.2.7";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4509061/karakeep-1.2.6.xpi";
-      sha256 = "d3c2fbf3bb81a827a32f8f7385134036bc0cafd5d8102163073e6144be442734";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615857/karakeep-1.2.7.xpi";
+      sha256 = "d164517c00c5b886a490a4a5f4cc3a59936e2a083085e33c9018c85bd389b17b";
       meta = with lib;
       {
         homepage = "https://karakeep.app";
@@ -6876,10 +6876,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.7";
+      version = "2.0.8";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4613329/kiss_translator-2.0.7.xpi";
-      sha256 = "68eb1479dff59d5ec4ce1c063bf85195cbe456db3d62ff25e03f51cea16d44e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4615982/kiss_translator-2.0.8.xpi";
+      sha256 = "7b317fc4a940a6c649e92d3efa655268b04024945aaff1aa131d4c04b34103c2";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -13643,10 +13643,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.84.0";
+      version = "3.85.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603918/tweaks_for_youtube-3.84.0.xpi";
-      sha256 = "9b4a955ba14accf6251c2a8a794751319b868ad50f6ecd3c5d4ae7d96682f1d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4616092/tweaks_for_youtube-3.85.0.xpi";
+      sha256 = "8ad2f99270e2cbd8830baed4a0211cec53c2023903a745eae04944e0b6a88f87";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
