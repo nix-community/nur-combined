@@ -11,12 +11,12 @@ jobs:
     steps:
       - name: Initialize
         id: init
-        uses: spotdemo4/nix-init@e1390e3f219f3c3e3d80fce53e946d4b76dace9e # v1.4.0
+        uses: spotdemo4/nix-init@b1a572723d705a405747541fad38545a57f03ee3 # v1.7.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
           app_id: ${{ vars.CLIENT_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          app_key: ${{ secrets.PRIVATE_KEY }}
           shell: ci
 
       - name: Update packages
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Initialize
         id: init
-        uses: spotdemo4/nix-init@e1390e3f219f3c3e3d80fce53e946d4b76dace9e # v1.4.0
+        uses: spotdemo4/nix-init@b1a572723d705a405747541fad38545a57f03ee3 # v1.7.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur

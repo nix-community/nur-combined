@@ -63,6 +63,7 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             update
+            nix-fast-build
             alejandra
             prettier
             action-validator
@@ -73,6 +74,7 @@
         ci = pkgs.mkShell {
           packages = with pkgs; [
             update
+            nix-fast-build
             trenovate
             flake-checker
           ];

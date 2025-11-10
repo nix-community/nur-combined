@@ -12,41 +12,31 @@ jobs:
     strategy:
       matrix:
         nix_path:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e1390e3f219f3c3e3d80fce53e946d4b76dace9e # v1.4.0
+        uses: spotdemo4/nix-init@b1a572723d705a405747541fad38545a57f03ee3 # v1.7.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
+          shell: ci
 
-      - name: Set nix path
-        run: echo "NIX_PATH="${{ matrix.nix_path }}"" >> "${GITHUB_ENV}"
-
-      - name: Get nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-
-      - name: Check evaluation
+      - name: Build packages
         run: |
-          nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
-
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ./utils/build -A cacheOutputs
+          nix-fast-build \
+            --skip-cached \
+            --no-nom \
+            --override-input nixpkgs "${{ matrix.nix_path }}" \
+            --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"
 
   flake:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e1390e3f219f3c3e3d80fce53e946d4b76dace9e # v1.4.0
+        uses: spotdemo4/nix-init@b1a572723d705a405747541fad38545a57f03ee3 # v1.7.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
