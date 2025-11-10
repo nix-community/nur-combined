@@ -1,5 +1,9 @@
 {
   "editor.formatOnSave": true,
+  "files.associations": {
+    "renovate.json": "jsonc",
+    ".envrc.project": "shellscript"
+  },
 
   // nix
   "nix.enableLanguageServer": true,
@@ -16,9 +20,5 @@
   },
 
   // prettier
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-
-  "files.associations": {
-    "renovate.json": "jsonc"
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
