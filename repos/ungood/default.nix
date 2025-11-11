@@ -8,12 +8,11 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+{
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  obsidian-cli = pkgs.callPackage ./pkgs/obsidian-cli { inherit obsidian-cli; };
+  obsidian-cli = pkgs.callPackage ./pkgs/obsidian-cli { };
 }

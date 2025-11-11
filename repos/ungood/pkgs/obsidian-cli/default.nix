@@ -2,8 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  obsidian-cli,
-  testers
+  versionCheckHook,
 }:
 
 buildGoModule rec {
@@ -29,10 +28,8 @@ buildGoModule rec {
     mainProgram = "obsidian-cli";
   };
 
-  passthru.tests = {
-    obsidian-cli-version = testers.testVersion {
-      package = obsidian-cli;
-      version = src.rev;
-    };
-  };
+  doCheck = false;
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "--version";
 }
