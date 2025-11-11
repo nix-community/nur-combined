@@ -121,5 +121,5 @@ src.github_tag = "wrvsrx/ptrace-time-hook"
 fetch.github = "wrvsrx/ptrace-time-hook"
 
 [noctalia-shell]
-src.github_tag = "noctalia-dev/noctalia-shell"
+src.git = "https://github.com/noctalia-dev/noctalia-shell"
 fetch.github = "noctalia-dev/noctalia-shell"

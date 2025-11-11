@@ -313,7 +313,7 @@
     },
     "noctalia-shell": {
         "cargoLocks": null,
-        "date": null,
+        "date": "2025-11-11",
         "extract": null,
         "name": "noctalia-shell",
         "passthru": null,
@@ -325,12 +325,12 @@
             "name": null,
             "owner": "noctalia-dev",
             "repo": "noctalia-shell",
-            "rev": "v3.0.2",
-            "sha256": "sha256-pc8VA6D5xI7slCJUc90AwhJdFpF4iNOYnKohLwzbuBg=",
+            "rev": "3c8a49d7c09c4f886b8ec9c4c658ae1926e8d44a",
+            "sha256": "sha256-c/zsvlczXfoI+I9KaNP2vEfy2lfwfwCSH1AgaepCpVk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.2"
+        "version": "3c8a49d7c09c4f886b8ec9c4c658ae1926e8d44a"
     },
     "osc52": {
         "cargoLocks": null,
