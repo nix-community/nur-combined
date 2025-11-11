@@ -677,7 +677,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.07"
+    "version": "2025.11.10"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -747,7 +747,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-10"
   },
   "legacyPackages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -817,7 +817,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-10"
   },
   "legacyPackages.x86_64-linux.kernel-modules.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "6996"
+    "version": "7018"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4352,7 +4352,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.0"
+    "version": "1.25.1"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -4397,7 +4397,7 @@
   "legacyPackages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-11-07"
+    "version": "5.9.4-b1-unstable-2025-11-09"
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
@@ -4447,7 +4447,7 @@
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20251009"
+    "version": "20251109"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -4782,7 +4782,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.07"
+    "version": "2025.11.10"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5112,7 +5112,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-11-07"
+    "version": "5.9.4-b1-unstable-2025-11-09"
   },
   "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
@@ -5152,7 +5152,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20251009"
+    "version": "20251109"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -5357,7 +5357,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.0"
+    "version": "1.25.1"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -5702,7 +5702,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.07"
+    "version": "2025.11.10"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5772,7 +5772,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-04"
+    "version": "0-unstable-2025-11-10"
   },
   "packages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -6177,7 +6177,7 @@
   "packages.x86_64-linux.qsp": {
     "description": "Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
-    "version": "5.9.4-b1-unstable-2025-11-07"
+    "version": "5.9.4-b1-unstable-2025-11-09"
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "Interactive fiction development platform (Game Library)",
@@ -6227,7 +6227,7 @@
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20251009"
+    "version": "20251109"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
@@ -6397,7 +6397,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.0"
+    "version": "1.25.1"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
