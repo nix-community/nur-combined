@@ -33,7 +33,7 @@ let
       { overlays = include-overlays; }
   );
   inherit (pkgs) lib;
-  updatePyScript = ./update.py;
+  updatePyScript = "${nixpkgs}/maintainers/scripts/update.py";
 
   mypkgs = import ../pkgs { inherit pkgs; };
 
