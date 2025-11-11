@@ -248,7 +248,7 @@ stdenv.mkDerivation (finalAttrs: {
       outputHash = finalAttrs.finalPackage.passthru.mavenDepsHashes.${stdenv.hostPlatform.system};
     };
     mavenDepsHashes = {
-      x86_64-linux = "sha256-Ff8soXjkDtM4AyE2d7yGj0fB2d1TiYYbPxUQkACYrqw=";
+      x86_64-linux = "sha256-MZ/+s0JLIQRPqV5H4rbM93ZO7aoncePdbNDX3J7bR/Y=";
       aarch64-linux = "sha256-Ct+fH5vOBgAepxyHEEfnTXRaFrjXSqffB41T4RAQ+Xo=";
       aarch64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
     };
