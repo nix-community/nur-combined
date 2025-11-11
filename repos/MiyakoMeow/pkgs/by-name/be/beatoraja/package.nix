@@ -10,8 +10,11 @@
   unzip,
 
   # 默认参数
-  javaPackageWithJavaFX ? pkgs.jdk23.override {
+  javaPackageWithJavaFX ? pkgs.jdk.override {
     enableJavaFX = true;
+    openjfx_jdk = pkgs.openjfx.override {
+      featureVersion = "21";
+    };
   },
   # 可选：传入 derivation 来覆盖 pname、version、meta，并从中获取 jar 文件
   # 如果提供，将使用该 derivation 的 pname、version、meta，并复制其 jar 文件到输出目录
