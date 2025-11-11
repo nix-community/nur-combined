@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   maven,
   swt,
   jdk,
@@ -37,7 +38,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./fix-include.patch
-    ./fix-audiounit-makefile.patch
+    # https://github.com/helge17/tuxguitar/pull/937
+    (fetchpatch {
+      url = "https://github.com/helge17/tuxguitar/pull/937/commits/6d4df91518ee46340fa473b80eb5d4638d282fae.patch";
+      hash = "sha256-Iek02qK0xxrZcTmcYVpC8hv3r8/5jzdPLvY7OasukJg=";
+    })
   ];
 
   nativeBuildInputs = [
@@ -82,10 +87,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapGApps = true;
 
+  # Build with offline mode using pre-fetched dependencies
   buildPhase = ''
     runHook preBuild
 
-    # Build with offline mode using pre-fetched dependencies
     mvn package -e -f ${finalAttrs.finalPackage.buildScript} -P native-modules \
       -o -Dmaven.test.skip=true \
       -Dmaven.repo.local=${finalAttrs.finalPackage.mavenDeps}/repository
@@ -99,9 +104,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Find the built tuxguitar directory (it's in the subdirectory where we ran maven)
     cd ${finalAttrs.finalPackage.passthru.buildDir}
   ''
+  # macOS: The build creates tuxguitar-VERSION-macosx-swt-cocoa.app directly
+  # This directory name already ends with .app and IS the app bundle
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # macOS: The build creates tuxguitar-VERSION-macosx-swt-cocoa.app directly
-    # This directory name already ends with .app and IS the app bundle
     mkdir -p $out/Applications
     cp -r target/tuxguitar-*-macosx-swt-cocoa.app $out/Applications/TuxGuitar.app
 
@@ -112,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Ensure the main executable has execute permissions
     chmod +x $out/Applications/TuxGuitar.app/Contents/MacOS/tuxguitar.sh
 
-    # Create command-line wrapper script
+    # Symlink doesn't work. We have to create a wrapper script instead
     mkdir -p $out/bin
     cat > $out/bin/tuxguitar <<EOF
     #!/bin/sh
@@ -120,18 +125,12 @@ stdenv.mkDerivation (finalAttrs: {
     EOF
     chmod +x $out/bin/tuxguitar
   ''
+  # Linux: Install traditional layout
   + lib.optionalString stdenv.hostPlatform.isLinux ''
-    # Linux: Install traditional layout
     TUXGUITAR_DIR=$(ls -d target/tuxguitar-* | head -n 1)
-    mkdir -p $out/bin
-    cp -r $TUXGUITAR_DIR/dist $out/
-    cp -r $TUXGUITAR_DIR/lib $out/
-    cp -r $TUXGUITAR_DIR/share $out/
-    cp $TUXGUITAR_DIR/tuxguitar.sh $out/bin/tuxguitar
-
-    ln -s $out/dist $out/bin/dist
-    ln -s $out/lib $out/bin/lib
-    ln -s $out/share $out/bin/share
+    mkdir -p $out/{bin,lib}
+    cp -r $TUXGUITAR_DIR $out/lib/tuxguitar
+    ln -s $out/lib/tuxguitar/tuxguitar.sh $out/bin/tuxguitar
   ''
   + ''
 
@@ -194,10 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
     # We fetch dependencies WITHOUT the native-modules profile to keep it deterministic
     mavenDeps = stdenv.mkDerivation {
       name = "${finalAttrs.finalPackage.pname}-${finalAttrs.finalPackage.version}-maven-deps";
-      inherit (finalAttrs.finalPackage) src;
-      patches = [
-        ./fix-include.patch
-      ];
+      inherit (finalAttrs.finalPackage) src patches;
       nativeBuildInputs = [
         maven
         jdk
@@ -249,18 +245,12 @@ stdenv.mkDerivation (finalAttrs: {
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = (
-        let
-          inherit (stdenv.hostPlatform) system;
-          selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
-        in
-        (selectSystem {
-          x86_64-linux = "sha256-azHdca4BgoiIryh4whh+tuLnFsX4uVfllKaVGqE8X+A=";
-          aarch64-linux = "sha256-gXSUYNv7BheIgpbY3cXKj+isaMzuS+Gf4cKBzXuOVZw=";
-          x86_64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
-          aarch64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
-        })
-      );
+      outputHash = finalAttrs.finalPackage.passthru.mavenDepsHashes.${stdenv.hostPlatform.system};
+    };
+    mavenDepsHashes = {
+      x86_64-linux = "sha256-Ff8soXjkDtM4AyE2d7yGj0fB2d1TiYYbPxUQkACYrqw=";
+      aarch64-linux = "sha256-Ct+fH5vOBgAepxyHEEfnTXRaFrjXSqffB41T4RAQ+Xo=";
+      aarch64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
     };
   };
 
@@ -273,7 +263,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/helge17/tuxguitar";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ ardumont ];
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    platforms = builtins.attrNames finalAttrs.finalPackage.passthru.mavenDepsHashes;
     mainProgram = "tuxguitar";
   };
 })
