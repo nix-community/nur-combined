@@ -119,7 +119,7 @@ index fc0f49063c9..bc1204acf23 100644
            type: 'addition',
          },
 diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
-index 1ab4d5951cc..529b5159bd5 100644
+index b16ab5494f4..1347dfa42a3 100644
 --- a/lib/modules/manager/nix/artifacts.ts
 +++ b/lib/modules/manager/nix/artifacts.ts
 @@ -4,24 +4,35 @@ import { logger } from '../../../logger';
@@ -3098,7 +3098,7 @@ index 00000000000..c31494aa97c
 +  return updatedContent;
 +}
 diff --git a/lib/workers/repository/update/branch/get-updated.spec.ts b/lib/workers/repository/update/branch/get-updated.spec.ts
-index 4d55c0669ca..49ca9c21b52 100644
+index f7779b91f8b..3671d8e8162 100644
 --- a/lib/workers/repository/update/branch/get-updated.spec.ts
 +++ b/lib/workers/repository/update/branch/get-updated.spec.ts
 @@ -7,6 +7,7 @@ import * as _composer from '../../../../modules/manager/composer';
@@ -3200,7 +3200,7 @@ index 4d55c0669ca..49ca9c21b52 100644
       * The pip-compile manager uses lock files, the regex manager does not.
       * Verify pip-compile updates the lock files even if the same dependency
 diff --git a/lib/workers/repository/update/branch/get-updated.ts b/lib/workers/repository/update/branch/get-updated.ts
-index e234c333327..2be90bb9e07 100644
+index db64ad21426..ee7cc62fdc1 100644
 --- a/lib/workers/repository/update/branch/get-updated.ts
 +++ b/lib/workers/repository/update/branch/get-updated.ts
 @@ -103,6 +103,7 @@ export async function getUpdatedPackageFiles(
@@ -3247,8 +3247,8 @@ index e234c333327..2be90bb9e07 100644
    const updatedArtifacts: FileChange[] = [];
    const artifactErrors: ArtifactError[] = [];
    const artifactNotices: ArtifactNotice[] = [];
--  if (is.nonEmptyArray(updatedPackageFiles)) {
-+  if (is.nonEmptyArray(filesForArtifacts)) {
+-  if (isNonEmptyArray(updatedPackageFiles)) {
++  if (isNonEmptyArray(filesForArtifacts)) {
      logger.debug('updateArtifacts for updatedPackageFiles');
      const updatedPackageFileManagers = getManagersForPackageFiles(
 -      updatedPackageFiles,
