@@ -82,7 +82,7 @@ runs:
       if: (inputs.maximize-build-space == 'true') && (runner.os == 'Linux')
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v31.8.2
+      uses: cachix/install-nix-action@v31.8.3
       with:
         install_url: ${{ inputs.nix-install-url }}
         install_options: ${{ inputs.nix-install-options }}
