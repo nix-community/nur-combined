@@ -50,7 +50,7 @@ jobs:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
           app_id: ${{ vars.CLIENT_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          app_key: ${{ secrets.PRIVATE_KEY }}
           shell: ci
 
       - name: Renovate
