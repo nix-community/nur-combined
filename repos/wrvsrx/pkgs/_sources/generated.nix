@@ -175,15 +175,14 @@
   };
   noctalia-shell = {
     pname = "noctalia-shell";
-    version = "3c8a49d7c09c4f886b8ec9c4c658ae1926e8d44a";
+    version = "v3.0.9";
     src = fetchFromGitHub {
       owner = "noctalia-dev";
       repo = "noctalia-shell";
-      rev = "3c8a49d7c09c4f886b8ec9c4c658ae1926e8d44a";
+      rev = "v3.0.9";
       fetchSubmodules = false;
-      sha256 = "sha256-c/zsvlczXfoI+I9KaNP2vEfy2lfwfwCSH1AgaepCpVk=";
+      sha256 = "sha256-mV8MNkNkahC/Z8RJGiloC9dYjOsDgM1Gx7f38wNJMEU=";
     };
-    date = "2025-11-11";
   };
   osc52 = {
     pname = "osc52";
