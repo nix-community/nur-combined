@@ -652,6 +652,9 @@
         "immae": {
             "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
         },
+        "inogai": {
+            "url": "https://github.com/inogai/nur-packages"
+        },
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
