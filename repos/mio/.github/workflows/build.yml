@@ -89,7 +89,7 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      run: nice -n 20 nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached --max-jobs 1 ci.nix -A cacheOutputs
+      run: nice -n 20 nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached --max-jobs 1 --cores 0 --keep-going ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
