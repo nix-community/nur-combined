@@ -231,10 +231,10 @@
     };
     "alby" = buildFirefoxXpiAddon {
       pname = "alby";
-      version = "3.13.0";
+      version = "3.14.0";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4587202/alby-3.13.0.xpi";
-      sha256 = "b64c2405de386e9660c798d456490e231763c3bed6175cc479c6071eb84dfe84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4614770/alby-3.14.0.xpi";
+      sha256 = "7da9b3281951091a225ef31101a702f1f3997c64648ece429c0d7f89f57350cf";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -1545,10 +1545,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.15.0";
+      version = "7.16.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615404/castkodi-7.15.0.xpi";
-      sha256 = "141a9275ae8d58722b08c020128c0a70afa3e6238e4744b46dc779fce3f18c26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617456/castkodi-7.16.0.xpi";
+      sha256 = "8c22c320992a0b41be41acaac921f337d6e142cddc459983a1ff21185957cb12";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.66.1";
+      version = "2.67.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615637/dualsub-2.66.1.xpi";
-      sha256 = "16f177f9db4e387a00335d0d645af4d9ff44771c29d5498e5dc2368c57c24797";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617689/dualsub-2.67.0.xpi";
+      sha256 = "aaf8d5725ffc068446d3ae78d3f430718801f2f729146099e234c7135a6f0955";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3136,7 +3136,6 @@
           "storage"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
-          "https://www.ardmediathek.de/*"
           "https://www.iflix.com/*"
           "https://www.iq.com/*"
           "https://www.viki.com/*"
@@ -8444,10 +8443,10 @@
     };
     "metager-suche" = buildFirefoxXpiAddon {
       pname = "metager-suche";
-      version = "1.22";
+      version = "1.23";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4604176/metager_suche-1.22.xpi";
-      sha256 = "10dbb162df42484de05fb3e2c5a1daebbd1bdcc1a204b4d1ca2de1d6a5dc17d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617187/metager_suche-1.23.xpi";
+      sha256 = "6654457954ca50bf7d219a4f780ad49a5e681b122e5330f2c79952c55d8ca8b9";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -15500,7 +15499,7 @@
       sha256 = "87ef145bb490c68e0ccc4e7d1483bd010e70209245dc2941227709607ea311b9";
       meta = with lib;
       {
-        description = "Keeps titles, descriptions and audio tracks in their original language on YouTube.";
+        description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
         mozPermissions = [
           "storage"
           "*://*.youtube.com/*"
