@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-11-10",
+        "date": "2025-11-12",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,16 +427,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "3ccdad289bd0f8f05e98648ba7fe74916d9b5c07",
-            "sha256": "sha256-Suj+Az89GGygaYJMScQPKe6HZNlc10+Bg88bTDzFIik=",
+            "rev": "c1433938b57650a7bed83f5b398e16c63931f950",
+            "sha256": "sha256-sqzydD0sV5prgnL1ILScaKY9n/Ma2aSiZxw6ZOfynjI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3ccdad289bd0f8f05e98648ba7fe74916d9b5c07"
+        "version": "c1433938b57650a7bed83f5b398e16c63931f950"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-11-10",
+        "date": "2025-11-12",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "b05e58eac15a42b9e32e3d1af408e46f397d872b",
-            "sha256": "sha256-U0hkzMEt0/EjJCy+BOigktAebQsYClP9RZczlIdsShY=",
+            "rev": "5410f4e78d193a461f5228895558b544593dd2e2",
+            "sha256": "sha256-90xHCcc9C+PaJGSOAdYobVzdikeBgjsH9PT+Oil+VTY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b05e58eac15a42b9e32e3d1af408e46f397d872b"
+        "version": "5410f4e78d193a461f5228895558b544593dd2e2"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7018",
-            "sha256": "sha256-a9IT5scvHH8TrL73dp0eoMNU9hEvHwglxj2rXviBHdg=",
+            "rev": "b7031",
+            "sha256": "sha256-Cdv/b8tCrvpDPPFzdCIJ0aHqQDexCAgpq5vGUG5kosk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7018"
+        "version": "b7031"
     },
     "loralib": {
         "cargoLocks": null,

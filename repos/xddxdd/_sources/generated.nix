@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "3ccdad289bd0f8f05e98648ba7fe74916d9b5c07";
+    version = "c1433938b57650a7bed83f5b398e16c63931f950";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "3ccdad289bd0f8f05e98648ba7fe74916d9b5c07";
-      hash = "sha256-Suj+Az89GGygaYJMScQPKe6HZNlc10+Bg88bTDzFIik=";
+      rev = "c1433938b57650a7bed83f5b398e16c63931f950";
+      hash = "sha256-sqzydD0sV5prgnL1ILScaKY9n/Ma2aSiZxw6ZOfynjI=";
     };
-    date = "2025-11-10";
+    date = "2025-11-12";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "b05e58eac15a42b9e32e3d1af408e46f397d872b";
+    version = "5410f4e78d193a461f5228895558b544593dd2e2";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "b05e58eac15a42b9e32e3d1af408e46f397d872b";
-      hash = "sha256-U0hkzMEt0/EjJCy+BOigktAebQsYClP9RZczlIdsShY=";
+      rev = "5410f4e78d193a461f5228895558b544593dd2e2";
+      hash = "sha256-90xHCcc9C+PaJGSOAdYobVzdikeBgjsH9PT+Oil+VTY=";
     };
-    date = "2025-11-10";
+    date = "2025-11-12";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7018";
+    version = "b7031";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7018";
-      hash = "sha256-a9IT5scvHH8TrL73dp0eoMNU9hEvHwglxj2rXviBHdg=";
+      tag = "b7031";
+      hash = "sha256-Cdv/b8tCrvpDPPFzdCIJ0aHqQDexCAgpq5vGUG5kosk=";
     };
   };
   loralib = {
