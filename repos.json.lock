@@ -2404,8 +2404,8 @@
             "url": "https://github.com/zachcoyle/nur-packages"
         },
         "zeratax": {
-            "rev": "572ed94d664b3cdc64bdffcbedacb5f1bef10168",
-            "sha256": "1clqrvy6grqj95ig4x2cb056pq98qpw05fbvy982zm1qvdzjc3s4",
+            "rev": "1f5d577511a1bdbe67c7eb1b4ce2376e61f7a0ef",
+            "sha256": "1rlpyldms02fy53rwbaki81478xnqjwiv5jdhr6hm8smmijjnbwr",
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
