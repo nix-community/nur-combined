@@ -278,10 +278,10 @@
   "gotmpl": {
     "nurl": {
       "args": {
-        "hash": "sha256-YlPX74tEgCxGm2GYqYvQ0ouzTZ4x5/R+hkP+lBuOLGw=",
-        "owner": "dannylongeuay",
+        "hash": "sha256-qPSmJ7PvteGFNSOaS3VvdJfPsQ2fmRTqHd3cIWD4ZMA=",
+        "owner": "ngalaiko",
         "repo": "tree-sitter-go-template",
-        "rev": "395a33e08e69f4155156f0b90138a6c86764c979"
+        "rev": "ca26229bafcd3f37698a2496c2a5efa2f07e86bc"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -451,6 +451,18 @@
         "owner": "tree-sitter",
         "repo": "tree-sitter-ruby",
         "rev": "206c7077164372c596ffa8eaadb9435c28941364"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "rshtml": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-bM8r4G5Y9bP1tOKtks9+Mydtj1eprQvyL8nMu09l5i8=",
+        "owner": "rshtml",
+        "repo": "tree-sitter-rshtml",
+        "rev": "89ae0f3a5e221a83aad243def85e822616d3b3c2"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -739,6 +751,18 @@
         "owner": "MercuryTechnologies",
         "repo": "tree-sitter-haskell-persistent",
         "rev": "58a6ccfd56d9f1de8fb9f77e6c42151f8f0d0f3d"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "haskell-literate": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-P9FTcMwPU1AvH55ly0XydCSVOP0Mfi6jQ0Yg6Muraqk=",
+        "owner": "LaurentRDC",
+        "repo": "tree-sitter-haskell-literate",
+        "rev": "8ad7bd1b1595f4cc1a4ccc775d4a3c460f43a596"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1901,10 +1925,10 @@
   "matlab": {
     "nurl": {
       "args": {
-        "hash": "sha256-hoxTQc8uQIBNNE9CODjImiT9Db0HgVyG6WobH2I/EAg=",
+        "hash": "sha256-wKI/BufSB1HoEP+CqKCrWtfIbh347am7V4hLBA8ogbg=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "585b52b9b16d8e626299a76360ef6ab4f9731aed"
+        "rev": "55d89cb322c9bc49bfd953b2a9d29ff03b072eac"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3238,6 +3262,42 @@
         "owner": "mi2ebi",
         "repo": "tree-sitter-bovex",
         "rev": "de7657a9cc3525b9b77c6d268da09dad5b1346b0"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "haxe": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-gzaew1haKJVHpigVHQEClan+KEvXXV97AWirPuhh2XM=",
+        "owner": "vantreeseba",
+        "repo": "tree-sitter-haxe",
+        "rev": "a55f3e2cf1e4449200fd089a80d3af642bcf5f94"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "basic": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-4wJLK+yZjBELTzTnB/9Xb70uGodetEyjVDtFshviQyA=",
+        "owner": "Ra77a3l3-jar",
+        "repo": "tree-sitter-basic",
+        "rev": "a98449c11d6c688b54c1ca132148a62d7e586a2a"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "freebasic": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-9JDf9Tj6K55JRTNfw9U7wR3/idQ8eBoQRCOQnLm3hbs=",
+        "owner": "Ra77a3l3-jar",
+        "repo": "tree-sitter-freebasic",
+        "rev": "dbf696adb4c0b9c020074e75043c90592981ee7f"
       },
       "fetcher": "fetchFromGitHub"
     },
