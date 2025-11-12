@@ -40,6 +40,10 @@ stdenv.mkDerivation (finalAttrs: {
     SDL_mixer
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   NIX_CFLAGS_COMPILE = [
     "-Wno-error=mismatched-new-delete"
   ] ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation";

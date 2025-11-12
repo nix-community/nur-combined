@@ -8,7 +8,7 @@
   wxgtk,
   libredirect,
   makeWrapper,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   pname,
   version,
   id,
@@ -29,7 +29,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     makeWrapper
-    wrapGAppsHook
+    wrapGAppsHook3
     unzip
   ];
 

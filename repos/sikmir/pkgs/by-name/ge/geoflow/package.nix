@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  pkg-config,
   glfw3,
   nlohmann_json,
   proj,
@@ -25,7 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace apps/CMakeLists.txt --replace-fail "/Applications" "$out/Applications"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     glfw3

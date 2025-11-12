@@ -6,7 +6,7 @@
   pkg-config,
   gtk4,
   openssl,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

@@ -9,7 +9,7 @@
   maprec,
   ozi-map,
   pyimagequant,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 python311Packages.buildPythonApplication {
@@ -36,7 +36,7 @@ python311Packages.buildPythonApplication {
 
   nativeBuildInputs = [
     gobject-introspection
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

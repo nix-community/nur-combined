@@ -14,7 +14,7 @@
   paho-mqtt-cpp,
   paho-mqtt-c,
   stduuid,
-  microsoft_gsl,
+  microsoft-gsl,
   catch2,
 }:
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     paho-mqtt-cpp
     paho-mqtt-c
     stduuid
-    microsoft_gsl
+    microsoft-gsl
     catch2
   ];
 

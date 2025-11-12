@@ -6,7 +6,7 @@
   pkg-config,
   check,
   libconfig,
-  librtlsdr,
+  rtl-sdr,
   volk,
   zlib,
 }:
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     check
     libconfig
-    librtlsdr
+    rtl-sdr
     volk
     zlib
   ];

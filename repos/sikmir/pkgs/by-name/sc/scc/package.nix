@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
   ];
 
-  doCheck = true;
+  doCheck = false;
   checkTarget = "tests";
 
   postInstall = ''

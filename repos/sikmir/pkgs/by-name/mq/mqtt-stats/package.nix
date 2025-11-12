@@ -4,7 +4,7 @@
   python3Packages,
   gtk3,
   gobject-introspection,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 python3Packages.buildPythonApplication {
@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication {
 
   nativeBuildInputs = [
     gobject-introspection
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   dependencies = with python3Packages; [

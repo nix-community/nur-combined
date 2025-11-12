@@ -24,7 +24,7 @@ python3Packages.buildPythonPackage rec {
     matplotlib
     numpy
     rasterio
-    scikitimage
+    scikit-image
     requests
   ];
 

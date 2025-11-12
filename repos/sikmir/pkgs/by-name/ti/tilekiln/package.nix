@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     fs
     jinja2
     pmtiles
-    prometheus_client
+    prometheus-client
     psycopg
     psycopg.optional-dependencies.pool
     pyyaml

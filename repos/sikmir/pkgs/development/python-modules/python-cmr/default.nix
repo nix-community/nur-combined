@@ -19,7 +19,7 @@ python3Packages.buildPythonPackage rec {
   build-system = with python3Packages; [ poetry-core ];
 
   dependencies = with python3Packages; [
-    dateutil
+    python-dateutil
     requests
     typing-extensions
   ];

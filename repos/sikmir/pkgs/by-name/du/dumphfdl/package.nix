@@ -41,6 +41,10 @@ stdenv.mkDerivation (finalAttrs: {
     zeromq
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   meta = {
     description = "Multichannel HFDL decoder";
     homepage = "https://github.com/szpajder/dumphfdl";

@@ -25,7 +25,7 @@
   shapelib,
   sqlite,
   unzip,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 let
@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     perlPackages.perl
     pkg-config
     unzip
-    wrapGAppsHook
+    wrapGAppsHook3
   ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [

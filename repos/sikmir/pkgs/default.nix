@@ -3,7 +3,6 @@ let
   inherit (pkgs)
     lib
     newScope
-    recurseIntoAttrs
     libsForQt5
     darwin
     ;
@@ -27,7 +26,7 @@ lib.makeScope newScope (
   // {
     # VSCODE EXTENSIONS
 
-    vscode-extensions = recurseIntoAttrs (callPackage ./vscode-extensions.nix { });
+    vscode-extensions = lib.recurseIntoAttrs (callPackage ./vscode-extensions.nix { });
 
     ### BUILD SUPPORT
 

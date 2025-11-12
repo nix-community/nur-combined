@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed-preview";
-  version = "0.212.2-pre";
+  version = "0.212.3-pre";
 
   src = fetchfromgh {
     owner = "zed-industries";
     repo = "zed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gc1IG3Eg06pm9RvQUJfIfR+iH8UeRdFheHYf721qNzA=";
+    hash = "sha256-8x7bNcgCZaqprwhNEjq/w+U/vyKNwBGke45Jo1O7KN0=";
     name = "Zed-x86_64.dmg";
   };
 

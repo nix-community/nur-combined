@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     c2cwsgiutils
     cryptography
     pillow
-    prometheus_client
+    prometheus-client
     pyproj
     requests
     redis

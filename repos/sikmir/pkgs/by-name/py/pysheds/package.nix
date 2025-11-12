@@ -27,7 +27,7 @@ python3Packages.buildPythonPackage rec {
     pandas
     pyproj
     rasterio
-    scikitimage
+    scikit-image
     scipy
   ];
 
