@@ -1,28 +1,27 @@
 {
   lib,
   rustPlatform,
-  fetchgit,
+  fetchFromGitHub,
   runtimeShell,
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "oli";
-  version = "0.54.1";
+  version = "0-unstable-2025-11-10";
 
-  # Cannot use `fetchFromGitHub` because `bin` is marked as `export-ignore`.
-  src = fetchgit {
-    url = "https://github.com/apache/opendal.git";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-NaKUIL6TUZc3HjYNNEofmmydgDT8yjIczgtzBd23Ku4=";
+  src = fetchFromGitHub {
+    owner = "apache";
+    repo = "opendal-oli";
+    rev = "7670ad00d8d8efa2d29691f8f9e453693fb11939";
+    hash = "sha256-RAOElye6mdR3WkgMDBFs0ab9JeYGkpuC+4GtIsrWM5c=";
   };
-  sourceRoot = "${finalAttrs.src.name}/bin/oli";
 
   postPatch = ''
     substituteInPlace tests/integration/edit.rs --replace-warn '#!/bin/bash' '#!${runtimeShell}'
   '';
 
-  cargoHash = "sha256-zJYMZ1hsiN4TOuRZAlgzm7NHBYRmfCqr8jlpfW/CROU=";
+  cargoHash = "sha256-cqG14hlW2zQcNzwRHvwN/fHhs7sEHMSzpPf5e1EtnNM=";
 
   checkFlags = [
     "--skip=edit::test_edit_file_content_replacement"
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=edit::test_edit_new_file"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Unified and user-friendly way to manipulate data stored in various storage service";
@@ -39,4 +38,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     maintainers = with lib.maintainers; [ xyenon ];
     mainProgram = "oli";
   };
-})
+}
