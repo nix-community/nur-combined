@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "protocol-lib";
-  version = "5.2.0";
+  version = "5.4.0";
   owner = "dmulloy2";
 
   preferLocalBuild = true;
@@ -15,9 +15,8 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     jar = fetchurl {
-      # url = "https://github.com/${owner}/ProtocolLib/releases/download/${version}/ProtocolLib.jar";
-      url = "https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar";
-      sha256 = "05p09hcgm140h59kqcbzrh357vn70r7r1hagf9jzyc6z0s7va22a";
+      url = "https://github.com/${owner}/ProtocolLib/releases/download/${version}/ProtocolLib.jar";
+      sha256 = "1kxcbhgzn294dqyvb4m65kgka40vwq4d3i416082svrqnnwplbpf";
     };
   in ''
     mkdir -p $out

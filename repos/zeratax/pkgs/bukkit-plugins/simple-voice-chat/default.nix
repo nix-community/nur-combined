@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "SimpleVoiceChat";
-  version = "2.5.20";
+  version = "2.6.6";
   owner = "henkelmax";
 
   preferLocalBuild = true;
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   installPhase = let
     jar = fetchurl {
       url = "https://hangarcdn.papermc.io/plugins/${owner}/${pname}/versions/bukkit-${version}/PAPER/voicechat-bukkit-${version}.jar";
-      sha256 = "023wjx0zxf9rc2x9vsqg398wapz0nlwfs5g6c8pci3qx75i5s4jx";
+      sha256 = "0d9dfm7aivwy8bj2sni6mbxdqmyg0931n80kv9jylw838mh4m2p4";
     };
   in ''
     mkdir -p $out

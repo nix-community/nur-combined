@@ -2,29 +2,25 @@
   lib,
   stdenv,
   fetchurl,
-  pkgs,
 }:
 stdenv.mkDerivation rec {
-  pname = "Vivecraft_Spigot_Extensions";
-  version = "121";
-  owner = "jrbudda";
+  pname = "VivecraftSpigot";
+  version = "3.2.0";
+  owner = "CJCrafter";
 
   preferLocalBuild = true;
 
+  dontUnpack = true;
   dontConfigure = true;
 
-  src = fetchurl {
-    url = "https://github.com/${owner}/${pname}/releases/download/${version}/${pname}.1.21r1.zip";
-    sha256 = "07bm2z7nrxsa46myypawawnb9m7f6p8yyyhspv95b9phvhslgm0y";
-  };
-
-  unpackPhase = ''
-    ${pkgs.unzip}/bin/unzip $src
-  '';
-
-  installPhase = ''
+  installPhase = let
+    jar = fetchurl {
+      url = "https://github.com/${owner}/${pname}/releases/download/v${version}/${pname}-${version}.jar";
+      sha256 = "0s5a9bqykwpn8ym2lgj38r7yfji976w4cfi60zyzbnc89529c4bm";
+    };
+  in ''
     mkdir -p $out
-    cp ${pname}.jar $out/${pname}.jar
+    cp ${jar} $out/${pname}.jar
   '';
 
   meta = with lib; {

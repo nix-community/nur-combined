@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "bluemap-marker-manger";
-  version = "2.1.5";
+  version = "2.1.12";
   owner = "MiraculixxT";
 
   preferLocalBuild = true;
@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     jar = fetchurl {
-      url = "https://cdn.modrinth.com/data/a8UoyV2h/versions/E0XoPfJV/BMM-2.1.5.jar";
-      sha256 = "1vpnqglybysxnqyzkjnwbwg000dqkbk516apzvhmg39wlfaysl9d";
+      url = "https://cdn.modrinth.com/data/a8UoyV2h/versions/jRs3jUlU/bmm-paper-2.1.12.jar";
+      sha256 = "1z9if0a8pkbra001s60zrrp08cq6cwzk74s5wv7rnfxkl7zl89sn";
     };
   in ''
     mkdir -p $out

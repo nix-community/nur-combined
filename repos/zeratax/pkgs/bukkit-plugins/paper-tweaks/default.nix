@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "PaperTweaks";
-  version = "0.5.0-beta.1";
+  version = "0.5.0";
   owner = "MC-Machinations";
 
   preferLocalBuild = true;
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   installPhase = let
     jar = fetchurl {
       url = "https://github.com/${owner}/${pname}/releases/download/v${version}/PaperTweaks.jar";
-      sha256 = "1rjxbs1sm8r6rn8cy0rxfpl90q2wjh53448gw5pld236fzdc2awf";
+      sha256 = "0f0v0x78m85d4vgsb9azispcbnf94n9injn6yyj0z6pj65llgf1g";
     };
   in ''
     mkdir -p $out
