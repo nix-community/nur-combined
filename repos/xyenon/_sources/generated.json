@@ -89,7 +89,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20251101201035",
+        "date": "20251111042133",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -103,12 +103,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "ada4e019184d73e68cb92b7dac6ee6efeea92811",
-            "sha256": "sha256-Pk6jAtQ3o/8RFaYb6JC6ViE2tD3zxNXotf+ozlcLwKc=",
+            "rev": "1823cde2603c124d48b7843729747f66e941fa2f",
+            "sha256": "sha256-7/bxmScULkpZO+feTcCkY+xw2BdqWu1EP30SqzGwsms=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ada4e019184d73e68cb92b7dac6ee6efeea92811"
+        "version": "1823cde2603c124d48b7843729747f66e941fa2f"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
@@ -205,11 +205,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8WmfnkfTg8zdMKvn3I+Ag5KYjdbUpeWhgeSEEc/WUss=",
+            "sha256": "sha256-GBevsjo6KRd6Uicy2LpMwgZJkluN5n2ID/DAiaKJV74=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20251009/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20251109/moegirl.dict.yaml"
         },
-        "version": "20251009"
+        "version": "20251109"
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
