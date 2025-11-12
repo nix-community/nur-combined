@@ -54,7 +54,7 @@
       type = "github";
       owner = "jj-vcs";
       repo = "jj";
-      ref = "v0.34.0";
+      ref = "v0.35.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
