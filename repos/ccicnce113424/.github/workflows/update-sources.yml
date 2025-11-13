@@ -18,7 +18,7 @@ jobs:
     name: Update Sources
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -32,6 +32,8 @@ jobs:
           nix flake update
           nix run nixpkgs#nvfetcher
           nix fmt _sources
+          pkgs/pixes/update.sh
+          pkgs/pixes/update-git.sh
           pkgs/splayer-git/update-git.sh
 
       - name: Create Pull Request

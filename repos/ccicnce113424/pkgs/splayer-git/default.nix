@@ -11,6 +11,7 @@ splayer.overrideAttrs (
     pnpmDeps = final.pnpm.fetchDeps {
       inherit (final) pname version src;
       inherit hash;
+      fetcherVersion = 2;
     };
   }
 )

@@ -6,3 +6,6 @@ fup:
 
 hello:
     nix run
+
+up:
+    nix run nixpkgs#nvfetcher

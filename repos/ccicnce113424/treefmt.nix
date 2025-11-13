@@ -8,10 +8,17 @@
         projectRootFile = "flake.nix";
         programs.nixfmt = {
           enable = true;
-          package = pkgs.nixfmt-rfc-style;
+          package = pkgs.nixfmt;
+          priority = 0;
         };
-        programs.deadnix.enable = true;
-        programs.statix.enable = true;
+        programs.statix = {
+          enable = true;
+          priority = 1;
+        };
+        programs.deadnix = {
+          enable = true;
+          priority = 2;
+        };
         programs.prettier.enable = true;
         programs.just.enable = true;
         programs.toml-sort.enable = true;

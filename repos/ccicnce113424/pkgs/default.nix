@@ -10,18 +10,64 @@ in
 rec {
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
+  ayugram-desktop = pkgs.callPackage ./ayugram-desktop rec {
+    sources = fetchedSrc.ayugram-desktop;
+    version = stableVersion sources;
+  };
+
   danmakufactory = pkgs.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;
   };
-  danmakufactory-git = pkgs.callPackage ./danmakufactory rec {
-    sources = fetchedSrc.danmakufactory-git;
-    version = unstableVersion sources;
+  danmakufactory-git =
+    (pkgs.callPackage ./danmakufactory-git rec {
+      sources = fetchedSrc.danmakufactory-git;
+      version = unstableVersion sources;
+    }).overrideAttrs
+      {
+        meta.broken = true;
+      };
+
+  dxvk-gplall-bin-w32 = pkgs.callPackage ./dxvk-gplall-bin rec {
+    sources = fetchedSrc.dxvk-gplall;
+    inherit (sources) version;
+    sourceRoot = "x32";
+  };
+
+  dxvk-gplall-bin-w64 = pkgs.callPackage ./dxvk-gplall-bin rec {
+    sources = fetchedSrc.dxvk-gplall;
+    inherit (sources) version;
+    sourceRoot = "x64";
+  };
+
+  lxgw-wenkai-gb = pkgs.callPackage ./lxgw-wenkai-gb rec {
+    sources = fetchedSrc.lxgw-wenkai-gb;
+    version = stableVersion sources;
   };
 
   mpv-handler = pkgs.callPackage ./mpv-handler rec {
     sources = fetchedSrc.mpv-handler;
     version = stableVersion sources;
+  };
+
+  piliplus = pkgs.callPackage ./piliplus rec {
+    sources = fetchedSrc.piliplus;
+    inherit (sources) version;
+    pubspecLock = builtins.fromJSON (builtins.readFile ./piliplus/pubspec.lock.json);
+    gitHashes = import ./piliplus/git-hashes.nix;
+  };
+
+  pixes = pkgs.callPackage ./pixes rec {
+    sources = fetchedSrc.pixes;
+    version = stableVersion sources;
+    pubspecLock = builtins.fromJSON (builtins.readFile ./pixes/pubspec.lock.json);
+    gitHashes = import ./pixes/git-hashes.nix;
+  };
+  pixes-git = pkgs.callPackage ./pixes rec {
+    sources = fetchedSrc.pixes-git;
+    version = unstableVersion sources;
+    pubspecLock = builtins.fromJSON (builtins.readFile ./pixes/git/pubspec.lock.json);
+    gitHashes = import ./pixes/git/git-hashes.nix;
   };
 
   shijima-qt = pkgs.callPackage ./shijima-qt { };
@@ -36,17 +82,15 @@ rec {
   };
 
   uosc-danmaku = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
-    inherit danmakufactory;
     sources = fetchedSrc.uosc-danmaku;
     version = stableVersion sources;
   };
   uosc-danmaku-git = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
-    danmakufactory = danmakufactory-git;
     sources = fetchedSrc.uosc-danmaku-git;
     version = unstableVersion sources;
   };
 
-  wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
+  # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
 
   vulkan-hdr-layer-kwin6 =
     if (builtins.tryEval pkgs.vulkan-hdr-layer-kwin6).success then
@@ -56,4 +100,9 @@ rec {
         sources = fetchedSrc.vulkan-hdr-layer-kwin6;
         version = unstableVersion sources;
       };
+
+  zhuque = pkgs.callPackage ./zhuque rec {
+    sources = fetchedSrc.zhuque;
+    version = stableVersion sources;
+  };
 }

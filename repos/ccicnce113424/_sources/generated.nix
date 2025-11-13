@@ -2,23 +2,33 @@
 {
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   algermusicplayer-arm = {
     pname = "algermusicplayer-arm";
-    version = "4.8.2";
+    version = "4.9.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.8.2/AlgerMusicPlayer-4.8.2-linux-arm64.AppImage";
-      sha256 = "sha256-V+pCKDC1cCD7wxuQ9wRYFVfVg2Ltevawkgo6dk9jIDE=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.9.0/AlgerMusicPlayer-4.9.0-linux-arm64.AppImage";
+      sha256 = "sha256-Evuh6HQhubA4WrQlVot+BCD2avrqpJaxz/L3+AB7sRc=";
     };
   };
   algermusicplayer-x86 = {
     pname = "algermusicplayer-x86";
-    version = "4.8.2";
+    version = "4.9.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.8.2/AlgerMusicPlayer-4.8.2-linux-x86_64.AppImage";
-      sha256 = "sha256-T0G/jc3foW3a/opUKybU4HkGKqPEkxNy8JppC8bwyR4=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.9.0/AlgerMusicPlayer-4.9.0-linux-x86_64.AppImage";
+      sha256 = "sha256-fY8lobsRg2nDENYDY3R81zJ2x0Fr29vJccrelbdggmg=";
+    };
+  };
+  ayugram-desktop = {
+    pname = "ayugram-desktop";
+    version = "v6.2.4";
+    src = fetchFromGitHub {
+      owner = "AyuGram";
+      repo = "AyuGramDesktop";
+      rev = "v6.2.4";
+      fetchSubmodules = true;
+      sha256 = "sha256-bFGk8lqPlNlaxbrulYe0+8ayj33frctruce3/TZ+W2c=";
     };
   };
   danmakufactory = {
@@ -34,78 +44,143 @@
   };
   danmakufactory-git = {
     pname = "danmakufactory-git";
-    version = "40fe8916f8528f57a4a1ca245d043d5c4d2566eb";
+    version = "847d3c377ab8521c71a4b92c50403865ec0994b9";
     src = fetchFromGitHub {
       owner = "hihkm";
       repo = "DanmakuFactory";
-      rev = "40fe8916f8528f57a4a1ca245d043d5c4d2566eb";
-      fetchSubmodules = false;
-      sha256 = "sha256-fxp0lmvIQU7WRs0IkZHpvG73PkgAdiDMQvrGHWSsSqI=";
+      rev = "847d3c377ab8521c71a4b92c50403865ec0994b9";
+      fetchSubmodules = true;
+      sha256 = "sha256-SeAX1YgKNZou0+RYnSu8Cnxcv2G/gvwMCO6HkxT5pfc=";
     };
-    date = "2025-05-18";
+    date = "2025-10-01";
+  };
+  dxvk-gplall = {
+    pname = "dxvk-gplall";
+    version = "2.7.1-1";
+    src = fetchurl {
+      url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-1/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.2.7.1-1.zip";
+      sha256 = "sha256-XezfqwwKygUQcu/J6NtTFJHcKacy4xYSXzCWmLZg6Cw=";
+    };
+  };
+  lxgw-wenkai-gb = {
+    pname = "lxgw-wenkai-gb";
+    version = "v1.521";
+    src = fetchurl {
+      url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.521/lxgw-wenkai-gb-v1.521.tar.gz";
+      sha256 = "sha256-CtL4FEBNIhj4lQWhonDY3jEfJKY/tqt9r4l3NGWUmTM=";
+    };
   };
   mpv-handler = {
     pname = "mpv-handler";
-    version = "v0.3.16";
+    version = "v0.4.2";
     src = fetchFromGitHub {
       owner = "akiirui";
       repo = "mpv-handler";
-      rev = "v0.3.16";
+      rev = "v0.4.2";
       fetchSubmodules = false;
-      sha256 = "sha256-RpfHUVZmhtneeu8PIfxinYG3/groJPA9QveDSvzU6Zo=";
+      sha256 = "sha256-QoctjneJA7CdXqGm0ylAh9w6611vv2PD1fzS0exag5A=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./mpv-handler-v0.3.16/Cargo.lock;
+      lockFile = ./mpv-handler-v0.4.2/Cargo.lock;
       outputHashes = {
 
       };
     };
   };
+  piliplus = {
+    pname = "piliplus";
+    version = "1.1.5-pre3";
+    src = fetchFromGitHub {
+      owner = "bggRGjQaUbCoE";
+      repo = "PiliPlus";
+      rev = "1.1.5-pre3";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = true;
+      sparseCheckout = [ ];
+      sha256 = "sha256-/3R7AXO+PFH/8ub69vqcMSDyBNubbrlp07e7r0ZCiH8=";
+    };
+    "pubspec.lock" = builtins.readFile ./piliplus-1.1.5-pre3/pubspec.lock;
+  };
+  pixes = {
+    pname = "pixes";
+    version = "v1.2.0";
+    src = fetchFromGitHub {
+      owner = "wgh136";
+      repo = "pixes";
+      rev = "v1.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-J6ap9kuiRyjZQHW5z4LyM9ww2FCDmgv5+qML5/YldNA=";
+    };
+    "pubspec.lock" = builtins.readFile ./pixes-v1.2.0/pubspec.lock;
+  };
+  pixes-git = {
+    pname = "pixes-git";
+    version = "583ccdea5202c7f35f852dd913f07b7e497827b0";
+    src = fetchFromGitHub {
+      owner = "wgh136";
+      repo = "pixes";
+      rev = "583ccdea5202c7f35f852dd913f07b7e497827b0";
+      fetchSubmodules = false;
+      sha256 = "sha256-FG1dGLGDS4UovGrbZALQ8VSYi2KlNYPwWJ37ozDf8WM=";
+    };
+    "pubspec.lock" =
+      builtins.readFile ./pixes-git-583ccdea5202c7f35f852dd913f07b7e497827b0/pubspec.lock;
+    date = "2025-10-19";
+  };
   splayer-git = {
     pname = "splayer-git";
-    version = "bfcd59dacab07fd665e71a311c5fe8c0a3c548a7";
+    version = "8529663ea5e1292259af9f61620e31437bb3c1b9";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "bfcd59dacab07fd665e71a311c5fe8c0a3c548a7";
+      rev = "8529663ea5e1292259af9f61620e31437bb3c1b9";
       fetchSubmodules = false;
-      sha256 = "sha256-SpaisGy7Tcaurgyt4kFYifhIeWoAQoufHZ+8zZaFAvk=";
+      sha256 = "sha256-HVFI9VNE9IrUvCBPBAnRufGscDlfHPBJ+nA7jiCzE5A=";
     };
-    date = "2025-05-23";
+    date = "2025-11-12";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";
-    version = "v1.3.1";
+    version = "v2.0.0";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "v1.3.1";
+      rev = "v2.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-m+HubIlELU/COP5rgul7LBPaOEWGz2ms89mF/w3ZWGQ=";
+      sha256 = "sha256-r4HcrDh4iW8ErfClfX1gkEWp7lVKbLE88fpj3tjYBAI=";
     };
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "56dfa82be75267343f394a708c3f1c7d8791cb5c";
+    version = "4d9e54e1ade827d3f0963d9609dbd7658466491a";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "56dfa82be75267343f394a708c3f1c7d8791cb5c";
+      rev = "4d9e54e1ade827d3f0963d9609dbd7658466491a";
       fetchSubmodules = false;
-      sha256 = "sha256-NM5Ag5QXMAalRpagKmrTbwUvnZAff2Ox2SwxFhlq+T8=";
+      sha256 = "sha256-Pmsw2XeGZPhKiduUsw8QH/VtpvemB6EbuvLnzCjKfQw=";
     };
-    date = "2025-06-27";
+    date = "2025-10-12";
   };
   vulkan-hdr-layer-kwin6 = {
     pname = "vulkan-hdr-layer-kwin6";
-    version = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+    version = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "1384036ea24a9bc38a5c684dac5122d5e3431ae6";
+      rev = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
       fetchSubmodules = true;
-      sha256 = "sha256-xm0S1vLE8MAov8gf6rN5ZKZAe6NMKfHDlUlmNd332qw=";
+      sha256 = "sha256-NsC44Ifl/fAHvFqP7NLrVZ71Y+x5mBEkv+r43HN5yn4=";
     };
-    date = "2025-05-22";
+    date = "2025-07-31";
+  };
+  zhuque = {
+    pname = "zhuque";
+    version = "v0.212";
+    src = fetchurl {
+      url = "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip";
+      sha256 = "sha256-u4tmGnZD0ilqctnRBTCgCUlBnE5Sf7YXg/c8K6GowGI=";
+    };
   };
 }

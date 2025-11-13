@@ -48,7 +48,10 @@ stdenv.mkDerivation (final: {
 
   dontUseCmakeConfigure = true;
 
-  makeFlags = [ "CONFIG=release" ];
+  makeFlags = [
+    "CONFIG=release"
+    "CMAKEFLAGS=-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ];
 
   hardeningDisable = [ "fortify" ];
 

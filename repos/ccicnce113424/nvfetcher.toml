@@ -8,18 +8,49 @@ fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$v
 src.github = "algerkong/AlgerMusicPlayer"
 src.prefix = "v"
 
+[ayugram-desktop]
+fetch.github = "AyuGram/AyuGramDesktop"
+git.fetchSubmodules = true
+src.github = "AyuGram/AyuGramDesktop"
+
 [danmakufactory]
 fetch.github = "hihkm/DanmakuFactory"
 src.github = "hihkm/DanmakuFactory"
 
 [danmakufactory-git]
 fetch.github = "hihkm/DanmakuFactory"
+git.fetchSubmodules = true
 src.git = "https://github.com/hihkm/DanmakuFactory"
+
+[dxvk-gplall]
+fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-$ver/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.$ver.zip"
+src.github = "Digger1955/dxvk-gplasync-lowlatency"
+src.prefix = "DXVK-GPLALL-"
+
+[lxgw-wenkai-gb]
+fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
+src.github = "lxgw/LxgwWenkaiGB"
 
 [mpv-handler]
 cargo_locks = ["Cargo.lock"]
 fetch.github = "akiirui/mpv-handler"
 src.github = "akiirui/mpv-handler"
+
+[piliplus]
+extract = ["pubspec.lock"]
+fetch.github = "bggRGjQaUbCoE/PiliPlus"
+git.leaveDotGit = true
+src.github = "bggRGjQaUbCoE/PiliPlus"
+
+[pixes]
+extract = ["pubspec.lock"]
+fetch.github = "wgh136/pixes"
+src.github = "wgh136/pixes"
+
+[pixes-git]
+extract = ["pubspec.lock"]
+fetch.github = "wgh136/pixes"
+src.git = "https://github.com/wgh136/pixes"
 
 [splayer-git]
 fetch.github = "imsyy/SPlayer"
@@ -37,3 +68,7 @@ src.git = "https://github.com/Tony15246/uosc_danmaku"
 fetch.github = "Zamundaaa/VK_hdr_layer"
 git.fetchSubmodules = true
 src.git = "https://github.com/Zamundaaa/VK_hdr_layer"
+
+[zhuque]
+fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
+src.github_tag = "TrionesType/zhuque"
