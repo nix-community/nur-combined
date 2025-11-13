@@ -20,8 +20,8 @@
       system:
       let
         config = {
+          allowUnfree = true;
           permittedInsecurePackages = [
-            "openssl-1.1.1w"
             "python-2.7.18.7"
             "qtwebkit-5.212.0-alpha4"
           ];

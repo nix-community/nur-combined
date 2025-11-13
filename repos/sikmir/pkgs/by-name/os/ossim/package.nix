@@ -34,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_OSSIM_APPS" false)
     (lib.cmakeBool "BUILD_OSSIM_TESTS" false)
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
   ];
 
   meta = {

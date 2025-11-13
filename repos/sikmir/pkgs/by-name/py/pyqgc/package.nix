@@ -2,33 +2,33 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  pyubx2,
+  pyrtcm,
 }:
 
 python3Packages.buildPythonPackage rec {
-  pname = "pyubxutils";
-  version = "1.0.5";
+  pname = "pyqgc";
+  version = "0.1.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
-    repo = "pyubxutils";
+    repo = "pyqgc";
     tag = "v${version}";
-    hash = "sha256-k6/7BKzDVQNvjS0JNVJnj7ALHPcq6VwklxpxLhJ/e3M=";
+    hash = "sha256-n8D5dYbpygaVr397MdT6qeAl2bL61rvw0kpZ/Z5PohU=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
-    pyserial
-    pyubx2
+    pynmeagps
+    pyrtcm
   ];
 
-  pythonImportsCheck = [ "pyubxutils" ];
+  pythonImportsCheck = [ "pyqgc" ];
 
   meta = {
-    description = "Python UBX GNSS device command line utilities";
-    homepage = "https://github.com/semuconsulting/pyubxutils";
+    description = "Python library for parsing and generating Quectel QGC GPS/GNSS protocol messages";
+    homepage = "https://github.com/semuconsulting/pyqgc";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
