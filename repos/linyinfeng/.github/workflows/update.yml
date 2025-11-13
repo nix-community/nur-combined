@@ -13,6 +13,13 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+    - name: Prepare branch
+      run: |
+        git checkout master
+        git branch --force update master
+        git checkout update
     - name: Install nix
       uses: cachix/install-nix-action@master
       with:
@@ -52,25 +59,34 @@ jobs:
         # update and set variables
         # - CHANGELOG
         nix run .#devPackages/update
+    - name: Push to remote
+      run: |
+        git push --set-upstream origin update --force
     - name: Create pull request
-      if: ${{ env.CHANGELOG != '' }}
-      uses: peter-evans/create-pull-request@main
-      id: cpr
-      with:
-        token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
-        title: Automated update
-        body: |
-          ###### Changelog
+      run: |
+        cat >/tmp/body-file <<'EOF'
+        ###### Changelog
 
-          ```text
-          ${{ env.CHANGELOG }}
-          ```
-        branch: 'create-pull-request/update'
-        assignees: |
-          linyinfeng
-        reviewers: |
-          linyinfeng
-        labels: |
-          auto merge
-          auto update
-        delete-branch: true
+        ```text
+        ${{ env.CHANGELOG }}
+        ```
+        EOF
+
+        gh pr view update
+
+        if [ "$?" -ne 0 ];then
+          gh pr create \
+            --base master \
+            --title 'Automated update' \
+            --body-file /tmp/body-file \
+            --head update \
+            --assignee linyinfeng \
+            --reviewer linyinfeng \
+            --label 'auto merge' \
+            --label 'auto update'
+        else
+          gh pr edit update \
+            --body-file /tmp/body-file
+        fi
+      env:
+          GITHUB_TOKEN: ${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}
