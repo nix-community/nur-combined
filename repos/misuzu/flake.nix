@@ -44,7 +44,7 @@
       packages = forAllSystems (
         system:
         let
-          sources = import ./nix/sources.nix;
+          sources = import ./npins;
           nixpkgs = import sources.nixpkgs { inherit system; };
         in
         import ./pkgs/default.nix { inherit (nixpkgs) pkgs; }
