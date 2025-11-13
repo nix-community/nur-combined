@@ -44,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Continue CLI";
     homepage = "https://continue.dev";
-    license = lib.licenses.asl20; # Apache-2.0
+    changelog = "https://changelog.continue.dev";
+    license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "cn";
     platforms = lib.platforms.all;
