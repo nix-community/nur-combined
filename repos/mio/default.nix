@@ -307,4 +307,6 @@ rec {
       }
     )
   );
+
+  shell-gpt = pkgs.callPackage ./pkgs/shell-gpt/package.nix { };
 }
