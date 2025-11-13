@@ -5,6 +5,7 @@
   gobject-introspection,
   lib,
   libadwaita,
+  libsecret,
   meson,
   ninja,
   nix-update-script,
@@ -15,14 +16,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "lenspect";
-  version = "1.0.1";
+  version = "1.0.2";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "vmkspv";
     repo = "lenspect";
     tag = "v${version}";
-    hash = "sha256-p0QVQK4uengvqq/iyanqN9WT/zkgyL/q/gV4K91VA48=";
+    hash = "sha256-R3Y1t4qEXY7zuYZENzwiAoW1fDEN/YiatnFLPUOeRUE=";
   };
 
   nativeBuildInputs = [
@@ -37,6 +38,7 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [
     libadwaita
+    libsecret
   ];
 
   dependencies = with python3Packages; [
