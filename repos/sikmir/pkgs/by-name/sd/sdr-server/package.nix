@@ -35,6 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   installPhase = ''
     install -Dm755 sdr_server -t $out/bin
     install -Dm644 $src/src/resources/config.conf -t $out/etc

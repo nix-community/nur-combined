@@ -8,19 +8,23 @@
 
 stdenv.mkDerivation {
   pname = "vectiler";
-  version = "0.1.0-unstable-2021-06-30";
+  version = "0.1.0-unstable-2024-05-20";
 
   src = fetchFromGitHub {
     owner = "karimnaaji";
     repo = "vectiler";
-    rev = "76e71c852b020fb5b877c0b03dfeb263a632df71";
-    hash = "sha256-O21XTkKAKRVqc7iItT8MroxM6PtTDNCoEdXvkpnxWus=";
+    rev = "f9bd89e9446a91c26aa26d135646327d9b715e13";
+    hash = "sha256-lKP9Dc9T1pa+A/PM9KeT2aKGR0mkjR7oMQ0T/2jDOAY=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [ curl ];
+
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
 
   installPhase = ''
     install -Dm755 vectiler.out $out/bin/vectiler

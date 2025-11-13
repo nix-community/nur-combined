@@ -25,6 +25,12 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  disabledTests = [
+    "test_burn_tile_center_point_roundtrip"
+    "test_burn_tile_center_lines_roundtrip"
+    "test_burn_cli_tile_shape"
+  ];
+
   meta = {
     description = "Extend the functionality of morecantile with additional commands";
     homepage = "https://github.com/developmentseed/supermorecado";

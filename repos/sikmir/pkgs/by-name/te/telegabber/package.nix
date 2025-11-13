@@ -19,19 +19,22 @@ let
         rev = "5bbfc1cf5dab94f82e02f3430ded7241d4653551";
         hash = "sha256-gd9xHXVFEs7KkvXRvPJQZlKnBCxdvh67VX/sfeFZXf4=";
       };
+      cmakeFlags = fa.cmakeFlags ++ [
+        (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+      ];
     }
   );
 in
 buildGoModule (finalAttrs: {
   pname = "telegabber";
-  version = "1.12.4";
+  version = "1.12.8";
 
   src = fetchFromGitea {
     domain = "dev.narayana.im";
     owner = "narayana";
     repo = "telegabber";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-//S4bh2H747059KqDQNWA4lpH3OXPzl+OndGY7WNwg8=";
+    hash = "sha256-Z15m0v6SFs67gPjp9SqfxeDyFVjlqvMtyPxdR+5bGuo=";
     forceFetchGit = true;
   };
 
