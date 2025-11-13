@@ -6,8 +6,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: update-readme
@@ -65,7 +66,7 @@ jobs:
           body: |
             由 GitHub Actions 自动更新 README 的 Package List
           labels: automated, documentation
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'

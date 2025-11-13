@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 11 */3 * *" # Run at 11:00 (UTC) every 3 days. It will run on 1,4,7,10,13,16,19,22,25,28,31 every month
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
@@ -40,7 +45,7 @@ jobs:
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
           commit-message: "flake.lock: update"
           title: "flake.lock: update"
           body: |

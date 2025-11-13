@@ -5,8 +5,9 @@ on:
   workflow_dispatch: # 允许手动触发
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   prepare:
@@ -91,7 +92,7 @@ jobs:
           }
           # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
           timestamp=$(date +%s)
-          branch_name="update/$PACKAGE-$timestamp"
+          branch_name="update/${{ matrix.package }}-$timestamp-$GITHUB_RUN_ID"
           append_github_output "branch_name" "$branch_name"
           echo "分支名称: $branch_name"
 
@@ -108,7 +109,7 @@ jobs:
 
             此更新由包的updateScript自动生成
           labels: automated, dependencies
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMERGE_TOKEN }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
