@@ -108,16 +108,7 @@ jobs:
 
             此更新由包的updateScript自动生成
           labels: automated, dependencies
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
-          # Act like github-actions
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-
-      - name: Collect PR data
-        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
-        run: |
-          echo "pr_data={\"number\": \"${{ steps.create-pull-request.outputs.pull-request-number }}\", \"package\": \"${{ matrix.package }}\"}" >> $GITHUB_OUTPUT
-        id: collect-pr
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'

@@ -22,23 +22,33 @@ jobs:
 
       - name: Install required tools
         run: |
-          nix profile install nixpkgs#git nixpkgs#python3 nixpkgs#gh nixpkgs#jq
+          nix profile install nixpkgs#gh
 
       - name: Update flake.lock
-        if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          nix flake update
+
+      - name: Generate branch name
+        id: gen-branch-name
+        shell: bash
+        run: |
+          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
+          timestamp=$(date +%s)
+          printf '%s=%s\n' "branch_name" "update-tables-$timestamp" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
         id: create-pull-request
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: peter-evans/create-pull-request@v7
         with:
-          pr-title: "flake.lock: update" # Title of PR to be created
-          pr-labels: | # Labels to be set on the PR
-            dependencies
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "flake.lock: update"
+          title: "flake.lock: update"
+          body: |
+            由 GitHub Actions 自动更新 flake.lock
+          branch: ${{ steps.gen-branch-name.outputs.branch_name }}
+          labels: |
             automated
-          path-to-flake-dir: "."
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          git-author-name: MiyakoMeow Bot Author
-          git-author-email: github-actions[bot]@users.noreply.github.com
-          git-committer-name: MiyakoMeow Bot Committer
-          git-committer-email: github-actions[bot]@users.noreply.github.com
+            dependencies
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'

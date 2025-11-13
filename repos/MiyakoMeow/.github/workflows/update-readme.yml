@@ -65,9 +65,7 @@ jobs:
           body: |
             由 GitHub Actions 自动更新 README 的 Package List
           labels: automated, documentation
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
