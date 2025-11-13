@@ -32,18 +32,17 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  installPhase =
-    ''
-      mkdir -p $out/opt/synwrite
-      cp -r . $out/opt/synwrite
+  installPhase = ''
+    mkdir -p $out/opt/synwrite
+    cp -r . $out/opt/synwrite
 
-      makeWrapper ${wine}/bin/wine $out/bin/synwrite \
-        --run "[ -d \$HOME/.synwrite ] || { cp -r $out/opt/synwrite \$HOME/.synwrite && chmod -R +w \$HOME/.synwrite; }" \
-        --add-flags "\$HOME/.synwrite/Syn.exe"
-    ''
-    + lib.optionalString withExLexer ''
-      unzip ${exlexer} -d $out/opt/synwrite/Py/syn_exlexer
-    '';
+    makeWrapper ${wine}/bin/wine $out/bin/synwrite \
+      --run "[ -d \$HOME/.synwrite ] || { cp -r $out/opt/synwrite \$HOME/.synwrite && chmod -R +w \$HOME/.synwrite; }" \
+      --add-flags "\$HOME/.synwrite/Syn.exe"
+  ''
+  + lib.optionalString withExLexer ''
+    unzip ${exlexer} -d $out/opt/synwrite/Py/syn_exlexer
+  '';
 
   preferLocalBuild = true;
 

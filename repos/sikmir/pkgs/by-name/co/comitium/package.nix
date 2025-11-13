@@ -10,7 +10,7 @@ buildGoModule (finalAttrs: {
   version = "1.8.2";
 
   src = fetchFromSourcehut {
-    owner= "~nytpu";
+    owner = "~nytpu";
     repo = "comitium";
     rev = "v${finalAttrs.version}";
     hash = "sha256-kydT2hLPb2Oj1/o+1N9Cvrdi4+DKi2tHX35oY6yGUU8=";

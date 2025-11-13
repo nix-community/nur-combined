@@ -28,7 +28,8 @@ stdenv.mkDerivation {
     SDL
     ghostscript
     sqlite
-  ] ++ lib.optional stdenv.isLinux libX11;
+  ]
+  ++ lib.optional stdenv.isLinux libX11;
 
   buildPhase = ''
     runHook preBuild

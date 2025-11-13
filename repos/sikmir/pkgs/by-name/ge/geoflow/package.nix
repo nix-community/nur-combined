@@ -5,6 +5,7 @@
   cmake,
   pkg-config,
   glfw3,
+  gtk2,
   nlohmann_json,
   proj,
   sqlite,
@@ -33,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     glfw3
+    gtk2
     nlohmann_json
     proj
     sqlite

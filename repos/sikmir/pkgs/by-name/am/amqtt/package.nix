@@ -21,7 +21,10 @@ python3Packages.buildPythonApplication rec {
       --replace-fail ', "uv-dynamic-versioning"' ""
   '';
 
-  build-system = with python3Packages; [ hatchling hatch-vcs ];
+  build-system = with python3Packages; [
+    hatchling
+    hatch-vcs
+  ];
 
   dependencies = with python3Packages; [
     passlib

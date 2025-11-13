@@ -49,15 +49,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 
-  unpackPhase =
-    ''
-      echo "{}" > versions.json
-    ''
-    + lib.concatMapStringsSep "\n" (src: ''
-      bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
-      jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${finalAttrs.version} 00:00:00"}' versions.json | \
-        sponge versions.json
-    '') finalAttrs.srcs;
+  unpackPhase = ''
+    echo "{}" > versions.json
+  ''
+  + lib.concatMapStringsSep "\n" (src: ''
+    bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
+    jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${finalAttrs.version} 00:00:00"}' versions.json | \
+      sponge versions.json
+  '') finalAttrs.srcs;
 
   nativeBuildInputs = [
     dict

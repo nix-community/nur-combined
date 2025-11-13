@@ -32,7 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     emacs
     zlib
-  ] ++ lib.optional stdenv.isDarwin argp-standalone;
+  ]
+  ++ lib.optional stdenv.isDarwin argp-standalone;
 
   makeFlags = [
     "CC:=$(CC)"

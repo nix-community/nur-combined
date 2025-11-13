@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   perl,
   pkg-config,
   wget,
@@ -22,6 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-N7Pdf/8+Yi+OBRvJMkz2EyRQOsnBYs5BQeO20JP8tWA=";
     fetchSubmodules = true;
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/slazav/graphene/commit/76027a4a04e32a2d457934ab434788eeb27f60e4.patch";
+      hash = "sha256-9IRrcgaW1Hmrw8ox+mDn1MzlZD/4RYH3qM2K91mW54M=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs .

@@ -19,8 +19,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches =
-    lib.optional (!checkLang) ./dont-check-lang-validity.patch
-    ++ lib.optional withCli ./cli.patch;
+    lib.optional (!checkLang) ./dont-check-lang-validity.patch ++ lib.optional withCli ./cli.patch;
 
   build-system = with python3Packages; [ setuptools ];
 

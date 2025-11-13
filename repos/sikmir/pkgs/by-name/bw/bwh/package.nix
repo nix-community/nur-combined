@@ -31,7 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     SDL2
     the-foundation
-  ] ++ lib.optional stdenv.isLinux libX11;
+  ]
+  ++ lib.optional stdenv.isLinux libX11;
 
   installPhase = lib.optionalString stdenv.isDarwin ''
     runHook preInstall

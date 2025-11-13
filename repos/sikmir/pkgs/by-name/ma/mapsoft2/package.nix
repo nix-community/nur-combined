@@ -62,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
       extraPrefix = "modules/";
     })
     ./0002-fix-build.patch
-  ] ++ lib.optional (!finalAttrs.doCheck) ./0003-notests.patch;
+  ]
+  ++ lib.optional (!finalAttrs.doCheck) ./0003-notests.patch;
 
   postPatch =
     let
@@ -110,7 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     unzip
     wrapGAppsHook3
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ]
+  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     db
@@ -128,7 +130,8 @@ stdenv.mkDerivation (finalAttrs: {
     proj
     shapelib
     sqlite
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   env = {
     SKIP_IMG_DIFFS = 1;

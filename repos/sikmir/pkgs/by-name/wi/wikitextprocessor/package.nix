@@ -27,12 +27,13 @@ python3Packages.buildPythonPackage {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests =
-    [ "test_string_format2" ]
-    ++ lib.optionals stdenv.isDarwin [
-      "test_long_twothread"
-      "test_expr29"
-    ];
+  disabledTests = [
+    "test_string_format2"
+  ]
+  ++ lib.optionals stdenv.isDarwin [
+    "test_long_twothread"
+    "test_expr29"
+  ];
 
   doCheck = false;
 

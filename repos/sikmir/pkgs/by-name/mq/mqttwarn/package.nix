@@ -61,7 +61,8 @@ python312Packages.buildPythonApplication rec {
 
   nativeCheckInputs = [
     python312Packages.pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  ]
+  ++ lib.flatten (lib.attrValues optional-dependencies);
 
   meta = {
     description = "A highly configurable MQTT message router, where the routing targets are notification plugins";

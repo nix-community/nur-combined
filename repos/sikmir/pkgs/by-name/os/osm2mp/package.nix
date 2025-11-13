@@ -45,20 +45,19 @@ perlPackages.buildPerlPackage {
 
   preConfigure = "touch Makefile.PL";
 
-  installPhase =
-    ''
-      install -Dm755 osm2mp.pl $out/bin/osm2mp
-      install -dm755 $out/share/osm2mp/cfg
-      cp -r cfg/* $out/share/osm2mp/cfg
-      install -dm755 $out/lib/perl5/site_perl
-      cp -r lib/* $out/lib/perl5/site_perl
-    ''
-    + lib.optionalString stdenv.isLinux ''
-      patchShebangs $out/bin/osm2mp
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang $out/bin/osm2mp
-    '';
+  installPhase = ''
+    install -Dm755 osm2mp.pl $out/bin/osm2mp
+    install -dm755 $out/share/osm2mp/cfg
+    cp -r cfg/* $out/share/osm2mp/cfg
+    install -dm755 $out/lib/perl5/site_perl
+    cp -r lib/* $out/lib/perl5/site_perl
+  ''
+  + lib.optionalString stdenv.isLinux ''
+    patchShebangs $out/bin/osm2mp
+  ''
+  + lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/osm2mp
+  '';
 
   meta = {
     description = "Convert Openstreetmap data to MP format";

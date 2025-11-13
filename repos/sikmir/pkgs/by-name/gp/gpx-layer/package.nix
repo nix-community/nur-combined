@@ -25,16 +25,15 @@ perlPackages.buildPerlPackage {
 
   preConfigure = "touch Makefile.PL";
 
-  installPhase =
-    ''
-      install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
-    ''
-    + lib.optionalString stdenv.isLinux ''
-      patchShebangs $out/bin/datamaps-parse-gpx
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang $out/bin/datamaps-parse-gpx
-    '';
+  installPhase = ''
+    install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
+  ''
+  + lib.optionalString stdenv.isLinux ''
+    patchShebangs $out/bin/datamaps-parse-gpx
+  ''
+  + lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/datamaps-parse-gpx
+  '';
 
   meta = {
     description = "Tools to turn GPX files into a GPS map tracing layer";

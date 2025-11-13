@@ -18,6 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   meta = {
     description = "Light-weight tool for finding heap memory errors";
     homepage = "https://github.com/d99kris/heapusage";

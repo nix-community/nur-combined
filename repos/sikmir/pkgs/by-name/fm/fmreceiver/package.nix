@@ -32,17 +32,16 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  postPatch =
-    ''
-      substituteInPlace fmreceiver.pro \
-        --replace-fail "-lqwt-qt5" "-lqwt" \
-        --replace-fail "CONFIG" "#CONFIG"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
-      substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
-      substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
-    '';
+  postPatch = ''
+    substituteInPlace fmreceiver.pro \
+      --replace-fail "-lqwt-qt5" "-lqwt" \
+      --replace-fail "CONFIG" "#CONFIG"
+  ''
+  + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
+    substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
+    substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
+  '';
 
   nativeBuildInputs = [
     qt5.qmake

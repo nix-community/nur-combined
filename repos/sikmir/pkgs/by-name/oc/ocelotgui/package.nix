@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocelotgui";
-  version = "2.1.0";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "ocelot-inc";
     repo = "ocelotgui";
     tag = finalAttrs.version;
-    hash = "sha256-CmLF8HrwdmWatFljSGLpy5YImlBGhjooB1K+axIDWhU=";
+    hash = "sha256-4hlYf5TIlWLpL4FczntCQWB8EGFff1KoCAYcSC4niMI=";
   };
 
   nativeBuildInputs = [

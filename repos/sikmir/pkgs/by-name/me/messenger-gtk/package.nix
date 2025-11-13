@@ -38,7 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
     desktop-file-utils # for update-desktop-database
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ]
+  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     gnunet

@@ -52,7 +52,7 @@ python312Packages.buildPythonApplication {
     svgwrite
     stravalib
     polyline
-    timezonefinder
+    (timezonefinder.overridePythonAttrs { pythonRelaxDeps = true; })
     setuptools
   ];
 

@@ -24,6 +24,7 @@ stdenv.mkDerivation {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_EXAMPLES" false)
     (lib.cmakeBool "BUILD_TESTS" false)
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
   ];
 
   doCheck = false;

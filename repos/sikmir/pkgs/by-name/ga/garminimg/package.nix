@@ -19,7 +19,6 @@ stdenv.mkDerivation {
     hash = "sha256-QkW3dri3qWMY1iLBH9+woHZ8CB/wD+QcTFw7sEW1b1k=";
   };
 
-
   nativeBuildInputs = [
     cmake
     qt5.wrapQtAppsHook
@@ -42,5 +41,6 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = true;
   };
 }

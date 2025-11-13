@@ -35,6 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+  ];
+
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration -Wno-error=misleading-indentation";
 
   meta = {
