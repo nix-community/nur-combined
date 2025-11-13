@@ -18,6 +18,7 @@ in {
   fzfmenu = callPackage ./pkgs/fzfmenu {};
   moegi-nvim = callPackage ./pkgs/moegi-nvim {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
+  cline-cli-bin = callPackage ./pkgs/cline-cli-bin {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
