@@ -757,7 +757,7 @@
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
     "pname": "imewlconverter",
-    "version": "3.2.0"
+    "version": "3.3.0"
   },
   "legacyPackages.x86_64-linux.inter-knot": {
     "description": "(DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7045"
+    "version": "7058"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -977,22 +977,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-lts-generic",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-lts-generic-lto",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1197,22 +1197,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-v6_12-generic",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-v6_12-generic-lto",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_12-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.57-xanmod1"
+    "version": "6.12.58-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -4377,7 +4377,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-2"
+    "version": "10.1.2+ds-3"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -4857,7 +4857,7 @@
   "legacyPackages.x86_64-linux.uncategorized.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
     "pname": "imewlconverter",
-    "version": "3.2.0"
+    "version": "3.3.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.jproxy": {
     "description": "Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
@@ -5092,7 +5092,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-2"
+    "version": "10.1.2+ds-3"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -5782,7 +5782,7 @@
   "packages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
     "pname": "imewlconverter",
-    "version": "3.2.0"
+    "version": "3.3.0"
   },
   "packages.x86_64-linux.inter-knot": {
     "description": "(DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台",
@@ -6157,7 +6157,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.1.2+ds-2"
+    "version": "10.1.2+ds-3"
   },
   "packages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
