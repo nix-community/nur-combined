@@ -8,6 +8,7 @@
   makeDesktopItem,
   copyDesktopItems,
   gitMinimal,
+  autoPatchelfHook,
   alsa-lib,
   mpv-unwrapped,
   libplacebo,
@@ -26,6 +27,7 @@ flutter335.buildFlutterApplication {
   nativeBuildInputs = [
     copyDesktopItems
     gitMinimal
+    autoPatchelfHook
   ];
 
   buildInputs = [

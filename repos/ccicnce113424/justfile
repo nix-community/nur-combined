@@ -8,4 +8,4 @@ hello:
     nix run
 
 up:
-    nix run nixpkgs#nvfetcher
+    nix run .#nvfetcher
