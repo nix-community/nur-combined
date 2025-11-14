@@ -4,7 +4,7 @@
   pubspecLock,
   gitHashes,
   lib,
-  flutter335,
+  flutter338,
   makeDesktopItem,
   copyDesktopItems,
   gitMinimal,
@@ -12,12 +12,39 @@
   mpv-unwrapped,
   libplacebo,
   libappindicator,
+  libass,
+  ffmpeg,
+  libunwind,
+  shaderc,
+  vulkan-loader,
+  lcms2,
+  libdovi,
+  libdvdnav,
+  libdvdread,
+  mujs,
+  libbluray,
+  lua,
+  rubberband,
+  libuchardet,
+  zimg,
+  openal,
+  pipewire,
+  libpulseaudio,
+  libcaca,
+  libdrm,
+  libdisplay-info,
+  libgbm,
+  libxscrnsaver,
+  libxpresent,
+  nv-codec-headers-12,
+  libva,
+  libvdpau,
 }:
 
 let
   description = "Third-party Bilibili client developed in Flutter";
 in
-flutter335.buildFlutterApplication {
+flutter338.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
 
@@ -33,6 +60,33 @@ flutter335.buildFlutterApplication {
     mpv-unwrapped
     libplacebo
     libappindicator
+    libass
+    ffmpeg
+    libunwind
+    shaderc
+    vulkan-loader
+    lcms2
+    libdovi
+    libdvdnav
+    libdvdread
+    mujs
+    libbluray
+    lua
+    rubberband
+    libuchardet
+    zimg
+    openal
+    pipewire
+    libpulseaudio
+    libcaca
+    libdrm
+    libdisplay-info
+    libgbm
+    libxscrnsaver
+    libxpresent
+    nv-codec-headers-12
+    libva
+    libvdpau
   ];
 
   # See lib/scripts/build.sh.
@@ -79,8 +133,6 @@ flutter335.buildFlutterApplication {
       };
     })
   ];
-
-  passthru.updateScript = ./update.rb;
 
   meta = {
     inherit description;
