@@ -45,11 +45,6 @@ rec {
     version = stableVersion sources;
   };
 
-  mpv-handler = pkgs.callPackage ./mpv-handler rec {
-    sources = fetchedSrc.mpv-handler;
-    version = stableVersion sources;
-  };
-
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
@@ -91,15 +86,6 @@ rec {
   };
 
   # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
-
-  vulkan-hdr-layer-kwin6 =
-    if (builtins.tryEval pkgs.vulkan-hdr-layer-kwin6).success then
-      pkgs.vulkan-hdr-layer-kwin6
-    else
-      pkgs.callPackage ./vulkan-hdr-layer-kwin6 rec {
-        sources = fetchedSrc.vulkan-hdr-layer-kwin6;
-        version = unstableVersion sources;
-      };
 
   zhuque = pkgs.callPackage ./zhuque rec {
     sources = fetchedSrc.zhuque;

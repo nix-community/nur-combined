@@ -31,11 +31,6 @@ src.prefix = "DXVK-GPLALL-"
 fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
 src.github = "lxgw/LxgwWenkaiGB"
 
-[mpv-handler]
-cargo_locks = ["Cargo.lock"]
-fetch.github = "akiirui/mpv-handler"
-src.github = "akiirui/mpv-handler"
-
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
@@ -63,11 +58,6 @@ src.github = "Tony15246/uosc_danmaku"
 [uosc-danmaku-git]
 fetch.github = "Tony15246/uosc_danmaku"
 src.git = "https://github.com/Tony15246/uosc_danmaku"
-
-[vulkan-hdr-layer-kwin6]
-fetch.github = "Zamundaaa/VK_hdr_layer"
-git.fetchSubmodules = true
-src.git = "https://github.com/Zamundaaa/VK_hdr_layer"
 
 [zhuque]
 fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
