@@ -38,7 +38,7 @@
 , nixosTestRunner ? false
 # SCREAMER: backported https://github.com/NixOS/nixpkgs/commit/6e980e645823095c83c12eea43691e7a407bd6b4
 # SCREAMER:
-, apple-sdk_11, fetchFromGitHub, callPackage, maintainers
+, apple-sdk_11 ? null, fetchFromGitHub, callPackage, maintainers
 }:
 # SCREAMER: load patches from GitHub
 let
@@ -108,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals uringSupport [ liburing ]
     ++ lib.optionals canokeySupport [ canokey-qemu ]
     # SCREAMER:
-    ++ lib.optionals stdenv.isDarwin [ apple-sdk_11 ];
+    ++ lib.optionals (stdenv.isDarwin && apple-sdk_11 != null) [ apple-sdk_11 ];
 
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 

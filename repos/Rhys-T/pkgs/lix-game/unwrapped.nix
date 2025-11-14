@@ -5,7 +5,7 @@
     makeBinaryWrapper, desktopToDarwinBundle, writeDarwinBundle,
     disableNativeImageLoader,
     pkg-config,
-    apple-sdk_11, fetchpatch,
+    apple-sdk_11 ? null, fetchpatch,
     common, lix-game-packages
 }: let
     inherit (stdenv.hostPlatform) isDarwin;
@@ -16,7 +16,7 @@
         #     rev = "c196fe292eb28d20e2d21d639651bbafc78373f2";
         #     hash = "sha256-PyAQN1CfR3PfG2lUZIYc+eCcULHSbWvMWKQgonS7xHo=";
         # };
-        buildInputs = (old.buildInputs or []) ++ [apple-sdk_11];
+        buildInputs = (old.buildInputs or []) ++ lib.optionals (apple-sdk_11 != null) [apple-sdk_11];
         patches = (old.patches or []) ++ [
             (fetchpatch {
                 url = "https://github.com/pedro-w/allegro5/commit/c196fe292eb28d20e2d21d639651bbafc78373f2.patch";

@@ -1,7 +1,7 @@
 { mame, lib }: let
     mameArgSpecs = lib.mapAttrs (k: v: true) (lib.functionArgs mame.override);
     myArgSpecs = lib.functionArgs mameFunc;
-    mameFunc = { stdenv, callPackage, papirus-icon-theme, darwinMinVersion ? "10.15", apple-sdk_11, darwinMinVersionHook, ... }@args: let
+    mameFunc = { stdenv, callPackage, papirus-icon-theme, darwinMinVersion ? "10.15", apple-sdk_11 ? null, darwinMinVersionHook, ... }@args: let
         mame-icon = if (builtins.tryEval "${papirus-icon-theme}").success then
             papirus-icon-theme
         else
