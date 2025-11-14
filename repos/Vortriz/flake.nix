@@ -37,6 +37,7 @@
             pkgs = import nixpkgs {
                 inherit system;
                 overlays = [devshell.overlays.default];
+                config.allowUnfree = true;
             };
 
             treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
@@ -71,6 +72,7 @@
                             nvfetcher
                             uv
                             ruff
+                            nix-eval-jobs
                         ]
                         ++ [python-pkg];
 
@@ -91,6 +93,20 @@
                             # We use manylinux2014 which is compatible with 3.7.8+, 3.8.4+, 3.9.0+
                             name = "LD_LIBRARY_PATH";
                             prefix = lib.makeLibraryPath pkgs.pythonManylinuxPackages.manylinux2014;
+                        }
+                    ];
+
+                    commands = [
+                        {
+                            name = "update";
+                            help = "Update sources";
+                            category = "[chore]";
+                            command = ''
+                                nix flake update
+                                nvfetcher
+                                nix-eval-jobs --flake .#packages
+                                uv run update-readme.py
+                            '';
                         }
                     ];
 

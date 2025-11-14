@@ -68,14 +68,14 @@
   };
   xdg-desktop-portal-termfilechooser = {
     pname = "xdg-desktop-portal-termfilechooser";
-    version = "a0291aab4e026f575e5e8927e65f07d3c95dc16c";
+    version = "8697babc62c89e79ed6b17a4edfde88e7d81ecaf";
     src = fetchFromGitHub {
       owner = "hunkyburrito";
       repo = "xdg-desktop-portal-termfilechooser";
-      rev = "a0291aab4e026f575e5e8927e65f07d3c95dc16c";
+      rev = "8697babc62c89e79ed6b17a4edfde88e7d81ecaf";
       fetchSubmodules = false;
-      sha256 = "sha256-H7z+wvA9uXlP1fbTwdJJqscIkXMXuYePJou81jbJKt0=";
+      sha256 = "sha256-/Ow8NbcXGlS3CVq2/Ndqg/Fh79bl0DqooLbTUWr3r/k=";
     };
-    date = "2025-09-20";
+    date = "2025-11-10";
   };
 }

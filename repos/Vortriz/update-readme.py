@@ -21,10 +21,18 @@ def main():
 
     table_data = []
     for name in package_names:
-        last_updated = sources[name]["date"]
-        src = sources[name]["src"]
+        pkg = sources[name]
+        date = pkg["date"]
+        version = pkg["version"]
+        src = pkg["src"]
+
         if src["type"] == "github":
             link = f"https://github.com/{src['owner']}/{src['repo']}"
+            last_updated = date
+        elif src["type"] == "url":
+            link = src["url"]
+            last_updated = f"Pinned to {version}"
+
         table_data.append(
             {"Package": f"[`{name}`]({link})", "Last Updated": last_updated}
         )
