@@ -43,6 +43,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2NgMYaG6+XKp0fIHAn3vAcoXXa3EF4HV01nI+t1IL1U=";
   };
 
+  patches = [
+    ./fmt-update.patch
+  ];
+
   outputs = [ "out" "sdk" ];
 
   nativeBuildInputs = [
