@@ -22,32 +22,20 @@ jobs:
 
       - uses: wimpysworld/nothing-but-nix@v6
         with:
-          nix-permission-edict: true
+          hatchet-protocol: "rampage"
 
       - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v32
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          nix_conf: |
+          extra-conf: |
             accept-flake-config = true
-            keep-env-derivations = true
-            keep-outputs = true
 
       - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@v6
-        with:
-          primary-key: nix-update-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-update-${{ runner.os }}-
-          gc-max-store-size-linux: 2G
-          purge: true
-          purge-prefixes: nix-update-${{ runner.os }}-
-          purge-created: 0
-          purge-last-accessed: 0
-          purge-primary-key: "never"
+        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Update sources
         run: |
           nix flake update
-          export NIX_PATH=nixpkgs=$(nix eval --raw .#nixpkgs)
           nix run .#nvfetcher
           nix fmt _sources
           pkgs/pixes/update.sh
