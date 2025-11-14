@@ -3,10 +3,10 @@
 { fetchurl }:
 let
   any-darwin = {
-    version = "6.9.80-2025-11-14";
+    version = "6.9.83-2025-11-14";
     src = fetchurl {
-      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Mac/QQ_6.9.80_250904_01.dmg";
-      hash = "sha256-VUjgWQIxabjXkXJhxQiQJlYDkbLDNLaVQeRaZ4WGOIs=";
+      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Mac/QQ_6.9.83_251105_01.dmg";
+      hash = "sha256-/tXuL9WszgWSIFpBSQnmAhRnhNNrK4qCf4uVgBC/DBk=";
     };
   };
 in
@@ -14,17 +14,17 @@ in
   aarch64-darwin = any-darwin;
   x86_64-darwin = any-darwin;
   aarch64-linux = {
-    version = "3.2.21-2025-11-14";
+    version = "3.2.19-2025-11-14";
     src = fetchurl {
-      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.21_251114_arm64_01.deb";
-      hash = "sha256-g42PDUobpnajM85ykDUVajJKfGsOGqz2EX3pA9a/fY4=";
+      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.19_250820_arm64_01.deb";
+      hash = "sha256-rHgN0T9lcoAucwR3B2U8so/dAUfB92dQYc0TncTHPaM=";
     };
   };
   x86_64-linux = {
-    version = "3.2.21-2025-11-14";
+    version = "3.2.19-2025-11-14";
     src = fetchurl {
-      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.21_251114_amd64_01.deb";
-      hash = "sha256-GZyvzkCxDPzrA9TDgO9V+eaTharEGPPsfq6TuOk2KSI=";
+      url = "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.19_250820_amd64_01.deb";
+      hash = "sha256-4Y0GSWwFkqYX5ezE2Jk/tZIwsBHg88ZxJghzB+kXTds=";
     };
   };
 }
