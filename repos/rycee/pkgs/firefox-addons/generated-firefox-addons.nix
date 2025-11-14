@@ -1494,10 +1494,10 @@
     };
     "capital-one-eno" = buildFirefoxXpiAddon {
       pname = "capital-one-eno";
-      version = "5.4.2";
+      version = "5.5.1";
       addonId = "{4d5b7a5e-5232-9e45-97f4-f8e1ca2626e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4574952/capital_one_eno-5.4.2.xpi";
-      sha256 = "e477431441d0b5a7f91705b9af4aed30932af21506f11a2a63024790da1bb58e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4614135/capital_one_eno-5.5.1.xpi";
+      sha256 = "746b64f8de71248e63fbecb1cfc826c40177228c7bbdf9876a5a97042f23a660";
       meta = with lib;
       {
         homepage = "https://www.capitalone.com/applications/eno/virtualnumbers/";
@@ -6808,10 +6808,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.3.1";
+      version = "17.3.2";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603743/keeper_password_manager-17.3.1_QL4elsD.xpi";
-      sha256 = "5cd5d84b6dc580154b4786ebc53f868b72bd881508b27e6ec95c2c47f6062245";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4612192/keeper_password_manager-17.3.2_pi1ogUR.xpi";
+      sha256 = "d171a53141d0ba8d9b6e8795c6fd81789ed4453d09c0ba7b44554aa54c73637a";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -12058,10 +12058,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.3.12";
+      version = "3.3.13";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4616886/simplifygmail-3.3.12.xpi";
-      sha256 = "ce6507f8d0193f5ab0586d4221e6143858c6504ca81dea1a2806e2c63677023b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618740/simplifygmail-3.3.13.xpi";
+      sha256 = "5f95778ef7124ffa6106d4c6be0a9d1edd632ee7a4ec1d3206ac855d1cfe5a5d";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -15146,10 +15146,10 @@
     };
     "whowrotethat" = buildFirefoxXpiAddon {
       pname = "whowrotethat";
-      version = "0.22.3.0";
+      version = "0.22.4.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4494744/whowrotethat-0.22.3.0.xpi";
-      sha256 = "1bc5be641e6226c0585e1727f406455b0898c0b5a3c0fb927cafb9238bc464dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619047/whowrotethat-0.22.4.0.xpi";
+      sha256 = "dd221e62eb5dc18af7fc5173c54e20e7451ba03b6f447de6871f11a0c79c554c";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
