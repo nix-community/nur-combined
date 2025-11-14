@@ -122,34 +122,11 @@
     },
     "version": "v1.521"
   },
-  "mpv-handler": {
-    "cargoLocks": {
-      "Cargo.lock": ["./mpv-handler-v0.4.2/Cargo.lock", {}]
-    },
-    "date": null,
-    "extract": null,
-    "name": "mpv-handler",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "akiirui",
-      "repo": "mpv-handler",
-      "rev": "v0.4.2",
-      "sha256": "sha256-QoctjneJA7CdXqGm0ylAh9w6611vv2PD1fzS0exag5A=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v0.4.2"
-  },
   "piliplus": {
     "cargoLocks": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "./piliplus-1.1.5-pre3/pubspec.lock"
+      "pubspec.lock": "./piliplus-1.1.5-pre4/pubspec.lock"
     },
     "name": "piliplus",
     "passthru": null,
@@ -161,12 +138,12 @@
       "name": null,
       "owner": "bggRGjQaUbCoE",
       "repo": "PiliPlus",
-      "rev": "1.1.5-pre3",
-      "sha256": "sha256-/3R7AXO+PFH/8ub69vqcMSDyBNubbrlp07e7r0ZCiH8=",
+      "rev": "1.1.5-pre4",
+      "sha256": "sha256-jK/iSF1820cn9BBbfuCe3fharn6XIQuIdupu9gL+mbI=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "1.1.5-pre3"
+    "version": "1.1.5-pre4"
   },
   "pixes": {
     "cargoLocks": null,
@@ -216,7 +193,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-11-12",
+    "date": "2025-11-14",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -228,12 +205,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "8529663ea5e1292259af9f61620e31437bb3c1b9",
-      "sha256": "sha256-HVFI9VNE9IrUvCBPBAnRufGscDlfHPBJ+nA7jiCzE5A=",
+      "rev": "ae1ee71e7584cfa779240463a467147b6ff7c618",
+      "sha256": "sha256-PMtZaUQeKJnZqZwzMghuMwSvHZsUiweBt9B0F3loj8Y=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "8529663ea5e1292259af9f61620e31437bb3c1b9"
+    "version": "ae1ee71e7584cfa779240463a467147b6ff7c618"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
@@ -276,27 +253,6 @@
       "type": "github"
     },
     "version": "4d9e54e1ade827d3f0963d9609dbd7658466491a"
-  },
-  "vulkan-hdr-layer-kwin6": {
-    "cargoLocks": null,
-    "date": "2025-07-31",
-    "extract": null,
-    "name": "vulkan-hdr-layer-kwin6",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": true,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "Zamundaaa",
-      "repo": "VK_hdr_layer",
-      "rev": "303e0c69e1d33acd95158d92b1fc652fb5b85399",
-      "sha256": "sha256-NsC44Ifl/fAHvFqP7NLrVZ71Y+x5mBEkv+r43HN5yn4=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "303e0c69e1d33acd95158d92b1fc652fb5b85399"
   },
   "zhuque": {
     "cargoLocks": null,

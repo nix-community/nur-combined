@@ -70,37 +70,20 @@
       sha256 = "sha256-CtL4FEBNIhj4lQWhonDY3jEfJKY/tqt9r4l3NGWUmTM=";
     };
   };
-  mpv-handler = {
-    pname = "mpv-handler";
-    version = "v0.4.2";
-    src = fetchFromGitHub {
-      owner = "akiirui";
-      repo = "mpv-handler";
-      rev = "v0.4.2";
-      fetchSubmodules = false;
-      sha256 = "sha256-QoctjneJA7CdXqGm0ylAh9w6611vv2PD1fzS0exag5A=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./mpv-handler-v0.4.2/Cargo.lock;
-      outputHashes = {
-
-      };
-    };
-  };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.5-pre3";
+    version = "1.1.5-pre4";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "1.1.5-pre3";
+      rev = "1.1.5-pre4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = true;
       sparseCheckout = [ ];
-      sha256 = "sha256-/3R7AXO+PFH/8ub69vqcMSDyBNubbrlp07e7r0ZCiH8=";
+      sha256 = "sha256-jK/iSF1820cn9BBbfuCe3fharn6XIQuIdupu9gL+mbI=";
     };
-    "pubspec.lock" = builtins.readFile ./piliplus-1.1.5-pre3/pubspec.lock;
+    "pubspec.lock" = builtins.readFile ./piliplus-1.1.5-pre4/pubspec.lock;
   };
   pixes = {
     pname = "pixes";
@@ -130,15 +113,15 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "8529663ea5e1292259af9f61620e31437bb3c1b9";
+    version = "ae1ee71e7584cfa779240463a467147b6ff7c618";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "8529663ea5e1292259af9f61620e31437bb3c1b9";
+      rev = "ae1ee71e7584cfa779240463a467147b6ff7c618";
       fetchSubmodules = false;
-      sha256 = "sha256-HVFI9VNE9IrUvCBPBAnRufGscDlfHPBJ+nA7jiCzE5A=";
+      sha256 = "sha256-PMtZaUQeKJnZqZwzMghuMwSvHZsUiweBt9B0F3loj8Y=";
     };
-    date = "2025-11-12";
+    date = "2025-11-14";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";
@@ -162,18 +145,6 @@
       sha256 = "sha256-Pmsw2XeGZPhKiduUsw8QH/VtpvemB6EbuvLnzCjKfQw=";
     };
     date = "2025-10-12";
-  };
-  vulkan-hdr-layer-kwin6 = {
-    pname = "vulkan-hdr-layer-kwin6";
-    version = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
-    src = fetchFromGitHub {
-      owner = "Zamundaaa";
-      repo = "VK_hdr_layer";
-      rev = "303e0c69e1d33acd95158d92b1fc652fb5b85399";
-      fetchSubmodules = true;
-      sha256 = "sha256-NsC44Ifl/fAHvFqP7NLrVZ71Y+x5mBEkv+r43HN5yn4=";
-    };
-    date = "2025-07-31";
   };
   zhuque = {
     pname = "zhuque";
