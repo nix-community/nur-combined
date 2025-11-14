@@ -37,6 +37,14 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
+      - uses: thiagokokada/free-disk-space@main
+        continue-on-error: true
+        with:
+          tool-cache: true
+          usrlocal: true
+          usrmisc: true
+          opt: true
+          varcache: true
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Install nix
