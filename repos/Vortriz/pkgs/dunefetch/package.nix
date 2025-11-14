@@ -5,7 +5,7 @@
 }:
 python3Packages.buildPythonApplication {
     pname = "dunefetch";
-    version = "0-unstable-2025-08-12";
+    version = "unstable-2025-08-12";
 
     src = fetchFromGitHub {
         owner = "datavorous";

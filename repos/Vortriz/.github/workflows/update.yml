@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: Update lockfiles
+name: Update
 
 on:
     schedule:
@@ -27,4 +27,8 @@ jobs:
             - name: Update flake lock and update all packages using nix-update
               run: |
                   nix develop --command update
-                  git commit -m "chore: update"
+
+            - uses: EndBug/add-and-commit@v9
+              with:
+                  default_author: github_actions
+                  message: "chore: update"
