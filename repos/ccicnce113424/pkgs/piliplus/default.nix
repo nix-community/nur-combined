@@ -49,6 +49,8 @@ flutter335.buildFlutterApplication {
     EOL
   '';
 
+  dartCompileFlags = [ ''-- --CMAKE_ARGS="-DCMAKE_SKIP_BUILD_RPATH=ON"'' ];
+
   postInstall = ''
     declare -A sizes=(
       [mdpi]=128
@@ -62,7 +64,6 @@ flutter335.buildFlutterApplication {
       install -Dm644 "android/app/src/main/res/drawable-$var/splash.png" \
         "$out/share/icons/hicolor/''${width}x$width/apps/piliplus.png"
     done
-    patchelf --print-rpath $out/app/piliplus/lib/libgtk_plugin.so
   '';
 
   desktopItems = [
