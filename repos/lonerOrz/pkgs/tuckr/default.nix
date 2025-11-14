@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
     owner = "lonerOrz";
     repo = "Tuckr";
     rev = "feat/json";
-    hash = "sha256-6PV6qWMmji8P0gzOeU06Gz4dbQMaP9YXj4TQ9cVYv44=";
+    hash = "sha256-6N6DuTqHg+qstIB8ZyVVUuLwP1o3Di5fi+71cZ1TaUo=";
   };
 
   cargoHash = "sha256-kHJA1O8KsmioXZQrDofhLKPakUQnLM6TEUKQZ4qDWCI=";
