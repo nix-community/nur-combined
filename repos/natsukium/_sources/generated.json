@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MAjuqmVwTPhNHD/iLrrWSOWvYI/txN5Ks3TPyZLA2GM=",
+            "sha256": "sha256-7F5/Wx1JY2QOT27NY0jWM68z7nYGCwgBiUc06ezF2D0=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.6.3797.63.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.7.3851.48.universal.dmg"
         },
-        "version": "7.6.3797.63"
+        "version": "7.7.3851.48"
     },
     "zen-browser": {
         "cargoLocks": null,
