@@ -26,8 +26,6 @@ rec {
         { pkgs, ... }:
         {
           devShells.default = pkgs.callPackage ./devshell.nix { };
-          # nvfetcher
-          legacyPackages.nvfetcher = pkgs.nvfetcher;
         };
     };
 
