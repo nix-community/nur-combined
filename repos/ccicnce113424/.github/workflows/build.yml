@@ -23,27 +23,15 @@ jobs:
 
       - uses: wimpysworld/nothing-but-nix@v6
         with:
+          hatchet-protocol: "rampage"
           nix-permission-edict: true
 
       - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v32
+        uses: cachix/install-nix-action@v31
         with:
-          nix_conf: |
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
             accept-flake-config = true
-            keep-env-derivations = true
-            keep-outputs = true
-
-      - name: Restore and save Nix store
-        uses: nix-community/cache-nix-action@v6
-        with:
-          primary-key: nix-build-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-build-${{ runner.os }}-
-          gc-max-store-size-linux: 2G
-          purge: true
-          purge-prefixes: nix-build-${{ runner.os }}-
-          purge-created: 0
-          purge-last-accessed: 0
-          purge-primary-key: "never"
 
       - name: Set up Cachix
         uses: cachix/cachix-action@v16
