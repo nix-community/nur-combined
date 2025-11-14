@@ -59,8 +59,7 @@ done
 echo "Step 3: List of packages to build:"
 printf '%s\n' "${packages_to_build[@]}"
 
-# 更改到项目目录
-cd "$(dirname "$0")"
+# cd "$(dirname "$0")"
 
 total=${#packages_to_build[@]}
 count=0
@@ -68,14 +67,12 @@ count=0
 for package_attr_name in "${packages_to_build[@]}"; do
   count=$((count+1))
   echo "[$count/$total] Building package: $package_attr_name"
-  
-  # 使用标准的 nix build 语法构建特定包
-  nix build ".#$package_attr_name" -L
-  
-  # 构建完成后运行垃圾回收以清理中间构建产物
+
+  nix build ".#$package_attr_name" --out-link "./$package_attr_name" -L
+
   echo "Running garbage collection..."
   nix-collect-garbage -d
-  
+
   echo "Successfully built: $package_attr_name"
 done
 
