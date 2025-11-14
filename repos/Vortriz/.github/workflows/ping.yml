@@ -1,4 +1,4 @@
-name: "Build and populate cache"
+name: "Ping NUR"
 
 on:
     schedule:

@@ -1,6 +1,2 @@
-result*
-.direnv
-.pre-commit-config.yaml
-
-.venv
-.ruff_cache
+result*/
+.direnv/

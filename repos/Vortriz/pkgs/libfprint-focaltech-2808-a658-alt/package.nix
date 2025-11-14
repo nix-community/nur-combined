@@ -1,8 +1,8 @@
 # taken from the now dropped NixOS package libfprint-focaltech-2808-a658
 {
-    sources,
-    stdenv,
     lib,
+    stdenv,
+    fetchurl,
     rpm,
     cpio,
     glib,
@@ -16,82 +16,88 @@
     autoPatchelfHook,
     makePkgconfigItem,
     copyPkgconfigItems,
-}: let
+}:
+let
     # The provided `.so`'s name in the binary package we fetch and unpack
     libso = "libfprint-2.so.2.0.0";
-    inherit (sources.libfprint-focaltech-2808-a658-alt) src pname version;
 in
-    stdenv.mkDerivation rec {
-        # https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/413#note_2476573
-        inherit pname version src;
+stdenv.mkDerivation rec {
+    # https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/413#note_2476573
+    pname = "libfprint-focaltech-2808-a658-alt";
+    version = "1.94.4";
 
-        nativeBuildInputs = [
-            rpm
-            cpio
-            pkg-config
-            autoPatchelfHook
-            copyPkgconfigItems
-        ];
+    src = fetchurl {
+        url = "https://github.com/Varrkan82/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658/raw/b040ccd953c27e26c1285c456b4264e70b36bc3f/libfprint-2-2-1.94.4+tod1-FT9366_20240627.x86_64.rpm";
+        sha256 = "sha256-MRWHwBievAfTfQqjs1WGKBnht9cIDj9aYiT3YJ0/CUM=";
+    };
 
-        buildInputs = [
-            stdenv.cc.cc
-            glib
-            gusb
-            pixman
-            nss
-            libgudev
-            libfprint
-            cairo
-        ];
+    nativeBuildInputs = [
+        rpm
+        cpio
+        pkg-config
+        autoPatchelfHook
+        copyPkgconfigItems
+    ];
 
-        unpackPhase = ''
-            runHook preUnpack
+    buildInputs = [
+        stdenv.cc.cc
+        glib
+        gusb
+        pixman
+        nss
+        libgudev
+        libfprint
+        cairo
+    ];
 
-            rpm2cpio $src | cpio -idmv
+    unpackPhase = ''
+        runHook preUnpack
 
-            runHook postUnpack
-        '';
+        rpm2cpio $src | cpio -idmv
 
-        # custom pkg-config based on libfprint's pkg-config
-        pkgconfigItems = [
-            (makePkgconfigItem rec {
-                name = "libfprint-2";
-                inherit version;
-                inherit (meta) description;
-                cflags = ["-I${variables.includedir}/libfprint-2"];
-                libs = [
-                    "-L${variables.libdir}"
-                    "-lfprint-2"
-                ];
-                variables = rec {
-                    prefix = "${placeholder "out"}";
-                    includedir = "${prefix}/include";
-                    libdir = "${prefix}/lib";
-                };
-            })
-        ];
+        runHook postUnpack
+    '';
 
-        installPhase = ''
-            runHook preInstall
+    # custom pkg-config based on libfprint's pkg-config
+    pkgconfigItems = [
+        (makePkgconfigItem rec {
+            name = "libfprint-2";
+            inherit version;
+            inherit (meta) description;
+            cflags = [ "-I${variables.includedir}/libfprint-2" ];
+            libs = [
+                "-L${variables.libdir}"
+                "-lfprint-2"
+            ];
+            variables = rec {
+                prefix = "${placeholder "out"}";
+                includedir = "${prefix}/include";
+                libdir = "${prefix}/lib";
+            };
+        })
+    ];
 
-            install -Dm444 usr/lib64/${libso} -t $out/lib
+    installPhase = ''
+        runHook preInstall
 
-            # create this symlink as it was there in libfprint
-            ln -s -T $out/lib/${libso} $out/lib/libfprint-2.so
-            ln -s -T $out/lib/${libso} $out/lib/libfprint-2.so.2
+        install -Dm444 usr/lib64/${libso} -t $out/lib
 
-            # get files from libfprint required to build the package
-            cp -r ${libfprint}/lib/girepository-1.0 $out/lib
-            cp -r ${libfprint}/include $out
+        # create this symlink as it was there in libfprint
+        ln -s -T $out/lib/${libso} $out/lib/libfprint-2.so
+        ln -s -T $out/lib/${libso} $out/lib/libfprint-2.so.2
 
-            runHook postInstall
-        '';
+        # get files from libfprint required to build the package
+        cp -r ${libfprint}/lib/girepository-1.0 $out/lib
+        cp -r ${libfprint}/include $out
 
-        meta = {
-            description = "Focaltech Fingerprint driver for focaltech 0x2808:0xa658";
-            homepage = "https://github.com/ftfpteams/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658";
-            license = lib.licenses.unfree;
-            platforms = ["x86_64-linux"];
-            sourceProvenance = [lib.sourceTypes.binaryNativeCode];
-        };
-    }
+        runHook postInstall
+    '';
+
+    meta = {
+        description = "Focaltech Fingerprint driver for focaltech 0x2808:0xa658";
+        homepage = "https://github.com/ftfpteams/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658";
+        license = lib.licenses.unfree;
+        platforms = [ "x86_64-linux" ];
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    };
+}

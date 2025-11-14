@@ -23,30 +23,8 @@ jobs:
               run: |
                   git config user.name 'github-actions[bot]'
                   git config user.email 'github-actions[bot]@users.noreply.github.com'
-                  # See https://github.com/berberman/nvfetcher/issues/133
-                  export LANG=C.UTF-8
 
-            - name: Update flake inputs
+            - name: Update flake lock and update all packages using nix-update
               run: |
-                  nix flake update --commit-lock-file
-
-            - name: Update upstream sources
-              run: |
-                  nix develop --accept-flake-config -c nvfetcher --commit-changes
-
-            - name: Create PR
-              id: cpr
-              uses: peter-evans/create-pull-request@v7
-              with:
-                  base: "main"
-                  branch: "update-locks"
-                  delete-branch: true
-                  title: "chore: update locks"
-                  body: "Automated pull request to update flake.lock and nvfetcher sources"
-
-            - name: Enable Pull Request Automerge
-              if: steps.cpr.outputs.pull-request-operation == 'created'
-              uses: peter-evans/enable-pull-request-automerge@v3
-              with:
-                  pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-                  merge-method: merge
+                  nix develop --command update
+                  git commit -m "chore: update"

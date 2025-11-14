@@ -1,20 +1,26 @@
 {
-    sources,
     lib,
     rustPlatform,
-}: let
-    inherit (sources.goldfish) src pname date cargoLock;
-in
-    rustPlatform.buildRustPackage {
-        inherit pname src;
-        version = "unstable-${date}";
+    fetchFromGitHub,
+}:
+rustPlatform.buildRustPackage {
+    pname = "goldfish";
+    version = "0.1.0-unstable-2025-11-02";
 
-        cargoLock = cargoLock."Cargo.lock";
+    src = fetchFromGitHub {
+        owner = "sameoldlab";
+        repo = "goldfish";
+        rev = "4eb6d6964ef1c48fdfda87590c1041f71b58d36b";
+        fetchSubmodules = false;
+        sha256 = "sha256-+FlRwwtLFlzxcgtkdD47G/yrqYKgzo0pWKH1RIBli8A=";
+    };
 
-        meta = {
-            description = "goldfish (`gf`) is a IPC file finder.";
-            homepage = "https://github.com/sameoldlab/goldfish";
-            license = lib.licenses.mpl20;
-            mainProgram = "goldfish";
-        };
-    }
+    cargoHash = "sha256-OJEw436p+P1dW1JSxX1EbyuDJBf4fMbHhpmavrbzTsw=";
+
+    meta = {
+        description = "goldfish (`gf`) is a IPC file finder.";
+        homepage = "https://github.com/sameoldlab/goldfish";
+        license = lib.licenses.mpl20;
+        mainProgram = "goldfish";
+    };
+}

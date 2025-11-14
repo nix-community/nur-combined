@@ -1,7 +1,7 @@
 {
-    sources,
-    stdenv,
     lib,
+    stdenv,
+    fetchFromGitHub,
     xdg-desktop-portal,
     ninja,
     meson,
@@ -9,33 +9,39 @@
     inih,
     systemd,
     scdoc,
-}: let
-    inherit (sources.xdg-desktop-portal-termfilechooser) src pname date;
-in
-    stdenv.mkDerivation {
-        inherit pname src;
-        version = "unstable-${date}";
+}:
+stdenv.mkDerivation {
+    pname = "xdg-desktop-portal-termfilechooser";
+    version = "1.2.1-unstable-2025-11-11";
 
-        nativeBuildInputs = [
-            meson
-            ninja
-            pkg-config
-            scdoc
-        ];
+    src = fetchFromGitHub {
+        owner = "hunkyburrito";
+        repo = "xdg-desktop-portal-termfilechooser";
+        rev = "8697babc62c89e79ed6b17a4edfde88e7d81ecaf";
+        fetchSubmodules = false;
+        sha256 = "sha256-/Ow8NbcXGlS3CVq2/Ndqg/Fh79bl0DqooLbTUWr3r/k=";
+    };
 
-        buildInputs = [
-            xdg-desktop-portal
-            inih
-            systemd
-        ];
+    nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+        scdoc
+    ];
 
-        mesonFlags = ["-Dsd-bus-provider=libsystemd"];
+    buildInputs = [
+        xdg-desktop-portal
+        inih
+        systemd
+    ];
 
-        meta = with lib; {
-            description = "xdg-desktop-portal backend for choosing files with your favorite file chooser";
-            homepage = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser";
-            license = licenses.mit;
-            platforms = platforms.linux;
-            mainProgram = "xdg-desktop-portal-termfilechooser";
-        };
-    }
+    mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
+
+    meta = with lib; {
+        description = "xdg-desktop-portal backend for choosing files with your favorite file chooser";
+        homepage = "https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser";
+        license = licenses.mit;
+        platforms = platforms.linux;
+        mainProgram = "xdg-desktop-portal-termfilechooser";
+    };
+}

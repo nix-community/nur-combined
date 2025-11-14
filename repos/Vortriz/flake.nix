@@ -12,105 +12,74 @@
             url = "github:numtide/devshell";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        pre-commit-hooks = {
-            url = "github:cachix/git-hooks.nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         treefmt-nix = {
             url = "github:numtide/treefmt-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = {
-        self,
-        nixpkgs,
-        flake-utils,
-        devshell,
-        pre-commit-hooks,
-        treefmt-nix,
-        ...
-    }:
-        flake-utils.lib.eachDefaultSystem (system: let
-            inherit (nixpkgs) lib;
+    outputs =
+        {
+            nixpkgs,
+            flake-utils,
+            devshell,
+            treefmt-nix,
+            ...
+        }:
+        flake-utils.lib.eachDefaultSystem (
+            system:
+            let
+                inherit (nixpkgs) lib;
 
-            pkgs = import nixpkgs {
-                inherit system;
-                overlays = [devshell.overlays.default];
-                config.allowUnfree = true;
-            };
-
-            treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        in {
-            formatter = treefmtEval.config.build.wrapper;
-
-            checks = {
-                pre-commit-check = pre-commit-hooks.lib.${system}.run {
-                    src = ./.;
-                    inherit ((import ./treefmt.nix).settings.global) excludes;
-                    hooks = {
-                        treefmt = {
-                            enable = true;
-                            package = self.formatter.${system};
-                        };
-                    };
+                pkgs = import nixpkgs {
+                    inherit system;
+                    overlays = [ devshell.overlays.default ];
+                    config.allowUnfree = true;
                 };
-            };
 
-            packages = import ./default.nix {inherit pkgs;};
+                treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
-            devShells.default = let
-                python-pkg = pkgs.python313;
+                pinned-packages = [
+                    "libfprint-focaltech-2808-a658-alt"
+                ];
             in
-                pkgs.devshell.mkShell
-                {
+            {
+                formatter = treefmtEval.config.build.wrapper;
+
+                packages = import ./default.nix { inherit pkgs; };
+
+                devShells.default = pkgs.devshell.mkShell {
                     devshell.motd = "";
 
-                    packages = with pkgs;
-                        [
-                            nix-init
-                            nvfetcher
-                            uv
-                            ruff
-                            nix-eval-jobs
-                        ]
-                        ++ [python-pkg];
+                    packages = with pkgs; [
+                        nix-init
+                        jq
+                        nix-update
+                    ];
 
                     env = [
                         {
-                            # Prevent uv from managing Python downloads
-                            name = "UV_PYTHON_DOWNLOADS";
-                            value = "never";
+                            name = "PACKAGES";
+                            eval = "$(nix flake show --all-systems --json | jq -r '[.packages[] | keys[]] | sort | unique |  join(\",\")')";
                         }
                         {
-                            # Force uv to use nixpkgs Python interpreter
-                            name = "UV_PYTHON";
-                            value = python-pkg.interpreter;
-                        }
-                        {
-                            # Python libraries often load native shared objects using dlopen(3).
-                            # Setting LD_LIBRARY_PATH makes the dynamic library loader aware of libraries without using RPATH for lookup.
-                            # We use manylinux2014 which is compatible with 3.7.8+, 3.8.4+, 3.9.0+
-                            name = "LD_LIBRARY_PATH";
-                            prefix = lib.makeLibraryPath pkgs.pythonManylinuxPackages.manylinux2014;
+                            name = "BLACKLIST";
+                            value = lib.strings.join "," pinned-packages;
                         }
                     ];
 
                     commands = [
                         {
                             name = "update";
-                            help = "Update sources";
+                            help = "Update flake lock and update all packages using nix-update";
                             category = "[chore]";
                             command = ''
                                 nix flake update
-                                nvfetcher
-                                nix-eval-jobs --flake .#packages
-                                uv run update-readme.py
+                                bash nix-update.sh
                             '';
                         }
                     ];
-
-                    devshell.startup.default.text = "unset PYTHONPATH";
                 };
-        });
+            }
+        );
 }
