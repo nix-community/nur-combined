@@ -47,6 +47,7 @@ jobs:
       - name: Update sources
         run: |
           nix flake update
+          export NIX_PATH=nixpkgs=$(nix eval --raw .#nixpkgs)
           nix run .#nvfetcher
           nix fmt _sources
           pkgs/pixes/update.sh

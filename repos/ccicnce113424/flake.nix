@@ -26,8 +26,11 @@ rec {
         { pkgs, ... }:
         {
           devShells.default = pkgs.callPackage ./devshell.nix { };
-          # nvfetcher
-          legacyPackages.nvfetcher = pkgs.nvfetcher;
+          # ci environment
+          legacyPackages = {
+            inherit (inputs) nixpkgs;
+            inherit (pkgs) nvfetcher;
+          };
         };
     };
 
