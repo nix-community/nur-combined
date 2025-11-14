@@ -71,6 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
     (lib.cmakeBool "IMHEX_OFFLINE_BUILD" true)
     (lib.cmakeBool "IMHEX_COMPRESS_DEBUG_INFO" false) # avoids error: cannot compress debug sections (zstd not enabled)
     (lib.cmakeBool "USE_SYSTEM_CAPSTONE" true)
