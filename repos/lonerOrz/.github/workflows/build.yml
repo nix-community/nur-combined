@@ -42,6 +42,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+
+      - name: Add swap
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 20
+
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -49,8 +58,16 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install environment
+        run: |
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+          nix-channel --update
+          nix-env -iA nixpkgs.jq
+
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
       - name: Setup cachix
         uses: cachix/cachix-action@v16
         # Don't replace <YOUR_CACHIX_NAME> here!
@@ -59,6 +76,7 @@ jobs:
           name: ${{ matrix.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
       - name: Check evaluation
         run: |
           nix-env -f . -qa \* --meta --xml \
@@ -68,8 +86,10 @@ jobs:
             --drv-path --show-trace \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
+      - name: Build nix packages individually with garbage collection
+        run: ./.github/script/build-cacheable-packages.sh
+
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
