@@ -42,7 +42,7 @@ let
           t = "flat-hook";
           underscore = "low";
           y = "straight-turn-serifless";
-          zero = "reverse-slashed";
+          zero = "reverse-slashed-cutout";
         };
         italic = {
           capital-j = "descending-serifed";
