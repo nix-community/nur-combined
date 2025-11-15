@@ -272,7 +272,7 @@ in {
                     }
                     jqOrDump() {
                         local data
-                        IFS= read -d ''' data
+                        IFS= read -r -d ''' data
                         set +e
                         printf '%s' "$data" | jq "$@"
                         local exitStatus="$?"
