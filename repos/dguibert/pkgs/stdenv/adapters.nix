@@ -52,7 +52,6 @@ pkgs: rec {
 
   # newStdenv = stdenv: stdenv // (mkDerivation = args: stdenv.mkDerivation (args // {}));
   optimizePackage = pkg: customFlags {cflags = "${extraNativeCflags pkg.stdenv}";} pkg;
-  withOpenMP = customFlags {flags = "-fopenmp";};
 
   optimizedStdEnv = stdenv: customFlagsWithinStdEnv {cflags = "${extraNativeCflags stdenv}";} stdenv;
 }

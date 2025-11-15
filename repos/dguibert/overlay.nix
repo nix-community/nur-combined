@@ -6,7 +6,6 @@ with final; {
   inherit
     (final.adapters)
     optimizePackage
-    withOpenMP
     optimizedStdEnv
     customFlags
     extraNativeCflags
