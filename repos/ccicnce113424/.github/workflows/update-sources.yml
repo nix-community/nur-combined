@@ -20,23 +20,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - uses: wimpysworld/nothing-but-nix@v6
-        with:
-          hatchet-protocol: "rampage"
-
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: nixbuild/nix-quick-install-action@v34
         with:
-          extra-conf: |
+          nix_conf: |
             accept-flake-config = true
-
-      - name: Restore and save Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Update sources
         run: |
           nix flake update
-          nix run nixpkgs#nvfetcher
+          export NIX_PATH="nixpkgs=$(nix eval --raw .#nixpkgs)"
+          nix run .#nvfetcher
           nix fmt _sources
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
