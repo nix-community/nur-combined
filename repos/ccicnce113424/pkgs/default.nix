@@ -19,14 +19,14 @@ rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;
   };
-  danmakufactory-git =
-    (pkgs.callPackage ./danmakufactory-git rec {
-      sources = fetchedSrc.danmakufactory-git;
-      version = unstableVersion sources;
-    }).overrideAttrs
-      {
-        meta.broken = true;
-      };
+  # danmakufactory-git =
+  #   (pkgs.callPackage ./danmakufactory-git rec {
+  #     sources = fetchedSrc.danmakufactory-git;
+  #     version = unstableVersion sources;
+  #   }).overrideAttrs
+  #     {
+  #       meta.broken = true;
+  #     };
 
   dxvk-gplall-bin-w32 = pkgs.callPackage ./dxvk-gplall-bin rec {
     sources = fetchedSrc.dxvk-gplall;
