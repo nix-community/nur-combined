@@ -1,0 +1,192 @@
+[
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/eb32710132eb",
+    "name": "1962868-phone-number-search.patch",
+    "hash": "sha256-sHX+vm3YshbjGVFBE1rz2vDA0xhzzuiE7ILsHTy475s="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/0e35d7cc243f",
+    "name": "617287-fix-news-uris.patch",
+    "hash": "sha256-spHD4iK//9u6pZeGijO1H7Ca5xta2kQhtnN1QA5dHow="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/38963a44b907",
+    "name": "1901338-fix-nntp-reconnect.patch",
+    "hash": "sha256-XAx5g66qH9GF/1trBXWv0Lr6kS5oj41+TyazByEzEF4="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/6da700026e3f",
+    "name": "1947052-webp-photos-in-vcards.patch",
+    "hash": "sha256-wE5vFcMwIrWY1vezcgzRIm2QFqGnDHgcFFoJbulKuek="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/44891cb19390",
+    "name": "1951824-exchange-autodiscover-user-field.patch",
+    "hash": "sha256-sUIcK49pVrbEC4J25KYbJeO7Ter8XIWmx8ncHzV1+cY="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/fbc1e6715b7c",
+    "name": "1977051-account-name-crop.patch",
+    "hash": "sha256-mUXMFJnFKLF0MYJQMy9VrWgl72kSm37UhG1rXE1+G6U="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/04c4af2ddadb",
+    "name": "1968915-fix-JS-error-ROW-HEIGHTS.patch",
+    "hash": "sha256-a+U6fmWGcLYod0xAeuQRE+hF5uW7eVs7FcvESsMjzUg="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/2a4ae357f0c1",
+    "name": "1973658-fix-empty-language-field.patch",
+    "hash": "sha256-ttbNKeNVevNILrVIhltoRFefMM+1Mhfz2sAGrNyXPSk="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/1cd9c4860ca1",
+    "name": "1979618-fix-nntp-auth.patch",
+    "hash": "sha256-Ldtyv/jO3LObLn0AASbnifWsrVh1sWZbw3XWhW7Xcos="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/b86ec7eb9e5d",
+    "name": "1979567-contact-panel-selection-for-dragging.patch",
+    "hash": "sha256-A7z/eJGlOhiSn+vNVvxYkWKJAK/9btpjwjVfEe2EXDM="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/6f3d45ed82e5",
+    "name": "1983993-import-go-back.patch",
+    "hash": "sha256-viF3FIR3P7V2QZUMHpdviNilotP1et8ub5FlBWmBc8g="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/61a9656dc5db",
+    "name": "541744-nntp-not-retrieved-not-read.patch",
+    "hash": "sha256-UxzQTfVV5MhIrY0vEcN/6fzKIfjkFgn3mgxLEX9p7PI="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/e27a3bec48c2",
+    "name": "1984894-fix-mark-remaining-headers-read.patch",
+    "hash": "sha256-lGaVgK+9R0n/yhXRbWL+7mTxXCsRJgkg9JD7kpxlDjU="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/26a4e96faec3",
+    "name": "1977321-selection-in-group-by-sort.patch",
+    "hash": "sha256-Bbmux9qMuwfWS8GLllmA8s5RPR8MpJXWP5CAAU3w2tw="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/2c1f49de6b66",
+    "name": "1667865-hide-reply-button-in-ng.patch",
+    "hash": "sha256-Vv8dEEnHR/7VhKamgDcPAWRnGxPxpO+Y+NKBNnv0GU8="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/c12ca715def6",
+    "name": "1985033-try-again-button-error-page.patch",
+    "hash": "sha256-01mbMnPFTAmeSZfjW1rjCtH0tUeNeKSqqgY7F0dmcI4="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/1b8b56fae407",
+    "name": "1982353-empty-rfc2047-qp-header.patch",
+    "hash": "sha256-eKfcLacGtGRUrIiUNnffNiMc/K8ufMmxo2bjPRnGeIs="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/fbfa5051d833",
+    "name": "617855-fix-sort-by-unread-threaded.patch",
+    "hash": "sha256-JNj9KcFNF2KfTgwbnBRfv58AUo6mN8qopp///f1axck="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/037434bf26d8",
+    "name": "1986289-dont-close-filter-dialog-on-enter.patch",
+    "hash": "sha256-obo9Eodauhm0JlKEOKDDuqnDcLNJ4Z+nonxnvniB184="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/d97aeea36946",
+    "name": "1986558-no-reset-modification-count-on-id-change.patch",
+    "hash": "sha256-uIIgZLZpWlM1xUVk8++4oD4y55TcO3gbSJZ+sD1cFQE="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/e79f24482f96",
+    "name": "1986428-fix-js-error-in-gloda.patch",
+    "hash": "sha256-JrJb2aVz98xkIHiRYVDZZ1XZx4NpEciUVKXtQ1dFPoo="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/1cc168c9d0a5",
+    "name": "1987834-dont-remove-observer-no-moz-updater.patch",
+    "hash": "sha256-kE8RL9gzVwqJtiRDem421XTcGfarEReih6Hs6STccQo="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/b243b7f8dcd4",
+    "name": "1988230-csp-for-confirmPubkeyImport.patch",
+    "hash": "sha256-bxS5d/NUR+hP3fL42Naow7rCECVMeWH2WPiUywsvPrM="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/ffa7c4e79a0a",
+    "name": "1986642-crash-onstoprunningurl.patch",
+    "hash": "sha256-w+E6zEOk80aJ+K7wdEfaQjYIM1rCww+F0sCO7WK/E7U="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/feb815f624ac",
+    "name": "694780-disable-copy-news-filter.patch",
+    "hash": "sha256-tUE3RpL91NuhRUCdooA8EOwSAZzlioVytM33HsJ/zjI="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/45035b144f5a",
+    "name": "1976327-check-email-address-not-ending-with-dot.patch",
+    "hash": "sha256-/EVuTMcRwAnUBmuKaTz2FXrXYff65LryOGZToXyzwZs="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/d540e9e7da97",
+    "name": "1972904-reminders-for-future-events-official.patch",
+    "hash": "sha256-vUk5HdALrkfdMbJETqgjwEiGGddFOcGSGBZbjbEj0kA="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/da334651f4ea",
+    "name": "1981322-fix-sender-avatar.patch",
+    "hash": "sha256-4KFCraEJyhJ+E/kVkxckN+b/hls7JZewTySDoBSDXpg="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/0530eb061f3e",
+    "name": "1988607-fix-sorting-by-site-in-exceptions.patch",
+    "hash": "sha256-ZozXC7+yyLtrBXixz7V3qX7luR5Nu4H4I0EBZk6M24E="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/98f11bc525c4",
+    "name": "1988558-fix-cookie-manager-observer.patch",
+    "hash": "sha256-r8t06jLW4k4n64du1XmAcCkWvSdzPZT+H+x9e8rdSy8="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/05028ad04657",
+    "name": "1997914-auto-tag-context-menu.patch",
+    "hash": "sha256-fiSM7kZHxO9UGAmZL2H25fSefPJboFa9qRpwpUI3/ak="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/e8d3472f8f27",
+    "name": "1977204-ignore-focus-current-tab.patch",
+    "hash": "sha256-g1HS+lQF+FMUJJh0mOgn1nop/Xj6ZkWJO5YIjNEt/yU="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/131ae901e5b7",
+    "name": "1991417-new-message-on-empty-pane-part1.patch",
+    "hash": "sha256-xH0Ft0aTv2Jo+P73cWXA7dzbwNuKQsiAgCOyIJTVCRk="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/28c7d645a197",
+    "name": "1991417-new-message-on-empty-pane-part2.patch",
+    "hash": "sha256-u3LdEPSwNZRvJbfFNhzFzRXIvxu3p+JwlMmWd+rRytI="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/66e495758c52",
+    "name": "1921406-more-than-one-vcard.patch",
+    "hash": "sha256-wMSppoxJPXwnZSOjokc/CJ+Vw+N48EzKahUCOfTabnE="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/6478f8b14ab8",
+    "name": "1984376-fastmail-use-existing-pw.patch",
+    "hash": "sha256-Hz3ugjsvzhnLJNJC5W0UqqA6LIYXVO8KSKgAb0jrynU="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/153d0746a240",
+    "name": "1995926-vcard-file-type.patch",
+    "hash": "sha256-LNHiCzspODfX1IYMR8HHPn92PTLJTprFc8vygU05MVk="
+  },
+  {
+    "url": "https://hg.mozilla.org/mozilla-central/raw-rev/f0dedf9da0fb",
+    "name": "1976637-fix-scroll-moz.patch",
+    "hash": "sha256-GSoJqsG/IBqi/Uqv5TQxVLh6dsm21/exAsvY+qawg54="
+  }
+]
