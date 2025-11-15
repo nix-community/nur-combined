@@ -5,11 +5,11 @@
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "hayase";
-  version = "6.4.37";
+  version = "6.4.38";
 
   src = pkgs.fetchurl {
     url = "https://github.com/hayase-app/docs/releases/download/v${version}/linux-hayase-${version}-linux.AppImage";
-    hash = "sha256-7fXu8ySC8FioLA1PlyorS6F7Kv34nlo8Djhj54kCEOI=";
+    hash = "sha256-Pu8Orfeiwd9QJFHgIa119WR/45cND64asz9KjU11W+k=";
   };
 
   nativeBuildInputs = with pkgs; [
