@@ -39,7 +39,7 @@ see all packages: <https://nur.nix-community.org/repos/mio/>
 --option 'extra-substituters' 'https://mio.cachix.org/' --option extra-trusted-public-keys "mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM="
 ```
 
-For x86_64-linux, a binary cache may be available on Garnix. See <https://garnix.io/docs/caching/>
+a binary cache may be available on Garnix. See <https://garnix.io/docs/caching/>
 
 ## broken
 
