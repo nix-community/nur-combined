@@ -23,12 +23,13 @@ rec {
         ./pkgs/flake-module.nix
       ];
       perSystem =
-        { pkgs, ... }:
+        { pkgs, config, ... }:
         {
           devShells.default = pkgs.callPackage ./devshell.nix { };
           legacyPackages = {
             inherit (pkgs) nvfetcher;
             inherit (inputs) nixpkgs;
+            ci = import ./ci.nix { nurAttrs = config.packages; };
           };
         };
     };

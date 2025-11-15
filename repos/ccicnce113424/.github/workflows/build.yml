@@ -39,4 +39,4 @@ jobs:
 
       - name: Build
         run: |
-          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+          nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#ci.cacheOutputs"
