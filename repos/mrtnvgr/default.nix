@@ -46,32 +46,32 @@ in rec {
   TyrellN6 = p ./pkgs/audio/tyrelln6 { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
 
-  distrho-ports-vst3 = pkgs.distrho-ports.override {
+  distrho-ports-vst3 = (pkgs.distrho-ports.override {
     buildLV2 = false;
     buildVST2 = false;
-  };
+  }).overrideAttrs { name = "distrho-ports-vst3"; };
 
-  vitalium-vst3 = distrho-ports-vst3.override {
+  vitalium-vst3 = (distrho-ports-vst3.override {
     plugins = [ "vitalium" ];
-  };
+  }).overrideAttrs { name = "vitalium-vst3"; };
 
-  TAL-plugins-vst3 = distrho-ports-vst3.override {
+  TAL-plugins-vst3 = (distrho-ports-vst3.override {
     plugins = [ "tal-reverb" "tal-reverb-2" "tal-reverb-3" "tal-filter-2" "tal-dub-3" "tal-vocoder-2" ];
-  };
+  }).overrideAttrs { name = "TAL-plugins-vst3"; };
 
-  luftikus-vst3 = distrho-ports-vst3.override {
+  luftikus-vst3 = (distrho-ports-vst3.override {
     plugins = [ "luftikus" ];
-  };
+  }).overrideAttrs { name = "luftikus-vst3"; };
 
-  LUFSMeter-vst3 = distrho-ports-vst3.override {
+  LUFSMeter-vst3 = (distrho-ports-vst3.override {
     plugins = [ "LUFSMeter" ];
-  };
+  }).overrideAttrs { name = "LUFSMeter-vst3"; };
 
-  surge-XT-vst3 = pkgs.surge-XT.override {
+  surge-XT-vst3 = (pkgs.surge-XT.override {
     buildLV2 = false;
     buildCLAP = false;
     buildStandalone = false;
-  };
+  }).overrideAttrs { name = "surge-XT-vst3"; };
 
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
