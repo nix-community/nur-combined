@@ -20,7 +20,7 @@ buildPythonPackage rec {
     rich
     pystardict
     repl-python-wakatime
-    pygls
+    pygls_2
     pyyaml
   ];
   nativeBuildInputs = [

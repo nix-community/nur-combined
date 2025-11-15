@@ -11,7 +11,7 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls
+    pygls_2
     platformdirs
   ];
   nativeBuildInputs = [
