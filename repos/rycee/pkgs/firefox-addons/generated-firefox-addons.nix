@@ -2654,10 +2654,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "146.0.20251112.90346";
+      version = "146.0.20251114.90405";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618029/dansk_da_language_pack-146.0.20251112.90346.xpi";
-      sha256 = "66fc098dbe366dc2c0aebd380c7579b4f8f2c3b58923bb3276e76dec7aa63118";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619597/dansk_da_language_pack-146.0.20251114.90405.xpi";
+      sha256 = "5a89bf14551fb93594a277512af112ca05f13d1365bbec15d8891ede54937875";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2852,10 +2852,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "146.0.20251112.90346";
+      version = "146.0.20251114.90405";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618038/deutsch_de_language_pack-146.0.20251112.90346.xpi";
-      sha256 = "de860dede2be85227b5be0a53b014db5b6088a208fe93c2646043d377581fb8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619595/deutsch_de_language_pack-146.0.20251114.90405.xpi";
+      sha256 = "66873c5bf1b1cd7bb0c54ab782bfae91f74f847719862e88bd4f3091992ffcc5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.0";
+      version = "2.67.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4617689/dualsub-2.67.0.xpi";
-      sha256 = "aaf8d5725ffc068446d3ae78d3f430718801f2f729146099e234c7135a6f0955";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619420/dualsub-2.67.1.xpi";
+      sha256 = "67b35ce01c42b95e520fa3f9041dba42e70d6ceb1c42b149457e5ea5ad5b8deb";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4103,10 +4103,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "146.0.20251112.90346";
+      version = "146.0.20251114.90405";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618096/francais_language_pack-146.0.20251112.90346.xpi";
-      sha256 = "c44c7661c9cedb57d6a742c2127f7a9d02026e848bbd6c72f17e47c84c0de481";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619554/francais_language_pack-146.0.20251114.90405.xpi";
+      sha256 = "fd01894828a1c5db7582c5cf15769850d5b67d97baf8679ecef7151adce1f434";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4140,10 +4140,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "146.0.20251112.90346";
+      version = "146.0.20251114.90405";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618099/gaidhlig_language_pack-146.0.20251112.90346.xpi";
-      sha256 = "f364648ec9a8e940c4511fe6b5ce14d84f71dbdb505f320bf168ad6c98758271";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619567/gaidhlig_language_pack-146.0.20251114.90405.xpi";
+      sha256 = "77e62a0aea857d1c7db733f1ec4902dba6df9acd1e58d7167a23ed77342a5da4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8358,13 +8358,13 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.10.5";
+      version = "1.10.9";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4519503/material_icons_for_github-1.10.5.xpi";
-      sha256 = "46b53d7a87ae88266eb3e0dd8fc371e2ab10d221c22029802843995604eea958";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620010/material_icons_for_github-1.10.9.xpi";
+      sha256 = "8b6c3bcbaaeffd4e00fc953024f3644b29ec2279ac9857f53301c42444dc3381";
       meta = with lib;
       {
-        homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
+        homepage = "https://github.com/material-extensions/material-icons-browser-extension";
         description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
         license = licenses.mit;
         mozPermissions = [
@@ -10396,10 +10396,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.71.0";
+      version = "0.72.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614025/private_grammar_checker_harper-0.71.0.xpi";
-      sha256 = "7558f24122c05e29a10add91bf37d150882dc190b676aa8ae89f2d392e57f259";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619955/private_grammar_checker_harper-0.72.0.xpi";
+      sha256 = "86928063b7a3940f95f3c45bfd489f68bd7332a43618ae6339f9e173f518e043";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11463,10 +11463,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25310";
+      version = "0.2.0.25315";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4613589/ruffle_rs-0.2.0.25310.xpi";
-      sha256 = "9aa9ecd1ac45c11f3c9462987f1e68543ae4489f361b2c1bcd512e23a4f09164";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617033/ruffle_rs-0.2.0.25315.xpi";
+      sha256 = "311b670117fe549d5c5153bf27a504d4dfed8f772ef2e86196263f5a43adbe42";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -11615,10 +11615,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "146.0.20251112.90346";
+      version = "146.0.20251114.90405";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618100/scots_language_pack-146.0.20251112.90346.xpi";
-      sha256 = "1bd7f8fd8d4832be08b8baaf4b0421d9de3920b21f6eb090dc9606634911d02a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619652/scots_language_pack-146.0.20251114.90405.xpi";
+      sha256 = "5ccfe12bf78e0c891023c24dd3a8e16ca9237432e4e8b1be505a28bac736f221";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15324,10 +15324,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.1.1";
+      version = "1.1.2";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4604823/xkit_rewritten-1.1.1.xpi";
-      sha256 = "89b934a4e4598b106ad825f030871721854bcbfabb66f2923c1445d845860df0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4616398/xkit_rewritten-1.1.2.xpi";
+      sha256 = "4088d9946839f010bd207308909fb23a4debfc3492358fc9674606622e307580";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -15609,10 +15609,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "17.8.14";
+      version = "17.9.3";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4610914/youtube_subscription_groups-17.8.14.xpi";
-      sha256 = "b5ee5135fac7658fe140f2cc7e402acc91cf34442fd7dda3db3e5f662a5d5f54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618449/youtube_subscription_groups-17.9.3.xpi";
+      sha256 = "830b5a7f00571727ceb601740ddbe3fc1fbea727d695141e9c1649121e25c3ba";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
