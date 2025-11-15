@@ -109,12 +109,12 @@
             "name": null,
             "owner": "janten",
             "repo": "dpt-rp1-py",
-            "rev": "v0.1.18",
-            "sha256": "sha256-5Ny62Kp1GHH9vmPSZ6smNqyEt9PZYPHAiungHZQMB/A=",
+            "rev": "v0.1.19",
+            "sha256": "sha256-cJ9dc8TRuduIka6T/MQsetDAjIhb+i2U9F8Qm9h29d8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.18"
+        "version": "v0.1.19"
     },
     "gnome-shell-mobile-shell": {
         "cargoLock": null,
@@ -170,12 +170,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.12.55-linux-251024T074402Z",
-            "sha256": "sha256-GSnK/uzQSOQo64episCJNJcPRm0UAhLX4QldRJFYqPg=",
+            "rev": "lts-v6.12.57-linux-251103T052244Z",
+            "sha256": "sha256-v1fTQNRWIeELDW155bG0wIy6W/bnMN9/Cn23JYvp9oc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.12.55-linux-251024T074402Z"
+        "version": "lts-v6.12.57-linux-251103T052244Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -465,7 +465,7 @@
     },
     "rime-cantonese": {
         "cargoLock": null,
-        "date": "2025-09-24",
+        "date": "2025-11-13",
         "extract": null,
         "name": "rime-cantonese",
         "passthru": null,
@@ -475,13 +475,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "41816434b0b2457c772eae5e7dfd85054e8f5e24",
-            "sha256": "sha256-oe35CuCGQekCAkpGaCLzXRDcAVuwlmxkQZswFJwPf1Y=",
+            "rev": "e41e130d2285af4789a1bf7ef056acee34f59845",
+            "sha256": "sha256-xortj41BS7iLlV9pMhN8WOlg0/HQU3JS08t7QJ+THGE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "41816434b0b2457c772eae5e7dfd85054e8f5e24"
+        "version": "e41e130d2285af4789a1bf7ef056acee34f59845"
     },
     "rime-double-pinyin": {
         "cargoLock": null,
@@ -545,7 +545,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2025-11-02",
+        "date": "2025-11-04",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -555,13 +555,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8d77ca6337a499e02c07bf596333c6966f6396ee",
-            "sha256": "sha256-gTj60ezUFbtZV1K2hCFuvfyXrG0sTcoKiUe4MxefT3c=",
+            "rev": "0802d2a55ef7e6b575ab1a87fee11fe3584ab7de",
+            "sha256": "sha256-ixT9P6cwGxiozElWdbpDbWehgV+pN91crUg7ppjO8FA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "8d77ca6337a499e02c07bf596333c6966f6396ee"
+        "version": "0802d2a55ef7e6b575ab1a87fee11fe3584ab7de"
     },
     "rime-loengfan": {
         "cargoLock": null,
@@ -585,7 +585,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2025-08-05",
+        "date": "2025-11-13",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -595,13 +595,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "46acf03142c12b5aeed7002675046bf7255eed35",
-            "sha256": "sha256-gwqThVCjEZnIWI+WVgRPxVBUN0bp52QoL9LHONSlDw4=",
+            "rev": "a53cdf4fd6141cd3a5c2006ae882311e5132fca0",
+            "sha256": "sha256-rUcpxqmk30v19/woj3eKkiYHjnObfdnS6uqlknfRK8c=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "46acf03142c12b5aeed7002675046bf7255eed35"
+        "version": "a53cdf4fd6141cd3a5c2006ae882311e5132fca0"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
@@ -783,12 +783,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.6.1-signed",
-            "sha256": "sha256-EFy4XsUi7f1BZHT95HPX2wp+B2q6WqlVmT6pME72kfA=",
+            "rev": "v1.6.2-signed",
+            "sha256": "sha256-Wh3uIlEC68ALQishLFdL3Dg3ZO/KH+twIEhhw4P7Usw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.1-signed"
+        "version": "v1.6.2-signed"
     },
     "telegram-send": {
         "cargoLock": null,

@@ -15,6 +15,8 @@ jobs:
       uses: actions/checkout@main
       with:
         fetch-depth: 0
+        # use PAT for git push to trigger github actions
+        token: ${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}
     - name: Prepare branch
       run: |
         git checkout master
@@ -72,10 +74,7 @@ jobs:
         ```
         EOF
 
-        gh pr view update
-
-        if [ "$?" -ne 0 ];then
-          gh pr create \
+        gh pr create \
             --base master \
             --title 'Automated update' \
             --body-file /tmp/body-file \
@@ -83,10 +82,8 @@ jobs:
             --assignee linyinfeng \
             --reviewer linyinfeng \
             --label 'auto merge' \
-            --label 'auto update'
-        else
-          gh pr edit update \
+            --label 'auto update' || \
+        gh pr edit update \
             --body-file /tmp/body-file
-        fi
       env:
           GITHUB_TOKEN: ${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}
