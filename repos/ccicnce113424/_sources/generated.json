@@ -126,7 +126,7 @@
     "cargoLocks": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "./piliplus-1.1.5-pre4/pubspec.lock"
+      "pubspec.lock": "./piliplus-1.1.5-pre5/pubspec.lock"
     },
     "name": "piliplus",
     "passthru": null,
@@ -134,16 +134,16 @@
     "src": {
       "deepClone": false,
       "fetchSubmodules": false,
-      "leaveDotGit": true,
+      "leaveDotGit": false,
       "name": null,
       "owner": "bggRGjQaUbCoE",
       "repo": "PiliPlus",
-      "rev": "1.1.5-pre4",
-      "sha256": "sha256-jK/iSF1820cn9BBbfuCe3fharn6XIQuIdupu9gL+mbI=",
+      "rev": "1.1.5-pre5",
+      "sha256": "sha256-QQ3akeF4D03nny1cKyqAF9dJchmITQygh7NxywRS2tQ=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "1.1.5-pre4"
+    "version": "1.1.5-pre5"
   },
   "pixes": {
     "cargoLocks": null,

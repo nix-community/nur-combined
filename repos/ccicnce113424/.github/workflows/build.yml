@@ -39,4 +39,4 @@ jobs:
 
       - name: Build
         run: |
-          nix-build ci.nix -A cacheOutputs
+          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
