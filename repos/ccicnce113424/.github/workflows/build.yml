@@ -36,7 +36,8 @@ jobs:
         with:
           name: ccicnce113424 # replace with your Cachix cache name
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
 
       - name: Build
         run: |
-          nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#ci.cacheOutputs"
+          nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --no-link --cachix-cache ccicnce113424 --flake ".#packages"
