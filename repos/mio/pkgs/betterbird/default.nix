@@ -213,23 +213,30 @@ in
       export MOZ_REQUIRE_ADDON_SIGNING=0
     '';
 
+    # On Darwin, use stage-package target and handle the .app installation
+    installTargets = lib.optionalString stdenv.hostPlatform.isDarwin "stage-package";
+
     postInstall =
-      oldAttrs.postInstall or ""
-      + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-        mkdir -p $out/lib/betterbird
-        mv $out/lib/thunderbird/* $out/lib/betterbird/
-        rmdir $out/lib/thunderbird
-        rm $out/bin/thunderbird
-        ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-      ''
-      + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        # On macOS, the build creates Betterbird.app because applicationName = "Betterbird"
-        # The wrapper will look for it at Applications/Betterbird.app
-        # No need to rename since it's already correctly named
-        # Just ensure the binary symlink exists (may already be created by buildMozillaMach)
+      lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # Copy the .app bundle from dist/ to Applications/
+        # Use -L to dereference symlinks (copy actual files instead of symlinks)
+        mkdir -p $out/Applications
+        cp -rL dist/Betterbird.app "$out/Applications/"
+
+        # Create symlink in bin
         mkdir -p $out/bin
         ln -sf $out/Applications/Betterbird.app/Contents/MacOS/betterbird $out/bin/betterbird
-      '';
+      ''
+      + lib.optionalString (!stdenv.hostPlatform.isDarwin) (
+        (oldAttrs.postInstall or "")
+        + ''
+          mkdir -p $out/lib/betterbird
+          mv $out/lib/thunderbird/* $out/lib/betterbird/
+          rmdir $out/lib/thunderbird
+          rm $out/bin/thunderbird
+          ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
+        ''
+      );
 
     doInstallCheck = false;
 

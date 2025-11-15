@@ -1,8 +1,0 @@
----
-# See: https://garnix.io/docs/yaml_config
-# https://github.com/MercuryTechnologies/ghciwatch/blob/main/garnix.yaml
-builds:
-  include:
-    - 'packages.x86_64-linux.*'
-    - 'packages.aarch64-darwin.*'
-    - 'packages.aarch64-linux.*'
