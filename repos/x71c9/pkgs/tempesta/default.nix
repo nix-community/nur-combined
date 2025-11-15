@@ -1,4 +1,6 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles
+, completion ? { enable = true; shells = [ "bash" ]; }
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "tempesta";
@@ -15,8 +17,31 @@ rustPlatform.buildRustPackage rec {
   # Cargo dependency vendor hash (computed by Nix)
   cargoHash = "sha256-TQHmxI4kzGVkkIzBLiDZarN+ErWYH2oSJFLYVuVqLLs=";
 
+  nativeBuildInputs = lib.optional completion.enable installShellFiles;
+
   # Enable when you have tests (recommended)
   doCheck = false;
+
+  postInstall = lib.optionalString completion.enable (
+    let
+      shellCompletionDir = {
+        bash = "share/bash-completion/completions";
+        zsh = "share/zsh/site-functions"; 
+        fish = "share/fish/vendor_completions.d";
+      };
+      shellCompletionFile = {
+        bash = "tempesta";
+        zsh = "_tempesta";
+        fish = "tempesta.fish";
+      };
+      
+      generateCompletions = shell: ''
+        mkdir -p $out/${shellCompletionDir.${shell}}
+        $out/bin/tempesta completion ${shell} > $out/${shellCompletionDir.${shell}}/${shellCompletionFile.${shell}}
+      '';
+    in
+      lib.concatMapStringsSep "\n" generateCompletions completion.shells
+  );
 
   # If the binary name differs from pname, set mainProgram accordingly
   mainProgram = "tempesta";
