@@ -298,7 +298,7 @@ rec {
       firefox_nightly = (pkgs.wrapFirefox firefox-unwrapped_nightly { });
       nss_git = callOverride ./pkgs/nss-git { };
   */
-  betterbird-unwrapped = pkgs.callPackage ./pkgs/betterbird { };
+  betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
   betterbird = pkgs.wrapThunderbird betterbird-unwrapped {
     applicationName = "betterbird";
     libName = "betterbird";
