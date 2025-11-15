@@ -56,27 +56,27 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Free Disk Space
-        uses: insightsengineering/disk-space-reclaimer@v1
-        with:
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
-          tools-cache: false
+      # - name: Maximize build space
+      #   uses: easimon/maximize-build-space@master
+      #   with:
+      #     root-reserve-mb: 512
+      #     swap-size-mb: 1024
+      #     remove-dotnet: 'true'
+      #     remove-android: 'true'
+      #     remove-haskell: 'true'
+      #     remove-codeql: 'true'
+      #     remove-docker-images: 'true'
 
       - name: Checkout repository
         uses: actions/checkout@v5
 
       - name: Install nix
-        uses: nixbuild/nix-quick-install-action@v34
+        uses: cachix/install-nix-action@v31
         with:
-          nix_conf: experimental-features = nix-command flakes
-
-      - name: Set NIX_PATH
-        run: echo "NIX_PATH=${{ matrix.nixPath }}" >> $GITHUB_ENV
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
