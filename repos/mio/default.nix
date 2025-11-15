@@ -267,7 +267,8 @@ rec {
         "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=:1.24.9" =
           "sha256-lraVVvjqWpQJmlHhpfWZwC9S0Gvx7nQR6Nzmt0oEOLw=";
         # staging-next 20251116
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.4" = "";
+        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.4" =
+          "sha256-cZLVVKeEoSO4im0wGJfwzpAknPs2WFFJpTtDMcaGwhk=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
