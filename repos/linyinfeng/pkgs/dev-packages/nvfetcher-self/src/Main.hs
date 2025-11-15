@@ -47,7 +47,6 @@ packageSet = do
   baibot
   dotTar
   fishPlugins
-  icalinguaPlusPlus
   linuxIntelMainlineTracking
   linuxIntelTts
   mediawikiAuthManagerOAuth
@@ -88,15 +87,6 @@ dotTar =
       `hasCargoLock` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/dot-tar.git"
-
-icalinguaPlusPlus :: PackageSet ()
-icalinguaPlusPlus =
-  define $
-    package "icalingua-plus-plus"
-      `sourceGitHub` ("icalingua-plus-plus", "icalingua-plus-plus")
-      `fetchUrl` url
-  where
-    url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
 
 linuxIntelTts :: PackageSet ()
 linuxIntelTts =

@@ -136,21 +136,6 @@
         },
         "version": "9b7df11f136da27633c8d30cd419dcc7906c8b4d"
     },
-    "icalingua-plus-plus": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "icalingua-plus-plus",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-lNlzQPDXXVNuacic1BYjWA5sGLRLlcGVRaqHPmZ3ZYs=",
-            "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.28/app-x86_64.asar"
-        },
-        "version": "v2.12.28"
-    },
     "libva-v4l2": {
         "cargoLock": null,
         "date": "2024-10-21",

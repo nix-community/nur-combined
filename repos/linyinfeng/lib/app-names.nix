@@ -51,7 +51,6 @@ let
     (trivial "devPackages/update")
     (trivial "dot-tar")
     (trivial "emacsPackages/pyim-greatdict")
-    (trivial "icalingua-plus-plus")
     (trivial "lpac")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")

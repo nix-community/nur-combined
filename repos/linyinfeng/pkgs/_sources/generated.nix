@@ -91,14 +91,6 @@
     };
     date = "2023-06-05";
   };
-  icalingua-plus-plus = {
-    pname = "icalingua-plus-plus";
-    version = "v2.12.28";
-    src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.28/app-x86_64.asar";
-      sha256 = "sha256-lNlzQPDXXVNuacic1BYjWA5sGLRLlcGVRaqHPmZ3ZYs=";
-    };
-  };
   libva-v4l2 = {
     pname = "libva-v4l2";
     version = "4bcd48cdeae182c7af5d23526068b51338c01b05";
