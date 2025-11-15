@@ -592,12 +592,12 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "v3.14.3";
+    version = "v3.15.0";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      tag = "v3.14.3";
-      hash = "sha256-H6I989zQKSo/6oQ5XBvGOA2mAvnoObl4i8CTYDy6rrM=";
+      tag = "v3.15.0";
+      hash = "sha256-tjXJcFYV97ITMN8PB/dCU2sX8CA8HjFnaWSgSLqKRRg=";
     };
   };
   flaresolverr-21hsmw = {
@@ -873,14 +873,14 @@
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
-    version = "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb";
+    version = "f0c29f27c577f121826041fd72f36b2d122966b3";
     src = fetchFromGitHub {
       owner = "FoxIO-LLC";
       repo = "ja4-nginx-module";
-      rev = "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb";
-      hash = "sha256-q+RyC14kboiNgRbtmh9Or7gh8JVXcGSHHWRCNUU+53E=";
+      rev = "f0c29f27c577f121826041fd72f36b2d122966b3";
+      hash = "sha256-cwKNfgehIFOeiWH/hwa3xXEYREARPK+Rl7blO0l7TLg=";
     };
-    date = "2025-10-03";
+    date = "2025-11-14";
   };
   jproxy = {
     pname = "jproxy";
@@ -1002,24 +1002,24 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.14.0";
+    version = "0.15.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      tag = "0.14.0";
-      hash = "sha256-BJgsXbKcQjJFk/A7JvkA0NKztv0BAnkgCAXv/TM2/04=";
+      tag = "0.15.0";
+      hash = "sha256-ATnI1QFFljTmMib6oOCiieDQMTwnEe+xIvcAzrz3bbI=";
     };
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "563e3ec07af77c8426bade6b8de0555dd97899c5";
+    version = "97f6b86b1b6d109cfd43cf276ae39c2e776aed80";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "563e3ec07af77c8426bade6b8de0555dd97899c5";
-      hash = "sha256-4boW3e6aN4xGa7l8l67cSHUscU4mUX6JIG5Rpu2tMQM=";
+      rev = "97f6b86b1b6d109cfd43cf276ae39c2e776aed80";
+      hash = "sha256-ATnI1QFFljTmMib6oOCiieDQMTwnEe+xIvcAzrz3bbI=";
     };
-    date = "2025-11-12";
+    date = "2025-11-14";
   };
   libqcef = {
     pname = "libqcef";
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7058";
+    version = "b7063";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7058";
-      hash = "sha256-/r/fiMcKNQtWiyaHWX6qcKtmN1KOXnsmCnU6pwT4PS8=";
+      tag = "b7063";
+      hash = "sha256-syviM4JhDSuVDJJZ+fWInvuJWkzQAHSmP91bcVjOYkI=";
     };
   };
   loralib = {
@@ -2216,15 +2216,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "c66a25dfcae01546f1eae963b122686e5e021659";
+    version = "460bfb2078e0ebaad4d47268c1a021686f56c566";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "c66a25dfcae01546f1eae963b122686e5e021659";
+      rev = "460bfb2078e0ebaad4d47268c1a021686f56c566";
       fetchSubmodules = true;
-      hash = "sha256-RipPsG8duhq4CXVSWszK85DKX2NXNrc/vVczkp6edF0=";
+      hash = "sha256-pmmBpwTiSLGZefN0ZLQco5BBqnRlBA04XK/VOzqDZCc=";
     };
-    date = "2025-11-13";
+    date = "2025-11-15";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

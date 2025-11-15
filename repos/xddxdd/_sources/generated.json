@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "v3.14.3",
-            "sha256": "sha256-H6I989zQKSo/6oQ5XBvGOA2mAvnoObl4i8CTYDy6rrM=",
+            "rev": "v3.15.0",
+            "sha256": "sha256-tjXJcFYV97ITMN8PB/dCU2sX8CA8HjFnaWSgSLqKRRg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.14.3"
+        "version": "v3.15.0"
     },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
@@ -1689,7 +1689,7 @@
     },
     "ja4-nginx-module": {
         "cargoLocks": null,
-        "date": "2025-10-03",
+        "date": "2025-11-14",
         "extract": null,
         "name": "ja4-nginx-module",
         "passthru": null,
@@ -1701,12 +1701,12 @@
             "name": null,
             "owner": "FoxIO-LLC",
             "repo": "ja4-nginx-module",
-            "rev": "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb",
-            "sha256": "sha256-q+RyC14kboiNgRbtmh9Or7gh8JVXcGSHHWRCNUU+53E=",
+            "rev": "f0c29f27c577f121826041fd72f36b2d122966b3",
+            "sha256": "sha256-cwKNfgehIFOeiWH/hwa3xXEYREARPK+Rl7blO0l7TLg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1568ee8caab4bae9c5c8424f2fbbf6d105e1d8eb"
+        "version": "f0c29f27c577f121826041fd72f36b2d122966b3"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -1956,16 +1956,16 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "0.14.0",
-            "sha256": "sha256-BJgsXbKcQjJFk/A7JvkA0NKztv0BAnkgCAXv/TM2/04=",
+            "rev": "0.15.0",
+            "sha256": "sha256-ATnI1QFFljTmMib6oOCiieDQMTwnEe+xIvcAzrz3bbI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.14.0"
+        "version": "0.15.0"
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-11-12",
+        "date": "2025-11-14",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1977,12 +1977,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "563e3ec07af77c8426bade6b8de0555dd97899c5",
-            "sha256": "sha256-4boW3e6aN4xGa7l8l67cSHUscU4mUX6JIG5Rpu2tMQM=",
+            "rev": "97f6b86b1b6d109cfd43cf276ae39c2e776aed80",
+            "sha256": "sha256-ATnI1QFFljTmMib6oOCiieDQMTwnEe+xIvcAzrz3bbI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "563e3ec07af77c8426bade6b8de0555dd97899c5"
+        "version": "97f6b86b1b6d109cfd43cf276ae39c2e776aed80"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7058",
-            "sha256": "sha256-/r/fiMcKNQtWiyaHWX6qcKtmN1KOXnsmCnU6pwT4PS8=",
+            "rev": "b7063",
+            "sha256": "sha256-syviM4JhDSuVDJJZ+fWInvuJWkzQAHSmP91bcVjOYkI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7058"
+        "version": "b7063"
     },
     "loralib": {
         "cargoLocks": null,
@@ -4323,7 +4323,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-11-13",
+        "date": "2025-11-15",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4335,12 +4335,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "c66a25dfcae01546f1eae963b122686e5e021659",
-            "sha256": "sha256-RipPsG8duhq4CXVSWszK85DKX2NXNrc/vVczkp6edF0=",
+            "rev": "460bfb2078e0ebaad4d47268c1a021686f56c566",
+            "sha256": "sha256-pmmBpwTiSLGZefN0ZLQco5BBqnRlBA04XK/VOzqDZCc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c66a25dfcae01546f1eae963b122686e5e021659"
+        "version": "460bfb2078e0ebaad4d47268c1a021686f56c566"
     },
     "unigine-heaven": {
         "cargoLocks": null,
