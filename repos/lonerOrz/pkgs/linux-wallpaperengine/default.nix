@@ -53,7 +53,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wallpaperengine";
-  version = "0-unstable-2025-11-14";
+  version = "0-unstable-2025-11-15";
 
   src = fetchFromGitHub {
     owner = "Almamu";

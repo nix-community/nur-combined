@@ -27,10 +27,10 @@
 
 let
   pname = "vicinae";
-  version = "0.16.5";
+  version = "0.16.6";
 
-  srcHash = "sha256-smhbchRZmp7DwRLGA3QoI12kQuMVaxiNkhzfC+n19+4=";
-  apiDepsHash = "sha256-VrtxQG1wQGcRHbJWPPt6aS7x1hAHc4Z1+0l+cKv3YdI=";
+  srcHash = "sha256-mpZj5Nw/rKr97pATMLzO6RlTlag/ZJyvP/Mh6Ifmv2A=";
+  apiDepsHash = "sha256-4OgVCnw5th2TcXszVY5G9ENr3/Y/eR2Kd45DbUhQRNk=";
   extensionManagerDepsHash = "sha256-krDFHTG8irgVk4a79LMz148drLgy2oxEoHCKRpur1R4=";
 
   src = fetchFromGitHub {
