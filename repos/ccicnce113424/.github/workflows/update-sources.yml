@@ -34,7 +34,7 @@ jobs:
           nix fmt _sources
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
-          pkgs/splayer-git/update-git.sh
+          pkgs/splayer-git/update.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7

@@ -48,20 +48,20 @@ rec {
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
-    pubspecLock = builtins.fromJSON (builtins.readFile ./piliplus/pubspec.lock.json);
+    pubspecLock = lib.importJSON ./piliplus/pubspec.lock.json;
     gitHashes = import ./piliplus/git-hashes.nix;
   };
 
   pixes = pkgs.callPackage ./pixes rec {
     sources = fetchedSrc.pixes;
     version = stableVersion sources;
-    pubspecLock = builtins.fromJSON (builtins.readFile ./pixes/pubspec.lock.json);
+    pubspecLock = lib.importJSON ./pixes/pubspec.lock.json;
     gitHashes = import ./pixes/git-hashes.nix;
   };
   pixes-git = pkgs.callPackage ./pixes rec {
     sources = fetchedSrc.pixes-git;
     version = unstableVersion sources;
-    pubspecLock = builtins.fromJSON (builtins.readFile ./pixes/git/pubspec.lock.json);
+    pubspecLock = lib.importJSON ./pixes/git/pubspec.lock.json;
     gitHashes = import ./pixes/git/git-hashes.nix;
   };
 
@@ -70,7 +70,7 @@ rec {
   inherit (pkgs) splayer;
 
   splayer-git = pkgs.callPackage ./splayer-git rec {
-    hash = import ./splayer-git/hash-git.nix;
+    inherit ((lib.importJSON ./splayer-git/src-info.json)) hash;
     sources = fetchedSrc.splayer-git;
     version = unstableVersion sources;
     inherit splayer;

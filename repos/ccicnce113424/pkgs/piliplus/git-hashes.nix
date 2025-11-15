@@ -6,6 +6,7 @@
   "file_picker" = "sha256-NpwY39YtFm5/6cQHUrklpXhzgvtFfcmR/nP5OH/gdtk=";
   "floating" = "sha256-0Xd9dsXJCQ/r/8Nb16oM+M8Jdw+r4QzGmU++HpqF/v0=";
   "flutter_sortable_wrap" = "sha256-Qj9Lzh+pJy+vHznGt5M3xwoJtaVtt00fxm4JJXL4bFI=";
+  "get" = "sha256-aJJyQAFWFLS2dIUTITkRHOeW9IFQOcEsMuQOkBDhGu8=";
   "material_design_icons_flutter" = "sha256-KMwjnzJJj8nemCqUCSwYafPOwTYbtoHNenxstocJtz4=";
   "media_kit" = "sha256-M8z6KGoKrhYFpnXnP+5sHjHMGJe04djKTxnkvLVtBtU=";
   "media_kit_libs_android_video" = "sha256-M8z6KGoKrhYFpnXnP+5sHjHMGJe04djKTxnkvLVtBtU=";

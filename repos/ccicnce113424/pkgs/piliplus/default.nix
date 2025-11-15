@@ -7,52 +7,50 @@
   flutter338,
   makeDesktopItem,
   copyDesktopItems,
-  gitMinimal,
   alsa-lib,
   mpv-unwrapped,
   libplacebo,
   libappindicator,
-  libass,
-  ffmpeg,
-  libunwind,
-  shaderc,
-  vulkan-loader,
-  lcms2,
-  libdovi,
-  libdvdnav,
-  libdvdread,
-  mujs,
-  libbluray,
-  lua,
-  rubberband,
-  libuchardet,
-  zimg,
-  openal,
-  pipewire,
-  libpulseaudio,
-  libcaca,
-  libdrm,
-  libdisplay-info,
-  libgbm,
-  libxscrnsaver,
-  libxpresent,
-  nv-codec-headers-12,
-  libva,
-  libvdpau,
+# libass,
+# ffmpeg,
+# libunwind,
+# shaderc,
+# vulkan-loader,
+# lcms2,
+# libdovi,
+# libdvdnav,
+# libdvdread,
+# mujs,
+# libbluray,
+# lua,
+# rubberband,
+# libuchardet,
+# zimg,
+# openal,
+# pipewire,
+# libpulseaudio,
+# libcaca,
+# libdrm,
+# libdisplay-info,
+# libgbm,
+# libxscrnsaver,
+# libxpresent,
+# nv-codec-headers-12,
+# libva,
+# libvdpau,
 }:
 
 let
   description = "Third-party Bilibili client developed in Flutter";
+  majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
+  srcInfo = lib.importJSON ./src-info.json;
 in
 flutter338.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
 
-  patches = [ ./disable-auto-update.patch ];
-
   nativeBuildInputs = [
     copyDesktopItems
-    gitMinimal
   ];
 
   buildInputs = [
@@ -60,43 +58,44 @@ flutter338.buildFlutterApplication {
     mpv-unwrapped
     libplacebo
     libappindicator
-    libass
-    ffmpeg
-    libunwind
-    shaderc
-    vulkan-loader
-    lcms2
-    libdovi
-    libdvdnav
-    libdvdread
-    mujs
-    libbluray
-    lua
-    rubberband
-    libuchardet
-    zimg
-    openal
-    pipewire
-    libpulseaudio
-    libcaca
-    libdrm
-    libdisplay-info
-    libgbm
-    libxscrnsaver
-    libxpresent
-    nv-codec-headers-12
-    libva
-    libvdpau
+    # libass
+    # ffmpeg
+    # libunwind
+    # shaderc
+    # vulkan-loader
+    # lcms2
+    # libdovi
+    # libdvdnav
+    # libdvdread
+    # mujs
+    # libbluray
+    # lua
+    # rubberband
+    # libuchardet
+    # zimg
+    # openal
+    # pipewire
+    # libpulseaudio
+    # libcaca
+    # libdrm
+    # libdisplay-info
+    # libgbm
+    # libxscrnsaver
+    # libxpresent
+    # nv-codec-headers-12
+    # libva
+    # libvdpau
   ];
 
-  # See lib/scripts/build.sh.
   preBuild = ''
     cat <<EOL > lib/build_config.dart
     class BuildConfig {
-      static const int versionCode = ${lib.trim (builtins.readFile ./rev-count.txt)};
-      static const String versionName = '${version}';
-      static const int buildTime = $(git log -1 --format=%ct);
-      static const String commitHash = '$(git rev-parse HEAD)';
+      static const int versionCode = ${toString srcInfo.revCount};
+      static const String versionName = '${majorMinorPatch version}-${
+        builtins.substring 0 9 srcInfo.rev
+      }';
+      static const int buildTime = ${toString srcInfo.time};
+      static const String commitHash = '${srcInfo.rev}';
     }
     EOL
   '';

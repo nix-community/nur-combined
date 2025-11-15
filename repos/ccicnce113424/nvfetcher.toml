@@ -34,7 +34,6 @@ src.github = "lxgw/LxgwWenkaiGB"
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
-git.leaveDotGit = true
 src.github = "bggRGjQaUbCoE/PiliPlus"
 
 [pixes]
