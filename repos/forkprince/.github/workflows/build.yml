@@ -56,26 +56,11 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 512
-          swap-size-mb: 1024
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup Nix
-        run: |
-          sudo mkdir -p /home/runner/work/nur-packages/nur-packages/nix
-          sudo rsync -aHAXx /nix/ /home/runner/work/nur-packages/nur-packages/nix/
-          sudo mv /nix /nix.old
-          sudo ln -s /home/runner/work/nur-packages/nur-packages/nix /nix
+      - name: Maximize Space
+        uses: wimpysworld/nothing-but-nix@main
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -85,10 +70,10 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Show nixpkgs version
+      - name: Show Nixpkgs Version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
-      - name: Setup cachix
+      - name: Setup Cachix
         uses: cachix/cachix-action@v16
         with:
           name: forkprince
