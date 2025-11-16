@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "beads";
-  version = "0.19.0";
+  version = "0.23.1";
 
   src = fetchFromGitHub {
     owner = "steveyegge";
     repo = "beads";
     rev = "v${version}";
-    hash = "sha256-rFEVJpIyuive/w2wMgbCsk8RL5RoB4S1PJ+wwOuB8FE=";
+    hash = "sha256-ibWPzNGUMk9NueWVR4xNS108ES2w1ulWL2ARB75xEig=";
   };
 
-  vendorHash = "sha256-DJqTiLGLZNGhHXag50gHFXTVXCBdj8ytbYbPL3QAq8M=";
+  vendorHash = "sha256-eUwVXAe9d/e3OWEav61W8lI0bf/IIQYUol8QUiQiBbo=";
 
   go = pkgs.go;
   doCheck = false;
