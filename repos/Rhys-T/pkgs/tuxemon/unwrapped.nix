@@ -16,6 +16,9 @@ in let
     python3Packages = (python3PackagesOrig.python.override {
         packageOverrides = pself: psuper: {
             pyglet = pself.callPackage ./fix-pyglet.nix { pyglet' = psuper.pyglet; };
+            pysdl3 = if lib.versionAtLeast pkgs.sdl3.version "3.2.26" then psuper.pysdl3.overridePythonAttrs (old: {
+                disabledTests = (old.disabledTests or []) ++ ["test_SDL_GetSetClipRect"];
+            }) else psuper.pysdl3;
             # Backport fix from <https://github.com/NixOS/nixpkgs/pull/405640>
             pygame-ce = let
                 inherit (psuper) pygame-ce;
