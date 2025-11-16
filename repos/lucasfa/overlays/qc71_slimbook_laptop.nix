@@ -1,7 +1,4 @@
 final: prev:
-let
-  lib = prev.lib;
-in
 {
   linuxKernel = prev.linuxKernel // {
     # don't update since most of these come from  nixpkgs
@@ -11,7 +8,7 @@ in
       kernel:
       (prev.linuxKernel.packagesFor kernel).extend (
         kFinal: kPrev:
-        (lib.filesystem.packagesFromDirectoryRecursive {
+        (final.lib.filesystem.packagesFromDirectoryRecursive {
           inherit (kFinal) callPackage;
           directory = ../pkgs/linux-packages;
         })
@@ -20,7 +17,7 @@ in
 
   # Bring up the packages to the top-level
   inherit
-    (lib.filesystem.packagesFromDirectoryRecursive {
+    (final.lib.filesystem.packagesFromDirectoryRecursive {
       inherit (final) callPackage;
       directory = ../pkgs/linux-packages;
     })
