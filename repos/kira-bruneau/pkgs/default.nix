@@ -111,6 +111,10 @@ in
 // {
   inherit callPackage;
 
+  anytype = callPackage ./by-name/an/anytype/package.nix {
+    electron = electron_37;
+  };
+
   emacsPackages = lib.recurseIntoAttrs (
     emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages
   );
