@@ -4,9 +4,9 @@
 rustPlatform.buildRustPackage rec {
   
   pname = "para-audit";
-  version = "0.1.11";
+  version = "v0.1.14";
 
-  cargoHash = "sha256-sso1OF+n+UrRUTaXveYi5EbUI65X3NkeYEdx7nNRQKE=";
+  cargoHash = "sha256-4QjnsSzo3jwZIY0uZ7pjnoMGjrO/eaw09WLMw6jh7Ns=";
 
   nativeBuildInputs = [ pkgs.pkg-config ];
   buildInputs = [ pkgs.openssl ];
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchgit {
     url = "https://github.com/jcranney/para-audit.git";
     tag = version;
-    hash = "sha256-tOfq/lkvdaTKzyQY0mQjbRLloE2udQAqgdIPYJBzfDg=";
+    hash = "sha256-G1/EBY0QB79gNhugU28miJCjxmDHKhCBiAQXqRE8NJQ=";
   };
 
   meta = with lib; {
