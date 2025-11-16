@@ -27,13 +27,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";
-  version = "4.2.0";
+  version = "4.2.1";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
     tag = "v.${finalAttrs.version}";
-    hash = "sha256-E8H/r09hMfG5CKVZFTe1aJSWxVk6TghXRaAyFNTX5KE=";
+    hash = "sha256-me9/2sA1Thne10+JrSMvicDRxXuevCnM8Tb+kwXzNDI=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     gst-plugins-bad
   ]);
 
-  # For https://gitlab.com/news-flash/news_flash_gtk/-/blob/v.4.2.0/src/meson.build#L48
+  # For https://gitlab.com/news-flash/news_flash_gtk/-/blob/v.4.2.1/src/meson.build#L48
   env.CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
 
   passthru.updateScript = nix-update-script {
