@@ -96,6 +96,13 @@ jobs:
           append_github_output "branch_name" "$branch_name"
           echo "分支名称: $branch_name"
 
+      - name: Generate GitHub App Token
+        id: gen-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.HELPER_BOT_APP_ID }}
+          private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
+
       - name: Create Pull Request
         if: steps.update.outputs.has_update == 'true'
         id: create-pull-request
@@ -109,7 +116,7 @@ jobs:
 
             此更新由包的updateScript自动生成
           labels: automated, dependencies
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
+          token: ${{ steps.gen-token.outputs.token }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
@@ -128,4 +135,4 @@ jobs:
           echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
           gh pr merge "$PR_NUMBER" --auto --squash
         env:
-          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}

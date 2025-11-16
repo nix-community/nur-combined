@@ -41,11 +41,18 @@ jobs:
           timestamp=$(date +%s)
           printf '%s=%s\n' "branch_name" "update-tables-$timestamp" >> "$GITHUB_OUTPUT"
 
+      - name: Generate GitHub App Token
+        id: gen-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.HELPER_BOT_APP_ID }}
+          private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
+
       - name: Create Pull Request
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
+          token: ${{ steps.gen-token.outputs.token }}
           commit-message: "flake.lock: update"
           title: "flake.lock: update"
           body: |
@@ -66,7 +73,7 @@ jobs:
       - name: Enable Pull Request Automerge
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         env:
-          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}
         run: |
           PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
           echo "Enabling auto-merge for PR #$PR_NUMBER"

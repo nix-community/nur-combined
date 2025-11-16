@@ -55,6 +55,13 @@ jobs:
             echo "has_update=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Generate GitHub App Token
+        id: gen-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.HELPER_BOT_APP_ID }}
+          private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
+
       - name: Create Pull Request
         if: steps.update.outputs.has_update == 'true'
         id: create-pull-request
@@ -66,7 +73,7 @@ jobs:
           body: |
             由 GitHub Actions 自动更新 README 的 Package List
           labels: automated, documentation
-          token: ${{ secrets.AUTOMERGE_TOKEN }}
+          token: ${{ steps.gen-token.outputs.token }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
@@ -83,4 +90,4 @@ jobs:
           echo "启用 PR #$PR_NUMBER 的自动合并"
           gh pr merge "$PR_NUMBER" --auto --squash
         env:
-          GITHUB_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}
