@@ -34,8 +34,6 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - miyakomeow
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -44,7 +42,6 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
-          nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +50,7 @@ jobs:
             trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
       - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+        run: nix eval --impure --raw --expr "(import (builtins.getFlake \"path:${PWD}\").inputs.nixpkgs {}).lib.version"
 
       - name: Setup cachix
         uses: cachix/cachix-action@v16
@@ -66,14 +63,17 @@ jobs:
 
       - name: Check evaluation
         run: |
+          NIXPKGS=$(nix eval --impure --raw --expr "(builtins.getFlake \"path:${PWD}\").inputs.nixpkgs.outPath")
           nix-env -f . -qa \* --meta --json \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I nixpkgs=$NIXPKGS \
             -I $PWD
 
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: |
+          NIXPKGS=$(nix eval --impure --raw --expr "(builtins.getFlake \"path:${PWD}\").inputs.nixpkgs.outPath")
+          nix shell "path:${NIXPKGS}#nix-build-uncached" -c nix-build-uncached ci.nix -I nixpkgs=$NIXPKGS -A cacheOutputs
 
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
