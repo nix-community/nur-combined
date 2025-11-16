@@ -78,6 +78,14 @@
                                 bash nix-update.sh
                             '';
                         }
+                        {
+                            name = "update-package";
+                            help = "Update specified packages using nix-update";
+                            category = "[chore]";
+                            command = ''
+                                nix-update --version=branch $1
+                            '';
+                        }
                     ];
                 };
             }
