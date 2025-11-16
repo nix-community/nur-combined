@@ -44,7 +44,6 @@ let
       "pkgs/tools/games/gamemode"
       "pkgs/tools/graphics/mangohud"
       "pkgs/tools/graphics/vkbasalt"
-      "pkgs/tools/package-management/protontricks"
 
       "pkgs/by-name/cc/ccache"
       "pkgs/by-name/cl/clonehero"
@@ -56,6 +55,7 @@ let
       "pkgs/by-name/ne/newsflash"
       "pkgs/by-name/po/poke"
       "pkgs/by-name/po/pokemmo-installer"
+      "pkgs/by-name/pr/protontricks"
       "pkgs/by-name/te/texlab"
       "pkgs/by-name/uk/ukmm"
       "pkgs/by-name/un/undistract-me"

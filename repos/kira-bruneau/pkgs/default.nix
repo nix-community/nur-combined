@@ -137,11 +137,6 @@ in
     };
   };
 
-  protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    steam-run = steam-run-free;
-    inherit winetricks yad;
-  };
-
   sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix {
     fmt = fmt_10;
   };
