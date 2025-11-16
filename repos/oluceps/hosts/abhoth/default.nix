@@ -43,6 +43,7 @@ withSystem "x86_64-linux" (
       ../perlless.nix
       (lib.iage "cloud")
       ./caddy.nix
+      ../persist-base.nix
       # ../../packages.nix
       ../../misc.nix
       ../../users.nix

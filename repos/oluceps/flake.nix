@@ -270,6 +270,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+    };
+    online-exporter.url = "/home/riro/Src/monitou";
     self.submodules = true;
   };
 }

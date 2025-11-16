@@ -1,36 +1,40 @@
 { pkgs, lib, ... }:
 let
 
-  genDeps = n: lib.genAttrs n (name: lib.getExe pkgs.${name});
+  # genDeps = n: lib.genAttrs n (name: lib.getExe pkgs.${name});
 
-  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+  # wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+  # wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   pw-volume = "${pkgs.pw-volume}/bin/pw-volume";
 
-  deps = genDeps [
-    "fuzzel"
-    "foot"
-    "grim"
-    "light"
-    "playerctl"
-    "pulsemixer"
-    "slurp"
-    "swaybg"
-    "swaylock"
-    "hyprpicker"
-    "cliphist"
-    "firefox"
-    "tdesktop"
-    "save-clipboard-to"
-    "screen-recorder-toggle"
-    "systemd-run-app"
-  ];
+  # deps = genDeps [
+  #   "fuzzel"
+  #   "foot"
+  #   "grim"
+  #   "light"
+  #   "playerctl"
+  #   "pulsemixer"
+  #   "slurp"
+  #   "swaybg"
+  #   "swaylock"
+  #   "hyprpicker"
+  #   "cliphist"
+  #   "firefox"
+  #   "tdesktop"
+  #   "save-clipboard-to"
+  #   "screen-recorder-toggle"
+  #   "systemd-run-app"
+  # ];
 
   execApp = lib.concatMapStringsSep " " (i: ''"${i}"'');
   execDesktop =
     app:
     execApp [
-      "${pkgs.app2unit}/bin/app2unit"
+      "niri"
+      "msg"
+      "action"
+      "spawn"
+      "--"
       app
     ];
 in
@@ -251,8 +255,9 @@ in
   // which may be more convenient to use.
   spawn-at-startup ${execApp [ (lib.getExe pkgs.foot) ]}
   spawn-at-startup ${execDesktop "chromium-browser"}
-  spawn-at-startup ${execDesktop "org.telegram.desktop.desktop"}
+  spawn-at-startup ${execDesktop "Telegram"}
   spawn-at-startup ${execDesktop "thunderbird"}
+  spawn-sh-at-startup "vicinae server"
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
@@ -294,11 +299,12 @@ in
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
       Mod+Return { spawn ${execApp [ (lib.getExe pkgs.foot) ]}; }
-      Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+      Mod+D repeat=false { spawn "vicinae" "toggle"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }
       Mod+T { toggle-overview; }
       Mod+P { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+      
 
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
@@ -316,7 +322,7 @@ in
 
       XF86MonBrightnessUp { spawn "light" "-A" "3"; }
       XF86MonBrightnessdown { spawn "light" "-U" "3"; }
-      Mod+Ctrl+P { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+      Mod+Ctrl+P repeat=false { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
 
       Mod+Q { close-window; }
 

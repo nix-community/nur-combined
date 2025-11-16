@@ -51,6 +51,7 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfA9a0Uetc/vt0rHTulnQNHZPqJNy9Zy
 link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 iata = "NRT"
+city = "Tokyo"
 
 [node.abhoth]
 # dmit
@@ -63,15 +64,17 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRMxm3SFj1DwUjCTF4ByMVYQNMOPzi/K
 link_local_addr = "fe80::216:3eff:fe15:ec52/64"
 wg_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 iata = "NRT"
+city = "Tokyo"
 
-# [node.azasos]
-# # tencent cloud | censored
-# id = 5
-# addr = "116.196.112.43"
-# censor = true
-# nat = false
-# user = "elen"
-
-# unique_addr = "fdcc::6/128"
-# link_local_addr = "fe80::216:3eff:fe6c:5a57/64"
-# pub_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
+[node.nodens]
+# dmit lax
+id = 5
+addrs = ["2605:52c0:3:90b:505a:26ff:fec1:cdbf", "136.175.179.183"]
+censor = false
+nat = false
+user = "elen"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbuDim30CUgAaG5p6Wxh/3CyqnrhWRUI2MLgrxOga3x"
+link_local_addr = "fe80::04e2:3e20:0613:4d92/64"
+wg_key = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno="
+iata = "LAX"
+city = "Los Angeles"

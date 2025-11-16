@@ -1,11 +1,21 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   imports = [ ./bird.nix ];
+  services = {
+    resolved = {
+      dnssec = "false";
+      llmnr = "false";
+      extraConfig = ''
+        MulticastDNS=off
+      '';
+    };
+  };
   networking = {
     domain = "nyaw.xyz";
+    # resolvconf.useLocalResolver = true;
     firewall = {
-      checkReversePath = false;
       enable = true;
+      checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
       ];
@@ -17,7 +27,6 @@
         80
         443
         40119 # stls
-        8776 # forward radicle
       ];
     };
 
@@ -42,22 +51,16 @@
           }
         }
       '';
+      # table ip6 nat {
+      #   chain postrouting {
+      #     type nat hook postrouting priority srcnat; policy accept;
+      #     iifname { hts-yidhra, hts-kaambl } oifname eth0 ip6 saddr fdcc::/16 snat to 2400:8905::f03c:95ff:fe50:a173
+      #   }
+      # }
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
-
-  services = {
-    resolved = {
-      dnssec = "false";
-      llmnr = "false";
-      extraConfig = ''
-        MulticastDNS=off
-      '';
-    };
-  };
-
   systemd.network = {
     enable = true;
 
@@ -65,37 +68,34 @@
       enable = true;
       anyInterface = true;
       ignoredInterfaces = [
+        "wg0"
       ];
     };
-
     links."10-eth0" = {
-      matchConfig.MACAddress = "00:db:bc:92:a8:5c";
+      matchConfig.MACAddress = "52:5a:26:c1:cd:bf";
       linkConfig.Name = "eth0";
     };
 
     networks."8-eth0" = {
-
       matchConfig.Name = "eth0";
-
       networkConfig = {
         DHCP = "no";
         IPv4Forwarding = true;
         IPv6Forwarding = true;
+        IPv6AcceptRA = true;
       };
 
-      linkConfig.RequiredForOnline = "routable";
-
       address = [
-        "103.213.4.159/24"
-        "2401:5a0:1000:96::a/64"
+        "136.175.179.183/24"
       ];
+
       routes = [
-        { Gateway = "103.213.4.1"; }
         {
-          Gateway = "2401:5a0:1000::1";
+          Gateway = "193.41.250.250";
           GatewayOnLink = true;
         }
       ];
+      linkConfig.RequiredForOnline = "routable";
     };
   };
 }

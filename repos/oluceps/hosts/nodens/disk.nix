@@ -1,21 +1,29 @@
-_: {
-
+{
   fileSystems."/persist".neededForBoot = true;
   disko = {
+
     devices = {
       disk = {
         main = {
-          device = "/dev/vda";
+          imageSize = "4G";
           type = "disk";
+          device = "/dev/vda";
           content = {
             type = "gpt";
             partitions = {
               boot = {
-                type = "EF02";
-                label = "BOOT";
-                start = "0";
-                end = "+1M";
+                size = "1M";
                 priority = 0;
+                type = "EF02";
+              };
+              ESP = {
+                size = "256M";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                  mountOptions = [ "umask=0077" ];
+                };
               };
               solid = {
                 label = "SOLID";
@@ -27,13 +35,15 @@ _: {
                     "--csum xxhash64"
                   ];
                   subvolumes = {
-                    "boot" = {
-                      mountpoint = "/boot";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
+                    # "root" = {
+                    #   mountpoint = "/";
+                    #   mountOptions = [
+                    #     "compress=zstd"
+                    #     "noatime"
+                    #     "nodev"
+                    #     "nosuid"
+                    #   ];
+                    # };
                     "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
@@ -66,14 +76,17 @@ _: {
           };
         };
       };
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "relatime"
-          "mode=755"
-          "nosuid"
-          "nodev"
-        ];
+      nodev = {
+        "/" = {
+          fsType = "tmpfs";
+          mountOptions = [
+            "relatime"
+            "nosuid"
+            "nodev"
+            "size=2G"
+            "mode=755"
+          ];
+        };
       };
     };
   };

@@ -75,6 +75,12 @@ reIf {
           static_configs = [ { inherit targets; } ];
         }
         {
+          job_name = "tg-online";
+          scheme = "http";
+          metrics_path = "/metrics";
+          static_configs = [ { targets = [ "localhost:8087" ]; } ];
+        }
+        {
           job_name = "seaweedfs_metrics";
           scheme = "http";
           static_configs = [ { targets = [ "[fdcc::3]:9768" ]; } ];
@@ -84,11 +90,11 @@ reIf {
           scheme = "http";
           static_configs = [ { targets = [ "[fdcc::3]:9187" ]; } ];
         }
-        # {
-        #   job_name = "ntfy_metrics";
-        #   scheme = "http";
-        #   static_configs = [ { targets = [ "[fdcc::4]:9090" ]; } ];
-        # }
+        {
+          job_name = "ntfy_metrics";
+          scheme = "http";
+          static_configs = [ { targets = [ "[fdcc::4]:9090" ]; } ];
+        }
         {
           job_name = "synapse_metrics";
           scheme = "http";
@@ -234,11 +240,12 @@ reIf {
             {
               targets = [
                 "[2001:4860:4860::8888]:53" # google
-                "103.213.4.159:80" # hk1
-                "[2401:5a0:1000:96::a]:80"
 
                 "154.31.114.112:80" # jp1
                 "[2403:18c0:1000:13a:343b:65ff:fe1b:7a0f]:80"
+
+                "205.198.76.6"
+                "2404:c140:2000:2::32:1d9f"
               ];
             }
           ];
@@ -278,43 +285,8 @@ reIf {
                 ip = "IPv4";
               };
             }
-            {
-              targets = [ "103.213.4.159" ];
-              labels = {
-                name = "HK1";
-                city = "HK";
-                code = "HKG"; # IATA
-                ip = "IPv4";
-              };
-            }
-            {
-              targets = [ "2401:5a0:1000:96::a" ];
-              labels = {
-                name = "HK1";
-                city = "HK";
-                code = "HKG";
-                ip = "IPv6";
-              };
-            }
-            {
-              targets = [ "154.31.114.112" ];
-              labels = {
-                name = "JP1";
-                city = "Tokyo";
-                code = "NRT";
-                ip = "IPv4";
-              };
-            }
-            {
-              targets = [ "2403:18c0:1000:13a:343b:65ff:fe1b:7a0f" ];
-              labels = {
-                name = "JP1";
-                city = "Tokyo";
-                code = "NRT";
-                ip = "IPv6";
-              };
-            }
-          ];
+          ]
+          ++ lib.targetsFromNodes;
           relabel_configs = gen_relabel_configs (
             with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
           );

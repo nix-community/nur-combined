@@ -133,9 +133,24 @@
   {
     handle = [
       {
+        body = "User-agent: *\\nDisallow: /";
+        handler = "static_response";
+      }
+    ];
+    match = [
+      {
+        host = [ "book.nyaw.xyz" ];
+        path = [ "/robots.txt" ];
+      }
+    ];
+  }
+  {
+    handle = [
+      {
         headers = {
           request = {
             set = {
+              "X-Robots-Tag" = [ "noindex, nofollow" ];
               "X-Scheme" = [
                 "https"
               ];
@@ -146,11 +161,7 @@
         handler = "reverse_proxy";
       }
     ];
-    match = [
-      {
-        host = [ "book.nyaw.xyz" ];
-      }
-    ];
+    match = [ { host = [ "book.nyaw.xyz" ]; } ];
     terminal = true;
   }
   (import ./matrix.nix {

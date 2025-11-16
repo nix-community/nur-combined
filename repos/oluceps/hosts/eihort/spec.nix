@@ -49,6 +49,28 @@
       name = "hk.yaml";
       trim = false;
     };
+
+    hyst-no = {
+      content =
+        config.vaultix.placeholder.hyst-no-cli
+        + (
+          let
+            port = toString (lib.conn { }).${config.networking.hostName}.nodens;
+          in
+          ''
+            socks5:
+              listen: 127.0.0.1:1093
+            udpForwarding:
+            - listen: 127.0.0.1:${port}
+              remote: 127.0.0.1:${port}
+              timeout: 120s
+          ''
+        );
+      owner = "root";
+      group = "users";
+      name = "no.yaml";
+      trim = false;
+    };
   };
   security.auditd.enable = true;
   system = {
@@ -138,11 +160,15 @@
     # bpftune.enable = true;
     sing-box.enable = true;
     metrics.enable = true;
+    online-exporter.instances.zro = {
+      # sessionFile = config.vaultix.secrets.tgexp.path;
+      environment = [
+        "TG_API_HASH=d524b414d21f4d37f08684c1df41ac9c"
+        "TG_API_ID=611335"
+        "MONITOR_USER_IDS=454999736,6280888824,594807459"
+      ];
+    };
 
-    # wg-refresh = {
-    #   enable = true;
-    #   calendar = "hourly";
-    # };
     pocket-id = {
       enable = true;
       settings = {
@@ -176,6 +202,10 @@
       yidhra = {
         enable = true;
         configFile = config.vaultix.templates.hyst-yi.path;
+      };
+      nodens = {
+        enable = true;
+        configFile = config.vaultix.templates.hyst-no.path;
       };
     };
 

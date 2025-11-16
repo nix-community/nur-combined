@@ -164,10 +164,24 @@
                   {
                     handle = [
                       {
-                        handler = "reverse_proxy";
+                        body = "User-agent: *\\nDisallow: /";
+                        handler = "static_response";
+                      }
+                    ];
+                    match = [
+                      {
+                        host = [ "book.nyaw.xyz" ];
+                        path = [ "/robots.txt" ];
+                      }
+                    ];
+                  }
+                  {
+                    handle = [
+                      {
                         headers = {
                           request = {
                             set = {
+                              "X-Robots-Tag" = [ "noindex, nofollow" ];
                               "X-Scheme" = [
                                 "https"
                               ];
@@ -175,6 +189,7 @@
                           };
                         };
                         upstreams = [ { dial = "[fdcc::3]:8083"; } ];
+                        handler = "reverse_proxy";
                       }
                     ];
                     match = [ { host = [ "book.nyaw.xyz" ]; } ];

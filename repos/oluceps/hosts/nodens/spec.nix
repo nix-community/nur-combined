@@ -1,8 +1,7 @@
 {
-  inputs,
-  pkgs,
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -10,10 +9,17 @@
     lsof
     wireguard-tools
     tcpdump
+    (curlECH.override {
+      ldapSupport = true;
+      gsaslSupport = true;
+      rtmpSupport = true;
+      pslSupport = true;
+      websocketSupport = true;
+      echSupport = true;
+    })
   ];
   system = {
-    # server.
-    stateVersion = "25.11";
+    stateVersion = "25.05";
     etc.overlay.enable = true;
     etc.overlay.mutable = false;
   };
@@ -21,10 +27,15 @@
   users.mutableUsers = false;
   services.userborn.enable = true;
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 80;
+    algorithm = "zstd";
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 10d";
+    options = "--delete-older-than 1d";
   };
 
   boot = {
@@ -36,56 +47,27 @@
     plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
+    # dnsproxy = {
+    #   enable = true;
+    # };
     sing-server.enable = true;
-    rustypaste.enable = true;
-    subs.enable = true;
   };
   services = {
-    metrics.enable = true;
-    coturn = {
-      enable = true;
-      # static-auth-secret-file = config.vaultix.secrets.wg.path;
-      no-auth = true;
-      realm = config.networking.fqdn;
-    };
-
-    realm = {
-      enable = true;
-      settings = {
-        log.level = "warn";
-        network = {
-          no_tcp = false;
-          use_udp = true;
-        };
-        endpoints = [
-          {
-            listen = "[::]:8776";
-            remote = "[fdcc::3]:8776";
-          }
-        ];
-      };
-    };
-    # factorio-manager = {
-    #   enable = true;
-    #   factorioPackage = pkgs.factorio-headless-experimental.override {
-    #     versionsJson = ./factorio-version.json;
-    #   };
-    #   botConfigPath = config.vaultix.secrets.factorio-manager-bot.path;
-    #   initialGameStartArgs = [
-    #     "--server-settings=${config.vaultix.secrets.factorio-server.path}"
-    #     "--server-adminlist=${config.vaultix.secrets.factorio-admin.path}"
+    # dnsproxy.settings = lib.mkForce {
+    #   bootstrap = [
+    #     "1.1.1.1"
+    #     "8.8.8.8"
+    #   ];
+    #   listen-addrs = [ "0.0.0.0" ];
+    #   listen-ports = [ 53 ];
+    #   upstream-mode = "load_balance";
+    #   upstream = [
+    #     "1.1.1.1"
+    #     "8.8.8.8"
+    #     "https://dns.google/dns-query"
     #   ];
     # };
-
-    ntfy-sh = {
-      enable = true;
-      settings = {
-        listen-http = ":2586";
-        behind-proxy = true;
-        auth-default-access = "deny-all";
-        base-url = "http://ntfy.nyaw.xyz";
-      };
-    };
+    metrics.enable = true;
 
     hysteria.instances = {
       only = {
@@ -93,6 +75,7 @@
         serve = true;
         openFirewall = 4432;
         credentials = [
+          # signed by my ca
           "key:${config.vaultix.secrets."nyaw.key".path}"
           "crt:${config.vaultix.secrets."nyaw.cert".path}"
         ];
@@ -100,22 +83,4 @@
       };
     };
   };
-
-  systemd = {
-    enableEmergencyMode = false;
-    watchdog = {
-      # systemd will send a signal to the hardware watchdog at half
-      # the interval defined here, so every 10s.
-      # If the hardware watchdog does not get a signal for 20s,
-      # it will forcefully reboot the system.
-      runtimeTime = "20s";
-      # Forcefully reboot if the final stage of the reboot
-      # hangs without progress for more than 30s.
-      # For more info, see:
-      #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
-      rebootTime = "30s";
-    };
-  };
-
-  systemd.tmpfiles.rules = [ ];
 }

@@ -30,7 +30,7 @@ extraLibs:
                 map (n: {
                   name = "internet-${n}";
                   value = mkInternet {
-                    connections = mkConnection n "eno1";
+                    connections = mkConnection n "eth0";
                   };
                 }) ((builtins.attrNames (lib.filterAttrs (_: v: !v.nat) extraLibs.data.node)) ++ [ "router" ])
               ))
@@ -39,12 +39,12 @@ extraLibs:
                   name = n;
                   value = {
                     interfaces = lib.concatMapAttrs (target: _: {
-                      "wg-${target}" = {
+                      "hts-${target}" = {
                         virtual = true;
                         physicalConnections = [
                           {
                             node = target;
-                            interface = "wg-${n}";
+                            interface = "hts-${n}";
                           }
                         ];
                       };
@@ -64,8 +64,8 @@ extraLibs:
                     ]
                     [ "eth0" ]
                   ];
-                  connections.eth1 = mkConnection "hastur" "eth0";
-                  connections.eth2 = mkConnection "eihort" "eth0";
+                  connections.eth1 = mkConnection "hastur" "eno1";
+                  connections.eth2 = mkConnection "eihort" "eno1";
                   connections.eth3 = mkConnection "kaambl" "wlan0";
                 };
               };

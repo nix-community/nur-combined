@@ -293,7 +293,7 @@
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
       ];
       extra-substituters = [
-        "https://cache.lix.systems"
+        # "https://cache.lix.systems"
       ]
       ++ (map (n: "https://${n}.cachix.org") [
         "nix-community"

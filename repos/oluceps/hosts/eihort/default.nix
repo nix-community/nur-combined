@@ -58,6 +58,7 @@ withSystem "x86_64-linux" (
       inputs.disko.nixosModules.default
       # inputs.nixos-facter-modules.nixosModules.facter
       inputs.tg-online-keeper.nixosModules.default
+      inputs.online-exporter.nixosModules.default
     ];
   }
 )

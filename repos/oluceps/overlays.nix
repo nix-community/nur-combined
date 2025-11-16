@@ -18,6 +18,7 @@
       # "radicle"
       "xwayland-satellite"
       "atuin"
+      "vicinae"
     ] (n: inputs'.${n}.packages.default)
     # //
     # GUI applications overlay. for stability

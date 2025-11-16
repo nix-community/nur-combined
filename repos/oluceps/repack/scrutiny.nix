@@ -14,7 +14,7 @@ reIf {
         host = "0.0.0.0";
       };
 
-      openFirewall = true;
+      openFirewall = false;
 
       # notify = {
       #   urls = [ "ntfy://ntfy.nyaw.xyz/critical?auth=QmVhcmVyIHRrXzFkZTlmYXdic3g1NGFweWVmbDZ3OWFtOGg5Mmpn" ];

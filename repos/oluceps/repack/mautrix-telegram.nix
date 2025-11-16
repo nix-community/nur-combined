@@ -45,6 +45,7 @@ reIf {
         };
         relaybot = {
           authless_portals = false;
+          ignore_unbridged_group_chat = true;
         };
       };
       telegram = {

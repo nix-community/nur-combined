@@ -42,6 +42,7 @@ in
         group = "root";
         name = "tg-session";
       };
+      tgexp = { };
       weed-s3 = {
         owner = "seaweedfs";
         group = "seaweedfs";

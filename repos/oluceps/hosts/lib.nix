@@ -93,6 +93,8 @@ rec {
 
   conn = import ../lib/conn.nix data.node;
 
+  targetsFromNodes = (import ../lib/nodesToTargets.nix { inherit (pkgs) lib; }) data.node;
+
   getAddrFromCIDR = i: builtins.elemAt (pkgs.lib.splitString "/" i) 0;
 
   getThisNodeFrom = config: data.node.${config.networking.hostName};

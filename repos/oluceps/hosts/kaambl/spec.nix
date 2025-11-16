@@ -30,6 +30,28 @@
       name = "tyo.yaml";
       trim = false;
     };
+
+    hyst-no = {
+      content =
+        config.vaultix.placeholder.hyst-no-cli
+        + (
+          let
+            port = toString (lib.conn { }).${config.networking.hostName}.nodens;
+          in
+          ''
+            socks5:
+              listen: 127.0.0.1:1093
+            udpForwarding:
+            - listen: 127.0.0.1:${port}
+              remote: 127.0.0.1:${port}
+              timeout: 120s
+          ''
+        );
+      owner = "root";
+      group = "users";
+      name = "no.yaml";
+      trim = false;
+    };
     hyst-yi = {
       content =
         config.vaultix.placeholder.hyst-yi-cli
@@ -122,10 +144,10 @@
     # ];
 
     hysteria.instances = {
-      # nodens = {
-      #   configFile = config.vaultix.secrets.hyst-us-cli.path;
-      #   enable = true;
-      # };
+      nodens = {
+        configFile = config.vaultix.secrets.hyst-no.path;
+        enable = true;
+      };
       abhoth = {
         enable = true;
         configFile = config.vaultix.templates.hyst-ab.path;

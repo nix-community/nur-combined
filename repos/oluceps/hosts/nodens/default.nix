@@ -15,6 +15,14 @@ withSystem "x86_64-linux" (
     inherit (self) lib;
   in
   lib.nixosSystem {
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+      };
+      overlays = lib.hostOverlays { inherit inputs inputs'; };
+    };
     specialArgs = {
       inherit
         lib
@@ -27,29 +35,20 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      inputs.disko.nixosModules.disko
-      {
-        nixpkgs = {
-          hostPlatform = system;
-          config = {
-            # contentAddressedByDefault = true;
-            allowUnfree = true;
-          };
-          overlays = lib.hostOverlays { inherit inputs inputs'; };
-        };
-      }
-
       ./disk.nix
-      ./caddy.nix
-      ../persist-base.nix
-      ./boot.nix
+      ./hardware.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
+      ../perlless.nix
       (lib.iage "cloud")
+      ./caddy.nix
+      ../persist-base.nix
       # ../../packages.nix
       ../../misc.nix
       ../../users.nix
+
+      inputs.disko.nixosModules.disko
     ];
   }
 )

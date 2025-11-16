@@ -79,12 +79,22 @@
     networks."8-eth0" = {
       matchConfig.Name = "eth0";
       networkConfig = {
-        DHCP = "ipv4";
+        DHCP = "no";
         IPv4Forwarding = true;
         IPv6Forwarding = true;
         IPv6AcceptRA = true;
       };
 
+      address = [
+        "154.31.114.112/24"
+      ];
+
+      routes = [
+        {
+          Gateway = "193.41.250.250";
+          GatewayOnLink = true;
+        }
+      ];
       linkConfig.RequiredForOnline = "routable";
     };
   };
