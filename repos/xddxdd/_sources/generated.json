@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "v3.15.0",
-            "sha256": "sha256-tjXJcFYV97ITMN8PB/dCU2sX8CA8HjFnaWSgSLqKRRg=",
+            "rev": "v3.15.1",
+            "sha256": "sha256-Ft6aFfZ6aY02bE7UY0JozAC2iuuFg7i7L1eKb1EcLC0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.15.0"
+        "version": "v3.15.1"
     },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-T/wWJ8y5tUMUkhNyZ2VDyCW8FHAb0x7FzHEw1cyyRDo=",
+            "sha256": "sha256-gnyVEiJDUKWBrZFAz629PnEX36dSg+MBbo1SZlZWVJQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.11.13"
+        "version": "2025.11.16"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wnySvmixgOK5aF8p9SDPS6ElXWR74/YAAQQ8qkpd+M0=",
+            "sha256": "sha256-PWfg/8vk2FbGKMuwkltlSgXMhkTfcXlAGzTN8dyq40o=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-City.mmdb"
         },
-        "version": "2025.11.13"
+        "version": "2025.11.16"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vDijDBVq2pZJUM/6znuBDHVMuLNYhADfBK/kDac5WsQ=",
+            "sha256": "sha256-4wlKF7Rwla+2NYTQGkcfIVHI9CA+zRqbXUyukXqDQkk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-Country.mmdb"
         },
-        "version": "2025.11.13"
+        "version": "2025.11.16"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7063",
-            "sha256": "sha256-syviM4JhDSuVDJJZ+fWInvuJWkzQAHSmP91bcVjOYkI=",
+            "rev": "b7079",
+            "sha256": "sha256-r47N7LVE5RmYDxj5PTL7OQcYyJUifLDc0BqAriHDpqs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7063"
+        "version": "b7079"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3058,12 +3058,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.5.1",
-            "sha256": "sha256-V85nlWFlow9Bpq7kq6hsrlfsjsudPTsoQ4ABSnu/PFU=",
+            "rev": "v2.6.0",
+            "sha256": "sha256-6U7B2uCCoSXzT5V3Q6n90PRv1gHzhfdHlI7/u2VmmYs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.5.1"
+        "version": "v2.6.0"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,

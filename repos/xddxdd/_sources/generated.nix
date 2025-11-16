@@ -592,12 +592,12 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "v3.15.0";
+    version = "v3.15.1";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      tag = "v3.15.0";
-      hash = "sha256-tjXJcFYV97ITMN8PB/dCU2sX8CA8HjFnaWSgSLqKRRg=";
+      tag = "v3.15.1";
+      hash = "sha256-Ft6aFfZ6aY02bE7UY0JozAC2iuuFg7i7L1eKb1EcLC0=";
     };
   };
   flaresolverr-21hsmw = {
@@ -685,26 +685,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.11.13";
+    version = "2025.11.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-ASN.mmdb";
-      hash = "sha256-T/wWJ8y5tUMUkhNyZ2VDyCW8FHAb0x7FzHEw1cyyRDo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-ASN.mmdb";
+      hash = "sha256-gnyVEiJDUKWBrZFAz629PnEX36dSg+MBbo1SZlZWVJQ=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.11.13";
+    version = "2025.11.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-City.mmdb";
-      hash = "sha256-wnySvmixgOK5aF8p9SDPS6ElXWR74/YAAQQ8qkpd+M0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-City.mmdb";
+      hash = "sha256-PWfg/8vk2FbGKMuwkltlSgXMhkTfcXlAGzTN8dyq40o=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.11.13";
+    version = "2025.11.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.13/GeoLite2-Country.mmdb";
-      hash = "sha256-vDijDBVq2pZJUM/6znuBDHVMuLNYhADfBK/kDac5WsQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.16/GeoLite2-Country.mmdb";
+      hash = "sha256-4wlKF7Rwla+2NYTQGkcfIVHI9CA+zRqbXUyukXqDQkk=";
     };
   };
   glauth = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7063";
+    version = "b7079";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7063";
-      hash = "sha256-syviM4JhDSuVDJJZ+fWInvuJWkzQAHSmP91bcVjOYkI=";
+      tag = "b7079";
+      hash = "sha256-r47N7LVE5RmYDxj5PTL7OQcYyJUifLDc0BqAriHDpqs=";
     };
   };
   loralib = {
@@ -1560,12 +1560,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.5.1";
+    version = "v2.6.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.5.1";
-      hash = "sha256-V85nlWFlow9Bpq7kq6hsrlfsjsudPTsoQ4ABSnu/PFU=";
+      tag = "v2.6.0";
+      hash = "sha256-6U7B2uCCoSXzT5V3Q6n90PRv1gHzhfdHlI7/u2VmmYs=";
     };
   };
   plasma-yesplaymusic-lyric = {

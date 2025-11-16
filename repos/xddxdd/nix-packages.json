@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "3.15.0"
+    "version": "3.15.1"
   },
   "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -677,7 +677,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.13"
+    "version": "2025.11.16"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7063"
+    "version": "7079"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4172,7 +4172,7 @@
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.5.1"
+    "version": "2.6.0"
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -4757,7 +4757,7 @@
   "legacyPackages.x86_64-linux.uncategorized.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "3.15.0"
+    "version": "3.15.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -4782,7 +4782,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.13"
+    "version": "2025.11.16"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5072,7 +5072,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.5.1"
+    "version": "2.6.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -5672,7 +5672,7 @@
   "packages.x86_64-linux.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "3.15.0"
+    "version": "3.15.1"
   },
   "packages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -5702,7 +5702,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.13"
+    "version": "2025.11.16"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6107,7 +6107,7 @@
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.5.1"
+    "version": "2.6.0"
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
