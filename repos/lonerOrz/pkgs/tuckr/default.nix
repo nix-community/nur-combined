@@ -4,18 +4,18 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finallAttrs: {
   pname = "tuckr";
-  version = "0.11.2-feat-json";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
-    owner = "lonerOrz";
+    owner = "RaphGL";
     repo = "Tuckr";
-    rev = "feat/json";
-    hash = "sha256-6N6DuTqHg+qstIB8ZyVVUuLwP1o3Di5fi+71cZ1TaUo=";
+    rev = "${finallAttrs.version}";
+    hash = "sha256-X2/pOzGUGc5FI0fyn6PB+9duMBdoggjvGxssDXKppWU=";
   };
 
-  cargoHash = "sha256-kHJA1O8KsmioXZQrDofhLKPakUQnLM6TEUKQZ4qDWCI=";
+  cargoHash = "sha256-NXIrjX73lg7706VAJqr/xv7N46ZdscAtXwzJywuAwro=";
 
   doCheck = false; # test result: FAILED. 5 passed; 3 failed;
 
@@ -29,4 +29,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ lonerOrz ];
     mainProgram = "tuckr";
   };
-}
+})
