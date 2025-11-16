@@ -13,21 +13,23 @@
   libnotify,
   mangohud,
   nix-update-script,
+  p7zip,
   pciutils,
   polkit,
   qt6Packages,
   stdenv,
+  wget,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "goverlay";
-  version = "1.5.2";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = "goverlay";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-dXbqFCBydbd5Nm7G4BzJYlDAF0F9Tf86zPWNtYHkpMY=";
+    tag = finalAttrs.version;
+    hash = "sha256-uDpIHeB9cJ4nRVpr622+UlwilBK3tkxJKvgn35nCvgQ=";
   };
 
   outputs = [
@@ -75,8 +77,10 @@ stdenv.mkDerivation (finalAttrs: {
           kmod
           libnotify
           mangohud
+          p7zip
           pciutils
           polkit
+          wget
         ]
       })
   '';
@@ -86,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Opensource project that aims to create a Graphical UI to help manage Linux overlays";
     homepage = "https://github.com/benjamimgois/goverlay";
-    changelog = "https://github.com/benjamimgois/goverlay/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/benjamimgois/goverlay/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "goverlay";
