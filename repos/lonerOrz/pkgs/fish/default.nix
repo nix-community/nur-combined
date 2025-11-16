@@ -379,14 +379,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/fish-shell/fish-shell/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-      adamcstephens
-      cole-h
-      winter
-      sigmasquadron
-      rvdp
-      lonerOrz
-    ];
+    maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "fish";
   };
 
