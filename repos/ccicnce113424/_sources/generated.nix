@@ -62,6 +62,23 @@
       sha256 = "sha256-XezfqwwKygUQcu/J6NtTFJHcKacy4xYSXzCWmLZg6Cw=";
     };
   };
+  jaq = {
+    pname = "jaq";
+    version = "v3.0.0-alpha";
+    src = fetchFromGitHub {
+      owner = "01mf02";
+      repo = "jaq";
+      rev = "v3.0.0-alpha";
+      fetchSubmodules = false;
+      sha256 = "sha256-1LtPFZUkGFOu5mZFB6gbL5/YnyJtaxmO0M//AInp5eM=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./jaq-v3.0.0-alpha/Cargo.lock;
+      outputHashes = {
+
+      };
+    };
+  };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
     version = "v1.521";

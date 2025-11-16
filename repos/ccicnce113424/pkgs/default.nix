@@ -40,6 +40,11 @@ rec {
     sourceRoot = "x64";
   };
 
+  jaq = pkgs.callPackage ./jaq rec {
+    sources = fetchedSrc.jaq;
+    version = stableVersion sources;
+  };
+
   lxgw-wenkai-gb = pkgs.callPackage ./lxgw-wenkai-gb rec {
     sources = fetchedSrc.lxgw-wenkai-gb;
     version = stableVersion sources;

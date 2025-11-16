@@ -27,6 +27,11 @@ fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/dow
 src.github = "Digger1955/dxvk-gplasync-lowlatency"
 src.prefix = "DXVK-GPLALL-"
 
+[jaq]
+cargo_locks = ["Cargo.lock"]
+fetch.github = "01mf02/jaq"
+src.github_tag = "01mf02/jaq"
+
 [lxgw-wenkai-gb]
 fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
 src.github = "lxgw/LxgwWenkaiGB"

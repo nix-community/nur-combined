@@ -107,6 +107,29 @@
     },
     "version": "2.7.1-1"
   },
+  "jaq": {
+    "cargoLocks": {
+      "Cargo.lock": ["./jaq-v3.0.0-alpha/Cargo.lock", {}]
+    },
+    "date": null,
+    "extract": null,
+    "name": "jaq",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "01mf02",
+      "repo": "jaq",
+      "rev": "v3.0.0-alpha",
+      "sha256": "sha256-1LtPFZUkGFOu5mZFB6gbL5/YnyJtaxmO0M//AInp5eM=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v3.0.0-alpha"
+  },
   "lxgw-wenkai-gb": {
     "cargoLocks": null,
     "date": null,
