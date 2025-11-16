@@ -17,9 +17,10 @@ reIf {
         "phi:$2a$10$Nmlat8Qzx4ze8UcgBjzMGeGSq8b0smQ21F6bMC5d5Vs5AVFYJBUxC:user"
       ];
       auth-access = [
-        "phi:broadcast:write-only"
-        "*:broadcast:ro"
-        "*:up*:write-only" # https://docs.ntfy.sh/config/?h=default+tier#example-unifiedpush
+        "*:*:rw"
+        # "phi:broadcast:write-only"
+        # "*:broadcast:ro"
+        # "*:up*:rw" # https://docs.ntfy.sh/config/?h=default+tier#example-unifiedpush
       ];
 
     };

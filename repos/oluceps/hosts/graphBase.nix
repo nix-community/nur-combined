@@ -64,6 +64,7 @@
       pkgs.systemd-run-app
       pkgs.wechat
       pkgs.porsmo
+      pkgs.libnotify # foot
     ];
   xdg = {
     terminal-exec = {
@@ -85,7 +86,6 @@
         "x-scheme-handler/terminal" = [ "foot.desktop" ];
       }
       // lib.genAttrs [
-        "x-scheme-handler/unknown"
         "x-scheme-handler/about"
         "x-scheme-handler/http"
         "x-scheme-handler/https"
@@ -93,12 +93,29 @@
         "text/html"
       ] (_: "chromium-browser.desktop")
       // lib.genAttrs [
+        "image/jpeg"
+        "image/png"
         "image/gif"
         "image/webp"
-        "image/png"
-        "image/jpeg"
+        "image/tiff"
+        "image/x-tga"
+        "image/vnd-ms.dds"
+        "image/x-dds"
         "image/bmp"
+        "image/vnd.microsoft.icon"
+        "image/vnd.radiance"
+        "image/x-exr"
+        "image/x-portable-bitmap"
+        "image/x-portable-graymap"
+        "image/x-portable-pixmap"
+        "image/x-portable-anymap"
+        "image/x-qoi"
+        "image/qoi"
         "image/svg+xml"
+        "image/svg+xml-compressed"
+        "image/avif"
+        "image/heic"
+        "image/jxl"
       ] (_: "org.gnome.Loupe.desktop")
       // lib.genAttrs [
         "inode/directory"
@@ -108,13 +125,31 @@
         "text/plain"
         "application/toml"
         "application/json"
+        "application/yaml"
+        "application/javascript"
+        "application/json5"
+        "application/x-ini-file"
         "text/css"
         "text/csv"
-
+        "text/english"
+        "text/x-makefile"
+        "text/x-c++hdr"
+        "text/x-c++src"
+        "text/x-chdr"
+        "text/x-csrc"
+        "text/x-java"
+        "text/x-moc"
+        "text/x-pascal"
+        "text/x-tcl"
+        "text/x-tex"
+        "application/x-shellscript"
+        "text/x-c"
+        "text/x-c++"
       ] (_: "Helix.desktop")
       // lib.genAttrs [
         "video/mp4"
         "video/mkv"
+        "x-scheme-handler/video"
       ] (_: "vlc.desktop");
     };
     portal = {

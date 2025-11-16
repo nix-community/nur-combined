@@ -257,7 +257,6 @@ in
   spawn-at-startup ${execDesktop "chromium-browser"}
   spawn-at-startup ${execDesktop "Telegram"}
   spawn-at-startup ${execDesktop "thunderbird"}
-  spawn-sh-at-startup "vicinae server"
   cursor {
       // Change the theme and size of the cursor as well as set the
       // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
@@ -299,7 +298,7 @@ in
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
       Mod+Return { spawn ${execApp [ (lib.getExe pkgs.foot) ]}; }
-      Mod+D repeat=false { spawn "vicinae" "toggle"; }
+      Mod+D repeat=false { spawn "${lib.getExe pkgs.vicinae}" "toggle"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }
       Mod+T { toggle-overview; }
@@ -322,7 +321,7 @@ in
 
       XF86MonBrightnessUp { spawn "light" "-A" "3"; }
       XF86MonBrightnessdown { spawn "light" "-U" "3"; }
-      Mod+Ctrl+P repeat=false { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+      Mod+Ctrl+P repeat=false { spawn "${lib.getExe pkgs.vicinae}" "vicinae://extensions/vicinae/clipboard/history"; }
 
       Mod+Q { close-window; }
 

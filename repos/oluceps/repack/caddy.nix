@@ -50,6 +50,7 @@ in
         insecure = false;
       };
       apps = {
+        http.metrics = { };
         http.grace_period = "1s";
         http.servers.srv0 = {
           listen = [ ":443" ];
@@ -80,7 +81,6 @@ in
               ];
             }
           ];
-          metrics = { };
         };
 
       };
