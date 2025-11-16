@@ -1,9 +1,6 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq yq nix-prefetch-git
+#! /usr/bin/env nix
+#! nix shell nixpkgs#nix-prefetch-git .#jaq -c bash
 set -euo pipefail
-
-owner=bggRGjQaUbCoE
-repo=PiliPlus
 
 # 支持 -f/--force 强制刷新 src-info.json
 force=false
@@ -19,43 +16,27 @@ cd "$REPO_ROOT"
 package_name=piliplus
 package_dir=$SCRIPT_DIR
 
-lock_file=$package_dir/pubspec.lock.json
-git_hashes=$package_dir/git-hashes.nix
 src_info=$package_dir/src-info.json
 
-lock_path=$(jq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
-version=$(jq -r ".\"$package_name\".src.rev" _sources/generated.json)
+lock_path=$(jaq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
+version=$(jaq -r ".\"$package_name\".src.rev" _sources/generated.json)
+
+owner=$(jaq -r ".\"$package_name\".src.owner" _sources/generated.json)
+repo=$(jaq -r ".\"$package_name\".src.repo" _sources/generated.json)
 
 # 如果已有 src-info.json 且版本未变化且未指定 -f，则直接跳过后续操作
 if [[ -f $src_info && $force != true ]]; then
-  old_version=$(jq -r '.version // empty' "$src_info" || true)
+  old_version=$(jaq -r '.version // empty' "$src_info" || true)
   if [[ -n $old_version && $old_version == "$version" ]]; then
     echo "src-info.json is up to date (version=$version), skipping."
     exit 0
   fi
 fi
 
-yq <"_sources/$lock_path" >"$lock_file"
-
-echo "{" >"$git_hashes"
-
-jq -r '
-  .packages
-  | to_entries[]
-  | select(.value.source == "git")
-  | "\(.key) \(.value.description.url) \(.value.description["resolved-ref"] // .value.description.ref // "HEAD")"
-' "$lock_file" | while read -r name url ref; do
-  echo "Fetching $name from $url ($ref)..."
-  hash=$(nix-prefetch-git --quiet --url "$url" --rev "$ref" | jq -r .hash)
-  echo "  \"$name\" = \"$hash\";" >>"$git_hashes"
-done
-
-echo "}" >>"$git_hashes"
-
 info_json=$(nix-prefetch-git --quiet --url "https://github.com/$owner/$repo" --rev "$version")
 
-rev=$(jq -r .rev <<<"$info_json")
-date_iso=$(jq -r .date <<<"$info_json")
+rev=$(jaq -r .rev <<<"$info_json")
+date_iso=$(jaq -r .date <<<"$info_json")
 
 # 将 ISO8601 时间转换为时间戳，失败则回退为 0，避免 --argjson 报错
 if [[ -n $date_iso ]] && time_val=$(date -d "$date_iso" +%s 2>/dev/null); then
@@ -73,9 +54,44 @@ if [[ -z $rev_count ]]; then
   rev_count=1
 fi
 
-jq -n \
+git_hashes_object=$(
+  jaq --from yaml -r '.packages
+    | to_entries
+    | map(select(.value.source == "git"))
+    | map({
+        key: .key,
+        url: .value.description.url,
+        ref: (.value.description["resolved-ref"] // .value.description.ref // "HEAD")
+      })
+    | .[]
+    | "\(.key) \(.url) \(.ref)"' "_sources/$lock_path" |
+    while read -r name url ref; do
+      echo "Fetching $name from $url ($ref)..." >&2
+      # 只用 stdout，stderr 直接流向终端日志，不参与 JSON
+      hash=$(
+        nix-prefetch-git --quiet --url "$url" --rev "$ref" |
+          jaq -r .hash 2>/dev/null
+      )
+      if [[ -z $hash ]]; then
+        echo "Failed to parse hash for $name from nix-prefetch-git output" >&2
+        # 如果想看详细输出，可以临时去掉 --quiet 或单独测试
+        continue
+      fi
+      jaq -n --arg name "$name" --arg hash "$hash" '{ ($name): $hash }'
+    done |
+    jaq -s 'add'
+)
+
+# 防御：如果整个循环没产出任何对象，给一个空对象，避免后面 --argjson 报错
+if [[ -z ${git_hashes_object:-} ]]; then
+  git_hashes_object='{}'
+fi
+
+jaq --from yaml -n \
   --arg version "$version" \
   --arg rev "$rev" \
   --argjson time "$time_val" \
   --argjson revCount "$rev_count" \
-  '{ version: $version, rev: $rev, time: $time, revCount: $revCount }' >"$src_info"
+  --argjson gitHashes "$git_hashes_object" \
+  '{ version: $version, rev: $rev, time: $time, revCount: $revCount,
+     pubspecLock: input, gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"

@@ -53,21 +53,18 @@ rec {
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
-    pubspecLock = lib.importJSON ./piliplus/pubspec.lock.json;
-    gitHashes = import ./piliplus/git-hashes.nix;
+    srcInfo = lib.importJSON ./piliplus/src-info.json;
   };
 
   pixes = pkgs.callPackage ./pixes rec {
     sources = fetchedSrc.pixes;
     version = stableVersion sources;
-    pubspecLock = lib.importJSON ./pixes/pubspec.lock.json;
-    gitHashes = import ./pixes/git-hashes.nix;
+    srcInfo = lib.importJSON ./pixes/src-info.json;
   };
   pixes-git = pkgs.callPackage ./pixes rec {
     sources = fetchedSrc.pixes-git;
     version = unstableVersion sources;
-    pubspecLock = lib.importJSON ./pixes/git/pubspec.lock.json;
-    gitHashes = import ./pixes/git/git-hashes.nix;
+    srcInfo = lib.importJSON ./pixes/git/src-info.json;
   };
 
   shijima-qt = pkgs.callPackage ./shijima-qt { };

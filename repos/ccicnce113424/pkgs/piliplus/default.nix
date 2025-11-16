@@ -1,8 +1,7 @@
 {
   sources,
   version,
-  pubspecLock,
-  gitHashes,
+  srcInfo,
   lib,
   flutter338,
   makeDesktopItem,
@@ -43,11 +42,12 @@
 let
   description = "Third-party Bilibili client developed in Flutter";
   majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
-  srcInfo = lib.importJSON ./src-info.json;
 in
 flutter338.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version pubspecLock gitHashes;
+  inherit version;
+  inherit (srcInfo) pubspecLock;
+  inherit (srcInfo) gitHashes;
 
   nativeBuildInputs = [
     copyDesktopItems

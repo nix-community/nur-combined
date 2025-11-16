@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq yq nix-prefetch-git
+#! /usr/bin/env nix
+#! nix shell nixpkgs#nix-prefetch-git .#jaq -c bash
 set -euo pipefail
 
 # 支持 -f/--force 强制刷新 src-info.json
@@ -16,37 +16,51 @@ cd "$REPO_ROOT"
 package_name=pixes
 package_dir=$SCRIPT_DIR
 
-lock_file=$package_dir/pubspec.lock.json
-git_hashes=$package_dir/git-hashes.nix
 src_info=$package_dir/src-info.json
 
-lock_path=$(jq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
-version=$(jq -r ".\"$package_name\".src.rev" _sources/generated.json)
+lock_path=$(jaq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
+version=$(jaq -r ".\"$package_name\".src.rev" _sources/generated.json)
 
 # 如果已有 src-info.json 且版本未变化，且未指定 -f，则直接跳过
 if [[ -f $src_info && $force != true ]]; then
-  old_version=$(jq -r '.version // empty' "$src_info" || true)
+  old_version=$(jaq -r '.version // empty' "$src_info" || true)
   if [[ -n $old_version && $old_version == "$version" ]]; then
     echo "src-info.json is up to date (version=$version), skipping."
     exit 0
   fi
 fi
 
-yq <"_sources/$lock_path" >"$lock_file"
+git_hashes_object=$(
+  jaq --from yaml -r '.packages
+    | to_entries
+    | map(select(.value.source == "git"))
+    | map({
+        key: .key,
+        url: .value.description.url,
+        ref: (.value.description["resolved-ref"] // .value.description.ref // "HEAD")
+      })
+    | .[]
+    | "\(.key) \(.url) \(.ref)"' "_sources/$lock_path" |
+    while read -r name url ref; do
+      echo "Fetching $name from $url ($ref)..." >&2
+      hash=$(
+        nix-prefetch-git --quiet --url "$url" --rev "$ref" |
+          jaq -r .hash 2>/dev/null
+      )
+      if [[ -z $hash ]]; then
+        echo "Failed to parse hash for $name from nix-prefetch-git output" >&2
+        continue
+      fi
+      jaq -n --arg name "$name" --arg hash "$hash" '{ ($name): $hash }'
+    done |
+    jaq -s 'add'
+)
 
-echo "{" >"$git_hashes"
+if [[ -z ${git_hashes_object:-} ]]; then
+  git_hashes_object='{}'
+fi
 
-jq -r '
-  .packages
-  | to_entries[]
-  | select(.value.source == "git")
-  | "\(.key) \(.value.description.url) \(.value.description["resolved-ref"] // .value.description.ref // "HEAD")"
-' "$lock_file" | while read -r name url ref; do
-  echo "Fetching $name from $url ($ref)..."
-  hash=$(nix-prefetch-git --quiet --url "$url" --rev "$ref" | jq -r .hash)
-  echo "  \"$name\" = \"$hash\";" >>"$git_hashes"
-done
-
-echo "}" >>"$git_hashes"
-
-jq -n --arg version "$version" '{ version: $version }' >"$src_info"
+jaq --from yaml -n \
+  --arg version "$version" \
+  --argjson gitHashes "$git_hashes_object" \
+  '{ version: $version, pubspecLock: input, gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"

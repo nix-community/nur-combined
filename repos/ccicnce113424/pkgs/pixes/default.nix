@@ -1,8 +1,7 @@
 {
   sources,
   version,
-  pubspecLock,
-  gitHashes,
+  srcInfo,
   lib,
   flutter332,
   flutter335,
@@ -14,7 +13,9 @@ let
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
-  inherit version pubspecLock gitHashes;
+  inherit version;
+  inherit (srcInfo) pubspecLock;
+  inherit (srcInfo) gitHashes;
 
   desktopItems = [
     (makeDesktopItem {
