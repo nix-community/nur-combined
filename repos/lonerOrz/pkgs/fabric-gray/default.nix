@@ -42,8 +42,10 @@ stdenv.mkDerivation {
     "dev"
   ];
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
-    description = "system trays for everyone ⚡";
+    description = "system trays for everyone";
     homepage = "https://github.com/your-github-username/gray";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ lonerOrz ];

@@ -17,6 +17,8 @@ buildGoModule {
 
   vendorHash = "sha256-5luc8FqDuoKckrmO2Kc4jTmDmgDjcr3D4v5Z+OpAOs4=";
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
     description = "An alternative super-charged CLI for Fabric ";
     longDescription = ''
