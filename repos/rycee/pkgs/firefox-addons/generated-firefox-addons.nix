@@ -1253,10 +1253,10 @@
     };
     "bookmark-search-plus-2" = buildFirefoxXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.135";
+      version = "2.0.136";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4514021/bookmark_search_plus_2-2.0.135.xpi";
-      sha256 = "dd64dc528cac77e39dfca90cfadc6c024b900264ddef41c4a57d274233dc261e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620502/bookmark_search_plus_2-2.0.136.xpi";
+      sha256 = "391343b781e709985dc6d4323e81228cae33fd1e4975c8321eefe32747645619";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -6877,10 +6877,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.9";
+      version = "2.0.10";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618355/kiss_translator-2.0.9.xpi";
-      sha256 = "83a4260bef26d4c782f5db11e85076b7a0b42748dcdb2383d39e470aeeb86174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620369/kiss_translator-2.0.10.xpi";
+      sha256 = "9b08b61fee5fb7d5ff01b11582822a72505c995d7c41f631d6d09814f5953514";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
