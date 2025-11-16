@@ -2,6 +2,7 @@
   lib,
   python312Packages,
   fetchFromGitHub,
+  fetchurl,
   gtk3,
   gtk-layer-shell,
   cairo,
@@ -11,7 +12,15 @@
   cinnamon-desktop,
   gnome-bluetooth,
 }:
-
+let
+  pygobject_3_50 = python312Packages.pygobject3.overrideAttrs (old: {
+    version = "3.50.0";
+    src = fetchurl {
+      url = "mirror://gnome/sources/pygobject/3.50/pygobject-3.50.0.tar.xz";
+      hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
+    };
+  });
+in
 python312Packages.buildPythonPackage rec {
   pname = "fabric";
   version = "0.0.2";
@@ -23,10 +32,6 @@ python312Packages.buildPythonPackage rec {
     rev = "0f3d317b047799191ff04a32352a63084eac11d9";
     hash = "sha256-ELXYed743Xnad8hOMmN5RI0S8w0rltcZbylQjjFiv6s=";
   };
-
-  postPatch = ''
-    sed -i 's/pygobject==3.50.0/pygobject>=3.50.0/' setup.py
-  '';
 
   buildInputs = [
     gtk3
@@ -43,7 +48,7 @@ python312Packages.buildPythonPackage rec {
     setuptools
     click
     pycairo
-    pygobject3
+    pygobject_3_50
     pygobject-stubs
     loguru
     psutil
