@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v5.0.0
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.8.3
+        uses: cachix/install-nix-action@v31.8.4
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
           nix_path: nixpkgs=channel:nixos-unstable
