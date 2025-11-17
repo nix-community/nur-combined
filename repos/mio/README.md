@@ -45,3 +45,4 @@ we need to mark broken for unsupported platforms otherwise the github actions fa
 + swt nixpkgs commit 0a381edbc370fe8f15106b957fc52ef8f2589e74
 + shell-gpt nixpkgs commit 036c3539550f49b625e98fdda29e16cca62040a1
 + vscode-extensions.eamodio.gitlens from nixpkgs commit f6ce49c5786a99dda9d54c713046cd7511c960a3^
++ fish <https://github.com/jeafleohj/nixpkgs/tree/fish-pexpect-fix>
