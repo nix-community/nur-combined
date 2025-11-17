@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "19b1f036b3f2464f9debb3a5429337572f385f14";
+    version = "254bf9244e316e231cd9d37e9a03ad147314bbee";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "19b1f036b3f2464f9debb3a5429337572f385f14";
+      rev = "254bf9244e316e231cd9d37e9a03ad147314bbee";
       fetchSubmodules = false;
-      sha256 = "sha256-+YGbBqHFSuizz0yd20NWjyeOOz3AjpLox9MkLbCUE7I=";
+      sha256 = "sha256-BxlVwNeSMviWhi+DcSO50Exv9nmhGuVABnbmyiJ29/w=";
     };
-    date = "2025-11-08";
+    date = "2025-11-16";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
