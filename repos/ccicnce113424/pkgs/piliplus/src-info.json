@@ -1,8 +1,8 @@
 {
-  "version": "1.1.5-pre5",
-  "rev": "c89d6a5a599d829f569c22b404164e0e2dced9cb",
-  "time": 1763178617,
-  "revCount": 4348,
+  "version": "1.1.5-pre6",
+  "rev": "646888c06fb4fae3db0cdc456c745ed6e45b4200",
+  "time": 1763374520,
+  "revCount": 4357,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -220,11 +220,11 @@
         "dependency": "direct dev",
         "description": {
           "name": "build_runner",
-          "sha256": "04f69b1502f66e22ae7990bbd01eb552b7f12793c4d3ea6e715d0ac5e98bcdac",
+          "sha256": "7b5b569f3df370590a85029148d6fc66c7d0201fc6f1847c07dd85d365ae9fcd",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "2.10.2"
+        "version": "2.10.3"
       },
       "built_collection": {
         "dependency": "transitive",
@@ -644,7 +644,7 @@
         "description": {
           "path": ".",
           "ref": "mod",
-          "resolved-ref": "16ad5fca37acf52df6b61ecea587a4f80f9cb04c",
+          "resolved-ref": "8e6d56a0e4fdc78c9d7e3681cdfd086901764cd4",
           "url": "https://github.com/bggRGjQaUbCoE/flutter_file_picker.git"
         },
         "source": "git",
@@ -1808,11 +1808,11 @@
         "dependency": "direct main",
         "description": {
           "name": "saver_gallery",
-          "sha256": "bf59475e50b73d666630bed7a5fdb621fed92d637f64e3c61ce81653ec6a833c",
+          "sha256": "1d942bd7f4fedc162d9a751e156ebac592e4b81fc2e757af82de9077f3437003",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "4.0.1"
+        "version": "4.1.0"
       },
       "screen_brightness_android": {
         "dependency": "direct overridden",
@@ -2205,11 +2205,11 @@
         "dependency": "transitive",
         "description": {
           "name": "universal_io",
-          "sha256": "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad",
+          "sha256": "f63cbc48103236abf48e345e07a03ce5757ea86285ed313a6a032596ed9301e2",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "2.2.2"
+        "version": "2.3.1"
       },
       "uri_parser": {
         "dependency": "transitive",
@@ -2524,7 +2524,7 @@
     "canvas_danmaku": "sha256-ipO7GOHLQphgXbT69Opjb3nUDLt+cofgQSc8o9/2BnM=",
     "chat_bottom_container": "sha256-um9KwZUDxWBhFsGHfv00TjPzxDHmp43TLRF0GwuV1xs=",
     "extended_nested_scroll_view": "sha256-Vjv5zp5c0Xob1H8/U0+lUueLqOKo7qwusOCchdt3Z7M=",
-    "file_picker": "sha256-NpwY39YtFm5/6cQHUrklpXhzgvtFfcmR/nP5OH/gdtk=",
+    "file_picker": "sha256-fuNABWh4eZqDxAfTo9yR2KaPp3r8Yk0QOj69gAlgacU=",
     "floating": "sha256-0Xd9dsXJCQ/r/8Nb16oM+M8Jdw+r4QzGmU++HpqF/v0=",
     "flutter_sortable_wrap": "sha256-Qj9Lzh+pJy+vHznGt5M3xwoJtaVtt00fxm4JJXL4bFI=",
     "get": "sha256-aJJyQAFWFLS2dIUTITkRHOeW9IFQOcEsMuQOkBDhGu8=",
