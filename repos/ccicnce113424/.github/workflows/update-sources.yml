@@ -33,6 +33,7 @@ jobs:
           nix run .#nvfetcher
           nix fmt _sources
           git add .
+          pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
           pkgs/splayer-git/update.sh
