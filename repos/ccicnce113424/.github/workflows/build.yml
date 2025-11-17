@@ -39,4 +39,5 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#nix-fast-build -- --skip-cached --no-nom --no-link --flake ".#packages"
+          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link
+          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link --flake ".#packages"
