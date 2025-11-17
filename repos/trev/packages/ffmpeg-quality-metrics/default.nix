@@ -2,7 +2,7 @@
   lib,
   python3,
   fetchPypi,
-  python3Packages,
+  python313Packages,
   nix-update-script,
 }:
 python3.pkgs.buildPythonApplication rec {
@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     platform = "any";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = with python313Packages; [
     ffmpeg-progress-yield
   ];
 
@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   meta = {
-    description = " Calculate quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
+    description = "Calculate quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
     homepage = "https://github.com/slhck/ffmpeg-quality-metrics";
     platforms = lib.platforms.all;
   };
