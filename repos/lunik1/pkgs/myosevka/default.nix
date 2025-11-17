@@ -16,6 +16,7 @@ let
       variants = {
         design = rec {
           ampersand = "upper-open";
+          at = "compact";
           brace = "curly-flat-boundary";
           capital-g = "toothless-corner-serifless-hooked";
           capital-k = "symmetric-touching-serifless";
