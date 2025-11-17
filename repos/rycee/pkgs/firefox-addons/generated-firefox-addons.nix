@@ -3277,10 +3277,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.10.0";
+      version = "1.11.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603875/elasticvue-1.10.0.xpi";
-      sha256 = "dcb768adc122d06c9db1337b34087809746b7f06ef5f7682e117c8003c2ea84d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621027/elasticvue-1.11.0.xpi";
+      sha256 = "131628b6494f0d22e427bd40b41a34a07216df82fc3a66be65cdb6d821cb305f";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -3831,10 +3831,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.7.0";
+      version = "5.8.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4565831/floccus-5.7.0.xpi";
-      sha256 = "fc76e53b54eb9c60f3ddc9306d6be201af21b6375dd85e457ab38a5003a45f7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620792/floccus-5.8.0.xpi";
+      sha256 = "061570c891d7d7d010bc5b83aa565dc6558f0b02003a4b92a705b357bdb58c0b";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -6877,10 +6877,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.10";
+      version = "2.0.11";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620369/kiss_translator-2.0.10.xpi";
-      sha256 = "9b08b61fee5fb7d5ff01b11582822a72505c995d7c41f631d6d09814f5953514";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620886/kiss_translator-2.0.11.xpi";
+      sha256 = "c4d16a69b79640fc5ac09239b791e4c74e109b39deeac15f2801c114fef5238c";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -7473,10 +7473,10 @@
     };
     "livetl" = buildFirefoxXpiAddon {
       pname = "livetl";
-      version = "9.0.8";
+      version = "9.0.9";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4553317/livetl-9.0.8.xpi";
-      sha256 = "35b0c499dae8039afc3130e6ae454158b414c894c3d999ec8834d8dbd2769f83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621087/livetl-9.0.9.xpi";
+      sha256 = "ff0c7587b7e9c17447e71983515299eb9de0c4f9aec79ad087ea2ab2e8a06226";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
