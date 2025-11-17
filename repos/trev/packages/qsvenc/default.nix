@@ -25,7 +25,7 @@
   intel-compute-runtime,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "QSVEnc";
+  pname = "qsvenc";
   version = "8.01";
 
   hardeningDisable = ["all"];

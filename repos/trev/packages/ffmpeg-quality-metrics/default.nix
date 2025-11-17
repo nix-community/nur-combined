@@ -1,26 +1,26 @@
 {
   lib,
-  python3,
-  fetchPypi,
-  python313Packages,
+  fetchFromGitHub,
+  python3Packages,
   nix-update-script,
 }:
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "ffmpeg-quality-metrics";
-  version = "3.7.1";
-  format = "wheel";
+  version = "3.7.2";
+  pyproject = true;
 
-  src = fetchPypi rec {
-    inherit version format;
-    pname = "ffmpeg_quality_metrics";
-    sha256 = "sha256-8E6IxTh8vbqqbT3nIQo8k+fOCfcoXTiLDSKpE9HET0g=";
-    dist = python;
-    python = "py3";
-    abi = "none";
-    platform = "any";
+  src = fetchFromGitHub {
+    owner = "slhck";
+    repo = "ffmpeg-quality-metrics";
+    tag = "v${version}";
+    hash = "sha256-YLxnGYAsraUiEnbgJwZpTs24RXY0xKNmfbjDQJklKas=";
   };
 
-  propagatedBuildInputs = with python313Packages; [
+  build-system = with python3Packages; [
+    uv-build
+  ];
+
+  dependencies = with python3Packages; [
     ffmpeg-progress-yield
   ];
 
