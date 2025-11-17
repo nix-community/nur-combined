@@ -39,4 +39,4 @@ jobs:
 
       - name: Build
         run: |
-          nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --no-link --flake ".#packages"
+          nix run nixpkgs#nix-fast-build -- --skip-cached --no-nom --no-link --flake ".#packages"
