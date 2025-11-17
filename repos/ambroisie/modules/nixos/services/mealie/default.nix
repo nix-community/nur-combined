@@ -32,6 +32,7 @@ in
         BASE_URL = "https://mealie.${config.networking.domain}";
         TZ = config.time.timeZone;
         ALLOw_SIGNUP = "false";
+        TOKEN_TIME = 24 * 180; # 180 days
       };
 
       # Automatic PostgreSQL provisioning
