@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.home.discord;
-
-  jsonFormat = pkgs.formats.json { };
 in
 {
   options.my.home.discord = with lib; {
@@ -12,14 +10,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      cfg.package
-    ];
+    programs.discord = {
+      enable = true;
 
-    xdg.configFile."discord/settings.json".source =
-      jsonFormat.generate "discord.json" {
+      inherit (cfg) package;
+
+      settings = {
         # Do not keep me from using the app just to force an update
         SKIP_HOST_UPDATE = true;
       };
+    };
   };
 }
