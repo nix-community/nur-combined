@@ -614,6 +614,11 @@
     "pname": "python3.13-edge-tts",
     "version": "7.2.3"
   },
+  "legacyPackages.x86_64-linux.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-10-30"
+  },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
     "pname": "electron",
@@ -4404,6 +4409,11 @@
     "pname": "qsp-lib",
     "version": "0-unstable-2025-11-06"
   },
+  "legacyPackages.x86_64-linux.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.0"
+  },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
     "pname": "r8125",
@@ -4728,6 +4738,11 @@
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
     "version": "10.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-10-30"
   },
   "legacyPackages.x86_64-linux.uncategorized.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -5118,6 +5133,11 @@
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
     "version": "0-unstable-2025-11-06"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
     "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk",
@@ -5638,6 +5658,11 @@
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.13-edge-tts",
     "version": "7.2.3"
+  },
+  "packages.x86_64-linux.ela-widget-tools": {
+    "description": "Fluent-UI For QT-Widget",
+    "pname": "ela-widget-tools",
+    "version": "0-unstable-2025-10-30"
   },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -6183,6 +6208,11 @@
     "description": "Interactive fiction development platform (Game Library)",
     "pname": "qsp-lib",
     "version": "0-unstable-2025-11-06"
+  },
+  "packages.x86_64-linux.qtwebapp": {
+    "description": "HTTP server library in C++, inspired by Java Servlets",
+    "pname": "qtwebapp",
+    "version": "1.9.0"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",

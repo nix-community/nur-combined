@@ -9,7 +9,7 @@
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.ela-widget-tools) pname version src;
 
-  patches = [ ./ela-widget-tools-fix-install-path.patch ];
+  patches = [ ./fix-install-path.patch ];
 
   # Qt CMake private include path is empty, generate one ourselves
   postPatch =
