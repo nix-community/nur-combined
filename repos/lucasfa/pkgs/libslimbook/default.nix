@@ -21,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libslimbook";
-  version = "1.18.4";
+  version = "1.19.0";
 
   src = fetchFromGitHub {
     owner = "Slimbook-Team";
     repo = pname;
     tag = version;
-    hash = "sha256-mGEGFrdu2DXQ8fykOQrY/AhInbY1+2L8CvWFICm5Lkg=";
+    hash = "sha256-FNzUzNZ3otNZnCqvr3V9uOREnKAwxSejBEBH3nLBedY=";
   };
   enableParallelBuilding = true;
 
