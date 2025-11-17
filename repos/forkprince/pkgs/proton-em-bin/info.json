@@ -3,8 +3,8 @@
   "update_type": "github",
   "repo": "Etaash-mathamsetty/Proton",
   "query": ".[0].tag_name",
-  "version": "EM-10.0-31",
-  "hash": "sha256-xVne5AmRyQNQtQMXvUxDYR3ZvBdlQUjlnaruFgeNp/M=",
+  "version": "EM-10.0-32",
+  "hash": "sha256-xbo1LHYJCFa7Yi+SpmK+Z09qf0xsUimMI/0Q1SCnTxg=",
   "url_template": "https://github.com/{repo}/releases/download/{version}/proton-{version}.tar.xz",
   "unpack": true
 }
