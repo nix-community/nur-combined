@@ -13,6 +13,8 @@
 stdenv.mkDerivation rec {
   name = "wl-x11-clipsync";
   version = "0-unstable-2025-01-30";
+
+  pname = name;
   
   src = fetchFromGitHub {
     owner = "arabianq";

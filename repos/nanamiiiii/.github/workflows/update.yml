@@ -25,12 +25,12 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    #- name: Update ms-edge
-    #  run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm microsoft-edge"
     - name: Update clock-tui
-      run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm clock-tui"
+      run: nix-shell -p nix-update --run "nix-update clock-tui"
     - name: Update sddm-astronaut
-      run: nix-shell -p python3 --run "python3 ./scripts/update.py --noconfirm sddm-astronaut"
+      run: nix-shell -p nix-update --run "nix-update --version=branch=master sddm-astronaut"
+    - name: Update wl-x11-clipsync
+      run: nix-shell -p nix-update --run "nix-update --version=branch=main wl-x11-clipsync"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
