@@ -23,7 +23,7 @@ jobs:
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
-          shell: ci
+          shell: check
 
       - name: Build packages
         run: |

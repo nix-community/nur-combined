@@ -1,5 +1,5 @@
 {
-  description = "trev's nix user repository (NUR)";
+  description = "trev's nix user repository";
 
   nixConfig = {
     extra-substituters = [
@@ -63,6 +63,7 @@
           pkgs = import nixpkgs {
             inherit system;
           };
+
           trenovate = pkgs.callPackage ./packages/renovate { };
           update = pkgs.callPackage ./utils/update { };
           shellhook = pkgs.callPackage ./packages/shellhook { };
@@ -77,11 +78,21 @@
             shellHook = shellhook.ref;
           };
 
-          ci = pkgs.mkShell {
+          check = pkgs.mkShell {
             packages = with pkgs; [
+              nix-fast-build
+            ];
+          };
+
+          update = pkgs.mkShell {
+            packages = [
               update
               trenovate
-              nix-fast-build
+            ];
+          };
+
+          vulnerable = pkgs.mkShell {
+            packages = with pkgs; [
               flake-checker
             ];
           };
