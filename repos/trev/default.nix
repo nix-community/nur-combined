@@ -1,6 +1,6 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> {inherit system;},
+  pkgs ? import <nixpkgs> { inherit system; },
 }:
 {
   bundlers = import ./bundlers {

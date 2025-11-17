@@ -33,11 +33,13 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     echo "#!${runtimeShell}" >> nix-fix-hash
-    echo "${lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-      "errexit"
-      "nounset"
-      "pipefail"
-    ]}" >> nix-fix-hash
+    echo "${
+      lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
+        "errexit"
+        "nounset"
+        "pipefail"
+      ]
+    }" >> nix-fix-hash
     echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> nix-fix-hash
     cat nix-fix-hash.sh >> nix-fix-hash
     chmod +x nix-fix-hash

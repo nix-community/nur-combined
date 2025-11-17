@@ -31,11 +31,13 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     echo "#!${runtimeShell}" >> shellhook
-    echo "${lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-      "errexit"
-      "nounset"
-      "pipefail"
-    ]}" >> shellhook
+    echo "${
+      lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
+        "errexit"
+        "nounset"
+        "pipefail"
+      ]
+    }" >> shellhook
     echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> shellhook
     tail -n +2 shellhook.sh >> shellhook
     chmod +x shellhook

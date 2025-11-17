@@ -1,4 +1,5 @@
-{pkgs}: let
+{ pkgs }:
+let
   GOOS = [
     "aix"
     "android"
@@ -46,12 +47,14 @@
     "wasm"
   ];
 in
-  builtins.listToAttrs (
-    pkgs.lib.attrsets.mapCartesianProduct (
+builtins.listToAttrs (
+  pkgs.lib.attrsets.mapCartesianProduct
+    (
       {
         goos,
         goarch,
-      }: let
+      }:
+      let
         capGoos =
           pkgs.lib.strings.toUpper (builtins.substring 0 1 goos)
           + builtins.substring 1 (builtins.stringLength goos - 1) goos;
@@ -59,16 +62,20 @@ in
           pkgs.lib.strings.toUpper (builtins.substring 0 1 goarch)
           + builtins.substring 1 (builtins.stringLength goarch - 1) goarch;
       in
-        pkgs.lib.attrsets.nameValuePair "goTo${capGoos}${capGoarch}"
-        (
-          drv:
-            import ./. {
-              inherit pkgs drv goos goarch;
-            }
-        )
+      pkgs.lib.attrsets.nameValuePair "goTo${capGoos}${capGoarch}" (
+        drv:
+        import ./. {
+          inherit
+            pkgs
+            drv
+            goos
+            goarch
+            ;
+        }
+      )
     )
     {
       goos = GOOS;
       goarch = GOARCH;
     }
-  )
+)

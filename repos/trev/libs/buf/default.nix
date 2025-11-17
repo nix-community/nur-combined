@@ -1,4 +1,5 @@
-{pkgs}: {
-  fetchDeps = pkgs.callPackage ./fetchDeps.nix {};
-  configHook = pkgs.callPackage ./configHook.nix {};
+{ pkgs }:
+{
+  fetchDeps = pkgs.callPackage ./fetchDeps.nix { };
+  configHook = pkgs.callPackage ./configHook.nix { };
 }

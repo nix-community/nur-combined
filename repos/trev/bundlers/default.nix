@@ -1,9 +1,10 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> {inherit system;},
+  pkgs ? import <nixpkgs> { inherit system; },
 }:
 {
-  toDockerStream = drv:
+  toDockerStream =
+    drv:
     import ./toDockerStream {
       inherit drv pkgs;
     };

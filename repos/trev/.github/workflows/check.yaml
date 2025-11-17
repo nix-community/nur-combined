@@ -10,11 +10,12 @@ on:
 jobs:
   packages:
     strategy:
+      fail-fast: false
       matrix:
         nix_path:
-          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+          - nixpkgs-unstable.tar.gz
+          - nixos-unstable.tar.gz
+          - nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
@@ -29,7 +30,7 @@ jobs:
           nix-fast-build \
             --skip-cached \
             --no-nom \
-            --override-input nixpkgs "${{ matrix.nix_path }}" \
+            --override-input nixpkgs "https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nix_path }}" \
             --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"
 
   flake:

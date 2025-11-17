@@ -8,13 +8,6 @@
   // nix
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
-  "nix.serverSettings": {
-    "nixd": {
-      "formatting": {
-        "command": ["alejandra"]
-      }
-    }
-  },
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },

@@ -33,11 +33,13 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     echo "#!${pkgs.runtimeShell}" >> bumper
-    echo "${pkgs.lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-      "errexit"
-      "nounset"
-      "pipefail"
-    ]}" >> bumper
+    echo "${
+      pkgs.lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
+        "errexit"
+        "nounset"
+        "pipefail"
+      ]
+    }" >> bumper
     echo 'export PATH="${pkgs.lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> bumper
     tail -n +2 bumper.sh >> bumper
     chmod +x bumper

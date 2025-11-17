@@ -6,7 +6,8 @@
   nix-update-script,
   python3Packages,
   stdenv,
-}: let
+}:
+let
   pname = "opengrep";
   version = "1.11.5";
 
@@ -33,7 +34,9 @@
     pname = "${pname}-core";
     inherit version;
 
-    src = binaries."${stdenv.hostPlatform.system}" or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+    src =
+      binaries."${stdenv.hostPlatform.system}"
+        or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -48,80 +51,80 @@
     '';
   };
 in
-  python3Packages.buildPythonApplication {
-    inherit core pname version;
-    pyproject = true;
+python3Packages.buildPythonApplication {
+  inherit core pname version;
+  pyproject = true;
 
-    src = fetchFromGitHub {
-      owner = "opengrep";
-      repo = "opengrep";
-      tag = "v${version}";
-      hash = "sha256-/dY/CC5VafxkAdGR9ZlAVoAtFmHeNvTaEBwSfOZlhi0=";
-      fetchSubmodules = true;
-    };
+  src = fetchFromGitHub {
+    owner = "opengrep";
+    repo = "opengrep";
+    tag = "v${version}";
+    hash = "sha256-/dY/CC5VafxkAdGR9ZlAVoAtFmHeNvTaEBwSfOZlhi0=";
+    fetchSubmodules = true;
+  };
 
-    build-system = with python3Packages; [
-      setuptools
-    ];
+  build-system = with python3Packages; [
+    setuptools
+  ];
 
-    pythonRelaxDeps = [
-      "boltons"
-      "defusedxml"
-      "exceptiongroup"
-      "glom"
-      "rich"
-      "tomli"
-      "wcmatch"
-    ];
+  pythonRelaxDeps = [
+    "boltons"
+    "defusedxml"
+    "exceptiongroup"
+    "glom"
+    "rich"
+    "tomli"
+    "wcmatch"
+  ];
 
-    dependencies = with python3Packages; [
-      attrs
-      boltons
-      click
-      click-option-group
-      colorama
-      defusedxml
-      exceptiongroup
-      glom
-      jaraco-text
-      jsonschema
-      packaging
-      peewee
-      protobuf
-      requests
-      rich
-      ruamel-yaml
-      tomli
-      tqdm
-      typing-extensions
-      urllib3
-      wcmatch
-    ];
+  dependencies = with python3Packages; [
+    attrs
+    boltons
+    click
+    click-option-group
+    colorama
+    defusedxml
+    exceptiongroup
+    glom
+    jaraco-text
+    jsonschema
+    packaging
+    peewee
+    protobuf
+    requests
+    rich
+    ruamel-yaml
+    tomli
+    tqdm
+    typing-extensions
+    urllib3
+    wcmatch
+  ];
 
-    postPatch = ''
-      cd cli
-    '';
+  postPatch = ''
+    cd cli
+  '';
 
-    preFixup = ''
-      makeWrapperArgs+=(--prefix PATH : ${core}/bin)
-    '';
+  preFixup = ''
+    makeWrapperArgs+=(--prefix PATH : ${core}/bin)
+  '';
 
-    passthru = {
-      updateScript = lib.concatStringsSep " " (nix-update-script {
-        extraArgs = [
-          "--commit"
-          "--subpackage core"
-          "${pname}"
-        ];
-      });
-    };
+  passthru = {
+    updateScript = lib.concatStringsSep " " (nix-update-script {
+      extraArgs = [
+        "--commit"
+        "--subpackage core"
+        "${pname}"
+      ];
+    });
+  };
 
-    meta = {
-      homepage = "https://github.com/opengrep/opengrep";
-      mainProgram = "opengrep";
-      changelog = "https://github.com/opengrep/opengrep/releases/tag/v${version}";
-      description = "Static code analysis engine to find security issues in code";
-      license = lib.licenses.lgpl21Plus;
-      platforms = lib.attrNames binaries;
-    };
-  }
+  meta = {
+    homepage = "https://github.com/opengrep/opengrep";
+    mainProgram = "opengrep";
+    changelog = "https://github.com/opengrep/opengrep/releases/tag/v${version}";
+    description = "Static code analysis engine to find security issues in code";
+    license = lib.licenses.lgpl21Plus;
+    platforms = lib.attrNames binaries;
+  };
+}
