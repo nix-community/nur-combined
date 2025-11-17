@@ -39,7 +39,7 @@ jobs:
         run: |
           # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
           timestamp=$(date +%s)
-          printf '%s=%s\n' "branch_name" "update-tables-$timestamp" >> "$GITHUB_OUTPUT"
+          printf '%s=%s\n' "branch_name" "update-flake-$timestamp" >> "$GITHUB_OUTPUT"
 
       - name: Generate GitHub App Token
         id: gen-token
