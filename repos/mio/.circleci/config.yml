@@ -1,0 +1,26 @@
+version: 2.1
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
+
+orbs:
+  nix: eld/nix@1.1.1
+jobs:
+  build:
+    docker:
+      - image: cimg/base:current
+        environment:
+          CACHIX_NAME: mio
+    steps:
+      - nix/install
+      - checkout
+      - run:
+          name: Set up Cachix
+          command: |
+            nix-env -iA nixpkgs.cachix nixpkgs.bash
+            cachix use $CACHIX_NAME
+      - run: cachix watch-exec $CACHIX_NAME -- nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached --max-jobs 1 --cores 0 --keep-going ci.nix -A cacheOutputs
+
