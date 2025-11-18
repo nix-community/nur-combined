@@ -623,13 +623,13 @@
   };
   helium-linux = {
     pname = "helium-linux";
-    version = "0.6.5.1";
+    version = "0.6.6.1";
     src = fetchFromGitHub {
       owner = "imputnet";
       repo = "helium-linux";
-      rev = "0.6.5.1";
+      rev = "0.6.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-H2razH0DgzPRGT4sBu7BEX8zoeQJwiG5soS8IrXSgGU=";
+      sha256 = "sha256-1qhDgC/46B2mJiVCgb4DmRJy8ymtBCpC6A0ts4qps54=";
     };
   };
   helium-macos = {
@@ -715,7 +715,7 @@
     version = "1.17.7b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-kYxmTJ7GJvQ3LUaLIq8opD6q2C/qlKBcG1bjbPyKOiY=";
+      sha256 = "sha256-kZMtLCiBYjlWTMgSOewjpNE5Q7/FHgopAMzaql3tCeE=";
     };
   };
 }
