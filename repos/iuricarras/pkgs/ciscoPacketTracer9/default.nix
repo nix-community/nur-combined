@@ -47,16 +47,36 @@
       runHook postUnpack
     '';
   };
+
+  src = "${unwrapped}/opt/pt/packettracer.AppImage";
+
+  appimageContents = appimageTools.extractType2 {
+    inherit pname version src;
+
+    postExtract = ''
+      substituteInPlace $out/CiscoPacketTracer-9.0.0.desktop --replace-fail 'Exec=@EXEC_PATH@ %f' 'Exec=${pname}'
+      substituteInPlace $out/CiscoPacketTracer-9.0.0.desktop --replace-fail 'Icon=app' 'Icon=cisco-packet-tracer-9'
+    '';
+  };
 in
   appimageTools.wrapType2 rec {
-    inherit pname version;
-    src = "${unwrapped}/opt/pt/packettracer.AppImage";
+    inherit pname version src;
     extraPkgs = ps:
       with ps; [
         libpng
         libxkbfile
         brotli
       ];
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications
+      cp ${appimageContents}/CiscoPacketTracer-9.0.0.desktop $out/share/applications/
+
+      mkdir -p $out/share/icons/hicolor/48x48/apps
+      cp -r ${appimageContents}/app.png $out/share/icons/hicolor/48x48/apps/cisco-packet-tracer-9.png
+      cp -r ${appimageContents}/usr/share/icons/gnome/48x48/mimetypes $out/share/icons/hicolor/48x48/mimetypes
+      cp -r ${appimageContents}/usr/share/mime $out/share/mime
+
+    '';
     meta = {
       description = "Network simulation tool from Cisco";
       homepage = "https://www.netacad.com/courses/packet-tracer";
