@@ -325,12 +325,12 @@
             "name": null,
             "owner": "noctalia-dev",
             "repo": "noctalia-shell",
-            "rev": "v3.0.9",
-            "sha256": "sha256-mV8MNkNkahC/Z8RJGiloC9dYjOsDgM1Gx7f38wNJMEU=",
+            "rev": "v3.1.1",
+            "sha256": "sha256-uTz3JtWq+n/ozUr8N4xMYO8cpG+q57Yp9vHVEHwjQgc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.9"
+        "version": "v3.1.1"
     },
     "osc52": {
         "cargoLocks": null,
