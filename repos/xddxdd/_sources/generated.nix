@@ -521,14 +521,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "c1eed7c23545e61cc63a34f2cc26737c9d563f78";
+    version = "aecbaa705a198cac973ed29c9bcae035ec3d4ce1";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "c1eed7c23545e61cc63a34f2cc26737c9d563f78";
-      hash = "sha256-bmByAQKasqJIaX9W8M+cFQppr7ACF07TZAuXb0xgvfU=";
+      rev = "aecbaa705a198cac973ed29c9bcae035ec3d4ce1";
+      hash = "sha256-kkXI+aqmZhU/GvOLyIetONHcjSrAxddKvfuiqidG+0g=";
     };
-    date = "2025-10-30";
+    date = "2025-11-18";
   };
   etherguard = {
     pname = "etherguard";
@@ -902,20 +902,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.22.0";
+    version = "3.23.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.22.0";
-      hash = "sha256-qkataikgdRc7zkdxxR45/aCd4XRy7DxW/fXXJah3Dd4=";
+      tag = "3.23.0";
+      hash = "sha256-bEoCLyuyawYzO3e1qX3ZG8o2hpnv4394RKc/5Xigng4=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.22.0";
+    version = "3.23.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.22.0/kata-static-3.22.0-amd64.tar.zst";
-      hash = "sha256-nIoeiDKlO7uCG1ex/YvaB3wtma2yK2Vbe2pWdCOzzDo=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.23.0/kata-static-3.23.0-amd64.tar.zst";
+      hash = "sha256-O3Kg5DQkzaRgyVZhkyFla1UgSTRi08FxoY9+Tf3iLtw=";
     };
   };
   kikoplay = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7083";
+    version = "b7091";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7083";
-      hash = "sha256-jo65SSLB8s7rjkE/Rr0qax/ouxSMqpDFLtP7bBwK40o=";
+      tag = "b7091";
+      hash = "sha256-17Y7JIvHbtgZWO2tfmenPWVU6SfHkO+Elb+JkircF4Y=";
     };
   };
   loralib = {
@@ -1189,12 +1189,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.31.0";
+    version = "v1.32.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.31.0";
-      hash = "sha256-3o3iI4LGDSsF36jnrUTN3bBaM8XGCw+msIPS3WauMNQ=";
+      tag = "v1.32.0";
+      hash = "sha256-uU96l/HeQL+YeW36/WHEOCTdmA6LcDOXM94Q16q/5hA=";
     };
   };
   mtkclient = {
@@ -1867,14 +1867,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0802d2a55ef7e6b575ab1a87fee11fe3584ab7de";
+    version = "07d0e1cc67f1bbb46672c5c4c751858f34a83780";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0802d2a55ef7e6b575ab1a87fee11fe3584ab7de";
-      hash = "sha256-ixT9P6cwGxiozElWdbpDbWehgV+pN91crUg7ppjO8FA=";
+      rev = "07d0e1cc67f1bbb46672c5c4c751858f34a83780";
+      hash = "sha256-AoQUH2zWf4/BWxxO9+kir+f33TpA80bo3Ur4+/f+FdI=";
     };
-    date = "2025-11-04";
+    date = "2025-11-17";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
