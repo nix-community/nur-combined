@@ -27,7 +27,7 @@
     eza
     bat
     imagemagick
-    python313Packages.python
+    python312Packages.python
     nix-search-cli
     htop
     wget
@@ -35,14 +35,12 @@
     ffmpeg
     pandoc
     # GUI APPS
-    sqlitebrowser
     librewolf
+#    handbrake
     qbittorrent
-    telegram-desktop
     vscodium
     audacity
     ungoogled-chromium
-    thunderbird
   ] ++ (if pkgs.stdenv.isLinux then [
     # to be added..
   ] else [
@@ -51,8 +49,6 @@
     lunarfyi
     iina
     utm
-    bambu-studio
-    coreutils
   ]);
 
   home.file = {
@@ -76,7 +72,6 @@
       ignores = [
         "*.DS_Store"
         "*__pycache__/"
-        "node_modules"
       ];
       extraConfig = {
         init = { defaultBranch = "main"; };
@@ -112,7 +107,7 @@
         fi
         export LESSHISTFILE=-
         setopt interactivecomments
-        HISTORY_IGNORE='(less *|ls|la|which *|reboot|exit|git rebase*|git log*|git add*|git commit*|git push*)'
+        HISTORY_IGNORE='(less *|ls|la|which *|reboot|exit|git *)'
         ns() {pkgs=(); for x in "$@"; do pkgs+=("nixpkgs#$x"); done; nix shell "''${pkgs[@]}" }
         fortune-kind | cowsay -f koala
       '';
@@ -122,6 +117,7 @@
         ls = "eza -lh --octal-permissions --no-permissions -F";
         la = "eza -lah --octal-permissions --no-permissions --group -F";
         gc = "sudo nix-collect-garbage -d";
+        np = "";
         fix-rsa = "chmod 600 ~/.ssh/id_rsa";
         fix-lauchpad = "sudo find 2>/dev/null /private/var/folders/ -type d -name com.apple.dock.launchpad -exec rm -rf {} +; killall Dock";
         fix-ds_store = "chflags nouchg .DS_Store; rm -rf .DS_Store; pkill Finder; touch .DS_Store; chflags uchg .DS_Store";
@@ -135,7 +131,13 @@
       _NS_4445425547 = true; # Enable Debug Menu
       AppleShowAllExtensions = true; # Show file extensions
       "com.apple.mouse.tapBehavior" = 1;  # Enable trackpad tap to click
+      AppleICUForce24HourTime = 1;
     };
+    "com.apple.AppleMultitouchTrackpad" = {
+      ActuationStrength = 0;
+      Clicking = 1;
+     };
+
     # Disable .DS_Store Writing
     "com.apple.desktopservices" = {
       DSDontWriteNetworkStores = true;

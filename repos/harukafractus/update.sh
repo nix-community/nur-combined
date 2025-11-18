@@ -9,3 +9,7 @@ popd
 pushd $(dirname "$0")
 nix flake update
 popd
+
+
+# sudo spctl --master-disable
+# spctl developer-mode enable-terminal
