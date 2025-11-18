@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Freed-Wu/gdb-prompt";
-    description = "GDB plugin for powerlevel10k style prompt and WakaTime time tracking";
+    description = "GDB plugin for powerlevel10k style prompt";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;

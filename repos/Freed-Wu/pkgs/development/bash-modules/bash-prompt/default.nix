@@ -3,7 +3,7 @@
   lib,
   stdenvNoCC,
   zsh-powerlevel10k,
-  wakatime,
+  wakatime-cli,
   procps,
   git,
   ncurses
@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation {
 
   buildInputs = [
     zsh-powerlevel10k
-    wakatime
+    wakatime-cli
   ];
 
   installPhase = ''
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     sed -i -e'1,15d' \
       -e'16i. ${zsh-powerlevel10k}/share/zsh-powerlevel10k/gitstatus/gitstatus.prompt.sh' \
       -e's/has_cmd \S\+ && //' \
-      -e's|\\wakatime|${wakatime}/bin/wakatime-cli|g' \
+      -e's|\\wakatime|${wakatime-cli}/bin/wakatime-cli|g' \
       -e's|\\ps|${procps}/bin/ps|g' \
       -e's|\\git|${git}/bin/git|g' \
       -e's|\\tput|${ncurses}/bin/tput|g' \

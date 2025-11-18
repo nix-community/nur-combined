@@ -4,7 +4,7 @@
   tcl,
   tcllib,
   tclreadline,
-  wakatime,
+  wakatime-cli,
   expect,
 }:
 
@@ -24,7 +24,7 @@ tcl.mkTclDerivation rec {
     tclreadline
     tcllib
     expect
-    wakatime
+    wakatime-cli
   ];
   installPhase = ''
     install -d $out/lib
