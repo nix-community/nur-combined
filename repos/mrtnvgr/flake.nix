@@ -3,8 +3,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
     let
-      systems = [ "x86_64-linux" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {

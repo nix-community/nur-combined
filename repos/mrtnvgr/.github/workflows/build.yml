@@ -15,8 +15,8 @@ jobs:
         cachixName:
           - mrtnvgr
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
 
     runs-on: ubuntu-latest
 
@@ -37,7 +37,6 @@ jobs:
 
     - name: Setup cachix
       uses: cachix/cachix-action@v16
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
@@ -59,5 +58,4 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
