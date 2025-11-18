@@ -843,10 +843,10 @@
     };
     "aws-extend-switch-roles3" = buildFirefoxXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.0.2";
+      version = "6.0.3";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4613250/aws_extend_switch_roles3-6.0.2.xpi";
-      sha256 = "a96ac8a35aaf8766782a0af7713ed23cc785b0fdac6755e6537607bc71ee37a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621542/aws_extend_switch_roles3-6.0.3.xpi";
+      sha256 = "d2b4cdcc2b2d8cdb76d1204a97916f23c26e87b3293ec0404ff8e724dce4e842";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -1709,10 +1709,10 @@
     };
     "chrome-mask" = buildFirefoxXpiAddon {
       pname = "chrome-mask";
-      version = "7.0.1";
+      version = "8.0.0";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589979/chrome_mask-7.0.1.xpi";
-      sha256 = "52c83e0a08c2a8b46cc50609646cf92160ad971ebffaccc9193a7cba637eb99f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618461/chrome_mask-8.0.0.xpi";
+      sha256 = "a088564677248e9ab004ed91d072c7a38cf1d231710efa0bf737bda791a22170";
       meta = with lib;
       {
         homepage = "https://github.com/denschub/chrome-mask";
@@ -1972,10 +1972,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "4.0.0";
+      version = "4.2.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4594483/click_and_read-4.0.0.xpi";
-      sha256 = "4180fa19b20deb4fe1a3980bace2d5b59de683c68b2a2b2f234b50239f151138";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621548/click_and_read-4.2.0.xpi";
+      sha256 = "ed7ebf1c8b2508afe9e30f846ba4d79e80308dabe20692ec5d77bb5d785fd05c";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2654,10 +2654,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "146.0.20251114.90405";
+      version = "146.0.20251117.130030";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619597/dansk_da_language_pack-146.0.20251114.90405.xpi";
-      sha256 = "5a89bf14551fb93594a277512af112ca05f13d1365bbec15d8891ede54937875";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621651/dansk_da_language_pack-146.0.20251117.130030.xpi";
+      sha256 = "5b6239315b5f2c576ceafbf2e4c8e9d44c73ddee31011f3e2a8679d5a8d37b83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2771,10 +2771,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2545.1";
+      version = "6.2546.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4611950/dashlane-6.2545.1.xpi";
-      sha256 = "d4e1372913836276deff596e5427f5e45330116cc64bf63a083e0810fcd66a12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4616553/dashlane-6.2546.0.xpi";
+      sha256 = "b2a7b346ebb0d1d31a1e5e666339481d6a57e8db14430887f7f4bc67a0750113";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2852,10 +2852,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "146.0.20251114.90405";
+      version = "146.0.20251117.130030";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619595/deutsch_de_language_pack-146.0.20251114.90405.xpi";
-      sha256 = "66873c5bf1b1cd7bb0c54ab782bfae91f74f847719862e88bd4f3091992ffcc5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621654/deutsch_de_language_pack-146.0.20251117.130030.xpi";
+      sha256 = "c7441548c5a499426def89c83eb25f7b077b9901c7e3abf06355e9001118c752";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.1";
+      version = "2.67.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619420/dualsub-2.67.1.xpi";
-      sha256 = "67b35ce01c42b95e520fa3f9041dba42e70d6ceb1c42b149457e5ea5ad5b8deb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621269/dualsub-2.67.2.xpi";
+      sha256 = "5cf64f3a51c60d1209fc118d9838a1c358c4e3ff69e7137e4851c62fa247f826";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4103,10 +4103,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "146.0.20251114.90405";
+      version = "146.0.20251117.130030";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619554/francais_language_pack-146.0.20251114.90405.xpi";
-      sha256 = "fd01894828a1c5db7582c5cf15769850d5b67d97baf8679ecef7151adce1f434";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621697/francais_language_pack-146.0.20251117.130030.xpi";
+      sha256 = "3ab215c6085e451e1b084e3587916557a02397f8fa63d80c71d77c67a63c250c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4140,10 +4140,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "146.0.20251114.90405";
+      version = "146.0.20251117.130030";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619567/gaidhlig_language_pack-146.0.20251114.90405.xpi";
-      sha256 = "77e62a0aea857d1c7db733f1ec4902dba6df9acd1e58d7167a23ed77342a5da4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621703/gaidhlig_language_pack-146.0.20251117.130030.xpi";
+      sha256 = "a3938fbdb1c122fb9b2cc02898f96be978414199f942eadeac18f0ea77188fd6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4740,10 +4740,10 @@
     };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
-      version = "5.2.7";
+      version = "5.2.8";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589105/header_editor-5.2.7.xpi";
-      sha256 = "7edc8aa17e79dc3271fa3ece87b9c4f1ad1cc2ac68574723d565c764048fbdc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617267/header_editor-5.2.8.xpi";
+      sha256 = "b549a4c09052130089139bfe7fc05341eedf078e37a5959b04eb2ccbb2090e04";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -9831,10 +9831,10 @@
     };
     "print-friendly-pdf" = buildFirefoxXpiAddon {
       pname = "print-friendly-pdf";
-      version = "6.7.9";
+      version = "6.7.10";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614621/print_friendly_pdf-6.7.9.xpi";
-      sha256 = "be28d2518d8e14ab0c34ac9ace9ef34a4ab1420535f9af3b200641514f83f6e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618631/print_friendly_pdf-6.7.10.xpi";
+      sha256 = "d8b366ec0d0cafd8edc71945efd36073e6e875eb584a9f6f978f95dbd022cacf";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11615,10 +11615,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "146.0.20251114.90405";
+      version = "146.0.20251117.130030";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619652/scots_language_pack-146.0.20251114.90405.xpi";
-      sha256 = "5ccfe12bf78e0c891023c24dd3a8e16ca9237432e4e8b1be505a28bac736f221";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621670/scots_language_pack-146.0.20251117.130030.xpi";
+      sha256 = "d4c36563dd03fb7d2b9566d8a0660a7dc41bed9aa5bf552dba8dba8e3aa08817";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12058,10 +12058,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.3.13";
+      version = "3.3.14";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618740/simplifygmail-3.3.13.xpi";
-      sha256 = "5f95778ef7124ffa6106d4c6be0a9d1edd632ee7a4ec1d3206ac855d1cfe5a5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621776/simplifygmail-3.3.14.xpi";
+      sha256 = "83b095d6dd0f662737e3a073ebfc8b5e1ef9d6480f348cd7d482100faaaa7aa1";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14501,10 +14501,10 @@
     };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "2.3";
+      version = "2.3.1";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4524018/vimium_ff-2.3.xpi";
-      sha256 = "3da9c02f6ba1c7ae00ba85c87a7f47355904137467547e96199a455553608e9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4618554/vimium_ff-2.3.1.xpi";
+      sha256 = "2c1b861cb41939c2a26e4e60b95d1e74e465e807c2c549a30c909c1923591473";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -14675,7 +14675,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
-        description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\r\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
+        description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
         platforms = platforms.all;
@@ -15374,10 +15374,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.10.28.0";
+      version = "25.11.4.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4612366/yomitan-25.10.28.0.xpi";
-      sha256 = "219534c43b109ce38d67a9f3a8a423a3f8b374f452ba55adcb6d577846d64399";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617474/yomitan-25.11.4.0.xpi";
+      sha256 = "f3c1cbe016a2b2cd4c2d846150b149c5f684d8b95709ae0c39d48d022a06af70";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
