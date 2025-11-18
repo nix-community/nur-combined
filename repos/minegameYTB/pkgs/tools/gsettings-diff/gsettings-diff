@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BEFORE=`mktemp /tmp/gsettingsXXXXX`
+gsettings list-recursively > $BEFORE
+echo -n "Ok, recorded current settings - now do the change and press enter ..."
+read ANS
+AFTER=`mktemp /tmp/gsettingsXXXXX`
+gsettings list-recursively > $AFTER
+diff -u --color $BEFORE $AFTER
+rm $BEFORE $AFTER
