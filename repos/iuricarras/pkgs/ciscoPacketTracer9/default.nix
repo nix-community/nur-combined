@@ -56,6 +56,9 @@
     postExtract = ''
       substituteInPlace $out/CiscoPacketTracer-9.0.0.desktop --replace-fail 'Exec=@EXEC_PATH@ %f' 'Exec=${pname}'
       substituteInPlace $out/CiscoPacketTracer-9.0.0.desktop --replace-fail 'Icon=app' 'Icon=cisco-packet-tracer-9'
+
+      substituteInPlace $out/CiscoPacketTracerPtsa-9.0.0.desktop --replace-fail 'Exec=@EXEC_PATH@ -uri=%u' 'Exec=${pname} -uri=%u'
+      substituteInPlace $out/CiscoPacketTracerPtsa-9.0.0.desktop --replace-fail 'Icon=app' 'Icon=cisco-packet-tracer-9'
     '';
   };
 in
@@ -69,12 +72,13 @@ in
       ];
     extraInstallCommands = ''
       mkdir -p $out/share/applications
-      cp ${appimageContents}/CiscoPacketTracer-9.0.0.desktop $out/share/applications/
+      ln -s ${appimageContents}/CiscoPacketTracer-9.0.0.desktop $out/share/applications/
+      ln -s ${appimageContents}/CiscoPacketTracerPtsa-9.0.0.desktop $out/share/applications/
 
       mkdir -p $out/share/icons/hicolor/48x48/apps
-      cp -r ${appimageContents}/app.png $out/share/icons/hicolor/48x48/apps/cisco-packet-tracer-9.png
-      cp -r ${appimageContents}/usr/share/icons/gnome/48x48/mimetypes $out/share/icons/hicolor/48x48/mimetypes
-      cp -r ${appimageContents}/usr/share/mime $out/share/mime
+      ln -s ${appimageContents}/app.png $out/share/icons/hicolor/48x48/apps/cisco-packet-tracer-9.png
+      ln -s ${appimageContents}/usr/share/icons/gnome/48x48/mimetypes $out/share/icons/hicolor/48x48/mimetypes
+      ln -s ${appimageContents}/usr/share/mime $out/share/mime
 
     '';
     meta = {
