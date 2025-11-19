@@ -12,6 +12,7 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.11";
   propagatedBuildInputs = [
+    pip
     aiohttp
     platformdirs
     lsp-tree-sitter
