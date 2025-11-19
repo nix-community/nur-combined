@@ -3,7 +3,7 @@
   "update_type": "github",
   "repo": "imputnet/helium-linux",
   "query": "first | .tag_name",
-  "version": "0.6.5.1",
+  "version": "0.6.6.1",
   "platforms": {
     "x86_64-linux": {
       "file": "helium-{version}-x86_64.AppImage",
