@@ -1,0 +1,3 @@
+{
+  crush = ./crush/nixos.nix;
+}

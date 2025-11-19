@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}: let
-  crushOptions = import ./options.nix {inherit lib;};
+}:
+let
+  cfg = config.programs.crush;
 in {
-  options.programs.crush = {
-    enable = lib.mkEnableOption "Enable crush";
-    settings = crushOptions;
-  };
+  options = import ./options { inherit pkgs; };
 
-  config = lib.mkIf config.programs.crush.enable {
-    environment.systemPackages = [(pkgs.callPackage ../../pkgs/crush {})];
-    environment.etc."crush/crush.json" = lib.mkIf (config.programs.crush.settings != {}) {
-      text = builtins.toJSON config.programs.crush.settings;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ cfg.package ];
+    environment.etc."crush/crush.json" = lib.mkIf (cfg.settings != {}) {
+      text = builtins.toJSON cfg.settings;
       mode = "0644";
     };
   };

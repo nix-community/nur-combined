@@ -14,6 +14,8 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+
+      modules = import ./modules;
     in
     {
       legacyPackages = forAllSystems (
@@ -25,5 +27,8 @@
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
+
+      nixosModules = modules.nixos;
+      homeModules = modules.homeManager;
     };
 }

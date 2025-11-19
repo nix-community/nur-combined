@@ -1,4 +1,5 @@
-{lib}:
+{ lib }:
+
 lib.mkOption {
   type = lib.types.submodule {
     options = {
@@ -47,12 +48,12 @@ lib.mkOption {
               };
               extra_headers = lib.mkOption {
                 type = lib.types.attrsOf lib.types.str;
-                default = {};
+                default = { };
                 description = "Additional HTTP headers to send with requests";
               };
               extra_body = lib.mkOption {
                 type = lib.types.attrsOf lib.types.anything;
-                default = {};
+                default = { };
                 description = "Additional fields to include in request bodies";
               };
               models = lib.mkOption {
@@ -120,13 +121,13 @@ lib.mkOption {
                     };
                   }
                 );
-                default = [];
+                default = [ ];
                 description = "List of models available from this provider";
               };
             };
           }
         );
-        default = {};
+        default = { };
         description = "AI provider configurations";
       };
 
@@ -140,12 +141,12 @@ lib.mkOption {
               };
               args = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
-                default = [];
+                default = [ ];
                 description = "Arguments to pass to the LSP server command";
               };
               options = lib.mkOption {
                 type = lib.types.attrsOf lib.types.anything;
-                default = {};
+                default = { };
                 description = "LSP server-specific configuration options";
               };
               enabled = lib.mkOption {
@@ -156,7 +157,7 @@ lib.mkOption {
             };
           }
         );
-        default = {};
+        default = { };
         description = "Language Server Protocol configurations";
       };
 
@@ -171,12 +172,12 @@ lib.mkOption {
               };
               env = lib.mkOption {
                 type = lib.types.attrsOf lib.types.str;
-                default = {};
+                default = { };
                 description = "Environment variables to set for the MCP server";
               };
               args = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
-                default = [];
+                default = [ ];
                 description = "Arguments to pass to the MCP server command";
               };
               type = lib.mkOption {
@@ -200,13 +201,13 @@ lib.mkOption {
               };
               headers = lib.mkOption {
                 type = lib.types.attrsOf lib.types.str;
-                default = {};
+                default = { };
                 description = "HTTP headers for HTTP/SSE MCP servers";
               };
             };
           }
         );
-        default = {};
+        default = { };
         description = "Model Context Protocol server configurations";
       };
 
@@ -215,7 +216,7 @@ lib.mkOption {
           options = {
             context_paths = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [];
+              default = [ ];
               description = "Paths to files containing context information for the AI";
             };
             tui = lib.mkOption {
@@ -228,7 +229,7 @@ lib.mkOption {
                   };
                 };
               };
-              default = {};
+              default = { };
               description = "Terminal user interface options";
             };
             debug = lib.mkOption {
@@ -253,7 +254,7 @@ lib.mkOption {
             };
           };
         };
-        default = {};
+        default = { };
         description = "General application options";
       };
 
@@ -262,12 +263,12 @@ lib.mkOption {
           options = {
             allowed_tools = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [];
+              default = [ ];
               description = "List of tools that don't require permission prompts";
             };
           };
         };
-        default = {};
+        default = { };
         description = "Permission settings for tool usage";
       };
 
@@ -305,10 +306,10 @@ lib.mkOption {
             };
           }
         );
-        default = {};
+        default = { };
         description = "Model configurations";
       };
     };
   };
-  default = {};
+  default = { };
 }
