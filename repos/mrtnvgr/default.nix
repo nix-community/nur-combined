@@ -1,20 +1,7 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
-
 { pkgs ? import <nixpkgs> { } }:
 let
   p = pkgs.callPackage;
 in rec {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
   # Soundfonts
   soundfont-touhou = p ./pkgs/soundfonts/touhou { };
 
@@ -72,6 +59,15 @@ in rec {
     buildCLAP = false;
     buildStandalone = false;
   }).overrideAttrs { name = "surge-XT-vst3"; };
+
+  lsp-plugins-vst3 = (pkgs.lsp-plugins.override {
+    buildVST2 = false;
+    buildCLAP = false;
+    buildLV2 = false;
+    buildLADSPA = false;
+    buildJACK = false;
+    buildGStreamer = false;
+  }).overrideAttrs { name = "lsp-plugins-vst3"; };
 
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };

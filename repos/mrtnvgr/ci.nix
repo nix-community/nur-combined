@@ -12,7 +12,6 @@
 
 with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false);
   isCacheable = p: !((p.preferLocalBuild or false) || !(p.allowSubstitutes or true));
@@ -39,8 +38,7 @@ let
     flattenPkgs
       (listToAttrs
         (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
+          (attrNames nurAttrs)));
 
 in
 rec {
