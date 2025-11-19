@@ -27,9 +27,9 @@
 
 let
   pname = "vicinae";
-  version = "0.16.6";
+  version = "0.16.8";
 
-  srcHash = "sha256-mpZj5Nw/rKr97pATMLzO6RlTlag/ZJyvP/Mh6Ifmv2A=";
+  srcHash = "sha256-TAKv3dmc8DSlVp0LXQeLgrgfLTbQ/saQelenFUp9sP0=";
   apiDepsHash = "sha256-4OgVCnw5th2TcXszVY5G9ENr3/Y/eR2Kd45DbUhQRNk=";
   extensionManagerDepsHash = "sha256-krDFHTG8irgVk4a79LMz148drLgy2oxEoHCKRpur1R4=";
 
