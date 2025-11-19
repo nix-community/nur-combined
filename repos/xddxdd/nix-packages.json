@@ -462,7 +462,7 @@
   "legacyPackages.x86_64-linux.browser360": {
     "description": "Browser from 360",
     "pname": "browser360",
-    "version": "13.4.1000.77"
+    "version": "13.4.1100.108"
   },
   "legacyPackages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
@@ -682,7 +682,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.16"
+    "version": "2025.11.19"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -897,7 +897,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7091"
+    "version": "7100"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -927,7 +927,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
-    "version": "6.2.3"
+    "version": "6.3.0"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
@@ -4117,7 +4117,7 @@
   "legacyPackages.x86_64-linux.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
     "pname": "openssl-ech",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-11-18"
   },
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
@@ -4127,7 +4127,7 @@
   "legacyPackages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.6.0"
+    "version": "3.6.1"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -4327,7 +4327,7 @@
   "legacyPackages.x86_64-linux.python3Packages.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.13-runpod-python",
-    "version": "1.7.13"
+    "version": "1.8.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
@@ -4482,7 +4482,7 @@
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.13-runpod-python",
-    "version": "1.7.13"
+    "version": "1.8.0"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -4682,7 +4682,7 @@
   "legacyPackages.x86_64-linux.uncategorized.browser360": {
     "description": "Browser from 360",
     "pname": "browser360",
-    "version": "13.4.1000.77"
+    "version": "13.4.1100.108"
   },
   "legacyPackages.x86_64-linux.uncategorized.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
@@ -4797,7 +4797,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.16"
+    "version": "2025.11.19"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5032,7 +5032,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
     "pname": "openssl-ech",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-11-18"
   },
   "legacyPackages.x86_64-linux.uncategorized.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
@@ -5042,7 +5042,7 @@
   "legacyPackages.x86_64-linux.uncategorized.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.6.0"
+    "version": "3.6.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -5547,7 +5547,7 @@
   "packages.x86_64-linux.browser360": {
     "description": "Browser from 360",
     "pname": "browser360",
-    "version": "13.4.1000.77"
+    "version": "13.4.1100.108"
   },
   "packages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
@@ -5727,7 +5727,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.16"
+    "version": "2025.11.19"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6072,7 +6072,7 @@
   "packages.x86_64-linux.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
     "pname": "openssl-ech",
-    "version": "0-unstable-2025-05-30"
+    "version": "0-unstable-2025-11-18"
   },
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
@@ -6082,7 +6082,7 @@
   "packages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.6.0"
+    "version": "3.6.1"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -6282,7 +6282,7 @@
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.13-runpod-python",
-    "version": "1.7.13"
+    "version": "1.8.0"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
