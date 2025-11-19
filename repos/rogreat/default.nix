@@ -16,9 +16,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  goverlay = pkgs.callPackage ./pkgs/goverlay { };
   gupax = pkgs.callPackage ./pkgs/gupax { };
-  lenspect = pkgs.callPackage ./pkgs/lenspect { };
-  pascube = pkgs.callPackage ./pkgs/pascube { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
 }
