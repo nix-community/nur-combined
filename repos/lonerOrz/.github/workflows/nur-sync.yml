@@ -43,12 +43,21 @@ jobs:
       - name: Setup status branch
         run: |
           set -e
-          # 如果存在就切换，否则创建 orphan 分支
-          if git show-ref --verify --quiet refs/heads/$STATUS_BRANCH; then
-            git checkout $STATUS_BRANCH
+
+          # 拉取远程所有分支
+          git fetch --all
+
+          # 检查远程是否存在该分支
+          if git ls-remote --exit-code origin $STATUS_BRANCH >/dev/null 2>&1; then
+            echo "Remote branch exists, checking out…"
+            git checkout -B $STATUS_BRANCH origin/$STATUS_BRANCH
           else
+            echo "Remote branch does NOT exist, creating orphan…"
             git checkout --orphan $STATUS_BRANCH
-            git rm -rf .
+
+            # 删除除 .github 以外所有文件
+            find . -mindepth 1 -maxdepth 1 ! -name '.github' -exec rm -rf {} +
+
             git commit --allow-empty -m "Initialize $STATUS_BRANCH branch"
             git push --set-upstream origin $STATUS_BRANCH
           fi
