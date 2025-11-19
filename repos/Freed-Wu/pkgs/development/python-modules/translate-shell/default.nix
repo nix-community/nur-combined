@@ -12,11 +12,12 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
     aiohttp
+    # clipman
     colorama
     keyring
     langdetect
     jedi
-    pynotifier
+    notify-py
     rich
     pystardict
     repl-python-wakatime
