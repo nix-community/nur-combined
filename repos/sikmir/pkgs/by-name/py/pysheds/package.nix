@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pysheds";
-  version = "0.4";
+  version = "0.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mdbartos";
     repo = "pysheds";
     tag = version;
-    hash = "sha256-cIx/TPPLYsHEgvHtyZY5psRwqtvKQkJ/SnafT2btLBI=";
+    hash = "sha256-tWAPJ+uQdmiBl+dfV4FoVFCcozWk3xnoV+CD9Z4pMgI=";
   };
 
   build-system = with python3Packages; [ setuptools ];

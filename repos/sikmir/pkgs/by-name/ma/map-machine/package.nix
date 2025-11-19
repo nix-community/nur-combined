@@ -7,7 +7,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
-  version = "0.1.9";
+  version = "0.2.0";
   pyproject = true;
   disabled = python3Packages.pythonOlder "3.9";
 
@@ -15,10 +15,12 @@ python3Packages.buildPythonApplication rec {
     owner = "enzet";
     repo = "map-machine";
     tag = "v${version}";
-    hash = "sha256-aOfvVyTgDxh7T2oAc+S1eU9b/JjXAhfc3WfR27ECXcY=";
+    hash = "sha256-QDCbT4n8M2eJkv2uFyr9aDs16UzFG+oH/qMwpf08bfI=";
   };
 
   build-system = with python3Packages; [ setuptools ];
+
+  pythonRelaxDeps = true;
 
   dependencies = with python3Packages; [
     cairosvg
