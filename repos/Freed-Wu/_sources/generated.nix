@@ -12,6 +12,14 @@
       sha256 = "sha256-64KFbS63jyPhl4z0tsS+7vg6b2XrL2uIzhzWtOepu5k=";
     };
   };
+  clipman = {
+    pname = "clipman";
+    version = "3.3.3";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/c/clipman/clipman-3.3.3.tar.gz";
+      sha256 = "sha256-gDQdcY7z5TRAARZ+UBc7KUZRb4lwuRgDNdLeldV/QDw=";
+    };
+  };
   expect-language-server = {
     pname = "expect-language-server";
     version = "0.0.1";

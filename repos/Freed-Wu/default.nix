@@ -69,6 +69,7 @@ let
     stardict-langdao-ec-gb = callPackage ./pkgs/data/misc/stardict-langdao-ec-gb { };
     windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
 
+    clipman = callPackage ./pkgs/development/python-modules/clipman { };
     pyrime = callPackage ./pkgs/development/python-modules/pyrime { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
