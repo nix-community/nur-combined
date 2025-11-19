@@ -1,20 +1,34 @@
 {
+  stdenv,
   lib,
   pkgs,
   ...
 }:
-pkgs.buildNpmPackage rec {
+stdenv.mkDerivation rec {
   pname = "catppuccin-obsidian";
   version = "2.0.4";
 
   src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "obsidian";
-    rev = "v${version}";
-    sha256 = "sha256-fbPkZXlk+TTcVwSrt6ljpmvRL+hxB74NIEygl4ICm2U=";
+    rev = "065101797eb32eea61ef7b6690e7b9ff7cbf08d9";
+    sha256 = "sha256-sN5k263geOtJ1mOCQGM8UdmA/71OhBI5NRwGxJwd80E=";
   };
 
-  npmDepsHash = "sha256-4revqvwwk9v1AVzn4lfhbJjQHg79ix/PYTFnEQVPf1g=";
+  nativeBuildInputs = with pkgs; [
+    nodejs
+    pnpm.configHook
+  ];
+
+  buildPhase =
+    # bash
+    ''
+      runHook preBuild
+
+      pnpm run build
+
+      runHook postBuild
+    '';
 
   installPhase =
     # bash
@@ -23,6 +37,12 @@ pkgs.buildNpmPackage rec {
       cp manifest.json $out/
       cp dist/catppuccin.css $out/theme.css
     '';
+
+  pnpmDeps = pkgs.pnpm.fetchDeps {
+    fetcherVersion = 2;
+    inherit pname version src;
+    hash = "sha256-rPaN7FlYyo1lMTd+9hd6GYov68IHMAO/3YLnL4H2b/0=";
+  };
 
   meta = {
     description = "Catppuccin for Obsidian";
