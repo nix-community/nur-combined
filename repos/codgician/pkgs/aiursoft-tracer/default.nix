@@ -12,17 +12,17 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "2cb6ffc85172bee7d1758b30e46a2d3ae90edf88";
-    hash = "sha256-1uNhwiArURLLEJkM3DcWG2Fqyar72qELQ3TmH6BZIDo=";
+    rev = "71bae5c403cd08f25cb3fd5a8cc3125a1b098e66";
+    hash = "sha256-s546PXk8+uXYxdmSzJW74ilw93gY2cjQILeJ8AcDbhs=";
   };
 
-  version = "0-unstable-2025-11-12";
+  version = "0-unstable-2025-11-19";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-4okhpCCMVqdY3k4EpFV7BqUH9yz+p1n13yhrKODBYKg=";
+    npmDepsHash = "sha256-mop/3WBMPy72T1/U10kX7K+SHeJCR/ynydY0vFv54kE=";
     dontNpmBuild = true;
 
     installPhase = ''
@@ -39,11 +39,12 @@ buildDotnetModule {
     wwwroot
     ;
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.aspnetcore_10_0;
   nugetDeps = ./deps.json;
 
   projectFile = "Aiursoft.Tracer.sln";
+  enableParallelBuilding = false;
 
   postFixup = ''
     # Symlink wwwroot
