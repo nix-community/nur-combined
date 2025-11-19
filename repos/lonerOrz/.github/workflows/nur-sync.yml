@@ -1,0 +1,61 @@
+name: NUR Sync Monitor
+
+# 触发条件：fork master 新提交或手动触发
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+# 保证同一时间只运行一个实例
+concurrency:
+  group: nur-sync-monitor
+  cancel-in-progress: true
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # 获取 fork 仓库最新 commit
+      - name: Get latest fork commit
+        id: get_commit
+        run: |
+          MY_NUR_URL="https://github.com/lonerOrz/loneros-nur.git"
+          MY_REV=$(git ls-remote "$MY_NUR_URL" HEAD | awk '{print $1}')
+          echo "MY_REV=$MY_REV"
+          echo "MY_REV=$MY_REV" >> $GITHUB_ENV
+
+      # 初始标记未同步（Badge 红色）
+      - name: Mark as unsynced
+        run: |
+          echo "Marking workflow as unsynced..."
+          # 利用 continue-on-error 避免 workflow 立即失败退出
+          exit 1
+        continue-on-error: true
+
+      # 循环轮询官方 repos.json.lock
+      - name: Poll official NUR
+        run: |
+          MAX_ATTEMPTS=60     # 最多轮询 60 次
+          SLEEP_SEC=60        # 每分钟检查一次
+
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            echo "Checking official NUR lock (attempt $i)..."
+
+            OFFICIAL_REV=$(curl -sL https://raw.githubusercontent.com/nix-community/NUR/main/repos.json.lock \
+              | jq -r --arg url "$MY_NUR_URL" '.repos | to_entries[] | select(.value.url==$url) | .value.rev')
+
+            echo "Official rev: $OFFICIAL_REV"
+
+            if [ "$MY_REV" = "$OFFICIAL_REV" ]; then
+              echo "✅ Official NUR has synced fork commit!"
+              exit 0  # workflow 成功，Badge 绿色
+            fi
+
+            sleep $SLEEP_SEC
+          done
+
+          echo "❌ Official NUR did NOT sync fork commit within polling window."
+          exit 1  # workflow 失败，Badge 红色
