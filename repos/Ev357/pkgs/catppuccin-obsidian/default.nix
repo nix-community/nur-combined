@@ -5,16 +5,16 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "catppuccin-obsidian";
-  version = "2.0.3";
+  version = "2.0.4";
 
   src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "obsidian";
-    rev = "aed52f97ed682dd071131540c9f2f94282135bc8";
-    sha256 = "sha256-bjjOUVftKMImqZe8qr6K7KIFGFadWhWT/6lWFLDUQL4=";
+    rev = "v${version}";
+    sha256 = "sha256-fbPkZXlk+TTcVwSrt6ljpmvRL+hxB74NIEygl4ICm2U=";
   };
 
-  npmDepsHash = "sha256-Tj5zgt2DxKmNCKPPLqfCylKGtHuofU3GJNaRjQWe5FE=";
+  npmDepsHash = "sha256-4revqvwwk9v1AVzn4lfhbJjQHg79ix/PYTFnEQVPf1g=";
 
   installPhase =
     # bash
@@ -27,7 +27,7 @@ pkgs.buildNpmPackage rec {
   meta = {
     description = "Catppuccin for Obsidian";
     homepage = "https://github.com/catppuccin/obsidian";
-    changelog = "https://github.com/catppuccin/obsidian/releases/tag/${version}";
+    changelog = "https://github.com/catppuccin/obsidian/releases/tag/v${version}";
     license = lib.licenses.mit;
   };
 }
