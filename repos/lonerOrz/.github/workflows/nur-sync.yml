@@ -1,6 +1,6 @@
 name: NUR Sync Monitor
 
-# 触发条件：fork master 新提交或手动触发
+# 触发条件：master 有新提交或手动触发
 on:
   push:
     branches:
@@ -15,47 +15,87 @@ concurrency:
 jobs:
   check-sync:
     runs-on: ubuntu-latest
+    env:
+      MY_NUR_REPO: "https://github.com/lonerOrz/loneros-nur.git"
+      STATUS_BRANCH: "nur-sync-status"
+      STATUS_FILE: "status.json"
+      HISTORY_DAYS: 30 # 保留近 30 天历史
+      MAX_ATTEMPTS: 60 # 轮询次数
+      SLEEP_SEC: 60 # 每分钟检查一次
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      # 获取 fork 仓库最新 commit
       - name: Get latest fork commit
         id: get_commit
         run: |
-          MY_NUR_URL="https://github.com/lonerOrz/loneros-nur.git"
-          MY_REV=$(git ls-remote "$MY_NUR_URL" HEAD | awk '{print $1}')
-          echo "MY_REV=$MY_REV"
+          MY_REV=$(git ls-remote "$MY_NUR_REPO" HEAD | awk '{print $1}')
           echo "MY_REV=$MY_REV" >> $GITHUB_ENV
+          echo "Latest fork commit: $MY_REV"
 
-      # 初始标记未同步（Badge 红色）
-      - name: Mark as unsynced
+      - name: Setup Git identity
         run: |
-          echo "Marking workflow as unsynced..."
-          # 利用 continue-on-error 避免 workflow 立即失败退出
-          exit 1
-        continue-on-error: true
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      # 循环轮询官方 repos.json.lock
+      - name: Setup status branch
+        run: |
+          set -e
+          # 如果存在就切换，否则创建 orphan 分支
+          if git show-ref --verify --quiet refs/heads/$STATUS_BRANCH; then
+            git checkout $STATUS_BRANCH
+          else
+            git checkout --orphan $STATUS_BRANCH
+            git rm -rf .
+            git commit --allow-empty -m "Initialize $STATUS_BRANCH branch"
+            git push --set-upstream origin $STATUS_BRANCH
+          fi
+
+      - name: Initialize status.json
+        run: |
+          set -e
+          # 确保文件存在
+          [ -f "$STATUS_FILE" ] || echo '{"history":[]}' > "$STATUS_FILE"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          # 增加 initial 未同步记录
+          jq --arg ts "$TIMESTAMP" --arg myrev "$MY_REV" \
+             '.history += [{"timestamp": $ts, "fork_rev": $myrev, "official_rev": null, "status": "unsynced", "phase": "initial"}]' \
+             "$STATUS_FILE" > tmp.json && mv tmp.json "$STATUS_FILE"
+          git add "$STATUS_FILE"
+          git commit -m "Mark new commit as initial unsynced" || echo "No changes to commit"
+          git push origin $STATUS_BRANCH
+
       - name: Poll official NUR
         run: |
-          MAX_ATTEMPTS=60     # 最多轮询 60 次
-          SLEEP_SEC=60        # 每分钟检查一次
-
+          set -e
+          STATUS="unsynced"
           for i in $(seq 1 $MAX_ATTEMPTS); do
-            echo "Checking official NUR lock (attempt $i)..."
+            OFFICIAL_LOCK=$(mktemp)
+            curl -sL https://raw.githubusercontent.com/nix-community/NUR/main/repos.json.lock -o "$OFFICIAL_LOCK"
 
-            OFFICIAL_REV=$(curl -sL https://raw.githubusercontent.com/nix-community/NUR/main/repos.json.lock \
-              | jq -r --arg url "$MY_NUR_URL" '.repos | to_entries[] | select(.value.url==$url) | .value.rev')
+            OFFICIAL_REV=$(jq -r --arg url "$MY_NUR_REPO" \
+              '.repos.lonerOrz.rev' "$OFFICIAL_LOCK")
 
-            echo "Official rev: $OFFICIAL_REV"
+            echo "Attempt $i: official rev = $OFFICIAL_REV"
 
             if [ "$MY_REV" = "$OFFICIAL_REV" ]; then
-              echo "✅ Official NUR has synced fork commit!"
-              exit 0  # workflow 成功，Badge 绿色
+              STATUS="synced"
+              break
             fi
 
             sleep $SLEEP_SEC
           done
 
-          echo "❌ Official NUR did NOT sync fork commit within polling window."
-          exit 1  # workflow 失败，Badge 红色
+          # 更新 status.json，保留近 HISTORY_DAYS 天历史
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          jq --arg ts "$TIMESTAMP" --arg myrev "$MY_REV" --arg offrev "$OFFICIAL_REV" \
+             --arg status "$STATUS" --arg phase "polled" --argjson days $HISTORY_DAYS \
+             'def cutoff: (now - ($days*24*3600));
+              .history = (.history | map(select(.timestamp|fromdateiso8601 > cutoff)) + [{"timestamp": $ts, "fork_rev": $myrev, "official_rev": $offrev, "status": $status, "phase": $phase}])' \
+             "$STATUS_FILE" > tmp.json && mv tmp.json "$STATUS_FILE"
+
+          git add "$STATUS_FILE"
+          git commit -m "Update polled sync status ($STATUS)" || echo "No changes to commit"
+          git push origin $STATUS_BRANCH
