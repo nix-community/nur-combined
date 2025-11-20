@@ -56,13 +56,16 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-I${src}/src/libs/tgf -I${src}/src/libs/tgfdata -I${src}/src/interfaces -I${src}/src/libs/math -I${src}/src/libs/portability";
 
   postInstall = ''
-    mkdir "$out/bin"
-    for i in "$out"/games/*; do
-      echo '#!${runtimeShell}' >> "$out/bin/$(basename "$i")"
-      echo "$i"' "$@"' >> "$out/bin/$(basename "$i")"
-      chmod a+x "$out/bin/$(basename "$i")"
-    done
+    mkdir -p "$out/bin"
+    # Wrapper for main executable
+    cat > "$out/bin/speed-dreams" <<EOF
+    #!${runtimeShell}
+    export LD_LIBRARY_PATH="$out/lib/games/speed-dreams-2/lib:$out/lib"
+    exec "$out/games/speed-dreams-2" "$@"
+    EOF
+    chmod a+x "$out/bin/speed-dreams"
 
+    # Symlink for desktop icon
     mkdir -p $out/share/pixmaps/
     ln -s "$out/share/games/speed-dreams-2/data/icons/icon.png" "$out/share/pixmaps/speed-dreams-2.png"
   '';
