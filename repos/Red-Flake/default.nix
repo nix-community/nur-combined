@@ -9,7 +9,11 @@
 { pkgs ? import <nixpkgs> { } }:
 
 # automatically call packages under pkgs/
-builtins.mapAttrs (name: _: pkgs.callPackage (./pkgs + "/${name}") {}) (builtins.readDir ./pkgs)
+builtins.mapAttrs (name: _: 
+  if name == "bloodhound-ce-py" 
+  then import (./pkgs + "/${name}") { inherit pkgs; }  # call directly to use default python
+  else pkgs.callPackage (./pkgs + "/${name}") {}
+) (builtins.readDir ./pkgs)
 // {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
