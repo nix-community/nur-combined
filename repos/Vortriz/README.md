@@ -7,6 +7,8 @@
 
 | Package                                                                                                                                | Status           |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| [`batteryd`](https://github.com/Naxdy/batteryd)                                                                                        | Auto updated     |
+| [`dl`](https://github.com/Vortriz/dl)                                                                                                  | Auto updated     |
 | [`dunefetch`](https://github.com/datavorous/dunefetch)                                                                                 | Auto updated     |
 | [`HelveticaNeueCyr`](https://github.com/Vortriz/fonts)                                                                                 | Auto updated     |
 | [`goldfish`](https://github.com/sameoldlab/goldfish)                                                                                   | Auto updated     |
