@@ -73,6 +73,12 @@ jobs:
           # 确保文件存在
           [ -f "$STATUS_FILE" ] || echo '{"history":[]}' > "$STATUS_FILE"
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          # 拉取最新分支，避免 push 被拒绝
+          git fetch origin $STATUS_BRANCH
+          git checkout $STATUS_BRANCH
+          git pull --rebase origin $STATUS_BRANCH || echo "No remote changes"
+
           # 增加 initial 未同步记录
           jq --arg ts "$TIMESTAMP" --arg myrev "$MY_REV" \
              '.history += [{"timestamp": $ts, "fork_rev": $myrev, "official_rev": null, "status": "unsynced", "phase": "initial"}]' \
@@ -101,6 +107,11 @@ jobs:
 
             sleep $SLEEP_SEC
           done
+
+          # 拉取最新分支，避免 push 被拒绝
+          git fetch origin $STATUS_BRANCH
+          git checkout $STATUS_BRANCH
+          git pull --rebase origin $STATUS_BRANCH || echo "No remote changes"
 
           # 更新 status.json，保留近 HISTORY_DAYS 天历史
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
