@@ -9,7 +9,17 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { 
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+        "python-2.7.18.8"
+        "python27Full"
+        "electron-36.9.5"
+      ];
+    };
+  } 
+}:
 
 with builtins;
 let

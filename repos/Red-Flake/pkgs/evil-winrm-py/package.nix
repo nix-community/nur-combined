@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
   # Upstream only pins these three; no need to relax more.
   pythonRelaxDeps = [
     "pypsrp"
-    "prompt_toolkit"
+    "prompt-toolkit"
     "tqdm"
   ];
 
@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs =
     (with python3Packages; [
       pypsrp
-      prompt_toolkit
+      prompt-toolkit
       tqdm
       requests
     ])
