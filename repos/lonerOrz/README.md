@@ -4,7 +4,9 @@
 
 [![NUR Sync Status](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml/badge.svg)](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml)
 
-<iframe src="https://raw.githubusercontent.com/lonerOrz/loneros-nur/nur-sync-status/status.html" width="100%" height="100"></iframe>
+[NUR Sync Status Chart](https://raw.githubusercontent.com/lonerOrz/loneros-nur/nur-sync-status/status.svg)
+
+---
 
 This is my personal [NUR (Nix User Repository)](https://github.com/nix-community/NUR), created for:
 
