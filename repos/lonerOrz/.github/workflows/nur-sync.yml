@@ -56,8 +56,13 @@ jobs:
             git checkout --orphan $STATUS_BRANCH
 
             # 删除除 .github 以外所有文件
-            find . -mindepth 1 -maxdepth 1 ! -name '.github' -exec rm -rf {} +
+            find . -mindepth 1 -maxdepth 1 \
+                ! -name '.git' \
+                ! -name '.github' \
+                ! -name '.gitignore' \
+                -exec rm -rf {} +
 
+            git add .
             git commit --allow-empty -m "Initialize $STATUS_BRANCH branch"
             git push --set-upstream origin $STATUS_BRANCH
           fi
