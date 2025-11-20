@@ -17,13 +17,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "steam-optionx";
-  version = "0.6.1";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "RoGreat";
     repo = "steam-optionx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ityxGEmsmqfkufAj8ISe2BoVmOoSZf4SyxF7HjVwgrc=";
+    hash = "sha256-ACQlLQCD2AVnJc4cBCrpDMyNpW/T9ytusHpb4/H2qxM=";
   };
 
   cargoHash = "sha256-A6Eq3aAvSmg51s1jk/9nSg9QauV/ripHH2eoaDomsnk=";
