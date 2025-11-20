@@ -330,4 +330,6 @@ rec {
       mygui = mygui-next;
     }
   );
+
+  speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
 }
