@@ -15,7 +15,13 @@
 }:
 let
   stdenv = pkgs.stdenv;
-  # TODO: consider -flto , linux only, breaks on darwin
+  fixcmake =
+    x:
+    x.overrideAttrs (old: {
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+        "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+      ];
+    });
   v3Optimizations =
     if pkgs.stdenv.hostPlatform.isx86_64 then
       pkgs.stdenvAdapters.withCFlags [
@@ -308,20 +314,18 @@ rec {
   };
   # https://github.com/NixOS/nixpkgs/pull/461412
   shell-gpt = pkgs.callPackage ./pkgs/shell-gpt/package.nix { };
-  /*
-    mygui = v3overrideAttrs (
-      pkgs.mygui.overrideAttrs (old: {
-        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-          "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-        ];
-      })
-    );
-  */
+
+  mygui-next = (
+    fixcmake (
+      pkgs.callPackage ./pkgs/mygui-next/package.nix {
+      }
+    )
+  );
   ogre-next_3 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3;
   stuntrally3 = wip (
     pkgs.callPackage ./pkgs/stuntrally3 {
       ogre-next_3 = ogre-next_3;
-      #mygui = mygui;
+      mygui = mygui-next;
     }
   );
 }

@@ -27,10 +27,12 @@ let
       "-DOGRE_RESOURCEMANAGER_STRICT=0"
     ];
   });
-  stuntrally_mygui = mygui.override {
-    #withOgre = true;
-    #ogre = stuntrally_ogre;
-  };
+  stuntrally_mygui = (
+    mygui.override {
+      withOgre = true;
+      ogre = stuntrally_ogre;
+    }
+  );
 in
 
 stdenv.mkDerivation rec {
