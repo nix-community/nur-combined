@@ -29,27 +29,6 @@
     },
     "version": "4.9.0"
   },
-  "ayugram-desktop": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "ayugram-desktop",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": true,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "AyuGram",
-      "repo": "AyuGramDesktop",
-      "rev": "v6.2.4",
-      "sha256": "sha256-bFGk8lqPlNlaxbrulYe0+8ayj33frctruce3/TZ+W2c=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v6.2.4"
-  },
   "danmakufactory": {
     "cargoLocks": null,
     "date": null,

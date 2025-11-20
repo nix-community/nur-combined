@@ -20,17 +20,6 @@
       sha256 = "sha256-fY8lobsRg2nDENYDY3R81zJ2x0Fr29vJccrelbdggmg=";
     };
   };
-  ayugram-desktop = {
-    pname = "ayugram-desktop";
-    version = "v6.2.4";
-    src = fetchFromGitHub {
-      owner = "AyuGram";
-      repo = "AyuGramDesktop";
-      rev = "v6.2.4";
-      fetchSubmodules = true;
-      sha256 = "sha256-bFGk8lqPlNlaxbrulYe0+8ayj33frctruce3/TZ+W2c=";
-    };
-  };
   danmakufactory = {
     pname = "danmakufactory";
     version = "v1.70";
