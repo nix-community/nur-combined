@@ -8,11 +8,6 @@ fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$v
 src.github = "algerkong/AlgerMusicPlayer"
 src.prefix = "v"
 
-[ayugram-desktop]
-fetch.github = "AyuGram/AyuGramDesktop"
-git.fetchSubmodules = true
-src.github = "AyuGram/AyuGramDesktop"
-
 [danmakufactory]
 fetch.github = "hihkm/DanmakuFactory"
 src.github = "hihkm/DanmakuFactory"

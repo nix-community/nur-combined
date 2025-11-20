@@ -10,11 +10,6 @@ in
 rec {
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
-  ayugram-desktop = pkgs.callPackage ./ayugram-desktop rec {
-    sources = fetchedSrc.ayugram-desktop;
-    version = stableVersion sources;
-  };
-
   danmakufactory = pkgs.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;
