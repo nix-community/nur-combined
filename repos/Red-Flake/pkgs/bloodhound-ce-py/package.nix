@@ -11,7 +11,7 @@ let
   py = python;
   pkgsP = py.pkgs;
 in
-pkgsP.buildPythonApplication rec {
+pkgsP.buildPythonPackage rec {
   pname = "bloodhound-ce-py";
   version = pyRev;
 

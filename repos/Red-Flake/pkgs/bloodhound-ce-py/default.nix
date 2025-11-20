@@ -1,9 +1,10 @@
 {
   pkgs ? import <nixpkgs> { },
+  python ? pkgs.python312, # Make python parameterizable
 }:
 pkgs.callPackage ./package.nix {
-  # pin to Python 3.12
-  python = pkgs.python312;
+  # use the passed python parameter instead of hardcoded pkgs.python312
+  python = python;
   # use the latest commit on the bloodhound-ce branch:
   # https://github.com/dirkjanm/BloodHound.py/commit/ebcff847c2c3cd8c277bea7b01301920194d14f4
   pyRev = "ebcff847c2c3cd8c277bea7b01301920194d14f4";
