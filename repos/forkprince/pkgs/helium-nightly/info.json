@@ -3,15 +3,15 @@
   "update_type": "github",
   "repo": "imputnet/helium-linux",
   "query": "first | .tag_name",
-  "version": "0.6.6.1",
+  "version": "0.6.7.1",
   "platforms": {
     "x86_64-linux": {
       "file": "helium-{version}-x86_64.AppImage",
-      "hash": "sha256-EHhIwNnLm7sTlbm5+OTWQl2FGnb1iaAD8S7P5RtIPu4="
+      "hash": "sha256-fZTBNhaDk5EeYcxZDJ83tweMZqtEhd7ws8AFUcHjFLs="
     },
     "aarch64-linux": {
       "file": "helium-{version}-arm64.AppImage",
-      "hash": "sha256-5l7oWs7ktJAjsuDoPd/tv0t1H9vJvCJ+s34H+wEB9go="
+      "hash": "sha256-daIKkKrDR+HZq4dbGL8E92eHVE277TvdqxbvTAWZDvM="
     }
   }
 }
