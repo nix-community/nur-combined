@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7100";
+    version = "b7109";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7100";
-      hash = "sha256-6vQS5OO9/k/S5xg6Kcar/uokLSOLLzQzB7jw6Di9BNM=";
+      tag = "b7109";
+      hash = "sha256-KeE5c0PzEu+4UsdXTHhWBYw1w/MaRoV+NziTWdBIDHk=";
     };
   };
   loralib = {
@@ -1179,12 +1179,12 @@
   };
   metee = {
     pname = "metee";
-    version = "6.0.2";
+    version = "6.1.0";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "metee";
-      tag = "6.0.2";
-      hash = "sha256-eQpw0VdO+JGtgW4FGduoxY0Gji4hFPSONcEzDRcgWGU=";
+      tag = "6.1.0";
+      hash = "sha256-ybTi4pFZAkoO6FAyUOLK+ZbTQb7uwu/sqhYxo06SE9A=";
     };
   };
   modelscope = {
@@ -1925,22 +1925,22 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "v1.8.0";
+    version = "v1.8.1";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      tag = "v1.8.0";
-      hash = "sha256-En9p1Rp6LiYb0uxGrYyif3DpZ0sgcQ+WHyRhq9weNHU=";
+      tag = "v1.8.1";
+      hash = "sha256-bc7VQJf7ertyppy34o7OoKB0M+MYweLu5LRGndvn6y8=";
     };
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v1.14.11";
+    version = "v1.14.12";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v1.14.11";
-      hash = "sha256-RXI1NAdEg5QypRDXg0NCpHLDrxcRCCS22KGnZyotXrI=";
+      tag = "v1.14.12";
+      hash = "sha256-T0JFPoaH6UhgPMzo+491EUBmjgko1WXP1erMGKc3N5w=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2049,7 +2049,7 @@
     src = fetchurl {
       url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
       name = "svp4-linux.tar.bz2";
-      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
+      hash = "sha256-+qkWi+YYeCTp4A98wrKQIA25uLPY/S8PRb1um3QmYzM=";
     };
   };
   sx1302-hal = {

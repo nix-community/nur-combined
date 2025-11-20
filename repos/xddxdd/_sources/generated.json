@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7100",
-            "sha256": "sha256-6vQS5OO9/k/S5xg6Kcar/uokLSOLLzQzB7jw6Di9BNM=",
+            "rev": "b7109",
+            "sha256": "sha256-KeE5c0PzEu+4UsdXTHhWBYw1w/MaRoV+NziTWdBIDHk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7100"
+        "version": "b7109"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2302,12 +2302,12 @@
             "name": null,
             "owner": "intel",
             "repo": "metee",
-            "rev": "6.0.2",
-            "sha256": "sha256-eQpw0VdO+JGtgW4FGduoxY0Gji4hFPSONcEzDRcgWGU=",
+            "rev": "6.1.0",
+            "sha256": "sha256-ybTi4pFZAkoO6FAyUOLK+ZbTQb7uwu/sqhYxo06SE9A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.0.2"
+        "version": "6.1.0"
     },
     "modelscope": {
         "cargoLocks": null,
@@ -3768,12 +3768,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpod-python",
-            "rev": "v1.8.0",
-            "sha256": "sha256-En9p1Rp6LiYb0uxGrYyif3DpZ0sgcQ+WHyRhq9weNHU=",
+            "rev": "v1.8.1",
+            "sha256": "sha256-bc7VQJf7ertyppy34o7OoKB0M+MYweLu5LRGndvn6y8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.0"
+        "version": "v1.8.1"
     },
     "runpodctl": {
         "cargoLocks": null,
@@ -3789,12 +3789,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v1.14.11",
-            "sha256": "sha256-RXI1NAdEg5QypRDXg0NCpHLDrxcRCCS22KGnZyotXrI=",
+            "rev": "v1.14.12",
+            "sha256": "sha256-T0JFPoaH6UhgPMzo+491EUBmjgko1WXP1erMGKc3N5w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.11"
+        "version": "v1.14.12"
     },
     "sam-toki-mouse-cursors": {
         "cargoLocks": null,
@@ -4003,7 +4003,7 @@
         "pinned": false,
         "src": {
             "name": "svp4-linux.tar.bz2",
-            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
+            "sha256": "sha256-+qkWi+YYeCTp4A98wrKQIA25uLPY/S8PRb1um3QmYzM=",
             "type": "url",
             "url": "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },
