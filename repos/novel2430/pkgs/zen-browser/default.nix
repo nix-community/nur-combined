@@ -31,13 +31,13 @@
 }:
 let
   pname = "zen-browser-bin";
-  version = "1.17.6b";
+  version = "1.17.7b";
 
   _pname = "zen-browser";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz";
-    hash = "sha256-IkewJI+fpECNu6LgIY5LRL7bnLlrV5Bo+tzwT1nQrM4=";
+    hash = "sha256-KmHwFGuHBIWJbKJV+u+SqmClHaPlT66KjEjZndmQWfk=";
   };
 
   libs = [
