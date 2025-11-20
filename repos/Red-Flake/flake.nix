@@ -20,7 +20,16 @@
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = [
+                "python-2.7.18.8"
+                "python27Full"
+              ];
+            };
+          };
         }
       );
 
