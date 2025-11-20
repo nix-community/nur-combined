@@ -62,6 +62,22 @@
       sha256 = "sha256-XezfqwwKygUQcu/J6NtTFJHcKacy4xYSXzCWmLZg6Cw=";
     };
   };
+  imfile-arm = {
+    pname = "imfile-arm";
+    version = "1.1.2";
+    src = fetchurl {
+      url = "https://github.com/imfile-io/imfile-desktop/releases/download/v1.1.2/imFile-1.1.2-arm64.AppImage";
+      sha256 = "sha256-l5htATu2ADr2BIEZ6VQeW5fdnPmTTqluMYP99hfIzOk=";
+    };
+  };
+  imfile-x86 = {
+    pname = "imfile-x86";
+    version = "1.1.2";
+    src = fetchurl {
+      url = "https://github.com/imfile-io/imfile-desktop/releases/download/v1.1.2/imFile-1.1.2.AppImage";
+      sha256 = "sha256-gtyeB66w5kBp92bjYPjtVNOuTVvu8uWfzHwc0fcocvw=";
+    };
+  };
   jaq = {
     pname = "jaq";
     version = "v3.0.0-alpha";

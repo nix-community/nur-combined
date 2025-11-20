@@ -27,6 +27,16 @@ fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/dow
 src.github = "Digger1955/dxvk-gplasync-lowlatency"
 src.prefix = "DXVK-GPLALL-"
 
+[imfile-arm]
+fetch.url = "https://github.com/imfile-io/imfile-desktop/releases/download/v$ver/imFile-$ver-arm64.AppImage"
+src.github = "imfile-io/imfile-desktop"
+src.prefix = "v"
+
+[imfile-x86]
+fetch.url = "https://github.com/imfile-io/imfile-desktop/releases/download/v$ver/imFile-$ver.AppImage"
+src.github = "imfile-io/imfile-desktop"
+src.prefix = "v"
+
 [jaq]
 cargo_locks = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"
