@@ -315,13 +315,15 @@ rec {
   # https://github.com/NixOS/nixpkgs/pull/461412
   shell-gpt = pkgs.callPackage ./pkgs/shell-gpt/package.nix { };
 
-  mygui-next = (
+  mygui-next = x8664linux (
     fixcmake (
       pkgs.callPackage ./pkgs/mygui-next/package.nix {
       }
     )
   );
-  ogre-next_3 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3;
+  ogre-next_3 = x8664linux (
+    v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
+  );
   stuntrally3 = wip (
     pkgs.callPackage ./pkgs/stuntrally3 {
       ogre-next_3 = ogre-next_3;
