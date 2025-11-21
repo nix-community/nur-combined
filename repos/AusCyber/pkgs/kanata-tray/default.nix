@@ -6,6 +6,7 @@
   makeWrapper,
   libayatana-appindicator,
   gtk3,
+  pkg-config,
   stdenv,
   source,
 }:
@@ -30,7 +31,7 @@ buildGoModule (finalAttrs: {
     "-X main.buildVersion=${finalAttrs.version}"
     "-X main.buildHash=${finalAttrs.src.rev}"
   ];
-
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
   buildInputs = [
     makeWrapper
   ]
