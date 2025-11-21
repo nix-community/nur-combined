@@ -63,7 +63,7 @@ jobs:
         uses: ryanccn/attic-action@v0
         continue-on-error: true
         with:
-          endpoint: https://attic.hetzner-de.xuyh0120.win
+          endpoint: https://attic.colocrossing.xuyh0120.win
           cache: lantian
           token: ${{ secrets.ATTIC_TOKEN }}
 
