@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "16wiqh6j9yqd6pw313lgq7i7sq0papsgd3kb06ynj1bm2bh8bzxh";
-    aarch64-linux = "03fmjrgd90vxznjxvzr5h67ggrdvx4y5swajg6yclrizs9388sys";
-    x86_64-darwin = "1gqdjqsbd7x0giy87bkv24zl0lfphp22gw4hzvbpyzrhwfh72ypw";
-    aarch64-darwin = "1nyh20z3l9i6w6pq469pq3im748y6ikncgxr2pccnlv7b14ygqzr";
+    x86_64-linux = "1lwrjlga694nw6v44fqf7hx7ryp4c6gsa17cvy9y08fcgaix0ghv";
+    aarch64-linux = "1wdyq6cwg86vwdaib5d3nvkkwx7hjbb1hj3dacqbsqxdr0j5z4sb";
+    x86_64-darwin = "02dgzkcig4nrsdc12lhqpb1b2wjn7d07xsziqjdawv6k5lxrl1mh";
+    aarch64-darwin = "1v65iqin00dhi00chzgili387ljrkzki5w3k3sha8r5kb5b2csgk";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/715d/unusedfunc/releases/download/v0.1.0/unusedfunc-0.1.0-linux-amd64.tar.gz";
-    aarch64-linux = "https://github.com/715d/unusedfunc/releases/download/v0.1.0/unusedfunc-0.1.0-linux-arm64.tar.gz";
-    x86_64-darwin = "https://github.com/715d/unusedfunc/releases/download/v0.1.0/unusedfunc-0.1.0-darwin-amd64.tar.gz";
-    aarch64-darwin = "https://github.com/715d/unusedfunc/releases/download/v0.1.0/unusedfunc-0.1.0-darwin-arm64.tar.gz";
+    x86_64-linux = "https://github.com/715d/unusedfunc/releases/download/v0.2.0/unusedfunc-0.2.0-linux-amd64.tar.gz";
+    aarch64-linux = "https://github.com/715d/unusedfunc/releases/download/v0.2.0/unusedfunc-0.2.0-linux-arm64.tar.gz";
+    x86_64-darwin = "https://github.com/715d/unusedfunc/releases/download/v0.2.0/unusedfunc-0.2.0-darwin-amd64.tar.gz";
+    aarch64-darwin = "https://github.com/715d/unusedfunc/releases/download/v0.2.0/unusedfunc-0.2.0-darwin-arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "unusedfunc";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -45,7 +45,6 @@ stdenvNoCC.mkDerivation {
     description = "Go linter detecting unused functions with /internal awareness";
     homepage = "https://github.com/715d/unusedfunc";
     license = lib.licenses.bsd3;
-    mainProgram = "unusedfunc";
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
