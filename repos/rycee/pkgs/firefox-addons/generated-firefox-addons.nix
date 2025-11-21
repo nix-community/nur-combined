@@ -2888,14 +2888,14 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.2.0";
+      version = "6.3.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615928/dictionaries-6.2.0.xpi";
-      sha256 = "4f74542d15868574a2b94c95e923339be90c9e707529466b302d0972857cee1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4624317/dictionaries-6.3.0.xpi";
+      sha256 = "f0c09f388c7540a9e19bbdd670aa456f6c5195f42685a9902ae92245b49da862";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
-        description = "A customizable dictionary extension that supports double-click lookups in 20+ languages, hundreds of dictionaries, and anki integration.";
+        description = "A customizable dictionary extension that supports double-click lookups in 20+ languages, hundreds of dictionaries, select any text to speech and anki integration.";
         license = licenses.gpl2;
         mozPermissions = [
           "activeTab"
@@ -3546,10 +3546,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.66";
+      version = "1.3.67";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4611224/faststream-1.3.66.xpi";
-      sha256 = "8ded7ff0536f41bcea46fa3d7b5df887ca96f9b2a69a298589f0fa69570d9261";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4624209/faststream-1.3.67.xpi";
+      sha256 = "327fac21e7a849d167bb182994c0adfa7dbc88cfed1e9e6419c0974aa8b6ee4e";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -7560,10 +7560,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.12.0";
+      version = "0.12.2";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4491278/mal_sync-0.12.0.xpi";
-      sha256 = "55087d44de5af98a9b74da6ea02b3c7f2d7f45277ee181e8059d3e81ee4092b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4617271/mal_sync-0.12.2.xpi";
+      sha256 = "77e07258ef6e7245e8ddaee0e8dcca0dd8d1820f614c1b3d3b2573a2e6db5391";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -7590,47 +7590,7 @@
           "*://kitsu.app/*"
           "*://simkl.com/*"
           "*://malsync.moe/pwa*"
-          "*://*.crunchyroll.com/*"
           "*://mangadex.org/*"
-          "*://*.gogoanime.tv/*"
-          "*://*.gogoanime.io/*"
-          "*://*.gogoanime.in/*"
-          "*://*.gogoanime.se/*"
-          "*://*.gogoanime.sh/*"
-          "*://*.gogoanime.video/*"
-          "*://*.gogoanime.movie/*"
-          "*://*.gogoanime.so/*"
-          "*://*.gogoanime.ai/*"
-          "*://*.gogoanime.vc/*"
-          "*://*.gogoanime.pe/*"
-          "*://*.gogoanime.wiki/*"
-          "*://*.gogoanime.cm/*"
-          "*://*.gogoanime.film/*"
-          "*://*.gogoanime.fi/*"
-          "*://*.gogoanime.gg/*"
-          "*://*.gogoanime.sk/*"
-          "*://*.gogoanime.lu/*"
-          "*://*.gogoanime.tel/*"
-          "*://*.gogoanime.ee/*"
-          "*://*.gogoanime.dk/*"
-          "*://*.gogoanime.ar/*"
-          "*://*.gogoanime.bid/*"
-          "*://*.gogoanimes.co/*"
-          "*://*.animego.to/*"
-          "*://*.gogoanime.gr/*"
-          "*://*.gogoanime.llc/*"
-          "*://*.gogoanime.cl/*"
-          "*://*.gogoanime.hu/*"
-          "*://*.gogoanime.vet/*"
-          "*://*.gogoanimehd.to/*"
-          "*://*.gogoanime3.net/*"
-          "*://*.gogoanimehd.io/*"
-          "*://*.anitaku.to/*"
-          "*://*.anitaku.so/*"
-          "*://*.gogoanime3.co/*"
-          "*://*.anitaku.pe/*"
-          "*://*.gogoanime3.cc/*"
-          "*://*.anitaku.bz/*"
           "*://*.www.turkanime.tv/video/*"
           "*://*.www.turkanime.tv/anime/*"
           "*://*.www.turkanime.net/video/*"
@@ -7641,12 +7601,6 @@
           "*://app.emby.tv/*"
           "*://app.plex.tv/*"
           "*://www.netflix.com/*"
-          "*://animepahe.com/play/*"
-          "*://animepahe.com/anime/*"
-          "*://animepahe.ru/play/*"
-          "*://animepahe.ru/anime/*"
-          "*://animepahe.org/play/*"
-          "*://animepahe.org/anime/*"
           "*://*.animeflv.net/anime/*"
           "*://*.animeflv.net/ver/*"
           "*://jkanime.net/*"
@@ -7662,6 +7616,7 @@
           "*://*.kickassanimes.io/*"
           "*://*.kickassanime.mx/*"
           "*://*.kaa.mx/*"
+          "*://*.kaa.to/*"
           "*://shinden.pl/episode/*"
           "*://shinden.pl/series/*"
           "*://shinden.pl/titles/*"
@@ -7765,14 +7720,11 @@
           "*://tocanimation.com/*"
           "*://letsmotorgo.com/*"
           "*://zonatmo.com/*"
-          "*://mangaplus.shueisha.co.jp/*"
           "*://*.japscan.ws/*"
           "*://www.hulu.com/*"
           "*://www.hidive.com/*"
           "*://mangakatana.com/manga/*"
           "*://*.manga4life.com/*"
-          "*://bato.to/*"
-          "*://mangapark.net/*"
           "*://animexin.vip/*"
           "*://animexin.xyz/*"
           "*://animexinax.com/*"
@@ -7798,6 +7750,8 @@
           "*://tranimeizle.co/*"
           "*://www.tranimeizle.co/*"
           "*://*.tranimeizle.top/*"
+          "*://tranimeizle.io/*"
+          "*://www.tranimeizle.io/*"
           "*://*.animestreamingfr.fr/*"
           "*://furyosociety.com/*"
           "*://www.animeid.tv/*"
@@ -7812,11 +7766,8 @@
           "*://*.mangafox.la/manga/*"
           "*://desu-online.pl/*"
           "*://wuxiaworld.site/novel/*"
-          "*://lscomic.com/*"
-          "*://en.leviatanscans.com/*"
           "*://reaperscans.com/*"
           "*://lynxscans.com/*"
-          "*://zeroscans.com/*"
           "*://reader.deathtollscans.net/*"
           "*://manhuaplus.com/manga*"
           "*://readm.org/manga/*"
@@ -7831,11 +7782,6 @@
           "*://*.okanime.tv/animes/*"
           "*://*.okanime.tv/movies/*"
           "*://bs.to/serie/*"
-          "*://asura.gg/*"
-          "*://*.asurascans.com/*"
-          "*://*.asuracomics.com/*"
-          "*://asuratoon.com/*"
-          "*://*.asuracomic.net/*"
           "*://an1me.nl/*"
           "*://an1me.to/*"
           "*://mangajar.com/manga/*"
@@ -7849,18 +7795,9 @@
           "*://cubari.moe/*"
           "*://guya.cubari.moe/*"
           "*://mangahub.io/*"
-          "*://comick.app/*"
-          "*://comick.ink/*"
-          "*://comick.cc/*"
-          "*://comick.io/*"
           "*://www.bentomanga.com/*"
           "*://bentomanga.com/*"
-          "*://mangasushi.net/manga*"
-          "*://tritinia.com/manga*"
           "*://readmanhua.net/manga*"
-          "*://flamecomics.com/*"
-          "*://flamecomics.me/*"
-          "*://flamecomics.xyz/*"
           "*://immortalupdates.com/manga*"
           "*://aniwatch.to/*"
           "*://aniwatch.nz/*"
@@ -7873,8 +7810,9 @@
           "*://hianime.pe/*"
           "*://hianimez.to/*"
           "*://hianimez.is/*"
-          "*://kitsune.tv/*"
-          "*://beta.kitsune.tv/*"
+          "*://hianime.cx/*"
+          "*://hianime.gs/*"
+          "*://hianime.do/*"
           "*://lhtranslation.net/manga*"
           "*://mangas-origines.fr/oeuvre*"
           "*://*.bluesolo.org/manga/*"
@@ -7887,9 +7825,6 @@
           "*://animeonsen.xyz/*"
           "*://www.animeonsen.xyz/*"
           "*://*.animetoast.cc/*"
-          "*://luminousscans.com/*"
-          "*://luminousscans.gg/*"
-          "*://luminous-scans.com/*"
           "*://*.animeworld.tv/play/*"
           "*://*.animeworld.so/play/*"
           "*://*.animeworld.ac/play/*"
@@ -7905,12 +7840,11 @@
           "*://animationdigitalnetwork.com/*"
           "*://aniyan.net/*"
           "*://docchi.pl/*"
-          "*://franime.fr/*"
           "*://fmteam.fr/*"
           "*://www.animelon.com/*"
           "*://animelon.com/*"
-          "*://animenosub.to/*"
           "*://anime-sama.fr/*"
+          "*://anime-sama.org/*"
           "*://mangafire.to/*"
           "*://projectsuki.com/*"
           "*://animebuff.ru/anime/*"
@@ -7933,22 +7867,11 @@
           "*://manhuaus.com/*"
           "*://*.taiyo.moe/*"
           "*://*.animesonline.in/*"
-          "*://*.miruro.to/*"
-          "*://*.miruro.tv/*"
-          "*://*.miruro.online/*"
           "*://latanime.org/*"
           "*://*.mangaread.org/manga/*"
-          "*://q1n.net/*"
           "*://templescan.net/*"
-          "*://scyllacomics.xyz/*"
-          "*://vortexscans.org/*"
-          "*://weebcentral.com/*"
           "*://demo.kavitareader.com/*"
-          "*://rawkuma.com/*"
           "*://aninexus.to/*"
-          "*://animekai.to/*"
-          "*://watch.hikaritv.xyz/*"
-          "*://hikari.gg/*"
           "*://*.anidream.cc/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
@@ -8039,6 +7962,7 @@
           "*://*.streamium.xyz/*"
           "*://kodik.info/*"
           "*://aniboom.one/*"
+          "*://x.anizium.co/*"
           "*://smotret-anime.org/translations/embed/*"
           "*://smotret-anime.online/translations/embed/*"
           "*://smotret-anime.com/translations/embed/*"
@@ -8064,6 +7988,9 @@
           "*://*.mixdrop.ms/e/*"
           "*://*.mixdrop.ps/e/*"
           "*://*.mixdrop.my/e/*"
+          "*://*.mixdrop.sn/e/*"
+          "*://*.mixdrop.cv/e/*"
+          "*://*.md3b0j6hj.com/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -8093,6 +8020,7 @@
           "*://easyload.io/e/*"
           "*://*.googleusercontent.com/gadgets/*"
           "*://animedesu.pl/player/desu.php?v=*"
+          "*://animevost.org/frame5.php?play=*"
           "*://*.plyr.link/*"
           "*://v.vvid.cc/*"
           "*://*.okanime.com/cdn/*/embed/?*"
@@ -8190,6 +8118,7 @@
           "*://saruch.co/*"
           "*://vidmoly.me/*"
           "*://vidmoly.to/*"
+          "*://vidmoly.net/*"
           "*://upstream.to/*"
           "*://abcvideo.cc/*"
           "*://aparat.cam/*"
@@ -8232,6 +8161,9 @@
           "*://diananatureforeign.com/e/*"
           "*://jonathansociallike.com/e/*"
           "*://mariatheserepublican.com/e/*"
+          "*://jilliandescribecompany.com/e/*"
+          "*://lukesitturn.com/e/*"
+          "*://mikaylaarealike.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -8300,10 +8232,12 @@
           "*://gorro-chfzoaas.fun/e/*"
           "*://gorro-chfzoaas.fun/lol/*"
           "*://z7ihwgqj.fun/*"
+          "*://pqham.com/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
           "*://animenosub.upn.one/#*"
+          "*://nova.upn.one/*"
           "*://*.streamhide.to/e/*"
           "*://megacloud.tv/*"
           "*://megacloud.club/*"
@@ -8323,13 +8257,26 @@
           "*://megaf.cc/e/*"
           "*://rogeriobetin.com/*"
           "*://nvlabs-fi-cdn.q9x.in/*"
+          "*://api.anivideo.net/*"
+          "*://listeamed.net/*"
           "*://oneupload.to/*"
           "*://player.vimeo.com/*"
           "*://fle-rvd0i9o8-moo.com/*"
           "*://dhtpre.com/*"
           "*://*.bunniescdn.online/*"
           "*://megaup.cc/e/*"
+          "*://megaup.site/e/*"
+          "*://megaup.live/e/*"
+          "*://4spromax.site/e/*"
           "*://boosterx.stream/*"
+          "*://player.zilla-networks.com/*"
+          "*://megaplay.buzz/*"
+          "*://*.anizmplayer.com/*"
+          "*://loadx.ws/*"
+          "*://odysee.com/*"
+          "*://emturbovid.com/*"
+          "*://*.upns.live/*"
+          "*://*.p2pstream.vip/*"
         ];
         platforms = platforms.all;
       };
@@ -8358,10 +8305,10 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.10.9";
+      version = "1.11.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620010/material_icons_for_github-1.10.9.xpi";
-      sha256 = "8b6c3bcbaaeffd4e00fc953024f3644b29ec2279ac9857f53301c42444dc3381";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4624505/material_icons_for_github-1.11.0.xpi";
+      sha256 = "bcc8a0d73964ee43f91bccf7b8788b5fd64a552e2d943d22ca5da4e9ef033375";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -8379,6 +8326,7 @@
           "*://gitlab.com/*"
           "*://gitee.com/*"
           "*://sourceforge.net/*"
+          "*://codeberg.org/*"
         ];
         platforms = platforms.all;
       };
@@ -15339,10 +15287,10 @@
     };
     "yang" = buildFirefoxXpiAddon {
       pname = "yang";
-      version = "2.0.5";
+      version = "2.0.6";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4616331/yang_addon-2.0.5.xpi";
-      sha256 = "2fc701b559c99f45e1f8b8cbc2497b3289b8b71e9fb34858b0eaca4fb5bf9be7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4624030/yang_addon-2.0.6.xpi";
+      sha256 = "594695cbacd94ccd2b68898996bffc6a48aa63ecd46bd20ac1fafb49b24e9e9c";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
