@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7109";
+    version = "b7122";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7109";
-      hash = "sha256-KeE5c0PzEu+4UsdXTHhWBYw1w/MaRoV+NziTWdBIDHk=";
+      tag = "b7122";
+      hash = "sha256-2Gp78v1QaIfdildYxJGdSWwNHAJB7hEEwNCo6pK/qS8=";
     };
   };
   loralib = {
@@ -1560,12 +1560,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.6.0";
+    version = "v2.7.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.6.0";
-      hash = "sha256-6U7B2uCCoSXzT5V3Q6n90PRv1gHzhfdHlI7/u2VmmYs=";
+      tag = "v2.7.0";
+      hash = "sha256-lTd+ZAem0x/TXXIAMUqTCBimPwdUYowMtR6/4K3CqeY=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -2049,7 +2049,7 @@
     src = fetchurl {
       url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
       name = "svp4-linux.tar.bz2";
-      hash = "sha256-+qkWi+YYeCTp4A98wrKQIA25uLPY/S8PRb1um3QmYzM=";
+      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
     };
   };
   sx1302-hal = {
@@ -2216,15 +2216,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "460bfb2078e0ebaad4d47268c1a021686f56c566";
+    version = "cc2dd68a5be6ad73ca0e6b3a0d3502b75dfb7925";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "460bfb2078e0ebaad4d47268c1a021686f56c566";
+      rev = "cc2dd68a5be6ad73ca0e6b3a0d3502b75dfb7925";
       fetchSubmodules = true;
-      hash = "sha256-pmmBpwTiSLGZefN0ZLQco5BBqnRlBA04XK/VOzqDZCc=";
+      hash = "sha256-HORid5s/AHcIe6O2WA1g3ZjFss8g0Cxyc82vgAHry/o=";
     };
-    date = "2025-11-15";
+    date = "2025-11-21";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

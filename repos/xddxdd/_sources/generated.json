@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7109",
-            "sha256": "sha256-KeE5c0PzEu+4UsdXTHhWBYw1w/MaRoV+NziTWdBIDHk=",
+            "rev": "b7122",
+            "sha256": "sha256-2Gp78v1QaIfdildYxJGdSWwNHAJB7hEEwNCo6pK/qS8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7109"
+        "version": "b7122"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3058,12 +3058,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.6.0",
-            "sha256": "sha256-6U7B2uCCoSXzT5V3Q6n90PRv1gHzhfdHlI7/u2VmmYs=",
+            "rev": "v2.7.0",
+            "sha256": "sha256-lTd+ZAem0x/TXXIAMUqTCBimPwdUYowMtR6/4K3CqeY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.0"
+        "version": "v2.7.0"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,
@@ -4003,7 +4003,7 @@
         "pinned": false,
         "src": {
             "name": "svp4-linux.tar.bz2",
-            "sha256": "sha256-+qkWi+YYeCTp4A98wrKQIA25uLPY/S8PRb1um3QmYzM=",
+            "sha256": "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=",
             "type": "url",
             "url": "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },
@@ -4323,7 +4323,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2025-11-15",
+        "date": "2025-11-21",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4335,12 +4335,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "460bfb2078e0ebaad4d47268c1a021686f56c566",
-            "sha256": "sha256-pmmBpwTiSLGZefN0ZLQco5BBqnRlBA04XK/VOzqDZCc=",
+            "rev": "cc2dd68a5be6ad73ca0e6b3a0d3502b75dfb7925",
+            "sha256": "sha256-HORid5s/AHcIe6O2WA1g3ZjFss8g0Cxyc82vgAHry/o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "460bfb2078e0ebaad4d47268c1a021686f56c566"
+        "version": "cc2dd68a5be6ad73ca0e6b3a0d3502b75dfb7925"
     },
     "unigine-heaven": {
         "cargoLocks": null,
