@@ -62,6 +62,9 @@ in {
     systemd.services.mealie = {
       after = ["postgresql.service"];
       requires = ["postgresql.service"];
+      serviceConfig = {
+        TimeoutStartSec = 600;
+      };
     };
 
     # Set-up database

@@ -119,7 +119,7 @@ in {
     };
 
     pleroma = {
-      enable = true;
+      enable = false;
       port = 8086;
       secretConfigFile = config.age.secrets."pleroma/pleroma-config".path;
     };
