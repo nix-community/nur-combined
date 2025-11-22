@@ -5,7 +5,6 @@
   cmake,
   liboqs,
   openssl_3,
-  python3,
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.openssl-oqs-provider) pname version src;
@@ -15,13 +14,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (
-      p: with p; [
-        jinja2
-        pyyaml
-        tabulate
-      ]
-    ))
   ];
 
   buildInputs = [
@@ -37,12 +29,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-encoder|g" oqsprov/CMakeLists.txt
     sed -i "/GIT_TAG .*/d" oqsprov/CMakeLists.txt
-
-    export LIBOQS_SRC_DIR=${sources.liboqs.src}
-    sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
-    sed -i "s/enable_kem: false/enable_kem: true/g" oqs-template/generate.yml
-    sed -i "s/enable_tls: false/enable_tls: true/g" oqs-template/generate.yml
-    python3 oqs-template/generate.py
   '';
 
   installPhase = ''
