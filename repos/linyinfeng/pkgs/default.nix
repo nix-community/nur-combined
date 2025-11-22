@@ -47,6 +47,7 @@ lib.makeScope newScope (
     niri-taskbar = callPackage ./niri-taskbar { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
+    plangothic = callPackage ./plangothic { };
     rcon-cli = callPackage ./rcon-cli { };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };

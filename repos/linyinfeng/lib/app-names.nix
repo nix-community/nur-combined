@@ -22,6 +22,7 @@ let
     (empty "fishPlugins/replay")
     (empty "libva-v4l2")
     (empty "niri-taskbar")
+    (empty "plangothic")
     (empty "rimePackages/librime")
     (empty "rimePackages/rime-bopomofo")
     (empty "rimePackages/rime-cangjie")
