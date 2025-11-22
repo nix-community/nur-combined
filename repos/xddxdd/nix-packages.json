@@ -617,7 +617,7 @@
   "legacyPackages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-18"
+    "version": "0-unstable-2025-11-22"
   },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -682,7 +682,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.19"
+    "version": "2025.11.22"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -897,7 +897,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7122"
+    "version": "7129"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4152,7 +4152,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.10"
+    "version": "9.1.0"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4357,7 +4357,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.2"
+    "version": "1.26.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -4487,7 +4487,7 @@
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
-    "version": "1.14.12"
+    "version": "1.14.14"
   },
   "legacyPackages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
@@ -4742,7 +4742,7 @@
   "legacyPackages.x86_64-linux.uncategorized.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-18"
+    "version": "0-unstable-2025-11-22"
   },
   "legacyPackages.x86_64-linux.uncategorized.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -4797,7 +4797,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.19"
+    "version": "2025.11.22"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5062,7 +5062,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.10"
+    "version": "9.1.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5192,7 +5192,7 @@
   "legacyPackages.x86_64-linux.uncategorized.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
-    "version": "1.14.12"
+    "version": "1.14.14"
   },
   "legacyPackages.x86_64-linux.uncategorized.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
@@ -5377,7 +5377,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.2"
+    "version": "1.26.0"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -5662,7 +5662,7 @@
   "packages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-18"
+    "version": "0-unstable-2025-11-22"
   },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -5727,7 +5727,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.11.19"
+    "version": "2025.11.22"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6107,7 +6107,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.0.10"
+    "version": "9.1.0"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -6287,7 +6287,7 @@
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
-    "version": "1.14.12"
+    "version": "1.14.14"
   },
   "packages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
@@ -6427,7 +6427,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.25.2"
+    "version": "1.26.0"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",

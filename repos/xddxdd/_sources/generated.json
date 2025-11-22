@@ -1003,7 +1003,7 @@
     },
     "ela-widget-tools": {
         "cargoLocks": null,
-        "date": "2025-11-18",
+        "date": "2025-11-22",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1015,12 +1015,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "aecbaa705a198cac973ed29c9bcae035ec3d4ce1",
-            "sha256": "sha256-kkXI+aqmZhU/GvOLyIetONHcjSrAxddKvfuiqidG+0g=",
+            "rev": "d8d96c95f195353c010a5ccbbd9fecc0552d916c",
+            "sha256": "sha256-CRzHjaJer7AtzBcFD9S4WcO2SGWJ5eDvKgptP+VWfMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aecbaa705a198cac973ed29c9bcae035ec3d4ce1"
+        "version": "d8d96c95f195353c010a5ccbbd9fecc0552d916c"
     },
     "etherguard": {
         "cargoLocks": null,
@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AkwLzGZe4FYLDzLySZ6iUC8iLOv/ZLU7XyQz8fkHo+M=",
+            "sha256": "sha256-S0nzD/Muk0y5lR9k6C/OUM/8cltYQE2Z3jzHEHcaYkM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.19/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.11.19"
+        "version": "2025.11.22"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MQomQd3N2uXetQBEgpeFPCUM5uiO3ypcUMbyocJmgg4=",
+            "sha256": "sha256-JXiAzKSacZM+jB6XSQOd6hQjaBThtojjxn54BjIO4cA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.19/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-City.mmdb"
         },
-        "version": "2025.11.19"
+        "version": "2025.11.22"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6U/f8KfGma2/AtWdHJ8Aiey47K3EL78G9ePuxH5GfPk=",
+            "sha256": "sha256-Nu6NGlLYA8Wm/qGsU3rp6ZkdxXL/VRqvAUhQB16mDAE=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.19/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-Country.mmdb"
         },
-        "version": "2025.11.19"
+        "version": "2025.11.22"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7122",
-            "sha256": "sha256-2Gp78v1QaIfdildYxJGdSWwNHAJB7hEEwNCo6pK/qS8=",
+            "rev": "b7129",
+            "sha256": "sha256-bKjppK1vGMtQHkccFEwPMJFeauiTybGeqaNGq5YysEg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7122"
+        "version": "b7129"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2960,11 +2960,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Bwm0rICeDeH4Mi1P/M+Qc5Rmdr3u/bRx4vsAJHsOYaI=",
+            "sha256": "sha256-QBU9PnflYBC32OdRUXsh9XD1558c4+PRhuN36ZyNdIk=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.0.10/PeerBanHelper_9.0.10.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.1.0/PeerBanHelper_9.1.0.zip"
         },
-        "version": "9.0.10"
+        "version": "9.1.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -3789,12 +3789,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v1.14.12",
-            "sha256": "sha256-T0JFPoaH6UhgPMzo+491EUBmjgko1WXP1erMGKc3N5w=",
+            "rev": "v1.14.14",
+            "sha256": "sha256-BwXHwVdR3C/3SSxGbFfB79I3FKDbbiIzl592KqfESVc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.12"
+        "version": "v1.14.14"
     },
     "sam-toki-mouse-cursors": {
         "cargoLocks": null,
@@ -4473,12 +4473,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.25.2",
-            "sha256": "sha256-9qQLBeAWi35CL4C6Lds9egIUO99iN8mFV6lZPJjsUC8=",
+            "rev": "1.26.0",
+            "sha256": "sha256-buYBGte6Rz+ZRrBKnQfJQKcSF7jfsmeRUP0deC7Ft6g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.25.2"
+        "version": "1.26.0"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,

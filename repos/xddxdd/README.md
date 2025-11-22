@@ -123,7 +123,7 @@ Or, use variables from this repository in case I change them:
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
 |  | `edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.3 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-11-18 | Fluent-UI For QT-Widget |
+|  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-11-22 | Fluent-UI For QT-Widget |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
 |  | `fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
@@ -135,7 +135,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-10-01 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.11.19 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.11.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -197,7 +197,7 @@ Or, use variables from this repository in case I change them:
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
-|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.10 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
+|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.1.0 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.3 | Web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5787 | Plangothic Project |
@@ -231,7 +231,7 @@ Or, use variables from this repository in case I change them:
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
 |  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.3.1.4 | Sipwise media proxy for Kamailio |
 |  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.8.1 | Python library for RunPod API and serverless worker SDK |
-|  | `runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.12 | RunPod CLI for pod management |
+|  | `runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.14 | RunPod CLI for pod management |
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.04 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2025-06-27 | Allow SideStore to work across all iOS devices on your local network |
@@ -255,7 +255,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `unigine-valley` | [unigine-valley](https://benchmark.unigine.com/valley) | 1.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 |  | `usque` | [usque](https://github.com/Diniboy1123/usque) | 1.4.2 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
 |  | `vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside |
-|  | `vector-quantize-pytorch` | [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) | 1.25.2 | Vector (and Scalar) Quantization, in Pytorch |
+|  | `vector-quantize-pytorch` | [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) | 1.26.0 | Vector (and Scalar) Quantization, in Pytorch |
 |  | `vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2025-07-31 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | 1113-unstable-2023-07-28 | KMS Emulator in C |
@@ -414,7 +414,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.0 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.14.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 7122 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 7129 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.2.3.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1107,7 +1107,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 4.2.1 | Super Micro Fan Control |
 |  | `python3Packages.torch-complex` | [torch-complex](https://pypi.org/project/torch-complex) | 0.4.4 | Temporal python class for PyTorch-ComplexTensor |
 |  | `python3Packages.tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2024-10-10 | TQDM progress bar helpers for logging and other headless application |
-|  | `python3Packages.vector-quantize-pytorch` | [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) | 1.25.2 | Vector (and Scalar) Quantization, in Pytorch |
+|  | `python3Packages.vector-quantize-pytorch` | [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) | 1.26.0 | Vector (and Scalar) Quantization, in Pytorch |
 |  | `python3Packages.xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
 |  | `python3Packages.xstatic-font-awesome` | [xstatic-font-awesome](https://github.com/FortAwesome/Font-Awesome) | 4.7.0.0 | Font Awesome packaged for setuptools (easy_install) / pip |
 |  | `python3Packages.xue` | [xue](https://pypi.org/project/xue/) | 0.0.34 | Minimalist web front-end framework composed of HTMX and Python |
@@ -1160,7 +1160,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `uncategorized.dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
-|  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-11-18 | Fluent-UI For QT-Widget |
+|  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2025-11-22 | Fluent-UI For QT-Widget |
 |  | `uncategorized.electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `uncategorized.etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
 |  | `uncategorized.fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
@@ -1171,7 +1171,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.11.19 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.11.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1224,7 +1224,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
-|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.0.10 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
+|  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.1.0 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `uncategorized.phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.3 | Web interface for MySQL and MariaDB |
 |  | `uncategorized.phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | Premier web-based administration tool for PostgreSQL |
 |  | `uncategorized.plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5787 | Plangothic Project |
@@ -1250,7 +1250,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
 |  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.3.1.4 | Sipwise media proxy for Kamailio |
-|  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.12 | RunPod CLI for pod management |
+|  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.14 | RunPod CLI for pod management |
 |  | `uncategorized.sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.04 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `uncategorized.sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `uncategorized.sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2025-06-27 | Allow SideStore to work across all iOS devices on your local network |
