@@ -41,6 +41,7 @@
 
                 pinned-packages = [
                     "libfprint-focaltech-2808-a658-alt"
+                    "nixos-boot-plymouth-theme"
                 ];
             in
             {
