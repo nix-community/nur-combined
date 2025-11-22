@@ -28,7 +28,8 @@ writeShellApplication {
 
     nix-update easylpac "''${args[@]}"
     pushd pkgs/easylpac
-    curl --location --output eum-registry.json https://euicc-manual.osmocom.org/docs/pki/eum/manifest-v2.json
+    # TODO 404 Not Found
+    # curl --location --output eum-registry.json https://euicc-manual.osmocom.org/docs/pki/eum/manifest-v2.json
     curl --location --output ci-registry.json  https://euicc-manual.osmocom.org/docs/pki/ci/manifest.json
     if [[ -n "$commit_message_file" ]]; then
       if ! git diff --exit-code --no-patch -- eum-registry.json; then
