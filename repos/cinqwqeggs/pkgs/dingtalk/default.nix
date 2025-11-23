@@ -75,11 +75,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "dingtalk";
-  version = "7.6.5";
+  version = "7.8.15.5102301";
   
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-0k0g74h0di2z7a1mnygpxbgwcn8qqaihcl5zn65wz3a8wnih9xph";
   };
 
   nativeBuildInputs = [
