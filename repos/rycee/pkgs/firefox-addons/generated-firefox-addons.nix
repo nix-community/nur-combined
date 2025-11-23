@@ -2864,6 +2864,21 @@
         platforms = platforms.all;
       };
     };
+    "detach-tab" = buildFirefoxXpiAddon {
+      pname = "detach-tab";
+      version = "2.0.4";
+      addonId = "claymont@mail.com_detach-tab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3738954/detach_tab-2.0.4.xpi";
+      sha256 = "c7f2e8afe695010a740d5505e8abf5a628de67796ad54d879546a0b7008fa80d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Claymont/detach-tab";
+        description = "Detach and Reattach tab with customizable keyboard shortcuts.";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" ];
+        platforms = platforms.all;
+      };
+    };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
       version = "146.0.20251121.110812";
@@ -14179,16 +14194,23 @@
     };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "uBO-Scope@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598871/ubo_scope-1.1.0.xpi";
-      sha256 = "eb1dede45459c4f0446c245186fd275ea067c792c42cee99c99b75e0a7ce325a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4626104/ubo_scope-1.2.0.xpi";
+      sha256 = "b36ef0670abb54ae09b021192167ffb5e6b5c9bf48491a68afeb20015f2310ff";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBO-Scope";
         description = "A tool to measure your 3rd-party exposure score for web sites you visit.";
         license = licenses.gpl3;
-        mozPermissions = [ "activeTab" "storage" "webNavigation" "webRequest" ];
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "webNavigation"
+          "webRequest"
+          "https://*/*"
+          "http://*/*"
+        ];
         platforms = platforms.all;
       };
     };
