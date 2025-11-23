@@ -154,6 +154,36 @@
     },
     "version": "v1.521"
   },
+  "lyrica": {
+    "cargoLocks": {
+      "Cargo.lock": [
+        "./lyrica-v0.14-1/Cargo.lock",
+        {
+          "netease-cloud-music-api-1.5.1": "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4="
+        }
+      ]
+    },
+    "date": null,
+    "extract": {
+      "plasmoid/metadata.json": "./lyrica-v0.14-1/plasmoid/metadata.json"
+    },
+    "name": "lyrica",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "chiyuki0325",
+      "repo": "lyrica",
+      "rev": "v0.14-1",
+      "sha256": "sha256-Lo3PLZaeGVw9ZbTVxC5PQ3eKBXirYz+jEGEjf3m7OLw=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v0.14-1"
+  },
   "piliplus": {
     "cargoLocks": null,
     "date": null,

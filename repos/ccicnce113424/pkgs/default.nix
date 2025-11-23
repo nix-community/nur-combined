@@ -47,6 +47,10 @@ rec {
     version = stableVersion sources;
   };
 
+  lyrica = pkgs.callPackage ./lyrica {
+    sources = fetchedSrc.lyrica;
+  };
+
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;

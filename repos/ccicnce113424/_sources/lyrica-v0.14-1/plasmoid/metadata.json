@@ -1,0 +1,25 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "me@chyk.ink",
+        "Name": "Kirikaze Chiyuki",
+        "Name[zh_CN]": "斩风千雪",
+        "Name[zh_TW]": "斬風千雪"
+      }
+    ],
+    "Category": "Multimedia",
+    "Description": "Display real-time lyrics for music players",
+    "Description[zh_CN]": "显示音乐播放器的实时歌词",
+    "Description[zh_TW]": "顯示音樂播放器的實時歌詞",
+    "Icon": "music-amarok",
+    "Id": "ink.chyk.LyricaPlasmoid",
+    "Name": "Lyrica",
+    "Version": "0.14",
+    "Website": "https://github.com/chiyuki0325/lyrica"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-MainScript": "ui/main.qml",
+  "X-Plasma-RemoteLocation": "",
+  "KPackageStructure": "Plasma/Applet"
+}

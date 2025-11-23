@@ -41,6 +41,12 @@ src.github_tag = "01mf02/jaq"
 fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
 src.github = "lxgw/LxgwWenkaiGB"
 
+[lyrica]
+cargo_locks = ["Cargo.lock"]
+extract = ["plasmoid/metadata.json"]
+fetch.github = "chiyuki0325/lyrica"
+src.github = "chiyuki0325/lyrica"
+
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

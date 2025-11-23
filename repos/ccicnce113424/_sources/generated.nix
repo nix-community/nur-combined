@@ -92,6 +92,24 @@
       sha256 = "sha256-CtL4FEBNIhj4lQWhonDY3jEfJKY/tqt9r4l3NGWUmTM=";
     };
   };
+  lyrica = {
+    pname = "lyrica";
+    version = "v0.14-1";
+    src = fetchFromGitHub {
+      owner = "chiyuki0325";
+      repo = "lyrica";
+      rev = "v0.14-1";
+      fetchSubmodules = false;
+      sha256 = "sha256-Lo3PLZaeGVw9ZbTVxC5PQ3eKBXirYz+jEGEjf3m7OLw=";
+    };
+    "plasmoid/metadata.json" = builtins.readFile ./lyrica-v0.14-1/plasmoid/metadata.json;
+    cargoLock."Cargo.lock" = {
+      lockFile = ./lyrica-v0.14-1/Cargo.lock;
+      outputHashes = {
+        "netease-cloud-music-api-1.5.1" = "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4=";
+      };
+    };
+  };
   piliplus = {
     pname = "piliplus";
     version = "1.1.5-pre8";
