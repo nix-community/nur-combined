@@ -1630,10 +1630,10 @@
     };
     "chameleon-ext" = buildFirefoxXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.77.1";
+      version = "0.22.79.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591578/chameleon_ext-0.22.77.1.xpi";
-      sha256 = "47668f11e43d751474f4ff14d291a5566ff789ac139e140192fbcad167e0517d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625824/chameleon_ext-0.22.79.1.xpi";
+      sha256 = "09d2b5ab590fb8f7294a5e3d260a5d62e3fb36f0e363e94594f01b493ac4df58";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -2888,10 +2888,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.3.0";
+      version = "6.3.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624317/dictionaries-6.3.0.xpi";
-      sha256 = "f0c09f388c7540a9e19bbdd670aa456f6c5195f42685a9902ae92245b49da862";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625468/dictionaries-6.3.1.xpi";
+      sha256 = "a0d3c87cbaab452100c5ffa6108f2165c7bb24fe486be799507d9424ee2fcfca";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3118,10 +3118,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.3";
+      version = "2.67.4";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4622314/dualsub-2.67.3.xpi";
-      sha256 = "31308eb0224df39b4d4b567f3c902cc903b0c6d73a0c6b756ed059a5b2187ffc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625427/dualsub-2.67.4.xpi";
+      sha256 = "f6f7211673a44ad73ead4b1ed77ce1bc8846a79ee9c451ae0e2eebae1a61c09e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3831,10 +3831,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.8.0";
+      version = "5.8.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620792/floccus-5.8.0.xpi";
-      sha256 = "061570c891d7d7d010bc5b83aa565dc6558f0b02003a4b92a705b357bdb58c0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625448/floccus-5.8.1.xpi";
+      sha256 = "ecf24c083ccbb93ddf25002f01034f69af17d679694a1ddf51cf14b0bb2c5c66";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -6877,10 +6877,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.11";
+      version = "2.0.12";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620886/kiss_translator-2.0.11.xpi";
-      sha256 = "c4d16a69b79640fc5ac09239b791e4c74e109b39deeac15f2801c114fef5238c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625516/kiss_translator-2.0.12.xpi";
+      sha256 = "76a583a1eb3c79f761f63e7003607705f23cef1f84554bbd8bfdb01a06f6dbfd";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -11278,10 +11278,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.11.19";
+      version = "25.11.22";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4623433/refined_github-25.11.19.xpi";
-      sha256 = "ce884bcfef6ecf0a9b5f26f2fa19f26aaa160a605b201e47f2a07467350183b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625462/refined_github-25.11.22.xpi";
+      sha256 = "8329cb9300ecf370254173d85b375481b7114137279efed87c0330e365c862b6";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
