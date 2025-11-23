@@ -377,27 +377,35 @@ in {
         '';
     }) else xgalagapp));
     
-    fpc = let
-        inherit (pkgs) lib;
-        fpcOrig = pkgs.fpc;
-        needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18" && pkgs?llvmPackages_17 && (builtins.tryEval pkgs.llvmPackages_17).success;
-        fpc = if needsOldClang then fpcOrig.override {
-            inherit (pkgs.llvmPackages_17) stdenv;
-        } else fpcOrig;
-        needsFix =
-            pkgs.stdenv.hostPlatform.isDarwin && 
-            !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
-        ;
-    in dontUpdate (myLib.addMetaAttrsDeep ({
-        description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build; dead since LLVM 17 removed from Nixpkgs)";
-        position = myPos "fpc";
-    }) (if needsFix then fpc.overrideAttrs (old: {
-        preConfigure = ''
-            NIX_LDFLAGS="-syslibroot $SDKROOT -L${lib.getLib pkgs.libiconv}/lib"
-        '' + (old.preConfigure or "");
-    }) else fpc));
+    # fpc = let
+    #     inherit (pkgs) lib;
+    #     fpcOrig = pkgs.fpc;
+    #     needsOldClang = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18" && pkgs?llvmPackages_17 && (builtins.tryEval pkgs.llvmPackages_17).success;
+    #     fpc = if needsOldClang then fpcOrig.override {
+    #         inherit (pkgs.llvmPackages_17) stdenv;
+    #     } else fpcOrig;
+    #     needsFix =
+    #         pkgs.stdenv.hostPlatform.isDarwin && 
+    #         !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
+    #     ;
+    # in dontUpdate (myLib.addMetaAttrsDeep ({
+    #     description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin, with Clang version capped at 17 to fix build; dead since LLVM 17 removed from Nixpkgs)";
+    #     position = myPos "fpc";
+    # }) (if needsFix then fpc.overrideAttrs (old: {
+    #     preConfigure = ''
+    #         NIX_LDFLAGS="-syslibroot $SDKROOT -L${lib.getLib pkgs.libiconv}/lib"
+    #     '' + (old.preConfigure or "");
+    # }) else fpc));
     
-    drl-packages = callPackage ./pkgs/drl/packages.nix {};
+    fpc-fixes_3_2 = callPackage ./pkgs/fpc-fixes_3_2 {};
+    
+    drl-packages = callPackage ./pkgs/drl/packages.nix {
+        fpc = let
+            inherit (pkgs) lib;
+            fpcOrig = pkgs.fpc;
+            fpcClangBroken = fpcOrig.stdenv.hostPlatform.isx86_64 && fpcOrig.stdenv.cc.isClang && lib.versionAtLeast fpcOrig.stdenv.cc.version "18";
+        in if fpcClangBroken then self.fpc-fixes_3_2 else fpcOrig;
+    };
     inherit (self.drl-packages) drl drl-hq drl-lq;
     
     man2html = callPackage ./pkgs/man2html {};

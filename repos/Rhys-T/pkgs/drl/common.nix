@@ -1,4 +1,4 @@
-{lib, maintainers, stdenvNoCC, buildPackages}: {
+{lib, maintainers, stdenvNoCC}: {
     meta = {
         description = "Roguelike game based on the FPS Doom";
         longDescription = ''
@@ -16,9 +16,7 @@
         maintainers = [maintainers.Rhys-T];
         broken =
             # makewad tool is run at build-time, and I haven't gotten around to separating it out yet.
-            (with stdenvNoCC; !(buildPlatform.canExecute hostPlatform)) ||
-            # FPC needs LLVM/Clang downgraded to 17, and Nixpkgs is dropping that
-            buildPackages.fpc.meta.broken
+            (with stdenvNoCC; !(buildPlatform.canExecute hostPlatform))
         ;
     };
 }

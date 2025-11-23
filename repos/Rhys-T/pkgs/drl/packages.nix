@@ -1,5 +1,7 @@
-{ lib, newScope }: let
+{ lib, newScope, fpc }: let
 in lib.makeScope newScope (self: let inherit (self) callPackage; in {
+    inherit fpc;
+    
     drl-packages = self;
     
     drl-hq = callPackage ./. { drl-audio = self.drl-audio-hq; };
