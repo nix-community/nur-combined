@@ -6,7 +6,7 @@
   pkg-config,
   openssl,
   dbus,
-  qt6Packages,
+  qt6,
 }:
 let
   metadata = builtins.fromJSON sources."plasmoid/metadata.json";
@@ -23,8 +23,6 @@ rustPlatform.buildRustPackage {
   buildInputs = [
     openssl
     dbus
-    qt6Packages.qtdeclarative
-    qt6Packages.qtwebsockets
   ];
 
   dontWrapQtApps = true;
@@ -39,6 +37,7 @@ rustPlatform.buildRustPackage {
     mkdir -p $out/$outputdir/contents/bin
     cp "target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/lyrica" $out/$outputdir/contents/bin/lyrica
     substituteInPlace $out/$outputdir/contents/ui/main.qml \
+      --replace-fail "import QtWebSockets" "import \"file:${qt6.qtwebsockets}/lib/qt-6/qml/QtWebSockets\"" \
       --replace-fail "\$HOME/.local" "$out"
 
     runHook postInstall
