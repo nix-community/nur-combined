@@ -26,6 +26,10 @@ python3Packages.buildPythonApplication rec {
     ffmpeg-progress-yield
   ];
 
+  postPatch = ''
+    sed -ie 's/requires = \["uv_build[^"]*"]/requires = ["uv_build"]/' pyproject.toml
+  '';
+
   passthru = {
     updateScript = lib.concatStringsSep " " (nix-update-script {
       extraArgs = [
