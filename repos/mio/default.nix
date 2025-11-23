@@ -11,6 +11,7 @@
     #config.permittedInsecurePackages = [
     #  "qtwebengine-5.15.19"
     #];
+    config.allowUnfree = true;
   },
 }:
 let
@@ -333,4 +334,5 @@ rec {
     );
   */
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
+  netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
 }
