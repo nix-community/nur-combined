@@ -248,7 +248,7 @@ rec {
   #aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
   #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
   #'';
-  audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
+  # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
   cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
@@ -315,21 +315,22 @@ rec {
   # https://github.com/NixOS/nixpkgs/pull/461412
   shell-gpt = pkgs.callPackage ./pkgs/shell-gpt/package.nix { };
 
-  mygui-next = x8664linux (
-    fixcmake (
-      pkgs.callPackage ./pkgs/mygui-next/package.nix {
+  /*
+    mygui-next = x8664linux (
+      fixcmake (
+        pkgs.callPackage ./pkgs/mygui-next/package.nix {
+        }
+      )
+    );
+    ogre-next_3 = x8664linux (
+      v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
+    );
+    stuntrally3 = wip (
+      pkgs.callPackage ./pkgs/stuntrally3 {
+        ogre-next_3 = ogre-next_3;
+        mygui = mygui-next;
       }
-    )
-  );
-  ogre-next_3 = x8664linux (
-    v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
-  );
-  stuntrally3 = wip (
-    pkgs.callPackage ./pkgs/stuntrally3 {
-      ogre-next_3 = ogre-next_3;
-      mygui = mygui-next;
-    }
-  );
-
+    );
+  */
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
 }
