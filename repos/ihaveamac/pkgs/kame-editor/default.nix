@@ -7,13 +7,9 @@
   rstmcpp,
   qt6,
   portaudio,
-  #vgmstream,
-  apple-sdk_11,
+  vgmstream,
 }:
 
-let
-  vgmstream = callPackage ./vgmstream.nix { };
-in
 stdenv.mkDerivation rec {
   pname = "kame-editor";
   version = "1.4.1-unstable-2025-06-04";
@@ -46,8 +42,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qt6.qtbase
     portaudio
-  ]
-  ++ lib.optional stdenv.isDarwin apple-sdk_11;
+  ];
   nativeBuildInputs = [
     qt6.qmake
     qt6.wrapQtAppsHook
