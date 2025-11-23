@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage {
   '';
 
   meta = {
-    description = "Linux desktop lyrics widget focused on simplicity and integration ";
+    description = "KDE Plasma lyrics widget focused on simplicity and integration";
     homepage = "https://github.com/chiyuki0325/lyrica";
     changelog = "https://github.com/chiyuki0325/lyrica/releases/tag/${sources.version}";
     license = lib.licenses.mit;
