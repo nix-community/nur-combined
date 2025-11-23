@@ -2459,6 +2459,20 @@
         platforms = platforms.all;
       };
     };
+    "copy-with-anchor" = buildFirefoxXpiAddon {
+      pname = "copy-with-anchor";
+      version = "2.0.1";
+      addonId = "jid1-grAPHQfoBoWMdA@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107168/copy_with_anchor-2.0.1.xpi";
+      sha256 = "60090e96c9c8d29234f84a3901fbc4381d668854f22eef48b99979fad7965568";
+      meta = with lib;
+      {
+        description = "Firefox extension that allows to right click an element and copy the page URL with the element's ID appended as an anchor. Useful if you want to keep a link to specific section of a webpage.";
+        license = licenses.mpl20;
+        mozPermissions = [ "contextMenus" "clipboardWrite" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "copywebtables" = buildFirefoxXpiAddon {
       pname = "copywebtables";
       version = "0.1.1";
@@ -3050,6 +3064,217 @@
         platforms = platforms.all;
       };
     };
+    "dont-track-me-google1" = buildFirefoxXpiAddon {
+      pname = "dont-track-me-google1";
+      version = "4.28";
+      addonId = "dont-track-me-google@robwu.nl";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132891/dont_track_me_google1-4.28.xpi";
+      sha256 = "25bc90005d6f28d53182ef48c7efcbba72b198ce67cf1f0747dbd23d43078b26";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Rob--W/dont-track-me-google";
+        description = "Removes the annoying link-conversion at Google Search / maps / ...";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "*://*.google.com/*"
+          "*://*.google.ad/*"
+          "*://*.google.ae/*"
+          "*://*.google.com.af/*"
+          "*://*.google.com.ag/*"
+          "*://*.google.com.ai/*"
+          "*://*.google.al/*"
+          "*://*.google.am/*"
+          "*://*.google.co.ao/*"
+          "*://*.google.com.ar/*"
+          "*://*.google.as/*"
+          "*://*.google.at/*"
+          "*://*.google.com.au/*"
+          "*://*.google.az/*"
+          "*://*.google.ba/*"
+          "*://*.google.com.bd/*"
+          "*://*.google.be/*"
+          "*://*.google.bf/*"
+          "*://*.google.bg/*"
+          "*://*.google.com.bh/*"
+          "*://*.google.bi/*"
+          "*://*.google.bj/*"
+          "*://*.google.com.bn/*"
+          "*://*.google.com.bo/*"
+          "*://*.google.com.br/*"
+          "*://*.google.bs/*"
+          "*://*.google.bt/*"
+          "*://*.google.co.bw/*"
+          "*://*.google.by/*"
+          "*://*.google.com.bz/*"
+          "*://*.google.ca/*"
+          "*://*.google.cd/*"
+          "*://*.google.cf/*"
+          "*://*.google.cg/*"
+          "*://*.google.ch/*"
+          "*://*.google.ci/*"
+          "*://*.google.co.ck/*"
+          "*://*.google.cl/*"
+          "*://*.google.cm/*"
+          "*://*.google.cn/*"
+          "*://*.google.com.co/*"
+          "*://*.google.co.cr/*"
+          "*://*.google.com.cu/*"
+          "*://*.google.cv/*"
+          "*://*.google.com.cy/*"
+          "*://*.google.cz/*"
+          "*://*.google.de/*"
+          "*://*.google.dj/*"
+          "*://*.google.dk/*"
+          "*://*.google.dm/*"
+          "*://*.google.com.do/*"
+          "*://*.google.dz/*"
+          "*://*.google.com.ec/*"
+          "*://*.google.ee/*"
+          "*://*.google.com.eg/*"
+          "*://*.google.es/*"
+          "*://*.google.com.et/*"
+          "*://*.google.fi/*"
+          "*://*.google.com.fj/*"
+          "*://*.google.fm/*"
+          "*://*.google.fr/*"
+          "*://*.google.ga/*"
+          "*://*.google.ge/*"
+          "*://*.google.gg/*"
+          "*://*.google.com.gh/*"
+          "*://*.google.com.gi/*"
+          "*://*.google.gl/*"
+          "*://*.google.gm/*"
+          "*://*.google.gp/*"
+          "*://*.google.gr/*"
+          "*://*.google.com.gt/*"
+          "*://*.google.gy/*"
+          "*://*.google.com.hk/*"
+          "*://*.google.hn/*"
+          "*://*.google.hr/*"
+          "*://*.google.ht/*"
+          "*://*.google.hu/*"
+          "*://*.google.co.id/*"
+          "*://*.google.ie/*"
+          "*://*.google.co.il/*"
+          "*://*.google.im/*"
+          "*://*.google.co.in/*"
+          "*://*.google.iq/*"
+          "*://*.google.is/*"
+          "*://*.google.it/*"
+          "*://*.google.je/*"
+          "*://*.google.com.jm/*"
+          "*://*.google.jo/*"
+          "*://*.google.co.jp/*"
+          "*://*.google.co.ke/*"
+          "*://*.google.com.kh/*"
+          "*://*.google.ki/*"
+          "*://*.google.kg/*"
+          "*://*.google.co.kr/*"
+          "*://*.google.com.kw/*"
+          "*://*.google.kz/*"
+          "*://*.google.la/*"
+          "*://*.google.com.lb/*"
+          "*://*.google.li/*"
+          "*://*.google.lk/*"
+          "*://*.google.co.ls/*"
+          "*://*.google.lt/*"
+          "*://*.google.lu/*"
+          "*://*.google.lv/*"
+          "*://*.google.com.ly/*"
+          "*://*.google.co.ma/*"
+          "*://*.google.md/*"
+          "*://*.google.me/*"
+          "*://*.google.mg/*"
+          "*://*.google.mk/*"
+          "*://*.google.ml/*"
+          "*://*.google.com.mm/*"
+          "*://*.google.mn/*"
+          "*://*.google.ms/*"
+          "*://*.google.com.mt/*"
+          "*://*.google.mu/*"
+          "*://*.google.mv/*"
+          "*://*.google.mw/*"
+          "*://*.google.com.mx/*"
+          "*://*.google.com.my/*"
+          "*://*.google.co.mz/*"
+          "*://*.google.com.na/*"
+          "*://*.google.com.nf/*"
+          "*://*.google.com.ng/*"
+          "*://*.google.com.ni/*"
+          "*://*.google.ne/*"
+          "*://*.google.nl/*"
+          "*://*.google.no/*"
+          "*://*.google.com.np/*"
+          "*://*.google.nr/*"
+          "*://*.google.nu/*"
+          "*://*.google.co.nz/*"
+          "*://*.google.com.om/*"
+          "*://*.google.com.pa/*"
+          "*://*.google.com.pe/*"
+          "*://*.google.com.pg/*"
+          "*://*.google.com.ph/*"
+          "*://*.google.com.pk/*"
+          "*://*.google.pl/*"
+          "*://*.google.pn/*"
+          "*://*.google.com.pr/*"
+          "*://*.google.ps/*"
+          "*://*.google.pt/*"
+          "*://*.google.com.py/*"
+          "*://*.google.com.qa/*"
+          "*://*.google.ro/*"
+          "*://*.google.ru/*"
+          "*://*.google.rw/*"
+          "*://*.google.com.sa/*"
+          "*://*.google.com.sb/*"
+          "*://*.google.sc/*"
+          "*://*.google.se/*"
+          "*://*.google.com.sg/*"
+          "*://*.google.sh/*"
+          "*://*.google.si/*"
+          "*://*.google.sk/*"
+          "*://*.google.com.sl/*"
+          "*://*.google.sn/*"
+          "*://*.google.so/*"
+          "*://*.google.sm/*"
+          "*://*.google.sr/*"
+          "*://*.google.st/*"
+          "*://*.google.com.sv/*"
+          "*://*.google.td/*"
+          "*://*.google.tg/*"
+          "*://*.google.co.th/*"
+          "*://*.google.com.tj/*"
+          "*://*.google.tk/*"
+          "*://*.google.tl/*"
+          "*://*.google.tm/*"
+          "*://*.google.tn/*"
+          "*://*.google.to/*"
+          "*://*.google.com.tr/*"
+          "*://*.google.tt/*"
+          "*://*.google.com.tw/*"
+          "*://*.google.co.tz/*"
+          "*://*.google.com.ua/*"
+          "*://*.google.co.ug/*"
+          "*://*.google.co.uk/*"
+          "*://*.google.com.uy/*"
+          "*://*.google.co.uz/*"
+          "*://*.google.com.vc/*"
+          "*://*.google.co.ve/*"
+          "*://*.google.vg/*"
+          "*://*.google.co.vi/*"
+          "*://*.google.com.vn/*"
+          "*://*.google.vu/*"
+          "*://*.google.ws/*"
+          "*://*.google.rs/*"
+          "*://*.google.co.za/*"
+          "*://*.google.co.zm/*"
+          "*://*.google.co.zw/*"
+          "*://*.google.cat/*"
+          "*://*.google.ng/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "download-with-jdownloader" = buildFirefoxXpiAddon {
       pname = "download-with-jdownloader";
       version = "0.3.6";
@@ -3118,10 +3343,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.4";
+      version = "2.67.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625427/dualsub-2.67.4.xpi";
-      sha256 = "f6f7211673a44ad73ead4b1ed77ce1bc8846a79ee9c451ae0e2eebae1a61c09e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625887/dualsub-2.67.5.xpi";
+      sha256 = "ffd980c78cff29a820e34a5201c8adac888ffd4dd47ebdea3c5ede454305ae00";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -8925,6 +9150,21 @@
         platforms = platforms.all;
       };
     };
+    "nopow" = buildFirefoxXpiAddon {
+      pname = "nopow";
+      version = "1.3";
+      addonId = "nopow@lexi.re";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4559598/nopow-1.3.xpi";
+      sha256 = "d41aa2df1254d4aaf1eb650d8cc624d2cc833bfecdc7cce094261af0da794ebc";
+      meta = with lib;
+      {
+        homepage = "https://git.gay/49016/NoPoW";
+        description = "Removes annoying Proof-of-Work/PoW captchas by changing the user-agent.";
+        license = licenses.mit;
+        mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "nord123" = buildFirefoxXpiAddon {
       pname = "nord123";
       version = "1.1";
@@ -11015,6 +11255,20 @@
           "alarms"
           "https://*.reddit.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "redirect-shorts-to-youtube" = buildFirefoxXpiAddon {
+      pname = "redirect-shorts-to-youtube";
+      version = "1.0";
+      addonId = "{3e4b8f2c-e9b5-482b-b20e-93bc9623a86c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3873915/redirect_shorts_to_youtube-1.0.xpi";
+      sha256 = "7e1d24c3e6e398c6a7f871808588afc44ffbaf599bd14ebd12369f51052ffdb6";
+      meta = with lib;
+      {
+        description = "Redirects YouTube Shorts to YouTube by changing url from \"https://www.youtube.com/shorts/\" to \"https://www.youtube.com/watch?v=\".";
+        license = licenses.mpl20;
+        mozPermissions = [ "*://www.youtube.com/shorts/*" ];
         platforms = platforms.all;
       };
     };
@@ -13279,6 +13533,20 @@
           "https://*.youtube.com/feed/history"
           "https://tournesol.app/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "toxcancel" = buildFirefoxXpiAddon {
+      pname = "toxcancel";
+      version = "1.3";
+      addonId = "{135c3428-66bc-4b5b-9503-282dc00802e7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490783/toxcancel-1.3.xpi";
+      sha256 = "36b5623ca95357bf9fdaccb19fde9ab48609eff2b855ac48971139ee60108441";
+      meta = with lib;
+      {
+        description = "Redirects to xcancel.com (a mirror of x) when the browser is about to load an x.com page";
+        license = licenses.gpl3;
+        mozPermissions = [ "webRequest" "webRequestBlocking" ];
         platforms = platforms.all;
       };
     };

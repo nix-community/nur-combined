@@ -333,6 +333,9 @@
     "slug": "copy-selection-as-markdown"
   },
   {
+    "slug": "copy-with-anchor"
+  },
+  {
     "slug": "copywebtables"
   },
   {
@@ -453,6 +456,9 @@
   },
   {
     "slug": "don-t-fuck-with-paste"
+  },
+  {
+    "slug": "dont-track-me-google1"
   },
   {
     "slug": "download-with-jdownloader"
@@ -1239,6 +1245,9 @@
     "slug": "no-pdf-download"
   },
   {
+    "slug": "nopow"
+  },
+  {
     "pname": "theme-nord-polar-night",
     "slug": "nord-polar-night-theme"
   },
@@ -1553,6 +1562,9 @@
   {
     "slug": "reddit_comment_collapser",
     "pname": "reddit-comment-collapser"
+  },
+  {
+    "slug": "redirect-shorts-to-youtube"
   },
   {
     "slug": "redirect-to-wiki-gg"
@@ -1898,6 +1910,9 @@
   {
     "slug": "tournesol-extension",
     "pname": "tournesol"
+  },
+  {
+    "slug": "toxcancel"
   },
   {
     "slug": "traduzir-paginas-web",
