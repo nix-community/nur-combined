@@ -7,7 +7,10 @@
         fetchSubmodules = true;
         hash = "sha256-nEdX5JofAF8LFCzom9C25Ep+k9GcefwcaxcVcDzbCo4=";
     };
-    patches = map (p: if lib.hasInfix "mark-paths" (""+p) then ./mark-paths.patch else p) (old.patches or []);
+    patches = lib.pipe (old.patches or []) [
+        (builtins.filter (patch: !(lib.hasInfix "a20a7e3497bccf3415bf47ccc55f133eb9d6d6a0" (""+patch)))) # upstreamed
+        (map (patch: if lib.hasInfix "mark-paths" (""+patch) then ./mark-paths.patch else patch))
+    ];
     meta = removeAttrs old.meta ["broken"] // {
         description = (old.meta.description or "FPC") + " (fixes_3_2 branch)";
     };
