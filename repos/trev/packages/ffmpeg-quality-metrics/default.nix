@@ -9,6 +9,8 @@ python3Packages.buildPythonApplication rec {
   version = "3.10.0";
   pyproject = true;
 
+  pythonRelaxDeps = true;
+
   src = fetchFromGitHub {
     owner = "slhck";
     repo = "ffmpeg-quality-metrics";
@@ -34,8 +36,11 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = {
-    description = "Calculate quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
     homepage = "https://github.com/slhck/ffmpeg-quality-metrics";
+    mainProgram = "ffmpeg-quality-metrics";
+    changelog = "https://github.com/slhck/ffmpeg-quality-metrics/releases/tag/v${version}";
+    description = "Calculate quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
+    license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
 }
