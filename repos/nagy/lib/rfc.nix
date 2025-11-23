@@ -1,7 +1,6 @@
 {
   pkgs,
   fetchzip ? pkgs.fetchzip,
-  ...
 }:
 
 {

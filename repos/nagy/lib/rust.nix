@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{
+  pkgs,
+}:
 
 rec {
   cargoCratesIoRegistryGit = pkgs.fetchgit {

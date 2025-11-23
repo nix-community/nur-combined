@@ -100,6 +100,10 @@
     nagy.shortcommands.commands = {
       b = [ "nix-build" ];
       i = [ "nix-instantiate" ];
+      b0 = [
+        "nix-build"
+        "--no-out-link"
+      ];
       "b." = [
         "nix-build"
         "<nixpkgs>"
@@ -107,6 +111,11 @@
       "i." = [
         "nix-instantiate"
         "<nixpkgs>"
+      ];
+      "b.0" = [
+        "nix-build"
+        "<nixpkgs>"
+        "--no-out-link"
       ];
       "i.j" = [
         "nix-instantiate"

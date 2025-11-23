@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{
+  pkgs,
+}:
 
 {
   unpackFile =
@@ -12,5 +14,8 @@
         mkdir -- $out
         mv -v ./* -- $out/
       '';
+
+      preferLocalBuild = true;
+      allowSubstitutes = false;
     };
 }

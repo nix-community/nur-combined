@@ -210,5 +210,8 @@ rec {
             "json"
           ]
       );
+
+      preferLocalBuild = true;
+      allowSubstitutes = false;
     };
 }
