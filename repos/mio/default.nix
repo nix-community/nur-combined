@@ -222,12 +222,12 @@ rec {
   # https://github.com/githubwbp1988/MuseScore/tree/alex
   musescore-alex = v3override (
     pkgs.musescore.overrideAttrs (old: {
-      version = "4.6.3-alex-unstable-20251031";
+      version = "4.6.3-alex-unstable-20251121";
       src = pkgs.fetchFromGitHub {
         owner = "githubwbp1988";
         repo = "MuseScore";
-        rev = "487ee2105064f8571f95eb31f03cbf1687e96204";
-        hash = "sha256-r2HjHKnO6pD+urrW57z/SPcgm4vSkAMvW4ZJH+c7J4M=";
+        rev = "725f94a55db85a9bf71602fd2e452c1475351782";
+        hash = "sha256-0PWMRq4MZEkq1kwWEQ+DBPIWByaXU/DcZ7wE12mQTEM=";
       };
       patches = [ ];
     })
