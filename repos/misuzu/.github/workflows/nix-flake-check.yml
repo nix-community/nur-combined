@@ -21,7 +21,7 @@ jobs:
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:gh-actions
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
