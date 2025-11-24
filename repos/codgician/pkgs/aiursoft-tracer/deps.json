@@ -49,15 +49,15 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.1",
-    "hash": "sha256-Q6iY/3K0has7a4QOojaAVjIbiPIjascqbMexMOFE8AA=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.1/aiursoft.dbtools.mysql.10.0.1.nupkg"
+    "version": "10.0.2",
+    "hash": "sha256-GYB4m1c9Unx4iPoWxDKH/z912V1MZndNTrVexMSs0eA=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.2/aiursoft.dbtools.mysql.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.1",
-    "hash": "sha256-gU2gZk4JjvnlZGw2eC8AD6OLfacwAZwiKN0/hbCoDt8=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.1/aiursoft.dbtools.sqlite.10.0.1.nupkg"
+    "version": "10.0.2",
+    "hash": "sha256-NR0Zcw7JDXtyh9piEJSJjirJeLqDJUQXMXIA7P5pUoI=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.2/aiursoft.dbtools.sqlite.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -115,15 +115,15 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.3.3",
-    "hash": "sha256-o/Y2/NwLeEUt5dkwCpBIxZCulgbxs48uA+0L2vsMt/w=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.3/efcoresecondlevelcacheinterceptor.5.3.3.nupkg"
+    "version": "5.3.4",
+    "hash": "sha256-Xp9qv/7+iVuM7DdrdP6yo/6L6L7Dka8zCd5qm+pNgVM=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.4/efcoresecondlevelcacheinterceptor.5.3.4.nupkg"
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.3.3",
-    "hash": "sha256-yeOoQKrCrj0YOE6UuC4yKTawvgS0ZdTAO0uDlEBwCJ0=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.3/efcoresecondlevelcacheinterceptor.memorycache.5.3.3.nupkg"
+    "version": "5.3.4",
+    "hash": "sha256-QhBZwjlnL3km1++Bgf4bPd22WmLOaZJiKgpI4qwbGuQ=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.4/efcoresecondlevelcacheinterceptor.memorycache.5.3.4.nupkg"
   },
   {
     "pname": "Humanizer.Core",
@@ -282,12 +282,6 @@
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore/10.0.0/microsoft.entityframeworkcore.10.0.0.nupkg"
   },
   {
-    "pname": "Microsoft.EntityFrameworkCore",
-    "version": "9.0.0",
-    "hash": "sha256-pFO6T2UsnYuXqPZzG5SziG0v7fYkLd5GlQ2DWk21XCc=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore/9.0.0/microsoft.entityframeworkcore.9.0.0.nupkg"
-  },
-  {
     "pname": "Microsoft.EntityFrameworkCore.Abstractions",
     "version": "10.0.0",
     "hash": "sha256-UDgZbRQcGPaKsE53EH6bvJiv+Q4KSxAbnsVhTVFGG4Q=",
@@ -316,12 +310,6 @@
     "version": "10.0.0",
     "hash": "sha256-vOP2CE5YA551BlpbOuIy6RuAiAEPEpCVS1cEE33/zN4=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.relational/10.0.0/microsoft.entityframeworkcore.relational.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.EntityFrameworkCore.Relational",
-    "version": "9.0.0",
-    "hash": "sha256-b7YR7J6mv7IN0+TQIIm6xKw4heEPol0dLDgxVHAUu7s=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.relational/9.0.0/microsoft.entityframeworkcore.relational.9.0.0.nupkg"
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Sqlite",
@@ -823,9 +811,9 @@
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "9.0.0",
-    "hash": "sha256-k6Pdndm5fTD6CB1QsQfP7G+2h4B30CWIsuvjHuBg3fc=",
-    "url": "https://nuget.aiursoft.com/v3/package/system.io.hashing/9.0.0/system.io.hashing.9.0.0.nupkg"
+    "version": "10.0.0",
+    "hash": "sha256-zq3baIIsQ1kaY4CVl0vpkDcZb2ZNwT7wC0wDqzEN5oI=",
+    "url": "https://nuget.aiursoft.com/v3/package/system.io.hashing/10.0.0/system.io.hashing.10.0.0.nupkg"
   },
   {
     "pname": "System.Reflection.MetadataLoadContext",
