@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "aesop";
-  version = "4.24.0";
+  version = "4.25.0";
   src = fetchFromGitHub {
     owner = "leanprover-community";
     repo = "aesop";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TBOojdkPY045srjdvOp5PEgDswku0ESsjJ006it75f4=";
+    hash = "sha256-sMdd17zbLunwfDUk4FSsJa9SUJCLXbP9H4wN+Wl6JeQ=";
   };
   env.NIX_LAKE_MANIFEST_OVERRIDE = writeText "lake-manifest-override.json" (
     builtins.toJSON [

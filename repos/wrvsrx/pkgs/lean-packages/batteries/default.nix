@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "batteries";
-  version = "4.24.0";
+  version = "4.25.0";
   src = fetchFromGitHub {
     owner = "leanprover-community";
     repo = "batteries";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-iO0z7Us5pDSfw61tijLcAnNaq48kh7gOjydZVY57Oxo=";
+    hash = "sha256-RiawFpdXcaLtw+LjPOervw4Xr7a/xJdqT6xPmbg45hE=";
   };
   env.NIX_LAKE_MANIFEST_OVERRIDE = writeText "lake-manifest-overrided.json" (builtins.toJSON [ ]);
   nativeBuildInputs = [
