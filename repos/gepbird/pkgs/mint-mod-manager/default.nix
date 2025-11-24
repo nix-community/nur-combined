@@ -61,13 +61,18 @@ rustPlatform.buildRustPackage rec {
     ./0002-Drop-usage-of-unstable-let_chains-feature.patch
   ];
 
-  # Necessary for cross compiled build scripts, otherwise it will build as ELF format
-  # https://docs.rs/cc/latest/cc/#external-configuration-via-environment-variables
-  CC_x86_64_pc_windows_gnu = "${mingwCompiler}/bin/${mingwCompiler.targetPrefix}cc";
+  env = {
+    # Necessary for cross compiled build scripts, otherwise it will build as ELF format
+    # https://docs.rs/cc/latest/cc/#external-configuration-via-environment-variables
+    CC_x86_64_pc_windows_gnu = "${mingwCompiler}/bin/${mingwCompiler.targetPrefix}cc";
 
+    CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS = "-L ${mingwPkgs.windows.pthreads}/lib";
+    BUILT_OVERRIDE_mint_lib_GIT_VERSION = "unstable";
+  };
+
+  # workaround for https://github.com/NixOS/nixpkgs/pull/435278#issuecomment-3572538333
   preConfigure = ''
-    export CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-L ${mingwPkgs.windows.pthreads}/lib";
-    export BUILT_OVERRIDE_mint_lib_GIT_VERSION=unstable
+    unset RUSTFLAGS
   '';
 
   nativeBuildInputs = [
