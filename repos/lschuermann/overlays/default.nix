@@ -1,3 +1,1 @@
-{
-  wpa-supplicant-sslv3 = import ./wpa-supplicant-sslv3.nix;
-}
+{ wpa-supplicant-sslv3 = import ./wpa-supplicant-sslv3.nix; }

@@ -1,29 +1,30 @@
-{ stdenv
-, lib
-, bash
-, coreutils
-, writeScript
-, gnutar
-, gzip
-, requireFile
-, patchelf
-, procps
-, makeWrapper
-, ncurses
-, zlib
-, libX11
-, libXrender
-, libxcb
-, libXext
-, libXtst
-, libXi
-, glib
-, freetype
-, gtk2
-, buildFHSEnv
-, gcc
-, ncurses5
-, glibc
+{
+  stdenv,
+  lib,
+  bash,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
 }:
 
 let
@@ -64,7 +65,12 @@ let
     name = "vivado-2020.1";
 
     nativeBuildInputs = [ zlib ];
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     extracted = "${extractedSource}";
 
@@ -92,13 +98,10 @@ let
       license = lib.licenses.unfree;
     };
   };
-
 in
 buildFHSEnv {
   name = "vivado";
-  targetPkgs = _pkgs: [
-    vivadoPackage
-  ];
+  targetPkgs = _pkgs: [ vivadoPackage ];
   multiPkgs = pkgs: [
     coreutils
     gcc

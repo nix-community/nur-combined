@@ -1,33 +1,34 @@
-{ stdenv
-, lib
-, bash
-, coreutils
-, writeScript
-, gnutar
-, gzip
-, requireFile
-, patchelf
-, procps
-, makeWrapper
-, ncurses
-, zlib
-, libX11
-, libXrender
-, libxcb
-, libXext
-, libXtst
-, libXi
-, libxcrypt
-, glib
-, freetype
-, gtk2
-, buildFHSEnv
-, gcc
-, ncurses5
-, glibc
-, gperftools
-, fontconfig
-, liberation_ttf
+{
+  stdenv,
+  lib,
+  bash,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  libxcrypt,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
+  gperftools,
+  fontconfig,
+  liberation_ttf,
 }:
 
 let
@@ -68,7 +69,12 @@ let
     name = "vivado-2022.2";
 
     nativeBuildInputs = [ zlib ];
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     extracted = "${extractedSource}";
 
@@ -101,14 +107,12 @@ let
       license = lib.licenses.unfree;
     };
   };
-
 in
-  buildFHSEnv {
-    name = "vivado";
-    targetPkgs = _pkgs: [
-      vivadoPackage
-    ];
-    multiPkgs = pkgs: with pkgs; [
+buildFHSEnv {
+  name = "vivado";
+  targetPkgs = _pkgs: [ vivadoPackage ];
+  multiPkgs =
+    pkgs: with pkgs; [
       coreutils
       gcc
       ncurses5
@@ -116,5 +120,5 @@ in
       glibc.dev
       libxcrypt-legacy
     ];
-    runScript = "vivado";
-  }
+  runScript = "vivado";
+}
