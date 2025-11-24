@@ -50,6 +50,10 @@ rec {
   lyrica = pkgs.callPackage ./lyrica {
     sources = fetchedSrc.lyrica;
   };
+  lyrica-plasmoid = pkgs.callPackage ./lyrica/plasmoid.nix {
+    sources = fetchedSrc.lyrica;
+    inherit lyrica;
+  };
 
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
