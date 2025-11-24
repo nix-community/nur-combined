@@ -18,6 +18,7 @@
   hmModules = import ./homeModules; # Home Manager modules
 
   fiz = pkgs.callPackage ./pkgs/fiz { };
+  loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };
