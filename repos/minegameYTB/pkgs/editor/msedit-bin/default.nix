@@ -45,6 +45,7 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     mainProgram = "msedit";
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    maintainers = with lib.maintainers; [ minegameYTB ];
   };
 }
 
