@@ -26,6 +26,8 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.id = metadata.KPlugin.Id;
+
   meta = {
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     description = "KDE Plasma lyrics widget focused on simplicity and integration";
