@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
     pname = "nimki";
-    version = "0.1.3-unstable-2025-11-22";
+    version = "0.1.4-unstable-2025-11-23";
 
     src = fetchFromGitHub {
         owner = "Anik200";
         repo = "nimki";
-        rev = "4c239ade89236ef56f01e896b3cd967837f0443b";
-        hash = "sha256-E0TiTnDduWbXrfHiZe4esvldic+5ymmSA+ZyXB8yR/I=";
+        rev = "a824739d1789600c499889c251c90f51f39786a5";
+        hash = "sha256-6oTi8NIt2msbvlBVgutPh+ckfoWwelzGYdrPiTlCEFc=";
     };
 
     nativeBuildInputs = [ ncurses ];
