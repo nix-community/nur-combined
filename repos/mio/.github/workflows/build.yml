@@ -23,6 +23,7 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable-small.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/staging-next.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/release-25.11.tar.gz
         # Set this to notify the global nur package registry that changes are
         # available.
         #
