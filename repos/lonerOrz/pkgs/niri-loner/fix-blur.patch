@@ -1,0 +1,13 @@
+diff --git a/src/layout/tile.rs b/src/layout/tile.rs
+index 0631137c..4f9de56f 100644
+--- a/src/layout/tile.rs
++++ b/src/layout/tile.rs
+@@ -1081,7 +1081,7 @@ impl<W: LayoutElement> Tile<W> {
+
+         let blur_element = (blur_config.on && output.is_some())
+             .then(|| {
+-                let optimized = !self.window.is_floating();
++                let optimized = false;
+
+                 Some(
+                     BlurRenderElement::new(
