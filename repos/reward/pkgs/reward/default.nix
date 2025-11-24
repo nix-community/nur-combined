@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0l8mkmzc7w0437h340nvqlmxc85lih45l7pvhdn8798vpaa1qbdb";
-    x86_64-linux = "15gpzil9kkdf6yqhlgai2b7m1bf6azxrmpfgawd0mdxq70z63c7n";
-    aarch64-linux = "1dyq0050cyb7v31ph8vdrhqdcddnha3z8b8pyqyylf7ghv339yhk";
-    x86_64-darwin = "11xrgx8n5q3qm6ankivdrnjhih1gr2fj0clry96p6j9ryvxx2kav";
-    aarch64-darwin = "1pr7x3wmzbrkhy0k8qd4fhm9dyydf5a1rkjh3dznrn0ghm2lama4";
+    i686-linux = "17jb0m8r4fg61fm6084c1648k34aw9nn2wf1jz2s2sq1pnw4gdxa";
+    x86_64-linux = "189s665xfk8j9yj9adc5f1qpvdd3hljl6lvdif176dri72yfh64x";
+    aarch64-linux = "15i1lkxbyv8myzgd158rm6p3la8riq7mwdzi5m76kqfwryi5zpyr";
+    x86_64-darwin = "0avc3ksn88m6xa0s2i08mj88jnl17chnppsjg0h97vmqql7a6sbg";
+    aarch64-darwin = "1xfms81000m25igkdxrjkdnyvx24r1i8wikwx47nfcbka37lmq80";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.9/reward_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.9/reward_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.9/reward_Linux_aarch64.tar.gz";
-    x86_64-darwin = "https://github.com/rewardenv/reward/releases/download/v0.7.9/reward_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/rewardenv/reward/releases/download/v0.7.9/reward_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.10/reward_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.10/reward_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/rewardenv/reward/releases/download/v0.7.10/reward_Linux_aarch64.tar.gz";
+    x86_64-darwin = "https://github.com/rewardenv/reward/releases/download/v0.7.10/reward_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/rewardenv/reward/releases/download/v0.7.10/reward_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "reward";
-  version = "0.7.9";
+  version = "0.7.10";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
