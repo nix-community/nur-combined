@@ -202,22 +202,24 @@ rec {
       pkgs.callPackage ./pkgs/musescore3/darwin.nix { }
     else
       v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
-  # https://github.com/musescore/MuseScore/pull/21874
-  # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
-  # broken on nixpkgs between a98f368960a921d4fdc048e3a2401d12739bc1f9 and 7fd9583d8c174ecc7ac0094bed29bde80135c876
-  # https://github.com/NixOS/nixpkgs/compare/a98f368960a921d4fdc048e3a2401d12739bc1f9%E2%80%A67fd9583d8c174ecc7ac0094bed29bde80135c876
-  musescore-adazem009 = v3override (
-    pkgs.musescore.overrideAttrs (old: {
-      version = "4.4.0-piano_keyboard_playing_notes";
-      src = pkgs.fetchFromGitHub {
-        owner = "adazem009";
-        repo = "MuseScore";
-        rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
-        hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
-      };
-      patches = [ ./patches/piano_keyboard_playing_notes.patch ];
-    })
-  );
+  /*
+    # https://github.com/musescore/MuseScore/pull/21874
+    # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
+    # broken on nixpkgs between a98f368960a921d4fdc048e3a2401d12739bc1f9 and 7fd9583d8c174ecc7ac0094bed29bde80135c876
+    # https://github.com/NixOS/nixpkgs/compare/a98f368960a921d4fdc048e3a2401d12739bc1f9%E2%80%A67fd9583d8c174ecc7ac0094bed29bde80135c876
+    musescore-adazem009 = v3override (
+      pkgs.musescore.overrideAttrs (old: {
+        version = "4.4.0-piano_keyboard_playing_notes";
+        src = pkgs.fetchFromGitHub {
+          owner = "adazem009";
+          repo = "MuseScore";
+          rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
+          hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
+        };
+        patches = [ ./patches/piano_keyboard_playing_notes.patch ];
+      })
+    );
+  */
   # https://github.com/musescore/MuseScore/pull/28073
   # https://github.com/githubwbp1988/MuseScore/tree/alex
   musescore-alex = v3override (
@@ -232,8 +234,11 @@ rec {
       patches = [ ];
     })
   );
-  swt = (pkgs.callPackage ./pkgs/swt/package.nix { });
-  tuxguitar = v3overrideAttrs (pkgs.callPackage ./pkgs/tuxguitar/package.nix { swt = swt; });
+  tuxguitar = v3overrideAttrs (
+    pkgs.callPackage ./pkgs/tuxguitar/package.nix {
+      swt = (pkgs.callPackage ./pkgs/swt/package.nix { });
+    }
+  );
   aria2 = v3override (
     pkgs.aria2.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [
@@ -254,10 +259,9 @@ rec {
   # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
   cb = pkgs.callPackage ./pkgs/cb { };
   jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
-  cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
-    cacert_3108 = cacert_3108;
+    cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };
   caddy =
     let
