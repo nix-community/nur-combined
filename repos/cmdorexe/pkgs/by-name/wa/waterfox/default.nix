@@ -44,7 +44,7 @@
 }:
 
 let
-  version = "6.6.4";
+  version = "6.6.5";
 
   desktopItem = makeDesktopItem {
     name = "waterfox";
@@ -77,7 +77,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://cdn1.waterfox.net/waterfox/releases/${version}/Linux_x86_64/waterfox-${version}.tar.bz2";
-    sha256 = "sha256-AFBLBEFA7iXY9lr2UIccVUhsNNeXfx1K0UMsRuDZT4c=";
+    sha256 = "sha256-tiBqxdezsWGUTzeBP30DdEki8wDiJPW+IOUlkk60Oow=";
   };
 
   nativeBuildInputs = [

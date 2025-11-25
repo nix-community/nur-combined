@@ -50,16 +50,17 @@
 
 let
     _7zso = _7zlib;
+    buildid = "d77354eed8e48def181811da8a61f72044e678e9";
 in
 stdenv.mkDerivation rec {
   pname = "far2l";
-  version = "2.6.5-14c12dcfe29b42ac6870716bcb58012656b468a1";
+  version = "2.7.0-${buildid}";
 
   src = fetchFromGitHub {
     owner = "elfmz";
     repo = "far2l";
-    rev = "14c12dcfe29b42ac6870716bcb58012656b468a1";
-    sha256 = "sha256-f5L3FgRhAJMU3RQv+Csx7TSPbcwojXJ3ee+zALBepuc=";
+    rev = "${buildid}";
+    sha256 = "sha256-V1zuBtwIb8GVIvVPV7kXPBKZiaGFpG/ZUAdLKbbK+nU=";
   };
 #    # arrows
 #  patches = fetchpatch {
