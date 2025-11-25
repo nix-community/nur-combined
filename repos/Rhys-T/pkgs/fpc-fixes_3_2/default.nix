@@ -13,6 +13,7 @@
     ];
     meta = removeAttrs old.meta ["broken"] // {
         description = (old.meta.description or "FPC") + " (fixes_3_2 branch)";
+        broken = fpc.system == "aarch64-darwin"; # impure path `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' used in link
     };
     passthru = removeAttrs (old.passthru or {}) ["updateScript"];
 })
