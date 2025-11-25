@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchurl
-, wrapGAppsHook
+, wrapGAppsHook3
 , alsa-lib
 , at-spi2-atk
 , at-spi2-core
@@ -81,7 +81,7 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    wrapGAppsHook
+    wrapGAppsHook3
     unzip
     patchelf
     makeWrapper
