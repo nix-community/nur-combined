@@ -5,14 +5,14 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage rec {
   pname = "clock-tui";
   version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "race604";
     repo = "clock-tui";
-    tag = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-GuxE50rP+NOzeoFljmBTCp23LCuu6mz2HNL/eEf5ZJE=";
   };
 
@@ -26,4 +26,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-})
+}
