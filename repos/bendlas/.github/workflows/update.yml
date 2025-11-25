@@ -12,4 +12,4 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
       - name: Update flake packages
-        uses: gepbird/nix-update-action@v2
+        uses: Mic92/nix-update-action@v2
