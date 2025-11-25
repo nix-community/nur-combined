@@ -965,10 +965,10 @@
   "markdown": {
     "nurl": {
       "args": {
-        "hash": "sha256-1/Uo8Bk7QPiQqAWL9jgYLtq6JNj1dnNDBSHn15FHlCM=",
+        "hash": "sha256-IYqh6JT74deu1UU4Nyls9Eg88BvQeYEta2UXZAbuZek=",
         "owner": "tree-sitter-grammars",
         "repo": "tree-sitter-markdown",
-        "rev": "62516e8c78380e3b51d5b55727995d2c511436d8"
+        "rev": "2dfd57f547f06ca5631a80f601e129d73fc8e9f0"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -977,10 +977,10 @@
   "markdown_inline": {
     "nurl": {
       "args": {
-        "hash": "sha256-1/Uo8Bk7QPiQqAWL9jgYLtq6JNj1dnNDBSHn15FHlCM=",
+        "hash": "sha256-IYqh6JT74deu1UU4Nyls9Eg88BvQeYEta2UXZAbuZek=",
         "owner": "tree-sitter-grammars",
         "repo": "tree-sitter-markdown",
-        "rev": "62516e8c78380e3b51d5b55727995d2c511436d8"
+        "rev": "2dfd57f547f06ca5631a80f601e129d73fc8e9f0"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2594,6 +2594,18 @@
     },
     "subpath": null
   },
+  "rpmspec": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-QHAcaZ5HbgoWpRDAau6IWPdBD2+WhBZVq9VDQRas5oU=",
+        "owner": "cryptomilk",
+        "repo": "tree-sitter-rpmspec",
+        "rev": "d0275cd1316d9b7a2e0fae028ce95a5a18741e1d"
+      },
+      "fetcher": "fetchFromGitLab"
+    },
+    "subpath": null
+  },
   "glimmer": {
     "nurl": {
       "args": {
@@ -3298,6 +3310,18 @@
         "owner": "Ra77a3l3-jar",
         "repo": "tree-sitter-freebasic",
         "rev": "dbf696adb4c0b9c020074e75043c90592981ee7f"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "scfg": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-AnyOcQFA3N6AFZiG7eLS1xCm1qX6hko9lFV4oV9p/E8=",
+        "owner": "rockorager",
+        "repo": "tree-sitter-scfg",
+        "rev": "d850fd470445d73de318a21d734d1e09e29b773c"
       },
       "fetcher": "fetchFromGitHub"
     },
