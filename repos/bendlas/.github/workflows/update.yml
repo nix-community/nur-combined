@@ -15,3 +15,5 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Update flake packages
         uses: gepbird/nix-update-action@v2
+        with:
+          blacklist: "libgpiod1,ueforth"

@@ -18,8 +18,6 @@
 , extraHardwareSupport ? []
 }:
 
-# nixpkgs-update: no auto update
-
 stdenv.mkDerivation rec {
   pname = "openocd-riscv";
   version = "2025-10-09";

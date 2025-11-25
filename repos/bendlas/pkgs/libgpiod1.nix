@@ -2,8 +2,6 @@
 , enable-tools ? true
 , enablePython ? false, python3, ncurses }:
 
-# nixpkgs-update: no auto update
-
 stdenv.mkDerivation rec {
   pname = "libgpiod";
   version = "1.6.4";
