@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, git }:
+{ lib, rustPlatform, fetchFromGitHub, git, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lsd";
@@ -15,6 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   ## for checkPhase
   nativeBuildInputs = [ git ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "The next gen ls command";

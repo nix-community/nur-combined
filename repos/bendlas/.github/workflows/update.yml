@@ -1,0 +1,15 @@
+name: "Update Flake Packages ❄️"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 0"
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: Update flake packages
+        uses: gepbird/nix-update-action@v2

@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   lsd = pkgs.callPackage ./pkgs/lsd.nix { };
+  gitopolis = pkgs.callPackage ./pkgs/gitopolis.nix { };
   zsh-capture-completion = pkgs.callPackage ./pkgs/zsh-capture-completion.nix { };
   ueforth = pkgs.callPackage ./pkgs/ueforth.nix { };
   gd32-dfu-utils = pkgs.callPackage ./pkgs/gd32-dfu-utils.nix { };
