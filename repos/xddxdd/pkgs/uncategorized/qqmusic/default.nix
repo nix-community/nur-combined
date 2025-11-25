@@ -7,6 +7,7 @@
   makeDesktopItem,
   copyDesktopItems,
   dpkg,
+  asar,
   # QQ Music dependencies
   alsa-lib,
   at-spi2-atk,
@@ -37,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   inherit (sources.qqmusic) pname version src;
 
   nativeBuildInputs = [
+    asar
     autoPatchelfHook
     makeWrapper
     copyDesktopItems
@@ -84,6 +86,36 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postUnpack
   '';
+
+  buildPhase =
+    let
+      chineseFonts = [
+        "Noto Sans CJK"
+        "Source Han Sans"
+        "Source Han Sans"
+        "Microsoft YaHei"
+        "WenQuanYi Micro Hei"
+        "WenQuanYi Zen Hei"
+        "sans-serif"
+      ];
+    in
+    ''
+      runHook preBuild
+
+      # Allow use other fonts than YaHei
+      mkdir tmp
+      asar extract opt/qqmusic/resources/app.asar tmp/
+      for F in tmp/*.js; do
+        if grep "Microsoft YaHei, MicrosoftJhengHei" "$F" >/dev/null; then
+          substituteInPlace "$F" \
+            --replace-fail "Microsoft YaHei, MicrosoftJhengHei" "${builtins.concatStringsSep ", " chineseFonts}"
+        fi
+      done
+      asar pack tmp/ app.asar
+      mv app.asar opt/qqmusic/resources/app.asar
+
+      runHook postBuild
+    '';
 
   installPhase = ''
     runHook preInstall
