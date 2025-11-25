@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchFromGitHub, unstableGitUpdater
+{ lib, stdenvNoCC, fetchFromGitHub
 , zsh
 }:
 
@@ -19,8 +19,6 @@ stdenvNoCC.mkDerivation rec {
     install -D -t $out/bin capture.zsh
     install -D -t $out/share/zsh-capture-completion readme.md LICENSE
   '';
-
-  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Non-interactively use the zsh autocompletion system";

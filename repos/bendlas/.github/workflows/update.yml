@@ -16,4 +16,4 @@ jobs:
       - name: Update flake packages
         uses: gepbird/nix-update-action@v2
         with:
-          blacklist: "libgpiod1,ueforth"
+          blacklist: "libgpiod1,ueforth,zsh-capture-completion,openocd-riscv"
