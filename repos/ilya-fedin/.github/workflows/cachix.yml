@@ -11,7 +11,7 @@ jobs:
     outputs:
       cache-key: ${{ steps.cache-key.outputs.cache-key }}
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: cachix/install-nix-action@v31
     - run: nix flake update
       if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
@@ -29,7 +29,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, macos-15-intel]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/cache@v4
       with:
         path: flake.lock
@@ -47,7 +47,7 @@ jobs:
     needs: [update-flake, tests]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/cache@v4
       with:
         path: flake.lock
