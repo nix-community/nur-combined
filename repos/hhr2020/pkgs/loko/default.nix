@@ -2,12 +2,26 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  symlinkJoin,
 
   akku,
   chez,
 
   akkuPackages,
 }:
+let
+  deps = symlinkJoin {
+    name = "loko-deps";
+    paths = builtins.attrValues {
+      inherit (akkuPackages)
+        machine-code
+        struct-pack
+        laesare
+        pfds
+        ;
+    };
+  };
+in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "loko";
@@ -38,11 +52,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   preBuild = ''
     akku install
-    mkdir -p .akku/lib
-    ln -s ${akkuPackages.machine-code}/lib/scheme-libs/machine-code .akku/lib/machine-code
-    ln -s ${akkuPackages.struct-pack}/lib/scheme-libs/struct .akku/lib/struct
-    ln -s ${akkuPackages.laesare}/lib/scheme-libs/laesare .akku/lib/laesare
-    ln -s ${akkuPackages.pfds}/lib/scheme-libs/pfds .akku/lib/pfds
+    for lib in "machine-code" "struct" "laesare" "pfds"; do
+      ln -s ${deps}/lib/scheme-libs/$lib .akku/lib/$lib
+    done
+  '';
+
+  postInstall = ''
+    for lib in "machine-code" "struct" "laesare" "pfds"; do
+      ln -s ${deps}/lib/scheme-libs/$lib $out/lib/loko
+    done
   '';
 
   dontStrip = true;
