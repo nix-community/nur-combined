@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
@@ -31,6 +31,8 @@ jobs:
       run: nix-shell -p nix-update --run "nix-update --version=branch=master sddm-astronaut"
     - name: Update wl-x11-clipsync
       run: nix-shell -p nix-update --run "nix-update --version=branch=main wl-x11-clipsync"
+    - name: Update md2puki
+      run: nix-shell -p nix-update --run "nix-update md2puki"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
