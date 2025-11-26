@@ -131,8 +131,8 @@
   },
   {
     "pname": "Gommon",
-    "version": "2.7.2.1",
-    "hash": "sha256-QxrgAaVuHeUR8QZDHdT/9np9ADrE+nwjw9vT9DhXVf4="
+    "version": "2.8.0.1",
+    "hash": "sha256-c3a/43OJaL1glrsjdlyj9D/ooYpNKpYkn1lMKWxC4uE="
   },
   {
     "pname": "HarfBuzzSharp",
@@ -408,11 +408,6 @@
     "pname": "Humanizer.Core.zh-Hant",
     "version": "2.14.1",
     "hash": "sha256-N3D1z5aoGwAZ6+ZxrWMtXgacvQcgDG+aLrQQI9uysmM="
-  },
-  {
-    "pname": "JetBrains.Annotations",
-    "version": "2023.2.0",
-    "hash": "sha256-Um10fSmO+21I7f+lbzzVq5e8GBijJ9amTvOlt362p1s="
   },
   {
     "pname": "MicroCom.Runtime",
@@ -716,9 +711,9 @@
   },
   {
     "pname": "Ryujinx.LibHac",
-    "version": "0.21.0-alpha.117",
-    "hash": "sha256-eAV1KEwBFD2VaCmEQ0fadDcYK52qM6FtU/OLQXQbt5I=",
-    "url": "https://git.ryujinx.app/api/v4/projects/17/packages/nuget/download/ryujinx.libhac/0.21.0-alpha.117/ryujinx.libhac.0.21.0-alpha.117.nupkg"
+    "version": "0.21.0-alpha.126",
+    "hash": "sha256-Za+6wDRWuCm9Cihso3Ud5aqldonN50+Pgthqvogsuok=",
+    "url": "https://git.ryujinx.app/api/v4/projects/17/packages/nuget/download/ryujinx.libhac/0.21.0-alpha.126/ryujinx.libhac.0.21.0-alpha.126.nupkg"
   },
   {
     "pname": "Ryujinx.SDL2-CS",

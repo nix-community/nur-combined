@@ -1,0 +1,3 @@
+https://github.com/oxalica/rust-overlay/archive/6604534e44090c917db714faa58d47861657690c.zip
+sha256-6fCtyVdTzoQejwoextAu7dCLoy5fyD3WVh+Qm7t2Nhg=
+nightly 2025-08-06 minimal

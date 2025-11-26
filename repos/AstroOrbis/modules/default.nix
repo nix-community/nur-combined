@@ -1,5 +1,5 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  hm = {
+    firefox-webserial = import ./hm/firefox-webserial.nix;
+  };
 }

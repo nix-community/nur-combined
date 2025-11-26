@@ -30,14 +30,14 @@
 
 buildDotnetModule rec {
   pname = "ryubing";
-  version = "1.3.193";
+  version = "1.3.224";
 
   src = fetchFromGitLab {
     domain = "git.ryujinx.app";
     owner = "Ryubing";
     repo = "Ryujinx";
     tag = "Canary-${version}";
-    hash = "sha256-mH2SF6J8AQtXFcjaux5Mh/mvuvPR/VDSCOKVHVrBtgQ=";
+    hash = "sha256-30f6MtRUAUT2Jqb42QKV3jOKxgs7Qnk4nhNoKzuEbHw=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin [
@@ -47,8 +47,8 @@ buildDotnetModule rec {
 
   enableParallelBuilding = false;
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
   nugetDeps = ./deps.json;
 

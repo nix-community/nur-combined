@@ -13,6 +13,7 @@
     in
     {
       overlays.default = import ./overlay.nix;
+      nixosModules = import ./modules;
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {

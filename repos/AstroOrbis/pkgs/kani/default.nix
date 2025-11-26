@@ -13,12 +13,7 @@
   ...
 }:
 let
-  roverlay = pkgs.fetchzip {
-    url = "https://github.com/oxalica/rust-overlay/archive/6604534e44090c917db714faa58d47861657690c.zip";
-    sha256 = "sha256-6fCtyVdTzoQejwoextAu7dCLoy5fyD3WVh+Qm7t2Nhg=";
-  };
-
-  rustHome = (pkgs.extend roverlay).rust-bin.nightly."2025-08-06".minimal.override {
+  rustHome = (pkgs.extend (import ./roverlay/default.nix)).rust-bin.nightly."2025-08-06".minimal.override {
     extensions = [
       "rustc-dev"
       "rust-src"
@@ -69,7 +64,7 @@ rustPlatform.buildRustPackage rec {
   kani-home = stdenv.mkDerivation {
     name = "kani-home";
 
-    src = fetchTarball {
+    src = pkgs.fetchzip {
       url = "https://github.com/model-checking/kani/releases/download/${version}/${version}-x86_64-unknown-linux-gnu.tar.gz";
       sha256 = "sha256-jQMm/hqN0X/Vd08supdd3ID7dHIYQTLcLddpWdcA0Xc=";
     };
