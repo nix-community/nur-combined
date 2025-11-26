@@ -1972,10 +1972,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "4.2.1";
+      version = "4.2.2";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4622469/click_and_read-4.2.1.xpi";
-      sha256 = "107f1ad9216fe0e68c6224f2c2c6a0668f45e8a3fe9af73baf3d9f92ace68974";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4627787/click_and_read-4.2.2.xpi";
+      sha256 = "cbbcba85dd6232406f55b1ee8538c29c75d676a77fb3fff0e0068003bdfd0382";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -7048,10 +7048,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.3.2";
+      version = "17.4.0";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4612192/keeper_password_manager-17.3.2_pi1ogUR.xpi";
-      sha256 = "d171a53141d0ba8d9b6e8795c6fd81789ed4453d09c0ba7b44554aa54c73637a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4623757/keeper_password_manager-17.4.0.xpi";
+      sha256 = "02833450a51da45b04b323972b218810a07e6b96594f1f0941c576de3c427d56";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -12542,10 +12542,10 @@
     };
     "spoof-timezone" = buildFirefoxXpiAddon {
       pname = "spoof-timezone";
-      version = "0.4.7";
+      version = "0.4.8";
       addonId = "{55f61747-c3d3-4425-97f9-dfc19a0be23c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4563054/spoof_timezone-0.4.7.xpi";
-      sha256 = "adb82eb9692065945814044c7034ac9e75d1e158cbbdfb5ad3702a1c815b8bdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4627749/spoof_timezone-0.4.8.xpi";
+      sha256 = "ea970772e09a035e20d8f5b3e023c7a93a1eed17fa6b31a9db37e166cb8aa2ac";
       meta = with lib;
       {
         homepage = "https://add0n.com/spoof-timezone.html";
