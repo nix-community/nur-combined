@@ -58,16 +58,16 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "1823cde2603c124d48b7843729747f66e941fa2f";
+    version = "66170bec9f4d6a015e31b04545afa1f90a873b3f";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "1823cde2603c124d48b7843729747f66e941fa2f";
+      rev = "66170bec9f4d6a015e31b04545afa1f90a873b3f";
       fetchSubmodules = false;
-      sha256 = "sha256-7/bxmScULkpZO+feTcCkY+xw2BdqWu1EP30SqzGwsms=";
+      sha256 = "sha256-Z3rhiQVY8/RDoOSVmkX2DEV5BnixFP+S0g4rd3EC5RM=";
     };
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20251111042133";
+    date = "20251124224044";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -107,15 +107,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "07d0e1cc67f1bbb46672c5c4c751858f34a83780";
+    version = "4991dcbfffc1bc935b25af92e118eaf65f77b4e6";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "07d0e1cc67f1bbb46672c5c4c751858f34a83780";
+      rev = "4991dcbfffc1bc935b25af92e118eaf65f77b4e6";
       fetchSubmodules = false;
-      sha256 = "sha256-AoQUH2zWf4/BWxxO9+kir+f33TpA80bo3Ur4+/f+FdI=";
+      sha256 = "sha256-eWsHgcNHCFgkxKzEfwpala87M7wtNMa8T8U6tIKFisg=";
     };
-    date = "2025-11-17";
+    date = "2025-11-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -127,14 +127,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "2301ff803a033cd16d16e62697474d6cb9a94711";
+    version = "eaf6920b7439fa7164a1c162a249c3c76dc0acd9";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "2301ff803a033cd16d16e62697474d6cb9a94711";
+      rev = "eaf6920b7439fa7164a1c162a249c3c76dc0acd9";
       fetchSubmodules = false;
-      sha256 = "sha256-+lirIBXv3EvztE/1b3zHnQ9r5N3VWBCUuH3gZR52fE0=";
+      sha256 = "sha256-B6zhZfp3SEaiviIzosI2aD8fk+hQF0epOTKi1qm8V3E=";
     };
-    date = "2025-11-19";
+    date = "2025-11-25";
   };
 }

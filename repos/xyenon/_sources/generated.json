@@ -89,7 +89,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20251111042133",
+        "date": "20251124224044",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -103,12 +103,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "1823cde2603c124d48b7843729747f66e941fa2f",
-            "sha256": "sha256-7/bxmScULkpZO+feTcCkY+xw2BdqWu1EP30SqzGwsms=",
+            "rev": "66170bec9f4d6a015e31b04545afa1f90a873b3f",
+            "sha256": "sha256-Z3rhiQVY8/RDoOSVmkX2DEV5BnixFP+S0g4rd3EC5RM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1823cde2603c124d48b7843729747f66e941fa2f"
+        "version": "66170bec9f4d6a015e31b04545afa1f90a873b3f"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
@@ -177,7 +177,7 @@
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2025-11-17",
+        "date": "2025-11-25",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -189,12 +189,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "07d0e1cc67f1bbb46672c5c4c751858f34a83780",
-            "sha256": "sha256-AoQUH2zWf4/BWxxO9+kir+f33TpA80bo3Ur4+/f+FdI=",
+            "rev": "4991dcbfffc1bc935b25af92e118eaf65f77b4e6",
+            "sha256": "sha256-eWsHgcNHCFgkxKzEfwpala87M7wtNMa8T8U6tIKFisg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "07d0e1cc67f1bbb46672c5c4c751858f34a83780"
+        "version": "4991dcbfffc1bc935b25af92e118eaf65f77b4e6"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -213,7 +213,7 @@
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2025-11-19",
+        "date": "2025-11-25",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -225,11 +225,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "2301ff803a033cd16d16e62697474d6cb9a94711",
-            "sha256": "sha256-+lirIBXv3EvztE/1b3zHnQ9r5N3VWBCUuH3gZR52fE0=",
+            "rev": "eaf6920b7439fa7164a1c162a249c3c76dc0acd9",
+            "sha256": "sha256-B6zhZfp3SEaiviIzosI2aD8fk+hQF0epOTKi1qm8V3E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2301ff803a033cd16d16e62697474d6cb9a94711"
+        "version": "eaf6920b7439fa7164a1c162a249c3c76dc0acd9"
     }
 }
