@@ -16,16 +16,16 @@ let
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/f628a4761be40b8869ca61a6189cafd14756dff4/linux/x64/Cursor-2.1.26-x86_64.AppImage";
-      hash = "sha256-lkvrgWjVfTozcADOjA/liZ0j5pPgXv9YvR5l0adGxBE=";
+      url = "https://downloads.cursor.com/production/609c37304ae83141fd217c4ae638bf532185650f/linux/x64/Cursor-2.1.34-x86_64.AppImage";
+      hash = "sha256-NPs0P+cnPo3KMdezhAkPR4TwpcvIrSuoX+40NsKyfzA=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/f628a4761be40b8869ca61a6189cafd14756dff4/darwin/x64/Cursor-darwin-x64.dmg";
-      hash = "sha256-XksvEh4bctf0GLFMJGiLkekBs8Qv1LE6kqismc51wCM=";
+      url = "https://downloads.cursor.com/production/609c37304ae83141fd217c4ae638bf532185650f/darwin/x64/Cursor-darwin-x64.dmg";
+      hash = "sha256-jQ1HwETzK308vuxgFFJMf0Fsxh5bwF4LkkASxoiLTnU=";
     };
     aarch64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/f628a4761be40b8869ca61a6189cafd14756dff4/darwin/arm64/Cursor-darwin-arm64.dmg";
-      hash = "sha256-oVaf7uEASdRHH0lmqDXnv/YZ2AWrHR06Jj7oGqNPriE=";
+      url = "https://downloads.cursor.com/production/609c37304ae83141fd217c4ae638bf532185650f/darwin/arm64/Cursor-darwin-arm64.dmg";
+      hash = "sha256-jUB0h3SpFIAYJCg/syALzXZdRm09YcZ1pYEY79Ccoa4=";
     };
   };
 
@@ -35,7 +35,7 @@ in
   inherit useVSCodeRipgrep;
   commandLineArgs = finalCommandLineArgs;
 
-  version = "2.1.26";
+  version = "2.1.34";
   pname = "cursor";
 
   # You can find the current VSCode version in the About dialog:
