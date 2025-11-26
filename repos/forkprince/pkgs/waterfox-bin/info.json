@@ -3,8 +3,8 @@
   "update_type": "github",
   "repo": "BrowserWorks/Waterfox",
   "query": ".[0].tag_name",
-  "version": "6.6.5",
-  "hash": "sha256-tiBqxdezsWGUTzeBP30DdEki8wDiJPW+IOUlkk60Oow=",
+  "version": "6.6.5.1",
+  "hash": "sha256-TQCthbdA3i9Gl5RLRkVOK/ojtTjwTlADtm04TGaHInA=",
   "url_template": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
   "unpack": false
 }
