@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
 let
   p = pkgs.callPackage;
 in rec {
@@ -10,8 +10,8 @@ in rec {
 
   # Heavily modified version of @lucasew's `wrapWine` package.
   # https://github.com/lucasew/nixcfg/blob/047c4913e9dceedd4957fb097bbf4803e5278563/nix/pkgs/wrapWine.nix
-  mkWineEnv = p ./pkgs/wine-nixified/mkWineEnv.nix { };
-  mkWineApp = p ./pkgs/wine-nixified/mkWineApp.nix { inherit mkWineEnv; };
+  mkWineEnv = p ./pkgs/builders/wine-nixified/mkWineEnv.nix { };
+  mkWineApp = p ./pkgs/builders/wine-nixified/mkWineApp.nix { inherit mkWineEnv; };
 
   # Games (wine)
   celeste = p ./pkgs/games/wine/celeste { inherit mkWineApp; };
@@ -23,12 +23,13 @@ in rec {
   # source: https://www.reddit.com/r/NixOS/comments/kqe57g/comment/gi3uii6
   #         https://discourse.nixos.org/t/fetchurl-with-compressed-files/39823
   # TODO: add support for .gz, ...
-  fetchzip-gz = p ./pkgs/fetchers/fetchzip-gz { };
-  fetchurl-gz = p ./pkgs/fetchers/fetchurl-gz { };
+  fetchzip-gz = p ./pkgs/builders/fetchers/fetchzip-gz { };
+  fetchurl-gz = p ./pkgs/builders/fetchers/fetchurl-gz { };
 
   # Audio
   bitwig-custom = p ./pkgs/audio/bitwig-custom/default.nix { };
 
+  # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
   TyrellN6 = p ./pkgs/audio/tyrelln6 { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };

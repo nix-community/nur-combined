@@ -8,16 +8,6 @@ on:
 
 jobs:
   tests:
-    strategy:
-      matrix:
-        nurRepo:
-          - mrtnvgr
-        cachixName:
-          - mrtnvgr
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-
     runs-on: ubuntu-latest
 
     steps:
@@ -27,35 +17,21 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-
     - name: Setup cachix
       uses: cachix/cachix-action@v16
       with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+        name: mrtnvgr
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+        authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
     - name: Build nix packages
       env:
         NIXPKGS_ALLOW_UNFREE: 1
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix flake check --impure
 
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=mrtnvgr"

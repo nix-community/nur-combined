@@ -20,7 +20,7 @@ in fetchurl ({
     TMPFILE=$TMPDIR/${tmpFilename}
     mv "$downloadedFile" "$TMPFILE"
 
-    [[ "$TMPFILE" =~ \.zst$ ]] && zstd -d "$TMPFILE" -o $out
+    [[ "$TMPFILE" =~ \.zst$ ]] && zstd --rm -d "$TMPFILE" -o $out
   '';
 
   downloadToTemp = true;
