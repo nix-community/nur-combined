@@ -8,8 +8,15 @@
     heroic
   ];
 
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+    extest.enable = true;
+    protontricks.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
 
   # Enable gamemode
   programs.gamemode.enable = true;

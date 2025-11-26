@@ -20,14 +20,14 @@ in
       timeouts = [
         {
           timeout = 300; # in seconds
-          command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
-        }
-        {
-          timeout = 305;
-          command = lock;
+          command = "${pkgs.libnotify}/bin/notify-send 'Locking in 30 seconds' -t 30000";
         }
         {
           timeout = 330;
+          command = lock;
+        }
+        {
+          timeout = 360;
           command = display "off";
           resumeCommand = display "on";
         }

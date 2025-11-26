@@ -120,7 +120,6 @@ in
       preFixup = prev.preFixup + ''
         gappsWrapperArgs+=(
           --unset NIXOS_OZONE_WL
-          --set DISPLAY :0
         )
       '';
     });
@@ -129,6 +128,7 @@ in
       {
         extensions = with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
+          ms-vscode-remote.remote-containers
           ms-vscode.cpptools
           platformio.platformio-vscode-ide
           skellock.just
@@ -164,6 +164,7 @@ in
             };
           };
           "platformio-ide.customPyPiIndexUrl" = "https://mirror.nju.edu.cn/pypi/web/simple";
+          "remote.autoForwardPorts" = false;
         };
       }
     ];

@@ -17,6 +17,7 @@ in
       "dialout"
       "docker"
       "libvirtd"
+      "podman"
       "render"
       "vboxusers"
       "video"

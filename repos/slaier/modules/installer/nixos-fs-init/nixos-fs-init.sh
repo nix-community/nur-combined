@@ -22,5 +22,5 @@ btrfs subvolume create /mnt/swap
 umount /mnt
 
 mount -m -o subvol=swap "$DEVICE"*1 /swap
-btrfs filesystem mkswapfile --size 8g --uuid clear /swap/swapfile
+btrfs filesystem mkswapfile --size 16g --uuid clear /swap/swapfile
 umount /swap

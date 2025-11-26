@@ -13,7 +13,3 @@ runs:
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
-
-    - name: Build nix packages
-      shell: bash
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs

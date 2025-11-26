@@ -15,48 +15,77 @@
   "dns": {
     "servers": [
       {
-        "tag": "local",
-        "address": "local",
-        "detour": "direct"
+        "tag": "dns-remote",
+        "address": "udp://1.1.1.1",
+        "address_resolver": "dns-direct"
       },
       {
-        "tag": "google",
-        "address": "tls://8.8.8.8",
-        "detour": "proxy"
+        "tag": "dns-trick-direct",
+        "address": "https://sky.rethinkdns.com/",
+        "address_resolver": "dns-local",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns-direct",
+        "address": "223.5.5.5",
+        "address_resolver": "dns-local",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns-local",
+        "address": "local",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns-block",
+        "address": "rcode://success"
       }
     ],
     "rules": [
       {
-        "process_name": [
-          "aria2c",
-          "ydict",
-          "kodi",
-          "chromium"
+        "domain_suffix": [
+          ".lan",
+          ".local"
         ],
-        "server": "local"
+        "server": "dns-local"
       },
       {
-        "outbound": [
-          "DIRECT"
+        "domain": [
+          "cp.cloudflare.com",
+          "www.gstatic.com"
         ],
-        "server": "local"
+        "server": "dns-remote",
+        "rewrite_ttl": 3000
       },
       {
-        "geosite": [
-          "geolocation-!cn",
-          "google"
+        "domain_suffix": ".cn",
+        "server": "dns-direct"
+      },
+      {
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
         ],
-        "server": "google"
+        "server": "dns-direct"
       }
     ],
-    "final": "local"
+    "final": "dns-remote",
+    "independent_cache": true
   },
   "inbounds": [
     {
       "type": "mixed",
       "tag": "mixed-in",
       "listen": "0.0.0.0",
-      "listen_port": 7890
+      "listen_port": 7890,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "127.0.0.1",
+      "listen_port": 7891
     }
   ],
   "outbounds": [
@@ -70,37 +99,21 @@
     }
   ],
   "route": {
-    "geoip": {
-      "path": "@geoip@"
-    },
-    "geosite": {
-      "path": "@geosite@"
-    },
     "rules": [
       {
-        "protocol": "dns",
+        "inbound": "dns-in",
         "outbound": "dns-out"
       },
       {
-        "process_name": [
-          "aria2c",
-          "ydict",
-          "kodi",
-          "chromium"
-        ],
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "ip_is_private": true,
         "outbound": "DIRECT"
       },
       {
-        "domain_suffix": [
-          "local"
-        ],
-        "ip_cidr": [
-          "192.168.0.0/16",
-          "10.0.0.0/8",
-          "172.16.0.0/12",
-          "127.0.0.0/8",
-          "100.64.0.0/10"
-        ],
+        "domain_suffix": ".cn",
         "outbound": "DIRECT"
       },
       {
@@ -109,6 +122,23 @@
           "google"
         ],
         "outbound": "proxy"
+      },
+      {
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
+        ],
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "aria2c",
+          "chromium",
+          "kodi",
+          "wineserver",
+          "ydict"
+        ],
+        "outbound": "DIRECT"
       },
       {
         "geosite": [
@@ -121,21 +151,28 @@
       },
       {
         "geosite": [
-          "cn"
-        ],
-        "geoip": [
-          "cn"
-        ],
-        "outbound": "DIRECT"
-      },
-      {
-        "geosite": [
           "microsoft"
         ],
         "domain": [
           "cache.nixos.org"
         ],
         "outbound": "us"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-cn.srs",
+        "update_interval": "120h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-cn.srs",
+        "update_interval": "120h0m0s"
       }
     ],
     "final": "proxy"

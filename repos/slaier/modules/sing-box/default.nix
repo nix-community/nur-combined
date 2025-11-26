@@ -2,8 +2,6 @@
 let
   sing-box-config = pkgs.replaceVars ./config.json {
     yacd = pkgs.nur.repos.linyinfeng.yacd;
-    geoip = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
-    geosite = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
   };
 in
 {

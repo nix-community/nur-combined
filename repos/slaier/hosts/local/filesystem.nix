@@ -22,4 +22,9 @@
       options = [ "umask=077" ];
     };
   };
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+    }
+  ];
 }

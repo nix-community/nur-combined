@@ -17,6 +17,12 @@ layout {
     default-column-width { proportion 1.0; }
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
 spawn-at-startup "niriswitcher"
 
@@ -25,6 +31,11 @@ window-rule {
 
     default-column-width { fixed 1460; }
     default-window-height { fixed 662; }
+}
+
+window-rule {
+    match app-id="steam_app_0"
+    open-floating false
 }
 
 prefer-no-csd
@@ -120,6 +131,9 @@ binds {
 
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
+
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     Mod+P { screenshot; }
     Mod+Ctrl+P { screenshot-screen; }

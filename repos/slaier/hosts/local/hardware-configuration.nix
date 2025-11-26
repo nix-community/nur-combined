@@ -103,6 +103,9 @@
         echo "s 6 1385 950" > pp_od_clk_voltage
         echo "s 7 1450 1000" > pp_od_clk_voltage
         echo "c" > pp_od_clk_voltage
+        echo "m" > pp_od_clk_voltage
+        echo "m 2 2250 950" > pp_od_clk_voltage
+        echo "c" > pp_od_clk_voltage
       ''} %S%p/device"''
     ]}
     SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="tty_nano_esp32c6", MODE="0666"
