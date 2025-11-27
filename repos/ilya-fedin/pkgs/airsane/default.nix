@@ -25,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-        --replace-fail ' /lib' ' lib' \
-        --replace-fail ' /etc' ' /$\{CMAKE_INSTALL_PREFIX}/etc'
+        --replace-fail ' /etc/airsane' ' ''${CMAKE_INSTALL_PREFIX}/etc/airsane' \
+        --replace-fail 'DESTINATION /' 'DESTINATION '
     substituteInPlace systemd/airsaned.service.in \
         --replace-fail '=/bin' '=${coreutils}/bin' \
         --replace-fail '/usr/bin/scanimage' '${sane-backends}/bin/scanimage' \
