@@ -3,7 +3,7 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "phosg";
-    version = "0-unstable-2025-11-24.1";
+    version = "0-unstable-2025-11-24";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "phosg";
