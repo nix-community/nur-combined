@@ -288,13 +288,13 @@
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";
-    version = "v0.11.1";
+    version = "v0.15.0";
     src = fetchFromGitHub {
       owner = "joelspadin";
       repo = "tree-sitter-devicetree";
-      rev = "v0.11.1";
+      rev = "v0.15.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2uJEItLwoBoiB49r2XuO216Dhu9AnAa0p7Plmm4JNY8=";
+      sha256 = "sha256-iMmr4zSm6B7goevHE03DMj9scW4ldXS7CV74sKeqGD4=";
     };
   };
   utfcpp = {
