@@ -29,8 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail 'DESTINATION /' 'DESTINATION '
     substituteInPlace systemd/airsaned.service.in \
         --replace-fail '=/bin' '=${coreutils}/bin' \
-        --replace-fail '/usr/bin/scanimage' '${sane-backends}/bin/scanimage' \
-        --replace-fail '=saned' '=scanner'
+        --replace-fail '/usr/bin/scanimage' '${sane-backends}/bin/scanimage'
   '';
 
   nativeBuildInputs = [
