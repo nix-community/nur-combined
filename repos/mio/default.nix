@@ -259,7 +259,26 @@ rec {
   #'';
   # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
   cb = pkgs.callPackage ./pkgs/cb { };
-  jellyfin-media-player = v3override (pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player { });
+  jellyfin-media-player = v3override (
+    pkgs.qt6Packages.callPackage ./pkgs/jellyfin-media-player {
+      kdePackages = {
+        mpvqt = pkgs.kdePackages.mpvqt.overrideAttrs (old: {
+          meta = old.meta // {
+            platforms = pkgs.lib.platforms.unix;
+          };
+
+          propagatedBuildInputs = map (
+            pkg:
+            pkg.overrideAttrs (oldPkg: {
+              meta = (oldPkg.meta or { }) // {
+                platforms = pkgs.lib.platforms.unix;
+              };
+            })
+          ) old.propagatedBuildInputs;
+        });
+      };
+    }
+  );
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
