@@ -2,6 +2,8 @@
 let
   p = pkgs.callPackage;
 in rec {
+  lib = import ./lib { inherit pkgs; };
+
   # Soundfonts
   soundfont-touhou = p ./pkgs/soundfonts/touhou { };
 
