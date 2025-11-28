@@ -343,8 +343,6 @@ rec {
     applicationName = "betterbird";
     libName = "betterbird";
   };
-  # https://github.com/NixOS/nixpkgs/pull/461412
-  shell-gpt = pkgs.callPackage ./pkgs/shell-gpt/package.nix { };
 
   /*
     mygui-next = x8664linux (
