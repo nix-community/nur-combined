@@ -8,4 +8,6 @@
     legacyPackages = import ../default.nix { inherit pkgs; };
     overlayAttrs = config.legacyPackages;
   };
+
+  flake.lib = import ../lib;
 }
