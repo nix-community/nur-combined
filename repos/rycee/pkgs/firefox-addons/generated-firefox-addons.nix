@@ -8671,10 +8671,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "13.4.0";
+      version = "13.9.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4590988/ether_metamask-13.4.0.xpi";
-      sha256 = "1de19bcbf20e2dc1fb156a0978ddbe8e53874c66fda350062881504cc7004477";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621508/ether_metamask-13.9.0.xpi";
+      sha256 = "cf16f9d8513381dc27a9be2d3058e0470756f12473f16b2308cf65be0d289b14";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
