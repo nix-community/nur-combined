@@ -14,11 +14,9 @@
         in
           { inherit r g b; };
 in {
-  colors.hex = {
-    flip = bgr: let
-      color = stringToHex bgr;
-      inherit (color) r g b;
-    in
-      "#${b}${g}${r}";
-  };
+  flip = bgr: let
+    color = stringToHex bgr;
+    inherit (color) r g b;
+  in
+    "#${b}${g}${r}";
 }

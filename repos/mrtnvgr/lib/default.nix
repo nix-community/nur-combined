@@ -1,5 +1,5 @@
-{ ... }: {
-  imports = [
-    ./colors.nix
-  ];
+{ pkgs }: {
+  colors = {
+    hex = import ./colors/hex.nix { inherit pkgs; };
+  };
 }
