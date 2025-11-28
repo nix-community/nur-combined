@@ -152,15 +152,15 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "7952bca7362c51129b2e57a4799dc6886b2fb62d";
+    version = "69ae3382cdbb9414544a55e3f42b8c2b662f699c";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "7952bca7362c51129b2e57a4799dc6886b2fb62d";
+      rev = "69ae3382cdbb9414544a55e3f42b8c2b662f699c";
       fetchSubmodules = false;
-      sha256 = "sha256-FZBr8qAYMEvhdIkrMHA9iNUrMFeJ/AXRtL74j2Vy+J4=";
+      sha256 = "sha256-O4hdkRx4GlSTZGM1MZfqsPLFf0mkqrHEbE4sUgscexs=";
     };
-    date = "2025-11-26";
+    date = "2025-11-28";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";
@@ -175,15 +175,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "ecd8d6a5abe101485c0bae9e481bb2188fb9a4c0";
+    version = "014aa10fd01112eb7fc8d054145e43c21cedf58a";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "ecd8d6a5abe101485c0bae9e481bb2188fb9a4c0";
+      rev = "014aa10fd01112eb7fc8d054145e43c21cedf58a";
       fetchSubmodules = false;
-      sha256 = "sha256-iIAeOEHHzVdlNHeeXhc1juc93rl+UJ3dtTI190D8Ur4=";
+      sha256 = "sha256-NHSSFhdsxxyhkmU8ruKguclOu9vFojNgBz9jWZ+a6cI=";
     };
-    date = "2025-11-22";
+    date = "2025-11-27";
   };
   zhuque = {
     pname = "zhuque";
