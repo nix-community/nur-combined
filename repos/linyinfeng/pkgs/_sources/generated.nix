@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.8.2";
+    version = "v1.8.3";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.8.2";
+      rev = "v1.8.3";
       fetchSubmodules = false;
-      sha256 = "sha256-FFnSpEsRnaMWrSzcekKVQtUpPLyZ4o5AhhhUoAxPuz0=";
+      sha256 = "sha256-cTbtJlKCRBO2hMsWbzRcDt/HNT0AUMrLOV9//1WU+u4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-FFnSpEsRnaMWrSzcekKVQtUpPLyZ4o5AhhhUoAxPuz0=/Cargo.lock";
+      lockFile = ./. + "/sha256-cTbtJlKCRBO2hMsWbzRcDt_HNT0AUMrLOV9__1WU+u4=/Cargo.lock";
       outputHashes = {
         "async-openai-0.28.1" = "sha256-5xrO2k5jA94cf3Ub0DGuAvKqDDXVk1Ro/naC5FG1AAw=";
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
@@ -37,13 +37,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.8.1";
+    version = "v2.9.0";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.8.1";
+      rev = "v2.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-/8yJaBAlHZMu7YUgtu2GCkMplF8Ln/hZGVqCiCfT4CY=";
+      sha256 = "sha256-WsxgkefqnN6DSbejxKTDAXigKIy3HuQ6vTIAtSGK/VI=";
     };
   };
   dot-tar = {
