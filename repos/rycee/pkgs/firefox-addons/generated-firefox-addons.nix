@@ -6285,6 +6285,28 @@
         platforms = platforms.all;
       };
     };
+    "imagus-mod" = buildFirefoxXpiAddon {
+      pname = "imagus-mod";
+      version = "0.10.15";
+      addonId = "{6833a9cb-d329-4d96-a062-76b1b663cd2c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170790/imagus_mod-0.10.15.xpi";
+      sha256 = "9a3e5f5cec70350c7f4b53721a3d7e8515b50c9eb39b2936eea5c132273f1d72";
+      meta = with lib;
+      {
+        homepage = "https://github.com/TheFantasticWarrior/chrome-extension-imagus";
+        description = "With a simple mouse-over you can enlarge and display images/videos from links. Now with optional permissions, more features.";
+        license = licenses.bsd2;
+        mozPermissions = [
+          "*://*/*"
+          "storage"
+          "menus"
+          "<all_urls>"
+          "https://*/search*"
+          "https://duckduckgo.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
       version = "1.22.7";
@@ -9212,10 +9234,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.4";
+      version = "13.5";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609561/noscript-13.4.xpi";
-      sha256 = "9496d2bc785f2b6dff36a3d6f60fa1a70d7b9a1895bc738c30387c94cd945168";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4628164/noscript-13.5.xpi";
+      sha256 = "1bea5a699582915954d06df8b2da4c500f3962e70b088cd76dd8647225f59b2f";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -15563,10 +15585,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.1.3";
+      version = "1.1.4";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621412/xkit_rewritten-1.1.3.xpi";
-      sha256 = "3d975872fad77c701a4c846dd8b30f8ac3f8671ad13ebf8e1fe5b0893e00b891";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4626767/xkit_rewritten-1.1.4.xpi";
+      sha256 = "ad5b2ac121c2ab3f2e8c1a8f3a8ffc83eab4b267d5c50c60775db5955f7eeb0a";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -15608,6 +15630,21 @@
           "contextMenus"
           "storage"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "ycs-continued" = buildFirefoxXpiAddon {
+      pname = "ycs-continued";
+      version = "1.6.2";
+      addonId = "ycs-cont-public@pymaster.tw";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4621318/ycs_continued-1.6.2.xpi";
+      sha256 = "1ba03e9b588949f370cb0f2fcbc174a489880e57ef174429792e6cb62f27e28e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/pc035860/YCS-cont";
+        description = "Search comments, replies, chat replay, video transcript for the current video on YouTube by contents, authors, time.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "scripting" "*://*.youtube.com/*" ];
         platforms = platforms.all;
       };
     };
@@ -15865,6 +15902,25 @@
           "contextMenus"
           "https://*.youtube.com/*"
           "webRequest"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-suite-search-fixer" = buildFirefoxXpiAddon {
+      pname = "youtube-suite-search-fixer";
+      version = "8.3";
+      addonId = "MinYT@example.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4563931/youtube_suite_search_fixer-8.3.xpi";
+      sha256 = "93d1954c1c0321b59bd8075eaaa21504c164889372aef0a1d3fdd04e40912751";
+      meta = with lib;
+      {
+        homepage = "https://phoennix.gitlab.io/youtubesearchfix/";
+        description = "Remove ALL distracting search results, redirect shorts back to legacy page and try little visual changes suited for low resolution screens.";
+        license = licenses.cc-by-sa-40;
+        mozPermissions = [
+          "storage"
+          "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
         ];
         platforms = platforms.all;
       };

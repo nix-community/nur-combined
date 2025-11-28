@@ -858,6 +858,9 @@
     }
   },
   {
+    "slug": "imagus-mod"
+  },
+  {
     "slug": "immersive-translate",
     "knownVulnerabilities": [
       "Information leakage, see https://www.binance.com/en/square/post/28079094872802"
@@ -2218,6 +2221,9 @@
     "slug": "yank"
   },
   {
+    "slug": "ycs-continued"
+  },
+  {
     "slug": "yomitan"
   },
   {
@@ -2285,6 +2291,13 @@
   },
   {
     "slug": "youtube-subscription-groups"
+  },
+  {
+    "slug": "youtube-suite-search-fixer",
+    "license": {
+      "tag": "predefined",
+      "shortName": "cc-by-sa-40"
+    }
   },
   {
     "slug": "ytcfilter"
