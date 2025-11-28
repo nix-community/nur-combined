@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "254bf9244e316e231cd9d37e9a03ad147314bbee";
+    version = "f1749909c099ea56e337a96ba35ffd3bff0d70f8";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "254bf9244e316e231cd9d37e9a03ad147314bbee";
+      rev = "f1749909c099ea56e337a96ba35ffd3bff0d70f8";
       fetchSubmodules = false;
-      sha256 = "sha256-BxlVwNeSMviWhi+DcSO50Exv9nmhGuVABnbmyiJ29/w=";
+      sha256 = "sha256-nqDjaOsPlrU5v7baPWgvhUCZDHQGYieILVEXLyaN45E=";
     };
-    date = "2025-11-16";
+    date = "2025-11-27";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -75,10 +75,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.6.1";
+    version = "3.6.2";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.1/qutebrowser-3.6.1-arm64.dmg";
-      sha256 = "sha256-2jk1nSq2O7z6tsVX7/ypvu2ipQh1mb8/Dz/n9KnqvAM=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.2/qutebrowser-3.6.2-arm64.dmg";
+      sha256 = "sha256-tnMn1TvnlTT1jSD8wiO5Cq6F9UCAJeMUj4BgpwJMoOM=";
     };
   };
   sbarlua = {
@@ -107,10 +107,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.7.3851.54";
+    version = "7.7.3851.56";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.7.3851.54.universal.dmg";
-      sha256 = "sha256-eHwfO/uDV35LmZAYXMtf7fh7ZxSNBrnqPSFHNWxYMlA=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.7.3851.56.universal.dmg";
+      sha256 = "sha256-TnpoXJ+5COHcTCluvL+yRIGctfuHUmM8zh5xqvYQ53E=";
     };
   };
   zen-browser = {
