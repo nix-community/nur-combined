@@ -14,6 +14,7 @@ lib.makeScope newScope (
     inherit (hooks) lakeSetupHook;
     aesop = callPackage ./aesop { };
     batteries = callPackage ./batteries { };
+    importGraph = callPackage ./importGraph { };
     xdg = callPackage ./xdg { };
     Cli = callPackage ./Cli { };
     Qq = callPackage ./Qq { };

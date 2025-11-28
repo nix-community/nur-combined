@@ -2,7 +2,7 @@
 
 function lakeConfigureHook {
   echo "Executing leanConfigureHook"
-  lean --run @lakeConfigure@ > lake-manifest-overrided.json
+  lean --run @lakeConfigure@
   echo "Finished executing leanConfigureHook"
 }
 
@@ -10,7 +10,7 @@ function lakeBuildHook {
   echo "Executing lakeBuildHook"
   runHook preBuild
 
-  lake build --packages=lake-manifest-overrided.json
+  lean --run @lakeBuild@
 
   runHook postBuild
   echo "Finished executing lakeBuildHook"

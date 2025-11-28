@@ -24,17 +24,16 @@ def patchManifest : IO Unit := do
     let x ← Lean.Json.parse manifestString
     Lean.FromJson.fromJson? x
 
-  let manifestOverridePath ← do
-    let x ← IO.getEnv "NIX_LAKE_MANIFEST_OVERRIDE"
-    x.elim (throw (IO.Error.userError "no such environment variable")) pure
-  let manifestOverrideString ← IO.FS.readFile manifestOverridePath
-  let manifestOverride : (Array ManifestOverride) ← IO.ofExcept do
-    let x ← Lean.Json.parse manifestOverrideString
-    Lean.FromJson.fromJson? x
-  let manifestOverrided := overrideManifest manifestOverride manifest
-
-  let manifestOverridedStr := toString (Lean.ToJson.toJson manifestOverrided) 
-  IO.print manifestOverridedStr
+  match (← IO.getEnv "NIX_LAKE_MANIFEST_OVERRIDE") with
+  | some x => do
+    let manifestOverrideString ← IO.FS.readFile x
+    let manifestOverride : (Array ManifestOverride) ← IO.ofExcept do
+      let x ← Lean.Json.parse manifestOverrideString
+      Lean.FromJson.fromJson? x
+    let manifestOverrided := overrideManifest manifestOverride manifest
+    let manifestOverridedStr := toString (Lean.ToJson.toJson manifestOverrided) 
+    IO.FS.writeFile "lake-manifest-overrided.json" manifestOverridedStr
+  | none => pure ()
 
 def main : IO Unit := do
   patchManifest
