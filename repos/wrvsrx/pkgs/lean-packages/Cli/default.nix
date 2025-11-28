@@ -6,14 +6,14 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "Cli";
-  version = "4.22.0+patch1";
+  version = "4.25.0";
   src = fetchFromGitHub {
     owner = "leanprover";
     repo = "lean4-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-c3suMnFEEfgI6b67euP1IRWMT1UgI/0C2J3NzIQmv80=";
+    hash = "sha256-pYDj12ZapvYvfRXGudwEwC6RstDNGgr3lSs3aWAGkW4=";
   };
-  env.NIX_LAKE_TARGETS = "Cli:Cli.Basic:Cli.Extenisons";
+  env.NIX_LAKE_TARGETS = "+Cli:o +Cli.Basic:o +Cli.Extensions:o";
   nativeBuildInputs = [
     lean4
     lakeSetupHook
