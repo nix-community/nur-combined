@@ -363,4 +363,9 @@ rec {
   */
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
   netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
+
+  howdy = nodarwin (pkgs.callPackage ./pkgs/howdy/package.nix { });
+  linux-enable-ir-emitter = nodarwin (
+    pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
+  );
 }
