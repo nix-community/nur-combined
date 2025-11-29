@@ -1,0 +1,22 @@
+diff --git a/lakefile.lean b/lakefile.lean
+index 59fa673..c694202 100644
+--- a/lakefile.lean
++++ b/lakefile.lean
+@@ -86,6 +86,17 @@ def widgetJsAllTarget (pkg : Package) (isDev : Bool) : FetchM (Job Unit) := do
+        rather than as a top-level target.
+        This only runs when some TypeScript needs building. -/
+       pkg.runNpmCommand #["clean-install"]
++      proc {
++        cmd := "sed"
++        args := #[
++          "-i",
++          "s#/usr/bin/env node#@nodejs@/bin/node#g",
++          s!"{pkg.widgetDir}/node_modules/typescript/bin/tsc",
++          s!"{pkg.widgetDir}/node_modules/rollup/dist/bin/rollup",
++        ]
++        cwd := some pkg.widgetDir
++      } (quiet := true)
++
+       pkg.runNpmCommand #["run", if isDev then "build-dev" else "build"]
+ 
+ target widgetJsAll pkg : Unit :=

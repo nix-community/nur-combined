@@ -19,6 +19,7 @@ lib.makeScope newScope (
     xdg = callPackage ./xdg { };
     Cli = callPackage ./Cli { };
     LeanSearchClient = callPackage ./LeanSearchClient { };
+    proofwidgets = callPackage ./proofwidgets { };
     Qq = callPackage ./Qq { };
   }
 )
