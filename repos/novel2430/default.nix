@@ -17,8 +17,13 @@
   wpsoffice = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { };
   wpsoffice-cn = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { useCn=true; };
   wechat-universal-bwrap = pkgs.callPackage ./pkgs/wechat-universal-bwrap { };
-  wemeet-bin-bwrap = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { };
-  wemeet-bin-bwrap-wayland-screenshare = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { useWaylandScreenshare = true; };
+  wemeet-bin-bwrap = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap {
+    xwaylandvideobridge = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap/xwaylandvideobridge.nix {};
+  };
+  wemeet-bin-bwrap-wayland-screenshare = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { 
+    xwaylandvideobridge = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap/xwaylandvideobridge.nix {};
+    useWaylandScreenshare = true; 
+  };
   nvim-vscode-colorscheme = pkgs.callPackage ./pkgs/nvim-vscode-colorscheme { };
   suyu = pkgs.callPackage ./pkgs/suyu { };
   latex-chinese-fonts = pkgs.callPackage ./pkgs/latex-chinese-fonts { };

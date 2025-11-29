@@ -1,8 +1,7 @@
 { stdenv, lib, autoPatchelfHook, fetchurl , buildFHSEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, fetchFromGitHub
 , useWaylandScreenshare ? false
 , dpkg
-, alsa-lib
-, libgcc
+, alsa-lib , libgcc
 , glibc
 , libglvnd
 , libpulseaudio
@@ -27,6 +26,7 @@
 , util-linux
 , libselinux
 , libsepol
+, xwaylandvideobridge
 }:
 let
   ld-preload-path = 
@@ -112,7 +112,7 @@ let
       xorg.libXdamage
       opencv
       libsForQt5.qt5.qtwayland
-      libsForQt5.xwaylandvideobridge
+      xwaylandvideobridge
       pipewire
       libsysprof-capture
       util-linux
