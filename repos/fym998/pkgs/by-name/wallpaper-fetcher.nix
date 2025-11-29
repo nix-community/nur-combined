@@ -32,4 +32,8 @@ buildPythonApplication rec {
     requests
     rich
   ];
+  meta = {
+    homepage = "https://pypi.org/project/wallpaper-fetcher";
+    description = "Small cli program to automatically download and set the daily Bing wallpaper on Windows, Linux or Mac.";
+  };
 }
