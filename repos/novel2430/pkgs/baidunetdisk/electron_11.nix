@@ -3,7 +3,7 @@
   stdenv,
   makeWrapper,
   fetchurl,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   glib,
   gtk3,
   unzip,
@@ -81,7 +81,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     unzip
     makeWrapper
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   dontUnpack = true;
