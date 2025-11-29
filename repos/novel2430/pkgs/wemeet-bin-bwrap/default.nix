@@ -7,7 +7,8 @@
 , libpulseaudio
 , xorg
 , openssl
-, libsForQt5
+# , libsForQt5
+, kdePackages
 , zlib
 , wayland
 , nss
@@ -26,7 +27,6 @@
 , util-linux
 , libselinux
 , libsepol
-, xwaylandvideobridge
 }:
 let
   ld-preload-path = 
@@ -34,7 +34,7 @@ let
       "${wrap}/libwemeetwrap.so:${wemeet-wayland-screenshare}/libhook.so"
     else
       "${wrap}/libwemeetwrap.so";
-  libraries = [
+  libraries = with kdePackages; [
     alsa-lib
     libgcc
     glibc
@@ -48,13 +48,20 @@ let
     xorg.libXinerama
     xorg.libXrandr
     openssl
-    libsForQt5.qt5.qtbase
-    libsForQt5.qt5.qtdeclarative
-    libsForQt5.qt5.qtsvg
-    libsForQt5.qt5.qtwebchannel
-    libsForQt5.qt5.qtwebengine
-    libsForQt5.qt5.qtx11extras
-    libsForQt5.qt5.qtwayland
+    # libsForQt5.qt5.qtbase
+    # libsForQt5.qt5.qtdeclarative
+    # libsForQt5.qt5.qtsvg
+    # libsForQt5.qt5.qtwebchannel
+    # libsForQt5.qt5.qtwebengine
+    # libsForQt5.qt5.qtx11extras
+    # libsForQt5.qt5.qtwayland
+    qtbase
+    qtdeclarative
+    qtsvg
+    qtwebchannel
+    qtwebengine
+    # qtx11extras
+    qtwayland
     zlib
     wayland
     nss
@@ -106,13 +113,12 @@ let
       ninja
     ];
 
-    buildInputs = [
+    buildInputs = with kdePackages; [
       libportal
       xorg.libXrandr
       xorg.libXdamage
       opencv
-      libsForQt5.qt5.qtwayland
-      xwaylandvideobridge
+      qtwayland
       pipewire
       libsysprof-capture
       util-linux
