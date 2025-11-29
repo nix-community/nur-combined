@@ -40,6 +40,7 @@
                 treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
                 pinned-packages = [
+                    "fprintd"
                     "libfprint-focaltech-2808-a658-alt"
                     "nixos-boot-plymouth-theme"
                 ];

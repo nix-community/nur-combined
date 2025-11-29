@@ -10,6 +10,7 @@
 | [`batteryd`](https://github.com/Naxdy/batteryd)                                                                                        | Auto updated     |
 | [`dl`](https://github.com/Vortriz/dl)                                                                                                  | Auto updated     |
 | [`dunefetch`](https://github.com/datavorous/dunefetch)                                                                                 | Auto updated     |
+| [`fprintd`](https://gitlab.freedesktop.org/libfprint/fprintd)                                                                          | Pinned to 1.94.4 |
 | [`HelveticaNeueCyr`](https://github.com/Vortriz/fonts)                                                                                 | Auto updated     |
 | [`goldfish`](https://github.com/sameoldlab/goldfish)                                                                                   | Auto updated     |
 | [`libfprint-focaltech-2808-a658-alt`](https://github.com/Varrkan82/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658) | Pinned to 1.94.4 |
