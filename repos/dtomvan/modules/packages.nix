@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   perSystem =
     { pkgs, system, ... }:
@@ -15,6 +16,13 @@
           flakePackages;
     in
     {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        config = {
+          enableCuda = false; # causes build failure for nix
+          allowUnfree = true;
+        };
+      };
       legacyPackages = warnPackages;
       packages = pkgs.lib.filterAttrs (_: pkgs.lib.isDerivation) warnPackages;
     };
