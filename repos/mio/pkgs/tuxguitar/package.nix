@@ -131,6 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,lib}
     cp -r $TUXGUITAR_DIR $out/lib/tuxguitar
     ln -s $out/lib/tuxguitar/tuxguitar.sh $out/bin/tuxguitar
+    ln -s $out/lib/tuxguitar/share $out/share
   ''
   + ''
 
