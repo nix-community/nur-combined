@@ -15,8 +15,10 @@ lib.makeScope newScope (
     aesop = callPackage ./aesop { };
     batteries = callPackage ./batteries { };
     importGraph = callPackage ./importGraph { };
+    plausible = callPackage ./plausible { };
     xdg = callPackage ./xdg { };
     Cli = callPackage ./Cli { };
+    LeanSearchClient = callPackage ./LeanSearchClient { };
     Qq = callPackage ./Qq { };
   }
 )
