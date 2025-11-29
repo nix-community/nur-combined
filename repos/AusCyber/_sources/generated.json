@@ -651,12 +651,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.6.7.1",
-            "sha256": "sha256-Hu6g2MkBduDvjGzQeqW+fmqmvXq9tero28ywZ5aI8PQ=",
+            "rev": "0.6.9.1",
+            "sha256": "sha256-76g18q4Usuv7DlLuLvzcyEcQMXwmgzdJOOtoNlPZlU0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.6.7.1"
+        "version": "0.6.9.1"
     },
     "helium-macos": {
         "cargoLock": null,
@@ -792,11 +792,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pwbeQJHpQoSp6ftoFWZbKMsHlaQSrY1zLdS24vf/CvQ=",
+            "sha256": "sha256-yIO1h7yGmh1QPdUvkQOTxU1BT3tXorqZ2KnjbDpqXiw=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.17.10b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.17.11b/zen.macos-universal.dmg"
         },
-        "version": "1.17.10b"
+        "version": "1.17.11b"
     },
     "zen-twilight": {
         "cargoLock": null,
@@ -807,10 +807,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cYaB5nnpJQuCzUHIzTUVn+Jk5pCDI5nIHLEspzq/Fu4=",
+            "sha256": "sha256-Uqes65VtzL1XAbhZjKt3rdu0SRNmwxDtpSEY6/FWq5A=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
-        "version": "1.17.10b"
+        "version": "1.17.11b"
     }
 }
