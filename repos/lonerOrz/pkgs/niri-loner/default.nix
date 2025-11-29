@@ -26,7 +26,7 @@
   withNative ? false,
 }:
 let
-  raw-version = "25.8.0";
+  raw-version = "25.11.0";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-blur";
@@ -35,11 +35,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "niri";
-    rev = "342aaf7d18897d8836ebe3ff87c5e2dcaf5b980f";
-    hash = "sha256-oL+2ErXaSsCCuIs4xWRqTZSQ6+zs8AEpCjyb+TnB2tg=";
+    rev = "ac408011226c735c36973cc6a35d11dde96fb412";
+    hash = "sha256-aeGRowW7viWgMzR5aE+s/T/xzfHS3cOHVK1ZYrYy350=";
   };
 
-  cargoHash = "sha256-Me8woNt30B77K3NPnEaB7YoT+2o64AiiYBhGzHfSUNM=";
+  cargoHash = "sha256-X28M0jyhUtVtMQAYdxIPQF9mJ5a77v8jw1LKaXSjy7E=";
 
   outputs = [
     "out"
