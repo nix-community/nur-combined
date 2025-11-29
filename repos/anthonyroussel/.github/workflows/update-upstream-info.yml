@@ -16,9 +16,9 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/nix-installer-action@v21
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
