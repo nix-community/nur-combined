@@ -7,7 +7,7 @@
 , jack1
 , fftw
 , qt6
-, ffmpeg
+, ffmpeg_7
 , gnutar
 , libedit
 , sox
@@ -27,6 +27,9 @@
 , libtiff
 , libnsl
 , libtirpc
+, cairo
+, pango
+, gtk3
 }:
 let
   pname = "shotcut-bin";
@@ -47,7 +50,7 @@ let
     mlt
     fftw
     jack1
-    ffmpeg
+    ffmpeg_7
     libedit
     sox
     mpdecimal
@@ -67,6 +70,9 @@ let
     libtiff
     libnsl
     libtirpc
+    cairo
+    pango
+    gtk3
     # Qt6
     qtbase
     qttools
@@ -127,6 +133,14 @@ stdenv.mkDerivation{
     patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/Shotcut/bin/img2webp
     patchelf --replace-needed libmpdec.so.3 libmpdec.so $out/opt/Shotcut/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
     patchelf --replace-needed libnsl.so.2 libnsl.so $out/opt/Shotcut/lib/python3.10/lib-dynload/nis.cpython-310-x86_64-linux-gnu.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/libtheoradec.so.1
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/libcairo-gobject.so.2
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairogradient.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoblend.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoimagegrid.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoaffineblend.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/mirr0r.so
+    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/qt6/platformthemes/libqgtk3.so
   '';
 
   desktopItems = [

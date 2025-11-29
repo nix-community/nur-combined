@@ -30,7 +30,7 @@
   zzz = pkgs.callPackage ./pkgs/zzz { };
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
-  vita3k = pkgs.callPackage ./pkgs/vita3k { };
+  # vita3k = pkgs.callPackage ./pkgs/vita3k { };
   zen-browser-bin = pkgs.callPackage ./pkgs/zen-browser { };
   wechat-appimage = pkgs.callPackage ./pkgs/wechat-appimage { };
   dingtalk = pkgs.callPackage ./pkgs/dingtalk {};
