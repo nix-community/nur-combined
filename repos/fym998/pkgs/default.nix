@@ -22,5 +22,5 @@ let
 in
 lib.packagesFromDirectoryRecursive {
   inherit callPackage;
-  directory = ./by-path;
+  directory = ./by-name;
 }

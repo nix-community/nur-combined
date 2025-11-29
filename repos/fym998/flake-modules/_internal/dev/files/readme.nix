@@ -23,10 +23,10 @@
                   "[${p.pname or p.name}](${
                     builtins.replaceStrings
                       [
-                        (toString ../../../../. + "/")
+                        (toString ../../../../.)
                         ":"
                       ]
-                      [ "" "#L" ]
+                      [ "." "#L" ]
                       p.meta.position
                   })"
                 ))

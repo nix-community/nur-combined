@@ -83,7 +83,7 @@
               in
               flattenPkgs "." [ ] self'.legacyPackages;
 
-            ciPackages = self'.legacyPackages;
+            ciPackages = self'.packages;
 
             update = {
               inherit (self') packages;
