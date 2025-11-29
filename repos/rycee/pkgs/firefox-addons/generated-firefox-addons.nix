@@ -2669,10 +2669,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "146.0.20251126.90434";
+      version = "146.0.20251128.121902";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628666/dansk_da_language_pack-146.0.20251126.90434.xpi";
-      sha256 = "4b6afb0e6b883908afd9e4509d4c7f5a9a497fb690f569d85ba9df68a9c1c478";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630411/dansk_da_language_pack-146.0.20251128.121902.xpi";
+      sha256 = "a507dfe3c453cf7171818a5dfd2e20d50eac227eba5accb859a2af7daf80f918";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2764,10 +2764,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.115";
+      version = "4.9.116";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619318/darkreader-4.9.115.xpi";
-      sha256 = "d3f800fc8c50d24578c25dad35a8e2e528f7a43eb45ee355ceb346d4fb7cc48f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625542/darkreader-4.9.116.xpi";
+      sha256 = "5a6fff6cd9b27c2243d4e76a666a8f6f8b01b930757e67cbe3c911e3cb563838";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2882,10 +2882,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "146.0.20251126.90434";
+      version = "146.0.20251128.121902";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628665/deutsch_de_language_pack-146.0.20251126.90434.xpi";
-      sha256 = "31abeb5d86692070743b1070cb4070f068c462bb4f248bda73867019477e7439";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630412/deutsch_de_language_pack-146.0.20251128.121902.xpi";
+      sha256 = "e067cbabf8595c7da6776a82d31df74d25aa6504a303f7564a1bcf25e2d3b738";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3787,10 +3787,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.69";
+      version = "1.3.70";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4626292/faststream-1.3.69.xpi";
-      sha256 = "d2edccf94e8110e9e07184a0498e3631fbb1962a30879dfa7edb5df7c93f361b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630676/faststream-1.3.70.xpi";
+      sha256 = "cdadfde27c3190977ab93528f6d063a751d8b0d477ac14661eae0e895bde5363";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4344,10 +4344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "146.0.20251126.90434";
+      version = "146.0.20251128.121902";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628687/francais_language_pack-146.0.20251126.90434.xpi";
-      sha256 = "dd24ce0c09015507b9847ad80ebca7e864041ff9c39d141824a0b6945645b734";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630380/francais_language_pack-146.0.20251128.121902.xpi";
+      sha256 = "cd04f1b97d6af755645454eea75983fa0672b676b7da0aa1e1b7e49a6f8fb541";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4381,10 +4381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "146.0.20251126.90434";
+      version = "146.0.20251128.121902";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628636/gaidhlig_language_pack-146.0.20251126.90434.xpi";
-      sha256 = "949780b201aac48a1ed9089e275531608ffdc397d34e9891189d977900744c86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630423/gaidhlig_language_pack-146.0.20251128.121902.xpi";
+      sha256 = "a587100dd3520e0e31f9d844b60ebc129cdec8e7bd023bdc6d41af090db373f6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4676,10 +4676,10 @@
     };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389774/gopass_bridge-2.1.0.xpi";
-      sha256 = "ae2fe0296eea9ef73695bb57c52d9ba930c18d89d58d65c8014104cb8b0e74a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630675/gopass_bridge-2.1.1.xpi";
+      sha256 = "e8ac742baf8fd9954672b778440acf9d87666d93df470d8d7be53e2cb051141f";
       meta = with lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
@@ -7235,10 +7235,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.147.2";
+      version = "4.149.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602959/lastpass_password_manager-4.147.2.xpi";
-      sha256 = "bb779789289e7fc39f1590d933bc6b1ac59e096ae537a55bb1ae4947f196cea0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625120/lastpass_password_manager-4.149.3.xpi";
+      sha256 = "510556bb1dbe8202d658cf299e1222f19a2477b19d8337b651f6c2e7c2c6879b";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -7256,7 +7256,6 @@
           "contextMenus"
           "scripting"
           "storage"
-          "nativeMessaging"
           "privacy"
           "webNavigation"
           "webRequest"
@@ -10622,10 +10621,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "0.73.0";
+      version = "1.0.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4627069/private_grammar_checker_harper-0.73.0.xpi";
-      sha256 = "06e7be4da5a10ff4f85b9eb27dd1dfe9eee096af60c4e411483eb3ab99068f15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630785/private_grammar_checker_harper-1.0.0.xpi";
+      sha256 = "931fd84648cf3d985b903e4d6dbdbc5e5ffc5dc647e0da2b97cdb0fc5d9e3f54";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11703,10 +11702,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25320";
+      version = "0.2.0.25326";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620618/ruffle_rs-0.2.0.25320.xpi";
-      sha256 = "20d87fc621459695174715b70acccf5cbcd3b3fa60b7e67955cbf165dba1a829";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4625299/ruffle_rs-0.2.0.25326.xpi";
+      sha256 = "c8e4a445cc53a8dc9519427b627fe20a0a5b45cc85a431205aa045311e9da3ac";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -11855,10 +11854,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "146.0.20251126.90434";
+      version = "146.0.20251128.121902";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628627/scots_language_pack-146.0.20251126.90434.xpi";
-      sha256 = "0d724d19c4369594a26cbc29dc354dd3cf09bdd4afb18bd547529fa0e93ce435";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630382/scots_language_pack-146.0.20251128.121902.xpi";
+      sha256 = "ea70eb8db52cf545d80cc1cc4d1d7738dd58632c8253daf145ff78efe8ad787a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15709,10 +15708,10 @@
     };
     "youtube-auto-hd-fps" = buildFirefoxXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.13.0";
+      version = "1.13.2";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4629146/youtube_auto_hd_fps-1.13.0.xpi";
-      sha256 = "030736ef69ceb333be46bda65794bdf439bb94dfe612d9bffee58d8188541b0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630779/youtube_auto_hd_fps-1.13.2.xpi";
+      sha256 = "199c40aa3ec1e0cd23f909b4e1d87d2c3893f394f43d75d3ed71bc8a90459b61";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
