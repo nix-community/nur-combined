@@ -39,12 +39,14 @@ def get_download_link_for_version(
         match = None
         for f in data.json()["data"]["content"]:
             _match = re.match(
-                r"^(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.(.+))$",
+                r"^(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.([a-zA-Z]+))$",
                 f["name"],
             )
             if _match:
                 match = _match
                 break
+        if not match:
+            raise RuntimeError("Failed to extract URL")
 
         filename = match[1]
         host_version = match[2]
@@ -63,7 +65,7 @@ def get_download_link_for_version(
                 )
         print("Patches:", patches)
 
-        return url, patches, host_version, guest_version
+        return [url], patches, host_version, guest_version
     except Exception as e:
         print(f"Exception occurred: {e}")
         return [], [], None, None
@@ -153,7 +155,7 @@ nvidia_settings_versions = get_nvidia_settings_versions()
 
 def match_latest_version_str(
     available: List[NvidiaVersion], target: NvidiaVersion
-) -> Optional[NvidiaVersion]:
+) -> Optional[str]:
     versions = sorted(list(filter(lambda v: v <= target, available)))
     return versions[-1][3] if len(versions) else None
 
@@ -168,12 +170,11 @@ except Exception:
 try:
     for version in get_available_versions():
         if version not in result.keys():
-            download_link, patches, host_version, guest_version = (
-                get_download_link_for_version(version)
+            urls, patches, host_version, guest_version = get_download_link_for_version(
+                version
             )
-            if not download_link:
+            if not urls or not host_version or not guest_version:
                 continue
-            urls = [download_link]
 
             # hash = nix_prefetch_url(url)
             host_persistenced_version = match_latest_version_str(
