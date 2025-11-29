@@ -29,6 +29,8 @@ in rec {
   # Audio
   bitwig-custom = p ./pkgs/audio/bitwig-custom/default.nix { };
 
+  js_ReaScriptAPI = p ./pkgs/audio/js_ReaScriptAPI { };
+
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
   TyrellN6 = p ./pkgs/audio/tyrelln6 { };
