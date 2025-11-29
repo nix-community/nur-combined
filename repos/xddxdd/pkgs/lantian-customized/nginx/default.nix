@@ -13,11 +13,11 @@
   libxml2,
   libxslt,
   openssl-oqs-provider,
+  openssl,
   pcre,
   perl,
   python3,
   quickjs-ng,
-  quictls,
   which,
   zlib,
   zstd,
@@ -56,10 +56,10 @@ stdenv.mkDerivation rec {
     libxcrypt
     libxml2
     libxslt
+    openssl
     pcre
     perl
     quickjs-ng
-    quictls
     zlib
     zstd
   ];
