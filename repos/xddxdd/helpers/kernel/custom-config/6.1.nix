@@ -18,8 +18,8 @@ with lib.kernel;
   DEFAULT_SECURITY_APPARMOR = yes;
   GCC_PLUGINS = no;
   HIBERNATION = no;
-  KEXEC = no;
-  KEXEC_FILE = lib.mkForce no;
+  KEXEC = yes;
+  KEXEC_FILE = yes;
   PROVIDE_OHCI1394_DMA_INIT = no;
   SECURITY_SELINUX = no;
 
