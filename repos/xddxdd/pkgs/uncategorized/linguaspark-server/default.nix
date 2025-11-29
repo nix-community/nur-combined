@@ -5,7 +5,7 @@
   pkg-config,
   openssl,
   callPackage,
-  runCommandNoCC,
+  runCommand,
   autoPatchelfHook,
   buildArch ? null,
 }:
@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         hash = "sha256-ztttmouKz0SmQ3HDFnSfTdOpj9DS2uRQmKwiuez41mA=";
       };
     in
-    runCommandNoCC "${finalAttrs.pname}-deps" { } ''
+    runCommand "${finalAttrs.pname}-deps" { } ''
       cp -r ${deps} $out
       chmod -R +w $out
 

@@ -4,7 +4,7 @@
   lib,
   buildLinux,
   callPackage,
-  runCommandNoCC,
+  runCommand,
   ...
 }@args:
 rec {
@@ -83,7 +83,7 @@ rec {
     let
       cfg =
         import
-          (runCommandNoCC "config.nix" { } ''
+          (runCommand "config.nix" { } ''
             echo "{" > "$out"
             while IFS='=' read key val; do
               [ "x''${key#CONFIG_}" != "x$key" ] || continue

@@ -685,26 +685,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.11.22";
+    version = "2025.11.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-ASN.mmdb";
-      hash = "sha256-S0nzD/Muk0y5lR9k6C/OUM/8cltYQE2Z3jzHEHcaYkM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-ASN.mmdb";
+      hash = "sha256-Z0b22H61yHyd9z9cuXud0e9nqJMaPgyUcvESiT+TBiI=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.11.22";
+    version = "2025.11.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-City.mmdb";
-      hash = "sha256-JXiAzKSacZM+jB6XSQOd6hQjaBThtojjxn54BjIO4cA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-City.mmdb";
+      hash = "sha256-PIENm/MdATtAF9Y1LFcU1+FD8is91E7LN1xmFQ13vOk=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.11.22";
+    version = "2025.11.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-Country.mmdb";
-      hash = "sha256-Nu6NGlLYA8Wm/qGsU3rp6ZkdxXL/VRqvAUhQB16mDAE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-Country.mmdb";
+      hash = "sha256-Q6gFA2BxcIJh43HPSF0GQiz9QcCvA3Xv/zR68xGMpTg=";
     };
   };
   glauth = {
@@ -873,14 +873,14 @@
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
-    version = "f0c29f27c577f121826041fd72f36b2d122966b3";
+    version = "64899a286e6ee3a5e4ef5382b8bd539201a1909a";
     src = fetchFromGitHub {
       owner = "FoxIO-LLC";
       repo = "ja4-nginx-module";
-      rev = "f0c29f27c577f121826041fd72f36b2d122966b3";
-      hash = "sha256-cwKNfgehIFOeiWH/hwa3xXEYREARPK+Rl7blO0l7TLg=";
+      rev = "64899a286e6ee3a5e4ef5382b8bd539201a1909a";
+      hash = "sha256-Tvro90DXL7QfGRdT+N09R/HV63DiTLh01SO+FIlw58Y=";
     };
-    date = "2025-11-14";
+    date = "2025-11-23";
   };
   jproxy = {
     pname = "jproxy";

@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-S0nzD/Muk0y5lR9k6C/OUM/8cltYQE2Z3jzHEHcaYkM=",
+            "sha256": "sha256-Z0b22H61yHyd9z9cuXud0e9nqJMaPgyUcvESiT+TBiI=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.11.22"
+        "version": "2025.11.28"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JXiAzKSacZM+jB6XSQOd6hQjaBThtojjxn54BjIO4cA=",
+            "sha256": "sha256-PIENm/MdATtAF9Y1LFcU1+FD8is91E7LN1xmFQ13vOk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-City.mmdb"
         },
-        "version": "2025.11.22"
+        "version": "2025.11.28"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Nu6NGlLYA8Wm/qGsU3rp6ZkdxXL/VRqvAUhQB16mDAE=",
+            "sha256": "sha256-Q6gFA2BxcIJh43HPSF0GQiz9QcCvA3Xv/zR68xGMpTg=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.22/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.11.28/GeoLite2-Country.mmdb"
         },
-        "version": "2025.11.22"
+        "version": "2025.11.28"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1689,7 +1689,7 @@
     },
     "ja4-nginx-module": {
         "cargoLocks": null,
-        "date": "2025-11-14",
+        "date": "2025-11-23",
         "extract": null,
         "name": "ja4-nginx-module",
         "passthru": null,
@@ -1701,12 +1701,12 @@
             "name": null,
             "owner": "FoxIO-LLC",
             "repo": "ja4-nginx-module",
-            "rev": "f0c29f27c577f121826041fd72f36b2d122966b3",
-            "sha256": "sha256-cwKNfgehIFOeiWH/hwa3xXEYREARPK+Rl7blO0l7TLg=",
+            "rev": "64899a286e6ee3a5e4ef5382b8bd539201a1909a",
+            "sha256": "sha256-Tvro90DXL7QfGRdT+N09R/HV63DiTLh01SO+FIlw58Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f0c29f27c577f121826041fd72f36b2d122966b3"
+        "version": "64899a286e6ee3a5e4ef5382b8bd539201a1909a"
     },
     "jproxy": {
         "cargoLocks": null,

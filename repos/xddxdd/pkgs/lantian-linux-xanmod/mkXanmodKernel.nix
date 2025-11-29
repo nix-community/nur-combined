@@ -2,7 +2,7 @@
   callPackage,
   lib,
   sources,
-  runCommandNoCC,
+  runCommand,
   ...
 }:
 args:
@@ -21,7 +21,7 @@ let
     in
     rec {
       name = "cachyos-patches-combined.patch";
-      patch = runCommandNoCC name { } (
+      patch = runCommand name { } (
         ''
           for F in ${cachyDir}/*.patch; do
             case "$F" in

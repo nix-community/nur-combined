@@ -2,7 +2,7 @@
   sources,
   stdenvNoCC,
   lib,
-  jre_headless,
+  jdk25_headless,
   makeWrapper,
   unzip,
 }:
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp PeerBanHelper.jar $out/opt/peerbanhelper.jar
     cp -r libraries $out/opt/libraries
 
-    makeWrapper ${jre_headless}/bin/java $out/bin/peerbanhelper \
+    makeWrapper ${jdk25_headless}/bin/java $out/bin/peerbanhelper \
       --add-flags "-jar" \
       --add-flags "$out/opt/peerbanhelper.jar"
 
