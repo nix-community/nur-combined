@@ -29,7 +29,7 @@ let
   raw-version = "25.11.0";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "niri-blur";
+  pname = "niri-blur-loner";
   version = "${raw-version}" + "-feat-blur";
 
   src = fetchFromGitHub {

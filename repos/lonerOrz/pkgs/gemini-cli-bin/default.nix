@@ -9,7 +9,7 @@
   ...
 }:
 let
-  pname = "gemini-cli";
+  pname = "gemini-cli-bin";
   version = "0.18.4";
   srcHash = "sha256-XHSQlbbZ0wZgDfuJYrzH+Vm/x2sAtT+gs9ByFQpXS4U=";
   npmDepsHash = "sha256-6V5GJAuARc9voIBZDUnGjBKDMCC3goWBwfswhjeeuSo=";

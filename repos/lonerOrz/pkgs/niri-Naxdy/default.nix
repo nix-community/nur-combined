@@ -29,7 +29,7 @@ let
   raw-version = "25.8.0";
 in
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "niri-blur";
+  pname = "niri-blur-Naxdy";
   version = "${raw-version}" + "-feat-blur";
 
   # https://github.com/Naxdy/niri.git
