@@ -1,8 +1,8 @@
 diff --git a/libavcodec/Makefile b/libavcodec/Makefile
-index a4fcce3b42..bc701db5b6 100644
+index fb22541f8d..bd6da17d81 100644
 --- a/libavcodec/Makefile
 +++ b/libavcodec/Makefile
-@@ -1184,6 +1184,7 @@ OBJS-$(CONFIG_AMR_PARSER)              += amr_parser.o
+@@ -1219,6 +1219,7 @@ OBJS-$(CONFIG_APV_PARSER)              += apv_parser.o
  OBJS-$(CONFIG_AV1_PARSER)              += av1_parser.o av1_parse.o
  OBJS-$(CONFIG_AVS2_PARSER)             += avs2.o avs2_parser.o
  OBJS-$(CONFIG_AVS3_PARSER)             += avs3_parser.o
@@ -509,11 +509,11 @@ index 0000000000..4c4cb5d87a
 +    .parser_parse = raw_av3a_parse,
 +};
 diff --git a/libavcodec/codec_desc.c b/libavcodec/codec_desc.c
-index d58c3d889c..e71636804d 100644
+index a065556e51..e195f9e137 100644
 --- a/libavcodec/codec_desc.c
 +++ b/libavcodec/codec_desc.c
-@@ -3433,6 +3433,13 @@ static const AVCodecDescriptor codec_descriptors[] = {
-         .long_name = NULL_IF_CONFIG_SMALL("LC3 (Low Complexity Communication Codec)"),
+@@ -3495,6 +3495,13 @@ static const AVCodecDescriptor codec_descriptors[] = {
+         .long_name = NULL_IF_CONFIG_SMALL("G.728"),
          .props     = AV_CODEC_PROP_INTRA_ONLY | AV_CODEC_PROP_LOSSY,
      },
 +    {
@@ -527,22 +527,22 @@ index d58c3d889c..e71636804d 100644
      /* subtitle codecs */
      {
 diff --git a/libavcodec/codec_id.h b/libavcodec/codec_id.h
-index 0a8d3bed1e..9e5a96ea35 100644
+index c4842e61ff..bf3158b13b 100644
 --- a/libavcodec/codec_id.h
 +++ b/libavcodec/codec_id.h
-@@ -544,6 +544,7 @@ enum AVCodecID {
-     AV_CODEC_ID_OSQ,
+@@ -556,6 +556,7 @@ enum AVCodecID {
      AV_CODEC_ID_QOA,
      AV_CODEC_ID_LC3,
+     AV_CODEC_ID_G728,
 +    AV_CODEC_ID_AVS3DA,
  
      /* subtitle codecs */
      AV_CODEC_ID_FIRST_SUBTITLE = 0x17000,          ///< A dummy ID pointing at the start of subtitle codecs.
 diff --git a/libavcodec/parsers.c b/libavcodec/parsers.c
-index 5128009cd4..ad494614a3 100644
+index b12c48f79f..f303ecce64 100644
 --- a/libavcodec/parsers.c
 +++ b/libavcodec/parsers.c
-@@ -28,6 +28,7 @@ extern const AVCodecParser ff_amr_parser;
+@@ -29,6 +29,7 @@ extern const AVCodecParser ff_apv_parser;
  extern const AVCodecParser ff_av1_parser;
  extern const AVCodecParser ff_avs2_parser;
  extern const AVCodecParser ff_avs3_parser;
@@ -551,10 +551,10 @@ index 5128009cd4..ad494614a3 100644
  extern const AVCodecParser ff_cavsvideo_parser;
  extern const AVCodecParser ff_cook_parser;
 diff --git a/libavcodec/utils.c b/libavcodec/utils.c
-index 6909a5ba2b..3b4e0e8820 100644
+index cfa35d0e04..a038a8c13a 100644
 --- a/libavcodec/utils.c
 +++ b/libavcodec/utils.c
-@@ -602,6 +602,7 @@ static int get_audio_frame_duration(enum AVCodecID id, int sr, int ch, int ba,
+@@ -601,6 +601,7 @@ static int get_audio_frame_duration(enum AVCodecID id, int sr, int ch, int ba,
      case AV_CODEC_ID_MP2:
      case AV_CODEC_ID_MUSEPACK7:    return 1152;
      case AV_CODEC_ID_AC3:          return 1536;
@@ -563,10 +563,10 @@ index 6909a5ba2b..3b4e0e8820 100644
      }
  
 diff --git a/libavformat/isom_tags.c b/libavformat/isom_tags.c
-index 5dd72d570e..1c52d7c3f3 100644
+index 151c42e9e6..8e3c69d72f 100644
 --- a/libavformat/isom_tags.c
 +++ b/libavformat/isom_tags.c
-@@ -353,6 +353,7 @@ const AVCodecTag ff_codec_movaudio_tags[] = {
+@@ -366,6 +366,7 @@ const AVCodecTag ff_codec_movaudio_tags[] = {
      { AV_CODEC_ID_TRUEHD,          MKTAG('m', 'l', 'p', 'a') }, /* mp4ra.org */
      { AV_CODEC_ID_OPUS,            MKTAG('O', 'p', 'u', 's') }, /* mp4ra.org */
      { AV_CODEC_ID_MPEGH_3D_AUDIO,  MKTAG('m', 'h', 'm', '1') }, /* MPEG-H 3D Audio bitstream */
@@ -575,22 +575,34 @@ index 5dd72d570e..1c52d7c3f3 100644
  };
  
 diff --git a/libavformat/mpegts.c b/libavformat/mpegts.c
-index 86b7c8e041..77741fe759 100644
+index 981dd8cf0d..3db33d37a7 100644
 --- a/libavformat/mpegts.c
 +++ b/libavformat/mpegts.c
-@@ -819,6 +819,7 @@ static const StreamType ISO_types[] = {
-     { 0xd1, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_DIRAC      },
-     { 0xd2, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS2       },
-     { 0xd4, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS3       },
-+    { 0xd5, AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA     }, /* avs3 audio */
-     { 0xea, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1        },
+@@ -820,6 +820,7 @@ static const StreamType ISO_types[] = {
+     { STREAM_TYPE_VIDEO_DIRAC,    AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_DIRAC      },
+     { STREAM_TYPE_VIDEO_AVS2,     AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS2       },
+     { STREAM_TYPE_VIDEO_AVS3,     AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS3       },
++    { STREAM_TYPE_VIDEO_AVS3DA,   AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA     }, /* avs3 audio */
+     { STREAM_TYPE_VIDEO_VC1,      AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1        },
      { 0 },
  };
-@@ -876,6 +877,7 @@ static const StreamType REGD_types[] = {
+@@ -878,6 +879,7 @@ static const StreamType REGD_types[] = {
      { MKTAG('I', 'D', '3', ' '), AVMEDIA_TYPE_DATA,  AV_CODEC_ID_TIMED_ID3 },
      { MKTAG('V', 'C', '-', '1'), AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1   },
      { MKTAG('O', 'p', 'u', 's'), AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_OPUS  },
 +    { MKTAG('a', 'v', '3', 'a'), AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA}, /* AVS3 Audio descriptor Tag */
      { 0 },
  };
+ 
+diff --git a/libavformat/mpegts.h b/libavformat/mpegts.h
+index 2bc53447d0..52b7c842f9 100644
+--- a/libavformat/mpegts.h
++++ b/libavformat/mpegts.h
+@@ -148,6 +148,7 @@
+ #define STREAM_TYPE_VIDEO_CAVS      0x42
+ #define STREAM_TYPE_VIDEO_AVS2      0xd2
+ #define STREAM_TYPE_VIDEO_AVS3      0xd4
++#define STREAM_TYPE_VIDEO_AVS3DA    0xd5
+ #define STREAM_TYPE_VIDEO_VC1       0xea
+ #define STREAM_TYPE_VIDEO_DIRAC     0xd1
  
