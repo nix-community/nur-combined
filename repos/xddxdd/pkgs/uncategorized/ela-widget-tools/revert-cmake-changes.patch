@@ -1,0 +1,20 @@
+diff --git a/ElaWidgetTools/CMakeLists.txt b/ElaWidgetTools/CMakeLists.txt
+index 18d9cbc..80446db 100644
+--- a/ElaWidgetTools/CMakeLists.txt
++++ b/ElaWidgetTools/CMakeLists.txt
+@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME} ${LIB_TYPE}
+ 
+ FILE(GLOB EXPORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+ target_include_directories(${PROJECT_NAME} PUBLIC
++    @QT_INCLUDE_DIRS@
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/private>
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DeveloperComponents>
+@@ -50,7 +51,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
+ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
+ target_link_libraries(${PROJECT_NAME} PUBLIC
+     Qt${QT_VERSION_MAJOR}::Widgets
+-    Qt${QT_VERSION_MAJOR}::WidgetsPrivate
+ )
+ if (WIN32)
+     target_link_libraries(${PROJECT_NAME} PUBLIC

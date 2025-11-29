@@ -534,6 +534,11 @@
     "pname": "kata-runtime",
     "version": "3.23.0"
   },
+  "legacyPackages.x86_64-linux.deprecated.openvswitch-dpdk": {
+    "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",
+    "pname": "openvswitch-dpdk",
+    "version": "3.6.1"
+  },
   "legacyPackages.x86_64-linux.deprecated.payload-dumper-go": {
     "description": "(DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go",
     "pname": "payload-dumper-go",
@@ -4125,7 +4130,7 @@
     "version": "0.10.0"
   },
   "legacyPackages.x86_64-linux.openvswitch-dpdk": {
-    "description": "Multilayer virtual switch",
+    "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
     "version": "3.6.1"
   },
@@ -5038,11 +5043,6 @@
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider",
     "version": "0.10.0"
-  },
-  "legacyPackages.x86_64-linux.uncategorized.openvswitch-dpdk": {
-    "description": "Multilayer virtual switch",
-    "pname": "openvswitch-dpdk",
-    "version": "3.6.1"
   },
   "legacyPackages.x86_64-linux.uncategorized.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -6080,7 +6080,7 @@
     "version": "0.10.0"
   },
   "packages.x86_64-linux.openvswitch-dpdk": {
-    "description": "Multilayer virtual switch",
+    "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
     "version": "3.6.1"
   },

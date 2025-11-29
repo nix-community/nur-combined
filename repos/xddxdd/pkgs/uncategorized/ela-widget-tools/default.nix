@@ -9,7 +9,10 @@
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.ela-widget-tools) pname version src;
 
-  patches = [ ./fix-install-path.patch ];
+  patches = [
+    ./fix-install-path.patch
+    ./revert-cmake-changes.patch
+  ];
 
   # Qt CMake private include path is empty, generate one ourselves
   postPatch =
@@ -30,9 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     in
     ''
       substituteInPlace ElaWidgetTools/CMakeLists.txt \
-        --replace-fail \
-          '${"\${Qt\${QT_VERSION_MAJOR}Widgets_PRIVATE_INCLUDE_DIRS}"}' \
-          "${includePaths}"
+        --replace-fail '@QT_INCLUDE_DIRS@' "${includePaths}"
     '';
 
   nativeBuildInputs = [
