@@ -8,12 +8,12 @@
 
 stdenv.mkDerivation rec {
   name = "dev-lennis-xauth-server-${version}";
-  version = "16eaded";
+  version = "78caf02";
   src = fetchFromGitHub {
     owner = "lennis-dev";
     repo = "xauth-server";
-    rev = "16eadedecee541828091145fd7cdfd9cfc33f9b0";
-    hash = "sha256-xLA9Qo2kPBUA0355NU9s1I7GgYnxWyZdKa39ZPZ6VFc=";
+    rev = "78caf0277d12e0c8f0824f4c3a20415d8dbfcaa6";
+    hash = "sha256-RvuGlxoWHtPRmdqHpFNTscXfFK+Mu0gUlzOnKQBozt4=";
   };
 
   update-my-nur = true;
