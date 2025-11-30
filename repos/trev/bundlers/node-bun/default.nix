@@ -15,7 +15,6 @@ drv.overrideAttrs (
 
     nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [
       pkgs.bun
-      pkgs.upx
     ];
 
     # compile to binary with bun
@@ -23,9 +22,7 @@ drv.overrideAttrs (
       runHook preInstall
 
        mkdir -p ''${out}/bin
-       bun build --compile --minify --sourcemap \
-        --target="${target}" \
-        --outfile "''${out}/bin/${binName}" build/index.js
+       bun build --compile --minify --sourcemap build/index.js --outfile "''${out}/bin/${binName}"
 
        runHook postInstall
     '';
