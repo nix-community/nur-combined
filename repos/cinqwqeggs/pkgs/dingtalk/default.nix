@@ -1,82 +1,64 @@
 { stdenv,
+  lib,
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
-  lib,
-  makeDesktopItem,
   copyDesktopItems,
+  makeDesktopItem,
   dpkg,
+
   alsa-lib,
-  apr,
-  aprutil,
   at-spi2-atk,
   at-spi2-core,
   cairo,
   cups,
-  curl,
   dbus,
-  e2fsprogs,
+  expat,
   fontconfig,
   freetype,
   fribidi,
   gdk-pixbuf,
   glib,
-  gnome2,
   gnutls,
   graphite2,
   gtk3,
   harfbuzz,
-  icu63,
-  krb5,
   libdrm,
-  libgcrypt,
-  libGLU,
   libglvnd,
-  libidn2,
-  libinput,
-  libjpeg,
-  libpng,
-  libpsl,
+  libnotify,
   libpulseaudio,
-  libssh2,
-  libthai,
-  libxcrypt-legacy,
+  libuuid,
   libxkbcommon,
+  libXi,
+  libXext,
+  libXfixes,
+  libXdamage,
+  libXcomposite,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libxshmfence,
   mesa,
-  mtdev,
-  nghttp2,
-  nspr,
   nss,
-  openldap,
-  openssl_1_1,
   pango,
-  pcre2,
-  qt5,
-  rtmpdump,
   udev,
-  util-linux,
   xorg,
 }:
 
 let
   libraries = [
-    alsa-lib apr aprutil at-spi2-atk at-spi2-core cairo cups curl dbus e2fsprogs
-    fontconfig freetype fribidi gdk-pixbuf glib gnome2.gtkglext gnutls graphite2
-    gtk3 harfbuzz icu63 krb5 libdrm libgcrypt libGLU libglvnd libidn2 libinput
-    libjpeg libpng libpsl libpulseaudio libssh2 libthai libxcrypt-legacy libxkbcommon
-    mesa mtdev nghttp2 nspr nss openldap openssl_1_1 pango pcre2
-    qt5.qtbase qt5.qtmultimedia qt5.qtsvg qt5.qtx11extras rtmpdump udev util-linux
-    xorg.libICE xorg.libSM xorg.libX11 xorg.libxcb xorg.libXcomposite xorg.libXcursor
-    xorg.libXdamage xorg.libXext xorg.libXfixes xorg.libXi xorg.libXinerama xorg.libXmu
-    xorg.libXrandr xorg.libXrender xorg.libXScrnSaver xorg.libXt xorg.libXtst
-    xorg.xcbutilimage xorg.xcbutilkeysyms xorg.xcbutilrenderutil xorg.xcbutilwm
+    alsa-lib at-spi2-atk at-spi2-core cairo cups dbus expat fontconfig freetype
+    fribidi gdk-pixbuf glib gnutls graphite2 gtk3 harfbuzz libdrm libglvnd
+    libnotify libpulseaudio libuuid libxkbcommon libXi libXext libXfixes
+    libXdamage libXcomposite libXrandr libXrender libXScrnSaver libxshmfence
+    mesa nss pango udev xorg.libxcb
   ];
 in
 
 stdenv.mkDerivation rec {
   pname = "dingtalk";
   version = "7.8.15.5102301";
-  
+
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
     hash = "sha256-0k0g74h0di2z7a1mnygpxbgwcn8qqaihcl5zn65wz3a8wnih9xph";
@@ -85,55 +67,40 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
-    qt5.wrapQtAppsHook
     copyDesktopItems
     dpkg
   ];
 
   buildInputs = libraries;
-  dontWrapQtApps = true;
 
   unpackPhase = ''
     runHook preUnpack
     dpkg -x $src .
-    mv opt/apps/com.alibainc.dingtalk/files/version version || true
-    mv opt/apps/com.alibainc.dingtalk/files/*-Release.* release || true
-    rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcrypto.so.*,libcurl.so.*} || true
-    rm -f release/{libdouble-conversion.so.*,libEGL*,libgbm.*,libGLES*} || true
-    rm -rf release/{engines-1_1,imageformats,platform*,swiftshader,xcbglintegrations} || true
-    rm -rf release/Resources/{i18n/tool/*.exe,qss/mac} || true
+    mv opt/apps/com.alibabainc.dingtalk/files ./dingtalk-files
+    rm -f ./dingtalk-files/dingtalk_crash_report
+    rm -f ./dingtalk-files/dingtalk_updater
     runHook postUnpack
   '';
 
   installPhase = ''
     runHook preInstall
-    install -Dm644 version $out/version
-    mv release $out/lib
+    mkdir -p $out/lib
+    mv ./dingtalk-files/* $out/lib/
     mkdir -p $out/bin
-    cat > $out/bin/dingtalk <<EOF
-#!/usr/bin/env bash
-export XDG_DATA_DIRS="\$XDG_DATA_DIRS:/run/current-system/sw/share"
-if [[ "\$XMODIFIERS" =~ fcitx ]]; then
-  export QT_IM_MODULE=fcitx
-  export GTK_IM_MODULE=fcitx
-elif [[ "\$XMODIFIERS" =~ ibus ]]; then
-  export QT_IM_MODULE=ibus
-  export GTK_IM_MODULE=ibus
-  export IBUS_USE_PORTAL=1
-fi
-exec "$out/lib/com.alibabainc.dingtalk"
-EOF
-    chmod +x $out/bin/dingtalk
-    wrapProgram $out/bin/dingtalk \
-      "''${qtWrapperArgs[@]}" \
+
+    install -Dm644 $out/lib/Resources/image/common/about/logo.png $out/share/pixmaps/dingtalk.png
+
+    makeWrapper $out/lib/com.alibainc.dingtalk $out/bin/dingtalk \
       --chdir $out/lib \
-      --unset WAYLAND_DISPLAY \
-      --set QT_QPA_PLATFORM "xcb" \
-      --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libraries} \
+      --prefix XDG_DATA_DIRS : "${gdk-pixbuf}/share:${gtk3}/share:$out/share" \
       --prefix LD_PRELOAD : "$out/lib/libcef.so" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
-      --set XDG_DATA_DIRS "/run/current-system/sw/share"
-    install -Dm644 $out/lib/Resources/image/common/about/logo.png $out/share/pixmaps/dingtalk.png || true
+      --set QT_QPA_PLATFORM "xcb" \
+      --unset WAYLAND_DISPLAY \
+      --set QT_AUTO_SCREEN_SCALE_FACTOR "1" \
+      --set QT_IM_MODULE "fcitx5" \
+      --set GTK_IM_MODULE "fcitx5"
+      
     runHook postInstall
   '';
 
@@ -164,3 +131,4 @@ EOF
     mainProgram = "dingtalk";
   };
 }
+
