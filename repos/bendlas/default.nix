@@ -23,5 +23,6 @@ rec {
     inherit libgpiod1;
   };
   libgpiod1 = pkgs.callPackage ./pkgs/libgpiod1.nix { };
+  mixxx-to-rekordbox = pkgs.callPackage ./pkgs/mixxx-to-rekordbox.nix { };
 
 }
