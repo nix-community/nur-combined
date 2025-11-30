@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 mkYaziPlugin {
-    pname = "what-size";
+    pname = "what-size-yazi";
     version = "0-unstable-2025-06-19";
 
     src = fetchFromGitHub {

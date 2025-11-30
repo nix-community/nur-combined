@@ -42,7 +42,6 @@
 
             flake = {
                 homeModules = import ./modules/home-manager;
-                overlays = import ./overlays.nix;
             };
         };
 }

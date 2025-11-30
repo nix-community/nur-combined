@@ -1,10 +1,11 @@
 {
     pkgs ? import <nixpkgs> { },
 }:
-let
-    sources = pkgs.callPackage ./_sources/generated.nix { };
-in
-pkgs.lib.packagesFromDirectoryRecursive {
-    callPackage = pkgs.lib.callPackageWith (pkgs // { inherit sources; });
+(pkgs.lib.packagesFromDirectoryRecursive {
+    inherit (pkgs) callPackage;
     directory = ./pkgs/by-name;
-}
+})
+// (pkgs.lib.packagesFromDirectoryRecursive {
+    callPackage = pkgs.lib.callPackageWith (pkgs // { inherit (pkgs.yaziPlugins) mkYaziPlugin; });
+    directory = ./pkgs/yaziPlugins;
+})

@@ -18,3 +18,7 @@
 | [`nixos-boot-plymouth-theme`](https://github.com/daVinci13/nixos_boot_plymouth)                                                        | Pinned to 1.0    |
 | [`SFMono-Nerd-Font-Ligaturized`](https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized)                                           | Auto updated     |
 | [`xdg-desktop-portal-termfilechooser`](https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser)                             | Auto updated     |
+
+## TODO
+
+- auto update yazi plugins or figure out how to package them directly under yaziPlugins namespace

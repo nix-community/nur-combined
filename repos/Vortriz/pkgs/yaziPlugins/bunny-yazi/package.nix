@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 mkYaziPlugin {
-    pname = "bunny";
+    pname = "bunny-yazi";
     version = "1.3.2-unstable-2025-09-18";
 
     src = fetchFromGitHub {
