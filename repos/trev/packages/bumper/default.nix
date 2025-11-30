@@ -36,7 +36,6 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
     echo "${
       pkgs.lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
         "errexit"
-        "nounset"
         "pipefail"
       ]
     }" >> bumper
@@ -68,6 +67,8 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
     description = "git semantic version bumper";
     mainProgram = "bumper";
     homepage = "https://github.com/spotdemo4/bumper";
+    changelog = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";
+    license = pkgs.lib.licenses.mit;
     platforms = pkgs.lib.platforms.all;
   };
 })
