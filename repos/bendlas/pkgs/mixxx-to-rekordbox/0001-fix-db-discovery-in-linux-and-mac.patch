@@ -1,0 +1,33 @@
+From bc6d9d34cf99937360eff6ed0b4df257632fefc1 Mon Sep 17 00:00:00 2001
+From: Herwig Hochleitner <herwig@bendlas.net>
+Date: Sun, 30 Nov 2025 06:42:55 +0100
+Subject: [PATCH 1/2] fix db discovery in linux and mac
+
+see https://stackoverflow.com/questions/2057045/os-makedirs-doesnt-understand-in-my-path
+---
+ handlers/sql.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/handlers/sql.py b/handlers/sql.py
+index e3f3fe3..35e4efc 100644
+--- a/handlers/sql.py
++++ b/handlers/sql.py
+@@ -50,11 +50,11 @@ def get_mixxx_db_location(custom_db_location: str | None) -> str:
+     if os.getenv("LOCALAPPDATA"):
+         return f"{os.getenv('LOCALAPPDATA')}\\Mixxx\\mixxxdb.sqlite"
+     # MacOS
+-    if path.exists(r"~/Library/Application Support/Mixxx"):
+-        return r"~/Library/Application Support/Mixxx/mixxxdb.sqlite"
++    if path.exists(path.expanduser(r"~/Library/Application Support/Mixxx")):
++        return path.expanduser(r"~/Library/Application Support/Mixxx/mixxxdb.sqlite")
+     # Linux
+-    if path.exists(r"~/.mixxx"):
+-        return r"~/.mixxx/mixxxdb.sqlite"
++    if path.exists(path.expanduser(r"~/.mixxx")):
++        return path.expanduser(r"~/.mixxx/mixxxdb.sqlite")
+ 
+ 
+ def set_db_location(db_location: str) -> None:
+-- 
+2.51.2
+

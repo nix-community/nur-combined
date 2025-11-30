@@ -27,6 +27,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-B4YnubS46ktGSK7D564v77GPzX8brjkiIFJsx9jmT78=";
   };
 
+  patches = [
+    ./mixxx-to-rekordbox/0001-fix-db-discovery-in-linux-and-mac.patch
+    ./mixxx-to-rekordbox/0002-make-track-loading-robust-against-non-existent-track.patch
+  ];
+
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
