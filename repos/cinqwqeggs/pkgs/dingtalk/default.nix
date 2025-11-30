@@ -6,7 +6,6 @@
   copyDesktopItems,
   makeDesktopItem,
   dpkg,
-
   alsa-lib,
   at-spi2-atk,
   at-spi2-core,
@@ -44,35 +43,29 @@
   udev,
   xorg,
 }:
-
 let
   libraries = [
-    alsa-lib at-spi2-atk at-spi2-core cairo cups expat fontconfig freetype
+    alsa-lib at-spi2-atk at-spi2-core cairo cups dbus expat fontconfig freetype
     fribidi gdk-pixbuf glib gnutls graphite2 gtk3 harfbuzz libdrm libglvnd
     libnotify libpulseaudio libuuid libxkbcommon libXi libXext libXfixes
     libXdamage libXcomposite libXrandr libXrender libXScrnSaver libxshmfence
     mesa nss pango udev xorg.libxcb
   ];
 in
-
 stdenv.mkDerivation rec {
   pname = "dingtalk";
   version = "7.8.15.5102301";
-
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
     hash = "sha256-0k0g74h0di2z7a1mnygpxbgwcn8qqaihcl5zn65wz3a8wnih9xph";
   };
-
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
     copyDesktopItems
     dpkg
   ];
-
   buildInputs = libraries;
-
   unpackPhase = ''
     runHook preUnpack
     dpkg -x $src .
@@ -81,18 +74,15 @@ stdenv.mkDerivation rec {
     rm -f ./dingtalk-files/dingtalk_updater
     runHook postUnpack
   '';
-
   installPhase = ''
     runHook preInstall
     mkdir -p $out/lib
     mv ./dingtalk-files/* $out/lib/
     mkdir -p $out/bin
-
     install -Dm644 $out/lib/Resources/image/common/about/logo.png $out/share/pixmaps/dingtalk.png
-
     makeWrapper $out/lib/com.alibainc.dingtalk $out/bin/dingtalk \
       --chdir $out/lib \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libraries} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
       --prefix XDG_DATA_DIRS : "${gdk-pixbuf}/share:${gtk3}/share:$out/share" \
       --prefix LD_PRELOAD : "$out/lib/libcef.so" \
       --set QT_QPA_PLATFORM "xcb" \
@@ -103,7 +93,6 @@ stdenv.mkDerivation rec {
       
     runHook postInstall
   '';
-
   desktopItems = [
     makeDesktopItem {
       name = "dingtalk";
@@ -120,7 +109,6 @@ stdenv.mkDerivation rec {
       };
     }
   ];
-
   meta = {
     maintainers = with lib.maintainers; [ "cinqwqeggs" ];
     description = "Enterprise communication and collaboration platform developed by Alibaba Group";
@@ -131,4 +119,3 @@ stdenv.mkDerivation rec {
     mainProgram = "dingtalk";
   };
 }
-
