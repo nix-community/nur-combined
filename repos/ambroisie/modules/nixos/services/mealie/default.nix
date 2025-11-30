@@ -54,6 +54,12 @@ in
       };
     };
 
+    my.services.backup = {
+      paths = [
+        "/var/lib/mealie"
+      ];
+    };
+
     services.fail2ban.jails = {
       mealie = ''
         enabled = true
