@@ -248,14 +248,17 @@ in {
         inherit (pkgs) lib fetchFromGitHub;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "25.11.26";
+            version = "25.11.29";
             src = fetchFromGitHub {
                 owner = "picolisp";
                 repo = "pil21";
-                rev = "d2e09c74095719c7435c6120c90db1ddfcef5ce5";
-                hash = "sha256-9ANIlovbZw1mcuw3KVwW5c/YoeEVynVju7EPDTOW3cw=";
+                rev = "6d31b66634b81f422e68111647d808e5d087567b";
+                hash = "sha256-2xgzQxM2NjbJP7V2ZXbwxhkPDWSDGJTKEfKPuT6DmnM=";
             };
             sourceRoot = null;
+            ${if pkgs.stdenv.hostPlatform.isDarwin then "env" else null} = (old.env or {}) // {
+                NIX_LDFLAGS = (old.env.NIX_LDFLAGS or "") + " -lresolv";
+            };
             passthru = (old.passthru or {}) // {
                 updateScript = pkgs.writeShellScript "update-picolisp-rolling" ''
                     PATH=${lib.makeBinPath (with pkgs; [
