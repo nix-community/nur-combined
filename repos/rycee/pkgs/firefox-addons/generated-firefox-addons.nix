@@ -2918,10 +2918,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.4.0";
+      version = "6.4.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4627362/dictionaries-6.4.0.xpi";
-      sha256 = "373f2eee2921d181a393d7994c623f32982e9ba07931931fd2a1479db3f7018a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631280/dictionaries-6.4.1.xpi";
+      sha256 = "79c9e64052c8fa008266d062c138609ca54fa7e283a96e02091ad3734c463972";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -9702,10 +9702,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2025.9.2";
+      version = "2025.12.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4584135/pakkujs-2025.9.2.xpi";
-      sha256 = "6ad8de86c433ed39bcefc7f03014db8aa118502de7b8ed96429498d62268e572";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631227/pakkujs-2025.12.1.xpi";
+      sha256 = "ffb363a9a8aab4e17c981e7b5150138bd567a5374efec20088da574456b885f7";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -12297,10 +12297,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.3.14";
+      version = "3.3.15";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621776/simplifygmail-3.3.14.xpi";
-      sha256 = "83b095d6dd0f662737e3a073ebfc8b5e1ef9d6480f348cd7d482100faaaa7aa1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630967/simplifygmail-3.3.15.xpi";
+      sha256 = "4dbebaee5b1fb1cfa117d58ee5cddeb9525de054bd8612272112f59093333de7";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
