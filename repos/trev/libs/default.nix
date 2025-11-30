@@ -8,3 +8,6 @@
   mkApps = import ./mkApps { inherit pkgs; };
   mkChecks = import ./mkChecks { inherit pkgs; };
 }
+// import ./pure.nix {
+  systems = [ system ];
+}

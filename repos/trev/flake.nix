@@ -11,73 +11,69 @@
   };
 
   inputs = {
+    systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { systems, nixpkgs, ... }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      mkFlake = import ./libs/mkFlake {
+        systems = import systems;
+      };
     in
-    rec {
-      packages = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-        in
-        import ./packages {
+    mkFlake (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+      rec {
+        packages = import ./packages {
           inherit system pkgs;
-        }
-      );
+        };
 
-      bundlers = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-        in
-        import ./bundlers {
+        bundlers = import ./bundlers {
           inherit system pkgs;
-        }
-      );
+        };
 
-      # the entire attribute set
-      legacyPackages = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-        in
-        import ./. {
+        # the entire attribute set
+        legacyPackages = import ./. {
           inherit system pkgs;
-        }
-      );
+        };
 
-      overlays = import ./overlays;
+        libs =
+          # pure libs without pkgs/system injected
+          import ./libs/pure.nix {
+            systems = import systems;
+          }
+          # libs for each system
+          // pkgs.lib.genAttrs (import systems) (
+            system:
+            import ./libs {
+              inherit system pkgs;
+            }
+          );
 
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
+        overlays = import ./overlays;
 
-          trenovate = pkgs.callPackage ./packages/renovate { };
-          update = pkgs.callPackage ./utils/update { };
-          shellhook = pkgs.callPackage ./packages/shellhook { };
-        in
-        {
+        devShells = {
           default = pkgs.mkShell {
-            packages = with pkgs; [
-              update
-              nixfmt
-              prettier
-            ];
-            shellHook = shellhook.ref;
+            packages =
+              let
+                update = pkgs.callPackage ./utils/update { };
+              in
+              [
+                update
+                pkgs.nixfmt
+                pkgs.prettier
+              ];
+            shellHook =
+              let
+                shellhook = pkgs.callPackage ./packages/shellhook { };
+              in
+              shellhook.ref;
           };
 
           check = pkgs.mkShell {
@@ -87,10 +83,15 @@
           };
 
           update = pkgs.mkShell {
-            packages = [
-              update
-              trenovate
-            ];
+            packages =
+              let
+                trenovate = pkgs.callPackage ./packages/renovate { };
+                update = pkgs.callPackage ./utils/update { };
+              in
+              [
+                update
+                trenovate
+              ];
           };
 
           vulnerable = pkgs.mkShell {
@@ -98,38 +99,31 @@
               flake-checker
             ];
           };
-        }
-      );
+        };
 
-      checks = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-          libs = import ./libs {
-            inherit system pkgs;
-          };
-          trenovate = pkgs.callPackage ./packages/renovate { };
-        in
-        libs.mkChecks {
-          lint = {
-            src = ./.;
-            deps = with pkgs; [
-              nixfmt-tree
-              prettier
-              action-validator
-              trenovate
-            ];
-            script = ''
-              treefmt --ci
-              prettier --check .
-              action-validator .github/**/*.yaml
-              renovate-config-validator .github/renovate.json
-            '';
-          };
-        }
-        // packages."${system}"
-      );
-    };
+        checks =
+          libs."${system}".mkChecks {
+            lint = {
+              src = ./.;
+              deps =
+                let
+                  trenovate = pkgs.callPackage ./packages/renovate { };
+                in
+                [
+                  pkgs.nixfmt-tree
+                  pkgs.prettier
+                  pkgs.action-validator
+                  trenovate
+                ];
+              script = ''
+                treefmt --ci
+                prettier --check .
+                action-validator .github/**/*.yaml
+                renovate-config-validator .github/renovate.json
+              '';
+            };
+          }
+          // packages;
+      }
+    );
 }

@@ -130,10 +130,10 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = with pkgs; [
     buf
-    pkgs.nur.repos.trev.lib.buf.configHook
+    pkgs.lib.buf.configHook
   ];
 
-  bufDeps = pkgs.nur.repos.trev.lib.buf.fetchDeps {
+  bufDeps = pkgs.lib.buf.fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "...";
   };
