@@ -91,5 +91,8 @@
                     ];
                 };
             }
-        );
+        )
+        // {
+            homeModules = import ./modules/home-manager;
+        };
 }
