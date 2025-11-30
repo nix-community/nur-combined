@@ -16,4 +16,5 @@ rec {
   ripplerx = pkgs.callPackage ./pkgs/ripplerx { };
   octasine = pkgs.callPackage ./pkgs/octasine { };
   surge-xt = pkgs.callPackage ./pkgs/surge-xt { };
+  shortcircuit-xt = pkgs.callPackage ./pkgs/shortcircuit-xt { };
 }
