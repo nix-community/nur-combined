@@ -27,17 +27,17 @@ Extra packages, bundlers and libs for nix
 
 An alternative to `github:NixOS/bundlers#toDockerImage` that uses `streamLayeredImage` rather than `buildLayeredImage`
 
-```console
-$ nix bundle --bundler github:spotdemo4/nur#toDockerImage
+```elm
+nix bundle --bundler github:spotdemo4/nur#toDockerImage
 ```
 
 ### goTo[GOOS][GOARCH]
 
 Builds a go package using the GOOS and GOARCH values supplied
 
-```console
-$ nix bundle -o binary --bundler github:spotdemo4/nur#goToLinuxAmd64
-$ nix bundle -o binary.exe --bundler github:spotdemo4/nur#goToWindowsAmd64
+```elm
+nix bundle -o binary --bundler github:spotdemo4/nur#goToLinuxAmd64
+nix bundle -o binary.exe --bundler github:spotdemo4/nur#goToWindowsAmd64
 ```
 
 ## Libs
@@ -48,7 +48,7 @@ Utility function to make creating flake checks easier
 
 ```nix
 checks = forSystem ({pkgs, ...}:
-  pkgs.nur.repos.trev.lib.mkChecks {
+  pkgs.lib.mkChecks {
     lint = {
       src = ./.;
       deps = with pkgs; [
@@ -65,6 +65,32 @@ checks = forSystem ({pkgs, ...}:
 });
 ```
 
+### mkApps
+
+Utility function to make creating flake apps easier
+
+```nix
+apps = forSystem ({pkgs, ...}:
+  pkgs.lib.mkApps {
+    lint = {
+      deps = with pkgs; [
+        alejandra
+        sqlfluff
+        revive
+      ];
+      script = ''
+        alejandra -c .
+        sqlfluff lint
+        revive -config revive.toml -set_exit_status ./...
+      '';
+    };
+});
+```
+
+```elm
+nix run #lint
+```
+
 ### go.moduleToPlatform & go.moduleToImage
 
 Changes the goos & goarch values of a buildGoModule derivation, and turns a buildGoModule derivation into a docker image
@@ -76,7 +102,7 @@ packages = forSystem (
     system,
     ...
   }:
-    with pkgs.nur.repos.trev.lib; rec {
+    with pkgs.lib; rec {
       default = ts-server."${system}";
 
       linux-amd64 = go.moduleToPlatform default "linux" "amd64";

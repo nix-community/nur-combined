@@ -5,5 +5,6 @@
 {
   buf = import ./buf { inherit pkgs; };
   go = import ./go { inherit pkgs; };
+  mkApps = import ./mkApps { inherit pkgs; };
   mkChecks = import ./mkChecks { inherit pkgs; };
 }
