@@ -64,6 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
     lakeSetupHook
     bubblewrap
   ];
+  # After https://github.com/leanprover/lean4/pull/10452, lake will try to create ${proofwidgets}/lib/lean-packages/proofwidgets/.lake/config/proofwidgets directory
+  # This is a workaround.
   buildPhase = ''
     bwrap \
       --dev-bind / / \
