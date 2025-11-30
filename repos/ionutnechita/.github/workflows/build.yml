@@ -26,7 +26,7 @@ jobs:
       KERNEL_VARIANT: stable
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Free disk space
       run: |
         df -h
@@ -106,7 +106,7 @@ jobs:
       KERNEL_VARIANT: mainline
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Free disk space
       run: |
         df -h
