@@ -42,27 +42,71 @@ nix bundle -o binary.exe --bundler github:spotdemo4/nur#goToWindowsAmd64
 
 ## Libs
 
+### mkFlake
+
+Utility function to make creating flakes easier
+
+```nix
+inputs = {
+  systems.url = "github:nix-systems/default";
+  nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  trev = {
+    url = "github:spotdemo4/nur";
+    inputs.systems.follows = "systems";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+};
+
+outputs =
+  {
+    nixpkgs,
+    trev,
+    ...
+  }:
+  trev.libs.mkFlake (
+    system:
+    let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          trev.overlays.packages
+          trev.overlays.libs
+        ];
+      };
+    in
+    rec {
+      devShells = {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt
+          ];
+          shellHook = pkgs.shellhook.ref;
+        };
+      };
+    }
+  );
+```
+
 ### mkChecks
 
 Utility function to make creating flake checks easier
 
 ```nix
-checks = forSystem ({pkgs, ...}:
-  pkgs.lib.mkChecks {
-    lint = {
-      src = ./.;
-      deps = with pkgs; [
-        alejandra
-        sqlfluff
-        revive
-      ];
-      script = ''
-        alejandra -c .
-        sqlfluff lint
-        revive -config revive.toml -set_exit_status ./...
-      '';
-    };
-});
+checks = pkgs.lib.mkChecks {
+  lint = {
+    src = ./.;
+    deps = with pkgs; [
+      nixfmt-tree
+      sqlfluff
+      prettier
+    ];
+    script = ''
+      treefmt --ci
+      sqlfluff lint
+      prettier --check .
+    '';
+  };
+};
 ```
 
 ### mkApps
@@ -70,21 +114,20 @@ checks = forSystem ({pkgs, ...}:
 Utility function to make creating flake apps easier
 
 ```nix
-apps = forSystem ({pkgs, ...}:
-  pkgs.lib.mkApps {
-    lint = {
-      deps = with pkgs; [
-        alejandra
-        sqlfluff
-        revive
-      ];
-      script = ''
-        alejandra -c .
-        sqlfluff lint
-        revive -config revive.toml -set_exit_status ./...
-      '';
-    };
-});
+apps = pkgs.lib.mkApps {
+  lint = {
+    deps = with pkgs; [
+      nixfmt-tree
+      sqlfluff
+      prettier
+    ];
+    script = ''
+      treefmt --ci
+      sqlfluff lint
+      prettier --check .
+    '';
+  };
+};
 ```
 
 ```elm
@@ -147,7 +190,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
 ## Install
 
-### DevShell
+### Flake
 
 ```nix
 {
@@ -161,21 +204,24 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   };
 
   inputs = {
+    systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
     trev = {
       url = "github:spotdemo4/nur";
+      inputs.systems.follows = "systems";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    nixpkgs,
-    utils,
-    trev,
-  }:
-    utils.lib.eachDefaultSystem (
-      system: let
+  outputs =
+    {
+      nixpkgs,
+      trev,
+      ...
+    }:
+    trev.libs.mkFlake (
+      system:
+      let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
@@ -183,12 +229,16 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
             trev.overlays.libs
           ];
         };
-      in {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            bobgen
-          ];
-          shellHook = pkgs.shellhook.ref;
+      in
+      rec {
+        devShells = {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              nixfmt
+              prettier
+            ];
+            shellHook = pkgs.shellhook.ref;
+          };
         };
 
         checks = pkgs.lib.mkChecks {
