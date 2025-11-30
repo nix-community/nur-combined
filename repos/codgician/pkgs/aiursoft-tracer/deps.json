@@ -36,34 +36,40 @@
     "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.0/aiursoft.cstools.10.0.0.nupkg"
   },
   {
-    "pname": "Aiursoft.DbTools",
+    "pname": "Aiursoft.CSTools",
     "version": "10.0.1",
-    "hash": "sha256-Ha0yFyYPmXmquC+bbm11M69aqkaBS5XOVADuaKLwJQQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.1/aiursoft.dbtools.10.0.1.nupkg"
+    "hash": "sha256-W2uKk9QoZ9kaDS4hjnJfYh2hEf6VFE1ANrXpVN+Gj6M=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.1/aiursoft.cstools.10.0.1.nupkg"
+  },
+  {
+    "pname": "Aiursoft.DbTools",
+    "version": "10.0.2",
+    "hash": "sha256-Bx2KzqZUuPI8V/Y91MrfU+3lx1X503E6dI3xKfYF8fw=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.2/aiursoft.dbtools.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.1",
-    "hash": "sha256-EOvaCnFaXtaVXU55BGvBOFdasFSj4FZR1fUiiTKPRyY=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.1/aiursoft.dbtools.inmemory.10.0.1.nupkg"
+    "version": "10.0.2",
+    "hash": "sha256-yUf1XyqviiBh758dx/0axUE+efijyI/XL3TmlJjef0w=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.2/aiursoft.dbtools.inmemory.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.2",
-    "hash": "sha256-GYB4m1c9Unx4iPoWxDKH/z912V1MZndNTrVexMSs0eA=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.2/aiursoft.dbtools.mysql.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-rzQI/JwIA/jJxtJkA+RkChNY8O7Yz4P9kjO1RzoBX0U=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.3/aiursoft.dbtools.mysql.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.2",
-    "hash": "sha256-NR0Zcw7JDXtyh9piEJSJjirJeLqDJUQXMXIA7P5pUoI=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.2/aiursoft.dbtools.sqlite.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-siGjcl9X9dU9hwukbDvSIcXQNfO1+qP4jYcfK7lM0Y8=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.3/aiursoft.dbtools.sqlite.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.1",
-    "hash": "sha256-Tcg5L6dmhYd3gh7RfQ227jZr8PRXZkT64L5FfDh/FU8=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.1/aiursoft.dbtools.switchable.10.0.1.nupkg"
+    "version": "10.0.2",
+    "hash": "sha256-GtP2AM5eaOhUooo330CsVnW9+mCo1XcjI05jK5Nv2E4=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.2/aiursoft.dbtools.switchable.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.EntityFrameworkCore.MySql",
