@@ -1,8 +1,12 @@
 {
-  description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  description = "@ShadowRZ's NUR Repository";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  };
+
   outputs =
-    { self, nixpkgs }:
+    { nixpkgs, ... }:
     let
       systems = [
         "x86_64-linux"
@@ -17,6 +21,7 @@
         system:
         import ./packages.nix {
           pkgs = nixpkgs.legacyPackages.${system};
+          isFlake = true;
         }
       );
 
