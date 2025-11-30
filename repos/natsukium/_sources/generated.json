@@ -137,11 +137,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tnMn1TvnlTT1jSD8wiO5Cq6F9UCAJeMUj4BgpwJMoOM=",
+            "sha256": "sha256-Kk+uWs2QJouaD9U5ma3AJsR4HtqW/Blh8zM9Faj1u00=",
             "type": "url",
-            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.2/qutebrowser-3.6.2-arm64.dmg"
+            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.3/qutebrowser-3.6.3-arm64.dmg"
         },
-        "version": "3.6.2"
+        "version": "3.6.3"
     },
     "sbarlua": {
         "cargoLocks": null,
