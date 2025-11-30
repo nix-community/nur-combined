@@ -15,7 +15,7 @@ jobs:
         nix_path:
           - nixpkgs-unstable.tar.gz
           - nixos-unstable.tar.gz
-          - nixos-25.05.tar.gz
+          - nixos-25.11.tar.gz
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
