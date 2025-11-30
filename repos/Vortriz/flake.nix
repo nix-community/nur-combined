@@ -3,11 +3,8 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-        systems.url = "github:nix-systems/default-linux";
-        flake-utils = {
-            url = "github:numtide/flake-utils";
-            inputs.systems.follows = "systems";
-        };
+        systems.url = "github:nix-systems/x86_64-linux";
+        flake-parts.url = "github:hercules-ci/flake-parts";
         devshell = {
             url = "github:numtide/devshell";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -19,80 +16,33 @@
     };
 
     outputs =
-        {
-            nixpkgs,
-            flake-utils,
-            devshell,
-            treefmt-nix,
-            ...
-        }:
-        flake-utils.lib.eachDefaultSystem (
-            system:
-            let
-                inherit (nixpkgs) lib;
+        { flake-parts, ... }@inputs:
+        flake-parts.lib.mkFlake { inherit inputs; } {
+            systems = import inputs.systems;
 
-                pkgs = import nixpkgs {
-                    inherit system;
-                    overlays = [ devshell.overlays.default ];
-                    config.allowUnfree = true;
+            imports = [
+                ./devshell.nix
+                ./treefmt.nix
+            ];
+
+            perSystem =
+                {
+                    pkgs,
+                    system,
+                    ...
+                }:
+                {
+                    _module.args.pkgs = import inputs.nixpkgs {
+                        inherit system;
+                        config.allowUnfree = true;
+                    };
+
+                    packages = import ./default.nix { inherit pkgs; };
                 };
 
-                treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-
-                pinned-packages = [
-                    "fprintd"
-                    "libfprint-focaltech-2808-a658-alt"
-                    "nixos-boot-plymouth-theme"
-                ];
-            in
-            {
-                formatter = treefmtEval.config.build.wrapper;
-
-                packages = import ./default.nix { inherit pkgs; };
-
-                devShells.default = pkgs.devshell.mkShell {
-                    devshell.motd = "";
-
-                    packages = with pkgs; [
-                        nix-init
-                        jq
-                        nix-update
-                    ];
-
-                    env = [
-                        {
-                            name = "PACKAGES";
-                            eval = "$(nix flake show --all-systems --json | jq -r '[.packages[] | keys[]] | sort | unique |  join(\",\")')";
-                        }
-                        {
-                            name = "BLACKLIST";
-                            value = lib.strings.join "," pinned-packages;
-                        }
-                    ];
-
-                    commands = [
-                        {
-                            name = "update";
-                            help = "Update flake lock and update all packages using nix-update";
-                            category = "[chore]";
-                            command = ''
-                                nix flake update
-                                bash nix-update.sh
-                            '';
-                        }
-                        {
-                            name = "update-package";
-                            help = "Update specified packages using nix-update";
-                            category = "[chore]";
-                            command = ''
-                                nix-update --version=branch $1
-                            '';
-                        }
-                    ];
-                };
-            }
-        )
-        // {
-            homeModules = import ./modules/home-manager;
+            flake = {
+                homeModules = import ./modules/home-manager;
+                overlays = import ./overlays.nix;
+            };
         };
 }

@@ -1,30 +1,39 @@
+{ inputs, ... }:
 {
-    # Used to find the project root
-    projectRootFile = "flake.nix";
+    imports = [
+        inputs.treefmt-nix.flakeModule
+    ];
 
-    programs = {
-        deadnix.enable = true;
-        statix.enable = true;
-        nixfmt.enable = true;
+    perSystem = {
+        treefmt.config = {
+            # Used to find the project root
+            projectRootFile = "flake.nix";
 
-        prettier.enable = true;
-    };
+            programs = {
+                deadnix.enable = true;
+                statix.enable = true;
+                nixfmt.enable = true;
 
-    settings = {
-        formatter = {
-            deadnix.priority = 1;
-            statix.priority = 2;
-            nixfmt = {
-                options = [
-                    "--indent=4"
-                ];
-                priority = 3;
+                prettier.enable = true;
             };
 
-            prettier.options = [
-                "--tab-width"
-                "4"
-            ];
+            settings = {
+                formatter = {
+                    deadnix.priority = 1;
+                    statix.priority = 2;
+                    nixfmt = {
+                        options = [
+                            "--indent=4"
+                        ];
+                        priority = 3;
+                    };
+
+                    prettier.options = [
+                        "--tab-width"
+                        "4"
+                    ];
+                };
+            };
         };
     };
 }

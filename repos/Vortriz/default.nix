@@ -6,5 +6,5 @@ let
 in
 pkgs.lib.packagesFromDirectoryRecursive {
     callPackage = pkgs.lib.callPackageWith (pkgs // { inherit sources; });
-    directory = ./pkgs;
+    directory = ./pkgs/by-name;
 }
