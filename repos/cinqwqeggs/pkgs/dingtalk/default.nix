@@ -47,7 +47,7 @@
 
 let
   libraries = [
-    alsa-lib at-spi2-atk at-spi2-core cairo cups dbus expat fontconfig freetype
+    alsa-lib at-spi2-atk at-spi2-core cairo cups expat fontconfig freetype
     fribidi gdk-pixbuf glib gnutls graphite2 gtk3 harfbuzz libdrm libglvnd
     libnotify libpulseaudio libuuid libxkbcommon libXi libXext libXfixes
     libXdamage libXcomposite libXrandr libXrender libXScrnSaver libxshmfence
