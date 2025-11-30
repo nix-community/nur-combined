@@ -4,7 +4,7 @@
 , xorg
 , nss
 , systemd
-, ffmpeg-headless
+, ffmpeg_7-headless
 , libnotify
 , zlib
 , mesa
@@ -45,7 +45,7 @@ let
     gtk3 
     nss
     systemd
-    ffmpeg-headless
+    ffmpeg_7-headless
     libnotify
     libglvnd
     pciutils
