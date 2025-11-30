@@ -135,28 +135,46 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    nur = {
-      url = "github:nix-community/NUR";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    utils.url = "github:numtide/flake-utils";
+    trev = {
+      url = "github:spotdemo4/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     nixpkgs,
-    flake-utils,
-    nur,
+    utils,
+    trev,
   }:
-    flake-utils.lib.eachDefaultSystem (
+    utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [nur.overlays.default]; # Add the NUR overlay
+          overlays = [
+            trev.overlays.packages
+            trev.overlays.libs
+          ];
         };
       in {
         devShells.default = pkgs.mkShell {
-          packages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
+          packages = with pkgs; [
+            bobgen
+          ];
+          shellHook = pkgs.shellhook.ref;
+        };
+
+        checks = pkgs.lib.mkChecks {
+          nix = {
+            src = ./.;
+            deps = with pkgs; [
+              nixfmt-tree
+            ];
+            script = ''
+              treefmt --ci
+            '';
+          };
         };
       }
     );
@@ -164,6 +182,8 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 ```
 
 ### NixOS
+
+Using the [Nix User Repository](https://github.com/nix-community/NUR)
 
 ```nix
 {
