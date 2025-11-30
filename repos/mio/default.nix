@@ -237,7 +237,7 @@ rec {
   );
   tuxguitar = v3overrideAttrs (
     pkgs.callPackage ./pkgs/tuxguitar/package.nix {
-      swt = (pkgs.callPackage ./pkgs/swt/package.nix { });
+      swt = v3overrideAttrs (pkgs.callPackage ./pkgs/swt/package.nix { });
     }
   );
   aria2 = v3override (

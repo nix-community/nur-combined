@@ -84,7 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = lib.optionals stdenv.hostPlatform.isLinux [ "gtk3" ];
 
   # Disable -Werror to avoid build failures from deprecation warnings
-  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-error";
+  #NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-error";
+  # https://github.com/NixOS/nixpkgs/pull/461645/files
+  postPatch = lib.optionalString stdenv.hostPlatform.isLinux "sed -i '/^CFLAGS += -Werror$/d' library/make_linux.mak";
   preBuild = lib.optionalString stdenv.hostPlatform.isLinux ''
     cd library
     mkdir -p ${finalAttrs.OUTPUT_DIR}
