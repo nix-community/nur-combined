@@ -15,3 +15,6 @@
 // import ./node-bun/all.nix {
   inherit pkgs;
 }
+// import ./node-deno/all.nix {
+  inherit pkgs;
+}
