@@ -26,7 +26,9 @@ builtins.listToAttrs (
     pkgs.lib.attrsets.nameValuePair "docker-${target.normalized}" (
       drv:
       pkgs.pkgsCross."${target.name}".callPackage ./default.nix {
-        inherit drv;
+        drv = drv.override (
+          previous: builtins.mapAttrs (name: value: pkgs.pkgsCross."${target.name}"."${name}") previous
+        );
         pkgs = pkgs.pkgsCross."${target.name}";
       }
     )
