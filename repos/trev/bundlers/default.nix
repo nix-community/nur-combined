@@ -18,3 +18,6 @@
 // import ./deno/all.nix {
   inherit pkgs;
 }
+// import ./docker/all.nix {
+  inherit pkgs;
+}
