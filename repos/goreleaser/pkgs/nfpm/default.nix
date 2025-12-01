@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1yr0dlr6ncid508q1q94ycdahxzbc6r0mz34n78ha0yba1359yya";
-    aarch64-linux = "16wv9m51x60qpq22fb6bmj0fmglpjjmwszarkw46xnnzvq3mfdp4";
-    x86_64-darwin = "0f7iclfm5z70wr76c45bigndng38ajywix3fax6iwj3xwm1prkqr";
-    aarch64-darwin = "09x8z3968lraiagqqfbm7y1fqjvbwiwfza570j2v9h8rhsjna46c";
+    x86_64-linux = "1lnk010q8xwrs47hgz4v8afdxylz6rxykc9vsd9mkpab21zx84hs";
+    aarch64-linux = "0nn9kjxpc68l2l0wwb043lg97w6gm9q1qfrcag4js172b5a3r71r";
+    x86_64-darwin = "0lflxfbdp6gbwaad9gjbfrhdwi27v9bar9ncs1gylqhsd2g62msl";
+    aarch64-darwin = "1plds9wvxp7s15xjfimjqdjnln87mld0x381y9aazh0hymccgyj0";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.43.4/nfpm_2.43.4_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.43.4/nfpm_2.43.4_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.43.4/nfpm_2.43.4_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.43.4/nfpm_2.43.4_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.44.0/nfpm_2.44.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.44.0/nfpm_2.44.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.44.0/nfpm_2.44.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.44.0/nfpm_2.44.0_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "nfpm";
-  version = "2.43.4";
+  version = "2.44.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -44,7 +44,7 @@ stdenvNoCC.mkDerivation {
   system = system;
 
   meta = {
-    description = "nFPM is a simple, 0-dependencies, deb, rpm, and apk packager.";
+    description = "nFPM is Not FPM - a simple deb, rpm, apk, ipk, and arch linux packager written in Go.";
     homepage = "https://nfpm.goreleaser.com";
     license = lib.licenses.mit;
 
