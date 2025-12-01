@@ -12,12 +12,12 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
-  system ? pkgs.system,
+  system ? pkgs.stdenv.hostPlatform.system,
 }:
 
 let
   inherit (lib) filterAttrs;
-  inherit (builtins) attrNames isAttrs;
+  inherit (builtins) attrNames isAttrs listToAttrs;
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
@@ -51,11 +51,26 @@ let
     in
     lib.foldl' op { } (lib.attrNames attrs);
 
+  filterAttrsRec =
+    func: attrs:
+    let
+      op =
+        n: v:
+        if shouldRecurseForDerivations v then
+          { ${n} = listToAttrs (filterAttrsRec func v); }
+        else if func v then
+          true
+        else
+          false;
+    in
+    filterAttrs op attrs;
+
   nurAttrs = import ./pkgs/default.nix { inherit pkgs lib system; };
   nurPkgs = flattenAttrs isDerivation nurAttrs;
 in
 rec {
   notReserved = filterAttrs (n: _: !(isReserved n)) nurAttrs;
+  test = filterAttrsRec isUpdatable notReserved;
   updatablePkgs = flattenAttrs isUpdatable nurAttrs;
   updatablePkgsNames = attrNames updatablePkgs;
 
