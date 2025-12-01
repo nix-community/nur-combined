@@ -2,19 +2,19 @@
 let
   # from https://bun.sh/docs/bundler/executables#supported-targets
   targets = [
-    "bun-linux-x64"
-    "bun-linux-arm64"
-    "bun-windows-x64"
-    "bun-darwin-x64"
-    "bun-darwin-arm64"
-    "bun-linux-x64-musl"
-    "bun-linux-arm64-musl"
+    "linux-x64"
+    "linux-arm64"
+    "windows-x64"
+    "darwin-x64"
+    "darwin-arm64"
+    "linux-x64-musl"
+    "linux-arm64-musl"
   ];
 in
 builtins.listToAttrs (
   builtins.map (
     target:
-    pkgs.lib.attrsets.nameValuePair "node-${target}" (
+    pkgs.lib.attrsets.nameValuePair "node-bun-${target}" (
       drv:
       import ./. {
         inherit

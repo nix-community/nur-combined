@@ -12,7 +12,7 @@ in
 builtins.listToAttrs (
   builtins.map (
     target:
-    pkgs.lib.attrsets.nameValuePair "node-${target}" (
+    pkgs.lib.attrsets.nameValuePair "node-deno-${target}" (
       drv:
       import ./. {
         inherit
